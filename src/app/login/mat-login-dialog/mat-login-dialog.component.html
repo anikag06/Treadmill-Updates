@@ -1,0 +1,20 @@
+<div mat-dialog-content>
+  <div mat-dialog-actions align="end">
+    <mat-icon (click)="onCloseClick()" class="cursor-hand">close</mat-icon>
+  </div>
+  <br>
+  <mat-form-field>
+    <input matInput placeholder="Username" [(ngModel)]="data.username" required>
+    <mat-error>Username is required</mat-error>
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <input matInput placeholder="Password" [(ngModel)]="data.password" [type]="hide ? 'password' : 'text'" required>
+    <mat-icon matSuffix (click)="hide = !hide" class="cursor-hand">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    <mat-error>Password is required</mat-error>
+  </mat-form-field>
+</div>
+<br>
+<div mat-dialog-actions align="center">
+  <button mat-raised-button [mat-dialog-close]="data" color="accent" class="login-button">Login</button>
+</div>      
