@@ -4,3 +4,35 @@
 .cursor-hand {
   cursor: pointer;
 }
+
+@mixin btn-roundify($radius: 20px) {
+  border-radius: $radius;
+}
+
+.login-dialog .mat-dialog-container {
+  background-color: #e9b353;
+  color: white;
+}
+
+.mat-focused .mat-form-field-label {
+  /*change color of label*/
+  color: white !important;
+}
+
+.mat-form-field-underline {
+/*change color of underline*/
+background-color: white !important;
+} 
+
+.mat-form-field-ripple {
+/*change color of underline when focused*/
+background-color: white !important;;
+}
+
+.mat-placeholder-required .mat-form-field-required-marker {
+  color: white !important;
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-label {
+  color: white !important;
+}

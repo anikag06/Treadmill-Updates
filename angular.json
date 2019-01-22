@@ -29,6 +29,7 @@
             "styles": [
               "src/styles.scss",
               "src/treadwill.theme.scss",
+              "node_modules/normalize.css/normalize.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": [

@@ -1,0 +1,6 @@
+// @import 'treadwill.theme.scss';
+@import '~styles.scss';
+
+.login-btn-roundify {
+  @include btn-roundify(20px);
+}

@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 
 import { MatLoginDialogComponent } from '@/login/mat-login-dialog/mat-login-dialog.component';
+import { CDK_CONNECTED_OVERLAY_SCROLL_STRATEGY_PROVIDER_FACTORY } from '@angular/cdk/overlay/typings/overlay-directives';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./mat-login-dialog/mat-login-dialog.component.scss', './login.component.scss']
 })
 export class LoginComponent implements OnInit {
   username!: string;
@@ -27,6 +28,7 @@ export class LoginComponent implements OnInit {
       minHeight: '200px',
       disableClose: true,
       hasBackdrop: true,
+      panelClass: 'login-dialog',
       data: {username: this.username, password: this.password}
     });
 
