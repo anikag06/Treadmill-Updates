@@ -12,20 +12,24 @@ import { CDK_CONNECTED_OVERLAY_SCROLL_STRATEGY_PROVIDER_FACTORY } from '@angular
 export class LoginComponent implements OnInit {
   username!: string;
   password!: string;
+  private innerWidth!: number;
+  private innerHeight!: number;
 
   constructor(
     private dialog: MatDialog
   ) { }
 
   ngOnInit() {
+    this.innerWidth = window.innerWidth;
+    this.innerHeight = window.innerHeight;
   }
 
   onLogin() {
     const loginDialogRef = this.dialog.open(MatLoginDialogComponent, {
       // width: '400px',
       // height: '600px',
-      minWidth: '250px',
-      minHeight: '200px',
+      minWidth: this.innerWidth/3,
+      minHeight: this.innerHeight*(2/3),
       disableClose: true,
       hasBackdrop: true,
       panelClass: 'login-dialog',

@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/theming';
 @import 'treadwill.theme.scss';
 
 .cursor-hand {
@@ -9,30 +10,78 @@
   border-radius: $radius;
 }
 
+@mixin underline() {
+  &:hover {
+    text-decoration: underline !important;
+  }
+}
+
 .login-dialog .mat-dialog-container {
-  background-color: #e9b353;
-  color: white;
+  background-color: mat-color($treadwill-app-primary);
+  color: $mat-white;
+
+  .login-btn {
+    @include btn-roundify(20px);
+    padding-left: 20px;
+    padding-right: 20px;
+    color: mat-color($treadwill-app-primary);
+    font-family: 'Lato', sans-serif;
+    font-size: 100%;
+    font-weight: bold;
+  }
+  
+  .mat-input-element {
+    caret-color: $mat-white !important;
+    font-family: 'Lato', sans-serif !important;
+    font-size: 100%;
+  }
+  
+  .mat-form-field {
+    width: 80% !important;
+  }
 }
 
-.mat-focused .mat-form-field-label {
-  /*change color of label*/
-  color: white !important;
+.ng-valid, .ng-untouched, .mat-focused {
+  color: $mat-white;
+
+  .mat-form-field-wrapper{
+    .mat-form-field-underline {
+      background-color: $mat-white;
+      
+      .mat-form-field-ripple {
+        background-color: $mat-white;
+      }
+    }
+
+    .mat-form-field-subscript-wrapper {
+      display: none;
+    }
+    
+    .mat-form-field-flex>
+    .mat-form-field-infix>
+    .mat-form-field-label-wrapper>
+    .mat-form-field-label {
+      color: $mat-white;
+      font-family: 'Lato', sans-serif !important;
+      font-size: 100%;
+
+      .mat-form-field-required-marker {
+        color: $mat-white;
+      }
+    }
+  }
 }
 
-.mat-form-field-underline {
-/*change color of underline*/
-background-color: white !important;
-} 
-
-.mat-form-field-ripple {
-/*change color of underline when focused*/
-background-color: white !important;;
+.anchorify-default {
+  @extend .cursor-hand;
+  text-decoration: underline !important;
 }
 
-.mat-placeholder-required .mat-form-field-required-marker {
-  color: white !important;
+.anchorify-with-underline-on-hover {
+  @extend .cursor-hand;
+  @include underline();
 }
 
-.mat-form-field-appearance-legacy .mat-form-field-label {
-  color: white !important;
+.logo-landscape {
+  height: 60px;
 }

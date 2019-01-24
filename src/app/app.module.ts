@@ -8,12 +8,14 @@ import { AppRoutingModule } from '@/app-routing.module';
 import { AppComponent } from '@/app.component';
 import { LoginComponent } from '@/login/login.component';
 import { MatLoginDialogComponent } from '@/login/mat-login-dialog/mat-login-dialog.component';
+import { MatPreLoginToolbarComponent } from './shared/pre-login/mat-pre-login-toolbar/mat-pre-login-toolbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    MatLoginDialogComponent
+    MatLoginDialogComponent,
+    MatPreLoginToolbarComponent,
   ],
   imports: [
     BrowserModule,
