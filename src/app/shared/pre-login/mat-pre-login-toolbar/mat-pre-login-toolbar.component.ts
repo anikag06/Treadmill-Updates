@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { LoginComponent } from '@/login/login.component';
 
 @Component({
   selector: 'app-mat-pre-login-toolbar',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MatPreLoginToolbarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private loginComponent: LoginComponent) { }
 
   ngOnInit() {
+  }
+
+  onLoginClicked() {
+    this.loginComponent.showLogin();
   }
 
 }

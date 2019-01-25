@@ -85,3 +85,9 @@
 .logo-landscape {
   height: 60px;
 }
+
+html, body {
+  height: 100%;
+  background-color: $treadwill-pre-login-primary !important;
+  color: $treadwill-pre-login-app-foreground !important;
+}

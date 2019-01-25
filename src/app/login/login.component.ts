@@ -24,10 +24,8 @@ export class LoginComponent implements OnInit {
     this.innerHeight = window.innerHeight;
   }
 
-  onLogin() {
+  showLogin() {
     const loginDialogRef = this.dialog.open(MatLoginDialogComponent, {
-      // width: '400px',
-      // height: '600px',
       minWidth: this.innerWidth/3,
       minHeight: this.innerHeight*(2/3),
       disableClose: true,
