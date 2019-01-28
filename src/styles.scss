@@ -82,6 +82,14 @@
   @include underline();
 }
 
+.anchorify-with-highlight-on-hover {
+  @extend .cursor-hand;
+
+  &:hover {
+    color: $treadwill-pre-login-app-foreground !important;
+  }
+}
+
 .logo-landscape {
   height: 60px;
 }

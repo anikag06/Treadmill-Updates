@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { LoginComponent } from '@/login/login.component';
+import { AppComponent } from '@/app.component';
 
 @Component({
   selector: 'app-mat-pre-login-toolbar',
@@ -8,7 +9,10 @@ import { LoginComponent } from '@/login/login.component';
 })
 export class MatPreLoginToolbarComponent implements OnInit {
 
-  constructor(private loginComponent: LoginComponent) { }
+  constructor(
+    private loginComponent: LoginComponent,
+    private appComponent: AppComponent
+  ) { }
 
   ngOnInit() {
   }

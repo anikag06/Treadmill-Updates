@@ -5,10 +5,11 @@
 }
 
 .anchorify-pre-login-toolbar-button {
-  @extend .anchorify-with-underline-on-hover;
+  @extend .anchorify-with-highlight-on-hover;
   color: $mat-white;
   font-family: 'Lato', sans-serif;
   font-size: 100%;
+  text-decoration: none;
 }
 
 .example-fill-remaining-space {

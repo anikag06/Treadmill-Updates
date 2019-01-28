@@ -1,0 +1,32 @@
+@import '~@angular/material/theming';
+@import 'treadwill.theme.scss';
+@import 'styles.scss';
+
+.pre-login-side-nav-drawer-container {
+  background-color: $treadwill-pre-login-primary !important;
+  color: $treadwill-pre-login-app-foreground !important;
+  height: 100%;
+}
+
+.mat-pre-login-toolbar-color {
+  background-color: $treadwill-pre-login-primary;
+}
+
+.anchorify-pre-login-toolbar-button {
+  @extend .anchorify-with-highlight-on-hover;
+  color: $mat-white;
+  font-family: 'Lato', sans-serif;
+  font-size: 100%;
+  text-decoration: none;
+}
+
+.example-fill-remaining-space {
+  /* This fills the remaining space, by using flexbox. 
+     Every toolbar row uses a flexbox row layout. */
+  flex: 1 1 auto;
+}
+
+.pre-login-toolbar-burger {
+  @extend .cursor-hand;
+  color: $treadwill-pre-login-app-foreground;
+}

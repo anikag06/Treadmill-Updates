@@ -9,6 +9,7 @@ import { AppComponent } from '@/app.component';
 import { LoginComponent } from '@/login/login.component';
 import { MatLoginDialogComponent } from '@/login/mat-login-dialog/mat-login-dialog.component';
 import { MatPreLoginToolbarComponent } from './shared/pre-login/mat-pre-login-toolbar/mat-pre-login-toolbar.component';
+import { MatPreLoginSideNavComponent } from './shared/pre-login/mat-pre-login-side-nav/mat-pre-login-side-nav.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { MatPreLoginToolbarComponent } from './shared/pre-login/mat-pre-login-to
     LoginComponent,
     MatLoginDialogComponent,
     MatPreLoginToolbarComponent,
+    MatPreLoginSideNavComponent,
   ],
   imports: [
     BrowserModule,
@@ -24,7 +26,7 @@ import { MatPreLoginToolbarComponent } from './shared/pre-login/mat-pre-login-to
     MaterialModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [LoginComponent],
   bootstrap: [AppComponent],
   entryComponents: [MatLoginDialogComponent]
 })

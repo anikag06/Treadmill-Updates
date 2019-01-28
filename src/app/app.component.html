@@ -1,2 +1,20 @@
-<app-login></app-login>
+<mat-drawer-container class="pre-login-side-nav-drawer-container">
+  <mat-drawer #drawer class="pre-login-side-nav-drawer">I'm a drawer</mat-drawer>
+  <mat-drawer-content>
+    <mat-toolbar class="mat-pre-login-toolbar-color d-flex-wrap justify-content-between">
+      <div class="d-block d-sm-none">
+        <mat-icon (click)="drawer.toggle()" class="pre-login-toolbar-burger">menu</mat-icon>
+      </div>
+      <div class="d-block">
+        <img src="img-fluid" alt="TreadWill logo" src="assets/shared/landscape/logo.png" class="logo-landscape">
+      </div>
+      <div class="d-none d-sm-block">
+        <a mat-button class="anchorify-pre-login-toolbar-button">About Us</a>
+        <a mat-button class="anchorify-pre-login-toolbar-button">Work With Us</a>
+        <a mat-button class="anchorify-pre-login-toolbar-button example-fill-remaining-space" (click)="onLoginClicked()">Login</a>
+      </div>
+    </mat-toolbar>
+    <app-login></app-login>
+  </mat-drawer-content>
+</mat-drawer-container>
 <router-outlet></router-outlet>
