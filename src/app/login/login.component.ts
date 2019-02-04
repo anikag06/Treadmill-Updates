@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 
 import { MatLoginDialogComponent } from '@/login/mat-login-dialog/mat-login-dialog.component';
-import { CDK_CONNECTED_OVERLAY_SCROLL_STRATEGY_PROVIDER_FACTORY } from '@angular/cdk/overlay/typings/overlay-directives';
 
 @Component({
   selector: 'app-login',
@@ -10,10 +9,28 @@ import { CDK_CONNECTED_OVERLAY_SCROLL_STRATEGY_PROVIDER_FACTORY } from '@angular
   styleUrls: ['./mat-login-dialog/mat-login-dialog.component.scss', './login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  username!: string;
-  password!: string;
+  private username!: string;
+  private password!: string;
   private innerWidth!: number;
   private innerHeight!: number;
+
+  // showing a set of thoughts
+  private thoughArray: string[] = [ "I won't be able to do it",
+                                    "I am not good enough",
+                                    "I have let others down",
+                                    "I have no self control at all"];
+  nat: string = this.thoughArray[0];
+  private thoughtChangeTimer: number = 2000;
+  private thoughtChangeCounter: number = 0;
+
+  // showing a set of reasons how TreadWill will help the user
+  private helpReasonsArray: string[] = ["It teaches you techniques of Cognitive Behavioral Therapy",
+                                        "It helps you connect with others having similar problems",
+                                        "It adapts to your problems",
+                                        "And it's free"];
+  helpReason: string = this.helpReasonsArray[0];
+  private helpReasonChangeTimer: number = 2000;
+  private helpReasonChangeCounter: number = 0;
 
   constructor(
     private dialog: MatDialog
@@ -22,6 +39,8 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.innerWidth = window.innerWidth;
     this.innerHeight = window.innerHeight;
+    this.changeNATs();
+    this.changeReasons();
   }
 
   showLogin() {
@@ -39,4 +58,25 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  changeNATs() {
+    setInterval(() => {
+      this.nat = this.thoughArray[this.thoughtChangeCounter];
+      if (this.thoughtChangeCounter < (this.thoughArray.length-1)) {
+        this.thoughtChangeCounter++;
+      } else {
+        this.thoughtChangeCounter = 0;
+      }
+    }, this.thoughtChangeTimer);
+  }
+
+  changeReasons() {
+    setInterval(() => {
+      this.helpReason = this.helpReasonsArray[this.helpReasonChangeCounter];
+      if (this.helpReasonChangeCounter < (this.helpReasonsArray.length-1)) {
+        this.helpReasonChangeCounter++;
+      } else {
+        this.helpReasonChangeCounter = 0;
+      }
+    }, this.helpReasonChangeTimer);
+  }
 }

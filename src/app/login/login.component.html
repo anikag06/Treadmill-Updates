@@ -1,16 +1,87 @@
-<div class="container-fluid">
-  <div class="row">
+<!-- screen 1 content -->
+<div class="container-fluid h-100">
+  <!-- showing the TreadWill logo for mobile screens -->
+  <div class="row d-block d-sm-none">
+    <div class="col-12 d-flex justify-content-center">
+      <img alt="TreadWill logo" src="assets/shared/landscape/logo_full.png" class="logo-landscape">
+    </div>
+  </div>
+
+  <div class="row flex-row d-flex h-100">
+    <div class="col-12 col-sm-5 order-sm-last align-self-center">
+      <h1 style="font-family: 'Montserrat', sans-serif; font-weight: 500;" class="text-center text-sm-left">{{ nat }}</h1>
+      <br><br>
+      <h1 style="font-family: 'Montserrat', sans-serif; font-weight: 700;" class="text-center text-sm-left">Sounds familiar?</h1>
+    </div>
+    <div class="col-12 col-sm-7 align-self-center">
+      <img  src="assets/login/screen_1/screen_1_small.png" 
+            alt="relatable image 1"
+            srcset="assets/login/screen_1/screen_1_small.png 1110w,
+                    assets/login/screen_1/screen_1_medium.png 2220w,
+                    assets/login/screen_1/screen_1_large.png 4440w"
+            sizes="(max-width: 576px) 100vw,
+                   (max-width: 992px) 70vw,
+                    40vw" 
+            class="img-fluid float-right">
+    </div>
+  </div>
+</div>
+
+<!-- screen 2 content -->
+<div class="container-fluid h-100 d-flex align-items-center">
+  <div class="row flex-row d-flex">
     <div class="col-12">
-      <div class="row flex-row d-flex">
-        <div class="col-7">
-          <img src="assets/login/landscape/screen_1.svg" alt="relatable image" class="img-fluid float-right img-login-page">
+      <div class="row flex-row d-flex justify-content-center">
+        <div class="col-xs-12 col-sm-10">
+          <img  src="assets/login/screen_2/screen_2_small.png" 
+                alt="relatable image 2" 
+                srcset="assets/login/screen_2/screen_2_small.png 1110w,
+                        assets/login/screen_2/screen_2_medium.png 2220w,
+                        assets/login/screen_2/screen_2_large.png 4440w"
+                sizes="100vw" 
+                class="img-fluid">
         </div>
-        <div class="col-5 align-self-center">
-          <h1 style="font-family: 'Montserrat', sans-serif; font-weight: 700;">Sound familiar?</h1>
-          <br><br>
-          <h1 style="font-family: 'Montserrat', sans-serif; font-weight: 500;">I won't be able to do it</h1>
+      </div>
+      <div class="row flex-row d-flex justify-content-center">
+        <div class="col-xs-12 col-sm-10">
+          <h1 style="font-family: 'Montserrat', sans-serif; font-weight: 700;">TreadWill can help you</h1>
+          <br>
+          <h5 style="font-family: 'Montserrat', sans-serif; font-weight: 500;">{{ helpReason }}</h5>
         </div>
       </div>
     </div>
-  </div>      
+  </div>
+</div>
+
+<!-- screen 3 content -->
+<div class="container-fluid h-100 d-flex align-items-center">
+  <div class="row">
+    <div class="col-12">
+      <div class="row flex-row d-flex justify-content-center">
+        <div class="col-xs-12 col-sm-10">
+          <h5 style="font-family: 'Montserrat', sans-serif; font-weight: 500;">We are currently conducting trials to see if TreadWill 
+            is effective in helping people with depressive symptoms.</h5>
+        </div>
+      </div>
+      
+      <div class="row flex-row d-flex">
+        <div class="col-12">
+          <img  src="assets/login/screen_3/screen_3_small.png" 
+              alt="relatable image 3"
+              srcset="assets/login/screen_3/screen_3_small.png 1110w,
+                      assets/login/screen_3/screen_3_medium.png 2220w,
+                      assets/login/screen_3/screen_3_large.png 4440w"
+              sizes="100vw" 
+              class="img-fluid">
+        </div>
+      </div>
+    
+      <div class="row flex-row d-flex justify-content-center">
+        <div class="col-xs-12 col-sm-10">
+          <h5 style="font-family: 'Montserrat', sans-serif; font-weight: 500;">If you have any queries or are interested in collaborating with us,
+            contact us.</h5>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

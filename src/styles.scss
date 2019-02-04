@@ -99,3 +99,18 @@ html, body {
   background-color: $treadwill-pre-login-primary !important;
   color: $treadwill-pre-login-app-foreground !important;
 }
+
+// included this here because it was not getting applied when I kept it in app.component.scss
+// I don't know the reason yet. This was also the case for the dialog
+.pre-login-side-nav-logo-container.mat-list-item {
+  position: absolute;
+  bottom: 0;
+
+  >.mat-list-item-content {
+    flex-direction: column !important;
+  }
+  
+  .pre-login-side-nav-logo {
+    height: 40px;
+  }
+}
