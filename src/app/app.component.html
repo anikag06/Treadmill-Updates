@@ -8,7 +8,7 @@
       <a mat-list-item class="pre-login-side-nav-anchor">Terms and conditions</a>
       <a mat-list-item class="pre-login-side-nav-anchor">Privacy policy</a>
       <a mat-list-item class="pre-login-side-nav-logo-container">
-        <img src="assets/shared/landscape/logo_small.png" alt="TreadWill logo" class="pre-login-side-nav-logo">
+        <img src="assets/shared/logo_small.png" alt="TreadWill logo" class="pre-login-side-nav-logo">
       </a>
     </mat-nav-list>
   </mat-drawer>
@@ -18,7 +18,7 @@
         <mat-icon (click)="drawer.toggle()" class="pre-login-toolbar-burger">menu</mat-icon>
       </div>
       <div class="d-none d-sm-block">
-        <img alt="TreadWill logo" src="assets/shared/landscape/logo_full.png" class="logo-landscape">
+        <img alt="TreadWill logo" src="assets/shared/logo_full.png" class="logo-landscape">
       </div>
       <div class="d-none d-sm-block flex-fill">
         <a mat-button class="anchorify-pre-login-toolbar-button float-right">About Us</a>
@@ -27,6 +27,32 @@
       </div>
     </mat-toolbar>
     <app-login></app-login>
+    <footer class="d-flex">
+      <div class="footer-links-div float-left flex-grow-1 d-flex align-items-sm-end">
+        <div class="row d-none d-lg-block">
+          <div class="col-12 d-flex">
+            <img src="assets/shared/logo_small.png" alt="TreadWill logo" class="pre-login-footer-logo">
+            <a mat-button class="anchorify-pre-login-footer-button">Contact us</a>
+            <a mat-button class="anchorify-pre-login-footer-button">About us</a>
+            <a mat-button class="anchorify-pre-login-footer-button">Work with us</a>
+            <a mat-button class="anchorify-pre-login-footer-button">Terms and conditions</a>
+            <a mat-button class="anchorify-pre-login-footer-button">Privacy policy</a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <span class="footer-text">&copy; TreadWill. All rights reserved.</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-iitk-logo float-right">
+        <span class="footer-text">An initiative of</span>
+        <br>
+        <a href="http://www.iitk.ac.in" target="_blank">
+          <img src="assets/shared/logo_iitk_medium.png" alt="IITK logo">
+        </a>
+      </div>
+    </footer>
   </mat-drawer-content>
 </mat-drawer-container>
 <router-outlet></router-outlet>

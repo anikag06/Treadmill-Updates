@@ -16,7 +16,7 @@
   background-color: $treadwill-pre-login-primary;
 }
 
-.anchorify-pre-login-toolbar-button {
+.anchorify-pre-login-toolbar-button, .anchorify-pre-login-footer-button {
   @extend .anchorify-with-highlight-on-hover;
   color: $mat-white;
   font-family: 'Lato', sans-serif;
@@ -34,4 +34,24 @@
   font-family: 'Lato', sans-serif;
   font-size: 100% !important;
   font-weight: 700 !important;
+}
+
+.footer {
+  margin-bottom: 10px;
+}
+
+.footer-iitk-logo, .footer-links-div {
+  margin: 10px;
+}
+
+.footer-text {
+  color: $mat-white;
+
+  @media (max-width: 576px) {
+    font-size: 12px;
+  }
+}
+
+.pre-login-footer-logo {
+  height: $small_logo_height;
 }

@@ -2,6 +2,8 @@
 @import '~@angular/material/theming';
 @import 'treadwill.theme.scss';
 
+$small_logo_height: 40px;
+
 .cursor-hand {
   cursor: pointer;
 }
@@ -111,6 +113,6 @@ html, body {
   }
   
   .pre-login-side-nav-logo {
-    height: 40px;
+    height: $small_logo_height;
   }
 }
