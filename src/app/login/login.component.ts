@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 
 import { MatLoginDialogComponent } from '@/login/mat-login-dialog/mat-login-dialog.component';
+import { LoggerService } from '@/shared/logger.service';
 
 @Component({
   selector: 'app-login',
@@ -33,7 +34,8 @@ export class LoginComponent implements OnInit {
   private helpReasonChangeCounter: number = 0;
 
   constructor(
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private logger: LoggerService
   ) { }
 
   ngOnInit() {
@@ -54,7 +56,7 @@ export class LoginComponent implements OnInit {
     });
 
     loginDialogRef.afterClosed().subscribe((result: string) => {
-      console.log('Login data: '+result);
+      this.logger.log('Login data: ', result);
     });
   }
 

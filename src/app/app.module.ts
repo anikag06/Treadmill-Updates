@@ -8,16 +8,13 @@ import { AppRoutingModule } from '@/app-routing.module';
 import { AppComponent } from '@/app.component';
 import { LoginComponent } from '@/login/login.component';
 import { MatLoginDialogComponent } from '@/login/mat-login-dialog/mat-login-dialog.component';
-import { MatPreLoginToolbarComponent } from './shared/pre-login/mat-pre-login-toolbar/mat-pre-login-toolbar.component';
-import { MatPreLoginSideNavComponent } from './shared/pre-login/mat-pre-login-side-nav/mat-pre-login-side-nav.component';
+import { LoggerService } from '@/shared/logger.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     MatLoginDialogComponent,
-    MatPreLoginToolbarComponent,
-    MatPreLoginSideNavComponent,
   ],
   imports: [
     BrowserModule,
@@ -26,7 +23,7 @@ import { MatPreLoginSideNavComponent } from './shared/pre-login/mat-pre-login-si
     MaterialModule,
     AppRoutingModule
   ],
-  providers: [LoginComponent],
+  providers: [LoginComponent, LoggerService],
   bootstrap: [AppComponent],
   entryComponents: [MatLoginDialogComponent]
 })
