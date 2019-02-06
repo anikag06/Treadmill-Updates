@@ -8,13 +8,7 @@ import { LoggerService } from '@/shared/logger.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(private loginComponent: LoginComponent, 
-              private logger: LoggerService) {
-    logger.log(window.screen.orientation.type);
-    window.screen.orientation.addEventListener('change', () => {
-      logger.warn("orientation changed");
-    });
-  }
+  constructor(private loginComponent: LoginComponent) { }
   
   onLoginClicked() {
     this.loginComponent.showLogin();

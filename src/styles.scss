@@ -21,6 +21,7 @@ $small_logo_height: 40px;
 .login-dialog .mat-dialog-container {
   background-color: mat-color($treadwill-app-primary);
   color: $mat-white;
+  opacity: 0.85;
 
   .login-btn {
     @include btn-roundify(20px);
@@ -41,6 +42,11 @@ $small_logo_height: 40px;
   .mat-form-field {
     width: 80% !important;
   }
+}
+
+// to make the login dialog scrollable in mobile landscape mode
+.cdk-global-overlay-wrapper {
+  overflow: auto;
 }
 
 .ng-valid, .ng-untouched, .mat-focused {

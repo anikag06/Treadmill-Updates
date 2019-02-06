@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
+import { Overlay } from '@angular/cdk/overlay';
 
 import { MatLoginDialogComponent } from '@/login/mat-login-dialog/mat-login-dialog.component';
 import { LoggerService } from '@/shared/logger.service';
@@ -35,7 +36,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private dialog: MatDialog,
-    private logger: LoggerService
+    private logger: LoggerService,
+    private overlay: Overlay
   ) { }
 
   ngOnInit() {
@@ -46,13 +48,16 @@ export class LoginComponent implements OnInit {
   }
 
   showLogin() {
+    const scrollStrategy = this.overlay.scrollStrategies.reposition();
+
     const loginDialogRef = this.dialog.open(MatLoginDialogComponent, {
+      data: {username: this.username, password: this.password},
       minWidth: this.innerWidth/3,
       minHeight: this.innerHeight*(2/3),
       disableClose: true,
       hasBackdrop: true,
       panelClass: 'login-dialog',
-      data: {username: this.username, password: this.password}
+      scrollStrategy
     });
 
     loginDialogRef.afterClosed().subscribe((result: string) => {
