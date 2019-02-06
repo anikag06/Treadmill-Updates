@@ -9,12 +9,14 @@ import { AppComponent } from '@/app.component';
 import { LoginComponent } from '@/login/login.component';
 import { MatLoginDialogComponent } from '@/login/mat-login-dialog/mat-login-dialog.component';
 import { LoggerService } from '@/shared/logger.service';
+import { PreLoginFooterComponent } from './shared/pre-login/pre-login-footer/pre-login-footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     MatLoginDialogComponent,
+    PreLoginFooterComponent,
   ],
   imports: [
     BrowserModule,

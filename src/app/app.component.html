@@ -27,49 +27,7 @@
       </div>
     </mat-toolbar>
     <app-login></app-login>
-    <footer class="d-flex">
-      <!-- left part for xs, sm, and md screen sizes -->
-      <div class="footer-links-div float-left flex-grow-1 d-flex align-items-end d-block d-sm-none">
-        <span class="footer-text">&copy; TreadWill. All rights reserved.</span>
-      </div>
-
-      <!-- left part for lg and xl screen sizes -->
-      <div class="footer-links-div float-left flex-grow-1 d-flex align-items-end">
-        <div class="row d-none d-sm-block">
-          <div class="col-12">
-            <div class="row">
-              <div class="col-1">
-                <img src="assets/shared/logo_small.png" alt="TreadWill logo" class="pre-login-footer-logo">
-              </div>
-              <div class="col-11 d-flex flex-wrap">
-                <a mat-button class="anchorify-pre-login-footer-button">Contact us</a>
-                <a mat-button class="anchorify-pre-login-footer-button">About us</a>
-                <a mat-button class="anchorify-pre-login-footer-button">Work with us</a>
-                <a mat-button class="anchorify-pre-login-footer-button">Terms and conditions</a>
-                <a mat-button class="anchorify-pre-login-footer-button">Privacy policy</a>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-12">
-                <span class="footer-text">&copy; TreadWill. All rights reserved.</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="d-block d-sm-none">
-          <img src="assets/shared/logo_small.png" alt="TreadWill logo" class="pre-login-footer-logo">
-        </div>
-      </div>
-
-      <!-- IITK logo -->
-      <div class="footer-iitk-logo float-right">
-        <span class="footer-text">An initiative of</span>
-        <br>
-        <a href="http://www.iitk.ac.in" target="_blank">
-          <img src="assets/shared/logo_iitk_medium.png" alt="IITK logo">
-        </a>
-      </div>
-    </footer>
+    <app-pre-login-footer></app-pre-login-footer>
   </mat-drawer-content>
 </mat-drawer-container>
 <router-outlet></router-outlet>
