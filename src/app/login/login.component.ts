@@ -1,12 +1,34 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Overlay } from '@angular/cdk/overlay';
+import { trigger, 
+         state, 
+         style, 
+         animate, 
+         transition 
+      } from '@angular/animations';
 
 import { MatLoginDialogComponent } from '@/login/mat-login-dialog/mat-login-dialog.component';
 import { LoggerService } from '@/shared/logger.service';
 
 @Component({
   selector: 'app-login',
+  animations: [
+    trigger('fadeInOut', [
+      state('visible', style({
+        opacity: 1
+      })),
+      state('inVisible', style({
+        opacity: 0
+      })),
+      transition('visible => inVisible', [
+        animate('1s ease-in')
+      ]),
+      transition('inVisible => visible', [
+        animate('1s ease-out')
+      ]),
+    ]),
+  ],
   templateUrl: './login.component.html',
   styleUrls: ['./mat-login-dialog/mat-login-dialog.component.scss', './login.component.scss']
 })
@@ -15,6 +37,12 @@ export class LoginComponent implements OnInit {
   private password!: string;
   private innerWidth!: number;
   private innerHeight!: number;
+  private isVisible: boolean = true;
+  // 4s uptime and 1s downtime
+  private pulseDuration: number = 5000;
+  private downTime: number = 1000;
+  private pulseOne: boolean = true;
+  private pulseTwo: boolean = true;
 
   // showing a set of thoughts
   private thoughArray: string[] = [ "I won't be able to do it",
@@ -22,7 +50,6 @@ export class LoginComponent implements OnInit {
                                     "I have let others down",
                                     "I have no self control at all"];
   nat: string = this.thoughArray[0];
-  private thoughtChangeTimer: number = 2000;
   private thoughtChangeCounter: number = 0;
 
   // showing a set of reasons how TreadWill will help the user
@@ -31,7 +58,6 @@ export class LoginComponent implements OnInit {
                                         "It adapts to your problems",
                                         "And it's free"];
   helpReason: string = this.helpReasonsArray[0];
-  private helpReasonChangeTimer: number = 2000;
   private helpReasonChangeCounter: number = 0;
 
   constructor(
@@ -43,8 +69,13 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.innerWidth = window.innerWidth;
     this.innerHeight = window.innerHeight;
-    this.changeNATs();
-    this.changeReasons();
+    
+    setTimeout(() => {
+      this.togglePulseOne();
+    }, this.pulseDuration);
+    setTimeout(() => {
+      this.togglePulseTwo();
+    }, (this.pulseDuration - this.downTime));
   }
 
   showLogin() {
@@ -65,25 +96,52 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  changeNATs() {
-    setInterval(() => {
-      this.nat = this.thoughArray[this.thoughtChangeCounter];
-      if (this.thoughtChangeCounter < (this.thoughArray.length-1)) {
-        this.thoughtChangeCounter++;
-      } else {
-        this.thoughtChangeCounter = 0;
-      }
-    }, this.thoughtChangeTimer);
+  updateThoughtCounter() {
+    if (this.thoughtChangeCounter < (this.thoughArray.length-1)) {
+      this.thoughtChangeCounter++;
+    } else {
+      this.thoughtChangeCounter = 0;
+    }
+    this.nat = this.thoughArray[this.thoughtChangeCounter];
   }
 
-  changeReasons() {
+  updateReasonCounter() {
+    if (this.helpReasonChangeCounter < (this.helpReasonsArray.length-1)) {
+      this.helpReasonChangeCounter++;
+    } else {
+      this.helpReasonChangeCounter = 0;
+    }
+    this.helpReason = this.helpReasonsArray[this.helpReasonChangeCounter];
+  }
+
+  togglePulseOne() {
+    // for the first time
+    this.pulseOne = !this.pulseOne;
+    this.setIsVisible();
+   
     setInterval(() => {
-      this.helpReason = this.helpReasonsArray[this.helpReasonChangeCounter];
-      if (this.helpReasonChangeCounter < (this.helpReasonsArray.length-1)) {
-        this.helpReasonChangeCounter++;
-      } else {
-        this.helpReasonChangeCounter = 0;
-      }
-    }, this.helpReasonChangeTimer);
+      this.pulseOne = !this.pulseOne;
+      this.setIsVisible();
+    }, this.pulseDuration);
+  }
+
+  togglePulseTwo() {
+    // for the first time
+    this.pulseTwo = !this.pulseTwo;
+    this.setIsVisible();
+
+    setInterval(() => {
+      this.pulseTwo = !this.pulseTwo;
+      this.setIsVisible();
+    }, this.pulseDuration);
+  }
+
+  setIsVisible() {
+    this.isVisible = (this.pulseOne && this.pulseTwo) || (!this.pulseOne && !this.pulseTwo);
+
+    if(this.isVisible) {
+      this.updateThoughtCounter();
+      this.updateReasonCounter();
+    }
   }
 }

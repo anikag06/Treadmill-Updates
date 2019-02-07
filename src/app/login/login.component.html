@@ -9,7 +9,10 @@
 
   <div class="row flex-row d-flex h-100">
     <div class="col-12 col-sm-5 order-sm-last align-self-center">
-      <h1 style="font-family: 'Montserrat', sans-serif; font-weight: 500;" class="text-center text-sm-left">{{ nat }}</h1>
+      <h1 
+        style="font-family: 'Montserrat', sans-serif; font-weight: 500;" 
+        class="text-center text-sm-left"
+        [@fadeInOut]="isVisible ? 'visible' : 'inVisible'">{{ nat }}</h1>
       <br><br>
       <h1 style="font-family: 'Montserrat', sans-serif; font-weight: 700;" class="text-center text-sm-left">Sounds familiar?</h1>
     </div>
@@ -46,7 +49,9 @@
         <div class="col-xs-12 col-sm-10">
           <h1 style="font-family: 'Montserrat', sans-serif; font-weight: 700;">TreadWill can help you</h1>
           <br>
-          <h5 style="font-family: 'Montserrat', sans-serif; font-weight: 500;">{{ helpReason }}</h5>
+          <h5 
+            style="font-family: 'Montserrat', sans-serif; font-weight: 500;" 
+            [@fadeInOut]="isVisible ? 'visible' : 'inVisible'">{{ helpReason }}</h5>
         </div>
       </div>
     </div>
