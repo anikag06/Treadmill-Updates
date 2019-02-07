@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Overlay } from '@angular/cdk/overlay';
 import { trigger, 
@@ -7,9 +7,11 @@ import { trigger,
          animate, 
          transition 
       } from '@angular/animations';
+import { Subscription } from 'rxjs';
 
 import { MatLoginDialogComponent } from '@/login/mat-login-dialog/mat-login-dialog.component';
 import { LoggerService } from '@/shared/logger.service';
+import { ShowLoginDialogService } from '@/shared/pre-login/show-login-dialog.service';
 
 @Component({
   selector: 'app-login',
@@ -32,7 +34,7 @@ import { LoggerService } from '@/shared/logger.service';
   templateUrl: './login.component.html',
   styleUrls: ['./mat-login-dialog/mat-login-dialog.component.scss', './login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   private username!: string;
   private password!: string;
   private innerWidth!: number;
@@ -60,15 +62,24 @@ export class LoginComponent implements OnInit {
   helpReason: string = this.helpReasonsArray[0];
   private helpReasonChangeCounter: number = 0;
 
+  @Output() loginPageContactUsClicked = new EventEmitter<void>();
+
+  private loginSubscription!: Subscription
+
   constructor(
     private dialog: MatDialog,
     private logger: LoggerService,
-    private overlay: Overlay
+    private overlay: Overlay,
+    private showLoginDialogService: ShowLoginDialogService
   ) { }
 
   ngOnInit() {
     this.innerWidth = window.innerWidth;
     this.innerHeight = window.innerHeight;
+
+    this.loginSubscription = this.showLoginDialogService.loginClickBroadcastObservable$.subscribe(() => {
+      this.showLogin();
+    });
     
     setTimeout(() => {
       this.togglePulseOne();
@@ -76,6 +87,10 @@ export class LoginComponent implements OnInit {
     setTimeout(() => {
       this.togglePulseTwo();
     }, (this.pulseDuration - this.downTime));
+  }
+
+  ngOnDestroy() {
+    this.loginSubscription.unsubscribe();
   }
 
   showLogin() {
@@ -143,5 +158,9 @@ export class LoginComponent implements OnInit {
       this.updateThoughtCounter();
       this.updateReasonCounter();
     }
+  }
+
+  onLoginPageContactUsClicked() {
+    this.loginPageContactUsClicked.emit();
   }
 }

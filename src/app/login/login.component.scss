@@ -25,3 +25,7 @@
     -ms-transform: translate(-50%, -50%);
   }
 }
+
+.anchorify-default {
+  @extend .anchorify-default;
+}

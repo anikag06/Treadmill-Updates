@@ -11,14 +11,14 @@ import { LoginData } from '@/login/login-data.interface';
 export class MatLoginDialogComponent implements OnInit {
   hide: boolean = true;
 
-  ngOnInit() {
-  }
-
   constructor(
     public dialogRef: MatDialogRef<MatLoginDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: LoginData
   ) { }
-
+    
+  ngOnInit() {
+  }
+  
   onCloseClick(): void {
     this.dialogRef.close();
   }

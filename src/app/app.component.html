@@ -4,7 +4,7 @@
       <a mat-list-item (click)="onLoginClicked()" class="pre-login-side-nav-anchor">Login</a>
       <a mat-list-item class="pre-login-side-nav-anchor">About us</a>
       <a mat-list-item class="pre-login-side-nav-anchor">Work with us</a>
-      <a mat-list-item class="pre-login-side-nav-anchor">Contact us</a>
+      <a mat-list-item class="pre-login-side-nav-anchor" (click)="onContactUsClicked()">Contact us</a>
       <a mat-list-item class="pre-login-side-nav-anchor">Terms and conditions</a>
       <a mat-list-item class="pre-login-side-nav-anchor">Privacy policy</a>
       <a mat-list-item class="pre-login-side-nav-logo-container">
@@ -26,8 +26,8 @@
         <a mat-button class="anchorify-pre-login-toolbar-button float-right" (click)="onLoginClicked()">Login</a>
       </div>
     </mat-toolbar>
-    <app-login></app-login>
-    <app-pre-login-footer></app-pre-login-footer>
+    <app-login (loginPageContactUsClicked)="onContactUsClicked()"></app-login>
+    <app-pre-login-footer (footerContactUsClicked)="onContactUsClicked()"></app-pre-login-footer>
   </mat-drawer-content>
 </mat-drawer-container>
 <router-outlet></router-outlet>

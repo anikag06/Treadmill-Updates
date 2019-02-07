@@ -10,6 +10,7 @@ import { LoginComponent } from '@/login/login.component';
 import { MatLoginDialogComponent } from '@/login/mat-login-dialog/mat-login-dialog.component';
 import { LoggerService } from '@/shared/logger.service';
 import { PreLoginFooterComponent } from './shared/pre-login/pre-login-footer/pre-login-footer.component';
+import { MatContactUsDialogComponent } from './shared/pre-login/mat-contact-us-dialog/mat-contact-us-dialog.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { PreLoginFooterComponent } from './shared/pre-login/pre-login-footer/pre
     LoginComponent,
     MatLoginDialogComponent,
     PreLoginFooterComponent,
+    MatContactUsDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -27,6 +29,6 @@ import { PreLoginFooterComponent } from './shared/pre-login/pre-login-footer/pre
   ],
   providers: [LoginComponent, LoggerService],
   bootstrap: [AppComponent],
-  entryComponents: [MatLoginDialogComponent]
+  entryComponents: [MatLoginDialogComponent, MatContactUsDialogComponent]
 })
 export class AppModule { }

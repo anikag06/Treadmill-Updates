@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-pre-login-footer',
@@ -6,10 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pre-login-footer.component.scss']
 })
 export class PreLoginFooterComponent implements OnInit {
+  @Output() footerContactUsClicked = new EventEmitter<void>();
 
   constructor() { }
 
   ngOnInit() {
   }
 
+  onFooterContactUsClicked() {
+    this.footerContactUsClicked.emit();
+  }
 }
