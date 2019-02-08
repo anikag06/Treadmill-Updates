@@ -42,7 +42,7 @@ export class AppComponent implements OnInit {
     
     // repeated code, optimize this
     const contactUsDialogRef = this.dialog.open(MatContactUsDialogComponent, {
-      data: {username: this.emailid, password: this.message},
+      data: {emailid: this.emailid, message: this.message},
       minWidth: this.innerWidth/3,
       minHeight: this.innerHeight*(2/3),
       disableClose: true,
