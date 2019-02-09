@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   private password!: string;
   private innerWidth!: number;
   private innerHeight!: number;
-  private isVisible: boolean = true;
+  isVisible: boolean = true;
   // 4s uptime and 1s downtime
   private pulseDuration: number = 5000;
   private downTime: number = 1000;

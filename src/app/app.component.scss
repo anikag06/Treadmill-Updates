@@ -18,9 +18,9 @@
 
 .anchorify-pre-login-toolbar-button {
   @extend .anchorify-with-highlight-on-hover;
-  color: $mat-white;
-  font-family: 'Lato', sans-serif;
+  @include font-lato();
   font-size: 100%;
+  color: $mat-white;
   text-decoration: none;
 }
 
@@ -31,7 +31,6 @@
 
 .pre-login-side-nav-anchor {
   color: $mat-white !important;
-  font-family: 'Lato', sans-serif;
+  @include font-lato(700);
   font-size: 100% !important;
-  font-weight: 700 !important;
 }

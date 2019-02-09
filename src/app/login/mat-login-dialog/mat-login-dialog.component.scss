@@ -2,19 +2,17 @@
 
 .anchorify-forgot-username-password {
   @extend .anchorify-with-underline-on-hover;
-  color: $treadwill-pre-login-primary !important;
-  font-family: 'Lato', sans-serif;
-  font-style: italic;
-  font-weight: bold;
+  @include font-lato(700, italic);
   font-size: 75%;
+  color: $treadwill-pre-login-primary !important;
   margin-left: 10%;
 }
 
 .anchorify-join-the-study {
   @extend .anchorify-default;
-  color: $treadwill-pre-login-primary !important;
-  font-family: 'Lato', sans-serif;
+  @include font-lato();
   font-size: 100%;
+  color: $treadwill-pre-login-primary !important;
 }
 
 .login-dialog-text-color {
