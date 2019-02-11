@@ -5,6 +5,7 @@ import { Overlay } from '@angular/cdk/overlay';
 import { MatContactUsDialogComponent } from '@/shared/pre-login/mat-contact-us-dialog/mat-contact-us-dialog.component';
 import { LoggerService } from '@/shared/logger.service';
 import { ShowLoginDialogService } from '@/shared/pre-login/show-login-dialog.service';
+import { DialogSize } from '@/shared/dialog-size.service';
 
 @Component({
   selector: 'app-root',
@@ -14,20 +15,16 @@ import { ShowLoginDialogService } from '@/shared/pre-login/show-login-dialog.ser
 export class AppComponent implements OnInit {
   private emailid!: string;
   private message!: string;
-  private innerWidth!: number;
-  private innerHeight!: number;
 
   constructor(
     private dialog: MatDialog,
     private overlay: Overlay,
     private logger: LoggerService,
-    private showLoginDialogService: ShowLoginDialogService
+    private showLoginDialogService: ShowLoginDialogService,
+    private dialogSize: DialogSize
   ) { }
 
   ngOnInit() {
-    // repeated code, optimize this
-    this.innerWidth = window.innerWidth;
-    this.innerHeight = window.innerHeight;
   }
   
   onLoginClicked() {
@@ -35,16 +32,12 @@ export class AppComponent implements OnInit {
   }
 
   onContactUsClicked() {
-    this.logger.log("calling contact us dialog");
-
-    // repeated code, optimize this
     const scrollStrategy = this.overlay.scrollStrategies.reposition();    
     
-    // repeated code, optimize this
     const contactUsDialogRef = this.dialog.open(MatContactUsDialogComponent, {
       data: {emailid: this.emailid, message: this.message},
-      minWidth: this.innerWidth/3,
-      minHeight: this.innerHeight*(2/3),
+      minWidth: this.dialogSize.width,
+      minHeight: this.dialogSize.height,
       disableClose: true,
       hasBackdrop: true,
       panelClass: 'contact-us-dialog',

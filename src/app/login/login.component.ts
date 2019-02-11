@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs';
 import { MatLoginDialogComponent } from '@/login/mat-login-dialog/mat-login-dialog.component';
 import { LoggerService } from '@/shared/logger.service';
 import { ShowLoginDialogService } from '@/shared/pre-login/show-login-dialog.service';
+import { DialogSize } from '@/shared/dialog-size.service';
 
 @Component({
   selector: 'app-login',
@@ -37,8 +38,6 @@ import { ShowLoginDialogService } from '@/shared/pre-login/show-login-dialog.ser
 export class LoginComponent implements OnInit, OnDestroy {
   private username!: string;
   private password!: string;
-  private innerWidth!: number;
-  private innerHeight!: number;
   isVisible: boolean = true;
   // 4s uptime and 1s downtime
   private pulseDuration: number = 5000;
@@ -70,13 +69,11 @@ export class LoginComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     private logger: LoggerService,
     private overlay: Overlay,
-    private showLoginDialogService: ShowLoginDialogService
+    private showLoginDialogService: ShowLoginDialogService,
+    private dialogSize: DialogSize
   ) { }
 
   ngOnInit() {
-    this.innerWidth = window.innerWidth;
-    this.innerHeight = window.innerHeight;
-
     this.loginSubscription = this.showLoginDialogService.loginClickBroadcastObservable$.subscribe(() => {
       this.showLogin();
     });
@@ -98,8 +95,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     const loginDialogRef = this.dialog.open(MatLoginDialogComponent, {
       data: {username: this.username, password: this.password},
-      minWidth: this.innerWidth/3,
-      minHeight: this.innerHeight*(2/3),
+      minWidth: this.dialogSize.width,
+      minHeight: this.dialogSize.height,
       disableClose: true,
       hasBackdrop: true,
       panelClass: 'login-dialog',

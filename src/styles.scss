@@ -2,6 +2,12 @@
 @import '~@angular/material/theming';
 @import 'treadwill.theme.scss';
 
+// bootstrap standards
+$screen-size-xs-sm: 576px;
+$screen-size-sm-md: 768px;
+$screen-size-md-lg: 992px;
+$screen-size-lg-xl: 1200px;
+
 $small_logo_height: 40px;
 
 .cursor-hand {
@@ -12,7 +18,7 @@ $small_logo_height: 40px;
   border-radius: $radius;
 }
 
-@mixin underline() {
+@mixin underline-on-hover() {
   &:hover {
     text-decoration: underline !important;
   }
@@ -37,7 +43,7 @@ $small_logo_height: 40px;
 
   .dialog-btn {
     @include btn-roundify(20px);
-    @include font-lato(700);
+    @include font-lato($font-weight: 700);
     font-size: 100%;
     padding-left: 20px;
     padding-right: 20px;
@@ -128,7 +134,7 @@ $small_logo_height: 40px;
 
 .anchorify-with-underline-on-hover {
   @extend .cursor-hand;
-  @include underline();
+  @include underline-on-hover();
 }
 
 .anchorify-with-highlight-on-hover {

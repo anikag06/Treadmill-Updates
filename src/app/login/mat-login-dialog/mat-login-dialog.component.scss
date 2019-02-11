@@ -2,7 +2,7 @@
 
 .anchorify-forgot-username-password {
   @extend .anchorify-with-underline-on-hover;
-  @include font-lato(700, italic);
+  @include font-lato($font-weight: 700, $font-style: italic);
   font-size: 75%;
   color: $treadwill-pre-login-primary !important;
   margin-left: 10%;

@@ -31,6 +31,6 @@
 
 .pre-login-side-nav-anchor {
   color: $mat-white !important;
-  @include font-lato(700);
+  @include font-lato($font-weight: 700);
   font-size: 100% !important;
 }
