@@ -2,7 +2,7 @@
   "name": "TreadWill",
   "short_name": "TreadWill",
   "theme_color": "#2a3b3d",
-  "background_color": "#fafafa",
+  "background_color": "#2a3b3d",
   "display": "standalone",
   "scope": "/",
   "start_url": "/",

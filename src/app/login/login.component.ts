@@ -70,7 +70,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private logger: LoggerService,
     private overlay: Overlay,
     private showLoginDialogService: ShowLoginDialogService,
-    private dialogSize: DialogSize
+    private dialogSize: DialogSize,
   ) { }
 
   ngOnInit() {
