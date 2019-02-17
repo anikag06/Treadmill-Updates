@@ -78,7 +78,7 @@
                       assets/login/screen_3/screen_3_large.png 4440w"
               sizes="100vw" 
               class="img-fluid">
-          <button mat-button class="btn-join-the-study d-none d-md-block mx-auto align-middle">
+          <button mat-button class="btn-join-the-study d-none d-md-block mx-auto align-middle" (click)="onJoinTheStudyClicked()">
             <h3>Join the TreadWill study</h3>
           </button>
         </div>
@@ -87,7 +87,7 @@
       <!-- for mobile -->
       <div class="row flex-row d-block d-md-none">
         <div class="col-12 d-flex justify-content-center">
-            <button mat-button class="btn-join-the-study">
+            <button mat-button class="btn-join-the-study" (click)="onJoinTheStudyClicked()">
               <h4>Join the TreadWill study</h4>
             </button>
         </div>

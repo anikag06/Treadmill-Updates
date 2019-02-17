@@ -13,6 +13,7 @@ import { LoggerService } from '@/shared/logger.service';
 import { PreLoginFooterComponent } from '@/shared/pre-login/pre-login-footer/pre-login-footer.component';
 import { MatContactUsDialogComponent } from '@/shared/pre-login/mat-contact-us-dialog/mat-contact-us-dialog.component';
 import { DialogSize } from '@/shared/dialog-size.service';
+import { A2HSService } from '@/shared/a2hs.service';
 import { environment } from '../environments/environment';
 
 @NgModule({

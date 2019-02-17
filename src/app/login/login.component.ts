@@ -2,17 +2,18 @@ import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/cor
 import { MatDialog } from '@angular/material';
 import { Overlay } from '@angular/cdk/overlay';
 import { trigger, 
-         state, 
-         style, 
-         animate, 
-         transition 
-      } from '@angular/animations';
+  state, 
+  style, 
+  animate, 
+  transition 
+} from '@angular/animations';
 import { Subscription } from 'rxjs';
 
 import { MatLoginDialogComponent } from '@/login/mat-login-dialog/mat-login-dialog.component';
 import { LoggerService } from '@/shared/logger.service';
 import { ShowLoginDialogService } from '@/shared/pre-login/show-login-dialog.service';
 import { DialogSize } from '@/shared/dialog-size.service';
+import { A2HSService } from '@/shared/a2hs.service';
 
 @Component({
   selector: 'app-login',
@@ -63,7 +64,9 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   @Output() loginPageContactUsClicked = new EventEmitter<void>();
 
-  private loginSubscription!: Subscription
+  private loginSubscription!: Subscription;
+
+  private deferredPrompt!: any;
 
   constructor(
     private dialog: MatDialog,
@@ -71,13 +74,14 @@ export class LoginComponent implements OnInit, OnDestroy {
     private overlay: Overlay,
     private showLoginDialogService: ShowLoginDialogService,
     private dialogSize: DialogSize,
+    private a2hsService: A2HSService
   ) { }
 
   ngOnInit() {
     this.loginSubscription = this.showLoginDialogService.loginClickBroadcastObservable$.subscribe(() => {
       this.showLogin();
     });
-    
+
     setTimeout(() => {
       this.togglePulseOne();
     }, this.pulseDuration);
@@ -159,5 +163,11 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   onLoginPageContactUsClicked() {
     this.loginPageContactUsClicked.emit();
+  }
+
+  onJoinTheStudyClicked() {
+    this.a2hsService.getDeferredPrompt().subscribe((deferredPrompt) => {
+      deferredPrompt.prompt();
+    });
   }
 }

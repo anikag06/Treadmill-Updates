@@ -6,6 +6,7 @@ import { MatContactUsDialogComponent } from '@/shared/pre-login/mat-contact-us-d
 import { LoggerService } from '@/shared/logger.service';
 import { ShowLoginDialogService } from '@/shared/pre-login/show-login-dialog.service';
 import { DialogSize } from '@/shared/dialog-size.service';
+import { A2HSService } from '@/shared/a2hs.service';
 
 @Component({
   selector: 'app-root',
@@ -21,19 +22,21 @@ export class AppComponent implements OnInit {
     private overlay: Overlay,
     private logger: LoggerService,
     private showLoginDialogService: ShowLoginDialogService,
-    private dialogSize: DialogSize
+    private dialogSize: DialogSize,
+    private a2hsService: A2HSService
   ) { }
 
   ngOnInit() {
+    this.a2hsService.setDeferredPrompt();
   }
-  
+
   onLoginClicked() {
     this.showLoginDialogService.broadcastLoginClicked();
   }
 
   onContactUsClicked() {
     const scrollStrategy = this.overlay.scrollStrategies.reposition();    
-    
+
     const contactUsDialogRef = this.dialog.open(MatContactUsDialogComponent, {
       data: {emailid: this.emailid, message: this.message},
       minWidth: this.dialogSize.width,
