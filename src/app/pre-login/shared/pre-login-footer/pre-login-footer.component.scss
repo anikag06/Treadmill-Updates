@@ -1,0 +1,29 @@
+@import '~@angular/material/theming';
+@import 'treadwill.theme.scss';
+@import 'styles.scss';
+@import '../../landing-page/landing-page.component.scss';
+@import '../../pre-login.component.scss';
+
+.footer {
+  margin-bottom: 10px;
+}
+
+.anchorify-pre-login-footer-button {
+  @extend .anchorify-pre-login-toolbar-button;
+}
+
+.footer-iitk-logo, .footer-links-div {
+  margin: 10px;
+}
+
+.footer-text {
+  color: $mat-white;
+
+  @media (max-width: $screen-size-xs-sm) {
+    font-size: 12px;
+  }
+}
+
+.pre-login-footer-logo {
+  height: $small_logo_height;
+}

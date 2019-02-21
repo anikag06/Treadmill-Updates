@@ -149,12 +149,6 @@ $small_logo_height: 40px;
   height: 60px;
 }
 
-html, body {
-  height: 100%;
-  background-color: $treadwill-pre-login-primary !important;
-  color: $treadwill-pre-login-app-foreground !important;
-}
-
 // included this here because it was not getting applied when I kept it in app.component.scss
 // I don't know the reason yet. This was also the case for the dialog
 .pre-login-side-nav-logo-container.mat-list-item {
@@ -168,4 +162,14 @@ html, body {
   .pre-login-side-nav-logo {
     height: $small_logo_height;
   }
+}
+
+// Montserrat Fonts
+
+.font-montserrat-normal {
+  @include font-montserrat($font-weight: 500);
+}
+
+.font-montserrat-bold {
+  @include font-montserrat($font-weight: 700);
 }

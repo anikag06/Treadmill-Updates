@@ -7,14 +7,18 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { AppRoutingModule } from '@/app-routing.module';
 import { AppComponent } from '@/app.component';
-import { LoginComponent } from '@/login/login.component';
-import { MatLoginDialogComponent } from '@/login/mat-login-dialog/mat-login-dialog.component';
+import { LoginComponent } from '@/pre-login/login/login.component';
+import { MatLoginDialogComponent } from '@/pre-login/login/mat-login-dialog/mat-login-dialog.component';
 import { LoggerService } from '@/shared/logger.service';
-import { PreLoginFooterComponent } from '@/shared/pre-login/pre-login-footer/pre-login-footer.component';
-import { MatContactUsDialogComponent } from '@/shared/pre-login/mat-contact-us-dialog/mat-contact-us-dialog.component';
+import { PreLoginFooterComponent } from '@/pre-login/shared/pre-login-footer/pre-login-footer.component';
+import { MatContactUsDialogComponent } from '@/shared/mat-contact-us-dialog/mat-contact-us-dialog.component';
 import { DialogSize } from '@/shared/dialog-size.service';
-import { A2HSService } from '@/shared/a2hs.service';
 import { environment } from '../environments/environment';
+import { LandingPageComponent } from './pre-login/landing-page/landing-page.component';
+import { ModulesComponent } from './main/modules/modules.component';
+import { DashboardComponent } from './main/dashboard/dashboard.component';
+import { PreLoginComponent } from './pre-login/pre-login.component';
+import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-contact-us-dialog.service';
 
 @NgModule({
   declarations: [
@@ -23,6 +27,10 @@ import { environment } from '../environments/environment';
     MatLoginDialogComponent,
     PreLoginFooterComponent,
     MatContactUsDialogComponent,
+    LandingPageComponent,
+    ModulesComponent,
+    DashboardComponent,
+    PreLoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,9 +39,10 @@ import { environment } from '../environments/environment';
     ReactiveFormsModule,
     MaterialModule,
     AppRoutingModule,
+    AppRoutingModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [LoginComponent, LoggerService, DialogSize],
+  providers: [LoginComponent, LoggerService, DialogSize, MatContactUsDialogService],
   bootstrap: [AppComponent],
   entryComponents: [MatLoginDialogComponent, MatContactUsDialogComponent]
 })
