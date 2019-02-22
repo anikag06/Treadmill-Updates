@@ -17,6 +17,7 @@ export class PreLoginComponent implements OnInit {
 
   constructor(
     private showLoginDialogService: ShowLoginDialogService,
+    private showContactUsService: MatContactUsDialogService,
     private a2hsService: A2HSService
   ) { }
 
@@ -28,4 +29,7 @@ export class PreLoginComponent implements OnInit {
     this.showLoginDialogService.broadcastLoginClicked();
   }
 
+  onContactUsClicked() {
+    this.showContactUsService.contactUsClicked();
+  }
 }

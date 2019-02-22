@@ -7,11 +7,19 @@ import { Module } from '../module.model';
   styleUrls: ['./module-item.component.scss']
 })
 export class ModuleItemComponent implements OnInit {
-  @Input() module = new Module("test", "test");
+  @Input() module!: Module;
+  @Input() last!: string;
+  
+  imageSrc: string = "assets/modules/active.svg"
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+
+  onModuleItemClicked() {
+    console.log(this.module.name);
   }
 
 }

@@ -1,10 +1,16 @@
-<div class="row">
-    <div class="col-md-3">
-        <div class="row">
-            <app-module-item *ngFor="let moduleEl of allModules" [module]="moduleEl"></app-module-item>
+<div 
+    class="container-fluid"
+    [ngStyle]="{'background-image': 'url(assets/modules/background.png)'}">
+    <div class="row">
+        <div class="col-md-3 module-nav">
+            <app-module-item 
+                *ngFor="let moduleEl of allModules; let last = last"
+                [module]="moduleEl"
+                [last]="last">
+            </app-module-item> 
         </div>
-    </div>
-    <div class="col-md-9">
-        <app-module-slide [module]="activeModule"></app-module-slide>
+        <div class="col-md-9">
+            <app-module-overview [module]="activeModule"></app-module-overview>
+        </div>
     </div>
 </div>

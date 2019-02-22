@@ -5,6 +5,7 @@ import { trigger,
   animate, 
   transition 
 } from '@angular/animations';
+
 import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-contact-us-dialog.service';
 
 @Component({
@@ -118,5 +119,9 @@ export class LandingPageComponent implements OnInit {
 
   onLandingPageContactUsClicked() {
     this.showContactUsService.contactUsClicked()
+  }
+
+  onJoinTheStudyClicked() {
+    console.log("onJoinTheStudyClicked: TODO")
   }
 }
