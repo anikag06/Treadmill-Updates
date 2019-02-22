@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from '@/material.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -15,10 +15,13 @@ import { MatContactUsDialogComponent } from '@/shared/mat-contact-us-dialog/mat-
 import { DialogSize } from '@/shared/dialog-size.service';
 import { environment } from '../environments/environment';
 import { LandingPageComponent } from './pre-login/landing-page/landing-page.component';
-import { ModulesComponent } from './main/modules/modules.component';
-import { DashboardComponent } from './main/dashboard/dashboard.component';
-import { PreLoginComponent } from './pre-login/pre-login.component';
+import { ModulesComponent } from '@/main/modules/modules.component';
+import { DashboardComponent } from '@/main/dashboard/dashboard.component';
+import { PreLoginComponent } from '@/pre-login/pre-login.component';
 import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-contact-us-dialog.service';
+import { ModuleDetailComponent } from '@/main/modules/module-detail/module-detail.component';
+import { ModuleSlideComponent } from './main/modules/module-slide/module-slide.component';
+import { ModuleItemComponent } from './main/modules/module-item/module-item.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +34,9 @@ import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-co
     ModulesComponent,
     DashboardComponent,
     PreLoginComponent,
+    ModuleDetailComponent,
+    ModuleSlideComponent,
+    ModuleItemComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,6 +50,7 @@ import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-co
   ],
   providers: [LoginComponent, LoggerService, DialogSize, MatContactUsDialogService],
   bootstrap: [AppComponent],
-  entryComponents: [MatLoginDialogComponent, MatContactUsDialogComponent]
+  entryComponents: [MatLoginDialogComponent, MatContactUsDialogComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }
