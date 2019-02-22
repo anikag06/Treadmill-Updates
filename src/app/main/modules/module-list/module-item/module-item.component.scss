@@ -1,0 +1,82 @@
+@import 'styles.scss';
+
+.list-group-item {
+    @include font-montserrat($font-weight: 500);
+    height: 120px;
+    border-right: 0px;
+    border-bottom: 0px;
+    border-top: 0px;
+    border-left: 3px solid black;
+    font-size: 1rem;
+    border-radius: 0px;
+    background-color: transparent;
+    z-index: 100;
+    span.module-link {
+        display: inline-block;
+        position: absolute;
+        top: -10px;
+        left: 0px;
+        width: 80px;
+        height: 40px;
+        span.module-name {
+            position: absolute;
+            top: -10px;
+            left: 40px;
+            display: inline-block;
+            width: 60px;
+        }
+        span.status-image {
+            position: absolute;
+            left: -16px;
+            top: -5px;
+            height: 30px;
+            width: 30px;
+            display: inline-block;
+            z-index: 900;
+        }
+        span.status-image.active {
+            height: 40px;
+            width: 40px;
+            left: -20px;
+            top: -10px;
+            background-image: url('assets/modules/active.svg');
+        }
+        span.status-image.done {
+            background-image: url('assets/modules/check.svg');
+        }
+        span.status-image.locked {
+            background-image: url('assets/modules/locked.svg');
+        }
+    }
+    span.module-link:hover {
+        span.module-name {
+            color: #699b69;
+        }
+        span.status-image.done {
+            background-image: url('assets/modules/check-hover.svg');
+        }
+        span.status-image.active {
+            background-image: url('assets/modules/active-hover.svg');
+        }
+    }
+}
+
+.list-group-item.disabled {
+    border-left: 3px solid #949494;
+    
+}
+
+.list-group-item.active {
+    border-left: 3px solid #949494;
+    background-color: transparent;
+    
+}
+.list-group-item.first {
+    span.module-name {
+        top: 0px !important;
+    }
+}
+.list-group-item.last {
+    border-left: 3px solid transparent;
+    height: 60px;
+}

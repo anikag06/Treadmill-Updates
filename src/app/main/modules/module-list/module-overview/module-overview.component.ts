@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, DoCheck } from '@angular/core';
-import { Module } from '../module.model';
+import { Module } from '@/main/modules/module.model';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 
 @Component({

@@ -20,8 +20,9 @@ import { DashboardComponent } from '@/main/dashboard/dashboard.component';
 import { PreLoginComponent } from '@/pre-login/pre-login.component';
 import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-contact-us-dialog.service';
 import { ModuleDetailComponent } from '@/main/modules/module-detail/module-detail.component';
-import { ModuleItemComponent } from './main/modules/module-item/module-item.component';
-import { ModuleOverviewComponent } from './main/modules/module-overview/module-overview.component';
+import { ModuleItemComponent } from './main/modules/module-list/module-item/module-item.component';
+import { ModuleOverviewComponent } from './main/modules/module-list/module-overview/module-overview.component';
+import { ModuleListComponent } from './main/modules/module-list/module-list.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { ModuleOverviewComponent } from './main/modules/module-overview/module-o
     ModuleDetailComponent,
     ModuleItemComponent,
     ModuleOverviewComponent,
+    ModuleListComponent,
   ],
   imports: [
     BrowserModule,

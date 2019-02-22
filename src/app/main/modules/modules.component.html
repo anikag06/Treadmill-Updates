@@ -1,16 +1,15 @@
-<div 
-    class="container-fluid"
-    [ngStyle]="{'background-image': 'url(assets/modules/background.png)'}">
+<div class="container-fluid">
     <div class="row">
-        <div class="col-md-3 module-nav">
-            <app-module-item 
-                *ngFor="let moduleEl of allModules; let last = last"
-                [module]="moduleEl"
-                [last]="last">
-            </app-module-item> 
+        <div class="col-md-2">
+            <nav>
+                <ul>
+                    <li><a href="#">Modules</a></li>
+                    <li><a href="#">Games</a></li>
+                </ul>
+            </nav>
         </div>
-        <div class="col-md-9">
-            <app-module-overview [module]="activeModule"></app-module-overview>
+        <div class="col-md-10">
+            <router-outlet></router-outlet>
         </div>
     </div>
 </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Module } from '../module.model';
+import { Module } from '@/main/modules/module.model';
 
 @Component({
   selector: 'app-module-item',
@@ -9,6 +9,7 @@ import { Module } from '../module.model';
 export class ModuleItemComponent implements OnInit {
   @Input() module!: Module;
   @Input() last!: string;
+  @Input() first!: string;
   
   imageSrc: string = "assets/modules/active.svg"
 

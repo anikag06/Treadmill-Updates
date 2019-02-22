@@ -1,0 +1,20 @@
+<a 
+    class="list-group-item clearfix"
+    [ngClass]="{'disabled': module.status == 'locked', 
+                'active': module.status == 'active',
+                'last': last,
+                'first': first}">
+    <span class="module-link cursor-hand">
+        <span
+            class="status-image"
+            [ngClass]="{'locked': module.status == 'locked', 
+                        'active': module.status == 'active',
+                        'done': module.status == 'done'}">
+        </span>
+        <span
+            class="pull-right module-name align-middle"
+            (click)="onModuleItemClicked()">
+            {{module.name}}
+        </span>
+    </span>
+</a>

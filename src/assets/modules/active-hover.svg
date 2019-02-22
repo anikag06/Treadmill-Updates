@@ -10,7 +10,7 @@
    viewBox="0 0 52 52"
    version="1.1"
    id="svg12"
-   sodipodi:docname="active.svg"
+   sodipodi:docname="active-hover.svg"
    inkscape:version="0.92.3 (2405546, 2018-03-11)">
   <metadata
      id="metadata16">
@@ -20,6 +20,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>Asset 3</dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -64,4 +65,9 @@
          id="circle8" />
     </g>
   </g>
+  <path
+     style="fill:#699b69;fill-opacity:1;stroke-width:0.22033899"
+     d="M 22.077966,45.495203 C 18.226031,44.704759 15.204626,43.109866 12.303398,40.335552 8.2582211,36.467329 6.1890772,31.616042 6.1890772,26 c 0,-5.616042 2.0691439,-10.467329 6.1143208,-14.335551 3.900574,-3.7299452 8.330139,-5.4949575 13.790426,-5.4949575 8.643641,0 16.18027,5.5458465 18.864323,13.8813555 3.57604,11.105634 -3.471831,23.048939 -15.007518,25.4317 -2.028011,0.418895 -5.862951,0.42506 -7.872663,0.01266 z"
+     id="path825"
+     inkscape:connector-curvature="0" />
 </svg>
