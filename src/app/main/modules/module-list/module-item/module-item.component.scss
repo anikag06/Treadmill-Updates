@@ -2,7 +2,7 @@
 
 .list-group-item {
     @include font-montserrat($font-weight: 500);
-    height: 120px;
+    height: 110px;
     border-right: 0px;
     border-bottom: 0px;
     border-top: 0px;
@@ -62,14 +62,14 @@
 }
 
 .list-group-item.disabled {
-    border-left: 3px solid #949494;
-    
+    @include border-dashed();
+    border-left: 3px dashed #949494;
+    color: #a2a4a4;
 }
 
 .list-group-item.active {
-    border-left: 3px solid #949494;
-    background-color: transparent;
-    
+    @include border-dashed();
+    border-left: 3px dashed #949494;
 }
 .list-group-item.first {
     span.module-name {
@@ -77,6 +77,6 @@
     }
 }
 .list-group-item.last {
-    border-left: 3px solid transparent;
-    height: 60px;
+    border-left: none;
+    height: 55px;
 }

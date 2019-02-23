@@ -1,0 +1,18 @@
+.category-card {
+    display: inline-block;
+    width: 30%;
+    border-top: 3px solid black;
+    top: 20px;
+    position: relative;
+    img {
+        position: absolute;
+        top: -35px;
+        left: -10px;
+    }
+}
+.category-card.last {
+    width: 0px;
+}
+.category-card.first {
+    margin-left: 20px;
+}

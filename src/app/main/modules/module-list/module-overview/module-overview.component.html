@@ -1,8 +1,14 @@
-<div
-  class="jumbotron jumbotron-fluid tw-module-overview"
-  [ngStyle]="{'background-image': 'url(' + backgroundImg + ')'}">
-  <div
-    class="container">
-    <h1 class="display-4 align-bottom">{{module.name}}</h1>
-  </div>
-</div>
+<mat-card class="overview-card">
+  <img mat-card-image [src]="backgroundImg" alt="Loading..." height="350" width="600">
+  <mat-card-header>
+    <mat-card-title>{{module.name}}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <app-category 
+      *ngFor="let category of categories; let last = last; let first = first" 
+      [category]="category"
+      [last]="last"
+      [first]="first">
+    </app-category>
+  </mat-card-content>
+</mat-card>

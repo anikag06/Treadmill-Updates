@@ -1,6 +1,14 @@
+@import "styles.scss";
+
 .module-nav {
     height: 600px;
     margin-top: 50px;
     margin-bottom: 50px;
-    padding-left: 7%;
+    padding-left: 100px;
+}
+.module-heading {
+    @include font-montserrat($font-weight: 700);
+    width: 100%;
+    padding-left: 70px;
+    padding-top: 50px;
 }

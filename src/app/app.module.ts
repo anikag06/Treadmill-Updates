@@ -23,6 +23,7 @@ import { ModuleDetailComponent } from '@/main/modules/module-detail/module-detai
 import { ModuleItemComponent } from './main/modules/module-list/module-item/module-item.component';
 import { ModuleOverviewComponent } from './main/modules/module-list/module-overview/module-overview.component';
 import { ModuleListComponent } from './main/modules/module-list/module-list.component';
+import { CategoryComponent } from './main/modules/module-list/module-overview/category/category.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { ModuleListComponent } from './main/modules/module-list/module-list.comp
     ModuleItemComponent,
     ModuleOverviewComponent,
     ModuleListComponent,
+    CategoryComponent,
   ],
   imports: [
     BrowserModule,

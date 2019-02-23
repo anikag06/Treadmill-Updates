@@ -18,6 +18,13 @@ $small_logo_height: 40px;
   border-radius: $radius;
 }
 
+@mixin border-dashed() {
+  border-image-source: url("assets/modules/border-dashed.png");
+  border-image-slice: 2;
+  border-image-repeat: round;
+  border-image: url("assets/modules/border-dashed.png") 2 round;
+}
+
 @mixin underline-on-hover() {
   &:hover {
     text-decoration: underline !important;

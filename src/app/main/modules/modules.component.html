@@ -8,7 +8,9 @@
                 </ul>
             </nav>
         </div>
-        <div class="col-md-10">
+        <div
+            class="col-md-10"
+            [ngStyle]="{'background-image': 'url(assets/modules/background.png)'}">
             <router-outlet></router-outlet>
         </div>
     </div>
