@@ -1,4 +1,4 @@
-<mat-card class="overview-card">
+<mat-card class="overview-card" *ngIf="module else fakeLoading">
   <img mat-card-image [src]="backgroundImg" alt="Loading..." height="350" width="600">
   <mat-card-header>
     <mat-card-title>{{module.name}}</mat-card-title>
@@ -12,3 +12,14 @@
     </app-category>
   </mat-card-content>
 </mat-card>
+<ng-template #fakeLoading>
+  <mat-card class="overview-card">
+    <img mat-card-image [src]="backgroundImg" alt="Loading..." height="350" width="600">
+    <mat-card-header>
+      <mat-card-title>Loading...</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <h5>Loading...</h5>
+    </mat-card-content>
+  </mat-card>
+</ng-template>

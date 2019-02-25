@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, DoCheck } from '@angular/core';
+import { MatProgressSpinnerModule } from '@angular/material';
+
+
 import { Module } from '@/main/modules/module.model';
-import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { Category } from './category/category.model';
 
 @Component({
