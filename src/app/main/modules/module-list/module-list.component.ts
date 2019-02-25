@@ -1,6 +1,7 @@
 import { Component, OnInit, DoCheck } from '@angular/core';
 import { Module } from '../module.model';
 import { ModulesService } from '../modules.service';
+import { ACTIVE } from '@/app.constants';
 
 @Component({
   selector: 'app-module-list',
@@ -28,7 +29,7 @@ export class ModuleListComponent implements OnInit, DoCheck {
 
   ngDoCheck(): void {
     this.allModules.forEach(module => {
-      if(module.status == "active") {
+      if(module.status == ACTIVE) {
         this.activeModule = module;
         return;
       }
