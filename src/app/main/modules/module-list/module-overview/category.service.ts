@@ -10,10 +10,10 @@ export class CategoryService {
                 observer.next([
                     new Category("Introduction", "assets/modules/flag.svg", "done"),
                     new Category("Learn", "assets/modules/docs.svg", "done"),
-                    new Category("Discuss", "assets/modules/conversation.svg", "active"),
-                    new Category("Practice", "assets/modules/practice.svg", "locked"),
+                    new Category("Discuss", "assets/modules/conversation.svg", "done"),
+                    new Category("Practice", "assets/modules/practice.svg", "done"),
                   ]);
-            }, 6000);
+            }, 4000);
         })
 
         return myFakeObservable;

@@ -1,4 +1,5 @@
 @import 'styles.scss';
+@import 'color.palette.scss';
 
 .list-group-item {
     @include font-montserrat($font-weight: 500);
@@ -50,7 +51,7 @@
     }
     span.module-link:hover {
         span.module-name {
-            color: #699b69;
+            color: $treadwill-green-hover;
         }
         span.status-image.done {
             background-image: url('assets/modules/check-hover.svg');
@@ -63,13 +64,13 @@
 
 .list-group-item.disabled {
     @include border-dashed();
-    border-left: 3px dashed #949494;
-    color: #a2a4a4;
+    border-left: 3px dashed $treadwill-disabled;
+    color: $treadwill-disabled-text;
 }
 
 .list-group-item.active {
     @include border-dashed();
-    border-left: 3px dashed #949494;
+    border-left: 3px dashed $treadwill-disabled;
 }
 .list-group-item.first {
     span.module-name {

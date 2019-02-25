@@ -1,7 +1,9 @@
+@import "color.palette.scss";
+
 .category-card {
     display: inline-block;
     width: 30%;
-    border-top: 3px solid black;
+    border-top: 3px solid $treadwill-black;
     top: 20px;
     position: relative;
     img {
@@ -15,4 +17,10 @@
 }
 .category-card.first {
     margin-left: 20px;
+}
+.category-card.active {
+    border-top: 3px solid $treadwill-disabled;
+}
+.category-card.locked {
+    border-top: 3px solid $treadwill-disabled;
 }
