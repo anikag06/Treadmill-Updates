@@ -8,7 +8,7 @@ import { Category } from './category.model';
 })
 export class CategoryComponent implements OnInit {
 
-  @Input() category: Category = new Category("Loading...", "", "locked");
+  @Input() category!: Category;
   @Input() first!: string;
   @Input() last!: string;
 

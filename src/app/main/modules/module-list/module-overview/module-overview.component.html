@@ -1,9 +1,12 @@
-<mat-card class="overview-card" *ngIf="module else fakeLoading">
+<mat-card class="overview-card">
   <img mat-card-image [src]="backgroundImg" alt="Loading..." height="350" width="600">
   <mat-card-header>
-    <mat-card-title>{{module.name}}</mat-card-title>
+    <mat-card-title  *ngIf="module else loading">{{module.name}}</mat-card-title>
+    <ng-template #loading>
+      <mat-card-title>Loading....</mat-card-title>
+    </ng-template>
   </mat-card-header>
-  <mat-card-content>
+  <mat-card-content *ngIf="module && categories else catLoading">
     <app-category 
       *ngFor="let category of categories; let last = last; let first = first" 
       [category]="category"
@@ -11,15 +14,9 @@
       [first]="first">
     </app-category>
   </mat-card-content>
-</mat-card>
-<ng-template #fakeLoading>
-  <mat-card class="overview-card">
-    <img mat-card-image [src]="backgroundImg" alt="Loading..." height="350" width="600">
-    <mat-card-header>
-      <mat-card-title>Loading...</mat-card-title>
-    </mat-card-header>
+  <ng-template #catLoading>
     <mat-card-content>
-      <h5>Loading...</h5>
+      <h4>Loading...</h4>
     </mat-card-content>
-  </mat-card>
-</ng-template>
+  </ng-template>
+</mat-card>

@@ -22,7 +22,6 @@ export class ModuleListComponent implements OnInit, DoCheck {
     this.allModules = this.modulesService.getModules();
     this.modulesService.getModulesObservable()
       .subscribe((data) => {
-        console.log(data);
         this.allModules = data;
       })
   }
