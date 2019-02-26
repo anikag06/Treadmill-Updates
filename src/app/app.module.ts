@@ -25,6 +25,7 @@ import { ModuleOverviewComponent } from './main/modules/module-list/module-overv
 import { ModuleListComponent } from './main/modules/module-list/module-list.component';
 import { CategoryComponent } from './main/modules/module-list/module-overview/category/category.component';
 import { LocalStorageService } from './shared/localstorage.service';
+import { NotFoundComponent } from './shared/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { LocalStorageService } from './shared/localstorage.service';
     ModuleOverviewComponent,
     ModuleListComponent,
     CategoryComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,

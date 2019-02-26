@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Module } from '../module.model';
 import { ModulesService } from '../modules.service';
+import { map, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-module-detail',
@@ -21,18 +22,16 @@ export class ModuleDetailComponent implements OnInit {
 
   ngOnInit() {
     this.activateRoute.params
-      .subscribe(
-        (params: Params) => {
-          this.modulesService.getModuleObservable(params['name'])
-            .subscribe(
-              (module: Module) => { this.module = module; },
-              (error: string) => {
-                alert(error);
-                this.router.navigate(["modules"])
-              }
-             )
-        }
+      .pipe(
+        map(v => v.name),
+        switchMap(name => this.modulesService.getModuleObservable(name))
       )
+      .subscribe(
+        (module) => this.module = <Module>module,
+        (error) => {
+          this.router.navigate(["modules"])
+        }
+      );
   }
 
 }
