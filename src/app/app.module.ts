@@ -24,6 +24,7 @@ import { ModuleItemComponent } from './main/modules/module-list/module-item/modu
 import { ModuleOverviewComponent } from './main/modules/module-list/module-overview/module-overview.component';
 import { ModuleListComponent } from './main/modules/module-list/module-list.component';
 import { CategoryComponent } from './main/modules/module-list/module-overview/category/category.component';
+import { LocalStorageService } from './shared/localstorage.service';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,13 @@ import { CategoryComponent } from './main/modules/module-list/module-overview/ca
     AppRoutingModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [LoginComponent, LoggerService, DialogSize, MatContactUsDialogService],
+  providers: [
+    LoginComponent,
+    LoggerService,
+    DialogSize,
+    MatContactUsDialogService,
+    LocalStorageService,
+  ],
   bootstrap: [AppComponent],
   entryComponents: [MatLoginDialogComponent, MatContactUsDialogComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

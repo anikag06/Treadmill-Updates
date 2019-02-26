@@ -9,7 +9,8 @@
             *ngFor="let moduleEl of allModules; let last = last; let first = first"
             [module]="moduleEl"
             [last]="last"
-            [first]="first">
+            [first]="first"
+            (click)="onModuleClick(moduleEl)">
         </app-module-item> 
     </div>
     <div class="col-md-10">

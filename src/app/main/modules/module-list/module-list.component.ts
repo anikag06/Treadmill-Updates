@@ -1,7 +1,8 @@
 import { Component, OnInit, DoCheck } from '@angular/core';
 import { Module } from '../module.model';
 import { ModulesService } from '../modules.service';
-import { ACTIVE } from '@/app.constants';
+import { ACTIVE, LOCKED, DONE } from '@/app.constants';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-module-list',
@@ -16,7 +17,8 @@ export class ModuleListComponent implements OnInit, DoCheck {
   allModules!: Module[];
 
   constructor(
-    private modulesService: ModulesService
+    private modulesService: ModulesService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -34,6 +36,12 @@ export class ModuleListComponent implements OnInit, DoCheck {
         return;
       }
     });
+  }
+
+  onModuleClick(module: Module) {
+    if (module.status == DONE || module.status == ACTIVE) {
+      this.router.navigate(['modules', module.slug])
+    }
   }
 
 }
