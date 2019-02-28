@@ -8,3 +8,4 @@ export const LOCKED            = "locked";
 export const ACTIVE            = "active";
 export const TREADWILL_MODULES = "treadwill_modules"
 export const LS_TIME           = 60
+export const CATEGORY          = "category_"

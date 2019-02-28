@@ -14,18 +14,19 @@ import { PreLoginFooterComponent } from '@/pre-login/shared/pre-login-footer/pre
 import { MatContactUsDialogComponent } from '@/shared/mat-contact-us-dialog/mat-contact-us-dialog.component';
 import { DialogSize } from '@/shared/dialog-size.service';
 import { environment } from '../environments/environment';
-import { LandingPageComponent } from './pre-login/landing-page/landing-page.component';
+import { LandingPageComponent } from '@/pre-login/landing-page/landing-page.component';
 import { ModulesComponent } from '@/main/modules/modules.component';
 import { DashboardComponent } from '@/main/dashboard/dashboard.component';
 import { PreLoginComponent } from '@/pre-login/pre-login.component';
 import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-contact-us-dialog.service';
 import { ModuleDetailComponent } from '@/main/modules/module-detail/module-detail.component';
-import { ModuleItemComponent } from './main/modules/module-list/module-item/module-item.component';
-import { ModuleOverviewComponent } from './main/modules/module-list/module-overview/module-overview.component';
-import { ModuleListComponent } from './main/modules/module-list/module-list.component';
-import { CategoryComponent } from './main/modules/module-list/module-overview/category/category.component';
-import { LocalStorageService } from './shared/localstorage.service';
-import { NotFoundComponent } from './shared/not-found/not-found.component';
+import { ModuleItemComponent } from '@/main/modules/module-list/module-item/module-item.component';
+import { ModuleOverviewComponent } from '@/main/modules/module-list/module-overview/module-overview.component';
+import { ModuleListComponent } from '@/main/modules/module-list/module-list.component';
+import { CategorySmallComponent } from '@/main/modules/module-list/module-overview/category-small/category-small.component';
+import { LocalStorageService } from '@/shared/localstorage.service';
+import { NotFoundComponent } from '@/shared/not-found/not-found.component';
+import { CategoryBigComponent } from './main/modules/module-detail/category-big/category-big.component';
 
 @NgModule({
   declarations: [
@@ -42,8 +43,9 @@ import { NotFoundComponent } from './shared/not-found/not-found.component';
     ModuleItemComponent,
     ModuleOverviewComponent,
     ModuleListComponent,
-    CategoryComponent,
+    CategorySmallComponent,
     NotFoundComponent,
+    CategoryBigComponent,
   ],
   imports: [
     BrowserModule,

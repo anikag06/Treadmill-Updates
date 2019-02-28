@@ -1,10 +1,10 @@
-import { Component, OnInit, Input, DoCheck } from '@angular/core';
-import { MatProgressSpinnerModule } from '@angular/material';
+import { Component, OnInit, Input, DoCheck, OnDestroy } from '@angular/core';
 
 
 import { Module } from '@/main/modules/module.model';
-import { Category } from './category/category.model';
-import { CategoryService } from './category.service';
+import { Category } from '@/main/shared/category.model';
+import { CategoryService } from '@/main/shared/category.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-module-overview',
@@ -12,26 +12,32 @@ import { CategoryService } from './category.service';
   styleUrls: ['./module-overview.component.scss'],
   providers: [CategoryService]
 })
-export class ModuleOverviewComponent implements OnInit, DoCheck {
+export class ModuleOverviewComponent implements OnInit, DoCheck, OnDestroy {
 
   backgroundImg: string = 'https://via.placeholder.com/600x300?text=TreadWill';
-  @Input() module: Module = new Module("Loading..", "locked", this.backgroundImg);
+  @Input() module!: Module;
+  subscription!: Subscription;
 
   categories!: Category[];
 
 
   constructor(
     private categoryService: CategoryService
-  ) { }
+  ) {}
 
-  ngOnInit() {
-    this.categoryService.getCategories()
-      .subscribe((data) => this.categories = data)
-  }
+  ngOnInit() {}
 
   ngDoCheck(): void {
     if(this.module && this.module.imageUrl) {
       this.backgroundImg = this.module.imageUrl;
     }
+    if (this.module && !this.subscription) {
+      this.subscription = this.categoryService.getCategories(this.module.name)
+                            .subscribe(data => this.categories = data)
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

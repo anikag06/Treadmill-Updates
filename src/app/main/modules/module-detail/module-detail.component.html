@@ -2,6 +2,10 @@
   <div class="col-12">
     <h1>{{module.name}}</h1>
   </div>
+  <app-category-big
+   *ngFor="let category of categories"
+   [category]="category">
+  </app-category-big>
 </div>
 <ng-template #loading>
   <h1>Loading...</h1>

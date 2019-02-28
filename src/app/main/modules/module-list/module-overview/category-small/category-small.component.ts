@@ -1,13 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Category } from './category.model';
+import { Category } from '@/main/shared/category.model';
 import { LEARN, ACTIVE, INTRODUCTION, DISCUSS, PRACTICE, LOCKED, DONE } from '@/app.constants';
 
 @Component({
-  selector: 'app-category',
-  templateUrl: './category.component.html',
-  styleUrls: ['./category.component.scss']
+  selector: 'app-category-small',
+  templateUrl: './category-small.component.html',
+  styleUrls: ['./category-small.component.scss']
 })
-export class CategoryComponent implements OnInit {
+export class CategorySmallComponent implements OnInit {
 
   @Input() category!: Category;
   @Input() first!: string;
