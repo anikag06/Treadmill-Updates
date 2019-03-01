@@ -1,11 +1,12 @@
-import { Component, OnInit, AfterContentInit, DoCheck } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Module } from '../module.model';
-import { ModulesService } from '../modules.service';
+import { Component, OnInit, DoCheck, OnDestroy } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription, Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
+
+import { Module } from '@/main/modules/module.model';
+import { ModulesService } from '@/main/modules/modules.service';
 import { CategoryService } from '@/main/shared/category.service';
 import { Category } from '@/main/shared/category.model';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-module-detail',
@@ -13,11 +14,11 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./module-detail.component.scss'],
   providers: [ModulesService, CategoryService],
 })
-export class ModuleDetailComponent implements OnInit, DoCheck {
+export class ModuleDetailComponent implements OnInit, DoCheck, OnDestroy {
 
   module!: Module;
-  categories!: Category[];
-  subscription!: Subscription;
+  categories$!: Observable<Category[]>;
+  subscriptionRouter!: Subscription;
 
   constructor(
     private activateRoute: ActivatedRoute,
@@ -27,7 +28,7 @@ export class ModuleDetailComponent implements OnInit, DoCheck {
   ) { }
 
   ngOnInit() {
-    this.activateRoute.params
+    this.subscriptionRouter = this.activateRoute.params
       .pipe(
         map(v => v.name),
         switchMap(name => this.modulesService.getModuleObservable(name))
@@ -35,16 +36,19 @@ export class ModuleDetailComponent implements OnInit, DoCheck {
       .subscribe(
         (module) => this.module = <Module>module,
         (error) => {
-          this.router.navigate(["modules"])
+          this.router.navigate(["modules"]);
         }
       );
   }
 
   ngDoCheck(): void {
-    if (this.module && !this.subscription) {
-      this.subscription = this.categoryService.getCategories(this.module.name)
-                            .subscribe(data => this.categories = data)
+    if (this.module && !this.categories$) {
+      this.categories$ = this.categoryService.getCategories(this.module.name)
     }
   }
 
+  ngOnDestroy(): void {
+    if (this.subscriptionRouter)
+      this.subscriptionRouter.unsubscribe();
+  }
 }

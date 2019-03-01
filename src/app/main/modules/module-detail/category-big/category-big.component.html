@@ -1,3 +1,16 @@
-<div class="col-4">
-  <h4>{{category.name}}</h4>
+<div
+    class="category-big"
+    [ngClass]="{
+        'done': category.status == 'done',
+        'active': category.status == 'active',
+        'locked': category.status == 'locked',
+        'hover': hover}"
+    (mouseenter)="onMouseEnter()"
+    (mouseleave)="onMouseLeave()">
+    <img 
+        [src]="imageUrl"
+        alt="{{category.name}}"
+        height="75"
+        width="75">
+    <h4 class="text-center">{{category.name}}</h4>
 </div>

@@ -1,8 +1,12 @@
-import { Component, OnInit, DoCheck } from '@angular/core';
-import { Module } from '../module.model';
-import { ModulesService } from '../modules.service';
-import { ACTIVE, LOCKED, DONE } from '@/app.constants';
+import { Component, OnInit, DoCheck, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription, Observable } from 'rxjs';
+import 'rxjs';
+
+import { Module } from '@/main/modules/module.model';
+import { ModulesService } from '@/main/modules/modules.service';
+import { ACTIVE, DONE } from '@/app.constants';
+import { filter, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-module-list',
@@ -10,11 +14,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./module-list.component.scss'],
   providers: [ModulesService]
 })
-export class ModuleListComponent implements OnInit, DoCheck {
+export class ModuleListComponent implements OnInit {
 
-  activeModule!: Module;  
-
+  activeModule$!: Observable<Module>; 
   allModules!: Module[];
+  subscription!: Subscription;
+  modules$!: Observable<Module[]>;
 
   constructor(
     private modulesService: ModulesService,
@@ -22,20 +27,11 @@ export class ModuleListComponent implements OnInit, DoCheck {
   ) { }
 
   ngOnInit() {
-    this.allModules = this.modulesService.getModules();
-    this.modulesService.getModulesObservable()
-      .subscribe((data) => {
-        this.allModules = data;
-      })
-  }
-
-  ngDoCheck(): void {
-    this.allModules.forEach(module => {
-      if(module.status == ACTIVE) {
-        this.activeModule = module;
-        return;
-      }
-    });
+    this.modules$ = this.modulesService.getModulesObservable();
+    this.activeModule$ = <Observable<Module>>this.modulesService.getModulesObservable()
+      .pipe(
+        map(modules => modules.find(module => module.status == ACTIVE))
+      )
   }
 
   onModuleClick(module: Module) {

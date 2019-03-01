@@ -1,13 +1,33 @@
 <div class="row" *ngIf="module else loading">
-  <div class="col-12">
+  <header class="col-12 module-header">
     <h1>{{module.name}}</h1>
-  </div>
-  <app-category-big
-   *ngFor="let category of categories"
-   [category]="category">
-  </app-category-big>
+  </header>
 </div>
 <ng-template #loading>
   <h1>Loading...</h1>
 </ng-template>
+<div
+    *ngIf="(categories$ | async) as categories else catLoading"
+    class="row">
+    <div
+      class="col-3 category"
+      *ngFor="let category of categories;
+              let last = last;
+              let first = first">
+      <app-category-big
+        [category]="category"
+        [first]="first"
+        [last]="last">
+      </app-category-big>
+    </div>
+</div>
+<ng-template #catLoading>
+  <div class="row">
+    <div class="col-12 catLoading"></div>
+  </div>
+</ng-template>
+
+<div class="body">
+
+</div>
 

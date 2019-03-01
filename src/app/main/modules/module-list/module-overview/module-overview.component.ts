@@ -1,10 +1,9 @@
 import { Component, OnInit, Input, DoCheck, OnDestroy } from '@angular/core';
 
-
 import { Module } from '@/main/modules/module.model';
 import { Category } from '@/main/shared/category.model';
 import { CategoryService } from '@/main/shared/category.service';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-module-overview',
@@ -12,13 +11,13 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./module-overview.component.scss'],
   providers: [CategoryService]
 })
-export class ModuleOverviewComponent implements OnInit, DoCheck, OnDestroy {
+export class ModuleOverviewComponent implements OnInit, DoCheck {
 
   backgroundImg: string = 'https://via.placeholder.com/600x300?text=TreadWill';
   @Input() module!: Module;
   subscription!: Subscription;
 
-  categories!: Category[];
+  categories$!: Observable<Category[]>;
 
 
   constructor(
@@ -31,13 +30,8 @@ export class ModuleOverviewComponent implements OnInit, DoCheck, OnDestroy {
     if(this.module && this.module.imageUrl) {
       this.backgroundImg = this.module.imageUrl;
     }
-    if (this.module && !this.subscription) {
-      this.subscription = this.categoryService.getCategories(this.module.name)
-                            .subscribe(data => this.categories = data)
+    if (this.module) {
+      this.categories$ = this.categoryService.getCategories(this.module.name);       
     }
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 }

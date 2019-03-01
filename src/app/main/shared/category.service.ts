@@ -17,8 +17,8 @@ export class CategoryService {
             let fakeData = [
                 new Category("Introduction", "assets/modules/flag.svg", "done"),
                 new Category("Learn", "assets/modules/docs.svg", "done"),
-                new Category("Discuss", "assets/modules/conversation.svg", "done"),
-                new Category("Practice", "assets/modules/practice.svg", "done"),
+                new Category("Discuss", "assets/modules/conversation.svg", "active"),
+                new Category("Practice", "assets/modules/practice.svg", "locked"),
             ]
             let categoryLs = this.localStorageService.getItemWithDate(CATEGORY + moduleName);
             if (categoryLs) {

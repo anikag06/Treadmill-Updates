@@ -1,0 +1,31 @@
+@import 'color.palette.scss';
+@import 'styles.scss';
+
+.module-header{
+    background-color: #dbf2ec;
+    height: 300px;
+    position: relative;
+    h1 {
+        @include font-montserrat($font-weight: 400);
+        position: absolute;
+        top: 240px;
+    }
+}
+.category {
+    background-color: $mat-white;
+    text-align: center;
+    padding: 0px;
+    border-right: 1px solid $treadwill-disabled;
+    border-bottom: 2px solid $treadwill-disabled;
+}
+.catLoading {
+    height: 200px;
+    background-color: $mat-white;
+}
+.category:last-child {
+    border-right: 1px solid transparent;
+}
+.body {
+    background-image: url("assets/modules/background.png");
+    min-height: 50vh;
+}

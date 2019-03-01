@@ -1,0 +1,32 @@
+@import 'styles.scss';
+@import 'color.palette.scss';
+
+.category-big {
+    @include font-lato();
+    padding: 20px;
+    img {
+        padding: 10px;
+    }
+}
+
+.category-big.active {
+    color: $treadwill-yellow;
+}
+
+.category-big.locked {
+    color: $treadwill-grey;
+}
+
+.category-big.done.hover {
+    color: white;
+    background-color: $treadwill-black;
+}
+.category-big.active.hover {
+    color: white;
+    background-color: $treadwill-yellow;
+}
+
+.category-big.locked.hover {
+    color: #b0bab9ff;
+    background-color: #dddddd;
+}

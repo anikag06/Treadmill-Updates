@@ -6,7 +6,7 @@
 <div class="row">
     <div class="col-md-2 module-nav">
         <app-module-item 
-            *ngFor="let moduleEl of allModules; let last = last; let first = first"
+            *ngFor="let moduleEl of (modules$ | async); let last = last; let first = first"
             [module]="moduleEl"
             [last]="last"
             [first]="first"
@@ -14,6 +14,6 @@
         </app-module-item> 
     </div>
     <div class="col-md-10">
-        <app-module-overview [module]="activeModule"></app-module-overview>
+        <app-module-overview [module]="activeModule$ | async"></app-module-overview>
     </div>
 </div>
