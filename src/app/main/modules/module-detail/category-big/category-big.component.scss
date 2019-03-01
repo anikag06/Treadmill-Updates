@@ -3,9 +3,15 @@
 
 .category-big {
     @include font-lato();
-    padding: 20px;
-    img {
+    padding: 30px;
+    img.icon {
         padding: 10px;
+        margin-botton: 11px;
+    }
+    img.lock {
+        position: absolute;
+        right: 20px;
+        top: 100px;
     }
 }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Category } from '@/main/shared/category.model';
 import { INTRODUCTION, ACTIVE, LEARN, DISCUSS, PRACTICE, LOCKED, DONE } from '@/app.constants';
 
@@ -12,6 +12,9 @@ export class CategoryBigComponent implements OnInit {
   @Input() category!: Category;
   @Input() last!: string;
   @Input() first!: string;
+
+  @Output() categorySelected = new EventEmitter<Category>();
+
   hover: boolean = false;
   imageUrl: string | undefined = '';
 
@@ -39,13 +42,13 @@ export class CategoryBigComponent implements OnInit {
     } else if (this.category.name == PRACTICE && this.category.status == ACTIVE && this.hover == true) {
       return "assets/modules/practice-white.svg";
     } else if (this.category.name == INTRODUCTION && this.category.status == ACTIVE) {
-      return "assets/modules/introduction-active.svg";
+      return "assets/modules/introduction-yellow.svg";
     } else if (this.category.name == LEARN && this.category.status == ACTIVE) {
-      return "assets/modules/learn-active.svg";
+      return "assets/modules/learn-yellow.svg";
     } else if (this.category.name == DISCUSS && this.category.status == ACTIVE) {
-      return "assets/modules/discuss-active.svg";
+      return "assets/modules/discuss-yellow.svg";
     } else if (this.category.name == PRACTICE && this.category.status == ACTIVE) {
-      return "assets/modules/practice-active.svg";
+      return "assets/modules/practice-yellow.svg";
     } else if (this.category.name == INTRODUCTION && this.category.status == LOCKED) {
       return "assets/modules/introduction-disabled.svg";
     } else if (this.category.name == LEARN && this.category.status == LOCKED) {
@@ -73,6 +76,12 @@ export class CategoryBigComponent implements OnInit {
   onMouseLeave() {
     this.hover = false;
     this.imageUrl = this.imageUrlMapper();
+  }
+
+  onClick() {
+    if (this.category.status != LOCKED) {
+      this.categorySelected.emit(this.category);
+    }
   }
 
 }

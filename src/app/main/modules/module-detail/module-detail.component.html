@@ -17,7 +17,8 @@
       <app-category-big
         [category]="category"
         [first]="first"
-        [last]="last">
+        [last]="last"
+        (categorySelected)="onCategorySelected($event)">
       </app-category-big>
     </div>
 </div>
@@ -28,6 +29,14 @@
 </ng-template>
 
 <div class="body">
-
+  <div *ngIf="(selectedCategory$ | async) as category">
+    <div class="row flex-row">
+      <div
+        *ngFor="let section of category.sections"
+        class="section">
+        <app-section-card [section]="section"></app-section-card>
+      </div>
+    </div>
+  </div>
 </div>
 

@@ -1,0 +1,16 @@
+<div
+  class="section-card"
+  [ngClass]="{
+    'active': active ,
+    'done': done,
+    'locked': locked
+  }">
+  <p>{{section.description}}</p>
+  <img
+        src="assets/modules/lock.svg"
+        alt="lock"
+        height="50"
+        width="50"
+        class="lock"
+        *ngIf="locked">
+</div>

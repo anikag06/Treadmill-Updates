@@ -1,0 +1,39 @@
+@import 'styles.scss';
+@import 'color.palette.scss';
+
+.section-card {
+    @include font-lato();
+    width: 280px;
+    padding-left: 40px;
+    height: 220px;
+    margin-top: 55px;
+    margin-left: 70px;
+    border-radius: 10px;
+    box-shadow: 2px 4px 8px #d3d3d3;
+    position: relative;
+    img.lock {
+        position: absolute;
+        top: 145px;
+        right: 20px;
+    }
+}
+.section-card > p {
+    background-color: $treadwill-white;
+    height: 100%;
+    border-radius: 0 10px 10px 0;
+    font-size: 1.4rem;
+    padding-left: 10px;
+    padding-top: 30px;
+}
+
+.section-card.active {
+    color: $treadwill-yellow;
+    background-color: $treadwill-yellow;
+}
+.section-card.done {
+    background-color: $treadwill-black;
+}
+.section-card.locked {
+    color: $treadwill-grey;
+    background-color: $treadwill-grey;
+}

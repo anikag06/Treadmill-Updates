@@ -3,12 +3,12 @@
 
 .module-header{
     background-color: #dbf2ec;
-    height: 300px;
+    height: 320px;
     position: relative;
     h1 {
         @include font-montserrat($font-weight: 400);
         position: absolute;
-        top: 240px;
+        top: 260px;
     }
 }
 .category {
@@ -28,4 +28,5 @@
 .body {
     background-image: url("assets/modules/background.png");
     min-height: 50vh;
+    padding-bottom: 40px;
 }

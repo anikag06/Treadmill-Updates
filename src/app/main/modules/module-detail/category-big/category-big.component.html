@@ -6,11 +6,20 @@
         'locked': category.status == 'locked',
         'hover': hover}"
     (mouseenter)="onMouseEnter()"
-    (mouseleave)="onMouseLeave()">
+    (mouseleave)="onMouseLeave()"
+    (click)="onClick()">
     <img 
         [src]="imageUrl"
         alt="{{category.name}}"
-        height="75"
-        width="75">
+        height="80"
+        width="80"
+        class="icon">
+    <img
+        src="assets/modules/lock.svg"
+        alt="lock"
+        height="50"
+        width="50"
+        class="lock"
+        *ngIf="category.status == 'locked'">
     <h4 class="text-center">{{category.name}}</h4>
 </div>

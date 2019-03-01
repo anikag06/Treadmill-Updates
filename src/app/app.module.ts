@@ -27,6 +27,7 @@ import { CategorySmallComponent } from '@/main/modules/module-list/module-overvi
 import { LocalStorageService } from '@/shared/localstorage.service';
 import { NotFoundComponent } from '@/shared/not-found/not-found.component';
 import { CategoryBigComponent } from './main/modules/module-detail/category-big/category-big.component';
+import { SectionCardComponent } from '@/main/modules/module-detail/section-card/section-card.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { CategoryBigComponent } from './main/modules/module-detail/category-big/
     CategorySmallComponent,
     NotFoundComponent,
     CategoryBigComponent,
+    SectionCardComponent,
   ],
   imports: [
     BrowserModule,
