@@ -7,10 +7,11 @@ import { ModulesComponent } from './main/modules/modules.component';
 import { ModuleListComponent } from './main/modules/module-list/module-list.component';
 import { ModuleDetailComponent } from './main/modules/module-detail/module-detail.component';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
+import { AuthGuard } from './shared/auth/auth.guard';
 
 const routes: Routes = [
-  { path: 'dashboard', component: DashboardComponent},
-  { path: 'modules', component: ModulesComponent, children: [
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
+  { path: 'modules', component: ModulesComponent, canActivateChild: [AuthGuard], children: [
       {path: ':name', component: ModuleDetailComponent},
       {path: '', component: ModuleListComponent},
     ]

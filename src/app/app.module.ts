@@ -28,6 +28,9 @@ import { LocalStorageService } from '@/shared/localstorage.service';
 import { NotFoundComponent } from '@/shared/not-found/not-found.component';
 import { CategoryBigComponent } from './main/modules/module-detail/category-big/category-big.component';
 import { SectionCardComponent } from '@/main/modules/module-detail/section-card/section-card.component';
+import { AuthService } from './shared/auth/auth.service';
+import { HttpClientModule } from '@angular/common/http';
+import { AuthModule } from './auth.module';
 
 @NgModule({
   declarations: [
@@ -57,6 +60,8 @@ import { SectionCardComponent } from '@/main/modules/module-detail/section-card/
     MaterialModule,
     AppRoutingModule,
     AppRoutingModule,
+    HttpClientModule,
+    AuthModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
@@ -65,6 +70,7 @@ import { SectionCardComponent } from '@/main/modules/module-detail/section-card/
     DialogSize,
     MatContactUsDialogService,
     LocalStorageService,
+    AuthService
   ],
   bootstrap: [AppComponent],
   entryComponents: [MatLoginDialogComponent, MatContactUsDialogComponent],

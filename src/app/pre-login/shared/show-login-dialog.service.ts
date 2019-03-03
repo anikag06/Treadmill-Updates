@@ -24,17 +24,12 @@ export class ShowLoginDialogService {
     const scrollStrategy = this.overlay.scrollStrategies.reposition();
 
     const loginDialogRef = this.dialog.open(MatLoginDialogComponent, {
-      data: {username: this.username, password: this.password},
       minWidth: this.dialogSize.width,
       minHeight: this.dialogSize.height,
       disableClose: true,
       hasBackdrop: true,
       panelClass: 'login-dialog',
       scrollStrategy
-    });
-
-    loginDialogRef.afterClosed().subscribe((result: string) => {
-      this.logger.log('Login data: ', result);
     });
   }
 }
