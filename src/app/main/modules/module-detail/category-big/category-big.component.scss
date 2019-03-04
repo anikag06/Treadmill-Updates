@@ -3,15 +3,19 @@
 
 .category-big {
     @include font-lato();
-    padding: 30px;
+    padding: 8%;
+    height: 100%;
     img.icon {
         padding: 10px;
-        margin-botton: 11px;
+        margin-bottom: 10px;
     }
     img.lock {
         position: absolute;
         right: 20px;
         top: 100px;
+    }
+    p {
+        font-size: 1.5rem;
     }
 }
 
@@ -35,4 +39,21 @@
 .category-big.locked.hover {
     color: #b0bab9ff;
     background-color: #dddddd;
+}
+
+@media only screen and (max-width: $screen-size-sm-md) {
+    .category-big {
+        padding: 8% 0 0 0%;
+        img.icon {
+            padding: 2px;
+            margin-bottom: 2px;
+            height: 43px;
+        }
+        img.lock {
+            display: none;
+        }
+        p.section-name {
+            font-size: 0.8rem;
+        }
+    }
 }
