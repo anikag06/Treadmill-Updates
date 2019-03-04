@@ -16,7 +16,10 @@ const routes: Routes = [
       {path: '', component: ModuleListComponent},
     ]
   },
-  { path: '', component: PreLoginComponent, pathMatch: 'full', children: [
+  { path: '',
+    component: PreLoginComponent,
+    pathMatch: 'full',
+    children: [
       {path: '', component: LandingPageComponent, pathMatch: 'full'},
     ]
   },
