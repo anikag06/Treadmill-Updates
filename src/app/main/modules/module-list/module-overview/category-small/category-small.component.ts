@@ -20,31 +20,30 @@ export class CategorySmallComponent implements OnInit {
   }
 
   imageUrl() {
-    if (this.category.name == INTRODUCTION && this.category.status == ACTIVE) {
-      return "assets/modules/introduction-active.svg";
-    } else if (this.category.name == LEARN && this.category.status == ACTIVE) {
-      return "assets/modules/learn-active.svg";
-    } else if (this.category.name == DISCUSS && this.category.status == ACTIVE) {
-      return "assets/modules/discuss-active.svg";
-    } else if (this.category.name == PRACTICE && this.category.status == ACTIVE) {
-      return "assets/modules/practice-active.svg";
-    } else if (this.category.name == INTRODUCTION && this.category.status == LOCKED) {
-      return "assets/modules/introduction-disabled.svg";
-    } else if (this.category.name == LEARN && this.category.status == LOCKED) {
-      return "assets/modules/learn-disabled.svg";
-    } else if (this.category.name == DISCUSS && this.category.status == LOCKED) {
-      return "assets/modules/discuss-disabled.svg";
-    } else if (this.category.name == PRACTICE && this.category.status == LOCKED) {
-      return "assets/modules/practice-disabled.svg";
-    } else if (this.category.name == INTRODUCTION && this.category.status == DONE) {
-      return "assets/modules/introduction.svg";
-    } else if (this.category.name == LEARN && this.category.status == DONE) {
-      return "assets/modules/learn.svg";
-    } else if (this.category.name == DISCUSS && this.category.status == DONE) {
-      return "assets/modules/discuss.svg";
-    } else if (this.category.name == PRACTICE && this.category.status == DONE) {
-      return "assets/modules/practice.svg";
-    } 
-    
+    if (this.category.name === INTRODUCTION && this.category.status === ACTIVE) {
+      return 'assets/modules/introduction-yellow.svg';
+    } else if (this.category.name === LEARN && this.category.status === ACTIVE) {
+      return 'assets/modules/learn-yellow.svg';
+    } else if (this.category.name === DISCUSS && this.category.status === ACTIVE) {
+      return 'assets/modules/discuss-yellow.svg';
+    } else if (this.category.name === PRACTICE && this.category.status === ACTIVE) {
+      return 'assets/modules/practice-yellow.svg';
+    } else if (this.category.name === INTRODUCTION && this.category.status === LOCKED) {
+      return 'assets/modules/introduction-disabled.svg';
+    } else if (this.category.name === LEARN && this.category.status === LOCKED) {
+      return 'assets/modules/learn-disabled.svg';
+    } else if (this.category.name === DISCUSS && this.category.status === LOCKED) {
+      return 'assets/modules/discuss-disabled.svg';
+    } else if (this.category.name === PRACTICE && this.category.status === LOCKED) {
+      return 'assets/modules/practice-disabled.svg';
+    } else if (this.category.name === INTRODUCTION && this.category.status === DONE) {
+      return 'assets/modules/introduction.svg';
+    } else if (this.category.name === LEARN && this.category.status === DONE) {
+      return 'assets/modules/learn.svg';
+    } else if (this.category.name === DISCUSS && this.category.status === DONE) {
+      return 'assets/modules/discuss.svg';
+    } else if (this.category.name === PRACTICE && this.category.status === DONE) {
+      return 'assets/modules/practice.svg';
+    }
   }
 }

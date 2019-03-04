@@ -21,7 +21,7 @@ export class MatLoginDialogComponent implements OnInit {
     private localStorageService: LocalStorageService,
     private router: Router
   ) { }
-    
+
   ngOnInit() {
   }
 
@@ -31,11 +31,11 @@ export class MatLoginDialogComponent implements OnInit {
         (data: any) => {
           this.localStorageService.setItem(TOKEN, data.data.token)
           this.dialogRef.close();
-          this.router.navigate(["/modules"])
+          this.router.navigate(['/dashboard']);
         }
-      )
+      );
   }
-  
+
   onCloseClick(): void {
     this.dialogRef.close();
   }

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ShowLoginDialogService } from './shared/show-login-dialog.service';
 import { A2HSService } from '@/shared/a2hs.service';
 import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-contact-us-dialog.service';
+import { AuthService } from '@/shared/auth/auth.service';
 
 @Component({
   selector: 'app-pre-login',
@@ -12,17 +13,22 @@ import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-co
 })
 export class PreLoginComponent implements OnInit {
 
-  private emailid!: string;
-  private message!: string;
+  loggedIn = false;
 
   constructor(
     private showLoginDialogService: ShowLoginDialogService,
     private showContactUsService: MatContactUsDialogService,
-    private a2hsService: A2HSService
+    private a2hsService: A2HSService,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
     this.a2hsService.setDeferredPrompt();
+  }
+
+  ngDoCheck(): void {
+    this.loggedIn = this.authService.isLoggedIn();
+    console.log(this.loggedIn);
   }
 
   onLoginClicked() {
