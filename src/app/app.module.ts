@@ -31,6 +31,8 @@ import { SectionCardComponent } from '@/main/modules/module-detail/section-card/
 import { AuthService } from './shared/auth/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthModule } from './auth.module';
+import { SideNavComponent } from '@/main/shared/side-nav/side-nav.component';
+import { LogoutComponent } from './shared/auth/logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +53,8 @@ import { AuthModule } from './auth.module';
     NotFoundComponent,
     CategoryBigComponent,
     SectionCardComponent,
+    SideNavComponent,
+    LogoutComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,4 @@
 export class DialogSize {
-  width = window.innerWidth*(1/3);
-  height = window.innerHeight*(2/3);
+  width = window.innerWidth*(1/4);
+  height = window.innerHeight*(3/5);
 }

@@ -8,6 +8,7 @@ import { ModuleListComponent } from './main/modules/module-list/module-list.comp
 import { ModuleDetailComponent } from './main/modules/module-detail/module-detail.component';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { AuthGuard } from './shared/auth/auth.guard';
+import { LogoutComponent } from './shared/auth/logout/logout.component';
 
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
@@ -16,6 +17,7 @@ const routes: Routes = [
       {path: '', component: ModuleListComponent},
     ]
   },
+  { path: 'logout', component: LogoutComponent },
   { path: '',
     component: PreLoginComponent,
     pathMatch: 'full',

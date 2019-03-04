@@ -1,5 +1,7 @@
-<div class="login-form">
+<form
+  (submit)="onSubmit()" #loginForm="ngForm">
   <div
+    class="flex-row-reverse"
     mat-dialog-actions>
     <mat-icon
       (click)="onCloseClick()"
@@ -7,39 +9,42 @@
         close
     </mat-icon>
   </div>
-  <form
-    (submit)="onSubmit()" #loginForm="ngForm">
+  <div class="input-container text-center">
     <mat-form-field>
       <input
         matInput
         placeholder="Username"
+        type="text"
         ngModel
         required
-        name="username">
+        name="username"
+        class="example-right-align">
       <mat-error>Username is required</mat-error>
     </mat-form-field>
     <mat-form-field>
       <input
         matInput
-        placeholder="Password"
-        ngModel
+        placeholder="Enter your password"
         [type]="hide ? 'password' : 'text'"
+        ngModel
         required
         name="password">
-      <mat-icon
-        matSuffix
-        (click)="hide = !hide"
-        class="cursor-hand">
-          {{hide ? 'visibility_off' : 'visibility'}}
-      </mat-icon>
+      <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
       <mat-error>Password is required</mat-error>
     </mat-form-field>
-    <div mat-dialog-actions>
+    <div class="error" *ngIf="formInvalid">
+      Username or Password is incorrect!
+    </div>
+    <div
+      mat-dialog-actions
+      class="forgot-password">
       <a class="anchorify-forgot-username-password">
         Forgot Username/Password?
       </a>
     </div>
-    <div mat-dialog-actions class="text-right">
+    <div
+      mat-dialog-actions
+      class="d-flex justify-content-center">
       <button
         mat-raised-button
         class="dialog-btn"
@@ -47,13 +52,15 @@
           Login
       </button>
     </div>
-  </form>
-  <div mat-dialog-actions class="text-center">
-    <p class="login-dialog-text-color">
-      Not a member yet?
-      <a class="anchorify-join-the-study">
-        Join the study!
-      </a>
-    </p>
+    <div
+      mat-dialog-actions
+      class="d-flex justify-content-center join-study">
+      <p class="login-dialog-text-color">
+        Not a member yet?
+        <a class="anchorify-join-the-study">
+          Join the study!
+        </a>
+      </p>
+    </div>
   </div>
-</div>
+</form>

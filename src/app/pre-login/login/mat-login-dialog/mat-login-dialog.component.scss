@@ -19,3 +19,18 @@
 .login-dialog-text-color {
   color: $treadwill-pre-login-primary;
 }
+
+.input-container {
+  .forgot-password {
+    margin-bottom: 10px;
+  }
+  .join-study {
+    margin-top: 25px;
+  }
+  .error {
+    color: red;
+    text-align: left;
+    margin: 0 40px;
+    font-weight: 500;
+  }
+}

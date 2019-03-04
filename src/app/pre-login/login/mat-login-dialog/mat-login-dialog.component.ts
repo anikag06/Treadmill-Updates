@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 })
 export class MatLoginDialogComponent implements OnInit {
   hide = true;
+  formInvalid = false;
   @ViewChild('loginForm') loginForm!: NgForm;
 
   constructor(
@@ -32,6 +33,12 @@ export class MatLoginDialogComponent implements OnInit {
           this.localStorageService.setItem(TOKEN, data.data.token)
           this.dialogRef.close();
           this.router.navigate(['/dashboard']);
+        },
+        (error: any) => {
+          if (error.status === 400 ) {
+            this.loginForm.reset();
+            this.formInvalid = true;
+          }
         }
       );
   }
