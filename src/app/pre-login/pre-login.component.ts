@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DoCheck } from '@angular/core';
 
 import { ShowLoginDialogService } from './shared/show-login-dialog.service';
 import { A2HSService } from '@/shared/a2hs.service';
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./pre-login.component.scss'],
   providers: [MatContactUsDialogService]
 })
-export class PreLoginComponent implements OnInit {
+export class PreLoginComponent implements OnInit, DoCheck {
 
   loggedIn = false;
 

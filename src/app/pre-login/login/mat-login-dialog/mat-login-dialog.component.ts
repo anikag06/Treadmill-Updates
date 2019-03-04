@@ -12,8 +12,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./mat-login-dialog.component.scss']
 })
 export class MatLoginDialogComponent implements OnInit {
-  hide: boolean = true;
-  @ViewChild('loginForm') loginForm!: NgForm
+  hide = true;
+  @ViewChild('loginForm') loginForm!: NgForm;
 
   constructor(
     public dialogRef: MatDialogRef<MatLoginDialogComponent>,
