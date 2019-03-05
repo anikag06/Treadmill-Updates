@@ -11,7 +11,7 @@ export class ModulesService {
 
     constructor(
         private localStorageService: LocalStorageService,
-    ){}
+    ) {}
 
     getModules() {
         return [
