@@ -15,21 +15,21 @@ export class ModulesService {
 
     getModules() {
         return [
-            new Module("Loading...", "locked", "https://via.placeholder.com/600x300?text=Loading")
+            new Module('Loading...', 'locked', 'https://via.placeholder.com/600x300?text=Loading')
           ];
     }
 
     getModulesObservable(): Observable<Module[]> {
-        const myFakeObservable = Observable.create((observer: Observer<Module[]>) => {
+        const myFakeObservable = new Observable((observer: Observer<Module[]>) => {
             const fakeModules = [
-                new Module("Basics", "done", "https://via.placeholder.com/600x300?text=basics"),
-                new Module("Behavioral Activation", "done", "https://via.placeholder.com/600x300?text=BA"),
-                new Module("Identifying NATs", "done", "https://via.placeholder.com/600x300?text=INATS"),
-                new Module("Challenging NATs", "active", "https://via.placeholder.com/600x300?=CNATS"),
-                new Module("Modifying Beliefs", "locked", "https://via.placeholder.com/600x300?text=MB"),
-                new Module("Staying Happy", "locked", "https://via.placeholder.com/600x300?text=SH")
+                new Module('Basics', 'done', 'https://via.placeholder.com/600x300?text=basics'),
+                new Module('Behavioral Activation', 'done', 'https://via.placeholder.com/600x300?text=BA'),
+                new Module('Identifying NATs', 'done', 'https://via.placeholder.com/600x300?text=INATS'),
+                new Module('Challenging NATs', 'active', 'https://via.placeholder.com/600x300?=CNATS'),
+                new Module('Modifying Beliefs', 'locked', 'https://via.placeholder.com/600x300?text=MB'),
+                new Module('Staying Happy', 'locked', 'https://via.placeholder.com/600x300?text=SH')
             ];
-            let fakeModulesLs = this.localStorageService.getItemWithDate(MODULES);
+            const fakeModulesLs = this.localStorageService.getItemWithDate(MODULES);
             if (fakeModulesLs) {
                 observer.next(fakeModules);
                 observer.complete();
@@ -46,26 +46,25 @@ export class ModulesService {
     }
 
     getModuleObservable(slug: string) {
-        const myFakeObservable = Observable.create((observer: Observer<Module>) => {
+        const myFakeObservable = new Observable((observer: Observer<Module>) => {
             let module: any;
-            let modulesLS = this.localStorageService.getItemWithDate(MODULES);
+            const modulesLS = this.localStorageService.getItemWithDate(MODULES);
             if (modulesLS) {
-                module = modulesLS.find((item: Module) => item.slug == slug);
+                module = modulesLS.find((item: Module) => item.slug === slug);
             }
-            if (module != null && module.constructor.name != Module.name) {
+            if (module != null && module.constructor.name !== Module.name) {
                 this.getModulesObservable().subscribe (
                     (modules: Module[]) => {
-                        module = modules.find((item: Module) => item.slug == slug);    
+                        module = modules.find((item: Module) => item.slug === slug);
                     }
-                )
+                );
             }
             if (module) {
                 observer.next(module);
                 observer.complete();
             } else {
-                observer.error("No modules found");
+                observer.error('No modules found');
             }
-            
         });
         return myFakeObservable;
     }
