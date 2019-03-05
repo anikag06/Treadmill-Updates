@@ -180,3 +180,7 @@ $small_logo_height: 40px;
 .font-montserrat-bold {
   @include font-montserrat($font-weight: 700);
 }
+
+.body-bg {
+  background-image: url("assets/modules/background.png");
+}
