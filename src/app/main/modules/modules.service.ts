@@ -3,8 +3,9 @@ import { Router } from '@angular/router';
 
 import { Module } from './module.model';
 import { Observable, Observer } from 'rxjs';
-import { MODULES } from '@/app.constants';
+import { MODULES, LOCKED, ACTIVE } from '@/app.constants';
 import { LocalStorageService } from '@/shared/localstorage.service';
+import { iterateListLike } from '@angular/core/src/change_detection/change_detection_util';
 
 @Injectable()
 export class ModulesService {
@@ -25,8 +26,8 @@ export class ModulesService {
                 new Module('Basics', 'done', 'https://via.placeholder.com/600x300?text=basics'),
                 new Module('Behavioral Activation', 'done', 'https://via.placeholder.com/600x300?text=BA'),
                 new Module('Identifying NATs', 'done', 'https://via.placeholder.com/600x300?text=INATS'),
-                new Module('Challenging NATs', 'active', 'https://via.placeholder.com/600x300?=CNATS'),
-                new Module('Modifying Beliefs', 'locked', 'https://via.placeholder.com/600x300?text=MB'),
+                new Module('Challenging NATs', 'done', 'https://via.placeholder.com/600x300?=CNATS'),
+                new Module('Modifying Beliefs', 'active', 'https://via.placeholder.com/600x300?text=MB'),
                 new Module('Staying Happy', 'locked', 'https://via.placeholder.com/600x300?text=SH')
             ];
             const fakeModulesLs = this.localStorageService.getItemWithDate(MODULES);
@@ -65,6 +66,28 @@ export class ModulesService {
             } else {
                 observer.error('No modules found');
             }
+        });
+        return myFakeObservable;
+    }
+
+    isCompleted() {
+        const myFakeObservable = new Observable((observer: Observer<boolean>) => {
+            let modules: any;
+            let activeModule: any;
+            this.getModulesObservable()
+                .subscribe (
+                    (mds: Module[]) => {
+                        modules = mds.filter((item: Module) => item.status === LOCKED);
+                        activeModule = mds.find((item: Module) => item.status === ACTIVE);
+                        if (modules.length === 0 && activeModule == null) {
+                            observer.next(true);
+                            observer.complete();
+                        } else {
+                            observer.next(false);
+                            observer.complete();
+                        }
+                    }
+            );
         });
         return myFakeObservable;
     }

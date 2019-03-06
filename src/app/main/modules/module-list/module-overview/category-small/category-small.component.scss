@@ -1,4 +1,5 @@
 @import "color.palette.scss";
+@import "styles.scss";
 
 .category-card {
     display: inline-block;
@@ -11,6 +12,8 @@
         position: absolute;
         top: -35px;
         left: -10px;
+        height: 60px;
+        width: 60px;
     }
 }
 .category-card.last {
@@ -24,4 +27,21 @@
 }
 .category-card.locked {
     border-top: 3px solid $treadwill-disabled;
+}
+
+
+@media only screen and (max-width: $screen-size-sm-md) {
+    .category-card {
+        width: 30%;
+        border-top: 3px solid $treadwill-black;
+        top: -6px;
+        img {
+            background-color: white;
+            position: absolute;
+            top: -17px;
+            left: -20px;
+            width: 30px;
+            height: 30px;
+        }
+    }
 }

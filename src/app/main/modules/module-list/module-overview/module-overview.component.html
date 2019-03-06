@@ -1,7 +1,7 @@
-<mat-card class="overview-card">
-  <img mat-card-image [src]="backgroundImg" alt="Loading..." height="350" width="600">
+<mat-card class="overview-card" *ngIf="!completed">
+  <img mat-card-image [src]="backgroundImg" alt="Loading...">
   <mat-card-header>
-    <mat-card-title  *ngIf="module else loading">{{module.name}}</mat-card-title>
+    <mat-card-title class="content"  *ngIf="module else loading">{{module.name}}</mat-card-title>
     <ng-template #loading>
       <mat-card-title>Loading....</mat-card-title>
     </ng-template>
@@ -19,4 +19,11 @@
       <h4>Loading...</h4>
     </mat-card-content>
   </ng-template>
+</mat-card>
+<mat-card class="overview-card" *ngIf="completed">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <h2>All modules are completed</h2>
+  </mat-card-header>
+  <img mat-card-image [src]="backgroundImg" alt="Loading...">
 </mat-card>

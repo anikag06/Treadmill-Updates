@@ -3,7 +3,9 @@
         <h1 class="module-heading">Modules</h1>
     </div>
 </div>
-<div class="row">
+<div
+    class="row"
+    *ngIf="!mobileView">
     <div class="col-md-2 module-nav">
         <app-module-item 
             *ngFor="let moduleEl of (modules$ | async); let last = last; let first = first"
@@ -14,6 +16,35 @@
         </app-module-item> 
     </div>
     <div class="col-md-10">
-        <app-module-overview [module]="activeModule$ | async"></app-module-overview>
+        <app-module-overview
+            [module]="activeModule$ | async"
+            [completed]="completed"></app-module-overview>
+    </div>
+</div>
+<div
+    class="row"
+    *ngIf="mobileView">
+    <div class="col-12 module-nav mobile">
+        <app-module-item 
+            *ngFor="let moduleEl of (modulesDone$ | async); let last = last; let first = first"
+            [module]="moduleEl"
+            [last]="last"
+            [first]="first"
+            (click)="onModuleClick(moduleEl)">
+        </app-module-item>
+    </div>
+    <div class="col-12">
+        <app-module-overview
+            [module]="activeModule$ | async" 
+            [completed]="isCompleted$ | async"></app-module-overview>
+    </div>
+    <div class="col-12 module-nav mobile">
+        <app-module-item 
+            *ngFor="let moduleEl of (modulesLocked$ | async); let last = last; let first = first"
+            [module]="moduleEl"
+            [last]="last"
+            [first]="first"
+            (click)="onModuleClick(moduleEl)">
+        </app-module-item> 
     </div>
 </div>

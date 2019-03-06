@@ -10,8 +10,7 @@ export class ModuleItemComponent implements OnInit {
   @Input() module!: Module;
   @Input() last!: string;
   @Input() first!: string;
-  
-  imageSrc: string = "assets/modules/active.svg"
+  @Input() completed = false;
 
   constructor() { }
 

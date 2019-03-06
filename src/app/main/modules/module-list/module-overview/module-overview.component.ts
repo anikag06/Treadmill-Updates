@@ -15,6 +15,7 @@ export class ModuleOverviewComponent implements OnInit, DoCheck {
 
   backgroundImg: string = 'https://via.placeholder.com/600x300?text=TreadWill';
   @Input() module!: Module;
+  @Input() completed!: boolean;
   subscription!: Subscription;
 
   categories$!: Observable<Category[]>;
@@ -27,11 +28,11 @@ export class ModuleOverviewComponent implements OnInit, DoCheck {
   ngOnInit() {}
 
   ngDoCheck(): void {
-    if(this.module && this.module.imageUrl) {
+    if (this.module && this.module.imageUrl) {
       this.backgroundImg = this.module.imageUrl;
     }
     if (this.module) {
-      this.categories$ = this.categoryService.getCategories(this.module.name);       
+      this.categories$ = this.categoryService.getCategories(this.module.name);
     }
   }
 }

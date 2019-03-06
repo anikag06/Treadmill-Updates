@@ -5,7 +5,7 @@ import 'rxjs';
 
 import { Module } from '@/main/modules/module.model';
 import { ModulesService } from '@/main/modules/modules.service';
-import { ACTIVE, DONE } from '@/app.constants';
+import { ACTIVE, DONE, LOCKED } from '@/app.constants';
 import { filter, map } from 'rxjs/operators';
 
 @Component({
@@ -20,23 +20,41 @@ export class ModuleListComponent implements OnInit {
   allModules!: Module[];
   subscription!: Subscription;
   modules$!: Observable<Module[]>;
+  modulesDone$!: Observable<Module[]>;
+  modulesLocked$!: Observable<Module[]>;
+  mobileView = false;
+  isCompleted$!: Observable<Boolean>;
+  completed = false;
 
   constructor(
     private modulesService: ModulesService,
     private router: Router
-  ) { }
+  ) {
+    if (window.innerWidth < 768) {
+      this.mobileView = true;
+    }
+  }
 
   ngOnInit() {
     this.modules$ = this.modulesService.getModulesObservable();
     this.activeModule$ = <Observable<Module>>this.modulesService.getModulesObservable()
       .pipe(
-        map(modules => modules.find(module => module.status == ACTIVE))
-      )
+        map(modules => modules.find(module => module.status === ACTIVE))
+      );
+    this.modulesDone$ = <Observable<Module[]>>this.modulesService.getModulesObservable()
+      .pipe(
+        map(modules => modules.filter(module =>  module.status === DONE || module.status === ACTIVE ))
+      );
+    this.modulesLocked$ = <Observable<Module[]>>this.modulesService.getModulesObservable()
+      .pipe(
+        map(modules => modules.filter(module => module.status === LOCKED))
+      );
+    this.isCompleted$ = this.modulesService.isCompleted();
   }
 
   onModuleClick(module: Module) {
-    if (module.status == DONE || module.status == ACTIVE) {
-      this.router.navigate(['modules', module.slug])
+    if (module.status === DONE || module.status === ACTIVE) {
+      this.router.navigate(['modules', module.slug]);
     }
   }
 
