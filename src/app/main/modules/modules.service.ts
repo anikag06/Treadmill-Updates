@@ -1,23 +1,26 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { Observable, Observer } from 'rxjs';
+
 
 import { Module } from './module.model';
-import { Observable, Observer } from 'rxjs';
 import { MODULES, LOCKED, ACTIVE } from '@/app.constants';
 import { LocalStorageService } from '@/shared/localstorage.service';
-import { iterateListLike } from '@angular/core/src/change_detection/change_detection_util';
 
 @Injectable()
 export class ModulesService {
 
     constructor(
         private localStorageService: LocalStorageService,
-    ) {}
+    ) { }
 
     getModules() {
         return [
-            new Module('Loading...', 'locked', 'https://via.placeholder.com/600x300?text=Loading')
-          ];
+            new Module(
+                'Loading...',
+                'locked',
+                'https://via.placeholder.com/600x300?text=Loading'
+            )
+        ];
     }
 
     getModulesObservable(): Observable<Module[]> {
@@ -41,7 +44,7 @@ export class ModulesService {
                     this.localStorageService.setItemWithDate(MODULES, fakeModules);
                 }, 1000);
             }
-        })
+        });
 
         return myFakeObservable;
     }
@@ -54,7 +57,7 @@ export class ModulesService {
                 module = modulesLS.find((item: Module) => item.slug === slug);
             }
             if (module != null && module.constructor.name !== Module.name) {
-                this.getModulesObservable().subscribe (
+                this.getModulesObservable().subscribe(
                     (modules: Module[]) => {
                         module = modules.find((item: Module) => item.slug === slug);
                     }
@@ -75,7 +78,7 @@ export class ModulesService {
             let modules: any;
             let activeModule: any;
             this.getModulesObservable()
-                .subscribe (
+                .subscribe(
                     (mds: Module[]) => {
                         modules = mds.filter((item: Module) => item.status === LOCKED);
                         activeModule = mds.find((item: Module) => item.status === ACTIVE);
@@ -87,7 +90,7 @@ export class ModulesService {
                             observer.complete();
                         }
                     }
-            );
+                );
         });
         return myFakeObservable;
     }
