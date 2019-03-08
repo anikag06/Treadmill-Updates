@@ -5,6 +5,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 
 import * as localforage from 'localforage';
 import { Router } from '@angular/router';
+import { environment } from 'environments/environment';
 
 
 @Injectable({
@@ -19,7 +20,7 @@ export class AuthService {
 
 
   getUserDetails(data: any) {
-    return this.http.post('http://localhost:8000/api/v1/user/login/', data)
+    return this.http.post(environment.API_ENDPOINT + '/api/v1/user/login/', data);
   }
 
   isLoggedIn(): boolean {
