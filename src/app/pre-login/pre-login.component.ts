@@ -1,4 +1,4 @@
-import { Component, OnInit, DoCheck } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { ShowLoginDialogService } from './shared/show-login-dialog.service';
 import { A2HSService } from '@/shared/a2hs.service';
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./pre-login.component.scss'],
   providers: [MatContactUsDialogService]
 })
-export class PreLoginComponent implements OnInit, DoCheck {
+export class PreLoginComponent implements OnInit {
 
   loggedIn = false;
 
@@ -22,19 +22,17 @@ export class PreLoginComponent implements OnInit, DoCheck {
     private a2hsService: A2HSService,
     private authService: AuthService,
     private router: Router
-  ) {
-    if (this.authService.isLoggedIn()) {
-      this.router.navigate(['/dashboard']);
-    }
-   }
+  ) {}
 
   ngOnInit() {
     this.a2hsService.setDeferredPrompt();
-  }
-
-  ngDoCheck(): void {
-    this.loggedIn = this.authService.isLoggedIn();
-    console.log(this.loggedIn);
+    this.authService.isLoggedInAsync()
+      .then((data) => {
+        console.log('pre login ', data);
+        if (data) {
+          this.router.navigate(['/dashboard']);
+        }
+      });
   }
 
   onLoginClicked() {

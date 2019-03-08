@@ -5,6 +5,7 @@ import { AuthService } from '@/shared/auth/auth.service';
 import { LocalStorageService } from '@/shared/localstorage.service';
 import { TOKEN } from '@/app.constants';
 import { Router } from '@angular/router';
+import * as localforage from 'localforage';
 
 @Component({
   selector: 'app-mat-login-dialog',
@@ -19,7 +20,7 @@ export class MatLoginDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<MatLoginDialogComponent>,
     private authService: AuthService,
-    private localStorageService: LocalStorageService,
+    // private localStorageService: LocalStorageService,
     private router: Router
   ) { }
 
@@ -30,9 +31,13 @@ export class MatLoginDialogComponent implements OnInit {
     this.authService.getUserDetails(this.loginForm.value)
       .subscribe(
         (data: any) => {
-          this.localStorageService.setItem(TOKEN, data.data.token)
-          this.dialogRef.close();
-          this.router.navigate(['/dashboard']);
+          localforage.setItem(TOKEN, data.data.token)
+            .then((status) => {
+              this.dialogRef.close();
+              this.router.navigate(['/dashboard'])
+            }).catch(() => {
+              console.log('Something went wrong');
+            });
         },
         (error: any) => {
           if (error.status === 400 ) {
