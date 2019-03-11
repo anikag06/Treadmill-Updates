@@ -26,7 +26,7 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    const jwtToken = localStorage.getItem(TOKEN)
+    const jwtToken = localStorage.getItem(TOKEN);
     if (jwtToken) {
       const helper = new JwtHelperService();
       const isExpired = helper.isTokenExpired(jwtToken);
@@ -71,8 +71,10 @@ export class AuthService {
                 localforage.setItem(TOKEN, data.token);
               },
               (error: HttpErrorResponse) => {
-                this.router.navigate([DEFAULT_PATH]);
-                localforage.setItem(TOKEN, null);
+                if (error.status >= 400 && error.status < 500 ) {
+                  this.router.navigate([DEFAULT_PATH]);
+                  localforage.setItem(TOKEN, null);
+                }
               }
             );
         }
