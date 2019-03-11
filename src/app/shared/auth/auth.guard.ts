@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate, CanActivateChild, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
+import { DEFAULT_PATH } from '@/app.constants';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
         if (data) {
           return true;
         } else {
-          this.router.navigate(['/']);
+          this.router.navigate([DEFAULT_PATH]);
           return false;
         }
       });
@@ -35,7 +36,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
       if (data) {
         return true;
       } else {
-        this.router.navigate(['/']);
+        this.router.navigate([DEFAULT_PATH]);
         return false;
       }
     });

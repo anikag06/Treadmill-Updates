@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { ShowLoginDialogService } from './shared/show-login-dialog.service';
 import { A2HSService } from '@/shared/a2hs.service';
 import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-contact-us-dialog.service';
 import { AuthService } from '@/shared/auth/auth.service';
-import { Router } from '@angular/router';
+import { LOGGED_IN_PATH } from '@/app.constants';
 
 @Component({
   selector: 'app-pre-login',
@@ -30,7 +31,7 @@ export class PreLoginComponent implements OnInit {
       .then((data) => {
         console.log('pre login ', data);
         if (data) {
-          this.router.navigate(['/dashboard']);
+          this.router.navigate([LOGGED_IN_PATH]);
         }
       });
   }
