@@ -44,6 +44,8 @@ export class AuthService {
       if (data) {
         const helper = new JwtHelperService();
         const isExpired = helper.isTokenExpired((<string>data));
+        const userData = helper.decodeToken(<string>data);
+        console.log(userData);
         if (!isExpired) {
           return true;
         }
