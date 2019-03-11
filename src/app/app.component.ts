@@ -13,7 +13,7 @@ export class AppComponent implements OnInit, OnDestroy {
   subscription!: Subscription;
 
   constructor(
-    private auth: AuthService
+    private auth: AuthService,
   ) { }
 
   ngOnInit() {

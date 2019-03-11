@@ -3,9 +3,25 @@
         <div class="col-md-2">
             <app-side-nav></app-side-nav>
         </div>
-        <div
-            class="col-md-10 body-bg">
-            <h1>Dashboard</h1>
+        <div class="col-md-10 body-bg dashboard">
+            <div class="row">
+                <div class="col-md-4 col-sm-12">
+                    <div class="chatbot d-flex justify-content-center" *ngIf="user">
+                        <div class="chatbot-inner">
+                            <div class="chatbot-avatar">
+                                <img src="assets/modules/nanzu.png" alt="chatbot-avatar">
+                            </div>
+                            <mat-card class="card">
+                                Hi {{user.username}}! Do you have any questions?
+                                Click on me and we can chat.
+                            </mat-card>
+                        </div>
+                    </div>
+                    <div class="col-md-4" *ngIf="user">
+                        Completed
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -6,17 +6,17 @@ import slugify from 'slugify';
 export class LocalStorageService {
     getItem(item: string) {
         item = this.slugifyLower(item);
-        return JSON.parse(localStorage.getItem(item) || '')
+        return JSON.parse(localStorage.getItem(item) || '');
     }
 
     getItemWithDate(item: string) {
         item = this.slugifyLower(item);
-        let itemLs = localStorage.getItem(item);
+        const itemLs = localStorage.getItem(item);
         if (!itemLs) {
             return;
         }
-        let parsedData = JSON.parse(itemLs)
-        if (parsedData != null && 
+        const parsedData = JSON.parse(itemLs);
+        if (parsedData != null &&
             parsedData.hasOwnProperty('data') &&
             ((Math.abs(new Date().getTime() - Date.parse(parsedData.timestamp))/1000) < LS_TIME)) {
                 return parsedData['data'];

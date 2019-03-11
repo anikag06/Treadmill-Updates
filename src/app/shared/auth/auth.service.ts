@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { environment } from 'environments/environment';
 
 import { TOKEN, DEFAULT_PATH, TOKEN_REFRESH_PATH, LOGIN_PATH } from '@/app.constants';
+import { User } from '../user.module';
+import { Observable } from 'rxjs';
 export interface Token {
   token: string;
 }
@@ -38,16 +40,16 @@ export class AuthService {
   }
 
 
-  async isLoggedInAsync() {
+  async isLoggedInAsync(): Promise<User | boolean> {
     try {
       const data = await localforage.getItem(TOKEN);
       if (data) {
         const helper = new JwtHelperService();
         const isExpired = helper.isTokenExpired((<string>data));
         const userData = helper.decodeToken(<string>data);
-        console.log(userData);
+        const user = new User(+userData.user_id, userData.username, userData.email);
         if (!isExpired) {
-          return true;
+          return user;
         }
       }
       return false;
