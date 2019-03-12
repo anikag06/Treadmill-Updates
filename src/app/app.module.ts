@@ -34,6 +34,9 @@ import { AuthModule } from './auth.module';
 import { SideNavComponent } from '@/main/shared/side-nav/side-nav.component';
 import { LogoutComponent } from './shared/auth/logout/logout.component';
 import { ProgressComponent } from './main/dashboard/progress/progress.component';
+import { CurrentModuleComponent } from './main/dashboard/current-module/current-module.component';
+import { ThingsTodoComponent } from './main/dashboard/things-todo/things-todo.component';
+import { NotificationsSideComponent } from './main/dashboard/notifications-side/notifications-side.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +60,9 @@ import { ProgressComponent } from './main/dashboard/progress/progress.component'
     SideNavComponent,
     LogoutComponent,
     ProgressComponent,
+    CurrentModuleComponent,
+    ThingsTodoComponent,
+    NotificationsSideComponent,
   ],
   imports: [
     BrowserModule,

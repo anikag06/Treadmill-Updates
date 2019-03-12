@@ -6,8 +6,7 @@ import { Router } from '@angular/router';
 import { environment } from 'environments/environment';
 
 import { TOKEN, DEFAULT_PATH, TOKEN_REFRESH_PATH, LOGIN_PATH } from '@/app.constants';
-import { User } from '../user.module';
-import { Observable } from 'rxjs';
+import { User } from '../user.model';
 export interface Token {
   token: string;
 }

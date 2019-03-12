@@ -1,0 +1,12 @@
+.current-module {
+    margin-top: 20px;
+    background-color: #ffffff;
+    width: 330px;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 2px 1px 4px #acacac;
+    .current-module-main {
+        border-left: 50px solid  #f49080;
+        height: 274px;
+    }
+}

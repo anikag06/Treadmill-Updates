@@ -1,7 +1,7 @@
 export class Section {
-    public name: string
-    public description: string
-    public status: string
+    public name: string;
+    public description: string;
+    public status: string;
 
     constructor(name: string, description: string, status: string) {
         this.name = name;
