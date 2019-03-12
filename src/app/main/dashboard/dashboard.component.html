@@ -6,7 +6,9 @@
         <div class="col-md-10 body-bg dashboard">
             <div class="row">
                 <div class="col-md-4 col-sm-12">
-                    <div class="chatbot d-flex justify-content-center" *ngIf="user">
+                    <div class="chatbot d-flex justify-content-center grid-item"
+                        *ngIf="user"
+                        (click)="onChatbotClick()">
                         <div class="chatbot-inner">
                             <div class="chatbot-avatar">
                                 <img src="assets/modules/nanzu.png" alt="chatbot-avatar">
@@ -17,8 +19,8 @@
                             </mat-card>
                         </div>
                     </div>
-                    <div class="col-md-4" *ngIf="user">
-                        Completed
+                    <div class="chatbot d-flex justify-content-center grid-item" *ngIf="user">
+                        <app-progress></app-progress>
                     </div>
                 </div>
             </div>

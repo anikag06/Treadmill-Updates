@@ -23,4 +23,8 @@ export class DashboardComponent implements OnInit {
       });
   }
 
+  onChatbotClick() {
+    alert("Chatbot clicked");
+  }
+
 }

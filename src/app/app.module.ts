@@ -33,6 +33,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthModule } from './auth.module';
 import { SideNavComponent } from '@/main/shared/side-nav/side-nav.component';
 import { LogoutComponent } from './shared/auth/logout/logout.component';
+import { ProgressComponent } from './main/dashboard/progress/progress.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { LogoutComponent } from './shared/auth/logout/logout.component';
     SectionCardComponent,
     SideNavComponent,
     LogoutComponent,
+    ProgressComponent,
   ],
   imports: [
     BrowserModule,

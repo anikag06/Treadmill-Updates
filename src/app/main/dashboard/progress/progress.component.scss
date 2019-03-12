@@ -1,0 +1,37 @@
+@import "styles.scss";
+
+
+.card {
+    @include font-montserrat($font-weight: 500); 
+    width: 320px;
+    border-radius: 5px;
+    overflow: hidden;
+    .card-header-custom {
+        background-color: #aae2d7;
+        padding: 5px;
+        height: 65px;
+        .score {
+            font-weight: 600;
+            font-size: 1.8rem;
+            text-align: center;
+            line-height: 55px;
+        }
+        .completion-percent {
+            font-size: 1.2rem;
+        }
+    }
+    .card-content-custom {
+        height: 180px;
+        img {
+            margin-top: 20px;
+        }
+        .completed-modules {
+            font-size: 1.2rem;
+            margin-top: 30px;
+        }
+        .current-module {
+            padding-top: 12px;
+            font-size: 14px;
+        }
+    }
+}

@@ -1,0 +1,24 @@
+<div class="card">
+  <div class="card-header-custom">
+    <div class="row row-nopadding">
+      <div class="col-6 score">{{ score }}</div>
+      <div class="col-6 completion-percent">You're in the top {{ completion_percent }}%!</div>
+    </div>
+  </div>
+  <div class="card-content-custom">
+    <div class="row">
+      <div class="col-7 text-center">
+        <img src="assets/modules/1_out_of_6.svg" alt="completion" height="110" width="110 ">
+      </div>
+      <div class="col-5 completed-modules text-center">
+        {{ completed_modules }} of 6
+        Modules 
+      </div>
+    </div>
+    <div class="row current-module">
+      <div class="col-12 text-center">
+        current module: <strong>{{ current_module }}</strong>
+      </div>
+    </div>
+  </div>
+</div>
