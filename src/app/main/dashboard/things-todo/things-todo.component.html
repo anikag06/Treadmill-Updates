@@ -3,10 +3,11 @@
     <h3>Things to do:</h3>
     <ul class="main-list">
       <li *ngFor="let todo of todos">
-        <input type="checkbox"
-        [checked]="todo.done"
-        (change)="onTodoChange(todo, $event)">
-        {{ todo.name }}
+        <mat-checkbox
+          [checked]="todo.done"
+          (change)="onTodoChange(todo, $event)">
+          {{ todo.name }}
+        </mat-checkbox>
       </li>
     </ul>
   </div>

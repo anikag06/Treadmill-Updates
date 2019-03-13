@@ -10,7 +10,7 @@ import { AppNotification } from '@/main/shared/app-notification.model';
 export class NotificationsSideComponent implements OnInit {
 
   notifications = [
-    new AppNotification(new User(1, 'nanzu', 'nanzu@email.com'), 'Something good happened', new Date(Date.now() + (6.04e+8 * 1))),
+    new AppNotification(new User(1, 'nanzu', 'nanzu@email.com'), 'Nanzu moved up from 80% to top 90%! Congrats!', new Date(Date.now() + (6.04e+8 * 1))),
     new AppNotification(new User(1, 'nanzu', 'nanzu@email.com'), 'Something bad happened', new Date(Date.now() + (6.04e+8 * 2))),
     new AppNotification(new User(1, 'nanzu', 'nanzu@email.com'), 'Something good happened', new Date(Date.now() + (6.04e+8 * 3))),
     new AppNotification(new User(1, 'nanzu', 'nanzu@email.com'), 'Something bad happened', new Date(Date.now() + (6.04e+8 * 4))),

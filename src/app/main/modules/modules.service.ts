@@ -55,19 +55,23 @@ export class ModulesService {
             const modulesLS = this.localStorageService.getItemWithDate(MODULES);
             if (modulesLS) {
                 module = modulesLS.find((item: Module) => item.slug === slug);
+                if (module) {
+                    observer.next(module);
+                    observer.complete();
+                }
             }
-            if (module != null && module.constructor.name !== Module.name) {
+            if (modulesLS == null || module == null) {
                 this.getModulesObservable().subscribe(
                     (modules: Module[]) => {
                         module = modules.find((item: Module) => item.slug === slug);
+                        if (module) {
+                            observer.next(module);
+                            observer.complete();
+                        } else {
+                            observer.error('No modules found');
+                        }
                     }
                 );
-            }
-            if (module) {
-                observer.next(module);
-                observer.complete();
-            } else {
-                observer.error('No modules found');
             }
         });
         return myFakeObservable;

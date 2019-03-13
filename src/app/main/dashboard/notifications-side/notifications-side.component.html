@@ -1,8 +1,21 @@
 <div class="row notifications-side">
   <div class="col-12 notifications-side-main">
     <ul class="main-list">
-      <li *ngFor="let notification of notifications">
-        {{ notification.name }}
+      <li *ngFor="let notification of notifications; let i = index">
+        <div class="notification row">
+          <div class="col-3">
+            <img
+              src="https://randomuser.me/api/portraits/thumb/men/{{(i % 2) + 2}}.jpg"
+              alt=""
+              height="55"
+              width="55">
+          </div>
+          <div class="col-9 notification-message">
+            {{notification.message}}
+
+            <p class="notification-time">{{ notification.time | timeAgo }}</p>
+          </div>
+        </div>
       </li>
     </ul>
   </div>

@@ -188,3 +188,8 @@ $small_logo_height: 40px;
 .row-nopadding {
   padding: 0;
 }
+
+// Cannot be overrriden from individual component
+.mat-checkbox-label {
+  font-family: 'Lato', sans-serif !important;
+}

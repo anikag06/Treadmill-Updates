@@ -1,12 +1,24 @@
 .current-module {
     margin-top: 20px;
     background-color: #ffffff;
-    width: 330px;
+    width: 350px;
     border-radius: 5px;
     overflow: hidden;
     box-shadow: 2px 1px 4px #acacac;
     .current-module-main {
         border-left: 50px solid  #f49080;
-        height: 274px;
+        height: 359px;
+        h3 {
+            font-size: 18px;
+            padding: 20px 5px 10px;
+            font-weight: 700;
+        }
+        .current-module-task {
+            font-size: 16px;
+            padding: 0 5px;
+        }
+        img.current-module-main-img {
+            width: 100%;
+        }
     }
 }

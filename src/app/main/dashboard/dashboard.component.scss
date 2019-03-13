@@ -5,7 +5,7 @@
 }
 .card {
     @include font-montserrat($font-weight: 500); 
-    width: 320px;
+    width: 350px;
     text-align: justify;
     text-align-last: center;
     font-size: 18px;
@@ -14,17 +14,22 @@
     padding-right: 30px;
 }
 .chatbot-avatar {
-    height: 160px;
-    width: 160px;
+    height: 245px;
+    width: 245px;
     background-color: #ffffff;
     border-radius: 50%;
-    box-shadow: 2px 1px 5px #acacac;
+    box-shadow: 2px 1px 20px 1px rgba(206, 206, 206, 0.6);
     overflow: hidden;
     text-align: center;
     margin: 20px auto;
+    img {
+        width: 140px;
+    }
 }
 .grid-item {
     margin-top: 30px;
-    margin-bottom: 70px;
-    max-height: 300px;
+    margin-bottom: 104px;
+}
+.grid-item:last-child {
+    margin-bottom: 80px;
 }

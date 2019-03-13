@@ -1,12 +1,13 @@
-.things-todo {
+.notifications-side {
+    margin-top:20px;
     background-color: #ffffff;
-    width: 330px;
+    width: 350px;
     border-radius: 5px;
     overflow: hidden;
     box-shadow: 2px 1px 4px #acacac;
-    .things-todo-main {
-        border-left: 50px solid #f7e2df;
-        height: 246px;
+    .notifications-side-main {
+        border-left: 50px solid #d4e5b9;
+        height: 731px;
         h3 {
             font-size: 18px;
             padding: 20px 5px;
@@ -15,8 +16,29 @@
         .main-list {
             list-style: none;
             padding-left: 0;
+            img {
+                border-radius: 50%;
+            }
             li {
                 margin: 10px 0;
+                border-bottom: 2px solid #686868;
+                .notification-message {
+                    padding-top: 5px;
+                    font-size: 14px;
+                    height: 88px;
+                    line-height: 18px;
+                    .notification-time {
+                        position: absolute;
+                        bottom: -7px;
+                        color: #686868;
+                    }
+                }
+            }
+            li:last-child {
+                border-bottom: 0px;
+            }
+            li:first-child {
+                margin-top: 25px;
             }
         }
     }

@@ -13,7 +13,7 @@ import { Subscription, Observable } from 'rxjs';
 })
 export class ModuleOverviewComponent implements OnInit, DoCheck {
 
-  backgroundImg: string = 'https://via.placeholder.com/600x300?text=TreadWill';
+  backgroundImg = 'https://via.placeholder.com/600x300?text=TreadWill';
   @Input() module!: Module;
   @Input() completed!: boolean;
   subscription!: Subscription;

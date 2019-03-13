@@ -9,6 +9,5 @@ export class UserNotificationService {
 
 
   getCurrentUserNotification() {
-    
   }
 }

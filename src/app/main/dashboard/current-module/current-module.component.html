@@ -1,5 +1,7 @@
 <div class="row current-module">
-  <div class="col-12 current-module-main">
-    Current module
-  </div>
+    <div class="content current-module-main" *ngIf="module$ | async as module">
+        <h3>{{module.name}}</h3>
+        <p class="current-module-task">Next task: <strong>Can I get help ?</strong></p>
+        <img [src]="module.imageUrl" [alt]="module.name" class="current-module-main-img">
+      </div>
 </div>

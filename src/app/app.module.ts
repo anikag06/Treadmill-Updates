@@ -37,6 +37,7 @@ import { ProgressComponent } from './main/dashboard/progress/progress.component'
 import { CurrentModuleComponent } from './main/dashboard/current-module/current-module.component';
 import { ThingsTodoComponent } from './main/dashboard/things-todo/things-todo.component';
 import { NotificationsSideComponent } from './main/dashboard/notifications-side/notifications-side.component';
+import { TimeAgoPipe } from './shared/time-ago.pipe';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { NotificationsSideComponent } from './main/dashboard/notifications-side/
     CurrentModuleComponent,
     ThingsTodoComponent,
     NotificationsSideComponent,
+    TimeAgoPipe
   ],
   imports: [
     BrowserModule,

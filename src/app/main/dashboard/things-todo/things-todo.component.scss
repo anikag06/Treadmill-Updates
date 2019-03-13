@@ -1,12 +1,14 @@
+@import "styles.scss";
+
 .things-todo {
     background-color: #ffffff;
-    width: 330px;
+    width: 350px;
     border-radius: 5px;
     overflow: hidden;
     box-shadow: 2px 1px 4px #acacac;
     .things-todo-main {
         border-left: 50px solid #f7e2df;
-        height: 246px;
+        height: 266px;
         h3 {
             font-size: 18px;
             padding: 20px 5px;
@@ -17,6 +19,7 @@
             padding-left: 0;
             li {
                 margin: 10px 0;
+                
             }
         }
     }
