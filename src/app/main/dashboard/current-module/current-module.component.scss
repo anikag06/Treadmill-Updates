@@ -1,3 +1,5 @@
+@import "color.palette.scss";
+
 .current-module {
     margin-top: 20px;
     background-color: #ffffff;
@@ -19,6 +21,39 @@
         }
         img.current-module-main-img {
             width: 100%;
+        }
+        .current-module-category {
+            margin: 17px 15px 10px 45px;
+        }
+        // Maybe not the best way to do
+        ::ng-deep .category-card {
+            width: 24%;
+            border-top: 3px solid $treadwill-black;
+            top: -6px;
+            img {
+                background-color: white;
+                position: absolute;
+                top: -17px;
+                left: -20px;
+                width: 30px;
+                height: 30px;
+            }
+        }
+        ::ng-deep .category-card.last {
+            width: 0px;
+        }
+        .btn-container {
+            margin-top: 13px;
+            a.continue-task {
+                position: absolute;
+                left: 220px;
+                color: #ffd67c;
+                padding: 5px;
+                border: 2px solid #ffd67c;
+                border-radius: 20px;
+                font-size: 14px;
+                text-decoration: none;
+            }
         }
     }
 }
