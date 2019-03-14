@@ -1,0 +1,40 @@
+.chatbot-avatar {
+    width: 350px;
+    margin: 0 auto;
+    .chatbot-image {
+        width: 80%;
+        margin: 0 10%;
+    }
+    .chatbot-text {
+        background-color: #ffffff;
+        border-radius: 5px;
+        padding: 14px 25px;
+        text-align: justify;
+        text-align-last: center;
+        box-shadow: 2px 1px 4px #acacac;
+        font-weight: 500;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .chatbot-avatar {
+        width: 300px;
+        margin: 0 auto;
+    } 
+}
+
+@media screen and (max-width: 767px) {
+    .chatbot-avatar {
+        width: 90%;
+        margin: 0 1%;
+        .chatbot-image {
+            width: 80%;
+            margin: 0 10%;
+        }
+        .chatbot-text {
+            padding: 5px 10px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+    } 
+}

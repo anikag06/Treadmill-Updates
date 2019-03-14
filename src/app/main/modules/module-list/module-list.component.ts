@@ -5,7 +5,7 @@ import 'rxjs';
 
 import { Module } from '@/main/modules/module.model';
 import { ModulesService } from '@/main/modules/modules.service';
-import { ACTIVE, DONE, LOCKED } from '@/app.constants';
+import { ACTIVE, DONE, LOCKED, MOBILEWIDTH } from '@/app.constants';
 import { filter, map } from 'rxjs/operators';
 
 @Component({
@@ -30,7 +30,7 @@ export class ModuleListComponent implements OnInit {
     private modulesService: ModulesService,
     private router: Router
   ) {
-    if (window.innerWidth < 768) {
+    if (window.innerWidth < MOBILEWIDTH) {
       this.mobileView = true;
     }
   }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '@/shared/user.model';
 import { AuthService } from '@/shared/auth/auth.service';
+import { MOBILEWIDTH } from '@/app.constants';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,6 +9,8 @@ import { AuthService } from '@/shared/auth/auth.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+
+  mobileView = false;
 
   user!: User;
   constructor(
@@ -21,6 +24,7 @@ export class DashboardComponent implements OnInit {
           this.user = <User>data;
         }
       });
+    this.mobileView = window.innerWidth < MOBILEWIDTH;
   }
 
   onChatbotClick() {

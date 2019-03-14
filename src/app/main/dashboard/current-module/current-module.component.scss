@@ -45,14 +45,35 @@
         .btn-container {
             margin-top: 13px;
             a.continue-task {
-                position: absolute;
-                left: 220px;
                 color: #ffd67c;
                 padding: 5px;
                 border: 2px solid #ffd67c;
                 border-radius: 20px;
                 font-size: 14px;
                 text-decoration: none;
+                margin-left: -30px;
+            }
+        }
+    }
+}
+@media screen and (max-width: 992px) {
+    .current-module {
+        width: 300px;
+        .current-module-main {
+            height: 345px;
+        }
+    } 
+}
+@media screen and (max-width: 768px) {
+    .current-module {
+        margin-top: 0px;
+        width: 300px;
+        .current-module-main {
+            .btn-container {
+                margin-top: 13px;
+                a.continue-task {
+                    margin-left: -23px;
+                }
             }
         }
     }

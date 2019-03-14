@@ -43,3 +43,9 @@
         }
     }
 }
+@media screen and (max-width: 768px) {
+    .notifications-side {
+        margin-top: 0px;
+        width: 300px;
+    }
+}

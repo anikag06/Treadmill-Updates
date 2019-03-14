@@ -38,6 +38,7 @@ import { CurrentModuleComponent } from './main/dashboard/current-module/current-
 import { ThingsTodoComponent } from './main/dashboard/things-todo/things-todo.component';
 import { NotificationsSideComponent } from './main/dashboard/notifications-side/notifications-side.component';
 import { TimeAgoPipe } from './shared/time-ago.pipe';
+import { ChatbotAvatarComponent } from './main/dashboard/chatbot-avatar/chatbot-avatar.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { TimeAgoPipe } from './shared/time-ago.pipe';
     CurrentModuleComponent,
     ThingsTodoComponent,
     NotificationsSideComponent,
-    TimeAgoPipe
+    TimeAgoPipe,
+    ChatbotAvatarComponent
   ],
   imports: [
     BrowserModule,

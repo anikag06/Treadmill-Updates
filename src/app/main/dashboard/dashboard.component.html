@@ -5,24 +5,16 @@
         </div>
         <div class="col-md-10 body-bg dashboard" *ngIf="user">
             <div class="row">
-                <div class="col-md-4 col-sm-12">
-                    <div class="chatbot d-flex justify-content-center grid-item" *ngIf="user"
+                <div class="col-xl-4 col-md-6 col-sm-12">
+                    <div class="d-flex justify-content-center grid-item"
                         (click)="onChatbotClick()">
-                        <div class="chatbot-inner">
-                            <div class="chatbot-avatar">
-                                <img src="assets/modules/nanzu.png" alt="chatbot-avatar">
-                            </div>
-                            <mat-card class="card">
-                                Hi {{user.username}}! Do you have any questions?
-                                Click on me and we can chat.
-                            </mat-card>
-                        </div>
+                        <app-chatbot-avatar [user]="user"></app-chatbot-avatar>
                     </div>
                     <div class="d-flex justify-content-center grid-item">
                         <app-progress></app-progress>
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-12">
+                <div class="col-xl-4 col-md-6 col-sm-12">
                     <div class="d-flex justify-content-center grid-item">
                         <app-current-module></app-current-module>
                     </div>
@@ -30,7 +22,7 @@
                         <app-things-todo></app-things-todo>
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-12">
+                <div class="col-xl-4 col-md-6 col-sm-12">
                     <div class="d-flex justify-content-center grid-item">
                         <app-notifications-side></app-notifications-side>
                     </div>
