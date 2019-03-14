@@ -34,7 +34,7 @@
 @media only screen and (max-width: $screen-size-sm-md) {
     .module-header{
         background-color: #dbf2ec;
-        height: 260px;
+        height: 250px;
         position: relative;
         h1 {
             @include font-montserrat($font-weight: 300);

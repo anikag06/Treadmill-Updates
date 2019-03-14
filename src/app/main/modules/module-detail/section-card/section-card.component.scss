@@ -37,3 +37,11 @@
     color: $treadwill-grey;
     background-color: $treadwill-grey;
 }
+
+@media screen and (max-width: 767px) {
+    .section-card {
+        width: 280px;
+        margin: 15px 15%;
+    }
+    
+}
