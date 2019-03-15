@@ -6,15 +6,24 @@
 <div
     class="row"
     *ngIf="!mobileView">
-    <div class="col-md-2 module-nav">
+    <div class="col-md-2 module-nav" *ngIf="modules$ | async as modules else loading">
         <app-module-item 
-            *ngFor="let moduleEl of (modules$ | async); let last = last; let first = first"
+            *ngFor="let moduleEl of modules; let last = last; let first = first"
             [module]="moduleEl"
             [last]="last"
             [first]="first"
             (click)="onModuleClick(moduleEl)">
         </app-module-item> 
     </div>
+    <ng-template #loading>
+        <div class="col-md-2 module-nav">
+            <img src="assets/shared/dna-loader.svg" alt="loader" class="loader">
+            <img src="assets/shared/dna-loader.svg" alt="loader" class="loader">
+            <img src="assets/shared/dna-loader.svg" alt="loader" class="loader">
+            <img src="assets/shared/dna-loader.svg" alt="loader" class="loader">
+            <img src="assets/shared/dna-loader.svg" alt="loader" class="loader">
+        </div>
+    </ng-template>
     <div class="col-md-10">
         <app-module-overview
             [module]="activeModule$ | async"

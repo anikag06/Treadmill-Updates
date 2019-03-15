@@ -1,23 +1,25 @@
 <div class="row current-module">
-    <div class="content current-module-main" *ngIf="module$ | async as module">
-        <h3>{{module.name}}</h3>
-        <p class="current-module-task">Next task: <strong>Can I get help ?</strong></p>
-        <img [src]="module.imageUrl" [alt]="module.name" class="current-module-main-img">
-        <div
-          class="current-module-category"
-          *ngIf="module && (categories$ | async) as categories else catLoading">
-          <app-category-small
-            *ngFor="let category of categories; let last = last; let first = first" 
-            [category]="category"
-            [last]="last"
-            [first]="first">
-          </app-category-small>
-          <p class="text-center btn-container"><a routerLink="/modules" class="continue-task">Continue to task</a></p>
+    <ng-container *ngIf="module$ | async as module else catLoading">
+        <div class="content current-module-main" *ngIf="categories$ | async as categories else catLoading">
+            <h3>{{module.name}}</h3>
+            <p class="current-module-task">Next task: <strong>Can I get help ?</strong></p>
+            <img [src]="module.imageUrl" [alt]="module.name" class="current-module-main-img">
+            <div class="current-module-category">
+              <app-category-small
+                *ngFor="let category of categories; let last = last; let first = first" 
+                [category]="category"
+                [last]="last"
+                [first]="first">
+              </app-category-small>
+              <p class="text-center btn-container"><a routerLink="/modules" class="continue-task">Continue to task</a></p>
+            </div>
         </div>
-        <ng-template #catLoading>
-          <mat-card-content>
-            <h4>Loading...</h4>
-          </mat-card-content>
-        </ng-template>
-    </div>
+    </ng-container>
 </div>
+<ng-template #catLoading>
+    <mat-card-content>
+      <div class="content current-module-main d-flex align-items-center justify-content-center loading">
+          <img src="assets/shared/dna-loader.svg" alt="dna">
+      </div>
+    </mat-card-content>
+  </ng-template>

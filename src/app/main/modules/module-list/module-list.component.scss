@@ -19,3 +19,11 @@
     margin-bottom: 0px;
     padding-left: 50px;
 }
+img.loader {
+    transform: rotate(90deg);
+    margin-bottom: 50px;
+}
+img.loader:last-child {
+    transform: rotate(90deg);
+    margin-bottom: 50px;
+}
