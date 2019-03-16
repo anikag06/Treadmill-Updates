@@ -43,9 +43,41 @@
         }
     }
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 991px) {
     .notifications-side {
         margin-top: 0px;
-        width: 300px;
+        width: 280px;
+        .notifications-side-main {
+            border-left: 30px solid #d4e5b9;
+            .main-list {
+                list-style: none;
+                padding-left: 0;
+                li {
+                    margin: 8px 0;
+                    border-bottom: 2px solid #686868;
+                    .notification-message {
+                        padding-top: 5px;
+                        font-size: 12px;
+                        height: 88px;
+                        line-height: 18px;
+                        .notification-time {
+                            position: absolute;
+                            bottom: -7px;
+                            color: #686868;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .notifications-side {
+        margin-top: 0px;
+        width: 330px;
+        .notifications-side-main {
+            border-left: 30px solid #d4e5b9;
+        }
     }
 }

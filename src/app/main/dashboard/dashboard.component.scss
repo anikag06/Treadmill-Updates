@@ -2,21 +2,6 @@
 
 .dashboard {
     @include font-montserrat($font-weight: 400);
-    .chatbot-inner {
-        width: 350px;
-        .card {
-            @include font-montserrat($font-weight: 500);  
-            text-align: justify;
-            text-align-last: center;
-            font-size: 18px;
-            line-height: 20px;
-            padding-left: 30px;
-            padding-right: 30px;
-        }
-        img {
-            width: 100%;
-        }
-    }
 }
 .grid-item {
     margin-top: 30px;
@@ -26,23 +11,10 @@
     margin-bottom: 80px;
 }
 
-@media screen and (max-width: 1280px) {
+@media screen and (max-width: 991px) {
 
 }
-@media screen and (max-width: 768px) {
-    .chatbot {
-        width: 300px;
-    }
-    .chatbot-inner {
-        width: 100%;
-    }
-    .chatbot-avatar {
-        height: 100px;
-        margin-right: 5%;
-        img {
-            width: 40%;
-        }
-    }
+@media screen and (max-width: 767px) {
     .card {
         width: 64%;
         font-size: 14px;

@@ -25,8 +25,21 @@
     }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 991px) {
     .things-todo {
-        width: 300px;
+        width: 280px;
+        .things-todo-main {
+            border-left: 30px solid #f7e2df;
+        }
+    }
+}
+
+
+@media screen and (max-width: 767px) {
+    .things-todo {
+        width: 330px;
+        .things-todo-main {
+            border-left: 30px solid #f7e2df;
+        }
     }
 }
