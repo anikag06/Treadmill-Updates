@@ -23,6 +23,8 @@ import { ChatbotAvatarComponent } from './dashboard/chatbot-avatar/chatbot-avata
 import { GamesComponent } from './games/games.component';
 import { GamesListComponent } from './games/games-list/games-list.component';
 import { GameItemComponent } from './games/games-list/game-item/game-item.component';
+import { AppRoutingModule } from '@/app-routing.module';
+import { MaterialModule } from '@/material.module';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,9 @@ import { GameItemComponent } from './games/games-list/game-item/game-item.compon
     GameItemComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    AppRoutingModule,
+    MaterialModule
   ],
   providers: [
     LocalStorageService

@@ -39,7 +39,6 @@ import { MainModule } from '@/main/main.module';
     ReactiveFormsModule,
     MaterialModule,
     AppRoutingModule,
-    AppRoutingModule,
     HttpClientModule,
     AuthModule,
     MainModule,
