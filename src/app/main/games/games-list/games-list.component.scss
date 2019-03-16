@@ -1,0 +1,28 @@
+@import "styles.scss";
+
+.game-heading {
+    @include font-montserrat($font-weight: 700);
+    width: 100%;
+    padding-left: 70px;
+    padding-top: 50px;
+}
+.games-section {
+    padding-left: 80px;
+    min-height: 80vh;
+}
+.loader {
+    padding-top: 12%;
+    width: 100%;
+}
+
+@media screen and (max-width: 767px) {
+    .game-heading {
+        @include font-montserrat($font-weight: 700);
+        width: 100%;
+        padding-left: 20px;
+        padding-top: 30px;
+    }
+    .games-section {
+        padding-left: 20px;
+    }
+}

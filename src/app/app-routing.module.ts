@@ -9,6 +9,8 @@ import { ModuleDetailComponent } from './main/modules/module-detail/module-detai
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { AuthGuard } from './shared/auth/auth.guard';
 import { LogoutComponent } from './shared/auth/logout/logout.component';
+import { GamesComponent } from './main/games/games.component';
+import { GamesListComponent } from './main/games/games-list/games-list.component';
 
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
@@ -17,6 +19,10 @@ const routes: Routes = [
       {path: '', component: ModuleListComponent},
     ]
   },
+  { path: 'games', component: GamesComponent, canActivateChild: [AuthGuard], children: [
+    {path: '', component: GamesListComponent},
+  ]
+},
   { path: 'logout', component: LogoutComponent },
   { path: '',
     component: PreLoginComponent,

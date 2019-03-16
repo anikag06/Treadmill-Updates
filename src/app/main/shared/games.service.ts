@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Game } from './game.model';
+import { of, Observable, Observer } from 'rxjs';
+import { LocalStorageService } from '@/shared/localstorage.service';
+import { GAMES } from '@/app.constants';
 
 @Injectable({
   providedIn: 'root'
@@ -7,10 +10,36 @@ import { Game } from './game.model';
 export class GamesService {
 
   games = [
-    new Game("Mario", "https://via.placeholder.com/400x300?text=Mario", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit. Sed sed blandit lectus. Sed quis est a nulla viverra ullamcorper. Suspendisse accumsan, enim vitae semper bibendum, justo enim rhoncus nulla, sed porta urna nunc sed turpis. Nam malesuada hendrerit felis. Mauris suscipit turpis eget lacus sagittis lacinia. Nunc quis nibh efficitur, laoreet neque quis, maximus lectus."),
-    new Game("NeedForSpeed", "https://via.placeholder.com/150", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit. Sed sed blandit lectus. Sed quis est a nulla viverra ullamcorper. Suspendisse accumsan, enim vitae semper bibendum, justo enim rhoncus nulla, sed porta urna nunc sed turpis. Nam malesuada hendrerit felis. Mauris suscipit turpis eget lacus sagittis lacinia. Nunc quis nibh efficitur, laoreet neque quis, maximus lectus."),
-    
-  ]
+    new Game('Mario',
+             'https://via.placeholder.com/400x300?text=Mario',
+             'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.'),
+    new Game('Contra',
+             'https://via.placeholder.com/400x300?text=Contra',
+             'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.'),
+    new Game('Need For Speed',
+             'https://via.placeholder.com/400x300?text=NFS',
+             'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.'),
+    new Game('Age of Empires',
+             'https://via.placeholder.com/400x300?text=Age of Empires',
+             'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.'),
+    ];
 
-  constructor() { }
+  constructor(
+    private localStorageService: LocalStorageService
+  ) { }
+
+
+  getGames() {
+    let games = <Game[]>this.localStorageService.getItemWithDate(GAMES);
+    if (games == null || games.length < 1) {
+      this.localStorageService.setItemWithDate(GAMES, this.games);
+      games = this.games;
+    }
+    return new Observable((observer: Observer<Game[]>) => {
+      setTimeout(() => {
+        observer.next(games);
+        observer.complete();
+      }, 5000);
+    });
+  }
 }

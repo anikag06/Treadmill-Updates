@@ -1,0 +1,27 @@
+@import "styles.scss";
+
+.mat-card {
+    @include font-montserrat($font-weight: 300);
+    margin: 40px 70px 40px 0;
+    width: 320px;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 1px 1px 10px #dadada;
+    padding: 0;
+    img {
+        width: 100%;
+    }
+    h3 {
+        text-align: center;
+        padding: 10px;
+        font-size: 1.8rem;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .mat-card {
+        margin: 20px;
+        width: 300px;
+    }
+    
+}

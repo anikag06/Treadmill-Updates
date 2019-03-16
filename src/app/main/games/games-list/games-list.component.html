@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col-12">
+    <h1 class="game-heading">Games</h1>
+  </div>
+</div>
+<div class="row games-section d-flex justify-content-between">
+  <ng-container *ngIf="games$ | async as games else loader">
+    <app-game-item
+      *ngFor="let game of games"
+      [game]="game"
+      (click)="onGameClick(game)">
+    </app-game-item>
+  </ng-container>
+</div>
+<ng-template #loader>
+  <div class="text-center loader">
+    <img src="assets/shared/dna-loader.svg" alt="loader" width="200" >
+  </div>
+</ng-template>
