@@ -39,6 +39,8 @@ import { ThingsTodoComponent } from './main/dashboard/things-todo/things-todo.co
 import { NotificationsSideComponent } from './main/dashboard/notifications-side/notifications-side.component';
 import { TimeAgoPipe } from './shared/time-ago.pipe';
 import { ChatbotAvatarComponent } from './main/dashboard/chatbot-avatar/chatbot-avatar.component';
+import { GameListComponent } from './main/game-list/game-list.component';
+import { GameItemComponent } from './main/game-list/game-item/game-item.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +68,9 @@ import { ChatbotAvatarComponent } from './main/dashboard/chatbot-avatar/chatbot-
     ThingsTodoComponent,
     NotificationsSideComponent,
     TimeAgoPipe,
-    ChatbotAvatarComponent
+    ChatbotAvatarComponent,
+    GameListComponent,
+    GameItemComponent
   ],
   imports: [
     BrowserModule,

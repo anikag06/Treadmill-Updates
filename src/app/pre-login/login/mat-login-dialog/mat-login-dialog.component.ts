@@ -26,6 +26,8 @@ export class MatLoginDialogComponent implements OnInit {
   }
 
   onSubmit() {
+    localforage.clear();
+    localStorage.clear();
     this.authService.getUserDetails(this.loginForm.value)
       .subscribe(
         (data: any) => {
