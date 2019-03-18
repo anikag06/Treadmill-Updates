@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  API_ENDPOINT: 'https://api.treadwill.org',
+  API_ENDPOINT: 'http://172.17.167.143:8000',
 };

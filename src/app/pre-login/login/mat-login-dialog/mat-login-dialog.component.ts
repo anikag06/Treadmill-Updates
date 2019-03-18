@@ -29,7 +29,7 @@ export class MatLoginDialogComponent implements OnInit {
     localforage.clear();
     localStorage.clear();
     this.authService.getUserDetails(this.loginForm.value)
-      .subscribe(
+      .then(
         (data: any) => {
           localforage.setItem(TOKEN, data.data.token)
             .then((status) => {
@@ -38,7 +38,8 @@ export class MatLoginDialogComponent implements OnInit {
             }).catch(() => {
               console.log('Something went wrong');
             });
-        },
+        }
+      ).catch(
         (error: any) => {
           if (error.status === 400 ) {
             this.loginForm.reset();

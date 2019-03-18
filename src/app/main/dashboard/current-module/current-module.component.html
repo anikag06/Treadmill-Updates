@@ -11,7 +11,7 @@
                 [last]="last"
                 [first]="first">
               </app-category-small>
-              <p class="text-center btn-container"><a routerLink="/modules" class="continue-task">Continue to task</a></p>
+              <p class="text-center btn-container"><a [routerLink]="['/modules', module.slug]" class="continue-task">Continue to task</a></p>
             </div>
         </div>
     </ng-container>

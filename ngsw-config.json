@@ -10,6 +10,10 @@
           "/index.html",
           "/*.css",
           "/*.js"
+        ],
+        "urls": [
+          "https://fonts.googleapis.com/**",
+          "https://fonts.gstatic.com/s/**"
         ]
       }
     }, {
@@ -18,7 +22,11 @@
       "updateMode": "prefetch",
       "resources": {
         "files": [
-          "/assets/**"
+          "/assets/**",
+          "/assets/icons/**",
+          "/assets/logo/**",
+          "/assets/modules/**",
+          "/assets/shared/**"
         ]
       }
     }

@@ -22,8 +22,10 @@ export class AuthService {
   ) { }
 
 
-  getUserDetails(data: any) {
-    return this.http.post(environment.API_ENDPOINT + LOGIN_PATH, data);
+  async getUserDetails(data: any) {
+    await localforage.clear();
+    localStorage.clear();
+    return this.http.post(environment.API_ENDPOINT + LOGIN_PATH, data).toPromise();
   }
 
   isLoggedIn(): boolean {
@@ -57,11 +59,10 @@ export class AuthService {
     }
   }
 
-  logout() {
-    return localforage.clear()
-      .finally(() => {
-        this.router.navigate([DEFAULT_PATH]);
-      });
+  async logout() {
+    localStorage.clear();
+    await localforage.clear();
+    this.router.navigate([DEFAULT_PATH]);
   }
 
   refresh() {
