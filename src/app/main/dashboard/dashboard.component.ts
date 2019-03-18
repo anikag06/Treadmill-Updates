@@ -18,7 +18,7 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.authService.isLoggedInAsync()
+    this.authService.isLoggedIn()
       .then((data) => {
         if (data) {
           this.user = <User>data;
@@ -28,7 +28,7 @@ export class DashboardComponent implements OnInit {
   }
 
   onChatbotClick() {
-    alert("Chatbot clicked");
+    alert('Chatbot clicked');
   }
 
 }

@@ -27,7 +27,7 @@ export class PreLoginComponent implements OnInit {
 
   ngOnInit() {
     this.a2hsService.setDeferredPrompt();
-    this.authService.isLoggedInAsync()
+    this.authService.isLoggedIn()
       .then((data) => {
         console.log('pre login ', data);
         if (data) {

@@ -6,17 +6,19 @@ import 'rxjs';
 import { Module } from '@/main/modules/module.model';
 import { ModulesService } from '@/main/modules/modules.service';
 import { ACTIVE, DONE, LOCKED, MOBILEWIDTH } from '@/app.constants';
-import { filter, map } from 'rxjs/operators';
+import { map, tap, flatMap } from 'rxjs/operators';
+import { Category } from '@/main/shared/category.model';
+import { CategoryService } from '@/main/shared/category.service';
 
 @Component({
   selector: 'app-module-list',
   templateUrl: './module-list.component.html',
   styleUrls: ['./module-list.component.scss'],
-  providers: [ModulesService]
+  providers: [ModulesService, CategoryService]
 })
 export class ModuleListComponent implements OnInit {
 
-  activeModule$!: Observable<Module>; 
+  activeModule$!: Observable<Module>;
   allModules!: Module[];
   subscription!: Subscription;
   modules$!: Observable<Module[]>;
@@ -25,9 +27,12 @@ export class ModuleListComponent implements OnInit {
   mobileView = false;
   isCompleted$!: Observable<Boolean>;
   completed = false;
+  dataFetched!: boolean;
+  categories!: Category[];
 
   constructor(
     private modulesService: ModulesService,
+    private categoryService: CategoryService,
     private router: Router
   ) {
     if (window.innerWidth < MOBILEWIDTH) {
@@ -36,26 +41,47 @@ export class ModuleListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.modules$ = this.modulesService.getModulesObservable();
-    this.activeModule$ = <Observable<Module>>this.modulesService.getModulesObservable()
-      .pipe(
-        map(modules => modules.find(module => module.status === ACTIVE))
+    this.getModulesAndCategories()
+      .then(
+        (data) => {
+          this.categories = data;
+          this.dataFetched = true;
+        }
       );
-    this.modulesDone$ = <Observable<Module[]>>this.modulesService.getModulesObservable()
-      .pipe(
-        map(modules => modules.filter(module =>  module.status === DONE || module.status === ACTIVE ))
-      );
-    this.modulesLocked$ = <Observable<Module[]>>this.modulesService.getModulesObservable()
-      .pipe(
-        map(modules => modules.filter(module => module.status === LOCKED))
-      );
-    this.isCompleted$ = this.modulesService.isCompleted();
+
   }
 
   onModuleClick(module: Module) {
     if (module.status === DONE || module.status === ACTIVE) {
       this.router.navigate(['modules', module.slug]);
     }
+  }
+
+
+  async getModulesAndCategories() {
+    this.modules$ = this.modulesService.getModulesObservable();
+    this.modulesDone$ = <Observable<Module[]>>this.modules$
+      .pipe(
+        map(modules => modules.filter(module =>  module.status === DONE || module.status === ACTIVE ))
+      );
+    this.modulesLocked$ = <Observable<Module[]>>this.modules$
+      .pipe(
+        map(modules => modules.filter(module => module.status === LOCKED))
+      );
+
+    this.isCompleted$ = this.modulesService.isCompleted();
+
+    this.activeModule$ = <Observable<Module>>this.modules$
+      .pipe(
+        map(modules => modules.find(module => module.status === ACTIVE))
+      );
+
+    const categories = await this.activeModule$
+                          .pipe(
+                            flatMap(module => this.categoryService.getCategories(module.name))
+                          ).toPromise();
+
+    return Promise.all(categories);
   }
 
 }

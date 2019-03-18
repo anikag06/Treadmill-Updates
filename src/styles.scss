@@ -193,3 +193,33 @@ $small_logo_height: 40px;
 .mat-checkbox-label {
   font-family: 'Lato', sans-serif !important;
 }
+
+.main-heading-h1 {
+  @include font-montserrat($font-weight: 700);
+  width: 100%;
+  padding-left: 70px;
+  padding-top: 50px;
+}
+
+.loader {
+  padding-top: 12%;
+  width: 100%;
+  min-height: 80vh;
+}
+
+@media screen and (max-width: 991px) {
+  .main-heading-h1 {
+      width: 100%;
+      padding-left: 20px;
+      padding-top: 30px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .main-heading-h1 {
+      @include font-montserrat($font-weight: 700);
+      width: 100%;
+      padding-left: 20px;
+      padding-top: 30px;
+  }
+}

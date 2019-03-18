@@ -28,20 +28,8 @@ export class AuthService {
     return this.http.post(environment.API_ENDPOINT + LOGIN_PATH, data).toPromise();
   }
 
-  isLoggedIn(): boolean {
-    const jwtToken = localStorage.getItem(TOKEN);
-    if (jwtToken) {
-      const helper = new JwtHelperService();
-      const isExpired = helper.isTokenExpired(jwtToken);
-      if (!isExpired) {
-        return true;
-      }
-    }
-    return false;
-  }
 
-
-  async isLoggedInAsync(): Promise<User | boolean> {
+  async isLoggedIn(): Promise<User | boolean> {
     try {
       const data = await localforage.getItem(TOKEN);
       if (data) {
