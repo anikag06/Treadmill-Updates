@@ -2,11 +2,14 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { interval, Subscription } from 'rxjs';
 
 import { AuthService } from './shared/auth/auth.service';
+import { RouterOutlet } from '@angular/router';
+import { slideInAnimation } from './main/shared/main.animations';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  animations: [ slideInAnimation ]
 })
 export class AppComponent implements OnInit, OnDestroy {
 
@@ -24,4 +27,9 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
+
+  getRouteData(outlet: RouterOutlet) {
+    return outlet.isActivated ? outlet.activatedRoute : '';
+  }
+
 }
