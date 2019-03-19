@@ -14,6 +14,7 @@ import * as localforage from 'localforage';
 export class MatLoginDialogComponent implements OnInit {
   hide = true;
   formInvalid = false;
+  showForm = true;
   @ViewChild('loginForm') loginForm!: NgForm;
 
   constructor(
@@ -28,6 +29,7 @@ export class MatLoginDialogComponent implements OnInit {
   onSubmit() {
     localforage.clear();
     localStorage.clear();
+    this.showForm = false;
     this.authService.getUserDetails(this.loginForm.value)
       .then(
         (data: any) => {
@@ -43,10 +45,11 @@ export class MatLoginDialogComponent implements OnInit {
         (error: any) => {
           if (error.status === 400 ) {
             this.loginForm.reset();
+            this.showForm = true;
             this.formInvalid = true;
           }
         }
-      );
+      )
   }
 
   onCloseClick(): void {

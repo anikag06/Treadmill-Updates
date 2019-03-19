@@ -1,5 +1,7 @@
 <form
-  (submit)="onSubmit()" #loginForm="ngForm">
+  (submit)="onSubmit()"
+  #loginForm="ngForm"
+  *ngIf="showForm else loader">
   <div
     class="flex-row-reverse"
     mat-dialog-actions>
@@ -58,9 +60,14 @@
       <p class="login-dialog-text-color">
         Not a member yet?
         <a class="anchorify-join-the-study">
-          Join the study!
+          Join the study
         </a>
       </p>
     </div>
   </div>
 </form>
+<ng-template #loader>
+  <div class="d-flex align-items-center justify-content-center" style="height: 450px; width: 100%;">
+    <img src="assets/shared/dna-loader.svg" alt="loader">
+  </div>
+</ng-template>
