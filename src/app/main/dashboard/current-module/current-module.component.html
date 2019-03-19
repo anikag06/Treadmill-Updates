@@ -1,6 +1,8 @@
 <div class="row current-module">
     <ng-container *ngIf="module$ | async as module else catLoading">
-        <div class="content current-module-main" *ngIf="categories$ | async as categories else catLoading">
+        <div class="content current-module-main"
+        *ngIf="categories$ | async as categories else catLoading"
+        [@simpleAnimate]="animateAction">
             <h3>{{module.name}}</h3>
             <p class="current-module-task">Next task: <strong>Can I get help ?</strong></p>
             <img [src]="module.imageUrl" [alt]="module.name" class="current-module-main-img">

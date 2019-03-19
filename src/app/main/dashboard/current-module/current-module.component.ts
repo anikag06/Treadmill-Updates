@@ -6,18 +6,33 @@ import { map } from 'rxjs/operators';
 import { ACTIVE } from '@/app.constants';
 import { Category } from '@/main/shared/category.model';
 import { CategoryService } from '@/main/shared/category.service';
+import { trigger, style, state, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-current-module',
   templateUrl: './current-module.component.html',
   styleUrls: ['./current-module.component.scss'],
-  providers: [ModulesService, CategoryService]
+  providers: [ModulesService, CategoryService],
+  animations: [
+    trigger( 'simpleAnimate', [
+      state('initial', style({
+        transform: 'scale(0.0)'
+      })),
+      state('rendered', style({
+        transform: 'scale(1.0)'
+      })),
+      transition('initial => rendered', [
+        animate(100)
+      ])
+    ])
+  ]
 })
 export class CurrentModuleComponent implements OnInit, OnDestroy {
 
   module$!: Observable<Module>;
   categories$!: Observable<Category[]>;
   categorySubscription!: Subscription;
+  animateAction = 'initial';
 
   constructor(
     private modulesService: ModulesService,
@@ -30,9 +45,10 @@ export class CurrentModuleComponent implements OnInit, OnDestroy {
         map(modules => modules.find(module => module.status === ACTIVE))
       );
     this.categorySubscription = this.module$
-        .subscribe((module) => {
-            this.categories$ = this.categoryService.getCategories(module.name);
-        });
+      .subscribe((module) => {
+          this.categories$ = this.categoryService.getCategories(module.name);
+          setTimeout(() => this.animateAction = 'rendered', 10);
+      });
   }
 
   ngOnDestroy(): void {
