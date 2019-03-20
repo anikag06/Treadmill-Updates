@@ -3,7 +3,7 @@ import { interval, Subscription } from 'rxjs';
 
 import { AuthService } from './shared/auth/auth.service';
 import { RouterOutlet } from '@angular/router';
-import { slideInAnimation } from './main/shared/main.animations';
+import { slideInAnimation } from './shared/main.animations';
 
 @Component({
   selector: 'app-root',

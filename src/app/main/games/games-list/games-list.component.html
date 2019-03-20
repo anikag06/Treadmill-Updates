@@ -3,14 +3,17 @@
     <h1 class="main-heading-h1">Games</h1>
   </div>
 </div>
-<div class="row games-section d-flex justify-content-between">
-  <ng-container *ngIf="games$ | async as games else loader">
-    <app-game-item
-      *ngFor="let game of games"
-      [game]="game"
-      (click)="onGameClick(game)">
-    </app-game-item>
-  </ng-container>
+<div class="games-section">
+  <div class="row d-flex justify-content-around">
+    <ng-container *ngIf="games$ | async as games else loader">
+      <app-game-item
+        class="flex-fill"
+        *ngFor="let game of games"
+        [game]="game"
+        (click)="onGameClick(game)">
+      </app-game-item>
+    </ng-container>
+  </div>
 </div>
 <ng-template #loader>
   <div class="text-center loader">

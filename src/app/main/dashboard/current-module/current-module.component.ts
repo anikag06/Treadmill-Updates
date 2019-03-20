@@ -27,6 +27,7 @@ import { trigger, style, state, transition, animate } from '@angular/animations'
     ])
   ]
 })
+
 export class CurrentModuleComponent implements OnInit, OnDestroy {
 
   module$!: Observable<Module>;

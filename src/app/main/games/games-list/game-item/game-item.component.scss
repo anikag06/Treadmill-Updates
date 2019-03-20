@@ -18,6 +18,21 @@
     }
 }
 
+@media screen and (max-width: 1500px) {
+    .mat-card {
+        width: 290px;
+        margin: 20px 0;
+    }
+}
+
+@media screen and (max-width: 1280px) {
+    .mat-card {
+        width: 300px;
+        margin: 20px 0;
+    }
+}
+
+
 @media screen and (max-width: 991px) {
     .mat-card {
         width: 250px;

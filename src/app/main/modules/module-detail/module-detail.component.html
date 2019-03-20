@@ -36,7 +36,7 @@
 
 <div class="body">
   <div *ngIf="(selectedCategory$ | async) as category">
-    <div class="row flex-row">
+    <div class="row d-flex justify-content-around justify-content-lg-between">
       <div
         *ngFor="let section of category.sections"
         class="section">
