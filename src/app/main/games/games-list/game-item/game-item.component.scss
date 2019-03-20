@@ -35,7 +35,7 @@
 
 @media screen and (max-width: 991px) {
     .mat-card {
-        width: 250px;
+        width: 280px;
         margin: 20px;
     }
     
@@ -43,7 +43,15 @@
 
 @media screen and (max-width: 767px) {
     .mat-card {
-        width: 94%;
+        width: 200px;
+        margin: 20px auto;
+    }
+    
+}
+
+@media screen and (max-width: 568px) {
+    .mat-card {
+        width: 90%;
         margin: 20px auto;
     }
     

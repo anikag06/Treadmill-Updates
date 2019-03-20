@@ -37,10 +37,24 @@
     background-color: $treadwill-grey;
 }
 
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 1280px) {
+    .section-card {
+        width: 340px;
+        height: 240px;
+        margin: 30px;
+    }
+}
+
+@media screen and (max-width: 991px) {
+    .section-card {
+        width: 280px;
+        margin: 20px;
+    }
+}
+
+@media screen and (max-width: 767px) {
     .section-card {
         width: 250px;
-        margin: 20px 0;
+        margin: 20px;
     }
-    
 }
