@@ -29,12 +29,24 @@
     border-top: 3px solid $treadwill-disabled;
 }
 
+@media only screen and (max-width: 991px) {
+    .category-card {
+        img {
+            background-color: white;
+            position: absolute;
+            top: -17px;
+            left: -20px;
+            width: 35px;
+            height: 35px;
+        }
+    }
+}
 
-@media only screen and (max-width: $screen-size-sm-md) {
+@media only screen and (max-width: 767px) {
     .category-card {
         width: 30%;
         border-top: 3px solid $treadwill-black;
-        top: -6px;
+        top: -26px;
         img {
             background-color: white;
             position: absolute;

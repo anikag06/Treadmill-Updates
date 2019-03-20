@@ -6,12 +6,6 @@
    margin-bottom: 50px;
    padding-left: 100px;
 }
-.module-heading {
-    @include font-montserrat($font-weight: 700);
-    width: 100%;
-    padding-left: 70px;
-    padding-top: 50px;
-}
 
 .module-nav.mobile {
     height: auto;
@@ -29,4 +23,13 @@ img.loader:last-child {
 }
 .modules-section {
     min-height: 80vh;
+}
+
+@media screen and (max-width: 992px) {
+    .module-nav {
+        height: 600px;
+        margin-top: 50px;
+        margin-bottom: 50px;
+        padding-left: 50px;
+     }
 }

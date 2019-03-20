@@ -49,7 +49,9 @@ export class MatLoginDialogComponent implements OnInit {
             this.formInvalid = true;
           }
         }
-      )
+      ).finally(() => {
+        this.showForm = true;
+      });
   }
 
   onCloseClick(): void {
