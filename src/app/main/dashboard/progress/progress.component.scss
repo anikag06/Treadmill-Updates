@@ -2,11 +2,11 @@
 
 
 .card {
-    @include font-montserrat($font-weight: 500); 
-    width: 350px;
-    border-radius: 5px;
+    @include font-montserrat($font-weight: 500);
+    @include box-shadow-1-1-10-d6();
+    width: 330px;
+    border-radius: 10px;
     overflow: hidden;
-    box-shadow: 2px 1px 4px #acacac;
     .card-header-custom {
         background-color: #aae2d7;
         padding: 5px;
@@ -18,16 +18,18 @@
         }
         .completion-percent {
             font-size: 1.2rem;
+            margin-left: -10px;
         }
     }
     .card-content-custom {
-        height: 200px;
+        height: 190px;
         img {
             margin-top: 20px;
         }
         .completed-modules {
             font-size: 1.2rem;
             margin-top: 30px;
+            margin-left: -20px;
         }
         .current-module {
             padding-top: 12px;

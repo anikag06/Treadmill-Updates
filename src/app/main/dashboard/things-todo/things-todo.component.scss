@@ -1,18 +1,18 @@
 @import "styles.scss";
 
 .things-todo {
+    @include box-shadow-1-1-10-d6();
     background-color: #ffffff;
-    width: 350px;
-    border-radius: 5px;
+    width: 330px;
+    border-radius: 10px;
     overflow: hidden;
-    box-shadow: 2px 1px 4px #acacac;
     .things-todo-main {
-        border-left: 50px solid #f7e2df;
-        height: 266px;
+        border-left: 55px solid #f7e2df;
+        height: 260px;
         h3 {
             font-size: 18px;
-            padding: 20px 5px;
-            font-weight: 500;
+            padding: 22px 5px 20px 0;
+            font-weight: 600;
         }
         .main-list {
             list-style: none;

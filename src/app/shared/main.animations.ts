@@ -15,14 +15,14 @@ export const slideInAnimation =
                  { optional: true }),
             group([
                  query(':enter',[
-                     style({ transform: 'translateX(-100%)' }),
+                     style({ transform: 'translateX(100%)' }),
                      animate('0.6s ease-in-out',
                      style({ transform: 'translateX(0%)' }))
                  ], { optional: true }),
                  query(':leave', [
                      style({ transform:   'translateX(0%)'}),
                      animate('0.6s ease-in-out',
-                     style({ transform: 'translateX(100%)' }))
+                     style({ transform: 'translateX(-100%)' }))
                  ], { optional: true }),
             ])
        ]),

@@ -18,7 +18,7 @@ export class ModulesService {
             new Module(
                 'Loading...',
                 'locked',
-                'https://via.placeholder.com/600x300?text=Loading'
+                'https://via.placeholder.com/978x350?text=Loading'
             )
         ];
     }
@@ -26,12 +26,12 @@ export class ModulesService {
     getModulesObservable(): Observable<Module[]> {
         const myFakeObservable = new Observable((observer: Observer<Module[]>) => {
             const fakeModules = [
-                new Module('Basics', 'done', 'https://via.placeholder.com/600x300?text=basics'),
-                new Module('Behavioral Activation', 'done', 'https://via.placeholder.com/600x300?text=BA'),
-                new Module('Identifying NATs', 'done', 'https://via.placeholder.com/600x300?text=INATS'),
-                new Module('Challenging NATs', 'done', 'https://via.placeholder.com/600x300?=CNATS'),
-                new Module('Modifying Beliefs', 'active', 'https://via.placeholder.com/600x300?text=MB'),
-                new Module('Staying Happy', 'locked', 'https://via.placeholder.com/600x300?text=SH')
+                new Module('Basics', 'done', 'https://via.placeholder.com/978x350?text=basics'),
+                new Module('Behavioral Activation', 'done', 'https://via.placeholder.com/978x350?text=BA'),
+                new Module('Identifying NATs', 'done', 'https://via.placeholder.com/978x350?text=INATS'),
+                new Module('Challenging NATs', 'done', 'https://via.placeholder.com/978x350?=CNATS'),
+                new Module('Modifying Beliefs', 'active', 'https://via.placeholder.com/978x350?text=MB'),
+                new Module('Staying Happy', 'locked', 'https://via.placeholder.com/978x350?text=SH')
             ];
             const fakeModulesLs = this.localStorageService.getItemWithDate(MODULES);
             if (fakeModulesLs) {
@@ -42,7 +42,7 @@ export class ModulesService {
                     observer.next(fakeModules);
                     observer.complete();
                     this.localStorageService.setItemWithDate(MODULES, fakeModules);
-                }, 1000);
+                }, 978);
             }
         });
 

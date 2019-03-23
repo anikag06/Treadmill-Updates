@@ -1,15 +1,16 @@
 @import "color.palette.scss";
+@import "styles.scss";
 
 .current-module {
+    @include box-shadow-1-1-10-d6();
     margin-top: 20px;
     background-color: #ffffff;
-    width: 350px;
-    border-radius: 5px;
+    width: 330px;
+    border-radius: 10px;
     overflow: hidden;
-    box-shadow: 2px 1px 4px #acacac;
     .current-module-main {
-        border-left: 50px solid  #f49080;
-        height: 359px;
+        border-left: 55px solid  #f49080;
+        height: 311px;
         h3 {
             font-size: 18px;
             padding: 20px 5px 10px;
@@ -18,6 +19,7 @@
         .current-module-task {
             font-size: 16px;
             padding: 0 5px;
+            font-weight: 500;
         }
         img.current-module-main-img {
             width: 100%;
@@ -28,7 +30,7 @@
         // Maybe not the best way to do
         ::ng-deep .category-card {
             width: 24%;
-            border-top: 3px solid $treadwill-black;
+            border-top: 2px solid $treadwill-black;
             top: -6px;
             img {
                 background-color: white;
@@ -43,21 +45,22 @@
             width: 0px;
         }
         .btn-container {
-            margin-top: 13px;
+            margin-top: 25px;
             a.continue-task {
                 color: #ffd67c;
-                padding: 5px;
+                padding: 5px 20px;
                 border: 2px solid #ffd67c;
                 border-radius: 20px;
-                font-size: 14px;
+                font-size: 15px;
+                font-weight: 500;
                 text-decoration: none;
                 margin-left: -30px;
             }
         }
     }
     .loading {
-        width: 350px;
-        height: 359px;
+        width: 330px;
+        height: 311px;
     }
 }
 @media screen and (max-width: 991px) {
@@ -65,7 +68,6 @@
        width: 280px;
         .current-module-main {
             border-left: 30px solid  #f49080;
-            height: 320px;
             h3 {
                 font-size: 16px;
                 padding: 15px 5px 10px;
@@ -74,7 +76,7 @@
         }
         .loading {
             width: 280px;
-            height: 340px;
+            height: 311px;
         }
     }
 }
@@ -84,13 +86,6 @@
         width: 330px;
         .current-module-main {
             border-left: 30px solid  #f49080;
-            height: 350px;
-            .btn-container {
-                margin-top: 13px;
-                a.continue-task {
-                    margin-left: -23px;
-                }
-            }
         }
     }
 }

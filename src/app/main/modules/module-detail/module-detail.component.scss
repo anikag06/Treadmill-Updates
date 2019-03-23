@@ -15,8 +15,8 @@
     background-color: $mat-white;
     text-align: center;
     padding: 0px;
-    border-right: 1px solid $treadwill-disabled;
-    border-bottom: 2px solid $treadwill-disabled;
+    border-right: 1px solid #d1d1d1;
+    border-bottom: 2px solid #d1d1d1;
 }
 .catLoading {
     height: 200px;
@@ -28,6 +28,7 @@
 .body {
     background-image: url("assets/modules/background.png");
     min-height: 50vh;
+    padding-top: 50px;
     padding-bottom: 40px;
 }
 

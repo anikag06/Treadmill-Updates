@@ -18,6 +18,10 @@ $small_logo_height: 40px;
   border-radius: $radius;
 }
 
+@mixin box-shadow-1-1-10-d6() {
+  box-shadow: 1px 1px 10px #d6d6d6;
+}
+
 @mixin border-dashed() {
   border-image-source: url("assets/modules/border-dashed.png");
   border-image-slice: 2;
