@@ -5,7 +5,7 @@
         [@simpleAnimate]="animateAction">
             <h3>{{module.name}}</h3>
             <p class="current-module-task">Next task: <strong>Can I get help ?</strong></p>
-            <img [src]="module.imageUrl" [alt]="module.name" class="current-module-main-img">
+            <img [src]="module.imageUrl" [alt]="module.name" class="current-module-main-img" width="275" height="100">
             <div class="current-module-category">
               <app-category-small
                 *ngFor="let category of categories; let last = last; let first = first" 

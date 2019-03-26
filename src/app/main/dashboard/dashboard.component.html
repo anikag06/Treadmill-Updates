@@ -9,21 +9,22 @@
                     <div class="d-flex justify-content-center grid-item chatbot">
                         <app-chatbot-avatar [user]="user" (click)="onChatbotClick()"></app-chatbot-avatar>
                     </div>
-                    <div class="d-flex justify-content-center grid-item">
-                        <app-progress></app-progress>
-                    </div>
                 </div>
                 <div class="col-xl-4 col-md-6 col-sm-12">
                     <div class="d-flex justify-content-center grid-item">
                         <app-current-module></app-current-module>
                     </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-4 col-md-6 col-sm-12">
                     <div class="d-flex justify-content-center grid-item">
                         <app-things-todo></app-things-todo>
                     </div>
                 </div>
                 <div class="col-xl-4 col-md-6 col-sm-12">
                     <div class="d-flex justify-content-center grid-item">
-                        <app-notifications-side></app-notifications-side>
+                        <app-progress></app-progress>
                     </div>
                 </div>
             </div>
