@@ -10,15 +10,15 @@
     overflow: hidden;
     .current-module-main {
         border-left: 55px solid  #f49080;
-        height: 311px;
+        height: 315px;
         h3 {
             font-size: 18px;
-            padding: 20px 5px 10px;
+            padding: 20px 5px 10px 15px;
             font-weight: 700;
         }
         .current-module-task {
             font-size: 16px;
-            padding: 0 5px;
+            padding: 0 5px 0px 15px;
             font-weight: 500;
         }
         img.current-module-main-img {
@@ -48,7 +48,7 @@
             margin-top: 25px;
             a.continue-task {
                 color: #ffd67c;
-                padding: 5px 20px;
+                padding: 5px 20px 5px 10px;
                 border: 2px solid #ffd67c;
                 border-radius: 20px;
                 font-size: 15px;
@@ -60,13 +60,50 @@
     }
     .loading {
         width: 330px;
-        height: 311px;
+        height: 315px;
     }
 }
+
+@media screen and (max-width: 1300px) {
+    .current-module {
+       width: 250px;
+        .current-module-main {
+            height: 265px;
+            border-left: 30px solid  #f49080;
+            h3 {
+                font-size: 14px;
+                padding: 15px 5px 5px 10px;
+                font-weight: 700;
+            }
+            .current-module-task {
+                font-size: 14px;
+                padding: 0px 2px 2px 10px;
+                font-weight: 500;
+            }
+            .current-module-category {
+                margin: 15px 15px 8px 30px;
+            }
+            .btn-container {
+                margin-top: 15px;
+                margin-left: 10px; 
+                a.continue-task {
+                    padding: 5px 10px 5px 10px;
+                    font-size: 13px;
+                }
+            }
+        }
+        .loading {
+            width: 250px;
+            height: 265px;
+        }
+    }
+}
+
 @media screen and (max-width: 991px) {
     .current-module {
        width: 280px;
         .current-module-main {
+            height: 282px;
             border-left: 30px solid  #f49080;
             h3 {
                 font-size: 16px;
@@ -76,7 +113,7 @@
         }
         .loading {
             width: 280px;
-            height: 311px;
+            height: 282px;
         }
     }
 }

@@ -17,21 +17,38 @@
         }
     }
 }
-@media only screen and (max-width: 992px) {
+
+@media only screen and (max-width: 1300px) {
     .overview-card {
-        width: 70%;
-        margin: 20vh 20%;
-        border-radius: 10px;
+        width: 75%;
+        margin: 10vh 20%;
         .mat-card-content {
-            height: 80px;
+            height: 70px;
         }
         mat-card-header {
             position: relative;
             mat-card-title {
-                @include font-montserrat($font-weight: 500);
                 position: absolute;
                 top: -80px;
-                font-size: 2.3rem;
+                font-size: 2.1rem;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    .overview-card {
+        width: 70%;
+        margin: 15vh 20%;
+        border-radius: 10px;
+        .mat-card-content {
+            height: 40px;
+        }
+        mat-card-header {
+            position: relative;
+            mat-card-title {
+                top: -70px;
+                font-size: 1.9rem;
             }
         }
     }
@@ -40,7 +57,7 @@
 @media only screen and (max-width: 767px) {
     .overview-card {
         width: 90%;
-        height: 55vw;
+        height: 45vw;
         margin: 0px auto 5px;
         border-radius: 10px;
         .mat-card-content {

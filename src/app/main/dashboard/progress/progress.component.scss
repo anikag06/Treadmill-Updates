@@ -38,9 +38,52 @@
     }
 }
 
+@media screen and (max-width: 1300px) {
+    .card {
+        width: 250px;
+        .card-header-custom {
+            background-color: #aae2d7;
+            padding: 5px;
+            .score {
+                font-weight: 600;
+                font-size: 1.6rem;
+                text-align: center;
+                line-height: 55px;
+            }
+            .completion-percent {
+                font-size: 1.0rem;
+                margin-left: -10px;
+            }
+        }
+        .card-content-custom {
+            height: 190px;
+            img {
+                margin-top: 20px;
+                width: 100%;
+            }
+            .completed-modules {
+                font-size: 1.2rem;
+                margin-top: 30px;
+                margin-left: -20px;
+            }
+            .current-module {
+                padding-top: 12px;
+                font-size: 14px;
+            }
+        }
+    }
+}
+
 @media screen and (max-width: 991px) {
     .card {
         width: 280px;
+        .card-content-custom {
+            height: 190px;
+            .current-module {
+                padding-top: 12px;
+                font-size: 12px;
+            }
+        }
     }
 }
 

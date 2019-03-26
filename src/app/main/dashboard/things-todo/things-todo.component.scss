@@ -25,6 +25,19 @@
     }
 }
 
+@media screen and (max-width: 1300px) {
+    .things-todo {
+        width: 250px;
+        .things-todo-main {
+            border-left: 30px solid #f7e2df;
+            height: 253px;
+            .mat-checkbox-label {
+                font-size: 14px !important;
+            }
+        }
+    }
+}
+
 @media screen and (max-width: 991px) {
     .things-todo {
         width: 280px;
@@ -39,6 +52,7 @@
     .things-todo {
         width: 330px;
         .things-todo-main {
+            height: 260px;
             border-left: 30px solid #f7e2df;
         }
     }
