@@ -1,10 +1,10 @@
 <div class="chatbot-avatar">
-  <div class="row">
-    <div class="col-4 col-md-12">
-      <img src="assets/modules/chatbot.svg" class="chatbot-image" alt="chatbot">
+  <div class="row no-gutters">
+    <div class="col-3 col-md-12">
+      <img src="assets/modules/chatbot.svg" class="chatbot-image" alt="chatbot" (click)="onClick()">
     </div>
-    <div class="col-8 col-md-12" *ngIf="user else loading">
-      <div class="chatbot-text">
+    <div class="col-9 col-md-12">
+      <div class="chatbot-text" (click)="onClick()">
         Hello {{user.username}}! Do you have any Questions?
         Click on me and we can chat.
       </div>

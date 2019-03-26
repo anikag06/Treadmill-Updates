@@ -26,9 +26,4 @@ export class DashboardComponent implements OnInit {
       });
     this.mobileView = window.innerWidth < MOBILEWIDTH;
   }
-
-  onChatbotClick() {
-    alert('Chatbot clicked');
-  }
-
 }

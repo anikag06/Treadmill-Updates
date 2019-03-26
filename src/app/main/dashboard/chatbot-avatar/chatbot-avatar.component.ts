@@ -15,4 +15,8 @@ export class ChatbotAvatarComponent implements OnInit {
   ngOnInit() {
   }
 
+  onClick() {
+    alert('clicked');
+  }
+
 }

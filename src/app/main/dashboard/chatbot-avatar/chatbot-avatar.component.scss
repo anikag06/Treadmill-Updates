@@ -1,8 +1,9 @@
 @import "styles.scss";
 
 .chatbot-avatar {
-    width: 330px;
+    max-width: 330px;
     margin: 0 auto;
+    overflow: hidden;
     .chatbot-image {
         width: 70%;
         margin: 0 15%;
@@ -51,16 +52,17 @@
 
 @media screen and (max-width: 767px) {
     .chatbot-avatar {
+        margin: 1% 0%;
         width: 100%;
-        margin: 1% 1%;
         .chatbot-image {
             width: 100%;
-            margin: 0 7%;
+            margin: 0;
         }
         .chatbot-text {
-            padding: 5px;
-            font-size: 14px;
+            padding: 8px;
+            font-size: 13px;
             font-weight: 500;
+            margin-right: 4px;
         }
     } 
 }

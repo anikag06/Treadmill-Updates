@@ -6,9 +6,8 @@
         <div class="col-md-10 body-bg dashboard" *ngIf="user">
             <div class="row">
                 <div class="col-xl-4 col-md-6 col-sm-12">
-                    <div class="d-flex justify-content-center grid-item"
-                        (click)="onChatbotClick()">
-                        <app-chatbot-avatar [user]="user"></app-chatbot-avatar>
+                    <div class="d-flex justify-content-center grid-item chatbot">
+                        <app-chatbot-avatar [user]="user" (click)="onChatbotClick()"></app-chatbot-avatar>
                     </div>
                     <div class="d-flex justify-content-center grid-item">
                         <app-progress></app-progress>
