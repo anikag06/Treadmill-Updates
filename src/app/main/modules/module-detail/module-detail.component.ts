@@ -15,12 +15,12 @@ import { ACTIVE } from '@/app.constants';
   styleUrls: ['./module-detail.component.scss'],
   providers: [ModulesService, CategoryService],
 })
-export class ModuleDetailComponent implements OnInit, DoCheck, OnDestroy {
+export class ModuleDetailComponent implements OnInit, DoCheck {
 
   module!: Module;
-  categories$!: Observable<Category[]>;
+  categories!: Category[];
   subscriptionRouter!: Subscription;
-  selectedCategory$!: Observable<Category>;
+  selectedCategory!: Category | undefined;
 
   constructor(
     private activateRoute: ActivatedRoute,
@@ -36,30 +36,24 @@ export class ModuleDetailComponent implements OnInit, DoCheck, OnDestroy {
         switchMap(name => this.modulesService.getModuleObservable(name))
       )
       .subscribe(
-        (module) => this.module = <Module>module,
+        (module) =>  {
+          this.module = <Module>module;
+          this.categoryService.getCategories(this.module.id)
+            .then((categories) => {
+              this.categories = categories;
+              this.selectedCategory = categories.find((category) => category.status === ACTIVE);
+            });
+        },
         (error) => {
-          this.router.navigate(["modules"]);
+          this.router.navigate(['modules']);
         }
       );
   }
 
   ngDoCheck(): void {
-    if (this.module && !this.categories$) {
-      this.categories$ = this.categoryService.getCategories(this.module.name)
-
-    this.selectedCategory$ = <Observable<Category>>this.categoryService.getCategories(this.module.name)
-      .pipe(
-        map(categories => categories.find(category => category.status == ACTIVE))
-      )
-    }
-  }
-
-  ngOnDestroy(): void {
-    if (this.subscriptionRouter)
-      this.subscriptionRouter.unsubscribe();
   }
 
   onCategorySelected(category: Category) {
-    this.selectedCategory$ = of(category);
+    this.selectedCategory = category;
   }
 }

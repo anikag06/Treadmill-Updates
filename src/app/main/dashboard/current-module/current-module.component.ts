@@ -31,7 +31,7 @@ import { trigger, style, state, transition, animate } from '@angular/animations'
 export class CurrentModuleComponent implements OnInit, OnDestroy {
 
   module$!: Observable<Module>;
-  categories$!: Observable<Category[]>;
+  categories$!: Promise<Category[]>;
   categorySubscription!: Subscription;
   animateAction = 'initial';
 
@@ -47,7 +47,7 @@ export class CurrentModuleComponent implements OnInit, OnDestroy {
       );
     this.categorySubscription = this.module$
       .subscribe((module) => {
-          this.categories$ = this.categoryService.getCategories(module.name);
+          this.categories$ = this.categoryService.getCategories(module.id);
           setTimeout(() => this.animateAction = 'rendered', 10);
       });
   }

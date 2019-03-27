@@ -18,7 +18,8 @@ export class ModulesService {
             new Module(
                 'Loading...',
                 'locked',
-                'https://via.placeholder.com/978x350?text=Loading'
+                'https://via.placeholder.com/978x350?text=Loading',
+                1
             )
         ];
     }
@@ -26,12 +27,12 @@ export class ModulesService {
     getModulesObservable(): Observable<Module[]> {
         const myFakeObservable = new Observable((observer: Observer<Module[]>) => {
             const fakeModules = [
-                new Module('Basics', 'done', 'https://via.placeholder.com/978x350?text=basics'),
-                new Module('Behavioral Activation', 'done', 'https://via.placeholder.com/978x350?text=BA'),
-                new Module('Identifying NATs', 'done', 'https://via.placeholder.com/978x350?text=INATS'),
-                new Module('Challenging NATs', 'done', 'https://via.placeholder.com/978x350?=CNATS'),
-                new Module('Modifying Beliefs', 'active', 'https://via.placeholder.com/978x350?text=MB'),
-                new Module('Staying Happy', 'locked', 'https://via.placeholder.com/978x350?text=SH')
+                new Module('Basics', 'active', 'https://via.placeholder.com/978x350?text=basics', 1),
+                new Module('Behavioral Activation', 'locked', 'https://via.placeholder.com/978x350?text=BA', 2),
+                new Module('Identifying NATs', 'locked', 'https://via.placeholder.com/978x350?text=INATS', 3),
+                new Module('Challenging NATs', 'locked', 'https://via.placeholder.com/978x350?=CNATS', 4),
+                new Module('Modifying Beliefs', 'locked', 'https://via.placeholder.com/978x350?text=MB', 5),
+                new Module('Staying Happy', 'locked', 'https://via.placeholder.com/978x350?text=SH', 6)
             ];
             const fakeModulesLs = this.localStorageService.getItemWithDate(MODULES);
             if (fakeModulesLs) {

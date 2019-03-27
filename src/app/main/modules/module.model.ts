@@ -6,11 +6,13 @@ export class Module {
     public status: string;
     public imageUrl: string;
     public slug: string;
+    public id: number;
 
-    constructor(name: string, status: string, imageUrl: string) {
+    constructor(name: string, status: string, imageUrl: string, id: number) {
+        this.id = id,
         this.name = name;
         this.status = status;
-        this.imageUrl = imageUrl
+        this.imageUrl = imageUrl;
         this.slug = slugify(name, {lower: true});
     }
 }

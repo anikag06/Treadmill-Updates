@@ -7,7 +7,7 @@ import { ACTIVE, LOCKED, DONE } from '@/app.constants';
   templateUrl: './section-card.component.html',
   styleUrls: ['./section-card.component.scss']
 })
-export class SectionCardComponent implements OnInit, DoCheck {
+export class SectionCardComponent implements OnInit {
 
   @Input() section!: Section;
   active: boolean = false;
@@ -17,14 +17,6 @@ export class SectionCardComponent implements OnInit, DoCheck {
   constructor() { }
 
   ngOnInit() {
-  }
-
-  ngDoCheck(): void {
-    if (this.section) {
-      this.active = (this.section.status == ACTIVE)
-      this.locked = (this.section.status == LOCKED)
-      this.done = (this.section.status == DONE)
-    }
   }
 
 }

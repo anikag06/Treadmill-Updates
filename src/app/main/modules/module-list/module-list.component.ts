@@ -76,10 +76,7 @@ export class ModuleListComponent implements OnInit {
         map(modules => modules.find(module => module.status === ACTIVE))
       );
 
-    const categories = await this.activeModule$
-                          .pipe(
-                            flatMap(module => this.categoryService.getCategories(module.name))
-                          ).toPromise();
+    const categories = this.categoryService.allCategories;
 
     return Promise.all(categories);
   }

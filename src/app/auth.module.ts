@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { JwtModule } from '@auth0/angular-jwt';
-
+import * as localforage from 'localforage';
 import { TOKEN } from './app.constants';
 
-export function tokenGetter() {
-    return localStorage.getItem(TOKEN);
+export function tokenGetter(): Promise<string> {
+    return localforage.getItem(TOKEN);
 }
 
 

@@ -18,7 +18,7 @@ export class ModuleOverviewComponent implements OnInit, DoCheck {
   @Input() completed!: boolean;
   subscription!: Subscription;
 
-  categories$!: Observable<Category[]>;
+  categories!: Category[];
 
 
   constructor(
@@ -31,8 +31,8 @@ export class ModuleOverviewComponent implements OnInit, DoCheck {
     if (this.module && this.module.imageUrl) {
       this.backgroundImg = this.module.imageUrl;
     }
-    if (this.module) {
-      this.categories$ = this.categoryService.getCategories(this.module.name);
+    if (this.module && !this.categories) {
+      this.categories = this.categoryService.allCategories;
     }
   }
 }

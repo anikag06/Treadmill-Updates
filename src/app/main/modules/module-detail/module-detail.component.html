@@ -10,7 +10,7 @@
   </div>
 </ng-template>
 <div
-    *ngIf="(categories$ | async) as categories else catLoading"
+    *ngIf="categories else catLoading"
     class="row">
     <div
       class="col-3 category"
@@ -35,10 +35,10 @@
 </ng-template>
 
 <div class="body">
-  <div *ngIf="(selectedCategory$ | async) as category">
+  <div *ngIf="selectedCategory">
     <div class="row d-flex justify-content-around justify-content-sm-between">
       <div
-        *ngFor="let section of category.sections"
+        *ngFor="let section of selectedCategory.sections"
         class="section">
         <app-section-card [section]="section"></app-section-card>
       </div>

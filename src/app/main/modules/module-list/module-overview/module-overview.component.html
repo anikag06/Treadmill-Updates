@@ -6,7 +6,7 @@
       <mat-card-title>Loading....</mat-card-title>
     </ng-template>
   </mat-card-header>
-  <mat-card-content *ngIf="module && (categories$ | async) as categories else catLoading">
+  <mat-card-content *ngIf="module && categories else catLoading">
     <app-category-small
       *ngFor="let category of categories; let last = last; let first = first" 
       [category]="category"
