@@ -1,7 +1,7 @@
 <a 
     class="list-group-item clearfix"
-    [ngClass]="{'disabled': module.status == 'locked', 
-                'active': module.status == 'active',
+    [ngClass]="{'disabled': module.is_active === false && module.is_completed === false, 
+                'active': module.is_active,
                 'last': last,
                 'first': first}">
     <span
@@ -9,9 +9,9 @@
         (click)="onModuleItemClicked()">
         <span
             class="status-image"
-            [ngClass]="{'locked': module.status == 'locked', 
-                        'active': module.status == 'active',
-                        'done': module.status == 'done'}">
+            [ngClass]="{'locked': module.is_active === false && module.is_completed === false, 
+                        'active': module.is_active === true,
+                        'done': module.is_completed === true}">
         </span>
         <span class="pull-right module-name align-middle">
             {{module.name}}

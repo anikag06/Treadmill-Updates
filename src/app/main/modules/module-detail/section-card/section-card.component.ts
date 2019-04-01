@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, DoCheck } from '@angular/core';
 import { Section } from '@/main/shared/section.model';
-import { ACTIVE, LOCKED, DONE } from '@/app.constants';
 
 @Component({
   selector: 'app-section-card',

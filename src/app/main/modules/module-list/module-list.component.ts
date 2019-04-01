@@ -5,11 +5,10 @@ import 'rxjs';
 
 import { Module } from '@/main/modules/module.model';
 import { ModulesService } from '@/main/modules/modules.service';
-import { ACTIVE, DONE, LOCKED, MOBILEWIDTH } from '@/app.constants';
-import { map, tap, flatMap } from 'rxjs/operators';
+import { MOBILEWIDTH } from '@/app.constants';
+import { map } from 'rxjs/operators';
 import { Category } from '@/main/shared/category.model';
 import { CategoryService } from '@/main/shared/category.service';
-import { ApiModule } from '../api-module.model';
 
 @Component({
   selector: 'app-module-list',
@@ -45,42 +44,37 @@ export class ModuleListComponent implements OnInit {
     this.getModulesAndCategories()
       .then(
         (data) => {
-          this.categories = data;
           this.dataFetched = true;
         }
       );
-    this.modulesService.getModulesHttp()
-        .subscribe((data: Module[]) => console.log(data));
   }
 
   onModuleClick(module: Module) {
-    if (module.status === DONE || module.status === ACTIVE) {
+    if (module.is_active || module.is_completed) {
       this.router.navigate(['modules', module.slug]);
     }
   }
 
 
   async getModulesAndCategories() {
-    this.modules$ = this.modulesService.getModulesObservable();
+    this.modules$ = this.modulesService.getModules();
     this.modulesDone$ = <Observable<Module[]>>this.modules$
       .pipe(
-        map(modules => modules.filter(module =>  module.status === DONE || module.status === ACTIVE ))
+        map(modules => modules.filter(module =>  module.is_completed || module.is_active ))
       );
     this.modulesLocked$ = <Observable<Module[]>>this.modules$
       .pipe(
-        map(modules => modules.filter(module => module.status === LOCKED))
+        map(modules => modules.filter(module => module.is_active === false && module.is_completed === false))
       );
 
     this.isCompleted$ = this.modulesService.isCompleted();
 
     this.activeModule = await this.modules$
       .pipe(
-        map(modules => modules.find(module => module.status === ACTIVE))
+        map(modules => modules.find(module => module.is_active))
       ).toPromise();
 
-    const categories = this.categoryService.allCategories;
-
-    return Promise.all(categories);
+    return Promise.all([true]);
   }
 
 }

@@ -2,7 +2,7 @@
   class="category-card"
   [ngClass]="{'last': last,
               'first': first,
-              'active': category.is_active == 'true',
+              'active': category.is_active ===  true,
               'locked': category.is_content_locked == true}">
   <img
     class="card-image"

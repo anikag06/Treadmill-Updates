@@ -7,7 +7,6 @@ import { Module } from '@/main/modules/module.model';
 import { ModulesService } from '@/main/modules/modules.service';
 import { CategoryService } from '@/main/shared/category.service';
 import { Category } from '@/main/shared/category.model';
-import { ACTIVE } from '@/app.constants';
 
 @Component({
   selector: 'app-module-detail',
@@ -33,12 +32,12 @@ export class ModuleDetailComponent implements OnInit, DoCheck {
     this.subscriptionRouter = this.activateRoute.params
       .pipe(
         map(v => v.name),
-        switchMap(name => this.modulesService.getModuleObservable(name))
+        switchMap(name => this.modulesService.getModule(name))
       )
       .subscribe(
         (module) =>  {
           this.module = <Module>module;
-          this.categoryService.getCategories(this.module.id)
+          this.categoryService.getCategories(this.module)
             .then((categories) => {
               this.categories = categories;
               this.selectedCategory = categories.find((category) => category.is_active === true);

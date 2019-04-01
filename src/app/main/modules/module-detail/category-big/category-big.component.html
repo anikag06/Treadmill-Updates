@@ -1,9 +1,9 @@
 <div
     class="category-big"
     [ngClass]="{
-        'done': category.status == 'done',
-        'active': category.status == 'active',
-        'locked': category.status == 'locked',
+        'done': category.is_content_locked === false && category.is_active === false,
+        'active': category.is_active,
+        'locked': category.is_content_locked,
         'hover': hover}"
     (mouseenter)="onMouseEnter()"
     (mouseleave)="onMouseLeave()"

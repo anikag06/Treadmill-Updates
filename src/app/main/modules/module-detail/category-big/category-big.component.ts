@@ -15,7 +15,7 @@ export class CategoryBigComponent implements OnInit {
 
   @Output() categorySelected = new EventEmitter<Category>();
 
-  hover: boolean = false;
+  hover = false;
   imageUrl: string | undefined = '';
 
   constructor() { }
@@ -24,75 +24,46 @@ export class CategoryBigComponent implements OnInit {
     this.imageUrl = this.imageUrlMapper();
   }
 
-  // imageUrlMapper() {
-  //   if (this.category.name == INTRODUCTION && this.category.status == DONE && this.hover == true) {
-  //     return 'assets/modules/introduction-white.svg';
-  //   } else if (this.category.name == LEARN && this.category.status == DONE && this.hover == true ) {
-  //     return 'assets/modules/learn-white.svg';
-  //   } else if (this.category.name == DISCUSS && this.category.status == DONE && this.hover == true) {
-  //     return 'assets/modules/discuss-white.svg';
-  //   } else if (this.category.name == PRACTICE && this.category.status == DONE && this.hover == true) {
-  //     return 'assets/modules/practice-white.svg';
-  //   } else if (this.category.name == INTRODUCTION && this.category.status == ACTIVE && this.hover == true) {
-  //     return 'assets/modules/introduction-white.svg';
-  //   } else if (this.category.name == LEARN && this.category.status == ACTIVE && this.hover == true ) {
-  //     return 'assets/modules/learn-white.svg';
-  //   } else if (this.category.name == DISCUSS && this.category.status == ACTIVE && this.hover == true) {
-  //     return 'assets/modules/discuss-white.svg';
-  //   } else if (this.category.name == PRACTICE && this.category.status == ACTIVE && this.hover == true) {
-  //     return 'assets/modules/practice-white.svg';
-  //   } else if (this.category.name == INTRODUCTION && this.category.status == ACTIVE) {
-  //     return 'assets/modules/introduction-yellow.svg';
-  //   } else if (this.category.name == LEARN && this.category.status == ACTIVE) {
-  //     return 'assets/modules/learn-yellow.svg';
-  //   } else if (this.category.name == DISCUSS && this.category.status == ACTIVE) {
-  //     return 'assets/modules/discuss-yellow.svg';
-  //   } else if (this.category.name == PRACTICE && this.category.status == ACTIVE) {
-  //     return 'assets/modules/practice-yellow.svg';
-  //   } else if (this.category.name == INTRODUCTION && this.category.status == LOCKED) {
-  //     return 'assets/modules/introduction-disabled.svg';
-  //   } else if (this.category.name == LEARN && this.category.status == LOCKED) {
-  //     return 'assets/modules/learn-disabled.svg';
-  //   } else if (this.category.name == DISCUSS && this.category.status == LOCKED) {
-  //     return 'assets/modules/discuss-disabled.svg';
-  //   } else if (this.category.name == PRACTICE && this.category.status == LOCKED) {
-  //     return 'assets/modules/practice-disabled.svg';
-  //   } else if (this.category.name == INTRODUCTION && this.category.status == DONE) {
-  //     return 'assets/modules/introduction.svg';
-  //   } else if (this.category.name == LEARN && this.category.status == DONE) {
-  //     return 'assets/modules/learn.svg';
-  //   } else if (this.category.name == DISCUSS && this.category.status == DONE) {
-  //     return 'assets/modules/discuss.svg';
-  //   } else if (this.category.name == PRACTICE && this.category.status == DONE) {
-  //     return 'assets/modules/practice.svg';
-  //   }
-  // }
-
   imageUrlMapper() {
-      console.log(this.category);
-      if (this.category.name === INTRODUCTION && this.category.is_active === true) {
+      if (this.category.name.toUpperCase() === INTRODUCTION && this.category.is_active === false && this.category.is_content_locked === false && this.hover == true) {
+        return 'assets/modules/introduction-white.svg';
+      } else if (this.category.name.toUpperCase() === LEARN && this.category.is_active === false && this.category.is_content_locked === false && this.hover == true ) {
+        return 'assets/modules/learn-white.svg';
+      } else if (this.category.name.toUpperCase() === DISCUSS && this.category.is_active === false && this.category.is_content_locked === false && this.hover == true) {
+        return 'assets/modules/discuss-white.svg';
+      } else if (this.category.name.toUpperCase() === PRACTICE && this.category.is_active === false && this.category.is_content_locked === false && this.hover == true) {
+        return 'assets/modules/practice-white.svg';
+      } else if (this.category.name.toUpperCase() === INTRODUCTION && this.category.is_active && this.hover === true) {
+        return 'assets/modules/introduction-white.svg';
+      } else if (this.category.name.toUpperCase() === LEARN && this.category.is_active && this.hover === true ) {
+        return 'assets/modules/learn-white.svg';
+      } else if (this.category.name.toUpperCase() === DISCUSS && this.category.is_active && this.hover === true) {
+        return 'assets/modules/discuss-white.svg';
+      } else if (this.category.name === PRACTICE && this.category.is_active && this.hover === true) {
+        return 'assets/modules/practice-white.svg';
+      } else if (this.category.name.toUpperCase() === INTRODUCTION && this.category.is_active === true) {
         return 'assets/modules/introduction-yellow.svg';
-      } else if (this.category.name === LEARN && this.category.is_active === true) {
+      } else if (this.category.name.toUpperCase() === LEARN && this.category.is_active === true) {
         return 'assets/modules/learn-yellow.svg';
-      } else if (this.category.name === DISCUSS && this.category.is_active === true) {
+      } else if (this.category.name.toUpperCase() === DISCUSS && this.category.is_active === true) {
         return 'assets/modules/discuss-yellow.svg';
-      } else if (this.category.name === PRACTICE && this.category.is_active === true) {
+      } else if (this.category.name.toUpperCase() === PRACTICE && this.category.is_active === true) {
         return 'assets/modules/practice-yellow.svg';
-      } else if (this.category.name === INTRODUCTION && this.category.is_content_locked === true) {
+      } else if (this.category.name.toUpperCase() === INTRODUCTION && this.category.is_content_locked === true) {
         return 'assets/modules/introduction-disabled.svg';
-      } else if (this.category.name === LEARN && this.category.is_content_locked === true) {
+      } else if (this.category.name.toUpperCase() === LEARN && this.category.is_content_locked === true) {
         return 'assets/modules/learn-disabled.svg';
-      } else if (this.category.name === DISCUSS && this.category.is_content_locked === true) {
+      } else if (this.category.name.toUpperCase() === DISCUSS && this.category.is_content_locked === true) {
         return 'assets/modules/discuss-disabled.svg';
-      } else if (this.category.name === PRACTICE && this.category.is_content_locked === true) {
+      } else if (this.category.name.toUpperCase() === PRACTICE && this.category.is_content_locked === true) {
         return 'assets/modules/practice-disabled.svg';
-      } else if (this.category.name === INTRODUCTION && this.category.is_content_locked === false && this.category.is_active === false) {
+      } else if (this.category.name.toUpperCase() === INTRODUCTION && this.category.is_content_locked === false && this.category.is_active === false) {
         return 'assets/modules/introduction.svg';
-      } else if (this.category.name === LEARN && this.category.is_content_locked === false && this.category.is_active === false) {
+      } else if (this.category.name.toUpperCase() === LEARN && this.category.is_content_locked === false && this.category.is_active === false) {
         return 'assets/modules/learn.svg';
-      } else if (this.category.name === DISCUSS && this.category.is_content_locked === false && this.category.is_active === false) {
+      } else if (this.category.name.toUpperCase() === DISCUSS && this.category.is_content_locked === false && this.category.is_active === false) {
         return 'assets/modules/discuss.svg';
-      } else if (this.category.name === PRACTICE && this.category.is_content_locked === false && this.category.is_active === false) {
+      } else if (this.category.name.toUpperCase() === PRACTICE && this.category.is_content_locked === false && this.category.is_active === false) {
         return 'assets/modules/practice.svg';
       }
   }

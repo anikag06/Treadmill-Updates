@@ -7,6 +7,9 @@
     .mat-card-content {
         height: 80px;
     }
+    .mat-card-image {
+        max-height: 410px;
+    }
     mat-card-header {
         position: relative;
         mat-card-title {

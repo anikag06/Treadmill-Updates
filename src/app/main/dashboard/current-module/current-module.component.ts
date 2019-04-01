@@ -40,7 +40,7 @@ export class CurrentModuleComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-   this.modulesSubscription = this.modulesService.getModulesHttp()
+   this.modulesSubscription = this.modulesService.getModules()
       .subscribe(
         (apiModules) => {
           const active = apiModules.find(apimod => apimod.is_active === true);

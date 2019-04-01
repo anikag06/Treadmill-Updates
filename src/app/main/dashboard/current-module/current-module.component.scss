@@ -31,7 +31,7 @@
         // Maybe not the best way to do
         ::ng-deep .category-card {
             width: 24%;
-            border-top: 2px solid $treadwill-black;
+            border-top-width: 1px;
             top: -6px;
             img {
                 background-color: white;
@@ -86,7 +86,7 @@
             }
             ::ng-deep .category-card {
                 width: 24%;
-                border-top: 1px solid $treadwill-black;
+                border-top-width: 1px;
                 top: -12px;
                 img {
                     background-color: white;
