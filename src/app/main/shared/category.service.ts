@@ -19,8 +19,10 @@ export class CategoryService {
 
     async getCategories(module: Module) {
         let newCategories: Category[] = [];
-        newCategories = <Category[]> this.localStorageService.getItemWithDate(CATEGORY + module.id);
-        if (!newCategories || newCategories.length < 1) {
+        const categoriesLS = <Category[]>this.localStorageService.getItemWithDate(CATEGORY + module.id);
+        if (categoriesLS && categoriesLS.length > 0) {
+            newCategories = categoriesLS;
+        } else {
             await this.http.get(environment.API_ENDPOINT + '/api/v1/modules/section-listing/' + module.id + '/').toPromise()
             .then((data) => {
                 const response = <ApiResponse>data;
