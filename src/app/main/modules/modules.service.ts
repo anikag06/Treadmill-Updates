@@ -3,36 +3,69 @@ import { Observable, Observer } from 'rxjs';
 
 
 import { Module } from './module.model';
-import { MODULES, LOCKED, ACTIVE } from '@/app.constants';
+import { MODULES } from '@/app.constants';
 import { LocalStorageService } from '@/shared/localstorage.service';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'environments/environment';
+import { map } from 'rxjs/operators';
+import { ApiModule } from './api-module.model';
+
+export interface ModuleListResponse {
+    status: boolean;
+    message: string;
+    data: {
+        module_list: Module[];
+    };
+}
 
 @Injectable()
 export class ModulesService {
 
     constructor(
         private localStorageService: LocalStorageService,
+        private http: HttpClient
     ) { }
 
     getModules() {
         return [
             new Module(
                 'Loading...',
-                'locked',
+                false,
+                true,
                 'https://via.placeholder.com/978x350?text=Loading',
-                1
+                1,
+                [],
             )
         ];
+    }
+
+    getModulesHttp() {
+        return this.http.get(environment.API_ENDPOINT + '/api/v1/modules/user-module-listing/')
+            .pipe(
+                map((data) => {
+                    const module_list = [];
+                    const response = <ModuleListResponse>data;
+                    return response.data.module_list
+                        .map(
+                            (module) => new Module(module.name,
+                                                    module.is_active,
+                                                    module.is_completed,
+                                                    module.image, module.id,
+                                                    module.categories)
+                        );
+                })
+            );
     }
 
     getModulesObservable(): Observable<Module[]> {
         const myFakeObservable = new Observable((observer: Observer<Module[]>) => {
             const fakeModules = [
-                new Module('Basics', 'active', 'https://via.placeholder.com/978x350?text=basics', 1),
-                new Module('Behavioral Activation', 'locked', 'https://via.placeholder.com/978x350?text=BA', 2),
-                new Module('Identifying NATs', 'locked', 'https://via.placeholder.com/978x350?text=INATS', 3),
-                new Module('Challenging NATs', 'locked', 'https://via.placeholder.com/978x350?=CNATS', 4),
-                new Module('Modifying Beliefs', 'locked', 'https://via.placeholder.com/978x350?text=MB', 5),
-                new Module('Staying Happy', 'locked', 'https://via.placeholder.com/978x350?text=SH', 6)
+                new Module('Basics', false, false, 'https://via.placeholder.com/978x350?text=basics', 1, []),
+                new Module('Behavioral Activation', false, false, 'https://via.placeholder.com/978x350?text=BA', 2,[]),
+                new Module('Identifying NATs', false, false, 'https://via.placeholder.com/978x350?text=INATS', 3, []),
+                new Module('Challenging NATs', false, false, 'https://via.placeholder.com/978x350?=CNATS', 4, []),
+                new Module('Modifying Beliefs', false, false, 'https://via.placeholder.com/978x350?text=MB', 5, []),
+                new Module('Staying Happy', false, false, 'https://via.placeholder.com/978x350?text=SH', 6, [])
             ];
             const fakeModulesLs = this.localStorageService.getItemWithDate(MODULES);
             if (fakeModulesLs) {

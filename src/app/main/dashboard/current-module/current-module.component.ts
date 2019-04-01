@@ -1,12 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, DoCheck } from '@angular/core';
 import { ModulesService } from '@/main/modules/modules.service';
 import { Observable, Subscription } from 'rxjs';
-import { Module } from '@/main/modules/module.model';
-import { map } from 'rxjs/operators';
-import { ACTIVE } from '@/app.constants';
 import { Category } from '@/main/shared/category.model';
 import { CategoryService } from '@/main/shared/category.service';
 import { trigger, style, state, transition, animate } from '@angular/animations';
+import { Module } from '@/main/modules/module.model';
+import { environment } from 'environments/environment.prod';
 
 @Component({
   selector: 'app-current-module',
@@ -30,30 +29,41 @@ import { trigger, style, state, transition, animate } from '@angular/animations'
 
 export class CurrentModuleComponent implements OnInit, OnDestroy {
 
-  module$!: Observable<Module>;
-  categories$!: Promise<Category[]>;
-  categorySubscription!: Subscription;
+  module!: Module | undefined;
+  categories!: Category[];
+  noActive = false;
   animateAction = 'initial';
+  modulesSubscription!: Subscription;
 
   constructor(
     private modulesService: ModulesService,
-    private categoryService: CategoryService
   ) { }
 
   ngOnInit() {
-    this.module$ = <Observable<Module>>this.modulesService.getModulesObservable()
-      .pipe(
-        map(modules => modules.find(module => module.status === ACTIVE))
-      );
-    this.categorySubscription = this.module$
-      .subscribe((module) => {
-          this.categories$ = this.categoryService.getCategories(module.id);
-          setTimeout(() => this.animateAction = 'rendered', 10);
-      });
+   this.modulesSubscription = this.modulesService.getModulesHttp()
+      .subscribe(
+        (apiModules) => {
+          const active = apiModules.find(apimod => apimod.is_active === true);
+          if (active) {
+            this.module = <Module>active;
+          } else {
+            this.noActive = true;
+          }
+        }
+      )
   }
 
-  ngOnDestroy(): void {
-    this.categorySubscription.unsubscribe();
+  // To be removed once the api sends the full image path
+  imageUrl() {
+    console.log(this.module);
+    if (this.module && this.module.image.length > 0) {
+      return environment.API_ENDPOINT + '/media/' + this.module.image;
+    }
+    return 'https://via.placeholder.com/275x100?text=No Image';
+  }
+
+  ngOnDestroy() {
+    this.modulesSubscription.unsubscribe();
   }
 
 }

@@ -1,7 +1,6 @@
 import { Category } from '@/main/shared/category.model';
 import { Observable, Observer, of } from 'rxjs';
 import { LocalStorageService } from '@/shared/localstorage.service';
-import { CATEGORY, ACTIVE, DONE, LOCKED } from '@/app.constants';
 import { Injectable } from '@angular/core';
 import { Section } from './section.model';
 import { HttpClient } from '@angular/common/http';
@@ -14,24 +13,24 @@ export class CategoryService {
     allCategories = [
         new Category(
             'Introduction',
-            'assets/modules/flag.svg',
-            'done',
-            []),
+            true,
+            false,
+            ),
         new Category(
             'Learn',
-            'assets/modules/docs.svg',
-            'active',
-            []),
+            false,
+            false
+            ),
         new Category(
             'Discuss',
-            'assets/modules/conversation.svg',
-            'locked',
-            []),
+            false,
+            true,
+            ),
         new Category(
             'Practice',
-            'assets/modules/practice.svg',
-            'locked',
-            []),
+            false,
+            true,
+            ),
     ];
 
     constructor(
@@ -40,11 +39,10 @@ export class CategoryService {
     ){}
 
     async getCategories(moduleId: number) {
-        let newCategories: Category[] = [];
+        const newCategories: Category[] = [];
         await this.http.get(environment.API_ENDPOINT + '/api/v1/modules/section-listing/' + moduleId + '/').toPromise()
             .then((data) => {
                 const response = <ApiResponse>data;
-                console.log(response.results);
                 this.allCategories.forEach((category: Category) => {
                     const sections = response.results
                                         .filter((section: Section) => {

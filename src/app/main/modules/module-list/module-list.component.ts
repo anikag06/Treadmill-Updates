@@ -9,6 +9,7 @@ import { ACTIVE, DONE, LOCKED, MOBILEWIDTH } from '@/app.constants';
 import { map, tap, flatMap } from 'rxjs/operators';
 import { Category } from '@/main/shared/category.model';
 import { CategoryService } from '@/main/shared/category.service';
+import { ApiModule } from '../api-module.model';
 
 @Component({
   selector: 'app-module-list',
@@ -18,7 +19,7 @@ import { CategoryService } from '@/main/shared/category.service';
 })
 export class ModuleListComponent implements OnInit {
 
-  activeModule$!: Observable<Module>;
+  activeModule!: Module | undefined;
   allModules!: Module[];
   subscription!: Subscription;
   modules$!: Observable<Module[]>;
@@ -48,7 +49,8 @@ export class ModuleListComponent implements OnInit {
           this.dataFetched = true;
         }
       );
-
+    this.modulesService.getModulesHttp()
+        .subscribe((data: Module[]) => console.log(data));
   }
 
   onModuleClick(module: Module) {
@@ -71,10 +73,10 @@ export class ModuleListComponent implements OnInit {
 
     this.isCompleted$ = this.modulesService.isCompleted();
 
-    this.activeModule$ = <Observable<Module>>this.modules$
+    this.activeModule = await this.modules$
       .pipe(
         map(modules => modules.find(module => module.status === ACTIVE))
-      );
+      ).toPromise();
 
     const categories = this.categoryService.allCategories;
 

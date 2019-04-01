@@ -11,6 +11,7 @@
     .current-module-main {
         border-left: 55px solid  #f49080;
         height: 315px;
+        width: 100%;
         h3 {
             font-size: 18px;
             padding: 20px 5px 10px 15px;
@@ -83,12 +84,25 @@
             .current-module-category {
                 margin: 15px 15px 8px 30px;
             }
+            ::ng-deep .category-card {
+                width: 24%;
+                border-top: 1px solid $treadwill-black;
+                top: -12px;
+                img {
+                    background-color: white;
+                    position: absolute;
+                    top: -14px;
+                    left: -20px;
+                    width: 25px;
+                    height: 25px;
+                }
+            }
             .btn-container {
-                margin-top: 15px;
+                margin-top: 0px;
                 margin-left: 10px; 
                 a.continue-task {
                     padding: 5px 10px 5px 10px;
-                    font-size: 13px;
+                    font-size: 12px;
                 }
             }
         }

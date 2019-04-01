@@ -2,19 +2,17 @@ import { Section } from './section.model';
 
 export class Category {
     public name: string;
-    public imageUrl: string;
-    public status: string;
+    public is_active: boolean;
+    public is_content_locked: boolean;
     public sections: Section[];
-    
     constructor(
         name: string,
-        imageUrl: string,
-        status: string,
-        sections: Section[],
+        is_active: boolean,
+        is_content_locked: boolean,
     ) {
         this.name = name;
-        this.imageUrl = imageUrl;
-        this.status = status;
-        this.sections = sections;
+        this.is_active = is_active;
+        this.is_content_locked = is_content_locked;
+        this.sections = [];
     }
 }

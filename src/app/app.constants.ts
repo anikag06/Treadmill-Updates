@@ -1,12 +1,9 @@
 // Textual Constants
-export const INTRODUCTION       = 'Introduction';
-export const LEARN              = 'Learn';
-export const DISCUSS            = 'Discuss';
-export const PRACTICE           = 'Practice';
+export const INTRODUCTION       = 'INTRODUCTION';
+export const LEARN              = 'LEARN';
+export const DISCUSS            = 'DISCUSS';
+export const PRACTICE           = 'PRACTICE';
 export const GAMES              = 'games';
-export const DONE               = 'done';
-export const LOCKED             = 'locked';
-export const ACTIVE             = 'active';
 export const MODULES            = 'modules';
 export const CATEGORY           = 'category_';
 export const TOKEN              = 'jwt_token';

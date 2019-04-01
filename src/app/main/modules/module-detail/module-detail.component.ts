@@ -41,7 +41,7 @@ export class ModuleDetailComponent implements OnInit, DoCheck {
           this.categoryService.getCategories(this.module.id)
             .then((categories) => {
               this.categories = categories;
-              this.selectedCategory = categories.find((category) => category.status === ACTIVE);
+              this.selectedCategory = categories.find((category) => category.is_active === true);
             });
         },
         (error) => {

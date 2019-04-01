@@ -10,9 +10,6 @@ import { ACTIVE, LOCKED, DONE } from '@/app.constants';
 export class SectionCardComponent implements OnInit {
 
   @Input() section!: Section;
-  active: boolean = false;
-  done: boolean = false;
-  locked: boolean = true;
 
   constructor() { }
 
