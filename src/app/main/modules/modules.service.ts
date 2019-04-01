@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Observable, Observer } from 'rxjs';
+import { Observable, Observer, of } from 'rxjs';
 
 
 import { Module } from './module.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { map } from 'rxjs/operators';
+import { MODULES } from '@/app.constants';
+import { LocalStorageService } from '@/shared/localstorage.service';
 
 export interface ModuleListResponse {
     status: boolean;
@@ -19,15 +21,19 @@ export interface ModuleListResponse {
 export class ModulesService {
 
     constructor(
+        private localstorageService: LocalStorageService,
         private http: HttpClient
     ) { }
 
     getModules(): Observable<Module[]> {
-        return this.http.get(environment.API_ENDPOINT + '/api/v1/modules/user-module-listing/')
+        let modules: Module[] = [];
+        modules = <Module[]>this.localstorageService.getItemWithDate(MODULES);
+        if (!modules || modules.length < 1) {
+            return this.http.get(environment.API_ENDPOINT + '/api/v1/modules/user-module-listing/')
             .pipe(
                 map((data) => {
                     const response = <ModuleListResponse>data;
-                    return response.data.module_list
+                    const moduleData =  response.data.module_list
                         .map((module) => new Module(module.name,
                                                     module.is_active,
                                                     module.is_completed,
@@ -35,8 +41,12 @@ export class ModulesService {
                                                     module.id,
                                                     module.categories)
                             );
+                    this.localstorageService.setItemWithDate(MODULES, moduleData);
+                    return moduleData;
                 })
             );
+        }
+        return of(modules);
     }
 
     getModule(slug: string) {

@@ -9,6 +9,8 @@ import { MOBILEWIDTH } from '@/app.constants';
 import { map } from 'rxjs/operators';
 import { Category } from '@/main/shared/category.model';
 import { CategoryService } from '@/main/shared/category.service';
+import { MatDialog } from '@angular/material';
+import { ErrorDialogComponent } from '@/shared/error-dialog/error-dialog.component';
 
 @Component({
   selector: 'app-module-list',
@@ -31,8 +33,8 @@ export class ModuleListComponent implements OnInit {
   categories!: Category[];
 
   constructor(
+    public dialog: MatDialog,
     private modulesService: ModulesService,
-    private categoryService: CategoryService,
     private router: Router
   ) {
     if (window.innerWidth < MOBILEWIDTH) {
@@ -43,7 +45,7 @@ export class ModuleListComponent implements OnInit {
   ngOnInit() {
     this.getModulesAndCategories()
       .then(
-        (data) => {
+        () => {
           this.dataFetched = true;
         }
       );
@@ -73,7 +75,6 @@ export class ModuleListComponent implements OnInit {
       .pipe(
         map(modules => modules.find(module => module.is_active))
       ).toPromise();
-
     return Promise.all([true]);
   }
 

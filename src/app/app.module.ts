@@ -22,6 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AuthModule } from './auth.module';
 import { MainModule } from '@/main/main.module';
+import { ErrorDialogComponent } from './shared/error-dialog/error-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +31,8 @@ import { MainModule } from '@/main/main.module';
     PreLoginFooterComponent,
     MatContactUsDialogComponent,
     LandingPageComponent,
-    PreLoginComponent
+    PreLoginComponent,
+    ErrorDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -52,6 +54,6 @@ import { MainModule } from '@/main/main.module';
     AuthService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [MatLoginDialogComponent, MatContactUsDialogComponent],
+  entryComponents: [MatLoginDialogComponent, MatContactUsDialogComponent, ErrorDialogComponent],
 })
 export class AppModule { }

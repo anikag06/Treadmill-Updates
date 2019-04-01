@@ -7,18 +7,21 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { ApiResponse } from './apiResponse.model';
 import { Module } from '../modules/module.model';
+import * as localforage from 'localforage';
+import { CATEGORY } from '@/app.constants';
 
 @Injectable()
 export class CategoryService {
 
     constructor(
-        private localStorageService: LocalStorageService,
         private http: HttpClient
     ) {}
 
     async getCategories(module: Module) {
-        const newCategories: Category[] = [];
-        await this.http.get(environment.API_ENDPOINT + '/api/v1/modules/section-listing/' + module.id + '/').toPromise()
+        let newCategories: Category[] = [];
+        newCategories = <Category[]>await localforage.getItem(CATEGORY + module.id);
+        if (!newCategories || newCategories.length < 1) {
+            await this.http.get(environment.API_ENDPOINT + '/api/v1/modules/section-listing/' + module.id + '/').toPromise()
             .then((data) => {
                 const response = <ApiResponse>data;
                 module.categories.forEach((category: Category) => {
@@ -30,9 +33,10 @@ export class CategoryService {
                         category.sections = sections;
                     }
                     newCategories.push(category);
+                    localforage.setItem(CATEGORY + module.id, newCategories);
                 });
             });
-
+        }
         return Promise.all(newCategories);
     }
 }

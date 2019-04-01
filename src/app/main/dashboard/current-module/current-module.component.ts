@@ -6,6 +6,8 @@ import { CategoryService } from '@/main/shared/category.service';
 import { trigger, style, state, transition, animate } from '@angular/animations';
 import { Module } from '@/main/modules/module.model';
 import { environment } from 'environments/environment.prod';
+import { MatDialog } from '@angular/material';
+import { ErrorDialogComponent } from '@/shared/error-dialog/error-dialog.component';
 
 @Component({
   selector: 'app-current-module',
@@ -37,6 +39,7 @@ export class CurrentModuleComponent implements OnInit, OnDestroy {
 
   constructor(
     private modulesService: ModulesService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -49,8 +52,15 @@ export class CurrentModuleComponent implements OnInit, OnDestroy {
           } else {
             this.noActive = true;
           }
+        },
+        () => {
+          this.module =  new Module('Unknown', false, false, 'https://via.placeholder.com/275x98.png?text=Unknown', 0, [])
+          this.dialog.open(ErrorDialogComponent, {
+            width: '300px',
+            data: 'Couldn\'t find the module that should appear next'
+          });
         }
-      )
+      );
   }
 
   // To be removed once the api sends the full image path
