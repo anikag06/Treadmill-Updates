@@ -1,0 +1,53 @@
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+    width: 200px;
+    background-color: #F5BB56;
+    border: none;
+}
+
+.sidenav .mat-toolbar {
+  background: inherit;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.list-wrapper{
+display: flex;
+flex-direction: column;
+}
+
+.list-user{
+ flex:1;
+ align-self: center;
+ padding-top: 40px;
+}
+.list-user-name{
+flex: 1;
+align-self: center;
+padding-bottom: 40px;
+
+}
+
+.list-wrapper-items{
+flex: 1;
+display: flex;
+}
+
+.list-wrapper-items-icon{
+flex: 0.35;
+margin-: auto;
+}
+
+.list-wrapper-items-name{
+flex: 0.65;
+margin: auto;
+
+}
+

@@ -25,6 +25,8 @@ import { GamesListComponent } from './games/games-list/games-list.component';
 import { GameItemComponent } from './games/games-list/game-item/game-item.component';
 import { AppRoutingModule } from '@/app-routing.module';
 import { MaterialModule } from '@/material.module';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -53,7 +55,13 @@ import { MaterialModule } from '@/material.module';
   imports: [
     CommonModule,
     AppRoutingModule,
-    MaterialModule
+    MaterialModule,
+    LayoutModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule
   ],
   providers: [
     LocalStorageService

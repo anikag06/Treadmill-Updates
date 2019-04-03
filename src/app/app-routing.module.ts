@@ -11,19 +11,9 @@ import { AuthGuard } from './shared/auth/auth.guard';
 import { LogoutComponent } from './shared/auth/logout/logout.component';
 import { GamesComponent } from './main/games/games.component';
 import { GamesListComponent } from './main/games/games-list/games-list.component';
+import { SideNavComponent } from '@/main/shared/side-nav/side-nav.component';
 
 const routes: Routes = [
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
-  { path: 'modules', component: ModulesComponent, canActivateChild: [AuthGuard], children: [
-      {path: ':name', component: ModuleDetailComponent},
-      {path: '', component: ModuleListComponent},
-    ]
-  },
-  { path: 'games', component: GamesComponent, canActivateChild: [AuthGuard], children: [
-    {path: '', component: GamesListComponent},
-  ]
-},
-  { path: 'logout', component: LogoutComponent },
   { path: '',
     component: PreLoginComponent,
     pathMatch: 'full',
@@ -31,6 +21,20 @@ const routes: Routes = [
       {path: '', component: LandingPageComponent, pathMatch: 'full'},
     ]
   },
+  { path: '', component: SideNavComponent, canActivateChild: [AuthGuard],
+    children: [
+      { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
+      { path: 'modules', component: ModulesComponent, canActivateChild: [AuthGuard], children: [
+        {path: ':name', component: ModuleDetailComponent},
+        {path: '', component: ModuleListComponent},
+      ]
+    },
+    { path: 'games', component: GamesComponent, children: [
+        {path: '', component: GamesListComponent},
+      ]
+    },
+      { path: 'logout', component: LogoutComponent },
+      ]},
   { path: '**', component: NotFoundComponent }
 ];
 
