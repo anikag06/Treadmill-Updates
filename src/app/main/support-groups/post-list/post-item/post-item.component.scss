@@ -1,0 +1,17 @@
+a.toggler {
+    text-decoration: underline;
+    color: #1a77e2;
+    cursor: pointer;
+}
+a.toggler:hover {
+    text-decoration: underline;
+    color: #1a77e2;
+    cursor: pointer;
+}
+
+.hide-content {
+    white-space: pre-wrap;
+    height: 80px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

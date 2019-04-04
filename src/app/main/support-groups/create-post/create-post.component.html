@@ -1,0 +1,27 @@
+<div class="error-div" *ngIf="errors.length > 0">
+    <h3>Some error occured</h3>
+    <ul>
+      <li *ngFor="let error of errors">
+        <strong>{{error.name}}</strong>: {{ error.value }}
+      </li>
+    </ul>
+</div>
+<form (ngSubmit)="formSubmit()" #postCreation="ngForm">
+  <div class="form-group">
+      <label for="body">Write your post</label>
+      <angular-editor [(ngModel)]="body" name="body" [config]="editorConfig" required></angular-editor>
+  </div>
+  <div class="form-group">
+    <label for="title">Give your post a title</label>
+    <input type="text" name="title" class="form-control" ngModel>
+  </div>
+  <div class="form-group" *ngFor="let tag of tags; let i = index">
+    <input type="checkbox" name="tags" [value]="tag.id" [id]="tag.id" (change)="onCheckboxChange(tag.id, $event)">
+    <label [for]="tag.id"> {{ tag.name }}</label>
+  </div>
+  <button
+    type="submit"
+    class="btn btn-primary"
+    [disabled]="submitDisabled()">
+    Submit</button>
+</form>

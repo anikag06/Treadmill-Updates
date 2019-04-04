@@ -1,4 +1,4 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, LOCALE_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ModulesComponent } from '@/main/modules/modules.component';
@@ -25,6 +25,18 @@ import { GamesListComponent } from './games/games-list/games-list.component';
 import { GameItemComponent } from './games/games-list/game-item/game-item.component';
 import { AppRoutingModule } from '@/app-routing.module';
 import { MaterialModule } from '@/material.module';
+import { SupportGroupsComponent } from './support-groups/support-groups.component';
+import { PostListComponent } from './support-groups/post-list/post-list.component';
+import { PostItemComponent } from './support-groups/post-list/post-item/post-item.component';
+import { SupportGroupsService } from './support-groups/support-groups.service';
+import { FormsModule } from '@angular/forms';
+import { CommentComponent } from './support-groups/post-list/post-item/comment/comment.component';
+import { CreatePostComponent } from './support-groups/create-post/create-post.component';
+import { NestedCommentComponent } from './support-groups/post-list/post-item/nested-comment/nested-comment.component';
+import { HttpClientModule} from '@angular/common/http';
+import { AngularEditorModule } from '@xw19/angular-editor';
+import { SanitizationService } from './support-groups/sanitization.service';
+import { SafeHtmlPipe } from './support-groups/safe-html.pipe';
 
 @NgModule({
   declarations: [
@@ -48,16 +60,29 @@ import { MaterialModule } from '@/material.module';
     ChatbotAvatarComponent,
     GamesComponent,
     GamesListComponent,
-    GameItemComponent
+    GameItemComponent,
+    SupportGroupsComponent,
+    PostListComponent,
+    PostItemComponent,
+    CommentComponent,
+    CreatePostComponent,
+    NestedCommentComponent,
+    SafeHtmlPipe,
   ],
   imports: [
     CommonModule,
     AppRoutingModule,
-    MaterialModule
+    MaterialModule,
+    FormsModule,
+    HttpClientModule,
+    AngularEditorModule,
   ],
   providers: [
-    LocalStorageService
+    LocalStorageService,
+    SupportGroupsService,
+    SanitizationService,
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  entryComponents: [CreatePostComponent]
 })
 export class MainModule { }

@@ -1,0 +1,38 @@
+label {
+    color: black !important;
+}
+.ng-valid {
+    color: black !important;
+}
+h3 {
+    color: #9e3737;
+    font-size: 18px;
+}
+
+.ng-invalid {
+    .angular-editor {
+        border: 1px solid  #9e3737;
+    }
+}
+
+::ng-deep #editor {
+    a {
+        text-decoration: underline !important;
+    }
+}
+
+.error-div {
+    background-color: #feb7b7;
+    padding: 10px;
+    border: 2px dashed #9e3737;
+    border-radius: 5px;
+    ul {
+        color: #9e3737;
+        font-size: 14px;
+        text-transform: capitalize;
+        padding: 0;
+        li {
+            list-style-type: none;
+        }
+    }
+}

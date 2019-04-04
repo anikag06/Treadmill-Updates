@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from '@/material.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -19,10 +19,10 @@ import { PreLoginComponent } from '@/pre-login/pre-login.component';
 import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-contact-us-dialog.service';
 import { AuthService } from './shared/auth/auth.service';
 import { HttpClientModule } from '@angular/common/http';
-
 import { AuthModule } from './auth.module';
 import { MainModule } from '@/main/main.module';
 import { ErrorDialogComponent } from './shared/error-dialog/error-dialog.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +32,7 @@ import { ErrorDialogComponent } from './shared/error-dialog/error-dialog.compone
     MatContactUsDialogComponent,
     LandingPageComponent,
     PreLoginComponent,
-    ErrorDialogComponent
+    ErrorDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,11 +47,12 @@ import { ErrorDialogComponent } from './shared/error-dialog/error-dialog.compone
     ServiceWorkerModule.register('sw-master.js', { enabled: environment.production })
   ],
   providers: [
+    {provide: LOCALE_ID, useValue: 'en-US'},
     LoginComponent,
     LoggerService,
     DialogSize,
     MatContactUsDialogService,
-    AuthService
+    AuthService,
   ],
   bootstrap: [AppComponent],
   entryComponents: [MatLoginDialogComponent, MatContactUsDialogComponent, ErrorDialogComponent],

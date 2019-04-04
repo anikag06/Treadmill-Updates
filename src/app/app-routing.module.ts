@@ -11,8 +11,10 @@ import { AuthGuard } from './shared/auth/auth.guard';
 import { LogoutComponent } from './shared/auth/logout/logout.component';
 import { GamesComponent } from './main/games/games.component';
 import { GamesListComponent } from './main/games/games-list/games-list.component';
+import { SupportGroupsComponent } from './main/support-groups/support-groups.component';
 
 const routes: Routes = [
+  { path: 'support-groups', component: SupportGroupsComponent, canActivate: [AuthGuard]},
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
   { path: 'modules', component: ModulesComponent, canActivateChild: [AuthGuard], children: [
       {path: ':name', component: ModuleDetailComponent},

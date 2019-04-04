@@ -4,7 +4,14 @@
           <app-side-nav></app-side-nav>
       </div>
       <div class="col-md-10 body-bg">
-        <app-post-list></app-post-list>
+        <div class="row no-gutters">
+          <div class="col-md-10">
+              <app-post-list></app-post-list>
+          </div>
+          <div class="col-md-2">
+            <button class="btn btn-lg btn-warning" (click)="onCreatePostClick()">Post</button>
+          </div>
+        </div>
       </div>
   </div>
 </div>

@@ -1,3 +1,40 @@
-<p>
-  post-item works!
-</p>
+<div class="row no-gutters">
+  <div class="col-1">
+    <img src="assets/support-groups/user-avtar.png" alt="User avatar">
+  </div>
+  <div class="col-11">
+    <div class="row no-gutters">
+      <div class="col-10">
+        <h2>{{supportGroupItem.title}}</h2>
+      </div>
+      <div class="col-2">
+        <span *ngFor="let tag of supportGroupItem.tags">{{ tag.name }} </span>
+      </div>
+    </div>
+    <p><span>{{supportGroupItem.created_at | date: 'medium' | timeAgo }}</span></p>
+    <div [innerHTML]="body | safeHtml"></div>
+    <a (click)="toggleShow()" *ngIf="!showFullContent" class="toggler">Show More</a>
+    <a (click)="toggleShow()" *ngIf="showFullContent" class="toggler">Show Less</a>
+    <form (ngSubmit)="onSubmit()" #mainComment="ngForm">
+      <input type="text" name="name" ngModel class="form-control" required>
+    </form>
+  </div>
+</div>
+<div class="row no-gutters">
+  <ng-container *ngIf="initial">
+    <app-comment
+      class="col-12"
+      *ngFor="let userComment of comments.slice(0, 1)"
+      [comment]="userComment">
+    </app-comment>
+  </ng-container>
+  <ng-container *ngIf="!initial">
+    <app-comment
+      class="col-12"
+      *ngFor="let userComment of comments"
+      [comment]="userComment">
+    </app-comment>
+  </ng-container>
+  <button class="btn btn-info btn-sm" type="button" *ngIf="showLoadMore()" (click)="fetchOrShowComments()">More comments</button>
+  <button class="btn btn-info btn-sm" type="button" *ngIf="showLessComments()" (click)="makeInitial()">Less comments</button>
+</div>
