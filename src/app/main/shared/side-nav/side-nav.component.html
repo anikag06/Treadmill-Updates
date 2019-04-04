@@ -1,16 +1,15 @@
 <mat-drawer-container class="sidenav-container">
   <mat-drawer #drawer class="sidenav"
-    fixedInViewport="true"
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
-      [opened]="!(isHandset$ | async)">
+      [opened]="((isHandset$ | async) === false)">
     <mat-toolbar>
       <div>
         <img src="https://www.treadwill.org/static/cbt2/images/logo/treadwill_logo.png" height="55px" style="margin-top: 10px;" alt="treadwill_logo">
       </div>
     </mat-toolbar>
 
-    <mat-nav-list>
+    <mat-nav-list  role="navigation">
       <div class="list-wrapper">
 
        <div class="list-user">
@@ -138,7 +137,7 @@
 
 
   <mat-drawer-content>
-    <mat-toolbar color="#ffffff;">
+    <mat-toolbar>
       <button
         type="button"
         aria-label="Toggle sidenav"
@@ -149,7 +148,6 @@
       </button>
       <span></span>
     </mat-toolbar>
-    <!-- Add Content Here -->
     <router-outlet></router-outlet>
   </mat-drawer-content>
 </mat-drawer-container>
