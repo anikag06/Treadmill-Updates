@@ -22,119 +22,32 @@
           <strong>Nanzu</strong>
        </div>
 
-       <div class="list-wrapper-items">
-        <a mat-list-item routerLink="/dashboard">
+       <div *ngFor="let item of items1; index as i" class="list-wrapper-items">
+        <a mat-list-item routerLink="/{{ links1[i] }}">
           <span class="list-wrapper-items-icon">
-           <img src="assets/modules/dashboard.svg">
+           <img src="assets/modules/{{ icons1[i] }}">
           </span>
           <span class="list-wrapper-items-name">
-            Dashboard
+            {{ item }}
+          </span>
+        </a> 
+       </div><br><br>
+
+       <div *ngFor="let item of items2; index as i" class="list-wrapper-items">
+        <a mat-list-item routerLink="/{{ links2[i] }}">
+          <span class="list-wrapper-items-icon">
+           <img src="assets/modules/{{ icons2[i] }}">
+          </span>
+          <span class="list-wrapper-items-name">
+            {{ item }}
           </span>
         </a> 
        </div>
 
-          
-       <div class="list-wrapper-items">
-        <a mat-list-item routerLink="/modules">
-          <span class="list-wrapper-items-icon">
-            <img src="assets/modules/modules.svg">
-          </span>
-          <span class="list-wrapper-items-name">
-            Modules
-          </span>
-        </a> 
-       </div>
-
-       <div class="list-wrapper-items">
-        <a mat-list-item routerLink="/games">
-          <span class="list-wrapper-items-icon">
-            <img src="assets/modules/games.svg">
-          </span>
-          <span class="list-wrapper-items-name">
-            Games
-          </span>
-        </a>
-       </div>
-
-       <div class="list-wrapper-items">
-        <a mat-list-item href="#">
-          <span class="list-wrapper-items-icon">
-            <img src="assets/modules/groups.svg">
-          </span>
-          <span class="list-wrapper-items-name">
-            Groups
-          </span>
-        </a>
-       </div>
-
-       <div class="list-wrapper-items">
-        <a mat-list-item href="#">
-          <span class="list-wrapper-items-icon">
-            <img src="assets/modules/scores.svg">
-          </span>
-          <span class="list-wrapper-items-name">
-             Scores
-          </span>
-        </a>
-       </div>
-
-       <div class="list-wrapper-items">
-        <a mat-list-item href="#">
-          <span class="list-wrapper-items-icon">
-            <img src="assets/modules/resources.svg">
-          </span>
-          <span class="list-wrapper-items-name">
-            Resources
-          </span>
-        </a>
-       </div>
-
-       <div class="list-wrapper-items">
-        <a mat-list-item href="#">
-          <span class="list-wrapper-items-icon">
-            <img src="assets/modules/settings.svg">
-          </span>
-          <span class="list-wrapper-items-name">
-            Settings
-          </span>
-        </a>
-       </div>
-
-       <div class="list-wrapper-items">
-        <a mat-list-item href="#">
-          <span class="list-wrapper-items-icon">
-          </span>
-          <span class="list-wrapper-items-name"></span></a>
-        </div>
-          <!--Remove clickable link from the empty box above-->
-
-       <div class="list-wrapper-items">
-        <a mat-list-item href="#">
-          <span class="list-wrapper-items-icon">
-            <img src="assets/modules/need to talk.svg">
-          </span>
-          <span class="list-wrapper-items-name">
-            Need to talk?
-          </span>
-        </a>
-       </div>
-
-       <div class="list-wrapper-items">
-        <a mat-list-item href="#">
-          <span class="list-wrapper-items-icon">
-            <img src="assets/modules/logout.svg">
-          </span>
-          <span class="list-wrapper-items-name">
-            Logout
-          </span>
-        </a>
-       </div>
-    
       </div>
     </mat-nav-list>
 
   </mat-drawer>
-
 
   <mat-drawer-content>
     <mat-toolbar>
