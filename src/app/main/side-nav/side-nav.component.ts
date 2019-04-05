@@ -15,15 +15,12 @@ export class SideNavComponent {
       map(result => result.matches)
     );
     items1 = ['Dashboard', 'Modules', 'Games', 'Groups', 'Scores', 'Resources', 'Settings'];
-    
     items2 = ['Need to talk', 'Logout'];
 
     links1 = ['dashboard', 'modules', 'games', '', '', '', ''];
-
     links2 = ['', ''];
 
     icons1 = ['dashboard.svg', 'modules.svg', 'games.svg', 'groups.svg', 'scores.svg', 'resources.svg', 'settings.svg'];
-
     icons2 = ['need to talk.svg', 'logout.svg']
 
 
