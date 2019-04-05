@@ -14,6 +14,7 @@ export class SideNavComponent {
     .pipe(
       map(result => result.matches)
     );
+    items = ['Dashboard', 'Modules', 'Games', 'Groups', 'Scores', 'Resources', 'Settings', '', 'Need to talk', 'Logout']
 
   constructor(private breakpointObserver: BreakpointObserver) {}
 

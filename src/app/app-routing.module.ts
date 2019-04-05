@@ -11,7 +11,7 @@ import { AuthGuard } from './shared/auth/auth.guard';
 import { LogoutComponent } from './shared/auth/logout/logout.component';
 import { GamesComponent } from './main/games/games.component';
 import { GamesListComponent } from './main/games/games-list/games-list.component';
-import { SideNavComponent } from '@/main/shared/side-nav/side-nav.component';
+import { SideNavComponent } from '@/main/side-nav/side-nav.component';
 
 const routes: Routes = [
   { path: '',

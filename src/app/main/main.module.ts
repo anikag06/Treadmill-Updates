@@ -12,7 +12,7 @@ import { LocalStorageService } from '../shared/localstorage.service';
 import { NotFoundComponent } from '../shared/not-found/not-found.component';
 import { CategoryBigComponent } from './modules/module-detail/category-big/category-big.component';
 import { SectionCardComponent } from './modules/module-detail/section-card/section-card.component';
-import { SideNavComponent } from './shared/side-nav/side-nav.component';
+import { SideNavComponent } from './side-nav/side-nav.component';
 import { LogoutComponent } from '../shared/auth/logout/logout.component';
 import { ProgressComponent } from './dashboard/progress/progress.component';
 import { CurrentModuleComponent } from './dashboard/current-module/current-module.component';
