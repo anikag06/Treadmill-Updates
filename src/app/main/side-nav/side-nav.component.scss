@@ -1,9 +1,28 @@
+@mixin font-montserrat($font-weight: 500, $font-style: normal) {
+  font-family: 'Montserrat', sans-serif !important;
+  font-weight: $font-weight;
+  font-style: $font-style;
+}
+
+
+// Montserrat Fonts
+
+.font-montserrat-normal {
+  @include font-montserrat($font-weight: 500);
+}
+
+.font-montserrat-bold {
+  @include font-montserrat($font-weight: 700);
+}
+
+
+
 .sidenav-container {
-  height: 100%;
+  height: 100vh;
 }
 
 .sidenav {
-    width: 200px;
+    width: 205px;
     background-color: #F5BB56;
     border: none;
 }
@@ -32,6 +51,7 @@ flex-direction: column;
 flex: 1;
 align-self: center;
 padding-bottom: 40px;
+font-family: 'Montserrat', sans-serif !important;
 
 }
 
@@ -42,11 +62,17 @@ display: flex;
 
 .list-wrapper-items-icon{
 flex: 0.35;
-margin-: auto;
+margin: auto;
 }
 
 .list-wrapper-items-name{
 flex: 0.65;
 margin: auto;
-
+font-family: 'Montserrat', sans-serif !important;
+font-size: 14px;
+} 
+img.center{
+display: block;
+margin-left: auto;
+margin-right: auto;
 }
