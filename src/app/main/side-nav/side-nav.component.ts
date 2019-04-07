@@ -14,6 +14,7 @@ export class SideNavComponent {
     .pipe(
       map(result => result.matches)
     );
+    isExpanded = true;
 
   constructor(private breakpointObserver: BreakpointObserver) {}
 

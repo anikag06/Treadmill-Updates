@@ -1,35 +1,55 @@
-<mat-drawer-container class="sidenav-container">
+<mat-drawer-container class="sidenav-container" autosize>
   <mat-drawer #drawer class="sidenav"
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="((isHandset$ | async) === false)">
     <mat-toolbar>
       <div>
-        <a href="/dashboard"><img src="https://www.treadwill.org/static/cbt2/images/logo/treadwill_logo.png"  style="margin-top: 10px; width: 75%;" class="center" alt="treadwill_logo">
+        <a href="/dashboard"><img *ngIf="isExpanded" src="https://www.treadwill.org/static/cbt2/images/logo/treadwill_logo.png"  style="margin-top: 10px; width: 75%;" class="center" alt="treadwill_logo">
         </a>
+        
       </div>
+      <div>
+        <a href="/dashboard"><img *ngIf="!isExpanded" src="assets/modules/dashboard.png" width="30px">
+        </a>
+        
+      </div>
+      
     </mat-toolbar>
 
     <mat-nav-list  role="navigation">
       <div class="list-wrapper">
 
-       <div class="list-user">
+       <div *ngIf="isExpanded" class="list-user">
         <mat-icon style="
           transform: scale(3)">face
         </mat-icon>
        </div>
        <br>
-       <div class="list-user-name">
+       <div *ngIf="isExpanded" class="list-user-name">
           <strong>Nanzu</strong>
        </div>
 
-          
-       <div class="list-wrapper-items">
+       
+       <div *ngIf="isExpanded" class="list-wrapper-items">
         <a mat-list-item routerLink="/modules">
           <span class="list-wrapper-items-icon">
-            <img src="assets/modules/modules.svg">
+            <img *ngIf="isExpanded" src="assets/modules/modules.svg">
+            <img *ngIf="!isExpanded" width="30px;" src="assets/modules/modules.png">
           </span>
-          <span class="list-wrapper-items-name">
+          <span *ngIf="isExpanded" class="list-wrapper-items-name">
+            Modules
+          </span>
+        </a> 
+       </div>
+       
+       <div *ngIf="!isExpanded" class="list-wrapper-items margin-collapsed">
+        <a mat-list-item routerLink="/modules">
+          <span class="list-wrapper-items-icon">
+            <img *ngIf="isExpanded" src="assets/modules/modules.svg">
+            <img *ngIf="!isExpanded" width="30px;" src="assets/modules/modules.png">
+          </span>
+          <span *ngIf="isExpanded" class="list-wrapper-items-name">
             Modules
           </span>
         </a> 
@@ -38,9 +58,10 @@
        <div class="list-wrapper-items">
         <a mat-list-item routerLink="/games">
           <span class="list-wrapper-items-icon">
-            <img src="assets/modules/games.svg">
+            <img *ngIf="isExpanded" src="assets/modules/games.svg">
+            <img *ngIf="!isExpanded" width="30px" src="assets/modules/games.png">
           </span>
-          <span class="list-wrapper-items-name">
+          <span *ngIf="isExpanded" class="list-wrapper-items-name">
             Games
           </span>
         </a>
@@ -49,9 +70,10 @@
        <div class="list-wrapper-items">
         <a mat-list-item href="#">
           <span class="list-wrapper-items-icon">
-            <img src="assets/modules/groups.svg">
+            <img *ngIf="isExpanded" src="assets/modules/groups.svg">
+            <img *ngIf="!isExpanded" width="30px" src="assets/modules/groups.png">
           </span>
-          <span class="list-wrapper-items-name">
+          <span *ngIf="isExpanded" class="list-wrapper-items-name">
             Groups
           </span>
         </a>
@@ -60,9 +82,10 @@
        <div class="list-wrapper-items">
         <a mat-list-item href="#">
           <span class="list-wrapper-items-icon">
-            <img src="assets/modules/scores.svg">
+            <img *ngIf="isExpanded" src="assets/modules/scores.svg">
+            <img *ngIf="!isExpanded" width="30px" src="assets/modules/scores.png">
           </span>
-          <span class="list-wrapper-items-name">
+          <span *ngIf="isExpanded" class="list-wrapper-items-name">
              Scores
           </span>
         </a>
@@ -71,9 +94,10 @@
        <div class="list-wrapper-items">
         <a mat-list-item href="#">
           <span class="list-wrapper-items-icon">
-            <img src="assets/modules/resources.svg">
+            <img *ngIf="isExpanded" src="assets/modules/resources.svg">
+            <img *ngIf="!isExpanded" width="30px" src="assets/modules/resources.png">
           </span>
-          <span class="list-wrapper-items-name">
+          <span *ngIf="isExpanded" class="list-wrapper-items-name">
             Resources
           </span>
         </a>
@@ -82,28 +106,23 @@
        <div class="list-wrapper-items">
         <a mat-list-item href="#">
           <span class="list-wrapper-items-icon">
-            <img src="assets/modules/settings.svg">
+            <img *ngIf="isExpanded" src="assets/modules/settings.svg">
+            <img *ngIf="!isExpanded" width="30px" src="assets/modules/settings.png">
           </span>
-          <span class="list-wrapper-items-name">
+          <span *ngIf="isExpanded" class="list-wrapper-items-name">
             Settings
           </span>
         </a>
        </div>
 
-       <div class="list-wrapper-items">
+       
+       <div class="list-wrapper-items margin-above-needtotalk">
         <a mat-list-item href="#">
           <span class="list-wrapper-items-icon">
+            <img *ngIf="isExpanded" style="margin-left: 4px;" src="assets/modules/need to talk.svg">
+            <img *ngIf="!isExpanded" width="25px" src="assets/modules/need to talk.png">
           </span>
-          <span class="list-wrapper-items-name"></span></a>
-        </div>
-          <!--Remove clickable link from the empty box above-->
-
-       <div class="list-wrapper-items">
-        <a mat-list-item href="#">
-          <span class="list-wrapper-items-icon">
-            <img style="margin-left: 4px;" src="assets/modules/need to talk.svg">
-          </span>
-          <span class="list-wrapper-items-name">
+          <span *ngIf="isExpanded"class="list-wrapper-items-name">
             Need to <br>talk?
           </span>
         </a>
@@ -112,9 +131,10 @@
        <div class="list-wrapper-items">
         <a mat-list-item href="#">
           <span class="list-wrapper-items-icon">
-            <img style="margin-left: 2px;" src="assets/modules/logout.svg">
+            <img *ngIf="isExpanded" style="margin-left: 2px;" src="assets/modules/logout.svg">
+            <img *ngIf="!isExpanded" width="30px" style="margin-left: 2px;" src="assets/modules/logout.png">
           </span>
-          <span class="list-wrapper-items-name">
+          <span *ngIf="isExpanded" class="list-wrapper-items-name">
             Logout
           </span>
         </a>
@@ -127,6 +147,10 @@
 
 
   <mat-drawer-content>
+  <button mat-icon-button (click)="isExpanded = !isExpanded">
+          <mat-icon *ngIf="!isExpanded">chevron_right</mat-icon>
+          <mat-icon *ngIf="isExpanded">chevron_left</mat-icon>
+        </button>
     <mat-toolbar *ngIf="isHandset$ | async">
       <button
         type="button"
