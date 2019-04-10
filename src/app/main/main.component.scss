@@ -25,6 +25,7 @@
     max-width: 205px;
     background-color: #F5BB56;
     border: none;
+    box-shadow: 0.1px 0px 28px 0px #999999;
 }
 
 .sidenav-collapsed {
@@ -75,6 +76,7 @@ flex: 0.65;
 margin: auto;
 font-family: 'Montserrat', sans-serif !important;
 font-size: 14px;
+font-weight: 500;
 } 
 img.center{
 display: block;
@@ -90,3 +92,4 @@ margin-top: 50px;
 .icons-width{
   width: 32px;
 }
+button:focus {outline:0;}

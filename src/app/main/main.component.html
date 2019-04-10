@@ -34,8 +34,7 @@
        <div *ngIf="isExpanded" class="list-wrapper-items">
         <a mat-list-item routerLink="/modules">
           <span class="list-wrapper-items-icon">
-            <img *ngIf="isExpanded" class="icons-width" src="assets/modules/modules.png">
-            <img *ngIf="!isExpanded" class="icons-width" src="assets/modules/modules.png">
+            <img class="icons-width" src="assets/modules/modules.png">
           </span>
           <span *ngIf="isExpanded" class="list-wrapper-items-name">
             Modules
@@ -47,8 +46,7 @@
        <div *ngIf="!isExpanded" class="list-wrapper-items margin-collapsed-modules">
         <a mat-list-item routerLink="/modules">
           <span class="list-wrapper-items-icon">
-            <img *ngIf="isExpanded" class="icons-width" src="assets/modules/modules.png">
-            <img *ngIf="!isExpanded" class="icons-width" src="assets/modules/modules.png">
+            <img class="icons-width" src="assets/modules/modules.png">
           </span>
           <span *ngIf="isExpanded" class="list-wrapper-items-name">
             Modules
@@ -59,8 +57,7 @@
        <div class="list-wrapper-items">
         <a mat-list-item routerLink="/games">
           <span class="list-wrapper-items-icon">
-            <img *ngIf="isExpanded" class="icons-width" src="assets/modules/games.png">
-            <img *ngIf="!isExpanded" class="icons-width" src="assets/modules/games.png">
+            <img class="icons-width" src="assets/modules/games.png">
           </span>
           <span *ngIf="isExpanded" class="list-wrapper-items-name">
             Games
@@ -71,8 +68,7 @@
        <div class="list-wrapper-items">
         <a mat-list-item href="#">
           <span class="list-wrapper-items-icon">
-            <img *ngIf="isExpanded" class="icons-width" src="assets/modules/groups.png">
-            <img *ngIf="!isExpanded" class="icons-width" src="assets/modules/groups.png">
+            <img class="icons-width" src="assets/modules/groups.png">
           </span>
           <span *ngIf="isExpanded" class="list-wrapper-items-name">
             Groups
@@ -83,8 +79,7 @@
        <div class="list-wrapper-items">
         <a mat-list-item href="#">
           <span class="list-wrapper-items-icon">
-            <img *ngIf="isExpanded" class="icons-width" src="assets/modules/scores.png">
-            <img *ngIf="!isExpanded" class="icons-width" src="assets/modules/scores.png">
+            <img class="icons-width" src="assets/modules/scores.png">
           </span>
           <span *ngIf="isExpanded" class="list-wrapper-items-name">
              Scores
@@ -95,8 +90,7 @@
        <div class="list-wrapper-items">
         <a mat-list-item href="#">
           <span class="list-wrapper-items-icon">
-            <img *ngIf="isExpanded" class="icons-width" src="assets/modules/resources.png">
-            <img *ngIf="!isExpanded" class="icons-width" src="assets/modules/resources.png">
+            <img class="icons-width" src="assets/modules/resources.png">
           </span>
           <span *ngIf="isExpanded" class="list-wrapper-items-name">
             Resources
@@ -107,8 +101,7 @@
        <div class="list-wrapper-items">
         <a mat-list-item href="#">
           <span class="list-wrapper-items-icon">
-            <img *ngIf="isExpanded" class="icons-width" src="assets/modules/settings.png">
-            <img *ngIf="!isExpanded" class="icons-width"  src="assets/modules/settings.png">
+            <img class="icons-width" src="assets/modules/settings.png">
           </span>
           <span *ngIf="isExpanded" class="list-wrapper-items-name">
             Settings
@@ -132,8 +125,7 @@
        <div class="list-wrapper-items">
         <a mat-list-item href="#">
           <span class="list-wrapper-items-icon">
-            <img *ngIf="isExpanded" class="icons-width" style="margin-left: 2px;" src="assets/modules/logout.png">
-            <img *ngIf="!isExpanded" class="icons-width" style="margin-left: 2px;" src="assets/modules/logout.png">
+            <img class="icons-width" style="margin-left: 2px;" src="assets/modules/logout.png">
           </span>
           <span *ngIf="isExpanded" class="list-wrapper-items-name">
             Logout
@@ -148,7 +140,7 @@
 
 
   <mat-drawer-content>
-  <button mat-icon-button (click)="isExpanded = !isExpanded">
+  <button *ngIf="!(isHandset$ | async)" mat-icon-button (click)="isExpanded = !isExpanded">
           <mat-icon *ngIf="!isExpanded">chevron_right</mat-icon>
           <mat-icon *ngIf="isExpanded">chevron_left</mat-icon>
         </button>

@@ -11,7 +11,7 @@ import { AuthGuard } from './shared/auth/auth.guard';
 import { LogoutComponent } from './shared/auth/logout/logout.component';
 import { GamesComponent } from './main/games/games.component';
 import { GamesListComponent } from './main/games/games-list/games-list.component';
-import { SideNavComponent } from '@/main/side-nav/side-nav.component';
+import { MainComponent } from '@/main/main.component';
 
 const routes: Routes = [
   { path: '',
@@ -21,7 +21,7 @@ const routes: Routes = [
       {path: '', component: LandingPageComponent, pathMatch: 'full'},
     ]
   },
-  { path: '', component: SideNavComponent, canActivateChild: [AuthGuard],
+  { path: '', component: MainComponent, canActivateChild: [AuthGuard],
     children: [
       { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
       { path: 'modules', component: ModulesComponent, canActivateChild: [AuthGuard], children: [
