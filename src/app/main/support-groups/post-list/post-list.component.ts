@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { SupportGroupsService } from '../support-groups.service';
 import { Observable, Subscription } from 'rxjs';
 import { SupportGroupItem } from '../support-group-item.model';
@@ -32,5 +32,10 @@ export class PostListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.newSgServiceSubscription.unsubscribe();
+  }
+
+  @HostListener('scroll', ['$event'])
+  onScroll(event: Event) {
+    console.log(event);
   }
 }
