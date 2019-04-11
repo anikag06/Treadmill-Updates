@@ -18,14 +18,8 @@ export class SupportGroupsService {
     private http: HttpClient
   ) { }
 
-  getPosts() {
-    return this.http.get(environment.API_ENDPOINT + '/api/v1/support-group/post-listing/')
-      .pipe(
-        map(data => {
-          const response = <ApiResponse>data;
-          return response.results.map((sgItem) => <SupportGroupItem>sgItem);
-        })
-      );
+  getPosts(page: number = 1) {
+    return this.http.get(environment.API_ENDPOINT + '/api/v1/support-group/post-listing/?page=' + page);
   }
 
   createPost(data: any) {

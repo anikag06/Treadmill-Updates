@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { SupportGroupsService } from '../support-groups.service';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { SupportGroupItem } from '../support-group-item.model';
+import { ApiResponse } from '@/main/shared/apiResponse.model';
 
 @Component({
   selector: 'app-post-list',
@@ -10,16 +11,20 @@ import { SupportGroupItem } from '../support-group-item.model';
 })
 export class PostListComponent implements OnInit, OnDestroy {
 
-  posts$!: Observable<SupportGroupItem[]>;
+  posts: SupportGroupItem[] = [];
   newPosts: SupportGroupItem[] = [];
+  sgServiceSubscription!: Subscription;
   newSgServiceSubscription!: Subscription;
+  page = 1;
+  morePosts = true;
+  fetching = false;
 
   constructor(
     private sgService: SupportGroupsService
   ) { }
 
   ngOnInit() {
-    this.posts$ = this.sgService.getPosts();
+    this.getPosts();
     this.newSgServiceSubscription =  this.sgService.supportGroupItem$
       .subscribe(
         (sgItem: SupportGroupItem) => {
@@ -31,11 +36,43 @@ export class PostListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.sgServiceSubscription.unsubscribe();
     this.newSgServiceSubscription.unsubscribe();
   }
 
-  @HostListener('scroll', ['$event'])
+
+  getPosts() {
+    if (this.morePosts) {
+      this.fetching = true;
+      this.sgServiceSubscription = this.sgService.getPosts(this.page)
+        .subscribe(
+          (data) => {
+            const response = <ApiResponse>data;
+            if (response.next == null) {
+              this.morePosts = false;
+            } else {
+              this.morePosts = true;
+              this.page += 1;
+            }
+            this.posts.push(...<SupportGroupItem[]>response.results);
+            this.fetching = false;
+          }
+        );
+    }
+  }
+
+  getScrollPercent() {
+    const h = document.documentElement,
+        b = document.body,
+        st = 'scrollTop',
+        sh = 'scrollHeight';
+        return (h[st]||b[st]) / ((h[sh]||b[sh]) - h.clientHeight) * 100;
+}
+
+  @HostListener('window:scroll', ['$event'])
   onScroll(event: Event) {
-    console.log(event);
+    if (this.getScrollPercent() > 90.00 && !this.fetching) {
+      this.getPosts();
+    }
   }
 }

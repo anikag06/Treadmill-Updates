@@ -37,7 +37,6 @@ import { HttpClientModule} from '@angular/common/http';
 import { AngularEditorModule } from '@xw19/angular-editor';
 import { SanitizationService } from './support-groups/sanitization.service';
 import { SafeHtmlPipe } from './support-groups/safe-html.pipe';
-
 @NgModule({
   declarations: [
     ModulesComponent,
