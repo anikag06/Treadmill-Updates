@@ -3,6 +3,7 @@ import { SupportGroupsService } from '../support-groups.service';
 import { Subscription } from 'rxjs';
 import { SupportGroupItem } from '../support-group-item.model';
 import { ApiResponse } from '@/main/shared/apiResponse.model';
+import { Route, Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-post-list',
@@ -18,13 +19,26 @@ export class PostListComponent implements OnInit, OnDestroy {
   page = 1;
   morePosts = true;
   fetching = false;
+  tag: string | null =  null;
 
   constructor(
-    private sgService: SupportGroupsService
+    private sgService: SupportGroupsService,
+    private router: Router,
+    private route: ActivatedRoute
+
   ) { }
 
   ngOnInit() {
-    this.getPosts();
+    this.route.queryParams
+      .subscribe(
+        (data) => {
+          this.tag = data.tags;
+          this.posts = [];
+          this.page = 1;
+          this.morePosts = true;
+          this.getPosts();
+        }
+      )
     this.newSgServiceSubscription =  this.sgService.supportGroupItem$
       .subscribe(
         (sgItem: SupportGroupItem) => {
@@ -44,7 +58,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   getPosts() {
     if (this.morePosts) {
       this.fetching = true;
-      this.sgServiceSubscription = this.sgService.getPosts(this.page)
+      this.sgServiceSubscription = this.sgService.getPosts(this.page, this.tag)
         .subscribe(
           (data) => {
             const response = <ApiResponse>data;

@@ -8,7 +8,10 @@
         <h2>{{supportGroupItem.title}}</h2>
       </div>
       <div class="col-2">
-        <span *ngFor="let tag of supportGroupItem.tags">{{ tag.name }} </span>
+        <span *ngFor="let tag of supportGroupItem.tags">
+          <a [routerLink]="['/support-groups']" [queryParams]="{'tags': tag.name}">#{{tag.name}}</a>
+          &nbsp;         
+        </span>
       </div>
     </div>
     <p><span>{{supportGroupItem.created_at | date: 'medium' | timeAgo }}</span></p>
