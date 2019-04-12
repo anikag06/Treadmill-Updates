@@ -14,7 +14,8 @@ export class SanitizationService {
     let htmlString =  unsantizedHtml.replace(MAIN_REGEX, '');
     htmlString = htmlString.replace(SCRIPT_REGEX, '');
     htmlString = htmlString.replace(HREF_REGEX, '');
-    htmlString = htmlString.replace(/src\=/g, '');
+    htmlString = htmlString.replace(/style="[^"]*"/g, '');
+    htmlString = htmlString.replace(/src="[^"]*"/g, '');
     htmlString = htmlString.replace(/url\(/g, '');
     return htmlString;
   }
