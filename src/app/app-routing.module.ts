@@ -13,19 +13,9 @@ import { GamesComponent } from './main/games/games.component';
 import { GamesListComponent } from './main/games/games-list/games-list.component';
 import { SupportGroupsComponent } from './main/support-groups/support-groups.component';
 
+import { MainComponent } from '@/main/main.component';
+
 const routes: Routes = [
-  { path: 'support-groups', component: SupportGroupsComponent, canActivate: [AuthGuard]},
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
-  { path: 'modules', component: ModulesComponent, canActivateChild: [AuthGuard], children: [
-      {path: ':name', component: ModuleDetailComponent},
-      {path: '', component: ModuleListComponent},
-    ]
-  },
-  { path: 'games', component: GamesComponent, canActivateChild: [AuthGuard], children: [
-    {path: '', component: GamesListComponent},
-  ]
-},
-  { path: 'logout', component: LogoutComponent },
   { path: '',
     component: PreLoginComponent,
     pathMatch: 'full',
@@ -33,6 +23,21 @@ const routes: Routes = [
       {path: '', component: LandingPageComponent, pathMatch: 'full'},
     ]
   },
+  { path: '', component: MainComponent, canActivateChild: [AuthGuard],
+    children: [
+      { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
+      { path: 'support-groups', component: SupportGroupsComponent, canActivate: [AuthGuard]},
+      { path: 'modules', component: ModulesComponent, canActivateChild: [AuthGuard], children: [
+        {path: ':name', component: ModuleDetailComponent},
+        {path: '', component: ModuleListComponent},
+      ]
+    },
+    { path: 'games', component: GamesComponent, children: [
+        {path: '', component: GamesListComponent},
+      ]
+    },
+      { path: 'logout', component: LogoutComponent },
+      ]},
   { path: '**', component: NotFoundComponent }
 ];
 

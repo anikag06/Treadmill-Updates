@@ -12,7 +12,7 @@ import { LocalStorageService } from '../shared/localstorage.service';
 import { NotFoundComponent } from '../shared/not-found/not-found.component';
 import { CategoryBigComponent } from './modules/module-detail/category-big/category-big.component';
 import { SectionCardComponent } from './modules/module-detail/section-card/section-card.component';
-import { SideNavComponent } from './shared/side-nav/side-nav.component';
+import { MainComponent } from './main.component';
 import { LogoutComponent } from '../shared/auth/logout/logout.component';
 import { ProgressComponent } from './dashboard/progress/progress.component';
 import { CurrentModuleComponent } from './dashboard/current-module/current-module.component';
@@ -37,6 +37,9 @@ import { HttpClientModule} from '@angular/common/http';
 import { AngularEditorModule } from '@xw19/angular-editor';
 import { SanitizationService } from './support-groups/sanitization.service';
 import { SafeHtmlPipe } from './support-groups/safe-html.pipe';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule } from '@angular/material';
+
 @NgModule({
   declarations: [
     ModulesComponent,
@@ -49,7 +52,7 @@ import { SafeHtmlPipe } from './support-groups/safe-html.pipe';
     NotFoundComponent,
     CategoryBigComponent,
     SectionCardComponent,
-    SideNavComponent,
+    MainComponent,
     LogoutComponent,
     ProgressComponent,
     CurrentModuleComponent,
@@ -75,6 +78,12 @@ import { SafeHtmlPipe } from './support-groups/safe-html.pipe';
     FormsModule,
     HttpClientModule,
     AngularEditorModule,
+    LayoutModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule
   ],
   providers: [
     LocalStorageService,
