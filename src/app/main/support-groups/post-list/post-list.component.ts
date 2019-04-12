@@ -69,6 +69,7 @@ export class PostListComponent implements OnInit, OnDestroy {
             }
             this.posts.push(...<SupportGroupItem[]>response.results);
             this.fetching = false;
+            console.log(this.posts.length)
           }
         );
     }
@@ -84,7 +85,8 @@ export class PostListComponent implements OnInit, OnDestroy {
 
   @HostListener('window:scroll', ['$event'])
   onScroll(event: Event) {
-    if (this.getScrollPercent() > 90.00 && !this.fetching) {
+    console.log(this.getScrollPercent())
+    if (this.getScrollPercent() > 90.00 && this.fetching == false) {
       this.getPosts();
     }
   }
