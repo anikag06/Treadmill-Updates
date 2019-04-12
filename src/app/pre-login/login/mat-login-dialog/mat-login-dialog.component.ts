@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '@/shared/auth/auth.service';
-import { TOKEN } from '@/app.constants';
+import { TOKEN, USERAVATAR } from '@/app.constants';
 import { Router } from '@angular/router';
 import * as localforage from 'localforage';
 
@@ -33,6 +33,7 @@ export class MatLoginDialogComponent implements OnInit {
     this.authService.getUserDetails(this.loginForm.value)
       .then(
         (data: any) => {
+          localforage.setItem(USERAVATAR, data.data.avatar);
           localforage.setItem(TOKEN, data.data.token)
             .then((status) => {
               this.dialogRef.close();

@@ -7,6 +7,7 @@ export const GAMES              = 'games';
 export const MODULES            = 'modules';
 export const CATEGORY           = 'category_';
 export const TOKEN              = 'jwt_token';
+export const USERAVATAR         = 'user_avatar';
 
 // LOCAL STORAGE
 export const LS_TIME            = 120;

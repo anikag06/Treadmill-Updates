@@ -13,10 +13,10 @@ export class CommentService {
 
 
   postComment(data: any) {
-    return this.http.post(environment.API_ENDPOINT + '/api/v1/support-group/post-comment-create/', data);
+    return this.http.post(environment.API_ENDPOINT + '/api/v1/support-group/comment/', data);
   }
 
   getMainComments(post: SupportGroupItem, page = 1 ) {
-    return this.http.get(environment.API_ENDPOINT + '/api/v1/support-group/post-comment-listing/' + post.id + '/?page=' + page)
+    return this.http.get(environment.API_ENDPOINT + '/api/v1/support-group/comments/' + post.id + '/?page=' + page)
   }
 }

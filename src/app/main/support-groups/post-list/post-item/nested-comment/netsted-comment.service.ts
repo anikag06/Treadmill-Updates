@@ -14,10 +14,10 @@ export class NetstedCommentService {
 
 
   getNestedComments(comment: UserComment, pageNo: number) {
-    return this.http.get(environment.API_ENDPOINT + '/api/v1/support-group/nested-comment-listing/' + comment.id + '/?page=' + pageNo);
+    return this.http.get(environment.API_ENDPOINT + '/api/v1/support-group/nested-comments/' + comment.id + '/?page=' + pageNo);
   }
 
   postNestedComments(data: any) {
-    return this.http.post(environment.API_ENDPOINT + '/api/v1/support-group/nested-comment-create/', data);
+    return this.http.post(environment.API_ENDPOINT + '/api/v1/support-group/nested-comment/', data);
   }
 }

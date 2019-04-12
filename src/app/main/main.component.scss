@@ -1,9 +1,8 @@
 @mixin font-montserrat($font-weight: 500, $font-style: normal) {
-  font-family: 'Montserrat', sans-serif !important;
+  font-family: "Montserrat", sans-serif !important;
   font-weight: $font-weight;
   font-style: $font-style;
 }
-
 
 // Montserrat Fonts
 
@@ -15,23 +14,21 @@
   @include font-montserrat($font-weight: 700);
 }
 
-
-
 .sidenav-container {
   height: 100vh;
 }
 
 .sidenav {
-    max-width: 205px;
-    background-color: #F5BB56;
-    border: none;
-    box-shadow: 0.1px 0px 28px 0px #999999;
+  max-width: 205px;
+  background-color: #f5bb56;
+  border: none;
+  box-shadow: 0.1px 0px 28px 0px #999999;
 }
 
 .sidenav-collapsed {
-    width: 100px;
-    background-color: #F5BB56;
-    border: none;
+  width: 100px;
+  background-color: #f5bb56;
+  border: none;
 }
 .sidenav .mat-toolbar {
   background: inherit;
@@ -43,53 +40,60 @@
   z-index: 1;
 }
 
-.list-wrapper{
-display: flex;
-flex-direction: column;
+.list-wrapper {
+  display: flex;
+  flex-direction: column;
 }
 
-.list-user{
- flex:1;
- align-self: center;
- padding-top: 40px;
+.list-user {
+  flex: 1;
+  align-self: center;
+  margin-top: 40px;
+  img {
+    width: 80px;
+    height: 80px;
+    border: 10px solid white;
+    border-radius: 50%;
+  }
 }
-.list-user-name{
-flex: 1;
-align-self: center;
-padding-bottom: 40px;
-font-family: 'Montserrat', sans-serif !important;
-
-}
-
-.list-wrapper-items{
-flex: 1;
-display: flex;
-}
-
-.list-wrapper-items-icon{
-flex: 0.35;
-margin: auto;
+.list-user-name {
+  flex: 1;
+  align-self: center;
+  padding-bottom: 40px;
+  font-family: "Montserrat", sans-serif !important;
 }
 
-.list-wrapper-items-name{
-flex: 0.65;
-margin: auto;
-font-family: 'Montserrat', sans-serif !important;
-font-size: 14px;
-font-weight: 500;
-} 
-img.center{
-display: block;
-margin-left: auto;
-margin-right: auto;
+.list-wrapper-items {
+  flex: 1;
+  display: flex;
 }
-.margin-above-needtotalk{
-margin-top: 50px;
+
+.list-wrapper-items-icon {
+  flex: 0.35;
+  margin: auto;
 }
-.margin-collapsed-modules{
+
+.list-wrapper-items-name {
+  flex: 0.65;
+  margin: auto;
+  font-family: "Montserrat", sans-serif !important;
+  font-size: 14px;
+  font-weight: 500;
+}
+img.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.margin-above-needtotalk {
+  margin-top: 50px;
+}
+.margin-collapsed-modules {
   margin-top: 134px;
 }
-.icons-width{
+.icons-width {
   width: 32px;
 }
-button:focus {outline:0;}
+button:focus {
+  outline: 0;
+}

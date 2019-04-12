@@ -1,5 +1,5 @@
 <div class="row current-module">
-    <ng-container *ngIf="module else catLoading">
+    <ng-container *ngIf="module">
         <div class="content current-module-main">
             <h3>{{module.name}}</h3>
             <p class="current-module-task">Next task: <strong>Can I get help ?</strong></p>
@@ -22,11 +22,11 @@
         <img  src="https://via.placeholder.com/275x100?text=No task" class="current-module-main-img" width="275" height="100">
       </div>
     </ng-container>
+    <ng-container *ngIf="!module && !noActive">
+      <mat-card-content>
+        <div class="content current-module-main d-flex align-items-center justify-content-center loading">
+            <img src="assets/shared/dna-loader.svg" alt="dna">
+        </div>
+      </mat-card-content>
+    </ng-container>
 </div>
-<ng-template #catLoading>
-    <mat-card-content>
-      <div class="content current-module-main d-flex align-items-center justify-content-center loading">
-          <img src="assets/shared/dna-loader.svg" alt="dna">
-      </div>
-    </mat-card-content>
-  </ng-template>

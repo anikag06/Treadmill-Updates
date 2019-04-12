@@ -23,7 +23,7 @@ export class SupportGroupsService {
     if (tags != null) {
       params = params.append('tags', tags);
     }
-    return this.http.get(environment.API_ENDPOINT + '/api/v1/support-group/post-listing/', { params: params});
+    return this.http.get(environment.API_ENDPOINT + '/api/v1/support-group/posts/', { params: params});
   }
 
   createPost(data: any) {
@@ -39,17 +39,11 @@ export class SupportGroupsService {
   }
 
 
-  async deletePost(data: any) {
-    const xhr = new XMLHttpRequest();
-    const token = await this.tokenGetter()
-    xhr.open('DELETE', environment.API_ENDPOINT + '/api/v1/support-group/post/');
-    xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-    xhr.setRequestHeader('Authorization', 'Bearer ' + token);
-    xhr.send(JSON.stringify(data));
-    return xhr;
+  deletePost(data: any) {
+    return this.http.delete(environment.API_ENDPOINT + '/api/v1/support-group/post/' + data.post_id + '/');
   }
 
   editPost(data: any) {
-    return this.http.put(environment.API_ENDPOINT + '/api/v1/support-group/post/', data)
+    return this.http.put(environment.API_ENDPOINT + '/api/v1/support-group/post/', data);
   }
 }

@@ -5,7 +5,7 @@ import * as localforage from 'localforage';
 import { Router } from '@angular/router';
 import { environment } from 'environments/environment';
 
-import { TOKEN, DEFAULT_PATH, TOKEN_REFRESH_PATH, LOGIN_PATH } from '@/app.constants';
+import { TOKEN, DEFAULT_PATH, TOKEN_REFRESH_PATH, LOGIN_PATH, USERAVATAR } from '@/app.constants';
 import { User } from '../user.model';
 export interface Token {
   token: string;
@@ -32,11 +32,12 @@ export class AuthService {
   async isLoggedIn(): Promise<User | boolean> {
     try {
       const data = await localforage.getItem(TOKEN);
-      if (data) {
+      const avatar = <string>await localforage.getItem(USERAVATAR);
+      if (data && avatar) {
         const helper = new JwtHelperService();
         const isExpired = helper.isTokenExpired((<string>data));
         const userData = helper.decodeToken(<string>data);
-        const user = new User(+userData.user_id, userData.username, userData.email);
+        const user = new User(+userData.user_id, userData.username, userData.email, avatar);
         if (!isExpired) {
           return user;
         }

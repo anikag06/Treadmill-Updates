@@ -57,7 +57,9 @@ export class PostListComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.sgServiceSubscription.unsubscribe();
     this.newSgServiceSubscription.unsubscribe();
-    this.scrollSubcscription.unsubscribe();
+    if (this.scrollSubcscription) {
+      this.scrollSubcscription.unsubscribe();
+    }
   }
 
 
@@ -90,17 +92,11 @@ export class PostListComponent implements OnInit, OnDestroy {
   onItemDeletion(sgi: SupportGroupItem) {
     const data = { post_id: sgi.id }
     this.sgService.deletePost(data)
-      .then(
-        (xhr: XMLHttpRequest) => {
-          xhr.onload = () => {
-            if (xhr.readyState === 4 && xhr.status === 204) {
-              this.posts = this.posts.filter(post => {
-                return post.id !== sgi.id;
-              });
-            } else {
-              console.error(xhr);
-            }
-          }
+      .subscribe(
+        () => {
+          this.posts = this.posts.filter(post => {
+            return post.id !== sgi.id;
+          });
         }
       );
   }

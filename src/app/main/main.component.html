@@ -21,13 +21,11 @@
       <div class="list-wrapper">
 
        <div *ngIf="isExpanded" class="list-user">
-        <mat-icon style="
-          transform: scale(3)">face
-        </mat-icon>
+        <img [src]="user.avatar" [alt]="user.username" width="80" height="80">
        </div>
        <br>
        <div *ngIf="isExpanded" class="list-user-name">
-          <strong>Nanzu</strong>
+          <strong>{{user.username}}</strong>
        </div>
 
        
@@ -123,7 +121,7 @@
        </div>
 
        <div class="list-wrapper-items">
-        <a mat-list-item href="#">
+        <a mat-list-item href="/logout">
           <span class="list-wrapper-items-icon">
             <img class="icons-width" style="margin-left: 2px;" src="assets/modules/logout.png">
           </span>

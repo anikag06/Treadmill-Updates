@@ -75,7 +75,7 @@ export class PostItemComponent implements OnInit, OnDestroy, AfterViewInit, Afte
             const commentResponse = <{ status: boolean, message: string, data: { comment_id: number }}>data;
             const persistedComment = new UserComment(
                                         commentResponse.data.comment_id,
-                                        { username: this.user.username, avatar: null },
+                                        { username: this.user.username, avatar: this.user.avatar },
                                         comment.body, 0, 0, new Date().toISOString());
             this.commentForm.reset();
             this.initial = false;

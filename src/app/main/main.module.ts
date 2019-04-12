@@ -17,7 +17,6 @@ import { LogoutComponent } from '../shared/auth/logout/logout.component';
 import { ProgressComponent } from './dashboard/progress/progress.component';
 import { CurrentModuleComponent } from './dashboard/current-module/current-module.component';
 import { ThingsTodoComponent } from './dashboard/things-todo/things-todo.component';
-import { NotificationsSideComponent } from './dashboard/notifications-side/notifications-side.component';
 import { TimeAgoPipe } from '../shared/time-ago.pipe';
 import { ChatbotAvatarComponent } from './dashboard/chatbot-avatar/chatbot-avatar.component';
 import { GamesComponent } from './games/games.component';
@@ -59,7 +58,6 @@ import { ScrollingService } from './shared/scrolling.service';
     ProgressComponent,
     CurrentModuleComponent,
     ThingsTodoComponent,
-    NotificationsSideComponent,
     TimeAgoPipe,
     ChatbotAvatarComponent,
     GamesComponent,

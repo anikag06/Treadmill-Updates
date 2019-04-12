@@ -12,7 +12,7 @@ export class DashboardComponent implements OnInit {
 
   mobileView = false;
 
-  user: User = new User(0, 'tester', 'tester@iitk.ac.in');
+  user: User = new User(0, 'tester', 'tester@iitk.ac.in', '');
   constructor(
     private authService: AuthService
   ) { }
