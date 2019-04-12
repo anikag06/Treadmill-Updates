@@ -12,7 +12,7 @@ import { User } from '@/shared/user.model';
 })
 export class MainComponent implements OnInit {
 
-  user!: User;
+  user: User = new User(0, 'undefined', 'test@test.com', '');
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
