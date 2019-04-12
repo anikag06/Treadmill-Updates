@@ -87,7 +87,7 @@ export class CreatePostComponent implements OnInit {
                                   data.body,
                                   data.title,
                                   tags,
-                                  { username: this.user.username },
+                                  { username: this.user.username, avatar: this.user.avatar },
                                   0,
                                   new Date().toISOString(),
                                   0);

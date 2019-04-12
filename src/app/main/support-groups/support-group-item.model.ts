@@ -8,6 +8,7 @@ export class SupportGroupItem {
         public tags: Tag[],
         public user: {
             username: string,
+            avatar: string,
         },
         public up_votes: number,
         public created_at: string,
