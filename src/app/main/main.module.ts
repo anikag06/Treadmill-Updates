@@ -39,6 +39,8 @@ import { SanitizationService } from './support-groups/sanitization.service';
 import { SafeHtmlPipe } from './support-groups/safe-html.pipe';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule } from '@angular/material';
+import { ScrollingDirective } from './shared/scrolling.directive';
+import { ScrollingService } from './shared/scrolling.service';
 
 @NgModule({
   declarations: [
@@ -70,6 +72,7 @@ import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, Mat
     CreatePostComponent,
     NestedCommentComponent,
     SafeHtmlPipe,
+    ScrollingDirective,
   ],
   imports: [
     CommonModule,
@@ -89,6 +92,7 @@ import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, Mat
     LocalStorageService,
     SupportGroupsService,
     SanitizationService,
+    ScrollingService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [CreatePostComponent]

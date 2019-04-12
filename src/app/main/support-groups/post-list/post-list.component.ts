@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { SupportGroupItem } from '../support-group-item.model';
 import { ApiResponse } from '@/main/shared/apiResponse.model';
 import { ActivatedRoute } from '@angular/router';
+import { ScrollingService } from '@/main/shared/scrolling.service';
 
 @Component({
   selector: 'app-post-list',
@@ -16,6 +17,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   newPosts: SupportGroupItem[] = [];
   sgServiceSubscription!: Subscription;
   newSgServiceSubscription!: Subscription;
+  scrollSubcscription!: Subscription;
   page = 1;
   morePosts = true;
   fetching = false;
@@ -23,8 +25,8 @@ export class PostListComponent implements OnInit, OnDestroy {
 
   constructor(
     private sgService: SupportGroupsService,
-    private route: ActivatedRoute
-
+    private route: ActivatedRoute,
+    private scrollService: ScrollingService
   ) { }
 
   ngOnInit() {
@@ -46,11 +48,16 @@ export class PostListComponent implements OnInit, OnDestroy {
           }
         }
       );
+    this.scrollService.scrollingBehaviour
+        .subscribe(
+          (i: number) => this.onScroll(i)
+        );
   }
 
   ngOnDestroy() {
     this.sgServiceSubscription.unsubscribe();
     this.newSgServiceSubscription.unsubscribe();
+    this.scrollSubcscription.unsubscribe();
   }
 
 
@@ -69,24 +76,13 @@ export class PostListComponent implements OnInit, OnDestroy {
             }
             this.posts.push(...<SupportGroupItem[]>response.results);
             this.fetching = false;
-            console.log(this.posts.length)
           }
         );
     }
   }
 
-  getScrollPercent() {
-    const h = document.documentElement,
-        b = document.body,
-        st = 'scrollTop',
-        sh = 'scrollHeight';
-        return (h[st]||b[st]) / ((h[sh]||b[sh]) - h.clientHeight) * 100;
-}
-
-  @HostListener('window:scroll', ['$event'])
-  onScroll(event: Event) {
-    console.log(this.getScrollPercent())
-    if (this.getScrollPercent() > 90.00 && this.fetching == false) {
+  onScroll(scrollPercent: number) {
+    if (scrollPercent > 90.00 && this.fetching === false) {
       this.getPosts();
     }
   }

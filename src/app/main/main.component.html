@@ -139,7 +139,7 @@
   </mat-drawer>
 
 
-  <mat-drawer-content>
+  <mat-drawer-content appScrolling>
   <button *ngIf="!(isHandset$ | async)" mat-icon-button (click)="isExpanded = !isExpanded">
           <mat-icon *ngIf="!isExpanded">chevron_right</mat-icon>
           <mat-icon *ngIf="isExpanded">chevron_left</mat-icon>
