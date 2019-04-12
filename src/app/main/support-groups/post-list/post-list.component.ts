@@ -3,7 +3,7 @@ import { SupportGroupsService } from '../support-groups.service';
 import { Subscription } from 'rxjs';
 import { SupportGroupItem } from '../support-group-item.model';
 import { ApiResponse } from '@/main/shared/apiResponse.model';
-import { Route, Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-post-list',
@@ -23,7 +23,6 @@ export class PostListComponent implements OnInit, OnDestroy {
 
   constructor(
     private sgService: SupportGroupsService,
-    private router: Router,
     private route: ActivatedRoute
 
   ) { }
@@ -88,5 +87,23 @@ export class PostListComponent implements OnInit, OnDestroy {
     if (this.getScrollPercent() > 90.00 && !this.fetching) {
       this.getPosts();
     }
+  }
+
+  onItemDeletion(sgi: SupportGroupItem) {
+    const data = { post_id: sgi.id }
+    this.sgService.deletePost(data)
+      .then(
+        (xhr: XMLHttpRequest) => {
+          xhr.onload = () => {
+            if (xhr.readyState === 4 && xhr.status === 204) {
+              this.posts = this.posts.filter(post => {
+                return post.id !== sgi.id;
+              });
+            } else {
+              console.error(xhr);
+            }
+          }
+        }
+      );
   }
 }

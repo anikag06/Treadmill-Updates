@@ -4,7 +4,7 @@
   </div>
   <div class="col-11">
     <div class="row no-gutters">
-      <div class="col-10">
+      <div class="col-9">
         <h2>{{supportGroupItem.title}}</h2>
       </div>
       <div class="col-2">
@@ -12,6 +12,29 @@
           <a [routerLink]="['/support-groups']" [queryParams]="{'tags': tag.name}">#{{tag.name}}</a>
           &nbsp;         
         </span>
+      </div>
+      <div class="col-1">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_horiz</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>
+            <mat-icon>edit</mat-icon>
+            <span>Edit</span>
+          </button>
+          <button mat-menu-item (click)="onDelete()">
+            <mat-icon>delete</mat-icon>
+            <span>Delete</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>report_problem</mat-icon>
+            <span>Report Problem</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>error</mat-icon>
+            <span>Report Sucide</span>
+          </button>
+        </mat-menu>
       </div>
     </div>
     <p><span>{{supportGroupItem.created_at | date: 'medium' | timeAgo }}</span></p>

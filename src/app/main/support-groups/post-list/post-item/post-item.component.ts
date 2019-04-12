@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, OnDestroy, AfterViewInit, AfterContentInit } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, OnDestroy, AfterViewInit, AfterContentInit, Output, EventEmitter } from '@angular/core';
 import { Tag } from '@/main/shared/tag.model';
 import { NgForm } from '@angular/forms';
 import { SupportGroupItem } from '../../support-group-item.model';
@@ -19,6 +19,8 @@ export class PostItemComponent implements OnInit, OnDestroy, AfterViewInit, Afte
   @Input() supportGroupItem!: SupportGroupItem;
   @Input() newPost!: boolean;
   @ViewChild('mainComment') commentForm!: NgForm;
+  @Output() deleteEvent = new EventEmitter<SupportGroupItem>();
+
   tags: Tag[] = [];
   user!: User;
   commentsPage = 1;
@@ -135,5 +137,9 @@ export class PostItemComponent implements OnInit, OnDestroy, AfterViewInit, Afte
 
   slicedBody() {
     return this.supportGroupItem.body.slice(0, 250) + '...';
+  }
+
+  onDelete() {
+    this.deleteEvent.emit(this.supportGroupItem);
   }
 }
