@@ -1,27 +1,29 @@
 <div class="error-div" *ngIf="errors.length > 0">
-    <h3>Some error occured</h3>
-    <ul>
-      <li *ngFor="let error of errors">
-        <strong>{{error.name}}</strong>: {{ error.value }}
-      </li>
-    </ul>
+  <h3>Some error occured</h3>
+  <ul>
+    <li *ngFor="let error of errors">
+      <strong>{{error.name}}</strong>: {{ error.value }}
+    </li>
+  </ul>
 </div>
-<form (ngSubmit)="formSubmit()" #postCreation="ngForm">
+
+<form (ngSubmit)="formSubmit()" [formGroup]="postForm">
   <div class="form-group">
-      <label for="body">Write your post</label>
-      <angular-editor [(ngModel)]="body" name="body" [config]="editorConfig" required></angular-editor>
+    <label for="body">Write your post</label>
+    <angular-editor formControlName="body" [config]="editorConfig" required></angular-editor>
   </div>
   <div class="form-group">
     <label for="title">Give your post a title</label>
-    <input type="text" name="title" class="form-control" ngModel>
+    <input type="text" class="form-control" formControlName="title">
   </div>
-  <div class="form-group" *ngFor="let tag of tags; let i = index">
-    <input type="checkbox" name="tags" [value]="tag.id" [id]="tag.id" (change)="onCheckboxChange(tag.id, $event)">
-    <label [for]="tag.id"> {{ tag.name }}</label>
+  <input type="hidden" name="id" formControlName="id">
+
+  <div class="form-group row">
+    <label formArrayName="tags" *ngFor="let tag of postForm.controls.tags.controls; let i = index" class="col-3">
+      <input type="checkbox" [formControlName]="i" (change)="onCheckboxChange(tags[i].id, $event)">
+      {{tags[i].name}}
+    </label>
   </div>
-  <button
-    type="submit"
-    class="btn btn-primary"
-    [disabled]="submitDisabled()">
+  <button type="submit" class="btn btn-primary">
     Submit</button>
 </form>

@@ -5,6 +5,8 @@ import { SupportGroupItem } from '../support-group-item.model';
 import { ApiResponse } from '@/main/shared/apiResponse.model';
 import { ActivatedRoute } from '@angular/router';
 import { ScrollingService } from '@/main/shared/scrolling.service';
+import { MatDialog } from '@angular/material';
+import { CreatePostComponent } from '../create-post/create-post.component';
 
 @Component({
   selector: 'app-post-list',
@@ -26,7 +28,8 @@ export class PostListComponent implements OnInit, OnDestroy {
   constructor(
     private sgService: SupportGroupsService,
     private route: ActivatedRoute,
-    private scrollService: ScrollingService
+    private scrollService: ScrollingService,
+    public dialog: MatDialog,
   ) { }
 
   ngOnInit() {
@@ -99,5 +102,12 @@ export class PostListComponent implements OnInit, OnDestroy {
           });
         }
       );
+  }
+
+  onItemEdit(sgi: SupportGroupItem) {
+    const dialogRef = this.dialog.open(CreatePostComponent, {
+      width: '70%',
+      data: sgi,
+    });
   }
 }

@@ -20,6 +20,7 @@ export class PostItemComponent implements OnInit, OnDestroy, AfterViewInit, Afte
   @Input() newPost!: boolean;
   @ViewChild('mainComment') commentForm!: NgForm;
   @Output() deleteEvent = new EventEmitter<SupportGroupItem>();
+  @Output() editEvent = new EventEmitter<SupportGroupItem>();
 
   tags: Tag[] = [];
   user!: User;
@@ -141,5 +142,9 @@ export class PostItemComponent implements OnInit, OnDestroy, AfterViewInit, Afte
 
   onDelete() {
     this.deleteEvent.emit(this.supportGroupItem);
+  }
+
+  onEdit() {
+    this.editEvent.emit(this.supportGroupItem);
   }
 }

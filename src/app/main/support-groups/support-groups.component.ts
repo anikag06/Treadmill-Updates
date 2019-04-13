@@ -22,7 +22,7 @@ export class SupportGroupsComponent implements OnInit {
   onCreatePostClick() {
     const dialogRef = this.dialog.open(CreatePostComponent, {
       width: '70%',
-      data: 'hello',
+      data: null,
     });
 
   }

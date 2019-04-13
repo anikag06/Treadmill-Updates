@@ -1,8 +1,8 @@
-import { Component, OnInit, Inject, ViewChild } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, ElementRef, AfterContentInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { TagService } from '@/main/shared/tag.service';
 import { Tag } from '@/main/shared/tag.model';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
 import { SupportGroupsService } from '../support-groups.service';
 import { SupportGroupItem } from '../support-group-item.model';
 import { AuthService } from '@/shared/auth/auth.service';
@@ -21,7 +21,15 @@ export class CreatePostComponent implements OnInit {
   user!: User;
   formTags: number[] = [];
   errors: any = [];
-  body = '';
+
+  @ViewChild('checkboxDiv') checkboxDiv!: ElementRef;
+
+  postForm = this.fb.group({
+    title: [''],
+    body: [''],
+    id: [0],
+    tags: this.fb.array([])
+  });
 
 
   editorConfig: AngularEditorConfig = {
@@ -36,22 +44,21 @@ export class CreatePostComponent implements OnInit {
     enableToolbar: true,
     showToolbar: true,
     placeholder: 'Enter text here...',
-    defaultParagraphSeparator: '',
-    defaultFontName: '',
-    defaultFontSize: '',
+    defaultParagraphSeparator: 'p',
+    defaultFontName: 'Helvetica',
+    defaultFontSize: '14',
     fonts: [],
     uploadUrl: '',
-  }
-
-  @ViewChild('postCreation') postForm!: NgForm;
+  };
 
   constructor(
     public dialogRef: MatDialogRef<CreatePostComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: string,
+    @Inject(MAT_DIALOG_DATA) public data: SupportGroupItem | null,
     private tagService: TagService,
     private sgService: SupportGroupsService,
     private authService: AuthService,
     private sanitizer: SanitizationService,
+    private fb: FormBuilder,
   ) { }
 
 
@@ -63,6 +70,73 @@ export class CreatePostComponent implements OnInit {
           this.user = <User>data;
         }
       });
+
+      if( this.data ) {
+        this.postForm.patchValue({
+          title: this.data.title,
+          body: this.data.body,
+          id: this.data.id,
+        });
+
+        this.formTags = this.data.tags.map(tag => tag.id);
+      }
+      this.buildTags();
+  }
+
+  formSubmit() {
+    if ( this.postForm.valid ) {
+      console.log(this.postForm)
+      const formData = this.postForm.value;
+      formData.tags = this.formTags;
+      formData.body = this.sanitizer.sanitizeHtml(formData.body);
+      formData.title = this.getTitle(formData);
+      console.log(formData);
+      if (this.data) {
+        this.editPost(formData);
+      } else {
+        delete formData.id;
+        console.log(formData);
+        this.createPost(formData);
+      }
+    } else {
+      this.errors.push({name: 'Post', value: 'You have not entered anything'});
+    }
+  }
+
+  createPost(data: any) {
+    this.sgService.createPost(data)
+      .subscribe(
+        (response: any) => {
+          const tags = this.tags.filter(item => this.formTags.includes(item.id));
+          const sgItem = new SupportGroupItem(response.data.post_id,
+                      data.body,
+                      data.title,
+                      tags,
+                      { username: this.user.username, avatar: this.user.avatar },
+                      0,
+                      new Date().toISOString(),
+                      0);
+          this.sgService.sendPost(sgItem);
+          this.postForm.reset();
+          this.dialogRef.close();
+        },
+
+        (httpErrorResponse) => {
+          this.errors = [];
+          const messages = httpErrorResponse.error.message;
+          for (const property in messages) {
+            if (httpErrorResponse.error.message.hasOwnProperty(property)) {
+               this.errors.push({name: property, value: messages[property]});
+            } else  {
+              this.errors.push({name: 'error', value: 'something went wrong'});
+            }
+          }
+        }
+      );
+  }
+
+  editPost(data: any) {
+    console.log(data)
   }
 
   onCheckboxChange(tagId: number, event: any) {
@@ -71,59 +145,27 @@ export class CreatePostComponent implements OnInit {
     } else {
       this.formTags = this.formTags.filter(i => tagId !== i);
     }
+    console.log(this.formTags);
   }
 
-  formSubmit() {
-    if (this.postForm.valid) {
-      let title = this.postForm.value['title'].trim();
-      title = title.length > 0 ? title : this.getDefaultTitle();
-      const data  = { body: this.sanitizer.sanitizeHtml(this.postForm.value['body']), title: title, tags: this.formTags };
-      this.sgService.createPost(data)
-        .subscribe(
-          (resp) => {
-            const returnVal = <{status: boolean, message: string, data: { post_id: number}}>resp;
-            const tags = this.tags.filter(item => this.formTags.includes(item.id));
-            const sgItem = new SupportGroupItem(returnVal.data.post_id,
-                                  data.body,
-                                  data.title,
-                                  tags,
-                                  { username: this.user.username, avatar: this.user.avatar },
-                                  0,
-                                  new Date().toISOString(),
-                                  0);
-            this.sgService.sendPost(sgItem);
-            this.postForm.reset();
-            this.dialogRef.close();
-          },
 
-          (httpErrorResponse) => {
-            this.errors = [];
-            const messages = httpErrorResponse.error.message;
-            for (const property in messages) {
-              if (httpErrorResponse.error.message.hasOwnProperty(property)) {
-                 this.errors.push({name: property, value: messages[property]});
-              }
-            }
-          }
-        );
+  buildTags() {
+    if (this.tags) {
+      this.tags.forEach(tag => {
+        let value = false;
+        if (this.data && this.data.tags.find(t => t.id ===  tag.id)) {
+          value = true;
+        }
+        (this.postForm.controls.tags as FormArray).push(new FormControl(value));
+      });
+    }
+  }
+
+  getTitle(data: any) {
+    if (data.title && data.title.trim().length > 0) {
+      return data.title.trim();
     } else {
-      this.errors = []
-      this.errors.push({name: 'Post', value: 'You cannot create a blank post'});
+      return data.body.replace(/&nbsp;/gi, '').slice(0, 50).replace(/(<([^>]+)>)/ig, '');
     }
   }
-
-  submitDisabled() {
-    if (this.body) {
-      return this.body.replace(/&nbsp;/gi, '').trim().length < 20;
-    }
-    return false;
-  }
-
-  getDefaultTitle() {
-    if (this.body) {
-      return this.body.trim().replace(/<\/?[^>]+(>|$)/g, '').replace(/&nbsp;/gi, '').slice(0, 50);
-    }
-    return '';
-  }
-
 }

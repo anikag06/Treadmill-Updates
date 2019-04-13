@@ -28,7 +28,7 @@ import { SupportGroupsComponent } from './support-groups/support-groups.componen
 import { PostListComponent } from './support-groups/post-list/post-list.component';
 import { PostItemComponent } from './support-groups/post-list/post-item/post-item.component';
 import { SupportGroupsService } from './support-groups/support-groups.service';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommentComponent } from './support-groups/post-list/post-item/comment/comment.component';
 import { CreatePostComponent } from './support-groups/create-post/create-post.component';
 import { NestedCommentComponent } from './support-groups/post-list/post-item/nested-comment/nested-comment.component';
@@ -84,7 +84,8 @@ import { ScrollingService } from './shared/scrolling.service';
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    ReactiveFormsModule,
   ],
   providers: [
     LocalStorageService,
