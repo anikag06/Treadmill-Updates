@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { AuthService } from '@/shared/auth/auth.service';
 import { User } from '@/shared/user.model';
 import { Router } from '@angular/router';
-import { LOGGED_IN_PATH } from '@/app.constants';
+import { LOGGED_IN_PATH, DEFAULT_PATH } from '@/app.constants';
 
 @Component({
   selector: 'app-main',
@@ -31,11 +31,10 @@ export class MainComponent implements OnInit {
 
   ngOnInit() {
     const user = this.authService.isLoggedIn();
-    console.log(user)
     if (user) {
       this.user = <User>user;
     } else {
-      this.router.navigate([LOGGED_IN_PATH]);
+      this.router.navigate([DEFAULT_PATH]);
     }
 
   }

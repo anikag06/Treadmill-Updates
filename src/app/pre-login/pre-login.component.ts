@@ -27,7 +27,6 @@ export class PreLoginComponent implements OnInit {
 
   ngOnInit() {
     this.a2hsService.setDeferredPrompt();
-    console.log(this.authService.isLoggedIn())
     if (this.authService.isLoggedIn()) {
       this.router.navigate([LOGGED_IN_PATH]);
     }

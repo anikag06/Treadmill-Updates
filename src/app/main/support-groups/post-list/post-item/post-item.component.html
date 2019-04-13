@@ -18,19 +18,19 @@
           <mat-icon>more_horiz</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="onEdit()" *ngIf="user.username == supportGroupItem.user.username">
+          <button mat-menu-item (click)="onEdit()" *ngIf="ownPost()">
             <mat-icon>edit</mat-icon>
             <span>Edit</span>
           </button>
-          <button mat-menu-item (click)="onDelete()">
+          <button mat-menu-item (click)="onDelete()" *ngIf="ownPost()">
             <mat-icon>delete</mat-icon>
             <span>Delete</span>
           </button>
-          <button mat-menu-item>
+          <button mat-menu-item *ngIf="!ownPost()">
             <mat-icon>report_problem</mat-icon>
             <span>Report Problem</span>
           </button>
-          <button mat-menu-item>
+          <button mat-menu-item *ngIf="!ownPost()">
             <mat-icon>error</mat-icon>
             <span>Report Sucide</span>
           </button>

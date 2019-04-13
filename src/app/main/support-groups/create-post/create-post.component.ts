@@ -59,7 +59,10 @@ export class CreatePostComponent implements OnInit {
     private authService: AuthService,
     private sanitizer: SanitizationService,
     private fb: FormBuilder,
-  ) { }
+  ) {
+
+    dialogRef.disableClose = true;
+  }
 
 
   ngOnInit() {
@@ -170,6 +173,12 @@ export class CreatePostComponent implements OnInit {
       return data.title.trim();
     } else {
       return data.body.replace(/&nbsp;/gi, '').slice(0, 50).replace(/(<([^>]+)>)/ig, '');
+    }
+  }
+
+  onClose() {
+    if (confirm('Are you sure to close you will lost unsaved post ?')) {
+      this.dialogRef.close();
     }
   }
 }

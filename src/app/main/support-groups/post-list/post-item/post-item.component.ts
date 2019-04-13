@@ -136,12 +136,18 @@ export class PostItemComponent implements OnInit, OnDestroy, AfterViewInit, Afte
   }
 
   onDelete() {
-    this.deleteEvent.emit(this.supportGroupItem);
+    if (confirm('Are you sure to delete this post ?')) {
+      this.deleteEvent.emit(this.supportGroupItem);
+    }
   }
 
   onEdit() {
     this.showFullContent = false;
     this.toggleShow();
     this.editEvent.emit(this.supportGroupItem);
+  }
+
+  ownPost() {
+    return this.user.username === this.supportGroupItem.user.username;
   }
 }
