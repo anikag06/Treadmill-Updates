@@ -64,27 +64,21 @@ export class CreatePostComponent implements OnInit {
 
   ngOnInit() {
     this.tags = this.tagService.tags;
-    this.authService.isLoggedIn()
-      .then((data) => {
-        if (data) {
-          this.user = <User>data;
-        }
+    this.user = <User>this.authService.isLoggedIn();
+    if (this.data) {
+      this.postForm.patchValue({
+        title: this.data.title,
+        body: this.data.body,
+        id: this.data.id,
       });
 
-      if ( this.data ) {
-        this.postForm.patchValue({
-          title: this.data.title,
-          body: this.data.body,
-          id: this.data.id,
-        });
-
-        this.formTags = this.data.tags.map(tag => tag.id);
-      }
-      this.buildTags();
+      this.formTags = this.data.tags.map(tag => tag.id);
+    }
+    this.buildTags();
   }
 
   formSubmit() {
-    if ( this.postForm.valid ) {
+    if (this.postForm.valid) {
       const formData = this.postForm.value;
       formData.tags = this.formTags;
       formData.body = this.sanitizer.sanitizeHtml(formData.body);
@@ -96,7 +90,7 @@ export class CreatePostComponent implements OnInit {
         this.createPost(formData);
       }
     } else {
-      this.errors.push({name: 'Post', value: 'You have not entered anything'});
+      this.errors.push({ name: 'Post', value: 'You have not entered anything' });
     }
   }
 
@@ -106,13 +100,13 @@ export class CreatePostComponent implements OnInit {
         (response: any) => {
           const tags = this.tags.filter(item => this.formTags.includes(item.id));
           const sgItem = new SupportGroupItem(response.data.post_id,
-                      data.body,
-                      data.title,
-                      tags,
-                      { username: this.user.username, avatar: this.user.avatar },
-                      0,
-                      new Date().toISOString(),
-                      0);
+            data.body,
+            data.title,
+            tags,
+            { username: this.user.username, avatar: this.user.avatar },
+            0,
+            new Date().toISOString(),
+            0);
           this.sgService.sendPost(sgItem);
           this.postForm.reset();
           this.dialogRef.close();
@@ -123,9 +117,9 @@ export class CreatePostComponent implements OnInit {
           const messages = httpErrorResponse.error.message;
           for (const property in messages) {
             if (httpErrorResponse.error.message.hasOwnProperty(property)) {
-               this.errors.push({name: property, value: messages[property]});
-            } else  {
-              this.errors.push({name: 'error', value: 'something went wrong'});
+              this.errors.push({ name: property, value: messages[property] });
+            } else {
+              this.errors.push({ name: 'error', value: 'something went wrong' });
             }
           }
         }
@@ -145,7 +139,7 @@ export class CreatePostComponent implements OnInit {
           this.sgService.sendUpdated(sgi);
           this.postForm.reset();
           this.dialogRef.close();
-        } 
+        }
       )
   }
 
@@ -163,7 +157,7 @@ export class CreatePostComponent implements OnInit {
     if (this.tags) {
       this.tags.forEach(tag => {
         let value = false;
-        if (this.data && this.data.tags.find(t => t.id ===  tag.id)) {
+        if (this.data && this.data.tags.find(t => t.id === tag.id)) {
           value = true;
         }
         (this.postForm.controls.tags as FormArray).push(new FormControl(value));

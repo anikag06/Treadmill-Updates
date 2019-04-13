@@ -31,12 +31,7 @@ export class CommentComponent implements OnInit, AfterContentInit {
   ) { }
 
   ngOnInit() {
-    this.authService.isLoggedIn()
-      .then((data) => {
-        if (data) {
-          this.user = <User>data;
-        }
-      });
+    this.user = <User>this.authService.isLoggedIn();
   }
   ngAfterContentInit() {
     if (this.comment && this.comment.nested_comment_count > this.nestedComments.length) {

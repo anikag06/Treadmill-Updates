@@ -6,7 +6,7 @@ import slugify from 'slugify';
 export class LocalStorageService {
     getItem(item: string) {
         item = this.slugifyLower(item);
-        return JSON.parse(localStorage.getItem(item) || '');
+        return JSON.parse(localStorage.getItem(item) || '{}');
     }
 
     getItemWithDate(item: string) {

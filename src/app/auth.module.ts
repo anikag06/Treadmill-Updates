@@ -3,8 +3,8 @@ import { JwtModule } from '@auth0/angular-jwt';
 import * as localforage from 'localforage';
 import { TOKEN } from './app.constants';
 
-export async function tokenGetter(): Promise<string> {
-    return localforage.getItem(TOKEN);
+export function tokenGetter() {
+    return localStorage.getItem(TOKEN);
 }
 
 

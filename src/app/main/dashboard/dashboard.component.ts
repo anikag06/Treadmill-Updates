@@ -18,12 +18,7 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.authService.isLoggedIn()
-      .then((data) => {
-        if (data) {
-          this.user = <User>data;
-        }
-      });
+    this.user = <User>this.authService.isLoggedIn();
     this.mobileView = window.innerWidth < MOBILEWIDTH;
   }
 }
