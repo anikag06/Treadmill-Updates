@@ -19,6 +19,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   newPosts: SupportGroupItem[] = [];
   sgServiceSubscription!: Subscription;
   newSgServiceSubscription!: Subscription;
+  updatedSgServiceSubscription!: Subscription;
   scrollSubcscription!: Subscription;
   page = 1;
   morePosts = true;
@@ -48,6 +49,19 @@ export class PostListComponent implements OnInit, OnDestroy {
         (sgItem: SupportGroupItem) => {
           if (!isNaN(sgItem.id)) {
             this.newPosts.unshift(sgItem);
+          }
+        }
+      );
+    
+    this.updatedSgServiceSubscription =  this.sgService.supportGroupItemUpdated$
+      .subscribe(
+        (sgItem: SupportGroupItem) => {
+          if (!isNaN(sgItem.id)) {
+            for (let i = 0 ; i < this.posts.length ; i++) {
+              if (sgItem.id  === this.posts[i].id) {
+                this.posts[i] = sgItem;
+              }
+            }
           }
         }
       );

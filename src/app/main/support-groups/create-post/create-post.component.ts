@@ -71,7 +71,7 @@ export class CreatePostComponent implements OnInit {
         }
       });
 
-      if( this.data ) {
+      if ( this.data ) {
         this.postForm.patchValue({
           title: this.data.title,
           body: this.data.body,
@@ -85,17 +85,14 @@ export class CreatePostComponent implements OnInit {
 
   formSubmit() {
     if ( this.postForm.valid ) {
-      console.log(this.postForm)
       const formData = this.postForm.value;
       formData.tags = this.formTags;
       formData.body = this.sanitizer.sanitizeHtml(formData.body);
       formData.title = this.getTitle(formData);
-      console.log(formData);
       if (this.data) {
         this.editPost(formData);
       } else {
         delete formData.id;
-        console.log(formData);
         this.createPost(formData);
       }
     } else {
@@ -136,7 +133,20 @@ export class CreatePostComponent implements OnInit {
   }
 
   editPost(data: any) {
-    console.log(data)
+    this.sgService.editPost(data)
+      .subscribe(
+        (response: any) => {
+          const sgi = <SupportGroupItem>this.data;
+          sgi.title = data.title;
+          sgi.body = data.body;
+          sgi.tags = data.tags.map((i: number) => {
+            return this.tags.find(tag => tag.id === i);
+          });
+          this.sgService.sendUpdated(sgi);
+          this.postForm.reset();
+          this.dialogRef.close();
+        } 
+      )
   }
 
   onCheckboxChange(tagId: number, event: any) {

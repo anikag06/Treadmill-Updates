@@ -129,7 +129,7 @@ export class PostItemComponent implements OnInit, OnDestroy, AfterViewInit, Afte
 
   toggleShow() {
     this.showFullContent = !this.showFullContent;
-    if (this.showFullContent) {
+    if ( this.showFullContent ) {
       this.body = this.supportGroupItem.body;
     } else  {
       this.body = this.slicedBody();
@@ -145,6 +145,8 @@ export class PostItemComponent implements OnInit, OnDestroy, AfterViewInit, Afte
   }
 
   onEdit() {
+    this.showFullContent = false;
+    this.toggleShow();
     this.editEvent.emit(this.supportGroupItem);
   }
 }

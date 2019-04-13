@@ -13,6 +13,8 @@ import { TOKEN } from '@/app.constants';
 export class SupportGroupsService {
 
   supportGroupItem$ = new BehaviorSubject({} as SupportGroupItem);
+  supportGroupItemUpdated$ = new BehaviorSubject({} as SupportGroupItem);
+
 
   constructor(
     private http: HttpClient
@@ -44,6 +46,10 @@ export class SupportGroupsService {
   }
 
   editPost(data: any) {
-    return this.http.put(environment.API_ENDPOINT + '/api/v1/support-group/post/', data);
+    return this.http.put(environment.API_ENDPOINT + '/api/v1/support-group/post/' + data.id + '/', data);
+  }
+
+  sendUpdated(data: any) {
+    this.supportGroupItemUpdated$.next(data);
   }
 }
