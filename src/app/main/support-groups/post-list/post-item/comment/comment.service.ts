@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment.prod';
 import { SupportGroupItem } from '@/main/support-groups/support-group-item.model';
+import { UserComment } from './user-comment.model';
+import { post } from 'selenium-webdriver/http';
 @Injectable({
   providedIn: 'root'
 })
@@ -16,7 +18,11 @@ export class CommentService {
     return this.http.post(environment.API_ENDPOINT + '/api/v1/support-group/comment/', data);
   }
 
-  getMainComments(post: SupportGroupItem, page = 1 ) {
-    return this.http.get(environment.API_ENDPOINT + '/api/v1/support-group/comments/' + post.id + '/?page=' + page)
+  getMainComments(sgi: SupportGroupItem, page = 1 ) {
+    return this.http.get(environment.API_ENDPOINT + '/api/v1/support-group/comments/' + sgi.id + '/?page=' + page)
+  }
+
+  updateComment(comment_id: number, body: string) {
+    return this.http.put(environment.API_ENDPOINT + '/api/v1/support-group/comment/' + comment_id + '/', { body: body });
   }
 }

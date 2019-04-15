@@ -2,9 +2,9 @@
   <div class="col-1">
     <img [src]="comment.user.avatar" alt="User avatar" width="50" height="50">
   </div>
-  <div class="col-11">
+  <div class="col-11" *ngIf="!editMode else showEdit">
     <div [innerHTML]="comment.body | safeHtml"></div>
-    <p>{{ comment.created_at |  date: 'medium' | timeAgo }} | Replies: {{comment.nested_comment_count}}</p>
+    <p>{{ comment.created_at |  date: 'medium' | timeAgo }} | Replies: {{comment.nested_comment_count}} | <span *ngIf="this.comment.user.username == this.user.username"><a (click)="onEdit()">Edit</a> | <a (click)="onDelete()">Delete</a></span></p>
     <a (click)="toggleReply = !toggleReply">Reply</a>
     <div class="replyForm" *ngIf="toggleReply">
       <form class="form-inline mb-2" (ngSubmit)="submitReply()" #replyForm="ngForm">
@@ -27,3 +27,20 @@
     </div>
   </div>
 </div>
+<ng-template #showEdit>
+  <div class="col-11">
+    <div class="errors" *ngIf="errors.length > 0">
+      <ul>
+        <li *ngFor="let error of errors"><strong>{{error.name}}</strong>: {{error.value}}</li>
+      </ul>
+    </div>
+    <form (ngSubmit)="onSubmit()" #editForm="ngForm">
+      <fieldset [disabled]="disabledValue">
+        <angular-editor name="name" [(ngModel)]="editorBody" required [config]="editorConfig"></angular-editor>
+        <button type="submit" class="btn btn-primary btn-sm" [disabled]="this.sanitzer.stripTags(this.editorBody).length === 0">Comment</button>
+        &nbsp;
+        <button type="button" class="btn btn-danger btn-sm" (click)="onCancel()">Cancel</button>
+      </fieldset>
+    </form>
+  </div>
+</ng-template>

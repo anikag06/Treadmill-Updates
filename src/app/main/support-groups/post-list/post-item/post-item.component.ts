@@ -83,7 +83,6 @@ export class PostItemComponent implements  OnInit, DoCheck, OnDestroy,  AfterCon
 
   ngOnInit() {
     this.user = <User>this.authService.isLoggedIn();
-    console.log(this.user.is_admin);
   }
 
   ngAfterContentInit(): void {
@@ -106,7 +105,7 @@ export class PostItemComponent implements  OnInit, DoCheck, OnDestroy,  AfterCon
   }
 
   onSubmit() {
-    if (this.commentForm.valid) {
+    if (this.commentForm.valid && this.sanititzationService.stripTags(this.commentForm.value['name']).length > 0) {
       this.disabledValue = true;
       const comment = { post: this.supportGroupItem.id, body: this.commentForm.value['name'] };
       this.postCommentSubscription = this.commentService.postComment(comment)
