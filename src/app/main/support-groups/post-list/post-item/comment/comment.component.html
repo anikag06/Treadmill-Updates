@@ -3,7 +3,7 @@
     <img [src]="comment.user.avatar" alt="User avatar" width="50" height="50">
   </div>
   <div class="col-11">
-    <p>{{comment.body}}</p>
+    <div [innerHTML]="comment.body | safeHtml"></div>
     <p>{{ comment.created_at |  date: 'medium' | timeAgo }} | Replies: {{comment.nested_comment_count}}</p>
     <a (click)="toggleReply = !toggleReply">Reply</a>
     <div class="replyForm" *ngIf="toggleReply">
