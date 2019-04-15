@@ -15,3 +15,8 @@ a.toggler:hover {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+::ng-deep .angular-editor-textarea {
+    background-color: white !important;
+    color: black;
+    caret-color: black;
+}

@@ -42,7 +42,10 @@
     <a (click)="toggleShow()" *ngIf="!showFullContent" class="toggler">Show More</a>
     <a (click)="toggleShow()" *ngIf="showFullContent" class="toggler">Show Less</a>
     <form (ngSubmit)="onSubmit()" #mainComment="ngForm">
-      <input type="text" name="name" ngModel class="form-control" required>
+      <fieldset [disabled]="disabledValue">
+        <angular-editor name="name" ngModel required (focus)="onFocus()" (focusout)="onFocusOut($event)" [(config)]="editorConfig"></angular-editor>
+        <button type="submit" class="btn btn-primary btn-sm" *ngIf="editorConfig.showToolbar">Comment</button>
+      </fieldset>
     </form>
   </div>
 </div>

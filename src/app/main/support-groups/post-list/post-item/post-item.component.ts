@@ -20,6 +20,7 @@ import { UserComment } from './comment/user-comment.model';
 import { Subscription } from 'rxjs';
 import { ApiResponse } from '@/main/shared/apiResponse.model';
 import { SanitizationService } from '../../sanitization.service';
+import { AngularEditorConfig } from '@xw19/angular-editor';
 
 @Component({
   selector: 'app-post-item',
@@ -45,6 +46,26 @@ export class PostItemComponent implements  OnInit, DoCheck, OnDestroy,  AfterCon
   getCommentsSubscription!: Subscription;
   showFullContent = false;
   body = '';
+  disabledValue = false;
+
+  editorConfig: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: 'auto',
+    minHeight: '52px',
+    maxHeight: '520px',
+    width: 'auto',
+    minWidth: '0',
+    translate: 'yes',
+    enableToolbar: true,
+    showToolbar: false,
+    placeholder: 'Enter text here...',
+    defaultParagraphSeparator: 'p',
+    defaultFontName: 'lato',
+    defaultFontSize: '14',
+    fonts: [],
+    uploadUrl: '',
+  };
 
   constructor(
     private commentService: CommentService,
@@ -85,6 +106,7 @@ export class PostItemComponent implements  OnInit, DoCheck, OnDestroy,  AfterCon
 
   onSubmit() {
     if (this.commentForm.valid) {
+      this.disabledValue = true;
       const comment = { post: this.supportGroupItem.id, body: this.commentForm.value['name'] };
       this.postCommentSubscription = this.commentService.postComment(comment)
         .subscribe(
@@ -96,6 +118,8 @@ export class PostItemComponent implements  OnInit, DoCheck, OnDestroy,  AfterCon
                                         comment.body, 0, 0, new Date().toISOString());
             this.commentForm.reset();
             this.initial = false;
+            this.disabledValue = false;
+            this.editorConfig.showToolbar = false;
             this.comments.push(persistedComment);
           }
         );
@@ -170,5 +194,16 @@ export class PostItemComponent implements  OnInit, DoCheck, OnDestroy,  AfterCon
 
   ownPost() {
     return this.user.username === this.supportGroupItem.user.username;
+  }
+
+  onFocus() {
+    this.editorConfig.showToolbar = true;
+  }
+
+  onFocusOut(event: FocusEvent) {
+    const el = <Element>event.relatedTarget;
+    if (el == null || el.innerHTML !== 'Comment') {
+      this.editorConfig.showToolbar = false;
+    }
   }
 }
