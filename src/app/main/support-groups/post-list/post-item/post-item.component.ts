@@ -1,4 +1,15 @@
-import { Component, OnInit, Input, ViewChild, OnDestroy, AfterViewInit, AfterContentInit, Output, EventEmitter } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    Input,
+    ViewChild,
+    OnDestroy,
+    AfterViewInit,
+    AfterContentInit,
+    Output,
+    EventEmitter,
+    DoCheck
+} from '@angular/core';
 import { Tag } from '@/main/shared/tag.model';
 import { NgForm } from '@angular/forms';
 import { SupportGroupItem } from '../../support-group-item.model';
@@ -8,13 +19,14 @@ import { User } from '@/shared/user.model';
 import { UserComment } from './comment/user-comment.model';
 import { Subscription } from 'rxjs';
 import { ApiResponse } from '@/main/shared/apiResponse.model';
+import { SanitizationService } from '../../sanitization.service';
 
 @Component({
   selector: 'app-post-item',
   templateUrl: './post-item.component.html',
   styleUrls: ['./post-item.component.scss']
 })
-export class PostItemComponent implements OnInit, OnDestroy, AfterViewInit, AfterContentInit {
+export class PostItemComponent implements  OnInit, DoCheck, OnDestroy,  AfterContentInit, AfterViewInit {
 
   @Input() supportGroupItem!: SupportGroupItem;
   @Input() newPost!: boolean;
@@ -37,7 +49,16 @@ export class PostItemComponent implements OnInit, OnDestroy, AfterViewInit, Afte
   constructor(
     private commentService: CommentService,
     private authService: AuthService,
+    private sanititzationService: SanitizationService
   ) { }
+
+  ngDoCheck(): void {
+    if ( this.showFullContent ) {
+      this.body = this.supportGroupItem.body;
+    } else  {
+      this.body = this.slicedBody();
+    }
+  }
 
   ngOnInit() {
     this.user = <User>this.authService.isLoggedIn();
@@ -132,7 +153,7 @@ export class PostItemComponent implements OnInit, OnDestroy, AfterViewInit, Afte
   }
 
   slicedBody() {
-    return this.supportGroupItem.body.slice(0, 250) + '...';
+    return this.sanititzationService.stripTags((this.supportGroupItem.body.slice(0, 250) + '...'));
   }
 
   onDelete() {
@@ -142,9 +163,9 @@ export class PostItemComponent implements OnInit, OnDestroy, AfterViewInit, Afte
   }
 
   onEdit() {
+    this.editEvent.emit(this.supportGroupItem);
     this.showFullContent = false;
     this.toggleShow();
-    this.editEvent.emit(this.supportGroupItem);
   }
 
   ownPost() {

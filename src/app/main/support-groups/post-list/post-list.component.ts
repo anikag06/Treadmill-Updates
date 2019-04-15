@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SupportGroupsService } from '../support-groups.service';
 import { Subscription } from 'rxjs';
 import { SupportGroupItem } from '../support-group-item.model';
@@ -52,16 +52,11 @@ export class PostListComponent implements OnInit, OnDestroy {
           }
         }
       );
-    
     this.updatedSgServiceSubscription =  this.sgService.supportGroupItemUpdated$
       .subscribe(
         (sgItem: SupportGroupItem) => {
           if (!isNaN(sgItem.id)) {
-            for (let i = 0 ; i < this.posts.length ; i++) {
-              if (sgItem.id  === this.posts[i].id) {
-                this.posts[i] = sgItem;
-              }
-            }
+            this.posts = this.posts.map(post => post.id === sgItem.id ? sgItem : post);
           }
         }
       );

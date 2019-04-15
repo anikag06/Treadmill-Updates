@@ -172,7 +172,7 @@ export class CreatePostComponent implements OnInit {
     if (data.title && data.title.trim().length > 0) {
       return data.title.trim();
     } else {
-      return data.body.replace(/&nbsp;/gi, '').slice(0, 50).replace(/(<([^>]+)>)/ig, '');
+      return this.sanitizer.stripTags(data.body.replace(/&nbsp;/gi, '').slice(0, 50));
     }
   }
 

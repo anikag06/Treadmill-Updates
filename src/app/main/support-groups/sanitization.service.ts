@@ -19,4 +19,8 @@ export class SanitizationService {
     htmlString = htmlString.replace(/url\(/g, '');
     return htmlString;
   }
+
+  stripTags(str: string) {
+    return str.replace(/<(?:.|\n)*?>/gm, ' ');
+  }
 }
