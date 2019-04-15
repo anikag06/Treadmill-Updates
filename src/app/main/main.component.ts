@@ -14,7 +14,7 @@ import { LOGGED_IN_PATH, DEFAULT_PATH } from '@/app.constants';
 })
 export class MainComponent implements OnInit {
 
-  user: User = new User(0, 'undefined', 'test@test.com', '');
+  user!: User;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -31,7 +31,7 @@ export class MainComponent implements OnInit {
 
   ngOnInit() {
     const user = this.authService.isLoggedIn();
-    if (user) {
+    if (user && user.is_active) {
       this.user = <User>user;
     } else {
       this.router.navigate([DEFAULT_PATH]);

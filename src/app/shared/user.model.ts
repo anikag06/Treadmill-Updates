@@ -5,5 +5,7 @@ export class User {
         public username: string,
         public email: string,
         public avatar: string,
+        public is_admin: boolean,
+        public is_active: boolean,
     ) {}
 }

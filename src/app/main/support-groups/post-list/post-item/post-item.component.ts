@@ -83,6 +83,7 @@ export class PostItemComponent implements  OnInit, DoCheck, OnDestroy,  AfterCon
 
   ngOnInit() {
     this.user = <User>this.authService.isLoggedIn();
+    console.log(this.user.is_admin);
   }
 
   ngAfterContentInit(): void {

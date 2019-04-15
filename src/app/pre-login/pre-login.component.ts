@@ -5,7 +5,7 @@ import { ShowLoginDialogService } from './shared/show-login-dialog.service';
 import { A2HSService } from '@/shared/a2hs.service';
 import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-contact-us-dialog.service';
 import { AuthService } from '@/shared/auth/auth.service';
-import { LOGGED_IN_PATH } from '@/app.constants';
+import { LOGGED_IN_PATH, DEFAULT_PATH } from '@/app.constants';
 
 @Component({
   selector: 'app-pre-login',
@@ -27,8 +27,11 @@ export class PreLoginComponent implements OnInit {
 
   ngOnInit() {
     this.a2hsService.setDeferredPrompt();
-    if (this.authService.isLoggedIn()) {
+    const user = this.authService.isLoggedIn();
+    if (user && user.is_active) {
       this.router.navigate([LOGGED_IN_PATH]);
+    } else {
+      this.router.navigate([DEFAULT_PATH]);
     }
   }
 

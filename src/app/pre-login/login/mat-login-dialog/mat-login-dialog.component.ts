@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '@/shared/auth/auth.service';
-import { TOKEN, USERAVATAR } from '@/app.constants';
+import { TOKEN, USERAVATAR, ISADMIN, ISACTIVE, LOGGED_IN_PATH } from '@/app.constants';
 import { Router } from '@angular/router';
 import { LocalStorageService } from '@/shared/localstorage.service';
 
@@ -34,9 +34,11 @@ export class MatLoginDialogComponent implements OnInit {
       .then(
         (data: any) => {
           this.localStorageService.setItem(TOKEN, data.data.token);
+          this.localStorageService.setItem(ISADMIN, data.data.is_admin);
           this.localStorageService.setItem(USERAVATAR, data.data.avatar);
+          this.localStorageService.setItem(ISACTIVE, data.data.is_active);
           this.dialogRef.close();
-          this.router.navigate(['/dashboard']);
+          this.router.navigate([LOGGED_IN_PATH]);
         }
       ).catch(
         (error: any) => {

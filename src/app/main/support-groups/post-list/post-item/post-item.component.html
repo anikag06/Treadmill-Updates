@@ -64,6 +64,6 @@
       [comment]="userComment">
     </app-comment>
   </ng-container>
-  <button class="btn btn-info btn-sm" type="button" *ngIf="showLoadMore()" (click)="fetchOrShowComments()">More comments</button>
-  <button class="btn btn-info btn-sm" type="button" *ngIf="showLessComments()" (click)="makeInitial()">Less comments</button>
+  <button class="btn btn-info btn-sm" type="button" *ngIf="showLoadMore()" (click)="fetchOrShowComments()">More comments ({{supportGroupItem.comments_count}})</button>
+  <button class="btn btn-info btn-sm" type="button" *ngIf="showLessComments()" (click)="makeInitial()">Less comments ({{supportGroupItem.comments_count}})</button>
 </div>

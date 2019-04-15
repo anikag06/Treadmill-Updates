@@ -5,12 +5,12 @@
       [opened]="((isHandset$ | async) === false)">
     <mat-toolbar>
       <div>
-        <a href="/dashboard"><img *ngIf="isExpanded" src="https://www.treadwill.org/static/cbt2/images/logo/treadwill_logo.png"  style="margin-top: 10px; width: 75%;" class="center" alt="treadwill_logo">
+        <a routerLink="/dashboard"><img *ngIf="isExpanded" src="https://www.treadwill.org/static/cbt2/images/logo/treadwill_logo.png"  style="margin-top: 10px; width: 75%;" class="center" alt="treadwill_logo">
         </a>
         
       </div>
       <div>
-        <a href="/dashboard"><img *ngIf="!isExpanded" src="assets/modules/dashboard.png" class="icons-width">
+        <a routerLink="/dashboard"><img *ngIf="!isExpanded" src="assets/modules/dashboard.png" class="icons-width">
         </a>
         
       </div>
@@ -121,7 +121,7 @@
        </div>
 
        <div class="list-wrapper-items">
-        <a mat-list-item href="/logout">
+        <a mat-list-item routerLink="/logout">
           <span class="list-wrapper-items-icon">
             <img class="icons-width" style="margin-left: 2px;" src="assets/modules/logout.png">
           </span>
