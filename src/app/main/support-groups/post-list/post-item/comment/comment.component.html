@@ -19,6 +19,7 @@
       <ng-container *ngIf="!hide">
           <app-nested-comment
             *ngFor="let ncomment of nestedComments"
+            (deleteEmitter)="onNestedCommentDelete($event)"
             [userNestedComment]="ncomment">
         </app-nested-comment>
       </ng-container>

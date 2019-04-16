@@ -164,7 +164,7 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy {
           (error: HttpErrorResponse) => {
             console.log(error.message);
           }
-        )
+        );
     }
   }
 
@@ -172,6 +172,15 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy {
     if (confirm('Are you sure to close editor ?')) {
       this.editMode = false;
     }
+  }
+
+  onNestedCommentDelete(userNestedComment: UserNestedComment) {
+    this.ncService.deleteNestedComment(userNestedComment.id)
+      .subscribe(
+        () => {
+          this.nestedComments = this.nestedComments.filter(nc => nc.id !== userNestedComment.id);
+        }
+      )
   }
 
 }

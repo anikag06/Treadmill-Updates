@@ -1,6 +1,19 @@
 <div class="row no-gutters">
-  <div class="col-11 offset-1">
+  <div class="col-11 offset-1" *ngIf="!editMode else editor">
     <p>{{userNestedComment.body}}</p>
-    <p>upvotes: {{ userNestedComment.up_votes }}</p>
+    <p>upvotes: {{ userNestedComment.up_votes }} | <span *ngIf="user.username == userNestedComment.user"><a (click)="onEdit()">Edit</a> | <a (click)="onDelete()">Delete</a></span> </p>
   </div>
 </div>
+<ng-template #editor>
+    <form class="form-inline mb-2" (ngSubmit)="submitReply()">
+      <fieldset [disabled]="submitting">
+          <div class="form-group">
+              <label for="body">Reply</label>
+              <input type="text" name="body" class="form-control" [(ngModel)]="body">
+          </div>
+          <button type="submit" class="btn btn-success" >Save</button>
+      </fieldset>
+      &nbsp;
+      <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
+    </form>
+</ng-template>
