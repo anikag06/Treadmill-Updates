@@ -39,11 +39,14 @@
     </div>
     <p><span>{{supportGroupItem.created_at | date: 'medium' | timeAgo }}</span></p>
     <div [innerHTML]="body | safeHtml"></div>
-    <a (click)="toggleShow()" *ngIf="!showFullContent" class="toggler">Show More</a>
-    <a (click)="toggleShow()" *ngIf="showFullContent" class="toggler">Show Less</a>
+    
+    <p *ngIf="plainBodyLength() > 250">
+        <a (click)="toggleShow()" *ngIf="!showFullContent" class="toggler">Show More</a>
+        <a (click)="toggleShow()" *ngIf="showFullContent" class="toggler">Show Less</a>
+    </p>
     <form (ngSubmit)="onSubmit()" #mainComment="ngForm">
       <fieldset [disabled]="disabledValue">
-        <angular-editor name="name" ngModel required (focus)="onFocus()" (focusout)="onFocusOut($event)" [(config)]="editorConfig"></angular-editor>
+        <angular-editor name="name" ngModel required (focus)="onFocus()" (focusout)="onFocusOut($event)" [config]="editorConfig"></angular-editor>
         <button type="submit" class="btn btn-primary btn-sm" *ngIf="editorConfig.showToolbar">Comment</button>
       </fieldset>
     </form>

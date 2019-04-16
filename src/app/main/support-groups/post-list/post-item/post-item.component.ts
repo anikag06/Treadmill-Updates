@@ -35,20 +35,20 @@ export class PostItemComponent implements  OnInit, DoCheck, OnDestroy,  AfterCon
   @Output() deleteEvent = new EventEmitter<SupportGroupItem>();
   @Output() editEvent = new EventEmitter<SupportGroupItem>();
 
-  tags: Tag[] = [];
-  user!: User;
-  commentsPage = 1;
-  moreComments = false;
-  initial = true;
-  firstComment!: UserComment;
-  comments: UserComment[] = [];
-  postCommentSubscription!: Subscription;
-  getCommentsSubscription!: Subscription;
-  showFullContent = false;
-  body = '';
-  disabledValue = false;
+  tags: Tag[] = [];                                                           // Holds all the tags
+  user!: User;                                                                // Current User
+  commentsPage = 1;                                                           // Holds the pagination for comments
+  moreComments = false;                                                       // If there are any more comments
+  initial = true;                                                             // Initial state of comment
+  comments: UserComment[] = [];                                               // All comments
+  postCommentSubscription!: Subscription;                                     // Subscription for posting comments
+  getCommentsSubscription!: Subscription;                                     // Subscription for get comments
+  minBodyLength = 250;                                                        // Minimmum body length for text wrapping
+  showFullContent = false;                                                    // Wheter to show full body or not
+  body = '';                                                                  // Holds html value for the post body
+  disabledValue = false;                                                      // Comment posting
 
-  editorConfig: AngularEditorConfig = {
+  editorConfig: AngularEditorConfig = {                                       // Angular Editor Config
     editable: true,
     spellcheck: true,
     height: 'auto',
@@ -67,36 +67,55 @@ export class PostItemComponent implements  OnInit, DoCheck, OnDestroy,  AfterCon
     uploadUrl: '',
   };
 
+  /*
+  * Injects CommnetService, AuthService and SanitizationService
+  */
   constructor(
     private commentService: CommentService,
     private authService: AuthService,
     private sanititzationService: SanitizationService
   ) { }
 
+  /*
+  * Angular Lifecycle hookup this is hack to check for updated content
+  */
   ngDoCheck(): void {
-    if ( this.showFullContent ) {
+    if ( this.showFullContent || this.plainBodyLength() < 250 ) {
       this.body = this.supportGroupItem.body;
     } else  {
       this.body = this.slicedBody();
     }
   }
 
+  /**
+   * Gets the loggedIn user
+   */
   ngOnInit() {
     this.user = <User>this.authService.isLoggedIn();
   }
 
+
+  /**
+   * If the post is a new post expand its body by default
+   */
   ngAfterContentInit(): void {
-    if (this.newPost) {
+    if (this.newPost || this.plainBodyLength() < 250) {
       this.body = this.supportGroupItem.body;
     } else {
       this.body = this.slicedBody();
     }
   }
 
+  /**
+   * Lifecycle hook fetch all of the comments
+   */
   ngAfterViewInit() {
     this.fetchComments();
   }
 
+  /**
+   * Lifecycle hook to unsubscribe from subscriptions
+   */
   ngOnDestroy() {
     if (this.postCommentSubscription) {
       this.postCommentSubscription.unsubscribe();
@@ -177,7 +196,7 @@ export class PostItemComponent implements  OnInit, DoCheck, OnDestroy,  AfterCon
   }
 
   slicedBody() {
-    return this.sanititzationService.stripTags((this.supportGroupItem.body.slice(0, 250) + '...'));
+    return this.sanititzationService.stripTags((this.supportGroupItem.body.slice(0, this.minBodyLength) + '...'));
   }
 
   onDelete() {
@@ -205,5 +224,9 @@ export class PostItemComponent implements  OnInit, DoCheck, OnDestroy,  AfterCon
     if (el == null || el.innerHTML !== 'Comment') {
       this.editorConfig.showToolbar = false;
     }
+  }
+
+  plainBodyLength(): number {
+    return this.sanititzationService.stripTags(this.supportGroupItem.body).length;
   }
 }

@@ -21,6 +21,6 @@ export class SanitizationService {
   }
 
   stripTags(str: string) {
-    return str.replace(/<(?:.|\n)*?>/gm, ' ').replace(/\&nbsp\;/gi, '');
+    return str.replace(/<(?:.|\n)*?>/gm, ' ').replace(/\&nbsp\;/gi, '').trim();
   }
 }
