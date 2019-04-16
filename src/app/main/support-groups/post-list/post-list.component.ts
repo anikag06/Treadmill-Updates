@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ScrollingService } from '@/main/shared/scrolling.service';
 import { MatDialog } from '@angular/material';
 import { CreatePostComponent } from '../create-post/create-post.component';
+import { UserComment } from './post-item/comment/user-comment.model';
 
 @Component({
   selector: 'app-post-list',

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterContentInit, ViewChild, OnDestroy, Output } from '@angular/core';
+import { Component, OnInit, Input, AfterContentInit, ViewChild, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { UserComment } from './user-comment.model';
 import { UserNestedComment } from '../nested-comment/nested-comment.model';
 import { NetstedCommentService } from '../nested-comment/netsted-comment.service';
@@ -32,8 +32,8 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy {
   errors: any = [];
   editSubscription!: Subscription;
   nestedCommentSubscription!: Subscription;
-  
-  // @Output() deleteEmitter = new EventEmitter<UserComment>();
+
+  @Output() deleteEmitter = new EventEmitter<UserComment>();
   @Input() comment!: UserComment;
   @ViewChild('replyForm') replyForm!: NgForm;
   @ViewChild('editForm') editForm!: NgForm;
@@ -155,6 +155,17 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy {
   }
 
   onDelete() {
+    if (confirm('Are you sure to delete this comment')) {
+      this.commentService.deleteComment(this.comment.id)
+        .subscribe(
+          () => {
+            this.deleteEmitter.emit(this.comment);
+          },
+          (error: HttpErrorResponse) => {
+            console.log(error.message);
+          }
+        )
+    }
   }
 
   onCancel() {

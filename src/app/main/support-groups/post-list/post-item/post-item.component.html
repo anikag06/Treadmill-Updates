@@ -57,6 +57,7 @@
     <app-comment
       class="col-12"
       *ngFor="let userComment of comments.slice(0, 1)"
+      (deleteEmitter)="onCommentDelete($event)"
       [comment]="userComment">
     </app-comment>
   </ng-container>
@@ -64,6 +65,7 @@
     <app-comment
       class="col-12"
       *ngFor="let userComment of comments"
+      (deleteEmitter)="onCommentDelete($event)"
       [comment]="userComment">
     </app-comment>
   </ng-container>

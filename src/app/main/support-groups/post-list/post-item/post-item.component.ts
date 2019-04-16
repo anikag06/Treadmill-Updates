@@ -229,4 +229,12 @@ export class PostItemComponent implements  OnInit, DoCheck, OnDestroy,  AfterCon
   plainBodyLength(): number {
     return this.sanititzationService.stripTags(this.supportGroupItem.body).length;
   }
+
+  /**
+   * Delete Users comment
+   * @param userComment
+   */
+  onCommentDelete(userComment: UserComment) {
+    this.comments = this.comments.filter(uc => uc.id !== userComment.id);
+  }
 }

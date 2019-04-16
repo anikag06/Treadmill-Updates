@@ -25,4 +25,12 @@ export class CommentService {
   updateComment(comment_id: number, body: string) {
     return this.http.put(environment.API_ENDPOINT + '/api/v1/support-group/comment/' + comment_id + '/', { body: body });
   }
+
+  /**
+   * Delete a comment
+   * @param comment_id
+   */
+  deleteComment(comment_id: number) {
+    return this.http.delete(environment.API_ENDPOINT + '/api/v1/support-group/comment/' +  comment_id + '/');
+  }
 }
