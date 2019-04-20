@@ -22,10 +22,11 @@ export class PostListComponent implements OnInit, OnDestroy {
   newSgServiceSubscription!: Subscription;
   updatedSgServiceSubscription!: Subscription;
   scrollSubcscription!: Subscription;
+  queryParamsSubscription!: Subscription;
   page = 1;
   morePosts = true;
   fetching = false;
-  tag: string | null =  null;
+  tags: string | null =  null;
 
   constructor(
     private sgService: SupportGroupsService,
@@ -35,10 +36,10 @@ export class PostListComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.route.queryParams
+    this.queryParamsSubscription = this.route.queryParams
       .subscribe(
         (data) => {
-          this.tag = data.tags;
+          this.tags = data.tags;
           this.posts = [];
           this.page = 1;
           this.morePosts = true;
@@ -70,6 +71,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.sgServiceSubscription.unsubscribe();
     this.newSgServiceSubscription.unsubscribe();
+    this.queryParamsSubscription.unsubscribe();
     if (this.scrollSubcscription) {
       this.scrollSubcscription.unsubscribe();
     }
@@ -79,7 +81,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   getPosts() {
     if (this.morePosts) {
       this.fetching = true;
-      this.sgServiceSubscription = this.sgService.getPosts(this.page, this.tag)
+      this.sgServiceSubscription = this.sgService.getPosts(this.page, this.tags)
         .subscribe(
           (data) => {
             const response = <ApiResponse>data;

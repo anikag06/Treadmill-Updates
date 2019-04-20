@@ -40,6 +40,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule } from '@angular/material';
 import { ScrollingDirective } from './shared/scrolling.directive';
 import { ScrollingService } from './shared/scrolling.service';
+import { NavbarComponent } from './shared/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { ScrollingService } from './shared/scrolling.service';
     NestedCommentComponent,
     SafeHtmlPipe,
     ScrollingDirective,
+    NavbarComponent,
   ],
   imports: [
     CommonModule,

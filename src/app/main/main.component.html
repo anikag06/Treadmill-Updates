@@ -138,10 +138,6 @@
 
 
   <mat-drawer-content appScrolling>
-  <button *ngIf="!(isHandset$ | async)" mat-icon-button (click)="isExpanded = !isExpanded">
-          <mat-icon *ngIf="!isExpanded">chevron_right</mat-icon>
-          <mat-icon *ngIf="isExpanded">chevron_left</mat-icon>
-        </button>
     <mat-toolbar *ngIf="isHandset$ | async">
       <button
         type="button"
@@ -153,6 +149,9 @@
       </button>
       <span></span>
     </mat-toolbar>
-    <router-outlet></router-outlet>
+    <div class="app-main">
+        <app-navbar></app-navbar>
+        <router-outlet></router-outlet>
+    </div>
   </mat-drawer-content>
 </mat-drawer-container>

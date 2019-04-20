@@ -20,10 +20,15 @@ export class SupportGroupsService {
     private http: HttpClient
   ) { }
 
-  getPosts(page: number = 1, tags: string | null) {
+  getPosts(page: number = 1, tags: string | string[] | null) {
     let params = new HttpParams().set('page', page.toString());
     if (tags != null) {
-      params = params.append('tags', tags);
+     if (typeof(tags) === 'string') {
+        params = params.append('tags', tags);
+     } else {
+      const tagsStr = tags.join(',');
+      params = params.append('tags', tagsStr);
+     }
     }
     return this.http.get(environment.API_ENDPOINT + '/api/v1/support-group/posts/', { params: params});
   }
