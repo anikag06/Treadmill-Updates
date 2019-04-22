@@ -178,6 +178,7 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy {
     this.ncService.deleteNestedComment(userNestedComment.id)
       .subscribe(
         () => {
+          UserNestedComment.prototype.up_votes = 10;
           this.nestedComments = this.nestedComments.filter(nc => nc.id !== userNestedComment.id);
         }
       )

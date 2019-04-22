@@ -57,4 +57,8 @@ export class SupportGroupsService {
   sendUpdated(data: any) {
     this.supportGroupItemUpdated$.next(data);
   }
+
+  postUpVote(data: any) {
+    return this.http.post(environment.API_ENDPOINT + '/api/v1/support-group/post-vote/', data);
+  }
 }

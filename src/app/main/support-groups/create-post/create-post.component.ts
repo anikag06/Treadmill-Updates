@@ -109,7 +109,8 @@ export class CreatePostComponent implements OnInit {
             { username: this.user.username, avatar: this.user.avatar },
             0,
             new Date().toISOString(),
-            0);
+            0,
+            -1);
           this.sgService.sendPost(sgItem);
           this.postForm.reset();
           this.dialogRef.close();

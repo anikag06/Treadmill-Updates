@@ -13,5 +13,6 @@ export class SupportGroupItem {
         public up_votes: number,
         public created_at: string,
         public comments_count: number,
+        public is_voted: number,
     ){}
 }

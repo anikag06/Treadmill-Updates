@@ -21,6 +21,10 @@ import { Subscription } from 'rxjs';
 import { ApiResponse } from '@/main/shared/apiResponse.model';
 import { SanitizationService } from '../../sanitization.service';
 import { AngularEditorConfig } from '@xw19/angular-editor';
+import { SupportGroupsService } from '../../support-groups.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { MatDialog } from '@angular/material';
+import { ErrorDialogComponent } from '@/shared/error-dialog/error-dialog.component';
 
 @Component({
   selector: 'app-post-item',
@@ -71,9 +75,11 @@ export class PostItemComponent implements  OnInit, DoCheck, OnDestroy,  AfterCon
   * Injects CommnetService, AuthService and SanitizationService
   */
   constructor(
+    private sgService: SupportGroupsService,
     private commentService: CommentService,
     private authService: AuthService,
-    private sanititzationService: SanitizationService
+    private sanititzationService: SanitizationService,
+    public dialog: MatDialog
   ) { }
 
   /*
@@ -236,5 +242,53 @@ export class PostItemComponent implements  OnInit, DoCheck, OnDestroy,  AfterCon
    */
   onCommentDelete(userComment: UserComment) {
     this.comments = this.comments.filter(uc => uc.id !== userComment.id);
+  }
+
+  /**
+   * Upvote
+   */
+  onThumbsUp() {
+    const preVote = this.supportGroupItem.is_voted;
+    const preUpVote = this.supportGroupItem.up_votes;
+    if (this.supportGroupItem.is_voted === 1) {
+      this.supportGroupItem.up_votes -= 1;
+      this.supportGroupItem.is_voted = -1;
+    } else {
+      this.supportGroupItem.up_votes += 1;
+      this.supportGroupItem.is_voted = 1;
+    }
+    this.sgService.postUpVote({ post_id: this.supportGroupItem.id, vote: 1 })
+      .subscribe(
+        () => {},
+        () => {
+          this.dialog.open(ErrorDialogComponent, {
+            width: '300px',
+            data: 'Couldn\'t perform the action'
+          });
+          this.supportGroupItem.is_voted = preVote;
+          this.supportGroupItem.up_votes = preUpVote;
+        }
+      );
+  }
+
+  onThumbsDown() {
+    if (this.supportGroupItem.is_voted === 1) {
+      this.supportGroupItem.up_votes -= 1;
+      this.supportGroupItem.is_voted = 0;
+    } else if (this.supportGroupItem.is_voted === 0) {
+      this.supportGroupItem.is_voted = -1;
+    } else {
+      this.supportGroupItem.is_voted = 0;
+    }
+    this.sgService.postUpVote({ post_id: this.supportGroupItem.id, vote: 0 })
+      .subscribe(
+        () => {},
+        () => {
+          this.dialog.open(ErrorDialogComponent, {
+            width: '300px',
+            data: 'Couldn\'t perform the action'
+          });
+        }
+      );
   }
 }

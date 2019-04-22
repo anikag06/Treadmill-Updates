@@ -44,6 +44,10 @@
         <a (click)="toggleShow()" *ngIf="!showFullContent" class="toggler">Show More</a>
         <a (click)="toggleShow()" *ngIf="showFullContent" class="toggler">Show Less</a>
     </p>
+    <p>
+      <button class="btn btn-sm" [ngClass]="{'btn-info': supportGroupItem.is_voted === 1}" (click)="onThumbsUp()">👍 {{supportGroupItem.up_votes}}</button>
+      <button class="btn btn-danger btn-sm" (click)="onThumbsDown()" [ngClass]="{'btn-danger': supportGroupItem.is_voted === 0}">👎</button>
+    </p>
     <form (ngSubmit)="onSubmit()" #mainComment="ngForm">
       <fieldset [disabled]="disabledValue">
         <angular-editor name="name" ngModel required (focus)="onFocus()" (focusout)="onFocusOut($event)" [config]="editorConfig"></angular-editor>
