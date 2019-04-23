@@ -9,5 +9,6 @@ export class UserComment {
         public up_votes: number,
         public nested_comment_count: number,
         public created_at: string,
+        public is_voted: number
     ) {}
 }

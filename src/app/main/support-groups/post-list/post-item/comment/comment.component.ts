@@ -12,6 +12,8 @@ import { CommentService } from './comment.service';
 import { SanitizationService } from '@/main/support-groups/sanitization.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
+import { ErrorDialogComponent } from '@/shared/error-dialog/error-dialog.component';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-comment',
@@ -62,6 +64,7 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy {
     private ncService: NetstedCommentService,
     private authService: AuthService,
     private sanitzer: SanitizationService,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -182,6 +185,54 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy {
           this.nestedComments = this.nestedComments.filter(nc => nc.id !== userNestedComment.id);
         }
       )
+  }
+
+  /**
+   * Upvote
+   */
+  onThumbsUp() {
+    const preVote = this.comment.is_voted;
+    const preUpVote = this.comment.up_votes;
+    if (this.comment.is_voted === 1) {
+      this.comment.up_votes -= 1;
+      this.comment.is_voted = -1;
+    } else {
+      this.comment.up_votes += 1;
+      this.comment.is_voted = 1;
+    }
+    this.commentService.voteComment({ comment_id: this.comment.id, vote: 1 })
+      .subscribe(
+        () => {},
+        () => {
+          this.dialog.open(ErrorDialogComponent, {
+            width: '300px',
+            data: 'Couldn\'t perform the action'
+          });
+          this.comment.is_voted = preVote;
+          this.comment.up_votes = preUpVote;
+        }
+      );
+  }
+
+  onThumbsDown() {
+    if (this.comment.is_voted === 1) {
+      this.comment.up_votes -= 1;
+      this.comment.is_voted = 0;
+    } else if (this.comment.is_voted === 0) {
+      this.comment.is_voted = -1;
+    } else {
+      this.comment.is_voted = 0;
+    }
+    this.commentService.voteComment({ comment_id: this.comment.id, vote: 0 })
+      .subscribe(
+        () => {},
+        () => {
+          this.dialog.open(ErrorDialogComponent, {
+            width: '300px',
+            data: 'Couldn\'t perform the action'
+          });
+        }
+      );
   }
 
 }

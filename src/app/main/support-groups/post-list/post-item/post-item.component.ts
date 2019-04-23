@@ -129,6 +129,9 @@ export class PostItemComponent implements  OnInit, DoCheck, OnDestroy,  AfterCon
     this.getCommentsSubscription.unsubscribe();
   }
 
+  /**
+   * Action to be performed when form submit
+   */
   onSubmit() {
     if (this.commentForm.valid && this.sanititzationService.stripTags(this.commentForm.value['name']).length > 0) {
       this.disabledValue = true;
@@ -140,7 +143,8 @@ export class PostItemComponent implements  OnInit, DoCheck, OnDestroy,  AfterCon
             const persistedComment = new UserComment(
                                         commentResponse.data.comment_id,
                                         { username: this.user.username, avatar: this.user.avatar },
-                                        comment.body, 0, 0, new Date().toISOString());
+                                        comment.body, 0, 0, new Date().toISOString(), -1);
+            this.supportGroupItem.comments_count += 1;
             this.commentForm.reset();
             this.initial = false;
             this.disabledValue = false;
@@ -151,6 +155,9 @@ export class PostItemComponent implements  OnInit, DoCheck, OnDestroy,  AfterCon
     }
   }
 
+  /**
+   * To fetch comments on posts
+   */
   fetchComments() {
     if (this.supportGroupItem) {
       this.getCommentsSubscription = this.commentService.getMainComments(this.supportGroupItem, this.commentsPage)

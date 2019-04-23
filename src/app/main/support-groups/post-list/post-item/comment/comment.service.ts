@@ -19,7 +19,7 @@ export class CommentService {
   }
 
   getMainComments(sgi: SupportGroupItem, page = 1 ) {
-    return this.http.get(environment.API_ENDPOINT + '/api/v1/support-group/comments/' + sgi.id + '/?page=' + page)
+    return this.http.get(environment.API_ENDPOINT + '/api/v1/support-group/comments/' + sgi.id + '/?page=' + page);
   }
 
   updateComment(comment_id: number, body: string) {
@@ -32,5 +32,13 @@ export class CommentService {
    */
   deleteComment(comment_id: number) {
     return this.http.delete(environment.API_ENDPOINT + '/api/v1/support-group/comment/' +  comment_id + '/');
+  }
+
+  /**
+   * Posting a vote
+   * @param data
+   */
+  voteComment(data: any) {
+    return this.http.post(environment.API_ENDPOINT + '/api/v1/support-group/comment-vote/', data);
   }
 }
