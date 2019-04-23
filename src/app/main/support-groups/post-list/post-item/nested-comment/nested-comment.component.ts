@@ -5,6 +5,8 @@ import { NgForm } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '@/shared/auth/auth.service';
 import { User } from '@/shared/user.model';
+import { MatDialog } from '@angular/material';
+import { ErrorDialogComponent } from '@/shared/error-dialog/error-dialog.component';
 
 @Component({
   selector: 'app-nested-comment',
@@ -24,8 +26,12 @@ export class NestedCommentComponent implements OnInit, AfterContentInit {
   constructor(
     private ncService: NetstedCommentService,
     private authService: AuthService,
+    private dialog: MatDialog,
   ) {}
 
+  /**
+   * Lifecycle hook on init
+   */
   ngOnInit() {
     this.user = this.authService.isLoggedIn();
   }
@@ -74,9 +80,63 @@ export class NestedCommentComponent implements OnInit, AfterContentInit {
     }
   }
 
+  /**
+   * On Delete
+   */
   onDelete() {
     if (confirm('Are you sure to delete this comment ?')) {
       this.deleteEmitter.emit(this.userNestedComment)
     }
+  }
+
+  /**
+   * Upvote
+   */
+  onThumbsUp() {
+    const preVote = this.userNestedComment.is_voted;
+    const preUpVote = this.userNestedComment.up_votes;
+    if (this.userNestedComment.is_voted === 1) {
+      this.userNestedComment.up_votes -= 1;
+      this.userNestedComment.is_voted = -1;
+    } else {
+      this.userNestedComment.up_votes += 1;
+      this.userNestedComment.is_voted = 1;
+    }
+    this.ncService.voteComment({ nested_comment_id: this.userNestedComment.id, vote: 1 })
+      .subscribe(
+        () => {},
+        () => {
+          this.dialog.open(ErrorDialogComponent, {
+            width: '300px',
+            data: 'Couldn\'t perform the action'
+          });
+          this.userNestedComment.is_voted = preVote;
+          this.userNestedComment.up_votes = preUpVote;
+        }
+      );
+  }
+
+  /**
+   * DownVote
+   */
+  onThumbsDown() {
+    if (this.userNestedComment.is_voted === 1) {
+      this.userNestedComment.up_votes -= 1;
+      this.userNestedComment.is_voted = 0;
+    } else if (this.userNestedComment.is_voted === 0) {
+      this.userNestedComment.is_voted = -1;
+    } else {
+      this.userNestedComment.is_voted = 0;
+    }
+    this.ncService.voteComment({ nested_comment_id: this.userNestedComment.id, vote: 0 })
+      .subscribe(
+        () => {},
+        () => {
+          this.dialog.open(ErrorDialogComponent, {
+            width: '300px',
+            data: 'Couldn\'t perform the action'
+          });
+        }
+      );
   }
 }

@@ -1,7 +1,11 @@
 <div class="row no-gutters">
   <div class="col-11 offset-1" *ngIf="!editMode else editor">
     <p>{{userNestedComment.body}}</p>
-    <p>upvotes: {{ userNestedComment.up_votes }} | <span *ngIf="user.username == userNestedComment.user"><a (click)="onEdit()">Edit</a> | <a (click)="onDelete()">Delete</a></span> </p>
+    <p><span *ngIf="user.username == userNestedComment.user"><a (click)="onEdit()">Edit</a> | <a (click)="onDelete()">Delete</a></span> </p>
+    <p>
+      <button class="btn btn-sm" [ngClass]="{'btn-info': userNestedComment.is_voted === 1}" (click)="onThumbsUp()">👍 {{userNestedComment.up_votes}}</button>
+      <button class="btn btn-danger btn-sm" (click)="onThumbsDown()" [ngClass]="{'btn-danger': userNestedComment.is_voted === 0}">👎</button>
+    </p>
   </div>
 </div>
 <ng-template #editor>

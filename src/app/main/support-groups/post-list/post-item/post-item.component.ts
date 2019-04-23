@@ -278,6 +278,9 @@ export class PostItemComponent implements  OnInit, DoCheck, OnDestroy,  AfterCon
       );
   }
 
+  /**
+   * DownVote
+   */
   onThumbsDown() {
     if (this.supportGroupItem.is_voted === 1) {
       this.supportGroupItem.up_votes -= 1;

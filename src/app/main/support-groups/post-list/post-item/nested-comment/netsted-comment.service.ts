@@ -37,4 +37,12 @@ export class NetstedCommentService {
   deleteNestedComment(comment_id: number) {
     return this.http.delete(environment.API_ENDPOINT + '/api/v1/support-group/nested-comment/' + comment_id + '/');
   }
+
+  /**
+   * Posting a vote
+   * @param data
+   */
+  voteComment(data: any) {
+    return this.http.post(environment.API_ENDPOINT + '/api/v1/support-group/nested-comment-vote/', data);
+  }
 }
