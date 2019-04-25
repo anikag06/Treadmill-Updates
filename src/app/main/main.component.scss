@@ -97,3 +97,19 @@ img.center {
 button:focus {
   outline: 0;
 }
+
+@media screen and (max-width: 1366px) {
+  .list-user {
+    margin-top: 10px;
+    img {
+      width: 60px;
+      height: 60px;
+    }
+  }
+  .list-user-name {
+    padding-bottom: 10px;
+  }
+  .mat-list-base .mat-list-item, .mat-list-base .mat-list-option {
+    height: 35px;
+  }
+}
