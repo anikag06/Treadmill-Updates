@@ -1,14 +1,16 @@
 import {
-    Component,
-    OnInit,
-    Input,
-    ViewChild,
-    OnDestroy,
-    AfterViewInit,
-    AfterContentInit,
-    Output,
-    EventEmitter,
-    DoCheck
+  Component,
+  OnInit,
+  Input,
+  ViewChild,
+  OnDestroy,
+  AfterViewInit,
+  AfterContentInit,
+  Output,
+  EventEmitter,
+  DoCheck,
+  ElementRef,
+  Renderer2
 } from '@angular/core';
 import { Tag } from '@/main/shared/tag.model';
 import { NgForm } from '@angular/forms';
@@ -22,20 +24,22 @@ import { ApiResponse } from '@/main/shared/apiResponse.model';
 import { SanitizationService } from '../../sanitization.service';
 import { AngularEditorConfig } from '@xw19/angular-editor';
 import { SupportGroupsService } from '../../support-groups.service';
-import { HttpErrorResponse } from '@angular/common/http';
 import { MatDialog } from '@angular/material';
 import { ErrorDialogComponent } from '@/shared/error-dialog/error-dialog.component';
+import { ThumbsService } from '../../thumbs.service';
+import { ViewEncapsulation } from '@angular/compiler/src/core';
 
 @Component({
   selector: 'app-post-item',
   templateUrl: './post-item.component.html',
-  styleUrls: ['./post-item.component.scss']
+  styleUrls: ['./post-item.component.scss'],
 })
-export class PostItemComponent implements  OnInit, DoCheck, OnDestroy,  AfterContentInit, AfterViewInit {
+export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterContentInit, AfterViewInit {
 
   @Input() supportGroupItem!: SupportGroupItem;
   @Input() newPost!: boolean;
   @ViewChild('mainComment') commentForm!: NgForm;
+  @ViewChild('htmlDiv') htmlDiv!: ElementRef;
   @Output() deleteEvent = new EventEmitter<SupportGroupItem>();
   @Output() editEvent = new EventEmitter<SupportGroupItem>();
 
@@ -47,10 +51,14 @@ export class PostItemComponent implements  OnInit, DoCheck, OnDestroy,  AfterCon
   comments: UserComment[] = [];                                               // All comments
   postCommentSubscription!: Subscription;                                     // Subscription for posting comments
   getCommentsSubscription!: Subscription;                                     // Subscription for get comments
-  minBodyLength = 250;                                                        // Minimmum body length for text wrapping
+  minBodyLength = 300;                                                        // Minimmum body length for text wrapping
   showFullContent = false;                                                    // Wheter to show full body or not
   body = '';                                                                  // Holds html value for the post body
-  disabledValue = false;                                                      // Comment posting
+  disabledValue = false;                                                    // Comment posting
+  thumbsUp = '';
+  thumbsDown = '';
+  toggler!: ElementRef;
+
 
   editorConfig: AngularEditorConfig = {                                       // Angular Editor Config
     editable: true,
@@ -79,18 +87,21 @@ export class PostItemComponent implements  OnInit, DoCheck, OnDestroy,  AfterCon
     private commentService: CommentService,
     private authService: AuthService,
     private sanititzationService: SanitizationService,
-    public dialog: MatDialog
+    private thumbsService: ThumbsService,
+    private dialog: MatDialog,
   ) { }
 
   /*
   * Angular Lifecycle hookup this is hack to check for updated content
   */
   ngDoCheck(): void {
-    if ( this.showFullContent || this.plainBodyLength() < 250 ) {
+    if (this.showFullContent || this.plainBodyLength() < 250) {
       this.body = this.supportGroupItem.body;
-    } else  {
+    } else {
       this.body = this.slicedBody();
     }
+    this.thumbsUp = this.thumbsService.thumbsUpSrc(this.supportGroupItem);
+    this.thumbsDown = this.thumbsService.thumbsDownSrc(this.supportGroupItem);
   }
 
   /**
@@ -107,8 +118,10 @@ export class PostItemComponent implements  OnInit, DoCheck, OnDestroy,  AfterCon
   ngAfterContentInit(): void {
     if (this.newPost || this.plainBodyLength() < 250) {
       this.body = this.supportGroupItem.body;
+      this.htmlDiv.nativeElement.style.display = 'block';
     } else {
       this.body = this.slicedBody();
+      this.htmlDiv.nativeElement.style.display = 'inline';
     }
   }
 
@@ -139,11 +152,11 @@ export class PostItemComponent implements  OnInit, DoCheck, OnDestroy,  AfterCon
       this.postCommentSubscription = this.commentService.postComment(comment)
         .subscribe(
           (data) => {
-            const commentResponse = <{ status: boolean, message: string, data: { comment_id: number }}>data;
+            const commentResponse = <{ status: boolean, message: string, data: { comment_id: number } }>data;
             const persistedComment = new UserComment(
-                                        commentResponse.data.comment_id,
-                                        { username: this.user.username, avatar: this.user.avatar },
-                                        comment.body, 0, 0, new Date().toISOString(), -1);
+              commentResponse.data.comment_id,
+              { username: this.user.username, avatar: this.user.avatar },
+              comment.body, 0, 0, new Date().toISOString(), -1);
             this.supportGroupItem.comments_count += 1;
             this.commentForm.reset();
             this.initial = false;
@@ -161,20 +174,20 @@ export class PostItemComponent implements  OnInit, DoCheck, OnDestroy,  AfterCon
   fetchComments() {
     if (this.supportGroupItem) {
       this.getCommentsSubscription = this.commentService.getMainComments(this.supportGroupItem, this.commentsPage)
-                                        .subscribe(
-                                          (data) => {
-                                            const apiResponse = <ApiResponse>data;
-                                            if (apiResponse.next) {
-                                              this.commentsPage += 1;
-                                              this.moreComments = true;
-                                            } else {
-                                              this.moreComments = false;
-                                            }
-                                            if (apiResponse.results.length > 0) {
-                                              this.comments.push(...<UserComment[]>apiResponse.results);
-                                            }
-                                          }
-                                        );
+        .subscribe(
+          (data) => {
+            const apiResponse = <ApiResponse>data;
+            if (apiResponse.next) {
+              this.commentsPage += 1;
+              this.moreComments = true;
+            } else {
+              this.moreComments = false;
+            }
+            if (apiResponse.results.length > 0) {
+              this.comments.push(...<UserComment[]>apiResponse.results);
+            }
+          }
+        );
     }
   }
 
@@ -201,10 +214,12 @@ export class PostItemComponent implements  OnInit, DoCheck, OnDestroy,  AfterCon
 
   toggleShow() {
     this.showFullContent = !this.showFullContent;
-    if ( this.showFullContent ) {
+    if (this.showFullContent) {
       this.body = this.supportGroupItem.body;
-    } else  {
+      this.htmlDiv.nativeElement.style.display = 'block';
+    } else {
       this.body = this.slicedBody();
+      this.htmlDiv.nativeElement.style.display = 'inline';
     }
   }
 
@@ -266,7 +281,7 @@ export class PostItemComponent implements  OnInit, DoCheck, OnDestroy,  AfterCon
     }
     this.sgService.postUpVote({ post_id: this.supportGroupItem.id, vote: 1 })
       .subscribe(
-        () => {},
+        () => { },
         () => {
           this.dialog.open(ErrorDialogComponent, {
             width: '300px',
@@ -292,7 +307,7 @@ export class PostItemComponent implements  OnInit, DoCheck, OnDestroy,  AfterCon
     }
     this.sgService.postUpVote({ post_id: this.supportGroupItem.id, vote: 0 })
       .subscribe(
-        () => {},
+        () => { },
         () => {
           this.dialog.open(ErrorDialogComponent, {
             width: '300px',

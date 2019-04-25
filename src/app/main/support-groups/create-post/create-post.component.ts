@@ -148,12 +148,12 @@ export class CreatePostComponent implements OnInit {
   }
 
   onCheckboxChange(tagId: number, event: any) {
+    console.log(tagId)
     if (event.currentTarget.checked) {
       this.formTags.push(tagId);
     } else {
       this.formTags = this.formTags.filter(i => tagId !== i);
     }
-    console.log(this.formTags);
   }
 
 
@@ -181,5 +181,9 @@ export class CreatePostComponent implements OnInit {
     if (confirm('Are you sure to close you will lost unsaved post ?')) {
       this.dialogRef.close();
     }
+  }
+
+  getFormTags() {
+    return (<FormArray>this.postForm.get('tags')).controls;
   }
 }

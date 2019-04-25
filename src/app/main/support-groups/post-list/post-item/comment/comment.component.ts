@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterContentInit, ViewChild, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, AfterContentInit, ViewChild, OnDestroy, Output, EventEmitter, DoCheck } from '@angular/core';
 import { UserComment } from './user-comment.model';
 import { UserNestedComment } from '../nested-comment/nested-comment.model';
 import { NetstedCommentService } from '../nested-comment/netsted-comment.service';
@@ -14,13 +14,14 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { ErrorDialogComponent } from '@/shared/error-dialog/error-dialog.component';
 import { MatDialog } from '@angular/material';
+import { ThumbsService } from '@/main/support-groups/thumbs.service';
 
 @Component({
   selector: 'app-comment',
   templateUrl: './comment.component.html',
   styleUrls: ['./comment.component.scss']
 })
-export class CommentComponent implements OnInit, AfterContentInit, OnDestroy {
+export class CommentComponent implements OnInit, AfterContentInit, OnDestroy, DoCheck {
 
   nestedComments: UserNestedComment[] = [];
   hide = true;
@@ -34,6 +35,8 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy {
   errors: any = [];
   editSubscription!: Subscription;
   nestedCommentSubscription!: Subscription;
+  thumbsUp = '';
+  thumbsDown = '';
 
   @Output() deleteEmitter = new EventEmitter<UserComment>();
   @Input() comment!: UserComment;
@@ -64,12 +67,19 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy {
     private ncService: NetstedCommentService,
     private authService: AuthService,
     private sanitzer: SanitizationService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private thumbsService: ThumbsService,
   ) { }
 
   ngOnInit() {
     this.user = <User>this.authService.isLoggedIn();
   }
+
+  ngDoCheck() {
+    this.thumbsUp = this.thumbsService.thumbsUpSrc(this.comment);
+    this.thumbsDown = this.thumbsService.thumbsDownSrc(this.comment);
+  }
+
   ngAfterContentInit() {
     if (this.comment && this.comment.nested_comment_count > this.nestedComments.length) {
       this.moreComments = true;

@@ -1,22 +1,20 @@
 <div class="container-fluid">
+  <div class="post-list">
     <ng-container *ngIf="newPosts.length > 0">
-        <app-post-item
-          *ngFor="let post of newPosts"
-          class="animate"
-          [newPost]="true"
-          (deleteEvent)="onItemDeletion($event)"
-          (editEvent)="onItemEdit($event)"
-          [supportGroupItem]="post">
-        </app-post-item>
-      </ng-container>
-  <ng-container *ngIf="posts.length > 0">
-    <app-post-item
-      *ngFor="let post of posts"
-      (deleteEvent)="onItemDeletion($event)"
-      (editEvent)="onItemEdit($event)"
-      [supportGroupItem]="post">
-    </app-post-item>
-  </ng-container>
-  <div *ngIf="fetching"><h1>Loading...</h1></div>
-  <div *ngIf="!fetching"><h1>You have reached the End of the World!</h1></div>
+      <app-post-item *ngFor="let post of newPosts" class="animate" [newPost]="true" (deleteEvent)="onItemDeletion($event)"
+        (editEvent)="onItemEdit($event)" [supportGroupItem]="post">
+      </app-post-item>
+    </ng-container>
+    <ng-container *ngIf="posts.length > 0">
+      <app-post-item *ngFor="let post of posts" (deleteEvent)="onItemDeletion($event)" (editEvent)="onItemEdit($event)"
+        [supportGroupItem]="post">
+      </app-post-item>
+    </ng-container>
+    <div *ngIf="fetching">
+      <h1>Loading...</h1>
+    </div>
+    <div *ngIf="!fetching">
+      <p>You have reached the end of the world</p>
+    </div>
+  </div>
 </div>

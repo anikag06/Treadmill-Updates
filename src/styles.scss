@@ -211,6 +211,13 @@ $small_logo_height: 40px;
   min-height: 80vh;
 }
 
+.btn-underline {
+  text-decoration: underline;
+}
+.btn-underline:hover {
+  text-decoration: underline !important;
+}
+
 @media screen and (max-width: 991px) {
   .main-heading-h1 {
       width: 100%;

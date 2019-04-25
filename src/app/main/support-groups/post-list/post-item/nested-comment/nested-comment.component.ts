@@ -85,7 +85,7 @@ export class NestedCommentComponent implements OnInit, AfterContentInit {
    */
   onDelete() {
     if (confirm('Are you sure to delete this comment ?')) {
-      this.deleteEmitter.emit(this.userNestedComment)
+      this.deleteEmitter.emit(this.userNestedComment);
     }
   }
 

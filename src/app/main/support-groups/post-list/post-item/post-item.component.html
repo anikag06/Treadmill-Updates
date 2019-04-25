@@ -1,78 +1,99 @@
-<div class="row no-gutters">
-  <div class="col-1">
-    <img [src]="supportGroupItem.user.avatar" alt="User avatar" width="80" height="80">
-  </div>
-  <div class="col-11">
-    <div class="row no-gutters">
-      <div class="col-9">
-        <h2>{{supportGroupItem.title}}</h2>
+<div class="post-item">
+  <mat-menu #menu="matMenu" xPosition="before">
+    <button mat-menu-item (click)="onEdit()" *ngIf="ownPost() || user.is_admin">
+      <mat-icon>edit</mat-icon>
+      <span>Edit</span>
+    </button>
+    <button mat-menu-item (click)="onDelete()" *ngIf="ownPost()|| user.is_admin">
+      <mat-icon>delete</mat-icon>
+      <span>Delete</span>
+    </button>
+    <button mat-menu-item *ngIf="!ownPost() || user.is_admin">
+      <mat-icon>report_problem</mat-icon>
+      <span>Report Problem</span>
+    </button>
+    <button mat-menu-item *ngIf="!ownPost() || user.is_admin">
+      <mat-icon>error</mat-icon>
+      <span>Report Sucide</span>
+    </button>
+  </mat-menu>
+  <div class="row no-gutters">
+    <div class="col-3 text-center">
+      <img [src]="supportGroupItem.user.avatar" alt="User avatar" width="80" height="80" class='post-user-avatar'>
+      <p class='user-avatar-username text-muted'>{{supportGroupItem.user.username}}</p>
+    </div>
+    <div class="col-9 clearfix main-content">
+      <div class="row text-right">
+        <div class="col-12">
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+        </div>
       </div>
-      <div class="col-2">
-        <span *ngFor="let tag of supportGroupItem.tags">
-          <a [routerLink]="['/support-groups']" [queryParams]="{'tags': tag.name}">#{{tag.name}}</a>
-          &nbsp;         
-        </span>
+      <div class="row no-gutters">
+        <div class="col-12">
+          <h2>{{supportGroupItem.title}}</h2>
+          <p><span class='post-time text-muted'>{{supportGroupItem.created_at | date: 'medium' | timeAgo }}</span></p>
+        </div>
       </div>
-      <div class="col-1">
-        <button mat-icon-button [matMenuTriggerFor]="menu">
-          <mat-icon>more_horiz</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="onEdit()" *ngIf="ownPost() || user.is_admin">
-            <mat-icon>edit</mat-icon>
-            <span>Edit</span>
-          </button>
-          <button mat-menu-item (click)="onDelete()" *ngIf="ownPost()|| user.is_admin">
-            <mat-icon>delete</mat-icon>
-            <span>Delete</span>
-          </button>
-          <button mat-menu-item *ngIf="!ownPost() || user.is_admin">
-            <mat-icon>report_problem</mat-icon>
-            <span>Report Problem</span>
-          </button>
-          <button mat-menu-item *ngIf="!ownPost() || user.is_admin">
-            <mat-icon>error</mat-icon>
-            <span>Report Sucide</span>
-          </button>
-        </mat-menu>
+      <div class="row" *ngIf="supportGroupItem.tags.length > 0">
+        <div class="col-12 tags">
+          <span *ngFor="let tag of supportGroupItem.tags" class="tags">
+            <a [routerLink]="['/support-groups']" [queryParams]="{'tags': tag.name}">{{tag.name}}</a>
+            &nbsp;
+          </span>
+        </div>
+      </div>
+      <div class="row no-gutters">
+        <div class='col-12'>
+          <div #htmlDiv [innerHTML]="body | safeHtml"></div>
+          <span *ngIf="plainBodyLength() > 300" class="text-right">
+            <a (click)="toggleShow()" *ngIf="!showFullContent" class="toggler">show more</a>
+            <a (click)="toggleShow()" *ngIf="showFullContent" class="toggler">show less</a>
+          </span>
+        </div>
+      </div>
+      <div class="row no-gutters">
+        <div class="col-12">
+          <button class="btn btn-sm" (click)="onThumbsUp()"><img [src]="thumbsUp" width="20">
+            {{supportGroupItem.up_votes}}</button>
+          <button class="btn btn-sm" (click)="onThumbsDown()"><img [src]="thumbsDown" width="20"></button>
+        </div>
       </div>
     </div>
-    <p><span>{{supportGroupItem.created_at | date: 'medium' | timeAgo }}</span></p>
-    <div [innerHTML]="body | safeHtml"></div>
-    
-    <p *ngIf="plainBodyLength() > 250">
-        <a (click)="toggleShow()" *ngIf="!showFullContent" class="toggler">Show More</a>
-        <a (click)="toggleShow()" *ngIf="showFullContent" class="toggler">Show Less</a>
-    </p>
-    <p>
-      <button class="btn btn-sm" [ngClass]="{'btn-info': supportGroupItem.is_voted === 1}" (click)="onThumbsUp()">👍 {{supportGroupItem.up_votes}}</button>
-      <button class="btn btn-danger btn-sm" (click)="onThumbsDown()" [ngClass]="{'btn-danger': supportGroupItem.is_voted === 0}">👎</button>
-    </p>
-    <form (ngSubmit)="onSubmit()" #mainComment="ngForm">
-      <fieldset [disabled]="disabledValue">
-        <angular-editor name="name" ngModel required (focus)="onFocus()" (focusout)="onFocusOut($event)" [config]="editorConfig"></angular-editor>
-        <button type="submit" class="btn btn-primary btn-sm" *ngIf="editorConfig.showToolbar">Comment</button>
-      </fieldset>
-    </form>
   </div>
-</div>
-<div class="row no-gutters">
-  <ng-container *ngIf="initial">
-    <app-comment
-      class="col-12"
-      *ngFor="let userComment of comments.slice(0, 1)"
-      (deleteEmitter)="onCommentDelete($event)"
-      [comment]="userComment">
-    </app-comment>
-  </ng-container>
-  <ng-container *ngIf="!initial">
-    <app-comment
-      class="col-12"
-      *ngFor="let userComment of comments"
-      (deleteEmitter)="onCommentDelete($event)"
-      [comment]="userComment">
-    </app-comment>
-  </ng-container>
-  <button class="btn btn-info btn-sm" type="button" *ngIf="showLoadMore()" (click)="fetchOrShowComments()">More comments ({{supportGroupItem.comments_count}})</button>
-  <button class="btn btn-info btn-sm" type="button" *ngIf="showLessComments()" (click)="makeInitial()">Less comments ({{supportGroupItem.comments_count}})</button>
+  <hr> 
+  <div class="row no-gutters comments-row">
+    <ng-container *ngIf="initial">
+      <app-comment
+        class="col-12"
+        *ngFor="let userComment of comments.slice(0, 1)"
+        [comment]="userComment">
+      </app-comment>
+    </ng-container>
+    <ng-container *ngIf="!initial">
+      <app-comment
+        class="col-12"
+        *ngFor="let userComment of comments"
+        [comment]="userComment">
+      </app-comment>
+    </ng-container>
+    <div class="col-3 text-center">
+        <button class="btn btn-sm btn-underline" type="button" *ngIf="showLoadMore()" (click)="fetchOrShowComments()">More comments ({{supportGroupItem.comments_count}})</button>
+        <button class="btn btn-sm btn-underline" type="button" *ngIf="showLessComments()" (click)="makeInitial()">Less comments ({{supportGroupItem.comments_count}})</button>
+    </div>
+  </div>
+  <div class="row no-gutters">
+    <div class="col-9 offset-3">
+      <form (ngSubmit)="onSubmit()" #mainComment="ngForm">
+        <fieldset [disabled]="disabledValue" class="comment-form">
+          <angular-editor name="name" ngModel required (focus)="onFocus()" (focusout)="onFocusOut($event)"
+            [config]="editorConfig"></angular-editor>
+          <div class="text-right">
+            <button type="submit" class="btn btn-primary btn-sm" *ngIf="editorConfig.showToolbar">Comment</button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
 </div>

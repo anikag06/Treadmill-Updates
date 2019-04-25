@@ -1,0 +1,23 @@
+.comment {
+    margin-bottom: 30px;
+    img {
+        border-radius: 50%;
+        width: 60px;
+    }
+    .user {
+        padding-top: 10px;
+    }
+    .date {
+        font-size: 13px;
+    }
+    .btn {
+        box-shadow: none;
+        img {
+            width: 35px;
+            height: 18px;
+        }
+    }
+    ::ng-deep p {
+        margin-bottom: 10px;
+    }
+}
