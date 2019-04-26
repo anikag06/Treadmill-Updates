@@ -1,7 +1,17 @@
 .post-list {
-    // background-color: rgb(113, 141, 60);
     margin: 10px auto;
     padding: 40px 20px 30px;
     border-radius: 10px;
     max-width: 768px;
+}
+.no-gutters {
+    margin: 0;
+    padding: 0;
+}
+
+@media screen and (max-width: 768px) {
+    .post-list {
+        margin: 0;
+        padding: 20px 0;
+    }
 }

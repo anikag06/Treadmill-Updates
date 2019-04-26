@@ -49,7 +49,6 @@
           <div #htmlDiv [innerHTML]="body | safeHtml"></div>
           <span *ngIf="plainBodyLength() > 300" class="text-right">
             <a (click)="toggleShow()" *ngIf="!showFullContent" class="toggler">show more</a>
-            <a (click)="toggleShow()" *ngIf="showFullContent" class="toggler">show less</a>
           </span>
         </div>
       </div>
@@ -62,7 +61,6 @@
       </div>
     </div>
   </div>
-  <hr> 
   <div class="row no-gutters comments-row">
     <ng-container *ngIf="initial">
       <app-comment
@@ -78,13 +76,13 @@
         [comment]="userComment">
       </app-comment>
     </ng-container>
-    <div class="col-3 text-center">
-        <button class="btn btn-sm btn-underline" type="button" *ngIf="showLoadMore()" (click)="fetchOrShowComments()">More comments ({{supportGroupItem.comments_count}})</button>
-        <button class="btn btn-sm btn-underline" type="button" *ngIf="showLessComments()" (click)="makeInitial()">Less comments ({{supportGroupItem.comments_count}})</button>
+    <div class="col-12 text-center">
+        <button class="btn btn-sm btn-block btn-primary" type="button" *ngIf="showLoadMore()" (click)="fetchOrShowComments()">View comments ({{supportGroupItem.comments_count}})</button>
+        <!-- <button class="btn btn-sm btn-block btn-primary" type="button" *ngIf="showLessComments()" (click)="makeInitial()">Less comments ({{supportGroupItem.comments_count}})</button> -->
     </div>
   </div>
   <div class="row no-gutters">
-    <div class="col-9 offset-3">
+    <div class="col-12 col-md-9 offset-md-3">
       <form (ngSubmit)="onSubmit()" #mainComment="ngForm">
         <fieldset [disabled]="disabledValue" class="comment-form">
           <angular-editor name="name" ngModel required (focus)="onFocus()" (focusout)="onFocusOut($event)"

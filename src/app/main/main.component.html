@@ -17,7 +17,7 @@
       
     </mat-toolbar>
 
-    <mat-nav-list  role="navigation">
+    <mat-nav-list  role="navigation" (click)="drawer.toggle()">
       <div class="list-wrapper">
 
        <div *ngIf="isExpanded" class="list-user">

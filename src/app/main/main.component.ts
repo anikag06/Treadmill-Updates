@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { AuthService } from '@/shared/auth/auth.service';
 import { User } from '@/shared/user.model';
 import { Router } from '@angular/router';
-import { LOGGED_IN_PATH, DEFAULT_PATH } from '@/app.constants';
+import { DEFAULT_PATH } from '@/app.constants';
 
 @Component({
   selector: 'app-main',
@@ -16,7 +16,7 @@ export class MainComponent implements OnInit {
 
   user!: User;
 
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.Handset, Breakpoints.Tablet])
     .pipe(
       map(result => result.matches)
     );

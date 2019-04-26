@@ -67,12 +67,6 @@ a.toggler:hover {
     .comments-row {
         margin-top: 15px;
     }
-    hr {
-        height: 1px;
-        color: #b5b5b5;
-        background-color: #b5b5b5;
-        border: none;
-    }
 }
 .post-user-avatar {
     border-radius: 50%;
@@ -90,5 +84,19 @@ a.toggler:hover {
         margin-top: 66px;
         width: 60px;
         height: 60px;
+    }
+}
+
+@media screen and (max-width: 566px) {
+    .post-user-avatar {
+        border-radius: 50%;
+        margin-top: 40px;
+        width: 60px;
+        height: 60px;
+    }
+    .post-item {
+        border-radius: 0px;
+        font-size: 14px;
+        margin-bottom: 10px;
     }
 }
