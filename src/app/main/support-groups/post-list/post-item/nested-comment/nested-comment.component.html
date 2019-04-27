@@ -1,27 +1,30 @@
 <div class="row no-gutters nested-comment">
-  <div class="col-2">
-    <img [src]="userNestedComment.user.avatar" alt="User avatar" width="50" height="60">
-    <p class="text-muted user">{{userNestedComment.user}}</p>
+  <div class="col-12" *ngIf="editMode">
+    <form class="form" (ngSubmit)="submitReply()" #replyForm="ngForm">
+      <div class="form-group">
+        <textarea type="text" name="body" class="form-control" [(ngModel)]="body"></textarea>
+      </div>
+      <div class="text-right">
+        <button type="submit" class="btn btn-primary btn-sm">Save</button>
+        &nbsp;
+        <button type="button" class="btn btn-warning btn-sm" (click)="onCancel()">Cancel</button>
+      </div>
+    </form>
   </div>
-  <div class="col-10" *ngIf="!editMode else editor">
+  <div class="col-3 offset-1 user-section text-center" *ngIf="!editMode">
+    <img [src]="userNestedComment.user.avatar" alt="User avatar" width="45" height="45">
+    <p class="text-muted user">{{userNestedComment.user.username}}</p>
+  </div>
+  <div class="col-8" *ngIf="!editMode">
     <p>{{userNestedComment.body}}</p>
-    <p><span *ngIf="user.username == userNestedComment.user"><a (click)="onEdit()">Edit</a> | <a (click)="onDelete()">Delete</a></span> </p>
     <p>
-      <button class="btn btn-sm" [ngClass]="{'btn-info': userNestedComment.is_voted === 1}" (click)="onThumbsUp()">👍 {{userNestedComment.up_votes}}</button>
-      <button class="btn btn-danger btn-sm" (click)="onThumbsDown()" [ngClass]="{'btn-danger': userNestedComment.is_voted === 0}">👎</button>
+      <button class="btn btn-sm" (click)="onThumbsUp()"><img [src]="thumbsUp" width="18" height="18">
+        {{userNestedComment.up_votes}}</button>
+      <button class="btn btn-sm" (click)="onThumbsDown()"><img [src]="thumbsDown" width="16" height="16"></button>
+      <span *ngIf="user.username == userNestedComment.user.username">
+        <button class="btn btn-sm" (click)="onEdit()">Edit</button>
+        <button class="btn btn-sm" (click)="onDelete()">Delete</button>
+      </span>
     </p>
   </div>
 </div>
-<ng-template #editor>
-    <form class="form-inline mb-2" (ngSubmit)="submitReply()">
-      <fieldset [disabled]="submitting">
-          <div class="form-group">
-              <label for="body">Reply</label>
-              <input type="text" name="body" class="form-control" [(ngModel)]="body">
-          </div>
-          <button type="submit" class="btn btn-success" >Save</button>
-      </fieldset>
-      &nbsp;
-      <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
-    </form>
-</ng-template>

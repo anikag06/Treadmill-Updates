@@ -218,6 +218,16 @@ $small_logo_height: 40px;
   text-decoration: underline !important;
 }
 
+.btn-bold {
+  font-weight: 700 !important;
+  font-size: 13px !important;
+}
+
+.btn-area {
+  padding: 5px 0;
+  text-align: right;
+}
+
 @media screen and (max-width: 991px) {
   .main-heading-h1 {
       width: 100%;

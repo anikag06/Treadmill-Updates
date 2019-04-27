@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterContentInit, ViewChild, OnDestroy, Output, EventEmitter, DoCheck } from '@angular/core';
+import { Component, OnInit, Input, AfterContentInit, ViewChild, OnDestroy, Output, EventEmitter, DoCheck, ElementRef } from '@angular/core';
 import { UserComment } from './user-comment.model';
 import { UserNestedComment } from '../nested-comment/nested-comment.model';
 import { NetstedCommentService } from '../nested-comment/netsted-comment.service';
@@ -42,6 +42,7 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy, Do
   @Input() comment!: UserComment;
   @ViewChild('replyForm') replyForm!: NgForm;
   @ViewChild('editForm') editForm!: NgForm;
+  @ViewChild('replyText') replyText!: ElementRef;
 
   editorConfig: AngularEditorConfig = {
     editable: true,
@@ -78,6 +79,9 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy, Do
   ngDoCheck() {
     this.thumbsUp = this.thumbsService.thumbsUpSrc(this.comment);
     this.thumbsDown = this.thumbsService.thumbsDownSrc(this.comment);
+    if (this.replyText) {
+      this.replyText.nativeElement.focus();
+    }
   }
 
   ngAfterContentInit() {
@@ -135,8 +139,9 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy, Do
             this.replyForm.reset();
             this.comment.nested_comment_count += 1;
             const postResponse = <PostResponse>resp;
-            const persistedNestedcomment = new UserNestedComment(postResponse.data.id, data.body, 0, this.user.username, -1);
+            const persistedNestedcomment = new UserNestedComment(postResponse.data.id, data.body, 0, this.user, -1);
             this.nestedComments.push(persistedNestedcomment);
+            this.toggleReply = false;
             this.showNestedComment();
           }
         );
@@ -145,6 +150,7 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy, Do
 
   onEdit() {
     this.editMode = true;
+    this.toggleReply = false;
   }
 
   onSubmit() {
@@ -243,6 +249,11 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy, Do
           });
         }
       );
+  }
+
+  onReplyClick() {
+    this.toggleReply = !this.toggleReply;
+    this.editMode = false;
   }
 
 }

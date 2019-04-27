@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment.prod';
 import { SupportGroupItem } from '@/main/support-groups/support-group-item.model';
-import { UserComment } from './user-comment.model';
-import { post } from 'selenium-webdriver/http';
 @Injectable({
   providedIn: 'root'
 })

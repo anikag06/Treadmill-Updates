@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -6,6 +6,7 @@ import { AuthService } from '@/shared/auth/auth.service';
 import { User } from '@/shared/user.model';
 import { Router } from '@angular/router';
 import { DEFAULT_PATH } from '@/app.constants';
+import { MatDrawer } from '@angular/material';
 
 @Component({
   selector: 'app-main',
@@ -15,8 +16,9 @@ import { DEFAULT_PATH } from '@/app.constants';
 export class MainComponent implements OnInit {
 
   user!: User;
+  @ViewChild('drawer') drawer!: MatDrawer;
 
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.Handset, Breakpoints.Tablet])
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.Handset, Breakpoints.Small])
     .pipe(
       map(result => result.matches)
     );
@@ -39,4 +41,9 @@ export class MainComponent implements OnInit {
 
   }
 
+  onLinkClick(event: Event) {
+    if (window.innerWidth < 1280) {
+      this.drawer.toggle();
+    }
+  }
 }

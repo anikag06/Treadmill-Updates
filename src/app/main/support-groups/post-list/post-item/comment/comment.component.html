@@ -1,9 +1,27 @@
 <div class="row no-gutters comment">
-  <div class="col-3 text-center">
+  <div class="col-12" *ngIf="editMode">
+    <div class="errors" *ngIf="errors.length > 0">
+      <ul>
+        <li *ngFor="let error of errors"><strong>{{error.name}}</strong>: {{error.value}}</li>
+      </ul>
+    </div>
+    <form (ngSubmit)="onSubmit()" #editForm="ngForm">
+      <fieldset [disabled]="disabledValue">
+        <angular-editor name="name" [(ngModel)]="editorBody" required [config]="editorConfig"></angular-editor>
+        <div class="btn-area text-right">
+          <button type="submit" class="btn btn-primary btn-sm"
+            [disabled]="this.sanitzer.stripTags(this.editorBody).length === 0">Comment</button>
+          &nbsp;
+          <button type="button" class="btn btn-warning btn-sm" (click)="onCancel()">Cancel</button>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+  <div class="col-3 text-center" *ngIf="!editMode">
     <img [src]="comment.user.avatar" alt="User avatar" width="50" height="60">
     <p class="text-muted user">{{comment.user.username}}</p>
   </div>
-  <div class="col-9" *ngIf="!editMode else showEdit">
+  <div class="col-9" *ngIf="!editMode">
     <div class='body' [innerHTML]="comment.body | safeHtml"></div>
     <p><span class="text-muted date">{{ comment.created_at |  date: 'medium' | timeAgo }}</span></p>
     <div class="row">
@@ -11,10 +29,10 @@
         <button class="btn btn-sm" (click)="onThumbsUp()"><img [src]="thumbsUp" width="18"
             height="18">{{comment.up_votes}}</button>
         <button class="btn btn-sm" (click)="onThumbsDown()"><img [src]="thumbsDown" width="18" height="18"></button>
-        <button class="btn btn-sm" (click)="toggleReply = !toggleReply">Reply</button>
+        <button class="btn btn-sm btn-bold" (click)="onReplyClick()">Reply</button>
         <span *ngIf="this.comment.user.username == this.user.username">
-          <button class="btn btn-sm" (click)="onEdit()">Edit</button>
-          <button class="btn btn-sm" (click)="onDelete()">Delete</button>
+          <button class="btn btn-sm btn-bold" (click)="onEdit()">Edit</button>
+          <button class="btn btn-sm btn-bold" (click)="onDelete()">Delete</button>
         </span>
       </div>
     </div>
@@ -26,7 +44,7 @@
           [userNestedComment]="ncomment">
         </app-nested-comment>
       </ng-container>
-      <button class="btn btn-sm" (click)="showNestedComment()" *ngIf="moreComments || hide">&#9660; Comment replies
+      <button class="btn btn-sm" (click)="showNestedComment()" *ngIf="moreComments || hide">Replies
         ({{comment.nested_comment_count}})</button>
       <!-- <button class="btn btn-sm btn-underline" (click)="showLessNestedComment()" *ngIf="!hide && comment.nested_comment_count > 0 && nestedComments.length > 0">Hide Replies</button> -->
     </div>
@@ -35,32 +53,14 @@
     <div class="replyForm" *ngIf="toggleReply">
       <form class="form" (ngSubmit)="submitReply()" #replyForm="ngForm">
         <div class="form-group">
-          <textarea type="text" name="body" class="form-control" ngModel></textarea>
+          <textarea #replyText type="text" name="body" class="form-control" ngModel placeholder="Enter your reply to above comment"></textarea>
         </div>
         <div class="text-right">
-            <button type="submit" class="btn btn-primary btn-sm">Reply</button>
-            &nbsp;
-            <button type="button" class="btn btn-warning btn-sm" (click)="toggleReply = false">Cancel</button>
+          <button type="submit" class="btn btn-primary btn-sm">Reply</button>
+          &nbsp;
+          <button type="button" class="btn btn-warning btn-sm" (click)="toggleReply = false">Cancel</button>
         </div>
       </form>
     </div>
   </div>
 </div>
-<ng-template #showEdit>
-  <div class="col-11">
-    <div class="errors" *ngIf="errors.length > 0">
-      <ul>
-        <li *ngFor="let error of errors"><strong>{{error.name}}</strong>: {{error.value}}</li>
-      </ul>
-    </div>
-    <form (ngSubmit)="onSubmit()" #editForm="ngForm">
-      <fieldset [disabled]="disabledValue">
-        <angular-editor name="name" [(ngModel)]="editorBody" required [config]="editorConfig"></angular-editor>
-        <button type="submit" class="btn btn-primary btn-sm"
-          [disabled]="this.sanitzer.stripTags(this.editorBody).length === 0">Comment</button>
-        &nbsp;
-        <button type="button" class="btn btn-danger btn-sm" (click)="onCancel()">Cancel</button>
-      </fieldset>
-    </form>
-  </div>
-</ng-template>

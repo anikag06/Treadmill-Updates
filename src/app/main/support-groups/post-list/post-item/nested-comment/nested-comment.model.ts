@@ -3,7 +3,10 @@ export class UserNestedComment {
         public id: number,
         public body: string,
         public up_votes: number,
-        public user: string,
+        public user: {
+            username: string,
+            avatar: string,
+        },
         public is_voted: number,
     ) {}
 }

@@ -35,7 +35,7 @@ export class CreatePostComponent implements OnInit {
   editorConfig: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
-    height: '25rem',
+    height: '15rem',
     minHeight: '0',
     maxHeight: 'auto',
     width: 'auto',
@@ -43,7 +43,7 @@ export class CreatePostComponent implements OnInit {
     translate: 'yes',
     enableToolbar: true,
     showToolbar: true,
-    placeholder: 'Enter text here...',
+    placeholder: 'Enter your post here',
     defaultParagraphSeparator: 'p',
     defaultFontName: 'Helvetica',
     defaultFontSize: '14',

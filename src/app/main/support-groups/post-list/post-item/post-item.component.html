@@ -77,12 +77,12 @@
       </app-comment>
     </ng-container>
     <div class="col-12 text-center">
-        <button class="btn btn-sm btn-block btn-primary" type="button" *ngIf="showLoadMore()" (click)="fetchOrShowComments()">View comments ({{supportGroupItem.comments_count}})</button>
+        <button class="btn btn-sm btn-block btn-primary" type="button" *ngIf="showLoadMore()" (click)="fetchOrShowComments()">View comments ({{supportGroupItem.comments_count -1 }})</button>
         <!-- <button class="btn btn-sm btn-block btn-primary" type="button" *ngIf="showLessComments()" (click)="makeInitial()">Less comments ({{supportGroupItem.comments_count}})</button> -->
     </div>
   </div>
   <div class="row no-gutters">
-    <div class="col-12 col-md-9 offset-md-3">
+    <div class="col-12">
       <form (ngSubmit)="onSubmit()" #mainComment="ngForm">
         <fieldset [disabled]="disabledValue" class="comment-form">
           <angular-editor name="name" ngModel required (focus)="onFocus()" (focusout)="onFocusOut($event)"

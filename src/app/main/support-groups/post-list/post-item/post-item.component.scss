@@ -18,7 +18,6 @@ a.toggler:hover {
     text-overflow: ellipsis;
 }
 ::ng-deep .angular-editor-textarea {
-    background-color: white !important;
     color: black;
     caret-color: black;
 }
@@ -27,10 +26,7 @@ a.toggler:hover {
     @include box-shadow-1-1-10-d6();
     background-color: #ffffff;
     border-radius: 10px;
-    border-bottom: 5px solid #f5bb56;
-    border-left: 1px solid #dddddd;
-    border-right: 1px solid #dddddd;
-    border-top: 1px solid #dddddd;
+    border: 1px solid #dddddd;
     padding: 10px;
     margin-bottom: 20px;
     width: 100%;

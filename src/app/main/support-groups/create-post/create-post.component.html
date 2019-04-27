@@ -19,11 +19,16 @@
   <input type="hidden" name="id" formControlName="id">
 
   <div class="form-group row">
-    <label formArrayName="tags" *ngFor="let tag of getFormTags(); let i = index" class="col-3">
-      <input type="checkbox" [formControlName]="i" (change)="onCheckboxChange(tags[i].id, $event)">
-      {{tags[i].name}}
-    </label>
+    <div class="col-4" *ngFor="let tag of getFormTags(); let i = index">
+      <label formArrayName="tags"  class="col-3">
+        <input type="checkbox" [formControlName]="i" (change)="onCheckboxChange(tags[i].id, $event)">
+        {{tags[i].name}}
+      </label>
+    </div>
   </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-  <button type="button" class="btn btn-danger" (click)="onClose()">Close</button>
+  <div class="btn-area text-right">
+    <button type="submit" class="btn btn-primary">Submit</button>
+    &nbsp;
+    <button type="button" class="btn btn-danger" (click)="onClose()">Close</button>
+  </div>
 </form>

@@ -118,7 +118,7 @@ export class PostListComponent implements OnInit, OnDestroy {
 
   onItemEdit(sgi: SupportGroupItem) {
     const dialogRef = this.dialog.open(CreatePostComponent, {
-      width: '70%',
+      width: '90%',
       data: sgi,
     });
   }

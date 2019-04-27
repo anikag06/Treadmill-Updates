@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterContentInit, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, AfterContentInit, ViewChild, Output, EventEmitter, DoCheck } from '@angular/core';
 import { UserNestedComment } from './nested-comment.model';
 import { NetstedCommentService } from './netsted-comment.service';
 import { NgForm } from '@angular/forms';
@@ -7,13 +7,14 @@ import { AuthService } from '@/shared/auth/auth.service';
 import { User } from '@/shared/user.model';
 import { MatDialog } from '@angular/material';
 import { ErrorDialogComponent } from '@/shared/error-dialog/error-dialog.component';
+import { ThumbsService } from '@/main/support-groups/thumbs.service';
 
 @Component({
   selector: 'app-nested-comment',
   templateUrl: './nested-comment.component.html',
   styleUrls: ['./nested-comment.component.scss']
 })
-export class NestedCommentComponent implements OnInit, AfterContentInit {
+export class NestedCommentComponent implements OnInit, AfterContentInit, DoCheck {
 
   @Input() userNestedComment!: UserNestedComment;
   @Output() deleteEmitter = new EventEmitter<UserNestedComment>()
@@ -22,11 +23,14 @@ export class NestedCommentComponent implements OnInit, AfterContentInit {
   editMode = false;
   user!: User | undefined;
   submitting = false;
+  thumbsUp = '';
+  thumbsDown = '';
 
   constructor(
     private ncService: NetstedCommentService,
     private authService: AuthService,
     private dialog: MatDialog,
+    private thumbsService: ThumbsService,
   ) {}
 
   /**
@@ -41,6 +45,13 @@ export class NestedCommentComponent implements OnInit, AfterContentInit {
    */
   ngAfterContentInit() {
     this.body = this.userNestedComment.body;
+  }
+
+  ngDoCheck() {
+    if (this.userNestedComment) {
+      this.thumbsUp = this.thumbsService.thumbsUpSrc(this.userNestedComment);
+      this.thumbsDown = this.thumbsService.thumbsDownSrc(this.userNestedComment);
+    }
   }
 
   /**

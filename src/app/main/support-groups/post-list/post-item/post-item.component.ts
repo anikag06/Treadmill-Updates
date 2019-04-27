@@ -71,7 +71,7 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
     translate: 'yes',
     enableToolbar: true,
     showToolbar: false,
-    placeholder: 'Enter text here...',
+    placeholder: 'Comment...',
     defaultParagraphSeparator: 'p',
     defaultFontName: 'lato',
     defaultFontSize: '14',
