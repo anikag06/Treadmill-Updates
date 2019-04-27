@@ -32,7 +32,7 @@ import { A2HSService } from '@/shared/a2hs.service';
 export class LoginComponent implements OnInit, OnDestroy {
   private username!: string;
   private password!: string;
-  isVisible: boolean = true;  
+  isVisible = true;
 
   private loginSubscription!: Subscription;
 

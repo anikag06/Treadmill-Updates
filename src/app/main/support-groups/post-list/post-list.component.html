@@ -10,8 +10,8 @@
         [supportGroupItem]="post">
       </app-post-item>
     </ng-container>
-    <div *ngIf="fetching">
-      <h1>Loading...</h1>
+    <div *ngIf="fetching" class="text-center">
+      <img src="assets/shared/dna-loader.svg" alt="dna">
     </div>
     <div *ngIf="!fetching">
       <p>You have reached the end of the world</p>

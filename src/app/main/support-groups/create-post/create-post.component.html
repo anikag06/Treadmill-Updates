@@ -19,8 +19,8 @@
   <input type="hidden" name="id" formControlName="id">
 
   <div class="form-group row">
-    <div class="col-4" *ngFor="let tag of getFormTags(); let i = index">
-      <label formArrayName="tags"  class="col-3">
+    <div class="col-6 col-md-4" *ngFor="let tag of getFormTags(); let i = index">
+      <label formArrayName="tags">
         <input type="checkbox" [formControlName]="i" (change)="onCheckboxChange(tags[i].id, $event)">
         {{tags[i].name}}
       </label>

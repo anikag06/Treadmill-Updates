@@ -28,6 +28,19 @@
     }
 }
 
+a.toggler {
+    color: #1a77e2;
+    text-decoration: underline;
+    &:hover {
+        color: #1a77e2;
+        text-decoration: underline;
+    }
+}
+
+.body-inline {
+    display: inline;
+}
+
 @media screen and (max-width: 566px) {
     .comment {
         margin-bottom: 10px;

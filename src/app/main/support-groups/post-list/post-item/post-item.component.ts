@@ -58,6 +58,7 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
   thumbsUp = '';
   thumbsDown = '';
   toggler!: ElementRef;
+  commentNos = 1;
 
 
   editorConfig: AngularEditorConfig = {                                       // Angular Editor Config
@@ -95,10 +96,12 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
   * Angular Lifecycle hookup this is hack to check for updated content
   */
   ngDoCheck(): void {
-    if (this.showFullContent || this.plainBodyLength() < 250) {
+    if (this.newPost || this.plainBodyLength() < this.minBodyLength || this.showFullContent) {
       this.body = this.supportGroupItem.body;
+      this.htmlDiv.nativeElement.style.display = 'block';
     } else {
       this.body = this.slicedBody();
+      this.htmlDiv.nativeElement.style.display = 'inline';
     }
     this.thumbsUp = this.thumbsService.thumbsUpSrc(this.supportGroupItem);
     this.thumbsDown = this.thumbsService.thumbsDownSrc(this.supportGroupItem);
@@ -116,7 +119,7 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
    * If the post is a new post expand its body by default
    */
   ngAfterContentInit(): void {
-    if (this.newPost || this.plainBodyLength() < 250) {
+    if (this.newPost || this.plainBodyLength() < this.minBodyLength) {
       this.body = this.supportGroupItem.body;
       this.htmlDiv.nativeElement.style.display = 'block';
     } else {
@@ -185,6 +188,9 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
             }
             if (apiResponse.results.length > 0) {
               this.comments.push(...<UserComment[]>apiResponse.results);
+              if (this.initial === false) {
+                this.commentNos = this.comments.length;
+              }
             }
           }
         );
@@ -195,6 +201,7 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
   fetchOrShowComments() {
     if (this.initial) {
       this.initial = false;
+      this.commentNos = this.comments.length;
     } else if (this.moreComments) {
       this.fetchComments();
     }
@@ -213,14 +220,9 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
   }
 
   toggleShow() {
-    this.showFullContent = !this.showFullContent;
-    if (this.showFullContent) {
-      this.body = this.supportGroupItem.body;
-      this.htmlDiv.nativeElement.style.display = 'block';
-    } else {
-      this.body = this.slicedBody();
-      this.htmlDiv.nativeElement.style.display = 'inline';
-    }
+    this.showFullContent = true;
+    this.body = this.supportGroupItem.body;
+    this.htmlDiv.nativeElement.style.display = 'block';
   }
 
   slicedBody() {
@@ -263,6 +265,7 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
    * @param userComment
    */
   onCommentDelete(userComment: UserComment) {
+    this.supportGroupItem.comments_count -= 1;
     this.comments = this.comments.filter(uc => uc.id !== userComment.id);
   }
 

@@ -47,7 +47,7 @@
       <div class="row no-gutters">
         <div class='col-12'>
           <div #htmlDiv [innerHTML]="body | safeHtml"></div>
-          <span *ngIf="plainBodyLength() > 300" class="text-right">
+          <span *ngIf="plainBodyLength() > minBodyLength && !newPost" class="text-right">
             <a (click)="toggleShow()" *ngIf="!showFullContent" class="toggler">show more</a>
           </span>
         </div>
@@ -62,22 +62,16 @@
     </div>
   </div>
   <div class="row no-gutters comments-row">
-    <ng-container *ngIf="initial">
+    <ng-container>
       <app-comment
         class="col-12"
-        *ngFor="let userComment of comments.slice(0, 1)"
-        [comment]="userComment">
-      </app-comment>
-    </ng-container>
-    <ng-container *ngIf="!initial">
-      <app-comment
-        class="col-12"
-        *ngFor="let userComment of comments"
-        [comment]="userComment">
+        *ngFor="let userComment of comments.slice(0, commentNos)"
+        [comment]="userComment"
+        (deleteEmitter)="onCommentDelete($event)">
       </app-comment>
     </ng-container>
     <div class="col-12 text-center">
-        <button class="btn btn-sm btn-block btn-primary" type="button" *ngIf="showLoadMore()" (click)="fetchOrShowComments()">View comments ({{supportGroupItem.comments_count -1 }})</button>
+        <button class="btn btn-sm btn-block btn-primary" type="button" *ngIf="showLoadMore()" (click)="fetchOrShowComments()">View comments ({{supportGroupItem.comments_count - commentNos }})</button>
         <!-- <button class="btn btn-sm btn-block btn-primary" type="button" *ngIf="showLessComments()" (click)="makeInitial()">Less comments ({{supportGroupItem.comments_count}})</button> -->
     </div>
   </div>

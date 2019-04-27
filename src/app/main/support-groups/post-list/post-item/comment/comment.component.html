@@ -22,7 +22,8 @@
     <p class="text-muted user">{{comment.user.username}}</p>
   </div>
   <div class="col-9" *ngIf="!editMode">
-    <div class='body' [innerHTML]="comment.body | safeHtml"></div>
+    <div class='body' [innerHTML]="commentBody | safeHtml" [ngClass]="{'body-inline': partialBody}"></div>
+    <span><a class='toggler' (click)='toggleToFullBody()' *ngIf="partialBody">show more</a></span>
     <p><span class="text-muted date">{{ comment.created_at |  date: 'medium' | timeAgo }}</span></p>
     <div class="row">
       <div class="col-12">
@@ -44,8 +45,10 @@
           [userNestedComment]="ncomment">
         </app-nested-comment>
       </ng-container>
-      <button class="btn btn-sm" (click)="showNestedComment()" *ngIf="moreComments || hide">Replies
-        ({{comment.nested_comment_count}})</button>
+      <p class="text-right">
+        <button class="btn btn-sm btn-primary" (click)="showNestedComment()" *ngIf="moreComments || hide">Replies
+          ({{comment.nested_comment_count}})</button>
+      </p>
       <!-- <button class="btn btn-sm btn-underline" (click)="showLessNestedComment()" *ngIf="!hide && comment.nested_comment_count > 0 && nestedComments.length > 0">Hide Replies</button> -->
     </div>
   </div>

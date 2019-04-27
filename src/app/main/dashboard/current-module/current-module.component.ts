@@ -65,7 +65,6 @@ export class CurrentModuleComponent implements OnInit, OnDestroy {
 
   // To be removed once the api sends the full image path
   imageUrl() {
-    console.log(this.module);
     if (this.module && this.module.image.length > 0) {
       return environment.API_ENDPOINT + '/media/' + this.module.image;
     }

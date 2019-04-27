@@ -148,7 +148,6 @@ export class CreatePostComponent implements OnInit {
   }
 
   onCheckboxChange(tagId: number, event: any) {
-    console.log(tagId)
     if (event.currentTarget.checked) {
       this.formTags.push(tagId);
     } else {
@@ -173,7 +172,8 @@ export class CreatePostComponent implements OnInit {
     if (data.title && data.title.trim().length > 0) {
       return data.title.trim();
     } else {
-      return this.sanitizer.stripTags(data.body.replace(/&nbsp;/gi, '').slice(0, 50));
+      return this.sanitizer.stripTags(data.body.replace(/&nbsp;/gi, ''))
+                .split(/\s+/).splice(0, 7).join(' ');
     }
   }
 

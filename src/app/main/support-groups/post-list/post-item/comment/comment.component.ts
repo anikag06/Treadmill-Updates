@@ -37,6 +37,9 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy, Do
   nestedCommentSubscription!: Subscription;
   thumbsUp = '';
   thumbsDown = '';
+  partialBodyLength = 200;
+  partialBody = false;
+  commentBody = '';
 
   @Output() deleteEmitter = new EventEmitter<UserComment>();
   @Input() comment!: UserComment;
@@ -91,6 +94,12 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy, Do
 
     if (this.comment) {
       this.editorBody = this.comment.body;
+      if (this.plainBodyLength() > this.partialBodyLength) {
+        this.commentBody = this.sanitzer.stripTags(this.comment.body).slice(0, this.partialBodyLength) + ' ...';
+        this.partialBody = true;
+      } else {
+        this.commentBody = this.comment.body;
+      }
     }
   }
 
@@ -181,7 +190,7 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy, Do
             this.deleteEmitter.emit(this.comment);
           },
           (error: HttpErrorResponse) => {
-            console.log(error.message);
+            console.error(error.message);
           }
         );
     }
@@ -254,6 +263,15 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy, Do
   onReplyClick() {
     this.toggleReply = !this.toggleReply;
     this.editMode = false;
+  }
+
+  plainBodyLength() {
+    return this.sanitzer.stripTags(this.comment.body).length;
+  }
+
+  toggleToFullBody() {
+    this.commentBody = this.comment.body;
+    this.partialBody = false;
   }
 
 }
