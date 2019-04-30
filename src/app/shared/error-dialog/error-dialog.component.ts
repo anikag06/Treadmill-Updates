@@ -10,7 +10,7 @@ export class ErrorDialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<ErrorDialogComponent>,
-    
+
     @Inject(MAT_DIALOG_DATA) public data: string) {}
 
   onNoClick(): void {

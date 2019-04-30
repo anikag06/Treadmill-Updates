@@ -7,7 +7,8 @@ import { ActivatedRoute } from '@angular/router';
 import { ScrollingService } from '@/main/shared/scrolling.service';
 import { MatDialog } from '@angular/material';
 import { CreatePostComponent } from '../create-post/create-post.component';
-import { UserComment } from './post-item/comment/user-comment.model';
+import { GeneralErrorService } from '@/main/shared/general-error.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-post-list',
@@ -33,6 +34,7 @@ export class PostListComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private scrollService: ScrollingService,
     public dialog: MatDialog,
+    private errorService: GeneralErrorService
   ) { }
 
   ngOnInit() {
@@ -45,7 +47,7 @@ export class PostListComponent implements OnInit, OnDestroy {
           this.morePosts = true;
           this.getPosts();
         }
-      )
+      );
     this.newSgServiceSubscription =  this.sgService.supportGroupItem$
       .subscribe(
         (sgItem: SupportGroupItem) => {
@@ -93,7 +95,8 @@ export class PostListComponent implements OnInit, OnDestroy {
             }
             this.posts.push(...<SupportGroupItem[]>response.results);
             this.fetching = false;
-          }
+          },
+          this.errorService.errorResponse('Cannot fetch posts')
         );
     }
   }
@@ -105,14 +108,15 @@ export class PostListComponent implements OnInit, OnDestroy {
   }
 
   onItemDeletion(sgi: SupportGroupItem) {
-    const data = { post_id: sgi.id }
+    const data = { post_id: sgi.id };
     this.sgService.deletePost(data)
       .subscribe(
         () => {
           this.posts = this.posts.filter(post => {
             return post.id !== sgi.id;
           });
-        }
+        },
+        this.errorService.errorResponse('Cannot delete post')
       );
   }
 

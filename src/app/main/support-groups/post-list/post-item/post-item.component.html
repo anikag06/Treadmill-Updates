@@ -71,8 +71,9 @@
       </app-comment>
     </ng-container>
     <div class="col-12 text-center">
-        <button class="btn btn-sm btn-block btn-primary" type="button" *ngIf="showLoadMore()" (click)="fetchOrShowComments()">View comments ({{supportGroupItem.comments_count - commentNos }})</button>
-        <!-- <button class="btn btn-sm btn-block btn-primary" type="button" *ngIf="showLessComments()" (click)="makeInitial()">Less comments ({{supportGroupItem.comments_count}})</button> -->
+        <button class="btn btn-sm btn-block btn-primary" type="button" *ngIf="showLoadMore()" (click)="fetchOrShowComments()">
+          View comments ({{supportGroupItem.comments_count - commentNos }})
+        </button>
     </div>
   </div>
   <div class="row no-gutters">

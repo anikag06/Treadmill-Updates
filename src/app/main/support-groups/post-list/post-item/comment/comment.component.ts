@@ -12,9 +12,9 @@ import { CommentService } from './comment.service';
 import { SanitizationService } from '@/main/support-groups/sanitization.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
-import { ErrorDialogComponent } from '@/shared/error-dialog/error-dialog.component';
 import { MatDialog } from '@angular/material';
 import { ThumbsService } from '@/main/support-groups/thumbs.service';
+import { GeneralErrorService } from '@/main/shared/general-error.service';
 
 @Component({
   selector: 'app-comment',
@@ -73,6 +73,7 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy, Do
     private sanitzer: SanitizationService,
     private dialog: MatDialog,
     private thumbsService: ThumbsService,
+    private errorService: GeneralErrorService
   ) { }
 
   ngOnInit() {
@@ -125,7 +126,8 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy, Do
               this.moreComments = false;
             }
             this.nestedComments.push(...<UserNestedComment[]>response.results);
-          }
+          },
+          this.errorService.errorResponse('Cannot fetch nested comments')
         );
     }
   }
@@ -189,9 +191,7 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy, Do
           () => {
             this.deleteEmitter.emit(this.comment);
           },
-          (error: HttpErrorResponse) => {
-            console.error(error.message);
-          }
+          this.errorService.errorResponse('Cannot Delete')
         );
     }
   }
@@ -208,8 +208,9 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy, Do
         () => {
           UserNestedComment.prototype.up_votes = 10;
           this.nestedComments = this.nestedComments.filter(nc => nc.id !== userNestedComment.id);
-        }
-      )
+        },
+        this.errorService.errorResponse('Cannot delete')
+      );
   }
 
   /**
@@ -229,10 +230,7 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy, Do
       .subscribe(
         () => {},
         () => {
-          this.dialog.open(ErrorDialogComponent, {
-            width: '300px',
-            data: 'Couldn\'t perform the action'
-          });
+          this.errorService.openErrorDialog('Cannot Upvote');
           this.comment.is_voted = preVote;
           this.comment.up_votes = preUpVote;
         }
@@ -251,12 +249,7 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy, Do
     this.commentService.voteComment({ comment_id: this.comment.id, vote: 0 })
       .subscribe(
         () => {},
-        () => {
-          this.dialog.open(ErrorDialogComponent, {
-            width: '300px',
-            data: 'Couldn\'t perform the action'
-          });
-        }
+        this.errorService.errorResponse('Cannot down vote')
       );
   }
 

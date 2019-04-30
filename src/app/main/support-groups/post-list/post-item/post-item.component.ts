@@ -10,7 +10,6 @@ import {
   EventEmitter,
   DoCheck,
   ElementRef,
-  Renderer2
 } from '@angular/core';
 import { Tag } from '@/main/shared/tag.model';
 import { NgForm } from '@angular/forms';
@@ -24,10 +23,10 @@ import { ApiResponse } from '@/main/shared/apiResponse.model';
 import { SanitizationService } from '../../sanitization.service';
 import { AngularEditorConfig } from '@xw19/angular-editor';
 import { SupportGroupsService } from '../../support-groups.service';
-import { MatDialog } from '@angular/material';
-import { ErrorDialogComponent } from '@/shared/error-dialog/error-dialog.component';
 import { ThumbsService } from '../../thumbs.service';
-import { ViewEncapsulation } from '@angular/compiler/src/core';
+import { GeneralErrorService } from '@/main/shared/general-error.service';
+import { HttpErrorResponse } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-post-item',
@@ -54,10 +53,9 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
   minBodyLength = 300;                                                        // Minimmum body length for text wrapping
   showFullContent = false;                                                    // Wheter to show full body or not
   body = '';                                                                  // Holds html value for the post body
-  disabledValue = false;                                                    // Comment posting
+  disabledValue = false;                                                      // Comment posting
   thumbsUp = '';
   thumbsDown = '';
-  toggler!: ElementRef;
   commentNos = 1;
 
 
@@ -89,7 +87,7 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
     private authService: AuthService,
     private sanititzationService: SanitizationService,
     private thumbsService: ThumbsService,
-    private dialog: MatDialog,
+    private errorService: GeneralErrorService,
   ) { }
 
   /*
@@ -154,8 +152,7 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
       const comment = { post: this.supportGroupItem.id, body: this.commentForm.value['name'] };
       this.postCommentSubscription = this.commentService.postComment(comment)
         .subscribe(
-          (data) => {
-            const commentResponse = <{ status: boolean, message: string, data: { comment_id: number } }>data;
+          (commentResponse: any) => {
             const persistedComment = new UserComment(
               commentResponse.data.comment_id,
               { username: this.user.username, avatar: this.user.avatar },
@@ -166,6 +163,9 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
             this.disabledValue = false;
             this.editorConfig.showToolbar = false;
             this.comments.push(persistedComment);
+          },
+          (error: HttpErrorResponse) => {
+            this.errorService.openErrorDialog(error.statusText + ' ' + 'Could not submit post');
           }
         );
     }
@@ -192,12 +192,15 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
                 this.commentNos = this.comments.length;
               }
             }
-          }
+          },
+          this.errorService.errorResponse('Cannot fetch comments')
         );
     }
   }
 
-
+  /**
+   * Fetch new comments or show existing hidden comments
+   */
   fetchOrShowComments() {
     if (this.initial) {
       this.initial = false;
@@ -207,48 +210,80 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
     }
   }
 
+  /**
+   * Whether to show more button
+   */
   showLoadMore() {
     return (this.initial && this.comments.length > 1) || this.moreComments;
   }
 
+
+  /**
+   * Initial State (Deprecated)
+   */
   makeInitial() {
     this.initial = true;
   }
 
+  /**
+   * Whether to show less comments or not (Deprecated)
+   */
   showLessComments() {
     return this.initial === false && this.comments.length > 1;
   }
 
+  /**
+   * Show Full body
+   */
   toggleShow() {
     this.showFullContent = true;
     this.body = this.supportGroupItem.body;
     this.htmlDiv.nativeElement.style.display = 'block';
   }
 
+  /**
+   * Show sliced body
+   */
   slicedBody() {
     return this.sanititzationService.stripTags((this.supportGroupItem.body.slice(0, this.minBodyLength) + '...'));
   }
 
+  /**
+   * On Delete emit the item so that it can be removed form the list
+   */
   onDelete() {
     if (confirm('Are you sure to delete this post ?')) {
       this.deleteEvent.emit(this.supportGroupItem);
     }
   }
 
+  /**
+   * When clicked on Edit emit the supportgroup so that it can be picked up create post component
+   */
   onEdit() {
     this.editEvent.emit(this.supportGroupItem);
     this.showFullContent = false;
     this.toggleShow();
   }
 
+  /**
+   * If the post is made by the same user
+   */
   ownPost() {
     return this.user.username === this.supportGroupItem.user.username;
   }
 
+  /**
+   * Show toolbar on focus
+   */
   onFocus() {
     this.editorConfig.showToolbar = true;
   }
 
+  /**
+   * Minimize the toolbar and comment button on focus out
+   * @param event
+   */
   onFocusOut(event: FocusEvent) {
     const el = <Element>event.relatedTarget;
     if (el == null || el.innerHTML !== 'Comment') {
@@ -256,6 +291,9 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
     }
   }
 
+  /**
+   * Calculate the length of the body
+   */
   plainBodyLength(): number {
     return this.sanititzationService.stripTags(this.supportGroupItem.body).length;
   }
@@ -286,10 +324,7 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
       .subscribe(
         () => { },
         () => {
-          this.dialog.open(ErrorDialogComponent, {
-            width: '300px',
-            data: 'Couldn\'t perform the action'
-          });
+          this.errorService.openErrorDialog('Cannot upvote');
           this.supportGroupItem.is_voted = preVote;
           this.supportGroupItem.up_votes = preUpVote;
         }
@@ -311,12 +346,7 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
     this.sgService.postUpVote({ post_id: this.supportGroupItem.id, vote: 0 })
       .subscribe(
         () => { },
-        () => {
-          this.dialog.open(ErrorDialogComponent, {
-            width: '300px',
-            data: 'Couldn\'t perform the action'
-          });
-        }
+        this.errorService.errorResponse('Cannot downvote')
       );
   }
 }

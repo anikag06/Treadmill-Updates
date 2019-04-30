@@ -8,6 +8,7 @@ import { User } from '@/shared/user.model';
 import { MatDialog } from '@angular/material';
 import { ErrorDialogComponent } from '@/shared/error-dialog/error-dialog.component';
 import { ThumbsService } from '@/main/support-groups/thumbs.service';
+import { GeneralErrorService } from '@/main/shared/general-error.service';
 
 @Component({
   selector: 'app-nested-comment',
@@ -31,6 +32,7 @@ export class NestedCommentComponent implements OnInit, AfterContentInit, DoCheck
     private authService: AuthService,
     private dialog: MatDialog,
     private thumbsService: ThumbsService,
+    private errorService: GeneralErrorService,
   ) {}
 
   /**
@@ -75,7 +77,7 @@ export class NestedCommentComponent implements OnInit, AfterContentInit, DoCheck
             this.submitting = false;
           },
           (error: HttpErrorResponse) => {
-            console.log(error);
+            this.errorService.openErrorDialog('Cannot add reply');
             this.submitting = false;
           }
         );
@@ -117,10 +119,7 @@ export class NestedCommentComponent implements OnInit, AfterContentInit, DoCheck
       .subscribe(
         () => {},
         () => {
-          this.dialog.open(ErrorDialogComponent, {
-            width: '300px',
-            data: 'Couldn\'t perform the action'
-          });
+          this.errorService.openErrorDialog('Cannot Upvote');
           this.userNestedComment.is_voted = preVote;
           this.userNestedComment.up_votes = preUpVote;
         }
@@ -143,10 +142,7 @@ export class NestedCommentComponent implements OnInit, AfterContentInit, DoCheck
       .subscribe(
         () => {},
         () => {
-          this.dialog.open(ErrorDialogComponent, {
-            width: '300px',
-            data: 'Couldn\'t perform the action'
-          });
+          this.errorService.openErrorDialog('Cannot down vote');
         }
       );
   }

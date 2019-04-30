@@ -42,7 +42,7 @@ export class MainComponent implements OnInit {
   }
 
   onLinkClick(event: Event) {
-    if (window.innerWidth < 1280) {
+    if (window.innerWidth < 960) {
       this.drawer.toggle();
     }
   }

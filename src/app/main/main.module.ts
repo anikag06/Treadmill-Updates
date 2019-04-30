@@ -41,6 +41,7 @@ import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, Mat
 import { ScrollingDirective } from './shared/scrolling.directive';
 import { ScrollingService } from './shared/scrolling.service';
 import { NavbarComponent } from './shared/navbar/navbar.component';
+import { GeneralErrorService } from './shared/general-error.service';
 
 @NgModule({
   declarations: [
@@ -94,6 +95,7 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
     SupportGroupsService,
     SanitizationService,
     ScrollingService,
+    GeneralErrorService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [CreatePostComponent]
