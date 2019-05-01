@@ -39,7 +39,7 @@
       <div class="row" *ngIf="supportGroupItem.tags.length > 0">
         <div class="col-12 tags">
           <span *ngFor="let tag of supportGroupItem.tags" class="tags">
-            <a [routerLink]="['/support-groups']" [queryParams]="{'tags': tag.name}">{{tag.name}}</a>
+            <a (click)="onTagClick(tag)">{{tag.name}}</a>
             &nbsp;
           </span>
         </div>

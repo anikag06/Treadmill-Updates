@@ -41,7 +41,8 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
   @ViewChild('htmlDiv') htmlDiv!: ElementRef;
   @Output() deleteEvent = new EventEmitter<SupportGroupItem>();
   @Output() editEvent = new EventEmitter<SupportGroupItem>();
-
+  @Output() tagClick = new EventEmitter<string>();
+ 
   tags: Tag[] = [];                                                           // Holds all the tags
   user!: User;                                                                // Current User
   commentsPage = 1;                                                           // Holds the pagination for comments
@@ -348,5 +349,9 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
         () => { },
         this.errorService.errorResponse('Cannot downvote')
       );
+  }
+
+  onTagClick(tag: Tag) {
+    this.tagClick.emit(tag.name);
   }
 }

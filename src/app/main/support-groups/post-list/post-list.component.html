@@ -1,13 +1,24 @@
 <div class="container-fluid no-gutters">
   <div class="post-list">
+    <div class="row search-row">
+      <div class="col-8 offset-2">
+        <form class="form-inline" (ngSubmit)="onSearchSubmit()">
+          <div class="form-group mr-2">
+              <input type="text" name="search" placeholder="Search" class="form-control" [(ngModel)]="search">
+          </div>
+          <button type="submit" class="btn btn-primary mr-2">Search</button>
+          <button type="button" class="btn btn-warning" (click)="onReset()">Reset</button>
+        </form>
+      </div>
+    </div>
     <ng-container *ngIf="newPosts.length > 0">
       <app-post-item *ngFor="let post of newPosts" class="animate" [newPost]="true" (deleteEvent)="onItemDeletion($event)"
-        (editEvent)="onItemEdit($event)" [supportGroupItem]="post">
+        (editEvent)="onItemEdit($event)" [supportGroupItem]="post" (tagClick)="onTagClick($event)">
       </app-post-item>
     </ng-container>
     <ng-container *ngIf="posts.length > 0">
       <app-post-item *ngFor="let post of posts" (deleteEvent)="onItemDeletion($event)" (editEvent)="onItemEdit($event)"
-        [supportGroupItem]="post">
+        [supportGroupItem]="post" (tagClick)="onTagClick($event)">
       </app-post-item>
     </ng-container>
     <div *ngIf="fetching" class="text-center">

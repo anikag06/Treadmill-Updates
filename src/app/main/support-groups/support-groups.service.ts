@@ -20,15 +20,13 @@ export class SupportGroupsService {
     private http: HttpClient
   ) { }
 
-  getPosts(page: number = 1, tags: string | string[] | null) {
+  getPosts(page: number = 1, tags: string[] | null, search: string) {
     let params = new HttpParams().set('page', page.toString());
-    if (tags != null) {
-     if (typeof(tags) === 'string') {
-        params = params.append('tags', tags);
-     } else {
-      const tagsStr = tags.join(',');
-      params = params.append('tags', tagsStr);
-     }
+    if (tags != null && tags.length > 0) {
+      params = params.append('tags', tags.join(','));
+    }
+    if (search.trim().length > 0) {
+      params = params.append('search', search);
     }
     return this.http.get(environment.API_ENDPOINT + '/api/v1/support-group/posts/', { params: params});
   }
