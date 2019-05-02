@@ -97,10 +97,10 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
   ngDoCheck(): void {
     if (this.newPost || this.plainBodyLength() < this.minBodyLength || this.showFullContent) {
       this.body = this.supportGroupItem.body;
-      this.htmlDiv.nativeElement.style.display = 'block';
+      // this.htmlDiv.nativeElement.style.display = 'block';
     } else {
       this.body = this.slicedBody();
-      this.htmlDiv.nativeElement.style.display = 'inline';
+      // this.htmlDiv.nativeElement.style.display = 'inline';
     }
     this.thumbsUp = this.thumbsService.thumbsUpSrc(this.supportGroupItem);
     this.thumbsDown = this.thumbsService.thumbsDownSrc(this.supportGroupItem);
@@ -120,10 +120,10 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
   ngAfterContentInit(): void {
     if (this.newPost || this.plainBodyLength() < this.minBodyLength) {
       this.body = this.supportGroupItem.body;
-      this.htmlDiv.nativeElement.style.display = 'block';
+      // this.htmlDiv.nativeElement.style.display = 'block';
     } else {
       this.body = this.slicedBody();
-      this.htmlDiv.nativeElement.style.display = 'inline';
+      // this.htmlDiv.nativeElement.style.display = 'inline';
     }
   }
 

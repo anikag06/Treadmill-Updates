@@ -1,79 +1,75 @@
+<mat-menu #menu="matMenu" xPosition="before">
+  <button mat-menu-item (click)="onEdit()" *ngIf="ownPost() || user.is_admin">
+    <mat-icon>edit</mat-icon>
+    <span>Edit</span>
+  </button>
+  <button mat-menu-item (click)="onDelete()" *ngIf="ownPost()|| user.is_admin">
+    <mat-icon>delete</mat-icon>
+    <span>Delete</span>
+  </button>
+  <button mat-menu-item *ngIf="!ownPost() || user.is_admin">
+    <mat-icon>report_problem</mat-icon>
+    <span>Report Problem</span>
+  </button>
+  <button mat-menu-item *ngIf="!ownPost() || user.is_admin">
+    <mat-icon>error</mat-icon>
+    <span>Report Sucide</span>
+  </button>
+</mat-menu>
 <div class="post-item">
-  <mat-menu #menu="matMenu" xPosition="before">
-    <button mat-menu-item (click)="onEdit()" *ngIf="ownPost() || user.is_admin">
-      <mat-icon>edit</mat-icon>
-      <span>Edit</span>
-    </button>
-    <button mat-menu-item (click)="onDelete()" *ngIf="ownPost()|| user.is_admin">
-      <mat-icon>delete</mat-icon>
-      <span>Delete</span>
-    </button>
-    <button mat-menu-item *ngIf="!ownPost() || user.is_admin">
-      <mat-icon>report_problem</mat-icon>
-      <span>Report Problem</span>
-    </button>
-    <button mat-menu-item *ngIf="!ownPost() || user.is_admin">
-      <mat-icon>error</mat-icon>
-      <span>Report Sucide</span>
-    </button>
-  </mat-menu>
   <div class="row no-gutters">
-    <div class="col-3 text-center">
-      <img [src]="supportGroupItem.user.avatar" alt="User avatar" width="80" height="80" class='post-user-avatar'>
+    <div class="col-2 text-center">
+      <img [src]="supportGroupItem.user.avatar" alt="User avatar" width="50" height="50" class='post-user-avatar'>
       <p class='user-avatar-username text-muted'>{{supportGroupItem.user.username}}</p>
     </div>
-    <div class="col-9 clearfix main-content">
-      <div class="row text-right">
-        <div class="col-12">
+    <div class="col-10">
+      <div class="main-header">
+        <div class="text-right">
           <button mat-icon-button [matMenuTriggerFor]="menu">
             <mat-icon>more_vert</mat-icon>
           </button>
         </div>
-      </div>
-      <div class="row no-gutters">
-        <div class="col-12">
+        <div>
           <h2>{{supportGroupItem.title}}</h2>
           <p><span class='post-time text-muted'>{{supportGroupItem.created_at | date: 'medium' | timeAgo }}</span></p>
         </div>
-      </div>
-      <div class="row" *ngIf="supportGroupItem.tags.length > 0">
-        <div class="col-12 tags">
-          <span *ngFor="let tag of supportGroupItem.tags" class="tags">
+        <div class="tags" *ngIf="supportGroupItem.tags.length > 0">
+          <span *ngFor="let tag of supportGroupItem.tags">
             <a (click)="onTagClick(tag)">{{tag.name}}</a>
             &nbsp;
           </span>
         </div>
       </div>
-      <div class="row no-gutters">
-        <div class='col-12'>
-          <div #htmlDiv [innerHTML]="body | safeHtml"></div>
-          <span *ngIf="plainBodyLength() > minBodyLength && !newPost" class="text-right">
-            <a (click)="toggleShow()" *ngIf="!showFullContent" class="toggler">show more</a>
-          </span>
-        </div>
+    </div>
+  </div>
+  <div class="row no-gutters">
+    <div class='col-12'>
+      <div class="main-content">
+        <div #htmlDiv [innerHTML]="body | safeHtml"></div>
+        <span *ngIf="plainBodyLength() > minBodyLength && !newPost" class="text-right">
+          <a (click)="toggleShow()" *ngIf="!showFullContent" class="toggler">show more</a>
+        </span>
       </div>
-      <div class="row no-gutters">
-        <div class="col-12">
-          <button class="btn btn-sm" (click)="onThumbsUp()"><img [src]="thumbsUp" width="20">
-            {{supportGroupItem.up_votes}}</button>
-          <button class="btn btn-sm" (click)="onThumbsDown()"><img [src]="thumbsDown" width="20"></button>
-        </div>
-      </div>
+    </div>
+  </div>
+  <div class="row no-gutters">
+    <div class="col-12">
+      <button class="btn btn-sm" (click)="onThumbsUp()"><img [src]="thumbsUp" width="20">
+        {{supportGroupItem.up_votes}}</button>
+      <button class="btn btn-sm" (click)="onThumbsDown()"><img [src]="thumbsDown" width="20"></button>
     </div>
   </div>
   <div class="row no-gutters comments-row">
     <ng-container>
-      <app-comment
-        class="col-12"
-        *ngFor="let userComment of comments.slice(0, commentNos)"
-        [comment]="userComment"
+      <app-comment class="col-12" *ngFor="let userComment of comments.slice(0, commentNos)" [comment]="userComment"
         (deleteEmitter)="onCommentDelete($event)">
       </app-comment>
     </ng-container>
     <div class="col-12 text-center">
-        <button class="btn btn-sm btn-block btn-primary" type="button" *ngIf="showLoadMore()" (click)="fetchOrShowComments()">
-          View comments ({{supportGroupItem.comments_count - commentNos }})
-        </button>
+      <button class="btn btn-sm btn-block btn-primary" type="button" *ngIf="showLoadMore()"
+        (click)="fetchOrShowComments()">
+        View comments ({{supportGroupItem.comments_count - commentNos }})
+      </button>
     </div>
   </div>
   <div class="row no-gutters">
@@ -89,4 +85,3 @@
       </form>
     </div>
   </div>
-</div>
