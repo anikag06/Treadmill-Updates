@@ -30,7 +30,6 @@ export class NestedCommentComponent implements OnInit, AfterContentInit, DoCheck
   constructor(
     private ncService: NetstedCommentService,
     private authService: AuthService,
-    private dialog: MatDialog,
     private thumbsService: ThumbsService,
     private errorService: GeneralErrorService,
   ) {}

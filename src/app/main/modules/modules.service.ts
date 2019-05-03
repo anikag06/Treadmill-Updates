@@ -17,7 +17,9 @@ export interface ModuleListResponse {
     };
 }
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class ModulesService {
 
     constructor(

@@ -1,6 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LandingPageComponent } from './landing-page.component';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MaterialModule } from '@/material.module';
+import { LoggerService } from '@/shared/logger.service';
+import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-contact-us-dialog.service';
+import { DialogSize } from '@/shared/dialog-size.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('LandingPageComponent', () => {
   let component: LandingPageComponent;
@@ -8,7 +14,23 @@ describe('LandingPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LandingPageComponent ]
+      imports: [
+        MaterialModule,
+        BrowserAnimationsModule,
+      ],
+      declarations: [
+        LandingPageComponent,
+      ],
+      providers: [
+        {
+          provide: MatDialogRef,
+          useValue: {}
+        },
+        { provide: MAT_DIALOG_DATA, useValue: {} },
+        LoggerService,
+        MatContactUsDialogService,
+        DialogSize,
+      ]
     })
     .compileComponents();
   }));

@@ -1,8 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CategorySmallComponent } from './category-small.component';
+import { Category } from '../category.model';
 
-describe('CategoryComponent', () => {
+describe('CategorySmallComponent', () => {
   let component: CategorySmallComponent;
   let fixture: ComponentFixture<CategorySmallComponent>;
 
@@ -16,6 +17,7 @@ describe('CategoryComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CategorySmallComponent);
     component = fixture.componentInstance;
+    component.category = new Category('learn', true, false);
     fixture.detectChanges();
   });
 

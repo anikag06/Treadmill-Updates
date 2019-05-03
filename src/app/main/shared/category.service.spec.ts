@@ -1,19 +1,23 @@
 import { TestBed } from '@angular/core/testing';
 
-import { AuthService } from '@/shared/auth/auth.service';
-import { RouterTestingModule } from '@angular/router/testing';
+import { CategoryService } from './category.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { LocalStorageService } from '@/shared/localstorage.service';
 
-describe('AuthService', () => {
+describe('CategoryService', () => {
   beforeEach(() => TestBed.configureTestingModule({
     imports: [
       HttpClientTestingModule,
-      RouterTestingModule,
     ],
-  }));
+    providers: [
+      LocalStorageService, CategoryService
+    ]
+  })
+  
+  );
 
   it('should be created', () => {
-    const service: AuthService = TestBed.get(AuthService);
+    const service: CategoryService = TestBed.get(CategoryService);
     expect(service).toBeTruthy();
   });
 });

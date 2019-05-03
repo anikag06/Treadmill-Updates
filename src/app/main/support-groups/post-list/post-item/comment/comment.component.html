@@ -31,7 +31,7 @@
             height="18">{{comment.up_votes}}</button>
         <button class="btn btn-sm" (click)="onThumbsDown()"><img [src]="thumbsDown" width="18" height="18"></button>
         <button class="btn btn-sm btn-bold" (click)="onReplyClick()">Reply</button>
-        <span *ngIf="this.comment.user.username == this.user.username">
+        <span *ngIf="comment.user.username == user.username">
           <button class="btn btn-sm btn-bold" (click)="onEdit()">Edit</button>
           <button class="btn btn-sm btn-bold" (click)="onDelete()">Delete</button>
         </span>

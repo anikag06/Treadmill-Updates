@@ -71,7 +71,6 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy, Do
     private ncService: NetstedCommentService,
     private authService: AuthService,
     private sanitzer: SanitizationService,
-    private dialog: MatDialog,
     private thumbsService: ThumbsService,
     private errorService: GeneralErrorService
   ) { }

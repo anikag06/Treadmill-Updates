@@ -30,8 +30,6 @@ import { A2HSService } from '@/shared/a2hs.service';
   styleUrls: ['./mat-login-dialog/mat-login-dialog.component.scss', './login.component.scss']
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  private username!: string;
-  private password!: string;
   isVisible = true;
 
   private loginSubscription!: Subscription;
@@ -44,7 +42,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.loginSubscription.unsubscribe();
   }
 
   onJoinTheStudyClicked() {

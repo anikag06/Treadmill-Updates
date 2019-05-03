@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MatContactUsDialogComponent } from './mat-contact-us-dialog.component';
+import { MaterialModule } from '@/material.module';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('MatContactUsDialogComponent', () => {
   let component: MatContactUsDialogComponent;
@@ -8,7 +12,20 @@ describe('MatContactUsDialogComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MatContactUsDialogComponent ]
+      declarations: [ MatContactUsDialogComponent ],
+      imports: [
+        MaterialModule,
+        FormsModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+      ],
+      providers: [
+        {
+          provide: MatDialogRef,
+          useValue: {}
+        },
+        { provide: MAT_DIALOG_DATA, useValue: {} },
+      ]
     })
     .compileComponents();
   }));

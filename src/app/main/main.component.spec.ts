@@ -10,15 +10,23 @@ import {
 } from '@angular/material';
 
 import { MainComponent } from './main.component';
+import { NavbarComponent } from './shared/navbar/navbar.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ModulesService } from './modules/modules.service';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { AuthService } from '@/shared/auth/auth.service';
+import { User } from '@/shared/user.model';
 
 describe('MainComponent', () => {
   let component: MainComponent;
   let fixture: ComponentFixture<MainComponent>;
+  let authService: AuthService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [MainComponent],
+      declarations: [ MainComponent, NavbarComponent],
       imports: [
+        RouterTestingModule,
         NoopAnimationsModule,
         LayoutModule,
         MatButtonModule,
@@ -26,6 +34,11 @@ describe('MainComponent', () => {
         MatListModule,
         MatSidenavModule,
         MatToolbarModule,
+        HttpClientModule,
+      ],
+      providers: [
+        ModulesService,
+        HttpClient
       ]
     }).compileComponents();
   }));
@@ -33,6 +46,7 @@ describe('MainComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(MainComponent);
     component = fixture.componentInstance;
+    component.user = new User(1, 'tester', 'test@test.com', '', false, false);
     fixture.detectChanges();
   });
 
