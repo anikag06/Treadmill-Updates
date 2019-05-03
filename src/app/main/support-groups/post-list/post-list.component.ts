@@ -175,7 +175,6 @@ export class PostListComponent implements OnInit, OnDestroy {
     } else {
       this.router.navigate(['/support-groups'], { queryParams: { tags: null, search: null }, queryParamsHandling: 'merge'});
     }
-    this.getPosts();
   }
 
   onTagClick(tag: string) {
@@ -194,6 +193,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   }
 
   onReset() {
+    this.posts = [];
     this.resetParams();
     this.navigateSearch();
     this.getPosts();

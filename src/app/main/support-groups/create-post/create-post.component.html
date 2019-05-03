@@ -7,14 +7,14 @@
   </ul>
 </div>
 
-<form (ngSubmit)="formSubmit()" [formGroup]="postForm">
+<form (ngSubmit)="formSubmit()" [formGroup]="postForm" class="post-from">
   <div class="form-group">
     <label for="body">Write your post</label>
     <angular-editor formControlName="body" [config]="editorConfig" required></angular-editor>
   </div>
   <div class="form-group">
     <label for="title">Give your post a title</label>
-    <input type="text" class="form-control" formControlName="title">
+    <input type="text" class="form-control" formControlName="title" id="title">
   </div>
   <input type="hidden" name="id" formControlName="id">
 
@@ -27,8 +27,8 @@
     </div>
   </div>
   <div class="btn-area text-right">
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary submit-btn">Submit</button>
     &nbsp;
-    <button type="button" class="btn btn-danger" (click)="onClose()">Close</button>
+    <button type="button" class="btn btn-danger cancel-btn" (click)="onClose()">Close</button>
   </div>
 </form>
