@@ -125,6 +125,10 @@ export class PostListComponent implements OnInit, OnDestroy {
           this.posts = this.posts.filter(post => {
             return post.id !== sgi.id;
           });
+
+          this.newPosts = this.newPosts.filter(post => {
+            return post.id !== sgi.id;
+          });
         },
         this.errorService.errorResponse('Cannot delete post')
       );
@@ -201,9 +205,14 @@ export class PostListComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * On Reset Button Press
+   * SetTimeout we are introducing delay so that at max the backend doesn't recieve two many requests at once;
+   */
   onReset() {
     this.resetParams();
-    this.navigateSearch();
+    this.router.navigate(['/support-groups']);
+    setTimeout(() => { this.getPosts(); }, 200);
   }
 
   resetParams() {

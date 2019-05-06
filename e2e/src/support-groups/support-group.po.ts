@@ -62,4 +62,53 @@ export class SupportGroupPage {
     return element.all(by.css('.post-item .comments-row .comment'))
             .first().element(by.css('.nested-comment .nc')).getText();
   }
+  
+  pressPostContextMenu() {
+    element.all(by.css('.post-item mat-icon')).first().click();
+  }
+
+  clickDeleteButton() {
+    browser.executeScript(`
+        const button = document.querySelector(
+            'button.delete-item'
+        );
+        button.click();`
+    );
+  }
+
+  clickEditButton() {
+    browser.executeScript(`
+        const button = document.querySelector(
+            'button.edit-item'
+        );
+        button.click();`
+    );
+  }
+
+  deletePost() {
+    this.pressPostContextMenu();
+    this.clickDeleteButton();
+  }
+
+  editPostButton() {
+    this.pressPostContextMenu();
+    this.clickEditButton();
+  }
+
+  editPost(title: string) {
+    element(by.id('editor')).sendKeys(title);
+    element(by.id('title')).clear();
+    element(by.id('title')).sendKeys(title);
+    element.all(by.css('label[formarrayname="tags"]')).last().click();
+    element.all(by.buttonText('Submit')).click();
+  }
+
+  pressThumbsUp() {
+    element.all(by.css('.post-item .thumbs-up')).first().click();
+  }
+
+  getThumbsUpCount() {
+    return +element.all(by.css('.post-item .thumbs-up')).first().getText();
+  }
+
 }

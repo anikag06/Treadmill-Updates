@@ -61,6 +61,28 @@ describe('treadwill SupportGroup', () => {
     expect(sg.getNestedComment()).toEqual(reply);
   });
 
+  it('should increase thumbs count', () => {
+    const prevCount = sg.getThumbsUpCount();
+    sg.pressThumbsUp();
+    expect(prevCount + 1).toEqual(sg.getThumbsUpCount());
+  });
+
+  it('should edit the post', () => {
+    const newTitle = new Date().toString() + ' New Title';
+    sg.editPostButton();
+    sg.editPost(newTitle);
+    browser.sleep(2000);
+    expect(sg.getFirstText()).toEqual(newTitle);
+  });
+
+  it('should delete the post', () => {
+    const post = sg.getFirstText();
+    sg.deletePost();
+    browser.switchTo().alert().accept();
+    browser.sleep(2000);
+    expect(post).not.toEqual(sg.getFirstText());
+  });
+
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser
     const logs = await browser.manage().logs().get(logging.Type.BROWSER);

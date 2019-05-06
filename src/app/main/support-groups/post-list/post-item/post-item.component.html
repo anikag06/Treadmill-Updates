@@ -1,9 +1,9 @@
 <mat-menu #menu="matMenu" xPosition="before">
-  <button mat-menu-item (click)="onEdit()" *ngIf="ownPost() || user.is_admin">
+  <button mat-menu-item (click)="onEdit()" *ngIf="ownPost() || user.is_admin" class="edit-item">
     <mat-icon>edit</mat-icon>
     <span>Edit</span>
   </button>
-  <button mat-menu-item (click)="onDelete()" *ngIf="ownPost()|| user.is_admin">
+  <button mat-menu-item (click)="onDelete()" *ngIf="ownPost()|| user.is_admin" class="delete-item">
     <mat-icon>delete</mat-icon>
     <span>Delete</span>
   </button>
@@ -54,9 +54,9 @@
   </div>
   <div class="row no-gutters">
     <div class="col-12">
-      <button class="btn btn-sm" (click)="onThumbsUp()"><img [src]="thumbsUp" width="20">
+      <button class="btn btn-sm thumbs-up" (click)="onThumbsUp()"><img [src]="thumbsUp" width="20">
         {{supportGroupItem.up_votes}}</button>
-      <button class="btn btn-sm" (click)="onThumbsDown()"><img [src]="thumbsDown" width="20"></button>
+      <button class="btn btn-sm thumbs-down" (click)="onThumbsDown()"><img [src]="thumbsDown" width="20"></button>
     </div>
   </div>
   <div class="row no-gutters comments-row">
