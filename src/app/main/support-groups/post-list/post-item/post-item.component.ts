@@ -10,6 +10,8 @@ import {
   EventEmitter,
   DoCheck,
   ElementRef,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { Tag } from '@/main/shared/tag.model';
 import { NgForm } from '@angular/forms';
@@ -32,6 +34,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   selector: 'app-post-item',
   templateUrl: './post-item.component.html',
   styleUrls: ['./post-item.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterContentInit, AfterViewInit {
 
@@ -89,6 +92,7 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
     private sanititzationService: SanitizationService,
     private thumbsService: ThumbsService,
     private errorService: GeneralErrorService,
+    private changeDetector: ChangeDetectorRef,
   ) { }
 
   /*
@@ -97,13 +101,14 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
   ngDoCheck(): void {
     if (this.newPost || this.plainBodyLength() < this.minBodyLength || this.showFullContent) {
       this.body = this.supportGroupItem.body;
-      // this.htmlDiv.nativeElement.style.display = 'block';
+      this.htmlDiv.nativeElement.style.display = 'block';
     } else {
       this.body = this.slicedBody();
-      // this.htmlDiv.nativeElement.style.display = 'inline';
+      this.htmlDiv.nativeElement.style.display = 'inline';
     }
     this.thumbsUp = this.thumbsService.thumbsUpSrc(this.supportGroupItem);
     this.thumbsDown = this.thumbsService.thumbsDownSrc(this.supportGroupItem);
+    this.changeDetector.detectChanges();
   }
 
   /**
@@ -118,20 +123,30 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
    * If the post is a new post expand its body by default
    */
   ngAfterContentInit(): void {
-    if (this.newPost || this.plainBodyLength() < this.minBodyLength) {
-      this.body = this.supportGroupItem.body;
-      // this.htmlDiv.nativeElement.style.display = 'block';
-    } else {
-      this.body = this.slicedBody();
-      // this.htmlDiv.nativeElement.style.display = 'inline';
-    }
+    setTimeout(() => {
+      if (this.newPost || this.plainBodyLength() < this.minBodyLength) {
+        this.body = this.supportGroupItem.body;
+        this.htmlDiv.nativeElement.style.display = 'block';
+      } else {
+        this.body = this.slicedBody();
+        this.htmlDiv.nativeElement.style.display = 'inline';
+      }
+      try {
+        this.changeDetector.detectChanges();
+      } catch (ViewDestroyedError) {}
+    });
   }
 
   /**
    * Lifecycle hook fetch all of the comments
    */
   ngAfterViewInit() {
-    this.fetchComments();
+    setTimeout(() => {
+      this.fetchComments();
+      try {
+        this.changeDetector.detectChanges();
+      } catch (ViewDestroyedError) {}
+    });
   }
 
   /**
@@ -141,7 +156,9 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
     if (this.postCommentSubscription) {
       this.postCommentSubscription.unsubscribe();
     }
-    this.getCommentsSubscription.unsubscribe();
+    if (this.getCommentsSubscription) {
+      this.getCommentsSubscription.unsubscribe();
+    }
   }
 
   /**
@@ -164,6 +181,8 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
             this.disabledValue = false;
             this.editorConfig.showToolbar = false;
             this.comments.push(persistedComment);
+            this.commentNos = this.comments.length;
+            this.changeDetector.detectChanges();
           },
           (error: HttpErrorResponse) => {
             this.errorService.openErrorDialog(error.statusText + ' ' + 'Could not submit post');
@@ -209,6 +228,7 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
     } else if (this.moreComments) {
       this.fetchComments();
     }
+    this.changeDetector.detectChanges();
   }
 
   /**
@@ -306,6 +326,9 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
   onCommentDelete(userComment: UserComment) {
     this.supportGroupItem.comments_count -= 1;
     this.comments = this.comments.filter(uc => uc.id !== userComment.id);
+    try {
+      this.changeDetector.detectChanges();
+    } catch (ViewDestroyedError) {}
   }
 
   /**

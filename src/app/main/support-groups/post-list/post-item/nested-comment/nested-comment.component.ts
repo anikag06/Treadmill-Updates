@@ -5,8 +5,6 @@ import { NgForm } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '@/shared/auth/auth.service';
 import { User } from '@/shared/user.model';
-import { MatDialog } from '@angular/material';
-import { ErrorDialogComponent } from '@/shared/error-dialog/error-dialog.component';
 import { ThumbsService } from '@/main/support-groups/thumbs.service';
 import { GeneralErrorService } from '@/main/shared/general-error.service';
 

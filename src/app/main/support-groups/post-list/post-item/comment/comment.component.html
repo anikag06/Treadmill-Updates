@@ -27,13 +27,13 @@
     <p><span class="text-muted date">{{ comment.created_at |  date: 'medium' | timeAgo }}</span></p>
     <div class="row">
       <div class="col-12">
-        <button class="btn btn-sm" (click)="onThumbsUp()"><img [src]="thumbsUp" width="18"
+        <button class="btn btn-sm thumbs-up" (click)="onThumbsUp()"><img [src]="thumbsUp" width="18"
             height="18">{{comment.up_votes}}</button>
-        <button class="btn btn-sm" (click)="onThumbsDown()"><img [src]="thumbsDown" width="18" height="18"></button>
-        <button class="btn btn-sm btn-bold" (click)="onReplyClick()">Reply</button>
+        <button class="btn btn-sm thumbs-down" (click)="onThumbsDown()"><img [src]="thumbsDown" width="18" height="18"></button>
+        <button class="btn btn-sm btn-bold comment-reply" (click)="onReplyClick()">Reply</button>
         <span *ngIf="comment.user.username == user.username">
-          <button class="btn btn-sm btn-bold" (click)="onEdit()">Edit</button>
-          <button class="btn btn-sm btn-bold" (click)="onDelete()">Delete</button>
+          <button class="btn btn-sm btn-bold comment-edit" (click)="onEdit()">Edit</button>
+          <button class="btn btn-sm btn-bold comment-delete" (click)="onDelete()">Delete</button>
         </span>
       </div>
     </div>

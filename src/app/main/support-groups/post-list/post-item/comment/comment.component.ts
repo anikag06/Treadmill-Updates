@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterContentInit, ViewChild, OnDestroy, Output, EventEmitter, DoCheck, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, AfterContentInit, ViewChild, OnDestroy, Output, EventEmitter, DoCheck, ElementRef, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { UserComment } from './user-comment.model';
 import { UserNestedComment } from '../nested-comment/nested-comment.model';
 import { NetstedCommentService } from '../nested-comment/netsted-comment.service';
@@ -12,14 +12,14 @@ import { CommentService } from './comment.service';
 import { SanitizationService } from '@/main/support-groups/sanitization.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
-import { MatDialog } from '@angular/material';
 import { ThumbsService } from '@/main/support-groups/thumbs.service';
 import { GeneralErrorService } from '@/main/shared/general-error.service';
 
 @Component({
   selector: 'app-comment',
   templateUrl: './comment.component.html',
-  styleUrls: ['./comment.component.scss']
+  styleUrls: ['./comment.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommentComponent implements OnInit, AfterContentInit, OnDestroy, DoCheck {
 
@@ -72,7 +72,8 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy, Do
     private authService: AuthService,
     private sanitzer: SanitizationService,
     private thumbsService: ThumbsService,
-    private errorService: GeneralErrorService
+    private errorService: GeneralErrorService,
+    private changeDetector: ChangeDetectorRef,
   ) { }
 
   ngOnInit() {
@@ -88,19 +89,24 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy, Do
   }
 
   ngAfterContentInit() {
-    if (this.comment && this.comment.nested_comment_count > this.nestedComments.length) {
-      this.moreComments = true;
-    }
-
-    if (this.comment) {
-      this.editorBody = this.comment.body;
-      if (this.plainBodyLength() > this.partialBodyLength) {
-        this.commentBody = this.sanitzer.stripTags(this.comment.body).slice(0, this.partialBodyLength) + ' ...';
-        this.partialBody = true;
-      } else {
-        this.commentBody = this.comment.body;
+    setTimeout(() => {
+      if (this.comment && this.comment.nested_comment_count > this.nestedComments.length) {
+        this.moreComments = true;
       }
-    }
+
+      if (this.comment) {
+        this.editorBody = this.comment.body;
+        if (this.plainBodyLength() > this.partialBodyLength) {
+          this.commentBody = this.sanitzer.stripTags(this.comment.body).slice(0, this.partialBodyLength) + ' ...';
+          this.partialBody = true;
+        } else {
+          this.commentBody = this.comment.body;
+        }
+      }
+      try {
+        this.changeDetector.detectChanges();
+      } catch (ViewDestroyedError) {}
+    });
   }
 
   ngOnDestroy() {
@@ -125,6 +131,7 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy, Do
               this.moreComments = false;
             }
             this.nestedComments.push(...<UserNestedComment[]>response.results);
+            this.changeDetector.detectChanges();
           },
           this.errorService.errorResponse('Cannot fetch nested comments')
         );
@@ -153,6 +160,7 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy, Do
             this.nestedComments.push(persistedNestedcomment);
             this.toggleReply = false;
             this.showNestedComment();
+            this.changeDetector.detectChanges();
           }
         );
     }
@@ -171,6 +179,7 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy, Do
           (data) => {
             this.comment.body = this.editorBody;
             this.editMode = false;
+            this.changeDetector.detectChanges();
           },
           (error: HttpErrorResponse) => {
             this.errors = [];
@@ -207,6 +216,7 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy, Do
         () => {
           UserNestedComment.prototype.up_votes = 10;
           this.nestedComments = this.nestedComments.filter(nc => nc.id !== userNestedComment.id);
+          this.changeDetector.detectChanges();
         },
         this.errorService.errorResponse('Cannot delete')
       );

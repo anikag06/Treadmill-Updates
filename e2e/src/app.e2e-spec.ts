@@ -8,22 +8,6 @@ describe('workspace-project App', () => {
     page = new AppPage();
   });
 
-  it('should display welcome message', () => {
-    page.navigateTo();
-    browser.ignoreSynchronization = true;
-    expect(page.getTitleText()).toEqual('Sounds familiar?');
-  });
-
-  it('should display login dialog', () => {
-    page.navigateTo();
-    browser.ignoreSynchronization = true;
-    browser.sleep(1000);
-    page.clickLoginLink();
-    browser.sleep(500);
-    expect(page.getTextOnLoginDialog()).toEqual('Not a member yet? Join the study');
-  });
-
-
   it('should login and show dashboard', () => {
     page.navigateTo();
     browser.ignoreSynchronization = true;

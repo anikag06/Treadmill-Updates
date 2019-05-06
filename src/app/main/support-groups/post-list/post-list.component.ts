@@ -52,7 +52,7 @@ export class PostListComponent implements OnInit, OnDestroy {
           this.morePosts = true;
           this.getPosts();
           this.tagsToSearch();
-          if (this.searchTerm) {
+          if (this.searchTerm && this.search !== this.searchTerm) {
             this.search += this.searchTerm;
           }
         }
@@ -102,7 +102,8 @@ export class PostListComponent implements OnInit, OnDestroy {
               this.morePosts = true;
               this.page += 1;
             }
-            this.posts.push(...<SupportGroupItem[]>response.results);
+            const fetchedPosts = <SupportGroupItem[]>response.results;
+            this.posts = this.arrayUnique([...this.posts, ...fetchedPosts]);
             this.fetching = false;
           },
           this.errorService.errorResponse('Cannot fetch posts')
@@ -137,13 +138,14 @@ export class PostListComponent implements OnInit, OnDestroy {
   }
 
   onSearchSubmit() {
-    this.page = 1;
-    this.morePosts = true;
-    this.fetching = true;
-    this.posts = [];
-    this.searchTerm = this.search.replace(/ *\[[^\]]*]/g, '');
-    this.searchToTags();
-    this.navigateSearch();
+    if (this.fetching === false) {
+      this.page = 1;
+      this.morePosts = true;
+      this.posts = [];
+      this.searchTerm = this.search.replace(/ *\[[^\]]*]/g, '');
+      this.searchToTags();
+      setTimeout(() => { this.navigateSearch(); }, 200);
+    }
   }
 
   tagsToSearch() {
@@ -165,23 +167,30 @@ export class PostListComponent implements OnInit, OnDestroy {
   }
 
   navigateSearch() {
-    const url: string = this.router.url.substring(0, this.router.url.indexOf('?')) || this.router.url;
+    let queryParams = {};
     if (this.tags && this.tags.length > 0 && this.searchTerm.length > 0) {
-      this.router.navigate([url], { queryParams: { tags: this.tags.join(','), search: this.searchTerm }});
+     queryParams = { tags: this.tags.join(','), search: this.searchTerm };
     } else if (this.tags && this.tags.length > 0) {
-      this.router.navigate([url], { queryParams: { tags: this.tags.join(',') }});
-    } else if (this.searchTerm.length > 1) {
-      this.router.navigate([url], { queryParams: { search: this.searchTerm }});
+      queryParams = { tags: this.tags.join(',') };
+    } else if (this.searchTerm.length > 0) {
+      queryParams = { search: this.searchTerm };
     } else {
-      this.router.navigate(['/support-groups'], { queryParams: { tags: null, search: null }, queryParamsHandling: 'merge'});
+      queryParams = { tags: null, search: null };
     }
+    const newUrl = this.router.createUrlTree(['/support-groups'], { queryParams: queryParams, queryParamsHandling: 'merge'}).toString();
+    if ( newUrl === this.router.url) {
+      if (this.fetching === false ) {
+        this.getPosts();
+      }
+    }
+    this.router.navigate([], {relativeTo: this.route, queryParams: queryParams, queryParamsHandling: 'merge'});
   }
 
   onTagClick(tag: string) {
     if (this.tags == null) {
       this.tags = [];
     }
-    if (!this.tags.find(i => i == tag)) {
+    if (!this.tags.find(i => i === tag)) {
       this.tags.push(tag);
       this.page = 1;
       this.morePosts = true;
@@ -193,10 +202,8 @@ export class PostListComponent implements OnInit, OnDestroy {
   }
 
   onReset() {
-    this.posts = [];
     this.resetParams();
     this.navigateSearch();
-    this.getPosts();
   }
 
   resetParams() {
@@ -207,5 +214,17 @@ export class PostListComponent implements OnInit, OnDestroy {
     this.posts = [];
     this.search = '';
     this.searchTerm = '';
+  }
+
+  arrayUnique(array: SupportGroupItem[]) {
+    const newArray = array.concat();
+    for ( let i = 0 ; i < newArray.length; ++i) {
+        for ( let j = i + 1; j < newArray.length; ++j) {
+            if ( newArray[i].id === newArray[j].id ) {
+              newArray.splice(j--, 1);
+            }
+        }
+    }
+    return newArray;
   }
 }
