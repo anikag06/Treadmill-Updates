@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterContentInit, ViewChild, Output, EventEmitter, DoCheck } from '@angular/core';
+import { Component, OnInit, Input, AfterContentInit, ViewChild, Output, EventEmitter, DoCheck, ChangeDetectorRef } from '@angular/core';
 import { UserNestedComment } from './nested-comment.model';
 import { NetstedCommentService } from './netsted-comment.service';
 import { NgForm } from '@angular/forms';
@@ -30,6 +30,7 @@ export class NestedCommentComponent implements OnInit, AfterContentInit, DoCheck
     private authService: AuthService,
     private thumbsService: ThumbsService,
     private errorService: GeneralErrorService,
+    private changeDetector: ChangeDetectorRef
   ) {}
 
   /**
@@ -70,8 +71,9 @@ export class NestedCommentComponent implements OnInit, AfterContentInit, DoCheck
         .subscribe(
           (data: any) => {
             this.editMode = false;
-            this.userNestedComment.body = this.body;
+            this.userNestedComment = {...this.userNestedComment, body: this.body};
             this.submitting = false;
+            this.changeDetector.detectChanges();
           },
           (error: HttpErrorResponse) => {
             this.errorService.openErrorDialog('Cannot add reply');

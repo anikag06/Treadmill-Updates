@@ -177,8 +177,10 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy, Do
       this.editSubscription = this.commentService.updateComment(this.comment.id, updatedCommentBody)
         .subscribe(
           (data) => {
-            this.comment.body = this.editorBody;
+            this.comment.body = updatedCommentBody;
+            this.comment = {...this.comment};
             this.editMode = false;
+            this.commentBody = updatedCommentBody;
             this.changeDetector.detectChanges();
           },
           (error: HttpErrorResponse) => {
