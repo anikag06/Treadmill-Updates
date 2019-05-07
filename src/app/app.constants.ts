@@ -15,7 +15,7 @@ export const ISACTIVE            = 'is_active';
 export const LS_TIME            = 120;
 
 // PATHS
-export const DEFAULT_PATH       = '/';
+export const DEFAULT_PATH       = '/landing';
 export const LOGGED_IN_PATH     = '/dashboard';
 export const TOKEN_REFRESH_PATH = '/api/v1/user/api-token-refresh/';
 export const LOGIN_PATH         = '/api/v1/user/login/';

@@ -22,7 +22,6 @@ import { ChatbotAvatarComponent } from './dashboard/chatbot-avatar/chatbot-avata
 import { GamesComponent } from './games/games.component';
 import { GamesListComponent } from './games/games-list/games-list.component';
 import { GameItemComponent } from './games/games-list/game-item/game-item.component';
-import { AppRoutingModule } from '@/app-routing.module';
 import { MaterialModule } from '@/material.module';
 import { SupportGroupsComponent } from './support-groups/support-groups.component';
 import { PostListComponent } from './support-groups/post-list/post-list.component';
@@ -42,6 +41,11 @@ import { ScrollingDirective } from './shared/scrolling.directive';
 import { ScrollingService } from './shared/scrolling.service';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { GeneralErrorService } from './shared/general-error.service';
+import { MainRoutingModule } from './main-routing.module';
+import { AuthModule } from '@/auth.module';
+import { CommentService } from './support-groups/post-list/post-item/comment/comment.service';
+import { NetstedCommentService } from './support-groups/post-list/post-item/nested-comment/netsted-comment.service';
+import { TagService } from './shared/tag.service';
 
 @NgModule({
   declarations: [
@@ -52,7 +56,6 @@ import { GeneralErrorService } from './shared/general-error.service';
     ModuleOverviewComponent,
     ModuleListComponent,
     CategorySmallComponent,
-    NotFoundComponent,
     CategoryBigComponent,
     SectionCardComponent,
     MainComponent,
@@ -77,10 +80,10 @@ import { GeneralErrorService } from './shared/general-error.service';
   ],
   imports: [
     CommonModule,
-    AppRoutingModule,
     MaterialModule,
     FormsModule,
     HttpClientModule,
+    AuthModule,
     AngularEditorModule,
     LayoutModule,
     MatToolbarModule,
@@ -89,6 +92,7 @@ import { GeneralErrorService } from './shared/general-error.service';
     MatIconModule,
     MatListModule,
     ReactiveFormsModule,
+    MainRoutingModule,
   ],
   providers: [
     LocalStorageService,
@@ -96,6 +100,9 @@ import { GeneralErrorService } from './shared/general-error.service';
     SanitizationService,
     ScrollingService,
     GeneralErrorService,
+    CommentService,
+    NetstedCommentService,
+    TagService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [CreatePostComponent]
