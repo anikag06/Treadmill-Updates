@@ -1,5 +1,6 @@
 import { AppPage } from './app.po';
 import { browser, logging } from 'protractor';
+import { protractor } from 'protractor/built/ptor';
 
 describe('workspace-project App', () => {
   let page: AppPage;
@@ -18,6 +19,16 @@ describe('workspace-project App', () => {
     page.fillLoginForm();
     browser.sleep(3000);
     expect(page.getChatBotText()).toEqual('Hello sourav! Do you have any Questions? Click on me and we can chat.');
+  });
+
+  it('should redirect to dashboard when on root', () => {
+    browser.get('/');
+    expect(
+      browser.wait(
+        protractor.ExpectedConditions.urlContains('dashboard'), 5000
+      )
+        .catch(() => false )
+    ).toBeTruthy(`Url match could not succced`);
   });
 
   afterEach(async () => {
