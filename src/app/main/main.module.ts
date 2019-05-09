@@ -46,6 +46,7 @@ import { AuthModule } from '@/auth.module';
 import { CommentService } from './support-groups/post-list/post-item/comment/comment.service';
 import { NetstedCommentService } from './support-groups/post-list/post-item/nested-comment/netsted-comment.service';
 import { TagService } from './shared/tag.service';
+import { AutofocusDirective } from './shared/autofocus.directive';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { TagService } from './shared/tag.service';
     SafeHtmlPipe,
     ScrollingDirective,
     NavbarComponent,
+    AutofocusDirective,
   ],
   imports: [
     CommonModule,

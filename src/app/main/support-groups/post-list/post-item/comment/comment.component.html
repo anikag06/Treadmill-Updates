@@ -7,7 +7,7 @@
     </div>
     <form (ngSubmit)="onSubmit()" #editForm="ngForm">
       <fieldset [disabled]="disabledValue">
-        <angular-editor name="name" [(ngModel)]="editorBody" required [config]="editorConfig"></angular-editor>
+        <angular-editor name="name" [(ngModel)]="editorBody" required [config]="editorConfig" [autofocus]="true"></angular-editor>
         <div class="btn-area text-right">
           <button type="submit" class="btn btn-primary btn-sm"
             [disabled]="this.sanitzer.stripTags(this.editorBody).length === 0">Comment</button>
