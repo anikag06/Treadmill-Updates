@@ -22,23 +22,23 @@
       <img [src]="supportGroupItem.user.avatar" alt="User avatar" width="50" height="50" class='post-user-avatar'>
       <p class='user-avatar-username text-muted'>{{supportGroupItem.user.username}}</p>
     </div>
-    <div class="col-10">
+    <div class="col-9">
       <div class="main-header">
-        <div class="text-right">
-          <button mat-icon-button [matMenuTriggerFor]="menu">
-            <mat-icon>more_vert</mat-icon>
-          </button>
-        </div>
-        <div>
-          <h2>{{supportGroupItem.title}}</h2>
-          <p><span class='post-time text-muted'>{{supportGroupItem.created_at | date: 'medium' | timeAgo }}</span></p>
-        </div>
+        <h2>{{supportGroupItem.title}}</h2>
+        <p><span class='post-time text-muted'>{{supportGroupItem.created_at | date: 'medium' | timeAgo }}</span></p>
         <div class="tags" *ngIf="supportGroupItem.tags.length > 0">
           <span *ngFor="let tag of supportGroupItem.tags">
             <a (click)="onTagClick(tag)">{{tag.name}}</a>
             &nbsp;
           </span>
         </div>
+      </div>
+    </div>
+    <div class="col-1">
+      <div class="context-button">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
       </div>
     </div>
   </div>
