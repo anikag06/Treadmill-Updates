@@ -156,7 +156,8 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy, Do
             this.replyForm.reset();
             this.comment.nested_comment_count += 1;
             const postResponse = <PostResponse>resp;
-            const persistedNestedcomment = new UserNestedComment(postResponse.data.id, data.body, 0, this.user, -1);
+            const persistedNestedcomment = new UserNestedComment(
+                postResponse.data.id, data.body, 0, this.user, -1, new Date().toISOString());
             this.nestedComments.push(persistedNestedcomment);
             this.toggleReply = false;
             this.showNestedComment();

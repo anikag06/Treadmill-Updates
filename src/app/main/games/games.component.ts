@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { TREADWILL } from '@/app.constants';
 
 @Component({
   selector: 'app-games',
@@ -7,7 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GamesComponent implements OnInit {
 
-  constructor() { }
+  constructor(private titleService: Title) {
+    this.titleService.setTitle('Games | ' + TREADWILL);
+  }
 
   ngOnInit() {
   }

@@ -8,5 +8,6 @@ export class UserNestedComment {
             avatar: string,
         },
         public is_voted: number,
+        public created_at: string,
     ) {}
 }

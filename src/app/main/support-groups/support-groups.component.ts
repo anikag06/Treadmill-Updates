@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { TagService } from '../shared/tag.service';
 import { CreatePostComponent } from './create-post/create-post.component';
 import { MatDialog } from '@angular/material';
+import { Title } from '@angular/platform-browser';
+import { TREADWILL } from '@/app.constants';
 
 @Component({
   selector: 'app-support-groups',
@@ -12,8 +14,11 @@ export class SupportGroupsComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    private tagService: TagService
-  ) { }
+    private tagService: TagService,
+    private titleService: Title,
+  ) {
+    this.titleService.setTitle('Support Group | ' + TREADWILL);
+  }
 
   ngOnInit() {
     this.tagService.getTags();

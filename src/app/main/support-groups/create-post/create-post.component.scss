@@ -36,3 +36,15 @@ h3 {
         }
     }
 }
+
+@media screen and (max-width: 991px) {
+    .text-md-center {
+        text-align: center;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .text-lg-right {
+        text-align: right;
+    }
+}

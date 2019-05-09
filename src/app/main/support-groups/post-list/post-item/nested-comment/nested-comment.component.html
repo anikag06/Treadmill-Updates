@@ -17,6 +17,7 @@
   </div>
   <div class="col-8" *ngIf="!editMode">
     <p class="nc">{{userNestedComment.body}}</p>
+    <div><span class="text-muted date">{{ userNestedComment.created_at |  date: 'medium' | timeAgo }}</span></div>
     <p>
       <button class="btn btn-sm" (click)="onThumbsUp()"><img [src]="thumbsUp" width="18" height="18">
         {{userNestedComment.up_votes}}</button>

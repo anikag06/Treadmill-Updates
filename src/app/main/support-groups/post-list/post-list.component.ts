@@ -29,6 +29,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   search = '';
   searchTerm = '';
   tags: string[] | null =  null;
+  searchResultCount = 0;
 
   constructor(
     private sgService: SupportGroupsService,
@@ -96,6 +97,7 @@ export class PostListComponent implements OnInit, OnDestroy {
         .subscribe(
           (data: any) => {
             const response = <ApiResponse>data;
+            this.searchResultCount = response.count;
             if (response.next == null) {
               this.morePosts = false;
             } else {
@@ -152,6 +154,9 @@ export class PostListComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Tags array to search
+   */
   tagsToSearch() {
     if (typeof(this.tags) === 'string') {
       this.search = '[' + this.tags + ']';
@@ -163,6 +168,9 @@ export class PostListComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Search variable to tags
+   */
   searchToTags() {
     const searchTags = <string[]>this.search.match(/\[(.*?)\]/g);
     if (searchTags && searchTags.length > 0) {
@@ -170,6 +178,9 @@ export class PostListComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Creates URL for searching and if same URL fetches the result
+   */
   navigateSearch() {
     let queryParams = {};
     if (this.tags && this.tags.length > 0 && this.searchTerm.length > 0) {
@@ -215,6 +226,9 @@ export class PostListComponent implements OnInit, OnDestroy {
     setTimeout(() => { this.getPosts(); }, 200);
   }
 
+  /**
+   * Reset all the params
+   */
   resetParams() {
     this.tags = [];
     this.page = 1;
@@ -225,6 +239,11 @@ export class PostListComponent implements OnInit, OnDestroy {
     this.searchTerm = '';
   }
 
+
+  /**
+   * Find unique items in the array
+   * @param array
+   */
   arrayUnique(array: SupportGroupItem[]) {
     const newArray = array.concat();
     for ( let i = 0 ; i < newArray.length; ++i) {
@@ -235,5 +254,18 @@ export class PostListComponent implements OnInit, OnDestroy {
         }
     }
     return newArray;
+  }
+
+  /**
+   * Search Result Banner
+   */
+  getSearchResultMessage() {
+    if (this.fetching === false) {
+      if (this.search && this.searchTerm && this.posts.length === 0) {
+        return 'Oops! we could not find any results for <i>' + this.search + '</i>' ;
+      } else if (this.search && this.searchTerm && this.posts.length > 0) {
+        return 'We found ' + this.searchResultCount + ' results for <i>' + this.searchTerm + '</i>' ;
+      }
+    }
   }
 }

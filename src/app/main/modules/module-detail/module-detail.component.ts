@@ -7,6 +7,8 @@ import { Module } from '@/main/modules/module.model';
 import { ModulesService } from '@/main/modules/modules.service';
 import { CategoryService } from '@/main/shared/category.service';
 import { Category } from '@/main/shared/category.model';
+import { Title } from '@angular/platform-browser';
+import { TREADWILL } from '@/app.constants';
 
 @Component({
   selector: 'app-module-detail',
@@ -25,7 +27,8 @@ export class ModuleDetailComponent implements OnInit, DoCheck {
     private activateRoute: ActivatedRoute,
     private modulesService: ModulesService,
     private categoryService: CategoryService,
-    private router: Router
+    private router: Router,
+    private titleService: Title,
   ) { }
 
   ngOnInit() {
@@ -39,6 +42,7 @@ export class ModuleDetailComponent implements OnInit, DoCheck {
           this.module = <Module>module;
           this.categoryService.getCategories(this.module)
             .then((categories) => {
+              this.titleService.setTitle(this.module.name + ' | ' + TREADWILL);
               this.categories = categories;
               this.selectedCategory = categories.find((category) => category.is_active === true);
             });

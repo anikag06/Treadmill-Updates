@@ -9,6 +9,7 @@ import { AuthService } from '@/shared/auth/auth.service';
 import { User } from '@/shared/user.model';
 import { AngularEditorConfig } from '@xw19/angular-editor';
 import { SanitizationService } from '../sanitization.service';
+import { OverlayContainer } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-create-post',
@@ -59,8 +60,9 @@ export class CreatePostComponent implements OnInit {
     private authService: AuthService,
     private sanitizer: SanitizationService,
     private fb: FormBuilder,
+    private overlayContainer: OverlayContainer
   ) {
-
+    overlayContainer.getContainerElement().classList.add('custom-overlay');
     dialogRef.disableClose = true;
   }
 

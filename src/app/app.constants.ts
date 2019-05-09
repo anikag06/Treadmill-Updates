@@ -9,7 +9,8 @@ export const CATEGORY           = 'category_';
 export const TOKEN              = 'jwt_token';
 export const USERAVATAR         = 'user_avatar';
 export const ISADMIN            = 'is_admin';
-export const ISACTIVE            = 'is_active';
+export const ISACTIVE           = 'is_active';
+export const TREADWILL          = 'TreadWill';
 
 // LOCAL STORAGE
 export const LS_TIME            = 120;

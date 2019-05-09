@@ -4,6 +4,7 @@ import { interval, Subscription } from 'rxjs';
 import { AuthService } from './shared/auth/auth.service';
 import { RouterOutlet } from '@angular/router';
 import { slideInAnimation } from './shared/main.animations';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,10 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(
     private auth: AuthService,
-  ) { }
+    private titleService: Title,
+  ) { 
+    this.titleService.setTitle('Treadwill');
+  }
 
   ngOnInit() {
     this.subscription = interval(10000)

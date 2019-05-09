@@ -307,7 +307,7 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
    */
   onFocusOut(event: FocusEvent) {
     const el = <Element>event.relatedTarget;
-    if (el == null || el.innerHTML !== 'Comment') {
+    if (el == null || (el.innerHTML !== 'Comment' && !(el.matches('button.angular-editor-button')))) {
       this.editorConfig.showToolbar = false;
     }
   }

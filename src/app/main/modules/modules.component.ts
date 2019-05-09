@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { slideInAnimation } from '../../shared/main.animations';
 import { RouterOutlet } from '@angular/router';
+import { Title } from '@angular/platform-browser';
+import { TREADWILL } from '@/app.constants';
 
 @Component({
   selector: 'app-modules',
@@ -10,7 +12,11 @@ import { RouterOutlet } from '@angular/router';
 })
 export class ModulesComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private titleService: Title,
+  ) {
+    this.titleService.setTitle('Modules | ' + TREADWILL);
+  }
 
   ngOnInit() {
   }

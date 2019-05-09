@@ -11,6 +11,11 @@
         </form>
       </div>
     </div>
+    <div class="row no-gutters" *ngIf="getSearchResultMessage()">
+      <div class="col-12">
+        <p class="message" [innerHTML]="getSearchResultMessage()"></p>
+      </div>
+    </div>
     <div class="row no-gutters">
       <div class="col-12">
           <ng-container *ngIf="newPosts.length > 0">

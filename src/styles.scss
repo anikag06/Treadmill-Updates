@@ -234,6 +234,17 @@ $small_logo_height: 40px;
       padding-left: 20px;
       padding-top: 30px;
   }
+  .custom-overlay {
+      .cdk-overlay-pane {
+        max-width: 94vw !important;
+        width: 94vw !important;
+        .mat-dialog-container {
+          margin-top: 10px;
+          margin-bottom: 10px;
+          padding: 10px;
+        }
+      }
+  }
 }
 
 @media screen and (max-width: 767px) {

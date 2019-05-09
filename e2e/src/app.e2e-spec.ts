@@ -11,7 +11,7 @@ describe('workspace-project App', () => {
 
   it('should login and show dashboard', () => {
     page.navigateTo();
-    browser.ignoreSynchronization = true;
+    browser.waitForAngularEnabled(false);
     browser.sleep(1000);
     page.clickLoginLink();
     browser.sleep(500);
@@ -25,7 +25,7 @@ describe('workspace-project App', () => {
     browser.get('/');
     expect(
       browser.wait(
-        protractor.ExpectedConditions.urlContains('dashboard'), 5000
+        protractor.ExpectedConditions.urlContains('dashboard'), 2000
       )
         .catch(() => false )
     ).toBeTruthy(`Url match could not succced`);
