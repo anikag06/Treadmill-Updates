@@ -2,7 +2,7 @@
   <div class="col-12" *ngIf="editMode">
     <form class="form" (ngSubmit)="submitReply()" #replyForm="ngForm">
       <div class="form-group">
-        <textarea type="text" name="body" class="form-control" [(ngModel)]="body"></textarea>
+        <textarea type="text" name="body" class="form-control" [(ngModel)]="body" [autofocus]></textarea>
       </div>
       <div class="text-right">
         <button type="submit" class="btn btn-primary btn-sm">Save</button>
