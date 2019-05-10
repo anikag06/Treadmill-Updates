@@ -60,9 +60,34 @@ export class SupportGroupPage {
 
   getNestedComment() {
     return element.all(by.css('.post-item .comments-row .comment'))
+            .first().element(by.css('.nested-comment .nc')).isPresent();
+  }
+
+  clickEditReply() {
+    return element.all(by.css('.post-item .comments-row .comment'))
+            .first().element(by.css('.nested-comment .nc-edit')).click();
+  }
+
+  editReplyFormVisible() {
+    return element.all(by.css('.post-item .comments-row .comment'))
+            .first().element(by.css('.nested-comment .form-nc')).isDisplayed();
+  }
+
+  cancelReplyEdit() {
+    element.all(by.css('.post-item .comments-row .comment'))
+            .first().element(by.css('.nested-comment .nc-cancel')).click();
+  }
+
+  getNestedCommentText() {
+    return element.all(by.css('.post-item .comments-row .comment'))
             .first().element(by.css('.nested-comment .nc')).getText();
   }
-  
+
+  deleteNestedComment() {
+    return element.all(by.css('.post-item .comments-row .comment'))
+            .first().element(by.css('.nested-comment .nc-delete')).click();
+  }
+
   pressPostContextMenu() {
     element.all(by.css('.post-item mat-icon')).first().click();
   }
@@ -105,6 +130,10 @@ export class SupportGroupPage {
 
   pressThumbsUp() {
     element.all(by.css('.post-item .thumbs-up')).first().click();
+  }
+
+  pressThumbsDown() {
+    element.all(by.css('.post-item .thumbs-down')).first().click();
   }
 
   getThumbsUpCount() {

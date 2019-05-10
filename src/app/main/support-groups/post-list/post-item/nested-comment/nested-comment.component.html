@@ -1,13 +1,13 @@
 <div class="row no-gutters nested-comment">
   <div class="col-12" *ngIf="editMode">
-    <form class="form" (ngSubmit)="submitReply()" #replyForm="ngForm">
+    <form class="form form-nc" (ngSubmit)="submitReply()" #replyForm="ngForm">
       <div class="form-group">
         <textarea type="text" name="body" class="form-control" [(ngModel)]="body" [autofocus]></textarea>
       </div>
       <div class="text-right">
-        <button type="submit" class="btn btn-primary btn-sm">Save</button>
+        <button type="submit" class="btn btn-primary btn-sm nc-submit">Save</button>
         &nbsp;
-        <button type="button" class="btn btn-warning btn-sm" (click)="onCancel()">Cancel</button>
+        <button type="button" class="btn btn-warning btn-sm nc-cancel" (click)="onCancel()">Cancel</button>
       </div>
     </form>
   </div>
@@ -23,8 +23,8 @@
         {{userNestedComment.up_votes}}</button>
       <button class="btn btn-sm" (click)="onThumbsDown()"><img [src]="thumbsDown" width="16" height="16"></button>
       <span *ngIf="user.username == userNestedComment.user.username">
-        <button class="btn btn-sm" (click)="onEdit()">Edit</button>
-        <button class="btn btn-sm" (click)="onDelete()">Delete</button>
+        <button class="btn btn-sm nc-edit" (click)="onEdit()"><b>Edit</b></button>
+        <button class="btn btn-sm nc-delete" (click)="onDelete()"><b>Delete</b></button>
       </span>
     </p>
   </div>

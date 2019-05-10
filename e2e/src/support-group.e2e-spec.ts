@@ -58,13 +58,39 @@ describe('treadwill SupportGroup', () => {
   it('should reply to comment', () => {
     const reply = sg.submitReply();
     browser.sleep(2000);
-    expect(sg.getNestedComment()).toEqual(reply);
+    expect(sg.getNestedCommentText()).toEqual(reply);
+  });
+
+  it('should edit reply', () => {
+    sg.clickEditReply();
+    browser.sleep(2000);
+    expect(sg.editReplyFormVisible()).toBeTruthy();
+  });
+
+  it('should cancel edit reply', () => {
+    sg.cancelReplyEdit();
+    browser.switchTo().alert().accept();
+    browser.sleep(2000);
+    expect(sg.getNestedCommentText()).toBeTruthy();
+  });
+
+  it('should delete reply', () => {
+    sg.deleteNestedComment();
+    browser.switchTo().alert().accept();
+    browser.sleep(2000);
+    expect(sg.getNestedComment()).toBeFalsy();
   });
 
   it('should increase thumbs count', () => {
     const prevCount = sg.getThumbsUpCount();
     sg.pressThumbsUp();
     expect(prevCount + 1).toEqual(sg.getThumbsUpCount());
+  });
+
+  it('should decrease thumbs count', () => {
+    const prevCount = sg.getThumbsUpCount();
+    sg.pressThumbsDown();
+    expect(prevCount - 1).toEqual(sg.getThumbsUpCount());
   });
 
   it('should edit the post', () => {
