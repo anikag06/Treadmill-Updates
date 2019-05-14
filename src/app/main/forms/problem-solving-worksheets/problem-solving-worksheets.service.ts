@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { of, Observable } from 'rxjs';
+import { of, Observable, BehaviorSubject } from 'rxjs';
 import { Solution } from './solution.model';
 import { ProsCons } from './pros-cons.model';
 
@@ -9,29 +9,49 @@ import { ProsCons } from './pros-cons.model';
 })
 export class ProblemSolvingWorksheetsService {
 
+  private solutions = [
+    <Solution>{id: 1, problem_id: 1, solution: 'Ask seniors for help', best_solution: true, rank: 1},
+    <Solution>{id: 2, problem_id: 1, solution: 'Ask professor for help', best_solution: false, rank: 2},
+    <Solution>{id: 3, problem_id: 2, solution: 'Call Neighbours', best_solution: false, rank: 1},
+    <Solution>{id: 4, problem_id: 2, solution: 'Call police', best_solution: false, rank: 2},
+  ];
+
+  private problems = [
+    {id: 1, problem: 'Not able to find internship', user_id: 1},
+    {id: 2, problem: 'Not able to connect to family', user_id: 1}
+  ];
+
+  problemsBehaviour = new BehaviorSubject(this.problems);
+
+
+
   constructor(
     private http: HttpClient
   ) { }
 
   getProblems() {
-    return of(
-      [
-        {id: 1, problem: 'Not able to find internship', user_id: 1},
-        {id: 2, problem: 'Not able to connect to family', user_id: 1}
-      ]
-    );
+    return this.problemsBehaviour.asObservable();
+  }
+
+  postProblem(data: any) {
+    this.problemsBehaviour.next([...this.problems, data]);
+    return of({success: '200'});
+  }
+
+  removeSolution(data: any) {
+    this.solutions = this.solutions.filter(solution => solution.id !== data.id);
+    return of({success: '200'});
   }
 
   getSolutions(problem_id: number) {
-    const solutions = [
-      <Solution>{id: 1, problem_id: 1, solution: 'Ask seniors for help', best_solution: false, rank: 1},
-      <Solution>{id: 2, problem_id: 1, solution: 'Ask professor for help', best_solution: false, rank: 2},
-      <Solution>{id: 3, problem_id: 2, solution: 'Call Neighbours', best_solution: false, rank: 1},
-      <Solution>{id: 4, problem_id: 2, solution: 'Call police', best_solution: false, rank: 2},
-    ];
     return of(
-      solutions.filter(solution => solution.problem_id === problem_id)
+      this.solutions.filter(solution => solution.problem_id === problem_id)
     );
+  }
+
+  postSolution(data: any) {
+    this.solutions = [...this.solutions, data];
+    return of({success: '200'});
   }
 
   getProsCons(solution_id: number) {

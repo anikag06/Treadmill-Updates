@@ -1,29 +1,38 @@
 .card {
-    margin: 0 auto;
-    .card-header {
-        background-color: #d4f0eb;
-        font-weight: 700;
+  margin: 0 auto;
+  .card-header {
+    background-color: #d4f0eb;
+    font-weight: 700;
+  }
+  button {
+    width: 100%;
+  }
+  label {
+    padding: 10px;
+    margin-bottom: 0px;
+    border-bottom: 1px solid #dfdfdf;
+    &:last-child {
+      border-bottom: 1px solid transparent;
     }
-    button {
-        width: 100%;
-    }
-    label {
-        padding: 10px;
-        margin-bottom: 0px;
-        border-bottom: 1px solid #dfdfdf;
-        &:last-child {
-            border-bottom: 1px solid transparent;
-        }
-    }
-    .continue-btn {
-        width: 100px;
-    }
+  }
+  .continue-btn {
+    width: 100px;
+  }
+  .full-width {
+    width: 100%;
+  }
+  textarea {
+      color: #000000;
+  }
+  .pull-right {
+    float: right;
+  }
 }
 
 .card.card-240 {
-    max-width: 240px;
+  max-width: 240px;
 }
 
 .card.card-full-width {
-    width: 100%;
+  width: 100%;
 }

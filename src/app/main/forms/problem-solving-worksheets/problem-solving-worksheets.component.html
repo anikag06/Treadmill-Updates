@@ -8,13 +8,27 @@
     <div class="col-9">
       <div class="row mb-2">
         <div class="col-12">
-          <ng-container *ngIf="problem">
+          <ng-container>
             <div class="card card-full-width">
               <div class="card-header">
                 PROBLEM STATEMENT
               </div>
-              <div class="card-body">
-                {{problem.problem}}
+              <div class="card-body problem-statement">
+                <p *ngIf="problem">{{problem.problem}}</p>
+                <form (ngSubmit)="onProblemSubmit()" #problemForm="ngForm" *ngIf="!problem">
+                  <mat-form-field class="full-width">
+                      <textarea
+                      name="problem"
+                      id="problem"
+                      rows="5"
+                      placeholder="Enter your problem"
+                      matInput
+                      required
+                      [autofocus]
+                      ngModel></textarea>
+                  </mat-form-field>
+                  <p class="text-right"><button type="submit" mat-raised-button color="primary" class="continue-btn">Continue</button></p>
+                </form>
               </div>
             </div>
           </ng-container>
@@ -26,9 +40,30 @@
             <div class="card-header">
               POSSIBLE SOLUTIONS
             </div>
-            <ul class="list-group">
-              <li class="list-group-item" *ngFor="let solution of solutions">{{solution.solution}}</li>
+            <ul class="list-group" *ngIf="solutions && solutions.length > 0">
+              <li class="list-group-item" *ngFor="let solution of solutions">
+                {{solution.solution}}
+                <span class="pull-right" (click)="onSolutionRemove(solution)">
+                  <mat-icon>remove_circle</mat-icon>
+                </span>
+              </li>
             </ul>
+            <div class="card-body">
+                <form (ngSubmit)="onSolutionSubmit()" #solutionForm="ngForm">
+                  <mat-form-field class="full-width">
+                      <textarea
+                      name="solution"
+                      id="solution"
+                      rows="1"
+                      placeholder="Enter your solution"
+                      matInput
+                      required
+                      [autofocus]
+                      ngModel></textarea>
+                  </mat-form-field>
+                  <p class="text-right"><button type="submit" mat-raised-button color="primary" class="continue-btn">Continue</button></p>
+                </form>
+            </div>
           </div>
         </div>
       </div>
@@ -77,7 +112,7 @@
               IMPLEMENT THE SOLUTION
             </div>
             <div class="card-body">
-              <h4>{{bestSolution.solution}}</h4>
+              <p><strong>{{bestSolution.solution}}</strong></p>
             </div>
           </div>
           <div class="card" *ngIf="!bestSolution">

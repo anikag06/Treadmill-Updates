@@ -20,6 +20,7 @@
 
 .sidenav {
   max-width: 205px;
+  width: 205px;
   background-color: #f5bb56;
   border: none;
   box-shadow: 0.1px 0px 28px 0px #999999;
@@ -110,6 +111,6 @@ button:focus {
     padding-bottom: 10px;
   }
   .mat-list-base .mat-list-item, .mat-list-base .mat-list-option {
-    height: 35px;
+    height: 40px;
   }
 }

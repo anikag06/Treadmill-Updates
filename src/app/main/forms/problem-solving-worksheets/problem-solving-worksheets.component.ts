@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProblemSolvingWorksheetsService } from './problem-solving-worksheets.service';
 import { Observable } from 'rxjs';
 import { Problem } from './problem.model';
 import { Solution } from './solution.model';
 import { ProsCons } from './pros-cons.model';
+import { NgForm } from '@angular/forms';
+import { AuthService } from '@/shared/auth/auth.service';
+import { User } from '@/shared/user.model';
 
 @Component({
   selector: 'app-problem-solving-worksheets',
@@ -12,27 +15,40 @@ import { ProsCons } from './pros-cons.model';
 })
 export class ProblemSolvingWorksheetsComponent implements OnInit {
 
+  user!: User;
   problems$!: Observable<Problem[]>;
   problem!: Problem;
-  solutions!: Solution[];
+  solutions: Solution[] = [];
   bestSolution!: Solution | undefined;
+  @ViewChild('problemForm') problemForm!: NgForm;
+  @ViewChild('solutionForm') solutionForm!: NgForm;
 
   constructor(
-    private problemService: ProblemSolvingWorksheetsService
+    private problemService: ProblemSolvingWorksheetsService,
+    private authService: AuthService,
   ) { }
 
   ngOnInit() {
     this.problems$ = this.problemService.getProblems();
+    const user = this.authService.isLoggedIn();
+    if (user && user.is_active) {
+      this.user = <User>user;
+    }
   }
 
   problemClicked(problem: Problem) {
     this.problem = problem;
     //How to fix this;
+    this.fetchSolutions();
+  }
+
+  fetchSolutions() {
     this.problemService.getSolutions(this.problem.id)
       .subscribe(
         (solutions: Solution[]) => {
           this.solutions = solutions;
           this.getProsCons();
+          this.selectBestSolution();
         }
       );
   }
@@ -47,7 +63,9 @@ export class ProblemSolvingWorksheetsComponent implements OnInit {
   }
 
   onAddNewForm() {
-    alert('Yet to be implemented');
+    this.solutions = [];
+    delete this.bestSolution;
+    delete this.problem;
   }
 
   onCheckBoxChange(solution: Solution, event: Event) {
@@ -59,8 +77,48 @@ export class ProblemSolvingWorksheetsComponent implements OnInit {
       }
     });
   }
-  
+
   selectBestSolution() {
     this.bestSolution = this.solutions.find(solution => solution.best_solution);
+  }
+
+  onProblemSubmit() {
+    const problem = new Problem(Math.ceil(Math.random() * 100), this.problemForm.value['problem'], this.user.user_id );
+    this.problem = problem;
+    this.problemService.postProblem(this.problem)
+      .subscribe(       //TODO
+        () => {
+          this.problemForm.reset();
+        },
+        () => {}
+      );
+  }
+
+  onSolutionSubmit() {
+    const solution = new Solution(
+      Math.ceil(Math.random() * 100),
+      this.problem.id,
+      this.solutionForm.value['solution'],
+      false,
+      this.solutions.length + 1);
+      this.problemService.postSolution(solution)
+        .subscribe(       //TODO
+          () => {
+            this.solutionForm.reset();
+            this.fetchSolutions();
+          },
+          () => {}
+        );
+  }
+
+  onSolutionRemove(solution: Solution) {
+    if (confirm('Are you sure to delete the solution?')) {
+      this.solutions = this.solutions.filter(sol => solution.id !== sol.id);
+      this.problemService.removeSolution(solution)
+        .subscribe(
+          () => {},
+          () => {},
+        );
+    }
   }
 }
