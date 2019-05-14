@@ -47,6 +47,8 @@ import { CommentService } from './support-groups/post-list/post-item/comment/com
 import { NetstedCommentService } from './support-groups/post-list/post-item/nested-comment/netsted-comment.service';
 import { TagService } from './shared/tag.service';
 import { AutofocusDirective } from './shared/autofocus.directive';
+import { FormsComponent } from './forms/forms.component';
+import { ProblemSolvingWorksheetsComponent } from './forms/problem-solving-worksheets/problem-solving-worksheets.component';
 
 @NgModule({
   declarations: [
@@ -79,6 +81,8 @@ import { AutofocusDirective } from './shared/autofocus.directive';
     ScrollingDirective,
     NavbarComponent,
     AutofocusDirective,
+    FormsComponent,
+    ProblemSolvingWorksheetsComponent,
   ],
   imports: [
     CommonModule,

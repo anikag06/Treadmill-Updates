@@ -36,7 +36,8 @@ describe('NestedCommentComponent', () => {
     fixture = TestBed.createComponent(NestedCommentComponent);
     component = fixture.componentInstance;
     component.user = new User(1, 'test', 'test@test.com', '', false, false);
-    component.userNestedComment = new UserNestedComment(1, 'nested component', 1, { username: 'teste', avatar: 'ets'}, 1);
+    component.userNestedComment =
+      new UserNestedComment(1, 'nested component', 1, { username: 'teste', avatar: 'ets'}, 1, new Date().toISOString());
     fixture.detectChanges();
   });
 

@@ -1,0 +1,29 @@
+.card {
+    margin: 0 auto;
+    .card-header {
+        background-color: #d4f0eb;
+        font-weight: 700;
+    }
+    button {
+        width: 100%;
+    }
+    label {
+        padding: 10px;
+        margin-bottom: 0px;
+        border-bottom: 1px solid #dfdfdf;
+        &:last-child {
+            border-bottom: 1px solid transparent;
+        }
+    }
+    .continue-btn {
+        width: 100px;
+    }
+}
+
+.card.card-240 {
+    max-width: 240px;
+}
+
+.card.card-full-width {
+    width: 100%;
+}
