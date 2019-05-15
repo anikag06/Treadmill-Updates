@@ -36,3 +36,9 @@
 .card.card-full-width {
   width: 100%;
 }
+
+@media screen and (max-width: 992px) {
+  .card.card-240 {
+    max-width: 100%;
+  }
+}

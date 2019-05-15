@@ -5,7 +5,25 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-9">
+    <div class="col-12 col-lg-3 order-lg-last mb-3">
+      <div class="card card-240">
+        <div class="card-header text-center">
+          SAVED FORMS
+        </div>
+        <ul class="list-group">
+          <li class="list-group-item">
+            <button mat-raised-button color="primary" (click)="onAddNewForm()">
+              <mat-icon>add</mat-icon>
+              Add new form
+            </button>
+          </li>
+          <li class="list-group-item" *ngFor="let problem of problems$ | async" (click)="problemClicked(problem)">
+            {{problem.problem}}
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-12 col-lg-9">
       <div class="row mb-2">
         <div class="col-12">
           <ng-container>
@@ -14,20 +32,12 @@
                 PROBLEM STATEMENT
               </div>
               <div class="card-body problem-statement">
-                <p *ngIf="problem">{{problem.problem}}</p>
+                <p *ngIf="problem" contenteditable="true">{{problem.problem}}</p>
                 <form (ngSubmit)="onProblemSubmit()" #problemForm="ngForm" *ngIf="!problem">
-                  <mat-form-field class="full-width">
-                      <textarea
-                      name="problem"
-                      id="problem"
-                      rows="5"
-                      placeholder="Enter your problem"
-                      matInput
-                      required
-                      [autofocus]
-                      ngModel></textarea>
-                  </mat-form-field>
-                  <p class="text-right"><button type="submit" mat-raised-button color="primary" class="continue-btn">Continue</button></p>
+                  <textarea name="problem" id="problem" rows="5" placeholder="Enter your problem"
+                    class="form-control mb-2" required [autofocus] ngModel></textarea>
+                  <p class="text-right"><button type="submit" mat-raised-button color="primary"
+                      class="continue-btn">Continue</button></p>
                 </form>
               </div>
             </div>
@@ -41,7 +51,7 @@
               POSSIBLE SOLUTIONS
             </div>
             <ul class="list-group" *ngIf="solutions && solutions.length > 0">
-              <li class="list-group-item" *ngFor="let solution of solutions">
+              <li class="list-group-item" *ngFor="let solution of solutions" contenteditable="true">
                 {{solution.solution}}
                 <span class="pull-right" (click)="onSolutionRemove(solution)">
                   <mat-icon>remove_circle</mat-icon>
@@ -49,20 +59,20 @@
               </li>
             </ul>
             <div class="card-body">
+              <div *ngIf="solutions && solutions.length === 0 || showSolutionsForm">
                 <form (ngSubmit)="onSolutionSubmit()" #solutionForm="ngForm">
-                  <mat-form-field class="full-width">
-                      <textarea
-                      name="solution"
-                      id="solution"
-                      rows="1"
-                      placeholder="Enter your solution"
-                      matInput
-                      required
-                      [autofocus]
-                      ngModel></textarea>
-                  </mat-form-field>
-                  <p class="text-right"><button type="submit" mat-raised-button color="primary" class="continue-btn">Continue</button></p>
+                  <textarea name="solution" id="solution" rows="2" placeholder="Enter your solution"
+                    class="form-control" required [autofocus] ngModel></textarea>
+                  <p class="text-right"><button type="submit" mat-raised-button color="primary"
+                      class="continue-btn">Continue</button></p>
                 </form>
+              </div>
+              <div *ngIf="solutions">
+                <span class="pull-right" (click)="showSolutionsForm=!showSolutionsForm">
+                  <mat-icon *ngIf="!showForm">add_circle</mat-icon>
+                  <mat-icon *ngIf="showForm">clear_circle</mat-icon>
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -86,18 +96,12 @@
                 </div>
                 <div class="row">
                   <div class="col">
-                    <ng-container *ngFor="let procon of solution.prosCons">
-                      <p *ngIf="procon.is_pros">
-                        {{procon.body}}
-                      </p>
-                    </ng-container>
+                    <app-pros-cons [prosCons]="solution.pros" [pro]="true" [solution]="solution">
+                    </app-pros-cons>
                   </div>
                   <div class="col">
-                    <ng-container *ngFor="let procon of solution.prosCons">
-                      <p *ngIf="!procon.is_pros">
-                        {{procon.body}}
-                      </p>
-                    </ng-container>
+                    <app-pros-cons [prosCons]="solution.cons" [pro]="false" [solution]="solution">
+                    </app-pros-cons>
                   </div>
                 </div>
               </div>
@@ -105,14 +109,14 @@
           </div>
         </div>
       </div>
-      <div class="row mb-2" *ngIf="solutions">
+      <div class="row mb-2" *ngIf="solutions && solutions.length > 0">
         <div class="col">
           <div class="card" *ngIf="bestSolution">
             <div class="card-header">
               IMPLEMENT THE SOLUTION
             </div>
             <div class="card-body">
-              <p><strong>{{bestSolution.solution}}</strong></p>
+              <app-actions (nextStepEmitter)="onNextStep()"></app-actions>
             </div>
           </div>
           <div class="card" *ngIf="!bestSolution">
@@ -120,49 +124,32 @@
               SELECT THE BEST SOLUTION
             </div>
             <div class="card-body">
-                <div class="list-group">
-                    <label [for]="solution.id" *ngFor="let solution of solutions">
-                        <input type="radio" [name]="solution.id" [checked]="solution.best_solution"
-                          (change)="onCheckBoxChange(solution, $event)" [id]="solution.id">
-                          {{solution.solution}}
-                      </label>
-                </div>
-                <div class="text-right">
-                    <button mat-raised-button color="primary" class="continue-btn" (click)="selectBestSolution()">Continue</button>
-                </div>
+              <div class="list-group">
+                <label [for]="solution.id" *ngFor="let solution of solutions">
+                  <input type="radio" [name]="solution.id" [checked]="solution.best_solution"
+                    (change)="onCheckBoxChange(solution, $event)" [id]="solution.id">
+                  {{solution.solution}}
+                </label>
+              </div>
+              <div class="text-right">
+                <button mat-raised-button color="primary" class="continue-btn"
+                  (click)="selectBestSolution()">Continue</button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="row mb-2" *ngIf="solutions && bestSolution">
+      <div class="row mb-2" *ngIf="solutions && bestSolution && showResult">
         <div class="col">
           <div class="card">
             <div class="card-header">
               WHAT WAS THE RESULT OF IMPLEMENTATION?
             </div>
             <div class="card-body">
-
+              <p contenteditable="true" [autofocus]></p>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="col-3">
-      <div class="card card-240">
-        <div class="card-header text-center">
-          SAVED FORMS
-        </div>
-        <ul class="list-group">
-          <li class="list-group-item">
-            <button mat-raised-button color="primary" (click)="onAddNewForm()">
-              <mat-icon>add</mat-icon>
-              Add new form
-            </button>
-          </li>
-          <li class="list-group-item" *ngFor="let problem of problems$ | async" (click)="problemClicked(problem)">
-            {{problem.problem}}
-          </li>
-        </ul>
       </div>
     </div>
   </div>

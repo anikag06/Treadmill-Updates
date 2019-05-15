@@ -20,6 +20,8 @@ export class ProblemSolvingWorksheetsComponent implements OnInit {
   problem!: Problem;
   solutions: Solution[] = [];
   bestSolution!: Solution | undefined;
+  showResult = false;
+  showSolutionsForm = false;
   @ViewChild('problemForm') problemForm!: NgForm;
   @ViewChild('solutionForm') solutionForm!: NgForm;
 
@@ -38,7 +40,6 @@ export class ProblemSolvingWorksheetsComponent implements OnInit {
 
   problemClicked(problem: Problem) {
     this.problem = problem;
-    //How to fix this;
     this.fetchSolutions();
   }
 
@@ -57,7 +58,10 @@ export class ProblemSolvingWorksheetsComponent implements OnInit {
     this.solutions.forEach(sol => {
       this.problemService.getProsCons(sol.id)
         .subscribe(
-          (proscons: ProsCons[]) => sol.prosCons = proscons
+          (proscons: ProsCons[]) => {
+            sol.pros = proscons.filter(pc => pc.is_pros);
+            sol.cons = proscons.filter(pc => !pc.is_pros);
+          }
         );
     });
   }
@@ -104,6 +108,7 @@ export class ProblemSolvingWorksheetsComponent implements OnInit {
       this.problemService.postSolution(solution)
         .subscribe(       //TODO
           () => {
+            this.showSolutionsForm = false;
             this.solutionForm.reset();
             this.fetchSolutions();
           },
@@ -120,5 +125,10 @@ export class ProblemSolvingWorksheetsComponent implements OnInit {
           () => {},
         );
     }
+  }
+
+  onNextStep() {
+    this.showResult = true;
+    console.log(this.showResult)
   }
 }

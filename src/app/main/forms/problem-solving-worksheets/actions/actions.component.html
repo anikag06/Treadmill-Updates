@@ -1,0 +1,57 @@
+<div class="card">
+  <div class="card-header">
+    What action will take to go about the solution
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col col-lg-6">
+        <form [formGroup]="actionsGroup">
+          <div>
+            <input type="text" formControlName="task" class="form-control" required
+              placeholder="Write a task you will cary out">
+          </div>
+          <div class="subtasks" formArrayName="subTasks" *ngFor="let subtask of getSubTasksForm(); let i = index;">
+            <div [formGroupName]="i">
+              <input type="text" formControlName="item" class="form-control" required>
+            </div>
+          </div>
+        </form>
+        <div>
+          <span class="pull-right" (click)="addField()">
+            <mat-icon>add_circle</mat-icon>
+          </span>
+        </div>
+      </div>
+      <div class="col col-lg-6">
+        <strong>When do you want to do the task</strong>
+        <form class="form">
+          <div class="row mb-3">
+            <div class="col">
+              <input type="date" class="form-control" name="date" placeholder="DD/MM/YYYY">
+            </div>
+
+            <div class="col">
+              <input type="time" class="form-control" name="time" placeholder="HH:MM">
+            </div>
+
+            <div class="col">
+              <label for="repeat">
+                <input type="checkbox" name="repeat"> &nbsp;Repeat
+              </label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <label for=remind>
+                <input type="checkbox" name="remind"> &nbsp;<b>Remind</b>
+              </label>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="text-right">
+      <button mat-raised-button color="primary" (click)="nextStep()">Continue</button>
+    </div>
+  </div>
+</div>

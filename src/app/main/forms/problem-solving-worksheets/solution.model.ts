@@ -2,7 +2,8 @@ import { ProsCons } from './pros-cons.model';
 
 export class Solution {
 
-    public prosCons: ProsCons[];
+    public pros: ProsCons[];
+    public cons: ProsCons[];
     constructor(
         public id: number,
         public problem_id: number,
@@ -10,6 +11,7 @@ export class Solution {
         public best_solution: boolean,
         public rank: number,
     ) {
-        this.prosCons = [];
+        this.pros = [];
+        this.cons = [];
     }
 }

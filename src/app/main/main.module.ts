@@ -49,6 +49,8 @@ import { TagService } from './shared/tag.service';
 import { AutofocusDirective } from './shared/autofocus.directive';
 import { FormsComponent } from './forms/forms.component';
 import { ProblemSolvingWorksheetsComponent } from './forms/problem-solving-worksheets/problem-solving-worksheets.component';
+import { ProsConsComponent } from './forms/problem-solving-worksheets/pros-cons/pros-cons.component';
+import { ActionsComponent } from './forms/problem-solving-worksheets/actions/actions.component';
 
 @NgModule({
   declarations: [
@@ -83,6 +85,8 @@ import { ProblemSolvingWorksheetsComponent } from './forms/problem-solving-works
     AutofocusDirective,
     FormsComponent,
     ProblemSolvingWorksheetsComponent,
+    ProsConsComponent,
+    ActionsComponent,
   ],
   imports: [
     CommonModule,
