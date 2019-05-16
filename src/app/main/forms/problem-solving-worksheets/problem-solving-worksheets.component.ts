@@ -19,6 +19,8 @@ export class ProblemSolvingWorksheetsComponent implements OnInit {
   problems$!: Observable<Problem[]>;
   problem!: Problem;
   solutions: Solution[] = [];
+  solutionsSaved = false;
+  prosconsSaved = false;
   bestSolution!: Solution | undefined;
   showResult = false;
   showSolutionsForm = false;
@@ -138,5 +140,17 @@ export class ProblemSolvingWorksheetsComponent implements OnInit {
       solu.cons.push(procon);
     }
     this.problemService.updateSolution(solu);
+  }
+
+  onSolutionSaved() {
+    this.solutionsSaved = true;
+  }
+
+  onProsConsSaved() {
+    this.prosconsSaved = true;
+  }
+
+  deleteBestSolution() {
+    delete this.bestSolution;
   }
 }

@@ -57,21 +57,27 @@
                   <textarea name="solution" id="solution" rows="5" placeholder="Enter your solution"
                     class="form-control" required [autofocus] ngModel></textarea>
                   <p class="text-right">
-                    <button type="submit" mat-raised-button color="primary" class="continue-btn">Continue</button></p>
+                    <button type="submit" mat-raised-button color="primary" class="continue-btn mt-2">Save</button>
+                  </p>
                 </form>
               </div>
-              <div *ngIf="solutions">
-                <span class="pull-right" (click)="showSolutionsForm=!showSolutionsForm">
+              <div *ngIf="solutions" class="text-right">
+                <span (click)="showSolutionsForm=!showSolutionsForm">
                   <mat-icon *ngIf="!showForm">add_circle</mat-icon>
                   <mat-icon *ngIf="showForm">clear_circle</mat-icon>
+                  <br>
                 </span>
+              </div>
+              <div class="text-right mt-2 mb-2" *ngIf="solutions.length > 0 && !solutionsSaved">
+                <button type="button" mat-raised-button color="primary" class="continue-btn"
+                  (click)="onSolutionSaved()">Continue</button>
               </div>
             </div>
           </div>
         </div>
       </div>
       <div class="row mb-2">
-        <div class="col-12" *ngIf="problem && solutions.length > 0">
+        <div class="col-12" *ngIf="problem && solutions.length > 0 && solutionsSaved">
           <div class="card">
             <div class="card-header">
               PROS AND CONS OF SOLUTIONS
@@ -93,17 +99,35 @@
                 </div>
               </div>
             </div>
+            <div class="text-right m-2" *ngIf="solutions.length > 0 && !prosconsSaved">
+              <button type="button" mat-raised-button color="primary" class="continue-btn"
+                (click)="onProsConsSaved()">Continue</button>
+            </div>
           </div>
         </div>
       </div>
-      <div class="row mb-2" *ngIf="solutions && solutions.length > 0">
+      <div class="row mb-2" *ngIf="solutions && solutions.length > 0 && prosconsSaved">
         <div class="col">
           <div class="card" *ngIf="bestSolution">
             <div class="card-header">
               IMPLEMENT THE SOLUTION
             </div>
             <div class="card-body">
-              <p><b>{{bestSolution.solution}}</b></p>
+              <div>
+                <div class="row">
+                  <div class="col-6">
+                    {{bestSolution.solution}}
+                  </div>
+                  <div class="col-6">
+                    <div class="text-right m-2" *ngIf="solutions.length > 0 && bestSolution">
+                      <button type="button" mat-raised-button color="primary" class="continue-btn"
+                        (click)="deleteBestSolution()">
+                        Change
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <app-actions (nextStepEmitter)="onNextStep()"></app-actions>
             </div>
           </div>
@@ -135,7 +159,8 @@
             </div>
             <div class="card-body">
               <mat-form-field class="full-width">
-                <textarea matInput name="result" rows="5" placeholder="Write down the result of the implementation ?"></textarea>
+                <textarea matInput name="result" rows="5"
+                  placeholder="Write down the result of the implementation ?"></textarea>
               </mat-form-field>
             </div>
           </div>
