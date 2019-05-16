@@ -6,7 +6,7 @@ export class Solution {
     public cons: ProsCons[];
     constructor(
         public id: number,
-        public problem_id: number,
+        public problem: number,
         public solution: string,
         public best_solution: boolean,
         public rank: number,

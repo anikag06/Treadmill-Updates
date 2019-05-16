@@ -8,6 +8,7 @@ import { FormBuilder, FormArray } from '@angular/forms';
 })
 export class ActionsComponent implements OnInit {
 
+  hideNextStep = false;
   @Output() nextStepEmitter = new EventEmitter<null>();
 
   actionsGroup = this.fb.group({
@@ -36,7 +37,7 @@ export class ActionsComponent implements OnInit {
   }
 
   nextStep() {
-    console.log(1)
     this.nextStepEmitter.emit(null);
+    this.hideNextStep = true;
   }
 }

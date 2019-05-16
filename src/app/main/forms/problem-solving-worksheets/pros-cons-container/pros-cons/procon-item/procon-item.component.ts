@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ProsCons } from '../../pros-cons.model';
+import { ProsCons } from '../../../pros-cons.model';
+import {ProblemSolvingWorksheetsService} from '@/main/forms/problem-solving-worksheets/problem-solving-worksheets.service';
+import {GeneralErrorService} from '@/main/shared/general-error.service';
 
 @Component({
   selector: 'app-procon-item',
@@ -12,7 +14,10 @@ export class ProconItemComponent implements OnInit {
   @Output() proconDelete = new EventEmitter<ProsCons>();
   hideRemove = true;
 
-  constructor() { }
+  constructor(
+    private problemService: ProblemSolvingWorksheetsService,
+    private errorService: GeneralErrorService
+  ) { }
 
   ngOnInit() {
   }
@@ -31,6 +36,11 @@ export class ProconItemComponent implements OnInit {
     if (event.relatedTarget === null || (<Element>event.relatedTarget).nextSibling !== <Element>event.target) {
       this.procon.body = (<Element>event.target).innerHTML;
       this.hideRemove = true;
+      this.problemService.putProsCons(this.procon.id, this.procon.body)
+        .subscribe(
+          (data: any) => {},
+          this.errorService.errorResponse('Cannot update that')
+        );
     }
   }
 

@@ -1,86 +1,163 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { of, Observable, BehaviorSubject } from 'rxjs';
-import { Solution } from './solution.model';
+import { HttpClient, HttpParams, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { of, BehaviorSubject } from 'rxjs';
 import { ProsCons } from './pros-cons.model';
+import { environment } from 'environments/environment';
+import { Problem } from './problem.model';
+import { map } from 'rxjs/operators';
+import { SanitizationService } from '@/main/support-groups/sanitization.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProblemSolvingWorksheetsService {
 
-  private solutions = [
-    <Solution>{id: 1, problem_id: 1, solution: 'Ask seniors for help', best_solution: true, rank: 1},
-    <Solution>{id: 2, problem_id: 1, solution: 'Ask professor for help', best_solution: false, rank: 2},
-    <Solution>{id: 3, problem_id: 2, solution: 'Call Neighbours', best_solution: false, rank: 1},
-    <Solution>{id: 4, problem_id: 2, solution: 'Call police', best_solution: false, rank: 2},
-  ];
-
-  private problems = [
-    {id: 1, problem: 'Not able to find internship', user_id: 1},
-    {id: 2, problem: 'Not able to connect to family', user_id: 1}
-  ];
-
+  private problems: Problem[] = [];
+  moreProblems = true;
+  problemBehaviour = new BehaviorSubject({});
   problemsBehaviour = new BehaviorSubject(this.problems);
 
 
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private sanitizer: SanitizationService,
   ) { }
 
-  getProblems() {
-    return this.problemsBehaviour.asObservable();
+  getProblems(page: number) {
+    const params = new HttpParams().set('page', page.toString());
+    return this.http.get<Problem[]>(environment.API_ENDPOINT + '/api/v1/worksheets/problem-solving/problems/', { params: params })
+      .subscribe(
+        (data: any) => {
+          const problems = <Problem[]>data.results;
+          if (data.next) {
+            this.moreProblems = true;
+          } else {
+            this.moreProblems = false;
+          }
+          this.problems.push(...problems);
+          this.problemsBehaviour.next(this.problems);
+        },
+        (error: HttpErrorResponse) => {
+          console.error(error);
+        }
+      );
   }
 
-  postProblem(data: any) {
-    this.problemsBehaviour.next([...this.problems, data]);
-    return of({success: '200'});
+  postProblem(problem: string) {
+    return this
+      .http
+      .post(environment.API_ENDPOINT +
+        '/api/v1/worksheets/problem-solving/problems/',
+        { problem: problem })
+      .pipe(
+        map((data: any) => {
+          this.problems.push(<Problem>data.data);
+          this.problemBehaviour.next(<Problem>data.data);
+          return data.data;
+        })
+      );
   }
 
-  removeSolution(data: any) {
-    this.solutions = this.solutions.filter(solution => solution.id !== data.id);
-    return of({success: '200'});
+  putProblem(problem: Problem) {
+    return this.http
+      .put(environment.API_ENDPOINT +
+        '/api/v1/worksheets/problem-solving/problems/' +
+        problem.id + '/', { problem: problem.problem, id: problem.id })
+      .pipe(
+        map((data: any) => {
+          this.problems = this.problems.map((prob) => {
+            if (problem.id === prob.id) {
+              return data.data;
+            } else {
+              return prob;
+            }
+          });
+          this.problemsBehaviour.next(this.problems);
+          this.problemBehaviour.next(<Problem>data.data);
+          return data.data;
+        })
+      );
   }
 
-  updateSolution(data: any) {
-    const solution  = this.solutions.find(sol => sol.id === data.id);
-    if (solution) {
-      const index = this.solutions.indexOf(solution);
-      if (index !== -1) {
-        this.solutions[index] = data;
-      }
+  deleteSolution(solutionId: number) {
+    return this.http.delete(environment.API_ENDPOINT + '/api/v1/worksheets/problem-solving/solutions/?solution_id=' + solutionId);
+  }
+
+  putSolution(solutionId: number, solution: string, bestSolution: boolean = false) {
+    console.log('sol ', solution)
+    solution = this.sanitizer.stripTags(solution);
+    let params = new HttpParams()
+      .set('solution_id', solutionId.toString())
+      .set('solution', solution);
+    if (bestSolution) {
+      params = params.set('best_solution', 'true');
     }
-    console.log(this.solutions)
+    return this.http
+      .put(environment.API_ENDPOINT +
+        '/api/v1/worksheets/problem-solving/solutions/',
+        params,
+        {
+          headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+        });
   }
 
-  getSolutions(problem_id: number) {
-    return of(
-      this.solutions.filter(solution => solution.problem_id === problem_id)
-    );
+  getSolutions(problem: number) {
+    const params = new HttpParams().set('problem_id', problem.toString());
+    return this.http.get<Problem[]>(environment.API_ENDPOINT + '/api/v1/worksheets/problem-solving/solutions/', { params: params });
   }
 
-  postSolution(data: any) {
-    this.solutions = [...this.solutions, data];
-    return of({success: '200'});
+  // Some Issues with the backend we need to send a form
+  postSolution(solution: string, problemId: number) {
+    const params = new HttpParams()
+      .set('problem_id', problemId.toString())
+      .set('solution', solution);
+      return this.http
+      .post(environment.API_ENDPOINT +
+        '/api/v1/worksheets/problem-solving/solutions/',
+        params,
+        {
+          headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+        });
   }
 
   getProsCons(solution_id: number) {
-    const prosCons = [
-      <ProsCons>{id: 1, solution_id: 1, body: 'Seniors will be happy to help', is_pros: true},
-      <ProsCons>{id: 2, solution_id: 1, body: 'You are asking a favour', is_pros: false},
-      <ProsCons>{id: 3, solution_id: 2, body: 'Professor will definately help', is_pros: true},
-      <ProsCons>{id: 4, solution_id: 2, body: 'Work may be not as exciting', is_pros: false},
-      <ProsCons>{id: 5, solution_id: 3, body: 'Neighbours can check your house', is_pros: true},
-      <ProsCons>{id: 6, solution_id: 3, body: 'They may get disturbed', is_pros: false},
-      <ProsCons>{id: 7, solution_id: 4, body: 'Police is the best help any one can get', is_pros: true},
-      <ProsCons>{id: 8, solution_id: 4, body: 'It will be a big mess', is_pros: false},
-      <ProsCons>{id: 1, solution_id: 1, body: 'Seniors will be happy to help', is_pros: true},
-      <ProsCons>{id: 2, solution_id: 1, body: 'You are asking a favour', is_pros: true},
-    ];
+    const params = new HttpParams().set('solution_id', solution_id.toString());
+    return this.http.get(environment.API_ENDPOINT + '/api/v1/worksheets/problem-solving/pros-cons/', { params: params});
+  }
 
-    return of(
-      prosCons.filter(procon => procon.solution_id === solution_id)
-    );
+  postProsCons(proCon: ProsCons, solutionId: number) {
+    let params = new HttpParams()
+      .set('solution_id', solutionId.toString());
+      if (proCon.is_pros) {
+        params = params.set('pros', proCon.body);
+      } else {
+        params = params.set('cons', proCon.body);
+      }
+    return this.http
+      .post(environment.API_ENDPOINT +
+        '/api/v1/worksheets/problem-solving/pros-cons/',
+        params,
+        {
+          headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+        });
+  }
+
+  deleteProsCons(proConId: number) {
+    return this.http.delete(environment.API_ENDPOINT + '/api/v1/worksheets/problem-solving/pros-cons/?pros_cons_id=' + proConId);
+  }
+
+  putProsCons(proconId: number, body: string) {
+    body = this.sanitizer.stripTags(body);
+    const params = new HttpParams()
+      .set('pros_cons_id', proconId.toString())
+      .set('body', body);
+    return this.http
+      .put(environment.API_ENDPOINT +
+        '/api/v1/worksheets/problem-solving/pros-cons/',
+        params,
+        {
+          headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+        });
   }
 }

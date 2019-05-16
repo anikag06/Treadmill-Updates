@@ -49,10 +49,16 @@ import { TagService } from './shared/tag.service';
 import { AutofocusDirective } from './shared/autofocus.directive';
 import { FormsComponent } from './forms/forms.component';
 import { ProblemSolvingWorksheetsComponent } from './forms/problem-solving-worksheets/problem-solving-worksheets.component';
-import { ProsConsComponent } from './forms/problem-solving-worksheets/pros-cons/pros-cons.component';
+import { ProsConsComponent } from './forms/problem-solving-worksheets/pros-cons-container/pros-cons/pros-cons.component';
 import { ActionsComponent } from './forms/problem-solving-worksheets/actions/actions.component';
-import { ProconItemComponent } from './forms/problem-solving-worksheets/pros-cons/procon-item/procon-item.component';
+import { ProconItemComponent } from './forms/problem-solving-worksheets/pros-cons-container/pros-cons/procon-item/procon-item.component';
 import { SolutionsComponent } from './forms/problem-solving-worksheets/solutions/solutions.component';
+import { ProblemSolvingWorksheetsService } from './forms/problem-solving-worksheets/problem-solving-worksheets.service';
+import { FormListComponent } from './forms/problem-solving-worksheets/form-list/form-list.component';
+import { ProblemFormComponent } from './forms/problem-solving-worksheets/problem-form/problem-form.component';
+import { ContainerRefDirective } from './forms/problem-solving-worksheets/container-ref.directive';
+import { ProsConsContainerComponent } from './forms/problem-solving-worksheets/pros-cons-container/pros-cons-container.component';
+
 
 @NgModule({
   declarations: [
@@ -91,6 +97,10 @@ import { SolutionsComponent } from './forms/problem-solving-worksheets/solutions
     ActionsComponent,
     ProconItemComponent,
     SolutionsComponent,
+    FormListComponent,
+    ProblemFormComponent,
+    ContainerRefDirective,
+    ProsConsContainerComponent,
   ],
   imports: [
     CommonModule,
@@ -118,9 +128,10 @@ import { SolutionsComponent } from './forms/problem-solving-worksheets/solutions
     GeneralErrorService,
     CommentService,
     NetstedCommentService,
+    ProblemSolvingWorksheetsService,
     TagService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  entryComponents: [CreatePostComponent]
+  entryComponents: [CreatePostComponent, ProblemFormComponent]
 })
 export class MainModule { }

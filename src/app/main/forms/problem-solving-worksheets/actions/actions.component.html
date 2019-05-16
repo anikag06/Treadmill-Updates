@@ -57,7 +57,7 @@
         </form>
       </div>
     </div>
-    <div class="text-right">
+    <div class="text-right" *ngIf="!hideNextStep">
       <button mat-raised-button color="primary" (click)="nextStep()">Continue</button>
     </div>
   </div>

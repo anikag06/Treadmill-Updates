@@ -1,4 +1,17 @@
-import { Component, OnInit, Input, AfterContentInit, ViewChild, OnDestroy, Output, EventEmitter, DoCheck, ElementRef, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  AfterContentInit,
+  ViewChild,
+  OnDestroy,
+  Output,
+  EventEmitter,
+  DoCheck,
+  ElementRef,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef
+} from '@angular/core';
 import { UserComment } from './user-comment.model';
 import { UserNestedComment } from '../nested-comment/nested-comment.model';
 import { NetstedCommentService } from '../nested-comment/netsted-comment.service';
@@ -105,7 +118,7 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy, Do
       }
       try {
         this.changeDetector.detectChanges();
-      } catch (ViewDestroyedError) {}
+      } catch (ViewDestroyedError) { }
     });
   }
 
@@ -149,7 +162,7 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy, Do
 
   submitReply() {
     if (this.replyForm.valid) {
-      const data = { comment: this.comment.id, body: this.replyForm.value['body']};
+      const data = { comment: this.comment.id, body: this.replyForm.value['body'] };
       this.ncService.postNestedComments(data)
         .subscribe(
           (resp) => {
@@ -157,7 +170,7 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy, Do
             this.comment.nested_comment_count += 1;
             const postResponse = <PostResponse>resp;
             const persistedNestedcomment = new UserNestedComment(
-                postResponse.data.id, data.body, 0, this.user, -1, new Date().toISOString());
+              postResponse.data.id, data.body, 0, this.user, -1, new Date().toISOString());
             this.nestedComments.push(persistedNestedcomment);
             this.toggleReply = false;
             this.showNestedComment();
@@ -179,19 +192,19 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy, Do
         .subscribe(
           (data) => {
             this.comment.body = updatedCommentBody;
-            this.comment = {...this.comment};
+            this.comment = { ...this.comment };
             this.editMode = false;
             this.commentBody = updatedCommentBody;
             this.changeDetector.detectChanges();
           },
           (error: HttpErrorResponse) => {
             this.errors = [];
-            this.errors.push({ name: 'comment', value: error.message});
+            this.errors.push({ name: 'comment', value: error.message });
           }
         );
     } else {
       this.errors = [];
-      this.errors.push({ name: 'comment', value: 'the comment is missing'});
+      this.errors.push({ name: 'comment', value: 'the comment is missing' });
     }
   }
 
@@ -240,7 +253,7 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy, Do
     }
     this.commentService.voteComment({ comment_id: this.comment.id, vote: 1 })
       .subscribe(
-        () => {},
+        () => { },
         () => {
           this.errorService.openErrorDialog('Cannot Upvote');
           this.comment.is_voted = preVote;
@@ -260,7 +273,7 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy, Do
     }
     this.commentService.voteComment({ comment_id: this.comment.id, vote: 0 })
       .subscribe(
-        () => {},
+        () => { },
         this.errorService.errorResponse('Cannot down vote')
       );
   }

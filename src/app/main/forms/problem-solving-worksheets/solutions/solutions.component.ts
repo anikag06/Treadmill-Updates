@@ -10,6 +10,7 @@ export class SolutionsComponent implements OnInit {
 
   @Input() solutions!: Solution[];
   @Output() solutionDelete = new EventEmitter<Solution>();
+  @Output() solutionEdit = new EventEmitter<Solution>();
   constructor() { }
 
   ngOnInit() {
@@ -19,6 +20,11 @@ export class SolutionsComponent implements OnInit {
     if (confirm('Are you sure to delete this solution')) {
       this.solutionDelete.emit(solution);
     }
+  }
+
+  onFocusOut(event: FocusEvent, solution: Solution) {
+    solution.solution = (<Element>event.target).innerHTML.trim();
+    this.solutionEdit.emit(solution);
   }
 
 }
