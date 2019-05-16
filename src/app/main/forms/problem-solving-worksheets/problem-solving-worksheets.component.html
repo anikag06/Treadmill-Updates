@@ -1,10 +1,10 @@
-<div class="container-fluid">
-  <div class="row">
+<div class="container-fluid no-padding">
+  <div class="row no-gutters">
     <div class="col-12">
       <h1>Resources > Forms > Problem Solving Worksheet</h1>
     </div>
   </div>
-  <div class="row">
+  <div class="row no-gutters">
     <div class="col-12 col-lg-3 order-lg-last mb-3">
       <div class="card card-240">
         <div class="card-header text-center">
@@ -50,21 +50,14 @@
             <div class="card-header">
               POSSIBLE SOLUTIONS
             </div>
-            <ul class="list-group" *ngIf="solutions && solutions.length > 0">
-              <li class="list-group-item" *ngFor="let solution of solutions" contenteditable="true">
-                {{solution.solution}}
-                <span class="pull-right" (click)="onSolutionRemove(solution)">
-                  <mat-icon>remove_circle</mat-icon>
-                </span>
-              </li>
-            </ul>
+            <app-solutions [solutions]="solutions" (solutionDelete)="onSolutionRemove($event)"></app-solutions>
             <div class="card-body">
               <div *ngIf="solutions && solutions.length === 0 || showSolutionsForm">
                 <form (ngSubmit)="onSolutionSubmit()" #solutionForm="ngForm">
-                  <textarea name="solution" id="solution" rows="2" placeholder="Enter your solution"
+                  <textarea name="solution" id="solution" rows="5" placeholder="Enter your solution"
                     class="form-control" required [autofocus] ngModel></textarea>
-                  <p class="text-right"><button type="submit" mat-raised-button color="primary"
-                      class="continue-btn">Continue</button></p>
+                  <p class="text-right">
+                    <button type="submit" mat-raised-button color="primary" class="continue-btn">Continue</button></p>
                 </form>
               </div>
               <div *ngIf="solutions">
@@ -78,7 +71,7 @@
         </div>
       </div>
       <div class="row mb-2">
-        <div class="col-12" *ngIf="problem">
+        <div class="col-12" *ngIf="problem && solutions.length > 0">
           <div class="card">
             <div class="card-header">
               PROS AND CONS OF SOLUTIONS
@@ -87,19 +80,13 @@
               <div *ngFor="let solution of solutions">
                 <p><strong>SOLUTION: {{solution.solution}}</strong></p>
                 <div class="row">
-                  <div class="col-6">
+                  <div class="col-12 col-lg-6">
                     <strong>PROS</strong>
-                  </div>
-                  <div class="col-6">
-                    <strong>CONS</strong>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col">
                     <app-pros-cons [prosCons]="solution.pros" [pro]="true" [solution]="solution">
                     </app-pros-cons>
                   </div>
-                  <div class="col">
+                  <div class="col-12 col-lg-6">
+                    <strong>CONS</strong>
                     <app-pros-cons [prosCons]="solution.cons" [pro]="false" [solution]="solution">
                     </app-pros-cons>
                   </div>
@@ -116,6 +103,7 @@
               IMPLEMENT THE SOLUTION
             </div>
             <div class="card-body">
+              <p><b>{{bestSolution.solution}}</b></p>
               <app-actions (nextStepEmitter)="onNextStep()"></app-actions>
             </div>
           </div>
@@ -146,7 +134,9 @@
               WHAT WAS THE RESULT OF IMPLEMENTATION?
             </div>
             <div class="card-body">
-              <p contenteditable="true" [autofocus]></p>
+              <mat-form-field class="full-width">
+                <textarea matInput name="result" rows="5" placeholder="Write down the result of the implementation ?"></textarea>
+              </mat-form-field>
             </div>
           </div>
         </div>

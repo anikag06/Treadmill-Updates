@@ -4,15 +4,19 @@
   </div>
   <div class="card-body">
     <div class="row">
-      <div class="col col-lg-6">
+      <div class="col-12 col-lg-6">
         <form [formGroup]="actionsGroup">
           <div>
-            <input type="text" formControlName="task" class="form-control" required
+            <mat-checkbox class="full-width">
+              <input type="text" formControlName="task" class="form-control full-width" required
               placeholder="Write a task you will cary out">
+            </mat-checkbox>
           </div>
           <div class="subtasks" formArrayName="subTasks" *ngFor="let subtask of getSubTasksForm(); let i = index;">
             <div [formGroupName]="i">
-              <input type="text" formControlName="item" class="form-control" required>
+              <mat-checkbox class="full-width">
+                <input type="text" formControlName="item" class="form-control" required>
+              </mat-checkbox>
             </div>
           </div>
         </form>
@@ -22,26 +26,29 @@
           </span>
         </div>
       </div>
-      <div class="col col-lg-6">
+      <div class="col-12 col-lg-6">
         <strong>When do you want to do the task</strong>
         <form class="form">
           <div class="row mb-3">
-            <div class="col">
-              <input type="date" class="form-control" name="date" placeholder="DD/MM/YYYY">
+            <div class="col-12 col-md-6">
+              <mat-form-field>
+                <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>              
             </div>
 
-            <div class="col">
+            <div class="col-12 col-md-6">
               <input type="time" class="form-control" name="time" placeholder="HH:MM">
             </div>
 
-            <div class="col">
+            <div class="col-12 col-md-6">
               <label for="repeat">
                 <input type="checkbox" name="repeat"> &nbsp;Repeat
               </label>
             </div>
-          </div>
-          <div class="row">
-            <div class="col">
+
+            <div class="col-12 col-md-6">
               <label for=remind>
                 <input type="checkbox" name="remind"> &nbsp;<b>Remind</b>
               </label>

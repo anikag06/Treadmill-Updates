@@ -1,9 +1,8 @@
-<div *ngFor="let procon of prosCons">
-  <p contenteditable="true" (focusout)="onFocusOut(procon, $event)">{{procon.body}}</p>
-  <span class="pull-right" (click)="removeProCon(procon)">
-    <mat-icon >remove_circle</mat-icon>
-  </span>
-</div>
+<app-procon-item
+  *ngFor="let procon of prosCons"
+  [procon]="procon"
+  (proconDelete)=onProconDelete($event)>
+</app-procon-item>
 <div>
   <span class="pull-right" (click)="showForm=!showForm">
     <mat-icon *ngIf="!showForm">add_circle</mat-icon>
@@ -12,8 +11,8 @@
 </div>
 <div *ngIf="showForm">
   <form (ngSubmit)="onSubmit()" #proconForm="ngForm">
-    <input name="procon" id="procon" rows="1" placeholder="Enter  {{pro ? 'pro' : 'con'}}" matInput required class="form-control"
-        [autofocus] ngModel>
+    <input name="procon" id="procon" rows="1" placeholder="Enter  {{pro ? 'pro' : 'con'}}" matInput required
+      class="form-control" [autofocus] ngModel>
     <p class="text-right">
       <button type="submit" mat-raised-button color="primary" class="continue-btn">Continue</button>
     </p>

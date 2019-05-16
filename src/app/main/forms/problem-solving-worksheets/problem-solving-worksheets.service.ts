@@ -43,6 +43,17 @@ export class ProblemSolvingWorksheetsService {
     return of({success: '200'});
   }
 
+  updateSolution(data: any) {
+    const solution  = this.solutions.find(sol => sol.id === data.id);
+    if (solution) {
+      const index = this.solutions.indexOf(solution);
+      if (index !== -1) {
+        this.solutions[index] = data;
+      }
+    }
+    console.log(this.solutions)
+  }
+
   getSolutions(problem_id: number) {
     return of(
       this.solutions.filter(solution => solution.problem_id === problem_id)

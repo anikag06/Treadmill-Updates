@@ -13,6 +13,8 @@ export class ProsConsComponent implements OnInit {
   @Input() prosCons!: ProsCons[];
   @Input() solution!: Solution;
   @Input() pro = false;
+  @Output() proconAdd = new EventEmitter<ProsCons>();
+  @Output() proconRemove = new EventEmitter<ProsCons>();
   @ViewChild('proconForm') proconForm!: NgForm;
   showForm = false;
   constructor() { }
@@ -24,13 +26,13 @@ export class ProsConsComponent implements OnInit {
     const procon = new ProsCons(this.solution.id, this.proconForm.value['procon'], this.pro);
     this.prosCons.push(procon);
     this.showForm = false;
+    this.proconAdd.emit(procon);
     this.proconForm.reset();
   }
 
-  removeProCon(procon: ProsCons) {
-    if (confirm('Are you sure to remove this?')) {
-      this.prosCons = this.prosCons.filter(pc => pc !== procon);
-    }
+  onProconDelete(procon: ProsCons) {
+    this.prosCons = this.prosCons.filter(pc => pc !== procon);
+    this.proconRemove.emit(procon);
   }
 
   onFocusOut(procon: ProsCons, event: Event) {

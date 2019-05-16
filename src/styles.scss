@@ -107,37 +107,6 @@ $small_logo_height: 40px;
   overflow: auto;
 }
 
-.ng-valid, .ng-untouched, .mat-focused {
-  color: $mat-white;
-
-  .mat-form-field-wrapper{
-    .mat-form-field-underline {
-      background-color: $mat-white;
-      
-      .mat-form-field-ripple {
-        background-color: $mat-white;
-      }
-    }
-
-    .mat-form-field-subscript-wrapper {
-      display: none;
-    }
-    
-    .mat-form-field-flex>
-    .mat-form-field-infix>
-    .mat-form-field-label-wrapper>
-    .mat-form-field-label {
-      color: $mat-white;
-      @include font-lato();
-      font-size: 100%;
-
-      .mat-form-field-required-marker {
-        color: $mat-white;
-      }
-    }
-  }
-}
-
 .anchorify-default {
   @extend .cursor-hand;
   text-decoration: underline !important;

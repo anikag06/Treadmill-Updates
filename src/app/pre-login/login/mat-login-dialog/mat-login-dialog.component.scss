@@ -1,5 +1,44 @@
 @import 'styles.scss';
+@import 'treadwill.theme';
 @import '../../pre-login.component.scss';
+
+.ng-valid, .ng-untouched, .mat-focused, .ng-pristine {
+  color: $mat-white;
+
+  .mat-form-field-wrapper{
+    .mat-form-field-underline {
+      background-color: $mat-white;
+      
+      .mat-form-field-ripple {
+        background-color: $mat-white;
+      }
+    }
+
+    .mat-form-field-subscript-wrapper {
+      display: none;
+    }
+    
+    .mat-form-field-flex>
+    .mat-form-field-infix>
+    .mat-form-field-label-wrapper>
+    .mat-form-field-label {
+      color: $mat-white;
+      @include font-lato();
+      font-size: 100%;
+
+      .mat-form-field-required-marker {
+        color: $mat-white;
+      }
+    }
+  }
+}
+
+.login-form {
+  color: $mat-white !important;
+  a {
+    color: $mat-white !important;
+  }
+}
 
 .anchorify-forgot-username-password {
   @extend .anchorify-with-underline-on-hover;
@@ -16,9 +55,9 @@
   color: $treadwill-pre-login-primary !important;
 }
 
-.login-dialog-text-color {
-  color: $treadwill-pre-login-primary;
-}
+// .login-dialog-text-color {
+//   color: $treadwill-pre-login-primary;
+// }
 
 .input-container {
   .forgot-password {

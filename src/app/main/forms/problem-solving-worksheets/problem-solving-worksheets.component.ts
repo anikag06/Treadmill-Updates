@@ -100,7 +100,7 @@ export class ProblemSolvingWorksheetsComponent implements OnInit {
 
   onSolutionSubmit() {
     const solution = new Solution(
-      Math.ceil(Math.random() * 100),
+      this.solutions.length + 5,
       this.problem.id,
       this.solutionForm.value['solution'],
       false,
@@ -110,25 +110,33 @@ export class ProblemSolvingWorksheetsComponent implements OnInit {
           () => {
             this.showSolutionsForm = false;
             this.solutionForm.reset();
-            this.fetchSolutions();
+            this.solutions.push(solution);
           },
           () => {}
         );
   }
 
   onSolutionRemove(solution: Solution) {
-    if (confirm('Are you sure to delete the solution?')) {
-      this.solutions = this.solutions.filter(sol => solution.id !== sol.id);
+    this.solutions = this.solutions.filter(sol => solution.id !== sol.id);
       this.problemService.removeSolution(solution)
         .subscribe(
           () => {},
           () => {},
         );
-    }
   }
 
   onNextStep() {
     this.showResult = true;
     console.log(this.showResult)
+  }
+
+  onProConAdd(procon: ProsCons, solution: Solution) {
+    const solu = this.solutions.find(sol => solution.id === sol.id);
+    if (solu && procon.is_pros) {
+      solu.pros.push(procon);
+    } else if (solu) {
+      solu.cons.push(procon);
+    }
+    this.problemService.updateSolution(solu);
   }
 }

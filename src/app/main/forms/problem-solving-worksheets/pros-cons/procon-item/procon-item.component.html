@@ -1,0 +1,7 @@
+<div>
+  <button class="pull-right" (click)="removeProcon()" *ngIf="!hideRemove">
+    <mat-icon>remove_circle</mat-icon>
+  </button>
+  <p contenteditable="true" (focusout)="onFocusOut($event)" (focusin)="onFocus()" class="procon">{{procon.body}}
+  </p>
+</div>

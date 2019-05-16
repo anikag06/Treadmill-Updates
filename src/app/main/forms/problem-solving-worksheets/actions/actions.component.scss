@@ -8,5 +8,15 @@
     padding-left: 30px;
 }
 label {
-    color: #000000;
+    color:  #383838;
+}
+.full-width {
+    width: 100%;
+}
+
+::ng-deep .mat-checkbox-layout {
+    width: 100%;
+    .mat-checkbox-label {
+        width: 100% !important;
+    }
 }

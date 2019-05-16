@@ -36,7 +36,7 @@ import { AngularEditorModule } from '@xw19/angular-editor';
 import { SanitizationService } from './support-groups/sanitization.service';
 import { SafeHtmlPipe } from './support-groups/safe-html.pipe';
 import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule } from '@angular/material';
+import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatDatepickerModule, MatNativeDateModule } from '@angular/material';
 import { ScrollingDirective } from './shared/scrolling.directive';
 import { ScrollingService } from './shared/scrolling.service';
 import { NavbarComponent } from './shared/navbar/navbar.component';
@@ -51,6 +51,8 @@ import { FormsComponent } from './forms/forms.component';
 import { ProblemSolvingWorksheetsComponent } from './forms/problem-solving-worksheets/problem-solving-worksheets.component';
 import { ProsConsComponent } from './forms/problem-solving-worksheets/pros-cons/pros-cons.component';
 import { ActionsComponent } from './forms/problem-solving-worksheets/actions/actions.component';
+import { ProconItemComponent } from './forms/problem-solving-worksheets/pros-cons/procon-item/procon-item.component';
+import { SolutionsComponent } from './forms/problem-solving-worksheets/solutions/solutions.component';
 
 @NgModule({
   declarations: [
@@ -87,6 +89,8 @@ import { ActionsComponent } from './forms/problem-solving-worksheets/actions/act
     ProblemSolvingWorksheetsComponent,
     ProsConsComponent,
     ActionsComponent,
+    ProconItemComponent,
+    SolutionsComponent,
   ],
   imports: [
     CommonModule,
@@ -103,6 +107,8 @@ import { ActionsComponent } from './forms/problem-solving-worksheets/actions/act
     MatListModule,
     ReactiveFormsModule,
     MainRoutingModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
   providers: [
     LocalStorageService,
