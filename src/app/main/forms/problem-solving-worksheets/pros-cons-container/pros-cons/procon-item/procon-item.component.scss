@@ -1,0 +1,22 @@
+@import "color.palette.scss";
+
+button {
+    background-color: transparent;
+    border-radius: 50%;
+    border: none;
+}
+
+.procon {
+  padding: 5px;
+  margin: 10px;
+  font-size: 14px;
+  border-bottom: 1px solid #dcdcdc;
+  &:focus {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 2px solid $treadwill-yellow;
+    box-shadow: none;
+    outline: none;
+  }
+}

@@ -11,10 +11,9 @@
 </div>
 <div *ngIf="showForm">
   <form (ngSubmit)="onSubmit()" #proconForm="ngForm">
-    <input name="procon" id="procon" rows="1" placeholder="Enter  {{pro ? 'pro' : 'con'}}" matInput required
-      class="form-control" [autofocus] ngModel>
-    <p class="text-right">
-      <button type="submit" mat-raised-button color="primary" class="continue-btn">Save</button>
-    </p>
+    <mat-form-field class="full-width">
+      <textarea name="procon" id="procon" rows="1" placeholder="Enter  {{pro ? 'pro' : 'con'}}"
+        matInput required [autofocus] ngModel (focusout)="onTextAreaFocusOut()"></textarea>
+    </mat-form-field>
   </form>
 </div>

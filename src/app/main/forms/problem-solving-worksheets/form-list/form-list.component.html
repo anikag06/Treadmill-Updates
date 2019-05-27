@@ -1,0 +1,14 @@
+<div class="card-header text-center">
+  SAVED FORMS
+</div>
+<ul class="list-group">
+  <li class="list-group-item">
+    <button mat-raised-button color="primary" (click)="onAddNewForm()">
+      <mat-icon>add</mat-icon>
+      Add new form
+    </button>
+  </li>
+  <li class="list-group-item" *ngFor="let problem of problems" (click)="problemClicked(problem)">
+    {{problem.problem}}
+  </li>
+</ul>

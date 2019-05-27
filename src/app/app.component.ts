@@ -19,12 +19,12 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     private auth: AuthService,
     private titleService: Title,
-  ) { 
+  ) {
     this.titleService.setTitle('Treadwill');
   }
 
   ngOnInit() {
-    this.subscription = interval(10000)
+    this.subscription = interval(60000)
       .subscribe((val) => { this.auth.refresh(); });
   }
 
