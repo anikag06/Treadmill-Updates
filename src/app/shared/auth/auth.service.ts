@@ -1,11 +1,19 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import * as localforage from 'localforage';
 import { Router } from '@angular/router';
 import { environment } from 'environments/environment';
 
-import { TOKEN, DEFAULT_PATH, TOKEN_REFRESH_PATH, LOGIN_PATH, SIGNUP_PATH, USERAVATAR, ISADMIN, ISACTIVE } from '@/app.constants';
+import { TOKEN,
+  DEFAULT_PATH,
+  TOKEN_REFRESH_PATH,
+  LOGIN_PATH, SIGNUP_PATH,
+  USERAVATAR,
+  ISADMIN,
+  ISACTIVE,
+  GAD_SEVEN_SCORE,
+  PHQ_NINE_SCORE } from '@/app.constants';
 import { User } from '@/shared/user.model';
 import { Observable } from 'rxjs';
 export interface Token {
@@ -18,7 +26,6 @@ export interface Token {
 export class AuthService {
 
   user!: User;
-
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -33,7 +40,35 @@ export class AuthService {
   signupData (userSignupData: any): Observable<any> {
     return this.http.post(environment.API_ENDPOINT + SIGNUP_PATH, userSignupData);
   }
+  // function for getting the questionnaire scores of the user
+  getPhqScores(): Observable<any>  {
+    const loginToken = localStorage.getItem(TOKEN);
+    if (loginToken != null) {
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Authorization': 'Bearer ' + loginToken
+        })
+      };
+      return this.http.get(environment.API_ENDPOINT + PHQ_NINE_SCORE, httpOptions);
+    } else {
+      return this.http.get(environment.API_ENDPOINT + PHQ_NINE_SCORE);
+    }
 
+  }
+  getGadScores(): Observable<any>  {
+    const loginToken = localStorage.getItem(TOKEN);
+    if (loginToken != null) {
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Authorization': 'Bearer ' + loginToken
+        })
+      };
+      return this.http.get(environment.API_ENDPOINT + GAD_SEVEN_SCORE, httpOptions);
+    } else {
+      return this.http.get(environment.API_ENDPOINT + GAD_SEVEN_SCORE);
+    }
+
+  }
 
   isLoggedIn() {
     if (this.user) {

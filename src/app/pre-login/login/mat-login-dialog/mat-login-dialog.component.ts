@@ -18,7 +18,9 @@ export class MatLoginDialogComponent implements OnInit {
   hide = true;
   formInvalid = false;
   showForm = true;
+  errorStatus = false;
   loginAfterSignup = false;
+  errorMessage!: string;
   @ViewChild('loginForm') loginForm!: NgForm;
 
   constructor(
@@ -28,7 +30,7 @@ export class MatLoginDialogComponent implements OnInit {
     private localStorageService: LocalStorageService,
     private showLoginSignupService: ShowLoginSignupDialogService,
   ) { }
-    
+
   ngOnInit() {
     this.loginAfterSignup = this.showLoginSignupService.loginAfterSignup();
   }
@@ -40,6 +42,7 @@ export class MatLoginDialogComponent implements OnInit {
     this.authService.getUserDetails(this.loginForm.value)
       .then(
         (data: any) => {
+          this.errorStatus = false;
           this.localStorageService.setItem(TOKEN, data.data.token);
           this.localStorageService.setItem(ISADMIN, data.data.is_admin);
           this.localStorageService.setItem(USERAVATAR, data.data.avatar);
@@ -49,18 +52,28 @@ export class MatLoginDialogComponent implements OnInit {
         }
       ).catch(
         (error: any) => {
+          this.errorStatus = true;
+          if (error.error.message.username) {
+            this.errorMessage = error.error.message.username;
+          } else if (error.error.message.password) {
+              this.errorMessage = error.error.message.password;
+          } else {
+            this.errorMessage = error.error.message;
+          }
           if (error.status === 400 ) {
-            this.loginForm.reset();
-            this.showForm = true;
+            // this.loginForm.reset();
+            // this.showForm = true;
             this.formInvalid = true;
           }
         }
       ).finally(() => {
         this.showForm = true;
+        this.errorStatus = false;
       });
   }
 
   onCloseClick(): void {
+    this.errorStatus = false;
     this.dialogRef.close();
   }
 

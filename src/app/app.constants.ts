@@ -21,4 +21,6 @@ export const LOGGED_IN_PATH     = '/dashboard';
 export const TOKEN_REFRESH_PATH = '/api/v1/user/api-token-refresh/';
 export const LOGIN_PATH         = '/api/v1/user/login/';
 export const SIGNUP_PATH 		= '/api/v1/user/registration/';
+export const PHQ_NINE_SCORE     = '/api/v1/questionnaire/phq-user-scores/';
+export const GAD_SEVEN_SCORE    = '/api/v1/questionnaire/gad-user-scores/';
 export const MOBILEWIDTH        = 768;

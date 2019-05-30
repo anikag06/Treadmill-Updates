@@ -11,6 +11,9 @@ import { GamesListComponent } from './games/games-list/games-list.component';
 import { LogoutComponent } from '@/shared/auth/logout/logout.component';
 import { MainComponent } from './main.component';
 import { FormsComponent } from './forms/forms.component';
+import { ScoreComponent } from './score/score.component';
+import { PhqNineComponent } from './score/phq-nine/phq-nine.component';
+import { GadSevenComponent } from './score/gad-seven/gad-seven.component';
 
 
 export const mainRoutes: Routes = [
@@ -30,6 +33,11 @@ export const mainRoutes: Routes = [
                     { path: '', component: GamesListComponent },
                 ]
             },
+            { path: 'scores', component: ScoreComponent, children: [
+                { path: 'phq', component: PhqNineComponent},
+                { path: 'gad', component: GadSevenComponent}
+            ]
+        },
             { path: '', redirectTo: '/dashboard', pathMatch: 'full'},
             { path: 'logout', component: LogoutComponent },
         ]

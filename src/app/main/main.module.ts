@@ -1,5 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA, LOCALE_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ChartsModule } from 'ng2-charts';
 
 import { ModulesComponent } from '@/main/modules/modules.component';
 import { DashboardComponent } from '@/main/dashboard/dashboard.component';
@@ -53,6 +54,9 @@ import { ProsConsComponent } from './forms/problem-solving-worksheets/pros-cons/
 import { ActionsComponent } from './forms/problem-solving-worksheets/actions/actions.component';
 import { ProconItemComponent } from './forms/problem-solving-worksheets/pros-cons/procon-item/procon-item.component';
 import { SolutionsComponent } from './forms/problem-solving-worksheets/solutions/solutions.component';
+import { ScoreComponent } from './score/score.component';
+import { PhqNineComponent } from './score/phq-nine/phq-nine.component';
+import { GadSevenComponent } from './score/gad-seven/gad-seven.component';
 
 @NgModule({
   declarations: [
@@ -91,9 +95,13 @@ import { SolutionsComponent } from './forms/problem-solving-worksheets/solutions
     ActionsComponent,
     ProconItemComponent,
     SolutionsComponent,
+    ScoreComponent,
+    PhqNineComponent,
+    GadSevenComponent,
   ],
   imports: [
     CommonModule,
+    ChartsModule,
     MaterialModule,
     FormsModule,
     HttpClientModule,
