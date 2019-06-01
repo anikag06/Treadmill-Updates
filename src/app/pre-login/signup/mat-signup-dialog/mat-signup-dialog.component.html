@@ -1,21 +1,25 @@
 <form
-  (submit)="onSubmit()"
-  #loginForm="ngForm"
-  *ngIf="showForm else loader"
-  class="login-form">
+  (submit)="onSignupSubmit()"
+  #signupForm="ngForm"
+  *ngIf="showSignupForm else loader"
+  class="signup-form">
   <div
     class="flex-row-reverse"
     mat-dialog-actions>
     <mat-icon
-      (click)="onCloseClick()"
+      (click)="onSignupCloseClick()"
       class="cursor-hand">
         close
     </mat-icon>
   </div>
 
   <div class="input-container text-center">
-    <div class="message" *ngIf = "loginAfterSignup">
-      Registration successful. Login!
+    <mat-error *ngIf= "errorStatus"> {{usernameError }} </mat-error>
+    <mat-error *ngIf= "errorStatus"> {{passwordError}} </mat-error>
+    <mat-error *ngIf = "!passwordMatch"> {{passwordMatchError}} </mat-error>
+    
+    <div class="tips">
+      Tips: Use a nickname to maintain anonymity
     </div>
     <mat-form-field>
       <input
@@ -28,6 +32,7 @@
         class="example-right-align">
       <mat-error>Username is required</mat-error>
     </mat-form-field>
+    
     <mat-form-field>
       <input
         matInput
@@ -35,42 +40,48 @@
         [type]="hide ? 'password' : 'text'"
         ngModel
         required
-        name="password">
+        name="password"
+        > 
       <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
       <mat-error>Password is required</mat-error>
     </mat-form-field>
-    <div class="error" *ngIf="formInvalid">
-      Username or Password is incorrect!
-    </div>
-    <div
-      mat-dialog-actions
-      class="forgot-password">
-      <a class="anchorify-forgot-username-password">
-        Forgot Username/Password?
-      </a>
-    </div>
-    <div
+    
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="Confirm password"
+        [type]="hide ? 'password' : 'text'"
+        ngModel
+        required
+        name="passwordConfirm">
+     <mat-error> Password is required </mat-error>
+    </mat-form-field>
+
+
+      <mat-checkbox
+        ngModel
+        required
+        name = "terms_conditions">
+        I agree <a class="anchorify-terms-conditions-content" (click) = "onTermsConClick()"> Terms and Conditions</a>
+        <mat-error *ngIf="!termsConditionChecked"> Agree the terms and condtions.</mat-error>
+      </mat-checkbox>
+      
+    
+  <div
       mat-dialog-actions
       class="d-flex justify-content-center">
       <button
         mat-raised-button
         class="dialog-btn"
         type="submit">
-          Login
+          Sign Up
       </button>
-    </div>
-    <div
-      mat-dialog-actions
-      class="d-flex justify-content-center join-study">
-      <p class="login-dialog-text-color">
-        Not a member yet?
-        <a class="anchorify-join-the-study" (click) = " onJoinTheStudyClicked()">
-          Join the study
-        </a>
-      </p>
-    </div>
   </div>
+
+</div>
+    
 </form>
+
 <ng-template #loader>
   <div class="d-flex align-items-center justify-content-center" style="height: 450px; width: 100%;">
     <img src="assets/shared/dna-loader.svg" alt="loader">
