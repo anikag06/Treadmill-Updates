@@ -23,12 +23,14 @@ import { AuthModule } from './auth.module';
 import { ErrorDialogComponent } from './shared/error-dialog/error-dialog.component';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { LocalStorageService } from './shared/localstorage.service';
+import { MatSignupDialogComponent} from './pre-login/signup/mat-signup-dialog/mat-signup-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     MatLoginDialogComponent,
+    MatSignupDialogComponent,
     PreLoginFooterComponent,
     MatContactUsDialogComponent,
     LandingPageComponent,
@@ -57,6 +59,6 @@ import { LocalStorageService } from './shared/localstorage.service';
     LocalStorageService,
   ],
   bootstrap: [AppComponent],
-  entryComponents: [MatLoginDialogComponent, MatContactUsDialogComponent, ErrorDialogComponent],
+  entryComponents: [MatLoginDialogComponent, MatContactUsDialogComponent, ErrorDialogComponent, MatSignupDialogComponent],
 })
 export class AppModule { }

@@ -5,8 +5,9 @@ import * as localforage from 'localforage';
 import { Router } from '@angular/router';
 import { environment } from 'environments/environment';
 
-import { TOKEN, DEFAULT_PATH, TOKEN_REFRESH_PATH, LOGIN_PATH, USERAVATAR, ISADMIN, ISACTIVE } from '@/app.constants';
-import { User } from '../user.model';
+import { TOKEN, DEFAULT_PATH, TOKEN_REFRESH_PATH, LOGIN_PATH, SIGNUP_PATH, USERAVATAR, ISADMIN, ISACTIVE } from '@/app.constants';
+import { User } from '@/shared/user.model';
+import { Observable } from 'rxjs';
 export interface Token {
   token: string;
 }
@@ -28,6 +29,9 @@ export class AuthService {
     await localforage.clear();
     localStorage.clear();
     return this.http.post(environment.API_ENDPOINT + LOGIN_PATH, data).toPromise();
+  }
+  signupData (userSignupData: any): Observable<any> {
+    return this.http.post(environment.API_ENDPOINT + SIGNUP_PATH, userSignupData);
   }
 
 

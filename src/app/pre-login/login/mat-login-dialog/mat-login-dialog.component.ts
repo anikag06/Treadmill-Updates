@@ -1,10 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+
 import { AuthService } from '@/shared/auth/auth.service';
 import { TOKEN, USERAVATAR, ISADMIN, ISACTIVE, LOGGED_IN_PATH } from '@/app.constants';
-import { Router } from '@angular/router';
 import { LocalStorageService } from '@/shared/localstorage.service';
+import { ShowLoginSignupDialogService } from '@/pre-login/shared/show-login-signup-dialog.service';
+import { MatSignupDialogComponent } from '@/pre-login/signup/mat-signup-dialog/mat-signup-dialog.component';
 
 @Component({
   selector: 'app-mat-login-dialog',
@@ -15,21 +18,25 @@ export class MatLoginDialogComponent implements OnInit {
   hide = true;
   formInvalid = false;
   showForm = true;
+  loginAfterSignup = false;
   @ViewChild('loginForm') loginForm!: NgForm;
 
   constructor(
     public dialogRef: MatDialogRef<MatLoginDialogComponent>,
     private authService: AuthService,
     private router: Router,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private showLoginSignupService: ShowLoginSignupDialogService,
   ) { }
-
+    
   ngOnInit() {
+    this.loginAfterSignup = this.showLoginSignupService.loginAfterSignup();
   }
 
   onSubmit() {
     localStorage.clear();
     this.showForm = false;
+    this.loginAfterSignup = false;
     this.authService.getUserDetails(this.loginForm.value)
       .then(
         (data: any) => {
@@ -55,5 +62,10 @@ export class MatLoginDialogComponent implements OnInit {
 
   onCloseClick(): void {
     this.dialogRef.close();
+  }
+
+  onJoinTheStudyClicked() {
+    this.dialogRef.close();
+    this.showLoginSignupService.joinStudyClicked(MatSignupDialogComponent);
   }
 }

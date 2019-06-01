@@ -1,12 +1,15 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { trigger, 
-  state, 
-  style, 
-  animate, 
-  transition 
+import { trigger,
+  state,
+  style,
+  animate,
+  transition
 } from '@angular/animations';
 
 import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-contact-us-dialog.service';
+import { ShowLoginSignupDialogService } from '@/pre-login/shared/show-login-signup-dialog.service';
+import { MatSignupDialogComponent } from '@/pre-login/signup/mat-signup-dialog/mat-signup-dialog.component';
+import { MatLoginDialogComponent} from '@/pre-login/login/mat-login-dialog/mat-login-dialog.component';
 
 @Component({
   selector: 'app-landing-page',
@@ -56,7 +59,8 @@ export class LandingPageComponent implements OnInit {
   isVisible: boolean = true;
 
   constructor(
-    private showContactUsService: MatContactUsDialogService
+    private showContactUsService: MatContactUsDialogService,
+    private showLoginSignupService: ShowLoginSignupDialogService,
   ) {}
 
   ngOnInit() {
@@ -120,8 +124,8 @@ export class LandingPageComponent implements OnInit {
   onLandingPageContactUsClicked() {
     this.showContactUsService.contactUsClicked()
   }
-
   onJoinTheStudyClicked() {
-    console.log("onJoinTheStudyClicked: TODO")
+
+    this.showLoginSignupService.joinStudyClickedBeforeLogin(MatSignupDialogComponent, MatLoginDialogComponent);
   }
 }

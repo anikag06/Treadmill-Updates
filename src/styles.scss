@@ -76,7 +76,19 @@ $small_logo_height: 40px;
     width: 80% !important;
   }
 }
+.signup-dialog .mat-dialog-container {
+  @include common-dialog-style();
 
+  .mat-input-element {
+    @include font-lato();
+    font-size: 100%;
+    caret-color: $mat-white !important;
+  }
+  
+  .mat-form-field {
+    width: 80% !important;
+  }
+}
 .contact-us-dialog .mat-dialog-container {
   @include common-dialog-style();
 
