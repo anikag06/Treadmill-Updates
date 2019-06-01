@@ -70,7 +70,16 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   fetchSolutions() {
     this.problemService.getSolutions(this.problem.id)
       .subscribe(
-        (data: any) => this.solutions = data.message,
+        (data: any) => {
+                  this.solutions = data.message;
+                  if (this.problem.bestsolution) {
+                    const bestSolution = this.solutions.find(sol => sol.id === this.problem.bestsolution.solution_id);
+                      if (bestSolution) {
+                        this.bestSolution = bestSolution;
+                        this.prosconsSaved = true;
+                      }
+                  }
+                },
         this.errorService.errorResponse('Something went wrong')
       );
   }
@@ -93,8 +102,7 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
       }
     });
     if (this.bestSolution) {
-      console.log(this.bestSolution)
-      this.problemService.putSolution(this.bestSolution.id, this.bestSolution.solution, true)
+      this.problemService.putBestSolution(this.bestSolution.id, this.problem.id)
         .subscribe(
           () => {},
           this.errorService.errorResponse('Cannot select the best solution')

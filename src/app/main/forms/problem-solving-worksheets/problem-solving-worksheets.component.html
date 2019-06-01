@@ -103,7 +103,7 @@
                   </div>
                 </div>
               </div>
-              <app-actions (nextStepEmitter)="onNextStep()"></app-actions>
+              <app-actions (nextStepEmitter)="onNextStep()" [problem]="problem"></app-actions>
             </div>
           </div>
           <div class="card" *ngIf="!bestSolution">
@@ -113,7 +113,7 @@
             <div class="card-body">
               <div class="list-group">
                 <label [for]="solution.id" *ngFor="let solution of solutions">
-                  <input type="radio" [name]="solution.id" [checked]="solution.best_solution"
+                  <input type="radio" [name]="solution.id" [checked]="solution.id == problem.bestsolution.problem_id"
                     (change)="onCheckBoxChange(solution, $event)" [id]="solution.id">
                   {{solution.solution}}
                 </label>

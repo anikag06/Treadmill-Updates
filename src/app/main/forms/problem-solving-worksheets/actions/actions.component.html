@@ -32,19 +32,29 @@
           <div class="row mb-3">
             <div class="col-12 col-md-6">
               <mat-form-field>
-                <input matInput [matDatepicker]="picker" placeholder="Choose a date">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-              </mat-form-field>              
+                <input matInput placeholder="Select Date"
+                       [owlDateTimeTrigger]="datePicker"
+                       [owlDateTime]="datePicker"
+                       [(ngModel)]="date"
+                        name="date">
+              </mat-form-field>
+              <owl-date-time [pickerType]="'calendar'"  #datePicker="owlDateTime"></owl-date-time>
             </div>
 
             <div class="col-12 col-md-6">
-              <input type="time" class="form-control" name="time" placeholder="HH:MM">
+                <mat-form-field>
+                  <input matInput placeholder="Select Time"
+                         [owlDateTimeTrigger]="timePicker"
+                         [owlDateTime]="timePicker"
+                          [(ngModel)]="time"
+                          name="time">
+                </mat-form-field>
+                <owl-date-time [pickerType]="'timer'"  #timePicker="owlDateTime"></owl-date-time>
             </div>
 
             <div class="col-12 col-md-6">
               <label for="repeat">
-                <input type="checkbox" name="repeat"> &nbsp;Repeat
+                <input type="checkbox" name="repeat"> &nbsp;<b>Repeat</b>
               </label>
             </div>
 

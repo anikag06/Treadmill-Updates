@@ -58,6 +58,7 @@ import { FormListComponent } from './forms/problem-solving-worksheets/form-list/
 import { ProblemFormComponent } from './forms/problem-solving-worksheets/problem-form/problem-form.component';
 import { ContainerRefDirective } from './forms/problem-solving-worksheets/container-ref.directive';
 import { ProsConsContainerComponent } from './forms/problem-solving-worksheets/pros-cons-container/pros-cons-container.component';
+import {OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
 
 
 @NgModule({
@@ -119,6 +120,8 @@ import { ProsConsContainerComponent } from './forms/problem-solving-worksheets/p
     MainRoutingModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
   ],
   providers: [
     LocalStorageService,

@@ -84,15 +84,12 @@ export class ProblemSolvingWorksheetsService {
     return this.http.delete(environment.API_ENDPOINT + '/api/v1/worksheets/problem-solving/solutions/?solution_id=' + solutionId);
   }
 
-  putSolution(solutionId: number, solution: string, bestSolution: boolean = false) {
+  putSolution(solutionId: number, solution: string) {
     console.log('sol ', solution)
     solution = this.sanitizer.stripTags(solution);
-    let params = new HttpParams()
+    const params = new HttpParams()
       .set('solution_id', solutionId.toString())
       .set('solution', solution);
-    if (bestSolution) {
-      params = params.set('best_solution', 'true');
-    }
     return this.http
       .put(environment.API_ENDPOINT +
         '/api/v1/worksheets/problem-solving/solutions/',
@@ -100,6 +97,11 @@ export class ProblemSolvingWorksheetsService {
         {
           headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
         });
+  }
+
+  putBestSolution(solutionId: number, problemId: number) {
+    return this.http.put(environment.API_ENDPOINT +
+      '/api/v1/worksheets/problem-solving/best-solution/', { solution_id: solutionId, problem_id: problemId});
   }
 
   getSolutions(problem: number) {
@@ -159,5 +161,9 @@ export class ProblemSolvingWorksheetsService {
         {
           headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
         });
+  }
+
+  postTask(tasks: any) {
+    return this.http.post(environment.API_ENDPOINT + '/api/v1/worksheets/problem-solving/tasks/', tasks);
   }
 }

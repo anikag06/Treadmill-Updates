@@ -32,6 +32,7 @@
     "jquery": "^3.4.0",
     "localforage": "^1.7.3",
     "luxon": "^1.15.0",
+    "ng-pick-datetime": "^7.0.0",
     "normalize.css": "^8.0.1",
     "popper.js": "^1.14.7",
     "rxjs": "~6.4.0",
