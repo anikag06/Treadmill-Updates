@@ -1,13 +1,11 @@
-import { Component, OnInit, ViewChild, ComponentFactoryResolver, OnDestroy, SimpleChanges } from '@angular/core';
+import { Component, OnInit, ViewChild, ComponentFactoryResolver, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { ProblemSolvingWorksheetsService } from './problem-solving-worksheets.service';
 import { Subscription } from 'rxjs';
 import { Problem } from './problem.model';
 import { Solution } from './solution.model';
-import { ProsCons } from './pros-cons.model';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '@/shared/auth/auth.service';
 import { User } from '@/shared/user.model';
-import { HttpErrorResponse } from '@angular/common/http';
 import { ContainerRefDirective } from './container-ref.directive';
 import { ProblemFormComponent } from './problem-form/problem-form.component';
 import { GeneralErrorService } from '@/main/shared/general-error.service';
@@ -35,7 +33,8 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
     private problemService: ProblemSolvingWorksheetsService,
     private authService: AuthService,
     private componentFactoryResolver: ComponentFactoryResolver,
-    private errorService: GeneralErrorService
+    private errorService: GeneralErrorService,
+    private changeDetector: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
@@ -118,7 +117,7 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   }
 
   onSolutionSubmit() {
-    if (this.solutionForm.value['solution'].trim().length > 0) {
+    if (this.solutionForm.value['solution'] && this.solutionForm.value['solution'].trim().length > 0) {
       this.problemService.postSolution(this.solutionForm.value['solution'], this.problem.id)
         .subscribe(
           (resp: any) => {
@@ -194,5 +193,11 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
 
   onSolutionFocusOut() {
     this.onSolutionSubmit();
+  }
+
+  onTaskLoad() {
+    setTimeout(()=>{
+      this.showResult = true;
+    }, 1);
   }
 }

@@ -103,7 +103,7 @@
                   </div>
                 </div>
               </div>
-              <app-actions (nextStepEmitter)="onNextStep()" [problem]="problem"></app-actions>
+              <app-tasks (nextStepEmitter)="onNextStep()" [problem]="problem" [taskLoade]="onTaskLoad()"></app-tasks>
             </div>
           </div>
           <div class="card" *ngIf="!bestSolution">
@@ -112,8 +112,8 @@
             </div>
             <div class="card-body">
               <div class="list-group">
-                <label [for]="solution.id" *ngFor="let solution of solutions">
-                  <input type="radio" [name]="solution.id" [checked]="solution.id == problem.bestsolution.problem_id"
+                <label *ngFor="let solution of solutions" [for]="solution.id">
+                  <input type="radio" [name]="solution.id" [checked]="problem.bestsolution && solution.id == problem.bestsolution.problem_id"
                     (change)="onCheckBoxChange(solution, $event)" [id]="solution.id">
                   {{solution.solution}}
                 </label>
@@ -126,20 +126,8 @@
           </div>
         </div>
       </div>
-      <div class="row mb-2" *ngIf="solutions && bestSolution && showResult">
-        <div class="col">
-          <div class="card">
-            <div class="card-header">
-              WHAT WAS THE RESULT OF IMPLEMENTATION?
-            </div>
-            <div class="card-body">
-              <mat-form-field class="full-width">
-                <textarea matInput name="result" rows="5"
-                  placeholder="Write down the result of the implementation ?"></textarea>
-              </mat-form-field>
-            </div>
-          </div>
-        </div>
+      <div class="mb-2" *ngIf="solutions && bestSolution && showResult">
+        <app-result [solution]="bestSolution"></app-result>
       </div>
     </div>
   </div>

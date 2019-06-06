@@ -163,7 +163,46 @@ export class ProblemSolvingWorksheetsService {
         });
   }
 
-  postTask(tasks: any) {
-    return this.http.post(environment.API_ENDPOINT + '/api/v1/worksheets/problem-solving/tasks/', tasks);
+  postTask(task: any) {
+    return this.http.post(environment.API_ENDPOINT + '/api/v1/worksheets/problem-solving/tasks/', task);
+  }
+
+  putTask(task: any) {
+    return this.http.put(environment.API_ENDPOINT + '/api/v1/worksheets/problem-solving/tasks/' + task.id + '/', task);
+  }
+
+  getTask(problem_id: number) {
+    return this.http.get(environment.API_ENDPOINT + '/api/v1/worksheets/problem-solving/tasks/?problem_id=' + problem_id);
+  }
+
+  getResult(solution_id: number) {
+    return this.http.get(environment.API_ENDPOINT + '/api/v1/worksheets/problem-solving/results/?solution_id=' + solution_id);
+  }
+
+  postResult(solution_id: number, body: string) {
+    return this.http
+      .post(environment.API_ENDPOINT + '/api/v1/worksheets/problem-solving/results/', { solution_id: solution_id, body: body });
+  }
+
+  putResult(solution_id: number, body: string, result_id: number) {
+    return this.http
+      .put(environment.API_ENDPOINT +
+        '/api/v1/worksheets/problem-solving/results/' +
+        result_id +
+        '/', { solution_id: solution_id, body: body });
+  }
+
+  deleteSubTask(task_id: number, subtask_id: number) {
+    return this.http
+      .delete(environment.API_ENDPOINT +
+        '/api/v1/worksheets/problem-solving/tasks/' +
+        task_id + '/delete_sub_task/?subtask_id=' + subtask_id);
+  }
+
+  deleteTaskDay(task_id: number, day: string) {
+    return this.http
+      .delete(environment.API_ENDPOINT +
+        '/api/v1/worksheets/problem-solving/tasks/' +
+        task_id + '/delete_task_days/?day=' + day);
   }
 }

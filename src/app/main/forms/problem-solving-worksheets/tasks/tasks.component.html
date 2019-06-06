@@ -5,18 +5,22 @@
   <div class="card-body">
     <div class="row">
       <div class="col-12 col-lg-6">
-        <form [formGroup]="actionsGroup">
+        <form [formGroup]="tasksGroup">
           <div>
-            <mat-checkbox class="full-width">
+            <mat-checkbox class="full-width" formControlName="taskCompleted" (change)="taskCompletedChange($event)" [checked]="taskCompleted">
               <input type="text" formControlName="task" class="form-control full-width" required
-              placeholder="Write a task you will cary out">
+              placeholder="Write a task you will cary out" (focusout)="updateTask()">
             </mat-checkbox>
           </div>
           <div class="subtasks" formArrayName="subTasks" *ngFor="let subtask of getSubTasksForm(); let i = index;">
-            <div [formGroupName]="i">
-              <mat-checkbox class="full-width">
-                <input type="text" formControlName="item" class="form-control" required>
+            <div [formGroupName]="i" class="subtask">
+              <mat-checkbox class="full-width" formControlName="is_completed" [checked]="is_completed" (change)="subTaskCompletedChange($event, id)">
+                <input type="hidden" formControlName="id" [value]="id">
+                <input type="text" formControlName="name" class="form-control" required>
               </mat-checkbox>
+              <span (click)="markForDeletion(subtask.value, i)">
+                <mat-icon>remove_circle</mat-icon>
+              </span>
             </div>
           </div>
         </form>
@@ -36,7 +40,8 @@
                        [owlDateTimeTrigger]="datePicker"
                        [owlDateTime]="datePicker"
                        [(ngModel)]="date"
-                        name="date">
+                        name="date"
+                        (focusout)="updateTask()">
               </mat-form-field>
               <owl-date-time [pickerType]="'calendar'"  #datePicker="owlDateTime"></owl-date-time>
             </div>
@@ -47,28 +52,39 @@
                          [owlDateTimeTrigger]="timePicker"
                          [owlDateTime]="timePicker"
                           [(ngModel)]="time"
-                          name="time">
+                          name="time"
+                          (focusout)="updateTask()">
                 </mat-form-field>
                 <owl-date-time [pickerType]="'timer'"  #timePicker="owlDateTime"></owl-date-time>
+              <p class="text-muted">{{timezone}}</p>
             </div>
 
             <div class="col-12 col-md-6">
-              <label for="repeat">
-                <input type="checkbox" name="repeat"> &nbsp;<b>Repeat</b>
-              </label>
+              <mat-slide-toggle
+                [(ngModel)]="repeat"
+                name="repeat"
+                (change)="onRepeatChange($event)"
+                ngDefaultControl
+                [disableRipple]="true">
+                Repeat
+              </mat-slide-toggle>
             </div>
 
-            <div class="col-12 col-md-6">
-              <label for=remind>
-                <input type="checkbox" name="remind"> &nbsp;<b>Remind</b>
-              </label>
+            <div class="col-12 col-md-6" *ngIf="repeat">
+              <mat-checkbox
+                *ngFor="let day of week"
+                [checked]="days.includes(day)"
+                (change)="onDayChange($event, day)"
+                [disableRipple]="true">
+                {{day}}
+              </mat-checkbox>
             </div>
           </div>
         </form>
       </div>
     </div>
-    <div class="text-right" *ngIf="!hideNextStep">
-      <button mat-raised-button color="primary" (click)="nextStep()">Continue</button>
+    <div class="text-right" *ngIf="!this.task">
+      <button mat-raised-button color="primary" (click)="saveData()">Continue</button>
     </div>
   </div>
 </div>

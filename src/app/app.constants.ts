@@ -11,6 +11,15 @@ export const USERAVATAR         = 'user_avatar';
 export const ISADMIN            = 'is_admin';
 export const ISACTIVE           = 'is_active';
 export const TREADWILL          = 'TreadWill';
+export const SUNDAY             = 'SUNDAY';
+export const MONDAY             = 'MONDAY';
+export const TUESDAY            = 'TUESDAY';
+export const WEDNESDAY          = 'WEDNESDAY';
+export const THURSDAY           = 'THURSDAY';
+export const FRIDAY             = 'FRIDAY';
+export const SATURDAY           = 'SATURDAY';
+export const WEEK               = [SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY];
+
 
 // LOCAL STORAGE
 export const LS_TIME            = 120;
@@ -22,3 +31,4 @@ export const TOKEN_REFRESH_PATH = '/api/v1/user/api-token-refresh/';
 export const LOGIN_PATH         = '/api/v1/user/login/';
 export const SIGNUP_PATH 		= '/api/v1/user/registration/';
 export const MOBILEWIDTH        = 768;
+

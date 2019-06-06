@@ -46,7 +46,9 @@ export class ProblemFormComponent implements OnInit {
     }
   }
 
-  onFocusOut() {
-    this.onProblemSubmit();
+  onFocusOut(event: any) {
+    if (!((<Element>event.relatedTarget) && (<Element>event.relatedTarget).classList.contains('continue-btn'))) {
+      this.onProblemSubmit();
+    }
   }
 }

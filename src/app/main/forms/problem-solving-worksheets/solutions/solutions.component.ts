@@ -23,8 +23,10 @@ export class SolutionsComponent implements OnInit {
   }
 
   onFocusOut(event: FocusEvent, solution: Solution) {
-    solution.solution = (<Element>event.target).innerHTML.trim();
-    this.solutionEdit.emit(solution);
+    if ((<Element>event.target).innerHTML) {
+      solution.solution = (<Element>event.target).innerHTML.trim();
+      this.solutionEdit.emit(solution);
+    }
   }
 
 }

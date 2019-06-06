@@ -5,7 +5,18 @@
     box-shadow: none;
 }
 .subtasks {
-    padding-left: 30px;
+    padding-left: 20px;
+    .subtask {
+        .mat-checkbox {
+            width: 90%;
+            display: inline-block;
+        }
+        span {
+            text-align: right;
+            width: 10%;
+            display: inline-block;
+        }
+    }
 }
 label {
     color:  #383838;

@@ -1,0 +1,57 @@
+import { Component, OnInit, Input } from '@angular/core';
+import { Solution } from '../solution.model';
+import { ProblemSolvingWorksheetsService } from '../problem-solving-worksheets.service';
+import { Result } from './result.model';
+import { HttpErrorResponse } from '@angular/common/http';
+
+@Component({
+  selector: 'app-result',
+  templateUrl: './result.component.html',
+  styleUrls: ['./result.component.scss']
+})
+export class ResultComponent implements OnInit {
+
+  @Input() solution!: Solution;
+  result!: Result;
+  resultBody = '';
+  constructor(
+    private problemService: ProblemSolvingWorksheetsService
+  ) { }
+
+
+
+  ngOnInit() {
+    this.problemService.getResult(this.solution.id)
+      .subscribe(
+        (data: any) => {
+          if (data.results.length > 0) {
+            this.result = new Result(+(data.results[0].id), data.results[0].body);
+            this.resultBody = data.results[0].body;
+          }
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error);
+        }
+      )
+
+  }
+
+  onResultSubmit() {
+    if (this.result) {
+      this.problemService.putResult(this.solution.id, this.resultBody, this.result.id)
+        .subscribe(
+          (data: any) => {},
+          (error) => console.log(error)
+        );
+    } else {
+      this.problemService.postResult(this.solution.id, this.resultBody)
+        .subscribe(
+          (data: any) => {
+            this.result = new Result(+data.data.result_id, this.resultBody);
+          },
+          (error) => console.log(error)
+        );
+    }
+  }
+
+}
