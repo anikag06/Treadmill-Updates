@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {FormsService} from '@/main/forms.service';
+import { FormsService } from '@/main/forms.service';
 
 @Component({
   selector: 'app-forms',
-  templateUrl: './forms.component.html',
-  styleUrls: ['./forms.component.scss']
+  templateUrl: './forms-list.component.html',
+  styleUrls: ['./forms-list.component.scss']
 })
-export class FormsComponent implements OnInit {
+export class FormsListComponent implements OnInit {
 
   constructor(
     private formsService: FormsService

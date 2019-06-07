@@ -60,6 +60,8 @@ import { ProsConsContainerComponent } from './forms/problem-solving-worksheets/p
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { ResultComponent } from './forms/problem-solving-worksheets/result/result.component';
 import { TasksComponent } from './forms/problem-solving-worksheets/tasks/tasks.component';
+import { FormsService } from '@/main/forms.service';
+import { FormsListComponent } from './forms/forms-list/forms-list.component';
 
 
 @NgModule({
@@ -104,6 +106,7 @@ import { TasksComponent } from './forms/problem-solving-worksheets/tasks/tasks.c
     ProsConsContainerComponent,
     ResultComponent,
     TasksComponent,
+    FormsListComponent,
   ],
   imports: [
     CommonModule,
@@ -136,6 +139,7 @@ import { TasksComponent } from './forms/problem-solving-worksheets/tasks/tasks.c
     NetstedCommentService,
     ProblemSolvingWorksheetsService,
     TagService,
+    FormsService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [CreatePostComponent, ProblemFormComponent]

@@ -11,6 +11,9 @@ import { GamesListComponent } from './games/games-list/games-list.component';
 import { LogoutComponent } from '@/shared/auth/logout/logout.component';
 import { MainComponent } from './main.component';
 import { FormsComponent } from './forms/forms.component';
+import {ProblemSolvingWorksheetsComponent} from '@/main/forms/problem-solving-worksheets/problem-solving-worksheets.component';
+import {FormsListComponent} from '@/main/forms/forms-list/forms-list.component';
+import {TasksComponent} from '@/main/forms/problem-solving-worksheets/tasks/tasks.component';
 
 
 export const mainRoutes: Routes = [
@@ -18,7 +21,12 @@ export const mainRoutes: Routes = [
         path: '', component: MainComponent, canActivateChild: [AuthGuard], children: [
             { path: 'dashboard', component: DashboardComponent, },
             { path: 'support-groups', component: SupportGroupsComponent },
-            { path: 'resources', component: FormsComponent },
+            { path: 'forms', component: FormsComponent, children: [
+                { path: '', component: FormsListComponent },
+                { path: 'problem-solving', component: ProblemSolvingWorksheetsComponent },
+                { path: 'tasks', component: TasksComponent }
+              ]
+            },
             {
                 path: 'modules', component: ModulesComponent, canActivateChild: [AuthGuard], children: [
                     { path: ':name', component: ModuleDetailComponent },
