@@ -1,7 +1,14 @@
 .pull-right {
     float: right;
 }
-
+button {
+  background-color: transparent;
+  border: none;
+  height: 25px;
+  &:active, &:hover {
+    outline: none;
+  }
+}
 .item {
   border-bottom: 1px solid #dcdcdc;
 }

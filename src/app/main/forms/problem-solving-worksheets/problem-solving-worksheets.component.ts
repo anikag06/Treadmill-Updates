@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ComponentFactoryResolver, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ComponentFactoryResolver, OnDestroy } from '@angular/core';
 import { ProblemSolvingWorksheetsService } from './problem-solving-worksheets.service';
 import { Subscription } from 'rxjs';
 import { Problem } from './problem.model';
@@ -34,7 +34,6 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private componentFactoryResolver: ComponentFactoryResolver,
     private errorService: GeneralErrorService,
-    private changeDetector: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
@@ -196,7 +195,7 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   }
 
   onTaskLoad() {
-    setTimeout(()=>{
+    setTimeout(() => {
       this.showResult = true;
     }, 1);
   }

@@ -37,6 +37,9 @@ export class ProsConsComponent implements OnInit {
             this.prosCons.push(procon);
             this.showForm = false;
             this.proconForm.reset();
+            if (this.prosCons.length === 0 ) {
+              this.showForm = true;
+            }
           },
           this.errorService.errorResponse('Cannot post an pro or con')
         );
@@ -56,12 +59,13 @@ export class ProsConsComponent implements OnInit {
       );
   }
 
-  onFocusOut(procon: ProsCons, event: Event) {
+  onFocusOut(procon: ProsCons, event: any) {
     const prc = <ProsCons>this.prosCons.find(pc => pc === procon);
     prc.body = (<Element>event.target).innerHTML;
   }
 
-  onTextAreaFocusOut() {
+  onTextAreaFocusOut(event: any) {
+    console.log(event.relatedTarget)
     this.onSubmit();
   }
 }

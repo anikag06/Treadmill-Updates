@@ -4,16 +4,16 @@
   (proconDelete)=onProconDelete($event)>
 </app-procon-item>
 <div>
-  <span class="pull-right" (click)="showForm=!showForm">
+  <button class="pull-right" (click)="showForm=!showForm">
     <mat-icon *ngIf="!showForm">add_circle</mat-icon>
     <mat-icon *ngIf="showForm">clear_circle</mat-icon>
-  </span>
+  </button>
 </div>
-<div *ngIf="showForm">
+<div *ngIf="showForm || prosCons.length === 0">
   <form (ngSubmit)="onSubmit()" #proconForm="ngForm">
     <mat-form-field class="full-width">
       <textarea name="procon" id="procon" rows="1" placeholder="Enter  {{pro ? 'pro' : 'con'}}"
-        matInput required [autofocus] ngModel (focusout)="onTextAreaFocusOut()"></textarea>
+        matInput required [autofocus] ngModel (focusout)="onTextAreaFocusOut($event)"></textarea>
     </mat-form-field>
   </form>
 </div>
