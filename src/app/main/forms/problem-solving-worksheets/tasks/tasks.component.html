@@ -72,6 +72,12 @@
 
             <div class="col-12 col-md-6" *ngIf="repeat">
               <mat-checkbox
+                (change)="onAllCheck($event)"
+                [disableRipple]="true"
+                [checked]="days.length === week.length">
+                <span color="primary">All</span>
+              </mat-checkbox>
+              <mat-checkbox
                 *ngFor="let day of week"
                 [checked]="days.includes(day)"
                 (change)="onDayChange($event, day)"

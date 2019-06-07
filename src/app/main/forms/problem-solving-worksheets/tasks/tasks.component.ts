@@ -193,4 +193,18 @@ export class TasksComponent implements OnInit, OnChanges {
         }
       );
   }
+
+  onAllCheck(event: any) {
+    if (event.checked) {
+      this.days = WEEK;
+    } else {
+      this.days = [];
+    }
+    this.updateTask();
+  }
+
+  allDaysChecked() {
+    console.log(this.date.length)
+    return this.date.length === 7;
+  }
 }
