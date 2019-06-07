@@ -4,9 +4,9 @@
   (proconDelete)=onProconDelete($event)>
 </app-procon-item>
 <div>
-  <button class="pull-right" (click)="showForm=!showForm">
-    <mat-icon *ngIf="!showForm">add_circle</mat-icon>
-    <mat-icon *ngIf="showForm">clear_circle</mat-icon>
+  <button class="close-btn pull-right" (click)="showForm=!showForm">
+    <mat-icon *ngIf="!(showForm ||  prosCons.length === 0)">add_circle</mat-icon>
+    <mat-icon *ngIf="(showForm ||  prosCons.length === 0)">clear_circle</mat-icon>
   </button>
 </div>
 <div *ngIf="showForm || prosCons.length === 0">

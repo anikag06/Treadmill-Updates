@@ -19,11 +19,11 @@ import { PreLoginComponent } from '@/pre-login/pre-login.component';
 import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-contact-us-dialog.service';
 import { AuthService } from './shared/auth/auth.service';
 import { HttpClientModule } from '@angular/common/http';
-import { AuthModule } from './auth.module';
 import { ErrorDialogComponent } from './shared/error-dialog/error-dialog.component';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { LocalStorageService } from './shared/localstorage.service';
 import { MatSignupDialogComponent} from './pre-login/signup/mat-signup-dialog/mat-signup-dialog.component';
+import { SignupComponent } from '@/pre-login/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +37,7 @@ import { MatSignupDialogComponent} from './pre-login/signup/mat-signup-dialog/ma
     PreLoginComponent,
     ErrorDialogComponent,
     NotFoundComponent,
+    SignupComponent,
   ],
   imports: [
     BrowserModule,

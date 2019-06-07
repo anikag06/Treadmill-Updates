@@ -7,7 +7,7 @@
       <div class="col-12 col-lg-6">
         <form [formGroup]="tasksGroup">
           <div>
-            <mat-checkbox class="full-width" formControlName="taskCompleted" (change)="taskCompletedChange($event)" [checked]="taskCompleted">
+            <mat-checkbox class="full-width" formControlName="taskCompleted" (change)="taskCompletedChange($event)" [checked]="tasksGroup.controls.dtaskCompleted">
               <input type="text" formControlName="task" class="form-control full-width" required
               placeholder="Write a task you will cary out" (focusout)="updateTask()">
             </mat-checkbox>
@@ -56,7 +56,6 @@
                           (focusout)="updateTask()">
                 </mat-form-field>
                 <owl-date-time [pickerType]="'timer'"  #timePicker="owlDateTime"></owl-date-time>
-              <p class="text-muted">{{timezone}}</p>
             </div>
 
             <div class="col-12 col-md-6">

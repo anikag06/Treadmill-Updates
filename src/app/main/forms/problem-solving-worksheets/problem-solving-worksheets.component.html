@@ -1,7 +1,7 @@
 <div class="container-fluid no-padding">
   <div class="row no-gutters">
     <div class="col-12">
-      <h1>Resources > Forms > Problem Solving Worksheet</h1>
+      <h1 class="main-heading-h1">Cope with a problem</h1>
     </div>
   </div>
   <div class="row no-gutters">
@@ -103,7 +103,7 @@
                   </div>
                 </div>
               </div>
-              <app-tasks (nextStepEmitter)="onNextStep()" [problem]="problem" [taskLoade]="onTaskLoad()"></app-tasks>
+              <app-tasks (nextStepEmitter)="onNextStep()" [problem]="problem" (taskLoaded)="onTaskLoad()"></app-tasks>
             </div>
           </div>
           <div class="card" *ngIf="!bestSolution">

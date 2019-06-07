@@ -65,7 +65,8 @@ export class ProsConsComponent implements OnInit {
   }
 
   onTextAreaFocusOut(event: any) {
-    console.log(event.relatedTarget)
-    this.onSubmit();
+    if (!(event.relatedTarget !== null && <Element>event.relatedTarget.classList.contains('close-btn'))) {
+      this.onSubmit();
+    }
   }
 }
