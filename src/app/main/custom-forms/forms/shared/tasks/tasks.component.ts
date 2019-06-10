@@ -1,7 +1,7 @@
 import { Component, OnInit, EventEmitter, Output, Input, ChangeDetectorRef, OnChanges, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormArray } from '@angular/forms';
-import { ProblemSolvingWorksheetsService } from '@/main/forms/problem-solving-worksheets/problem-solving-worksheets.service';
-import { Problem } from '@/main/forms/problem-solving-worksheets/problem.model';
+import { ProblemSolvingWorksheetsService } from '@/main/custom-forms/forms/problem-solving-worksheets/problem-solving-worksheets.service';
+import { Problem } from '@/main/custom-forms/forms/problem-solving-worksheets/problem.model';
 import { UserTask } from './user-task.model';
 import { UserSubTask } from './user-sub-task.model';
 import { HttpErrorResponse } from '@angular/common/http';

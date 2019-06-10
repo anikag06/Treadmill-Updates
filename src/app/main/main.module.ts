@@ -47,27 +47,14 @@ import { CommentService } from './support-groups/post-list/post-item/comment/com
 import { NetstedCommentService } from './support-groups/post-list/post-item/nested-comment/netsted-comment.service';
 import { TagService } from './shared/tag.service';
 import { AutofocusDirective } from './shared/autofocus.directive';
-import { FormsComponent } from './forms/forms.component';
-import { ProblemSolvingWorksheetsComponent } from './forms/problem-solving-worksheets/problem-solving-worksheets.component';
-import { ProsConsComponent } from './forms/problem-solving-worksheets/pros-cons-container/pros-cons/pros-cons.component';
-import { ProconItemComponent } from './forms/problem-solving-worksheets/pros-cons-container/pros-cons/procon-item/procon-item.component';
-import { SolutionsComponent } from './forms/problem-solving-worksheets/solutions/solutions.component';
-import { ProblemSolvingWorksheetsService } from './forms/problem-solving-worksheets/problem-solving-worksheets.service';
-import { FormListComponent } from './forms/problem-solving-worksheets/form-list/form-list.component';
-import { ProblemFormComponent } from './forms/problem-solving-worksheets/problem-form/problem-form.component';
-import { ContainerRefDirective } from './forms/problem-solving-worksheets/container-ref.directive';
-import { ProsConsContainerComponent } from './forms/problem-solving-worksheets/pros-cons-container/pros-cons-container.component';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
-import { ResultComponent } from './forms/problem-solving-worksheets/result/result.component';
-import { TasksComponent } from './forms/problem-solving-worksheets/tasks/tasks.component';
-import { FormsService } from '@/main/forms.service';
-import { FormsListComponent } from './forms/forms-list/forms-list.component';
+import {ProblemSolvingWorksheetsService} from '@/main/custom-forms/forms/problem-solving-worksheets/problem-solving-worksheets.service';
+import {FormsService} from '@/main/forms.service';
 
 
 @NgModule({
   declarations: [
     ModulesComponent,
-    DashboardComponent,
     ModuleDetailComponent,
     ModuleItemComponent,
     ModuleOverviewComponent,
@@ -75,7 +62,6 @@ import { FormsListComponent } from './forms/forms-list/forms-list.component';
     CategorySmallComponent,
     CategoryBigComponent,
     SectionCardComponent,
-    MainComponent,
     LogoutComponent,
     ProgressComponent,
     CurrentModuleComponent,
@@ -95,18 +81,8 @@ import { FormsListComponent } from './forms/forms-list/forms-list.component';
     ScrollingDirective,
     NavbarComponent,
     AutofocusDirective,
-    FormsComponent,
-    ProblemSolvingWorksheetsComponent,
-    ProsConsComponent,
-    ProconItemComponent,
-    SolutionsComponent,
-    FormListComponent,
-    ProblemFormComponent,
-    ContainerRefDirective,
-    ProsConsContainerComponent,
-    ResultComponent,
-    TasksComponent,
-    FormsListComponent,
+    DashboardComponent,
+    MainComponent,
   ],
   imports: [
     CommonModule,
@@ -137,11 +113,11 @@ import { FormsListComponent } from './forms/forms-list/forms-list.component';
     GeneralErrorService,
     CommentService,
     NetstedCommentService,
-    ProblemSolvingWorksheetsService,
     TagService,
+    ProblemSolvingWorksheetsService,
     FormsService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  entryComponents: [CreatePostComponent, ProblemFormComponent]
+  entryComponents: [CreatePostComponent]
 })
 export class MainModule { }

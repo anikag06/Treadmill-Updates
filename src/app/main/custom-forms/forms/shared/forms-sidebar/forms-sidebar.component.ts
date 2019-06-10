@@ -1,15 +1,15 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { Problem } from '../problem.model';
-import { ProblemSolvingWorksheetsService } from '../problem-solving-worksheets.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
+import { Problem } from '@/main/custom-forms/forms/problem-solving-worksheets/problem.model';
+import { ProblemSolvingWorksheetsService } from '@/main/custom-forms/forms/problem-solving-worksheets/problem-solving-worksheets.service';
 
 @Component({
-  selector: 'app-form-list',
-  templateUrl: './form-list.component.html',
-  styleUrls: ['./form-list.component.scss']
+  selector: 'app-forms-sidebar',
+  templateUrl: './forms-sidebar.component.html',
+  styleUrls: ['./forms-sidebar.component.scss']
 })
-export class FormListComponent implements OnInit {
+export class FormsSidebarComponent implements OnInit {
 
   @Output() problemEmitter = new EventEmitter<Problem>();
   @Output() newForm = new EventEmitter<void>();
@@ -39,7 +39,7 @@ export class FormListComponent implements OnInit {
   }
 
   onAddNewForm() {
-    this.newForm.emit()
+    this.newForm.emit();
   }
 
 }

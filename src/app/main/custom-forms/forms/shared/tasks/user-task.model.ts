@@ -1,4 +1,4 @@
-import { UserSubTask } from '@/main/forms/problem-solving-worksheets/tasks/user-sub-task.model';
+import { UserSubTask } from '@/main/custom-forms/forms/shared/tasks/user-sub-task.model';
 
 export class UserTask {
   constructor(

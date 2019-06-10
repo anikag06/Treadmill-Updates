@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {Routes, RouterModule, ExtraOptions} from '@angular/router';
 import { LandingPageComponent } from './pre-login/landing-page/landing-page.component';
 import { PreLoginComponent } from './pre-login/pre-login.component';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
