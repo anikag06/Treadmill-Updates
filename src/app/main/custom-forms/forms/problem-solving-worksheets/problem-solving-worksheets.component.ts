@@ -9,6 +9,7 @@ import { User } from '@/shared/user.model';
 import { ContainerRefDirective } from './container-ref.directive';
 import { ProblemFormComponent } from './problem-form/problem-form.component';
 import { GeneralErrorService } from '@/main/shared/general-error.service';
+import { PROBLEM_SOLVING} from '@/app.constants';
 
 @Component({
   selector: 'app-problem-solving-worksheets',
@@ -25,6 +26,7 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   bestSolution!: Solution;
   showResult = false;
   showSolutionsForm = false;
+  type = PROBLEM_SOLVING;
   subscriptions: Subscription[] = [];
   @ViewChild('solutionForm') solutionForm!: NgForm;
   @ViewChild(ContainerRefDirective) problemContainer!: ContainerRefDirective;

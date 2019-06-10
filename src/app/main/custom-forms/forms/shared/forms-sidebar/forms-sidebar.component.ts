@@ -1,8 +1,11 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { Problem } from '@/main/custom-forms/forms/problem-solving-worksheets/problem.model';
 import { ProblemSolvingWorksheetsService } from '@/main/custom-forms/forms/problem-solving-worksheets/problem-solving-worksheets.service';
+import {PROBLEM_SOLVING, TASK} from '@/app.constants';
+import {TasksService} from '@/main/custom-forms/forms/shared/tasks/tasks.service';
+import {Task} from 'protractor/built/taskScheduler';
 
 @Component({
   selector: 'app-forms-sidebar',
@@ -11,27 +14,24 @@ import { ProblemSolvingWorksheetsService } from '@/main/custom-forms/forms/probl
 })
 export class FormsSidebarComponent implements OnInit {
 
-  @Output() problemEmitter = new EventEmitter<Problem>();
+  @Output() problemEmitter = new EventEmitter<Object>();
   @Output() newForm = new EventEmitter<void>();
-  problems: Problem[] = [];
-  problemPage = 1;
+  @Input() type!: String;
+  objects: any[] = [];
+  page = 1;
   subscriptions: Subscription[] = [];
 
   constructor(
-    private problemService: ProblemSolvingWorksheetsService
+    private problemService: ProblemSolvingWorksheetsService,
+    private tasksService: TasksService
   ) { }
 
   ngOnInit() {
-    this.subscriptions[this.subscriptions.length] = this.problemService.getProblems(this.problemPage);
-    this.subscriptions[this.subscriptions.length] = this.problemService.problemsBehaviour
-      .subscribe(
-        (problems: Problem[]) => {
-          this.problems = problems;
-        },
-        (error: HttpErrorResponse) => {
-          console.error(error);
-        }
-      );
+    if ( this.type === PROBLEM_SOLVING) {
+      this.getProblems();
+    } else {
+      this.getTasks();
+    }
   }
 
   problemClicked(problem: Problem) {
@@ -40,6 +40,32 @@ export class FormsSidebarComponent implements OnInit {
 
   onAddNewForm() {
     this.newForm.emit();
+  }
+
+  getProblems() {
+    this.subscriptions[this.subscriptions.length] = this.problemService.getProblems(this.page);
+    this.subscriptions[this.subscriptions.length] = this.problemService.problemsBehaviour
+      .subscribe(
+        (problems: Problem[]) => {
+         this.objects = problems;
+        },
+        (error: HttpErrorResponse) => {
+          console.error(error);
+        }
+      );
+  }
+
+  getTasks() {
+    this.subscriptions[this.subscriptions.length] = this.tasksService.getTasks(this.page);
+    this.subscriptions[this.subscriptions.length] = this.tasksService.taskBehaviour
+      .subscribe(
+        (tasks: Task[]) => {
+         this.objects = tasks;
+        },
+        (error: HttpErrorResponse) => {
+          console.error(error);
+        }
+      );
   }
 
 }

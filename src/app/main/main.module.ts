@@ -50,6 +50,7 @@ import { AutofocusDirective } from './shared/autofocus.directive';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import {ProblemSolvingWorksheetsService} from '@/main/custom-forms/forms/problem-solving-worksheets/problem-solving-worksheets.service';
 import {FormsService} from '@/main/forms.service';
+import {TasksService} from '@/main/custom-forms/forms/shared/tasks/tasks.service';
 
 
 @NgModule({
@@ -116,6 +117,7 @@ import {FormsService} from '@/main/forms.service';
     TagService,
     ProblemSolvingWorksheetsService,
     FormsService,
+    TasksService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [CreatePostComponent]

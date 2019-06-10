@@ -32,3 +32,8 @@ export const LOGIN_PATH         = '/api/v1/user/login/';
 export const SIGNUP_PATH 		= '/api/v1/user/registration/';
 export const MOBILEWIDTH        = 768;
 
+
+export const PROBLEM_SOLVING = 'problem-solving';
+export const TASK            = 'tasks';
+export const EXPERIMENT_TO_TEST_BELIEF = 'experiment-to-test-belief';
+
