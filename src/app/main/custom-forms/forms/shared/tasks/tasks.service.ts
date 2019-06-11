@@ -1,29 +1,51 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { environment } from 'environments/environment';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {environment} from 'environments/environment';
 import {BehaviorSubject} from 'rxjs';
-import {Task} from 'protractor/built/taskScheduler';
+import {UserTask} from '@/main/custom-forms/forms/shared/tasks/user-task.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TasksService {
 
-  tasks: Task[] = [];
-  taskBehaviour = new BehaviorSubject<Task[]>(this.tasks);
+  tasks: UserTask[] = [];
+  page = 1;
+  nextPage = true;
+  taskBehaviour = new BehaviorSubject<UserTask[]>(this.tasks);
 
   constructor(
     private http: HttpClient,
-  ) { }
+  ) {}
 
-  getTasks(page: number) {
-    return this.http.get(environment.API_ENDPOINT + '/api/v1/tasks/listing/?page=' + page)
-      .subscribe(
-        (data: any) => {
-          this.tasks.push(...data.results);
-          this.taskBehaviour.next([...this.tasks]);
-          return <Task[]>data.results;
-        }
-      );
+  getTasks() {
+    if (this.nextPage) {
+      this.http.get(environment.API_ENDPOINT + '/api/v1/tasks/listing/?page=' + this.page)
+        .subscribe(
+          (data: any) => {
+            if (this.page === 1) {
+              this.tasks = [];
+            }
+            this.tasks.push(...data.results);
+            this.taskBehaviour.next(this.tasks);
+            if (data.next) {
+              this.page += 1;
+              this.nextPage = true;
+              setTimeout(() => { this.getTasks(); }, 10);
+            } else {
+              this.nextPage = false;
+            }
+          }
+        );
+    }
+  }
+
+  postTask(data: any) {
+    return this.http.post(environment.API_ENDPOINT + '/api/v1/tasks/task/', data);
+  }
+
+  addTask(task: UserTask) {
+    this.tasks.push(task);
+    this.taskBehaviour.next(this.tasks);
   }
 }

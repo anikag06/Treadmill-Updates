@@ -3,9 +3,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { Problem } from '@/main/custom-forms/forms/problem-solving-worksheets/problem.model';
 import { ProblemSolvingWorksheetsService } from '@/main/custom-forms/forms/problem-solving-worksheets/problem-solving-worksheets.service';
-import {PROBLEM_SOLVING, TASK} from '@/app.constants';
-import {TasksService} from '@/main/custom-forms/forms/shared/tasks/tasks.service';
-import {Task} from 'protractor/built/taskScheduler';
+import { PROBLEM_SOLVING } from '@/app.constants';
+import { TasksService } from '@/main/custom-forms/forms/shared/tasks/tasks.service';
+import { Task } from 'protractor/built/taskScheduler';
+import {UserTask} from '@/main/custom-forms/forms/shared/tasks/user-task.model';
 
 @Component({
   selector: 'app-forms-sidebar',
@@ -14,7 +15,7 @@ import {Task} from 'protractor/built/taskScheduler';
 })
 export class FormsSidebarComponent implements OnInit {
 
-  @Output() problemEmitter = new EventEmitter<Object>();
+  @Output() objectEmitter = new EventEmitter<Object>();
   @Output() newForm = new EventEmitter<void>();
   @Input() type!: String;
   objects: any[] = [];
@@ -35,7 +36,7 @@ export class FormsSidebarComponent implements OnInit {
   }
 
   problemClicked(problem: Problem) {
-    this.problemEmitter.emit(problem);
+    this.objectEmitter.emit(problem);
   }
 
   onAddNewForm() {
@@ -43,11 +44,11 @@ export class FormsSidebarComponent implements OnInit {
   }
 
   getProblems() {
-    this.subscriptions[this.subscriptions.length] = this.problemService.getProblems(this.page);
+    this.subscriptions[this.subscriptions.length] = this.problemService.getProblems();
     this.subscriptions[this.subscriptions.length] = this.problemService.problemsBehaviour
       .subscribe(
         (problems: Problem[]) => {
-         this.objects = problems;
+          this.objects = problems;
         },
         (error: HttpErrorResponse) => {
           console.error(error);
@@ -56,10 +57,10 @@ export class FormsSidebarComponent implements OnInit {
   }
 
   getTasks() {
-    this.subscriptions[this.subscriptions.length] = this.tasksService.getTasks(this.page);
+    this.tasksService.getTasks();
     this.subscriptions[this.subscriptions.length] = this.tasksService.taskBehaviour
       .subscribe(
-        (tasks: Task[]) => {
+        (tasks: UserTask[]) => {
          this.objects = tasks;
         },
         (error: HttpErrorResponse) => {

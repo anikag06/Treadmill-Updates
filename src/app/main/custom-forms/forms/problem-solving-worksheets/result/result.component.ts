@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input, OnChanges} from '@angular/core';
 import { Solution } from '../solution.model';
 import { ProblemSolvingWorksheetsService } from '../problem-solving-worksheets.service';
 import { Result } from './result.model';
@@ -9,7 +9,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   templateUrl: './result.component.html',
   styleUrls: ['./result.component.scss']
 })
-export class ResultComponent implements OnInit {
+export class ResultComponent implements OnInit, OnChanges {
 
   @Input() solution!: Solution;
   result!: Result;
@@ -18,25 +18,27 @@ export class ResultComponent implements OnInit {
     private problemService: ProblemSolvingWorksheetsService
   ) { }
 
+  ngOnInit() {}
 
-
-  ngOnInit() {
-    this.problemService.getResult(this.solution.id)
-      .subscribe(
-        (data: any) => {
-          if (data.results.length > 0) {
-            this.result = new Result(+(data.results[0].id), data.results[0].body);
-            this.resultBody = data.results[0].body;
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.solution) {
+      this.problemService.getResult(this.solution.id)
+        .subscribe(
+          (data: any) => {
+            if (data.results.length > 0) {
+              this.result = new Result(+(data.results[0].id), data.results[0].body);
+              this.resultBody = data.results[0].body;
+            }
+          },
+          (error: HttpErrorResponse) => {
+            console.log(error);
           }
-        },
-        (error: HttpErrorResponse) => {
-          console.log(error);
-        }
-      )
-
+        );
+    }
   }
 
   onResultSubmit() {
+    console.log(this.result);
     if (this.result) {
       this.problemService.putResult(this.solution.id, this.resultBody, this.result.id)
         .subscribe(

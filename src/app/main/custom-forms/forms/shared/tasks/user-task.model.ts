@@ -6,7 +6,9 @@ export class UserTask {
     public  name: string,
     public  is_completed: boolean,
     public date_time: Date,
-    public subtasks: UserSubTask[],
-    public task_days: String[]
+    public sub_tasks: UserSubTask[],
+    public task_days: String[],
+    public origin_name: string,
+    public origin_object: number,
   ) {}
 }

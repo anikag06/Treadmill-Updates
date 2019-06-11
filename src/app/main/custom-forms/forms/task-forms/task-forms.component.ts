@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {UserTask} from '@/main/custom-forms/forms/shared/tasks/user-task.model';
+import {TASK} from '@/app.constants';
 
 @Component({
   selector: 'app-task-forms',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TaskFormsComponent implements OnInit {
 
+
+  task!: UserTask | undefined;
+  reset = false;
   constructor() { }
 
   ngOnInit() {
   }
 
+  taskSelected(task: UserTask) {
+    this.task = task;
+  }
+
+  onAddNewForm() {
+    this.task = undefined;
+    this.reset = !this.reset;
+  }
 }

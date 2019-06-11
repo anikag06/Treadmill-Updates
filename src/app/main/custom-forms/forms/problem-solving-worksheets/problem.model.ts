@@ -3,5 +3,6 @@ export class Problem {
         public id: number,
         public problem: string,
         public bestsolution: any,
+        public taskorigin: number,
     ) {}
 }

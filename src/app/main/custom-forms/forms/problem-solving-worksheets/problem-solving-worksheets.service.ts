@@ -14,6 +14,7 @@ export class ProblemSolvingWorksheetsService {
 
   private problems: Problem[] = [];
   moreProblems = true;
+  page = 1
   problemBehaviour = new BehaviorSubject({});
   problemsBehaviour = new BehaviorSubject(this.problems);
 
@@ -24,19 +25,24 @@ export class ProblemSolvingWorksheetsService {
     private sanitizer: SanitizationService,
   ) { }
 
-  getProblems(page: number) {
-    const params = new HttpParams().set('page', page.toString());
+  getProblems() {
+    const params = new HttpParams().set('page', this.page.toString());
     return this.http.get<Problem[]>(environment.API_ENDPOINT + '/api/v1/worksheets/problem-solving/problems/', { params: params })
       .subscribe(
         (data: any) => {
           const problems = <Problem[]>data.results;
-          if (data.next) {
-            this.moreProblems = true;
-          } else {
-            this.moreProblems = false;
+          if (this.page === 1) {
+            this.problems = [];
           }
           this.problems.push(...problems);
           this.problemsBehaviour.next(this.problems);
+          if (data.next) {
+            this.moreProblems = true;
+            this.page += 1;
+            this.getProblems();
+          } else {
+            this.moreProblems = false;
+          }
         },
         (error: HttpErrorResponse) => {
           console.error(error);

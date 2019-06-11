@@ -36,4 +36,8 @@ export const MOBILEWIDTH        = 768;
 export const PROBLEM_SOLVING = 'problem-solving';
 export const TASK            = 'tasks';
 export const EXPERIMENT_TO_TEST_BELIEF = 'experiment-to-test-belief';
+export const PROBLEM         = 'problem';
+export const EXPR_TEST_BELIEF = 'expr_test_belief';
+export const RECOMMENDED       = 'recommended';
+
 

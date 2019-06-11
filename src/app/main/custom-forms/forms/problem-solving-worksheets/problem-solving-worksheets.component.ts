@@ -10,6 +10,7 @@ import { ContainerRefDirective } from './container-ref.directive';
 import { ProblemFormComponent } from './problem-form/problem-form.component';
 import { GeneralErrorService } from '@/main/shared/general-error.service';
 import { PROBLEM_SOLVING} from '@/app.constants';
+import {UserTask} from '@/main/custom-forms/forms/shared/tasks/user-task.model';
 
 @Component({
   selector: 'app-problem-solving-worksheets',
@@ -196,9 +197,13 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
     this.onSolutionSubmit();
   }
 
-  onTaskLoad() {
+  onTaskLoad(task: UserTask) {
     setTimeout(() => {
-      this.showResult = true;
+      this.showResult = !!task;
     }, 1);
+  }
+
+  renderResult(): Boolean {
+    return this.solutions && this.bestSolution && this.showResult;
   }
 }

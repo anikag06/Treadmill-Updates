@@ -1,12 +1,13 @@
-import { Component, OnInit, EventEmitter, Output, Input, ChangeDetectorRef, OnChanges, SimpleChanges } from '@angular/core';
-import { FormBuilder, FormArray } from '@angular/forms';
-import { ProblemSolvingWorksheetsService } from '@/main/custom-forms/forms/problem-solving-worksheets/problem-solving-worksheets.service';
-import { Problem } from '@/main/custom-forms/forms/problem-solving-worksheets/problem.model';
-import { UserTask } from './user-task.model';
-import { UserSubTask } from './user-sub-task.model';
-import { HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { WEEK } from '@/app.constants'
+import {Component, OnInit, EventEmitter, Output, Input, ChangeDetectorRef, OnChanges, SimpleChanges} from '@angular/core';
+import {FormBuilder, FormArray} from '@angular/forms';
+import {ProblemSolvingWorksheetsService} from '@/main/custom-forms/forms/problem-solving-worksheets/problem-solving-worksheets.service';
+import {Problem} from '@/main/custom-forms/forms/problem-solving-worksheets/problem.model';
+import {UserTask} from './user-task.model';
+import {UserSubTask} from './user-sub-task.model';
+import {HttpErrorResponse} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {TasksService} from '@/main/custom-forms/forms/shared/tasks/tasks.service';
+import {PROBLEM, RECOMMENDED, WEEK} from '@/app.constants';
 
 @Component({
   selector: 'app-tasks',
@@ -16,16 +17,19 @@ import { WEEK } from '@/app.constants'
 export class TasksComponent implements OnInit, OnChanges {
 
   @Output() nextStepEmitter = new EventEmitter<null>();
-  @Output() taskLoaded = new EventEmitter<boolean>();
+  @Output() taskLoaded = new EventEmitter<UserTask>();
   @Input() problem!: Problem;
+  @Input() reset!: boolean;
+  @Input() task!: UserTask;
 
   date!: any;
   time!: any;
   hideNextStep = false;
-  task!: UserTask;
   week = WEEK;
   days: String[] = [];
   repeat = false;
+  origin_object: number | null = null;
+  origin_name = '';
 
   tasksGroup = this.fb.group({
     task: [''],
@@ -36,14 +40,30 @@ export class TasksComponent implements OnInit, OnChanges {
   constructor(
     private fb: FormBuilder,
     private problemService: ProblemSolvingWorksheetsService,
-    private changeDetector: ChangeDetectorRef) { }
+    private taskService: TasksService,
+    private changeDetector: ChangeDetectorRef) {
+  }
 
   ngOnInit() {
-    this.loadTask();
+    if (this.problem && this.problem.taskorigin) {
+      this.loadTasks();
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.loadTask();
+    if (this.task && (changes.task && changes.task.previousValue !== changes.task.currentValue)) {
+      this.initializeTask();
+    } else if (this.problem && this.problem.taskorigin && (changes.problem.previousValue !== changes.problem.currentValue)) {
+      this.loadTasks();
+    } else if (this.problem && !this.problem.taskorigin) {
+      this.resetTask();
+      this.taskLoaded.emit();
+    }
+
+
+    if (changes.reset) {
+      this.resetTask();
+    }
   }
 
 
@@ -69,13 +89,14 @@ export class TasksComponent implements OnInit, OnChanges {
   saveData() {
     const object = {
       id: 0,
-      problem_id: this.problem.id,
+      origin_id: this.getOriginId(),
+      origin_name: this.getOriginName(),
       name: this.tasksGroup.value['task'],
       date: new Date(this.date),
       time: new Date(this.time),
       is_completed: this.tasksGroup.value['taskCompleted'],
-      subtasks: this.tasksGroup.controls.subTasks.value.filter((str: any) => str.name.trim().length > 0),
-      task_days: this.days
+      sub_tasks: this.tasksGroup.controls.subTasks.value.filter((str: any) => str.name.trim().length > 0),
+      days: this.days
     };
     if (this.task && this.task.id > 0) {
       object.id = this.task.id;
@@ -86,7 +107,7 @@ export class TasksComponent implements OnInit, OnChanges {
       );
     } else {
       this.taskHandler(
-        this.problemService.postTask(
+        this.taskService.postTask(
           object
         )
       );
@@ -102,7 +123,7 @@ export class TasksComponent implements OnInit, OnChanges {
 
   subTaskCompletedChange(event: Event, subtask_id: number) {
     if (this.task) {
-      this.task.subtasks = this.task.subtasks.map((st: UserSubTask) => {
+      this.task.sub_tasks = this.task.sub_tasks.map((st: UserSubTask) => {
         if (st.id === subtask_id) {
           st.is_completed = !st.is_completed;
         }
@@ -120,10 +141,18 @@ export class TasksComponent implements OnInit, OnChanges {
 
   taskHandler(observable: Observable<Object>) {
     observable.subscribe((data: any) => {
-      this.task = new UserTask(+data.data.id, data.data.name, data.data.is_completed, data.data.date_time, [], []);
+      this.task = new UserTask(+data.data.id,
+        data.data.name,
+        data.data.is_completed,
+        data.data.date_time,
+        data.data.sub_tasks,
+        data.data.task_days,
+        data.data.origin_name,
+        data.data.origin_object);
+      this.taskService.addTask(this.task);
       this.tasksGroup.controls.subTasks = this.fb.array([]);
-      data.data.subtasks.forEach((subtask: UserSubTask) => {
-        this.task.subtasks.push(new UserSubTask(subtask.id, subtask.name, subtask.is_completed));
+      data.data.sub_tasks.forEach((subtask: UserSubTask) => {
+        this.task.sub_tasks.push(new UserSubTask(subtask.id, subtask.name, subtask.is_completed));
         (this.tasksGroup.controls.subTasks as FormArray).push(this.createItem(subtask.id, subtask.name, subtask.is_completed));
       });
       this.nextStepEmitter.emit(null);
@@ -136,8 +165,8 @@ export class TasksComponent implements OnInit, OnChanges {
       .subscribe(
         (data: any) => {
           this.tasksGroup.controls.subTasks = this.fb.array([]);
-          this.task.subtasks = this.task.subtasks.filter((st: UserSubTask) => st.id !== subtask.id);
-          this.task.subtasks.forEach((stask: UserSubTask) => {
+          this.task.sub_tasks = this.task.sub_tasks.filter((st: UserSubTask) => st.id !== subtask.id);
+          this.task.sub_tasks.forEach((stask: UserSubTask) => {
             (this.tasksGroup.controls.subTasks as FormArray).push(this.createItem(stask.id, stask.name, stask.is_completed));
           });
         },
@@ -149,12 +178,15 @@ export class TasksComponent implements OnInit, OnChanges {
       this.days.push(day);
       this.updateTask();
     } else {
-      this.days = this.days.filter(d => day !== d );
-      this.problemService.deleteTaskDay(this.task.id, day)
-        .subscribe(
-          () => {},
-          (error) => console.log(error)
-        );
+      this.days = this.days.filter(d => day !== d);
+      if (this.task) {
+        this.problemService.deleteTaskDay(this.task.id, day)
+          .subscribe(
+            () => {
+            },
+            (error) => console.log(error)
+          );
+      }
     }
     this.changeDetector.detectChanges();
   }
@@ -169,29 +201,43 @@ export class TasksComponent implements OnInit, OnChanges {
   }
 
 
-  loadTask() {
-    this.problemService.getTask(this.problem.id)
+  loadTasks() {
+    this.taskService.getTasks();
+    this.taskService.taskBehaviour
       .subscribe(
         (data: any) => {
-          this.task = data.results[0];
-          if (this.task) {
-            this.taskLoaded.emit(true);
-            this.date = new Date(this.task.date_time);
-            this.time = new Date(this.task.date_time);
-            this.tasksGroup.controls['task'].setValue(this.task.name);
-            this.tasksGroup.controls['taskCompleted'].setValue(this.task.is_completed);
-            this.tasksGroup.controls.subTasks = this.fb.array([]);
-            this.days = this.task.task_days;
-            this.repeat = this.days.length > 0;
-            this.task.subtasks.forEach((subtask: UserSubTask) => {
-              (this.tasksGroup.controls.subTasks as FormArray).push(this.createItem(subtask.id, subtask.name, subtask.is_completed));
-            });
-          }
-        },
+            if (data.length > 0 )  {
+              this.task = data.find((t: UserTask) => {
+                if (this.problem.taskorigin === t.origin_object) {
+                  return t;
+                }
+              });
+              if (this.task) {
+                this.initializeTask();
+                this.taskLoaded.emit(this.task);
+              }
+            }
+          },
         (error: HttpErrorResponse) => {
           console.log(error.error.message);
         }
       );
+  }
+
+  initializeTask() {
+    this.date = new Date(this.task.date_time);
+    this.time = new Date(this.task.date_time);
+    this.tasksGroup.controls['task'].setValue(this.task.name);
+    this.tasksGroup.controls['taskCompleted'].setValue(this.task.is_completed);
+    this.tasksGroup.controls.subTasks = this.fb.array([]);
+    this.days = this.task.task_days;
+    this.repeat = this.days.length > 0;
+    this.origin_name = this.task.origin_name;
+    this.origin_object = this.task.origin_object;
+    this.task.sub_tasks.forEach((subtask: UserSubTask) => {
+      (this.tasksGroup.controls.subTasks as FormArray).push(this.createItem(subtask.id, subtask.name, subtask.is_completed));
+    });
+    this.changeDetector.detectChanges();
   }
 
   onAllCheck(event: any) {
@@ -204,7 +250,36 @@ export class TasksComponent implements OnInit, OnChanges {
   }
 
   allDaysChecked() {
-    console.log(this.date.length)
     return this.date.length === 7;
+  }
+
+  getOriginId() {
+    if (this.problem) {
+      return this.problem.id;
+    } else {
+      null;
+    }
+  }
+
+  getOriginName() {
+    if (this.problem) {
+      return PROBLEM;
+    } else {
+      return RECOMMENDED;
+    }
+  }
+
+  resetTask() {
+    delete this.date;
+    delete this.time;
+    this.days = [];
+    this.repeat = false;
+    delete this.origin_name;
+    delete this.origin_object;
+    this.tasksGroup = this.fb.group({
+      task: [''],
+      taskCompleted: [false],
+      subTasks: this.fb.array([this.createItem(), this.createItem(), this.createItem()])
+    });
   }
 }
