@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, OnChanges} from '@angular/core';
+import {Component, OnInit, Input, OnChanges, SimpleChanges} from '@angular/core';
 import { Solution } from '../solution.model';
 import { ProblemSolvingWorksheetsService } from '../problem-solving-worksheets.service';
 import { Result } from './result.model';

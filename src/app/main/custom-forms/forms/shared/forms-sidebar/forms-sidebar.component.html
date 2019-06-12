@@ -8,7 +8,7 @@
       Add new form
     </button>
   </li>
-  <li class="list-group-item" *ngFor="let obj of objects" (click)="problemClicked(obj)">
+  <li class="list-group-item" *ngFor="let obj of objects" (click)="problemClicked(obj)" [ngClass]="obj === selectedObject ? 'selected' : ''">
     {{obj.problem || obj.name}}
   </li>
 </ul>

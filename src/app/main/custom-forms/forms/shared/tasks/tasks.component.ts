@@ -101,15 +101,17 @@ export class TasksComponent implements OnInit, OnChanges {
     if (this.task && this.task.id > 0) {
       object.id = this.task.id;
       this.taskHandler(
-        this.problemService.putTask(
+        this.taskService.putTask(
           object
-        )
+        ),
+        'update',
       );
     } else {
       this.taskHandler(
         this.taskService.postTask(
           object
-        )
+        ),
+        'create'
       );
     }
   }
@@ -139,29 +141,41 @@ export class TasksComponent implements OnInit, OnChanges {
     }
   }
 
-  taskHandler(observable: Observable<Object>) {
-    observable.subscribe((data: any) => {
-      this.task = new UserTask(+data.data.id,
-        data.data.name,
-        data.data.is_completed,
-        data.data.date_time,
-        data.data.sub_tasks,
-        data.data.task_days,
-        data.data.origin_name,
-        data.data.origin_object);
-      this.taskService.addTask(this.task);
-      this.tasksGroup.controls.subTasks = this.fb.array([]);
-      data.data.sub_tasks.forEach((subtask: UserSubTask) => {
-        this.task.sub_tasks.push(new UserSubTask(subtask.id, subtask.name, subtask.is_completed));
-        (this.tasksGroup.controls.subTasks as FormArray).push(this.createItem(subtask.id, subtask.name, subtask.is_completed));
+  taskHandler(observable: Observable<Object>, action: string) {
+    if (action == 'create') {
+      observable.subscribe((data: any) => {
+        this.task = new UserTask(+data.data.id,
+          data.data.name,
+          data.data.is_completed,
+          data.data.date_time,
+          data.data.sub_tasks,
+          data.data.task_days,
+          data.data.origin_name,
+          data.data.origin_object);
+          this.taskService.addTask(this.task);
+        this.tasksGroup.controls.subTasks = this.fb.array([]);
+        data.data.sub_tasks.forEach((subtask: UserSubTask) => {
+          this.task.sub_tasks.push(new UserSubTask(subtask.id, subtask.name, subtask.is_completed));
+          (this.tasksGroup.controls.subTasks as FormArray).push(this.createItem(subtask.id, subtask.name, subtask.is_completed));
+        });
+        this.nextStepEmitter.emit(null);
+        this.hideNextStep = true;
       });
-      this.nextStepEmitter.emit(null);
-      this.hideNextStep = true;
-    });
+    } else {
+      observable.subscribe(
+        (data: any) => {
+          const task = this.taskService.tasks.find((t: UserTask) => t.id === +data.data.id);
+          if (task) {
+            this.task = <UserTask>data.data;
+            this.taskService.updateTask(this.task);
+          }
+        }
+      );
+    }
   }
 
   markForDeletion(subtask: any) {
-    this.problemService.deleteSubTask(this.task.id, subtask.id)
+    this.taskService.deleteSubTask(this.task.id, subtask.id)
       .subscribe(
         (data: any) => {
           this.tasksGroup.controls.subTasks = this.fb.array([]);
@@ -180,7 +194,7 @@ export class TasksComponent implements OnInit, OnChanges {
     } else {
       this.days = this.days.filter(d => day !== d);
       if (this.task) {
-        this.problemService.deleteTaskDay(this.task.id, day)
+        this.taskService.deleteTaskDay(this.task.id, day)
           .subscribe(
             () => {
             },
@@ -237,7 +251,6 @@ export class TasksComponent implements OnInit, OnChanges {
     this.task.sub_tasks.forEach((subtask: UserSubTask) => {
       (this.tasksGroup.controls.subTasks as FormArray).push(this.createItem(subtask.id, subtask.name, subtask.is_completed));
     });
-    this.changeDetector.detectChanges();
   }
 
   onAllCheck(event: any) {

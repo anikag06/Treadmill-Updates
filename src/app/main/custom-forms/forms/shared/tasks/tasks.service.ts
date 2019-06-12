@@ -44,8 +44,35 @@ export class TasksService {
     return this.http.post(environment.API_ENDPOINT + '/api/v1/tasks/task/', data);
   }
 
+  putTask(data: any) {
+    return this.http.put(environment.API_ENDPOINT + '/api/v1/tasks/task/' + data.id + '/', data);
+  }
+
   addTask(task: UserTask) {
     this.tasks.push(task);
     this.taskBehaviour.next(this.tasks);
+  }
+
+  updateTask(task: UserTask) {
+    const userTask = this.tasks.find((t: UserTask) => t.id === task.id);
+    if (userTask) {
+      this.tasks[this.tasks.indexOf(userTask)] = task;
+      this.taskBehaviour.next(this.tasks);
+    }
+
+  }
+
+  deleteSubTask(task_id: number, subtask_id: number) {
+    return this.http
+      .delete(environment.API_ENDPOINT +
+        '/api/v1/tasks/task/' +
+        task_id + '/sub-task/?subtask_id=' + subtask_id);
+  }
+
+  deleteTaskDay(task_id: number, day: string) {
+    return this.http
+      .delete(environment.API_ENDPOINT +
+        '/api/v1/tasks/task/' +
+        task_id + '/task-days/?day=' + day);
   }
 }

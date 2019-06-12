@@ -21,6 +21,7 @@ export class FormsSidebarComponent implements OnInit {
   objects: any[] = [];
   page = 1;
   subscriptions: Subscription[] = [];
+  selectedObject!: any;
 
   constructor(
     private problemService: ProblemSolvingWorksheetsService,
@@ -35,8 +36,9 @@ export class FormsSidebarComponent implements OnInit {
     }
   }
 
-  problemClicked(problem: Problem) {
-    this.objectEmitter.emit(problem);
+  problemClicked(object: Object) {
+    this.objectEmitter.emit(object);
+    this.selectedObject = object;
   }
 
   onAddNewForm() {
