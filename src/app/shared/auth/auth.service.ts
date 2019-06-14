@@ -67,8 +67,8 @@ export class AuthService {
     } else {
       return this.http.get(environment.API_ENDPOINT + GAD_SEVEN_SCORE);
     }
-
   }
+
 
   isLoggedIn() {
     if (this.user) {

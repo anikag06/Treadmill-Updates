@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> Interpretation-Bias-Game</title>
+  </head>
+
+	<body>
+   <!-- GAME INSTRUCTIONS - START -->
+   <div class="row instructions-row d-none" id="instruct-div">
+      <div class="game-instructions">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <h5 class="card-header">How to play?</h5>
+              <div class="card-body">
+                <p class="card-text">Find words in the grid to unlock the sentence.</p>
+                <div class="div-instruction">
+                  <div class="div-instruction-img">
+                    <img class="card-img-top img-fluid rounded" src="../../../../../assets/games/interpretation_bias_game/images/1.png" alt="Swipe gif">
+                    <i class="material-icons instruction-icon">play_circle_outline</i>
+                  </div>
+                  <div class="div-instruction-gif d-none">
+                    <img class="card-gif-top img-fluid rounded" src="../../../../../assets/games/interpretation_bias_game/images/1.gif" alt="Swipe gif">
+                  </div>
+                </div>
+                <p class="card-text">Find extra words to earn extra coins.</p>
+                <div class="div-instruction">
+                  <div class="div-instruction-img">
+                    <img class="card-img-top img-fluid rounded" src="../../../../../assets/games/interpretation_bias_game/images/2.png" alt="Swipe gif">
+                    <i class="material-icons instruction-icon">play_circle_outline</i>
+                  </div>
+                  <div class="div-instruction-gif d-none">
+                    <img class="card-gif-top img-fluid rounded" src="../../../../../assets/games/interpretation_bias_game/images/1.gif" alt="Swipe gif">
+                  </div>
+                </div>
+                <p class="card-text">Read the sentence.</p>
+                <div class="div-instruction">
+                  <div class="div-instruction-img">
+                    <img class="card-img-top img-fluid rounded" src="../../../../../assets/games/interpretation_bias_game/images/1.png" alt="Swipe gif">
+                    <i class="material-icons instruction-icon">play_circle_outline</i>
+                  </div>
+                  <div class="div-instruction-gif d-none">
+                    <img class="card-gif-top img-fluid rounded" src="../../../../../assets/games/interpretation_bias_game/images/1.gif" alt="Swipe gif">
+                  </div>
+                </div>
+                <p class="card-text">Read the word.</p>
+                <div class="div-instruction">
+                  <div class="div-instruction-img">
+                    <img class="card-img-top img-fluid rounded" src="../../../../../assets/games/interpretation_bias_game/images/1.png" alt="Swipe gif">
+                    <i class="material-icons instruction-icon">play_circle_outline</i>
+                  </div>
+                  <div class="div-instruction-gif d-none">
+                    <img class="card-gif-top img-fluid rounded" src="../../../../../assets/games/interpretation_bias_game/images/1.gif" alt="Swipe gif">
+                  </div>
+                </div>
+                <p class="card-text">Is the sentence related to the word? Answer as quickly as possible to earn more coins.</p>
+                <div class="div-instruction">
+                  <div class="div-instruction-img">
+                    <img class="card-img-top img-fluid rounded" src="../../../../../assets/games/interpretation_bias_game/images/1.png" alt="Swipe gif">
+                    <i class="material-icons instruction-icon">play_circle_outline</i>
+                  </div>
+                  <div class="div-instruction-gif d-none">
+                    <img class="card-gif-top img-fluid rounded" src="../../../../../assets/games/interpretation_bias_game/images/1.gif" alt="Swipe gif">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <h5 class="card-header">Science behind the game.</h5>
+              <div class="card-body">
+                <p class="card-text">Research shows that depressed people often jump to a negative conclusion. Given an ambiguous situation, they think that the worst outcome is going to happen. This game has been designed to train your mind to link positive outcomes to ambiguous situations.</p>
+                <button type="button" class='btn btn-primary play-game card-button' id='start-btn'>Start Game</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- GAME INSTRUCTIONS - END -->
+    <div class="container-fluid" id="main_div">
+      <div class="row game-first-page">
+        <div id="frontpage-image"
+          class="col justify-content-center align-items-center">
+        </div>
+
+        <div class="d-flex col justify-content-end btn-play-options">
+          <img 
+            id="start-btn" 
+            class="play-game img-btn-first" 
+            src="../../../../../assets/games/play.png">
+          <img 
+            id="help-btn" 
+            class="help-btn img-btn-first" 
+            src="../../../../../assets/games/help.png">
+          <img 
+            id="sound-btn" 
+            class="sound-btn img-btn-first" 
+            src="../../../../../assets/games/sound.png">
+          <img 
+            id="exit"
+            class="exit mx-1 img-btn-first" 
+            (click) = "onExitClick()"
+            src="../../../../../assets/games/back.png">
+        </div>
+        
+      </div>
+        <!-- GAME PLAY - START -->
+      <!-- SENTENCE/WORD -->
+    <div class="row game d-none" >
+      <!-- for score and timer info -->
+      <div id="score-col" class="col-2 score-col changes-width d-none">   
+        <div class="row d-flex " style="margin-top: 3%">
+          <div id="score_info" class="d-inline justify-content-start score_info" >SCORE:
+            <div id="score" class="d-inline score"></div>
+          </div> 
+          <div class="showTimer justify-content-end " id="showTimer">
+            <img class="clock d-inline" 
+              src="../../../../../assets/games/time_transparent.png">&nbsp;
+            <div class="d-inline-block countdown" id="countdown"></div>
+          </div> 
+        </div>  
+        <div class="d-flex justify-content-start changes-width">
+              <div class="pause-clicked align-items-center d-none">
+                  <img 
+                    id="home-btn"
+                    class="home-btn mx-1 paused-img-btn"
+                    (click) = "onHomeClick()" 
+                    src="../../../../../assets/games/home.png">
+                    
+                  <img 
+                    id="help-btn"
+                    class="help-btn mx-1 paused-img-btn" 
+                    src="../../../../../assets/games/help.png">
+                  <img 
+                    id="play-btn" 
+                    class="play-btn mx-1 paused-img-btn" 
+                    src="../../../../../assets/games/play.png">
+                  <img 
+                    id="exit"
+                    class="exit mx-1 paused-img-btn" 
+                    (click) = "onExitClick()"
+                    src="../../../../../assets/games/back.png">
+                  <img 
+                    id="sound"
+                    class="sound mx-1 paused-img-btn" 
+                    src="../../../../../assets/games/sound.png">
+              </div>
+          </div>
+      </div>
+      <div class="col-1 extra-col changes-width d-none"></div>
+      <div class="col-6 justify-content-center changes-width sentence-col">
+        <div class="row sentence-row d-none">
+          <div class="col w-100 stars-sen">
+            <div class="stars" style="text-align: center; margin-top: 2%">
+              <p id="stars" ></p>
+            </div>
+            <!-- <div class="selected-word d-none">
+              <h3 id="selected-word" align="center"></h3>
+            </div> -->
+          </div>
+        </div>
+      
+        <!-- GRID -->
+        <div class="row w-100 canvas-row align-center changes-width d-none">
+          <div class="col w-100" id="canvas-div">
+            <!-- <img id="congrats" class="d-none" src="../../../../../assets/games/interpretation_bias_game/images/congrats.png"/> -->
+            <canvas id="canvas" class="rounded" ></canvas>
+          </div>
+        </div>
+      </div>
+            <!-- FEEDBACK - improve the feedback and remove this and associated code-->
+            <!-- 	<div class="row">
+              <div class="col">
+                <p id="swipedWord" align="center" spellcheck="true" class="swipedWord"></p>
+                <img src="{% static 'WordGame/images/tick.png' %}" id="tick" height="30" width="40"/>
+                <img src="{% static 'WordGame/images/X.png' %}" id="cross" height="30" width="40"/>
+                <img src="{% static 'WordGame/images/bag.jpg' %}" id="bonus" height="30" width="40"/>
+                <img src="{% static 'WordGame/images/already_found.png' %}" id="already_found" height="30" width="40"/>
+              </div>
+            </div>
+            -->
+          <div class="col hints-col changes-width d-none" style="margin-bottom: 2%">
+            <!-- CONTROLS -->
+            <div class="row row-height-100 changes-width justify-content-end">
+              <div class="row tip w-100" style="text-align: center">
+                <p class="text" id="tip-text"></p>
+              </div> 
+              <div class="align-self-center col justify-content-start controls-row">
+                  <div id="hint-div" class="row d-none">
+                      <!-- <div class="btns-hint "> -->
+                        <div class="row w-100">
+                          <button id="showWord" 
+                            class="btn-hint px-2 btn btn-light showWord">Show a word</button>
+                          <div id="showWordResult" 
+                                class="p-2 showWordResult rounded d-none">
+                            <p id="suggestion">Find the word:</p>
+                            <p id="aWord"></p>
+                          </div> 
+                        </div>
+                       <div class="row w-100">
+                        <button id="guessWord" 
+                          class="btn-hint px-2 btn btn-light guessWord">Show a jumbled word</button>
+                        <div id="guessWordResult" class="p-2 rounded guessWordResult d-none">
+                          <p id="unscrambleWord"></p>
+                        </div> 
+                       </div>
+                        <div class="row w-100">
+                          <button id="increase_time" 
+                            class="btn-hint px-2 btn btn-light increase_time">Add 20s to the clock</button>  
+                        </div>
+                       <!-- </div> -->
+                  </div>     
+              </div>
+                    <div class="align-self-end w-100 justify-content-end pause-hints d-none">
+                      <img 
+                        id="usehints"
+                        class="usehints img-btn " 
+                        src="../../../../../assets/games/hint.png">
+                    
+                      <img 
+                        id="pause-btn"
+                        class="pause-btn img-btn" 
+                        src="../../../../../assets/games/pause.png">
+                  
+                    </div>
+            </div>
+            
+          </div>
+          
+            <!-- GAME OVER -->
+            <div 
+              class="col game-over-row d-none">
+              <div 
+                class="row-height-100 d-flex flex-row justify-content-center align-items-center game-over-flex-row d-none">
+                <div id="timeup1" class="timeup1 d-none">
+                  <h3 align="center" 
+                    class="text-dark" 
+                    style="background-color: rgba(255,255,255,0.5)">Time Up!</h3>
+                  <div class="row timeup1-div">
+                    <div class="col align-items-center changes-width">
+                      <div class="">
+                      <img 
+                        id="btn-try-again"
+                        class="btn-try-again col-4 btn-timeup time-img-btn" 
+                        src="../../../../../assets/games/replay.png">
+                        <div class="col-8 d-inline-block">
+                          <p class="lifeline-cost">Try Again for 40 points</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col align-items-center changes-width">
+                      <div class="">
+                        <img 
+                          id="btn-borrow-time" 
+                          class="btn-borrow-time col-4 btn-timeup time-img-btn"
+                          src="../../../../../assets/games/time.png">
+                        <div class="col-8 d-inline-block">
+                          <p class="lifeline-cost">Add 20s to the clock for 20 points </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col align-items-center changes-width">
+                      <div class="">
+                        <img 
+                          id="btn-other-sentence"
+                          class="btn-other-sentence col-4 btn-timeup time-img-btn"
+                          (click) = 'storeUserScoreInfo()'
+                          src="../../../../../assets/games/forward.png">
+                        <div class="col-8 d-inline-block">
+                          <p class="lifeline-cost">Go to the next sentence for 100 points</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+      
+                <div align="center" id="timeup2" class="timeup2 d-none">
+                  <h3 class="text-dark" 
+                    style="background-color: rgba(255,255,255,0.5)">
+                    Time Up</h3> 
+                  <div class="row timeup2-div">
+                    <div class="col changes-width">
+                      <div class="">
+                        <img 
+                          id="btn-borrow-time-again" 
+                          class="btn-borrow-time-again col-4 btn-timeup time-img-btn"
+                          src="../../../../../assets/games/time.png">
+                        <div class="col-8 d-inline-block">
+                          <p class="lifeline-cost">Add 20s to the clock for 30 points </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col changes-width">
+                      <div class="">
+                        <img 
+                          id="btn-give-up" 
+                          class="btn-give-up col-4 btn-timeup time-img-btn"
+                          src="../../../../../assets/games/help.png">
+                        <div class="col-8 d-inline-block">
+                          <p class="lifeline-cost">Show the sentence for 35 points </p>
+                        </div>
+                      </div> 
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+      
+            <!-- MAIN TRAINING -->
+            <div class="col sentence-word-row d-none">
+              <div class="row-height-100 row justify-content-center align-items-center">
+                <p id="fixation-cross" 
+                  class="text-dark bg-light fixation-cross p-3 d-none"> X  </p>
+                  <p id="complete-sentence" 
+                    class="rounded text-dark bg-light complete-sentence px-3 d-none"> </p>
+                  
+                <div id="word" 
+                  class="col question-word d-none">
+                  <div class="row justify-content-center">
+                    <p class="rounded text-dark bg-light px-3"
+                      id="sentence_word"></p> 
+                  </div>
+                  <div class="p-3" style="background-color: rgba(255,255,255,0.5)">
+                    <div 
+                      class="row question justify-content-center">
+                      Is the word related to the sentence? </div> <br>
+                    <div class="row yes-no" >
+                        <div class="col">
+                          <button type='button' 
+                            class='yes btn btn-light btn-sentence-word-rel'
+                            (click) = 'storeUserScoreInfo()'
+                            id='yes'>Yes</button>
+                        </div>
+                        <div class="col">
+                          <button type='button' 
+                            class='no btn btn-light btn-sentence-word-rel'
+                            (click) = 'storeUserScoreInfo()' 
+                            id="no" > No </button>
+                        </div>
+                    </div>
+                  </div><br>
+                  <div class="row justify-content-center yes-no-score">
+                    <h4>Score:</h4>
+                    <h4 id="coins" class="coins"></h4>
+                    <h4 id="sincerity-message"></h4>
+                    <br/><br/>
+                  </div>
+                </div>
+                <!-- <div id="lastPage" class="row-height-100  d-none"> -->
+                  <div id="lastPage" class="row w-100 row-height-100 result-score d-none">
+                    <!-- <div class="row row-height-100"> -->
+                      <div class="col align-self-center" style="min-width: 100%">
+                          <div class="row justify-content-center">
+                              <p class="d-none p-3 rounded text-dark bg-light" id="correct"> CORRECT! </p>
+                              <p class="d-none p-3 rounded text-dark bg-light" id="wrong"> WRONG! </p> 
+                          </div>
+                          <div class="row justify-content-center">
+                            <p id="finalScore"> </p>
+                          </div>
+                      </div>  
+                      <div class="col justify-content-end align-self-end lastpage-icons"
+                          style="min-width: 100%">
+                          <img 
+                            id="replay-btn"
+                            class="replay-btn mx-1 img-btn-first" 
+                            src="../../../../../assets/games/replay.png"> 
+                          <img
+                            id="btn-next-sentence"
+                            class='mx-1 img-btn-first'
+                            src="../../../../../assets/games/forward.png">
+                          <img 
+                            id="home-btn"
+                            class="home-btn mx-1 img-btn-first" 
+                            (click) = "onHomeClick()" 
+                            src="../../../../../assets/games/home.png">
+                      </div>
+                    <!-- </div> -->
+                </div>
+              <!-- </div> -->
+              </div>
+            </div>
+    </div>
+
+      <!-- IMAGES FOR INSTRUCTIONS -->
+      <div class="d-none">
+        <img class="card-img-top" id="instruction-img-1" src="../../../../../assets/games/interpretation_bias_game/images/1.png" alt="Swipe gif">
+        <img class="card-img-top" id="instruction-gif-1" src="../../../../../assets/games/interpretation_bias_game/images/1.gif" alt="Swipe gif">
+        <img class="card-img-top" id="instruction-img-2" src="../../../../../assets/games/interpretation_bias_game/images/2.png" alt="Swipe gif">
+        <img class="card-img-top" id="instruction-gif-2" src="../../../../../assets/games/interpretation_bias_game/images/2.gif" alt="Swipe gif">
+      </div>
+
+    </div>
+	</body>
+</html>

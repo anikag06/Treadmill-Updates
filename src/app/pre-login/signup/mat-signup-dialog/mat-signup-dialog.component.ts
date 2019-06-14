@@ -44,7 +44,7 @@ export class MatSignupDialogComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    
+
   }
   onSignupSubmit() {
     this.getVariablesUsed();

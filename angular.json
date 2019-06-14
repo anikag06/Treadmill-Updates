@@ -38,6 +38,7 @@
               "src/treadwill.theme.scss",
               "node_modules/normalize.css/normalize.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css"
+              
             ],
             "stylePreprocessorOptions": {
               "includePaths": [
@@ -46,7 +47,7 @@
             },
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+              "node_modules/bootstrap/dist/js/bootstrap.min.js",
             ]
           },
           "configurations": {

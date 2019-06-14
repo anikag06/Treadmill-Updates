@@ -24,7 +24,8 @@ import { ErrorDialogComponent } from './shared/error-dialog/error-dialog.compone
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { LocalStorageService } from './shared/localstorage.service';
 import { MatSignupDialogComponent} from './pre-login/signup/mat-signup-dialog/mat-signup-dialog.component';
-
+import { SignupComponent } from '@/pre-login/signup/signup.component';
+declare let $: any;
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,6 +38,7 @@ import { MatSignupDialogComponent} from './pre-login/signup/mat-signup-dialog/ma
     PreLoginComponent,
     ErrorDialogComponent,
     NotFoundComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,

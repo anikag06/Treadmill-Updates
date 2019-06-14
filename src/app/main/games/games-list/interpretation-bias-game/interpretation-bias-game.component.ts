@@ -1,0 +1,173 @@
+import { Component, OnInit, Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common'; 
+// import 'assets/games/interpretation_bias_game/js/sentence_javascript';
+import { InterpretationBiasGameService } from '@/main/games/games-list/interpretation-bias-game/interpretation-bias-game.service';
+import { UserScoreData, UserResponseData } from '@/main/games/games-list/interpretation-bias-game/interpretation-bias-game-data.model';
+import { Router } from '@angular/router';
+import { IBG_SENTENCE } from '@/app.constants';
+import { environment } from 'environments/environment';
+declare var sentence_number: any;
+// for sentence and word information
+declare var sentence_array: any;
+declare var sentence_word_array: any;
+declare var sentence_ids: any;
+declare var sentence_response_array: any;
+declare var sentence_word_valence: any;
+declare var sentence_trick: any;
+declare var sentence_order_array: any;
+// for the information of scores,order,level, streak of the user
+declare var gameScore: any;
+declare var level: any;
+declare var streak: any;
+declare var userOrder: any;
+// for storing the score related info of the user
+declare var success: any;
+declare function getUpdatedVariables(): any;
+
+@Component({
+  selector: 'app-interpretation-bias-game',
+  templateUrl: './interpretation-bias-game.component.html',
+  styleUrls: ['./interpretation-bias-game.component.scss']
+})
+export class InterpretationBiasGameComponent implements OnInit {
+  firstSentence = true;
+  userScoreData = new UserScoreData(userOrder, level, gameScore, streak);
+  userResponseData = new UserResponseData(1, false, 0) ;
+  NO_OF_SENTENCES_RECEIVED = 3;
+  INPUT_ORDER!: any;
+  FIRST_SENTENCE_ID!: number;
+  NEXT_SEN_URL!: any;
+  sentencesPageInUrl!: number;
+  sentencePage!: any;
+  lastSentenceReceived = this.NO_OF_SENTENCES_RECEIVED;
+  index = userOrder;
+  SEN_URL = environment.API_ENDPOINT + IBG_SENTENCE;
+  instructElement!: HTMLElement;
+  gameElement!: HTMLElement;
+
+  constructor( private interpretationbiasgameService: InterpretationBiasGameService,
+    private router: Router,
+    @Inject(DOCUMENT) document: any) {
+  }
+
+  ngOnInit() {
+    this.scoresRelatedInfo();
+  }
+
+  sentenceInfo(URL: string) {
+    this.sentencesPageInUrl = Math.floor(userOrder / this.NO_OF_SENTENCES_RECEIVED);
+    this.interpretationbiasgameService.getSentencesInfo(URL, this.firstSentence, this.sentencesPageInUrl)
+      .subscribe( (data) => {
+          console.log(userOrder);
+          console.log(data);
+          if ( userOrder === data.count - 1) {
+            this.lastSentenceReceived = data.count % this.NO_OF_SENTENCES_RECEIVED ;
+          }
+          this.FIRST_SENTENCE_ID = data.results[0].id;
+          if (this.firstSentence) {
+            this.index = userOrder % this.NO_OF_SENTENCES_RECEIVED ;
+          }
+          for (let i = this.index;
+                i < (this.lastSentenceReceived); i++) {
+            console.log(i);
+              this.NEXT_SEN_URL = data.next;
+              sentence_ids.push(data.results[i].id);
+              sentence_array.push(data.results[i].sentence_text);
+              sentence_word_array.push(data.results[i].word.word);
+              sentence_response_array.push(data.results[i].word.response);
+              sentence_word_valence.push(data.results[i].word.valence);
+              sentence_trick.push(data.results[i].trick_sentence);
+              sentence_order_array.push(data.results[i].order);
+              if (userOrder >= (this.FIRST_SENTENCE_ID + Math.floor(this.NO_OF_SENTENCES_RECEIVED / 2))) {
+                if (data.next && this.firstSentence) {
+                  console.log('send next sentence');
+                  this.index = 0;
+                  this.firstSentence = false;
+                  this.sentenceInfo(this.NEXT_SEN_URL);
+                }
+              }
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }
+  scoresRelatedInfo() {
+    this.interpretationbiasgameService.getScoresInfo()
+      .subscribe((data) => {
+          console.log(data);
+          this.INPUT_ORDER = data.data.order;
+          gameScore = data.data.score;
+          level = data.data.level;
+          streak = data.data.streak;
+          userOrder = this.INPUT_ORDER;
+          this.sentenceInfo(this.SEN_URL);
+          this.gameElement = document.getElementById('main_div') as HTMLElement;
+          this.instructElement = document.getElementById('instruct-div') as HTMLElement;
+          if  (userOrder > 0) {
+            this.gameElement.classList.remove('d-none');
+            this.instructElement.classList.add('d-none');
+          } else if ( userOrder === 0) {
+            this.instructElement.classList.remove('d-none');
+            this.gameElement.classList.add('d-none');
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }
+  storeUserScoreInfo() {
+    this.getScoreVariablesValue();
+    this.interpretationbiasgameService.storeUserScoreInfo(this.userScoreData)
+      .subscribe( (data) => {
+          console.log(this.userScoreData);
+          console.log(data);
+          if (userOrder === (this.FIRST_SENTENCE_ID + Math.floor(this.NO_OF_SENTENCES_RECEIVED / 2))) {
+            console.log('send next sentence');
+            this.index = 0;
+            this.firstSentence = false;
+            this.sentenceInfo(this.NEXT_SEN_URL);
+          }
+        },
+        (error) => {
+
+        }
+      );
+      this.storeUserResponse();
+  }
+  getScoreVariablesValue() {
+    let userData = getUpdatedVariables();                  // from sentence_javascript
+    console.log(gameScore);
+    console.log(userData, userData[0]);
+    this.userScoreData.order = userData[0];
+    userOrder = userData[0];                              // used for getting the sentences 
+    this.userScoreData.level = userData[1];
+    this.userScoreData.score = userData[2];
+    this.userScoreData.streak = userData[3];
+
+    this.userResponseData.sentence = userData[4];
+    this.userResponseData.user_response = userData[5];
+    this.userResponseData.response_time = userData[6];
+
+  }
+
+  storeUserResponse() {
+    this.interpretationbiasgameService.storeUserResponseInfo(this.userResponseData)
+      .subscribe( (data) => {
+        console.log(data);
+      },
+      (error) => {
+
+      });
+  }
+
+  onHomeClick() {
+    this.router.navigate(['/']);
+  }
+
+  onExitClick() {
+    this.router.navigate(['/games']);
+  }
+}

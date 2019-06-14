@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GamesService } from '@/main/shared/games.service';
 import { Game } from '@/main/shared/game.model';
 import { Observable } from 'rxjs';
+import { Router, Route, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-games-list',
@@ -13,7 +14,9 @@ export class GamesListComponent implements OnInit {
   games$!: Observable<Game[]>;
 
   constructor(
-    private gamesService: GamesService
+    private gamesService: GamesService,
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
@@ -21,7 +24,9 @@ export class GamesListComponent implements OnInit {
   }
 
   onGameClick(game: Game) {
-    alert("naviaget to game " + game.name);
+    if (game.name === 'Interpretation Bias Game'){
+      this.router.navigate(['interpretationbias'], {relativeTo: this.route} );
+    }
   }
 
 }

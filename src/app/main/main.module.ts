@@ -37,7 +37,14 @@ import { AngularEditorModule } from '@xw19/angular-editor';
 import { SanitizationService } from './support-groups/sanitization.service';
 import { SafeHtmlPipe } from './support-groups/safe-html.pipe';
 import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatDatepickerModule, MatNativeDateModule } from '@angular/material';
+import {
+  MatToolbarModule,
+  MatButtonModule,
+  MatSidenavModule,
+  MatIconModule,
+  MatListModule,
+  MatDatepickerModule,
+  MatNativeDateModule } from '@angular/material';
 import { ScrollingDirective } from './shared/scrolling.directive';
 import { ScrollingService } from './shared/scrolling.service';
 import { NavbarComponent } from './shared/navbar/navbar.component';
@@ -57,6 +64,7 @@ import { SolutionsComponent } from './forms/problem-solving-worksheets/solutions
 import { ScoreComponent } from './score/score.component';
 import { PhqNineComponent } from './score/phq-nine/phq-nine.component';
 import { GadSevenComponent } from './score/gad-seven/gad-seven.component';
+import { InterpretationBiasGameComponent } from './games/games-list/interpretation-bias-game/interpretation-bias-game.component';
 
 @NgModule({
   declarations: [
@@ -98,6 +106,7 @@ import { GadSevenComponent } from './score/gad-seven/gad-seven.component';
     ScoreComponent,
     PhqNineComponent,
     GadSevenComponent,
+    InterpretationBiasGameComponent,
   ],
   imports: [
     CommonModule,

@@ -10,6 +10,10 @@ import { GAMES } from '@/app.constants';
 export class GamesService {
 
   games = [
+    new Game('Interpretation Bias Game',
+              'https://via.placeholder.com/360x200?text=Mario',
+             'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.'),
+
     new Game('Mario',
              'https://via.placeholder.com/360x200?text=Mario',
              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.'),
@@ -22,6 +26,7 @@ export class GamesService {
     new Game('Age of Empires',
              'https://via.placeholder.com/360x200?text=Age of Empires',
              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.'),
+    
     ];
 
   constructor(
