@@ -18,7 +18,6 @@ import {
   MatDatepickerModule,
   MatIconModule,
   MatListModule,
-  MatNativeDateModule,
   MatSidenavModule, MatSlideToggleModule,
   MatToolbarModule
 } from '@angular/material';
@@ -28,6 +27,7 @@ import {CustomFormsRoutingModule} from '@/main/custom-forms/custom-forms-routing
 import {ProconItemComponent} from '@/main/custom-forms/forms/problem-solving-worksheets/pros-cons-container/pros-cons/procon-item/procon-item.component';
 import {ProsConsContainerComponent} from '@/main/custom-forms/forms/problem-solving-worksheets/pros-cons-container/pros-cons-container.component';
 import { TaskFormsComponent } from './forms/task-forms/task-forms.component';
+import {MatMomentDateModule} from '@angular/material-moment-adapter';
 
 @NgModule({
   declarations: [
@@ -60,7 +60,7 @@ import { TaskFormsComponent } from './forms/task-forms/task-forms.component';
     MatListModule,
     ReactiveFormsModule,
     MatDatepickerModule,
-    MatNativeDateModule,
+    MatMomentDateModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     MatSlideToggleModule,

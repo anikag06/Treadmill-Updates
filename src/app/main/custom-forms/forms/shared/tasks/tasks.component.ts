@@ -8,6 +8,7 @@ import {HttpErrorResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {TasksService} from '@/main/custom-forms/forms/shared/tasks/tasks.service';
 import {PROBLEM, RECOMMENDED, WEEK} from '@/app.constants';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-tasks',
@@ -136,6 +137,7 @@ export class TasksComponent implements OnInit, OnChanges {
   }
 
   updateTask() {
+    console.log(this.time)
     if (this.task) {
       this.saveData();
     }
@@ -143,18 +145,19 @@ export class TasksComponent implements OnInit, OnChanges {
 
   taskHandler(observable: Observable<Object>, action: string) {
     if (action == 'create') {
-      observable.subscribe((data: any) => {
-        this.task = new UserTask(+data.data.id,
-          data.data.name,
-          data.data.is_completed,
-          data.data.date_time,
-          data.data.sub_tasks,
-          data.data.task_days,
-          data.data.origin_name,
-          data.data.origin_object);
+      observable.subscribe((resp: any) => {
+        this.task = new UserTask(+resp.data.id,
+          resp.data.name,
+          resp.data.is_completed,
+          resp.data.date_time,
+          resp.data.sub_tasks,
+          resp.data.task_days,
+          resp.data.origin_name,
+          resp.data.origin_object);
+          console.log(resp.data.date_time);
           this.taskService.addTask(this.task);
         this.tasksGroup.controls.subTasks = this.fb.array([]);
-        data.data.sub_tasks.forEach((subtask: UserSubTask) => {
+        resp.data.sub_tasks.forEach((subtask: UserSubTask) => {
           this.task.sub_tasks.push(new UserSubTask(subtask.id, subtask.name, subtask.is_completed));
           (this.tasksGroup.controls.subTasks as FormArray).push(this.createItem(subtask.id, subtask.name, subtask.is_completed));
         });
@@ -163,10 +166,11 @@ export class TasksComponent implements OnInit, OnChanges {
       });
     } else {
       observable.subscribe(
-        (data: any) => {
-          const task = this.taskService.tasks.find((t: UserTask) => t.id === +data.data.id);
+        (resp: any) => {
+          const task = this.taskService.tasks.find((t: UserTask) => t.id === +resp.data.id);
+          console.log(resp.data.date_time);
           if (task) {
-            this.task = <UserTask>data.data;
+            this.task = <UserTask>resp.data;
             this.taskService.updateTask(this.task);
           }
         }
@@ -294,5 +298,15 @@ export class TasksComponent implements OnInit, OnChanges {
       taskCompleted: [false],
       subTasks: this.fb.array([this.createItem(), this.createItem(), this.createItem()])
     });
+  }
+
+  dateTimeParser() {
+    const time = new Date(this.time);
+    let dateTime: moment.Moment;
+    dateTime = moment(this.date);
+    dateTime.set({'hours': time.getHours(), 'minutes': time.getMinutes()});
+    this.date = dateTime.toDate();
+    this.time = dateTime.toDate();
+    this.updateTask();
   }
 }

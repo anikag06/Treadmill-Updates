@@ -41,7 +41,7 @@
                        [owlDateTime]="datePicker"
                        [(ngModel)]="date"
                         name="date"
-                        (focusout)="updateTask()">
+                        (focusout)="dateTimeParser()">
               </mat-form-field>
               <owl-date-time [pickerType]="'calendar'"  #datePicker="owlDateTime"></owl-date-time>
             </div>
@@ -53,7 +53,7 @@
                          [owlDateTime]="timePicker"
                           [(ngModel)]="time"
                           name="time"
-                          (focusout)="updateTask()">
+                          (focusout)="dateTimeParser()">
                 </mat-form-field>
                 <owl-date-time [pickerType]="'timer'"  #timePicker="owlDateTime"></owl-date-time>
             </div>
