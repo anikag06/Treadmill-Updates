@@ -19,7 +19,7 @@ export class MatLoginDialogComponent implements OnInit {
   formInvalid = false;
   showForm = true;
   loginAfterSignup = false;
-  @ViewChild('loginForm') loginForm!: NgForm;
+  @ViewChild('loginForm', { static: false }) loginForm!: NgForm;
 
   constructor(
     public dialogRef: MatDialogRef<MatLoginDialogComponent>,

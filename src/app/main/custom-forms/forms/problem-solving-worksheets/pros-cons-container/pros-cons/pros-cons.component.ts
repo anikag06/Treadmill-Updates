@@ -17,7 +17,7 @@ export class ProsConsComponent implements OnInit {
   @Input() prosCons: ProsCons[] = [];
   @Output() proconAdd = new EventEmitter<ProsCons>();
   @Output() proconRemove = new EventEmitter<ProsCons>();
-  @ViewChild('proconForm') proconForm!: NgForm;
+  @ViewChild('proconForm', { static: false }) proconForm!: NgForm;
   showForm = false;
 
   constructor(

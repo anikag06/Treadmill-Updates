@@ -23,7 +23,7 @@ export class CreatePostComponent implements OnInit {
   formTags: number[] = [];
   errors: any = [];
 
-  @ViewChild('checkboxDiv') checkboxDiv!: ElementRef;
+  @ViewChild('checkboxDiv', { static: false }) checkboxDiv!: ElementRef;
 
   postForm = this.fb.group({
     title: [''],

@@ -31,8 +31,8 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
   problemEditMode = false;
 
-  @ViewChild('solutionForm') solutionForm!: NgForm;
-  @ViewChild(ContainerRefDirective) problemContainer!: ContainerRefDirective;
+  @ViewChild('solutionForm', { static: false }) solutionForm!: NgForm;
+  @ViewChild(ContainerRefDirective, { static: false }) problemContainer!: ContainerRefDirective;
 
   constructor(
     private problemService: ProblemSolvingWorksheetsService,

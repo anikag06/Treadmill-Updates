@@ -56,9 +56,9 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy, Do
 
   @Output() deleteEmitter = new EventEmitter<UserComment>();
   @Input() comment!: UserComment;
-  @ViewChild('replyForm') replyForm!: NgForm;
-  @ViewChild('editForm') editForm!: NgForm;
-  @ViewChild('replyText') replyText!: ElementRef;
+  @ViewChild('replyForm', { static: false }) replyForm!: NgForm;
+  @ViewChild('editForm', { static: false }) editForm!: NgForm;
+  @ViewChild('replyText', { static: false }) replyText!: ElementRef;
 
   editorConfig: AngularEditorConfig = {
     editable: true,
