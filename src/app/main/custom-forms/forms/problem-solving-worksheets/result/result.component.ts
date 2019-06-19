@@ -25,9 +25,13 @@ export class ResultComponent implements OnInit, OnChanges {
       this.problemService.getResult(this.solution.id)
         .subscribe(
           (data: any) => {
+            console.log(data.results)
             if (data.results.length > 0) {
               this.result = new Result(+(data.results[0].id), data.results[0].body);
               this.resultBody = data.results[0].body;
+            } else {
+              delete this.result;
+              this.resultBody = '';
             }
           },
           (error: HttpErrorResponse) => {

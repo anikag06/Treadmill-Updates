@@ -29,6 +29,8 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   showSolutionsForm = false;
   type = PROBLEM_SOLVING;
   subscriptions: Subscription[] = [];
+  problemEditMode = false;
+
   @ViewChild('solutionForm') solutionForm!: NgForm;
   @ViewChild(ContainerRefDirective) problemContainer!: ContainerRefDirective;
 
@@ -49,7 +51,6 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
         },
         this.errorService.errorResponse('Something went wrong')
       );
-    this.renderProblemForm();
     const user = this.authService.isLoggedIn();
     if (user && user.is_active) {
       this.user = <User>user;
@@ -64,7 +65,7 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
 
   problemSelected(problem: Problem) {
     this.problem = problem;
-    this.renderProblem();
+    this.problemEditMode = false;
     this.fetchSolutions();
   }
 
@@ -89,7 +90,6 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
     this.solutions = [];
     delete this.bestSolution;
     delete this.problem;
-    this.renderProblemForm();
   }
 
   onCheckBoxChange(solution: Solution, event: Event) {
@@ -171,25 +171,9 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
     delete this.bestSolution;
   }
 
-  renderProblemForm() {
-    const viewContainerRef = this.problemContainer.viewContainerRef;
-    viewContainerRef.clear();
-    viewContainerRef.element.nativeElement.innerHTML = '';
-    const componentRef = viewContainerRef.createComponent(this.componentFactoryResolver.resolveComponentFactory(ProblemFormComponent));
-    if (this.problem) {
-      (<ProblemFormComponent>componentRef.instance).problem = this.problem;
-    }
-  }
-
-  renderProblem() {
-    const viewContainerRef = this.problemContainer.viewContainerRef;
-    viewContainerRef.clear();
-    viewContainerRef.element.nativeElement.innerHTML = this.problem.problem;
-  }
-
   onProblemClick() {
     if (this.problem) {
-      this.renderProblemForm();
+      this.problemEditMode = true;
     }
   }
 

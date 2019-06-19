@@ -22,9 +22,14 @@
               <div class="card-header">
                 PROBLEM STATEMENT
               </div>
-              <div class="card-body" (click)="onProblemClick()">
-                <div class="problem-statement" appContainerRef>
-                </div>
+              <div class="card-body" *ngIf="problem && !problemEditMode" (click)="onProblemClick()">
+                {{problem.problem}}
+              </div>
+              <div class="card-body" *ngIf="problem && problemEditMode" (click)="onProblemClick()">
+                <app-problem-form [problem]="problem"></app-problem-form>
+              </div>
+              <div class="card-body" *ngIf="!problem" (click)="onProblemClick()">
+                <app-problem-form></app-problem-form>
               </div>
             </div>
           </ng-container>

@@ -14,7 +14,6 @@ export class ProblemFormComponent implements OnInit {
   @Output() testOut = new EventEmitter<string>();
 
   problemStatement = '';
-
   constructor(
     private problemService: ProblemSolvingWorksheetsService
   ) { }
