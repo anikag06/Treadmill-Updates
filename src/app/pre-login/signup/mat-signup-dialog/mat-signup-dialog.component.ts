@@ -33,7 +33,7 @@ export class MatSignupDialogComponent implements OnInit {
   registered = false;
   passwordMatchError!: string;
   errorStatus = false;
-  @ViewChild('signupForm') signupForm !: NgForm;
+  @ViewChild('signupForm', { static: false }) signupForm !: NgForm;
 
   constructor(
     private showLoginSignupDialogService: ShowLoginSignupDialogService,

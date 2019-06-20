@@ -11,6 +11,15 @@ export const USERAVATAR         = 'user_avatar';
 export const ISADMIN            = 'is_admin';
 export const ISACTIVE           = 'is_active';
 export const TREADWILL          = 'TreadWill';
+export const SUNDAY             = 'SUNDAY';
+export const MONDAY             = 'MONDAY';
+export const TUESDAY            = 'TUESDAY';
+export const WEDNESDAY          = 'WEDNESDAY';
+export const THURSDAY           = 'THURSDAY';
+export const FRIDAY             = 'FRIDAY';
+export const SATURDAY           = 'SATURDAY';
+export const WEEK               = [SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY];
+
 
 // LOCAL STORAGE
 export const LS_TIME            = 120;
@@ -29,4 +38,12 @@ export const MOBILEWIDTH        = 768;
 export const IBG_SENTENCE        = '/api/v1/games/interpretation-bias/sentences/';
 export const IBG_SCOREINFO       = '/api/v1/games/interpretation-bias/score/';
 export const IBG_USER_RESPONSE  = '/api/v1/games/interpretation-bias/user-responses/';
+
+export const PROBLEM_SOLVING = 'problem-solving';
+export const TASK            = 'tasks';
+export const EXPERIMENT_TO_TEST_BELIEF = 'experiment-to-test-belief';
+export const PROBLEM         = 'problem';
+export const EXPR_TEST_BELIEF = 'expr_test_belief';
+export const RECOMMENDED       = 'recommended';
+
 

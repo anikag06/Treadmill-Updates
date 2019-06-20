@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col-12">
+    <h1 class="main-heading-h1">Forms</h1>
+  </div>
+</div>
+<div class="forms">
+  <div class="row">
+    <div class="col-4" *ngFor="let form of forms">
+      <a [routerLink]="form.path">
+        <mat-card class="example-card">
+          <mat-card-header>
+            <mat-card-title>{{form.name}}</mat-card-title>
+          </mat-card-header>
+          <img mat-card-image [src]="form.banner" width="100" height="110">
+        </mat-card>
+      </a>
+    </div>
+  </div>
+</div>

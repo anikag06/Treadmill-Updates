@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="col">
+    <div class="card">
+      <div class="card-header">
+        WHAT WAS THE RESULT OF IMPLEMENTATION?
+      </div>
+      <div class="card-body">
+        <mat-form-field class="full-width">
+          <textarea matInput name="result" rows="5"
+            placeholder="Write down the result of the implementation ?" [(ngModel)]="resultBody"></textarea>
+        </mat-form-field>
+
+        <p class="text-right" (click)="onResultSubmit()"><button type="button" mat-raised-button color="primary"
+          class="continue-btn" *ngIf="!result || result.body != resultBody">Save</button></p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -37,14 +37,7 @@ import { AngularEditorModule } from '@xw19/angular-editor';
 import { SanitizationService } from './support-groups/sanitization.service';
 import { SafeHtmlPipe } from './support-groups/safe-html.pipe';
 import { LayoutModule } from '@angular/cdk/layout';
-import {
-  MatToolbarModule,
-  MatButtonModule,
-  MatSidenavModule,
-  MatIconModule,
-  MatListModule,
-  MatDatepickerModule,
-  MatNativeDateModule } from '@angular/material';
+import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatDatepickerModule, MatNativeDateModule, MatSlideToggleModule } from '@angular/material';
 import { ScrollingDirective } from './shared/scrolling.directive';
 import { ScrollingService } from './shared/scrolling.service';
 import { NavbarComponent } from './shared/navbar/navbar.component';
@@ -55,21 +48,20 @@ import { CommentService } from './support-groups/post-list/post-item/comment/com
 import { NetstedCommentService } from './support-groups/post-list/post-item/nested-comment/netsted-comment.service';
 import { TagService } from './shared/tag.service';
 import { AutofocusDirective } from './shared/autofocus.directive';
-import { FormsComponent } from './forms/forms.component';
-import { ProblemSolvingWorksheetsComponent } from './forms/problem-solving-worksheets/problem-solving-worksheets.component';
-import { ProsConsComponent } from './forms/problem-solving-worksheets/pros-cons/pros-cons.component';
-import { ActionsComponent } from './forms/problem-solving-worksheets/actions/actions.component';
-import { ProconItemComponent } from './forms/problem-solving-worksheets/pros-cons/procon-item/procon-item.component';
-import { SolutionsComponent } from './forms/problem-solving-worksheets/solutions/solutions.component';
 import { ScoreComponent } from './score/score.component';
 import { PhqNineComponent } from './score/phq-nine/phq-nine.component';
 import { GadSevenComponent } from './score/gad-seven/gad-seven.component';
 import { InterpretationBiasGameComponent } from './games/games-list/interpretation-bias-game/interpretation-bias-game.component';
 
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import {ProblemSolvingWorksheetsService} from '@/main/custom-forms/forms/problem-solving-worksheets/problem-solving-worksheets.service';
+import {FormsService} from '@/main/forms.service';
+import {TasksService} from '@/main/custom-forms/forms/shared/tasks/tasks.service';
+
+
 @NgModule({
   declarations: [
     ModulesComponent,
-    DashboardComponent,
     ModuleDetailComponent,
     ModuleItemComponent,
     ModuleOverviewComponent,
@@ -77,7 +69,6 @@ import { InterpretationBiasGameComponent } from './games/games-list/interpretati
     CategorySmallComponent,
     CategoryBigComponent,
     SectionCardComponent,
-    MainComponent,
     LogoutComponent,
     ProgressComponent,
     CurrentModuleComponent,
@@ -97,16 +88,12 @@ import { InterpretationBiasGameComponent } from './games/games-list/interpretati
     ScrollingDirective,
     NavbarComponent,
     AutofocusDirective,
-    FormsComponent,
-    ProblemSolvingWorksheetsComponent,
-    ProsConsComponent,
-    ActionsComponent,
-    ProconItemComponent,
-    SolutionsComponent,
     ScoreComponent,
     PhqNineComponent,
     GadSevenComponent,
     InterpretationBiasGameComponent,
+    DashboardComponent,
+    MainComponent,
   ],
   imports: [
     CommonModule,
@@ -126,6 +113,9 @@ import { InterpretationBiasGameComponent } from './games/games-list/interpretati
     MainRoutingModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
+    MatSlideToggleModule,
   ],
   providers: [
     LocalStorageService,
@@ -136,6 +126,9 @@ import { InterpretationBiasGameComponent } from './games/games-list/interpretati
     CommentService,
     NetstedCommentService,
     TagService,
+    ProblemSolvingWorksheetsService,
+    FormsService,
+    TasksService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [CreatePostComponent]

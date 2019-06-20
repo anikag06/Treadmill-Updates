@@ -1,0 +1,141 @@
+<div class="container-fluid no-padding">
+  <div class="row no-gutters">
+    <div class="col-12">
+      <h1 class="main-heading-h1">Cope with a problem</h1>
+    </div>
+  </div>
+  <div class="row no-gutters">
+    <div class="col-12 col-lg-3 order-lg-last mb-3">
+      <div class="card card-240">
+        <app-forms-sidebar
+          [type]="type"
+          (objectEmitter)="problemSelected($event)"
+          (newForm)="onAddNewForm()">
+        </app-forms-sidebar>
+      </div>
+    </div>
+    <div class="col-12 col-lg-9">
+      <div class="row mb-2">
+        <div class="col-12">
+          <ng-container>
+            <div class="card card-full-width">
+              <div class="card-header">
+                PROBLEM STATEMENT
+              </div>
+              <div class="card-body" *ngIf="problem && !problemEditMode" (click)="onProblemClick()">
+                {{problem.problem}}
+              </div>
+              <div class="card-body" *ngIf="problem && problemEditMode" (click)="onProblemClick()">
+                <app-problem-form [problem]="problem"></app-problem-form>
+              </div>
+              <div class="card-body" *ngIf="!problem" (click)="onProblemClick()">
+                <app-problem-form></app-problem-form>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+      <div class="row mb-2">
+        <div class="col-12" *ngIf="problem">
+          <div class="card">
+            <div class="card-header">
+              POSSIBLE SOLUTIONS
+            </div>
+            <app-solutions
+              [solutions]="solutions"
+              (solutionDelete)="onSolutionRemove($event)"
+              (solutionEdit)="onSolutionEdit($event)"></app-solutions>
+            <div class="card-body">
+              <div *ngIf="solutions && solutions.length === 0 || showSolutionsForm">
+                <form (ngSubmit)="onSolutionSubmit()" #solutionForm="ngForm">
+                  <mat-form-field class="full-width">
+                    <textarea name="solution" id="solution" rows="5" placeholder="Enter your solution"
+                              matInput required [autofocus] ngModel (focusout)="onSolutionFocusOut()" ></textarea>
+                  </mat-form-field>
+                </form>
+              </div>
+              <div *ngIf="solutions" class="text-right">
+                <span (click)="showSolutionsForm=!showSolutionsForm">
+                  <mat-icon *ngIf="!showForm">add_circle</mat-icon>
+                  <mat-icon *ngIf="showForm">clear_circle</mat-icon>
+                  <br>
+                </span>
+              </div>
+              <div class="text-right mt-2 mb-2" *ngIf="solutions.length < 2">
+                <button type="button" mat-raised-button color="primary" class="continue-btn"
+                  (click)="onSolutionSaved()">Continue</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-2">
+        <div class="col-12" *ngIf="problem && solutions.length > 0 || solutionsSaved">
+          <div class="card">
+            <div class="card-header">
+              PROS AND CONS OF SOLUTIONS
+            </div>
+            <div class="card-body">
+              <div *ngFor="let solution of solutions">
+                <p><strong>SOLUTION: {{solution.solution}}</strong></p>
+                <app-pros-cons-container [solution]="solution"></app-pros-cons-container>
+              </div>
+            </div>
+            <div class="text-right m-2" *ngIf="solutions.length > 0 && !prosconsSaved">
+              <button type="button" mat-raised-button color="primary" class="continue-btn"
+                (click)="onProsConsSaved()">Continue</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-2" *ngIf="solutions && solutions.length > 0 && prosconsSaved">
+        <div class="col">
+          <div class="card" *ngIf="bestSolution">
+            <div class="card-header">
+              IMPLEMENT THE SOLUTION
+            </div>
+            <div class="card-body">
+              <div>
+                <div class="row">
+                  <div class="col-6">
+                    {{bestSolution.solution}}
+                  </div>
+                  <div class="col-6">
+                    <div class="text-right m-2" *ngIf="solutions.length > 0 && bestSolution">
+                      <button type="button" mat-raised-button color="primary" class="continue-btn"
+                        (click)="deleteBestSolution()">
+                        Change
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <app-tasks (nextStepEmitter)="onNextStep()" [problem]="problem" (taskLoaded)="onTaskLoad($event)"></app-tasks>
+            </div>
+          </div>
+          <div class="card" *ngIf="!bestSolution">
+            <div class="card-header">
+              SELECT THE BEST SOLUTION
+            </div>
+            <div class="card-body">
+              <div class="list-group">
+                <label *ngFor="let solution of solutions" [for]="solution.id">
+                  <input type="radio" [name]="solution.id" [checked]="problem.bestsolution && solution.id == problem.bestsolution.problem_id"
+                    (change)="onCheckBoxChange(solution, $event)" [id]="solution.id">
+                  {{solution.solution}}
+                </label>
+              </div>
+              <div class="text-right">
+                <button mat-raised-button color="primary" class="continue-btn"
+                  (click)="selectBestSolution()">Continue</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mb-2" *ngIf="renderResult()">
+        <app-result [solution]="bestSolution"></app-result>
+      </div>
+    </div>
+  </div>
+</div>

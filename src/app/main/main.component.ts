@@ -16,7 +16,7 @@ import { MatDrawer } from '@angular/material';
 export class MainComponent implements OnInit {
 
   user!: User;
-  @ViewChild('drawer') drawer!: MatDrawer;
+  @ViewChild('drawer', { static: true }) drawer!: MatDrawer;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.Handset, Breakpoints.Small])
     .pipe(

@@ -73,10 +73,10 @@ body{
 	min-height: 30%;
 	background-color: rgba(255,255,255,0.5);
 }
-.time-img-btn{
+.btn-timeup{
 	max-width:30%;
 	max-height: 30%;
-	margin: 1%;
+	// margin: auto;
 	cursor: pointer;
 }
 .question-word,.complete-sentence{
@@ -169,7 +169,10 @@ canvas{
 	max-width: 400px;
 	margin: auto;
 }
-
+.lifeline-cost{
+	margin: auto;
+	max-width: 70%;
+}
 // .text{
 // 	font-size: 20px;
 // }
@@ -210,10 +213,15 @@ canvas{
 		max-width: 80%;
 		margin: auto;
 	}
-	.time-img-btn{
-		max-width:25%;
-		max-height: 25%;
-		margin: 0.5%;
+	.btn-timeup{
+		max-width:15%;
+		max-height: 15%;
+		margin: auto;
+	}
+	.lifeline-cost-div{
+		max-width: 55%;
+		display: inline-block;
+		margin-left: auto;
 	}
 	.img-btn{
 		max-width:35%;

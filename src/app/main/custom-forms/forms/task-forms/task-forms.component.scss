@@ -1,0 +1,51 @@
+.card {
+  margin: 0 auto;
+  ::ng-deep .card-header {
+    background-color: #d4f0eb;
+    font-weight: 700;
+  }
+  button {
+    width: 100%;
+  }
+  label {
+    padding: 10px;
+    margin-bottom: 0px;
+    border-bottom: 1px solid #dfdfdf;
+    &:last-child {
+      border-bottom: 1px solid transparent;
+    }
+  }
+  .continue-btn {
+    width: 100px;
+  }
+  .full-width {
+    width: 100%;
+  }
+  textarea {
+    color: #000000;
+  }
+  .pull-right {
+    float: right;
+  }
+}
+
+.card.card-240 {
+  max-width: 240px;
+}
+
+.card.card-full-width {
+  width: 100%;
+}
+
+@media screen and (max-width: 992px) {
+  h1 {
+    font-size: 1.6rem;
+    font-weight: 600;
+  }
+  .card.card-240 {
+    max-width: 100%;
+  }
+  .container-fluid {
+    padding: 0 !important;
+  }
+}

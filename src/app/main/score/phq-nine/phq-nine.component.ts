@@ -12,7 +12,7 @@ export class PhqNineComponent implements OnInit {
 
   getData!: any;
 
-  @ViewChild('phqLineChart') private chartRef: any;
+  @ViewChild('phqLineChart', { static: false }) private chartRef: any;
 
   constructor( private authService: AuthService,
     private plotScoreGraphService: PlotScoreGraphService

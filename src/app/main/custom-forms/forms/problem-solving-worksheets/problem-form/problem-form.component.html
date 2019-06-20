@@ -1,0 +1,8 @@
+<form>
+  <mat-form-field class="full-width">
+    <textarea name="problemStatement" id="problemStatement" rows="5" placeholder="Enter your problem"
+              matInput required [autofocus] [(ngModel)]="problemStatement" (focusout)="onFocusOut($event)"></textarea>
+  </mat-form-field>
+  <p class="text-right" (click)="onProblemSubmit()"><button type="button" mat-raised-button color="primary"
+      class="continue-btn">Continue</button></p>
+</form>

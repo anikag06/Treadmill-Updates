@@ -17,6 +17,7 @@ var sentence_order_array = [];
   
 var words = []                 //words of the sentence 
 var initial_timer = "12";							// time for finding words from letter grid
+var initial_easy_timer = "180";
 var FIRST_HINTS_TIME = 60;
 var SECOND_HINTS_TIME = 30;
 var initial_time = 12000;
@@ -148,7 +149,8 @@ function initializeVariables(){
 	countdownReset();
 	FIRST_HINTS_TIME = 60;
   	SECOND_HINTS_TIME = 30;
- 	initial_time = 12000;
+	initial_time = 12000;
+	game_timer = initial_timer;
 	before_sentence_time = 1500;					
 	sentence_time = 1000;							
  	borrowed_time = 20;								
@@ -257,6 +259,7 @@ $(document).ready(function(){
 		initializeVariables();
 		removeAddClassFun();
 		countdown();
+		$("#easy_game_div").removeClass("d-none");
 		foundWord(sentence_array[sentence_number],sentence_word_array[sentence_number]);
 		success = false;
 	});
@@ -433,23 +436,19 @@ $(document).ready(function(){
 	 //if time's up and user had found less then 60% of words and then he choose give up option
 		$("#timeup2").addClass("d-none");
 		showSentence();
+		clearInterval(inactivity_check);
 	});
 	
 	$(document).on("click","#btn-next-sentence, #btn-other-sentence", function(ev){
+		if( $("#easy_game_div").hasClass("d-none")){
+			game_timer = initial_easy_timer;
+		}
 		answer=false;
 		success=true;
 		gameScore = score;
 		// getUpdatedVariables();
 		// $("#finalCoins").addClass("d-none");
-		initializeVariables();
-		removeAddClassFun();
-		$("#tip-text").text("");
-		countdown();
-		sentence_number++;
-		
-		countTrue=0;
-		
-		foundWord(sentence_array[sentence_number],sentence_word_array[sentence_number]);      //start the game again with new sentence
+		playNextSentence();
 	});	
 		// if(sentence_number == after_sentence_number){											//if user has played a certain number of sentences then send request for next set
 		// 	last_sentence_order = parseInt(last_sentence_order) + parseInt(sentences_sent);		//number of sentences to be send from server
@@ -493,7 +492,38 @@ $(document).ready(function(){
 		inactivity_time = 0;
 		$("#tip-text").text(" ");
 	});
+	$(document).on("click", "#easy_game", function(e){
+		e.preventDefault();
+		$("#easy_game_div").addClass("d-none");
+		$("#hard_game_div").removeClass("d-none");
+		answer=false;
+		success=true;
+		gameScore = score;
+		playNextSentence();
+		game_timer = initial_easy_timer;
+	});
+	$(document).on("click", "#hard_game", function(e){
+		e.preventDefault();
+		$("#easy_game_div").removeClass("d-none");
+		$("#hard_game_div").addClass("d-none");
+		answer=false;
+		success=true;
+		gameScore = score;
+		playNextSentence();
+		game_timer = initial_timer;
+		   
+	});
 });
+
+function playNextSentence(){
+	initializeVariables();
+	removeAddClassFun();
+	$("#tip-text").text("");
+	countdown();
+	sentence_number++;
+	countTrue=0;
+	foundWord(sentence_array[sentence_number],sentence_word_array[sentence_number]);
+}
 function hideCanvas(){
 	imageData = ctx.getImageData(0, 0, canvas_width, canvas_height);
 	ctx.clearRect(0, 0, canvas_width, canvas_height);
@@ -598,7 +628,7 @@ function highlightSecondLetters(){
 }
 
 function starify(word){
-	return word.replace(/[a-z]/g,'*');				//replacing words of the sentence by stars
+	return word.replace(/[a-z]/g,'-');				//replacing words of the sentence by stars
 }
 
 
@@ -1037,8 +1067,8 @@ function searchWordInArray(str, sorted_words, star_sentence, sentence) {
 				// $('#bonus').hide();
 				// $('#already_found').hide();
 				word_already_found.push(str);
-				words_pos_row.splice(j,1,'*');           //replace positions of the words already found with '*'
-				words_pos_column.splice(j,1,'*');    
+				words_pos_row.splice(j,1,'-');           //replace positions of the words already found with '*'
+				words_pos_column.splice(j,1,'-');    
 				star_sentence = replaceStars(str,strArray,j, star_sentence);      //if correct word found replace stars with the word
 			}
 		}
@@ -1046,10 +1076,10 @@ function searchWordInArray(str, sorted_words, star_sentence, sentence) {
 		if(found == false){            //if word found is incorrect 
 			extra_present = extraWordAlreadyFound(str);
 			if(extra_present === true){         //if the word not present in sentence is already found
-				$('#tick').hide();
-				$('#cross').hide();
-				$('#bonus').hide();
-				$('#already_found').show();
+				// $('#tick').hide();
+				// $('#cross').hide();
+				// $('#bonus').hide();
+				// $('#already_found').show();
 			}else if(extra_present ===false){
 				var word_in_dictionary = Word_List.isInList(str);      //check in dictionary, maybe the word is valid but not part of sentence
 
@@ -1058,16 +1088,16 @@ function searchWordInArray(str, sorted_words, star_sentence, sentence) {
 					extra_word = true;
 					extra_word_already_found.push(str);
 					ctx.strokeStyle = "black";
-					$('#tick').hide();
-					$('#cross').hide();
-					$('#bonus').show();
-					$('#already_found').hide();
+					// $('#tick').hide();
+					// $('#cross').hide();
+					// $('#bonus').show();
+					// $('#already_found').hide();
 					score = score+bonus_word_score;
 				}else{
-					$('#tick').hide();
-					$('#cross').show();
-					$('#bonus').hide();
-					$('#already_found').hide();
+					// $('#tick').hide();
+					// $('#cross').show();
+					// $('#bonus').hide();
+					// $('#already_found').hide();
 				}
 			}
 		}
@@ -1075,6 +1105,7 @@ function searchWordInArray(str, sorted_words, star_sentence, sentence) {
 
 	if(countTrue >= (percent_full_sen*sorted_words.length)){   
 		showSentence();
+		clearInterval(inactivity_check);
 		
 	}
 	return star_sentence;
