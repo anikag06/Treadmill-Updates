@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import * as localforage from 'localforage';
 import { Router } from '@angular/router';
 import { environment } from 'environments/environment';
 
@@ -26,7 +25,6 @@ export class AuthService {
 
 
   async getUserDetails(data: any) {
-    await localforage.clear();
     localStorage.clear();
     return this.http.post(environment.API_ENDPOINT + LOGIN_PATH, data).toPromise();
   }
@@ -59,7 +57,6 @@ export class AuthService {
   async logout() {
     delete this.user;
     localStorage.clear();
-    await localforage.clear();
     this.router.navigate([DEFAULT_PATH]);
   }
 

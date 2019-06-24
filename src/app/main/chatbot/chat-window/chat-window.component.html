@@ -1,0 +1,43 @@
+<div class="chat-window" *ngIf="!chatWindowClosed">
+  <div class="chat-header">
+    <h3>TwillBot</h3>
+    <button mat-flat-button color="primary" (click)="close()"><mat-icon>close</mat-icon></button>
+  </div>
+  <div class="chat-frame" #chatFrame [scrollTop]="scrollTop">
+    <div class="clearfix" *ngFor="let m of messages">
+      <div class="message" [ngClass]="{'bot': !m.user}">
+        {{m.message}}
+      </div>
+
+      <div class="buttons">
+        <button
+          mat-raised-button
+          color="primary"
+          *ngFor="let button of m.buttons"
+          (click)="chatButtonPressed(button, m)">
+          {{ button.payload }}
+        </button>
+      </div>
+    </div>
+  </div>
+  <form (ngSubmit)="onChatSubmit()">
+    <div class="textarea">
+      <textarea
+        class="form-control"
+        placeholder="Enter your message"
+        [(ngModel)]="message"
+        name="message"
+        [autofocus]
+        rows="1"
+        autocomplete="off">
+      </textarea>
+    </div>
+    <div class="btn-div">
+      <button
+        type="submit"
+      >
+      <mat-icon>send</mat-icon>
+    </button>
+    </div>
+  </form>
+</div>

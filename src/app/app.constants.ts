@@ -40,4 +40,6 @@ export const PROBLEM         = 'problem';
 export const EXPR_TEST_BELIEF = 'expr_test_belief';
 export const RECOMMENDED       = 'recommended';
 
-
+export const NEW_CHAT = 'new_chat';
+export const RESUME_CHAT = 'resume_chat';
+export const REPLY_CURRENT = 'reply_current';

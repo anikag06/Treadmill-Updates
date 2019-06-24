@@ -1,0 +1,12 @@
+.chat {
+  position: fixed;
+  bottom: 10vh;
+  right: 3%;
+  text-align: right;
+}
+
+@media screen and (max-width: 576px) {
+  .chat {
+    bottom: 2vh;
+  }
+}

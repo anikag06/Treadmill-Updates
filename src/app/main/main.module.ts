@@ -1,4 +1,4 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA, LOCALE_ID } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ModulesComponent } from '@/main/modules/modules.component';
@@ -9,7 +9,6 @@ import { ModuleOverviewComponent } from './modules/module-list/module-overview/m
 import { ModuleListComponent } from './modules/module-list/module-list.component';
 import { CategorySmallComponent } from './shared/category-small/category-small.component';
 import { LocalStorageService } from '../shared/localstorage.service';
-import { NotFoundComponent } from '../shared/not-found/not-found.component';
 import { CategoryBigComponent } from './modules/module-detail/category-big/category-big.component';
 import { SectionCardComponent } from './modules/module-detail/section-card/section-card.component';
 import { MainComponent } from './main.component';
@@ -51,6 +50,9 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import {ProblemSolvingWorksheetsService} from '@/main/custom-forms/forms/problem-solving-worksheets/problem-solving-worksheets.service';
 import {FormsService} from '@/main/forms.service';
 import {TasksService} from '@/main/custom-forms/forms/shared/tasks/tasks.service';
+import { ChatbotComponent } from './chatbot/chatbot.component';
+import { ChatWindowComponent } from './chatbot/chat-window/chat-window.component';
+import {ChatbotService} from '@/main/chatbot/chatbot.service';
 
 
 @NgModule({
@@ -84,6 +86,8 @@ import {TasksService} from '@/main/custom-forms/forms/shared/tasks/tasks.service
     AutofocusDirective,
     DashboardComponent,
     MainComponent,
+    ChatbotComponent,
+    ChatWindowComponent,
   ],
   imports: [
     CommonModule,
@@ -118,6 +122,7 @@ import {TasksService} from '@/main/custom-forms/forms/shared/tasks/tasks.service
     ProblemSolvingWorksheetsService,
     FormsService,
     TasksService,
+    ChatbotService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [CreatePostComponent]
