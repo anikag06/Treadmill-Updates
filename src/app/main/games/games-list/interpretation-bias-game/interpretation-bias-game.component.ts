@@ -20,6 +20,7 @@ declare var gameScore: any;
 declare var level: any;
 declare var streak: any;
 declare var userOrder: any;
+declare var gameTime: any;
 // for storing the score related info of the user
 declare var success: any;
 declare function getUpdatedVariables(): any;
@@ -31,9 +32,9 @@ declare function getUpdatedVariables(): any;
 })
 export class InterpretationBiasGameComponent implements OnInit {
   firstSentence = true;
-  userScoreData = new UserScoreData(userOrder, level, gameScore, streak);
+  userScoreData = new UserScoreData(userOrder, level, gameScore, streak, gameTime);
   userResponseData = new UserResponseData(1, false, 0) ;
-  NO_OF_SENTENCES_RECEIVED = 3;
+  NO_OF_SENTENCES_RECEIVED = 20;
   INPUT_ORDER!: any;
   FIRST_SENTENCE_ID!: number;
   NEXT_SEN_URL!: any;
@@ -58,8 +59,6 @@ export class InterpretationBiasGameComponent implements OnInit {
     this.sentencesPageInUrl = Math.floor(userOrder / this.NO_OF_SENTENCES_RECEIVED);
     this.interpretationbiasgameService.getSentencesInfo(URL, this.firstSentence, this.sentencesPageInUrl)
       .subscribe( (data) => {
-          console.log(userOrder);
-          console.log(data);
           if ( userOrder === data.count - 1) {
             this.lastSentenceReceived = data.count % this.NO_OF_SENTENCES_RECEIVED ;
           }
@@ -69,7 +68,6 @@ export class InterpretationBiasGameComponent implements OnInit {
           }
           for (let i = this.index;
                 i < (this.lastSentenceReceived); i++) {
-            console.log(i);
               this.NEXT_SEN_URL = data.next;
               sentence_ids.push(data.results[i].id);
               sentence_array.push(data.results[i].sentence_text);
@@ -80,7 +78,6 @@ export class InterpretationBiasGameComponent implements OnInit {
               sentence_order_array.push(data.results[i].order);
               if (userOrder >= (this.FIRST_SENTENCE_ID + Math.floor(this.NO_OF_SENTENCES_RECEIVED / 2))) {
                 if (data.next && this.firstSentence) {
-                  console.log('send next sentence');
                   this.index = 0;
                   this.firstSentence = false;
                   this.sentenceInfo(this.NEXT_SEN_URL);
@@ -89,19 +86,19 @@ export class InterpretationBiasGameComponent implements OnInit {
           }
         },
         (error) => {
-          console.log(error);
+          // console.log(error);
         }
       );
   }
   scoresRelatedInfo() {
     this.interpretationbiasgameService.getScoresInfo()
       .subscribe((data) => {
-          console.log(data);
           this.INPUT_ORDER = data.data.order;
           gameScore = data.data.score;
           level = data.data.level;
           streak = data.data.streak;
           userOrder = this.INPUT_ORDER;
+          gameTime = data.data.time;
           this.sentenceInfo(this.SEN_URL);
           this.gameElement = document.getElementById('main_div') as HTMLElement;
           this.instructElement = document.getElementById('instruct-div') as HTMLElement;
@@ -114,7 +111,7 @@ export class InterpretationBiasGameComponent implements OnInit {
           }
         },
         (error) => {
-          console.log(error);
+          // console.log(error);
         }
       );
   }
@@ -122,10 +119,8 @@ export class InterpretationBiasGameComponent implements OnInit {
     this.getScoreVariablesValue();
     this.interpretationbiasgameService.storeUserScoreInfo(this.userScoreData)
       .subscribe( (data) => {
-          console.log(this.userScoreData);
-          console.log(data);
           if (userOrder === (this.FIRST_SENTENCE_ID + Math.floor(this.NO_OF_SENTENCES_RECEIVED / 2))) {
-            console.log('send next sentence');
+
             this.index = 0;
             this.firstSentence = false;
             this.sentenceInfo(this.NEXT_SEN_URL);
@@ -139,24 +134,22 @@ export class InterpretationBiasGameComponent implements OnInit {
   }
   getScoreVariablesValue() {
     let userData = getUpdatedVariables();                  // from sentence_javascript
-    console.log(gameScore);
-    console.log(userData, userData[0]);
     this.userScoreData.order = userData[0];
     userOrder = userData[0];                              // used for getting the sentences 
     this.userScoreData.level = userData[1];
     this.userScoreData.score = userData[2];
     this.userScoreData.streak = userData[3];
+    this.userScoreData.time  = userData[4];
 
-    this.userResponseData.sentence = userData[4];
-    this.userResponseData.user_response = userData[5];
-    this.userResponseData.response_time = userData[6];
+    this.userResponseData.sentence = userData[5];
+    this.userResponseData.user_response = userData[6];
+    this.userResponseData.response_time = userData[7];
 
   }
 
   storeUserResponse() {
     this.interpretationbiasgameService.storeUserResponseInfo(this.userResponseData)
       .subscribe( (data) => {
-        console.log(data);
       },
       (error) => {
 
@@ -164,7 +157,8 @@ export class InterpretationBiasGameComponent implements OnInit {
   }
 
   onHomeClick() {
-    this.router.navigate(['/']);
+    // this.router.navigate(['/']);
+    window.location.reload();
   }
 
   onExitClick() {

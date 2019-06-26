@@ -46,7 +46,7 @@ body{
 	margin: 0.8%;
 	cursor: pointer;
 }
-.sentence-row,.stars{
+.sentence-row,.stars,.selected-word{
 	margin: auto;
 	text-align: center;
 	font-size: 20px;
@@ -69,14 +69,23 @@ body{
 }
 .timeup1, .timeup2{
 	max-width: 60%;
-	font-size: 92%;
-	min-height: 30%;
+	font-size: 95%;
+	min-height: 40%;
 	background-color: rgba(255,255,255,0.5);
 }
+.timeup-btn-in-div{
+	max-width: 100%;
+}
 .btn-timeup{
-	max-width:30%;
-	max-height: 30%;
-	// margin: auto;
+	// max-width:80%;
+	// max-height: 80%;
+	margin: auto;
+	cursor: pointer;
+}
+.btn-timeup-2{
+	max-width:60%;
+	max-height: 60%;
+	margin: auto;
 	cursor: pointer;
 }
 .question-word,.complete-sentence{
@@ -171,12 +180,26 @@ canvas{
 }
 .lifeline-cost{
 	margin: auto;
-	max-width: 70%;
+	max-width: 90%;
+}
+.lifeline-cost-div{
+	max-width: 100%;
+	text-align: center;
+	display: block;
 }
 // .text{
 // 	font-size: 20px;
 // }
-
+#tip-mobile{
+	display: none;
+	height: 30px;
+}
+#tip-desktop{
+	display: block;
+}
+.tip{
+	display: block;
+}
 @media only screen and (max-width: 991px) and (max-width: 767px){
 	/* For mobile phones: */
 	body {
@@ -213,15 +236,24 @@ canvas{
 		max-width: 80%;
 		margin: auto;
 	}
+	.timeup-btn-in-div{
+		max-width: 70%;
+	}
 	.btn-timeup{
-		max-width:15%;
-		max-height: 15%;
+		max-width:65%;
+		max-height: 65%;
+		margin: auto;
+	}
+	.btn-timeup-2{
+		max-width:45%;
+		max-height: 45%;
 		margin: auto;
 	}
 	.lifeline-cost-div{
-		max-width: 55%;
+		max-width: 65%;
 		display: inline-block;
-		margin-left: auto;
+		text-align: center;
+		// margin-left: auto;
 	}
 	.img-btn{
 		max-width:35%;
@@ -270,7 +302,12 @@ canvas{
 	.yes,.no{
 		font-size: 16px;
 	}
-
+	#tip-desktop{
+		display: none;
+	}
+	#tip-mobile{
+		display: block;
+	}
 }
 
 

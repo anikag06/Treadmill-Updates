@@ -4,7 +4,8 @@ export class UserScoreData {
         public order: number,
         public level: number,
         public score: number,
-        public streak: number) {
+        public streak: number,
+        public time: number) {
 
     }
 }

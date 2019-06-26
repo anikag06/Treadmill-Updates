@@ -119,9 +119,9 @@
             <div id="score" class="d-inline score"></div>
           </div> 
           <div class="showTimer justify-content-end " id="showTimer">
-            <img class="clock d-inline" 
-              src="../../../../../assets/games/time_transparent.png">&nbsp;
-            <div class="d-inline-block countdown" id="countdown"></div>
+            <img class="clock d-inline mr-2" 
+              src="../../../../../assets/games/time_transparent.png">
+            <div class="d-inline-block countdown ml-2" id="countdown"></div>
           </div> 
         </div>  
         <div class="d-flex justify-content-start changes-width">
@@ -154,17 +154,20 @@
       </div>
       <div class="col-1 extra-col changes-width d-none"></div>
       <div class="col-6 justify-content-center changes-width sentence-col">
-        <div class="row sentence-row d-none">
+        <div class="row sentence-row justify-content-center d-none">
           <div class="col w-100 stars-sen">
             <div class="stars" style="text-align: center; margin-top: 2%">
-              <p id="stars" ></p>
+              <p id="stars" style="letter-spacing: 2px" ></p>
             </div>
-            <!-- <div class="selected-word d-none">
-              <h3 id="selected-word" align="center"></h3>
+            <!-- <div class="selected-word w-100 d-none" style="text-align: center; margin-top: 2%">
+              <p id="selected-word" align="center" style="letter-spacing: 2px"></p>
             </div> -->
+              <div class="row tip w-100" id="tip-mobile" style="text-align: center; font-size: 75%">
+                <p class="text tip-text" id="tip-text"></p>
+              </div> 
           </div>
         </div>
-      
+        <h4 class="w-80" id="congrats" class="d-none"></h4>
         <!-- GRID -->
         <div class="row w-100 canvas-row align-center changes-width d-none">
           <div class="col w-100" id="canvas-div">
@@ -173,6 +176,7 @@
           </div>
         </div>
       </div>
+      
             <!-- FEEDBACK - improve the feedback and remove this and associated code-->
             <!-- 	<div class="row">
               <div class="col">
@@ -187,8 +191,8 @@
           <div class="col hints-col changes-width d-none" style="margin-bottom: 2%">
             <!-- CONTROLS -->
             <div class="row row-height-100 changes-width justify-content-end">
-              <div class="row tip w-100" style="text-align: center">
-                <p class="text" id="tip-text"></p>
+              <div class="row tip w-100" id="tip-desktop" style="text-align: center; font-size: 75%">
+                <p class="text tip-text" id="tip-text"></p>
               </div> 
               <div class="align-self-center col justify-content-start controls-row">
                   <div id="hint-div" class="row d-none">
@@ -243,35 +247,41 @@
                     style="background-color: rgba(255,255,255,0.5)">Time's Up!</h4>
                   <div class="row timeup1-div p-2">
                     <div class="col align-items-center changes-width">
-                      <div class="align-items-center">
-                        <img 
-                          id="btn-try-again"
-                          class="btn-try-again col btn-timeup" 
-                          src="../../../../../assets/games/replay.png">
-                        <div class="lifeline-cost-div col px-2">
+                      <div class="row p-3 timeup-btn-div w-100">
+                        <div class="col justify-content-center align-items-center timeup-btn-in-div">
+                          <img 
+                            id="btn-try-again"
+                            class="btn-try-again btn-timeup" 
+                            src="../../../../../assets/games/replay.png">
+                        </div>
+                        <div class="lifeline-cost-div col p-1">
                           <p class="lifeline-cost">Try Again for 40 points</p>
                         </div>
                       </div>
                     </div>
                     <div class="col align-items-center changes-width">
-                      <div class="align-items-center">
-                        <img 
-                          id="btn-borrow-time" 
-                          class="btn-borrow-time col btn-timeup "
-                          src="../../../../../assets/games/time.png">
-                        <div class="lifeline-cost-div col px-2">
+                      <div class="row p-3 timeup-btn-div">
+                        <div class="col justify-content-center align-items-center timeup-btn-in-div">
+                          <img 
+                            id="btn-borrow-time" 
+                            class="btn-borrow-time btn-timeup "
+                            src="../../../../../assets/games/time.png">
+                        </div>
+                        <div class="lifeline-cost-div col p-1">
                           <p class="lifeline-cost">Add 20s to the clock for 20 points </p>
                         </div>
                       </div>
                     </div>
                     <div class="col align-items-center changes-width">
-                      <div class="align-items-center">
-                        <img 
-                          id="btn-other-sentence"
-                          class="btn-other-sentence col btn-timeup"
-                          (click) = 'storeUserScoreInfo()'
-                          src="../../../../../assets/games/forward.png">
-                        <div class="lifeline-cost-div col px-2">
+                      <div class="row p-3 timeup-btn-div">
+                        <div class="col justify-content-center align-items-center timeup-btn-in-div">
+                          <img 
+                            id="btn-other-sentence"
+                            class="btn-other-sentence btn-timeup"
+                            (click) = 'storeUserScoreInfo()'
+                            src="../../../../../assets/games/forward.png">
+                        </div>
+                        <div class="lifeline-cost-div col p-1">
                           <p class="lifeline-cost">Go to the next sentence for 100 points</p>
                         </div>
                       </div>
@@ -284,24 +294,28 @@
                     style="background-color: rgba(255,255,255,0.5)">
                     Time's Up </h4> 
                   <div class="row timeup2-div p-2">
-                    <div class="col changes-width">
-                      <div class="align-items-center">
-                        <img 
-                          id="btn-borrow-time-again" 
-                          class="btn-borrow-time-again col justify-content-center btn-timeup"
-                          src="../../../../../assets/games/time.png">
-                        <div class="col d-inline-block">
-                          <p class="lifeline-cost">Add 20s to the clock for 30 points </p>
+                    <div class="col align-items-center changes-width">
+                      <div class="row p-3 timeup-btn-div">
+                        <div class="col justify-content-center align-items-center timeup-btn-in-div">
+                          <img 
+                            id="btn-borrow-time-again" 
+                            class="btn-borrow-time-again col justify-content-center btn-timeup-2"
+                            src="../../../../../assets/games/time.png">
                         </div>
+                        <div class="lifeline-cost-div col p-1">
+                            <p class="lifeline-cost">Add 20s to the clock for 30 points </p>
+                          </div>
                       </div>
                     </div>
-                    <div class="col changes-width">
-                      <div class="align-items-center">
-                        <img 
-                          id="btn-give-up" 
-                          class="btn-give-up col btn-timeup"
-                          src="../../../../../assets/games/help.png">
-                        <div class="col d-inline-block">
+                    <div class="col align-items-center changes-width">
+                      <div class="row p-3 timeup-btn-div">
+                        <div class="col justify-content-center align-items-center timeup-btn-in-div">
+                          <img 
+                            id="btn-give-up" 
+                            class="btn-give-up col btn-timeup-2"
+                            src="../../../../../assets/games/help.png">
+                        </div>
+                        <div class="lifeline-cost-div col p-1">
                           <p class="lifeline-cost">Show the sentence for 35 points </p>
                         </div>
                       </div> 
@@ -347,7 +361,6 @@
                   <div class="row justify-content-center yes-no-score">
                     <h4>Score:</h4>
                     <h4 id="coins" class="coins"></h4>
-                    <h4 id="sincerity-message"></h4>
                     <br/><br/>
                   </div>
                 </div>
@@ -358,6 +371,7 @@
                           <div class="row justify-content-center">
                               <p class="d-none p-3 rounded text-dark bg-light" id="correct"> CORRECT! </p>
                               <p class="d-none p-3 rounded text-dark bg-light" id="wrong"> WRONG! </p> 
+                              <h4 class="w-70" id="sincerity-message"></h4>
                           </div>
                           <div class="row justify-content-center">
                             <p id="finalScore"> </p>
@@ -365,17 +379,17 @@
                       </div>  
                       <div class="col justify-content-end align-self-end lastpage-icons"
                           style="min-width: 100%">
-                          <div class="row mx-4 justify-content-center " id="easy_game-div">
+                          <div class="row mx-4 justify-content-center d-none" id="easy_game-div">
                             <button
                               id="easy_game" 
                               class="btn btn-light mx-1 p-2"
-                              style="font-size: 12px"> Play Easy Level</button>
+                              style="font-size: 12px"> Increase Time</button>
                           </div>
                           <div class="row mx-4 justify-content-center d-none" id="hard_game_div">
                             <button
                               id="hard_game" 
                               class="btn btn-light mx-1 p-2"
-                              style="font-size: 12px"> Play Hard Level</button>
+                              style="font-size: 12px"> Decrease Time</button>
                           </div>
                           <img 
                             id="replay-btn"
