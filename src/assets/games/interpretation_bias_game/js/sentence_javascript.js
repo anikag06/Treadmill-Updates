@@ -612,16 +612,16 @@ function highlightSecondLetters(){
 	star_sentence = "";			//sentence with words in ascending order of length
 	
 	for(var i=0; i<initial_letters.length; i++){
-		var _word = initial_letters[i].word;
+		var senWord= initial_letters[i].word;
 		
 		// only for words that haven't been found
-		if(word_already_found.indexOf(_word)==-1 && word_already_found.indexOf(reverseWord(_word))==-1 && _word.length>1){
-			star_sentence+=initial_letters[i]["first_letter"]+initial_letters[i]["second_letter"]+starify(_word).substring(2);
+		if(word_already_found.indexOf(senWord)==-1 && word_already_found.indexOf(reverseWord(senWord))==-1 && senWord.length>1){
+			star_sentence+=initial_letters[i]["first_letter"]+initial_letters[i]["second_letter"]+starify(senWord).substring(2);
 		}else{
-			if(isWordReversed(_word)){
-				star_sentence+=reverseWord(_word);
+			if(isWordReversed(senWord)){
+				star_sentence+=reverseWord(senWord);
 			}else{
-				star_sentence+=_word;
+				star_sentence+=senWord;
 			}
 		}
 		star_sentence+=" ";

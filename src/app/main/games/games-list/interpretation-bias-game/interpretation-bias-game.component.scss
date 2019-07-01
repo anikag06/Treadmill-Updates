@@ -31,18 +31,8 @@ body{
 	background-repeat: no-repeat;
 }
 .img-btn{
-	max-width:30%;
-	margin: 1%;
-	cursor: pointer;
-}
-.paused-img-btn{
-	max-width: 50%;
-	margin: 2%;
-	cursor: pointer;
-}
-.img-btn-first{
-	max-width: 15%;
-	margin: 0.8%;
+	max-width:13vh;
+	margin: 1vh;
 	cursor: pointer;
 }
 .sentence-row,.stars,.selected-word{
@@ -74,17 +64,6 @@ body{
 }
 .timeup-btn-in-div{
 	max-width: 100%;
-}
-.btn-timeup{
-	// max-width:80%;
-	// max-height: 80%;
-	margin: auto;
-	cursor: pointer;
-}
-.btn-timeup-2{
-	max-width:60%;
-	margin: auto;
-	cursor: pointer;
 }
 .question-word,.complete-sentence{
 	max-width: 60%;
@@ -248,13 +227,8 @@ canvas{
 		// margin-left: auto;
 	}
 	.img-btn{
-		max-width:35%;
+		max-width:7vh;
 		// max-height: 35%;
-		margin: 0.5%;
-	}
-	.paused-img-btn{
-		max-width: 15%;
-		// max-height: 15%;
 		margin: 0.5%;
 	}
 	.btn-hint{

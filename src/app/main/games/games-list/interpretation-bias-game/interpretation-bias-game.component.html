@@ -91,19 +91,19 @@
         <div class="d-flex col justify-content-end btn-play-options">
           <img 
             id="start-btn" 
-            class="play-game img-btn-first" 
+            class="play-game img-btn" 
             src="../../../../../assets/games/play.png">
           <img 
             id="help-btn" 
-            class="help-btn img-btn-first" 
+            class="help-btn img-btn" 
             src="../../../../../assets/games/help.png">
           <img 
             id="sound-btn" 
-            class="sound-btn img-btn-first" 
+            class="sound-btn img-btn" 
             src="../../../../../assets/games/sound.png">
           <img 
             id="exit"
-            class="exit mx-1 img-btn-first" 
+            class="exit mx-1 img-btn" 
             (click) = "onExitClick()"
             src="../../../../../assets/games/back.png">
         </div>
@@ -128,26 +128,26 @@
               <div class="pause-clicked align-items-center d-none">
                   <img 
                     id="home-btn"
-                    class="home-btn mx-1 paused-img-btn"
+                    class="home-btn mx-1 img-btn"
                     (click) = "onHomeClick()" 
                     src="../../../../../assets/games/home.png">
                     
                   <img 
                     id="help-btn"
-                    class="help-btn mx-1 paused-img-btn" 
+                    class="help-btn mx-1 img-btn" 
                     src="../../../../../assets/games/help.png">
                   <img 
                     id="play-btn" 
-                    class="play-btn mx-1 paused-img-btn" 
+                    class="play-btn mx-1 img-btn" 
                     src="../../../../../assets/games/play.png">
                   <img 
                     id="exit"
-                    class="exit mx-1 paused-img-btn" 
+                    class="exit mx-1 img-btn" 
                     (click) = "onExitClick()"
                     src="../../../../../assets/games/back.png">
                   <img 
                     id="sound"
-                    class="sound mx-1 paused-img-btn" 
+                    class="sound mx-1 img-btn" 
                     src="../../../../../assets/games/sound.png">
               </div>
           </div>
@@ -159,7 +159,7 @@
             <div class="stars" style="text-align: center; margin-top: 2%">
               <p id="stars" style="letter-spacing: 2px" ></p>
             </div>
-            <div class="row tip w-100" style="text-align: center; font-size: 75%">
+            <div class="row tip w-100" style="text-align: center;font-size: 75%">
               <p class="text tip-text" id="tip-text"></p>
             </div> 
             <!-- <div class="selected-word w-100 d-none" style="text-align: center; margin-top: 2%">
@@ -248,7 +248,7 @@
                         <div class="col justify-content-center align-items-center timeup-btn-in-div">
                           <img 
                             id="btn-try-again"
-                            class="btn-try-again btn-timeup" 
+                            class="btn-try-again img-btn" 
                             src="../../../../../assets/games/replay.png">
                         </div>
                         <div class="lifeline-cost-div col p-1">
@@ -261,7 +261,7 @@
                         <div class="col justify-content-center align-items-center timeup-btn-in-div">
                           <img 
                             id="btn-borrow-time" 
-                            class="btn-borrow-time btn-timeup "
+                            class="btn-borrow-time img-btn"
                             src="../../../../../assets/games/time.png">
                         </div>
                         <div class="lifeline-cost-div col p-1">
@@ -274,7 +274,7 @@
                         <div class="col justify-content-center align-items-center timeup-btn-in-div">
                           <img 
                             id="btn-other-sentence"
-                            class="btn-other-sentence btn-timeup"
+                            class="btn-other-sentence img-btn"
                             (click) = 'storeUserScoreInfo()'
                             src="../../../../../assets/games/forward.png">
                         </div>
@@ -296,7 +296,7 @@
                         <div class="col justify-content-center align-items-center timeup-btn-in-div">
                           <img 
                             id="btn-borrow-time-again" 
-                            class="btn-borrow-time-again col justify-content-center btn-timeup-2"
+                            class="btn-borrow-time-again col justify-content-center img-btn"
                             src="../../../../../assets/games/time.png">
                         </div>
                         <div class="lifeline-cost-div col p-1">
@@ -309,7 +309,7 @@
                         <div class="col justify-content-center align-items-center timeup-btn-in-div">
                           <img 
                             id="btn-give-up" 
-                            class="btn-give-up col btn-timeup-2"
+                            class="btn-give-up col img-btn"
                             src="../../../../../assets/games/help.png">
                         </div>
                         <div class="lifeline-cost-div col p-1">
@@ -380,25 +380,25 @@
                             <button
                               id="easy_game" 
                               class="btn btn-light mx-1 p-2"
-                              style="font-size: 12px"> Increase Time</button>
+                              > Increase Time</button>
                           </div>
                           <div class="row mx-4 justify-content-center d-none" id="hard_game_div">
                             <button
                               id="hard_game" 
                               class="btn btn-light mx-1 p-2"
-                              style="font-size: 12px"> Decrease Time</button>
+                              > Decrease Time</button>
                           </div>
                           <img 
                             id="replay-btn"
-                            class="replay-btn mx-1 img-btn-first" 
+                            class="replay-btn mx-1 img-btn" 
                             src="../../../../../assets/games/replay.png"> 
                           <img
                             id="btn-next-sentence"
-                            class='mx-1 img-btn-first'
+                            class='mx-1 img-btn'
                             src="../../../../../assets/games/forward.png">
                           <img 
                             id="home-btn"
-                            class="home-btn mx-1 img-btn-first" 
+                            class="home-btn mx-1 img-btn" 
                             (click) = "onHomeClick()" 
                             src="../../../../../assets/games/home.png">
                       </div>
