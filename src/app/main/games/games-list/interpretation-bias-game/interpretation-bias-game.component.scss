@@ -7,10 +7,12 @@ body{
 	text-align: center;
 	flex-direction: row;
 	font-size: 16px;
+	max-width: 90%;
 	
 }
 .container-fluid{
 	background-image: url("/assets/games/interpretation_bias_game/images/background.png");
+	
 }
 .game,.game-first-page{
 	background-image: url("/assets/games/interpretation_bias_game/images/Automatic Interpretive Bias.png");
@@ -30,19 +32,16 @@ body{
 }
 .img-btn{
 	max-width:30%;
-	max-height: 30%;
 	margin: 1%;
 	cursor: pointer;
 }
 .paused-img-btn{
 	max-width: 50%;
-	max-height: 50%;
 	margin: 2%;
 	cursor: pointer;
 }
 .img-btn-first{
-	max-width: 23%;
-	max-height: 23%;
+	max-width: 15%;
 	margin: 0.8%;
 	cursor: pointer;
 }
@@ -84,7 +83,6 @@ body{
 }
 .btn-timeup-2{
 	max-width:60%;
-	max-height: 60%;
 	margin: auto;
 	cursor: pointer;
 }
@@ -95,12 +93,12 @@ body{
 .btn-play-options{
 	position: absolute;
 	bottom: 2%;
-	right: 2%;
+	right: 7%;
 
 }
 .btn-hint{
 	max-width: 60%;
-	min-width: 53%;
+	// min-width: 53%;
 	margin: 5%;
 	margin-bottom: 0%
 }
@@ -124,7 +122,7 @@ body{
 // }
 canvas{
 	max-width: 100%;
-	min-width: 78%;
+	// min-width: 78%;
 	margin-bottom: auto;
 	background-color: white;
 	margin-left: auto;
@@ -190,17 +188,11 @@ canvas{
 // .text{
 // 	font-size: 20px;
 // }
-#tip-mobile{
-	display: none;
-	height: 30px;
-}
-#tip-desktop{
-	display: block;
-}
 .tip{
-	display: block;
+	height: 30px;
+	margin: auto;
 }
-@media only screen and (max-width: 991px) and (max-width: 767px){
+@media only screen and (max-width: 991px) and (max-width: 767px) and (orientation : portrait) {
 	/* For mobile phones: */
 	body {
 		padding: 0px;
@@ -241,12 +233,12 @@ canvas{
 	}
 	.btn-timeup{
 		max-width:65%;
-		max-height: 65%;
+		// max-height: 65%;
 		margin: auto;
 	}
 	.btn-timeup-2{
 		max-width:45%;
-		max-height: 45%;
+		// max-height: 45%;
 		margin: auto;
 	}
 	.lifeline-cost-div{
@@ -257,17 +249,12 @@ canvas{
 	}
 	.img-btn{
 		max-width:35%;
-		max-height: 35%;
+		// max-height: 35%;
 		margin: 0.5%;
 	}
 	.paused-img-btn{
 		max-width: 15%;
-		max-height: 15%;
-		margin: 0.5%;
-	}
-	.img-btn-first{
-		max-width: 40px;
-		max-height: 40px;
+		// max-height: 15%;
 		margin: 0.5%;
 	}
 	.btn-hint{
@@ -302,12 +289,7 @@ canvas{
 	.yes,.no{
 		font-size: 16px;
 	}
-	#tip-desktop{
-		display: none;
-	}
-	#tip-mobile{
-		display: block;
-	}
+
 }
 
 

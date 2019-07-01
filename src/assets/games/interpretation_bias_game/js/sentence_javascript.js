@@ -101,10 +101,12 @@ var letters_y_coordinate = [];	// for storing y coordinates of letters of grid o
 var textwidth = [];				// for storing width of alphabets on grid
 var last_row, last_column;		//for getting end points of the lines
 var countLine =0;
+var line;
 var lineDrawn = false;			//see if the existing is drawn or not
 var w,h;						//width and height for making small squares around letters
 var coordinates = [];			//coordinates of corners of the squares around letters
 var store_swiped_letter = [];	//array stores letters while swiping for making them bold
+var swipe_direction;
 var previous_i;					// for storing the i value of the previously swiped letter
 var previous_j;					// for storing the j value of the previously swiped letter
 var s
@@ -127,7 +129,7 @@ var SQUARE_DIM = 4;
 var margin_left;
 
 // max allowed canvas width beyond which the alphabets get very small
-var MAX_CANVAS_WIDTH = 450;
+var MAX_CANVAS_WIDTH = 400;
 
 // column width breakpoint
 var COLUMN_WIDTH_BREAKPOINT = 75;
@@ -514,7 +516,10 @@ $(document).ready(function(){
 
 function playNextSentence(){
 	initializeVariables();
-	removeAddClassFun();
+	setTimeout(() => {
+		removeAddClassFun();
+	});
+	
 	$(".tip-text").text("");
 	countdown();
 	sentence_number++;
@@ -1051,7 +1056,7 @@ function replaceStars(word,strArray,pos, star_sentence){
 	} 
 
 	star_sentence=starWords.join(sentence_splitter);				//star sentence now changed, have the words found
-	countTrue+=1;
+	// countTrue+=1;
 	if(game_timer>FIRST_HINTS_TIME){
 		score=score+(score_each_letter[0]*word.length);
 	}else if(game_timer>SECOND_HINTS_TIME){
@@ -1085,10 +1090,10 @@ function extraWordAlreadyFound(word){
 
 // for checking if the word selected by user by swiping is in sentence or not and also if the user found a word before or not
 function searchWordInArray(str, sorted_words, star_sentence, sentence) {    
-	
 	var found= false; var present = false;        //for the words in sentence whether it is found before or not
 	var extra_present = false;                   //to check if the word (not in sentence) has been found before or not
 	var strArray = sorted_words;
+	var word_str = str;
 
 	present = wordAlreadyFound(str);
 	
@@ -1101,11 +1106,9 @@ function searchWordInArray(str, sorted_words, star_sentence, sentence) {
 		for (var j=0; j<strArray.length; j++){               //search word in the array of words of sentence
 			if(strArray[j].search(str) !=-1 && str.length== strArray[j].length){
 				isValidWord = true;
+				countTrue++;
 				found = true;
-				// $('#tick').show();
-				// $('#cross').hide();
-				// $('#bonus').hide();
-				// $('#already_found').hide();
+
 				word_already_found.push(str);
 				words_pos_row.splice(j,1,'_');           //replace positions of the words already found with '*'
 				words_pos_column.splice(j,1,'_');    
@@ -1228,7 +1231,7 @@ function foundWord(sentence,sentence_word){
 	var sorted_words = getSortedWordList(sentence);
 	makeCanvasGrid(playGrid,sorted_words,sentence,GRID_LENGTH);
 	
-	var storeWord;
+	// var storeWord;
 	document.getElementById('score').innerHTML = score;
 }
 
@@ -1257,6 +1260,7 @@ function detectSwipe(playGrid,canvas,rect,sorted_words,sentence){
 		var row_for_diag = Math.ceil((distance_swiped/(Math.sqrt((rowHeight*rowHeight)+(columnWidth*columnWidth)))));
 		//checking swipes according to angles
 		if(angle<-125&&angle>-145){ //UP-LEFT SWIPE...  
+			swipe_direction = 0;
 			for(var rDiag= 0; rDiag < row_for_diag; rDiag ++){
 				if(row_num <playGrid.length && column_num <playGrid.length  && row_num>=0 && column_num>=0){
 					storeLetter[rDiag] = playGrid[row_num][column_num];
@@ -1267,6 +1271,7 @@ function detectSwipe(playGrid,canvas,rect,sorted_words,sentence){
 				}
 			}
 		}else if(angle < -35 && angle > -55){ //UP-RIGHT SWIPE...
+			swipe_direction = 1;
 			for(var rDiag= 0; rDiag < row_for_diag; rDiag ++){
 				if(row_num <playGrid.length && column_num <playGrid.length  && row_num>=0 && column_num>=0){
 					storeLetter[rDiag] = playGrid[row_num][column_num];
@@ -1277,6 +1282,7 @@ function detectSwipe(playGrid,canvas,rect,sorted_words,sentence){
 				}
 			}
 		}else if(angle < 55 && angle > 35 ){//DOWN-RIGHT SWIPE...
+			swipe_direction = 2;
 			for(var rDiag= 0; rDiag < row_for_diag; rDiag ++){
 				if(row_num <playGrid.length && column_num <playGrid.length  && row_num>=0 && column_num>=0){
 					storeLetter[rDiag] = playGrid[row_num][column_num];
@@ -1287,6 +1293,7 @@ function detectSwipe(playGrid,canvas,rect,sorted_words,sentence){
 				}
 			}
 		}else if(angle >125 && angle <145){ //DOWN-LEFT SWIPE...
+			swipe_direction = 3;
 			for(var rDiag= 0; rDiag < row_for_diag; rDiag ++){
 				if(row_num <playGrid.length && column_num <playGrid.length  && row_num>=0 && column_num>=0){
 					storeLetter[rDiag] = playGrid[row_num][column_num];
@@ -1296,7 +1303,8 @@ function detectSwipe(playGrid,canvas,rect,sorted_words,sentence){
 					column_num--;
 				}
 			}
-		}else if(angle <= -80 && angle >= -100){
+		}else if(angle <= -80 && angle >= -100){		//up swipe
+			swipe_direction = 4;
 			for(var rVer=0; rVer< no_of_rows; rVer++){
 				if(row_num <playGrid.length && column_num <playGrid.length && row_num>=0 && column_num>=0){
 					storeLetter[rVer] = playGrid[row_num][column_num];
@@ -1305,7 +1313,8 @@ function detectSwipe(playGrid,canvas,rect,sorted_words,sentence){
 					row_num--;
 				}
 			}
-		}else if(angle <=100 && angle >= 80){
+		}else if(angle <=100 && angle >= 80){			// down swipe
+			swipe_direction = 5;
 			for(var rVer=0; rVer< no_of_rows; rVer++){
 				if(row_num <playGrid.length && column_num <playGrid.length  && row_num>=0 && column_num>=0){
 					storeLetter[rVer] = playGrid[row_num][column_num];
@@ -1314,7 +1323,8 @@ function detectSwipe(playGrid,canvas,rect,sorted_words,sentence){
 					row_num++;
 				}
 			}
-		}else if(angle >= -10 && angle <=10){
+		}else if(angle >= -10 && angle <=10){ //right swipe
+			swipe_direction = 6;
 			for(var cHor=0; cHor < no_of_cols ; cHor++){
 				if(row_num <playGrid.length && column_num <playGrid.length  && row_num>=0 && column_num>=0){
 					storeLetter[cHor] = playGrid[row_num][column_num];
@@ -1324,7 +1334,8 @@ function detectSwipe(playGrid,canvas,rect,sorted_words,sentence){
 					
 				}
 			}
-		}else if((angle <=-170 && angle >= -180) || (angle>=170 && angle <=180)){
+		}else if((angle <=-170 && angle >= -180) || (angle>=170 && angle <=180)){ //left swipe
+			swipe_direction = 7;
 			for(var cHor=0; cHor < no_of_cols ; cHor++){
 				if(row_num <playGrid.length && column_num <playGrid.length  && row_num>=0 && column_num>=0){
 					storeLetter[cHor] = playGrid[row_num][column_num];
@@ -1339,22 +1350,27 @@ function detectSwipe(playGrid,canvas,rect,sorted_words,sentence){
 		}
 	
 		if(storeLetter==sentence_splitter){
-			var storeWord = sentence_splitter;
+			var storeWord;
 			storeLetter = [];  
 		}else{
-			var storeWord = storeLetter.join("");    //the word swiped by user
-			last_row = letters_y_coordinate[row_num];
+		  var storeWord = storeLetter.join("");    //the word swiped by user
+			var sendWord = storeWord;
+			// last_row = letters_y_coordinate[row_num];
 			if(store_swiped_letter[store_swiped_letter.length-1]!=storeWord.charAt(storeWord.length-1)){
 				storeWord+=store_swiped_letter[store_swiped_letter.length-1];
+				last_row = letters_y_coordinate[row_num];
+				last_column = letters_x_coordinate[(playGrid.length)*(column_num)];
 			}
-			star_sentence = searchWordInArray(storeWord,sorted_words,star_sentence, sentence);  //if word present in sorted words array
-			document.getElementById('stars').innerHTML = star_sentence;
-			document.getElementById('score').innerHTML = score;
-			storeLetter = [];    //clear storeLetter to store another set of letters
+			
+				sendWord = storeWord;
+				star_sentence = searchWordInArray(sendWord,sorted_words,star_sentence, sentence);  //if word present in sorted words array
+				document.getElementById('stars').innerHTML = star_sentence;
+				document.getElementById('score').innerHTML = score;
+				storeLetter = [];    //clear storeLetter to store another set of letters
+			
 		}
 	});
-
-	$('#nextSentence').click(function(){
+	$(document).on("click","#exit", "#btn-next-sentence, #btn-other-sentence", function(ev){
 		canSwipe.destroy();
 	});
 }
@@ -1446,6 +1462,28 @@ String.prototype.shuffle = function () {        //function to shuffle a string
 	}
 	return a.join("");
 }
+function drawBoard(playGrid,context,bw,bh){                           //making grid on canvas
+	var row = 0;
+	var column=0;
+	
+	for(var x=0; x<bw; x+=columnWidth) {
+		row=0;
+		for(var y=0; y<bh; y+=rowHeight) {
+			number = playGrid[row][column];
+			context.font = canvas_font_width+"px serif";
+			textwidth.push(context.measureText(number).width);
+			context.fillText(number,x+(rowHeight/2),y+(columnWidth/2));
+			letters_x_coordinate.push(x+(rowHeight/2));
+			letters_y_coordinate.push(y+(columnWidth/2));
+			
+			row++;
+		}
+		column++;
+	}
+	context.strokeStyle = "#d8bfd8";
+	document.getElementById("canvas").innerHTML = context.stroke();   
+	imageData = context.getImageData(0,0,canvas.width,canvas.height);             // save the current stage of the canvas every time as an image
+}
 
 function makeCanvasGrid(playGrid,sorted_words,sentence,GRID_LENGTH){
 	letters_x_coordinate.splice(0,letters_x_coordinate.length);		//make arrays empty for every new canvas
@@ -1483,7 +1521,7 @@ function makeCanvasGrid(playGrid,sorted_words,sentence,GRID_LENGTH){
 	// columnWidth = (Math.floor((window.innerWidth-150)/GRID_LENGTH)<=100)?Math.floor((window.innerWidth-150)/GRID_LENGTH):100;
 	// rowHeight = columnWidth;
 
-	var line, isDown;
+	var isDown;
 	var bw = GRID_LENGTH*columnWidth;					//box width
 	var bh = GRID_LENGTH*rowHeight;						//box height
 	var p = 0;											//box padding
@@ -1502,30 +1540,9 @@ function makeCanvasGrid(playGrid,sorted_words,sentence,GRID_LENGTH){
 
 	canvas = document.getElementById("canvas");
 	var context = canvas.getContext("2d");
-	function drawBoard(){                           //making grid on canvas
-		var row = 0;
-		var column=0;
-		
-		for(var x=0; x<bw; x+=columnWidth) {
-			row=0;
-			for(var y=0; y<bh; y+=rowHeight) {
-				number = playGrid[row][column];
-				context.font = canvas_font_width+"px serif";
-				textwidth.push(context.measureText(number).width);
-				context.fillText(number,x+(rowHeight/2),y+(columnWidth/2));
-				letters_x_coordinate.push(x+(rowHeight/2));
-				letters_y_coordinate.push(y+(columnWidth/2));
-				
-				row++;
-			}
-			column++;
-		}
-		context.strokeStyle = "#d8bfd8";
-		document.getElementById("canvas").innerHTML = context.stroke();   
-		imageData = context.getImageData(0,0,canvas.width,canvas.height);             // save the current stage of the canvas every time as an image
-	}
 
-	drawBoard();
+	drawBoard(playGrid,context,bw,bh);
+
 	for(var i=0; i < letters_x_coordinate.length;i++){
 		 coordinates.push({                   //coordinates of the square around every letter on the grid, used to detect the letters swiped
 			coord_x : letters_x_coordinate[i] - (columnWidth/SQUARE_DIM),
@@ -1603,7 +1620,7 @@ function draw(){
 			
 	//lines made previously are stored in an array and then drawn again
 	if(existing_lines_length >=0 && lineDrawn ===false){
-		var line = existingLines[existing_lines_length];				//drawing only newly made lines again not all the lines
+		line = existingLines[existing_lines_length];				//drawing only newly made lines again not all the lines
 		ctx.globalAlpha = 0.5;
 		ctx.globalCompositeOperation="destination-over";
 		ctx.beginPath();
@@ -1673,24 +1690,6 @@ function getStartPointOfLine(){
 	startY = initialY;
 	return;
 }
-function getEndPointOfLine(mouseX, mouseY){
-	var lastCol = last_column;
-	var lastRow = last_row
-	var lastpointX = mouseX;
-	var lastpointY = mouseY;
-	for(var i=0; i<letters_x_coordinate.length ; i++){
-		if(lastpointX < letters_x_coordinate[i] + (columnWidth/2)){			//check which is the nearest alphabest to the starting point of the swipe      
-			last_column = letters_x_coordinate[i];								//beginning of line changed to the co-ordinates of the nearest alphabet
-			if(lastpointY < letters_y_coordinate[i] + (rowHeight/2)){
-				last_row = letters_y_coordinate[i] ;
-				return;
-			}     
-		}
-	}
-	last_column = lastCol;
-	last_row = lastRow;
-	return; 
-}
 
 function onmousedown(e){
 	if(!(game_paused)){
@@ -1715,36 +1714,39 @@ function onmousedown(e){
 }
 
 function onmouseup(e) {
-	if(!(game_paused)){
-		ctx.putImageData(imageData,0,0);
-		var mousePos = getMousePos(canvas,e);
-		mouseX = mousePos.x;
-		mouseY = mousePos.y;    
-		getEndPointOfLine(mouseX, mouseY);
-		if(hasLoaded && e.button === 0){
-			if(isValidWord){						//if swiped word is a valid word, either part of sentence or any other word
-				if(isDrawing){
-					existingLines.push({
-						startX: startX,
-						startY: startY,
-						endX: last_column,			//making end positions of lines according to the co-ordinates of last letter of the swiped word
-						endY: last_row,
-						lineColor: (extra_word)?line_color_set_extra_words:line_color_set_sentence_words[color_number]
-					});
-					extra_word = false;
-					lineDrawn = false;
+	setTimeout(() => {
+		if(!(game_paused)){
+			ctx.putImageData(imageData,0,0);
+			var mousePos = getMousePos(canvas,e);
+			mouseX = mousePos.x;
+			mouseY = mousePos.y;    
+	
+			if(hasLoaded && e.button === 0){
+				if(isValidWord){						//if swiped word is a valid word, either part of sentence or any other word
+					if(isDrawing){
+						console.log("line drawn:", last_row);
+						existingLines.push({
+							startX: startX,
+							startY: startY,
+							endX: last_column,			//making end positions of lines according to the co-ordinates of last letter of the swiped word
+							endY: last_row,
+							lineColor: (extra_word)?line_color_set_extra_words:line_color_set_sentence_words[color_number]
+						});
+						extra_word = false;
+						lineDrawn = false;
+					}
+					existing_lines_length++;       
+					imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);       
+					isValidWord = false;
 				}
-				existing_lines_length++;       
-				imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);       
-				isValidWord = false;
+				// make the letter swiped array and its position arrays empty so that letters that became bold become normal again
+				store_swiped_letter.splice(0,store_swiped_letter.length);
+				isDrawing = false;
+				showStarSentence();
+				draw();
 			}
-			// make the letter swiped array and its position arrays empty so that letters that became bold become normal again
-			store_swiped_letter.splice(0,store_swiped_letter.length);
-			isDrawing = false;
-			showStarSentence();
-			draw();
 		}
-	}
+	})
 }
 
 function onmouseout(e){   //if swipe ends outside the canvas
@@ -1754,7 +1756,6 @@ function onmouseout(e){   //if swipe ends outside the canvas
 			var mousePos = getMousePos(canvas,e);
 			mouseX = mousePos.x;
 			mouseY = mousePos.y;   
-			getEndPointOfLine(mouseX,mouseY);
 			if(isValidWord){            //if swiped word is a valid word, either part of sentence or any other word
 				if(isDrawing){
 					existingLines.push({
@@ -1918,7 +1919,7 @@ function showSelectedWord(selected_letter){
 function showStarSentence(){
 	// $(".selected-word").addClass("d-none");
 	// $("#selected-word").text("");
-	$(".stars").removeClass("d-none");
+	// $(".stars").removeClass("d-none");
 }
 
 $(document).on("click", ".div-instruction-img", function(ev){
