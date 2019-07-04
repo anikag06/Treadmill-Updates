@@ -23,11 +23,28 @@ export class AuthService {
     private router: Router,
   ) { }
 
+  setLoginData(data: any) {
+    try {
+      window.localStorage.setItem(TOKEN, data.data.token);
+      window.localStorage.setItem(ISADMIN, data.data.is_admin);
+      window.localStorage.setItem(USERAVATAR, data.data.avatar);
+      window.localStorage.setItem(ISACTIVE, data.data.is_active);
+    } catch (e) {
+      window.sessionStorage.setItem(TOKEN, data.data.token);
+      window.sessionStorage.setItem(ISADMIN, data.data.is_admin);
+      window.sessionStorage.setItem(USERAVATAR, data.data.avatar);
+      window.sessionStorage.setItem(ISACTIVE, data.data.is_active);
+    }
+    this.getUserFromToken(data.data.token, data.data.avatar, data.data.is_admin, data.data.is_active);
+  }
+
 
   async getUserDetails(data: any) {
-    localStorage.clear();
+    window.localStorage.clear();
+    window.sessionStorage.clear();
     return this.http.post(environment.API_ENDPOINT + LOGIN_PATH, data).toPromise();
   }
+
   signupData (userSignupData: any): Observable<any> {
     return this.http.post(environment.API_ENDPOINT + SIGNUP_PATH, userSignupData);
   }
@@ -37,20 +54,35 @@ export class AuthService {
     if (this.user) {
       return this.user;
     } else {
-      const data = localStorage.getItem(TOKEN);
-      const avatar = localStorage.getItem(USERAVATAR);
-      const isAdmin = (localStorage.getItem(ISADMIN) == 'true');
-      const isActive = (localStorage.getItem(ISACTIVE) == 'true');
-      if (data && avatar && isActive) {
-        const helper = new JwtHelperService();
-        const isExpired = helper.isTokenExpired((<string>data));
-        const userData = helper.decodeToken(<string>data);
-        const user = new User(+userData.user_id, userData.username, userData.email, avatar, isAdmin, isActive);
-        if (isExpired === false) {
-          this.user = user;
-          return user;
-        }
+      let data!: string | null;
+      let avatar!: string | null;
+      let isAdmin = false;
+      let isActive = false;
+      try {
+        data = window.localStorage.getItem(TOKEN);
+        avatar = window.localStorage.getItem(USERAVATAR);
+        isAdmin = (window.localStorage.getItem(ISADMIN) == 'true');
+        isActive = (window.localStorage.getItem(ISACTIVE) == 'true');
+      } catch (e) {
+        data = window.sessionStorage.getItem(TOKEN);
+        avatar = window.sessionStorage.getItem(USERAVATAR);
+        isAdmin = (window.sessionStorage.getItem(ISADMIN) == 'true');
+        isActive = (window.sessionStorage.getItem(ISACTIVE) == 'true');
       }
+      if (data && avatar && isActive) {
+        return this.getUserFromToken(data, avatar, isAdmin, isActive);
+      }
+    }
+  }
+
+  getUserFromToken(data: any, avatar: string, isAdmin: boolean, isActive: boolean) {
+    const helper = new JwtHelperService();
+    const isExpired = helper.isTokenExpired((<string>data));
+    const userData = helper.decodeToken(<string>data);
+    const user = new User(+userData.user_id, userData.username, userData.email, avatar, isAdmin, isActive);
+    if (isExpired === false) {
+      this.user = user;
+      return user;
     }
   }
 
@@ -61,7 +93,7 @@ export class AuthService {
   }
 
   refresh() {
-    const token = localStorage.getItem(TOKEN);
+    const token = this.getToken();
     if (token != null) {
       this.http.post<Token>(environment.API_ENDPOINT + TOKEN_REFRESH_PATH, { 'token': token })
         .subscribe(
@@ -71,13 +103,22 @@ export class AuthService {
           (error: HttpErrorResponse) => {
             if (error.status >= 400 && error.status < 500) {
               this.router.navigate([DEFAULT_PATH]);
-              localStorage.removeItem(TOKEN);
-              localStorage.removeItem(USERAVATAR);
-              localStorage.removeItem(ISADMIN);
-              localStorage.removeItem(ISACTIVE);
+              window.localStorage.removeItem(TOKEN);
+              window.localStorage.removeItem(USERAVATAR);
+              window.localStorage.removeItem(ISADMIN);
+              window.localStorage.removeItem(ISACTIVE);
+
+              window.sessionStorage.removeItem(TOKEN);
+              window.sessionStorage.removeItem(USERAVATAR);
+              window.sessionStorage.removeItem(ISADMIN);
+              window.sessionStorage.removeItem(ISACTIVE);
             }
           }
         );
     }
+  }
+
+  getToken() {
+    return window.localStorage.getItem(TOKEN) || window.sessionStorage.getItem(TOKEN);
   }
 }

@@ -3,6 +3,7 @@ import {Chat} from '@/main/chatbot/chat.model';
 import {environment} from '../../../../environments/environment';
 import {NEW_CHAT, REPLY_CURRENT, RESUME_CHAT, TOKEN} from '@/app.constants';
 import {ChatbotService} from '@/main/chatbot/chatbot.service';
+import {AuthService} from '@/shared/auth/auth.service';
 
 
 @Component({
@@ -13,7 +14,8 @@ import {ChatbotService} from '@/main/chatbot/chatbot.service';
 export class ChatWindowComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(
-    private chatbotService: ChatbotService
+    private chatbotService: ChatbotService,
+    private authService: AuthService
   ) {}
 
   messages: Chat[] = [];
@@ -28,8 +30,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() chatWindowClosed = false;
 
   ngOnInit() {
-    this.webSocket = new WebSocket('ws://' + environment.HOST + '/ws/chat/?token=' + localStorage.getItem(TOKEN));
-    console.log("websocket", this.webSocket);
+    this.webSocket = new WebSocket('ws://' + environment.HOST + '/ws/chat/?token=' + this.authService.getToken());
     this.webSocket.onopen =  (event) => {
       this.webSocket.send(JSON.stringify({ 'action': NEW_CHAT, 'module_name': 'mood_tracker'}));
     };

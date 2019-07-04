@@ -40,10 +40,11 @@ export class MatLoginDialogComponent implements OnInit {
     this.authService.getUserDetails(this.loginForm.value)
       .then(
         (data: any) => {
-          this.localStorageService.setItem(TOKEN, data.data.token);
-          this.localStorageService.setItem(ISADMIN, data.data.is_admin);
-          this.localStorageService.setItem(USERAVATAR, data.data.avatar);
-          this.localStorageService.setItem(ISACTIVE, data.data.is_active);
+          // this.localStorageService.setItem(TOKEN, data.data.token);
+          // this.localStorageService.setItem(ISADMIN, data.data.is_admin);
+          // this.localStorageService.setItem(USERAVATAR, data.data.avatar);
+          // this.localStorageService.setItem(ISACTIVE, data.data.is_active);
+          this.authService.setLoginData(data);
           this.dialogRef.close();
           this.router.navigate([LOGGED_IN_PATH]);
         }
