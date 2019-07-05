@@ -33,7 +33,7 @@ declare function getUpdatedVariables(): any;
 export class InterpretationBiasGameComponent implements OnInit {
 
   NO_OF_SENTENCES_RECEIVED = 20;      // order of first sentence is 0
-  LEVEL_UP_SEN = 2;       // level up after how many sentences, here after 5 sentences;
+  LEVEL_UP_SEN = 5;       // level up after how many sentences, here after 5 sentences;
 
   firstSentence = true;
   userScoreData = new UserScoreData(userOrder, level, gameScore, streak, gameTime);
@@ -47,6 +47,10 @@ export class InterpretationBiasGameComponent implements OnInit {
   sentencePage!: any;
   lastSentenceReceived = this.NO_OF_SENTENCES_RECEIVED;
   index = userOrder;
+
+  //whether level > 0 or not
+  showAllHints = false;
+  levelUpElement!: HTMLElement;
 
   SEN_URL = environment.API_ENDPOINT + IBG_SENTENCE;
   // if the user started from the first sentence instructions should be shown
@@ -72,6 +76,9 @@ export class InterpretationBiasGameComponent implements OnInit {
           this.FIRST_SENTENCE_ID = data.results[0].id;
           if (this.firstSentence) {
             this.index = userOrder % this.NO_OF_SENTENCES_RECEIVED ;
+          }
+          if ( level > 0) {
+            this.showAllHints = true;
           }
           for (let i = this.index;
                 i < (this.lastSentenceReceived); i++) {
@@ -145,12 +152,19 @@ export class InterpretationBiasGameComponent implements OnInit {
     this.userScoreData.order = userData[0];
     userOrder = userData[0];                              // used for getting the sentences 
     this.userScoreData.level = userData[1];
+    this.levelUpElement = document.getElementById('levelup') as HTMLElement;
     if (userOrder % ( this.LEVEL_UP_SEN) === 0) {
       this.userScoreData.level = userData[1] + 1;
       if (level > 2) {
         this.userScoreData.level = 3;
       }
       level = this.userScoreData.level;
+      this.levelUpElement.classList.remove('d-none');
+    }
+    if ( level > 0 ){
+      this.showAllHints = true;
+    } else if (level === 0) {
+      this.showAllHints = false;
     }
     console.log("order ", userOrder, " level ", level );
     this.userScoreData.score = userData[2];

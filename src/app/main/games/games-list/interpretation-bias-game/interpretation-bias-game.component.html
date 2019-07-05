@@ -208,17 +208,17 @@
               <div class="align-self-center col justify-content-start controls-row">
                   <div id="hint-div" class="row d-none">
                       <!-- <div class="btns-hint "> -->
-                        <div class="row w-100">
+                        <div class="row w-100" *ngIf = "showAllHints">
                           <button id="showWord" 
                             class="btn-hint px-2 btn btn-light showWord small-font">
                             Show a word</button>
                           <div id="showWordResult" 
                                 class="p-2 showWordResult rounded d-none small-font">
-                            <p id="suggestion">Find the word:</p>
+                            <!-- <p id="suggestion">Find the word:</p> -->
                             <p id="aWord"></p>
                           </div> 
                         </div>
-                       <div class="row w-100">
+                       <div class="row w-100" *ngIf = "showAllHints">
                         <button id="guessWord" 
                           class="btn-hint px-2 btn btn-light guessWord small-font">
                           Show a jumbled word</button>
@@ -392,6 +392,11 @@
                           </div>
                           <div class="row justify-content-center">
                             <p id="finalScore"> </p>
+                          </div>
+                          <div class="row">
+                            <p class="d-none w-50 p-3 rounded text-dark bg-light center-element" 
+                                 id="levelup"> Wonderfull!! You have completed the level. 
+                                                Let's see your performance in next level. </p>
                           </div>
                       </div>  
                       <div class="col justify-content-end align-self-end lastpage-icons"

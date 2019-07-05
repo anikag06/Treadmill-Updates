@@ -20,8 +20,8 @@ var words = []                 //words of the sentence
 var NO_OF_WORDS;
 var initial_timer = "180";							// time for finding words from letter grid
 var easy_game_timer = "180";
-var FIRST_HINTS_TIME = 140;
-var SECOND_HINTS_TIME = 120;
+var FIRST_HINTS_TIME = 60;
+var SECOND_HINTS_TIME = 30;
 // var initial_time = 12000;
 var game_timer = initial_timer;
 var before_sentence_time = 1500;					//time after the user finds the required number of words
@@ -152,8 +152,8 @@ var game_paused = false;
 
 function initializeVariables(){
 	countdownReset();
-	FIRST_HINTS_TIME = 140;
-  SECOND_HINTS_TIME = 120;
+	FIRST_HINTS_TIME = 60;
+  SECOND_HINTS_TIME = 30;
 	initial_timer = "180";
 	before_sentence_time = 1500;					
 	sentence_time = 1000;							
@@ -253,6 +253,7 @@ function removeAddClassFun(){
 	$('#showWordResult').addClass("d-none");
 	$('#guessWordResult').addClass("d-none");
 	$(".pause-clicked").addClass("d-none");
+	$("#levelup").addClass("d-none");
 	document.getElementById('score-col').style.backgroundColor = "";
 	document.getElementById('score-col').style.opacity = "1";	
 	inactivity_time = 0;
@@ -314,9 +315,11 @@ $(document).ready(function(){
 	});
 	$(document).on("click", "#showWord", function(ev){
 		if($('#showWordResult').hasClass("d-none")){
-			showWord(sentence_array[sentence_number]);
-			score = score - show_word_score;
-			document.getElementById("score").innerHTML = score;
+			if(showWord(sentence_array[sentence_number])){
+				score = score - show_word_score;
+				document.getElementById("score").innerHTML = score;
+			}
+			
 			$('#showWordResult').removeClass("d-none");
 			$('#guessWord').addClass("d-none");
 			$('#increase_time').addClass("d-none");
@@ -328,9 +331,10 @@ $(document).ready(function(){
 	});
 	$(document).on("click", "#guessWord", function(ev){
 		if($('#guessWordResult').hasClass("d-none")){
-			guessWord(sentence_array[sentence_number]);
-			score = score - guess_word_score;
-			document.getElementById("score").innerHTML = score;
+			if(guessWord(sentence_array[sentence_number])){
+				score = score - guess_word_score;
+				document.getElementById("score").innerHTML = score;
+			}
 			$('#guessWordResult').removeClass("d-none");
 			$('#showWord').addClass("d-none");
 			$('#increase_time').addClass("d-none");
@@ -586,7 +590,6 @@ function countdown() {
 }
 
 function highlightFirstLetters(){
-	console.log("entered highlightfirst ");
 
 	star_sentence = "";			//sentence with words in ascending order of length
 	
@@ -608,17 +611,14 @@ function highlightFirstLetters(){
 		}
 		star_sentence+=" ";
 	}
-	console.log("after first sentence", star_sentence);
 }
 
 
 // taking the easy way out here. wouldn't have to animate the letters in the canvas using this approach
 function highlightSecondLetters(){
-	console.log("entered highlightsecond");
 	var wordLength;
 
 	star_sentence = "";			//sentence with words in ascending order of length
-	console.log("second letter highlight");
 	for(var i=0; i<initial_letters.length; i++){
 		var senWord= initial_letters[i].word;
 		// only for words that haven't been found
@@ -643,7 +643,6 @@ function highlightSecondLetters(){
 		}
 		star_sentence+=" ";
 	}
-	console.log("after second letter highlight", star_sentence);
 }
 
 function starify(word){
@@ -895,7 +894,13 @@ function difficultyParameters(level, words, NO_OF_WORDS){
 	if(diff != 0){
 		parameters[2]+=diff;
 	}
-	parameters[3] = (50*NO_OF_WORDS)/100;
+	if(level==0){
+		parameters[3] = 0;
+	}else if(level == 1){
+		parameters[3] = Math.floor((20*NO_OF_WORDS)/100);
+	}else if (level>1){
+		parameters[3] = Math.floor((50*NO_OF_WORDS)/100);
+	}
 	return parameters;
 }
 
@@ -1031,7 +1036,6 @@ function gridLength(sentence, longest_word){
 function starSentence(sentence){
 	var sorted_words = getSortedWordList(sentence);
 	var starSen = "";
-	console.log("level ---", level);
 	if(level == 0){			// beginner level
 		for(var i=0; i<sorted_words.length; i++){
 			starSen += sorted_words[i]+" ";
@@ -1091,7 +1095,6 @@ function replaceStars(word,strArray,pos, star_sentence){
 	starWords[wordPos] = strikeWord;
 
 	star_sentence= starWords.join(sentence_splitter);				//star sentence now changed, have the words found
-	console.log(star_sentence);
 	// countTrue+=1;
 	if(game_timer>FIRST_HINTS_TIME){
 		score=score+(score_each_letter[0]*word.length);
@@ -1410,15 +1413,36 @@ function detectSwipe(playGrid,canvas,rect,sorted_words,sentence){
 //show a word of the sentence and then ask users of find it in the grid
 function showWord(sentence){
 	words = getSortedWordList(sentence);
-	var pos = getRandomInt(words.length);
-
-	var word = words[pos];
-	present = wordAlreadyFound(word);
-	if(present == true){
-		showWord(sentence);
-	}else if(present == false){
-		document.getElementById("aWord").innerHTML = word ;
+	var pos;
+	var word;
+	if(level==1){
+		for(let i=0; i< words.length; i++){
+			if(words[i].length>1 && words[i].length<4){
+				pos = i;
+				word = words[pos];
+				present = wordAlreadyFound(word);
+				if(present == false){
+					document.getElementById("aWord").innerHTML = "Find the word: " + word ;
+					return true;
+				}
+			}
+		}
+		document.getElementById("aWord").innerHTML = "All words are already shown."
+		return false;
 	}
+	if(level>1){
+		pos  = getRandomInt(words.length);
+		word = words[pos];
+		present = wordAlreadyFound(word);
+		if(present == true){
+			showWord(sentence);
+		}else if(present == false){
+			document.getElementById("aWord").innerHTML ="Find the word: " +  word ;
+			return true;
+		}
+	}
+	document.getElementById("aWord").innerHTML = "All words are already shown."
+	return false;
 }
 
 //On asking whether the sentence is related a given word or not
@@ -1466,20 +1490,40 @@ function showSincerityMessage(){
 
 //function for hints, it gives a shuffled word and user has to find the acutal word
 function guessWord(sentence){
-	var words = sentence.split(sentence_splitter);
-	var pos_word = getRandomInt(words.length);
-	word_to_guess = words[pos_word];
-	var present = false; 
+	var words = getSortedWordList(sentence);
+	var pos_word;
+	var word_to_guess;
 	var shuffled_word;
-
-	present = wordAlreadyFound(word_to_guess);
-
-	if(present == false){
-		shuffled_word = word_to_guess.shuffle();
-		document.getElementById('unscrambleWord').innerHTML = "Unjumble the Word: " + shuffled_word;        
-	}else if(present == true){
-		guessWord(sentence);
+	if(level==1){
+		for(let i=0; i< words.length; i++){
+			if(words[i].length>1 && words[i].length<4){
+				pos_word = i;
+				word_to_guess = words[pos_word];
+				present = wordAlreadyFound(word_to_guess);
+				if(present == false){
+					shuffled_word = word_to_guess.shuffle();
+					document.getElementById('unscrambleWord').innerHTML = "Unjumble the Word: " + shuffled_word;        
+					return true;
+				}
+			}
+		}
+		document.getElementById("unscrambleWord").innerHTML = "All words are already shown."
+		return false;
 	}
+	if(level>1){
+		pos_word = getRandomInt(words.length);
+		word_to_guess = words[pos_word];
+		present = wordAlreadyFound(word_to_guess);
+		if(present == false){
+			shuffled_word = word_to_guess.shuffle();
+			document.getElementById('unscrambleWord').innerHTML = "Unjumble the Word: " + shuffled_word;        
+			return true;
+		}else if(present == true){
+			guessWord(sentence);
+		}
+	}
+	document.getElementById("unscrambleWord").innerHTML = "All words are already shown."
+	return false;
 }
 
 String.prototype.shuffle = function () {        //function to shuffle a string
@@ -1544,7 +1588,6 @@ function makeCanvasGrid(playGrid,sorted_words,sentence,GRID_LENGTH){
 	// canvas_width = (Math.floor(screen.width-2*margin_left)<MAX_CANVAS_WIDTH)?Math.floor(screen.width-2*margin_left):MAX_CANVAS_WIDTH;
 	// if(canvas_width==MAX_CANVAS_WIDTH)margin_left = Math.floor((screen.width-MAX_CANVAS_WIDTH)/2);
 	canvas_width = document.getElementById("canvas").width;
-	console.log("canvas width", canvas_width);
 	canvas_height = canvas_width;
 	var number;
 	
@@ -2031,6 +2074,5 @@ function unstarFirstLetter(word){
 		}
 	}
 	star_sentence = new_sentence;
-	console.log("after unstar func", star_sentence);
 	return new_sentence;
 }
