@@ -31,10 +31,15 @@ declare function getUpdatedVariables(): any;
   styleUrls: ['./interpretation-bias-game.component.scss']
 })
 export class InterpretationBiasGameComponent implements OnInit {
+
+  NO_OF_SENTENCES_RECEIVED = 20;      // order of first sentence is 0
+  LEVEL_UP_SEN = 2;       // level up after how many sentences, here after 5 sentences;
+
   firstSentence = true;
   userScoreData = new UserScoreData(userOrder, level, gameScore, streak, gameTime);
   userResponseData = new UserResponseData(1, false, 0) ;
-  NO_OF_SENTENCES_RECEIVED = 20;
+
+  // for getting the sentence information
   INPUT_ORDER!: any;
   FIRST_SENTENCE_ID!: number;
   NEXT_SEN_URL!: any;
@@ -42,7 +47,9 @@ export class InterpretationBiasGameComponent implements OnInit {
   sentencePage!: any;
   lastSentenceReceived = this.NO_OF_SENTENCES_RECEIVED;
   index = userOrder;
+
   SEN_URL = environment.API_ENDPOINT + IBG_SENTENCE;
+  // if the user started from the first sentence instructions should be shown
   instructElement!: HTMLElement;
   gameElement!: HTMLElement;
 
@@ -96,6 +103,7 @@ export class InterpretationBiasGameComponent implements OnInit {
           this.INPUT_ORDER = data.data.order;
           gameScore = data.data.score;
           level = data.data.level;
+          console.log('level:', level);
           streak = data.data.streak;
           userOrder = this.INPUT_ORDER;
           gameTime = data.data.time;
@@ -137,6 +145,14 @@ export class InterpretationBiasGameComponent implements OnInit {
     this.userScoreData.order = userData[0];
     userOrder = userData[0];                              // used for getting the sentences 
     this.userScoreData.level = userData[1];
+    if (userOrder % ( this.LEVEL_UP_SEN) === 0) {
+      this.userScoreData.level = userData[1] + 1;
+      if (level > 2) {
+        this.userScoreData.level = 3;
+      }
+      level = this.userScoreData.level;
+    }
+    console.log("order ", userOrder, " level ", level );
     this.userScoreData.score = userData[2];
     this.userScoreData.streak = userData[3];
     this.userScoreData.time  = userData[4];

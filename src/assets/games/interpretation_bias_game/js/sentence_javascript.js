@@ -17,10 +17,11 @@ var sentence_order_array = [];
 // var after_sentence_number = last_sentence_order+Math.floor(sentences_sent/2);	//request to send next set of sentences after a certain sentence number
   
 var words = []                 //words of the sentence 
+var NO_OF_WORDS;
 var initial_timer = "180";							// time for finding words from letter grid
 var easy_game_timer = "180";
-var FIRST_HINTS_TIME = 60;
-var SECOND_HINTS_TIME = 30;
+var FIRST_HINTS_TIME = 140;
+var SECOND_HINTS_TIME = 120;
 // var initial_time = 12000;
 var game_timer = initial_timer;
 var before_sentence_time = 1500;					//time after the user finds the required number of words
@@ -151,9 +152,8 @@ var game_paused = false;
 
 function initializeVariables(){
 	countdownReset();
-	FIRST_HINTS_TIME = 60;
-  	SECOND_HINTS_TIME = 30;
-	// initial_time = 12000;
+	FIRST_HINTS_TIME = 140;
+  SECOND_HINTS_TIME = 120;
 	initial_timer = "180";
 	before_sentence_time = 1500;					
 	sentence_time = 1000;							
@@ -195,7 +195,7 @@ function initializeVariables(){
 
 }	
 function getUpdatedVariables() {
-	levelChange(success);
+	// levelChange(success);
 	if(start_time!=0){
 		end_time = Date.now();
 	}
@@ -557,10 +557,10 @@ function countdown() {
 			$('.game-over-flex-row').addClass("d-flex");
 			$(".game-over-flex-row").removeClass("d-none");
 
-			if(countTrue < (percent_partial_sen*sorted_words_list.length)){
+			if(countTrue < (percent_partial_sen*NO_OF_WORDS)){
 				$("#timeup1").removeClass("d-none");
 				success = false;
-			}else if(countTrue<(percent_full_sen*sorted_words_list.length)){
+			}else if(countTrue<(percent_full_sen*NO_OF_WORDS)){
 				$("#timeup2").removeClass("d-none");
 			} // time is up
 		}else{
@@ -568,65 +568,82 @@ function countdown() {
 			t = setTimeout(countdown, 1000);
 
 			if(game_timer===FIRST_HINTS_TIME){
-				if(level<1){
+				if(level===2){
 					highlightSecondLetters();
-				}else{
+				}else if(level>2) {
 					highlightFirstLetters();
 				}
+				document.getElementById('stars').innerHTML = star_sentence;
 			}else if(game_timer===SECOND_HINTS_TIME){
 				// console.log("give a second hint");
+				if(level>2) {
+					highlightSecondLetters();
+				}
+				document.getElementById('stars').innerHTML = star_sentence;
 			}
 		}
 	}
 }
 
 function highlightFirstLetters(){
-	var sentence = sentence_array[sentence_number];
-	var sorted_words = getSortedWordList(sentence);
+	console.log("entered highlightfirst ");
+
 	star_sentence = "";			//sentence with words in ascending order of length
-		
+	
 	for(var i=0; i<initial_letters.length; i++){
-		var _word = initial_letters[i].word;
-		
+		var senWord = initial_letters[i].word;
 		// only for words that haven't been found
-		if(word_already_found.indexOf(_word)==-1 && word_already_found.indexOf(reverseWord(_word))==-1 && _word.length>1){
-			star_sentence+=initial_letters[i]["first_letter"]+starify(_word).substring(1);
+		if(word_already_found.indexOf(senWord)==-1 && word_already_found.indexOf(reverseWord(senWord))==-1 && senWord.length>1){
+			star_sentence+=initial_letters[i]["first_letter"]+starify(senWord).substring(1);
 		}else{
-			if(isWordReversed(_word)){
-				star_sentence+=reverseWord(_word);
-			}else{
-				star_sentence+=_word;
+			if(senWord.length>1){
+				if(isWordReversed(senWord)){
+					star_sentence+= "<span style='color:#45b9bc'>" + reverseWord(senWord) + "</span>";
+				}else{
+					star_sentence+= "<span style='color:#45b9bc'>" + senWord + "</span>";
+				}
+			}else if(senWord.length ==1) {
+				star_sentence += senWord;
 			}
 		}
 		star_sentence+=" ";
 	}
-
-	document.getElementById('stars').innerHTML = star_sentence;
+	console.log("after first sentence", star_sentence);
 }
 
 
 // taking the easy way out here. wouldn't have to animate the letters in the canvas using this approach
 function highlightSecondLetters(){
-	var sentence = sentence_array[sentence_number];
-	var sorted_words = getSortedWordList(sentence);
+	console.log("entered highlightsecond");
+	var wordLength;
+
 	star_sentence = "";			//sentence with words in ascending order of length
-	
+	console.log("second letter highlight");
 	for(var i=0; i<initial_letters.length; i++){
 		var senWord= initial_letters[i].word;
-		
 		// only for words that haven't been found
 		if(word_already_found.indexOf(senWord)==-1 && word_already_found.indexOf(reverseWord(senWord))==-1 && senWord.length>1){
-			star_sentence+=initial_letters[i]["first_letter"]+initial_letters[i]["second_letter"]+starify(senWord).substring(2);
-		}else{
+			wordLength = senWord.length - 1;
 			if(isWordReversed(senWord)){
-				star_sentence+=reverseWord(senWord);
+				star_sentence+=initial_letters[i]["first_letter"]+initial_letters[i]["second_letter"]+starify(senWord).substring(2, wordLength)+ senWord.charAt(0);
 			}else{
-				star_sentence+=senWord;
+				star_sentence+=initial_letters[i]["first_letter"]+initial_letters[i]["second_letter"]+starify(senWord).substring(2, wordLength)+ senWord.charAt(wordLength);
 			}
+		}else{
+			if(senWord.length>1){
+				if(isWordReversed(senWord)){
+					star_sentence+= "<span style='color:#45b9bc'>" + reverseWord(senWord) + "</span>";
+				}else{
+					star_sentence+= "<span style='color:#45b9bc'>" + senWord + "</span>";
+				}
+			}else if(senWord.length ==1) {
+				star_sentence += senWord;
+			}
+			
 		}
 		star_sentence+=" ";
 	}
-	document.getElementById('stars').innerHTML = star_sentence;
+	console.log("after second letter highlight", star_sentence);
 }
 
 function starify(word){
@@ -695,7 +712,7 @@ function makeGridArray(sentence){
 	words = sentence.split(sentence_splitter);
 	var sorted_words = getSortedWordList(sentence);
 	var GRID_LENGTH = gridLength(sentence, sorted_words[0]); // determining the optimal length for the sentence
-	var NO_OF_WORDS = words.length;
+	NO_OF_WORDS = words.length;
 	// var gridArray = matrix(GRID_LENGTH, GRID_LENGTH); // initializing 2D grid
 	gridArray = matrix(GRID_LENGTH,GRID_LENGTH);
 	// getting the different parameters for the current level
@@ -1014,26 +1031,34 @@ function gridLength(sentence, longest_word){
 function starSentence(sentence){
 	var sorted_words = getSortedWordList(sentence);
 	var starSen = "";
-
+	console.log("level ---", level);
 	if(level == 0){			// beginner level
 		for(var i=0; i<sorted_words.length; i++){
-			if(sorted_words[i].length==1){
-				starSen+=sorted_words[i]+" ";
+			starSen += sorted_words[i]+" ";
+		}
+	} else if (level == 1){			//intermediate level
+		for(var i=0; i<sorted_words.length; i++){
+			if(sorted_words[i].length>=4){				//show larger words and show first letter of smaller words
+				starSen+=sorted_words[i] + " ";
+			}else if(sorted_words[i].length==1){
+				starSen+=sorted_words[i] + " ";
 			}else{
 				starSen+=sorted_words[i].charAt(0)+starify(sorted_words[i]).substring(1)+" ";
 			}
 		}
-	}else if(level == 1){	// intermediate level
+	}	else if(level == 2){	// hard level
 		for(var i=0; i<sorted_words.length; i++){
-			if(sorted_words[i].length>=4){
-				starSen+=sorted_words[i].charAt(0)+starify(sorted_words[i]).substring(1)+" ";
+			if(sorted_words[i].length>=4){							
+			// show first and last letter of larger words and hide smaller words
+				var wordLength = sorted_words[i].length - 1;
+				starSen+=sorted_words[i].charAt(0)+starify(sorted_words[i]).substring(1, wordLength)+ sorted_words[i].charAt(wordLength) +" ";
 			}else if(sorted_words[i].length==1){
 				starSen+=sorted_words[i]+" ";
 			}else{
 				starSen+=starify(sorted_words[i])+" ";
 			}
 		}
-	}else{
+	}else{				// very hard
 		for(var i=0; i<sorted_words.length; i++){
 			if(sorted_words[i].length==1){
 				starSen+=sorted_words[i]+" ";
@@ -1049,13 +1074,24 @@ function starSentence(sentence){
 // for replacing stars in sentence with letters
 function replaceStars(word,strArray,pos, star_sentence){
 	var starWords=[] ;
-	var starWords=star_sentence.split(sentence_splitter);			//split the star sentence to get an array with words with *
+	var strikeWord = " ";
+	var wordPos = pos;
+	starWords = star_sentence.split(sentence_splitter);			//split the star sentence to get an array with words with *
+	for(let i=0; i<starWords.length;i++){
+		if(starWords[i] == '<span'){
+			starWords[i] = starWords[i] + " "+ starWords[i+1];
+			starWords.splice(i+1,1);
+		}
+	}
+	for(let i=0; i<word.length; i++){								//replace the * with the letters of word found
+		starWords[wordPos]=starWords[wordPos].replace(starWords[wordPos].charAt(i),word.charAt(i)); 
+		var replacement = "<span style='color:#45b9bc'>" + starWords[wordPos] +"</span>";
+		strikeWord = starWords[wordPos].replace(starWords[wordPos], replacement);
+	}
+	starWords[wordPos] = strikeWord;
 
-	for(var i=0; i<word.length; i++){								//replace the * with the letters of word found
-		starWords[pos]=starWords[pos].replace(starWords[pos].charAt(i),word.charAt(i));      
-	} 
-
-	star_sentence=starWords.join(sentence_splitter);				//star sentence now changed, have the words found
+	star_sentence= starWords.join(sentence_splitter);				//star sentence now changed, have the words found
+	console.log(star_sentence);
 	// countTrue+=1;
 	if(game_timer>FIRST_HINTS_TIME){
 		score=score+(score_each_letter[0]*word.length);
@@ -1106,13 +1142,14 @@ function searchWordInArray(str, sorted_words, star_sentence, sentence) {
 		for (var j=0; j<strArray.length; j++){               //search word in the array of words of sentence
 			if(strArray[j].search(str) !=-1 && str.length== strArray[j].length){
 				isValidWord = true;
-				countTrue++;
 				found = true;
 
 				word_already_found.push(str);
 				words_pos_row.splice(j,1,'_');           //replace positions of the words already found with '*'
 				words_pos_column.splice(j,1,'_');    
 				star_sentence = replaceStars(str,strArray,j, star_sentence);      //if correct word found replace stars with the word
+				
+				countTrue++;
 			}
 		}
 
@@ -1131,11 +1168,8 @@ function searchWordInArray(str, sorted_words, star_sentence, sentence) {
 					extra_word = true;
 					extra_word_already_found.push(str);
 					ctx.strokeStyle = "black";
-					// $('#tick').hide();
-					// $('#cross').hide();
-					// $('#bonus').show();
-					// $('#already_found').hide();
 					score = score+bonus_word_score;
+				
 				}else{
 					// $('#tick').hide();
 					// $('#cross').show();
@@ -1146,23 +1180,21 @@ function searchWordInArray(str, sorted_words, star_sentence, sentence) {
 		}
 	}
 
-	if(countTrue >= (percent_full_sen*sorted_words.length)){   
+	if(countTrue >= (percent_full_sen*NO_OF_WORDS) && found){   
 		showSentence();
-		
 	}
 	return star_sentence;
 }
 
 //shows full sentence for some time and then ask about relation with a word
 function showSentence(){
+	countTrue=0;
 	delay_show_sentence = 2000;
 	before_sentence_time =2000;
 	countdownReset();
-	countTrue=0;
-	// $("#congrats").removeClass("d-none");
-	$(".sentence-row").addClass("d-none");
 	$("#congrats").removeClass("d-none");
 	$("#congrats").text("Great! Now you will see the whole sentence. ");
+
 	// showing the fixation cross 
 	
 	setTimeout(function(){
@@ -1361,7 +1393,7 @@ function detectSwipe(playGrid,canvas,rect,sorted_words,sentence){
 				last_row = letters_y_coordinate[row_num];
 				last_column = letters_x_coordinate[(playGrid.length)*(column_num)];
 			}
-			
+
 				sendWord = storeWord;
 				star_sentence = searchWordInArray(sendWord,sorted_words,star_sentence, sentence);  //if word present in sorted words array
 				document.getElementById('stars').innerHTML = star_sentence;
@@ -1509,9 +1541,10 @@ function makeCanvasGrid(playGrid,sorted_words,sentence,GRID_LENGTH){
 	// var canvas_width = bw + (p*2) + 1;
 	// var ch = bh + (p*2) + 1;
 	margin_left = 10;
-	canvas_width = (Math.floor(screen.width-2*margin_left)<MAX_CANVAS_WIDTH)?Math.floor(screen.width-2*margin_left):MAX_CANVAS_WIDTH;
-	if(canvas_width==MAX_CANVAS_WIDTH)margin_left = Math.floor((screen.width-MAX_CANVAS_WIDTH)/2);
-
+	// canvas_width = (Math.floor(screen.width-2*margin_left)<MAX_CANVAS_WIDTH)?Math.floor(screen.width-2*margin_left):MAX_CANVAS_WIDTH;
+	// if(canvas_width==MAX_CANVAS_WIDTH)margin_left = Math.floor((screen.width-MAX_CANVAS_WIDTH)/2);
+	canvas_width = document.getElementById("canvas").width;
+	console.log("canvas width", canvas_width);
 	canvas_height = canvas_width;
 	var number;
 	
@@ -1562,6 +1595,7 @@ function makeCanvasGrid(playGrid,sorted_words,sentence,GRID_LENGTH){
 	// Set up touch events for mobile, etc
 	canvas.addEventListener("touchstart", function (e) {
 		e.preventDefault();
+		// alert("touch started");
 		var touchPos = getTouchPos(canvas, e);
 		var touch = e.touches[0];
 		var mouseEvent = new MouseEvent("mousedown", {
@@ -1692,6 +1726,7 @@ function getStartPointOfLine(){
 }
 
 function onmousedown(e){
+	// alert("mousedown fun called");
 	if(!(game_paused)){
 		inactivity_time=0;
 		$(".tip-text").text(" ");
@@ -1724,7 +1759,6 @@ function onmouseup(e) {
 			if(hasLoaded && e.button === 0){
 				if(isValidWord){						//if swiped word is a valid word, either part of sentence or any other word
 					if(isDrawing){
-						console.log("line drawn:", last_row);
 						existingLines.push({
 							startX: startX,
 							startY: startY,
@@ -1776,8 +1810,6 @@ function onmouseout(e){   //if swipe ends outside the canvas
 			draw();
 			if(!isDrawing){        //when user stops drawing lines on canvas
 				var startPos = getMousePos(canvas, e);
-				// startX = e.clientX - bounds.left;
-				// startY = e.clientY - bounds.top;
 				startX = startPos.x;
 				startY = startPos.y;
 			}
@@ -1963,11 +1995,14 @@ function showTip(){
 	if((document.getElementById('stars') != "undefined") || (document.getElementById('stars') != null)){
 		if(typeof(tip_word) != "undefined"){
 			if(level == 0){
+				$(".tip-text").text("look for the words shown above");
+			}
+			if(level == 1){
 				$(".tip-text").text("look for "+tip_word.length+" letter words starting with "+tip_word.charAt(0));
-			}else if(level == 1){
+			}else if(level == 2){
 				$(".tip-text").text("look for "+tip_word.length+" letter words starting with "+tip_word.charAt(0));
 				document.getElementById('stars').innerHTML = unstarFirstLetter(tip_word);
-			}else{
+			}else if(level > 2){
 				$(".tip-text").text("look for "+tip_word.length+" letter words starting with "+tip_word.charAt(0));
 				document.getElementById('stars').innerHTML = unstarFirstLetter(tip_word);
 			}
@@ -1977,8 +2012,15 @@ function showTip(){
 }
 
 function unstarFirstLetter(word){
-	var current_sentence = $("#stars").text();
+	// var current_sentence = $("#stars").text();
+	var current_sentence = star_sentence;
 	var current_sentence_tokens = current_sentence.split(sentence_splitter);
+	for(let i=0; i<current_sentence_tokens.length;i++){
+		if(current_sentence_tokens[i] == '<span'){
+			current_sentence_tokens[i] = current_sentence_tokens[i] + " "+ current_sentence_tokens[i+1];
+			current_sentence_tokens.splice(i+1,1);
+		}
+	}
 	var original_sorted_sentence = getSortedWordList(sentence_array[sentence_number]);
 	var new_sentence = "";
 	for(var i=0; i<original_sorted_sentence.length; i++){
@@ -1989,5 +2031,6 @@ function unstarFirstLetter(word){
 		}
 	}
 	star_sentence = new_sentence;
+	console.log("after unstar func", star_sentence);
 	return new_sentence;
 }

@@ -24,7 +24,7 @@ export class GamesListComponent implements OnInit {
   }
 
   onGameClick(game: Game) {
-    if (game.name === 'Interpretation Bias Game'){
+    if (game.name === 'Interpretation Bias Game') {
       this.router.navigate(['interpretationbias'], {relativeTo: this.route} );
     }
   }
