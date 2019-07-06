@@ -1,9 +1,20 @@
-import {AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ElementRef, EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit, Output, SimpleChanges,
+  ViewChild
+} from '@angular/core';
 import {Chat} from '@/main/chatbot/chat.model';
 import {environment} from '../../../../environments/environment';
 import {NEW_CHAT, REPLY_CURRENT, RESUME_CHAT, TOKEN} from '@/app.constants';
 import {ChatbotService} from '@/main/chatbot/chatbot.service';
 import {AuthService} from '@/shared/auth/auth.service';
+import set = Reflect.set;
 
 
 @Component({
@@ -11,11 +22,12 @@ import {AuthService} from '@/shared/auth/auth.service';
   templateUrl: './chat-window.component.html',
   styleUrls: ['./chat-window.component.scss']
 })
-export class ChatWindowComponent implements OnInit, OnDestroy, AfterViewInit {
+export class ChatWindowComponent implements OnInit, OnDestroy, AfterViewInit, OnChanges {
 
   constructor(
     private chatbotService: ChatbotService,
-    private authService: AuthService
+    private authService: AuthService,
+    private changeRef: ChangeDetectorRef,
   ) {}
 
   messages: Chat[] = [];
@@ -23,79 +35,122 @@ export class ChatWindowComponent implements OnInit, OnDestroy, AfterViewInit {
   webSocket!: WebSocket;
   buttons: any = [];
   scrollTop = 0;
-  scrollInterval!: any;
 
 
-  @ViewChild('chatFrame', {static: false}) messagesDiv!: ElementRef;
+  @ViewChild('messagesDiv', {static: false}) messagesDiv!: ElementRef;
+  @ViewChild('ti', {static: false}) ti!: ElementRef;
   @Input() chatWindowClosed = false;
+  @Output() chatWindowClosedEmitter = new EventEmitter<Boolean>();
+
+  ngOnChanges(changes: SimpleChanges): void {
+    // Start chat when chatwindow open
+    if (this.chatWindowClosed === false && !this.webSocket) {
+      this.startChatSession(NEW_CHAT);
+    }
+  }
 
   ngOnInit() {
-    this.webSocket = new WebSocket('ws://' + environment.HOST + '/ws/chat/?token=' + this.authService.getToken());
-    this.webSocket.onopen =  (event) => {
-      this.webSocket.send(JSON.stringify({ 'action': NEW_CHAT, 'module_name': 'mood_tracker'}));
-    };
-
-    this.webSocket.onerror = (data: any) => {
-      console.error(data);
-    }
-
-    this.chatbotService.postPreviousChat()
-      .subscribe(
-        (data: any) => {
-          console.log(data)
-          data.data.messages.forEach((message: any) => {
-            this.messages.push(new Chat(message.text, message.is_sender_user, []))
-          });
-          this.scrollToBottom();
-        }
-      )
   }
 
   ngAfterViewInit(): void {
-    this.webSocket.onmessage = (message: any) => {
-      const data = JSON.parse(message.data);
-      data.message.forEach((m: any) => {
-        if (m.text && m.text.length > 0) {
-          this.messages.push(new Chat(m.text, false, m.buttons))
-          this.scrollToBottom();
+    this.chatbotService.postPreviousChat()
+      .subscribe(
+        (data: any) => {
+          data.data.messages.forEach((message: any) => {
+            this.messages.push(new Chat(message.text, message.is_sender_user, [], message.mid, message.sid, message.datetime));
+            this.scrollToBottom();
+          });
         }
-      })
-    }
-
-    this.scrollInterval = setInterval(this.scrollToBottom, 1000);
+      );
   }
-
 
   onChatSubmit() {
     if (this.message.length > 0 && this.message.trim().length > 0) {
-      this.messages.push(new Chat(this.message, true, []));
-      this.webSocket.send(JSON.stringify({ 'action': REPLY_CURRENT, 'message': { 'text': this.message, 'buttons': [] } }));
-      this.message = '';
-      console.log(this.messagesDiv.nativeElement)
+      this.message = this.message.replace(/[\n\t\r]/g, "");
+      this.messages.push(new Chat(this.message, true, [], '', '', new Date()));
       this.scrollToBottom();
+      this.webSocket.send(JSON.stringify({ 'action': REPLY_CURRENT, 'message': { 'text': this.message, 'buttons': [] } }));
+      this.ti.nativeElement.focus();
+      this.message = '';
     }
+    setTimeout(() => {
+      this.ti.nativeElement.focus();
+      this.scrollToBottom()
+    })
   }
 
   close() {
     this.chatWindowClosed = true;
+    this.chatWindowClosedEmitter.emit(true);
   }
 
   ngOnDestroy(): void {
     this.webSocket.close();
-    clearInterval(this.scrollInterval);
   }
 
 
   chatButtonPressed(button: any, chat: Chat) {
-    chat.buttons = []
-    this.messages.push(new Chat(button['payload'], true, []));
+    chat.buttons = [];
+    this.messages.push(new Chat(button['payload'], true, [], '', '', new Date()));
     this.webSocket.send(JSON.stringify({ 'action': REPLY_CURRENT, 'message': { 'text': '', 'buttons': [button] } }));
   }
 
   scrollToBottom() {
     if (this.messagesDiv) {
-      this.scrollTop = this.messagesDiv.nativeElement.scrollHeight + 10;
-      console.log(this.scrollTop);
+      this.scrollTop = this.messagesDiv.nativeElement.scrollHeight;
     }
+  }
+
+  onKey(event: KeyboardEvent) {
+    // TODO 576 comes from the bootstrap
+    if (!event.shiftKey && screen.availWidth > 576) {
+     this.onChatSubmit()
+    }
+  }
+
+  startChatSession(type: string) {
+    this.webSocket = new WebSocket('ws://' + environment.HOST + '/ws/chat/?token=' + this.authService.getToken());
+    this.webSocket.onopen =  (event) => {
+      this.webSocket.send(JSON.stringify({ 'action': type, 'module_name': 'mood_tracker'}));
+    };
+    this.webSocket.onmessage = (message: any) => {
+      const data = JSON.parse(message.data);
+      if (data.error === true) {
+        this.webSocket.close();
+        this.startChatSession(NEW_CHAT);
+      }
+      data.message.forEach((m: any, index: number) => {
+        setTimeout(() => {
+          if ((m.text && m.text.length > 0) || (m.buttons && m.buttons.length > 0)) {
+            this.pushChat(m);
+
+            if (this.ti) {
+              if (m.buttons.length > 1) {
+                this.ti.nativeElement.disabled = true;
+              } else {
+                this.ti.nativeElement.disabled = false;
+                this.ti.nativeElement.focus();
+              }
+            }
+
+            setTimeout(() => {
+              this.scrollToBottom();
+            })
+          }
+        }, 1200 * index)
+      });
+    }
+
+    this.webSocket.onerror = () => {
+      this.webSocket.close();
+      this.startChatSession(NEW_CHAT);
+    }
+    this.scrollToBottom();
+  }
+
+  pushChat(m: any) {
+    let item = new Chat(m.text, false, m.buttons, m.mid, m.sid, m.datetime);
+    this.messages.push(item);
+    this.changeRef.detectChanges();
   }
 }

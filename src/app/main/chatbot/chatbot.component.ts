@@ -18,4 +18,8 @@ export class ChatbotComponent implements OnInit {
   toggleChat() {
     this.chatwindowClosed = !this.chatwindowClosed;
   }
+
+  updateChatWindow(event: boolean) {
+    this.chatwindowClosed = event;
+  }
 }

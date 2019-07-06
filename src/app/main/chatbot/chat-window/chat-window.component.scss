@@ -2,8 +2,7 @@
 
 .chat-window {
   border: 5px solid #f49080;
-  width: 300px;
-  height: 60vh;
+  width: 320px;
   margin-bottom: 5px;
   border-radius: 10px;
   background-color: white;
@@ -21,33 +20,61 @@
     }
   }
   .chat-frame {
-    border-bottom: 3px solid #f49080;;
-    height: 84%;
-    overflow: scroll;
+    height: 55vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
     width: 100%;
   }
+  form {
+    height: 43px;
+    width: 100%;
+    border-top: 3px solid #f49080;
+  }
   .message {
-    background-color: #babfbd;
-    padding: 5px;
-    width: content-box;
     max-width: 75%;
     margin: 5px 2px;
     float: right;
-    border-radius: 10px;
-    font-size: 0.9em;
-    text-align: center;
+    .message-text {
+      background-color: #babfbd;
+      padding: 5px;
+      width: content-box;
+      border-radius: 6px;
+      font-size: 0.9em;
+      text-align: center;
+    }
+    .meta {
+      text-align: center;
+      display: none;
+      border-top: 2px dashed #cccccc;
+    }
+    .date-time {
+      display: inline-block;
+      font-size: 0.6em;
+      width: 100%;
+      text-align: left;
+      padding-left: 3px;
+    }
   }
   .bot {
-    background-color: #ebf0ee;
+    .message-text {
+      background-color: #ebf0ee;
+    }
     float: left;
+    .meta {
+      display: block;
+      border-top: 2px dashed #cccccc;
+    }
   }
   .textarea {
     width: 88%;
     float: left;
+    height: 40px;
     textarea {
       outline: none;
       box-shadow: none;
       border: none;
+      height: 100%;
+      max-height: 100%;
       &:active {
         outline: none;
         box-shadow: none;
@@ -73,32 +100,35 @@
     width: content-box;
     text-align: center;
     min-width: 33%;
+    margin-right: 10px;
     button {
       margin: 5px;
       display: block;
       width: 100%;
+      .btn-text {
+        display: inline-block;
+        width: 90%;
+        margin: 0 5%;
+        word-wrap: break-spaces;
+      }
     }
   }
 }
 
 @media screen and (max-width: 576px) {
   .chat-window {
-    height: 85vh;
     position: fixed;
-    top: 2vh;
-    left: 1%;
-    width: 98%;
-    max-height: 85vh;
+    top: 1vh;
+    left: 0;
+    width: 100%;
     margin: 0;
     z-index: 200;
     .chat-frame {
       border-bottom: 3px solid #f49080;;
-      height: 85%;
-      overflow: scroll;
+      height: 73vh;
     }
-    form {
-      min-height: 40px;
-      height: 15%;
+    .buttons {
+      min-width: 45%;
     }
   }
 }
@@ -107,11 +137,7 @@
   .chat-window {
     .chat-frame {
       border-bottom: 3px solid #f49080;;
-      height: 70%;
-      overflow: scroll;
-    }
-    form {
-      height: 40px;
+      height: 55vh;
     }
   }
 }

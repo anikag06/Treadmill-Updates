@@ -1,5 +1,5 @@
 <div class="chat">
-  <app-chat-window [chatWindowClosed]="chatwindowClosed"></app-chat-window>
+  <app-chat-window [chatWindowClosed]="chatwindowClosed" (chatWindowClosedEmitter)="updateChatWindow($event)"></app-chat-window>
   <button mat-fab aria-label="Example icon-button with a heart icon" color="primary" (click)="toggleChat()">
     <mat-icon>face</mat-icon>
   </button>
