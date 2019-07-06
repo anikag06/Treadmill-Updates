@@ -1,4 +1,5 @@
 import {
+  AfterViewChecked,
   AfterViewInit,
   ChangeDetectorRef,
   Component,
@@ -22,7 +23,7 @@ import set = Reflect.set;
   templateUrl: './chat-window.component.html',
   styleUrls: ['./chat-window.component.scss']
 })
-export class ChatWindowComponent implements OnInit, OnDestroy, AfterViewInit, OnChanges {
+export class ChatWindowComponent implements OnInit, OnDestroy, AfterViewInit, OnChanges, AfterViewChecked {
 
   constructor(
     private chatbotService: ChatbotService,
@@ -62,6 +63,10 @@ export class ChatWindowComponent implements OnInit, OnDestroy, AfterViewInit, On
           });
         }
       );
+  }
+
+  ngAfterViewChecked(): void {
+    this,this.scrollToBottom();
   }
 
   onChatSubmit() {
@@ -122,22 +127,12 @@ export class ChatWindowComponent implements OnInit, OnDestroy, AfterViewInit, On
       data.message.forEach((m: any, index: number) => {
         setTimeout(() => {
           if ((m.text && m.text.length > 0) || (m.buttons && m.buttons.length > 0)) {
-            this.pushChat(m);
-
-            if (this.ti) {
-              if (m.buttons.length > 1) {
-                this.ti.nativeElement.disabled = true;
-              } else {
-                this.ti.nativeElement.disabled = false;
-                this.ti.nativeElement.focus();
-              }
-            }
-
+            this.showWritingAndPushChat(m);
             setTimeout(() => {
               this.scrollToBottom();
             })
           }
-        }, 1200 * index)
+        }, 2400 * index)
       });
     }
 
@@ -149,8 +144,27 @@ export class ChatWindowComponent implements OnInit, OnDestroy, AfterViewInit, On
   }
 
   pushChat(m: any) {
-    let item = new Chat(m.text, false, m.buttons, m.mid, m.sid, m.datetime);
+    const item = new Chat(m.text, false, m.buttons, m.mid, m.sid, m.datetime);
     this.messages.push(item);
-    this.changeRef.detectChanges();
+    this.scrollToBottom();
+    if (this.ti) {
+      if (m.buttons.length > 1) {
+        this.ti.nativeElement.disabled = true;
+      } else {
+        this.ti.nativeElement.disabled = false;
+        this.ti.nativeElement.focus();
+      }
+    }
+  }
+
+  showWritingAndPushChat(m: any) {
+    let item = new Chat('.../.', false, [], '', '', new Date());
+    this.messages.push(item);
+    setTimeout(this.scrollToBottom);
+    setTimeout(() => {
+      this.messages.pop();
+      this.pushChat(m);
+      setTimeout(this.scrollToBottom);
+    }, 1100)
   }
 }
