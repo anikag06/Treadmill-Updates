@@ -16,19 +16,36 @@ import {NEW_CHAT, REPLY_CURRENT, RESUME_CHAT, TOKEN} from '@/app.constants';
 import {ChatbotService} from '@/main/chatbot/chatbot.service';
 import {AuthService} from '@/shared/auth/auth.service';
 import set = Reflect.set;
+import {animate, state, style, transition, trigger} from '@angular/animations';
 
 
 @Component({
   selector: 'app-chat-window',
   templateUrl: './chat-window.component.html',
-  styleUrls: ['./chat-window.component.scss']
+  styleUrls: ['./chat-window.component.scss'],
+  animations: [
+    trigger('openClose', [
+      // ...
+      state('open', style({
+        display: 'block',
+      })),
+      state('closed', style({
+        display: 'none',
+      })),
+      transition('open => closed', [
+        animate('0.1s cubic-bezier(0.0, 0.0, 0.2, 1)')
+      ]),
+      transition('closed => open', [
+        animate('0.1s cubic-bezier(0.4, 0.0, 1, 1)')
+      ]),
+    ])
+  ]
 })
 export class ChatWindowComponent implements OnInit, OnDestroy, AfterViewInit, OnChanges, AfterViewChecked {
 
   constructor(
     private chatbotService: ChatbotService,
     private authService: AuthService,
-    private changeRef: ChangeDetectorRef,
   ) {}
 
   messages: Chat[] = [];
@@ -46,7 +63,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, AfterViewInit, On
   ngOnChanges(changes: SimpleChanges): void {
     // Start chat when chatwindow open
     if (this.chatWindowClosed === false && !this.webSocket) {
-      this.startChatSession(NEW_CHAT);
+      this.startChatSession(RESUME_CHAT);
     }
   }
 
