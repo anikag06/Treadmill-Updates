@@ -14,7 +14,7 @@ export class ProblemSolvingWorksheetsService {
 
   private problems: Problem[] = [];
   moreProblems = true;
-  page = 1
+  page = 1;
   problemBehaviour = new BehaviorSubject({});
   problemsBehaviour = new BehaviorSubject(this.problems);
 

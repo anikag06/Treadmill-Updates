@@ -25,7 +25,6 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
   styleUrls: ['./chat-window.component.scss'],
   animations: [
     trigger('openClose', [
-      // ...
       state('open', style({
         display: 'block',
       })),
@@ -53,6 +52,8 @@ export class ChatWindowComponent implements OnInit, OnDestroy, AfterViewInit, On
   webSocket!: WebSocket;
   buttons: any = [];
   scrollTop = 0;
+  totalDelay = 2400;
+  halfwayDelay = 1100;
 
 
   @ViewChild('messagesDiv', {static: false}) messagesDiv!: ElementRef;
@@ -83,12 +84,12 @@ export class ChatWindowComponent implements OnInit, OnDestroy, AfterViewInit, On
   }
 
   ngAfterViewChecked(): void {
-    this,this.scrollToBottom();
+    this.scrollToBottom();
   }
 
   onChatSubmit() {
     if (this.message.length > 0 && this.message.trim().length > 0) {
-      this.message = this.message.replace(/[\n\t\r]/g, "");
+      this.message = this.message.replace(/[\n\t\r]/g, '');
       this.messages.push(new Chat(this.message, true, [], '', '', new Date()));
       this.scrollToBottom();
       this.webSocket.send(JSON.stringify({ 'action': REPLY_CURRENT, 'message': { 'text': this.message, 'buttons': [] } }));
@@ -97,8 +98,8 @@ export class ChatWindowComponent implements OnInit, OnDestroy, AfterViewInit, On
     }
     setTimeout(() => {
       this.ti.nativeElement.focus();
-      this.scrollToBottom()
-    })
+      this.scrollToBottom();
+    });
   }
 
   close() {
@@ -124,9 +125,9 @@ export class ChatWindowComponent implements OnInit, OnDestroy, AfterViewInit, On
   }
 
   onKey(event: KeyboardEvent) {
-    // TODO 576 comes from the bootstrap
+    // 576 comes from the bootstrap
     if (!event.shiftKey && screen.availWidth > 576) {
-     this.onChatSubmit()
+     this.onChatSubmit();
     }
   }
 
@@ -147,16 +148,16 @@ export class ChatWindowComponent implements OnInit, OnDestroy, AfterViewInit, On
             this.showWritingAndPushChat(m);
             setTimeout(() => {
               this.scrollToBottom();
-            })
+            });
           }
-        }, 2400 * index)
+        }, this.totalDelay * index);
       });
-    }
+    };
 
     this.webSocket.onerror = () => {
       this.webSocket.close();
       this.startChatSession(NEW_CHAT);
-    }
+    };
     this.scrollToBottom();
   }
 
@@ -175,13 +176,13 @@ export class ChatWindowComponent implements OnInit, OnDestroy, AfterViewInit, On
   }
 
   showWritingAndPushChat(m: any) {
-    let item = new Chat('.../.', false, [], '', '', new Date());
+    const item = new Chat('.../.', false, [], '', '', new Date());
     this.messages.push(item);
     setTimeout(this.scrollToBottom);
     setTimeout(() => {
       this.messages.pop();
       this.pushChat(m);
       setTimeout(this.scrollToBottom);
-    }, 1100)
+    }, this.halfwayDelay);
   }
 }
