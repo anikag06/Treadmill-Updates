@@ -10,7 +10,7 @@ import { ContainerRefDirective } from './container-ref.directive';
 import { ProblemFormComponent } from './problem-form/problem-form.component';
 import { GeneralErrorService } from '@/main/shared/general-error.service';
 import { PROBLEM_SOLVING} from '@/app.constants';
-import {UserTask} from '@/main/custom-forms/forms/shared/tasks/user-task.model';
+import {UserTask} from '@/main/resources/forms/shared/tasks/user-task.model';
 
 @Component({
   selector: 'app-problem-solving-worksheets',
@@ -37,7 +37,6 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   constructor(
     private problemService: ProblemSolvingWorksheetsService,
     private authService: AuthService,
-    private componentFactoryResolver: ComponentFactoryResolver,
     private errorService: GeneralErrorService,
   ) { }
 

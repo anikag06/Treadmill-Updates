@@ -1,12 +1,12 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
-import { Problem } from '@/main/custom-forms/forms/problem-solving-worksheets/problem.model';
-import { ProblemSolvingWorksheetsService } from '@/main/custom-forms/forms/problem-solving-worksheets/problem-solving-worksheets.service';
+import { Problem } from '@/main/resources/forms/problem-solving-worksheets/problem.model';
+import { ProblemSolvingWorksheetsService } from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.service';
 import { PROBLEM_SOLVING } from '@/app.constants';
-import { TasksService } from '@/main/custom-forms/forms/shared/tasks/tasks.service';
+import { TasksService } from '@/main/resources/forms/shared/tasks/tasks.service';
 import { Task } from 'protractor/built/taskScheduler';
-import {UserTask} from '@/main/custom-forms/forms/shared/tasks/user-task.model';
+import {UserTask} from '@/main/resources/forms/shared/tasks/user-task.model';
 
 @Component({
   selector: 'app-forms-sidebar',

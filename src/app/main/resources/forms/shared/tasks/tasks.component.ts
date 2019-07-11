@@ -1,12 +1,12 @@
 import {Component, OnInit, EventEmitter, Output, Input, ChangeDetectorRef, OnChanges, SimpleChanges} from '@angular/core';
 import {FormBuilder, FormArray} from '@angular/forms';
-import {ProblemSolvingWorksheetsService} from '@/main/custom-forms/forms/problem-solving-worksheets/problem-solving-worksheets.service';
-import {Problem} from '@/main/custom-forms/forms/problem-solving-worksheets/problem.model';
+import {ProblemSolvingWorksheetsService} from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.service';
+import {Problem} from '@/main/resources/forms/problem-solving-worksheets/problem.model';
 import {UserTask} from './user-task.model';
 import {UserSubTask} from './user-sub-task.model';
 import {HttpErrorResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {TasksService} from '@/main/custom-forms/forms/shared/tasks/tasks.service';
+import {TasksService} from '@/main/resources/forms/shared/tasks/tasks.service';
 import {PROBLEM, RECOMMENDED, WEEK} from '@/app.constants';
 import * as moment from 'moment';
 
