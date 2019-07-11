@@ -30,7 +30,7 @@ export const mainRoutes: Routes = [
       },
       {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
       {path: 'logout', component: LogoutComponent},
-      {path: 'resources', loadChildren: () => import('./resources/resources.module').then(mod => mod.ResourcesModule)},
+      {path: 'resources', loadChildren: () => import('./resources/resources.module').then(mod => mod.ResourcesModule), canActivateChild: [AuthGuard]},
     ]
   }
 ];
