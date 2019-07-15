@@ -1,0 +1,84 @@
+<div class="row justify-content-center align-items-center" id="game_div">
+  <div class="common-div w-100 "  >
+      <div class="col justify-content-start changes-width pause-clicked-div d-none">
+            <!-- *ngIf="game_paused" -->
+          <div class="pause-clicked align-items-center ">
+            <div class="col paused-game-btns">
+              <img 
+                id="home-btn"
+                class="home-btn mx-1 img-btn"
+                (click) = "onHomeClick()" 
+                src="../../../../assets/games/home.png">
+            </div>  
+            <div class="col paused-game-btns">
+              <img 
+                id="help-btn"
+                class="help-btn mx-1 img-btn" 
+                (click) = "onHelpClick()"
+                src="../../../../../assets/games/help.png">
+            </div>
+            <div class="col paused-game-btns">
+              <img 
+                id="play-btn" 
+                class="play-btn mx-1 img-btn" 
+                src="../../../../../assets/games/play.png">
+            </div>    
+            <div class="col paused-game-btns">
+              <img 
+                id="replay-btn"
+                class="replay-btn mx-1 img-btn" 
+                src="../../../../../assets/games/replay.png">
+            </div>  
+            <div class="col paused-game-btns">
+              <img 
+                id="sound"
+                class="sound mx-1 img-btn" 
+                src="../../../../../assets/games/sound.png">
+            </div> 
+          </div>
+      </div>
+      
+      <div class="row justify-content-center align-items-center h-100" >
+        <app-executive-control-game 
+          class="w-100 h-100" 
+          *ngIf="isExecutiveControl"></app-executive-control-game>
+        <!-- <app-interpretation-bias-game 
+          *ngIf="isInterpretationBias"></app-interpretation-bias-game> -->
+        <div *ngIf="isSampleGame" style="background-color: aqua">
+          testing game 
+        </div>
+      </div>
+
+      <div class="row justify-content-end align-items-center mx-4 firstpage-btns" 
+            id="firstpage-btns">
+        <img 
+          id="common-start-btn" 
+          class="common-play-game img-btn" 
+          (click) = "onPlayClick()"
+          *ngIf = "showSecondPlayBtn"
+          src="../../../../../assets/games/play.png">
+        <img 
+          id="common-help-btn" 
+          class="common-help-btn img-btn" 
+          (click) = "onHelpClick()"
+          src="../../../../../assets/games/help.png">
+        <img 
+          id="common-sound-btn" 
+          class="common-sound-btn img-btn" 
+          src="../../../../../assets/games/sound.png">
+        <img 
+          id="common-exit"
+          class="common-exit mx-1 img-btn" 
+          (click) = "onExitClick()"
+          src="../../../../../assets/games/back.png">
+      </div>
+      <div class="row pause-btn">
+
+      </div>
+      
+    </div>
+</div>
+
+
+<div class="game-play d-none">
+</div>

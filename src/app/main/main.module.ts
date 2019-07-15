@@ -57,6 +57,8 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import {ProblemSolvingWorksheetsService} from '@/main/custom-forms/forms/problem-solving-worksheets/problem-solving-worksheets.service';
 import {FormsService} from '@/main/forms.service';
 import {TasksService} from '@/main/custom-forms/forms/shared/tasks/tasks.service';
+import { ExecutiveControlGameComponent } from './games/games-list/common-game/executive-control-game/executive-control-game.component';
+import { CommonGameComponent } from './games/games-list/common-game/common-game.component';
 
 
 @NgModule({
@@ -94,6 +96,8 @@ import {TasksService} from '@/main/custom-forms/forms/shared/tasks/tasks.service
     InterpretationBiasGameComponent,
     DashboardComponent,
     MainComponent,
+    ExecutiveControlGameComponent,
+    CommonGameComponent,
   ],
   imports: [
     CommonModule,

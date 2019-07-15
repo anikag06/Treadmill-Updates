@@ -161,7 +161,7 @@ export class InterpretationBiasGameComponent implements OnInit {
       level = this.userScoreData.level;
       this.levelUpElement.classList.remove('d-none');
     }
-    if ( level > 0 ){
+    if ( level > 0 ) {
       this.showAllHints = true;
     } else if (level === 0) {
       this.showAllHints = false;

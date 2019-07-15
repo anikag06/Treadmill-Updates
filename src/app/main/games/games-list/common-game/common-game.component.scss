@@ -1,0 +1,30 @@
+@import "styles.scss";
+@import "../../shared/games-common.scss";
+
+#game_div{
+    max-width: 950px;
+    min-height: 350px;
+}
+.common-div{
+    height: 350px;
+}
+.row{
+    margin-left: 0%;
+    margin-right: 0%;
+    padding: 0%;
+}
+.pause-clicked{
+    position: absolute;
+    margin-left: 0%;
+    margin-top: 3%;
+    background-color: rgba($color: #ffffff, $alpha: 0.7);
+}
+.firstpage-btns{
+    margin-top: -4rem !important;
+}
+@media screen and (max-width: 991px)  and (max-width:767px){
+    #game_div,.common-div{
+        max-width: 100%;
+        min-height: 40vh;
+    }
+}

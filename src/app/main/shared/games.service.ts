@@ -17,6 +17,9 @@ export class GamesService {
     new Game('Executive Control Game',
              'https://via.placeholder.com/360x200?text=Mario',
              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.'),
+    new Game('Sample Game',
+            'https://via.placeholder.com/360x200?text=Mario',
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.')
     ];
 
   constructor(
