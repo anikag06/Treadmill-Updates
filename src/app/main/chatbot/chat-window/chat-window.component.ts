@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import {Chat} from '@/main/chatbot/chat.model';
 import {environment} from '../../../../environments/environment';
-import {NEW_CHAT, REPLY_CURRENT, RESUME_CHAT, TOKEN} from '@/app.constants';
+import {NEW_CHAT, REPLY_CURRENT, RESUME_CHAT} from '@/app.constants';
 import {ChatbotService} from '@/main/chatbot/chatbot.service';
 import {AuthService} from '@/shared/auth/auth.service';
 import set = Reflect.set;
@@ -40,11 +40,12 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
     ])
   ]
 })
-export class ChatWindowComponent implements OnInit, OnDestroy, AfterViewInit, OnChanges, AfterViewChecked {
+export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterViewChecked {
 
   constructor(
     private chatbotService: ChatbotService,
     private authService: AuthService,
+    private changRef: ChangeDetectorRef,
   ) {}
 
   messages: Chat[] = [];
@@ -64,14 +65,11 @@ export class ChatWindowComponent implements OnInit, OnDestroy, AfterViewInit, On
   ngOnChanges(changes: SimpleChanges): void {
     // Start chat when chatwindow open
     if (this.chatWindowClosed === false && !this.webSocket) {
-      this.startChatSession(RESUME_CHAT);
+      this.startChatSession(NEW_CHAT);
     }
   }
 
   ngOnInit() {
-  }
-
-  ngAfterViewInit(): void {
     this.chatbotService.postPreviousChat()
       .subscribe(
         (data: any) => {
@@ -83,7 +81,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, AfterViewInit, On
       );
   }
 
-  ngAfterViewChecked(): void {
+  ngAfterViewChecked() {
     this.scrollToBottom();
   }
 
@@ -121,6 +119,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, AfterViewInit, On
   scrollToBottom() {
     if (this.messagesDiv) {
       this.scrollTop = this.messagesDiv.nativeElement.scrollHeight;
+      this.changRef.detectChanges();
     }
   }
 
@@ -166,7 +165,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, AfterViewInit, On
     this.messages.push(item);
     this.scrollToBottom();
     if (this.ti) {
-      if (m.buttons.length > 1) {
+      if (m.buttons && m.buttons.length > 1) {
         this.ti.nativeElement.disabled = true;
       } else {
         this.ti.nativeElement.disabled = false;
