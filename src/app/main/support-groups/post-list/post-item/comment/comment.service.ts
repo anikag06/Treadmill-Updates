@@ -11,15 +11,28 @@ export class CommentService {
     private http: HttpClient
   ) { }
 
-
+  /**
+   * Posting or creating a new comment
+   * @param data
+   */
   postComment(data: any) {
     return this.http.post(environment.API_ENDPOINT + '/api/v1/support-group/comment/', data);
   }
 
+  /**
+   * Getting main Commnets
+   * @param sgi
+   * @param page
+   */
   getMainComments(sgi: SupportGroupItem, page = 1 ) {
     return this.http.get(environment.API_ENDPOINT + '/api/v1/support-group/comments/' + sgi.id + '/?page=' + page);
   }
 
+  /**
+   * Update Comment
+   * @param comment_id
+   * @param body
+   */
   updateComment(comment_id: number, body: string) {
     return this.http.put(environment.API_ENDPOINT + '/api/v1/support-group/comment/' + comment_id + '/', { body: body });
   }

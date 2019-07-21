@@ -1,0 +1,14 @@
+<div class="card-header text-center">
+  SAVED FORMS
+</div>
+<ul class="list-group">
+  <li class="list-group-item">
+    <button mat-raised-button color="primary" (click)="onAddNewForm()">
+      <mat-icon>add</mat-icon>
+      Add new form
+    </button>
+  </li>
+  <li class="list-group-item" *ngFor="let obj of objects" (click)="problemClicked(obj)" [ngClass]="obj === selectedObject ? 'selected' : ''">
+    {{(obj.problem || obj.name).substring(0, 25)}}
+  </li>
+</ul>

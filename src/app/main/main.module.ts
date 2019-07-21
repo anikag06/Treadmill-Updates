@@ -1,4 +1,4 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA, LOCALE_ID } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ChartsModule } from 'ng2-charts';
 
@@ -10,7 +10,6 @@ import { ModuleOverviewComponent } from './modules/module-list/module-overview/m
 import { ModuleListComponent } from './modules/module-list/module-list.component';
 import { CategorySmallComponent } from './shared/category-small/category-small.component';
 import { LocalStorageService } from '../shared/localstorage.service';
-import { NotFoundComponent } from '../shared/not-found/not-found.component';
 import { CategoryBigComponent } from './modules/module-detail/category-big/category-big.component';
 import { SectionCardComponent } from './modules/module-detail/section-card/section-card.component';
 import { MainComponent } from './main.component';
@@ -37,7 +36,7 @@ import { AngularEditorModule } from '@xw19/angular-editor';
 import { SanitizationService } from './support-groups/sanitization.service';
 import { SafeHtmlPipe } from './support-groups/safe-html.pipe';
 import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatDatepickerModule, MatNativeDateModule } from '@angular/material';
+import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatDatepickerModule, MatNativeDateModule, MatSlideToggleModule } from '@angular/material';
 import { ScrollingDirective } from './shared/scrolling.directive';
 import { ScrollingService } from './shared/scrolling.service';
 import { NavbarComponent } from './shared/navbar/navbar.component';
@@ -48,20 +47,20 @@ import { CommentService } from './support-groups/post-list/post-item/comment/com
 import { NetstedCommentService } from './support-groups/post-list/post-item/nested-comment/netsted-comment.service';
 import { TagService } from './shared/tag.service';
 import { AutofocusDirective } from './shared/autofocus.directive';
-import { FormsComponent } from './forms/forms.component';
-import { ProblemSolvingWorksheetsComponent } from './forms/problem-solving-worksheets/problem-solving-worksheets.component';
-import { ProsConsComponent } from './forms/problem-solving-worksheets/pros-cons/pros-cons.component';
-import { ActionsComponent } from './forms/problem-solving-worksheets/actions/actions.component';
-import { ProconItemComponent } from './forms/problem-solving-worksheets/pros-cons/procon-item/procon-item.component';
-import { SolutionsComponent } from './forms/problem-solving-worksheets/solutions/solutions.component';
 import { ScoreComponent } from './score/score.component';
 import { PhqNineComponent } from './score/phq-nine/phq-nine.component';
 import { GadSevenComponent } from './score/gad-seven/gad-seven.component';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import {ProblemSolvingWorksheetsService} from '@/main/custom-forms/forms/problem-solving-worksheets/problem-solving-worksheets.service';
+import {FormsService} from '@/main/forms.service';
+import {TasksService} from '@/main/custom-forms/forms/shared/tasks/tasks.service';
+import { ChatbotComponent } from './chatbot/chatbot.component';
+import { ChatWindowComponent } from './chatbot/chat-window/chat-window.component';
+import {ChatbotService} from '@/main/chatbot/chatbot.service';
 
 @NgModule({
   declarations: [
     ModulesComponent,
-    DashboardComponent,
     ModuleDetailComponent,
     ModuleItemComponent,
     ModuleOverviewComponent,
@@ -69,7 +68,6 @@ import { GadSevenComponent } from './score/gad-seven/gad-seven.component';
     CategorySmallComponent,
     CategoryBigComponent,
     SectionCardComponent,
-    MainComponent,
     LogoutComponent,
     ProgressComponent,
     CurrentModuleComponent,
@@ -89,15 +87,13 @@ import { GadSevenComponent } from './score/gad-seven/gad-seven.component';
     ScrollingDirective,
     NavbarComponent,
     AutofocusDirective,
-    FormsComponent,
-    ProblemSolvingWorksheetsComponent,
-    ProsConsComponent,
-    ActionsComponent,
-    ProconItemComponent,
-    SolutionsComponent,
     ScoreComponent,
     PhqNineComponent,
     GadSevenComponent,
+    DashboardComponent,
+    MainComponent,
+    ChatbotComponent,
+    ChatWindowComponent,
   ],
   imports: [
     CommonModule,
@@ -117,6 +113,9 @@ import { GadSevenComponent } from './score/gad-seven/gad-seven.component';
     MainRoutingModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
+    MatSlideToggleModule,
   ],
   providers: [
     LocalStorageService,
@@ -127,6 +126,10 @@ import { GadSevenComponent } from './score/gad-seven/gad-seven.component';
     CommentService,
     NetstedCommentService,
     TagService,
+    ProblemSolvingWorksheetsService,
+    FormsService,
+    TasksService,
+    ChatbotService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [CreatePostComponent]

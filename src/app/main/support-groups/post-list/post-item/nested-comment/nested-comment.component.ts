@@ -17,7 +17,7 @@ export class NestedCommentComponent implements OnInit, AfterContentInit, DoCheck
 
   @Input() userNestedComment!: UserNestedComment;
   @Output() deleteEmitter = new EventEmitter<UserNestedComment>()
-  @ViewChild('replyForm') replyForm = NgForm;
+  @ViewChild('replyForm', { static: false }) replyForm = NgForm;
   body = '';
   editMode = false;
   user!: User | undefined;

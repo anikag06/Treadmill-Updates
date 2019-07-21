@@ -1,0 +1,15 @@
+<ul class="list-group" *ngIf="solutions && solutions.length > 0">
+  <li class="list-group-item" *ngFor="let solution of solutions">
+    <div class="solution">
+      <p
+      (focusout)="onFocusOut($event, solution)"
+      tabindex="10"
+      contenteditable="true">
+      {{solution.solution}}
+    </p>
+    <span class="pull-right" (click)="onSolutionRemove(solution)">
+      <mat-icon>remove_circle</mat-icon>
+    </span>
+    </div>
+  </li>
+</ul>

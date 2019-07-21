@@ -1,8 +1,0 @@
-<ul class="list-group" *ngIf="solutions && solutions.length > 0">
-  <li class="list-group-item" *ngFor="let solution of solutions" contenteditable="true">
-    {{solution.solution}}
-    <span class="pull-right" (click)="onSolutionRemove(solution)">
-      <mat-icon>remove_circle</mat-icon>
-    </span>
-  </li>
-</ul>

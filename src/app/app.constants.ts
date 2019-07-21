@@ -11,6 +11,15 @@ export const USERAVATAR         = 'user_avatar';
 export const ISADMIN            = 'is_admin';
 export const ISACTIVE           = 'is_active';
 export const TREADWILL          = 'TreadWill';
+export const SUNDAY             = 'SUNDAY';
+export const MONDAY             = 'MONDAY';
+export const TUESDAY            = 'TUESDAY';
+export const WEDNESDAY          = 'WEDNESDAY';
+export const THURSDAY           = 'THURSDAY';
+export const FRIDAY             = 'FRIDAY';
+export const SATURDAY           = 'SATURDAY';
+export const WEEK               = [SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY];
+
 
 // LOCAL STORAGE
 export const LS_TIME            = 120;
@@ -24,3 +33,15 @@ export const SIGNUP_PATH 		= '/api/v1/user/registration/';
 export const PHQ_NINE_SCORE     = '/api/v1/questionnaire/phq-user-scores/';
 export const GAD_SEVEN_SCORE    = '/api/v1/questionnaire/gad-user-scores/';
 export const MOBILEWIDTH        = 768;
+
+
+export const PROBLEM_SOLVING = 'problem-solving';
+export const TASK            = 'tasks';
+export const EXPERIMENT_TO_TEST_BELIEF = 'experiment-to-test-belief';
+export const PROBLEM         = 'problem';
+export const EXPR_TEST_BELIEF = 'expr_test_belief';
+export const RECOMMENDED       = 'recommended';
+
+export const NEW_CHAT = 'new_chat';
+export const RESUME_CHAT = 'resume_chat';
+export const REPLY_CURRENT = 'reply_current';

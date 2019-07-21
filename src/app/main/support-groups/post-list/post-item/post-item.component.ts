@@ -40,8 +40,8 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
 
   @Input() supportGroupItem!: SupportGroupItem;
   @Input() newPost!: boolean;
-  @ViewChild('mainComment') commentForm!: NgForm;
-  @ViewChild('htmlDiv') htmlDiv!: ElementRef;
+  @ViewChild('mainComment', { static: true }) commentForm!: NgForm;
+  @ViewChild('htmlDiv', { static: true }) htmlDiv!: ElementRef;
   @Output() deleteEvent = new EventEmitter<SupportGroupItem>();
   @Output() editEvent = new EventEmitter<SupportGroupItem>();
   @Output() tagClick = new EventEmitter<string>();

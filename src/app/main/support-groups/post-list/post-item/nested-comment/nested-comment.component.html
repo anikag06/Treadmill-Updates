@@ -21,7 +21,11 @@
     <p>
       <button class="btn btn-sm" (click)="onThumbsUp()"><img [src]="thumbsUp" width="18" height="18">
         {{userNestedComment.up_votes}}</button>
-      <button class="btn btn-sm" (click)="onThumbsDown()"><img [src]="thumbsDown" width="16" height="16"></button>   
+      <button class="btn btn-sm" (click)="onThumbsDown()"><img [src]="thumbsDown" width="16" height="16"></button>
+      <span *ngIf="user.username == userNestedComment.user.username">
+        <button class="btn btn-sm nc-edit" (click)="onEdit()"><b>Edit</b></button>
+        <button class="btn btn-sm nc-delete" (click)="onDelete()"><b>Delete</b></button>
+      </span>
     </p>
   </div>
 </div>

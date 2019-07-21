@@ -10,7 +10,7 @@ import { AuthService } from '@/shared/auth/auth.service';
 export class GadSevenComponent implements OnInit {
   getData!: any;
 
-  @ViewChild('gadLineChart') private chartRef: any;
+  @ViewChild('gadLineChart', { static: false }) private chartRef: any;
 
   constructor( private authService: AuthService,
     private plotScoreGraphService: PlotScoreGraphService

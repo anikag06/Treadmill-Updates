@@ -1,13 +1,13 @@
 <div class="container-fluid no-gutters">
   <div class="post-list">
     <div class="row search-row">
-      <div class="col-8 offset-2">
-        <form class="form-inline" (ngSubmit)="onSearchSubmit()">
-          <div class="form-group mr-2">
-            <input type="text" name="search" placeholder="Search" class="form-control" [(ngModel)]="search">
+      <div class="col-12 col-md-8 offset-md-2">
+        <form (ngSubmit)="onSearchSubmit()">
+          <div class="form-row align-items-center search-form justify-content-center">
+            <input type="text" name="search" placeholder="Search" class="form-control mr-2" [(ngModel)]="search">
+            <button  mat-raised-button type="submit" class="mr-2" color="primary"><mat-icon>search</mat-icon></button>
+            <button mat-raised-button type="button" (click)="onReset()"><mat-icon>settings_backup_restore</mat-icon></button>
           </div>
-          <button type="submit" class="btn btn-primary mr-2">Search</button>
-          <button type="button" class="btn btn-warning" (click)="onReset()">Reset</button>
         </form>
       </div>
     </div>
