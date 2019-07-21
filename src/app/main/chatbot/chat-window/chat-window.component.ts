@@ -91,7 +91,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
       this.messages.push(new Chat(this.message, true, [], '', '', new Date()));
       this.scrollToBottom();
       this.webSocket.send(JSON.stringify({ 'action': REPLY_CURRENT, 'message': { 'text': this.message, 'buttons': [] } }));
-      this.ti.nativeElement.focus();
+      this.ti.nativeElement.disabled = true;
       this.message = '';
     }
     setTimeout(() => {
@@ -138,19 +138,23 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
     this.webSocket.onmessage = (message: any) => {
       const data = JSON.parse(message.data);
       if (data.error === true) {
+        const item = new Chat("Oops! I have some problem.<br /> Please hold on mate...", false, [], '', '', new Date());
+        this.messages.push(item);
         this.webSocket.close();
         this.startChatSession(NEW_CHAT);
+      } else {
+        data.message.forEach((m: any, index: number) => {
+          setTimeout(() => {
+            if ((m.text && m.text.length > 0) || (m.buttons && m.buttons.length > 0)) {
+              this.showWritingAndPushChat(m);
+              setTimeout(() => {
+                this.scrollToBottom();
+              });
+            }
+          }, this.totalDelay * index + Math.floor((Math.random() * 500) + 1));
+        });
       }
-      data.message.forEach((m: any, index: number) => {
-        setTimeout(() => {
-          if ((m.text && m.text.length > 0) || (m.buttons && m.buttons.length > 0)) {
-            this.showWritingAndPushChat(m);
-            setTimeout(() => {
-              this.scrollToBottom();
-            });
-          }
-        }, this.totalDelay * index);
-      });
+
     };
 
     this.webSocket.onerror = () => {
