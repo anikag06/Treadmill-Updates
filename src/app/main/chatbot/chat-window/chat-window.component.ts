@@ -91,8 +91,10 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
       this.messages.push(new Chat(this.message, true, [], '', '', new Date()));
       this.scrollToBottom();
       this.webSocket.send(JSON.stringify({ 'action': REPLY_CURRENT, 'message': { 'text': this.message, 'buttons': [] } }));
-      this.ti.nativeElement.disabled = true;
       this.message = '';
+      if (screen.availWidth > 576) {
+        this.ti.nativeElement.disabled = true;
+      }
     }
     setTimeout(() => {
       this.ti.nativeElement.focus();
