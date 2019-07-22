@@ -108,7 +108,9 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
   }
 
   ngOnDestroy(): void {
-    this.webSocket.close();
+    if (this.webSocket) {
+      this.webSocket.close();
+    }
   }
 
 
