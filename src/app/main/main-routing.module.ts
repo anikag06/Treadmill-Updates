@@ -13,6 +13,7 @@ import { MainComponent } from './main.component';
 import { ScoreComponent } from './score/score.component';
 import { PhqNineComponent } from './score/phq-nine/phq-nine.component';
 import { GadSevenComponent } from './score/gad-seven/gad-seven.component';
+import { QuestionnaireComponent } from './dashboard/questionnaire/questionnaire.component';
 
 
 
@@ -20,6 +21,7 @@ export const mainRoutes: Routes = [
     {
         path: '', component: MainComponent, canActivateChild: [AuthGuard], children: [
             { path: 'dashboard', component: DashboardComponent, },
+            { path: 'questionnaire', component: QuestionnaireComponent},
             { path: 'support-groups', component: SupportGroupsComponent },
             {
                 path: 'modules', component: ModulesComponent, canActivateChild: [AuthGuard], children: [

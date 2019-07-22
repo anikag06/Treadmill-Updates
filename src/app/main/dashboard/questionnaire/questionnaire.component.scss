@@ -1,0 +1,278 @@
+@import "styles.scss";
+
+.q {
+    min-height: 90vh;
+}
+
+
+#const{
+    font-size: 14px;
+    font-style: italic;
+    
+}
+#bold{
+    line-height:35px;
+    font-style: bold;
+    font-size:17px;
+    
+
+}
+.glyphicon {
+    font-size: 30px;
+}
+.glyphicon:focus,.glyphicon:active {
+    outline: none !important;
+    box-shadow: none !important;
+}
+.example-sidenav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    background: rgba(255, 0, 0, 0.5);
+  }
+#submit{
+    height: 100px;
+}
+
+#question{
+    height: 150px;
+}
+
+#text{
+    font-size: 10px; 
+}
+#btn{
+
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 5px;
+    height: 60px;
+    margin: 5px;
+
+    
+
+}
+#btn:focus, #btn:active {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+.backblack {
+    background-color: black !important;
+    color: white;
+}
+
+.hower{
+    cursor: not-allowed;
+}
+
+
+.vl {
+    border-left: 6px solid black;
+  }
+.card{
+    width: 1000px;
+    background-color: white;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+    float: none;
+    border: none;
+    // z-index: 1;
+    // box-shadow:  -5px 0 5px -5px #333, 5px 0 5px -5px #333;
+    
+}
+
+
+
+
+@import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css");
+
+@media screen and (max-width: 1040px) {
+    .card{
+        
+        width: 600px;
+
+        background-color: white;
+        // padding: 30px;
+        // margin-bottom: 90px;
+        // margin-top: 10px;
+        // margin-left: 10px;
+        // margin-right: 10px;
+        text-align: center;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        }
+
+        #question{
+            height: 150px;
+        }
+        
+        #btn{
+            width: 140px;
+            padding:10px;
+            font-size: 15px;
+            border-radius: 5px;
+            height: 60px;
+            margin: 5px;
+        }
+        #submit{
+            height: 100px;
+            line-height:35px;
+            font-style: bold;
+            font-size:17px;
+    
+        }
+        #btn:focus{
+            background:white;
+            color: black;
+        }
+        .glyphicon {
+            font-size: 15px;
+        }
+  }
+
+@media screen and (max-width: 700px) {
+    .card{
+        
+        width: 600px;
+
+        background-color: white;
+        // padding: 30px;
+        // margin-bottom: 90px;
+        // margin-top: 10px;
+        // margin-left: 10px;
+        // margin-right: 10px;
+        text-align: center;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        }
+
+        #question{
+            height: 250px;
+        }
+        
+        #btn{
+
+            width: 130px;
+            margin: 5px;
+            padding: 7px;
+            font-size: 15px;
+            border-radius: 5px;
+            height: 50px;
+            
+                    
+        }
+        #submit{
+            height: 100px;
+            line-height:35px;
+            font-style: bold;
+            font-size:17px;
+    
+        }
+        #btn:focus{
+            background:white;
+            color: black;
+        }
+        .glyphicon {
+            font-size: 15px;
+        }
+  }
+
+  @media screen and (max-width: 400px) {
+    .card{
+        width: 900px;
+        background-color: white;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        text-align: center;
+        float: none;
+        border: none;
+        // z-index: 1;
+        // box-shadow:  -5px 0 5px -5px #333, 5px 0 5px -5px #333;
+        
+    }
+    
+        #question{
+            height: 250px;
+        }
+
+        #btn{
+
+            width: 100px;
+            margin: 5px;
+            padding: 5px;
+            font-size: 12px;
+            border-radius: 5px;
+            height: 50px;
+            
+                    
+        }
+        #btn:focus{
+            background:white;
+            color: black;
+        }
+        .glyphicon {
+            font-size: 15px;
+        }
+
+  }
+
+  @media screen and (max-width: 360px) {
+    
+
+        .card{
+            width: 460px;
+            background-color: white;
+            padding-top: 0px;
+            padding-bottom: 0px;
+            text-align: center;
+            float: none;
+            
+        }
+        
+        #question{
+            height: 250px;
+        }
+
+        #bold{
+            line-height:25px;
+            font-style: bold;
+            font-size:17px;
+            
+        
+        }
+        
+        #btn{
+
+            width: 100px;
+            margin: 5px;
+            padding: 5px;
+            font-size: 12px;
+            border-radius: 5px;
+            height: 50px;
+            
+                    
+        }
+        .btn{
+            margin:2px;
+        }
+        #submit{
+            height: 100px;
+            line-height:35px;
+            font-style: bold;
+            font-size:17px;
+    
+        }
+        #btn:focus{
+            background:white;
+            color: black;
+        }
+        .glyphicon {
+            font-size: 15px;
+        }
+  }
+
+  
+  

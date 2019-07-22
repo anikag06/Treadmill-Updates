@@ -36,6 +36,7 @@ import { AngularEditorModule } from '@xw19/angular-editor';
 import { SanitizationService } from './support-groups/sanitization.service';
 import { SafeHtmlPipe } from './support-groups/safe-html.pipe';
 import { LayoutModule } from '@angular/cdk/layout';
+// tslint:disable-next-line:max-line-length
 import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatDatepickerModule, MatNativeDateModule, MatSlideToggleModule } from '@angular/material';
 import { ScrollingDirective } from './shared/scrolling.directive';
 import { ScrollingService } from './shared/scrolling.service';
@@ -57,6 +58,8 @@ import {TasksService} from '@/main/custom-forms/forms/shared/tasks/tasks.service
 import { ChatbotComponent } from './chatbot/chatbot.component';
 import { ChatWindowComponent } from './chatbot/chat-window/chat-window.component';
 import {ChatbotService} from '@/main/chatbot/chatbot.service';
+import { DataService } from './dashboard/questionnaire/data.service';
+import { QuestionnaireComponent } from './dashboard/questionnaire/questionnaire.component';
 
 @NgModule({
   declarations: [
@@ -94,6 +97,7 @@ import {ChatbotService} from '@/main/chatbot/chatbot.service';
     MainComponent,
     ChatbotComponent,
     ChatWindowComponent,
+    QuestionnaireComponent
   ],
   imports: [
     CommonModule,
@@ -130,6 +134,7 @@ import {ChatbotService} from '@/main/chatbot/chatbot.service';
     FormsService,
     TasksService,
     ChatbotService,
+    DataService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [CreatePostComponent]
