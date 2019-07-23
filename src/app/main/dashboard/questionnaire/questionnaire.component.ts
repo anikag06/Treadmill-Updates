@@ -3,11 +3,12 @@ import { Quiz } from './input/quiz';
 import { Response } from './input/response';
 import { GadResponse } from './input/gad_response';
 import { QuizService } from './questionnaire.service';
+import { environment } from 'environments/environment';
 
 // tslint:disable-next-line:max-line-length
-import { DataService } from '/Users/darshittalavia/Desktop/TreadWill-ng-treadwill-fe-85ffa82d1922/src/app/main/dashboard/questionnaire/data.service';
 import { User } from '@/shared/user.model';
 import { trigger, transition, animate, style, state } from '@angular/animations';
+import { DataService } from './data.service';
 
 @Component({
   animations: [
@@ -81,7 +82,7 @@ export class QuestionnaireComponent implements OnInit {
   see2!: boolean;
   see3!: boolean;
   // tslint:disable-next-line:max-line-length
-  api = ['http://172.26.90.49:9000/api/v1/questionnaire/phq-nine-questions-list/', 'http://172.26.90.49:9000/api/v1/questionnaire/gad-questions-list/'];
+  api = [environment.API_ENDPOINT + '/api/v1/questionnaire/phq-nine-questions-list/', environment.API_ENDPOINT + '/api/v1/questionnaire/gad-questions-list/'];
   index = 0;
   display_gad_start = false;
   display_questionnaire = false;

@@ -7,15 +7,14 @@ import { User } from '@/shared/user.model';
 import { Router, NavigationStart } from '@angular/router';
 import { DEFAULT_PATH } from '@/app.constants';
 import { MatDrawer } from '@angular/material';
+import { DataService } from './dashboard/questionnaire/data.service';
 // tslint:disable-next-line:max-line-length
-import { DataService } from '/Users/darshittalavia/Desktop/TreadWill-ng-treadwill-fe-85ffa82d1922/src/app/main/dashboard/questionnaire/data.service';
 
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss'],
-  providers: [DataService]
+  styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit, OnChanges, DoCheck {
 
