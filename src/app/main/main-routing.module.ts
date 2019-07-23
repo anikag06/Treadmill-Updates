@@ -14,7 +14,7 @@ import { MainComponent } from './main.component';
 import { ScoreComponent } from './score/score.component';
 import { PhqNineComponent } from './score/phq-nine/phq-nine.component';
 import { GadSevenComponent } from './score/gad-seven/gad-seven.component';
-import { InterpretationBiasGameComponent } from './games/games-list/interpretation-bias-game/interpretation-bias-game.component';
+import { InterpretationBiasGameComponent } from './games/games-list/common-game/interpretation-bias-game/interpretation-bias-game.component';
 import { ExecutiveControlGameComponent } from './games/games-list/common-game/executive-control-game/executive-control-game.component';
 import { CommonGameComponent } from './games/games-list/common-game/common-game.component';
 
@@ -33,7 +33,7 @@ export const mainRoutes: Routes = [
             {
                 path: 'games', component: GamesComponent, children: [
                     { path: '', component: GamesListComponent },
-                    { path: 'interpretationbias', component: InterpretationBiasGameComponent},
+                    // { path: 'interpretationbias', component: InterpretationBiasGameComponent},
                     { path: ':name', component: CommonGameComponent}
                 ]
             },

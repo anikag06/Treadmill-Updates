@@ -131,10 +131,10 @@ function task_generator()
 	    		mystery_egg_icon.y-=GAME_ELEMENTS_SPEED;
 	    	}
 	    	mystery_egg_collected_text.y-=GAME_ELEMENTS_SPEED
-	    	pause_button.y+=GAME_ELEMENTS_SPEED; 	 	// changed the position of the buttons(pause and music) 
-	    	resume_button.y+=GAME_ELEMENTS_SPEED;
-	    	music_button_on.y+=GAME_ELEMENTS_SPEED;
-	    	music_button_off.y+=GAME_ELEMENTS_SPEED;
+	    	// pause_button.y-=GAME_ELEMENTS_SPEED;
+	    	// resume_button.y-=GAME_ELEMENTS_SPEED;
+	    	// music_button_on.y-=GAME_ELEMENTS_SPEED;
+	    	// music_button_off.y-=GAME_ELEMENTS_SPEED;
 	    }
 	   
 	    
@@ -252,7 +252,7 @@ function left_pressed()
 				flanker_task_complete();
 				if(isTouchDevice==true)
 				{
-					left_button.setScale(1);
+					left_button.setScale(0.7);
 					animation_active=false;
 				
 					clearInterval(task_button_blinking_animation);
@@ -308,7 +308,7 @@ function right_pressed()
 				flanker_task_complete();
 				if(isTouchDevice==true)
 				{
-					right_button.setScale(1);
+					right_button.setScale(0.7);
 					animation_active=false;
 					
 					clearInterval(task_button_blinking_animation);
@@ -364,7 +364,7 @@ function red_pressed()
 				discrimination_task_complete();
 				if(isTouchDevice==true)
 				{
-					red_button.setScale(1);
+					red_button.setScale(0.7);
 					animation_active=false;
 					
 					clearInterval(task_button_blinking_animation);
@@ -424,7 +424,7 @@ function green_pressed()
 				discrimination_task_complete();
 				if(isTouchDevice==true)
 				{
-					green_button.setScale(1);
+					green_button.setScale(0.7);
 					animation_active=false;
 					
 					clearInterval(task_button_blinking_animation);
@@ -451,7 +451,7 @@ function drop_jump_platform(platform)
 
 function start_countdown()
 {
-	if(game_paused==true)
+	if(game_paused==true || game_closed == true)
     {
         
         console.log("paused");

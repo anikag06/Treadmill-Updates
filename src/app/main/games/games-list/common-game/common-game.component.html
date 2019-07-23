@@ -1,54 +1,71 @@
 <div class="row justify-content-center align-items-center" id="game_div">
-  <div class="common-div w-100 "  >
-      <div class="col justify-content-start changes-width pause-clicked-div d-none">
-            <!-- *ngIf="game_paused" -->
-          <div class="pause-clicked align-items-center ">
+  <div class="common-div w-100"  >
+    <!-- buttons shown when the game is paused -->
+      <div 
+        class="col d-flex justify-content-center align-items-center d-none"
+        *ngIf = "showSideButtons" 
+        id="common-pause-clicked-div">
+          <div class="common-pause-clicked">
             <div class="col paused-game-btns">
               <img 
-                id="home-btn"
-                class="home-btn mx-1 img-btn"
+                id="common-home-btn"
+                class="home-btn mx-auto img-btn"
                 (click) = "onHomeClick()" 
                 src="../../../../assets/games/home.png">
             </div>  
             <div class="col paused-game-btns">
               <img 
-                id="help-btn"
-                class="help-btn mx-1 img-btn" 
+                id="common-help-btn"
+                class="help-btn mx-auto img-btn" 
                 (click) = "onHelpClick()"
                 src="../../../../../assets/games/help.png">
             </div>
             <div class="col paused-game-btns">
               <img 
-                id="play-btn" 
-                class="play-btn mx-1 img-btn" 
+                id="common-resume-btn" 
+                class="resume-btn mx-auto img-btn"
+                (click) = "onResumeClick()" 
                 src="../../../../../assets/games/play.png">
             </div>    
             <div class="col paused-game-btns">
               <img 
-                id="replay-btn"
-                class="replay-btn mx-1 img-btn" 
+                id="common-replay-btn"
+                class="replay-btn mx-auto img-btn" 
+                (click) = "onRestartClick()"
                 src="../../../../../assets/games/replay.png">
             </div>  
             <div class="col paused-game-btns">
               <img 
-                id="sound"
-                class="sound mx-1 img-btn" 
+                id="common-sound-on-btn"
+                class="sound mx-auto img-btn" 
+                (click) = "onSoundClick()"
+                *ngIf = "isSoundOn"
                 src="../../../../../assets/games/sound.png">
+            </div> 
+            <div class="col paused-game-btns">
+              <img 
+                id="common-sound-off-btn"
+                class="sound mx-auto img-btn" 
+                (click) = "onSoundClick()"
+                *ngIf = "!isSoundOn"
+                src="../../../../../assets/games/mute.png">
             </div> 
           </div>
       </div>
-      
+ <!-- showing the game component  -->
       <div class="row justify-content-center align-items-center h-100" >
         <app-executive-control-game 
           class="w-100 h-100" 
+          style="background-color: black"
           *ngIf="isExecutiveControl"></app-executive-control-game>
-        <!-- <app-interpretation-bias-game 
-          *ngIf="isInterpretationBias"></app-interpretation-bias-game> -->
+        <app-interpretation-bias-game
+          class="w-100 h-100" 
+          *ngIf="isInterpretationBias"></app-interpretation-bias-game>
         <div *ngIf="isSampleGame" style="background-color: aqua">
           testing game 
         </div>
       </div>
-
+<!-- buttons on first page -->
       <div class="row justify-content-end align-items-center mx-4 firstpage-btns" 
             id="firstpage-btns">
         <img 
@@ -63,19 +80,47 @@
           (click) = "onHelpClick()"
           src="../../../../../assets/games/help.png">
         <img 
-          id="common-sound-btn" 
+          id="common-sound-on-fp" 
           class="common-sound-btn img-btn" 
+          (click) = "onSoundClick()"
+          *ngIf = "isSoundOn"
           src="../../../../../assets/games/sound.png">
         <img 
-          id="common-exit"
+          id="common-sound-off-fp" 
+          class="common-sound-btn img-btn"
+          (click) = "onSoundClick()" 
+          *ngIf = "!isSoundOn"
+          src="../../../../../assets/games/mute.png">
+        <img 
+          id="common-exit-btn"
           class="common-exit mx-1 img-btn" 
           (click) = "onExitClick()"
           src="../../../../../assets/games/back.png">
       </div>
-      <div class="row pause-btn">
-
+<!-- pause, hint and sound button on bottom of every page -->
+      <div class="row justify-content-end align-items-center mx-4 d-none" 
+          id="pause-common-div">
+        <img 
+          id = "common-pause"
+          class="mx-1 img-btn"
+          (click) = "onPauseClick()"
+          src="../../../../../assets/games/pause.png">
+        <img
+          id = "common-sound-on"
+          class="mx-1 img-btn common-sound"
+          (click) = "onSoundClick()"
+          *ngIf = "isSoundOn"
+          src="../../../../../assets/games/sound.png">
+        <img
+          id = "common-sound-off"
+          class="mx-1 img-btn common-sound"
+          (click) = "onSoundClick()"
+          *ngIf = "!isSoundOn"
+          src="../../../../../assets/games/mute.png">
+        <div class="hint-btn-div">
+         
+        </div>
       </div>
-      
     </div>
 </div>
 

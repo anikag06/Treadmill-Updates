@@ -1,11 +1,15 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { DOCUMENT } from '@angular/common'; 
+import { DOCUMENT } from '@angular/common';
 // import 'assets/games/interpretation_bias_game/js/sentence_javascript';
-import { InterpretationBiasGameService } from '@/main/games/games-list/interpretation-bias-game/interpretation-bias-game.service';
-import { UserScoreData, UserResponseData } from '@/main/games/games-list/interpretation-bias-game/interpretation-bias-game-data.model';
+// tslint:disable-next-line: max-line-length
+import { InterpretationBiasGameService } from '@/main/games/games-list/common-game/interpretation-bias-game/interpretation-bias-game.service';
+// tslint:disable-next-line: max-line-length
+import { UserScoreData, UserResponseData } from '@/main/games/games-list/common-game/interpretation-bias-game/interpretation-bias-game-data.model';
 import { Router } from '@angular/router';
 import { IBG_SENTENCE } from '@/app.constants';
 import { environment } from 'environments/environment';
+import { GamePlayService } from '@/main/games/shared/game-play.service';
+
 declare var sentence_number: any;
 // for sentence and word information
 declare var sentence_array: any;
@@ -48,7 +52,7 @@ export class InterpretationBiasGameComponent implements OnInit {
   lastSentenceReceived = this.NO_OF_SENTENCES_RECEIVED;
   index = userOrder;
 
-  //whether level > 0 or not
+  // whether level > 0 or not
   showAllHints = false;
   levelUpElement!: HTMLElement;
 
@@ -59,6 +63,7 @@ export class InterpretationBiasGameComponent implements OnInit {
 
   constructor( private interpretationbiasgameService: InterpretationBiasGameService,
     private router: Router,
+    private gamePlayService: GamePlayService,
     @Inject(DOCUMENT) document: any) {
   }
 
@@ -176,7 +181,9 @@ export class InterpretationBiasGameComponent implements OnInit {
     this.userResponseData.response_time = userData[7];
 
   }
-
+  onPlayClicked() {
+    this.gamePlayService.playIBGame();
+  }
   storeUserResponse() {
     this.interpretationbiasgameService.storeUserResponseInfo(this.userResponseData)
       .subscribe( (data) => {
@@ -193,5 +200,10 @@ export class InterpretationBiasGameComponent implements OnInit {
 
   onExitClick() {
     this.router.navigate(['/games']);
+  }
+
+  onHintClick() {
+    console.log("hint btn clicked");
+      this.gamePlayService.hintsIBGame();
   }
 }

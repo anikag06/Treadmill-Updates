@@ -1,12 +1,15 @@
 function discrimination_task_generator()
 {
+	console.log("call discrimination task ");
 	//Add Discrimination Task
 	if(discrimination_task_image==null)
 	{
 		discrimination_choice=Math.floor(Math.random()*TOTAL_NUMBER_OF_DISCRIMINATION_TASK);
 		discrimination_task_image=curr_game.add.image(DISCRIMINATION_X_CORDINATE,DISCRIMINATION_Y_CORDINATE,'discrimination_'+discrimination_choice).setScale(DISCRIMIANTION_TASK_IMAGE_SCALE);
 		
-		
+		if (isTouchDevice){
+			discrimination_task_image.setScale(DISCRIMINATION_TASK_IMAGE_SMALL_SCALE);
+		}
 		//show tutorials if needed
 		if(SHOW_TUTORIAL==true&&task_tutorial_shown==false)
 		{
@@ -34,12 +37,14 @@ function discrimination_task_generator()
 		{
 			if(isTouchDevice==true)
 			{
-				task_tutorial_text=curr_game.add.text(screen_width*0.23,discrimination_task_image.y-discrimination_task_image.height+10 ,"Press the button matching the circle's color", { fontSize: '20px', fill: '#000'});
+				task_tutorial_text=curr_game.add.text(screen_width*0.20,discrimination_task_image.y-discrimination_task_image.height+15 ,"Press the button matching the circle's \ncolor", { fontSize: '18px', fill: '#EC407A'});
 			}
 			else
 			{
-				task_tutorial_text=curr_game.add.text(screen_width*0.18,discrimination_task_image.y-discrimination_task_image.height+10,"Press the Up Key if the circle is colored red,otherwise press Down Key", { fontSize: '20px', fill: '#000'});
+				task_tutorial_text=curr_game.add.text(screen_width*0.23,discrimination_task_image.y-discrimination_task_image.height+15,"Press the Down Key if the circle is \ncolored red, otherwise press Up Key", { fontSize: '18px', fill: '#EC407A'});
 			}
+			task_tutorial_text.setBackgroundColor('rgba(255,255,255,0.6)')
+			task_tutorial_text.setPadding(24,3,24,3);
 		}
 		
 		//Record discrimination task start time
@@ -61,6 +66,7 @@ function discrimination_task_generator()
 function discrimination_task_complete()
 {
 	//Discrimination task flags
+	console.log("disc task completed");
 	discrimination_task_ended=true;
 	discrimination_task_started=false;
 	
@@ -107,7 +113,7 @@ function discrimination_task_complete()
 	//Next set
 	if(current_number_of_tasks>=1)
 	{
-		setTimeout(continue_to_next_set,1000);
+		continue_to_next_set_timeout = setTimeout(continue_to_next_set,1000);
 		
 	}
 

@@ -68,8 +68,11 @@ function coins_placer() {
                 
                 if(isTouchDevice == false)
                 {
-                    tutorial_text.setText("Press          to collect coins");
-                    control_button_1=curr_game.add.image(screen_width*0.45,screen_height*0.22,'spacebar_button').setScale(0.5);
+                    tutorial_box = curr_game.add.tileSprite(screen_width*0.5,screen_height*0.38,screen_width*0.42,screen_height*0.5,"tutorial_box");
+                    tutorial_box.alpha = 0.6;
+                    tutorial_box.depth = 4;
+                    tutorial_text.setText("Press                to\n\n collect coins");
+                    control_button_1=curr_game.add.image(screen_width*0.48,screen_height*0.32,'spacebar_button').setScale(0.4);
                     console.log("coin tutorial");
                     game_paused=true;
                 }
@@ -128,7 +131,6 @@ function collect_coin(coin_captured) {
     var old_count=coins_collected;
     coins_collected += COIN_SCORE;
     curr_game.sound.add('coin_sound').play();
-    console.log(coins_collected);
     //Adjust the position of the coin score if the length varies
     if(old_count.toString().length!=coins_collected.toString().length)
     {

@@ -1,4 +1,6 @@
 var startExecControlGame = function(show_tutorial){
+    $('#execGame').removeClass('d-none');
+
     //For fullscreen and orientation
     var orientKey = 'orientation';
     if('mozOrientation' in screen){
@@ -75,12 +77,7 @@ var startExecControlGame = function(show_tutorial){
     game_paused=false;
 
     var game_config=new config(setType(),screen_width,screen_height);
-    var game=new Phaser.Game(game_config);
-    
-    // Add to resize event
-    window.addEventListener('resize', resizeGame);
-    // Set correct size when page loads the first time
-    resizeGame(screen_width, screen_height);
+    let game=new Phaser.Game(game_config);
 
     SHOW_TUTORIAL = show_tutorial;
     // if($('input[type="checkbox"]').is(":checked")){
@@ -89,7 +86,7 @@ var startExecControlGame = function(show_tutorial){
     // else{
     //     SHOW_TUTORIAL=false;
     // }
-
-    // $("#start_page").hide();
+    console.log(level);
     $("#start_page").addClass("d-none");
+    
 }

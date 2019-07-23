@@ -15,7 +15,13 @@ var sentence_trick = [];
 var sentence_word_valence = [];
 var sentence_order_array = [];
 // var after_sentence_number = last_sentence_order+Math.floor(sentences_sent/2);	//request to send next set of sentences after a certain sentence number
-  
+ 
+var ibCountdown;
+var ibGamePause;
+var ibGameResume;
+var ibUsehints;
+var ibGameHelp;
+
 var words = []                 //words of the sentence 
 var NO_OF_WORDS;
 var initial_timer = "180";							// time for finding words from letter grid
@@ -252,55 +258,39 @@ function removeAddClassFun(){
 	$('#hint-div').addClass("d-none");	
 	$('#showWordResult').addClass("d-none");
 	$('#guessWordResult').addClass("d-none");
-	$(".pause-clicked").addClass("d-none");
+	// $(".pause-clicked").addClass("d-none");
 	$("#levelup").addClass("d-none");
-	document.getElementById('score-col').style.backgroundColor = "";
-	document.getElementById('score-col').style.opacity = "1";	
+	// document.getElementById('score-col').style.backgroundColor = "";
+	// document.getElementById('score-col').style.opacity = "1";	
 	inactivity_time = 0;
 	$(".tip-text").text(" ");	
 	inactivity_check;
 }
-
+var startIBGame; 
 $(document).ready(function(){
 
 	showImages();
-	$(document).on("click", "#start-btn ,#replay-btn", function(ev){
-	 //$('#start-btn').click(function(){
-		initializeVariables();
+	startIBGame = function(ev){
+	  initializeVariables();
 		removeAddClassFun();
-		countdown();
+		ibCountdown();
 		$("#easy_game_div").removeClass("d-none");
 		foundWord(sentence_array[sentence_number],sentence_word_array[sentence_number]);
 		success = false;
-	});
-	$(document).on("click","#help-btn", function(e){
-		$(".instructions-row").removeClass("d-none");
-		$('.game-first-page').addClass("d-none");
-		if(!$('.game').hasClass("d-none")){
-			$('.game').addClass("d-none");
-		}
-	});
-	$(document).on("click", "#pause-btn", function(ev){
+	};
+	ibGamePause = function(ev){
 		countdownPause();
 		hideCanvas();
 		game_paused = true;
-		$(".pause-hints").addClass("d-none");
-		$(".pause-clicked").removeClass("d-none");
 		$('.controls-row').addClass("d-none");
-		document.getElementById('score-col').style.backgroundColor ='rgba(255, 255, 255, 0.81)';
-	});
-	$(document).on("click", "#play-btn", function(ev){       //play after pause
-		countdown();
+	}
+	ibGameResume = function(){
+		ibCountdown();
 		showCanvas();
 		game_paused = false;
-		document.getElementById('score-col').style.backgroundColor = "";
-		document.getElementById('score-col').style.opacity = "1";
-		$(".pause-clicked").addClass("d-none");
-		$(".pause-hints").removeClass("d-none");
 		$('.controls-row').removeClass("d-none");
-	});
-
-	$(document).on("click", "#usehints", function(ev){
+	}
+	ibUsehints = function(ev){
 		if($('#hint-div').hasClass("d-none")){
 			$('.controls-row').removeClass("d-none");
 			$('#hint-div').removeClass("d-none");
@@ -312,7 +302,54 @@ $(document).ready(function(){
 			$('#showWordResult').addClass("d-none");
 			$('#guessWordResult').addClass("d-none");
 		}
-	});
+	}
+	ibGameHelp = function(ev){
+		$(".instructions-row").removeClass("d-none");
+			$('.game-first-page').addClass("d-none");
+			if(!$('.game').hasClass("d-none")){
+				$('.game').addClass("d-none");
+			}
+	}
+	// $(document).on("click","#help-btn", function(e){
+	// 	$(".instructions-row").removeClass("d-none");
+	// 	$('.game-first-page').addClass("d-none");
+	// 	if(!$('.game').hasClass("d-none")){
+	// 		$('.game').addClass("d-none");
+	// 	}
+	// });
+	// $(document).on("click", "#pause-btn", function(ev){
+	// 	countdownPause();
+	// 	hideCanvas();
+	// 	game_paused = true;
+	// 	$(".pause-hints").addClass("d-none");
+	// 	$(".pause-clicked").removeClass("d-none");
+	// 	$('.controls-row').addClass("d-none");
+	// 	document.getElementById('score-col').style.backgroundColor ='rgba(255, 255, 255, 0.81)';
+	// });
+	// $(document).on("click", "#play-btn", function(ev){       //play after pause
+	// 	ibCountdown();
+	// 	showCanvas();
+	// 	game_paused = false;
+	// 	document.getElementById('score-col').style.backgroundColor = "";
+	// 	document.getElementById('score-col').style.opacity = "1";
+	// 	$(".pause-clicked").addClass("d-none");
+	// 	$(".pause-hints").removeClass("d-none");
+	// 	$('.controls-row').removeClass("d-none");
+	// });
+
+	// $(document).on("click", "#usehints", function(ev){
+	// 	if($('#hint-div').hasClass("d-none")){
+	// 		$('.controls-row').removeClass("d-none");
+	// 		$('#hint-div').removeClass("d-none");
+	// 		$('#showWord').removeClass("d-none");
+	// 		$('#guessWord').removeClass("d-none");
+	// 		$('#increase_time').removeClass("d-none");
+	// 	}else{
+	// 		$('#hint-div').addClass("d-none");
+	// 		$('#showWordResult').addClass("d-none");
+	// 		$('#guessWordResult').addClass("d-none");
+	// 	}
+	// });
 	$(document).on("click", "#showWord", function(ev){
 		if($('#showWordResult').hasClass("d-none")){
 			if(showWord(sentence_array[sentence_number])){
@@ -347,6 +384,8 @@ $(document).ready(function(){
 	});
 	
 	$(document).on("click","#increase_time", function(ev){
+		$('#ibgame-clock-gif').removeClass("d-none");
+		$('#ibgame-clock-png').addClass("d-none");
 		if(score >= min_score_increaseTime){
 			unlock = true;
 			score = score - min_score_increaseTime;
@@ -357,13 +396,18 @@ $(document).ready(function(){
 
 		if(unlock == true){
 			game_timer = game_timer + increased_time;
-			//countdown();
+			//ibCountdown();
 			score = score - increase_time_score;
 			 document.getElementById("score").innerHTML = score;
 		}else if(unlock == false){
 			//console.log("Need" + min_score_increaseTime + " coins to unlock this power");
 		}
 		$('#hint-div').addClass("d-none");
+		setTimeout( function() {
+			$('#ibgame-clock-png').removeClass("d-none");
+			$('#ibgame-clock-gif').addClass("d-none");
+		},1500);
+
 	});
 	$(document).on("click","#btn-try-again", function(ev){
 		score = score-try_again_score;
@@ -371,7 +415,7 @@ $(document).ready(function(){
 		removeAddClassFun();
 		$("#timeup1").addClass("d-none");
 		countdownReset();
-		countdown();
+		ibCountdown();
 	});
 	$(document).on("click","#btn-borrow-time", function(ev){
 		//if user had found 0-15% of words and time's up then borrowing time
@@ -380,7 +424,7 @@ $(document).ready(function(){
 		document.getElementById("score").innerHTML = score;
 		removeAddClassFun();
 		$("#timeup1").addClass("d-none");
-		countdown();
+		ibCountdown();
 	});
 	$(document).on("click","#btn-borrow-time-again", function(ev){
 	//if user had found 15-60% of words and time's up then borrowing time
@@ -390,7 +434,7 @@ $(document).ready(function(){
 		removeAddClassFun();
 		$('.game-over-flex-row').addClass("d-none");
 		$("#timeup2").addClass("d-none");
-		countdown();
+		ibCountdown();
 	});
 	
 	$(document).on("click","#yes", function(ev){  //if the user clicks yes when asked whether the word and sentence are related or not
@@ -401,8 +445,6 @@ $(document).ready(function(){
 		if(answer == false){
 			coins = 0;
 		}
-		// document.getElementById("finalCoins").innerHTML = "You earned:" + coins +"coins";     //coins earned if the questions about relation is answered correctly
-		//$("#finalCoins").removeClass("d-none");
 		
 		$("#word").addClass("d-none");
 		score+=coins;
@@ -414,7 +456,6 @@ $(document).ready(function(){
 		$("#lastPage").removeClass("d-none");
 		$(".btn-sentence-word-rel").removeAttr("disabled");
 		
-		// saveUserResponse($("#save-user-response").val(), sentence_ids[sentence_number], answer, (end_time-start_time));
 		delay_sentence_word_message = 1500;
 	});
 	
@@ -426,9 +467,7 @@ $(document).ready(function(){
 		if(answer == false){
 			coins = 0;
 		}
-		//document.getElementById("finalCoins").innerHTML = "You earned:" + coins +"coins";   //coins earned if the questions about relation is answered correctly
-		// $("#finalCoins").removeClass("d-none");
-		
+	
 		$("#word").addClass("d-none");
 		
 		score+=coins;
@@ -456,42 +495,6 @@ $(document).ready(function(){
 		// $("#finalCoins").addClass("d-none");
 		playNextSentence();
 	});	
-		// if(sentence_number == after_sentence_number){											//if user has played a certain number of sentences then send request for next set
-		// 	last_sentence_order = parseInt(last_sentence_order) + parseInt(sentences_sent);		//number of sentences to be send from server
-		// 	var url = $("#save-last-sentence").val();
-		// 	$.ajax({
-		// 		url: url,
-		// 		type:'GET', 
-		// 		cache:false,
-		// 		data:{'last_sentence_order': last_sentence_order, 'score':score}, 
-		// 		dataType : "json",
-		// 		contentTpe: "text",
-		// 		beforeSend: function(xhr){
-		// 			xhr.setRequestHeader('X-CSRFToken', $.cookie('csrftoken'));
-		// 		},
-		// 		success: function(data){
-		// 			sentences = JSON.parse(data.sentence);						//sentences for grid formation and later for asking relation with the words
-		// 			sentence_words = JSON.parse(data.sentence_word);			//words for asking relation and also their responses are used from database
-		// 			last_sentence_order = JSON.parse(data.last_sentence_order);
-
-		// 			for(var i=0; i<sentences.length; i++ ){
-		// 				sentence_array.push(sentences[i]['fields']['sentence_text']);
-		// 				sentence_trick.push(sentences[i]["fields"]["trick_sentence"].toString()==="True"?true:false);
-		// 				sentence_ids.push(sentences[i]['pk']);
-		// 				sentence_word_array.push(sentence_words[i]['fields']['word']);
-		// 				sentence_word_valence.push(sentence_words[i]["fields"]["valence"]);
-		// 				sentence_response_array.push(sentence_words[i]['fields']['response']);
-		// 			}
-
-		// 			after_sentence_number = last_sentence_order+Math.floor(sentences_sent/2);
-		// 		},
-		// 		error: function(xhr,errmsg,err){
-		// 			// error
-		// 			console.log("ERROR: "+errmsg);
-		// 		}
-		// 	});
-		// }
-
 	
 	$(document).on("click","#exit", function(e){
 		e.preventDefault();
@@ -516,7 +519,7 @@ $(document).ready(function(){
 		gameTime = parseInt(initial_timer);
 		   
 	});
-});
+}); // document.ready ends here 
 
 function playNextSentence(){
 	initializeVariables();
@@ -525,7 +528,7 @@ function playNextSentence(){
 	});
 	
 	$(".tip-text").text("");
-	countdown();
+	ibCountdown();
 	sentence_number++;
 	countTrue=0;
 	foundWord(sentence_array[sentence_number],sentence_word_array[sentence_number]);
@@ -544,7 +547,7 @@ function countdownDisplay() {
 	
 }
 
-function countdown() {
+ibCountdown = function() {
 	// starts countdown
 	if(document.getElementById('countdown')!=null){
 		countdownDisplay();
@@ -569,7 +572,7 @@ function countdown() {
 			} // time is up
 		}else{
 			game_timer--;
-			t = setTimeout(countdown, 1000);
+			t = setTimeout(ibCountdown, 1000);
 
 			if(game_timer===FIRST_HINTS_TIME){
 				if(level===2){
@@ -1564,26 +1567,7 @@ function drawBoard(playGrid,context,bw,bh){                           //making g
 function makeCanvasGrid(playGrid,sorted_words,sentence,GRID_LENGTH){
 	letters_x_coordinate.splice(0,letters_x_coordinate.length);		//make arrays empty for every new canvas
 	letters_y_coordinate.splice(0,letters_y_coordinate.length);
-	
-	// // var canvas_width = bw + (p*2) + 1;
-	// // var ch = bh + (p*2) + 1;
-	// margin_left = 10;
-	// //.. canvas_width = (Math.floor(screen.width-2*margin_left)<MAX_CANVAS_WIDTH)?Math.floor(screen.width-2*margin_left):MAX_CANVAS_WIDTH;
-	// // ..if(canvas_width==MAX_CANVAS_WIDTH)margin_left = Math.floor((screen.width-MAX_CANVAS_WIDTH)/2);
-	// // ..canvas_height = canvas_width;
-	// var number;
-	
-	// canvas_width  = document.getElementById("canvas").offsetWidth;
-	// canvas_height = canvas_width;
-	// // set rowHeight and columnWidth for each canvas grid
-	// columnWidth = Math.floor(canvas_width/GRID_LENGTH);	//Math.floor((window.innerWidth-20)/GRID_LENGTH);
-	// rowHeight = columnWidth;
 
-	// // columnWidth = (Math.floor((window.innerWidth-150)/GRID_LENGTH)<=100)?Math.floor((window.innerWidth-150)/GRID_LENGTH):100;
-	// // rowHeight = columnWidth;
-
-	// var canvas_width = bw + (p*2) + 1;
-	// var ch = bh + (p*2) + 1;
 	margin_left = 10;
 	// canvas_width = (Math.floor(screen.width-2*margin_left)<MAX_CANVAS_WIDTH)?Math.floor(screen.width-2*margin_left):MAX_CANVAS_WIDTH;
 	// if(canvas_width==MAX_CANVAS_WIDTH)margin_left = Math.floor((screen.width-MAX_CANVAS_WIDTH)/2);
@@ -1888,31 +1872,6 @@ function getTouchPos(canvasDom, e) {
 	}
 }
 
-// function saveUserResponse(url, sentence_id, user_response, response_time){
-// 	levelChange(success);
-// 	$.ajax({
-// 		type:"POST",
-// 		url: url,
-// 		data:{
-// 			sentence_id: sentence_id,
-// 			user_response: user_response,
-// 			response_time: response_time,
-// 			score: score,
-// 			level: level,
-// 			streak: streak
-// 		},
-// 		beforeSend: function(xhr){
-// 			xhr.setRequestHeader('X-CSRFToken', $.cookie('csrftoken'));
-// 		},
-// 		success: function(data){
-// 			// success
-// 		},
-// 		error: function(xhr,errmsg,err){
-// 			// error
-// 		}
-// 	});
-// }
-
 function levelChange(success){
 	if(streak>0 && !success){
 		streak=0;	
@@ -1960,29 +1919,6 @@ function generateColor(){
 	return color_string;
 }
 
-// window.addEventListener("beforeunload", function (e){
-// 	e.preventDefault();
-// 	var url = $("#save-user-score").val();
-// 	$.ajax({
-// 		url: url,
-// 		type:'GET', 
-// 		cache:false,
-// 		data:{
-// 			'score':score,
-// 		}, 
-// 		beforeSend: function(xhr){
-// 			xhr.setRequestHeader('X-CSRFToken', $.cookie('csrftoken'));
-// 		},
-// 		success: function(data){
-// 			// success
-// 		},
-// 		error: function(xhr,errmsg,err){
-// 			// error
-// 			console.log("ERROR: "+errmsg);
-// 		}
-// 	});
-// 	return null;
-// });
 
 function showSelectedWord(selected_letter){
 	$(".selected-word").removeClass("d-none");

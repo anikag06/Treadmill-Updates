@@ -1,9 +1,15 @@
 function init_game_variables(){
 	console.log("reached init js");
-	screen_width=800;
-	screen_height=400;
+	// screen_width=800;
+	// screen_height=400;
+
+	screen_height = $('#execGame').height();
+	screen_width = $('#execGame').width();
 
 	scaleRatio = 2/3;
+
+	// if game closed once 
+	game_closed =false;
 
 	//Background Elements
 	cityline_title;
@@ -15,6 +21,7 @@ function init_game_variables(){
 	river_height=37;
 	scene_change_platform;
 	scene_change_platform_velocity_y=0;
+	scene_change_timeout = null;
 	player_y_speed=0;
 
 
@@ -181,8 +188,12 @@ function init_game_variables(){
 	performance_reward=null;
 	reward_group;
 	reward_count;
-	tasks_done;
-	generate_tasks_variable;
+	tasks_done = null;
+	flanker_task_done=null;
+	image_task_done = null;
+	discrimination_task_initial_timeout = null;
+	continue_to_next_set_timeout = null;
+	generate_tasks_variable = null;
 
 
 	//Jump Platform variables
@@ -276,6 +287,7 @@ function init_game_variables(){
 	FLANKER_Y_CORDINATE=screen_height/2.5;
 	FLANKER_X_CORDINATE=screen_width/2;
 	FLANKER_TASK_IMAGE_SCALE=1.5;
+	FLANKER_TASK_IMAGE_SMALL_SCALE = 0.9;
 	FLANKER_TASK_IMAGE_SPEED=15;
 	TIME_FOR_FLANKER=1000;
 
@@ -303,10 +315,10 @@ function init_game_variables(){
 	DISCRIMINATION_Y_CORDINATE=screen_height/2.5;
 	DISCRIMINATION_X_CORDINATE=screen_width/2;
 	DISCRIMIANTION_TASK_IMAGE_SCALE=1.5;
+	DISCRIMINATION_TASK_IMAGE_SMALL_SCALE = 0.9;
 	DISCRIMINATION_TASK_IMAGE_SPEED=15;
 	TIME_FOR_DISCRIMINATION=2000;
-
-
+	
 	//Game Scoring Elements
 	GAME_ELEMENTS_SPEED=12;
 	life;
@@ -459,6 +471,8 @@ function init_game_variables(){
 	jump_tutorial_shown=false;
 	obstacle_tutorial_shown=false;
 	tutorial_text;
+	tutorial_box;
+	tutorial_end_text_time = 10000;
 	double_jump_for_obstacle1_tutorial_shown=false;
 	double_jump_for_obstacle2_tutorial_shown=false;
 	control_button_1=null;
@@ -468,8 +482,8 @@ function init_game_variables(){
 	task_tutorial_text;
 
 	touch_button_animation;
-	touch_alpha=[0.6,1]
-	touch_size=[0.6,0.8]
+	touch_alpha=[0.4,1]
+	touch_size=[0.4,0.6]
 	alpha_choice=0;
 	animation_active=false;
 
@@ -487,6 +501,8 @@ function init_game_variables(){
 	startTunnelMovementDelay=false;
 	stopTunnelMovement=false;
 	stopTunnelMovementDelay=false;
+	stopTunnelTimeout =null;
+	moveSidewardsTimeout = null;
 	flyingDown=false;
 	brickYCordinate;
 	horizontalMovement=false;
@@ -504,4 +520,5 @@ function init_game_variables(){
 
 	game_object;
 	game_over_update=false;
+	console.log("from init ", game_paused);
 }

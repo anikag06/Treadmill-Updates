@@ -21,7 +21,7 @@ function flanker_task_generator()
 			if(isTouchDevice==true)
 			{
 				task_button_blinking_animation=setInterval(right_button_blinker,200);
-				
+				flanker_task_image.setScale(FLANKER_TASK_IMAGE_SMALL_SCALE);
 				console.log(task_tutorial_text);
 			}
 			else
@@ -60,13 +60,14 @@ function flanker_task_generator()
 		{
 			if(isTouchDevice==true)
 			{
-				task_tutorial_text=curr_game.add.text(screen_width*0.18,flanker_task_image.y-flanker_task_image.height,"Press the button in the direction of the middle arrow", { fontSize: '20px', fill: '#000'});
+				task_tutorial_text=curr_game.add.text(screen_width*0.22,flanker_task_image.y-flanker_task_image.height-22,"Press the button in the direction of \nthe middle arrow", { fontSize: '18px', fill: '#EC407A'});
 			}
 			else
 			{
-				task_tutorial_text=curr_game.add.text(screen_width*0.16,flanker_task_image.y-flanker_task_image.height,"Press the Left Key if the middle arrow is pointing left,otherwise press Right Key", { fontSize: '20px', fill: '#000'});
-
+				task_tutorial_text=curr_game.add.text(screen_width*0.17,flanker_task_image.y-flanker_task_image.height-20,"Press the Left Key if the middle arrow is pointing\n left,otherwise press Right Key", { fontSize: '18px', fill: '#EC407A'});
 			}
+			task_tutorial_text.setBackgroundColor('rgba(255,255,255,0.6)')
+			task_tutorial_text.setPadding(24,3,24,3);
 		}
 		
 		//Record flanker task start time
@@ -76,7 +77,7 @@ function flanker_task_generator()
 		
 		if(SHOW_TUTORIAL==false||task_tutorial_shown==true)
 		{
-			setTimeout(flanker_task_complete,TIME_FOR_FLANKER);
+			flanker_task_done = setTimeout(flanker_task_complete,TIME_FOR_FLANKER);
 			console.log("222");
 		}	
 		else
@@ -134,7 +135,7 @@ function flanker_task_complete()
 	console.log("Image type: "+task_image_type);
 	//Add the images
 	task_image=curr_game.add.image(IMAGE_X_CORDINATE,IMAGE_Y_CORDINATE,'image_'+image_choice);
-    setTimeout(image_task_completed,TIME_FOR_IMAGE);
+    image_task_done = setTimeout(image_task_completed,TIME_FOR_IMAGE);
 }
 
 function image_task_completed()
@@ -142,7 +143,7 @@ function image_task_completed()
 	//Destory the images
 	task_image.destroy();
 	//blank screen 
-	setTimeout(discrimination_task_initial,TIME_FOR_BLANK_SCREEN);
+	discrimination_task_initial_timeout = setTimeout(discrimination_task_initial,TIME_FOR_BLANK_SCREEN);
 }
 
 function discrimination_task_initial()

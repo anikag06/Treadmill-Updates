@@ -100,7 +100,7 @@ function scene_changer()
 	else if(startTunnelMovementDelay==false){
 		tunnelDownardMovement=false;
 		startTunnelMovementDelay=true;
-		setTimeout(moveSidewards,500);
+		moveSidewardsTimeout = setTimeout(moveSidewards,500);
 	}
 
 	//Move the bricks till the cut out parts are out of the screen
@@ -124,7 +124,7 @@ function scene_changer()
 		coins_placer();
 
 		if(stopTunnelMovementDelay==false){
-			setTimeout(stopTunnel,10000);
+			stopTunnelTimeout = setTimeout(stopTunnel,10000);
 			stopTunnelMovementDelay=true;
 		}
 	}

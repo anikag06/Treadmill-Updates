@@ -96,9 +96,14 @@ function obstacle_placer() {
 
                 if(isTouchDevice==false)
                 {
-                     tutorial_text.setText("Press          to avoid obstacle");
-                    control_button_1=curr_game.add.image(screen_width*0.45,screen_height*0.22,'spacebar_button').setScale(0.5);
+                    tutorial_box = curr_game.add.tileSprite(screen_width*0.5,screen_height*0.38,screen_width*0.42,screen_height*0.5,"tutorial_box");
+                    tutorial_box.alpha = 0.6;
+                    tutorial_box.depth = 4;
+                    tutorial_text.setText("Press                to\n\n  avoid obstacle");
+                    control_button_1=curr_game.add.image(screen_width*0.48,screen_height*0.32,'spacebar_button').setScale(0.4);
                     console.log("coin tutorial");
+                    tutorial_text.depth = 5;
+                    control_button_1.depth = 5;
                 }
                 else
                 {
@@ -120,10 +125,17 @@ function obstacle_placer() {
 
                 if(isTouchDevice==false)
                 {
-                    tutorial_text.setText("Press        +          to avoid the obstacles");
-                    tutorial_text.x-=150;
-                    control_button_1=curr_game.add.image(screen_width*0.31,screen_height*0.22,'shift_button').setScale(0.5);
-                    control_button_2=curr_game.add.image(screen_width*0.45,screen_height*0.22,'spacebar_button').setScale(0.5);
+                    tutorial_box = curr_game.add.tileSprite(screen_width*0.5,screen_height*0.38,screen_width*0.42,screen_height*0.5,"tutorial_box");
+                    tutorial_box.alpha = 0.6;
+                    tutorial_box.depth = 4;
+                    console.log(tutorial_box);
+                    tutorial_text.setText("Press          +          \n\nto avoid the obstacles");
+                    // tutorial_text.x-=150;
+                    control_button_1=curr_game.add.image(screen_width*0.44,screen_height*0.32,'shift_button').setScale(0.4);
+                    control_button_2=curr_game.add.image(screen_width*0.59,screen_height*0.32,'spacebar_button').setScale(0.4);
+                    tutorial_text.depth = 5;
+                    control_button_1.depth = 5;
+                    control_button_2.depth = 5;
                 }
                 else
                 {
@@ -147,9 +159,15 @@ function obstacle_placer() {
 
                 if(isTouchDevice==false)
                 {
-                    tutorial_text.setText("Press        +          to avoid the obstacles");
-                    control_button_1=curr_game.add.image(screen_width*0.31,screen_height*0.22,'shift_button').setScale(0.5);
-                    control_button_2=curr_game.add.image(screen_width*0.45,screen_height*0.22,'spacebar_button').setScale(0.5);
+                    tutorial_box = curr_game.add.tileSprite(screen_width*0.5,screen_height*0.4,screen_width*0.42,screen_height*0.5,"tutorial_box");
+                    tutorial_box.alpha = 0.6;
+                    tutorial_box.depth = 4;
+                    tutorial_text.setText("Press          +          \n\nto avoid the obstacles");
+                    control_button_1=curr_game.add.image(screen_width*0.44,screen_height*0.32,'shift_button').setScale(0.4);
+                    control_button_2=curr_game.add.image(screen_width*0.59,screen_height*0.32,'spacebar_button').setScale(0.4);
+                    tutorial_text.depth = 5;
+                    control_button_1.depth = 5;
+                    control_button_2.depth = 5;
                 }
                 else
                 {

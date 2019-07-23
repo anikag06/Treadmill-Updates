@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html>
+<!-- <html>
 	<head>
 		<title> Interpretation-Bias-Game</title>
-  </head>
-
-	<body class="center-element">
+  </head> -->
+<div class="container-fluid" id="main_div">
+	<div class="ibGame-page center-element">
    <!-- GAME INSTRUCTIONS - START -->
    <div class="row instructions-row d-none" id="instruct-div">
       <div class="game-instructions">
@@ -74,7 +74,10 @@
               <h5 class="card-header">Science behind the game.</h5>
               <div class="card-body">
                 <p class="card-text">Research shows that depressed people often jump to a negative conclusion. Given an ambiguous situation, they think that the worst outcome is going to happen. This game has been designed to train your mind to link positive outcomes to ambiguous situations.</p>
-                <button type="button" class='btn btn-primary play-game card-button' id='start-btn'>Start Game</button>
+                <button type="button" 
+                  class='btn btn-primary play-game card-button' 
+                  (click) = "onPlayClicked()"
+                  id='start-btn'>Start Game</button>
               </div>
             </div>
           </div>
@@ -82,48 +85,36 @@
       </div>
     </div>
     <!-- GAME INSTRUCTIONS - END -->
-    <div class="container-fluid" id="main_div">
-      <div class="row game-first-page">
-        <div id="frontpage-image"
-          class="col justify-content-center align-items-center">
-        </div>
-
-        <div class="d-flex col justify-content-end btn-play-options">
-          <img 
-            id="start-btn" 
-            class="play-game img-btn" 
-            src="../../../../../assets/games/play.png">
-          <img 
-            id="help-btn" 
-            class="help-btn img-btn" 
-            src="../../../../../assets/games/help.png">
-          <img 
-            id="sound-btn" 
-            class="sound-btn img-btn" 
-            src="../../../../../assets/games/sound.png">
-          <img 
-            id="exit"
-            class="exit mx-1 img-btn" 
-            (click) = "onExitClick()"
-            src="../../../../../assets/games/back.png">
-        </div>
+  
+      <div class="row game-first-page justify-content-center align-items-center">
+        <img id="frontpage-image"
+          src="../../../../../../assets/games/interpretation_bias_game/images/frontpage_image.png"
+          class="col ">
+        
       </div>
         <!-- GAME PLAY - START -->
       <!-- SENTENCE/WORD -->
     <div class="row game d-none" >
       <!-- for score and timer info -->
-      <div id="score-col" class="col-2 score-col changes-width d-none">   
+      <div id="score-col" class="score-col col-2 changes-width d-none">   
         <div class="row d-flex " style="margin-top: 3%">
           <div id="score_info" class="d-inline justify-content-start score_info" >SCORE:
             <div id="score" class="d-inline score"></div>
           </div> 
           <div class="showTimer justify-content-end " id="showTimer">
-            <img class="clock d-inline mr-2" 
-              src="../../../../../assets/games/time_transparent.png">
+            <div class="d-inline">
+              <img class="clock mr-2" 
+                id="ibgame-clock-png"
+                src="../../../../../../assets/games/time_transparent.png">
+              <img class="clock mr-2 d-none"
+                id="ibgame-clock-gif"
+                src="../../../../../../assets/games/interpretation_bias_game/images/Group 1919.gif">
+            </div>
             <div class="d-inline-block countdown ml-2" id="countdown"></div>
           </div> 
         </div>  
-        <div class="d-flex justify-content-start changes-width">
+        
+        <!-- <div class="d-flex justify-content-start changes-width">
               <div class="pause-clicked align-items-center d-none">
                 <div class="col paused-game-btns">
                   <img 
@@ -148,6 +139,7 @@
                   <img 
                     id="replay-btn"
                     class="replay-btn mx-1 img-btn" 
+                    (click) = 'onPlayClicked()'
                     src="../../../../../assets/games/replay.png">
                 </div>  
                 <div class="col paused-game-btns">
@@ -157,7 +149,7 @@
                     src="../../../../../assets/games/sound.png">
                 </div> 
               </div>
-          </div>
+          </div> -->
       </div>
       <div class="col-1 extra-col changes-width d-none"></div>
       <div class="col-6 justify-content-center changes-width sentence-col">
@@ -205,6 +197,14 @@
           <div class="col hints-col changes-width d-none" style="margin-bottom: 2%">
             <!-- CONTROLS -->
             <div class="row row-height-100 changes-width justify-content-end">
+              <div class="row align-self-start col justify-content-center">
+                <img
+                  id="common-hint"
+                  class="mx-1 img-btn"
+                  (click) = "onHintClick()"
+                  src="../../../../../assets/games/hint.png">
+              </div>
+              
               <div class="align-self-center col justify-content-start controls-row">
                   <div id="hint-div" class="row d-none">
                       <!-- <div class="btns-hint "> -->
@@ -235,7 +235,7 @@
                   </div>     
               </div>
                     <div class="align-self-end w-100 justify-content-end pause-hints d-none">
-                      <img 
+                      <!-- <img 
                         id="usehints"
                         class="usehints img-btn " 
                         src="../../../../../assets/games/hint.png">
@@ -243,7 +243,7 @@
                       <img 
                         id="pause-btn"
                         class="pause-btn img-btn" 
-                        src="../../../../../assets/games/pause.png">
+                        src="../../../../../assets/games/pause.png"> -->
                   
                     </div>
             </div>
@@ -415,6 +415,7 @@
                           </div>
                           <img 
                             id="replay-btn"
+                            (click) = 'onPlayClicked()'
                             class="replay-btn mx-1 img-btn" 
                             src="../../../../../assets/games/replay.png"> 
                           <img
@@ -443,5 +444,5 @@
       </div>
 
     </div>
-	</body>
-</html>
+	<!-- </body>
+</html> -->

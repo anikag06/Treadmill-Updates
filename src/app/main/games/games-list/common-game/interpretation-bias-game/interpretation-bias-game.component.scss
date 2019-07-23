@@ -1,34 +1,45 @@
 /* You can add global styles to this file, and also import other style files */
 @import "styles.scss";
-@import "../../shared/games-common.scss";
-body{
+@import "../../../shared/games-common.scss";
+.ibGame-page{
 	margin: auto;
 	align-content: center;
 	align-items: center;
 	text-align: center;
 	flex-direction: row;
-	// max-width: 160vh;
-	max-width: 950px;
-	
+	max-width: 100%;
+	height: 100%;
+	max-height: 100%;
+}
+p{
+	margin: 0%;
+	padding: 0%;
 }
 .container-fluid{
 	background-image: url("/assets/games/interpretation_bias_game/images/background.png");
+	max-width: 100%;
+	height: 100%;
+	max-height: 100%;
 }
 .game,.game-first-page{
 	background-image: url("/assets/games/interpretation_bias_game/images/Automatic Interpretive Bias.png");
 	background-size: 95%;
 	background-position: center;
 	background-repeat: no-repeat;
-	min-height: 500px;
+	height: 100%;
+	max-height: 100%;
+	// min-height: 500px;
 	text-align: center;
 	max-width: 100%;
 }
 #frontpage-image{
-	background-image: url("/assets/games/interpretation_bias_game/images/frontpage_image.png");
-	background-size: 45%;
-	background-position: center;
-	background-repeat: no-repeat;
+	max-width: 35%;
 }
+// 	background-image: url("/assets/games/interpretation_bias_game/images/frontpage_image.png");
+// 	background-size: 35%;
+// 	background-position: center;
+// 	background-repeat: no-repeat;
+// }
 // .sentence-row,
 .stars,.selected-word{
 	margin: auto;
@@ -37,7 +48,6 @@ body{
 }
 .clock{
 	max-width: 20px;
-	max-height: 20px;
 	margin: 2px;
 }
 .row-height-100 {
@@ -156,17 +166,22 @@ canvas{
 }
 @media only screen and (max-width: 991px) and (max-width: 767px) {
 	/* For mobile phones: */
-	body {
+	.ibGame-page {
 		padding: 0px;
 		margin: 0px;
-		max-width: 100%;       
+		max-width: 100%;
+		min-height: 100%   
 	}
 	.paused-game-btns{
 		display: inline;
 	}
+	.extra-col{
+		display: none;
+	}
 	.container-fluid{
 		background-image: url("/assets/games/interpretation_bias_game/images/background_mobile.png");
 		max-width: 100%;
+		min-height: 100%;
 		padding: 0 !important;
    		margin: 0 !important
 	}
@@ -177,9 +192,10 @@ canvas{
 		background-position-x: 4%;
 		text-align: center;
 		width: 100%;
+		min-height: 100%; 
 	}
 	#frontpage-image{
-		background-size: 75%;
+		max-width: 40vw;
 	}
 	.showTimer{
 		display: inline;

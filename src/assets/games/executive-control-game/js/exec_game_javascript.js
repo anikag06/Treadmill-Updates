@@ -23,31 +23,11 @@ function config(render_type,swidth,sheight){
 	};
 };
 
-function resizeGame(swidth, sheight)
-{	
-	// Make div full height of browser and keep the ratio of game resolution
-	let div = document.getElementById('execGame');
-	let div_height = $('#execGame').height();
-	let div_width = $('#execGame').width();
-	console.log("div offset", div_width, div_height);
-
-	// Check if device DPI messes up the width-height-ratio
-	let canvas = document.getElementsByTagName('canvas')[0];
-	
-	let height = div_height;
-	let width = div_width ;
-	
-	console.log("canvas prop", width, height);
-	canvas.style.width = (width) + 'px';
-	console.log(canvas.style.width,canvas.style.height, "from canvas");
-}
-
 
 //Find out browser version
 function browser_version_finder(){
 	var ua= navigator.userAgent,tem, 
 	M= ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
-	console.log(M);
 	if(/trident/i.test(M[1])){
 		tem=  /\brv[ :]+(\d+)/g.exec(ua) || [];
 		return 'IE '+(tem[1] || '');
@@ -67,7 +47,6 @@ function setType()
 {
    
    var browser_version=browser_version_finder().match(/([a-zA-Z]+)\s*(\d+)/);
-	console.log(browser_version);
 	if(browser_version[1] == 'Firefox'){
 		console.log('Firefox');
 		return Phaser.CANVAS;
@@ -91,6 +70,16 @@ var screen_width;
 var screen_height;
 var scaleRatio;
 
+var pause_resume_game;
+var closeECGame;
+var musicECGame;
+
+// if game closed once ... then restarted 
+var game_closed; 
+
+//timeout var 
+var generate_tasks_timeout;
+
 //Background Elements
 var cityline_title;
 var brick;
@@ -101,6 +90,7 @@ var river_filler;
 var river_height;
 var scene_change_platform;
 var scene_change_platform_velocity_y;
+var scene_change_timeout;
 var player_y_speed;
 
 
@@ -268,6 +258,10 @@ var performance_reward;
 var reward_group;
 var reward_count;
 var tasks_done;
+var flanker_task_done;
+var image_task_done;
+var discrimination_task_initial_timeout;
+var continue_to_next_set_timeout;
 var generate_tasks_variable;
 
 
@@ -299,9 +293,6 @@ var game_over_dialog;
 var game_over_text;
 var restart_game_button;
 var end_game_button;
-
-
-
 
 
 //Task buttons
@@ -520,6 +511,8 @@ var SHOW_TUTORIAL;
 var jump_tutorial_shown;
 var obstacle_tutorial_shown;
 var tutorial_text;
+var tutorial_box;
+var tutorial_end_text_time;
 var double_jump_for_obstacle1_tutorial_shown;
 var double_jump_for_obstacle2_tutorial_shown;
 var control_button_1;
@@ -550,6 +543,8 @@ var startTunnelMovement;
 var startTunnelMovementDelay
 var stopTunnelMovement;
 var stopTunnelMovementDelay;
+var stopTunnelTimeout;
+var moveSidewardsTimeout;
 var flyingDown;
 var brickYCordinate;
 var horizontalMovement;
@@ -618,7 +613,6 @@ function preload(){
 	this.load.image('skyline3',png+'/background_images/mountains_snow.png');
 	this.load.image('skyline4',png+'/background_images/city.png');
 	
-	console.log("preload : ",png+'/background_images/mountains.png' );
 	this.load.image('mountain_sky',jpg_location+'/blue_filler.jpg');
 	this.load.image('desert_sky',svg_location+'/sky.svg');
 	this.load.image('evening_sky',jpg_location+'/evening_sky.png');
@@ -663,14 +657,14 @@ function preload(){
 	//Pause and resume Button
 	// this.load.image('pause_button',svg_location+"/pause_button.svg");
 	// this.load.image('resume_button',svg_location+"/resume_button.svg");
-	this.load.image('pause_button', assets_img_location + "/pause.png" );
-	this.load.image('resume_button', assets_img_location + "/play.png" );
+	// this.load.image('pause_button', assets_img_location + "/pause.png" );
+	// this.load.image('resume_button', assets_img_location + "/play.png" );
 
-	//Music button
-	// this.load.image('music_on',svg_location+"/music_on.svg");
-	// this.load.image('music_off',svg_location+"/music_off.svg");
-	this.load.image('music_on', assets_img_location + "/sound.png");
-	this.load.image('music_off', assets_img_location + "/sound.png");
+	// //Music button
+	// // this.load.image('music_on',svg_location+"/music_on.svg");
+	// // this.load.image('music_off',svg_location+"/music_off.svg");
+	// this.load.image('music_on', assets_img_location + "/sound.png");
+	// this.load.image('music_off', assets_img_location + "/mute.png");
 	
 	//Flanker Task Images
 	this.load.image('flanker_0',jpg_location+"/flanker_task/0.jpeg");
@@ -703,9 +697,9 @@ function preload(){
 	this.load.audio('bgm',sound_location+'/bgm.mp3');
 
 	//Gameover dialog
-	this.load.image('game_over_dialog',svg_location+"/gameoverbox.svg");
-	this.load.image('restart_game',svg_location+"/restart_game.svg");
-	this.load.image('end_game',svg_location+"/end_game.svg");
+	this.load.image('game_over_dialog',svg_location+"/gameoverbox.png");
+	this.load.image('restart_game', assets_img_location +"/play.png");		//actually resuming the game
+	this.load.image('end_game', assets_img_location+"/home.png");
 
 	//Yes/no button
 	this.load.image('yes_button',png+"/yes_button.png");
@@ -715,9 +709,11 @@ function preload(){
 	this.load.image("spacebar_button",png+"/spacebar.png");
 	this.load.image("shift_button",png+"/shift.png");
 
+	//tutorial box 
+	this.load.image("tutorial_box",svg_location+"/gameoverbox.png");
+
 	//Tunnel background
 	this.load.image('tunnel',jpg_location+"/tunnel.jpeg");
-
 
 	//Jump controls
 	jumpKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
@@ -739,8 +735,6 @@ function preload(){
 
 function create(){
 
-   
-	
 	//Create physics group for collidables
 	platforms = this.physics.add.group();
 	coins_group=this.physics.add.group();
@@ -780,7 +774,6 @@ function create(){
 		OBSTACLE_Y_CORDINATE=brick.y-brick.height/2;
 		river_filler.height=screen_height-screen_height*0.7-river.height;
 		river_filler.y=screen_height*0.7+river.height+river_filler.height/2;
-		console.log("brick fixed");
 	}
 
 	//Adjust the river position if the screen position
@@ -790,8 +783,6 @@ function create(){
 		river.y=screen_height*0.7+river_height/2;
 		river_filler.height=screen_height-river.y+river.height/2+3;
 		river_filler.y=river.y+river.height/2+river_filler.height/2-1.5;
-		console.log(river_filler.height);
-
 	}
 
 	//Record these for scene changing code
@@ -805,7 +796,7 @@ function create(){
 	life.body.allowGravity=false;
 
 	//Coin_Elements
-	coin_score_icon=coins_group.create(screen_width-40, stat_icon_display_y, 'coin').setScale(0.2);
+	coin_score_icon=coins_group.create(screen_width-40, stat_icon_display_y, 'coin').setScale(0.15);
 	coin_score_icon.body.allowGravity=false;
 	
 	
@@ -855,7 +846,7 @@ function create(){
 	});
 
 	//Texts to be displayed
-	RESPAWNING_TEXT=this.add.text(RESPAWN_X,RESPAWN_Y,"", { fontSize: '50px', fill: '#fff' });
+	RESPAWNING_TEXT=this.add.text(RESPAWN_X,RESPAWN_Y,"", { fontSize: '45px', fill: '#fff' });
 	countdown_text=this.add.text(RESPAWN_X,RESPAWN_Y,"", { fontSize: '50px', fill: '#fff'});
 	scoreText = this.add.text(score_x, stat_text_display_y,score, { fontSize: '30px', fill: '#fff',align:'left' });
 	livesText = this.add.text(heart_x-35, stat_text_display_y, number_of_lives, { fontSize: '30px', fill: '#fff',align:'left' });
@@ -869,32 +860,31 @@ function create(){
    
 
 	//Double jump button
-	double_jump_button=this.add.sprite(screen_width*0.92,screen_height*0.93, 'double_jump').setInteractive().setScale(0.55);
+	double_jump_button=this.add.sprite(screen_width*0.94,screen_height*0.93, 'double_jump').setInteractive().setScale(0.5);
 	double_jump_button.depth=2;
    
 
 	//double jump text
-	double_jump_text=this.add.text(screen_width*0.94,screen_height*0.95,"x"+jumps.remaining, { fontSize: '30px', fill: '#fff',align:'center' });
+	double_jump_text=this.add.text(screen_width*0.95,screen_height*0.95,"x"+jumps.remaining, { fontSize: '22px', fill: '#fff',align:'center' });
 	double_jump_text.depth=3;
 	if(double_jump_button.y+double_jump_button.height/2>screen_height)
 	{
 		double_jump_button.y=screen_height-double_jump_button.height*0.7/2;
 		double_jump_text.y=double_jump_button.y+10;
-		console.log("double_jump adjusted");
 
 	}
 
 	//Tutorial text
-	tutorial_text=this.add.text(screen_width*0.3,screen_height*0.2,"", { fontSize: '30px', fill: '#fff',align:'center' });
-
+	tutorial_text=this.add.text(screen_width*0.32,screen_height*0.3,"", { fontSize: '16px', fill: '#EC407A',align:'center' });
+	tutorial_text.setPadding(20,2,20,2);
+	tutorial_text.depth = 5;
 
 	//If touch add jump button
 	if(isTouchDevice==true)
 	{
 	//Jump Button
-		jump_button=this.add.sprite(screen_width*0.1,screen_height*0.93, 'flanker_button').setInteractive().setScale(0.70);
+		jump_button=this.add.sprite(screen_width*0.09,screen_height*0.93, 'flanker_button').setInteractive().setScale(0.5);
 		jump_button.depth=2;
-		console.log(jump_button.height);
 		if(jump_button.y+jump_button.height/2>screen_height)
 		{
 			jump_button.y=screen_height-jump_button.height*0.7/2;
@@ -914,41 +904,47 @@ function create(){
 	DOUBLE_JUMP_BUTTON_Y=double_jump_button.y;
 	DOUBLE_JUMP_BUTTON_TEXT_Y=double_jump_text.y;
 
-	//Mute button
-	music_button_on=this.add.sprite(screen_width*0.83,screen_height*0.93,'music_on').setInteractive().setScale(0.7);
-	music_button_off=this.add.sprite(screen_width*0.83,screen_height*0.93,'music_off').setInteractive().setScale(0.7);
-	music_button_on.depth=7;
-	music_button_off.depth=6;
+	// //Mute button
+	// music_button_on=this.add.sprite(screen_width*0.83,screen_height*0.93,'music_on').setInteractive().setScale(0.7);
+	// music_button_off=this.add.sprite(screen_width*0.83,screen_height*0.93,'music_off').setInteractive().setScale(0.7);
+	// music_button_on.depth=-10;
+	// music_button_off.depth=-10;
 
-	//pause and resume button
-	pause_button=this.add.sprite(screen_width*0.85 - music_button_on.width/2,screen_height*0.93,'pause_button').setInteractive().setScale(0.7);
-	pause_button.x-=pause_button.width/2;
-	resume_button=this.add.sprite(pause_button.x,screen_height*0.93,'resume_button').setInteractive().setScale(0.7);
-	pause_button.depth=7;			//because depth of screen changer platform is 6
-	resume_button.depth=6;
+	// //pause and resume button
+	// pause_button=this.add.sprite(screen_width*0.85 - music_button_on.width/2,screen_height*0.93,'pause_button').setInteractive().setScale(0.7);
+	// pause_button.x-=pause_button.width/2;
+	// resume_button=this.add.sprite(pause_button.x,screen_height*0.93,'resume_button').setInteractive().setScale(0.7);
+	// pause_button.depth=-10;			//because depth of screen changer platform is 6
+	// resume_button.depth=0;
 
-	//Add click event listeneres
-	pause_button.on('pointerdown',pause_game);
-	resume_button.on('pointerdown',pause_game);
+	// //Add click event listeneres
+	// pause_button.on('pointerdown',pause_resume_game);
+	// resume_button.on('pointerdown',pause_resume_game);
 
-	music_button_off.on('pointerdown',mute_music);
-	music_button_on.on('pointerdown',mute_music);
+	// music_button_off.on('pointerdown',mute_music);
+	// music_button_on.on('pointerdown',mute_music);
 
 
 	//During tasks,resume game if the tab becomes active again
 	window.onfocus = function () { 
-		if(pause_button.y<0)
-		{
-			pause_game();
-		} 
+		// if(pause_button.y<0)
+		// {	
+		if (game_paused === true){
+			$('#pause-common-div').removeClass('d-none');
+			$('#common-pause-clicked-div').addClass('d-none');
+			pause_resume_game();
+		}
 	}; 
 
  
 	//pause the game when the game tab becomes inactive
 	window.onblur = function () { 
-		if(game_paused==false)
+		if(game_paused===false)
 		{    
-			pause_game();
+			console.log("on blur");
+			pause_resume_game();
+			$('#pause-common-div').addClass('d-none');
+			$('#common-pause-clicked-div').removeClass('d-none');
 		}
 	};
 
@@ -960,19 +956,22 @@ function create(){
 	game_over_sound=this.sound.add('game_over_sound');
 
 	//Start scene change every 120 seconds
-	setTimeout(scene_change_start, 5000);
+	
+	scene_change_timeout =  setTimeout(scene_change_start, 5000);
+	
 }
 
 
 function scene_change_start()
 {
-	
+	console.log("isChanging scene", isChangingScene);	
 	//if tasks are going on or game is paused,delay the start of scene change
 	if(start_tasks==true||restore_game==true||game_paused==true)
 	{
-		setTimeout(scene_change_start,5400);
+		scene_change_timeout = setTimeout(scene_change_start,5400);
 		return;
 	}
+	console.log("changing scene");
 	isChangingScene=true;
 }
 
@@ -982,6 +981,12 @@ function update(){
 
 	//Store the current instance of the game (to be used in other files)
 	curr_game=this;
+
+	//if game closed for restarting or page navigation
+	if(game_closed == true){
+		console.log("scene stop");
+		this.scene.stop();
+	}
 
 	//If gameover or game pause return
 	if(gameOver==true||game_paused==true)
@@ -1024,16 +1029,15 @@ function update(){
 	{
 		game_paused=true;
 		bgm_sound.pause();
-
-		console.log("Ae4rer");
 	  
 		double_coin_dialog=this.add.tileSprite(screen_width*0.5,screen_height*0.5,screen_width*0.35,screen_height*0.4,"game_over_dialog");
+		double_coin_dialog.alpha =0.6;
 		double_coin_dialog.depth=4;
-		double_coin_text=this.add.text(screen_width*0.38,screen_height*0.38,"Buy Double Coin Power??", { fontSize: '20px', fill: '#fff',align:'center' });
+		double_coin_text=this.add.text(screen_width*0.38,screen_height*0.38,"Buy Double Coin Power??", { fontSize: '20px', fill: '#000000',align:'center' });
 		double_coin_text.depth=5;
 		double_coin_icon=this.add.image(screen_width*0.5,screen_height*0.50,'coin').setScale(0.3);
 		double_coin_icon.depth=5;
-		double_coin_cost_text=this.add.text(screen_width*0.53,screen_height*0.5,"x"+double_coin_cost, { fontSize: '20px', fill: '#fff',align:'center' });
+		double_coin_cost_text=this.add.text(screen_width*0.53,screen_height*0.5,"x"+double_coin_cost, { fontSize: '20px', fill: '#00000',align:'center' });
 		double_coin_cost_text.depth=5;
 
 		player.anims.play('stand', true);
@@ -1058,14 +1062,11 @@ function update(){
 			
 			
 			destroy_double_coin_dialog_box();
-			
-			console.log('double_coin_selected');
 		});
 
 		double_coin_no_button.on('pointerdown',function(){
 			score_update_handler=setTimeout(score_updator,500);
 			destroy_double_coin_dialog_box();
-			console.log('double_coin_selected');
 		});
 
 		function destroy_double_coin_dialog_box()
@@ -1078,7 +1079,6 @@ function update(){
 			double_coin_yes_button.destroy();
 			double_coin_no_button.destroy();
 			double_coin_option_shown=true;
-			console.log("destroyer");
 			bgm_sound.play();
 			bgm_sound.loop=true;
 			game_paused=false;
@@ -1096,16 +1096,15 @@ function update(){
 		game_paused=true;
 		bgm_sound.pause();
 
-		console.log("Ae4rer");
-
 	  
 		double_coin_dialog=this.add.tileSprite(screen_width*0.5,screen_height*0.5,screen_width*0.35,screen_height*0.4,"game_over_dialog");
+		double_coin_dialog.alpha = 0.6;
 		double_coin_dialog.depth=4;
-		double_coin_text=this.add.text(screen_width*0.38,screen_height*0.38,"Buy Shooting Power??", { fontSize: '20px', fill: '#fff',align:'center' });
+		double_coin_text=this.add.text(screen_width*0.38,screen_height*0.38,"Buy Shooting Power??", { fontSize: '16px', fill: '#000000',align:'center' });
 		double_coin_text.depth=5;
 		double_coin_icon=this.add.image(screen_width*0.5,screen_height*0.50,'coin').setScale(0.3);
 		double_coin_icon.depth=5;
-		double_coin_cost_text=this.add.text(screen_width*0.53,screen_height*0.5,"x"+shooting_power_cost, { fontSize: '20px', fill: '#fff',align:'center' });
+		double_coin_cost_text=this.add.text(screen_width*0.53,screen_height*0.5,"x"+shooting_power_cost, { fontSize: '16px', fill: '#000000',align:'center' });
 		double_coin_cost_text.depth=5;
 
 		player.anims.play('stand', true);
@@ -1130,13 +1129,11 @@ function update(){
 
 			destroy_double_coin_dialog_box();
 			
-			console.log('double_coin_selected');
 		});
 
 		double_coin_no_button.on('pointerdown',function(){
 			score_update_handler=setTimeout(score_updator,500);
 			destroy_double_coin_dialog_box();
-			console.log('double_coin_selected');
 		});
 
 		function destroy_double_coin_dialog_box()
@@ -1149,7 +1146,6 @@ function update(){
 			double_coin_yes_button.destroy();
 			double_coin_no_button.destroy();
 			shooting_power_option_shown=true;
-			console.log("destroyer");
 			bgm_sound.play();
 			bgm_sound.loop=true;
 			game_paused=false;
@@ -1173,7 +1169,6 @@ function update(){
 	if(player.y>screen_height+player.height&&no_player==false)
 	{   
 
-		console.log("Wer");
 
 		falling_down_sound=curr_game.sound.add('falling_down_sound');
 		falling_down_sound.play();
@@ -1207,24 +1202,32 @@ function update(){
 		clearInterval(double_coin_blinker);
 		game_over_sound.play();
 			
-		game_over_dialog=this.add.tileSprite(screen_width*0.5,screen_height*0.5,screen_width*0.32,screen_height*0.5,"game_over_dialog");
+		game_over_dialog=this.add.tileSprite(screen_width*0.5,screen_height*0.5,screen_width*0.42,screen_height*0.5,"game_over_dialog");
 		game_over_dialog.depth=4;
+		game_over_dialog.alpha = 0.6;
 		
-		game_over_text=this.add.text(screen_width*0.41,screen_height*0.38,"Gameover:(", { fontSize: '35px', fill: '#fff',align:'center' });
+		if (screen_width<700){
+			game_over_text=this.add.text(screen_width*0.29,screen_height*0.25,"GAME OVER!", { fontSize: '22px', fill: '#000000',align:'center' });
+			game_over_text.setPadding(68, 0, 68, 0);
+		} else{
+			game_over_text=this.add.text(screen_width*0.29,screen_height*0.25,"GAME OVER!", { fontSize: '30px', fill: '#000000',align:'center' });
+			game_over_text.setPadding(98, 0, 98, 0);
+		}
+		game_over_text.setBackgroundColor('rgba(255,255,255,0.7)');
 		game_over_text.depth=5;
-		
-		restart_game_button=this.add.image(screen_width*0.42,screen_height*0.62,'restart_game').setScale(0.6).setInteractive();
+
+		restart_game_button=this.add.image(screen_width*0.42,screen_height*0.50,'restart_game').setScale(0.6).setInteractive();
 		restart_game_button.depth=5;
 
-		retry_coin_icon=this.add.image(screen_width*0.46,screen_height*0.63,'coin').setScale(0.25);
-		retry_coin_icon.depth=6;
+		// retry_coin_icon=this.add.image(screen_width*0.46,screen_height*0.63,'coin').setScale(0.25);
+		// retry_coin_icon.depth=6;
 
-		retry_coin_text=this.add.text(screen_width*0.47,screen_height*0.65,"x"+retry_cost, { fontSize: '20px', fill: '#fff',align:'center' });
+		retry_coin_text=this.add.text(screen_width*0.34,screen_height*0.57,"Try again for" +"\n"+retry_cost, { fontSize: '16px', fill: '#000000',align:'center' });
 		retry_coin_text.depth=7;
 
-		retry_coin_animation=setInterval(retry_coin_blinker,coin_blinker_interval);
+		// retry_coin_animation=setInterval(retry_coin_blinker,coin_blinker_interval);
 		
-		end_game_button=this.add.image(screen_width*0.58,screen_height*0.62,'end_game').setScale(0.6).setInteractive();
+		end_game_button=this.add.image(screen_width*0.58,screen_height*0.50,'end_game').setScale(0.6).setInteractive();
 		end_game_button.depth=5;
 
 		restart_game_button.on('pointerdown',function(pointer){
@@ -1255,7 +1258,7 @@ function update(){
 			restart_game_button.destroy();
 			end_game_button.destroy();
 			retry_coin_text.destroy();
-			retry_coin_icon.destroy();
+			// retry_coin_icon.destroy();
 
 			setTimeout(score_updator, 500);
 			isJumping=false;
@@ -1269,15 +1272,11 @@ function update(){
 		});
 		end_game_button.on('pointerdown',function(pointer){ 
 
-
 			clearInterval(retry_coin_animation);
 			curr_game.sys.game.destroy(true);
-			console.log("restart");
-			$('#start_page').removeClass('d-none');    
-
+			$('#start_page').removeClass('d-none');
 		});
 	}        
-
 	
 	//No player is currently active on the game,wait for the platforms to reach the required position
 	if(no_player==true&&falling_down_sound==null&&((brick1.x>=-screen_width/2+PLAYER_X+JUMP_RANGE/4&&brick1.x<=screen_width/2+PLAYER_X+JUMP_RANGE/4)||(brick.x>=-screen_width/2+PLAYER_X+JUMP_RANGE/4&&brick.x<=screen_width/2+PLAYER_X+JUMP_RANGE/4)))
@@ -1344,7 +1343,6 @@ function update(){
 				if(SHOW_TUTORIAL==true&&jump_tutorial_shown==false)
 				{
 						first_choice=FIRST_CHOICE_SPLITTER;
-						console.log("2234");
 				}
 				else if(SHOW_TUTORIAL==true&&obstacle_tutorial_shown==false&&stop_obstacle_generation==false)
 				{
@@ -1353,12 +1351,10 @@ function update(){
 				else if(SHOW_TUTORIAL==true&&double_jump_for_obstacle1_tutorial_shown==false&&stop_obstacle_generation==false)
 				{
 						first_choice=FIRST_CHOICE_SPLITTER+1;
-						console.log("consddaolhhhhe");
 				}
 				else if(SHOW_TUTORIAL==true&&double_jump_for_obstacle2_tutorial_shown==false&&stop_obstacle_generation==false)
 				{
 						first_choice=FIRST_CHOICE_SPLITTER+1;
-						console.log("consolsewedhhhhe");
 
 				}
 
@@ -1442,11 +1438,13 @@ function update(){
 			if(flanker_task_init==true)
 			{
 				flanker_task_generator();
+				console.log("after flanker task");
 			}
 
 			//For discrimination task
 			if(discrimination_task_init==true)
 			{
+				console.log("discrimination task init");
 				discrimination_task_generator();
 			}
 
@@ -1628,6 +1626,7 @@ function jump()
 		if(isTouchDevice==false)
 		{
 		tutorial_text.setText("");
+		tutorial_box.destroy();
 		control_button_1.destroy();
 		control_button_1=null;
 		console.log("jump_tutorial");
@@ -1636,7 +1635,7 @@ function jump()
 		{
 			clearInterval(touch_button_animation);
 			jump_button.alpha=1;
-			jump_button.setScale(0.7);
+			jump_button.setScale(0.6);
 			animation_active=false;
 		}
 	}
@@ -1650,6 +1649,7 @@ function jump()
 		if(isTouchDevice==false)
 		{
 		tutorial_text.setText("");
+		tutorial_box.destroy();
 		control_button_1.destroy();
 		control_button_1=null;
 		console.log("jump_tutorial");
@@ -1658,7 +1658,7 @@ function jump()
 		{
 			clearInterval(touch_button_animation);
 			jump_button.alpha=1;
-			jump_button.setScale(0.7);
+			jump_button.setScale(0.6);
 			animation_active=false;
 		   
 		}
@@ -1669,7 +1669,6 @@ function jump()
 		type=SINGLE_JUMP;
 		jump_action(jump_height/type,jump_velocity*type);
 		curr_game.sound.add('jumping_sound').play();
-		console.log("jumping");
 	
 	}
 }
@@ -1688,6 +1687,7 @@ function double_jump(){
 		if(isTouchDevice==false)
 		{
 		tutorial_text.setText("");
+		tutorial_box.destroy();
 		control_button_1.destroy();
 		contorl_button_1=null;
 		control_button_2.destroy();
@@ -1697,7 +1697,7 @@ function double_jump(){
 		{
 			clearInterval(touch_button_animation);
 			double_jump_button.alpha=1;
-			double_jump_button.setScale(0.7);
+			double_jump_button.setScale(0.5);
 			animation_active=false;
 		}
 		console.log("obstacle_tutorial");
@@ -1711,6 +1711,7 @@ function double_jump(){
 		if(isTouchDevice==false)
 		{
 		tutorial_text.setText("");
+		tutorial_box.destroy();
 		control_button_1.destroy();
 		contorl_button_1=null;
 		control_button_2.destroy();
@@ -1720,7 +1721,7 @@ function double_jump(){
 		{
 			clearInterval(touch_button_animation);
 			double_jump_button.alpha=1;
-			double_jump_button.setScale(0.7);
+			double_jump_button.setScale(0.5);
 			animation_active=false;
 		}
 	}
@@ -1799,7 +1800,7 @@ function shoot(){
 
 	if(SHOOTING_POWER==true&&game_paused==false&&gameOver==false&&reachedCrossing==false&&shoot_x[shoot_x.length-1][1]>screen_width/8&&shoot_y[shoot_y.length-1][1]<screen_height*0.8&&shoot_y[shoot_y.length-1][1]>screen_height*0.1+pause_button.height/2)
 	{
-		console.log(obstacle_for_coin.length);
+
 		shooting_bomb.push(curr_game.add.image(shooting_bomb_x,player.y,'bomb').setScale(2));
 		shooting_bomb_group.add(shooting_bomb[shooting_bomb.length-1]);
 		shooting_bomb[shooting_bomb.length-1].body.allowGravity=false;
@@ -1823,7 +1824,7 @@ function shoot(){
 		}
 
 		movement_progress.push(movement_increment);
-		console.log(shooting_bomb.length);
+		// console.log(shooting_bomb.length);
 		if(isShooting==false)
 		{
 			shoot_action();
@@ -1831,8 +1832,8 @@ function shoot(){
 	}
 	else
 	{
-		console.log(shoot_y[shoot_y.length-1][1]);
-		console.log(screen_height*0.8);
+		// console.log(shoot_y[shoot_y.length-1][1]);
+		// console.log(screen_height*0.8);
 		shoot_x.pop();
 		shoot_y.pop();
 
@@ -1842,10 +1843,9 @@ function shoot(){
 	clicked_detected=false;
 	
 }
-  
 
 //For pausing the game    
-function pause_game(){
+pause_resume_game = function(){
 	console.log("game paused");
 	if(gameOver==true||control_button_1!=null||animation_active==true||score==0||control_button_1!=null||animation_active==true)
 	{
@@ -1855,9 +1855,8 @@ function pause_game(){
 	game_paused=!game_paused;
 	if(game_paused==false)
 	{
-		$(".pause-clicked-div").addClass("d-none");
-		pause_button.depth=7;
-		resume_button.depth=6;
+		// pause_button.depth=7;
+		// resume_button.depth=6;
 		if(reachedCrossing==false)
 		{
 			bgm_sound.resume();
@@ -1865,9 +1864,8 @@ function pause_game(){
 	}
 	else
 	{
-		$(".pause-clicked-div").removeClass("d-none");
-		pause_button.depth=6;
-		resume_button.depth=7;
+		// pause_button.depth=6;
+		// resume_button.depth=7;
 		if(reachedCrossing==false||game_restore==true)
 		{
 			bgm_sound.pause();
@@ -1877,7 +1875,8 @@ function pause_game(){
 
 }
 
-function mute_music()
+
+musicECGame =  function()
 {
 
 	music_muted=!music_muted;
@@ -1886,16 +1885,59 @@ function mute_music()
 	if(music_muted==true)
 	{
 		curr_game.sound.mute=true;
-		music_button_on.depth=6;					//1
-		music_button_off.depth=7;					//2
+		// music_button_on.depth=6;					//1
+		// music_button_off.depth=7;					//2
 	}
 	else
 	{
 		curr_game.sound.mute=false;
-		music_button_on.depth=7;
-		music_button_off.depth=6;
+		// music_button_on.depth=7;
+		// music_button_off.depth=6;
 
 	}
+}
+closeECGame = function(){ 
+	console.log("close the game");
+	gameOver=true;
+	game_closed = true;
+	
+	clearInterval(blinking_animation);
+
+	clearInterval(respawn_animator);
+	clearInterval(double_coin_blinker);
+	clearInterval(score_update_handler);
+	clearInterval(player_blinking_animation);
+	clearInterval(countdown_handler);
+	clearInterval(retry_coin_animation);
+	clearInterval(jump_tutorial_animation);
+
+	// in task
+	console.log(generate_tasks_variable);
+	clearTimeout(generate_tasks_variable);
+	console.log(generate_tasks_variable);
+	clearTimeout(tasks_done);
+	clearTimeout(flanker_task_done);
+	clearTimeout(image_task_done);
+	clearTimeout(discrimination_task_initial_timeout);
+	clearTimeout(continue_to_next_set_timeout);
+
+	clearInterval(start_countdown);
+	clearInterval(task_button_blinking_animation);
+	clearInterval(touch_button_animation);
+	
+	console.log(scene_change_timeout);
+	//when scene change
+	clearTimeout(scene_change_timeout);
+	clearTimeout(moveSidewardsTimeout);
+	clearTimeout(stopTunnelTimeout);
+	scene_change_timeout = null;
+
+	console.log(scene_change_timeout);
+	if(curr_game){
+		curr_game.sys.game.destroy(true);
+	}
+	return;
+	// $('#start_page').removeClass('d-none');    
 }
 
 function score_updator(){   
@@ -1964,7 +2006,6 @@ function blinking_animation()
 		}
 
 		player_counter++;
-		console.log(player_counter);
 	}
 }
 
@@ -1972,7 +2013,6 @@ function blinking_animation()
 function jumps_remaining_changer()
 {
 
-	console.log("double_jump_over");
 	if(double_jump_coin!=null&&jumps.remaining!=0)
 	{
 		double_jump_coin.destroy();
@@ -1990,7 +2030,7 @@ function jumps_remaining_changer()
 //Watch for change in level.number 
 function level_changer(){
 	
-   
+	console.log("level:", level.number,stop_obstacle_generation);
 	if(level.number==2)
 	{
 		stop_obstacle_generation=false;

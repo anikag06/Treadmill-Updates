@@ -32,17 +32,16 @@ export class GamesListComponent implements OnInit {
 
   onGameClick(game: Game) {
     this.gameStarted = true;
-    this.gamePlayService.setGameInfo(game.name);
     // this.gameName = game.name;
     // this.renderer.setStyle(this.game_div, 'background-image', this.getBackgroundImg());
     // this.renderer.setStyle(this.game_div, 'background-repeat', 'no-repeat');
     // this.renderer.setStyle(this.game_div, 'background-color', '#a2e2ec');
-    if (game.name === 'Interpretation Bias Game') {
-      this.router.navigate(['interpretationbias'], {relativeTo: this.route} );
-    }
-    if (game.name === 'Executive Control Game') {
-      this.router.navigate(['playgame'], {relativeTo: this.route} );
-    }
+    // if (game.name === 'Interpretation Bias Game') {
+    //   this.router.navigate(['interpretationbias'], {relativeTo: this.route} );
+    // }
+    // if (game.name === 'Executive Control Game') {
+    this.router.navigate([game.slug], {relativeTo: this.route} );
+    // }
   }
   getBackgroundImg() {
     return  'url(\"assets/games/executive-control-game/png/background_images/mountains.png\")';
