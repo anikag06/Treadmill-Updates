@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  HOST: 'localhost:8000',
-  API_ENDPOINT: 'http://localhost:8000',
+  HOST: '172.26.90.49:9000',
+  API_ENDPOINT: 'http://172.26.90.49:9000',
 };
 
 /*

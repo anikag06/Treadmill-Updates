@@ -90,8 +90,9 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
       this.message = this.message.replace(/[\n\t\r]/g, '');
       this.messages.push(new Chat(this.message, true, [], '', '', new Date()));
       this.scrollToBottom();
-      this.webSocket.send(JSON.stringify({ 'action': REPLY_CURRENT, 'message': { 'text': this.message, 'buttons': [] } }));
       this.message = '';
+      const message = this.message;
+      this.webSocket.send(JSON.stringify({ 'action': REPLY_CURRENT, 'message': { 'text': message, 'buttons': [] } }));
       if (screen.availWidth > 576) {
         this.ti.nativeElement.disabled = true;
       }
