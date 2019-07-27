@@ -1,23 +1,22 @@
 import {
   AfterViewChecked,
-  AfterViewInit,
   ChangeDetectorRef,
   Component,
-  ElementRef, EventEmitter,
+  ElementRef,
+  EventEmitter,
   Input,
   OnChanges,
   OnDestroy,
-  OnInit, Output, SimpleChanges,
+  OnInit,
+  Output,
   ViewChild
 } from '@angular/core';
 import {Chat} from '@/main/chatbot/chat.model';
 import {environment} from '../../../../environments/environment';
-import {NEW_CHAT, REPLY_CURRENT, RESUME_CHAT} from '@/app.constants';
+import {NEW_CHAT, REPLY_CURRENT, RESUME_CHAT, MAX_RETRIES} from '@/app.constants';
 import {ChatbotService} from '@/main/chatbot/chatbot.service';
 import {AuthService} from '@/shared/auth/auth.service';
-import set = Reflect.set;
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import { Subscription, interval } from 'rxjs';
 
 
 @Component({
@@ -55,8 +54,9 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
   buttons: any = [];
   scrollTop = 0;
   totalDelay = 2400;
-  halfwayDelay = 1100;
+  halfwayDelay = 1000;
   chatClosed = false;
+  retries = 0;
 
 
   @ViewChild('messagesDiv', {static: false}) messagesDiv!: ElementRef;
@@ -64,10 +64,13 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
   @Input() chatWindowClosed = false;
   @Output() chatWindowClosedEmitter = new EventEmitter<Boolean>();
 
-  ngOnChanges(changes: SimpleChanges): void {
-    // Start chat when chatwindow open
-    if (this.chatWindowClosed === false && !this.webSocket) {
-      this.startChatSession(NEW_CHAT);
+  ngOnChanges(): void {
+    if (this.chatWindowClosed === false) {
+      if (!this.webSocket || (this.webSocket && this.webSocket.readyState === 3)) {
+        this.startChatSession(RESUME_CHAT);
+      }
+    } else {
+      this.closeChat();
     }
   }
 
@@ -92,13 +95,12 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
       this.message = this.message.replace(/[\n\t\r]/g, '');
       this.messages.push(new Chat(this.message, true, [], '', '', new Date()));
       this.scrollToBottom();
-      this.message = '';
       const message = this.message;
+      this.message = '';
       this.webSocket.send(JSON.stringify({ 'action': REPLY_CURRENT, 'message': { 'text': message, 'buttons': [] } }));
       if (screen.availWidth > 576) {
-        // this.ti.nativeElement.disabled = true;
+        this.ti.nativeElement.disabled = true;
       }
-      console.log(this.webSocket.readyState)
     }
     setTimeout(() => {
       this.ti.nativeElement.focus();
@@ -107,15 +109,11 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
   }
 
   close() {
-    this.chatWindowClosed = true;
-    this.chatWindowClosedEmitter.emit(true);
+    this.closeChat();
   }
 
   ngOnDestroy(): void {
-    if (this.webSocket) {
-      this.chatClosed = true;
-      this.webSocket.close();
-    }
+    this.closeChat();
   }
 
 
@@ -151,6 +149,8 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
         this.messages.push(item);
         this.webSocket.close();
         this.startChatSession(NEW_CHAT);
+      } else if (data.action === 'ws_close') {
+          this.closeChat();
       } else {
         data.message.forEach((m: any, index: number) => {
           setTimeout(() => {
@@ -160,19 +160,21 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
                 this.scrollToBottom();
               });
             }
-          }, this.totalDelay * index + Math.floor((Math.random() * 500) + 1));
+          }, this.totalDelay * index + + Math.floor((Math.random() * 500) + 1));
         });
       }
+    };
 
-      this.webSocket.onclose = () => {
-        if (!this.chatClosed) {
-          this.startChatSession(NEW_CHAT);
-        }
-      };
+    this.webSocket.onclose = () => {
+      if (!this.chatClosed && this.webSocket.readyState === 3 && this.retries < MAX_RETRIES) {
+        this.retries++;
+        this.startChatSession(NEW_CHAT);
+      }
     };
 
     this.webSocket.onerror = () => {
       this.webSocket.close();
+      this.retries++;
       this.startChatSession(NEW_CHAT);
     };
     this.scrollToBottom();
@@ -200,13 +202,16 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
       this.messages.pop();
       this.pushChat(m);
       setTimeout(this.scrollToBottom);
-    }, this.halfwayDelay);
+    }, this.halfwayDelay + Math.floor((Math.random() * 500) + 1));
   }
 
-  checkWebSocketAndReconnect() {
-    console.log(this.webSocket.readyState)
-    if (this.webSocket && this.webSocket.readyState === 3) {
-      this.startChatSession(RESUME_CHAT);
+  closeChat() {
+    if (this.webSocket) {
+      this.chatClosed = true;
+      this.webSocket.close();
     }
+    this.retries = 0;
+    this.chatWindowClosedEmitter.emit(true);
+    this.chatWindowClosed = true;
   }
 }

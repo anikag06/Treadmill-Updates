@@ -45,3 +45,5 @@ export const RECOMMENDED       = 'recommended';
 export const NEW_CHAT = 'new_chat';
 export const RESUME_CHAT = 'resume_chat';
 export const REPLY_CURRENT = 'reply_current';
+
+export const MAX_RETRIES = 10;
