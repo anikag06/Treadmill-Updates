@@ -1,11 +1,15 @@
 //Configuration for phaser.js
-function config(render_type,swidth,sheight){
+function config(render_type,swidth,sheight,modeType,center){
 	console.log("game start");
 	this.type=render_type;
-	this.width=swidth;
-	this.height=sheight;
-	console.log("height and width", this.width, " " , this.height);
 	this.parent='execGame';
+	this.scale = {
+		mode:modeType,
+		autoCenter: center,
+		width: swidth,
+		height: sheight
+	};
+	console.log(this.scale);
 	this.physics= {
 		default: 'arcade',
 		arcade: {
@@ -63,7 +67,12 @@ function setType()
 	}
 
 }
-
+function modeType(){
+	return Phaser.Scale.FIT;
+}
+function setCenter(){
+	return Phaser.Scale.CENTER_BOTH;
+}
 
 
 var screen_width;
@@ -728,7 +737,7 @@ function preload(){
 	discriminationRedKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
 	
 
-	isTouchDevice = 'ontouchstart' in document.documentElement;   
+	isTouchDevice = 'ontouchstart' in document.documentElement;  
 }
 
 
@@ -747,9 +756,9 @@ function create(){
 	shooting_bomb_group=this.physics.add.group();
 	reward_group=this.physics.add.group();
 
-
-
-
+	// this.input.enabled = true; 
+	// this.input.addPointer(2);
+	// this.renderer.resize(200, 500, 1.0);
 	//Backgrond Elements
 	blue_filler=this.add.tileSprite(screen_width/2,screen_height*0.35,screen_width,screen_height*0.7,"mountain_sky");
 	cityline_title=this.add.tileSprite(screen_width/2,screen_height*(0.7-Cityline_height/(screen_height*2)),screen_width,Cityline_height,'skyline');
@@ -757,6 +766,19 @@ function create(){
 	
 	river=this.add.tileSprite(screen_width/2,screen_height*0.75,screen_width,screen_height*0.1,'river');
 	river_filler=this.add.tileSprite(screen_width/2,screen_height*0.9,screen_width,screen_height*0.2,'river_filler');
+
+	function callback(){
+		console.log("done");
+	}
+	river.setInteractive();
+	console.log(river.input);
+	console.log(this.input);
+	river.on('pointerdown', function (pointer) {
+		console.log(pointer);
+		console.log('dowwwwn', screen_width,screen_height);
+		console.log(river.input);
+
+	});
 
 	brick=this.add.tileSprite(screen_width/2,screen_height*0.9,screen_width,screen_height*0.2,'brick');
 	platforms.add(brick);
@@ -810,7 +832,6 @@ function create(){
 		setTimeout(shoot,DOUBLE_CLICK_INTERVAL);
 		}
 	 });
-
 	//Add player and collider
 	player = this.physics.add.sprite(PLAYER_X,PLAYER_INITIAL_Y,'dude');
 
@@ -846,8 +867,8 @@ function create(){
 	});
 
 	//Texts to be displayed
-	RESPAWNING_TEXT=this.add.text(RESPAWN_X,RESPAWN_Y,"", { fontSize: '45px', fill: '#fff' });
-	countdown_text=this.add.text(RESPAWN_X,RESPAWN_Y,"", { fontSize: '50px', fill: '#fff'});
+	RESPAWNING_TEXT=this.add.text(RESPAWN_X,RESPAWN_Y,"", { fontSize: '30px', fill: '#fff' });
+	countdown_text=this.add.text(RESPAWN_X,RESPAWN_Y,"", { fontSize: '30px', fill: '#fff'});
 	scoreText = this.add.text(score_x, stat_text_display_y,score, { fontSize: '30px', fill: '#fff',align:'left' });
 	livesText = this.add.text(heart_x-35, stat_text_display_y, number_of_lives, { fontSize: '30px', fill: '#fff',align:'left' });
 	coinsCollectedText=this.add.text(screen_width-90-COIN_SCORE_LENGTH_ADJUSTMENT*(coins_collected.toString().length-1), stat_text_display_y,coins_collected, { fontSize: '30px', fill: '#fff',align:'left',wordWrap: true });
@@ -860,12 +881,12 @@ function create(){
    
 
 	//Double jump button
-	double_jump_button=this.add.sprite(screen_width*0.94,screen_height*0.93, 'double_jump').setInteractive().setScale(0.5);
+	double_jump_button=this.add.sprite(screen_width*0.94,screen_height*0.97, 'double_jump').setInteractive().setScale(0.5);
 	double_jump_button.depth=2;
    
 
 	//double jump text
-	double_jump_text=this.add.text(screen_width*0.95,screen_height*0.95,"x"+jumps.remaining, { fontSize: '22px', fill: '#fff',align:'center' });
+	double_jump_text=this.add.text(screen_width*0.935,screen_height*0.96,"x"+jumps.remaining, { fontSize: '22px', fill: '#fff',align:'center' });
 	double_jump_text.depth=3;
 	if(double_jump_button.y+double_jump_button.height/2>screen_height)
 	{
@@ -883,13 +904,15 @@ function create(){
 	if(isTouchDevice==true)
 	{
 	//Jump Button
-		jump_button=this.add.sprite(screen_width*0.09,screen_height*0.93, 'flanker_button').setInteractive().setScale(0.5);
+		jump_button=this.add.sprite(screen_width*0.06,screen_height*0.97, 'flanker_button').setInteractive().setScale(0.5);
 		jump_button.depth=2;
 		if(jump_button.y+jump_button.height/2>screen_height)
 		{
 			jump_button.y=screen_height-jump_button.height*0.7/2;
 		}
+		jump_button.height = 50;
 		jump_button.on('pointerdown',jump);
+		console.log("on jump", jump_button.height);
 		jump_button.on('pointerdown',function(){this.alpha=1});
 		double_jump_button.on('pointerdown',double_jump);
 		double_jump_button.on('pointerdown',function(){this.alpha=1});
@@ -926,27 +949,27 @@ function create(){
 
 
 	//During tasks,resume game if the tab becomes active again
-	window.onfocus = function () { 
-		// if(pause_button.y<0)
-		// {	
-		if (game_paused === true){
-			$('#pause-common-div').removeClass('d-none');
-			$('#common-pause-clicked-div').addClass('d-none');
-			pause_resume_game();
-		}
-	}; 
+	// window.onfocus = function () { 
+	// 	// if(pause_button.y<0)
+	// 	// {	
+	// 	if (game_paused === true){
+	// 		$('#pause-common-div').removeClass('d-none');
+	// 		$('#common-pause-clicked-div').addClass('d-none');
+	// 		pause_resume_game();
+	// 	}
+	// }; 
 
  
-	//pause the game when the game tab becomes inactive
-	window.onblur = function () { 
-		if(game_paused===false)
-		{    
-			console.log("on blur");
-			pause_resume_game();
-			$('#pause-common-div').addClass('d-none');
-			$('#common-pause-clicked-div').removeClass('d-none');
-		}
-	};
+	// //pause the game when the game tab becomes inactive
+	// window.onblur = function () { 
+	// 	if(game_paused===false)
+	// 	{    
+	// 		console.log("on blur");
+	// 		pause_resume_game();
+	// 		$('#pause-common-div').addClass('d-none');
+	// 		$('#common-pause-clicked-div').removeClass('d-none');
+	// 	}
+	// };
 
 	//Add sound and loop it
 	bgm_sound=this.sound.add('bgm');
@@ -979,14 +1002,9 @@ function scene_change_start()
 //This called(implicitly) for every frame update
 function update(){
 
+	this.input.topOnly = true;
 	//Store the current instance of the game (to be used in other files)
 	curr_game=this;
-
-	//if game closed for restarting or page navigation
-	if(game_closed == true){
-		console.log("scene stop");
-		this.scene.stop();
-	}
 
 	//If gameover or game pause return
 	if(gameOver==true||game_paused==true)
@@ -1037,7 +1055,7 @@ function update(){
 		double_coin_text.depth=5;
 		double_coin_icon=this.add.image(screen_width*0.5,screen_height*0.50,'coin').setScale(0.3);
 		double_coin_icon.depth=5;
-		double_coin_cost_text=this.add.text(screen_width*0.53,screen_height*0.5,"x"+double_coin_cost, { fontSize: '20px', fill: '#00000',align:'center' });
+		double_coin_cost_text=this.add.text(screen_width*0.53,screen_height*0.5,"x"+double_coin_cost, { fontSize: '20px', fill: '#000000',align:'center' });
 		double_coin_cost_text.depth=5;
 
 		player.anims.play('stand', true);
@@ -1045,11 +1063,11 @@ function update(){
 
 		clearInterval(score_update_handler);
 
-		double_coin_yes_button=this.add.image(double_coin_dialog.x,double_coin_dialog.y+double_coin_dialog.height/3,'yes_button').setScale(0.7).setInteractive();
+		double_coin_yes_button=this.add.image(double_coin_dialog.x,double_coin_dialog.y+double_coin_dialog.height/3,'yes_button').setScale(0.6).setInteractive();
 		double_coin_yes_button.depth=5;
 		double_coin_yes_button.x-=double_coin_yes_button.width*0.5;
 	   
-		double_coin_no_button=this.add.image(double_coin_dialog.x,double_coin_dialog.y+double_coin_dialog.height/3,'no_button').setScale(0.7).setInteractive();
+		double_coin_no_button=this.add.image(double_coin_dialog.x,double_coin_dialog.y+double_coin_dialog.height/3,'no_button').setScale(0.6).setInteractive();
 		double_coin_no_button.depth=5;
 		double_coin_no_button.x+=double_coin_yes_button.width*0.5;
 
@@ -1113,10 +1131,10 @@ function update(){
 
 		clearInterval(score_update_handler);
 
-		double_coin_yes_button=this.add.image(double_coin_dialog.x,double_coin_dialog.y+double_coin_dialog.height/3,'yes_button').setScale(0.7).setInteractive();
+		double_coin_yes_button=this.add.image(double_coin_dialog.x,double_coin_dialog.y+double_coin_dialog.height/3,'yes_button').setScale(0.6).setInteractive();
 		double_coin_yes_button.depth=5;
 		double_coin_yes_button.x-=double_coin_yes_button.width*0.5;
-		double_coin_no_button=this.add.image(double_coin_dialog.x,double_coin_dialog.y+double_coin_dialog.height/3,'no_button').setScale(0.7).setInteractive();
+		double_coin_no_button=this.add.image(double_coin_dialog.x,double_coin_dialog.y+double_coin_dialog.height/3,'no_button').setScale(0.6).setInteractive();
 		double_coin_no_button.depth=5;
 		double_coin_no_button.x+=double_coin_no_button.width*0.5;
 
@@ -1173,20 +1191,23 @@ function update(){
 		falling_down_sound=curr_game.sound.add('falling_down_sound');
 		falling_down_sound.play();
 		game_paused=true;
-		falling_down_sound.on('ended',function(){falling_down_sound=null;game_paused=false;});
-
+		falling_down_sound.once('complete',function(){
+			falling_down_sound=null;
+			game_paused=false;});
+		console.log("no player", no_player, game_paused);
 
 		//Reduce the number of lives and adjust the lives display accordingly;
 		if(number_of_lives>0)number_of_lives--;
 		livesText.setText(number_of_lives);
 		
-		
 		//If life is still available continue ,otherwise GameOver
 		if(number_of_lives!=0)
 		{
 			no_player=true;
+			console.log("lives",number_of_lives,no_player);
 			//Display the respawning text till a new player is created
 			respawn_animator=setInterval(respawn_animation,RESPAWN_ANIMATION_INTERVAL);
+			console.log(respawn_animator);
 			respawn_dot_length=0;
 		}
 		
@@ -1200,29 +1221,25 @@ function update(){
 		gameOver=true;
 		clearInterval(respawn_animator);
 		clearInterval(double_coin_blinker);
+		clearInterval(scene_change_timeout);
 		game_over_sound.play();
 			
 		game_over_dialog=this.add.tileSprite(screen_width*0.5,screen_height*0.5,screen_width*0.42,screen_height*0.5,"game_over_dialog");
 		game_over_dialog.depth=4;
 		game_over_dialog.alpha = 0.6;
 		
-		if (screen_width<700){
-			game_over_text=this.add.text(screen_width*0.29,screen_height*0.25,"GAME OVER!", { fontSize: '22px', fill: '#000000',align:'center' });
-			game_over_text.setPadding(68, 0, 68, 0);
-		} else{
-			game_over_text=this.add.text(screen_width*0.29,screen_height*0.25,"GAME OVER!", { fontSize: '30px', fill: '#000000',align:'center' });
-			game_over_text.setPadding(98, 0, 98, 0);
-		}
+		game_over_text=this.add.text(game_over_dialog.x-(game_over_dialog.width*0.25)+10,game_over_dialog.y-(game_over_dialog.height*0.5),"GAME OVER!", { fontSize: '26px', fill: '#000000',align:'center' });
+		// game_over_text.setPadding(game_over_dialog.width*0.5-20 , 1, game_over_dialog.width*0.5-20, 1);
 		game_over_text.setBackgroundColor('rgba(255,255,255,0.7)');
 		game_over_text.depth=5;
 
 		restart_game_button=this.add.image(screen_width*0.42,screen_height*0.50,'restart_game').setScale(0.6).setInteractive();
 		restart_game_button.depth=5;
-
+		
 		// retry_coin_icon=this.add.image(screen_width*0.46,screen_height*0.63,'coin').setScale(0.25);
 		// retry_coin_icon.depth=6;
 
-		retry_coin_text=this.add.text(screen_width*0.34,screen_height*0.57,"Try again for" +"\n"+retry_cost, { fontSize: '16px', fill: '#000000',align:'center' });
+		retry_coin_text=this.add.text(screen_width*0.34,screen_height*0.57,"Try again for" +"\n"+retry_cost+ " coins", { fontSize: '16px', fill: '#000000',align:'center' });
 		retry_coin_text.depth=7;
 
 		// retry_coin_animation=setInterval(retry_coin_blinker,coin_blinker_interval);
@@ -1230,9 +1247,11 @@ function update(){
 		end_game_button=this.add.image(screen_width*0.58,screen_height*0.50,'end_game').setScale(0.6).setInteractive();
 		end_game_button.depth=5;
 
-		restart_game_button.on('pointerdown',function(pointer){
+		
+		console.log(restart_game_button);
+		restart_game_button.on('pointerdown', function() {
 
-
+			console.log("Restart game");
 			if(coins_collected<retry_cost)
 			{
 				return;
@@ -1261,6 +1280,8 @@ function update(){
 			// retry_coin_icon.destroy();
 
 			setTimeout(score_updator, 500);
+			scene_change_timeout =  setTimeout(scene_change_start, 5000);
+			
 			isJumping=false;
 			if(player.y>screen_height+player.height)
 			{
@@ -1269,22 +1290,22 @@ function update(){
 			game_over_sound.stop();
 			bgm_sound.play();
 		 
-		});
-		end_game_button.on('pointerdown',function(pointer){ 
-
+		}, curr_game);
+		
+		end_game_button.on('pointerdown', (pointer)=>{ 
+			console.log("end game clicked");
 			clearInterval(retry_coin_animation);
-			curr_game.sys.game.destroy(true);
 			$('#start_page').removeClass('d-none');
-		});
+			$( '#game_div' ).load(window.location.href + ' #game_div' );
+		},curr_game);
 	}        
-	
 	//No player is currently active on the game,wait for the platforms to reach the required position
 	if(no_player==true&&falling_down_sound==null&&((brick1.x>=-screen_width/2+PLAYER_X+JUMP_RANGE/4&&brick1.x<=screen_width/2+PLAYER_X+JUMP_RANGE/4)||(brick.x>=-screen_width/2+PLAYER_X+JUMP_RANGE/4&&brick.x<=screen_width/2+PLAYER_X+JUMP_RANGE/4)))
 	{
-	   
 		//Destory the current player and create new player and colliders for it
 		player.destroy();
 		player = this.physics.add.sprite(PLAYER_X,PLAYER_INITIAL_Y,'dude');
+		player.height = (screen_height/8);
 		this.physics.add.collider(player,brick);
 		this.physics.add.collider(player,brick1);
 		
@@ -1297,7 +1318,6 @@ function update(){
 		respawn_dot_length=0;
 	  
 	}
-
 
 	//Keyboard
 	//Flanker task response
@@ -1438,13 +1458,11 @@ function update(){
 			if(flanker_task_init==true)
 			{
 				flanker_task_generator();
-				console.log("after flanker task");
 			}
 
 			//For discrimination task
 			if(discrimination_task_init==true)
 			{
-				console.log("discrimination task init");
 				discrimination_task_generator();
 			}
 
@@ -1615,7 +1633,7 @@ function update(){
 function jump()
 {
 
-
+ console.log("start jumping");
 
 	//Tutorial for coin (stop animation and restore game)
 	if(SHOW_TUTORIAL==true&&jump_tutorial_shown==false&&(control_button_1!=null||animation_active==true))
@@ -1635,7 +1653,7 @@ function jump()
 		{
 			clearInterval(touch_button_animation);
 			jump_button.alpha=1;
-			jump_button.setScale(0.6);
+			jump_button.setScale(0.5);
 			animation_active=false;
 		}
 	}
@@ -1658,7 +1676,7 @@ function jump()
 		{
 			clearInterval(touch_button_animation);
 			jump_button.alpha=1;
-			jump_button.setScale(0.6);
+			jump_button.setScale(0.5);
 			animation_active=false;
 		   
 		}
@@ -1743,7 +1761,7 @@ function double_jump(){
 			{
 				double_jump_coin=curr_game.add.image(double_jump_text.x+2,double_jump_text.y+10, 'coin').setScale(0.15);
 				double_jump_coin.depth=double_jump_button.depth+1;
-				double_jump_text.setText("x"+DOUBLE_JUMP_COST);
+				double_jump_text.setText(DOUBLE_JUMP_COST);
 				double_jump_text.depth=double_jump_button.depth+1;
 				double_jump_text.x+=15;
 				double_jump_text.y-=5;
@@ -1855,8 +1873,6 @@ pause_resume_game = function(){
 	game_paused=!game_paused;
 	if(game_paused==false)
 	{
-		// pause_button.depth=7;
-		// resume_button.depth=6;
 		if(reachedCrossing==false)
 		{
 			bgm_sound.resume();
@@ -1864,8 +1880,6 @@ pause_resume_game = function(){
 	}
 	else
 	{
-		// pause_button.depth=6;
-		// resume_button.depth=7;
 		if(reachedCrossing==false||game_restore==true)
 		{
 			bgm_sound.pause();
@@ -1874,7 +1888,6 @@ pause_resume_game = function(){
 	}
 
 }
-
 
 musicECGame =  function()
 {
@@ -1914,7 +1927,7 @@ closeECGame = function(){
 	// in task
 	console.log(generate_tasks_variable);
 	clearTimeout(generate_tasks_variable);
-	console.log(generate_tasks_variable);
+	clearTimeout(generate_tasks_timeout);
 	clearTimeout(tasks_done);
 	clearTimeout(flanker_task_done);
 	clearTimeout(image_task_done);
@@ -1967,7 +1980,7 @@ function generate_tasks()
 	//If game is paused or scene is changing delay the tasks
 	if(game_paused==true||isChangingScene==true)
 	{
-		setTimeout(generate_tasks,5300);
+		generate_tasks_timeout =  setTimeout(generate_tasks,5300);
 		return;
 	}
 

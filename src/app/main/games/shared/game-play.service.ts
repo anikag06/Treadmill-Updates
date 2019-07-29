@@ -50,16 +50,16 @@ export class GamePlayService {
   }
 
 // functions for executive control game
-  playExecControlGame() {
+  playExecControlGame(isSoundOn: any) {
     this.ecGameStarted = true;
-    startExecControlGame(false);
+    startExecControlGame(false, isSoundOn);
   }
 
-  helpExecControlGame() {
+  helpExecControlGame(isSoundOn: any) {
     if (this.ecGameStarted) {
       closeECGame();
     }
-    startExecControlGame(true);
+    startExecControlGame(true, isSoundOn);
   }
   pauseExecControlGame() {
     pause_resume_game();
@@ -67,9 +67,9 @@ export class GamePlayService {
   resumeExecControlGame() {
     pause_resume_game();
   }
-  restartExecControlGame()  {
+  restartExecControlGame(isSoundOn: any)  {
     closeECGame();
-    startExecControlGame(false);
+    startExecControlGame(false, isSoundOn);
   }
   closeExecControlGame() {
     closeECGame();

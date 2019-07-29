@@ -50,34 +50,19 @@ function game_restore()
     //Clear all variables and move the game controls,score display and various and display to the scene
     if(countdown==0)
     { 
-		if(task_tutorial_shown==false&&SHOW_TUTORIAL==true)
-		{
-			tutorial_box = curr_game.add.tileSprite(screen_width*0.5,screen_height*0.4,screen_width*0.42,screen_height*0.5,"tutorial_box");
-			tutorial_box.alpha = 0.6;
-			tutorial_box.depth = 4;
-			task_tutorial_text=curr_game.add.text(screen_width*0.32,screen_height*0.23 ,"Attention!!From Next time,\ntasks will appear only for\nsome time. Peform good in\nthe tasks and get rewarded", { fontSize: '18px', fill: '#EC407A'});
-			task_tutorial_shown=true;
-			task_tutorial_text.depth = 5;
-			setTimeout( () => {
-				tutorial_box.destroy();
-				task_tutorial_text.setText("");
-				clearInterval(countdown_handler);
-				countdown_handler=null;
-				countdown_dot_length=0;
-				resume_countdown_done=true;
-				countdown=7;
-				bgm_sound.resume();
-				countdown_text.setText();
-			},tutorial_end_text_time);	
-		}else {
-			clearInterval(countdown_handler);
-			countdown_handler=null;
-			countdown_dot_length=0;
-			resume_countdown_done=true;
-			countdown=7;
-			bgm_sound.resume();
-			countdown_text.setText();
+		if(tutorial_box){
+			tutorial_box.destroy();
+			task_tutorial_text.setText("");
 		}
+		clearInterval(countdown_handler);
+		countdown_handler=null;
+		countdown_dot_length=0;
+		resume_countdown_done=true;
+		countdown=7;
+		bgm_sound.resume();
+		countdown_text.setText();
+		
+		
     }
 
     // if(pause_button.y>screen_height*0.90)		//position of pause and music buttons changed

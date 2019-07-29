@@ -1,6 +1,6 @@
-var startExecControlGame = function(show_tutorial){
+var startExecControlGame = function(show_tutorial, musicOn){
     $('#execGame').removeClass('d-none');
-
+    
     //For fullscreen and orientation
     var orientKey = 'orientation';
     if('mozOrientation' in screen){
@@ -76,10 +76,13 @@ var startExecControlGame = function(show_tutorial){
 
     game_paused=false;
 
-    var game_config=new config(setType(),screen_width,screen_height);
+    var game_config=new config(setType(),screen_width,screen_height,modeType(),setCenter());
     let game=new Phaser.Game(game_config);
 
     SHOW_TUTORIAL = show_tutorial;
+    if(musicOn == false){
+        musicECGame();
+    }
     // if($('input[type="checkbox"]').is(":checked")){
     //     SHOW_TUTORIAL=true;
     // }

@@ -37,7 +37,7 @@ function discrimination_task_generator()
 		{
 			if(isTouchDevice==true)
 			{
-				task_tutorial_text=curr_game.add.text(screen_width*0.20,discrimination_task_image.y-discrimination_task_image.height+15 ,"Press the button matching the circle's \ncolor", { fontSize: '18px', fill: '#EC407A'});
+				task_tutorial_text=curr_game.add.text(screen_width*0.20,discrimination_task_image.y-(discrimination_task_image.height/2)-10 ,"Press the button matching the circle's \ncolor", { fontSize: '16px', fill: '#EC407A'});
 			}
 			else
 			{
@@ -123,8 +123,13 @@ function discrimination_task_complete()
 		
 		if(countdown_handler==null)
 		{
-			countdown_handler=setInterval(resume_countdown,INTERVAL);
+			if(task_tutorial_shown==false&&SHOW_TUTORIAL==true){
+				countdown_handler=setInterval(resume_countdown,INTERVAL*3);
+			}else{
+				countdown_handler=setInterval(resume_countdown,INTERVAL);
+			}
 		}
+		
 		task_completed=true;
 		restore_game=true;
 		
@@ -141,11 +146,9 @@ function discrimination_task_complete()
 
 
 function resume_countdown()
-{
-
+{	
 	if(game_paused==true)
     {
-        
         console.log("paused");
         return;
     }
@@ -156,7 +159,24 @@ function resume_countdown()
         Initial_Text+=". "
     }
     countdown_dot_length=(countdown_dot_length+1)%countdown_max_dot_length;
-    countdown_text.setText(Initial_Text);
+	countdown_text.setText(Initial_Text);
+
+	if(task_tutorial_shown==false&&SHOW_TUTORIAL==true){
+		
+		tutorial_box = curr_game.add.tileSprite(screen_width*0.5,screen_height*0.4,screen_width*0.42,screen_height*0.5,"tutorial_box");
+		tutorial_box.alpha = 0.6;
+		tutorial_box.depth = 4;
+		if(isTouchDevice){
+			task_tutorial_text=curr_game.add.text(tutorial_box.x-(tutorial_box.width/2)+10,tutorial_box.y-(tutorial_box.height/2)+10,"Attention!!From Next time,\ntasks will appear only for\nsome time. Peform good in\nthe tasks and get rewarded", { fontSize: '13px', fill: '#EC407A'});
+
+		}else{
+			task_tutorial_text=curr_game.add.text(tutorial_box.x-(tutorial_box.width/2)+10,tutorial_box.y-(tutorial_box.height/2)+10,"Attention!!From Next time,\ntasks will appear only for\nsome time. Peform good in\nthe tasks and get rewarded", { fontSize: '18px', fill: '#EC407A'});
+		}
+		task_tutorial_shown=true;
+		task_tutorial_text.depth = 6;
+		countdown_text.setScale(0.5);
+		countdown_text.y = task_tutorial_text.x - 20;
+	}
     countdown_text.depth=100;
     countdown--;
 }

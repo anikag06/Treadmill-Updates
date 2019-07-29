@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 // import 'assets/games/interpretation_bias_game/js/sentence_javascript';
 // tslint:disable-next-line: max-line-length
@@ -27,6 +27,7 @@ declare var userOrder: any;
 declare var gameTime: any;
 // for storing the score related info of the user
 declare var success: any;
+declare var inactivity_check: any;
 declare function getUpdatedVariables(): any;
 
 @Component({
@@ -34,7 +35,7 @@ declare function getUpdatedVariables(): any;
   templateUrl: './interpretation-bias-game.component.html',
   styleUrls: ['./interpretation-bias-game.component.scss']
 })
-export class InterpretationBiasGameComponent implements OnInit {
+export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
 
   NO_OF_SENTENCES_RECEIVED = 20;      // order of first sentence is 0
   LEVEL_UP_SEN = 5;       // level up after how many sentences, here after 5 sentences;
@@ -205,5 +206,9 @@ export class InterpretationBiasGameComponent implements OnInit {
   onHintClick() {
     console.log("hint btn clicked");
       this.gamePlayService.hintsIBGame();
+  }
+
+  ngOnDestroy() {
+    clearInterval(inactivity_check);
   }
 }

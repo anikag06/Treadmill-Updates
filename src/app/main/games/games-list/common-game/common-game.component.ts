@@ -78,7 +78,7 @@ export class CommonGameComponent implements OnInit {
     }
     if (this.gameName === 'Executive Control Game') {
       this.showSecondPlayBtn = false;
-      this.gamePlayService.playExecControlGame();
+      this.gamePlayService.playExecControlGame(this.isSoundOn);
     }
   }
 
@@ -88,7 +88,7 @@ export class CommonGameComponent implements OnInit {
     this.pauseBtnElement.classList.remove('d-none');
     if (this.gameName === 'Executive Control Game') {
       this.showSecondPlayBtn = false;
-      this.gamePlayService.helpExecControlGame();
+      this.gamePlayService.helpExecControlGame(this.isSoundOn);
     }
     if (this.gameName === 'Interpretation Bias Game') {
       this.gamePlayService.helpIBGame();
@@ -131,7 +131,7 @@ export class CommonGameComponent implements OnInit {
     this.showSideButtons = false;
     this.pauseBtnElement.classList.remove('d-none');
     if (this.gameName === 'Executive Control Game') {
-      this.gamePlayService.restartExecControlGame();
+      this.gamePlayService.restartExecControlGame(this.isSoundOn);
     }
     if (this.gameName === 'Interpretation Bias Game') {
       this.gamePlayService.playIBGame();                      // same function for start and restart the game

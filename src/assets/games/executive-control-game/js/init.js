@@ -1,10 +1,11 @@
 function init_game_variables(){
 	console.log("reached init js");
-	// screen_width=800;
-	// screen_height=400;
+	screen_width=800;
+	screen_height=400;
 
-	screen_height = $('#execGame').height();
-	screen_width = $('#execGame').width();
+	// screen_height = $('#execGame').height();
+	// screen_width = $('#execGame').width();
+	
 
 	scaleRatio = 2/3;
 
@@ -85,7 +86,7 @@ function init_game_variables(){
 	COIN_Y_CORDINATE_RANGE=screen_height*0.05;
 	COIN_MIN_X_CORDINATE=300;
 	COIN_X_CORDINATE_RANGE=200;
-	COIN_SIZE_SCALE=0.35;
+	COIN_SIZE_SCALE=0.28;
 	NEXT_COIN_GAP_RANGE=50;
 	MINIMUM_GAP_FOR_NEXT_COIN=250;
 	COIN_SPEED=LEVEL_SPEED;
@@ -104,7 +105,7 @@ function init_game_variables(){
 	add_new_coin_with_obstacle=true;
 	coinGeneratingWithObstacleInit=true;
 	coinGeneratingWithObstacle=false;
-	COIN_WTIH_OBSTACLE_MAX_Y_CORDINATE=screen_height*0.55;
+	COIN_WTIH_OBSTACLE_MAX_Y_CORDINATE=screen_height*0.53;
 	COIN_WTIH_OBSTACLE_Y_CORDINATE_RANGE=screen_height*0.03;
 	COIN_WTIH_OBSTACLE_X_CORDINATE_RANGE=200;
 	COIN_WTIH_OBSTACLE_MIN_X_CORDINATE=50;
@@ -162,6 +163,7 @@ function init_game_variables(){
 	OBSTACLE_X_CORDINATE=20;
 	OBSTACLE_Y_CORDINATE=screen_height*0.8;
 	OBSTACLE_SPEED=LEVEL_SPEED;
+	OBSTACLE_SMALL_SCALE = 0.8;
 	obstacleGenerating=false;
 	flying_obstacle;
 	top_obstacle;
@@ -287,7 +289,7 @@ function init_game_variables(){
 	FLANKER_Y_CORDINATE=screen_height/2.5;
 	FLANKER_X_CORDINATE=screen_width/2;
 	FLANKER_TASK_IMAGE_SCALE=1.5;
-	FLANKER_TASK_IMAGE_SMALL_SCALE = 0.9;
+	FLANKER_TASK_IMAGE_SMALL_SCALE = 0.7;
 	FLANKER_TASK_IMAGE_SPEED=15;
 	TIME_FOR_FLANKER=1000;
 
@@ -315,7 +317,7 @@ function init_game_variables(){
 	DISCRIMINATION_Y_CORDINATE=screen_height/2.5;
 	DISCRIMINATION_X_CORDINATE=screen_width/2;
 	DISCRIMIANTION_TASK_IMAGE_SCALE=1.5;
-	DISCRIMINATION_TASK_IMAGE_SMALL_SCALE = 0.9;
+	DISCRIMINATION_TASK_IMAGE_SMALL_SCALE = 0.7;
 	DISCRIMINATION_TASK_IMAGE_SPEED=15;
 	TIME_FOR_DISCRIMINATION=2000;
 	
@@ -483,7 +485,7 @@ function init_game_variables(){
 
 	touch_button_animation;
 	touch_alpha=[0.4,1]
-	touch_size=[0.4,0.6]
+	touch_size=[0.38,0.56]
 	alpha_choice=0;
 	animation_active=false;
 

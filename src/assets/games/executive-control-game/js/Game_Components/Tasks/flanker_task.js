@@ -1,6 +1,6 @@
 function flanker_task_generator()
 {
-	
+	console.log("flanker task started");
   // Wait till all elements are cleared
 	if(clear_to_start>0)
 	{
@@ -16,6 +16,9 @@ function flanker_task_generator()
 		console.log("flanker choice: "+flanker_choice);
 		flanker_task_congruency=(flanker_choice%2==0)?1:-1;
 		flanker_task_image=curr_game.add.image(FLANKER_X_CORDINATE,-FLANKER_Y_CORDINATE,'flanker_'+flanker_choice).setScale(FLANKER_TASK_IMAGE_SCALE);
+		if(isTouchDevice==true){
+			flanker_task_image.setScale(FLANKER_TASK_IMAGE_SMALL_SCALE);
+		}
 		if(flanker_choice%TYPE_CHANGE_INTERVAL!=0&&task_tutorial_shown==false&&SHOW_TUTORIAL==true)
 		{
 			if(isTouchDevice==true)
@@ -60,7 +63,7 @@ function flanker_task_generator()
 		{
 			if(isTouchDevice==true)
 			{
-				task_tutorial_text=curr_game.add.text(screen_width*0.22,flanker_task_image.y-flanker_task_image.height-22,"Press the button in the direction of \nthe middle arrow", { fontSize: '18px', fill: '#EC407A'});
+				task_tutorial_text=curr_game.add.text(screen_width*0.22,flanker_task_image.y-flanker_task_image.height-22,"Press the button in the direction of \nthe middle arrow", { fontSize: '16px', fill: '#EC407A'});
 			}
 			else
 			{
@@ -135,7 +138,10 @@ function flanker_task_complete()
 	console.log("Image type: "+task_image_type);
 	//Add the images
 	task_image=curr_game.add.image(IMAGE_X_CORDINATE,IMAGE_Y_CORDINATE,'image_'+image_choice);
-    image_task_done = setTimeout(image_task_completed,TIME_FOR_IMAGE);
+	if(isTouchDevice){
+		task_image.setScale(0.6);
+	}
+  image_task_done = setTimeout(image_task_completed,TIME_FOR_IMAGE);
 }
 
 function image_task_completed()

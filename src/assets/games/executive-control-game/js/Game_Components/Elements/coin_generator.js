@@ -19,7 +19,7 @@ function coins_placer() {
 
         if(startTunnelMovement==true)
         {
-            y_cordinate=screen_height*0.6;
+            y_cordinate=screen_height*0.56;
         }
         
         //Add the coins and a collider for it
@@ -63,7 +63,7 @@ function coins_placer() {
             curr_game.physics.add.collider(coin[i], player,function(obj1,obj2){collect_coin(obj1);}, null, curr_game); 
             
             //Show tutorial if needed
-            if(SHOW_TUTORIAL==true&&jump_tutorial_shown==false&&coin[i].x-player.x<=JUMP_RANGE)
+            if(SHOW_TUTORIAL==true&&jump_tutorial_shown==false&&coin[i].x-player.x<=(JUMP_RANGE*0.9))
             {
                 
                 if(isTouchDevice == false)

@@ -147,7 +147,8 @@ function task_generator()
 	      {
 	      
 	      left_button=curr_game.add.sprite(LEFT_X-distance,TOP_Y, 'flanker_button').setInteractive();
-	      left_button.angle+=270;
+		  left_button.setScale(0.56); 
+		  left_button.angle+=270;
 
 	      if(left_button.y-left_button.height<0)
 	      {
@@ -158,7 +159,8 @@ function task_generator()
 
 
 	      right_button=curr_game.add.sprite(RIGHT_X+distance,TOP_Y, 'flanker_button').setInteractive();
-	      right_button.angle+=90;
+		  right_button.setScale(0.56); 
+		  right_button.angle+=90;
 	      if(right_button.y-right_button.height<0)
 	      {
 	      	right_button.y=right_button.height/2+20;
@@ -168,11 +170,13 @@ function task_generator()
 
 	      
 	      red_button=curr_game.add.sprite(LEFT_X-distance,BOTTOM_Y, 'red_button').setInteractive();
-	      red_button.on('pointerdown', red_pressed);
+		  red_button.setScale(0.56); 
+		  red_button.on('pointerdown', red_pressed);
 	      red_button.on('pointerup',function(){this.alpha=1});
 
 	      green_button=curr_game.add.sprite(RIGHT_X+distance,BOTTOM_Y, 'green_button').setInteractive();
-	      green_button.on('pointerdown', green_pressed);
+		  green_button.setScale(0.56); 
+		  green_button.on('pointerdown', green_pressed);
 	      green_button.on('pointerup',function(){this.alpha=1});
 
 	     }
@@ -182,12 +186,18 @@ function task_generator()
          //Move task buttons to the required posiiton
 	     else if(isTouchDevice==true)
 	     {
+			 console.log("buttons moving");
 		    if(left_button.x!=LEFT_X)
 		    {
-	     		left_button.x+=BUTTON_SPEED;
-	     		right_button.x-=BUTTON_SPEED;
-	     		red_button.x+=BUTTON_SPEED;
-	     		green_button.x-=BUTTON_SPEED;
+				console.log(LEFT_X, left_button.x);
+	     		// left_button.x+=BUTTON_SPEED;
+	     		// right_button.x-=BUTTON_SPEED;
+	     		// red_button.x+=BUTTON_SPEED;
+				 // green_button.x-=BUTTON_SPEED;
+				left_button.x = LEFT_X;
+				right_button.x = RIGHT_X;
+				red_button.x = LEFT_X;
+				green_button.x = RIGHT_X;
 		    }
 		    
 		    //Start the flanker task
@@ -252,7 +262,7 @@ function left_pressed()
 				flanker_task_complete();
 				if(isTouchDevice==true)
 				{
-					left_button.setScale(0.7);
+					left_button.setScale(0.56);
 					animation_active=false;
 				
 					clearInterval(task_button_blinking_animation);
@@ -308,7 +318,7 @@ function right_pressed()
 				flanker_task_complete();
 				if(isTouchDevice==true)
 				{
-					right_button.setScale(0.7);
+					right_button.setScale(0.56);
 					animation_active=false;
 					
 					clearInterval(task_button_blinking_animation);
@@ -364,7 +374,7 @@ function red_pressed()
 				discrimination_task_complete();
 				if(isTouchDevice==true)
 				{
-					red_button.setScale(0.7);
+					red_button.setScale(0.56);
 					animation_active=false;
 					
 					clearInterval(task_button_blinking_animation);
@@ -424,7 +434,7 @@ function green_pressed()
 				discrimination_task_complete();
 				if(isTouchDevice==true)
 				{
-					green_button.setScale(0.7);
+					green_button.setScale(0.56);
 					animation_active=false;
 					
 					clearInterval(task_button_blinking_animation);
