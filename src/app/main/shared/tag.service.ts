@@ -1,6 +1,6 @@
 import { Injectable, OnInit, OnDestroy } from '@angular/core';
 import { Tag } from './tag.model';
-import { environment } from 'environments/environment.prod';
+import { environment } from 'environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { ApiResponse } from './apiResponse.model';
 import { Subscription } from 'rxjs';
