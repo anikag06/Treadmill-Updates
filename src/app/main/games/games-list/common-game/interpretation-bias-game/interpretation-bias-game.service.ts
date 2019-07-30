@@ -27,13 +27,13 @@ export class InterpretationBiasGameService {
       };
       if (firstTime) {
         if (pageUrl === 0) {
-          return this.http.get( SENTENCE_URL , httpOptions);
+          return this.http.get( SENTENCE_URL);
         } else {
           pageUrl = pageUrl + 1;
-          return this.http.get(environment.API_ENDPOINT + IBG_SENTENCE + this.NEXT_PAGE + pageUrl, httpOptions);
+          return this.http.get(environment.API_ENDPOINT + IBG_SENTENCE + this.NEXT_PAGE + pageUrl);
         }
       } else {
-        return this.http.get( SENTENCE_URL , httpOptions);
+        return this.http.get( SENTENCE_URL );
       }
     } else {
       return this.http.get(SENTENCE_URL);
@@ -48,7 +48,7 @@ export class InterpretationBiasGameService {
           'Authorization': 'Bearer ' + loginToken
         })
       };
-      return this.http.get(environment.API_ENDPOINT + IBG_SCOREINFO, httpOptions);
+      return this.http.get(environment.API_ENDPOINT + IBG_SCOREINFO);
     } else {
       return this.http.get(environment.API_ENDPOINT + IBG_SCOREINFO);
     }
@@ -62,7 +62,7 @@ export class InterpretationBiasGameService {
           'Authorization': 'Bearer ' + loginToken
         })
       };
-      return this.http.put(environment.API_ENDPOINT + IBG_SCOREINFO, saveData, httpOptions);
+      return this.http.put(environment.API_ENDPOINT + IBG_SCOREINFO, saveData);
     } else {
       return this.http.put(environment.API_ENDPOINT + IBG_SCOREINFO, saveData);
     }
@@ -75,7 +75,7 @@ export class InterpretationBiasGameService {
           'Authorization': 'Bearer ' + loginToken
         })
       };
-      return this.http.post(environment.API_ENDPOINT + IBG_USER_RESPONSE, saveResponseData, httpOptions);
+      return this.http.post(environment.API_ENDPOINT + IBG_USER_RESPONSE, saveResponseData);
     } else {
       return this.http.post(environment.API_ENDPOINT + IBG_USER_RESPONSE, saveResponseData);
     }

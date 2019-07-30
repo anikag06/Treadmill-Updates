@@ -91,7 +91,7 @@ function obstacle_placer() {
         {
             obstacle.x-=OBSTACLE_SPEED;
             //Add tutorial if needed
-            if(obstacle.x-player.x<=JUMP_RANGE*0.8&&obstacle_tutorial_shown==false&&SHOW_TUTORIAL==true)
+            if(obstacle.x-player.x<=JUMP_RANGE*0.5&&obstacle_tutorial_shown==false&&SHOW_TUTORIAL==true)
             {
 
                 if(isTouchDevice==false)
@@ -99,8 +99,8 @@ function obstacle_placer() {
                     tutorial_box = curr_game.add.tileSprite(screen_width*0.5,screen_height*0.38,screen_width*0.42,screen_height*0.5,"tutorial_box");
                     tutorial_box.alpha = 0.6;
                     tutorial_box.depth = 4;
-                    tutorial_text.setText("Press                to\n\n  avoid obstacle");
-                    control_button_1=curr_game.add.image(screen_width*0.48,screen_height*0.32,'spacebar_button').setScale(0.4);
+                    tutorial_text.setText("Press               to\n\n  avoid obstacle");
+                    control_button_1=curr_game.add.image(screen_width*0.49,screen_height*0.32,'spacebar_button').setScale(0.4);
                     console.log("coin tutorial");
                     tutorial_text.depth = 5;
                     control_button_1.depth = 5;
@@ -120,7 +120,7 @@ function obstacle_placer() {
         {
             obstacle.x-=OBSTACLE_SPEED;
             top_obstacle.x-=OBSTACLE_SPEED;
-            if(obstacle.x-player.x<=JUMP_RANGE*0.9&&double_jump_for_obstacle1_tutorial_shown==false&&SHOW_TUTORIAL==true)
+            if(obstacle.x-player.x<=JUMP_RANGE*0.7&&double_jump_for_obstacle1_tutorial_shown==false&&SHOW_TUTORIAL==true)
             {
 
                 if(isTouchDevice==false)
@@ -129,10 +129,10 @@ function obstacle_placer() {
                     tutorial_box.alpha = 0.6;
                     tutorial_box.depth = 4;
                     console.log(tutorial_box);
-                    tutorial_text.setText("Press          +          \n\nto avoid the obstacles");
+                    tutorial_text.setText("Press         +          \n\nto avoid the obstacles");
                     // tutorial_text.x-=150;
-                    control_button_1=curr_game.add.image(screen_width*0.44,screen_height*0.32,'shift_button').setScale(0.4);
-                    control_button_2=curr_game.add.image(screen_width*0.59,screen_height*0.32,'spacebar_button').setScale(0.4);
+                    control_button_1=curr_game.add.image(screen_width*0.46,screen_height*0.32,'shift_button').setScale(0.4);
+                    control_button_2=curr_game.add.image(screen_width*0.61,screen_height*0.32,'spacebar_button').setScale(0.4);
                     tutorial_text.depth = 5;
                     control_button_1.depth = 5;
                     control_button_2.depth = 5;
@@ -154,7 +154,7 @@ function obstacle_placer() {
         {
             obstacle.x-=OBSTACLE_SPEED;
             obstacle.y-=OBSTACLE_Y_SPEED;
-            if(obstacle.x-player.x<=JUMP_RANGE*0.9&&double_jump_for_obstacle2_tutorial_shown==false&&SHOW_TUTORIAL==true)
+            if(obstacle.x-player.x<=JUMP_RANGE*0.76&&double_jump_for_obstacle2_tutorial_shown==false&&SHOW_TUTORIAL==true)
             {
 
                 if(isTouchDevice==false)
@@ -162,9 +162,9 @@ function obstacle_placer() {
                     tutorial_box = curr_game.add.tileSprite(screen_width*0.5,screen_height*0.4,screen_width*0.42,screen_height*0.5,"tutorial_box");
                     tutorial_box.alpha = 0.6;
                     tutorial_box.depth = 4;
-                    tutorial_text.setText("Press          +          \n\nto avoid the obstacles");
-                    control_button_1=curr_game.add.image(screen_width*0.44,screen_height*0.32,'shift_button').setScale(0.4);
-                    control_button_2=curr_game.add.image(screen_width*0.59,screen_height*0.32,'spacebar_button').setScale(0.4);
+                    tutorial_text.setText("Press         +          \n\nto avoid the obstacles");
+                    control_button_1=curr_game.add.image(screen_width*0.46,screen_height*0.32,'shift_button').setScale(0.4);
+                    control_button_2=curr_game.add.image(screen_width*0.61,screen_height*0.32,'spacebar_button').setScale(0.4);
                     tutorial_text.depth = 5;
                     control_button_1.depth = 5;
                     control_button_2.depth = 5;

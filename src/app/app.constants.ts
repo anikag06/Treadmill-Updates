@@ -46,4 +46,10 @@ export const PROBLEM         = 'problem';
 export const EXPR_TEST_BELIEF = 'expr_test_belief';
 export const RECOMMENDED       = 'recommended';
 
+// Executive Control Game(ECG) paths
+
+export const ECG_USER_DATA      = '/api/v1/games/executive-control/user-data/';
+export const ECG_GAME_DATA      = '/api/v1/games/executive-control/game-data/';
+export const ECG_FLANKER_TASK   = '/api/v1/games/executive-control/flanker-task/';
+export const ECG_DISCIMINATION_TASK = '/api/v1/games/executive-control/discrimination-task/';
 

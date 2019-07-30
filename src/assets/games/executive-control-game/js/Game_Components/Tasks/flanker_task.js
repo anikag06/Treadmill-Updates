@@ -16,15 +16,15 @@ function flanker_task_generator()
 		console.log("flanker choice: "+flanker_choice);
 		flanker_task_congruency=(flanker_choice%2==0)?1:-1;
 		flanker_task_image=curr_game.add.image(FLANKER_X_CORDINATE,-FLANKER_Y_CORDINATE,'flanker_'+flanker_choice).setScale(FLANKER_TASK_IMAGE_SCALE);
-		if(isTouchDevice==true){
-			flanker_task_image.setScale(FLANKER_TASK_IMAGE_SMALL_SCALE);
-		}
+		// if(isTouchDevice==true){
+		// 	flanker_task_image.setScale(FLANKER_TASK_IMAGE_SMALL_SCALE);
+		// }
 		if(flanker_choice%TYPE_CHANGE_INTERVAL!=0&&task_tutorial_shown==false&&SHOW_TUTORIAL==true)
 		{
 			if(isTouchDevice==true)
 			{
 				task_button_blinking_animation=setInterval(right_button_blinker,200);
-				flanker_task_image.setScale(FLANKER_TASK_IMAGE_SMALL_SCALE);
+				// flanker_task_image.setScale(FLANKER_TASK_IMAGE_SMALL_SCALE);
 				console.log(task_tutorial_text);
 			}
 			else
@@ -63,11 +63,11 @@ function flanker_task_generator()
 		{
 			if(isTouchDevice==true)
 			{
-				task_tutorial_text=curr_game.add.text(screen_width*0.22,flanker_task_image.y-flanker_task_image.height-22,"Press the button in the direction of \nthe middle arrow", { fontSize: '16px', fill: '#EC407A'});
+				task_tutorial_text=curr_game.add.text(screen_width*0.245,flanker_task_image.y-flanker_task_image.height-22,"Press the button in the direction of \nthe middle arrow", { fontSize: '16px', fill: '#EC407A'});
 			}
 			else
 			{
-				task_tutorial_text=curr_game.add.text(screen_width*0.17,flanker_task_image.y-flanker_task_image.height-20,"Press the Left Key if the middle arrow is pointing\n left,otherwise press Right Key", { fontSize: '18px', fill: '#EC407A'});
+				task_tutorial_text=curr_game.add.text(screen_width*0.13,flanker_task_image.y-flanker_task_image.height-20,"Press the Left Key if the middle arrow is pointing\n left,otherwise press Right Key", { fontSize: '18px', fill: '#EC407A'});
 			}
 			task_tutorial_text.setBackgroundColor('rgba(255,255,255,0.6)')
 			task_tutorial_text.setPadding(24,3,24,3);

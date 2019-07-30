@@ -1,4 +1,4 @@
-var startExecControlGame = function(show_tutorial, musicOn){
+var startExecControlGame = function(show_tutorial, data, musicOn){
     $('#execGame').removeClass('d-none');
     
     //For fullscreen and orientation
@@ -42,7 +42,7 @@ var startExecControlGame = function(show_tutorial, musicOn){
     // });
 
     init_game_variables();
-    
+    console.log("data recieved ", data);
     //Setup game variables using database entry
     // coins_collected =parseInt('{{player_data.coins_collected}}');
     // shooting_power_field='{{player_data.shooting_capacity}}';
@@ -50,7 +50,7 @@ var startExecControlGame = function(show_tutorial, musicOn){
     // double_jump_field='{{player_data.double_jump}}';
     // game_object='{{game_instance.pk}}';
 
-    coins_collected =120;
+    coins_collected = data;
     shooting_power_field='0';
     double_coin_field='2';
     double_jump_field='2';
@@ -79,10 +79,9 @@ var startExecControlGame = function(show_tutorial, musicOn){
     var game_config=new config(setType(),screen_width,screen_height,modeType(),setCenter());
     let game=new Phaser.Game(game_config);
 
+    ec_play_clicked =true;
     SHOW_TUTORIAL = show_tutorial;
-    if(musicOn == false){
-        musicECGame();
-    }
+    music_muted = !musicOn;
     // if($('input[type="checkbox"]').is(":checked")){
     //     SHOW_TUTORIAL=true;
     // }

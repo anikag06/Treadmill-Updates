@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import {GamesService} from '@/main/shared/games.service';
+import {GamesAuthService} from '@/main/games/shared/games-auth.service';
+
 
 // for interpretation bias game
 declare var startIBGame: any;
@@ -23,7 +25,8 @@ export class GamePlayService {
   gameName !: string;
   ecGameStarted = false;
 
-  constructor(  private gamesService: GamesService) { }
+  constructor(  private gamesService: GamesService,
+    private gamesAuthService: GamesAuthService) { }
 
   getGameInfo(slug: string) {
     return this.gamesService.getGames()
@@ -52,14 +55,20 @@ export class GamePlayService {
 // functions for executive control game
   playExecControlGame(isSoundOn: any) {
     this.ecGameStarted = true;
-    startExecControlGame(false, isSoundOn);
+    this.gamesAuthService.ecGameGetUserData()
+      .subscribe( (data) => {
+        startExecControlGame(false, data, isSoundOn);
+      });
   }
 
   helpExecControlGame(isSoundOn: any) {
     if (this.ecGameStarted) {
       closeECGame();
+      startExecControlGame(true, isSoundOn);
+    } else {
+      this.ecGameStarted = true;
+      startExecControlGame(true, isSoundOn);
     }
-    startExecControlGame(true, isSoundOn);
   }
   pauseExecControlGame() {
     pause_resume_game();
@@ -74,7 +83,9 @@ export class GamePlayService {
   closeExecControlGame() {
     closeECGame();
   }
-  soundExecControlGame() {
-    musicECGame();
+  soundExecControlGame(isSoundOn: any) {
+    if (this.ecGameStarted) {
+      musicECGame(!isSoundOn);
+    }
   }
 }

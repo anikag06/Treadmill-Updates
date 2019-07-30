@@ -11,6 +11,7 @@ function init_game_variables(){
 
 	// if game closed once 
 	game_closed =false;
+	ec_play_clicked;
 
 	//Background Elements
 	cityline_title;
@@ -361,7 +362,7 @@ function init_game_variables(){
 	jumpingInit=false;
 	jump_disabled=false;
 	jump_velocity = -500;
-	jump_height = screen_height*0.5;
+	jump_height = screen_height*0.48;
 	isJumping=false;
 	type=0;
 	jump_button;
@@ -432,7 +433,7 @@ function init_game_variables(){
 	//music button
 	music_button_on;
 	music_button_off;
-	music_muted=false;
+	music_muted;
 
 	isTouchDevice
 	jumpKey;

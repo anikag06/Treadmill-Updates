@@ -6,13 +6,15 @@ import { Game } from '@/main/shared/game.model';
 import { map, switchMap, filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { Location } from '@angular/common';
+import { GamesAuthService } from '../../shared/games-auth.service';
 
 declare let $: any;
 
 @Component({
   selector: 'app-common-game',
   templateUrl: './common-game.component.html',
-  styleUrls: ['./common-game.component.scss']
+  styleUrls: ['./common-game.component.scss'],
+  providers: [ GamesAuthService]
 })
 export class CommonGameComponent implements OnInit {
 
@@ -131,6 +133,7 @@ export class CommonGameComponent implements OnInit {
     this.showSideButtons = false;
     this.pauseBtnElement.classList.remove('d-none');
     if (this.gameName === 'Executive Control Game') {
+      this.isSoundOn = true;
       this.gamePlayService.restartExecControlGame(this.isSoundOn);
     }
     if (this.gameName === 'Interpretation Bias Game') {
@@ -141,7 +144,7 @@ export class CommonGameComponent implements OnInit {
   onSoundClick() {
     this.isSoundOn = !this.isSoundOn;
     if (this.gameName === 'Executive Control Game') {
-      this.gamePlayService.soundExecControlGame();
+      this.gamePlayService.soundExecControlGame(this.isSoundOn);
     }
   }
 

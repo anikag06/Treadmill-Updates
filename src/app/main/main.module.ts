@@ -59,6 +59,8 @@ import {FormsService} from '@/main/forms.service';
 import {TasksService} from '@/main/custom-forms/forms/shared/tasks/tasks.service';
 import { ExecutiveControlGameComponent } from './games/games-list/common-game/executive-control-game/executive-control-game.component';
 import { CommonGameComponent } from './games/games-list/common-game/common-game.component';
+import { GamesAuthService } from './games/shared/games-auth.service';
+import { InterpretationBiasGameService } from './games/games-list/common-game/interpretation-bias-game/interpretation-bias-game.service';
 
 
 @NgModule({
@@ -133,6 +135,8 @@ import { CommonGameComponent } from './games/games-list/common-game/common-game.
     ProblemSolvingWorksheetsService,
     FormsService,
     TasksService,
+    InterpretationBiasGameService,
+    GamesAuthService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [CreatePostComponent]

@@ -33,7 +33,8 @@ declare function getUpdatedVariables(): any;
 @Component({
   selector: 'app-interpretation-bias-game',
   templateUrl: './interpretation-bias-game.component.html',
-  styleUrls: ['./interpretation-bias-game.component.scss']
+  styleUrls: ['./interpretation-bias-game.component.scss'],
+  providers: [InterpretationBiasGameService]
 })
 export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
 

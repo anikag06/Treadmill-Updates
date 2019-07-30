@@ -72,8 +72,9 @@ function coins_placer() {
                     tutorial_box.alpha = 0.6;
                     tutorial_box.depth = 4;
                     tutorial_text.setText("Press                to\n\n collect coins");
-                    control_button_1=curr_game.add.image(screen_width*0.48,screen_height*0.32,'spacebar_button').setScale(0.4);
+                    control_button_1=curr_game.add.image(screen_width*0.49,screen_height*0.32,'spacebar_button').setScale(0.4);
                     console.log("coin tutorial");
+                    control_button_1.depth = 5;
                     game_paused=true;
                 }
                 else

@@ -85,6 +85,7 @@ var musicECGame;
 
 // if game closed once ... then restarted 
 var game_closed; 
+var ec_play_clicked;
 
 //timeout var 
 var generate_tasks_timeout;
@@ -767,18 +768,18 @@ function create(){
 	river=this.add.tileSprite(screen_width/2,screen_height*0.75,screen_width,screen_height*0.1,'river');
 	river_filler=this.add.tileSprite(screen_width/2,screen_height*0.9,screen_width,screen_height*0.2,'river_filler');
 
-	function callback(){
-		console.log("done");
-	}
-	river.setInteractive();
-	console.log(river.input);
-	console.log(this.input);
-	river.on('pointerdown', function (pointer) {
-		console.log(pointer);
-		console.log('dowwwwn', screen_width,screen_height);
-		console.log(river.input);
+	// function callback(){
+	// 	console.log("done");
+	// }
+	// river.setInteractive();
+	// console.log(river.input);
+	// console.log(this.input);
+	// river.on('pointerdown', function (pointer) {
+	// 	console.log(pointer);
+	// 	console.log('dowwwwn', screen_width,screen_height);
+	// 	console.log(river.input);
 
-	});
+	// });
 
 	brick=this.add.tileSprite(screen_width/2,screen_height*0.9,screen_width,screen_height*0.2,'brick');
 	platforms.add(brick);
@@ -912,7 +913,6 @@ function create(){
 		}
 		jump_button.height = 50;
 		jump_button.on('pointerdown',jump);
-		console.log("on jump", jump_button.height);
 		jump_button.on('pointerdown',function(){this.alpha=1});
 		double_jump_button.on('pointerdown',double_jump);
 		double_jump_button.on('pointerdown',function(){this.alpha=1});
@@ -987,14 +987,12 @@ function create(){
 
 function scene_change_start()
 {
-	console.log("isChanging scene", isChangingScene);	
 	//if tasks are going on or game is paused,delay the start of scene change
 	if(start_tasks==true||restore_game==true||game_paused==true)
 	{
 		scene_change_timeout = setTimeout(scene_change_start,5400);
 		return;
 	}
-	console.log("changing scene");
 	isChangingScene=true;
 }
 
@@ -1002,9 +1000,16 @@ function scene_change_start()
 //This called(implicitly) for every frame update
 function update(){
 
-	this.input.topOnly = true;
 	//Store the current instance of the game (to be used in other files)
 	curr_game=this;
+
+	// to check if the game just started
+	if(ec_play_clicked){
+		if(music_muted){
+			musicECGame(music_muted);
+		}
+		ec_play_clicked = false;
+	}
 
 	//If gameover or game pause return
 	if(gameOver==true||game_paused==true)
@@ -1180,7 +1185,6 @@ function update(){
 		level.number++;
 		current_checkpoint++;
 		level_changer();
-		console.log("level changed");
 	}
    
 	//If player is out of the screen and it is detected for the first time
@@ -1194,8 +1198,6 @@ function update(){
 		falling_down_sound.once('complete',function(){
 			falling_down_sound=null;
 			game_paused=false;});
-		console.log("no player", no_player, game_paused);
-
 		//Reduce the number of lives and adjust the lives display accordingly;
 		if(number_of_lives>0)number_of_lives--;
 		livesText.setText(number_of_lives);
@@ -1204,10 +1206,8 @@ function update(){
 		if(number_of_lives!=0)
 		{
 			no_player=true;
-			console.log("lives",number_of_lives,no_player);
 			//Display the respawning text till a new player is created
 			respawn_animator=setInterval(respawn_animation,RESPAWN_ANIMATION_INTERVAL);
-			console.log(respawn_animator);
 			respawn_dot_length=0;
 		}
 		
@@ -1633,7 +1633,6 @@ function update(){
 function jump()
 {
 
- console.log("start jumping");
 
 	//Tutorial for coin (stop animation and restore game)
 	if(SHOW_TUTORIAL==true&&jump_tutorial_shown==false&&(control_button_1!=null||animation_active==true))
@@ -1865,11 +1864,13 @@ function shoot(){
 //For pausing the game    
 pause_resume_game = function(){
 	console.log("game paused");
-	if(gameOver==true||control_button_1!=null||animation_active==true||score==0||control_button_1!=null||animation_active==true)
-	{
-		return;
-
-	}
+	console.log(control_button_1, "not paused", animation_active, score);
+	// if(gameOver==true||control_button_1!=null||animation_active==true||score==0||control_button_1!=null||animation_active==true)
+	// {
+	// 	console.log("but return");
+	// 	return;
+	// }
+	
 	game_paused=!game_paused;
 	if(game_paused==false)
 	{
@@ -1889,20 +1890,22 @@ pause_resume_game = function(){
 
 }
 
-musicECGame =  function()
+musicECGame =  function(music_muted)
 {
 
-	music_muted=!music_muted;
+	// music_muted=!music_muted;
 	console.log(music_muted);
 
 	if(music_muted==true)
 	{
+		bgm_sound.pause();
 		curr_game.sound.mute=true;
 		// music_button_on.depth=6;					//1
 		// music_button_off.depth=7;					//2
 	}
 	else
 	{
+		bgm_sound.play();
 		curr_game.sound.mute=false;
 		// music_button_on.depth=7;
 		// music_button_off.depth=6;
@@ -1911,6 +1914,7 @@ musicECGame =  function()
 }
 closeECGame = function(){ 
 	console.log("close the game");
+	game_paused=true;
 	gameOver=true;
 	game_closed = true;
 	

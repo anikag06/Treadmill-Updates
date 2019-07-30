@@ -7,9 +7,9 @@ function discrimination_task_generator()
 		discrimination_choice=Math.floor(Math.random()*TOTAL_NUMBER_OF_DISCRIMINATION_TASK);
 		discrimination_task_image=curr_game.add.image(DISCRIMINATION_X_CORDINATE,DISCRIMINATION_Y_CORDINATE,'discrimination_'+discrimination_choice).setScale(DISCRIMIANTION_TASK_IMAGE_SCALE);
 		
-		if (isTouchDevice){
-			discrimination_task_image.setScale(DISCRIMINATION_TASK_IMAGE_SMALL_SCALE);
-		}
+		// if (isTouchDevice){
+		// 	discrimination_task_image.setScale(DISCRIMINATION_TASK_IMAGE_SMALL_SCALE);
+		// }
 		//show tutorials if needed
 		if(SHOW_TUTORIAL==true&&task_tutorial_shown==false)
 		{
@@ -37,7 +37,7 @@ function discrimination_task_generator()
 		{
 			if(isTouchDevice==true)
 			{
-				task_tutorial_text=curr_game.add.text(screen_width*0.20,discrimination_task_image.y-(discrimination_task_image.height/2)-10 ,"Press the button matching the circle's \ncolor", { fontSize: '16px', fill: '#EC407A'});
+				task_tutorial_text=curr_game.add.text(screen_width*0.24,discrimination_task_image.y-discrimination_task_image.height+15 ,"Press the button matching the circle's \ncolor", { fontSize: '16px', fill: '#EC407A'});
 			}
 			else
 			{
@@ -163,7 +163,7 @@ function resume_countdown()
 
 	if(task_tutorial_shown==false&&SHOW_TUTORIAL==true){
 		
-		tutorial_box = curr_game.add.tileSprite(screen_width*0.5,screen_height*0.4,screen_width*0.42,screen_height*0.5,"tutorial_box");
+		tutorial_box = curr_game.add.tileSprite(screen_width*0.5,screen_height*0.4,screen_width*0.5,screen_height*0.5,"tutorial_box");
 		tutorial_box.alpha = 0.6;
 		tutorial_box.depth = 4;
 		if(isTouchDevice){
