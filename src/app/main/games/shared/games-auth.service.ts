@@ -7,6 +7,7 @@ import {TOKEN,
   ECG_FLANKER_TASK,
         ECG_GAME_DATA,
         ECG_USER_DATA} from '@/app.constants';
+import { ECGameData, ECGameFlankerTask, ECGameDiscriminationTask, ECGameUserData } from './game-play.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,16 +18,22 @@ export class GamesAuthService {
 
 
   ecGameGetUserData() {
-    const loginToken = localStorage.getItem(TOKEN);
-    if (loginToken != null) {
-      const httpOptions = {
-        headers: new HttpHeaders({
-          'Authorization': 'Bearer ' + loginToken
-        })
-      };
-      return this.http.get(environment.API_ENDPOINT + ECG_USER_DATA);
-    } else {
-      return this.http.get(environment.API_ENDPOINT + ECG_USER_DATA);
-    }
+    return this.http.get(environment.API_ENDPOINT + ECG_USER_DATA);
   }
+  ecGameUpdateUserData(ec_game_user_data: ECGameUserData) {
+    return this.http.put(environment.API_ENDPOINT + ECG_USER_DATA, ec_game_user_data );
+  }
+  ecGameStoreGameInfo(game_data: ECGameData) {
+    return this.http.post(environment.API_ENDPOINT + ECG_GAME_DATA, game_data);
+  }
+  ecGameGetGameInfo(): Observable<any> {
+    return this.http.get(environment.API_ENDPOINT + ECG_GAME_DATA);
+  }
+  ecGameStoreFlankerData(flanker_task_data: ECGameFlankerTask) {
+    return this.http.post(environment.API_ENDPOINT + ECG_FLANKER_TASK, flanker_task_data);
+  }
+  ecGameStoreDiscriminationTaskData(discrimination_task: ECGameDiscriminationTask) {
+    return this.http.post(environment.API_ENDPOINT + ECG_DISCIMINATION_TASK, discrimination_task);
+  }
+
 }

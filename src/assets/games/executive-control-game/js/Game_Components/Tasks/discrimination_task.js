@@ -81,6 +81,10 @@ function discrimination_task_complete()
 
 	discrimination_task_image.destroy();
 	discrimination_task_image=null;
+	flankerTaskECGame = true;
+	storeTaskDataEvent = new CustomEvent("CallAngularStoreDataFun");
+
+	window.dispatchEvent(storeTaskDataEvent);
 
 	//AJAX QUERY TO UPDATE THE DB
 	// $.ajax({
@@ -143,7 +147,19 @@ function discrimination_task_complete()
 
 
 }
-
+getECGameTaskData = function (){
+	return [
+		game_object,
+		flanker_task_timestamp,
+		flanker_task_response_type,
+		flanker_task_response_time,
+		flanker_task_congruency,
+		task_image_type,
+		discrimination_task_timestamp,
+		discrimination_task_response_type,
+		discrimination_task_response_time,
+	]
+}
 
 function resume_countdown()
 {	

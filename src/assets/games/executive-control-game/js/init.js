@@ -12,6 +12,10 @@ function init_game_variables(){
 	// if game closed once 
 	game_closed =false;
 	ec_play_clicked;
+	flankerTaskECGame = false;
+
+	// store the time when the game is started
+	ec_game_start_time;
 
 	//Background Elements
 	cityline_title;
@@ -338,6 +342,7 @@ function init_game_variables(){
 	scoreText;
 	score_x=40;
 	score=0;
+	max_score;
 	level={number:1};
 	coinsCollectedText;
 	gameOver=false;

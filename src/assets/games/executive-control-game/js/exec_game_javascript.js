@@ -1,21 +1,19 @@
 //Configuration for phaser.js
 function config(render_type,swidth,sheight,modeType,center){
-	console.log("game start");
 	this.type=render_type;
-	this.parent='execGame';
+	// this.parent='execGame';
 	this.scale = {
 		mode:modeType,
+		parent: "execGame",
 		autoCenter: center,
 		width: swidth,
 		height: sheight
 	};
-	console.log(this.scale);
 	this.physics= {
 		default: 'arcade',
 		arcade: {
-
 			gravity: { y: 3000 },
-			debug: false
+			debug: true
 				
 			}
 		};
@@ -52,17 +50,14 @@ function setType()
    
    var browser_version=browser_version_finder().match(/([a-zA-Z]+)\s*(\d+)/);
 	if(browser_version[1] == 'Firefox'){
-		console.log('Firefox');
 		return Phaser.CANVAS;
 	}
 	if(parseInt(browser_version[2])>=67)
 	{
-		console.log("auto");
 		return Phaser.AUTO;
 	}
 	else
 	{
-		console.log("canvas");
 		return Phaser.CANVAS;	
 	}
 
@@ -83,9 +78,17 @@ var pause_resume_game;
 var closeECGame;
 var musicECGame;
 
+var getECScoreData; 
+var getECGameTaskData;
+
+var storeTaskDataEvent;
+var storeECScoreDataEvent;
 // if game closed once ... then restarted 
 var game_closed; 
 var ec_play_clicked;
+
+// store the time when the game is started
+var ec_game_start_time;
 
 //timeout var 
 var generate_tasks_timeout;
@@ -391,6 +394,7 @@ var level;
 var coinsCollectedText;
 var gameOver;
 var coins_collected;
+var max_score;
 var no_player;
 var number_of_lives;
 var score_checkpoints;
@@ -745,6 +749,9 @@ function preload(){
 
 function create(){
 
+	
+	ec_game_start_time = generateTS();
+	
 	//Create physics group for collidables
 	platforms = this.physics.add.group();
 	coins_group=this.physics.add.group();
@@ -1247,11 +1254,8 @@ function update(){
 		end_game_button=this.add.image(screen_width*0.58,screen_height*0.50,'end_game').setScale(0.6).setInteractive();
 		end_game_button.depth=5;
 
-		
-		console.log(restart_game_button);
 		restart_game_button.on('pointerdown', function() {
 
-			console.log("Restart game");
 			if(coins_collected<retry_cost)
 			{
 				return;
@@ -1293,7 +1297,6 @@ function update(){
 		}, curr_game);
 		
 		end_game_button.on('pointerdown', (pointer)=>{ 
-			console.log("end game clicked");
 			clearInterval(retry_coin_animation);
 			$('#start_page').removeClass('d-none');
 			$( '#game_div' ).load(window.location.href + ' #game_div' );
@@ -1480,7 +1483,6 @@ function update(){
 				if(SHOW_TUTORIAL==true&&(obstacle_tutorial_shown==false||double_jump_for_obstacle1_tutorial_shown==false||double_jump_for_obstacle2_tutorial_shown==false))
 				{
 					second_choice_high=5;
-					console.log("\"----");
 
 				}
 			}
@@ -1600,8 +1602,7 @@ function update(){
 		if(jumpKey.isDown&&doubleJumpKey.isDown==false&&isJumping==false)
 		{
 			
-			jump(); 
-			console.log("Erw");
+			jump();
 		
 		}
 
@@ -1646,7 +1647,6 @@ function jump()
 		tutorial_box.destroy();
 		control_button_1.destroy();
 		control_button_1=null;
-		console.log("jump_tutorial");
 		}
 		else
 		{
@@ -1669,7 +1669,6 @@ function jump()
 		tutorial_box.destroy();
 		control_button_1.destroy();
 		control_button_1=null;
-		console.log("jump_tutorial");
 		}
 		else
 		{
@@ -1717,7 +1716,6 @@ function double_jump(){
 			double_jump_button.setScale(0.5);
 			animation_active=false;
 		}
-		console.log("obstacle_tutorial");
 	}
 
 	//Tutorial for jumping obstacle (stop animation and restore game)
@@ -1755,7 +1753,6 @@ function double_jump(){
 		if(jumps.remaining>0)
 		{
 			jumps.remaining--;
-			//console.log(jumps.remaining);
 			if(jumps.remaining==0)
 			{
 				double_jump_coin=curr_game.add.image(double_jump_text.x+2,double_jump_text.y+10, 'coin').setScale(0.15);
@@ -1841,7 +1838,6 @@ function shoot(){
 		}
 
 		movement_progress.push(movement_increment);
-		// console.log(shooting_bomb.length);
 		if(isShooting==false)
 		{
 			shoot_action();
@@ -1849,8 +1845,6 @@ function shoot(){
 	}
 	else
 	{
-		// console.log(shoot_y[shoot_y.length-1][1]);
-		// console.log(screen_height*0.8);
 		shoot_x.pop();
 		shoot_y.pop();
 
@@ -1863,11 +1857,9 @@ function shoot(){
 
 //For pausing the game    
 pause_resume_game = function(){
-	console.log("game paused");
 	console.log(control_button_1, "not paused", animation_active, score);
 	// if(gameOver==true||control_button_1!=null||animation_active==true||score==0||control_button_1!=null||animation_active==true)
 	// {
-	// 	console.log("but return");
 	// 	return;
 	// }
 	
@@ -1894,7 +1886,6 @@ musicECGame =  function(music_muted)
 {
 
 	// music_muted=!music_muted;
-	console.log(music_muted);
 
 	if(music_muted==true)
 	{
@@ -1913,7 +1904,6 @@ musicECGame =  function(music_muted)
 	}
 }
 closeECGame = function(){ 
-	console.log("close the game");
 	game_paused=true;
 	gameOver=true;
 	game_closed = true;
@@ -1929,7 +1919,6 @@ closeECGame = function(){
 	clearInterval(jump_tutorial_animation);
 
 	// in task
-	console.log(generate_tasks_variable);
 	clearTimeout(generate_tasks_variable);
 	clearTimeout(generate_tasks_timeout);
 	clearTimeout(tasks_done);
@@ -1942,14 +1931,12 @@ closeECGame = function(){
 	clearInterval(task_button_blinking_animation);
 	clearInterval(touch_button_animation);
 	
-	console.log(scene_change_timeout);
 	//when scene change
 	clearTimeout(scene_change_timeout);
 	clearTimeout(moveSidewardsTimeout);
 	clearTimeout(stopTunnelTimeout);
 	scene_change_timeout = null;
 
-	console.log(scene_change_timeout);
 	if(curr_game){
 		curr_game.sys.game.destroy(true);
 	}
@@ -2175,6 +2162,8 @@ function generateTS()
 }
 
 function scoreUpdate(){
+	
+	// return [ec_game_start_time,game_object,score,level.number,coins_collected, generateTS(),gameOver]
 	// $.ajax({
 	// 	url:'gameOverUpdate',
 	// 	type:'GET',
@@ -2196,5 +2185,29 @@ function scoreUpdate(){
 	// 		//failure, alert the user
 	// 	}
 	// });
+	storeECScoreDataEvent = new CustomEvent("CallAngularECScoreFun");
+
+	window.dispatchEvent(storeECScoreDataEvent);
+
 	game_over_update=true;
+	
+}
+getECScoreData = function(){
+	if(score > max_score){
+		max_score = score;
+	}
+	return [
+		ec_game_start_time,
+		game_object,
+		score,
+		level.number,
+		generateTS(),
+		gameOver,
+
+		max_score,
+		coins_collected,
+		double_jump_field,
+		shooting_power_field,
+		double_coin_field
+	]
 }

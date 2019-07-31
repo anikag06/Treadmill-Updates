@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, HostListener } from '@angular/core';
 import { GamePlayService } from '../../shared/game-play.service';
 import { GamesService } from '@/main/shared/games.service';
 import { Router, ActivatedRoute, RouterEvent, NavigationStart } from '@angular/router';
@@ -14,7 +14,6 @@ declare let $: any;
   selector: 'app-common-game',
   templateUrl: './common-game.component.html',
   styleUrls: ['./common-game.component.scss'],
-  providers: [ GamesAuthService]
 })
 export class CommonGameComponent implements OnInit {
 
@@ -23,6 +22,7 @@ export class CommonGameComponent implements OnInit {
   firstPageElement!: HTMLElement;
   pauseBtnElement!: HTMLElement;
 
+  isFirstPageHelpBtn = true;
   showSecondPlayBtn = true;
   isExecutiveControl = false;
   isInterpretationBias = false;
@@ -61,7 +61,6 @@ export class CommonGameComponent implements OnInit {
           if (this.gameName === 'Sample Game') {
             this.isSampleGame = true;
           }
-          console.log(this.gameName, this.isExecutiveControl);
           this.firstPageElement = document.getElementById('firstpage-btns') as HTMLElement;
           this.pauseBtnElement = document.getElementById('pause-common-div') as HTMLElement;
         },
@@ -86,11 +85,16 @@ export class CommonGameComponent implements OnInit {
 
   onHelpClick() {
     this.showSideButtons = false;
+    if (this.firstPageElement.classList.contains('d-none')) {
+      this.isFirstPageHelpBtn = false;
+    } else {
+      this.isFirstPageHelpBtn = true;
+    }
     this.firstPageElement.classList.add('d-none');
     this.pauseBtnElement.classList.remove('d-none');
     if (this.gameName === 'Executive Control Game') {
       this.showSecondPlayBtn = false;
-      this.gamePlayService.helpExecControlGame(this.isSoundOn);
+      this.gamePlayService.helpExecControlGame(this.isSoundOn, this.isFirstPageHelpBtn);
     }
     if (this.gameName === 'Interpretation Bias Game') {
       this.gamePlayService.helpIBGame();
@@ -118,7 +122,6 @@ export class CommonGameComponent implements OnInit {
   }
 
   onResumeClick() {
-    console.log('resume clicked');
     this.showSideButtons = false;
     this.pauseBtnElement.classList.remove('d-none');
     if (this.gameName === 'Executive Control Game') {

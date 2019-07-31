@@ -1,5 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, OnChanges, SimpleChanges, SimpleChange, HostListener } from '@angular/core';
 import { GamePlayService } from '@/main/games/shared/game-play.service';
+
+declare var flankerTaskECGame: any;
 
 @Component({
   selector: 'app-executive-control-game',
@@ -15,6 +17,19 @@ export class ExecutiveControlGameComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
+  }
+
+  @HostListener('window:CallAngularStoreDataFun')
+  onStoreTaskDataECGame() {
+    this.playGameService.storeFlankerDiscriTaskData();
+  }
+  @HostListener('window:CallAngularECScoreFun')
+  onStoreScoreDataECGame() {
+    this.playGameService.storeDataExecControlGame();
+  }
+  @HostListener('window:beforeunload')
+  onCloseStoreScoreDataECGame() {
+    this.playGameService.storeDataExecControlGame();
   }
 
   ngOnDestroy() {

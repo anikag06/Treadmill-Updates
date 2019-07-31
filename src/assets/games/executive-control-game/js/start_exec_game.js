@@ -1,29 +1,29 @@
-var startExecControlGame = function(show_tutorial, data, musicOn){
+var startExecControlGame = function(show_tutorial, user_data,game_id, musicOn){
     $('#execGame').removeClass('d-none');
     
-    //For fullscreen and orientation
-    var orientKey = 'orientation';
-    if('mozOrientation' in screen){
-        orientKey = 'mozOrientation';
-    }else if('msOrientation' in screen) {
-        orientKey = 'msOrientation';
-    }
+    // //For fullscreen and orientation
+    // var orientKey = 'orientation';
+    // if('mozOrientation' in screen){
+    //     orientKey = 'mozOrientation';
+    // }else if('msOrientation' in screen) {
+    //     orientKey = 'msOrientation';
+    // }
 
-    var goFullScreen = null;
-    var exitFullScreen = null;
-    if('requestFullscreen' in document.documentElement) {
-        goFullScreen = 'requestFullscreen';
-        exitFullScreen = 'exitFullscreen';
-    }else if('mozRequestFullScreen' in document.documentElement) {
-        goFullScreen = 'mozRequestFullScreen';
-        exitFullScreen = 'mozCancelFullScreen';
-    }else if('webkitRequestFullscreen' in document.documentElement) {
-        goFullScreen = 'webkitRequestFullscreen';
-        exitFullScreen = 'webkitExitFullscreen';
-    }else if('msRequestFullscreen') {
-        goFullScreen = 'msRequestFullscreen';
-        exitFullScreen = 'msExitFullscreen';
-    }
+    // var goFullScreen = null;
+    // var exitFullScreen = null;
+    // if('requestFullscreen' in document.documentElement) {
+    //     goFullScreen = 'requestFullscreen';
+    //     exitFullScreen = 'exitFullscreen';
+    // }else if('mozRequestFullScreen' in document.documentElement) {
+    //     goFullScreen = 'mozRequestFullScreen';
+    //     exitFullScreen = 'mozCancelFullScreen';
+    // }else if('webkitRequestFullscreen' in document.documentElement) {
+    //     goFullScreen = 'webkitRequestFullscreen';
+    //     exitFullScreen = 'webkitExitFullscreen';
+    // }else if('msRequestFullscreen') {
+    //     goFullScreen = 'msRequestFullscreen';
+    //     exitFullScreen = 'msExitFullscreen';
+    // }
 
     // document.documentElement[goFullScreen] && document.documentElement[goFullScreen]();
 
@@ -42,33 +42,31 @@ var startExecControlGame = function(show_tutorial, data, musicOn){
     // });
 
     init_game_variables();
-    console.log("data recieved ", data);
+    console.log("data recieved ", user_data);
     //Setup game variables using database entry
-    // coins_collected =parseInt('{{player_data.coins_collected}}');
-    // shooting_power_field='{{player_data.shooting_capacity}}';
-    // double_coin_field='{{player_data.double_coins}}';
-    // double_jump_field='{{player_data.double_jump}}';
-    // game_object='{{game_instance.pk}}';
 
-    coins_collected = data;
-    shooting_power_field='0';
-    double_coin_field='2';
-    double_jump_field='2';
-    game_object='1';
+    // game_object=user_data.data.id;
+    game_object = game_id;
+    coins_collected = user_data.data.coins_collected;
+    shooting_power_field=user_data.data.shooting_capacity;
+    double_coin_field=user_data.data.double_coins;
+    double_jump_field=user_data.data.double_jump;
+    max_score=user_data.data.max_score;
 
-    if(shooting_power_field=='True'){
+    console.log("when game started",game_object);
+    if(shooting_power_field){
         SHOOTING_POWER_UNLOCKED=true;
     }else{
         SHOOTING_POWER_UNLOCKED=false;
     }
 
-    if(double_coin_field=='True'){
+    if(double_coin_field){
         DOUBLE_COIN_POWER=true;
     }else{
         DOUBLE_COIN_POWER=false;
     }
 
-    if(double_jump_field=='True'){
+    if(double_jump_field){
         DOUBLE_JUMP_COST=5;
     }else{
         DOUBLE_JUMP_COST=10;
