@@ -642,7 +642,7 @@ function preload(){
 
 	//Coin Related Elements
 	this.load.image('coin_obstacle',svg_location+'/obstacle.svg');
-	this.load.image('coin',svg_location+'/coin.svg');
+	this.load.image('coin',svg_location+'/GOLD_COIN.svg');
 
 	
 	//Obstacle
