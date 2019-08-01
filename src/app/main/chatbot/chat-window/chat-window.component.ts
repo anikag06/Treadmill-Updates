@@ -53,8 +53,9 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
   webSocket!: WebSocket;
   buttons: any = [];
   scrollTop = 0;
-  totalDelay = 2400;
+  totalDelay = 2700;
   halfwayDelay = 1000;
+  delayPerWord = 100;
   chatClosed = false;
   retries = 0;
 
@@ -153,6 +154,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
           this.closeChat();
       } else {
         data.message.forEach((m: any, index: number) => {
+          const delayPerMessage =  (this.totalDelay + this.getSentenceDelay(m.text || '')) * index + Math.floor((Math.random() * 1100) + 1);
           setTimeout(() => {
             if ((m.text && m.text.length > 0) || (m.buttons && m.buttons.length > 0)) {
               this.showWritingAndPushChat(m);
@@ -160,7 +162,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
                 this.scrollToBottom();
               });
             }
-          }, this.totalDelay * index + + Math.floor((Math.random() * 500) + 1));
+          }, delayPerMessage);
         });
       }
     };
@@ -202,7 +204,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
       this.messages.pop();
       this.pushChat(m);
       setTimeout(this.scrollToBottom);
-    }, this.halfwayDelay + Math.floor((Math.random() * 500) + 1));
+    }, this.halfwayDelay + Math.floor((Math.random() * 800) + 1));
   }
 
   closeChat() {
@@ -213,5 +215,13 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
     this.retries = 0;
     this.chatWindowClosedEmitter.emit(true);
     this.chatWindowClosed = true;
+  }
+
+  getWordCount(str: string) {
+    return str.split(' ').length;
+  }
+
+  getSentenceDelay(str: string) {
+    return this.getWordCount(str) *  this.delayPerWord;
   }
 }
