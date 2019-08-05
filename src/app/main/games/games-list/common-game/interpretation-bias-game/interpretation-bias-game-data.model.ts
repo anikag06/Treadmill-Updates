@@ -5,7 +5,8 @@ export class UserScoreData {
         public level: number,
         public score: number,
         public streak: number,
-        public time: number) {
+        public time: number,
+        public words_hidden: number) {
 
     }
 }

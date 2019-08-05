@@ -20,14 +20,15 @@ declare var sentence_word_valence: any;
 declare var sentence_trick: any;
 declare var sentence_order_array: any;
 // for the information of scores,order,level, streak of the user
-declare var gameScore: any;
-declare var level: any;
-declare var streak: any;
-declare var userOrder: any;
-declare var gameTime: any;
+declare var ibGameScore: number;
+declare var ibGamelevel: number;
+declare var ibGameStreak: number;
+declare var ibGameUserOrder: number;
+declare var ibGameTime: any;
+declare var ibGameWordsHidden: number;
 // for storing the score related info of the user
 declare var success: any;
-declare var inactivity_check: any;
+declare var inactivity_check_interval: any;
 declare function getUpdatedVariables(): any;
 
 @Component({
@@ -39,10 +40,10 @@ declare function getUpdatedVariables(): any;
 export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
 
   NO_OF_SENTENCES_RECEIVED = 20;      // order of first sentence is 0
-  LEVEL_UP_SEN = 5;       // level up after how many sentences, here after 5 sentences;
+  // LEVEL_UP_SEN = 5;       // level up after how many sentences, here after 5 sentences;
 
   firstSentence = true;
-  userScoreData = new UserScoreData(userOrder, level, gameScore, streak, gameTime);
+  userScoreData = new UserScoreData(ibGameUserOrder, ibGamelevel, ibGameScore, ibGameStreak, ibGameTime, ibGameWordsHidden);
   userResponseData = new UserResponseData(1, false, 0) ;
 
   // for getting the sentence information
@@ -52,11 +53,11 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   sentencesPageInUrl!: number;
   sentencePage!: any;
   lastSentenceReceived = this.NO_OF_SENTENCES_RECEIVED;
-  index = userOrder;
+  index = ibGameUserOrder;
 
   // whether level > 0 or not
   showAllHints = false;
-  levelUpElement!: HTMLElement;
+  // levelUpElement!: HTMLElement;
 
   SEN_URL = environment.API_ENDPOINT + IBG_SENTENCE;
   // if the user started from the first sentence instructions should be shown
@@ -74,19 +75,24 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   }
 
   sentenceInfo(URL: string) {
-    this.sentencesPageInUrl = Math.floor(userOrder / this.NO_OF_SENTENCES_RECEIVED);
+    this.sentencesPageInUrl = Math.floor(ibGameUserOrder / this.NO_OF_SENTENCES_RECEIVED);
     this.interpretationbiasgameService.getSentencesInfo(URL, this.firstSentence, this.sentencesPageInUrl)
       .subscribe( (data) => {
-          if ( userOrder === data.count - 1) {
+          console.log(data, ibGameUserOrder);
+          if ( ibGameUserOrder === data.count - 1) {
             this.lastSentenceReceived = data.count % this.NO_OF_SENTENCES_RECEIVED ;
+          }
+          if (data.count < this.lastSentenceReceived) {
+            this.lastSentenceReceived = data.count - 1;
           }
           this.FIRST_SENTENCE_ID = data.results[0].id;
           if (this.firstSentence) {
-            this.index = userOrder % this.NO_OF_SENTENCES_RECEIVED ;
+            this.index = ibGameUserOrder % this.NO_OF_SENTENCES_RECEIVED ;
           }
-          if ( level > 0) {
+          if ( ibGamelevel > 0) {
             this.showAllHints = true;
           }
+          console.log(this.lastSentenceReceived);
           for (let i = this.index;
                 i < (this.lastSentenceReceived); i++) {
               this.NEXT_SEN_URL = data.next;
@@ -97,7 +103,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
               sentence_word_valence.push(data.results[i].word.valence);
               sentence_trick.push(data.results[i].trick_sentence);
               sentence_order_array.push(data.results[i].order);
-              if (userOrder >= (this.FIRST_SENTENCE_ID + Math.floor(this.NO_OF_SENTENCES_RECEIVED / 2))) {
+              if (ibGameUserOrder >= (this.FIRST_SENTENCE_ID + Math.floor(this.NO_OF_SENTENCES_RECEIVED / 2))) {
                 if (data.next && this.firstSentence) {
                   this.index = 0;
                   this.firstSentence = false;
@@ -115,19 +121,25 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
     this.interpretationbiasgameService.getScoresInfo()
       .subscribe((data) => {
           this.INPUT_ORDER = data.data.order;
-          gameScore = data.data.score;
-          level = data.data.level;
-          console.log('level:', level);
-          streak = data.data.streak;
-          userOrder = this.INPUT_ORDER;
-          gameTime = data.data.time;
+          ibGameScore = data.data.score;
+          ibGamelevel = data.data.level;
+          console.log('level:', ibGamelevel);
+          ibGameStreak = data.data.streak;
+          ibGameUserOrder = this.INPUT_ORDER;
+          ibGameTime = data.data.time;
+          ibGameWordsHidden = data.data.words_hidden;
+          if ( ibGameWordsHidden > 0 ) {
+            this.showAllHints = true;
+          } else if (ibGameWordsHidden === 0) {
+            this.showAllHints = false;
+          }
           this.sentenceInfo(this.SEN_URL);
-          this.gameElement = document.getElementById('main_div') as HTMLElement;
+          this.gameElement = document.getElementById('game_main_div') as HTMLElement;
           this.instructElement = document.getElementById('instruct-div') as HTMLElement;
-          if  (userOrder > 0) {
+          if  (ibGameUserOrder > 0) {
             this.gameElement.classList.remove('d-none');
             this.instructElement.classList.add('d-none');
-          } else if ( userOrder === 0) {
+          } else if ( ibGameUserOrder === 0) {
             this.instructElement.classList.remove('d-none');
             this.gameElement.classList.add('d-none');
           }
@@ -141,7 +153,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
     this.getScoreVariablesValue();
     this.interpretationbiasgameService.storeUserScoreInfo(this.userScoreData)
       .subscribe( (data) => {
-          if (userOrder === (this.FIRST_SENTENCE_ID + Math.floor(this.NO_OF_SENTENCES_RECEIVED / 2))) {
+          if (ibGameUserOrder === (this.FIRST_SENTENCE_ID + Math.floor(this.NO_OF_SENTENCES_RECEIVED / 2))) {
 
             this.index = 0;
             this.firstSentence = false;
@@ -157,30 +169,26 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   getScoreVariablesValue() {
     let userData = getUpdatedVariables();                  // from sentence_javascript
     this.userScoreData.order = userData[0];
-    userOrder = userData[0];                              // used for getting the sentences 
+    ibGameUserOrder = userData[0];                              // used for getting the sentences 
     this.userScoreData.level = userData[1];
-    this.levelUpElement = document.getElementById('levelup') as HTMLElement;
-    if (userOrder % ( this.LEVEL_UP_SEN) === 0) {
-      this.userScoreData.level = userData[1] + 1;
-      if (level > 2) {
-        this.userScoreData.level = 3;
-      }
-      level = this.userScoreData.level;
-      this.levelUpElement.classList.remove('d-none');
-    }
-    if ( level > 0 ) {
-      this.showAllHints = true;
-    } else if (level === 0) {
-      this.showAllHints = false;
-    }
-    console.log("order ", userOrder, " level ", level );
+    // this.levelUpElement = document.getElementById('levelup') as HTMLElement;
+    // if (ibGameUserOrder % ( this.LEVEL_UP_SEN) === 0) {
+    //   this.userScoreData.level = userData[1] + 1;
+    //   if (ibGamelevel > 2) {
+    //     this.userScoreData.level = 3;
+    //   }
+    //   this.levelUpElement.classList.remove('d-none');
+    // }
+    // ibGamelevel = this.userScoreData.level;
     this.userScoreData.score = userData[2];
     this.userScoreData.streak = userData[3];
     this.userScoreData.time  = userData[4];
+    this.userScoreData.words_hidden = userData[5];
+    console.log('score data' , this.userScoreData);
 
-    this.userResponseData.sentence = userData[5];
-    this.userResponseData.user_response = userData[6];
-    this.userResponseData.response_time = userData[7];
+    this.userResponseData.sentence = userData[6];
+    this.userResponseData.user_response = userData[7];
+    this.userResponseData.response_time = userData[8];
 
   }
   onPlayClicked() {
@@ -205,11 +213,11 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   }
 
   onHintClick() {
-    console.log("hint btn clicked");
+    console.log('hint btn clicked');
       this.gamePlayService.hintsIBGame();
   }
 
   ngOnDestroy() {
-    clearInterval(inactivity_check);
+    clearInterval(inactivity_check_interval);
   }
 }

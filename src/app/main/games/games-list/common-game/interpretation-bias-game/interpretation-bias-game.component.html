@@ -85,15 +85,16 @@
       </div>
     </div>
     <!-- GAME INSTRUCTIONS - END -->
-  
-      <div class="row game-first-page justify-content-center align-items-center">
-        <img id="frontpage-image"
-          src="../../../../../../assets/games/interpretation_bias_game/images/frontpage_image.png"
-          class="col ">
-        
-      </div>
-        <!-- GAME PLAY - START -->
-      <!-- SENTENCE/WORD -->
+  <div class="h-100" id="game_main_div">
+    <div class="row game-first-page justify-content-center align-items-center">
+      <img id="frontpage-image"
+        src="../../../../../../assets/games/interpretation_bias_game/images/frontpage_image.png"
+        class="col ">
+    </div>
+  </div>
+      
+  <!-- GAME PLAY - START -->
+    <!-- SENTENCE/WORD -->
     <div class="row game d-none" >
       <!-- for score and timer info -->
       <div id="score-col" class="score-col col-2 changes-width d-none">   
@@ -169,7 +170,14 @@
         <div class="row w-100 canvas-row align-center changes-width d-none">
           <div class="col w-100" id="canvas-div">
               <div class="col tip center-element w-100" >
-                  <p class="text tip-text center-element small-font" id="tip-text"></p>
+                <div class="center-element">
+                  <div class="text tip-text small-font d-inline" id="tip-text"></div>
+                    <img
+                      class="d-none"
+                      id="hint-img-tip"
+                      style="height: 19px"
+                      src="../../../../../../assets/games/hint.png">
+                </div>
               </div> 
               <div class="col w-100">
                 <p class="w-80 large-font" id="congrats" class="d-none"></p>
@@ -197,7 +205,7 @@
           <div class="col hints-col changes-width d-none" style="margin-bottom: 2%">
             <!-- CONTROLS -->
             <div class="row row-height-100 changes-width justify-content-end">
-              <div class="row align-self-start col justify-content-center">
+              <div class="row align-self-start justify-content-center">
                 <img
                   id="common-hint"
                   class="mx-1 img-btn"
@@ -205,7 +213,7 @@
                   src="../../../../../assets/games/hint.png">
               </div>
               
-              <div class="align-self-center col justify-content-start controls-row">
+              <div class="align-self-center row justify-content-start controls-row">
                   <div id="hint-div" class="row d-none">
                       <!-- <div class="btns-hint "> -->
                         <div class="row w-100" *ngIf = "showAllHints">
@@ -218,14 +226,23 @@
                             <p id="aWord"></p>
                           </div> 
                         </div>
-                       <div class="row w-100" *ngIf = "showAllHints">
+                       <!-- <div class="row w-100" *ngIf = "showAllHints">
                         <button id="guessWord" 
                           class="btn-hint px-2 btn btn-light guessWord small-font">
                           Show a jumbled word</button>
                         <div id="guessWordResult" class="p-2 rounded guessWordResult d-none">
                           <p id="unscrambleWord" class="small-font"></p>
                         </div> 
-                       </div>
+                       </div> -->
+                        <div class="row w-100">
+                          <button id="showCoordinates" 
+                            class="btn-hint px-2 btn btn-light showCoordinates small-font">
+                            Get position of first letter of a word</button>
+                          <div id="showCoordResult" class="p-2 rounded showCoordResult d-none">
+                            <p id="wordCoordinates" class="small-font"></p>
+                          </div> 
+                        </div>
+
                         <div class="row w-100">
                           <button id="increase_time" 
                             class="btn-hint px-2 btn btn-light increase_time small-font">
@@ -265,11 +282,11 @@
                         <div class="col justify-content-center align-items-center timeup-btn-in-div">
                           <img 
                             id="btn-try-again"
-                            class="btn-try-again img-btn" 
+                            class="btn-try-again img-btn"
                             src="../../../../../assets/games/replay.png">
                         </div>
                         <div class="lifeline-cost-div col p-1">
-                          <p class="lifeline-cost medium-font">Try Again for 40 points</p>
+                          <p class="lifeline-cost medium-font">Try Again </p>
                         </div>
                       </div>
                     </div>
@@ -328,7 +345,7 @@
                           <img 
                             id="btn-give-up" 
                             class="btn-give-up col img-btn"
-                            src="../../../../../assets/games/help.png">
+                            src="../../../../../assets/games/interpretation_bias_game/images/show_sentence.png">
                         </div>
                         <div class="lifeline-cost-div col p-1">
                           <p class="lifeline-cost medium-font">Show the sentence for 35 points </p>
@@ -446,3 +463,4 @@
     </div>
 	<!-- </body>
 </html> -->
+</div>
