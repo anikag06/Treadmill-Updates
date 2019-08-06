@@ -29,8 +29,8 @@ var no_words_hidden;
 var hidden_words_array = [];
 // var initial_timer = "180";							// time for finding words from letter grid
 var easy_game_timer = "180";
-var FIRST_HINTS_TIME = 110;
-var SECOND_HINTS_TIME = 100;
+var FIRST_HINTS_TIME = 60;
+var SECOND_HINTS_TIME = 30;
 // var initial_time = 12000;
 var game_timer = "150";
 var before_sentence_time = 1500;					//time after the user finds the required number of words
@@ -165,11 +165,11 @@ var inactivity_check_interval;
 var inactivity_time = 0;
 
 var tip_msg_array = [
-	"Search for other meaningful English words to earn extra points.",
-	"Scan along each row and column of the grid and look for the first letter in the word.",
-	"Do a circle search around first letters in the grid and try to look for the second letter of the word.",
-	"Search for less-common letters in a word, such as j, b, k, q, x, y, or z, to find more words easily.",
-	"Try to search for Multiple Words at a Time to find more words easily."
+	"Search for extra words to earn extra points.",
+	"Look for the first letter of the word.",
+	"Look for the second letter of the word around the first letter.",
+	"Search for less-common letters, such as j, b, k, q, x, y, or z, first.",
+	"Try to search for multiple words at a time to find more words easily."
 ];
 var tip_number = 0;
 var word_tip_shown = [];							//words for which tip has already been shown
@@ -181,8 +181,8 @@ function initializeVariables(){
 	countdownReset();
 	game_timer = ibGameTime.toString();
 	no_words_hidden = ibGameWordsHidden;
-	FIRST_HINTS_TIME = game_timer-10;
-  SECOND_HINTS_TIME = game_timer-15;
+	FIRST_HINTS_TIME = 60;
+  SECOND_HINTS_TIME = 30;
 	before_sentence_time = 1500;					
 	sentence_time = 1000;							
  	borrowed_time = 20;								
@@ -1151,8 +1151,7 @@ function starSentence(sentence){
 	for(let i =0; i<words_array_length; i++){
 		hidden_words_array[i] = false;
 	}
-	// no_words_hidden = ibGameWordsHidden;
-	no_words_hidden = 2;
+	no_words_hidden = ibGameWordsHidden;
 	if(no_words_hidden >= words_array_length){
 		no_words_hidden = words_array_length;
 	}
@@ -2137,63 +2136,44 @@ function showTip(){
 	
 	var words_left = [];
 	var no_hidden_words = hiddenWordsInfo();
+	var tip_word;
 
 	var two_letter_word = false;
 	var three_letter_word = false;
 
 	for(var i=0; i<sorted_words_list.length; i++){
-		if(word_already_found.indexOf(sorted_words_list[i])==-1 && word_tip_shown.indexOf(sorted_words_list[i])==-1 && sorted_words_list[i].length>1 &&(hidden_words_array[i]==true)){
+		if(word_already_found.indexOf(sorted_words_list[i])==-1 && (word_tip_shown.indexOf(sorted_words_list[i])==-1) && sorted_words_list[i].length>1 &&(hidden_words_array[i]==true)){
 			words_left.push(sorted_words_list[i]);
 		}
 	}
-
-	var tip_word = words_left[words_left.length-1];
-	word_tip_shown.push(tip_word);
-	// console.log(document.getElementById('stars'));
+	if(words_left.length>=1){
+		tip_word = words_left[words_left.length-1];
+		word_tip_shown.push(tip_word);
+	}
 	if((document.getElementById('stars') != "undefined") || (document.getElementById('stars') != null)){
-		if(typeof(tip_word) != "undefined"){
-			
-			if(word_tip_count==3){
-				$(".tip-text").text("you can use hints");
-				$("#hint-img-tip").removeClass("d-none");
-				word_tip_count = 0;
-				inactivity_time=0;
-			}
-			else if(word_tip_count<3){
-				console.log("words left:", words_left);
-				$(".tip-text").text("");
-				$("#hint-img-tip").addClass("d-none");
-				if(no_hidden_words<=0 || words_left.length<=0){
-					if(tip_number>= tip_msg_array.length){
-						tip_number = 0;
-					};
-					$(".tip-text").text(tip_msg_array[tip_number]);
-					tip_number++;
-				}else if(words_left.length>0){
-					if(word_tip_count==2){
-						$(".tip-text").text(tip_msg_array[tip_number]);
-					}else{
-						$(".tip-text").text("look for "+tip_word.length+" letter words starting with "+tip_word.charAt(0));
-						document.getElementById('stars').innerHTML = unstarFirstLetter(tip_word);
-					}
+		if(word_tip_count==3){
+			$(".tip-text").text("you can use hints");
+			$("#hint-img-tip").removeClass("d-none");
+			word_tip_count = 0;
+			inactivity_time=0;
+		}
+		else if(word_tip_count<3){
+			$(".tip-text").text("");
+			$("#hint-img-tip").addClass("d-none");
+			if(no_hidden_words<=0 || words_left.length<=0){
+				if(tip_number>= tip_msg_array.length){
+					tip_number = 0;
+				};
+				$(".tip-text").text(tip_msg_array[tip_number]);
+				tip_number++;
+			}else if(words_left.length>0){
+				if(typeof(tip_word) != "undefined"){
+					$(".tip-text").text("look for "+tip_word.length+" letter words starting with "+tip_word.charAt(0));
+					document.getElementById('stars').innerHTML = unstarFirstLetter(tip_word);
 				}
-
-				// if(ibGamelevel == 0){
-				// 	$(".tip-text").text("look for the words shown above");
-				// }
-				// if(ibGamelevel ==1){
-				// 	$(".tip-text").text("look for "+tip_word.length+" letter words starting with "+tip_word.charAt(0));
-				// }else if(ibGamelevel == 2){
-				// 	$(".tip-text").text("look for "+tip_word.length+" letter words starting with "+tip_word.charAt(0));
-				// 	document.getElementById('stars').innerHTML = unstarFirstLetter(tip_word);
-				// }else if(ibGamelevel > 2){
-				// 	$(".tip-text").text("look for "+tip_word.length+" letter words starting with "+tip_word.charAt(0));
-				// 	document.getElementById('stars').innerHTML = unstarFirstLetter(tip_word);
-				// }
-				word_tip_count++;
-				inactivity_time=0;
 			}
-			
+			word_tip_count++;
+			inactivity_time=0;
 		}
 	}	
 }
