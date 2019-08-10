@@ -149,7 +149,6 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
         const item = new Chat("Oops! I have some problem.<br /> Please hold on mate...", false, [], '', '', new Date());
         this.messages.push(item);
         this.webSocket.close();
-        this.startChatSession(NEW_CHAT);
       } else if (data.action === 'ws_close') {
           this.closeChat();
       } else {
@@ -176,8 +175,6 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
 
     this.webSocket.onerror = () => {
       this.webSocket.close();
-      this.retries++;
-      this.startChatSession(NEW_CHAT);
     };
     this.scrollToBottom();
   }
