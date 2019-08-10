@@ -60,6 +60,10 @@ import { ChatWindowComponent } from './chatbot/chat-window/chat-window.component
 import {ChatbotService} from '@/main/chatbot/chatbot.service';
 import { DataService } from './dashboard/questionnaire/data.service';
 import { QuestionnaireComponent } from './dashboard/questionnaire/questionnaire.component';
+import {AngularFireMessagingModule} from '@angular/fire/messaging';
+import {AngularFireModule} from '@angular/fire';
+import {FcmService} from '@/main/fcm.service';
+import {environment} from '../../environments/environment';
 
 @NgModule({
   declarations: [
@@ -120,6 +124,8 @@ import { QuestionnaireComponent } from './dashboard/questionnaire/questionnaire.
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     MatSlideToggleModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireMessagingModule
   ],
   providers: [
     LocalStorageService,
@@ -134,7 +140,8 @@ import { QuestionnaireComponent } from './dashboard/questionnaire/questionnaire.
     FormsService,
     TasksService,
     ChatbotService,
-    DataService
+    DataService,
+    FcmService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [CreatePostComponent]

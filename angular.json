@@ -27,6 +27,7 @@
               "src/assets",
               "src/manifest.webmanifest",
               "src/sw-master.js",
+              "src/firebase-messaging-sw.js",
               {
                 "glob": "localforage.min.js",
                 "input": "node_modules/localforage/dist/",
