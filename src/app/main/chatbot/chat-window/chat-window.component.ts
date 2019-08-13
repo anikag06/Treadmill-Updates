@@ -18,6 +18,8 @@ import {ChatbotService} from '@/main/chatbot/chatbot.service';
 import {AuthService} from '@/shared/auth/auth.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 
+declare var twemoji: any;
+
 
 @Component({
   selector: 'app-chat-window',
@@ -80,7 +82,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
       .subscribe(
         (data: any) => {
           data.data.messages.forEach((message: any) => {
-            this.messages.push(new Chat(message.text, message.is_sender_user, [], message.mid, message.sid, message.datetime));
+            this.messages.push(new Chat(twemoji.parse(message.text), message.is_sender_user, [], message.mid, message.sid, message.datetime));
             this.scrollToBottom();
           });
         }
@@ -96,7 +98,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
       this.message = this.message.replace(/[\n\t\r]/g, '');
       this.messages.push(new Chat(this.message, true, [], '', '', new Date()));
       this.scrollToBottom();
-      const message = this.message;
+      const message = twemoji.parse(this.message);
       this.message = '';
       this.webSocket.send(JSON.stringify({ 'action': REPLY_CURRENT, 'message': { 'text': message, 'buttons': [] } }));
       if (screen.availWidth > 576) {
@@ -180,7 +182,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
   }
 
   pushChat(m: any) {
-    const item = new Chat(m.text, false, m.buttons, m.mid, m.sid, m.datetime);
+    const item = new Chat(twemoji.parse(m.text), false, m.buttons, m.mid, m.sid, m.datetime);
     this.messages.push(item);
     this.scrollToBottom();
     if (this.ti) {

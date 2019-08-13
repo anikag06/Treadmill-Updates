@@ -101,7 +101,7 @@ import {environment} from '../../environments/environment';
     MainComponent,
     ChatbotComponent,
     ChatWindowComponent,
-    QuestionnaireComponent
+    QuestionnaireComponent,
   ],
   imports: [
     CommonModule,
@@ -125,7 +125,7 @@ import {environment} from '../../environments/environment';
     OwlNativeDateTimeModule,
     MatSlideToggleModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireMessagingModule
+    AngularFireMessagingModule,
   ],
   providers: [
     LocalStorageService,
