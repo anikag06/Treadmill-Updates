@@ -21,6 +21,9 @@ declare var musicECGame: any;
 declare var getECScoreData: any;
 declare var getECGameTaskData: any;
 
+// for learned helplessness game
+declare var lhGameStart: any;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -174,4 +177,10 @@ export class GamePlayService  {
       .subscribe();
   }
 
+// for learned helplessness game
+
+  playLearnedHelplessnessGame() {
+    lhGameStart();
+  }
 }
+

@@ -62,6 +62,7 @@ import { CommonGameComponent } from './games/games-list/common-game/common-game.
 import { GamesAuthService } from './games/shared/games-auth.service';
 import { InterpretationBiasGameService } from './games/games-list/common-game/interpretation-bias-game/interpretation-bias-game.service';
 import { GamePlayService } from './games/shared/game-play.service';
+import { LearnedHelplessnessGameComponent } from './games/games-list/common-game/learned-helplessness-game/learned-helplessness-game.component';
 
 
 @NgModule({
@@ -101,6 +102,7 @@ import { GamePlayService } from './games/shared/game-play.service';
     MainComponent,
     ExecutiveControlGameComponent,
     CommonGameComponent,
+    LearnedHelplessnessGameComponent,
   ],
   imports: [
     CommonModule,

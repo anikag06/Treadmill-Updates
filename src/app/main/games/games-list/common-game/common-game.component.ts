@@ -26,6 +26,7 @@ export class CommonGameComponent implements OnInit {
   showSecondPlayBtn = true;
   isExecutiveControl = false;
   isInterpretationBias = false;
+  isLearnedHelplessness = false;
   isSampleGame = false;
   showHintBtn = false;
   isSoundOn = true;
@@ -53,12 +54,12 @@ export class CommonGameComponent implements OnInit {
           this.gameName = this.game.name;
           if (this.gameName === 'Executive Control Game') {
             this.isExecutiveControl = true;
-          }
-          if (this.gameName === 'Interpretation Bias Game') {
+          } else if (this.gameName === 'Interpretation Bias Game') {
             this.isInterpretationBias = true;
             this.showHintBtn = true;
-          }
-          if (this.gameName === 'Sample Game') {
+          } else if (this.gameName === 'Learned Helplessness Game') {
+            this.isLearnedHelplessness = true;
+          } else if (this.gameName === 'Sample Game') {
             this.isSampleGame = true;
           }
           this.firstPageElement = document.getElementById('firstpage-btns') as HTMLElement;
@@ -76,10 +77,11 @@ export class CommonGameComponent implements OnInit {
     this.pauseBtnElement.classList.remove('d-none');
     if (this.gameName === 'Interpretation Bias Game') {
       this.gamePlayService.playIBGame();
-    }
-    if (this.gameName === 'Executive Control Game') {
+    } else if (this.gameName === 'Executive Control Game') {
       this.showSecondPlayBtn = false;
       this.gamePlayService.playExecControlGame(this.isSoundOn);
+    } else if (this.gameName === 'Learned Helplessness Game') {
+      this.gamePlayService.playLearnedHelplessnessGame();
     }
   }
 

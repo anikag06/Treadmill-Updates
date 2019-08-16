@@ -1,0 +1,29 @@
+.box-up-game-square {
+	position: relative;
+	background-color: white;
+	border: 1px solid black;
+	text-align: center;
+	white-space: nowrap;
+}
+
+.helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.left {
+	transform: rotate(180deg);
+}
+
+.right {
+	transform: rotate(0deg);
+}
+
+.up {
+	transform: rotate(-90deg);
+}
+
+.down {
+	transform: rotate(90deg);
+}
