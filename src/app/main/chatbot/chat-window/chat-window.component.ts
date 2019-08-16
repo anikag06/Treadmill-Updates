@@ -55,9 +55,9 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
   webSocket!: WebSocket;
   buttons: any = [];
   scrollTop = 0;
-  totalDelay = 2700;
-  halfwayDelay = 1000;
-  delayPerWord = 100;
+  totalDelay = 3000;
+  halfwayDelay = 1500;
+  delayPerWord = 130;
   chatClosed = false;
   retries = 0;
 
@@ -82,7 +82,8 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
       .subscribe(
         (data: any) => {
           data.data.messages.forEach((message: any) => {
-            this.messages.push(new Chat(twemoji.parse(message.text), message.is_sender_user, [], message.mid, message.sid, message.datetime));
+            this.messages.push(
+              new Chat(twemoji.parse(message.text), message.is_sender_user, [], message.mid, message.sid, message.datetime, false));
             this.scrollToBottom();
           });
         }
@@ -96,9 +97,9 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
   onChatSubmit() {
     if (this.message.length > 0 && this.message.trim().length > 0) {
       this.message = this.message.replace(/[\n\t\r]/g, '');
-      this.messages.push(new Chat(this.message, true, [], '', '', new Date()));
+      this.messages.push(new Chat(twemoji.parse(this.message), true, [], '', '', new Date(), false));
       this.scrollToBottom();
-      const message = twemoji.parse(this.message);
+      const message = this.message;
       this.message = '';
       this.webSocket.send(JSON.stringify({ 'action': REPLY_CURRENT, 'message': { 'text': message, 'buttons': [] } }));
       if (screen.availWidth > 576) {
@@ -122,7 +123,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
 
   chatButtonPressed(button: any, chat: Chat) {
     chat.buttons = [];
-    this.messages.push(new Chat(button['payload'], true, [], '', '', new Date()));
+    this.messages.push(new Chat(button['payload'], true, [], '', '', new Date(), false));
     this.webSocket.send(JSON.stringify({ 'action': REPLY_CURRENT, 'message': { 'text': '', 'buttons': [button] } }));
   }
 
@@ -147,15 +148,16 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
     };
     this.webSocket.onmessage = (message: any) => {
       const data = JSON.parse(message.data);
+      console.log(data);
       if (data.error === true) {
-        const item = new Chat("Oops! I have some problem.<br /> Please hold on mate...", false, [], '', '', new Date());
+        const item = new Chat(JSON.stringify(data), false, [], '', '', new Date(), false);
         this.messages.push(item);
         this.webSocket.close();
       } else if (data.action === 'ws_close') {
           this.closeChat();
       } else {
         data.message.forEach((m: any, index: number) => {
-          const delayPerMessage =  (this.totalDelay + this.getSentenceDelay(m.text || '')) * index + Math.floor((Math.random() * 1100) + 1);
+          const delayPerMessage =  (this.totalDelay + this.getSentenceDelay(m.text || '')) * index;
           setTimeout(() => {
             if ((m.text && m.text.length > 0) || (m.buttons && m.buttons.length > 0)) {
               this.showWritingAndPushChat(m);
@@ -182,7 +184,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
   }
 
   pushChat(m: any) {
-    const item = new Chat(twemoji.parse(m.text), false, m.buttons, m.mid, m.sid, m.datetime);
+    const item = new Chat(twemoji.parse(m.text || ''), false, m.buttons, m.mid, m.sid, m.datetime, false);
     this.messages.push(item);
     this.scrollToBottom();
     if (this.ti) {
@@ -196,7 +198,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
   }
 
   showWritingAndPushChat(m: any) {
-    const item = new Chat('.../.', false, [], '', '', new Date());
+    const item = new Chat('', false, [], '', '', new Date(), true);
     this.messages.push(item);
     setTimeout(this.scrollToBottom);
     setTimeout(() => {

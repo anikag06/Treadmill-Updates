@@ -6,5 +6,6 @@ export class Chat {
     public mid: string,
     public sid: string,
     public datetime: Date,
-  ){}
+    public waiting: boolean,
+  ) {}
 }

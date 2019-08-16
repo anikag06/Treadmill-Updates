@@ -52,7 +52,7 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
       this.router.navigate([DEFAULT_PATH]);
     }
 
-    this.fcmService.requestPermission()
+    this.fcmService.requestPermission();
   }
 
   ngDoCheck() {
