@@ -1,7 +1,6 @@
 //Configuration for phaser.js
 function config(render_type,swidth,sheight,modeType,center){
 	this.type=render_type;
-	// this.parent='execGame';
 	this.scale = {
 		mode:modeType,
 		parent: "execGame",
@@ -13,7 +12,7 @@ function config(render_type,swidth,sheight,modeType,center){
 		default: 'arcade',
 		arcade: {
 			gravity: { y: 3000 },
-			debug: true
+			debug: false
 				
 			}
 		};
@@ -668,16 +667,6 @@ function preload(){
 	this.load.image('red_button',svg_location+"/red_button.svg");
 	this.load.image('green_button',svg_location+"/green_button.svg");
 
-	//Pause and resume Button
-	// this.load.image('pause_button',svg_location+"/pause_button.svg");
-	// this.load.image('resume_button',svg_location+"/resume_button.svg");
-	// this.load.image('pause_button', assets_img_location + "/pause.png" );
-	// this.load.image('resume_button', assets_img_location + "/play.png" );
-
-	// //Music button
-	// // this.load.image('music_on',svg_location+"/music_on.svg");
-	// // this.load.image('music_off',svg_location+"/music_off.svg");
-	// this.load.image('music_on', assets_img_location + "/sound.png");
 	// this.load.image('music_off', assets_img_location + "/mute.png");
 	
 	//Flanker Task Images
@@ -748,10 +737,15 @@ function preload(){
 
 
 function create(){
-
 	
 	ec_game_start_time = generateTS();
+
+	this.scale.on('resize', function(gameSize, baseSize, displaySize, resolution, previousWidth, previousHeight) {
+	});
 	
+
+	this.scale.setGameSize(screen_width, screen_height);
+
 	//Create physics group for collidables
 	platforms = this.physics.add.group();
 	coins_group=this.physics.add.group();
@@ -774,19 +768,6 @@ function create(){
 	
 	river=this.add.tileSprite(screen_width/2,screen_height*0.75,screen_width,screen_height*0.1,'river');
 	river_filler=this.add.tileSprite(screen_width/2,screen_height*0.9,screen_width,screen_height*0.2,'river_filler');
-
-	// function callback(){
-	// 	console.log("done");
-	// }
-	// river.setInteractive();
-	// console.log(river.input);
-	// console.log(this.input);
-	// river.on('pointerdown', function (pointer) {
-	// 	console.log(pointer);
-	// 	console.log('dowwwwn', screen_width,screen_height);
-	// 	console.log(river.input);
-
-	// });
 
 	brick=this.add.tileSprite(screen_width/2,screen_height*0.9,screen_width,screen_height*0.2,'brick');
 	platforms.add(brick);
@@ -829,10 +810,8 @@ function create(){
 	coin_score_icon=coins_group.create(screen_width-40, stat_icon_display_y, 'coin').setScale(0.15);
 	coin_score_icon.body.allowGravity=false;
 	
-	
 	//Detect touch on the screen for shooting action
 	this.input.on('pointerdown', function (pointer) {
-
 		if(gameOver==false&&no_player==false)
 		{
 		shoot_x.push([shooting_bomb_x,pointer.x]);
@@ -886,28 +865,11 @@ function create(){
 	//Update Score every 1/2 second
 	score_update_handler=setTimeout(score_updator, 500);
 
-   
-
-	//Double jump button
-	double_jump_button=this.add.sprite(screen_width*0.94,screen_height*0.97, 'double_jump').setInteractive().setScale(0.5);
-	double_jump_button.depth=2;
-   
-
-	//double jump text
-	double_jump_text=this.add.text(screen_width*0.935,screen_height*0.96,"x"+jumps.remaining, { fontSize: '22px', fill: '#fff',align:'center' });
-	double_jump_text.depth=3;
-	if(double_jump_button.y+double_jump_button.height/2>screen_height)
-	{
-		double_jump_button.y=screen_height-double_jump_button.height*0.7/2;
-		double_jump_text.y=double_jump_button.y+10;
-
-	}
-
 	//Tutorial text
 	tutorial_text=this.add.text(screen_width*0.32,screen_height*0.3,"", { fontSize: '16px', fill: '#EC407A',align:'center' });
 	tutorial_text.setPadding(20,2,20,2);
 	tutorial_text.depth = 5;
-
+	
 	//If touch add jump button
 	if(isTouchDevice==true)
 	{
@@ -919,10 +881,33 @@ function create(){
 			jump_button.y=screen_height-jump_button.height*0.7/2;
 		}
 		jump_button.height = 50;
-		jump_button.on('pointerdown',jump);
-		jump_button.on('pointerdown',function(){this.alpha=1});
-		double_jump_button.on('pointerdown',double_jump);
-		double_jump_button.on('pointerdown',function(){this.alpha=1});
+		jump_button.on('pointerdown',function(){
+			jump();
+			this.alpha = 1;
+		}, this);
+	}
+	//Double jump button
+	if(isTouchDevice){
+		double_jump_button=this.add.sprite(screen_width*0.08+(jump_button.width*0.5),screen_height*0.97, 'double_jump').setInteractive().setScale(0.5);
+	}else{
+		double_jump_button=this.add.sprite(screen_width*0.08,screen_height*0.97, 'double_jump').setInteractive().setScale(0.5);
+	}
+	double_jump_button.depth=2;
+
+	//double jump text
+	double_jump_text=this.add.text(double_jump_button.x+10,screen_height*0.96,"x"+jumps.remaining, { fontSize: '22px', fill: '#fff',align:'center' });
+	double_jump_text.depth=3;
+	if(double_jump_button.y+double_jump_button.height/2>screen_height)
+	{
+		double_jump_button.y=screen_height-double_jump_button.height*0.7/2;
+		double_jump_text.y=double_jump_button.y+10;
+
+	}
+	if(isTouchDevice){
+		double_jump_button.on('pointerdown',function(){
+			double_jump();
+			this.alpha =1;
+		}, this);
 	}
 
 	//Record these for game restore code
@@ -933,50 +918,6 @@ function create(){
 
 	DOUBLE_JUMP_BUTTON_Y=double_jump_button.y;
 	DOUBLE_JUMP_BUTTON_TEXT_Y=double_jump_text.y;
-
-	// //Mute button
-	// music_button_on=this.add.sprite(screen_width*0.83,screen_height*0.93,'music_on').setInteractive().setScale(0.7);
-	// music_button_off=this.add.sprite(screen_width*0.83,screen_height*0.93,'music_off').setInteractive().setScale(0.7);
-	// music_button_on.depth=-10;
-	// music_button_off.depth=-10;
-
-	// //pause and resume button
-	// pause_button=this.add.sprite(screen_width*0.85 - music_button_on.width/2,screen_height*0.93,'pause_button').setInteractive().setScale(0.7);
-	// pause_button.x-=pause_button.width/2;
-	// resume_button=this.add.sprite(pause_button.x,screen_height*0.93,'resume_button').setInteractive().setScale(0.7);
-	// pause_button.depth=-10;			//because depth of screen changer platform is 6
-	// resume_button.depth=0;
-
-	// //Add click event listeneres
-	// pause_button.on('pointerdown',pause_resume_game);
-	// resume_button.on('pointerdown',pause_resume_game);
-
-	// music_button_off.on('pointerdown',mute_music);
-	// music_button_on.on('pointerdown',mute_music);
-
-
-	//During tasks,resume game if the tab becomes active again
-	// window.onfocus = function () { 
-	// 	// if(pause_button.y<0)
-	// 	// {	
-	// 	if (game_paused === true){
-	// 		$('#pause-common-div').removeClass('d-none');
-	// 		$('#common-pause-clicked-div').addClass('d-none');
-	// 		pause_resume_game();
-	// 	}
-	// }; 
-
- 
-	// //pause the game when the game tab becomes inactive
-	// window.onblur = function () { 
-	// 	if(game_paused===false)
-	// 	{    
-	// 		console.log("on blur");
-	// 		pause_resume_game();
-	// 		$('#pause-common-div').addClass('d-none');
-	// 		$('#common-pause-clicked-div').removeClass('d-none');
-	// 	}
-	// };
 
 	//Add sound and loop it
 	bgm_sound=this.sound.add('bgm');
@@ -1009,7 +950,7 @@ function update(){
 
 	//Store the current instance of the game (to be used in other files)
 	curr_game=this;
-
+	
 	// to check if the game just started
 	if(ec_play_clicked){
 		if(music_muted){
@@ -1497,7 +1438,6 @@ function update(){
 			if(second_choice_high%PIT_SELECTOR==0&&second_choice_high%DROPPING_PLATFORM_SELECTOR!=0&&second_choice_high!=-1||pit==true)
 			{
 				pit_placer();
-				//console.log("pit");
 			}
 
 			//For Dropping Platform Generation
@@ -1857,12 +1797,10 @@ function shoot(){
 
 //For pausing the game    
 pause_resume_game = function(){
-	console.log(control_button_1, "not paused", animation_active, score);
 	// if(gameOver==true||control_button_1!=null||animation_active==true||score==0||control_button_1!=null||animation_active==true)
 	// {
 	// 	return;
 	// }
-	
 	game_paused=!game_paused;
 	if(game_paused==false)
 	{
@@ -2034,7 +1972,6 @@ function jumps_remaining_changer()
 //Watch for change in level.number 
 function level_changer(){
 	
-	console.log("level:", level.number,stop_obstacle_generation);
 	if(level.number==2)
 	{
 		stop_obstacle_generation=false;
@@ -2162,29 +2099,6 @@ function generateTS()
 }
 
 function scoreUpdate(){
-	
-	// return [ec_game_start_time,game_object,score,level.number,coins_collected, generateTS(),gameOver]
-	// $.ajax({
-	// 	url:'gameOverUpdate',
-	// 	type:'GET',
-	// 	data:{
-	// 		'game':game_object,
-	// 		'score':score,
-	// 		'level':level.number,
-	// 		'coins':coins_collected,
-	// 		'end_time':generateTS()
-	// 	},
-	// 	beforeSend: function(xhr){
-	// 		console.log("reaching the beforesend");
-	// 		xhr.setRequestHeader('X-CSRFToken', $.cookie('csrftoken'));
-	// 	},
-	// 	success: function(data){
-	// 		//success
-	// 	},
-	// 	error: function(xhr,errmsg,err){
-	// 		//failure, alert the user
-	// 	}
-	// });
 	storeECScoreDataEvent = new CustomEvent("CallAngularECScoreFun");
 
 	window.dispatchEvent(storeECScoreDataEvent);

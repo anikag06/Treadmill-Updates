@@ -38,7 +38,6 @@ function task_generator()
 	    	}
 	    	covered=JUMP_RANGE+jump_platform[jump_platform.length-1].x-screen_width+jump_platform[jump_platform.length-1].width/2;;
 	    	length =Math.floor(Math.random() * JUMP_PLATFORM_LENGTH_RANGE)+JUMP_PLATFORM_MINIMUM_LENGTH;
-	    	console.log(covered);
     	}
 
 		//Add the next brick and collider for it
@@ -56,7 +55,6 @@ function task_generator()
 		{
 			current_number_of_tasks=2;
 		}
-		console.log(current_number_of_tasks);
 
 		//Game elements generator
 		free_to_choice_high=false;
@@ -186,10 +184,8 @@ function task_generator()
          //Move task buttons to the required posiiton
 	     else if(isTouchDevice==true)
 	     {
-			 console.log("buttons moving");
 		    if(left_button.x!=LEFT_X)
 		    {
-				console.log(LEFT_X, left_button.x);
 	     		// left_button.x+=BUTTON_SPEED;
 	     		// right_button.x-=BUTTON_SPEED;
 	     		// red_button.x+=BUTTON_SPEED;
@@ -466,8 +462,6 @@ function start_countdown()
 {
 	if(game_paused==true || game_closed == true)
     {
-        
-        console.log("paused");
         return;
     }
 

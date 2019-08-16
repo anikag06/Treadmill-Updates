@@ -69,13 +69,32 @@ export class GamePlayService  {
 // functions for executive control game
   playExecControlGame(isSoundOn: any) {
     this.ecGameStarted = true;
-    this.gamesAuthService.ecGameGetGameInfo()
-      .subscribe((game_data) => {
-        const length = game_data.data.length;
-        this.ecGameID = game_data.data[length - 1].id;
-        this.gamesAuthService.ecGameGetUserData()
-          .subscribe( (data) => {
-            startExecControlGame(false, data, this.ecGameID, isSoundOn);
+    let showTutorial = false;
+    this.gamesAuthService.ecGameGetTaskInfo()
+      .subscribe((task_info) => {
+        if (task_info.flanker_tasks_count === 0) {
+          showTutorial = true;
+        } else if (task_info.flanker_tasks_count > 0) {
+          this.gamesAuthService.ecGameGetFlankerTaskInfo()
+            .subscribe( (task_count) => {
+              if (task_count.flanker_tasks_count === 0) {
+                showTutorial = true;
+              } else {
+                showTutorial = false;
+              }
+            });
+        }
+        this.gamesAuthService.ecGameGetGameInfo()
+          .subscribe((game_data) => {
+            const length = game_data.data.length;
+            this.ecGameID = 0;
+            if (length > 0) {
+              this.ecGameID = game_data.data[length - 1].id;
+            }
+            this.gamesAuthService.ecGameGetUserData()
+              .subscribe( (data) => {
+                startExecControlGame(showTutorial, data, this.ecGameID, isSoundOn);
+              });
           });
       });
   }
@@ -102,7 +121,9 @@ export class GamePlayService  {
   }
   closeExecControlGame() {
     closeECGame();
-    this.storeDataExecControlGame();
+    if (this.ecGameStarted) {
+      this.storeDataExecControlGame();
+    }
   }
   soundExecControlGame(isSoundOn: any) {
     if (this.ecGameStarted) {

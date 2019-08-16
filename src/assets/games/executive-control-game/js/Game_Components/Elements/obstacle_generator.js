@@ -16,7 +16,6 @@ function obstacle_placer() {
 
         //choose obstacle type
         obstacle_type.curr_choice=Math.floor(Math.random()*obstacle_type.max_choice);
-        console.log(obstacle_type.curr_choice);
 
         //choose obstacles(not random) for tutorials
         if(SHOW_TUTORIAL==true)
@@ -24,7 +23,6 @@ function obstacle_placer() {
             if(obstacle_tutorial_shown==false)
             {
                 obstacle_type.curr_choice=0;
-                console.log("");
             }
             else if(double_jump_for_obstacle1_tutorial_shown==false)
             {
@@ -33,7 +31,6 @@ function obstacle_placer() {
             else if(double_jump_for_obstacle2_tutorial_shown==false)
             {
                 obstacle_type.curr_choice=2;
-                console.log("ttttt");
             }
         }
         
@@ -101,7 +98,6 @@ function obstacle_placer() {
                     tutorial_box.depth = 4;
                     tutorial_text.setText("Press               to\n\n  avoid obstacle");
                     control_button_1=curr_game.add.image(screen_width*0.49,screen_height*0.32,'spacebar_button').setScale(0.4);
-                    console.log("coin tutorial");
                     tutorial_text.depth = 5;
                     control_button_1.depth = 5;
                 }
@@ -128,7 +124,6 @@ function obstacle_placer() {
                     tutorial_box = curr_game.add.tileSprite(screen_width*0.5,screen_height*0.38,screen_width*0.42,screen_height*0.5,"tutorial_box");
                     tutorial_box.alpha = 0.6;
                     tutorial_box.depth = 4;
-                    console.log(tutorial_box);
                     tutorial_text.setText("Press         +          \n\nto avoid the obstacles");
                     // tutorial_text.x-=150;
                     control_button_1=curr_game.add.image(screen_width*0.46,screen_height*0.32,'shift_button').setScale(0.4);
@@ -141,7 +136,6 @@ function obstacle_placer() {
                 {
                     touch_button_animation=setInterval(double_jump_tutorial_animation,200);
                 }
-                console.log("coin tutorial");
                 game_paused=true;
             }
             //Do this for the case when player dies and new player is added
@@ -173,8 +167,7 @@ function obstacle_placer() {
                 {
                     touch_button_animation=setInterval(double_jump_tutorial_animation,200);
                 }
-               
-                console.log("coin tutorial");
+            
                 game_paused=true;
             }
             if(obstacle.y<jump_height*1.2&&obstacle_movement==TOP)

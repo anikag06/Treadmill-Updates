@@ -15,9 +15,15 @@ import { ECGameData, ECGameFlankerTask, ECGameDiscriminationTask, ECGameUserData
 export class GamesAuthService {
 
   constructor(private http: HttpClient) { }
+  ECG_DAYS = '?days=7';
 
-
-  ecGameGetUserData() {
+  ecGameGetTaskInfo(): Observable<any> {
+    return this.http.get(environment.API_ENDPOINT + ECG_FLANKER_TASK);
+  }
+  ecGameGetFlankerTaskInfo(): Observable<any> {
+    return this.http.get(environment.API_ENDPOINT + ECG_FLANKER_TASK + this.ECG_DAYS);
+  }
+  ecGameGetUserData(): Observable<any> {
     return this.http.get(environment.API_ENDPOINT + ECG_USER_DATA);
   }
   ecGameUpdateUserData(ec_game_user_data: ECGameUserData) {

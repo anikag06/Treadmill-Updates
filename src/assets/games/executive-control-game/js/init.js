@@ -1,11 +1,6 @@
 function init_game_variables(){
-	console.log("reached init js");
 	screen_width=800;
 	screen_height=400;
-
-	// screen_height = $('#execGame').height();
-	// screen_width = $('#execGame').width();
-	
 
 	scaleRatio = 2/3;
 
