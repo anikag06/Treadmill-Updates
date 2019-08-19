@@ -53,3 +53,19 @@ export const ECG_GAME_DATA      = '/api/v1/games/executive-control/game-data/';
 export const ECG_FLANKER_TASK   = '/api/v1/games/executive-control/flanker-task/';
 export const ECG_DISCIMINATION_TASK = '/api/v1/games/executive-control/discrimination-task/';
 
+// Learned Helplessness Game(LHG) paths
+
+export const LHG_POST_COLOR_REVERSE = '/api/v1/games/learned-helplessness/color-reverse-attempt/';
+export const LHG_GET_COLOR_REVERSE  = '/api/v1/games/learned-helplessness/color-reverse/';
+export const LHG_COLOR_REVERSE_USER_ATTEMPT = '/api/v1/games/learned-helplessness/color-reverse-user-attempts/';
+export const LHG_USER_LEVEL         = '/api/v1/games/learned-helplessness/user-level/';
+export const LHG_UNSOLVABLE_TASK2_LEVELS = '/api/v1/games/learned-helplessness/unsolvable-tasks2-levels/';
+export const LHG_UNSOLVABLE_TASK3_LEVELS = '/api/v1/games/learned-helplessness/unsolvable-tasks3-levels/';
+export const LHG_UNSOLVABLE_TASK1_LEVEL1 = '/api/v1/games/learned-helplessness/unsolvable-tasks1-level1/';
+export const LHG_UNSOLVABLE_TASK1_LEVEL2 = '/api/v1/games/learned-helplessness/unsolvable-tasks1-level2/';
+export const LHG_UNSOLVABLE_TASK2_LEVEL1 = '/api/v1/games/learned-helplessness/unsolvable-tasks2-level1/';
+export const LHG_UNSOLVABLE_TASK2_LEVEL2 = '/api/v1/games/learned-helplessness/unsolvable-tasks2-level2/';
+export const LHG_UNSOLVABLE_TASK3_LEVEL1 = '/api/v1/games/learned-helplessness/unsolvable-tasks3-level1/';
+export const LHG_UNSOLVABLE_TASK3_LEVEL2 = '/api/v1/games/learned-helplessness/unsolvable-tasks3-level2/';
+
+

@@ -2,7 +2,8 @@ import { Injectable, OnChanges, SimpleChanges, SimpleChange } from '@angular/cor
 import { map } from 'rxjs/operators';
 import {GamesService} from '@/main/shared/games.service';
 import {GamesAuthService} from '@/main/games/shared/games-auth.service';
-import { ECGameData, ECGameFlankerTask, ECGameDiscriminationTask, ECGameUserData } from './game-play.model';
+import { ECGameData, ECGameFlankerTask, ECGameDiscriminationTask, ECGameUserData,
+    LHGameColorReverseData, LHGameUserLevel, LHGamePerformance } from './game-play.model';
 
 
 // for interpretation bias game
@@ -23,6 +24,25 @@ declare var getECGameTaskData: any;
 
 // for learned helplessness game
 declare var lhGameStart: any;
+declare var lhGameLevelStrings: any;
+declare var lhGameHeights: any;
+declare var lhGameLengths: any;
+declare var lhGameLevelCounter: any;
+declare var lh_frog_levels: any;
+declare var lh_frog_lengths: any;
+declare var lh_frog_heights: any;
+declare var lh_frog_face_directions: any;
+declare var lh_inner_position_initials: any;
+declare var lh_outer_position_initials: any;
+declare var lh_small_obstacle_initials: any;
+declare var lh_big_obstacle_initials: any;
+declare var lh_ball_position_initials: any;
+declare var lh_box_up_grid_dimensions: any;
+
+declare var lhGameGetColorReverseData: any;
+declare var lhGameGetTask1Data: any;
+declare var lhGameGetTask2Data: any;
+declare var lhGameGetTask2Data: any;
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +61,11 @@ export class GamePlayService  {
   ecGameUserDataObject = new ECGameUserData(1, 0, 0, false, false, false);
   ecGameFlankerData = new ECGameFlankerTask(1, null, 0, 0, 0, 1);
   ecGameDiscriminationData = new ECGameDiscriminationTask(1, null, 0, 0);
+
+  // variables for lh game
+  lhGameColorReverse = new LHGameColorReverseData(0, 0, 0, false);
+  lhGameUserLevel = new LHGameUserLevel(0);
+  lhGamePerformanceData = new LHGamePerformance(0, 0, 0);
 
   constructor(  private gamesService: GamesService,
     private gamesAuthService: GamesAuthService) { }
@@ -180,7 +205,126 @@ export class GamePlayService  {
 // for learned helplessness game
 
   playLearnedHelplessnessGame() {
-    lhGameStart();
+    lhGameLevelStrings = [];
+    lhGameLengths = [];
+    lhGameHeights = [];
+    lh_frog_face_directions = [];
+    lh_frog_heights = [];
+    lh_frog_lengths = [];
+    lh_frog_levels = [];
+
+    lh_inner_position_initials = [];
+    lh_outer_position_initials = [];
+    lh_small_obstacle_initials = [];
+    lh_big_obstacle_initials = [];
+    lh_ball_position_initials = [];
+    lh_box_up_grid_dimensions = [];
+
+    this.gamesAuthService.lhGameGetColorReverseData()
+      .subscribe( (game_data) => {
+        for ( let i = 0; i < game_data.count ; i++ ) {
+          lhGameLevelStrings.push(game_data.results[i].game_string);
+          lhGameLengths.push(game_data.results[i].length);
+          lhGameHeights.push(game_data.results[i].height);
+        }
+        this.gamesAuthService.lhGameGetUserLevel()
+          .subscribe((level_data) => {
+            lhGameLevelCounter = level_data.level;
+            console.log('level: ', lhGameLevelCounter);
+            lhGameStart();
+          });
+      });
+    this.gamesAuthService.lhGameGetUnsolvableTask2Data()
+      .subscribe((task2_data) => {
+        console.log('task2', task2_data);
+        for ( let i = 0; i < task2_data.count ; i++ ) {
+          lh_frog_levels.push(task2_data.results[i].game_string);
+          lh_frog_lengths.push(task2_data.results[i].length);
+          lh_frog_heights.push(task2_data.results[i].height);
+          lh_frog_face_directions.push(task2_data.results[i].face_direction);
+        }
+      });
+    this.gamesAuthService.lhGameGetUnsolvableTask3Data()
+      .subscribe((task3_data) => {
+        for ( let i = 0; i < task3_data.count ; i++) {
+          const small_obstacle_info = [];
+          const big_obstacle_info = [];
+          const ball_x_value = task3_data.results[i].ball_x;
+          const ball_y_value = task3_data.results[i].ball_y;
+          lh_ball_position_initials.push([ball_x_value, ball_y_value]);
+
+          lh_box_up_grid_dimensions.push(task3_data.results[i].grid_dimensions);
+
+          const task_3_element_length = task3_data.results[i].task_3_element.length;
+
+          for ( let j = 0; j < task_3_element_length; j++) {
+            const task3_element_info = task3_data.results[i].task_3_element[j];
+            const x_value = task3_element_info.x;
+            const y_value =  task3_element_info.y;
+            const orientation_value = task3_element_info.orientation;
+            if (task3_element_info.inner_element === true && task3_element_info.outer_element === false) {
+
+              lh_inner_position_initials.push({x: x_value, y: y_value, orientation: orientation_value});
+
+            } else if (task3_element_info.inner_element === false && task3_element_info.outer_element === true) {
+
+              lh_outer_position_initials.push({x: x_value, y: y_value, orientation: orientation_value});
+
+            }
+            if (task3_element_info.inner_element === false && task3_element_info.outer_element === false) {
+                if (task3_element_info.size === 'small') {
+                  small_obstacle_info.push({x: x_value, y: y_value, orientation: orientation_value});
+                } else if (task3_element_info.size === 'big') {
+                  big_obstacle_info.push({x: x_value, y: y_value, orientation: orientation_value});
+                }
+            }
+          }
+          lh_small_obstacle_initials.push(small_obstacle_info);
+          lh_big_obstacle_initials.push(big_obstacle_info);
+        }
+      } );
   }
+  lhGameColorReverseStoreData() {
+    let storeColorReverseData;
+    storeColorReverseData = lhGameGetColorReverseData();
+    this.lhGameColorReverse.level = storeColorReverseData[0];
+    this.lhGameColorReverse.time_spent = storeColorReverseData[1];
+    this.lhGameColorReverse.no_of_moves = storeColorReverseData[2];
+    this.lhGameColorReverse.success = storeColorReverseData[3];
+
+    this.gamesAuthService.lhGameStoreColorReverse(this.lhGameColorReverse)
+      .subscribe ( (data) => {
+        if (this.lhGameColorReverse.success) {
+          this.lhGameUserLevel.level = this.lhGameColorReverse.level;
+          this.gamesAuthService.lhGameUpdateUserLevel(this.lhGameUserLevel)
+            .subscribe(() => {
+            });
+        }
+      });
+  }
+  lhGameStoreTask1Data() {
+    let storeTask1Data;
+    storeTask1Data = lhGameGetTask1Data();
+    this.lhGamePerformanceData.time_to_give_up = storeTask1Data[0];
+    this.lhGamePerformanceData.no_of_moves = storeTask1Data[1];
+    this.lhGamePerformanceData.no_of_resets = storeTask1Data[2];
+    const task1performance = { performance: this.lhGamePerformanceData};
+    console.log(this.lhGamePerformanceData, storeTask1Data[3]);
+    if (storeTask1Data[3] === true) {
+      this.gamesAuthService.lhGameUpdateTask1Level1(task1performance)
+        .subscribe( (task1_data) => {
+          console.log(task1_data);
+        },
+        (error) => {
+          console.log(error);
+        });
+    } else {
+      this.gamesAuthService.lhGameUpdateTask1Level2(task1performance)
+        .subscribe((task1_data) => {
+          console.log('level2', task1_data);
+        });
+    }
+  }
+
 }
 

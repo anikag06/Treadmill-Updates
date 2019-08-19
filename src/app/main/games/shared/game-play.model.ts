@@ -39,3 +39,27 @@ export class ECGameDiscriminationTask {
         public response_type: number
     ) {}
 }
+
+// for storing data of learned helplessness game
+
+export class LHGameColorReverseData {
+    constructor(
+        public level: number,
+        public time_spent: number,
+        public no_of_moves: number,
+        public success: boolean
+    ) {}
+}
+export class LHGameUserLevel {
+    constructor(
+        public level: number
+    ) {}
+}
+export class LHGamePerformance {
+    constructor(
+        public time_to_give_up: number,
+        public no_of_moves: number,
+        public no_of_resets: number
+
+    ) { }
+}

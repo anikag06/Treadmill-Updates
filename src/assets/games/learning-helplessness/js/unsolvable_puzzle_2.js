@@ -1,10 +1,15 @@
 // frog jump game variables (unsolvable game 2)
-var frog_levels= [1,2,3] ;
-var frog_level_counter= 0;		// always start from 0 as this is an impossible game
-var frog_lengths = 500;
-var frog_heights = 500;
-var frog_face_directions = [1,2,3];
+var lh_frog_levels;
+var lh_frog_lengths;
+var lh_frog_heights;
+var lh_frog_face_directions;
+
 var success_wait_time = 1000;
+
+var frog_level_counter= 0;		// always start from 0 as this is an impossible game
+
+var frogGameInit;
+var resetFrogGame;
 
 var FrogGrid = function(length, height, grid_string, frog_direction){
 	this.length = length,
@@ -30,9 +35,7 @@ var first;
 var frogGridSwipe;
 
 $(document).ready(function(){
-	resetFrogGame();
-	frogGameInit();
-
+	
 	$(document).on("click", "#btn-frog-game-reset", function(){
 		frog_grid = new FrogGrid(frog_length, frog_height, frog_grid_string, frog_face_direction);
 		frog_direction_class = getFrogDirection(frog_grid.frog_direction);
@@ -42,8 +45,8 @@ $(document).ready(function(){
 	});
 
 	$(document).on("click", "#btn-frog-game-give-up", function(){
-		updateTask2Data();
-		if(frog_level_counter<(frog_levels.length-1)) {
+		// updateTask2Data();
+		if(frog_level_counter<(lh_frog_levels.length-1)) {
 			frog_level_counter++;
 			frogGameInit();
 		}
@@ -53,7 +56,6 @@ $(document).ready(function(){
 		frog_no_of_moves = 0;
 
 		if(!first){
-			console.log("reaching in this 1");
 			$("#frog-game-row").addClass("d-none");
 			$("#color-reverse-game").removeClass("d-none");
 			unsolvable_game_counter=3;		 
@@ -61,7 +63,6 @@ $(document).ready(function(){
 		 	frogGameInit();
 			init();
 		}else{
-			console.log("reaching in this 2");
 			first = false;
 		}
 	});
@@ -78,15 +79,19 @@ $(document).ready(function(){
 			frogGridMoveRouter(ev.direction);
 		});
 	}
+
+	$(document).on('keydown','#frog-game-row', function(e) {
+		e.preventDefault();
+		
+		if(unsolvable_game_counter == 2) {
+			frogGridMoveRouter(e.which);
+		}
+	});
+	
+	
 });
 
-// $(document).keydown(function(e){
-// 	e.preventDefault();
 
-// 	if(unsolvable_game_counter == 2) {
-// 		frogGridMoveRouter(e.which);
-// 	}
-// });
 
 function frogGridMoveRouter(value) {
 	if((frog_grid.frog_direction==3 && (value==37 || value==2)) 
@@ -212,11 +217,11 @@ function setFrogGridGameWidthAndHeight() {
 	}
 }
 
-function frogGameInit(){
-	frog_grid_string = frog_levels[frog_level_counter];
-	frog_length = frog_lengths[frog_level_counter];
-	frog_height = frog_heights[[frog_level_counter]];
-	frog_face_direction = frog_face_directions[frog_level_counter];
+frogGameInit = function(){
+	frog_grid_string = lh_frog_levels[frog_level_counter];
+	frog_length = lh_frog_lengths[frog_level_counter];
+	frog_height = lh_frog_heights[[frog_level_counter]];
+	frog_face_direction = lh_frog_face_directions[frog_level_counter];
 	frog_grid = new FrogGrid(frog_length, frog_height, frog_grid_string, frog_face_direction);
 
 	setTimeout(function(){
@@ -234,7 +239,7 @@ function frogGameInit(){
 	}, success_wait_time);
 }
 
-function resetFrogGame() {
+resetFrogGame = function() {
 	wrong_move = false;
 	frog_level_counter = 0;
 	frog_time_taken = 0;
@@ -320,7 +325,6 @@ function frogY(grid_array){
 }
 
 function updateFrogLocation(){
-	console.log("inside update frog location function");
 	var frog_id = $("."+prev_frog_direction_class).attr("id");
 	$("#"+frog_id).removeClass(prev_frog_direction_class);
 	$("#"+frog_id).addClass("frog-game-flower-dry");
@@ -354,33 +358,33 @@ function frogDetectSuccess(){
 	if(sum==3){		// success
 		$("#frog-game-success-message").removeClass("d-none");
 		var ping = document.getElementById("ping");
-		ping.play();
+		// ping.play();
 		return true;
 	}else{
 		return false;
 	}
 }
 
-function updateTask2Data(){
-	var url = $("input[name='unsolvable-task2-data-update-url']").val();
+// function updateTask2Data(){
+// 	var url = $("input[name='unsolvable-task2-data-update-url']").val();
 
-	$.ajax({
-		type: "POST",
-		url: url,
-		data:{
-			no_of_resets: frog_no_of_resets,
-			time_to_give_up: Math.floor((Date.now()-frog_time_taken)/1000),		// in seconds
-			no_of_moves: frog_no_of_moves,
-			first: first
-		},
-		beforeSend: function(xhr){
-			xhr.setRequestHeader('X-CSRFToken', $.cookie('csrftoken'));
-		},
-		success: function(data){
-			console.log("success");
-		},
-		error: function(xhr, errmsg, err){
-			console.log("error");
-		}
-	});
-}
+// 	$.ajax({
+// 		type: "POST",
+// 		url: url,
+// 		data:{
+// 			no_of_resets: frog_no_of_resets,
+// 			time_to_give_up: Math.floor((Date.now()-frog_time_taken)/1000),		// in seconds
+// 			no_of_moves: frog_no_of_moves,
+// 			first: first
+// 		},
+// 		beforeSend: function(xhr){
+// 			xhr.setRequestHeader('X-CSRFToken', $.cookie('csrftoken'));
+// 		},
+// 		success: function(data){
+// 			console.log("success");
+// 		},
+// 		error: function(xhr, errmsg, err){
+// 			console.log("error");
+// 		}
+// 	});
+// }

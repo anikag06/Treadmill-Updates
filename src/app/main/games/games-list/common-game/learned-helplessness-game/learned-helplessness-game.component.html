@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Find a way</title>
-</head>
-<body>
-	<div class="container-fluid">
+
+	<div class="container-fluid" id="lg-game-container" tabindex="0">
     <div class="check-image"></div>
 		<!-- working memory game start -->
 		<div class="row d-none" id="squares-row">
@@ -119,7 +114,9 @@
 						Arrange the tiles in order 1->2->3->......->15 to win.
           </div>
 					<button id="btn-reset-fifteen">Reset the grid</button>
-					<button id="btn-give-up-fifteen" class="d-none give-up-text-red">Show me a simpler game</button>
+					<button id="btn-give-up-fifteen" 
+						(click) = "updateUnsolvableTask1Data()"
+						class="d-none give-up-text-red">Show me a simpler game</button>
 				</div>
 			</div>
 
@@ -152,7 +149,9 @@
 						Arrange the tiles in order 1->2->3->......->8 to win.
           </div>
 					<button id="btn-reset-nine">Reset the grid</button>
-					<button id="btn-give-up-nine" class="d-none give-up-text-red">Show me a simpler game</button>
+					<button id="btn-give-up-nine" 
+						(click) = "updateUnsolvableTask1Data()"
+						class="d-none give-up-text-red">Show me a simpler game</button>
 					<div>
 						<b>Instructions:</b>
 						<ol>
@@ -165,7 +164,7 @@
 		<!-- unsolvable game 1 end -->
 
 		<!-- unsolvable game 2 start -->
-		<div class="row d-none" id="frog-game-row">
+		<div class="row d-none" id="frog-game-row" tabindex="0">
 			<div class="col">
 				<div id="frog-game-space"></div>
 				<br>
@@ -191,7 +190,7 @@
 		<!-- unsolvable game 2 end -->
 
 		<!-- unsolvable game 3 start -->
-		<div class="row d-none" id="box-up-game-row">
+		<div class="row d-none" id="box-up-game-row" tabindex="0">
 			<div class="col">
 				<div id="box-up-game-space"></div>
 				<br>
@@ -219,14 +218,15 @@
 		<!-- unsolvable game 3 end -->
 
 		<!-- color reverse game start -->
-		<div class="row" id="color-reverse-game">
+		<div class="row d-none" id="color-reverse-game">
 			<div class="col">
-				<div id="color-reverse-game-level">Level : 0 </div>
+				<div id="color-reverse-game-level"></div>
 				<div id="color-reverse-game-space"></div>
 				<br>
 				<div>
 					<div class="d-none" id="color-reverse-game-success-message">Great!!</div>
-					<button id="btn-color-reverse-game-reset">Reset</button>
+					<button id="btn-color-reverse-game-reset" 
+						(click) = "updateColorReverseGameData()">Reset</button>
 					<br>
 					<br>
 					<button id="btn-color-reverse-game-give-up" class="d-none">Can't do this, too hard</button>
@@ -269,6 +269,3 @@
 		</div>
 		<!-- explanation end -->
 	</div>
-
-</body>
-</html>

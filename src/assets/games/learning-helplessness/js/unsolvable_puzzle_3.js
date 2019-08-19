@@ -5,17 +5,20 @@ var box_up_outer = "../../../../../../assets/games/learning-helplessness//assets
 var box_up_small_obstacle = "../../../../../../assets/games/learning-helplessness/assets/box.up.puzzle/small.png";
 var box_up_big_obstacle = "../../../../../../assets/games/learning-helplessness/assets/box.up.puzzle/big.png";
 
-var inner_position_initials = [1,2,3];
-var outer_position_initials = [1,2,3];
-var small_obstacle_initials = [1,2,3];
-var big_obstacle_initials = [1,2,3];
-var ball_position_initials = [1,2,3];
-var box_up_grid_dimensions = [100,200,300];
+var lh_inner_position_initials;
+var lh_outer_position_initials;
+var lh_small_obstacle_initials;
+var lh_big_obstacle_initials;
+var lh_ball_position_initials;
+var lh_box_up_grid_dimensions;
+
 var success_wait_time = 1000;
 
 var ball_element;
 var inner_element;
 var outer_element;
+var small_obstacle = [];
+var big_obstacle = [];
 var box_up_grid_array;
 var game_arcs;				// stores the arc element objects related to the game in decreasing order of size
 var is_ball_in_container;
@@ -49,6 +52,14 @@ $(document).ready(function() {
 			boxUpMoveRouter(ev.direction);
 		});
 	}
+	$(document).on('keydown','#box-up-game-row', function(e) {
+		if (unsolvable_game_counter == 3 && !block_arrows) {
+			e.preventDefault();
+			boxUpMoveRouter(e.which);		
+		} else {
+			console.log("do nothing");
+		}
+	});
 	
 });
 
@@ -249,14 +260,16 @@ function isBallInContainer() {
 }
 
 function boxUpGameInit() {
-	var inner_position_initial = inner_position_initials[box_up_level_counter];
-	var outer_position_initial = outer_position_initials[box_up_level_counter];
-	ball_position_initial = ball_position_initials[box_up_level_counter];
-	console.log(ball_position_initial);
-	var small_obstacle_initial = small_obstacle_initials[box_up_level_counter];
-	var big_obstacle_initial = big_obstacle_initials[box_up_level_counter];
-	var box_up_grid_dimension = box_up_grid_dimensions[box_up_level_counter];
+	var inner_position_initial = lh_inner_position_initials[box_up_level_counter];
+	var outer_position_initial = lh_outer_position_initials[box_up_level_counter];
+	ball_position_initial = lh_ball_position_initials[box_up_level_counter];
+	
+	var small_obstacle_initial = lh_small_obstacle_initials[box_up_level_counter];
+	var big_obstacle_initial = lh_big_obstacle_initials[box_up_level_counter];
+	var box_up_grid_dimension = lh_box_up_grid_dimensions[box_up_level_counter];
 
+	small_obstacle = [];
+	big_obstacle = [];
 	box_up_grid_array = new BoxUpGrid(box_up_grid_dimension[0], box_up_grid_dimension[1], ball_position_initial, inner_position_initial, outer_position_initial, small_obstacle_initial, big_obstacle_initial);
 
 	ball_element = {
@@ -281,9 +294,7 @@ function boxUpGameInit() {
 		html: "<img id='outer-element' class='box-up-outer' src='"+box_up_outer+"'>"
 	};
 
-	var small_obstacle = [];
-
-	for (var i = 0; i < small_obstacle_initial.length; i++) {
+	for (let i = 0; i < small_obstacle_initial.length; i++) {
 		small_obstacle.push({
 			x: small_obstacle_initial[i].x,
 			y: small_obstacle_initial[i].y,
@@ -293,9 +304,7 @@ function boxUpGameInit() {
 		});
 	}
 
-	var big_obstacle = [];
-
-	for (var i = 0; i < big_obstacle_initial.length; i++) {
+	for (let i = 0; i < big_obstacle_initial.length; i++) {
 		big_obstacle.push({
 			x: big_obstacle_initial[i].x,
 			y: big_obstacle_initial[i].y,
@@ -914,7 +923,6 @@ function smallArcOrientation(x, y) {
 
 function drawBall(x, y) {
 	removeBall();
-	console.log("ball x: "+x+" ; ball y: "+y);
 	$("#box-up-game-square-"+x+"-"+y).append(ball_element.html);
 	setBoxUpGameWidthAndHeight();
 }
@@ -931,7 +939,7 @@ function drawArc(element) {
 		block_arrows = true;
 		$("#box-up-game-success-message").removeClass("d-none");
 		var ping = document.getElementById("ping");
-		ping.play();
+		// ping.play();
 		changeLevel();		
 	}
 
@@ -1022,8 +1030,8 @@ $(document).on('click', '#btn-box-up-game-reset', function() {
 });
 
 $(document).on('click', '#btn-box-up-game-give-up', function() {
-	updateTask3Data();
-	if(box_up_level_counter<(inner_position_initials.length-1)) {
+	// updateTask3Data();
+	if(box_up_level_counter<(lh_inner_position_initials.length-1)) {
 		changeLevel();
 	}
 	box_up_time_taken = Date.now();
@@ -1059,26 +1067,26 @@ function changeLevel() {
 	}, success_wait_time);
 }
 
-function updateTask3Data() {
-	var url = $("input[name='unsolvable-task3-data-update-url']").val();
+// function updateTask3Data() {
+// 	var url = $("input[name='unsolvable-task3-data-update-url']").val();
 
-	$.ajax({
-		type: "POST",
-		url: url,
-		data:{
-			no_of_resets: box_up_no_of_resets,
-			time_to_give_up: Math.floor((Date.now()-box_up_time_taken)/1000),		// in seconds
-			no_of_moves: box_up_no_of_moves,
-			first: box_up_first
-		},
-		beforeSend: function(xhr){
-			xhr.setRequestHeader('X-CSRFToken', $.cookie('csrftoken'));
-		},
-		success: function(data){
-			console.log("success");
-		},
-		error: function(xhr, errmsg, err){
-			console.log("error");
-		}
-	});
-}
+// 	$.ajax({
+// 		type: "POST",
+// 		url: url,
+// 		data:{
+// 			no_of_resets: box_up_no_of_resets,
+// 			time_to_give_up: Math.floor((Date.now()-box_up_time_taken)/1000),		// in seconds
+// 			no_of_moves: box_up_no_of_moves,
+// 			first: box_up_first
+// 		},
+// 		beforeSend: function(xhr){
+// 			xhr.setRequestHeader('X-CSRFToken', $.cookie('csrftoken'));
+// 		},
+// 		success: function(data){
+// 			console.log("success");
+// 		},
+// 		error: function(xhr, errmsg, err){
+// 			console.log("error");
+// 		}
+// 	});
+// }

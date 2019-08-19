@@ -153,4 +153,8 @@ export class CommonGameComponent implements OnInit {
     }
   }
 
+  onBlurDiv() {
+    console.log('blur works');
+  }
+
 }

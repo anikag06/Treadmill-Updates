@@ -1,11 +1,16 @@
-// color reverse game variables
-var levels = ['1111','1221','221212122','221212122'] ;
-var level_counter = 0;
-var lengths = [2,2,3,3];
-var heights = [2,2,3,3];
+// color reverse game variables, info of each level in the game
+var lhGameLevelStrings;		// stores strings of a level
+var lhGameLengths;
+var lhGameHeights;
+
+var lhGameLevelCounter;   // get from user level 
+
+// functions called from typescript
+var lhGameGetColorReverseData;
+var lhGameStart;
 
 // for checking if the user fails to solve a previously solved level
-var previously_solved_level = 1;
+var previously_solved_level = lhGameLevelCounter;
 
 var Grid = function(length, height, grid_string){
 	console.log(" grid function");
@@ -16,10 +21,20 @@ var Grid = function(length, height, grid_string){
 
 // remove these variables based on database integration
 var Grid;
-var lhGameStart;
-var grid_string = levels[level_counter];
-var length = lengths[level_counter];
-var height = heights[level_counter];
+var grid_string;
+var length;
+var height;
+var success;
+
+// for storing data when proceed to next level
+var storeLHScoreColorReverse;
+
+function initializeVar(){
+	grid_string = lhGameLevelStrings[lhGameLevelCounter];
+	length = lhGameLengths[lhGameLevelCounter];
+	height = lhGameHeights[lhGameLevelCounter];
+	$("#color-reverse-game-level").text("Level : "+lhGameLevelCounter);
+}
 var grid;
 var no_of_moves;
 var start_time;
@@ -27,26 +42,26 @@ var different_game_timeout;
 var different_game_wait = 15000;		// 15 seconds
 var second_time = false;				// to keep track of the unsolvable set of games to show to the user
 var first_puzzle = true;				// if it is the first color puzzle, then we can't show the explanation if the user gives up, so reducing the level
-var unsolvable_game_counter = 2;		// 1 - show the 15 puzzle; 2 - show the frog game; 3 - show the box up game
+var unsolvable_game_counter = 1;		// 1 - show the 15 puzzle; 2 - show the frog game; 3 - show the box up game
 var success_wait_time = 1000;
 
 $(document).ready(function(){
-	console.log("start the game");
-	lhGameStart = function(){
-		console.log(" grid function");
+
+	lhGameStart = function(ev){
+		$("#color-reverse-game").removeClass("d-none");
+		initializeVar();
 		init();
 	}
 
 	$(document).on("click", ".color-reverse-game-square", function(){
 		no_of_moves++;
 		squareClicked($(this), grid.grid_array);
-		
 		detectSuccess(grid.grid_array);
 	});
 
 	$(document).on("click", "#btn-color-reverse-game-reset", function(){
-		updateAttemptData(false);
-		
+		// updateAttemptData(false);
+		success = false;
 		grid.grid_array = populateGrid(length, height, grid_string);
 		start_time = Date.now();
 		no_of_moves = 0;
@@ -55,26 +70,30 @@ $(document).ready(function(){
 
 	$(document).on("click", "#btn-color-reverse-game-give-up", function(){
 		console.log("reaching here");
-		if(first_puzzle && level_counter!=0){
-			level_counter--;
-			previously_solved_level = level_counter-1;
+		if(first_puzzle && lhGameLevelCounter!=0){
+			lhGameLevelCounter--;
+			previously_solved_level = lhGameLevelCounter-1;
 			init();
-		}else if(level_counter!=0 && previously_solved_level==level_counter){		// showing explanation if giving up on same level
+		}else if(lhGameLevelCounter!=0 && previously_solved_level==lhGameLevelCounter){		// showing explanation if giving up on same level
 			$("#color-reverse-game").addClass("d-none");
 			$("#explanation-row").removeClass("d-none");
 		}else if(unsolvable_game_counter == 3){
 			$("#color-reverse-game").addClass("d-none");
 			boxUpGameInit();
 			$("#box-up-game-row").removeClass("d-none");
-			level_counter = previously_solved_level;
+			$("#box-up-game-row").focus();
+			lhGameLevelCounter = previously_solved_level;
 		}else if(unsolvable_game_counter == 2){
+			resetFrogGame();
+			frogGameInit();
 			$("#color-reverse-game").addClass("d-none");
 			$("#frog-game-row").removeClass("d-none");
-			level_counter = previously_solved_level;
+			$("#frog-game-row").focus();
+			lhGameLevelCounter = previously_solved_level;
 		}else if(unsolvable_game_counter == 1){
 			$("#color-reverse-game").addClass("d-none");
 			$("#grid-puzzle-row").removeClass("d-none");
-			level_counter = previously_solved_level;
+			lhGameLevelCounter = previously_solved_level;
 
 			setTimeout(function(){
 				$("#btn-give-up-fifteen").removeClass("d-none");
@@ -116,13 +135,10 @@ function showBlocks(grid_array){
 		for(var j=0; j<grid_array[0].length; j++){
 			if(grid_array[i][j]==1){
 				$("#row-"+(i+1)).append("<div class=\"color-reverse-game-square\" id=\""+i+"-"+j+"\"></div>");
-				console.log(i,j, grid_array[i][j]);
 			}else if(grid_array[i][j]==2){
 				$("#row-"+(i+1)).append("<div class=\"color-reverse-game-square circle\" id=\""+i+"-"+j+"\"></div>");
-				console.log(i,j, grid_array[i][j]);
 			}else{
 				$("#row-"+(i+1)).append("<div class=\"color-reverse-game-square-blank\" id=\""+i+"-"+j+"\"></div>");
-				console.log(i,j, grid_array[i][j]);
 			}
 		}
 		
@@ -196,7 +212,7 @@ function squareClicked($square, grid_array){
 }
 
 function detectSuccess(grid_array){
-	var success = true;
+	success = true;
 
 	for(var i=0; i<grid_array.length; i++){
 		for(var j=0; j<grid_array[0].length; j++){
@@ -209,12 +225,15 @@ function detectSuccess(grid_array){
 		var ping = document.getElementById("ping");
 		// ping.play();
 		setTimeout(function(){
-			updateAttemptData(true);
-			previously_solved_level = level_counter;
-			level_counter++;
+			// updateAttemptData(true);
+			storeLHScoreColorReverse = new CustomEvent("CallLevelChangeStoreFun");
+			window.dispatchEvent(storeLHScoreColorReverse);
+			
+			previously_solved_level = lhGameLevelCounter;
+			lhGameLevelCounter++;
 			clearTimeout(different_game_timeout);
 			$("#color-reverse-game-success-message").addClass("d-none");
-			$("#color-reverse-game-level").text("Level : "+level_counter);
+			$("#color-reverse-game-level").text("Level : "+lhGameLevelCounter);
 			first_puzzle = false;					// setting first puzzle to false if the user has solved one
 			init();
 		}, success_wait_time);
@@ -223,12 +242,13 @@ function detectSuccess(grid_array){
 }
 
 function init(){
-	grid_string = levels[level_counter];
-	length = lengths[level_counter];
-	height = heights[level_counter];
+	grid_string = lhGameLevelStrings[lhGameLevelCounter];
+	length = lhGameLengths[lhGameLevelCounter];
+	height = lhGameHeights[lhGameLevelCounter];
 	grid = new Grid(length, height, grid_string);
 	start_time = Date.now();
 	no_of_moves = 0;
+	success = false;
 	showBlocks(grid.grid_array);
 
 	different_game_timeout = setTimeout(function(){
@@ -268,14 +288,20 @@ function setColorReverseGameWidthAndHeight() {
 	}
 }
 
-function updateAttemptData(success){
+lhGameGetColorReverseData = function(){
+	console.log("level before sending", lhGameLevelCounter);
+	var time_spent= Math.floor((Date.now()-start_time)/1000);
+	return [lhGameLevelCounter, time_spent, no_of_moves, success]
+}
+
+// function updateAttemptData(success){
 // 	var url = $("input[name='color-reverse-game-data-update-url']").val();
 // 	console.log(url);
 // 	$.ajax({
 // 		type: "POST",
 // 		url: url,
 // 		data:{
-// 			level: level_counter,
+// 			level: lhGameLevelCounter,
 // 			time_spent: Math.floor((Date.now()-start_time)/1000),		// in seconds
 // 			no_of_moves: no_of_moves,
 // 			success: success
@@ -291,4 +317,4 @@ function updateAttemptData(success){
 // 			console.log("error");
 // 		}
 // 	});
-}
+// }

@@ -1,3 +1,5 @@
+var lhGameGetTask1Data; 		// function called from game-play-service
+
 var highlight_give_up_button_fifteen;
 var highlight_give_up_button_nine;
 var text_red;
@@ -62,7 +64,7 @@ $(document).ready(function(){
 	});
 
 	$(document).on("click", "#btn-give-up-fifteen", function(){
-		updateTask1Data();
+		// updateTask1Data();
 		task1_no_of_resets = 0;
 		task1_no_of_moves = 0;
 		task1_time_to_give_up = Date.now();
@@ -87,7 +89,7 @@ $(document).ready(function(){
 
 	$(document).on("click", "#btn-give-up-nine", function(){
 		fifteen = false;
-		updateTask1Data();
+		// updateTask1Data();
 		$("#grid-puzzle-row").addClass("d-none");
 		$("#color-reverse-game").removeClass("d-none");
 		second_time = true;
@@ -224,26 +226,33 @@ function gridPuzzleDetectSuccess(){
 	}
 }
 
-function updateTask1Data(){
-	// var url = $("input[name='unsolvable-task1-data-update-url']").val();
-
-	// $.ajax({
-	// 	type: "POST",
-	// 	url: url,
-	// 	data:{
-	// 		no_of_resets: task1_no_of_resets,
-	// 		time_to_give_up: Math.floor((Date.now()-task1_time_to_give_up)/1000),		// in seconds
-	// 		no_of_moves: task1_no_of_moves,
-	// 		fifteen: fifteen
-	// 	},
-	// 	beforeSend: function(xhr){
-	// 		xhr.setRequestHeader('X-CSRFToken', $.cookie('csrftoken'));
-	// 	},
-	// 	success: function(data){
-	// 		console.log("success");
-	// 	},
-	// 	error: function(xhr, errmsg, err){
-	// 		console.log("error");
-	// 	}
-	// });
+lhGameGetTask1Data = function() {
+	no_of_moves = task1_no_of_moves;
+	no_of_resets = task1_no_of_resets;
+	time_to_give_up = task1_time_to_give_up;
+	
+	return [time_to_give_up, no_of_moves, no_of_resets, fifteen]
 }
+// function updateTask1Data(){
+// 	// var url = $("input[name='unsolvable-task1-data-update-url']").val();
+
+// 	// $.ajax({
+// 	// 	type: "POST",
+// 	// 	url: url,
+// 	// 	data:{
+// 	// 		no_of_resets: task1_no_of_resets,
+// 	// 		time_to_give_up: Math.floor((Date.now()-task1_time_to_give_up)/1000),		// in seconds
+// 	// 		no_of_moves: task1_no_of_moves,
+// 	// 		fifteen: fifteen
+// 	// 	},
+// 	// 	beforeSend: function(xhr){
+// 	// 		xhr.setRequestHeader('X-CSRFToken', $.cookie('csrftoken'));
+// 	// 	},
+// 	// 	success: function(data){
+// 	// 		console.log("success");
+// 	// 	},
+// 	// 	error: function(xhr, errmsg, err){
+// 	// 		console.log("error");
+// 	// 	}
+// 	// });
+// }
