@@ -10,9 +10,8 @@ import { TOKEN,
   LOGIN_PATH, SIGNUP_PATH,
   USERAVATAR,
   ISADMIN,
-  ISACTIVE,
-  GAD_SEVEN_SCORE,
-  PHQ_NINE_SCORE } from '@/app.constants';
+  ISACTIVE
+} from '@/app.constants';
 import { User } from '@/shared/user.model';
 import { Observable } from 'rxjs';
 export interface Token {
@@ -54,34 +53,6 @@ export class AuthService {
 
   signupData (userSignupData: any): Observable<any> {
     return this.http.post(environment.API_ENDPOINT + SIGNUP_PATH, userSignupData);
-  }
-  // function for getting the questionnaire scores of the user
-  getPhqScores(): Observable<any>  {
-    const loginToken = localStorage.getItem(TOKEN);
-    if (loginToken != null) {
-      const httpOptions = {
-        headers: new HttpHeaders({
-          'Authorization': 'Bearer ' + loginToken
-        })
-      };
-      return this.http.get(environment.API_ENDPOINT + PHQ_NINE_SCORE, httpOptions);
-    } else {
-      return this.http.get(environment.API_ENDPOINT + PHQ_NINE_SCORE);
-    }
-
-  }
-  getGadScores(): Observable<any>  {
-    const loginToken = localStorage.getItem(TOKEN);
-    if (loginToken != null) {
-      const httpOptions = {
-        headers: new HttpHeaders({
-          'Authorization': 'Bearer ' + loginToken
-        })
-      };
-      return this.http.get(environment.API_ENDPOINT + GAD_SEVEN_SCORE, httpOptions);
-    } else {
-      return this.http.get(environment.API_ENDPOINT + GAD_SEVEN_SCORE);
-    }
   }
 
 

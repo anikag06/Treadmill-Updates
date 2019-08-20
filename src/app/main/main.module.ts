@@ -69,6 +69,7 @@ import { ChatWindowComponent } from './chatbot/chat-window/chat-window.component
 import {ChatbotService} from '@/main/chatbot/chatbot.service';
 import { DataService } from './dashboard/questionnaire/data.service';
 import { QuestionnaireComponent } from './dashboard/questionnaire/questionnaire.component';
+import { PlotScoreGraphService } from './score/plot-score-graph.service';
 
 @NgModule({
   declarations: [
@@ -152,7 +153,8 @@ import { QuestionnaireComponent } from './dashboard/questionnaire/questionnaire.
     GamePlayService,
     GamesAuthService,
     ChatbotService,
-    DataService
+    DataService,
+    PlotScoreGraphService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [CreatePostComponent]
