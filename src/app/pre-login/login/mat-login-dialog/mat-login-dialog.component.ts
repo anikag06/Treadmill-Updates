@@ -4,7 +4,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AuthService } from '@/shared/auth/auth.service';
-import { TOKEN, USERAVATAR, ISADMIN, ISACTIVE, LOGGED_IN_PATH } from '@/app.constants';
+import { LOGGED_IN_PATH } from '@/app.constants';
 import { LocalStorageService } from '@/shared/localstorage.service';
 import { ShowLoginSignupDialogService } from '@/pre-login/shared/show-login-signup-dialog.service';
 import { MatSignupDialogComponent } from '@/pre-login/signup/mat-signup-dialog/mat-signup-dialog.component';
@@ -27,7 +27,6 @@ export class MatLoginDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<MatLoginDialogComponent>,
     private authService: AuthService,
     private router: Router,
-    private localStorageService: LocalStorageService,
     private showLoginSignupService: ShowLoginSignupDialogService,
   ) { }
 
@@ -42,11 +41,7 @@ export class MatLoginDialogComponent implements OnInit {
     this.authService.getUserDetails(this.loginForm.value)
       .then(
         (data: any) => {
-          this.errorStatus = false;
-          this.localStorageService.setItem(TOKEN, data.data.token);
-          this.localStorageService.setItem(ISADMIN, data.data.is_admin);
-          this.localStorageService.setItem(USERAVATAR, data.data.avatar);
-          this.localStorageService.setItem(ISACTIVE, data.data.is_active);
+          this.authService.setLoginData(data);
           this.dialogRef.close();
           this.router.navigate([LOGGED_IN_PATH]);
         }

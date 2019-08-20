@@ -69,3 +69,8 @@ export const LHG_UNSOLVABLE_TASK3_LEVEL1 = '/api/v1/games/learned-helplessness/u
 export const LHG_UNSOLVABLE_TASK3_LEVEL2 = '/api/v1/games/learned-helplessness/unsolvable-tasks3-level2/';
 
 
+export const NEW_CHAT = 'new_chat';
+export const RESUME_CHAT = 'resume_chat';
+export const REPLY_CURRENT = 'reply_current';
+
+export const MAX_RETRIES = 10;

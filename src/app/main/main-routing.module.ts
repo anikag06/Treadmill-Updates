@@ -17,12 +17,15 @@ import { GadSevenComponent } from './score/gad-seven/gad-seven.component';
 import { InterpretationBiasGameComponent } from './games/games-list/common-game/interpretation-bias-game/interpretation-bias-game.component';
 import { ExecutiveControlGameComponent } from './games/games-list/common-game/executive-control-game/executive-control-game.component';
 import { CommonGameComponent } from './games/games-list/common-game/common-game.component';
+import { QuestionnaireComponent } from './dashboard/questionnaire/questionnaire.component';
+
 
 
 export const mainRoutes: Routes = [
     {
         path: '', component: MainComponent, canActivateChild: [AuthGuard], children: [
             { path: 'dashboard', component: DashboardComponent, },
+            { path: 'questionnaire', component: QuestionnaireComponent},
             { path: 'support-groups', component: SupportGroupsComponent },
             {
                 path: 'modules', component: ModulesComponent, canActivateChild: [AuthGuard], children: [

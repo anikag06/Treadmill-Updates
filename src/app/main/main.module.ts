@@ -1,4 +1,4 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA, LOCALE_ID } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ChartsModule } from 'ng2-charts';
 
@@ -10,7 +10,6 @@ import { ModuleOverviewComponent } from './modules/module-list/module-overview/m
 import { ModuleListComponent } from './modules/module-list/module-list.component';
 import { CategorySmallComponent } from './shared/category-small/category-small.component';
 import { LocalStorageService } from '../shared/localstorage.service';
-import { NotFoundComponent } from '../shared/not-found/not-found.component';
 import { CategoryBigComponent } from './modules/module-detail/category-big/category-big.component';
 import { SectionCardComponent } from './modules/module-detail/section-card/section-card.component';
 import { MainComponent } from './main.component';
@@ -37,6 +36,7 @@ import { AngularEditorModule } from '@xw19/angular-editor';
 import { SanitizationService } from './support-groups/sanitization.service';
 import { SafeHtmlPipe } from './support-groups/safe-html.pipe';
 import { LayoutModule } from '@angular/cdk/layout';
+// tslint:disable-next-line:max-line-length
 import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatDatepickerModule, MatNativeDateModule, MatSlideToggleModule } from '@angular/material';
 import { ScrollingDirective } from './shared/scrolling.directive';
 import { ScrollingService } from './shared/scrolling.service';
@@ -64,6 +64,11 @@ import { InterpretationBiasGameService } from './games/games-list/common-game/in
 import { GamePlayService } from './games/shared/game-play.service';
 import { LearnedHelplessnessGameComponent } from './games/games-list/common-game/learned-helplessness-game/learned-helplessness-game.component';
 
+import { ChatbotComponent } from './chatbot/chatbot.component';
+import { ChatWindowComponent } from './chatbot/chat-window/chat-window.component';
+import {ChatbotService} from '@/main/chatbot/chatbot.service';
+import { DataService } from './dashboard/questionnaire/data.service';
+import { QuestionnaireComponent } from './dashboard/questionnaire/questionnaire.component';
 
 @NgModule({
   declarations: [
@@ -103,6 +108,11 @@ import { LearnedHelplessnessGameComponent } from './games/games-list/common-game
     ExecutiveControlGameComponent,
     CommonGameComponent,
     LearnedHelplessnessGameComponent,
+    DashboardComponent,
+    MainComponent,
+    ChatbotComponent,
+    ChatWindowComponent,
+    QuestionnaireComponent
   ],
   imports: [
     CommonModule,
@@ -141,6 +151,8 @@ import { LearnedHelplessnessGameComponent } from './games/games-list/common-game
     InterpretationBiasGameService,
     GamePlayService,
     GamesAuthService,
+    ChatbotService,
+    DataService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [CreatePostComponent]

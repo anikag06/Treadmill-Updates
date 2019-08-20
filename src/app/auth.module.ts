@@ -3,7 +3,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { TOKEN } from './app.constants';
 
 export function tokenGetter() {
-    return localStorage.getItem(TOKEN);
+    return window.localStorage.getItem(TOKEN) || window.sessionStorage.getItem(TOKEN);
 }
 
 

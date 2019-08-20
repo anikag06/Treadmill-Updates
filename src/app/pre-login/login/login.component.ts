@@ -30,9 +30,6 @@ import { A2HSService } from '@/shared/a2hs.service';
   styleUrls: ['./mat-login-dialog/mat-login-dialog.component.scss', './login.component.scss']
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  isVisible = true;
-
-  private loginSubscription!: Subscription;
 
   constructor(
     private a2hsService: A2HSService

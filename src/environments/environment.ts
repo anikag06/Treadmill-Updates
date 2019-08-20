@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  HOST: '172.26.90.49:9000',
   API_ENDPOINT: 'http://172.26.90.49:9000',
 };
 

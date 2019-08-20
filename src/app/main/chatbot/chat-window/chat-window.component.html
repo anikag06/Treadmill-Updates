@@ -1,0 +1,53 @@
+<div class="chat-window" [@openClose]="chatWindowClosed ? 'closed' : 'open'">
+  <div class="chat-header">
+    <h3>TwillBot</h3>
+    <button mat-flat-button color="primary" (click)="close()"><mat-icon>close</mat-icon></button>
+  </div>
+  <div class="chat-frame" #messagesDiv [scrollTop]="scrollTop">
+    <div class="clearfix" *ngFor="let m of messages">
+      <div>
+        <div class="message" [ngClass]="{'bot': !m.user}">
+          <div class="message-text" [innerHTML]="m.message"></div>
+          <span class="date-time">{{m.datetime | date: 'short' }}</span>
+          <p class="meta">
+            mid: <b>{{m.mid}}</b> sid: <b>{{m.sid}}</b> <br>
+          </p>
+        </div>
+      </div>
+      <div class="buttons">
+        <button
+          mat-raised-button
+          color="primary"
+          *ngFor="let button of m.buttons"
+          (click)="chatButtonPressed(button, m)">
+          <span class="btn-text">
+            {{ button.payload }}
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <form (ngSubmit)="onChatSubmit()">
+    <div class="textarea">
+      <textarea
+        class="form-control"
+        placeholder="Enter your message"
+        [(ngModel)]="message"
+        name="message"
+        [autofocus]
+        rows="1"
+        (keyup.enter)="onKey($event)"
+        (focusin)="scrollToBottom()"
+        #ti
+        autocomplete="off">
+      </textarea>
+    </div>
+    <div class="btn-div">
+      <button
+        type="submit"
+      >
+      <mat-icon>send</mat-icon>
+    </button>
+    </div>
+  </form>
+</div>
