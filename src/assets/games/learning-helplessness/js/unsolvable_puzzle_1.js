@@ -229,30 +229,7 @@ function gridPuzzleDetectSuccess(){
 lhGameGetTask1Data = function() {
 	no_of_moves = task1_no_of_moves;
 	no_of_resets = task1_no_of_resets;
-	time_to_give_up = task1_time_to_give_up;
+	time_to_give_up = Math.floor((Date.now()-task1_time_to_give_up)/1000);
 	
-	return [time_to_give_up, no_of_moves, no_of_resets, fifteen]
+	return [time_to_give_up, no_of_moves, no_of_resets]
 }
-// function updateTask1Data(){
-// 	// var url = $("input[name='unsolvable-task1-data-update-url']").val();
-
-// 	// $.ajax({
-// 	// 	type: "POST",
-// 	// 	url: url,
-// 	// 	data:{
-// 	// 		no_of_resets: task1_no_of_resets,
-// 	// 		time_to_give_up: Math.floor((Date.now()-task1_time_to_give_up)/1000),		// in seconds
-// 	// 		no_of_moves: task1_no_of_moves,
-// 	// 		fifteen: fifteen
-// 	// 	},
-// 	// 	beforeSend: function(xhr){
-// 	// 		xhr.setRequestHeader('X-CSRFToken', $.cookie('csrftoken'));
-// 	// 	},
-// 	// 	success: function(data){
-// 	// 		console.log("success");
-// 	// 	},
-// 	// 	error: function(xhr, errmsg, err){
-// 	// 		console.log("error");
-// 	// 	}
-// 	// });
-// }

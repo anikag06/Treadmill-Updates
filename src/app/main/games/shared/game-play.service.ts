@@ -42,7 +42,7 @@ declare var lh_box_up_grid_dimensions: any;
 declare var lhGameGetColorReverseData: any;
 declare var lhGameGetTask1Data: any;
 declare var lhGameGetTask2Data: any;
-declare var lhGameGetTask2Data: any;
+declare var lhGameGetTask3Data: any;
 
 @Injectable({
   providedIn: 'root'
@@ -230,13 +230,11 @@ export class GamePlayService  {
         this.gamesAuthService.lhGameGetUserLevel()
           .subscribe((level_data) => {
             lhGameLevelCounter = level_data.level;
-            console.log('level: ', lhGameLevelCounter);
             lhGameStart();
           });
       });
     this.gamesAuthService.lhGameGetUnsolvableTask2Data()
       .subscribe((task2_data) => {
-        console.log('task2', task2_data);
         for ( let i = 0; i < task2_data.count ; i++ ) {
           lh_frog_levels.push(task2_data.results[i].game_string);
           lh_frog_lengths.push(task2_data.results[i].length);
@@ -302,29 +300,41 @@ export class GamePlayService  {
         }
       });
   }
-  lhGameStoreTask1Data() {
+  lhGameStoreTask1Data(isFirstLevel: boolean) {
     let storeTask1Data;
     storeTask1Data = lhGameGetTask1Data();
     this.lhGamePerformanceData.time_to_give_up = storeTask1Data[0];
     this.lhGamePerformanceData.no_of_moves = storeTask1Data[1];
     this.lhGamePerformanceData.no_of_resets = storeTask1Data[2];
+
     const task1performance = { performance: this.lhGamePerformanceData};
-    console.log(this.lhGamePerformanceData, storeTask1Data[3]);
-    if (storeTask1Data[3] === true) {
-      this.gamesAuthService.lhGameUpdateTask1Level1(task1performance)
-        .subscribe( (task1_data) => {
-          console.log(task1_data);
-        },
-        (error) => {
-          console.log(error);
-        });
-    } else {
-      this.gamesAuthService.lhGameUpdateTask1Level2(task1performance)
-        .subscribe((task1_data) => {
-          console.log('level2', task1_data);
-        });
-    }
+
+    this.gamesAuthService.lhGameUpdateTask1Data(task1performance, isFirstLevel)
+      .subscribe( () => { });
   }
+  lhGameStoreTask2Data() {
+    let storeTask2Data;
+    storeTask2Data = lhGameGetTask2Data();
+    this.lhGamePerformanceData.time_to_give_up = storeTask2Data[0];
+    this.lhGamePerformanceData.no_of_moves = storeTask2Data[1];
+    this.lhGamePerformanceData.no_of_resets = storeTask2Data[2];
+    const task2performance = { performance: this.lhGamePerformanceData};
+
+    this.gamesAuthService.lhGameUpdateTask2Data(task2performance, storeTask2Data[3])
+      .subscribe( () => { });
+  }
+  lhGameStoreTask3Data() {
+    let storeTask3Data;
+    storeTask3Data = lhGameGetTask3Data();
+    this.lhGamePerformanceData.time_to_give_up = storeTask3Data[0];
+    this.lhGamePerformanceData.no_of_moves = storeTask3Data[1];
+    this.lhGamePerformanceData.no_of_resets = storeTask3Data[2];
+    const task3performance = { performance: this.lhGamePerformanceData};
+
+    this.gamesAuthService.lhGameUpdateTask3Data(task3performance, storeTask3Data[3])
+      .subscribe( () => { });
+  }
+
 
 }
 

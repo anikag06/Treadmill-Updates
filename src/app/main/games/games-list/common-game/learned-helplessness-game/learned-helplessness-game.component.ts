@@ -23,14 +23,14 @@ export class LearnedHelplessnessGameComponent implements OnInit {
   updateColorReverseGameData() {
     this.gamePlayService.lhGameColorReverseStoreData();
   }
-  updateUnsolvableTask1Data() {
-    this.gamePlayService.lhGameStoreTask1Data();
+  updateUnsolvableTask1Data(isFirstLevel: boolean) {
+    this.gamePlayService.lhGameStoreTask1Data(isFirstLevel);
   }
   updateUnsolvableTask2Data() {
-
+    this.gamePlayService.lhGameStoreTask2Data();
   }
   updateUnsolvableTask3Data() {
-
+    this.gamePlayService.lhGameStoreTask3Data();
   }
 
 }

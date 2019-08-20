@@ -12,6 +12,8 @@ var lh_big_obstacle_initials;
 var lh_ball_position_initials;
 var lh_box_up_grid_dimensions;
 
+var lhGameGetTask3Data;
+
 var success_wait_time = 1000;
 
 var ball_element;
@@ -1067,6 +1069,15 @@ function changeLevel() {
 	}, success_wait_time);
 }
 
+lhGameGetTask3Data = function() {
+	var no_of_resets= box_up_no_of_resets;
+	var time_to_give_up= Math.floor((Date.now()-box_up_time_taken)/1000);		// in seconds
+	console.log(box_up_time_taken, Date.now(),(Date.now()-box_up_time_taken)/1000, time_to_give_up);
+	var no_of_moves= box_up_no_of_moves;
+	var first = box_up_first;
+
+	return [time_to_give_up, no_of_moves, no_of_resets, first]
+}
 // function updateTask3Data() {
 // 	var url = $("input[name='unsolvable-task3-data-update-url']").val();
 

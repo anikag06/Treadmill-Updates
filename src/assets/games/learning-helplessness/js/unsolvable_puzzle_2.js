@@ -4,6 +4,8 @@ var lh_frog_lengths;
 var lh_frog_heights;
 var lh_frog_face_directions;
 
+var lhGameGetTask2Data;
+
 var success_wait_time = 1000;
 
 var frog_level_counter= 0;		// always start from 0 as this is an impossible game
@@ -75,7 +77,6 @@ $(document).ready(function(){
 			]
 		});
 		frogGridSwipe.on("swipe", function(ev) {
-			console.log(ev.direction);
 			frogGridMoveRouter(ev.direction);
 		});
 	}
@@ -98,7 +99,6 @@ function frogGridMoveRouter(value) {
 		|| (frog_grid.frog_direction==4 && (value==38 || value==8)) 
 		|| (frog_grid.frog_direction==1 && (value==39 || value==4)) 
 		|| (frog_grid.frog_direction==2 && (value==40 || value==16))){
-		console.log("wrong move");
 	}else{
 		wrong_move = false;
 		switch(value){
@@ -365,26 +365,10 @@ function frogDetectSuccess(){
 	}
 }
 
-// function updateTask2Data(){
-// 	var url = $("input[name='unsolvable-task2-data-update-url']").val();
+lhGameGetTask2Data = function(){
+	var no_of_resets= frog_no_of_resets;
+	var time_to_give_up= Math.floor((Date.now()-frog_time_taken)/1000);		// in seconds
+	var no_of_moves = frog_no_of_moves;
 
-// 	$.ajax({
-// 		type: "POST",
-// 		url: url,
-// 		data:{
-// 			no_of_resets: frog_no_of_resets,
-// 			time_to_give_up: Math.floor((Date.now()-frog_time_taken)/1000),		// in seconds
-// 			no_of_moves: frog_no_of_moves,
-// 			first: first
-// 		},
-// 		beforeSend: function(xhr){
-// 			xhr.setRequestHeader('X-CSRFToken', $.cookie('csrftoken'));
-// 		},
-// 		success: function(data){
-// 			console.log("success");
-// 		},
-// 		error: function(xhr, errmsg, err){
-// 			console.log("error");
-// 		}
-// 	});
-// }
+	return [time_to_give_up, no_of_moves, no_of_resets, first]
+}

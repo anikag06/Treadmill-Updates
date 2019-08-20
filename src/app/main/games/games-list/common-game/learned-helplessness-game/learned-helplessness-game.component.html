@@ -115,7 +115,7 @@
           </div>
 					<button id="btn-reset-fifteen">Reset the grid</button>
 					<button id="btn-give-up-fifteen" 
-						(click) = "updateUnsolvableTask1Data()"
+						(click) = "updateUnsolvableTask1Data(true)"
 						class="d-none give-up-text-red">Show me a simpler game</button>
 				</div>
 			</div>
@@ -150,7 +150,7 @@
           </div>
 					<button id="btn-reset-nine">Reset the grid</button>
 					<button id="btn-give-up-nine" 
-						(click) = "updateUnsolvableTask1Data()"
+						(click) = "updateUnsolvableTask1Data(false)"
 						class="d-none give-up-text-red">Show me a simpler game</button>
 					<div>
 						<b>Instructions:</b>
@@ -171,7 +171,9 @@
 				<div>
 					<div class="d-none" id="frog-game-success-message">Great!!</div>
 					<button id="btn-frog-game-reset">Reset</button>
-					<button class="d-none" id="btn-frog-game-give-up">Show me a simpler game</button>
+					<button class="d-none"
+						(click) = "updateUnsolvableTask2Data()" 
+						id="btn-frog-game-give-up">Show me a simpler game</button>
 					<div>
 						<b>Instructions:</b>
 						<ol>
@@ -197,7 +199,9 @@
 				<div>
 					<div class="class d-none" id="box-up-game-success-message">Great!!</div>
 					<button id="btn-box-up-game-reset">Reset</button>
-					<button class="d-none" id="btn-box-up-game-give-up">Show me a simpler game</button>
+					<button class="d-none" 
+						(click) = "updateUnsolvableTask3Data()"
+						id="btn-box-up-game-give-up">Show me a simpler game</button>
 					<div>
 						<b>Instructions:</b>
 						<ol>

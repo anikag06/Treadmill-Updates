@@ -6,7 +6,9 @@ import {TOKEN,
   ECG_DISCIMINATION_TASK, ECG_FLANKER_TASK, ECG_GAME_DATA, ECG_USER_DATA,
   LHG_COLOR_REVERSE_USER_ATTEMPT, LHG_POST_COLOR_REVERSE, LHG_GET_COLOR_REVERSE,
   LHG_USER_LEVEL, LHG_UNSOLVABLE_TASK2_LEVELS, LHG_UNSOLVABLE_TASK3_LEVELS,
-  LHG_UNSOLVABLE_TASK1_LEVEL1, LHG_UNSOLVABLE_TASK1_LEVEL2} from '@/app.constants';
+  LHG_UNSOLVABLE_TASK1_LEVEL1, LHG_UNSOLVABLE_TASK1_LEVEL2,
+  LHG_UNSOLVABLE_TASK2_LEVEL1, LHG_UNSOLVABLE_TASK2_LEVEL2,
+  LHG_UNSOLVABLE_TASK3_LEVEL2, LHG_UNSOLVABLE_TASK3_LEVEL1} from '@/app.constants';
 import { ECGameData, ECGameFlankerTask, ECGameDiscriminationTask, ECGameUserData,
   LHGameColorReverseData, LHGameUserLevel, LHGamePerformance, } from './game-play.model';
 
@@ -63,11 +65,26 @@ export class GamesAuthService {
   lhGameUpdateUserLevel(lhGameUserLevel: LHGameUserLevel) {
     return this.http.put(environment.API_ENDPOINT + LHG_USER_LEVEL, lhGameUserLevel);
   }
-  lhGameUpdateTask1Level1(task1Level1Data: any) {
-    console.log(task1Level1Data);
-    return this.http.post(environment.API_ENDPOINT + LHG_UNSOLVABLE_TASK1_LEVEL1, task1Level1Data);
+  lhGameUpdateTask1Data(task1Data: any, firstLevel: boolean) {
+    console.log(firstLevel);
+    if (firstLevel === true) {
+      return this.http.post(environment.API_ENDPOINT + LHG_UNSOLVABLE_TASK1_LEVEL1, task1Data);
+    } else {
+      return this.http.post(environment.API_ENDPOINT + LHG_UNSOLVABLE_TASK1_LEVEL2, task1Data);
+    }
   }
-  lhGameUpdateTask1Level2(task1Level2Data: any) {
-    return this.http.post(environment.API_ENDPOINT + LHG_UNSOLVABLE_TASK1_LEVEL2, task1Level2Data);
+  lhGameUpdateTask2Data(task2Data: any, firstLevel: boolean) {
+    if (firstLevel === true) {
+      return this.http.post(environment.API_ENDPOINT + LHG_UNSOLVABLE_TASK2_LEVEL1, task2Data);
+    } else {
+      return this.http.post(environment.API_ENDPOINT + LHG_UNSOLVABLE_TASK2_LEVEL2, task2Data);
+    }
+  }
+  lhGameUpdateTask3Data(task3Data: any, firstLevel: boolean) {
+    if (firstLevel === true) {
+      return this.http.post(environment.API_ENDPOINT + LHG_UNSOLVABLE_TASK3_LEVEL1, task3Data);
+    } else {
+      return this.http.post(environment.API_ENDPOINT + LHG_UNSOLVABLE_TASK3_LEVEL2, task3Data);
+    }
   }
 }
