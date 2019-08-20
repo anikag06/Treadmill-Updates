@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import {Chat} from '@/main/chatbot/chat.model';
 import {environment} from '../../../../environments/environment';
-import {NEW_CHAT, REPLY_CURRENT, RESUME_CHAT, MAX_RETRIES} from '@/app.constants';
+import {NEW_CHAT, REPLY_CURRENT, RESUME_CHAT, MAX_RETRIES, CHATBOT_RETRY_TIMEOUT} from '@/app.constants';
 import {ChatbotService} from '@/main/chatbot/chatbot.service';
 import {AuthService} from '@/shared/auth/auth.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
@@ -148,7 +148,6 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
     };
     this.webSocket.onmessage = (message: any) => {
       const data = JSON.parse(message.data);
-      console.log(data);
       if (data.error === true) {
         const item = new Chat(JSON.stringify(data), false, [], '', '', new Date(), false);
         this.messages.push(item);
@@ -173,7 +172,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
     this.webSocket.onclose = () => {
       if (!this.chatClosed && this.webSocket.readyState === 3 && this.retries < MAX_RETRIES) {
         this.retries++;
-        this.startChatSession(NEW_CHAT);
+        setTimeout(() => this.startChatSession(NEW_CHAT), CHATBOT_RETRY_TIMEOUT);
       }
     };
 
