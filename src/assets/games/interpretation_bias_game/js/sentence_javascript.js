@@ -301,16 +301,29 @@ var startIBGame;
 $(document).ready(function(){
 
 	showImages();
+
 	startIBGame = function(ev){
+		$('#game_main_div').addClass('d-none');
+		if(ibGameUserOrder>0){
+			playGame();
+		} else if(ibGameUserOrder === 0 ){
+			if($('#instruct-div').hasClass('d-none')){
+				$('#instruct-div').removeClass('d-none');
+			} else{
+				$('#instruct-div').removeClass('d-none');
+				playGame();
+			}
+		}
+	};
+	function playGame(){
 		clearInterval(inactivity_check_interval);
 		isFirstAttempt = true;
-	  initializeVariables();
+		initializeVariables();
 		removeAddClassFun();
 		ibCountdown();
-		// $("#easy_game_div").removeClass("d-none");
 		foundWord(sentence_array[sentence_number],sentence_word_array[sentence_number]);
 		success = false;
-	};
+	}
 	ibGamePause = function(ev){
 		countdownPause();
 		hideCanvas();
@@ -356,33 +369,6 @@ $(document).ready(function(){
 				$('.game').addClass("d-none");
 			}
 	}
-	// $(document).on("click","#help-btn", function(e){
-	// 	$(".instructions-row").removeClass("d-none");
-	// 	$('.game-first-page').addClass("d-none");
-	// 	if(!$('.game').hasClass("d-none")){
-	// 		$('.game').addClass("d-none");
-	// 	}
-	// });
-	// $(document).on("click", "#pause-btn", function(ev){
-	// 	countdownPause();
-	// 	hideCanvas();
-	// 	game_paused = true;
-	// 	$(".pause-hints").addClass("d-none");
-	// 	$(".pause-clicked").removeClass("d-none");
-	// 	$('.controls-row').addClass("d-none");
-	// 	document.getElementById('score-col').style.backgroundColor ='rgba(255, 255, 255, 0.81)';
-	// });
-	// $(document).on("click", "#play-btn", function(ev){       //play after pause
-	// 	ibCountdown();
-	// 	showCanvas();
-	// 	game_paused = false;
-	// 	document.getElementById('score-col').style.backgroundColor = "";
-	// 	document.getElementById('score-col').style.opacity = "1";
-	// 	$(".pause-clicked").addClass("d-none");
-	// 	$(".pause-hints").removeClass("d-none");
-	// 	$('.controls-row').removeClass("d-none");
-	// });
-
 	// $(document).on("click", "#usehints", function(ev){
 	// 	if($('#hint-div').hasClass("d-none")){
 	// 		$('.controls-row').removeClass("d-none");

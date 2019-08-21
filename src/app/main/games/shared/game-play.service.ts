@@ -57,15 +57,22 @@ export class GamePlayService  {
   ecGameTaskData!: any;
   ecGameID!: number;
 
+  // initialising the variables
   ecGameDataObject = new ECGameData(1, null, 1, 0, null, false);
   ecGameUserDataObject = new ECGameUserData(1, 0, 0, false, false, false);
   ecGameFlankerData = new ECGameFlankerTask(1, null, 0, 0, 0, 1);
   ecGameDiscriminationData = new ECGameDiscriminationTask(1, null, 0, 0);
 
   // variables for lh game
+  lhGamePageNumber!: number;
+  lhGameCRNumberOfLevels!: number;
+  lhGameIslastData = false;
   lhGameColorReverse = new LHGameColorReverseData(0, 0, 0, false);
   lhGameUserLevel = new LHGameUserLevel(0);
   lhGamePerformanceData = new LHGamePerformance(0, 0, 0);
+
+  // lhGameNextLevels = (this.LHGAME_CR_NUMBER_OF_LEVELS * this.lhGamePageNumber) - 3 ;
+  // lhGamePreviousLevels = (this.LHGAME_CR_NUMBER_OF_LEVELS * (this.lhGamePageNumber - 1)) + 3;
 
   constructor(  private gamesService: GamesService,
     private gamesAuthService: GamesAuthService) { }
@@ -220,19 +227,41 @@ export class GamePlayService  {
     lh_ball_position_initials = [];
     lh_box_up_grid_dimensions = [];
 
-    this.gamesAuthService.lhGameGetColorReverseData()
+    this.gamesAuthService.lhGameGetUserLevel()
+      .subscribe((level_data) => {
+        lhGameLevelCounter = level_data.level;
+        this.lhGamePageNumber = 1;
+        this.lhGameDataColorReverse(this.lhGamePageNumber, false);
+        this.lhGameDataTask2();
+    });
+  }
+
+  lhGameDataColorReverse(pageNumber: number, gameStarted: boolean) {
+    this.gamesAuthService.lhGameGetColorReverseData(pageNumber)
       .subscribe( (game_data) => {
-        for ( let i = 0; i < game_data.count ; i++ ) {
+        if (game_data.next === null) {
+          this.lhGameIslastData = true;
+        }
+        let i = 0;
+        while (game_data.results[i]) {
           lhGameLevelStrings.push(game_data.results[i].game_string);
           lhGameLengths.push(game_data.results[i].length);
           lhGameHeights.push(game_data.results[i].height);
+          i++;
         }
-        this.gamesAuthService.lhGameGetUserLevel()
-          .subscribe((level_data) => {
-            lhGameLevelCounter = level_data.level;
+        this.lhGameCRNumberOfLevels = i;
+        if (gameStarted === false && this.lhGameIslastData === false) {
+          if ( lhGameLevelCounter < this.lhGameCRNumberOfLevels) {
             lhGameStart();
-          });
+          } else {
+            pageNumber++;
+            this.lhGameDataColorReverse(pageNumber, gameStarted);
+          }
+        }
       });
+  }
+
+  lhGameDataTask2() {
     this.gamesAuthService.lhGameGetUnsolvableTask2Data()
       .subscribe((task2_data) => {
         for ( let i = 0; i < task2_data.count ; i++ ) {
@@ -241,47 +270,56 @@ export class GamePlayService  {
           lh_frog_heights.push(task2_data.results[i].height);
           lh_frog_face_directions.push(task2_data.results[i].face_direction);
         }
+        this.lhGameDataTask3();
       });
+  }
+  lhGameDataTask3() {
     this.gamesAuthService.lhGameGetUnsolvableTask3Data()
-      .subscribe((task3_data) => {
+      .subscribe((task3_data) => {      // enter the data in the arrays for task 3
         for ( let i = 0; i < task3_data.count ; i++) {
-          const small_obstacle_info = [];
-          const big_obstacle_info = [];
-          const ball_x_value = task3_data.results[i].ball_x;
-          const ball_y_value = task3_data.results[i].ball_y;
-          lh_ball_position_initials.push([ball_x_value, ball_y_value]);
+          lh_ball_position_initials.push([task3_data.results[i].ball_x, task3_data.results[i].ball_y]);
 
           lh_box_up_grid_dimensions.push(task3_data.results[i].grid_dimensions);
 
           const task_3_element_length = task3_data.results[i].task_3_element.length;
 
-          for ( let j = 0; j < task_3_element_length; j++) {
-            const task3_element_info = task3_data.results[i].task_3_element[j];
-            const x_value = task3_element_info.x;
-            const y_value =  task3_element_info.y;
-            const orientation_value = task3_element_info.orientation;
-            if (task3_element_info.inner_element === true && task3_element_info.outer_element === false) {
-
-              lh_inner_position_initials.push({x: x_value, y: y_value, orientation: orientation_value});
-
-            } else if (task3_element_info.inner_element === false && task3_element_info.outer_element === true) {
-
-              lh_outer_position_initials.push({x: x_value, y: y_value, orientation: orientation_value});
-
-            }
-            if (task3_element_info.inner_element === false && task3_element_info.outer_element === false) {
-                if (task3_element_info.size === 'small') {
-                  small_obstacle_info.push({x: x_value, y: y_value, orientation: orientation_value});
-                } else if (task3_element_info.size === 'big') {
-                  big_obstacle_info.push({x: x_value, y: y_value, orientation: orientation_value});
-                }
-            }
-          }
-          lh_small_obstacle_initials.push(small_obstacle_info);
-          lh_big_obstacle_initials.push(big_obstacle_info);
+          this.lhGameGetTask3Elements(task_3_element_length, task3_data, i);
         }
       } );
   }
+
+  lhGameGetTask3Elements(task_3_element_length: number, task3_data: any, i: number) {
+    const small_obstacle_info = [];
+    const big_obstacle_info = [];
+    for ( let j = 0; j < task_3_element_length; j++) {
+      const task3_element_info = task3_data.results[i].task_3_element[j];
+      const x_value = task3_element_info.x;
+      const y_value =  task3_element_info.y;
+      const orientation_value = task3_element_info.orientation;
+
+      // store the value position and orientation of inner and smaller arc
+      if (task3_element_info.inner_element === true && task3_element_info.outer_element === false) {
+
+        lh_inner_position_initials.push({x: x_value, y: y_value, orientation: orientation_value});
+
+      } else if (task3_element_info.inner_element === false && task3_element_info.outer_element === true) {
+
+        lh_outer_position_initials.push({x: x_value, y: y_value, orientation: orientation_value});
+
+      }
+      // store the position and orientation of obstacles, also check their sizes
+      if (task3_element_info.inner_element === false && task3_element_info.outer_element === false) {
+        if (task3_element_info.size === 'small') {
+          small_obstacle_info.push({x: x_value, y: y_value, orientation: orientation_value});
+        } else if (task3_element_info.size === 'big') {
+          big_obstacle_info.push({x: x_value, y: y_value, orientation: orientation_value});
+        }
+      }
+    }
+    lh_small_obstacle_initials.push(small_obstacle_info);
+    lh_big_obstacle_initials.push(big_obstacle_info);
+  }
+
   lhGameColorReverseStoreData() {
     let storeColorReverseData;
     storeColorReverseData = lhGameGetColorReverseData();
@@ -296,6 +334,14 @@ export class GamePlayService  {
           this.lhGameUserLevel.level = this.lhGameColorReverse.level;
           this.gamesAuthService.lhGameUpdateUserLevel(this.lhGameUserLevel)
             .subscribe(() => {
+              // as level can be greater than no of sentences sent at a time
+              const level = (this.lhGameUserLevel.level  % this.lhGameCRNumberOfLevels);
+              if (this.lhGameIslastData === false) {
+                if (level === Math.floor(0.85 * (this.lhGameCRNumberOfLevels * this.lhGamePageNumber))) {
+                  this.lhGamePageNumber++;
+                  this.lhGameDataColorReverse(this.lhGamePageNumber, true);
+                }
+              }
             });
         }
       });

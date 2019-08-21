@@ -59,20 +59,10 @@ $(document).ready(function() {
 			e.preventDefault();
 			boxUpMoveRouter(e.which);		
 		} else {
-			console.log("do nothing");
 		}
 	});
 	
 });
-
-// $(document).keydown(function(e){
-// 	if (unsolvable_game_counter == 3 && !block_arrows) {
-// 		e.preventDefault();
-// 		boxUpMoveRouter(e.which);		
-// 	} else {
-// 		console.log("do nothing");
-// 	}
-// });
 
 function boxUpMoveRouter(value) {
 	var valid_move = false;
@@ -109,7 +99,6 @@ function boxUpMoveRouter(value) {
 	if(valid_move) {
 		box_up_no_of_moves++;
 		is_ball_in_container = isBallInContainer();
-		console.log(box_up_no_of_moves);
 	}
 }
 
@@ -937,7 +926,6 @@ function drawArc(element) {
 	
 	var box_up_level_completed = isInnerInOuter();
 	if(box_up_level_completed) {
-		console.log("LEVEL COMPLETED");
 		block_arrows = true;
 		$("#box-up-game-success-message").removeClass("d-none");
 		var ping = document.getElementById("ping");
@@ -1032,7 +1020,6 @@ $(document).on('click', '#btn-box-up-game-reset', function() {
 });
 
 $(document).on('click', '#btn-box-up-game-give-up', function() {
-	// updateTask3Data();
 	if(box_up_level_counter<(lh_inner_position_initials.length-1)) {
 		changeLevel();
 	}
@@ -1072,32 +1059,8 @@ function changeLevel() {
 lhGameGetTask3Data = function() {
 	var no_of_resets= box_up_no_of_resets;
 	var time_to_give_up= Math.floor((Date.now()-box_up_time_taken)/1000);		// in seconds
-	console.log(box_up_time_taken, Date.now(),(Date.now()-box_up_time_taken)/1000, time_to_give_up);
 	var no_of_moves= box_up_no_of_moves;
 	var first = box_up_first;
 
 	return [time_to_give_up, no_of_moves, no_of_resets, first]
 }
-// function updateTask3Data() {
-// 	var url = $("input[name='unsolvable-task3-data-update-url']").val();
-
-// 	$.ajax({
-// 		type: "POST",
-// 		url: url,
-// 		data:{
-// 			no_of_resets: box_up_no_of_resets,
-// 			time_to_give_up: Math.floor((Date.now()-box_up_time_taken)/1000),		// in seconds
-// 			no_of_moves: box_up_no_of_moves,
-// 			first: box_up_first
-// 		},
-// 		beforeSend: function(xhr){
-// 			xhr.setRequestHeader('X-CSRFToken', $.cookie('csrftoken'));
-// 		},
-// 		success: function(data){
-// 			console.log("success");
-// 		},
-// 		error: function(xhr, errmsg, err){
-// 			console.log("error");
-// 		}
-// 	});
-// }

@@ -11,7 +11,6 @@ var task1_no_of_resets;
 $(document).ready(function(){
 	resetGridPuzzleGame();
 	setGridPuzzleGameWidthAndHeight();
-	console.log("triangle and circles ");
 	$(document).on("click", ".three-puzzle-square", function(){
 		var $gap = $(".gap-three");
 		var gap_id = $gap.attr("id").substr($gap.attr("id").lastIndexOf("-")+1);
@@ -23,7 +22,6 @@ $(document).ready(function(){
 			$(this).addClass("gap-three");
 			$(this).text("");
 		}else{
-			console.log("wrong move");
 		}
 
 		gridPuzzleDetectSuccess();
@@ -34,15 +32,12 @@ $(document).ready(function(){
 		var gap_id = $gap.attr("id").substr($gap.attr("id").lastIndexOf("-")+1);
 		var click_id = $(this).attr("id").substr($(this).attr("id").lastIndexOf("-")+1);
 		task1_no_of_moves++;
-		console.log(gap_id);
-		console.log(click_id);
 		if(Math.abs(gap_id-click_id)==4 || (Math.abs(gap_id-click_id)==1 && !(gap_id==13 && click_id==12) && !(click_id==13 && gap_id==12) && !(gap_id==5 && click_id==4) && !(click_id==5 && gap_id==4) && !(gap_id==9 && click_id==8) && !(click_id==9 && gap_id==8))){
 			$gap.text($(this).text());
 			$gap.removeClass("gap-fifteen");
 			$(this).addClass("gap-fifteen");
 			$(this).text("");
 		}else{
-			console.log("wrong move");
 		}
 	});
 
@@ -51,20 +46,16 @@ $(document).ready(function(){
 		var gap_id = $gap.attr("id").substr($gap.attr("id").lastIndexOf("-")+1);
 		var click_id = $(this).attr("id").substr($(this).attr("id").lastIndexOf("-")+1);
 		task1_no_of_moves++;
-		console.log(gap_id);
-		console.log(click_id);
 		if(Math.abs(gap_id-click_id)==3 || (Math.abs(gap_id-click_id)==1 && !(gap_id==3 && click_id==4) && !(click_id==3 && gap_id==4) && !(gap_id==6 && click_id==7) && !(click_id==6 && gap_id==7))){
 			$gap.text($(this).text());
 			$gap.removeClass("gap-nine");
 			$(this).addClass("gap-nine");
 			$(this).text("");
 		}else{
-			console.log("wrong move");
 		}
 	});
 
 	$(document).on("click", "#btn-give-up-fifteen", function(){
-		// updateTask1Data();
 		task1_no_of_resets = 0;
 		task1_no_of_moves = 0;
 		task1_time_to_give_up = Date.now();
@@ -89,7 +80,7 @@ $(document).ready(function(){
 
 	$(document).on("click", "#btn-give-up-nine", function(){
 		fifteen = false;
-		// updateTask1Data();
+		
 		$("#grid-puzzle-row").addClass("d-none");
 		$("#color-reverse-game").removeClass("d-none");
 		second_time = true;

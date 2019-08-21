@@ -1,14 +1,10 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
-// import 'assets/games/interpretation_bias_game/js/sentence_javascript';
-// tslint:disable-next-line: max-line-length
-import { InterpretationBiasGameService } from '@/main/games/games-list/common-game/interpretation-bias-game/interpretation-bias-game.service';
-// tslint:disable-next-line: max-line-length
-import { UserScoreData, UserResponseData } from '@/main/games/games-list/common-game/interpretation-bias-game/interpretation-bias-game-data.model';
+import { UserScoreData, UserResponseData } from '@/main/games/shared/game-play.model';
 import { Router } from '@angular/router';
 import { IBG_SENTENCE } from '@/app.constants';
 import { environment } from 'environments/environment';
 import { GamePlayService } from '@/main/games/shared/game-play.service';
+import { GamesAuthService } from '@/main/games/shared/games-auth.service';
 
 declare var sentence_number: any;
 // for sentence and word information
@@ -35,7 +31,6 @@ declare function getUpdatedVariables(): any;
   selector: 'app-interpretation-bias-game',
   templateUrl: './interpretation-bias-game.component.html',
   styleUrls: ['./interpretation-bias-game.component.scss'],
-  providers: [InterpretationBiasGameService]
 })
 export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
 
@@ -64,10 +59,9 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   instructElement!: HTMLElement;
   gameElement!: HTMLElement;
 
-  constructor( private interpretationbiasgameService: InterpretationBiasGameService,
+  constructor( private gameAuthService: GamesAuthService,
     private router: Router,
-    private gamePlayService: GamePlayService,
-    @Inject(DOCUMENT) document: any) {
+    private gamePlayService: GamePlayService) {
   }
 
   ngOnInit() {
@@ -76,9 +70,8 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
 
   sentenceInfo(URL: string) {
     this.sentencesPageInUrl = Math.floor(ibGameUserOrder / this.NO_OF_SENTENCES_RECEIVED);
-    this.interpretationbiasgameService.getSentencesInfo(URL, this.firstSentence, this.sentencesPageInUrl)
+    this.gameAuthService.ibGameGetSentencesInfo(URL, this.firstSentence, this.sentencesPageInUrl)
       .subscribe( (data) => {
-          console.log(data, ibGameUserOrder);
           if ( ibGameUserOrder === data.count - 1) {
             this.lastSentenceReceived = data.count % this.NO_OF_SENTENCES_RECEIVED ;
           }
@@ -92,7 +85,6 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
           if ( ibGamelevel > 0) {
             this.showAllHints = true;
           }
-          console.log(this.lastSentenceReceived);
           for (let i = this.index;
                 i < (this.lastSentenceReceived); i++) {
               this.NEXT_SEN_URL = data.next;
@@ -118,12 +110,11 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
       );
   }
   scoresRelatedInfo() {
-    this.interpretationbiasgameService.getScoresInfo()
+    this.gameAuthService.ibGameGetScoresInfo()
       .subscribe((data) => {
           this.INPUT_ORDER = data.data.order;
           ibGameScore = data.data.score;
           ibGamelevel = data.data.level;
-          console.log('level:', ibGamelevel);
           ibGameStreak = data.data.streak;
           ibGameUserOrder = this.INPUT_ORDER;
           ibGameTime = data.data.time;
@@ -134,15 +125,6 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
             this.showAllHints = false;
           }
           this.sentenceInfo(this.SEN_URL);
-          this.gameElement = document.getElementById('game_main_div') as HTMLElement;
-          this.instructElement = document.getElementById('instruct-div') as HTMLElement;
-          if  (ibGameUserOrder > 0) {
-            this.gameElement.classList.remove('d-none');
-            this.instructElement.classList.add('d-none');
-          } else if ( ibGameUserOrder === 0) {
-            this.instructElement.classList.remove('d-none');
-            this.gameElement.classList.add('d-none');
-          }
         },
         (error) => {
           // console.log(error);
@@ -151,7 +133,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   }
   storeUserScoreInfo() {
     this.getScoreVariablesValue();
-    this.interpretationbiasgameService.storeUserScoreInfo(this.userScoreData)
+    this.gameAuthService.ibGameStoreUserScoreInfo(this.userScoreData)
       .subscribe( (data) => {
           if (ibGameUserOrder === (this.FIRST_SENTENCE_ID + Math.floor(this.NO_OF_SENTENCES_RECEIVED / 2))) {
 
@@ -184,7 +166,6 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
     this.userScoreData.streak = userData[3];
     this.userScoreData.time  = userData[4];
     this.userScoreData.words_hidden = userData[5];
-    console.log('score data' , this.userScoreData);
 
     this.userResponseData.sentence = userData[6];
     this.userResponseData.user_response = userData[7];
@@ -195,7 +176,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
     this.gamePlayService.playIBGame();
   }
   storeUserResponse() {
-    this.interpretationbiasgameService.storeUserResponseInfo(this.userResponseData)
+    this.gameAuthService.ibGameStoreUserResponseInfo(this.userResponseData)
       .subscribe( (data) => {
       },
       (error) => {
@@ -213,7 +194,6 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   }
 
   onHintClick() {
-    console.log('hint btn clicked');
       this.gamePlayService.hintsIBGame();
   }
 

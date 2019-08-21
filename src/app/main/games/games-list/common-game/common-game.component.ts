@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, HostListener } from '@angular/core';
+import { Component, OnInit, Input, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { GamePlayService } from '../../shared/game-play.service';
 import { GamesService } from '@/main/shared/games.service';
 import { Router, ActivatedRoute, RouterEvent, NavigationStart } from '@angular/router';
@@ -19,8 +19,6 @@ export class CommonGameComponent implements OnInit {
 
   game!: Game;
   gameName!: string;
-  firstPageElement!: HTMLElement;
-  pauseBtnElement!: HTMLElement;
 
   isFirstPageHelpBtn = true;
   showSecondPlayBtn = true;
@@ -35,6 +33,9 @@ export class CommonGameComponent implements OnInit {
   currLocation: any;
 
   subscriptionRouter!: Subscription;
+
+  @ViewChild('firstpage_btns', {static: false}) firstPageElement!: ElementRef;
+  @ViewChild('pause_common_div', {static: false}) pauseBtnElement!: ElementRef;
 
   constructor(private gamePlayService: GamePlayService,
     private gamesService: GamesService,
@@ -62,8 +63,6 @@ export class CommonGameComponent implements OnInit {
           } else if (this.gameName === 'Sample Game') {
             this.isSampleGame = true;
           }
-          this.firstPageElement = document.getElementById('firstpage-btns') as HTMLElement;
-          this.pauseBtnElement = document.getElementById('pause-common-div') as HTMLElement;
         },
         (error) => {
           this.router.navigate(['games']);
@@ -73,8 +72,8 @@ export class CommonGameComponent implements OnInit {
 
   onPlayClick() {
     this.showSideButtons = false;
-    this.firstPageElement.classList.add('d-none');
-    this.pauseBtnElement.classList.remove('d-none');
+    this.firstPageElement.nativeElement.classList.add('d-none');
+    this.pauseBtnElement.nativeElement.classList.remove('d-none');
     if (this.gameName === 'Interpretation Bias Game') {
       this.gamePlayService.playIBGame();
     } else if (this.gameName === 'Executive Control Game') {
@@ -87,13 +86,13 @@ export class CommonGameComponent implements OnInit {
 
   onHelpClick() {
     this.showSideButtons = false;
-    if (this.firstPageElement.classList.contains('d-none')) {
+    if (this.firstPageElement.nativeElement.classList.contains('d-none')) {
       this.isFirstPageHelpBtn = false;
     } else {
       this.isFirstPageHelpBtn = true;
     }
-    this.firstPageElement.classList.add('d-none');
-    this.pauseBtnElement.classList.remove('d-none');
+    this.firstPageElement.nativeElement.classList.add('d-none');
+    this.pauseBtnElement.nativeElement.classList.remove('d-none');
     if (this.gameName === 'Executive Control Game') {
       this.showSecondPlayBtn = false;
       this.gamePlayService.helpExecControlGame(this.isSoundOn, this.isFirstPageHelpBtn);
@@ -114,7 +113,7 @@ export class CommonGameComponent implements OnInit {
 
   onPauseClick() {
     this.showSideButtons = true;
-    this.pauseBtnElement.classList.add('d-none');
+    this.pauseBtnElement.nativeElement.classList.add('d-none');
     if (this.gameName === 'Interpretation Bias Game') {
       this.gamePlayService.pauseIBGame();
     }
@@ -125,7 +124,7 @@ export class CommonGameComponent implements OnInit {
 
   onResumeClick() {
     this.showSideButtons = false;
-    this.pauseBtnElement.classList.remove('d-none');
+    this.pauseBtnElement.nativeElement.classList.remove('d-none');
     if (this.gameName === 'Executive Control Game') {
       this.gamePlayService.resumeExecControlGame();
     }
@@ -136,7 +135,7 @@ export class CommonGameComponent implements OnInit {
 
   onRestartClick() {
     this.showSideButtons = false;
-    this.pauseBtnElement.classList.remove('d-none');
+    this.pauseBtnElement.nativeElement.classList.remove('d-none');
     if (this.gameName === 'Executive Control Game') {
       this.isSoundOn = true;
       this.gamePlayService.restartExecControlGame(this.isSoundOn);

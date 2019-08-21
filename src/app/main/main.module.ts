@@ -60,7 +60,6 @@ import {TasksService} from '@/main/custom-forms/forms/shared/tasks/tasks.service
 import { ExecutiveControlGameComponent } from './games/games-list/common-game/executive-control-game/executive-control-game.component';
 import { CommonGameComponent } from './games/games-list/common-game/common-game.component';
 import { GamesAuthService } from './games/shared/games-auth.service';
-import { InterpretationBiasGameService } from './games/games-list/common-game/interpretation-bias-game/interpretation-bias-game.service';
 import { GamePlayService } from './games/shared/game-play.service';
 import { LearnedHelplessnessGameComponent } from './games/games-list/common-game/learned-helplessness-game/learned-helplessness-game.component';
 
@@ -149,7 +148,6 @@ import { PlotScoreGraphService } from './score/plot-score-graph.service';
     ProblemSolvingWorksheetsService,
     FormsService,
     TasksService,
-    InterpretationBiasGameService,
     GamePlayService,
     GamesAuthService,
     ChatbotService,

@@ -13,7 +13,6 @@ var lhGameStart;
 var previously_solved_level = lhGameLevelCounter;
 
 var Grid = function(length, height, grid_string){
-	console.log(" grid function");
 	this.length = length,
 	this.height = height,
 	this.grid_array = populateGrid(length, height, grid_string)
@@ -69,7 +68,6 @@ $(document).ready(function(){
 	});
 
 	$(document).on("click", "#btn-color-reverse-game-give-up", function(){
-		console.log("reaching here");
 		if(first_puzzle && lhGameLevelCounter!=0){
 			lhGameLevelCounter--;
 			previously_solved_level = lhGameLevelCounter-1;
@@ -113,7 +111,6 @@ $(document).ready(function(){
 });
 
 function populateGrid(length, height, grid_string){
-	console.log(length, height, grid_string);
 	var arr = [];
 	var counter = 0;
 
@@ -129,7 +126,6 @@ function populateGrid(length, height, grid_string){
 
 function showBlocks(grid_array){
 	$("#color-reverse-game-space").html("");
-	console.log("in showblocks");
 	for(var i=0; i<grid_array.length; i++){
 		$("#color-reverse-game-space").append("<div style=\"display: inline-flex;\" id=\"row-"+(i+1)+"\"></div><br>");
 		for(var j=0; j<grid_array[0].length; j++){
@@ -163,7 +159,6 @@ function squareClicked($square, grid_array){
 	// top
 	var top_element = $("#"+(rowNumber-1)+"-"+columnNumber);
 	if(top_element.length && top_element.hasClass("color-reverse-game-square")){ // if element exists and is not blank
-		console.log("top element");
 		if(top_element.hasClass("circle")){
 			top_element.removeClass("circle");
 			grid_array[rowNumber-1][columnNumber] = 1;
@@ -176,7 +171,6 @@ function squareClicked($square, grid_array){
 	// bottom
 	var bottom_element = $("#"+(rowNumber+1)+"-"+columnNumber);
 	if(bottom_element.length && bottom_element.hasClass("color-reverse-game-square")){ // if element exists and is not blank
-		console.log("bottom element");
 		if(bottom_element.hasClass("circle")){
 			bottom_element.removeClass("circle");
 			grid_array[rowNumber+1][columnNumber] = 1;
@@ -289,32 +283,6 @@ function setColorReverseGameWidthAndHeight() {
 }
 
 lhGameGetColorReverseData = function(){
-	console.log("level before sending", lhGameLevelCounter);
 	var time_spent= Math.floor((Date.now()-start_time)/1000);
 	return [lhGameLevelCounter, time_spent, no_of_moves, success]
 }
-
-// function updateAttemptData(success){
-// 	var url = $("input[name='color-reverse-game-data-update-url']").val();
-// 	console.log(url);
-// 	$.ajax({
-// 		type: "POST",
-// 		url: url,
-// 		data:{
-// 			level: lhGameLevelCounter,
-// 			time_spent: Math.floor((Date.now()-start_time)/1000),		// in seconds
-// 			no_of_moves: no_of_moves,
-// 			success: success
-// 		},
-// 		beforeSend: function(xhr){
-// 			xhr.setRequestHeader('X-CSRFToken', $.cookie('csrftoken'));
-// 		},
-// 		success: function(data){
-// 			console.log("success");
-// 			no_of_moves = 0;
-// 		},
-// 		error: function(xhr, errmsg, err){
-// 			console.log("error");
-// 		}
-// 	});
-// }

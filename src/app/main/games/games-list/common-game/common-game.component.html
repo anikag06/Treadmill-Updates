@@ -55,8 +55,7 @@
  <!-- showing the game component  -->
       <div class="row justify-content-center align-items-center h-100" ng-blur="onBlurDiv()">
         <app-executive-control-game 
-          class="w-100 h-100" 
-          style="background-color: black"
+          class="w-100 h-100"
           *ngIf="isExecutiveControl"></app-executive-control-game>
         <app-interpretation-bias-game
           class="w-100 h-100" 
@@ -64,13 +63,10 @@
         <app-learned-helplessness-game
           class="w-100 h-100" 
           *ngIf="isLearnedHelplessness"></app-learned-helplessness-game>
-        <div *ngIf="isSampleGame" style="background-color: aqua">
-          testing game 
-        </div>
       </div>
 <!-- buttons on first page -->
       <div class="row justify-content-end align-items-center mx-4 firstpage-btns" 
-            id="firstpage-btns">
+            id="firstpage-btns" #firstpage_btns>
         <img 
           id="common-start-btn" 
           class="common-play-game img-btn" 
@@ -102,7 +98,7 @@
       </div>
 <!-- pause, hint and sound button on bottom of every page -->
       <div class="row justify-content-end align-items-center mx-4 d-none" 
-          id="pause-common-div">
+          id="pause-common-div" #pause_common_div>
         <img 
           id = "common-pause"
           class="mx-1 img-btn"

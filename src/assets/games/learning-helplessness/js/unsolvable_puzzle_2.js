@@ -47,7 +47,6 @@ $(document).ready(function(){
 	});
 
 	$(document).on("click", "#btn-frog-game-give-up", function(){
-		// updateTask2Data();
 		if(frog_level_counter<(lh_frog_levels.length-1)) {
 			frog_level_counter++;
 			frogGameInit();
