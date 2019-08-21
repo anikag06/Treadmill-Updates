@@ -27,6 +27,7 @@
               "src/assets",
               "src/manifest.webmanifest",
               "src/sw-master.js",
+              "src/firebase-messaging-sw.js",
               {
                 "glob": "localforage.min.js",
                 "input": "node_modules/localforage/dist/",
@@ -48,6 +49,7 @@
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "node_modules/twemoji/dist/twemoji.js"
             ]
           },
           "configurations": {

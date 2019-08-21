@@ -74,3 +74,4 @@ export const RESUME_CHAT = 'resume_chat';
 export const REPLY_CURRENT = 'reply_current';
 
 export const MAX_RETRIES = 10;
+export const CHATBOT_RETRY_TIMEOUT = 5000;

@@ -69,6 +69,10 @@ import {ChatbotService} from '@/main/chatbot/chatbot.service';
 import { DataService } from './dashboard/questionnaire/data.service';
 import { QuestionnaireComponent } from './dashboard/questionnaire/questionnaire.component';
 import { PlotScoreGraphService } from './score/plot-score-graph.service';
+import {AngularFireMessagingModule} from '@angular/fire/messaging';
+import {AngularFireModule} from '@angular/fire';
+import {FcmService} from '@/main/fcm.service';
+import {environment} from '../../environments/environment';
 
 @NgModule({
   declarations: [
@@ -112,7 +116,7 @@ import { PlotScoreGraphService } from './score/plot-score-graph.service';
     MainComponent,
     ChatbotComponent,
     ChatWindowComponent,
-    QuestionnaireComponent
+    QuestionnaireComponent,
   ],
   imports: [
     CommonModule,
@@ -135,6 +139,8 @@ import { PlotScoreGraphService } from './score/plot-score-graph.service';
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     MatSlideToggleModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireMessagingModule,
   ],
   providers: [
     LocalStorageService,
@@ -152,7 +158,8 @@ import { PlotScoreGraphService } from './score/plot-score-graph.service';
     GamesAuthService,
     ChatbotService,
     DataService,
-    PlotScoreGraphService
+    PlotScoreGraphService,
+    FcmService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [CreatePostComponent]

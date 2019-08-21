@@ -8,6 +8,7 @@ import { Router, NavigationStart } from '@angular/router';
 import { DEFAULT_PATH } from '@/app.constants';
 import { MatDrawer } from '@angular/material';
 import { DataService } from './dashboard/questionnaire/data.service';
+import {FcmService} from '@/main/fcm.service';
 // tslint:disable-next-line:max-line-length
 
 
@@ -35,7 +36,8 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
     private breakpointObserver: BreakpointObserver,
     private authService: AuthService,
     private router: Router,
-    private dataService: DataService
+    private dataService: DataService,
+    private fcmService: FcmService,
   ) {}
 
   ngOnChanges() {
@@ -50,7 +52,7 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
       this.router.navigate([DEFAULT_PATH]);
     }
 
-
+    this.fcmService.requestPermission();
   }
 
   ngDoCheck() {
