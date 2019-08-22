@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnChanges, AfterContentInit, DoCheck } from '@angular/core';
+import { Component, OnInit, ViewChild, OnChanges, DoCheck } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';

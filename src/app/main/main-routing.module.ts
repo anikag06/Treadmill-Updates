@@ -21,7 +21,7 @@ export const mainRoutes: Routes = [
     {
         path: '', component: MainComponent, canActivateChild: [AuthGuard], children: [
             { path: 'dashboard', component: DashboardComponent, },
-            { path: 'questionnaire', component: QuestionnaireComponent},
+            { path: 'questionnaire', component: QuestionnaireComponent },
             { path: 'support-groups', component: SupportGroupsComponent },
             {
                 path: 'modules', component: ModulesComponent, canActivateChild: [AuthGuard], children: [
@@ -34,23 +34,26 @@ export const mainRoutes: Routes = [
                     { path: '', component: GamesListComponent },
                 ]
             },
-            { path: 'scores', component: ScoreComponent, children: [
-                { path: 'phq', component: PhqNineComponent},
-                { path: 'gad', component: GadSevenComponent}
-            ]},
-            { path: '', redirectTo: '/dashboard', pathMatch: 'full'},
+            {
+                path: 'scores', component: ScoreComponent, children: [
+                    { path: 'phq', component: PhqNineComponent },
+                    { path: 'gad', component: GadSevenComponent }
+                ]
+            },
+            { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
             { path: 'logout', component: LogoutComponent },
-            { path: 'resources',
+            {
+                path: 'resources',
                 loadChildren: () => import('./resources/resources.module').then(mod => mod.ResourcesModule),
                 canActivateChild: [AuthGuard]
             },
-    ]
-  }
+        ]
+    }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(mainRoutes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forChild(mainRoutes)],
+    exports: [RouterModule]
 })
 export class MainRoutingModule {
 }

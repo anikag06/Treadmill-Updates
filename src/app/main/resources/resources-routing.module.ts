@@ -12,7 +12,7 @@ export const formRoutes: Routes = [
       { path: '', component: FormsListComponent },
       { path: 'problem-solving', component: ProblemSolvingWorksheetsComponent },
       { path: 'tasks', component: TaskFormsComponent },
-      { path: 'slides', component: SlidesComponent },
+      { path: 'slides/:id', component: SlidesComponent },
     ]
   },
 ];
