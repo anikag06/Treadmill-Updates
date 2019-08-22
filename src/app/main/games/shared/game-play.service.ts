@@ -44,6 +44,9 @@ declare var lhGameGetTask1Data: any;
 declare var lhGameGetTask2Data: any;
 declare var lhGameGetTask3Data: any;
 
+// for friendly face game
+declare var ffGameStart: any;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -381,6 +384,10 @@ export class GamePlayService  {
       .subscribe( () => { });
   }
 
+  // for friendly face game
+  playFriendlyFaceGame() {
+    ffGameStart();
+  }
 
 }
 

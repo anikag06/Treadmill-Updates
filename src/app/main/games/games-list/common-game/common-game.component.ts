@@ -25,7 +25,7 @@ export class CommonGameComponent implements OnInit {
   isExecutiveControl = false;
   isInterpretationBias = false;
   isLearnedHelplessness = false;
-  isSampleGame = false;
+  isFriendlyFace = false;
   showHintBtn = false;
   isSoundOn = true;
   showSideButtons = false;
@@ -60,8 +60,8 @@ export class CommonGameComponent implements OnInit {
             this.showHintBtn = true;
           } else if (this.gameName === 'Learned Helplessness Game') {
             this.isLearnedHelplessness = true;
-          } else if (this.gameName === 'Sample Game') {
-            this.isSampleGame = true;
+          } else if (this.gameName === 'Friendly Face Game') {
+            this.isFriendlyFace = true;
           }
         },
         (error) => {
@@ -81,6 +81,8 @@ export class CommonGameComponent implements OnInit {
       this.gamePlayService.playExecControlGame(this.isSoundOn);
     } else if (this.gameName === 'Learned Helplessness Game') {
       this.gamePlayService.playLearnedHelplessnessGame();
+    } else if (this.gameName === 'Friendly Face Game') {
+      this.gamePlayService.playFriendlyFaceGame();
     }
   }
 

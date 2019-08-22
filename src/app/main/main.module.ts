@@ -47,21 +47,21 @@ import { AuthModule } from '@/auth.module';
 import { CommentService } from './support-groups/post-list/post-item/comment/comment.service';
 import { NetstedCommentService } from './support-groups/post-list/post-item/nested-comment/netsted-comment.service';
 import { TagService } from './shared/tag.service';
-import { AutofocusDirective } from './shared/autofocus.directive';
-import { ScoreComponent } from './score/score.component';
-import { PhqNineComponent } from './score/phq-nine/phq-nine.component';
-import { GadSevenComponent } from './score/gad-seven/gad-seven.component';
-import { InterpretationBiasGameComponent } from './games/games-list/common-game/interpretation-bias-game/interpretation-bias-game.component';
+import { AutofocusDirective } from '@/main/shared/autofocus.directive';
+import { ScoreComponent } from '@/main/score/score.component';
+import { PhqNineComponent } from '@/main/score/phq-nine/phq-nine.component';
+import { GadSevenComponent } from '@/main/score/gad-seven/gad-seven.component';
+import { InterpretationBiasGameComponent } from '@/main/games/games-list/common-game/interpretation-bias-game/interpretation-bias-game.component';
 
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import {ProblemSolvingWorksheetsService} from '@/main/custom-forms/forms/problem-solving-worksheets/problem-solving-worksheets.service';
 import {FormsService} from '@/main/forms.service';
 import {TasksService} from '@/main/custom-forms/forms/shared/tasks/tasks.service';
-import { ExecutiveControlGameComponent } from './games/games-list/common-game/executive-control-game/executive-control-game.component';
-import { CommonGameComponent } from './games/games-list/common-game/common-game.component';
-import { GamesAuthService } from './games/shared/games-auth.service';
-import { GamePlayService } from './games/shared/game-play.service';
-import { LearnedHelplessnessGameComponent } from './games/games-list/common-game/learned-helplessness-game/learned-helplessness-game.component';
+import { ExecutiveControlGameComponent } from '@/main/games/games-list/common-game/executive-control-game/executive-control-game.component';
+import { CommonGameComponent } from '@/main/games/games-list/common-game/common-game.component';
+import { GamesAuthService } from '@/main/games/shared/games-auth.service';
+import { GamePlayService } from '@/main/games/shared/game-play.service';
+import { LearnedHelplessnessGameComponent } from '@/main/games/games-list/common-game/learned-helplessness-game/learned-helplessness-game.component';
 
 import { ChatbotComponent } from './chatbot/chatbot.component';
 import { ChatWindowComponent } from './chatbot/chat-window/chat-window.component';
@@ -73,6 +73,7 @@ import {AngularFireMessagingModule} from '@angular/fire/messaging';
 import {AngularFireModule} from '@angular/fire';
 import {FcmService} from '@/main/fcm.service';
 import {environment} from '../../environments/environment';
+import { FriendlyFaceGameComponent } from '@/main/games/games-list/common-game/friendly-face-game/friendly-face-game.component';
 
 @NgModule({
   declarations: [
@@ -117,6 +118,7 @@ import {environment} from '../../environments/environment';
     ChatbotComponent,
     ChatWindowComponent,
     QuestionnaireComponent,
+    FriendlyFaceGameComponent,
   ],
   imports: [
     CommonModule,

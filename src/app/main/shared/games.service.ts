@@ -20,7 +20,7 @@ export class GamesService {
     new Game('Learned Helplessness Game',
              'https://via.placeholder.com/360x200?text=Mario',
              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.'),
-    new Game('Sample Game',
+    new Game('Friendly Face Game',
             'https://via.placeholder.com/360x200?text=Mario',
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.')
     ];
