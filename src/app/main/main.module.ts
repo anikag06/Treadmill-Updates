@@ -1,61 +1,57 @@
 import {NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {CommonModule} from '@angular/common';
-
-import {ModulesComponent} from '@/main/modules/modules.component';
-import {DashboardComponent} from '@/main/dashboard/dashboard.component';
-import {ModuleDetailComponent} from './modules/module-detail/module-detail.component';
-import {ModuleItemComponent} from './modules/module-list/module-item/module-item.component';
-import {ModuleOverviewComponent} from './modules/module-list/module-overview/module-overview.component';
-import {ModuleListComponent} from './modules/module-list/module-list.component';
-import {CategorySmallComponent} from './shared/category-small/category-small.component';
-import {LocalStorageService} from '../shared/localstorage.service';
-import {CategoryBigComponent} from './modules/module-detail/category-big/category-big.component';
-import {SectionCardComponent} from './modules/module-detail/section-card/section-card.component';
-import {MainComponent} from './main.component';
-import {LogoutComponent} from '../shared/auth/logout/logout.component';
-import {ProgressComponent} from './dashboard/progress/progress.component';
-import {CurrentModuleComponent} from './dashboard/current-module/current-module.component';
-import {ThingsTodoComponent} from './dashboard/things-todo/things-todo.component';
-import {TimeAgoPipe} from '../shared/time-ago.pipe';
-import {ChatbotAvatarComponent} from './dashboard/chatbot-avatar/chatbot-avatar.component';
-import {GamesComponent} from './games/games.component';
-import {GamesListComponent} from './games/games-list/games-list.component';
-import {GameItemComponent} from './games/games-list/game-item/game-item.component';
-import {MaterialModule} from '@/material.module';
-import {SupportGroupsComponent} from './support-groups/support-groups.component';
-import {PostListComponent} from './support-groups/post-list/post-list.component';
-import {PostItemComponent} from './support-groups/post-list/post-item/post-item.component';
-import {SupportGroupsService} from './support-groups/support-groups.service';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {CommentComponent} from './support-groups/post-list/post-item/comment/comment.component';
-import {CreatePostComponent} from './support-groups/create-post/create-post.component';
-import {NestedCommentComponent} from './support-groups/post-list/post-item/nested-comment/nested-comment.component';
-import {HttpClientModule} from '@angular/common/http';
-import {AngularEditorModule} from '@xw19/angular-editor';
-import {SanitizationService} from './support-groups/sanitization.service';
-import {SafeHtmlPipe} from './support-groups/safe-html.pipe';
-import {LayoutModule} from '@angular/cdk/layout';
-import {
-  MatToolbarModule,
-  MatButtonModule,
-  MatSidenavModule,
-  MatIconModule,
-  MatListModule,
-  MatDatepickerModule,
-  MatNativeDateModule,
-  MatSlideToggleModule
-} from '@angular/material';
-import {ScrollingDirective} from './shared/scrolling.directive';
-import {ScrollingService} from './shared/scrolling.service';
-import {NavbarComponent} from './shared/navbar/navbar.component';
-import {GeneralErrorService} from './shared/general-error.service';
-import {MainRoutingModule} from './main-routing.module';
-import {AuthModule} from '@/auth.module';
-import {CommentService} from './support-groups/post-list/post-item/comment/comment.service';
-import {NetstedCommentService} from './support-groups/post-list/post-item/nested-comment/netsted-comment.service';
-import {TagService} from './shared/tag.service';
 import {AutofocusDirective} from './shared/autofocus.directive';
 import {OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
+import { ChartsModule } from 'ng2-charts';
+
+import { ModulesComponent } from '@/main/modules/modules.component';
+import { DashboardComponent } from '@/main/dashboard/dashboard.component';
+import { ModuleDetailComponent } from './modules/module-detail/module-detail.component';
+import { ModuleItemComponent } from './modules/module-list/module-item/module-item.component';
+import { ModuleOverviewComponent } from './modules/module-list/module-overview/module-overview.component';
+import { ModuleListComponent } from './modules/module-list/module-list.component';
+import { CategorySmallComponent } from './shared/category-small/category-small.component';
+import { LocalStorageService } from '../shared/localstorage.service';
+import { CategoryBigComponent } from './modules/module-detail/category-big/category-big.component';
+import { SectionCardComponent } from './modules/module-detail/section-card/section-card.component';
+import { MainComponent } from './main.component';
+import { LogoutComponent } from '../shared/auth/logout/logout.component';
+import { ProgressComponent } from './dashboard/progress/progress.component';
+import { CurrentModuleComponent } from './dashboard/current-module/current-module.component';
+import { ThingsTodoComponent } from './dashboard/things-todo/things-todo.component';
+import { TimeAgoPipe } from '../shared/time-ago.pipe';
+import { ChatbotAvatarComponent } from './dashboard/chatbot-avatar/chatbot-avatar.component';
+import { GamesComponent } from './games/games.component';
+import { GamesListComponent } from './games/games-list/games-list.component';
+import { GameItemComponent } from './games/games-list/game-item/game-item.component';
+import { MaterialModule } from '@/material.module';
+import { SupportGroupsComponent } from './support-groups/support-groups.component';
+import { PostListComponent } from './support-groups/post-list/post-list.component';
+import { PostItemComponent } from './support-groups/post-list/post-item/post-item.component';
+import { SupportGroupsService } from './support-groups/support-groups.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommentComponent } from './support-groups/post-list/post-item/comment/comment.component';
+import { CreatePostComponent } from './support-groups/create-post/create-post.component';
+import { NestedCommentComponent } from './support-groups/post-list/post-item/nested-comment/nested-comment.component';
+import { HttpClientModule} from '@angular/common/http';
+import { AngularEditorModule } from '@xw19/angular-editor';
+import { SanitizationService } from './support-groups/sanitization.service';
+import { SafeHtmlPipe } from './support-groups/safe-html.pipe';
+import { LayoutModule } from '@angular/cdk/layout';
+// tslint:disable-next-line:max-line-length
+import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatDatepickerModule, MatNativeDateModule, MatSlideToggleModule } from '@angular/material';
+import { ScrollingDirective } from './shared/scrolling.directive';
+import { ScrollingService } from './shared/scrolling.service';
+import { NavbarComponent } from './shared/navbar/navbar.component';
+import { GeneralErrorService } from './shared/general-error.service';
+import { MainRoutingModule } from './main-routing.module';
+import { AuthModule } from '@/auth.module';
+import { CommentService } from './support-groups/post-list/post-item/comment/comment.service';
+import { NetstedCommentService } from './support-groups/post-list/post-item/nested-comment/netsted-comment.service';
+import { TagService } from './shared/tag.service';
+import { ScoreComponent } from './score/score.component';
+import { PhqNineComponent } from './score/phq-nine/phq-nine.component';
+import { GadSevenComponent } from './score/gad-seven/gad-seven.component';
 import {FormsService} from '@/main/forms.service';
 import {TasksService} from '@/main/resources/forms/shared/tasks/tasks.service';
 import {ChatbotComponent} from './chatbot/chatbot.component';
@@ -65,6 +61,12 @@ import {SlideService} from './resources/slides/slide.service';
 import {ProblemSolvingWorksheetsService} from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.service';
 import {ResourcesModule} from '@/main/resources/resources.module';
 
+import { DataService } from './dashboard/questionnaire/data.service';
+import { QuestionnaireComponent } from './dashboard/questionnaire/questionnaire.component';
+import {AngularFireMessagingModule} from '@angular/fire/messaging';
+import {AngularFireModule} from '@angular/fire';
+import {FcmService} from '@/main/fcm.service';
+import {environment} from '../../environments/environment';
 
 @NgModule({
   declarations: [
@@ -95,14 +97,18 @@ import {ResourcesModule} from '@/main/resources/resources.module';
     ScrollingDirective,
     NavbarComponent,
     AutofocusDirective,
+    ScoreComponent,
+    PhqNineComponent,
+    GadSevenComponent,
     DashboardComponent,
     MainComponent,
     ChatbotComponent,
     ChatWindowComponent,
-
+    QuestionnaireComponent,
   ],
   imports: [
     CommonModule,
+    ChartsModule,
     MaterialModule,
     FormsModule,
     HttpClientModule,
@@ -121,6 +127,8 @@ import {ResourcesModule} from '@/main/resources/resources.module';
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     MatSlideToggleModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireMessagingModule,
   ],
   providers: [
     LocalStorageService,
@@ -136,6 +144,8 @@ import {ResourcesModule} from '@/main/resources/resources.module';
     TasksService,
     ChatbotService,
     SlideService,
+    DataService,
+    FcmService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [CreatePostComponent]

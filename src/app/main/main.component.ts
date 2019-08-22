@@ -1,22 +1,30 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnChanges, AfterContentInit, DoCheck } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, filter } from 'rxjs/operators';
 import { AuthService } from '@/shared/auth/auth.service';
 import { User } from '@/shared/user.model';
-import { Router } from '@angular/router';
+import { Router, NavigationStart } from '@angular/router';
 import { DEFAULT_PATH } from '@/app.constants';
 import { MatDrawer } from '@angular/material';
+import { DataService } from './dashboard/questionnaire/data.service';
+import {FcmService} from '@/main/fcm.service';
+// tslint:disable-next-line:max-line-length
+
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 })
-export class MainComponent implements OnInit {
+export class MainComponent implements OnInit, OnChanges, DoCheck {
+
 
   user!: User;
-  @ViewChild('drawer', { static: true }) drawer!: MatDrawer;
+  routing!: boolean;
+
+
+  @ViewChild('drawer', {static : true}) drawer!: MatDrawer;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.Handset, Breakpoints.Small])
     .pipe(
@@ -28,7 +36,12 @@ export class MainComponent implements OnInit {
     private breakpointObserver: BreakpointObserver,
     private authService: AuthService,
     private router: Router,
+    private dataService: DataService,
+    private fcmService: FcmService,
   ) {}
+
+  ngOnChanges() {
+  }
 
 
   ngOnInit() {
@@ -39,11 +52,37 @@ export class MainComponent implements OnInit {
       this.router.navigate([DEFAULT_PATH]);
     }
 
+    this.fcmService.requestPermission();
+  }
+
+  ngDoCheck() {
+    this.routing = this.dataService.getOption();
+    const user = this.authService.isLoggedIn();
+    if (user && user.is_active) {
+      this.user = <User>user;
+      if (this.routing === false) {
+        this.goToQuestionnaire(this.router);
+      }
+    }
+    if (this.routing === false) {
+      this.router.events
+      .pipe(
+        filter(e => e instanceof NavigationStart)
+      ).subscribe((e: any) => {
+        this.goToQuestionnaire(e);
+      });
+    }
   }
 
   onLinkClick(event: Event) {
     if (window.innerWidth < 960) {
       this.drawer.toggle();
+    }
+  }
+
+  goToQuestionnaire(e: any) {
+    if (e.url !== '/questionnaire' && this.user) {
+      this.router.navigate(['/questionnaire']);
     }
   }
 }

@@ -1,0 +1,80 @@
+@import "styles.scss";
+
+.scores-section {
+    padding-left: 150px;
+    align-content: center;
+    min-height: 80vh;
+}
+.loader {
+    padding-top: 12%;
+    width: 100%;
+}
+
+@media screen and (max-width: 991px) {
+    .scores-section {
+        padding-left: 0px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .scores-section {
+        padding-left: 0px;
+    }
+}
+
+.mat-card {
+    @include font-montserrat($font-weight: 300);
+    margin: 40px 70px 40px 0;
+    width: 320px;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 1px 1px 10px #dadada;
+    padding: 0;
+    img {
+        width: 100%;
+    }
+    h3 {
+        text-align: center;
+        padding: 10px;
+        font-size: 1.8rem;
+    }
+}
+
+@media screen and (max-width: 1500px) {
+    .mat-card {
+        width: 290px;
+        margin: 20px 0;
+    }
+}
+
+@media screen and (max-width: 1280px) {
+    .mat-card {
+        width: 300px;
+        margin: 20px 0;
+    }
+}
+
+
+@media screen and (max-width: 991px) {
+    .mat-card {
+        width: 280px;
+        margin: 20px;
+    }
+    
+}
+
+@media screen and (max-width: 767px) {
+    .mat-card {
+        width: 60%;
+        margin: 20px auto;
+    }
+    
+}
+
+@media screen and (max-width: 568px) {
+    .mat-card {
+        width: 90%;
+        margin: 20px auto;
+    }
+    
+}

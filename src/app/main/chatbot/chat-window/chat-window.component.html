@@ -6,13 +6,22 @@
   <div class="chat-frame" #messagesDiv [scrollTop]="scrollTop">
     <div class="clearfix" *ngFor="let m of messages">
       <div>
-        <div class="message" [ngClass]="{'bot': !m.user}">
-          <div class="message-text" [innerHTML]="m.message"></div>
-          <span class="date-time">{{m.datetime | date: 'short' }}</span>
-          <p class="meta">
-            mid: <b>{{m.mid}}</b> sid: <b>{{m.sid}}</b> <br>
-          </p>
-        </div>
+        <ng-container *ngIf="!m.waiting else waiting">
+            <div class="message" [ngClass]="{'bot': !m.user}" *ngIf="m.message">
+              <div class="message-text" [innerHTML]="m.message"></div>
+              <span class="date-time">{{m.datetime | date: 'short' }}</span>
+              <p class="meta">
+                mid: <b>{{m.mid}}</b> sid: <b>{{m.sid}}</b><br>
+              </p>
+            </div>
+        </ng-container>
+        <ng-template #waiting>
+            <div class="message bot">
+              <div class="message-text waiting">
+                <div class="dot-typing"></div>
+              </div>
+            </div>
+        </ng-template>
       </div>
       <div class="buttons">
         <button

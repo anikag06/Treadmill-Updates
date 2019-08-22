@@ -1,0 +1,34 @@
+<div *ngIf="outlet.isActivated == false">
+    
+<div class="row">
+  <div class="col">
+    <h1 class="main-heading-h1"> Questionnaire Scores </h1>
+  </div>
+</div>
+<div class="scores-section">
+  <div class="row d-flex justify-content-around justify-content-sm-between justify-content-md-between">
+    <ng-container >
+      <div class="flex-fill">
+        <div class="mat-card phq-nine" (click)="onPhqNineClicked()">
+         <!-- <img [src]="" [alt]="phq-9"> -->
+          <h3> PHQ-9 </h3>
+        </div> <br>
+        <div class="mat-card gad-seven" (click)="onGadSevenClicked()">
+         <!-- <img [src]="" [alt]="gad-7"> -->
+          <h3> GAD-7 </h3>
+        </div>
+      </div>
+      
+    </ng-container>
+  </div>
+</div>
+<ng-template #loader>
+  <div class="text-center loader">
+    <img src="assets/shared/dna-loader.svg" alt="loader" width="200" >
+  </div>
+</ng-template>
+
+
+ </div>
+ 
+ <router-outlet #outlet="outlet"></router-outlet>

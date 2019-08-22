@@ -14,6 +14,7 @@
   </div>
 
   <div class="input-container text-center">
+    <mat-error > {{ errorMessage }}</mat-error>
     <div class="message" *ngIf = "loginAfterSignup">
       Registration successful. Login!
     </div>
@@ -39,9 +40,9 @@
       <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
       <mat-error>Password is required</mat-error>
     </mat-form-field>
-    <div class="error" *ngIf="formInvalid">
+    <!-- <div class="error" *ngIf="formInvalid">
       Username or Password is incorrect!
-    </div>
+    </div> -->
     <div
       mat-dialog-actions
       class="forgot-password">

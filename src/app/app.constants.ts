@@ -30,6 +30,8 @@ export const LOGGED_IN_PATH     = '/dashboard';
 export const TOKEN_REFRESH_PATH = '/api/v1/user/api-token-refresh/';
 export const LOGIN_PATH         = '/api/v1/user/login/';
 export const SIGNUP_PATH 		= '/api/v1/user/registration/';
+export const PHQ_NINE_SCORE     = '/api/v1/questionnaire/phq-user-scores/';
+export const GAD_SEVEN_SCORE    = '/api/v1/questionnaire/gad-user-scores/';
 export const MOBILEWIDTH        = 768;
 
 
@@ -43,3 +45,6 @@ export const RECOMMENDED       = 'recommended';
 export const NEW_CHAT = 'new_chat';
 export const RESUME_CHAT = 'resume_chat';
 export const REPLY_CURRENT = 'reply_current';
+
+export const MAX_RETRIES = 10;
+export const CHATBOT_RETRY_TIMEOUT = 5000;
