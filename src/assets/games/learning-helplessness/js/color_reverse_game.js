@@ -3,6 +3,7 @@ var lhGameLevelStrings;		// stores strings of a level
 var lhGameLengths;
 var lhGameHeights;
 
+var lhGameArrayIndex;
 var lhGameLevelCounter;   // get from user level 
 
 // functions called from typescript
@@ -11,6 +12,7 @@ var lhGameStart;
 
 // for checking if the user fails to solve a previously solved level
 var previously_solved_level = lhGameLevelCounter;
+var previous_index = lhGameArrayIndex;
 
 var Grid = function(length, height, grid_string){
 	this.length = length,
@@ -29,9 +31,9 @@ var success;
 var storeLHScoreColorReverse;
 
 function initializeVar(){
-	grid_string = lhGameLevelStrings[lhGameLevelCounter];
-	length = lhGameLengths[lhGameLevelCounter];
-	height = lhGameHeights[lhGameLevelCounter];
+	grid_string = lhGameLevelStrings[lhGameArrayIndex];
+	length = lhGameLengths[lhGameArrayIndex];
+	height = lhGameHeights[lhGameArrayIndex];
 	$("#color-reverse-game-level").text("Level : "+lhGameLevelCounter);
 }
 var grid;
@@ -49,7 +51,7 @@ $(document).ready(function(){
 	lhGameStart = function(ev){
 		$("#color-reverse-game").removeClass("d-none");
 		initializeVar();
-		init();
+		colorReverseInit();
 	}
 
 	$(document).on("click", ".color-reverse-game-square", function(){
@@ -68,11 +70,15 @@ $(document).ready(function(){
 	});
 
 	$(document).on("click", "#btn-color-reverse-game-give-up", function(){
-		if(first_puzzle && lhGameLevelCounter!=0){
+		
+		if(first_puzzle && lhGameLevelCounter!=0 && lhGameArrayIndex!=0){
+			
 			lhGameLevelCounter--;
+			lhGameArrayIndex--;
 			previously_solved_level = lhGameLevelCounter-1;
-			init();
-		}else if(lhGameLevelCounter!=0 && previously_solved_level==lhGameLevelCounter){		// showing explanation if giving up on same level
+			previous_index = lhGameArrayIndex -1;
+			colorReverseInit();
+		}else if(lhGameLevelCounter!=0 && previously_solved_level==lhGameLevelCounter && lhGameArrayIndex!=0 && previous_index == lhGameArrayIndex){		// showing explanation if giving up on same level
 			$("#color-reverse-game").addClass("d-none");
 			$("#explanation-row").removeClass("d-none");
 		}else if(unsolvable_game_counter == 3){
@@ -80,19 +86,27 @@ $(document).ready(function(){
 			boxUpGameInit();
 			$("#box-up-game-row").removeClass("d-none");
 			$("#box-up-game-row").focus();
-			lhGameLevelCounter = previously_solved_level;
+			if(lhGameLevelCounter > 0){
+				lhGameLevelCounter = previously_solved_level;
+				lhGameArrayIndex = previous_index;
+			}
 		}else if(unsolvable_game_counter == 2){
 			resetFrogGame();
 			frogGameInit();
 			$("#color-reverse-game").addClass("d-none");
 			$("#frog-game-row").removeClass("d-none");
 			$("#frog-game-row").focus();
-			lhGameLevelCounter = previously_solved_level;
+			if(lhGameLevelCounter > 0){
+				lhGameLevelCounter = previously_solved_level;
+				lhGameArrayIndex = previous_index;
+			}
 		}else if(unsolvable_game_counter == 1){
 			$("#color-reverse-game").addClass("d-none");
 			$("#grid-puzzle-row").removeClass("d-none");
-			lhGameLevelCounter = previously_solved_level;
-
+			if(lhGameLevelCounter > 0){
+				lhGameLevelCounter = previously_solved_level;
+				lhGameArrayIndex = previous_index;
+			}
 			setTimeout(function(){
 				$("#btn-give-up-fifteen").removeClass("d-none");
 
@@ -107,6 +121,10 @@ $(document).ready(function(){
 				}, 3000);
 			}, 125);
 		}
+		if(lhGameArrayIndex <=0 || lhGameLevelCounter <= 0){
+			lhGameArrayIndex = lhGameLevelCounter = 0;
+		}
+		$("#color-reverse-game-level").text("Level : "+lhGameLevelCounter);
 	});
 });
 
@@ -224,21 +242,24 @@ function detectSuccess(grid_array){
 			window.dispatchEvent(storeLHScoreColorReverse);
 			
 			previously_solved_level = lhGameLevelCounter;
+			previous_index = lhGameArrayIndex;
 			lhGameLevelCounter++;
+			lhGameArrayIndex++;
 			clearTimeout(different_game_timeout);
 			$("#color-reverse-game-success-message").addClass("d-none");
 			$("#color-reverse-game-level").text("Level : "+lhGameLevelCounter);
 			first_puzzle = false;					// setting first puzzle to false if the user has solved one
-			init();
+			colorReverseInit();
 		}, success_wait_time);
 	}
 	return success;
 }
 
-function init(){
-	grid_string = lhGameLevelStrings[lhGameLevelCounter];
-	length = lhGameLengths[lhGameLevelCounter];
-	height = lhGameHeights[lhGameLevelCounter];
+function colorReverseInit(){
+	
+	grid_string = lhGameLevelStrings[lhGameArrayIndex];
+	length = lhGameLengths[lhGameArrayIndex];
+	height = lhGameHeights[lhGameArrayIndex];
 	grid = new Grid(length, height, grid_string);
 	start_time = Date.now();
 	no_of_moves = 0;

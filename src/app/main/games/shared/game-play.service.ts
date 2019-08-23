@@ -28,6 +28,7 @@ declare var lhGameLevelStrings: any;
 declare var lhGameHeights: any;
 declare var lhGameLengths: any;
 declare var lhGameLevelCounter: any;
+declare var lhGameArrayIndex: number;
 declare var lh_frog_levels: any;
 declare var lh_frog_lengths: any;
 declare var lh_frog_heights: any;
@@ -67,9 +68,11 @@ export class GamePlayService  {
   ecGameDiscriminationData = new ECGameDiscriminationTask(1, null, 0, 0);
 
   // variables for lh game
+  lhGameNumberOfPage!: number;
   lhGamePageNumber!: number;
   lhGameCRNumberOfLevels!: number;
   lhGameIslastData = false;
+  lhGameStart = false;
   lhGameColorReverse = new LHGameColorReverseData(0, 0, 0, false);
   lhGameUserLevel = new LHGameUserLevel(0);
   lhGamePerformanceData = new LHGamePerformance(0, 0, 0);
@@ -233,13 +236,16 @@ export class GamePlayService  {
     this.gamesAuthService.lhGameGetUserLevel()
       .subscribe((level_data) => {
         lhGameLevelCounter = level_data.level;
-        this.lhGamePageNumber = 1;
-        this.lhGameDataColorReverse(this.lhGamePageNumber, false);
+        this.lhGameNumberOfPage = level_data.page_size;
+        this.lhGamePageNumber = Math.floor(lhGameLevelCounter / this.lhGameNumberOfPage) + 1;
+        this.lhGameStart = true;
+        this.lhGameDataColorReverse(this.lhGamePageNumber, this.lhGameStart);
+
         this.lhGameDataTask2();
     });
   }
 
-  lhGameDataColorReverse(pageNumber: number, gameStarted: boolean) {
+  lhGameDataColorReverse(pageNumber: number, startGame: boolean) {
     this.gamesAuthService.lhGameGetColorReverseData(pageNumber)
       .subscribe( (game_data) => {
         if (game_data.next === null) {
@@ -252,13 +258,19 @@ export class GamePlayService  {
           lhGameHeights.push(game_data.results[i].height);
           i++;
         }
-        this.lhGameCRNumberOfLevels = i;
-        if (gameStarted === false && this.lhGameIslastData === false) {
-          if ( lhGameLevelCounter < this.lhGameCRNumberOfLevels) {
-            lhGameStart();
-          } else {
-            pageNumber++;
-            this.lhGameDataColorReverse(pageNumber, gameStarted);
+        if (startGame === true) {
+          lhGameArrayIndex = lhGameLevelCounter % this.lhGameNumberOfPage;
+          lhGameStart();
+          this.lhGameStart = false;
+          this.lhGameDataColorReverse(1, this.lhGameStart);
+          lhGameLevelStrings = [];
+          lhGameLengths = [];
+          lhGameHeights = [];
+          lhGameArrayIndex = lhGameLevelCounter;
+        } else {
+          if ( this.lhGameIslastData === false) {
+            pageNumber = pageNumber + 1;
+            this.lhGameDataColorReverse(pageNumber, this.lhGameStart);
           }
         }
       });
@@ -300,7 +312,7 @@ export class GamePlayService  {
       const y_value =  task3_element_info.y;
       const orientation_value = task3_element_info.orientation;
 
-      // store the value position and orientation of inner and smaller arc
+      // store the value position and orientation of inner and outer arc
       if (task3_element_info.inner_element === true && task3_element_info.outer_element === false) {
 
         lh_inner_position_initials.push({x: x_value, y: y_value, orientation: orientation_value});
@@ -337,14 +349,14 @@ export class GamePlayService  {
           this.lhGameUserLevel.level = this.lhGameColorReverse.level;
           this.gamesAuthService.lhGameUpdateUserLevel(this.lhGameUserLevel)
             .subscribe(() => {
-              // as level can be greater than no of sentences sent at a time
-              const level = (this.lhGameUserLevel.level  % this.lhGameCRNumberOfLevels);
-              if (this.lhGameIslastData === false) {
-                if (level === Math.floor(0.85 * (this.lhGameCRNumberOfLevels * this.lhGamePageNumber))) {
-                  this.lhGamePageNumber++;
-                  this.lhGameDataColorReverse(this.lhGamePageNumber, true);
-                }
-              }
+              // // as level can be greater than no of sentences sent at a time
+              // const level = (this.lhGameUserLevel.level );
+              // if (this.lhGameIslastData === false) {
+              //   if (level === Math.floor(0.7 * (this.lhGameNumberOfPage * this.lhGamePageNumber))) {
+              //     this.lhGamePageNumber++;
+              //     this.lhGameDataColorReverse(this.lhGamePageNumber, false);
+              //   }
+              // }
             });
         }
       });

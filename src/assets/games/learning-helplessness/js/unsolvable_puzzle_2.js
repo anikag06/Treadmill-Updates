@@ -61,8 +61,9 @@ $(document).ready(function(){
 			$("#color-reverse-game").removeClass("d-none");
 			unsolvable_game_counter=3;		 
 			resetFrogGame();
-		 	frogGameInit();
-			init();
+			frogGameInit();
+			console.log("call init 2", success); 
+			colorReverseInit();
 		}else{
 			first = false;
 		}

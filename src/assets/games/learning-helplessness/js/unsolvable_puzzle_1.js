@@ -85,9 +85,10 @@ $(document).ready(function(){
 		$("#color-reverse-game").removeClass("d-none");
 		second_time = true;
 		resetGridPuzzleGame();
-		 gridPuzzleGameReInit();
-		 unsolvable_game_counter=2;		 
-		init();
+		gridPuzzleGameReInit();
+		unsolvable_game_counter=2;	
+		console.log("call init 1", success);
+		colorReverseInit();
 	});
 
 	$(document).on("click", "#btn-reset-three", function(){
