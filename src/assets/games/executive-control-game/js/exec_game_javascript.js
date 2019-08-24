@@ -146,7 +146,9 @@ var stop_player_animation;
 //Speed Related variables
 var LEVEL_SPEED;
 var LEVEL_SPEED_INCREMENT_GAP;
-var SPEED_INCREMENT
+var SPEED_INCREMENT;
+var MAX_LEVEL_SPEED;
+var MIN_LEVEL_SPEED;
 
 var CITYLINE_SPEED;
 var RIVER_SPEED;
@@ -303,9 +305,9 @@ var mystery_egg_collected_text;
 //Gameover dialog_box;
 var game_over_dialog;
 var game_over_text;
-var restart_game_button;
-var end_game_button;
-
+var continue_game_button;
+var replay_game_button;
+var continue_game_button2;
 
 //Task buttons
 var left_button;
@@ -507,6 +509,10 @@ var retry_coin_text;
 var retry_coin_animation;
 var retry_cost;
 
+var reduce_speed_text;
+
+var replay_game_text;
+
 //double_jump
 var DOUBLE_COIN_POWER;
 var double_coin_option_shown;
@@ -702,7 +708,7 @@ function preload(){
 	//Gameover dialog
 	this.load.image('game_over_dialog',svg_location+"/gameoverbox.png");
 	this.load.image('restart_game', assets_img_location +"/play.png");		//actually resuming the game
-	this.load.image('end_game', assets_img_location+"/home.png");
+	this.load.image('replay_game', assets_img_location+"/replay.png");
 
 	//Yes/no button
 	this.load.image('yes_button',png+"/yes_button.png");
@@ -1172,7 +1178,7 @@ function update(){
 		clearInterval(scene_change_timeout);
 		game_over_sound.play();
 			
-		game_over_dialog=this.add.tileSprite(screen_width*0.5,screen_height*0.5,screen_width*0.42,screen_height*0.5,"game_over_dialog");
+		game_over_dialog=this.add.tileSprite(screen_width*0.5,screen_height*0.5,screen_width*0.46,screen_height*0.5,"game_over_dialog");
 		game_over_dialog.depth=4;
 		game_over_dialog.alpha = 0.6;
 		
@@ -1181,66 +1187,45 @@ function update(){
 		game_over_text.setBackgroundColor('rgba(255,255,255,0.7)');
 		game_over_text.depth=5;
 
-		restart_game_button=this.add.image(screen_width*0.42,screen_height*0.50,'restart_game').setScale(0.6).setInteractive();
-		restart_game_button.depth=5;
+		continue_game_button=this.add.image(screen_width*0.34,screen_height*0.50,'restart_game').setScale(0.6).setInteractive();
+		continue_game_button.depth=5;
 		
 		// retry_coin_icon=this.add.image(screen_width*0.46,screen_height*0.63,'coin').setScale(0.25);
 		// retry_coin_icon.depth=6;
 
-		retry_coin_text=this.add.text(screen_width*0.34,screen_height*0.57,"Try again for" +"\n"+retry_cost+ " coins", { fontSize: '16px', fill: '#000000',align:'center' });
+		retry_coin_text=this.add.text(screen_width*0.27,screen_height*0.57,"Continue" +"\n"+ "for " + retry_cost+ " coins", { fontSize: '16px', fill: '#000000',align:'center' });
 		retry_coin_text.depth=7;
-
 		// retry_coin_animation=setInterval(retry_coin_blinker,coin_blinker_interval);
 		
-		end_game_button=this.add.image(screen_width*0.58,screen_height*0.50,'end_game').setScale(0.6).setInteractive();
-		end_game_button.depth=5;
+		continue_game_button2=this.add.image(screen_width*0.50,screen_height*0.50,'restart_game').setScale(0.6).setInteractive();
+		continue_game_button2.depth=5;
+		
+		reduce_speed_text=this.add.text(screen_width*0.44,screen_height*0.57,"Continue"+"\n"+"with lesser"+"\n"+ "speed for"+"\n"+retry_cost+" coins", { fontSize: '16px', fill: '#000000',align:'center' });
+		reduce_speed_text.depth=7;
 
-		restart_game_button.on('pointerdown', function() {
+		replay_game_button=this.add.image(screen_width*0.66,screen_height*0.50,'replay_game').setScale(0.6).setInteractive();
+		replay_game_button.depth=5;
 
-			if(coins_collected<retry_cost)
-			{
-				return;
+		replay_game_text=this.add.text(screen_width*0.62,screen_height*0.57,"Restart", { fontSize: '16px', fill: '#000000',align:'center' });
+		replay_game_text.depth=7;
+
+		continue_game_button.on('pointerdown', ()=>{
+			resume_after_game_over();
+		}, curr_game);
+
+		continue_game_button2.on('pointerdown', ()=>{
+			if(LEVEL_SPEED > MIN_LEVEL_SPEED){
+				LEVEL_SPEED-=SPEED_INCREMENT;
+				change_speed(false);
 			}
-
-
-			coins_collected-=retry_cost;
-			coinsCollectedText.setText(coins_collected);
-			coinsCollectedText.x=screen_width-90-COIN_SCORE_LENGTH_ADJUSTMENT*(coins_collected.toString().length-1);
-
-			gameOver=false;
-			scoreUpdate();
-			game_over_update=false;
-
-			clearInterval(retry_coin_animation);
-
-			number_of_lives=1;
-			livesText.setText(number_of_lives);
-			life.body.allowGravity=false;
-			
-			game_over_dialog.destroy();
-			game_over_text.setText("");
-			restart_game_button.destroy();
-			end_game_button.destroy();
-			retry_coin_text.destroy();
-			// retry_coin_icon.destroy();
-
-			setTimeout(score_updator, 500);
-			scene_change_timeout =  setTimeout(scene_change_start, 5000);
-			
-			isJumping=false;
-			if(player.y>screen_height+player.height)
-			{
-				no_player=true;
-			}
-			game_over_sound.stop();
-			bgm_sound.play();
-		 
+			resume_after_game_over();
 		}, curr_game);
 		
-		end_game_button.on('pointerdown', (pointer)=>{ 
+		replay_game_button.on('pointerdown', (pointer)=>{ 
 			clearInterval(retry_coin_animation);
-			$('#start_page').removeClass('d-none');
-			$( '#game_div' ).load(window.location.href + ' #game_div' );
+			var replayECGameEvent = new CustomEvent("CallAngularReplayGame");
+			window.dispatchEvent(replayECGameEvent);
+			closeECGame();
 		},curr_game);
 	}        
 	//No player is currently active on the game,wait for the platforms to reach the required position
@@ -1569,7 +1554,50 @@ function update(){
 	
 	}
 }
+function resume_after_game_over() {
 
+	if(coins_collected<retry_cost)
+	{
+		return;
+	}
+
+
+	coins_collected-=retry_cost;
+	retry_cost = 2*retry_cost;
+	coinsCollectedText.setText(coins_collected);
+	coinsCollectedText.x=screen_width-90-COIN_SCORE_LENGTH_ADJUSTMENT*(coins_collected.toString().length-1);
+
+	gameOver=false;
+	scoreUpdate();
+	game_over_update=false;
+
+	clearInterval(retry_coin_animation);
+
+	number_of_lives=1;
+	livesText.setText(number_of_lives);
+	life.body.allowGravity=false;
+	
+	game_over_dialog.destroy();
+	game_over_text.setText("");
+	continue_game_button.destroy();
+	replay_game_button.destroy();
+	retry_coin_text.destroy();
+	reduce_speed_text.destroy();
+	continue_game_button2.destroy();
+	replay_game_text.destroy();
+	// retry_coin_icon.destroy();
+
+	setTimeout(score_updator, 500);
+	scene_change_timeout =  setTimeout(scene_change_start, 5000);
+	
+	isJumping=false;
+	if(player.y>screen_height+player.height)
+	{
+		no_player=true;
+	}
+	game_over_sound.stop();
+	bgm_sound.play();
+}
 //jumping action
 function jump()
 {
@@ -1896,8 +1924,11 @@ function score_updator(){
 		
 	if(score%LEVEL_SPEED_INCREMENT_GAP==0&&reachedCrossing==false&&game_paused==false)
 	{
-		LEVEL_SPEED+=SPEED_INCREMENT;
-		change_speed();
+		if(LEVEL_SPEED < MAX_LEVEL_SPEED){
+			LEVEL_SPEED+=SPEED_INCREMENT;
+			change_speed(true);
+		}
+		
 	}
 
 }
@@ -2023,9 +2054,8 @@ function respawn_animation()
 }
 
 //Increment the speed and crossing range
-function change_speed()
+function change_speed(speed_increased)
 {
-	console.log("level speed", LEVEL_SPEED);
 	BRICK_SPEED=LEVEL_SPEED;
 	CITYLINE_SPEED=LEVEL_SPEED;
 	RIVER_SPEED=LEVEL_SPEED;
@@ -2038,7 +2068,7 @@ function change_speed()
 	DROPPING_PLATFORM_SPEED=LEVEL_SPEED;
 	OBSTACLE_SPEED=LEVEL_SPEED;
 	JUMP_PLATFORM_SPEED=LEVEL_SPEED;
-	JUMP_RANGE+=JUMP_RANGE_INCREMENT;
+	
 	CROSSING_RANGE+=CROSSING_RANGE_INCREMENT;
 	if(OBSTACLE_Y_SPEED>0)
 	{
@@ -2048,16 +2078,26 @@ function change_speed()
 	{
 		OBSTACLE_Y_SPEED=-LEVEL_SPEED;
 	}
-
-
-	if(stop_dropping_platform_generation==false)
-	{
-		DROPPING_PLATFORM_MINIMUM_SIZE+=40;
-	}
-
-	if(stop_pit_generation==false)
-	{
-		PIT_MINIMUM_SIZE+=40;
+	if(speed_increased){
+		JUMP_RANGE+=JUMP_RANGE_INCREMENT;
+		if(stop_dropping_platform_generation==false)
+		{
+			DROPPING_PLATFORM_MINIMUM_SIZE+=40;
+		}
+		if(stop_pit_generation==false)
+		{
+			PIT_MINIMUM_SIZE+=40;
+		}
+	} else{
+		JUMP_RANGE-=JUMP_RANGE_INCREMENT;
+		if(stop_dropping_platform_generation==false)
+		{
+			DROPPING_PLATFORM_MINIMUM_SIZE-=40;
+		}
+		if(stop_pit_generation==false)
+		{
+			PIT_MINIMUM_SIZE-=40
+		}
 	}
 }
 

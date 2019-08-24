@@ -138,7 +138,8 @@ function scene_changer()
 
 	//Add required platforms
 	else if(stopTunnelMovement==true&&scene_change_platform1==null){
-		scene_change_platform1=curr_game.add.tileSprite(brick1.x+brick1.width/2+200,brick3.y,500,brick3.height,"brick"); // this is the brick that carries the user up
+		let scene_change_platform1_width = (brick1.width/2) + 100*LEVEL_SPEED;
+		scene_change_platform1=curr_game.add.tileSprite(brick1.x+brick1.width/2+250,brick3.y,scene_change_platform1_width,brick3.height,"brick"); // this is the brick that carries the user up
 		platforms.add(scene_change_platform1);
 		scene_change_platform1.body.allowGravity=false;
 		scene_change_platform1.body.immovable=true;
@@ -186,7 +187,6 @@ function scene_changer()
 	else if(flyingDown==true&&scene_change_platform1.y!=brickYCordinate){
 		flyingDownwards();
 		tunnelUpwardMovement=true;
-		
 		cityline_title.y+=LEVEL_SPEED;
 		river.y+=LEVEL_SPEED;
 		river_filler.y+=LEVEL_SPEED;
@@ -264,11 +264,11 @@ function flyingDownwards(){
 	flyingDown=true;
 	var adjust=LEVEL_SPEED;
 
-	if(scene_change_platform.y-LEVEL_SPEED>brickYCordinate)
+	if(scene_change_platform1.y-LEVEL_SPEED>brickYCordinate)
 	{
 		adjust=scene_change_platform1.y-brickYCordinate;
 	}
-	
+
 	scene_change_platform1.y-=adjust;
 	player.y-=adjust;
 	

@@ -64,7 +64,10 @@ function init_game_variables(){
 
 
 	//Speed Related variables
-	LEVEL_SPEED=6;
+	MAX_LEVEL_SPEED = 10;
+	MIN_LEVEL_SPEED = 6;
+	LEVEL_SPEED=MIN_LEVEL_SPEED;
+	
 	LEVEL_SPEED_INCREMENT_GAP=50;
 	SPEED_INCREMENT=0.5;
 
@@ -247,11 +250,9 @@ function init_game_variables(){
 	//Gameover dialog_box;
 	game_over_dialog;
 	game_over_text;
-	restart_game_button;
-	end_game_button;
-
-
-
+	continue_game_button;
+	replay_game_button;
+	continue_game_button2;
 
 
 	//Task buttons
@@ -456,6 +457,9 @@ function init_game_variables(){
 	retry_coin_text;
 	retry_coin_animation;
 	retry_cost=10;
+
+	reduce_speed_text;
+	replay_game_text;
 
 	//double_jump
 	DOUBLE_COIN_POWER=false;
