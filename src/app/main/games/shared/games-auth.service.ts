@@ -9,7 +9,8 @@ import {TOKEN,
   LHG_USER_LEVEL, LHG_UNSOLVABLE_TASK2_LEVELS, LHG_UNSOLVABLE_TASK3_LEVELS,
   LHG_UNSOLVABLE_TASK1_LEVEL1, LHG_UNSOLVABLE_TASK1_LEVEL2,
   LHG_UNSOLVABLE_TASK2_LEVEL1, LHG_UNSOLVABLE_TASK2_LEVEL2,
-  LHG_UNSOLVABLE_TASK3_LEVEL2, LHG_UNSOLVABLE_TASK3_LEVEL1} from '@/app.constants';
+  LHG_UNSOLVABLE_TASK3_LEVEL2, LHG_UNSOLVABLE_TASK3_LEVEL1,
+  FFG_GET_FRIENDLY_IMAGES, FFG_GET_HOSTILE_IMAGES} from '@/app.constants';
 import { ECGameData, ECGameFlankerTask, ECGameDiscriminationTask, ECGameUserData,
   LHGameColorReverseData, LHGameUserLevel, LHGamePerformance, } from './game-play.model';
 
@@ -133,5 +134,11 @@ export class GamesAuthService {
     }
   }
 
-
+  // for the friendly face game
+  ffGameGetFriendlyImages(pageNumber: number): Observable<any> {
+    return this.http.get(environment.API_ENDPOINT + FFG_GET_FRIENDLY_IMAGES + this.NEXT_PAGE + pageNumber);
+  }
+  ffGameGetHostileImages(pageNumber: number): Observable<any> {
+    return this.http.get(environment.API_ENDPOINT + FFG_GET_HOSTILE_IMAGES + this.NEXT_PAGE + pageNumber);
+  }
 }

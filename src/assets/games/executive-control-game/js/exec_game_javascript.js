@@ -2025,6 +2025,7 @@ function respawn_animation()
 //Increment the speed and crossing range
 function change_speed()
 {
+	console.log("level speed", LEVEL_SPEED);
 	BRICK_SPEED=LEVEL_SPEED;
 	CITYLINE_SPEED=LEVEL_SPEED;
 	RIVER_SPEED=LEVEL_SPEED;

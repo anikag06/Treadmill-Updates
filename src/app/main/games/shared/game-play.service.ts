@@ -47,6 +47,9 @@ declare var lhGameGetTask3Data: any;
 
 // for friendly face game
 declare var ffGameStart: any;
+declare var ffGamePreloadImages: any;
+declare var ffGame_hostile_images: any;
+declare var ffGame_friendly_images: any;
 
 @Injectable({
   providedIn: 'root'
@@ -348,16 +351,7 @@ export class GamePlayService  {
         if (this.lhGameColorReverse.success) {
           this.lhGameUserLevel.level = this.lhGameColorReverse.level;
           this.gamesAuthService.lhGameUpdateUserLevel(this.lhGameUserLevel)
-            .subscribe(() => {
-              // // as level can be greater than no of sentences sent at a time
-              // const level = (this.lhGameUserLevel.level );
-              // if (this.lhGameIslastData === false) {
-              //   if (level === Math.floor(0.7 * (this.lhGameNumberOfPage * this.lhGamePageNumber))) {
-              //     this.lhGamePageNumber++;
-              //     this.lhGameDataColorReverse(this.lhGamePageNumber, false);
-              //   }
-              // }
-            });
+            .subscribe(() => { });
         }
       });
   }
@@ -399,7 +393,43 @@ export class GamePlayService  {
   // for friendly face game
   playFriendlyFaceGame() {
     ffGameStart();
+   // this.ffGameGetImages();
   }
+  ffGameGetImages(pageNumber: number) {
+    this.gamesAuthService.ffGameGetFriendlyImages(pageNumber)
+      .subscribe( (friendly_images) => {
+        console.log(friendly_images, friendly_images.results);
+        let i = 0;
+        while (friendly_images.results[i]) {
+          console.log(friendly_images);
+          ffGame_friendly_images.push(friendly_images.results[i].image);
+          i++;
+        }
+        console.log(i, ffGame_friendly_images);
+        ffGamePreloadImages(1, i);
+        this.ffGameGetHostileImages(1);
 
+        if (friendly_images.next != null) {
+          pageNumber = pageNumber + 1;
+          this.ffGameGetImages(pageNumber);
+        }
+      });
+  }
+  ffGameGetHostileImages(pageNumber: number) {
+    this.gamesAuthService.ffGameGetHostileImages(pageNumber)
+    .subscribe((hostile_images) => {
+      console.log(hostile_images, hostile_images.results);
+      let j = 0;
+      while (hostile_images.results[j]) {
+        ffGame_hostile_images.push(hostile_images.results[j].image);
+        j++;
+      }
+      ffGamePreloadImages(0, j);
+      if (hostile_images.next != null) {
+        pageNumber = pageNumber + 1;
+        this.ffGameGetHostileImages(pageNumber);
+      }
+    });
+  }
 }
 

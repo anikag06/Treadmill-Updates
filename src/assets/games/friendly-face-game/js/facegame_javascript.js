@@ -1,18 +1,22 @@
 var ffGameStart;
+var ffGamePreloadImages;
 
 // data from database
-var no_positive_images_clicked_level1_click;
-var no_positive_images_clicked_level2_click;
-var no_positive_images_clicked_level3_click;
-var total_time_taken_level1_click;
-var total_time_taken_level2_click;
-var total_time_taken_level3_click;
-var no_positive_images_clicked_level1_touch;
-var no_positive_images_clicked_level2_touch;
-var no_positive_images_clicked_level3_touch ;
-var total_time_taken_level1_touch;
-var total_time_taken_level2_touch;
-var total_time_taken_level3_touch;
+var ffGame_hostile_images = [];
+var ffGame_friendly_images = [];
+
+var no_positive_images_clicked_level1_click = 1;
+var no_positive_images_clicked_level2_click = 1;
+var no_positive_images_clicked_level3_click = 1;
+var total_time_taken_level1_click = 1050 ;
+var total_time_taken_level2_click = 1150;
+var total_time_taken_level3_click = 1250;
+var no_positive_images_clicked_level1_touch = 1;
+var no_positive_images_clicked_level2_touch = 1;
+var no_positive_images_clicked_level3_touch = 1;
+var total_time_taken_level1_touch =950;
+var total_time_taken_level2_touch = 1050;
+var total_time_taken_level3_touch =1150;
 // var music;
 // var music_note_rate;
 // var music_current_order;
@@ -27,8 +31,6 @@ var RANDOM_RATIO_SIX = [0.35, 0.7, 0.9, 0.95, 1]
 var LEVEL_UP_THRESHOLD = [1075, 925]
 var TONE_DURATION_MULTIPLIER = [[500, 8], [1000, 4], [2000, 2], [4000, 1]] // # 500 milliseconds for 8th note; 1000 milliseconds for quarter note and so on
 
-var store_hostile_images;
-var store_friendly_images;
 var initial_no_positive = NUMBER_POSITIVE ; // no. of positive images to be shown; it depends on the stage in the particular level.
 var initial_no_images = NUMBER_OF_IMAGES; // no. of images to be shown; it depends on the difficulty level of the game
 
@@ -118,8 +120,8 @@ var time_left;
 var updation_interval; // how frequently the time bar should be updated 
 var time_bar_interval;
 
-var game_started;
-var game_start_counter;
+var game_started = false;
+var game_start_counter = 0;
 var game_paused;
 
 var life; // the number of wrong clicks allowed
@@ -127,8 +129,8 @@ var total_life; // for storing the total number of lives allowed in a level
 var first_click; // required for starting the clock
 
 // for preloading images
-var loaded_hostile_images;
-var loaded_friendly_images;
+var loaded_hostile_images = [];
+var loaded_friendly_images = [];
 
 var wrong_note;
 
@@ -284,6 +286,7 @@ $(document).ready(function(){
 			$(".game-components").show();
 			disableElements();
 			// document.getElementById("song-name").innerHTML = music_name;
+			console.log("call fillgrid");
 			fillGrid();
 			drawLife(life);
 			getColor(100, 0, 100);
@@ -316,6 +319,7 @@ function startGame(reload){
 
 	// positioning the game elements in the middle of the screen vertically
 	setHeightAndWidth();
+	fillGrid();
 }
 
 function setHeightAndWidth(){
@@ -493,89 +497,89 @@ function timeBar(){
 	updateTimeDisplay();
 }
 
-function getFriendlyImages(){
-	var url = $("#get-images-url").attr('href');
-	var url_tokens = url.split('/');
-	url = "/"+url_tokens[1]+"/"+url_tokens[2]+"/5/1";
-	$.ajax({
-		type: "GET",
-		url: url,
-		data: {
-		},
+// function getFriendlyImages(){
+// 	var url = $("#get-images-url").attr('href');
+// 	var url_tokens = url.split('/');
+// 	url = "/"+url_tokens[1]+"/"+url_tokens[2]+"/5/1";
+// 	$.ajax({
+// 		type: "GET",
+// 		url: url,
+// 		data: {
+// 		},
 
-		beforeSend: function(xhr){
-			xhr.setRequestHeader('X-CSRFToken', $.cookie('csrftoken'));
-		},
+// 		beforeSend: function(xhr){
+// 			xhr.setRequestHeader('X-CSRFToken', $.cookie('csrftoken'));
+// 		},
 
-		success: function(data){
-			store_friendly_images = store_friendly_images.concat(data);
-			preloadImages(1, data.length);
-		},
+// 		success: function(data){
+// 			store_friendly_images = store_friendly_images.concat(data);
+// 			preloadImages(1, data.length);
+// 		},
 		
-		error: function(xhr, errmsh, err){
-			$.notify("You are offline. The game might stop working.", {color: "#606090", delay: score_notification_timer.toString(), align:"left", verticalAlign:"top"});
-		}
+// 		error: function(xhr, errmsh, err){
+// 			$.notify("You are offline. The game might stop working.", {color: "#606090", delay: score_notification_timer.toString(), align:"left", verticalAlign:"top"});
+// 		}
 
-	});
-}
+// 	});
+// }
 
-function getHostileImages(){
-	var url = $("#get-images-url").attr('href');
-	var url_tokens = url.split('/');
-	var no_of_images = Math.floor(no_images/2);
-	url = "/"+url_tokens[1]+"/"+url_tokens[2]+"/5/0";
-	$.ajax({
-		type: "GET",
-		url: url,
-		data: {
-		},
+// function getHostileImages(){
+// 	var url = $("#get-images-url").attr('href');
+// 	var url_tokens = url.split('/');
+// 	var no_of_images = Math.floor(no_images/2);
+// 	url = "/"+url_tokens[1]+"/"+url_tokens[2]+"/5/0";
+// 	$.ajax({
+// 		type: "GET",
+// 		url: url,
+// 		data: {
+// 		},
 
-		beforeSend: function(xhr){
-			xhr.setRequestHeader('X-CSRFToken', $.cookie('csrftoken'));
-		},
+// 		beforeSend: function(xhr){
+// 			xhr.setRequestHeader('X-CSRFToken', $.cookie('csrftoken'));
+// 		},
 
-		success: function(data){
-			store_hostile_images = store_hostile_images.concat(data);
-			preloadImages(0, data.length);
-		},
+// 		success: function(data){
+// 			store_hostile_images = store_hostile_images.concat(data);
+// 			preloadImages(0, data.length);
+// 		},
 		
-		error: function(xhr, errmsh, err){
-			$.notify("You are offline. The game might stop working.", {color: "#606090", delay: score_notification_timer.toString(), align:"left", verticalAlign:"top"});
-		}
-	});
-}
+// 		error: function(xhr, errmsh, err){
+// 			$.notify("You are offline. The game might stop working.", {color: "#606090", delay: score_notification_timer.toString(), align:"left", verticalAlign:"top"});
+// 		}
+// 	});
+// }
 
-function updateStats(){
-	var url = $("#update-stats-url").attr('href');
-	var url_tokens = url.split('/');
-	url = "/"+url_tokens[1]+"/"+url_tokens[2]+"/";
-	$.ajax({
-		type: "POST",
-		url: url,
-		data: {
-			'no_positive_images_clicked_level1': no_positive_images_clicked_level1,
-			'no_positive_images_clicked_level2': no_positive_images_clicked_level2,
-			'no_positive_images_clicked_level3': no_positive_images_clicked_level3,
-			'total_time_taken_level1': total_time_taken_level1,
-			'total_time_taken_level2': total_time_taken_level2,
-			'total_time_taken_level3': total_time_taken_level3,
-			'device': device,
-		},
+// function updateStats(){
+// 	var url = $("#update-stats-url").attr('href');
+// 	var url_tokens = url.split('/');
+// 	url = "/"+url_tokens[1]+"/"+url_tokens[2]+"/";
+// 	$.ajax({
+// 		type: "POST",
+// 		url: url,
+// 		data: {
+// 			'no_positive_images_clicked_level1': no_positive_images_clicked_level1,
+// 			'no_positive_images_clicked_level2': no_positive_images_clicked_level2,
+// 			'no_positive_images_clicked_level3': no_positive_images_clicked_level3,
+// 			'total_time_taken_level1': total_time_taken_level1,
+// 			'total_time_taken_level2': total_time_taken_level2,
+// 			'total_time_taken_level3': total_time_taken_level3,
+// 			'device': device,
+// 		},
 
-		beforeSend: function(xhr){
-			xhr.setRequestHeader('X-CSRFToken', $.cookie('csrftoken'));
-		},
+// 		beforeSend: function(xhr){
+// 			xhr.setRequestHeader('X-CSRFToken', $.cookie('csrftoken'));
+// 		},
 
-		success: function(data){
-			// stats successfully updated
-		},
+// 		success: function(data){
+// 			// stats successfully updated
+// 		},
 		
-		error: function(xhr, errmsh, err){
-			$.notify("You are offline. The game might stop working.", {color: "#606090", delay: score_notification_timer.toString(), align:"left", verticalAlign:"top"});
-		}
+// 		error: function(xhr, errmsh, err){
+// 			$.notify("You are offline. The game might stop working.", {color: "#606090", delay: score_notification_timer.toString(), align:"left", verticalAlign:"top"});
+// 		}
 
-	});
-}
+// 	});
+// }
 
 // function getNextSong(){
 // 	var url = $("#next-song-url").attr('href');
@@ -607,6 +611,7 @@ function updateStats(){
 // }
 
 function fillGrid(){
+	console.log("called fill grid function");
 	ctx1.clearRect(0, 0, canvas1.width, canvas1.height);
 	images = setImageUrls();
 	no_friendly_image_clicked = 0;
@@ -699,7 +704,7 @@ function removeDuplicates(arr){
 	var temp_arr = [...new Set(arr)];
 	while(temp_arr.length != arr.length){
 		if(hard == 0){
-			var new_image = store_friendly_images.shift();
+			var new_image =ffGame_friendly_images.shift();
 		}else{
 			var new_image = store_friendly_images_hard.shift();
 		}
@@ -804,9 +809,9 @@ function getAverageSpeed(level){
 
 function showGameOver(){
 	clearInterval(time_bar_interval);
-	clearInterval(ajaxFriendlyImages);
-	clearInterval(ajaxHostileImages);
-	clearInterval(ajaxUpdateStats);
+	// clearInterval(ajaxFriendlyImages);
+	// clearInterval(ajaxHostileImages);
+	// clearInterval(ajaxUpdateStats);
 	game_paused = true;
 	game_started = false;
 	first_click = true;
@@ -899,8 +904,8 @@ function initialize(){
 	time_out_in_milliseconds = 10000; // 10 seconds
 	active = true;
 
-	ajaxFriendlyImages = setInterval(getFriendlyImages, ajax_request_time_friendly);
-	ajaxHostileImages = setInterval(getHostileImages, ajax_request_time_hostile);
+	// ajaxFriendlyImages = setInterval(getFriendlyImages, ajax_request_time_friendly);
+	// ajaxHostileImages = setInterval(getHostileImages, ajax_request_time_hostile);
 
 	synth = new Tone.Synth().toMaster();
 
@@ -908,7 +913,7 @@ function initialize(){
 	date = new Date();
 	last_click = date.getTime(); // returns the number of milliseconds since Jan 1, 1970
 	ajax_request_time_stat_update = 10000;
-	ajaxUpdateStats = setInterval(updateStats, ajax_request_time_stat_update);
+	// ajaxUpdateStats = setInterval(updateStats, ajax_request_time_stat_update);
 
 	average_speed = total_time_taken_level1/no_positive_images_clicked_level1;
 	time_difficulty = 0;
@@ -923,9 +928,9 @@ function initialize(){
  
 	first_click = true; // required for starting the clock
 
-	// for preloading images
-	loaded_hostile_images = [];
-	loaded_friendly_images = [];
+	// // for preloading images
+	// loaded_hostile_images = [];
+	// loaded_friendly_images = [];
 
 	wrong_note = ["A7", "16n"];
 
@@ -1001,19 +1006,19 @@ function startTimer(){
 }
 
 function doInactive(){
-	// stop ajax requests
-	clearInterval(ajaxFriendlyImages);
-	clearInterval(ajaxHostileImages);
-	clearInterval(ajaxUpdateStats);
+	// // stop ajax requests
+	// clearInterval(ajaxFriendlyImages);
+	// clearInterval(ajaxHostileImages);
+	// clearInterval(ajaxUpdateStats);
 	active = false;
 }
 
 function resetTimer(){
 	window.clearTimeout(time_out_id);
 	if(!active){
-		ajaxFriendlyImages = setInterval(getFriendlyImages, ajax_request_time_friendly);
-		ajaxHostileImages = setInterval(getHostileImages, ajax_request_time_hostile);
-		ajaxUpdateStats = setInterval(updateStats, ajax_request_time_stat_update);
+		// ajaxFriendlyImages = setInterval(getFriendlyImages, ajax_request_time_friendly);
+		// ajaxHostileImages = setInterval(getHostileImages, ajax_request_time_hostile);
+		// ajaxUpdateStats = setInterval(updateStats, ajax_request_time_stat_update);
 		ajaxFriendlyImages;
 		ajaxHostileImages;
 		active = false;
@@ -1032,13 +1037,17 @@ function setupTimers (){
 }
 
 // friendly = 1 means friendly; friendly = 0 means hostile
-function preloadImages(friendly, length){
-	var urls = friendly == 1 ? store_friendly_images.slice(0, length) : store_hostile_images.slice(0, length);
+ffGamePreloadImages = function (friendly, length){
+	console.log('in preloadImages', friendly, length);
+	var urls = friendly == 1 ?ffGame_friendly_images.slice(0, length) : ffGame_hostile_images.slice(0, length);
 
+	console.log(urls, ffGame_friendly_images);
 	var imgs = urls.map(function(url){
+		console.log(url);
 		var img = new Image();
 		img.src = url;
 		img.onload = function(){
+			console.log("img push");
 			if(friendly == 1){
 				loaded_friendly_images.push(img);
 			}else{
@@ -1046,18 +1055,19 @@ function preloadImages(friendly, length){
 			}
 		};
 	});
-
+	console.log( 'loaded friendly images' , loaded_friendly_images, loaded_hostile_images);
 	if(friendly == 1){
-		store_friendly_images.splice(0, length);
+		ffGame_friendly_images.splice(0, length);
 	}else{
-		store_hostile_images.splice(0, length);
+		ffGame_hostile_images.splice(0, length);
 	}
-	if(game_start_counter<2){
-		game_start_counter++;
-	}else if(game_start_counter == 2){
-		fillGrid();
-		game_start_counter++;
-	}
+	console.log("game counter", game_start_counter);
+	// if(game_start_counter<2){
+	// 	game_start_counter++;
+	// }else if(game_start_counter == 2){
+	// 	fillGrid();
+	// 	game_start_counter++;
+	// }
 }
 
 function disableElements(){
