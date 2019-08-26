@@ -34,7 +34,7 @@ declare function getUpdatedVariables(): any;
 })
 export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
 
-  NO_OF_SENTENCES_RECEIVED = 20;      // order of first sentence is 0
+  NO_OF_SENTENCES_RECEIVED!: number;      // order of first sentence is 0
   // LEVEL_UP_SEN = 5;       // level up after how many sentences, here after 5 sentences;
 
   firstSentence = true;
@@ -47,7 +47,6 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   NEXT_SEN_URL!: any;
   sentencesPageInUrl!: number;
   sentencePage!: any;
-  lastSentenceReceived = this.NO_OF_SENTENCES_RECEIVED;
   index = ibGameUserOrder;
 
   // whether level > 0 or not
@@ -68,16 +67,9 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
     this.scoresRelatedInfo();
   }
 
-  sentenceInfo(URL: string) {
-    this.sentencesPageInUrl = Math.floor(ibGameUserOrder / this.NO_OF_SENTENCES_RECEIVED);
-    this.gameAuthService.ibGameGetSentencesInfo(URL, this.firstSentence, this.sentencesPageInUrl)
+  sentenceInfo(pageNumber: number) {
+    this.gameAuthService.ibGameGetSentencesInfo( this.firstSentence, pageNumber)
       .subscribe( (data) => {
-          if ( ibGameUserOrder === data.count - 1) {
-            this.lastSentenceReceived = data.count % this.NO_OF_SENTENCES_RECEIVED ;
-          }
-          if (data.count < this.lastSentenceReceived) {
-            this.lastSentenceReceived = data.count - 1;
-          }
           this.FIRST_SENTENCE_ID = data.results[0].id;
           if (this.firstSentence) {
             this.index = ibGameUserOrder % this.NO_OF_SENTENCES_RECEIVED ;
@@ -85,8 +77,8 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
           if ( ibGamelevel > 0) {
             this.showAllHints = true;
           }
-          for (let i = this.index;
-                i < (this.lastSentenceReceived); i++) {
+          let i = this.index;
+          while (data.results[i]) {
               this.NEXT_SEN_URL = data.next;
               sentence_ids.push(data.results[i].id);
               sentence_array.push(data.results[i].sentence_text);
@@ -95,13 +87,16 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
               sentence_word_valence.push(data.results[i].word.valence);
               sentence_trick.push(data.results[i].trick_sentence);
               sentence_order_array.push(data.results[i].order);
+
               if (ibGameUserOrder >= (this.FIRST_SENTENCE_ID + Math.floor(this.NO_OF_SENTENCES_RECEIVED / 2))) {
                 if (data.next && this.firstSentence) {
                   this.index = 0;
                   this.firstSentence = false;
-                  this.sentenceInfo(this.NEXT_SEN_URL);
+                  pageNumber++;
+                  this.sentenceInfo(pageNumber);   // call next set of sentences
                 }
               }
+            i++;
           }
         },
         (error) => {
@@ -112,6 +107,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   scoresRelatedInfo() {
     this.gameAuthService.ibGameGetScoresInfo()
       .subscribe((data) => {
+          this.NO_OF_SENTENCES_RECEIVED = data.page_size;
           this.INPUT_ORDER = data.data.order;
           ibGameScore = data.data.score;
           ibGamelevel = data.data.level;
@@ -124,7 +120,8 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
           } else if (ibGameWordsHidden === 0) {
             this.showAllHints = false;
           }
-          this.sentenceInfo(this.SEN_URL);
+          this.sentencesPageInUrl = Math.floor(ibGameUserOrder / this.NO_OF_SENTENCES_RECEIVED);
+          this.sentenceInfo(this.sentencesPageInUrl);
         },
         (error) => {
           // console.log(error);
@@ -139,7 +136,8 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
 
             this.index = 0;
             this.firstSentence = false;
-            this.sentenceInfo(this.NEXT_SEN_URL);
+            this.sentencesPageInUrl++;
+            this.sentenceInfo(this.sentencesPageInUrl);    // call next set of sentences
           }
         },
         (error) => {

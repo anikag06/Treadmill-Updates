@@ -25,17 +25,9 @@ export class GamesAuthService {
   constructor(private http: HttpClient) { }
 
   // for interpretation bias game
-  ibGameGetSentencesInfo(SENTENCE_URL: string, firstTime: boolean, pageUrl: number): Observable<any>  {
-    if (firstTime) {
-      if (pageUrl === 0) {
-        return this.http.get( SENTENCE_URL);
-      } else {
-         pageUrl = pageUrl + 1;
-         return this.http.get(environment.API_ENDPOINT + IBG_SENTENCE + this.NEXT_PAGE + pageUrl);
-      }
-    } else {
-        return this.http.get( SENTENCE_URL );
-    }
+  ibGameGetSentencesInfo(firstTime: boolean, pageUrl: number): Observable<any>  {
+    pageUrl = pageUrl + 1;
+    return this.http.get(environment.API_ENDPOINT + IBG_SENTENCE + this.NEXT_PAGE + pageUrl);
   }
 
   ibGameGetScoresInfo(): Observable<any>  {

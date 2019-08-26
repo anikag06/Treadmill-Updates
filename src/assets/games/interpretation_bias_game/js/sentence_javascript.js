@@ -243,7 +243,6 @@ function getUpdatedVariables() {
 	}else {
 		gameUserResponse = !sentence_response_array[sentence_number];
 	}
-	console.log("send game word hidden", ibGameWordsHidden);
 	gameResponseTime = (end_time - start_time) ; 
 	return [
 		gameOrder,
@@ -547,7 +546,6 @@ $(document).ready(function(){
 		// $("#finalCoins").addClass("d-none");
 		playNextSentence();
 		isFirstAttempt = true;
-		console.log("first attempt", isFirstAttempt);
 	});	
 	
 	$(document).on("click","#exit", function(e){
@@ -885,7 +883,7 @@ function generateGrid(NO_OF_WORDS,reverse_indices,final_words,GRID_LENGTH){
 		}
 	}
 
-	gridArray = fillGrid(gridArray,GRID_LENGTH);
+	gridArray = ibGameFillGrid(gridArray,GRID_LENGTH);
 	return true;
 }
 
@@ -1088,7 +1086,7 @@ function letterToFill(){
 }
 
 // fill the remaining grid with random alphabets; modify this code to minimize the probablity of finding other words
-function fillGrid(gridArray,GRID_LENGTH){
+function ibGameFillGrid(gridArray,GRID_LENGTH){
 	var LETERS_FROM_SET = letterToFill();
 
 	for(var i=0; i<GRID_LENGTH; i++){
@@ -1146,7 +1144,6 @@ function starSentence(sentence){
 		sorted_words = hideWords(sorted_words,ind);
 	}
 
-	console.log("array", hidden_words_array)
 	// if(ibGamelevel == 0){			// beginner level
 	for(var i=0; i<sorted_words.length; i++){
 		starSen += sorted_words[i]+" ";
@@ -1191,7 +1188,6 @@ function replaceStars(word,strArray,pos, star_sentence){
 	var starWords=[] ;
 	var strikeWord = " ";
 	var wordPos = pos;
-	console.log(hidden_words_array);
 	starWords = star_sentence.split(sentence_splitter);			//split the star sentence to get an array with words with *
 	for(let i=0; i<starWords.length;i++){
 		if(starWords[i] == '<span'){
@@ -1291,8 +1287,7 @@ function searchWordInArray(str, sorted_words, star_sentence, sentence) {
 		}
 	}
 
-	if(countTrue >= (percent_full_sen*NO_OF_WORDS) && found){  
-		console.log(isFirstAttempt);
+	if(countTrue >= (percent_full_sen*NO_OF_WORDS) && found){ 
 		if(success == true){
 			isFirstAttempt = false;
 		}
@@ -1310,7 +1305,6 @@ function showSentence(){
 	delay_show_sentence = 2000;
 	before_sentence_time =2000;
 	sentence_time = (Math.ceil((words.length)/average_reading_speed))*1000;
-	console.log("sentence time",sentence_time);
 	countdownReset();
 	clearInterval(inactivity_check_interval);
 	$("#congrats").removeClass("d-none");
@@ -2003,7 +1997,6 @@ function getTouchPos(canvasDom, e) {
 }
 
 function levelChange(success){
-	console.log("success", success, "and streak is", ibGameStreak);
 	if(ibGameStreak>0 && !success){
 		ibGameStreak=0;	
 	}else if(ibGameStreak>=0 && success){
@@ -2033,7 +2026,6 @@ function levelChange(success){
 	}
 }
 function levelup(){
-	console.log("level up");
 	ibGameStreak = 0;
 	if(game_timer == "120"){
 		ibGameTime = 150;
@@ -2044,7 +2036,6 @@ function levelup(){
 }
 function leveldown(){
 	ibGameStreak = 0;
-	console.log("level down");
 	if(game_timer == "150"){
 		// ibGameTime = 120;		
 		if(ibGameWordsHidden > 0){
@@ -2106,7 +2097,6 @@ $(document).on("click", ".div-instruction-gif", function(ev){
 // 	$(".instruction-icon").css("margin-top", "-"+img_height/2+"px");
 // }
 inactivity_check = function(){
-	console.log("inactivity");
 	inactivity_check_interval = setInterval(function(){
 		inactivity_time+=50;
 		if((document.getElementById('stars') != "undefined") || (document.getElementById('stars') != null)){

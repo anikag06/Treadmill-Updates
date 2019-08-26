@@ -287,7 +287,7 @@ $(document).ready(function(){
 			disableElements();
 			// document.getElementById("song-name").innerHTML = music_name;
 			console.log("call fillgrid");
-			fillGrid();
+			ffGameFillGrid();
 			drawLife(life);
 			getColor(100, 0, 100);
 		});
@@ -314,12 +314,13 @@ $(document).ready(function(){
 });
 
 function startGame(reload){
+	console.log("from start game");
 	initialize();
 	setupTimers();
 
 	// positioning the game elements in the middle of the screen vertically
 	setHeightAndWidth();
-	fillGrid();
+	ffGameFillGrid();
 }
 
 function setHeightAndWidth(){
@@ -395,7 +396,8 @@ function onCanvasClick(canvas){
 	friendly_image_clicked = clickedFriendlyImage(canvas, event);
 	setTimeout(function(){
 		if(no_friendly_image_clicked == no_positive){
-			fillGrid();
+			console.log("from canvas click");
+			ffGameFillGrid();
 		}
 	}, refresh_delay);
 }
@@ -456,7 +458,8 @@ function clickedFriendlyImage(canvas, event) {
 			no_wrong++;
 
 			if(no_wrong == wrong_threshold){
-				fillGrid();
+				console.log("click on ");
+				ffGameFillGrid();
 			}
 			penalty();
 			return false;
@@ -610,7 +613,7 @@ function timeBar(){
 // 	});
 // }
 
-function fillGrid(){
+function ffGameFillGrid(){
 	console.log("called fill grid function");
 	ctx1.clearRect(0, 0, canvas1.width, canvas1.height);
 	images = setImageUrls();
@@ -1065,7 +1068,7 @@ ffGamePreloadImages = function (friendly, length){
 	// if(game_start_counter<2){
 	// 	game_start_counter++;
 	// }else if(game_start_counter == 2){
-	// 	fillGrid();
+	// 	ffGameFillGrid();
 	// 	game_start_counter++;
 	// }
 }
