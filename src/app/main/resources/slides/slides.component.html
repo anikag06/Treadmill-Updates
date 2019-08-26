@@ -1,16 +1,22 @@
 <div class="row">
-  <div class="col-6" *ngIf="slide else loader">
-    <h1>{{slide.title}}</h1>
-    <iframe [src]="sanitizedUrl" frameborder="0" width="360" height="749" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
-  </div>
-  <div class="col-6">
-    <div form-host></div>
-  </div>
+  <ng-container *ngIf="slide else loader">
+    <div class="col-6">
+      <h1>{{slide.title}}</h1>
+      <iframe [src]="sanitizedUrl" frameborder="0" width="360" height="749" allowfullscreen="true"
+        mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+    </div>
+    <div class="col-6">
+      <div form-host></div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="notAvailable">
+    <h1>The content is not available</h1>
+  </ng-container>
 </div>
 <ng-template #loader>
   <div class="col-6">
     <div class="text-center loader">
-      <img src="assets/shared/dna-loader.svg" alt="loader" width="200" >
+      <img src="assets/shared/dna-loader.svg" alt="loader" width="200">
     </div>
   </div>
 </ng-template>

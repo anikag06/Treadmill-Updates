@@ -12,7 +12,7 @@ export class SlideService {
     private http: HttpClient
   ) { }
 
-  getSlide(slideId: number) {
-    return this.http.get(environment.API_ENDPOINT + '/api/v1/learn/slides/' + slideId + '/');
+  getSlide(stepId: number) {
+    return this.http.get(environment.API_ENDPOINT + '/api/v1/flow/steps/' + stepId + '/');
   }
 }

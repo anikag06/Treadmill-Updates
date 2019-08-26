@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ComponentFactoryResolver, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ComponentFactoryResolver } from '@angular/core';
 import { SlideService } from './slide.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { FormDirective } from './form.directive';
@@ -13,7 +13,7 @@ import { map, switchMap } from 'rxjs/operators';
   templateUrl: './slides.component.html',
   styleUrls: ['./slides.component.scss']
 })
-export class SlidesComponent implements OnInit, AfterViewInit {
+export class SlidesComponent implements OnInit {
 
   @ViewChild(FormDirective, {static: false}) formHost!: FormDirective;
 
@@ -26,33 +26,32 @@ export class SlidesComponent implements OnInit, AfterViewInit {
 
   slide!: Slide;
   sanitizedUrl!: SafeUrl;
+  status!: string;
+  notAvailable = false;
 
   ngOnInit() {
     this.activateRoute.params
       .pipe(
         map(v => v.id),
-        switchMap(id => this.slideService.getSlide(parseInt(id)))
+        switchMap(id => this.slideService.getSlide(parseInt(id, 10)))
       )
       .subscribe(
         (data: any) => {
-          this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(data.url);
-          this.slide = <Slide>data;
+          if (['COMPLETED', 'WORKING', 'UNLOCKED'].includes(data.status) && data.step_data.type === 'Slide' ) {
+            this.slide = <Slide>data.step_data.data;
+            this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.slide.url);
+            const formName = data.action[0];
+            if (formName === 'problem-solving') {
+              setTimeout(() => this.loadForm(ProblemSolvingWorksheetsComponent), 1000);
+            } else if (formName === 'task') {
+              setTimeout(() => this.loadForm(TaskFormsComponent), 1000);
+            }
+          } else {
+            this.notAvailable = true;
+          }
         }
       );
-  }
-
-  ngAfterViewInit() {
-    this.activateRoute
-      .queryParams.subscribe(params => {
-        const formName = params['form'];
-        console.log(formName);
-        if (formName === 'problem-solving-from') {
-          this.loadForm(ProblemSolvingWorksheetsComponent);
-        } else if (formName === 'task-from') {
-          this.loadForm(TaskFormsComponent);
-        }
-      });
-  }
+    }
 
 
 
