@@ -5,8 +5,8 @@ import { Problem } from '@/main/resources/forms/problem-solving-worksheets/probl
 import { ProblemSolvingWorksheetsService } from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.service';
 import { PROBLEM_SOLVING } from '@/app.constants';
 import { TasksService } from '@/main/resources/forms/shared/tasks/tasks.service';
-import { Task } from 'protractor/built/taskScheduler';
 import {UserTask} from '@/main/resources/forms/shared/tasks/user-task.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-forms-sidebar',
@@ -19,14 +19,16 @@ export class FormsSidebarComponent implements OnInit {
   @Output() newForm = new EventEmitter<void>();
   @Input() type!: String;
   objects: any[] = [];
+  object_id = -1;
   page = 1;
   subscriptions: Subscription[] = [];
   selectedObject!: any;
 
   constructor(
     private problemService: ProblemSolvingWorksheetsService,
-    private tasksService: TasksService
-  ) { }
+    private tasksService: TasksService,
+    private route: ActivatedRoute,
+    ) { }
 
   ngOnInit() {
     if ( this.type === PROBLEM_SOLVING) {
@@ -34,6 +36,11 @@ export class FormsSidebarComponent implements OnInit {
     } else {
       this.getTasks();
     }
+
+    this.route.queryParams
+      .subscribe(
+        params => this.object_id = parseInt(params.form_id, 10)
+      );
   }
 
   problemClicked(object: Object) {
@@ -51,6 +58,7 @@ export class FormsSidebarComponent implements OnInit {
       .subscribe(
         (problems: Problem[]) => {
           this.objects = problems;
+          this.selectObject();
         },
         (error: HttpErrorResponse) => {
           console.error(error);
@@ -64,11 +72,22 @@ export class FormsSidebarComponent implements OnInit {
       .subscribe(
         (tasks: UserTask[]) => {
          this.objects = tasks;
+         this.selectObject();
         },
         (error: HttpErrorResponse) => {
           console.error(error);
         }
       );
+  }
+
+  selectObject() {
+    console.log(this.objects)
+    if (this.objects.length > 0 && this.object_id > 0) {
+      const form = this.objects.find(object => object.id === this.object_id);
+      if (form) {
+        this.problemClicked(form);
+      }
+    }
   }
 
 }
