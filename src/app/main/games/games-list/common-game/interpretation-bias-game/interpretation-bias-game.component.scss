@@ -1,0 +1,252 @@
+/* You can add global styles to this file, and also import other style files */
+@import "styles.scss";
+@import "../../../shared/games-common.scss";
+.ibGame-page{
+	margin: auto;
+	align-content: center;
+	align-items: center;
+	text-align: center;
+	flex-direction: row;
+	max-width: 100%;
+	height: 100%;
+	max-height: 100%;
+}
+#instruct-div{
+	overflow: scroll;
+	height: 100%;
+}
+
+p{
+	margin: 0%;
+	padding: 0%;
+}
+.container-fluid{
+	background-image: url("/assets/games/interpretation_bias_game/images/background.png");
+	max-width: 100%;
+	height: 100%;
+	max-height: 100%;
+}
+.game,.game-first-page{
+	background-image: url("/assets/games/interpretation_bias_game/images/Automatic Interpretive Bias.png");
+	background-size: 95%;
+	background-position: center;
+	background-repeat: no-repeat;
+	height: 100%;
+	max-height: 100%;
+	// min-height: 500px;
+	text-align: center;
+	max-width: 100%;
+}
+#frontpage-image{
+	max-width: 35%;
+}
+// 	background-image: url("/assets/games/interpretation_bias_game/images/frontpage_image.png");
+// 	background-size: 35%;
+// 	background-position: center;
+// 	background-repeat: no-repeat;
+// }
+// .sentence-row,
+.stars,.selected-word{
+	margin: auto;
+	text-align: center;
+	max-width: 85%;
+}
+.clock{
+	max-width: 20px;
+	margin: 2px;
+}
+.row-height-100 {
+	height: 100%;
+}
+.timeup1, .timeup2{
+	max-width: 60%;
+	min-height: 40%;
+	background-color: rgba(255,255,255,0.5);
+}
+.timeup-btn-in-div{
+	min-width: 100%;
+}
+.question-word,.complete-sentence{
+	max-width: 60%;
+}
+.color-change{
+	color:#45b9bc;
+}
+//.pause-hints,
+.btn-hint{
+	max-width: 50%;
+	padding: 0.5px;
+	// min-width: 53%;
+	margin: 5%;
+	margin-bottom: 0%
+}
+#hint-div, .tip{
+	margin-top: 1%;
+}
+.showWordResult, .showCoordResult{
+	min-height: 10%;
+	min-width: 55%;
+	max-width: 60%;
+	margin: 5%;
+	margin-top: 0%;
+	margin-left: 5%;
+	text-align: center;
+	background-color: rgba(255, 255, 255, 0.568);
+}
+// .congrats{
+// 	position: absolute;
+// 	margin-right: auto;
+// 	margin-left: auto;	
+// }
+canvas{
+	max-width: 100%;
+	background-color: white;
+}
+#canvas-div{
+	padding-left: 0%;
+	padding-right: 0%;
+}
+.row{
+	margin-left: 0px;
+	margin-right: 0px;
+}
+
+.container-fluid{
+	padding-right: 0px;
+	padding-left: 0px;
+}
+
+.col, .col-12{
+	padding-right: 0px;
+	padding-left: 0px;
+}
+
+.material-icons{
+	color: black;
+}
+
+.rotate-180{
+	-webkit-transform:rotate(180deg);
+	-moz-transform: rotate(180deg);
+	-ms-transform: rotate(180deg);
+	-o-transform: rotate(180deg);
+	transform: rotate(180deg);
+}
+.card-img-top{
+	max-width: 400px;
+	opacity: 0.2;
+	position:relative;
+	z-index: 1;
+}
+
+.card-gif-top{
+	max-width: 400px;
+	position:relative;
+	z-index: 1;	
+}
+
+.instruction-icon{
+	font-size: 125px !important;
+	position: relative;
+}
+
+.div-instruction{
+	max-width: 400px;
+	margin: auto;
+}
+.lifeline-cost{
+	margin: auto;
+	max-width: 90%;
+}
+.lifeline-cost-div{
+	max-width: 100%;
+	text-align: center;
+	display: block;
+}
+// .text{
+// 	font-size: 20px;
+// }
+.tip{
+	min-height: 55px;
+	color: #449798 ;
+	max-width: 80%;
+	
+}
+@media only screen and (max-width: 991px) and (max-width: 767px) {
+	/* For mobile phones: */
+	.ibGame-page {
+		padding: 0px;
+		margin: 0px;
+		max-width: 100%;
+		min-height: 100%   
+	}
+	.paused-game-btns{
+		display: inline;
+	}
+	.extra-col{
+		display: none;
+	}
+	.container-fluid{
+		background-image: url("/assets/games/interpretation_bias_game/images/background_mobile.png");
+		max-width: 100%;
+		min-height: 100%;
+		padding: 0 !important;
+   		margin: 0 !important
+	}
+	.game,.game-first-page{
+		background-image: url("/assets/games/interpretation_bias_game/images/aib_mobile.png");
+		background-repeat: no-repeat;
+		background-size: 35%;
+		background-position-x: 4%;
+		text-align: center;
+		width: 100%;
+		min-height: 100%; 
+	}
+	#frontpage-image{
+		max-width: 40vw;
+	}
+	.showTimer{
+		display: inline;
+		margin-left: auto;
+	}
+	.timeup1, .timeup2, .question-word,.complete-sentence{
+		max-width: 80%;
+		margin: auto;
+	}
+	.timeup-btn-in-div{
+		min-width: 50%;
+		max-width: 70%;
+	}
+	.lifeline-cost-div{
+		max-width: 65%;
+		display: inline-block;
+		text-align: center;
+		// margin-left: auto;
+	}
+	.btn-hint{
+		max-width: 100px;
+		margin: auto;
+		margin-top: 0.5% ;
+	}
+	#hint-div{
+		margin-left: 5%;
+		margin-top: 0%;
+	}
+	.showWord,.showWordResult{
+		margin-left: 2%;
+		margin-right: auto;
+	}
+	.show_coordinates,.showCoordResult{
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.increase_time{
+		margin-left: auto;
+		margin-right: 1%;
+	}
+	.pause-hints{
+		max-width: 35%;
+	}
+}
+
+

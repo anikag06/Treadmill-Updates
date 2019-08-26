@@ -1,0 +1,255 @@
+body{
+	margin: auto;
+	align-content: center;
+	align-items: center;
+	text-align: center;
+}
+
+.stars {
+	margin-left: auto;
+	margin-right: auto;
+	font-size: 40px;
+}
+
+.yes{
+	margin-left: auto;
+	margin-right: auto;
+	height: 50;
+	width: 100;
+	font-size: 20px;
+}
+.no{
+	height: 50;
+	width: 100;
+	font-size: 20px;
+}
+
+.timeup1, .timeup2{
+	font-size: 40px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.exit{
+	display: inline-block;
+}
+
+.pause{
+	display: inline-block;
+}
+
+.coin-icon{
+	display: inline-block;
+	height: 65;
+	width: 60;
+	margin-bottom: 0;
+	margin-left: 20;
+}
+
+.score_info{
+	font-size: 20px;
+	width: 80;
+	height: 65;
+	display: inline;
+}
+
+.score{
+	font-size: 20px;
+	display: inline-block;	
+}
+
+.showTimer{
+	display: inline-block;
+}
+
+.countdown{
+	font-size: 20px;
+	display: inline-block;
+}
+.stopwatch{
+	height: 50;
+	width: 50;
+	margin-left: 25;
+	margin-right: 0;
+}
+
+.usehints{
+	height: 50;
+	width: 50;
+}
+
+.congrats{
+	position: absolute;
+	margin-right: auto;
+	margin-left: auto;	
+}
+
+.fixation-cross{
+	font-size: 50;
+	position: absolute;
+	top:0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+}
+
+.word{
+	position: absolute;
+	top:0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin-top:200;
+	margin: auto;
+}
+
+.coins{
+	dispFy: inline-block;
+}
+
+.sen{
+	font-size: 40px;
+	position: absolute;
+	top:0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+}
+
+.rotated{
+	animation: rotation 1s linear;
+	animation-fill-mode: backwards;
+	-webkit-animation: rotation 1s linear;
+	-webkit-animation-fill-mode: backwards;
+}
+
+@keyframes rotation {
+	from {
+			transform: rotate(0deg);
+	}
+	to {
+			transform: rotate(89deg);
+	}
+}
+@-webkit-keyframes rotation {
+	from {
+			-webkit-transform: rotate(0deg);
+	}
+	to {
+			-webkit-transform: rotate(89deg);
+	}
+}
+ 
+canvas{
+	margin-bottom: 15px;
+	background-color: white;
+	margin-left: auto;
+	margin-right: auto; 
+	border: 2px solid #d8bfd8;
+	border-radius: 15px;
+}
+
+/* The Modal (background) */
+.modal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	padding-top: 200px; /* Location of the box */
+	left: 220px;
+	top: 0;
+	width: 60%; /* Full width */
+	height: 80%; /* Full height */
+	overflow: hidden; 
+	margin-left: auto;
+	margin-right: auto;
+	margin: auto;
+	background-color: rgba(0,0,0,0.8); /* Fallback color */
+	background-color: rgba(0,0,0,0.95); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+
+	background-color: #fefefe;
+	margin-left: auto;
+	margin-right: auto;
+	margin: auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 80%;
+}
+
+.row{
+	margin-left: 0px;
+	margin-right: 0px;
+}
+
+.container-fluid{
+	padding-right: 0px;
+	padding-left: 0px;
+}
+
+.col, .col-12{
+	padding-right: 0px;
+	padding-left: 0px;
+}
+
+.material-icons{
+	color: forestgreen;
+}
+
+.rotate-180{
+	-webkit-transform:rotate(180deg);
+	-moz-transform: rotate(180deg);
+	-ms-transform: rotate(180deg);
+	-o-transform: rotate(180deg);
+	transform: rotate(180deg);
+}
+
+.sentence-row{
+	min-height: 80px;
+}
+
+.btn-hint{
+	font-size: 20px;
+}
+
+.btn-timeup{
+	font-size: 20px;
+}
+
+.lifeline-cost{
+	font-size: 20px;
+}
+
+.coin-img{
+	height: 40px;
+	width: 40px;
+}
+
+.card-img-top{
+	max-width: 400px;
+	opacity: 0.2;
+	position:relative;
+	z-index: 1;
+}
+
+.card-gif-top{
+	max-width: 400px;
+	position:relative;
+	z-index: 1;	
+}
+
+.instruction-icon{
+	font-size: 125px !important;
+}
+
+.div-instruction{
+	max-width: 400px;
+	margin: auto;
+}
+
+.text{
+	font-size: 20px;
+}

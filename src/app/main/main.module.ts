@@ -52,16 +52,29 @@ import { AutofocusDirective } from './shared/autofocus.directive';
 import { ScoreComponent } from './score/score.component';
 import { PhqNineComponent } from './score/phq-nine/phq-nine.component';
 import { GadSevenComponent } from './score/gad-seven/gad-seven.component';
+import { InterpretationBiasGameComponent } from './games/games-list/common-game/interpretation-bias-game/interpretation-bias-game.component';
+
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import {ProblemSolvingWorksheetsService} from '@/main/custom-forms/forms/problem-solving-worksheets/problem-solving-worksheets.service';
 import {FormsService} from '@/main/forms.service';
 import {TasksService} from '@/main/custom-forms/forms/shared/tasks/tasks.service';
+import { ExecutiveControlGameComponent } from './games/games-list/common-game/executive-control-game/executive-control-game.component';
+import { CommonGameComponent } from './games/games-list/common-game/common-game.component';
+import { GamesAuthService } from './games/shared/games-auth.service';
+import { GamePlayService } from './games/shared/game-play.service';
+import { LearnedHelplessnessGameComponent } from './games/games-list/common-game/learned-helplessness-game/learned-helplessness-game.component';
+
 import { ChatbotComponent } from './chatbot/chatbot.component';
 import { ChatWindowComponent } from './chatbot/chat-window/chat-window.component';
 import {ChatbotService} from '@/main/chatbot/chatbot.service';
 import { DataService } from './dashboard/questionnaire/data.service';
 import { QuestionnaireComponent } from './dashboard/questionnaire/questionnaire.component';
 import { ConversationsComponent } from './conversations/conversations.component';
+import { PlotScoreGraphService } from './score/plot-score-graph.service';
+import {AngularFireMessagingModule} from '@angular/fire/messaging';
+import {AngularFireModule} from '@angular/fire';
+import {FcmService} from '@/main/fcm.service';
+import {environment} from '../../environments/environment';
 
 @NgModule({
   declarations: [
@@ -95,6 +108,12 @@ import { ConversationsComponent } from './conversations/conversations.component'
     ScoreComponent,
     PhqNineComponent,
     GadSevenComponent,
+    InterpretationBiasGameComponent,
+    DashboardComponent,
+    MainComponent,
+    ExecutiveControlGameComponent,
+    CommonGameComponent,
+    LearnedHelplessnessGameComponent,
     DashboardComponent,
     MainComponent,
     ChatbotComponent,
@@ -124,6 +143,8 @@ import { ConversationsComponent } from './conversations/conversations.component'
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     MatSlideToggleModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireMessagingModule,
   ],
   providers: [
     LocalStorageService,
@@ -137,8 +158,12 @@ import { ConversationsComponent } from './conversations/conversations.component'
     ProblemSolvingWorksheetsService,
     FormsService,
     TasksService,
+    GamePlayService,
+    GamesAuthService,
     ChatbotService,
-    DataService
+    DataService,
+    PlotScoreGraphService,
+    FcmService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [CreatePostComponent]

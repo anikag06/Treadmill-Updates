@@ -10,18 +10,19 @@ import { GAMES } from '@/app.constants';
 export class GamesService {
 
   games = [
-    new Game('Mario',
+    new Game('Interpretation Bias Game',
+              'https://via.placeholder.com/360x200?text=Mario',
+             'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.'),
+
+    new Game('Executive Control Game',
              'https://via.placeholder.com/360x200?text=Mario',
              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.'),
-    new Game('Contra',
-             'https://via.placeholder.com/360x200?text=Contra',
+    new Game('Learned Helplessness Game',
+             'https://via.placeholder.com/360x200?text=Mario',
              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.'),
-    new Game('Need For Speed',
-             'https://via.placeholder.com/360x200?text=NFS',
-             'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.'),
-    new Game('Age of Empires',
-             'https://via.placeholder.com/360x200?text=Age of Empires',
-             'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.'),
+    new Game('Sample Game',
+            'https://via.placeholder.com/360x200?text=Mario',
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.')
     ];
 
   constructor(
@@ -39,7 +40,8 @@ export class GamesService {
       setTimeout(() => {
         observer.next(games);
         observer.complete();
-      }, 5000);
+      // }, 5000);
+      }, 50);
     });
   }
 }

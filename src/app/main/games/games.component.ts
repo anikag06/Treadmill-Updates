@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { TREADWILL } from '@/app.constants';
-
+declare var $: any;
 @Component({
   selector: 'app-games',
   templateUrl: './games.component.html',

@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { GamesService } from '@/main/shared/games.service';
 import { Game } from '@/main/shared/game.model';
 import { Observable } from 'rxjs';
+import { Router, Route, ActivatedRoute } from '@angular/router';
+import { GamePlayService } from '@/main/games/shared/game-play.service';
 
 @Component({
   selector: 'app-games-list',
@@ -9,11 +11,15 @@ import { Observable } from 'rxjs';
   styleUrls: ['./games-list.component.scss']
 })
 export class GamesListComponent implements OnInit {
-
+  gameStarted = false;
   games$!: Observable<Game[]>;
 
   constructor(
-    private gamesService: GamesService
+    private gamePlayService: GamePlayService,
+    private gamesService: GamesService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private renderer: Renderer2,
   ) { }
 
   ngOnInit() {
@@ -21,7 +27,10 @@ export class GamesListComponent implements OnInit {
   }
 
   onGameClick(game: Game) {
-    alert("naviaget to game " + game.name);
+    this.gameStarted = true;
+    this.router.navigate([game.slug], {relativeTo: this.route} );
   }
-
+  getBackgroundImg() {
+    return  'url(\"assets/games/executive-control-game/png/background_images/mountains.png\")';
+  }
 }

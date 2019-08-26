@@ -23,7 +23,7 @@ export class PhqNineComponent implements OnInit {
 
   }
   showData() {
-    this.authService.getPhqScores()
+    this.plotScoreGraphService.getPhqScores()
       .subscribe((data) =>  {
           this.plotScoreGraphService.setDataPoints(data.data.size, data.data.scores);
           this.plotScoreGraphService.plotGraph(this.chartRef, data.data.size, 27);

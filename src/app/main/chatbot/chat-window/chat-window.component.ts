@@ -1,22 +1,24 @@
 import {
   AfterViewChecked,
-  AfterViewInit,
   ChangeDetectorRef,
   Component,
-  ElementRef, EventEmitter,
+  ElementRef,
+  EventEmitter,
   Input,
   OnChanges,
   OnDestroy,
-  OnInit, Output, SimpleChanges,
+  OnInit,
+  Output,
   ViewChild
 } from '@angular/core';
 import {Chat} from '@/main/chatbot/chat.model';
 import {environment} from '../../../../environments/environment';
-import {NEW_CHAT, REPLY_CURRENT, RESUME_CHAT} from '@/app.constants';
+import {NEW_CHAT, REPLY_CURRENT, RESUME_CHAT, MAX_RETRIES, CHATBOT_RETRY_TIMEOUT} from '@/app.constants';
 import {ChatbotService} from '@/main/chatbot/chatbot.service';
 import {AuthService} from '@/shared/auth/auth.service';
-import set = Reflect.set;
 import {animate, state, style, transition, trigger} from '@angular/animations';
+
+declare var twemoji: any;
 
 
 @Component({
@@ -53,8 +55,11 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
   webSocket!: WebSocket;
   buttons: any = [];
   scrollTop = 0;
-  totalDelay = 2400;
-  halfwayDelay = 1100;
+  totalDelay = 3000;
+  halfwayDelay = 1500;
+  delayPerWord = 130;
+  chatClosed = false;
+  retries = 0;
 
 
   @ViewChild('messagesDiv', {static: false}) messagesDiv!: ElementRef;
@@ -62,10 +67,13 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
   @Input() chatWindowClosed = false;
   @Output() chatWindowClosedEmitter = new EventEmitter<Boolean>();
 
-  ngOnChanges(changes: SimpleChanges): void {
-    // Start chat when chatwindow open
-    if (this.chatWindowClosed === false && !this.webSocket) {
-      this.startChatSession(NEW_CHAT);
+  ngOnChanges(): void {
+    if (this.chatWindowClosed === false) {
+      if (!this.webSocket || (this.webSocket && this.webSocket.readyState === 3)) {
+        this.startChatSession(RESUME_CHAT);
+      }
+    } else {
+      this.closeChat();
     }
   }
 
@@ -74,7 +82,8 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
       .subscribe(
         (data: any) => {
           data.data.messages.forEach((message: any) => {
-            this.messages.push(new Chat(message.text, message.is_sender_user, [], message.mid, message.sid, message.datetime));
+            this.messages.push(
+              new Chat(twemoji.parse(message.text), message.is_sender_user, [], message.mid, message.sid, message.datetime, false));
             this.scrollToBottom();
           });
         }
@@ -88,10 +97,11 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
   onChatSubmit() {
     if (this.message.length > 0 && this.message.trim().length > 0) {
       this.message = this.message.replace(/[\n\t\r]/g, '');
-      this.messages.push(new Chat(this.message, true, [], '', '', new Date()));
+      this.messages.push(new Chat(twemoji.parse(this.message), true, [], '', '', new Date(), false));
       this.scrollToBottom();
-      this.webSocket.send(JSON.stringify({ 'action': REPLY_CURRENT, 'message': { 'text': this.message, 'buttons': [] } }));
+      const message = this.message;
       this.message = '';
+      this.webSocket.send(JSON.stringify({ 'action': REPLY_CURRENT, 'message': { 'text': message, 'buttons': [] } }));
       if (screen.availWidth > 576) {
         this.ti.nativeElement.disabled = true;
       }
@@ -103,20 +113,17 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
   }
 
   close() {
-    this.chatWindowClosed = true;
-    this.chatWindowClosedEmitter.emit(true);
+    this.closeChat();
   }
 
   ngOnDestroy(): void {
-    if (this.webSocket) {
-      this.webSocket.close();
-    }
+    this.closeChat();
   }
 
 
   chatButtonPressed(button: any, chat: Chat) {
     chat.buttons = [];
-    this.messages.push(new Chat(button['payload'], true, [], '', '', new Date()));
+    this.messages.push(new Chat(button['payload'], true, [], '', '', new Date(), false));
     this.webSocket.send(JSON.stringify({ 'action': REPLY_CURRENT, 'message': { 'text': '', 'buttons': [button] } }));
   }
 
@@ -142,12 +149,14 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
     this.webSocket.onmessage = (message: any) => {
       const data = JSON.parse(message.data);
       if (data.error === true) {
-        const item = new Chat("Oops! I have some problem.<br /> Please hold on mate...", false, [], '', '', new Date());
+        const item = new Chat(JSON.stringify(data), false, [], '', '', new Date(), false);
         this.messages.push(item);
         this.webSocket.close();
-        this.startChatSession(NEW_CHAT);
+      } else if (data.action === 'ws_close') {
+          this.closeChat();
       } else {
         data.message.forEach((m: any, index: number) => {
+          const delayPerMessage =  (this.totalDelay + this.getSentenceDelay(m.text || '')) * index;
           setTimeout(() => {
             if ((m.text && m.text.length > 0) || (m.buttons && m.buttons.length > 0)) {
               this.showWritingAndPushChat(m);
@@ -155,21 +164,26 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
                 this.scrollToBottom();
               });
             }
-          }, this.totalDelay * index + Math.floor((Math.random() * 500) + 1));
+          }, delayPerMessage);
         });
       }
+    };
 
+    this.webSocket.onclose = () => {
+      if (!this.chatClosed && this.webSocket.readyState === 3 && this.retries < MAX_RETRIES) {
+        this.retries++;
+        setTimeout(() => this.startChatSession(NEW_CHAT), CHATBOT_RETRY_TIMEOUT);
+      }
     };
 
     this.webSocket.onerror = () => {
       this.webSocket.close();
-      this.startChatSession(NEW_CHAT);
     };
     this.scrollToBottom();
   }
 
   pushChat(m: any) {
-    const item = new Chat(m.text, false, m.buttons, m.mid, m.sid, m.datetime);
+    const item = new Chat(twemoji.parse(m.text || ''), false, m.buttons, m.mid, m.sid, m.datetime, false);
     this.messages.push(item);
     this.scrollToBottom();
     if (this.ti) {
@@ -183,13 +197,31 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
   }
 
   showWritingAndPushChat(m: any) {
-    const item = new Chat('.../.', false, [], '', '', new Date());
+    const item = new Chat('', false, [], '', '', new Date(), true);
     this.messages.push(item);
     setTimeout(this.scrollToBottom);
     setTimeout(() => {
       this.messages.pop();
       this.pushChat(m);
       setTimeout(this.scrollToBottom);
-    }, this.halfwayDelay);
+    }, this.halfwayDelay + Math.floor((Math.random() * 800) + 1));
+  }
+
+  closeChat() {
+    if (this.webSocket) {
+      this.chatClosed = true;
+      this.webSocket.close();
+    }
+    this.retries = 0;
+    this.chatWindowClosedEmitter.emit(true);
+    this.chatWindowClosed = true;
+  }
+
+  getWordCount(str: string) {
+    return str.split(' ').length;
+  }
+
+  getSentenceDelay(str: string) {
+    return this.getWordCount(str) *  this.delayPerWord;
   }
 }
