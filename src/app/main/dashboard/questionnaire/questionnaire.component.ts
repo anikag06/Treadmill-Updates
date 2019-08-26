@@ -49,8 +49,6 @@ import { DataService } from './data.service';
   providers: [QuizService]
 })
 export class QuestionnaireComponent implements OnInit {
-  user!: User;
-  quizes: any = [];
   quiz: Quiz = new Quiz(null);
   question_no = 0;
   total_question!: number;

@@ -38,6 +38,7 @@ import { SafeHtmlPipe } from './support-groups/safe-html.pipe';
 import { LayoutModule } from '@angular/cdk/layout';
 // tslint:disable-next-line:max-line-length
 import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatDatepickerModule, MatNativeDateModule, MatSlideToggleModule } from '@angular/material';
+import {MatProgressBarModule} from '@angular/material';
 import { ScrollingDirective } from './shared/scrolling.directive';
 import { ScrollingService } from './shared/scrolling.service';
 import { NavbarComponent } from './shared/navbar/navbar.component';
@@ -60,6 +61,7 @@ import { ChatWindowComponent } from './chatbot/chat-window/chat-window.component
 import {ChatbotService} from '@/main/chatbot/chatbot.service';
 import { DataService } from './dashboard/questionnaire/data.service';
 import { QuestionnaireComponent } from './dashboard/questionnaire/questionnaire.component';
+import { ConversationsComponent } from './conversations/conversations.component';
 
 @NgModule({
   declarations: [
@@ -97,8 +99,9 @@ import { QuestionnaireComponent } from './dashboard/questionnaire/questionnaire.
     MainComponent,
     ChatbotComponent,
     ChatWindowComponent,
-    QuestionnaireComponent
-  ],
+    QuestionnaireComponent,
+    ConversationsComponent,
+   ],
   imports: [
     CommonModule,
     ChartsModule,
@@ -112,6 +115,7 @@ import { QuestionnaireComponent } from './dashboard/questionnaire/questionnaire.
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
+    MatProgressBarModule,
     MatListModule,
     ReactiveFormsModule,
     MainRoutingModule,

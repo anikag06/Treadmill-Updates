@@ -1,0 +1,60 @@
+<div id="content" class="container-fluid">
+    <ol class="breadcrumb">
+        <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+        <button  (click)="reset()">reset</button>
+        <button  (click)="current_history()">continue</button>
+        <button  (click)="speed_run()">show</button>
+    </ol>
+    <div id="conversation-container" class="container bg-succe">
+
+        <div *ngFor="let item of show">
+            <div class="row">
+                <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2 dialog-img"> <img
+                        class="dummyThumbnail activeThumbnail shrink-dummy-thumbnail"> </div>
+                <div class="col-lg-9 col-md-9 col-sm-8 col-xs-8 dialog-div">
+                    <p [innerHtml]="item.message" id="dialog-0" class="dialog-text pull-left"></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-9 col-md-9 col-sm-8 col-xs-8 col-xs-offset-2">
+                    <div class="option-div dont-hide" style="height: 84px;">
+                        <p [innerHtml]="item.dialog" class="option-text pull-right" id="option-0"></p>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="row">
+            <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2 dialog-img"> <img
+                    class="dummyThumbnail activeThumbnail shrink-dummy-thumbnail"> </div>
+            <div class="col-lg-9 col-md-9 col-sm-8 col-xs-8 dialog-div">
+                <p [innerHtml]="current_message" id="dialog-0" class="dialog-text pull-left"></p>
+            </div>
+        </div>
+        <div *ngFor="let item of options; let i = index">
+            <div class="row" *ngIf="!speedrun">
+                <div class="col-lg-9 col-md-9 col-sm-8 col-xs-8 col-xs-offset-2">
+                    <div class="option-div dont-hide" style="height: 84px;">
+                        <p [innerHtml]="item" class="option-text pull-right" id="option-0"></p>
+                        <button class="option-text pull-right" id="option-0" (click)="on_click(i)">send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="wrong">
+            <div class="col-lg-9 col-md-9 col-sm-8 col-xs-8 col-xs-offset-2">
+                <p id="error-msg">{{wrong_message}}</p>
+            </div>
+        </div>
+        <div class="row" *ngIf="finished">
+            <div class="col-lg-9 col-md-9 col-sm-8 col-xs-8 col-xs-offset-2">
+                <p class="finish-text">{{final_conclusion_message}}</p>
+            </div>
+        </div>
+
+
+
+    </div>

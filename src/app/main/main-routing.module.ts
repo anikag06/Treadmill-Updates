@@ -14,13 +14,15 @@ import { ScoreComponent } from './score/score.component';
 import { PhqNineComponent } from './score/phq-nine/phq-nine.component';
 import { GadSevenComponent } from './score/gad-seven/gad-seven.component';
 import { QuestionnaireComponent } from './dashboard/questionnaire/questionnaire.component';
+import { ConversationsComponent } from './conversations/conversations.component';
 
 
 
 export const mainRoutes: Routes = [
     {
         path: '', component: MainComponent, canActivateChild: [AuthGuard], children: [
-            { path: 'dashboard', component: DashboardComponent, },
+            { path: 'dashboard', component: DashboardComponent},
+            { path: 'conversations', component: ConversationsComponent},
             { path: 'questionnaire', component: QuestionnaireComponent},
             { path: 'support-groups', component: SupportGroupsComponent },
             {

@@ -14,7 +14,7 @@ import { TOKEN,
   GAD_SEVEN_SCORE,
   PHQ_NINE_SCORE } from '@/app.constants';
 import { User } from '@/shared/user.model';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 export interface Token {
   token: string;
 }
@@ -25,6 +25,7 @@ export interface Token {
 export class AuthService {
 
   user!: User;
+  online = new BehaviorSubject<boolean>(true);
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -96,13 +97,13 @@ export class AuthService {
       try {
         data = window.localStorage.getItem(TOKEN);
         avatar = window.localStorage.getItem(USERAVATAR);
-        isAdmin = (window.localStorage.getItem(ISADMIN) == 'true');
-        isActive = (window.localStorage.getItem(ISACTIVE) == 'true');
+        isAdmin = (window.localStorage.getItem(ISADMIN) === 'true');
+        isActive = (window.localStorage.getItem(ISACTIVE) === 'true');
       } catch (e) {
         data = window.sessionStorage.getItem(TOKEN);
         avatar = window.sessionStorage.getItem(USERAVATAR);
-        isAdmin = (window.sessionStorage.getItem(ISADMIN) == 'true');
-        isActive = (window.sessionStorage.getItem(ISACTIVE) == 'true');
+        isAdmin = (window.sessionStorage.getItem(ISADMIN) === 'true');
+        isActive = (window.sessionStorage.getItem(ISACTIVE) === 'true');
       }
       if (data && avatar && isActive) {
         return this.getUserFromToken(data, avatar, isAdmin, isActive);
@@ -147,6 +148,11 @@ export class AuthService {
               window.sessionStorage.removeItem(USERAVATAR);
               window.sessionStorage.removeItem(ISADMIN);
               window.sessionStorage.removeItem(ISACTIVE);
+            } else if (error.status === 0) {
+              // console.log('error = 0');
+              this.updateOnline();
+            } else {
+              this.online.next(true);
             }
           }
         );
@@ -156,4 +162,14 @@ export class AuthService {
   getToken() {
     return window.localStorage.getItem(TOKEN) || window.sessionStorage.getItem(TOKEN);
   }
+
+  updateOnline() {
+    this.online.next(false);
+    // console.log(this.online);
+  }
+
+  returnOnline() {
+    return this.online;
+  }
+
 }

@@ -58,8 +58,8 @@ import {MainComponent} from '@/main/main.component';
     MatContactUsDialogService,
     AuthService,
     LoggerService,
-    LocalStorageService,
-  ],
+    LocalStorageService
+    ],
   bootstrap: [AppComponent],
   entryComponents: [MatLoginDialogComponent, MatContactUsDialogComponent, ErrorDialogComponent, MatSignupDialogComponent],
 })
