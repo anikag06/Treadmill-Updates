@@ -1,4 +1,4 @@
-import { Injectable, OnChanges, SimpleChanges, SimpleChange } from '@angular/core';
+import { Injectable, OnChanges, SimpleChanges, SimpleChange, ViewChild, ElementRef } from '@angular/core';
 import { map } from 'rxjs/operators';
 import {GamesService} from '@/main/shared/games.service';
 import {GamesAuthService} from '@/main/games/shared/games-auth.service';
@@ -47,9 +47,16 @@ declare var lhGameGetTask3Data: any;
 
 // for friendly face game
 declare var ffGameStart: any;
-declare var ffGamePreloadImages: any;
-declare var ffGame_hostile_images: any;
-declare var ffGame_friendly_images: any;
+declare var ffGPauseResumeGame: any;
+declare var ffGRestartGame: any;
+declare var ffg_no_positive_images_clicked_level1: any;
+declare var ffg_no_positive_images_clicked_level2: any;
+declare var ffg_no_positive_images_clicked_level3: any;
+declare var ffg_total_time_taken_level1: any;
+declare var ffg_total_time_taken_level2: any;
+declare var ffg_total_time_taken_level3: any;
+declare var ffGameSongCounter: number;
+declare var ffg_music_current_order: number;
 
 @Injectable({
   providedIn: 'root'
@@ -71,7 +78,7 @@ export class GamePlayService  {
   ecGameDiscriminationData = new ECGameDiscriminationTask(1, null, 0, 0);
 
   // variables for lh game
-  lhGameNumberOfPage!: number;
+  LHGAME_PAGE_SIZE = 20;
   lhGamePageNumber!: number;
   lhGameCRNumberOfLevels!: number;
   lhGameIslastData = false;
@@ -239,8 +246,7 @@ export class GamePlayService  {
     this.gamesAuthService.lhGameGetUserLevel()
       .subscribe((level_data) => {
         lhGameLevelCounter = level_data.level;
-        this.lhGameNumberOfPage = level_data.page_size;
-        this.lhGamePageNumber = Math.floor(lhGameLevelCounter / this.lhGameNumberOfPage) + 1;
+        this.lhGamePageNumber = Math.floor(lhGameLevelCounter / this.LHGAME_PAGE_SIZE) + 1;
         this.lhGameStart = true;
         this.lhGameDataColorReverse(this.lhGamePageNumber, this.lhGameStart);
 
@@ -249,7 +255,7 @@ export class GamePlayService  {
   }
 
   lhGameDataColorReverse(pageNumber: number, startGame: boolean) {
-    this.gamesAuthService.lhGameGetColorReverseData(pageNumber)
+    this.gamesAuthService.lhGameGetColorReverseData(pageNumber, this.LHGAME_PAGE_SIZE)
       .subscribe( (game_data) => {
         if (game_data.next === null) {
           this.lhGameIslastData = true;
@@ -262,7 +268,7 @@ export class GamePlayService  {
           i++;
         }
         if (startGame === true) {
-          lhGameArrayIndex = lhGameLevelCounter % this.lhGameNumberOfPage;
+          lhGameArrayIndex = lhGameLevelCounter % this.LHGAME_PAGE_SIZE;
           lhGameStart();
           this.lhGameStart = false;
           this.lhGameDataColorReverse(1, this.lhGameStart);
@@ -391,45 +397,55 @@ export class GamePlayService  {
   }
 
   // for friendly face game
-  playFriendlyFaceGame() {
-    ffGameStart();
-   // this.ffGameGetImages();
+// functions for getting data(images and music) are in face game component ts file, as data is loaded before the game starts
+  playFriendlyFaceGame(device_type: string) {
+    // data is according to user order
+    ffGameSongCounter = 0;
+    this.ffGameTotalPerformance(1, device_type);      // as the game starts from level 1(i.e. grid row = 1)
   }
-  ffGameGetImages(pageNumber: number) {
-    this.gamesAuthService.ffGameGetFriendlyImages(pageNumber)
-      .subscribe( (friendly_images) => {
-        console.log(friendly_images, friendly_images.results);
-        let i = 0;
-        while (friendly_images.results[i]) {
-          console.log(friendly_images);
-          ffGame_friendly_images.push(friendly_images.results[i].image);
-          i++;
-        }
-        console.log(i, ffGame_friendly_images);
-        ffGamePreloadImages(1, i);
-        this.ffGameGetHostileImages(1);
 
-        if (friendly_images.next != null) {
-          pageNumber = pageNumber + 1;
-          this.ffGameGetImages(pageNumber);
+  ffGameTotalPerformance(levelNumber: number, device_type: string) {
+    this.gamesAuthService.ffGameGetTotalPerformance(levelNumber, device_type)
+      .subscribe( (levelData) => {
+        if (levelNumber === 1) {
+          ffg_no_positive_images_clicked_level1 = levelData.total_positive_images;
+          ffg_total_time_taken_level1 = levelData.total_time_taken;
+          // if user plays for the first time
+          if (ffg_no_positive_images_clicked_level1 == null || ffg_total_time_taken_level1 == null) {
+            ffg_no_positive_images_clicked_level1 = 1;
+            ffg_total_time_taken_level1 = 950;
+          }
+          this.ffGameTotalPerformance(2, device_type);
+        } else if (levelNumber === 2) {
+          ffg_no_positive_images_clicked_level2 = levelData.total_positive_images;
+          ffg_total_time_taken_level2 = levelData.total_time_taken;
+          if (ffg_no_positive_images_clicked_level2 == null || ffg_total_time_taken_level2 == null) {
+            ffg_no_positive_images_clicked_level2 = 1;
+            ffg_total_time_taken_level2 = 1050;
+          }
+          this.ffGameTotalPerformance(3, device_type);
+        } else if (levelNumber === 3) {
+          ffg_no_positive_images_clicked_level3 = levelData.total_positive_images;
+          ffg_total_time_taken_level3 = levelData.total_positive_images;
+          if (ffg_no_positive_images_clicked_level3 == null || ffg_total_time_taken_level3 == null) {
+            ffg_no_positive_images_clicked_level3 = 1;
+            ffg_total_time_taken_level3 = 1150;
+          }
+          ffGameStart(device_type);
         }
       });
   }
-  ffGameGetHostileImages(pageNumber: number) {
-    this.gamesAuthService.ffGameGetHostileImages(pageNumber)
-    .subscribe((hostile_images) => {
-      console.log(hostile_images, hostile_images.results);
-      let j = 0;
-      while (hostile_images.results[j]) {
-        ffGame_hostile_images.push(hostile_images.results[j].image);
-        j++;
-      }
-      ffGamePreloadImages(0, j);
-      if (hostile_images.next != null) {
-        pageNumber = pageNumber + 1;
-        this.ffGameGetHostileImages(pageNumber);
-      }
-    });
+  pauseFaceGame() {
+    ffGPauseResumeGame();
+  }
+  resumeFaceGame() {
+    ffGPauseResumeGame();
+  }
+  restartFaceGame() {
+    ffGRestartGame();
+  }
+  musicFaceGame() {
+
   }
 }
 

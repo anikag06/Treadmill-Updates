@@ -30,12 +30,14 @@ export class CommonGameComponent implements OnInit {
   isSoundOn = true;
   showSideButtons = false;
 
+  device_type = 'click';     // whether touch or click for using in friendly face game
   currLocation: any;
 
   subscriptionRouter!: Subscription;
 
   @ViewChild('firstpage_btns', {static: false}) firstPageElement!: ElementRef;
   @ViewChild('pause_common_div', {static: false}) pauseBtnElement!: ElementRef;
+  @ViewChild('gameDiv', {static: false}) gameDivElement!: ElementRef;
 
   constructor(private gamePlayService: GamePlayService,
     private gamesService: GamesService,
@@ -63,6 +65,7 @@ export class CommonGameComponent implements OnInit {
           } else if (this.gameName === 'Friendly Face Game') {
             this.isFriendlyFace = true;
           }
+          // this.device_type = this.ffGameCheckDevice();
         },
         (error) => {
           this.router.navigate(['games']);
@@ -82,7 +85,7 @@ export class CommonGameComponent implements OnInit {
     } else if (this.gameName === 'Learned Helplessness Game') {
       this.gamePlayService.playLearnedHelplessnessGame();
     } else if (this.gameName === 'Friendly Face Game') {
-      this.gamePlayService.playFriendlyFaceGame();
+      this.gamePlayService.playFriendlyFaceGame(this.device_type);
     }
   }
 
@@ -122,6 +125,9 @@ export class CommonGameComponent implements OnInit {
     if (this.gameName === 'Executive Control Game') {
       this.gamePlayService.pauseExecControlGame();
     }
+    if (this.gameName === 'Friendly Face Game') {
+      this.gamePlayService.pauseFaceGame();
+    }
   }
 
   onResumeClick() {
@@ -132,6 +138,9 @@ export class CommonGameComponent implements OnInit {
     }
     if (this.gameName === 'Interpretation Bias Game') {
       this.gamePlayService.resumeIBGame();
+    }
+    if (this.gameName === 'Friendly Face Game') {
+      this.gamePlayService.resumeFaceGame();
     }
   }
 
@@ -145,6 +154,9 @@ export class CommonGameComponent implements OnInit {
     if (this.gameName === 'Interpretation Bias Game') {
       this.gamePlayService.playIBGame();                      // same function for start and restart the game
     }
+    if (this.gameName === 'Friendly Face Game') {
+      this.gamePlayService.restartFaceGame();
+    }
   }
 
   onSoundClick() {
@@ -152,10 +164,29 @@ export class CommonGameComponent implements OnInit {
     if (this.gameName === 'Executive Control Game') {
       this.gamePlayService.soundExecControlGame(this.isSoundOn);
     }
+    // else if (this.gameName === 'Friendly Face Game') {
+    //   this.gamePlayService.pauseFaceGame();
+    // }
   }
 
   onBlurDiv() {
     console.log('blur works');
   }
-
+  // ffGameCheckDevice() {
+  //   let device = 'touch';
+  //   console.log(this.gameDivElement);
+  //   this.gameDivElement.nativeElement.on('mousemove', () => {
+  //     device = 'click';
+  //     console.log('fsdfs');
+  //   }, false);
+  //   this.gameDivElement.nativeElement.addEventListener('touchstart touchend', () => {
+  //     device = 'touch';
+  //   }, false);
+  //   console.log(device);
+  //   return device;
+  // }
+  @HostListener('touchstart')
+  onTouchEvent() {
+    this.device_type = 'touch';
+  }
 }

@@ -238,7 +238,9 @@ function detectSuccess(grid_array){
 		// ping.play();
 		setTimeout(function(){
 			// updateAttemptData(true);
-			storeLHScoreColorReverse = new CustomEvent("CallLevelChangeStoreFun");
+			storeLHScoreColorReverse = document.createEvent('CustomEvent');
+			storeLHScoreColorReverse.initCustomEvent('CallLevelChangeStoreFun');
+
 			window.dispatchEvent(storeLHScoreColorReverse);
 			
 			previously_solved_level = lhGameLevelCounter;

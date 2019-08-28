@@ -10,9 +10,10 @@ import {TOKEN,
   LHG_UNSOLVABLE_TASK1_LEVEL1, LHG_UNSOLVABLE_TASK1_LEVEL2,
   LHG_UNSOLVABLE_TASK2_LEVEL1, LHG_UNSOLVABLE_TASK2_LEVEL2,
   LHG_UNSOLVABLE_TASK3_LEVEL2, LHG_UNSOLVABLE_TASK3_LEVEL1,
-  FFG_GET_FRIENDLY_IMAGES, FFG_GET_HOSTILE_IMAGES} from '@/app.constants';
+  FFG_GET_FRIENDLY_IMAGES, FFG_GET_HOSTILE_IMAGES, FFG_USER_DATA,
+  FFG_PERFORMANCE, FFG_TOTAL_PERFORMANCE, FFG_MUSIC} from '@/app.constants';
 import { ECGameData, ECGameFlankerTask, ECGameDiscriminationTask, ECGameUserData,
-  LHGameColorReverseData, LHGameUserLevel, LHGamePerformance, } from './game-play.model';
+  LHGameColorReverseData, LHGameUserLevel, LHGamePerformance, FFGameUserData, FFGamePerformance, } from './game-play.model';
 
 @Injectable({
   providedIn: 'root'
@@ -20,14 +21,18 @@ import { ECGameData, ECGameFlankerTask, ECGameDiscriminationTask, ECGameUserData
 export class GamesAuthService {
 
   NEXT_PAGE = '?page=';
+  PAGE_SIZE = '&page_size=';
   ECG_DAYS = '?days=7';
+  FFG_GRID_ROW = '?grid_row=';
+  FFG_DEVICE = '&device_type=';
 
   constructor(private http: HttpClient) { }
 
   // for interpretation bias game
-  ibGameGetSentencesInfo(firstTime: boolean, pageUrl: number): Observable<any>  {
+  ibGameGetSentencesInfo(firstTime: boolean, pageUrl: number, pageSize: number): Observable<any>  {
     pageUrl = pageUrl + 1;
-    return this.http.get(environment.API_ENDPOINT + IBG_SENTENCE + this.NEXT_PAGE + pageUrl);
+    return this.http.get(environment.API_ENDPOINT + IBG_SENTENCE + this.NEXT_PAGE + pageUrl
+      + this.PAGE_SIZE + pageSize);
   }
 
   ibGameGetScoresInfo(): Observable<any>  {
@@ -82,8 +87,9 @@ export class GamesAuthService {
     return this.http.post(environment.API_ENDPOINT + LHG_POST_COLOR_REVERSE, color_reverse_data);
   }
 
-  lhGameGetColorReverseData(pageNumber: number): Observable<any> {
-    return this.http.get(environment.API_ENDPOINT + LHG_GET_COLOR_REVERSE + this.NEXT_PAGE + pageNumber);
+  lhGameGetColorReverseData(pageNumber: number, pageSize: number): Observable<any> {
+    return this.http.get(environment.API_ENDPOINT + LHG_GET_COLOR_REVERSE + this.NEXT_PAGE
+      + pageNumber + this.PAGE_SIZE + pageSize );
   }
 
   lhGameGetUnsolvableTask2Data(): Observable<any> {
@@ -127,10 +133,32 @@ export class GamesAuthService {
   }
 
   // for the friendly face game
-  ffGameGetFriendlyImages(pageNumber: number): Observable<any> {
-    return this.http.get(environment.API_ENDPOINT + FFG_GET_FRIENDLY_IMAGES + this.NEXT_PAGE + pageNumber);
+  ffGameGetFriendlyImages(pageNumber: number, pageSize: number): Observable<any> {
+    return this.http.get(environment.API_ENDPOINT + FFG_GET_FRIENDLY_IMAGES + this.NEXT_PAGE
+      + pageNumber + this.PAGE_SIZE + pageSize);
   }
-  ffGameGetHostileImages(pageNumber: number): Observable<any> {
-    return this.http.get(environment.API_ENDPOINT + FFG_GET_HOSTILE_IMAGES + this.NEXT_PAGE + pageNumber);
+  ffGameGetHostileImages(pageNumber: number, pageSize: number): Observable<any> {
+    return this.http.get(environment.API_ENDPOINT + FFG_GET_HOSTILE_IMAGES + this.NEXT_PAGE
+       + pageNumber + this.PAGE_SIZE + pageSize);
+  }
+  ffGameGetUserInfo(pageNumber: number): Observable<any>  {
+    return this.http.get(environment.API_ENDPOINT + FFG_USER_DATA + this.NEXT_PAGE + pageNumber);
+  }
+  ffGameStoreUserInfo(userData: FFGameUserData) {
+    return this.http.put(environment.API_ENDPOINT + FFG_USER_DATA + '1/', userData);
+  }
+  ffGameGetPerformance(): Observable<any>  {
+    return this.http.get(environment.API_ENDPOINT + FFG_PERFORMANCE);
+  }
+  ffGameStorePerformance(performanceData: FFGamePerformance) {
+    return this.http.post(environment.API_ENDPOINT + FFG_PERFORMANCE, performanceData);
+  }
+  ffGameGetTotalPerformance(levelNumber: number, device_type: string): Observable<any>  {
+    return this.http.get(environment.API_ENDPOINT + FFG_TOTAL_PERFORMANCE + this.FFG_GRID_ROW
+       + levelNumber + this.FFG_DEVICE + device_type);
+  }
+  ffGameGetMusicInfo(pageNumber: number, pageSize: number): Observable<any>  {
+    return this.http.get(environment.API_ENDPOINT + FFG_MUSIC + this.NEXT_PAGE
+      + pageNumber + this.PAGE_SIZE + pageSize);
   }
 }

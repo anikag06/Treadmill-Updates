@@ -69,6 +69,11 @@ export const LHG_UNSOLVABLE_TASK3_LEVEL2 = '/api/v1/games/learned-helplessness/u
 //  Friendly Face Game (FFG) paths
 export const FFG_GET_FRIENDLY_IMAGES = '/api/v1/games/face-game/images-hostile/';
 export const FFG_GET_HOSTILE_IMAGES = '/api/v1/games/face-game/images-friendly/';
+export const FFG_USER_DATA       = '/api/v1/games/face-game/user/';
+export const FFG_PERFORMANCE     = '/api/v1/games/face-game/performance/';
+export const FFG_TOTAL_PERFORMANCE  = '/api/v1/games/face-game/total-performance/';
+export const FFG_MUSIC           = '/api/v1/games/face-game/music/';
+
 
 export const NEW_CHAT = 'new_chat';
 export const RESUME_CHAT = 'resume_chat';

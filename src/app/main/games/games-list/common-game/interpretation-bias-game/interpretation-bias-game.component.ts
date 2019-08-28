@@ -34,7 +34,7 @@ declare function getUpdatedVariables(): any;
 })
 export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
 
-  NO_OF_SENTENCES_RECEIVED!: number;      // order of first sentence is 0
+  NO_OF_SENTENCES_RECEIVED = 10;      // order of first sentence is 0
   // LEVEL_UP_SEN = 5;       // level up after how many sentences, here after 5 sentences;
 
   firstSentence = true;
@@ -68,7 +68,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   }
 
   sentenceInfo(pageNumber: number) {
-    this.gameAuthService.ibGameGetSentencesInfo( this.firstSentence, pageNumber)
+    this.gameAuthService.ibGameGetSentencesInfo( this.firstSentence, pageNumber, this.NO_OF_SENTENCES_RECEIVED)
       .subscribe( (data) => {
           this.FIRST_SENTENCE_ID = data.results[0].id;
           if (this.firstSentence) {
@@ -107,7 +107,6 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   scoresRelatedInfo() {
     this.gameAuthService.ibGameGetScoresInfo()
       .subscribe((data) => {
-          this.NO_OF_SENTENCES_RECEIVED = data.page_size;
           this.INPUT_ORDER = data.data.order;
           ibGameScore = data.data.score;
           ibGamelevel = data.data.level;
@@ -147,7 +146,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
       this.storeUserResponse();
   }
   getScoreVariablesValue() {
-    let userData = getUpdatedVariables();                  // from sentence_javascript
+    const userData = getUpdatedVariables();                  // from sentence_javascript
     this.userScoreData.order = userData[0];
     ibGameUserOrder = userData[0];                              // used for getting the sentences 
     this.userScoreData.level = userData[1];

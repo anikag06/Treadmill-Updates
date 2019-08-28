@@ -1223,7 +1223,8 @@ function update(){
 		
 		replay_game_button.on('pointerdown', (pointer)=>{ 
 			clearInterval(retry_coin_animation);
-			var replayECGameEvent = new CustomEvent("CallAngularReplayGame");
+			var replayECGameEvent = document.createEvent('CustomEvent');
+			replayECGameEvent.initCustomEvent('CallAngularReplayGame');
 			window.dispatchEvent(replayECGameEvent);
 			closeECGame();
 		},curr_game);
@@ -2140,7 +2141,8 @@ function generateTS()
 }
 
 function scoreUpdate(){
-	storeECScoreDataEvent = new CustomEvent("CallAngularECScoreFun");
+	storeECScoreDataEvent = document.createEvent('CustomEvent');
+	storeECScoreDataEvent.initCustomEvent('CallAngularECScoreFun');
 
 	window.dispatchEvent(storeECScoreDataEvent);
 

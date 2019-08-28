@@ -80,7 +80,9 @@ function discrimination_task_complete()
 	discrimination_task_image.destroy();
 	discrimination_task_image=null;
 	flankerTaskECGame = true;
-	storeTaskDataEvent = new CustomEvent("CallAngularStoreDataFun");
+	
+	storeTaskDataEvent = document.createEvent('CustomEvent');
+	storeTaskDataEvent.initCustomEvent('CallAngularStoreDataFun');
 
 	window.dispatchEvent(storeTaskDataEvent);
 	
