@@ -1,0 +1,39 @@
+.title{
+  margin-top: 10vh;
+  font-size: 350%;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-style: oblique;
+}
+#mi-game-div{
+  height: 100%;
+  max-width: 100%;
+  background-color: #45b9bc;
+}
+*:focus {
+  outline: none;
+}
+.noteBook-border {
+  min-height: 100%; 
+  border-top: 1px solid black;
+  padding-top: 6px;
+  margin-top: 5vw;
+  position: relative;
+}
+    
+.noteBook-border:before{
+  content: '';
+  border-top: 1px solid black;
+  display: block;
+  width: 100%;
+}
+.noteBook-border::after {
+  content: '';
+  background-image: linear-gradient(to right,black,transparent,transparent,transparent,black); 
+  top: -4px;
+  bottom: -4px;
+  left: 5vw;
+  position: absolute;
+  width: 8px;
+  margin-top: -10vh;
+}

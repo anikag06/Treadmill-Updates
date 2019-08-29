@@ -7,6 +7,7 @@ import { map, switchMap, filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { Location } from '@angular/common';
 import { GamesAuthService } from '../../shared/games-auth.service';
+import { MentalImageryComponent } from './mental-imagery/mental-imagery.component';
 
 declare let $: any;
 
@@ -25,6 +26,7 @@ export class CommonGameComponent implements OnInit {
   isExecutiveControl = false;
   isInterpretationBias = false;
   isLearnedHelplessness = false;
+  isMentalImagery = false;
   isFriendlyFace = false;
   showHintBtn = false;
   isSoundOn = true;
@@ -38,6 +40,9 @@ export class CommonGameComponent implements OnInit {
   @ViewChild('firstpage_btns', {static: false}) firstPageElement!: ElementRef;
   @ViewChild('pause_common_div', {static: false}) pauseBtnElement!: ElementRef;
   @ViewChild('gameDiv', {static: false}) gameDivElement!: ElementRef;
+
+  // for mental imagery game
+  @ViewChild(MentalImageryComponent, {static: false}) miGameComponent!: MentalImageryComponent;
 
   constructor(private gamePlayService: GamePlayService,
     private gamesService: GamesService,
@@ -64,8 +69,9 @@ export class CommonGameComponent implements OnInit {
             this.isLearnedHelplessness = true;
           } else if (this.gameName === 'Friendly Face Game') {
             this.isFriendlyFace = true;
+          } else if (this.gameName === 'Mental Imagery Game') {
+            this.isMentalImagery = true;
           }
-          // this.device_type = this.ffGameCheckDevice();
         },
         (error) => {
           this.router.navigate(['games']);
@@ -86,6 +92,8 @@ export class CommonGameComponent implements OnInit {
       this.gamePlayService.playLearnedHelplessnessGame();
     } else if (this.gameName === 'Friendly Face Game') {
       this.gamePlayService.playFriendlyFaceGame(this.device_type);
+    } else if (this.gameName === 'Mental Imagery Game') {
+      this.miGameComponent.startPlayingMIGame();
     }
   }
 
@@ -104,6 +112,9 @@ export class CommonGameComponent implements OnInit {
     }
     if (this.gameName === 'Interpretation Bias Game') {
       this.gamePlayService.helpIBGame();
+    }
+    if (this.gameName === 'Mental Imagery Game') {
+      this.miGameComponent.goToMIGameInstruction();
     }
   }
   onHomeClick() {
@@ -157,6 +168,9 @@ export class CommonGameComponent implements OnInit {
     if (this.gameName === 'Friendly Face Game') {
       this.gamePlayService.restartFaceGame();
     }
+    if (this.gameName === 'Mental Imagery Game') {
+      this.miGameComponent.replayMIGame();
+    }
   }
 
   onSoundClick() {
@@ -172,19 +186,6 @@ export class CommonGameComponent implements OnInit {
   onBlurDiv() {
     console.log('blur works');
   }
-  // ffGameCheckDevice() {
-  //   let device = 'touch';
-  //   console.log(this.gameDivElement);
-  //   this.gameDivElement.nativeElement.on('mousemove', () => {
-  //     device = 'click';
-  //     console.log('fsdfs');
-  //   }, false);
-  //   this.gameDivElement.nativeElement.addEventListener('touchstart touchend', () => {
-  //     device = 'touch';
-  //   }, false);
-  //   console.log(device);
-  //   return device;
-  // }
   @HostListener('touchstart')
   onTouchEvent() {
     this.device_type = 'touch';

@@ -1,4 +1,5 @@
-import { Injectable, OnChanges, SimpleChanges, SimpleChange, ViewChild, ElementRef } from '@angular/core';
+import { Injectable,
+  OnChanges, SimpleChanges, SimpleChange, } from '@angular/core';
 import { map } from 'rxjs/operators';
 import {GamesService} from '@/main/shared/games.service';
 import {GamesAuthService} from '@/main/games/shared/games-auth.service';
@@ -87,8 +88,7 @@ export class GamePlayService  {
   lhGameUserLevel = new LHGameUserLevel(0);
   lhGamePerformanceData = new LHGamePerformance(0, 0, 0);
 
-  // lhGameNextLevels = (this.LHGAME_CR_NUMBER_OF_LEVELS * this.lhGamePageNumber) - 3 ;
-  // lhGamePreviousLevels = (this.LHGAME_CR_NUMBER_OF_LEVELS * (this.lhGamePageNumber - 1)) + 3;
+  // for mental imagery games
 
   constructor(  private gamesService: GamesService,
     private gamesAuthService: GamesAuthService) { }
@@ -446,6 +446,10 @@ export class GamePlayService  {
   }
   musicFaceGame() {
 
+  }
+
+  // for mental imagery game
+  playMentalImageryGame() {
   }
 }
 

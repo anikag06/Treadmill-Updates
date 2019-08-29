@@ -74,7 +74,11 @@ import {AngularFireModule} from '@angular/fire';
 import {FcmService} from '@/main/fcm.service';
 import {environment} from '../../environments/environment';
 import { FriendlyFaceGameComponent } from '@/main/games/games-list/common-game/friendly-face-game/friendly-face-game.component';
-
+import { MentalImageryComponent } from '@/main/games/games-list/common-game/mental-imagery/mental-imagery.component';
+import { MiInstructionsComponent } from '@/main/games/games-list/common-game/mental-imagery/mi-instructions/mi-instructions.component';
+import { MiPlayComponent } from '@/main/games/games-list/common-game/mental-imagery/mi-play/mi-play.component';
+import {MIGameAutofocusDirective} from '@/main/games/games-list/common-game/mental-imagery/mi-autofocus.directive';
+import {MICurrentStateService} from '@/main/games/games-list/common-game/mental-imagery/mi-current-state.service';
 @NgModule({
   declarations: [
     ModulesComponent,
@@ -119,6 +123,10 @@ import { FriendlyFaceGameComponent } from '@/main/games/games-list/common-game/f
     ChatWindowComponent,
     QuestionnaireComponent,
     FriendlyFaceGameComponent,
+    MentalImageryComponent,
+    MiInstructionsComponent,
+    MiPlayComponent,
+    MIGameAutofocusDirective
   ],
   imports: [
     CommonModule,
@@ -162,6 +170,7 @@ import { FriendlyFaceGameComponent } from '@/main/games/games-list/common-game/f
     DataService,
     PlotScoreGraphService,
     FcmService,
+    MICurrentStateService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [CreatePostComponent]

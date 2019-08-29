@@ -22,7 +22,10 @@ export class GamesService {
              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.'),
     new Game('Friendly Face Game',
             'https://via.placeholder.com/360x200?text=Mario',
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.')
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.'),
+    new Game('Mental Imagery Game',
+            'https://via.placeholder.com/360x200?text=Mario',
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.'),
     ];
 
   constructor(
