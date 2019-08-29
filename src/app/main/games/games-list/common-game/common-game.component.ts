@@ -32,6 +32,8 @@ export class CommonGameComponent implements OnInit {
   isSoundOn = true;
   showSideButtons = false;
 
+  gameStarted = false;
+
   device_type = 'click';     // whether touch or click for using in friendly face game
   currLocation: any;
 
@@ -79,7 +81,15 @@ export class CommonGameComponent implements OnInit {
       );
   }
 
+  @HostListener('window:blur', ['$event'])
+  onBlur(event: any): void {
+    if (this.gameStarted === true) {
+      this.onPauseClick();
+    }
+  }
+
   onPlayClick() {
+    this.gameStarted = true;
     this.showSideButtons = false;
     this.firstPageElement.nativeElement.classList.add('d-none');
     this.pauseBtnElement.nativeElement.classList.remove('d-none');
@@ -183,11 +193,9 @@ export class CommonGameComponent implements OnInit {
     // }
   }
 
-  onBlurDiv() {
-    console.log('blur works');
-  }
   @HostListener('touchstart')
   onTouchEvent() {
     this.device_type = 'touch';
   }
+
 }
