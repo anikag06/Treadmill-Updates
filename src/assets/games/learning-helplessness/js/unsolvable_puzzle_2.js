@@ -358,7 +358,7 @@ function frogDetectSuccess(){
 	if(sum==3){		// success
 		$("#frog-game-success-message").removeClass("d-none");
 		var ping = document.getElementById("ping");
-		// ping.play();
+		ping.play();
 		return true;
 	}else{
 		return false;

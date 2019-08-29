@@ -207,8 +207,8 @@ function gridPuzzleDetectSuccess(){
 
 	if(first_grid_value==1 && second_grid_value==2 && third_grid_value==3){
 		$("#grid-puzzle-success-message").removeClass("d-none");
-		// var ping = document.getElementById("ping");
-		// ping.play();
+		var ping = document.getElementById("ping");
+		ping.play();
 		setTimeout(function(){
 			$("#grid-puzzle-success-message").addClass("d-none");
 			$("#three-puzzle-squares").addClass("d-none");

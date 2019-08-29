@@ -235,7 +235,7 @@ function detectSuccess(grid_array){
 	if(success){
 		$("#color-reverse-game-success-message").removeClass("d-none");
 		var ping = document.getElementById("ping");
-		// ping.play();
+		ping.play();
 		setTimeout(function(){
 			// updateAttemptData(true);
 			storeLHScoreColorReverse = document.createEvent('CustomEvent');

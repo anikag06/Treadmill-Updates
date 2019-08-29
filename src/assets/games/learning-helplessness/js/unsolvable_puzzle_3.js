@@ -929,7 +929,7 @@ function drawArc(element) {
 		block_arrows = true;
 		$("#box-up-game-success-message").removeClass("d-none");
 		var ping = document.getElementById("ping");
-		// ping.play();
+		ping.play();
 		changeLevel();		
 	}
 
