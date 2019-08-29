@@ -250,9 +250,9 @@ function init_game_variables(){
 	//Gameover dialog_box;
 	game_over_dialog;
 	game_over_text;
-	continue_game_button;
-	replay_game_button;
-	continue_game_button2;
+	buy_one_live;
+	buy_two_lives;
+	buy_three_lives;
 
 
 	//Task buttons
@@ -458,8 +458,9 @@ function init_game_variables(){
 	retry_coin_animation;
 	retry_cost=10;
 
-	reduce_speed_text;
-	replay_game_text;
+	buy_one_live_text;
+	buy_two_lives_text;
+	buy_three_lives_text;
 
 	//double_jump
 	DOUBLE_COIN_POWER=false;

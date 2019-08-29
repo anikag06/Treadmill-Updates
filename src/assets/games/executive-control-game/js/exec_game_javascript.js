@@ -305,9 +305,9 @@ var mystery_egg_collected_text;
 //Gameover dialog_box;
 var game_over_dialog;
 var game_over_text;
-var continue_game_button;
-var replay_game_button;
-var continue_game_button2;
+var buy_one_live;
+var buy_two_lives;
+var buy_three_lives;
 
 //Task buttons
 var left_button;
@@ -509,9 +509,9 @@ var retry_coin_text;
 var retry_coin_animation;
 var retry_cost;
 
-var reduce_speed_text;
-
-var replay_game_text;
+var buy_one_live_text;
+var buy_two_lives_text;
+var buy_three_lives_text;
 
 //double_jump
 var DOUBLE_COIN_POWER;
@@ -1182,52 +1182,40 @@ function update(){
 		game_over_dialog.depth=4;
 		game_over_dialog.alpha = 0.6;
 		
-		game_over_text=this.add.text(game_over_dialog.x-(game_over_dialog.width*0.25)+10,game_over_dialog.y-(game_over_dialog.height*0.5),"GAME OVER!", { fontSize: '26px', fill: '#000000',align:'center' });
+		game_over_text=this.add.text(game_over_dialog.x-(game_over_dialog.width*0.25)+10,game_over_dialog.y-(game_over_dialog.height*0.5),"BUY LIVES!", { fontSize: '26px', fill: '#000000',align:'center' });
 		// game_over_text.setPadding(game_over_dialog.width*0.5-20 , 1, game_over_dialog.width*0.5-20, 1);
 		game_over_text.setBackgroundColor('rgba(255,255,255,0.7)');
 		game_over_text.depth=5;
 
-		continue_game_button=this.add.image(screen_width*0.34,screen_height*0.50,'restart_game').setScale(0.6).setInteractive();
-		continue_game_button.depth=5;
-		
-		// retry_coin_icon=this.add.image(screen_width*0.46,screen_height*0.63,'coin').setScale(0.25);
-		// retry_coin_icon.depth=6;
+		buy_one_live=this.add.image(screen_width*0.34,screen_height*0.50,'restart_game').setScale(0.6).setInteractive(); 
+		buy_one_live.depth = 5;
+		buy_one_live_text=this.add.text(screen_width*0.27,screen_height*0.57,"Buy 1 live" +"\n"+ "for " + retry_cost+ " coins", { fontSize: '16px', fill: '#000000',align:'center' });
+		buy_one_live_text.depth=7;
 
-		retry_coin_text=this.add.text(screen_width*0.27,screen_height*0.57,"Continue" +"\n"+ "for " + retry_cost+ " coins", { fontSize: '16px', fill: '#000000',align:'center' });
-		retry_coin_text.depth=7;
-		// retry_coin_animation=setInterval(retry_coin_blinker,coin_blinker_interval);
-		
-		continue_game_button2=this.add.image(screen_width*0.50,screen_height*0.50,'restart_game').setScale(0.6).setInteractive();
-		continue_game_button2.depth=5;
-		
-		reduce_speed_text=this.add.text(screen_width*0.44,screen_height*0.57,"Continue"+"\n"+"with lesser"+"\n"+ "speed for"+"\n"+retry_cost+" coins", { fontSize: '16px', fill: '#000000',align:'center' });
-		reduce_speed_text.depth=7;
-
-		replay_game_button=this.add.image(screen_width*0.66,screen_height*0.50,'replay_game').setScale(0.6).setInteractive();
-		replay_game_button.depth=5;
-
-		replay_game_text=this.add.text(screen_width*0.62,screen_height*0.57,"Restart", { fontSize: '16px', fill: '#000000',align:'center' });
-		replay_game_text.depth=7;
-
-		continue_game_button.on('pointerdown', ()=>{
-			resume_after_game_over();
+		buy_one_live.on('pointerdown', ()=>{
+			no_lives_add = 1;
+			resume_after_game_over(no_lives_add);
 		}, curr_game);
 
-		continue_game_button2.on('pointerdown', ()=>{
-			if(LEVEL_SPEED > MIN_LEVEL_SPEED){
-				LEVEL_SPEED-=SPEED_INCREMENT;
-				change_speed(false);
-			}
-			resume_after_game_over();
+		buy_two_lives=this.add.image(screen_width*0.50,screen_height*0.50,'restart_game').setScale(0.6).setInteractive(); 
+		buy_two_lives.depth = 5;
+		buy_two_lives_text=this.add.text(screen_width*0.44,screen_height*0.57,"Buy 2 lives" +"\n"+ "for " + (2*retry_cost)+ " coins", { fontSize: '16px', fill: '#000000',align:'center' });
+		buy_two_lives_text.depth=7;
+
+		buy_two_lives.on('pointerdown', ()=>{
+			no_lives_add = 2;
+			resume_after_game_over(no_lives_add);
 		}, curr_game);
-		
-		replay_game_button.on('pointerdown', (pointer)=>{ 
-			clearInterval(retry_coin_animation);
-			var replayECGameEvent = document.createEvent('CustomEvent');
-			replayECGameEvent.initCustomEvent('CallAngularReplayGame');
-			window.dispatchEvent(replayECGameEvent);
-			closeECGame();
-		},curr_game);
+
+		buy_three_lives=this.add.image(screen_width*0.66,screen_height*0.50,'restart_game').setScale(0.6).setInteractive(); 
+		buy_three_lives.depth = 5;
+		buy_three_lives_text=this.add.text(screen_width*0.62,screen_height*0.57,"Buy 3 lives" +"\n"+ "for " + (3*retry_cost)+ " coins", { fontSize: '16px', fill: '#000000',align:'center' });
+		buy_three_lives_text.depth=7;
+
+		buy_three_lives.on('pointerdown', ()=>{
+			no_lives_add = 3;
+			resume_after_game_over(no_lives_add);
+		}, curr_game);
 	}        
 	//No player is currently active on the game,wait for the platforms to reach the required position
 	if(no_player==true&&falling_down_sound==null&&((brick1.x>=-screen_width/2+PLAYER_X+JUMP_RANGE/4&&brick1.x<=screen_width/2+PLAYER_X+JUMP_RANGE/4)||(brick.x>=-screen_width/2+PLAYER_X+JUMP_RANGE/4&&brick.x<=screen_width/2+PLAYER_X+JUMP_RANGE/4)))
@@ -1555,15 +1543,17 @@ function update(){
 	
 	}
 }
-function resume_after_game_over() {
-
+function resume_after_game_over(no_lives_add) {
+	if(LEVEL_SPEED > MIN_LEVEL_SPEED){
+		LEVEL_SPEED-=SPEED_INCREMENT;
+		change_speed(false);
+	}
 	if(coins_collected<retry_cost)
 	{
 		return;
 	}
 
-
-	coins_collected-=retry_cost;
+	coins_collected-=no_lives_add*retry_cost;
 	retry_cost = 2*retry_cost;
 	coinsCollectedText.setText(coins_collected);
 	coinsCollectedText.x=screen_width-90-COIN_SCORE_LENGTH_ADJUSTMENT*(coins_collected.toString().length-1);
@@ -1574,18 +1564,19 @@ function resume_after_game_over() {
 
 	clearInterval(retry_coin_animation);
 
-	number_of_lives=1;
+	number_of_lives=no_lives_add;
 	livesText.setText(number_of_lives);
 	life.body.allowGravity=false;
 	
 	game_over_dialog.destroy();
 	game_over_text.setText("");
-	continue_game_button.destroy();
-	replay_game_button.destroy();
-	retry_coin_text.destroy();
-	reduce_speed_text.destroy();
-	continue_game_button2.destroy();
-	replay_game_text.destroy();
+
+	buy_one_live.destroy();
+	buy_two_lives.destroy();
+	buy_three_lives.destroy();
+	buy_one_live_text.destroy();
+	buy_two_lives_text.destroy();
+	buy_three_lives_text.destroy();
 	// retry_coin_icon.destroy();
 
 	setTimeout(score_updator, 500);
