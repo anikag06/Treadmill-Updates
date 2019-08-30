@@ -27,6 +27,8 @@ declare var success: any;
 declare var inactivity_check_interval: any;
 declare function getUpdatedVariables(): any;
 
+declare var ibGameMakeGridArray: any;
+
 @Component({
   selector: 'app-interpretation-bias-game',
   templateUrl: './interpretation-bias-game.component.html',
@@ -65,6 +67,8 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.scoresRelatedInfo();
+    // do not delete this (this.findValidSentence()) function, it is important
+    // this.findValidSentence();        // this function is used to check if sentences in database are valid for generation of letters grid
   }
 
   sentenceInfo(pageNumber: number) {
@@ -148,7 +152,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   getScoreVariablesValue() {
     const userData = getUpdatedVariables();                  // from sentence_javascript
     this.userScoreData.order = userData[0];
-    ibGameUserOrder = userData[0];                              // used for getting the sentences 
+    ibGameUserOrder = userData[0];                              // used for getting the sentences
     this.userScoreData.level = userData[1];
     // this.levelUpElement = document.getElementById('levelup') as HTMLElement;
     // if (ibGameUserOrder % ( this.LEVEL_UP_SEN) === 0) {
@@ -196,5 +200,24 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     clearInterval(inactivity_check_interval);
+  }
+  findValidSentence () {
+    this.getAllSentences(0);
+  }
+  getAllSentences(pageNumber: number) {
+    let grid_formed;
+    this.gameAuthService.ibGameGetSentencesInfo(true, pageNumber, 31)     // here 31 is the page size
+    .subscribe( (data) => {
+      let i = 0;
+      while (data.results[i]) {
+        grid_formed = ibGameMakeGridArray(data.results[i].sentence_text);
+        console.log(i, grid_formed, data.results[i].sentence_text);
+        i++;
+      }
+      if (data.next != null) {
+        pageNumber = pageNumber + 1;
+        this.getAllSentences(pageNumber);
+      }
+    });
   }
 }

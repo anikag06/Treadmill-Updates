@@ -1816,12 +1816,12 @@ function shoot(){
 }
 
 //For pausing the game    
-pause_resume_game = function(){
+pause_resume_game = function(gamePaused){
 	// if(gameOver==true||control_button_1!=null||animation_active==true||score==0||control_button_1!=null||animation_active==true)
 	// {
 	// 	return;
 	// }
-	game_paused=!game_paused;
+	game_paused=gamePaused;
 	if(game_paused==false)
 	{
 		if(reachedCrossing==false)

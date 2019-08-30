@@ -146,8 +146,6 @@ export class FriendlyFaceGameComponent implements OnInit {
 
     this.gamesAuthService.ffGameStorePerformance(this.ffgUserPerformane)
       .subscribe(
-        (data) => {
-        }
       );
   }
 }

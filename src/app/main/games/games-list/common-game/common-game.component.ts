@@ -146,6 +146,9 @@ export class CommonGameComponent implements OnInit {
     if (this.gameName === 'Executive Control Game') {
       this.gamePlayService.pauseExecControlGame();
     }
+    if (this.gameName === 'Learned Helplessness Game') {
+      this.gamePlayService.pauseLHGame();
+    }
     if (this.gameName === 'Friendly Face Game') {
       this.gamePlayService.pauseFaceGame();
     }
@@ -159,6 +162,9 @@ export class CommonGameComponent implements OnInit {
     }
     if (this.gameName === 'Interpretation Bias Game') {
       this.gamePlayService.resumeIBGame();
+    }
+    if (this.gameName === 'Learned Helplessness Game') {
+      this.gamePlayService.resumeLHGame();
     }
     if (this.gameName === 'Friendly Face Game') {
       this.gamePlayService.resumeFaceGame();

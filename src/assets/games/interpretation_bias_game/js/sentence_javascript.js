@@ -23,6 +23,8 @@ var ibGameResume;
 var ibUsehints;
 var ibGameHelp;
 
+var ibGameMakeGridArray;
+
 var words = []                 //words of the sentence 
 var NO_OF_WORDS;
 var no_words_hidden;
@@ -38,7 +40,7 @@ var sentence_time = 1000;							//in milli seconds, time for showing the sentenc
 var borrowed_time = 20;								// time (in seconds) increase after borrowing time after time's up
 var increased_time = 30;								// time(in seconds) increase after using  hint increase time
 var delay_show_sentence = 1000;						// delay for showing the sentence after showing the cross
-var average_reading_speed = (10/3);					// considering average reading speed 200 words per min = 10/3 words per sec
+var average_reading_speed = (50);					// considering average reading speed 50 characters per sec
 var INITIAL_VALUE = ' ';
 var no_of_parameters = 4;
 var ALPHABETS = 'abcdefghijklmnopqrstuvwxyz';
@@ -176,6 +178,8 @@ var word_tip_shown = [];							//words for which tip has already been shown
 var word_tip_count =0;
 
 var game_paused = false;
+
+var MAX_FUNC_CALL = 25000;
 
 function initializeVariables(){
 	countdownReset();
@@ -783,7 +787,8 @@ function getSortedWordList(sentence){
 	return sorted_words;
 }
 
-function makeGridArray(sentence){
+ibGameMakeGridArray = function(sentence){
+	var grid_done = false;
 	words = sentence.split(sentence_splitter);
 	var sorted_words = getSortedWordList(sentence);
 	var GRID_LENGTH = gridLength(sentence, sorted_words[0]); // determining the optimal length for the sentence
@@ -810,13 +815,21 @@ function makeGridArray(sentence){
 	}
 	
 	// gridArray = generateGrid(NO_OF_WORDS,reverse_indices, final_words, GRID_LENGTH, gridArray);
-	generateGrid(NO_OF_WORDS,reverse_indices, final_words, GRID_LENGTH);
-	return [gridArray, GRID_LENGTH];
+	try {
+		grid_done = generateGrid(NO_OF_WORDS,reverse_indices, final_words, GRID_LENGTH);
+		return [true, gridArray, GRID_LENGTH];
+	}
+	catch(error) {
+		alert(error +" " + " for the----  " +sentence +" --- grid not formed ");
+		return false;
+	}
+	
 }
 
 
 // looping over the words in the sentence and fitting it in the grid
 function generateGrid(NO_OF_WORDS,reverse_indices,final_words,GRID_LENGTH){
+
 	var initialGrid = gridArray;
 	var word_present = false;
 	for(var i=0; i < NO_OF_WORDS; i++){
@@ -827,7 +840,7 @@ function generateGrid(NO_OF_WORDS,reverse_indices,final_words,GRID_LENGTH){
 
 		while(!(word_set)){
 
-			if(count1<10){
+			if(count1<MAX_FUNC_CALL){
 				var word_parameters = wordParameters(word,GRID_LENGTH);
 				if(word_parameters[1]){
 					word_details = setWord(word,word_parameters[0]);
@@ -902,7 +915,7 @@ function wordParameters(word,GRID_LENGTH){
 	var arr = new Array(3);
 	var count = 0;
 	while(!(fit)){
-		if(count<50){
+		if(count<MAX_FUNC_CALL){
 			pos_x = Math.floor(Math.random()*(GRID_LENGTH)); //pos_x
 			pos_y = Math.floor(Math.random()*(GRID_LENGTH)); //pos_y
 			direction = Math.floor(Math.random()*4); //direction
@@ -1304,7 +1317,12 @@ function showSentence(){
 	countTrue=0;
 	delay_show_sentence = 2000;
 	before_sentence_time =2000;
-	sentence_time = (Math.ceil((words.length)/average_reading_speed))*1000;
+	var total_characters = 0;
+	for (let i = 0; i < words.length; i++){
+		total_characters += words[i].length;
+	}
+
+	sentence_time = (Math.ceil((total_characters)/average_reading_speed))*1000;
 	countdownReset();
 	clearInterval(inactivity_check_interval);
 	$("#congrats").removeClass("d-none");
@@ -1370,9 +1388,9 @@ function foundWord(sentence,sentence_word){
 	document.getElementById("complete-sentence").innerHTML = sentence;
 	document.getElementById("sentence_word").innerHTML = sentence_word;
 
-	var gridParameters = makeGridArray(sentence);
-	var GRID_LENGTH = gridParameters[1];
-	playGrid = gridParameters[0];
+	var gridParameters = ibGameMakeGridArray(sentence);
+	var GRID_LENGTH = gridParameters[2];
+	playGrid = gridParameters[1];
 	star_sentence = starSentence(sentence);      //sentence with stars instead of letters
 	document.getElementById('stars').innerHTML = star_sentence;
 	var sorted_words = getSortedWordList(sentence);

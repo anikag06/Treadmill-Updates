@@ -9,6 +9,8 @@ var lhGameLevelCounter;   // get from user level
 // functions called from typescript
 var lhGameGetColorReverseData;
 var lhGameStart;
+var lhGamePause;
+var lhGameResume;
 
 // for checking if the user fails to solve a previously solved level
 var previously_solved_level = lhGameLevelCounter;
@@ -52,6 +54,14 @@ $(document).ready(function(){
 		$("#color-reverse-game").removeClass("d-none");
 		initializeVar();
 		colorReverseInit();
+	}
+	lhGamePause =  function(ev){
+
+	}
+	lhGameResume = function(ev) {
+		$('#lg-game-container').focus();
+		$("#box-up-game-row").focus();
+		$("#frog-game-row").focus();
 	}
 
 	$(document).on("click", ".color-reverse-game-square", function(){
