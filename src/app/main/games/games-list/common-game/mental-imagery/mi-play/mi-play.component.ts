@@ -3,6 +3,7 @@ import { MIUser } from '../mi-user.model';
 import { Level } from '../level.model';
 import { Scenario } from '../scenario.model';
 import { MICurrentStateService } from '../mi-current-state.service';
+declare function require(name: string): any;
 
 @Component({
   selector: 'app-mi-play',
