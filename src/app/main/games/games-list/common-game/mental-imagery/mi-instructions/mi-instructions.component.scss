@@ -1,0 +1,33 @@
+input[type='image'] {
+    display: block;
+    height: 60px;
+    width: 60px;
+    float: left;
+    margin: 10px; 
+    
+}
+.buttonLocation{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+*:focus {
+    outline: none;
+}
+
+.container{
+    width: 70vw;
+}
+h1 {
+    font-size: 1.5em;
+}
+
+
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) { 
+    input[type='image'] {
+        height: 80px;
+        width: 80px;
+    }
+ }

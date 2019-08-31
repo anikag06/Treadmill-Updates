@@ -1,0 +1,96 @@
+#face-game-main-div{
+    height: 100%;
+    width: 100%;
+    overflow: scroll;
+}
+.img {
+	height: 100px;
+	width: 90px;
+}
+
+/* CSS used here will be applied after bootstrap.css */
+.progress {
+	margin: 5px;
+	position: relative; /* remove this and title works */
+}
+
+.face{
+	margin-right: 3px;
+}
+
+body{
+	background-color: white;
+}
+
+.fas, .treadwill-color, #play-next-song{
+	color: #606090;
+}
+
+.wrong-color{
+	color: #f30000a1;
+}
+
+.btn-facegame{
+	background-color: white !important;
+	border-color: #606090 !important;
+}
+
+.btn-facegame:active{
+	background-color: #a8b0b169 !important;
+	border-color: #606090 !important;
+}
+
+.fade-in{
+	opacity: 0.25;
+}
+
+label.btn-secondary{
+	margin-right: 3px;
+	background-color: white !important;
+	color: #606090 !important;
+}
+
+label.btn-secondary.active{
+	margin-right: 3px;
+	background-color: #8080804a !important;
+	color: #606090 !important;
+}
+
+.card-header{
+	background-color: #606090;
+	color: white;
+}
+
+.card-button{
+	background-color: #606090;
+	border-color: #606090;
+}
+
+.game-instructions{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.btn-facegame-level-up{
+	margin-top: 5px !important;
+	border-radius: 5px !important;
+}
+
+.btn-group-facegame-level-up{
+	display: -webkit-box;
+}
+
+.fa-stopwatch{
+	margin-top: 6px;
+	height: 16px;
+}
+
+.centered {
+	position: fixed; /* or absolute */
+	top: 50%;
+	left: 50%;
+}
+
+.block-click{
+	pointer-events: none;
+}

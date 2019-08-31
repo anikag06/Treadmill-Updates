@@ -1,0 +1,105 @@
+h1 {
+    font-size: 1.5em;
+}
+.problem-space {
+    min-height: 100px;
+}
+.input-group-text {
+    background-color: white;
+    border-color: transparent;
+}
+.form-control {
+    border: 0;
+}
+input.form-control:focus {
+    outline-color: transparent !important;
+    box-shadow: none;
+}
+form {
+    border: 0;
+    max-width: 99% !important;
+}
+
+*:focus {
+    outline: none;
+}
+
+.scoreLocation{
+    margin-top: -7vw;
+    text-align: right;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif
+}
+
+.navBar{
+    position: fixed;
+    top: 2vh;
+    left: 3vw;
+    width: 20vw;
+    height: 90vh; 
+    z-index: 100;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding-top: 8vh;
+}
+
+.icons input[type='image'] {
+    display: block;
+    height: 50px;
+    width: 50px;
+    margin: 5vh 6vw;
+
+}
+.container{
+    width: 75vw;
+    min-height: 80vh;
+}
+
+.buttonLocation{
+    position: absolute;
+    bottom: 5px;
+    right: 4px;
+}
+
+.buttonLocation input[type='image'] {
+    display: block;
+    height: 40px;
+    width: 40px;
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) { 
+    .scoreLocation{
+        margin-top: -5vw;
+        text-align: right;
+        font-weight: bold;
+        font-family: Arial, Helvetica, sans-serif
+    }
+ }
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+    .scoreLocation{
+        margin-top: -2vw;
+        text-align: right;
+        font-weight: bold;
+        font-family: Arial, Helvetica, sans-serif
+    }
+
+    .navBar{
+        left: 1vw;
+        width: 10vw;
+    }
+
+    .icons input[type='image'] {
+        display: block;
+        height: 60px;
+        width: 60px;
+        margin: 4vh 3vw;
+
+    }
+    .buttonLocation input[type='image'] {
+        height: 50px;
+        width: 50px;
+    }
+
+  } 

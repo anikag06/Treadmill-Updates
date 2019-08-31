@@ -1,0 +1,50 @@
+.frog-right,
+.frog-left, 
+.frog-up, 
+.frog-down,
+.frog-game-flower, 
+.frog-game-flower-dry, 
+.frog-game-square-blank {
+	margin-right: 50px;
+	margin-bottom: 50px;
+}
+
+.frog-game-flower, 
+.frog-game-flower-dry, 
+.frog-game-square-blank {
+	text-align: center;
+	line-height: 50px;
+}
+
+.frog-game-flower {
+	background: url("../assets/frog.jump.puzzle/flower.png") no-repeat center;
+}
+
+.frog-game-flower-dry{
+	background: url("../assets/frog.jump.puzzle/dry_flower.png") no-repeat center;
+}
+
+.frog-right,
+.frog-left, 
+.frog-up, 
+.frog-down {
+	background: url("../assets/frog.jump.puzzle/butterfly.png") no-repeat center;
+}
+
+.frog-left{
+	-ms-transform: rotate(180deg); /* IE 9 */
+	-webkit-transform: rotate(180deg); /* Safari 3-8 */
+	transform: rotate(180deg);
+}
+
+.frog-up{
+	-ms-transform: rotate(270deg); /* IE 9 */
+	-webkit-transform: rotate(270deg); /* Safari 3-8 */
+	transform: rotate(270deg);
+}
+
+.frog-down{
+	-ms-transform: rotate(90deg); /* IE 9 */
+	-webkit-transform: rotate(90deg); /* Safari 3-8 */
+	transform: rotate(90deg);
+}

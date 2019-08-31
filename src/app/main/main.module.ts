@@ -49,25 +49,41 @@ import { AuthModule } from '@/auth.module';
 import { CommentService } from './support-groups/post-list/post-item/comment/comment.service';
 import { NetstedCommentService } from './support-groups/post-list/post-item/nested-comment/netsted-comment.service';
 import { TagService } from './shared/tag.service';
-import { ScoreComponent } from './score/score.component';
-import { PhqNineComponent } from './score/phq-nine/phq-nine.component';
-import { GadSevenComponent } from './score/gad-seven/gad-seven.component';
+import { ScoreComponent } from '@/main/score/score.component';
+import { PhqNineComponent } from '@/main/score/phq-nine/phq-nine.component';
+import { GadSevenComponent } from '@/main/score/gad-seven/gad-seven.component';
+import {
+  InterpretationBiasGameComponent
+} from '@/main/games/games-list/common-game/interpretation-bias-game/interpretation-bias-game.component';
 import {FormsService} from '@/main/forms.service';
-import {TasksService} from '@/main/resources/forms/shared/tasks/tasks.service';
-import {ChatbotComponent} from './chatbot/chatbot.component';
-import {ChatWindowComponent} from './chatbot/chat-window/chat-window.component';
+import { ExecutiveControlGameComponent } from '@/main/games/games-list/common-game/executive-control-game/executive-control-game.component';
+import { CommonGameComponent } from '@/main/games/games-list/common-game/common-game.component';
+import { GamesAuthService } from '@/main/games/shared/games-auth.service';
+import { GamePlayService } from '@/main/games/shared/game-play.service';
+import {
+  LearnedHelplessnessGameComponent
+} from '@/main/games/games-list/common-game/learned-helplessness-game/learned-helplessness-game.component';
+
+import { ChatbotComponent } from './chatbot/chatbot.component';
+import { ChatWindowComponent } from './chatbot/chat-window/chat-window.component';
 import {ChatbotService} from '@/main/chatbot/chatbot.service';
 import {SlideService} from './resources/slides/slide.service';
 import {ProblemSolvingWorksheetsService} from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.service';
-import {ResourcesModule} from '@/main/resources/resources.module';
 
 import { DataService } from './dashboard/questionnaire/data.service';
 import { QuestionnaireComponent } from './dashboard/questionnaire/questionnaire.component';
+import { PlotScoreGraphService } from './score/plot-score-graph.service';
 import {AngularFireMessagingModule} from '@angular/fire/messaging';
 import {AngularFireModule} from '@angular/fire';
 import {FcmService} from '@/main/fcm.service';
 import {environment} from '../../environments/environment';
-
+import { FriendlyFaceGameComponent } from '@/main/games/games-list/common-game/friendly-face-game/friendly-face-game.component';
+import { MentalImageryComponent } from '@/main/games/games-list/common-game/mental-imagery/mental-imagery.component';
+import { MiInstructionsComponent } from '@/main/games/games-list/common-game/mental-imagery/mi-instructions/mi-instructions.component';
+import { MiPlayComponent } from '@/main/games/games-list/common-game/mental-imagery/mi-play/mi-play.component';
+import {MIGameAutofocusDirective} from '@/main/games/games-list/common-game/mental-imagery/mi-autofocus.directive';
+import {MICurrentStateService} from '@/main/games/games-list/common-game/mental-imagery/mi-current-state.service';
+import { TasksService } from './resources/forms/shared/tasks/tasks.service';
 @NgModule({
   declarations: [
     ModulesComponent,
@@ -100,11 +116,22 @@ import {environment} from '../../environments/environment';
     ScoreComponent,
     PhqNineComponent,
     GadSevenComponent,
+    InterpretationBiasGameComponent,
+    DashboardComponent,
+    MainComponent,
+    ExecutiveControlGameComponent,
+    CommonGameComponent,
+    LearnedHelplessnessGameComponent,
     DashboardComponent,
     MainComponent,
     ChatbotComponent,
     ChatWindowComponent,
     QuestionnaireComponent,
+    FriendlyFaceGameComponent,
+    MentalImageryComponent,
+    MiInstructionsComponent,
+    MiPlayComponent,
+    MIGameAutofocusDirective
   ],
   imports: [
     CommonModule,
@@ -142,10 +169,14 @@ import {environment} from '../../environments/environment';
     ProblemSolvingWorksheetsService,
     FormsService,
     TasksService,
+    GamePlayService,
+    GamesAuthService,
     ChatbotService,
     SlideService,
     DataService,
+    PlotScoreGraphService,
     FcmService,
+    MICurrentStateService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [CreatePostComponent]

@@ -1,0 +1,33 @@
+.square, .fifteen-puzzle-square, .nine-puzzle-square, .three-puzzle-square{ 
+	background-color: white; 
+	margin-right: 10px;
+	margin-bottom: 10px;
+	text-align: center;
+	color: #0073B6;
+	line-height: 100px;
+	border: solid 3px;
+	border-radius: 10px;
+	font-size: -webkit-xxx-large;
+}
+
+.gap-fifteen, .gap-nine, .gap-three{
+	/* background-color: lightgrey !important; */
+	background-image: linear-gradient(to right, 
+									#ffffff, 
+									#d7d7ec, 
+									#a8b3da, 
+									#7091c8, 
+									#0073b6) !important;
+}
+
+.give-up-text-red{
+	color: red;
+}
+
+.give-up-text-black{
+	color: black !important;
+}
+
+li{
+	display: unset;
+}

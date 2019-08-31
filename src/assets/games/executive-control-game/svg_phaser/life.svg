@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:se="http://svg-edit.googlecode.com" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="108.09302372001457" height="87.67441864333455" style="">                                    <title>my vector image</title>                                    <!-- Created with Vector Paint - http://www.vectorpaint.yaks.com/ https://chrome.google.com/webstore/detail/hnbpdiengicdefcjecjbnjnoifekhgdo -->                                    <rect id="backgroundrect" width="100%" height="100%" x="0" y="0" fill="none" stroke="none" class="selected" style=""/>                                <g class="currentLayer" style=""><title>Layer 1</title><path fill="#eb1a1a" stroke="#d50b0b" stroke-width="4" stroke-linejoin="round" stroke-dashoffset="" fill-rule="nonzero" marker-start="" marker-mid="" marker-end="" id="svg_1" d="M48.983677453796886,22.142614946100856 C68.35482360442404,-27.30719132843272 144.25160934211692,22.142614946100856 48.983677453796886,85.72093729907186 C-46.28425443452378,22.142614946100856 29.61253130317461,-27.30719132843272 48.983677453796886,22.142614946100856 z" style="color: rgb(0, 0, 0);" class="" stroke-opacity="1" fill-opacity="1" filter="url(#f014)"/></g><defs><filter id="f014" inkscape:label="Ridged border" inkscape:menu="Bevels" inkscape:menu-tooltip="Ridged border with inner bevel" color-interpolation-filters="sRGB">
+            <feMorphology radius="4.3" in="SourceAlpha" result="result91"/>
+            <feComposite operator="out" in="SourceGraphic" in2="result91"/>
+            <feGaussianBlur result="result0" stdDeviation="1.2"/>
+            <feDiffuseLighting diffuseConstant="1">
+                <feDistantLight elevation="66" azimuth="225"/>
+            </feDiffuseLighting>
+            <feBlend mode="multiply" in2="SourceGraphic"/>
+            <feComposite operator="in" in2="SourceAlpha"/>
+        </filter></defs></svg>

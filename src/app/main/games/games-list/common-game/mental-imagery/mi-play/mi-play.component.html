@@ -1,0 +1,55 @@
+<p class="scoreLocation">
+    SCORE: {{ this.user.currentPoints()}}
+  </p>
+
+<div class="container" (click)="onAnyWhereClick()">
+  <h1>{{currentLevel.title}}</h1>
+  <div class="row" *ngIf="previousText">
+    <div class="col-12" [innerHTML]="previousText"></div>
+  </div>
+  <div class="row">
+    <div class="col-12 problem-space" *ngIf="currentScenario">
+      {{ this.currentScenario.problemBeforeDash }} <strong>{{ blank.trim() || '-----------' }}</strong> {{ this.currentScenario.problemAfterDash }}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12" [innerHTML]="extraContent"></div>
+  </div>
+  <div class="row">
+    <div class="col-6 offset-3 text-center" *ngIf="notificationHeader && notificationHeader.length > 0">
+        <p><b>{{notificationHeader}}</b></p>
+        <p>{{notificationBody}}</p>
+    </div>
+  </div>
+  <form (ngSubmit)="onSubmit()" autocomplete="off">
+    <div class="form-row align-items-center">
+      <div class="input-group mb-2">
+        <div class="input-group-prepend">
+          <div class="input-group-text">>></div>
+        </div>
+        <input type="text" name="blank" class="form-control" [(ngModel)]="blank" [disabled]="disabled" #inputEl autocomplete="off" (input)="storeTypedLetters()">
+        <button class="btn btn-primary" (click) = "onSubmit()" type="button" #submitBtn>Submit!</button>
+       </div>
+      <small class="text-muted" *ngIf="invalidInput">Oops! you seem to have typed something that we currently don't understand</small>
+    </div>
+  </form>
+</div>
+
+<!-- <div *ngIf="openNavBar"class="navBar">
+    <div class="icons">
+      <input (click)="onNavBarHome()" type="image" src="assets/home.png"/>
+      <input (click)="onNavBarHelp()" type="image" src="assets/help.png"/>
+      <input (click)="onNavBarPlay()" type="image" src="assets/play.svg"/>
+      <input (click)="onNavBarReplay()" type="image" src="assets/replay.png"/>
+      <input type="image" src="assets/sound.png"/>
+    </div>
+</div>
+
+<div class="buttonLocation" *ngIf="!openNavBar">
+  <input (click)="onPause()" type="image" src="assets/pause.png"/>
+</div> -->
+
+
+
+
+
