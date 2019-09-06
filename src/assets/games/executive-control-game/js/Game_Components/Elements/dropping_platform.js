@@ -37,7 +37,6 @@ function dropping_platform_placer() {
     free_to_start_choose=true;
     clear_to_start++;
 
-    console.log("dropping_platform");
   }
 
 

@@ -91,3 +91,25 @@ export class LHGamePerformance {
 
     }
 }
+
+// for storing data of Friendly Face Game
+
+export class FFGameUserData {
+    constructor(
+        public coins: number,
+        public last_order: number
+    ) {
+
+    }
+}
+export class FFGamePerformance {
+    constructor(
+        public grid_rows: number,
+        public order: number,
+        public device_type: string,
+        public no_of_positive_images: number,
+        public total_time_taken: number
+    ) {
+
+    }
+}

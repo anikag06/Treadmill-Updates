@@ -23,6 +23,8 @@ var ibGameResume;
 var ibUsehints;
 var ibGameHelp;
 
+var ibGameMakeGridArray;
+
 var words = []                 //words of the sentence 
 var NO_OF_WORDS;
 var no_words_hidden;
@@ -38,7 +40,7 @@ var sentence_time = 1000;							//in milli seconds, time for showing the sentenc
 var borrowed_time = 20;								// time (in seconds) increase after borrowing time after time's up
 var increased_time = 30;								// time(in seconds) increase after using  hint increase time
 var delay_show_sentence = 1000;						// delay for showing the sentence after showing the cross
-var average_reading_speed = (10/3);					// considering average reading speed 200 words per min = 10/3 words per sec
+var average_reading_speed = (50);					// considering average reading speed 50 characters per sec
 var INITIAL_VALUE = ' ';
 var no_of_parameters = 4;
 var ALPHABETS = 'abcdefghijklmnopqrstuvwxyz';
@@ -177,6 +179,8 @@ var word_tip_count =0;
 
 var game_paused = false;
 
+var MAX_FUNC_CALL = 25000;
+
 function initializeVariables(){
 	countdownReset();
 	game_timer = ibGameTime.toString();
@@ -243,7 +247,6 @@ function getUpdatedVariables() {
 	}else {
 		gameUserResponse = !sentence_response_array[sentence_number];
 	}
-	console.log("send game word hidden", ibGameWordsHidden);
 	gameResponseTime = (end_time - start_time) ; 
 	return [
 		gameOrder,
@@ -547,7 +550,6 @@ $(document).ready(function(){
 		// $("#finalCoins").addClass("d-none");
 		playNextSentence();
 		isFirstAttempt = true;
-		console.log("first attempt", isFirstAttempt);
 	});	
 	
 	$(document).on("click","#exit", function(e){
@@ -785,7 +787,8 @@ function getSortedWordList(sentence){
 	return sorted_words;
 }
 
-function makeGridArray(sentence){
+ibGameMakeGridArray = function(sentence){
+	var grid_done = false;
 	words = sentence.split(sentence_splitter);
 	var sorted_words = getSortedWordList(sentence);
 	var GRID_LENGTH = gridLength(sentence, sorted_words[0]); // determining the optimal length for the sentence
@@ -812,13 +815,21 @@ function makeGridArray(sentence){
 	}
 	
 	// gridArray = generateGrid(NO_OF_WORDS,reverse_indices, final_words, GRID_LENGTH, gridArray);
-	generateGrid(NO_OF_WORDS,reverse_indices, final_words, GRID_LENGTH);
-	return [gridArray, GRID_LENGTH];
+	try {
+		grid_done = generateGrid(NO_OF_WORDS,reverse_indices, final_words, GRID_LENGTH);
+		return [true, gridArray, GRID_LENGTH];
+	}
+	catch(error) {
+		alert(error +" " + " for the----  " +sentence +" --- grid not formed ");
+		return false;
+	}
+	
 }
 
 
 // looping over the words in the sentence and fitting it in the grid
 function generateGrid(NO_OF_WORDS,reverse_indices,final_words,GRID_LENGTH){
+
 	var initialGrid = gridArray;
 	var word_present = false;
 	for(var i=0; i < NO_OF_WORDS; i++){
@@ -829,7 +840,7 @@ function generateGrid(NO_OF_WORDS,reverse_indices,final_words,GRID_LENGTH){
 
 		while(!(word_set)){
 
-			if(count1<10){
+			if(count1<MAX_FUNC_CALL){
 				var word_parameters = wordParameters(word,GRID_LENGTH);
 				if(word_parameters[1]){
 					word_details = setWord(word,word_parameters[0]);
@@ -885,7 +896,7 @@ function generateGrid(NO_OF_WORDS,reverse_indices,final_words,GRID_LENGTH){
 		}
 	}
 
-	gridArray = fillGrid(gridArray,GRID_LENGTH);
+	gridArray = ibGameFillGrid(gridArray,GRID_LENGTH);
 	return true;
 }
 
@@ -904,7 +915,7 @@ function wordParameters(word,GRID_LENGTH){
 	var arr = new Array(3);
 	var count = 0;
 	while(!(fit)){
-		if(count<50){
+		if(count<MAX_FUNC_CALL){
 			pos_x = Math.floor(Math.random()*(GRID_LENGTH)); //pos_x
 			pos_y = Math.floor(Math.random()*(GRID_LENGTH)); //pos_y
 			direction = Math.floor(Math.random()*4); //direction
@@ -1088,7 +1099,7 @@ function letterToFill(){
 }
 
 // fill the remaining grid with random alphabets; modify this code to minimize the probablity of finding other words
-function fillGrid(gridArray,GRID_LENGTH){
+function ibGameFillGrid(gridArray,GRID_LENGTH){
 	var LETERS_FROM_SET = letterToFill();
 
 	for(var i=0; i<GRID_LENGTH; i++){
@@ -1146,7 +1157,6 @@ function starSentence(sentence){
 		sorted_words = hideWords(sorted_words,ind);
 	}
 
-	console.log("array", hidden_words_array)
 	// if(ibGamelevel == 0){			// beginner level
 	for(var i=0; i<sorted_words.length; i++){
 		starSen += sorted_words[i]+" ";
@@ -1191,7 +1201,6 @@ function replaceStars(word,strArray,pos, star_sentence){
 	var starWords=[] ;
 	var strikeWord = " ";
 	var wordPos = pos;
-	console.log(hidden_words_array);
 	starWords = star_sentence.split(sentence_splitter);			//split the star sentence to get an array with words with *
 	for(let i=0; i<starWords.length;i++){
 		if(starWords[i] == '<span'){
@@ -1291,8 +1300,7 @@ function searchWordInArray(str, sorted_words, star_sentence, sentence) {
 		}
 	}
 
-	if(countTrue >= (percent_full_sen*NO_OF_WORDS) && found){  
-		console.log(isFirstAttempt);
+	if(countTrue >= (percent_full_sen*NO_OF_WORDS) && found){ 
 		if(success == true){
 			isFirstAttempt = false;
 		}
@@ -1309,8 +1317,12 @@ function showSentence(){
 	countTrue=0;
 	delay_show_sentence = 2000;
 	before_sentence_time =2000;
-	sentence_time = (Math.ceil((words.length)/average_reading_speed))*1000;
-	console.log("sentence time",sentence_time);
+	var total_characters = 0;
+	for (let i = 0; i < words.length; i++){
+		total_characters += words[i].length;
+	}
+
+	sentence_time = (Math.ceil((total_characters)/average_reading_speed))*1000;
 	countdownReset();
 	clearInterval(inactivity_check_interval);
 	$("#congrats").removeClass("d-none");
@@ -1376,9 +1388,9 @@ function foundWord(sentence,sentence_word){
 	document.getElementById("complete-sentence").innerHTML = sentence;
 	document.getElementById("sentence_word").innerHTML = sentence_word;
 
-	var gridParameters = makeGridArray(sentence);
-	var GRID_LENGTH = gridParameters[1];
-	playGrid = gridParameters[0];
+	var gridParameters = ibGameMakeGridArray(sentence);
+	var GRID_LENGTH = gridParameters[2];
+	playGrid = gridParameters[1];
 	star_sentence = starSentence(sentence);      //sentence with stars instead of letters
 	document.getElementById('stars').innerHTML = star_sentence;
 	var sorted_words = getSortedWordList(sentence);
@@ -2003,7 +2015,6 @@ function getTouchPos(canvasDom, e) {
 }
 
 function levelChange(success){
-	console.log("success", success, "and streak is", ibGameStreak);
 	if(ibGameStreak>0 && !success){
 		ibGameStreak=0;	
 	}else if(ibGameStreak>=0 && success){
@@ -2033,7 +2044,6 @@ function levelChange(success){
 	}
 }
 function levelup(){
-	console.log("level up");
 	ibGameStreak = 0;
 	if(game_timer == "120"){
 		ibGameTime = 150;
@@ -2044,7 +2054,6 @@ function levelup(){
 }
 function leveldown(){
 	ibGameStreak = 0;
-	console.log("level down");
 	if(game_timer == "150"){
 		// ibGameTime = 120;		
 		if(ibGameWordsHidden > 0){
@@ -2106,7 +2115,6 @@ $(document).on("click", ".div-instruction-gif", function(ev){
 // 	$(".instruction-icon").css("margin-top", "-"+img_height/2+"px");
 // }
 inactivity_check = function(){
-	console.log("inactivity");
 	inactivity_check_interval = setInterval(function(){
 		inactivity_time+=50;
 		if((document.getElementById('stars') != "undefined") || (document.getElementById('stars') != null)){

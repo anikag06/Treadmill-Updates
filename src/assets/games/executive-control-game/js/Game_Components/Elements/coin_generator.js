@@ -50,7 +50,6 @@ function coins_placer() {
         choice_lock_counter=0;
         lock_on_choice=Math.floor(Math.random()*NEXT_COIN_GAP_RANGE)+MINIMUM_GAP_FOR_NEXT_COIN*coin.length;
 
-        console.log("coin");
        
     }
     
@@ -73,7 +72,6 @@ function coins_placer() {
                     tutorial_box.depth = 4;
                     tutorial_text.setText("Press                to\n\n collect coins");
                     control_button_1=curr_game.add.image(screen_width*0.49,screen_height*0.32,'spacebar_button').setScale(0.4);
-                    console.log("coin tutorial");
                     control_button_1.depth = 5;
                     game_paused=true;
                 }

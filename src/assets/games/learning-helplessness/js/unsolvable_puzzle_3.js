@@ -929,7 +929,7 @@ function drawArc(element) {
 		block_arrows = true;
 		$("#box-up-game-success-message").removeClass("d-none");
 		var ping = document.getElementById("ping");
-		// ping.play();
+		ping.play();
 		changeLevel();		
 	}
 
@@ -1032,7 +1032,8 @@ $(document).on('click', '#btn-box-up-game-give-up', function() {
 		$("#color-reverse-game").removeClass("d-none");
 		unsolvable_game_counter = 1;
 		resetBoxUpGame();
-		init();
+		console.log("call init 3", success); 
+		colorReverseInit();
 	}else{
 		box_up_first = false;
 	}

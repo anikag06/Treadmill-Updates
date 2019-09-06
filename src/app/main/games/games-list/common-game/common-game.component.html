@@ -1,4 +1,5 @@
-<div class="row justify-content-center align-items-center" id="game_div">
+<div class="row justify-content-center align-items-center" 
+  tabindex="0" id="game_div"  #gameDiv >
   <div class="common-div w-100"  >
     <!-- buttons shown when the game is paused -->
       <div 
@@ -53,7 +54,7 @@
           </div>
       </div>
  <!-- showing the game component  -->
-      <div class="row justify-content-center align-items-center h-100" ng-blur="onBlurDiv()">
+      <div class="row justify-content-center align-items-center h-100">
         <app-executive-control-game 
           class="w-100 h-100"
           *ngIf="isExecutiveControl"></app-executive-control-game>
@@ -66,12 +67,18 @@
           <app-attribute-style-game
           class="w-100 h-100" 
           *ngIf="isAttributeGame"></app-attribute-style-game>
+        <app-friendly-face-game
+          class="w-100 h-100"
+          *ngIf="isFriendlyFace"></app-friendly-face-game>
+        <app-mental-imagery
+          class="w-100 h-100"
+          *ngIf="isMentalImagery"></app-mental-imagery>
       </div>
 <!-- buttons on first page -->
       <div class="row justify-content-end align-items-center mx-4 firstpage-btns" 
             id="firstpage-btns" #firstpage_btns>
         <img 
-          id="common-start-btn" 
+          id="common-start-btn"
           class="common-play-game img-btn" 
           (click) = "onPlayClick()"
           *ngIf = "showSecondPlayBtn"

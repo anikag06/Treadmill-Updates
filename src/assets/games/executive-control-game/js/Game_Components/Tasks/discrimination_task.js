@@ -1,6 +1,5 @@
 function discrimination_task_generator()
 {
-	console.log("call discrimination task ");
 	//Add Discrimination Task
 	if(discrimination_task_image==null)
 	{
@@ -66,7 +65,6 @@ function discrimination_task_generator()
 function discrimination_task_complete()
 {
 	//Discrimination task flags
-	console.log("disc task completed");
 	discrimination_task_ended=true;
 	discrimination_task_started=false;
 	
@@ -82,37 +80,11 @@ function discrimination_task_complete()
 	discrimination_task_image.destroy();
 	discrimination_task_image=null;
 	flankerTaskECGame = true;
-	storeTaskDataEvent = new CustomEvent("CallAngularStoreDataFun");
+	
+	storeTaskDataEvent = document.createEvent('CustomEvent');
+	storeTaskDataEvent.initCustomEvent('CallAngularStoreDataFun');
 
 	window.dispatchEvent(storeTaskDataEvent);
-
-	//AJAX QUERY TO UPDATE THE DB
-	// $.ajax({
-	// 	url:'updateTasksData',
-	// 	type:'GET',
-	// 	data:{
-	// 		'game':game_object,
-	// 		'flanker_task_start_time':flanker_task_timestamp,
-	// 		'flanker_task_response_type':flanker_task_response_type,
-	// 		'flanker_task_response_time':flanker_task_response_time,
-	// 		'flanker_task_congruency': flanker_task_congruency,
-	// 		'task_image_type':task_image_type,
-	// 		'discrimination_task_start_time':discrimination_task_timestamp,
-	// 		'discrimination_task_response_type':discrimination_task_response_type,
-	// 		'discrimination_task_response_time':discrimination_task_response_time,
-	// 	},
-	// 	beforeSend: function(xhr){
-	// 		console.log("reaching the beforesend");
-	// 		xhr.setRequestHeader('X-CSRFToken', $.cookie('csrftoken'));
-	// 	},
-	// 	success: function(data){
-	// 		//success
-	// 	},
-	// 	error: function(xhr,errmsg,err){
-	// 		//failure, alert the user
-	// 	}
-	// });
-	
 	
 	//Next set
 	if(current_number_of_tasks>=1)
@@ -140,7 +112,6 @@ function discrimination_task_complete()
 		if(game_paused==true)
 	    {
 	        
-	        console.log("paused");
 	        return;
 	    }
 	}
@@ -165,7 +136,6 @@ function resume_countdown()
 {	
 	if(game_paused==true)
     {
-        console.log("paused");
         return;
     }
 	

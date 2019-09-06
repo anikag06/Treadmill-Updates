@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, Output } from '@angular/core';
 import { GamePlayService } from '@/main/games/shared/game-play.service';
 
 @Component({

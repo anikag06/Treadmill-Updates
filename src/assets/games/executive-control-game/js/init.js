@@ -64,7 +64,10 @@ function init_game_variables(){
 
 
 	//Speed Related variables
-	LEVEL_SPEED=6;
+	MAX_LEVEL_SPEED = 10;
+	MIN_LEVEL_SPEED = 6;
+	LEVEL_SPEED=MIN_LEVEL_SPEED;
+	
 	LEVEL_SPEED_INCREMENT_GAP=50;
 	SPEED_INCREMENT=0.5;
 
@@ -247,11 +250,9 @@ function init_game_variables(){
 	//Gameover dialog_box;
 	game_over_dialog;
 	game_over_text;
-	restart_game_button;
-	end_game_button;
-
-
-
+	buy_one_live;
+	buy_two_lives;
+	buy_three_lives;
 
 
 	//Task buttons
@@ -456,6 +457,10 @@ function init_game_variables(){
 	retry_coin_text;
 	retry_coin_animation;
 	retry_cost=10;
+
+	buy_one_live_text;
+	buy_two_lives_text;
+	buy_three_lives_text;
 
 	//double_jump
 	DOUBLE_COIN_POWER=false;

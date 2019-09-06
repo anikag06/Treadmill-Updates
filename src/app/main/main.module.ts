@@ -1,5 +1,5 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import { ChartsModule } from 'ng2-charts';
 
 import { ModulesComponent } from '@/main/modules/modules.component';
@@ -56,9 +56,7 @@ import { GadSevenComponent } from './score/gad-seven/gad-seven.component';
 import { InterpretationBiasGameComponent } from './games/games-list/common-game/interpretation-bias-game/interpretation-bias-game.component';
 
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
-import {ProblemSolvingWorksheetsService} from '@/main/custom-forms/forms/problem-solving-worksheets/problem-solving-worksheets.service';
 import {FormsService} from '@/main/forms.service';
-import {TasksService} from '@/main/custom-forms/forms/shared/tasks/tasks.service';
 import { ExecutiveControlGameComponent } from './games/games-list/common-game/executive-control-game/executive-control-game.component';
 import { CommonGameComponent } from './games/games-list/common-game/common-game.component';
 import { GamesAuthService } from './games/shared/games-auth.service';
@@ -69,6 +67,9 @@ import { NetworkStatusAngularModule } from 'network-status-angular';
 import { ChatbotComponent } from './chatbot/chatbot.component';
 import { ChatWindowComponent } from './chatbot/chat-window/chat-window.component';
 import {ChatbotService} from '@/main/chatbot/chatbot.service';
+import {SlideService} from './resources/slides/slide.service';
+import {ProblemSolvingWorksheetsService} from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.service';
+
 import { DataService } from './dashboard/questionnaire/data.service';
 import { QuestionnaireComponent } from './dashboard/questionnaire/questionnaire.component';
 import { ConversationsComponent } from './conversation-group/conversations/conversations.component';
@@ -81,6 +82,13 @@ import { AttributeStyleGameComponent } from './games/games-list/common-game/attr
 import { ConversationGroupComponent } from './conversation-group/conversation-group.component';
 import { PassDataService } from './conversation-group/passdata.service';
 
+import { FriendlyFaceGameComponent } from '@/main/games/games-list/common-game/friendly-face-game/friendly-face-game.component';
+import { MentalImageryComponent } from '@/main/games/games-list/common-game/mental-imagery/mental-imagery.component';
+import { MiInstructionsComponent } from '@/main/games/games-list/common-game/mental-imagery/mi-instructions/mi-instructions.component';
+import { MiPlayComponent } from '@/main/games/games-list/common-game/mental-imagery/mi-play/mi-play.component';
+import {MIGameAutofocusDirective} from '@/main/games/games-list/common-game/mental-imagery/mi-autofocus.directive';
+import {MICurrentStateService} from '@/main/games/games-list/common-game/mental-imagery/mi-current-state.service';
+import { TasksService } from './resources/forms/shared/tasks/tasks.service';
 @NgModule({
   declarations: [
     ModulesComponent,
@@ -127,7 +135,12 @@ import { PassDataService } from './conversation-group/passdata.service';
     ConversationsComponent,
     AttributeStyleGameComponent,
     ConversationGroupComponent,
-   ],
+    FriendlyFaceGameComponent,
+    MentalImageryComponent,
+    MiInstructionsComponent,
+    MiPlayComponent,
+    MIGameAutofocusDirective
+  ],
   imports: [
     CommonModule,
     ChartsModule,
@@ -169,12 +182,15 @@ import { PassDataService } from './conversation-group/passdata.service';
     GamePlayService,
     GamesAuthService,
     ChatbotService,
+    SlideService,
     DataService,
     PlotScoreGraphService,
     FcmService,
-    PassDataService
+    PassDataService,
+    MICurrentStateService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [CreatePostComponent]
 })
-export class MainModule { }
+export class MainModule {
+}

@@ -8,8 +8,6 @@ function game_restore()
     if(performance_reward==null&&number_of_correct_response>0)
     {
     	
-    	console.log(allowLifeReward);
-    	
     	//life reward only if the entire set's response was correct
     	if(number_of_lives!=MAX_NUMBER_OF_LIVES&&allowLifeReward==true)
     	{
@@ -26,7 +24,6 @@ function game_restore()
         	performance_reward.body.allowGravity=false;
         	curr_game.physics.add.collider(player,performance_reward,collect_double_jump_power,null,curr_game);
     	}
-    	console.log('reward');
 
     }
 
@@ -113,7 +110,6 @@ function game_restore()
     {
     	jump_button.y-=GAME_ELEMENTS_SPEED;
     	resume=false;
-    	console.log(JUMP_BUTTON_Y);
     	
     }
     if(double_jump_button.y>DOUBLE_JUMP_BUTTON_Y)
@@ -129,7 +125,6 @@ function game_restore()
     		double_jump_coin.y-=GAME_ELEMENTS_SPEED;
 	    }
 	    resume=false;
-	    //console.log("o;121232KEMK");
 
     }
 
@@ -165,7 +160,6 @@ function game_restore()
 	 	resume=false;
 	}
     
-    //console.log(resume);
     
     //Move the scene till it is covered with brick
 	if(brick1.x>=screen_width/2+BRICK_SPEED/2&&resume==true)
@@ -199,7 +193,6 @@ function game_restore()
 		{
 		  	//jump_platform[jump_platform.length-1].disableBody(true,true);
 		  	jump_platform.pop();
-		  	//console.log(jump_platform.length);
 
 
 		}
@@ -221,7 +214,6 @@ function game_restore()
 
 	 	left_button=null;
 	 	
-	 	console.log(number_of_correct_response);
 
 	 	free_to_choose_high=true;
 	 	free_to_choose=true;
@@ -246,7 +238,6 @@ function game_restore()
 	 	generate_tasks_variable=setTimeout(generate_tasks,TASK_INTERVAL);
 
 	 	
-	 	//console.log("Restored");
 	}
 }
 

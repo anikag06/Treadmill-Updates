@@ -45,14 +45,19 @@ export const mainRoutes: Routes = [
                     { path: ':name', component: CommonGameComponent}
                 ]
             },
-            { path: 'scores', component: ScoreComponent, children: [
-                { path: 'phq', component: PhqNineComponent},
-                { path: 'gad', component: GadSevenComponent}
-            ]
-        },
-            { path: '', redirectTo: '/dashboard', pathMatch: 'full'},
+            {
+                path: 'scores', component: ScoreComponent, children: [
+                    { path: 'phq', component: PhqNineComponent },
+                    { path: 'gad', component: GadSevenComponent }
+                ]
+            },
+            { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
             { path: 'logout', component: LogoutComponent },
-            { path: 'forms', loadChildren: './custom-forms/custom-forms.module#CustomFormsModule', canActivateChild: [AuthGuard] },
+            {
+                path: 'resources',
+                loadChildren: () => import('./resources/resources.module').then(mod => mod.ResourcesModule),
+                canActivateChild: [AuthGuard]
+            },
         ]
     }
 ];
@@ -61,4 +66,5 @@ export const mainRoutes: Routes = [
     imports: [RouterModule.forChild(mainRoutes)],
     exports: [RouterModule]
 })
-export class MainRoutingModule { }
+export class MainRoutingModule {
+}
