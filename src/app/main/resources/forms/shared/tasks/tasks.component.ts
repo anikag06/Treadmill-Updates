@@ -23,8 +23,9 @@ export class TasksComponent implements OnInit, OnChanges {
   @Input() reset!: boolean;
   @Input() task!: UserTask;
 
-  date!: any;
+  start_date!: any;
   time!: any;
+  end_date!: any;
   hideNextStep = false;
   week = WEEK;
   days: String[] = [];
@@ -93,12 +94,15 @@ export class TasksComponent implements OnInit, OnChanges {
       origin_id: this.getOriginId(),
       origin_name: this.getOriginName(),
       name: this.tasksGroup.value['task'],
-      date: new Date(this.date),
+      // date: new Date(this.start_date),
       time: new Date(this.time),
+      start_date: new Date(this.start_date),
+      end_date: new Date(this.end_date),
       is_completed: this.tasksGroup.value['taskCompleted'],
       sub_tasks: this.tasksGroup.controls.subTasks.value.filter((str: any) => str.name.trim().length > 0),
       days: this.days
     };
+    console.log(object, this.start_date, this.time, this.end_date);
     if (this.task && this.task.id > 0) {
       object.id = this.task.id;
       this.taskHandler(
@@ -137,24 +141,26 @@ export class TasksComponent implements OnInit, OnChanges {
   }
 
   updateTask() {
-    console.log(this.time)
+    console.log(this.time);
     if (this.task) {
       this.saveData();
     }
   }
 
   taskHandler(observable: Observable<Object>, action: string) {
-    if (action == 'create') {
+    if (action === 'create') {
       observable.subscribe((resp: any) => {
         this.task = new UserTask(+resp.data.id,
           resp.data.name,
           resp.data.is_completed,
-          resp.data.date_time,
+          resp.data.start_date,
+          resp.data.end_date,
           resp.data.sub_tasks,
           resp.data.task_days,
           resp.data.origin_name,
           resp.data.origin_object);
-          console.log(resp.data.date_time);
+          console.log(resp.data.date_time, resp.data.start_date,
+            resp.data.end_date );
           this.taskService.addTask(this.task);
         this.tasksGroup.controls.subTasks = this.fb.array([]);
         resp.data.sub_tasks.forEach((subtask: UserSubTask) => {
@@ -243,8 +249,10 @@ export class TasksComponent implements OnInit, OnChanges {
   }
 
   initializeTask() {
-    this.date = new Date(this.task.date_time);
-    this.time = new Date(this.task.date_time);
+    this.start_date = new Date(this.task.start_date);
+    this.time = new Date(this.task.start_date);
+    this.end_date = new Date(this.end_date);
+    console.log(this.start_date, this.time);
     this.tasksGroup.controls['task'].setValue(this.task.name);
     this.tasksGroup.controls['taskCompleted'].setValue(this.task.is_completed);
     this.tasksGroup.controls.subTasks = this.fb.array([]);
@@ -267,7 +275,7 @@ export class TasksComponent implements OnInit, OnChanges {
   }
 
   allDaysChecked() {
-    return this.date.length === 7;
+    return this.start_date.length === 7;
   }
 
   getOriginId() {
@@ -287,8 +295,9 @@ export class TasksComponent implements OnInit, OnChanges {
   }
 
   resetTask() {
-    delete this.date;
+    delete this.start_date;
     delete this.time;
+    delete this.end_date;
     this.days = [];
     this.repeat = false;
     delete this.origin_name;
@@ -303,10 +312,16 @@ export class TasksComponent implements OnInit, OnChanges {
   dateTimeParser() {
     const time = new Date(this.time);
     let dateTime: moment.Moment;
-    dateTime = moment(this.date);
+    dateTime = moment(this.start_date);
     dateTime.set({'hours': time.getHours(), 'minutes': time.getMinutes()});
-    this.date = dateTime.toDate();
+    this.start_date = dateTime.toDate();
     this.time = dateTime.toDate();
+    this.updateTask();
+  }
+  endDateParser() {
+    let endDate: moment.Moment;
+    endDate = moment(this.end_date);
+    this.end_date = endDate.toDate();
     this.updateTask();
   }
 }

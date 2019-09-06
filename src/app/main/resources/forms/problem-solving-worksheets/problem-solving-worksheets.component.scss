@@ -1,3 +1,8 @@
+
+.material-icons{
+  color: white;
+  max-width: 100%;
+}
 .card {
   margin: 0 auto;
   ::ng-deep .card-header {
@@ -35,6 +40,17 @@
 
 .card.card-full-width {
   width: 100%;
+}
+#main-heading {
+  background-color: #f3b54f;
+}
+.main-heading-h3{
+  margin: 2%;
+  color: white;
+}
+#saved-forms-btn{
+  float: right ;
+  margin: 2%;
 }
 
 @media screen and (max-width: 992px) {

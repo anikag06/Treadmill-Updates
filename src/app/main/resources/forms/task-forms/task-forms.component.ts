@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {UserTask} from '@/main/resources/forms/shared/tasks/user-task.model';
 import {TASK} from '@/app.constants';
-
 @Component({
   selector: 'app-task-forms',
   templateUrl: './task-forms.component.html',

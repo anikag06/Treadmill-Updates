@@ -1,3 +1,9 @@
 .app-navbar {
     height: 100px;
 }
+
+@media screen and (max-width: 992px) {
+    .app-navbar {
+        height: 0px;
+    }
+}

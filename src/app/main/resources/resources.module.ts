@@ -28,8 +28,8 @@ import { ProconItemComponent } from '@/main/resources/forms/problem-solving-work
 import { ProsConsContainerComponent } from '@/main/resources/forms/problem-solving-worksheets/pros-cons-container/pros-cons-container.component';
 import { TaskFormsComponent } from './forms/task-forms/task-forms.component';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
-import { SlidesComponent } from './slides/slides.component';
-import { FormDirective } from './slides/form.directive';
+import { SlidesComponent } from '@/main/resources/slides/slides.component';
+import { FormDirective } from '@/main/resources/slides/form.directive';
 
 @NgModule({
   declarations: [

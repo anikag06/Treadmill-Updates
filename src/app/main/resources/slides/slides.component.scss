@@ -1,0 +1,108 @@
+.text-property{
+    color:#f3b54f;
+    font-size: 14px;
+}
+#slide-container{
+    background-color: white;
+}
+.slideTitle{
+    font-size: 14px;
+    text-align: center;
+    color: white;
+    background-color: #343434;
+}
+#slide-page{
+    max-height: 900px;
+}
+.slide_iframe{
+    margin: 2%;
+    height: 70vh;
+    width: 85%;
+}
+#dislike-btn{
+    transform: rotate(180deg);
+}
+
+.row, .col{
+    margin: 0%;
+    padding: 0%;
+}
+.rotate{
+    // vertical-align:top;
+    transform:rotate(90deg);
+    -ms-transform:rotate(90deg); /* IE 9 */
+    -moz-transform:rotate(90deg); /* Firefox */
+    -webkit-transform:rotate(90deg); /* Safari and Chrome */
+    -o-transform:rotate(90deg); /* Opera */
+}
+.rotate-rev{
+    // vertical-align:top;
+    transform:rotate(270deg);
+    -ms-transform:rotate(270deg); /* IE 9 */
+    -moz-transform:rotate(270deg); /* Firefox */
+    -webkit-transform:rotate(270deg); /* Safari and Chrome */
+    -o-transform:rotate(270deg); /* Opera */
+}
+.in-mobile{
+    display: none;
+}
+.in-desktop{
+    display: block;
+}
+#slide-btn{
+    float: left;
+    min-width: 0px;
+    font-size: 16px;
+    border-radius: 2px 2px 12px 12px;
+}
+#form-btn{
+    float: right;
+    min-width: 0px;
+    font-size: 16px;
+    border-radius: 12px 12px 2px 2px ;
+}
+.extra-form-div{
+    background-color: white; 
+    max-width:4%; 
+    min-height: 500px;
+    border-color: #BFBFBF;
+}
+.extra-slide-div{
+    background-color: white;
+    max-width:4%; 
+    min-height: 500px;
+    border-color: #BFBFBF;
+}
+.form-div{
+    float: right;
+    overflow: scroll;
+}
+@media screen and (max-width: 992px) {
+    .in-mobile{
+        display: block;
+    }
+    .in-desktop{
+        display: none;
+    }
+    .slide_iframe{
+        margin: 0%;
+        height: 83.5vh;
+        width: 100%;
+    }
+    .form-div{
+        float: right;
+    }
+    #slide-page{
+        max-height: 650px;
+        overflow: scroll;
+    }
+    scrolling-wrapper {
+        overflow-x: scroll;
+        overflow-y: hidden;
+        white-space: nowrap;
+      
+        .card {
+          display: inline-block;
+        }
+      }
+}

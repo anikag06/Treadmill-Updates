@@ -131,7 +131,7 @@ import { TasksService } from './resources/forms/shared/tasks/tasks.service';
     MentalImageryComponent,
     MiInstructionsComponent,
     MiPlayComponent,
-    MIGameAutofocusDirective
+    MIGameAutofocusDirective,
   ],
   imports: [
     CommonModule,
