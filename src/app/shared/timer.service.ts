@@ -5,12 +5,15 @@ import { User } from '@/shared/user.model';
 import { Router, NavigationStart } from '@angular/router';
 import { map, filter } from 'rxjs/operators';
 import {fromEvent, Observable, Observer, merge, BehaviorSubject} from 'rxjs';
-
+import { NetworkStatusAngularService } from 'network-status-angular';
 
 @Injectable()
 export class TimerService {
 
-    constructor (private authservice: AuthService) {
+    constructor (private authservice: AuthService, private networkStatusAngularService: NetworkStatusAngularService) {
+        this.networkStatusAngularService.status.subscribe((status: any) => {
+            console.log(status); // returns true if it is online or false if it is offline
+          });
     }
 
 
@@ -24,43 +27,36 @@ export class TimerService {
     online!: any;
 
 
-    tick(start: Date) {
-        if ( this.i === true) {
-        this.sum = this.sum + (start.getTime() - this.endTime.getTime());
-        this.endTime = start;
-        } else {
-            this.endTime = start;
+    tick() {
+        if (document.visibilityState === 'visible') {
+            this.startTime = new Date();
+            console.log(this.startTime);
             this.i = true;
+        } else {
+            this.endTime = new Date();
+            if (this.i === false) {
+                this.sum = this.endTime.getTime() - this.startTime.getTime();
+                console.log(this.sum);
+                }
+            console.log(this.endTime);
+            if (this.i === true) {
+                this.sum = this.sum + (this.endTime.getTime() - this.startTime.getTime());
+                console.log(this.sum);
+            }
         }
     }
 
-
-
     visibility() {
         this.startTime = new Date();
-        return document.addEventListener('visibilitychange', () => {
-            if (document.visibilityState === 'visible') {
-                if (this.i === false) { this.endTime = new Date();
-                this.sum = this.endTime.getTime() - this.startTime.getTime();
-                }
-                this.startTime = new Date();
-                this.tick(this.startTime);
-            }
-        });
+        console.log(this.startTime);
+        document.addEventListener('visibilitychange', () => this.tick());
     }
 
     removeVisibility() {
         this.endTime = new Date();
+        console.log(this.endTime);
         this.sum = this.sum + (this.endTime.getTime() - this.startTime.getTime());
-        document.removeEventListener('visibilitychange', () => {
-            if (document.visibilityState === 'visible') {
-                if (this.i === false) { this.endTime = new Date();
-                this.sum = this.endTime.getTime() - this.startTime.getTime();
-                }
-                this.startTime = new Date();
-                this.tick(this.startTime);
-            }
-        });
+        document.removeEventListener('visibilitychange', () => this.tick());
         console.log(this.sum);
         return this.sum;
     }

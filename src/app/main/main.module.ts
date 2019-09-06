@@ -52,6 +52,7 @@ import { AutofocusDirective } from './shared/autofocus.directive';
 import { ScoreComponent } from './score/score.component';
 import { PhqNineComponent } from './score/phq-nine/phq-nine.component';
 import { GadSevenComponent } from './score/gad-seven/gad-seven.component';
+// tslint:disable-next-line:max-line-length
 import { InterpretationBiasGameComponent } from './games/games-list/common-game/interpretation-bias-game/interpretation-bias-game.component';
 
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
@@ -62,19 +63,23 @@ import { ExecutiveControlGameComponent } from './games/games-list/common-game/ex
 import { CommonGameComponent } from './games/games-list/common-game/common-game.component';
 import { GamesAuthService } from './games/shared/games-auth.service';
 import { GamePlayService } from './games/shared/game-play.service';
+// tslint:disable-next-line:max-line-length
 import { LearnedHelplessnessGameComponent } from './games/games-list/common-game/learned-helplessness-game/learned-helplessness-game.component';
-
+import { NetworkStatusAngularModule } from 'network-status-angular';
 import { ChatbotComponent } from './chatbot/chatbot.component';
 import { ChatWindowComponent } from './chatbot/chat-window/chat-window.component';
 import {ChatbotService} from '@/main/chatbot/chatbot.service';
 import { DataService } from './dashboard/questionnaire/data.service';
 import { QuestionnaireComponent } from './dashboard/questionnaire/questionnaire.component';
-import { ConversationsComponent } from './conversations/conversations.component';
+import { ConversationsComponent } from './conversation-group/conversations/conversations.component';
 import { PlotScoreGraphService } from './score/plot-score-graph.service';
 import {AngularFireMessagingModule} from '@angular/fire/messaging';
 import {AngularFireModule} from '@angular/fire';
 import {FcmService} from '@/main/fcm.service';
 import {environment} from '../../environments/environment';
+import { AttributeStyleGameComponent } from './games/games-list/common-game/attribute-style-game/attribute-style-game.component';
+import { ConversationGroupComponent } from './conversation-group/conversation-group.component';
+import { PassDataService } from './conversation-group/passdata.service';
 
 @NgModule({
   declarations: [
@@ -120,6 +125,8 @@ import {environment} from '../../environments/environment';
     ChatWindowComponent,
     QuestionnaireComponent,
     ConversationsComponent,
+    AttributeStyleGameComponent,
+    ConversationGroupComponent,
    ],
   imports: [
     CommonModule,
@@ -145,6 +152,7 @@ import {environment} from '../../environments/environment';
     MatSlideToggleModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireMessagingModule,
+    NetworkStatusAngularModule.forRoot()
   ],
   providers: [
     LocalStorageService,
@@ -164,6 +172,7 @@ import {environment} from '../../environments/environment';
     DataService,
     PlotScoreGraphService,
     FcmService,
+    PassDataService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [CreatePostComponent]

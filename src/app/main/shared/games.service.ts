@@ -13,7 +13,6 @@ export class GamesService {
     new Game('Interpretation Bias Game',
               'https://via.placeholder.com/360x200?text=Mario',
              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.'),
-
     new Game('Executive Control Game',
              'https://via.placeholder.com/360x200?text=Mario',
              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.'),
@@ -21,9 +20,12 @@ export class GamesService {
              'https://via.placeholder.com/360x200?text=Mario',
              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.'),
     new Game('Sample Game',
-            'https://via.placeholder.com/360x200?text=Mario',
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.')
-    ];
+             'https://via.placeholder.com/360x200?text=Mario',
+             'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.'),
+    new Game('Attribute Style Game',
+             'https://via.placeholder.com/360x200?text=Mario',
+             'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.'),
+          ];
 
   constructor(
     private localStorageService: LocalStorageService

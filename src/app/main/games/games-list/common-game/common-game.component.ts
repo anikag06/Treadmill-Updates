@@ -6,7 +6,6 @@ import { Game } from '@/main/shared/game.model';
 import { map, switchMap, filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { Location } from '@angular/common';
-import { GamesAuthService } from '../../shared/games-auth.service';
 
 declare let $: any;
 
@@ -29,6 +28,8 @@ export class CommonGameComponent implements OnInit {
   showHintBtn = false;
   isSoundOn = true;
   showSideButtons = false;
+
+  isAttributeGame = false;
 
   currLocation: any;
 
@@ -62,6 +63,9 @@ export class CommonGameComponent implements OnInit {
             this.isLearnedHelplessness = true;
           } else if (this.gameName === 'Sample Game') {
             this.isSampleGame = true;
+          } else if (this.gameName === 'Attribute Style Game') {
+            this.isAttributeGame = true;
+            // console.log('Attribute Style Game');
           }
         },
         (error) => {
@@ -81,6 +85,9 @@ export class CommonGameComponent implements OnInit {
       this.gamePlayService.playExecControlGame(this.isSoundOn);
     } else if (this.gameName === 'Learned Helplessness Game') {
       this.gamePlayService.playLearnedHelplessnessGame();
+    } else if (this.gameName === 'Attribute Style Game') {
+      this.gamePlayService.playAttributionStyleGame();
+      // console.log('play button');
     }
   }
 
@@ -120,6 +127,11 @@ export class CommonGameComponent implements OnInit {
     if (this.gameName === 'Executive Control Game') {
       this.gamePlayService.pauseExecControlGame();
     }
+    if (this.gameName === 'Attribute Style Game') {
+      this.gamePlayService.pauseAttributionStyleGame();
+      // console.log('play button');
+    }
+
   }
 
   onResumeClick() {
@@ -130,6 +142,10 @@ export class CommonGameComponent implements OnInit {
     }
     if (this.gameName === 'Interpretation Bias Game') {
       this.gamePlayService.resumeIBGame();
+    }
+    if (this.gameName === 'Attribute Style Game') {
+      this.gamePlayService.resumeAttributionStyleGame();
+      // console.log('play button');
     }
   }
 
@@ -142,6 +158,10 @@ export class CommonGameComponent implements OnInit {
     }
     if (this.gameName === 'Interpretation Bias Game') {
       this.gamePlayService.playIBGame();                      // same function for start and restart the game
+    }
+    if (this.gameName === 'Attribute Style Game') {
+      this.gamePlayService.restartAttributionStyleGame();
+      // console.log('play button');
     }
   }
 
