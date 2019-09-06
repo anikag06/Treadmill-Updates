@@ -84,6 +84,11 @@ import { MiPlayComponent } from '@/main/games/games-list/common-game/mental-imag
 import {MIGameAutofocusDirective} from '@/main/games/games-list/common-game/mental-imagery/mi-autofocus.directive';
 import {MICurrentStateService} from '@/main/games/games-list/common-game/mental-imagery/mi-current-state.service';
 import { TasksService } from './resources/forms/shared/tasks/tasks.service';
+import { FlowComponent } from './flow/flow.component';
+import { StepGroupComponent } from './flow/step-group/step-group.component';
+import { FlowService } from './flow/flow.service';
+import { StepComponent } from './flow/step-group/step/step.component';
+import { StepsIndicatorComponent } from './flow/step-group/steps-indicator/steps-indicator.component';
 @NgModule({
   declarations: [
     ModulesComponent,
@@ -131,7 +136,11 @@ import { TasksService } from './resources/forms/shared/tasks/tasks.service';
     MentalImageryComponent,
     MiInstructionsComponent,
     MiPlayComponent,
-    MIGameAutofocusDirective
+    MIGameAutofocusDirective,
+    FlowComponent,
+    StepGroupComponent,
+    StepComponent,
+    StepsIndicatorComponent
   ],
   imports: [
     CommonModule,
@@ -176,7 +185,8 @@ import { TasksService } from './resources/forms/shared/tasks/tasks.service';
     DataService,
     PlotScoreGraphService,
     FcmService,
-    MICurrentStateService
+    MICurrentStateService,
+    FlowService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [CreatePostComponent]

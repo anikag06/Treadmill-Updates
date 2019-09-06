@@ -1,0 +1,4 @@
+<div class="step-status-indicator" *ngFor="let step of stepGroup.steps">
+  <img [src]="getStatusImage(step)" height="30" width="30" [alt]="step.status"/>
+</div>
+

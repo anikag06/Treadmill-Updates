@@ -142,7 +142,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
   }
 
   startChatSession(type: string) {
-    this.webSocket = new WebSocket('ws://' + environment.HOST + '/ws/chat/?token=' + this.authService.getToken());
+    this.webSocket = new WebSocket(environment.CHAT_HOST + '/ws/chat/?token=' + this.authService.getToken());
     this.webSocket.onopen =  (event) => {
       this.webSocket.send(JSON.stringify({ 'action': type, 'module_name': 'mood_tracker'}));
     };
