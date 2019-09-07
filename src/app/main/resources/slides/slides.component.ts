@@ -59,6 +59,7 @@ export class SlidesComponent implements OnInit {
   isFormVisible = true;
   isSlidesVisible = true;
   isDislikeBox = false;
+  isLikeBox = false;
 
   ngOnInit() {
     this.activateRoute.params
@@ -100,8 +101,12 @@ export class SlidesComponent implements OnInit {
 
   onDislikeBtnClick() {
     this.isDislikeBox = !this.isDislikeBox;
+    this.isLikeBox = false;
   }
-
+  onLikeBtnClick() {
+    this.isLikeBox = !this.isLikeBox;
+    this.isDislikeBox = false;
+  }
   onShowForm() {
     this.visible = !this.visible;
     console.log('form', this.visible);

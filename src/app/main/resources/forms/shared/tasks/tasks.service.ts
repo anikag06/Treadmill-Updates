@@ -54,7 +54,6 @@ export class TasksService {
   }
 
   updateTask(task: UserTask) {
-    console.log(task);
     const userTask = this.tasks.find((t: UserTask) => t.id === task.id);
     if (userTask) {
       this.tasks[this.tasks.indexOf(userTask)] = task;

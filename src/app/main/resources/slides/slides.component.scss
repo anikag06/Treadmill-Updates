@@ -1,3 +1,7 @@
+.clicked{
+    fill:#f3b54f;
+}
+
 .text-property{
     color:#f3b54f;
     font-size: 14px;
@@ -19,22 +23,17 @@
     height: 70vh;
     width: 85%;
 }
+.buttons-div{
+    width: 85%;
+}
 #dislike-btn{
     transform: rotate(180deg);
 }
-
 .row, .col{
     margin: 0%;
     padding: 0%;
 }
-.rotate{
-    // vertical-align:top;
-    transform:rotate(90deg);
-    -ms-transform:rotate(90deg); /* IE 9 */
-    -moz-transform:rotate(90deg); /* Firefox */
-    -webkit-transform:rotate(90deg); /* Safari and Chrome */
-    -o-transform:rotate(90deg); /* Opera */
-}
+
 .rotate-rev{
     // vertical-align:top;
     transform:rotate(270deg);
@@ -64,18 +63,20 @@
 .extra-form-div{
     background-color: white; 
     max-width:4%; 
-    min-height: 500px;
+    min-height: 80vh;
     border-color: #BFBFBF;
+    float: right;
 }
 .extra-slide-div{
     background-color: white;
     max-width:4%; 
-    min-height: 500px;
+    min-height: 80vh;
     border-color: #BFBFBF;
+    float: left;
 }
 .form-div{
     float: right;
-    overflow: scroll;
+    max-height: 90vh;
 }
 @media screen and (max-width: 992px) {
     .in-mobile{
@@ -89,20 +90,15 @@
         height: 83.5vh;
         width: 100%;
     }
+    .buttons-div{
+        width: 100%;
+    }
     .form-div{
-        float: right;
+        overflow: scroll;
     }
     #slide-page{
         max-height: 650px;
         overflow: scroll;
     }
-    scrolling-wrapper {
-        overflow-x: scroll;
-        overflow-y: hidden;
-        white-space: nowrap;
-      
-        .card {
-          display: inline-block;
-        }
-      }
+    
 }

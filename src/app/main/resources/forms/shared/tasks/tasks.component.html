@@ -35,19 +35,19 @@
         <form class="form">
           <div class="row mb-3">
             <div class="col-12 col-md-12">
-              <mat-form-field>
+              <mat-form-field class="w-100">
                 <input matInput placeholder="Select Start Date"
                        [owlDateTimeTrigger]="datePicker"
                        [owlDateTime]="datePicker"
                        [(ngModel)]="start_date"
-                        name="date"
-                        (focusout)="dateTimeParser()">
+                       name="date"
+                      (focusout)="dateTimeParser()">
               </mat-form-field>
               <owl-date-time [pickerType]="'calendar'"  #datePicker="owlDateTime"></owl-date-time>
             </div>
 
             <div class="col-12 col-md-12">
-                <mat-form-field>
+                <mat-form-field class="w-100">
                   <input matInput placeholder="Select Time"
                          [owlDateTimeTrigger]="timePicker"
                          [owlDateTime]="timePicker"
@@ -85,8 +85,8 @@
               </mat-checkbox>
             </div>
 
-            <div class="col-12 col-md-12">
-              <mat-form-field>
+            <div class="col-12 col-md-12" *ngIf="repeat">
+              <mat-form-field class="w-100">
                 <input matInput placeholder="Select End Date"
                        [owlDateTimeTrigger]="endDatePicker"
                        [owlDateTime]="endDatePicker"

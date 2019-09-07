@@ -208,6 +208,7 @@ export class GamePlayService  {
 
   storeFlankerDiscriTaskData() {
     this.ecGameTaskData = getECGameTaskData();
+    console.log(this.ecGameTaskData);
 
     this.ecGameFlankerData.game_id = this.ecGameTaskData[0];
     this.ecGameFlankerData.starting_time = this.ecGameTaskData[1];
