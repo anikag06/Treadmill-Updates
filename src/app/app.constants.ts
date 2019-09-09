@@ -89,4 +89,4 @@ export const QUESTIONNAIRE = 'QUESTIONNAIRE';
 export const GAME = 'GAME';
 export const FORM = 'FORM';
 export const SUPPORT_GROUP = 'SUPPORT_GROUP';
-export SURVEY = 'SURVEY';
+export const SURVEY = 'SURVEY';

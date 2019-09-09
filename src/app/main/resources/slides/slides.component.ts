@@ -7,6 +7,7 @@ import { TaskFormsComponent } from '../forms/task-forms/task-forms.component';
 import { Slide } from './Slide.model';
 import { ActivatedRoute } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
+import { SLIDE } from '@/app.constants';
 
 @Component({
   selector: 'app-slides',
@@ -38,7 +39,8 @@ export class SlidesComponent implements OnInit {
       .subscribe(
         (data: any) => {
           const step = data.data;
-          if (['COMPLETED', 'WORKING', 'UNLOCKED'].includes(step.status) && step.step_data.type === 'Slide') {
+          console.log(step)
+          if (['COMPLETED', 'WORKING', 'UNLOCKED'].includes(step.status) && step.data_type === SLIDE) {
             this.slide = <Slide>step.step_data.data;
             this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.slide.url);
             const formName = step.action[0];

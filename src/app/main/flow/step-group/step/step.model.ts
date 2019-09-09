@@ -12,4 +12,5 @@ export interface Step {
     hooks: string[];
     action: string[];
     virtual_step: boolean;
+    data_type: string;
 }

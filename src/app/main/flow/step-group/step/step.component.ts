@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Step } from './step.model';
 import { StepGroup } from '../step-group.model';
+import { SLIDE } from '@/app.constants';
 
 @Component({
   selector: 'app-step',
@@ -18,10 +19,10 @@ export class StepComponent implements OnInit {
   }
 
   nextLink() {
-    if (this.step.step_data.type === 'Slide') {
-      return `/resources/slides/${this.step.id}/`
+    if (this.step.data_type === SLIDE) {
+      return `/resources/slides/${this.step.id}/`;
     }
-    return "/"
+    return '/';
   }
 
 }
