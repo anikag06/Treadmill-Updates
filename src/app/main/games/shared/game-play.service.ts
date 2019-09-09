@@ -14,6 +14,13 @@ declare var ibGameResume: any;
 declare var ibUsehints: any;
 declare var ibGameHelp: any;
 
+
+// for attribution game
+declare var AttributeGame: any;
+declare var playAllObject: any;
+declare var pauseAllObject: any;
+declare var startGame: any;
+declare var  check: any;
 // for executive control game
 declare var startExecControlGame: any;
 declare var pause_resume_game: any;
@@ -90,6 +97,9 @@ export class GamePlayService  {
   lhGameUserLevel = new LHGameUserLevel(0);
   lhGamePerformanceData = new LHGamePerformance(0, 0, 0);
 
+  // lhGameNextLevels = (this.LHGAME_CR_NUMBER_OF_LEVELS * this.lhGamePageNumber) - 3 ;
+  // lhGamePreviousLevels = (this.LHGAME_CR_NUMBER_OF_LEVELS * (this.lhGamePageNumber - 1)) + 3;
+  game!: any;
   // for mental imagery games
 
   constructor(  private gamesService: GamesService,
@@ -117,6 +127,27 @@ export class GamePlayService  {
   }
   helpIBGame() {
     ibGameHelp();
+  }
+
+// for attribution game
+
+  playAttributionStyleGame() {
+    // tslint:disable-next-line:no-unused-expression
+    this.game = new AttributeGame();
+  }
+
+  restartAttributionStyleGame() {
+    this.game.scene.scenes[5].restart();
+  }
+
+  resumeAttributionStyleGame() {
+    this.game.scene.scenes[5].playAllObject();
+  }
+
+  pauseAttributionStyleGame() {
+    // tslint:disable-next-line:no-unused-expression
+    this.game.scene.scenes[5].pauseAllObject();
+    console.log(this.game.scene.scenes[5]);
   }
 
 // functions for executive control game
@@ -256,6 +287,7 @@ export class GamePlayService  {
     });
   }
 
+  // tslint:disable-next-line:no-shadowed-variable
   lhGameDataColorReverse(pageNumber: number, startGame: boolean) {
     this.gamesAuthService.lhGameGetColorReverseData(pageNumber, this.LHGAME_PAGE_SIZE)
       .subscribe( (game_data) => {

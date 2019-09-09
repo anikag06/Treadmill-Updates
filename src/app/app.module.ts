@@ -58,8 +58,8 @@ declare let $: any;
     MatContactUsDialogService,
     AuthService,
     LoggerService,
-    LocalStorageService,
-  ],
+    LocalStorageService
+    ],
   bootstrap: [AppComponent],
   entryComponents: [MatLoginDialogComponent, MatContactUsDialogComponent, ErrorDialogComponent, MatSignupDialogComponent],
 })

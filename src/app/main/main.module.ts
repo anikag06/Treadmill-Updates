@@ -1,7 +1,5 @@
 import {NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {AutofocusDirective} from './shared/autofocus.directive';
-import {OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
 import { ChartsModule } from 'ng2-charts';
 
 import { ModulesComponent } from '@/main/modules/modules.component';
@@ -40,6 +38,7 @@ import { SafeHtmlPipe } from './support-groups/safe-html.pipe';
 import { LayoutModule } from '@angular/cdk/layout';
 // tslint:disable-next-line:max-line-length
 import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatDatepickerModule, MatNativeDateModule, MatSlideToggleModule } from '@angular/material';
+import {MatProgressBarModule} from '@angular/material';
 import { ScrollingDirective } from './shared/scrolling.directive';
 import { ScrollingService } from './shared/scrolling.service';
 import { NavbarComponent } from './shared/navbar/navbar.component';
@@ -49,21 +48,22 @@ import { AuthModule } from '@/auth.module';
 import { CommentService } from './support-groups/post-list/post-item/comment/comment.service';
 import { NetstedCommentService } from './support-groups/post-list/post-item/nested-comment/netsted-comment.service';
 import { TagService } from './shared/tag.service';
-import { ScoreComponent } from '@/main/score/score.component';
-import { PhqNineComponent } from '@/main/score/phq-nine/phq-nine.component';
-import { GadSevenComponent } from '@/main/score/gad-seven/gad-seven.component';
-import {
-  InterpretationBiasGameComponent
-} from '@/main/games/games-list/common-game/interpretation-bias-game/interpretation-bias-game.component';
-import {FormsService} from '@/main/forms.service';
-import { ExecutiveControlGameComponent } from '@/main/games/games-list/common-game/executive-control-game/executive-control-game.component';
-import { CommonGameComponent } from '@/main/games/games-list/common-game/common-game.component';
-import { GamesAuthService } from '@/main/games/shared/games-auth.service';
-import { GamePlayService } from '@/main/games/shared/game-play.service';
-import {
-  LearnedHelplessnessGameComponent
-} from '@/main/games/games-list/common-game/learned-helplessness-game/learned-helplessness-game.component';
+import { AutofocusDirective } from './shared/autofocus.directive';
+import { ScoreComponent } from './score/score.component';
+import { PhqNineComponent } from './score/phq-nine/phq-nine.component';
+import { GadSevenComponent } from './score/gad-seven/gad-seven.component';
+// tslint:disable-next-line:max-line-length
+import { InterpretationBiasGameComponent } from './games/games-list/common-game/interpretation-bias-game/interpretation-bias-game.component';
 
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import {FormsService} from '@/main/forms.service';
+import { ExecutiveControlGameComponent } from './games/games-list/common-game/executive-control-game/executive-control-game.component';
+import { CommonGameComponent } from './games/games-list/common-game/common-game.component';
+import { GamesAuthService } from './games/shared/games-auth.service';
+import { GamePlayService } from './games/shared/game-play.service';
+// tslint:disable-next-line:max-line-length
+import { LearnedHelplessnessGameComponent } from './games/games-list/common-game/learned-helplessness-game/learned-helplessness-game.component';
+import { NetworkStatusAngularModule } from 'network-status-angular';
 import { ChatbotComponent } from './chatbot/chatbot.component';
 import { ChatWindowComponent } from './chatbot/chat-window/chat-window.component';
 import {ChatbotService} from '@/main/chatbot/chatbot.service';
@@ -72,11 +72,16 @@ import {ProblemSolvingWorksheetsService} from '@/main/resources/forms/problem-so
 
 import { DataService } from './dashboard/questionnaire/data.service';
 import { QuestionnaireComponent } from './dashboard/questionnaire/questionnaire.component';
+import { ConversationsComponent } from './conversation-group/conversations/conversations.component';
 import { PlotScoreGraphService } from './score/plot-score-graph.service';
 import {AngularFireMessagingModule} from '@angular/fire/messaging';
 import {AngularFireModule} from '@angular/fire';
 import {FcmService} from '@/main/fcm.service';
 import {environment} from '../../environments/environment';
+import { AttributeStyleGameComponent } from './games/games-list/common-game/attribute-style-game/attribute-style-game.component';
+import { ConversationGroupComponent } from './conversation-group/conversation-group.component';
+import { PassDataService } from './conversation-group/passdata.service';
+
 import { FriendlyFaceGameComponent } from '@/main/games/games-list/common-game/friendly-face-game/friendly-face-game.component';
 import { MentalImageryComponent } from '@/main/games/games-list/common-game/mental-imagery/mental-imagery.component';
 import { MiInstructionsComponent } from '@/main/games/games-list/common-game/mental-imagery/mi-instructions/mi-instructions.component';
@@ -132,6 +137,9 @@ import { StepsIndicatorComponent } from './flow/step-group/steps-indicator/steps
     ChatbotComponent,
     ChatWindowComponent,
     QuestionnaireComponent,
+    ConversationsComponent,
+    AttributeStyleGameComponent,
+    ConversationGroupComponent,
     FriendlyFaceGameComponent,
     MentalImageryComponent,
     MiInstructionsComponent,
@@ -155,6 +163,7 @@ import { StepsIndicatorComponent } from './flow/step-group/steps-indicator/steps
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
+    MatProgressBarModule,
     MatListModule,
     ReactiveFormsModule,
     MainRoutingModule,
@@ -165,6 +174,7 @@ import { StepsIndicatorComponent } from './flow/step-group/steps-indicator/steps
     MatSlideToggleModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireMessagingModule,
+    NetworkStatusAngularModule.forRoot()
   ],
   providers: [
     LocalStorageService,
@@ -187,6 +197,7 @@ import { StepsIndicatorComponent } from './flow/step-group/steps-indicator/steps
     FcmService,
     MICurrentStateService,
     FlowService,
+    PassDataService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [CreatePostComponent]
