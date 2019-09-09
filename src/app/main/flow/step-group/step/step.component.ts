@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Step } from './step.model';
 import { StepGroup } from '../step-group.model';
-import { SLIDE } from '@/app.constants';
+import { SLIDE, CONVERSATION_GROUP } from '@/app.constants';
 
 @Component({
   selector: 'app-step',
@@ -21,6 +21,8 @@ export class StepComponent implements OnInit {
   nextLink() {
     if (this.step.data_type === SLIDE) {
       return `/resources/slides/${this.step.id}/`;
+    } else if (this.step.data_type === CONVERSATION_GROUP) {
+      return `/conversations-group/${this.step.id}/`;
     }
     return '/';
   }
