@@ -13,7 +13,12 @@
                             <button  (click)="reset(i)">reset</button>
                             <button  (click)="current_history(i)"><a routerLink="/conversations">continue</a></button>
                             <button  (click)="speed_run(i)"><a routerLink="/conversations">show</a></button>
-                        </div>           
+                        </div>                
+        </div>
+        <div class="row">
+            <div class="col" *ngIf="notallowed">
+                <p>not allowed</p>
+            </div>
         </div>
     </div>
 </div>

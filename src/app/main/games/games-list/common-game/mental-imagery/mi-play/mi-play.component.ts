@@ -16,7 +16,9 @@ export class MiPlayComponent implements OnInit {
   // @ViewChild('submitBtn') submitBtn: ElementRef;
   // @Output() scoreUpdated = new EventEmitter<number>();
 
+  // tslint:disable-next-line:no-output-on-prefix
   @Output() onNvHelp = new EventEmitter<void>();
+  // tslint:disable-next-line:no-output-on-prefix
   @Output() onNvHome = new EventEmitter<void>();
 
   user!: MIUser;
@@ -51,6 +53,7 @@ export class MiPlayComponent implements OnInit {
     this.getCurrentState.getContent();
   }
 
+  // tslint:disable-next-line:use-life-cycle-interface
   ngAfterContentInit() {
     // this.getCurrentState.getCurrentLevel();
     this.currentLevel = this.getCurrentState.getCurrentLevel();
@@ -112,6 +115,7 @@ export class MiPlayComponent implements OnInit {
       MICurrentStateService.retry = false;
       if (this.findMatching(this.YES, this.blank)) {
         this.resetCurrent();
+        // tslint:disable-next-line:max-line-length
         MICurrentStateService.user.points.push(-Math.abs(MICurrentStateService.user.currentPoints() - 1000 * MICurrentStateService.user.level));
 
         this.getCurrentState.resetScenario();

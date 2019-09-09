@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import {Response} from './conversations/response/response.model';
+import { environment } from 'environments/environment';
 
 
 
@@ -14,8 +15,8 @@ export class ConversationsService {
 
   constructor(private http: HttpClient) { }
 
-  getConversationGroup() {
-    return this.http.get('http://172.26.90.49:9000/api/v1/flow/steps/3/');
+  getConversationGroup(id: number) {
+    return this.http.get(environment.API_ENDPOINT + '/api/v1/flow/steps/' + id + '/');
   }
 
   get(url: string) {
@@ -24,7 +25,7 @@ export class ConversationsService {
 
   post_response(response: Response) {
     this.http.post(
-        'http://172.26.90.49:9000/api/v1/conversation/response/',
+      environment.API_ENDPOINT + '/api/v1/conversation/response/',
       response
       ).subscribe(responseData => {
       });
@@ -35,7 +36,7 @@ export class ConversationsService {
           conversation_id : conversation
       };
     this.http.post(
-        'http://172.26.90.49:9000/api/v1/conversation/history/',
+      environment.API_ENDPOINT + '/api/v1/conversation/history/',
         object
       ).subscribe(responseData => {
       });
@@ -50,7 +51,7 @@ export class ConversationsService {
            speed_run,
          };
          this.http.put(
-          'http://172.26.90.49:9000/api/v1/conversation/history/' + history_id + '/',
+          environment.API_ENDPOINT + '/api/v1/conversation/history/' + history_id + '/',
           f
          ).subscribe(responseData => {
           console.log(responseData);
@@ -62,7 +63,7 @@ export class ConversationsService {
         };
         console.log(time_taken_to_complete_in_seconds);
         this.http.put(
-         'http://172.26.90.49:9000/api/v1/conversation/history/' + history_id + '/',
+          environment.API_ENDPOINT + '/api/v1/conversation/history/' + history_id + '/',
          f
         ).subscribe(responseData => {
           console.log(responseData);

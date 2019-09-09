@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ConversationsService } from './conversations.service';
 import { TimerService } from '@/shared/timer.service';
+import { Step } from './conversation-group-input/step.model';
 import { ConversationGroup } from './conversation-group-input/conversation-group.model';
-import { ConversationSelection } from './conversation-group-input/conversation-selection.model';
 import { PassDataService } from './passdata.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { map, switchMap } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-conversation-group',
@@ -14,16 +16,21 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 })
 export class ConversationGroupComponent implements OnInit {
 
-  conversationgroup!: ConversationGroup;
-  group!: ConversationSelection[];
+  step!: Step;
+  group!: ConversationGroup[];
   conversation_id!: number;
   isreset!: boolean;
   iscontinue!: boolean;
   isspeedrun!: boolean;
+  notallowed!: boolean;
 
 
   // tslint:disable-next-line:max-line-length
-  constructor(private conversationservice: ConversationsService, private timer: TimerService, private passdata: PassDataService, private router: Router) { }
+  constructor(private conversationservice: ConversationsService,
+     private timer: TimerService,
+     private passdata: PassDataService,
+     private router: Router,
+     private activeroute: ActivatedRoute) { }
 
 
 
@@ -32,18 +39,29 @@ export class ConversationGroupComponent implements OnInit {
   }
 
   loadConversationGroup() {
-    this.conversationservice.getConversationGroup().subscribe(
+    this.activeroute.params
+    .pipe(
+      map( v => v.id),
+      switchMap( id => this.conversationservice.getConversationGroup(id))
+    )
+    .subscribe(
       (res: any) => {
-        this.conversationgroup = new ConversationGroup(res);
-        this.group = this.conversationgroup.step_data.data.conversations;
-      }
+        const step = res.data;
+        console.log(step);
+        if (['COMPLETED', 'WORKING', 'UNLOCKED'].includes(step.status) && step.step_data.type === 'CONVERSATION_GROUP' ) {
+        this.step = step;
+        this.group = this.step.step_data.data.conversations;
+        } else {
+          this.notallowed = true;
+        }
+      },
+      (error) => console.log(error)
     );
   }
 
   reset(i: number) {
     this.conversation_id = this.group[i].id;
     this.passdata.setOption(this.conversation_id, true, false, false);
-    console.log(this.passdata.getid());
     this.router.navigate(['/conversations']);
 
   }
@@ -54,7 +72,9 @@ export class ConversationGroupComponent implements OnInit {
   }
 
   speed_run(i: number) {
+    this.conversation_id = this.group[i].id;
     this.passdata.setOption(this.conversation_id, false, false, true);
   }
+
 
 }

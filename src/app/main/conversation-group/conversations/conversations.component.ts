@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, OnChanges, DoCheck } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, DoCheck } from '@angular/core';
 import {ConversationsService} from '../conversations.service';
 import {Conversation} from './input/conversation.model';
 import {Dialog} from './input/dialogs.model';
@@ -9,6 +9,8 @@ import {CurrentHistory} from './history/history.model';
 import {Response} from './response/response.model';
 import { TimerService } from '@/shared/timer.service';
 import {PassDataService} from '../passdata.service';
+import { FormDirective } from '../../resources/slides/form.directive';
+
 
 
 
@@ -23,6 +25,9 @@ import {PassDataService} from '../passdata.service';
 // tslint:disable-next-line:component-class-suffix
 
 export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
+
+  @ViewChild(FormDirective, {static: false}) formHost!: FormDirective;
+
   constructor( private conversationsService: ConversationsService, private timerservice: TimerService, private passdata: PassDataService ) {
   }
   currenthistory!: CurrentHistory;

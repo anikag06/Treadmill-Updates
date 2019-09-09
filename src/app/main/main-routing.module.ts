@@ -29,7 +29,7 @@ export const mainRoutes: Routes = [
         path: '', component: MainComponent, canActivateChild: [AuthGuard], children: [
             { path: 'dashboard', component: DashboardComponent},
             { path: 'conversations', component: ConversationsComponent},
-            { path: 'conversations-group', component: ConversationGroupComponent},
+            { path: 'conversations-group/:id', component: ConversationGroupComponent},
             { path: 'questionnaire', component: QuestionnaireComponent},
             { path: 'support-groups', component: SupportGroupsComponent },
             {
