@@ -37,10 +37,11 @@ export class SlidesComponent implements OnInit {
       )
       .subscribe(
         (data: any) => {
-          if (['COMPLETED', 'WORKING', 'UNLOCKED'].includes(data.status) && data.step_data.type === 'Slide' ) {
-            this.slide = <Slide>data.step_data.data;
+          const step = data.data;
+          if (['COMPLETED', 'WORKING', 'UNLOCKED'].includes(step.status) && step.step_data.type === 'Slide') {
+            this.slide = <Slide>step.step_data.data;
             this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.slide.url);
-            const formName = data.action[0];
+            const formName = step.action[0];
             if (formName === 'problem-solving') {
               setTimeout(() => this.loadForm(ProblemSolvingWorksheetsComponent), 1000);
             } else if (formName === 'task') {
