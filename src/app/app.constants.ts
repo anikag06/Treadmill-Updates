@@ -95,3 +95,8 @@ export const LOCKED = 'LOCKED';
 export const UNLOCKED = 'UNLOCKED';
 export const WORKING = 'WORKING';
 export const COMPLETED = 'COMPLETED';
+
+// slides path
+export const SLIDES_FEEDBACK = '/api/v1/learn/feedback/';
+export const STORE_FEEDBACK = '/api/v1/learn/slides-feedback/';
+export const SLIDE_COMPLETE_DATA = '/api/v1/flow/step/';

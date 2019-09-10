@@ -6,6 +6,7 @@ import { ProblemSolvingWorksheetsComponent } from '@/main/resources/forms/proble
 import { TaskFormsComponent } from '../forms/task-forms/task-forms.component';
 import { Slide } from './Slide.model';
 import { SlidesFeedback, SlidesFeedbackText } from './slide.feedback.model';
+import { SlidesCompleteData } from './slide-complete.model';
 import { ActivatedRoute } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
 import { trigger, transition, style, animate, state } from '@angular/animations';
@@ -60,7 +61,7 @@ export class SlidesComponent implements OnInit {
   sanitizedUrl!: SafeUrl;
   status!: string;
   notAvailable = false;
-
+  
   visible = true;
   isFormVisible = false;
   isSlidesVisible = false;
@@ -78,11 +79,13 @@ export class SlidesComponent implements OnInit {
   feedbackData: SlidesFeedback = new SlidesFeedback(0, 0, 1);
   feedbackText: SlidesFeedbackText = new SlidesFeedbackText('');
 
+  completionData: SlidesCompleteData = new SlidesCompleteData(0, 0);
+
   ngOnInit() {
     this.activateRoute.params
       .pipe(
         map(v => v.id),
-        switchMap(id => this.slideService.getSlide(parseInt(id, 10)))
+        switchMap(id =>  this.slideService.getSlide(parseInt(id, 10)))
       )
       .subscribe(
         (data: any) => {
@@ -151,7 +154,7 @@ export class SlidesComponent implements OnInit {
     this.slideDisliked = !this.slideDisliked;
     this.slideLiked = false;
     this.isLikeBox = false;
-    // this.storeFeedBackData();
+    this.storeFeedBackData();
   }
   onLikeBtnClick() {
     this.scrollPageToBottom();
@@ -171,7 +174,7 @@ export class SlidesComponent implements OnInit {
     this.slideLiked = !this.slideLiked;
     this.slideDisliked = false;
     this.isDislikeBox = false;
-    // this.storeFeedBackData();
+    this.storeFeedBackData();
   }
 
   storeFeedBackData() {
@@ -189,6 +192,14 @@ export class SlidesComponent implements OnInit {
     this.scrollTop = this.slidePage.nativeElement.scrollHeight;
   }
 
+  onCompleted() {
+    this.completionData.time_spent = 100;
+
+    this.slideService.storeCompletionData(this.completionData.time_spent)
+      .subscribe( (data) => {
+        console.log(data);
+      });
+  }
   onShowForm() {
     this.visible = !this.visible;
     this.isFormVisible = true;
@@ -203,8 +214,8 @@ export class SlidesComponent implements OnInit {
 
   onSubmitComment(feedback_text: string) {
     this.feedbackText.feedback_text = feedback_text;
-    // this.slideService.updateFeedBackInfo(this.feedbackText, this.feedbackDataId)
-    //   .subscribe((data) => {});
+    this.slideService.updateFeedBackInfo(this.feedbackText, this.feedbackDataId)
+      .subscribe((data) => {});
     this.isDislikeBox = false;
     this.isLikeBox = false;
     this.likeDislikeRemoved = false;
