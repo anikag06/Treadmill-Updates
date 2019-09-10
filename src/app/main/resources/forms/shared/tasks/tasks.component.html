@@ -4,7 +4,7 @@
   </div>
   <div class="card-body">
     <div class="row">
-      <div class="col-12 col-lg-6">
+      <div class="col-12 col-lg-12">
         <form [formGroup]="tasksGroup">
           <div>
             <mat-checkbox class="full-width" formControlName="taskCompleted" (change)="taskCompletedChange($event)" [checked]="tasksGroup.controls.dtaskCompleted">
@@ -30,7 +30,7 @@
           </span>
         </div>
       </div>
-      <div class="col-12 col-lg-6">
+      <div class="col-12 col-lg-12">
         <strong>When do you want to do the task</strong>
         <form class="form">
           <div class="row mb-3">

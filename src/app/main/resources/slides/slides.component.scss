@@ -1,13 +1,33 @@
-#slide-page{
-    max-height: 90vh;
-    // overflow-y: scroll;
+*::-webkit-scrollbar {
+    width: 0.3em;
+  }
+  
+  *::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  }
+  
+  *::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    // outline: 1px solid slategrey;
+  }
+
+#slide-container{
+    background-color: white;
+    height: 83vh;
+    margin-bottom: 1vh;
+}
+.form-div{
+    float: right;
+    height: 83vh;
+    background-color: white;
+    margin-bottom: 1vh;
 }
 .slide_iframe{
     margin: 2%;
     height: 66vh;
     width: 100%;
 }
-.buttons-div{
+.slides-elements-div{
     width: 85%;
     // height: 4.44vh;
 }
@@ -15,10 +35,7 @@
     color:#f3b54f;
     font-size: 14px;
 }
-#slide-container{
-    background-color: white;
-    // overflow-y:visible;
-}
+
 .slideTitle{
     font-size: 16px;
     text-align: center;
@@ -77,12 +94,20 @@
     border-color: #BFBFBF;
     float: left;
 }
-.form-div{
-    float: right;
-    max-height: 90vh;
-}
 
+.like-btns-div{
+    height: 5.5vh;
+}
+.like-dislike-btns{
+    max-height: 90%;
+}
 @media screen and (max-width: 767px) {
+    #slide-container{
+        height: 92vh;
+    }
+    .form-div{
+        height: 92vh;
+    }
     .in-mobile{
         display: block;
     }
@@ -91,23 +116,22 @@
     }
     .slide_iframe{
         margin: 0%;
-        // margin-bottom: 1%;
+        margin-bottom: 1%;
         height: 83.5vh;
         width: 100%;
     }
-    .buttons-div{
+    .slides-elements-div{
         width: 100%;
     }
-    .form-div{
-        overflow: scroll;
-    }
-    #slide-page{
-        // max-height: 650px;
-        // overflow: scroll;
-    }
+    
 }
 
 @media screen and (max-width: 992px) {
-    
+    // #slide-container{
+    //     height: 87vh;
+    // }
+    // .form-div{
+    //     height: 87vh;
+    // }
     
 }

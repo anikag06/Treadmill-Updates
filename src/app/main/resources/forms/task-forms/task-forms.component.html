@@ -1,14 +1,16 @@
-<div class="container-fluid no-padding">
+<div class="container-fluid px-0">
   <div class="row no-gutters">
-    <div class="col-12 card-header" id="main-heading">
-      <h3 class="main-heading-h3 d-inline-block py-1">My Tasks</h3>
-    
-      <button type="button" id="saved-forms-btn"
-        mat-button [matMenuTriggerFor]="beforeMenu">
-        <i class="material-icons"  >
-          more_horiz
-        </i>
-      </button>
+    <div class="col-12 w-100 px-0 " id="main-heading">
+      <div class="h-100 ml-4 my-auto d-inline-block ">
+          <p class="py-1 my-auto"> My Tasks </p></div>
+      <div class="h-100 d-inline-block float-right">
+        <button class="h-100"
+          mat-button [matMenuTriggerFor]="beforeMenu">
+          <i class="material-icons"  >
+            more_horiz
+          </i>
+        </button>
+      </div>
       
       <mat-menu 
         #beforeMenu="matMenu" xPosition="before" yPosition="below" >

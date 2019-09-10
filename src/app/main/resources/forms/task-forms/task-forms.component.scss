@@ -42,16 +42,12 @@
   width: 100%;
 }
 #main-heading {
-  background-color: #f3b54f;
-}
-.main-heading-h3{
-  margin: 2%;
+  background-color: #343434;
+  font-size: 16px;
+  height: 5.3vh;
   color: white;
 }
-#saved-forms-btn{
-  float: right ;
-  margin: 2%;
-}
+
 @media screen and (max-width: 992px) {
   h3 {
     font-size: 1.6rem;
