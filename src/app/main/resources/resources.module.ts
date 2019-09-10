@@ -30,6 +30,7 @@ import { TaskFormsComponent } from './forms/task-forms/task-forms.component';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { SlidesComponent } from '@/main/resources/slides/slides.component';
 import { FormDirective } from '@/main/resources/slides/form.directive';
+import { SlideService } from './slides/slide.service';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,7 @@ import { FormDirective } from '@/main/resources/slides/form.directive';
     OwlNativeDateTimeModule,
     MatSlideToggleModule,
   ],
-  providers: [],
+  providers: [SlideService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [ProblemFormComponent, ProblemSolvingWorksheetsComponent]
 })

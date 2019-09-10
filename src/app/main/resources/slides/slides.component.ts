@@ -1,10 +1,11 @@
-import { Component, OnInit, ViewChild, ComponentFactoryResolver, HostListener, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ComponentFactoryResolver, HostListener, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { SlideService } from './slide.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { FormDirective } from './form.directive';
 import { ProblemSolvingWorksheetsComponent } from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.component';
 import { TaskFormsComponent } from '../forms/task-forms/task-forms.component';
 import { Slide } from './Slide.model';
+import { SlidesFeedback } from './slide.feedback.model';
 import { ActivatedRoute } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
 import { trigger, transition, style, animate, state } from '@angular/animations';
@@ -43,23 +44,36 @@ export class SlidesComponent implements OnInit {
   @ViewChild(FormDirective, {static: false}) formHost!: FormDirective;
   @ViewChild('form_div', {static: false}) formDiv!: ElementRef;
   @ViewChild('slideDiv', {static: false}) slideDiv!: ElementRef;
+  @ViewChild('slidePage', {static: false}) slidePage!: ElementRef;
+  scrollTop = 0;
 
   constructor(
     private slideService: SlideService,
     private sanitizer: DomSanitizer,
     private componentFactoryResolver: ComponentFactoryResolver,
     private activateRoute: ActivatedRoute,
+    private changRef: ChangeDetectorRef,
   ) { }
 
   slide!: Slide;
   sanitizedUrl!: SafeUrl;
   status!: string;
   notAvailable = false;
+
   visible = true;
-  isFormVisible = true;
-  isSlidesVisible = true;
+  isFormVisible = false;
+  isSlidesVisible = false;
+
   isDislikeBox = false;
   isLikeBox = false;
+  slideLiked = false;
+  slideDisliked = false;
+  likeDislikeRemoved = false;
+
+  initial_feedback!: number;
+  final_feedback!: number;
+
+  feedbackData: SlidesFeedback = new SlidesFeedback(0, 0, 1, '');
 
   ngOnInit() {
     this.activateRoute.params
@@ -69,10 +83,31 @@ export class SlidesComponent implements OnInit {
       )
       .subscribe(
         (data: any) => {
-            if (['COMPLETED', 'WORKING', 'UNLOCKED'].includes(data.data.status) && data.data.step_data.type === 'Slide' ) {
-            this.slide = <Slide>data.data.step_data.data;
+            console.log(data);
+            console.log(data.status, data.data_type);
+          if (['COMPLETED', 'WORKING', 'UNLOCKED'].includes(data.status) && data.data_type === 'SLIDE' ) {
+            this.slide = <Slide>data.step_data.data;
+            console.log(this.slide.id);
+
+            this.slideService.getFeedBackInfo(this.slide.id)
+              .subscribe( (feedback_data) => {
+                console.log(feedback_data);
+                if (feedback_data.exists) {
+                  this.initial_feedback = feedback_data.feedback;
+                  if (this.initial_feedback === 1) {
+                    this.slideLiked = true;
+                  } else if (this.initial_feedback === -1) {
+                    this.slideDisliked = true;
+                  }
+                }
+              },
+              (error) => {
+                console.log(error);
+              }
+            );
+
             this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.slide.url);
-            const formName = data.data.action[0];
+            const formName = data.action[0];
             if (formName === 'problem-solving') {
               setTimeout(() => this.loadForm(ProblemSolvingWorksheetsComponent), 1000);
             } else if (formName === 'task') {
@@ -90,7 +125,8 @@ export class SlidesComponent implements OnInit {
     const viewContainerRef = this.formHost.viewContainerRef;
     viewContainerRef.clear();
     viewContainerRef.createComponent(componentFactory);
-    if (window.matchMedia('(max-width: 992px)').matches) {
+    this.isSlidesVisible = true;
+    if (window.matchMedia('(max-width: 767px)').matches) {
       this.isFormVisible = false;
     } else {
       this.isFormVisible = true;
@@ -100,25 +136,78 @@ export class SlidesComponent implements OnInit {
   }
 
   onDislikeBtnClick() {
-    this.isDislikeBox = !this.isDislikeBox;
+    this.scrollPageToBottom();
+    if (this.slideDisliked === true || this.slideLiked) {
+      this.final_feedback = 0;      // changing from dislike to no like/dislike state
+      this.likeDislikeRemoved = true;
+      this.isDislikeBox = false;
+    } else {
+      this.final_feedback = -1;      // changing from no like/dislike state to dislike
+      this.likeDislikeRemoved = false;
+      this.isDislikeBox = true;
+    }
+    this.slideDisliked = !this.slideDisliked;
+    this.slideLiked = false;
     this.isLikeBox = false;
+    this.storeFeedBackData();
   }
   onLikeBtnClick() {
-    this.isLikeBox = !this.isLikeBox;
+    this.scrollPageToBottom();
+    if (this.slideDisliked === true || this.slideLiked) {
+      this.final_feedback = 0;      // changing from like to no like/dislike state
+      this.likeDislikeRemoved = true;
+      this.isLikeBox = false;
+    } else {
+      this.isLikeBox = true;
+      this.final_feedback = 1;      // changing from no like/dislike state to like
+      this.likeDislikeRemoved = false;
+    }
+    this.slideLiked = !this.slideLiked;
+    this.slideDisliked = false;
     this.isDislikeBox = false;
+    this.storeFeedBackData();
   }
+
+  storeFeedBackData() {
+    this.feedbackData.initial_feedback_state = this.initial_feedback;
+    this.feedbackData.final_feedback_state = this.final_feedback;
+    this.feedbackData.slide_id = this.slide.id;
+
+    console.log(this.feedbackData);
+
+    this.slideService.storeFeedBackInfo(this.feedbackData)
+      .subscribe( (data) => {
+        console.log('data saved', data);
+        this.initial_feedback = this.final_feedback;
+      } );
+  }
+  scrollPageToBottom() {
+    this.scrollTop = this.slidePage.nativeElement.scrollHeight;
+    console.log(this.scrollTop);
+    // window.scrollTo(0, this.scrollTop);
+    // window.scrollTo(0, 0);
+  }
+
   onShowForm() {
     this.visible = !this.visible;
-    console.log('form', this.visible);
     this.isFormVisible = true;
     this.isSlidesVisible = false;
   }
 
   onShowSlides() {
     this.visible = !this.visible;
-    console.log('slides', this.visible);
     this.isSlidesVisible = true;
     this.isFormVisible = false;
   }
 
+  onSubmitComment(feedback_text: string) {
+    console.log(feedback_text);
+    this.feedbackData.feedback_text = feedback_text;
+    console.log(this.feedbackData);
+    this.slideService.updateFeedBackInfo(this.feedbackData)
+      .subscribe();
+    this.isDislikeBox = false;
+    this.isLikeBox = false;
+    this.likeDislikeRemoved = false;
+  }
 }

@@ -81,3 +81,6 @@ export const REPLY_CURRENT = 'reply_current';
 
 export const MAX_RETRIES = 10;
 export const CHATBOT_RETRY_TIMEOUT = 5000;
+
+// slides paths
+export const SLIDES_FEEDBACK = '/api/v1/learn/feedback/';
