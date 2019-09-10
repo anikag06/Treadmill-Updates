@@ -63,7 +63,6 @@ import { GamesAuthService } from './games/shared/games-auth.service';
 import { GamePlayService } from './games/shared/game-play.service';
 // tslint:disable-next-line:max-line-length
 import { LearnedHelplessnessGameComponent } from './games/games-list/common-game/learned-helplessness-game/learned-helplessness-game.component';
-import { NetworkStatusAngularModule } from 'network-status-angular';
 import { ChatbotComponent } from './chatbot/chatbot.component';
 import { ChatWindowComponent } from './chatbot/chat-window/chat-window.component';
 import {ChatbotService} from '@/main/chatbot/chatbot.service';
@@ -174,7 +173,6 @@ import { StepsIndicatorComponent } from './flow/step-group/steps-indicator/steps
     MatSlideToggleModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireMessagingModule,
-    NetworkStatusAngularModule.forRoot()
   ],
   providers: [
     LocalStorageService,

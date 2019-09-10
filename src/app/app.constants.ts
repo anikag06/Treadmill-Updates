@@ -90,3 +90,8 @@ export const GAME = 'GAME';
 export const FORM = 'FORM';
 export const SUPPORT_GROUP = 'SUPPORT_GROUP';
 export const SURVEY = 'SURVEY';
+
+export const LOCKED = 'LOCKED';
+export const UNLOCKED = 'UNLOCKED';
+export const WORKING = 'WORKING';
+export const COMPLETED = 'COMPLETED';

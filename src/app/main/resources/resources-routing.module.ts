@@ -9,12 +9,12 @@ import { SlidesComponent } from './slides/slides.component';
 
 export const formRoutes: Routes = [
   { path: '', component: FormsComponent, children: [
-      { path: '', component: FormsListComponent },
-      { path: 'problem-solving', component: ProblemSolvingWorksheetsComponent },
-      { path: 'tasks', component: TaskFormsComponent },
-      { path: 'slides/:id', component: SlidesComponent },
+      { path: 'forms', component: FormsListComponent },
+      { path: 'forms/problem-solving', component: ProblemSolvingWorksheetsComponent },
+      { path: 'forms/tasks', component: TaskFormsComponent },
     ]
   },
+  { path: 'slides/:id', component: SlidesComponent },
 ];
 
 @NgModule({
