@@ -24,7 +24,9 @@ import {
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { FormsSidebarComponent } from './forms/shared/forms-sidebar/forms-sidebar.component';
 import { ResourcesRoutingModule } from '@/main/resources/resources-routing.module';
+// tslint:disable-next-line:max-line-length
 import { ProconItemComponent } from '@/main/resources/forms/problem-solving-worksheets/pros-cons-container/pros-cons/procon-item/procon-item.component';
+// tslint:disable-next-line:max-line-length
 import { ProsConsContainerComponent } from '@/main/resources/forms/problem-solving-worksheets/pros-cons-container/pros-cons-container.component';
 import { TaskFormsComponent } from './forms/task-forms/task-forms.component';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';

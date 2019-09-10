@@ -32,6 +32,8 @@ export class CommonGameComponent implements OnInit {
   isSoundOn = true;
   showSideButtons = false;
 
+  isAttributeGame = false;
+
   gameStarted = false;
 
   device_type = 'click';     // whether touch or click for using in friendly face game
@@ -69,6 +71,9 @@ export class CommonGameComponent implements OnInit {
             this.showHintBtn = true;
           } else if (this.gameName === 'Learned Helplessness Game') {
             this.isLearnedHelplessness = true;
+          } else if (this.gameName === 'Attribute Style Game') {
+            this.isAttributeGame = true;
+            // console.log('Attribute Style Game');
           } else if (this.gameName === 'Friendly Face Game') {
             this.isFriendlyFace = true;
           } else if (this.gameName === 'Mental Imagery Game') {
@@ -100,6 +105,9 @@ export class CommonGameComponent implements OnInit {
       this.gamePlayService.playExecControlGame(this.isSoundOn);
     } else if (this.gameName === 'Learned Helplessness Game') {
       this.gamePlayService.playLearnedHelplessnessGame();
+    } else if (this.gameName === 'Attribute Style Game') {
+      this.gamePlayService.playAttributionStyleGame();
+      // console.log('play button');
     } else if (this.gameName === 'Friendly Face Game') {
       this.gamePlayService.playFriendlyFaceGame(this.device_type);
     } else if (this.gameName === 'Mental Imagery Game') {
@@ -146,6 +154,11 @@ export class CommonGameComponent implements OnInit {
     if (this.gameName === 'Executive Control Game') {
       this.gamePlayService.pauseExecControlGame();
     }
+    if (this.gameName === 'Attribute Style Game') {
+      this.gamePlayService.pauseAttributionStyleGame();
+      // console.log('play button');
+    }
+
     if (this.gameName === 'Learned Helplessness Game') {
       this.gamePlayService.pauseLHGame();
     }
@@ -163,6 +176,10 @@ export class CommonGameComponent implements OnInit {
     if (this.gameName === 'Interpretation Bias Game') {
       this.gamePlayService.resumeIBGame();
     }
+    if (this.gameName === 'Attribute Style Game') {
+      this.gamePlayService.resumeAttributionStyleGame();
+    }
+      // console.log('play button');
     if (this.gameName === 'Learned Helplessness Game') {
       this.gamePlayService.resumeLHGame();
     }
@@ -181,6 +198,10 @@ export class CommonGameComponent implements OnInit {
     if (this.gameName === 'Interpretation Bias Game') {
       this.gamePlayService.playIBGame();                      // same function for start and restart the game
     }
+    if (this.gameName === 'Attribute Style Game') {
+      this.gamePlayService.restartAttributionStyleGame();
+    }
+      // console.log('play button');
     if (this.gameName === 'Friendly Face Game') {
       this.gamePlayService.restartFaceGame();
     }

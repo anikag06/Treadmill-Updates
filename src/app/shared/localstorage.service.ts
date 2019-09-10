@@ -18,7 +18,7 @@ export class LocalStorageService {
         const parsedData = JSON.parse(itemLs);
         if (parsedData != null &&
             parsedData.hasOwnProperty('data') &&
-            ((Math.abs(new Date().getTime() - Date.parse(parsedData.timestamp))/1000) < LS_TIME)) {
+            ((Math.abs(new Date().getTime() - Date.parse(parsedData.timestamp)) / 1000) < LS_TIME)) {
                 return parsedData['data'];
         } else {
             localStorage.removeItem(item);

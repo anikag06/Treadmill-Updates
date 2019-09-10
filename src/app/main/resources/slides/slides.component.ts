@@ -9,6 +9,7 @@ import { SlidesFeedback, SlidesFeedbackText } from './slide.feedback.model';
 import { ActivatedRoute } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
 import { trigger, transition, style, animate, state } from '@angular/animations';
+import { SLIDE } from '@/app.constants';
 
 @Component({
   selector: 'app-slides',
@@ -85,7 +86,7 @@ export class SlidesComponent implements OnInit {
       )
       .subscribe(
         (data: any) => {
-          if (['COMPLETED', 'WORKING', 'UNLOCKED'].includes(data.status) && data.data_type === 'SLIDE' ) {
+          if (['COMPLETED', 'WORKING', 'UNLOCKED'].includes(data.status) && data.data_type === SLIDE ) {
             this.slide = <Slide>data.step_data.data;
 
             this.slideService.getFeedBackInfo(this.slide.id)

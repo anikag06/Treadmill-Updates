@@ -25,7 +25,6 @@ import { LocalStorageService } from './shared/localstorage.service';
 import { MatSignupDialogComponent} from './pre-login/signup/mat-signup-dialog/mat-signup-dialog.component';
 import { SignupComponent } from '@/pre-login/signup/signup.component';
 declare let $: any;
-import {MainComponent} from '@/main/main.component';
 
 @NgModule({
   declarations: [
@@ -59,8 +58,8 @@ import {MainComponent} from '@/main/main.component';
     MatContactUsDialogService,
     AuthService,
     LoggerService,
-    LocalStorageService,
-  ],
+    LocalStorageService
+    ],
   bootstrap: [AppComponent],
   entryComponents: [MatLoginDialogComponent, MatContactUsDialogComponent, ErrorDialogComponent, MatSignupDialogComponent],
 })

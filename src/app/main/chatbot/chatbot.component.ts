@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-chatbot',
@@ -8,10 +9,21 @@ import { Component, OnInit } from '@angular/core';
 export class ChatbotComponent implements OnInit {
 
   chatwindowClosed = true;
+  removeChat = false;
+  blacklisted = ['/games', '/resources'];
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit() {
+    this.router.events
+      .subscribe(
+        () => {
+          this.removingChat();
+        }
+      );
+    this.removingChat();
   }
 
 
@@ -21,5 +33,20 @@ export class ChatbotComponent implements OnInit {
 
   updateChatWindow(event: boolean) {
     this.chatwindowClosed = event;
+  }
+
+  removingChat() {
+    let match = false;
+    this.blacklisted.forEach((data) => {
+      if (location.pathname.match(data)) {
+        match = true;
+      }
+
+      if (match) {
+        this.removeChat = true;
+      } else {
+        this.removeChat = false;
+      }
+    });
   }
 }

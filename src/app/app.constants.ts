@@ -82,5 +82,16 @@ export const REPLY_CURRENT = 'reply_current';
 export const MAX_RETRIES = 10;
 export const CHATBOT_RETRY_TIMEOUT = 5000;
 
+export const SLIDE = 'SLIDE';
+export const VIDEO = 'VIDEO';
+export const CONVERSATION_GROUP = 'CONVERSATION_GROUP';
+export const QUESTIONNAIRE = 'QUESTIONNAIRE';
+export const GAME = 'GAME';
+export const FORM = 'FORM';
+export const SUPPORT_GROUP = 'SUPPORT_GROUP';
+export const SURVEY = 'SURVEY';
 
-
+export const LOCKED = 'LOCKED';
+export const UNLOCKED = 'UNLOCKED';
+export const WORKING = 'WORKING';
+export const COMPLETED = 'COMPLETED';
