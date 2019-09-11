@@ -11,7 +11,7 @@ import { SlidesCompleteData } from './slide-complete.model';
 })
 export class SlideService {
 
-  API_ENDPOINT = 'http://172.26.90.50:9000';
+  API_ENDPOINT = 'http://172.26.90.49:8000';
   SLIDES_FEEDBACK = '/api/v1/learn/feedback/';
   STORE_FEEDBACK = '/api/v1/learn/slides-feedback/';
   completionData: SlidesCompleteData = new SlidesCompleteData(0, 0);

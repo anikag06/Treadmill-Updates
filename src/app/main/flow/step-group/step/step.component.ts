@@ -19,6 +19,7 @@ export class StepComponent implements OnInit {
   }
 
   nextLink() {
+    console.log(this.step)
     if (this.step.status !== LOCKED) {
       if (this.step.data_type === SLIDE) {
         return `/resources/slides/${this.step.id}/`;
