@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Step } from './step.model';
 import { StepGroup } from '../step-group.model';
-import { SLIDE, CONVERSATION_GROUP, GAME, FORM, LOCKED } from '@/app.constants';
+import { SLIDE, CONVERSATION_GROUP, GAME, FORM, LOCKED, SUPPORT_GROUP } from '@/app.constants';
 
 @Component({
   selector: 'app-step',
@@ -19,7 +19,6 @@ export class StepComponent implements OnInit {
   }
 
   nextLink() {
-    console.log(this.step)
     if (this.step.status !== LOCKED) {
       if (this.step.data_type === SLIDE) {
         return `/resources/slides/${this.step.id}/`;
@@ -30,7 +29,9 @@ export class StepComponent implements OnInit {
         return `/games/${game_name}/`;
       } else if (this.step.data_type === FORM) {
         const form_name = this.step.action[0];
-        return `/resources/${form_name}/`;
+        return `/resources/forms/${form_name}/`;
+      } else if (this.step.data_type === SUPPORT_GROUP) {
+        return `/support-groups/`;
       }
     }
     return '/';

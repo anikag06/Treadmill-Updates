@@ -61,7 +61,6 @@ export class SlidesComponent implements OnInit {
   sanitizedUrl!: SafeUrl;
   status!: string;
   notAvailable = false;
-  
   visible = true;
   isFormVisible = false;
   isSlidesVisible = false;
