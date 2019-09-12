@@ -100,7 +100,7 @@
 .like-dislike-btns{
     max-height: 90%;
 }
-.completed-btn {
+.completed-btn, .next-step-btn {
     line-height: 0%;
 }
 
@@ -110,10 +110,7 @@
     }
 }
 @media screen and (max-width: 770px) {
-    #slide-page{
-        max-height: 80vh;
-        overflow: hidden;
-    }
+
     #slide-container{
         min-height: 500px;
         max-width: 640px;

@@ -14,6 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularEditorModule } from '@xw19/angular-editor';
 import { LayoutModule } from '@angular/cdk/layout';
 import {
+  MatDialogModule,
   MatButtonModule,
   MatDatepickerModule,
   MatIconModule,
@@ -33,6 +34,8 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { SlidesComponent } from '@/main/resources/slides/slides.component';
 import { FormDirective } from '@/main/resources/slides/form.directive';
 import { SlideService } from './slides/slide.service';
+import { CongratsDialogComponent } from './shared/congrats-dialog/congrats-dialog.component';
+import { CommonDialogsService } from './shared/common-dialogs.service';
 
 @NgModule({
   declarations: [
@@ -51,6 +54,7 @@ import { SlideService } from './slides/slide.service';
     TaskFormsComponent,
     SlidesComponent,
     FormDirective,
+    // CongratsDialogComponent,
   ],
   imports: [
     ResourcesRoutingModule,
@@ -61,6 +65,7 @@ import { SlideService } from './slides/slide.service';
     LayoutModule,
     MatToolbarModule,
     MatButtonModule,
+    MatDialogModule,
     MatSidenavModule,
     MatIconModule,
     MatListModule,
@@ -71,9 +76,11 @@ import { SlideService } from './slides/slide.service';
     OwlNativeDateTimeModule,
     MatSlideToggleModule,
   ],
-  providers: [SlideService],
+  providers: [
+    SlideService
+  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  entryComponents: [ProblemFormComponent, ProblemSolvingWorksheetsComponent]
+  entryComponents: [ ProblemFormComponent, ProblemSolvingWorksheetsComponent]
 })
 export class ResourcesModule {
 }

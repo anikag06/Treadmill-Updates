@@ -11,6 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
 import { trigger, transition, style, animate, state } from '@angular/animations';
 import { SLIDE } from '@/app.constants';
+import { CommonDialogsService } from '../shared/common-dialogs.service';
 
 @Component({
   selector: 'app-slides',
@@ -54,7 +55,7 @@ export class SlidesComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private componentFactoryResolver: ComponentFactoryResolver,
     private activateRoute: ActivatedRoute,
-    private changRef: ChangeDetectorRef,
+    private commonDialogService: CommonDialogsService
   ) { }
 
   slide!: Slide;
@@ -64,7 +65,9 @@ export class SlidesComponent implements OnInit {
 
   visible!: boolean;
   isFormVisible = false;
-  isSlidesVisible = false;
+  isSlidesVisible = true;
+
+  showNextStepBtn = false;
 
   isDislikeBox = false;
   isLikeBox = false;
@@ -92,7 +95,10 @@ export class SlidesComponent implements OnInit {
           console.log(data);
           if (['COMPLETED', 'WORKING', 'UNLOCKED'].includes(data.data.status) && data.data.data_type === SLIDE ) {
             this.slide = <Slide>data.data.step_data.data;
-
+            console.log(data.data.status);
+            if (data.data.status === 'COMPLETED') {
+              // this.showNextStepBtn = true;
+            }
             this.slideService.getFeedBackInfo(this.slide.id)
               .subscribe( (feedback_data) => {
                 if (feedback_data.exists) {
@@ -115,6 +121,15 @@ export class SlidesComponent implements OnInit {
             } else if (formName === 'task') {
               setTimeout(() => this.loadForm(TaskFormsComponent), 1000);
             }
+            this.isSlidesVisible = true;
+            if (window.matchMedia('(max-width: 770px)').matches) {
+              this.isFormVisible = false;
+              this.visible = true;
+            } else {
+              this.isFormVisible = true;
+              this.formDiv.nativeElement.classList.add('col-4');
+              this.slideDiv.nativeElement.classList.add('col-5');
+            }
           } else {
             this.notAvailable = true;
           }
@@ -127,15 +142,7 @@ export class SlidesComponent implements OnInit {
     const viewContainerRef = this.formHost.viewContainerRef;
     viewContainerRef.clear();
     viewContainerRef.createComponent(componentFactory);
-    this.isSlidesVisible = true;
-    if (window.matchMedia('(max-width: 770px)').matches) {
-      this.isFormVisible = false;
-      this.visible = true;
-    } else {
-      this.isFormVisible = true;
-      this.formDiv.nativeElement.classList.add('col-4');
-      this.slideDiv.nativeElement.classList.add('col-5');
-    }
+   
   }
 
   onDislikeBtnClick() {
@@ -202,6 +209,8 @@ export class SlidesComponent implements OnInit {
     //   .subscribe( (data) => {
     //     console.log(data);
     //   });
+    // this.commonDialogService.checkfun();
+    // this.commonDialogService.openCongratsDialog();
   }
   onShowForm() {
     this.visible = !this.visible;
