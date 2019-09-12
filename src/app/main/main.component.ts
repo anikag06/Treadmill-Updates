@@ -9,6 +9,7 @@ import { DEFAULT_PATH } from '@/app.constants';
 import { MatDrawer } from '@angular/material';
 import { DataService } from './dashboard/questionnaire/data.service';
 import {FcmService} from '@/main/fcm.service';
+import { QuizService } from './dashboard/questionnaire/questionnaire.service';
 // tslint:disable-next-line:max-line-length
 
 
@@ -38,6 +39,7 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
     private router: Router,
     private dataService: DataService,
     private fcmService: FcmService,
+    private quizService: QuizService
   ) {}
 
   ngOnChanges() {
@@ -81,7 +83,7 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
   }
 
   goToQuestionnaire(e: any) {
-    if (e.url !== '/questionnaire' && this.user) {
+    if (e.url !== '/questionnaire' && this.user && this.quizService.questionnaireActive) {
       this.router.navigate(['/questionnaire']);
     }
   }

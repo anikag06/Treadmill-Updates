@@ -1,7 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Step } from './step.model';
 import { StepGroup } from '../step-group.model';
-import { SLIDE, CONVERSATION_GROUP, GAME, FORM, LOCKED, SUPPORT_GROUP } from '@/app.constants';
+import { SLIDE, CONVERSATION_GROUP, GAME, FORM, LOCKED, SUPPORT_GROUP, QUESTIONNAIRE, COMPLETED } from '@/app.constants';
+import { GeneralErrorService } from '@/main/shared/general-error.service';
 
 @Component({
   selector: 'app-step',
@@ -13,7 +14,9 @@ export class StepComponent implements OnInit {
   @Input() step!: Step;
   @Input() stepGroup!: StepGroup;
 
-  constructor() { }
+  constructor(
+    private generalErrorService: GeneralErrorService
+  ) { }
 
   ngOnInit() {
   }
@@ -32,6 +35,8 @@ export class StepComponent implements OnInit {
         return `/resources/forms/${form_name}/`;
       } else if (this.step.data_type === SUPPORT_GROUP) {
         return `/support-groups/`;
+      } else if (this.step.data_type === QUESTIONNAIRE) {
+        return `/questionnaire/`;
       }
     }
     return '/';

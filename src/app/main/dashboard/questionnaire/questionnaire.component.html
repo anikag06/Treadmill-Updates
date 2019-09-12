@@ -1,5 +1,5 @@
 <router-outlet></router-outlet>
-<div class="q">
+<div class="q" *ngIf="active else showBanner">
     <div class="container" *ngIf="display_phq_start" [@simpleFadeAnimation]="'in'">
         <div class="row">
             <div class="col-md-12 dashboard">
@@ -192,3 +192,6 @@
         </div>
     </div>
 </div>
+<ng-template #showBanner>
+    <h2>This is not available</h2>
+</ng-template>
