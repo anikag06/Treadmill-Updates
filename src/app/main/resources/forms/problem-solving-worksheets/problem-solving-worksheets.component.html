@@ -1,13 +1,19 @@
 <div class="container-fluid no-padding">
   <div class="row no-gutters">
-    <div class="col-12 card-header" id="main-heading" >
-      <h3 class="main-heading-h3 d-inline-block">Cope with a problem</h3>
-      <button id="saved-forms-btn"
-        mat-button [matMenuTriggerFor]="problemSolvingForms">
-        <i class="material-icons"  >
-          more_horiz
-        </i>
-      </button>
+    <div class="col-12 w-100 px-0" id="main-heading" >
+
+      <div class="h-100 ml-4 my-auto d-inline-block ">
+        <p class="py-1 h-100 my-auto">Cope with a problem </p></div>
+
+      <div class="h-100 d-inline-block float-right">
+        <button class="h-100" id="saved-forms-btn"
+          mat-button [matMenuTriggerFor]="problemSolvingForms">
+          <i class="material-icons"  >
+            more_horiz
+          </i>
+        </button>
+      </div>
+
       <mat-menu
         #problemSolvingForms="matMenu"  [overlapTrigger]="false" >
           <app-forms-sidebar
