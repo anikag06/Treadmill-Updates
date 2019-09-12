@@ -6,7 +6,7 @@
 .card {
   margin: 0 auto;
   ::ng-deep .card-header {
-    background-color: #d4f0eb;
+    background-color: #FFEFD4;
     font-weight: 700;
   }
   button {
@@ -42,7 +42,12 @@
   width: 100%;
 }
 #main-heading {
-  background-color: #f3b54f;
+  background-color: #343434;
+  font-family: 'Roboto';
+  font-size: 16px;
+  height: 5.1vh;
+  color: white;
+  max-height: 60px;
 }
 .main-heading-h3{
   margin: 2%;

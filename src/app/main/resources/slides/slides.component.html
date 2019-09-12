@@ -1,4 +1,4 @@
-<div class="row w-100 mb-4" id="slide-page" #slidePage >
+<div class="row w-100" id="slide-page" #slidePage >
   <ng-container  *ngIf="slide else loader" >
     <div class="col-1 in-desktop"></div>
     <div class="col px-0 changes-width overflow-auto"
@@ -6,15 +6,15 @@
       id="slide-container"
       [@slideInOut] = "isSlidesVisible ? 'show' : 'hidden'"  >
       
-      <div class="row changes-width justify-content-center">
-        <div class="w-100 in-desktop sticky-top slideTitle py-1">
-          {{slide.title}}</div>
+      <div class="row h-100 changes-width justify-content-center">
+        <div class="w-100 in-desktop sticky-top slideTitle ">
+          <p class="py-1 h-100 my-auto">  {{slide.title}}  </p> </div>
         <div class="row justify-content-center slides-elements-div" >
           <iframe [src]="sanitizedUrl" frameborder="0" class="slide_iframe"
             allowfullscreen="true"
             mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>  
           
-          <div class="row mt-2 w-100 like-btns-div justify-content-around">
+          <div class="row w-100 like-btns-div justify-content-around">
             
             <div class="col-3 h-100 px-1 like-dislike-btns">
               <img src="../../../../assets/shared/thumb.svg" *ngIf='!slideLiked'
@@ -39,7 +39,7 @@
             </div>
 
             <div class="col-6 h-100 px-0">
-              <button class="completed-btn mx-1 float-right" 
+              <button class="completed-btn float-right h-100" 
                 mat-raised-button color="primary"
                 (click)="onCompleted()">
                 Completed
@@ -49,13 +49,13 @@
 
           <div class="my-1 mx-1 row w-100" 
             *ngIf="isDislikeBox || isLikeBox || likeDislikeRemoved">
-            <p class="text-property" *ngIf="isDislikeBox"> 
+            <p class="my-0 text-property" *ngIf="isDislikeBox"> 
               How can we improve it?
             </p>
-            <p class="text-property" *ngIf="isLikeBox">
+            <p class="my-0 text-property" *ngIf="isLikeBox">
               Send the feedback
             </p>
-            <p class="text-property" *ngIf="likeDislikeRemoved">
+            <p class="my-0 text-property" *ngIf="likeDislikeRemoved">
               What changed your mind?
             </p>
             <textarea class="w-100 rounded form-control" rows="3" #feedbackText
@@ -74,7 +74,7 @@
     <div class="col in-mobile border-right extra-form-div"
       *ngIf="!visible">
     </div> 
-    <div class="col-2 my-5 h-100 px-0 mx-0 in-mobile" *ngIf="!visible" >
+    <div class="col-2 my-5 h-100 px-0 mx-0 in-mobile" *ngIf="visible === false" >
       <button class="rotate-rev ml-n3"
         id="slide-btn"
         mat-raised-button color="primary" (click)= "onShowSlides()">
@@ -82,7 +82,7 @@
       </button>
     </div>
     
-    <div class="col-2 my-5 h-100 px-0 mx-0 in-mobile" *ngIf="visible" #slideButton>
+    <div class="col-2 my-5 h-100 px-0 mx-0 in-mobile" *ngIf="visible === true" #slideButton>
       <button class="rotate-rev mr-n3"
         id="form-btn"
         mat-raised-button color="primary" (click)= "onShowForm()">

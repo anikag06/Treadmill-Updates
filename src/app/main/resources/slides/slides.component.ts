@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ComponentFactoryResolver, HostListener, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ComponentFactoryResolver, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { SlideService } from './slide.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { FormDirective } from './form.directive';
@@ -61,7 +61,8 @@ export class SlidesComponent implements OnInit {
   sanitizedUrl!: SafeUrl;
   status!: string;
   notAvailable = false;
-  visible = true;
+
+  visible!: boolean;
   isFormVisible = false;
   isSlidesVisible = false;
 
@@ -78,7 +79,7 @@ export class SlidesComponent implements OnInit {
   feedbackData: SlidesFeedback = new SlidesFeedback(0, 0, 1);
   feedbackText: SlidesFeedbackText = new SlidesFeedbackText('');
 
-  completionData: SlidesCompleteData = new SlidesCompleteData(0, 0);
+  time_spent: any;
 
   ngOnInit() {
     this.activateRoute.params
@@ -88,8 +89,9 @@ export class SlidesComponent implements OnInit {
       )
       .subscribe(
         (data: any) => {
-          if (['COMPLETED', 'WORKING', 'UNLOCKED'].includes(data.status) && data.data_type === SLIDE ) {
-            this.slide = <Slide>data.step_data.data;
+          console.log(data);
+          if (['COMPLETED', 'WORKING', 'UNLOCKED'].includes(data.data.status) && data.data.data_type === SLIDE ) {
+            this.slide = <Slide>data.data.step_data.data;
 
             this.slideService.getFeedBackInfo(this.slide.id)
               .subscribe( (feedback_data) => {
@@ -107,7 +109,7 @@ export class SlidesComponent implements OnInit {
             );
 
             this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.slide.url);
-            const formName = data.action[0];
+            const formName = data.data.action[0];
             if (formName === 'problem-solving') {
               setTimeout(() => this.loadForm(ProblemSolvingWorksheetsComponent), 1000);
             } else if (formName === 'task') {
@@ -126,8 +128,9 @@ export class SlidesComponent implements OnInit {
     viewContainerRef.clear();
     viewContainerRef.createComponent(componentFactory);
     this.isSlidesVisible = true;
-    if (window.matchMedia('(max-width: 767px)').matches) {
+    if (window.matchMedia('(max-width: 770px)').matches) {
       this.isFormVisible = false;
+      this.visible = true;
     } else {
       this.isFormVisible = true;
       this.formDiv.nativeElement.classList.add('col-4');
@@ -153,7 +156,7 @@ export class SlidesComponent implements OnInit {
     this.slideDisliked = !this.slideDisliked;
     this.slideLiked = false;
     this.isLikeBox = false;
-    this.storeFeedBackData();
+    // this.storeFeedBackData();
   }
   onLikeBtnClick() {
     this.scrollPageToBottom();
@@ -173,7 +176,7 @@ export class SlidesComponent implements OnInit {
     this.slideLiked = !this.slideLiked;
     this.slideDisliked = false;
     this.isDislikeBox = false;
-    this.storeFeedBackData();
+    // this.storeFeedBackData();
   }
 
   storeFeedBackData() {
@@ -189,15 +192,16 @@ export class SlidesComponent implements OnInit {
   }
   scrollPageToBottom() {
     this.scrollTop = this.slidePage.nativeElement.scrollHeight;
+    console.log(this.scrollTop);
   }
 
   onCompleted() {
-    this.completionData.time_spent = 100;
+    this.time_spent = 100;
 
-    this.slideService.storeCompletionData(this.completionData.time_spent)
-      .subscribe( (data) => {
-        console.log(data);
-      });
+    // this.slideService.storeCompletionData(this.time_spent)
+    //   .subscribe( (data) => {
+    //     console.log(data);
+    //   });
   }
   onShowForm() {
     this.visible = !this.visible;
@@ -213,10 +217,11 @@ export class SlidesComponent implements OnInit {
 
   onSubmitComment(feedback_text: string) {
     this.feedbackText.feedback_text = feedback_text;
-    this.slideService.updateFeedBackInfo(this.feedbackText, this.feedbackDataId)
-      .subscribe((data) => {});
+    // this.slideService.updateFeedBackInfo(this.feedbackText, this.feedbackDataId)
+    //   .subscribe((data) => {});
     this.isDislikeBox = false;
     this.isLikeBox = false;
     this.likeDislikeRemoved = false;
+    this.scrollTop = 0;
   }
 }
