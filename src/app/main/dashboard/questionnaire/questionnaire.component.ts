@@ -99,12 +99,12 @@ export class QuestionnaireComponent implements OnInit {
   step!: Step;
   // If questionnaire is active
   active = false;
+  loading = true;
 
   // tslint:disable-next-line:max-line-length
   constructor(private quizService: QuizService,
               private flowService: FlowService,
               private router: Router,
-              private generalErrorService: GeneralErrorService,
               private dataService: DataService) { }
 
   ngOnInit() {
@@ -112,6 +112,7 @@ export class QuestionnaireComponent implements OnInit {
     this.flowService.getFlow()
       .subscribe(
         (data: any) => {
+          this.loading = false;
           const step_group = data.step_groups.find((sg: StepGroup) => sg.status === WORKING);
           if (step_group) {
               this.step = step_group.steps.find(
