@@ -107,7 +107,7 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": ["/Users/darshittalavia/ng-treadwill-fe/src/assets/games/Attribution-style-game/src/app.js"],
+            "scripts": ["src/assets/games/Attribution-style-game/src/app.js"],
             "assets": [
               "src/favicon.ico",
               "src/assets",

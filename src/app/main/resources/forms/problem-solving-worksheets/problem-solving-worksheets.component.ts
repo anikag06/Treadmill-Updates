@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ComponentFactoryResolver, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { ProblemSolvingWorksheetsService } from './problem-solving-worksheets.service';
 import { Subscription } from 'rxjs';
 import { Problem } from './problem.model';
@@ -6,8 +6,6 @@ import { Solution } from './solution.model';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '@/shared/auth/auth.service';
 import { User } from '@/shared/user.model';
-import { ContainerRefDirective } from './container-ref.directive';
-import { ProblemFormComponent } from './problem-form/problem-form.component';
 import { GeneralErrorService } from '@/main/shared/general-error.service';
 import { PROBLEM_SOLVING} from '@/app.constants';
 import {UserTask} from '@/main/resources/forms/shared/tasks/user-task.model';
@@ -32,7 +30,6 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   problemEditMode = false;
 
   @ViewChild('solutionForm', { static: false }) solutionForm!: NgForm;
-  @ViewChild(ContainerRefDirective, { static: false }) problemContainer!: ContainerRefDirective;
 
   constructor(
     private problemService: ProblemSolvingWorksheetsService,
