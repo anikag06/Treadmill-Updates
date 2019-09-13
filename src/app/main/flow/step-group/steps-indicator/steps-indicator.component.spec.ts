@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { StepsIndicatorComponent } from './steps-indicator.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('StepsIndicatorComponent', () => {
   let component: StepsIndicatorComponent;
@@ -8,7 +9,8 @@ describe('StepsIndicatorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ StepsIndicatorComponent ]
+      declarations: [ StepsIndicatorComponent ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));

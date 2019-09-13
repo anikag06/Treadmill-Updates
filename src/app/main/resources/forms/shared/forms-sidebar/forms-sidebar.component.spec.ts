@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FormsSidebarComponent } from './forms-sidebar.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('FormsSidebarComponent', () => {
   let component: FormsSidebarComponent;
@@ -8,7 +9,8 @@ describe('FormsSidebarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FormsSidebarComponent ]
+      declarations: [ FormsSidebarComponent ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));
