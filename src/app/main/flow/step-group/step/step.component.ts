@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Step } from './step.model';
 import { StepGroup } from '../step-group.model';
 import { SLIDE, CONVERSATION_GROUP, GAME, FORM, LOCKED, SUPPORT_GROUP, QUESTIONNAIRE, COMPLETED } from '@/app.constants';
-import { GeneralErrorService } from '@/main/shared/general-error.service';
+import { FlowService } from '../../flow.service';
 
 @Component({
   selector: 'app-step',
@@ -15,7 +15,7 @@ export class StepComponent implements OnInit {
   @Input() stepGroup!: StepGroup;
 
   constructor(
-    private generalErrorService: GeneralErrorService
+    private flowService: FlowService
   ) { }
 
   ngOnInit() {
@@ -40,6 +40,25 @@ export class StepComponent implements OnInit {
       }
     }
     return '/';
+   }
+
+   previousStep(stepGroup: StepGroup, step: Step) {
+      const allSteps = <Step[]>stepGroup.steps;
+      const index = allSteps.indexOf(step, 1);
+      return allSteps[index - 1];
+   }
+
+   markDone() {
+    console.log(this.step)
+    if (this.step.virtual_step) {
+      const prev = this.previousStep(this.stepGroup, this.step);
+      if (prev.status === COMPLETED) {
+        this.flowService.markDone(this.step.id, 1)
+          .subscribe(
+            (data: any) => console.log('Done'),
+          );
+      }
+    }
    }
 
 }

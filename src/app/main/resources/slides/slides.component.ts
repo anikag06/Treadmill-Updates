@@ -156,7 +156,7 @@ export class SlidesComponent implements OnInit {
     this.slideDisliked = !this.slideDisliked;
     this.slideLiked = false;
     this.isLikeBox = false;
-    // this.storeFeedBackData();
+    this.storeFeedBackData();
   }
   onLikeBtnClick() {
     this.scrollPageToBottom();
@@ -176,7 +176,7 @@ export class SlidesComponent implements OnInit {
     this.slideLiked = !this.slideLiked;
     this.slideDisliked = false;
     this.isDislikeBox = false;
-    // this.storeFeedBackData();
+    this.storeFeedBackData();
   }
 
   storeFeedBackData() {
@@ -198,10 +198,10 @@ export class SlidesComponent implements OnInit {
   onCompleted() {
     this.time_spent = 100;
 
-    // this.slideService.storeCompletionData(this.time_spent)
-    //   .subscribe( (data) => {
-    //     console.log(data);
-    //   });
+    this.slideService.storeCompletionData(this.time_spent)
+      .subscribe( (data) => {
+        console.log(data);
+      });
   }
   onShowForm() {
     this.visible = !this.visible;
@@ -217,8 +217,8 @@ export class SlidesComponent implements OnInit {
 
   onSubmitComment(feedback_text: string) {
     this.feedbackText.feedback_text = feedback_text;
-    // this.slideService.updateFeedBackInfo(this.feedbackText, this.feedbackDataId)
-    //   .subscribe((data) => {});
+    this.slideService.updateFeedBackInfo(this.feedbackText, this.feedbackDataId)
+      .subscribe((data) => {});
     this.isDislikeBox = false;
     this.isLikeBox = false;
     this.likeDislikeRemoved = false;
