@@ -1,7 +1,7 @@
 import { AppPage } from './app.po';
 import { browser, logging } from 'protractor';
 import { SupportGroupPage } from './support-groups/support-group.po';
-import { element } from '@angular/core/src/render3';
+// import { element } from '@angular/core/src/render3';
 import { protractor } from 'protractor/built/ptor';
 
 describe('treadwill SupportGroup', () => {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material';
-// import { CongratsDialogComponent } from './congrats-dialog/congrats-dialog.component';
+import { CongratsDialogComponent } from './congrats-dialog/congrats-dialog.component';
 
 @Injectable({
   providedIn: 'root'
@@ -13,12 +13,10 @@ export class CommonDialogsService {
 
   openCongratsDialog() {
     console.log('called');
-    // const dialogRef = this.dialog.open(CongratsDialogComponent, {
-    //   width: '250px',
-    // });
+    const dialogRef = this.dialog.open(CongratsDialogComponent, {
+      width: '50%',
+      height: '65%'
+    });
 
-  }
-  checkfun() {
-    console.log('check fun');
   }
 }

@@ -121,14 +121,10 @@ export class SlidesComponent implements OnInit {
             } else if (formName === 'task') {
               setTimeout(() => this.loadForm(TaskFormsComponent), 1000);
             }
-            this.isSlidesVisible = true;
             if (window.matchMedia('(max-width: 770px)').matches) {
-              this.isFormVisible = false;
               this.visible = true;
             } else {
-              this.isFormVisible = true;
-              this.formDiv.nativeElement.classList.add('col-4');
-              this.slideDiv.nativeElement.classList.add('col-5');
+              setTimeout(() => this.slideDiv.nativeElement.classList.add('col-5'), 1000);
             }
           } else {
             this.notAvailable = true;
@@ -142,7 +138,12 @@ export class SlidesComponent implements OnInit {
     const viewContainerRef = this.formHost.viewContainerRef;
     viewContainerRef.clear();
     viewContainerRef.createComponent(componentFactory);
-   
+    if (window.matchMedia('(max-width: 770px)').matches) {
+      this.isFormVisible = false;
+    } else {
+      this.isFormVisible = true;
+      this.formDiv.nativeElement.classList.add('col-4');
+    }
   }
 
   onDislikeBtnClick() {
@@ -163,7 +164,7 @@ export class SlidesComponent implements OnInit {
     this.slideDisliked = !this.slideDisliked;
     this.slideLiked = false;
     this.isLikeBox = false;
-    // this.storeFeedBackData();
+    this.storeFeedBackData();
   }
   onLikeBtnClick() {
     this.scrollPageToBottom();
@@ -183,7 +184,7 @@ export class SlidesComponent implements OnInit {
     this.slideLiked = !this.slideLiked;
     this.slideDisliked = false;
     this.isDislikeBox = false;
-    // this.storeFeedBackData();
+    this.storeFeedBackData();
   }
 
   storeFeedBackData() {
@@ -205,12 +206,11 @@ export class SlidesComponent implements OnInit {
   onCompleted() {
     this.time_spent = 100;
 
-    // this.slideService.storeCompletionData(this.time_spent)
-    //   .subscribe( (data) => {
-    //     console.log(data);
-    //   });
-    // this.commonDialogService.checkfun();
-    // this.commonDialogService.openCongratsDialog();
+    this.slideService.storeCompletionData(this.time_spent)
+      .subscribe( (data) => {
+        console.log(data);
+      });
+    this.commonDialogService.openCongratsDialog();
   }
   onShowForm() {
     this.visible = !this.visible;
@@ -226,8 +226,8 @@ export class SlidesComponent implements OnInit {
 
   onSubmitComment(feedback_text: string) {
     this.feedbackText.feedback_text = feedback_text;
-    // this.slideService.updateFeedBackInfo(this.feedbackText, this.feedbackDataId)
-    //   .subscribe((data) => {});
+    this.slideService.updateFeedBackInfo(this.feedbackText, this.feedbackDataId)
+      .subscribe((data) => {});
     this.isDislikeBox = false;
     this.isLikeBox = false;
     this.likeDislikeRemoved = false;

@@ -13,6 +13,9 @@ export class CongratsDialogComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    if (window.matchMedia('(max-width: 770px)').matches) {
+      this.dialogRef.updateSize('80%', '65%');
+    }
   }
 
 }

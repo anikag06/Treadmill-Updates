@@ -54,7 +54,7 @@ import { CommonDialogsService } from './shared/common-dialogs.service';
     TaskFormsComponent,
     SlidesComponent,
     FormDirective,
-    // CongratsDialogComponent,
+    CongratsDialogComponent,
   ],
   imports: [
     ResourcesRoutingModule,
@@ -77,10 +77,11 @@ import { CommonDialogsService } from './shared/common-dialogs.service';
     MatSlideToggleModule,
   ],
   providers: [
-    SlideService
+    SlideService,
+    CommonDialogsService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  entryComponents: [ ProblemFormComponent, ProblemSolvingWorksheetsComponent]
+  entryComponents: [CongratsDialogComponent, ProblemFormComponent, ProblemSolvingWorksheetsComponent]
 })
 export class ResourcesModule {
 }
