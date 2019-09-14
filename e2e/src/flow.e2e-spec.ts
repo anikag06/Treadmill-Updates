@@ -18,6 +18,16 @@ describe('treadwill Flow', () => {
     expect(fp.getProgress()).toEqual('Progress');
   });
 
+  it('Should find Module text', () => {
+    expect(fp.findText()).toContain('Introduction');
+    expect(fp.findText()).toContain('Basic module');
+    expect(fp.findText()).toContain('Behaviorial Activation');
+    expect(fp.findText()).toContain('Identifying NATs');
+    expect(fp.findText()).toContain('Challenging NATs');
+    expect(fp.findText()).toContain('Modifying Beliefs');
+    expect(fp.findText()).toContain('Staying Happy');
+  });
+
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser
     const logs = await browser.manage().logs().get(logging.Type.BROWSER);

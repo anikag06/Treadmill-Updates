@@ -8,4 +8,8 @@ export class FlowPage {
     getProgress() {
         return element.all(by.css('h2.progress-heading')).first().getText();
     }
+
+    findText() {
+      return element(by.css('.flow-scroll-inner')).getText();
+    }
 }
