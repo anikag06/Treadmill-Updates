@@ -7,11 +7,12 @@ import { TaskFormsComponent } from '../forms/task-forms/task-forms.component';
 import { Slide } from './Slide.model';
 import { SlidesFeedback, SlidesFeedbackText } from './slide.feedback.model';
 import { SlidesCompleteData } from './slide-complete.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router} from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
 import { trigger, transition, style, animate, state } from '@angular/animations';
 import { SLIDE } from '@/app.constants';
 import { CommonDialogsService } from '../shared/common-dialogs.service';
+import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.service';
 
 @Component({
   selector: 'app-slides',
@@ -55,7 +56,9 @@ export class SlidesComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private componentFactoryResolver: ComponentFactoryResolver,
     private activateRoute: ActivatedRoute,
-    private commonDialogService: CommonDialogsService
+    private router: Router,
+    private commonDialogService: CommonDialogsService,
+    private flowStepService: FlowStepNavigationService,
   ) { }
 
   slide!: Slide;
@@ -81,8 +84,11 @@ export class SlidesComponent implements OnInit {
 
   feedbackData: SlidesFeedback = new SlidesFeedback(0, 0, 1);
   feedbackText: SlidesFeedbackText = new SlidesFeedbackText('');
-
+  completionData: SlidesCompleteData = new SlidesCompleteData(0, 0);
   time_spent: any;
+  current_step_id!: number;
+  isLastStep = false;
+  next_step_id!: number;
 
   ngOnInit() {
     this.activateRoute.params
@@ -95,12 +101,15 @@ export class SlidesComponent implements OnInit {
           console.log(data);
           if (['COMPLETED', 'WORKING', 'UNLOCKED'].includes(data.data.status) && data.data.data_type === SLIDE ) {
             this.slide = <Slide>data.data.step_data.data;
-            console.log(data.data.status);
+            this.current_step_id = data.data.id;
+            this.isLastStep = data.data.is_last_step;
+            this.next_step_id = data.data.next_step_id;
             if (data.data.status === 'COMPLETED') {
               // this.showNextStepBtn = true;
             }
             this.slideService.getFeedBackInfo(this.slide.id)
               .subscribe( (feedback_data) => {
+                console.log('feedback data', feedback_data);
                 if (feedback_data.exists) {
                   this.initial_feedback = feedback_data.feedback;
                   if (this.initial_feedback === 1) {
@@ -109,6 +118,8 @@ export class SlidesComponent implements OnInit {
                     this.slideDisliked = true;
                   }
                 } else {
+                  this.slideDisliked = false;
+                  this.slideLiked = false;
                   this.initial_feedback = 0;        // if it the first response
                 }
               }
@@ -116,6 +127,7 @@ export class SlidesComponent implements OnInit {
 
             this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.slide.url);
             const formName = data.data.action[0];
+            console.log(formName);
             if (formName === 'problem-solving') {
               setTimeout(() => this.loadForm(ProblemSolvingWorksheetsComponent), 1000);
             } else if (formName === 'task') {
@@ -200,17 +212,30 @@ export class SlidesComponent implements OnInit {
   }
   scrollPageToBottom() {
     this.scrollTop = this.slidePage.nativeElement.scrollHeight;
-    console.log(this.scrollTop);
   }
 
   onCompleted() {
     this.time_spent = 100;
+    this.completionData.time_spent = this.time_spent;
+    this.completionData.step_id = this.current_step_id;
 
-    this.slideService.storeCompletionData(this.time_spent)
+    this.slideService.storeCompletionData(this.completionData)
       .subscribe( (data) => {
-        console.log(data);
+        // console.log(data);
       });
-    this.commonDialogService.openCongratsDialog();
+    this.commonDialogService.openCongratsDialog(this.next_step_id, this.isLastStep);
+  }
+  onNextStepClick() {
+    this.commonDialogService.getNextStepData(this.next_step_id)
+      .subscribe((next_step) => {
+        console.log(next_step);
+        const next_step_url = this.flowStepService.goToFlowNextStep(next_step.data);
+        console.log(next_step_url);
+        this.router.navigate([next_step_url]);
+      });
+  }
+  onDashboard() {
+    this.router.navigate(['/']);
   }
   onShowForm() {
     this.visible = !this.visible;

@@ -12,32 +12,28 @@ import { SlidesCompleteData } from './slide-complete.model';
 })
 export class SlideService {
 
-  API_ENDPOINT = 'http://172.26.90.50:9000';
-
-  completionData: SlidesCompleteData = new SlidesCompleteData(0, 0);
+  
   constructor(
     private http: HttpClient
   ) { }
 
   getSlide(stepId: number) {
-    this.completionData.step_id = stepId;
-    return this.http.get(this.API_ENDPOINT + '/api/v1/flow/steps/' + stepId + '/');
+    return this.http.get(environment.API_ENDPOINT + '/api/v1/flow/steps/' + stepId + '/');
   }
 
   getFeedBackInfo(slideId: number): Observable<any> {
-    return this.http.get(this.API_ENDPOINT + SLIDES_FEEDBACK + slideId + '/');
+    return this.http.get(environment.API_ENDPOINT + SLIDES_FEEDBACK + slideId + '/');
   }
 
   storeFeedBackInfo(feedback: SlidesFeedback): Observable<any> {
-    return this.http.post(this.API_ENDPOINT + STORE_SLIDE_FEEDBACK, feedback);
+    return this.http.post(environment.API_ENDPOINT + STORE_SLIDE_FEEDBACK, feedback);
   }
 
   updateFeedBackInfo(feedback: SlidesFeedbackText, dataId: number) {
-    return this.http.put(this.API_ENDPOINT + STORE_SLIDE_FEEDBACK + dataId + '/', feedback);
+    return this.http.put(environment.API_ENDPOINT + STORE_SLIDE_FEEDBACK + dataId + '/', feedback);
   }
 
-  storeCompletionData(completionDataTime: any) {
-    this.completionData.time_spent = completionDataTime;
-    return this.http.post(this.API_ENDPOINT + SLIDE_COMPLETE_DATA, this.completionData);
+  storeCompletionData(completionData: SlidesCompleteData) {
+    return this.http.post(environment.API_ENDPOINT + SLIDE_COMPLETE_DATA, completionData);
   }
 }
