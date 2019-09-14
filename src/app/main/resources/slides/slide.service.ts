@@ -1,41 +1,38 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { SLIDES_FEEDBACK, STORE_FEEDBACK, SLIDE_COMPLETE_DATA} from '@/app.constants';
+import { SLIDES_FEEDBACK, SLIDE_COMPLETE_DATA, STORE_FEEDBACK} from '@/app.constants';
 import { Observable } from 'rxjs';
 import { SlidesFeedback, SlidesFeedbackText } from './slide.feedback.model';
 import { SlidesCompleteData } from './slide-complete.model';
+import { environment } from 'environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SlideService {
 
-  API_ENDPOINT = 'http://172.26.90.49:8000';
 
-  completionData: SlidesCompleteData = new SlidesCompleteData(0, 0);
   constructor(
     private http: HttpClient
   ) { }
 
   getSlide(stepId: number) {
-    this.completionData.step_id = stepId;
-    return this.http.get(this.API_ENDPOINT + '/api/v1/flow/steps/' + stepId + '/');
+    return this.http.get(environment.API_ENDPOINT + '/api/v1/flow/steps/' + stepId + '/');
   }
 
   getFeedBackInfo(slideId: number): Observable<any> {
-    return this.http.get(this.API_ENDPOINT + SLIDES_FEEDBACK + slideId + '/');
+    return this.http.get(environment.API_ENDPOINT + SLIDES_FEEDBACK + slideId + '/');
   }
 
   storeFeedBackInfo(feedback: SlidesFeedback): Observable<any> {
-    return this.http.post(this.API_ENDPOINT + STORE_FEEDBACK, feedback);
+    return this.http.post(environment.API_ENDPOINT + STORE_FEEDBACK, feedback);
   }
 
   updateFeedBackInfo(feedback: SlidesFeedbackText, dataId: number) {
-    return this.http.put(this.API_ENDPOINT + STORE_FEEDBACK + dataId + '/', feedback);
+    return this.http.put(environment.API_ENDPOINT + STORE_FEEDBACK + dataId + '/', feedback);
   }
 
-  storeCompletionData(completionDataTime: any) {
-    this.completionData.time_spent = completionDataTime;
-    return this.http.post(this.API_ENDPOINT + SLIDE_COMPLETE_DATA, this.completionData);
+  storeCompletionData(completionData: SlidesCompleteData) {
+    return this.http.post(environment.API_ENDPOINT + SLIDE_COMPLETE_DATA, completionData);
   }
 }

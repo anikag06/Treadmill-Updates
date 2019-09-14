@@ -94,6 +94,7 @@ import { FlowService } from './flow/flow.service';
 import { StepComponent } from './flow/step-group/step/step.component';
 import { StepsIndicatorComponent } from './flow/step-group/steps-indicator/steps-indicator.component';
 import { QuizService } from './dashboard/questionnaire/questionnaire.service';
+import { FlowStepNavigationService } from './shared/flow-step-navigation.service';
 @NgModule({
   declarations: [
     ModulesComponent,
@@ -198,6 +199,7 @@ import { QuizService } from './dashboard/questionnaire/questionnaire.service';
     FlowService,
     PassDataService,
     QuizService,
+    FlowStepNavigationService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [CreatePostComponent]

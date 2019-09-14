@@ -91,7 +91,9 @@
     font-size: 16px;
     border-radius: 12px 12px 2px 2px ;
 }
-
+#flow-img{
+    height: 90%;
+}
 
 .like-btns-div{
     height: 4.8vh;
@@ -100,20 +102,16 @@
 .like-dislike-btns{
     max-height: 90%;
 }
-.completed-btn {
+.completed-btn, .next-step-btn {
     line-height: 0%;
 }
-
 @media screen and (max-width: 992px) {
     .slides-elements-div{
         width: 62%;
     }
 }
 @media screen and (max-width: 770px) {
-    #slide-page{
-        max-height: 80vh;
-        overflow: hidden;
-    }
+
     #slide-container{
         min-height: 500px;
         max-width: 640px;

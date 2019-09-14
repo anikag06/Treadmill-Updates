@@ -1,7 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Step } from './step.model';
 import { StepGroup } from '../step-group.model';
-import { SLIDE, CONVERSATION_GROUP, GAME, FORM, LOCKED, SUPPORT_GROUP, QUESTIONNAIRE, COMPLETED } from '@/app.constants';
+import { COMPLETED } from '@/app.constants';
+import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.service';
 import { FlowService } from '../../flow.service';
 
 @Component({
@@ -15,32 +16,16 @@ export class StepComponent implements OnInit {
   @Input() stepGroup!: StepGroup;
 
   constructor(
-    private flowService: FlowService
+    private flowService: FlowService,
+    private flowStepNavService: FlowStepNavigationService
   ) { }
 
   ngOnInit() {
   }
 
   nextLink() {
-    if (this.step.status !== LOCKED) {
-      if (this.step.data_type === SLIDE) {
-        return `/resources/slides/${this.step.id}/`;
-      } else if (this.step.data_type === CONVERSATION_GROUP) {
-        return `/conversations-group/${this.step.id}/`;
-      } else if (this.step.data_type === GAME) {
-        const game_name = this.step.action[0];
-        return `/games/${game_name}/`;
-      } else if (this.step.data_type === FORM) {
-        const form_name = this.step.action[0];
-        return `/resources/forms/${form_name}/`;
-      } else if (this.step.data_type === SUPPORT_GROUP) {
-        return `/support-groups/`;
-      } else if (this.step.data_type === QUESTIONNAIRE) {
-        return `/questionnaire/`;
-      }
-    }
-    return '/';
-   }
+    return this.flowStepNavService.goToFlowNextStep(this.step);
+  }
 
    previousStep(stepGroup: StepGroup, step: Step) {
       const allSteps = <Step[]>stepGroup.steps;
