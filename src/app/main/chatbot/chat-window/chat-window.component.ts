@@ -11,12 +11,13 @@ import {
   Output,
   ViewChild
 } from '@angular/core';
-import {Chat} from '@/main/chatbot/chat.model';
-import {environment} from '../../../../environments/environment';
-import {NEW_CHAT, REPLY_CURRENT, RESUME_CHAT, MAX_RETRIES, CHATBOT_RETRY_TIMEOUT} from '@/app.constants';
-import {ChatbotService} from '@/main/chatbot/chatbot.service';
-import {AuthService} from '@/shared/auth/auth.service';
-import {animate, state, style, transition, trigger} from '@angular/animations';
+import { Chat } from '@/main/chatbot/chat.model';
+import { environment } from '../../../../environments/environment';
+import { NEW_CHAT, REPLY_CURRENT, RESUME_CHAT, MAX_RETRIES, CHATBOT_RETRY_TIMEOUT } from '@/app.constants';
+import { ChatbotService } from '@/main/chatbot/chatbot.service';
+import { AuthService } from '@/shared/auth/auth.service';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { HttpErrorResponse } from '@angular/common/http';
 
 declare var twemoji: any;
 
@@ -48,7 +49,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
     private chatbotService: ChatbotService,
     private authService: AuthService,
     private changRef: ChangeDetectorRef,
-  ) {}
+  ) { }
 
   messages: Chat[] = [];
   message = '';
@@ -62,8 +63,8 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
   retries = 0;
 
 
-  @ViewChild('messagesDiv', {static: false}) messagesDiv!: ElementRef;
-  @ViewChild('ti', {static: false}) ti!: ElementRef;
+  @ViewChild('messagesDiv', { static: false }) messagesDiv!: ElementRef;
+  @ViewChild('ti', { static: false }) ti!: ElementRef;
   @Input() chatWindowClosed = false;
   @Output() chatWindowClosedEmitter = new EventEmitter<Boolean>();
 
@@ -81,11 +82,17 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
     this.chatbotService.postPreviousChat()
       .subscribe(
         (data: any) => {
-          data.data.messages.forEach((message: any) => {
-            this.messages.push(
-              new Chat(twemoji.parse(message.text), message.is_sender_user, [], message.mid, message.sid, message.datetime, false));
-            this.scrollToBottom();
-          });
+          if (data.status) {
+            data.data.messages.forEach(
+              (message: any) => {
+                this.messages.push(
+                  new Chat(twemoji.parse(message.text), message.is_sender_user, [], message.mid, message.sid, message.datetime, false));
+                this.scrollToBottom();
+              });
+          }
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error);
         }
       );
   }
@@ -137,14 +144,14 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
   onKey(event: KeyboardEvent) {
     // 576 comes from the bootstrap
     if (!event.shiftKey && screen.availWidth > 576) {
-     this.onChatSubmit();
+      this.onChatSubmit();
     }
   }
 
   startChatSession(type: string) {
     this.webSocket = new WebSocket(environment.CHAT_HOST + '/ws/chat/?token=' + this.authService.getToken());
-    this.webSocket.onopen =  (event) => {
-      this.webSocket.send(JSON.stringify({ 'action': type, 'module_name': 'mood_tracker'}));
+    this.webSocket.onopen = (event) => {
+      this.webSocket.send(JSON.stringify({ 'action': type, 'module_name': 'mood_tracker' }));
     };
     this.webSocket.onmessage = (message: any) => {
       const data = JSON.parse(message.data);
@@ -153,10 +160,10 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
         this.messages.push(item);
         this.webSocket.close();
       } else if (data.action === 'ws_close') {
-          this.closeChat();
+        this.closeChat();
       } else {
         data.message.forEach((m: any, index: number) => {
-          const delayPerMessage =  (this.totalDelay + this.getSentenceDelay(m.text || '')) * index;
+          const delayPerMessage = (this.totalDelay + this.getSentenceDelay(m.text || '')) * index;
           setTimeout(() => {
             if ((m.text && m.text.length > 0) || (m.buttons && m.buttons.length > 0)) {
               this.showWritingAndPushChat(m);
@@ -222,6 +229,6 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
   }
 
   getSentenceDelay(str: string) {
-    return this.getWordCount(str) *  this.delayPerWord;
+    return this.getWordCount(str) * this.delayPerWord;
   }
 }

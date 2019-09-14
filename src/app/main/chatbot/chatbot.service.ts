@@ -13,6 +13,6 @@ export class ChatbotService {
 
 
   postPreviousChat() {
-    return this.http.post(environment.API_ENDPOINT + '/api/v1/chat/resume-chat/', {})
+    return this.http.post(environment.API_ENDPOINT + '/api/v1/chat/resume-chat/', {});
   }
 }
