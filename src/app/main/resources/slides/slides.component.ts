@@ -10,7 +10,7 @@ import { SlidesCompleteData } from './slide-complete.model';
 import { ActivatedRoute, Router} from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
 import { trigger, transition, style, animate, state } from '@angular/animations';
-import { SLIDE } from '@/app.constants';
+import { SLIDE, FORM_PROBLEM_SOLVING_WORKSHEET, FORM_TASK } from '@/app.constants';
 import { CommonDialogsService } from '../shared/common-dialogs.service';
 import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.service';
 
@@ -128,9 +128,9 @@ export class SlidesComponent implements OnInit {
             this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.slide.url);
             const formName = data.data.action[0];
             console.log(formName);
-            if (formName === 'problem-solving') {
+            if (formName === FORM_PROBLEM_SOLVING_WORKSHEET) {
               setTimeout(() => this.loadForm(ProblemSolvingWorksheetsComponent), 1000);
-            } else if (formName === 'task') {
+            } else if (formName === FORM_TASK) {
               setTimeout(() => this.loadForm(TaskFormsComponent), 1000);
             }
             if (window.matchMedia('(max-width: 770px)').matches) {

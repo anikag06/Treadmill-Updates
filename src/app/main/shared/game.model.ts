@@ -6,10 +6,10 @@ export class Game {
     public description: string;
     public slug: string;
 
-    constructor(name: string, thumbnail: string, description: string) {
+    constructor(name: string, thumbnail: string, description: string, slug?: string) {
         this.name = name;
         this.thumbnail = thumbnail;
         this.description = description;
-        this.slug = slugify(name, {lower: true});
+        this.slug = slug || slugify(name, {lower: true});
     }
 }
