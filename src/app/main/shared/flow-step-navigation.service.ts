@@ -19,7 +19,7 @@ export class FlowStepNavigationService {
 
   ) { }
 
-  goToFlowNextStep(step: any) {
+  goToFlowNextStep(step: any): string {
     if (step.status !== LOCKED) {
       if (step.data_type === SLIDE) {
         return `/resources/slides/${step.id}/`;
@@ -43,7 +43,6 @@ export class FlowStepNavigationService {
   }
 
   virtualStepMarkDone(step: any, timeSpent: number) {
-    console.log(step);
     if (step.virtual_step) {
       this.markDone(step.id, timeSpent)
         .subscribe(
