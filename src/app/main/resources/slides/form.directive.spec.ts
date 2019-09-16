@@ -1,8 +1,8 @@
 import { FormDirective } from './form.directive';
+import {ViewRef} from '@angular/core';
 
 describe('FormDirective', () => {
   it('should create an instance', () => {
-    const directive = new FormDirective();
-    expect(directive).toBeTruthy();
+    expect(FormDirective).toBeTruthy();
   });
 });

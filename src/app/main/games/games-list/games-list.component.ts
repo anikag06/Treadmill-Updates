@@ -15,11 +15,9 @@ export class GamesListComponent implements OnInit {
   games$!: Observable<Game[]>;
 
   constructor(
-    private gamePlayService: GamePlayService,
     private gamesService: GamesService,
     private router: Router,
     private route: ActivatedRoute,
-    private renderer: Renderer2,
   ) { }
 
   ngOnInit() {

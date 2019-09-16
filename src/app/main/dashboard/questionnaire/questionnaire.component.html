@@ -1,5 +1,5 @@
 <router-outlet></router-outlet>
-<div class="q">
+<div class="q" *ngIf="active">
     <div class="container" *ngIf="display_phq_start" [@simpleFadeAnimation]="'in'">
         <div class="row">
             <div class="col-md-12 dashboard">
@@ -9,7 +9,7 @@
 
 
 
-                            <div id=bold> <b>Before moving further, we need ou to carefully swer 9 quick questions. This is
+                            <div id=bold> <b>Before moving further, we need ou to carefully answer 9 quick questions. This is
                                 a
                                 standard set of questions, called PHQ-9, used in healthcare to assess depressive
                                 symptoms
@@ -163,7 +163,7 @@
 
 
 
-                            <span id=bold> <b>Before moving further, we need ou to carefully swer 7 quick questions. This is
+                            <span id=bold> <b>Before moving further, we need ou to carefully answer 7 quick questions. This is
                                 a
                                 standard set of questions, called GAD-7, used in healthcare to assess anxiety symptoms
                                 (everyone has some!). </b></span>
@@ -192,3 +192,11 @@
         </div>
     </div>
 </div>
+<ng-container *ngIf="loading">
+    <div class="col-md-2 module-nav">
+        <img src="assets/shared/dna-loader.svg" alt="loader" class="loader">
+    </div>
+</ng-container>
+<ng-container *ngIf="!active && !loading">
+    <h2>This is not available</h2>
+</ng-container>

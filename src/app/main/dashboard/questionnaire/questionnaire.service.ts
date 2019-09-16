@@ -8,7 +8,11 @@ import { environment } from 'environments/environment';
 @Injectable()
 export class QuizService {
 
-  constructor(private http: HttpClient) { }
+  questionnaireActive = false;
+
+  constructor(
+    private http: HttpClient,
+  ) { }
 
   get(url: string) {
     return this.http.get(url);
@@ -23,12 +27,10 @@ export class QuizService {
       });
   }
   post_gad(response: GadResponse) {
-    this.http.post(
+    return this.http.post(
       environment.API_ENDPOINT + '/api/v1/questionnaire/gad-user-response/',
       response
-      ).subscribe(responseData => {
-        console.log(responseData);
-      });
+      );
     }
 
 }

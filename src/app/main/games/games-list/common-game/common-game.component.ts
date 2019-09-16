@@ -62,6 +62,7 @@ export class CommonGameComponent implements OnInit {
       )
       .subscribe(
         (game) =>  {
+          console.log("GAME>>", game)
           this.game = <Game>game;
           this.gameName = this.game.name;
           if (this.gameName === 'Executive Control Game') {
