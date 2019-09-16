@@ -1,0 +1,72 @@
+<div id="content" class="container">
+    <div class="row">
+        <div class="col-6">
+                <ol class="breadcrumb">
+                        <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+                    </ol>
+                    <div id="conversation-container" class="container bg-succe">
+          <div class="card-body">
+            <div *ngFor="let item of show">
+                        <div class="d-flex justify-content-start align-items-center">
+                            <div class="img_cont_msg">
+                                <img src="https://devilsworkshop.org/files/2013/01/enlarged-facebook-profile-picture.jpg" class="rounded-circle user_img_msg">
+                            </div>
+                            <div class="msg_cotainer">
+                                    <p [innerHtml]="item.message"></p>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end mb-4">
+                            <div class="msg_cotainer_send">
+                                <p [innerHtml]="item.dialog" ></p>
+                            </div>
+                        </div>
+                        
+                    </div>
+            </div>
+                <!-- <div class="card-body"> -->
+                        <div class="d-flex justify-content-start mb-4 align-items-center">
+                            <div class="img_cont_msg">
+                                <img src="https://devilsworkshop.org/files/2013/01/enlarged-facebook-profile-picture.jpg" class="rounded-circle user_img_msg">
+                            </div>
+                            <div class="msg_cotainer">
+                                    <p [innerHtml]="current_message"></p>
+                            </div>
+                        </div>
+                <!-- </div> -->
+
+                    <div *ngFor="let item of options; let i = index">
+                            <div class="row" *ngIf="!speedrun">
+                                    <div class="d-flex justify-content-end mb-4">
+                                            <div class="msg_cotainer_send">
+                                                <p [innerHtml]="item" ></p>
+                                                <button  class="btn"(click)="on_click(i)">Send</button>
+
+                                            </div>
+                                        </div>
+                            </div>
+                        </div>
+
+                        <div class="row" *ngIf="wrong">
+                                <div class="col-lg-9 col-md-9 col-sm-8 col-xs-8 col-xs-offset-2">
+                                    <p id="error-msg">{{wrong_message}}</p>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="finished">
+                                <div class="col-lg-9 col-md-9 col-sm-8 col-xs-8 col-xs-offset-2">
+                                    <p class="finish-text">{{final_conclusion_message}}</p>
+                                </div>
+                            </div>
+                
+
+
+        </div>
+    </div>
+        <div class="col-6">
+            <div form-host></div>
+        </div>
+    </div>
+</div>
+
+
+
+

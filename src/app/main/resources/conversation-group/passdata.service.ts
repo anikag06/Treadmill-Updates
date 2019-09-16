@@ -9,6 +9,7 @@ export class PassDataService {
   private isspeedrun!: boolean;
   private conversation_id!: number;
   private array = [false, false, false];
+  private formname!: string;
 
 
  setOption(value: number, reset: boolean, continu: boolean, speedrun: boolean)  {
@@ -26,5 +27,13 @@ export class PassDataService {
 
  iswhat() {
      return this.array;
+ }
+
+ setFormName(formname: string) {
+     this.formname = formname;
+ }
+
+ getFormName() {
+     return this.formname;
  }
 }

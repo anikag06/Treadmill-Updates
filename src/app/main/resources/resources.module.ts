@@ -32,6 +32,8 @@ import { TaskFormsComponent } from './forms/task-forms/task-forms.component';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { SlidesComponent } from './slides/slides.component';
 import { FormDirective } from './slides/form.directive';
+import { ConversationGroupComponent } from './conversation-group/conversation-group.component';
+import { ConversationsComponent } from './conversation-group/conversations/conversations.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +52,8 @@ import { FormDirective } from './slides/form.directive';
     TaskFormsComponent,
     SlidesComponent,
     FormDirective,
+    ConversationGroupComponent,
+    ConversationsComponent
   ],
   imports: [
     ResourcesRoutingModule,

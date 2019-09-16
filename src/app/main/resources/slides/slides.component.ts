@@ -39,7 +39,6 @@ export class SlidesComponent implements OnInit {
       .subscribe(
         (data: any) => {
           const step = data.data;
-          console.log(step)
           if (['COMPLETED', 'WORKING', 'UNLOCKED'].includes(step.status) && step.data_type === SLIDE) {
             this.slide = <Slide>step.step_data.data;
             this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.slide.url);

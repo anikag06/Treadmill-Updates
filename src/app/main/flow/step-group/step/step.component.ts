@@ -22,7 +22,7 @@ export class StepComponent implements OnInit {
     if (this.step.data_type === SLIDE) {
       return `/resources/slides/${this.step.id}/`;
     } else if (this.step.data_type === CONVERSATION_GROUP) {
-      return `/conversations-group/${this.step.id}/`;
+      return `/resources/conversations-group/${this.step.id}/`;
     }
     return '/';
   }

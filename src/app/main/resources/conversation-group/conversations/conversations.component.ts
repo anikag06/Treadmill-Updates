@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, DoCheck } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, DoCheck, ComponentFactoryResolver } from '@angular/core';
 import {ConversationsService} from '../conversations.service';
 import {Conversation} from './input/conversation.model';
 import {Dialog} from './input/dialogs.model';
@@ -9,7 +9,9 @@ import {CurrentHistory} from './history/history.model';
 import {Response} from './response/response.model';
 import { TimerService } from '@/shared/timer.service';
 import {PassDataService} from '../passdata.service';
-import { FormDirective } from '../../resources/slides/form.directive';
+import { FormDirective } from '../../slides/form.directive';
+import { ProblemSolvingWorksheetsComponent } from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.component';
+import { TaskFormsComponent } from '@/main/resources/forms/task-forms/task-forms.component';
 
 
 
@@ -28,7 +30,10 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
 
   @ViewChild(FormDirective, {static: false}) formHost!: FormDirective;
 
-  constructor( private conversationsService: ConversationsService, private timerservice: TimerService, private passdata: PassDataService ) {
+  constructor( private conversationsService: ConversationsService, private timerservice: TimerService,
+    private passdata: PassDataService,
+    private componentFactoryResolver: ComponentFactoryResolver
+    ) {
   }
   currenthistory!: CurrentHistory;
   dialog_history!: DialogInHistory;
@@ -68,7 +73,6 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
 
   ngOnInit() {
     this.conversation_id = this.passdata.getid();
-    console.log(this.passdata.iswhat());
     this.run();
     this.timerservice.visibility();
     this.timerservice.unload();
@@ -104,6 +108,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   loadConversation(current_id: boolean) {
     this.conversationsService.get('http://172.26.90.49:9000/api/v1/conversation/conversation/?conversation_id=' + this.conversation_id)
       .subscribe((res: any) => {
+        console.log(res);
         this.conversation = new Conversation(res.title, res.final_conclusion_message, res.gender, res.dialog_options);
         this.title = this.conversation.title;
         this.gender = this.conversation.gender;
@@ -156,6 +161,13 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   current_history() {
     this.conversationsService.get('http://172.26.90.49:9000/api/v1/conversation/history/current/')
       .subscribe((res: any) => {
+        const formName = this.passdata.getFormName();
+        console.log(this.passdata.getFormName());
+        if (formName === 'problem-solving') {
+          setTimeout(() => this.loadForm(ProblemSolvingWorksheetsComponent), 1000);
+        } else if (formName === 'task') {
+          setTimeout(() => this.loadForm(TaskFormsComponent), 1000);
+        }
         // tslint:disable-next-line:max-line-length
         this.currenthistory = new CurrentHistory(res.data.id, res.data.conversation_id, res.data.is_completed, res.data.created_at, res.data.completion_datetime, res.data.time_taken_to_complete_in_seconds, res.data.user_response );
         this.history_id = this.currenthistory.id;
@@ -183,6 +195,13 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     this.time = 0;
     this.conversationsService.create_history(this.conversation_id);
     this.current_history();
+  }
+
+  loadForm(component: any) {
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
+    const viewContainerRef = this.formHost.viewContainerRef;
+    viewContainerRef.clear();
+    viewContainerRef.createComponent(componentFactory);
   }
 
 

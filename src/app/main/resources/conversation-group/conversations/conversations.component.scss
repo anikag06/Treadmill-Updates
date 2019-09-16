@@ -1,0 +1,80 @@
+
+#content {
+  min-height: 100vh;
+}
+
+div {
+  display: block;
+}
+#conversation-container {
+  height: 600px;
+  padding-bottom: 35px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: rgb(252, 251, 250);
+}
+
+.btn{
+  background-color: #FFEFD4;
+  border-top-color: black;
+  border-radius: 0px 0px 25px 25px;
+  width: 100%;
+}
+
+
+body,html{
+  height: 100%;
+  margin: 0;
+  background: #7F7FD5;
+     background: -webkit-linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
+      background: linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
+}
+
+
+
+.user_img_msg{
+  height: 40px;
+  width: 40px;
+  border:1.5px solid #f5f6fa;
+
+}
+
+.img_cont_msg{
+  height: 40px;
+  width: 40px;
+}
+
+.msg_cotainer{
+margin-top: auto;
+margin-bottom: auto;
+margin-left: 10px;
+border-radius: 0px 25px 25px 25px;
+background-color :#F1F1F1;
+padding-top: 15px;
+padding-left: 10px;
+padding-right: 10px;
+position: relative;
+text-align: center;
+}
+.msg_card_body{
+  overflow-y: auto;
+}
+.msg_cotainer_send{
+margin-top: auto;
+margin-bottom: auto;
+margin-right: 20px;
+border-radius: 25px 25px 0px 25px;
+background-color :#FFEFD4;
+padding-top: 15px;
+padding-left: 10px;
+padding-right: 10px;
+position: relative;
+text-align: center;
+
+}
+
+.msg_head{
+position: relative;
+}
