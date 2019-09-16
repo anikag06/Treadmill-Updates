@@ -34,15 +34,10 @@ export class StepComponent implements OnInit {
    }
 
    markDone() {
-    console.log(this.step)
-    if (this.step.virtual_step) {
-      const prev = this.previousStep(this.stepGroup, this.step);
-      if (prev.status === COMPLETED) {
-        this.flowService.markDone(this.step.id, 1)
-          .subscribe(
-            (data: any) => console.log('Done'),
-          );
-      }
+    console.log(this.step);
+    const prev = this.previousStep(this.stepGroup, this.step);
+    if (prev.status === COMPLETED) {
+      this.flowStepNavService.virtualStepMarkDone(this.step, 1);        // here 1 is the time spent
     }
    }
 

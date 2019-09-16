@@ -6,6 +6,7 @@ import { Step } from '@/main/conversation-group/conversation-group-input/step.mo
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
+import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,12 +18,12 @@ export class CommonDialogsService {
 
   constructor(
     private dialog: MatDialog,
-    private http: HttpClient
+    private http: HttpClient,
+    private flowNavService: FlowStepNavigationService,
   ) { }
   openCongratsDialog(step_id: number, isLastStep: boolean) {
     this.isLocked = false;
-    console.log('called');
-    this.getNextStepData(step_id)
+    this.flowNavService.getNextStepData(step_id)
       .subscribe( (next_step_data) => {
         console.log(next_step_data);
         if (next_step_data.data.status === LOCKED) {
@@ -41,10 +42,5 @@ export class CommonDialogsService {
       });
   }
 
-  getNextStepData(stepId: number): Observable<any> {
-    return this.http.get(environment.API_ENDPOINT + '/api/v1/flow/steps/' + stepId + '/');
-  }
 
-// when click the next step button which is not on the pop up
-  
 }

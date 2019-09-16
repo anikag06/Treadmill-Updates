@@ -39,19 +39,21 @@
             </div>
 
             <div class="col-6 h-100 px-0">
-              <button class="completed-btn float-right h-100" *ngIf = '!showNextStepBtn'
+              <button class="completed-btn float-right h-100" type="button"
+                *ngIf = '!showNextStepBtn'
                 mat-raised-button color="primary"
                 (click)="onCompleted()">
                 Completed
               </button>
-              <button class="next-step-btn float-right h-100" 
+              <button class="next-step-btn float-right h-100" type="button"
                 *ngIf = 'showNextStepBtn && !isLastStep'
                 mat-raised-button color="primary"
                 (click)="onNextStepClick()">
                 <img id="flow-img" src="../../../../assets/shared/Flow_white.svg">
                 Next Step
               </button>
-              <button class="completed-btn float-right h-100" *ngIf = 'isLastStep'
+              <button class="completed-btn float-right h-100" type="button"
+                *ngIf = 'isLastStep'
                 mat-raised-button color="primary"
                 (click)="onDashboard()">
                 Go to dashboard

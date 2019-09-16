@@ -109,7 +109,6 @@ export class SlidesComponent implements OnInit {
             }
             this.slideService.getFeedBackInfo(this.slide.id)
               .subscribe( (feedback_data) => {
-                console.log('feedback data', feedback_data);
                 if (feedback_data.exists) {
                   this.initial_feedback = feedback_data.feedback;
                   if (this.initial_feedback === 1) {
@@ -127,7 +126,6 @@ export class SlidesComponent implements OnInit {
 
             this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.slide.url);
             const formName = data.data.action[0];
-            console.log(formName);
             if (formName === FORM_PROBLEM_SOLVING_WORKSHEET) {
               setTimeout(() => this.loadForm(ProblemSolvingWorksheetsComponent), 1000);
             } else if (formName === FORM_TASK) {
@@ -226,11 +224,11 @@ export class SlidesComponent implements OnInit {
     this.commonDialogService.openCongratsDialog(this.next_step_id, this.isLastStep);
   }
   onNextStepClick() {
-    this.commonDialogService.getNextStepData(this.next_step_id)
+    this.flowStepService.getNextStepData(this.next_step_id)
       .subscribe((next_step) => {
         console.log(next_step);
+        this.flowStepService.virtualStepMarkDone(next_step.data, this.time_spent);
         const next_step_url = this.flowStepService.goToFlowNextStep(next_step.data);
-        console.log(next_step_url);
         this.router.navigate([next_step_url]);
       });
   }

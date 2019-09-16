@@ -8,8 +8,6 @@ import {UserTask} from '@/main/resources/forms/shared/tasks/user-task.model';
   providedIn: 'root'
 })
 export class TasksService {
-
-  API_ENDPOINT = 'http://172.26.90.49:9000';
   tasks: UserTask[] = [];
   page = 1;
   nextPage = true;
@@ -21,7 +19,7 @@ export class TasksService {
 
   getTasks() {
     if (this.nextPage) {
-      this.http.get(this.API_ENDPOINT + '/api/v1/tasks/listing/?page=' + this.page)
+      this.http.get(environment.API_ENDPOINT + '/api/v1/tasks/listing/?page=' + this.page)
         .subscribe(
           (data: any) => {
             if (this.page === 1) {
@@ -42,11 +40,11 @@ export class TasksService {
   }
 
   postTask(data: any) {
-    return this.http.post(this.API_ENDPOINT + '/api/v1/tasks/task/', data);
+    return this.http.post(environment.API_ENDPOINT + '/api/v1/tasks/task/', data);
   }
 
   putTask(data: any) {
-    return this.http.put(this.API_ENDPOINT + '/api/v1/tasks/task/' + data.id + '/', data);
+    return this.http.put(environment.API_ENDPOINT + '/api/v1/tasks/task/' + data.id + '/', data);
   }
 
   addTask(task: UserTask) {
@@ -65,14 +63,14 @@ export class TasksService {
 
   deleteSubTask(task_id: number, subtask_id: number) {
     return this.http
-      .delete(this.API_ENDPOINT +
+      .delete(environment.API_ENDPOINT +
         '/api/v1/tasks/task/' +
         task_id + '/sub-task/?subtask_id=' + subtask_id);
   }
 
   deleteTaskDay(task_id: number, day: string) {
     return this.http
-      .delete(this.API_ENDPOINT +
+      .delete(environment.API_ENDPOINT +
         '/api/v1/tasks/task/' +
         task_id + '/task-days/?day=' + day);
   }

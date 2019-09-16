@@ -16,7 +16,7 @@
     </div>
     
     <div class="row w-100 align-self-end next-step-div justify-content-end">
-        <button class="next-step-locked h-100"
+        <button class="next-step-locked h-100" type="button"
             *ngIf='data.isLocked || data.lastStep; else nextStepBtn'
             (click) = 'goToDashboard()'
             mat-raised-button color="primary">
@@ -25,7 +25,7 @@
         </button>
 
         <ng-template #nextStepBtn>
-            <button class="next-step-btn h-100" 
+            <button class="next-step-btn h-100" type="button"
                 (click) = 'onNextClicked()'
                 mat-raised-button color="primary">
                 <img id="flow-img" src="../../../../../assets/shared/Flow_white.svg">
