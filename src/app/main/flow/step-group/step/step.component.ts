@@ -4,6 +4,7 @@ import { StepGroup } from '../step-group.model';
 import { COMPLETED } from '@/app.constants';
 import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.service';
 import { FlowService } from '../../flow.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-step',
@@ -16,14 +17,14 @@ export class StepComponent implements OnInit {
   @Input() stepGroup!: StepGroup;
 
   constructor(
-    private flowService: FlowService,
+    private router: Router,
     private flowStepNavService: FlowStepNavigationService
   ) { }
 
   ngOnInit() {
   }
 
-  nextLink() {
+  nextLink(): string {
     return this.flowStepNavService.goToFlowNextStep(this.step);
   }
 
@@ -39,6 +40,12 @@ export class StepComponent implements OnInit {
     if (prev.status === COMPLETED) {
       this.flowStepNavService.virtualStepMarkDone(this.step, 1);        // here 1 is the time spent
     }
+   }
+
+   navigate(event: Event) {
+      event.preventDefault();
+      this.markDone();
+      this.router.navigate([this.nextLink()]);
    }
 
 }
