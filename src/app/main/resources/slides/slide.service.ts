@@ -12,7 +12,6 @@ import { SlidesCompleteData } from './slide-complete.model';
 })
 export class SlideService {
 
-  
   constructor(
     private http: HttpClient
   ) { }
