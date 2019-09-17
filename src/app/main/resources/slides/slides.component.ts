@@ -88,6 +88,7 @@ export class SlidesComponent implements OnInit {
   time_spent: any;
   current_step_id!: number;
   isLastStep = false;
+  lastStepCompleted = false;
   next_step_id!: number;
 
   ngOnInit() {
@@ -104,8 +105,13 @@ export class SlidesComponent implements OnInit {
             this.current_step_id = data.data.id;
             this.isLastStep = data.data.is_last_step;
             this.next_step_id = data.data.next_step_id;
+            console.log(this.next_step_id);
             if (data.data.status === 'COMPLETED') {
-              // this.showNextStepBtn = true;
+              this.showNextStepBtn = true;
+
+              if (this.isLastStep) {
+                this.lastStepCompleted = true;
+              }
             }
             this.slideService.getFeedBackInfo(this.slide.id)
               .subscribe( (feedback_data) => {
@@ -216,10 +222,10 @@ export class SlidesComponent implements OnInit {
     this.time_spent = 100;
     this.completionData.time_spent = this.time_spent;
     this.completionData.step_id = this.current_step_id;
-
+    console.log(this.completionData);
     this.slideService.storeCompletionData(this.completionData)
       .subscribe( (data) => {
-        // console.log(data);
+        console.log(data);
       });
     this.commonDialogService.openCongratsDialog(this.next_step_id, this.isLastStep);
   }

@@ -13,7 +13,27 @@
 ::ng-deep .mat-menu-panel {
     max-height: 350px!important;
 }
-
+.card {
+    margin: 0 auto;
+    ::ng-deep .card-header {
+      background-color: #FFEFD4;
+      font-weight: 700;
+    }
+    button {
+      width: 100%;
+    }
+    label {
+      padding: 10px;
+      margin-bottom: 0px;
+      border-bottom: 1px solid #dfdfdf;
+      &:last-child {
+        border-bottom: 1px solid transparent;
+      }
+    }
+}
+.card.card-full-width {
+    width: 100%;
+}
 #slide-page{
     font-family: 'Roboto';
 }
@@ -52,8 +72,8 @@
     text-align: center;
     color: white;
     background-color: #343434;
-    height: 6.6%;
-    max-height: 60px;
+    // height: 5.1vh;
+    max-height: 45px;
 }
 
 
@@ -116,6 +136,7 @@
         min-height: 500px;
         max-width: 640px;
         overflow: auto;
+        scroll-behavior: smooth;
     }
     .form-div{
         min-height: 500px;
@@ -154,5 +175,8 @@
         border-color: #BFBFBF;
         float: left;
         max-height: 900px;
+    }
+    .like-btns-div,.feedbackBox {
+        margin-left: 2%;
     }
 }

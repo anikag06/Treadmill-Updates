@@ -1,14 +1,18 @@
-<div class="container-fluid no-padding">
-  <div class="row no-gutters">
-    <div class="col-12 w-100 px-0" id="main-heading" >
+<!-- <div class="container-fluid no-padding"> -->
+<mat-card class="container-fluid px-0 pt-0 pb-2 mb-2">
+  <div class="row no-gutters mb-2 card card-full-width">
+    <!-- <div class="col-12 card-header w-100 px-0" id="main-heading" > -->
+    <mat-card-header class="col-12 w-100 px-0 card-header " id="main-heading">
+      <mat-card-title class="ml-4 my-auto d-inline-block">
+        Cope with a problem
+      </mat-card-title>
+      <!-- <div class="h-100 ml-4 my-auto d-inline-block ">
+        <p class="py-1 h-100 my-auto">Cope with a problem </p></div> -->
 
-      <div class="h-100 ml-4 my-auto d-inline-block ">
-        <p class="py-1 h-100 my-auto">Cope with a problem </p></div>
-
-      <div class="h-100 d-inline-block float-right">
+      <div class="h-100 d-inline-block ml-auto">
         <button class="h-100" id="saved-forms-btn"
           mat-button [matMenuTriggerFor]="problemSolvingForms">
-          <i class="material-icons"  >
+          <i class="material-icons"  id="more-hor-icon">
             more_horiz
           </i>
         </button>
@@ -22,19 +26,20 @@
           (newForm)="onAddNewForm()">
         </app-forms-sidebar>
       </mat-menu>
-    </div>
+    </mat-card-header>
   </div>
   
-  <div class="row no-gutters">
+  <div class="row no-gutters form-div mx-auto">
     <div class="col-12 col-lg">
       <div class="row mb-2">
         <div class="col-12">
           <ng-container>
-            <div class="card card-full-width">
+            <div class="card-full-width">
               <div class="card-header">
-                PROBLEM STATEMENT
+                Problem statement
               </div>
-              <div class="card-body" *ngIf="problem && !problemEditMode" (click)="onProblemClick()">
+              <div class="card-body" 
+                *ngIf="problem && !problemEditMode" (click)="onProblemClick()">
                 {{problem.problem}}
               </div>
               <div class="card-body" *ngIf="problem && problemEditMode" (click)="onProblemClick()">
@@ -49,20 +54,26 @@
       </div>
       <div class="row mb-2">
         <div class="col-12" *ngIf="problem">
-          <div class="card">
+          <div class="">
             <div class="card-header">
-              POSSIBLE SOLUTIONS
+              Possible solutions
+              <div class="float-right d-inline-block">
+                <mat-icon> edit </mat-icon>
+              </div>
             </div>
+
             <app-solutions
               [solutions]="solutions"
               (solutionDelete)="onSolutionRemove($event)"
               (solutionEdit)="onSolutionEdit($event)"></app-solutions>
-            <div class="card-body">
+            <div class="card-body"> 
               <div *ngIf="solutions && solutions.length === 0 || showSolutionsForm">
                 <form (ngSubmit)="onSolutionSubmit()" #solutionForm="ngForm">
                   <mat-form-field class="full-width">
-                    <textarea name="solution" id="solution" rows="5" placeholder="Enter your solution"
-                              matInput required [autofocus] ngModel (focusout)="onSolutionFocusOut()" ></textarea>
+                    <textarea name="solution" id="solution" 
+                            rows="1" placeholder="Enter your solution"
+                            matInput required [autofocus] ngModel 
+                            (focusout)="onSolutionFocusOut()" ></textarea>
                   </mat-form-field>
                 </form>
               </div>
@@ -83,13 +94,13 @@
       </div>
       <div class="row mb-2">
         <div class="col-12" *ngIf="problem && solutions.length > 0 || solutionsSaved">
-          <div class="card">
+          <div class="">
             <div class="card-header">
-              PROS AND CONS OF SOLUTIONS
+              Pros and cons of solutions
             </div>
             <div class="card-body">
               <div *ngFor="let solution of solutions">
-                <p><strong>SOLUTION: {{solution.solution}}</strong></p>
+                <p><strong>Solution: {{solution.solution}}</strong></p>
                 <app-pros-cons-container [solution]="solution"></app-pros-cons-container>
               </div>
             </div>
@@ -102,9 +113,9 @@
       </div>
       <div class="row mb-2" *ngIf="solutions && solutions.length > 0 && prosconsSaved">
         <div class="col">
-          <div class="card" *ngIf="bestSolution">
+          <div class="" *ngIf="bestSolution">
             <div class="card-header">
-              IMPLEMENT THE SOLUTION
+              Implement the solution
             </div>
             <div class="card-body">
               <div>
@@ -122,12 +133,18 @@
                   </div>
                 </div>
               </div>
-              <app-tasks (nextStepEmitter)="onNextStep()" [problem]="problem" (taskLoaded)="onTaskLoad($event)"></app-tasks>
+              <div class="card">
+                <app-tasks 
+                  (nextStepEmitter)="onNextStep()" 
+                  [problem]="problem" 
+                  (taskLoaded)="onTaskLoad($event)"></app-tasks>
+              </div>
+              
             </div>
           </div>
-          <div class="card" *ngIf="!bestSolution">
+          <div class="" *ngIf="!bestSolution">
             <div class="card-header">
-              SELECT THE BEST SOLUTION
+              Select the best solution
             </div>
             <div class="card-body">
               <div class="list-group">
@@ -150,4 +167,5 @@
       </div>
     </div>
   </div>
-</div>
+<!-- </div> -->
+</mat-card>

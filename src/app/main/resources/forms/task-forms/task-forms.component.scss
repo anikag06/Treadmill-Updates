@@ -2,11 +2,16 @@
   color: white;
   max-width: 100%;
 }
-
+.container-fluid {
+  background-color: white;
+  overflow: auto;
+  box-shadow:  1px 2px 5px 1px rgba(0, 0, 0, 0.20);
+}
 .card {
   margin: 0 auto;
+  
   ::ng-deep .card-header {
-    background-color: #d4f0eb;
+    background-color: #FFEFD4;
     font-weight: 700;
   }
   button {
@@ -44,10 +49,14 @@
 #main-heading {
   background-color: #343434;
   font-family: 'Roboto';
-  font-size: 16px;
-  height: 5.1vh;
+  // font-size: 16px;
+  // height: 5.1vh;
   color: white;
-  max-height: 60px;
+  max-height: 45px;
+}
+.form-div{
+  width: 94%;
+  height: 90%;
 }
 
 @media screen and (max-width: 992px) {

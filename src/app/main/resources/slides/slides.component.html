@@ -6,9 +6,16 @@
       id="slide-container"
       [@slideInOut] = "isSlidesVisible ? 'show' : 'hidden'"  >
       
-      <div class="row h-100 changes-width justify-content-center">
-        <div class="w-100 in-desktop sticky-top slideTitle ">
-          <p class="py-1 h-100 my-auto">  {{slide.title}}  </p> </div>
+      <div class="row h-100 justify-content-center">
+        <!-- <div class="col-12 card-header w-100 px-0 in-desktop sticky-top slideTitle ">
+          <p class="py-1 h-100 my-auto">  {{slide.title}}  </p> </div> -->
+        <mat-card-header 
+          class="col-12 w-100 px-0 card-header in-desktop sticky-top slideTitle">
+          <mat-card-title class="my-auto d-inline-block">
+              {{slide.title}}
+          </mat-card-title>
+        </mat-card-header>
+
         <div class="row justify-content-center slides-elements-div" >
           <iframe [src]="sanitizedUrl" frameborder="0" class="slide_iframe"
             allowfullscreen="true"
@@ -40,7 +47,7 @@
 
             <div class="col-6 h-100 px-0">
               <button class="completed-btn float-right h-100" type="button"
-                *ngIf = '!showNextStepBtn'
+                *ngIf = '!showNextStepBtn && !lastStepCompleted'
                 mat-raised-button color="primary"
                 (click)="onCompleted()">
                 Completed
@@ -53,7 +60,7 @@
                 Next Step
               </button>
               <button class="completed-btn float-right h-100" type="button"
-                *ngIf = 'isLastStep'
+                *ngIf = 'lastStepCompleted'
                 mat-raised-button color="primary"
                 (click)="onDashboard()">
                 Go to dashboard
@@ -61,7 +68,7 @@
             </div>
           </div>
 
-          <div class="my-1 mx-1 row w-100" 
+          <div class="my-1 mx-1 feedbackBox row w-100" 
             *ngIf="isDislikeBox || isLikeBox || likeDislikeRemoved">
             <p class="my-0 text-property" *ngIf="isDislikeBox"> 
               How can we improve it?

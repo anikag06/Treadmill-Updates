@@ -1,11 +1,12 @@
 <ul class="list-group" *ngIf="solutions && solutions.length > 0">
-  <li class="list-group-item" *ngFor="let solution of solutions">
+  <li class="list-group-item border-0 py-0" 
+    *ngFor="let solution of solutions; let i = index">
     <div class="solution">
       <p
       (focusout)="onFocusOut($event, solution)"
       tabindex="10"
       contenteditable="true">
-      {{solution.solution}}
+      {{i+1}}. {{solution.solution}}
     </p>
     <span class="pull-right" (click)="onSolutionRemove(solution)">
       <mat-icon>remove_circle</mat-icon>
