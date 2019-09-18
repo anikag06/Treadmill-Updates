@@ -12,4 +12,28 @@ export class FlowPage {
     findText() {
       return element(by.css('.flow-scroll-inner')).getText();
     }
+
+    findQuestionnaireComponent() {
+        return element(by.partialLinkText('Questionnaire 1')).click();
+    }
+
+    findQuestionnaireText() {
+        return element(by.css('.card-body')).getText();
+    }
+
+    clickOnButton(btn: string) {
+        return element(by.buttonText(btn)).click();
+    }
+
+    findProgressElement(txt: string) {
+        return element(by.partialLinkText(txt)).click();
+    }
+
+    getQuestionnaireNotavailable() {
+        return element.all(by.css('h2')).first().getText();
+    }
+
+    goHome() {
+        return element(by.css('.main-logo')).click();
+    }
 }
