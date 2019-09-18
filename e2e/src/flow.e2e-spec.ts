@@ -59,11 +59,25 @@ describe('treadwill Flow', () => {
   });
 
   it('Should mark virtual step as done', () => {
-    fp.goHome();
+    browser.navigate().back();
+    browser.sleep(2000);
     fp.findProgressElement('Cope with a Problem');
     browser.sleep(2000);
-    fp.goHome();
+    browser.navigate().back();
+    browser.sleep(3000);
     expect(fp.getProgress()).toEqual('Progress');
+  });
+
+  it('Should be able to check Slide', () => {
+    browser.sleep(2000);
+    fp.findProgressElement('Slide 1');
+    browser.sleep(3000);
+    fp.clickOnButton('Completed');
+    browser.sleep(1000);
+    fp.clickOnButton('Next Step');
+    browser.sleep(2000);
+    fp.navigateToDashboard();
+    browser.sleep(2000);
   });
 
   afterEach(async () => {
