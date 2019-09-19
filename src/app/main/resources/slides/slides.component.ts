@@ -225,7 +225,7 @@ export class SlidesComponent implements OnInit {
       .subscribe( (data) => {
         console.log(data);
       });
-    this.commonDialogService.openCongratsDialog(this.current_step_id, this.next_step_id, this.isLastStep);
+    this.commonDialogService.openCongratsDialog(this.current_step_id, this.next_step_id, this.isLastStep, this.time_spent);
   }
   onNextStepClick() {
     this.flowStepService.getNextStepData(this.next_step_id)

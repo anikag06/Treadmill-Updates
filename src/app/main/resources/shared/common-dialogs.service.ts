@@ -21,7 +21,7 @@ export class CommonDialogsService {
     private http: HttpClient,
     private flowNavService: FlowStepNavigationService,
   ) { }
-  openCongratsDialog(curr_id: number, step_id: number, isLastStep: boolean) {
+  openCongratsDialog(curr_id: number, step_id: number, isLastStep: boolean, time_spent: any) {
     this.isLocked = false;
     if (isLastStep) {
       this.flowNavService.isNextModuleLocked(curr_id)
@@ -29,7 +29,7 @@ export class CommonDialogsService {
           (data) => {
             this.nextStepData = data.data;
             this.isLocked = !data.data.next_step_group_unlocked;
-            this.openDialog(true);
+            this.openDialog(true, time_spent);
           }
         );
     } else {
@@ -39,12 +39,12 @@ export class CommonDialogsService {
           this.isLocked = true;
         }
         this.nextStepData = next_step_data.data;
-        this.openDialog(false);
+        this.openDialog(false, time_spent);
       });
     }
   }
 
-  openDialog(isLastStep: boolean) {
+  openDialog(isLastStep: boolean, time_spent: any) {
     const dialogRef = this.dialog.open(CongratsDialogComponent, {
       width: '50%',
       height: '65%',
@@ -52,6 +52,7 @@ export class CommonDialogsService {
         isLocked: this.isLocked,
         isLastStep: isLastStep,
         nextStepData: this.nextStepData,
+        time_spent: time_spent
       }
     });
   }

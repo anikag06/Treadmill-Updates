@@ -15,7 +15,6 @@ export class CongratsDialogComponent implements OnInit {
 
   nextStepData!: any;
   unLockTime!: any;
-
   constructor(
     public dialogRef: MatDialogRef<CongratsDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -37,6 +36,7 @@ export class CongratsDialogComponent implements OnInit {
 
   onNextClicked() {
     const next_step_url = this.flowStepService.goToFlowNextStep(this.nextStepData);
+    this.flowStepService.virtualStepMarkDone(this.nextStepData, this.data.time_spent);
     this.closeDialog();
     this.router.navigate([next_step_url]);
   }
