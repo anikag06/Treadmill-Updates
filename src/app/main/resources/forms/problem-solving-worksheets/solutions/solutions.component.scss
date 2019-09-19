@@ -3,10 +3,23 @@
 @import "../../../../../../treadwill.theme.scss";
 
 .solution {
+    .text{
+        // width: 90%;
+        // margin: 5px;
+        padding: 0%;        
+        border-bottom: 1px solid #dcdcdc;
+        overflow: auto;
+        &:focus {
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            border-bottom: 2px solid $treadwill-yellow;
+            box-shadow: none;
+            outline: none;
+          }
+    }
     p {
-        width: 98%;
-        float: left;
-        padding: 5px;
+        // width: 98%;
         &:focus {
             border: 1px solid transparent;
             outline: none;

@@ -13,7 +13,8 @@ import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.se
 })
 export class CongratsDialogComponent implements OnInit {
 
-  nextStepData!: Step;
+  nextStepData!: any;
+  unLockTime!: any;
 
   constructor(
     public dialogRef: MatDialogRef<CongratsDialogComponent>,
@@ -27,13 +28,16 @@ export class CongratsDialogComponent implements OnInit {
       this.dialogRef.updateSize('80%', '65%');
     }
     this.nextStepData = this.data.nextStepData;
-    console.log('from dialog', this.nextStepData);
+    if (this.data.isLastStep) {
+      this.unLockTime = this.nextStepData.next_step_group_unlock_time;
+      const convertedDateString = this.unLockTime.toLocaleString();
+      this.unLockTime = new Date(convertedDateString);
+    }
   }
 
   onNextClicked() {
     const next_step_url = this.flowStepService.goToFlowNextStep(this.nextStepData);
     this.closeDialog();
-    console.log(next_step_url);
     this.router.navigate([next_step_url]);
   }
 

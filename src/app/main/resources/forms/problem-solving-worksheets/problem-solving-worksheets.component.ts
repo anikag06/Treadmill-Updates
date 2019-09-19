@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, ElementRef, NgZone } from '@angular/core';
 import { ProblemSolvingWorksheetsService } from './problem-solving-worksheets.service';
 import { Subscription } from 'rxjs';
 import { Problem } from './problem.model';
@@ -9,6 +9,8 @@ import { User } from '@/shared/user.model';
 import { GeneralErrorService } from '@/main/shared/general-error.service';
 import { PROBLEM_SOLVING} from '@/app.constants';
 import {UserTask} from '@/main/resources/forms/shared/tasks/user-task.model';
+import {CdkTextareaAutosize} from '@angular/cdk/text-field';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-problem-solving-worksheets',
@@ -30,6 +32,8 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   problemEditMode = false;
 
   @ViewChild('solutionForm', { static: false }) solutionForm!: NgForm;
+  @ViewChild('solutionTextArea', { static: false }) solutionTextArea!: ElementRef;
+  @ViewChild('autosize', {static: false}) autosize!: CdkTextareaAutosize;
 
   constructor(
     private problemService: ProblemSolvingWorksheetsService,
@@ -115,11 +119,13 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   }
 
   onSolutionSubmit() {
+    console.log(this.solutionForm.value['solution']);
     if (this.solutionForm.value['solution'] && this.solutionForm.value['solution'].trim().length > 0) {
       this.problemService.postSolution(this.solutionForm.value['solution'], this.problem.id)
         .subscribe(
           (resp: any) => {
             const solution = new Solution(+resp.data.solution_id, this.problem.id, resp.data.solution, false, 0);
+            console.log(solution);
             this.solutions.push(solution);
             this.showSolutionsForm = false;
             this.solutionForm.reset();
@@ -130,6 +136,10 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
       this.solutionForm.reset();
       this.showSolutionsForm = false;
     }
+  }
+
+  onEditSolutionClick() {
+    this.solutionTextArea.nativeElement.focus();
   }
 
   onSolutionEdit(solution: Solution) {
@@ -168,6 +178,7 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   }
 
   onProblemClick() {
+    console.log('problem clicked', this.problem);
     if (this.problem) {
       this.problemEditMode = true;
     }

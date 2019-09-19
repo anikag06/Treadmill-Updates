@@ -105,7 +105,6 @@ export class SlidesComponent implements OnInit {
             this.current_step_id = data.data.id;
             this.isLastStep = data.data.is_last_step;
             this.next_step_id = data.data.next_step_id;
-            console.log(this.next_step_id);
             if (data.data.status === 'COMPLETED') {
               this.showNextStepBtn = true;
 
@@ -222,17 +221,15 @@ export class SlidesComponent implements OnInit {
     this.time_spent = 100;
     this.completionData.time_spent = this.time_spent;
     this.completionData.step_id = this.current_step_id;
-    console.log(this.completionData);
     this.slideService.storeCompletionData(this.completionData)
       .subscribe( (data) => {
         console.log(data);
       });
-    this.commonDialogService.openCongratsDialog(this.next_step_id, this.isLastStep);
+    this.commonDialogService.openCongratsDialog(this.current_step_id, this.next_step_id, this.isLastStep);
   }
   onNextStepClick() {
     this.flowStepService.getNextStepData(this.next_step_id)
       .subscribe((next_step) => {
-        console.log(next_step);
         this.flowStepService.virtualStepMarkDone(next_step.data, this.time_spent);
         const next_step_url = this.flowStepService.goToFlowNextStep(next_step.data);
         this.router.navigate([next_step_url]);

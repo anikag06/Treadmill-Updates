@@ -14,6 +14,7 @@ export class SolutionsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log(this.solutions);
   }
 
   onSolutionRemove(solution: Solution) {

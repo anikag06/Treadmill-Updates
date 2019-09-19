@@ -91,7 +91,6 @@ export class ProblemSolvingWorksheetsService {
   }
 
   putSolution(solutionId: number, solution: string) {
-    console.log('sol ', solution)
     solution = this.sanitizer.stripTags(solution);
     const params = new HttpParams()
       .set('solution_id', solutionId.toString())
@@ -135,6 +134,7 @@ export class ProblemSolvingWorksheetsService {
   }
 
   postProsCons(proCon: ProsCons, solutionId: number) {
+    console.log(proCon, solutionId);
     let params = new HttpParams()
       .set('solution_id', solutionId.toString());
       if (proCon.is_pros) {
@@ -156,6 +156,7 @@ export class ProblemSolvingWorksheetsService {
   }
 
   putProsCons(proconId: number, body: string) {
+    console.log('body in put proscons', body);
     body = this.sanitizer.stripTags(body);
     const params = new HttpParams()
       .set('pros_cons_id', proconId.toString())

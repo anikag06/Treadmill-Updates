@@ -37,10 +37,15 @@
             <div class="card-full-width">
               <div class="card-header">
                 Problem statement
+                <div class="float-right d-inline-block">
+                  <mat-icon (click)="onProblemClick()"> edit </mat-icon>
+                </div>
               </div>
-              <div class="card-body" 
+              <div class="card-body " 
                 *ngIf="problem && !problemEditMode" (click)="onProblemClick()">
-                {{problem.problem}}
+                <div class="problem-statement-div">
+                    {{problem.problem}}
+                </div>
               </div>
               <div class="card-body" *ngIf="problem && problemEditMode" (click)="onProblemClick()">
                 <app-problem-form [problem]="problem"></app-problem-form>
@@ -58,7 +63,7 @@
             <div class="card-header">
               Possible solutions
               <div class="float-right d-inline-block">
-                <mat-icon> edit </mat-icon>
+                <mat-icon (click)="onEditSolutionClick()"> edit </mat-icon>
               </div>
             </div>
 
@@ -70,10 +75,13 @@
               <div *ngIf="solutions && solutions.length === 0 || showSolutionsForm">
                 <form (ngSubmit)="onSolutionSubmit()" #solutionForm="ngForm">
                   <mat-form-field class="full-width">
-                    <textarea name="solution" id="solution" 
-                            rows="1" placeholder="Enter your solution"
+                    <textarea name="solution" id="solution" #solutionTextArea
+                            placeholder="Enter your solution"
                             matInput required [autofocus] ngModel 
-                            (focusout)="onSolutionFocusOut()" ></textarea>
+                            (focusout)="onSolutionFocusOut()"
+                            cdkTextareaAutosize
+                            cdkAutosizeMinRows="1"
+                            cdkAutosizeMaxRows="5"></textarea>
                   </mat-form-field>
                 </form>
               </div>

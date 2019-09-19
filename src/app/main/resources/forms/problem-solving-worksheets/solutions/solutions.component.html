@@ -1,14 +1,21 @@
 <ul class="list-group" *ngIf="solutions && solutions.length > 0">
   <li class="list-group-item border-0 py-0" 
     *ngFor="let solution of solutions; let i = index">
-    <div class="solution">
-      <p
-      (focusout)="onFocusOut($event, solution)"
-      tabindex="10"
-      contenteditable="true">
-      {{i+1}}. {{solution.solution}}
-    </p>
-    <span class="pull-right" (click)="onSolutionRemove(solution)">
+    <div class="solution row py-3">
+      <div class="col-1 float-left">{{i+1}}. </div>
+      <div class="col-9 text d-inline-block"  
+        contenteditable="true">
+        
+        <p class="d-inline"
+          (focusout)="onFocusOut($event, solution)"
+          tabindex="10"
+          >
+          {{solution.solution}}
+        </p>
+      </div>
+      
+    <span class="ml-auto col align-self-end d-inline-block" 
+      (click)="onSolutionRemove(solution)">
       <mat-icon>remove_circle</mat-icon>
     </span>
     </div>

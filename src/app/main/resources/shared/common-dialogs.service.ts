@@ -21,26 +21,39 @@ export class CommonDialogsService {
     private http: HttpClient,
     private flowNavService: FlowStepNavigationService,
   ) { }
-  openCongratsDialog(step_id: number, isLastStep: boolean) {
+  openCongratsDialog(curr_id: number, step_id: number, isLastStep: boolean) {
     this.isLocked = false;
-    this.flowNavService.getNextStepData(step_id)
+    if (isLastStep) {
+      this.flowNavService.isNextModuleLocked(curr_id)
+        .subscribe(
+          (data) => {
+            this.nextStepData = data.data;
+            this.isLocked = !data.data.next_step_group_unlocked;
+            this.openDialog(true);
+          }
+        );
+    } else {
+      this.flowNavService.getNextStepData(step_id)
       .subscribe( (next_step_data) => {
-        console.log(next_step_data);
         if (next_step_data.data.status === LOCKED) {
           this.isLocked = true;
         }
         this.nextStepData = next_step_data.data;
-        const dialogRef = this.dialog.open(CongratsDialogComponent, {
-          width: '50%',
-          height: '65%',
-          data: {
-            isLocked: this.isLocked,
-            lastStep: isLastStep,
-            nextStepData: this.nextStepData,
-          }
-        });
+        this.openDialog(false);
       });
+    }
   }
 
+  openDialog(isLastStep: boolean) {
+    const dialogRef = this.dialog.open(CongratsDialogComponent, {
+      width: '50%',
+      height: '65%',
+      data: {
+        isLocked: this.isLocked,
+        isLastStep: isLastStep,
+        nextStepData: this.nextStepData,
+      }
+    });
+  }
 
 }

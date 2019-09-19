@@ -42,6 +42,10 @@ export class FlowStepNavigationService {
     return this.http.get(environment.API_ENDPOINT + '/api/v1/flow/steps/' + stepId + '/');
   }
 
+  isNextModuleLocked(stepId: number): Observable<any> {
+    return this.http.get(environment.API_ENDPOINT +
+      '/api/v1/flow/next-step-group-status/' + stepId + '/');
+  }
   virtualStepMarkDone(step: any, timeSpent: number) {
     if (step.virtual_step) {
       this.markDone(step.id, timeSpent)
@@ -51,7 +55,7 @@ export class FlowStepNavigationService {
     }
   }
 
-  markDone(stepId: number, timeSpent: number) {
+  markDone(stepId: number, timeSpent: number)  {
     return this.http.post(environment.API_ENDPOINT + FLOW_STEP_MARK_DONE, {step_id: stepId, time_spent: timeSpent});
   }
 }
