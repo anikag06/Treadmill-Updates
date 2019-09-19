@@ -35,7 +35,7 @@ export class StepComponent implements OnInit {
    }
 
    markDone() {
-    console.log(this.step);
+    console.log("To be", this.step);
     const prev = this.previousStep(this.stepGroup, this.step);
     console.log(prev);
     if (prev) {
