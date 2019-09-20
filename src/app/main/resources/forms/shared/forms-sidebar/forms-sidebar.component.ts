@@ -81,7 +81,6 @@ export class FormsSidebarComponent implements OnInit {
   }
 
   selectObject() {
-    console.log(this.objects);
     if (this.objects.length > 0 && this.object_id > 0) {
       const form = this.objects.find(object => object.id === this.object_id);
       if (form) {

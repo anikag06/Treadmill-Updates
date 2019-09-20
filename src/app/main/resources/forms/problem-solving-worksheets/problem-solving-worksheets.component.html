@@ -18,7 +18,7 @@
         </button>
       </div>
 
-      <mat-menu
+      <mat-menu xPosition="before" yPosition="below"
         #problemSolvingForms="matMenu"  [overlapTrigger]="false" >
           <app-forms-sidebar
           [type]="type"
@@ -38,7 +38,8 @@
               <div class="card-header">
                 Problem statement
                 <div class="float-right d-inline-block">
-                  <mat-icon (click)="onProblemClick()"> edit </mat-icon>
+                  <mat-icon class="edit_icon" (click)="onEditProblemClick()">
+                     edit </mat-icon>
                 </div>
               </div>
               <div class="card-body " 
@@ -63,7 +64,8 @@
             <div class="card-header">
               Possible solutions
               <div class="float-right d-inline-block">
-                <mat-icon (click)="onEditSolutionClick()"> edit </mat-icon>
+                <mat-icon class="edit_icon" (click)="onEditSolutionClick()">
+                   edit </mat-icon>
               </div>
             </div>
 
@@ -75,7 +77,8 @@
               <div *ngIf="solutions && solutions.length === 0 || showSolutionsForm">
                 <form (ngSubmit)="onSolutionSubmit()" #solutionForm="ngForm">
                   <mat-form-field class="full-width">
-                    <textarea name="solution" id="solution" #solutionTextArea
+                    <textarea class="py-0" 
+                            name="solution" id="solution" #solutionTextArea
                             placeholder="Enter your solution"
                             matInput required [autofocus] ngModel 
                             (focusout)="onSolutionFocusOut()"

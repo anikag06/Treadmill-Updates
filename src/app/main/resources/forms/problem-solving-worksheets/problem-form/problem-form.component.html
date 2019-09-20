@@ -1,9 +1,11 @@
 <form>
   <mat-form-field class="full-width">
-    <textarea name="problemStatement" 
-              id="problemStatement" rows="1" placeholder="Enter your problem"
+    <textarea name="problemStatement" class="py-0" #problemTextArea
+              cdkTextareaAutosize
+              cdkAutosizeMinRows="1"
+              cdkAutosizeMaxRows="5"
+              id="problemStatement" placeholder="Enter your problem"
               matInput required [autofocus] [(ngModel)]="problemStatement"
-             
               (focusout)="onFocusOut($event)"></textarea>
   </mat-form-field>
   <p class="text-right" (click)="onProblemSubmit()">

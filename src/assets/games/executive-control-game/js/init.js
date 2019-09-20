@@ -174,7 +174,7 @@ function init_game_variables(){
 	obstacle_movement=1;
 	TOP=1;
 	BOTTOM=-1;
-	OBSTACLE_Y_SPEED=OBSTACLE_SPEED;
+	OBSTACLE_Y_SPEED=OBSTACLE_SPEED - 2;
 
 
 	//Task initialization

@@ -1,17 +1,13 @@
 <ul class="list-group" *ngIf="solutions && solutions.length > 0">
   <li class="list-group-item border-0 py-0" 
-    *ngFor="let solution of solutions; let i = index">
+    *ngFor="let solution of solutions; let i = index; let last = last">
     <div class="solution row py-3">
       <div class="col-1 float-left">{{i+1}}. </div>
-      <div class="col-9 text d-inline-block"  
-        contenteditable="true">
-        
-        <p class="d-inline"
-          (focusout)="onFocusOut($event, solution)"
-          tabindex="10"
-          >
-          {{solution.solution}}
-        </p>
+      <div class="col-9 text d-inline-block"
+        #lastSolution
+        (focusout)="onFocusOut($event, solution)"
+        contenteditable="true" tabindex="10">
+        {{solution.solution}}
       </div>
       
     <span class="ml-auto col align-self-end d-inline-block" 

@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, QueryList, ViewChildren } from '@angular/core';
 import { Solution } from '../solution.model';
+import { ProblemSolvingWorksheetsService } from '../problem-solving-worksheets.service';
 
 @Component({
   selector: 'app-solutions',
@@ -11,12 +12,24 @@ export class SolutionsComponent implements OnInit {
   @Input() solutions!: Solution[];
   @Output() solutionDelete = new EventEmitter<Solution>();
   @Output() solutionEdit = new EventEmitter<Solution>();
-  constructor() { }
+  @ViewChildren('lastSolution') lastSolutionDiv!: QueryList<any>;
+
+  constructor(
+    private problemService: ProblemSolvingWorksheetsService
+  ) { }
 
   ngOnInit() {
-    console.log(this.solutions);
   }
 
+  ngAfterViewInit() {
+    // this.lastSolutionDiv.forEach(div => console.log(div));
+  }
+
+  onEditTextClicked() {
+    if (this.lastSolutionDiv) {
+      this.lastSolutionDiv.last.nativeElement.focus();
+    }
+  }
   onSolutionRemove(solution: Solution) {
     if (confirm('Are you sure to delete this solution')) {
       this.solutionDelete.emit(solution);
@@ -25,7 +38,8 @@ export class SolutionsComponent implements OnInit {
 
   onFocusOut(event: FocusEvent, solution: Solution) {
     if ((<Element>event.target).innerHTML) {
-      solution.solution = (<Element>event.target).innerHTML.trim();
+      solution.solution = this.problemService.changeExtraCharacters(event);
+      (<Element>event.target).innerHTML = solution.solution;
       this.solutionEdit.emit(solution);
     }
   }

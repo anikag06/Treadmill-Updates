@@ -55,7 +55,7 @@ function obstacle_placer() {
         }
         else if(obstacle_type.curr_choice==2)
         {
-            obstacle = obstacle_group.create(screen_width + OBSTACLE_X_CORDINATE,OBSTACLE_Y_CORDINATE, 'obstacle');
+            obstacle = obstacle_group.create(screen_width + OBSTACLE_X_CORDINATE,OBSTACLE_Y_CORDINATE, 'flying_obstacle');
             obstacle.body.allowGravity = false;
             obstacle.depth=2;
             curr_game.physics.add.overlap(obstacle, player,function(obj1,obj2){hit_obstacle(obj1);}, null, curr_game);

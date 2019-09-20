@@ -44,10 +44,8 @@ export class ProconItemComponent implements OnInit {
   }
 
   saveProConData(event: any) {
-    const text = (<Element>event.target).innerHTML.replace(/&nbsp;/gi, '').replace(/<div><br><\/div>/gi, '')
-                  .replace(/<br>/gi, '').replace(/&amp;/gi, '');
+    const text = this.problemService.changeExtraCharacters(event);
     this.procon.body = text;
-    console.log('procon body', this.procon.body);
     this.hideRemove = true;
     this.problemService.putProsCons(this.procon.id, this.procon.body)
       .subscribe(

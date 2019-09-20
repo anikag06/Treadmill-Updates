@@ -25,6 +25,16 @@ export class ProblemSolvingWorksheetsService {
     private sanitizer: SanitizationService,
   ) { }
 
+ // in the contentEditable div space and enter and other HTMl characters are added,
+ // so use this function to remove extra charaters
+  changeExtraCharacters(event: any) {
+    const changedText = (<Element>event.target).innerHTML.replace(/&nbsp;/gi, '')
+              .replace(/<div><br><\/div>/gi, ' ').replace(/<br>/gi, ' ')
+              .replace(/&amp;/gi, '').replace(/&lt;/gi, '').replace(/&gt;/gi, '')
+              .replace(/<div>/gi, ' ').replace(/<\/div>/gi, ' ');
+    return changedText;
+  }
+
   getProblems() {
     const params = new HttpParams().set('page', this.page.toString());
     return this.http.get<Problem[]>(environment.API_ENDPOINT + '/api/v1/worksheets/problem-solving/problems/', { params: params })
@@ -134,7 +144,6 @@ export class ProblemSolvingWorksheetsService {
   }
 
   postProsCons(proCon: ProsCons, solutionId: number) {
-    console.log(proCon, solutionId);
     let params = new HttpParams()
       .set('solution_id', solutionId.toString());
       if (proCon.is_pros) {
@@ -156,7 +165,6 @@ export class ProblemSolvingWorksheetsService {
   }
 
   putProsCons(proconId: number, body: string) {
-    console.log('body in put proscons', body);
     body = this.sanitizer.stripTags(body);
     const params = new HttpParams()
       .set('pros_cons_id', proconId.toString())
