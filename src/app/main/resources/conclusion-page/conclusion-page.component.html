@@ -1,0 +1,27 @@
+<div class="container-fluid " *ngIf='!pageNotAvailable'>
+    <div class="row">
+        Conclusion Page
+    </div>
+    <div class="row">
+        Summary of the module..... 
+    </div>
+    <div class="row align-self-end px-0">
+        <button class="completed-btn float-right" type="button"
+            *ngIf = '!stepCompleted; else isCompleted '
+            mat-raised-button color="primary"
+            (click)="onCompleted()">
+            Completed
+        </button>
+        <ng-template #isCompleted>
+            <button class="completed-btn float-right" type="button"
+                mat-raised-button color="primary"
+                (click)="onDashboard()">
+                Go to dashboard
+            </button>
+        </ng-template>
+    </div>
+
+</div>
+<ng-container *ngIf="pageNotAvailable">
+    <h1>The content is not available</h1>
+</ng-container>

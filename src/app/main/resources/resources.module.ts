@@ -35,6 +35,8 @@ import { FormDirective } from '@/main/resources/slides/form.directive';
 import { SlideService } from './slides/slide.service';
 import { CongratsDialogComponent } from './shared/congrats-dialog/congrats-dialog.component';
 import { CommonDialogsService } from './shared/common-dialogs.service';
+import { ConclusionPageComponent } from './conclusion-page/conclusion-page.component';
+import { StepsDataService } from './shared/steps-data.service';
 
 @NgModule({
   declarations: [
@@ -53,6 +55,7 @@ import { CommonDialogsService } from './shared/common-dialogs.service';
     SlidesComponent,
     FormDirective,
     CongratsDialogComponent,
+    ConclusionPageComponent,
   ],
   imports: [
     ResourcesRoutingModule,
@@ -77,6 +80,7 @@ import { CommonDialogsService } from './shared/common-dialogs.service';
   providers: [
     SlideService,
     CommonDialogsService,
+    StepsDataService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [CongratsDialogComponent, ProblemFormComponent, ProblemSolvingWorksheetsComponent]

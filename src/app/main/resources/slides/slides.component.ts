@@ -6,13 +6,14 @@ import { ProblemSolvingWorksheetsComponent } from '@/main/resources/forms/proble
 import { TaskFormsComponent } from '../forms/task-forms/task-forms.component';
 import { Slide } from './Slide.model';
 import { SlidesFeedback, SlidesFeedbackText } from './slide.feedback.model';
-import { SlidesCompleteData } from './slide-complete.model';
+import { StepCompleteData } from '../shared/completion-data.model';
 import { ActivatedRoute, Router} from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
 import { trigger, transition, style, animate, state } from '@angular/animations';
 import { SLIDE, FORM_PROBLEM_SOLVING_WORKSHEET, FORM_TASK } from '@/app.constants';
 import { CommonDialogsService } from '../shared/common-dialogs.service';
 import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.service';
+import { StepsDataService } from '../shared/steps-data.service';
 
 @Component({
   selector: 'app-slides',
@@ -59,6 +60,7 @@ export class SlidesComponent implements OnInit {
     private router: Router,
     private commonDialogService: CommonDialogsService,
     private flowStepService: FlowStepNavigationService,
+    private stepDataService: StepsDataService,
   ) { }
 
   slide!: Slide;
@@ -84,7 +86,7 @@ export class SlidesComponent implements OnInit {
 
   feedbackData: SlidesFeedback = new SlidesFeedback(0, 0, 1);
   feedbackText: SlidesFeedbackText = new SlidesFeedbackText('');
-  completionData: SlidesCompleteData = new SlidesCompleteData(0, 0);
+  completionData: StepCompleteData = new StepCompleteData(0, 0);
   time_spent: any;
   current_step_id!: number;
   isLastStep = false;
@@ -95,7 +97,7 @@ export class SlidesComponent implements OnInit {
     this.activateRoute.params
       .pipe(
         map(v => v.id),
-        switchMap(id =>  this.slideService.getSlide(parseInt(id, 10)))
+        switchMap(id =>  this.stepDataService.getStepData(parseInt(id, 10)))
       )
       .subscribe(
         (data: any) => {
@@ -221,11 +223,12 @@ export class SlidesComponent implements OnInit {
     this.time_spent = 100;
     this.completionData.time_spent = this.time_spent;
     this.completionData.step_id = this.current_step_id;
-    this.slideService.storeCompletionData(this.completionData)
+    this.stepDataService.storeCompletionData(this.completionData)
       .subscribe( (data) => {
         console.log(data);
       });
     this.commonDialogService.openCongratsDialog(this.current_step_id, this.next_step_id, this.isLastStep, this.time_spent);
+    this.showNextStepBtn = true;
   }
   onNextStepClick() {
     this.flowStepService.getNextStepData(this.next_step_id)

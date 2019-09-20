@@ -5,6 +5,7 @@ import {ProblemSolvingWorksheetsComponent} from '@/main/resources/forms/problem-
 import {FormsListComponent} from '@/main/resources/forms/forms-list/forms-list.component';
 import {TaskFormsComponent} from '@/main/resources/forms/task-forms/task-forms.component';
 import { SlidesComponent } from './slides/slides.component';
+import { ConclusionPageComponent } from './conclusion-page/conclusion-page.component';
 
 
 export const formRoutes: Routes = [
@@ -15,6 +16,7 @@ export const formRoutes: Routes = [
     ]
   },
   { path: 'slides/:id', component: SlidesComponent },
+  { path: 'conclusion/:id', component: ConclusionPageComponent},
 ];
 
 @NgModule({

@@ -36,7 +36,6 @@ export class StepComponent implements OnInit {
 
    markDone() {
     const prev = this.previousStep(this.stepGroup, this.step);
-    console.log(prev);
     if (prev) {
       if (prev.status === COMPLETED) {
         this.flowStepNavService.virtualStepMarkDone(this.step, 1);        // here 1 is the time spent
@@ -47,6 +46,7 @@ export class StepComponent implements OnInit {
    navigate(event: Event) {
       event.preventDefault();
       this.markDone();
+      console.log(this.nextLink());
       this.router.navigate([this.nextLink()]);
    }
 
