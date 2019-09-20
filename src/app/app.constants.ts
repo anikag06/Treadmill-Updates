@@ -88,10 +88,11 @@ export const GAME = 'GAME';
 export const FORM = 'FORM';
 export const SUPPORT_GROUP = 'SUPPORT_GROUP';
 export const SURVEY = 'SURVEY';
+export const INTRODUCTORY_ANIMATION = 'INTRODUCTORY_ANIMATION';
 
 export const LOCKED = 'LOCKED';
 export const UNLOCKED = 'UNLOCKED';
-export const WORKING = 'WORKING';
+export const ACTIVE = 'ACTIVE';
 export const COMPLETED = 'COMPLETED';
 
 export const FLOW_STEP_MARK_DONE = '/api/v1/flow/step/';

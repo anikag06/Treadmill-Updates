@@ -95,6 +95,8 @@ import { StepComponent } from './flow/step-group/step/step.component';
 import { StepsIndicatorComponent } from './flow/step-group/steps-indicator/steps-indicator.component';
 import { QuizService } from './dashboard/questionnaire/questionnaire.service';
 import { FlowStepNavigationService } from './shared/flow-step-navigation.service';
+import { IntroduceComponent } from './shared/introduce/introduce.component';
+import { OverlayModule } from '@angular/cdk/overlay';
 @NgModule({
   declarations: [
     ModulesComponent,
@@ -149,7 +151,8 @@ import { FlowStepNavigationService } from './shared/flow-step-navigation.service
     FlowComponent,
     StepGroupComponent,
     StepComponent,
-    StepsIndicatorComponent
+    StepsIndicatorComponent,
+    IntroduceComponent
   ],
   imports: [
     CommonModule,
@@ -175,6 +178,7 @@ import { FlowStepNavigationService } from './shared/flow-step-navigation.service
     MatSlideToggleModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireMessagingModule,
+    OverlayModule,
   ],
   providers: [
     LocalStorageService,
@@ -202,7 +206,7 @@ import { FlowStepNavigationService } from './shared/flow-step-navigation.service
     FlowStepNavigationService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  entryComponents: [CreatePostComponent]
+  entryComponents: [CreatePostComponent, IntroduceComponent]
 })
 export class MainModule {
 }

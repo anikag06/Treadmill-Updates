@@ -10,6 +10,11 @@ import { MatDrawer } from '@angular/material';
 import { DataService } from './dashboard/questionnaire/data.service';
 import {FcmService} from '@/main/fcm.service';
 import { QuizService } from './dashboard/questionnaire/questionnaire.service';
+import { FlowService } from './flow/flow.service';
+import { Overlay, OverlayRef } from '@angular/cdk/overlay';
+import { ComponentPortal } from '@angular/cdk/portal';
+import { IntroduceComponent } from './shared/introduce/introduce.component';
+import { IntroduceService } from './shared/introduce/introduce.service';
 // tslint:disable-next-line:max-line-length
 
 
@@ -23,6 +28,7 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
 
   user!: User;
   routing!: boolean;
+  overlayRef!: OverlayRef;
 
 
   @ViewChild('drawer', {static : true}) drawer!: MatDrawer;
@@ -39,7 +45,10 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
     private router: Router,
     private dataService: DataService,
     private fcmService: FcmService,
-    private quizService: QuizService
+    private quizService: QuizService,
+    private flowService: FlowService,
+    private overlay: Overlay,
+    private introduceService: IntroduceService,
   ) {}
 
   ngOnChanges() {
@@ -55,6 +64,24 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
     }
 
     this.fcmService.requestPermission();
+
+    this.flowService.introduceBehaviour
+      .subscribe(
+        (data: any) => {
+          if (data) {
+            this.startIntroduction();
+          }
+        }
+      );
+
+      this.introduceService.closeBehaviour
+      .subscribe(
+        (data: any) => {
+          if (data) {
+            this.overlayRef.detach();
+          }
+        }
+      );
   }
 
   ngDoCheck() {
@@ -86,5 +113,14 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
     if (e.url !== '/questionnaire' && this.user && this.quizService.questionnaireActive) {
       this.router.navigate(['/questionnaire']);
     }
+  }
+
+  startIntroduction() {
+    this.overlayRef = this.overlay.create({
+      height: '100vh',
+      width: '100vw'
+    });
+    const portal = new ComponentPortal(IntroduceComponent);
+    this.overlayRef.attach(portal);
   }
 }
