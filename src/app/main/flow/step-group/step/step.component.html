@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col">
-        <div class="step-content">
+        <div class="step-content" [ngClass]="{'locked': locked(), 'active': active()}">
           <a [routerLink]="nextLink()" (click)="navigate($event)">
             <span>{{stepGroup.sequence+1}}.{{step.sequence+1}}</span>&nbsp;&nbsp; &nbsp;<span>{{step.name}}</span>
           </a>

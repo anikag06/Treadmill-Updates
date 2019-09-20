@@ -1,6 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Step } from '../flow/step-group/step/step.model';
-import { LOCKED, SLIDE, CONVERSATION_GROUP, GAME, FORM, SUPPORT_GROUP, FORM_TASK, FORM_PROBLEM_SOLVING_WORKSHEET, FLOW_STEP_MARK_DONE, QUESTIONNAIRE, HTML_PAGE } from '@/app.constants';
+import {
+  LOCKED,
+  SLIDE,
+  CONVERSATION_GROUP,
+  GAME, FORM, SUPPORT_GROUP,
+  FORM_TASK,
+  FORM_PROBLEM_SOLVING_WORKSHEET,
+  FLOW_STEP_MARK_DONE,
+  QUESTIONNAIRE,
+  HTML_PAGE,
+  INTRODUCTORY_ANIMATION
+} from '@/app.constants';
 import { Observable } from 'rxjs';
 import { environment } from 'environments/environment';
 import { HttpClient } from '@angular/common/http';
@@ -36,8 +46,9 @@ export class FlowStepNavigationService {
       } else if (step.data_type === QUESTIONNAIRE) {
         return `/questionnaire/`;
       } else if (step.data_type === HTML_PAGE) {
-        console.log('conclusions');
         return `/resources/conclusion/${step.id}/`;
+      } else if (step.data_type === INTRODUCTORY_ANIMATION) {
+        return `/dashboard`;
       }
     }
     return '/';

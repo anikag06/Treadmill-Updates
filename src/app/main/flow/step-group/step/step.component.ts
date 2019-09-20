@@ -1,10 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Step } from './step.model';
 import { StepGroup } from '../step-group.model';
-import { COMPLETED } from '@/app.constants';
+import { COMPLETED, LOCKED, ACTIVE, INTRODUCTORY_ANIMATION } from '@/app.constants';
 import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.service';
-import { FlowService } from '../../flow.service';
 import { Router } from '@angular/router';
+import { FlowService } from '../../flow.service';
 
 @Component({
   selector: 'app-step',
@@ -18,7 +18,8 @@ export class StepComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private flowStepNavService: FlowStepNavigationService
+    private flowStepNavService: FlowStepNavigationService,
+    private flowService: FlowService,
   ) { }
 
   ngOnInit() {
@@ -36,18 +37,31 @@ export class StepComponent implements OnInit {
 
    markDone() {
     const prev = this.previousStep(this.stepGroup, this.step);
-    if (prev) {
-      if (prev.status === COMPLETED) {
-        this.flowStepNavService.virtualStepMarkDone(this.step, 1);        // here 1 is the time spent
-      }
+    if (!prev || prev && prev.status === COMPLETED) {
+      this.flowStepNavService.virtualStepMarkDone(this.step, 1);        // here 1 is the time spent
     }
    }
 
    navigate(event: Event) {
       event.preventDefault();
       this.markDone();
-      console.log(this.nextLink());
+      let queryParams = {};
+      if (this.step.data_type === INTRODUCTORY_ANIMATION) {
+        this.flowService.triggerIntroduction();
+      }
       this.router.navigate([this.nextLink()]);
+   }
+
+   locked() {
+     return this.step.status === LOCKED && !this.step.virtual_step;
+   }
+
+   active() {
+     return this.step.status === ACTIVE;
+   }
+
+   unlocked() {
+    return this.step.status === ACTIVE;
    }
 
 }

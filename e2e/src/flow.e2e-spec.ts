@@ -19,12 +19,12 @@ describe('treadwill Flow', () => {
   });
 
   it('Should find Module text', () => {
-    expect(fp.findText()).toContain('Introduction');
-    expect(fp.findText()).toContain('Basic module');
-    expect(fp.findText()).toContain('Behaviorial Activation');
-    expect(fp.findText()).toContain('Identifying NATs');
-    expect(fp.findText()).toContain('Challenging NATs');
+    expect(fp.findText()).toContain('Introduction to Treadwill');
+    expect(fp.findText()).toContain('Know Yourself');
+    expect(fp.findText()).toContain('Making good things happen');
+    expect(fp.findText()).toContain('Don\'t believe everything you think');
     expect(fp.findText()).toContain('Modifying Beliefs');
+    expect(fp.findText()).toContain('Worrying Productively');
     expect(fp.findText()).toContain('Staying Happy');
   });
 

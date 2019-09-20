@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Step } from '../step/step.model';
 import { StepGroup } from '../step-group.model';
+import { UNLOCKED } from '@/app.constants';
 
 @Component({
   selector: 'app-steps-indicator',
@@ -11,7 +12,7 @@ export class StepsIndicatorComponent implements OnInit {
 
   imageMap = new Map([
     ['locked', 'assets/flow/locked.svg'],
-    ['unlocked', 'assets/flow/unlocked.gif'],
+    ['active', 'assets/flow/unlocked.gif'],
     ['completed', 'assets/flow/completed.svg'],
   ]);
 
@@ -23,6 +24,9 @@ export class StepsIndicatorComponent implements OnInit {
   }
 
   getStatusImage(step: Step) {
+    if (step.virtual_step && step.status === UNLOCKED) {
+      return this.imageMap.get('locked');
+    }
     return this.imageMap.get(step.status.toLowerCase());
   }
 

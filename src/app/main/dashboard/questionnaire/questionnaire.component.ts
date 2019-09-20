@@ -11,7 +11,7 @@ import { trigger, transition, animate, style, state } from '@angular/animations'
 import { DataService } from './data.service';
 import { FlowService } from '@/main/flow/flow.service';
 import { StepGroup } from '@/main/flow/step-group/step-group.model';
-import { WORKING, UNLOCKED, QUESTIONNAIRE, COMPLETED, LOCKED } from '@/app.constants';
+import { ACTIVE, UNLOCKED, QUESTIONNAIRE, COMPLETED, LOCKED } from '@/app.constants';
 import { Step } from '@/main/conversation-group/conversation-group-input/step.model';
 import { Router } from '@angular/router';
 import { GeneralErrorService } from '@/main/shared/general-error.service';
@@ -114,7 +114,7 @@ export class QuestionnaireComponent implements OnInit {
       .subscribe(
         (data: any) => {
           this.loading = false;
-          const step_group = data.step_groups.find((sg: StepGroup) => sg.status === WORKING);
+          const step_group = data.step_groups.find((sg: StepGroup) => sg.status === ACTIVE);
           if (step_group) {
               this.step = step_group.steps.find(
                 (step: Step) => {
