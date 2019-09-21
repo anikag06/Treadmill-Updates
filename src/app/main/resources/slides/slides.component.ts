@@ -222,10 +222,10 @@ export class SlidesComponent implements OnInit {
     this.time_spent = 100;
     this.completionData.time_spent = this.time_spent;
     this.completionData.step_id = this.current_step_id;
-    // this.stepDataService.storeCompletionData(this.completionData)
-    //   .subscribe( (data) => {
-    //     console.log(data);
-    //   });
+    this.stepDataService.storeCompletionData(this.completionData)
+      .subscribe( (data) => {
+        console.log(data);
+      });
     this.commonDialogService.openCongratsDialog(this.current_step_id, this.next_step_id, this.isLastStep, this.time_spent);
     this.showNextStepBtn = true;
   }
