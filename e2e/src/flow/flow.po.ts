@@ -36,4 +36,16 @@ export class FlowPage {
     goHome() {
         return element(by.css('.main-logo')).click();
     }
+
+    findTextbyCss(cssClass: string) {
+        return element(by.css(cssClass)).getText();
+    }
+
+    clickOnText(cssSelctor: string) {
+        const elm = element(by.css(cssSelctor));
+        return browser.actions()
+        .mouseMove(elm)
+        .click()
+        .perform();
+    }
 }

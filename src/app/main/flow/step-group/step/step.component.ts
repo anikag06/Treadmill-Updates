@@ -35,6 +35,12 @@ export class StepComponent implements OnInit {
       return allSteps[index - 1];
    }
 
+   nextStep(stepGroup: StepGroup, step: Step) {
+    const allSteps = <Step[]>stepGroup.steps;
+    const index = allSteps.indexOf(step, 1);
+    return allSteps[index + 1];
+ }
+
    markDone() {
     const prev = this.previousStep(this.stepGroup, this.step);
     if (!prev || prev && prev.status === COMPLETED) {
@@ -45,11 +51,14 @@ export class StepComponent implements OnInit {
    navigate(event: Event) {
       event.preventDefault();
       this.markDone();
-      let queryParams = {};
       if (this.step.data_type === INTRODUCTORY_ANIMATION) {
         this.flowService.triggerIntroduction();
+        this.step.status = COMPLETED;
+        this.flowService.triggerLoad();
+        setTimeout(() => this.flowService.triggerLoad(), 100);
+
       }
-      this.router.navigate([this.nextLink()]);
+      return this.router.navigate([this.nextLink()]);
    }
 
    locked() {

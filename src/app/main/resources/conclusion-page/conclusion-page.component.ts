@@ -61,4 +61,8 @@ export class ConclusionPageComponent implements OnInit {
       });
     this.commonDialogService.openCongratsDialog(this.current_step_id, this.next_step_id, this.isLastStep, this.timeSpent)
   }
+  
+  onDashboard() {
+    this.router.navigate(['/dashboard']);
+  }
 }

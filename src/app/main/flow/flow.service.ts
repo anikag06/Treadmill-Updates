@@ -10,6 +10,7 @@ import { BehaviorSubject } from 'rxjs';
 export class FlowService {
 
   introduceBehaviour = new BehaviorSubject(false);
+  loadBehaviour = new BehaviorSubject(true);
 
   constructor(
     private http: HttpClient
@@ -25,5 +26,9 @@ export class FlowService {
 
   triggerIntroduction() {
     this.introduceBehaviour.next(true);
+  }
+
+  triggerLoad() {
+    this.loadBehaviour.next(true);
   }
 }

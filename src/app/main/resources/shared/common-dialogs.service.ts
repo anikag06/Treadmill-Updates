@@ -1,11 +1,9 @@
-import { Injectable, Input } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { CongratsDialogComponent } from './congrats-dialog/congrats-dialog.component';
-import { LOCKED, SLIDE, CONVERSATION_GROUP, GAME, FORM, SUPPORT_GROUP } from '@/app.constants';
+import { LOCKED } from '@/app.constants';
 import { Step } from '@/main/conversation-group/conversation-group-input/step.model';
 import { HttpClient } from '@angular/common/http';
-import { environment } from 'environments/environment';
-import { Observable } from 'rxjs';
 import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.service';
 
 @Injectable({
@@ -53,7 +51,8 @@ export class CommonDialogsService {
         isLastStep: isLastStep,
         nextStepData: this.nextStepData,
         time_spent: time_spent
-      }
+      },
+      autoFocus: false
     });
   }
 
