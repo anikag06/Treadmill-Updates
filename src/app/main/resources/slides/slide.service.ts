@@ -15,10 +15,6 @@ export class SlideService {
     private http: HttpClient
   ) { }
 
-  // getSlide(stepId: number) {
-  //   return this.http.get(environment.API_ENDPOINT + '/api/v1/flow/steps/' + stepId + '/');
-  // }
-
   getFeedBackInfo(slideId: number): Observable<any> {
     return this.http.get(environment.API_ENDPOINT + SLIDES_FEEDBACK + slideId + '/');
   }
@@ -31,7 +27,4 @@ export class SlideService {
     return this.http.put(environment.API_ENDPOINT + STORE_FEEDBACK + dataId + '/', feedback);
   }
 
-  // storeCompletionData(completionData: StepCompleteData) {
-  //   return this.http.post(environment.API_ENDPOINT + SLIDE_COMPLETE_DATA, completionData);
-  // }
 }

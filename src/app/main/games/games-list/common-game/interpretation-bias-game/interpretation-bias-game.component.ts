@@ -111,6 +111,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   scoresRelatedInfo() {
     this.gameAuthService.ibGameGetScoresInfo()
       .subscribe((data) => {
+          console.log(data, data.data);
           this.INPUT_ORDER = data.data.order;
           ibGameScore = data.data.score;
           ibGamelevel = data.data.level;

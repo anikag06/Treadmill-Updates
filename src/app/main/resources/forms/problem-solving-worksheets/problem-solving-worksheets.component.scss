@@ -5,7 +5,7 @@
 .container-fluid {
   background-color: white;
   // max-height: 900px;
-  box-shadow:  1px 2px 5px 1px rgba(0, 0, 0, 0.20);
+  box-shadow: 2px 2px 10px #cccccc;
 }
 .problem-statement-div{
   border-bottom: 1px solid #dcdcdc;
@@ -50,8 +50,6 @@
 }
 #main-heading {
   background-color: #343434;
-  // font-family: 'Roboto';
-  // font-size: 16px;
   color: white;
   // height: 5.1vh;
   max-height: 45px;

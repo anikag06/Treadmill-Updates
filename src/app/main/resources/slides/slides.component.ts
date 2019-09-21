@@ -10,7 +10,7 @@ import { StepCompleteData } from '../shared/completion-data.model';
 import { ActivatedRoute, Router} from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
 import { trigger, transition, style, animate, state } from '@angular/animations';
-import { SLIDE, FORM_PROBLEM_SOLVING_WORKSHEET, FORM_TASK } from '@/app.constants';
+import { SLIDE, FORM_PROBLEM_SOLVING_WORKSHEET, FORM_TASK, COMPLETED, ACTIVE, UNLOCKED } from '@/app.constants';
 import { CommonDialogsService } from '../shared/common-dialogs.service';
 import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.service';
 import { StepsDataService } from '../shared/steps-data.service';
@@ -101,14 +101,13 @@ export class SlidesComponent implements OnInit {
       )
       .subscribe(
         (data: any) => {
-          console.log(data);
-          if (['COMPLETED', 'WORKING', 'UNLOCKED'].includes(data.data.status) && data.data.data_type === SLIDE ) {
+          if ([COMPLETED, ACTIVE, UNLOCKED].includes(data.data.status) && data.data.data_type === SLIDE ) {
             this.slide = <Slide>data.data.step_data.data;
             this.current_step_id = data.data.id;
             this.isLastStep = data.data.is_last_step;
             this.next_step_id = data.data.next_step_id;
-            if (data.data.status === 'COMPLETED') {
-              this.showNextStepBtn = true;
+            if (data.data.status === COMPLETED) {
+              // this.showNextStepBtn = true;
 
               if (this.isLastStep) {
                 this.lastStepCompleted = true;
@@ -223,10 +222,10 @@ export class SlidesComponent implements OnInit {
     this.time_spent = 100;
     this.completionData.time_spent = this.time_spent;
     this.completionData.step_id = this.current_step_id;
-    this.stepDataService.storeCompletionData(this.completionData)
-      .subscribe( (data) => {
-        console.log(data);
-      });
+    // this.stepDataService.storeCompletionData(this.completionData)
+    //   .subscribe( (data) => {
+    //     console.log(data);
+    //   });
     this.commonDialogService.openCongratsDialog(this.current_step_id, this.next_step_id, this.isLastStep, this.time_spent);
     this.showNextStepBtn = true;
   }

@@ -59,6 +59,6 @@ export class ConclusionPageComponent implements OnInit {
       .subscribe( (data) => {
         console.log(data);
       });
-    this.commonDialogService.openCongratsDialog(this.current_step_id, this.next_step_id, this.isLastStep, this.timeSpent)
+    this.commonDialogService.openCongratsDialog(this.current_step_id, this.next_step_id, this.isLastStep, this.timeSpent);
   }
 }

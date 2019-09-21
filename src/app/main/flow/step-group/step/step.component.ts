@@ -45,7 +45,6 @@ export class StepComponent implements OnInit {
    navigate(event: Event) {
       event.preventDefault();
       this.markDone();
-      let queryParams = {};
       if (this.step.data_type === INTRODUCTORY_ANIMATION) {
         this.flowService.triggerIntroduction();
       }

@@ -30,11 +30,10 @@ export class ProsConsComponent implements OnInit {
   onSubmit() {
     if (this.proconForm.value['procon'].trim().length > 0) {
       const procon = new ProsCons(0, this.solution.id, this.proconForm.value['procon'], this.pro);
-      console.log(procon, this.solution.id);
       this.problemsService.postProsCons(procon, this.solution.id)
         .subscribe(
           (data: any) => {
-            procon.id = data.data[0];
+            procon.id = data.data.ids[0];
             this.prosCons.push(procon);
             this.showForm = false;
             this.proconForm.reset();
@@ -66,7 +65,6 @@ export class ProsConsComponent implements OnInit {
   }
 
   onTextAreaFocusOut(event: any) {
-    console.log('in text area focus out');
     if (!(event.relatedTarget !== null && <Element>event.relatedTarget.classList.contains('close-btn'))) {
       this.onSubmit();
     }
