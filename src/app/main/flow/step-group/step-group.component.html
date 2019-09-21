@@ -1,4 +1,4 @@
-<mat-expansion-panel class="step-group">
+<mat-expansion-panel class="step-group" [expanded]='isExpanded'>
   <mat-expansion-panel-header class="row">
     <mat-panel-title>
       <div class="col-3 px-0">
@@ -36,6 +36,7 @@
       </div>
       <div class="col px-0">
         <app-step *ngFor="let step of stepGroup.steps" [step]="step" [stepGroup]="stepGroup"></app-step>
+        
       </div>
     </div>
   </ng-template>

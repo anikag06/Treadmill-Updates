@@ -12,9 +12,12 @@ export class StepGroupComponent implements OnInit {
 
   @Input() stepGroup!: StepGroup;
 
+  isExpanded = true;
+
   constructor() { }
 
   ngOnInit() {
+    this.isExpanded = true;
   }
 
   percentageComplete() {
