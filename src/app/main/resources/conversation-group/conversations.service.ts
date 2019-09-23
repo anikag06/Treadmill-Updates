@@ -77,15 +77,15 @@ export class ConversationsService {
   }
 
   getFeedBackInfo(slideId: number): Observable<any> {
-    return this.http.get(environment.API_ENDPOINT + 'api/v1/conversation/feedback/' + slideId + '/');
+    return this.http.get(environment.API_ENDPOINT + '/api/v1/conversation/feedback/' + slideId + '/');
   }
 
   storeFeedBackInfo(feedback: ConversationFeedback): Observable<any> {
-    return this.http.post(environment.API_ENDPOINT + 'api/v1/conversation/conversations-feedback/', feedback);
+    return this.http.post(environment.API_ENDPOINT + '/api/v1/conversation/conversations-feedback/', feedback);
   }
 
   updateFeedBackInfo(feedback: ConversationFeedbackText, dataId: number) {
-    return this.http.put(environment.API_ENDPOINT + 'api/v1/conversation/conversations-feedback/' + dataId + '/', feedback);
+    return this.http.put(environment.API_ENDPOINT + '/api/v1/conversation/conversations-feedback/' + dataId + '/', feedback);
   }
 
 }

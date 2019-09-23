@@ -168,7 +168,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   b = new Map<number, Dialog>();
 
   ngOnInit() {
-    this.conversation_id = this.passdata.getid();
+    this.conversation_id = 5;
     this.run();
     this.timerservice.visibility();
     this.timerservice.unload();
@@ -494,6 +494,7 @@ storeFeedBackData() {
 
   this.conversationsService.storeFeedBackInfo(this.feedbackData)
     .subscribe( (data) => {
+      console.log(data);
       this.feedbackDataId = data.data.id;
       this.initial_feedback = this.final_feedback;
     } );

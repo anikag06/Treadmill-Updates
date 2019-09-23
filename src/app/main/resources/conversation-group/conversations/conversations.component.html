@@ -6,15 +6,14 @@
 
 
             <div class="row changes-width sticky-top justify-content-center">
-                <div class="w-100 in-desktop sticky-top slideTitle ">
-                    <div>
-                        <p class="py-2 h-100 my-auto"> {{title}} </p>
-                    </div>
-                    <div>
-                        <button (click)="speed_run()">Show full conversation</button>
+                <div class="w-100 in-desktop sticky-top slideTitle mb-3 ">
+                    <div class=" pt-2 pb-0 h-100 my-auto">
+                        <p> <button class="float-right" id="speed" (click)="speed_run()">Show full conversation</button>
+                            {{title}} </p>
                     </div>
                 </div>
             </div>
+
 
 
             <div class="row h-100 justify-content-center slides-elements-div">
@@ -49,9 +48,9 @@
                 <!-- </div> -->
 
                 <div class="row justify-content-end">
-                    <div  *ngFor="let item of options; let i = index">
-                        <div  class="d-flex justify-content-end  mb-3" *ngIf="!speedrun">
-                            <div  class="msg_cotainer_send mx-3">
+                    <div *ngFor="let item of options; let i = index">
+                        <div class="d-flex justify-content-end  mb-3" *ngIf="!speedrun">
+                            <div class="msg_cotainer_send mx-3">
                                 <p [innerHtml]="item"></p>
                                 <button class="btn" (click)="on_click(i)">Send</button>
                             </div>
