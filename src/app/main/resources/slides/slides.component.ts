@@ -6,13 +6,14 @@ import { ProblemSolvingWorksheetsComponent } from '@/main/resources/forms/proble
 import { TaskFormsComponent } from '../forms/task-forms/task-forms.component';
 import { Slide } from './Slide.model';
 import { SlidesFeedback, SlidesFeedbackText } from './slide.feedback.model';
-import { SlidesCompleteData } from './slide-complete.model';
+import { StepCompleteData } from '../shared/completion-data.model';
 import { ActivatedRoute, Router} from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
 import { trigger, transition, style, animate, state } from '@angular/animations';
-import { SLIDE, FORM_PROBLEM_SOLVING_WORKSHEET, FORM_TASK } from '@/app.constants';
+import { SLIDE, FORM_PROBLEM_SOLVING_WORKSHEET, FORM_TASK, COMPLETED, ACTIVE } from '@/app.constants';
 import { CommonDialogsService } from '../shared/common-dialogs.service';
 import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.service';
+import { StepsDataService } from '../shared/steps-data.service';
 
 @Component({
   selector: 'app-slides',
@@ -59,6 +60,7 @@ export class SlidesComponent implements OnInit {
     private router: Router,
     private commonDialogService: CommonDialogsService,
     private flowStepService: FlowStepNavigationService,
+    private stepDataService: StepsDataService,
   ) { }
 
   slide!: Slide;
@@ -84,32 +86,35 @@ export class SlidesComponent implements OnInit {
 
   feedbackData: SlidesFeedback = new SlidesFeedback(0, 0, 1);
   feedbackText: SlidesFeedbackText = new SlidesFeedbackText('');
-  completionData: SlidesCompleteData = new SlidesCompleteData(0, 0);
+  completionData: StepCompleteData = new StepCompleteData(0, 0);
   time_spent: any;
   current_step_id!: number;
   isLastStep = false;
+  lastStepCompleted = false;
   next_step_id!: number;
 
   ngOnInit() {
     this.activateRoute.params
       .pipe(
         map(v => v.id),
-        switchMap(id =>  this.slideService.getSlide(parseInt(id, 10)))
+        switchMap(id =>  this.stepDataService.getStepData(parseInt(id, 10)))
       )
       .subscribe(
         (data: any) => {
-          console.log(data);
-          if (['COMPLETED', 'WORKING', 'UNLOCKED'].includes(data.data.status) && data.data.data_type === SLIDE ) {
+          if ([COMPLETED, ACTIVE].includes(data.data.status) && data.data.data_type === SLIDE ) {
             this.slide = <Slide>data.data.step_data.data;
             this.current_step_id = data.data.id;
             this.isLastStep = data.data.is_last_step;
             this.next_step_id = data.data.next_step_id;
             if (data.data.status === 'COMPLETED') {
-              // this.showNextStepBtn = true;
+              this.showNextStepBtn = true;
+
+              if (this.isLastStep) {
+                this.lastStepCompleted = true;
+              }
             }
             this.slideService.getFeedBackInfo(this.slide.id)
               .subscribe( (feedback_data) => {
-                console.log('feedback data', feedback_data);
                 if (feedback_data.exists) {
                   this.initial_feedback = feedback_data.feedback;
                   if (this.initial_feedback === 1) {
@@ -127,7 +132,6 @@ export class SlidesComponent implements OnInit {
 
             this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.slide.url);
             const formName = data.data.action[0];
-            console.log(formName);
             if (formName === FORM_PROBLEM_SOLVING_WORKSHEET) {
               setTimeout(() => this.loadForm(ProblemSolvingWorksheetsComponent), 1000);
             } else if (formName === FORM_TASK) {
@@ -218,19 +222,18 @@ export class SlidesComponent implements OnInit {
     this.time_spent = 100;
     this.completionData.time_spent = this.time_spent;
     this.completionData.step_id = this.current_step_id;
-
-    this.slideService.storeCompletionData(this.completionData)
+    this.stepDataService.storeCompletionData(this.completionData)
       .subscribe( (data) => {
-        // console.log(data);
+        console.log(data);
       });
-    this.commonDialogService.openCongratsDialog(this.next_step_id, this.isLastStep);
+    this.commonDialogService.openCongratsDialog(this.current_step_id, this.next_step_id, this.isLastStep, this.time_spent);
+    this.showNextStepBtn = true;
   }
   onNextStepClick() {
-    this.commonDialogService.getNextStepData(this.next_step_id)
+    this.flowStepService.getNextStepData(this.next_step_id)
       .subscribe((next_step) => {
-        console.log(next_step);
+        this.flowStepService.virtualStepMarkDone(next_step.data, this.time_spent);
         const next_step_url = this.flowStepService.goToFlowNextStep(next_step.data);
-        console.log(next_step_url);
         this.router.navigate([next_step_url]);
       });
   }

@@ -31,7 +31,10 @@ label {
         width: 100% !important;
     }
 }
-
+.card-header {
+  background-color: #FFEFD4;
+  font-weight: 700;
+}
 .card {
   margin: 0 auto;
   ::ng-deep .card-header {

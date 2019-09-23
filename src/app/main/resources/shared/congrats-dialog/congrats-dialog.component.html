@@ -11,13 +11,17 @@
             <p class=" text"> You have completed this step. Try next step </p>
 
             <p class=" text" *ngIf='data.isLocked'>
-                Next module is locked. Try previous steps, go to dashboard. </p>
+                Next module is locked. Try previous steps, go to dashboard. <br>
+                Module will unlock on {{unLockTime | date:"medium"}}</p>
+            <p class="text" *ngIf='data.isLastStep && !data.isLocked '>
+                Go to dashboard and try next module.
+            </p>
         </div>
     </div>
     
     <div class="row w-100 align-self-end next-step-div justify-content-end">
-        <button class="next-step-locked h-100"
-            *ngIf='data.isLocked || data.lastStep; else nextStepBtn'
+        <button class="next-step-locked h-100" type="button"
+            *ngIf='data.isLocked || data.isLastStep; else nextStepBtn'
             (click) = 'goToDashboard()'
             mat-raised-button color="primary">
             <img id="flow-img" src="../../../../../assets/shared/Flow_white.svg">
@@ -25,8 +29,9 @@
         </button>
 
         <ng-template #nextStepBtn>
-            <button class="next-step-btn h-100" 
+            <button class="h-100" type="button"
                 (click) = 'onNextClicked()'
+                id="next-step-btn"
                 mat-raised-button color="primary">
                 <img id="flow-img" src="../../../../../assets/shared/Flow_white.svg">
                 Next Step

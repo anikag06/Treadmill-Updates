@@ -1,11 +1,10 @@
-import { Injectable, Input } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { CongratsDialogComponent } from './congrats-dialog/congrats-dialog.component';
 import { LOCKED, SLIDE, CONVERSATION_GROUP, GAME, FORM, SUPPORT_GROUP } from '@/app.constants';
 import { Step } from '/Users/darshittalavia/ng-treadwill-fe/src/app/main/resources/conversation-group/conversation-group-input/step.model';
 import { HttpClient } from '@angular/common/http';
-import { environment } from 'environments/environment';
-import { Observable } from 'rxjs';
+import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,34 +16,44 @@ export class CommonDialogsService {
 
   constructor(
     private dialog: MatDialog,
-    private http: HttpClient
+    private http: HttpClient,
+    private flowNavService: FlowStepNavigationService,
   ) { }
-  openCongratsDialog(step_id: number, isLastStep: boolean) {
+  openCongratsDialog(curr_id: number, step_id: number, isLastStep: boolean, time_spent: any) {
     this.isLocked = false;
-    console.log('called');
-    this.getNextStepData(step_id)
+    if (isLastStep) {
+      this.flowNavService.isNextModuleLocked(curr_id)
+        .subscribe(
+          (data) => {
+            this.nextStepData = data.data;
+            this.isLocked = !data.data.next_step_group_unlocked;
+            this.openDialog(true, time_spent);
+          }
+        );
+    } else {
+      this.flowNavService.getNextStepData(step_id)
       .subscribe( (next_step_data) => {
-        console.log(next_step_data);
         if (next_step_data.data.status === LOCKED) {
           this.isLocked = true;
         }
         this.nextStepData = next_step_data.data;
-        const dialogRef = this.dialog.open(CongratsDialogComponent, {
-          width: '50%',
-          height: '65%',
-          data: {
-            isLocked: this.isLocked,
-            lastStep: isLastStep,
-            nextStepData: this.nextStepData,
-          }
-        });
+        this.openDialog(false, time_spent);
       });
+    }
   }
 
-  getNextStepData(stepId: number): Observable<any> {
-    return this.http.get(environment.API_ENDPOINT + '/api/v1/flow/steps/' + stepId + '/');
+  openDialog(isLastStep: boolean, time_spent: any) {
+    const dialogRef = this.dialog.open(CongratsDialogComponent, {
+      width: '50%',
+      height: '65%',
+      data: {
+        isLocked: this.isLocked,
+        isLastStep: isLastStep,
+        nextStepData: this.nextStepData,
+        time_spent: time_spent
+      },
+      autoFocus: false
+    });
   }
-
-// when click the next step button which is not on the pop up
 
 }

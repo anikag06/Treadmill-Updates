@@ -21,3 +21,18 @@
     }
   }
 }
+.step-content.locked {
+  a {
+    color: #696969;
+    &:hover {
+      color: #696969;
+    }
+    &:active {
+      color: #696969;
+    }
+  }
+}
+
+.step-content.active {
+  background-color: #f5bb56;
+}

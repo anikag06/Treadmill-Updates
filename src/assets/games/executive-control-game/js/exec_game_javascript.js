@@ -652,6 +652,7 @@ function preload(){
 	
 	//Obstacle
 	this.load.image('obstacle',jpg_location+'/obstacles.png');
+	this.load.image('flying_obstacle',jpg_location+'/flying_Obstacle.png');
 
 	//Extra life and other bonus
 	this.load.image('life',svg_location+"/life.svg");

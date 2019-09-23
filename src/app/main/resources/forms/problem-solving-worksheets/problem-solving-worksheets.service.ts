@@ -25,6 +25,16 @@ export class ProblemSolvingWorksheetsService {
     private sanitizer: SanitizationService,
   ) { }
 
+ // in the contentEditable div space and enter and other HTMl characters are added,
+ // so use this function to remove extra charaters
+  changeExtraCharacters(event: any) {
+    const changedText = (<Element>event.target).innerHTML.replace(/&nbsp;/gi, '')
+              .replace(/<div><br><\/div>/gi, ' ').replace(/<br>/gi, ' ')
+              .replace(/&amp;/gi, '').replace(/&lt;/gi, '').replace(/&gt;/gi, '')
+              .replace(/<div>/gi, ' ').replace(/<\/div>/gi, ' ');
+    return changedText;
+  }
+
   getProblems() {
     const params = new HttpParams().set('page', this.page.toString());
     return this.http.get<Problem[]>(environment.API_ENDPOINT + '/api/v1/worksheets/problem-solving/problems/', { params: params })
@@ -91,7 +101,6 @@ export class ProblemSolvingWorksheetsService {
   }
 
   putSolution(solutionId: number, solution: string) {
-    console.log('sol ', solution)
     solution = this.sanitizer.stripTags(solution);
     const params = new HttpParams()
       .set('solution_id', solutionId.toString())

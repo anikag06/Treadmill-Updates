@@ -11,8 +11,8 @@ import { trigger, transition, animate, style, state } from '@angular/animations'
 import { DataService } from './data.service';
 import { FlowService } from '@/main/flow/flow.service';
 import { StepGroup } from '@/main/flow/step-group/step-group.model';
-import { WORKING, UNLOCKED, QUESTIONNAIRE, COMPLETED, LOCKED } from '@/app.constants';
 import { Step } from '/Users/darshittalavia/ng-treadwill-fe/src/app/main/resources/conversation-group/conversation-group-input/step.model';
+import { ACTIVE, UNLOCKED, QUESTIONNAIRE, COMPLETED, LOCKED } from '@/app.constants';
 import { Router } from '@angular/router';
 import { GeneralErrorService } from '@/main/shared/general-error.service';
 import { CDK_CONNECTED_OVERLAY_SCROLL_STRATEGY_PROVIDER_FACTORY } from '@angular/cdk/overlay/typings/overlay-directives';
@@ -30,7 +30,7 @@ import { CDK_CONNECTED_OVERLAY_SCROLL_STRATEGY_PROVIDER_FACTORY } from '@angular
     trigger('simpleFadeAnimation', [
 
       // the "in" style determines the "resting" state of the element when it is visible.
-      state('in', style({opacity: 1})),
+      state('in', style({ opacity: 1 })),
 
       // fade in when created. this could also be written as transition('void => *')
       transition(':enter', [
@@ -41,7 +41,7 @@ import { CDK_CONNECTED_OVERLAY_SCROLL_STRATEGY_PROVIDER_FACTORY } from '@angular
     trigger('submit_animation', [
 
       // the "in" style determines the "resting" state of the element when it is visible.
-      state('in', style({opacity: 1})),
+      state('in', style({ opacity: 1 })),
 
       // fade in when created. this could also be written as transition('void => *')
       transition(':enter', [
@@ -104,9 +104,9 @@ export class QuestionnaireComponent implements OnInit {
 
   // tslint:disable-next-line:max-line-length
   constructor(private quizService: QuizService,
-              private flowService: FlowService,
-              private router: Router,
-              private dataService: DataService) { }
+    private flowService: FlowService,
+    private router: Router,
+    private dataService: DataService) { }
 
   ngOnInit() {
     this.loadQuiz();
@@ -114,18 +114,17 @@ export class QuestionnaireComponent implements OnInit {
       .subscribe(
         (data: any) => {
           this.loading = false;
-          const step_group = data.step_groups.find((sg: StepGroup) => sg.status === WORKING);
+          const step_group = data.step_groups.find((sg: StepGroup) => sg.status === ACTIVE);
           if (step_group) {
-              this.step = step_group.steps.find(
-                (step: Step) => {
-                  return step.virtual_step === false && step.status === UNLOCKED && step.data_type === QUESTIONNAIRE;
-                });
-              if (this.step) {
-                if (![COMPLETED, LOCKED].includes(this.step.status)) {
-                  this.quizService.questionnaireActive = true;
-                  this.active = true;
-                }
-              }
+            this.step = step_group.steps.find(
+              (step: Step) => {
+                return step.virtual_step === false && step.status === ACTIVE && step.data_type === QUESTIONNAIRE;
+              });
+            if (this.step && this.step.status === ACTIVE) {
+              console.log(this.step);
+              this.quizService.questionnaireActive = true;
+              this.active = true;
+            }
           }
         }
       );
@@ -377,11 +376,11 @@ export class QuestionnaireComponent implements OnInit {
     if (this.time.length === 9) {
       console.log('phq');
       for (let i = 0; i < 9; i++) {
-      response.user_response[i].time_taken_to_complete = this.time[i];
-      response.user_response[i].answer = this.score[i];
-      response.user_response[i].question = i + 1;
+        response.user_response[i].time_taken_to_complete = this.time[i];
+        response.user_response[i].answer = this.score[i];
+        response.user_response[i].question = i + 1;
       }
-    this.quizService.post_phq(response);
+      this.quizService.post_phq(response);
     }
     if (this.time.length === 7) {
       console.log('gad');
@@ -389,7 +388,7 @@ export class QuestionnaireComponent implements OnInit {
         gad_response.user_response[i].time_taken_to_complete = this.time[i];
         gad_response.user_response[i].answer = this.score[i];
         gad_response.user_response[i].question = i + 1;
-        }
+      }
       this.quizService.questionnaireActive = false;
       this.quizService.post_gad(gad_response)
         .subscribe(
@@ -427,10 +426,4 @@ export class QuestionnaireComponent implements OnInit {
     this.see2 = false;
     this.see3 = false;
   }
-
-
-
-
-
-
 }

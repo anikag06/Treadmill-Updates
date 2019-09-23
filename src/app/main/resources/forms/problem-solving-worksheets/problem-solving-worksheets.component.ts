@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, ElementRef, NgZone } from '@angular/core';
 import { ProblemSolvingWorksheetsService } from './problem-solving-worksheets.service';
 import { Subscription } from 'rxjs';
 import { Problem } from './problem.model';
@@ -9,6 +9,10 @@ import { User } from '@/shared/user.model';
 import { GeneralErrorService } from '@/main/shared/general-error.service';
 import { PROBLEM_SOLVING} from '@/app.constants';
 import {UserTask} from '@/main/resources/forms/shared/tasks/user-task.model';
+import {CdkTextareaAutosize} from '@angular/cdk/text-field';
+import { take } from 'rxjs/operators';
+import { ProblemFormComponent } from './problem-form/problem-form.component';
+import { SolutionsComponent } from './solutions/solutions.component';
 
 @Component({
   selector: 'app-problem-solving-worksheets',
@@ -30,7 +34,10 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   problemEditMode = false;
 
   @ViewChild('solutionForm', { static: false }) solutionForm!: NgForm;
-
+  @ViewChild('solutionTextArea', { static: false }) solutionTextArea!: ElementRef;
+  @ViewChild('autosize', {static: false}) autosize!: CdkTextareaAutosize;
+  @ViewChild(ProblemFormComponent, {static: false}) problemStatementForm!: ProblemFormComponent;
+  @ViewChild(SolutionsComponent, {static: false}) solutionsForm!: SolutionsComponent;
   constructor(
     private problemService: ProblemSolvingWorksheetsService,
     private authService: AuthService,
@@ -129,6 +136,21 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
     } else {
       this.solutionForm.reset();
       this.showSolutionsForm = false;
+    }
+  }
+
+  onEditSolutionClick() {
+    if ( this.solutionTextArea ) {
+      this.solutionTextArea.nativeElement.focus();
+    } else {
+      this.solutionsForm.onEditTextClicked();
+    }
+  }
+  onEditProblemClick() {
+    this.onProblemClick();
+    console.log(this.problemEditMode);
+    if (this.problemStatementForm) {
+      this.problemStatementForm.editProblemText();
     }
   }
 

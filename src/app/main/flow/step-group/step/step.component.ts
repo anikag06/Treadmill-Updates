@@ -2,7 +2,9 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Step } from './step.model';
 import { StepGroup } from '../step-group.model';
 import { COMPLETED, SLIDE, CONVERSATION_GROUP } from '@/app.constants';
+import {  LOCKED, ACTIVE, INTRODUCTORY_ANIMATION } from '@/app.constants';
 import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.service';
+import { Router } from '@angular/router';
 import { FlowService } from '../../flow.service';
 
 @Component({
@@ -16,19 +18,15 @@ export class StepComponent implements OnInit {
   @Input() stepGroup!: StepGroup;
 
   constructor(
+    private router: Router,
+    private flowStepNavService: FlowStepNavigationService,
     private flowService: FlowService,
-    private flowStepNavService: FlowStepNavigationService
   ) { }
 
   ngOnInit() {
   }
 
-  nextLink() {
-    if (this.step.data_type === SLIDE) {
-      return `/resources/slides/${this.step.id}/`;
-    } else if (this.step.data_type === CONVERSATION_GROUP) {
-      return `/resources/conversations-group/${this.step.id}/`;
-    }
+  nextLink(): string {
     return this.flowStepNavService.goToFlowNextStep(this.step);
   }
 
@@ -38,17 +36,42 @@ export class StepComponent implements OnInit {
       return allSteps[index - 1];
    }
 
+   nextStep(stepGroup: StepGroup, step: Step) {
+    const allSteps = <Step[]>stepGroup.steps;
+    const index = allSteps.indexOf(step, 1);
+    return allSteps[index + 1];
+ }
+
    markDone() {
-    console.log(this.step);
-    if (this.step.virtual_step) {
-      const prev = this.previousStep(this.stepGroup, this.step);
-      if (prev.status === COMPLETED) {
-        this.flowService.markDone(this.step.id, 1)
-          .subscribe(
-            (data: any) => console.log('Done'),
-          );
-      }
+    const prev = this.previousStep(this.stepGroup, this.step);
+    if (!prev || prev && prev.status === COMPLETED) {
+      this.flowStepNavService.virtualStepMarkDone(this.step, 1);        // here 1 is the time spent
     }
+   }
+
+   navigate(event: Event) {
+      event.preventDefault();
+      this.markDone();
+      if (this.step.data_type === INTRODUCTORY_ANIMATION) {
+        this.flowService.triggerIntroduction();
+        this.step.status = COMPLETED;
+        this.flowService.triggerLoad();
+        setTimeout(() => this.flowService.triggerLoad(), 100);
+
+      }
+      return this.router.navigate([this.nextLink()]);
+   }
+
+   locked() {
+     return this.step.status === LOCKED && !this.step.virtual_step;
+   }
+
+   active() {
+     return this.step.status === ACTIVE;
+   }
+
+   unlocked() {
+    return this.step.status === ACTIVE;
    }
 
 }

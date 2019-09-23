@@ -7,6 +7,7 @@ import {TaskFormsComponent} from '@/main/resources/forms/task-forms/task-forms.c
 import { SlidesComponent } from './slides/slides.component';
 import { ConversationsComponent } from './conversation-group/conversations/conversations.component';
 import { ConversationGroupComponent } from './conversation-group/conversation-group.component';
+import { ConclusionPageComponent } from './conclusion-page/conclusion-page.component';
 
 
 export const formRoutes: Routes = [
@@ -25,6 +26,7 @@ export const formRoutes: Routes = [
     ]
   },
   { path: 'slides/:id', component: SlidesComponent },
+  { path: 'conclusion/:id', component: ConclusionPageComponent},
 ];
 
 @NgModule({

@@ -504,7 +504,7 @@ storeFeedBackData() {
 
 
 onNextStepClick() {
-  this.commonDialogService.getNextStepData(this.next_step_id)
+  this.flowStepService.getNextStepData(this.next_step_id)
     .subscribe((next_step) => {
       console.log(next_step);
       const next_step_url = this.flowStepService.goToFlowNextStep(next_step.data);
@@ -537,7 +537,7 @@ onSubmitComment(feedback_text: string) {
 }
 
 onCompleted() {
-  this.commonDialogService.openCongratsDialog(this.next_step_id, this.isLastStep);
+  this.commonDialogService.openCongratsDialog(this.current_step_id, this.next_step_id, this.isLastStep, this.time_spent);
 }
 
 

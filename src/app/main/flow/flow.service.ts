@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
-import { FLOW_STEP_MARK_DONE, WORKING, UNLOCKED } from '@/app.constants';
-import { StepGroup } from './step-group/step-group.model';
-import { Step } from './step-group/step/step.model';
+import { FLOW_STEP_MARK_DONE } from '@/app.constants';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FlowService {
+
+  introduceBehaviour = new BehaviorSubject(false);
+  loadBehaviour = new BehaviorSubject(true);
 
   constructor(
     private http: HttpClient
@@ -20,5 +22,13 @@ export class FlowService {
 
   markDone(stepId: number, timeSpent: number) {
     return this.http.post(environment.API_ENDPOINT + FLOW_STEP_MARK_DONE, {step_id: stepId, time_spent: timeSpent});
+  }
+
+  triggerIntroduction() {
+    this.introduceBehaviour.next(true);
+  }
+
+  triggerLoad() {
+    this.loadBehaviour.next(true);
   }
 }

@@ -88,13 +88,17 @@ export const GAME = 'GAME';
 export const FORM = 'FORM';
 export const SUPPORT_GROUP = 'SUPPORT_GROUP';
 export const SURVEY = 'SURVEY';
+export const HTML_PAGE = 'HTML_PAGE';
+export const INTRODUCTORY_ANIMATION = 'INTRODUCTORY_ANIMATION';
 
 export const LOCKED = 'LOCKED';
 export const UNLOCKED = 'UNLOCKED';
-export const WORKING = 'WORKING';
+export const ACTIVE = 'ACTIVE';
 export const COMPLETED = 'COMPLETED';
 
+// flow and steps related paths
 export const FLOW_STEP_MARK_DONE = '/api/v1/flow/step/';
+export const GET_STEP_DATA  = '/api/v1/flow/steps/';
 
 // slides path
 export const SLIDES_FEEDBACK = '/api/v1/learn/feedback/';

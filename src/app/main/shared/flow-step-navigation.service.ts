@@ -1,6 +1,19 @@
 import { Injectable } from '@angular/core';
-import { Step } from '../flow/step-group/step/step.model';
-import { LOCKED, SLIDE, CONVERSATION_GROUP, GAME, FORM, SUPPORT_GROUP, FORM_TASK, FORM_PROBLEM_SOLVING_WORKSHEET } from '@/app.constants';
+import {
+  LOCKED,
+  SLIDE,
+  CONVERSATION_GROUP,
+  GAME, FORM, SUPPORT_GROUP,
+  FORM_TASK,
+  FORM_PROBLEM_SOLVING_WORKSHEET,
+  FLOW_STEP_MARK_DONE,
+  QUESTIONNAIRE,
+  HTML_PAGE,
+  INTRODUCTORY_ANIMATION
+} from '@/app.constants';
+import { Observable } from 'rxjs';
+import { environment } from 'environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -11,14 +24,12 @@ export class FlowStepNavigationService {
     [FORM_PROBLEM_SOLVING_WORKSHEET, 'problem-solving'],
   ]);
 
+  constructor(
+    private http: HttpClient,
 
+  ) { }
 
-  
-
-  constructor() { }
-
-  goToFlowNextStep(step: any) {
-    console.log(step.data_type, step.id);
+  goToFlowNextStep(step: any): string {
     if (step.status !== LOCKED) {
       if (step.data_type === SLIDE) {
         return `/resources/slides/${step.id}/`;
@@ -32,8 +43,35 @@ export class FlowStepNavigationService {
         return `/resources/forms/${form_name}/`;
       } else if (step.data_type === SUPPORT_GROUP) {
         return `/support-groups/`;
+      } else if (step.data_type === QUESTIONNAIRE) {
+        return `/questionnaire/`;
+      } else if (step.data_type === HTML_PAGE) {
+        return `/resources/conclusion/${step.id}/`;
+      } else if (step.data_type === INTRODUCTORY_ANIMATION) {
+        return `/dashboard`;
       }
     }
     return '/';
+  }
+
+  getNextStepData(stepId: number): Observable<any> {
+    return this.http.get(environment.API_ENDPOINT + '/api/v1/flow/steps/' + stepId + '/');
+  }
+
+  isNextModuleLocked(stepId: number): Observable<any> {
+    return this.http.get(environment.API_ENDPOINT +
+      '/api/v1/flow/next-step-group-status/' + stepId + '/');
+  }
+  virtualStepMarkDone(step: any, timeSpent: number) {
+    if (step.virtual_step) {
+      this.markDone(step.id, timeSpent)
+        .subscribe(
+          (data: any) => console.log('Done'),
+        );
+    }
+  }
+
+  markDone(stepId: number, timeSpent: number)  {
+    return this.http.post(environment.API_ENDPOINT + FLOW_STEP_MARK_DONE, {step_id: stepId, time_spent: timeSpent});
   }
 }

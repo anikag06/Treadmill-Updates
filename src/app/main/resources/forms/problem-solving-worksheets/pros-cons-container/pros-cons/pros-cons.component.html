@@ -12,8 +12,11 @@
 <div *ngIf="showForm || prosCons.length === 0">
   <form (ngSubmit)="onSubmit()" #proconForm="ngForm">
     <mat-form-field class="full-width">
-      <textarea name="procon" id="procon" rows="1" placeholder="Enter  {{pro ? 'pro' : 'con'}}"
-        matInput required [autofocus] ngModel (focusout)="onTextAreaFocusOut($event)"></textarea>
+      <textarea name="procon" id="procon" 
+        rows="1" placeholder="Enter  {{pro ? 'pro' : 'con'}}"
+        matInput required [autofocus] ngModel 
+        (focusout)="onTextAreaFocusOut($event)"
+        (keyup.enter)="onEnterPress($event)"></textarea>
     </mat-form-field>
   </form>
 </div>
