@@ -1,8 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Router } from '@angular/router';
-import { LOCKED, SLIDE, CONVERSATION_GROUP, GAME, FORM, SUPPORT_GROUP } from '@/app.constants';
-import { Step } from '/Users/darshittalavia/ng-treadwill-fe/src/app/main/resources/conversation-group/conversation-group-input/step.model';
 import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.service';
 
 

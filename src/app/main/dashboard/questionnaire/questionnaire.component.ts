@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Quiz } from './input/quiz';
 import { Response } from './input/response';
 import { GadResponse } from './input/gad_response';
@@ -11,11 +11,9 @@ import { trigger, transition, animate, style, state } from '@angular/animations'
 import { DataService } from './data.service';
 import { FlowService } from '@/main/flow/flow.service';
 import { StepGroup } from '@/main/flow/step-group/step-group.model';
-import { Step } from '/Users/darshittalavia/ng-treadwill-fe/src/app/main/resources/conversation-group/conversation-group-input/step.model';
-import { ACTIVE, UNLOCKED, QUESTIONNAIRE, COMPLETED, LOCKED } from '@/app.constants';
+import { ACTIVE, QUESTIONNAIRE, } from '@/app.constants';
 import { Router } from '@angular/router';
-import { GeneralErrorService } from '@/main/shared/general-error.service';
-import { CDK_CONNECTED_OVERLAY_SCROLL_STRATEGY_PROVIDER_FACTORY } from '@angular/cdk/overlay/typings/overlay-directives';
+import { Step } from '@/main/flow/step-group/step/step.model';
 
 @Component({
   animations: [
