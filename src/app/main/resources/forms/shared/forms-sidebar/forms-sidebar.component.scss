@@ -1,3 +1,20 @@
 .selected {
   background-color: #f3b54f;
 }
+
+
+#saved-forms-heading{
+  color: grey;
+  font-size: 12px;
+  margin-left: 4%;
+}
+
+#forms-data{
+  min-width: 200px;
+}
+@media screen and (max-width: 992px) {
+  #saved-forms-heading{
+    font-size: 0.8rem;
+  }
+
+}

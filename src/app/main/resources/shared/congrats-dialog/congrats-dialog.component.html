@@ -1,0 +1,38 @@
+<div class="congrats-div d-flex row mx-0 px-1 py-1 container ">
+
+    <div class="row w-100">
+        <div class="col justify-content-center">
+            <img class="" src="../../../../../assets/shared/thumb.svg">
+        </div>
+    </div>
+    <div class="row w-100 align-self-center">
+        <div class="col justify-content-center" >
+            <p class="congrats-text"> Congratulations </p>
+            <p class=" text"> You have completed this step. Try next step </p>
+
+            <p class=" text" *ngIf='data.isLocked'>
+                Next module is locked. Try previous steps, go to dashboard. </p>
+        </div>
+    </div>
+    
+    <div class="row w-100 align-self-end next-step-div justify-content-end">
+        <button class="next-step-locked h-100"
+            *ngIf='data.isLocked || data.lastStep; else nextStepBtn'
+            (click) = 'goToDashboard()'
+            mat-raised-button color="primary">
+            <img id="flow-img" src="../../../../../assets/shared/Flow_white.svg">
+            Dashboard
+        </button>
+
+        <ng-template #nextStepBtn>
+            <button class="next-step-btn h-100" 
+                (click) = 'onNextClicked()'
+                mat-raised-button color="primary">
+                <img id="flow-img" src="../../../../../assets/shared/Flow_white.svg">
+                Next Step
+            </button>
+        </ng-template>
+    </div>
+    
+</div>
+

@@ -41,9 +41,7 @@ export const IBG_USER_RESPONSE  = '/api/v1/games/interpretation-bias/user-respon
 
 export const PROBLEM_SOLVING = 'problem-solving';
 export const TASK            = 'tasks';
-export const EXPERIMENT_TO_TEST_BELIEF = 'experiment-to-test-belief';
 export const PROBLEM         = 'problem';
-export const EXPR_TEST_BELIEF = 'expr_test_belief';
 export const RECOMMENDED       = 'recommended';
 
 // Executive Control Game(ECG) paths
@@ -90,3 +88,27 @@ export const GAME = 'GAME';
 export const FORM = 'FORM';
 export const SUPPORT_GROUP = 'SUPPORT_GROUP';
 export const SURVEY = 'SURVEY';
+
+export const LOCKED = 'LOCKED';
+export const UNLOCKED = 'UNLOCKED';
+export const WORKING = 'WORKING';
+export const COMPLETED = 'COMPLETED';
+
+export const FLOW_STEP_MARK_DONE = '/api/v1/flow/step/';
+
+// slides path
+export const SLIDES_FEEDBACK = '/api/v1/learn/feedback/';
+export const STORE_FEEDBACK = '/api/v1/learn/slides-feedback/';
+export const SLIDE_COMPLETE_DATA = FLOW_STEP_MARK_DONE;
+
+export const GAME_ATTRIBUTION_STYLE = 'GAME-ATTRIBUTION-STYLE';
+export const GAME_INTERPRETATION_BIAS = 'GAME-INTERPRETATION-BIAS';
+export const GAME_LEARNED_HELPLESSNESS = 'GAME-LEARNED-HELPLESSNESS';
+export const GAME_FRIENDLY_FACE = 'GAME-FRIENDLY-FACE';
+export const GAME_EXECUTIVE_CONTROL = 'GAME-EXECUTIVE-CONTROL';
+export const GAME_IDENTIFY_COGNITIVE_DISTORTION = 'GAME-IDENTIFY-COGNITIVE-DISTORTION';
+export const GAME_MENTAL_IMAGERY = 'GAME-MENTAL-IMAGERY';
+export const FORM_TASK = 'FORM-TASK';
+export const FORM_PROBLEM_SOLVING_WORKSHEET = 'FORM-PROBLEM-SOLVING-WORKSHEET';
+
+

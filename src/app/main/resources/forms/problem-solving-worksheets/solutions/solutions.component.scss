@@ -1,6 +1,6 @@
 @import '../../../../../../../node_modules/@angular/material/theming';
-@import "color.palette";
-@import "treadwill.theme";
+@import "../../../../../../color.palette.scss";
+@import "../../../../../../treadwill.theme.scss";
 
 .solution {
     p {

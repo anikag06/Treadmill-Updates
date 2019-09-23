@@ -19,8 +19,12 @@ export const formRoutes: Routes = [
       { path: 'conversations-group/:id', component: ConversationGroupComponent},
 
 
+      { path: 'forms', component: FormsListComponent },
+      { path: 'forms/problem-solving', component: ProblemSolvingWorksheetsComponent },
+      { path: 'forms/tasks', component: TaskFormsComponent },
     ]
   },
+  { path: 'slides/:id', component: SlidesComponent },
 ];
 
 @NgModule({

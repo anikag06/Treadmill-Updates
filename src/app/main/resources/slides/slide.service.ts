@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { SLIDES_FEEDBACK, SLIDE_COMPLETE_DATA, STORE_FEEDBACK} from '@/app.constants';
+import { Observable } from 'rxjs';
+import { SlidesFeedback, SlidesFeedbackText } from './slide.feedback.model';
+import { SlidesCompleteData } from './slide-complete.model';
 import { environment } from 'environments/environment';
-import { find, flatMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -14,5 +17,21 @@ export class SlideService {
 
   getSlide(stepId: number) {
     return this.http.get(environment.API_ENDPOINT + '/api/v1/flow/steps/' + stepId + '/');
+  }
+
+  getFeedBackInfo(slideId: number): Observable<any> {
+    return this.http.get(environment.API_ENDPOINT + SLIDES_FEEDBACK + slideId + '/');
+  }
+
+  storeFeedBackInfo(feedback: SlidesFeedback): Observable<any> {
+    return this.http.post(environment.API_ENDPOINT + STORE_FEEDBACK, feedback);
+  }
+
+  updateFeedBackInfo(feedback: SlidesFeedbackText, dataId: number) {
+    return this.http.put(environment.API_ENDPOINT + STORE_FEEDBACK + dataId + '/', feedback);
+  }
+
+  storeCompletionData(completionData: SlidesCompleteData) {
+    return this.http.post(environment.API_ENDPOINT + SLIDE_COMPLETE_DATA, completionData);
   }
 }

@@ -9,6 +9,13 @@ import { environment } from 'environments/environment';
 import { User } from '@/shared/user.model';
 import { trigger, transition, animate, style, state } from '@angular/animations';
 import { DataService } from './data.service';
+import { FlowService } from '@/main/flow/flow.service';
+import { StepGroup } from '@/main/flow/step-group/step-group.model';
+import { WORKING, UNLOCKED, QUESTIONNAIRE, COMPLETED, LOCKED } from '@/app.constants';
+import { Step } from '/Users/darshittalavia/ng-treadwill-fe/src/app/main/resources/conversation-group/conversation-group-input/step.model';
+import { Router } from '@angular/router';
+import { GeneralErrorService } from '@/main/shared/general-error.service';
+import { CDK_CONNECTED_OVERLAY_SCROLL_STRATEGY_PROVIDER_FACTORY } from '@angular/cdk/overlay/typings/overlay-directives';
 
 @Component({
   animations: [
@@ -46,7 +53,6 @@ import { DataService } from './data.service';
   selector: 'app-questionnaire',
   templateUrl: './questionnaire.component.html',
   styleUrls: ['./questionnaire.component.scss'],
-  providers: [QuizService]
 })
 export class QuestionnaireComponent implements OnInit {
   quiz: Quiz = new Quiz(null);
@@ -89,14 +95,40 @@ export class QuestionnaireComponent implements OnInit {
   visible!: boolean;
   id!: any;
   isLag!: boolean;
+  // Timeout for each button
+  buttonTimeout = 0;
+  step!: Step;
+  // If questionnaire is active
+  active = false;
+  loading = true;
 
   // tslint:disable-next-line:max-line-length
   constructor(private quizService: QuizService,
-              private changeRef: ChangeDetectorRef,
+              private flowService: FlowService,
+              private router: Router,
               private dataService: DataService) { }
 
   ngOnInit() {
     this.loadQuiz();
+    this.flowService.getFlow()
+      .subscribe(
+        (data: any) => {
+          this.loading = false;
+          const step_group = data.step_groups.find((sg: StepGroup) => sg.status === WORKING);
+          if (step_group) {
+              this.step = step_group.steps.find(
+                (step: Step) => {
+                  return step.virtual_step === false && step.status === UNLOCKED && step.data_type === QUESTIONNAIRE;
+                });
+              if (this.step) {
+                if (![COMPLETED, LOCKED].includes(this.step.status)) {
+                  this.quizService.questionnaireActive = true;
+                  this.active = true;
+                }
+              }
+          }
+        }
+      );
   }
 
 
@@ -191,7 +223,7 @@ export class QuestionnaireComponent implements OnInit {
       this.see2 = this.disabled.option_2[this.question_no];
       this.see3 = this.disabled.option_3[this.question_no];
       return this.ques;
-    }, 500);
+    }, this.buttonTimeout);
   }
 
   onselect1() {
@@ -222,7 +254,7 @@ export class QuestionnaireComponent implements OnInit {
       this.see2 = this.disabled.option_2[this.question_no];
       this.see3 = this.disabled.option_3[this.question_no];
       return this.ques;
-    }, 500);
+    }, this.buttonTimeout);
   }
 
   onselect2() {
@@ -253,7 +285,7 @@ export class QuestionnaireComponent implements OnInit {
       this.see2 = this.disabled.option_2[this.question_no];
       this.see3 = this.disabled.option_3[this.question_no];
       return this.ques;
-    }, 500);
+    }, this.buttonTimeout);
   }
 
   onselect3() {
@@ -284,7 +316,7 @@ export class QuestionnaireComponent implements OnInit {
       this.see2 = this.disabled.option_2[this.question_no];
       this.see3 = this.disabled.option_3[this.question_no];
       return this.ques;
-    }, 500);
+    }, this.buttonTimeout);
   }
 
   display_front() {
@@ -342,11 +374,6 @@ export class QuestionnaireComponent implements OnInit {
     this.index < 1 ? this.display_gad_start = true : this.display_gad_start = false;
     this.index === 1 ? this.routing = true : this.routing = false;
     this.dataService.setOption(this.routing);
-    // this.time.forEach((q: any) => {
-    //   response.user_response[q].time_taken_to_complete = this.time[q];
-    //   response.user_response[q].answer = this.score[q];
-    //   response.user_response[q].question = this.pager.index;
-    // });
     if (this.time.length === 9) {
       console.log('phq');
       for (let i = 0; i < 9; i++) {
@@ -363,7 +390,22 @@ export class QuestionnaireComponent implements OnInit {
         gad_response.user_response[i].answer = this.score[i];
         gad_response.user_response[i].question = i + 1;
         }
-      this.quizService.post_gad(gad_response);
+      this.quizService.questionnaireActive = false;
+      this.quizService.post_gad(gad_response)
+        .subscribe(
+          (data: any) => {
+            console.log(data);
+            // TODO: Darshit needs to add timer service here
+            this.flowService.markDone(this.step.id, 1003)
+              .subscribe(
+                (resp: any) => {
+                  console.log(data);
+                },
+                error => console.log(error)
+              );
+            this.router.navigate(['/']);
+          }
+        );
     }
 
   }

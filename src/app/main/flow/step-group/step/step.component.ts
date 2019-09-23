@@ -1,7 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Step } from './step.model';
 import { StepGroup } from '../step-group.model';
-import { SLIDE, CONVERSATION_GROUP } from '@/app.constants';
+import { COMPLETED, SLIDE, CONVERSATION_GROUP } from '@/app.constants';
+import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.service';
+import { FlowService } from '../../flow.service';
 
 @Component({
   selector: 'app-step',
@@ -13,7 +15,10 @@ export class StepComponent implements OnInit {
   @Input() step!: Step;
   @Input() stepGroup!: StepGroup;
 
-  constructor() { }
+  constructor(
+    private flowService: FlowService,
+    private flowStepNavService: FlowStepNavigationService
+  ) { }
 
   ngOnInit() {
   }
@@ -24,7 +29,26 @@ export class StepComponent implements OnInit {
     } else if (this.step.data_type === CONVERSATION_GROUP) {
       return `/resources/conversations-group/${this.step.id}/`;
     }
-    return '/';
+    return this.flowStepNavService.goToFlowNextStep(this.step);
   }
+
+   previousStep(stepGroup: StepGroup, step: Step) {
+      const allSteps = <Step[]>stepGroup.steps;
+      const index = allSteps.indexOf(step, 1);
+      return allSteps[index - 1];
+   }
+
+   markDone() {
+    console.log(this.step);
+    if (this.step.virtual_step) {
+      const prev = this.previousStep(this.stepGroup, this.step);
+      if (prev.status === COMPLETED) {
+        this.flowService.markDone(this.step.id, 1)
+          .subscribe(
+            (data: any) => console.log('Done'),
+          );
+      }
+    }
+   }
 
 }

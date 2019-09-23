@@ -25,8 +25,6 @@ describe('workspace-project App', () => {
 
     page.fillLoginForm();
     browser.sleep(3000);
-    expect(page.getChatBotText()).toEqual('Hello ' + page.newUsername + '! Do you have any Questions? Click on me and we can chat.');
-
   });
 
   it('should redirect to dashboard when on root', () => {

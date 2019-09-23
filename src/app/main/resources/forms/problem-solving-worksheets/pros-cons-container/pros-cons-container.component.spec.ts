@@ -8,7 +8,7 @@ describe('ProsConsContainerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProsConsContainerComponent ]
+      declarations: [ ProsConsContainerComponent, ProsConsContainerComponent ]
     })
     .compileComponents();
   }));

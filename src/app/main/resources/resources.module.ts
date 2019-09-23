@@ -5,7 +5,6 @@ import { ProblemSolvingWorksheetsComponent } from '@/main/resources/forms/proble
 import { ProsConsComponent } from '@/main/resources/forms/problem-solving-worksheets/pros-cons-container/pros-cons/pros-cons.component';
 import { SolutionsComponent } from '@/main/resources/forms/problem-solving-worksheets/solutions/solutions.component';
 import { ProblemFormComponent } from '@/main/resources/forms/problem-solving-worksheets/problem-form/problem-form.component';
-import { ContainerRefDirective } from '@/main/resources/forms/problem-solving-worksheets/container-ref.directive';
 import { ResultComponent } from '@/main/resources/forms/problem-solving-worksheets/result/result.component';
 import { TasksComponent } from '@/main/resources/forms/shared/tasks/tasks.component';
 import { FormsListComponent } from '@/main/resources/forms/forms-list/forms-list.component';
@@ -14,6 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularEditorModule } from '@xw19/angular-editor';
 import { LayoutModule } from '@angular/cdk/layout';
 import {
+  MatDialogModule,
   MatButtonModule,
   MatDatepickerModule,
   MatIconModule,
@@ -34,6 +34,9 @@ import { SlidesComponent } from './slides/slides.component';
 import { FormDirective } from './slides/form.directive';
 import { ConversationGroupComponent } from './conversation-group/conversation-group.component';
 import { ConversationsComponent } from './conversation-group/conversations/conversations.component';
+import { SlideService } from './slides/slide.service';
+import { CongratsDialogComponent } from './shared/congrats-dialog/congrats-dialog.component';
+import { CommonDialogsService } from './shared/common-dialogs.service';
 
 @NgModule({
   declarations: [
@@ -43,7 +46,6 @@ import { ConversationsComponent } from './conversation-group/conversations/conve
     ProconItemComponent,
     SolutionsComponent,
     ProblemFormComponent,
-    ContainerRefDirective,
     ProsConsContainerComponent,
     ResultComponent,
     TasksComponent,
@@ -53,7 +55,8 @@ import { ConversationsComponent } from './conversation-group/conversations/conve
     SlidesComponent,
     FormDirective,
     ConversationGroupComponent,
-    ConversationsComponent
+    ConversationsComponent,
+    CongratsDialogComponent,
   ],
   imports: [
     ResourcesRoutingModule,
@@ -64,6 +67,7 @@ import { ConversationsComponent } from './conversation-group/conversations/conve
     LayoutModule,
     MatToolbarModule,
     MatButtonModule,
+    MatDialogModule,
     MatSidenavModule,
     MatIconModule,
     MatListModule,
@@ -74,9 +78,12 @@ import { ConversationsComponent } from './conversation-group/conversations/conve
     OwlNativeDateTimeModule,
     MatSlideToggleModule,
   ],
-  providers: [],
+  providers: [
+    SlideService,
+    CommonDialogsService,
+  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  entryComponents: [ProblemFormComponent, ProblemSolvingWorksheetsComponent]
+  entryComponents: [CongratsDialogComponent, ProblemFormComponent, ProblemSolvingWorksheetsComponent]
 })
 export class ResourcesModule {
 }

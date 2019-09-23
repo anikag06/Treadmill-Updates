@@ -63,7 +63,6 @@ import { GamesAuthService } from './games/shared/games-auth.service';
 import { GamePlayService } from './games/shared/game-play.service';
 // tslint:disable-next-line:max-line-length
 import { LearnedHelplessnessGameComponent } from './games/games-list/common-game/learned-helplessness-game/learned-helplessness-game.component';
-import { NetworkStatusAngularModule } from 'network-status-angular';
 import { ChatbotComponent } from './chatbot/chatbot.component';
 import { ChatWindowComponent } from './chatbot/chat-window/chat-window.component';
 import {ChatbotService} from '@/main/chatbot/chatbot.service';
@@ -92,6 +91,8 @@ import { StepGroupComponent } from './flow/step-group/step-group.component';
 import { FlowService } from './flow/flow.service';
 import { StepComponent } from './flow/step-group/step/step.component';
 import { StepsIndicatorComponent } from './flow/step-group/steps-indicator/steps-indicator.component';
+import { QuizService } from './dashboard/questionnaire/questionnaire.service';
+import { FlowStepNavigationService } from './shared/flow-step-navigation.service';
 @NgModule({
   declarations: [
     ModulesComponent,
@@ -170,7 +171,6 @@ import { StepsIndicatorComponent } from './flow/step-group/steps-indicator/steps
     MatSlideToggleModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireMessagingModule,
-    NetworkStatusAngularModule.forRoot()
   ],
   providers: [
     LocalStorageService,
@@ -194,6 +194,8 @@ import { StepsIndicatorComponent } from './flow/step-group/steps-indicator/steps
     MICurrentStateService,
     FlowService,
     PassDataService,
+    QuizService,
+    FlowStepNavigationService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [CreatePostComponent]

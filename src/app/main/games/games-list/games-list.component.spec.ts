@@ -5,6 +5,7 @@ import { GameItemComponent } from './game-item/game-item.component';
 import { ModulesService } from '@/main/modules/modules.service';
 import { LocalStorageService } from '@/shared/localstorage.service';
 import { GamesService } from '@/main/shared/games.service';
+import { CommonGameComponent } from './common-game/common-game.component';
 
 describe('GamesListComponent', () => {
   let component: GamesListComponent;
@@ -12,7 +13,7 @@ describe('GamesListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GamesListComponent, GameItemComponent ],
+      declarations: [ GamesListComponent, GameItemComponent, CommonGameComponent ],
       providers: [
         ModulesService,
         LocalStorageService,

@@ -1,7 +1,12 @@
+
+.material-icons{
+  color: white;
+  max-width: 100%;
+}
 .card {
   margin: 0 auto;
   ::ng-deep .card-header {
-    background-color: #d4f0eb;
+    background-color: #FFEFD4;
     font-weight: 700;
   }
   button {
@@ -35,6 +40,22 @@
 
 .card.card-full-width {
   width: 100%;
+}
+#main-heading {
+  background-color: #343434;
+  font-family: 'Roboto';
+  font-size: 16px;
+  height: 5.1vh;
+  color: white;
+  max-height: 60px;
+}
+.main-heading-h3{
+  margin: 2%;
+  color: white;
+}
+#saved-forms-btn{
+  float: right ;
+  margin: 2%;
 }
 
 @media screen and (max-width: 992px) {

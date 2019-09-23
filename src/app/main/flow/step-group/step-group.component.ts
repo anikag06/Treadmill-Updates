@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { StepGroup } from './step-group.model';
 import { Step } from './step/step.model';
+import { COMPLETED } from '@/app.constants';
 
 @Component({
   selector: 'app-step-group',
@@ -18,7 +19,7 @@ export class StepGroupComponent implements OnInit {
 
   percentageComplete() {
     const steps = this.stepGroup.steps;
-    const completed = steps.filter((step: Step) => step.status === 'COMPLETED').length;
+    const completed = steps.filter((step: Step) => step.status === COMPLETED).length;
     return completed / steps.length * 100;
   }
 

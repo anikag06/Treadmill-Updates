@@ -23,8 +23,9 @@ export class TasksComponent implements OnInit, OnChanges {
   @Input() reset!: boolean;
   @Input() task!: UserTask;
 
-  date!: any;
+  start_date!: any;
   time!: any;
+  end_date!: any;
   hideNextStep = false;
   week = WEEK;
   days: String[] = [];
@@ -93,8 +94,9 @@ export class TasksComponent implements OnInit, OnChanges {
       origin_id: this.getOriginId(),
       origin_name: this.getOriginName(),
       name: this.tasksGroup.value['task'],
-      date: new Date(this.date),
       time: new Date(this.time),
+      start_date: new Date(this.start_date),
+      end_date: new Date(this.end_date),
       is_completed: this.tasksGroup.value['taskCompleted'],
       sub_tasks: this.tasksGroup.controls.subTasks.value.filter((str: any) => str.name.trim().length > 0),
       days: this.days
@@ -137,24 +139,23 @@ export class TasksComponent implements OnInit, OnChanges {
   }
 
   updateTask() {
-    console.log(this.time)
     if (this.task) {
       this.saveData();
     }
   }
 
   taskHandler(observable: Observable<Object>, action: string) {
-    if (action == 'create') {
+    if (action === 'create') {
       observable.subscribe((resp: any) => {
         this.task = new UserTask(+resp.data.id,
           resp.data.name,
           resp.data.is_completed,
-          resp.data.date_time,
+          resp.data.start_at,
+          resp.data.end_at,
           resp.data.sub_tasks,
           resp.data.task_days,
           resp.data.origin_name,
           resp.data.origin_object);
-          console.log(resp.data.date_time);
           this.taskService.addTask(this.task);
         this.tasksGroup.controls.subTasks = this.fb.array([]);
         resp.data.sub_tasks.forEach((subtask: UserSubTask) => {
@@ -168,7 +169,6 @@ export class TasksComponent implements OnInit, OnChanges {
       observable.subscribe(
         (resp: any) => {
           const task = this.taskService.tasks.find((t: UserTask) => t.id === +resp.data.id);
-          console.log(resp.data.date_time);
           if (task) {
             this.task = <UserTask>resp.data;
             this.taskService.updateTask(this.task);
@@ -202,7 +202,6 @@ export class TasksComponent implements OnInit, OnChanges {
           .subscribe(
             () => {
             },
-            (error) => console.log(error)
           );
       }
     }
@@ -237,14 +236,14 @@ export class TasksComponent implements OnInit, OnChanges {
             }
           },
         (error: HttpErrorResponse) => {
-          console.log(error.error.message);
         }
       );
   }
 
   initializeTask() {
-    this.date = new Date(this.task.date_time);
-    this.time = new Date(this.task.date_time);
+    this.start_date = new Date(this.task.start_at);
+    this.time = new Date(this.task.start_at);
+    this.end_date = new Date(this.task.end_at);
     this.tasksGroup.controls['task'].setValue(this.task.name);
     this.tasksGroup.controls['taskCompleted'].setValue(this.task.is_completed);
     this.tasksGroup.controls.subTasks = this.fb.array([]);
@@ -267,7 +266,7 @@ export class TasksComponent implements OnInit, OnChanges {
   }
 
   allDaysChecked() {
-    return this.date.length === 7;
+    return this.start_date.length === 7;
   }
 
   getOriginId() {
@@ -287,8 +286,9 @@ export class TasksComponent implements OnInit, OnChanges {
   }
 
   resetTask() {
-    delete this.date;
+    delete this.start_date;
     delete this.time;
+    delete this.end_date;
     this.days = [];
     this.repeat = false;
     delete this.origin_name;
@@ -302,11 +302,17 @@ export class TasksComponent implements OnInit, OnChanges {
 
   dateTimeParser() {
     const time = new Date(this.time);
-    let dateTime: moment.Moment;
-    dateTime = moment(this.date);
-    dateTime.set({'hours': time.getHours(), 'minutes': time.getMinutes()});
-    this.date = dateTime.toDate();
-    this.time = dateTime.toDate();
+    let timeDateFormat: moment.Moment;
+    timeDateFormat = moment(this.start_date);
+    timeDateFormat.set({'hours': time.getHours(), 'minutes': time.getMinutes()});
+    this.time = timeDateFormat.toDate();
+    this.start_date = timeDateFormat.toDate();
+    this.updateTask();
+  }
+  endDateParser() {
+    let endDate: any;
+    endDate = moment(this.end_date).format('YYYY-MM-DD');
+    this.end_date = endDate;
     this.updateTask();
   }
 }

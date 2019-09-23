@@ -66,7 +66,6 @@ export class ConversationGroupComponent implements OnInit {
     this.conversation_id = this.group[i].id;
     this.passdata.setOption(this.conversation_id, true, false, false);
     this.router.navigate(['/resources/conversations']);
-
   }
 
   current_history(i: number) {

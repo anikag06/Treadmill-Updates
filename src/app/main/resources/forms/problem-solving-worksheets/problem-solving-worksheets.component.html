@@ -1,20 +1,32 @@
 <div class="container-fluid no-padding">
   <div class="row no-gutters">
-    <div class="col-12">
-      <h1 class="main-heading-h1">Cope with a problem</h1>
-    </div>
-  </div>
-  <div class="row no-gutters">
-    <div class="col-12 col-lg-3 order-lg-last mb-3">
-      <div class="card card-240">
-        <app-forms-sidebar
+    <div class="col-12 w-100 px-0" id="main-heading" >
+
+      <div class="h-100 ml-4 my-auto d-inline-block ">
+        <p class="py-1 h-100 my-auto">Cope with a problem </p></div>
+
+      <div class="h-100 d-inline-block float-right">
+        <button class="h-100" id="saved-forms-btn"
+          mat-button [matMenuTriggerFor]="problemSolvingForms">
+          <i class="material-icons"  >
+            more_horiz
+          </i>
+        </button>
+      </div>
+
+      <mat-menu
+        #problemSolvingForms="matMenu"  [overlapTrigger]="false" >
+          <app-forms-sidebar
           [type]="type"
           (objectEmitter)="problemSelected($event)"
           (newForm)="onAddNewForm()">
         </app-forms-sidebar>
-      </div>
+      </mat-menu>
     </div>
-    <div class="col-12 col-lg-9">
+  </div>
+  
+  <div class="row no-gutters">
+    <div class="col-12 col-lg">
       <div class="row mb-2">
         <div class="col-12">
           <ng-container>
