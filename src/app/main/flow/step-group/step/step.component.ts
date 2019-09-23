@@ -1,7 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Step } from './step.model';
 import { StepGroup } from '../step-group.model';
-import { COMPLETED, LOCKED, ACTIVE, INTRODUCTORY_ANIMATION } from '@/app.constants';
+import { COMPLETED, SLIDE, CONVERSATION_GROUP } from '@/app.constants';
+import {  LOCKED, ACTIVE, INTRODUCTORY_ANIMATION } from '@/app.constants';
 import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.service';
 import { Router } from '@angular/router';
 import { FlowService } from '../../flow.service';

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { CongratsDialogComponent } from './congrats-dialog/congrats-dialog.component';
-import { LOCKED } from '@/app.constants';
-import { Step } from '@/main/conversation-group/conversation-group-input/step.model';
+import { LOCKED, SLIDE, CONVERSATION_GROUP, GAME, FORM, SUPPORT_GROUP } from '@/app.constants';
+import { Step } from '/Users/darshittalavia/ng-treadwill-fe/src/app/main/resources/conversation-group/conversation-group-input/step.model';
 import { HttpClient } from '@angular/common/http';
 import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.service';
 

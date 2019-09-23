@@ -3,6 +3,9 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import {Response} from './conversations/response/response.model';
 import { environment } from 'environments/environment';
 
+import { Observable } from 'rxjs';
+import {ConversationFeedback, ConversationFeedbackText} from './conversations/response/conversation.feedback.model';
+
 
 
 @Injectable()
@@ -72,4 +75,17 @@ export class ConversationsService {
 
 
   }
+
+  getFeedBackInfo(slideId: number): Observable<any> {
+    return this.http.get(environment.API_ENDPOINT + '/api/v1/conversation/feedback/' + slideId + '/');
+  }
+
+  storeFeedBackInfo(feedback: ConversationFeedback): Observable<any> {
+    return this.http.post(environment.API_ENDPOINT + '/api/v1/conversation/conversations-feedback/', feedback);
+  }
+
+  updateFeedBackInfo(feedback: ConversationFeedbackText, dataId: number) {
+    return this.http.put(environment.API_ENDPOINT + '/api/v1/conversation/conversations-feedback/' + dataId + '/', feedback);
+  }
+
 }

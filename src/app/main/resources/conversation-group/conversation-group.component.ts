@@ -34,6 +34,7 @@ export class ConversationGroupComponent implements OnInit {
 
 
 
+
   ngOnInit() {
     this.loadConversationGroup();
   }
@@ -47,10 +48,12 @@ export class ConversationGroupComponent implements OnInit {
     .subscribe(
       (res: any) => {
         const step = res.data;
-        console.log(step);
-        if (['COMPLETED', 'WORKING', 'UNLOCKED'].includes(step.status) && step.step_data.type === 'CONVERSATION_GROUP' ) {
+        console.log(step.status);
+        if (['COMPLETED', 'WORKING', 'UNLOCKED'].includes(step.status) ) {
         this.step = step;
         this.group = this.step.step_data.data.conversations;
+        const formName = step.action[0];
+        this.passdata.setFormName(formName);
         } else {
           this.notallowed = true;
         }
@@ -62,8 +65,7 @@ export class ConversationGroupComponent implements OnInit {
   reset(i: number) {
     this.conversation_id = this.group[i].id;
     this.passdata.setOption(this.conversation_id, true, false, false);
-    this.router.navigate(['/conversations']);
-
+    this.router.navigate(['/resources/conversations']);
   }
 
   current_history(i: number) {
