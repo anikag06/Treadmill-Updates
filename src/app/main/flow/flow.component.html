@@ -5,9 +5,11 @@
         </div>
     </div>
     <div class="row w-100 justify-content-center mx-0 px-0">
-      <div class="col-12 flow-scroll">
-        <div class="flow-scroll-inner ">
-          <mat-accordion class="my-5" multi="true">
+      <div class="col-12 px-0 flow-scroll">
+        <div class="flow-scroll-inner py-2">
+          <mat-accordion [hideToggle] = 'true'
+            displayMode = "flat"
+            class="my-2">
             <app-step-group
               *ngFor="let stepGroup of stepGroups"
               [stepGroup]="stepGroup">

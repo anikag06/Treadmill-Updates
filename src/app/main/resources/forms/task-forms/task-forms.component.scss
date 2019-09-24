@@ -1,3 +1,5 @@
+@import 'styles.scss';
+@import 'color.palette.scss';
 .material-icons{
   color: white;
   max-width: 100%;
@@ -5,7 +7,7 @@
 .container-fluid {
   background-color: white;
   overflow: auto;
-  box-shadow: 2px 2px 10px #cccccc;
+  @include box-shadow-1-1-10-d6();
 }
 .card {
   margin: 0 auto;

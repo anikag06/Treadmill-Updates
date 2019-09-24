@@ -107,7 +107,7 @@ export class SlidesComponent implements OnInit {
             this.isLastStep = data.data.is_last_step;
             this.next_step_id = data.data.next_step_id;
             if (data.data.status === COMPLETED) {
-              // this.showNextStepBtn = true;
+              this.showNextStepBtn = true;
 
               if (this.isLastStep) {
                 this.lastStepCompleted = true;
@@ -223,9 +223,8 @@ export class SlidesComponent implements OnInit {
     this.completionData.time_spent = this.time_spent;
     this.completionData.step_id = this.current_step_id;
     this.stepDataService.storeCompletionData(this.completionData)
-      .subscribe( (data) => {
-        console.log(data);
-      });
+      .subscribe( (data) => { }
+      );
     this.commonDialogService.openCongratsDialog(this.current_step_id, this.next_step_id, this.isLastStep, this.time_spent);
     this.showNextStepBtn = true;
   }

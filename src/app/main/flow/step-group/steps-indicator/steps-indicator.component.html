@@ -1,3 +1,18 @@
-<div class="step-status-indicator" *ngFor="let step of stepGroup.steps">
-  <img [src]="getStatusImage(step)" height="30" width="30" [alt]="step.status"/>
+<div class="step-status-indicator  align-items-center" 
+  *ngFor="let step of stepGroupSteps; let last=last; let first=first">
+  
+  <div 
+    class="row py-0 mx-1 px-1 
+      status-img justify-content-center align-items-start"
+      [ngClass]="{
+        'disabled':step.status ==='ACTIVE' || step.status === 'LOCKED'|| step.status=== 'UNLOCKED',
+        'active': step.status ==='COMPLETED',
+        'isFirstDashed': first===true && firstStepOfModule === false && showLessSteps ===true,
+        'isFirstStep': first===true && (firstStepOfModule === true || showLessSteps ===false),
+        'isLastDashed': last===true && showLessSteps===true,
+        'isLastStep': last===true && showLessSteps === false}">
+    <img [src]="getStatusImage(step)" class="w-100" style="z-index: 100"
+        [alt]="step.status"/>
+  </div>
+
 </div>

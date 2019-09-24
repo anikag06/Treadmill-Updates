@@ -1,4 +1,7 @@
-<mat-expansion-panel class="step-group" [expanded]='isExpanded'>
+<mat-expansion-panel class="step-group py-2 mat-elevation-z0" 
+            [expanded]='isExpanded'
+            (opened)="panelOpened()"
+            (closed)="isExpanded = false; showLessSteps = true;">
   <mat-expansion-panel-header class="row">
     <mat-panel-title>
       <div class="col-3 px-0">
@@ -31,22 +34,66 @@
   </mat-expansion-panel-header>
   <ng-template matExpansionPanelContent>
     <div class="row">
-      <div class="col-3 px-0">
-        <app-steps-indicator [stepGroup]="stepGroup"></app-steps-indicator>
+      <div class="col-3 px-0" >
+        <app-steps-indicator 
+          *ngIf = "showLessSteps; else showAllIndicators"
+          [showLessSteps] = showLessSteps [firstStepOfModule] = firstStepOfModule
+          [stepGroupSteps]="defaultSteps.steps"></app-steps-indicator>
+        <ng-template #showAllIndicators>
+          <app-steps-indicator 
+            [showLessSteps] = showLessSteps [firstStepOfModule] = firstStepOfModule
+            [stepGroupSteps]="stepGroup.steps"></app-steps-indicator>
+        </ng-template>
       </div>
+
       <div class="col px-0">
-        <app-step *ngFor="let step of stepGroup.steps" [step]="step" [stepGroup]="stepGroup"></app-step>
-        <div class="row justify-content-center">
-          <hr >
-          <div class="col">
-            <i class="material-icons">
-              keyboard_arrow_up
-            </i>
-            collapse
-          </div>
-          
-          <hr>
+        <div class="" *ngIf = "showLessSteps; else showAllSteps">
+          <app-step 
+            *ngFor="let stepInitial of defaultSteps.steps" 
+            [step]="stepInitial" [stepGroup]="defaultSteps"></app-step>
         </div>
+        <ng-template #showAllSteps >
+          <app-step
+            *ngFor="let step of stepGroup.steps" 
+            [step]="step" [stepGroup]="stepGroup"></app-step>
+        </ng-template>
+        
+        
+        <div class="row justify-content-center" *ngIf = "isShowAllBtn">
+          <div class="col">
+            <div class="row w-100 justify-content-center" *ngIf = "!showLessSteps">
+              <i class="material-icons arrow-icon" 
+                (click)="collapseClick()">
+                keyboard_arrow_up
+              </i>
+            </div>
+            <div class="row w-100">
+              <div class="col px-0">
+                <hr>
+              </div>
+              <div class="col px-0 text-center collapse-text" 
+                  *ngIf = "!showLessSteps"
+                  (click)="collapseClick()">
+                collapse
+              </div>
+              <div class="col px-0 text-center collapse-text" 
+                  *ngIf = "showLessSteps"
+                  (click)="showAllClick()">
+                show all
+              </div>
+              <div class="col px-0">
+                <hr>
+              </div>
+            </div>
+            <div class="row w-100 justify-content-center" *ngIf = "showLessSteps">
+              <i class="material-icons arrow-icon" 
+                (click)="showAllClick()">
+                keyboard_arrow_down
+              </i>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </ng-template>

@@ -16,11 +16,16 @@ export class StepsIndicatorComponent implements OnInit {
     ['completed', 'assets/flow/completed.svg'],
   ]);
 
-  @Input() stepGroup!: StepGroup;
+  // @Input() stepGroup!: StepGroup;
+  @Input() stepGroupSteps!: any;
+  @Input() showLessSteps!: any;
+  @Input() firstStepOfModule!: any;
 
   constructor() { }
 
   ngOnInit() {
+    console.log(this.stepGroupSteps);
+    console.log('first of module', this.firstStepOfModule);
   }
 
   getStatusImage(step: Step) {

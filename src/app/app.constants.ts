@@ -97,6 +97,7 @@ export const ACTIVE = 'ACTIVE';
 export const COMPLETED = 'COMPLETED';
 
 // flow and steps related paths
+export const FLOW_STEPS_DATA = '/api/v1/flow/flow/';
 export const FLOW_STEP_MARK_DONE = '/api/v1/flow/step/';
 export const GET_STEP_DATA  = '/api/v1/flow/steps/';
 

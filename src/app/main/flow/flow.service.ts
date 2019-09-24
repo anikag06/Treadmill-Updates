@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
-import { FLOW_STEP_MARK_DONE } from '@/app.constants';
+import { FLOW_STEP_MARK_DONE, FLOW_STEPS_DATA } from '@/app.constants';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -17,7 +17,7 @@ export class FlowService {
   ) { }
 
   getFlow() {
-    return this.http.get(environment.API_ENDPOINT + '/api/v1/flow/flow/');
+    return this.http.get(environment.API_ENDPOINT + FLOW_STEPS_DATA);
   }
 
   markDone(stepId: number, timeSpent: number) {
