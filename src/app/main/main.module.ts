@@ -95,6 +95,9 @@ import { QuizService } from './dashboard/questionnaire/questionnaire.service';
 import { FlowStepNavigationService } from './shared/flow-step-navigation.service';
 import { IntroduceComponent } from './shared/introduce/introduce.component';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { NavbarFlowComponent } from './shared/navbar/navbar-flow/navbar-flow.component';
+import { NavbarFlowDirective } from './shared/navbar/navbar-flow.directive';
+import { NavbarNotificationDirective } from './shared/navbar/navbar-notification.directive';
 @NgModule({
   declarations: [
     ModulesComponent,
@@ -148,7 +151,10 @@ import { OverlayModule } from '@angular/cdk/overlay';
     StepGroupComponent,
     StepComponent,
     StepsIndicatorComponent,
-    IntroduceComponent
+    IntroduceComponent,
+    NavbarFlowComponent,
+    NavbarFlowDirective,
+    NavbarNotificationDirective,
   ],
   imports: [
     CommonModule,
@@ -203,7 +209,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
     FlowStepNavigationService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  entryComponents: [CreatePostComponent, IntroduceComponent]
+  entryComponents: [CreatePostComponent, IntroduceComponent, NavbarFlowComponent]
 })
 export class MainModule {
 }

@@ -1,0 +1,29 @@
+.navbar-flow {
+    height: 70vh;
+    width: 400px;
+    overflow: hidden;
+    position: absolute;
+    top: 80px;
+    right: 210px;
+    z-index: 100;
+    box-shadow: 2px 2px 10px #585858cc;
+    h2 {
+        background-color: #ffffff;
+        font-size: 1.3rem;
+        padding: 20px;
+        margin-bottom: 0px;
+        border-bottom: 1px solid #cccccc;
+    }
+    ::ng-deep {
+        h2.progress-heading {
+            display: none;
+        }
+        .flow-container {
+            max-width: 100% !important;
+            box-shadow: none !important;
+            .flow-scroll {
+                height: 65vh;
+            }
+        }
+    }
+}
