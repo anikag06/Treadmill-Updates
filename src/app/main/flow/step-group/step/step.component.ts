@@ -56,7 +56,8 @@ export class StepComponent implements OnInit {
         this.flowService.triggerIntroduction();
         this.step.status = COMPLETED;
         this.flowService.triggerLoad();
-        setTimeout(() => this.flowService.triggerLoad(), 100);
+        setTimeout(() => this.flowService.triggerLoad(), 1);
+        setTimeout(() => this.flowService.triggerLoad(), 10);
 
       }
       return this.router.navigate([this.nextLink()]);

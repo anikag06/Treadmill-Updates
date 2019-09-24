@@ -33,9 +33,10 @@ describe('treadwill Flow', () => {
     fp.findProgressElement('Navigating Treadwill');
     browser.sleep(500);
     expect(fp.findTextbyCss('.mat-card-title')).toContain('Primary Navigation');
-    browser.sleep(500);
+    browser.sleep(1000);
     fp.clickOnButton('SKIP');
-    browser.sleep(500);
+    fp.navigateToDashboard();
+    browser.sleep(1000);
     expect(fp.getProgress()).toEqual('Progress');
   });
 

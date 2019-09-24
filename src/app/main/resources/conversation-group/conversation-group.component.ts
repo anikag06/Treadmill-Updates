@@ -6,6 +6,7 @@ import { ConversationGroup } from './conversation-group-input/conversation-group
 import { PassDataService } from './passdata.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
+import { COMPLETED, ACTIVE, UNLOCKED } from '@/app.constants';
 
 
 @Component({
@@ -32,9 +33,6 @@ export class ConversationGroupComponent implements OnInit {
      private router: Router,
      private activeroute: ActivatedRoute) { }
 
-
-
-
   ngOnInit() {
     this.loadConversationGroup();
   }
@@ -49,11 +47,11 @@ export class ConversationGroupComponent implements OnInit {
       (res: any) => {
         const step = res.data;
         console.log(step.status);
-        if (['COMPLETED', 'WORKING', 'UNLOCKED'].includes(step.status) ) {
-        this.step = step;
-        this.group = this.step.step_data.data.conversations;
-        const formName = step.action[0];
-        this.passdata.setFormName(formName);
+        if ([COMPLETED, ACTIVE, UNLOCKED].includes(step.status) ) {
+          this.step = step;
+          this.group = this.step.step_data.data.conversations;
+          const formName = step.action[0];
+          this.passdata.setFormName(formName);
         } else {
           this.notallowed = true;
         }
