@@ -35,7 +35,10 @@ describe('treadwill Flow', () => {
     expect(fp.findTextbyCss('.mat-card-title')).toContain('Primary Navigation');
     browser.sleep(500);
     fp.clickOnButton('SKIP');
-    browser.sleep(500);
+    browser.sleep(2000);
+    browser.sleep(300);
+    browser.sleep(400);
+
     expect(fp.getProgress()).toEqual('Progress');
   });
 
@@ -100,6 +103,18 @@ describe('treadwill Flow', () => {
     fp.clickOnButton('Completed');
     browser.sleep(2000);
     fp.clickOnText('#next-step-btn');
+    browser.sleep(2000);
+    fp.navigateToDashboard();
+    browser.sleep(2000);
+  });
+
+  it('Should be able to check conversation', () => {
+    browser.sleep(2000);
+    fp.findProgressElement('Conversation');
+    browser.sleep(3000);
+    fp.clickOnButton('reset');
+    browser.sleep(2000);
+    fp.clickOnButton('Completed');
     browser.sleep(2000);
     fp.navigateToDashboard();
     browser.sleep(2000);
