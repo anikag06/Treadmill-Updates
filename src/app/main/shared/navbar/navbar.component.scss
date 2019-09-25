@@ -19,6 +19,11 @@
 
 @media screen and (max-width: 992px) {
     .app-navbar {
-        height: 0px;
+        height: 20px;
+        .all-icons {
+            position: absolute;
+            top: -80px;
+            right: 10px;
+        }
     }
 }
