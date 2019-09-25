@@ -19,7 +19,8 @@ import {
   MatIconModule,
   MatListModule,
   MatSidenavModule, MatSlideToggleModule,
-  MatToolbarModule
+  MatToolbarModule,
+  MatTooltipModule
 } from '@angular/material';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { FormsSidebarComponent } from './forms/shared/forms-sidebar/forms-sidebar.component';
@@ -37,6 +38,7 @@ import { CongratsDialogComponent } from './shared/congrats-dialog/congrats-dialo
 import { CommonDialogsService } from './shared/common-dialogs.service';
 import { ConclusionPageComponent } from './conclusion-page/conclusion-page.component';
 import { StepsDataService } from './shared/steps-data.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -58,6 +60,7 @@ import { StepsDataService } from './shared/steps-data.service';
     ConclusionPageComponent,
   ],
   imports: [
+    // BrowserAnimationsModule,
     ResourcesRoutingModule,
     CommonModule,
     MaterialModule,
@@ -65,6 +68,7 @@ import { StepsDataService } from './shared/steps-data.service';
     AngularEditorModule,
     LayoutModule,
     MatToolbarModule,
+    MatTooltipModule,
     MatButtonModule,
     MatDialogModule,
     MatSidenavModule,

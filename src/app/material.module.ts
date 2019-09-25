@@ -8,6 +8,7 @@ import {
   MatButtonModule,
   MatMenuModule,
   MatToolbarModule,
+  MatTooltipModule,
   MatIconModule,
   MatCardModule,
   MatFormFieldModule,
@@ -22,6 +23,7 @@ import {
 @NgModule({
   imports: [
     MatButtonModule,
+    MatTooltipModule,
     MatMenuModule,
     MatToolbarModule,
     MatIconModule,
@@ -36,6 +38,7 @@ import {
   ],
   exports: [
     MatButtonModule,
+    MatTooltipModule,
     MatMenuModule,
     MatToolbarModule,
     MatIconModule,

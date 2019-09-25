@@ -11,7 +11,7 @@
             <p class=" text"> You have completed this step. Try next step </p>
 
             <p class=" text" *ngIf='data.isLocked'>
-                Next module is locked. Try previous steps, go to dashboard. <br>
+                Next step is locked. Try previous steps, go to dashboard. <br>
                 Module will unlock on {{unLockTime | date:"medium"}}</p>
             <p class="text" *ngIf='data.isLastStep && !data.isLocked '>
                 Go to dashboard and try next module.

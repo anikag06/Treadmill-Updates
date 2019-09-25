@@ -124,6 +124,11 @@
 }
 .completed-btn, .next-step-btn {
     line-height: 0%;
+    min-width: 100%;
+    font-size: 14px;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+    // white-space: pre-wrap !important;
 }
 @media screen and (max-width: 992px) {
     .slides-elements-div{

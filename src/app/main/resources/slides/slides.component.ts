@@ -113,7 +113,7 @@ export class SlidesComponent implements OnInit {
                 this.lastStepCompleted = true;
               }
             }
-            this.slideService.getFeedBackInfo(this.slide.id)
+            this.slideService.getFeedBackInfo(this.current_step_id)
               .subscribe( (feedback_data) => {
                 if (feedback_data.exists) {
                   this.initial_feedback = feedback_data.feedback;
@@ -129,8 +129,11 @@ export class SlidesComponent implements OnInit {
                 }
               }
             );
-
-            this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.slide.url);
+            if (this.slide) {
+              this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.slide.url);
+            } else {
+              this.notAvailable = true;
+            }
             const formName = data.data.action[0];
             if (formName === FORM_PROBLEM_SOLVING_WORKSHEET) {
               setTimeout(() => this.loadForm(ProblemSolvingWorksheetsComponent), 1000);

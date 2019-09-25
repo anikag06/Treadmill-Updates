@@ -1,10 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Step } from './step.model';
 import { StepGroup } from '../step-group.model';
 import { COMPLETED, LOCKED, ACTIVE, INTRODUCTORY_ANIMATION } from '@/app.constants';
 import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.service';
 import { Router } from '@angular/router';
 import { FlowService } from '../../flow.service';
+import { MatTooltip } from '@angular/material';
 
 @Component({
   selector: 'app-step',
@@ -15,6 +16,7 @@ export class StepComponent implements OnInit {
 
   @Input() step!: Step;
   @Input() stepGroup!: StepGroup;
+  @ViewChild('tooltip', {static: false}) showToolTip!: MatTooltip;
 
   constructor(
     private router: Router,
@@ -49,6 +51,7 @@ export class StepComponent implements OnInit {
    }
 
    navigate(event: Event) {
+      this.showTooltipFun();
       event.preventDefault();
       this.markDone();
       if (this.step.data_type === INTRODUCTORY_ANIMATION) {
@@ -73,4 +76,11 @@ export class StepComponent implements OnInit {
     return this.step.status === ACTIVE;
    }
 
+   showTooltipFun() {
+    if (this.step.status === LOCKED && !this.step.virtual_step) {
+      // this.showToolTip.message();
+      this.showToolTip.disabled = false;
+      this.showToolTip.show();
+     }
+   }
 }
