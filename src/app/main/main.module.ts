@@ -72,15 +72,13 @@ import {ProblemSolvingWorksheetsService} from '@/main/resources/forms/problem-so
 
 import { DataService } from './dashboard/questionnaire/data.service';
 import { QuestionnaireComponent } from './dashboard/questionnaire/questionnaire.component';
-import { ConversationsComponent } from './conversation-group/conversations/conversations.component';
 import { PlotScoreGraphService } from './score/plot-score-graph.service';
 import {AngularFireMessagingModule} from '@angular/fire/messaging';
 import {AngularFireModule} from '@angular/fire';
 import {FcmService} from '@/main/fcm.service';
 import {environment} from '../../environments/environment';
 import { AttributeStyleGameComponent } from './games/games-list/common-game/attribute-style-game/attribute-style-game.component';
-import { ConversationGroupComponent } from './conversation-group/conversation-group.component';
-import { PassDataService } from './conversation-group/passdata.service';
+import { PassDataService } from './resources/conversation-group/passdata.service';
 
 import { FriendlyFaceGameComponent } from '@/main/games/games-list/common-game/friendly-face-game/friendly-face-game.component';
 import { MentalImageryComponent } from '@/main/games/games-list/common-game/mental-imagery/mental-imagery.component';
@@ -98,6 +96,9 @@ import { QuizService } from './dashboard/questionnaire/questionnaire.service';
 import { FlowStepNavigationService } from './shared/flow-step-navigation.service';
 import { IntroduceComponent } from './shared/introduce/introduce.component';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { NavbarFlowComponent } from './shared/navbar/navbar-flow/navbar-flow.component';
+import { NavbarFlowDirective } from './shared/navbar/navbar-flow.directive';
+import { NavbarNotificationDirective } from './shared/navbar/navbar-notification.directive';
 @NgModule({
   declarations: [
     ModulesComponent,
@@ -141,9 +142,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
     ChatbotComponent,
     ChatWindowComponent,
     QuestionnaireComponent,
-    ConversationsComponent,
     AttributeStyleGameComponent,
-    ConversationGroupComponent,
     FriendlyFaceGameComponent,
     MentalImageryComponent,
     MiInstructionsComponent,
@@ -153,7 +152,10 @@ import { OverlayModule } from '@angular/cdk/overlay';
     StepGroupComponent,
     StepComponent,
     StepsIndicatorComponent,
-    IntroduceComponent
+    IntroduceComponent,
+    NavbarFlowComponent,
+    NavbarFlowDirective,
+    NavbarNotificationDirective,
   ],
   imports: [
     CommonModule,
@@ -208,7 +210,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
     FlowStepNavigationService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  entryComponents: [CreatePostComponent, IntroduceComponent]
+  entryComponents: [CreatePostComponent, IntroduceComponent, NavbarFlowComponent]
 })
 export class MainModule {
 }

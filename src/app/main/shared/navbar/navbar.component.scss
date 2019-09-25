@@ -1,9 +1,29 @@
 .app-navbar {
     height: 100px;
+    width: 100%;
+    .all-icons {
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: center;
+        height: 100px;
+        padding-right: 10%;
+        .icon-items {
+            margin: 10px 30px;
+            background: transparent;
+            &:hover, &:active {
+                cursor: pointer;
+            }
+        }
+    }
 }
 
 @media screen and (max-width: 992px) {
     .app-navbar {
-        height: 0px;
+        height: 20px;
+        .all-icons {
+            position: absolute;
+            top: -80px;
+            right: 10px;
+        }
     }
 }

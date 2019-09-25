@@ -34,7 +34,7 @@ export class FlowStepNavigationService {
       if (step.data_type === SLIDE) {
         return `/resources/slides/${step.id}/`;
       } else if (step.data_type === CONVERSATION_GROUP) {
-        return `/conversations-group/${step.id}/`;
+        return `/resources/conversations-group/${step.id}/`;
       } else if (step.data_type === GAME) {
         const game_name = step.action[0];
         return `/games/${game_name}/`;

@@ -19,8 +19,8 @@ import { InterpretationBiasGameComponent } from './games/games-list/common-game/
 import { ExecutiveControlGameComponent } from './games/games-list/common-game/executive-control-game/executive-control-game.component';
 import { CommonGameComponent } from './games/games-list/common-game/common-game.component';
 import { QuestionnaireComponent } from './dashboard/questionnaire/questionnaire.component';
-import { ConversationsComponent } from './conversation-group/conversations/conversations.component';
-import { ConversationGroupComponent } from './conversation-group/conversation-group.component';
+import { ConversationsComponent } from './resources/conversation-group/conversations/conversations.component';
+import { ConversationGroupComponent } from './resources/conversation-group/conversation-group.component';
 
 
 
@@ -28,8 +28,6 @@ export const mainRoutes: Routes = [
     {
         path: '', component: MainComponent, canActivateChild: [AuthGuard], children: [
             { path: 'dashboard', component: DashboardComponent},
-            { path: 'conversations', component: ConversationsComponent},
-            { path: 'conversations-group/:id', component: ConversationGroupComponent},
             { path: 'questionnaire', component: QuestionnaireComponent},
             { path: 'support-groups', component: SupportGroupsComponent },
             {
