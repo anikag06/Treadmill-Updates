@@ -77,7 +77,7 @@ export class ConversationsService {
   }
 
   getFeedBackInfo(slideId: number): Observable<any> {
-    return this.http.get(environment.API_ENDPOINT + '/api/v1/conversation/feedback/' + slideId + '/');
+    return this.http.get(environment.API_ENDPOINT + '/api/v1/conversation/feedback/' + slideId );
   }
 
   storeFeedBackInfo(feedback: ConversationFeedback): Observable<any> {

@@ -9,7 +9,19 @@ export class PassDataService {
   private isspeedrun!: boolean;
   private conversation_id!: number;
   private array = [false, false, false];
+  private id = [0, false, 0];
   private formname!: string;
+  private current_id!: number;
+  private islast!: boolean;
+  private nextstep!: number;
+
+
+
+  setid( current: number, islast: boolean, nextstep: number) {
+      this.current_id = current;
+      this.islast = islast;
+      this.nextstep = nextstep;
+  }
 
 
  setOption(value: number, reset: boolean, continu: boolean, speedrun: boolean)  {
@@ -20,6 +32,7 @@ export class PassDataService {
      this.array = [this.isreset , this.iscontinue, this.isspeedrun];
      console.log(this.conversation_id);
   }
+
  getid() {
     console.log(this.conversation_id);
      return this.conversation_id;
@@ -27,6 +40,21 @@ export class PassDataService {
 
  iswhat() {
      return this.array;
+ }
+
+ get_current_id() {
+    this.current_id = 24;
+     return this.current_id;
+ }
+
+ get_islast() {
+    this.islast = false;
+     return this.islast;
+ }
+
+ get_nextstep() {
+    this.nextstep = 2;
+     return this.nextstep;
  }
 
  setFormName(formname: string) {

@@ -19,6 +19,9 @@ import { trigger, transition, style, animate, state } from '@angular/animations'
 import { CommonDialogsService } from '../../shared/common-dialogs.service';
 import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.service';
 import {ConversationFeedback, ConversationFeedbackText} from './response/conversation.feedback.model';
+import { StepCompleteData } from '../../shared/completion-data.model';
+import { StepsDataService } from '../../shared/steps-data.service';
+import { environment } from 'environments/environment';
 
 
 
@@ -90,15 +93,18 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   isvisible!: boolean;
   feedbackData: ConversationFeedback = new ConversationFeedback(0, 0, 1);
   feedbackText: ConversationFeedbackText = new ConversationFeedbackText('');
+  completionData: StepCompleteData = new StepCompleteData(0, 0);
+
+  next_step_id!: number;
 
   constructor( private conversationsService: ConversationsService, private timerservice: TimerService,
     private passdata: PassDataService,
     private componentFactoryResolver: ComponentFactoryResolver,
-    private sanitizer: DomSanitizer,
-    private activateRoute: ActivatedRoute,
     private router: Router,
     private commonDialogService: CommonDialogsService,
     private flowStepService: FlowStepNavigationService,
+    private stepDataService: StepsDataService,
+
     ) {
   }
   currenthistory!: CurrentHistory;
@@ -155,10 +161,6 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   unsend = true;
 
 
-  time_spent: any;
-  current_step_id!: number;
-  isLastStep = false;
-  next_step_id!: number;
   @ViewChild('form_div', {static: false}) formDiv!: ElementRef;
   @ViewChild('slideDiv', {static: false}) slideDiv!: ElementRef;
   @ViewChild('slidePage', {static: false}) slidePage!: ElementRef;
@@ -168,7 +170,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   b = new Map<number, Dialog>();
 
   ngOnInit() {
-    this.conversation_id = 5;
+    this.conversation_id = this.passdata.getid();
     this.run();
     this.timerservice.visibility();
     this.timerservice.unload();
@@ -181,6 +183,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       this.reset();
     } else if (start[1] === true) {
       this.current_history();
+      console.log('its continue');
     } else if (start[2] === true) {
       this.speed_run();
     }
@@ -202,13 +205,15 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   }
 
   loadConversation(current_id: boolean) {
-    this.conversationsService.get('http://172.26.90.49:8000/api/v1/conversation/conversation/?conversation_id=' + this.conversation_id)
+    this.conversationsService.get(environment.API_ENDPOINT +  '/api/v1/conversation/conversation/?conversation_id=' + this.conversation_id)
       .subscribe((res: any) => {
         this.conversation = new Conversation(res.title, res.final_conclusion_message, res.gender, res.dialog_options);
+        console.log(this.conversation)
         this.title = this.conversation.title;
         this.gender = this.conversation.gender;
         this.final_conclusion_message = this.conversation.final_conclusion_message;
         this.length_conversation = this.conversation.dialogs.length;
+        console.log(this.length_conversation);
         this.wrong = false;
         this.index = 1;
         this.speedrun = false;
@@ -252,10 +257,11 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   }
 
   current_history() {
-    this.conversationsService.get('http://172.26.90.49:8000/api/v1/conversation/history/current/?conversation_id=' + this.conversation_id)
+    this.conversationsService
+      .get(environment.API_ENDPOINT + '/api/v1/conversation/history/current/?conversation_id=' + this.conversation_id)
       .subscribe((res: any) => {
         this.conversationsService.getFeedBackInfo(this.conversation_id)
-              .subscribe( (feedback_data: { exists: any; feedback: number; }) => {
+              .subscribe( (feedback_data) => {
                 if (feedback_data.exists) {
                   this.initial_feedback = feedback_data.feedback;
                   if (this.initial_feedback === 1) {
@@ -354,7 +360,6 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     if (!this.loopback) {
       this.index = this.index + 1;
     }
-    this.progress_bar();
     // tslint:disable-next-line:max-line-length
     if (this.loopback === true) {
       this.loopback = false;
@@ -367,6 +372,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     // console.log(this.index);
     this.text = new Texting;
     this.text.message = this.dialog.message;
+    this.progress_bar();
     this.dialog_options();
     if (this.dialog.is_last === true) {
       this.finished = true;
@@ -381,7 +387,14 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   }
 
   progress_bar() {
-    this.progress = (this.index / this.length_conversation) * 100;
+    if (this.no_of_options > 1) {
+      this.progress = ((this.show.length + this.no_of_options - 1) / this.length_conversation) * 100;
+      console.log(this.show.length + this.no_of_options - 1);
+    } else {
+      this.progress = (this.show.length / this.length_conversation) * 100;
+    }
+
+    console.log(this.progress);
   }
 
   let_me_try() {
@@ -529,7 +542,9 @@ onShowSlides() {
 onSubmitComment(feedback_text: string) {
   this.feedbackText.feedback_text = feedback_text;
   this.conversationsService.updateFeedBackInfo(this.feedbackText, this.feedbackDataId)
-    .subscribe((data) => {});
+    .subscribe((data) => {
+      console.log(data);
+    });
   this.isDislikeBox = false;
   this.isLikeBox = false;
   this.likeDislikeRemoved = false;
@@ -537,7 +552,20 @@ onSubmitComment(feedback_text: string) {
 }
 
 onCompleted() {
-  this.commonDialogService.openCongratsDialog(this.current_step_id, this.next_step_id, this.isLastStep, this.time_spent);
+  const current_step_id = this.passdata.get_current_id();
+  const next_step_id = this.passdata.get_nextstep();
+  const isLastStep = this.passdata.get_islast();
+  this.showNextStepBtn = true;
+
+  this.completionData.time_spent = this.time;
+  this.completionData.step_id = current_step_id;
+  this.stepDataService.storeCompletionData(this.completionData)
+    .subscribe( (data) => {
+      console.log(data);
+      console.log('bhdhbhdid');
+    });
+
+  this.commonDialogService.openCongratsDialog( current_step_id, next_step_id, isLastStep, this.time);
 }
 
 

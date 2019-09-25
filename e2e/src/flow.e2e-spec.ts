@@ -70,20 +70,6 @@ describe('treadwill Flow', () => {
     expect(fp.getQuestionnaireNotavailable()).toContain('This is not available');
   });
 
-  // it('Should be able to go to HTML page', () => {
-  //   browser.navigate().back();
-  //   browser.sleep(2000);
-  //   fp.findProgressElement('Introduction');
-  //   browser.sleep(3000);
-  //   fp.clickOnButton('Completed');
-  //   browser.sleep(1000);
-  //   fp.clickOnButton('Go to dashboard');
-  //   browser.sleep(2000);
-  //   fp.navigateToDashboard();
-  //   browser.sleep(2000);
-  //   expect(fp.getProgress()).toEqual('Progress');
-  // });
-
   it('Should mark virtual step as done', () => {
     fp.navigateToDashboard();
     browser.sleep(2000);
@@ -102,6 +88,18 @@ describe('treadwill Flow', () => {
     browser.sleep(2000);
     fp.clickOnText('#next-step-btn');
     browser.sleep(2000);
+    fp.navigateToDashboard();
+    browser.sleep(2000);
+  });
+
+  it('Should be able to check conversation', () => {
+    browser.sleep(2000);
+    fp.findProgressElement('Conversation');
+    browser.sleep(3000);
+    fp.clickOnButton('reset');
+    // browser.sleep(2000);
+    // fp.clickOnButton('Completed');
+    // browser.sleep(2000);
     fp.navigateToDashboard();
     browser.sleep(2000);
   });
