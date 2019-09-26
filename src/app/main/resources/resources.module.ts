@@ -40,7 +40,6 @@ import { CongratsDialogComponent } from './shared/congrats-dialog/congrats-dialo
 import { CommonDialogsService } from './shared/common-dialogs.service';
 import { ConclusionPageComponent } from './conclusion-page/conclusion-page.component';
 import { StepsDataService } from './shared/steps-data.service';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -64,7 +63,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ConclusionPageComponent,
   ],
   imports: [
-    // BrowserAnimationsModule,
     ResourcesRoutingModule,
     CommonModule,
     MaterialModule,

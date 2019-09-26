@@ -12,17 +12,11 @@ import { ConclusionPageComponent } from './conclusion-page/conclusion-page.compo
 
 export const formRoutes: Routes = [
   { path: '', component: FormsComponent, children: [
-      { path: '', component: FormsListComponent },
-      { path: 'problem-solving', component: ProblemSolvingWorksheetsComponent },
-      { path: 'tasks', component: TaskFormsComponent },
-      { path: 'slides/:id', component: SlidesComponent },
-      { path: 'conversations', component: ConversationsComponent},
-      { path: 'conversations-group/:id', component: ConversationGroupComponent},
-
-
       { path: 'forms', component: FormsListComponent },
       { path: 'forms/problem-solving', component: ProblemSolvingWorksheetsComponent },
       { path: 'forms/tasks', component: TaskFormsComponent },
+      { path: 'conversations', component: ConversationsComponent},
+      { path: 'conversations-group/:id', component: ConversationGroupComponent},
     ]
   },
   { path: 'slides/:id', component: SlidesComponent },

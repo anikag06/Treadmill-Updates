@@ -80,7 +80,10 @@ export class StepComponent implements OnInit {
 
    showTooltipFun() {
     if (this.step.status === LOCKED && !this.step.virtual_step) {
-      // this.showToolTip.message();
+      const prev = this.previousStep(this.stepGroup, this.step);
+      if (!prev) {
+        console.log('this is first step');
+      }
       this.showToolTip.disabled = false;
       this.showToolTip.show();
      }
