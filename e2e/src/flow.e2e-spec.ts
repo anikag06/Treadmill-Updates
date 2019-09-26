@@ -84,7 +84,7 @@ describe('treadwill Flow', () => {
     browser.sleep(2000);
     fp.findProgressElement('Slide 1');
     browser.sleep(3000);
-    fp.clickOnButton('Completed');
+    fp.clickOnButton('Mark as complete');
     browser.sleep(2000);
     fp.clickOnText('#next-step-btn');
     browser.sleep(2000);
