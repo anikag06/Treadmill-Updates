@@ -15,10 +15,10 @@ export const formRoutes: Routes = [
       { path: 'forms', component: FormsListComponent },
       { path: 'forms/problem-solving', component: ProblemSolvingWorksheetsComponent },
       { path: 'forms/tasks', component: TaskFormsComponent },
-      { path: 'conversations', component: ConversationsComponent},
-      { path: 'conversations-group/:id', component: ConversationGroupComponent},
     ]
   },
+  { path: 'conversations', component: ConversationsComponent},
+  { path: 'conversations-group/:id', component: ConversationGroupComponent},
   { path: 'slides/:id', component: SlidesComponent },
   { path: 'conclusion/:id', component: ConclusionPageComponent},
 ];

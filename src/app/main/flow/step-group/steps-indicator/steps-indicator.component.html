@@ -9,8 +9,8 @@
         'active': step.status ==='COMPLETED',
         'isFirstDashed': first===true && firstStepOfModule === false && showLessSteps ===true,
         'isFirstStep': first===true && (firstStepOfModule === true || showLessSteps ===false),
-        'isLastDashed': last===true && showLessSteps===true,
-        'isLastStep': last===true && showLessSteps === false}">
+        'isLastDashed': last===true && lastStepOfModule ===false && showLessSteps===true,
+        'isLastStep': last===true && (lastStepOfModule === true || showLessSteps === false)}">
     <img [src]="getStatusImage(step)" class="w-100" style="z-index: 100"
         [alt]="step.status"/>
   </div>

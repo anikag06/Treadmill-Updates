@@ -3,10 +3,14 @@
         <div class="step-content" [ngClass]="{'locked': locked(), 'active': active()}">
           <a [routerLink]="nextLink()" (click)="navigate($event)" tabindex="0"
             #tooltip = "matTooltip" matTooltipDisabled
-            matTooltip="Complete the previous steps first"
+            matTooltip={{tooltipData}}
           >
             <span>{{stepGroup.sequence+1}}.{{step.sequence+1}}</span>&nbsp; &nbsp;
             <span>{{step.name}}</span>
+            <span style="width: 20px" *ngIf="step.data_type === 'CONVERSATION_GROUP'"> 
+              <mat-progress-bar class="w-100"
+                mode="determinate" value={{conversationBarValue}}></mat-progress-bar> 
+            </span>
           </a>
         </div>
     </div>

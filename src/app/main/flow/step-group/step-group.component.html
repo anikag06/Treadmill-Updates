@@ -37,11 +37,15 @@
       <div class="col-2 px-0" >
         <app-steps-indicator 
           *ngIf = "showLessSteps; else showAllIndicators"
-          [showLessSteps] = showLessSteps [firstStepOfModule] = firstStepOfModule
+          [showLessSteps] = showLessSteps 
+          [lastStepOfModule] = lastStepOfModule
+          [firstStepOfModule] = firstStepOfModule
           [stepGroupSteps]="defaultSteps.steps"></app-steps-indicator>
         <ng-template #showAllIndicators>
           <app-steps-indicator 
-            [showLessSteps] = showLessSteps [firstStepOfModule] = firstStepOfModule
+            [showLessSteps] = showLessSteps 
+            [lastStepOfModule] = lastStepOfModule
+            [firstStepOfModule] = firstStepOfModule
             [stepGroupSteps]="stepGroup.steps"></app-steps-indicator>
         </ng-template>
       </div>

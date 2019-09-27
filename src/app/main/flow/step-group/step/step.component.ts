@@ -7,11 +7,13 @@ import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.se
 import { Router } from '@angular/router';
 import { FlowService } from '../../flow.service';
 import { MatTooltip } from '@angular/material';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-step',
   templateUrl: './step.component.html',
-  styleUrls: ['./step.component.scss']
+  styleUrls: ['./step.component.scss'],
+  providers: [DatePipe]
 })
 export class StepComponent implements OnInit {
 
@@ -19,13 +21,20 @@ export class StepComponent implements OnInit {
   @Input() stepGroup!: StepGroup;
   @ViewChild('tooltip', {static: false}) showToolTip!: MatTooltip;
 
+  prevModuleLastStep: any;
+  tooltipData!: any;
+  isConversationStep = false;
+  conversationBarValue = 0;
+
   constructor(
     private router: Router,
     private flowStepNavService: FlowStepNavigationService,
     private flowService: FlowService,
+    private datePipe: DatePipe
   ) { }
 
   ngOnInit() {
+    this.tooltipData = 'Complete the previous steps first';
   }
 
   nextLink(): string {
@@ -33,9 +42,9 @@ export class StepComponent implements OnInit {
   }
 
    previousStep(stepGroup: StepGroup, step: Step) {
-      const allSteps = <Step[]>stepGroup.steps;
-      const index = allSteps.indexOf(step, 1);
-      return allSteps[index - 1];
+    const allSteps = <Step[]>stepGroup.steps;
+    const index = allSteps.indexOf(step, 1);
+    return allSteps[index - 1];
    }
 
    nextStep(stepGroup: StepGroup, step: Step) {
@@ -78,14 +87,30 @@ export class StepComponent implements OnInit {
     return this.step.status === ACTIVE;
    }
 
-   showTooltipFun() {
+  showTooltipFun() {
     if (this.step.status === LOCKED && !this.step.virtual_step) {
       const prev = this.previousStep(this.stepGroup, this.step);
       if (!prev) {
-        console.log('this is first step');
+        this.flowService.getModuleUnlockTime(this.stepGroup);
+        this.flowService.unlockModuleTime
+          .subscribe( (data) => {
+            const time = this.datePipe.transform(data, 'hh:mm a');
+            const date = this.datePipe.transform(data, 'dd-MM-yyy');
+            this.tooltipData = 'unlocks at: ' + time + ' on ' + date;
+          });
+      } else {
+        this.tooltipData = 'Complete the previous steps first';
       }
+      this.tooltipShow();
+    }
+  }
+  tooltipShow() {
+    if (this.showToolTip.disabled) {
       this.showToolTip.disabled = false;
-      this.showToolTip.show();
-     }
-   }
+    }
+    this.showToolTip.showDelay = 300;
+    this.showToolTip.hideDelay = 100;
+    this.showToolTip.toggle();
+  }
+
 }
