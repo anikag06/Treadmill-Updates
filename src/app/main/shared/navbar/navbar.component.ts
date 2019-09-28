@@ -1,11 +1,10 @@
 import { Component, OnInit, ViewChild, ComponentFactoryResolver, OnDestroy } from '@angular/core';
 import { NavbarFlowDirective } from './navbar-flow.directive';
-import { FlowComponent } from '@/main/flow/flow.component';
+import { interval, Subscription } from 'rxjs';
 import { NavbarFlowComponent } from './navbar-flow/navbar-flow.component';
 import { NavbarNotificationDirective } from './navbar-notification.directive';
 import { NavbarNotificationsComponent } from './navbar-notifications/navbar-notifications.component';
 import { NavbarNotificationsService } from './navbar-notifications.service';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -17,6 +16,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
   @ViewChild(NavbarFlowDirective, { static: false }) flowHost!: NavbarFlowDirective;
   @ViewChild(NavbarNotificationDirective, { static: false }) notifactionHost!: NotificationDirection;
 
+
+  intervalSubscription!: Subscription;
   showFlow = false;
   showNotifications = false;
   unreadCount = 0;
@@ -37,16 +38,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
           }
         }
       );
-
-    this.userNotificationSubscription = this.notificationService.getUserNotifications()
-      .subscribe(
-        (data: any) => {
-          this.unreadCount = data.data;
-        },
-        (error: any) => {
-          console.log(error);
-        }
-      );
+      this.getNotificationsCount();
+      this.intervalSubscription = interval(60000)
+      .subscribe(() => { this.getNotificationsCount(); });
   }
 
   notificationClick() {
@@ -76,5 +70,14 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.userNotificationSubscription.unsubscribe();
+  }
+
+  getNotificationsCount() {
+    const notificationCountPromise = this.notificationService.getUserNotifications().toPromise();
+    notificationCountPromise.then(
+      (data: any) => this.unreadCount = data.data
+    ).catch(
+      error => console.log(error)
+    );
   }
 }
