@@ -21,6 +21,18 @@ export class NavbarNotificationsService {
     return this.http.patch(environment.API_ENDPOINT + `/api/v1/notifications/ui-notification/${notificationId}/`, {user_read: true})
   }
 
+  getUserNotifications() {
+    return this.http.get(environment.API_ENDPOINT + `/api/v1/notifications/user-ui-notification/`);
+  }
+
+  putUserNotifications() {
+    return this.http.put(environment.API_ENDPOINT + `/api/v1/notifications/user-ui-notification/`, {});
+  }
+
+  putMarkAllRead() {
+    return this.http.put(environment.API_ENDPOINT + `/api/v1/notifications/mark-all-read/`, {});
+  }
+
   closeNotification() {
     this.closeSubject.next(true);
   }

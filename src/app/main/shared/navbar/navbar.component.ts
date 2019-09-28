@@ -1,24 +1,27 @@
-import { Component, OnInit, ViewChild, ComponentFactoryResolver } from '@angular/core';
+import { Component, OnInit, ViewChild, ComponentFactoryResolver, OnDestroy } from '@angular/core';
 import { NavbarFlowDirective } from './navbar-flow.directive';
 import { FlowComponent } from '@/main/flow/flow.component';
 import { NavbarFlowComponent } from './navbar-flow/navbar-flow.component';
 import { NavbarNotificationDirective } from './navbar-notification.directive';
 import { NavbarNotificationsComponent } from './navbar-notifications/navbar-notifications.component';
 import { NavbarNotificationsService } from './navbar-notifications.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnDestroy {
 
-  @ViewChild(NavbarFlowDirective, {static: false}) flowHost!: NavbarFlowDirective;
-  @ViewChild(NavbarNotificationDirective, {static: false}) notifactionHost!: NotificationDirection;
+  @ViewChild(NavbarFlowDirective, { static: false }) flowHost!: NavbarFlowDirective;
+  @ViewChild(NavbarNotificationDirective, { static: false }) notifactionHost!: NotificationDirection;
 
   showFlow = false;
   showNotifications = false;
-  unreadCount = 10;
+  unreadCount = 0;
+
+  userNotificationSubscription!: Subscription;
 
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
@@ -29,10 +32,19 @@ export class NavbarComponent implements OnInit {
     this.notificationService.closeSubject
       .subscribe(
         (data) => {
-          console.log(data);
           if (data) {
             this.notificationClick();
           }
+        }
+      );
+
+    this.userNotificationSubscription = this.notificationService.getUserNotifications()
+      .subscribe(
+        (data: any) => {
+          this.unreadCount = data.data;
+        },
+        (error: any) => {
+          console.log(error);
         }
       );
   }
@@ -45,6 +57,11 @@ export class NavbarComponent implements OnInit {
       const componentFactory = this.componentFactoryResolver.resolveComponentFactory(NavbarNotificationsComponent);
       viewContainerRef.createComponent(componentFactory);
     }
+    this.unreadCount = 0;
+    const notifications  = this.notificationService.putUserNotifications().toPromise();
+    notifications.then(
+      (data) => console.log(data)
+    );
   }
 
   flowClick() {
@@ -55,5 +72,9 @@ export class NavbarComponent implements OnInit {
       const componentFactory = this.componentFactoryResolver.resolveComponentFactory(NavbarFlowComponent);
       viewContainerRef.createComponent(componentFactory);
     }
+  }
+
+  ngOnDestroy(): void {
+    this.userNotificationSubscription.unsubscribe();
   }
 }

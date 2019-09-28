@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { NavbarNotificationsService } from '../navbar-notifications.service';
+import { Notification } from './notification-item/notification.model';
 
 @Component({
   selector: 'app-navbar-notifications',
@@ -59,5 +60,17 @@ export class NavbarNotificationsComponent implements OnInit {
 
   markUnread() {
     this.unreadCount -= 1;
+  }
+
+  onMarkAllAsRead() {
+    this.notifications = this.notifications.map((item: Notification) => {
+      item.user_read = true;
+      return item;
+    });
+    this.unreadCount = 0;
+    this.notificationService.putMarkAllRead()
+      .subscribe(
+        data => console.log(data)
+      );
   }
 }

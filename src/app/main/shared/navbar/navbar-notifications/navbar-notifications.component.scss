@@ -53,6 +53,14 @@
         border-top: 1px solid #c7c7c7;
         background-color: #ffffff;
     }
+    .mark-read {
+        cursor: pointer;
+        padding-top: 4px;
+        font-size: 13px;
+        &:active, &:hover {
+            text-decoration: underline;
+        }
+    }
 }
 
 @media screen and (max-width: 992px) {
