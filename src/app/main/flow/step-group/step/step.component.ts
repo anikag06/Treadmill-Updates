@@ -24,7 +24,8 @@ export class StepComponent implements OnInit {
   prevModuleLastStep: any;
   tooltipData!: any;
   isConversationStep = false;
-  conversationBarValue = 0;
+  conversationBarValue = 5;           // default value is kept 5
+  isShowConversationBar = false;
 
   constructor(
     private router: Router,
@@ -35,6 +36,14 @@ export class StepComponent implements OnInit {
 
   ngOnInit() {
     this.tooltipData = 'Complete the previous steps first';
+    if (this.step.data_type === CONVERSATION_GROUP && this.step.status !== LOCKED) {
+      if (this.step.step_data.data.conversation_completed_percentage > 0) {
+        this.conversationBarValue = this.step.step_data.data.conversation_completed_percentage;
+      }
+      if (this.conversationBarValue !== 100) {
+        this.isShowConversationBar = true;
+      }
+    }
   }
 
   nextLink(): string {
@@ -61,18 +70,18 @@ export class StepComponent implements OnInit {
    }
 
    navigate(event: Event) {
-      this.showTooltipFun();
-      event.preventDefault();
-      this.markDone();
-      if (this.step.data_type === INTRODUCTORY_ANIMATION) {
-        this.flowService.triggerIntroduction();
-        this.step.status = COMPLETED;
-        this.flowService.triggerLoad();
-        setTimeout(() => this.flowService.triggerLoad(), 1);
-        setTimeout(() => this.flowService.triggerLoad(), 10);
+    event.preventDefault();
+    this.showTooltipFun();
+    this.markDone();
+    if (this.step.data_type === INTRODUCTORY_ANIMATION) {
+      this.flowService.triggerIntroduction();
+      this.step.status = COMPLETED;
+      this.flowService.triggerLoad();
+      setTimeout(() => this.flowService.triggerLoad(), 1);
+      setTimeout(() => this.flowService.triggerLoad(), 10);
 
-      }
-      return this.router.navigate([this.nextLink()]);
+    }
+    return this.router.navigate([this.nextLink()]);
    }
 
    locked() {

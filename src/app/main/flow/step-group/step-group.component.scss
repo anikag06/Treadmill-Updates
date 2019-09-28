@@ -1,9 +1,17 @@
+html {
+  scroll-behavior: smooth;
+}
 .step-group {
+  
   // margin: 30px;
   .step-group-name {
     // padding: 15px 20px;
     font-size: 1.2rem;
   }
+}
+.step-circle-div{
+  // max-width: 80px;
+  margin: 0%;
 }
 .collapse-text{
   color: #B8B8B8;
@@ -13,6 +21,7 @@
 .arrow-icon{
   color: #B8B8B8;
   font-size: 16px;
+  cursor: pointer;
 }
 hr { 
   display: block;
@@ -21,3 +30,11 @@ hr {
   border-style: inset;
   color: #B8B8B8;
 } 
+::ng-deep.mat-expansion-panel-body{
+  padding: 0 15px 12px !important;
+  padding-left: 2px !important;
+}
+.mat-expansion-panel-header{
+  padding: 0 15px !important;
+  padding-left: 2px !important;
+}

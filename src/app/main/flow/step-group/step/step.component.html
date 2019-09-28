@@ -1,18 +1,29 @@
 <div class="row">
-    <div class="col">
-        <div class="step-content" [ngClass]="{'locked': locked(), 'active': active()}">
-          <a [routerLink]="nextLink()" (click)="navigate($event)" tabindex="0"
+    <div class="col px-0">
+      <div class="step-content" [ngClass]="{'locked': locked(), 'active': active()}">
+        <a [routerLink]="nextLink()" (click)="navigate($event)" 
             #tooltip = "matTooltip" matTooltipDisabled
             matTooltip={{tooltipData}}
           >
-            <span>{{stepGroup.sequence+1}}.{{step.sequence+1}}</span>&nbsp; &nbsp;
-            <span>{{step.name}}</span>
-            <span style="width: 20px" *ngIf="step.data_type === 'CONVERSATION_GROUP'"> 
-              <mat-progress-bar class="w-100"
-                mode="determinate" value={{conversationBarValue}}></mat-progress-bar> 
-            </span>
-          </a>
-        </div>
+          <div class="row px-1 mx-0">
+            <div class="col-2 px-0">
+              {{stepGroup.sequence+1}}.{{step.sequence+1}}
+            </div>
+              <div class="col px-0 step-name">
+                {{step.name}}
+              </div>
+              <div class="col-3 px-1 py-2" 
+                *ngIf="isShowConversationBar === true">
+                <mat-progress-bar 
+                  mode="determinate" value={{conversationBarValue}}>
+                </mat-progress-bar> 
+              </div>
+              <div class="col-1 px-0 mx-1">
+                <img class="w-100" src="../../../../../assets/shared/support.svg">
+              </div>
+          </div>
+        </a>
+      </div>
     </div>
 </div>
 

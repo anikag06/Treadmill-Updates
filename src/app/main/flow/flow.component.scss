@@ -32,8 +32,15 @@
       }
     }
 }
+.in-desktop{
+  display: block;
+}
 @media screen and (max-width: 770px) {
   .flow-container {
-    max-width: 100%;
+    width: 100%;
+    max-width: 400px;
+  }
+  .in-desktop{
+    display: none;
   }
 }
