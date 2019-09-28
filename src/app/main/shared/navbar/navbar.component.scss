@@ -14,6 +14,19 @@
                 cursor: pointer;
             }
         }
+        .unread-count {
+            position: relative;
+            height: 23px;
+            width: 23px;
+            left: 74px;
+            background-color: #fa3e3e;
+            padding: 1px;
+            border-radius: 50%;
+            color: #ffffff;
+            font-size: 14px;
+            bottom: 8px;
+            text-align: center;
+        }
     }
 }
 
@@ -24,6 +37,12 @@
             position: absolute;
             top: -80px;
             right: 10px;
-        }
+            .icon-items {
+                margin: 10px 20px;
+            }
+            .unread-count {
+                left: 64px;
+            }
+        }   
     }
 }

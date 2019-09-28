@@ -8,6 +8,7 @@
                 <div class='icon-items' (click)="notificationClick()">
                     <img src="assets/shared/notification.svg" alt="Flow">
                 </div>
+                <div class="unread-count">{{unreadCount}}</div>
                 <div class='icon-items' (click)="flowClick()">
                     <img src="assets/shared/flow.svg" alt="Flow">
                 </div>
@@ -15,4 +16,5 @@
         </div>
     </div>
     <div appNavbarFlow></div>
+    <div appNavbarNotifications></div>
 </div>
