@@ -40,6 +40,7 @@ import { CongratsDialogComponent } from './shared/congrats-dialog/congrats-dialo
 import { CommonDialogsService } from './shared/common-dialogs.service';
 import { ConclusionPageComponent } from './conclusion-page/conclusion-page.component';
 import { StepsDataService } from './shared/steps-data.service';
+import { UserFeedbackComponent } from './shared/user-feedback/user-feedback.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { StepsDataService } from './shared/steps-data.service';
     ConversationsComponent,
     CongratsDialogComponent,
     ConclusionPageComponent,
+    UserFeedbackComponent,
   ],
   imports: [
     ResourcesRoutingModule,

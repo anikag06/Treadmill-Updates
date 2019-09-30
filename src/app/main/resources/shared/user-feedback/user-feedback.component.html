@@ -1,0 +1,60 @@
+<div class="row w-100 like-btns-div justify-content-around">
+            
+    <div class="col-2 h-100 px-1 like-dislike-btns">
+      <img src="../../../../assets/shared/thumb.svg" *ngIf='!liked'
+        id="like-btn"
+        class="h-100"
+        (click)= "onLikeBtnClick()">
+      <img src="../../../../assets/shared/thumb_yellow.svg" *ngIf='liked'
+        id="like-yellow-btn"
+        class="h-100"
+        (click)= "onLikeBtnClick()">
+    </div>
+
+    <div class="col-2 h-100 mx-0 px-0 like-dislike-btns">
+      <img src="../../../../assets/shared/thumb.svg" *ngIf='!disliked'
+        id="dislike-btn"
+        class="dislike-btn h-100"
+        (click)= "onDislikeBtnClick()">
+      <img src="../../../../assets/shared/thumb_yellow.svg" *ngIf='disliked'
+        id="dislike-yellow-btn"
+        class="dislike-btn h-100"
+        (click)= "onDislikeBtnClick()">
+    </div>
+
+    <div class="col-7 h-100 px-1 ">
+      <button class="completed-btn h-100" type="button"
+        *ngIf = '!showNextStepBtn && !lastStepCompleted'
+        mat-raised-button color="primary"
+        (click)="onCompleteClicked()">
+        Mark as complete
+      </button>
+      <button class="next-step-btn h-100" type="button"
+        *ngIf = 'showNextStepBtn && !isLastStep'
+        mat-raised-button color="primary"
+        (click)="onNextStepClicked()">
+        <img id="flow-img" src="../../../../assets/shared/Flow_white.svg">
+        Next Step
+      </button>
+      <button class="completed-btn h-100" type="button"
+        *ngIf = 'lastStepCompleted'
+        mat-raised-button color="primary"
+        (click)="onDashboardClicked()">
+        Go to dashboard
+      </button>
+    </div>
+  </div>
+
+  <div class="my-1 mx-1 feedbackBox row w-100" 
+    *ngIf="showFeedBackBox">
+    <p class="my-0 text-property"> 
+      How can we improve it?
+    </p>
+    <textarea class="w-100 rounded form-control" rows="3" #feedbackText
+        placeholder="Your message goes here ..."> </textarea>
+    <button class="px-0 my-1 btn-padding" 
+      mat-raised-button color="primary" 
+      (click)="onSubmitCommentClicked(feedbackText.value)">
+      Submit
+    </button>
+  </div>

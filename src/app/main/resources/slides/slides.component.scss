@@ -76,10 +76,6 @@
     max-height: 45px;
 }
 
-
-.dislike-btn{
-    transform: rotate(180deg);
-}
 .row, .col{
     margin: 0%;
     padding: 0%;
@@ -111,31 +107,13 @@
     font-size: 16px;
     border-radius: 12px 12px 2px 2px ;
 }
-#flow-img{
-    height: 80%;
-}
 
-.like-btns-div{
-    height: 4.8vh;
-    max-height: 42px;
-}
-.like-dislike-btns{
-    max-height: 90%;
-}
-.completed-btn, .next-step-btn {
-    line-height: 0%;
-    min-width: 100%;
-    font-size: 14px;
-    padding-left: 8px !important;
-    padding-right: 8px !important;
-    // white-space: pre-wrap !important;
-}
 @media screen and (max-width: 992px) {
     .slides-elements-div{
         width: 62%;
     }
 }
-@media screen and (max-width: 770px) {
+@media screen and (max-width: 767px) {
 
     #slide-container{
         min-height: 500px;
@@ -181,7 +159,7 @@
         float: left;
         max-height: 900px;
     }
-    .like-btns-div,.feedbackBox {
-        margin-left: 2%;
-    }
+    // .like-btns-div,.feedbackBox {
+    //     margin-left: 2%;
+    // }
 }

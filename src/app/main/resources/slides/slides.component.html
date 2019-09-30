@@ -21,74 +21,18 @@
           <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vRbTHybhEMXyLMWBaLjue6XMjpjRC8kT9TqsHbuO8zBqduaPrbYUaN_1OkI6OYJbTOUhMIFW6lMx4Lv/embed?start=false&loop=false&delayms=3000" 
             frameborder="0" class="slide_iframe"  allowfullscreen="true" 
             mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
-
-          <div class="row w-100 like-btns-div justify-content-around">
-            
-            <div class="col-2 h-100 px-1 like-dislike-btns">
-              <img src="../../../../assets/shared/thumb.svg" *ngIf='!slideLiked'
-                id="like-btn"
-                class="h-100"
-                (click)= "onLikeBtnClick()">
-              <img src="../../../../assets/shared/thumb_yellow.svg" *ngIf='slideLiked'
-                id="like-yellow-btn"
-                class="h-100"
-                (click)= "onLikeBtnClick()">
-            </div>
-
-            <div class="col-2 h-100 mx-0 px-0 like-dislike-btns">
-              <img src="../../../../assets/shared/thumb.svg" *ngIf='!slideDisliked'
-                id="dislike-btn"
-                class="dislike-btn h-100"
-                (click)= "onDislikeBtnClick()">
-              <img src="../../../../assets/shared/thumb_yellow.svg" *ngIf='slideDisliked'
-                id="dislike-yellow-btn"
-                class="dislike-btn h-100"
-                (click)= "onDislikeBtnClick()">
-            </div>
-
-            <div class="col-7 h-100 px-1 ">
-              <button class="completed-btn h-100" type="button"
-                *ngIf = '!showNextStepBtn && !lastStepCompleted'
-                mat-raised-button color="primary"
-                (click)="onCompleted()">
-                Mark as complete
-              </button>
-              <button class="next-step-btn h-100" type="button"
-                *ngIf = 'showNextStepBtn && !isLastStep'
-                mat-raised-button color="primary"
-                (click)="onNextStepClick()">
-                <img id="flow-img" src="../../../../assets/shared/Flow_white.svg">
-                Next Step
-              </button>
-              <button class="completed-btn h-100" type="button"
-                *ngIf = 'lastStepCompleted'
-                mat-raised-button color="primary"
-                (click)="onDashboard()">
-                Go to dashboard
-              </button>
-            </div>
-          </div>
-
-          <div class="my-1 mx-1 feedbackBox row w-100" 
-            *ngIf="isDislikeBox || isLikeBox || likeDislikeRemoved">
-            <p class="my-0 text-property" *ngIf="isDislikeBox"> 
-              How can we improve it?
-            </p>
-            <p class="my-0 text-property" *ngIf="isLikeBox">
-              Send the feedback
-            </p>
-            <p class="my-0 text-property" *ngIf="likeDislikeRemoved">
-              What changed your mind?
-            </p>
-            <textarea class="w-100 rounded form-control" rows="3" #feedbackText
-                placeholder="Your message goes here ..."> </textarea>
-            <button class="px-0 my-1 btn-padding" 
-              mat-raised-button color="primary" 
-              (click)="onSubmitComment(feedbackText.value)">
-              Submit
-            </button>
-          </div>
-            
+          
+          <app-user-feedback
+            [disliked] = 'slideDisliked'
+            [liked]= 'slideLiked'
+            [isLastStep] = 'isLastStep'
+            [lastStepCompleted] = 'lastStepCompleted'
+            [showNextStepBtn] = 'showNextStepBtn'
+            (nextStepEvent) = 'onNextStepClick($event)'
+            (scrollEvent) = 'scrollPageToBottom($event)'
+            (completedEvent) = 'onCompleted($event)'
+            (storeFeedbackEvent) = 'storeSlideFeedBackData()'
+            (submitCommentEvent) = 'onSubmitComment()'> </app-user-feedback>            
         </div>
       </div>
     </div>
