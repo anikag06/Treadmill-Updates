@@ -41,8 +41,8 @@
     margin-bottom: 1vh;
     height: 83vh;
     max-height: 900px;
+    overflow: scroll;
     overflow-x: hidden;
-    overflow-y: auto;
     @include box-shadow-1-1-10-d6();
 }
 .form-div{
@@ -61,9 +61,9 @@
     max-height: 645px;
 }
 .slides-elements-div{
-    width: 52%;
+    width: 54%;
     max-width: 375px;
-    height: 90%;
+    height: 92%;
     max-height: 715px;
     // height: 4.44vh;
 }
@@ -102,14 +102,16 @@
 #slide-btn{
     float: left;
     min-width: 0px;
-    font-size: 16px;
+    font-size: 14px;
     border-radius: 2px 2px 12px 12px;
+    z-index: 10;
 }
 #form-btn{
     float: right;
     min-width: 0px;
-    font-size: 16px;
+    font-size: 14px;
     border-radius: 12px 12px 2px 2px ;
+    z-index: 10;
 }
 .feedback-div{
     overflow-x: hidden;
@@ -124,11 +126,12 @@
 @media screen and (max-width: 767px) {
 
     #slide-container{
-        min-height: 500px;
+        height: 90vh;
+        min-height: 515px;
         max-width: 640px;
     }
     .form-div{
-        min-height: 500px;
+        min-height: 515px;
         max-width: 640px;
     }
     .in-mobile{
@@ -146,25 +149,22 @@
     .slides-elements-div{
         width: 100%;
         height: 100%;
-        max-width: 286px;
+        max-width: 350px;
     }
     .extra-form-div{
         background-color: white; 
-        max-width:4%; 
-        height: 80vh;
+        max-width:2%; 
+        height: 85vh;
         border-color: #BFBFBF;
         float: right;
         max-height: 900px;
     }
     .extra-slide-div{
         background-color: white;
-        max-width:4%; 
-        height: 80vh;
+        max-width:2%; 
+        height: 85vh;
         border-color: #BFBFBF;
         float: left;
         max-height: 900px;
     }
-    // .like-btns-div,.feedbackBox {
-    //     margin-left: 2%;
-    // }
 }

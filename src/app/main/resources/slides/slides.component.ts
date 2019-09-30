@@ -177,7 +177,9 @@ export class SlidesComponent implements OnInit {
   }
 
   scrollPageToBottom() {
-    this.scrollTop = this.slidePage.nativeElement.scrollHeight;
+    this.scrollTop = this.slideDiv.nativeElement.scrollHeight;
+    setTimeout( () => {
+      this.slideDiv.nativeElement.scrollTop = this.scrollTop; }, 100 );
   }
 
   storeSlideFeedBackData() {
