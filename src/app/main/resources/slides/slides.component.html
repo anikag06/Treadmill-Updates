@@ -1,7 +1,7 @@
 <div class="row w-100" id="slide-page" #slidePage >
   <ng-container  *ngIf="slide else loader" >
     <div class="col-1 in-desktop"></div>
-    <div class="col px-0 changes-width overflow-auto"
+    <div class="col px-0 changes-width"
       #slideDiv [scrollTop]="scrollTop"
       id="slide-container"
       [@slideInOut] = "isSlidesVisible ? 'show' : 'hidden'"  >
@@ -22,7 +22,7 @@
             frameborder="0" class="slide_iframe"  allowfullscreen="true" 
             mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
           
-          <app-user-feedback
+          <app-user-feedback class="w-100 feedback-div"
             [disliked] = 'slideDisliked'
             [liked]= 'slideLiked'
             [isLastStep] = 'isLastStep'
@@ -62,7 +62,7 @@
     <div class="col in-desktop">
     </div>
 
-    <div class="col mx-0 px-0 form-div changes-width overflow-auto" 
+    <div class="col mx-0 px-0 form-div changes-width" 
       #form_div [@formInOut]  = "isFormVisible ? 'show' : 'hidden'" >
       <div class="mx-0 px-0" form-host></div>
     </div>

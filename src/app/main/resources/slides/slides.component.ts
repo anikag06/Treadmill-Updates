@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ComponentFactoryResolver, 
+import { Component, OnInit, ViewChild, ComponentFactoryResolver,
   ElementRef, ChangeDetectorRef } from '@angular/core';
 import { SlideService } from './slide.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';

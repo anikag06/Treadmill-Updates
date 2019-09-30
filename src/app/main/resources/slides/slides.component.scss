@@ -41,6 +41,8 @@
     margin-bottom: 1vh;
     height: 83vh;
     max-height: 900px;
+    overflow-x: hidden;
+    overflow-y: auto;
     @include box-shadow-1-1-10-d6();
 }
 .form-div{
@@ -49,6 +51,8 @@
     margin-bottom: 1vh;
     height: 83vh;
     max-height: 900px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 .slide_iframe{
     margin: 4%;
@@ -107,6 +111,10 @@
     font-size: 16px;
     border-radius: 12px 12px 2px 2px ;
 }
+.feedback-div{
+    overflow-x: hidden;
+    overflow-y: auto;
+}
 
 @media screen and (max-width: 992px) {
     .slides-elements-div{
@@ -118,13 +126,10 @@
     #slide-container{
         min-height: 500px;
         max-width: 640px;
-        overflow: auto;
-        scroll-behavior: smooth;
     }
     .form-div{
         min-height: 500px;
         max-width: 640px;
-        overflow: auto;
     }
     .in-mobile{
         display: block;

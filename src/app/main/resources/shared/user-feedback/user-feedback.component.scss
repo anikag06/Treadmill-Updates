@@ -6,7 +6,7 @@
     padding: 0%;
 }
 #flow-img{
-    height: 80%;
+    height: 75%;
 }
 
 .like-btns-div{
@@ -16,13 +16,9 @@
 .like-dislike-btns{
     max-height: 90%;
 }
-.completed-btn, .next-step-btn {
+.completed-btn, .next-step-btn{
     line-height: 0%;
-    min-width: 100%;
     font-size: 14px;
-    padding-left: 8px !important;
-    padding-right: 8px !important;
-    // white-space: pre-wrap !important;
 }
 
 @media screen and (max-width: 767px) {
