@@ -1,0 +1,84 @@
+.navbar-notification {
+    height: 70vh;
+    width: 400px;
+    overflow: hidden;
+    position: absolute;
+    top: 80px;
+    right: 120px;
+    z-index: 100;
+    box-shadow: 2px 2px 10px #585858cc;
+    h2 {
+        background-color: #ffffff;
+        font-size: 1.3rem;
+        padding: 20px;
+        margin-bottom: 0px;
+        border-bottom: 1px solid #cccccc;
+    }
+    .all-notifications {
+        background-color: #ffffff;
+        height: 80%;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        scroll-behavior: smooth;
+    }
+    .all-notifications::-webkit-scrollbar {
+        width: 5px;
+    }
+    .all-notifications::-webkit-scrollbar-track {
+        opacity: 0.7;
+        border-radius: 10px;
+    }
+    .all-notifications::-webkit-scrollbar-thumb {
+        background-color: #989697;
+        border-radius: 10px;
+        opacity: 0.7;
+    }
+    .more-btn {
+        height: 10%;
+        font-size: 14px;
+        text-align: center;
+        padding: 26px 0;
+        cursor: pointer;
+        color: #6d6d6d;
+        border-top: 1px solid #c7c7c7;
+        background-color: #ffffff;
+    }
+    .no-more-btn {
+        height: 10%;
+        font-size: 14px;
+        text-align: center;
+        padding: 26px 0;
+        cursor: pointer;
+        color: #333333;
+        border-top: 1px solid #c7c7c7;
+        background-color: #ffffff;
+    }
+    .mark-read {
+        cursor: pointer;
+        padding-top: 4px;
+        font-size: 13px;
+        &:active, &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .navbar-notification {
+        height: 80vh;
+        width: 90%;
+        overflow: hidden;
+        position: absolute;
+        top: 10vh;
+        right: 5%;
+        z-index: 100;
+        box-shadow: 2px 2px 10px #585858cc;
+        h2 {
+            background-color: #ffffff;
+            font-size: 1.3rem;
+            padding: 20px;
+            margin-bottom: 0px;
+            border-bottom: 1px solid #cccccc;
+        }
+    }
+}

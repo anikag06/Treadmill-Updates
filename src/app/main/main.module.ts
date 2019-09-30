@@ -99,6 +99,9 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { NavbarFlowComponent } from './shared/navbar/navbar-flow/navbar-flow.component';
 import { NavbarFlowDirective } from './shared/navbar/navbar-flow.directive';
 import { NavbarNotificationDirective } from './shared/navbar/navbar-notification.directive';
+import { NavbarNotificationsComponent } from './shared/navbar/navbar-notifications/navbar-notifications.component';
+import { NavbarNotificationsService } from './shared/navbar/navbar-notifications.service';
+import { NotificationItemComponent } from './shared/navbar/navbar-notifications/notification-item/notification-item.component';
 @NgModule({
   declarations: [
     ModulesComponent,
@@ -156,6 +159,8 @@ import { NavbarNotificationDirective } from './shared/navbar/navbar-notification
     NavbarFlowComponent,
     NavbarFlowDirective,
     NavbarNotificationDirective,
+    NavbarNotificationsComponent,
+    NotificationItemComponent,
   ],
   imports: [
     CommonModule,
@@ -208,9 +213,10 @@ import { NavbarNotificationDirective } from './shared/navbar/navbar-notification
     PassDataService,
     QuizService,
     FlowStepNavigationService,
+    NavbarNotificationsService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  entryComponents: [CreatePostComponent, IntroduceComponent, NavbarFlowComponent]
+  entryComponents: [CreatePostComponent, IntroduceComponent, NavbarFlowComponent, NavbarNotificationsComponent]
 })
 export class MainModule {
 }

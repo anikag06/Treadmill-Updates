@@ -1,10 +1,12 @@
-import { Directive } from '@angular/core';
+import { Directive, ViewContainerRef } from '@angular/core';
 
 @Directive({
   selector: '[appNavbarNotification]'
 })
 export class NavbarNotificationDirective {
 
-  constructor() { }
+  constructor(
+    public viewContainerRef: ViewContainerRef
+  ) { }
 
 }
