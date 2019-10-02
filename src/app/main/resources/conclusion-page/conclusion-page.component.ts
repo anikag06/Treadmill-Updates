@@ -18,6 +18,7 @@ export class ConclusionPageComponent implements OnInit {
     private router: Router,
     private stepData: StepsDataService,
     private commonDialogService: CommonDialogsService,
+    private stepDataService: StepsDataService,
   ) { }
 
   pageNotAvailable = false;
@@ -47,6 +48,14 @@ export class ConclusionPageComponent implements OnInit {
           } else {
             this.pageNotAvailable = true;
           }
+          if (data.data.is_last_step && data.data.hook[0] === 'SHOW-BADGE') {
+            console.log(data.data.step_group_sequence);
+            this.stepDataService.getBadgeInfo(data.data.step_group_sequence)
+              .subscribe( (badge_data: any) => {
+                console.log(badge_data);
+                this.commonDialogService.updateBadgeInfo(badge_data.results);
+              });
+          }
         });
   }
 
@@ -61,7 +70,7 @@ export class ConclusionPageComponent implements OnInit {
       });
     this.commonDialogService.openCongratsDialog(this.current_step_id, this.next_step_id, this.isLastStep, this.timeSpent);
   }
-  
+
   onDashboard() {
     this.router.navigate(['/dashboard']);
   }

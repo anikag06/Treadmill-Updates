@@ -5,20 +5,45 @@
         </div>
         <div class="col-6">
             <div class="all-icons">
-                <div class='icon-items' (click)="notificationClick()">
+                <!-- <div class='icon-items' (click)="notificationClick()">
+                    <img src="assets/shared/notification.svg" alt="Flow">
+                </div> -->
+                <div class='icon-items' (menuClosed)="notificationClick()"
+                    (menuOpened) ="notificationClick()" 
+                    [matMenuTriggerFor]="appNavBarNotify">
                     <img src="assets/shared/notification.svg" alt="Flow">
                 </div>
                 <div class="unread-count" *ngIf="unreadCount > 0">
                     <span *ngIf="unreadCount < 100 else manyMore">{{unreadCount}}</span>
                 </div>
-                <div class='icon-items' (click)="flowClick()">
+                <!-- <div class='icon-items' (click)="flowClick()">
+                    <img src="assets/shared/flow.svg" alt="Flow">
+                </div> -->
+                <div class='icon-items' (menuClosed) = "flowClick($event)"
+                    (menuOpened) = "flowClick($event)"
+                    [matMenuTriggerFor]="appNavBarFlow">
                     <img src="assets/shared/flow.svg" alt="Flow">
                 </div>
             </div>
         </div>
     </div>
-    <div appNavbarFlow></div>
-    <div appNavbarNotifications></div>
+    <mat-menu
+        #appNavBarFlow="matMenu" 
+        xPosition="before" yPosition="below">
+        <div class="row w-100 h-100 px-0 mx-0" (click)="$event.stopPropagation();">
+            <div appNavbarFlow ></div>
+        </div>
+    </mat-menu>
+
+    <mat-menu
+        #appNavBarNotify="matMenu" 
+        xPosition="before" yPosition="below" >
+        <div class="row w-100 h-100 px-0 mx-0" (click)="$event.stopPropagation();">
+            <div appNavbarNotification></div>
+        </div>
+    </mat-menu>
+    <!-- <div appNavbarFlow></div> -->
+    <!-- <div appNavbarNotifications></div> -->
 </div>
 <ng-template #manyMore>
     <span>99+</span>

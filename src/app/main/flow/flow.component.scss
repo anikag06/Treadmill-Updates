@@ -16,7 +16,7 @@
       min-height: 50vh;
       .flow-scroll-inner {
         height: 100%;
-        overflow: auto;
+        overflow-y: auto;
       }
       .flow-scroll-inner::-webkit-scrollbar {
         width: 5px;

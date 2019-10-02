@@ -33,6 +33,7 @@ export class NavbarNotificationsComponent implements OnInit {
       (data: any) => {
         this.unreadCount = data.data.unread_count;
         const items = data.data.notifications as Notification[];
+        console.log('in noti...', items);
         this.notifications.push(...items);
         if (scrollToBottom) {
           this.scrollToBottom();

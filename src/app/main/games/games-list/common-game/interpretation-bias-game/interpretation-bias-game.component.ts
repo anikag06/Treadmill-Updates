@@ -112,13 +112,23 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
     this.gameAuthService.ibGameGetScoresInfo()
       .subscribe((data) => {
           console.log(data, data.data);
-          this.INPUT_ORDER = data.data.order;
-          ibGameScore = data.data.score;
-          ibGamelevel = data.data.level;
-          ibGameStreak = data.data.streak;
-          ibGameUserOrder = this.INPUT_ORDER;
-          ibGameTime = data.data.time;
-          ibGameWordsHidden = data.data.words_hidden;
+          if (data.status === true) {
+            this.INPUT_ORDER = data.data.order;
+            ibGameScore = data.data.score;
+            ibGamelevel = data.data.level;
+            ibGameStreak = data.data.streak;
+            ibGameUserOrder = this.INPUT_ORDER;
+            ibGameTime = data.data.time;
+            ibGameWordsHidden = data.data.words_hidden;
+          } else {
+            this.INPUT_ORDER = 0;
+            ibGameScore = 0;
+            ibGamelevel = 0;
+            ibGameStreak = 0;
+            ibGameUserOrder = this.INPUT_ORDER;
+            ibGameTime = 150;
+            ibGameWordsHidden = 0;
+          }
           if ( ibGameWordsHidden > 0 ) {
             this.showAllHints = true;
           } else if (ibGameWordsHidden === 0) {

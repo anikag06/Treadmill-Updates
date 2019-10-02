@@ -13,6 +13,7 @@ export class CommonDialogsService {
   // @Input() step!: Step;
   isLocked = false;
   nextStepData!: Step;
+  badgeData!: any;
 
   constructor(
     private dialog: MatDialog,
@@ -50,10 +51,15 @@ export class CommonDialogsService {
         isLocked: this.isLocked,
         isLastStep: isLastStep,
         nextStepData: this.nextStepData,
-        time_spent: time_spent
+        time_spent: time_spent,
+        badgeData: this.badgeData,
       },
       autoFocus: false
     });
   }
 
+  updateBadgeInfo(badgeData: any) {
+    console.log(badgeData);
+    this.badgeData = badgeData[0];
+  }
 }

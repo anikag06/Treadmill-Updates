@@ -3,7 +3,7 @@
             (opened)="panelOpened()"
             (closed)="isExpanded = false; showLessSteps = true;">
   <mat-expansion-panel-header class="row mx-0">
-    <mat-panel-title>
+    <mat-panel-title class="mx-0">
       <div class="col-3 justify-content-center px-0">
         <div class="module-circle justify-content-center">
           <svg viewport="0 0 50 50" height="50" width="50"
@@ -30,8 +30,12 @@
         
       </div>
       <div class="col px-0 step-group-name align-self-center justify-content-start">
-        {{stepGroup.name}}
+        {{stepGroup.name}} 
+        <img class="active-gif"
+          src="../../../../assets/flow/unlocked.gif" 
+          *ngIf='stepGroup.status === "ACTIVE" && isExpanded === false'>
       </div>
+      
     </mat-panel-title>
   </mat-expansion-panel-header>
   <ng-template matExpansionPanelContent class="w-100">
