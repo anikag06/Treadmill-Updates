@@ -7,6 +7,7 @@ var ibGameScore;
 var ibGameUserOrder;
 var ibGameTime =20;
 var ibGameWordsHidden;
+var ibGameCorrectResponse;				// check whether user answers correctly or not 
 var success = false;				// to keep track of the user's performance in the game
 // var sentences_sent= 3;
 var sentence_array = [];
@@ -50,6 +51,8 @@ var alpha_common = 'rdlum';
 var alpha_very_common = 'nosh';
 var alpha_most_common = 'etai';
 
+var answer = false;
+
 var isFirstAttempt = true;
 var countTrue = 0;									//counts how many words are already found by the user 
 var word_already_found = [];						//array to store the words found 
@@ -87,7 +90,6 @@ var blink_time = 8000;			//milli seconds for which letter will be blinked
 var word_to_guess;				//word for guess the word hint
 var playGrid;
 var star_sentence;
-var answer = false;				//answer for the final question i.e about the 
 var isValidWord = false;		//for saving lines in existing lines if the word is valid
 var columnWidth = 0;				// for width of column for grid
 var rowHeight = 0;					//for height of row for grid
@@ -242,11 +244,11 @@ function getUpdatedVariables() {
 	gameStreak = ibGameStreak;
 	gameResponseTime=0;
 	gameUserSentenceId = sentence_ids[sentence_number];
-	if(answer){
-		gameUserResponse = sentence_response_array[sentence_number];
-	}else {
-		gameUserResponse = !sentence_response_array[sentence_number];
-	}
+	// if(answer){
+	// 	gameUserResponse = sentence_response_array[sentence_number];
+	// }else {
+	// 	gameUserResponse = !sentence_response_array[sentence_number];
+	// }
 	gameResponseTime = (end_time - start_time) ; 
 	return [
 		gameOrder,
@@ -257,7 +259,6 @@ function getUpdatedVariables() {
 		ibGameWordsHidden,
 
 		gameUserSentenceId,
-		gameUserResponse, 
 		gameResponseTime,
 		sentence_number,
 	];
@@ -1589,7 +1590,7 @@ function showFirstLetterCoordinates() {
 }
 
 //On asking whether the sentence is related a given word or not
-function checkResponseYes(response){      
+function checkResponseYes(response){
 	if(response == true){          //'Yes' option for a word with positive valence  
 		$('#correct').removeClass("d-none");
 		$('#wrong').addClass("d-none");
@@ -1602,6 +1603,7 @@ function checkResponseYes(response){
 		}
 		$('#correct').addClass("d-none");
 		$('#wrong').removeClass("d-none");
+		answer = false;
 	}
 }
 
@@ -1612,12 +1614,16 @@ function checkResponseNo(response){			//if user choose 'NO' for a negative word 
 		}
 		$('#correct').addClass("d-none");
 		$('#wrong').removeClass("d-none");
+		answer = false;
 	}
 	else if(response == false){
 		$('#correct').removeClass("d-none");
 		$('#wrong').addClass("d-none");
 		answer = true;
 	}
+}
+ibGameCorrectResponse = function() {
+	return sentence_response_array[sentence_number];
 }
 
 function showSincerityMessage(){

@@ -62,6 +62,7 @@ import { ExecutiveControlGameComponent } from './games/games-list/common-game/ex
 import { CommonGameComponent } from './games/games-list/common-game/common-game.component';
 import { GamesAuthService } from './games/shared/games-auth.service';
 import { GamePlayService } from './games/shared/game-play.service';
+import { GamesBadgesService } from '@/main/games/shared/games-badges.service';
 // tslint:disable-next-line:max-line-length
 import { LearnedHelplessnessGameComponent } from './games/games-list/common-game/learned-helplessness-game/learned-helplessness-game.component';
 import { ChatbotComponent } from './chatbot/chatbot.component';
@@ -102,6 +103,7 @@ import { NavbarNotificationDirective } from './shared/navbar/navbar-notification
 import { NavbarNotificationsComponent } from './shared/navbar/navbar-notifications/navbar-notifications.component';
 import { NavbarNotificationsService } from './shared/navbar/navbar-notifications.service';
 import { NotificationItemComponent } from './shared/navbar/navbar-notifications/notification-item/notification-item.component';
+
 @NgModule({
   declarations: [
     ModulesComponent,
@@ -213,7 +215,8 @@ import { NotificationItemComponent } from './shared/navbar/navbar-notifications/
     PassDataService,
     QuizService,
     FlowStepNavigationService,
-    NavbarNotificationsService
+    NavbarNotificationsService,
+    GamesBadgesService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [CreatePostComponent, IntroduceComponent, NavbarFlowComponent, NavbarNotificationsComponent]

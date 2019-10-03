@@ -113,44 +113,31 @@
             </div>
             <div class="d-inline-block countdown ml-2" id="countdown"></div>
           </div> 
+          
         </div>  
-        
-        <!-- <div class="d-flex justify-content-start changes-width">
-              <div class="pause-clicked align-items-center d-none">
-                <div class="col paused-game-btns">
-                  <img 
-                    id="home-btn"
-                    class="home-btn mx-1 img-btn"
-                    (click) = "onHomeClick()" 
-                    src="../../../../../assets/games/home.png">
-                </div>  
-                <div class="col paused-game-btns">
-                  <img 
-                    id="help-btn"
-                    class="help-btn mx-1 img-btn" 
-                    src="../../../../../assets/games/help.png">
-                </div>
-                <div class="col paused-game-btns">
-                  <img 
-                    id="play-btn" 
-                    class="play-btn mx-1 img-btn" 
-                    src="../../../../../assets/games/play.png">
-                </div>    
-                <div class="col paused-game-btns">
-                  <img 
-                    id="replay-btn"
-                    class="replay-btn mx-1 img-btn" 
-                    (click) = 'onPlayClicked()'
-                    src="../../../../../assets/games/replay.png">
-                </div>  
-                <div class="col paused-game-btns">
-                  <img 
-                    id="sound"
-                    class="sound mx-1 img-btn" 
-                    src="../../../../../assets/games/sound.png">
-                </div> 
-              </div>
-          </div> -->
+        <div class="row my-2">
+          <div class="col-12 px-1">
+            bronze: {{bronzeNumber}}
+            <mat-progress-bar 
+              [color]="bronzeColor"
+              mode="determinate" 
+              [value]='bronzeValue'></mat-progress-bar>
+          </div>
+          <div class="col-12 px-1">
+            silver: {{silverNumber}}
+            <mat-progress-bar
+              [color]="silverColor" 
+              mode="determinate" 
+              [value]="silverValue"></mat-progress-bar>
+          </div>
+          <div class="col-12 px-1">
+            gold: {{goldNumber}}
+            <mat-progress-bar
+              [color]="goldColor" 
+              mode="determinate" 
+              [value]="goldValue"></mat-progress-bar>
+          </div>
+        </div>
       </div>
       <div class="col-1 extra-col changes-width d-none"></div>
       <div class="col-6 justify-content-center changes-width sentence-col">
@@ -379,13 +366,13 @@
                         <div class="col">
                           <button type='button' 
                             class='yes btn btn-light btn-sentence-word-rel medium-font'
-                            (click) = 'storeUserScoreInfo()'
+                            (click) = 'storeUserScoreInfo(true)'
                             id='yes'>Yes</button>
                         </div>
                         <div class="col">
                           <button type='button' 
                             class='no btn btn-light btn-sentence-word-rel medium-font'
-                            (click) = 'storeUserScoreInfo()' 
+                            (click) = 'storeUserScoreInfo(false)' 
                             id="no" > No </button>
                         </div>
                     </div>

@@ -40,10 +40,12 @@ export class GamesAuthService {
   }
 
   ibGameStoreUserScoreInfo(saveData: any): Observable<any> {
+    console.log('data stored', saveData);
     return this.http.put(environment.API_ENDPOINT + IBG_SCOREINFO, saveData);
   }
 
   ibGameStoreUserResponseInfo(saveResponseData: any): Observable<any> {
+    console.log('save data response', saveResponseData);
     return this.http.post(environment.API_ENDPOINT + IBG_USER_RESPONSE, saveResponseData);
   }
 
