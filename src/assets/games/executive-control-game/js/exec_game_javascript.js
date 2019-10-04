@@ -2,6 +2,8 @@
 function config(render_type,swidth,sheight,modeType,center){
 	this.type=render_type;
 	this.scale = {
+		width: swidth,
+		height: sheight,
 		mode:modeType,
 		parent: "execGame",
 		autoCenter: center,
