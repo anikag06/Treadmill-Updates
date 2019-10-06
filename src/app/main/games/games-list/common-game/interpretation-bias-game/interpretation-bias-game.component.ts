@@ -115,11 +115,17 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
               sentence_order_array.push(data.results[i].order);
 
               if (ibGameUserOrder >= (this.FIRST_SENTENCE_ID + Math.floor(this.NO_OF_SENTENCES_RECEIVED / 2))) {
+                console.log(data.next);
                 if (data.next && this.firstSentence) {
                   this.index = 0;
                   this.firstSentence = false;
                   pageNumber++;
+                  console.log(pageNumber);
                   this.sentenceInfo(pageNumber);   // call next set of sentences
+                } else if (data.next === null) {
+                  pageNumber = 0;
+                  // console.log(pageNumber);
+                  // this.sentenceInfo(pageNumber);   // call next set of sentences
                 }
               }
             i++;
@@ -157,6 +163,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
             this.showAllHints = false;
           }
           this.sentencesPageInUrl = Math.floor(ibGameUserOrder / this.NO_OF_SENTENCES_RECEIVED);
+          console.log(this.sentencesPageInUrl);
           this.sentenceInfo(this.sentencesPageInUrl);
         },
         (error) => {
@@ -178,6 +185,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
     this.getScoreVariablesValue();
     this.gameAuthService.ibGameStoreUserScoreInfo(this.userScoreData)
       .subscribe( (data) => {
+        console.log(data);
           if (ibGameUserOrder === (this.FIRST_SENTENCE_ID + Math.floor(this.NO_OF_SENTENCES_RECEIVED / 2))) {
 
             this.index = 0;
