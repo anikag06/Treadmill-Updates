@@ -29,8 +29,9 @@ export class GamesAuthService {
   constructor(private http: HttpClient) { }
 
   // for interpretation bias game
-  ibGameGetSentencesInfo(firstTime: boolean, pageUrl: number, pageSize: number): Observable<any>  {
+  ibGameGetSentencesInfo(pageUrl: number, pageSize: number): Observable<any>  {
     pageUrl = pageUrl + 1;
+    console.log(pageUrl);
     return this.http.get(environment.API_ENDPOINT + IBG_SENTENCE + this.NEXT_PAGE + pageUrl
       + this.PAGE_SIZE + pageSize);
   }

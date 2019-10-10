@@ -107,28 +107,28 @@
           src="../../../../../assets/games/back.png">
       </div>
 <!-- pause, hint and sound button on bottom of every page -->
-      <div class="row justify-content-end align-items-center mx-4 d-none" 
+      <div class="row justify-content-end align-items-center mx-2 d-none" 
           id="pause-common-div" #pause_common_div>
         <img 
           id = "common-pause"
-          class="mx-1 img-btn"
+          class="mx-2 img-btn"
           (click) = "onPauseClick()"
           src="../../../../../assets/games/pause.png">
         <img
           id = "common-sound-on"
-          class="mx-1 img-btn common-sound"
+          class="mx-2 img-btn common-sound float-right"
           (click) = "onSoundClick()"
           *ngIf = "isSoundOn"
           src="../../../../../assets/games/sound.png">
         <img
           id = "common-sound-off"
-          class="mx-1 img-btn common-sound"
+          class="mx-2 img-btn common-sound float-right"
           (click) = "onSoundClick()"
           *ngIf = "!isSoundOn"
           src="../../../../../assets/games/mute.png">
-        <div class="hint-btn-div">
+        <!-- <div class="hint-btn-div">
          
-        </div>
+        </div> -->
       </div>
     </div>
 </div>

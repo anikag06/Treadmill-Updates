@@ -39,8 +39,9 @@ declare var ibGameMakeGridArray: any;
 })
 export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
 
-  NO_OF_SENTENCES_RECEIVED = 10;      // order of first sentence is 0
+  NO_OF_SENTENCES_RECEIVED = 5;      // order of first sentence is 0
   // LEVEL_UP_SEN = 5;       // level up after how many sentences, here after 5 sentences;
+  TOTAL_SENTENCES!: number;
 
   firstSentence = true;
   userScoreData = new UserScoreData(ibGameUserOrder, ibGamelevel, ibGameScore, ibGameStreak, ibGameTime, ibGameWordsHidden);
@@ -49,7 +50,6 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   // for getting the sentence information
   INPUT_ORDER!: any;
   FIRST_SENTENCE_ID!: number;
-  NEXT_SEN_URL!: any;
   sentencesPageInUrl!: number;
   sentencePage!: any;
   index = ibGameUserOrder;
@@ -94,52 +94,53 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   }
 
   sentenceInfo(pageNumber: number) {
-    this.gameAuthService.ibGameGetSentencesInfo( this.firstSentence, pageNumber, this.NO_OF_SENTENCES_RECEIVED)
+    this.gameAuthService.ibGameGetSentencesInfo(pageNumber, this.NO_OF_SENTENCES_RECEIVED)
       .subscribe( (data) => {
-          this.FIRST_SENTENCE_ID = data.results[0].id;
-          if (this.firstSentence) {
-            this.index = ibGameUserOrder % this.NO_OF_SENTENCES_RECEIVED ;
-          }
-          if ( ibGamelevel > 0) {
-            this.showAllHints = true;
-          }
-          let i = this.index;
-          while (data.results[i]) {
-              this.NEXT_SEN_URL = data.next;
-              sentence_ids.push(data.results[i].id);
-              sentence_array.push(data.results[i].sentence_text);
-              sentence_word_array.push(data.results[i].word.word);
-              sentence_response_array.push(data.results[i].word.response);
-              sentence_word_valence.push(data.results[i].word.valence);
-              sentence_trick.push(data.results[i].trick_sentence);
-              sentence_order_array.push(data.results[i].order);
+        this.TOTAL_SENTENCES = data.count;
+        this.FIRST_SENTENCE_ID = data.results[0].id;
+        if (this.firstSentence) {
+          this.index = ibGameUserOrder % this.NO_OF_SENTENCES_RECEIVED ;
+        }
+        if ( ibGamelevel > 0) {
+          this.showAllHints = true;
+        }
+        let i = this.index;
+        while (data.results[i]) {
+          sentence_ids.push(data.results[i].id);
+          sentence_array.push(data.results[i].sentence_text);
+          sentence_word_array.push(data.results[i].word.word);
+          sentence_response_array.push(data.results[i].word.response);
+          sentence_word_valence.push(data.results[i].word.valence);
+          sentence_trick.push(data.results[i].trick_sentence);
+          sentence_order_array.push(data.results[i].order);
 
-              if (ibGameUserOrder >= (this.FIRST_SENTENCE_ID + Math.floor(this.NO_OF_SENTENCES_RECEIVED / 2))) {
-                console.log(data.next);
-                if (data.next && this.firstSentence) {
-                  this.index = 0;
-                  this.firstSentence = false;
-                  pageNumber++;
-                  console.log(pageNumber);
-                  this.sentenceInfo(pageNumber);   // call next set of sentences
-                } else if (data.next === null) {
-                  pageNumber = 0;
-                  // console.log(pageNumber);
-                  // this.sentenceInfo(pageNumber);   // call next set of sentences
-                }
+          if (ibGameUserOrder >= (this.FIRST_SENTENCE_ID + Math.floor(this.NO_OF_SENTENCES_RECEIVED / 2))) {
+            if (this.firstSentence) {
+              this.index = 0;
+              this.firstSentence = false;
+              if (data.next !== null) {
+                pageNumber++;
+                console.log('called if ibGameUser >>');
+              } else if (data.next === null) {
+                pageNumber = 0;
+                console.log('call if the next null');
               }
-            i++;
+              this.sentencesPageInUrl = pageNumber;
+              this.sentenceInfo(this.sentencesPageInUrl);
+            }
           }
-        },
+          i++;
+        }
+        console.log(sentence_array);
+      },
         (error) => {
-          // console.log(error);
+          console.log(error);
         }
       );
   }
   scoresRelatedInfo() {
     this.gameAuthService.ibGameGetScoresInfo()
       .subscribe((data) => {
-          console.log(data.data);
           if (data.status === true) {
             this.INPUT_ORDER = data.data.order;
             ibGameScore = data.data.score;
@@ -148,13 +149,13 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
             ibGameUserOrder = this.INPUT_ORDER;
             ibGameTime = data.data.time;
             ibGameWordsHidden = data.data.words_hidden;
+            this.BRONZE_CONSTANT = data.data.BRONZE_CONSTANT;
+            this.SILVER_CONSTANT = data.data.SILVER_CONSTANT;
+            this.GOLD_CONSTANT = data.data.GOLD_CONSTANT;
+            this.no_correct_responses = data.data.no_correct_responses;
           } else {
             this.initialiseVar();
           }
-          this.BRONZE_CONSTANT = data.data.BRONZE_CONSTANT;
-          this.SILVER_CONSTANT = data.data.SILVER_CONSTANT;
-          this.GOLD_CONSTANT = data.data.GOLD_CONSTANT;
-          this.no_correct_responses = data.data.no_correct_responses;
           this.updateBadgesValue();
 
           if ( ibGameWordsHidden > 0 ) {
@@ -163,7 +164,6 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
             this.showAllHints = false;
           }
           this.sentencesPageInUrl = Math.floor(ibGameUserOrder / this.NO_OF_SENTENCES_RECEIVED);
-          console.log(this.sentencesPageInUrl);
           this.sentenceInfo(this.sentencesPageInUrl);
         },
         (error) => {
@@ -179,18 +179,22 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
     ibGameUserOrder = this.INPUT_ORDER;
     ibGameTime = 150;
     ibGameWordsHidden = 0;
+    // these values should come from database, need to check this
+    this.BRONZE_CONSTANT = 4;
+    this.SILVER_CONSTANT = 10;
+    this.GOLD_CONSTANT = 26;
+    this.no_correct_responses = 0;
   }
   storeUserScoreInfo(response: any) {
     this.checkUserResponse(response);
     this.getScoreVariablesValue();
     this.gameAuthService.ibGameStoreUserScoreInfo(this.userScoreData)
       .subscribe( (data) => {
-        console.log(data);
           if (ibGameUserOrder === (this.FIRST_SENTENCE_ID + Math.floor(this.NO_OF_SENTENCES_RECEIVED / 2))) {
-
             this.index = 0;
             this.firstSentence = false;
             this.sentencesPageInUrl++;
+            console.log('in store user info', this.sentencesPageInUrl);
             this.sentenceInfo(this.sentencesPageInUrl);    // call next set of sentences
           }
           this.updateBadgesValue();
@@ -248,7 +252,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   }
   getAllSentences(pageNumber: number) {
     let grid_formed;
-    this.gameAuthService.ibGameGetSentencesInfo(true, pageNumber, 31)     // here 31 is the page size
+    this.gameAuthService.ibGameGetSentencesInfo(pageNumber, 31)     // here 31 is the page size
     .subscribe( (data) => {
       let i = 0;
       while (data.results[i]) {
@@ -277,7 +281,6 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
     this.allBadgesInfo = this.badgesService.getBadgesInfo(this.BRONZE_CONSTANT,
                               this.SILVER_CONSTANT, this.GOLD_CONSTANT,
                               this.no_correct_responses);
-    console.log(this.allBadgesInfo);
     this.bronzeNumber = this.allBadgesInfo.bronzeBadges;
     this.silverNumber = this.allBadgesInfo.silverBadges;
     this.goldNumber = this.allBadgesInfo.goldBadges;
@@ -285,7 +288,5 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
     this.bronzeValue = this.allBadgesInfo.bronzePercent;
     this.silverValue = this.allBadgesInfo.silverPercent;
     this.goldValue = this.allBadgesInfo.goldPercent;
-
-    console.log('after updation', this.allBadgesInfo);
   }
 }

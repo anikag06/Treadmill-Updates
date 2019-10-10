@@ -62,7 +62,6 @@ export class CommonGameComponent implements OnInit {
       )
       .subscribe(
         (game) =>  {
-          console.log("GAME>>", game)
           this.game = <Game>game;
           this.gameName = this.game.name;
           if (this.gameName === 'Executive Control Game') {
@@ -90,7 +89,7 @@ export class CommonGameComponent implements OnInit {
   @HostListener('window:blur', ['$event'])
   onBlur(event: any): void {
     if (this.gameStarted === true) {
-      this.onPauseClick();
+      // this.onPauseClick();
     }
   }
 

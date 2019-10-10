@@ -342,12 +342,12 @@ $(document).ready(function(){
 	}
 	ibUsehints = function(ev){
 		if(hiddenWordsInfo() > 0){
-			document.getElementById("showWord").disabled = false;
+			// document.getElementById("showWord").disabled = false;
 			if($('#showWord').hasClass("disabled")){
 				$('#showWord').removeClass("disabled");
 			}
 		}else if(hiddenWordsInfo() === 0){
-			document.getElementById("showWord").disabled = true;
+			// document.getElementById("showWord").disabled = true;
 			if(!$('#showWord').hasClass("disabled")){
 				$('#showWord').addClass("disabled");
 			}
@@ -395,13 +395,13 @@ $(document).ready(function(){
 			
 			$('#showWordResult').removeClass("d-none");
 			// $('#guessWord').addClass("d-none");
-			$('#showCoordinates').addClass("d-none");
-			$('#increase_time').addClass("d-none");
+			// $('#showCoordinates').addClass("d-none");
+			// $('#increase_time').addClass("d-none");
 		}else{
 			$('#showWordResult').addClass("d-none");
 			// $('#guessWord').removeClass("d-none");
-			$('#showCoordinates').removeClass("d-none");
-			$('#increase_time').removeClass("d-none");
+			// $('#showCoordinates').removeClass("d-none");
+			// $('#increase_time').removeClass("d-none");
 		}
 	});
 
@@ -412,12 +412,12 @@ $(document).ready(function(){
 				document.getElementById("score").innerHTML = score;
 			}
 			$('#showCoordResult').removeClass("d-none");
-			$('#showWord').addClass("d-none");
-			$('#increase_time').addClass("d-none");
+			// $('#showWord').addClass("d-none");
+			// $('#increase_time').addClass("d-none");
 		}else{
 			$('#showCoordResult').addClass("d-none");
-			$('#showWord').removeClass("d-none");
-			$('#increase_time').removeClass("d-none");
+			// $('#showWord').removeClass("d-none");
+			// $('#increase_time').removeClass("d-none");
 		}
 	});
 
@@ -1258,10 +1258,8 @@ function searchWordInArray(str, sorted_words, star_sentence, sentence) {
 	var word_str = str;
 
 	present = wordAlreadyFound(str);
-	if(present === true){         //if word is already found
-		
-	}else if(present === false){
-		for (var j=0; j<strArray.length; j++){               //search word in the array of words of sentence
+	if(present === false){    //search word in the array of words of sentence
+		for (var j=0; j<strArray.length; j++){               
 			if(strArray[j].search(str) !=-1 && str.length== strArray[j].length){
 				isValidWord = true;
 				found = true;
@@ -1277,10 +1275,7 @@ function searchWordInArray(str, sorted_words, star_sentence, sentence) {
 		if(found == false){            //if word found is incorrect 
 			extra_present = extraWordAlreadyFound(str);
 			if(extra_present === true){         //if the word not present in sentence is already found
-				// $('#tick').hide();
-				// $('#cross').hide();
-				// $('#bonus').hide();
-				// $('#already_found').show();
+
 			}else if(extra_present ===false){
 				var word_in_dictionary = Word_List.isInList(str);      //check in dictionary, maybe the word is valid but not part of sentence
 
@@ -1291,11 +1286,6 @@ function searchWordInArray(str, sorted_words, star_sentence, sentence) {
 					ctx.strokeStyle = "black";
 					score = score+bonus_word_score;
 				
-				}else{
-					// $('#tick').hide();
-					// $('#cross').show();
-					// $('#bonus').hide();
-					// $('#already_found').hide();
 				}
 			}
 		}
@@ -1316,8 +1306,9 @@ function searchWordInArray(str, sorted_words, star_sentence, sentence) {
 //shows full sentence for some time and then ask about relation with a word
 function showSentence(){
 	countTrue=0;
-	delay_show_sentence = 2000;
-	before_sentence_time =2000;
+	delay_show_sentence = 10;
+	// showing the congrats msg, it has 8 words
+	before_sentence_time = (Math.ceil((8)/average_reading_speed))*1000;
 	var total_characters = 0;
 	for (let i = 0; i < words.length; i++){
 		total_characters += words[i].length;
@@ -1326,9 +1317,6 @@ function showSentence(){
 	sentence_time = (Math.ceil((total_characters)/average_reading_speed))*1000;
 	countdownReset();
 	clearInterval(inactivity_check_interval);
-	$("#congrats").removeClass("d-none");
-	$("#congrats").text("Great! Now you will see the whole sentence. ");
-
 	// showing the fixation cross 
 	
 	setTimeout(function(){
@@ -1336,9 +1324,7 @@ function showSentence(){
 		$('.game-over-flex-row').removeClass("d-flex");
 		$('.game-over-row').addClass("d-none");
 		$(".sentence-word-row").removeClass("d-none");
-		$(".fixation-cross").removeClass("d-none");
-		// $("#congrats").addClass("d-none");
-		$("#congrats").addClass("d-none");
+		$(".congrats-msg").removeClass("d-none");
 		$(".canvas-row").addClass("d-none");
 		$(".controls-row").addClass("d-none");
 		$('.pause-hints').removeClass("d-none");
@@ -1349,7 +1335,7 @@ function showSentence(){
 
 	// show the sentence
 	setTimeout(function(){
-		$(".fixation-cross").addClass("d-none");
+		$(".congrats-msg").addClass("d-none");
 		$(".complete-sentence").html(sentence_array[sentence_number]);
 		$('.complete-sentence').removeClass("d-none");
 	}, delay_show_sentence+before_sentence_time);
@@ -1365,7 +1351,7 @@ function showSentence(){
 	// 	start_time = Date.now();
 	// }, before_sentence_time+sentence_time+delay_show_sentence);
 	 
-	coins = final_coins+(delay_show_sentence/100);         // /100 to adjust for the time showing the sentence   
+	coins = final_coins+20;         // /100 to adjust for the time showing the sentence   
 	coins_rem = setInterval(function(){ 
 		if(coins>0){
 			coins-=10 ; 
@@ -1376,7 +1362,7 @@ function showSentence(){
 		else{
 			coins=0;
 		}
-	}, delay_show_sentence);//after delay of some seconds show the word and ask about relation with sentence
+	}, delay_show_sentence+before_sentence_time);//after delay of some seconds show the word and ask about relation with sentence
 }
 
 // Making canvas and finding the word swiped by the user
@@ -1568,7 +1554,7 @@ function showWord(sentence){
 		if(present == true){
 			showWord(sentence);
 		}else if(present == false){
-			document.getElementById("aWord").innerHTML ="Find the word: " +  word ;
+			document.getElementById("aWord").innerHTML ="Find the word: " + "<br>" + word ;
 			return true;
 		}
 	}
@@ -1581,7 +1567,7 @@ function showFirstLetterCoordinates() {
 	let show_col_no = words_pos_column[index];
 	if(Number.isInteger(show_row_no)) {
 		//showFirstLetterCoordinates();
-		document.getElementById("wordCoordinates").innerHTML="First letter of a word is at "+"<br>"+"row- "+(show_row_no+1)+"<br>"+"column- "+(show_col_no+1);
+		document.getElementById("wordCoordinates").innerHTML="Find a word starting at "+"<br>"+"row: "+(show_row_no+1)+" & column: "+(show_col_no+1);
 		return true;
 	}else{
 		showFirstLetterCoordinates();

@@ -103,6 +103,7 @@ import { NavbarNotificationDirective } from './shared/navbar/navbar-notification
 import { NavbarNotificationsComponent } from './shared/navbar/navbar-notifications/navbar-notifications.component';
 import { NavbarNotificationsService } from './shared/navbar/navbar-notifications.service';
 import { NotificationItemComponent } from './shared/navbar/navbar-notifications/notification-item/notification-item.component';
+import { IbGameInstructionsComponent } from './games/games-list/common-game/interpretation-bias-game/ib-game-instructions/ib-game-instructions.component';
 
 @NgModule({
   declarations: [
@@ -163,6 +164,7 @@ import { NotificationItemComponent } from './shared/navbar/navbar-notifications/
     NavbarNotificationDirective,
     NavbarNotificationsComponent,
     NotificationItemComponent,
+    IbGameInstructionsComponent,
   ],
   imports: [
     CommonModule,

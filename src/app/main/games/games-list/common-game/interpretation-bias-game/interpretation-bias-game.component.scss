@@ -48,8 +48,7 @@ p{
 // .sentence-row,
 .stars,.selected-word{
 	margin: auto;
-	text-align: center;
-	max-width: 85%;
+	max-width: 88%;
 }
 .clock{
 	max-width: 20px;
@@ -73,31 +72,27 @@ p{
 	color:#45b9bc;
 }
 //.pause-hints,
-.btn-hint{
-	max-width: 50%;
-	padding: 0.5px;
-	// min-width: 53%;
-	margin: 5%;
-	margin-bottom: 0%
-}
-#hint-div, .tip{
-	margin-top: 1%;
-}
-.showWordResult, .showCoordResult{
-	min-height: 10%;
-	min-width: 55%;
-	max-width: 60%;
-	margin: 5%;
-	margin-top: 0%;
-	margin-left: 5%;
-	text-align: center;
-	background-color: rgba(255, 255, 255, 0.568);
-}
-// .congrats{
-// 	position: absolute;
-// 	margin-right: auto;
-// 	margin-left: auto;	
+// .btn-hint{
+	// max-width: 50%;
+	// padding: 0.5px;
+	// // min-width: 53%;
+	// margin: 5%;
+	// margin-bottom: 0%
 // }
+
+// .hint-div, 
+.hints-col{ 
+	margin-bottom: 3.4px;
+}
+#aWord, #wordCoordinates{
+	margin-left: 0%;
+	max-width: 58%;
+	height: 91%;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 91%;
+	background-image: url("/assets/games/button_big.svg");
+}
 canvas{
 	max-width: 100%;
 	background-color: white;
@@ -132,28 +127,7 @@ canvas{
 	-o-transform: rotate(180deg);
 	transform: rotate(180deg);
 }
-.card-img-top{
-	max-width: 400px;
-	opacity: 0.2;
-	position:relative;
-	z-index: 1;
-}
 
-.card-gif-top{
-	max-width: 400px;
-	position:relative;
-	z-index: 1;	
-}
-
-.instruction-icon{
-	font-size: 125px !important;
-	position: relative;
-}
-
-.div-instruction{
-	max-width: 400px;
-	margin: auto;
-}
 .lifeline-cost{
 	margin: auto;
 	max-width: 90%;
@@ -163,15 +137,37 @@ canvas{
 	text-align: center;
 	display: block;
 }
-// .text{
-// 	font-size: 20px;
-// }
 .tip{
-	min-height: 55px;
+	min-height: 52px;
 	color: #449798 ;
 	max-width: 80%;
-	
 }
+.progress-bar-vertical {
+	width: 15px;
+	min-height: 45px;
+	display: flex;
+	align-items: flex-end;
+	float: left;
+  }
+  
+.progress-bar-vertical .progress-bar {
+	width: 100%;
+	height: 0;
+	-webkit-transition: height 0.6s ease;
+	-o-transition: height 0.6s ease;
+	transition: height 0.6s ease;
+}
+
+::ng-deep.hints-menu {
+	min-width: 200px !important;
+	max-width: 300px !important;
+	max-height: 50vh !important;
+}
+::ng-deep.hints-menu-items{
+	min-height: 65px;
+}
+
+  
 @media only screen and (max-width: 991px) and (max-width: 767px) {
 	/* For mobile phones: */
 	.ibGame-page {
@@ -223,27 +219,27 @@ canvas{
 		text-align: center;
 		// margin-left: auto;
 	}
-	.btn-hint{
-		max-width: 100px;
-		margin: auto;
-		margin-top: 0.5% ;
-	}
+	// .btn-hint{
+		// max-width: 100px;
+		// margin: auto;
+		// margin-top: 0.5% ;
+	// }
 	#hint-div{
 		margin-left: 5%;
 		margin-top: 0%;
 	}
-	.showWord,.showWordResult{
-		margin-left: 2%;
-		margin-right: auto;
-	}
-	.show_coordinates,.showCoordResult{
-		margin-left: auto;
-		margin-right: auto;
-	}
-	.increase_time{
-		margin-left: auto;
-		margin-right: 1%;
-	}
+	// .showWord,.showWordResult{
+		// margin-left: 2%;
+		// margin-right: auto;
+	// }
+	// .show_coordinates,#showCoordResult{
+		// margin-left: auto;
+		// margin-right: auto;
+	// }
+	// .increase_time{
+		// margin-left: auto;
+		// margin-right: 1%;
+	// }
 	.pause-hints{
 		max-width: 35%;
 	}

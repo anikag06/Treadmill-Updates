@@ -24,7 +24,6 @@ export class GamesBadgesService {
 
   getPercent( constant: number, correctValues: number) {
     const progressValue = correctValues % constant ;
-    console.log(progressValue);
     return (progressValue / constant) * 100;
   }
 }

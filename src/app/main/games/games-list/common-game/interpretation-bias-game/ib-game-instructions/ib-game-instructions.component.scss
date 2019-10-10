@@ -1,0 +1,30 @@
+.card-img-top{
+	max-width: 400px;
+	opacity: 0.2;
+	position:relative;
+	z-index: 1;
+}
+.card-gif-top{
+	max-width: 400px;
+	position:relative;
+	z-index: 1;	
+}
+.play-heading{
+    color: #2FBFD7;
+    background-color: white;
+    font-size: 14px;
+}
+.instruction-icon{
+	font-size: 125px !important;
+	position: relative;
+}
+
+.div-instruction{
+	max-width: 400px;
+	margin: auto;
+}
+
+::ng-deep.mat-raised-button{
+    background-color: #0C8C95;
+    color: white;
+}
