@@ -98,7 +98,6 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
     this.scoresRelatedInfo();
 
     this.ibTrainingService.ibgScoreDataObservable.subscribe((res) => {
-      console.log('its done', res);
       this.storeUserScoreInfo(res);
     });
     // do not delete this (this.findValidSentence()) function, it is important
@@ -125,7 +124,9 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
           sentence_word_valence.push(data.results[i].word.valence);
           sentence_trick.push(data.results[i].trick_sentence);
           sentence_order_array.push(data.results[i].order);
-
+          if (this.firstSentence) {
+            this.currentSentencesWordsNumber(0);
+          }
           if (ibGameUserOrder >= (this.FIRST_SENTENCE_ID + Math.floor(this.NO_OF_SENTENCES_RECEIVED / 2))) {
             if (this.firstSentence) {
               this.index = 0;
@@ -140,9 +141,6 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
             }
           }
           i++;
-        }
-        if (this.firstSentence) {
-          this.currentSentencesWordsNumber(0);
         }
       },
         (error) => {
@@ -281,6 +279,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
     const sentence = sentence_array[num];
     const words = sentence.split(' ');
     this.No_progress_bars = Math.ceil(words.length * 0.50);
+    console.log(this.No_progress_bars, 'bars');
   }
   updateProgressBar(element: HTMLElement) {
     const height = Math.ceil(100 / this.No_progress_bars);

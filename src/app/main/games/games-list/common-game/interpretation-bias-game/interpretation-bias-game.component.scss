@@ -24,7 +24,7 @@ p{
 	padding-right: 0px !important;
 	padding-left: 0px !important;
 }
-.game,.game-first-page{
+.game-first-page{
 	// background-image: url("/assets/games/interpretation_bias_game/images/Automatic Interpretive Bias.png");
 	// background-size: 95%;
 	// background-position: center;
@@ -33,6 +33,11 @@ p{
 	max-height: 100%;
 	text-align: center;
 	max-width: 100%;
+}
+.game {
+	height: 100%;
+	max-height: 640px;
+	max-width: 360px;
 }
 #frontpage-image{
 	max-width: 35%;
@@ -49,20 +54,9 @@ p{
 	max-width: 20px;
 	margin: 2px;
 }
-.row-height-100 {
-	height: 100%;
-}
 .timeup1, .timeup2{
-	max-width: 60%;
-	min-height: 40%;
-	background-color: rgba(255,255,255,0.5);
+	background-color: #FFFFFF;
 }
-.timeup-btn-in-div{
-	min-width: 100%;
-}
-// .question-word,.complete-sentence{
-// 	max-width: 60%;
-// }
 .color-change{
 	color:#45b9bc;
 }
@@ -108,16 +102,6 @@ canvas{
 	-ms-transform: rotate(180deg);
 	-o-transform: rotate(180deg);
 	transform: rotate(180deg);
-}
-
-.lifeline-cost{
-	margin: auto;
-	max-width: 90%;
-}
-.lifeline-cost-div{
-	max-width: 100%;
-	text-align: center;
-	display: block;
 }
 .tip{
 	min-height: 52px;
@@ -197,7 +181,7 @@ canvas{
 		max-width: 100%;
 		min-height: 100%;
 	}
-	.game,.game-first-page{
+	.game-first-page{
 		// background-image: url("/assets/games/interpretation_bias_game/images/aib_mobile.png");
 		// background-repeat: no-repeat;
 		// background-size: 35%;
@@ -213,42 +197,10 @@ canvas{
 		display: inline;
 		margin-left: auto;
 	}
-	.timeup1, .timeup2 {
-	// .question-word,.complete-sentence
-		max-width: 80%;
-		margin: auto;
-	}
-	.timeup-btn-in-div{
-		min-width: 50%;
-		max-width: 70%;
-	}
-	.lifeline-cost-div{
-		max-width: 65%;
-		display: inline-block;
-		text-align: center;
-		// margin-left: auto;
-	}
-	// .btn-hint{
-		// max-width: 100px;
-		// margin: auto;
-		// margin-top: 0.5% ;
-	// }
 	#hint-div{
 		margin-left: 5%;
 		margin-top: 0%;
 	}
-	// .showWord,.showWordResult{
-		// margin-left: 2%;
-		// margin-right: auto;
-	// }
-	// .show_coordinates,#showCoordResult{
-		// margin-left: auto;
-		// margin-right: auto;
-	// }
-	// .increase_time{
-		// margin-left: auto;
-		// margin-right: 1%;
-	// }
 	.pause-hints{
 		max-width: 35%;
 	}

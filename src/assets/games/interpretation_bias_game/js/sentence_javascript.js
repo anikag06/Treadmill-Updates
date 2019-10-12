@@ -35,7 +35,6 @@ var NO_OF_WORDS;
 var no_words_hidden;
 var hidden_words_array = [];
 // var initial_timer = "180";							// time for finding words from letter grid
-var easy_game_timer = "180";
 var FIRST_HINTS_TIME = 60;
 var SECOND_HINTS_TIME = 30;
 // var initial_time = 12000;
@@ -468,7 +467,7 @@ $(document).ready(function(){
 		},1500);
 
 	});
-	$(document).on("click","#btn-try-again", function(ev){
+	$(document).on("click",".btn-try-again", function(ev){
 		// score = score-try_again_score;
 		// document.getElementById("score").innerHTML = score;
 		removeAddClassFun();
@@ -478,7 +477,7 @@ $(document).ready(function(){
 		// countdownReset();
 		// ibCountdown();
 	});
-	$(document).on("click","#btn-borrow-time", function(ev){
+	$(document).on("click",".btn-borrow-time", function(ev){
 		//if user had found 0-15% of words and time's up then borrowing time
 		game_timer = game_timer + (borrowed_time);
 		score = score - borrow_time_score;
@@ -487,7 +486,7 @@ $(document).ready(function(){
 		$("#timeup1").addClass("d-none");
 		ibCountdown();
 	});
-	$(document).on("click","#btn-borrow-time-again", function(ev){
+	$(document).on("click",".btn-borrow-time-again", function(ev){
 	//if user had found 15-60% of words and time's up then borrowing time
 		game_timer = game_timer +(borrowed_time);
 		score = score-borrow_time_again_score;
@@ -539,13 +538,13 @@ $(document).ready(function(){
 		// saveUserResponse($("#save-user-response").val(), sentence_ids[sentence_number], answer, (end_time-start_time));
 		delay_sentence_word_message = 1500;
 	});
-	$(document).on("click","#btn-give-up", function(ev){
+	$(document).on("click",".btn-give-up", function(ev){
 	 //if time's up and user had found less then 60% of words and then he choose give up option
 		$("#timeup2").addClass("d-none");
 		showSentence();
 	});
 	
-	$(document).on("click","#btn-next-sentence, #btn-other-sentence", function(ev){
+	$(document).on("click","#btn-next-sentence, .btn-other-sentence", function(ev){
 		answer=false;
 		ibGameScore = score;
 		// getUpdatedVariables();
@@ -562,21 +561,6 @@ $(document).ready(function(){
 		$(".tip-text").text(" ");
 		$("#hint-img-tip").addClass("d-none");
 	});
-	// $(document).on("click", "#easy_game", function(e){
-	// 	e.preventDefault();
-	// 	answer=false;
-	// 	success=true;
-	// 	ibGameScore = score;
-	// 	playNextSentence();
-	// 	ibGameTime = parseInt(easy_game_timer);
-	// });
-	// $(document).on("click", "#hard_game", function(e){
-	// 	e.preventDefault();
-	// 	success=true;
-	// 	ibGameScore = score;
-	// 	playNextSentence();
-	// 	// ibGameTime = parseInt(initial_timer); 
-	// });
 
 }); // document.ready ends here 
 
@@ -617,7 +601,7 @@ ibCountdown = function() {
 			success = false;
 			isFirstAttempt = false;
 			$('.hints-col').addClass("d-none");
-			$('.score-col').addClass("d-none");
+			// $('.score-col').addClass("d-none");
 			$(".controls-row").addClass("d-none");
 			$(".sentence-col").addClass("d-none");
 			$(".sentence-row").addClass("d-none");
@@ -1318,7 +1302,7 @@ function showSentence(){
 		total_characters += words[i].length;
 	}
 
-	sentence_time = (Math.ceil((total_characters)/average_reading_speed))*1000;
+	sentence_time = (Math.ceil((total_characters)/average_reading_speed))*1000 + 100;
 	countdownReset();
 	clearInterval(inactivity_check_interval);
 
@@ -1526,7 +1510,7 @@ function detectSwipe(playGrid,canvas,rect,sorted_words,sentence){
 			
 		}
 	});
-	$(document).on("click","#exit", "#btn-next-sentence, #btn-other-sentence", function(ev){
+	$(document).on("click","#exit", "#btn-next-sentence, .btn-other-sentence", function(ev){
 		canSwipe.destroy();
 	});
 }
