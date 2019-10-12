@@ -5,6 +5,7 @@ import {GamesService} from '@/main/shared/games.service';
 import {GamesAuthService} from '@/main/games/shared/games-auth.service';
 import { ECGameData, ECGameFlankerTask, ECGameDiscriminationTask, ECGameUserData,
     LHGameColorReverseData, LHGameUserLevel, LHGamePerformance } from './game-play.model';
+import { IbDialogsService } from '../games-list/common-game/interpretation-bias-game/ib-dialogs.service';
 
 
 // for interpretation bias game
@@ -102,8 +103,11 @@ export class GamePlayService  {
   game!: any;
   // for mental imagery games
 
-  constructor(  private gamesService: GamesService,
-    private gamesAuthService: GamesAuthService) { }
+  constructor(
+    private gamesService: GamesService,
+    private gamesAuthService: GamesAuthService,
+    private ibGameDialogService: IbDialogsService,
+  ) { }
 
   getGameInfo(slug: string) {
     return this.gamesService.getGames()
@@ -126,6 +130,7 @@ export class GamePlayService  {
     ibUsehints();
   }
   helpIBGame() {
+    this.ibGameDialogService.openInstructionDialog();
     ibGameHelp();
   }
 

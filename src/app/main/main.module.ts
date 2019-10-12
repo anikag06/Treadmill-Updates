@@ -37,7 +37,7 @@ import { SanitizationService } from './support-groups/sanitization.service';
 import { SafeHtmlPipe } from './support-groups/safe-html.pipe';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule, MatButtonModule, MatSidenavModule,
-  MatIconModule, MatListModule, MatDatepickerModule,
+  MatIconModule, MatListModule, MatDatepickerModule, MatDialogModule,
   MatNativeDateModule, MatSlideToggleModule, MatExpansionModule, } from '@angular/material';
 import {MatProgressBarModule} from '@angular/material';
 import { ScrollingDirective } from './shared/scrolling.directive';
@@ -103,8 +103,13 @@ import { NavbarNotificationDirective } from './shared/navbar/navbar-notification
 import { NavbarNotificationsComponent } from './shared/navbar/navbar-notifications/navbar-notifications.component';
 import { NavbarNotificationsService } from './shared/navbar/navbar-notifications.service';
 import { NotificationItemComponent } from './shared/navbar/navbar-notifications/notification-item/notification-item.component';
+// tslint:disable-next-line: max-line-length
 import { IbGameInstructionsComponent } from './games/games-list/common-game/interpretation-bias-game/ib-game-instructions/ib-game-instructions.component';
-
+import { IbDialogsService } from './games/games-list/common-game/interpretation-bias-game/ib-dialogs.service';
+// tslint:disable-next-line: max-line-length
+import { IbMainTrainingComponent } from './games/games-list/common-game/interpretation-bias-game/ib-main-training/ib-main-training.component';
+// tslint:disable-next-line: max-line-length
+import { IbTrainingDataService } from '@/main/games/games-list/common-game/interpretation-bias-game/ib-main-training/ib-training-data.service';
 @NgModule({
   declarations: [
     ModulesComponent,
@@ -165,6 +170,7 @@ import { IbGameInstructionsComponent } from './games/games-list/common-game/inte
     NavbarNotificationsComponent,
     NotificationItemComponent,
     IbGameInstructionsComponent,
+    IbMainTrainingComponent,
   ],
   imports: [
     CommonModule,
@@ -175,6 +181,7 @@ import { IbGameInstructionsComponent } from './games/games-list/common-game/inte
     AuthModule,
     AngularEditorModule,
     LayoutModule,
+    MatDialogModule,
     MatExpansionModule,
     MatToolbarModule,
     MatButtonModule,
@@ -219,9 +226,18 @@ import { IbGameInstructionsComponent } from './games/games-list/common-game/inte
     FlowStepNavigationService,
     NavbarNotificationsService,
     GamesBadgesService,
+    IbDialogsService,
+    IbTrainingDataService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  entryComponents: [CreatePostComponent, IntroduceComponent, NavbarFlowComponent, NavbarNotificationsComponent]
+  entryComponents: [
+    CreatePostComponent,
+    IntroduceComponent,
+    NavbarFlowComponent,
+    NavbarNotificationsComponent,
+    IbGameInstructionsComponent,
+    IbMainTrainingComponent,
+  ]
 })
 export class MainModule {
 }

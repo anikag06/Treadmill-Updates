@@ -35,7 +35,7 @@
     min-height: 70vh !important;
 }
 
-@media screen and (max-width: 992px) {
+// @media screen and (max-width: 992px) {
     // .app-navbar {
     //     height: 20px;
     //     .all-icons {
@@ -50,7 +50,7 @@
     //         }
     //     }   
     // }
-}
+// }
 @media screen and (max-width: 767px) {
     .app-navbar {
         height: 0px;
@@ -58,7 +58,7 @@
 }
 @media screen and (max-width: 960px) {   // putting this 960 as otherwise no nav bar is shown
     .app-navbar {
-        height: 20px;
+        // height: 20px;
         .all-icons {
             position: absolute;
             top: -80px;

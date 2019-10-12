@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { GamePlayService } from '@/main/games/shared/game-play.service';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+
+declare var startIBGame: any;
 
 @Component({
   selector: 'app-ib-game-instructions',
@@ -9,13 +11,17 @@ import { GamePlayService } from '@/main/games/shared/game-play.service';
 export class IbGameInstructionsComponent implements OnInit {
 
   constructor(
-    private gamePlayService: GamePlayService,
-  ) { }
+    public dialogRef: MatDialogRef<IbGameInstructionsComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+  ) {
+    dialogRef.disableClose = true;
+  }
 
   ngOnInit() {
   }
 
   onPlayClicked() {
-    this.gamePlayService.playIBGame();
+    this.dialogRef.close();
+    startIBGame();
   }
 }

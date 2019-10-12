@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="10" height="10" viewBox="0 0 10 10">
   <defs>
     <linearGradient id="linear-gradient" x1="0.217" y1="0.107" x2="0.821" y2="0.859" gradientUnits="objectBoundingBox">
-      <stop offset="0" stop-color="#efb05e"/>
-      <stop offset="1" stop-color="#985e0d"/>
+      <stop offset="0" stop-color="#e89d3d"/>
+      <stop offset="1" stop-color="#814000"/>
     </linearGradient>
   </defs>
-  <rect id="Bronze_badge_symbol" data-name="Bronze badge symbol" width="10" height="10" rx="5" fill="url(#linear-gradient)"/>
+  <rect id="Bronze_badge_symbol" data-name="Bronze badge symbol" width="10" height="10" rx="5" transform="translate(0)" fill="url(#linear-gradient)"/>
 </svg>

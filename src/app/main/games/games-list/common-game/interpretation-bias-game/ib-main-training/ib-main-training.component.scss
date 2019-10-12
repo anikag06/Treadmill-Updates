@@ -1,0 +1,13 @@
+@import "../../../../shared/games-common.scss";
+
+.question{
+    color: #717A7E;
+}
+.yes, .no {
+    background-image: url("/assets/games/Button_small.svg");
+    background-position: center;
+	background-repeat: no-repeat;
+    background-size: 85%;
+    min-height: 34px;
+    cursor: pointer;
+}

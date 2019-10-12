@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy, HostListener } from '@angular/core';
 import { UserScoreData, UserResponseData } from '@/main/games/shared/game-play.model';
 import { Router } from '@angular/router';
 import { IBG_SENTENCE } from '@/app.constants';
@@ -7,6 +7,8 @@ import { GamePlayService } from '@/main/games/shared/game-play.service';
 import { GamesAuthService } from '@/main/games/shared/games-auth.service';
 import { BadgesInfo } from '@/main/games/shared/game-badges.model';
 import { GamesBadgesService } from '@/main/games/shared/games-badges.service';
+import { IbDialogsService } from './ib-dialogs.service';
+import { IbTrainingDataService } from './ib-main-training/ib-training-data.service';
 
 declare var sentence_number: any;
 // for sentence and word information
@@ -58,12 +60,10 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
 
   // whether level > 0 or not
   showAllHints = false;
-  // levelUpElement!: HTMLElement;
 
   SEN_URL = environment.API_ENDPOINT + IBG_SENTENCE;
-  // if the user started from the first sentence instructions should be shown
-  instructElement!: HTMLElement;
-  gameElement!: HTMLElement;
+
+  No_progress_bars = 4;
 
   // badges info
   BRONZE_CONSTANT!: any;
@@ -77,18 +77,30 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   goldNumber!: number;
   no_correct_responses!: number;
   allBadgesInfo: BadgesInfo = new BadgesInfo(0, 0, 0, 0, 0, 0);
-  bronzeColor = '#B37826';
-  silverColor = '#9E9E9E';
-  goldColor = '#D5A521';
+
+  difficultyValue = 5;
 
   constructor( private gameAuthService: GamesAuthService,
     private router: Router,
     private gamePlayService: GamePlayService,
-    private badgesService: GamesBadgesService) {
+    private badgesService: GamesBadgesService,
+    private ibDialogService: IbDialogsService,
+    private ibTrainingService: IbTrainingDataService
+  ) {
+  }
+
+  @HostListener('window:iBGameSentenceDialogFun')
+  showSentence() {
+    this.ibDialogService.openSentenceWordDialog();
   }
 
   ngOnInit() {
     this.scoresRelatedInfo();
+
+    this.ibTrainingService.ibgScoreDataObservable.subscribe((res) => {
+      console.log('its done', res);
+      this.storeUserScoreInfo(res);
+    });
     // do not delete this (this.findValidSentence()) function, it is important
     // this.findValidSentence();        // this function is used to check if sentences in database are valid for generation of letters grid
   }
@@ -120,10 +132,8 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
               this.firstSentence = false;
               if (data.next !== null) {
                 pageNumber++;
-                console.log('called if ibGameUser >>');
               } else if (data.next === null) {
                 pageNumber = 0;
-                console.log('call if the next null');
               }
               this.sentencesPageInUrl = pageNumber;
               this.sentenceInfo(this.sentencesPageInUrl);
@@ -131,7 +141,9 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
           }
           i++;
         }
-        console.log(sentence_array);
+        if (this.firstSentence) {
+          this.currentSentencesWordsNumber(0);
+        }
       },
         (error) => {
           console.log(error);
@@ -194,7 +206,6 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
             this.index = 0;
             this.firstSentence = false;
             this.sentencesPageInUrl++;
-            console.log('in store user info', this.sentencesPageInUrl);
             this.sentenceInfo(this.sentencesPageInUrl);    // call next set of sentences
           }
           this.updateBadgesValue();
@@ -217,10 +228,6 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
 
     this.userResponseData.sentence = userData[6];
     this.userResponseData.response_time = userData[7];
-
-  }
-  onPlayClicked() {
-    this.gamePlayService.playIBGame();
   }
   storeUserResponse() {
     this.gameAuthService.ibGameStoreUserResponseInfo(this.userResponseData)
@@ -243,10 +250,46 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   onHintClick() {
       this.gamePlayService.hintsIBGame();
   }
-
-  ngOnDestroy() {
-    clearInterval(inactivity_check_interval);
+  nextSentenceClicked() {
+    this.currentSentencesWordsNumber(sentence_number + 1);
   }
+
+  checkUserResponse(response: any) {
+    const correctResponse = ibGameCorrectResponse();
+    if ( response === correctResponse) {
+      this.userResponseData.user_response = true;
+      this.no_correct_responses++;
+    } else if (response !== correctResponse) {
+      this.userResponseData.user_response = false;
+    }
+  }
+
+  updateBadgesValue() {
+    this.allBadgesInfo = this.badgesService.getBadgesInfo(this.BRONZE_CONSTANT,
+                              this.SILVER_CONSTANT, this.GOLD_CONSTANT,
+                              this.no_correct_responses);
+    this.bronzeNumber = this.allBadgesInfo.bronzeBadges;
+    this.silverNumber = this.allBadgesInfo.silverBadges;
+    this.goldNumber = this.allBadgesInfo.goldBadges;
+
+    this.bronzeValue = this.allBadgesInfo.bronzePercent;
+    this.silverValue = this.allBadgesInfo.silverPercent;
+    this.goldValue = this.allBadgesInfo.goldPercent;
+  }
+
+  currentSentencesWordsNumber(num: number) {
+    const sentence = sentence_array[num];
+    const words = sentence.split(' ');
+    this.No_progress_bars = Math.ceil(words.length * 0.50);
+  }
+  updateProgressBar(element: HTMLElement) {
+    const height = Math.ceil(100 / this.No_progress_bars);
+    element.style.height = (height) + '%';
+  }
+  getArray(i: number) {
+    return new Array(i);
+  }
+
   findValidSentence () {
     this.getAllSentences(0);
   }
@@ -266,27 +309,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
     });
   }
 
-  checkUserResponse(response: any) {
-    const correctResponse = ibGameCorrectResponse();
-    if ( response === correctResponse) {
-      this.userResponseData.user_response = true;
-      this.no_correct_responses++;
-      console.log('correct reponses', this.no_correct_responses);
-    } else if (response !== correctResponse) {
-      this.userResponseData.user_response = false;
-    }
-  }
-
-  updateBadgesValue() {
-    this.allBadgesInfo = this.badgesService.getBadgesInfo(this.BRONZE_CONSTANT,
-                              this.SILVER_CONSTANT, this.GOLD_CONSTANT,
-                              this.no_correct_responses);
-    this.bronzeNumber = this.allBadgesInfo.bronzeBadges;
-    this.silverNumber = this.allBadgesInfo.silverBadges;
-    this.goldNumber = this.allBadgesInfo.goldBadges;
-
-    this.bronzeValue = this.allBadgesInfo.bronzePercent;
-    this.silverValue = this.allBadgesInfo.silverPercent;
-    this.goldValue = this.allBadgesInfo.goldPercent;
+  ngOnDestroy() {
+    clearInterval(inactivity_check_interval);
   }
 }

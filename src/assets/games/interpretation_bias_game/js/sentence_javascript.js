@@ -26,6 +26,10 @@ var ibGameHelp;
 
 var ibGameMakeGridArray;
 
+var iBGSentenceDialogEvent;
+
+var ibgWordsNeeded = 0;
+
 var words = []                 //words of the sentence 
 var NO_OF_WORDS;
 var no_words_hidden;
@@ -194,7 +198,6 @@ function initializeVariables(){
  	borrowed_time = 20;								
  	increased_time = 20;								
 	delay_show_sentence = 1000;
-	countTrue = 0; 	
 	inactivity_time = 0;
 	inactivity_threshold = 10000;		// show tips after 10 seconds of inactivity					
 	columnWidth = 0;
@@ -229,7 +232,12 @@ function initializeVariables(){
 	$(".game").removeClass("d-none");
 	$('.instructions-row').addClass("d-none");
 	$('.game-first-page').addClass("d-none");
-
+	for(let i = 1; i<= ibgWordsNeeded; i++){
+		if(document.getElementById("ibg-pBar"+i)) {
+			document.getElementById('ibg-pBar'+i).style.backgroundColor = 'rgba(28, 152, 155, 0.5)';
+		}
+	}
+	countTrue = 0; 	
 }	
 function getUpdatedVariables() {
 	levelChange(success);
@@ -244,11 +252,7 @@ function getUpdatedVariables() {
 	gameStreak = ibGameStreak;
 	gameResponseTime=0;
 	gameUserSentenceId = sentence_ids[sentence_number];
-	// if(answer){
-	// 	gameUserResponse = sentence_response_array[sentence_number];
-	// }else {
-	// 	gameUserResponse = !sentence_response_array[sentence_number];
-	// }
+
 	gameResponseTime = (end_time - start_time) ; 
 	return [
 		gameOrder,
@@ -261,6 +265,7 @@ function getUpdatedVariables() {
 		gameUserSentenceId,
 		gameResponseTime,
 		sentence_number,
+		isFirstAttempt
 	];
 }
 
@@ -275,9 +280,8 @@ function removeAddClassFun(){
 	$(".sentence-col").removeClass("d-none");
 	$(".controls-row").removeClass("d-none");
 	$('.hints-col').removeClass("d-none");
-	$('.pause-hints').removeClass("d-none");
 	$('.score-col').removeClass("d-none");
-	$('.extra-col').removeClass("d-none");
+	// $('.extra-col').removeClass("d-none");
 	$('.game-over-row').addClass("d-none");
 	$('.game-over-flex-row').removeClass("d-flex");
 	$('.game-over-flex-row').addClass("d-none");
@@ -367,11 +371,11 @@ $(document).ready(function(){
 		}
 	}
 	ibGameHelp = function(ev){
-		$(".instructions-row").removeClass("d-none");
+		// $(".instructions-row").removeClass("d-none");
 			$('.game-first-page').addClass("d-none");
-			if(!$('.game').hasClass("d-none")){
-				$('.game').addClass("d-none");
-			}
+			// if(!$('.game').hasClass("d-none")){
+			// 	$('.game').addClass("d-none");
+			// }
 	}
 	// $(document).on("click", "#usehints", function(ev){
 	// 	if($('#hint-div').hasClass("d-none")){
@@ -494,7 +498,7 @@ $(document).ready(function(){
 		ibCountdown();
 	});
 	
-	$(document).on("click","#yes", function(ev){  //if the user clicks yes when asked whether the word and sentence are related or not
+	$(document).on("click","#ibg-yes", function(ev){  //if the user clicks yes when asked whether the word and sentence are related or not
 		// end_time = Date.now();	
 		checkResponseYes(sentence_response_array[sentence_number]);
 		$(".btn-sentence-word-rel").attr("disabled", "disabled");
@@ -505,18 +509,16 @@ $(document).ready(function(){
 		
 		$("#word").addClass("d-none");
 		score+=coins;
-		document.getElementById("finalScore").innerHTML = "Score:"+score;
+		document.getElementById("bonusScore").innerHTML = "Bonus:"+coins;
 		document.getElementById("score").innerHTML = score;
-		
-		$('.pause-hints').addClass("d-none");
-		$('.score-col').addClass("d-none");
+		// $('.score-col').addClass("d-none");
 		$("#lastPage").removeClass("d-none");
 		$(".btn-sentence-word-rel").removeAttr("disabled");
-		
+		$(".main-training").addClass('d-none');
 		delay_sentence_word_message = 1500;
 	});
 	
-	$(document).on("click","#no", function(ev){   //if the user clicks yes when asked whether the word and sentence are related or not
+	$(document).on("click","#ibg-no", function(ev){   //if the user clicks yes when asked whether the word and sentence are related or not
 		// end_time = Date.now();	
 		checkResponseNo(sentence_response_array[sentence_number]);
 		$(".btn-sentence-word-rel").attr("disabled", "disabled");
@@ -526,15 +528,14 @@ $(document).ready(function(){
 		}
 	
 		$("#word").addClass("d-none");
-		
 		score+=coins;
-		document.getElementById("finalScore").innerHTML = "Score:"+score;
+		document.getElementById("bonusScore").innerHTML = "Bonus:"+coins;
 		document.getElementById("score").innerHTML = score;
 
-		$('.pause-hints').addClass("d-none");
-		$('.score-col').addClass("d-none");
+		// $('.score-col').addClass("d-none");
 		$('#lastPage').removeClass("d-none");
 		$(".btn-sentence-word-rel").removeAttr("disabled");
+		$(".main-training").addClass('d-none');
 		// saveUserResponse($("#save-user-response").val(), sentence_ids[sentence_number], answer, (end_time-start_time));
 		delay_sentence_word_message = 1500;
 	});
@@ -590,7 +591,6 @@ function playNextSentence(){
 	$("#hint-img-tip").addClass("d-none");
 	ibCountdown();
 	sentence_number++;
-	countTrue=0;
 	foundWord(sentence_array[sentence_number],sentence_word_array[sentence_number]);
 }
 
@@ -616,14 +616,13 @@ ibCountdown = function() {
 		if(game_timer===0){
 			success = false;
 			isFirstAttempt = false;
-			$('.pause-hints').addClass("d-none");
 			$('.hints-col').addClass("d-none");
 			$('.score-col').addClass("d-none");
 			$(".controls-row").addClass("d-none");
 			$(".sentence-col").addClass("d-none");
 			$(".sentence-row").addClass("d-none");
 			$(".canvas-row").addClass("d-none");
-			$(".extra-col").addClass("d-none");
+			// $(".extra-col").addClass("d-none");
 			$(".game-over-row").removeClass("d-none");
 			$('.game-over-flex-row').addClass("d-flex");
 			$(".game-over-flex-row").removeClass("d-none");
@@ -794,6 +793,7 @@ ibGameMakeGridArray = function(sentence){
 	var sorted_words = getSortedWordList(sentence);
 	var GRID_LENGTH = gridLength(sentence, sorted_words[0]); // determining the optimal length for the sentence
 	NO_OF_WORDS = words.length;
+	ibgWordsNeeded = Math.ceil(percent_full_sen*NO_OF_WORDS);
 	// var gridArray = matrix(GRID_LENGTH, GRID_LENGTH); // initializing 2D grid
 	gridArray = matrix(GRID_LENGTH,GRID_LENGTH);
 	// getting the different parameters for the current level
@@ -1269,6 +1269,10 @@ function searchWordInArray(str, sorted_words, star_sentence, sentence) {
 				words_pos_column.splice(j,1,'_');    
 				star_sentence = replaceStars(str,strArray,j, star_sentence);      //if correct word found replace stars with the word
 				countTrue++;
+				const word_ind = ibgWordsNeeded - countTrue + 1;
+				if(document.getElementById("ibg-pBar"+word_ind)) {
+					document.getElementById("ibg-pBar"+word_ind).style.backgroundColor = "rgba(1, 113, 116, 1)";
+				}
 			}
 		}
 
@@ -1291,7 +1295,7 @@ function searchWordInArray(str, sorted_words, star_sentence, sentence) {
 		}
 	}
 
-	if(countTrue >= (percent_full_sen*NO_OF_WORDS) && found){ 
+	if(countTrue >= (ibgWordsNeeded) && found){
 		if(success == true){
 			isFirstAttempt = false;
 		}
@@ -1306,9 +1310,9 @@ function searchWordInArray(str, sorted_words, star_sentence, sentence) {
 //shows full sentence for some time and then ask about relation with a word
 function showSentence(){
 	countTrue=0;
-	delay_show_sentence = 10;
-	// showing the congrats msg, it has 8 words
-	before_sentence_time = (Math.ceil((8)/average_reading_speed))*1000;
+	delay_show_sentence = 100;
+	// showing the congrats msg, it has 45 char
+	before_sentence_time = (Math.ceil((45)/average_reading_speed))*1000;
 	var total_characters = 0;
 	for (let i = 0; i < words.length; i++){
 		total_characters += words[i].length;
@@ -1317,46 +1321,46 @@ function showSentence(){
 	sentence_time = (Math.ceil((total_characters)/average_reading_speed))*1000;
 	countdownReset();
 	clearInterval(inactivity_check_interval);
-	// showing the fixation cross 
-	
+
+	// showing the congrats msg
 	setTimeout(function(){
-		$(".extra-col").addClass("d-none");
+		// $(".extra-col").addClass("d-none");
 		$('.game-over-flex-row').removeClass("d-flex");
 		$('.game-over-row').addClass("d-none");
 		$(".sentence-word-row").removeClass("d-none");
 		$(".congrats-msg").removeClass("d-none");
 		$(".canvas-row").addClass("d-none");
 		$(".controls-row").addClass("d-none");
-		$('.pause-hints').removeClass("d-none");
 		$('.hints-col').addClass("d-none");
-		$('.score-col').addClass("d-none");
+		// $('.score-col').addClass("d-none");
 		$(".sentence-col").addClass("d-none");
 	}, delay_show_sentence );
 
 	// show the sentence
 	setTimeout(function(){
+		iBGSentenceDialogEvent = document.createEvent('CustomEvent');
+		iBGSentenceDialogEvent.initCustomEvent('iBGameSentenceDialogFun');
+		window.dispatchEvent(iBGSentenceDialogEvent);
 		$(".congrats-msg").addClass("d-none");
 		$(".complete-sentence").html(sentence_array[sentence_number]);
 		$('.complete-sentence').removeClass("d-none");
 	}, delay_show_sentence+before_sentence_time);
-
+//show the sentence for some seconds and ask relation after some time
 	setTimeout(function(){
 		$(".complete-sentence").delay(delay_show_sentence).addClass("d-none");
 		$("coins").delay(delay_show_sentence).addClass("d-none");
+		document.getElementById("sentence_word").innerHTML = sentence_word_array[sentence_number];
 		$("#word").delay(delay_show_sentence).removeClass("d-none");
 		start_time = Date.now();
-	}, delay_show_sentence+before_sentence_time+sentence_time);				//show the sentence for some seconds and ask relation after some time
+	}, delay_show_sentence+before_sentence_time+sentence_time);				
 
-	// setTimeout(function(){
-	// 	start_time = Date.now();
-	// }, before_sentence_time+sentence_time+delay_show_sentence);
 	 
 	coins = final_coins+20;         // /100 to adjust for the time showing the sentence   
 	coins_rem = setInterval(function(){ 
 		if(coins>0){
 			coins-=10 ; 
-			if(document.getElementById("coins")!=null){
-				document.getElementById("coins").innerHTML = coins;
+			if(document.getElementById("ibg-coins")!=null){
+				document.getElementById("ibg-coins").innerHTML = coins;
 			}		
 		}
 		else{
@@ -1372,8 +1376,8 @@ function foundWord(sentence,sentence_word){
 	words_pos_row.splice(0,words_pos_row.length);
 	words_pos_column.splice(0,words_pos_column.length);
 
-	document.getElementById("complete-sentence").innerHTML = sentence;
-	document.getElementById("sentence_word").innerHTML = sentence_word;
+	// document.getElementById("complete-sentence").innerHTML = sentence;
+	// document.getElementById("sentence_word").innerHTML = sentence_word;
 
 	var gridParameters = ibGameMakeGridArray(sentence);
 	var GRID_LENGTH = gridParameters[2];
@@ -1554,7 +1558,7 @@ function showWord(sentence){
 		if(present == true){
 			showWord(sentence);
 		}else if(present == false){
-			document.getElementById("aWord").innerHTML ="Find the word: " + "<br>" + word ;
+			document.getElementById("aWord").innerHTML = word ;
 			return true;
 		}
 	}

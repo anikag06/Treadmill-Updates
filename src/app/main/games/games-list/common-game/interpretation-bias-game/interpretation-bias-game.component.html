@@ -1,12 +1,6 @@
 <div class="container-fluid" id="main_div">
 	<div class="ibGame-page center-element">
-   
-    <!-- GAME INSTRUCTIONS - START -->
-    <div class="row instructions-row d-none" id="instruct-div">
-      <app-ib-game-instructions class="game-instructions">
-      </app-ib-game-instructions>
-    </div>
-    <!-- GAME INSTRUCTIONS - END -->
+    
   <div class="h-100" id="game_main_div">
     <div class="row game-first-page justify-content-center align-items-center">
       <img id="frontpage-image"
@@ -18,7 +12,8 @@
 <!-- GAME PLAY - START -->
   <div class="row game d-none" >
       <!-- for score and timer info -->
-    <div id="score-col" class="score-col col-2 changes-width d-none">   
+    <div id="score-col" 
+      class="score-col col-2 pb-0 changes-width d-none border-bottom border-light">   
       <div class="row d-flex " style="margin-top: 3%">
         <div id="score_info" class="d-inline justify-content-start score_info" >SCORE:
           <div id="score" class="d-inline score"></div>
@@ -35,56 +30,67 @@
           <div class="d-inline-block countdown ml-2" id="countdown"></div>
         </div> 
       </div>  
-      <div class="row my-2">
-        <div class="col-2 px-1 smallest-font">
-          <img src="../../../../../../assets/games/Bronze badge symbol.svg"> 
-          {{bronzeNumber}}
-          <mat-progress-bar class="bronzeBar"
-            [color]="bronzeColor"
-            mode="determinate" 
-            [value]='bronzeValue'>
-          </mat-progress-bar>
-        </div>
-        <div class="col-2 px-1 smallest-font">
-          <img src="../../../../../../assets/games/Silver badge symbol.svg">
-          {{silverNumber}}
-          <mat-progress-bar color="accent"
-            mode="determinate" 
-            [value]="silverValue">
-          </mat-progress-bar>
-        </div>
-        <div class="col-2 px-1 smallest-font">
-          <img src="../../../../../../assets/games/Gold badge symbol.svg">
-          {{goldNumber}}
-          <mat-progress-bar
-            [color]="goldColor" 
+      <div class="row mt-2">
+        <div class="col-2 px-1 barsDiv smallest-font w-75 justify-content-start">
+          <div class="float-left">
+            <img src="../../../../../../assets/games/Gold badge symbol.svg">
+          </div>
+          <div class="float-right pr-1">
+            {{goldNumber}}
+          </div>
+          <mat-progress-bar class="goldBar"
             mode="determinate" 
             [value]="goldValue">
           </mat-progress-bar>
         </div>
+        <div class="col-2 px-1 barsDiv smallest-font w-75 justify-content-start">
+          <div class="float-left">
+            <img src="../../../../../../assets/games/Silver badge symbol.svg">
+          </div>
+          <div class="float-right pr-1">
+            {{silverNumber}}
+          </div>
+          <mat-progress-bar class="silverBar"
+            mode="determinate" 
+            [value]="silverValue">
+          </mat-progress-bar>
+        </div>
+        <div class="col-2 px-1 barsDiv smallest-font w-75 justify-content-start">
+          <div class="float-left">
+            <img src="../../../../../../assets/games/Bronze badge symbol.svg">
+          </div>
+          <div class="float-right pr-1">
+            {{bronzeNumber}}
+          </div>
+          <mat-progress-bar class="bronzeBar"
+            mode="determinate" 
+            [value]='bronzeValue'>
+          </mat-progress-bar>
+        </div>
+        
         <div class="col"></div>
-        <div class="col-4 px-1 smallest-font">
-          <div class="col px-0">
-            <div class="col-5 px-0 float-left">
+        <div class="col-3 px-1 smallest-font ">
+          <div class="row px-0">
+            <div class="col-6 px-0 text-left">
               easy
             </div>
-            <div class="col-5 px-0 float-right">
+            <div class="col-6 px-0 text-right">
               hard
             </div>
           </div>
-          <div class="col">
-            <mat-progress-bar
+          <div class="row border border-dark rounded" 
+            style="padding: 0.35px;">
+            <mat-progress-bar class="difficultyBar my-auto"
               mode="determinate" 
-              [value]="35">
+              [value]="difficultyValue">
             </mat-progress-bar>
           </div>
         </div>
       </div>
     </div>
+    <!-- <div class="col-1 extra-col changes-width d-none"></div> -->
   
-    <div class="col-1 extra-col changes-width d-none"></div>
-  
-    <div class="col-6 justify-content-center changes-width sentence-col">
+    <div class="col-6 justify-content-center changes-width pt-2 pb-0 sentence-col">
       <div class="row w-100 sentence-row justify-content-center medium-font d-none">
         <div class="col w-100 stars-sen">
           <div class="stars text-center">
@@ -98,23 +104,27 @@
         <div class="col w-100" id="canvas-div">
           <div class="col tip center-element w-100" >
             <div class="center-element">
-              <div class="text tip-text small-font d-inline" id="tip-text"></div>
-                <img
-                  class="d-none"
-                  id="hint-img-tip"
-                  style="height: 19px"
-                  src="../../../../../../assets/games/hint.png">
+              <div class="text tip-text small-font d-inline" id="tip-text">
+              </div>
+              <img
+                class="d-none"
+                id="hint-img-tip"
+                style="height: 19px"
+                src="../../../../../../assets/games/hint.png">
             </div>
           </div> 
-          <!-- <div class="col w-100">
-            <p class="w-80 large-font" id="congrats" class="d-none"></p>
-          </div> -->
-          <div class="col w-100">
-            <div class="w-100 col-1 px-0 h-100 float-left" >
-              <div class="progress progress-bar-vertical mb-1"  *ngFor="let i of [1,2,3,4,5,6]">
-                <div class="progress-bar" role="progressbar" 
+          <div class="col w-100 h-100">
+            <div class="px-1 float-left" style="height: 83%;">
+              <div class="row py-1" 
+                *ngFor="let ind of getArray(No_progress_bars); let i = index" 
+                #progressBar 
+                [ngClass]="updateProgressBar(progressBar)">
+                <div class="h-100 progress progress-bar-vertical" 
+                  [attr.id]="'ibg-pBar' + (i+1)">
+                  <div class=" progress-bar" role="progressbar" 
                     aria-valuenow="30" 
                     aria-valuemin="0" aria-valuemax="100">
+                  </div>
                 </div>
               </div>
             </div>
@@ -147,47 +157,18 @@
       
         <div class="col w-100 h-100 hint-div mx-0" >
           <button mat-icon-button [matMenuTriggerFor]="ibgHints"
-            class="float-left h-100">
+            class="float-left px-3 h-100">
             <img class="img-btn my-0 align-bottom"
               (click) = "onHintClick()"
               src="../../../../../assets/games/hint.png">
           </button>
-          <div id="showWordResult" class="px-0 h-100 d-none small-font text-center">
-            <div id="aWord" class="h-100 pt-2"></div>
+          <div id="showWordResult" class="px-3 h-100 d-none small-font ">
+            <div id="aWord" class="h-100 pr-2 "></div>
           </div> 
-          <div id="showCoordResult" class="px-0  h-100 d-none small-font text-center">
-            <div id="wordCoordinates" class="h-100 pt-2"></div>
+          <div id="showCoordResult" class="px-3  h-100 d-none small-font">
+            <div id="wordCoordinates" class="h-100 pl-4"></div>
           </div> 
         </div>
-              
-        <!-- <div class="align-self-center col justify-content-start controls-row"> -->
-          <!-- <div id="hint-div" class=" d-none"> -->
-            <!-- <div class="row w-100" *ngIf = "showAllHints"> -->
-              <!-- <button id="showWord" 
-                class="btn-hint px-2 btn btn-light showWord small-font">
-                Show a word</button> -->
-              <!-- <div id="showWordResult" 
-                  class="p-2 showWordResult rounded d-none small-font">
-                <p id="aWord"></p>
-              </div>  -->
-            <!-- </div> -->
-
-            <!-- <div class="row w-100"> -->
-              <!-- <button id="showCoordinates" 
-                class="btn-hint px-2 btn btn-light showCoordinates small-font">
-                Get position of first letter of a word</button> -->
-              <!-- <div id="showCoordResult" class="showCoordResult d-none">
-                <p id="wordCoordinates" class="small-font"></p>
-              </div>  -->
-            <!-- </div> -->
-
-            <!-- <div class="row w-100"> -->
-              <!-- <button id="increase_time" 
-                class="btn-hint px-2 btn btn-light increase_time small-font">
-                Add 20s to the clock</button>   -->
-            <!-- </div> -->
-          <!-- </div>      -->
-        <!-- </div> -->
       </div>
     </div>
 <!-- GAME OVER -->
@@ -272,64 +253,40 @@
     </div>
       
 <!-- MAIN TRAINING -->
-    <div class="col sentence-word-row large-font d-none">
-      <div class="row-height-100 row justify-content-center align-items-center">
-        <p id="congrats-msg" 
-          class="text-dark bg-light congrats-msg large-font  p-3 d-none"> 
-          Great! Now you will see the whole sentence.  </p>
-        <p id="complete-sentence" 
-          class="rounded text-dark bg-light complete-sentence large-font px-3 d-none"> </p>
-                  
-        <div id="word" class="col question-word d-none">
-          <div class="row justify-content-center">
-            <p class="rounded text-dark bg-light large-font px-3"
-              id="sentence_word"></p> 
-          </div>
-           <div class="p-3" style="background-color: rgba(255,255,255,0.5)">
-              <div class="row question justify-content-center">
-                Is the word related to the sentence? 
-              </div> <br>
-              <div class="row yes-no" >
-                <div class="col">
-                  <button type='button' 
-                      class='yes btn btn-light btn-sentence-word-rel medium-font'
-                      (click) = 'storeUserScoreInfo(true)'
-                      id='yes'>Yes</button>
-                </div>
-                <div class="col">
-                  <button type='button' 
-                      class='no btn btn-light btn-sentence-word-rel medium-font'
-                      (click) = 'storeUserScoreInfo(false)' 
-                      id="no" > No </button>
-                </div>
-              </div>
-            </div><br>
-            <div class="row justify-content-center yes-no-score">
-              <p class="large-font">Score:</p>
-              <p id="coins" class="coins"></p>
-              <br/><br/>
-            </div>
-        </div>
-        <div id="lastPage" class="row w-100 row-height-100 result-score d-none">
-          <div class="col align-self-center" style="min-width: 100%">
+    <div class="col h-75 sentence-word-row large-font d-none">
+      <div class="row-height-100 row justify-content-center">
+          <p id="congrats-msg" 
+            class="congrats-msg my-auto medium-font text-center d-none"> 
+            Great! Now you will see the whole sentence.  </p>
+        <div id="lastPage" 
+          class="row w-100 row-height-100 justify-content-center result-score d-none">
+          <div class="col mt-5 mb-auto py-4 rounded bg-light" 
+            style="max-width: 90%">
             <div class="row justify-content-center">
-              <p class="d-none p-3 rounded text-dark bg-light center-element" 
-                  id="correct"> CORRECT! </p>
-              <p class="d-none p-3 rounded text-dark bg-light center-element" 
-                id="wrong"> WRONG! </p> 
-              <p class="w-70 medium-font" id="sincerity-message"></p>
-            </div>
-            <div class="row justify-content-center">
-              <p id="finalScore"> </p>
+              <p class="d-none text-dark center-element" 
+                  id="correct"> <b> Correct </b> </p>
+              <p class="d-none text-dark center-element" 
+                id="wrong"> <b> Wrong </b>  </p> 
             </div>
             <div class="row">
-              <p class="d-none w-50 p-3 rounded text-dark bg-light center-element" 
+              <p class="w-75 medium-font mx-auto" style="color: #636363"
+                id="sincerity-message"></p>
+            </div>
+            <div class="row justify-content-center">
+              <p id="bonusScore" style="color: #636363"> </p>
+            </div>
+            <div class="row">
+              <p class="d-none w-50 rounded text-dark bg-light center-element" 
                 id="levelup"> Wonderfull!! You have completed the level. 
                   Let's see your performance in next level. </p>
             </div>
+            <div id="btn-next-sentence" (click)="nextSentenceClicked()" 
+              class="w-50 mx-auto py-3 my-2">
+              Next Sentence
+            </div>
           </div>  
-          <div class="col justify-content-end align-self-end lastpage-icons"
-            style="min-width: 100%">
+          <!-- <div class="col justify-content-end align-self-end lastpage-icons"
+            style="min-width: 100%"> -->
             <!-- <div class="row mx-4 justify-content-center d-none" id="easy_game-div">
               <button id="easy_game" 
                 class="btn btn-light mx-1 p-2"
@@ -340,18 +297,6 @@
                 class="btn btn-light mx-1 p-2"
                 > Decrease Time</button>
             </div> -->
-            <img id="replay-btn"
-              (click) = 'onPlayClicked()'
-              class="replay-btn mx-1 img-btn" 
-              src="../../../../../assets/games/replay.png"> 
-            <img id="btn-next-sentence"
-              class='mx-1 img-btn'
-              src="../../../../../assets/games/forward.png">
-            <img id="home-btn"
-              class="home-btn mx-1 img-btn" 
-              (click) = "onHomeClick()" 
-              src="../../../../../assets/games/home.png">
-          </div>
         </div>
       </div>
     </div>
