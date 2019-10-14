@@ -17,7 +17,7 @@ p{
 }
 .container-fluid{
 	// background-image: url("/assets/games/interpretation_bias_game/images/background.png");
-	background-color: #C7FBFF;
+	background-color: #9af0f7;
 	max-width: 100%;
 	height: 100%;
 	max-height: 100%;
@@ -38,21 +38,22 @@ p{
 	height: 100%;
 	max-height: 640px;
 	max-width: 360px;
+	background-color: #C7FBFF;
 }
 #frontpage-image{
 	max-width: 35%;
 }
 .score-col{
-	min-height: 14%;
-	max-height: 15%;
+	min-height: 13%;
+	max-height: 14%;
 }
 .stars,.selected-word{
 	margin: auto;
 	max-width: 88%;
 }
 .clock{
-	max-width: 20px;
-	margin: 2px;
+	max-width: 18px;
+	margin: 1.2px;
 }
 .timeup1, .timeup2{
 	background-color: #FFFFFF;
@@ -61,6 +62,7 @@ p{
 	color:#45b9bc;
 }
 .hints-col{ 
+	max-height: 65px;
 	margin-bottom: 3.4px;
 }
 #aWord, #wordCoordinates{
@@ -72,7 +74,7 @@ p{
 	background-size: 91%;
 	background-image: url("/assets/games/button_big.svg");
 	line-height: 13px;
-	padding-top: 10px;
+	padding: 3.5%;
 }
 canvas{
 	max-width: 100%;
@@ -104,14 +106,15 @@ canvas{
 	transform: rotate(180deg);
 }
 .tip{
-	min-height: 52px;
+	min-height: 31px;
 	color: #449798 ;
 	max-width: 80%;
+	line-height: 12px;
 }
 .progress-bar-vertical {
-	width: 10px;
+	// width: 5%;
 	float: left;
-	background-color: rgba(28, 152, 155, 0.5);
+	background-color: rgba(100, 216, 216, 0.5);
   }
   
 .progress-bar-vertical .progress-bar {
@@ -154,7 +157,9 @@ canvas{
 		background-color: #000000;
 	}
 }
-
+.firstBar{
+	padding-top: 0px !important; 
+}
 
 #btn-next-sentence{
 	background-image: url("/assets/games/button_big.svg"); 
@@ -173,11 +178,9 @@ canvas{
 		max-width: 100%;
 		min-height: 100%   
 	}
-	.paused-game-btns{
-		display: inline;
-	}
 	.container-fluid{
 		// background-image: url("/assets/games/interpretation_bias_game/images/background_mobile.png");
+		background-color: #C7FBFF;
 		max-width: 100%;
 		min-height: 100%;
 	}
@@ -193,10 +196,7 @@ canvas{
 	#frontpage-image{
 		max-width: 40vw;
 	}
-	.showTimer{
-		display: inline;
-		margin-left: auto;
-	}
+	
 	#hint-div{
 		margin-left: 5%;
 		margin-top: 0%;
@@ -205,5 +205,9 @@ canvas{
 		max-width: 35%;
 	}
 }
-
+@media only screen and (max-width: 359px) {
+	.change-padding {
+		padding: 0% !important;
+	}
+}
 

@@ -89,7 +89,7 @@ export class CommonGameComponent implements OnInit {
   @HostListener('window:blur', ['$event'])
   onBlur(event: any): void {
     if (this.gameStarted === true) {
-      // this.onPauseClick();
+      this.onPauseClick();
     }
   }
 

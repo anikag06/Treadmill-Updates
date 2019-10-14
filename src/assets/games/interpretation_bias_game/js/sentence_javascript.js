@@ -233,7 +233,7 @@ function initializeVariables(){
 	$('.game-first-page').addClass("d-none");
 	for(let i = 1; i<= ibgWordsNeeded; i++){
 		if(document.getElementById("ibg-pBar"+i)) {
-			document.getElementById('ibg-pBar'+i).style.backgroundColor = 'rgba(28, 152, 155, 0.5)';
+			document.getElementById('ibg-pBar'+i).style.backgroundColor = 'rgba(100, 216, 216, 0.5)';
 		}
 	}
 	countTrue = 0; 	
@@ -301,6 +301,7 @@ function removeAddClassFun(){
 	// document.getElementById('score-col').style.opacity = "1";	
 	inactivity_time = 0;
 	$(".tip-text").text(" ");	
+	$("#sincerity-message").text("");
 	$("#hint-img-tip").addClass("d-none");
 	inactivity_check();
 }
@@ -1715,7 +1716,7 @@ function makeCanvasGrid(playGrid,sorted_words,sentence,GRID_LENGTH){
 	// document.getElementById("congrats").style.marginTop = canvas_height/3;
 	$(".stars").css("width", canvas_width+"px");
 	// $(".selected-word").css("width", canvas_width+"px");
-	canvas_font_width = columnWidth>COLUMN_WIDTH_BREAKPOINT?40:18;
+	canvas_font_width = columnWidth>COLUMN_WIDTH_BREAKPOINT?18:15;
 	canvas_font_width_highlight = canvas_font_width + 5;
 
 	canvas = document.getElementById("canvas");

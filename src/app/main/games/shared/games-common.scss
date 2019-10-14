@@ -21,13 +21,16 @@
 	right: 7%;
 }
 .large-font{
-	font-size: 24px;
+	font-size: 22px;
 }
 .medium-font{
-	font-size: 18px;
+	font-size: 16px;
 }
 .small-font{
-	font-size: 16px;
+	font-size: 14px;
+}
+.smallest-font{
+	font-size: 12px;
 }
 .changes-width{
 	min-width: 100%;
@@ -48,18 +51,18 @@
 		min-width: 42px;
 		margin: 2px;
 	}
-    .large-font{
-		font-size: 22px;
-	}
-	.medium-font{
-		font-size: 16px;
-	}
-	.small-font{
-		font-size: 14px;
-	}
-	.smallest-font{
-		font-size: 12px;
-	}
+    // .large-font{
+	// 	font-size: 22px;
+	// }
+	// .medium-font{
+	// 	font-size: 16px;
+	// }
+	// .small-font{
+	// 	font-size: 14px;
+	// }
+	// .smallest-font{
+	// 	font-size: 12px;
+	// }
 }
 
 // @media screen and (max-width: 767px) {

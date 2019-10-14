@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="140" height="140" viewBox="0 0 140 140">
+  <defs>
+    <radialGradient id="radial-gradient" cx="0.5" cy="0.5" r="0.5" gradientTransform="translate(0 0) rotate(0.034)" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#82e667"/>
+      <stop offset="1" stop-color="#0d8f17"/>
+    </radialGradient>
+  </defs>
+  <g id="green_symbol" data-name="green symbol" transform="translate(-441 -716.369)">
+    <rect id="Rectangle_2216" data-name="Rectangle 2216" width="140" height="140" rx="4" transform="translate(441 716.369)" opacity="0.8"/>
+    <path id="Path_6788" data-name="Path 6788" d="M52,0A52,52,0,1,1,0,52,52,52,0,0,1,52,0Z" transform="translate(459 737.369)" fill="url(#radial-gradient)"/>
+  </g>
+</svg>

@@ -279,7 +279,6 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
     const sentence = sentence_array[num];
     const words = sentence.split(' ');
     this.No_progress_bars = Math.ceil(words.length * 0.50);
-    console.log(this.No_progress_bars, 'bars');
   }
   updateProgressBar(element: HTMLElement) {
     const height = Math.ceil(100 / this.No_progress_bars);
@@ -289,6 +288,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
     return new Array(i);
   }
 
+  // this is for checking if the grid can be formed by using the given sentences
   findValidSentence () {
     this.getAllSentences(0);
   }

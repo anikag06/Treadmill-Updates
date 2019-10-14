@@ -18,7 +18,7 @@ export class IbDialogsService {
     const dialogRef = this.dialog.open(IbGameInstructionsComponent, {
       panelClass: 'instruct-dialog',
       width: '90%',
-      maxWidth: '100%',
+      maxWidth: '350px',
       height: '78%',
       autoFocus: false
     });
@@ -28,11 +28,9 @@ export class IbDialogsService {
     console.log('open sentence word dialog');
     const dialogRef = this.dialog.open(IbMainTrainingComponent, {
       width: '90%',
-      maxWidth: '100%',
+      maxWidth: '350px',
       autoFocus: false
     });
   }
 
-
-  
 }
