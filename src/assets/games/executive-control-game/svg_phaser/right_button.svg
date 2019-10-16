@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="82.09" height="82.088" viewBox="0 0 82.09 82.088">
+  <defs>
+    <radialGradient id="radial-gradient" cx="29.104" cy="49.856" r="30.011" gradientTransform="matrix(-1, 0, 0, 1, 58.208, 0.002)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#e7ecef"/>
+      <stop offset="1" stop-color="#bfc8cd"/>
+    </radialGradient>
+    <filter id="Ellipse_370" x="0" y="0" width="82.09" height="82.088" filterUnits="userSpaceOnUse">
+      <feOffset dy="5" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feFlood flood-opacity="0.251"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <linearGradient id="linear-gradient" x1="0.598" y1="0.209" x2="0.287" y2="1.399" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="1" stop-color="#b7c6ce"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="0.69" y1="-0.122" x2="0.282" y2="1.061" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="1"/>
+    </linearGradient>
+  </defs>
+  <g id="right_button" data-name="right button" transform="translate(12 7)">
+    <g id="Group_2700" data-name="Group 2700">
+      <g id="Group_1906" data-name="Group 1906" transform="translate(0)">
+        <g transform="matrix(1, 0, 0, 1, -12, -7)" filter="url(#Ellipse_370)">
+          <g id="Ellipse_370-2" data-name="Ellipse 370" transform="translate(12 7)" stroke="#8b98a0" stroke-width="1" fill="url(#radial-gradient)">
+            <ellipse cx="29.045" cy="29.044" rx="29.045" ry="29.044" stroke="none"/>
+            <ellipse cx="29.045" cy="29.044" rx="28.545" ry="28.544" fill="none"/>
+          </g>
+        </g>
+        <path id="Path_1169" data-name="Path 1169" d="M1262.415,458.975a28.116,28.116,0,0,0,39.753,39.751,28.117,28.117,0,1,1-39.753-39.751Z" transform="translate(-1252.792 -450.26)" opacity="0.8" fill="url(#linear-gradient)"/>
+        <g id="Group_1905" data-name="Group 1905" transform="translate(2.331 1.813)">
+          <g id="Group_1904" data-name="Group 1904">
+            <path id="Path_1170" data-name="Path 1170" d="M1278.147,482.171c-9.871-8.494-22.646-16.424-33.654-10.445a27.228,27.228,0,1,1,51.921,15.554C1292.1,488.367,1285.378,488.4,1278.147,482.171Z" transform="translate(-1244.493 -449.764)" fill="#dbdbdb"/>
+          </g>
+        </g>
+        <path id="Path_1171" data-name="Path 1171" d="M1290.037,478.814a27.215,27.215,0,0,0-45.544-20.135,27.218,27.218,0,1,1,38.446,38.45A27.127,27.127,0,0,0,1290.037,478.814Z" transform="translate(-1235.58 -447.951)" fill="url(#linear-gradient-2)"/>
+      </g>
+    </g>
+    <g id="Group_2701" data-name="Group 2701" transform="translate(13.73 17.551)">
+      <path id="Union_70" data-name="Union 70" d="M0,12.988,16.08,25.976v-6.34H33.862V6.03H16.08V0Z" transform="translate(33.862 25.976) rotate(180)" fill="#949494"/>
+    </g>
+    <g id="Group_2702" data-name="Group 2702" transform="translate(14.347 16.933)">
+      <path id="Union_70-2" data-name="Union 70" d="M0,12.988,16.08,25.976v-6.34H33.862V6.03H16.08V0Z" transform="translate(33.862 25.976) rotate(180)"/>
+    </g>
+  </g>
+</svg>

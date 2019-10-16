@@ -13,6 +13,7 @@ function flanker_task_generator()
 		flanker_choice=Math.floor(Math.random()*TOTAL_NUMBER_OF_FLANKER_TASK);
 		flanker_task_congruency=(flanker_choice%2==0)?1:-1;
 		flanker_task_image=curr_game.add.image(FLANKER_X_CORDINATE,-FLANKER_Y_CORDINATE,'flanker_'+flanker_choice).setScale(FLANKER_TASK_IMAGE_SCALE);
+		flanker_task_image.depth = 2;
 		// if(isTouchDevice==true){
 		// 	flanker_task_image.setScale(FLANKER_TASK_IMAGE_SMALL_SCALE);
 		// }
@@ -125,6 +126,7 @@ function flanker_task_complete()
 	}
 	//Add the images
 	task_image=curr_game.add.image(IMAGE_X_CORDINATE,IMAGE_Y_CORDINATE,'image_'+image_choice);
+	task_image.depth=2;
 	if(isTouchDevice){
 		task_image.setScale(0.6);
 	}

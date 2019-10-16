@@ -164,7 +164,7 @@ function init_game_variables(){
 	obstacle_group;
 	stop_obstacle_generation=false;
 	OBSTACLE_X_CORDINATE=20;
-	OBSTACLE_Y_CORDINATE=screen_height*0.8;
+	OBSTACLE_Y_CORDINATE=screen_height*0.77;
 	OBSTACLE_SPEED=LEVEL_SPEED;
 	OBSTACLE_SMALL_SCALE = 0.8;
 	obstacleGenerating=false;
@@ -200,6 +200,7 @@ function init_game_variables(){
 	continue_to_next_set_timeout = null;
 	generate_tasks_variable = null;
 
+	task_background;
 
 	//Jump Platform variables
 	jump_platform=[];
@@ -250,6 +251,12 @@ function init_game_variables(){
 	//Gameover dialog_box;
 	game_over_dialog;
 	game_over_text;
+	buy_live_img1;
+	buy_live_img21;
+	buy_live_img22;
+	buy_live_img31;
+	buy_live_img32;
+	buy_live_img33;
 	buy_one_live;
 	buy_two_lives;
 	buy_three_lives;
@@ -263,8 +270,8 @@ function init_game_variables(){
 	BUTTON_SPEED=10;
 	LEFT_X=screen_width*0.1;
 	RIGHT_X=screen_width*0.9;
-	TOP_Y=screen_height*0.15;
-	BOTTOM_Y=screen_height*0.55;
+	TOP_Y=screen_height*0.25;
+	BOTTOM_Y=screen_height*0.65;
 	distance=200;
 	CORRECT_RESPONSE=1;
 	INCORRECT_RESPONSE=-1;
@@ -458,6 +465,9 @@ function init_game_variables(){
 	retry_coin_animation;
 	retry_cost=10;
 
+	buy_live_img1_text;
+	buy_live_img2_text;
+	buy_live_img3_text;
 	buy_one_live_text;
 	buy_two_lives_text;
 	buy_three_lives_text;

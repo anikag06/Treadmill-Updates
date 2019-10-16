@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="82.09" height="82.088" viewBox="0 0 82.09 82.088">
+  <defs>
+    <filter id="Ellipse_370" x="0" y="0" width="82.09" height="82.088" filterUnits="userSpaceOnUse">
+      <feOffset dy="5" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feFlood flood-opacity="0.251"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <radialGradient id="radial-gradient" cx="0.5" cy="0.5" r="0.5" gradientTransform="matrix(1, 0.001, -0.001, 1, 0, 0)" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#8bec6d"/>
+      <stop offset="1" stop-color="#028710"/>
+    </radialGradient>
+  </defs>
+  <g id="greeen_button" data-name="greeen button" transform="translate(12.018 7)">
+    <g id="Group_2698" data-name="Group 2698" transform="translate(-0.018 0)">
+      <g id="Group_1906" data-name="Group 1906" transform="translate(0)">
+        <g transform="matrix(1, 0, 0, 1, -12, -7)" filter="url(#Ellipse_370)">
+          <g id="Ellipse_370-2" data-name="Ellipse 370" transform="translate(12 7)" fill="#c2cacf" stroke="#8b98a0" stroke-width="1">
+            <ellipse cx="29.045" cy="29.044" rx="29.045" ry="29.044" stroke="none"/>
+            <ellipse cx="29.045" cy="29.044" rx="28.545" ry="28.544" fill="none"/>
+          </g>
+        </g>
+      </g>
+    </g>
+    <ellipse id="Ellipse_1717" data-name="Ellipse 1717" cx="26.999" cy="26.999" rx="26.999" ry="26.999" transform="translate(1.982 2)" fill="url(#radial-gradient)"/>
+  </g>
+</svg>

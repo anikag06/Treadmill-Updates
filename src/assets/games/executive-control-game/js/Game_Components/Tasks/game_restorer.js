@@ -1,9 +1,11 @@
 //Restore the game setup after executive control tasks
 function game_restore()
 {
+
     var used=false;
     var resume=true;
   
+
     //Generate reward if response good
     if(performance_reward==null&&number_of_correct_response>0)
     {
@@ -11,7 +13,7 @@ function game_restore()
     	//life reward only if the entire set's response was correct
     	if(number_of_lives!=MAX_NUMBER_OF_LIVES&&allowLifeReward==true)
     	{
-    		performance_reward=reward_group.create(jump_platform[0].x,jump_platform[0].y-70,'life').setScale(0.5);
+    		performance_reward=reward_group.create(jump_platform[0].x,jump_platform[0].y-70,'life').setScale(1);
     		performance_reward.body.allowGravity=false;
         	curr_game.physics.add.collider(player,performance_reward,function(obj1,obj2){collect_life(obj2)},null,curr_game);
 
@@ -19,7 +21,7 @@ function game_restore()
         //otherwise double jump reward
         else
         {
-    		performance_reward=reward_group.create(jump_platform[0].x,jump_platform[0].y-70,'double_jump').setScale(0.5);
+    		performance_reward=reward_group.create(jump_platform[0].x,jump_platform[0].y-70,'double_jump').setScale(0.3);
     		reward_count=curr_game.add.text(performance_reward.x+10,performance_reward.y+10,"x"+number_of_correct_response, { fontSize: '25px', fill: '#fff',align:'center' });
         	performance_reward.body.allowGravity=false;
         	curr_game.physics.add.collider(player,performance_reward,collect_double_jump_power,null,curr_game);

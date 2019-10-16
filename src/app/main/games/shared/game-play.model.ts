@@ -60,7 +60,7 @@ export class ECGameDiscriminationTask {
     constructor(
         public game_id: number,
         public starting_time: any,
-        public time_elasped: number,
+        public time_elapsed: number,
         public response_type: number) {
 
     }

@@ -102,7 +102,7 @@ export class CommonGameComponent implements OnInit {
       this.gamePlayService.playIBGame();
     } else if (this.gameName === 'Executive Control Game') {
       this.showSecondPlayBtn = false;
-      this.gamePlayService.playExecControlGame(this.isSoundOn);
+      this.gamePlayService.playExecControlGame(this.isSoundOn, false);
     } else if (this.gameName === 'Learned Helplessness Game') {
       this.gamePlayService.playLearnedHelplessnessGame();
     } else if (this.gameName === 'Attribute Style Game') {

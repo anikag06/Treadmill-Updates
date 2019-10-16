@@ -160,22 +160,26 @@ export class GamePlayService  {
   }
 
 // functions for executive control game
-  playExecControlGame(isSoundOn: any) {
+  playExecControlGame(isSoundOn: any, helpClicked: any) {
     this.ecGameStarted = true;
     let showTutorial = false;
     this.gamesAuthService.ecGameGetTaskInfo()
       .subscribe((task_info) => {
-        if (task_info.flanker_tasks_count === 0) {
+        if (helpClicked) {
           showTutorial = true;
-        } else if (task_info.flanker_tasks_count > 0) {
-          this.gamesAuthService.ecGameGetFlankerTaskInfo()
-            .subscribe( (task_count) => {
-              if (task_count.flanker_tasks_count === 0) {
-                showTutorial = true;
-              } else {
-                showTutorial = false;
-              }
-            });
+        } else {
+          if (task_info.flanker_tasks_count === 0) {
+            showTutorial = true;
+          } else if (task_info.flanker_tasks_count > 0) {
+            this.gamesAuthService.ecGameGetFlankerTaskInfo()
+              .subscribe( (task_count) => {
+                if (task_count.flanker_tasks_count === 0) {
+                  showTutorial = true;
+                } else {
+                  showTutorial = false;
+                }
+              });
+          }
         }
         this.gamesAuthService.ecGameGetGameInfo()
           .subscribe((game_data) => {
@@ -194,11 +198,11 @@ export class GamePlayService  {
 
   helpExecControlGame(isSoundOn: any, isFirstHelpBtn: boolean) {
     if (isFirstHelpBtn) {
-      this.playExecControlGame(isSoundOn);
+      this.playExecControlGame(isSoundOn, true);
     } else {
       closeECGame();
       this.storeDataExecControlGame();
-      this.playExecControlGame(isSoundOn);
+      this.playExecControlGame(isSoundOn, true);
     }
   }
   pauseExecControlGame() {
@@ -210,7 +214,7 @@ export class GamePlayService  {
   restartExecControlGame(isSoundOn: any)  {
     closeECGame();
     this.storeDataExecControlGame();
-    this.playExecControlGame(isSoundOn);
+    this.playExecControlGame(isSoundOn, false);
   }
   closeExecControlGame() {
     closeECGame();
@@ -260,7 +264,7 @@ export class GamePlayService  {
     this.ecGameDiscriminationData.game_id = this.ecGameTaskData[0];
     this.ecGameDiscriminationData.starting_time = this.ecGameTaskData[6];
     this.ecGameDiscriminationData.response_type = this.ecGameTaskData[7];
-    this.ecGameDiscriminationData.time_elasped  = this.ecGameTaskData[8];
+    this.ecGameDiscriminationData.time_elapsed  = this.ecGameTaskData[8];
 
     this.gamesAuthService.ecGameStoreFlankerData(this.ecGameFlankerData)
       .subscribe();

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:se="http://svg-edit.googlecode.com" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="49" height="55">                                    <title>my vector image</title>                                    <!-- Created with Vector Paint - http://www.vectorpaint.yaks.com/ https://chrome.google.com/webstore/detail/hnbpdiengicdefcjecjbnjnoifekhgdo -->                                    <rect id="backgroundrect" width="100%" height="100%" x="0" y="0" fill="none" stroke="none" class="" style=""/>                                <g class="currentLayer" style=""><title>Layer 1</title><path fill="#6767e7" fill-opacity="1" stroke="none" stroke-width="2" stroke-dasharray="none" stroke-linejoin="round" stroke-linecap="butt" stroke-dashoffset="" fill-rule="nonzero" opacity="1" marker-start="" marker-mid="" marker-end="" d="M0,27.36144655942917 C0,12.24462525587714 10.861645477417426,0 24.27108433842659,0 C37.680523199435754,0 48.54216867685318,12.24462525587714 48.54216867685318,27.36144655942917 C48.54216867685318,42.4782678629812 37.680523199435754,54.72289311885834 24.27108433842659,54.72289311885834 C10.861645477417426,54.72289311885834 0,42.4782678629812 0,27.36144655942917 z" id="svg_1" class="" filter="url(#f038)"/></g><defs><filter id="f038" inkscape:label="Button" x="0" y="0" width="1" height="1" inkscape:menu="Bevels" inkscape:menu-tooltip="Soft bevel, slightly depressed middle" color-interpolation-filters="sRGB">
+            <feGaussianBlur stdDeviation="2.3" in="SourceAlpha" result="result0"/>
+            <feMorphology in="SourceAlpha" radius="6.6" result="result1"/>
+            <feGaussianBlur stdDeviation="8.9" in="result1"/>
+            <feColorMatrix id="feColorMatrix2861" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.3 0" result="result91"/>
+            <feComposite in="result0" operator="out" result="result2" in2="result91"/>
+            <feGaussianBlur stdDeviation="1.7" result="result4"/>
+            <feDiffuseLighting surfaceScale="10">
+                <feDistantLight azimuth="225" elevation="45"/>
+            </feDiffuseLighting>
+            <feBlend id="feBlend2863" in2="SourceGraphic" mode="multiply"/>
+            <feComposite in2="SourceAlpha" operator="in" result="result3"/>
+            <feSpecularLighting in="result4" surfaceScale="5" specularExponent="17.9">
+                <feDistantLight azimuth="225" elevation="45"/>
+            </feSpecularLighting>
+            <feComposite in2="result3" operator="atop"/>
+        </filter></defs></svg>

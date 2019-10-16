@@ -92,6 +92,9 @@ function task_generator()
 		{
 			countdown_handler=setInterval(start_countdown,INTERVAL);
 		}
+		task_background = curr_game.add.sprite(screen_width*0.5, screen_height*0.5, 'black_background').setScale(2);
+		task_background.depth = 1;
+		task_background.alpha = 0.05;
 	}
 
 
@@ -144,9 +147,9 @@ function task_generator()
 	      if(left_button==null&&isTouchDevice==true)
 	      {
 	      
-	      left_button=curr_game.add.sprite(LEFT_X-distance,TOP_Y, 'flanker_button').setInteractive();
-		  left_button.setScale(0.56); 
-		  left_button.angle+=270;
+	      left_button=curr_game.add.sprite(LEFT_X-distance,TOP_Y, 'left_button').setInteractive();
+		  left_button.setScale(1.2);
+		  left_button.depth = 2;
 
 	      if(left_button.y-left_button.height<0)
 	      {
@@ -156,9 +159,9 @@ function task_generator()
 	      left_button.on('pointerup',function(){this.alpha=1});
 
 
-	      right_button=curr_game.add.sprite(RIGHT_X+distance,TOP_Y, 'flanker_button').setInteractive();
-		  right_button.setScale(0.56); 
-		  right_button.angle+=90;
+	      right_button=curr_game.add.sprite(RIGHT_X+distance,TOP_Y, 'right_button').setInteractive();
+		  right_button.setScale(1.2); 
+		  right_button.depth = 2;
 	      if(right_button.y-right_button.height<0)
 	      {
 	      	right_button.y=right_button.height/2+20;
@@ -168,12 +171,14 @@ function task_generator()
 
 	      
 	      red_button=curr_game.add.sprite(LEFT_X-distance,BOTTOM_Y, 'red_button').setInteractive();
-		  red_button.setScale(0.56); 
+		  red_button.setScale(1.2); 
+		  red_button.depth = 2;
 		  red_button.on('pointerdown', red_pressed);
 	      red_button.on('pointerup',function(){this.alpha=1});
 
 	      green_button=curr_game.add.sprite(RIGHT_X+distance,BOTTOM_Y, 'green_button').setInteractive();
-		  green_button.setScale(0.56); 
+		  green_button.setScale(1.2);
+		  green_button.depth = 2; 
 		  green_button.on('pointerdown', green_pressed);
 	      green_button.on('pointerup',function(){this.alpha=1});
 
@@ -258,7 +263,7 @@ function left_pressed()
 				flanker_task_complete();
 				if(isTouchDevice==true)
 				{
-					left_button.setScale(0.56);
+					left_button.setScale(1.2);
 					animation_active=false;
 				
 					clearInterval(task_button_blinking_animation);
