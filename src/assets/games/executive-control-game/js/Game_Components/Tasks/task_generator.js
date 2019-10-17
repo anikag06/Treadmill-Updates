@@ -92,9 +92,9 @@ function task_generator()
 		{
 			countdown_handler=setInterval(start_countdown,INTERVAL);
 		}
-		task_background = curr_game.add.sprite(screen_width*0.5, screen_height*0.5, 'black_background').setScale(2);
-		task_background.depth = 1;
-		task_background.alpha = 0.05;
+		// task_background = curr_game.add.sprite(screen_width*0.5, screen_height*0.5, 'black_background').setScale(2);
+		// task_background.depth = 1;
+		// task_background.alpha = 0.05;
 	}
 
 
@@ -319,7 +319,7 @@ function right_pressed()
 				flanker_task_complete();
 				if(isTouchDevice==true)
 				{
-					right_button.setScale(0.56);
+					right_button.setScale(1.2);
 					animation_active=false;
 					
 					clearInterval(task_button_blinking_animation);
@@ -354,6 +354,7 @@ function red_pressed()
 			{
 				number_of_correct_response++;
 			}
+			console.log('in ec game', number_of_correct_response);
 		}
 		else
 		{
@@ -376,7 +377,7 @@ function red_pressed()
 				discrimination_task_complete();
 				if(isTouchDevice==true)
 				{
-					red_button.setScale(0.56);
+					red_button.setScale(1.2);
 					animation_active=false;
 					
 					clearInterval(task_button_blinking_animation);
@@ -423,6 +424,7 @@ function green_pressed()
 			{
 				number_of_correct_response++;
 			}
+			console.log('in ec game green pressed', number_of_correct_response);
 		}
 		
 		if(SHOW_TUTORIAL==true&&task_tutorial_shown==false)
@@ -437,7 +439,7 @@ function green_pressed()
 				discrimination_task_complete();
 				if(isTouchDevice==true)
 				{
-					green_button.setScale(0.56);
+					green_button.setScale(1.2);
 					animation_active=false;
 					
 					clearInterval(task_button_blinking_animation);

@@ -14,7 +14,6 @@ export class IbDialogsService {
   ) { }
 
   openInstructionDialog() {
-    console.log('reaching here');
     const dialogRef = this.dialog.open(IbGameInstructionsComponent, {
       panelClass: 'instruct-dialog',
       width: '90%',
@@ -25,7 +24,6 @@ export class IbDialogsService {
   }
 
   openSentenceWordDialog() {
-    console.log('open sentence word dialog');
     const dialogRef = this.dialog.open(IbMainTrainingComponent, {
       width: '90%',
       maxWidth: '350px',

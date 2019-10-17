@@ -3,7 +3,6 @@
 	// margin: 6px;
 	max-width:42px;
 	margin: 2px;
-	object-fit: scale-down;
 	cursor: pointer;
 	z-index: 2;
 }
@@ -34,6 +33,15 @@
 }
 .changes-width{
 	min-width: 100%;
+}
+div:focus {
+    outline: 0px solid transparent;
+}
+span:focus {
+    outline: 0px solid transparent;
+}
+button:focus{
+	outline: 0px solid transparent;
 }
 @media screen and (max-width: 991px) and (max-width: 767px){
     .col-md-12 {

@@ -14,7 +14,7 @@ declare var ibGamePause: any;
 declare var ibGameResume: any;
 declare var ibUsehints: any;
 declare var ibGameHelp: any;
-declare var ibGameUserOrder: number;
+declare var ibGameShowTutorial: boolean;
 
 // for attribution game
 declare var AttributeGame: any;
@@ -118,7 +118,7 @@ export class GamePlayService  {
 
 // functions for Interpretation Bias Game
   playIBGame() {
-    if ( ibGameUserOrder === 0) {
+    if ( ibGameShowTutorial ) {
       this.helpIBGame();
     } else {
       startIBGame();

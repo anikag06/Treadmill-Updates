@@ -71,6 +71,9 @@
         z-index: 1;
     }
 }
+#game_div:focus {
+    outline: 0px solid transparent;
+}
 @media screen and (max-width: 767px) and (orientation:landscape) {
     #game_div,.common-div{
         max-height: 92vh;

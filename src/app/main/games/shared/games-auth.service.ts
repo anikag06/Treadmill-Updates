@@ -31,7 +31,6 @@ export class GamesAuthService {
   // for interpretation bias game
   ibGameGetSentencesInfo(pageUrl: number, pageSize: number): Observable<any>  {
     pageUrl = pageUrl + 1;
-    console.log(pageUrl);
     return this.http.get(environment.API_ENDPOINT + IBG_SENTENCE + this.NEXT_PAGE + pageUrl
       + this.PAGE_SIZE + pageSize);
   }
@@ -41,12 +40,10 @@ export class GamesAuthService {
   }
 
   ibGameStoreUserScoreInfo(saveData: any): Observable<any> {
-    console.log('data stored', saveData);
     return this.http.put(environment.API_ENDPOINT + IBG_SCOREINFO, saveData);
   }
 
   ibGameStoreUserResponseInfo(saveResponseData: any): Observable<any> {
-    console.log('save data response', saveResponseData);
     return this.http.post(environment.API_ENDPOINT + IBG_USER_RESPONSE, saveResponseData);
   }
 

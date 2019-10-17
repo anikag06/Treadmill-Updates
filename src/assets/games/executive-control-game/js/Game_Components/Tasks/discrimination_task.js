@@ -119,6 +119,7 @@ function discrimination_task_complete()
 
 }
 getECGameTaskData = function (){
+	console.log(flanker_task_response_type, 'and ', discrimination_task_response_type);
 	return [
 		game_object,
 		flanker_task_timestamp,

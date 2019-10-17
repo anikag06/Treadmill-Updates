@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, OnDestroy, HostListener } from '@angular/core';
 import { UserScoreData, UserResponseData } from '@/main/games/shared/game-play.model';
 import { Router } from '@angular/router';
-import { IBG_SENTENCE } from '@/app.constants';
+import { IBG_SENTENCE, IBG_LESS_TIME, IBG_MORE_TIME } from '@/app.constants';
 import { environment } from 'environments/environment';
 import { GamePlayService } from '@/main/games/shared/game-play.service';
 import { GamesAuthService } from '@/main/games/shared/games-auth.service';
@@ -10,6 +10,7 @@ import { GamesBadgesService } from '@/main/games/shared/games-badges.service';
 import { IbDialogsService } from './ib-dialogs.service';
 import { IbTrainingDataService } from './ib-main-training/ib-training-data.service';
 
+declare var IBG_MAX_WORDS_HIDDEN: number;
 declare var sentence_number: any;
 // for sentence and word information
 declare var sentence_array: any;
@@ -26,12 +27,14 @@ declare var ibGameStreak: number;
 declare var ibGameUserOrder: number;
 declare var ibGameTime: any;
 declare var ibGameWordsHidden: number;
+declare var ibGameShowTutorial: boolean;
 // for storing the score related info of the user
 declare var success: any;
 declare var inactivity_check_interval: any;
 declare var ibGameCorrectResponse: any;
 declare function getUpdatedVariables(): any;
 
+declare var ibGDifficultyValue: any;
 declare var ibGameMakeGridArray: any;
 
 @Component({
@@ -41,7 +44,7 @@ declare var ibGameMakeGridArray: any;
 })
 export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
 
-  NO_OF_SENTENCES_RECEIVED = 5;      // order of first sentence is 0
+  NO_OF_SENTENCES_RECEIVED = 3;      // order of first sentence is 0
   // LEVEL_UP_SEN = 5;       // level up after how many sentences, here after 5 sentences;
   TOTAL_SENTENCES!: number;
 
@@ -49,9 +52,10 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   userScoreData = new UserScoreData(ibGameUserOrder, ibGamelevel, ibGameScore, ibGameStreak, ibGameTime, ibGameWordsHidden);
   userResponseData = new UserResponseData(1, false, 0) ;
 
+  isLastSet = false;
   // for getting the sentence information
   INPUT_ORDER!: any;
-  FIRST_SENTENCE_ID!: number;
+  FIRST_SENTENCE_ORDER!: number;
   sentencesPageInUrl!: number;
   sentencePage!: any;
   index = ibGameUserOrder;
@@ -100,15 +104,32 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
     this.ibTrainingService.ibgScoreDataObservable.subscribe((res) => {
       this.storeUserScoreInfo(res);
     });
+    this.initSentencesData();
     // do not delete this (this.findValidSentence()) function, it is important
     // this.findValidSentence();        // this function is used to check if sentences in database are valid for generation of letters grid
+  }
+  initSentencesData() {
+    sentence_array = [];
+    sentence_word_array = [];
+    sentence_ids = [];
+    sentence_response_array = [];
+    sentence_order_array = [];
+    sentence_word_valence = [];
+    sentence_trick = [];
+    sentence_order_array = [];
+    sentence_number = 0;
   }
 
   sentenceInfo(pageNumber: number) {
     this.gameAuthService.ibGameGetSentencesInfo(pageNumber, this.NO_OF_SENTENCES_RECEIVED)
       .subscribe( (data) => {
+        if (data.next === null) {
+          this.isLastSet = true;
+        } else {
+          this.isLastSet = false;
+        }
         this.TOTAL_SENTENCES = data.count;
-        this.FIRST_SENTENCE_ID = data.results[0].id;
+        this.FIRST_SENTENCE_ORDER = data.results[0].order;
         if (this.firstSentence) {
           this.index = ibGameUserOrder % this.NO_OF_SENTENCES_RECEIVED ;
         }
@@ -127,20 +148,25 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
           if (this.firstSentence) {
             this.currentSentencesWordsNumber(0);
           }
-          if (ibGameUserOrder >= (this.FIRST_SENTENCE_ID + Math.floor(this.NO_OF_SENTENCES_RECEIVED / 2))) {
-            if (this.firstSentence) {
-              this.index = 0;
-              this.firstSentence = false;
-              if (data.next !== null) {
-                pageNumber++;
-              } else if (data.next === null) {
-                pageNumber = 0;
-              }
-              this.sentencesPageInUrl = pageNumber;
-              this.sentenceInfo(this.sentencesPageInUrl);
-            }
-          }
           i++;
+        }
+        if ((sentence_array.length - sentence_number === 1) && this.isLastSet) {
+          this.index = 0;
+          this.firstSentence = false;
+          this.sentencesPageInUrl = 0;
+          this.sentenceInfo(this.sentencesPageInUrl);
+        } else if (sentence_array.length - sentence_number <= Math.floor(this.NO_OF_SENTENCES_RECEIVED / 2)) {
+          if (this.firstSentence) {
+            this.index = 0;
+            this.firstSentence = false;
+            if (data.next !== null) {
+              pageNumber++;
+            } else if (data.next === null) {
+              pageNumber = 0;
+            }
+            this.sentencesPageInUrl = pageNumber;
+            this.sentenceInfo(this.sentencesPageInUrl);
+          }
         }
       },
         (error) => {
@@ -159,15 +185,17 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
             ibGameUserOrder = this.INPUT_ORDER;
             ibGameTime = data.data.time;
             ibGameWordsHidden = data.data.words_hidden;
+            ibGameShowTutorial = data.data.show_tutorial;
             this.BRONZE_CONSTANT = data.data.BRONZE_CONSTANT;
             this.SILVER_CONSTANT = data.data.SILVER_CONSTANT;
             this.GOLD_CONSTANT = data.data.GOLD_CONSTANT;
             this.no_correct_responses = data.data.no_correct_responses;
+            console.log(this.no_correct_responses);
           } else {
             this.initialiseVar();
           }
           this.updateBadgesValue();
-
+          this.difficultyBarUpdate();
           if ( ibGameWordsHidden > 0 ) {
             this.showAllHints = true;
           } else if (ibGameWordsHidden === 0) {
@@ -187,8 +215,9 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
     ibGamelevel = 0;
     ibGameStreak = 0;
     ibGameUserOrder = this.INPUT_ORDER;
-    ibGameTime = 150;
+    ibGameTime = IBG_MORE_TIME;
     ibGameWordsHidden = 0;
+    ibGameShowTutorial = true;
     // these values should come from database, need to check this
     this.BRONZE_CONSTANT = 4;
     this.SILVER_CONSTANT = 10;
@@ -200,13 +229,23 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
     this.getScoreVariablesValue();
     this.gameAuthService.ibGameStoreUserScoreInfo(this.userScoreData)
       .subscribe( (data) => {
-          if (ibGameUserOrder === (this.FIRST_SENTENCE_ID + Math.floor(this.NO_OF_SENTENCES_RECEIVED / 2))) {
+          if ((sentence_array.length - sentence_number === 1) && this.isLastSet) {
             this.index = 0;
             this.firstSentence = false;
-            this.sentencesPageInUrl++;
+            this.sentencesPageInUrl = 0;
+            this.sentenceInfo(this.sentencesPageInUrl);    // call next set of sentences
+          } else if (sentence_array.length - sentence_number <= Math.ceil(this.NO_OF_SENTENCES_RECEIVED / 2)) {
+            this.index = 0;
+            this.firstSentence = false;
+            if (this.isLastSet) {
+              this.sentencesPageInUrl = 0;
+            } else {
+              this.sentencesPageInUrl++;
+            }
             this.sentenceInfo(this.sentencesPageInUrl);    // call next set of sentences
           }
           this.updateBadgesValue();
+          this.difficultyBarUpdate();
         },
         (error) => {
 
@@ -261,7 +300,14 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
       this.userResponseData.user_response = false;
     }
   }
-
+  difficultyBarUpdate() {
+    if (ibGameTime === IBG_MORE_TIME) {
+      ibGDifficultyValue = ((2 * ibGameWordsHidden + 1) / (2 * (IBG_MAX_WORDS_HIDDEN + 1))) * 100;
+    } else if (ibGameTime === IBG_LESS_TIME) {
+      ibGDifficultyValue = ((2 * ibGameWordsHidden + 2) / (2 * (IBG_MAX_WORDS_HIDDEN + 1))) * 100;
+    }
+    this.difficultyValue = ibGDifficultyValue;
+  }
   updateBadgesValue() {
     this.allBadgesInfo = this.badgesService.getBadgesInfo(this.BRONZE_CONSTANT,
                               this.SILVER_CONSTANT, this.GOLD_CONSTANT,

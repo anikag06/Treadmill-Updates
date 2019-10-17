@@ -18,7 +18,6 @@ export class IbMainTrainingComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('open the dialog');
   }
 
   storeUserScoreInfo(response: boolean) {

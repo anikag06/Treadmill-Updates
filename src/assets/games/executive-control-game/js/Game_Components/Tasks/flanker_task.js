@@ -97,7 +97,6 @@ function flanker_task_complete()
 	flanker_task_started=false;
 	clearInterval(task_button_blinking_animation);
     
-
 	
     //If any response record the time
 	if(flanker_task_end_time!=0)
