@@ -177,52 +177,35 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   scoresRelatedInfo() {
     this.gameAuthService.ibGameGetScoresInfo()
       .subscribe((data) => {
-          if (data.status === true) {
-            this.INPUT_ORDER = data.data.order;
-            ibGameScore = data.data.score;
-            ibGamelevel = data.data.level;
-            ibGameStreak = data.data.streak;
-            ibGameUserOrder = this.INPUT_ORDER;
-            ibGameTime = data.data.time;
-            ibGameWordsHidden = data.data.words_hidden;
-            ibGameShowTutorial = data.data.show_tutorial;
-            this.BRONZE_CONSTANT = data.data.BRONZE_CONSTANT;
-            this.SILVER_CONSTANT = data.data.SILVER_CONSTANT;
-            this.GOLD_CONSTANT = data.data.GOLD_CONSTANT;
-            this.no_correct_responses = data.data.no_correct_responses;
-          } else {
-            this.initialiseVar();
-          }
-          this.updateBadgesValue();
-          this.difficultyBarUpdate();
-          if ( ibGameWordsHidden > 0 ) {
-            this.showAllHints = true;
-          } else if (ibGameWordsHidden === 0) {
-            this.showAllHints = false;
-          }
-          this.sentencesPageInUrl = Math.floor(ibGameUserOrder / this.NO_OF_SENTENCES_RECEIVED);
-          this.sentenceInfo(this.sentencesPageInUrl);
-        },
-        (error) => {
-          // console.log(error);
+        console.log(data);
+        this.INPUT_ORDER = data.data.order;
+        ibGameScore = data.data.score;
+        ibGamelevel = data.data.level;
+        ibGameStreak = data.data.streak;
+        ibGameUserOrder = this.INPUT_ORDER;
+        ibGameTime = data.data.time;
+        ibGameWordsHidden = data.data.words_hidden;
+        ibGameShowTutorial = data.data.show_tutorial;
+        this.BRONZE_CONSTANT = data.data.BRONZE_CONSTANT;
+        this.SILVER_CONSTANT = data.data.SILVER_CONSTANT;
+        this.GOLD_CONSTANT = data.data.GOLD_CONSTANT;
+        this.no_correct_responses = data.data.no_correct_responses;
+
+        this.updateBadgesValue();
+        this.difficultyBarUpdate();
+        if ( ibGameWordsHidden > 0 ) {
+          this.showAllHints = true;
+        } else if (ibGameWordsHidden === 0) {
+          this.showAllHints = false;
         }
-      );
+        this.sentencesPageInUrl = Math.floor(ibGameUserOrder / this.NO_OF_SENTENCES_RECEIVED);
+        this.sentenceInfo(this.sentencesPageInUrl);
+      },
+      (error) => {
+        // console.log(error);
+      });
   }
-  initialiseVar() {
-    this.INPUT_ORDER = 0;
-    ibGameScore = 0;
-    ibGamelevel = 0;
-    ibGameStreak = 0;
-    ibGameUserOrder = this.INPUT_ORDER;
-    ibGameTime = IBG_MORE_TIME;
-    ibGameWordsHidden = 0;
-    ibGameShowTutorial = true;
-    // these values should come from database, need to check this
-    this.BRONZE_CONSTANT = 4;
-    this.SILVER_CONSTANT = 10;
-    this.GOLD_CONSTANT = 26;
-    this.no_correct_responses = 0;
-  }
+
   storeUserScoreInfo(response: any) {
     this.checkUserResponse(response);
     this.getScoreVariablesValue();

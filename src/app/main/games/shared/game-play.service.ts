@@ -163,37 +163,22 @@ export class GamePlayService  {
   playExecControlGame(isSoundOn: any, helpClicked: any) {
     this.ecGameStarted = true;
     let showTutorial = false;
-    this.gamesAuthService.ecGameGetTaskInfo()
-      .subscribe((task_info) => {
-        if (helpClicked) {
-          showTutorial = true;
-        } else {
-          if (task_info.flanker_tasks_count === 0) {
-            showTutorial = true;
-          } else if (task_info.flanker_tasks_count > 0) {
-            this.gamesAuthService.ecGameGetFlankerTaskInfo()
-              .subscribe( (task_count) => {
-                if (task_count.flanker_tasks_count === 0) {
-                  showTutorial = true;
-                } else {
-                  showTutorial = false;
-                }
-              });
-          }
+    this.gamesAuthService.ecGameGetGameInfo()
+      .subscribe((game_data) => {
+        const length = game_data.data.length;
+        this.ecGameID = 1;            // should not be 0
+        if (length > 0) {
+          this.ecGameID = game_data.data[length - 1].id;
         }
-        this.gamesAuthService.ecGameGetGameInfo()
-          .subscribe((game_data) => {
-            const length = game_data.data.length;
-            this.ecGameID = 1;            // should not be 0
-            if (length > 0) {
-              this.ecGameID = game_data.data[length - 1].id;
+        this.gamesAuthService.ecGameGetUserData()
+          .subscribe( (user_data) => {
+            showTutorial = user_data.data.show_tutorial;
+            if (helpClicked) {
+              showTutorial = true;
             }
-            this.gamesAuthService.ecGameGetUserData()
-              .subscribe( (data) => {
-                startExecControlGame(showTutorial, data, this.ecGameID, isSoundOn);
-              });
+            startExecControlGame(showTutorial, user_data, this.ecGameID, isSoundOn);
           });
-      });
+    });
   }
 
   helpExecControlGame(isSoundOn: any, isFirstHelpBtn: boolean) {

@@ -901,7 +901,7 @@ function create(){
 	if(isTouchDevice==true)
 	{
 	//Jump Button
-		jump_button=this.add.sprite(screen_width*0.06,screen_height*0.97, 'single_jump').setInteractive().setScale(0.4);
+		jump_button=this.add.sprite(screen_width*0.06,screen_height*0.97, 'single_jump').setInteractive().setScale(0.35);
 		jump_button.depth=2;
 		if(jump_button.y+jump_button.height/2>screen_height)
 		{
@@ -915,9 +915,9 @@ function create(){
 	}
 	//Double jump button
 	if(isTouchDevice){
-		double_jump_button=this.add.sprite(screen_width*0.08+(jump_button.width*0.4),screen_height*0.97, 'double_jump').setInteractive().setScale(0.4);
+		double_jump_button=this.add.sprite(screen_width*0.08+(jump_button.width*0.4),screen_height*0.97, 'double_jump').setInteractive().setScale(0.35);
 	}else{
-		double_jump_button=this.add.sprite(screen_width*0.08,screen_height*0.97, 'double_jump').setInteractive().setScale(0.4);
+		double_jump_button=this.add.sprite(screen_width*0.08,screen_height*0.97, 'double_jump').setInteractive().setScale(0.35);
 	}
 	double_jump_button.depth=2;
 
@@ -1672,7 +1672,7 @@ function jump()
 		{
 			clearInterval(touch_button_animation);
 			jump_button.alpha=1;
-			jump_button.setScale(0.5);
+			jump_button.setScale(0.35);
 			animation_active=false;
 		}
 	}
@@ -1694,7 +1694,7 @@ function jump()
 		{
 			clearInterval(touch_button_animation);
 			jump_button.alpha=1;
-			jump_button.setScale(0.5);
+			jump_button.setScale(0.35);
 			animation_active=false;
 		   
 		}
@@ -1733,7 +1733,7 @@ function double_jump(){
 		{
 			clearInterval(touch_button_animation);
 			double_jump_button.alpha=1;
-			double_jump_button.setScale(0.5);
+			double_jump_button.setScale(0.35);
 			animation_active=false;
 		}
 	}
@@ -1756,7 +1756,7 @@ function double_jump(){
 		{
 			clearInterval(touch_button_animation);
 			double_jump_button.alpha=1;
-			double_jump_button.setScale(0.5);
+			double_jump_button.setScale(0.35);
 			animation_active=false;
 		}
 	}
