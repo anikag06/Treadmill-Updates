@@ -190,7 +190,6 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
             this.SILVER_CONSTANT = data.data.SILVER_CONSTANT;
             this.GOLD_CONSTANT = data.data.GOLD_CONSTANT;
             this.no_correct_responses = data.data.no_correct_responses;
-            console.log(this.no_correct_responses);
           } else {
             this.initialiseVar();
           }

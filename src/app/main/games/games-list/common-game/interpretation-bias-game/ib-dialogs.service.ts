@@ -27,7 +27,8 @@ export class IbDialogsService {
     const dialogRef = this.dialog.open(IbMainTrainingComponent, {
       width: '90%',
       maxWidth: '350px',
-      autoFocus: false
+      autoFocus: false,
+      hasBackdrop: false,
     });
   }
 

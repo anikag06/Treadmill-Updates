@@ -38,8 +38,8 @@ var NO_OF_WORDS;
 var no_words_hidden;
 var hidden_words_array = [];
 // var initial_timer = "180";							// time for finding words from letter grid
-var FIRST_HINTS_TIME = 140;
-var SECOND_HINTS_TIME = 130;
+var FIRST_HINTS_TIME = 60;
+var SECOND_HINTS_TIME = 30;
 // var initial_time = 12000;
 var game_timer = "150";
 var before_sentence_time = 1500;					//time after the user finds the required number of words
@@ -193,8 +193,8 @@ function initializeVariables(){
 	countdownReset();
 	game_timer = ibGameTime.toString();
 	no_words_hidden = ibGameWordsHidden;
-	FIRST_HINTS_TIME = 140;
-  SECOND_HINTS_TIME = 130;
+	FIRST_HINTS_TIME = 60;
+  SECOND_HINTS_TIME = 30;
 	before_sentence_time = 1500;					
 	sentence_time = 1000;							
  	borrowed_time = 20;								
@@ -603,7 +603,6 @@ function highlightFirstLetters(){
 	for(var i=0; i<initial_letters.length; i++){
 		var senWord = initial_letters[i].word;
 
-		console.log('in highlight ', senWord);
 		// only for words that haven't been found
 		if(word_already_found.indexOf(senWord)==-1 && word_already_found.indexOf(reverseWord(senWord))==-1 && senWord.length>1){
 			if((hidden_words_array[i]==true)){
@@ -637,24 +636,23 @@ function highlightSecondLetters(){
 
 	star_sentence = "";			//sentence with words in ascending order of length
 	for(var i=0; i<initial_letters.length; i++){
-		console.log('init let', initial_letters);
 		var senWord= initial_letters[i].word;
-		console.log('hightlight second', senWord);
 		// only for words that haven't been found
 		if(word_already_found.indexOf(senWord)==-1 && word_already_found.indexOf(reverseWord(senWord))==-1 && senWord.length>1){
 			wordLength = senWord.length - 1;
-			console.log('wordLength', wordLength);
 			if(hidden_words_array[i]==true){
 				if(isWordReversed(senWord)){
-					star_sentence+=initial_letters[i]["first_letter"]+initial_letters[i]["second_letter"]+starify(senWord).substring(2, wordLength)+ senWord.charAt(0);
+					if(wordLength > 1){
+						star_sentence+=initial_letters[i]["first_letter"]+initial_letters[i]["second_letter"]+starify(senWord).substring(2, wordLength)+ senWord.charAt(0);
+					} else {
+						star_sentence+=initial_letters[i]["first_letter"]+initial_letters[i]["second_letter"];
+					}
 				}else{
 					if(wordLength > 1){
 						star_sentence+=initial_letters[i]["first_letter"]+initial_letters[i]["second_letter"]+starify(senWord).substring(2, wordLength)+ senWord.charAt(wordLength);
 					} else {
-						console.log('in <=1', senWord);
 						star_sentence+=initial_letters[i]["first_letter"]+initial_letters[i]["second_letter"];
 					}
-					console.log('compare',senWord, star_sentence);
 				}
 			}else if(hidden_words_array[i]==false){
 				if (isWordReversed(senWord)) {
