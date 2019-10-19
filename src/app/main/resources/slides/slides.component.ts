@@ -106,12 +106,17 @@ export class SlidesComponent implements OnInit {
             this.current_step_id = data.data.id;
             this.isLastStep = data.data.is_last_step;
             this.next_step_id = data.data.next_step_id;
+<<<<<<< Updated upstream
             if (data.data.status === COMPLETED) {
               this.showNextStepBtn = true;
 
               if (this.isLastStep) {
                 this.lastStepCompleted = true;
               }
+=======
+            if (data.data.status === 'COMPLETED') {
+              this.showNextStepBtn = true;
+>>>>>>> Stashed changes
             }
             this.slideService.getFeedBackInfo(this.current_step_id)
               .subscribe( (feedback_data) => {
