@@ -5,7 +5,7 @@ function discrimination_task_generator()
 	{
 		discrimination_choice=Math.floor(Math.random()*TOTAL_NUMBER_OF_DISCRIMINATION_TASK);
 		discrimination_task_image=curr_game.add.image(DISCRIMINATION_X_CORDINATE,DISCRIMINATION_Y_CORDINATE,'discrimination_'+discrimination_choice).setScale(DISCRIMIANTION_TASK_IMAGE_SCALE);
-		discrimination_task_image.depth = 2;
+		discrimination_task_image.depth = 6;
 		// if (isTouchDevice){
 		// 	discrimination_task_image.setScale(DISCRIMINATION_TASK_IMAGE_SMALL_SCALE);
 		// }

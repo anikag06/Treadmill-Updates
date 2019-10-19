@@ -92,6 +92,36 @@ var ec_game_start_time;
 //timeout var 
 var generate_tasks_timeout;
 
+// badges information
+var ecg_bronze_constant;
+var ecg_silver_constant;
+var ecg_gold_constant;
+
+var ecg_bronze_value;
+var ecg_bronze_percent;
+
+var ecg_silver_value;
+var ecg_silver_percent;
+
+var ecg_gold_value;
+var ecg_gold_percent;
+var total_correct_responses;
+
+var bronzeBadge;
+var bronzeText;
+var bronzeBar;
+var bronzeBarBack;			// this the bar with lighter color and behind the actual bar
+
+var silverBadge;
+var silverText;
+var silverBar;
+var silverBarBack;
+
+var goldBadge;
+var goldText;
+var goldBar;
+var goldBarBack;
+
 //Background Elements
 var cityline_title;
 var brick;
@@ -675,6 +705,11 @@ function preload(){
 	//Avatar
 	this.load.spritesheet('dude', png+'/avatar_1.png', { frameWidth: 59, frameHeight: 60}); // 32, 48
 
+	// badges images
+	this.load.image('bronze_badge',assets_img_location+'/Bronze badge symbol.svg');
+	this.load.image('silver_badge',assets_img_location+'/Silver badge symbol.svg');
+	this.load.image('gold_badge', assets_img_location+'/Gold badge symbol.svg');
+
 	//Flanker Buttons
 	this.load.spritesheet('flanker_button',svg_location+'/flanker_button.svg',{ frameWidth: 160, frameHeight: 160 });
 
@@ -770,7 +805,6 @@ function create(){
 
 	this.scale.on('resize', function(gameSize, baseSize, displaySize, resolution, previousWidth, previousHeight) {
 	});
-	
 
 	this.scale.setGameSize(screen_width, screen_height);
 
@@ -837,6 +871,7 @@ function create(){
 	//Coin_Elements
 	coin_score_icon=coins_group.create(screen_width-40, stat_icon_display_y, 'coin').setScale(0.15);
 	coin_score_icon.body.allowGravity=false;
+
 	
 	//Detect touch on the screen for shooting action
 	this.input.on('pointerdown', function (pointer) {
@@ -881,16 +916,70 @@ function create(){
 	});
 
 	//Texts to be displayed
-	RESPAWNING_TEXT=this.add.text(RESPAWN_X,RESPAWN_Y,"", { fontSize: '30px', fill: '#fff' });
-	countdown_text=this.add.text(RESPAWN_X,RESPAWN_Y,"", { fontSize: '30px', fill: '#fff'});
-	scoreText = this.add.text(score_x, stat_text_display_y,score, { fontSize: '30px', fill: '#fff',align:'left' });
-	livesText = this.add.text(heart_x-35, stat_text_display_y, number_of_lives, { fontSize: '30px', fill: '#fff',align:'left' });
-	coinsCollectedText=this.add.text(screen_width-90-COIN_SCORE_LENGTH_ADJUSTMENT*(coins_collected.toString().length-1), stat_text_display_y,coins_collected, { fontSize: '30px', fill: '#fff',align:'left',wordWrap: true });
-	mystery_egg_collected_text=this.add.text(75, 105,'', { fontSize: '30px', fill: '#fff',align:'right',wordWrap: true });
+	RESPAWNING_TEXT=this.add.text(RESPAWN_X,RESPAWN_Y,"", { fontSize: '27px', fill: '#fff' });
+	countdown_text=this.add.text(RESPAWN_X,RESPAWN_Y,"", { fontSize: '27px', fill: '#fff'});
+	scoreText = this.add.text(score_x, stat_text_display_y+1,'Score'+score, { fontSize: '27px', fill: '#fff',align:'left',
+																			shadow: {offsetX: 1, offsetY: 1, color: '#0000003D',
+																			blur: 2.2, stroke: true, fill: true }, });
+	livesText = this.add.text(heart_x-41, stat_text_display_y, number_of_lives, { fontSize: '27px', fill: '#fff',align:'left',
+																			shadow: {offsetX: 1, offsetY: 1, color: '#0000003D',
+																			blur: 2.2, stroke: true, fill: true }, });
+	coinsCollectedText=this.add.text(screen_width-85-COIN_SCORE_LENGTH_ADJUSTMENT*(coins_collected.toString().length-1), stat_text_display_y,coins_collected, 
+																			{ fontSize: '27px', fill: '#fff',align:'left',wordWrap: true,
+																			shadow: {offsetX: 1, offsetY: 1, color: '#0000003D',
+																			blur: 2.2, stroke: true, fill: true }, });
+	mystery_egg_collected_text=this.add.text(75, 105,'', { fontSize: '27px', fill: '#fff',align:'right',wordWrap: true });
+
 
 
 	//Update Score every 1/2 second
 	score_update_handler=setTimeout(score_updator, 500);
+
+	//add the badges information and bars
+	goldBadge = this.add.image(screen_width*0.256, stat_icon_display_y-1, 'gold_badge');
+	goldBadge.allowGravity = false;
+	goldBadge.depth=5;
+	goldText = this.add.text(screen_width*0.275,goldBadge.y-10,ecg_gold_value, { fontSize: '14px', fill: '#FFFFFF',
+																			shadow: {offsetX: 1, offsetY: 1, color: '#0000003D',
+																			blur: 2.2, stroke: true, fill: true },});
+	goldText.depth=5;
+
+	goldBarBack = this.add.rectangle(screen_width*0.27, stat_icon_display_y+9, 31, 3, 0xFFE59C);
+	goldBarBack.depth=5;
+  goldBar = this.add.rectangle(screen_width*0.27, stat_icon_display_y+9, 31, 3, 0xD5A521);
+	goldBar.depth =6;
+
+	goldBar.width = (ecg_gold_percent/100) * goldBarBack.width;
+
+	silverBadge = this.add.image(goldBadge.x + 50, stat_icon_display_y-1, 'silver_badge');
+	silverBadge.allowGravity = false;
+	silverBadge.depth=5;
+	silverText = this.add.text(goldText.x + 50 ,silverBadge.y-10,ecg_silver_value, { fontSize: '14px', fill: '#FFFFFF',
+																			shadow: {offsetX: 1, offsetY: 1, color: '#0000003D',
+																			blur: 2.2, stroke: true, fill: true },});
+	silverText.depth=5;
+
+	silverBarBack = this.add.rectangle(goldBarBack.x+50, stat_icon_display_y+9, 31, 3, 0xE5E5E5);
+	silverBarBack.depth=5;
+  silverBar = this.add.rectangle(goldBar.x + 50, stat_icon_display_y+9, 31, 3, 0x9E9E9E);
+	silverBar.depth =6;
+
+	silverBar.width = (ecg_silver_percent/100) * silverBarBack.width;
+
+	bronzeBadge = this.add.image(silverBadge.x+50, stat_icon_display_y-1, 'bronze_badge');
+	bronzeBadge.depth=5;
+	bronzeBadge.allowGravity = false;
+	bronzeText = this.add.text(silverText.x+50,bronzeBadge.y-10,ecg_bronze_value, { fontSize: '14px', fill: '#FFFFFF',
+																			shadow: {offsetX: 1, offsetY: 1, color: '#0000003D',
+																			blur: 2.2, stroke: true, fill: true },});
+	bronzeText.depth=5;
+
+	bronzeBarBack = this.add.rectangle(silverBarBack.x+50, stat_icon_display_y+9, 31, 3, 0xFFD59A);
+	bronzeBarBack.depth=5;
+  bronzeBar = this.add.rectangle(silverBar.x+50, stat_icon_display_y+9, 31, 3, 0xB37826);
+	bronzeBar.depth =6;
+
+	bronzeBar.width = (ecg_bronze_percent/100) * bronzeBarBack.width;
 
 	//Tutorial text
 	tutorial_text=this.add.text(screen_width*0.33,screen_height*0.33,"", { fontSize: '14px', fill: '#FFFFFF',align:'center' });
@@ -985,6 +1074,10 @@ function update(){
 		}
 		ec_play_clicked = false;
 	}
+
+	// barWidth = bronzeBar.width;
+	// LIFE = 40;
+	// bronzeBar.width = barWidth - barWidth/LIFE;
 
 	//If gameover or game pause return
 	if(gameOver==true||game_paused==true)
@@ -1967,7 +2060,7 @@ function score_updator(){
 	if(reachedCrossing==false&&gameOver==false&&reachedCrossing==false&&game_paused==false)
 	{
 		score+=1;
-		scoreText.setText(score);
+		scoreText.setText('Score:'+score);
 	}
 	if(gameOver==false)
 	{
@@ -2192,6 +2285,7 @@ function generateTS()
 }
 
 function scoreUpdate(){
+	console.log('update score of ecg');
 	storeECScoreDataEvent = document.createEvent('CustomEvent');
 	storeECScoreDataEvent.initCustomEvent('CallAngularECScoreFun');
 

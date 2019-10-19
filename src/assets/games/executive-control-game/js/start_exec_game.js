@@ -1,6 +1,22 @@
-var startExecControlGame = function(show_tutorial, user_data,game_id, musicOn){
+var startExecControlGame = function(show_tutorial, user_data,game_id, 
+            musicOn, badgeInfo, correctResponses, badgeConstants){
+    console.log(badgeInfo);
     $('#execGame').removeClass('d-none');
 
+    ecg_bronze_value = badgeInfo.bronzeBadges;
+	ecg_bronze_percent = badgeInfo.bronzePercent;
+
+	ecg_silver_value = badgeInfo.silverBadges;
+	ecg_silver_percent = badgeInfo.silverPercent;
+
+	ecg_gold_value = badgeInfo.goldBadges;
+	ecg_gold_percent = badgeInfo.goldPercent;
+    total_correct_responses = correctResponses;
+
+    ecg_bronze_constant = badgeConstants.bronzeConstant;
+    ecg_silver_constant = badgeConstants.silverConstant;
+    ecg_gold_constant = badgeConstants.goldConstant;
+    
     init_game_variables();
 
     //Setup game variables using database entry

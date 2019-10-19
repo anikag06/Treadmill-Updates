@@ -8,5 +8,17 @@ export class BadgesInfo {
          public goldBadges: number,
          public goldPercent: any) {
 
-     }
- }
+    }
+}
+
+export class BadgesConstants {
+
+    constructor(
+        public bronzeConstant: number,
+        public silverConstant: number,
+        public goldConstant: number,
+    ) {
+
+    }
+}
+

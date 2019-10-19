@@ -12,6 +12,36 @@ function init_game_variables(){
 	// store the time when the game is started
 	ec_game_start_time;
 
+	// badges information
+	ecg_bronze_constant;
+	ecg_silver_constant;
+	ecg_gold_constant;
+
+	ecg_bronze_value;
+	ecg_bronze_percent;
+
+	ecg_silver_value;
+	ecg_silver_percent;
+
+	ecg_gold_value;
+	ecg_gold_percent;
+	total_correct_responses;
+
+	bronzeBadge;
+	bronzeText;
+	bronzeBar;
+	bronzeBarBack;
+
+	silverBadge;
+	silverText;
+	silverBar;
+	silverBarBack;
+
+	goldBadge;
+	goldText;
+	goldBar;
+	goldBarBack;
+
 	//Background Elements
 	cityline_title;
 	brick;
@@ -335,15 +365,15 @@ function init_game_variables(){
 	lifes_group;
 	HEART_POSITION_ADJUSTMENT=0.3;
 	heart_size=106;
-	stat_icon_display_y=15;
-	stat_text_display_y=0;
+	stat_icon_display_y=20;
+	stat_text_display_y=6;
 	heart_height=88;
 	heart_x = screen_width-155;
 	MAX_NUMBER_OF_LIVES=3;
 	COIN_SCORE_LENGTH_ADJUSTMENT=15;
 	coin_score_icon;
 	scoreText;
-	score_x=40;
+	score_x=13;
 	score=0;
 	max_score;
 	level={number:1};

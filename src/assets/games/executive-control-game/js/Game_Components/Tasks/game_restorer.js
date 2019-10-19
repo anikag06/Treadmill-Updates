@@ -4,7 +4,6 @@ function game_restore()
 
     var used=false;
     var resume=true;
-  
 
     //Generate reward if response good
     if(performance_reward==null&&number_of_correct_response>0)
@@ -48,7 +47,11 @@ function game_restore()
 
     //Clear all variables and move the game controls,score display and various and display to the scene
     if(countdown==0)
-    { 
+    { 	
+		// task_background.depth = 0;
+		console.log(task_background);
+		task_background.destroy();
+		console.log(task_background.destroy());
 		if(tutorial_box){
 			tutorial_box.destroy();
 			task_tutorial_text.setText("");
@@ -61,7 +64,10 @@ function game_restore()
 		bgm_sound.resume();
 		countdown_text.setText();
 		
-		
+		total_correct_responses = total_correct_responses + number_of_correct_response;
+		console.log('correct response', number_of_correct_response, 'total', total_correct_responses);
+
+		updateBadgesInfo();
     }
 
     // if(pause_button.y>screen_height*0.90)		//position of pause and music buttons changed
@@ -252,4 +258,30 @@ function collect_double_jump_power()
 	jumps.remaining+=number_of_correct_response;
 	jumps_remaining_changer();
 
+}
+
+function updateBadgesInfo() {
+	ecg_bronze_value = Math.floor(total_correct_responses / ecg_bronze_constant);
+    ecg_bronze_percent = this.getPercent(ecg_bronze_constant, total_correct_responses);
+
+    ecg_silver_value = Math.floor(total_correct_responses / ecg_silver_constant);
+    ecg_silver_percent = this.getPercent( ecg_silver_constant, total_correct_responses);
+
+   	ecg_gold_value = Math.floor(total_correct_responses / ecg_gold_constant) ;
+	ecg_gold_percent = this.getPercent( ecg_gold_constant, total_correct_responses);
+
+	bronzeText.setText(ecg_bronze_value);
+	bronzeBar.width = (ecg_bronze_percent/100) * bronzeBarBack.width;		// here need the fraction of the length of bar behind hence divide by 100
+
+	silverText.setText(ecg_silver_value);
+	silverBar.width = (ecg_silver_percent/100) * silverBarBack.width; 		// here need the fraction of the length of bar behind hence divide by 100
+
+	goldText.setText(ecg_gold_value);
+	goldBar.width = (ecg_gold_percent/100) * goldBarBack.width;				// here need the fraction of the length of bar behind hence divide by 100
+
+}
+
+function getPercent(constant, correctResponses){
+	const progressValue = correctResponses % constant ;
+    return (progressValue / constant) * 100; 
 }
