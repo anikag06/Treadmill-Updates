@@ -1,6 +1,7 @@
 var startExecControlGame = function(show_tutorial, user_data,game_id, 
             musicOn, badgeInfo, correctResponses, badgeConstants){
     console.log(badgeInfo);
+
     $('#execGame').removeClass('d-none');
 
     ecg_bronze_value = badgeInfo.bronzeBadges;

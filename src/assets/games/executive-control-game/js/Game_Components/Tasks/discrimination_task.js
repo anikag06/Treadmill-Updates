@@ -5,7 +5,7 @@ function discrimination_task_generator()
 	{
 		discrimination_choice=Math.floor(Math.random()*TOTAL_NUMBER_OF_DISCRIMINATION_TASK);
 		discrimination_task_image=curr_game.add.image(DISCRIMINATION_X_CORDINATE,DISCRIMINATION_Y_CORDINATE,'discrimination_'+discrimination_choice).setScale(DISCRIMIANTION_TASK_IMAGE_SCALE);
-		discrimination_task_image.depth = 6;
+		discrimination_task_image.depth = 12;
 		// if (isTouchDevice){
 		// 	discrimination_task_image.setScale(DISCRIMINATION_TASK_IMAGE_SMALL_SCALE);
 		// }
@@ -141,6 +141,7 @@ function resume_countdown()
     }
 	
 	var Initial_Text=RESUMING_TEXT;
+	
     for(var i=0;i<countdown_dot_length;i++)
     {
         Initial_Text+=". "
@@ -152,7 +153,7 @@ function resume_countdown()
 		
 		tutorial_box = curr_game.add.tileSprite(screen_width*0.5,screen_height*0.4,screen_width*0.5,screen_height*0.5,"tutorial_box");
 		tutorial_box.alpha = 0.6;
-		tutorial_box.depth = 4;
+		tutorial_box.depth = 10;
 		if(isTouchDevice){
 			task_tutorial_text=curr_game.add.text(tutorial_box.x-(tutorial_box.width/2)+10,tutorial_box.y-(tutorial_box.height/2)+10,"Attention!!From Next time,\ntasks will appear only for\nsome time. Peform good in\nthe tasks and get rewarded", { fontSize: '13px', fill: '#EC407A'});
 
@@ -160,12 +161,13 @@ function resume_countdown()
 			task_tutorial_text=curr_game.add.text(tutorial_box.x-(tutorial_box.width/2)+10,tutorial_box.y-(tutorial_box.height/2)+10,"Attention!!From Next time,\ntasks will appear only for\nsome time. Peform good in\nthe tasks and get rewarded", { fontSize: '18px', fill: '#EC407A'});
 		}
 		task_tutorial_shown=true;
-		task_tutorial_text.depth = 6;
+		task_tutorial_text.depth = 12;
 		countdown_text.setScale(0.5);
 		countdown_text.y = task_tutorial_text.x - 20;
 	}
     countdown_text.depth=100;
-    countdown--;
+	countdown--;
+	
 }
 
 //Reinitialize everything for next set

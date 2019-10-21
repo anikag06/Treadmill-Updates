@@ -47,11 +47,8 @@ function game_restore()
 
     //Clear all variables and move the game controls,score display and various and display to the scene
     if(countdown==0)
-    { 	
-		// task_background.depth = 0;
-		console.log(task_background);
-		task_background.destroy();
-		console.log(task_background.destroy());
+    {
+		
 		if(tutorial_box){
 			tutorial_box.destroy();
 			task_tutorial_text.setText("");
@@ -63,11 +60,11 @@ function game_restore()
 		countdown=7;
 		bgm_sound.resume();
 		countdown_text.setText();
-		
 		total_correct_responses = total_correct_responses + number_of_correct_response;
 		console.log('correct response', number_of_correct_response, 'total', total_correct_responses);
-
 		updateBadgesInfo();
+		task_background_removed=true;
+		task_dialog_done = false;
     }
 
     // if(pause_button.y>screen_height*0.90)		//position of pause and music buttons changed
@@ -98,75 +95,75 @@ function game_restore()
 
     }
 	}
-    if(mystery_egg_icon!=null)
-    {
+    // if(mystery_egg_icon!=null)
+    // {
 
-    	if(mystery_egg_icon.y<120)
-    	{
-    		mystery_egg_icon.y+=GAME_ELEMENTS_SPEED;
-    		resume=false;
-    	}
+    // 	if(mystery_egg_icon.y<120)
+    // 	{
+    // 		mystery_egg_icon.y+=GAME_ELEMENTS_SPEED;
+    // 		resume=false;
+    // 	}
     	
 
-    }
-    if(mystery_egg_collected_text.y<stat_text_display_y)
-    {
-    	mystery_egg_collected_text.y+=GAME_ELEMENTS_SPEED;
-    	resume=false;
-	} 
-    if(isTouchDevice==true&&jump_button.y>JUMP_BUTTON_Y)
-    {
-    	jump_button.y-=GAME_ELEMENTS_SPEED;
-    	resume=false;
+    // }
+    // if(mystery_egg_collected_text.y<stat_text_display_y)
+    // {
+    // 	mystery_egg_collected_text.y+=GAME_ELEMENTS_SPEED;
+    // 	resume=false;
+	// } 
+    // if(isTouchDevice==true&&jump_button.y>JUMP_BUTTON_Y)
+    // {
+    // 	jump_button.y-=GAME_ELEMENTS_SPEED;
+    // 	resume=false;
     	
-    }
-    if(double_jump_button.y>DOUBLE_JUMP_BUTTON_Y)
-    {
-    	double_jump_button.y-=GAME_ELEMENTS_SPEED;
-    	resume=false;
-    }
-    if(double_jump_text.y>DOUBLE_JUMP_BUTTON_TEXT_Y)
-    {
-    	double_jump_text.y-=GAME_ELEMENTS_SPEED;
-	    if(double_jump_coin!=null)
-	    {
-    		double_jump_coin.y-=GAME_ELEMENTS_SPEED;
-	    }
-	    resume=false;
+    // }
+    // if(double_jump_button.y>DOUBLE_JUMP_BUTTON_Y)
+    // {
+    // 	double_jump_button.y-=GAME_ELEMENTS_SPEED;
+    // 	resume=false;
+    // }
+    // if(double_jump_text.y>DOUBLE_JUMP_BUTTON_TEXT_Y)
+    // {
+    // 	double_jump_text.y-=GAME_ELEMENTS_SPEED;
+	//     if(double_jump_coin!=null)
+	//     {
+    // 		double_jump_coin.y-=GAME_ELEMENTS_SPEED;
+	//     }
+	//     resume=false;
 
-    }
+    // }
 
-    if(life.y<stat_icon_display_y)
-    {
-     	life.y+=GAME_ELEMENTS_SPEED;
-     	used=true;
-     	resume=false;
-    }
-    if(livesText.y<stat_text_display_y)
-    {
-     	livesText.y+=GAME_ELEMENTS_SPEED;
-     	used=true;
-     	resume=false;
-    }
+    // if(life.y<stat_icon_display_y)
+    // {
+    //  	life.y+=GAME_ELEMENTS_SPEED;
+    //  	used=true;
+    //  	resume=false;
+    // }
+    // if(livesText.y<stat_text_display_y)
+    // {
+    //  	livesText.y+=GAME_ELEMENTS_SPEED;
+    //  	used=true;
+    //  	resume=false;
+    // }
 	 
-	if(scoreText.y<stat_text_display_y)
-	{
-	 	scoreText.y+=GAME_ELEMENTS_SPEED;
-	 	used=true;
-	 	resume=false;
-	}
-	if(coinsCollectedText.y<stat_text_display_y)
-	{
-	 	coinsCollectedText.y+=GAME_ELEMENTS_SPEED;
-	 	used=true;
-	 	resume=false
-	}
-	if(coin_score_icon.y<stat_icon_display_y)
-	{
-	 	coin_score_icon.y+=GAME_ELEMENTS_SPEED;
-	 	used=true;
-	 	resume=false;
-	}
+	// if(scoreText.y<stat_text_display_y)
+	// {
+	//  	scoreText.y+=GAME_ELEMENTS_SPEED;
+	//  	used=true;
+	//  	resume=false;
+	// }
+	// if(coinsCollectedText.y<stat_text_display_y)
+	// {
+	//  	coinsCollectedText.y+=GAME_ELEMENTS_SPEED;
+	//  	used=true;
+	//  	resume=false
+	// }
+	// if(coin_score_icon.y<stat_icon_display_y)
+	// {
+	//  	coin_score_icon.y+=GAME_ELEMENTS_SPEED;
+	//  	used=true;
+	//  	resume=false;
+	// }
     
     
     //Move the scene till it is covered with brick

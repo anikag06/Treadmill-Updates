@@ -107,6 +107,8 @@ var ecg_gold_value;
 var ecg_gold_percent;
 var total_correct_responses;
 
+var badgeBarWidth;
+
 var bronzeBadge;
 var bronzeText;
 var bronzeBar;
@@ -308,7 +310,15 @@ var discrimination_task_initial_timeout;
 var continue_to_next_set_timeout;
 var generate_tasks_variable;
 
+var task_dialog_done;
 var task_background;
+var task_background_added;
+var task_background_removed;
+
+var task_start_dialog_add;
+var task_start_dialog;
+var task_start_button;
+var task_start_button_text;
 
 var double_coin_blinker;
 
@@ -723,7 +733,7 @@ function preload(){
 	this.load.spritesheet('double_jump',svg_location+'/double_jump.png',{ frameWidth: 160, frameHeight: 160 });
 
 	// black background
-	this.load.image('black_background',svg_location+"/full_window_background.svg");
+	this.load.spritesheet('black_background',svg_location+'/full_window_background.svg',{ frameWidth: 160, frameHeight: 160 });
 
 	//Discrimination Task Buttons
 	this.load.image('red_button',svg_location+"/red_buttonN.svg");
@@ -795,6 +805,10 @@ function preload(){
 	
 
 	isTouchDevice = 'ontouchstart' in document.documentElement;  
+	this.input.keyboard.createCursorKeys();
+	this.input.keyboard.on('keydown', e => {
+		e.preventDefault();
+	});
 }
 
 
@@ -939,14 +953,14 @@ function create(){
 	goldBadge = this.add.image(screen_width*0.256, stat_icon_display_y-1, 'gold_badge');
 	goldBadge.allowGravity = false;
 	goldBadge.depth=5;
-	goldText = this.add.text(screen_width*0.275,goldBadge.y-10,ecg_gold_value, { fontSize: '14px', fill: '#FFFFFF',
+	goldText = this.add.text(screen_width*0.275,goldBadge.y-8,ecg_gold_value, { fontSize: '14px', fill: '#FFFFFF', align:'right',
 																			shadow: {offsetX: 1, offsetY: 1, color: '#0000003D',
 																			blur: 2.2, stroke: true, fill: true },});
 	goldText.depth=5;
 
-	goldBarBack = this.add.rectangle(screen_width*0.27, stat_icon_display_y+9, 31, 3, 0xFFE59C);
+	goldBarBack = this.add.rectangle(screen_width*0.27, stat_icon_display_y+9, badgeBarWidth, 3, 0xFFE59C);
 	goldBarBack.depth=5;
-  goldBar = this.add.rectangle(screen_width*0.27, stat_icon_display_y+9, 31, 3, 0xD5A521);
+ 	goldBar = this.add.rectangle(screen_width*0.27, stat_icon_display_y+9, badgeBarWidth, 3, 0xD5A521);
 	goldBar.depth =6;
 
 	goldBar.width = (ecg_gold_percent/100) * goldBarBack.width;
@@ -954,14 +968,14 @@ function create(){
 	silverBadge = this.add.image(goldBadge.x + 50, stat_icon_display_y-1, 'silver_badge');
 	silverBadge.allowGravity = false;
 	silverBadge.depth=5;
-	silverText = this.add.text(goldText.x + 50 ,silverBadge.y-10,ecg_silver_value, { fontSize: '14px', fill: '#FFFFFF',
+	silverText = this.add.text(goldText.x + 50 ,silverBadge.y-8,ecg_silver_value, { fontSize: '14px', fill: '#FFFFFF', align:'right',
 																			shadow: {offsetX: 1, offsetY: 1, color: '#0000003D',
 																			blur: 2.2, stroke: true, fill: true },});
 	silverText.depth=5;
 
-	silverBarBack = this.add.rectangle(goldBarBack.x+50, stat_icon_display_y+9, 31, 3, 0xE5E5E5);
+	silverBarBack = this.add.rectangle(goldBarBack.x+50, stat_icon_display_y+9, badgeBarWidth, 3, 0xE5E5E5);
 	silverBarBack.depth=5;
-  silverBar = this.add.rectangle(goldBar.x + 50, stat_icon_display_y+9, 31, 3, 0x9E9E9E);
+  	silverBar = this.add.rectangle(goldBar.x + 50, stat_icon_display_y+9, badgeBarWidth, 3, 0x9E9E9E);
 	silverBar.depth =6;
 
 	silverBar.width = (ecg_silver_percent/100) * silverBarBack.width;
@@ -969,14 +983,14 @@ function create(){
 	bronzeBadge = this.add.image(silverBadge.x+50, stat_icon_display_y-1, 'bronze_badge');
 	bronzeBadge.depth=5;
 	bronzeBadge.allowGravity = false;
-	bronzeText = this.add.text(silverText.x+50,bronzeBadge.y-10,ecg_bronze_value, { fontSize: '14px', fill: '#FFFFFF',
+	bronzeText = this.add.text(silverText.x+50,bronzeBadge.y-8,ecg_bronze_value, { fontSize: '14px', fill: '#FFFFFF', align:'right',
 																			shadow: {offsetX: 1, offsetY: 1, color: '#0000003D',
 																			blur: 2.2, stroke: true, fill: true },});
 	bronzeText.depth=5;
 
-	bronzeBarBack = this.add.rectangle(silverBarBack.x+50, stat_icon_display_y+9, 31, 3, 0xFFD59A);
+	bronzeBarBack = this.add.rectangle(silverBarBack.x+50, stat_icon_display_y+9, badgeBarWidth, 3, 0xFFD59A);
 	bronzeBarBack.depth=5;
-  bronzeBar = this.add.rectangle(silverBar.x+50, stat_icon_display_y+9, 31, 3, 0xB37826);
+  	bronzeBar = this.add.rectangle(silverBar.x+50, stat_icon_display_y+9, badgeBarWidth, 3, 0xB37826);
 	bronzeBar.depth =6;
 
 	bronzeBar.width = (ecg_bronze_percent/100) * bronzeBarBack.width;
@@ -1510,7 +1524,8 @@ function update(){
 			
 			//Start Tasks if no other elements are begin generated
 			if(start_tasks==true&&task_init==true&&clear_to_start==0&&no_player==false&&startTunnelMovement==false&&stopTunnelMovement==false)
-			{
+			{	
+				
 				task_generator();
 				free_to_choose_high=false;
 				free_to_choose=false;
@@ -1531,7 +1546,12 @@ function update(){
 			//Restore game after tasks
 			if(restore_game==true)
 			{
-				game_restore();   
+				game_restore();
+				if (task_background_removed) {
+					task_background.destroy();  
+					task_background_removed = false;
+					task_background_added = false; 
+				}
 			}
 
 			//Make the second choice(between obstacle,pit,dropping platform)

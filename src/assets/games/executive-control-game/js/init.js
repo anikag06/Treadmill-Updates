@@ -27,6 +27,7 @@ function init_game_variables(){
 	ecg_gold_percent;
 	total_correct_responses;
 
+	badgeBarWidth = 32;
 	bronzeBadge;
 	bronzeText;
 	bronzeBar;
@@ -230,7 +231,15 @@ function init_game_variables(){
 	continue_to_next_set_timeout = null;
 	generate_tasks_variable = null;
 
+	task_dialog_done = false;
 	task_background;
+	task_background_added=false;
+	task_background_removed=false;
+
+	task_start_dialog_add = false;
+	task_start_dialog;
+	task_start_button;
+	task_start_button_text;
 
 	//Jump Platform variables
 	jump_platform=[];
