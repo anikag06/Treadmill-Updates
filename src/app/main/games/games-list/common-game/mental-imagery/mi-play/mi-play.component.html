@@ -1,14 +1,66 @@
-<p class="scoreLocation">
-    SCORE: {{ this.user.currentPoints()}}
-  </p>
+<div class="container" (click)="onAnyWhereClick()" >
+<div class="row">
+  <div class="col scoreLocation text-left mt-1 ml-1">
+      <!-- <p class="scoreLocation text-left"> -->
+          SCORE: {{ this.user.currentPoints()}}
+        <!-- </p> -->
+  </div>
+  <div class="col pb-0">
+    <div class="row barsDiv">
 
-<div class="container" (click)="onAnyWhereClick()">
+    <div class="col px-1 w-75 ">
+      <div class="float-left">  
+        <img src="../../../../../../assets/games/mental-imagery-game/Gold badge symbol.svg">
+      </div>
+      <div class="float-right">
+        {{goldValue}}
+      </div>
+       <mat-progress-bar 
+        class="goldBar"
+        mode="determinate" 
+        [value]="goldValue"></mat-progress-bar>
+    </div>
+      
+      <div class="col px-1 justify-content-start">
+          <div class="float-left"> 
+             <img src="../../../../../../assets/games/mental-imagery-game/Silver badge symbol.svg"> 
+            </div>
+            <div class="float-right">
+                {{silverValue}}
+              </div>
+          <mat-progress-bar 
+          class="silverBar"
+          mode="determinate" 
+          [value]="silverValue"></mat-progress-bar>
+      </div>
+
+      
+      <div class="col px-1 w-75">
+          <div class="float-left"> 
+              <img src="../../../../../../assets/games/mental-imagery-game/Bronze badge symbol.svg">
+          </div>
+          <div class="float-right">
+              {{bronzeValue}}
+            </div>
+          <mat-progress-bar 
+          class="bronzeBar"
+          mode="determinate" 
+          [value]="bronzeValue"></mat-progress-bar>
+      </div>
+    </div>
+ 
+  </div>
+</div>
+
+  
+<!-- <div class="container" (click)="onAnyWhereClick()"> -->
   <h1>{{currentLevel.title}}</h1>
+  <mat-progress-bar ></mat-progress-bar>
   <div class="row" *ngIf="previousText">
     <div class="col-12" [innerHTML]="previousText"></div>
   </div>
   <div class="row">
-    <div class="col-12 problem-space" *ngIf="currentScenario">
+    <div class="col-12 problem-space mt-2" *ngIf="currentScenario">
       {{ this.currentScenario.problemBeforeDash }} <strong>{{ blank.trim() || '-----------' }}</strong> {{ this.currentScenario.problemAfterDash }}
     </div>
   </div>
@@ -23,13 +75,17 @@
   </div>
   <form (ngSubmit)="onSubmit()" autocomplete="off">
     <div class="form-row align-items-center">
-      <div class="input-group mb-2">
-        <div class="input-group-prepend">
+      <!-- <div class="input-group mb-2"> -->
+        <!-- <div class="input-group-prepend">
           <div class="input-group-text">>></div>
-        </div>
-        <input type="text" name="blank" class="form-control" [(ngModel)]="blank" [disabled]="disabled" #inputEl autocomplete="off" (input)="storeTypedLetters()">
+        </div> -->
+        <mat-form-field class="example-full-width">
+            <input matInput value=">>>" name="blank" [disabled]="disabled" (input)="storeTypedLetters()" #inputEl >
+          </mat-form-field>
+        
+        <!-- <input type="text" name="blank" class="form-control" [(ngModel)]="blank" [disabled]="disabled" #inputEl autocomplete="off" (input)="storeTypedLetters()"> -->
         <button class="btn btn-primary" (click) = "onSubmit()" type="button" #submitBtn>Submit!</button>
-       </div>
+       <!-- </div> -->
       <small class="text-muted" *ngIf="invalidInput">Oops! you seem to have typed something that we currently don't understand</small>
     </div>
   </form>

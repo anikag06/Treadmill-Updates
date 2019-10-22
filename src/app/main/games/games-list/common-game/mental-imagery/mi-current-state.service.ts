@@ -165,10 +165,10 @@ export class MICurrentStateService{
   
 
       this.levelList.push(
-        new Level('ASSIGNMENT SUBMISSION', scenario1),
-        new Level('LATE FOR CLASS', scenario3),
-        new Level('PHYSICS TEST', scenario5),
-        new Level('PART TIME JOB', scenario8),
+        new Level('Assignment Submission', scenario1),
+        new Level('Late For Class', scenario3),
+        new Level('Physics Test', scenario5),
+        new Level('Part Time Job', scenario8),
       );
     }
   }

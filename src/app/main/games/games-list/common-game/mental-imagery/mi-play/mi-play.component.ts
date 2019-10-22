@@ -44,6 +44,10 @@ export class MiPlayComponent implements OnInit {
   sentiment = require('../../../../../../../../node_modules/wink-sentiment/src/wink-sentiment.js');
   nlp = require('../../../../../../../../node_modules/compromise/builds/compromise.min.js');
   openNavBar = false;
+  goldValue:any = 20;
+  silverValue:any = 30;
+  bronzeValue:any = 40;
+  // inputTouched = false;
 
 
 
@@ -97,7 +101,7 @@ export class MiPlayComponent implements OnInit {
 
   storeTypedLetters() {
     MICurrentStateService.blank = this.blank;
-  }
+    }
 
   onSubmit() {
     this.blank = this.blank.trim();
@@ -106,6 +110,7 @@ export class MiPlayComponent implements OnInit {
     // this.inputEl.nativeElement.focus();
     if (this.blank && this.blank.length > 0) {
       this.situationHandler();
+      
     }
     // this.inputEl.nativeElement.focus();
   }
