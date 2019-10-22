@@ -541,6 +541,7 @@ function init_game_variables(){
 	touch_button_animation;
 	touch_alpha=[0.4,1]
 	touch_size=[0.25,0.35]
+	touch_size_task=[1,1.2]
 	alpha_choice=0;
 	animation_active=false;
 

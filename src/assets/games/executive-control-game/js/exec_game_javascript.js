@@ -996,9 +996,9 @@ function create(){
 	bronzeBar.width = (ecg_bronze_percent/100) * bronzeBarBack.width;
 
 	//Tutorial text
-	tutorial_text=this.add.text(screen_width*0.33,screen_height*0.33,"", { fontSize: '14px', fill: '#FFFFFF',align:'center' });
-	tutorial_text.setPadding(20,2,20,2);
-	tutorial_text.depth = 5;
+	tutorial_text=this.add.text(screen_width*0.335,screen_height*0.33,"", { fontSize: '14px', fill: '#FFFFFF',align:'center' });
+	// tutorial_text.setPadding(20,2,20,2);
+	tutorial_text.depth = 14;
 	
 	//If touch add jump button
 	if(isTouchDevice==true)

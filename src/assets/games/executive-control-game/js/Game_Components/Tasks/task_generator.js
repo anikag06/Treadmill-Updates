@@ -274,7 +274,6 @@ function left_pressed()
 					clearInterval(task_button_blinking_animation);
 				}
 				task_tutorial_text.setText("");
-				task_tutorial_text.setBackgroundColor('rgba(255,255,255,0)');
 				
 		}
 		else
@@ -330,7 +329,6 @@ function right_pressed()
 					clearInterval(task_button_blinking_animation);
 				}
 				task_tutorial_text.setText("");
-				task_tutorial_text.setBackgroundColor('rgba(255,255,255,0)');
 		}
 		else
 		{
@@ -388,7 +386,6 @@ function red_pressed()
 					clearInterval(task_button_blinking_animation);
 				}
 				task_tutorial_text.setText("");
-				task_tutorial_text.setBackgroundColor('rgba(255,255,255,0)');
 		}
 		
 		
@@ -450,7 +447,7 @@ function green_pressed()
 					clearInterval(task_button_blinking_animation);
 				}
 				task_tutorial_text.setText("");
-				task_tutorial_text.setBackgroundColor('rgba(255,255,255,0)');
+				// task_tutorial_text.setBackgroundColor('rgba(255,255,255,0)');
 		}
 		
 		

@@ -59,14 +59,13 @@ function flanker_task_generator()
 		{
 			if(isTouchDevice==true)
 			{
-				task_tutorial_text=curr_game.add.text(screen_width*0.245,flanker_task_image.y-flanker_task_image.height-22,"Press the button in the direction of \nthe middle arrow", { fontSize: '16px', fill: '#EC407A'});
+				task_tutorial_text=curr_game.add.text(screen_width*0.245,flanker_task_image.y-flanker_task_image.height-22,"Press the button in the direction of \nthe middle arrow", { fontSize: '16px', fill: '#FFFFFF'});
 			}
 			else
 			{
-				task_tutorial_text=curr_game.add.text(screen_width*0.13,flanker_task_image.y-flanker_task_image.height-20,"Press the Left Key if the middle arrow is pointing\n left,otherwise press Right Key", { fontSize: '18px', fill: '#EC407A'});
+				task_tutorial_text=curr_game.add.text(screen_width*0.16,flanker_task_image.y-flanker_task_image.height-30,"Press the Left Key if the middle arrow is pointing\n left,otherwise press Right Key", { fontSize: '18px', fill: '#FFFFFF'});
 			}
-			task_tutorial_text.setBackgroundColor('rgba(255,255,255,0.6)')
-			task_tutorial_text.setPadding(24,3,24,3);
+			task_tutorial_text.depth=14;
 		}
 		
 		//Record flanker task start time
@@ -154,7 +153,7 @@ function left_button_blinker()
 {
   
   left_button.alpha=touch_alpha[alpha_choice%2];
-  left_button.setScale(touch_size[alpha_choice%2]);
+  left_button.setScale(touch_size_task[alpha_choice%2]);
   alpha_choice++;
   animation_active=true;
 }
@@ -164,7 +163,7 @@ function right_button_blinker()
 {
   
   right_button.alpha=touch_alpha[alpha_choice%2];
-  right_button.setScale(touch_size[alpha_choice%2]);
+  right_button.setScale(touch_size_task[alpha_choice%2]);
   alpha_choice++;
   animation_active=true;
 }
