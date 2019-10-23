@@ -1,14 +1,14 @@
 <div class="container" (click)="onAnyWhereClick()" >
-<div class="row">
-  <div class="col scoreLocation text-left mt-1 ml-1">
+<div class="row mt-1 mb-2">
+  <div class="col-6 scoreLocation text-left mt-1 ml-0">
       <!-- <p class="scoreLocation text-left"> -->
           SCORE: {{ this.user.currentPoints()}}
         <!-- </p> -->
   </div>
-  <div class="col pb-0">
-    <div class="row barsDiv">
+  <!-- <div class="col-6 pb-0"> -->
+    <!-- <div class="row barsDiv"> -->
 
-    <div class="col px-1 w-75 ">
+    <div class="col-2 barsDiv  w-75 justify-content-start mt-1">
       <div class="float-left">  
         <img src="../../../../../../assets/games/mental-imagery-game/Gold badge symbol.svg">
       </div>
@@ -21,7 +21,7 @@
         [value]="goldValue"></mat-progress-bar>
     </div>
       
-      <div class="col px-1 justify-content-start">
+      <div class="col-2 barsDiv w-75 justify-content-start mt-1">
           <div class="float-left"> 
              <img src="../../../../../../assets/games/mental-imagery-game/Silver badge symbol.svg"> 
             </div>
@@ -35,7 +35,7 @@
       </div>
 
       
-      <div class="col px-1 w-75">
+      <div class="col-2 barsDiv w-75 justify-content-start mt-1">
           <div class="float-left"> 
               <img src="../../../../../../assets/games/mental-imagery-game/Bronze badge symbol.svg">
           </div>
@@ -45,27 +45,28 @@
           <mat-progress-bar 
           class="bronzeBar"
           mode="determinate" 
-          [value]="bronzeValue"></mat-progress-bar>
+          [value]="bronzeValue"
+          [color]="'new'"></mat-progress-bar>
       </div>
     </div>
  
-  </div>
-</div>
+  <!-- </div> -->
+<!-- </div> -->
 
   
 <!-- <div class="container" (click)="onAnyWhereClick()"> -->
   <h1>{{currentLevel.title}}</h1>
-  <mat-progress-bar ></mat-progress-bar>
+  <mat-progress-bar class="gameProgressBar" [color]="'new'"></mat-progress-bar>
   <div class="row" *ngIf="previousText">
-    <div class="col-12" [innerHTML]="previousText"></div>
+    <div class="col-12 smallest-font" [innerHTML]="previousText"></div>
   </div>
   <div class="row">
-    <div class="col-12 problem-space mt-2" *ngIf="currentScenario">
+    <div class="col-12 problem-space mt-2 smallest-font" *ngIf="currentScenario">
       {{ this.currentScenario.problemBeforeDash }} <strong>{{ blank.trim() || '-----------' }}</strong> {{ this.currentScenario.problemAfterDash }}
     </div>
   </div>
   <div class="row">
-    <div class="col-12" [innerHTML]="extraContent"></div>
+    <div class="col-12 smallest-font" [innerHTML]="extraContent"></div>
   </div>
   <div class="row">
     <div class="col-6 offset-3 text-center" *ngIf="notificationHeader && notificationHeader.length > 0">
@@ -75,19 +76,19 @@
   </div>
   <form (ngSubmit)="onSubmit()" autocomplete="off">
     <div class="form-row align-items-center">
-      <!-- <div class="input-group mb-2"> -->
-        <!-- <div class="input-group-prepend">
-          <div class="input-group-text">>></div>
-        </div> -->
+      <!-- <div class="input-group mb-2"> 
+      <div class="input-group-prepend"> -->
+          <div>>></div>
+        <!-- </div> -->
         <mat-form-field class="example-full-width">
-            <input matInput value=">>>" name="blank" [disabled]="disabled" (input)="storeTypedLetters()" #inputEl >
+           <input matInput name="blank" [(ngModel)]="blank" [disabled]="disabled" (input)="storeTypedLetters()" #inputEl >
           </mat-form-field>
         
         <!-- <input type="text" name="blank" class="form-control" [(ngModel)]="blank" [disabled]="disabled" #inputEl autocomplete="off" (input)="storeTypedLetters()"> -->
-        <button class="btn btn-primary" (click) = "onSubmit()" type="button" #submitBtn>Submit!</button>
-       <!-- </div> -->
+        <button mat-raised-button [color]="'new'" (click) = "onSubmit()" type="button" #submitBtn>Submit!</button>
+       </div>
       <small class="text-muted" *ngIf="invalidInput">Oops! you seem to have typed something that we currently don't understand</small>
-    </div>
+    <!-- </div> -->
   </form>
 </div>
 
