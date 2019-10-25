@@ -1,6 +1,7 @@
-<div class="container" (click)="onAnyWhereClick()" >
-<div class="row mt-1 mb-2">
-  <div class="col-6 scoreLocation text-left mt-1 ml-0">
+<div class="container " id="containerDiv" >
+  <div class="topBar row mt-1 ">
+  
+  <div class="col-6 scoreLocation text-left mt-1 ml-0 small-font">
       <!-- <p class="scoreLocation text-left"> -->
           SCORE: {{ this.user.currentPoints()}}
         <!-- </p> -->
@@ -48,15 +49,17 @@
           [value]="bronzeValue"
           [color]="'new'"></mat-progress-bar>
       </div>
-    </div>
+    
  
   <!-- </div> -->
 <!-- </div> -->
 
   
-<!-- <div class="container" (click)="onAnyWhereClick()"> -->
-  <h1>{{currentLevel.title}}</h1>
-  <mat-progress-bar class="gameProgressBar" [color]="'new'"></mat-progress-bar>
+<h1 class="mt-3 medium-font">{{currentLevel.title}}</h1>
+  
+  <mat-progress-bar class="gameProgressBar ml-3" [color]="'new'"></mat-progress-bar>
+</div>
+<div class="main" (click)="onAnyWhereClick()">
   <div class="row" *ngIf="previousText">
     <div class="col-12 smallest-font" [innerHTML]="previousText"></div>
   </div>
@@ -75,21 +78,27 @@
     </div>
   </div>
   <form (ngSubmit)="onSubmit()" autocomplete="off">
-    <div class="form-row align-items-center">
+     <div class="form-row align-items-center"> 
+        
       <!-- <div class="input-group mb-2"> 
       <div class="input-group-prepend"> -->
-          <div>>></div>
+          <div class="ml-1">>></div>
         <!-- </div> -->
-        <mat-form-field class="example-full-width">
+        <mat-form-field >
            <input matInput name="blank" [(ngModel)]="blank" [disabled]="disabled" (input)="storeTypedLetters()" #inputEl >
           </mat-form-field>
         
         <!-- <input type="text" name="blank" class="form-control" [(ngModel)]="blank" [disabled]="disabled" #inputEl autocomplete="off" (input)="storeTypedLetters()"> -->
-        <button mat-raised-button [color]="'new'" (click) = "onSubmit()" type="button" #submitBtn>Submit!</button>
-       </div>
+        <div class="ml-auto p-1">
+            <button mat-raised-button [color]="'new'" (click) = "onSubmit()" type="button" #submitBtn>Submit!</button>
+        </div>
+          
+        
+        </div>
       <small class="text-muted" *ngIf="invalidInput">Oops! you seem to have typed something that we currently don't understand</small>
     <!-- </div> -->
   </form>
+</div>
 </div>
 
 <!-- <div *ngIf="openNavBar"class="navBar">

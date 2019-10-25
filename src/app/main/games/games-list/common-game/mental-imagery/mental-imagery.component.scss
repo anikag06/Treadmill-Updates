@@ -15,16 +15,19 @@
   display: flex;
   justify-content:center !important;
   background-color: #45b9bc;
+  padding-right: 0px !important;
+	padding-left: 0px !important;
 }
 *:focus {
   outline: none;
 }
 .game-start{
   height: 100%;
-	max-height: 640px;
+  display: flex;
+	// max-height: 640px;
   max-width: 360px;
   background-image: url("../../../../../../assets/games/mental-imagery-game/Background with texture.png");
-  overflow: scroll;
+  // overflow: auto;
 }
 
 .noteBook-border {

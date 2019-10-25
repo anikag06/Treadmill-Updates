@@ -1,6 +1,10 @@
+@import "styles.scss";
+@import "../../../../shared/games-common.scss";
 h1 {
-    font-size: 1.2em;
+    
     color: #C75252;
+    margin-left:15px;
+   
 }
 
 .problem-space {
@@ -28,9 +32,8 @@ form {
 }
 
 .scoreLocation{
-     margin-top: 7vw;
+    margin-top: 7vw;
     // text-align: right;
-    font-size: .90em;
     font-weight: bold;
     font-family: Roboto, Arial, sans-serif;
 }
@@ -53,10 +56,29 @@ form {
     margin: 5vh 6vw;
 
 }
-.container{
+#containerDiv{
     // width: 75vw;
     // min-height: 80vh;
+    height: 100%;
+    
    }
+.topBar {
+    position: relative;
+    overflow: hidden;
+    // top:10vh;
+    // background-color: rgba(255, 255, 255, 0.89);
+    max-width:360px;
+    margin-left:-15px;
+    margin-right:0px;
+}
+.main {
+    margin-top: 1vh;
+    overflow-y: auto;
+    overflow-x:hidden;
+    height:83%;
+    font-weight: 300;
+    
+}
 
 
 .buttonLocation{
@@ -77,7 +99,11 @@ form {
     background-color: #F17878 !important;
     border-color: #F17878 !important;
     color: #FFF;
+    
 }
+// .gameProgressBar{
+//     margin-left: 15px;
+// }
 // .btn-primary {
 //     background-color: #F17878;
 //     color:  white;
@@ -113,6 +139,11 @@ form {
         left: 1vw;
         width: 10vw;
     }
+
+    // .topBar {
+        
+    //     top:20vh;
+    // }
 
     .icons input[type='image'] {
         display: block;
