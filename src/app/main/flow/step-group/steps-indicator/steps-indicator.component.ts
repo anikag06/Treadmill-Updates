@@ -20,12 +20,12 @@ export class StepsIndicatorComponent implements OnInit {
   @Input() stepGroupSteps!: any;
   @Input() showLessSteps!: any;
   @Input() firstStepOfModule!: any;
+  @Input() lastStepOfModule!: any;
 
   constructor() { }
 
   ngOnInit() {
-    console.log(this.stepGroupSteps);
-    console.log('first of module', this.firstStepOfModule);
+    console.log(this.lastStepOfModule);
   }
 
   getStatusImage(step: Step) {

@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild, ComponentFactoryResolver, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ComponentFactoryResolver,
+  ElementRef, ChangeDetectorRef } from '@angular/core';
 import { SlideService } from './slide.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { FormDirective } from './form.directive';
@@ -14,6 +15,7 @@ import { SLIDE, FORM_PROBLEM_SOLVING_WORKSHEET, FORM_TASK, COMPLETED, ACTIVE } f
 import { CommonDialogsService } from '../shared/common-dialogs.service';
 import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.service';
 import { StepsDataService } from '../shared/steps-data.service';
+import { UserFeedbackComponent } from '../shared/user-feedback/user-feedback.component';
 
 @Component({
   selector: 'app-slides',
@@ -50,6 +52,7 @@ export class SlidesComponent implements OnInit {
   @ViewChild('form_div', {static: false}) formDiv!: ElementRef;
   @ViewChild('slideDiv', {static: false}) slideDiv!: ElementRef;
   @ViewChild('slidePage', {static: false}) slidePage!: ElementRef;
+  @ViewChild(UserFeedbackComponent, {static: false}) userFeedback!: UserFeedbackComponent;
   scrollTop = 0;
 
   constructor(
@@ -73,15 +76,10 @@ export class SlidesComponent implements OnInit {
   isSlidesVisible = true;
 
   showNextStepBtn = false;
-
-  isDislikeBox = false;
-  isLikeBox = false;
   slideLiked = false;
   slideDisliked = false;
-  likeDislikeRemoved = false;
 
   initial_feedback!: number;
-  final_feedback!: number;
   feedbackDataId!: number;
 
   feedbackData: SlidesFeedback = new SlidesFeedback(0, 0, 1);
@@ -92,6 +90,7 @@ export class SlidesComponent implements OnInit {
   isLastStep = false;
   lastStepCompleted = false;
   next_step_id!: number;
+  step_type: any;
 
   ngOnInit() {
     this.activateRoute.params
@@ -100,21 +99,22 @@ export class SlidesComponent implements OnInit {
         switchMap(id =>  this.stepDataService.getStepData(parseInt(id, 10)))
       )
       .subscribe(
-        (data: any) => {
-          if ([COMPLETED, ACTIVE].includes(data.data.status) && data.data.data_type === SLIDE ) {
-            this.slide = <Slide>data.data.step_data.data;
-            this.current_step_id = data.data.id;
-            this.isLastStep = data.data.is_last_step;
-            this.next_step_id = data.data.next_step_id;
-            if (data.data.status === COMPLETED) {
+        (slide_data: any) => {
+          if ([COMPLETED, ACTIVE].includes(slide_data.data.status) && slide_data.data.data_type === SLIDE ) {
+            this.step_type = SLIDE;
+            this.slide = <Slide>slide_data.data.step_data.data;
+            this.current_step_id = slide_data.data.id;
+            this.isLastStep = slide_data.data.is_last_step;
+            this.next_step_id = slide_data.data.next_step_id;
+            if (slide_data.data.status === COMPLETED) {
               this.showNextStepBtn = true;
-
               if (this.isLastStep) {
                 this.lastStepCompleted = true;
               }
             }
-            this.slideService.getFeedBackInfo(this.current_step_id)
-              .subscribe( (feedback_data) => {
+            const slideId = slide_data.data.step_data.data.id;
+            this.slideService.getFeedBackInfo(slideId)
+              .subscribe( (feedback_data: any) => {
                 if (feedback_data.exists) {
                   this.initial_feedback = feedback_data.feedback;
                   if (this.initial_feedback === 1) {
@@ -134,13 +134,13 @@ export class SlidesComponent implements OnInit {
             } else {
               this.notAvailable = true;
             }
-            const formName = data.data.action[0];
+            const formName = slide_data.data.action[0];
             if (formName === FORM_PROBLEM_SOLVING_WORKSHEET) {
               setTimeout(() => this.loadForm(ProblemSolvingWorksheetsComponent), 1000);
             } else if (formName === FORM_TASK) {
               setTimeout(() => this.loadForm(TaskFormsComponent), 1000);
             }
-            if (window.matchMedia('(max-width: 770px)').matches) {
+            if (window.matchMedia('(max-width: 767px)').matches) {
               this.visible = true;
             } else {
               setTimeout(() => this.slideDiv.nativeElement.classList.add('col-5'), 1000);
@@ -157,68 +157,40 @@ export class SlidesComponent implements OnInit {
     const viewContainerRef = this.formHost.viewContainerRef;
     viewContainerRef.clear();
     viewContainerRef.createComponent(componentFactory);
-    if (window.matchMedia('(max-width: 770px)').matches) {
+    if (window.matchMedia('(max-width: 767px)').matches) {
       this.isFormVisible = false;
     } else {
       this.isFormVisible = true;
       this.formDiv.nativeElement.classList.add('col-4');
     }
   }
-
-  onDislikeBtnClick() {
-    this.scrollPageToBottom();
-    if (this.slideDisliked === true) {
-      this.final_feedback = 0;      // changing from dislike to no like/dislike state
-      this.likeDislikeRemoved = true;
-      this.isDislikeBox = false;
-    } else if (this.slideLiked === true) {
-      this.final_feedback = -1;         // changing from like to dislike state
-      this.likeDislikeRemoved = true;
-      this.isDislikeBox = false;
-    } else {
-      this.final_feedback = -1;      // changing from no like/dislike state to dislike
-      this.likeDislikeRemoved = false;
-      this.isDislikeBox = true;
-    }
-    this.slideDisliked = !this.slideDisliked;
-    this.slideLiked = false;
-    this.isLikeBox = false;
-    this.storeFeedBackData();
-  }
-  onLikeBtnClick() {
-    this.scrollPageToBottom();
-    if (this.slideLiked === true) {
-      this.final_feedback = 0;      // changing from like to no like/dislike state
-      this.likeDislikeRemoved = true;
-      this.isLikeBox = false;
-    } else if (this.slideDisliked === true) {
-      this.final_feedback = 1;      // changing from dislike to no like state
-      this.likeDislikeRemoved = true;
-      this.isLikeBox = false;
-    } else {
-      this.isLikeBox = true;
-      this.final_feedback = 1;      // changing from no like/dislike state to like
-      this.likeDislikeRemoved = false;
-    }
-    this.slideLiked = !this.slideLiked;
-    this.slideDisliked = false;
-    this.isDislikeBox = false;
-    this.storeFeedBackData();
+  onShowForm() {
+    this.visible = !this.visible;
+    this.isFormVisible = true;
+    this.isSlidesVisible = false;
   }
 
-  storeFeedBackData() {
+  onShowSlides() {
+    this.visible = !this.visible;
+    this.isSlidesVisible = true;
+    this.isFormVisible = false;
+  }
+
+  scrollPageToBottom() {
+    this.scrollTop = this.slideDiv.nativeElement.scrollHeight;
+    setTimeout( () => {
+      this.slideDiv.nativeElement.scrollTop = this.scrollTop; }, 100 );
+  }
+
+  storeSlideFeedBackData() {
     this.feedbackData.initial_feedback_state = this.initial_feedback;
-    this.feedbackData.final_feedback_state = this.final_feedback;
+    this.feedbackData.final_feedback_state = this.userFeedback.final_feedback;
     this.feedbackData.slide_id = this.slide.id;
-
     this.slideService.storeFeedBackInfo(this.feedbackData)
       .subscribe( (data) => {
         this.feedbackDataId = data.data.id;
-        this.initial_feedback = this.final_feedback;
+        this.initial_feedback = this.userFeedback.final_feedback;
       } );
-  }
-  scrollPageToBottom() {
-    this.scrollTop = this.slidePage.nativeElement.scrollHeight;
   }
 
   onCompleted() {
@@ -239,28 +211,10 @@ export class SlidesComponent implements OnInit {
         this.router.navigate([next_step_url]);
       });
   }
-  onDashboard() {
-    this.router.navigate(['/']);
-  }
-  onShowForm() {
-    this.visible = !this.visible;
-    this.isFormVisible = true;
-    this.isSlidesVisible = false;
-  }
-
-  onShowSlides() {
-    this.visible = !this.visible;
-    this.isSlidesVisible = true;
-    this.isFormVisible = false;
-  }
-
-  onSubmitComment(feedback_text: string) {
-    this.feedbackText.feedback_text = feedback_text;
+  onSubmitComment() {
+    this.feedbackText.feedback_text = this.userFeedback.feedback_text;
     this.slideService.updateFeedBackInfo(this.feedbackText, this.feedbackDataId)
-      .subscribe((data) => {});
-    this.isDislikeBox = false;
-    this.isLikeBox = false;
-    this.likeDislikeRemoved = false;
+      .subscribe((data) => { });
     this.scrollTop = 0;
   }
 }

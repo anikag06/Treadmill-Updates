@@ -50,6 +50,7 @@ function task_generator()
         //Task related variables;
 		task_completed=false;
 		task_init=true;
+		task_start_dialog_add = true;
 		current_number_of_tasks=Math.floor(Math.random()*(max_number_of_tasks));
 		if(task_tutorial_shown==false)
 		{
@@ -88,65 +89,71 @@ function task_generator()
 	{
 		reachedCrossing=true;
 		bgm_sound.pause();
-		if(countdown_handler==null)
+		console.log('in call func');
+
+		if(countdown_handler==null&&task_dialog_done==false)
 		{
-			countdown_handler=setInterval(start_countdown,INTERVAL);
+			addInstructionTasks();
+			// countdown_handler=setInterval(start_countdown,INTERVAL);
 		}
+		
 	}
 
 
-	else
+	else 
 	{
 		clearInterval(countdown_handler);
 		countdown_handler=null;
 		countdown_dot_length=0;
 		start_countdown_done=true;
 		resume_countdown_done=false;
+		task_start_dialog_add = false;
 		countdown=7;
 		countdown_text.setText();
 
 
 	    //Move the score panel upwards till out of site
-	    if(scoreText.y>=-screen_height-scoreText.height/2||coinsCollectedText.y>=-screen_height-coinsCollectedText.height/2||coin_score_icon.y>=-screen_height/2-coin_score_icon.height/2||life.y>=-screen_height/2-life.height/2)
-	    {
-	    	scoreText.y-=GAME_ELEMENTS_SPEED;
-	    	coinsCollectedText.y-=GAME_ELEMENTS_SPEED;
-	    	coin_score_icon.y-=GAME_ELEMENTS_SPEED;
-	    	life.y-=GAME_ELEMENTS_SPEED;
-	    	livesText.y-=GAME_ELEMENTS_SPEED;
-	    	if(isTouchDevice==true)
-	    	{
-	    	jump_button.y+=GAME_ELEMENTS_SPEED;
-	    	}
-	    	double_jump_button.y+=GAME_ELEMENTS_SPEED;
-	    	double_jump_text.y+=GAME_ELEMENTS_SPEED;
-	    	if(double_jump_coin!=null)
-	    	{
-	    		double_jump_coin.y+=GAME_ELEMENTS_SPEED;
-	    	}
-	    	if(mystery_egg_icon!=null)
-	    	{
-	    		mystery_egg_icon.y-=GAME_ELEMENTS_SPEED;
-	    	}
-	    	mystery_egg_collected_text.y-=GAME_ELEMENTS_SPEED
+	    // if(scoreText.y>=-screen_height-scoreText.height/2||coinsCollectedText.y>=-screen_height-coinsCollectedText.height/2||coin_score_icon.y>=-screen_height/2-coin_score_icon.height/2||life.y>=-screen_height/2-life.height/2)
+	    // {
+	    	// scoreText.y-=GAME_ELEMENTS_SPEED;
+	    	// coinsCollectedText.y-=GAME_ELEMENTS_SPEED;
+	    	// coin_score_icon.y-=GAME_ELEMENTS_SPEED;
+	    	// life.y-=GAME_ELEMENTS_SPEED;
+	    	// livesText.y-=GAME_ELEMENTS_SPEED;
+	    	// if(isTouchDevice==true)
+	    	// {
+	    	// jump_button.y+=GAME_ELEMENTS_SPEED;
+	    	// }
+	    	// double_jump_button.y+=GAME_ELEMENTS_SPEED;
+	    	// double_jump_text.y+=GAME_ELEMENTS_SPEED;
+	    	// if(double_jump_coin!=null)
+	    	// {
+	    	// 	double_jump_coin.y+=GAME_ELEMENTS_SPEED;
+	    	// }
+	    	// if(mystery_egg_icon!=null)
+	    	// {
+	    	// 	mystery_egg_icon.y-=GAME_ELEMENTS_SPEED;
+	    	// }
+			// mystery_egg_collected_text.y-=GAME_ELEMENTS_SPEED
+			
 	    	// pause_button.y-=GAME_ELEMENTS_SPEED;
 	    	// resume_button.y-=GAME_ELEMENTS_SPEED;
 	    	// music_button_on.y-=GAME_ELEMENTS_SPEED;
 	    	// music_button_off.y-=GAME_ELEMENTS_SPEED;
-	    }
+	    // }
 	   
 	    
-	    else
-	    {
+	    // if (isTouchDevice==false)
+	    // {
 
     
 	      //Add the task buttons
 	      if(left_button==null&&isTouchDevice==true)
 	      {
 	      
-	      left_button=curr_game.add.sprite(LEFT_X-distance,TOP_Y, 'flanker_button').setInteractive();
-		  left_button.setScale(0.56); 
-		  left_button.angle+=270;
+	      left_button=curr_game.add.sprite(LEFT_X-distance,TOP_Y, 'left_button').setInteractive();
+		  left_button.setScale(1.2);
+		  left_button.depth = 12;
 
 	      if(left_button.y-left_button.height<0)
 	      {
@@ -156,9 +163,9 @@ function task_generator()
 	      left_button.on('pointerup',function(){this.alpha=1});
 
 
-	      right_button=curr_game.add.sprite(RIGHT_X+distance,TOP_Y, 'flanker_button').setInteractive();
-		  right_button.setScale(0.56); 
-		  right_button.angle+=90;
+	      right_button=curr_game.add.sprite(RIGHT_X+distance,TOP_Y, 'right_button').setInteractive();
+		  right_button.setScale(1.2); 
+		  right_button.depth = 12;
 	      if(right_button.y-right_button.height<0)
 	      {
 	      	right_button.y=right_button.height/2+20;
@@ -168,12 +175,14 @@ function task_generator()
 
 	      
 	      red_button=curr_game.add.sprite(LEFT_X-distance,BOTTOM_Y, 'red_button').setInteractive();
-		  red_button.setScale(0.56); 
+		  red_button.setScale(1.2); 
+		  red_button.depth = 12;
 		  red_button.on('pointerdown', red_pressed);
 	      red_button.on('pointerup',function(){this.alpha=1});
 
 	      green_button=curr_game.add.sprite(RIGHT_X+distance,BOTTOM_Y, 'green_button').setInteractive();
-		  green_button.setScale(0.56); 
+		  green_button.setScale(1.2);
+		  green_button.depth = 12; 
 		  green_button.on('pointerdown', green_pressed);
 	      green_button.on('pointerup',function(){this.alpha=1});
 
@@ -182,8 +191,9 @@ function task_generator()
 
          
          //Move task buttons to the required posiiton
-	     else if(isTouchDevice==true)
+	    if(isTouchDevice==true)
 	     {
+			 console.log('bring task buttons');
 		    if(left_button.x!=LEFT_X)
 		    {
 	     		// left_button.x+=BUTTON_SPEED;
@@ -213,7 +223,7 @@ function task_generator()
 	     	task_init=false;
 	    }
 
-	    }
+	    // }
 	}
 	
 }
@@ -258,13 +268,12 @@ function left_pressed()
 				flanker_task_complete();
 				if(isTouchDevice==true)
 				{
-					left_button.setScale(0.56);
+					left_button.setScale(1.2);
 					animation_active=false;
 				
 					clearInterval(task_button_blinking_animation);
 				}
 				task_tutorial_text.setText("");
-				task_tutorial_text.setBackgroundColor('rgba(255,255,255,0)');
 				
 		}
 		else
@@ -314,13 +323,12 @@ function right_pressed()
 				flanker_task_complete();
 				if(isTouchDevice==true)
 				{
-					right_button.setScale(0.56);
+					right_button.setScale(1.2);
 					animation_active=false;
 					
 					clearInterval(task_button_blinking_animation);
 				}
 				task_tutorial_text.setText("");
-				task_tutorial_text.setBackgroundColor('rgba(255,255,255,0)');
 		}
 		else
 		{
@@ -349,6 +357,7 @@ function red_pressed()
 			{
 				number_of_correct_response++;
 			}
+			console.log('in ec game', number_of_correct_response);
 		}
 		else
 		{
@@ -371,13 +380,12 @@ function red_pressed()
 				discrimination_task_complete();
 				if(isTouchDevice==true)
 				{
-					red_button.setScale(0.56);
+					red_button.setScale(1.2);
 					animation_active=false;
 					
 					clearInterval(task_button_blinking_animation);
 				}
 				task_tutorial_text.setText("");
-				task_tutorial_text.setBackgroundColor('rgba(255,255,255,0)');
 		}
 		
 		
@@ -418,6 +426,7 @@ function green_pressed()
 			{
 				number_of_correct_response++;
 			}
+			console.log('in ec game green pressed', number_of_correct_response);
 		}
 		
 		if(SHOW_TUTORIAL==true&&task_tutorial_shown==false)
@@ -432,13 +441,13 @@ function green_pressed()
 				discrimination_task_complete();
 				if(isTouchDevice==true)
 				{
-					green_button.setScale(0.56);
+					green_button.setScale(1.2);
 					animation_active=false;
 					
 					clearInterval(task_button_blinking_animation);
 				}
 				task_tutorial_text.setText("");
-				task_tutorial_text.setBackgroundColor('rgba(255,255,255,0)');
+				// task_tutorial_text.setBackgroundColor('rgba(255,255,255,0)');
 		}
 		
 		
@@ -463,17 +472,64 @@ function start_countdown()
 	if(game_paused==true || game_closed == true)
     {
         return;
-    }
+	}
+	if (!task_background_added){
+		task_background = curr_game.add.sprite(screen_width*0.5, screen_height*0.5, 'black_background').setScale(5.5,2.5);
+		task_background.depth = 10;
+		task_background_added = true;
+	}
+	var Initial_Text=STARTING_TEXT;
+	for(var i=0;i<countdown_dot_length;i++)
+	{
+		Initial_Text+=". "
+	}
+	countdown_dot_length=(countdown_dot_length+1)%countdown_max_dot_length;
+	countdown_text.setText(Initial_Text);
+	countdown_text.depth=100;
+	countdown--;
 
- 	var Initial_Text=STARTING_TEXT;
-    for(var i=0;i<countdown_dot_length;i++)
-    {
-        Initial_Text+=". "
-    }
-    countdown_dot_length=(countdown_dot_length+1)%countdown_max_dot_length;
-    countdown_text.setText(Initial_Text);
-    countdown_text.depth=100;
-    countdown--;
+}
 
+function addInstructionTasks() {
+	if (task_start_dialog_add) {
+		task_start_dialog = curr_game.add.tileSprite(screen_width*0.5,screen_height*0.46,screen_width*0.62,screen_height*0.613,"tutorial_box").setTileScale(1.185,1.39);
+
+		task_start_dialog.depth = 12;
+		task_start_dialog_text =curr_game.add.text(screen_width*0.25,screen_height*0.35,
+				"", { fontSize: '15px', fill: '#FFFFFF',align:'center' });
+		task_dialog_heading=curr_game.add.text(screen_width*0.42, screen_height*0.18,
+					"Instructions", {strokeThicknes: '2.5px',fontSize:'18px', fill: '#FFFFFF',align:'center'});
+		task_dialog_heading.depth = 13;
+		if(isTouchDevice==true)
+		{
+			task_start_dialog_text.setText("For task 1: Press 'button image' if the middle arrow is\npointing left 'flanker task image ', press 'image'\n\n if pointing right. \n\n For task 2: Press 'button image' if the central circle is 'red image', press 'image' if the central circle is 'green image'");
+		}
+		else
+		{
+			task_start_dialog_text.setText("For task 1:  Press 'image' if the middle arrow is\npointing left 'flanker task image ', press 'image'\n\n if pointing right. For task 2: Press 'image' if the central circle is \n'red image', press 'image' if the central circle is 'green image'");
+		}
+		task_start_dialog_text.depth=13;
+		task_start_button=curr_game.add.image(screen_width*0.505,screen_height*0.66,'buy_button').setInteractive();
+		task_start_button.depth = 15;
+		task_start_button_text = curr_game.add.text(screen_width*0.48,screen_height*0.645,'Start',{ fontSize: '15px', fill: '#000000',align:'center' }).setInteractive();
+		task_start_button_text.depth = 16;
+		task_start_dialog_add = false;
+		task_dialog_done = true;
+	}
+	task_start_button.on('pointerdown', ()=>{
+		onClickStartTask();
+	}, curr_game);
+	task_start_button_text.on('pointerdown', ()=>{
+		onClickStartTask();
+	}, curr_game);
+}
+
+function onClickStartTask() {
+	task_start_button.destroy();
+	task_start_dialog.destroy();
+	task_start_dialog_text.destroy();
+	task_dialog_heading.destroy();
+	task_start_button_text.destroy();
+	countdown_handler=setInterval(start_countdown,INTERVAL);
 
 }

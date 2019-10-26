@@ -13,6 +13,11 @@ export class CongratsDialogComponent implements OnInit {
 
   nextStepData!: any;
   unLockTime!: any;
+  img_src = '../../../../../assets/shared/thumb.svg';
+  showBadge = false;
+  badgeName!: string;
+  badgeInfo!: string;
+
   constructor(
     public dialogRef: MatDialogRef<CongratsDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -26,9 +31,15 @@ export class CongratsDialogComponent implements OnInit {
     }
     this.nextStepData = this.data.nextStepData;
     if (this.data.isLastStep) {
-      this.unLockTime = this.nextStepData.next_step_group_unlock_time;
-      const convertedDateString = this.unLockTime.toLocaleString();
-      this.unLockTime = new Date(convertedDateString);
+      this.img_src = this.data.badgeData.image;
+      this.showBadge = true;
+      this.badgeName = this.data.badgeData.name;
+      this.badgeInfo = this.data.badgeData.description;
+      if (this.data.isLocked) {
+        this.unLockTime = this.nextStepData.next_step_group_unlock_time;
+        const convertedDateString = this.unLockTime.toLocaleString();
+        this.unLockTime = new Date(convertedDateString);
+      }
     }
   }
 

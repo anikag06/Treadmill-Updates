@@ -2,52 +2,62 @@
             [expanded]='isExpanded'
             (opened)="panelOpened()"
             (closed)="isExpanded = false; showLessSteps = true;">
-  <mat-expansion-panel-header class="row">
-    <mat-panel-title>
-      <div class="col-3 px-0">
-        <svg viewport="0 0 50 50" height="50" width="50" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="25" cy="25" r="20" stroke="#ccc" stroke-width="3" fill="transparent"/>
-          <circle
-            cx="25"
-            cy="25"
-            r="20"
-            stroke="#666"
-            stroke-width="3"
-            fill="transparent"
-            [attr.stroke-dashoffset]="dashOffset()"
-            stroke-dasharray="126"
-            stroke-linecap="round"
-            transform="rotate(270 25 25)"/>
-          <text stroke="#666" x="21" y="30">
-            {{stepGroup.sequence + 1}}
-          </text>
-        </svg>
+  <mat-expansion-panel-header class="row mx-0">
+    <mat-panel-title class="mx-0">
+      <div class="col-3 justify-content-center px-0">
+        <div class="module-circle justify-content-center">
+          <svg viewport="0 0 50 50" height="50" width="50"
+            class="d-block mx-auto my-auto" 
+            xmlns="http://www.w3.org/2000/svg">
+            <circle cx="25" cy="25" r="20" stroke="#ccc" 
+              stroke-width="3" fill="transparent"/>
+            <circle
+              cx="25"
+              cy="25"
+              r="20"
+              stroke="#666"
+              stroke-width="3"
+              fill="transparent"
+              [attr.stroke-dashoffset]="dashOffset()"
+              stroke-dasharray="126"
+              stroke-linecap="round"
+              transform="rotate(270 25 25)"/>
+            <text stroke="#666" x="21" y="30">
+              {{stepGroup.sequence + 1}}
+            </text>
+          </svg>
+        </div>
+        
       </div>
-      <div class="col-9 step-group-name px-1 align-self-center">
-        {{stepGroup.name}}
+      <div class="col px-0 step-group-name align-self-center justify-content-start">
+        {{stepGroup.name}} 
+        <img class="active-gif"
+          src="../../../../assets/flow/unlocked.gif" 
+          *ngIf='stepGroup.status === "ACTIVE" && isExpanded === false'>
       </div>
+      
     </mat-panel-title>
-          <!-- <mat-panel-description>
-              icon
-          </mat-panel-description> -->
-        <!-- </div> -->
   </mat-expansion-panel-header>
-  <ng-template matExpansionPanelContent>
-    <div class="row px-1 ">
-      <div class="col-2 px-0" >
+  <ng-template matExpansionPanelContent class="w-100">
+    <div class="row w-100 mx-0">
+      <div class="col-3 px-0 step-circle-div">
         <app-steps-indicator 
           *ngIf = "showLessSteps; else showAllIndicators"
-          [showLessSteps] = showLessSteps [firstStepOfModule] = firstStepOfModule
+          [showLessSteps] = showLessSteps 
+          [lastStepOfModule] = lastStepOfModule
+          [firstStepOfModule] = firstStepOfModule
           [stepGroupSteps]="defaultSteps.steps"></app-steps-indicator>
         <ng-template #showAllIndicators>
           <app-steps-indicator 
-            [showLessSteps] = showLessSteps [firstStepOfModule] = firstStepOfModule
+            [showLessSteps] = showLessSteps 
+            [lastStepOfModule] = lastStepOfModule
+            [firstStepOfModule] = firstStepOfModule
             [stepGroupSteps]="stepGroup.steps"></app-steps-indicator>
         </ng-template>
       </div>
 
-      <div class="col px-0">
-        <div class="" *ngIf = "showLessSteps; else showAllSteps">
+      <div class="col-9 ">
+        <div *ngIf = "showLessSteps; else showAllSteps">
           <app-step 
             *ngFor="let stepInitial of defaultSteps.steps" 
             [step]="stepInitial" [stepGroup]="defaultSteps"></app-step>

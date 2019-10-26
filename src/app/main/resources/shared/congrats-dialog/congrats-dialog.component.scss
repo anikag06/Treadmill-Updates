@@ -1,6 +1,5 @@
 
 .congrats-div {
-    font-family: 'Roboto';
     max-height: 733px; 
     max-width: 1158px;
     height: 100%;
@@ -15,7 +14,7 @@
     color: #8D8D8D;
 }
 #flow-img{
-    height: 90%;
+    height: 80%;
 }
 #next-step-div{
     height: 10%;
@@ -25,7 +24,10 @@
     padding: 0%;
     margin: 0%;
 }
-@media screen and (max-width: 770px) {
+.badge-img{
+    max-height: 80px;
+}
+@media screen and (max-width: 767px) {
     
     .congrats-text {
         font-size: 24px;    

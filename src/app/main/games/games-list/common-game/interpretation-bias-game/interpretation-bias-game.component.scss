@@ -11,93 +11,74 @@
 	height: 100%;
 	max-height: 100%;
 }
-#instruct-div{
-	overflow: scroll;
-	height: 100%;
-}
-
 p{
 	margin: 0%;
 	padding: 0%;
 }
 .container-fluid{
-	background-image: url("/assets/games/interpretation_bias_game/images/background.png");
+	// background-image: url("/assets/games/interpretation_bias_game/images/background.png");
+	background-color: #9af0f7;
 	max-width: 100%;
 	height: 100%;
 	max-height: 100%;
+	padding-right: 0px !important;
+	padding-left: 0px !important;
 }
-.game,.game-first-page{
-	background-image: url("/assets/games/interpretation_bias_game/images/Automatic Interpretive Bias.png");
-	background-size: 95%;
-	background-position: center;
-	background-repeat: no-repeat;
+#game_main_div{
+	max-width: 360px;
+}
+.game-first-page{
+	// background-image: url("/assets/games/interpretation_bias_game/images/Automatic Interpretive Bias.png");
+	// background-size: 95%;
+	// background-position: center;
+	// background-repeat: no-repeat;
 	height: 100%;
 	max-height: 100%;
-	// min-height: 500px;
 	text-align: center;
 	max-width: 100%;
+}
+.game {
+	height: 100%;
+	max-height: 640px;
+	max-width: 360px;
+	background-color: #C7FBFF;
 }
 #frontpage-image{
-	max-width: 35%;
+	max-width: 75%;
 }
-// 	background-image: url("/assets/games/interpretation_bias_game/images/frontpage_image.png");
-// 	background-size: 35%;
-// 	background-position: center;
-// 	background-repeat: no-repeat;
-// }
-// .sentence-row,
+.score-col{
+	min-height: 13%;
+	max-height: 14%;
+}
 .stars,.selected-word{
 	margin: auto;
-	text-align: center;
-	max-width: 85%;
+	max-width: 88%;
 }
 .clock{
-	max-width: 20px;
-	margin: 2px;
-}
-.row-height-100 {
-	height: 100%;
+	max-width: 18px;
+	margin: 1.2px;
 }
 .timeup1, .timeup2{
-	max-width: 60%;
-	min-height: 40%;
-	background-color: rgba(255,255,255,0.5);
-}
-.timeup-btn-in-div{
-	min-width: 100%;
-}
-.question-word,.complete-sentence{
-	max-width: 60%;
+	background-color: #FFFFFF;
 }
 .color-change{
 	color:#45b9bc;
 }
-//.pause-hints,
-.btn-hint{
-	max-width: 50%;
-	padding: 0.5px;
-	// min-width: 53%;
-	margin: 5%;
-	margin-bottom: 0%
+.hints-col{ 
+	max-height: 65px;
+	margin-bottom: 3.4px;
 }
-#hint-div, .tip{
-	margin-top: 1%;
+#aWord, #wordCoordinates{
+	margin-left: 0%;
+	max-width: 61%;
+	height: 91%;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 91%;
+	background-image: url("/assets/games/button_big.svg");
+	line-height: 13px;
+	padding: 3.5%;
 }
-.showWordResult, .showCoordResult{
-	min-height: 10%;
-	min-width: 55%;
-	max-width: 60%;
-	margin: 5%;
-	margin-top: 0%;
-	margin-left: 5%;
-	text-align: center;
-	background-color: rgba(255, 255, 255, 0.568);
-}
-// .congrats{
-// 	position: absolute;
-// 	margin-right: auto;
-// 	margin-left: auto;	
-// }
 canvas{
 	max-width: 100%;
 	background-color: white;
@@ -109,11 +90,6 @@ canvas{
 .row{
 	margin-left: 0px;
 	margin-right: 0px;
-}
-
-.container-fluid{
-	padding-right: 0px;
-	padding-left: 0px;
 }
 
 .col, .col-12{
@@ -132,46 +108,71 @@ canvas{
 	-o-transform: rotate(180deg);
 	transform: rotate(180deg);
 }
-.card-img-top{
-	max-width: 400px;
-	opacity: 0.2;
-	position:relative;
-	z-index: 1;
-}
-
-.card-gif-top{
-	max-width: 400px;
-	position:relative;
-	z-index: 1;	
-}
-
-.instruction-icon{
-	font-size: 125px !important;
-	position: relative;
-}
-
-.div-instruction{
-	max-width: 400px;
-	margin: auto;
-}
-.lifeline-cost{
-	margin: auto;
-	max-width: 90%;
-}
-.lifeline-cost-div{
-	max-width: 100%;
-	text-align: center;
-	display: block;
-}
-// .text{
-// 	font-size: 20px;
-// }
 .tip{
-	min-height: 55px;
+	min-height: 31px;
 	color: #449798 ;
 	max-width: 80%;
-	
+	line-height: 12px;
 }
+.progress-bar-vertical {
+	// width: 5%;
+	float: left;
+	background-color: rgba(100, 216, 216, 0.5);
+  }
+  
+.progress-bar-vertical .progress-bar {
+	width: 100%;
+	height: 0;
+	-webkit-transition: height 0.6s ease;
+	-o-transition: height 0.6s ease;
+	transition: height 0.6s ease;
+}
+
+::ng-deep.hints-menu {
+	min-width: 200px !important;
+	max-width: 250px !important;
+	max-height: 50vh !important;
+}
+::ng-deep.hints-menu-items{
+	min-height: 65px;
+}
+.barsDiv{
+	max-width: 40px !important;
+}
+.bronzeBar {
+	::ng-deep.mat-progress-bar-fill::after {
+		background-color: #B27725;
+	}	
+}
+.silverBar{
+	::ng-deep.mat-progress-bar-fill::after {
+		background-color: #9E9E9E;
+	}
+}
+.goldBar{
+	::ng-deep.mat-progress-bar-fill::after {
+		background-color: #D5A521;
+	}
+}
+.difficultyBar{
+	max-height: 3px;
+	::ng-deep.mat-progress-bar-fill::after {
+		background-color: #000000;
+	}
+}
+.firstBar{
+	padding-top: 0px !important; 
+}
+
+#btn-next-sentence{
+	background-image: url("/assets/games/button_big.svg"); 
+	background-repeat: no-repeat;
+	background-size: 100%;
+	background-position: center;
+	cursor: pointer;
+	font-size: 14px;
+}
+  
 @media only screen and (max-width: 991px) and (max-width: 767px) {
 	/* For mobile phones: */
 	.ibGame-page {
@@ -180,73 +181,36 @@ canvas{
 		max-width: 100%;
 		min-height: 100%   
 	}
-	.paused-game-btns{
-		display: inline;
-	}
-	.extra-col{
-		display: none;
-	}
 	.container-fluid{
-		background-image: url("/assets/games/interpretation_bias_game/images/background_mobile.png");
+		// background-image: url("/assets/games/interpretation_bias_game/images/background_mobile.png");
+		// background-color: #C7FBFF;
 		max-width: 100%;
 		min-height: 100%;
-		padding: 0 !important;
-   		margin: 0 !important
 	}
-	.game,.game-first-page{
-		background-image: url("/assets/games/interpretation_bias_game/images/aib_mobile.png");
-		background-repeat: no-repeat;
-		background-size: 35%;
-		background-position-x: 4%;
+	.game-first-page{
+		// background-image: url("/assets/games/interpretation_bias_game/images/aib_mobile.png");
+		// background-repeat: no-repeat;
+		// background-size: 35%;
+		// background-position-x: 4%;
 		text-align: center;
 		width: 100%;
 		min-height: 100%; 
 	}
-	#frontpage-image{
-		max-width: 40vw;
-	}
-	.showTimer{
-		display: inline;
-		margin-left: auto;
-	}
-	.timeup1, .timeup2, .question-word,.complete-sentence{
-		max-width: 80%;
-		margin: auto;
-	}
-	.timeup-btn-in-div{
-		min-width: 50%;
-		max-width: 70%;
-	}
-	.lifeline-cost-div{
-		max-width: 65%;
-		display: inline-block;
-		text-align: center;
-		// margin-left: auto;
-	}
-	.btn-hint{
-		max-width: 100px;
-		margin: auto;
-		margin-top: 0.5% ;
-	}
+	// #frontpage-image{
+	// 	max-width: 60vw;
+	// }
+	
 	#hint-div{
 		margin-left: 5%;
 		margin-top: 0%;
-	}
-	.showWord,.showWordResult{
-		margin-left: 2%;
-		margin-right: auto;
-	}
-	.show_coordinates,.showCoordResult{
-		margin-left: auto;
-		margin-right: auto;
-	}
-	.increase_time{
-		margin-left: auto;
-		margin-right: 1%;
 	}
 	.pause-hints{
 		max-width: 35%;
 	}
 }
-
+@media only screen and (max-width: 359px) {
+	.change-padding {
+		padding: 0% !important;
+	}
+}
 

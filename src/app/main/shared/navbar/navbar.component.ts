@@ -45,11 +45,13 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   notificationClick() {
     this.showNotifications = !this.showNotifications;
+    console.log('show notifica..', this.showNotifications);
     const viewContainerRef = this.notifactionHost.viewContainerRef;
     viewContainerRef.clear();
     if (this.showNotifications) {
       const componentFactory = this.componentFactoryResolver.resolveComponentFactory(NavbarNotificationsComponent);
       viewContainerRef.createComponent(componentFactory);
+      console.log(viewContainerRef);
     }
     this.unreadCount = 0;
     const notifications  = this.notificationService.putUserNotifications().toPromise();
@@ -58,7 +60,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     );
   }
 
-  flowClick() {
+  flowClick(event: Event) {
     this.showFlow = !this.showFlow;
     const viewContainerRef = this.flowHost.viewContainerRef;
     viewContainerRef.clear();
@@ -69,7 +71,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.userNotificationSubscription.unsubscribe();
+    if ( this.userNotificationSubscription) {
+      this.userNotificationSubscription.unsubscribe();
+    }
   }
 
   getNotificationsCount() {
@@ -80,4 +84,5 @@ export class NavbarComponent implements OnInit, OnDestroy {
       error => console.log(error)
     );
   }
+
 }

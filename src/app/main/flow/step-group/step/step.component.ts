@@ -7,11 +7,13 @@ import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.se
 import { Router } from '@angular/router';
 import { FlowService } from '../../flow.service';
 import { MatTooltip } from '@angular/material';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-step',
   templateUrl: './step.component.html',
-  styleUrls: ['./step.component.scss']
+  styleUrls: ['./step.component.scss'],
+  providers: [DatePipe]
 })
 export class StepComponent implements OnInit {
 
@@ -19,13 +21,29 @@ export class StepComponent implements OnInit {
   @Input() stepGroup!: StepGroup;
   @ViewChild('tooltip', {static: false}) showToolTip!: MatTooltip;
 
+  prevModuleLastStep: any;
+  tooltipData!: any;
+  isConversationStep = false;
+  conversationBarValue = 5;           // default value is kept 5
+  isShowConversationBar = false;
+
   constructor(
     private router: Router,
     private flowStepNavService: FlowStepNavigationService,
     private flowService: FlowService,
+    private datePipe: DatePipe
   ) { }
 
   ngOnInit() {
+    this.tooltipData = 'Complete the previous steps first';
+    if (this.step.data_type === CONVERSATION_GROUP && this.step.status !== LOCKED) {
+      if (this.step.step_data.data.conversation_completed_percentage > 0) {
+        this.conversationBarValue = this.step.step_data.data.conversation_completed_percentage;
+      }
+      if (this.conversationBarValue !== 100) {
+        this.isShowConversationBar = true;
+      }
+    }
   }
 
   nextLink(): string {
@@ -33,9 +51,9 @@ export class StepComponent implements OnInit {
   }
 
    previousStep(stepGroup: StepGroup, step: Step) {
-      const allSteps = <Step[]>stepGroup.steps;
-      const index = allSteps.indexOf(step, 1);
-      return allSteps[index - 1];
+    const allSteps = <Step[]>stepGroup.steps;
+    const index = allSteps.indexOf(step, 1);
+    return allSteps[index - 1];
    }
 
    nextStep(stepGroup: StepGroup, step: Step) {
@@ -52,18 +70,17 @@ export class StepComponent implements OnInit {
    }
 
    navigate(event: Event) {
-      this.showTooltipFun();
-      event.preventDefault();
-      this.markDone();
-      if (this.step.data_type === INTRODUCTORY_ANIMATION) {
-        this.flowService.triggerIntroduction();
-        this.step.status = COMPLETED;
-        this.flowService.triggerLoad();
-        setTimeout(() => this.flowService.triggerLoad(), 1);
-        setTimeout(() => this.flowService.triggerLoad(), 10);
-
-      }
-      return this.router.navigate([this.nextLink()]);
+    event.preventDefault();
+    this.showTooltipFun();
+    this.markDone();
+    if (this.step.data_type === INTRODUCTORY_ANIMATION) {
+      this.flowService.triggerIntroduction();
+      this.step.status = COMPLETED;
+      this.flowService.triggerLoad();
+      setTimeout(() => this.flowService.triggerLoad(), 1);
+      setTimeout(() => this.flowService.triggerLoad(), 10);
+    }
+    return this.router.navigate([this.nextLink()]);
    }
 
    locked() {
@@ -78,14 +95,30 @@ export class StepComponent implements OnInit {
     return this.step.status === ACTIVE;
    }
 
-   showTooltipFun() {
+  showTooltipFun() {
     if (this.step.status === LOCKED && !this.step.virtual_step) {
       const prev = this.previousStep(this.stepGroup, this.step);
       if (!prev) {
-        console.log('this is first step');
+        this.flowService.getModuleUnlockTime(this.stepGroup);
+        this.flowService.unlockModuleTime
+          .subscribe( (data) => {
+            const time = this.datePipe.transform(data, 'hh:mm a');
+            const date = this.datePipe.transform(data, 'dd-MM-yyy');
+            this.tooltipData = 'unlocks at: ' + time + ' on ' + date;
+          });
+      } else {
+        this.tooltipData = 'Complete the previous steps first';
       }
+      this.tooltipShow();
+    }
+  }
+  tooltipShow() {
+    if (this.showToolTip.disabled) {
       this.showToolTip.disabled = false;
-      this.showToolTip.show();
-     }
-   }
+    }
+    this.showToolTip.showDelay = 300;
+    this.showToolTip.hideDelay = 100;
+    this.showToolTip.toggle();
+  }
+
 }

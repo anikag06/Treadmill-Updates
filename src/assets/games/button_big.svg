@@ -1,0 +1,15 @@
+<svg id="Button_Big" data-name="Button Big" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="152" height="34" viewBox="0 0 152 34">
+  <defs>
+    <radialGradient id="radial-gradient" cx="0.312" cy="0.375" r="2.945" gradientTransform="matrix(0.224, 0.02, -0.001, 0.315, 0.243, 0.25)" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#dbdbdb"/>
+      <stop offset="0.351" stop-color="#dbdbdb"/>
+      <stop offset="1" stop-color="#b1bbc1"/>
+    </radialGradient>
+  </defs>
+  <g id="Rectangle_1738" data-name="Rectangle 1738" stroke="#8b98a0" stroke-width="1" fill="url(#radial-gradient)">
+    <rect width="152" height="34" rx="17" stroke="none"/>
+    <rect x="0.5" y="0.5" width="151" height="33" rx="16.5" fill="none"/>
+  </g>
+  <path id="Path_6793" data-name="Path 6793" d="M1155.9,472.3c5.629-4.844,18.062-12,24.341-8.588-.02-.1,7.268-10.158,7.2-10.549,0-.044-4.62.032-27.492-.054-8.564,0-15.622,7.676-15.622,16.24a15.437,15.437,0,0,0,1.153,5.865C1147.943,475.834,1151.774,475.851,1155.9,472.3Z" transform="translate(-1143.121 -452.163)" fill="#dbdbdb"/>
+  <path id="Path_6794" data-name="Path 6794" d="M1091.517,465.528c89.711-4.981,121.537-5.207,128.555,4.855a15.988,15.988,0,0,0-14.551-17.172c-2.007-.327-9.452-.012-11.833,0-12.09,0-105.706-.47-112.32,5.44C1081.367,460.726,1081.495,469.513,1091.517,465.528Z" transform="translate(-1069.12 -452.163)" fill="#dbdbdb"/>
+</svg>

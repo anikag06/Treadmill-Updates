@@ -1,7 +1,5 @@
 function obstacle_placer() {
 
-
-
       if(stop_obstacle_generation==true)
       {
         free_to_choose_high=true;
@@ -9,7 +7,6 @@ function obstacle_placer() {
         second_choice_high=-1;
         return;
       }
-
         
     //Generate Obstacle if it is allowed
     if (obstacle == null && stop_obstacle_generation == false&&start_tasks==false) {
@@ -41,13 +38,13 @@ function obstacle_placer() {
           0.Simple obstacle*/
         if(obstacle_type.curr_choice==1)
         {
-            top_obstacle = obstacle_group.create(screen_width + OBSTACLE_X_CORDINATE,OBSTACLE_Y_CORDINATE-jump_height/4,'obstacle');
-            top_obstacle.body.allowGravity = false;
-            top_obstacle.depth=2;
-            top_obstacle.angle=180;
-            curr_game.physics.add.overlap(top_obstacle, player, function(obj1,obj2){hit_obstacle(obj1);}, null, curr_game);
+            // top_obstacle = obstacle_group.create(screen_width + OBSTACLE_X_CORDINATE,OBSTACLE_Y_CORDINATE-jump_height/4,'obstacle');
+            // top_obstacle.body.allowGravity = false;
+            // top_obstacle.depth=2;
+            // top_obstacle.angle=180;
+            // curr_game.physics.add.overlap(top_obstacle, player, function(obj1,obj2){hit_obstacle(obj1);}, null, curr_game);
 
-            obstacle = obstacle_group.create(screen_width + OBSTACLE_X_CORDINATE,OBSTACLE_Y_CORDINATE, 'obstacle');
+            obstacle = obstacle_group.create(screen_width + OBSTACLE_X_CORDINATE,OBSTACLE_Y_CORDINATE-8, 'big_obstacle').setScale(0.8);
             obstacle.body.allowGravity = false;
             obstacle.depth=2;
             curr_game.physics.add.overlap(obstacle, player,function(obj1,obj2){hit_obstacle(obj1);}, null, curr_game);
@@ -55,7 +52,7 @@ function obstacle_placer() {
         }
         else if(obstacle_type.curr_choice==2)
         {
-            obstacle = obstacle_group.create(screen_width + OBSTACLE_X_CORDINATE,OBSTACLE_Y_CORDINATE, 'flying_obstacle');
+            obstacle = obstacle_group.create(screen_width + OBSTACLE_X_CORDINATE,OBSTACLE_Y_CORDINATE, 'flying_obstacle').setScale(0.8);
             obstacle.body.allowGravity = false;
             obstacle.depth=2;
             curr_game.physics.add.overlap(obstacle, player,function(obj1,obj2){hit_obstacle(obj1);}, null, curr_game);
@@ -63,7 +60,7 @@ function obstacle_placer() {
         }
         else
         {
-            obstacle = obstacle_group.create(screen_width + OBSTACLE_X_CORDINATE,OBSTACLE_Y_CORDINATE, 'obstacle');
+            obstacle = obstacle_group.create(screen_width + OBSTACLE_X_CORDINATE,OBSTACLE_Y_CORDINATE, 'obstacle').setScale(0.65);
             obstacle.body.allowGravity = false;
             obstacle.depth=2;
             curr_game.physics.add.overlap(obstacle, player,function(obj1,obj2){hit_obstacle(obj1);}, null, curr_game);
@@ -93,11 +90,10 @@ function obstacle_placer() {
 
                 if(isTouchDevice==false)
                 {
-                    tutorial_box = curr_game.add.tileSprite(screen_width*0.5,screen_height*0.38,screen_width*0.42,screen_height*0.5,"tutorial_box");
-                    tutorial_box.alpha = 0.6;
+                    tutorial_box = curr_game.add.tileSprite(screen_width*0.5,screen_height*0.38,screen_width*0.42,screen_height*0.5,"tutorial_box").setTileScale(0.8,1.145);
                     tutorial_box.depth = 4;
-                    tutorial_text.setText("Press               to\n\n  avoid obstacle");
-                    control_button_1=curr_game.add.image(screen_width*0.49,screen_height*0.32,'spacebar_button').setScale(0.4);
+                    tutorial_text.setText("Press                   to\n\n  avoid obstacle");
+                    control_button_1=curr_game.add.image(screen_width*0.49,screen_height*0.36,'spacebar_button');
                     tutorial_text.depth = 5;
                     control_button_1.depth = 5;
                 }
@@ -115,19 +111,18 @@ function obstacle_placer() {
         else if(obstacle_type.curr_choice==1)
         {
             obstacle.x-=OBSTACLE_SPEED;
-            top_obstacle.x-=OBSTACLE_SPEED;
+            // top_obstacle.x-=OBSTACLE_SPEED;
             if(obstacle.x-player.x<=JUMP_RANGE*0.7&&double_jump_for_obstacle1_tutorial_shown==false&&SHOW_TUTORIAL==true)
             {
 
                 if(isTouchDevice==false)
                 {
-                    tutorial_box = curr_game.add.tileSprite(screen_width*0.5,screen_height*0.38,screen_width*0.42,screen_height*0.5,"tutorial_box");
-                    tutorial_box.alpha = 0.6;
+                    tutorial_box = curr_game.add.tileSprite(screen_width*0.5,screen_height*0.38,screen_width*0.42,screen_height*0.5,"tutorial_box").setTileScale(0.8,1.145);
                     tutorial_box.depth = 4;
-                    tutorial_text.setText("Press         +          \n\nto avoid the obstacles");
+                    tutorial_text.setText("Press          +           \n\nto avoid the obstacles");
                     // tutorial_text.x-=150;
-                    control_button_1=curr_game.add.image(screen_width*0.46,screen_height*0.32,'shift_button').setScale(0.4);
-                    control_button_2=curr_game.add.image(screen_width*0.61,screen_height*0.32,'spacebar_button').setScale(0.4);
+                    control_button_1=curr_game.add.image(screen_width*0.445,screen_height*0.36,'shift_button');
+                    control_button_2=curr_game.add.image(screen_width*0.59,screen_height*0.36,'spacebar_button');
                     tutorial_text.depth = 5;
                     control_button_1.depth = 5;
                     control_button_2.depth = 5;
@@ -141,7 +136,7 @@ function obstacle_placer() {
             //Do this for the case when player dies and new player is added
             curr_game.physics.add.overlap(obstacle, player,function(obj1,obj2){hit_obstacle(obj1);}, null, curr_game);
             //Do this for the case when player dies and new player is added
-            curr_game.physics.add.overlap(top_obstacle, player,function(obj1,obj2){hit_obstacle(obj1);}, null, curr_game);
+            // curr_game.physics.add.overlap(top_obstacle, player,function(obj1,obj2){hit_obstacle(obj1);}, null, curr_game);
 
         }
         else if(obstacle_type.curr_choice==2)
@@ -153,12 +148,11 @@ function obstacle_placer() {
 
                 if(isTouchDevice==false)
                 {
-                    tutorial_box = curr_game.add.tileSprite(screen_width*0.5,screen_height*0.4,screen_width*0.42,screen_height*0.5,"tutorial_box");
-                    tutorial_box.alpha = 0.6;
+                    tutorial_box = curr_game.add.tileSprite(screen_width*0.5,screen_height*0.4,screen_width*0.42,screen_height*0.5,"tutorial_box").setTileScale(0.8,1.145);
                     tutorial_box.depth = 4;
-                    tutorial_text.setText("Press         +          \n\nto avoid the obstacles");
-                    control_button_1=curr_game.add.image(screen_width*0.46,screen_height*0.32,'shift_button').setScale(0.4);
-                    control_button_2=curr_game.add.image(screen_width*0.61,screen_height*0.32,'spacebar_button').setScale(0.4);
+                    tutorial_text.setText("Press          +          \n\nto avoid the obstacles");
+                    control_button_1=curr_game.add.image(screen_width*0.445,screen_height*0.36,'shift_button')
+                    control_button_2=curr_game.add.image(screen_width*0.59,screen_height*0.36,'spacebar_button')
                     tutorial_text.depth = 5;
                     control_button_1.depth = 5;
                     control_button_2.depth = 5;
@@ -190,7 +184,7 @@ function obstacle_placer() {
     {
        
         obstacle = null;
-        top_obstacle=null;
+        // top_obstacle=null;
         obstacleGenerating=false;
     
         //Restore game elements generator

@@ -1,0 +1,37 @@
+<div class="container-fluid">
+    
+    <p id="complete-sentence" 
+        class="text-dark complete-sentence large-font text-center d-none"> </p>
+                      
+    <div id="word" class="col question-word d-none">
+        <div class="row justify-content-end yes-no-score">
+            <p class="">Bonus:</p>
+            <p id="ibg-coins" class="coins"></p>
+            <br/>
+        </div>
+        <div class="row justify-content-center mb-4">
+            <b><p class="text-dark large-font" id="sentence_word"></p></b> 
+        </div>
+        <div class="row justify-content-center">
+            <div class="row text-center question small-font my-2">
+                Is the word related to the sentence? 
+            </div> 
+            <div class="row yes-no w-100 py-2" >
+                <div class="col px-0 mx-1">
+                    <div class='yes btn-sentence-word-rel medium-font text-center py-2'
+                        (click) = 'storeUserScoreInfo(true)'
+                        id='ibg-yes'> Yes
+                    </div>
+                </div>
+                <div class="col px-0 mx-1">
+                    <div class='no btn-sentence-word-rel medium-font text-center py-2'
+                        (click) = 'storeUserScoreInfo(false)' 
+                        id="ibg-no" > No
+                    </div>
+                </div>
+            </div>
+        </div><br>
+        
+    </div>
+</div>
+

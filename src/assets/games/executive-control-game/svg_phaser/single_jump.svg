@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="54.14" height="53.157" viewBox="0 0 54.14 53.157">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#464646"/>
+      <stop offset="1" stop-color="#191919"/>
+    </linearGradient>
+  </defs>
+  <g id="Single_Jump" data-name="Single Jump" transform="translate(0 1.159)">
+    <g id="double_jump" transform="translate(0 0)">
+      <rect id="backgroundrect" width="51" height="51" transform="translate(1.995 -0.001)" fill="none"/>
+      <g id="Group_2655" data-name="Group 2655" transform="translate(0 1.841)">
+        <path id="svg_1" d="M5,28.578A23.578,23.578,0,1,1,28.578,52.157,23.572,23.572,0,0,1,5,28.578Z" transform="translate(-1.017 -5)" stroke="#484848" stroke-linejoin="round" stroke-width="6" fill="url(#linear-gradient)"/>
+        <path id="svg_1-2" data-name="svg_1" d="M19.9,76.331c.876.29,1.4,2.679,13.817,2.679S51.951,72.8,58.911,61.255A22.475,22.475,0,0,1,36.43,83.736C23.519,82.992,19.985,76.323,19.9,76.331Z" transform="translate(-8.868 -37.677)" fill="#2d2d2d" opacity="0.81"/>
+        <path id="svg_1-3" data-name="svg_1" d="M.056,21.459c-.092-.039-.056-.059,0,0C10.762,23.337,22.448,11.544,29.407,0A22.475,22.475,0,0,1,6.926,22.481C.07,21.479.136,21.45.056,21.459Z" transform="matrix(-0.966, 0.259, -0.259, -0.966, 34.224, 21.933)" fill="#302a2a" opacity="0.81"/>
+      </g>
+    </g>
+    <path id="svg_6" d="M6.51,13.509,0,0,11.705,13.509,0,27.017Z" transform="translate(13.727 30.307) rotate(-88.645)" fill="#fff" stroke="#fff" stroke-linejoin="round" stroke-width="1"/>
+  </g>
+</svg>

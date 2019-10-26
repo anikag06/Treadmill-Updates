@@ -12,6 +12,37 @@ function init_game_variables(){
 	// store the time when the game is started
 	ec_game_start_time;
 
+	// badges information
+	ecg_bronze_constant;
+	ecg_silver_constant;
+	ecg_gold_constant;
+
+	ecg_bronze_value;
+	ecg_bronze_percent;
+
+	ecg_silver_value;
+	ecg_silver_percent;
+
+	ecg_gold_value;
+	ecg_gold_percent;
+	total_correct_responses;
+
+	badgeBarWidth = 32;
+	bronzeBadge;
+	bronzeText;
+	bronzeBar;
+	bronzeBarBack;
+
+	silverBadge;
+	silverText;
+	silverBar;
+	silverBarBack;
+
+	goldBadge;
+	goldText;
+	goldBar;
+	goldBarBack;
+
 	//Background Elements
 	cityline_title;
 	brick;
@@ -164,7 +195,7 @@ function init_game_variables(){
 	obstacle_group;
 	stop_obstacle_generation=false;
 	OBSTACLE_X_CORDINATE=20;
-	OBSTACLE_Y_CORDINATE=screen_height*0.8;
+	OBSTACLE_Y_CORDINATE=screen_height*0.77;
 	OBSTACLE_SPEED=LEVEL_SPEED;
 	OBSTACLE_SMALL_SCALE = 0.8;
 	obstacleGenerating=false;
@@ -200,6 +231,15 @@ function init_game_variables(){
 	continue_to_next_set_timeout = null;
 	generate_tasks_variable = null;
 
+	task_dialog_done = false;
+	task_background;
+	task_background_added=false;
+	task_background_removed=false;
+
+	task_start_dialog_add = false;
+	task_start_dialog;
+	task_start_button;
+	task_start_button_text;
 
 	//Jump Platform variables
 	jump_platform=[];
@@ -250,6 +290,12 @@ function init_game_variables(){
 	//Gameover dialog_box;
 	game_over_dialog;
 	game_over_text;
+	buy_live_img1;
+	buy_live_img21;
+	buy_live_img22;
+	buy_live_img31;
+	buy_live_img32;
+	buy_live_img33;
 	buy_one_live;
 	buy_two_lives;
 	buy_three_lives;
@@ -263,8 +309,8 @@ function init_game_variables(){
 	BUTTON_SPEED=10;
 	LEFT_X=screen_width*0.1;
 	RIGHT_X=screen_width*0.9;
-	TOP_Y=screen_height*0.15;
-	BOTTOM_Y=screen_height*0.55;
+	TOP_Y=screen_height*0.25;
+	BOTTOM_Y=screen_height*0.65;
 	distance=200;
 	CORRECT_RESPONSE=1;
 	INCORRECT_RESPONSE=-1;
@@ -328,15 +374,15 @@ function init_game_variables(){
 	lifes_group;
 	HEART_POSITION_ADJUSTMENT=0.3;
 	heart_size=106;
-	stat_icon_display_y=15;
-	stat_text_display_y=0;
+	stat_icon_display_y=20;
+	stat_text_display_y=6;
 	heart_height=88;
 	heart_x = screen_width-155;
 	MAX_NUMBER_OF_LIVES=3;
 	COIN_SCORE_LENGTH_ADJUSTMENT=15;
 	coin_score_icon;
 	scoreText;
-	score_x=40;
+	score_x=13;
 	score=0;
 	max_score;
 	level={number:1};
@@ -458,6 +504,9 @@ function init_game_variables(){
 	retry_coin_animation;
 	retry_cost=10;
 
+	buy_live_img1_text;
+	buy_live_img2_text;
+	buy_live_img3_text;
 	buy_one_live_text;
 	buy_two_lives_text;
 	buy_three_lives_text;
@@ -491,7 +540,8 @@ function init_game_variables(){
 
 	touch_button_animation;
 	touch_alpha=[0.4,1]
-	touch_size=[0.38,0.56]
+	touch_size=[0.25,0.35]
+	touch_size_task=[1,1.2]
 	alpha_choice=0;
 	animation_active=false;
 

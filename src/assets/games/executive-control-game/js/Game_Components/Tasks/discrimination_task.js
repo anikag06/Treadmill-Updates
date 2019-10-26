@@ -5,7 +5,7 @@ function discrimination_task_generator()
 	{
 		discrimination_choice=Math.floor(Math.random()*TOTAL_NUMBER_OF_DISCRIMINATION_TASK);
 		discrimination_task_image=curr_game.add.image(DISCRIMINATION_X_CORDINATE,DISCRIMINATION_Y_CORDINATE,'discrimination_'+discrimination_choice).setScale(DISCRIMIANTION_TASK_IMAGE_SCALE);
-		
+		discrimination_task_image.depth = 12;
 		// if (isTouchDevice){
 		// 	discrimination_task_image.setScale(DISCRIMINATION_TASK_IMAGE_SMALL_SCALE);
 		// }
@@ -36,14 +36,15 @@ function discrimination_task_generator()
 		{
 			if(isTouchDevice==true)
 			{
-				task_tutorial_text=curr_game.add.text(screen_width*0.24,discrimination_task_image.y-discrimination_task_image.height+15 ,"Press the button matching the circle's \ncolor", { fontSize: '16px', fill: '#EC407A'});
+				task_tutorial_text=curr_game.add.text(screen_width*0.26,discrimination_task_image.y-discrimination_task_image.height ,"Press the button matching the circle's \ncolor", { fontSize: '16px', fill: '#FFFFFF'});
 			}
 			else
 			{
-				task_tutorial_text=curr_game.add.text(screen_width*0.23,discrimination_task_image.y-discrimination_task_image.height+15,"Press the Down Key if the circle is \ncolored red, otherwise press Up Key", { fontSize: '18px', fill: '#EC407A'});
+				task_tutorial_text=curr_game.add.text(screen_width*0.26,discrimination_task_image.y-discrimination_task_image.height,"Press the Down Key if the circle is \ncolored red, otherwise press Up Key", { fontSize: '18px', fill: '#FFFFFF'});
 			}
-			task_tutorial_text.setBackgroundColor('rgba(255,255,255,0.6)')
-			task_tutorial_text.setPadding(24,3,24,3);
+			task_tutorial_text.depth=14;
+			// task_tutorial_text.setBackgroundColor('rgba(255,255,255,0.6)')
+			// task_tutorial_text.setPadding(24,3,24,3);
 		}
 		
 		//Record discrimination task start time
@@ -119,6 +120,7 @@ function discrimination_task_complete()
 
 }
 getECGameTaskData = function (){
+	console.log(flanker_task_response_type, 'and ', discrimination_task_response_type);
 	return [
 		game_object,
 		flanker_task_timestamp,
@@ -140,6 +142,7 @@ function resume_countdown()
     }
 	
 	var Initial_Text=RESUMING_TEXT;
+	
     for(var i=0;i<countdown_dot_length;i++)
     {
         Initial_Text+=". "
@@ -151,20 +154,21 @@ function resume_countdown()
 		
 		tutorial_box = curr_game.add.tileSprite(screen_width*0.5,screen_height*0.4,screen_width*0.5,screen_height*0.5,"tutorial_box");
 		tutorial_box.alpha = 0.6;
-		tutorial_box.depth = 4;
+		tutorial_box.depth = 12;
 		if(isTouchDevice){
-			task_tutorial_text=curr_game.add.text(tutorial_box.x-(tutorial_box.width/2)+10,tutorial_box.y-(tutorial_box.height/2)+10,"Attention!!From Next time,\ntasks will appear only for\nsome time. Peform good in\nthe tasks and get rewarded", { fontSize: '13px', fill: '#EC407A'});
+			task_tutorial_text=curr_game.add.text(tutorial_box.x-(tutorial_box.width/2)+10,tutorial_box.y-(tutorial_box.height/2)+10,"Attention!!From Next time,\ntasks will appear only for\nsome time. Peform good in\nthe tasks and get rewarded", { fontSize: '13px', fill: '#FFFFFF'});
 
 		}else{
-			task_tutorial_text=curr_game.add.text(tutorial_box.x-(tutorial_box.width/2)+10,tutorial_box.y-(tutorial_box.height/2)+10,"Attention!!From Next time,\ntasks will appear only for\nsome time. Peform good in\nthe tasks and get rewarded", { fontSize: '18px', fill: '#EC407A'});
+			task_tutorial_text=curr_game.add.text(tutorial_box.x-(tutorial_box.width/2)+10,tutorial_box.y-(tutorial_box.height/2)+10,"Attention!!From Next time,\ntasks will appear only for\nsome time. Peform good in\nthe tasks and get rewarded", { fontSize: '18px', fill: '#FFFFFF'});
 		}
 		task_tutorial_shown=true;
-		task_tutorial_text.depth = 6;
+		task_tutorial_text.depth = 14;
 		countdown_text.setScale(0.5);
 		countdown_text.y = task_tutorial_text.x - 20;
 	}
     countdown_text.depth=100;
-    countdown--;
+	countdown--;
+	
 }
 
 //Reinitialize everything for next set
@@ -191,7 +195,7 @@ function red_button_blinker()
 {
   
   red_button.alpha=touch_alpha[alpha_choice%2];
-  red_button.setScale(touch_size[alpha_choice%2]);
+  red_button.setScale(touch_size_task[alpha_choice%2]);
   alpha_choice++;
   animation_active=true;
 }
@@ -201,7 +205,7 @@ function green_button_blinker()
 {
   
   green_button.alpha=touch_alpha[alpha_choice%2];
-  green_button.setScale(touch_size[alpha_choice%2]);
+  green_button.setScale(touch_size_task[alpha_choice%2]);
   alpha_choice++;
   animation_active=true;
 }

@@ -20,6 +20,9 @@ export const FRIDAY             = 'FRIDAY';
 export const SATURDAY           = 'SATURDAY';
 export const WEEK               = [SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY];
 
+// ibGame time
+export const IBG_LESS_TIME = 120;
+export const IBG_MORE_TIME = 150;
 
 // LOCAL STORAGE
 export const LS_TIME            = 120;

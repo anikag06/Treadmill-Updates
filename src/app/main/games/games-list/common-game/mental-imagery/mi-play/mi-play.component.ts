@@ -16,7 +16,7 @@ export class MiPlayComponent implements OnInit {
   // @ViewChild('submitBtn') submitBtn: ElementRef;
   // @Output() scoreUpdated = new EventEmitter<number>();
 
-  // tslint:disable-next-line:no-output-on-prefix
+  // tslint:disable-next-line:no-output-on-prefixF
   @Output() onNvHelp = new EventEmitter<void>();
   // tslint:disable-next-line:no-output-on-prefix
   @Output() onNvHome = new EventEmitter<void>();
@@ -44,7 +44,10 @@ export class MiPlayComponent implements OnInit {
   sentiment = require('../../../../../../../../node_modules/wink-sentiment/src/wink-sentiment.js');
   nlp = require('../../../../../../../../node_modules/compromise/builds/compromise.min.js');
   openNavBar = false;
-
+  goldValue:number = 20;
+  silverValue:number = 30;
+  bronzeValue:number = 40;
+  
 
 
   constructor(private getCurrentState: MICurrentStateService) { }
@@ -97,7 +100,7 @@ export class MiPlayComponent implements OnInit {
 
   storeTypedLetters() {
     MICurrentStateService.blank = this.blank;
-  }
+    }
 
   onSubmit() {
     this.blank = this.blank.trim();
@@ -106,6 +109,7 @@ export class MiPlayComponent implements OnInit {
     // this.inputEl.nativeElement.focus();
     if (this.blank && this.blank.length > 0) {
       this.situationHandler();
+      
     }
     // this.inputEl.nativeElement.focus();
   }

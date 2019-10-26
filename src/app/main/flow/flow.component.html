@@ -1,10 +1,11 @@
-<div class="container-fluid flow-container">
-    <div class="row">
+<div class="container-fluid flow-container ">
+    <div class="row in-desktop ">
         <div class="col">
           <h2 class="progress-heading">Progress</h2>
         </div>
     </div>
-    <div class="row w-100 justify-content-center mx-0 px-0">
+    <div class="row w-100 justify-content-center mx-0 px-0" 
+      *ngIf="dataloaded; else loader">
       <div class="col-12 px-0 flow-scroll">
         <div class="flow-scroll-inner py-2">
           <mat-accordion [hideToggle] = 'true'
@@ -19,3 +20,11 @@
       </div>
     </div>
 </div>
+
+<ng-template #loader>
+    <div class="col">
+      <div class="text-center loader">
+        <img src="assets/shared/dna-loader.svg" alt="loader" width="200">
+      </div>
+    </div>
+</ng-template>

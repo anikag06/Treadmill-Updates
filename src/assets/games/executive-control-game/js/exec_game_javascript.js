@@ -94,6 +94,38 @@ var ec_game_start_time;
 //timeout var 
 var generate_tasks_timeout;
 
+// badges information
+var ecg_bronze_constant;
+var ecg_silver_constant;
+var ecg_gold_constant;
+
+var ecg_bronze_value;
+var ecg_bronze_percent;
+
+var ecg_silver_value;
+var ecg_silver_percent;
+
+var ecg_gold_value;
+var ecg_gold_percent;
+var total_correct_responses;
+
+var badgeBarWidth;
+
+var bronzeBadge;
+var bronzeText;
+var bronzeBar;
+var bronzeBarBack;			// this the bar with lighter color and behind the actual bar
+
+var silverBadge;
+var silverText;
+var silverBar;
+var silverBarBack;
+
+var goldBadge;
+var goldText;
+var goldBar;
+var goldBarBack;
+
 //Background Elements
 var cityline_title;
 var brick;
@@ -280,6 +312,15 @@ var discrimination_task_initial_timeout;
 var continue_to_next_set_timeout;
 var generate_tasks_variable;
 
+var task_dialog_done;
+var task_background;
+var task_background_added;
+var task_background_removed;
+
+var task_start_dialog_add;
+var task_start_dialog;
+var task_start_button;
+var task_start_button_text;
 
 var double_coin_blinker;
 
@@ -307,6 +348,12 @@ var mystery_egg_collected_text;
 //Gameover dialog_box;
 var game_over_dialog;
 var game_over_text;
+var buy_live_img1;
+var buy_live_img21;
+var buy_live_img22;
+var buy_live_img31;
+var buy_live_img32;
+var buy_live_img33;
 var buy_one_live;
 var buy_two_lives;
 var buy_three_lives;
@@ -511,6 +558,9 @@ var retry_coin_text;
 var retry_coin_animation;
 var retry_cost;
 
+var buy_live_img1_text;
+var buy_live_img2_text;
+var buy_live_img3_text;
 var buy_one_live_text;
 var buy_two_lives_text;
 var buy_three_lives_text;
@@ -648,16 +698,17 @@ function preload(){
 	this.load.image('river_filler',jpg_location+"/big_river.jpg");
 
 	//Coin Related Elements
-	this.load.image('coin_obstacle',svg_location+'/obstacle.svg');
+	this.load.image('coin_obstacle',svg_location+'/stone_single.svg');
 	this.load.image('coin',svg_location+'/GOLD_COIN.svg');
 
 	
 	//Obstacle
-	this.load.image('obstacle',jpg_location+'/obstacles.png');
-	this.load.image('flying_obstacle',jpg_location+'/flying_Obstacle.png');
+	this.load.image('obstacle',svg_location+'/stone_single.svg');
+	this.load.image('flying_obstacle',svg_location+'/Frog.svg');
+	this.load.image('big_obstacle',svg_location+'/stone_double.svg');
 
 	//Extra life and other bonus
-	this.load.image('life',svg_location+"/life.svg");
+	this.load.image('life',svg_location+"/heart.svg");
 	this.load.image('mystery_egg',svg_location+"/me.svg");
 
 	//Shooting bomb
@@ -665,24 +716,38 @@ function preload(){
 
 	//Avatar
 	this.load.spritesheet('dude', png+'/avatar_1.png', { frameWidth: 59, frameHeight: 60}); // 32, 48
- 
-	//Flanker & single jump Buttons
+
+	// badges images
+	this.load.image('bronze_badge',assets_img_location+'/Bronze badge symbol.svg');
+	this.load.image('silver_badge',assets_img_location+'/Silver badge symbol.svg');
+	this.load.image('gold_badge', assets_img_location+'/Gold badge symbol.svg');
+
+	//Flanker Buttons
 	this.load.spritesheet('flanker_button',svg_location+'/flanker_button.svg',{ frameWidth: 160, frameHeight: 160 });
 
+	this.load.spritesheet('left_button', svg_location+'/left_button.svg',{ frameWidth: 160, frameHeight: 160 });
+	this.load.spritesheet('right_button',svg_location+'/right_button.svg',{ frameWidth: 160, frameHeight: 160 });
+
+	// single jump Buttons
+	this.load.spritesheet('single_jump',svg_location+'/single_jump.png',{ frameWidth: 160, frameHeight: 160 });
+
 	//Jump Button
-	this.load.spritesheet('double_jump',svg_location+'/double_jump.svg',{ frameWidth: 160, frameHeight: 160 });
+	this.load.spritesheet('double_jump',svg_location+'/double_jump.png',{ frameWidth: 160, frameHeight: 160 });
+
+	// black background
+	this.load.spritesheet('black_background',svg_location+'/full_window_background.svg',{ frameWidth: 160, frameHeight: 160 });
 
 	//Discrimination Task Buttons
-	this.load.image('red_button',svg_location+"/red_button.svg");
-	this.load.image('green_button',svg_location+"/green_button.svg");
+	this.load.image('red_button',svg_location+"/red_buttonN.svg");
+	this.load.image('green_button',svg_location+"/green_buttonN.svg");
 
 	// this.load.image('music_off', assets_img_location + "/mute.png");
 	
 	//Flanker Task Images
-	this.load.image('flanker_0',jpg_location+"/flanker_task/0.jpeg");
-	this.load.image('flanker_1',jpg_location+"/flanker_task/1.jpeg");
-	this.load.image('flanker_2',jpg_location+"/flanker_task/2.jpeg");
-	this.load.image('flanker_3',jpg_location+"/flanker_task/3.jpeg");
+	this.load.image('flanker_0',svg_location+"/flanker_task/0.svg");
+	this.load.image('flanker_1',svg_location+"/flanker_task/1.svg");
+	this.load.image('flanker_2',svg_location+"/flanker_task/2.svg");
+	this.load.image('flanker_3',svg_location+"/flanker_task/3.svg");
 
 	//Neutral or Negative Image(Odd:Negative Even:Neutral)
 	for(var i=1; i<TOTAL_NUMBER_OF_IMAGES; i+=2){
@@ -694,8 +759,8 @@ function preload(){
 	}	
 
 	//Discrimination Task Images
-	this.load.image('discrimination_0',svg_location+"/discrimination_task/red.svg");
-	this.load.image('discrimination_1',svg_location+"/discrimination_task/green.svg");
+	this.load.image('discrimination_0',svg_location+"/discrimination_task/red_symbol.svg");
+	this.load.image('discrimination_1',svg_location+"/discrimination_task/green_symbol.svg");
 
 	//sound effects
 	this.load.audio('coin_sound',sound_location+"/coin.ogg");
@@ -709,20 +774,21 @@ function preload(){
 	this.load.audio('bgm',sound_location+'/bgm.mp3');
 
 	//Gameover dialog
-	this.load.image('game_over_dialog',svg_location+"/gameoverbox.png");
+	this.load.image('game_over_dialog',svg_location+"/transparent_background.svg");
 	this.load.image('restart_game', assets_img_location +"/play.png");		//actually resuming the game
 	this.load.image('replay_game', assets_img_location+"/replay.png");
 
+	this.load.image('buy_button',svg_location+"/Button.svg");
 	//Yes/no button
 	this.load.image('yes_button',png+"/yes_button.png");
 	this.load.image('no_button',png+"/no_button.png");
 
 	//tutorial buttons
-	this.load.image("spacebar_button",png+"/spacebar.png");
-	this.load.image("shift_button",png+"/shift.png");
+	this.load.image("spacebar_button",svg_location+"/spacebar_button.svg");
+	this.load.image("shift_button",svg_location+"/shift_button.svg");
 
 	//tutorial box 
-	this.load.image("tutorial_box",svg_location+"/gameoverbox.png");
+	this.load.image("tutorial_box",svg_location+"/transparent_background.svg");
 
 	//Tunnel background
 	this.load.image('tunnel',jpg_location+"/tunnel.jpeg");
@@ -741,6 +807,10 @@ function preload(){
 	
 
 	isTouchDevice = 'ontouchstart' in document.documentElement;  
+	this.input.keyboard.createCursorKeys();
+	this.input.keyboard.on('keydown', e => {
+		e.preventDefault();
+	});
 }
 
 
@@ -751,7 +821,6 @@ function create(){
 
 	this.scale.on('resize', function(gameSize, baseSize, displaySize, resolution, previousWidth, previousHeight) {
 	});
-	
 
 	this.scale.setGameSize(screen_width, screen_height);
 
@@ -812,12 +881,13 @@ function create(){
 	shooting_bomb_y=brick.y-brick.height/2-20;
 
 	//Life indicator
-	life=lifes_group.create(heart_x, stat_icon_display_y, 'life').setScale(0.25);
+	life=lifes_group.create(heart_x, stat_icon_display_y, 'life').setScale(1);
 	life.body.allowGravity=false;
 
 	//Coin_Elements
 	coin_score_icon=coins_group.create(screen_width-40, stat_icon_display_y, 'coin').setScale(0.15);
 	coin_score_icon.body.allowGravity=false;
+
 	
 	//Detect touch on the screen for shooting action
 	this.input.on('pointerdown', function (pointer) {
@@ -830,7 +900,6 @@ function create(){
 	 });
 	//Add player and collider
 	player = this.physics.add.sprite(PLAYER_X,PLAYER_INITIAL_Y,'dude');
-
 	// this.add.image(250,340,'avatar').setScale(0.5);
 	this.physics.add.collider(player,brick);
 	
@@ -863,27 +932,81 @@ function create(){
 	});
 
 	//Texts to be displayed
-	RESPAWNING_TEXT=this.add.text(RESPAWN_X,RESPAWN_Y,"", { fontSize: '30px', fill: '#fff' });
-	countdown_text=this.add.text(RESPAWN_X,RESPAWN_Y,"", { fontSize: '30px', fill: '#fff'});
-	scoreText = this.add.text(score_x, stat_text_display_y,score, { fontSize: '30px', fill: '#fff',align:'left' });
-	livesText = this.add.text(heart_x-35, stat_text_display_y, number_of_lives, { fontSize: '30px', fill: '#fff',align:'left' });
-	coinsCollectedText=this.add.text(screen_width-90-COIN_SCORE_LENGTH_ADJUSTMENT*(coins_collected.toString().length-1), stat_text_display_y,coins_collected, { fontSize: '30px', fill: '#fff',align:'left',wordWrap: true });
-	mystery_egg_collected_text=this.add.text(75, 105,'', { fontSize: '30px', fill: '#fff',align:'right',wordWrap: true });
+	RESPAWNING_TEXT=this.add.text(RESPAWN_X,RESPAWN_Y,"", { fontSize: '27px', fill: '#fff' });
+	countdown_text=this.add.text(RESPAWN_X,RESPAWN_Y,"", { fontSize: '27px', fill: '#fff'});
+	scoreText = this.add.text(score_x, stat_text_display_y+1,'Score'+score, { fontSize: '27px', fill: '#fff',align:'left',
+																			shadow: {offsetX: 1, offsetY: 1, color: '#0000003D',
+																			blur: 2.2, stroke: true, fill: true }, });
+	livesText = this.add.text(heart_x-41, stat_text_display_y, number_of_lives, { fontSize: '27px', fill: '#fff',align:'left',
+																			shadow: {offsetX: 1, offsetY: 1, color: '#0000003D',
+																			blur: 2.2, stroke: true, fill: true }, });
+	coinsCollectedText=this.add.text(screen_width-85-COIN_SCORE_LENGTH_ADJUSTMENT*(coins_collected.toString().length-1), stat_text_display_y,coins_collected, 
+																			{ fontSize: '27px', fill: '#fff',align:'left',wordWrap: true,
+																			shadow: {offsetX: 1, offsetY: 1, color: '#0000003D',
+																			blur: 2.2, stroke: true, fill: true }, });
+	mystery_egg_collected_text=this.add.text(75, 105,'', { fontSize: '27px', fill: '#fff',align:'right',wordWrap: true });
+
 
 
 	//Update Score every 1/2 second
 	score_update_handler=setTimeout(score_updator, 500);
 
+	//add the badges information and bars
+	goldBadge = this.add.image(screen_width*0.256, stat_icon_display_y-1, 'gold_badge');
+	goldBadge.allowGravity = false;
+	goldBadge.depth=5;
+	goldText = this.add.text(screen_width*0.275,goldBadge.y-8,ecg_gold_value, { fontSize: '14px', fill: '#FFFFFF', align:'right',
+																			shadow: {offsetX: 1, offsetY: 1, color: '#0000003D',
+																			blur: 2.2, stroke: true, fill: true },});
+	goldText.depth=5;
+
+	goldBarBack = this.add.rectangle(screen_width*0.27, stat_icon_display_y+9, badgeBarWidth, 3, 0xFFE59C);
+	goldBarBack.depth=5;
+ 	goldBar = this.add.rectangle(screen_width*0.27, stat_icon_display_y+9, badgeBarWidth, 3, 0xD5A521);
+	goldBar.depth =6;
+
+	goldBar.width = (ecg_gold_percent/100) * goldBarBack.width;
+
+	silverBadge = this.add.image(goldBadge.x + 50, stat_icon_display_y-1, 'silver_badge');
+	silverBadge.allowGravity = false;
+	silverBadge.depth=5;
+	silverText = this.add.text(goldText.x + 50 ,silverBadge.y-8,ecg_silver_value, { fontSize: '14px', fill: '#FFFFFF', align:'right',
+																			shadow: {offsetX: 1, offsetY: 1, color: '#0000003D',
+																			blur: 2.2, stroke: true, fill: true },});
+	silverText.depth=5;
+
+	silverBarBack = this.add.rectangle(goldBarBack.x+50, stat_icon_display_y+9, badgeBarWidth, 3, 0xE5E5E5);
+	silverBarBack.depth=5;
+  	silverBar = this.add.rectangle(goldBar.x + 50, stat_icon_display_y+9, badgeBarWidth, 3, 0x9E9E9E);
+	silverBar.depth =6;
+
+	silverBar.width = (ecg_silver_percent/100) * silverBarBack.width;
+
+	bronzeBadge = this.add.image(silverBadge.x+50, stat_icon_display_y-1, 'bronze_badge');
+	bronzeBadge.depth=5;
+	bronzeBadge.allowGravity = false;
+	bronzeText = this.add.text(silverText.x+50,bronzeBadge.y-8,ecg_bronze_value, { fontSize: '14px', fill: '#FFFFFF', align:'right',
+																			shadow: {offsetX: 1, offsetY: 1, color: '#0000003D',
+																			blur: 2.2, stroke: true, fill: true },});
+	bronzeText.depth=5;
+
+	bronzeBarBack = this.add.rectangle(silverBarBack.x+50, stat_icon_display_y+9, badgeBarWidth, 3, 0xFFD59A);
+	bronzeBarBack.depth=5;
+  	bronzeBar = this.add.rectangle(silverBar.x+50, stat_icon_display_y+9, badgeBarWidth, 3, 0xB37826);
+	bronzeBar.depth =6;
+
+	bronzeBar.width = (ecg_bronze_percent/100) * bronzeBarBack.width;
+
 	//Tutorial text
-	tutorial_text=this.add.text(screen_width*0.32,screen_height*0.3,"", { fontSize: '16px', fill: '#EC407A',align:'center' });
-	tutorial_text.setPadding(20,2,20,2);
-	tutorial_text.depth = 5;
+	tutorial_text=this.add.text(screen_width*0.335,screen_height*0.33,"", { fontSize: '14px', fill: '#FFFFFF',align:'center' });
+	// tutorial_text.setPadding(20,2,20,2);
+	tutorial_text.depth = 14;
 	
 	//If touch add jump button
 	if(isTouchDevice==true)
 	{
 	//Jump Button
-		jump_button=this.add.sprite(screen_width*0.06,screen_height*0.97, 'flanker_button').setInteractive().setScale(0.5);
+		jump_button=this.add.sprite(screen_width*0.06,screen_height*0.97, 'single_jump').setInteractive().setScale(0.35);
 		jump_button.depth=2;
 		if(jump_button.y+jump_button.height/2>screen_height)
 		{
@@ -897,9 +1020,9 @@ function create(){
 	}
 	//Double jump button
 	if(isTouchDevice){
-		double_jump_button=this.add.sprite(screen_width*0.08+(jump_button.width*0.5),screen_height*0.97, 'double_jump').setInteractive().setScale(0.5);
+		double_jump_button=this.add.sprite(screen_width*0.08+(jump_button.width*0.4),screen_height*0.97, 'double_jump').setInteractive().setScale(0.35);
 	}else{
-		double_jump_button=this.add.sprite(screen_width*0.08,screen_height*0.97, 'double_jump').setInteractive().setScale(0.5);
+		double_jump_button=this.add.sprite(screen_width*0.08,screen_height*0.97, 'double_jump').setInteractive().setScale(0.35);
 	}
 	double_jump_button.depth=2;
 
@@ -967,6 +1090,10 @@ function update(){
 		}
 		ec_play_clicked = false;
 	}
+
+	// barWidth = bronzeBar.width;
+	// LIFE = 40;
+	// bronzeBar.width = barWidth - barWidth/LIFE;
 
 	//If gameover or game pause return
 	if(gameOver==true||game_paused==true)
@@ -1181,41 +1308,71 @@ function update(){
 		clearInterval(scene_change_timeout);
 		game_over_sound.play();
 			
-		game_over_dialog=this.add.tileSprite(screen_width*0.5,screen_height*0.5,screen_width*0.46,screen_height*0.5,"game_over_dialog");
+		game_over_dialog=this.add.tileSprite(screen_width*0.5,screen_height*0.5,screen_width*0.60,screen_height*0.55,"game_over_dialog").setTileScale(1.145,1.25);
 		game_over_dialog.depth=4;
-		game_over_dialog.alpha = 0.6;
 		
-		game_over_text=this.add.text(game_over_dialog.x-(game_over_dialog.width*0.25)+10,game_over_dialog.y-(game_over_dialog.height*0.5),"BUY LIVES!", { fontSize: '26px', fill: '#000000',align:'center' });
-		// game_over_text.setPadding(game_over_dialog.width*0.5-20 , 1, game_over_dialog.width*0.5-20, 1);
-		game_over_text.setBackgroundColor('rgba(255,255,255,0.7)');
+		game_over_text=this.add.text(game_over_dialog.x-(game_over_dialog.width*0.35)+10,game_over_dialog.y-(game_over_dialog.height*0.4),"All lives finished. Buy lives!", { fontSize: '18px', fill: '#FFFFFF',align:'center' });
 		game_over_text.depth=5;
 
-		buy_one_live=this.add.image(screen_width*0.34,screen_height*0.50,'restart_game').setScale(0.6).setInteractive(); 
-		buy_one_live.depth = 5;
-		buy_one_live_text=this.add.text(screen_width*0.27,screen_height*0.57,"Buy 1 live" +"\n"+ "for " + retry_cost+ " coins", { fontSize: '16px', fill: '#000000',align:'center' });
-		buy_one_live_text.depth=7;
-
+		buy_live_img1=this.add.image(screen_width*0.30,screen_height*0.50,'life').setScale(1.17);
+		buy_live_img1.depth=5;
+		buy_live_img1_text=this.add.text(screen_width*0.278,screen_height*0.55, "1 life",{ fontSize: '12px', fill: '#FFFFFF',align:'center' })
+		buy_live_img1_text.depth=5;
+		buy_one_live=this.add.image(screen_width*0.30,screen_height*0.66,'buy_button').setScale(1.1).setInteractive(); 
+		buy_one_live.depth = 7;
+		buy_one_live_text=this.add.text(screen_width*0.27,screen_height*0.625,"Buy for "+"\n" + retry_cost+ " coins", { fontSize: '12px', fill: '#000000',align:'center' });
+		buy_one_live_text.setInteractive();
+		buy_one_live_text.depth=8;
+		
 		buy_one_live.on('pointerdown', ()=>{
 			no_lives_add = 1;
 			resume_after_game_over(no_lives_add);
 		}, curr_game);
+		buy_one_live_text.on('pointerdown', ()=>{
+			no_lives_add = 1;
+			resume_after_game_over(no_lives_add);
+		}, curr_game);
 
-		buy_two_lives=this.add.image(screen_width*0.50,screen_height*0.50,'restart_game').setScale(0.6).setInteractive(); 
-		buy_two_lives.depth = 5;
-		buy_two_lives_text=this.add.text(screen_width*0.44,screen_height*0.57,"Buy 2 lives" +"\n"+ "for " + (2*retry_cost)+ " coins", { fontSize: '16px', fill: '#000000',align:'center' });
-		buy_two_lives_text.depth=7;
+		buy_live_img21=this.add.image(screen_width*0.475,screen_height*0.50,'life').setScale(1.17);
+		buy_live_img22=this.add.image(screen_width*0.515,screen_height*0.50,'life').setScale(1.17);
+		buy_live_img21.depth=5;
+		buy_live_img22.depth=5;
+		buy_live_img2_text=this.add.text(screen_width*0.467,screen_height*0.55, "2 lives",{ fontSize: '12px', fill: '#FFFFFF',align:'center' })
+		buy_live_img2_text.depth=5;
+		buy_two_lives=this.add.image(screen_width*0.50,screen_height*0.66,'buy_button').setScale(1.1).setInteractive(); 
+		buy_two_lives.depth = 7;
+		buy_two_lives_text=this.add.text(screen_width*0.47,screen_height*0.625,"Buy for "+"\n" + (2*retry_cost)+ " coins", { fontSize: '12px', fill: '#000000',align:'center' });
+		buy_two_lives_text.setInteractive();
+		buy_two_lives_text.depth=8;
 
 		buy_two_lives.on('pointerdown', ()=>{
 			no_lives_add = 2;
 			resume_after_game_over(no_lives_add);
 		}, curr_game);
+		buy_two_lives_text.on('pointerdown', ()=>{
+			no_lives_add = 2;
+			resume_after_game_over(no_lives_add);
+		}, curr_game);
 
-		buy_three_lives=this.add.image(screen_width*0.66,screen_height*0.50,'restart_game').setScale(0.6).setInteractive(); 
-		buy_three_lives.depth = 5;
-		buy_three_lives_text=this.add.text(screen_width*0.62,screen_height*0.57,"Buy 3 lives" +"\n"+ "for " + (3*retry_cost)+ " coins", { fontSize: '16px', fill: '#000000',align:'center' });
-		buy_three_lives_text.depth=7;
+		buy_live_img31=this.add.image(screen_width*0.66,screen_height*0.50,'life').setScale(1.17);
+		buy_live_img32=this.add.image(screen_width*0.70,screen_height*0.50,'life').setScale(1.17);
+		buy_live_img33=this.add.image(screen_width*0.74,screen_height*0.50,'life').setScale(1.17);
+		buy_live_img31.depth=5;
+		buy_live_img32.depth=5;
+		buy_live_img33.depth=5;
+		buy_live_img3_text=this.add.text(screen_width*0.67,screen_height*0.55, "3 lives",{ fontSize: '12px', fill: '#FFFFFF',align:'center' })
+		buy_live_img3_text.depth=5;
+		buy_three_lives=this.add.image(screen_width*0.70,screen_height*0.66,'buy_button').setScale(1.1).setInteractive(); 
+		buy_three_lives.depth = 7;
+		buy_three_lives_text=this.add.text(screen_width*0.67,screen_height*0.625,"Buy for "+"\n" + (3*retry_cost)+ " coins", { fontSize: '12px', fill: '#000000',align:'center' });
+		buy_three_lives_text.setInteractive();
+		buy_three_lives_text.depth=8;
 
 		buy_three_lives.on('pointerdown', ()=>{
+			no_lives_add = 3;
+			resume_after_game_over(no_lives_add);
+		}, curr_game);
+		buy_three_lives_text.on('pointerdown', ()=>{
 			no_lives_add = 3;
 			resume_after_game_over(no_lives_add);
 		}, curr_game);
@@ -1369,7 +1526,8 @@ function update(){
 			
 			//Start Tasks if no other elements are begin generated
 			if(start_tasks==true&&task_init==true&&clear_to_start==0&&no_player==false&&startTunnelMovement==false&&stopTunnelMovement==false)
-			{
+			{	
+				
 				task_generator();
 				free_to_choose_high=false;
 				free_to_choose=false;
@@ -1390,7 +1548,12 @@ function update(){
 			//Restore game after tasks
 			if(restore_game==true)
 			{
-				game_restore();   
+				game_restore();
+				if (task_background_removed) {
+					task_background.destroy();  
+					task_background_removed = false;
+					task_background_added = false; 
+				}
 			}
 
 			//Make the second choice(between obstacle,pit,dropping platform)
@@ -1574,6 +1737,15 @@ function resume_after_game_over(no_lives_add) {
 	game_over_dialog.destroy();
 	game_over_text.setText("");
 
+	buy_live_img1.destroy();
+	buy_live_img21.destroy();
+	buy_live_img22.destroy();
+	buy_live_img31.destroy();
+	buy_live_img32.destroy();
+	buy_live_img33.destroy();
+	buy_live_img1_text.destroy();
+	buy_live_img2_text.destroy();
+	buy_live_img3_text.destroy();
 	buy_one_live.destroy();
 	buy_two_lives.destroy();
 	buy_three_lives.destroy();
@@ -1615,7 +1787,7 @@ function jump()
 		{
 			clearInterval(touch_button_animation);
 			jump_button.alpha=1;
-			jump_button.setScale(0.5);
+			jump_button.setScale(0.35);
 			animation_active=false;
 		}
 	}
@@ -1637,7 +1809,7 @@ function jump()
 		{
 			clearInterval(touch_button_animation);
 			jump_button.alpha=1;
-			jump_button.setScale(0.5);
+			jump_button.setScale(0.35);
 			animation_active=false;
 		   
 		}
@@ -1676,7 +1848,7 @@ function double_jump(){
 		{
 			clearInterval(touch_button_animation);
 			double_jump_button.alpha=1;
-			double_jump_button.setScale(0.5);
+			double_jump_button.setScale(0.35);
 			animation_active=false;
 		}
 	}
@@ -1699,7 +1871,7 @@ function double_jump(){
 		{
 			clearInterval(touch_button_animation);
 			double_jump_button.alpha=1;
-			double_jump_button.setScale(0.5);
+			double_jump_button.setScale(0.35);
 			animation_active=false;
 		}
 	}
@@ -1910,7 +2082,7 @@ function score_updator(){
 	if(reachedCrossing==false&&gameOver==false&&reachedCrossing==false&&game_paused==false)
 	{
 		score+=1;
-		scoreText.setText(score);
+		scoreText.setText('Score:'+score);
 	}
 	if(gameOver==false)
 	{
@@ -2135,6 +2307,7 @@ function generateTS()
 }
 
 function scoreUpdate(){
+	console.log('update score of ecg');
 	storeECScoreDataEvent = document.createEvent('CustomEvent');
 	storeECScoreDataEvent.initCustomEvent('CallAngularECScoreFun');
 

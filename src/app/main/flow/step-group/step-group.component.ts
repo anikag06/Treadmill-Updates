@@ -18,10 +18,11 @@ export class StepGroupComponent implements OnInit {
   NO_OF_STEPS_SHOWN = 3;        // number of steps shown by default
   isShowAllBtn = true;
   firstStepOfModule!: boolean;
+  lastStepOfModule = false;
+
   constructor() { }
 
   ngOnInit() {
-    console.log(this.stepGroup);
     this.initialiseDefaultSteps();
     this.getDefaultStepsShown();
   }
@@ -42,6 +43,7 @@ export class StepGroupComponent implements OnInit {
     if ( no_steps <= this.NO_OF_STEPS_SHOWN) {
       this.NO_OF_STEPS_SHOWN = no_steps;
       this.isShowAllBtn = false;
+      this.lastStepOfModule = true;
     }
     if (this.stepGroup.status === ACTIVE) {
       this.isExpanded = true;
@@ -61,6 +63,10 @@ export class StepGroupComponent implements OnInit {
           for (let k = 0; k < this.NO_OF_STEPS_SHOWN; k++) {
             this.defaultSteps.steps.push(this.stepGroup.steps[j]);
             j++;
+          }
+          console.log(j);
+          if (j === no_steps) {
+            this.lastStepOfModule = true;
           }
         }
       }

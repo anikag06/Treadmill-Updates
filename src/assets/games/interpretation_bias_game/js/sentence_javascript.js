@@ -1,3 +1,4 @@
+var IBG_MAX_WORDS_HIDDEN = 6;
 var sentence_number = 0;
 var sentence_ids = [];
 var last_sentence_order = 0;
@@ -7,6 +8,9 @@ var ibGameScore;
 var ibGameUserOrder;
 var ibGameTime =20;
 var ibGameWordsHidden;
+var ibGameCorrectResponse;				// check whether user answers correctly or not 
+var ibGameShowTutorial;
+var ibGDifficultyValue;
 var success = false;				// to keep track of the user's performance in the game
 // var sentences_sent= 3;
 var sentence_array = [];
@@ -25,12 +29,15 @@ var ibGameHelp;
 
 var ibGameMakeGridArray;
 
+var iBGSentenceDialogEvent;
+
+var ibgWordsNeeded = 0;
+
 var words = []                 //words of the sentence 
 var NO_OF_WORDS;
 var no_words_hidden;
 var hidden_words_array = [];
 // var initial_timer = "180";							// time for finding words from letter grid
-var easy_game_timer = "180";
 var FIRST_HINTS_TIME = 60;
 var SECOND_HINTS_TIME = 30;
 // var initial_time = 12000;
@@ -50,6 +57,8 @@ var alpha_common = 'rdlum';
 var alpha_very_common = 'nosh';
 var alpha_most_common = 'etai';
 
+var answer = false;
+
 var isFirstAttempt = true;
 var countTrue = 0;									//counts how many words are already found by the user 
 var word_already_found = [];						//array to store the words found 
@@ -58,13 +67,13 @@ var extra_word_already_found = [];					//array to store the words found not in t
 var extra_word = false;								//flag for keeping track if the word is in sentence or not
 var bonus_word_score = 5;							//coins for finding an extra word
 
-var increase_time_score = 50;						//coins subtracted for using increase time hint
+var ibg_time_cost = 50;						//coins subtracted for using increase time hint
 var borrow_time_score = 100;						//coins subtracted for borrowing time after time's up
 var borrow_time_again_score = 150;					//if more than 15% words then borrowing time after time's up
 var min_score_increaseTime = 20;					//minimum score to unlock the 'increase the time' power
-var show_word_score = 30; 							// if user uses show word hint
+var ibg_word_cost = 30; 							// if user uses show word hint
 var guess_word_score = 20;							// if user uses guess the word hint 
-var show_coord_score = 20;
+var ibg_coordinate_cost = 20;
 var score_each_letter = [10, 7, 5];					//for each letter of the word of the sentence
 // var try_again_score = 40; 
 
@@ -87,7 +96,6 @@ var blink_time = 8000;			//milli seconds for which letter will be blinked
 var word_to_guess;				//word for guess the word hint
 var playGrid;
 var star_sentence;
-var answer = false;				//answer for the final question i.e about the 
 var isValidWord = false;		//for saving lines in existing lines if the word is valid
 var columnWidth = 0;				// for width of column for grid
 var rowHeight = 0;					//for height of row for grid
@@ -112,7 +120,7 @@ var line_color_set_extra_words = ['rgb(204, 204, 204)'];
 var line_color_set_sentence_words = ['rgb(9,151,166)','rgb(65,63,220)','rgb(245,16,98)','rgb(255,218,0)', 'rgb(0,149,0)','rgb(255,153,15)'];
 
 var color_number = 0;			//choose color from array of colors to draw the line
-var line_width = 15;			//width of line used of highlighting the letters
+var line_width = 17;			//width of line used of highlighting the letters
 var letters_x_coordinate = [];	//for storing x cooordinates of letters of grid on the canvas
 var letters_y_coordinate = [];	// for storing y coordinates of letters of grid on the canvas
 var textwidth = [];				// for storing width of alphabets on grid
@@ -192,7 +200,6 @@ function initializeVariables(){
  	borrowed_time = 20;								
  	increased_time = 20;								
 	delay_show_sentence = 1000;
-	countTrue = 0; 	
 	inactivity_time = 0;
 	inactivity_threshold = 10000;		// show tips after 10 seconds of inactivity					
 	columnWidth = 0;
@@ -227,7 +234,13 @@ function initializeVariables(){
 	$(".game").removeClass("d-none");
 	$('.instructions-row').addClass("d-none");
 	$('.game-first-page').addClass("d-none");
-
+	for(let i = 1; i<= ibgWordsNeeded; i++){
+		if(document.getElementById("ibg-pBar"+i)) {
+			document.getElementById('ibg-pBar'+i).style.backgroundColor = 'rgba(100, 216, 216, 0.5)';
+		}
+	}
+	
+	countTrue = 0; 	
 }	
 function getUpdatedVariables() {
 	levelChange(success);
@@ -242,11 +255,7 @@ function getUpdatedVariables() {
 	gameStreak = ibGameStreak;
 	gameResponseTime=0;
 	gameUserSentenceId = sentence_ids[sentence_number];
-	if(answer){
-		gameUserResponse = sentence_response_array[sentence_number];
-	}else {
-		gameUserResponse = !sentence_response_array[sentence_number];
-	}
+
 	gameResponseTime = (end_time - start_time) ; 
 	return [
 		gameOrder,
@@ -257,9 +266,9 @@ function getUpdatedVariables() {
 		ibGameWordsHidden,
 
 		gameUserSentenceId,
-		gameUserResponse, 
 		gameResponseTime,
 		sentence_number,
+		isFirstAttempt
 	];
 }
 
@@ -274,9 +283,7 @@ function removeAddClassFun(){
 	$(".sentence-col").removeClass("d-none");
 	$(".controls-row").removeClass("d-none");
 	$('.hints-col').removeClass("d-none");
-	$('.pause-hints').removeClass("d-none");
 	$('.score-col').removeClass("d-none");
-	$('.extra-col').removeClass("d-none");
 	$('.game-over-row').addClass("d-none");
 	$('.game-over-flex-row').removeClass("d-flex");
 	$('.game-over-flex-row').addClass("d-none");
@@ -290,13 +297,10 @@ function removeAddClassFun(){
 	$('#hint-div').addClass("d-none");	
 	$('#showWordResult').addClass("d-none");
 	$('#showCoordResult').addClass("d-none");
-	// $('#guessWordResult').addClass("d-none");
-	// $(".pause-clicked").addClass("d-none");
 	$("#levelup").addClass("d-none");
-	// document.getElementById('score-col').style.backgroundColor = "";
-	// document.getElementById('score-col').style.opacity = "1";	
 	inactivity_time = 0;
 	$(".tip-text").text(" ");	
+	$("#sincerity-message").text("");
 	$("#hint-img-tip").addClass("d-none");
 	inactivity_check();
 }
@@ -328,25 +332,26 @@ $(document).ready(function(){
 		success = false;
 	}
 	ibGamePause = function(ev){
-		countdownPause();
-		hideCanvas();
-		game_paused = true;
-		$('.controls-row').addClass("d-none");
+		if (game_paused === false) {
+			countdownPause();
+			hideCanvas();
+			game_paused = true;
+			$('.hints-col').addClass("d-none");
+		}
 	}
 	ibGameResume = function(){
 		ibCountdown();
 		showCanvas();
 		game_paused = false;
-		$('.controls-row').removeClass("d-none");
+		$('.hints-col').removeClass("d-none");
 	}
 	ibUsehints = function(ev){
+		
 		if(hiddenWordsInfo() > 0){
-			document.getElementById("showWord").disabled = false;
 			if($('#showWord').hasClass("disabled")){
 				$('#showWord').removeClass("disabled");
 			}
 		}else if(hiddenWordsInfo() === 0){
-			document.getElementById("showWord").disabled = true;
 			if(!$('#showWord').hasClass("disabled")){
 				$('#showWord').addClass("disabled");
 			}
@@ -355,68 +360,42 @@ $(document).ready(function(){
 			$('.controls-row').removeClass("d-none");
 			$('#hint-div').removeClass("d-none");
 			$('#showWord').removeClass("d-none");
-			// $('#guessWord').removeClass("d-none");
 			$('#showCoordinates').removeClass("d-none");
 			$('#increase_time').removeClass("d-none");
 		}else{
 			$('#hint-div').addClass("d-none");
 			$('#showWordResult').addClass("d-none");
 			$('#showCoordResult').addClass("d-none");
-			// $('#guessWordResult').addClass("d-none");
 		}
+		// document.getElementById("showWordCost").innerHTML = "Cost: "+ibg_word_cost;
+		// document.getElementById("showCoordCost").innerHTML = "Cost: "+ibg_coordinate_cost;
+		// document.getElementById("addTimeCost").innerHTML = "Cost: "+ min_score_increaseTime;
+
 	}
 	ibGameHelp = function(ev){
-		$(".instructions-row").removeClass("d-none");
 			$('.game-first-page').addClass("d-none");
-			if(!$('.game').hasClass("d-none")){
-				$('.game').addClass("d-none");
-			}
 	}
-	// $(document).on("click", "#usehints", function(ev){
-	// 	if($('#hint-div').hasClass("d-none")){
-	// 		$('.controls-row').removeClass("d-none");
-	// 		$('#hint-div').removeClass("d-none");
-	// 		$('#showWord').removeClass("d-none");
-	// 		$('#guessWord').removeClass("d-none");
-	// 		$('#increase_time').removeClass("d-none");
-	// 	}else{
-	// 		$('#hint-div').addClass("d-none");
-	// 		$('#showWordResult').addClass("d-none");
-	// 		$('#guessWordResult').addClass("d-none");
-	// 	}
-	// });
 	$(document).on("click", "#showWord", function(ev){
 		if($('#showWordResult').hasClass("d-none")){
 			if(showWord(sentence_array[sentence_number])){
-				score = score - show_word_score;
+				score = score - ibg_word_cost;
 				document.getElementById("score").innerHTML = score;
+				$('#showWordResult').removeClass("d-none");
 			}
-			
-			$('#showWordResult').removeClass("d-none");
-			// $('#guessWord').addClass("d-none");
-			$('#showCoordinates').addClass("d-none");
-			$('#increase_time').addClass("d-none");
 		}else{
 			$('#showWordResult').addClass("d-none");
-			// $('#guessWord').removeClass("d-none");
-			$('#showCoordinates').removeClass("d-none");
-			$('#increase_time').removeClass("d-none");
 		}
 	});
 
 	$(document).on("click", "#showCoordinates", function(ev){
 		if($('#showCoordResult').hasClass("d-none")){
 			if(showFirstLetterCoordinates()){
-				score = score - show_coord_score;
+				score = score - ibg_coordinate_cost;
 				document.getElementById("score").innerHTML = score;
 			}
 			$('#showCoordResult').removeClass("d-none");
-			$('#showWord').addClass("d-none");
-			$('#increase_time').addClass("d-none");
 		}else{
 			$('#showCoordResult').addClass("d-none");
-			$('#showWord').removeClass("d-none");
-			$('#increase_time').removeClass("d-none");
 		}
 	});
 
@@ -440,22 +419,22 @@ $(document).ready(function(){
 	$(document).on("click","#increase_time", function(ev){
 		$('#ibgame-clock-gif').removeClass("d-none");
 		$('#ibgame-clock-png').addClass("d-none");
-		if(score >= min_score_increaseTime){
-			unlock = true;
-			score = score - min_score_increaseTime;
-			document.getElementById("score").innerHTML = score;
-		}else{
-			unlock == false;
-		}
+		// if(score >= min_score_increaseTime){
+		// 	unlock = true;
+		// 	score = score - min_score_increaseTime;
+		// 	document.getElementById("score").innerHTML = score;
+		// }else{
+		// 	unlock == false;
+		// }
 
-		if(unlock == true){
+		// if(unlock == true){
 			game_timer = game_timer + increased_time;
 			//ibCountdown();
-			score = score - increase_time_score;
-			 document.getElementById("score").innerHTML = score;
-		}else if(unlock == false){
+			score = score - ibg_time_cost;
+			document.getElementById("score").innerHTML = score;
+		// }else if(unlock == false){
 			//console.log("Need" + min_score_increaseTime + " coins to unlock this power");
-		}
+		// }
 		$('#hint-div').addClass("d-none");
 		setTimeout( function() {
 			$('#ibgame-clock-png').removeClass("d-none");
@@ -463,7 +442,7 @@ $(document).ready(function(){
 		},1500);
 
 	});
-	$(document).on("click","#btn-try-again", function(ev){
+	$(document).on("click",".btn-try-again", function(ev){
 		// score = score-try_again_score;
 		// document.getElementById("score").innerHTML = score;
 		removeAddClassFun();
@@ -473,7 +452,7 @@ $(document).ready(function(){
 		// countdownReset();
 		// ibCountdown();
 	});
-	$(document).on("click","#btn-borrow-time", function(ev){
+	$(document).on("click",".btn-borrow-time", function(ev){
 		//if user had found 0-15% of words and time's up then borrowing time
 		game_timer = game_timer + (borrowed_time);
 		score = score - borrow_time_score;
@@ -482,7 +461,7 @@ $(document).ready(function(){
 		$("#timeup1").addClass("d-none");
 		ibCountdown();
 	});
-	$(document).on("click","#btn-borrow-time-again", function(ev){
+	$(document).on("click",".btn-borrow-time-again", function(ev){
 	//if user had found 15-60% of words and time's up then borrowing time
 		game_timer = game_timer +(borrowed_time);
 		score = score-borrow_time_again_score;
@@ -493,8 +472,7 @@ $(document).ready(function(){
 		ibCountdown();
 	});
 	
-	$(document).on("click","#yes", function(ev){  //if the user clicks yes when asked whether the word and sentence are related or not
-		// end_time = Date.now();	
+	$(document).on("click","#ibg-yes", function(ev){  //if the user clicks yes when asked whether the word and sentence are related or not
 		checkResponseYes(sentence_response_array[sentence_number]);
 		$(".btn-sentence-word-rel").attr("disabled", "disabled");
 		clearInterval(coins_rem);
@@ -504,19 +482,15 @@ $(document).ready(function(){
 		
 		$("#word").addClass("d-none");
 		score+=coins;
-		document.getElementById("finalScore").innerHTML = "Score:"+score;
+		document.getElementById("bonusScore").innerHTML = "Bonus:"+coins;
 		document.getElementById("score").innerHTML = score;
-		
-		$('.pause-hints').addClass("d-none");
-		$('.score-col').addClass("d-none");
 		$("#lastPage").removeClass("d-none");
 		$(".btn-sentence-word-rel").removeAttr("disabled");
-		
+		$(".main-training").addClass('d-none');
 		delay_sentence_word_message = 1500;
 	});
 	
-	$(document).on("click","#no", function(ev){   //if the user clicks yes when asked whether the word and sentence are related or not
-		// end_time = Date.now();	
+	$(document).on("click","#ibg-no", function(ev){   //if the user clicks yes when asked whether the word and sentence are related or not
 		checkResponseNo(sentence_response_array[sentence_number]);
 		$(".btn-sentence-word-rel").attr("disabled", "disabled");
 		clearInterval(coins_rem);
@@ -525,29 +499,25 @@ $(document).ready(function(){
 		}
 	
 		$("#word").addClass("d-none");
-		
 		score+=coins;
-		document.getElementById("finalScore").innerHTML = "Score:"+score;
+		document.getElementById("bonusScore").innerHTML = "Bonus:"+coins;
 		document.getElementById("score").innerHTML = score;
 
-		$('.pause-hints').addClass("d-none");
-		$('.score-col').addClass("d-none");
 		$('#lastPage').removeClass("d-none");
 		$(".btn-sentence-word-rel").removeAttr("disabled");
-		// saveUserResponse($("#save-user-response").val(), sentence_ids[sentence_number], answer, (end_time-start_time));
+		$(".main-training").addClass('d-none');
 		delay_sentence_word_message = 1500;
 	});
-	$(document).on("click","#btn-give-up", function(ev){
+
+	$(document).on("click",".btn-give-up", function(ev){
 	 //if time's up and user had found less then 60% of words and then he choose give up option
 		$("#timeup2").addClass("d-none");
 		showSentence();
 	});
 	
-	$(document).on("click","#btn-next-sentence, #btn-other-sentence", function(ev){
+	$(document).on("click","#btn-next-sentence, .btn-other-sentence", function(ev){
 		answer=false;
 		ibGameScore = score;
-		// getUpdatedVariables();
-		// $("#finalCoins").addClass("d-none");
 		playNextSentence();
 		isFirstAttempt = true;
 	});	
@@ -560,21 +530,6 @@ $(document).ready(function(){
 		$(".tip-text").text(" ");
 		$("#hint-img-tip").addClass("d-none");
 	});
-	// $(document).on("click", "#easy_game", function(e){
-	// 	e.preventDefault();
-	// 	answer=false;
-	// 	success=true;
-	// 	ibGameScore = score;
-	// 	playNextSentence();
-	// 	ibGameTime = parseInt(easy_game_timer);
-	// });
-	// $(document).on("click", "#hard_game", function(e){
-	// 	e.preventDefault();
-	// 	success=true;
-	// 	ibGameScore = score;
-	// 	playNextSentence();
-	// 	// ibGameTime = parseInt(initial_timer); 
-	// });
 
 }); // document.ready ends here 
 
@@ -589,7 +544,6 @@ function playNextSentence(){
 	$("#hint-img-tip").addClass("d-none");
 	ibCountdown();
 	sentence_number++;
-	countTrue=0;
 	foundWord(sentence_array[sentence_number],sentence_word_array[sentence_number]);
 }
 
@@ -615,14 +569,11 @@ ibCountdown = function() {
 		if(game_timer===0){
 			success = false;
 			isFirstAttempt = false;
-			$('.pause-hints').addClass("d-none");
 			$('.hints-col').addClass("d-none");
-			$('.score-col').addClass("d-none");
 			$(".controls-row").addClass("d-none");
 			$(".sentence-col").addClass("d-none");
 			$(".sentence-row").addClass("d-none");
 			$(".canvas-row").addClass("d-none");
-			$(".extra-col").addClass("d-none");
 			$(".game-over-row").removeClass("d-none");
 			$('.game-over-flex-row').addClass("d-flex");
 			$(".game-over-flex-row").removeClass("d-none");
@@ -637,11 +588,6 @@ ibCountdown = function() {
 			t = setTimeout(ibCountdown, 1000);
 
 			if(game_timer===FIRST_HINTS_TIME){
-				// if(ibGamelevel===2){
-				// 	highlightSecondLetters();
-				// }else if(ibGamelevel>2) {
-				// 	highlightFirstLetters();
-				// }
 				if(no_hidden_words>0){
 					highlightFirstLetters();
 				}
@@ -668,9 +614,12 @@ function highlightFirstLetters(){
 			if((hidden_words_array[i]==true)){
 				star_sentence+=initial_letters[i]["first_letter"]+starify(senWord).substring(1);
 			}else{
-				star_sentence += senWord;
+				if (isWordReversed(senWord)) {
+					star_sentence += reverseWord(senWord);
+				} else {
+					star_sentence += senWord;
+				}
 			}
-			
 		}else{
 			if(senWord.length>1){
 				if(isWordReversed(senWord)){
@@ -694,21 +643,30 @@ function highlightSecondLetters(){
 	star_sentence = "";			//sentence with words in ascending order of length
 	for(var i=0; i<initial_letters.length; i++){
 		var senWord= initial_letters[i].word;
-
 		// only for words that haven't been found
 		if(word_already_found.indexOf(senWord)==-1 && word_already_found.indexOf(reverseWord(senWord))==-1 && senWord.length>1){
 			wordLength = senWord.length - 1;
-
 			if(hidden_words_array[i]==true){
 				if(isWordReversed(senWord)){
-					star_sentence+=initial_letters[i]["first_letter"]+initial_letters[i]["second_letter"]+starify(senWord).substring(2, wordLength)+ senWord.charAt(0);
+					if(wordLength > 1){
+						star_sentence+=initial_letters[i]["first_letter"]+initial_letters[i]["second_letter"]+starify(senWord).substring(2, wordLength)+ senWord.charAt(0);
+					} else {
+						star_sentence+=initial_letters[i]["first_letter"]+initial_letters[i]["second_letter"];
+					}
 				}else{
-					star_sentence+=initial_letters[i]["first_letter"]+initial_letters[i]["second_letter"]+starify(senWord).substring(2, wordLength)+ senWord.charAt(wordLength);
+					if(wordLength > 1){
+						star_sentence+=initial_letters[i]["first_letter"]+initial_letters[i]["second_letter"]+starify(senWord).substring(2, wordLength)+ senWord.charAt(wordLength);
+					} else {
+						star_sentence+=initial_letters[i]["first_letter"]+initial_letters[i]["second_letter"];
+					}
 				}
 			}else if(hidden_words_array[i]==false){
-				star_sentence += senWord;
+				if (isWordReversed(senWord)) {
+					star_sentence += reverseWord(senWord);
+				} else {
+					star_sentence += senWord;
+				}
 			}
-			
 		}else{
 			if(senWord.length>1){
 				if(isWordReversed(senWord)){
@@ -793,7 +751,7 @@ ibGameMakeGridArray = function(sentence){
 	var sorted_words = getSortedWordList(sentence);
 	var GRID_LENGTH = gridLength(sentence, sorted_words[0]); // determining the optimal length for the sentence
 	NO_OF_WORDS = words.length;
-	// var gridArray = matrix(GRID_LENGTH, GRID_LENGTH); // initializing 2D grid
+	ibgWordsNeeded = Math.ceil(percent_full_sen*NO_OF_WORDS);
 	gridArray = matrix(GRID_LENGTH,GRID_LENGTH);
 	// getting the different parameters for the current level
 	var sentence_parameters = difficultyParameters(ibGamelevel, words);
@@ -1257,10 +1215,8 @@ function searchWordInArray(str, sorted_words, star_sentence, sentence) {
 	var word_str = str;
 
 	present = wordAlreadyFound(str);
-	if(present === true){         //if word is already found
-		
-	}else if(present === false){
-		for (var j=0; j<strArray.length; j++){               //search word in the array of words of sentence
+	if(present === false){    //search word in the array of words of sentence
+		for (var j=0; j<strArray.length; j++){               
 			if(strArray[j].search(str) !=-1 && str.length== strArray[j].length){
 				isValidWord = true;
 				found = true;
@@ -1270,16 +1226,17 @@ function searchWordInArray(str, sorted_words, star_sentence, sentence) {
 				words_pos_column.splice(j,1,'_');    
 				star_sentence = replaceStars(str,strArray,j, star_sentence);      //if correct word found replace stars with the word
 				countTrue++;
+				const word_ind = ibgWordsNeeded - countTrue + 1;
+				if(document.getElementById("ibg-pBar"+word_ind)) {
+					document.getElementById("ibg-pBar"+word_ind).style.backgroundColor = "rgba(1, 113, 116, 1)";
+				}
 			}
 		}
 
 		if(found == false){            //if word found is incorrect 
 			extra_present = extraWordAlreadyFound(str);
 			if(extra_present === true){         //if the word not present in sentence is already found
-				// $('#tick').hide();
-				// $('#cross').hide();
-				// $('#bonus').hide();
-				// $('#already_found').show();
+
 			}else if(extra_present ===false){
 				var word_in_dictionary = Word_List.isInList(str);      //check in dictionary, maybe the word is valid but not part of sentence
 
@@ -1290,17 +1247,12 @@ function searchWordInArray(str, sorted_words, star_sentence, sentence) {
 					ctx.strokeStyle = "black";
 					score = score+bonus_word_score;
 				
-				}else{
-					// $('#tick').hide();
-					// $('#cross').show();
-					// $('#bonus').hide();
-					// $('#already_found').hide();
 				}
 			}
 		}
 	}
 
-	if(countTrue >= (percent_full_sen*NO_OF_WORDS) && found){ 
+	if(countTrue >= (ibgWordsNeeded) && found){
 		if(success == true){
 			isFirstAttempt = false;
 		}
@@ -1315,67 +1267,66 @@ function searchWordInArray(str, sorted_words, star_sentence, sentence) {
 //shows full sentence for some time and then ask about relation with a word
 function showSentence(){
 	countTrue=0;
-	delay_show_sentence = 2000;
-	before_sentence_time =2000;
+	delay_show_sentence = 100;
+	// showing the congrats msg, it has 45 char
+	before_sentence_time = (Math.ceil((45)/average_reading_speed))*1000;
 	var total_characters = 0;
 	for (let i = 0; i < words.length; i++){
 		total_characters += words[i].length;
 	}
 
-	sentence_time = (Math.ceil((total_characters)/average_reading_speed))*1000;
+	sentence_time = (Math.ceil((total_characters)/average_reading_speed))*1000 + 100;
+	if (sentence_time < 2000){
+		sentence_time = 2000;
+	}
 	countdownReset();
 	clearInterval(inactivity_check_interval);
-	$("#congrats").removeClass("d-none");
-	$("#congrats").text("Great! Now you will see the whole sentence. ");
 
-	// showing the fixation cross 
-	
+	// showing the congrats msg
 	setTimeout(function(){
-		$(".extra-col").addClass("d-none");
+		// $(".extra-col").addClass("d-none");
 		$('.game-over-flex-row').removeClass("d-flex");
 		$('.game-over-row').addClass("d-none");
 		$(".sentence-word-row").removeClass("d-none");
-		$(".fixation-cross").removeClass("d-none");
-		// $("#congrats").addClass("d-none");
-		$("#congrats").addClass("d-none");
+		$(".congrats-msg").removeClass("d-none");
 		$(".canvas-row").addClass("d-none");
 		$(".controls-row").addClass("d-none");
-		$('.pause-hints').removeClass("d-none");
 		$('.hints-col').addClass("d-none");
-		$('.score-col').addClass("d-none");
+		// $('.score-col').addClass("d-none");
 		$(".sentence-col").addClass("d-none");
 	}, delay_show_sentence );
 
 	// show the sentence
 	setTimeout(function(){
-		$(".fixation-cross").addClass("d-none");
+		iBGSentenceDialogEvent = document.createEvent('CustomEvent');
+		iBGSentenceDialogEvent.initCustomEvent('iBGameSentenceDialogFun');
+		window.dispatchEvent(iBGSentenceDialogEvent);
+		$(".congrats-msg").addClass("d-none");
 		$(".complete-sentence").html(sentence_array[sentence_number]);
 		$('.complete-sentence').removeClass("d-none");
 	}, delay_show_sentence+before_sentence_time);
-
+//show the sentence for some seconds and ask relation after some time
 	setTimeout(function(){
 		$(".complete-sentence").delay(delay_show_sentence).addClass("d-none");
 		$("coins").delay(delay_show_sentence).addClass("d-none");
+		document.getElementById("sentence_word").innerHTML = sentence_word_array[sentence_number];
 		$("#word").delay(delay_show_sentence).removeClass("d-none");
 		start_time = Date.now();
-	}, delay_show_sentence+before_sentence_time+sentence_time);				//show the sentence for some seconds and ask relation after some time
+	}, delay_show_sentence+before_sentence_time+sentence_time);				
 
-	// setTimeout(function(){
-	// 	start_time = Date.now();
-	// }, before_sentence_time+sentence_time+delay_show_sentence);
 	 
-	coins = final_coins+(delay_show_sentence/100);         // /100 to adjust for the time showing the sentence   
+	coins = final_coins+20;         // /100 to adjust for the time showing the sentence   
 	coins_rem = setInterval(function(){ 
 		if(coins>0){
 			coins-=10 ; 
-			if(document.getElementById("coins")!=null){
-				document.getElementById("coins").innerHTML = coins;
+			if(document.getElementById("ibg-coins")!=null){
+				document.getElementById("ibg-coins").innerHTML = coins;
 			}		
 		}
 		else{
 			coins=0;
 		}
-	}, delay_show_sentence);//after delay of some seconds show the word and ask about relation with sentence
+	}, delay_show_sentence+before_sentence_time);//after delay of some seconds show the word and ask about relation with sentence
 }
 
 // Making canvas and finding the word swiped by the user
@@ -1385,8 +1336,8 @@ function foundWord(sentence,sentence_word){
 	words_pos_row.splice(0,words_pos_row.length);
 	words_pos_column.splice(0,words_pos_column.length);
 
-	document.getElementById("complete-sentence").innerHTML = sentence;
-	document.getElementById("sentence_word").innerHTML = sentence_word;
+	// document.getElementById("complete-sentence").innerHTML = sentence;
+	// document.getElementById("sentence_word").innerHTML = sentence_word;
 
 	var gridParameters = ibGameMakeGridArray(sentence);
 	var GRID_LENGTH = gridParameters[2];
@@ -1535,7 +1486,7 @@ function detectSwipe(playGrid,canvas,rect,sorted_words,sentence){
 			
 		}
 	});
-	$(document).on("click","#exit", "#btn-next-sentence, #btn-other-sentence", function(ev){
+	$(document).on("click","#exit", "#btn-next-sentence, .btn-other-sentence", function(ev){
 		canSwipe.destroy();
 	});
 }
@@ -1567,7 +1518,7 @@ function showWord(sentence){
 		if(present == true){
 			showWord(sentence);
 		}else if(present == false){
-			document.getElementById("aWord").innerHTML ="Find the word: " +  word ;
+			document.getElementById("aWord").innerHTML = word ;
 			return true;
 		}
 	}
@@ -1580,7 +1531,7 @@ function showFirstLetterCoordinates() {
 	let show_col_no = words_pos_column[index];
 	if(Number.isInteger(show_row_no)) {
 		//showFirstLetterCoordinates();
-		document.getElementById("wordCoordinates").innerHTML="First letter of a word is at "+"<br>"+"row- "+(show_row_no+1)+"<br>"+"column- "+(show_col_no+1);
+		document.getElementById("wordCoordinates").innerHTML="Find a word starting at "+"<br>"+"row: "+(show_row_no+1)+" & column: "+(show_col_no+1);
 		return true;
 	}else{
 		showFirstLetterCoordinates();
@@ -1589,7 +1540,7 @@ function showFirstLetterCoordinates() {
 }
 
 //On asking whether the sentence is related a given word or not
-function checkResponseYes(response){      
+function checkResponseYes(response){
 	if(response == true){          //'Yes' option for a word with positive valence  
 		$('#correct').removeClass("d-none");
 		$('#wrong').addClass("d-none");
@@ -1602,6 +1553,7 @@ function checkResponseYes(response){
 		}
 		$('#correct').addClass("d-none");
 		$('#wrong').removeClass("d-none");
+		answer = false;
 	}
 }
 
@@ -1612,12 +1564,16 @@ function checkResponseNo(response){			//if user choose 'NO' for a negative word 
 		}
 		$('#correct').addClass("d-none");
 		$('#wrong').removeClass("d-none");
+		answer = false;
 	}
 	else if(response == false){
 		$('#correct').removeClass("d-none");
 		$('#wrong').addClass("d-none");
 		answer = true;
 	}
+}
+ibGameCorrectResponse = function() {
+	return sentence_response_array[sentence_number];
 }
 
 function showSincerityMessage(){
@@ -1699,7 +1655,7 @@ function drawBoard(playGrid,context,bw,bh){                           //making g
 		}
 		column++;
 	}
-	context.strokeStyle = "#d8bfd8";
+	context.strokeStyle = "black";
 	document.getElementById("canvas").innerHTML = context.stroke();   
 	imageData = context.getImageData(0,0,canvas.width,canvas.height);             // save the current stage of the canvas every time as an image
 }
@@ -1709,8 +1665,6 @@ function makeCanvasGrid(playGrid,sorted_words,sentence,GRID_LENGTH){
 	letters_y_coordinate.splice(0,letters_y_coordinate.length);
 
 	margin_left = 10;
-	// canvas_width = (Math.floor(screen.width-2*margin_left)<MAX_CANVAS_WIDTH)?Math.floor(screen.width-2*margin_left):MAX_CANVAS_WIDTH;
-	// if(canvas_width==MAX_CANVAS_WIDTH)margin_left = Math.floor((screen.width-MAX_CANVAS_WIDTH)/2);
 	canvas_width = document.getElementById("canvas").width;
 	canvas_height = canvas_width;
 	var number;
@@ -1718,24 +1672,16 @@ function makeCanvasGrid(playGrid,sorted_words,sentence,GRID_LENGTH){
 	// set rowHeight and columnWidth for each canvas grid
 	columnWidth = Math.floor(canvas_width/GRID_LENGTH);	//Math.floor((window.innerWidth-20)/GRID_LENGTH);
 	rowHeight = Math.floor(canvas_height/GRID_LENGTH);
-	// columnWidth = (Math.floor((window.innerWidth-150)/GRID_LENGTH)<=100)?Math.floor((window.innerWidth-150)/GRID_LENGTH):100;
-	// rowHeight = columnWidth;
 
-	var isDown;
 	var bw = GRID_LENGTH*columnWidth;					//box width
 	var bh = GRID_LENGTH*rowHeight;						//box height
-	var p = 0;											//box padding
-	var para, t;
 	
 
 	document.getElementById("canvas").height = canvas_height;				//dimensions for canvas
 	document.getElementById("canvas").width = canvas_width;
-	// document.getElementById("congrats").width = canvas_width;				//dimension for congrats image
-	// document.getElementById("congrats").height = canvas_height/4;
-	// document.getElementById("congrats").style.marginTop = canvas_height/3;
+
 	$(".stars").css("width", canvas_width+"px");
-	// $(".selected-word").css("width", canvas_width+"px");
-	canvas_font_width = columnWidth>COLUMN_WIDTH_BREAKPOINT?40:18;
+	canvas_font_width = columnWidth>COLUMN_WIDTH_BREAKPOINT?18:15;
 	canvas_font_width_highlight = canvas_font_width + 5;
 
 	canvas = document.getElementById("canvas");
@@ -1762,14 +1708,11 @@ function makeCanvasGrid(playGrid,sorted_words,sentence,GRID_LENGTH){
 	// Set up touch events for mobile, etc
 	canvas.addEventListener("touchstart", function (e) {
 		e.preventDefault();
-		// alert("touch started");
 		var touchPos = getTouchPos(canvas, e);
 		var touch = e.touches[0];
 		var mouseEvent = new MouseEvent("mousedown", {
 			clientX: touch.clientX,
 			clientY: touch.clientY
-			// clientX: touchPos.x,
-			// clientY: touchPos.y
 		});
 		canvas.dispatchEvent(mouseEvent);
 	}, false);
@@ -1791,14 +1734,11 @@ function makeCanvasGrid(playGrid,sorted_words,sentence,GRID_LENGTH){
 		var mouseEvent = new MouseEvent("mousemove", {
 			clientX: touch.clientX,
 			clientY: touch.clientY
-			// clientX: touchPos.x,
-			// clientY: touchPos.y
 		});
 		canvas.dispatchEvent(mouseEvent);
 	}, false);
 	canvas.addEventListener("touchcancelled", function(e){
-		e.preventDefault();
-		var touch = e.touches[0];
+		e.preventDefault();;
 		var mouseEvent = new MouseEvent("mouseout", { });
 		canvas.dispatchEvent(mouseEvent);
 	},false);
@@ -1825,8 +1765,8 @@ function draw(){
 		ctx.globalAlpha = 0.5;
 		ctx.globalCompositeOperation="destination-over";
 		ctx.beginPath();
-		ctx.moveTo(line.startX+3,line.startY-3);
-		ctx.lineTo(line.endX+3,line.endY-3);
+		ctx.moveTo(line.startX+4,line.startY-4);
+		ctx.lineTo(line.endX+4,line.endY-4);
 		ctx.strokeStyle = line.lineColor; 
 		ctx.stroke();
 		countLine++;
@@ -2002,10 +1942,7 @@ function onmousemove(e){
 
 // Get the position of a touch relative to the canvas
 function getTouchPos(canvasDom, e) {
-	// return {
-	// 	x: touchEvent.offsetX,
-	// 	y: touchEvent.offsetY
-	// };
+
 	var rect = canvasDom.getBoundingClientRect();
 	var x = e.targetTouches[0].pageX - rect.left;
 	var y = e.targetTouches[0].pageY - rect.top;
@@ -2028,26 +1965,24 @@ function levelChange(success){
 	}
 
 	if(ibGameStreak>=STREAK_THRESHOLD){
-		// if(level!=2){
 			ibGamelevel++;
 			levelup();
-		// }
 	}
 
 	if(ibGameStreak<=-STREAK_THRESHOLD){
-		// if(level!=0){
 			if(ibGamelevel > 0){
 				ibGamelevel--;
 			}
 			leveldown();
-		// }
 	}
 }
 function levelup(){
 	ibGameStreak = 0;
 	if(game_timer == "120"){
-		ibGameTime = 150;
-		ibGameWordsHidden++;
+		if (ibGameWordsHidden < IBG_MAX_WORDS_HIDDEN) {
+			ibGameTime = 150;
+			ibGameWordsHidden++;
+		}
 	}else {
 		ibGameTime = 120;
 	}
@@ -2055,7 +1990,6 @@ function levelup(){
 function leveldown(){
 	ibGameStreak = 0;
 	if(game_timer == "150"){
-		// ibGameTime = 120;		
 		if(ibGameWordsHidden > 0){
 			ibGameWordsHidden--;
 		}else{
@@ -2110,10 +2044,6 @@ $(document).on("click", ".div-instruction-gif", function(ev){
 	$(this).siblings().removeClass("d-none");
 });
 
-// var showImages = function(){
-// 	var img_height = $(".card-img-top").height();
-// 	$(".instruction-icon").css("margin-top", "-"+img_height/2+"px");
-// }
 inactivity_check = function(){
 	inactivity_check_interval = setInterval(function(){
 		inactivity_time+=50;
@@ -2131,9 +2061,6 @@ function showTip(){
 	var words_left = [];
 	var no_hidden_words = hiddenWordsInfo();
 	var tip_word;
-
-	var two_letter_word = false;
-	var three_letter_word = false;
 
 	for(var i=0; i<sorted_words_list.length; i++){
 		if(word_already_found.indexOf(sorted_words_list[i])==-1 && (word_tip_shown.indexOf(sorted_words_list[i])==-1) && sorted_words_list[i].length>1 &&(hidden_words_array[i]==true)){
@@ -2173,7 +2100,6 @@ function showTip(){
 }
 
 function unstarFirstLetter(word){
-	// var current_sentence = $("#stars").text();
 	var current_sentence = star_sentence;
 	var current_sentence_tokens = current_sentence.split(sentence_splitter);
 	for(let i=0; i<current_sentence_tokens.length;i++){

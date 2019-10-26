@@ -1,0 +1,31 @@
+.dislike-btn{
+    transform: rotate(180deg);
+}
+.row, .col{
+    margin: 0%;
+    padding: 0%;
+}
+#flow-img{
+    height: 75%;
+}
+
+.like-btns-div{
+    height: 4.7vh;
+    max-height: 42px;
+}
+.like-dislike-btns{
+    max-height: 90%;
+}
+.feedbackBox{
+    width: 98%;
+} 
+.completed-btn, .next-step-btn{
+    line-height: 0%;
+    font-size: 14px;
+}
+
+@media screen and (max-width: 767px) {
+    // .like-btns-div,.feedbackBox {
+    //     margin-left: 2%;
+    // }
+}

@@ -2,16 +2,21 @@
 
     <div class="row w-100">
         <div class="col justify-content-center">
-            <img class="" src="../../../../../assets/shared/thumb.svg">
+            <img class="badge-img" [src]='img_src'>
         </div>
     </div>
     <div class="row w-100 align-self-center">
         <div class="col justify-content-center" >
             <p class="congrats-text"> Congratulations </p>
+            <p class="congrats-text" *ngIf='showBadge'>
+                You earned a {{badgeName}} </p>
+            <p class="text" *ngIf='showBadge'>
+                {{badgeInfo}}
+            </p>
             <p class=" text"> You have completed this step. Try next step </p>
 
-            <p class=" text" *ngIf='data.isLocked'>
-                Next step is locked. Try previous steps, go to dashboard. <br>
+            <p class=" text" *ngIf='data.isLastStep && data.isLocked'>
+                Next step is locked. Try previous steps, go to dashboard.
                 Module will unlock on {{unLockTime | date:"medium"}}</p>
             <p class="text" *ngIf='data.isLastStep && !data.isLocked '>
                 Go to dashboard and try next module.

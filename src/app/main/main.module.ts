@@ -37,7 +37,7 @@ import { SanitizationService } from './support-groups/sanitization.service';
 import { SafeHtmlPipe } from './support-groups/safe-html.pipe';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule, MatButtonModule, MatSidenavModule,
-  MatIconModule, MatListModule, MatDatepickerModule,
+  MatIconModule, MatListModule, MatDatepickerModule, MatDialogModule,
   MatNativeDateModule, MatSlideToggleModule, MatExpansionModule, } from '@angular/material';
 import {MatProgressBarModule} from '@angular/material';
 import { ScrollingDirective } from './shared/scrolling.directive';
@@ -62,6 +62,7 @@ import { ExecutiveControlGameComponent } from './games/games-list/common-game/ex
 import { CommonGameComponent } from './games/games-list/common-game/common-game.component';
 import { GamesAuthService } from './games/shared/games-auth.service';
 import { GamePlayService } from './games/shared/game-play.service';
+import { GamesBadgesService } from '@/main/games/shared/games-badges.service';
 // tslint:disable-next-line:max-line-length
 import { LearnedHelplessnessGameComponent } from './games/games-list/common-game/learned-helplessness-game/learned-helplessness-game.component';
 import { ChatbotComponent } from './chatbot/chatbot.component';
@@ -102,6 +103,13 @@ import { NavbarNotificationDirective } from './shared/navbar/navbar-notification
 import { NavbarNotificationsComponent } from './shared/navbar/navbar-notifications/navbar-notifications.component';
 import { NavbarNotificationsService } from './shared/navbar/navbar-notifications.service';
 import { NotificationItemComponent } from './shared/navbar/navbar-notifications/notification-item/notification-item.component';
+// tslint:disable-next-line: max-line-length
+import { IbGameInstructionsComponent } from './games/games-list/common-game/interpretation-bias-game/ib-game-instructions/ib-game-instructions.component';
+import { IbDialogsService } from './games/games-list/common-game/interpretation-bias-game/ib-dialogs.service';
+// tslint:disable-next-line: max-line-length
+import { IbMainTrainingComponent } from './games/games-list/common-game/interpretation-bias-game/ib-main-training/ib-main-training.component';
+// tslint:disable-next-line: max-line-length
+import { IbTrainingDataService } from '@/main/games/games-list/common-game/interpretation-bias-game/ib-main-training/ib-training-data.service';
 @NgModule({
   declarations: [
     ModulesComponent,
@@ -161,6 +169,8 @@ import { NotificationItemComponent } from './shared/navbar/navbar-notifications/
     NavbarNotificationDirective,
     NavbarNotificationsComponent,
     NotificationItemComponent,
+    IbGameInstructionsComponent,
+    IbMainTrainingComponent,
   ],
   imports: [
     CommonModule,
@@ -171,6 +181,7 @@ import { NotificationItemComponent } from './shared/navbar/navbar-notifications/
     AuthModule,
     AngularEditorModule,
     LayoutModule,
+    MatDialogModule,
     MatExpansionModule,
     MatToolbarModule,
     MatButtonModule,
@@ -213,10 +224,20 @@ import { NotificationItemComponent } from './shared/navbar/navbar-notifications/
     PassDataService,
     QuizService,
     FlowStepNavigationService,
-    NavbarNotificationsService
+    NavbarNotificationsService,
+    GamesBadgesService,
+    IbDialogsService,
+    IbTrainingDataService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  entryComponents: [CreatePostComponent, IntroduceComponent, NavbarFlowComponent, NavbarNotificationsComponent]
+  entryComponents: [
+    CreatePostComponent,
+    IntroduceComponent,
+    NavbarFlowComponent,
+    NavbarNotificationsComponent,
+    IbGameInstructionsComponent,
+    IbMainTrainingComponent,
+  ]
 })
 export class MainModule {
 }

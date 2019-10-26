@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
 import { Location } from '@angular/common';
 import { GamesAuthService } from '../../shared/games-auth.service';
 import { MentalImageryComponent } from './mental-imagery/mental-imagery.component';
+import { Overlay } from '@angular/cdk/overlay';
 
 declare let $: any;
 
@@ -42,6 +43,7 @@ export class CommonGameComponent implements OnInit {
   subscriptionRouter!: Subscription;
 
   @ViewChild('firstpage_btns', {static: false}) firstPageElement!: ElementRef;
+  @ViewChild('start_game_btns', {static: false}) startGameBtn!: ElementRef;
   @ViewChild('pause_common_div', {static: false}) pauseBtnElement!: ElementRef;
   @ViewChild('gameDiv', {static: false}) gameDivElement!: ElementRef;
 
@@ -52,7 +54,9 @@ export class CommonGameComponent implements OnInit {
     private gamesService: GamesService,
     private router: Router,
     private route: ActivatedRoute,
-    private location: Location) {   }
+    private location: Location,
+    private overlay: Overlay,
+  ) {   }
 
   ngOnInit() {
     this.subscriptionRouter = this.route.params
@@ -62,7 +66,6 @@ export class CommonGameComponent implements OnInit {
       )
       .subscribe(
         (game) =>  {
-          console.log("GAME>>", game)
           this.game = <Game>game;
           this.gameName = this.game.name;
           if (this.gameName === 'Executive Control Game') {
@@ -98,12 +101,19 @@ export class CommonGameComponent implements OnInit {
     this.gameStarted = true;
     this.showSideButtons = false;
     this.firstPageElement.nativeElement.classList.add('d-none');
+    this.startGameBtn.nativeElement.classList.add('d-none');
     this.pauseBtnElement.nativeElement.classList.remove('d-none');
+
+    // console.log(this.gameDivElement);
+    // const overlayRef = this.overlay.create();
+    // // const userProfilePortal = new ComponentPortal(UserProfile);
+    // // overlayRef.attach(userProfilePortal);
+
     if (this.gameName === 'Interpretation Bias Game') {
-      this.gamePlayService.playIBGame();
+      this.gamePlayService.playIBGame(this.gameDivElement);
     } else if (this.gameName === 'Executive Control Game') {
       this.showSecondPlayBtn = false;
-      this.gamePlayService.playExecControlGame(this.isSoundOn);
+      this.gamePlayService.playExecControlGame(this.isSoundOn, false);
     } else if (this.gameName === 'Learned Helplessness Game') {
       this.gamePlayService.playLearnedHelplessnessGame();
     } else if (this.gameName === 'Attribute Style Game') {
@@ -124,13 +134,14 @@ export class CommonGameComponent implements OnInit {
       this.isFirstPageHelpBtn = true;
     }
     this.firstPageElement.nativeElement.classList.add('d-none');
+    this.startGameBtn.nativeElement.classList.add('d-none');
     this.pauseBtnElement.nativeElement.classList.remove('d-none');
     if (this.gameName === 'Executive Control Game') {
       this.showSecondPlayBtn = false;
       this.gamePlayService.helpExecControlGame(this.isSoundOn, this.isFirstPageHelpBtn);
     }
     if (this.gameName === 'Interpretation Bias Game') {
-      this.gamePlayService.helpIBGame();
+      this.gamePlayService.helpIBGame(this.gameDivElement);
     }
     if (this.gameName === 'Mental Imagery Game') {
       this.miGameComponent.goToMIGameInstruction();
@@ -197,7 +208,7 @@ export class CommonGameComponent implements OnInit {
       this.gamePlayService.restartExecControlGame(this.isSoundOn);
     }
     if (this.gameName === 'Interpretation Bias Game') {
-      this.gamePlayService.playIBGame();                      // same function for start and restart the game
+      this.gamePlayService.playIBGame(this.gameDivElement);                      // same function for start and restart the game
     }
     if (this.gameName === 'Attribute Style Game') {
       this.gamePlayService.restartAttributionStyleGame();

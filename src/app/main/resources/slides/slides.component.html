@@ -1,11 +1,10 @@
 <div class="row w-100" id="slide-page" #slidePage >
   <ng-container  *ngIf="slide else loader" >
     <div class="col-1 in-desktop"></div>
-    <div class="col px-0 changes-width overflow-auto"
-      #slideDiv [scrollTop]="scrollTop"
+    <div class="col px-0 changes-width"
+      #slideDiv 
       id="slide-container"
       [@slideInOut] = "isSlidesVisible ? 'show' : 'hidden'"  >
-      
       <div class="row h-100 justify-content-center">
         <mat-card-header 
           class="col-12 w-100 px-0 card-header in-desktop sticky-top slideTitle">
@@ -18,77 +17,21 @@
           <!-- <iframe [src]="sanitizedUrl" frameborder="0" class="slide_iframe"
             allowfullscreen="true"
             mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>   -->
-          <iframe 
-            src="https://docs.google.com/presentation/d/e/2PACX-1vRPY5dYMULltTLDSpFokBCteHYLmhxb_M5A7LFlWdwjawcFEoDsriDRHEkDVDUtJxAKZakrBTiCItEG/embed?start=false&loop=false&delayms=3000" 
-            frameborder="0" class="slide_iframe" allowfullscreen="true" 
+          <iframe  src="https://docs.google.com/presentation/d/e/2PACX-1vRbTHybhEMXyLMWBaLjue6XMjpjRC8kT9TqsHbuO8zBqduaPrbYUaN_1OkI6OYJbTOUhMIFW6lMx4Lv/embed?start=false&loop=false&delayms=3000" 
+            frameborder="0" class="slide_iframe"  allowfullscreen="true" 
             mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
-          <div class="row w-100 like-btns-div justify-content-around">
-            
-            <div class="col-2 h-100 px-1 like-dislike-btns">
-              <img src="../../../../assets/shared/thumb.svg" *ngIf='!slideLiked'
-                id="like-btn"
-                class="h-100"
-                (click)= "onLikeBtnClick()">
-              <img src="../../../../assets/shared/thumb_yellow.svg" *ngIf='slideLiked'
-                id="like-yellow-btn"
-                class="h-100"
-                (click)= "onLikeBtnClick()">
-            </div>
-
-            <div class="col-2 h-100 mx-0 px-0 like-dislike-btns">
-              <img src="../../../../assets/shared/thumb.svg" *ngIf='!slideDisliked'
-                id="dislike-btn"
-                class="dislike-btn h-100"
-                (click)= "onDislikeBtnClick()">
-              <img src="../../../../assets/shared/thumb_yellow.svg" *ngIf='slideDisliked'
-                id="dislike-yellow-btn"
-                class="dislike-btn h-100"
-                (click)= "onDislikeBtnClick()">
-            </div>
-
-            <div class="col-7 h-100 px-1 ">
-              <button class="completed-btn h-100" type="button"
-                *ngIf = '!showNextStepBtn && !lastStepCompleted'
-                mat-raised-button color="primary"
-                (click)="onCompleted()">
-                Mark as complete
-              </button>
-              <button class="next-step-btn h-100" type="button"
-                *ngIf = 'showNextStepBtn && !isLastStep'
-                mat-raised-button color="primary"
-                (click)="onNextStepClick()">
-                <img id="flow-img" src="../../../../assets/shared/Flow_white.svg">
-                Next Step
-              </button>
-              <button class="completed-btn h-100" type="button"
-                *ngIf = 'lastStepCompleted'
-                mat-raised-button color="primary"
-                (click)="onDashboard()">
-                Go to dashboard
-              </button>
-            </div>
-          </div>
-
-          <div class="my-1 mx-1 feedbackBox row w-100" 
-            *ngIf="isDislikeBox || isLikeBox || likeDislikeRemoved">
-            <p class="my-0 text-property" *ngIf="isDislikeBox"> 
-              How can we improve it?
-            </p>
-            <p class="my-0 text-property" *ngIf="isLikeBox">
-              Send the feedback
-            </p>
-            <p class="my-0 text-property" *ngIf="likeDislikeRemoved">
-              What changed your mind?
-            </p>
-            <textarea class="w-100 rounded form-control" rows="3" #feedbackText
-                placeholder="Your message goes here ..."> </textarea>
-            <button class="px-0 my-1 btn-padding" 
-              mat-raised-button color="primary" 
-              (click)="onSubmitComment(feedbackText.value)">
-              Submit
-            </button>
-          </div>
-            
+          
+          <app-user-feedback class="w-100 feedback-div"
+            [disliked] = 'slideDisliked'
+            [liked]= 'slideLiked'
+            [isLastStep] = 'isLastStep'
+            [lastStepCompleted] = 'lastStepCompleted'
+            [showNextStepBtn] = 'showNextStepBtn'
+            (scrollEvent) = 'scrollPageToBottom($event)'
+            (nextStepEvent) = 'onNextStepClick($event)'
+            (completedEvent) = 'onCompleted($event)'
+            (storeFeedbackEvent) = 'storeSlideFeedBackData()'
+            (submitCommentEvent) = 'onSubmitComment()'> </app-user-feedback>            
         </div>
       </div>
     </div>
@@ -96,7 +39,7 @@
     <div class="col in-mobile border-right extra-form-div"
       *ngIf="!visible">
     </div> 
-    <div class="col-2 my-5 h-100 px-0 mx-0 in-mobile" *ngIf="visible === false" >
+    <div class="col-1 my-5 h-100 px-0 mx-0 in-mobile" *ngIf="visible === false" >
       <button class="rotate-rev ml-n3"
         id="slide-btn"
         mat-raised-button color="primary" (click)= "onShowSlides()">
@@ -104,7 +47,7 @@
       </button>
     </div>
     
-    <div class="col-2 my-5 h-100 px-0 mx-0 in-mobile" *ngIf="visible === true" #slideButton>
+    <div class="col-1 my-5 h-100 px-0 mx-0 in-mobile" *ngIf="visible === true" #slideButton>
       <button class="rotate-rev mr-n3"
         id="form-btn"
         mat-raised-button color="primary" (click)= "onShowForm()">
@@ -118,7 +61,7 @@
     <div class="col in-desktop">
     </div>
 
-    <div class="col mx-0 px-0 form-div changes-width overflow-auto" 
+    <div class="col mx-0 px-0 form-div changes-width" 
       #form_div [@formInOut]  = "isFormVisible ? 'show' : 'hidden'" >
       <div class="mx-0 px-0" form-host></div>
     </div>

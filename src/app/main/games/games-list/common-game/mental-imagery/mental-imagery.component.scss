@@ -1,18 +1,35 @@
+@import "styles.scss";
+@import "../../../shared/games-common.scss";
 .title{
   margin-top: 10vh;
   font-size: 350%;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Helvetica, sans-serif;
   font-weight: bold;
   font-style: oblique;
 }
+
+
 #mi-game-div{
   height: 100%;
   max-width: 100%;
+  display: flex;
+  justify-content:center !important;
   background-color: #45b9bc;
+  padding-right: 0px !important;
+	padding-left: 0px !important;
 }
 *:focus {
   outline: none;
 }
+.game-start{
+  height: 100%;
+  display: flex;
+	// max-height: 640px;
+  max-width: 360px;
+  background-image: url("../../../../../../assets/games/mental-imagery-game/Background with texture.png");
+  // overflow: auto;
+}
+
 .noteBook-border {
   min-height: 100%; 
   border-top: 1px solid black;

@@ -12,12 +12,14 @@ export class FlowComponent implements OnInit, OnDestroy {
 
   stepGroups: StepGroup[] = [];
   flowSubscription!: Subscription;
+  dataloaded = false;
 
   constructor(
     private flowService: FlowService
   ) { }
 
   ngOnInit() {
+    this.dataloaded = false;
     this.flowService.loadBehaviour
       .subscribe(
         data => this.loadData()
@@ -38,6 +40,7 @@ export class FlowComponent implements OnInit, OnDestroy {
       .subscribe(
         (data: any) => {
           this.stepGroups = data.step_groups;
+          this.dataloaded = true;
         }
       );
   }

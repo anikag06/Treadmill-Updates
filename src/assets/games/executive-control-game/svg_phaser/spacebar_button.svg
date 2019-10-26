@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="138" height="57" viewBox="0 0 138 57">
+  <defs>
+    <filter id="Rectangle_2646" x="0" y="0" width="138" height="57" filterUnits="userSpaceOnUse">
+      <feOffset dy="4" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feFlood flood-opacity="0.239"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="spacebar_button" data-name="spacebar button" transform="translate(-310 -139)">
+    <g transform="matrix(1, 0, 0, 1, 310, 139)" filter="url(#Rectangle_2646)">
+      <rect id="Rectangle_2646-2" data-name="Rectangle 2646" width="108" height="27" rx="6" transform="translate(15 11)" fill="#fff"/>
+    </g>
+    <text id="Spacebar" transform="translate(351 168)" font-size="14" font-family="Roboto-Medium, Roboto" font-weight="500"><tspan x="0" y="0">Spacebar</tspan></text>
+  </g>
+</svg>

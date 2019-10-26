@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="98" height="34" viewBox="0 0 98 34">
+  <defs>
+    <radialGradient id="radial-gradient" cx="0.312" cy="0.375" r="2.811" gradientTransform="translate(0.42 0.519) rotate(180) scale(0.347 0.385)" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#dbdbdb"/>
+      <stop offset="0.351" stop-color="#dbdbdb"/>
+      <stop offset="1" stop-color="#b1bbc1"/>
+    </radialGradient>
+  </defs>
+  <g id="Button" transform="translate(-16.193 -502)">
+    <g id="Rectangle_1738" data-name="Rectangle 1738" transform="translate(16.193 502)" stroke="#8b98a0" stroke-width="1" fill="url(#radial-gradient)">
+      <rect width="98" height="34" rx="17" stroke="none"/>
+      <rect x="0.5" y="0.5" width="97" height="33" rx="16.5" fill="none"/>
+    </g>
+    <path id="Path_6794" data-name="Path 6794" d="M1087.594,465.528c55.031-4.981,74.553-5.207,78.858,4.855.343-10.432-7.544-17.241-16.184-17.172-7.416,0-64.842-.47-68.9,5.44C1081.368,460.726,1081.446,469.513,1087.594,465.528Z" transform="translate(-1053.223 49.837)" fill="#dbdbdb"/>
+  </g>
+</svg>
