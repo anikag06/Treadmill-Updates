@@ -67,11 +67,11 @@ function coins_placer() {
                 
                 if(isTouchDevice == false)
                 {
-                    tutorial_box = curr_game.add.tileSprite(screen_width*0.5,screen_height*0.38,screen_width*0.42,screen_height*0.5,"tutorial_box");
-                    tutorial_box.alpha = 0.6;
+                
+                    tutorial_box = curr_game.add.tileSprite(screen_width*0.5,screen_height*0.38,screen_width*0.42,screen_height*0.5,"tutorial_box").setTileScale(0.8,1.145);
                     tutorial_box.depth = 4;
-                    tutorial_text.setText("Press                to\n\n collect coins");
-                    control_button_1=curr_game.add.image(screen_width*0.49,screen_height*0.32,'spacebar_button').setScale(0.4);
+                    tutorial_text.setText("Press                   to\n\n  collect coins");
+                    control_button_1=curr_game.add.image(screen_width*0.49,screen_height*0.36,'spacebar_button');
                     control_button_1.depth = 5;
                     game_paused=true;
                 }

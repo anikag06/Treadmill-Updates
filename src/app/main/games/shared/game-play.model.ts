@@ -48,7 +48,7 @@ export class ECGameFlankerTask {
     constructor(
         public game_id: number,
         public starting_time: any,
-        public time_elasped: number,
+        public time_elapsed: number,
         public response_type: number,
         public image_type: number,
         public congruency: number) {
@@ -58,7 +58,7 @@ export class ECGameFlankerTask {
 
 export class ECGameDiscriminationTask {
     constructor(
-        public game_id: number,
+        public flanker_task_id: number,
         public starting_time: any,
         public time_elapsed: number,
         public response_type: number) {

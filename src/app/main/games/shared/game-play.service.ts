@@ -6,6 +6,8 @@ import {GamesAuthService} from '@/main/games/shared/games-auth.service';
 import { ECGameData, ECGameFlankerTask, ECGameDiscriminationTask, ECGameUserData,
     LHGameColorReverseData, LHGameUserLevel, LHGamePerformance } from './game-play.model';
 import { IbDialogsService } from '../games-list/common-game/interpretation-bias-game/ib-dialogs.service';
+import { GamesBadgesService } from './games-badges.service';
+import { BadgesConstants } from './game-badges.model';
 
 
 // for interpretation bias game
@@ -88,6 +90,8 @@ export class GamePlayService  {
   ecGameFlankerData = new ECGameFlankerTask(1, null, 0, 0, 0, 1);
   ecGameDiscriminationData = new ECGameDiscriminationTask(1, null, 0, 0);
 
+  ecGameBadgeConstants = new BadgesConstants(0, 0, 0);
+
   // variables for lh game
   LHGAME_PAGE_SIZE = 20;
   lhGamePageNumber!: number;
@@ -106,6 +110,7 @@ export class GamePlayService  {
   constructor(
     private gamesService: GamesService,
     private gamesAuthService: GamesAuthService,
+    private gameBadgeService: GamesBadgesService,
     private ibGameDialogService: IbDialogsService,
   ) { }
 
@@ -117,9 +122,9 @@ export class GamePlayService  {
   }
 
 // functions for Interpretation Bias Game
-  playIBGame() {
+  playIBGame(gameDivElement: any) {
     if ( ibGameShowTutorial ) {
-      this.helpIBGame();
+      this.helpIBGame(gameDivElement);
     } else {
       startIBGame();
     }
@@ -133,8 +138,8 @@ export class GamePlayService  {
   hintsIBGame() {
     ibUsehints();
   }
-  helpIBGame() {
-    this.ibGameDialogService.openInstructionDialog();
+  helpIBGame(gameDivElement: any) {
+    this.ibGameDialogService.openInstructionDialog(gameDivElement);
     ibGameHelp();
   }
 
@@ -163,37 +168,33 @@ export class GamePlayService  {
   playExecControlGame(isSoundOn: any, helpClicked: any) {
     this.ecGameStarted = true;
     let showTutorial = false;
-    this.gamesAuthService.ecGameGetTaskInfo()
-      .subscribe((task_info) => {
-        if (helpClicked) {
-          showTutorial = true;
-        } else {
-          if (task_info.flanker_tasks_count === 0) {
-            showTutorial = true;
-          } else if (task_info.flanker_tasks_count > 0) {
-            this.gamesAuthService.ecGameGetFlankerTaskInfo()
-              .subscribe( (task_count) => {
-                if (task_count.flanker_tasks_count === 0) {
-                  showTutorial = true;
-                } else {
-                  showTutorial = false;
-                }
-              });
-          }
+    this.gamesAuthService.ecGameGetGameInfo()
+      .subscribe((game_data) => {
+        const length = game_data.data.length;
+        this.ecGameID = 1;            // should not be 0
+        if (length > 0) {
+          this.ecGameID = game_data.data[length - 1].id;
         }
-        this.gamesAuthService.ecGameGetGameInfo()
-          .subscribe((game_data) => {
-            const length = game_data.data.length;
-            this.ecGameID = 1;            // should not be 0
-            if (length > 0) {
-              this.ecGameID = game_data.data[length - 1].id;
+        this.gamesAuthService.ecGameGetUserData()
+          .subscribe( (user_data) => {
+            showTutorial = user_data.data.show_tutorial;
+            if (helpClicked) {
+              showTutorial = true;
             }
-            this.gamesAuthService.ecGameGetUserData()
-              .subscribe( (data) => {
-                startExecControlGame(showTutorial, data, this.ecGameID, isSoundOn);
-              });
+            console.log(user_data);
+            const badgeInfo = this.gameBadgeService.getBadgesInfo(
+              user_data.data.BRONZE_CONSTANT, user_data.data.SILVER_CONSTANT,
+              user_data.data.GOLD_CONSTANT, user_data.data.no_correct_responses );
+
+            const total_correct_responses = user_data.data.no_correct_responses;
+            this.ecGameBadgeConstants.bronzeConstant = user_data.data.BRONZE_CONSTANT;
+            this.ecGameBadgeConstants.silverConstant = user_data.data.SILVER_CONSTANT;
+            this.ecGameBadgeConstants.goldConstant = user_data.data.GOLD_CONSTANT;
+            startExecControlGame(showTutorial, user_data, this.ecGameID,
+              isSoundOn, badgeInfo, total_correct_responses,
+              this.ecGameBadgeConstants);
           });
-      });
+    });
   }
 
   helpExecControlGame(isSoundOn: any, isFirstHelpBtn: boolean) {
@@ -246,6 +247,7 @@ export class GamePlayService  {
       .subscribe(() => {
         this.gamesAuthService.ecGameUpdateUserData(this.ecGameUserDataObject)
           .subscribe((data) => {
+            console.log('update user data', data);
           });
       });
   }
@@ -257,19 +259,24 @@ export class GamePlayService  {
     this.ecGameFlankerData.game_id = this.ecGameTaskData[0];
     this.ecGameFlankerData.starting_time = this.ecGameTaskData[1];
     this.ecGameFlankerData.response_type = this.ecGameTaskData[2];
-    this.ecGameFlankerData.time_elasped = this.ecGameTaskData[3];
+    this.ecGameFlankerData.time_elapsed = this.ecGameTaskData[3];
     this.ecGameFlankerData.congruency   = this.ecGameTaskData[4];
     this.ecGameFlankerData.image_type   = this.ecGameTaskData[5];
 
-    this.ecGameDiscriminationData.game_id = this.ecGameTaskData[0];
+    // this.ecGameDiscriminationData.flanker_task_id = this.ecGameTaskData[0];
     this.ecGameDiscriminationData.starting_time = this.ecGameTaskData[6];
     this.ecGameDiscriminationData.response_type = this.ecGameTaskData[7];
     this.ecGameDiscriminationData.time_elapsed  = this.ecGameTaskData[8];
 
     this.gamesAuthService.ecGameStoreFlankerData(this.ecGameFlankerData)
-      .subscribe();
-    this.gamesAuthService.ecGameStoreDiscriminationTaskData(this.ecGameDiscriminationData)
-      .subscribe();
+      .subscribe((flanker_data: any) => {
+        console.log('flanker data', flanker_data, flanker_data.data.id);
+        this.ecGameDiscriminationData.flanker_task_id = flanker_data.data.id;
+        this.gamesAuthService.ecGameStoreDiscriminationTaskData(this.ecGameDiscriminationData)
+          .subscribe( (dis_data) => {
+          console.log('discr task', dis_data);
+        });
+      });
   }
 
 // for learned helplessness game
