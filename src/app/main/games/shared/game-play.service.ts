@@ -122,9 +122,9 @@ export class GamePlayService  {
   }
 
 // functions for Interpretation Bias Game
-  playIBGame() {
+  playIBGame(gameDivElement: any) {
     if ( ibGameShowTutorial ) {
-      this.helpIBGame();
+      this.helpIBGame(gameDivElement);
     } else {
       startIBGame();
     }
@@ -138,8 +138,8 @@ export class GamePlayService  {
   hintsIBGame() {
     ibUsehints();
   }
-  helpIBGame() {
-    this.ibGameDialogService.openInstructionDialog();
+  helpIBGame(gameDivElement: any) {
+    this.ibGameDialogService.openInstructionDialog(gameDivElement);
     ibGameHelp();
   }
 

@@ -67,13 +67,13 @@ var extra_word_already_found = [];					//array to store the words found not in t
 var extra_word = false;								//flag for keeping track if the word is in sentence or not
 var bonus_word_score = 5;							//coins for finding an extra word
 
-var increase_time_score = 50;						//coins subtracted for using increase time hint
+var ibg_time_cost = 50;						//coins subtracted for using increase time hint
 var borrow_time_score = 100;						//coins subtracted for borrowing time after time's up
 var borrow_time_again_score = 150;					//if more than 15% words then borrowing time after time's up
 var min_score_increaseTime = 20;					//minimum score to unlock the 'increase the time' power
-var show_word_score = 30; 							// if user uses show word hint
+var ibg_word_cost = 30; 							// if user uses show word hint
 var guess_word_score = 20;							// if user uses guess the word hint 
-var show_coord_score = 20;
+var ibg_coordinate_cost = 20;
 var score_each_letter = [10, 7, 5];					//for each letter of the word of the sentence
 // var try_again_score = 40; 
 
@@ -239,6 +239,7 @@ function initializeVariables(){
 			document.getElementById('ibg-pBar'+i).style.backgroundColor = 'rgba(100, 216, 216, 0.5)';
 		}
 	}
+	
 	countTrue = 0; 	
 }	
 function getUpdatedVariables() {
@@ -345,6 +346,7 @@ $(document).ready(function(){
 		$('.hints-col').removeClass("d-none");
 	}
 	ibUsehints = function(ev){
+		
 		if(hiddenWordsInfo() > 0){
 			if($('#showWord').hasClass("disabled")){
 				$('#showWord').removeClass("disabled");
@@ -365,6 +367,10 @@ $(document).ready(function(){
 			$('#showWordResult').addClass("d-none");
 			$('#showCoordResult').addClass("d-none");
 		}
+		// document.getElementById("showWordCost").innerHTML = "Cost: "+ibg_word_cost;
+		// document.getElementById("showCoordCost").innerHTML = "Cost: "+ibg_coordinate_cost;
+		// document.getElementById("addTimeCost").innerHTML = "Cost: "+ min_score_increaseTime;
+
 	}
 	ibGameHelp = function(ev){
 			$('.game-first-page').addClass("d-none");
@@ -372,7 +378,7 @@ $(document).ready(function(){
 	$(document).on("click", "#showWord", function(ev){
 		if($('#showWordResult').hasClass("d-none")){
 			if(showWord(sentence_array[sentence_number])){
-				score = score - show_word_score;
+				score = score - ibg_word_cost;
 				document.getElementById("score").innerHTML = score;
 				$('#showWordResult').removeClass("d-none");
 			}
@@ -384,7 +390,7 @@ $(document).ready(function(){
 	$(document).on("click", "#showCoordinates", function(ev){
 		if($('#showCoordResult').hasClass("d-none")){
 			if(showFirstLetterCoordinates()){
-				score = score - show_coord_score;
+				score = score - ibg_coordinate_cost;
 				document.getElementById("score").innerHTML = score;
 			}
 			$('#showCoordResult').removeClass("d-none");
@@ -413,22 +419,22 @@ $(document).ready(function(){
 	$(document).on("click","#increase_time", function(ev){
 		$('#ibgame-clock-gif').removeClass("d-none");
 		$('#ibgame-clock-png').addClass("d-none");
-		if(score >= min_score_increaseTime){
-			unlock = true;
-			score = score - min_score_increaseTime;
-			document.getElementById("score").innerHTML = score;
-		}else{
-			unlock == false;
-		}
+		// if(score >= min_score_increaseTime){
+		// 	unlock = true;
+		// 	score = score - min_score_increaseTime;
+		// 	document.getElementById("score").innerHTML = score;
+		// }else{
+		// 	unlock == false;
+		// }
 
-		if(unlock == true){
+		// if(unlock == true){
 			game_timer = game_timer + increased_time;
 			//ibCountdown();
-			score = score - increase_time_score;
+			score = score - ibg_time_cost;
 			document.getElementById("score").innerHTML = score;
-		}else if(unlock == false){
+		// }else if(unlock == false){
 			//console.log("Need" + min_score_increaseTime + " coins to unlock this power");
-		}
+		// }
 		$('#hint-div').addClass("d-none");
 		setTimeout( function() {
 			$('#ibgame-clock-png').removeClass("d-none");

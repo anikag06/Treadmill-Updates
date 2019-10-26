@@ -1,11 +1,11 @@
 <div class="container-fluid justify-content-center" id="main_div">
 	<div class="ibGame-page py-0 center-element justify-content-center">
     
-    <div class="h-100" id="game_main_div">
-      <div class="row game-first-page justify-content-center align-items-center">
+    <div class="h-100 mx-auto" id="game_main_div">
+      <div class="row game-first-page justify-content-center align-items-start">
         <img id="frontpage-image"
           src="../../../../../../assets/games/interpretation_bias_game/images/frontpage_image.png"
-          class="col ">
+          class="col mt-5">
       </div>
     </div>
       
@@ -141,19 +141,28 @@
       <div class="col hints-col mt-auto d-none" >
         <!-- CONTROLS -->
         <div class="row h-100 changes-width justify-content-end">
-          <mat-menu class="w-100 h-100" class="hints-menu ml-2"
+          <mat-menu class=" h-100" class="hints-menu ml-2"
             #ibgHints="matMenu" xPosition="after" yPosition="above">
-              <button mat-menu-item id="showWord" 
-                class="btn-hint px-2 showWord text-center hints-menu-items">
-                  Show a word
+              <button id="showWord" *ngIf="showAllHints"
+                class="btn-hint px-2 showWord w-100 btn bg-white text-center hints-menu-items small-font">
+                  Show a word<br>
+                  <span id="showWordCost" class="w-100 smallest-font text-secondary">
+                    Cost:  {{wordHintCost}} 
+                  </span>
               </button>
-              <button mat-menu-item id="showCoordinates"
-                class="btn-hint px-2 showCoordinates text-center hints-menu-items">
-                  Get position of first letter of a word
+              <button id="showCoordinates"
+                class="btn-hint px-2 showCoordinates w-100 btn bg-white text-center hints-menu-items small-font">
+                  Get position of first letter of a word<br>
+                  <span id="showCoordCost" class="w-100 smallest-font text-secondary">
+                    Cost:  {{coordHintCost}} 
+                  </span>
               </button>
-              <button mat-menu-item id="increase_time" 
-                class="btn-hint px-2 increase_time text-center hints-menu-items">
-                Add 20s to the clock
+              <button id="increase_time" 
+                class="btn-hint px-2 increase_time text-center w-100 btn bg-white hints-menu-items small-font">
+                Add 20s to the clock<br />
+                <span id="addTimeCost" class="w-100 smallest-font text-secondary">
+                  Cost:  {{timeHintCost}} 
+                </span>
               </button>
           </mat-menu>
         

@@ -36,6 +36,9 @@ declare function getUpdatedVariables(): any;
 
 declare var ibGDifficultyValue: any;
 declare var ibGameMakeGridArray: any;
+declare var ibg_word_cost: any;
+declare var ibg_coordinate_cost: any;
+declare var ibg_time_cost: any;
 
 @Component({
   selector: 'app-interpretation-bias-game',
@@ -64,6 +67,9 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
 
   // whether level > 0 or not
   showAllHints = false;
+  wordHintCost = ibg_word_cost;
+  coordHintCost = ibg_coordinate_cost;
+  timeHintCost = ibg_time_cost;
 
   SEN_URL = environment.API_ENDPOINT + IBG_SENTENCE;
 
@@ -133,9 +139,9 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
         if (this.firstSentence) {
           this.index = ibGameUserOrder % this.NO_OF_SENTENCES_RECEIVED ;
         }
-        if ( ibGamelevel > 0) {
-          this.showAllHints = true;
-        }
+        // if ( ibGamelevel > 0) {
+        //   this.showAllHints = true;
+        // }
         let i = this.index;
         while (data.results[i]) {
           sentence_ids.push(data.results[i].id);

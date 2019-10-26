@@ -9,13 +9,16 @@
 #start_page{
     // width:70vw;
     max-width: 100%;
+    height: 100%;
     margin-left: auto;
     margin-right: auto;
     background-color: #a2e2ec;
     background-image: url("../../../../../../assets/games/executive-control-game/png/background_images/mountains.png");
     background-repeat: no-repeat;
     background-size: cover;
-    
+}
+.game-container{
+  height: 100%;
 }
 #execGame{
   width: 100%;
@@ -30,7 +33,6 @@
     vertical-align: middle;
     line-height:25vh;
     font-size:26px;
-    font-family: "Roboto",serif;
     backface-visibility: hidden;
     // color:white;
 }
@@ -54,10 +56,16 @@ canvas {
     // padding: 2%;
     max-width: 80%;
   }
-  #execGame,#start_page{
-    width: 100%;
+  .game-container{
     height: 75%;
   }
+  #start_page{
+    height: 50%;
+    margin-top: 25%;
+    background-size: auto;
+    background-position-y: bottom;
+  }
+
 }
 @media screen and (max-width: 767px) and (orientation:landscape) {
 
@@ -70,7 +78,12 @@ canvas {
     object-fit: contain;
     /* <https://caniuse.com/#feat=object-fit> */
   }
-  #execGame{
+  .game-container{
     height: 100%;
+  }
+  #start_page{
+    height: 100%;
+    margin-top: 0%;
+    background-size: cover;
   }
 }

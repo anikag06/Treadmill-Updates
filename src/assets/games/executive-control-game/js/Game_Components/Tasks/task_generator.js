@@ -502,11 +502,11 @@ function addInstructionTasks() {
 		task_dialog_heading.depth = 13;
 		if(isTouchDevice==true)
 		{
-			task_start_dialog_text.setText("1. Press the button in the direction of the\n middle arrow\n\n2. Press the button matching the color of\n the circle");
+			task_start_dialog_text.setText("For task 1: Press 'button image' if the middle arrow is\npointing left 'flanker task image ', press 'image'\n\n if pointing right. \n\n For task 2: Press 'button image' if the central circle is 'red image', press 'image' if the central circle is 'green image'");
 		}
 		else
 		{
-			task_start_dialog_text.setText("1. Press the Left Key if the middle arrow is\npointing left,otherwise press the Right Key\n\n2.Press the Down Key if the circle is colored\nred, otherwise press the Up Key");
+			task_start_dialog_text.setText("For task 1:  Press 'image' if the middle arrow is\npointing left 'flanker task image ', press 'image'\n\n if pointing right. For task 2: Press 'image' if the central circle is \n'red image', press 'image' if the central circle is 'green image'");
 		}
 		task_start_dialog_text.depth=13;
 		task_start_button=curr_game.add.image(screen_width*0.505,screen_height*0.66,'buy_button').setInteractive();
