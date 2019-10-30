@@ -49,6 +49,11 @@ $small_logo_height: 40px;
   font-style: $font-style;
 }
 
+@mixin font-roboto($font-weight: 500, $font-style: normal) {
+  font-family: 'Roboto', sans-serif !important;
+  font-weight: $font-weight;
+  font-style: $font-style;
+}
 @mixin common-dialog-style() {
   background-color: mat-color($treadwill-app-primary);
   color: $mat-white;
@@ -166,6 +171,18 @@ $small_logo_height: 40px;
 
 .font-montserrat-bold {
   @include font-montserrat($font-weight: 700);
+}
+
+// Roboto Fonts
+.font-roboto-thin {
+  @include font-roboto($font-weight: 300)
+}
+
+.font-roboto-normal {
+  @include font-roboto($font-weight: 500)
+}
+.font-roboto-bold {
+  @include font-roboto($font-weight: 700)
 }
 
 .app-main {

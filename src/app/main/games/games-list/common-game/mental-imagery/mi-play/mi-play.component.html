@@ -1,7 +1,7 @@
 <div class="container " id="containerDiv" >
   <div class="topBar row mt-1 ">
   
-  <div class="col-6 scoreLocation text-left mt-1 ml-0 small-font">
+  <div class="col-6 scoreLocation text-left mt-1 ml-0 small-font font-roboto-bold">
       <!-- <p class="scoreLocation text-left"> -->
           SCORE: {{ this.user.currentPoints()}}
         <!-- </p> -->
@@ -55,21 +55,21 @@
 <!-- </div> -->
 
   
-<h1 class="mt-3 medium-font">{{currentLevel.title}}</h1>
+<h1 class="mt-3 medium-font font-roboto-normal">{{currentLevel.title}}</h1>
   
   <mat-progress-bar class="gameProgressBar ml-3" [color]="'new'"></mat-progress-bar>
 </div>
 <div class="main" (click)="onAnyWhereClick()">
   <div class="row" *ngIf="previousText">
-    <div class="col-12 smallest-font" [innerHTML]="previousText"></div>
+    <div class="col-12 smallest-font font-roboto-thin" [innerHTML]="previousText"></div>
   </div>
   <div class="row">
-    <div class="col-12 problem-space mt-2 smallest-font" *ngIf="currentScenario">
+    <div class="col-12 problem-space mt-2 smallest-font font-roboto-thin" *ngIf="currentScenario">
       {{ this.currentScenario.problemBeforeDash }} <strong>{{ blank.trim() || '-----------' }}</strong> {{ this.currentScenario.problemAfterDash }}
     </div>
   </div>
   <div class="row">
-    <div class="col-12 smallest-font" [innerHTML]="extraContent"></div>
+    <div class="col-12 smallest-font font-roboto-thin" [innerHTML]="extraContent"></div>
   </div>
   <div class="row">
     <div class="col-6 offset-3 text-center" *ngIf="notificationHeader && notificationHeader.length > 0">
