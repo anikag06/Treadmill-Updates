@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
-import { HTML_PAGE } from '@/app.constants';
 import { StepsDataService } from '../shared/steps-data.service';
 import { StepCompleteData } from '../shared/completion-data.model';
 import { CommonDialogsService } from '../shared/common-dialogs.service';
+import { CONCLUSION_PAGE } from '@/app.constants';
 
 @Component({
   selector: 'app-conclusion-page',
@@ -39,7 +39,7 @@ export class ConclusionPageComponent implements OnInit {
       .subscribe(
         (data: any) => {
           console.log(data);
-          if (['COMPLETED', 'WORKING', 'ACTIVE', 'UNLOCKED'].includes(data.data.status) && data.data.data_type === HTML_PAGE ) {
+          if (['COMPLETED', 'WORKING', 'ACTIVE', 'UNLOCKED'].includes(data.data.status) && data.data.data_type === CONCLUSION_PAGE ) {
             this.current_step_id = data.data.id;
             this.next_step_id = data.data.next_step_id;
             if (data.data.status === 'COMPLETED') {
