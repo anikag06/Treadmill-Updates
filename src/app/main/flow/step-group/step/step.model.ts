@@ -9,6 +9,7 @@ export interface Step {
     name: string;
     status: string;
     step_data: StepData;
+    step_group_sequence: number;
     hooks: string[];
     action: string[];
     virtual_step: boolean;

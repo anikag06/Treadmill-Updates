@@ -42,6 +42,8 @@ import { ConclusionPageComponent } from './conclusion-page/conclusion-page.compo
 import { StepsDataService } from './shared/steps-data.service';
 import { UserFeedbackComponent } from './shared/user-feedback/user-feedback.component';
 import { IntroductionComponent } from './introduction/introduction.component';
+import { Introduction1Component } from './introduction/introduction1/introduction1.component';
+import { Introduction2Component } from './introduction/introduction2/introduction2.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +67,8 @@ import { IntroductionComponent } from './introduction/introduction.component';
     ConclusionPageComponent,
     UserFeedbackComponent,
     IntroductionComponent,
+    Introduction1Component,
+    Introduction2Component,
   ],
   imports: [
     ResourcesRoutingModule,

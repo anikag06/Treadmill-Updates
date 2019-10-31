@@ -1,16 +1,14 @@
 <div class="container-fluid ">
-    <div class="row">
-        <div class="col">
-            Introduction Page
-        </div>
+  <div class="row">
+    <div class="col">
+      <router-outlet></router-outlet>
     </div>
-    <div class="row">
-        <div class="col">
-            <button class="completed-btn float-right" type="button"
-                mat-raised-button color="primary"
-                (click)="onCompleted()">
-                Completed
-            </button>
-        </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <button class="completed-btn float-right" type="button" mat-raised-button color="primary" (click)="onCompleted()">
+        Completed
+      </button>
     </div>
+  </div>
 </div>

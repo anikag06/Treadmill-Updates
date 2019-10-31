@@ -8,7 +8,9 @@ import { SlidesComponent } from './slides/slides.component';
 import { ConversationsComponent } from './conversation-group/conversations/conversations.component';
 import { ConversationGroupComponent } from './conversation-group/conversation-group.component';
 import { ConclusionPageComponent } from './conclusion-page/conclusion-page.component';
-
+import { IntroductionComponent } from './introduction/introduction.component';
+import { Introduction1Component } from './introduction/introduction1/introduction1.component';
+import { Introduction2Component } from './introduction/introduction2/introduction2.component';
 
 export const formRoutes: Routes = [
   { path: '', component: FormsComponent, children: [
@@ -20,6 +22,11 @@ export const formRoutes: Routes = [
   { path: 'conversations', component: ConversationsComponent },
   { path: 'conversations-group/:id', component: ConversationGroupComponent },
   { path: 'slides/:id', component: SlidesComponent },
+  { path: 'introduction', component: IntroductionComponent, children:[
+      { path: '0', component: Introduction1Component },
+      { path: '1', component: Introduction2Component },
+    ] 
+  },
   { path: 'conclusion/:id', component: ConclusionPageComponent },
 ];
 

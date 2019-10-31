@@ -91,8 +91,10 @@ export const GAME = 'GAME';
 export const FORM = 'FORM';
 export const SUPPORT_GROUP = 'SUPPORT_GROUP';
 export const SURVEY = 'SURVEY';
-export const HTML_PAGE = 'HTML_PAGE';
 export const INTRODUCTORY_ANIMATION = 'INTRODUCTORY_ANIMATION';
+export const INTRODUCTION_PAGE = 'INTRODUCTION_PAGE';
+export const CONCLUSION_PAGE = 'CONCLUSION_PAGE';
+export const HTML_PAGE = 'HTML_PAGE';
 
 export const LOCKED = 'LOCKED';
 export const UNLOCKED = 'UNLOCKED';

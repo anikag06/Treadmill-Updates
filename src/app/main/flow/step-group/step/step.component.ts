@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Step } from './step.model';
 import { StepGroup } from '../step-group.model';
 import { COMPLETED, SLIDE, CONVERSATION_GROUP } from '@/app.constants';
-import {  LOCKED, ACTIVE, INTRODUCTORY_ANIMATION } from '@/app.constants';
+import { LOCKED, ACTIVE, INTRODUCTORY_ANIMATION } from '@/app.constants';
 import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.service';
 import { Router } from '@angular/router';
 import { FlowService } from '../../flow.service';
@@ -19,7 +19,7 @@ export class StepComponent implements OnInit {
 
   @Input() step!: Step;
   @Input() stepGroup!: StepGroup;
-  @ViewChild('tooltip', {static: false}) showToolTip!: MatTooltip;
+  @ViewChild('tooltip', { static: false }) showToolTip!: MatTooltip;
 
   prevModuleLastStep: any;
   tooltipData!: any;
@@ -47,29 +47,30 @@ export class StepComponent implements OnInit {
   }
 
   nextLink(): string {
+    console.log("step.component: ", this.step);
     return this.flowStepNavService.goToFlowNextStep(this.step);
   }
 
-   previousStep(stepGroup: StepGroup, step: Step) {
+  previousStep(stepGroup: StepGroup, step: Step) {
     const allSteps = <Step[]>stepGroup.steps;
     const index = allSteps.indexOf(step, 1);
     return allSteps[index - 1];
-   }
+  }
 
-   nextStep(stepGroup: StepGroup, step: Step) {
+  nextStep(stepGroup: StepGroup, step: Step) {
     const allSteps = <Step[]>stepGroup.steps;
     const index = allSteps.indexOf(step, 1);
     return allSteps[index + 1];
- }
+  }
 
-   markDone() {
+  markDone() {
     const prev = this.previousStep(this.stepGroup, this.step);
     if (!prev || prev && prev.status === COMPLETED) {
       this.flowStepNavService.virtualStepMarkDone(this.step, 1);        // here 1 is the time spent
     }
-   }
+  }
 
-   navigate(event: Event) {
+  navigate(event: Event) {
     event.preventDefault();
     this.showTooltipFun();
     this.markDone();
@@ -81,19 +82,19 @@ export class StepComponent implements OnInit {
       setTimeout(() => this.flowService.triggerLoad(), 10);
     }
     return this.router.navigate([this.nextLink()]);
-   }
+  }
 
-   locked() {
-     return this.step.status === LOCKED && !this.step.virtual_step;
-   }
+  locked() {
+    return this.step.status === LOCKED && !this.step.virtual_step;
+  }
 
-   active() {
-     return this.step.status === ACTIVE;
-   }
-
-   unlocked() {
+  active() {
     return this.step.status === ACTIVE;
-   }
+  }
+
+  unlocked() {
+    return this.step.status === ACTIVE;
+  }
 
   showTooltipFun() {
     if (this.step.status === LOCKED && !this.step.virtual_step) {
@@ -101,7 +102,7 @@ export class StepComponent implements OnInit {
       if (!prev) {
         this.flowService.getModuleUnlockTime(this.stepGroup);
         this.flowService.unlockModuleTime
-          .subscribe( (data) => {
+          .subscribe((data) => {
             const time = this.datePipe.transform(data, 'hh:mm a');
             const date = this.datePipe.transform(data, 'dd-MM-yyy');
             this.tooltipData = 'unlocks at: ' + time + ' on ' + date;

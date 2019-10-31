@@ -8,7 +8,8 @@ import {
   FORM_PROBLEM_SOLVING_WORKSHEET,
   FLOW_STEP_MARK_DONE,
   QUESTIONNAIRE,
-  HTML_PAGE,
+  INTRODUCTION_PAGE,
+  CONCLUSION_PAGE,
   INTRODUCTORY_ANIMATION
 } from '@/app.constants';
 import { Observable } from 'rxjs';
@@ -30,6 +31,7 @@ export class FlowStepNavigationService {
   ) { }
 
   goToFlowNextStep(step: any): string {
+    // console.log(step);
     if (step.status !== LOCKED) {
       if (step.data_type === SLIDE) {
         return `/resources/slides/${step.id}/`;
@@ -45,7 +47,9 @@ export class FlowStepNavigationService {
         return `/support-groups/`;
       } else if (step.data_type === QUESTIONNAIRE) {
         return `/questionnaire/`;
-      } else if (step.data_type === HTML_PAGE) {
+      } else if (step.data_type === INTRODUCTION_PAGE) {
+        return `/resources/introduction/${step.step_group_sequence}/`;
+      } else if (step.data_type === CONCLUSION_PAGE) {
         return `/resources/conclusion/${step.id}/`;
       } else if (step.data_type === INTRODUCTORY_ANIMATION) {
         return `/dashboard`;
