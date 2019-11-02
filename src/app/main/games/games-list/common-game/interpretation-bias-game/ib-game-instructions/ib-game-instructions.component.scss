@@ -1,3 +1,8 @@
+.instructions-div{
+	max-width: 350px;
+	max-height: 400px;
+	overflow-y: scroll;
+}
 .card-img-top{
 	max-width: 95%;
 	opacity: 0.2;
@@ -37,3 +42,4 @@
     background-color: #0C8C95;
     color: white;
 }
+

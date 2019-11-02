@@ -110,6 +110,8 @@ import { IbDialogsService } from './games/games-list/common-game/interpretation-
 import { IbMainTrainingComponent } from './games/games-list/common-game/interpretation-bias-game/ib-main-training/ib-main-training.component';
 // tslint:disable-next-line: max-line-length
 import { IbTrainingDataService } from '@/main/games/games-list/common-game/interpretation-bias-game/ib-main-training/ib-training-data.service';
+import { CustomOverlayDirective } from './shared/custom-dialog/custom-overlay.directive';
+import { DialogContainerComponent } from './shared/custom-dialog/dialog-container/dialog-container.component';
 @NgModule({
   declarations: [
     ModulesComponent,
@@ -171,6 +173,8 @@ import { IbTrainingDataService } from '@/main/games/games-list/common-game/inter
     NotificationItemComponent,
     IbGameInstructionsComponent,
     IbMainTrainingComponent,
+    CustomOverlayDirective,
+    DialogContainerComponent,
   ],
   imports: [
     CommonModule,
@@ -237,6 +241,7 @@ import { IbTrainingDataService } from '@/main/games/games-list/common-game/inter
     NavbarNotificationsComponent,
     IbGameInstructionsComponent,
     IbMainTrainingComponent,
+    DialogContainerComponent,
   ]
 })
 export class MainModule {

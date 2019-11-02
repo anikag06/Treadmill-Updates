@@ -123,7 +123,7 @@ export class GamePlayService  {
 
 // functions for Interpretation Bias Game
   playIBGame(gameDivElement: any) {
-    if ( ibGameShowTutorial ) {
+    if ( ibGameShowTutorial === true) {
       this.helpIBGame(gameDivElement);
     } else {
       startIBGame();

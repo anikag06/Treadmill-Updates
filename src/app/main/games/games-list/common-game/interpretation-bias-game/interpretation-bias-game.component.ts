@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, OnDestroy, HostListener } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy, HostListener, EventEmitter } from '@angular/core';
 import { UserScoreData, UserResponseData } from '@/main/games/shared/game-play.model';
 import { Router } from '@angular/router';
 import { IBG_SENTENCE, IBG_LESS_TIME, IBG_MORE_TIME } from '@/app.constants';

@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, Input } from '@angular/core';
+import { Component, OnInit, Inject, Input, ElementRef } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { OverlayContainer, FullscreenOverlayContainer, Overlay } from '@angular/cdk/overlay';
 
@@ -17,17 +17,20 @@ export class IbGameInstructionsComponent implements OnInit {
   game_element!: any;
 
   constructor(
-    public dialogRef: MatDialogRef<IbGameInstructionsComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    private elementRef: ElementRef,
+    // public dialogRef: MatDialogRef<IbGameInstructionsComponent>,
+    // @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
-    dialogRef.disableClose = true;
+    // dialogRef.disableClose = true;
   }
 
   ngOnInit() {
   }
 
   onPlayClicked() {
-    this.dialogRef.close();
+    // this.dialogRef.close();
+    const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });
+    this.elementRef.nativeElement.dispatchEvent(domEvent);
     startIBGame();
   }
 }
