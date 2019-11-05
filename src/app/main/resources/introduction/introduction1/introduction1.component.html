@@ -6,21 +6,21 @@
   <br><br>
   Write a recent upsetting <span class="emphasis">situation</span>.
   <mat-form-field>
-    <input type="text" matInput placeholder="Example- I got fired from my job.">
+    <input type="text" matInput placeholder="Example- I got fired from my job." [(ngModel)]="situation">
   </mat-form-field>
 </div>
 <br><br>
 <div>
   How did this situation make you <span class="emphasis">feel</span>?
   <mat-form-field>
-    <input type="text" matInput placeholder="Example- Extremely sad.">
+    <input type="text" matInput placeholder="Example- Extremely sad." [(ngModel)]="feeling">
   </mat-form-field>
   <br><br>
 </div>
 <div>
   How did you <span class="emphasis">behave</span> after this situation?
   <mat-form-field>
-    <textarea matInput
+    <textarea matInput [(ngModel)]="behavior"
       placeholder="Example- I wandered around aimlessly for two hours. After that, I went home. I didn't eat dinner and didn't talk to anyone. I cried myself to sleep that night."></textarea>
   </mat-form-field>
   <br><br>
@@ -29,8 +29,13 @@
   What was going through your mind that made you <span class="emphasis">feel</span> and <span
     class="emphasis">behave</span> this way?
   <mat-form-field>
-    <textarea matInput
+    <textarea matInput [(ngModel)]="thought"
       placeholder="Example- I am a worthless piece of garbage. I will never get another job."></textarea>
   </mat-form-field>
   <br><br>
+</div>
+<div>
+  <button class="completed-btn float-right" type="button" mat-raised-button color="primary" (click)="saveData()">
+    Save data
+  </button>
 </div>

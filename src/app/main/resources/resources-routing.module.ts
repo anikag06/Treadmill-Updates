@@ -23,7 +23,7 @@ export const formRoutes: Routes = [
   { path: 'conversations-group/:id', component: ConversationGroupComponent },
   { path: 'slides/:id', component: SlidesComponent },
   { path: 'introduction', component: IntroductionComponent, children:[
-      { path: '0', component: Introduction1Component },
+      // { path: '1', component: Introduction1Component },
       { path: '1', component: Introduction2Component },
     ] 
   },

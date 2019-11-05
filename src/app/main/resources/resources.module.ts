@@ -44,6 +44,7 @@ import { UserFeedbackComponent } from './shared/user-feedback/user-feedback.comp
 import { IntroductionComponent } from './introduction/introduction.component';
 import { Introduction1Component } from './introduction/introduction1/introduction1.component';
 import { Introduction2Component } from './introduction/introduction2/introduction2.component';
+import { IntroductionService } from './introduction/introduction.service';
 
 @NgModule({
   declarations: [
@@ -95,6 +96,7 @@ import { Introduction2Component } from './introduction/introduction2/introductio
     SlideService,
     CommonDialogsService,
     StepsDataService,
+    IntroductionService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [CongratsDialogComponent, ProblemFormComponent, ProblemSolvingWorksheetsComponent]
