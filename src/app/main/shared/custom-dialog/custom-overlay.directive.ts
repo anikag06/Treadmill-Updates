@@ -7,8 +7,6 @@ import { DialogContainerComponent } from './dialog-container/dialog-container.co
 export class CustomOverlayDirective {
 
   overlayMade = false;
-  overlayWidth!: number;
-  // overlayContainer: any;
 
   constructor(
     private element: ElementRef,
@@ -17,18 +15,8 @@ export class CustomOverlayDirective {
   ) {
 
   }
-  @HostListener('mousedown') onOverlayCall() {
-    console.log('mouseclick');
-    // if (this.overlayMade === false) {
-    //   this.makeOverlay();
-    // } else {
-    //   this.removeOverlay();
-    // }
-  }
   @HostListener('window: overlayCalledEvent', ['$event.target'])
   createOverlayFun(el: any) {
-    console.log('event is emitted', el);
-    console.log(this.overlayMade);
     if (this.overlayMade === false) {
       this.makeOverlay();
     } else {
@@ -36,7 +24,6 @@ export class CustomOverlayDirective {
     }
   }
   @HostListener('window: removeOverlayEvent') removeOverlayFun() {
-    console.log('remove overlay');
     this.removeOverlay();
   }
 
@@ -48,9 +35,6 @@ export class CustomOverlayDirective {
     if (custom_container) {
       custom_container.classList.remove('d-none');
     } else {
-      console.log('this element', this.element);
-      this.overlayWidth = this.element.nativeElement.clientWidth;
-      console.log(this.overlayWidth);
       // tslint:disable-next-line: max-line-length
       this.element.nativeElement.insertAdjacentHTML('afterbegin', '<div id="custom_overlay_container" class="h-100 w-100" style="position:absolute;background-color:rgba(0,0,0,0.5);z-index: 20;"></div>');
     }

@@ -12,6 +12,7 @@ var ibGameCorrectResponse;				// check whether user answers correctly or not
 var ibGameShowTutorial;
 var ibGDifficultyValue;
 var success = false;				// to keep track of the user's performance in the game
+
 // var sentences_sent= 3;
 var sentence_array = [];
 var sentence_word_array = [];
@@ -26,7 +27,7 @@ var ibGamePause;
 var ibGameResume;
 var ibUsehints;
 var ibGameHelp;
-
+var ibGameTrainingSen;
 var ibGameMakeGridArray;
 
 var iBGSentenceDialogEvent;
@@ -1279,6 +1280,7 @@ function showSentence(){
 	if (sentence_time < 2000){
 		sentence_time = 2000;
 	}
+	
 	countdownReset();
 	clearInterval(inactivity_check_interval);
 
@@ -1296,25 +1298,62 @@ function showSentence(){
 		$(".sentence-col").addClass("d-none");
 	}, delay_show_sentence );
 
-	// show the sentence
+	// the event is dispatched
 	setTimeout(function(){
 		iBGSentenceDialogEvent = document.createEvent('CustomEvent');
 		iBGSentenceDialogEvent.initCustomEvent('iBGameSentenceDialogFun');
 		window.dispatchEvent(iBGSentenceDialogEvent);
-		$(".congrats-msg").addClass("d-none");
-		$(".complete-sentence").html(sentence_array[sentence_number]);
-		$('.complete-sentence').removeClass("d-none");
 	}, delay_show_sentence+before_sentence_time);
-//show the sentence for some seconds and ask relation after some time
+// show the sentence
+	// setTimeout( function() {
+	// 	$(".congrats-msg").addClass("d-none");
+	// 	console.log(document.getElementById('complete-sentence'));
+	// 	document.getElementById("complete-sentence").innerHTML= sentence_array[sentence_number];
+	// 	$('.complete-sentence').removeClass("d-none");
+	// 	console.log('sentence showing time', sentence_time);
+	// }, delay_show_sentence+before_sentence_time + eventTime);
+
+// //show the sentence for some seconds and ask relation after some time
+// 	setTimeout(function(){
+// 		console.log('sentence showing time', sentence_time);
+// 		$(".complete-sentence").delay(delay_show_sentence).addClass("d-none");
+// 		$("coins").delay(delay_show_sentence).addClass("d-none");
+// 		document.getElementById("sentence_word").innerHTML = sentence_word_array[sentence_number];
+// 		$("#word").delay(delay_show_sentence).removeClass("d-none");
+// 		start_time = Date.now();
+// 	}, delay_show_sentence+before_sentence_time+sentence_time + eventTime);				
+ 
+// 	coins = final_coins+20;         // /100 to adjust for the time showing the sentence   
+// 	coins_rem = setInterval(function(){ 
+// 		if(coins>0){
+// 			coins-=10 ; 
+// 			if(document.getElementById("ibg-coins")!=null){
+// 				document.getElementById("ibg-coins").innerHTML = coins;
+// 			}		
+// 		}
+// 		else{
+// 			coins=0;
+// 		}
+// 	}, delay_show_sentence+before_sentence_time);//after delay of some seconds show the word and ask about relation with sentence
+}
+ibGameTrainingSen = function() {
+	// const eventTime = 20;
+	$(".congrats-msg").addClass("d-none");
+	console.log(document.getElementById('complete-sentence'));
+	document.getElementById("complete-sentence").innerHTML= sentence_array[sentence_number];
+	$('.complete-sentence').removeClass("d-none");
+	console.log('sentence showing time', sentence_time);
+
+	//show the sentence for some seconds and ask relation after some time
 	setTimeout(function(){
+		console.log('sentence showing time', sentence_time);
 		$(".complete-sentence").delay(delay_show_sentence).addClass("d-none");
 		$("coins").delay(delay_show_sentence).addClass("d-none");
 		document.getElementById("sentence_word").innerHTML = sentence_word_array[sentence_number];
 		$("#word").delay(delay_show_sentence).removeClass("d-none");
 		start_time = Date.now();
 	}, delay_show_sentence+before_sentence_time+sentence_time);				
-
-	 
+ 
 	coins = final_coins+20;         // /100 to adjust for the time showing the sentence   
 	coins_rem = setInterval(function(){ 
 		if(coins>0){
@@ -1327,6 +1366,7 @@ function showSentence(){
 			coins=0;
 		}
 	}, delay_show_sentence+before_sentence_time);//after delay of some seconds show the word and ask about relation with sentence
+
 }
 
 // Making canvas and finding the word swiped by the user

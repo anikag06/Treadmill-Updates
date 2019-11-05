@@ -15,6 +15,9 @@ import { EXECUTIVE_CONTROL_GAME,
   ATTRIBUTE_STYLE_GAME,
   MENTAL_IMAGERY_GAME,
   FRIENDLY_FACE_GAME } from '@/app.constants';
+import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
+import { IbGameInstructionsComponent } from './interpretation-bias-game/ib-game-instructions/ib-game-instructions.component';
+import { ExecControlInstructionsComponent } from './executive-control-game/exec-control-instructions/exec-control-instructions.component';
 
 declare let $: any;
 
@@ -28,7 +31,6 @@ export class CommonGameComponent implements OnInit {
   game!: Game;
   gameName!: string;
 
-  isFirstPageHelpBtn = true;
   showSecondPlayBtn = true;
   isExecutiveControl = false;
   isInterpretationBias = false;
@@ -63,7 +65,7 @@ export class CommonGameComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private location: Location,
-    private overlay: Overlay,
+    private dialogBoxService: DialogBoxService,
   ) {   }
 
   ngOnInit() {
@@ -74,7 +76,6 @@ export class CommonGameComponent implements OnInit {
       )
       .subscribe(
         (game) =>  {
-          console.log(game);
           this.game = <Game>game;
           this.gameName = this.game.name;
           if (this.gameName === EXECUTIVE_CONTROL_GAME) {
@@ -132,28 +133,25 @@ export class CommonGameComponent implements OnInit {
 
   onHelpClick() {
     this.showSideButtons = false;
-    if (this.firstPageElement.nativeElement.classList.contains('d-none')) {
-      this.isFirstPageHelpBtn = false;
-    } else {
-      this.isFirstPageHelpBtn = true;
-    }
+
     this.firstPageElement.nativeElement.classList.add('d-none');
     this.startGameBtn.nativeElement.classList.add('d-none');
     this.pauseBtnElement.nativeElement.classList.remove('d-none');
 
-    const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
-    this.pauseBtnElement.nativeElement.dispatchEvent(domEvent);
-
     if (this.gameName === EXECUTIVE_CONTROL_GAME) {
       this.showSecondPlayBtn = false;
-      this.gamePlayService.helpExecControlGame(this.isSoundOn, this.isFirstPageHelpBtn);
+      this.dialogBoxService.setDialogChild(ExecControlInstructionsComponent);
+      // this.gamePlayService.helpExecControlGame(this.isSoundOn, this.gameDivElement);
     }
     if (this.gameName === INTERPRETATION_BIAS_GAME) {
-      // this.gamePlayService.helpIBGame(this.gameDivElement);
+      this.gamePlayService.helpIBGame();
     }
     if (this.gameName === MENTAL_IMAGERY_GAME) {
       this.miGameComponent.goToMIGameInstruction();
     }
+    const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
+    this.pauseBtnElement.nativeElement.dispatchEvent(domEvent);
+
   }
   onHomeClick() {
     this.showSideButtons = false;
@@ -176,9 +174,7 @@ export class CommonGameComponent implements OnInit {
     }
     if (this.gameName === ATTRIBUTE_STYLE_GAME) {
       this.gamePlayService.pauseAttributionStyleGame();
-      // console.log('play button');
     }
-
     if (this.gameName === LEARNED_HELPLESSNESS_GAME) {
       this.gamePlayService.pauseLHGame();
     }
@@ -199,7 +195,6 @@ export class CommonGameComponent implements OnInit {
     if (this.gameName === ATTRIBUTE_STYLE_GAME) {
       this.gamePlayService.resumeAttributionStyleGame();
     }
-      // console.log('play button');
     if (this.gameName === LEARNED_HELPLESSNESS_GAME) {
       this.gamePlayService.resumeLHGame();
     }
@@ -221,7 +216,6 @@ export class CommonGameComponent implements OnInit {
     if (this.gameName === ATTRIBUTE_STYLE_GAME) {
       this.gamePlayService.restartAttributionStyleGame();
     }
-      // console.log('play button');
     if (this.gameName === FRIENDLY_FACE_GAME) {
       this.gamePlayService.restartFaceGame();
     }

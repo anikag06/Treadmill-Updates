@@ -36,6 +36,10 @@ export class ExecutiveControlGameComponent implements OnInit, OnDestroy {
     this.playGameService.restartExecControlGame(true);
   }
 
+  onGameHelpClick() {
+    this.playGameService.storeDataExecControlGame();
+    this.playGameService.playExecControlGame(true, true);
+  }
   ngOnDestroy() {
     this.playGameService.closeExecControlGame();
   }

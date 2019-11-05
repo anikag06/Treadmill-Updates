@@ -112,6 +112,12 @@ import { IbMainTrainingComponent } from './games/games-list/common-game/interpre
 import { IbTrainingDataService } from '@/main/games/games-list/common-game/interpretation-bias-game/ib-main-training/ib-training-data.service';
 import { CustomOverlayDirective } from './shared/custom-dialog/custom-overlay.directive';
 import { DialogContainerComponent } from './shared/custom-dialog/dialog-container/dialog-container.component';
+import { DialogBoxService } from './shared/custom-dialog/dialog-box.service';
+import { DialogBoxChildDirective } from './shared/custom-dialog/dialog-container/dialog-box-child.directive';
+// tslint:disable-next-line: max-line-length
+import { ExecControlInstructionsComponent } from './games/games-list/common-game/executive-control-game/exec-control-instructions/exec-control-instructions.component';
+// tslint:disable-next-line: max-line-length
+import { ExecControlHelpService } from '@/main/games/games-list/common-game/executive-control-game/exec-control-instructions/exec-control-help.service';
 @NgModule({
   declarations: [
     ModulesComponent,
@@ -175,6 +181,8 @@ import { DialogContainerComponent } from './shared/custom-dialog/dialog-containe
     IbMainTrainingComponent,
     CustomOverlayDirective,
     DialogContainerComponent,
+    DialogBoxChildDirective,
+    ExecControlInstructionsComponent,
   ],
   imports: [
     CommonModule,
@@ -232,6 +240,8 @@ import { DialogContainerComponent } from './shared/custom-dialog/dialog-containe
     GamesBadgesService,
     IbDialogsService,
     IbTrainingDataService,
+    DialogBoxService,
+    ExecControlHelpService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [
@@ -242,6 +252,7 @@ import { DialogContainerComponent } from './shared/custom-dialog/dialog-containe
     IbGameInstructionsComponent,
     IbMainTrainingComponent,
     DialogContainerComponent,
+    ExecControlInstructionsComponent,
   ]
 })
 export class MainModule {

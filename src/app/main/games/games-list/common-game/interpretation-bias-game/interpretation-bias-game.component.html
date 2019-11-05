@@ -1,4 +1,4 @@
-<div class="container-fluid justify-content-center" id="main_div">
+<div class="container-fluid justify-content-center" id="main_div" #ibgameDiv>
 	<div class="ibGame-page py-0 center-element justify-content-center">
     
     <div class="h-100 mx-auto" id="game_main_div">
@@ -10,6 +10,9 @@
     </div>
       
 <!-- GAME PLAY - START -->
+    <div class="landscape-msg text-center">
+      Play in portrait mode for better experience.
+    </div>
     <div class="row game py-1 d-none mx-auto" >
         <!-- for score and timer info -->
       <div id="score-col" 
@@ -30,7 +33,7 @@
             <b><div class="d-inline-block countdown ml-2" id="countdown"></div></b>
           </div> 
         </div>  
-        <div class="row mt-2">
+        <div class="row mt-2 align-items-end">
           <div class="col-2 px-1 barsDiv smallest-font w-75 justify-content-start">
             <div class="float-left">
               <img src="../../../../../../assets/games/Gold badge symbol.svg">
@@ -79,8 +82,8 @@
               </div>
             </div>
             <div class="row border border-dark rounded" 
-              style="padding: 0.35px;">
-              <mat-progress-bar class="difficultyBar my-auto"
+              style="padding: 0.40px;">
+              <mat-progress-bar class="difficultyBar my-auto align-self-center"
                 mode="determinate" 
                 [value]="difficultyValue">
               </mat-progress-bar>
@@ -291,4 +294,5 @@
       </div>
     </div>
   </div>
+  
 </div>

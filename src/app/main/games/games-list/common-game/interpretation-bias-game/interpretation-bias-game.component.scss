@@ -172,7 +172,9 @@ canvas{
 	cursor: pointer;
 	font-size: 14px;
 }
-  
+.landscape-msg{
+	display: none;
+}
 @media only screen and (max-width: 991px) and (max-width: 767px) {
 	/* For mobile phones: */
 	.ibGame-page {
@@ -206,6 +208,14 @@ canvas{
 	}
 	.pause-hints{
 		max-width: 35%;
+	}
+}
+@media screen and (max-width: 767px) and (orientation:landscape) {
+	.landscape-msg{
+		display: block;
+	}
+	.score-col{
+		max-height: 18%;
 	}
 }
 @media only screen and (max-width: 359px) {

@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, OnDestroy, HostListener, EventEmitter } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy, HostListener, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { UserScoreData, UserResponseData } from '@/main/games/shared/game-play.model';
 import { Router } from '@angular/router';
 import { IBG_SENTENCE, IBG_LESS_TIME, IBG_MORE_TIME } from '@/app.constants';
@@ -9,6 +9,8 @@ import { BadgesInfo } from '@/main/games/shared/game-badges.model';
 import { GamesBadgesService } from '@/main/games/shared/games-badges.service';
 import { IbDialogsService } from './ib-dialogs.service';
 import { IbTrainingDataService } from './ib-main-training/ib-training-data.service';
+import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
+import { IbMainTrainingComponent } from './ib-main-training/ib-main-training.component';
 
 declare var IBG_MAX_WORDS_HIDDEN: number;
 declare var sentence_number: any;
@@ -46,6 +48,8 @@ declare var ibg_time_cost: any;
   styleUrls: ['./interpretation-bias-game.component.scss'],
 })
 export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
+
+  @ViewChild('ibgameDiv', {static: false } ) ibGameDiv!: ElementRef;
 
   NO_OF_SENTENCES_RECEIVED = 3;      // order of first sentence is 0
   // LEVEL_UP_SEN = 5;       // level up after how many sentences, here after 5 sentences;
@@ -95,13 +99,17 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
     private gamePlayService: GamePlayService,
     private badgesService: GamesBadgesService,
     private ibDialogService: IbDialogsService,
-    private ibTrainingService: IbTrainingDataService
+    private ibTrainingService: IbTrainingDataService,
+    private dialogBoxService: DialogBoxService,
   ) {
   }
 
   @HostListener('window:iBGameSentenceDialogFun')
   showSentence() {
-    this.ibDialogService.openSentenceWordDialog();
+    // this.ibDialogService.openSentenceWordDialog();
+    const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
+    this.ibGameDiv.nativeElement.dispatchEvent(domEvent);
+    this.dialogBoxService.setDialogChild(IbMainTrainingComponent);
   }
 
   ngOnInit() {

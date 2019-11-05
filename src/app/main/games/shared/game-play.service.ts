@@ -1,5 +1,5 @@
 import { Injectable,
-  OnChanges, SimpleChanges, SimpleChange, } from '@angular/core';
+  OnChanges, SimpleChanges, SimpleChange, ElementRef, } from '@angular/core';
 import { map } from 'rxjs/operators';
 import {GamesService} from '@/main/shared/games.service';
 import {GamesAuthService} from '@/main/games/shared/games-auth.service';
@@ -8,6 +8,11 @@ import { ECGameData, ECGameFlankerTask, ECGameDiscriminationTask, ECGameUserData
 import { IbDialogsService } from '../games-list/common-game/interpretation-bias-game/ib-dialogs.service';
 import { GamesBadgesService } from './games-badges.service';
 import { BadgesConstants } from './game-badges.model';
+import {
+  IbGameInstructionsComponent
+} from '../games-list/common-game/interpretation-bias-game/ib-game-instructions/ib-game-instructions.component';
+import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
+import { ExecControlInstructionsComponent } from '../games-list/common-game/executive-control-game/exec-control-instructions/exec-control-instructions.component';
 
 
 // for interpretation bias game
@@ -111,7 +116,8 @@ export class GamePlayService  {
     private gamesService: GamesService,
     private gamesAuthService: GamesAuthService,
     private gameBadgeService: GamesBadgesService,
-    private ibGameDialogService: IbDialogsService,
+    // private ibGameDialogService: IbDialogsService,
+    private dialogBoxService: DialogBoxService,
   ) { }
 
   getGameInfo(slug: string) {
@@ -124,7 +130,10 @@ export class GamePlayService  {
 // functions for Interpretation Bias Game
   playIBGame(gameDivElement: any) {
     if ( ibGameShowTutorial === true) {
-      this.helpIBGame(gameDivElement);
+      // this.helpIBGame(gameDivElement);
+      const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
+      gameDivElement.nativeElement.dispatchEvent(domEvent);
+      this.helpIBGame();
     } else {
       startIBGame();
     }
@@ -138,8 +147,9 @@ export class GamePlayService  {
   hintsIBGame() {
     ibUsehints();
   }
-  helpIBGame(gameDivElement: any) {
-    this.ibGameDialogService.openInstructionDialog(gameDivElement);
+  helpIBGame() {
+    this.dialogBoxService.setDialogChild(IbGameInstructionsComponent);
+    // this.ibGameDialogService.openInstructionDialog(gameDivElement);
     ibGameHelp();
   }
 
@@ -197,14 +207,15 @@ export class GamePlayService  {
     });
   }
 
-  helpExecControlGame(isSoundOn: any, isFirstHelpBtn: boolean) {
-    if (isFirstHelpBtn) {
-      this.playExecControlGame(isSoundOn, true);
-    } else {
-      closeECGame();
-      this.storeDataExecControlGame();
-      this.playExecControlGame(isSoundOn, true);
-    }
+  helpExecControlGame(isSoundOn: any, gameDivElement: any) {
+    // this.dialogBoxService.setDialogChild(ExecControlInstructionsComponent);
+    // if (isFirstHelpBtn) {
+    //   this.playExecControlGame(isSoundOn, true);
+    // } else {
+      // closeECGame();
+      // this.storeDataExecControlGame();
+      // this.playExecControlGame(isSoundOn, true);
+    // }
   }
   pauseExecControlGame() {
     pause_resume_game(true);
