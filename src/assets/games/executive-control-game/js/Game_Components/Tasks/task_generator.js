@@ -274,6 +274,8 @@ function left_pressed()
 					clearInterval(task_button_blinking_animation);
 				}
 				task_tutorial_text.setText("");
+				left_key_button.destroy();
+				right_key_button.destroy();
 				
 		}
 		else
@@ -329,6 +331,8 @@ function right_pressed()
 					clearInterval(task_button_blinking_animation);
 				}
 				task_tutorial_text.setText("");
+				left_key_button.destroy();
+				right_key_button.destroy();
 		}
 		else
 		{
@@ -386,6 +390,8 @@ function red_pressed()
 					clearInterval(task_button_blinking_animation);
 				}
 				task_tutorial_text.setText("");
+				red_key_button.destroy();
+				green_key_button.destroy();
 		}
 		
 		
@@ -447,6 +453,8 @@ function green_pressed()
 					clearInterval(task_button_blinking_animation);
 				}
 				task_tutorial_text.setText("");
+				red_key_button.destroy();
+				green_key_button.destroy();
 				// task_tutorial_text.setBackgroundColor('rgba(255,255,255,0)');
 		}
 		
@@ -492,26 +500,73 @@ function start_countdown()
 
 function addInstructionTasks() {
 	if (task_start_dialog_add) {
-		task_start_dialog = curr_game.add.tileSprite(screen_width*0.5,screen_height*0.46,screen_width*0.62,screen_height*0.613,"tutorial_box").setTileScale(1.185,1.39);
+		task_start_dialog = curr_game.add.tileSprite(screen_width*0.5,screen_height*0.46,screen_width*0.85,screen_height*0.835,"tutorial_box").setTileScale(1.63,1.9);
 
 		task_start_dialog.depth = 12;
-		task_start_dialog_text =curr_game.add.text(screen_width*0.25,screen_height*0.35,
-				"", { fontSize: '15px', fill: '#FFFFFF',align:'center' });
-		task_dialog_heading=curr_game.add.text(screen_width*0.42, screen_height*0.18,
-					"Instructions", {strokeThicknes: '2.5px',fontSize:'18px', fill: '#FFFFFF',align:'center'});
+		task_tutorial_text_style = {fontFamily: 'Roboto' , fontSize: '16px', fill: '#FFFFFF',align:'center', wordWrap: { width: screen_width*0.82} };
+		task1_text = curr_game.add.text(screen_width*0.10,screen_height*0.25,"For task 1:",
+				task_tutorial_text_style);
+		task2_text=curr_game.add.text(task1_text.x,screen_height*0.51,"For task 2:",
+				task_tutorial_text_style);
+		task1_text.setFont({fontFamily: 'Roboto' , fontSize: '16px',fontStyle: 'bold'});
+		task2_text.setFont({fontFamily: 'Roboto' , fontSize: '16px',fontStyle: 'bold'});
+		task1_text.depth=13;
+		task2_text.depth=13;
+
+		task_start_dialog_text1 =curr_game.add.text(screen_width*0.195,screen_height*0.25,
+				"", task_tutorial_text_style);
+		task_start_dialog_text2 =curr_game.add.text(task_start_dialog_text1.x,screen_height*0.36,
+			"", task_tutorial_text_style);
+		task_start_dialog_text3 =curr_game.add.text(task_start_dialog_text1.x,screen_height*0.51,
+			"", task_tutorial_text_style);
+		task_start_dialog_text4 =curr_game.add.text(task_start_dialog_text1.x,screen_height*0.635,
+			"", task_tutorial_text_style);
+	
+		
+		task_dialog_heading=curr_game.add.text(screen_width*0.42, screen_height*0.10,
+					"Instructions", {strokeThicknes: '2.5px',fontFamily: 'Roboto', fontSize:'21px', fill: '#FFFFFF',align:'center'});
 		task_dialog_heading.depth = 13;
+		task_start_dialog_text1.setText("Press           if the middle arrow is pointing left");
+		task_start_dialog_text2.setText("Press           if the middle arrow is pointing right");
+		task_start_dialog_text3.setText("Press           if the central circle is");		//red circle
+		task_start_dialog_text4.setText("Press           if the central circle is");					//green circle
 		if(isTouchDevice==true)
 		{
-			task_start_dialog_text.setText("For task 1: Press 'button image' if the middle arrow is\npointing left 'flanker task image ', press 'image'\n\n if pointing right. \n\n For task 2: Press 'button image' if the central circle is 'red image', press 'image' if the central circle is 'green image'");
+			left_key_button= curr_game.add.image(screen_width*0.27,screen_height*0.275,'left_button').setScale(0.45);
+			right_key_button=curr_game.add.image(left_key_button.x,screen_height*0.39,'right_button').setScale(0.45);
+			red_key_button=curr_game.add.image(left_key_button.x,screen_height*0.535,'red_button').setScale(0.45);
+			green_key_button=curr_game.add.image(left_key_button.x,screen_height*0.66,'green_button').setScale(0.45);
 		}
 		else
 		{
-			task_start_dialog_text.setText("For task 1:  Press 'image' if the middle arrow is\npointing left 'flanker task image ', press 'image'\n\n if pointing right. For task 2: Press 'image' if the central circle is \n'red image', press 'image' if the central circle is 'green image'");
+			left_key_button= curr_game.add.image(screen_width*0.27, screen_height*0.275,'left_key').setScale(0.6);
+			right_key_button=curr_game.add.image(left_key_button.x, screen_height*0.39,'right_key').setScale(0.6);
+			red_key_button=curr_game.add.image(left_key_button.x,screen_height*0.535,'down_key').setScale(0.6);
+			green_key_button=curr_game.add.image(left_key_button.x,screen_height*0.66,'up_key').setScale(0.6);
 		}
-		task_start_dialog_text.depth=13;
-		task_start_button=curr_game.add.image(screen_width*0.505,screen_height*0.66,'buy_button').setInteractive();
+		left_key_button.depth =13;
+		right_key_button.depth=13;
+		red_key_button.depth=13;
+		green_key_button.depth=13;
+
+		flanker_tutorial_right = curr_game.add.image(screen_width*0.745, right_key_button.y+5, 'right_flanker_tutorial').setScale(0.5);
+		flanker_tutorial_left = curr_game.add.image(flanker_tutorial_right.x, left_key_button.y, 'left_flanker_tutorial').setScale(0.5);
+		discrimination_tutorial_red=curr_game.add.image(screen_width*0.535, red_key_button.y-2.8,'discrimination_0').setScale(0.35);
+		discrimination_tutorial_green=curr_game.add.image(discrimination_tutorial_red.x, green_key_button.y+3.5,'discrimination_1').setScale(0.35);
+
+		flanker_tutorial_right.depth =13;
+		flanker_tutorial_left.depth =13;
+		discrimination_tutorial_red.depth=13;
+		discrimination_tutorial_green.depth=13;
+
+		task_start_dialog_text1.depth=13;
+		task_start_dialog_text2.depth=13;
+		task_start_dialog_text3.depth=13;
+		task_start_dialog_text4.depth=13;
+
+		task_start_button=curr_game.add.image(screen_width*0.505,screen_height*0.805,'buy_button').setInteractive();
 		task_start_button.depth = 15;
-		task_start_button_text = curr_game.add.text(screen_width*0.48,screen_height*0.645,'Start',{ fontSize: '15px', fill: '#000000',align:'center' }).setInteractive();
+		task_start_button_text = curr_game.add.text(screen_width*0.485,screen_height*0.785,'Start',{fontFamily: 'Roboto', fontSize: '15px', fill: '#000000',align:'center' }).setInteractive();
 		task_start_button_text.depth = 16;
 		task_start_dialog_add = false;
 		task_dialog_done = true;
@@ -527,7 +582,23 @@ function addInstructionTasks() {
 function onClickStartTask() {
 	task_start_button.destroy();
 	task_start_dialog.destroy();
-	task_start_dialog_text.destroy();
+	task_start_dialog_text1.destroy();
+	task_start_dialog_text2.destroy();
+	task_start_dialog_text3.destroy();
+	task_start_dialog_text4.destroy();
+	task1_text.destroy();
+	task2_text.destroy();
+	
+	left_key_button.destroy();
+	right_key_button.destroy();
+	red_key_button.destroy();
+	green_key_button.destroy();
+
+	flanker_tutorial_left.destroy();
+	flanker_tutorial_right.destroy();
+	discrimination_tutorial_red.destroy();
+	discrimination_tutorial_green.destroy();
+
 	task_dialog_heading.destroy();
 	task_start_button_text.destroy();
 	countdown_handler=setInterval(start_countdown,INTERVAL);

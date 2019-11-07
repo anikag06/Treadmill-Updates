@@ -85,6 +85,7 @@ export class GamePlayService  {
 
   // variables for ec game
   ecGameStarted = false;
+  ecGameSoundOn = true;
   ecGameData!: any;
   ecGameTaskData!: any;
   ecGameID!: number;
@@ -190,8 +191,8 @@ export class GamePlayService  {
             showTutorial = user_data.data.show_tutorial;
             if (helpClicked) {
               showTutorial = true;
+              isSoundOn = this.ecGameSoundOn;
             }
-            console.log(user_data);
             const badgeInfo = this.gameBadgeService.getBadgesInfo(
               user_data.data.BRONZE_CONSTANT, user_data.data.SILVER_CONSTANT,
               user_data.data.GOLD_CONSTANT, user_data.data.no_correct_responses );
@@ -207,15 +208,8 @@ export class GamePlayService  {
     });
   }
 
-  helpExecControlGame(isSoundOn: any, gameDivElement: any) {
-    // this.dialogBoxService.setDialogChild(ExecControlInstructionsComponent);
-    // if (isFirstHelpBtn) {
-    //   this.playExecControlGame(isSoundOn, true);
-    // } else {
-      // closeECGame();
-      // this.storeDataExecControlGame();
-      // this.playExecControlGame(isSoundOn, true);
-    // }
+  helpExecControlGame(isSoundOn: any) {
+    this.ecGameSoundOn = isSoundOn;
   }
   pauseExecControlGame() {
     pause_resume_game(true);
@@ -258,14 +252,12 @@ export class GamePlayService  {
       .subscribe(() => {
         this.gamesAuthService.ecGameUpdateUserData(this.ecGameUserDataObject)
           .subscribe((data) => {
-            console.log('update user data', data);
           });
       });
   }
 
   storeFlankerDiscriTaskData() {
     this.ecGameTaskData = getECGameTaskData();
-    console.log(this.ecGameTaskData);
 
     this.ecGameFlankerData.game_id = this.ecGameTaskData[0];
     this.ecGameFlankerData.starting_time = this.ecGameTaskData[1];
@@ -281,11 +273,9 @@ export class GamePlayService  {
 
     this.gamesAuthService.ecGameStoreFlankerData(this.ecGameFlankerData)
       .subscribe((flanker_data: any) => {
-        console.log('flanker data', flanker_data, flanker_data.data.id);
         this.ecGameDiscriminationData.flanker_task_id = flanker_data.data.id;
         this.gamesAuthService.ecGameStoreDiscriminationTaskData(this.ecGameDiscriminationData)
           .subscribe( (dis_data) => {
-          console.log('discr task', dis_data);
         });
       });
   }

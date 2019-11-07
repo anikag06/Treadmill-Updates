@@ -140,8 +140,8 @@ export class CommonGameComponent implements OnInit {
 
     if (this.gameName === EXECUTIVE_CONTROL_GAME) {
       this.showSecondPlayBtn = false;
+      this.gamePlayService.helpExecControlGame(this.isSoundOn);
       this.dialogBoxService.setDialogChild(ExecControlInstructionsComponent);
-      // this.gamePlayService.helpExecControlGame(this.isSoundOn, this.gameDivElement);
     }
     if (this.gameName === INTERPRETATION_BIAS_GAME) {
       this.gamePlayService.helpIBGame();
@@ -207,7 +207,6 @@ export class CommonGameComponent implements OnInit {
     this.showSideButtons = false;
     this.pauseBtnElement.nativeElement.classList.remove('d-none');
     if (this.gameName === EXECUTIVE_CONTROL_GAME) {
-      this.isSoundOn = true;
       this.gamePlayService.restartExecControlGame(this.isSoundOn);
     }
     if (this.gameName === INTERPRETATION_BIAS_GAME) {
@@ -227,6 +226,7 @@ export class CommonGameComponent implements OnInit {
   onSoundClick() {
     this.isSoundOn = !this.isSoundOn;
     if (this.gameName === EXECUTIVE_CONTROL_GAME) {
+      console.log('sound', this.isSoundOn);
       this.gamePlayService.soundExecControlGame(this.isSoundOn);
     }
     // else if (this.gameName === FRIENDLY_FACE_GAME) {

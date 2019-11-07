@@ -1,12 +1,12 @@
 function obstacle_placer() {
-
-      if(stop_obstacle_generation==true)
-      {
+    
+    if(stop_obstacle_generation==true)
+    {
         free_to_choose_high=true;
         free_to_start_choose=true;
         second_choice_high=-1;
         return;
-      }
+    }
         
     //Generate Obstacle if it is allowed
     if (obstacle == null && stop_obstacle_generation == false&&start_tasks==false) {
@@ -75,7 +75,7 @@ function obstacle_placer() {
 
 
     }  
-
+    
     //Move the obstacle till out of screen
     if (obstacle != null && obstacle.x >=-obstacle.width/2) 
     {
@@ -90,10 +90,10 @@ function obstacle_placer() {
 
                 if(isTouchDevice==false)
                 {
-                    tutorial_box = curr_game.add.tileSprite(screen_width*0.5,screen_height*0.38,screen_width*0.42,screen_height*0.5,"tutorial_box").setTileScale(0.8,1.145);
+                    tutorial_box = curr_game.add.tileSprite(screen_width*0.5,screen_height*0.37,screen_width*0.42,screen_height*0.5,"tutorial_box").setTileScale(0.8,1.145);
                     tutorial_box.depth = 4;
-                    tutorial_text.setText("Press                   to\n\n  avoid obstacle");
-                    control_button_1=curr_game.add.image(screen_width*0.49,screen_height*0.36,'spacebar_button');
+                    tutorial_text.setText("Press                                 to avoid small obstacles");
+                    control_button_1=curr_game.add.image(screen_width*0.46,screen_height*0.325,'spacebar_button');
                     tutorial_text.depth = 5;
                     control_button_1.depth = 5;
                 }
@@ -119,10 +119,10 @@ function obstacle_placer() {
                 {
                     tutorial_box = curr_game.add.tileSprite(screen_width*0.5,screen_height*0.38,screen_width*0.42,screen_height*0.5,"tutorial_box").setTileScale(0.8,1.145);
                     tutorial_box.depth = 4;
-                    tutorial_text.setText("Press          +           \n\nto avoid the obstacles");
+                    tutorial_text.setText("Press                          +                                   to jump higher  and avoid big obstacles");
                     // tutorial_text.x-=150;
-                    control_button_1=curr_game.add.image(screen_width*0.445,screen_height*0.36,'shift_button');
-                    control_button_2=curr_game.add.image(screen_width*0.59,screen_height*0.36,'spacebar_button');
+                    control_button_1=curr_game.add.image(screen_width*0.445,screen_height*0.325,'shift_button');
+                    control_button_2=curr_game.add.image(screen_width*0.608,control_button_1.y,'spacebar_button');
                     tutorial_text.depth = 5;
                     control_button_1.depth = 5;
                     control_button_2.depth = 5;
@@ -150,9 +150,9 @@ function obstacle_placer() {
                 {
                     tutorial_box = curr_game.add.tileSprite(screen_width*0.5,screen_height*0.4,screen_width*0.42,screen_height*0.5,"tutorial_box").setTileScale(0.8,1.145);
                     tutorial_box.depth = 4;
-                    tutorial_text.setText("Press          +          \n\nto avoid the obstacles");
-                    control_button_1=curr_game.add.image(screen_width*0.445,screen_height*0.36,'shift_button')
-                    control_button_2=curr_game.add.image(screen_width*0.59,screen_height*0.36,'spacebar_button')
+                    tutorial_text.setText("Press                          +                                   to jump higher and avoid jumping obstacles");
+                    control_button_1=curr_game.add.image(screen_width*0.445,screen_height*0.325,'shift_button')
+                    control_button_2=curr_game.add.image(screen_width*0.608,control_button_1.y,'spacebar_button')
                     tutorial_text.depth = 5;
                     control_button_1.depth = 5;
                     control_button_2.depth = 5;
