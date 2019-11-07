@@ -6,18 +6,19 @@ import { IntroductionService } from '../introduction.service';
 import { LOCKED } from '@/app.constants';
 
 @Component({
-  selector: 'app-introduction2',
-  templateUrl: './introduction2.component.html',
-  styleUrls: ['./introduction2.component.scss']
+  selector: 'app-introduction4',
+  templateUrl: './introduction4.component.html',
+  styleUrls: ['./introduction4.component.scss']
 })
-export class Introduction2Component implements OnInit, OnDestroy {
+export class Introduction4Component implements OnInit {
   stepGroupSequence!: number;
-  enjoyable!: string;
-  mastery!: string;
-  miserable!: string;
   dataLoaded: boolean = false;
   locked: boolean = true;
   introductionDataSubscription!: Subscription;
+  negativeBeliefs = ["I am incompetent", "I am unlovable", "I am worthless"];
+  balancedBeliefs = ["balanced belief 1", "balanced belief 2", "balanced belief 3"];
+  selectedBelief!: string;
+  balancedBelief!: string;
 
   constructor(
     private introductionService: IntroductionService,
@@ -31,10 +32,9 @@ export class Introduction2Component implements OnInit, OnDestroy {
 
     this.introductionDataSubscription = this.introductionService.getIntroductionData(this.stepGroupSequence).subscribe((data) => {
       if(data.user_step_status != LOCKED) {
-        this.enjoyable = data.enjoyable;
-        this.mastery = data.mastery;
-        this.miserable = data.miserable;
         this.locked = false;
+        this.selectedBelief = data.data.selectedBelief;
+        this.onBeliefChanged();
       } else {
         this.locked = true;
       }
@@ -46,14 +46,17 @@ export class Introduction2Component implements OnInit, OnDestroy {
     this.introductionDataSubscription.unsubscribe();
   }
 
+  onBeliefChanged() {
+    this.balancedBelief = this.balancedBeliefs[this.negativeBeliefs.indexOf(this.selectedBelief)];
+  }
+
   saveData() {
     let data = {
-      enjoyable: this.enjoyable,
-      mastery: this.mastery,
-      miserable: this.miserable,
+      selectedBelief: this.selectedBelief,
     };
     this.introductionService.storeIntroductionData(this.stepGroupSequence, data).subscribe((data) => {
       console.log("success");
     });
   }
+
 }

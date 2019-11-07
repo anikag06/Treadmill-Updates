@@ -5,19 +5,25 @@ import { Subscription } from 'rxjs';
 import { IntroductionService } from '../introduction.service';
 import { LOCKED } from '@/app.constants';
 
+export interface ThoughtSet {
+  negativeThought: string;
+  balancedThought: string;
+}
+
 @Component({
-  selector: 'app-introduction2',
-  templateUrl: './introduction2.component.html',
-  styleUrls: ['./introduction2.component.scss']
+  selector: 'app-introduction3',
+  templateUrl: './introduction3.component.html',
+  styleUrls: ['./introduction3.component.scss']
 })
-export class Introduction2Component implements OnInit, OnDestroy {
+export class Introduction3Component implements OnInit, OnDestroy {
   stepGroupSequence!: number;
-  enjoyable!: string;
-  mastery!: string;
-  miserable!: string;
   dataLoaded: boolean = false;
   locked: boolean = true;
   introductionDataSubscription!: Subscription;
+  negativeThoughts = ["Negative thought 1", "Negative thought 2", "Negative thought 3", "Negative thought 4", "Negative thought 5"];
+  balancedThoughts = ["Balanced thought 1", "Balanced thought 2", "Balanced thought 3", "Balanced thought 4", "Balanced thought 5"];
+  selectedThought!: string;
+  balancedThought!: string;
 
   constructor(
     private introductionService: IntroductionService,
@@ -30,11 +36,10 @@ export class Introduction2Component implements OnInit, OnDestroy {
     });
 
     this.introductionDataSubscription = this.introductionService.getIntroductionData(this.stepGroupSequence).subscribe((data) => {
-      if(data.user_step_status != LOCKED) {
-        this.enjoyable = data.enjoyable;
-        this.mastery = data.mastery;
-        this.miserable = data.miserable;
+      if (data.user_step_status != LOCKED) {
         this.locked = false;
+        this.selectedThought = data.data.selectedThought;
+        this.onThoughtChanged();
       } else {
         this.locked = true;
       }
@@ -46,11 +51,13 @@ export class Introduction2Component implements OnInit, OnDestroy {
     this.introductionDataSubscription.unsubscribe();
   }
 
+  onThoughtChanged() {
+    this.balancedThought = this.balancedThoughts[this.negativeThoughts.indexOf(this.selectedThought)];
+  }
+
   saveData() {
     let data = {
-      enjoyable: this.enjoyable,
-      mastery: this.mastery,
-      miserable: this.miserable,
+      selectedThought: this.selectedThought,
     };
     this.introductionService.storeIntroductionData(this.stepGroupSequence, data).subscribe((data) => {
       console.log("success");

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+
 import { environment } from 'environments/environment';
 import { GET_STEP_DATA, FLOW_STEP_MARK_DONE } from '@/app.constants';
 import { StepCompleteData } from './completion-data.model';
-import { Observable } from 'rxjs';
 
 
 @Injectable({

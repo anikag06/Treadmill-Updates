@@ -45,6 +45,9 @@ import { IntroductionComponent } from './introduction/introduction.component';
 import { Introduction1Component } from './introduction/introduction1/introduction1.component';
 import { Introduction2Component } from './introduction/introduction2/introduction2.component';
 import { IntroductionService } from './introduction/introduction.service';
+import { Introduction3Component } from './introduction/introduction3/introduction3.component';
+import { Introduction4Component } from './introduction/introduction4/introduction4.component';
+import { Introduction5Component } from './introduction/introduction5/introduction5.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +73,9 @@ import { IntroductionService } from './introduction/introduction.service';
     IntroductionComponent,
     Introduction1Component,
     Introduction2Component,
+    Introduction3Component,
+    Introduction4Component,
+    Introduction5Component,
   ],
   imports: [
     ResourcesRoutingModule,
