@@ -61,15 +61,15 @@
 </div>
 <div class="main" (click)="onAnyWhereClick()">
   <div class="row" *ngIf="previousText">
-    <div class="col-12 smallest-font font-roboto-thin" [innerHTML]="previousText"></div>
+    <div class="col-12 small-font font-roboto-thin " [innerHTML]="previousText"></div>
   </div>
   <div class="row">
-    <div class="col-12 problem-space mt-2 smallest-font font-roboto-thin" *ngIf="currentScenario">
+    <div class="col-12 problem-space mt-2 small-font font-roboto-thin " *ngIf="currentScenario">
       {{ this.currentScenario.problemBeforeDash }} <strong>{{ blank.trim() || '-----------' }}</strong> {{ this.currentScenario.problemAfterDash }}
     </div>
   </div>
   <div class="row">
-    <div class="col-12 smallest-font font-roboto-thin" [innerHTML]="extraContent"></div>
+    <div class="col-12 small-font font-roboto-thin " [innerHTML]="extraContent"></div>
   </div>
   <div class="row">
     <div class="col-6 offset-3 text-center" *ngIf="notificationHeader && notificationHeader.length > 0">

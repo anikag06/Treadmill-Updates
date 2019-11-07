@@ -11,10 +11,10 @@ export class MICurrentStateService{
 
   static user = new MIUser('sourav', 0, [], null);
   currentLevel!: Level;
-  levelList: Level[] = [];
+  static levelList: Level[] = [];
   static currentScenario: Scenario;
   static previousText = '';
-  static count= 0;
+  static count = 0;
 
   static extraContent = '';
   static notificationHeader = '';
