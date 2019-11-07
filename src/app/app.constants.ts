@@ -20,6 +20,14 @@ export const FRIDAY             = 'FRIDAY';
 export const SATURDAY           = 'SATURDAY';
 export const WEEK               = [SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY];
 
+// Game names
+export const INTERPRETATION_BIAS_GAME = 'Interpretation Bias Game';
+export const EXECUTIVE_CONTROL_GAME = 'Executive Control Game';
+export const FRIENDLY_FACE_GAME = 'Friendly Face Game';
+export const LEARNED_HELPLESSNESS_GAME = 'Learned Helplessness Game';
+export const ATTRIBUTE_STYLE_GAME = 'Attribute Style Game';
+export const MENTAL_IMAGERY_GAME = 'Mental Imagery Game';
+
 // ibGame time
 export const IBG_LESS_TIME = 120;
 export const IBG_MORE_TIME = 150;

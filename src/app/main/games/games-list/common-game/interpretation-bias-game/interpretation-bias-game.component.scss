@@ -24,6 +24,9 @@ p{
 	padding-right: 0px !important;
 	padding-left: 0px !important;
 }
+#game_main_div{
+	max-width: 360px;
+}
 .game-first-page{
 	// background-image: url("/assets/games/interpretation_bias_game/images/Automatic Interpretive Bias.png");
 	// background-size: 95%;
@@ -41,7 +44,7 @@ p{
 	background-color: #C7FBFF;
 }
 #frontpage-image{
-	max-width: 35%;
+	max-width: 75%;
 }
 .score-col{
 	min-height: 13%;
@@ -127,7 +130,7 @@ canvas{
 
 ::ng-deep.hints-menu {
 	min-width: 200px !important;
-	max-width: 300px !important;
+	max-width: 250px !important;
 	max-height: 50vh !important;
 }
 ::ng-deep.hints-menu-items{
@@ -169,7 +172,9 @@ canvas{
 	cursor: pointer;
 	font-size: 14px;
 }
-  
+.landscape-msg{
+	display: none;
+}
 @media only screen and (max-width: 991px) and (max-width: 767px) {
 	/* For mobile phones: */
 	.ibGame-page {
@@ -193,9 +198,9 @@ canvas{
 		width: 100%;
 		min-height: 100%; 
 	}
-	#frontpage-image{
-		max-width: 40vw;
-	}
+	// #frontpage-image{
+	// 	max-width: 60vw;
+	// }
 	
 	#hint-div{
 		margin-left: 5%;
@@ -203,6 +208,14 @@ canvas{
 	}
 	.pause-hints{
 		max-width: 35%;
+	}
+}
+@media screen and (max-width: 767px) and (orientation:landscape) {
+	.landscape-msg{
+		display: block;
+	}
+	.score-col{
+		max-height: 18%;
 	}
 }
 @media only screen and (max-width: 359px) {

@@ -13,13 +13,17 @@ export class IbDialogsService {
     private dialog: MatDialog,
   ) { }
 
-  openInstructionDialog() {
+  openInstructionDialog(gameDivElement: any) {
     const dialogRef = this.dialog.open(IbGameInstructionsComponent, {
       panelClass: 'instruct-dialog',
       width: '90%',
       maxWidth: '350px',
       height: '78%',
-      autoFocus: false
+      autoFocus: false,
+      hasBackdrop: false,
+      data: {
+        'gameDivElement' : gameDivElement,
+      }
     });
   }
 
@@ -27,7 +31,8 @@ export class IbDialogsService {
     const dialogRef = this.dialog.open(IbMainTrainingComponent, {
       width: '90%',
       maxWidth: '350px',
-      autoFocus: false
+      autoFocus: false,
+      // hasBackdrop: false,
     });
   }
 

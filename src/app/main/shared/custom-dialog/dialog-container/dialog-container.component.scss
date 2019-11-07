@@ -1,0 +1,27 @@
+@import "styles.scss";
+.dialog-container{
+    position: relative;
+    max-width: 350px;
+    z-index: 30;
+}
+.dialog-content{
+    background-color: white;
+    margin-top: -28rem;
+    @include box-shadow-1-1-10-d6();
+    // height: 60vh;
+    min-height: 200px;
+    max-height: 400px;
+    overflow: auto;
+    // overflow: scroll;
+}
+
+@media only screen and (max-width: 767px) and (orientation:landscape){
+    .dialog-container{
+        max-width: 85%;
+    }
+    .dialog-content{
+        margin-top: -18rem;
+        max-height: 250px;
+    }
+    
+}

@@ -110,6 +110,14 @@ import { IbDialogsService } from './games/games-list/common-game/interpretation-
 import { IbMainTrainingComponent } from './games/games-list/common-game/interpretation-bias-game/ib-main-training/ib-main-training.component';
 // tslint:disable-next-line: max-line-length
 import { IbTrainingDataService } from '@/main/games/games-list/common-game/interpretation-bias-game/ib-main-training/ib-training-data.service';
+import { CustomOverlayDirective } from './shared/custom-dialog/custom-overlay.directive';
+import { DialogContainerComponent } from './shared/custom-dialog/dialog-container/dialog-container.component';
+import { DialogBoxService } from './shared/custom-dialog/dialog-box.service';
+import { DialogBoxChildDirective } from './shared/custom-dialog/dialog-container/dialog-box-child.directive';
+// tslint:disable-next-line: max-line-length
+import { ExecControlInstructionsComponent } from './games/games-list/common-game/executive-control-game/exec-control-instructions/exec-control-instructions.component';
+// tslint:disable-next-line: max-line-length
+import { ExecControlHelpService } from '@/main/games/games-list/common-game/executive-control-game/exec-control-instructions/exec-control-help.service';
 @NgModule({
   declarations: [
     ModulesComponent,
@@ -171,6 +179,10 @@ import { IbTrainingDataService } from '@/main/games/games-list/common-game/inter
     NotificationItemComponent,
     IbGameInstructionsComponent,
     IbMainTrainingComponent,
+    CustomOverlayDirective,
+    DialogContainerComponent,
+    DialogBoxChildDirective,
+    ExecControlInstructionsComponent,
   ],
   imports: [
     CommonModule,
@@ -228,6 +240,8 @@ import { IbTrainingDataService } from '@/main/games/games-list/common-game/inter
     GamesBadgesService,
     IbDialogsService,
     IbTrainingDataService,
+    DialogBoxService,
+    ExecControlHelpService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [
@@ -237,6 +251,8 @@ import { IbTrainingDataService } from '@/main/games/games-list/common-game/inter
     NavbarNotificationsComponent,
     IbGameInstructionsComponent,
     IbMainTrainingComponent,
+    DialogContainerComponent,
+    ExecControlInstructionsComponent,
   ]
 })
 export class MainModule {
