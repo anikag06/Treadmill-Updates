@@ -6,17 +6,17 @@
 }
 .dialog-content{
     background-color: white;
-    margin-top: -29rem;
+    margin-top: -30rem;
     @include box-shadow-1-1-10-d6();
     // height: 60vh;
     min-height: 200px;
-    max-height: 440px;
+    max-height: 450px;
     overflow: auto;
     // overflow: scroll;
 }
 @media only screen and (max-width: 767px){
     .dialog-content{
-        margin-top: -31rem;
+        margin-top: -33rem;
     }
 }
 
