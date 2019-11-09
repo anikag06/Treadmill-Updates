@@ -1,5 +1,5 @@
 <div class="row justify-content-center align-items-center" 
-  tabindex="0" id="game_div"  #gameDiv  appCustomOverlay  >
+  tabindex="0" id="game_div"  #gameDiv  appCustomOverlay *ngIf="showComponent" >
   <div class="common-div w-100">
     <!-- buttons shown when the game is paused -->
       <div 
@@ -78,28 +78,31 @@
       
       <div class="row align-items-center mx-2 firstpage-btns" 
             id="firstpage-btns" #firstpage_btns>
-        <div class="col-auto mr-auto px-0">
-          <img 
-            id="common-science-btn" 
-            class="common-science-btn img-btn"
-            src="../../../../../assets/games/science_behind_game.png">
+        <div class="w-100 row px-2" 
+          [ngClass] = "{'center-postion': portraitGame ===true ,
+            'end-position' : portraitGame === false}">
+          <div class="col-auto mr-auto px-0">
+            <img 
+              id="common-science-btn" 
+              class="common-science-btn img-btn"
+              src="../../../../../assets/games/science_behind_game.png">
+          </div>
+          
+          <div class="col-auto ml-auto px-0" >
+            <img 
+              id="common-sound-on-fp" 
+              class="common-sound-btn img-btn" 
+              (click) = "onSoundClick()"
+              *ngIf = "isSoundOn"
+              src="../../../../../assets/games/sound.png">
+            <img 
+              id="common-sound-off-fp" 
+              class="common-sound-btn img-btn float-right"
+              (click) = "onSoundClick()" 
+              *ngIf = "!isSoundOn"
+              src="../../../../../assets/games/mute.png">
+          </div>
         </div>
-        
-        <div class="col-auto ml-auto px-0">
-          <img 
-            id="common-sound-on-fp" 
-            class="common-sound-btn img-btn" 
-            (click) = "onSoundClick()"
-            *ngIf = "isSoundOn"
-            src="../../../../../assets/games/sound.png">
-          <img 
-            id="common-sound-off-fp" 
-            class="common-sound-btn img-btn float-right"
-            (click) = "onSoundClick()" 
-            *ngIf = "!isSoundOn"
-            src="../../../../../assets/games/mute.png">
-        </div>
-        
         <!-- <img 
           id="common-exit-btn"
           class="common-exit mx-1 img-btn" 
@@ -113,7 +116,6 @@
             id="common-start-btn"
             class="common-play-game mx-auto" 
             (click) = "onPlayClick()"
-            *ngIf = "showSecondPlayBtn"
             src="../../../../../assets/games/play.png">
         </div>
         <div class="col-12 text-center">
@@ -122,8 +124,13 @@
       </div>
 
 <!-- pause, hint and sound button on bottom of every page -->
-      <div class="row justify-content-end align-items-center mx-2 d-none" 
-          id="pause-common-div" #pause_common_div>
+      <div class="row justify-content-end align-items-center d-none" 
+          id="pause-common-div"
+          [ngClass] = "{
+            'center-postion': portraitGame ===true ,
+            'end-position' : portraitGame === false
+          }"
+          #pause_common_div>
         <img 
           id = "common-pause"
           class="mx-2 img-btn"

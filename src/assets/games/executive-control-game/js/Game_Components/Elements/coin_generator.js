@@ -67,12 +67,13 @@ function coins_placer() {
                 
                 if(isTouchDevice == false)
                 {
-                
-                    tutorial_box = curr_game.add.tileSprite(screen_width*0.5,screen_height*0.38,screen_width*0.42,screen_height*0.5,"tutorial_box").setTileScale(0.8,1.145);
-                    tutorial_box.depth = 4;
-                    tutorial_text.setText("Press                                 to collect coins");
-                    control_button_1=curr_game.add.image(screen_width*0.46,screen_height*0.325,'spacebar_button');
-                    control_button_1.depth = 5;
+                    if (tutorial_text.text === "") {
+                        tutorial_box = curr_game.add.tileSprite(screen_width*0.5,screen_height*0.38,screen_width*0.42,screen_height*0.5,"tutorial_box").setTileScale(0.8,1.145);
+                        tutorial_box.depth = 4;
+                        tutorial_text.setText("Press                                 to collect coins");
+                        control_button_1=curr_game.add.image(screen_width*0.46,screen_height*0.325,'spacebar_button');
+                        control_button_1.depth = 5;
+                    }
                     game_paused=true;
                 }
                 else

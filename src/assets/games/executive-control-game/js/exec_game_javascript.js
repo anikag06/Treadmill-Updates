@@ -14,7 +14,7 @@ function config(render_type,swidth,sheight,modeType,center){
 		default: 'arcade',
 		arcade: {
 			gravity: { y: 3000 },
-			debug: false
+			debug: true
 				
 			}
 		};
@@ -75,7 +75,8 @@ var screen_width;
 var screen_height;
 var scaleRatio;
 
-var pause_resume_game;
+var pauseECGame;
+var resumeECGame;
 var closeECGame;
 var musicECGame;
 
@@ -882,7 +883,6 @@ function create(){
 	});
 
 	this.scale.setGameSize(screen_width, screen_height);
-
 	//Create physics group for collidables
 	platforms = this.physics.add.group();
 	coins_group=this.physics.add.group();
@@ -1078,6 +1078,14 @@ function create(){
 			jump();
 			this.alpha = 1;
 		}, this);
+		// this.input.enableDebug(jump_button, 0xff00ff);
+		// this.input.on('gameobjectover', function (pointer, jump_button) {
+
+		// 	jump();
+		// 	this.alpha = 1;
+	
+		// });
+	
 	}
 	//Double jump button
 	if(isTouchDevice){
@@ -1141,7 +1149,7 @@ function scene_change_start()
 //This called(implicitly) for every frame update
 function update(){
 
-	//Store the current instance of the game (to be used in other files)
+	//Store the fcurrent instance of the game (to be used in other files)
 	curr_game=this;
 	
 	// to check if the game just started
@@ -2052,28 +2060,29 @@ function shoot(){
 }
 
 //For pausing the game    
-pause_resume_game = function(gamePaused){
-	// if(gameOver==true||control_button_1!=null||animation_active==true||score==0||control_button_1!=null||animation_active==true)
-	// {
-	// 	return;
-	// }
-	game_paused=gamePaused;
-	if(game_paused==false)
-	{
+
+pauseECGame = function() {
+	if (game_paused === true) {
+		return;
+	} else {
+		game_paused = true;
+		if(reachedCrossing==false||game_restore==true)
+		{
+			bgm_sound.pause();
+		}
+	}
+}
+resumeECGame = function() {
+	
+	if (game_paused === false) {
+		return;
+	} else {
+		game_paused = false;
 		if(reachedCrossing==false)
 		{
 			bgm_sound.resume();
 		}
 	}
-	else
-	{
-		if(reachedCrossing==false||game_restore==true)
-		{
-			bgm_sound.pause();
-		}
-
-	}
-
 }
 
 musicECGame =  function(music_muted)
@@ -2127,7 +2136,7 @@ closeECGame = function(){
 	clearTimeout(stopTunnelTimeout);
 	scene_change_timeout = null;
 
-	if(curr_game){
+	if(curr_game.sys.game!= null){
 		curr_game.sys.game.destroy(true);
 	}
 	return;

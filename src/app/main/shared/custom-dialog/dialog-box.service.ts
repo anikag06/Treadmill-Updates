@@ -6,6 +6,7 @@ import { Injectable, Component } from '@angular/core';
 export class DialogBoxService {
 
   childComponent!: any;
+  isDialogBoxRemoved!: any;
 
   constructor() { }
 
@@ -15,5 +16,13 @@ export class DialogBoxService {
 
   getDialogChild() {
     return this.childComponent;
+  }
+
+  setIsDialogBoxRemoved(isDialogBox: any) {
+    this.isDialogBoxRemoved = isDialogBox;
+  }
+
+  getIsDialogBoxRemoved() {
+    return this.isDialogBoxRemoved;
   }
 }

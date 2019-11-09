@@ -90,12 +90,15 @@ function obstacle_placer() {
 
                 if(isTouchDevice==false)
                 {
-                    tutorial_box = curr_game.add.tileSprite(screen_width*0.5,screen_height*0.37,screen_width*0.42,screen_height*0.5,"tutorial_box").setTileScale(0.8,1.145);
-                    tutorial_box.depth = 4;
-                    tutorial_text.setText("Press                                 to avoid small obstacles");
-                    control_button_1=curr_game.add.image(screen_width*0.46,screen_height*0.325,'spacebar_button');
-                    tutorial_text.depth = 5;
-                    control_button_1.depth = 5;
+                    console.log('create the tutorial',  tutorial_text.text);
+                    if (tutorial_text.text === "") {
+                        tutorial_box = curr_game.add.tileSprite(screen_width*0.5,screen_height*0.37,screen_width*0.42,screen_height*0.5,"tutorial_box").setTileScale(0.8,1.145);
+                        tutorial_box.depth = 4;
+                        tutorial_text.setText("Press                                 to avoid small obstacles");
+                        control_button_1=curr_game.add.image(screen_width*0.46,screen_height*0.325,'spacebar_button');
+                        tutorial_text.depth = 5;
+                        control_button_1.depth = 5;
+                    }
                 }
                 else
                 {
@@ -117,15 +120,17 @@ function obstacle_placer() {
 
                 if(isTouchDevice==false)
                 {
-                    tutorial_box = curr_game.add.tileSprite(screen_width*0.5,screen_height*0.38,screen_width*0.42,screen_height*0.5,"tutorial_box").setTileScale(0.8,1.145);
-                    tutorial_box.depth = 4;
-                    tutorial_text.setText("Press                          +                                   to jump higher  and avoid big obstacles");
-                    // tutorial_text.x-=150;
-                    control_button_1=curr_game.add.image(screen_width*0.445,screen_height*0.325,'shift_button');
-                    control_button_2=curr_game.add.image(screen_width*0.608,control_button_1.y,'spacebar_button');
-                    tutorial_text.depth = 5;
-                    control_button_1.depth = 5;
-                    control_button_2.depth = 5;
+                    if (tutorial_text.text === "") {
+                        tutorial_box = curr_game.add.tileSprite(screen_width*0.5,screen_height*0.38,screen_width*0.42,screen_height*0.5,"tutorial_box").setTileScale(0.8,1.145);
+                        tutorial_box.depth = 4;
+                        tutorial_text.setText("Press                          +                                   to jump higher  and avoid big obstacles");
+                        // tutorial_text.x-=150;
+                        control_button_1=curr_game.add.image(screen_width*0.445,screen_height*0.325,'shift_button');
+                        control_button_2=curr_game.add.image(screen_width*0.608,control_button_1.y,'spacebar_button');
+                        tutorial_text.depth = 5;
+                        control_button_1.depth = 5;
+                        control_button_2.depth = 5;
+                    }
                 }
                 else
                 {
@@ -148,14 +153,16 @@ function obstacle_placer() {
 
                 if(isTouchDevice==false)
                 {
-                    tutorial_box = curr_game.add.tileSprite(screen_width*0.5,screen_height*0.4,screen_width*0.42,screen_height*0.5,"tutorial_box").setTileScale(0.8,1.145);
-                    tutorial_box.depth = 4;
-                    tutorial_text.setText("Press                          +                                   to jump higher and avoid jumping obstacles");
-                    control_button_1=curr_game.add.image(screen_width*0.445,screen_height*0.325,'shift_button')
-                    control_button_2=curr_game.add.image(screen_width*0.608,control_button_1.y,'spacebar_button')
-                    tutorial_text.depth = 5;
-                    control_button_1.depth = 5;
-                    control_button_2.depth = 5;
+                    if (tutorial_text.text === "") {
+                        tutorial_box = curr_game.add.tileSprite(screen_width*0.5,screen_height*0.4,screen_width*0.42,screen_height*0.5,"tutorial_box").setTileScale(0.8,1.145);
+                        tutorial_box.depth = 4;
+                        tutorial_text.setText("Press                          +                                   to jump higher and avoid jumping obstacles");
+                        control_button_1=curr_game.add.image(screen_width*0.445,screen_height*0.325,'shift_button')
+                        control_button_2=curr_game.add.image(screen_width*0.608,control_button_1.y,'spacebar_button')
+                        tutorial_text.depth = 5;
+                        control_button_1.depth = 5;
+                        control_button_2.depth = 5;
+                    }
                 }
                 else
                 {

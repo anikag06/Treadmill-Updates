@@ -1,5 +1,6 @@
 import { Directive, ElementRef, ViewContainerRef, HostListener, ViewChild, ComponentFactoryResolver } from '@angular/core';
 import { DialogContainerComponent } from './dialog-container/dialog-container.component';
+import { DialogBoxService } from './dialog-box.service';
 
 @Directive({
   selector: '[appCustomOverlay]',
@@ -12,6 +13,7 @@ export class CustomOverlayDirective {
     private element: ElementRef,
     private componentFactoryResolver: ComponentFactoryResolver,
     public viewContainerRef: ViewContainerRef,
+    private dialogBoxService: DialogBoxService,
   ) {
 
   }
@@ -39,7 +41,7 @@ export class CustomOverlayDirective {
       this.element.nativeElement.insertAdjacentHTML('afterbegin', '<div id="custom_overlay_container" class="h-100 w-100" style="position:absolute;background-color:rgba(0,0,0,0.5);z-index: 20;"></div>');
     }
     this.overlayMade = true;
-
+    this.dialogBoxService.setIsDialogBoxRemoved(false);
   }
 
   removeOverlay() {
@@ -49,5 +51,6 @@ export class CustomOverlayDirective {
     }
     this.overlayMade = false;
     this.viewContainerRef.clear();
+    this.dialogBoxService.setIsDialogBoxRemoved(true);
   }
 }

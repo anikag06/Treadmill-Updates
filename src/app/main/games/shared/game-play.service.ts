@@ -12,8 +12,6 @@ import {
   IbGameInstructionsComponent
 } from '../games-list/common-game/interpretation-bias-game/ib-game-instructions/ib-game-instructions.component';
 import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
-import { ExecControlInstructionsComponent } from '../games-list/common-game/executive-control-game/exec-control-instructions/exec-control-instructions.component';
-
 
 // for interpretation bias game
 declare var startIBGame: any;
@@ -31,7 +29,8 @@ declare var startGame: any;
 declare var  check: any;
 // for executive control game
 declare var startExecControlGame: any;
-declare var pause_resume_game: any;
+declare var pauseECGame: any;
+declare var resumeECGame: any;
 declare var closeECGame: any;
 declare var musicECGame: any;
 
@@ -212,10 +211,10 @@ export class GamePlayService  {
     this.ecGameSoundOn = isSoundOn;
   }
   pauseExecControlGame() {
-    pause_resume_game(true);
+    pauseECGame();
   }
   resumeExecControlGame() {
-    pause_resume_game(false);
+    resumeECGame();
   }
   restartExecControlGame(isSoundOn: any)  {
     closeECGame();
@@ -223,8 +222,8 @@ export class GamePlayService  {
     this.playExecControlGame(isSoundOn, false);
   }
   closeExecControlGame() {
-    closeECGame();
     if (this.ecGameStarted) {
+      closeECGame();
       this.storeDataExecControlGame();
     }
   }

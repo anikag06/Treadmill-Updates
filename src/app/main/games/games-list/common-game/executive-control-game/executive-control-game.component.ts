@@ -41,6 +41,7 @@ export class ExecutiveControlGameComponent implements OnInit, OnDestroy {
     this.playGameService.playExecControlGame(true, true);
   }
   ngOnDestroy() {
+    console.log('exec- ng on destroy');
     this.playGameService.closeExecControlGame();
   }
 
