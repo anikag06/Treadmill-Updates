@@ -14,7 +14,7 @@ function config(render_type,swidth,sheight,modeType,center){
 		default: 'arcade',
 		arcade: {
 			gravity: { y: 3000 },
-			debug: false
+			debug: true
 				
 			}
 		};
@@ -75,7 +75,8 @@ var screen_width;
 var screen_height;
 var scaleRatio;
 
-var pause_resume_game;
+var pauseECGame;
+var resumeECGame;
 var closeECGame;
 var musicECGame;
 
@@ -321,6 +322,15 @@ var task_start_dialog_add;
 var task_start_dialog;
 var task_start_button;
 var task_start_button_text;
+
+var left_key_button;
+var right_key_button;
+var red_key_button;
+var green_key_button;
+var flanker_tutorial_left;
+var flanker_tutorial_right;
+var discrimination_tutorial_red;
+var discrimination_tutorial_green;
 
 var double_coin_blinker;
 
@@ -676,6 +686,47 @@ function double_jump_tutorial_animation(){
 
 //Load the elements
 function preload(){
+	//loading bar
+	var progressBar = this.add.graphics();
+	var progressBox = this.add.graphics();
+	progressBox.fillStyle(0x222222, 0.8);
+	progressBox.fillRect(screen_width*0.3, screen_height*0.4, 320, 50);
+	var loadingText = this.make.text({
+		x: screen_width*0.5,
+		y: screen_height*0.6,
+		text: 'Loading...',
+		style: {
+			font: '18px Roboto',
+			fill: '#ffffff'
+		}
+	});
+	loadingText.setOrigin(0.5, 0.5);
+	
+	var percentText = this.make.text({
+		x: screen_width*0.5,
+		y: screen_height*0.47,
+		text: '0%',
+		style: {
+			font: '18px Roboto',
+			fill: '#ffffff'
+		}
+	});
+	percentText.setOrigin(0.5, 0.5);
+            
+	this.load.on('progress', function (value) {
+		percentText.setText(parseInt(value * 100) + '%');
+		progressBar.clear();
+		progressBar.fillStyle(0xffffff, 1);
+		progressBar.fillRect(screen_width*0.3+10,screen_height*0.4+10, 300 * value, 30);
+	});
+
+	this.load.on('complete', function () {
+		progressBar.destroy();
+		progressBox.destroy();
+		loadingText.destroy();
+		percentText.destroy();
+	});
+
 
 	//Background Elements
 	this.load.image('skyline',png+'/background_images/mountains.png');
@@ -787,6 +838,15 @@ function preload(){
 	this.load.image("spacebar_button",svg_location+"/spacebar_button.svg");
 	this.load.image("shift_button",svg_location+"/shift_button.svg");
 
+	//tutorial keys
+	this.load.image("left_key", png+"/left_arrow.png");
+	this.load.image("right_key", png+"/right_arrow.png");
+	this.load.image("up_key", png+"/up_arrow.png");				// for green circle
+	this.load.image("down_key", png+"/down_arrow.png");			//for red circle
+
+	this.load.image("right_flanker_tutorial", png+"/middle_arrow_right.png");
+	this.load.image("left_flanker_tutorial", png+"/middle_arrow_left.png");
+
 	//tutorial box 
 	this.load.image("tutorial_box",svg_location+"/transparent_background.svg");
 
@@ -823,7 +883,6 @@ function create(){
 	});
 
 	this.scale.setGameSize(screen_width, screen_height);
-
 	//Create physics group for collidables
 	platforms = this.physics.add.group();
 	coins_group=this.physics.add.group();
@@ -932,19 +991,19 @@ function create(){
 	});
 
 	//Texts to be displayed
-	RESPAWNING_TEXT=this.add.text(RESPAWN_X,RESPAWN_Y,"", { fontSize: '27px', fill: '#fff' });
-	countdown_text=this.add.text(RESPAWN_X,RESPAWN_Y,"", { fontSize: '27px', fill: '#fff'});
-	scoreText = this.add.text(score_x, stat_text_display_y+1,'Score'+score, { fontSize: '27px', fill: '#fff',align:'left',
-																			shadow: {offsetX: 1, offsetY: 1, color: '#0000003D',
-																			blur: 2.2, stroke: true, fill: true }, });
-	livesText = this.add.text(heart_x-41, stat_text_display_y, number_of_lives, { fontSize: '27px', fill: '#fff',align:'left',
-																			shadow: {offsetX: 1, offsetY: 1, color: '#0000003D',
-																			blur: 2.2, stroke: true, fill: true }, });
+	RESPAWNING_TEXT=this.add.text(RESPAWN_X,RESPAWN_Y,"", { fontFamily: 'Roboto', fontSize: '27px', fill: '#fff' });
+	countdown_text=this.add.text(RESPAWN_X,RESPAWN_Y,"", { fontFamily: 'Roboto', fontSize: '27px', fill: '#fff'});
+	scoreText = this.add.text(score_x, stat_text_display_y+1,'Score'+score, { fontFamily: 'Roboto', fontSize: '27px', fill: '#fff',align:'left',
+											shadow: {offsetX: 1, offsetY: 1, color: '#0000003D',
+											blur: 2.2, stroke: true, fill: true }, });
+	livesText = this.add.text(heart_x-41, stat_text_display_y, number_of_lives, { fontFamily: 'Roboto', fontSize: '27px', fill: '#fff',align:'left',
+											shadow: {offsetX: 1, offsetY: 1, color: '#0000003D',
+											blur: 2.2, stroke: true, fill: true }, });
 	coinsCollectedText=this.add.text(screen_width-85-COIN_SCORE_LENGTH_ADJUSTMENT*(coins_collected.toString().length-1), stat_text_display_y,coins_collected, 
-																			{ fontSize: '27px', fill: '#fff',align:'left',wordWrap: true,
-																			shadow: {offsetX: 1, offsetY: 1, color: '#0000003D',
-																			blur: 2.2, stroke: true, fill: true }, });
-	mystery_egg_collected_text=this.add.text(75, 105,'', { fontSize: '27px', fill: '#fff',align:'right',wordWrap: true });
+											{ fontFamily: 'Roboto', fontSize: '27px', fill: '#fff',align:'left',wordWrap: true,
+											shadow: {offsetX: 1, offsetY: 1, color: '#0000003D',
+											blur: 2.2, stroke: true, fill: true }, });
+	mystery_egg_collected_text=this.add.text(75, 105,'', { fontFamily: 'Roboto', fontSize: '27px', fill: '#fff',align:'right',wordWrap: true });
 
 
 
@@ -955,7 +1014,7 @@ function create(){
 	goldBadge = this.add.image(screen_width*0.256, stat_icon_display_y-1, 'gold_badge');
 	goldBadge.allowGravity = false;
 	goldBadge.depth=5;
-	goldText = this.add.text(screen_width*0.275,goldBadge.y-8,ecg_gold_value, { fontSize: '14px', fill: '#FFFFFF', align:'right',
+	goldText = this.add.text(screen_width*0.275,goldBadge.y-8,ecg_gold_value, { fontFamily: 'Roboto', fontSize: '14px', fill: '#FFFFFF', align:'right',
 																			shadow: {offsetX: 1, offsetY: 1, color: '#0000003D',
 																			blur: 2.2, stroke: true, fill: true },});
 	goldText.depth=5;
@@ -970,7 +1029,7 @@ function create(){
 	silverBadge = this.add.image(goldBadge.x + 50, stat_icon_display_y-1, 'silver_badge');
 	silverBadge.allowGravity = false;
 	silverBadge.depth=5;
-	silverText = this.add.text(goldText.x + 50 ,silverBadge.y-8,ecg_silver_value, { fontSize: '14px', fill: '#FFFFFF', align:'right',
+	silverText = this.add.text(goldText.x + 50 ,silverBadge.y-8,ecg_silver_value, { fontFamily: 'Roboto', fontSize: '14px', fill: '#FFFFFF', align:'right',
 																			shadow: {offsetX: 1, offsetY: 1, color: '#0000003D',
 																			blur: 2.2, stroke: true, fill: true },});
 	silverText.depth=5;
@@ -985,7 +1044,7 @@ function create(){
 	bronzeBadge = this.add.image(silverBadge.x+50, stat_icon_display_y-1, 'bronze_badge');
 	bronzeBadge.depth=5;
 	bronzeBadge.allowGravity = false;
-	bronzeText = this.add.text(silverText.x+50,bronzeBadge.y-8,ecg_bronze_value, { fontSize: '14px', fill: '#FFFFFF', align:'right',
+	bronzeText = this.add.text(silverText.x+50,bronzeBadge.y-8,ecg_bronze_value, { fontFamily: 'Roboto', fontSize: '14px', fill: '#FFFFFF', align:'right',
 																			shadow: {offsetX: 1, offsetY: 1, color: '#0000003D',
 																			blur: 2.2, stroke: true, fill: true },});
 	bronzeText.depth=5;
@@ -998,8 +1057,10 @@ function create(){
 	bronzeBar.width = (ecg_bronze_percent/100) * bronzeBarBack.width;
 
 	//Tutorial text
-	tutorial_text=this.add.text(screen_width*0.335,screen_height*0.33,"", { fontSize: '14px', fill: '#FFFFFF',align:'center' });
-	// tutorial_text.setPadding(20,2,20,2);
+	tutorial_text=this.add.text(screen_width*0.33,screen_height*0.29,"", 
+				{ fontFamily: 'Roboto', lineSpacing: 7,
+					fontSize: '16px', fill: '#FFFFFF',
+					align:'left', wordWrap: { width: screen_width*0.36} });
 	tutorial_text.depth = 14;
 	
 	//If touch add jump button
@@ -1017,6 +1078,14 @@ function create(){
 			jump();
 			this.alpha = 1;
 		}, this);
+		// this.input.enableDebug(jump_button, 0xff00ff);
+		// this.input.on('gameobjectover', function (pointer, jump_button) {
+
+		// 	jump();
+		// 	this.alpha = 1;
+	
+		// });
+	
 	}
 	//Double jump button
 	if(isTouchDevice){
@@ -1027,7 +1096,7 @@ function create(){
 	double_jump_button.depth=2;
 
 	//double jump text
-	double_jump_text=this.add.text(double_jump_button.x+10,screen_height*0.96,"x"+jumps.remaining, { fontSize: '22px', fill: '#fff',align:'center' });
+	double_jump_text=this.add.text(double_jump_button.x+10,screen_height*0.96,"x"+jumps.remaining, { fontFamily: 'Roboto', fontSize: '22px', fill: '#fff',align:'center' });
 	double_jump_text.depth=3;
 	if(double_jump_button.y+double_jump_button.height/2>screen_height)
 	{
@@ -1080,7 +1149,7 @@ function scene_change_start()
 //This called(implicitly) for every frame update
 function update(){
 
-	//Store the current instance of the game (to be used in other files)
+	//Store the fcurrent instance of the game (to be used in other files)
 	curr_game=this;
 	
 	// to check if the game just started
@@ -1140,11 +1209,11 @@ function update(){
 		double_coin_dialog=this.add.tileSprite(screen_width*0.5,screen_height*0.5,screen_width*0.35,screen_height*0.4,"game_over_dialog");
 		double_coin_dialog.alpha =0.6;
 		double_coin_dialog.depth=4;
-		double_coin_text=this.add.text(screen_width*0.38,screen_height*0.38,"Buy Double Coin Power??", { fontSize: '20px', fill: '#000000',align:'center' });
+		double_coin_text=this.add.text(screen_width*0.38,screen_height*0.38,"Buy Double Coin Power??", { fontFamily: 'Roboto', fontSize: '20px', fill: '#000000',align:'center' });
 		double_coin_text.depth=5;
 		double_coin_icon=this.add.image(screen_width*0.5,screen_height*0.50,'coin').setScale(0.3);
 		double_coin_icon.depth=5;
-		double_coin_cost_text=this.add.text(screen_width*0.53,screen_height*0.5,"x"+double_coin_cost, { fontSize: '20px', fill: '#000000',align:'center' });
+		double_coin_cost_text=this.add.text(screen_width*0.53,screen_height*0.5,"x"+double_coin_cost, { fontFamily: 'Roboto', fontSize: '20px', fill: '#000000',align:'center' });
 		double_coin_cost_text.depth=5;
 
 		player.anims.play('stand', true);
@@ -1207,11 +1276,11 @@ function update(){
 		double_coin_dialog=this.add.tileSprite(screen_width*0.5,screen_height*0.5,screen_width*0.35,screen_height*0.4,"game_over_dialog");
 		double_coin_dialog.alpha = 0.6;
 		double_coin_dialog.depth=4;
-		double_coin_text=this.add.text(screen_width*0.38,screen_height*0.38,"Buy Shooting Power??", { fontSize: '16px', fill: '#000000',align:'center' });
+		double_coin_text=this.add.text(screen_width*0.38,screen_height*0.38,"Buy Shooting Power??", { fontFamily: 'Roboto', fontSize: '16px', fill: '#000000',align:'center' });
 		double_coin_text.depth=5;
 		double_coin_icon=this.add.image(screen_width*0.5,screen_height*0.50,'coin').setScale(0.3);
 		double_coin_icon.depth=5;
-		double_coin_cost_text=this.add.text(screen_width*0.53,screen_height*0.5,"x"+shooting_power_cost, { fontSize: '16px', fill: '#000000',align:'center' });
+		double_coin_cost_text=this.add.text(screen_width*0.53,screen_height*0.5,"x"+shooting_power_cost, { fontFamily: 'Roboto', fontSize: '16px', fill: '#000000',align:'center' });
 		double_coin_cost_text.depth=5;
 
 		player.anims.play('stand', true);
@@ -1311,16 +1380,16 @@ function update(){
 		game_over_dialog=this.add.tileSprite(screen_width*0.5,screen_height*0.5,screen_width*0.60,screen_height*0.55,"game_over_dialog").setTileScale(1.145,1.25);
 		game_over_dialog.depth=4;
 		
-		game_over_text=this.add.text(game_over_dialog.x-(game_over_dialog.width*0.35)+10,game_over_dialog.y-(game_over_dialog.height*0.4),"All lives finished. Buy lives!", { fontSize: '18px', fill: '#FFFFFF',align:'center' });
+		game_over_text=this.add.text(game_over_dialog.x-(game_over_dialog.width*0.20)+5,game_over_dialog.y-(game_over_dialog.height*0.4),"All lives finished. Buy lives!", { fontFamily: 'Roboto', fontSize: '18px', fill: '#FFFFFF',align:'center' });
 		game_over_text.depth=5;
 
 		buy_live_img1=this.add.image(screen_width*0.30,screen_height*0.50,'life').setScale(1.17);
 		buy_live_img1.depth=5;
-		buy_live_img1_text=this.add.text(screen_width*0.278,screen_height*0.55, "1 life",{ fontSize: '12px', fill: '#FFFFFF',align:'center' })
+		buy_live_img1_text=this.add.text(screen_width*0.28,screen_height*0.55, "1 life",{ fontFamily: 'Roboto', fontSize: '12px', fill: '#FFFFFF',align:'center' })
 		buy_live_img1_text.depth=5;
 		buy_one_live=this.add.image(screen_width*0.30,screen_height*0.66,'buy_button').setScale(1.1).setInteractive(); 
 		buy_one_live.depth = 7;
-		buy_one_live_text=this.add.text(screen_width*0.27,screen_height*0.625,"Buy for "+"\n" + retry_cost+ " coins", { fontSize: '12px', fill: '#000000',align:'center' });
+		buy_one_live_text=this.add.text(screen_width*0.27,screen_height*0.625,"Buy for "+"\n" + retry_cost+ " coins", { fontFamily: 'Roboto', fontSize: '12px', fill: '#000000',align:'center' });
 		buy_one_live_text.setInteractive();
 		buy_one_live_text.depth=8;
 		
@@ -1337,11 +1406,11 @@ function update(){
 		buy_live_img22=this.add.image(screen_width*0.515,screen_height*0.50,'life').setScale(1.17);
 		buy_live_img21.depth=5;
 		buy_live_img22.depth=5;
-		buy_live_img2_text=this.add.text(screen_width*0.467,screen_height*0.55, "2 lives",{ fontSize: '12px', fill: '#FFFFFF',align:'center' })
+		buy_live_img2_text=this.add.text(screen_width*0.469,screen_height*0.55, "2 lives",{ fontFamily: 'Roboto', fontSize: '12px', fill: '#FFFFFF',align:'center' })
 		buy_live_img2_text.depth=5;
 		buy_two_lives=this.add.image(screen_width*0.50,screen_height*0.66,'buy_button').setScale(1.1).setInteractive(); 
 		buy_two_lives.depth = 7;
-		buy_two_lives_text=this.add.text(screen_width*0.47,screen_height*0.625,"Buy for "+"\n" + (2*retry_cost)+ " coins", { fontSize: '12px', fill: '#000000',align:'center' });
+		buy_two_lives_text=this.add.text(screen_width*0.47,screen_height*0.625,"Buy for "+"\n" + (2*retry_cost)+ " coins", { fontFamily: 'Roboto', fontSize: '12px', fill: '#000000',align:'center' });
 		buy_two_lives_text.setInteractive();
 		buy_two_lives_text.depth=8;
 
@@ -1360,11 +1429,11 @@ function update(){
 		buy_live_img31.depth=5;
 		buy_live_img32.depth=5;
 		buy_live_img33.depth=5;
-		buy_live_img3_text=this.add.text(screen_width*0.67,screen_height*0.55, "3 lives",{ fontSize: '12px', fill: '#FFFFFF',align:'center' })
+		buy_live_img3_text=this.add.text(screen_width*0.674,screen_height*0.55, "3 lives",{ fontFamily: 'Roboto', fontSize: '12px', fill: '#FFFFFF',align:'center' })
 		buy_live_img3_text.depth=5;
 		buy_three_lives=this.add.image(screen_width*0.70,screen_height*0.66,'buy_button').setScale(1.1).setInteractive(); 
 		buy_three_lives.depth = 7;
-		buy_three_lives_text=this.add.text(screen_width*0.67,screen_height*0.625,"Buy for "+"\n" + (3*retry_cost)+ " coins", { fontSize: '12px', fill: '#000000',align:'center' });
+		buy_three_lives_text=this.add.text(screen_width*0.67,screen_height*0.625,"Buy for "+"\n" + (3*retry_cost)+ " coins", { fontFamily: 'Roboto', fontSize: '12px', fill: '#000000',align:'center' });
 		buy_three_lives_text.setInteractive();
 		buy_three_lives_text.depth=8;
 
@@ -1991,28 +2060,29 @@ function shoot(){
 }
 
 //For pausing the game    
-pause_resume_game = function(gamePaused){
-	// if(gameOver==true||control_button_1!=null||animation_active==true||score==0||control_button_1!=null||animation_active==true)
-	// {
-	// 	return;
-	// }
-	game_paused=gamePaused;
-	if(game_paused==false)
-	{
+
+pauseECGame = function() {
+	if (game_paused === true) {
+		return;
+	} else {
+		game_paused = true;
+		if(reachedCrossing==false||game_restore==true)
+		{
+			bgm_sound.pause();
+		}
+	}
+}
+resumeECGame = function() {
+	
+	if (game_paused === false) {
+		return;
+	} else {
+		game_paused = false;
 		if(reachedCrossing==false)
 		{
 			bgm_sound.resume();
 		}
 	}
-	else
-	{
-		if(reachedCrossing==false||game_restore==true)
-		{
-			bgm_sound.pause();
-		}
-
-	}
-
 }
 
 musicECGame =  function(music_muted)
@@ -2024,15 +2094,11 @@ musicECGame =  function(music_muted)
 	{
 		bgm_sound.pause();
 		curr_game.sound.mute=true;
-		// music_button_on.depth=6;					//1
-		// music_button_off.depth=7;					//2
 	}
 	else
 	{
 		bgm_sound.play();
 		curr_game.sound.mute=false;
-		// music_button_on.depth=7;
-		// music_button_off.depth=6;
 
 	}
 }
@@ -2070,7 +2136,7 @@ closeECGame = function(){
 	clearTimeout(stopTunnelTimeout);
 	scene_change_timeout = null;
 
-	if(curr_game){
+	if(curr_game.sys.game!= null){
 		curr_game.sys.game.destroy(true);
 	}
 	return;

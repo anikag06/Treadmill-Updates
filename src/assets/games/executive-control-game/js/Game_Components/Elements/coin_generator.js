@@ -60,19 +60,20 @@ function coins_placer() {
 
             //Do this for the case when player dies and new player is added
             curr_game.physics.add.collider(coin[i], player,function(obj1,obj2){collect_coin(obj1);}, null, curr_game); 
-            
+            // console.log('jump_tutorial_shown',jump_tutorial_shown);
             //Show tutorial if needed
             if(SHOW_TUTORIAL==true&&jump_tutorial_shown==false&&coin[i].x-player.x<=(JUMP_RANGE*0.9))
             {
                 
                 if(isTouchDevice == false)
                 {
-                
-                    tutorial_box = curr_game.add.tileSprite(screen_width*0.5,screen_height*0.38,screen_width*0.42,screen_height*0.5,"tutorial_box").setTileScale(0.8,1.145);
-                    tutorial_box.depth = 4;
-                    tutorial_text.setText("Press                   to\n\n  collect coins");
-                    control_button_1=curr_game.add.image(screen_width*0.49,screen_height*0.36,'spacebar_button');
-                    control_button_1.depth = 5;
+                    if (tutorial_text.text === "") {
+                        tutorial_box = curr_game.add.tileSprite(screen_width*0.5,screen_height*0.38,screen_width*0.42,screen_height*0.5,"tutorial_box").setTileScale(0.8,1.145);
+                        tutorial_box.depth = 4;
+                        tutorial_text.setText("Press                                 to collect coins");
+                        control_button_1=curr_game.add.image(screen_width*0.46,screen_height*0.325,'spacebar_button');
+                        control_button_1.depth = 5;
+                    }
                     game_paused=true;
                 }
                 else

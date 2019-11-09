@@ -341,10 +341,12 @@ $(document).ready(function(){
 		}
 	}
 	ibGameResume = function(){
-		ibCountdown();
-		showCanvas();
-		game_paused = false;
-		$('.hints-col').removeClass("d-none");
+		if (!$(".canvas-row").hasClass("d-none")) {
+			ibCountdown();
+			showCanvas();
+			game_paused = false;
+			$('.hints-col').removeClass("d-none");
+		}
 	}
 	ibUsehints = function(ev){
 		
@@ -1339,14 +1341,11 @@ function showSentence(){
 ibGameTrainingSen = function() {
 	// const eventTime = 20;
 	$(".congrats-msg").addClass("d-none");
-	console.log(document.getElementById('complete-sentence'));
 	document.getElementById("complete-sentence").innerHTML= sentence_array[sentence_number];
 	$('.complete-sentence').removeClass("d-none");
-	console.log('sentence showing time', sentence_time);
 
 	//show the sentence for some seconds and ask relation after some time
 	setTimeout(function(){
-		console.log('sentence showing time', sentence_time);
 		$(".complete-sentence").delay(delay_show_sentence).addClass("d-none");
 		$("coins").delay(delay_show_sentence).addClass("d-none");
 		document.getElementById("sentence_word").innerHTML = sentence_word_array[sentence_number];

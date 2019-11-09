@@ -36,13 +36,21 @@ function discrimination_task_generator()
 		{
 			if(isTouchDevice==true)
 			{
-				task_tutorial_text=curr_game.add.text(screen_width*0.26,discrimination_task_image.y-discrimination_task_image.height ,"Press the button matching the circle's \ncolor", { fontSize: '16px', fill: '#FFFFFF'});
+				task_tutorial_text=curr_game.add.text(screen_width*0.28,discrimination_task_image.y-discrimination_task_image.height-10 ,
+					"Press the red button if the central circle is red, press green button if the central circle is green.", 
+					{ fontFamily: 'Roboto', fontSize: '18px', fill: '#FFFFFF', wordWrap: {width: 2*discrimination_task_image.width+85}});
 			}
 			else
 			{
-				task_tutorial_text=curr_game.add.text(screen_width*0.26,discrimination_task_image.y-discrimination_task_image.height,"Press the Down Key if the circle is \ncolored red, otherwise press Up Key", { fontSize: '18px', fill: '#FFFFFF'});
+				task_tutorial_text=curr_game.add.text(screen_width*0.33,discrimination_task_image.y-discrimination_task_image.height-30,
+					"Press          if the central circle is red,\n\npress          if the central circle is green.", 
+					{ fontFamily: 'Roboto', fontSize: '16px', fill: '#FFFFFF',});
+					red_key_button=curr_game.add.image(task_tutorial_text.x+59,task_tutorial_text.y+8,'down_key').setScale(0.6);
+					green_key_button=curr_game.add.image(red_key_button.x,red_key_button.y+37,'up_key').setScale(0.6);
 			}
 			task_tutorial_text.depth=14;
+			red_key_button.depth=14;
+			green_key_button.depth=14;
 			// task_tutorial_text.setBackgroundColor('rgba(255,255,255,0.6)')
 			// task_tutorial_text.setPadding(24,3,24,3);
 		}
@@ -120,7 +128,6 @@ function discrimination_task_complete()
 
 }
 getECGameTaskData = function (){
-	console.log(flanker_task_response_type, 'and ', discrimination_task_response_type);
 	return [
 		game_object,
 		flanker_task_timestamp,
@@ -151,16 +158,13 @@ function resume_countdown()
 	countdown_text.setText(Initial_Text);
 
 	if(task_tutorial_shown==false&&SHOW_TUTORIAL==true){
-		
-		tutorial_box = curr_game.add.tileSprite(screen_width*0.5,screen_height*0.4,screen_width*0.5,screen_height*0.5,"tutorial_box");
+		tutorial_box = curr_game.add.tileSprite(screen_width*0.5,screen_height*0.4,screen_width*0.5,screen_height*0.45,"tutorial_box").setTileScale(1,1.25);
 		tutorial_box.alpha = 0.6;
 		tutorial_box.depth = 12;
-		if(isTouchDevice){
-			task_tutorial_text=curr_game.add.text(tutorial_box.x-(tutorial_box.width/2)+10,tutorial_box.y-(tutorial_box.height/2)+10,"Attention!!From Next time,\ntasks will appear only for\nsome time. Peform good in\nthe tasks and get rewarded", { fontSize: '13px', fill: '#FFFFFF'});
+		task_tutorial_text=curr_game.add.text(tutorial_box.x-(tutorial_box.width/2)+15,tutorial_box.y-(tutorial_box.height/2)+30,
+				"Attention!!From Next time, tasks will appear only for some time. Peform well in the tasks and get rewarded", 
+				{ fontFamily: 'Roboto', fontSize: '16px', fill: '#FFFFFF', wordWrap: {width: tutorial_box.width-20}});
 
-		}else{
-			task_tutorial_text=curr_game.add.text(tutorial_box.x-(tutorial_box.width/2)+10,tutorial_box.y-(tutorial_box.height/2)+10,"Attention!!From Next time,\ntasks will appear only for\nsome time. Peform good in\nthe tasks and get rewarded", { fontSize: '18px', fill: '#FFFFFF'});
-		}
 		task_tutorial_shown=true;
 		task_tutorial_text.depth = 14;
 		countdown_text.setScale(0.5);

@@ -26,7 +26,7 @@ function flanker_task_generator()
 			}
 			else
 			{
-				//task_tutorial_text=curr_game.add.text(screen_width*0.2,screen_height*0.2,"Press the key \"D\" if the middle arrow is pointing left,otherwise press key \"K\"", { fontSize: '20px', fill: '#000'});
+				//task_tutorial_text=curr_game.add.text(screen_width*0.2,screen_height*0.2,"Press the key \"D\" if the middle arrow is pointing left,otherwise press key \"K\"", { fontFamily: 'Roboto', fontSize: '20px', fill: '#000'});
 
 			}
 		}
@@ -35,11 +35,11 @@ function flanker_task_generator()
 			if(isTouchDevice==true)
 			{
 				task_button_blinking_animation=setInterval(left_button_blinker,200);
-				//task_tutorial_text=curr_game.add.text(screen_width*0.2,screen_height*0.2,"Press the button in the direction of the middle arrow", { fontSize: '20px', fill: '#000'});
+				//task_tutorial_text=curr_game.add.text(screen_width*0.2,screen_height*0.2,"Press the button in the direction of the middle arrow", { fontFamily: 'Roboto', fontSize: '20px', fill: '#000'});
 			}
 			else
 			{
-				//task_tutorial_text=curr_game.add.text(screen_width*0.2,screen_height*0.2,"Press the key \"D\" if the middle arrow is pointing left,otherwise press key \"K\"", { fontSize: '20px', fill: '#000'});
+				//task_tutorial_text=curr_game.add.text(screen_width*0.2,screen_height*0.2,"Press the key \"D\" if the middle arrow is pointing left,otherwise press key \"K\"", { fontFamily: 'Roboto', fontSize: '20px', fill: '#000'});
 			}
 		}
 	}
@@ -59,13 +59,21 @@ function flanker_task_generator()
 		{
 			if(isTouchDevice==true)
 			{
-				task_tutorial_text=curr_game.add.text(screen_width*0.245,flanker_task_image.y-flanker_task_image.height-22,"Press the button in the direction of \nthe middle arrow", { fontSize: '16px', fill: '#FFFFFF'});
+				task_tutorial_text=curr_game.add.text(screen_width*0.26,flanker_task_image.y-flanker_task_image.height-22,
+					"Press the Left button if the middle arrow is pointing left, press Right button if pointing right", 
+					{ fontFamily: 'Roboto', fontSize: '18px', fill: '#FFFFFF',wordWrap:{width: flanker_task_image.width+50}});
 			}
 			else
 			{
-				task_tutorial_text=curr_game.add.text(screen_width*0.16,flanker_task_image.y-flanker_task_image.height-30,"Press the Left Key if the middle arrow is pointing\n left,otherwise press Right Key", { fontSize: '18px', fill: '#FFFFFF'});
+				task_tutorial_text=curr_game.add.text(screen_width*0.28,flanker_task_image.y-flanker_task_image.height-45,
+					"Press          if the middle arrow is pointing left,\n\npress          if pointing right", 
+					{ fontFamily: 'Roboto', fontSize: '16px', fill: '#FFFFFF', });
+					left_key_button= curr_game.add.image(task_tutorial_text.x+59,task_tutorial_text.y+8,'left_key').setScale(0.6);
+					right_key_button=curr_game.add.image(left_key_button.x,left_key_button.y+40,'right_key').setScale(0.6);
 			}
 			task_tutorial_text.depth=14;
+			left_key_button.depth=14;
+			right_key_button.depth=14;
 		}
 		
 		//Record flanker task start time

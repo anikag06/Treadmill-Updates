@@ -1,10 +1,10 @@
-import { Component, OnInit, HostListener, ViewChild, ElementRef} from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, ElementRef, ChangeDetectorRef} from '@angular/core';
 import { GamePlayService } from '../../shared/game-play.service';
 import { GamesService } from '@/main/shared/games.service';
 import { Router, ActivatedRoute, RouterEvent, NavigationStart } from '@angular/router';
 import { Game } from '@/main/shared/game.model';
 import { map, switchMap, filter } from 'rxjs/operators';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { Location } from '@angular/common';
 import { GamesAuthService } from '../../shared/games-auth.service';
 import { MentalImageryComponent } from './mental-imagery/mental-imagery.component';
@@ -32,7 +32,6 @@ export class CommonGameComponent implements OnInit {
   game!: Game;
   gameName!: string;
 
-  showSecondPlayBtn = true;
   isExecutiveControl = false;
   isInterpretationBias = false;
   isLearnedHelplessness = false;
@@ -45,6 +44,8 @@ export class CommonGameComponent implements OnInit {
   isAttributeGame = false;
 
   gameStarted = false;
+  gamePaused = false;
+  portraitGame = false;
 
   device_type = 'click';     // whether touch or click for using in friendly face game
   currLocation: any;
@@ -57,6 +58,7 @@ export class CommonGameComponent implements OnInit {
   @ViewChild('gameDiv', {static: false}) gameDivElement!: ElementRef;
 
   gameElement!: ElementRef;
+  showComponent = true;
 
   // for mental imagery game
   @ViewChild(MentalImageryComponent, {static: false}) miGameComponent!: MentalImageryComponent;
@@ -68,6 +70,7 @@ export class CommonGameComponent implements OnInit {
     private location: Location,
     private dialogBoxService: DialogBoxService,
     private miPlayService: MIPlayService,
+    private ref: ChangeDetectorRef
   ) {   }
 
   ngOnInit() {
@@ -82,18 +85,24 @@ export class CommonGameComponent implements OnInit {
           this.gameName = this.game.name;
           if (this.gameName === EXECUTIVE_CONTROL_GAME) {
             this.isExecutiveControl = true;
+            this.portraitGame = false;
           } else if (this.gameName === INTERPRETATION_BIAS_GAME) {
             this.isInterpretationBias = true;
             this.showHintBtn = true;
+            this.portraitGame = true;
           } else if (this.gameName === LEARNED_HELPLESSNESS_GAME) {
             this.isLearnedHelplessness = true;
+            this.portraitGame = true;
           } else if (this.gameName === ATTRIBUTE_STYLE_GAME) {
             this.isAttributeGame = true;
+            this.portraitGame = false;
             // console.log('Attribute Style Game');
           } else if (this.gameName === FRIENDLY_FACE_GAME) {
             this.isFriendlyFace = true;
+            this.portraitGame = true;
           } else if (this.gameName === MENTAL_IMAGERY_GAME) {
             this.isMentalImagery = true;
+            this.portraitGame = true;
           }
         },
         (error) => {
@@ -104,13 +113,17 @@ export class CommonGameComponent implements OnInit {
 
   @HostListener('window:blur', ['$event'])
   onBlur(event: any): void {
-    if (this.gameStarted === true) {
+    if (this.dialogBoxService.getIsDialogBoxRemoved()) {
+      this.gamePaused = false;
+    }
+    if (this.gameStarted === true && this.gamePaused === false) {
       this.onPauseClick();
     }
   }
 
   onPlayClick() {
     this.gameStarted = true;
+    this.gamePaused = false;
     this.showSideButtons = false;
     this.firstPageElement.nativeElement.classList.add('d-none');
     this.startGameBtn.nativeElement.classList.add('d-none');
@@ -119,7 +132,6 @@ export class CommonGameComponent implements OnInit {
     if (this.gameName === INTERPRETATION_BIAS_GAME) {
       this.gamePlayService.playIBGame(this.gameDivElement);
     } else if (this.gameName === EXECUTIVE_CONTROL_GAME) {
-      this.showSecondPlayBtn = false;
       this.gamePlayService.playExecControlGame(this.isSoundOn, false);
     } else if (this.gameName === LEARNED_HELPLESSNESS_GAME) {
       this.gamePlayService.playLearnedHelplessnessGame();
@@ -136,15 +148,14 @@ export class CommonGameComponent implements OnInit {
 
   onHelpClick() {
     this.showSideButtons = false;
-
+    this.gamePaused = true;
     this.firstPageElement.nativeElement.classList.add('d-none');
     this.startGameBtn.nativeElement.classList.add('d-none');
     this.pauseBtnElement.nativeElement.classList.remove('d-none');
 
     if (this.gameName === EXECUTIVE_CONTROL_GAME) {
-      this.showSecondPlayBtn = false;
+      this.gamePlayService.helpExecControlGame(this.isSoundOn);
       this.dialogBoxService.setDialogChild(ExecControlInstructionsComponent);
-      // this.gamePlayService.helpExecControlGame(this.isSoundOn, this.gameDivElement);
     }
     if (this.gameName === INTERPRETATION_BIAS_GAME) {
       this.gamePlayService.helpIBGame();
@@ -158,8 +169,10 @@ export class CommonGameComponent implements OnInit {
   }
   onHomeClick() {
     this.showSideButtons = false;
-    window.location.reload();
-    // $( '#game_div' ).load(window.location.href + ' #game_div' );
+    this.showComponent = false;
+    setTimeout((x: any) => {
+      this.showComponent = true;
+    }, 10);
   }
 
   onExitClick() {
@@ -168,6 +181,7 @@ export class CommonGameComponent implements OnInit {
 
   onPauseClick() {
     this.showSideButtons = true;
+    this.gamePaused = true;
     this.pauseBtnElement.nativeElement.classList.add('d-none');
     if (this.gameName === INTERPRETATION_BIAS_GAME) {
       this.gamePlayService.pauseIBGame();
@@ -191,6 +205,7 @@ export class CommonGameComponent implements OnInit {
 
   onResumeClick() {
     this.showSideButtons = false;
+    this.gamePaused = false;
     this.pauseBtnElement.nativeElement.classList.remove('d-none');
     if (this.gameName === EXECUTIVE_CONTROL_GAME) {
       this.gamePlayService.resumeExecControlGame();
@@ -214,9 +229,9 @@ export class CommonGameComponent implements OnInit {
 
   onRestartClick() {
     this.showSideButtons = false;
+    this.gamePaused = false;
     this.pauseBtnElement.nativeElement.classList.remove('d-none');
     if (this.gameName === EXECUTIVE_CONTROL_GAME) {
-      this.isSoundOn = true;
       this.gamePlayService.restartExecControlGame(this.isSoundOn);
     }
     if (this.gameName === INTERPRETATION_BIAS_GAME) {
@@ -236,6 +251,7 @@ export class CommonGameComponent implements OnInit {
   onSoundClick() {
     this.isSoundOn = !this.isSoundOn;
     if (this.gameName === EXECUTIVE_CONTROL_GAME) {
+      console.log('sound', this.isSoundOn);
       this.gamePlayService.soundExecControlGame(this.isSoundOn);
     }
     // else if (this.gameName === FRIENDLY_FACE_GAME) {
