@@ -11,23 +11,33 @@
 
 #mi-game-div{
   height: 100%;
-  max-width: 100%;
+  // width: 100%;
+  max-width: 360px;
   display: flex;
   justify-content:center !important;
-  background-color: #45b9bc;
+  // background-color: #45b9bc;
   padding-right: 0px !important;
-	padding-left: 0px !important;
+  padding-left: 0px !important;
+  background-image: url("../../../../../../assets/games/mental-imagery-game/Background with texture.png");
+
 }
 *:focus {
   outline: none;
 }
-.game-start{
-  height: 100%;
-  display: flex;
-	// max-height: 640px;
-  max-width: 360px;
-  background-image: url("../../../../../../assets/games/mental-imagery-game/Background with texture.png");
-  // overflow: auto;
+// .game-start{
+//   height: 100%;
+//   display: flex;
+// 	// max-height: 640px;
+//   // max-width: 100%;
+//   max-width: 360px;
+//   background-image: url("../../../../../../assets/games/mental-imagery-game/Background with texture.png");
+//   // overflow: auto;
+// }
+.game-start-image{
+  margin-top: 10vh;
+  width: 250px;
+  height: 200px;
+  
 }
 
 .noteBook-border {
@@ -54,3 +64,4 @@
   width: 8px;
   margin-top: -10vh;
 }
+

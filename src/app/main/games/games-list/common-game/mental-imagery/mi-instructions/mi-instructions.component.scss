@@ -6,6 +6,16 @@ input[type='image'] {
     margin: 10px; 
     
 }
+.game-play-image{
+    display: block;
+    margin-top: 2vh;
+    // width: 100%;
+    height: 120px;
+    text-align: center !important;
+    margin-left: auto;
+    margin-right: auto;
+    
+  }
 .buttonLocation{
     position: absolute;
     bottom: 0;
@@ -15,11 +25,22 @@ input[type='image'] {
     outline: none;
 }
 
-.container{
-    width: 70vw;
-}
+// .container{
+//     width: 70vw;
+// }
 h1 {
     font-size: 1.5em;
+    text-align: center;
+}
+p {
+    font-size: 14px;
+}
+.mat-new{
+    background-color: #F17878 !important;
+    border-color: #F17878 !important;
+    color: #FFF;
+    min-width:100%;
+    
 }
 
 

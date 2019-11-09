@@ -3,6 +3,7 @@ import { MIUser } from './mi-user.model';
 import { MICurrentStateService } from './mi-current-state.service';
 import { Level } from './level.model';
 import { MiPlayComponent } from './mi-play/mi-play.component';
+import { MIPlayService } from './mi-play.service';
 
 @Component({
   selector: 'app-mental-imagery',
@@ -13,7 +14,8 @@ export class MentalImageryComponent implements OnInit {
 
   @ViewChild(MiPlayComponent, {static: false}) miPlayComponent!: MiPlayComponent;
 
-  constructor(private getCurrentState: MICurrentStateService) { }
+  constructor(private getCurrentState: MICurrentStateService,
+              private miPlayService: MIPlayService) { }
 
   user = new MIUser('sourav', 0, [], null);
   levelList: Level[] = [];
@@ -24,6 +26,9 @@ export class MentalImageryComponent implements OnInit {
   showInstructionIcon = true;
 
   ngOnInit() {
+    this.miPlayService.startPlaying.subscribe( () => {
+      this.startPlayingMIGame();
+    })
     // const scenario2 = new Scenario(
     //     'You sit on your table and open your books and laptop in a hurry. You open the list of assignment topics.' +
     //     ' Your professor has given all students different topics. You take a look at the topic assigned to you. The assignment' +
@@ -115,5 +120,11 @@ export class MentalImageryComponent implements OnInit {
   }
   replayMIGame() {
     this.miPlayComponent.onNavBarReplay();
+  }
+  pauseMIGame() {
+    this.miPlayComponent.onPause();
+  }
+  resumeMIGame() {
+    this.miPlayComponent.onResumePlay();
   }
 }

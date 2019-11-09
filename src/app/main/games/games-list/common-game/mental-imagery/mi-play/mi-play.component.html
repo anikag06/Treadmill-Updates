@@ -73,6 +73,7 @@
   </div>
   <div class="row">
     <div class="col-6 offset-3 text-center" *ngIf="notificationHeader && notificationHeader.length > 0">
+      <img class="gameFinishedImg" src="../../../../../../../assets/games/mental-imagery-game/Great.png">
         <p><b>{{notificationHeader}}</b></p>
         <p>{{notificationBody}}</p>
     </div>
@@ -85,7 +86,7 @@
           <div class="ml-1">>></div>
         <!-- </div> -->
         <mat-form-field >
-           <input matInput name="blank" [(ngModel)]="blank" [disabled]="disabled" (input)="storeTypedLetters()" #inputEl >
+           <input matInput name="blank" [(ngModel)]="blank" [readonly]="disabled" (input)="storeTypedLetters()" #inputEl >
           </mat-form-field>
         
         <!-- <input type="text" name="blank" class="form-control" [(ngModel)]="blank" [disabled]="disabled" #inputEl autocomplete="off" (input)="storeTypedLetters()"> -->

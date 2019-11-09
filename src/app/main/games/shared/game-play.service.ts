@@ -13,6 +13,7 @@ import {
 } from '../games-list/common-game/interpretation-bias-game/ib-game-instructions/ib-game-instructions.component';
 import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
 import { ExecControlInstructionsComponent } from '../games-list/common-game/executive-control-game/exec-control-instructions/exec-control-instructions.component';
+import { MiInstructionsComponent } from '../games-list/common-game/mental-imagery/mi-instructions/mi-instructions.component';
 
 
 // for interpretation bias game
@@ -534,7 +535,15 @@ export class GamePlayService  {
   }
 
   // for mental imagery game
-  playMentalImageryGame() {
+  playMentalImageryGame(gameDivElement: any) {
+    const domEvent =  new CustomEvent('overlayCalledEvent', {bubbles:true});
+    gameDivElement.nativeElement.dispatchEvent(domEvent);
+    this.helpMIGame();
+
   }
+  helpMIGame() {
+    this.dialogBoxService.setDialogChild(MiInstructionsComponent);
+  }
+  
 }
 

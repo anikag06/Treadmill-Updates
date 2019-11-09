@@ -253,6 +253,7 @@ import { ExecControlHelpService } from '@/main/games/games-list/common-game/exec
     IbMainTrainingComponent,
     DialogContainerComponent,
     ExecControlInstructionsComponent,
+    MiInstructionsComponent,
   ]
 })
 export class MainModule {
