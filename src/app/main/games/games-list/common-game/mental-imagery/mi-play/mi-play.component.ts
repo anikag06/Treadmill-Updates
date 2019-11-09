@@ -40,7 +40,7 @@ export class MiPlayComponent implements OnInit {
   notificationHeader = '';
   notificationBody = '';
   disabled!: boolean;
-  // retry = false;
+  retry = false;
   sentiment = require('../../../../../../../../node_modules/wink-sentiment/src/wink-sentiment.js');
   nlp = require('../../../../../../../../node_modules/compromise/builds/compromise.min.js');
   openNavBar = false;
@@ -175,6 +175,7 @@ export class MiPlayComponent implements OnInit {
       delete this.currentScenario;
       this.updateNotification('Stuck in a negative thought cycle ?', 'Type yes to retry or any other character to exit?');
       this.getCurrentStateService.retry = true;
+      this.retry = this.getCurrentStateService.retry;
     } else {
       this.invalidInput = true;
     }

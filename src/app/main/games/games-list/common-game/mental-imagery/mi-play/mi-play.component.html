@@ -73,7 +73,10 @@
   </div>
   <div class="row">
     <div class="col-6 offset-3 text-center" *ngIf="notificationHeader && notificationHeader.length > 0">
-      <img class="gameFinishedImg" src="../../../../../../../assets/games/mental-imagery-game/Great.png">
+      <div *ngIf="!retry">
+          <img class="gameFinishedImg" src="../../../../../../../assets/games/mental-imagery-game/Great.png">
+
+      </div>
         <p><b>{{notificationHeader}}</b></p>
         <p>{{notificationBody}}</p>
     </div>
