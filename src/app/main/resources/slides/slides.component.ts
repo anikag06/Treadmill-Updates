@@ -200,7 +200,7 @@ export class SlidesComponent implements OnInit {
     this.stepDataService.storeCompletionData(this.completionData)
       .subscribe( (data) => { }
       );
-    this.commonDialogService.openCongratsDialog(this.current_step_id, this.next_step_id, this.isLastStep, this.time_spent);
+    this.commonDialogService.openCongratsDialog(this.current_step_id, this.next_step_id, this.isLastStep);
     this.showNextStepBtn = true;
   }
   onNextStepClick() {

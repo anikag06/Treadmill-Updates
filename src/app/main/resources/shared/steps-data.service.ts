@@ -24,7 +24,6 @@ export class StepsDataService {
   }
 
   getBadgeInfo(moduleSequence: number) {
-    console.log(moduleSequence);
     return this.http.get(environment.API_ENDPOINT + '/api/v1/badges/MODULE-' + moduleSequence + '/');
   }
 }

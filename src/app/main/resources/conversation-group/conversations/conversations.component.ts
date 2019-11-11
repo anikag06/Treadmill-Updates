@@ -565,7 +565,7 @@ onCompleted() {
       console.log('bhdhbhdid');
     });
 
-  this.commonDialogService.openCongratsDialog( current_step_id, next_step_id, isLastStep, this.time);
+  this.commonDialogService.openCongratsDialog( current_step_id, next_step_id, isLastStep);
 }
 
 
