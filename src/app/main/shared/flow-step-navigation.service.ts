@@ -50,7 +50,9 @@ export class FlowStepNavigationService {
       } else if (step.data_type === INTRODUCTION_PAGE) {
         return `/resources/introduction/${step.step_group_sequence}/`;
       } else if (step.data_type === CONCLUSION_PAGE) {
-        return `/resources/conclusion/${step.id}/`;
+        console.log("conclusion page: ", step.step_group_sequence);
+        console.log("data type: ", step.data_type);
+        return `/resources/conclusion/${step.step_group_sequence}/`;
       } else if (step.data_type === INTRODUCTORY_ANIMATION) {
         return `/dashboard`;
       }

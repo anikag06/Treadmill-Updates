@@ -1,0 +1,55 @@
+<ng-template [ngIf]="dataLoaded && !locked">
+  <div>
+    Congratulations! You have completed the <span class="emphasis">{{moduleName}}</span> module.
+    <br>
+    In this module:
+    <ul>
+      <li>
+        you have learned how to change your behavior to change how you feel.
+      </li>
+      <li>
+        you have learned techniques to stop procrastinating.
+      </li>
+    </ul>
+  </div>
+  <div *ngIf="tasks?.length > 0">
+    You have committed to do the following tasks:
+    <ul>
+      <li *ngFor="let task of tasks">
+        <span>{{ task }}</span>
+      </li>
+    </ul>
+  </div>
+  <div>
+    You can set new tasks for yourself and see all your created tasks at: <a routerLink="{{taskFormLink}}">Task
+      form</a>
+  </div>
+  <div>
+    Doing these tasks will give you a sense of joy and control in your life.
+    <br>
+    Give yourself credit for even trying to do something. Remember that being in depression is like carrying an extra
+    load of 50 KGs. So, doing even the simplest tasks require a lot of effort and willpower. If you are doing anything
+    other than lying on your bed having the same negative thoughts again and again, give yourself credit.
+    <br>
+    In the next module, <span class="emphasis">{{nextModuleName}}</span>, you will learn how to change your thinking
+    style.
+  </div>
+</ng-template>
+<ng-template [ngIf]="dataLoaded && locked">
+  <div class="row">
+    <div class="col">
+      <div class="text-center loader">
+        This content is not yet unlocked for you.
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template [ngIf]="!dataLoaded">
+  <div class="row">
+    <div class="col">
+      <div class="text-center loader">
+        <img src="assets/shared/dna-loader.svg" alt="loader" width="200">
+      </div>
+    </div>
+  </div>
+</ng-template>

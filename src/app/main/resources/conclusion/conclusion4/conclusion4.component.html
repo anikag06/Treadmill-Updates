@@ -1,0 +1,80 @@
+<ng-template [ngIf]="dataLoaded && !locked">
+  <div>
+    Congratulations! You have completed the <span class="emphasis">{{moduleName}}</span> module.
+  </div>
+  <div *ngIf="balancedBelief">
+    <span *ngIf="negativeThought">
+      Based on the negative thought: {{ negativeThought }}
+    </span>
+    <br>
+    You identified this belief that made you vulnerable to negative thinking: {{ negativeBelief }}
+    <br>
+    After evaluating the belief using the <a routerLink="{{beliefChangeFormLink}}">Belief change form</a>, you came up
+    with the balanced belief: {{ balancedBelief }}
+    <br>
+    This balanced belief makes you less vulnerable to negative thinking in the long term.
+    <br>
+    You can find all your work on your beliefs here: <a routerLink="{{beliefChangeFormLink}}">Belief change form</a>
+  </div>
+  <div>
+    From now on, whenever you identify a negative thought, use the downward arrow technique in the <a
+      routerLink="{{beliefChangeFormLink}}">Belief change form</a> to identify the negative belief. You'll realize that
+    many of your negative thought arise from a set of few beliefs and mantras. Identify these beliefs and modify them
+    using the techniques you have learned in this module.
+    <br>
+    To test the validity of your beliefs, you can use the <a routerLink="{{experimentToTestBeliefFormLink}}">Experiment
+      to test belief form</a>
+  </div>
+  <div>
+    As you have held these beliefs for a long time, it will take time for you to modify the beliefs. You'll have to use
+    different techniques to modify the same belief. It will help you look at the same belief from different points of
+    view. Eventually, you'll develop a more realistic and healthy belief system.
+  </div>
+  <div>
+    Make a commitment now. How many times would you like to work on a belief over the next week?
+    <br>
+    <mat-form-field>
+      <mat-select [(value)]="commitment">
+        <mat-option *ngFor="let option of options" [value]="option">{{option}}</mat-option>
+      </mat-select>
+      <mat-hint>Recommended: at least 1/day</mat-hint>
+    </mat-form-field>
+    <div *ngIf="commitment">
+      Great 👍!
+    </div>
+  </div>
+  <br><br>
+  <div>
+    In the next module, <span class="emphasis">{{nextModuleName}}</span>, you will learn how to control excessive
+    worrying. See you there.
+  </div>
+  <div class="row align-self-end px-0">
+    <button class="completed-btn float-right" type="button" *ngIf='!stepCompleted; else isCompleted ' mat-raised-button
+      color="primary" (click)="onCompleted()">
+      Completed
+    </button>
+    <ng-template #isCompleted>
+      <button class="completed-btn float-right" type="button" mat-raised-button color="primary" (click)="onDashboard()">
+        Go to dashboard
+      </button>
+    </ng-template>
+  </div>
+</ng-template>
+<ng-template [ngIf]="dataLoaded && locked">
+  <div class="row">
+    <div class="col">
+      <div class="text-center loader">
+        This content is not yet unlocked for you.
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template [ngIf]="!dataLoaded">
+  <div class="row">
+    <div class="col">
+      <div class="text-center loader">
+        <img src="assets/shared/dna-loader.svg" alt="loader" width="200">
+      </div>
+    </div>
+  </div>
+</ng-template>

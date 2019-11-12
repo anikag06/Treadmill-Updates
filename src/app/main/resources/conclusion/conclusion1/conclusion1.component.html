@@ -1,0 +1,67 @@
+<ng-template [ngIf]="dataLoaded && !locked">
+  <div>
+    Congratulations! You have completed the <span class="emphasis">{{moduleName}}</span> module.
+    <br>
+    In this module, you have learned how your <span class="emphasis">thoughts</span>, <span
+      class="emphasis">feelings</span>, and <span class="emphasis">behaviors</span> influence each other.
+    <br>
+    You have also learned how to identify your <span class="emphasis">thoughts</span>, <span
+      class="emphasis">feelings</span>, and <span class="emphasis">behaviors</span> following an upsetting situation. In
+    other words, you have learned to be more self-aware.
+    <br>
+    You can see the situations, thoughts, feelings, and behaviors you have identified at this link <a
+      routerLink="{{thoughtRecordFormLink}}">Thought record form</a>.
+    <br>
+    For the next week, whenever you face an upsetting situation or whenever you notice that your mood is getting worse
+    (sad, angry etc.), write down the situation, thought, feeling, and behavior in the <a
+      routerLink="{{thoughtRecordFormLink}}">Thought record form</a>.
+    <br>
+  </div>
+  <div>
+    Make a commitment now. How many times would you like to identify a thought?
+    <br>
+    <mat-form-field>
+      <mat-select [(value)]="commitment">
+        <mat-option *ngFor="let option of options" [value]="option">{{option}}</mat-option>
+      </mat-select>
+      <mat-hint>Recommended: at least 1/day</mat-hint>
+    </mat-form-field>
+    <div *ngIf="commitment">
+      Great 👍!
+    </div>
+  </div>
+  <br><br>
+  <div>
+    In the next module, <span class="emphasis">{{nextModuleName}}</span>, you will learn how to improve your daily
+    routine to improve your mood. See you there.
+  </div>
+  <div class="row align-self-end px-0">
+    <button class="completed-btn float-right" type="button" *ngIf='!stepCompleted; else isCompleted ' mat-raised-button
+      color="primary" (click)="onCompleted()">
+      Completed
+    </button>
+    <ng-template #isCompleted>
+      <button class="completed-btn float-right" type="button" mat-raised-button color="primary" (click)="onDashboard()">
+        Go to dashboard
+      </button>
+    </ng-template>
+  </div>
+</ng-template>
+<ng-template [ngIf]="dataLoaded && locked">
+  <div class="row">
+    <div class="col">
+      <div class="text-center loader">
+        This content is not yet unlocked for you.
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template [ngIf]="!dataLoaded">
+  <div class="row">
+    <div class="col">
+      <div class="text-center loader">
+        <img src="assets/shared/dna-loader.svg" alt="loader" width="200">
+      </div>
+    </div>
+  </div>
+</ng-template>

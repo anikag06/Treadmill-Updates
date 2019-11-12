@@ -7,16 +7,22 @@ import { TaskFormsComponent } from '@/main/resources/forms/task-forms/task-forms
 import { SlidesComponent } from './slides/slides.component';
 import { ConversationsComponent } from './conversation-group/conversations/conversations.component';
 import { ConversationGroupComponent } from './conversation-group/conversation-group.component';
-import { ConclusionPageComponent } from './conclusion-page/conclusion-page.component';
 import { IntroductionComponent } from './introduction/introduction.component';
 import { Introduction1Component } from './introduction/introduction1/introduction1.component';
 import { Introduction2Component } from './introduction/introduction2/introduction2.component';
 import { Introduction3Component } from './introduction/introduction3/introduction3.component';
 import { Introduction4Component } from './introduction/introduction4/introduction4.component';
 import { Introduction5Component } from './introduction/introduction5/introduction5.component';
+import { ConclusionComponent } from './conclusion/conclusion.component';
+import { Conclusion1Component } from './conclusion/conclusion1/conclusion1.component';
+import { Conclusion2Component } from './conclusion/conclusion2/conclusion2.component';
+import { Conclusion3Component } from './conclusion/conclusion3/conclusion3.component';
+import { Conclusion4Component } from './conclusion/conclusion4/conclusion4.component';
+import { Conclusion5Component } from './conclusion/conclusion5/conclusion5.component';
 
 export const resourcesRoutes: Routes = [
-  { path: '', component: FormsComponent, children: [
+  {
+    path: '', component: FormsComponent, children: [
       { path: 'forms', component: FormsListComponent },
       { path: 'forms/problem-solving', component: ProblemSolvingWorksheetsComponent },
       { path: 'forms/tasks', component: TaskFormsComponent },
@@ -25,15 +31,24 @@ export const resourcesRoutes: Routes = [
   { path: 'conversations', component: ConversationsComponent },
   { path: 'conversations-group/:id', component: ConversationGroupComponent },
   { path: 'slides/:id', component: SlidesComponent },     //:id here is step_id
-  { path: 'introduction', component: IntroductionComponent, children:[
+  {
+    path: 'introduction', component: IntroductionComponent, children: [
       { path: '1', component: Introduction1Component },
       { path: '2', component: Introduction2Component },
       { path: '3', component: Introduction3Component },
       { path: '4', component: Introduction4Component },
       { path: '5', component: Introduction5Component },
-    ] 
+    ]
   },
-  { path: 'conclusion/:id', component: ConclusionPageComponent },
+  {
+    path: 'conclusion', component: ConclusionComponent, children: [
+      { path: '1', component: Conclusion1Component },
+      { path: '2', component: Conclusion2Component },
+      { path: '3', component: Conclusion3Component },
+      { path: '4', component: Conclusion4Component },
+      { path: '5', component: Conclusion5Component },
+    ]
+  },
 ];
 
 @NgModule({

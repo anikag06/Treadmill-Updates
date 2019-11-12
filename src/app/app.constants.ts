@@ -110,8 +110,9 @@ export const SLIDES_FEEDBACK = '/api/v1/learn/feedback/';
 export const STORE_FEEDBACK = '/api/v1/learn/slides-feedback/';
 export const SLIDE_COMPLETE_DATA = FLOW_STEP_MARK_DONE;
 
-// introduction step related paths
+// introduction and conclusion step related paths
 export const INTRODUCTION_DATA = '/api/v1/introduction-conclusion/user-introduction/';
+export const CONCLUSION_DATA = '/api/v1/introduction-conclusion/user-conclusion/';
 
 export const GAME_ATTRIBUTION_STYLE = 'GAME-ATTRIBUTION-STYLE';
 export const GAME_INTERPRETATION_BIAS = 'GAME-INTERPRETATION-BIAS';
@@ -122,3 +123,6 @@ export const GAME_IDENTIFY_COGNITIVE_DISTORTION = 'GAME-IDENTIFY-COGNITIVE-DISTO
 export const GAME_MENTAL_IMAGERY = 'GAME-MENTAL-IMAGERY';
 export const FORM_TASK = 'FORM-TASK';
 export const FORM_PROBLEM_SOLVING_WORKSHEET = 'FORM-PROBLEM-SOLVING-WORKSHEET';
+
+// committment options
+export const COMMITTMENT_OPTIONS = ["1/day", "2/day", "3/day", "4/day", "More than 4/day"];
