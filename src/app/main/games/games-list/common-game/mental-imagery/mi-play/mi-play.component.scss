@@ -95,18 +95,23 @@ form {
 .barsDiv{
     font-size:0.6em;
 }
+
+.mat-progress-bar{
+    height: 3px;
+}
+
+.doneBtn{
+color:#C75252;
+float:right;
+}
+    
 .mat-new{
     background-color: #F17878 !important;
     border-color: #F17878 !important;
     color: #FFF;
     
 }
-.gameFinishedImg{
-    height: 70px;
-    width: 70px;
-    text-align: center;
-    
-}
+
 
 /* For thinning the ScrollBar */
 /* width */

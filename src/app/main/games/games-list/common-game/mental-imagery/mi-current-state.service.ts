@@ -145,7 +145,7 @@ export class MICurrentStateService{
         '',
         500,
         scenario10,
-        'Your money runs out. You stopped talking to  your parents because you grew tired of heir constant nagging. '+ 
+        'Your money runs out. You stopped talking to  your parents because you grew tired of their constant nagging. '+ 
         'Unable to fund your education,you drop out of college.',
         null
         );

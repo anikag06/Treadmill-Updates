@@ -118,6 +118,7 @@ import { DialogBoxChildDirective } from './shared/custom-dialog/dialog-container
 import { ExecControlInstructionsComponent } from './games/games-list/common-game/executive-control-game/exec-control-instructions/exec-control-instructions.component';
 // tslint:disable-next-line: max-line-length
 import { ExecControlHelpService } from '@/main/games/games-list/common-game/executive-control-game/exec-control-instructions/exec-control-help.service';
+import { MiWinComponent } from './games/games-list/common-game/mental-imagery/mi-win/mi-win.component';
 @NgModule({
   declarations: [
     ModulesComponent,
@@ -183,6 +184,7 @@ import { ExecControlHelpService } from '@/main/games/games-list/common-game/exec
     DialogContainerComponent,
     DialogBoxChildDirective,
     ExecControlInstructionsComponent,
+    MiWinComponent,
   ],
   imports: [
     CommonModule,
@@ -254,6 +256,7 @@ import { ExecControlHelpService } from '@/main/games/games-list/common-game/exec
     DialogContainerComponent,
     ExecControlInstructionsComponent,
     MiInstructionsComponent,
+    MiWinComponent 
   ]
 })
 export class MainModule {

@@ -3,6 +3,9 @@ import { MIUser } from '../mi-user.model';
 import { Level } from '../level.model';
 import { Scenario } from '../scenario.model';
 import { MICurrentStateService } from '../mi-current-state.service';
+import { MIPlayService } from '../mi-play.service';
+import { MiWinComponent } from '../mi-win/mi-win.component';
+import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
 declare function require(name: string): any;
 
 @Component({
@@ -13,6 +16,8 @@ declare function require(name: string): any;
 export class MiPlayComponent implements OnInit {
 
   @ViewChild('inputEl', {static: false}) inputEl!: ElementRef;
+  @ViewChild('doneBtn', {static: false}) doneBtn!: ElementRef;
+
   // @ViewChild('submitBtn') submitBtn: ElementRef;
   // @Output() scoreUpdated = new EventEmitter<number>();
 
@@ -21,8 +26,11 @@ export class MiPlayComponent implements OnInit {
   // tslint:disable-next-line:no-output-on-prefix
   @Output() onNvHome = new EventEmitter<void>();
 
+  levelChanged = false;
   user!: MIUser;
   currentLevel!: Level;
+  nextLevel!: Level;
+
   currentScenario!: Scenario;
   replayMode = false;
  // continuePlaying = false;
@@ -44,16 +52,22 @@ export class MiPlayComponent implements OnInit {
   sentiment = require('../../../../../../../../node_modules/wink-sentiment/src/wink-sentiment.js');
   nlp = require('../../../../../../../../node_modules/compromise/builds/compromise.min.js');
   openNavBar = false;
-  goldValue:number = 20;
-  silverValue:number = 30;
-  bronzeValue:number = 40;
-  
+  goldValue = 20;
+  silverValue = 30;
+  bronzeValue = 40;
+  gameValue = 20;  
 
 
-  constructor(private getCurrentStateService: MICurrentStateService) { }
+  constructor(private getCurrentStateService: MICurrentStateService,
+              private miPlayService: MIPlayService,
+              private dialogBoxService: DialogBoxService,) { }
 
   ngOnInit() {
     this.getCurrentStateService.getContent();
+    this.miPlayService.levelUpdate.subscribe(() =>{
+      this.getCurrentStateService.continuePlaying = true;
+      this.situationHandler();
+    });
   }
 
   // tslint:disable-next-line:use-life-cycle-interface
@@ -113,6 +127,22 @@ export class MiPlayComponent implements OnInit {
     }
     // this.inputEl.nativeElement.focus();
   }
+  onTryAgain() {
+    this.getCurrentStateService.retry = false;
+    this.retry = this.getCurrentStateService.retry;
+    this.resetCurrent();
+    // tslint:disable-next-line:max-line-length
+    this.getCurrentStateService.user.points.push(-Math.abs(this.getCurrentStateService.user.currentPoints() - 1000 * this.getCurrentStateService.user.level));
+    // console.log(this.getCurrentStateService.user.points);
+    this.getCurrentStateService.resetScenario();
+    this.currentScenario = this.getCurrentStateService.currentScenario;
+  }
+
+  // onStartNext() {
+  //   this.getCurrentStateService.continuePlaying = true;
+  //   this.situationHandler();
+  //   console.log('play next');
+  // }
 
   situationHandler() {
     if (this.getCurrentStateService.retry) {
@@ -128,7 +158,7 @@ export class MiPlayComponent implements OnInit {
         this.exit();
       }
     } else if (this.getCurrentStateService.continuePlaying) {
-      if (this.findMatching(this.YES, this.blank)) {
+      // if (this.findMatching(this.YES, this.blank)) {
         this.getCurrentStateService.continuePlaying = false;
         this.resetCurrent();
         this.getCurrentStateService.levelUpdate();
@@ -138,9 +168,9 @@ export class MiPlayComponent implements OnInit {
 
         this.getCurrentStateService.updateScenario();
         this.currentScenario = this.getCurrentStateService.currentScenario;
-      } else {
-        this.exit();
-      }
+      // } else {
+      //   this.exit();
+      // }
     } else if (this.getCurrentStateService.currentScenario) {
       this.scenarioHandler();
     }
@@ -160,8 +190,13 @@ export class MiPlayComponent implements OnInit {
         if (this.getCurrentStateService.user.level + 1 < this.getCurrentStateService.levelList.length) {
           // console.log(CurrentStateService.user.level);
           // console.log(this.getCurrentState.levelList.length);
-          this.updateNotification('You have won', 'type yes to continue or no exit');
-          this.getCurrentStateService.continuePlaying = true;
+          // this.updateNotification('You have won', 'type yes to continue or no exit');
+          this.updateNotification('Great', 'You have completed this task.');
+
+          // console.log(this.getCurrentStateService.levelList[this.getCurrentStateService.user.level+1].title);
+          
+          this.addDoneBtn( );
+          // this.getCurrentStateService.continuePlaying = true;
         } else {
           this.updateNotification('You have completed', 'Congratulations you have completed all modules');
           this.getCurrentStateService.disabled = true;
@@ -173,7 +208,7 @@ export class MiPlayComponent implements OnInit {
       this.updateExtraContent('<i>' + this.currentScenario.wrongText + '</i>');
       delete this.getCurrentStateService.currentScenario;
       delete this.currentScenario;
-      this.updateNotification('Stuck in a negative thought cycle ?', 'Type yes to retry or any other character to exit?');
+      this.updateNotification('You seem to be stuck in a negative thought cycle ?','');
       this.getCurrentStateService.retry = true;
       this.retry = this.getCurrentStateService.retry;
     } else {
@@ -266,9 +301,18 @@ export class MiPlayComponent implements OnInit {
     this.blank = '';
   }
 
+  addDoneBtn() { 
+    setTimeout(() => {
+      this.levelChanged = true;
+      console.log("added Done Btn")}, 4000 );
+  }
+
   onAnyWhereClick() {
+    if (this.inputEl) {
     this.inputEl.nativeElement.focus();
+    }
     this.openNavBar = false;
+
   }
   onPause() {
     // this.openNavBar = true;
@@ -292,6 +336,18 @@ export class MiPlayComponent implements OnInit {
     this.disabled = false;
     this.getCurrentStateService.user.points.push(-Math.abs(this.getCurrentStateService.user.currentPoints() - 1000 * this.getCurrentStateService.user.level));
   }
+  
+  onClickDone() {
+    this.miPlayService.levelChanged.emit();
+    const domEvent =  new CustomEvent('overlayCalledEvent', {bubbles:true});
+    console.log(this.doneBtn.nativeElement);
+    this.doneBtn.nativeElement.dispatchEvent(domEvent);
+    this.dialogBoxService.setDialogChild(MiWinComponent)
+    this.nextLevel = this.getCurrentStateService.levelList[this.getCurrentStateService.user.level + 1];
+    console.log(this.nextLevel.title);
+   
+  }
+
   // onNavBarPlay() {
   //   this.openNavBar = false;
   // }
