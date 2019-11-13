@@ -7,14 +7,12 @@ function config(render_type,swidth,sheight,modeType,center){
 		mode:modeType,
 		parent: "execGame",
 		autoCenter: center,
-		width: swidth,
-		height: sheight
 	};
 	this.physics= {
 		default: 'arcade',
 		arcade: {
 			gravity: { y: 3000 },
-			debug: true
+			debug: false
 				
 			}
 		};
@@ -875,6 +873,7 @@ function preload(){
 
 
 
+
 function create(){
 	
 	ec_game_start_time = generateTS();
@@ -883,6 +882,14 @@ function create(){
 	});
 
 	this.scale.setGameSize(screen_width, screen_height);
+	// var camera = this.cameras.main;
+
+	// camera.scrollX = 1;
+	// camera.scrollY = 1;
+	// console.log(this.scale);
+	// console.log(camera);
+
+
 	//Create physics group for collidables
 	platforms = this.physics.add.group();
 	coins_group=this.physics.add.group();
@@ -1067,37 +1074,33 @@ function create(){
 	if(isTouchDevice==true)
 	{
 	//Jump Button
-		jump_button=this.add.sprite(screen_width*0.06,screen_height*0.97, 'single_jump').setInteractive().setScale(0.35);
-		jump_button.depth=2;
+	
+		jump_button=this.add.image(screen_width*0.06,screen_height*0.97, 'single_jump').setInteractive().setScale(0.35);
+		// jump_button.setScrollFactor(1,1,true);
+		jump_button.depth=10;
 		if(jump_button.y+jump_button.height/2>screen_height)
 		{
 			jump_button.y=screen_height-jump_button.height*0.7/2;
 		}
-		jump_button.height = 50;
-		jump_button.on('pointerdown',function(){
+		// jump_button.height = 50;
+		jump_button.on('pointerdown', function() {
+			console.log('jump button clicked');
 			jump();
 			this.alpha = 1;
 		}, this);
-		// this.input.enableDebug(jump_button, 0xff00ff);
-		// this.input.on('gameobjectover', function (pointer, jump_button) {
-
-		// 	jump();
-		// 	this.alpha = 1;
+	} 
 	
-		// });
-	
-	}
 	//Double jump button
 	if(isTouchDevice){
 		double_jump_button=this.add.sprite(screen_width*0.08+(jump_button.width*0.4),screen_height*0.97, 'double_jump').setInteractive().setScale(0.35);
 	}else{
 		double_jump_button=this.add.sprite(screen_width*0.08,screen_height*0.97, 'double_jump').setInteractive().setScale(0.35);
 	}
-	double_jump_button.depth=2;
+	double_jump_button.depth=10;
 
 	//double jump text
 	double_jump_text=this.add.text(double_jump_button.x+10,screen_height*0.96,"x"+jumps.remaining, { fontFamily: 'Roboto', fontSize: '22px', fill: '#fff',align:'center' });
-	double_jump_text.depth=3;
+	double_jump_text.depth=11;
 	if(double_jump_button.y+double_jump_button.height/2>screen_height)
 	{
 		double_jump_button.y=screen_height-double_jump_button.height*0.7/2;

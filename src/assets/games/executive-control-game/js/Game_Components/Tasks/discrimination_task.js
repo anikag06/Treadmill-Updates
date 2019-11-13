@@ -47,10 +47,11 @@ function discrimination_task_generator()
 					{ fontFamily: 'Roboto', fontSize: '16px', fill: '#FFFFFF',});
 					red_key_button=curr_game.add.image(task_tutorial_text.x+59,task_tutorial_text.y+8,'down_key').setScale(0.6);
 					green_key_button=curr_game.add.image(red_key_button.x,red_key_button.y+37,'up_key').setScale(0.6);
+				red_key_button.depth=14;
+				green_key_button.depth=14;
 			}
 			task_tutorial_text.depth=14;
-			red_key_button.depth=14;
-			green_key_button.depth=14;
+			
 			// task_tutorial_text.setBackgroundColor('rgba(255,255,255,0.6)')
 			// task_tutorial_text.setPadding(24,3,24,3);
 		}
