@@ -115,7 +115,7 @@ export class CommonGameComponent implements OnInit {
       this.gamePaused = false;
     }
     if (this.gameStarted === true && this.gamePaused === false) {
-      this.onPauseClick();
+      // this.onPauseClick();
     }
   }
 
