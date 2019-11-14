@@ -35,7 +35,7 @@ form {
     margin-top: 7vw;
     // text-align: right;
     font-weight: bold;
-    font-family: Roboto, Arial, sans-serif;
+    font-family: Roboto, sans-serif;
 }
 
 .navBar{
@@ -75,7 +75,7 @@ form {
     margin-top: 1vh;
     overflow-y: auto;
     overflow-x:hidden;
-    height:83%;
+    height:70%;
     font-weight: 300;
     
 }
@@ -95,12 +95,46 @@ form {
 .barsDiv{
     font-size:0.6em;
 }
+
+.mat-progress-bar{
+    height: 3px;
+}
+
+.doneBtn{
+color:#C75252;
+float:right;
+}
+    
 .mat-new{
     background-color: #F17878 !important;
     border-color: #F17878 !important;
     color: #FFF;
     
 }
+
+
+/* For thinning the ScrollBar */
+/* width */
+::-webkit-scrollbar {
+    width: 2px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+
 // .gameProgressBar{
 //     margin-left: 15px;
 // }

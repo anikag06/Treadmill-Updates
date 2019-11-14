@@ -9,21 +9,21 @@ import { Scenario } from './scenario.model';
 export class MICurrentStateService{
 
 
-  static user = new MIUser('sourav', 0, [], null);
+  user = new MIUser('sourav', 0, [], null);
   currentLevel!: Level;
   levelList: Level[] = [];
-  static currentScenario: Scenario;
-  static previousText = '';
-  static count= 0;
+  currentScenario!: Scenario;
+  previousText = '';
+  count = 0;
 
-  static extraContent = '';
-  static notificationHeader = '';
-  static notificationBody = '';
+  extraContent = '';
+  notificationHeader = '';
+  notificationBody = '';
 
-  static continuePlaying= false;
-  static retry= false;
-  static disabled= false;
-  static blank= '';
+  continuePlaying= false;
+  retry= false;
+  disabled= false;
+  blank= '';
 
 
   constructor() {
@@ -32,7 +32,7 @@ export class MICurrentStateService{
   
   getContent(){
 
-    if(MICurrentStateService.count===0){
+    if(this.count===0){
       const scenario2 = new Scenario(
         'You sit on your table and open your books and laptop in a hurry. You open the list of assignment topics.' +
         ' Your professor has given all students different topics. You take a look at the topic assigned to you. The assignment' +
@@ -44,7 +44,7 @@ export class MICurrentStateService{
         ' You do not have enough time to look for him everywhere. Time is running out and you have to complete the assignment' +
         ' anyhow before the deadline.',
         'You search for research articles and chapters on the web and in the books and start working in the assignment.' +
-        ' You’ve been working n the assignment for quite some time now and you have almost' +
+        ' You’ve been working on the assignment for quite some time now and you have almost' +
         ' finished it. You look at the time. It is 9:30 am. ' +
         '<p>Quickly, you finish the assignment and submit it on time. You feel relieved and relaxed after submitting the' +
         ' assignment. You a take a deep breath, sit back on your chair, close your eyes and start planning your Saturday.</p>',
@@ -145,7 +145,7 @@ export class MICurrentStateService{
         '',
         500,
         scenario10,
-        'Your money runs out. You stopped talking to  your parents because you grew tired of heir constant nagging. '+ 
+        'Your money runs out. You stopped talking to  your parents because you grew tired of their constant nagging. '+ 
         'Unable to fund your education,you drop out of college.',
         null
         );
@@ -174,40 +174,40 @@ export class MICurrentStateService{
   }
 
   levelUpdate(){
-    MICurrentStateService.user.level+= 1;
+    this.user.level+= 1;
   }
 
   getCurrentLevel(){
-    this.currentLevel =  this.levelList[MICurrentStateService.user.level];
+    this.currentLevel =  this.levelList[this.user.level];
     return this.currentLevel;
   }
 
   updateScenario(){
     
-    if (MICurrentStateService.currentScenario && MICurrentStateService.currentScenario.scenarioNext) {
-      MICurrentStateService.currentScenario = MICurrentStateService.currentScenario.scenarioNext;
-      // return MICurrentStateService.currentScenario;
+    if (this.currentScenario && this.currentScenario.scenarioNext) {
+      this.currentScenario = this.currentScenario.scenarioNext;
+      // return this.currentScenario;
     }
     else {
-      MICurrentStateService.currentScenario = this.currentLevel.scenario;
-      // return MICurrentStateService.currentScenario;
+      this.currentScenario = this.currentLevel.scenario;
+      // return this.currentScenario;
     }
   }
 
   getScenario(){
-    if(MICurrentStateService.currentScenario){
+    if(this.currentScenario){
       
 
     }
-    if(MICurrentStateService.count === 0){
-     MICurrentStateService.currentScenario = this.currentLevel.scenario;
+    if(this.count === 0){
+      this.currentScenario = this.currentLevel.scenario;
     }
 
   }
 
   resetScenario(){
-    MICurrentStateService.currentScenario = this.currentLevel.scenario;
-    //return MICurrentStateService.currentScenario;
+    this.currentScenario = this.currentLevel.scenario;
+    //return this.currentScenario;
   }
 
 }

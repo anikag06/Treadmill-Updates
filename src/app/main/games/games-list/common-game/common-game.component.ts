@@ -18,6 +18,7 @@ import { EXECUTIVE_CONTROL_GAME,
 import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
 import { IbGameInstructionsComponent } from './interpretation-bias-game/ib-game-instructions/ib-game-instructions.component';
 import { ExecControlInstructionsComponent } from './executive-control-game/exec-control-instructions/exec-control-instructions.component';
+import { MIPlayService } from './mental-imagery/mi-play.service';
 
 declare let $: any;
 
@@ -68,6 +69,7 @@ export class CommonGameComponent implements OnInit {
     private route: ActivatedRoute,
     private location: Location,
     private dialogBoxService: DialogBoxService,
+    private miPlayService: MIPlayService,
     private ref: ChangeDetectorRef
   ) {   }
 
@@ -139,7 +141,8 @@ export class CommonGameComponent implements OnInit {
     } else if (this.gameName === FRIENDLY_FACE_GAME) {
       this.gamePlayService.playFriendlyFaceGame(this.device_type);
     } else if (this.gameName === MENTAL_IMAGERY_GAME) {
-      this.miGameComponent.startPlayingMIGame();
+      // this.miGameComponent.startPlayingMIGame();
+      this.gamePlayService.playMentalImageryGame(this.gameDivElement);
     }
   }
 
@@ -158,7 +161,7 @@ export class CommonGameComponent implements OnInit {
       this.gamePlayService.helpIBGame();
     }
     if (this.gameName === MENTAL_IMAGERY_GAME) {
-      this.miGameComponent.goToMIGameInstruction();
+      this.gamePlayService.helpMIGame();
     }
     const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
     this.pauseBtnElement.nativeElement.dispatchEvent(domEvent);
@@ -195,6 +198,9 @@ export class CommonGameComponent implements OnInit {
     if (this.gameName === FRIENDLY_FACE_GAME) {
       this.gamePlayService.pauseFaceGame();
     }
+    if (this.gameName === MENTAL_IMAGERY_GAME) {
+      this.miGameComponent.pauseMIGame();
+    }
   }
 
   onResumeClick() {
@@ -215,6 +221,9 @@ export class CommonGameComponent implements OnInit {
     }
     if (this.gameName === FRIENDLY_FACE_GAME) {
       this.gamePlayService.resumeFaceGame();
+    }
+    if (this.gameName === MENTAL_IMAGERY_GAME) {
+      this.miGameComponent.resumeMIGame();
     }
   }
 
