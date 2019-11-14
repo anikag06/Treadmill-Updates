@@ -11,6 +11,7 @@ import { Level } from '../level.model';
 export class MiWinComponent implements OnInit {
 
   nextLevel!: Level;
+  currentLevel!: Level;
 
   constructor(private getCurrentStateService: MICurrentStateService,
               private miPlayService: MIPlayService,
@@ -18,13 +19,16 @@ export class MiWinComponent implements OnInit {
 
   ngOnInit() {
     console.log('done');
-    this.miPlayService.levelChanged.subscribe(()=>{
-      console.log('initialised');
-      this.nextLevel = this.getCurrentStateService.levelList[this.getCurrentStateService.user.level + 1];
-          console.log(this.nextLevel.title);
+    console.log(this.getCurrentStateService.currentLevel.title);
+    this.nextLevel = this.getCurrentStateService.levelList[this.getCurrentStateService.user.level + 1];
+    // console.log(this.nextLevel.title);
+    // this.miPlayService.levelChanged.subscribe(()=>{
+    //   console.log('initialised');
+    //   this.nextLevel = this.getCurrentStateService.levelList[this.getCurrentStateService.user.level + 1];
+    //       console.log(this.nextLevel.title);
          
       
-    })
+    // })
   }
 
  

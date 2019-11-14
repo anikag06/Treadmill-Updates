@@ -6,12 +6,35 @@ import { MICurrentStateService } from '../mi-current-state.service';
 import { MIPlayService } from '../mi-play.service';
 import { MiWinComponent } from '../mi-win/mi-win.component';
 import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
+import { trigger, state, transition, style, animate } from '@angular/animations';
 declare function require(name: string): any;
 
 @Component({
   selector: 'app-mi-play',
   templateUrl: './mi-play.component.html',
-  styleUrls: ['./mi-play.component.scss']
+  styleUrls: ['./mi-play.component.scss'],
+  animations:[
+    trigger('text',[
+      state('out', style({
+        opacity:1,
+        transform:'translateY(0px)'
+      })),
+      // transition('* => *', [
+      //   style({
+      //     opacity:1,
+      //     transform:'translateY(100px)'
+      //   }),
+      //   animate(300)]),
+    
+      transition('* => *', [
+        animate((300),style({
+          opacity:0,
+          transform:'translateY(-300px)'
+        }))
+    ]),
+  
+  ])
+]
 })
 export class MiPlayComponent implements OnInit {
 
@@ -33,7 +56,6 @@ export class MiPlayComponent implements OnInit {
 
   currentScenario!: Scenario;
   replayMode = false;
- // continuePlaying = false;
   blank = '';
   YES = ['Y', 'y', 'ye', 'yes', 'YE', 'YES', 'Yes', 'yEs', 'yE', 'Ye'];
   NO = ['N', 'n', 'No', 'no', 'nO'];
@@ -338,6 +360,7 @@ export class MiPlayComponent implements OnInit {
   }
   
   onClickDone() {
+    this.levelChanged = false;
     this.miPlayService.levelChanged.emit();
     const domEvent =  new CustomEvent('overlayCalledEvent', {bubbles:true});
     console.log(this.doneBtn.nativeElement);
