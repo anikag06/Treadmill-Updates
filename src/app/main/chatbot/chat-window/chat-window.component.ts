@@ -38,7 +38,7 @@ declare var twemoji: any;
         animate('0.1s cubic-bezier(0.0, 0.0, 0.2, 1)')
       ]),
       transition('closed => open', [
-        animate('0.1s cubic-bezier(0.4, 0.0, 1, 1)')
+        animate( '0.1s cubic-bezier(0.4, 0.0, 1, 1)')
       ]),
     ])
   ]
