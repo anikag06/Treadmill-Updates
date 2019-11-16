@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
 .chat-window {
-  width: 344px;
+  width: auto;
   height: auto;
   border-radius: 10px 10px 0px 0px;
   box-shadow: 0px -3px 8px #00000029;
@@ -11,13 +11,13 @@
   background-size: cover ;
   .chat-header {
     width: 344px;
-    height: 50px;
+    height: 46px;
     box-shadow: 0px 1px 3px #00000029;
     background: #FFFFFF 0% 0% no-repeat padding-box;
     border-radius: 10px 10px 0px 0px;
     h3 {
       float: left;
-      font :Medium 20px/24px Roboto;
+      font-size: 20px;
       line-height: 2.3rem;
       margin-top: 2%;
       margin-left: 12px;
@@ -34,8 +34,6 @@
       margin-left: 12px;
       outline: none;
     }
-    
-    
   }
   .chat-frame {
     height: 55vh;
@@ -43,36 +41,32 @@
     overflow-x: hidden;
     width: 100%;
     
-    .mood-btn{
+    .mood-btn {
       background: #FFFFFF 0% 0% no-repeat padding-box;
       border: 1px solid #000000;
       border-radius: 20px;
       text-align: left;
-      font: Medium 14px/17px Roboto;
       letter-spacing: 0;
       color: #000000;
       margin: auto ;
       display:block;
-      font-weight: bold;
       outline: none;
       margin-bottom: 10px;
-  }
+      margin-top: 5px;
+      padding: 5px 16px 5px 16px;
+      }
   }
   
-  
-
   .message {
     max-width: 75%;
-    margin: 5px 2px;
     float: right;
     .message-text {
-      padding: 5px;
-      width: content-box;
-      border-radius: 6px;
+      padding: 10px 10px 10px 12px;
+      border-radius: 6px 0px 0px 6px;
       font-size: 0.9em;
-      text-align: center;
-      background: #FFFFFF 0% 0% no-repeat padding-box;
+      text-align: right;
       box-shadow: 0px 1px 3px #00000029;
+      background: #FFFFFF 0% 0% no-repeat padding-box;
     }
     .meta {
       text-align: center;
@@ -91,7 +85,9 @@
     .message-text {
       background: #E9FAFF 0% 0% no-repeat padding-box;
       box-shadow: 0px 1px 3px #00000029;
-      border-radius: 0px 10px 10px 0px
+      border-radius: 0px 10px 10px 0px;
+      padding: 10px 12px 10px 10px;
+      text-align: left;
     }
     .message-text.waiting {
       padding: 15px;
@@ -132,32 +128,31 @@
       background-color: white;
     }
   }
-  .buttons {
-    float: right;
-    width: content-box;
-    text-align: center;
-    min-width: 33%;
-    margin-right: 10px;
-    button {
-      margin: 5px;
-      display: block;
-      width: 100%;
-      .btn-text {
-        display: inline-block;
-        width: 90%;
-        margin: 0 5%;
-        word-wrap: break-spaces;
-        
-      }
-    }
-  }
+  // .buttons {
+  //   float: right;
+  //   width: content-box;
+  //   text-align: center;
+  //   min-width: 33%;
+  //   margin-right: 10px;
+  //   button {
+  //     margin: 5px;
+  //     display: block;
+  //     width: 100%;
+  //     .btn-text {
+  //       display: inline-block;
+  //       width: 90%;
+  //       margin: 0 5%;
+  //       word-wrap: break-spaces;
+  //     }
+  //   }
+  // }
   .form-div {
-    height: 7.5%;
+    height: inherit;
     width: 100%;
     background: #FFFFFF 0% 0% no-repeat padding-box;
     box-shadow: 0px -1px 3px #00000029;
     bottom:0;
-    position: inherit;  
+    position: relative;  
   }
 
 }
@@ -165,8 +160,9 @@
 @media screen and (max-width: 576px) {
   .chat-window {
     position: fixed;
-    height: 100vh;
-    width: fit-content;
+    height: 100%;
+    width: fill-available;
+    overflow-y: scroll;
     left: 0;
     top: 0;
     z-index: 99;
@@ -178,24 +174,27 @@
     .chat-header {
       width: auto;
       height: auto;
+      .chatbot-screen-img{
+        margin-top: 3px;
+      }
     }
     .chat-frame {
         height: 83%;
         overflow-y: scroll;
         overflow-x: hidden;
         width: 100%;
-        
+
     }
-    .buttons {
-      min-width: 45%;
-    }
+    // .buttons {
+    //   min-width: 45%;
+    // }
     .form-div {
-      height: 8.8%;
-      overflow: hidden;
-      position: relative;
+    height: 48px;
+    bottom: 10px;
+    position: absolute;
     } 
    
-      textarea.form-control {
+    textarea.form-control {
         height: 100%;
         position: absolute;
         width:93%;
@@ -207,21 +206,18 @@
 
 @media screen and (max-height: 500px) {
   .chat-window {
-    .chat-frame {
-      border-bottom: 3px solid #f49080;;
-      height: 55vh;
+      
+  .chat-frame {
+      height: 100vh;
     }
-  
   }
 }
-
-::ng-deep img.emoji {
+.emoji {
   height: 1.1em;
   width: 1.1em;
   margin: 0 .05em 0 .1em;
   vertical-align: -0.1em;
 }
-
 /**
 * Chat Waiting section
 */

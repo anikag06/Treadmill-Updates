@@ -9,7 +9,8 @@ import {
   OnDestroy,
   OnInit,
   Output,
-  ViewChild
+  ViewChild,
+  ViewEncapsulation
 } from '@angular/core';
 import { Chat } from '@/main/chatbot/chat.model';
 import { environment } from '../../../../environments/environment';
@@ -26,19 +27,23 @@ declare var twemoji: any;
   selector: 'app-chat-window',
   templateUrl: './chat-window.component.html',
   styleUrls: ['./chat-window.component.scss'],
+  encapsulation: ViewEncapsulation.None,
   animations: [
     trigger('openClose', [
       state('open', style({
-        display: 'block',
+       visibility: 'visible',
+       transform:'translateY(0%)'
       })),
       state('closed', style({
-        display: 'none',
+       visibility:'hidden',
+       transform:'translateY(+100%)'
+
       })),
       transition('open => closed', [
-        animate('0.1s cubic-bezier(0.0, 0.0, 0.2, 1)')
+        animate('0.5s linear')
       ]),
       transition('closed => open', [
-        animate( '0.1s cubic-bezier(0.4, 0.0, 1, 1)')
+        animate( '0.5s linear')
       ]),
     ])
   ]
@@ -109,9 +114,9 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
       const message = this.message;
       this.message = '';
       this.webSocket.send(JSON.stringify({ 'action': REPLY_CURRENT, 'message': { 'text': message, 'buttons': [] } }));
-      if (screen.availWidth > 576) {
-        this.ti.nativeElement.disabled = true;
-      }
+      // if (screen.availWidth > 576) {
+      //   this.ti.nativeElement.disabled = true;
+      // }
     }
     setTimeout(() => {
       this.ti.nativeElement.focus();

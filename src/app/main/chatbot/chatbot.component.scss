@@ -2,29 +2,32 @@
   position: absolute;
   bottom: 4vh;
   right: 3%;
+  height: auto;
   text-align: right;
   z-index: 100;
+  .chat-btn{
+    width: 30%;
+    height: auto;
+    outline: none;
+  }
 }
-
 @media screen and (max-width: 576px) {
   .chat {
     bottom: 2vh;
     position: fixed;
     z-index: 100;
-    
   }
   .chat-btn{
-    width: 57px;
-    height: 81px;
-    outline: none;
-  
+    width: 56px;
   }
+}
+@media screen and (max-height: 500px) {
+  .chat {
+    bottom: 2vh;
+    position: relative;
+    z-index: 100;
+  }
+}
 
-}
-.chat-btn{
-  width: 80px;
-  height: 81px;
-  outline: none;
-}
 
 
