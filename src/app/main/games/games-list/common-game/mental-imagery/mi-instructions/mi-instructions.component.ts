@@ -18,9 +18,6 @@ export class MiInstructionsComponent implements OnInit {
   ngOnInit() {
   }
 
-  // onPlay() {
-  //   this.startPlayingMIGame.emit('play');
-  // }
   onHome() {
     this.goToMIGameHome.emit();
   }
@@ -28,7 +25,6 @@ export class MiInstructionsComponent implements OnInit {
     const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });
     this.elementRef.nativeElement.dispatchEvent(domEvent);
     this.miPlayService.startPlaying.emit();
-    
   }
 }
 

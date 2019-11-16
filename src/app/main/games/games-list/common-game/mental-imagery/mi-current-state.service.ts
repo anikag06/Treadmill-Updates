@@ -20,16 +20,15 @@ export class MICurrentStateService{
   notificationHeader = '';
   notificationBody = '';
 
-  continuePlaying= false;
-  retry= false;
-  disabled= false;
-  blank= '';
+  continuePlaying = false;
+  retry = false;
+  disabled = false;
+  blank = '';
 
 
   constructor() {
    }
 
-  
   getContent(){
 
     if(this.count===0){
@@ -94,19 +93,21 @@ export class MICurrentStateService{
         null
         );
       const scenario7 = new Scenario(
-        'While working out, you start feeling a bit tired. You start feeling as if you are at your limit. You feel like giving up.You stop to relax for a bit and '+
+        'While working out, you start feeling a bit tired. You start feeling as if you are at your limit.'+
+        'You feel like giving up.You stop to relax for a bit and '+
         'stretch your muscles. You feel refreshed and decide to',
-        "",
+        '',
         500,
         null,
-        'You try to read the faces of your classmates who have received the question papers. You try to remember what you read and get more nervous as you fail to '+ 
+        'You try to read the faces of your classmates who have received the question papers. You try to remember'+
+        'what you read and get more nervous as you fail to '+ 
         'remember an important formula. You pray to god that your teacher has set an easy paper.',
         'You wait calmly for getting the question paper. You are confident that you will be able to answer most of the questions.'
         );
 
       const scenario6 = new Scenario(
-        'You are apprehensive whether you can take out some time this semester. Although, it is equally important that you do. You convince yourself to'
-        ,
+        'You are apprehensive whether you can take out some time this semester. Although, it is equally important that you do.'+ 
+        ' You convince yourself to',
         "",
         500,
         scenario7,
