@@ -16,6 +16,22 @@
         width: 60px;
     }
 }
+.category-card.in-current-module {
+    width: 24%;
+    border-top-width: 1px;
+    top: -6px;
+    img {
+        background-color: white;
+        position: absolute;
+        top: -17px;
+        left: -20px;
+        width: 30px;
+        height: 30px;
+    }
+}
+.category-card.last.in-current-module {
+    width: 0px;
+}
 .category-card.last {
     width: 0px;
 }
@@ -38,6 +54,19 @@
             left: -20px;
             width: 40px;
             height: 40px;
+        }
+    }
+    .category-card.in-current-module  {
+        width: 24%;
+        border-top-width: 1px;
+        top: -12px;
+        img {
+            background-color: white;
+            position: absolute;
+            top: -14px;
+            left: -20px;
+            width: 25px;
+            height: 25px;
         }
     }
 }

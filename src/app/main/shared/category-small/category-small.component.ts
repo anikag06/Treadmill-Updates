@@ -13,6 +13,7 @@ export class CategorySmallComponent implements OnInit {
   @Input() category!: Category;
   @Input() first!: string;
   @Input() last!: string;
+  @Input() currentModule!: boolean;
 
   constructor() { }
 

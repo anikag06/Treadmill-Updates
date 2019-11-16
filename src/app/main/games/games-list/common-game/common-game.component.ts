@@ -19,6 +19,12 @@ import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service
 import { IbGameInstructionsComponent } from './interpretation-bias-game/ib-game-instructions/ib-game-instructions.component';
 import { ExecControlInstructionsComponent } from './executive-control-game/exec-control-instructions/exec-control-instructions.component';
 import { MIPlayService } from './mental-imagery/mi-play.service';
+import { EcgScienceComponent } from './executive-control-game/ecg-science/ecg-science.component';
+import { IbgScienceComponent } from './interpretation-bias-game/ibg-science/ibg-science.component';
+import { AsgScienceComponent } from './attribute-style-game/asg-science/asg-science.component';
+import { MigScienceComponent } from './mental-imagery/mig-science/mig-science.component';
+import { FfgScienceComponent } from './friendly-face-game/ffg-science/ffg-science.component';
+import { LhgScienceComponent } from './learned-helplessness-game/lhg-science/lhg-science.component';
 
 declare let $: any;
 
@@ -257,6 +263,30 @@ export class CommonGameComponent implements OnInit {
     // else if (this.gameName === FRIENDLY_FACE_GAME) {
     //   this.gamePlayService.pauseFaceGame();
     // }
+  }
+
+  onScienceBehind() {
+    if (this.gameName === EXECUTIVE_CONTROL_GAME) {
+      this.dialogBoxService.setDialogChild(EcgScienceComponent);
+
+    } else if (this.gameName === INTERPRETATION_BIAS_GAME) {
+      this.dialogBoxService.setDialogChild(IbgScienceComponent);
+
+    } else if (this.gameName === ATTRIBUTE_STYLE_GAME) {
+      this.dialogBoxService.setDialogChild(AsgScienceComponent);
+
+    } else if (this.gameName === LEARNED_HELPLESSNESS_GAME) {
+      this.dialogBoxService.setDialogChild(LhgScienceComponent);
+
+    } else if (this.gameName === FRIENDLY_FACE_GAME) {
+      this.dialogBoxService.setDialogChild(FfgScienceComponent);
+
+    } else if (this.gameName === MENTAL_IMAGERY_GAME) {
+      this.dialogBoxService.setDialogChild(MigScienceComponent);
+
+    }
+    const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
+    this.pauseBtnElement.nativeElement.dispatchEvent(domEvent);
   }
 
   @HostListener('touchstart')

@@ -1,45 +1,69 @@
 .flow-container {
-    max-width: 70%;
-    margin: 0 auto;
-    padding: 0;
-    background-color: #ffffff;
-    box-shadow: 2px 2px 10px #cccccc;
-    .progress-heading {
-        padding: 10px;
-        background-color: #f5bb56;
-        color: #ffffff;
-        text-align: center;
-        font-size: 1.2rem;
+  .dashboard-title{
+    padding: 10px;
+    background-color: #f5bb56;
+    color: #ffffff;
+    text-align: center;
+    font-size: 1.2rem;
+  }
+  .navBar-title{
+    display: none;
+  }
+  .flow-scroll {
+    max-height: 72vh;
+    min-height: 50vh;
+    .flow-scroll-inner {
+      height: 100%;
+      overflow-y: auto;
     }
-    .flow-scroll {
-      max-height: 72vh;
-      min-height: 50vh;
-      .flow-scroll-inner {
-        height: 100%;
-        overflow-y: auto;
-      }
-      .flow-scroll-inner::-webkit-scrollbar {
-        width: 5px;
-      }
-      .flow-scroll-inner::-webkit-scrollbar-track {
-        opacity: 0.8;
-        border-radius: 10px;
-      }
-      .flow-scroll-inner::-webkit-scrollbar-thumb {
-        background-color: #989697;
-        border-radius: 10px;
-        opacity: 0.8;
-      }
+    .flow-scroll-inner::-webkit-scrollbar {
+      width: 5px;
     }
+    .flow-scroll-inner::-webkit-scrollbar-track {
+      opacity: 0.8;
+      border-radius: 10px;
+    }
+    .flow-scroll-inner::-webkit-scrollbar-thumb {
+      background-color: #989697;
+      border-radius: 10px;
+      opacity: 0.8;
+    }
+  }
+}
+.dashboard-flow-container{
+  max-width: 70%;
+  margin: 0 auto;
+  padding: 0;
+  background-color: #ffffff;
+  box-shadow: 2px 2px 10px #cccccc;
+}
+.navBar-flow-container{
+  max-width: 100% !important;
+  box-shadow: none !important;
+  .flow-scroll {
+      height: 65vh;
+  }
 }
 .in-desktop{
   display: block;
 }
+
+@media screen and (max-width: 992px) {
+  .navBar-flow-container {
+    padding: 0%;
+    max-width: 100% !important;
+    box-shadow: none !important;
+    .flow-scroll {
+        height: 80vh;
+    }
+  }
+}
 @media screen and (max-width: 770px) {
-  .flow-container {
+  .dashboard-flow-container {
     width: 100%;
     max-width: 400px;
   }
+
   .in-desktop{
     display: none;
   }

@@ -105,7 +105,6 @@ import { NavbarNotificationsService } from './shared/navbar/navbar-notifications
 import { NotificationItemComponent } from './shared/navbar/navbar-notifications/notification-item/notification-item.component';
 // tslint:disable-next-line: max-line-length
 import { IbGameInstructionsComponent } from './games/games-list/common-game/interpretation-bias-game/ib-game-instructions/ib-game-instructions.component';
-import { IbDialogsService } from './games/games-list/common-game/interpretation-bias-game/ib-dialogs.service';
 // tslint:disable-next-line: max-line-length
 import { IbMainTrainingComponent } from './games/games-list/common-game/interpretation-bias-game/ib-main-training/ib-main-training.component';
 // tslint:disable-next-line: max-line-length
@@ -119,6 +118,12 @@ import { ExecControlInstructionsComponent } from './games/games-list/common-game
 // tslint:disable-next-line: max-line-length
 import { ExecControlHelpService } from '@/main/games/games-list/common-game/executive-control-game/exec-control-instructions/exec-control-help.service';
 import { MiWinComponent } from './games/games-list/common-game/mental-imagery/mi-win/mi-win.component';
+import { EcgScienceComponent } from './games/games-list/common-game/executive-control-game/ecg-science/ecg-science.component';
+import { IbgScienceComponent } from './games/games-list/common-game/interpretation-bias-game/ibg-science/ibg-science.component';
+import { AsgScienceComponent } from './games/games-list/common-game/attribute-style-game/asg-science/asg-science.component';
+import { MigScienceComponent } from './games/games-list/common-game/mental-imagery/mig-science/mig-science.component';
+import { FfgScienceComponent } from './games/games-list/common-game/friendly-face-game/ffg-science/ffg-science.component';
+import { LhgScienceComponent } from './games/games-list/common-game/learned-helplessness-game/lhg-science/lhg-science.component';
 @NgModule({
   declarations: [
     ModulesComponent,
@@ -185,6 +190,12 @@ import { MiWinComponent } from './games/games-list/common-game/mental-imagery/mi
     DialogBoxChildDirective,
     ExecControlInstructionsComponent,
     MiWinComponent,
+    EcgScienceComponent,
+    IbgScienceComponent,
+    AsgScienceComponent,
+    MigScienceComponent,
+    FfgScienceComponent,
+    LhgScienceComponent,
   ],
   imports: [
     CommonModule,
@@ -240,7 +251,6 @@ import { MiWinComponent } from './games/games-list/common-game/mental-imagery/mi
     FlowStepNavigationService,
     NavbarNotificationsService,
     GamesBadgesService,
-    IbDialogsService,
     IbTrainingDataService,
     DialogBoxService,
     ExecControlHelpService,
@@ -256,7 +266,13 @@ import { MiWinComponent } from './games/games-list/common-game/mental-imagery/mi
     DialogContainerComponent,
     ExecControlInstructionsComponent,
     MiInstructionsComponent,
-    MiWinComponent 
+    MiWinComponent,
+    EcgScienceComponent,
+    IbgScienceComponent,
+    AsgScienceComponent,
+    MigScienceComponent,
+    FfgScienceComponent,
+    LhgScienceComponent,
   ]
 })
 export class MainModule {

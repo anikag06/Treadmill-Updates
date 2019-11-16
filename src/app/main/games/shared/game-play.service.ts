@@ -1,11 +1,9 @@
-import { Injectable,
-  OnChanges, SimpleChanges, SimpleChange, ElementRef, } from '@angular/core';
+import { Injectable, } from '@angular/core';
 import { map } from 'rxjs/operators';
 import {GamesService} from '@/main/shared/games.service';
 import {GamesAuthService} from '@/main/games/shared/games-auth.service';
 import { ECGameData, ECGameFlankerTask, ECGameDiscriminationTask, ECGameUserData,
     LHGameColorReverseData, LHGameUserLevel, LHGamePerformance } from './game-play.model';
-import { IbDialogsService } from '../games-list/common-game/interpretation-bias-game/ib-dialogs.service';
 import { GamesBadgesService } from './games-badges.service';
 import { BadgesConstants } from './game-badges.model';
 import {
@@ -150,7 +148,6 @@ export class GamePlayService  {
   }
   helpIBGame() {
     this.dialogBoxService.setDialogChild(IbGameInstructionsComponent);
-    // this.ibGameDialogService.openInstructionDialog(gameDivElement);
     ibGameHelp();
   }
 
@@ -533,6 +530,5 @@ export class GamePlayService  {
   helpMIGame() {
     this.dialogBoxService.setDialogChild(MiInstructionsComponent);
   }
-  
 }
 

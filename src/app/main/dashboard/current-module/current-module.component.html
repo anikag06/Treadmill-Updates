@@ -8,6 +8,7 @@
               <app-category-small
                 *ngFor="let category of module.categories; let last = last; let first = first" 
                 [category]="category"
+                [currentModule]="true"
                 [last]="last"
                 [first]="first">
               </app-category-small>

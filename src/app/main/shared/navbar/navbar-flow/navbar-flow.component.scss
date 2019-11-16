@@ -15,18 +15,6 @@
         margin-bottom: 0px;
         border-bottom: 1px solid #cccccc;
     }
-    ::ng-deep {
-        h2.progress-heading {
-            display: none;
-        }
-        .flow-container {
-            max-width: 100% !important;
-            box-shadow: none !important;
-            .flow-scroll {
-                height: 65vh;
-            }
-        }
-    }
 }
 
 @media screen and (max-width: 992px) {
@@ -46,18 +34,6 @@
             // padding: 20px;
             margin-bottom: 0px;
             border-bottom: 1px solid #cccccc;
-        }
-        ::ng-deep {
-            h2.progress-heading {
-                display: none;
-            }
-            .flow-container {
-                max-width: 100% !important;
-                box-shadow: none !important;
-                .flow-scroll {
-                    height: 85vh;
-                }
-            }
         }
     }
 }

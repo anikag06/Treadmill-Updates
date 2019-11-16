@@ -24,26 +24,12 @@ label {
 .full-width {
     width: 100%;
 }
-
-::ng-deep .mat-checkbox-layout {
-    width: 100%;
-    .mat-checkbox-label {
-        width: 100% !important;
-    }
-}
 .card-header {
   background-color: #FFEFD4;
   font-weight: 700;
 }
 .card {
   margin: 0 auto;
-  ::ng-deep .card-header {
-    background-color: #FFEFD4;
-    font-weight: 700;
-  }
-  button {
-    // width: 100%;
-  }
   label {
     padding: 10px;
     margin-bottom: 0px;

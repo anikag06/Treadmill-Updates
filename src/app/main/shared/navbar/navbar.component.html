@@ -8,6 +8,7 @@
                 <!-- <div class='icon-items' (click)="notificationClick()">
                     <img src="assets/shared/notification.svg" alt="Flow">
                 </div> -->
+
                 <div class='icon-items' (menuClosed)="notificationClick()"
                     (menuOpened) ="notificationClick()" 
                     [matMenuTriggerFor]="appNavBarNotify">
@@ -27,18 +28,23 @@
             </div>
         </div>
     </div>
-    <mat-menu class="navBarPanelClass"
-        #appNavBarFlow="matMenu" 
-        xPosition="before" yPosition="below">
-        <div class="row w-100 h-100 px-0 mx-0" (click)="$event.stopPropagation();">
-            <div appNavbarFlow ></div>
+
+    <mat-menu #appNavBarFlow="matMenu" xPosition="before" yPosition="below">
+        <div class="row w-100 h-100 px-0 mx-0 navBarPanelClass" 
+            mat-menu-item
+            disableRipple="true"
+            (click)="$event.stopPropagation();">
+            <div appNavbarFlow></div>
         </div>
     </mat-menu>
+    
 
-    <mat-menu class="navBarPanelClass"
-        #appNavBarNotify="matMenu" 
+    <mat-menu #appNavBarNotify="matMenu" 
         xPosition="before" yPosition="below" >
-        <div class="row w-100 h-100 px-0 mx-0" (click)="$event.stopPropagation();">
+        <div class="row w-100 h-100 px-0 mx-0 navBarPanelClass" 
+            mat-menu-item
+            disableRipple="true"
+            (click)="$event.stopPropagation();">
             <div appNavbarNotification></div>
         </div>
     </mat-menu>

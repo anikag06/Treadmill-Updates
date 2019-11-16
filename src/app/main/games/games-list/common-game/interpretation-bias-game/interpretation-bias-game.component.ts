@@ -7,10 +7,10 @@ import { GamePlayService } from '@/main/games/shared/game-play.service';
 import { GamesAuthService } from '@/main/games/shared/games-auth.service';
 import { BadgesInfo } from '@/main/games/shared/game-badges.model';
 import { GamesBadgesService } from '@/main/games/shared/games-badges.service';
-import { IbDialogsService } from './ib-dialogs.service';
 import { IbTrainingDataService } from './ib-main-training/ib-training-data.service';
 import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
 import { IbMainTrainingComponent } from './ib-main-training/ib-main-training.component';
+import { GameMatPropertyService } from '@/main/games/shared/game-mat-property.service';
 
 declare var IBG_MAX_WORDS_HIDDEN: number;
 declare var sentence_number: any;
@@ -95,18 +95,17 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   difficultyValue = 5;
 
   constructor( private gameAuthService: GamesAuthService,
-    private router: Router,
     private gamePlayService: GamePlayService,
     private badgesService: GamesBadgesService,
-    private ibDialogService: IbDialogsService,
     private ibTrainingService: IbTrainingDataService,
     private dialogBoxService: DialogBoxService,
+    private element: ElementRef,
+    private matPropertyService: GameMatPropertyService,
   ) {
   }
 
   @HostListener('window:iBGameSentenceDialogFun')
   showSentence() {
-    // this.ibDialogService.openSentenceWordDialog();
     const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
     this.ibGameDiv.nativeElement.dispatchEvent(domEvent);
     this.dialogBoxService.setDialogChild(IbMainTrainingComponent);
@@ -122,6 +121,15 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
     // do not delete this (this.findValidSentence()) function, it is important
     // this.findValidSentence();        // this function is used to check if sentences in database are valid for generation of letters grid
   }
+
+
+  ngAfterViewInit() {
+    // tslint:disable-next-line: max-line-length
+    const difficultyBarEle = this.element.nativeElement.querySelectorAll('.difficultyBarIBG .mat-progress-bar .mat-progress-bar-fill');
+    this.matPropertyService.changeMatProperty(difficultyBarEle[0], 'mat-progress-bar-fill', 'background-color', 'black');
+  }
+
+
   initSentencesData() {
     sentence_array = [];
     sentence_word_array = [];
@@ -188,9 +196,12 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
         }
       );
   }
+
+
   scoresRelatedInfo() {
     this.gameAuthService.ibGameGetScoresInfo()
       .subscribe((data) => {
+
         this.INPUT_ORDER = data.data.order;
         ibGameScore = data.data.score;
         ibGamelevel = data.data.level;
@@ -206,6 +217,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
 
         this.updateBadgesValue();
         this.difficultyBarUpdate();
+
         if ( ibGameWordsHidden > 0 ) {
           this.showAllHints = true;
         } else if (ibGameWordsHidden === 0) {
@@ -222,6 +234,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   storeUserScoreInfo(response: any) {
     this.checkUserResponse(response);
     this.getScoreVariablesValue();
+
     this.gameAuthService.ibGameStoreUserScoreInfo(this.userScoreData)
       .subscribe( (data) => {
           if ((sentence_array.length - sentence_number === 1) && this.isLastSet) {
@@ -248,6 +261,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
       );
       this.storeUserResponse();
   }
+
   getScoreVariablesValue() {
     const userData = getUpdatedVariables();                  // from sentence_javascript
     this.userScoreData.order = userData[0];
@@ -261,6 +275,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
     this.userResponseData.sentence = userData[6];
     this.userResponseData.response_time = userData[7];
   }
+
   storeUserResponse() {
     this.gameAuthService.ibGameStoreUserResponseInfo(this.userResponseData)
       .subscribe( (data) => {
@@ -270,18 +285,10 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
       });
   }
 
-  onHomeClick() {
-    // this.router.navigate(['/']);
-    window.location.reload();
-  }
-
-  onExitClick() {
-    this.router.navigate(['/games']);
-  }
-
   onHintClick() {
       this.gamePlayService.hintsIBGame();
   }
+
   nextSentenceClicked() {
     this.currentSentencesWordsNumber(sentence_number + 1);
   }
@@ -295,6 +302,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
       this.userResponseData.user_response = false;
     }
   }
+
   difficultyBarUpdate() {
     if (ibGameTime === IBG_MORE_TIME) {
       ibGDifficultyValue = ((2 * ibGameWordsHidden + 1) / (2 * (IBG_MAX_WORDS_HIDDEN + 1))) * 100;
@@ -303,6 +311,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
     }
     this.difficultyValue = ibGDifficultyValue;
   }
+
   updateBadgesValue() {
     this.allBadgesInfo = this.badgesService.getBadgesInfo(this.BRONZE_CONSTANT,
                               this.SILVER_CONSTANT, this.GOLD_CONSTANT,
@@ -321,10 +330,12 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
     const words = sentence.split(' ');
     this.No_progress_bars = Math.ceil(words.length * 0.50);
   }
+
   updateProgressBar(element: HTMLElement) {
     const height = Math.ceil(100 / this.No_progress_bars);
     element.style.height = (height) + '%';
   }
+
   getArray(i: number) {
     return new Array(i);
   }
@@ -333,6 +344,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   findValidSentence () {
     this.getAllSentences(0);
   }
+
   getAllSentences(pageNumber: number) {
     let grid_formed;
     this.gameAuthService.ibGameGetSentencesInfo(pageNumber, 31)     // here 31 is the page size
@@ -352,4 +364,5 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     clearInterval(inactivity_check_interval);
   }
+
 }
