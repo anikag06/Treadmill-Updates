@@ -2139,7 +2139,7 @@ closeECGame = function(){
 	clearTimeout(stopTunnelTimeout);
 	scene_change_timeout = null;
 
-	if(curr_game.sys.game!= null){
+	if(curr_game && curr_game.sys.game!==null){
 		curr_game.sys.game.destroy(true);
 	}
 	return;

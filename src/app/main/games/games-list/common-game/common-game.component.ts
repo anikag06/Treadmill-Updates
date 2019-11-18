@@ -123,7 +123,7 @@ export class CommonGameComponent implements OnInit {
       this.gamePaused = false;
     }
     if (this.gameStarted === true && this.gamePaused === false) {
-      // this.onPauseClick();
+      this.onPauseClick();
     }
   }
 
@@ -137,15 +137,21 @@ export class CommonGameComponent implements OnInit {
 
     if (this.gameName === INTERPRETATION_BIAS_GAME) {
       this.gamePlayService.playIBGame(this.gameDivElement);
+
     } else if (this.gameName === EXECUTIVE_CONTROL_GAME) {
-      this.gamePlayService.playExecControlGame(this.isSoundOn, false);
+      this.dialogBoxService.setDialogChild(ExecControlInstructionsComponent);
+      this.gamePlayService.playExecControlGame(this.isSoundOn, this.pauseBtnElement);
+
     } else if (this.gameName === LEARNED_HELPLESSNESS_GAME) {
       this.gamePlayService.playLearnedHelplessnessGame();
+
     } else if (this.gameName === ATTRIBUTE_STYLE_GAME) {
       this.gamePlayService.playAttributionStyleGame();
       // console.log('play button');
+
     } else if (this.gameName === FRIENDLY_FACE_GAME) {
       this.gamePlayService.playFriendlyFaceGame(this.device_type);
+
     } else if (this.gameName === MENTAL_IMAGERY_GAME) {
       // this.miGameComponent.startPlayingMIGame();
       this.gamePlayService.playMentalImageryGame(this.gameDivElement);
@@ -237,8 +243,9 @@ export class CommonGameComponent implements OnInit {
     this.showSideButtons = false;
     this.gamePaused = false;
     this.pauseBtnElement.nativeElement.classList.remove('d-none');
+
     if (this.gameName === EXECUTIVE_CONTROL_GAME) {
-      this.gamePlayService.restartExecControlGame(this.isSoundOn);
+      this.gamePlayService.restartExecControlGame(this.isSoundOn, this.pauseBtnElement);
     }
     if (this.gameName === INTERPRETATION_BIAS_GAME) {
       this.gamePlayService.playIBGame(this.gameDivElement);                      // same function for start and restart the game

@@ -1,4 +1,4 @@
-import { Injectable, } from '@angular/core';
+import { Injectable, ElementRef, } from '@angular/core';
 import { map } from 'rxjs/operators';
 import {GamesService} from '@/main/shared/games.service';
 import {GamesAuthService} from '@/main/games/shared/games-auth.service';
@@ -11,6 +11,7 @@ import {
 } from '../games-list/common-game/interpretation-bias-game/ib-game-instructions/ib-game-instructions.component';
 import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
 import { MiInstructionsComponent } from '../games-list/common-game/mental-imagery/mi-instructions/mi-instructions.component';
+import { ExecControlInstructionsComponent } from '../games-list/common-game/executive-control-game/exec-control-instructions/exec-control-instructions.component';
 
 // for interpretation bias game
 declare var startIBGame: any;
@@ -84,8 +85,10 @@ export class GamePlayService  {
   // variables for ec game
   ecGameStarted = false;
   ecGameSoundOn = true;
+  ecGameShowTutorial!: boolean;
   ecGameData!: any;
   ecGameTaskData!: any;
+  ecGameUserData!: any;
   ecGameID!: number;
 
   // initialising the variables
@@ -173,9 +176,9 @@ export class GamePlayService  {
   }
 
 // functions for executive control game
-  playExecControlGame(isSoundOn: any, helpClicked: any) {
-    this.ecGameStarted = true;
+  playExecControlGame(isSoundOn: any, gamePauseDiv: any) {
     let showTutorial = false;
+
     this.gamesAuthService.ecGameGetGameInfo()
       .subscribe((game_data) => {
         const length = game_data.data.length;
@@ -183,30 +186,47 @@ export class GamePlayService  {
         if (length > 0) {
           this.ecGameID = game_data.data[length - 1].id;
         }
+
         this.gamesAuthService.ecGameGetUserData()
           .subscribe( (user_data) => {
+            this.ecGameUserData = user_data;
             showTutorial = user_data.data.show_tutorial;
-            if (helpClicked) {
-              showTutorial = true;
-              isSoundOn = this.ecGameSoundOn;
-            }
-            const badgeInfo = this.gameBadgeService.getBadgesInfo(
-              user_data.data.BRONZE_CONSTANT, user_data.data.SILVER_CONSTANT,
-              user_data.data.GOLD_CONSTANT, user_data.data.no_correct_responses );
 
-            const total_correct_responses = user_data.data.no_correct_responses;
-            this.ecGameBadgeConstants.bronzeConstant = user_data.data.BRONZE_CONSTANT;
-            this.ecGameBadgeConstants.silverConstant = user_data.data.SILVER_CONSTANT;
-            this.ecGameBadgeConstants.goldConstant = user_data.data.GOLD_CONSTANT;
-            startExecControlGame(showTutorial, user_data, this.ecGameID,
-              isSoundOn, badgeInfo, total_correct_responses,
-              this.ecGameBadgeConstants);
+            if (showTutorial) {
+              this.ecGameShowTutorial = true;
+              this.ecGameSoundOn = isSoundOn;
+              const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
+              gamePauseDiv.nativeElement.dispatchEvent(domEvent);
+            } else {
+              this.ecGameSoundOn = isSoundOn;
+              this.startECGameFunc();
+            }
           });
     });
   }
 
+  startECGameFunc() {
+    const user_data = this.ecGameUserData;
+
+    const badgeInfo = this.gameBadgeService.getBadgesInfo(
+      user_data.data.BRONZE_CONSTANT, user_data.data.SILVER_CONSTANT,
+      user_data.data.GOLD_CONSTANT, user_data.data.no_correct_responses );
+
+    const total_correct_responses = user_data.data.no_correct_responses;
+    this.ecGameBadgeConstants.bronzeConstant = user_data.data.BRONZE_CONSTANT;
+    this.ecGameBadgeConstants.silverConstant = user_data.data.SILVER_CONSTANT;
+    this.ecGameBadgeConstants.goldConstant = user_data.data.GOLD_CONSTANT;
+
+    startExecControlGame(this.ecGameShowTutorial, user_data, this.ecGameID,
+      this.ecGameSoundOn, badgeInfo, total_correct_responses,
+      this.ecGameBadgeConstants);
+      this.ecGameStarted = true;
+  }
+
   helpExecControlGame(isSoundOn: any) {
     this.ecGameSoundOn = isSoundOn;
+    this.ecGameShowTutorial = true;
+    this.storeDataExecControlGame();
   }
   pauseExecControlGame() {
     pauseECGame();
@@ -214,10 +234,12 @@ export class GamePlayService  {
   resumeExecControlGame() {
     resumeECGame();
   }
-  restartExecControlGame(isSoundOn: any)  {
-    closeECGame();
-    this.storeDataExecControlGame();
-    this.playExecControlGame(isSoundOn, false);
+  restartExecControlGame(isSoundOn: any, gamePauseDiv: any)  {
+    if (this.ecGameStarted) {
+      closeECGame();
+      this.storeDataExecControlGame();
+      this.playExecControlGame(isSoundOn, gamePauseDiv);
+    }
   }
   closeExecControlGame() {
     if (this.ecGameStarted) {
@@ -231,26 +253,28 @@ export class GamePlayService  {
     }
   }
   storeDataExecControlGame() {
-    this.ecGameData = getECScoreData();
-    this.ecGameDataObject.start_time = this.ecGameData[0];
-    this.ecGameDataObject.game_id = this.ecGameData[1];
-    this.ecGameDataObject.score = this.ecGameData[2];
-    this.ecGameDataObject.level = this.ecGameData[3];
-    this.ecGameDataObject.end_time = this.ecGameData[4];
-    this.ecGameDataObject.game_over = this.ecGameData[5];
+    if (this.ecGameStarted) {
+      this.ecGameData = getECScoreData();
+      this.ecGameDataObject.start_time = this.ecGameData[0];
+      this.ecGameDataObject.game_id = this.ecGameData[1];
+      this.ecGameDataObject.score = this.ecGameData[2];
+      this.ecGameDataObject.level = this.ecGameData[3];
+      this.ecGameDataObject.end_time = this.ecGameData[4];
+      this.ecGameDataObject.game_over = this.ecGameData[5];
 
-    this.ecGameUserDataObject.max_score = this.ecGameData[6];
-    this.ecGameUserDataObject.coins_collected = this.ecGameData[7];
-    this.ecGameUserDataObject.double_jump = this.ecGameData[8];
-    this.ecGameUserDataObject.shooting_capacity = this.ecGameData[9];
-    this.ecGameUserDataObject.double_coins = this.ecGameData[10];
+      this.ecGameUserDataObject.max_score = this.ecGameData[6];
+      this.ecGameUserDataObject.coins_collected = this.ecGameData[7];
+      this.ecGameUserDataObject.double_jump = this.ecGameData[8];
+      this.ecGameUserDataObject.shooting_capacity = this.ecGameData[9];
+      this.ecGameUserDataObject.double_coins = this.ecGameData[10];
 
-    this.gamesAuthService.ecGameStoreGameInfo(this.ecGameDataObject)
-      .subscribe(() => {
-        this.gamesAuthService.ecGameUpdateUserData(this.ecGameUserDataObject)
-          .subscribe((data) => {
-          });
-      });
+      this.gamesAuthService.ecGameStoreGameInfo(this.ecGameDataObject)
+        .subscribe(() => {
+          this.gamesAuthService.ecGameUpdateUserData(this.ecGameUserDataObject)
+            .subscribe((data) => {
+            });
+        });
+    }
   }
 
   storeFlankerDiscriTaskData() {

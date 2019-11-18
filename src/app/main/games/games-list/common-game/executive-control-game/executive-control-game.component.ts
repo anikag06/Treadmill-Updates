@@ -31,15 +31,15 @@ export class ExecutiveControlGameComponent implements OnInit, OnDestroy {
   onCloseStoreScoreDataECGame() {
     this.playGameService.storeDataExecControlGame();
   }
-  @HostListener('window:CallAngularReplayGame')
-  onGameOverReplayECGame() {
-    this.playGameService.restartExecControlGame(true);
-  }
+  // @HostListener('window:CallAngularReplayGame')
+  // onGameOverReplayECGame() {
+  //   this.playGameService.restartExecControlGame(true, null);
+  // }
 
-  onGameHelpClick() {
-    this.playGameService.storeDataExecControlGame();
-    this.playGameService.playExecControlGame(true, true);
-  }
+  // onGameHelpClick() {
+  //   this.playGameService.storeDataExecControlGame();
+  //   this.playGameService.playExecControlGame(true, true, );
+  // }
   ngOnDestroy() {
     console.log('exec- ng on destroy');
     this.playGameService.closeExecControlGame();
