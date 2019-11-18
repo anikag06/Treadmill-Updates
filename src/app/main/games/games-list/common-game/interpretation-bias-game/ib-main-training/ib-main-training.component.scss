@@ -1,4 +1,7 @@
 @import "../../../../shared/games-common.scss";
+.ib-training{
+    min-height: 200px;
+}
 
 .question{
     color: #717A7E;
@@ -7,8 +10,8 @@
     background-image: url("/assets/games/Button_small.svg");
     background-position: center;
 	background-repeat: no-repeat;
-    background-size: 85%;
-    min-height: 34px;
+    background-size: 86%;
+    min-height: 35px;
     cursor: pointer;
     font-size: 14px;
 }

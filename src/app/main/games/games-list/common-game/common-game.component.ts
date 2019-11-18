@@ -1,14 +1,30 @@
-import { Component, OnInit, Input, HostListener, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, ElementRef, ChangeDetectorRef} from '@angular/core';
 import { GamePlayService } from '../../shared/game-play.service';
 import { GamesService } from '@/main/shared/games.service';
 import { Router, ActivatedRoute, RouterEvent, NavigationStart } from '@angular/router';
 import { Game } from '@/main/shared/game.model';
 import { map, switchMap, filter } from 'rxjs/operators';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { Location } from '@angular/common';
 import { GamesAuthService } from '../../shared/games-auth.service';
 import { MentalImageryComponent } from './mental-imagery/mental-imagery.component';
 import { Overlay } from '@angular/cdk/overlay';
+import { EXECUTIVE_CONTROL_GAME,
+  INTERPRETATION_BIAS_GAME,
+  LEARNED_HELPLESSNESS_GAME,
+  ATTRIBUTE_STYLE_GAME,
+  MENTAL_IMAGERY_GAME,
+  FRIENDLY_FACE_GAME } from '@/app.constants';
+import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
+import { IbGameInstructionsComponent } from './interpretation-bias-game/ib-game-instructions/ib-game-instructions.component';
+import { ExecControlInstructionsComponent } from './executive-control-game/exec-control-instructions/exec-control-instructions.component';
+import { MIPlayService } from './mental-imagery/mi-play.service';
+import { EcgScienceComponent } from './executive-control-game/ecg-science/ecg-science.component';
+import { IbgScienceComponent } from './interpretation-bias-game/ibg-science/ibg-science.component';
+import { AsgScienceComponent } from './attribute-style-game/asg-science/asg-science.component';
+import { MigScienceComponent } from './mental-imagery/mig-science/mig-science.component';
+import { FfgScienceComponent } from './friendly-face-game/ffg-science/ffg-science.component';
+import { LhgScienceComponent } from './learned-helplessness-game/lhg-science/lhg-science.component';
 
 declare let $: any;
 
@@ -22,8 +38,6 @@ export class CommonGameComponent implements OnInit {
   game!: Game;
   gameName!: string;
 
-  isFirstPageHelpBtn = true;
-  showSecondPlayBtn = true;
   isExecutiveControl = false;
   isInterpretationBias = false;
   isLearnedHelplessness = false;
@@ -36,6 +50,8 @@ export class CommonGameComponent implements OnInit {
   isAttributeGame = false;
 
   gameStarted = false;
+  gamePaused = false;
+  portraitGame = false;
 
   device_type = 'click';     // whether touch or click for using in friendly face game
   currLocation: any;
@@ -47,6 +63,9 @@ export class CommonGameComponent implements OnInit {
   @ViewChild('pause_common_div', {static: false}) pauseBtnElement!: ElementRef;
   @ViewChild('gameDiv', {static: false}) gameDivElement!: ElementRef;
 
+  gameElement!: ElementRef;
+  showComponent = true;
+
   // for mental imagery game
   @ViewChild(MentalImageryComponent, {static: false}) miGameComponent!: MentalImageryComponent;
 
@@ -55,7 +74,9 @@ export class CommonGameComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private location: Location,
-    private overlay: Overlay,
+    private dialogBoxService: DialogBoxService,
+    private miPlayService: MIPlayService,
+    private ref: ChangeDetectorRef
   ) {   }
 
   ngOnInit() {
@@ -68,20 +89,26 @@ export class CommonGameComponent implements OnInit {
         (game) =>  {
           this.game = <Game>game;
           this.gameName = this.game.name;
-          if (this.gameName === 'Executive Control Game') {
+          if (this.gameName === EXECUTIVE_CONTROL_GAME) {
             this.isExecutiveControl = true;
-          } else if (this.gameName === 'Interpretation Bias Game') {
+            this.portraitGame = false;
+          } else if (this.gameName === INTERPRETATION_BIAS_GAME) {
             this.isInterpretationBias = true;
             this.showHintBtn = true;
-          } else if (this.gameName === 'Learned Helplessness Game') {
+            this.portraitGame = true;
+          } else if (this.gameName === LEARNED_HELPLESSNESS_GAME) {
             this.isLearnedHelplessness = true;
-          } else if (this.gameName === 'Attribute Style Game') {
+            this.portraitGame = true;
+          } else if (this.gameName === ATTRIBUTE_STYLE_GAME) {
             this.isAttributeGame = true;
+            this.portraitGame = false;
             // console.log('Attribute Style Game');
-          } else if (this.gameName === 'Friendly Face Game') {
+          } else if (this.gameName === FRIENDLY_FACE_GAME) {
             this.isFriendlyFace = true;
-          } else if (this.gameName === 'Mental Imagery Game') {
+            this.portraitGame = true;
+          } else if (this.gameName === MENTAL_IMAGERY_GAME) {
             this.isMentalImagery = true;
+            this.portraitGame = true;
           }
         },
         (error) => {
@@ -92,65 +119,66 @@ export class CommonGameComponent implements OnInit {
 
   @HostListener('window:blur', ['$event'])
   onBlur(event: any): void {
-    if (this.gameStarted === true) {
-      this.onPauseClick();
+    if (this.dialogBoxService.getIsDialogBoxRemoved()) {
+      this.gamePaused = false;
+    }
+    if (this.gameStarted === true && this.gamePaused === false) {
+      // this.onPauseClick();
     }
   }
 
   onPlayClick() {
     this.gameStarted = true;
+    this.gamePaused = false;
     this.showSideButtons = false;
     this.firstPageElement.nativeElement.classList.add('d-none');
     this.startGameBtn.nativeElement.classList.add('d-none');
     this.pauseBtnElement.nativeElement.classList.remove('d-none');
 
-    // console.log(this.gameDivElement);
-    // const overlayRef = this.overlay.create();
-    // // const userProfilePortal = new ComponentPortal(UserProfile);
-    // // overlayRef.attach(userProfilePortal);
-
-    if (this.gameName === 'Interpretation Bias Game') {
+    if (this.gameName === INTERPRETATION_BIAS_GAME) {
       this.gamePlayService.playIBGame(this.gameDivElement);
-    } else if (this.gameName === 'Executive Control Game') {
-      this.showSecondPlayBtn = false;
+    } else if (this.gameName === EXECUTIVE_CONTROL_GAME) {
       this.gamePlayService.playExecControlGame(this.isSoundOn, false);
-    } else if (this.gameName === 'Learned Helplessness Game') {
+    } else if (this.gameName === LEARNED_HELPLESSNESS_GAME) {
       this.gamePlayService.playLearnedHelplessnessGame();
-    } else if (this.gameName === 'Attribute Style Game') {
+    } else if (this.gameName === ATTRIBUTE_STYLE_GAME) {
       this.gamePlayService.playAttributionStyleGame();
       // console.log('play button');
-    } else if (this.gameName === 'Friendly Face Game') {
+    } else if (this.gameName === FRIENDLY_FACE_GAME) {
       this.gamePlayService.playFriendlyFaceGame(this.device_type);
-    } else if (this.gameName === 'Mental Imagery Game') {
-      this.miGameComponent.startPlayingMIGame();
+    } else if (this.gameName === MENTAL_IMAGERY_GAME) {
+      // this.miGameComponent.startPlayingMIGame();
+      this.gamePlayService.playMentalImageryGame(this.gameDivElement);
     }
   }
 
   onHelpClick() {
     this.showSideButtons = false;
-    if (this.firstPageElement.nativeElement.classList.contains('d-none')) {
-      this.isFirstPageHelpBtn = false;
-    } else {
-      this.isFirstPageHelpBtn = true;
-    }
+    this.gamePaused = true;
     this.firstPageElement.nativeElement.classList.add('d-none');
     this.startGameBtn.nativeElement.classList.add('d-none');
     this.pauseBtnElement.nativeElement.classList.remove('d-none');
-    if (this.gameName === 'Executive Control Game') {
-      this.showSecondPlayBtn = false;
-      this.gamePlayService.helpExecControlGame(this.isSoundOn, this.isFirstPageHelpBtn);
+
+    if (this.gameName === EXECUTIVE_CONTROL_GAME) {
+      this.gamePlayService.helpExecControlGame(this.isSoundOn);
+      this.dialogBoxService.setDialogChild(ExecControlInstructionsComponent);
     }
-    if (this.gameName === 'Interpretation Bias Game') {
-      this.gamePlayService.helpIBGame(this.gameDivElement);
+    if (this.gameName === INTERPRETATION_BIAS_GAME) {
+      this.gamePlayService.helpIBGame();
     }
-    if (this.gameName === 'Mental Imagery Game') {
-      this.miGameComponent.goToMIGameInstruction();
+    if (this.gameName === MENTAL_IMAGERY_GAME) {
+      this.gamePlayService.helpMIGame();
     }
+    const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
+    this.pauseBtnElement.nativeElement.dispatchEvent(domEvent);
+
   }
   onHomeClick() {
     this.showSideButtons = false;
-    window.location.reload();
-    // $( '#game_div' ).load(window.location.href + ' #game_div' );
+    this.showComponent = false;
+    setTimeout((x: any) => {
+      this.showComponent = true;
+    }, 10);
   }
 
   onExitClick() {
@@ -159,77 +187,106 @@ export class CommonGameComponent implements OnInit {
 
   onPauseClick() {
     this.showSideButtons = true;
+    this.gamePaused = true;
     this.pauseBtnElement.nativeElement.classList.add('d-none');
-    if (this.gameName === 'Interpretation Bias Game') {
+    if (this.gameName === INTERPRETATION_BIAS_GAME) {
       this.gamePlayService.pauseIBGame();
     }
-    if (this.gameName === 'Executive Control Game') {
+    if (this.gameName === EXECUTIVE_CONTROL_GAME) {
       this.gamePlayService.pauseExecControlGame();
     }
-    if (this.gameName === 'Attribute Style Game') {
+    if (this.gameName === ATTRIBUTE_STYLE_GAME) {
       this.gamePlayService.pauseAttributionStyleGame();
-      // console.log('play button');
     }
-
-    if (this.gameName === 'Learned Helplessness Game') {
+    if (this.gameName === LEARNED_HELPLESSNESS_GAME) {
       this.gamePlayService.pauseLHGame();
     }
-    if (this.gameName === 'Friendly Face Game') {
+    if (this.gameName === FRIENDLY_FACE_GAME) {
       this.gamePlayService.pauseFaceGame();
+    }
+    if (this.gameName === MENTAL_IMAGERY_GAME) {
+      this.miGameComponent.pauseMIGame();
     }
   }
 
   onResumeClick() {
     this.showSideButtons = false;
+    this.gamePaused = false;
     this.pauseBtnElement.nativeElement.classList.remove('d-none');
-    if (this.gameName === 'Executive Control Game') {
+    if (this.gameName === EXECUTIVE_CONTROL_GAME) {
       this.gamePlayService.resumeExecControlGame();
     }
-    if (this.gameName === 'Interpretation Bias Game') {
+    if (this.gameName === INTERPRETATION_BIAS_GAME) {
       this.gamePlayService.resumeIBGame();
     }
-    if (this.gameName === 'Attribute Style Game') {
+    if (this.gameName === ATTRIBUTE_STYLE_GAME) {
       this.gamePlayService.resumeAttributionStyleGame();
     }
-      // console.log('play button');
-    if (this.gameName === 'Learned Helplessness Game') {
+    if (this.gameName === LEARNED_HELPLESSNESS_GAME) {
       this.gamePlayService.resumeLHGame();
     }
-    if (this.gameName === 'Friendly Face Game') {
+    if (this.gameName === FRIENDLY_FACE_GAME) {
       this.gamePlayService.resumeFaceGame();
+    }
+    if (this.gameName === MENTAL_IMAGERY_GAME) {
+      this.miGameComponent.resumeMIGame();
     }
   }
 
   onRestartClick() {
     this.showSideButtons = false;
+    this.gamePaused = false;
     this.pauseBtnElement.nativeElement.classList.remove('d-none');
-    if (this.gameName === 'Executive Control Game') {
-      this.isSoundOn = true;
+    if (this.gameName === EXECUTIVE_CONTROL_GAME) {
       this.gamePlayService.restartExecControlGame(this.isSoundOn);
     }
-    if (this.gameName === 'Interpretation Bias Game') {
+    if (this.gameName === INTERPRETATION_BIAS_GAME) {
       this.gamePlayService.playIBGame(this.gameDivElement);                      // same function for start and restart the game
     }
-    if (this.gameName === 'Attribute Style Game') {
+    if (this.gameName === ATTRIBUTE_STYLE_GAME) {
       this.gamePlayService.restartAttributionStyleGame();
     }
-      // console.log('play button');
-    if (this.gameName === 'Friendly Face Game') {
+    if (this.gameName === FRIENDLY_FACE_GAME) {
       this.gamePlayService.restartFaceGame();
     }
-    if (this.gameName === 'Mental Imagery Game') {
+    if (this.gameName === MENTAL_IMAGERY_GAME) {
       this.miGameComponent.replayMIGame();
     }
   }
 
   onSoundClick() {
     this.isSoundOn = !this.isSoundOn;
-    if (this.gameName === 'Executive Control Game') {
+    if (this.gameName === EXECUTIVE_CONTROL_GAME) {
+      console.log('sound', this.isSoundOn);
       this.gamePlayService.soundExecControlGame(this.isSoundOn);
     }
-    // else if (this.gameName === 'Friendly Face Game') {
+    // else if (this.gameName === FRIENDLY_FACE_GAME) {
     //   this.gamePlayService.pauseFaceGame();
     // }
+  }
+
+  onScienceBehind() {
+    if (this.gameName === EXECUTIVE_CONTROL_GAME) {
+      this.dialogBoxService.setDialogChild(EcgScienceComponent);
+
+    } else if (this.gameName === INTERPRETATION_BIAS_GAME) {
+      this.dialogBoxService.setDialogChild(IbgScienceComponent);
+
+    } else if (this.gameName === ATTRIBUTE_STYLE_GAME) {
+      this.dialogBoxService.setDialogChild(AsgScienceComponent);
+
+    } else if (this.gameName === LEARNED_HELPLESSNESS_GAME) {
+      this.dialogBoxService.setDialogChild(LhgScienceComponent);
+
+    } else if (this.gameName === FRIENDLY_FACE_GAME) {
+      this.dialogBoxService.setDialogChild(FfgScienceComponent);
+
+    } else if (this.gameName === MENTAL_IMAGERY_GAME) {
+      this.dialogBoxService.setDialogChild(MigScienceComponent);
+
+    }
+    const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
+    this.pauseBtnElement.nativeElement.dispatchEvent(domEvent);
   }
 
   @HostListener('touchstart')

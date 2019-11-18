@@ -3,9 +3,7 @@ html {
 }
 .step-group {
   
-  // margin: 30px;
   .step-group-name {
-    // padding: 15px 20px;
     font-size: 1.2rem;
   }
 }
@@ -13,7 +11,6 @@ html {
   max-height: 30px;
 }
 .step-circle-div{
-  // max-width: 80px;
   margin: 0%;
 }
 .collapse-text{
@@ -32,12 +29,4 @@ hr {
   margin-bottom: 0.5em;
   border-style: inset;
   color: #B8B8B8;
-} 
-::ng-deep.mat-expansion-panel-body{
-  padding: 0 15px 12px !important;
-  padding-left: 2px !important;
-}
-.mat-expansion-panel-header{
-  padding: 0 15px !important;
-  padding-left: 2px !important;
 }

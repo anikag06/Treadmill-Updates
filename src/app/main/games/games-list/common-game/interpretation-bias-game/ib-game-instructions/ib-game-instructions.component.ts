@@ -1,7 +1,4 @@
-import { Component, OnInit, Inject, Input } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { OverlayContainer, FullscreenOverlayContainer, Overlay } from '@angular/cdk/overlay';
-
+import { Component, OnInit, ElementRef } from '@angular/core';
 
 declare var startIBGame: any;
 
@@ -9,25 +6,21 @@ declare var startIBGame: any;
   selector: 'app-ib-game-instructions',
   templateUrl: './ib-game-instructions.component.html',
   styleUrls: ['./ib-game-instructions.component.scss'],
-  providers: [{provide: OverlayContainer, useClass: FullscreenOverlayContainer}],
 })
 export class IbGameInstructionsComponent implements OnInit {
 
-  // @Input() game_element!: HTMLElement;
   game_element!: any;
 
   constructor(
-    public dialogRef: MatDialogRef<IbGameInstructionsComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-  ) {
-    dialogRef.disableClose = true;
-  }
+    private elementRef: ElementRef,
+  ) { }
 
   ngOnInit() {
   }
 
   onPlayClicked() {
-    this.dialogRef.close();
+    const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });
+    this.elementRef.nativeElement.dispatchEvent(domEvent);
     startIBGame();
   }
 }

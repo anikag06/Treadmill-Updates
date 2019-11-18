@@ -3,7 +3,8 @@
   [ngClass]="{'last': last,
               'first': first,
               'active': category.is_active ===  true,
-              'locked': category.is_content_locked == true}">
+              'locked': category.is_content_locked == true,
+              'in-current-module': currentModule}">
   <img
     class="card-image"
     [src]="imageUrl()" 

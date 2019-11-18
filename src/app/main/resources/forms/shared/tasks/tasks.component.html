@@ -71,19 +71,23 @@
             </div>
             
             <div class="col-12 col-md-12" *ngIf="repeat">
-              <mat-checkbox
-                (change)="onAllCheck($event)"
-                [disableRipple]="true"
-                [checked]="days.length === week.length">
-                <span color="primary">All</span>
-              </mat-checkbox>
-              <mat-checkbox
-                *ngFor="let day of week"
-                [checked]="days.includes(day)"
-                (change)="onDayChange($event, day)"
-                [disableRipple]="true">
-                {{day}}
-              </mat-checkbox>
+              <div class="w-100">
+                <mat-checkbox
+                  (change)="onAllCheck($event)"
+                  [disableRipple]="true"
+                  [checked]="days.length === week.length">
+                  <span color="primary">All</span>
+                </mat-checkbox>
+              </div>
+              <div class="w-100"  *ngFor="let day of week">
+                <mat-checkbox
+                  [checked]="days.includes(day)"
+                  (change)="onDayChange($event, day)"
+                  [disableRipple]="true">
+                  {{day}}
+                </mat-checkbox>
+              </div>
+              
             </div>
 
             <div class="col-12 col-md-12" *ngIf="repeat">

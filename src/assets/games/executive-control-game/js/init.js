@@ -191,7 +191,7 @@ function init_game_variables(){
 	DROP_PLATFORM_DOWN_SPEED=12;
 
 	//Obstacle variables
-	obstacle;
+	obstacle=null;
 	obstacle_group;
 	stop_obstacle_generation=false;
 	OBSTACLE_X_CORDINATE=20;
@@ -240,6 +240,15 @@ function init_game_variables(){
 	task_start_dialog;
 	task_start_button;
 	task_start_button_text;
+
+	left_key_button;
+	right_key_button;
+	red_key_button;
+	green_key_button;
+	flanker_tutorial_left;
+	flanker_tutorial_right;
+	discrimination_tutorial_red;
+	discrimination_tutorial_green;
 
 	//Jump Platform variables
 	jump_platform=[];
@@ -361,7 +370,7 @@ function init_game_variables(){
 	discrimination_task_response_type=NO_REPSONSE;
 	discrimination_task_timestamp=0;
 	TOTAL_NUMBER_OF_DISCRIMINATION_TASK=2;
-	DISCRIMINATION_Y_CORDINATE=screen_height/2.5;
+	DISCRIMINATION_Y_CORDINATE=screen_height/2.1;
 	DISCRIMINATION_X_CORDINATE=screen_width/2;
 	DISCRIMIANTION_TASK_IMAGE_SCALE=1.5;
 	DISCRIMINATION_TASK_IMAGE_SMALL_SCALE = 0.7;

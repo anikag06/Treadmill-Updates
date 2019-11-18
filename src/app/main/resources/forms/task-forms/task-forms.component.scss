@@ -9,10 +9,11 @@
   overflow: auto;
   @include box-shadow-1-1-10-d6();
 }
+
 .card {
   margin: 0 auto;
   
-  ::ng-deep .card-header {
+  .card-header {
     background-color: #FFEFD4;
     font-weight: 700;
   }

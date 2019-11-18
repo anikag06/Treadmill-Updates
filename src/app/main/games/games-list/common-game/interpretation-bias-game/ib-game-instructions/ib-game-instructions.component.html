@@ -1,4 +1,4 @@
-<div class="row px-0 py-0">
+<div class="row px-0 py-0 pb-2 instructions-div mx-0">
     <div class="col-12">
         <div class="sticky-top pt-2 play-heading w-100 text-center mt-0">
             <mat-card-title class="w-100 text-center">
@@ -11,7 +11,12 @@
             <div class="div-instruction">
                 <div class="div-instruction-img justify-content-center">
                     <img class="card-img-top img-fluid rounded" src="../../../../../assets/games/interpretation_bias_game/images/1.png" alt="Swipe gif">
-                    <mat-icon class="instruction-icon">play_circle_outline</mat-icon >
+                    <mat-icon [ngStyle]="{'font-size': '60px',
+                                'vertical-align': 'middle',
+                                'margin-top': '-125%',
+                                'margin-left': '40%'}">
+                        play_circle_outline
+                    </mat-icon >
                 </div>
                 <div class="div-instruction-gif d-none">
                     <img class="card-gif-top img-fluid rounded" src="../../../../../assets/games/interpretation_bias_game/images/1.gif" alt="Swipe gif">
@@ -21,7 +26,12 @@
             <div class="div-instruction">
                 <div class="div-instruction-img">
                     <img class="card-img-top img-fluid rounded" src="../../../../../assets/games/interpretation_bias_game/images/2.png" alt="Swipe gif">
-                    <mat-icon class=" instruction-icon">play_circle_outline</mat-icon >
+                    <mat-icon [ngStyle]="{'font-size': '60px',
+                                'vertical-align': 'middle',
+                                'margin-top': '-125%',
+                                'margin-left': '40%'}">
+                        play_circle_outline
+                    </mat-icon >
                 </div>
                 <div class="div-instruction-gif d-none">
                     <img class="card-gif-top img-fluid rounded" src="../../../../../assets/games/interpretation_bias_game/images/1.gif" alt="Swipe gif">
@@ -31,7 +41,12 @@
             <div class="div-instruction">
                 <div class="div-instruction-img">
                     <img class="card-img-top img-fluid rounded" src="../../../../../assets/games/interpretation_bias_game/images/1.png" alt="Swipe gif">
-                    <mat-icon class="instruction-icon">play_circle_outline</mat-icon >
+                    <mat-icon [ngStyle]="{'font-size': '60px',
+                                'vertical-align': 'middle',
+                                'margin-top': '-125%',
+                                'margin-left': '40%'}">
+                        play_circle_outline
+                    </mat-icon >
                 </div>
                 <div class="div-instruction-gif d-none">
                     <img class="card-gif-top img-fluid rounded" src="../../../../../assets/games/interpretation_bias_game/images/1.gif" alt="Swipe gif">
@@ -41,7 +56,12 @@
             <div class="div-instruction">
                 <div class="div-instruction-img">
                     <img class="card-img-top img-fluid rounded" src="../../../../../assets/games/interpretation_bias_game/images/1.png" alt="Swipe gif">
-                    <mat-icon class="instruction-icon">play_circle_outline</mat-icon >
+                    <mat-icon [ngStyle]="{'font-size': '60px',
+                                'vertical-align': 'middle',
+                                'margin-top': '-125%',
+                                'margin-left': '40%'}">
+                        play_circle_outline
+                    </mat-icon >
                 </div>
                 <div class="div-instruction-gif d-none">
                     <img class="card-gif-top img-fluid rounded" src="../../../../../assets/games/interpretation_bias_game/images/1.gif" alt="Swipe gif">
@@ -51,7 +71,12 @@
             <div class="div-instruction">
                 <div class="div-instruction-img">
                     <img class="card-img-top img-fluid rounded" src="../../../../../assets/games/interpretation_bias_game/images/1.png" alt="Swipe gif">
-                    <mat-icon class="instruction-icon">play_circle_outline</mat-icon >
+                    <mat-icon [ngStyle]="{'font-size': '60px',
+                                'vertical-align': 'middle',
+                                'margin-top': '-125%',
+                                'margin-left': '40%'}">
+                        play_circle_outline
+                    </mat-icon >
                 </div>
                 <div class="div-instruction-gif d-none">
                     <img class="card-gif-top img-fluid rounded" src="../../../../../assets/games/interpretation_bias_game/images/1.gif" alt="Swipe gif">
@@ -59,7 +84,7 @@
             </div>
         </mat-card-content>
         <hr>
-        <button mat-raised-button
+        <button mat-raised-button [color]="'ibg-start'" 
             class='w-100'
             (click) = "onPlayClicked()">
             <b> Start </b> 
@@ -68,16 +93,4 @@
 </div>
 <!--    
     <br>
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-              <h5 class="card-header">Science behind the game.</h5>
-              <div class="card-body">
-                <p class="card-text">Research shows that depressed people often jump to a 
-                    negative conclusion. Given an ambiguous situation, they think that the 
-                    worst outcome is going to happen. This game has been designed to train 
-                    your mind to link positive outcomes to ambiguous situations.</p>
-              </div>
-            </div>
-        </div>
-    </div> -->
+    -->

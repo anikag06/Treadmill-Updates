@@ -3,16 +3,44 @@ import { MIUser } from '../mi-user.model';
 import { Level } from '../level.model';
 import { Scenario } from '../scenario.model';
 import { MICurrentStateService } from '../mi-current-state.service';
+import { MIPlayService } from '../mi-play.service';
+import { MiWinComponent } from '../mi-win/mi-win.component';
+import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
+import { trigger, state, transition, style, animate } from '@angular/animations';
 declare function require(name: string): any;
 
 @Component({
   selector: 'app-mi-play',
   templateUrl: './mi-play.component.html',
-  styleUrls: ['./mi-play.component.scss']
+  styleUrls: ['./mi-play.component.scss'],
+  animations:[
+    trigger('text',[
+      state('out', style({
+        opacity:1,
+        transform:'translateY(0px)'
+      })),
+      // transition('* => *', [
+      //   style({
+      //     opacity:1,
+      //     transform:'translateY(100px)'
+      //   }),
+      //   animate(300)]),
+    
+      transition('* => *', [
+        animate((300),style({
+          opacity:0,
+          transform:'translateY(-300px)'
+        }))
+    ]),
+  
+  ])
+]
 })
 export class MiPlayComponent implements OnInit {
 
   @ViewChild('inputEl', {static: false}) inputEl!: ElementRef;
+  @ViewChild('doneBtn', {static: false}) doneBtn!: ElementRef;
+
   // @ViewChild('submitBtn') submitBtn: ElementRef;
   // @Output() scoreUpdated = new EventEmitter<number>();
 
@@ -21,11 +49,13 @@ export class MiPlayComponent implements OnInit {
   // tslint:disable-next-line:no-output-on-prefix
   @Output() onNvHome = new EventEmitter<void>();
 
+  levelChanged = false;
   user!: MIUser;
   currentLevel!: Level;
+  nextLevel!: Level;
+
   currentScenario!: Scenario;
   replayMode = false;
- // continuePlaying = false;
   blank = '';
   YES = ['Y', 'y', 'ye', 'yes', 'YE', 'YES', 'Yes', 'yEs', 'yE', 'Ye'];
   NO = ['N', 'n', 'No', 'no', 'nO'];
@@ -40,43 +70,49 @@ export class MiPlayComponent implements OnInit {
   notificationHeader = '';
   notificationBody = '';
   disabled!: boolean;
-  // retry = false;
+  retry = false;
   sentiment = require('../../../../../../../../node_modules/wink-sentiment/src/wink-sentiment.js');
   nlp = require('../../../../../../../../node_modules/compromise/builds/compromise.min.js');
   openNavBar = false;
-  goldValue:number = 20;
-  silverValue:number = 30;
-  bronzeValue:number = 40;
-  
+  goldValue = 20;
+  silverValue = 30;
+  bronzeValue = 40;
+  gameValue = 20;  
 
 
-  constructor(private getCurrentState: MICurrentStateService) { }
+  constructor(private getCurrentStateService: MICurrentStateService,
+              private miPlayService: MIPlayService,
+              private dialogBoxService: DialogBoxService,) { }
 
   ngOnInit() {
-    this.getCurrentState.getContent();
+    this.getCurrentStateService.getContent();
+    this.miPlayService.levelUpdate.subscribe(() =>{
+      this.getCurrentStateService.continuePlaying = true;
+      this.situationHandler();
+    });
   }
 
   // tslint:disable-next-line:use-life-cycle-interface
   ngAfterContentInit() {
     // this.getCurrentState.getCurrentLevel();
-    this.currentLevel = this.getCurrentState.getCurrentLevel();
+    this.currentLevel = this.getCurrentStateService.getCurrentLevel();
 
-    this.getCurrentState.getScenario();
-    this.currentScenario = MICurrentStateService.currentScenario;
+    this.getCurrentStateService.getScenario();
+    this.currentScenario = this.getCurrentStateService.currentScenario;
 
-    this.previousText = MICurrentStateService.previousText;
-    this.extraContent = MICurrentStateService.extraContent;
-    this.notificationHeader = MICurrentStateService.notificationHeader ;
-    this.notificationBody = MICurrentStateService.notificationBody;
-    this.disabled = MICurrentStateService.disabled;
-    this.blank = MICurrentStateService.blank;
+    this.previousText = this.getCurrentStateService.previousText;
+    this.extraContent = this.getCurrentStateService.extraContent;
+    this.notificationHeader = this.getCurrentStateService.notificationHeader ;
+    this.notificationBody = this.getCurrentStateService.notificationBody;
+    this.disabled = this.getCurrentStateService.disabled;
+    this.blank = this.getCurrentStateService.blank;
 
-    this.user = MICurrentStateService.user;
+    this.user = this.getCurrentStateService.user;
 
     if (this.inputEl) {
       this.inputEl.nativeElement.focus();
     }
-    MICurrentStateService.count += 1;
+    this.getCurrentStateService.count += 1;
   }
 
   // getCurrentLevel() {
@@ -99,13 +135,13 @@ export class MiPlayComponent implements OnInit {
 
 
   storeTypedLetters() {
-    MICurrentStateService.blank = this.blank;
+    this.getCurrentStateService.blank = this.blank;
     }
 
   onSubmit() {
     this.blank = this.blank.trim();
     this.invalidInput = false;
-    MICurrentStateService.blank = '';
+    this.getCurrentStateService.blank = '';
     // this.inputEl.nativeElement.focus();
     if (this.blank && this.blank.length > 0) {
       this.situationHandler();
@@ -113,35 +149,51 @@ export class MiPlayComponent implements OnInit {
     }
     // this.inputEl.nativeElement.focus();
   }
+  onTryAgain() {
+    this.getCurrentStateService.retry = false;
+    this.retry = this.getCurrentStateService.retry;
+    this.resetCurrent();
+    // tslint:disable-next-line:max-line-length
+    this.getCurrentStateService.user.points.push(-Math.abs(this.getCurrentStateService.user.currentPoints() - 1000 * this.getCurrentStateService.user.level));
+    // console.log(this.getCurrentStateService.user.points);
+    this.getCurrentStateService.resetScenario();
+    this.currentScenario = this.getCurrentStateService.currentScenario;
+  }
+
+  // onStartNext() {
+  //   this.getCurrentStateService.continuePlaying = true;
+  //   this.situationHandler();
+  //   console.log('play next');
+  // }
 
   situationHandler() {
-    if (MICurrentStateService.retry) {
-      MICurrentStateService.retry = false;
+    if (this.getCurrentStateService.retry) {
+      this.getCurrentStateService.retry = false;
       if (this.findMatching(this.YES, this.blank)) {
         this.resetCurrent();
         // tslint:disable-next-line:max-line-length
-        MICurrentStateService.user.points.push(-Math.abs(MICurrentStateService.user.currentPoints() - 1000 * MICurrentStateService.user.level));
-
-        this.getCurrentState.resetScenario();
-        this.currentScenario = MICurrentStateService.currentScenario;
+        this.getCurrentStateService.user.points.push(-Math.abs(this.getCurrentStateService.user.currentPoints() - 1000 * this.getCurrentStateService.user.level));
+        // console.log(this.getCurrentStateService.user.points);
+        this.getCurrentStateService.resetScenario();
+        this.currentScenario = this.getCurrentStateService.currentScenario;
       } else {
         this.exit();
       }
-    } else if (MICurrentStateService.continuePlaying) {
-      if (this.findMatching(this.YES, this.blank)) {
-        MICurrentStateService.continuePlaying = false;
+    } else if (this.getCurrentStateService.continuePlaying) {
+      // if (this.findMatching(this.YES, this.blank)) {
+        this.getCurrentStateService.continuePlaying = false;
         this.resetCurrent();
-        this.getCurrentState.levelUpdate();
-        this.currentLevel = this.getCurrentState.getCurrentLevel();
-        // MICurrentStateService.currentScenario = this.currentLevel.scenario;
-        // this.currentScenario= MICurrentStateService.currentScenario;
+        this.getCurrentStateService.levelUpdate();
+        this.currentLevel = this.getCurrentStateService.getCurrentLevel();
+        // this.getCurrentStateService.currentScenario = this.currentLevel.scenario;
+        // this.currentScenario= this.getCurrentStateService.currentScenario;
 
-        this.getCurrentState.updateScenario();
-        this.currentScenario = MICurrentStateService.currentScenario;
-      } else {
-        this.exit();
-      }
-    } else if (MICurrentStateService.currentScenario) {
+        this.getCurrentStateService.updateScenario();
+        this.currentScenario = this.getCurrentStateService.currentScenario;
+      // } else {
+      //   this.exit();
+      // }
+    } else if (this.getCurrentStateService.currentScenario) {
       this.scenarioHandler();
     }
   }
@@ -150,31 +202,37 @@ export class MiPlayComponent implements OnInit {
     if (this.ifPositive(this.blank) === 1) {
       this.updatePreviousText();
       this.updateScore();
-      if (MICurrentStateService.currentScenario.scenarioNext) {
-        this.getCurrentState.updateScenario();
-        this.currentScenario = MICurrentStateService.currentScenario;
+      if (this.getCurrentStateService.currentScenario.scenarioNext) {
+        this.getCurrentStateService.updateScenario();
+        this.currentScenario = this.getCurrentStateService.currentScenario;
       } else {
         this.updateExtraContent(this.currentScenario.correctText);
-        delete MICurrentStateService.currentScenario;
+        delete this.getCurrentStateService.currentScenario;
         delete this.currentScenario;
-        if (MICurrentStateService.user.level + 1 < this.getCurrentState.levelList.length) {
+        if (this.getCurrentStateService.user.level + 1 < this.getCurrentStateService.levelList.length) {
           // console.log(CurrentStateService.user.level);
           // console.log(this.getCurrentState.levelList.length);
-          this.updateNotification('You have won', 'type yes to continue or no exit');
-          MICurrentStateService.continuePlaying = true;
+          // this.updateNotification('You have won', 'type yes to continue or no exit');
+          this.updateNotification('Great', 'You have completed this task.');
+
+          // console.log(this.getCurrentStateService.levelList[this.getCurrentStateService.user.level+1].title);
+          
+          this.addDoneBtn( );
+          // this.getCurrentStateService.continuePlaying = true;
         } else {
           this.updateNotification('You have completed', 'Congratulations you have completed all modules');
-          MICurrentStateService.disabled = true;
-          this.disabled = MICurrentStateService.disabled;
+          this.getCurrentStateService.disabled = true;
+          this.disabled = this.getCurrentStateService.disabled;
         }
       }
     } else if (this.ifPositive(this.blank) === -1) {
       this.updatePreviousText();
       this.updateExtraContent('<i>' + this.currentScenario.wrongText + '</i>');
-      delete MICurrentStateService.currentScenario;
+      delete this.getCurrentStateService.currentScenario;
       delete this.currentScenario;
-      this.updateNotification('Stuck in a negative thought cycle ?', 'Type yes to retry or any other character to exit?');
-      MICurrentStateService.retry = true;
+      this.updateNotification('You seem to be stuck in a negative thought cycle ?','');
+      this.getCurrentStateService.retry = true;
+      this.retry = this.getCurrentStateService.retry;
     } else {
       this.invalidInput = true;
     }
@@ -222,68 +280,97 @@ export class MiPlayComponent implements OnInit {
   updatePreviousText() {
     this.previousText += '<p>' +
             this.currentScenario.problemBeforeDash +
-            '<strong> ' +
+            '<strong class="small-font"> <u> ' +
             this.blank +
-            ' </strong>' +
+            '</u> </strong>' +
             this.currentScenario.problemAfterDash +
             '</p>' + '<p> >> ' + this.blank + '</p>';
 
-    MICurrentStateService.previousText = this.previousText;
+            this.getCurrentStateService.previousText = this.previousText;
   }
 
   updateExtraContent(content: any) {
     this.extraContent = content;
-    MICurrentStateService.extraContent = this.extraContent;
+    this.getCurrentStateService.extraContent = this.extraContent;
   }
 
   updateScore() {
     // this.scoreUpdated.emit(this.currentScenario.points);
-    MICurrentStateService.user.points.push(this.currentScenario.points);
+    this.getCurrentStateService.user.points.push(this.currentScenario.points);
   }
 
   updateNotification(header: string, body: string = '') {
     this.notificationHeader = header;
     this.notificationBody = body;
 
-    MICurrentStateService.notificationHeader = this.notificationHeader;
-    MICurrentStateService.notificationBody = this.notificationBody;
+    this.getCurrentStateService.notificationHeader = this.notificationHeader;
+    this.getCurrentStateService.notificationBody = this.notificationBody;
   }
 
   exit() {
-    MICurrentStateService.disabled = true;
-    this.disabled = MICurrentStateService.disabled;
+    this.getCurrentStateService.disabled = true;
+    this.disabled = this.getCurrentStateService.disabled;
     this.updateNotification('Exiting!!', 'Goodbye hope to see you soon');
   }
 
   resetCurrent() {
-    delete MICurrentStateService.currentScenario;
+    delete this.getCurrentStateService.currentScenario;
     delete this.currentScenario;
-    MICurrentStateService.extraContent = this.extraContent = '';
-    MICurrentStateService.previousText = this.previousText = '';
-    MICurrentStateService.notificationBody = this.notificationBody = '';
-    MICurrentStateService.notificationHeader = this.notificationHeader = '';
+    this.getCurrentStateService.extraContent = this.extraContent = '';
+    this.getCurrentStateService.previousText = this.previousText = '';
+    this.getCurrentStateService.notificationBody = this.notificationBody = '';
+    this.getCurrentStateService.notificationHeader = this.notificationHeader = '';
     this.blank = '';
   }
 
-  onAnyWhereClick() {
-    this.inputEl.nativeElement.focus();
-    this.openNavBar = false;
+  addDoneBtn() { 
+    setTimeout(() => {
+      this.levelChanged = true;
+      console.log("added Done Btn")}, 4000 );
   }
-  // onPause() {
-  //   this.openNavBar = true;
-  // }
+
+  onAnyWhereClick() {
+    if (this.inputEl) {
+    this.inputEl.nativeElement.focus();
+    }
+    this.openNavBar = false;
+
+  }
+  onPause() {
+    // this.openNavBar = true;
+    this.getCurrentStateService.disabled = true;
+    this.disabled = this.getCurrentStateService.disabled;
+  }
+  onResumePlay() {
+    this.getCurrentStateService.disabled = false;
+    this.disabled = this.getCurrentStateService.disabled;
+  }
+
   onNavBarReplay() {
     this.resetCurrent();
-    this.getCurrentState.resetScenario();
-    this.currentScenario = MICurrentStateService.currentScenario;
+    this.getCurrentStateService.resetScenario();
+    this.currentScenario = this.getCurrentStateService.currentScenario;
     this.openNavBar = false;
     this.invalidInput = false;
-    MICurrentStateService.continuePlaying = false;
-    MICurrentStateService.retry = false;
-    MICurrentStateService.disabled = false;
+    this.getCurrentStateService.continuePlaying = false;
+    this.getCurrentStateService.retry = false;
+    this.getCurrentStateService.disabled = false;
     this.disabled = false;
-    MICurrentStateService.user.points.push(-Math.abs(MICurrentStateService.user.currentPoints() - 1000 * MICurrentStateService.user.level));
+    this.getCurrentStateService.user.points.push(-Math.abs(this.getCurrentStateService.user.currentPoints() - 1000 * this.getCurrentStateService.user.level));
   }
+  
+  onClickDone() {
+    this.levelChanged = false;
+    this.miPlayService.levelChanged.emit();
+    const domEvent =  new CustomEvent('overlayCalledEvent', {bubbles:true});
+    console.log(this.doneBtn.nativeElement);
+    this.doneBtn.nativeElement.dispatchEvent(domEvent);
+    this.dialogBoxService.setDialogChild(MiWinComponent)
+    this.nextLevel = this.getCurrentStateService.levelList[this.getCurrentStateService.user.level + 1];
+    console.log(this.nextLevel.title);
+   
+  }
+
   // onNavBarPlay() {
   //   this.openNavBar = false;
   // }

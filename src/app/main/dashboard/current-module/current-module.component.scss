@@ -28,23 +28,7 @@
         .current-module-category {
             margin: 17px 15px 10px 45px;
         }
-        // Maybe not the best way to do
-        ::ng-deep .category-card {
-            width: 24%;
-            border-top-width: 1px;
-            top: -6px;
-            img {
-                background-color: white;
-                position: absolute;
-                top: -17px;
-                left: -20px;
-                width: 30px;
-                height: 30px;
-            }
-        }
-        ::ng-deep .category-card.last {
-            width: 0px;
-        }
+        
         .btn-container {
             margin-top: 25px;
             a.continue-task {
@@ -84,19 +68,7 @@
             .current-module-category {
                 margin: 15px 15px 8px 30px;
             }
-            ::ng-deep .category-card {
-                width: 24%;
-                border-top-width: 1px;
-                top: -12px;
-                img {
-                    background-color: white;
-                    position: absolute;
-                    top: -14px;
-                    left: -20px;
-                    width: 25px;
-                    height: 25px;
-                }
-            }
+            
             .btn-container {
                 margin-top: 0px;
                 margin-left: 10px; 

@@ -17,10 +17,6 @@ a.toggler:hover {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-::ng-deep .angular-editor-textarea {
-    color: black;
-    caret-color: black;
-}
 
 .post-item {
     @include box-shadow-1-1-10-d6();

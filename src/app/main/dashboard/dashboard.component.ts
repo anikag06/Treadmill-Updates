@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { User } from '@/shared/user.model';
 import { AuthService } from '@/shared/auth/auth.service';
 import { MOBILEWIDTH, TREADWILL } from '@/app.constants';

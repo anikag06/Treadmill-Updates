@@ -32,6 +32,7 @@ p{
 	// background-size: 95%;
 	// background-position: center;
 	// background-repeat: no-repeat;
+	background-color: #C7FBFF;
 	height: 100%;
 	max-height: 100%;
 	text-align: center;
@@ -128,38 +129,15 @@ canvas{
 	transition: height 0.6s ease;
 }
 
-::ng-deep.hints-menu {
-	min-width: 200px !important;
-	max-width: 250px !important;
-	max-height: 50vh !important;
-}
-::ng-deep.hints-menu-items{
-	min-height: 65px;
-}
 .barsDiv{
 	max-width: 40px !important;
 }
-.bronzeBar {
-	::ng-deep.mat-progress-bar-fill::after {
-		background-color: #B27725;
-	}	
+
+.difficultyBarIBG {
+	min-height: 3.8px;
+	padding: 0.40px;
 }
-.silverBar{
-	::ng-deep.mat-progress-bar-fill::after {
-		background-color: #9E9E9E;
-	}
-}
-.goldBar{
-	::ng-deep.mat-progress-bar-fill::after {
-		background-color: #D5A521;
-	}
-}
-.difficultyBar{
-	max-height: 3px;
-	::ng-deep.mat-progress-bar-fill::after {
-		background-color: #000000;
-	}
-}
+
 .firstBar{
 	padding-top: 0px !important; 
 }
@@ -172,7 +150,9 @@ canvas{
 	cursor: pointer;
 	font-size: 14px;
 }
-  
+.landscape-msg{
+	display: none;
+}
 @media only screen and (max-width: 991px) and (max-width: 767px) {
 	/* For mobile phones: */
 	.ibGame-page {
@@ -206,6 +186,14 @@ canvas{
 	}
 	.pause-hints{
 		max-width: 35%;
+	}
+}
+@media screen and (max-width: 767px) and (orientation:landscape) {
+	.landscape-msg{
+		display: block;
+	}
+	.score-col{
+		max-height: 18%;
 	}
 }
 @media only screen and (max-width: 359px) {

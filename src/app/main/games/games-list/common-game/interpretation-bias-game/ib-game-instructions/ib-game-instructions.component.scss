@@ -14,26 +14,16 @@
     background-color: white;
     font-size: 14px;
 }
-::ng-deep.mat-icon.instruction-icon{
-	font-size: 60px !important;
-	vertical-align: middle;
-	margin-top: -125%;
-	margin-left: 40%;
-}
+
 
 .div-instruction{
 	max-width: 95%;
 	margin: auto;
 	align-items: center;
 }
-::ng-deep.instruct-dialog {
-	/* add your styles */
-	::ng-deep.mat-dialog-container{
-		padding-top: 0% !important;
-	}
-	
-}
-::ng-deep.mat-raised-button{
-    background-color: #0C8C95;
+
+.mat-ibg-start{
+	background-color: #0C8C95;
     color: white;
 }
+

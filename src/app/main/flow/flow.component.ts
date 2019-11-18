@@ -1,4 +1,4 @@
-import { Component, OnInit, SimpleChanges, OnChanges, OnDestroy } from '@angular/core';
+import { Component, OnInit, SimpleChanges, Input, OnDestroy } from '@angular/core';
 import { FlowService } from './flow.service';
 import { StepGroup } from './step-group/step-group.model';
 import { Subscription } from 'rxjs';
@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./flow.component.scss']
 })
 export class FlowComponent implements OnInit, OnDestroy {
-
+  @Input() navBar!: any;
   stepGroups: StepGroup[] = [];
   flowSubscription!: Subscription;
   dataloaded = false;
@@ -19,6 +19,7 @@ export class FlowComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    console.log(this.navBar);
     this.dataloaded = false;
     this.flowService.loadBehaviour
       .subscribe(

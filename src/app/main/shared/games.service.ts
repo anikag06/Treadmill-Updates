@@ -2,7 +2,12 @@ import { Injectable } from '@angular/core';
 import { Game } from './game.model';
 import { of, Observable, Observer } from 'rxjs';
 import { LocalStorageService } from '@/shared/localstorage.service';
-import { GAMES, GAME_INTERPRETATION_BIAS, GAME_EXECUTIVE_CONTROL, GAME_ATTRIBUTION_STYLE, GAME_FRIENDLY_FACE, GAME_MENTAL_IMAGERY } from '@/app.constants';
+import { GAMES,
+  GAME_INTERPRETATION_BIAS,
+  GAME_EXECUTIVE_CONTROL,
+  GAME_ATTRIBUTION_STYLE,
+  GAME_FRIENDLY_FACE,
+  GAME_MENTAL_IMAGERY } from '@/app.constants';
 
 @Injectable({
   providedIn: 'root'

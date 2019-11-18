@@ -20,11 +20,14 @@
 
       <mat-menu xPosition="before" yPosition="below"
         #problemSolvingForms="matMenu"  [overlapTrigger]="false" >
+        <div [ngStyle]="{'max-height':'350px'}">
           <app-forms-sidebar
-          [type]="type"
-          (objectEmitter)="problemSelected($event)"
-          (newForm)="onAddNewForm()">
-        </app-forms-sidebar>
+            [type]="type"
+            (objectEmitter)="problemSelected($event)"
+            (newForm)="onAddNewForm()">
+          </app-forms-sidebar>
+        </div>
+          
       </mat-menu>
     </mat-card-header>
   </div>

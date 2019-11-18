@@ -19,10 +19,12 @@
       
       <mat-menu 
         #beforeMenu="matMenu" xPosition="before" yPosition="below" >
+        <div [ngStyle]="{'max-height':'350px'}">
           <app-forms-sidebar
             (objectEmitter)="taskSelected($event)"
             (newForm)="onAddNewForm()">
           </app-forms-sidebar>
+        </div>
       </mat-menu>
     </mat-card-header>
   </div>

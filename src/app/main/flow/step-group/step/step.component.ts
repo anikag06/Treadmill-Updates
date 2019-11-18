@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { Step } from './step.model';
 import { StepGroup } from '../step-group.model';
 import { COMPLETED, SLIDE, CONVERSATION_GROUP } from '@/app.constants';
@@ -24,14 +24,15 @@ export class StepComponent implements OnInit {
   prevModuleLastStep: any;
   tooltipData!: any;
   isConversationStep = false;
-  conversationBarValue = 5;           // default value is kept 5
+  conversationBarValue = 25;           // default value is kept 5
   isShowConversationBar = false;
 
   constructor(
     private router: Router,
     private flowStepNavService: FlowStepNavigationService,
     private flowService: FlowService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private element: ElementRef,
   ) { }
 
   ngOnInit() {
@@ -43,6 +44,22 @@ export class StepComponent implements OnInit {
       if (this.conversationBarValue !== 100) {
         this.isShowConversationBar = true;
       }
+    }
+  }
+
+  ngAfterViewInit() {
+    // this is done to change the properties of progress bar in conversation in flow
+    const stepProgressBar = this.element.nativeElement.querySelectorAll('.step-progress-bar .mat-progress-bar');
+    // tslint:disable-next-line: max-line-length
+    const stepProgressBarBuffer = this.element.nativeElement.querySelectorAll('.step-progress-bar .mat-progress-bar .mat-progress-bar-buffer');
+    const stepProgressBarFill = this.element.nativeElement.querySelectorAll('.step-progress-bar .mat-progress-bar .mat-progress-bar-fill');
+    if (stepProgressBar.length > 0) {
+      stepProgressBar[0].setAttribute('style', 'border-radius: 2px; !important');
+      stepProgressBarBuffer[0].setAttribute('style', 'background-color: #E4E8EB; !important');
+
+      const afterElement = document.createElement('style');
+      afterElement.innerHTML += ' .' + 'mat-progress-bar-fill' + ':' + 'after' + '{' + 'background-color' + ':' + '#5E5E5E' + '}';
+      stepProgressBarFill[0].appendChild(afterElement);
     }
   }
 

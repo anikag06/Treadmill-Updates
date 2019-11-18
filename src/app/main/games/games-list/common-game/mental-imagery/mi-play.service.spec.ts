@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { IbDialogsService } from './ib-dialogs.service';
+import { MIPlayService } from './mi-play.service';
 
-describe('IbDialogsService', () => {
+describe('MIPlayService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: IbDialogsService = TestBed.get(IbDialogsService);
+    const service: MIPlayService = TestBed.get(MIPlayService);
     expect(service).toBeTruthy();
   });
 });

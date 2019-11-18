@@ -7,6 +7,7 @@
     max-height: 540px;
     margin-left: auto;
     margin-right: auto;
+    position: relative;
 }
 .common-div{
     max-height: 100%;
@@ -25,19 +26,27 @@
     position: absolute;
     margin-left: 0%;
     background-color: rgba($color: #ffffff, $alpha: 0.7);
-    z-index: 1;
+    z-index: 5;
 }
 .common-pause-clicked{
     margin-top: 40%;
     // margin-bottom: auto; 
 }
 .firstpage-btns{
-    margin-top: -4.8rem !important;
     z-index: 1;
 }
 #pause-common-div{
-    margin-top: -4.8rem !important;
     z-index: 1;
+}
+.center-postion{
+    margin-top: -3.3rem !important;
+    max-width: 360px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.end-position{
+    margin-top: -3.7rem !important;
+    max-width: 100%;
 }
 .play-game-btn{
     margin-top: -10rem !important;
@@ -73,7 +82,7 @@
         // max-height: 100%;
         padding: 0%;
     }
-    .firstpage-btns,#pause-common-div{
+    #pause-common-div{
         margin-top: -3rem !important;
         z-index: 1;
     }
@@ -86,9 +95,10 @@
 }
 @media screen and (max-width: 767px) and (orientation:landscape) {
     #game_div,.common-div{
-        max-height: 93vh;
+       max-height: 95vh;
+       min-height: 290px;
     }
-    .firstpage-btns,#pause-common-div{
+    #pause-common-div{
         margin-top: -3.5rem !important;
     }
     .play-game-btn{

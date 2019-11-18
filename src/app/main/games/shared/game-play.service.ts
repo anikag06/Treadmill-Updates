@@ -1,14 +1,16 @@
-import { Injectable,
-  OnChanges, SimpleChanges, SimpleChange, } from '@angular/core';
+import { Injectable, } from '@angular/core';
 import { map } from 'rxjs/operators';
 import {GamesService} from '@/main/shared/games.service';
 import {GamesAuthService} from '@/main/games/shared/games-auth.service';
 import { ECGameData, ECGameFlankerTask, ECGameDiscriminationTask, ECGameUserData,
     LHGameColorReverseData, LHGameUserLevel, LHGamePerformance } from './game-play.model';
-import { IbDialogsService } from '../games-list/common-game/interpretation-bias-game/ib-dialogs.service';
 import { GamesBadgesService } from './games-badges.service';
 import { BadgesConstants } from './game-badges.model';
-
+import {
+  IbGameInstructionsComponent
+} from '../games-list/common-game/interpretation-bias-game/ib-game-instructions/ib-game-instructions.component';
+import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
+import { MiInstructionsComponent } from '../games-list/common-game/mental-imagery/mi-instructions/mi-instructions.component';
 
 // for interpretation bias game
 declare var startIBGame: any;
@@ -26,7 +28,8 @@ declare var startGame: any;
 declare var  check: any;
 // for executive control game
 declare var startExecControlGame: any;
-declare var pause_resume_game: any;
+declare var pauseECGame: any;
+declare var resumeECGame: any;
 declare var closeECGame: any;
 declare var musicECGame: any;
 
@@ -80,6 +83,7 @@ export class GamePlayService  {
 
   // variables for ec game
   ecGameStarted = false;
+  ecGameSoundOn = true;
   ecGameData!: any;
   ecGameTaskData!: any;
   ecGameID!: number;
@@ -111,7 +115,8 @@ export class GamePlayService  {
     private gamesService: GamesService,
     private gamesAuthService: GamesAuthService,
     private gameBadgeService: GamesBadgesService,
-    private ibGameDialogService: IbDialogsService,
+    // private ibGameDialogService: IbDialogsService,
+    private dialogBoxService: DialogBoxService,
   ) { }
 
   getGameInfo(slug: string) {
@@ -123,8 +128,11 @@ export class GamePlayService  {
 
 // functions for Interpretation Bias Game
   playIBGame(gameDivElement: any) {
-    if ( ibGameShowTutorial ) {
-      this.helpIBGame(gameDivElement);
+    if ( ibGameShowTutorial === true) {
+      // this.helpIBGame(gameDivElement);
+      const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
+      gameDivElement.nativeElement.dispatchEvent(domEvent);
+      this.helpIBGame();
     } else {
       startIBGame();
     }
@@ -138,8 +146,8 @@ export class GamePlayService  {
   hintsIBGame() {
     ibUsehints();
   }
-  helpIBGame(gameDivElement: any) {
-    this.ibGameDialogService.openInstructionDialog(gameDivElement);
+  helpIBGame() {
+    this.dialogBoxService.setDialogChild(IbGameInstructionsComponent);
     ibGameHelp();
   }
 
@@ -180,8 +188,8 @@ export class GamePlayService  {
             showTutorial = user_data.data.show_tutorial;
             if (helpClicked) {
               showTutorial = true;
+              isSoundOn = this.ecGameSoundOn;
             }
-            console.log(user_data);
             const badgeInfo = this.gameBadgeService.getBadgesInfo(
               user_data.data.BRONZE_CONSTANT, user_data.data.SILVER_CONSTANT,
               user_data.data.GOLD_CONSTANT, user_data.data.no_correct_responses );
@@ -197,20 +205,14 @@ export class GamePlayService  {
     });
   }
 
-  helpExecControlGame(isSoundOn: any, isFirstHelpBtn: boolean) {
-    if (isFirstHelpBtn) {
-      this.playExecControlGame(isSoundOn, true);
-    } else {
-      closeECGame();
-      this.storeDataExecControlGame();
-      this.playExecControlGame(isSoundOn, true);
-    }
+  helpExecControlGame(isSoundOn: any) {
+    this.ecGameSoundOn = isSoundOn;
   }
   pauseExecControlGame() {
-    pause_resume_game(true);
+    pauseECGame();
   }
   resumeExecControlGame() {
-    pause_resume_game(false);
+    resumeECGame();
   }
   restartExecControlGame(isSoundOn: any)  {
     closeECGame();
@@ -218,8 +220,8 @@ export class GamePlayService  {
     this.playExecControlGame(isSoundOn, false);
   }
   closeExecControlGame() {
-    closeECGame();
     if (this.ecGameStarted) {
+      closeECGame();
       this.storeDataExecControlGame();
     }
   }
@@ -247,14 +249,12 @@ export class GamePlayService  {
       .subscribe(() => {
         this.gamesAuthService.ecGameUpdateUserData(this.ecGameUserDataObject)
           .subscribe((data) => {
-            console.log('update user data', data);
           });
       });
   }
 
   storeFlankerDiscriTaskData() {
     this.ecGameTaskData = getECGameTaskData();
-    console.log(this.ecGameTaskData);
 
     this.ecGameFlankerData.game_id = this.ecGameTaskData[0];
     this.ecGameFlankerData.starting_time = this.ecGameTaskData[1];
@@ -270,11 +270,9 @@ export class GamePlayService  {
 
     this.gamesAuthService.ecGameStoreFlankerData(this.ecGameFlankerData)
       .subscribe((flanker_data: any) => {
-        console.log('flanker data', flanker_data, flanker_data.data.id);
         this.ecGameDiscriminationData.flanker_task_id = flanker_data.data.id;
         this.gamesAuthService.ecGameStoreDiscriminationTaskData(this.ecGameDiscriminationData)
           .subscribe( (dis_data) => {
-          console.log('discr task', dis_data);
         });
       });
   }
@@ -523,7 +521,14 @@ export class GamePlayService  {
   }
 
   // for mental imagery game
-  playMentalImageryGame() {
+  playMentalImageryGame(gameDivElement: any) {
+    const domEvent =  new CustomEvent('overlayCalledEvent', {bubbles:true});
+    gameDivElement.nativeElement.dispatchEvent(domEvent);
+    this.helpMIGame();
+
+  }
+  helpMIGame() {
+    this.dialogBoxService.setDialogChild(MiInstructionsComponent);
   }
 }
 

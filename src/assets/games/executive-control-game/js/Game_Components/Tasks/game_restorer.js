@@ -21,7 +21,7 @@ function game_restore()
         else
         {
     		performance_reward=reward_group.create(jump_platform[0].x,jump_platform[0].y-70,'double_jump').setScale(0.3);
-    		reward_count=curr_game.add.text(performance_reward.x+10,performance_reward.y+10,"x"+number_of_correct_response, { fontSize: '25px', fill: '#fff',align:'center' });
+    		reward_count=curr_game.add.text(performance_reward.x+10,performance_reward.y+10,"x"+number_of_correct_response, { fontFamily: 'Roboto', fontSize: '25px', fill: '#fff',align:'center' });
         	performance_reward.body.allowGravity=false;
         	curr_game.physics.add.collider(player,performance_reward,collect_double_jump_power,null,curr_game);
     	}
