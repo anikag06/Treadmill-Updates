@@ -181,12 +181,7 @@ export class GamePlayService  {
 
     this.gamesAuthService.ecGameGetGameInfo()
       .subscribe((game_data) => {
-        const length = game_data.data.length;
-        this.ecGameID = 1;            // should not be 0
-        if (length > 0) {
-          this.ecGameID = game_data.data[length - 1].id;
-        }
-
+        this.ecGameID = game_data.data.id;
         this.gamesAuthService.ecGameGetUserData()
           .subscribe( (user_data) => {
             this.ecGameUserData = user_data;
