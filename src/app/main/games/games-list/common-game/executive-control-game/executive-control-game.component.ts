@@ -19,7 +19,7 @@ export class ExecutiveControlGameComponent implements OnInit, OnDestroy {
 
   }
 
-  @HostListener('window:CallAngularStoreDataFun')
+  @HostListener('window:CallAngularStoreTaskDataFun')
   onStoreTaskDataECGame() {
     this.playGameService.storeFlankerDiscriTaskData();
   }

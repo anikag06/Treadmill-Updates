@@ -92,7 +92,7 @@ function discrimination_task_complete()
 	flankerTaskECGame = true;
 	
 	storeTaskDataEvent = document.createEvent('CustomEvent');
-	storeTaskDataEvent.initCustomEvent('CallAngularStoreDataFun');
+	storeTaskDataEvent.initCustomEvent('CallAngularStoreTaskDataFun');
 
 	window.dispatchEvent(storeTaskDataEvent);
 	
@@ -129,6 +129,14 @@ function discrimination_task_complete()
 
 }
 getECGameTaskData = function (){
+	console.log(game_object,flanker_task_timestamp,
+		flanker_task_response_type,
+		flanker_task_response_time,
+		flanker_task_congruency,
+		task_image_type,
+		discrimination_task_timestamp,
+		discrimination_task_response_type,
+		discrimination_task_response_time,);
 	return [
 		game_object,
 		flanker_task_timestamp,

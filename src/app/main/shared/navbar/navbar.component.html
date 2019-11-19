@@ -29,21 +29,17 @@
         </div>
     </div>
 
-    <mat-menu #appNavBarFlow="matMenu" xPosition="before" yPosition="below">
-        <div class="row w-100 h-100 px-0 mx-0 navBarPanelClass" 
-            mat-menu-item
-            disableRipple="true"
+    <mat-menu #appNavBarFlow="matMenu" xPosition="before" yPosition="below" class="navBarPanelClass">
+        <div class="row w-100 h-100 px-0 mx-0 " 
             (click)="$event.stopPropagation();">
             <div appNavbarFlow></div>
         </div>
     </mat-menu>
     
 
-    <mat-menu #appNavBarNotify="matMenu" 
+    <mat-menu #appNavBarNotify="matMenu" class="navBarPanelClass"
         xPosition="before" yPosition="below" >
-        <div class="row w-100 h-100 px-0 mx-0 navBarPanelClass" 
-            mat-menu-item
-            disableRipple="true"
+        <div class="row w-100 h-100 px-0 mx-0"
             (click)="$event.stopPropagation();">
             <div appNavbarNotification></div>
         </div>

@@ -30,17 +30,9 @@
     }
     
 }
-// ::ng-deep.navBarPanelClass{
-//     min-width: 350px !important;
-//     min-height: 70vh !important;
-
-// }
-.navBarPanelClass{
-    min-width: 250px !important;
-    min-height: 70vh !important;
-}
-.saveable{
+::ng-deep.navBarPanelClass{
     min-width: 350px !important;
+    min-height: 70vh !important;
 
 }
 
