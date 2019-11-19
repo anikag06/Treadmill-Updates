@@ -20,7 +20,6 @@ export class ExecControlInstructionsComponent implements OnInit {
 
   ecGameStart() {
     closeECGame();
-    // this.gamePlayService.storeDataExecControlGame();
     const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });
     this.elementRef.nativeElement.dispatchEvent(domEvent);
     this.ecGameHelpService.startECGame();

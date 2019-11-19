@@ -92,7 +92,7 @@ export class GamePlayService  {
   ecGameID!: number;
 
   // initialising the variables
-  ecGameDataObject = new ECGameData(1, null, 1, 0, null, false);
+  ecGameDataObject = new ECGameData(1, null,  1, 0, false, 0);
   ecGameUserDataObject = new ECGameUserData(1, 0, 0, false, false, false);
   ecGameFlankerData = new ECGameFlankerTask(1, null, 0, 0, 0, 1);
   ecGameDiscriminationData = new ECGameDiscriminationTask(1, null, 0, 0);
@@ -176,8 +176,7 @@ export class GamePlayService  {
   }
 
 // functions for executive control game
-  playExecControlGame(isSoundOn: any, gamePauseDiv: any) {
-    let showTutorial = false;
+  playExecControlGame(isSoundOn: any, gamePauseDiv: any, helpClicked: boolean) {
 
     this.gamesAuthService.ecGameGetGameInfo()
       .subscribe((game_data) => {
@@ -185,21 +184,24 @@ export class GamePlayService  {
         this.gamesAuthService.ecGameGetUserData()
           .subscribe( (user_data) => {
             this.ecGameUserData = user_data;
-            showTutorial = user_data.data.show_tutorial;
+            this.ecGameShowTutorial = user_data.data.show_tutorial;
 
-            if (showTutorial) {
-              this.ecGameShowTutorial = true;
+            if (this.ecGameShowTutorial) {
               this.ecGameSoundOn = isSoundOn;
               const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
               gamePauseDiv.nativeElement.dispatchEvent(domEvent);
-            } else {
+            } else if(!this.ecGameShowTutorial && !helpClicked) {
               this.ecGameSoundOn = isSoundOn;
               this.startECGameFunc();
+            } else if(helpClicked) {
+              this.ecGameShowTutorial = true;
             }
+
           });
+
     });
   }
-
+// this function calls the startGame function of executive control game in javascipt
   startECGameFunc() {
     const user_data = this.ecGameUserData;
 
@@ -218,10 +220,10 @@ export class GamePlayService  {
       this.ecGameStarted = true;
   }
 
-  helpExecControlGame(isSoundOn: any) {
+  helpExecControlGame(isSoundOn: any, gamePauseDiv:any) {
     this.ecGameSoundOn = isSoundOn;
-    this.ecGameShowTutorial = true;
     this.storeDataExecControlGame();
+    this.playExecControlGame(isSoundOn, gamePauseDiv, true);      // get new updated data on clicking help to start new game from the help dialog
   }
   pauseExecControlGame() {
     pauseECGame();
@@ -231,15 +233,15 @@ export class GamePlayService  {
   }
   restartExecControlGame(isSoundOn: any, gamePauseDiv: any)  {
     if (this.ecGameStarted) {
-      closeECGame();
-      this.storeDataExecControlGame();
-      this.playExecControlGame(isSoundOn, gamePauseDiv);
+      this.closeExecControlGame();
+      this.playExecControlGame(isSoundOn, gamePauseDiv, false);
     }
   }
+
   closeExecControlGame() {
     if (this.ecGameStarted) {
-      closeECGame();
       this.storeDataExecControlGame();
+      closeECGame();
     }
   }
   soundExecControlGame(isSoundOn: any) {
@@ -250,8 +252,8 @@ export class GamePlayService  {
   storeDataExecControlGame() {
     if (this.ecGameStarted) {
       this.ecGameData = getECScoreData();
-      this.ecGameDataObject.start_time = this.ecGameData[0];
-      this.ecGameDataObject.game_id = this.ecGameData[1];
+      this.ecGameDataObject.lives_renewed = this.ecGameData[0];
+      this.ecGameDataObject.id = this.ecGameData[1];
       this.ecGameDataObject.score = this.ecGameData[2];
       this.ecGameDataObject.level = this.ecGameData[3];
       this.ecGameDataObject.end_time = this.ecGameData[4];
@@ -264,17 +266,15 @@ export class GamePlayService  {
       this.ecGameUserDataObject.double_coins = this.ecGameData[10];
 
       this.gamesAuthService.ecGameStoreGameInfo(this.ecGameDataObject)
-        .subscribe(() => {
-          this.gamesAuthService.ecGameUpdateUserData(this.ecGameUserDataObject)
-            .subscribe((data) => {
-            });
-        });
+        .subscribe(() => { });
+      this.gamesAuthService.ecGameUpdateUserData(this.ecGameUserDataObject)
+      .subscribe((data) => {
+      });
     }
   }
 
   storeFlankerDiscriTaskData() {
     this.ecGameTaskData = getECGameTaskData();
-
     this.ecGameFlankerData.game_id = this.ecGameTaskData[0];
     this.ecGameFlankerData.starting_time = this.ecGameTaskData[1];
     this.ecGameFlankerData.response_type = this.ecGameTaskData[2];
@@ -282,7 +282,6 @@ export class GamePlayService  {
     this.ecGameFlankerData.congruency   = this.ecGameTaskData[4];
     this.ecGameFlankerData.image_type   = this.ecGameTaskData[5];
 
-    // this.ecGameDiscriminationData.flanker_task_id = this.ecGameTaskData[0];
     this.ecGameDiscriminationData.starting_time = this.ecGameTaskData[6];
     this.ecGameDiscriminationData.response_type = this.ecGameTaskData[7];
     this.ecGameDiscriminationData.time_elapsed  = this.ecGameTaskData[8];

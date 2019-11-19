@@ -140,7 +140,7 @@ export class CommonGameComponent implements OnInit {
 
     } else if (this.gameName === EXECUTIVE_CONTROL_GAME) {
       this.dialogBoxService.setDialogChild(ExecControlInstructionsComponent);
-      this.gamePlayService.playExecControlGame(this.isSoundOn, this.pauseBtnElement);
+      this.gamePlayService.playExecControlGame(this.isSoundOn, this.pauseBtnElement, false);
 
     } else if (this.gameName === LEARNED_HELPLESSNESS_GAME) {
       this.gamePlayService.playLearnedHelplessnessGame();
@@ -166,7 +166,7 @@ export class CommonGameComponent implements OnInit {
     this.pauseBtnElement.nativeElement.classList.remove('d-none');
 
     if (this.gameName === EXECUTIVE_CONTROL_GAME) {
-      this.gamePlayService.helpExecControlGame(this.isSoundOn);
+      this.gamePlayService.helpExecControlGame(this.isSoundOn, this.pauseBtnElement);
       this.dialogBoxService.setDialogChild(ExecControlInstructionsComponent);
     }
     if (this.gameName === INTERPRETATION_BIAS_GAME) {
@@ -182,6 +182,7 @@ export class CommonGameComponent implements OnInit {
   onHomeClick() {
     this.showSideButtons = false;
     this.showComponent = false;
+    this.gameStarted = false;
     setTimeout((x: any) => {
       this.showComponent = true;
     }, 10);

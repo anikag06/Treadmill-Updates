@@ -87,9 +87,6 @@ var storeECScoreDataEvent;
 var game_closed; 
 var ec_play_clicked;
 
-// store the time when the game is started
-var ec_game_start_time;
-
 //timeout var 
 var generate_tasks_timeout;
 
@@ -356,6 +353,7 @@ var mystery_egg_collected_text;
 //Gameover dialog_box;
 var game_over_dialog;
 var game_over_text;
+var no_lives_taken;
 var buy_live_img1;
 var buy_live_img21;
 var buy_live_img22;
@@ -875,8 +873,6 @@ function preload(){
 
 
 function create(){
-	
-	ec_game_start_time = generateTS();
 
 	this.scale.on('resize', function(gameSize, baseSize, displaySize, resolution, previousWidth, previousHeight) {
 	});
@@ -1791,13 +1787,14 @@ function resume_after_game_over(no_lives_add) {
 		return;
 	}
 
+	no_lives_taken = no_lives_taken + no_lives_add;
+
 	coins_collected-=no_lives_add*retry_cost;
 	retry_cost = 2*retry_cost;
 	coinsCollectedText.setText(coins_collected);
 	coinsCollectedText.x=screen_width-90-COIN_SCORE_LENGTH_ADJUSTMENT*(coins_collected.toString().length-1);
 
 	gameOver=false;
-	scoreUpdate();
 	game_over_update=false;
 
 	clearInterval(retry_coin_animation);
@@ -2107,7 +2104,7 @@ musicECGame =  function(music_muted)
 }
 closeECGame = function(){ 
 	game_paused=true;
-	gameOver=true;
+	// gameOver=true;
 	game_closed = true;
 	
 	clearInterval(blinking_animation);
@@ -2376,7 +2373,6 @@ function generateTS()
 }
 
 function scoreUpdate(){
-	console.log('update score of ecg');
 	storeECScoreDataEvent = document.createEvent('CustomEvent');
 	storeECScoreDataEvent.initCustomEvent('CallAngularECScoreFun');
 
@@ -2390,11 +2386,11 @@ getECScoreData = function(){
 		max_score = score;
 	}
 	return [
-		ec_game_start_time,
+		no_lives_taken,
 		game_object,
 		score,
 		level.number,
-		generateTS(),
+		generateTS(),		// this is the end time
 		gameOver,
 
 		max_score,

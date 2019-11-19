@@ -66,7 +66,7 @@ export class GamesAuthService {
   }
 
   ecGameStoreGameInfo(game_data: ECGameData) {
-    return this.http.post(environment.API_ENDPOINT + ECG_GAME_DATA, game_data);
+    return this.http.put(environment.API_ENDPOINT + ECG_GAME_DATA, game_data);
   }
 
   ecGameGetGameInfo(): Observable<any> {

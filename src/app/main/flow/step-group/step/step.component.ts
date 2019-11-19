@@ -64,7 +64,6 @@ export class StepComponent implements OnInit {
   }
 
   nextLink(): string {
-    console.log("step.component: ", this.step);
     return this.flowStepNavService.goToFlowNextStep(this.step);
   }
 

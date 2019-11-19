@@ -9,8 +9,6 @@ function init_game_variables(){
 	ec_play_clicked;
 	flankerTaskECGame = false;
 
-	// store the time when the game is started
-	ec_game_start_time;
 
 	// badges information
 	ecg_bronze_constant;
@@ -299,6 +297,7 @@ function init_game_variables(){
 	//Gameover dialog_box;
 	game_over_dialog;
 	game_over_text;
+	no_lives_taken=0;
 	buy_live_img1;
 	buy_live_img21;
 	buy_live_img22;
