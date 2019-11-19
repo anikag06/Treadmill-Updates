@@ -37,9 +37,10 @@
             "styles": [
               "src/styles.scss",
               "src/treadwill.theme.scss",
-              "src/color.palette.scss",
+              "src/color.palette.scss",              
               "node_modules/normalize.css/normalize.css",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css"
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              { "input": "src/games-styles.scss","lazy":true, "bundleName": "games-styles" }
 
             ],
             "stylePreprocessorOptions": {

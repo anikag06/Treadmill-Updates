@@ -1,4 +1,6 @@
 @import "styles.scss";
+@import "games-styles.scss";
+
 @import "../../../../shared/games-common.scss";
 
 h1 {
@@ -13,10 +15,6 @@ h1 {
 
 }
 
-// .input-group-text {
-//     background-color: white;
-//     border-color: transparent;
-// }
 .form-control {
   border: 0;
 }
@@ -37,7 +35,6 @@ form {
 
 .scoreLocation {
   margin-top: 7vw;
-  // text-align: right;
   font-weight: bold;
   font-family: Roboto, sans-serif;
 }
@@ -62,8 +59,7 @@ form {
 }
 
 #containerDiv {
-  // width: 75vw;
-  // min-height: 80vh;
+  
   height: 100%;
 
 }
@@ -71,8 +67,6 @@ form {
 .topBar {
   position: relative;
   overflow: hidden;
-  // top:10vh;
-  // background-color: rgba(255, 255, 255, 0.89);
   max-width: 360px;
   margin-left: -15px;
   margin-right: 0px;
@@ -80,7 +74,7 @@ form {
 
 .main {
   margin-top: 1vh;
-  // overflow-y: auto;
+  overflow-y: auto;
   overflow-x: hidden;
   height: 70%;
   font-weight: 300;
@@ -122,6 +116,7 @@ form {
 }
 
 
+
 /* For thinning the ScrollBar */
 /* width */
 ::-webkit-scrollbar {
@@ -143,20 +138,9 @@ form {
   background: #555;
 }
 
-
-// .gameProgressBar{
-//     margin-left: 15px;
-// }
-// .btn-primary {
-//     background-color: #F17878;
-//     color:  white;
-//     border-color: #C75252;
-//     border-radius: 5px;
-// }
-// .btn-primary:active    {
-//     background-color: #F17878;
-//     color: #FFF;
-//     c
+#dummyDiv {
+  padding-top: 55px;
+}
 
 
 // Small devices (landscape phones, 576px and up)

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterContentInit} from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterContentInit } from '@angular/core';
 import { MIUser } from '../mi-user.model';
 import { Level } from '../level.model';
 import { Scenario } from '../scenario.model';
@@ -62,6 +62,7 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
       this.getCurrentStateService.continuePlaying = true;
       this.situationHandler();
     });
+
   }
 
 
@@ -81,6 +82,7 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
       this.inputEl.nativeElement.focus();
     }
     this.getCurrentStateService.count += 1;
+
   }
 
 

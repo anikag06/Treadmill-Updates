@@ -60,17 +60,16 @@
     <div class="row">
       <div class="col-10 offset-1 text-center" *ngIf="notificationHeader && notificationHeader.length > 0 &&  !retry ">
         <div *ngIf="levelChanged" #doneBtn>
-          <br>
           <button mat-raised-button [color]="'new'" (click)="onClickDone()">DONE</button>
         </div>
 
       </div>
     </div>
-    <form (ngSubmit)="onSubmit()" autocomplete="off">
+    <form (ngSubmit)="onSubmit()" autocomplete="off" id="inputForm" >
       <div class="form-row align-items-center" *ngIf="!notificationHeader && !notificationHeader.length && !retry">
         <div class="ml-1">>></div>
         <mat-form-field>
-          <input matInput name="blank" [(ngModel)]="blank" [readonly]="disabled" (input)="storeTypedLetters()" #inputEl>
+          <input [ngStyle]="{'color': '#C75252'}" matInput name="blank"  [(ngModel)]="blank" [readonly]="disabled" (input)="storeTypedLetters()" #inputEl>
         </mat-form-field>
 
        
@@ -92,6 +91,6 @@
       <small class="text-muted" *ngIf="invalidInput">Oops! you seem to have typed something that we currently don't
         understand</small>
     </form>
-    <div #target></div>
+    <div #target id="dummyDiv"></div>
   </div>
 </div>
