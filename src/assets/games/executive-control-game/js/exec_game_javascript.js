@@ -682,6 +682,7 @@ function double_jump_tutorial_animation(){
 
 //Load the elements
 function preload(){
+	console.log('in preload fun');
 	//loading bar
 	var progressBar = this.add.graphics();
 	var progressBox = this.add.graphics();

@@ -11,6 +11,7 @@ import { IbTrainingDataService } from './ib-main-training/ib-training-data.servi
 import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
 import { IbMainTrainingComponent } from './ib-main-training/ib-main-training.component';
 import { GameMatPropertyService } from '@/main/games/shared/game-mat-property.service';
+import {LoadFilesService} from '@/main/games/shared/load-files.service';
 
 declare var IBG_MAX_WORDS_HIDDEN: number;
 declare var sentence_number: any;
@@ -56,7 +57,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   TOTAL_SENTENCES!: number;
 
   firstSentence = true;
-  userScoreData = new UserScoreData(ibGameUserOrder, ibGamelevel, ibGameScore, ibGameStreak, ibGameTime, ibGameWordsHidden);
+  userScoreData = new UserScoreData(0, 0, 0, 0, 0, 0);
   userResponseData = new UserResponseData(1, false, 0) ;
 
   isLastSet = false;
@@ -65,15 +66,15 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   FIRST_SENTENCE_ORDER!: number;
   sentencesPageInUrl!: number;
   sentencePage!: any;
-  index = ibGameUserOrder;
+  index: any;
 
   isResponseCorrect!: boolean;
 
   // whether level > 0 or not
   showAllHints = false;
-  wordHintCost = ibg_word_cost;
-  coordHintCost = ibg_coordinate_cost;
-  timeHintCost = ibg_time_cost;
+  wordHintCost: any;
+  coordHintCost: any;
+  timeHintCost: any;
 
   SEN_URL = environment.API_ENDPOINT + IBG_SENTENCE;
 
@@ -101,6 +102,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
     private dialogBoxService: DialogBoxService,
     private element: ElementRef,
     private matPropertyService: GameMatPropertyService,
+    private loadFileSerivce: LoadFilesService,
   ) {
   }
 
@@ -112,12 +114,16 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.scoresRelatedInfo();
+    this.loadFileSerivce.loadExternalScript('assets/games/interpretation_bias_game/js/sentence_javascript.js').then(() => {
+      this.scoresRelatedInfo();
+  
+      this.ibTrainingService.ibgScoreDataObservable.subscribe((res) => {
+        this.storeUserScoreInfo(res);
+      });
+      this.initSentencesData();
+    }).catch(() => {});
 
-    this.ibTrainingService.ibgScoreDataObservable.subscribe((res) => {
-      this.storeUserScoreInfo(res);
-    });
-    this.initSentencesData();
+    
     // do not delete this (this.findValidSentence()) function, it is important
     // this.findValidSentence();        // this function is used to check if sentences in database are valid for generation of letters grid
   }
@@ -213,6 +219,11 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
         this.SILVER_CONSTANT = data.data.SILVER_CONSTANT;
         this.GOLD_CONSTANT = data.data.GOLD_CONSTANT;
         this.no_correct_responses = data.data.no_correct_responses;
+
+        this.index = ibGameUserOrder;
+        this.wordHintCost = ibg_word_cost;
+        this.coordHintCost = ibg_coordinate_cost;
+        this.timeHintCost = ibg_time_cost;
 
         this.updateBadgesValue();
         this.difficultyBarUpdate();

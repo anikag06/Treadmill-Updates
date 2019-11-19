@@ -80,6 +80,7 @@ export class CommonGameComponent implements OnInit {
   ) {   }
 
   ngOnInit() {
+    
     this.subscriptionRouter = this.route.params
       .pipe(
         map(v => v.name),
