@@ -79,13 +79,20 @@
                 }
               ],
               "serviceWorker": true
+            },
+            "serve": {
+              "extractCss": true,
+              "namedChunks": true,
+              "vendorChunk": true,
+              "commonChunk": true,
+              "verbose": true
             }
           }
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "treadwill-v2-fe:build"
+            "browserTarget": "treadwill-v2-fe:build:serve"
           },
           "configurations": {
             "production": {
