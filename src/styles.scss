@@ -233,6 +233,12 @@ $small_logo_height: 40px;
 .mat-checkbox-label {
   font-family: 'Lato', sans-serif !important;
 }
+img.emoji {
+  height: 1.1em;
+  width: 1.1em;
+  margin: 0 .05em 0 .1em;
+  vertical-align: -0.1em;
+}
 
 .main-heading-h1 {
   @include font-montserrat($font-weight: 700);

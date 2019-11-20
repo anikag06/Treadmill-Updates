@@ -1,7 +1,8 @@
 <div class="chat-window" [@openClose]="chatWindowClosed ? 'closed' : 'open'">
   <div class="chat-header">
-    <h3>TwillBot</h3>
-    <button mat-flat-button color="primary" (click)="close()"><mat-icon>close</mat-icon></button>
+    <img class="chatbot-screen-img" src="assets/chatbot/on_chat_screen.png" alt="">
+    <h3>WillBot</h3>
+    <button mat-flat-button class="close-icon"  (click)="close()"><mat-icon>close</mat-icon></button>
   </div>
   <div class="chat-frame" #messagesDiv [scrollTop]="scrollTop">
     <div class="clearfix" *ngFor="let m of messages">
@@ -10,9 +11,6 @@
             <div class="message" [ngClass]="{'bot': !m.user}" *ngIf="m.message">
               <div class="message-text" [innerHTML]="m.message"></div>
               <span class="date-time">{{m.datetime | date: 'short' }}</span>
-              <p class="meta">
-                mid: <b>{{m.mid}}</b> sid: <b>{{m.sid}}</b><br>
-              </p>
             </div>
         </ng-container>
         <ng-template #waiting>
@@ -35,28 +33,32 @@
         </button>
       </div>
     </div>
+    <button class="mood-btn" type="input">Select your mood</button>
   </div>
-  <form (ngSubmit)="onChatSubmit()">
-    <div class="textarea">
-      <textarea
-        class="form-control"
-        placeholder="Enter your message"
-        [(ngModel)]="message"
-        name="message"
-        [autofocus]
-        rows="1"
-        (keyup.enter)="onKey($event)"
-        (focusin)="scrollToBottom()"
-        #ti
-        autocomplete="off">
-      </textarea>
-    </div>
-    <div class="btn-div">
-      <button
-        type="submit"
-      >
-      <mat-icon>send</mat-icon>
-    </button>
-    </div>
-  </form>
+  <div class="form-div">
+    <form (ngSubmit)="onChatSubmit()" >
+      <div class="textarea">
+        <textarea
+          class="form-control"
+          placeholder="Enter your message"
+          [(ngModel)]="message"
+          name="message"
+          [autofocus]
+          rows="1"
+          (keyup.enter)="onKey($event)"
+          (focusin)="scrollToBottom()"
+          #ti
+          autocomplete="off">
+        </textarea>
+      </div>
+      <div class="btn-div">
+        <button
+          type="submit"
+        >
+        <mat-icon [ngStyle]="{'color':'grey'}">send</mat-icon>
+      </button>
+      </div>
+    </form>
+  </div>
+  
 </div>
