@@ -16,4 +16,13 @@ export class LoadFilesService {
       document.body.appendChild(scriptElement);
     });
   }
+  loadExternalStyles(styleUrl: string) {
+    return new Promise((resolve, reject) => {
+      const styleElement = document.createElement('link');
+      styleElement.href = styleUrl;
+      styleElement.onload = resolve;
+      styleElement.rel = 'stylesheet';
+      document.head.appendChild(styleElement);
+    });
+  }
 }

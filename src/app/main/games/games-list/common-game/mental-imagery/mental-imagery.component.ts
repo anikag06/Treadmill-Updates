@@ -4,6 +4,7 @@ import { MICurrentStateService } from './mi-current-state.service';
 import { Level } from './level.model';
 import { MiPlayComponent } from './mi-play/mi-play.component';
 import { MIPlayService } from './mi-play.service';
+import { LoadFilesService } from '@/main/games/shared/load-files.service';
 
 @Component({
   selector: 'app-mental-imagery',
@@ -15,7 +16,8 @@ export class MentalImageryComponent implements OnInit {
   @ViewChild(MiPlayComponent, {static: false}) miPlayComponent!: MiPlayComponent;
 
   constructor(private getCurrentState: MICurrentStateService,
-              private miPlayService: MIPlayService) { }
+              private miPlayService: MIPlayService,
+              private loadFilesService: LoadFilesService) { }
 
   user = new MIUser('sourav', 0, [], null);
   levelList: Level[] = [];
@@ -26,7 +28,7 @@ export class MentalImageryComponent implements OnInit {
   showInstructionIcon = true;
 
   ngOnInit() {
-    this.loadExternalStyles('/games-styles.css').then(() => {}).catch(() => {});
+    this.loadFilesService.loadExternalStyles('/games-styles.css').then(() => {}).catch(() => {});
 
     this.miPlayService.startPlaying.subscribe( () => {
       this.startPlayingMIGame();
@@ -64,13 +66,13 @@ export class MentalImageryComponent implements OnInit {
     this.miPlayComponent.onResumePlay();
   }
 
-  private loadExternalStyles(styleUrl: string) {
-    return new Promise((resolve, reject) => {
-      const styleElement = document.createElement('link');
-      styleElement.href = styleUrl;
-      styleElement.onload = resolve;
-      styleElement.rel = 'stylesheet';
-      document.head.appendChild(styleElement);
-    });
-  }
+  // private loadExternalStyles(styleUrl: string) {
+  //   return new Promise((resolve, reject) => {
+  //     const styleElement = document.createElement('link');
+  //     styleElement.href = styleUrl;
+  //     styleElement.onload = resolve;
+  //     styleElement.rel = 'stylesheet';
+  //     document.head.appendChild(styleElement);
+  //   });
+  // }
 }
