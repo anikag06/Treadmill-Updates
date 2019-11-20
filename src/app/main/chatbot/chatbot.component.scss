@@ -1,12 +1,12 @@
 .chat {
-  position: absolute;
+  position: fixed;
   bottom: 4vh;
   right: 3%;
   height: auto;
   text-align: right;
   z-index: 100;
   .chat-btn{
-    width: 30%;
+    width: 25%;
     height: auto;
     outline: none;
   }
@@ -14,17 +14,15 @@
 @media screen and (max-width: 576px) {
   .chat {
     bottom: 2vh;
-    position: fixed;
     z-index: 100;
   }
   .chat-btn{
-    width: 56px;
+    width: 60px;
   }
 }
 @media screen and (max-height: 500px) {
   .chat {
     bottom: 2vh;
-    position: relative;
     z-index: 100;
   }
 }

@@ -1,16 +1,17 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
 .chat-window {
-  width: auto;
-  height: auto;
+  width: 344px;
+  margin-bottom: 5px;
+  border-radius: 10px;
   border-radius: 10px 10px 0px 0px;
   box-shadow: 0px -3px 8px #00000029;
   font-family: "Roboto", sans-serif !important;
   background: #FFFFFF 0% 0% no-repeat padding-box;
   background-image:   url('assets/chatbot/Rectangle.png') ;
   background-size: cover ;
+  font-family: "Montserrat", sans-serif !important;
   .chat-header {
-    width: 344px;
     height: 46px;
     box-shadow: 0px 1px 3px #00000029;
     background: #FFFFFF 0% 0% no-repeat padding-box;
@@ -36,29 +37,34 @@
     }
   }
   .chat-frame {
-    height: 55vh;
+    height: 60vh;
     overflow-y: scroll;
     overflow-x: hidden;
     width: 100%;
-    
-    .mood-btn {
-      background: #FFFFFF 0% 0% no-repeat padding-box;
-      border: 1px solid #000000;
-      border-radius: 20px;
-      text-align: left;
-      letter-spacing: 0;
-      color: #000000;
-      margin: auto ;
-      display:block;
-      outline: none;
-      margin-bottom: 10px;
-      margin-top: 5px;
-      padding: 5px 16px 5px 16px;
-      }
   }
-  
+  .mood-btn {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #000000;
+    border-radius: 20px;
+    text-align: left;
+    letter-spacing: 0;
+    color: #000000;
+    margin: auto ;
+    display:block;
+    outline: none;
+    margin-bottom: 10px;
+    margin-top: 5px;
+    padding: 5px 16px 5px 16px;
+    }
+  .form {
+    height: 43px;
+    width: 100%;
+    bottom: 0;
+   
+  }
   .message {
     max-width: 75%;
+    margin: 5px 2px;
     float: right;
     .message-text {
       padding: 10px 10px 10px 12px;
@@ -101,11 +107,13 @@
   .textarea {
     width: 88%;
     float: left;
-    box-sizing: border-box;
+    height: 40px;
     textarea {
       outline: none;
       box-shadow: none;
       border: none;
+      height: 100%;
+      max-height: 100%;
       &:active {
         outline: none;
         box-shadow: none;
@@ -118,106 +126,64 @@
     width: 12%;
     background: #FFFFFF 0% 0% no-repeat padding-box;
     button {
-      outline: none;
+      background-color: transparent;
       max-width: 100%;
       height: 100%;
       padding:8px 5px;
       line-height: 16px;
       box-shadow: none;
       border: none;
-      background-color: white;
     }
   }
-  // .buttons {
-  //   float: right;
-  //   width: content-box;
-  //   text-align: center;
-  //   min-width: 33%;
-  //   margin-right: 10px;
-  //   button {
-  //     margin: 5px;
-  //     display: block;
-  //     width: 100%;
-  //     .btn-text {
-  //       display: inline-block;
-  //       width: 90%;
-  //       margin: 0 5%;
-  //       word-wrap: break-spaces;
-  //     }
-  //   }
-  // }
-  .form-div {
-    height: inherit;
-    width: 100%;
-    background: #FFFFFF 0% 0% no-repeat padding-box;
-    box-shadow: 0px -1px 3px #00000029;
-    bottom:0;
-    position: relative;  
+  .buttons {
+    float: right;
+    width: content-box;
+    text-align: center;
+    min-width: 33%;
+    margin-right: 10px;
+    button {
+      margin: 5px;
+      display: block;
+      width: 100%;
+      .btn-text {
+        display: inline-block;
+        width: 90%;
+        margin: 0 5%;
+        word-wrap: break-spaces;
+      }
+    }
   }
-
 }
 
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 576px ) {
   .chat-window {
     position: fixed;
-    height: 100%;
+    width: -moz-available;          
+    width: -webkit-fill-available; 
     width: fill-available;
-    overflow-y: scroll;
+    top: 1vh;
     left: 0;
-    top: 0;
+    margin: 0;
     z-index: 99;
     margin: 4% 2% 0 2%;
     background: #FFFFFF 0% 0% no-repeat padding-box;
     background-image:   url('assets/chatbot/Rectangle.png')  ;
     background-size: cover;
     box-shadow: 0px -3px 8px #00000029;
-    .chat-header {
-      width: auto;
-      height: auto;
-      .chatbot-screen-img{
-        margin-top: 3px;
-      }
-    }
     .chat-frame {
-        height: 83%;
-        overflow-y: scroll;
-        overflow-x: hidden;
-        width: 100%;
-
+      height: 75vh;
     }
-    // .buttons {
-    //   min-width: 45%;
-    // }
-    .form-div {
-    height: 48px;
-    bottom: 10px;
-    position: absolute;
-    } 
-   
-    textarea.form-control {
-        height: 100%;
-        position: absolute;
-        width:93%;
-      }
-    
-   
   }
 }
 
 @media screen and (max-height: 500px) {
   .chat-window {
-      
-  .chat-frame {
-      height: 100vh;
+    .chat-frame {
+      height: 60vh;
     }
   }
 }
-.emoji {
-  height: 1.1em;
-  width: 1.1em;
-  margin: 0 .05em 0 .1em;
-  vertical-align: -0.1em;
-}
+
 /**
 * Chat Waiting section
 */
@@ -309,4 +275,3 @@ $x3: - $leftPos + $dotSpacing;
       $x3 0 0 0 $dotAfterColor;
   }
 }
-

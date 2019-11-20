@@ -10,7 +10,6 @@ import {
   OnInit,
   Output,
   ViewChild,
-  ViewEncapsulation
 } from '@angular/core';
 import { Chat } from '@/main/chatbot/chat.model';
 import { environment } from '../../../../environments/environment';
@@ -27,7 +26,6 @@ declare var twemoji: any;
   selector: 'app-chat-window',
   templateUrl: './chat-window.component.html',
   styleUrls: ['./chat-window.component.scss'],
-  encapsulation: ViewEncapsulation.None,
   animations: [
     trigger('openClose', [
       state('open', style({
@@ -101,7 +99,6 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
         }
       );
   }
-
   ngAfterViewChecked() {
     this.scrollToBottom();
   }
@@ -114,9 +111,6 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
       const message = this.message;
       this.message = '';
       this.webSocket.send(JSON.stringify({ 'action': REPLY_CURRENT, 'message': { 'text': message, 'buttons': [] } }));
-      // if (screen.availWidth > 576) {
-      //   this.ti.nativeElement.disabled = true;
-      // }
     }
     setTimeout(() => {
       this.ti.nativeElement.focus();
