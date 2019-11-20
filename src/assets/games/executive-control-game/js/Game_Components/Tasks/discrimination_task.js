@@ -47,10 +47,11 @@ function discrimination_task_generator()
 					{ fontFamily: 'Roboto', fontSize: '16px', fill: '#FFFFFF',});
 					red_key_button=curr_game.add.image(task_tutorial_text.x+59,task_tutorial_text.y+8,'down_key').setScale(0.6);
 					green_key_button=curr_game.add.image(red_key_button.x,red_key_button.y+37,'up_key').setScale(0.6);
+				red_key_button.depth=14;
+				green_key_button.depth=14;
 			}
 			task_tutorial_text.depth=14;
-			red_key_button.depth=14;
-			green_key_button.depth=14;
+			
 			// task_tutorial_text.setBackgroundColor('rgba(255,255,255,0.6)')
 			// task_tutorial_text.setPadding(24,3,24,3);
 		}
@@ -91,7 +92,7 @@ function discrimination_task_complete()
 	flankerTaskECGame = true;
 	
 	storeTaskDataEvent = document.createEvent('CustomEvent');
-	storeTaskDataEvent.initCustomEvent('CallAngularStoreDataFun');
+	storeTaskDataEvent.initCustomEvent('CallAngularStoreTaskDataFun');
 
 	window.dispatchEvent(storeTaskDataEvent);
 	
@@ -128,6 +129,14 @@ function discrimination_task_complete()
 
 }
 getECGameTaskData = function (){
+	console.log(game_object,flanker_task_timestamp,
+		flanker_task_response_type,
+		flanker_task_response_time,
+		flanker_task_congruency,
+		task_image_type,
+		discrimination_task_timestamp,
+		discrimination_task_response_type,
+		discrimination_task_response_time,);
 	return [
 		game_object,
 		flanker_task_timestamp,
@@ -162,7 +171,7 @@ function resume_countdown()
 		tutorial_box.alpha = 0.6;
 		tutorial_box.depth = 12;
 		task_tutorial_text=curr_game.add.text(tutorial_box.x-(tutorial_box.width/2)+15,tutorial_box.y-(tutorial_box.height/2)+30,
-				"Attention!!From Next time, tasks will appear only for some time. Peform well in the tasks and get rewarded", 
+				"Attention!!From the next time, tasks will appear only for some time. Perform well in the tasks and get rewarded", 
 				{ fontFamily: 'Roboto', fontSize: '16px', fill: '#FFFFFF', wordWrap: {width: tutorial_box.width-20}});
 
 		task_tutorial_shown=true;

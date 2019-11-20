@@ -1,0 +1,84 @@
+<ng-template [ngIf]="dataLoaded && !locked">
+  <!-- Add IMAGES here -->
+  <div>
+    Are you currently worried about anything?
+    <mat-form-field>
+      <input matInput placeholder="Example:- I am worried about losing my job." [(ngModel)]="worryThought">
+    </mat-form-field>
+  </div>
+  <br><br>
+  <div>
+    Approximately, how many hours do you worry per day?
+    <mat-form-field>
+      <mat-select [(value)]="hours">
+        <mat-option *ngFor="let hour of wastedHours" [value]="hour">
+          {{hour}}
+        </mat-option>
+      </mat-select>
+      <br><br>
+    </mat-form-field>
+  </div>
+  <br><br>
+  <div>
+    Do you think that your habit of worrying interferes with your daily life? For example- does it make it difficult for
+    you to concentrate on your work or your studies?
+    <mat-form-field>
+      <mat-select [(value)]="difficult">
+        <mat-option value="Yes">Yes</mat-option>
+        <mat-option value="No">No</mat-option>
+      </mat-select>
+      <br><br>
+    </mat-form-field>
+  </div>
+  <br><br>
+  <div>
+    Which of the following techniques do you use to try to stop worrying?
+    <mat-label>Technique used</mat-label>
+    <mat-selection-list [(ngModel)]="selectedTechniques" [ngStyle]="{'max-width': '850px'}">
+      <mat-list-option *ngFor="let technique of techniques" [value]="technique"
+        [ngStyle]="{'margin-bottom': '20px', 'height': 'unset'}">
+        {{technique}}
+      </mat-list-option>
+    </mat-selection-list>
+    <br><br>
+  </div>
+  <br><br>
+  <div>
+    Does it actually help you stop worrying?
+    <mat-form-field>
+      <mat-select [(value)]="help">
+        <mat-option value="Yes">Yes</mat-option>
+        <mat-option value="No">No</mat-option>
+      </mat-select>
+      <br><br>
+    </mat-form-field>
+  </div>
+  <br><br>
+  <div>
+    Don’t <i>worry</i> 😉 if you are unable to control your worrying. In this module, you will develop skills to worry
+    just the
+    normal amount.
+  </div>
+  <br><br>
+  <div>
+    <button class="completed-btn float-right" type="button" mat-raised-button color="primary" (click)="saveData()">
+      Save data
+    </button>
+  </div>
+</ng-template>
+<ng-template [ngIf]="dataLoaded && locked">
+  <div class="row">
+    <div class="col">
+      <div class="text-center loader">
+        This content is not yet unlocked for you.
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template [ngIf]="!dataLoaded">
+  <div class="col">
+    <div class="text-center loader">
+      <img src="assets/shared/dna-loader.svg" alt="loader" width="200">
+    </div>
+  </div>
+</ng-template>

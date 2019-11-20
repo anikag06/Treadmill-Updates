@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ElementRef } from '@angular/core';
 import { StepGroup } from './step-group.model';
 import { Step } from './step/step.model';
 import { COMPLETED, ACTIVE, UNLOCKED } from '@/app.constants';
@@ -20,12 +20,21 @@ export class StepGroupComponent implements OnInit {
   firstStepOfModule!: boolean;
   lastStepOfModule = false;
 
-  constructor() { }
+  constructor(
+    private elem: ElementRef,
+  ) { }
 
   ngOnInit() {
     this.initialiseDefaultSteps();
     this.getDefaultStepsShown();
   }
+  ngAfterViewInit() {
+    // this is done to update the property of material expansion panel as ng-deep can't be used.
+    // tslint:disable-next-line: max-line-length
+    const flowPanel = this.elem.nativeElement.querySelectorAll('.flow-expansion-panel .mat-expansion-panel-content .mat-expansion-panel-body');
+    flowPanel[0].setAttribute('style', ' padding: 0 15px 12px !important;padding-left: 2px !important;');
+  }
+
   panelOpened() {
     this.isExpanded = true;
   }
@@ -64,7 +73,6 @@ export class StepGroupComponent implements OnInit {
             this.defaultSteps.steps.push(this.stepGroup.steps[j]);
             j++;
           }
-          console.log(j);
           if (j === no_steps) {
             this.lastStepOfModule = true;
           }

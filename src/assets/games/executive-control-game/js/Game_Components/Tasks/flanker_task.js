@@ -70,10 +70,10 @@ function flanker_task_generator()
 					{ fontFamily: 'Roboto', fontSize: '16px', fill: '#FFFFFF', });
 					left_key_button= curr_game.add.image(task_tutorial_text.x+59,task_tutorial_text.y+8,'left_key').setScale(0.6);
 					right_key_button=curr_game.add.image(left_key_button.x,left_key_button.y+40,'right_key').setScale(0.6);
+					left_key_button.depth=14;
+					right_key_button.depth=14;
 			}
 			task_tutorial_text.depth=14;
-			left_key_button.depth=14;
-			right_key_button.depth=14;
 		}
 		
 		//Record flanker task start time

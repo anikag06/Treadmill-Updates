@@ -11,7 +11,7 @@ export class ExecControlHelpService {
   ) { }
 
   startECGame() {
-    this.gamePlayService.storeDataExecControlGame();
-    this.gamePlayService.playExecControlGame(true, true);
+    // this.gamePlayService.storeDataExecControlGame();
+    this.gamePlayService.startECGameFunc();
   }
 }

@@ -76,28 +76,29 @@
       </div>
 <!-- buttons on first page -->
       
-      <div class="row align-items-center mx-2 firstpage-btns" 
+      <div class="row align-items-center firstpage-btns" 
             id="firstpage-btns" #firstpage_btns>
-        <div class="w-100 row px-2" 
+        <div class="w-100 row " 
           [ngClass] = "{'center-postion': portraitGame ===true ,
             'end-position' : portraitGame === false}">
           <div class="col-auto mr-auto px-0">
             <img 
               id="common-science-btn" 
-              class="common-science-btn img-btn"
+              (click)="onScienceBehind()"
+              class="common-science-btn mx-2 img-btn"
               src="../../../../../assets/games/science_behind_game.png">
           </div>
           
           <div class="col-auto ml-auto px-0" >
             <img 
               id="common-sound-on-fp" 
-              class="common-sound-btn img-btn" 
+              class="common-sound-btn mx-2 img-btn" 
               (click) = "onSoundClick()"
               *ngIf = "isSoundOn"
               src="../../../../../assets/games/sound.png">
             <img 
               id="common-sound-off-fp" 
-              class="common-sound-btn img-btn float-right"
+              class="common-sound-btn img-btn float-right mx-2"
               (click) = "onSoundClick()" 
               *ngIf = "!isSoundOn"
               src="../../../../../assets/games/mute.png">

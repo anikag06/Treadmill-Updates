@@ -1,0 +1,46 @@
+<ng-template [ngIf]="dataLoaded && !locked">
+  <!-- Add IMAGES here -->
+  <div>
+    Which one of these negative thoughts do you have?
+    <mat-form-field>
+      <mat-label>Negative thoughts</mat-label>
+      <mat-select [(value)]="selectedThought" (selectionChange)="onThoughtChanged()">
+        <mat-option *ngFor="let negativeThought of negativeThoughts" [value]="negativeThought">
+          {{negativeThought}}
+        </mat-option>
+      </mat-select>
+      <br><br>
+    </mat-form-field>
+  </div>
+  <br><br>
+  <div *ngIf="selectedThought">
+    <p>Wouldn’t it be great if you rather thought this?</p>
+    <p>{{balancedThought}}</p>
+    <p>
+      In this module, you will develop the skills to evaluate your negative thoughts and learn how to think in a more
+      balanced way.
+    </p>
+  </div>
+  <br><br>
+  <div>
+    <button class="completed-btn float-right" type="button" mat-raised-button color="primary" (click)="saveData()">
+      Save data
+    </button>
+  </div>
+</ng-template>
+<ng-template [ngIf]="dataLoaded && locked">
+  <div class="row">
+    <div class="col">
+      <div class="text-center loader">
+        This content is not yet unlocked for you.
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template [ngIf]="!dataLoaded">
+  <div class="col">
+    <div class="text-center loader">
+      <img src="assets/shared/dna-loader.svg" alt="loader" width="200">
+    </div>
+  </div>
+</ng-template>

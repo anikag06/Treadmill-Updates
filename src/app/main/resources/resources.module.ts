@@ -38,9 +38,22 @@ import { ConversationsComponent } from './conversation-group/conversations/conve
 import { SlideService } from './slides/slide.service';
 import { CongratsDialogComponent } from './shared/congrats-dialog/congrats-dialog.component';
 import { CommonDialogsService } from './shared/common-dialogs.service';
-import { ConclusionPageComponent } from './conclusion-page/conclusion-page.component';
 import { StepsDataService } from './shared/steps-data.service';
 import { UserFeedbackComponent } from './shared/user-feedback/user-feedback.component';
+import { IntroductionService } from './introduction/introduction.service';
+import { IntroductionComponent } from './introduction/introduction.component';
+import { Introduction1Component } from './introduction/introduction1/introduction1.component';
+import { Introduction2Component } from './introduction/introduction2/introduction2.component';
+import { Introduction3Component } from './introduction/introduction3/introduction3.component';
+import { Introduction4Component } from './introduction/introduction4/introduction4.component';
+import { Introduction5Component } from './introduction/introduction5/introduction5.component';
+import { ConclusionService } from './conclusion/conclusion.service';
+import { ConclusionComponent } from './conclusion/conclusion.component';
+import { Conclusion1Component } from './conclusion/conclusion1/conclusion1.component';
+import { Conclusion2Component } from './conclusion/conclusion2/conclusion2.component';
+import { Conclusion3Component } from './conclusion/conclusion3/conclusion3.component';
+import { Conclusion4Component } from './conclusion/conclusion4/conclusion4.component';
+import { Conclusion5Component } from './conclusion/conclusion5/conclusion5.component';
 
 @NgModule({
   declarations: [
@@ -61,8 +74,19 @@ import { UserFeedbackComponent } from './shared/user-feedback/user-feedback.comp
     ConversationGroupComponent,
     ConversationsComponent,
     CongratsDialogComponent,
-    ConclusionPageComponent,
     UserFeedbackComponent,
+    IntroductionComponent,
+    Introduction1Component,
+    Introduction2Component,
+    Introduction3Component,
+    Introduction4Component,
+    Introduction5Component,
+    ConclusionComponent,
+    Conclusion1Component,
+    Conclusion2Component,
+    Conclusion3Component,
+    Conclusion4Component,
+    Conclusion5Component,
   ],
   imports: [
     ResourcesRoutingModule,
@@ -89,6 +113,8 @@ import { UserFeedbackComponent } from './shared/user-feedback/user-feedback.comp
     SlideService,
     CommonDialogsService,
     StepsDataService,
+    IntroductionService,
+    ConclusionService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [CongratsDialogComponent, ProblemFormComponent, ProblemSolvingWorksheetsComponent]

@@ -23,12 +23,13 @@ export class UserScoreData {
 // for storing executive control game info
 export class ECGameData {
     constructor(
-        public game_id: number,
-        public start_time: any,
+        public id: number,
+        public end_time: any,
         public level: number,
         public score: number,
-        public end_time: any,
-        public game_over: boolean) {
+        public game_over: boolean,
+        public lives_renewed: number,
+        ) {
 
     }
 }

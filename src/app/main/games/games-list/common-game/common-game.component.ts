@@ -19,6 +19,12 @@ import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service
 import { IbGameInstructionsComponent } from './interpretation-bias-game/ib-game-instructions/ib-game-instructions.component';
 import { ExecControlInstructionsComponent } from './executive-control-game/exec-control-instructions/exec-control-instructions.component';
 import { MIPlayService } from './mental-imagery/mi-play.service';
+import { EcgScienceComponent } from './executive-control-game/ecg-science/ecg-science.component';
+import { IbgScienceComponent } from './interpretation-bias-game/ibg-science/ibg-science.component';
+import { AsgScienceComponent } from './attribute-style-game/asg-science/asg-science.component';
+import { MigScienceComponent } from './mental-imagery/mig-science/mig-science.component';
+import { FfgScienceComponent } from './friendly-face-game/ffg-science/ffg-science.component';
+import { LhgScienceComponent } from './learned-helplessness-game/lhg-science/lhg-science.component';
 
 declare let $: any;
 
@@ -74,6 +80,7 @@ export class CommonGameComponent implements OnInit {
   ) {   }
 
   ngOnInit() {
+    
     this.subscriptionRouter = this.route.params
       .pipe(
         map(v => v.name),
@@ -131,15 +138,21 @@ export class CommonGameComponent implements OnInit {
 
     if (this.gameName === INTERPRETATION_BIAS_GAME) {
       this.gamePlayService.playIBGame(this.gameDivElement);
+
     } else if (this.gameName === EXECUTIVE_CONTROL_GAME) {
-      this.gamePlayService.playExecControlGame(this.isSoundOn, false);
+      this.dialogBoxService.setDialogChild(ExecControlInstructionsComponent);
+      this.gamePlayService.playExecControlGame(this.isSoundOn, this.pauseBtnElement, false);
+
     } else if (this.gameName === LEARNED_HELPLESSNESS_GAME) {
       this.gamePlayService.playLearnedHelplessnessGame();
+
     } else if (this.gameName === ATTRIBUTE_STYLE_GAME) {
       this.gamePlayService.playAttributionStyleGame();
       // console.log('play button');
+
     } else if (this.gameName === FRIENDLY_FACE_GAME) {
       this.gamePlayService.playFriendlyFaceGame(this.device_type);
+
     } else if (this.gameName === MENTAL_IMAGERY_GAME) {
       // this.miGameComponent.startPlayingMIGame();
       this.gamePlayService.playMentalImageryGame(this.gameDivElement);
@@ -154,7 +167,7 @@ export class CommonGameComponent implements OnInit {
     this.pauseBtnElement.nativeElement.classList.remove('d-none');
 
     if (this.gameName === EXECUTIVE_CONTROL_GAME) {
-      this.gamePlayService.helpExecControlGame(this.isSoundOn);
+      this.gamePlayService.helpExecControlGame(this.isSoundOn, this.pauseBtnElement);
       this.dialogBoxService.setDialogChild(ExecControlInstructionsComponent);
     }
     if (this.gameName === INTERPRETATION_BIAS_GAME) {
@@ -170,6 +183,7 @@ export class CommonGameComponent implements OnInit {
   onHomeClick() {
     this.showSideButtons = false;
     this.showComponent = false;
+    this.gameStarted = false;
     setTimeout((x: any) => {
       this.showComponent = true;
     }, 10);
@@ -231,8 +245,9 @@ export class CommonGameComponent implements OnInit {
     this.showSideButtons = false;
     this.gamePaused = false;
     this.pauseBtnElement.nativeElement.classList.remove('d-none');
+
     if (this.gameName === EXECUTIVE_CONTROL_GAME) {
-      this.gamePlayService.restartExecControlGame(this.isSoundOn);
+      this.gamePlayService.restartExecControlGame(this.isSoundOn, this.pauseBtnElement);
     }
     if (this.gameName === INTERPRETATION_BIAS_GAME) {
       this.gamePlayService.playIBGame(this.gameDivElement);                      // same function for start and restart the game
@@ -257,6 +272,30 @@ export class CommonGameComponent implements OnInit {
     // else if (this.gameName === FRIENDLY_FACE_GAME) {
     //   this.gamePlayService.pauseFaceGame();
     // }
+  }
+
+  onScienceBehind() {
+    if (this.gameName === EXECUTIVE_CONTROL_GAME) {
+      this.dialogBoxService.setDialogChild(EcgScienceComponent);
+
+    } else if (this.gameName === INTERPRETATION_BIAS_GAME) {
+      this.dialogBoxService.setDialogChild(IbgScienceComponent);
+
+    } else if (this.gameName === ATTRIBUTE_STYLE_GAME) {
+      this.dialogBoxService.setDialogChild(AsgScienceComponent);
+
+    } else if (this.gameName === LEARNED_HELPLESSNESS_GAME) {
+      this.dialogBoxService.setDialogChild(LhgScienceComponent);
+
+    } else if (this.gameName === FRIENDLY_FACE_GAME) {
+      this.dialogBoxService.setDialogChild(FfgScienceComponent);
+
+    } else if (this.gameName === MENTAL_IMAGERY_GAME) {
+      this.dialogBoxService.setDialogChild(MigScienceComponent);
+
+    }
+    const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
+    this.pauseBtnElement.nativeElement.dispatchEvent(domEvent);
   }
 
   @HostListener('touchstart')

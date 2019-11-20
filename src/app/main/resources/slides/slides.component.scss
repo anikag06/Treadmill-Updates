@@ -12,12 +12,9 @@
     background-color: darkgrey;
     // outline: 1px solid slategrey;
   }
-::ng-deep .mat-menu-panel {
-    max-height: 350px!important;
-}
 .card {
     margin: 0 auto;
-    ::ng-deep .card-header {
+    .card-header {
       background-color: #FFEFD4;
       font-weight: 700;
     }
@@ -53,6 +50,7 @@
     max-height: 900px;
     overflow-y: auto;
     overflow-x: hidden;
+    @include box-shadow-1-1-10-d6();
 }
 .slide_iframe{
     margin: 4%;

@@ -7,14 +7,12 @@ function config(render_type,swidth,sheight,modeType,center){
 		mode:modeType,
 		parent: "execGame",
 		autoCenter: center,
-		width: swidth,
-		height: sheight
 	};
 	this.physics= {
 		default: 'arcade',
 		arcade: {
 			gravity: { y: 3000 },
-			debug: true
+			debug: false
 				
 			}
 		};
@@ -88,9 +86,6 @@ var storeECScoreDataEvent;
 // if game closed once ... then restarted 
 var game_closed; 
 var ec_play_clicked;
-
-// store the time when the game is started
-var ec_game_start_time;
 
 //timeout var 
 var generate_tasks_timeout;
@@ -358,6 +353,7 @@ var mystery_egg_collected_text;
 //Gameover dialog_box;
 var game_over_dialog;
 var game_over_text;
+var no_lives_taken;
 var buy_live_img1;
 var buy_live_img21;
 var buy_live_img22;
@@ -686,6 +682,7 @@ function double_jump_tutorial_animation(){
 
 //Load the elements
 function preload(){
+	console.log('in preload fun');
 	//loading bar
 	var progressBar = this.add.graphics();
 	var progressBox = this.add.graphics();
@@ -875,14 +872,21 @@ function preload(){
 
 
 
+
 function create(){
-	
-	ec_game_start_time = generateTS();
 
 	this.scale.on('resize', function(gameSize, baseSize, displaySize, resolution, previousWidth, previousHeight) {
 	});
 
 	this.scale.setGameSize(screen_width, screen_height);
+	// var camera = this.cameras.main;
+
+	// camera.scrollX = 1;
+	// camera.scrollY = 1;
+	// console.log(this.scale);
+	// console.log(camera);
+
+
 	//Create physics group for collidables
 	platforms = this.physics.add.group();
 	coins_group=this.physics.add.group();
@@ -1067,37 +1071,33 @@ function create(){
 	if(isTouchDevice==true)
 	{
 	//Jump Button
-		jump_button=this.add.sprite(screen_width*0.06,screen_height*0.97, 'single_jump').setInteractive().setScale(0.35);
-		jump_button.depth=2;
+	
+		jump_button=this.add.image(screen_width*0.06,screen_height*0.97, 'single_jump').setInteractive().setScale(0.35);
+		// jump_button.setScrollFactor(1,1,true);
+		jump_button.depth=10;
 		if(jump_button.y+jump_button.height/2>screen_height)
 		{
 			jump_button.y=screen_height-jump_button.height*0.7/2;
 		}
-		jump_button.height = 50;
-		jump_button.on('pointerdown',function(){
+		// jump_button.height = 50;
+		jump_button.on('pointerdown', function() {
+			console.log('jump button clicked');
 			jump();
 			this.alpha = 1;
 		}, this);
-		// this.input.enableDebug(jump_button, 0xff00ff);
-		// this.input.on('gameobjectover', function (pointer, jump_button) {
-
-		// 	jump();
-		// 	this.alpha = 1;
+	} 
 	
-		// });
-	
-	}
 	//Double jump button
 	if(isTouchDevice){
 		double_jump_button=this.add.sprite(screen_width*0.08+(jump_button.width*0.4),screen_height*0.97, 'double_jump').setInteractive().setScale(0.35);
 	}else{
 		double_jump_button=this.add.sprite(screen_width*0.08,screen_height*0.97, 'double_jump').setInteractive().setScale(0.35);
 	}
-	double_jump_button.depth=2;
+	double_jump_button.depth=10;
 
 	//double jump text
 	double_jump_text=this.add.text(double_jump_button.x+10,screen_height*0.96,"x"+jumps.remaining, { fontFamily: 'Roboto', fontSize: '22px', fill: '#fff',align:'center' });
-	double_jump_text.depth=3;
+	double_jump_text.depth=11;
 	if(double_jump_button.y+double_jump_button.height/2>screen_height)
 	{
 		double_jump_button.y=screen_height-double_jump_button.height*0.7/2;
@@ -1788,13 +1788,14 @@ function resume_after_game_over(no_lives_add) {
 		return;
 	}
 
+	no_lives_taken = no_lives_taken + no_lives_add;
+
 	coins_collected-=no_lives_add*retry_cost;
 	retry_cost = 2*retry_cost;
 	coinsCollectedText.setText(coins_collected);
 	coinsCollectedText.x=screen_width-90-COIN_SCORE_LENGTH_ADJUSTMENT*(coins_collected.toString().length-1);
 
 	gameOver=false;
-	scoreUpdate();
 	game_over_update=false;
 
 	clearInterval(retry_coin_animation);
@@ -2104,7 +2105,7 @@ musicECGame =  function(music_muted)
 }
 closeECGame = function(){ 
 	game_paused=true;
-	gameOver=true;
+	// gameOver=true;
 	game_closed = true;
 	
 	clearInterval(blinking_animation);
@@ -2136,7 +2137,7 @@ closeECGame = function(){
 	clearTimeout(stopTunnelTimeout);
 	scene_change_timeout = null;
 
-	if(curr_game.sys.game!= null){
+	if(curr_game && curr_game.sys.game!==null){
 		curr_game.sys.game.destroy(true);
 	}
 	return;
@@ -2373,7 +2374,6 @@ function generateTS()
 }
 
 function scoreUpdate(){
-	console.log('update score of ecg');
 	storeECScoreDataEvent = document.createEvent('CustomEvent');
 	storeECScoreDataEvent.initCustomEvent('CallAngularECScoreFun');
 
@@ -2387,11 +2387,11 @@ getECScoreData = function(){
 		max_score = score;
 	}
 	return [
-		ec_game_start_time,
+		no_lives_taken,
 		game_object,
 		score,
 		level.number,
-		generateTS(),
+		generateTS(),		// this is the end time
 		gameOver,
 
 		max_score,

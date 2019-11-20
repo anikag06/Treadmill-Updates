@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { IbDialogsService } from './ib-dialogs.service';
+import { ConclusionService } from './conclusion.service';
 
-describe('IbDialogsService', () => {
+describe('ConclusionService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: IbDialogsService = TestBed.get(IbDialogsService);
+    const service: ConclusionService = TestBed.get(ConclusionService);
     expect(service).toBeTruthy();
   });
 });

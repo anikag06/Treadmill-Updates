@@ -9,6 +9,8 @@ export class NavbarFlowComponent implements OnInit {
 
   constructor() { }
 
+  navBar = true;
+
   ngOnInit() {
   }
 

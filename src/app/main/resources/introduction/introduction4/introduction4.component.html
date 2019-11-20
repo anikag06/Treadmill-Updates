@@ -1,0 +1,52 @@
+<ng-template [ngIf]="dataLoaded && !locked">
+  <div>
+    <!-- Add IMAGE here -->
+    <p>These are the most common negative beliefs in someone suffering from depression.</p>
+  </div>
+  <div>
+    Which one of these negative beliefs do you have?
+    <mat-form-field>
+      <mat-label>Negative beliefs</mat-label>
+      <mat-select [(value)]="selectedBelief" (selectionChange)="onBeliefChanged()">
+        <mat-option *ngFor="let negativeBelief of negativeBeliefs" [value]="negativeBelief">
+          {{negativeBelief}}
+        </mat-option>
+      </mat-select>
+      <br><br>
+    </mat-form-field>
+  </div>
+  <br><br>
+  <div *ngIf="selectedBelief">
+    <p>It stinks to be feeling that way, doesn't it?</p>
+    <p>Wouldn’t it be great if you had this belief instead?</p>
+    <p>{{balancedBelief}}</p>
+    <p>This is a more realistic and healthy belief.</p>
+    <p>Unfortunately, when someone is going through an episode of depression, they abandon this healthy belief system
+      and think in absolute terms like - {{negativeBelief}}.</p>
+    <p>These absolute and rigid negative beliefs make them vulnerable to negative thinking and depression.</p>
+    <p>In this module, you will learn how your beliefs make you vulnerable to negative thinking and how to change your
+      beliefs from absolute and negative to realistic and healthy.</p>
+  </div>
+  <br><br>
+  <div>
+    <button class="completed-btn float-right" type="button" mat-raised-button color="primary" (click)="saveData()">
+      Save data
+    </button>
+  </div>
+</ng-template>
+<ng-template [ngIf]="dataLoaded && locked">
+  <div class="row">
+    <div class="col">
+      <div class="text-center loader">
+        This content is not yet unlocked for you.
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template [ngIf]="!dataLoaded">
+  <div class="col">
+    <div class="text-center loader">
+      <img src="assets/shared/dna-loader.svg" alt="loader" width="200">
+    </div>
+  </div>
+</ng-template>

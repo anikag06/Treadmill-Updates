@@ -14,6 +14,7 @@ const routes: Routes = [
     ]
   },
   { path: '', loadChildren: './main/main.module#MainModule', canActivateChild: [AuthGuard] },
+  { path: '', loadChildren: './trial-registration/trial-registration.module#TrialRegistrationModule'},
   { path: '**', component: NotFoundComponent }
 ];
 

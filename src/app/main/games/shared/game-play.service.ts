@@ -1,11 +1,9 @@
-import { Injectable,
-  OnChanges, SimpleChanges, SimpleChange, ElementRef, } from '@angular/core';
+import { Injectable, ElementRef, } from '@angular/core';
 import { map } from 'rxjs/operators';
 import {GamesService} from '@/main/shared/games.service';
 import {GamesAuthService} from '@/main/games/shared/games-auth.service';
 import { ECGameData, ECGameFlankerTask, ECGameDiscriminationTask, ECGameUserData,
     LHGameColorReverseData, LHGameUserLevel, LHGamePerformance } from './game-play.model';
-import { IbDialogsService } from '../games-list/common-game/interpretation-bias-game/ib-dialogs.service';
 import { GamesBadgesService } from './games-badges.service';
 import { BadgesConstants } from './game-badges.model';
 import {
@@ -13,6 +11,7 @@ import {
 } from '../games-list/common-game/interpretation-bias-game/ib-game-instructions/ib-game-instructions.component';
 import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
 import { MiInstructionsComponent } from '../games-list/common-game/mental-imagery/mi-instructions/mi-instructions.component';
+import { ExecControlInstructionsComponent } from '../games-list/common-game/executive-control-game/exec-control-instructions/exec-control-instructions.component';
 
 // for interpretation bias game
 declare var startIBGame: any;
@@ -86,12 +85,14 @@ export class GamePlayService  {
   // variables for ec game
   ecGameStarted = false;
   ecGameSoundOn = true;
+  ecGameShowTutorial!: boolean;
   ecGameData!: any;
   ecGameTaskData!: any;
+  ecGameUserData!: any;
   ecGameID!: number;
 
   // initialising the variables
-  ecGameDataObject = new ECGameData(1, null, 1, 0, null, false);
+  ecGameDataObject = new ECGameData(1, null,  1, 0, false, 0);
   ecGameUserDataObject = new ECGameUserData(1, 0, 0, false, false, false);
   ecGameFlankerData = new ECGameFlankerTask(1, null, 0, 0, 0, 1);
   ecGameDiscriminationData = new ECGameDiscriminationTask(1, null, 0, 0);
@@ -150,7 +151,6 @@ export class GamePlayService  {
   }
   helpIBGame() {
     this.dialogBoxService.setDialogChild(IbGameInstructionsComponent);
-    // this.ibGameDialogService.openInstructionDialog(gameDivElement);
     ibGameHelp();
   }
 
@@ -176,40 +176,54 @@ export class GamePlayService  {
   }
 
 // functions for executive control game
-  playExecControlGame(isSoundOn: any, helpClicked: any) {
-    this.ecGameStarted = true;
-    let showTutorial = false;
+  playExecControlGame(isSoundOn: any, gamePauseDiv: any, helpClicked: boolean) {
+
     this.gamesAuthService.ecGameGetGameInfo()
       .subscribe((game_data) => {
-        const length = game_data.data.length;
-        this.ecGameID = 1;            // should not be 0
-        if (length > 0) {
-          this.ecGameID = game_data.data[length - 1].id;
-        }
+        this.ecGameID = game_data.data.id;
         this.gamesAuthService.ecGameGetUserData()
           .subscribe( (user_data) => {
-            showTutorial = user_data.data.show_tutorial;
-            if (helpClicked) {
-              showTutorial = true;
-              isSoundOn = this.ecGameSoundOn;
-            }
-            const badgeInfo = this.gameBadgeService.getBadgesInfo(
-              user_data.data.BRONZE_CONSTANT, user_data.data.SILVER_CONSTANT,
-              user_data.data.GOLD_CONSTANT, user_data.data.no_correct_responses );
+            this.ecGameUserData = user_data;
+            this.ecGameShowTutorial = user_data.data.show_tutorial;
 
-            const total_correct_responses = user_data.data.no_correct_responses;
-            this.ecGameBadgeConstants.bronzeConstant = user_data.data.BRONZE_CONSTANT;
-            this.ecGameBadgeConstants.silverConstant = user_data.data.SILVER_CONSTANT;
-            this.ecGameBadgeConstants.goldConstant = user_data.data.GOLD_CONSTANT;
-            startExecControlGame(showTutorial, user_data, this.ecGameID,
-              isSoundOn, badgeInfo, total_correct_responses,
-              this.ecGameBadgeConstants);
+            if (this.ecGameShowTutorial) {
+              this.ecGameSoundOn = isSoundOn;
+              const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
+              gamePauseDiv.nativeElement.dispatchEvent(domEvent);
+            } else if(!this.ecGameShowTutorial && !helpClicked) {
+              this.ecGameSoundOn = isSoundOn;
+              this.startECGameFunc();
+            } else if(helpClicked) {
+              this.ecGameShowTutorial = true;
+            }
+
           });
+
     });
   }
+// this function calls the startGame function of executive control game in javascipt
+  startECGameFunc() {
+    const user_data = this.ecGameUserData;
 
-  helpExecControlGame(isSoundOn: any) {
+    const badgeInfo = this.gameBadgeService.getBadgesInfo(
+      user_data.data.BRONZE_CONSTANT, user_data.data.SILVER_CONSTANT,
+      user_data.data.GOLD_CONSTANT, user_data.data.no_correct_responses );
+
+    const total_correct_responses = user_data.data.no_correct_responses;
+    this.ecGameBadgeConstants.bronzeConstant = user_data.data.BRONZE_CONSTANT;
+    this.ecGameBadgeConstants.silverConstant = user_data.data.SILVER_CONSTANT;
+    this.ecGameBadgeConstants.goldConstant = user_data.data.GOLD_CONSTANT;
+
+    startExecControlGame(this.ecGameShowTutorial, user_data, this.ecGameID,
+      this.ecGameSoundOn, badgeInfo, total_correct_responses,
+      this.ecGameBadgeConstants);
+      this.ecGameStarted = true;
+  }
+
+  helpExecControlGame(isSoundOn: any, gamePauseDiv:any) {
     this.ecGameSoundOn = isSoundOn;
+    this.storeDataExecControlGame();
+    this.playExecControlGame(isSoundOn, gamePauseDiv, true);      // get new updated data on clicking help to start new game from the help dialog
   }
   pauseExecControlGame() {
     pauseECGame();
@@ -217,15 +231,17 @@ export class GamePlayService  {
   resumeExecControlGame() {
     resumeECGame();
   }
-  restartExecControlGame(isSoundOn: any)  {
-    closeECGame();
-    this.storeDataExecControlGame();
-    this.playExecControlGame(isSoundOn, false);
+  restartExecControlGame(isSoundOn: any, gamePauseDiv: any)  {
+    if (this.ecGameStarted) {
+      this.closeExecControlGame();
+      this.playExecControlGame(isSoundOn, gamePauseDiv, false);
+    }
   }
+
   closeExecControlGame() {
     if (this.ecGameStarted) {
-      closeECGame();
       this.storeDataExecControlGame();
+      closeECGame();
     }
   }
   soundExecControlGame(isSoundOn: any) {
@@ -234,31 +250,31 @@ export class GamePlayService  {
     }
   }
   storeDataExecControlGame() {
-    this.ecGameData = getECScoreData();
-    this.ecGameDataObject.start_time = this.ecGameData[0];
-    this.ecGameDataObject.game_id = this.ecGameData[1];
-    this.ecGameDataObject.score = this.ecGameData[2];
-    this.ecGameDataObject.level = this.ecGameData[3];
-    this.ecGameDataObject.end_time = this.ecGameData[4];
-    this.ecGameDataObject.game_over = this.ecGameData[5];
+    if (this.ecGameStarted) {
+      this.ecGameData = getECScoreData();
+      this.ecGameDataObject.lives_renewed = this.ecGameData[0];
+      this.ecGameDataObject.id = this.ecGameData[1];
+      this.ecGameDataObject.score = this.ecGameData[2];
+      this.ecGameDataObject.level = this.ecGameData[3];
+      this.ecGameDataObject.end_time = this.ecGameData[4];
+      this.ecGameDataObject.game_over = this.ecGameData[5];
 
-    this.ecGameUserDataObject.max_score = this.ecGameData[6];
-    this.ecGameUserDataObject.coins_collected = this.ecGameData[7];
-    this.ecGameUserDataObject.double_jump = this.ecGameData[8];
-    this.ecGameUserDataObject.shooting_capacity = this.ecGameData[9];
-    this.ecGameUserDataObject.double_coins = this.ecGameData[10];
+      this.ecGameUserDataObject.max_score = this.ecGameData[6];
+      this.ecGameUserDataObject.coins_collected = this.ecGameData[7];
+      this.ecGameUserDataObject.double_jump = this.ecGameData[8];
+      this.ecGameUserDataObject.shooting_capacity = this.ecGameData[9];
+      this.ecGameUserDataObject.double_coins = this.ecGameData[10];
 
-    this.gamesAuthService.ecGameStoreGameInfo(this.ecGameDataObject)
-      .subscribe(() => {
-        this.gamesAuthService.ecGameUpdateUserData(this.ecGameUserDataObject)
-          .subscribe((data) => {
-          });
+      this.gamesAuthService.ecGameStoreGameInfo(this.ecGameDataObject)
+        .subscribe(() => { });
+      this.gamesAuthService.ecGameUpdateUserData(this.ecGameUserDataObject)
+      .subscribe((data) => {
       });
+    }
   }
 
   storeFlankerDiscriTaskData() {
     this.ecGameTaskData = getECGameTaskData();
-
     this.ecGameFlankerData.game_id = this.ecGameTaskData[0];
     this.ecGameFlankerData.starting_time = this.ecGameTaskData[1];
     this.ecGameFlankerData.response_type = this.ecGameTaskData[2];
@@ -266,7 +282,6 @@ export class GamePlayService  {
     this.ecGameFlankerData.congruency   = this.ecGameTaskData[4];
     this.ecGameFlankerData.image_type   = this.ecGameTaskData[5];
 
-    // this.ecGameDiscriminationData.flanker_task_id = this.ecGameTaskData[0];
     this.ecGameDiscriminationData.starting_time = this.ecGameTaskData[6];
     this.ecGameDiscriminationData.response_type = this.ecGameTaskData[7];
     this.ecGameDiscriminationData.time_elapsed  = this.ecGameTaskData[8];
@@ -533,6 +548,5 @@ export class GamePlayService  {
   helpMIGame() {
     this.dialogBoxService.setDialogChild(MiInstructionsComponent);
   }
-  
 }
 
