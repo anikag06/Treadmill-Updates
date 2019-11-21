@@ -64,6 +64,7 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
     this.miPlayService.levelUpdate.subscribe(() => {
       this.getCurrentStateService.continuePlaying = true;
       this.currentLevel = this.getCurrentStateService.getCurrentLevel();
+      console.log("ngOnInit, Current level", this.currentLevel);
       this.getCurrentStateService.getScenario();
       this.currentScenario = this.getCurrentStateService.currentScenario;
       console.log("ngOnInit, Current Scenario", this.currentScenario);
@@ -161,7 +162,7 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
     if (this.ifPositive(this.blank) === 1) {
       this.updatePreviousText();
       this.updateScore();
-      if (this.getCurrentStateService.currentScenario.scenarioNext) {
+      if (this.getCurrentStateService.currentScenario.scenarioNextIndex) {
         this.getCurrentStateService.updateScenario();
         this.currentScenario = this.getCurrentStateService.currentScenario;
       } else {
