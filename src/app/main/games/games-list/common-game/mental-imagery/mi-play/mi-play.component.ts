@@ -50,16 +50,35 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
   bronzeValue = 40;
   gameValue = 0;
   scrollTop = 0;
+  currentPoints = 500;
 
 
-  constructor(private getCurrentStateService: MICurrentStateService,
+  constructor(
+    private getCurrentStateService: MICurrentStateService,
     private miPlayService: MIPlayService,
-    private dialogBoxService: DialogBoxService) { }
+    private dialogBoxService: DialogBoxService
+  ) { }
 
   ngOnInit() {
-    this.getCurrentStateService.getContent();
+    this.getCurrentStateService.updateLevelsList();
     this.miPlayService.levelUpdate.subscribe(() => {
       this.getCurrentStateService.continuePlaying = true;
+      this.currentLevel = this.getCurrentStateService.getCurrentLevel();
+      this.getCurrentStateService.getScenario();
+      this.currentScenario = this.getCurrentStateService.currentScenario;
+      console.log("ngOnInit, Current Scenario", this.currentScenario);
+
+
+      this.previousText = this.getCurrentStateService.previousText;
+      this.extraContent = this.getCurrentStateService.extraContent;
+      this.notificationHeader = this.getCurrentStateService.notificationHeader;
+      this.notificationBody = this.getCurrentStateService.notificationBody;
+      this.disabled = this.getCurrentStateService.disabled;
+      this.blank = this.getCurrentStateService.blank;
+      this.user = this.getCurrentStateService.user;
+
+
+
       this.situationHandler();
     });
 
@@ -67,21 +86,23 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
 
 
   ngAfterContentInit() {
-    this.currentLevel = this.getCurrentStateService.getCurrentLevel();
-    this.getCurrentStateService.getScenario();
-    this.currentScenario = this.getCurrentStateService.currentScenario;
-    this.previousText = this.getCurrentStateService.previousText;
-    this.extraContent = this.getCurrentStateService.extraContent;
-    this.notificationHeader = this.getCurrentStateService.notificationHeader;
-    this.notificationBody = this.getCurrentStateService.notificationBody;
-    this.disabled = this.getCurrentStateService.disabled;
-    this.blank = this.getCurrentStateService.blank;
-    this.user = this.getCurrentStateService.user;
+    console.log("ngAfterContentInit,  problem after dash", this.currentScenario);
+
+    // this.currentLevel = this.getCurrentStateService.getCurrentLevel();
+    // this.getCurrentStateService.getScenario();
+    // this.currentScenario = this.getCurrentStateService.currentScenario;
+    // this.previousText = this.getCurrentStateService.previousText;
+    // this.extraContent = this.getCurrentStateService.extraContent;
+    // this.notificationHeader = this.getCurrentStateService.notificationHeader;
+    // this.notificationBody = this.getCurrentStateService.notificationBody;
+    // this.disabled = this.getCurrentStateService.disabled;
+    // this.blank = this.getCurrentStateService.blank;
+    // this.user = this.getCurrentStateService.user;
 
     if (this.inputEl) {
       this.inputEl.nativeElement.focus();
     }
-    this.getCurrentStateService.count += 1;
+    // this.getCurrentStateService.count += 1;
 
   }
 
@@ -223,7 +244,7 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
   }
 
   updateScore() {
-    this.getCurrentStateService.user.points.push(this.currentScenario.points);
+    this.getCurrentStateService.user.points.push(this.currentPoints);
     if (this.getCurrentStateService.user.level === 0) {
       this.gameValue = this.gameValue + 50;
     }
