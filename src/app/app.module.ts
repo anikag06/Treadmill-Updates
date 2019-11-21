@@ -24,6 +24,7 @@ import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { LocalStorageService } from './shared/localstorage.service';
 import { MatSignupDialogComponent} from './pre-login/signup/mat-signup-dialog/mat-signup-dialog.component';
 import { SignupComponent } from '@/pre-login/signup/signup.component';
+import { QuestionnaireModule } from './questionnaire.module';
 declare let $: any;
 
 @NgModule({
@@ -49,6 +50,7 @@ declare let $: any;
     HttpClientModule,
     ServiceWorkerModule.register('sw-master.js', { enabled: environment.production }),
     AppRoutingModule,
+    QuestionnaireModule,
   ],
   providers: [
     {provide: LOCALE_ID, useValue: 'en-US'},
@@ -58,7 +60,7 @@ declare let $: any;
     MatContactUsDialogService,
     AuthService,
     LoggerService,
-    LocalStorageService
+    LocalStorageService,
     ],
   bootstrap: [AppComponent],
   entryComponents: [MatLoginDialogComponent, MatContactUsDialogComponent, ErrorDialogComponent, MatSignupDialogComponent],

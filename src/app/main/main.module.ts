@@ -71,8 +71,8 @@ import {ChatbotService} from '@/main/chatbot/chatbot.service';
 import {SlideService} from './resources/slides/slide.service';
 import {ProblemSolvingWorksheetsService} from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.service';
 
-import { DataService } from './dashboard/questionnaire/data.service';
-import { QuestionnaireComponent } from './dashboard/questionnaire/questionnaire.component';
+// import { DataService } from '@/shared/questionnaire/data.service';
+// import { QuestionnaireComponent } from '@/shared/questionnaire/questionnaire.component';
 import { PlotScoreGraphService } from './score/plot-score-graph.service';
 import {AngularFireMessagingModule} from '@angular/fire/messaging';
 import {AngularFireModule} from '@angular/fire';
@@ -93,7 +93,7 @@ import { StepGroupComponent } from './flow/step-group/step-group.component';
 import { FlowService } from './flow/flow.service';
 import { StepComponent } from './flow/step-group/step/step.component';
 import { StepsIndicatorComponent } from './flow/step-group/steps-indicator/steps-indicator.component';
-import { QuizService } from './dashboard/questionnaire/questionnaire.service';
+// import { QuizService } from '@/shared/questionnaire/questionnaire.service';
 import { FlowStepNavigationService } from './shared/flow-step-navigation.service';
 import { IntroduceComponent } from './shared/introduce/introduce.component';
 import { OverlayModule } from '@angular/cdk/overlay';
@@ -124,6 +124,8 @@ import { AsgScienceComponent } from './games/games-list/common-game/attribute-st
 import { MigScienceComponent } from './games/games-list/common-game/mental-imagery/mig-science/mig-science.component';
 import { FfgScienceComponent } from './games/games-list/common-game/friendly-face-game/ffg-science/ffg-science.component';
 import { LhgScienceComponent } from './games/games-list/common-game/learned-helplessness-game/lhg-science/lhg-science.component';
+import { QuestionnaireModule } from '@/questionnaire.module';
+
 @NgModule({
   declarations: [
     ModulesComponent,
@@ -166,7 +168,7 @@ import { LhgScienceComponent } from './games/games-list/common-game/learned-help
     MainComponent,
     ChatbotComponent,
     ChatWindowComponent,
-    QuestionnaireComponent,
+    // QuestionnaireComponent,
     AttributeStyleGameComponent,
     FriendlyFaceGameComponent,
     MentalImageryComponent,
@@ -224,6 +226,7 @@ import { LhgScienceComponent } from './games/games-list/common-game/learned-help
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireMessagingModule,
     OverlayModule,
+    // QuestionnaireModule,
   ],
   providers: [
     LocalStorageService,
@@ -241,13 +244,13 @@ import { LhgScienceComponent } from './games/games-list/common-game/learned-help
     GamesAuthService,
     ChatbotService,
     SlideService,
-    DataService,
+    // DataService,
     PlotScoreGraphService,
     FcmService,
     MICurrentStateService,
     FlowService,
     PassDataService,
-    QuizService,
+    // QuizService,
     FlowStepNavigationService,
     NavbarNotificationsService,
     GamesBadgesService,

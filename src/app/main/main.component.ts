@@ -7,9 +7,9 @@ import { User } from '@/shared/user.model';
 import { Router, NavigationStart } from '@angular/router';
 import { DEFAULT_PATH } from '@/app.constants';
 import { MatDrawer } from '@angular/material';
-import { DataService } from './dashboard/questionnaire/data.service';
+// import { DataService } from '@/shared/questionnaire/data.service';
 import {FcmService} from '@/main/fcm.service';
-import { QuizService } from './dashboard/questionnaire/questionnaire.service';
+// import { QuizService } from '@/shared/questionnaire/questionnaire.service';
 import { FlowService } from './flow/flow.service';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
@@ -43,9 +43,9 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
     private breakpointObserver: BreakpointObserver,
     private authService: AuthService,
     private router: Router,
-    private dataService: DataService,
+    // private dataService: DataService,
     private fcmService: FcmService,
-    private quizService: QuizService,
+    // private quizService: QuizService,
     private flowService: FlowService,
     private overlay: Overlay,
     private introduceService: IntroduceService,
@@ -85,7 +85,7 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
   }
 
   ngDoCheck() {
-    this.routing = this.dataService.getOption();
+    // this.routing = this.dataService.getOption();
     const user = this.authService.isLoggedIn();
     if (user && user.is_active) {
       this.user = <User>user;
@@ -110,9 +110,9 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
   }
 
   goToQuestionnaire(e: any) {
-    if (e.url !== '/questionnaire' && this.user && this.quizService.questionnaireActive) {
-      this.router.navigate(['/questionnaire']);
-    }
+    // if (e.url !== '/questionnaire' && this.user && this.quizService.questionnaireActive) {
+    //   this.router.navigate(['/questionnaire']);
+    // }
   }
 
   startIntroduction() {
