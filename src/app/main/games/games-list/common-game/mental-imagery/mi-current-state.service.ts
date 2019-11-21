@@ -184,9 +184,10 @@ export class MICurrentStateService {
       for (let i = 0; i <= 1; i++) {
         this.levelList.push(new Level(data.results[i].title, data.results[i].sentence_list));
       }
+      console.log(this.levelList);
+      console.log("user level: ", this.user.level);
       this.miPlayService.levelUpdate.emit();
     });
-    console.log(this.levelList);
   }
 
 
@@ -203,41 +204,39 @@ export class MICurrentStateService {
     return this.currentLevel;
   }
 
-  initScenario(scenario1: any, scenario2: any) {
-    this.scenario.problemAfterDash = scenario1.text_after_dash;
-    this.scenario.correctText = scenario1.correct_text;
-    this.scenario.wrongText = scenario1.wrong_text;
-    this.scenario.problemBeforeDash = scenario1.text_before_dash;
-    this.scenario.scenarioNext = scenario2;
-    console.log("initialise scenario in situations array", this.situationArray);
-
+  convertScenario(scenario1: any, scenario2: any) {
+    return new Scenario(scenario1.text_before_dash, scenario1.text_after_dash, scenario2, scenario1.wrong_text, scenario1.correct_text);
   }
 
   updateScenario() {
 
-    if (this.currentScenario && this.currentScenario.scenarioNext) {
-      this.currentScenario = this.currentScenario.scenarioNext;
-      // return this.currentScenario;
+    if (this.currentScenario && this.currentScenario.scenarioNextIndex) {
+      let nextIndex = this.currentScenario.scenarioNextIndex;
+      if(nextIndex < (this.currentLevel.scenario.length-1)) { // if not last scenario
+        this.currentScenario = this.convertScenario(this.currentLevel.scenario[nextIndex], nextIndex+1);
+      } else {
+        this.currentScenario = this.convertScenario(this.currentLevel.scenario[nextIndex], null);
+      }
     }
     else {
-      this.currentScenario = this.currentLevel.scenario;
+      this.currentScenario = this.convertScenario(this.currentLevel.scenario[0], 1);
       // return this.currentScenario;
     }
   }
 
   getScenario() {
-    // if (this.currentScenario) {
+    // // if (this.currentScenario) {
 
-    // }
+    // // }
     
     if (this.count === 0) {
-      this.currentScenario = this.currentLevel.scenario[0];
+      this.currentScenario = this.convertScenario(this.currentLevel.scenario[0], 1);
     }
 
   }
 
   resetScenario() {
-    this.currentScenario = this.currentLevel.scenario;
+    this.currentScenario = this.convertScenario(this.currentLevel.scenario[0], 1);
     //return this.currentScenario;
   }
 
