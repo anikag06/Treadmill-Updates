@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegistrationStepThreeComponent implements OnInit {
 
+  stepNo = 3;
+
   constructor() { }
 
   ngOnInit() {

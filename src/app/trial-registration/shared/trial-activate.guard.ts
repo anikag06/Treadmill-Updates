@@ -17,7 +17,7 @@ export class TrialActivateGuard implements CanActivate, CanActivateChild {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     if (!this.authService.getCanNavigate()) {
-      this.router.navigate(['/trial-registration']);
+      this.router.navigate(['/trial/trial-registration']);
       return false;
     }
     this.authService.activateChild(false);

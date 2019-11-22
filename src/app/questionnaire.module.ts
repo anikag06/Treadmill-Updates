@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 import { QuestionnaireComponent } from './shared/questionnaire/questionnaire.component';
 import { DataService } from './shared/questionnaire/data.service';
 import { QuizService } from './shared/questionnaire/questionnaire.service';
-import { AppRoutingModule } from '@/app-routing.module';
-import { MainModule } from '@/main/main.module';
+import { RouterModule, Routes } from '@angular/router';
 
+const appRoutes: Routes = [
 
+]
 
 @NgModule({
   declarations: [
@@ -14,7 +15,7 @@ import { MainModule } from '@/main/main.module';
   ],
   imports: [
     CommonModule,
-    AppRoutingModule,
+    RouterModule.forChild(appRoutes),
   ],
   
   providers: [
@@ -22,7 +23,7 @@ import { MainModule } from '@/main/main.module';
     QuizService
   ],
   exports: [
-    QuestionnaireComponent
+    QuestionnaireComponent,
   ]
 })
 export class QuestionnaireModule { }

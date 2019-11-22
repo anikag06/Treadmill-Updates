@@ -125,6 +125,7 @@ import { MigScienceComponent } from './games/games-list/common-game/mental-image
 import { FfgScienceComponent } from './games/games-list/common-game/friendly-face-game/ffg-science/ffg-science.component';
 import { LhgScienceComponent } from './games/games-list/common-game/learned-helplessness-game/lhg-science/lhg-science.component';
 import { QuestionnaireModule } from '@/questionnaire.module';
+import { GetQuestionnaireComponent } from './dashboard/get-questionnaire/get-questionnaire.component';
 
 @NgModule({
   declarations: [
@@ -198,6 +199,7 @@ import { QuestionnaireModule } from '@/questionnaire.module';
     MigScienceComponent,
     FfgScienceComponent,
     LhgScienceComponent,
+    GetQuestionnaireComponent,
   ],
   imports: [
     CommonModule,
@@ -226,7 +228,7 @@ import { QuestionnaireModule } from '@/questionnaire.module';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireMessagingModule,
     OverlayModule,
-    // QuestionnaireModule,
+    QuestionnaireModule,
   ],
   providers: [
     LocalStorageService,

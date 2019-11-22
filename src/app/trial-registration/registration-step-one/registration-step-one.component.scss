@@ -1,4 +1,8 @@
-
+div{
+    font-size: 14px;
+    letter-spacing: 0.29px;
+    font-family: "Roboto";
+}
 .heading-font{
     font-size: 24px ;
 }
@@ -6,11 +10,24 @@
 .img-cards{
     min-height: 108px;
 }
-
+#sad-img {
+    width: 60%;
+}
 .form-elements{
     min-height: 48px;
 }
 
 .ng-valid.required  {
     border: 5px solid red; 
+}
+
+.card {
+    box-shadow: 0px 1px 3px #00000029;
+    border-radius: 9px;
+    opacity: 1;
+}
+.input-box {
+    box-shadow: 0px 1px 3px #00000029;
+    border-radius: 4px;
+    opacity: 1;
 }

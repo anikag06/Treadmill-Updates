@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 })
 export class RegistrationStepTwoComponent implements OnInit {
 
+  stepNo = 2;
+
   constructor(
     private authService: TrialAuthService,
     private router: Router,
@@ -23,6 +25,6 @@ export class RegistrationStepTwoComponent implements OnInit {
 
   stepDataSubmit() {
     this.authService.activateChild(true);
-    this.router.navigate(['trial-registration/step-3'] );
+    this.router.navigate(['trial/trial-registration/step-3'] );
   }
 }

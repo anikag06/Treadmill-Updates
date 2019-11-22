@@ -1,12 +1,12 @@
 <router-outlet></router-outlet>
-<div class="q" *ngIf="active">
+<div class="q">
   <div class="container" *ngIf="display_phq_start" [@simpleFadeAnimation]="'in'">
     <div class="row">
       <div class="col-md-12 dashboard">
         <div class="row">
           <div class="col-xl-4 col-md-6 col-sm-12" class="card text-center">
             <div class="card-body">
-              <div id=bold> <b>Before moving further, we need ou to carefully answer 9 quick questions. This is
+              <div id=bold> <b>Before moving further, we need you to carefully answer 9 quick questions. This is
                   a
                   standard set of questions, called PHQ-9, used in healthcare to assess depressive
                   symptoms
@@ -134,6 +134,6 @@
     <img src="assets/shared/dna-loader.svg" alt="loader" class="loader">
   </div>
 </ng-container>
-<ng-container *ngIf="!active && !loading">
+<!-- <ng-container *ngIf="!active && !loading">
   <h2>This is not available</h2>
-</ng-container>
+</ng-container> -->

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-trial-pages-header',
@@ -7,9 +7,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TrialPagesHeaderComponent implements OnInit {
 
+  @Input() stepNumber!: number;
+
+  stepOne = false;
+  stepTwo = false;
+  stepThree = false;
+  stepFour = false;
+
   constructor() { }
 
   ngOnInit() {
+    console.log('step number', this.stepNumber);
+    if (this.stepNumber === 1) {
+      this.stepOne = true;
+    } else if (this.stepNumber === 2) {
+      this.stepTwo = true;
+    } else if (this.stepNumber === 3) {
+      this.stepThree = true;
+    } else if (this.stepNumber === 4) {
+      this.stepFour = true;
+    }
+
+
   }
 
 }

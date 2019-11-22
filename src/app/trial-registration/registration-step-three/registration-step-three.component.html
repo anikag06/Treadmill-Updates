@@ -1,4 +1,9 @@
-<p>registration-step-three works!</p>
+<div class="container-fluid">
 
+    <app-trial-pages-header [stepNumber]="stepNo"></app-trial-pages-header>
 
-<!-- <app-questionnaire></app-questionnaire> -->
+    <div class="row mt-5">
+        <app-questionnaire class="w-100" [fromFlow]="false" [stepId]="null" [fromTrialRegistration]="true"></app-questionnaire>
+    </div>
+</div>
+

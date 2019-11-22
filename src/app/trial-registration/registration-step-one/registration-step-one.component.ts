@@ -9,6 +9,8 @@ import { TrialAuthService } from '../shared/trial-auth.service';
 })
 export class RegistrationStepOneComponent implements OnInit {
 
+  stepNo = 1;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,

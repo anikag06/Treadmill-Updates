@@ -4,6 +4,7 @@ import { RegistrationStepOneComponent } from './registration-step-one/registrati
 import { RegistrationStepTwoComponent } from './registration-step-two/registration-step-two.component';
 import { TrialActivateGuard } from './shared/trial-activate.guard';
 import { RegistrationStepThreeComponent } from './registration-step-three/registration-step-three.component';
+import { RegistrationStepFourComponent } from './registration-step-four/registration-step-four.component';
 
 
 const routes: Routes = [
@@ -15,6 +16,9 @@ const routes: Routes = [
   },
   {
     path: 'trial-registration/step-3', component: RegistrationStepThreeComponent, canActivate: [TrialActivateGuard]
+  },
+  {
+    path: 'trial-registration/step-4', component: RegistrationStepFourComponent, canActivate: [TrialActivateGuard]
   }
 ];
 

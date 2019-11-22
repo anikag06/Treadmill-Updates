@@ -15,10 +15,10 @@ import { ScoreComponent } from './score/score.component';
 import { PhqNineComponent } from './score/phq-nine/phq-nine.component';
 import { GadSevenComponent } from './score/gad-seven/gad-seven.component';
 import { CommonGameComponent } from './games/games-list/common-game/common-game.component';
-// import { QuestionnaireComponent } from '@/shared/questionnaire/questionnaire.component';
 
 import { ConversationsComponent } from './resources/conversation-group/conversations/conversations.component';
 import { ConversationGroupComponent } from './resources/conversation-group/conversation-group.component';
+import { GetQuestionnaireComponent } from './dashboard/get-questionnaire/get-questionnaire.component';
 
 
 
@@ -26,7 +26,7 @@ export const mainRoutes: Routes = [
     {
         path: '', component: MainComponent, canActivateChild: [AuthGuard], children: [
             { path: 'dashboard', component: DashboardComponent},
-            // { path: 'questionnaire', component: QuestionnaireComponent},
+            { path: 'questionnaire', component: GetQuestionnaireComponent},
             { path: 'support-groups', component: SupportGroupsComponent },
             {
                 path: 'modules', component: ModulesComponent, canActivateChild: [AuthGuard], children: [

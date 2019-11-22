@@ -1,5 +1,5 @@
 <div class="container-fluid w-100" style="font-size: 14px;">
-    <app-trial-pages-header></app-trial-pages-header>
+    <app-trial-pages-header [stepNumber]="stepNo"></app-trial-pages-header>
 
     <div class="row my-4">
         <div class="col-12" style="font-size: 16px;">
@@ -102,11 +102,11 @@
 
                     <div class="col-12 my-3 ">
                         <label> Select the most appropriate option: </label>
-                        <mat-radio-group formControlName="floatLabel" color="primary" class="w-100">
+                        <mat-radio-group formControlName="floatLabel" color="primary">
                             <mat-radio-button value="Complete" >I plan to complete the program</mat-radio-button>
                             <mat-radio-button value="MayComplete" >I may complete the program if I like it</mat-radio-button>
-                            <mat-radio-button value="DoNotComplete" >
-                                <span class="w-100">I want to check out the program and do not plan to complete it </span>
+                            <mat-radio-button value="DoNotComplete">
+                                <span class="wrap-mat-radio-label"> I want to check out the program and do not plan to complete it  </span> 
                             </mat-radio-button>
                         </mat-radio-group>
                     </div>

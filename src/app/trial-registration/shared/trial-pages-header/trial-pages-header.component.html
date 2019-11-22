@@ -2,7 +2,12 @@
     <div class="col px-0">
         <img src="../../../assets/shared/logo_full.png" class="w-100 ml-n2">
     </div>
-    <div class="col-5 pl-0">
-        <button type="button" class="btn btn-outline-warning mt-auto float-right">Join the Study</button>
+    <div class="col-5 mt-2 pl-0">
+        <button type="button" *ngIf="stepOne"
+         class="btn btn-outline-warning mt-auto float-right">Join the Study</button>
+
+        <p *ngIf="stepTwo" class="text-property my-0"> <b>  Step 2 of 4  </b></p>
+        <p *ngIf="stepThree" class="text-property my-0"> <b> Step 3 of 4 </b>  </p>
+
     </div>
 </div>
