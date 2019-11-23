@@ -1,0 +1,14 @@
+@import "../../shared/common-styles.scss";
+
+.team-div{
+    max-height: 165px;
+}
+.team-img {
+    border-radius: 8px;
+    height: 80%;
+    border: 1px solid black;            //remove this when img added
+}
+
+.col-12, .col-6 {
+    padding: 0%;
+}

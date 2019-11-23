@@ -1,14 +1,14 @@
-<div class="container-fluid w-100">
+<div class="container-fluid w-100 small-font">
     <app-trial-pages-header [stepNumber]="stepNo"></app-trial-pages-header>
 
     <div class="row mt-4">
         <div class="col">
-            <h3> <b> Consent  </b> </h3>
-            <div> <b>  Please see if these terms are acceptable to you. </b></div>
+            <p class="largest-font">  Consent </p>
+            <div class="medium-font">  Please see if these terms are acceptable to you. </div>
         </div>
     </div>
 
-    <div class="row">
+    <div class="row lesser-opacity">
         <div class="col-12 my-1">
             <label class="my-3">I have read the information provided in the site about the study. If I had any concerns, 
                 I had contacted the research team and received satisfactory response to my concerns. 
@@ -69,10 +69,10 @@
 
     <div class="row mt-2">
         <div class="col-12 mt-3">
-            <h5 class="mb-0"> Notifications and app. </h5>
+            <p class="mb-0 medium-font"> Notifications and app. </p>
         </div>
 
-        <div class="col-12 mb-1">
+        <div class="col-12 mb-1 lesser-opacity">
             <label class="my-3">For the purpose of this study, it is required that you add TreadWill to your home screen.
                 Please click accept to add TreadWill to your home screen.</label>
             <mat-radio-group formControlName="floatLabel" color="primary">
@@ -81,7 +81,7 @@
             </mat-radio-group>
         </div>
 
-        <div class="col-12 my-1">
+        <div class="col-12 my-1 lesser-opacity">
             <label class="my-3"> Notifications are an essential part of this program. Please click accept to allow notifications.</label>
             <mat-radio-group formControlName="floatLabel" color="primary">
                 <mat-radio-button value="accept" class="mr-5">Accept</mat-radio-button>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-trial-pages-header',
@@ -7,6 +7,8 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class TrialPagesHeaderComponent implements OnInit {
 
+  @Output() joinStudyClicked: EventEmitter<any> = new EventEmitter();
+  
   @Input() stepNumber!: number;
 
   stepOne = false;
@@ -26,9 +28,11 @@ export class TrialPagesHeaderComponent implements OnInit {
       this.stepThree = true;
     } else if (this.stepNumber === 4) {
       this.stepFour = true;
-    }
+    } 
+  }
 
-
+  topJoinStudyClick() {
+    this.joinStudyClicked.emit('');
   }
 
 }

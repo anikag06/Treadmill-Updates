@@ -10,8 +10,12 @@ import { TrialPagesHeaderComponent } from './shared/trial-pages-header/trial-pag
 import { RegistrationStepTwoComponent } from './registration-step-two/registration-step-two.component';
 import { RegistrationStepThreeComponent } from './registration-step-three/registration-step-three.component';
 import { QuestionnaireModule } from '@/questionnaire.module';
-import { AppModule } from '@/app.module';
 import { RegistrationStepFourComponent } from './registration-step-four/registration-step-four.component';
+import { FaqPageComponent } from './information-pages/faq-page/faq-page.component';
+import { PrivacyPolicyComponent } from './information-pages/privacy-policy/privacy-policy.component';
+import { AboutUsPageComponent } from './information-pages/about-us-page/about-us-page.component';
+import { TermsAndConditionsComponent } from './information-pages/terms-and-conditions/terms-and-conditions.component';
+import { MatExpansionModule } from '@angular/material';
 
 
 @NgModule({
@@ -20,11 +24,12 @@ import { RegistrationStepFourComponent } from './registration-step-four/registra
     TrialPagesFooterComponent, 
     TrialPagesHeaderComponent, 
     RegistrationStepTwoComponent, 
-    RegistrationStepThreeComponent, RegistrationStepFourComponent,
+    RegistrationStepThreeComponent, RegistrationStepFourComponent, FaqPageComponent, PrivacyPolicyComponent, AboutUsPageComponent, TermsAndConditionsComponent,
   ],
   imports: [
     CommonModule,
     MaterialModule,
+    MatExpansionModule,
     MatRadioModule,
     TrialRegistrationRoutingModule,
     QuestionnaireModule,

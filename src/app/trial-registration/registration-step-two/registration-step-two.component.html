@@ -1,17 +1,17 @@
-<div class="container-fluid w-100" style="font-size: 14px;">
+<div class="container-fluid w-100 small-font">
     <app-trial-pages-header [stepNumber]="stepNo"></app-trial-pages-header>
 
     <div class="row my-4">
-        <div class="col-12" style="font-size: 16px;">
-            <b> Thank you for your interest. First we need to check if you are eligible to take part in the study. </b>
+        <div class="col-12 m-medium" >
+            Thank you for your interest. First we need to check if you are eligible to take part in the study. 
         </div>
-        <div class="col-12 my-2" >
+        <div class="col-12 my-2 less-opacity" >
             The information you provide will be handled with strict confidentiality.  <br><br>
             Note that from this stage on you may continue the registration process at any step without having to start from the beginning by entering your email address.
         </div>
     </div>
     <div class="row">
-        <div class="col-12" style="font-size: 16px;">
+        <div class="col-12  m-medium">
             <b> Please fill the form </b>
         </div>
 
@@ -52,28 +52,28 @@
                     </div>
 
                     <div class="col-12 my-2">
-                        <label>Do you know English well enough to read and understand high school standard textbooks?</label>
+                        <label class="lesser-opacity">Do you know English well enough to read and understand high school standard textbooks?</label>
                         <mat-radio-group formControlName="floatLabel" color="primary">
                             <mat-radio-button value="yes" class="mr-5">Yes</mat-radio-button>
                             <mat-radio-button value="no" class="ml-4">No</mat-radio-button>
                         </mat-radio-group>
                     </div>
                     <div class="col-12 my-2">
-                        <label>Do you have internet enabled computer, laptop, or large tablet for using this site?</label>
+                        <label class="lesser-opacity">Do you have internet enabled computer, laptop, or large tablet for using this site?</label>
                         <mat-radio-group formControlName="floatLabel" color="primary">
                             <mat-radio-button value="yes" class="mr-5">Yes</mat-radio-button>
                             <mat-radio-button value="no" class="ml-4">No</mat-radio-button>
                         </mat-radio-group>
                     </div>
                     <div class="col-12 my-2">
-                        <label>Have you ever been diagnosed with bipolar disorder/ manic-depressive disorder or psychosis?</label>
+                        <label class="lesser-opacity">Have you ever been diagnosed with bipolar disorder/ manic-depressive disorder or psychosis?</label>
                         <mat-radio-group formControlName="floatLabel" color="primary">
                             <mat-radio-button value="yes" class="mr-5">Yes</mat-radio-button>
                             <mat-radio-button value="no" class="ml-4">No</mat-radio-button>
                         </mat-radio-group>
                     </div>
                     <div class="col-12 my-2">
-                        <label>Have you had a major traumatic event [For example:- death of an immediate family member, 
+                        <label class="lesser-opacity">Have you had a major traumatic event [For example:- death of an immediate family member, 
                                 getting fired unexpectedly] in the last two months?
                         </label>
                         <mat-radio-group formControlName="floatLabel" color="primary">
@@ -84,7 +84,7 @@
 
                     <div class="col-12 my-3">
                         <mat-form-field class="w-100">
-                            <mat-label>How did you get to know about the TreadWill study?</mat-label>
+                            <mat-label class="lesser-opacity">How did you get to know about the TreadWill study?</mat-label>
                             <mat-select #Know value="Email" (selectionChange)="genderSelected()">
                                 <mat-option value="Email">Email</mat-option>
                                 <mat-option value="Poster">Poster</mat-option>
@@ -93,7 +93,7 @@
                     </div>
 
                     <div class="col-12 my-3">
-                        <label> Select the most appropriate option: </label>
+                        <label class="lesser-opacity"> Select the most appropriate option: </label>
                         <mat-radio-group formControlName="floatLabel" color="primary">
                             <mat-radio-button value="NeedHelp">I need help for myself</mat-radio-button>
                             <mat-radio-button value="DoNotNeedHelp">I don't need any help for myself</mat-radio-button>
@@ -101,7 +101,7 @@
                     </div>
 
                     <div class="col-12 my-3 ">
-                        <label> Select the most appropriate option: </label>
+                        <label class="lesser-opacity"> Select the most appropriate option: </label>
                         <mat-radio-group formControlName="floatLabel" color="primary">
                             <mat-radio-button value="Complete" >I plan to complete the program</mat-radio-button>
                             <mat-radio-button value="MayComplete" >I may complete the program if I like it</mat-radio-button>

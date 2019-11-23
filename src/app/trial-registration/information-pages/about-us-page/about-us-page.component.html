@@ -1,0 +1,109 @@
+<div class="container-fluid small-font">
+    <app-trial-pages-header></app-trial-pages-header>
+
+    <div class="row mx-1 my-3">
+        <div class="col-12">
+            <p class="large-font"> About </p>
+        </div>
+        <div class="col-12 less-opacity">
+            <p>
+                TreadWill is a website designed to help individuals deal with stress, low mood, lethargy,
+                and other depressive symptoms. TreadWill is based on an evidence-based therapeutic technique
+                called Cognitive Behavioral Therapy (CBT).
+            </p>
+        </div>
+    </div>
+
+    <div class="row mx-1 text-left  my-3">
+        <div class="col-12 ">
+            <p class="large-font"> Team </p>
+        </div>
+        
+        <div class="col-6 team-div">
+            <img src="../../../../assets/logo/small-logo-110x144.png" alt="first-img" class="team-img mx-auto">
+            <p> Name 1 </p>
+        </div> 
+        <div class="col-6 team-div">
+            <img src="../../../../assets/logo/small-logo-110x144.png" alt="first-img"class="team-img mx-auto">
+            <p > Name 1 </p>
+        </div>
+        <div class="col-6 team-div">
+            <img src="../../../../assets/logo/small-logo-110x144.png" alt="first-img"class="team-img mx-auto">
+            <p> Name 1 </p>
+        </div>
+        <div class="col-6 team-div">
+            <img src="../../../../assets/logo/small-logo-110x144.png" alt="first-img"class="team-img mx-auto">
+            <p> Name 1 </p>
+        </div>
+    </div>
+
+    <div class="row mx-1 mb-3 mt-4">
+        <p class="large-font">
+            Acknowledgements
+        </p>
+
+        <div class="col-12 less-opacity">
+            We thank Romit, Karthikeyan, Nikhil, Sahars, Pranjul, Rahul, Vinay, Ranjeet, Arun, Sandarsh, Aarush, Chahat, Swikriti,
+            Shefali, Shashank, and Arjit for help in developing and testing TreadWill and providing valuable feedback.  <br> <br>
+            We thank Prithvi Raj for designing the logo of TreadWill.<br> <br>
+            We thank Dr. Alok Bajpai (Consultant Psychiatrist, IIT Kanpur) 
+            and Prof. Braj Bhushan (Department of HSS, IIT Kanpur) for helpful suggestions.  <br> <br>
+                
+            Images taken from: 
+            Pixabay 
+            Icons8 
+            Noun project
+            Google Material Icons
+            Freepik
+            <br> <br>
+
+            Images used in Friendly face game was taken from: pics.stir.ac.uk
+            <br> <br>
+
+            Django projects used <br>
+            BeautifulSoup  
+            Django
+            AppConf 
+            django-common-helpers 
+            django-cron 
+            django-gravatar2 
+            django-initial-avatars 
+            pinax-notifications 
+            django-postman 
+            django-twilio 
+            django-user-accounts 
+            django-widget-tweaks 
+            mysqlclient 
+            nltk 
+            Pillow PySocks pytz six twilio phonenumberslite httplib2 django-phonenumber-field  <br> <br>
+            
+            JQuery plugins used: <br> Flip Clock Countdown & Countup Plugin with jQuery - Counter jqPlot 
+            Font Awesome SweetAlert for Bootstrap autogrow.js parallax.js jQuery parallax jquery.scrollTo jquery.localScroll 
+            jquery Cookie Notify jquery timepicker jquery 
+            <br> <br>
+            Bootstrap for responsive design Animate.css Background audio source: River by Kai Engel taken from www.freemusicarchive.org
+        </div>
+        
+        <div class="col-12 mt-5 mb-3">
+            <p class="m-medium my-0"> What are the terms and conditions and privacy policy of treadwill.org? </p>
+        </div>
+        <div class="col-12 less-opacity mb-2">
+            You can find the detailed terms and conditions and privacy policy at these pages. <br>
+            <a routerLink="{{termsConditionsLink}}"> Terms and Conditions </a> <br>
+            <a routerLink="{{privacyPolicyLink}}"> Privacy Policy </a> 
+        </div>
+    </div>
+
+    <div class="row my-4 py-3">
+        <div class="col-12 text-center less-opacity">
+            <span> For any question check 
+                <a routerLink="{{faqLink}}"> FAQ </a>  or 
+                <span (click)= "contactUsClicked()" class="contactUsLink"> Contact Us </span>  
+            </span>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-3 mx-0">
+    <app-trial-pages-footer class="w-100"></app-trial-pages-footer>
+</div>
