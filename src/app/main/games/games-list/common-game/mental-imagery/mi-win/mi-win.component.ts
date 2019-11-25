@@ -18,10 +18,7 @@ export class MiWinComponent implements OnInit {
     private elementRef: ElementRef) { }
 
   ngOnInit() {
-    console.log('done');
-    console.log(this.getCurrentStateService.currentLevel.title);
-    this.nextLevel = this.getCurrentStateService.levelList[this.getCurrentStateService.user.level + 1];
-
+    this.nextLevel = this.getCurrentStateService.getNextLevel();
   }
 
 
@@ -30,7 +27,6 @@ export class MiWinComponent implements OnInit {
     this.elementRef.nativeElement.dispatchEvent(domEvent);
     // this.getCurrentStateService.continuePlaying = true;
     this.miPlayService.levelUpdate.emit();
-
   }
 
 }

@@ -5,6 +5,7 @@ import { Scenario } from './scenario.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { MIPlayService } from './mi-play.service';
+import { MIG_SITUATIONS_DATA, MIG_USER_DATA, MIG_STORE_USER_DATA } from '@/app.constants';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ export class MICurrentStateService {
 
   user = new MIUser('sourav', 0, [], null);
   currentLevel!: Level;
+  nextLevel!: Level;
   levelList: Level[] = [];
   currentScenario!: Scenario;
   previousText = '';
@@ -28,8 +30,7 @@ export class MICurrentStateService {
   disabled = false;
   blank = '';
   scenario!: Scenario;
-  situationArray: Scenario[] = [];
-
+  lastOrder!:number;
 
   constructor(
     private http: HttpClient,
@@ -178,35 +179,87 @@ export class MICurrentStateService {
   //   }
   // }
 
-  updateLevelsList() {
-    this.fetchData().subscribe((data: any) => {
-      console.log("data: ", data);
-      for (let i = 0; i <= 1; i++) {
-        this.levelList.push(new Level(data.results[i].title, data.results[i].sentence_list));
+  initLevelsList() {
+    this.fetchSituationData(this.user.level).subscribe((data: any) => {
+      console.log("data from init level list: ", data);
+      for (let i = 0; i < data.results.length; i++) {
+        this.levelList.push(new Level(data.results[i].order, data.results[i].title, data.results[i].sentence_list));
       }
-      console.log(this.levelList);
-      console.log("user level: ", this.user.level);
-      this.miPlayService.levelUpdate.emit();
+      this.lastOrder = data.results[0].last_order;
+      this.user.level = data.results[0].order;
+      console.log("this.levelList", this.levelList);
+      this.miPlayService.setLevel.emit();
     });
   }
 
+  updateLevelsList() {
+    this.fetchSituationData(this.user.level).subscribe((data: any) => {
+      console.log("data from Update Level List: ", data);
+      for (let i = 0; i < data.results.length; i++) {
+        this.levelList.push(new Level(data.results[i].order, data.results[i].title, data.results[i].sentence_list));
+      }
+      console.log('this.lastOrder',data.results[0].last_order);
+      this.lastOrder = data.results[0].last_order;
+      console.log("this.levelList", this.levelList);
+    });
 
-  fetchData() {
-    return this.http.get(environment.API_ENDPOINT + '/api/v1/games/mental-imagery/situations/');
+  }
+
+  setInitialOrder() {
+    // this.user.level = this.levelList[0].order;
+    this.fetchUserData().subscribe((data:any) => {
+      console.log(data);
+      console.log("last played order:", data.last_played_order);
+      this.user.level = data.last_played_order;
+      this.miPlayService.startNext.emit();
+    });
+  }
+
+  fetchSituationData(lastPlayedOrder: number) {
+    return this.http.get(environment.API_ENDPOINT + MIG_SITUATIONS_DATA + lastPlayedOrder + '/');
+  }
+
+  fetchUserData() {
+    return this.http.get(environment.API_ENDPOINT + MIG_USER_DATA);
+  }
+
+  saveUserData(data: any) {
+    return this.http.post(environment.API_ENDPOINT + MIG_STORE_USER_DATA, data);
   }
 
   levelUpdate() {
-    this.user.level += 1;
+    if (this.user.level === this.lastOrder) {
+      this.user.level = 1;
+    } else {
+      this.user.level += 1;
+    }
   }
 
   getCurrentLevel() {
-    this.currentLevel = this.levelList[this.user.level];
+    for (let i = 0 ; i < this.levelList.length; i++) {
+      console.log("this.user.level", this.user.level);
+      if (this.user.level === this.levelList[i].order) {
+        console.log("get Current Level",this.levelList[i].title)
+        this.currentLevel =  this.levelList[i];
+        console.log("get currentlevel status",this.currentLevel);
+      }
+    }
     return this.currentLevel;
   }
 
-  convertScenario(scenario1: any, scenario2: any) {
-    return new Scenario(scenario1.text_before_dash, scenario1.text_after_dash, scenario2, scenario1.wrong_text, scenario1.correct_text);
+  getNextLevel() {
+    for (let i = 0 ; i < this.levelList.length; i++) {
+      if (this.user.level === this.levelList[i].order) {
+        this.nextLevel =  this.levelList[i + 1];
+      }
+    }
+    return this.nextLevel;
   }
+
+  convertScenario(scenario1: any, scenario2: any) {
+    return new Scenario(scenario1.text_before_dash, scenario1.text_after_dash, scenario2, scenario1.wrong_text, scenario1.correct_text, scenario1.id);
+  }
+
 
   updateScenario() {
 
@@ -238,6 +291,10 @@ export class MICurrentStateService {
   resetScenario() {
     this.currentScenario = this.convertScenario(this.currentLevel.scenario[0], 1);
     //return this.currentScenario;
+  }
+
+  numOfScenarios() {
+    return this.currentLevel.scenario.length;
   }
 
 }

@@ -6,6 +6,7 @@ import { MICurrentStateService } from '../mi-current-state.service';
 import { MIPlayService } from '../mi-play.service';
 import { MiWinComponent } from '../mi-win/mi-win.component';
 import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
+import { MIGameUserData } from '@/main/games/shared/game-play.model';
 declare function require(name: string): any;
 
 @Component({
@@ -49,8 +50,10 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
   silverValue = 30;
   bronzeValue = 40;
   gameValue = 0;
-  scrollTop = 0;
   currentPoints = 500;
+  userData! : MIGameUserData;
+  startTime! : Date;
+  endTime! : Date;
 
 
   constructor(
@@ -60,50 +63,38 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
   ) { }
 
   ngOnInit() {
-    this.getCurrentStateService.updateLevelsList();
-    this.miPlayService.levelUpdate.subscribe(() => {
+    this.getCurrentStateService.setInitialOrder();
+    this.miPlayService.startNext.subscribe(() => {
       this.getCurrentStateService.continuePlaying = true;
-      this.currentLevel = this.getCurrentStateService.getCurrentLevel();
-      console.log("ngOnInit, Current level", this.currentLevel);
-      this.getCurrentStateService.getScenario();
-      this.currentScenario = this.getCurrentStateService.currentScenario;
-      console.log("ngOnInit, Current Scenario", this.currentScenario);
+      this.getCurrentStateService.initLevelsList();
+      this.miPlayService.setLevel.subscribe(() => {
 
-
-      this.previousText = this.getCurrentStateService.previousText;
-      this.extraContent = this.getCurrentStateService.extraContent;
-      this.notificationHeader = this.getCurrentStateService.notificationHeader;
-      this.notificationBody = this.getCurrentStateService.notificationBody;
-      this.disabled = this.getCurrentStateService.disabled;
-      this.blank = this.getCurrentStateService.blank;
-      this.user = this.getCurrentStateService.user;
-
-
-
+        this.currentLevel = this.getCurrentStateService.getCurrentLevel();
+        this.getCurrentStateService.getScenario();
+        this.currentScenario = this.getCurrentStateService.currentScenario;
+        this.previousText = this.getCurrentStateService.previousText;
+        this.extraContent = this.getCurrentStateService.extraContent;
+        this.notificationHeader = this.getCurrentStateService.notificationHeader;
+        this.notificationBody = this.getCurrentStateService.notificationBody;
+        this.disabled = this.getCurrentStateService.disabled;
+        this.blank = this.getCurrentStateService.blank;
+        this.user = this.getCurrentStateService.user;
+        // this.situationHandler();
+      });
+    });
+    this.miPlayService.levelUpdate.subscribe( () => {
+      console.log("level update event emitted,", this.currentLevel);
+      this.getCurrentStateService.continuePlaying = true;
       this.situationHandler();
     });
-
   }
 
 
   ngAfterContentInit() {
-    console.log("ngAfterContentInit,  problem after dash", this.currentScenario);
-
-    // this.currentLevel = this.getCurrentStateService.getCurrentLevel();
-    // this.getCurrentStateService.getScenario();
-    // this.currentScenario = this.getCurrentStateService.currentScenario;
-    // this.previousText = this.getCurrentStateService.previousText;
-    // this.extraContent = this.getCurrentStateService.extraContent;
-    // this.notificationHeader = this.getCurrentStateService.notificationHeader;
-    // this.notificationBody = this.getCurrentStateService.notificationBody;
-    // this.disabled = this.getCurrentStateService.disabled;
-    // this.blank = this.getCurrentStateService.blank;
-    // this.user = this.getCurrentStateService.user;
 
     if (this.inputEl) {
       this.inputEl.nativeElement.focus();
     }
-    // this.getCurrentStateService.count += 1;
 
   }
 
@@ -113,10 +104,12 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
   }
 
   onSubmit() {
+    this.endTime = new Date();
     this.blank = this.blank.trim();
     this.invalidInput = false;
     this.getCurrentStateService.blank = '';
     if (this.blank && this.blank.length > 0) {
+      this.userData.answer = this.blank;
       this.situationHandler();
     }
     this.scrollDown();
@@ -134,7 +127,11 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
   }
 
   situationHandler() {
-    if (this.getCurrentStateService.retry) {
+    if (this.getCurrentStateService.count === 0) {
+      this.getCurrentStateService.continuePlaying = false;
+      this.getCurrentStateService.count += 1;
+      return;
+    } else if (this.getCurrentStateService.retry) {
       this.getCurrentStateService.retry = false;
       if (this.findMatching(this.YES, this.blank)) {
         this.resetCurrent();
@@ -142,17 +139,20 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
         this.getCurrentStateService.user.points.push(-Math.abs(this.getCurrentStateService.user.currentPoints() - 1000 * this.getCurrentStateService.user.level));
         this.getCurrentStateService.resetScenario();
         this.currentScenario = this.getCurrentStateService.currentScenario;
-      } else {
-        this.exit();
       }
     } else if (this.getCurrentStateService.continuePlaying) {
       this.gameValue = 0;
       this.getCurrentStateService.continuePlaying = false;
       this.resetCurrent();
       this.getCurrentStateService.levelUpdate();
+      console.log("Situation Order", this.user.level);
       this.currentLevel = this.getCurrentStateService.getCurrentLevel();
       this.getCurrentStateService.updateScenario();
       this.currentScenario = this.getCurrentStateService.currentScenario;
+      let lastIndex = this.getCurrentStateService.levelList.length;
+      if ((this.user.level) === this.getCurrentStateService.levelList[lastIndex - 1].order) {
+        this.getCurrentStateService.updateLevelsList();
+      }
     } else if (this.getCurrentStateService.currentScenario) {
       this.scenarioHandler();
     }
@@ -169,7 +169,7 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
         this.updateExtraContent(this.currentScenario.correctText);
         delete this.getCurrentStateService.currentScenario;
         delete this.currentScenario;
-        if (this.getCurrentStateService.user.level + 1 < this.getCurrentStateService.levelList.length) {
+        if (this.getCurrentStateService.user.level + 1 <= this.getCurrentStateService.levelList.length) {
           this.updateNotification('Great', 'You have completed this task.');
           this.addDoneBtn();
         } else {
@@ -190,6 +190,7 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
     } else {
       this.invalidInput = true;
     }
+    // this.setUserData();
     this.blank = '';
   }
 
@@ -246,18 +247,9 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
 
   updateScore() {
     this.getCurrentStateService.user.points.push(this.currentPoints);
-    if (this.getCurrentStateService.user.level === 0) {
-      this.gameValue = this.gameValue + 50;
-    }
-    if (this.getCurrentStateService.user.level === 1) {
-      this.gameValue = this.gameValue + 50;
-    }
-    if (this.getCurrentStateService.user.level === 2) {
-      this.gameValue = this.gameValue + 33.33;
-    }
-    if (this.getCurrentStateService.user.level === 3) {
-      this.gameValue = this.gameValue + 33.33;
-    }
+    let numScenarios = this.getCurrentStateService.numOfScenarios();
+    this.gameValue = this.gameValue + (100 / numScenarios);
+
   }
 
   updateNotification(header: string, body: string = '') {
@@ -268,11 +260,11 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
     this.getCurrentStateService.notificationBody = this.notificationBody;
   }
 
-  exit() {
-    this.getCurrentStateService.disabled = true;
-    this.disabled = this.getCurrentStateService.disabled;
-    this.updateNotification('Exiting!!', 'Goodbye hope to see you soon');
-  }
+  // exit() {
+  //   this.getCurrentStateService.disabled = true;
+  //   this.disabled = this.getCurrentStateService.disabled;
+  //   this.updateNotification('Exiting!!', 'Goodbye hope to see you soon');
+  // }
 
   resetCurrent() {
     delete this.getCurrentStateService.currentScenario;
@@ -323,11 +315,12 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
   onClickDone() {
     this.levelChanged = false;
     const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
-    console.log(this.doneBtn.nativeElement);
+    console.log("overlay called event", this.doneBtn.nativeElement);
     this.doneBtn.nativeElement.dispatchEvent(domEvent);
     this.dialogBoxService.setDialogChild(MiWinComponent);
-    this.nextLevel = this.getCurrentStateService.levelList[this.getCurrentStateService.user.level + 1];
-    console.log(this.nextLevel.title);
+    this.nextLevel = this.getCurrentStateService.getNextLevel();
+    console.log("this.nextLevel.title", this.nextLevel.title);
+    // this.storeUserData();
   }
 
   scrollDown() {
@@ -335,4 +328,17 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
       this.target.nativeElement.scrollIntoView({ behavior: 'smooth' });
     }, 10);
   }
+
+  setUserData() {
+    // this.userData.answer = this.blank;
+    this.userData.answer_correct = !this.retry;
+    this.userData.score = this.currentPoints;
+    this.userData.sentence_id = this.currentLevel.scenario[0].id;
+    this.userData.start_time = this.startTime;
+    this.userData.end_time = this.endTime;
+  }
+  storeUserData(){
+    this.getCurrentStateService.saveUserData(this.userData).subscribe();
+  }
+
 }

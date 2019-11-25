@@ -8,5 +8,7 @@ export class MIPlayService {
 
   startPlaying = new EventEmitter<any>();
   levelUpdate = new EventEmitter<any>();
+  startNext = new EventEmitter<any>()
+  setLevel = new EventEmitter<any>();
 
 }
