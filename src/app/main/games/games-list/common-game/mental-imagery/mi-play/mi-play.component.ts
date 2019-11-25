@@ -7,6 +7,8 @@ import { MIPlayService } from '../mi-play.service';
 import { MiWinComponent } from '../mi-win/mi-win.component';
 import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
 import { MIGameUserData } from '@/main/games/shared/game-play.model';
+import * as moment from 'moment';
+
 declare function require(name: string): any;
 
 @Component({
@@ -51,9 +53,11 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
   bronzeValue = 40;
   gameValue = 0;
   currentPoints = 500;
-  userData! : MIGameUserData;
-  startTime! : Date;
-  endTime! : Date;
+  time!: any;
+  startTime! : any;
+  endTime! : any;
+  userData = new MIGameUserData(0,0,'',false,this.startTime,this.endTime);
+
 
 
   constructor(
@@ -104,7 +108,8 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
   }
 
   onSubmit() {
-    this.endTime = new Date();
+    this.time = new Date();
+    this.endTime = this.time.toJSON();
     this.blank = this.blank.trim();
     this.invalidInput = false;
     this.getCurrentStateService.blank = '';
@@ -113,6 +118,7 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
       this.situationHandler();
     }
     this.scrollDown();
+
   }
 
   onTryAgain() {
@@ -160,6 +166,7 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
 
   scenarioHandler() {
     if (this.ifPositive(this.blank) === 1) {
+      this.setUserData();
       this.updatePreviousText();
       this.updateScore();
       if (this.getCurrentStateService.currentScenario.scenarioNextIndex) {
@@ -169,15 +176,18 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
         this.updateExtraContent(this.currentScenario.correctText);
         delete this.getCurrentStateService.currentScenario;
         delete this.currentScenario;
-        if (this.getCurrentStateService.user.level + 1 <= this.getCurrentStateService.levelList.length) {
-          this.updateNotification('Great', 'You have completed this task.');
-          this.addDoneBtn();
-        } else {
-          console.log('You have completed');
-          this.updateNotification('You have completed', 'Congratulations you have completed all modules');
-          this.getCurrentStateService.disabled = true;
-          this.disabled = this.getCurrentStateService.disabled;
-        }
+        this.updateNotification('Great', 'You have completed this task.');
+        this.addDoneBtn();
+        // if (this.getCurrentStateService.user.level + 1 <= this.getCurrentStateService.levelList.length) {
+        //   if (!this.currentScenario.scenarioNextIndex){
+        //   this.updateNotification('Great', 'You have completed this task.');
+        //   this.addDoneBtn();
+        // } else {
+        //   console.log('You have completed');
+        //   this.updateNotification('You have completed', 'Congratulations you have completed all modules');
+        //   this.getCurrentStateService.disabled = true;
+        //   this.disabled = this.getCurrentStateService.disabled;
+        // }
       }
     } else if (this.ifPositive(this.blank) === -1) {
       this.updatePreviousText();
@@ -187,10 +197,12 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
       this.updateNotification('You seem to be stuck in a negative thought cycle ?', '');
       this.getCurrentStateService.retry = true;
       this.retry = this.getCurrentStateService.retry;
+      this.setUserData();
     } else {
       this.invalidInput = true;
     }
-    // this.setUserData();
+    
+    this.storeUserData();
     this.blank = '';
   }
 
@@ -320,7 +332,6 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
     this.dialogBoxService.setDialogChild(MiWinComponent);
     this.nextLevel = this.getCurrentStateService.getNextLevel();
     console.log("this.nextLevel.title", this.nextLevel.title);
-    // this.storeUserData();
   }
 
   scrollDown() {
@@ -333,12 +344,23 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
     // this.userData.answer = this.blank;
     this.userData.answer_correct = !this.retry;
     this.userData.score = this.currentPoints;
-    this.userData.sentence_id = this.currentLevel.scenario[0].id;
-    this.userData.start_time = this.startTime;
+    this.userData.game_sentence_id = this.currentScenario.id;
+    this.userData.start_time = this.getCurrentStateService.startTime;
     this.userData.end_time = this.endTime;
+    console.log("start time , end time", this.getCurrentStateService.startTime, this.endTime);
   }
   storeUserData(){
+    console.log("store user data", this.userData);
     this.getCurrentStateService.saveUserData(this.userData).subscribe();
   }
+  // dateTimeParser() {
+  //   const time = new Date(this.time);
+  //   let timeDateFormat: moment.Moment;
+  //   timeDateFormat = moment(this.startTime);
+  //   timeDateFormat.set({'hours': time.getHours(), 'minutes': time.getMinutes()});
+  //   this.time = timeDateFormat.toDate();
+  //   this.startTime = timeDateFormat.toDate();
+  //   this.setUserData();
+  // }
 
 }

@@ -31,6 +31,8 @@ export class MICurrentStateService {
   blank = '';
   scenario!: Scenario;
   lastOrder!:number;
+  time!: any;
+  startTime! : any;
 
   constructor(
     private http: HttpClient,
@@ -187,7 +189,7 @@ export class MICurrentStateService {
       }
       this.lastOrder = data.results[0].last_order;
       this.user.level = data.results[0].order;
-      console.log("this.levelList", this.levelList);
+      console.log("this.levelList, this.lastOrder", this.levelList, this.lastOrder);
       this.miPlayService.setLevel.emit();
     });
   }
@@ -202,15 +204,20 @@ export class MICurrentStateService {
       this.lastOrder = data.results[0].last_order;
       console.log("this.levelList", this.levelList);
     });
+  }
 
+  setLevelList() {
+    //
   }
 
   setInitialOrder() {
     // this.user.level = this.levelList[0].order;
     this.fetchUserData().subscribe((data:any) => {
       console.log(data);
-      console.log("last played order:", data.last_played_order);
-      this.user.level = data.last_played_order;
+      console.log("data.last_completed_order:", data.last_completed_order);
+      this.user.level = data.last_completed_order;
+      this.user.points = [data.total_score];
+      console.log("user score", this.user.points);
       this.miPlayService.startNext.emit();
     });
   }
@@ -257,6 +264,9 @@ export class MICurrentStateService {
   }
 
   convertScenario(scenario1: any, scenario2: any) {
+    this.time = new Date();
+    this.startTime = this.time.toJSON();
+    console.log("start time and user scenario next index", this.startTime, this.currentScenario);
     return new Scenario(scenario1.text_before_dash, scenario1.text_after_dash, scenario2, scenario1.wrong_text, scenario1.correct_text, scenario1.id);
   }
 
