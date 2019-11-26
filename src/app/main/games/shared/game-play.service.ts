@@ -57,7 +57,8 @@ declare var lhGameGetTask3Data: any;
 
 // for friendly face game
 declare var ffGameStart: any;
-declare var ffGPauseResumeGame: any;
+declare var ffGPauseGame: any;
+declare var ffGResumeGame: any;
 declare var ffGRestartGame: any;
 declare var ffg_no_positive_images_clicked_level1: any;
 declare var ffg_no_positive_images_clicked_level2: any;
@@ -67,6 +68,8 @@ declare var ffg_total_time_taken_level2: any;
 declare var ffg_total_time_taken_level3: any;
 declare var ffGameSongCounter: number;
 declare var ffg_music_current_order: number;
+//declare var fillMusicBar: any;
+//declare var toneNumber: 0;
 
 @Injectable({
   providedIn: 'root'
@@ -446,6 +449,10 @@ export class GamePlayService  {
     this.ffGameTotalPerformance(1, device_type);      // as the game starts from level 1(i.e. grid row = 1)
   }
 
+  fillMusicBar(){
+    toneNumber=toneNumber+10;
+  }
+
   ffGameTotalPerformance(levelNumber: number, device_type: string) {
     this.gamesAuthService.ffGameGetTotalPerformance(levelNumber, device_type)
       .subscribe( (levelData) => {
@@ -490,10 +497,10 @@ export class GamePlayService  {
       });
   }
   pauseFaceGame() {
-    ffGPauseResumeGame();
+    ffGPauseGame();
   }
   resumeFaceGame() {
-    ffGPauseResumeGame();
+    ffGResumeGame();
   }
   restartFaceGame() {
     ffGRestartGame();
