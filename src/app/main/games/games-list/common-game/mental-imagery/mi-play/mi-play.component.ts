@@ -71,9 +71,6 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
   numCorrectAnswers!: number;
   allBadgesInfo: BadgesInfo = new BadgesInfo(0, 0, 0, 0, 0, 0);
 
-
-
-
   constructor(
     private getCurrentStateService: MICurrentStateService,
     private miPlayService: MIPlayService,
@@ -100,7 +97,6 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
         this.disabled = this.getCurrentStateService.disabled;
         this.blank = this.getCurrentStateService.blank;
         this.user = this.getCurrentStateService.user;
-        console.log("USER POINTS ARRAY", this.user.points);
         this.currentPoints = this.user.currentPoints();
         // this.situationHandler();
       });
@@ -145,7 +141,6 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
     this.retry = this.getCurrentStateService.retry;
     this.resetCurrent();
     // tslint:disable-next-line:max-line-length
-    // this.getCurrentStateService.user.points.push(-Math.abs(this.getCurrentStateService.user.currentPoints() - 1000 * this.getCurrentStateService.user.level));
     this.getCurrentStateService.user.points.push(-Math.abs(this.levelPoints));
     this.currentPoints = this.user.currentPoints();
     this.getCurrentStateService.resetScenario();
@@ -158,15 +153,16 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
       this.getCurrentStateService.continuePlaying = false;
       this.getCurrentStateService.count += 1;
       return;
-    } else if (this.getCurrentStateService.retry) {
-      this.getCurrentStateService.retry = false;
-      if (this.findMatching(this.YES, this.blank)) {
-        this.resetCurrent();
-        // tslint:disable-next-line:max-line-length
-        this.getCurrentStateService.user.points.push(-Math.abs(this.getCurrentStateService.user.currentPoints() - 1000 * this.getCurrentStateService.user.level));
-        this.getCurrentStateService.resetScenario();
-        this.currentScenario = this.getCurrentStateService.currentScenario;
-      }
+    // TO DO : remove this code if not used
+    // } else if (this.getCurrentStateService.retry) {
+    //   this.getCurrentStateService.retry = false;
+    //   if (this.findMatching(this.YES, this.blank)) {
+    //     this.resetCurrent();
+    //     // tslint:disable-next-line:max-line-length
+    //     this.getCurrentStateService.user.points.push(-Math.abs(this.getCurrentStateService.user.currentPoints() - 1000 * this.getCurrentStateService.user.level));
+    //     this.getCurrentStateService.resetScenario();
+    //     this.currentScenario = this.getCurrentStateService.currentScenario;
+    //   }
     } else if (this.getCurrentStateService.continuePlaying) {
       this.gameValue = 0;
       this.getCurrentStateService.continuePlaying = false;
@@ -210,11 +206,9 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
       this.setUserData();
       delete this.getCurrentStateService.currentScenario;
       delete this.currentScenario;
-      
     } else {
       this.invalidInput = true;
     }
-    
     this.storeUserData();
     this.blank = '';
   }
