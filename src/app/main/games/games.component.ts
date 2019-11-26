@@ -12,19 +12,20 @@ declare var $: any;
 export class GamesComponent implements OnInit {
 
   constructor(private titleService: Title,
-    private loadFileSerivce: LoadFilesService,) {
+    private loadFileService: LoadFilesService,) {
     this.titleService.setTitle('Games | ' + TREADWILL);
   }
 
   ngOnInit() {
-    this.loadFileSerivce.loadExternalScript('assets/games/executive-control-game/js/lib/watch.js').then(() => {}).catch(() => {});
-    this.loadFileSerivce.loadExternalScript('assets/games/executive-control-game/js/lib/phaser.min.js').then(() => {}).catch(() => {});
-    this.loadFileSerivce.loadExternalScript('assets/games/executive-control-game/js/lib/jquery.min.js').then(() => {}).catch(() => {});
+    this.loadFileService.loadExternalStyles('/games-styles.css').then(() => {}).catch(() => {});
+    this.loadFileService.loadExternalScript('assets/games/executive-control-game/js/lib/watch.js').then(() => {}).catch(() => {});
+    this.loadFileService.loadExternalScript('assets/games/executive-control-game/js/lib/phaser.min.js').then(() => {}).catch(() => {});
+    this.loadFileService.loadExternalScript('assets/games/executive-control-game/js/lib/jquery.min.js').then(() => {}).catch(() => {});
 
-    this.loadFileSerivce.loadExternalScript('assets/games/interpretation_bias_game/lib/jquery.cookie.js').then(() => {}).catch(() => {});
-    this.loadFileSerivce.loadExternalScript('assets/games/interpretation_bias_game/lib/wordList.min.js').then(() => {}).catch(() => {});
-    this.loadFileSerivce.loadExternalScript('assets/games/interpretation_bias_game/lib/wordBank.min.js').then(() => {}).catch(() => {});
-    this.loadFileSerivce.loadExternalScript('assets/games/interpretation_bias_game/lib/hammer.min.js').then(() => {}).catch(() => {});
+    this.loadFileService.loadExternalScript('assets/games/interpretation_bias_game/lib/jquery.cookie.js').then(() => {}).catch(() => {});
+    this.loadFileService.loadExternalScript('assets/games/interpretation_bias_game/lib/wordList.min.js').then(() => {}).catch(() => {});
+    this.loadFileService.loadExternalScript('assets/games/interpretation_bias_game/lib/wordBank.min.js').then(() => {}).catch(() => {});
+    this.loadFileService.loadExternalScript('assets/games/interpretation_bias_game/lib/hammer.min.js').then(() => {}).catch(() => {});
 
 
   }

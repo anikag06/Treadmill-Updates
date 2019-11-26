@@ -46,8 +46,6 @@ export class MICurrentStateService {
     ) {
     }
 
-
-
   initLevelsList() {
     this.fetchSituationData(this.user.level).subscribe((data: any) => {
       this.setLevelList(data);
