@@ -12,6 +12,8 @@ import {
 import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
 import { MiInstructionsComponent } from '../games-list/common-game/mental-imagery/mi-instructions/mi-instructions.component';
 import { ExecControlInstructionsComponent } from '../games-list/common-game/executive-control-game/exec-control-instructions/exec-control-instructions.component';
+import { MIPlayService } from '../games-list/common-game/mental-imagery/mi-play.service';
+import { MICurrentStateService } from '../games-list/common-game/mental-imagery/mi-current-state.service';
 
 // for interpretation bias game
 declare var startIBGame: any;
@@ -75,6 +77,10 @@ declare var ffg_total_time_taken_level3: any;
 declare var ffGameSongCounter: number;
 declare var ffg_music_current_order: number;
 
+// for mental imagery game
+declare var miGameShowTutorial: boolean;
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -112,6 +118,7 @@ export class GamePlayService  {
   // lhGameNextLevels = (this.LHGAME_CR_NUMBER_OF_LEVELS * this.lhGamePageNumber) - 3 ;
   // lhGamePreviousLevels = (this.LHGAME_CR_NUMBER_OF_LEVELS * (this.lhGamePageNumber - 1)) + 3;
   game!: any;
+ 
   // for mental imagery games
 
   constructor(
@@ -120,6 +127,8 @@ export class GamePlayService  {
     private gameBadgeService: GamesBadgesService,
     // private ibGameDialogService: IbDialogsService,
     private dialogBoxService: DialogBoxService,
+    private miPlayService: MIPlayService,
+    private miCurrentStateService: MICurrentStateService,
   ) { }
 
   getGameInfo(slug: string) {
@@ -540,9 +549,13 @@ export class GamePlayService  {
 
   // for mental imagery game
   playMentalImageryGame(gameDivElement: any) {
+    if (this.miCurrentStateService.showTutorial === true) {
     const domEvent =  new CustomEvent('overlayCalledEvent', {bubbles:true});
     gameDivElement.nativeElement.dispatchEvent(domEvent);
     this.helpMIGame();
+    } else {
+      this.miPlayService.startPlaying.emit();
+    }
 
   }
   helpMIGame() {

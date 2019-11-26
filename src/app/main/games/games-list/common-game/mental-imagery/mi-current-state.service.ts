@@ -30,9 +30,15 @@ export class MICurrentStateService {
   disabled = false;
   blank = '';
   scenario!: Scenario;
-  lastOrder!:number;
+  lastOrder!: number;
   time!: any;
-  startTime! : any;
+  startTime!: any;
+  numCorrectAnswers!: number;
+
+  BRONZE_CONSTANT!: any;
+  SILVER_CONSTANT!: any;
+  GOLD_CONSTANT!: any;
+  showTutorial! : boolean;
 
   constructor(
     private http: HttpClient,
@@ -218,6 +224,11 @@ export class MICurrentStateService {
       this.user.level = data.last_completed_order;
       this.user.points = [data.total_score];
       console.log("user score", this.user.points);
+      this.numCorrectAnswers = data.no_of_correct_answers;
+      this.BRONZE_CONSTANT = data.BRONZE_CONSTANT;
+      this.SILVER_CONSTANT = data.SILVER_CONSTANT;
+      this.GOLD_CONSTANT = data.GOLD_CONSTANT;
+      this.showTutorial = data.show_tutorial;
       this.miPlayService.startNext.emit();
     });
   }
