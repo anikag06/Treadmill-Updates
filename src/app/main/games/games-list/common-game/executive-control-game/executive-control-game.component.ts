@@ -14,32 +14,32 @@ export class ExecutiveControlGameComponent implements OnInit, OnDestroy {
 
   constructor(
     private playGameService: GamePlayService,
-    private loadFileSerivce: LoadFilesService,
+    private loadFileService: LoadFilesService,
   ) {    }
 
   ngOnInit() {
     // Action files
-    this.loadFileSerivce.loadExternalScript('assets/games/executive-control-game/js/Game_Components/Actions/jump.js').then(() => {}).catch(() => {});
-    this.loadFileSerivce.loadExternalScript('assets/games/executive-control-game/js/Game_Components/Actions/shooting.js').then(() => {}).catch(() => {});
-    this.loadFileSerivce.loadExternalScript('assets/games/executive-control-game/js/Game_Components/Actions/scene_changer.js').then(() => {}).catch(() => {});
+    this.loadFileService.loadExternalScript('assets/games/executive-control-game/js/Game_Components/Actions/jump.js').then(() => {}).catch(() => {});
+    this.loadFileService.loadExternalScript('assets/games/executive-control-game/js/Game_Components/Actions/shooting.js').then(() => {}).catch(() => {});
+    this.loadFileService.loadExternalScript('assets/games/executive-control-game/js/Game_Components/Actions/scene_changer.js').then(() => {}).catch(() => {});
 
     //  game elements
-    this.loadFileSerivce.loadExternalScript('assets/games/executive-control-game/js/Game_Components/Elements/coin_generator.js').then(() => {}).catch(() => {});
-    this.loadFileSerivce.loadExternalScript('assets/games/executive-control-game/js/Game_Components/Elements/obstacle_generator.js').then(() => {}).catch(() => {});
-    this.loadFileSerivce.loadExternalScript('assets/games/executive-control-game/js/Game_Components/Elements/pit_generator.js').then(() => {}).catch(() => {});
-    this.loadFileSerivce.loadExternalScript('assets/games/executive-control-game/js/Game_Components/Elements/dropping_platform.js').then(() => {}).catch(() => {});
-    this.loadFileSerivce.loadExternalScript('assets/games/executive-control-game/js/Game_Components/Elements/extra_life.js').then(() => {}).catch(() => {});
-    this.loadFileSerivce.loadExternalScript('assets/games/executive-control-game/js/Game_Components/Elements/coin_generator_with_obstacle.js').then(() => {}).catch(() => {});
+    this.loadFileService.loadExternalScript('assets/games/executive-control-game/js/Game_Components/Elements/coin_generator.js').then(() => {}).catch(() => {});
+    this.loadFileService.loadExternalScript('assets/games/executive-control-game/js/Game_Components/Elements/obstacle_generator.js').then(() => {}).catch(() => {});
+    this.loadFileService.loadExternalScript('assets/games/executive-control-game/js/Game_Components/Elements/pit_generator.js').then(() => {}).catch(() => {});
+    this.loadFileService.loadExternalScript('assets/games/executive-control-game/js/Game_Components/Elements/dropping_platform.js').then(() => {}).catch(() => {});
+    this.loadFileService.loadExternalScript('assets/games/executive-control-game/js/Game_Components/Elements/extra_life.js').then(() => {}).catch(() => {});
+    this.loadFileService.loadExternalScript('assets/games/executive-control-game/js/Game_Components/Elements/coin_generator_with_obstacle.js').then(() => {}).catch(() => {});
 
     //Executive control tasks
-    this.loadFileSerivce.loadExternalScript('assets/games/executive-control-game/js/Game_Components/Tasks/task_generator.js').then(() => {}).catch(() => {});
-    this.loadFileSerivce.loadExternalScript('assets/games/executive-control-game/js/Game_Components/Tasks/flanker_task.js').then(() => {}).catch(() => {});
-    this.loadFileSerivce.loadExternalScript('assets/games/executive-control-game/js/Game_Components/Tasks/discrimination_task.js').then(() => {}).catch(() => {});
-    this.loadFileSerivce.loadExternalScript('assets/games/executive-control-game/js/Game_Components/Tasks/game_restorer.js').then(() => {}).catch(() => {});
+    this.loadFileService.loadExternalScript('assets/games/executive-control-game/js/Game_Components/Tasks/task_generator.js').then(() => {}).catch(() => {});
+    this.loadFileService.loadExternalScript('assets/games/executive-control-game/js/Game_Components/Tasks/flanker_task.js').then(() => {}).catch(() => {});
+    this.loadFileService.loadExternalScript('assets/games/executive-control-game/js/Game_Components/Tasks/discrimination_task.js').then(() => {}).catch(() => {});
+    this.loadFileService.loadExternalScript('assets/games/executive-control-game/js/Game_Components/Tasks/game_restorer.js').then(() => {}).catch(() => {});
 
     // 
-    this.loadFileSerivce.loadExternalScript('assets/games/executive-control-game/js/init.js').then(() => {}).catch(() => {});
-    this.loadFileSerivce.loadExternalScript('assets/games/executive-control-game/js/exec_game_javascript.js').then(() => {}).catch(() => {});
+    this.loadFileService.loadExternalScript('assets/games/executive-control-game/js/init.js').then(() => {}).catch(() => {});
+    this.loadFileService.loadExternalScript('assets/games/executive-control-game/js/exec_game_javascript.js').then(() => {}).catch(() => {});
   }
 
   @HostListener('window:CallAngularStoreTaskDataFun')

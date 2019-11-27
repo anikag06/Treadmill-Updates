@@ -5,7 +5,7 @@ export class MIUser {
         public points: number[],
         public lastPlayed: any,
     ) {
-        this.level = 0;
+        // this.level = 0;
     }
 
 

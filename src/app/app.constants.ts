@@ -108,6 +108,11 @@ export const UNLOCKED = 'UNLOCKED';
 export const ACTIVE = 'ACTIVE';
 export const COMPLETED = 'COMPLETED';
 
+// Mental Imagery Game (MIG) paths
+export const MIG_SITUATIONS_DATA = '/api/v1/games/mental-imagery/situations/';
+export const MIG_USER_DATA = '/api/v1/games/mental-imagery/user-data/';
+export const MIG_STORE_USER_DATA = '/api/v1/games/mental-imagery/store-user-data/';
+
 // flow and steps related paths
 export const FLOW_STEPS_DATA = '/api/v1/flow/flow/';
 export const FLOW_STEP_MARK_DONE = '/api/v1/flow/step/';

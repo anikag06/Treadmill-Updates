@@ -102,7 +102,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
     private dialogBoxService: DialogBoxService,
     private element: ElementRef,
     private matPropertyService: GameMatPropertyService,
-    private loadFileSerivce: LoadFilesService,
+    private loadFileService: LoadFilesService,
   ) {
   }
 
@@ -114,7 +114,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.loadFileSerivce.loadExternalScript('assets/games/interpretation_bias_game/js/sentence_javascript.js').then(() => {
+    this.loadFileService.loadExternalScript('assets/games/interpretation_bias_game/js/sentence_javascript.js').then(() => {
       this.scoresRelatedInfo();
   
       this.ibTrainingService.ibgScoreDataObservable.subscribe((res) => {

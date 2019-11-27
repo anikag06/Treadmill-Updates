@@ -4,6 +4,7 @@ export class Scenario {
         public problemAfterDash: string,
         public scenarioNextIndex: number | null,
         public wrongText: string,
-        public correctText: string | null
+        public correctText: string | null,
+        public id: number
     ) {}
 }

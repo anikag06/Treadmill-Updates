@@ -28,7 +28,7 @@ export class MentalImageryComponent implements OnInit {
   showInstructionIcon = true;
 
   ngOnInit() {
-    this.loadFilesService.loadExternalStyles('/games-styles.css').then(() => {}).catch(() => {});
+   
     this.miPlayService.startPlaying.subscribe( () => {
       this.startPlayingMIGame();
     });

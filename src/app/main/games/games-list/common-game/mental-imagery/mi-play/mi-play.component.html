@@ -2,16 +2,17 @@
   <div class="topBar mt-1 ">
     <div class="scoreBar col-12 row mt-1 mx-0 px-0">
 
-      <div class="col-6 scoreLocation text-left mt-1 ml-0 small-font font-roboto-bold">
-        SCORE: {{ this.user.currentPoints()}}
+      <div class="col-6 scoreLocation text-left mt-1 ml-0 small-font font-roboto-bold" *ngIf="currentPoints">
+        SCORE: {{ this.currentPoints}}
       </div>
+     
 
       <div class="col-2 barsDiv  w-75 justify-content-start mt-1 pr-0 pl-4">
         <div class="float-left">
           <img src="../../../../../../assets/games/mental-imagery-game/Gold badge symbol.svg">
         </div>
         <div class="float-right">
-          {{goldValue}}
+          {{goldNumber}}
         </div>
         <mat-progress-bar class="goldBar" mode="determinate" [value]="goldValue"></mat-progress-bar>
       </div>
@@ -21,7 +22,7 @@
           <img src="../../../../../../assets/games/mental-imagery-game/Silver badge symbol.svg">
         </div>
         <div class="float-right">
-          {{silverValue}}
+          {{silverNumber}}
         </div>
         <mat-progress-bar class="silverBar" mode="determinate" [value]="silverValue"></mat-progress-bar>
       </div>
@@ -32,7 +33,7 @@
           <img src="../../../../../../assets/games/mental-imagery-game/Bronze badge symbol.svg">
         </div>
         <div class="float-right">
-          {{bronzeValue}}
+          {{bronzeNumber}}
         </div>
         <mat-progress-bar class="bronzeBar" mode="determinate" [value]="bronzeValue"></mat-progress-bar>
       </div>
@@ -40,7 +41,7 @@
 
 
 
-    <h1 class="mt-3 medium-font font-roboto-normal">{{currentLevel.title}}</h1>
+    <h1 class="mt-3 medium-font font-roboto-normal" *ngIf="currentLevel">{{currentLevel.title}}</h1>
 
     <mat-progress-bar class="gameProgressBar ml-3" [value]="gameValue" mode="determinate"></mat-progress-bar>
   </div>
@@ -88,8 +89,7 @@
         </div>
       </div>
 
-      <small class="text-muted" *ngIf="invalidInput">Oops! you seem to have typed something that we currently don't
-        understand</small>
+      <small class="text-muted" *ngIf="invalidInput">Sorry! We couldn't understand that word 😕. PLease enter another word.</small>
     </form>
     <div #target id="dummyDiv"></div>
   </div>
