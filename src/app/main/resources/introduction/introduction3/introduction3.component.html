@@ -1,8 +1,9 @@
 <ng-template [ngIf]="dataLoaded && !locked">
   <!-- Add IMAGES here -->
+  <h4 class="mt-3">Dummy Introduction Title</h4>
   <div>
     Which one of these negative thoughts do you have?
-    <mat-form-field>
+    <mat-form-field >
       <mat-label>Negative thoughts</mat-label>
       <mat-select [(value)]="selectedThought" (selectionChange)="onThoughtChanged()">
         <mat-option *ngFor="let negativeThought of negativeThoughts" [value]="negativeThought">

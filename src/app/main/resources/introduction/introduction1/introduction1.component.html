@@ -1,12 +1,15 @@
+<div (click)="saveData()">
 <ng-template [ngIf]="dataLoaded && !locked">
-  <div>
+  <h4 class="mt-3">Dummy Introduction Title</h4>
+  <div class="small-font" >
     Do you know why some people are able to cope effectively when something bad happens to them while others can’t?
     Do you know how well you are able to cope when something bad happens to you?
     <br>
     Answer the following questions to find out how well you know your coping abilities.
     <br><br>
+    <h6>Dummy Sub Title</h6>
     Write a recent upsetting <span class="emphasis">situation</span>.
-    <mat-form-field>
+    <mat-form-field style="width:100% !important">
       <input type="text" matInput placeholder="Example- I got fired from my job." [(ngModel)]="situation">
     </mat-form-field>
     <br><br>
@@ -45,7 +48,7 @@
   <div>
     <button class="completed-btn float-right" type="button" mat-raised-button color="primary" (click)="saveData()">
       Save data
-    </button>
+    </button> -->
   </div>
 </ng-template>
 <ng-template [ngIf]="dataLoaded && locked">
@@ -66,3 +69,4 @@
     </div>
   </div>
 </ng-template>
+</div>
