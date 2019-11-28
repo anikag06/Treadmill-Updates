@@ -27,6 +27,7 @@ export const FRIENDLY_FACE_GAME = 'Friendly Face Game';
 export const LEARNED_HELPLESSNESS_GAME = 'Learned Helplessness Game';
 export const ATTRIBUTE_STYLE_GAME = 'Attribute Style Game';
 export const MENTAL_IMAGERY_GAME = 'Mental Imagery Game';
+export const IDENTIFY_COGNITIVE_DISTORTION = 'Identify Cognitive Distortion';
 
 // ibGame time
 export const IBG_LESS_TIME = 120;

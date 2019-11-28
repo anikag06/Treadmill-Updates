@@ -14,7 +14,8 @@ import { EXECUTIVE_CONTROL_GAME,
   LEARNED_HELPLESSNESS_GAME,
   ATTRIBUTE_STYLE_GAME,
   MENTAL_IMAGERY_GAME,
-  FRIENDLY_FACE_GAME } from '@/app.constants';
+  FRIENDLY_FACE_GAME, 
+  IDENTIFY_COGNITIVE_DISTORTION} from '@/app.constants';
 import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
 import { IbGameInstructionsComponent } from './interpretation-bias-game/ib-game-instructions/ib-game-instructions.component';
 import { ExecControlInstructionsComponent } from './executive-control-game/exec-control-instructions/exec-control-instructions.component';
@@ -25,6 +26,9 @@ import { AsgScienceComponent } from './attribute-style-game/asg-science/asg-scie
 import { MigScienceComponent } from './mental-imagery/mig-science/mig-science.component';
 import { FfgScienceComponent } from './friendly-face-game/ffg-science/ffg-science.component';
 import { LhgScienceComponent } from './learned-helplessness-game/lhg-science/lhg-science.component';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { IdentifyCognitiveDistortionComponent } from './identify-cognitive-distortion/identify-cognitive-distortion.component';
+import { IdcInstructionsComponent } from './identify-cognitive-distortion/idc-instructions/idc-instructions.component';
 
 declare let $: any;
 
@@ -43,6 +47,7 @@ export class CommonGameComponent implements OnInit {
   isLearnedHelplessness = false;
   isMentalImagery = false;
   isFriendlyFace = false;
+  isIdentifyCognitiveDistortion = false;
   showHintBtn = false;
   isSoundOn = true;
   showSideButtons = false;
@@ -68,6 +73,9 @@ export class CommonGameComponent implements OnInit {
 
   // for mental imagery game
   @ViewChild(MentalImageryComponent, {static: false}) miGameComponent!: MentalImageryComponent;
+  @ViewChild(IdentifyCognitiveDistortionComponent, {static: false}) idcComponent!: IdentifyCognitiveDistortionComponent;
+
+  
 
   constructor(private gamePlayService: GamePlayService,
     private gamesService: GamesService,
@@ -90,6 +98,7 @@ export class CommonGameComponent implements OnInit {
         (game) =>  {
           this.game = <Game>game;
           this.gameName = this.game.name;
+          console.log(this.gameName);
           if (this.gameName === EXECUTIVE_CONTROL_GAME) {
             this.isExecutiveControl = true;
             this.portraitGame = false;
@@ -109,6 +118,10 @@ export class CommonGameComponent implements OnInit {
             this.portraitGame = true;
           } else if (this.gameName === MENTAL_IMAGERY_GAME) {
             this.isMentalImagery = true;
+            this.portraitGame = true;
+          } else if (this.gameName === IDENTIFY_COGNITIVE_DISTORTION) {
+            console.log("cognitive distortion");
+            this.isIdentifyCognitiveDistortion = true;
             this.portraitGame = true;
           }
         },
@@ -156,6 +169,9 @@ export class CommonGameComponent implements OnInit {
     } else if (this.gameName === MENTAL_IMAGERY_GAME) {
       // this.miGameComponent.startPlayingMIGame();
       this.gamePlayService.playMentalImageryGame(this.gameDivElement);
+    } else if (this.gameName === IDENTIFY_COGNITIVE_DISTORTION) {
+      // this.idcComponent.startPlaying();
+      this.gamePlayService.playIdentifyCognitiveDistortionGame(this.gameDivElement);      
     }
   }
 
@@ -175,6 +191,9 @@ export class CommonGameComponent implements OnInit {
     }
     if (this.gameName === MENTAL_IMAGERY_GAME) {
       this.gamePlayService.helpMIGame();
+    }
+    if (this.gameName === IDENTIFY_COGNITIVE_DISTORTION) {
+      this.dialogBoxService.setDialogChild(IdcInstructionsComponent);
     }
     const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
     this.pauseBtnElement.nativeElement.dispatchEvent(domEvent);

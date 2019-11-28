@@ -124,6 +124,21 @@ import { AsgScienceComponent } from './games/games-list/common-game/attribute-st
 import { MigScienceComponent } from './games/games-list/common-game/mental-imagery/mig-science/mig-science.component';
 import { FfgScienceComponent } from './games/games-list/common-game/friendly-face-game/ffg-science/ffg-science.component';
 import { LhgScienceComponent } from './games/games-list/common-game/learned-helplessness-game/lhg-science/lhg-science.component';
+import { IdcHeadingComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-heading/idc-heading.component';
+import { IdcAllSituationsComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-all-situations/idc-all-situations.component';
+import { IdcMainComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-main/idc-main.component';
+import { IdcNatComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-nat/idc-nat.component';
+import { IdcOptionSolutionComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-option-solution/idc-option-solution.component';
+import { IdcOptionsComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-options/idc-options.component';
+import { IdcOptionsPopupProceedComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-options-popup-proceed/idc-options-popup-proceed.component';
+import { IdcPopupComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-popup/idc-popup.component';
+import { IdcScoreComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-score/idc-score.component';
+import { IdcSelectedOptionComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-selected-option/idc-selected-option.component';
+import { IdcSelectedOptionContentComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-selected-option-content/idc-selected-option-content.component';
+import { IdcSituationComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-situation/idc-situation.component';
+import { IdentifyCognitiveDistortionComponent } from './games/games-list/common-game/identify-cognitive-distortion/identify-cognitive-distortion.component';
+import { IdcInstructionsComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-instructions/idc-instructions.component';
+
 @NgModule({
   declarations: [
     ModulesComponent,
@@ -196,6 +211,21 @@ import { LhgScienceComponent } from './games/games-list/common-game/learned-help
     MigScienceComponent,
     FfgScienceComponent,
     LhgScienceComponent,
+    IdcAllSituationsComponent,
+    IdcHeadingComponent,
+    IdcMainComponent,
+    IdcNatComponent,
+    IdcOptionSolutionComponent,
+    IdcOptionsComponent,
+    IdcOptionsPopupProceedComponent,
+    IdcPopupComponent,
+    IdcScoreComponent,
+    IdcSelectedOptionComponent,
+    IdcSelectedOptionContentComponent,
+    IdcSituationComponent,
+    IdentifyCognitiveDistortionComponent,
+    IdcInstructionsComponent
+    
   ],
   imports: [
     CommonModule,
@@ -273,6 +303,8 @@ import { LhgScienceComponent } from './games/games-list/common-game/learned-help
     MigScienceComponent,
     FfgScienceComponent,
     LhgScienceComponent,
+    IdcPopupComponent,
+    IdcInstructionsComponent,
   ]
 })
 export class MainModule {

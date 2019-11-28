@@ -14,6 +14,7 @@ import { MiInstructionsComponent } from '../games-list/common-game/mental-imager
 import { ExecControlInstructionsComponent } from '../games-list/common-game/executive-control-game/exec-control-instructions/exec-control-instructions.component';
 import { MIPlayService } from '../games-list/common-game/mental-imagery/mi-play.service';
 import { MICurrentStateService } from '../games-list/common-game/mental-imagery/mi-current-state.service';
+import { IdcInstructionsComponent } from '../games-list/common-game/identify-cognitive-distortion/idc-instructions/idc-instructions.component';
 
 // for interpretation bias game
 declare var startIBGame: any;
@@ -77,8 +78,8 @@ declare var ffg_total_time_taken_level2: any;
 declare var ffg_total_time_taken_level3: any;
 declare var ffGameSongCounter: number;
 declare var ffg_music_current_order: number;
-//declare var fillMusicBar: any;
-//declare var toneNumber: 0;
+declare var fillMusicBar: any;
+declare var toneNumber: number;
 
 // for mental imagery game
 declare var miGameShowTutorial: boolean;
@@ -568,5 +569,15 @@ export class GamePlayService  {
   helpMIGame() {
     this.dialogBoxService.setDialogChild(MiInstructionsComponent);
   }
+  // for cognitive distortion game
+  playIdentifyCognitiveDistortionGame(gameDivElement: any) {
+    const domEvent =  new CustomEvent('overlayCalledEvent', {bubbles:true});
+    gameDivElement.nativeElement.dispatchEvent(domEvent);
+    this.helpIDCGame();
+  }
+  helpIDCGame(){
+    this.dialogBoxService.setDialogChild(IdcInstructionsComponent);
+  }
+
 }
 

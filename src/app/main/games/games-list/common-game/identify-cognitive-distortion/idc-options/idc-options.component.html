@@ -1,0 +1,27 @@
+<div class="options-heading">
+    <h4 class="identify">Identify the Thinking Errors({{correct.length}})</h4>
+    </div>
+    <div class="options-content" #checkElement>
+      <div class="group-1">
+          <button (click)="onOptionClick(optionOne)" style="cursor: pointer;">
+            {{optionOneDistortion}}</button>
+          <button (click)="onOptionClick(optionThree)" style="cursor: pointer;">
+            {{optionThreeDistortion}}
+          </button>
+          <button (click)="onOptionClick(optionFive)" style="cursor: pointer;">
+            {{optionFiveDistortion}}
+          </button>
+      </div>
+      <div class="group-2">
+          <button (click)="onOptionClick(optionTwo)" style="cursor: pointer;">
+            {{optionTwoDistortion}}
+          </button>
+          <button (click)="onOptionClick(optionFour)" style="cursor: pointer;">
+            {{optionFourDistortion}}
+          </button>
+          <button (click)="onOptionClick(optionSix)" style="cursor: pointer;">
+            {{optionSixDistortion}}
+          </button>
+      </div>
+    </div>
+    

@@ -7,7 +7,8 @@ import { GAMES,
   GAME_EXECUTIVE_CONTROL,
   GAME_ATTRIBUTION_STYLE,
   GAME_FRIENDLY_FACE,
-  GAME_MENTAL_IMAGERY } from '@/app.constants';
+  GAME_MENTAL_IMAGERY, 
+  GAME_IDENTIFY_COGNITIVE_DISTORTION} from '@/app.constants';
 
 @Injectable({
   providedIn: 'root'
@@ -26,9 +27,10 @@ export class GamesService {
     new Game('Learned Helplessness Game',
              'https://via.placeholder.com/360x200?text=Mario',
              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.'),
-    new Game('Sample Game',
+    new Game('Identify Cognitive Distortion',
              'https://via.placeholder.com/360x200?text=Mario',
-             'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.'),
+             'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.',
+             GAME_IDENTIFY_COGNITIVE_DISTORTION),
     new Game('Attribute Style Game',
              'https://via.placeholder.com/360x200?text=Mario',
              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.',

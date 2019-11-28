@@ -1,0 +1,10 @@
+<div class="selected-option">
+    <button 
+    [class.correctOption]="this.gameService.optionStatus==='correct' || this.gameService.optionStatus==='allcorrect'"
+    [class.incorrectOption]="this.gameService.optionStatus==='incorrect'"
+    >
+    <img *ngIf="this.gameService.optionStatus==='correct' || this.gameService.optionStatus==='allcorrect'" src="../../assets/games/cognitive-distortion-game/images/icons/check-mark-black-outline.svg" alt="icon" style="float: left; padding-left: 10px; padding-top: 2px;">
+      <img *ngIf="this.gameService.optionStatus==='incorrect'" src="../../assets/games/cognitive-distortion-game/images/icons/incorrect.svg" alt="icon" style="float: left; padding-left: 10px; width: 25px; padding-top: 2px;">
+     {{gameService.optionSelected}}
+    </button>
+  </div>
