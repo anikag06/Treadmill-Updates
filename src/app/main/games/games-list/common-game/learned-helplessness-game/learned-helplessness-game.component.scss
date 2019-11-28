@@ -3,4 +3,54 @@
     width: 100%;
     overflow: scroll;
     background: #a2e2ec;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.lhgame-btn{
+    background-color:#2AC79B;
+    border-radius: 4px;
+    color: white;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.puzzborder{
+    background-color: #C4FBFF;
+    background-size: 120px 120px;
+    border:#0067AD 1px solid;
+    border-radius: 13px;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+}
+.puzzborderfifteen{
+    background-color: #C4FBFF;
+    background-size: 230px 230px;
+    border: #0067AD 1px solid;
+    border-radius: 13px;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+}
+.puzzborderfour{
+    background-color: #C4FBFF;
+    background-size: 60px 60px;
+    border:#0067AD 1px solid;
+    border-radius: 13px;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+}
+.lhgame-btn2{
+    background-color:#2AC79B;
+    border-radius: 4px;
+    margin: 5px;
+    color:white
+}
+.flex-container{
+    display: flex;
+    justify-content: center;
+
 }

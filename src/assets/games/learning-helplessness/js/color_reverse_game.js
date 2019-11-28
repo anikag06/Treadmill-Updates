@@ -300,8 +300,8 @@ function setColorReverseGameWidthAndHeight() {
 		$(`.color-reverse-game-square,
 			.color-reverse-game-square-common,
 			.color-reverse-game-square-blank`).css({
-				'width': '100',
-				'height': '100'
+				'width': '52',
+				'height': '52'
 			});
 	}else {
 		// !!IMPORTANT!!
@@ -309,8 +309,8 @@ function setColorReverseGameWidthAndHeight() {
 		$(`.color-reverse-game-square,
 			.color-reverse-game-square-common,
 			.color-reverse-game-square-blank`).css({
-				'width': '100',
-				'height': '100'
+				'width': '52',
+				'height': '52'
 			});
 	}
 }

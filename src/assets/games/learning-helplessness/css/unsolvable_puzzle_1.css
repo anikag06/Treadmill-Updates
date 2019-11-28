@@ -1,13 +1,17 @@
 .square, .fifteen-puzzle-square, .nine-puzzle-square, .three-puzzle-square{ 
 	background-color: white; 
-	margin-right: 10px;
-	margin-bottom: 10px;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	margin-left: 5px;
+	margin-top: 5px;
 	text-align: center;
+	vertical-align: middle;
 	color: #0073B6;
-	line-height: 100px;
+	/* line-height: 1; */
+	width: 50px;
 	border: solid 3px;
 	border-radius: 10px;
-	font-size: -webkit-xxx-large;
+	font-size: x-large;
 }
 
 .gap-fifteen, .gap-nine, .gap-three{
@@ -22,10 +26,12 @@
 
 .give-up-text-red{
 	color: red;
+	font-size: medium;
 }
 
 .give-up-text-black{
-	color: black !important;
+	color: white !important;
+	font-size: medium;
 }
 
 li{

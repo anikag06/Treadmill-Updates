@@ -155,6 +155,14 @@ function populateFrogGrid(length, height, grid_string){
 
 function showFrogGrid(grid_array){
 	$("#frog-game-space").html("");
+	// var temp=[]
+	// for (var i=0;i<grid_array.length;i++)
+	// {
+	// 	for(var j=0;j<grid_array[0].length;j++)
+	// 	{
+	// 		temp[j][i]=grid_array[i][j];
+	// 	}
+	// }
 
 	for(var i=0; i<grid_array.length; i++){
 		$("#frog-game-space").append("<div style='display: inline-flex;' id='frog-game-row-"+(i+1)+"'></div><br>");
@@ -198,8 +206,8 @@ function setFrogGridGameWidthAndHeight() {
 			.frog-left, 
 			.frog-up, 
 			.frog-down`).css({
-				'width': '100',
-				'height': '100'
+				'width': '37',
+				'height': '37'
 			});
 	}else {
 		// !!IMPORTANT!!
@@ -211,8 +219,8 @@ function setFrogGridGameWidthAndHeight() {
 			.frog-left, 
 			.frog-up, 
 			.frog-down`).css({
-				'width': '100',
-				'height': '100'
+				'width': '37',
+				'height': '37'
 			});
 	}
 }
