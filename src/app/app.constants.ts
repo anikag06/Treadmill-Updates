@@ -44,6 +44,7 @@ export const SIGNUP_PATH 		= '/api/v1/user/registration/';
 export const PHQ_NINE_SCORE     = '/api/v1/questionnaire/phq-user-scores/';
 export const GAD_SEVEN_SCORE    = '/api/v1/questionnaire/gad-user-scores/';
 export const MOBILEWIDTH        = 768;
+export const USER_PROFILE       = '/api/v1/user/user-profile/';
 
 // Interpretation bias game(IBG) paths
 export const IBG_SENTENCE        = '/api/v1/games/interpretation-bias/sentences/';

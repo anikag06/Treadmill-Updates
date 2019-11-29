@@ -1,0 +1,70 @@
+.badge-image {
+  height: 78px;
+  margin-top: 35px;
+}
+
+.badge-box {
+  width: 150px;
+  text-align: center;
+  display: inline-block;
+}
+.badge-name {
+  font-size: 15px;
+  margin-top: 30px;
+}
+
+@media screen and (max-width: 1300px) {
+}
+
+@media screen and (max-width: 991px) {
+}
+
+@media screen and (max-width: 768px) {
+  .carousel-control {
+    bottom: 10px;
+  }
+
+  // .controlsBlock {
+  //   bottom: 0;
+  //   left: 0;
+  // }
+  .badge-box {
+    width: auto;
+  }
+
+  .badge-image {
+    height: 55px;
+    margin-top: 30px;
+  }
+
+  .badge {
+    width: 110px;
+    text-align: center;
+  }
+
+  .badge-name {
+    font-size: 15px;
+    margin-top: 15px;
+  }
+}
+
+// .carousel-item-next, .carousel-item-prev, .carousel-item.active {
+//   display: flex;
+// }
+
+.cover-container {
+  width: 100%;
+  white-space: nowrap;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+.cover-item {
+  position: relative;
+  display: inline-block;
+  margin: 8px 8px;
+  border-top-right-radius: 4px;
+  vertical-align: bottom;
+  background-position: top left;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

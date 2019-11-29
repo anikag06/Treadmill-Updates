@@ -38,7 +38,7 @@ import { SafeHtmlPipe } from './support-groups/safe-html.pipe';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule, MatButtonModule, MatSidenavModule,
   MatIconModule, MatListModule, MatDatepickerModule, MatDialogModule,
-  MatNativeDateModule, MatSlideToggleModule, MatExpansionModule, } from '@angular/material';
+  MatNativeDateModule, MatSlideToggleModule, MatExpansionModule} from '@angular/material';
 import {MatProgressBarModule} from '@angular/material';
 import { ScrollingDirective } from './shared/scrolling.directive';
 import { ScrollingService } from './shared/scrolling.service';
@@ -124,6 +124,11 @@ import { AsgScienceComponent } from './games/games-list/common-game/attribute-st
 import { MigScienceComponent } from './games/games-list/common-game/mental-imagery/mig-science/mig-science.component';
 import { FfgScienceComponent } from './games/games-list/common-game/friendly-face-game/ffg-science/ffg-science.component';
 import { LhgScienceComponent } from './games/games-list/common-game/learned-helplessness-game/lhg-science/lhg-science.component';
+import { UserProfileComponent } from './shared/user-profile/user-profile.component';
+import { UserProfileService } from './shared/user-profile/userProfile.service';
+import { BadgesComponent } from './shared/user-profile/badges/badges.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
+
 @NgModule({
   declarations: [
     ModulesComponent,
@@ -196,6 +201,8 @@ import { LhgScienceComponent } from './games/games-list/common-game/learned-help
     MigScienceComponent,
     FfgScienceComponent,
     LhgScienceComponent,
+    UserProfileComponent,
+    BadgesComponent,
   ],
   imports: [
     CommonModule,
@@ -224,6 +231,7 @@ import { LhgScienceComponent } from './games/games-list/common-game/learned-help
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireMessagingModule,
     OverlayModule,
+    MatTooltipModule
   ],
   providers: [
     LocalStorageService,
@@ -254,6 +262,7 @@ import { LhgScienceComponent } from './games/games-list/common-game/learned-help
     IbTrainingDataService,
     DialogBoxService,
     ExecControlHelpService,
+    UserProfileService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [

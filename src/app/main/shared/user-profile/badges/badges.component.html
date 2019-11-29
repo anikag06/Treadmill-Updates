@@ -1,0 +1,11 @@
+<div class="row-fluid">
+    <div class="cover-container">
+        <div class="cover-item" *ngFor="let badge of badgeList">
+            <div class="badge-box " [ngStyle]="{'opacity': !badge.user_has_badge ? '0.3': '1'}"> <img
+                    class="badge-image img-responsive" src="assets/modules/badge.png" [alt]="badge.name"
+                    [matTooltip]='badge.description' matTooltipPosition="above">
+                <div class="badge-name">{{badge.name}}</div>
+            </div>
+        </div>
+    </div>
+</div>

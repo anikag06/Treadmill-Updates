@@ -1,0 +1,53 @@
+<mat-card class="profile-card">
+    <div class="profile-header">
+        <mat-card-header>
+            <div mat-card-avatar> <img [src]="userProfile.user_avatar" class="profile-image" alt="You" /> </div>
+            <mat-card-title>{{userProfile.username}}</mat-card-title>
+            <mat-card-subtitle>
+                <div class="row points">
+                    <div class="col-4 scores">
+                        <div class='box-blue'></div>
+                        <div class="value">{{userProfile.score}}</div>
+                    </div>
+                    <div class="col medal">
+                        <div class='circle gold'></div>
+                        <div class="value">{{userProfile.no_of_gold_badges}}</div>
+                    </div>
+                    <div class="col medal">
+                        <div class='circle silver'></div>
+                        <div class="value">{{userProfile.no_of_silver_badges}}</div>
+                    </div>
+                    <div class="col medal">
+                        <div class='circle bronze'></div>
+                        <div class="value">{{userProfile.no_of_bronze_badges}}</div>
+                    </div>
+                </div>
+            </mat-card-subtitle>
+        </mat-card-header>
+    </div>
+    <mat-card-content>
+        <mat-tab-group>
+            <mat-tab label="Gold">
+                <ng-template matTabContent>
+                    <app-badges [badgeList]="getGoldBadgeList()">
+                    </app-badges>
+                </ng-template>
+
+            </mat-tab>
+            <mat-tab label="Silver">
+                <ng-template matTabContent>
+                    <app-badges [badgeList]="getSilverBadgeList()">
+                    </app-badges>
+                </ng-template>
+            </mat-tab>
+            <mat-tab label="Bronze">
+                <ng-template matTabContent>
+                    <app-badges [badgeList]="getBronzeBadgeList()">
+                    </app-badges>
+                </ng-template>
+            </mat-tab>
+        </mat-tab-group>
+    </mat-card-content>
+    <mat-card-actions>
+    </mat-card-actions>
+</mat-card>

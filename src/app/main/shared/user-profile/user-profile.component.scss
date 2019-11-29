@@ -1,0 +1,174 @@
+.mat-card {
+  padding: 0;
+}
+.mat-card-avatar {
+  height: 117px;
+  width: 117px;
+  padding-left: 15px;
+  padding-top: 15px;
+}
+.mat-card-title {
+  margin-top: 30px;
+  font-size: 30px;
+  color: whitesmoke;
+}
+.mat-card-actions {
+  position: absolute;
+  bottom: 5px;
+  right: 0;
+  margin-right: 20px;
+}
+.mat-tab-body.mat-tab-body-active {
+  overflow: hidden;
+}
+
+.profile-card {
+  width: auto;
+  .profile-header {
+    background: #343434 0% 0% no-repeat padding-box;
+    height: 35%;
+    .profile-image {
+      height: 100%;
+      width: 100%;
+      border-radius: 50%;
+      background: transparent 0% 0% cover padding-box;
+    }
+  }
+  .box-blue {
+    height: 11px;
+    width: 11px;
+    position: absolute;
+    bottom: 11px;
+    background-color: blue;
+    text-align: right;
+  }
+  .circle {
+    height: 11px;
+    width: 11px;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 8px;
+    display: inline-block;
+  }
+  .gold {
+    background: transparent linear-gradient(137deg, #ffd76a 0%, #dfad21 100%) 0% 0% no-repeat padding-box;
+  }
+  .silver {
+    background: transparent linear-gradient(137deg, #d4d4d4 0%, #c4c4c4 100%) 0% 0% no-repeat padding-box;
+  }
+  .bronze {
+    background: transparent linear-gradient(141deg, #efb05e 0%, #b27725 100%) 0% 0% no-repeat padding-box;
+  }
+  .value {
+    margin-left: 15px;
+    font-size: 22px;
+    color: #c1c1c1;
+  }
+  .nav-tab {
+    height: 300px;
+  }
+  .badge {
+    height: 150px;
+  }
+}
+.scores {
+  padding-left: 10px;
+  width: 250px;
+}
+
+.medal {
+  padding-left: 0px;
+  display: inline-table;
+  padding-right: 4px;
+  flex-grow: 0;
+  margin-right: 12px;
+}
+
+// Normal mobile phones
+@media screen and (device-width: 360px) and (device-height: 640px) and (-webkit-min-device-pixel-ratio: 2) {
+  .profile-card {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    .value {
+      margin-left: 12px;
+      font-size: 18px;
+    }
+    .circle {
+      bottom: 7px;
+      height: 10px;
+      width: 10px;
+    }
+    .box-blue {
+      bottom: 7px;
+      height: 10px;
+      width: 10px;
+    }
+    .mat-card-title {
+      margin-top: 20px;
+      font-size: 25px;
+    }
+    .badge {
+      height: 120px;
+    }
+    .medal {
+      margin-right: 0px;
+    }
+  }
+}
+
+//Iphones
+@media only screen and (min-device-width: 320px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
+  .profile-card {
+    margin-top: 5px;
+    // width: 92vw;
+    width: auto;
+    height: 300px;
+    margin-bottom: 10px;
+    .value {
+      margin-left: 12px;
+      font-size: 18px;
+    }
+    .circle {
+      bottom: 7px;
+      height: 10px;
+      width: 10px;
+    }
+    .box-blue {
+      bottom: 7px;
+      height: 10px;
+      width: 10px;
+    }
+    .mat-card-title {
+      margin-top: 20px;
+      font-size: 25px;
+    }
+    .badge {
+      height: 120px;
+    }
+  }
+}
+.mat-card-avatar {
+  height: 100px;
+  width: 100px;
+  padding-left: 15px;
+  padding-top: 15px;
+}
+.mat-card-actions {
+  margin-right: 10px;
+}
+
+@media (min-width: 1200px) {
+  .profile-card {
+    width: 550px;
+    height: 350px;
+  }
+}
+
+@media (min-width: 992px) {
+}
+
+@media (min-width: 768px) {
+  .mat-card-header-text {
+    padding-right: 20px;
+  }
+}
