@@ -1,4 +1,66 @@
-<div class="score">
-    <p>SCORE: {{gameService.score}}</p>
-  </div>
+<div class="score row ml-2 pt-3 small-font">
+    <div class="col-6 pl-1">
+      SCORE: {{gameService.score}}
+      </div>
+    <div class="col-3">
+
+    </div>
+    <div class="col-3 ">
+       <img style="width:15px;height:15px; "src="../../../../../../../assets/games/cognitive-distortion-game/clock icon.png">
+        <div class="timeDisplay float-right">
+         {{timeLeft}}s
+        </div>
+         
+      </div>
+    </div>
+  <div class="row mb-2 ml-2 py-2">
+      <div class="col-6">
+          <div class="row">
+          <div class="col-2 barsDiv  w-75 justify-content-start mt-1 mr-2 pr-0 pl-1">
+                  <img src="../../../../../../../assets/games/cognitive-distortion-game/Gold badge symbol.svg">
+               
+                  {{goldNumber}}
+              <mat-progress-bar class="goldBar" mode="determinate" [value]="goldValue"></mat-progress-bar>
+            </div>
+            
+        
+          <div class="col-2 barsDiv w-75 justify-content-start mt-1 mr-2 pr-0 pl-1">
+              <img src="../../../../../../../assets/games/cognitive-distortion-game/Silver badge symbol.svg">
+             
+               {{silverNumber}}
+            <mat-progress-bar class="silverBar" mode="determinate" [value]="silverValue"></mat-progress-bar>
+            </div>
+           
+        
+        
+          <div class="col-2 barsDiv w-75 justify-content-start mt-1 pr-0 pl-1">
+              <img src="../../../../../../../assets/games/cognitive-distortion-game/Bronze badge symbol.svg">
+              
+              {{bronzeNumber}}
+            <mat-progress-bar class="bronzeBar" mode="determinate" [value]="bronzeValue"></mat-progress-bar>
+            </div>
+          </div>
+        </div>
+        <div class="col-2"></div>
+    
+      <div class="col-4 barsDiv mt-1">
+        <div class="row">
+          <div class="col-1 float-left">
+            Easy
+            </div>
+          <div class="col-2"></div>
+          <div class="col-1 float-right">
+            Hard
+            </div>
+        </div>
+        
+            <mat-progress-bar class="levelBar" mode="determinate" [value]="levelValue"></mat-progress-bar>
+        
+  
+          </div>
+    
+    
+          
+      </div>
+  
   

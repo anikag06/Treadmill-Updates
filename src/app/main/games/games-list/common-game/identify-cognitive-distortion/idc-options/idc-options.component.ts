@@ -30,6 +30,7 @@ export class IdcOptionsComponent implements OnInit {
   optionSix!: any;
   optionSixDistortion!: any;
 
+
   @ViewChild('checkElement', { static: false }) element!: ElementRef;
 
   constructor(private gameService: IdcGameService, public dialog: MatDialog, private dialogBoxService: DialogBoxService) { }
@@ -58,6 +59,9 @@ export class IdcOptionsComponent implements OnInit {
     if (this.gameService.selectedCorrectOptionsSet.size === this.correct.length) {
       this.gameService.selectedCorrectOptionsSet.clear();
       this.gameService.optionStatus = "allcorrect";
+      this.gameService.numCorrectAnswers += 1;
+      this.gameService. updateBadgesValue();
+      this.gameService.badgesUpdate.emit();
     }
     this.openCustomDialog();
     this.correctOptionFound = -1;

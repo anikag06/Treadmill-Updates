@@ -1,17 +1,21 @@
 import { Injectable,EventEmitter } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
+import { environment } from 'environments/environment';
+import { IDC_SITUATION_DATA } from '@/app.constants';
+import { BadgesInfo } from '@/main/games/shared/game-badges.model';
+import { GamesBadgesService } from '@/main/games/shared/games-badges.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class IdcGameService {
-  constructor(private http: HttpClient) {}
+
   startPlayingIdc = new EventEmitter();
+  badgesUpdate  = new EventEmitter();
   playing = false;
   selectedCorrectOptionsSet = new Set();
   game! : any;
-  gameUrl='http://172.26.90.50:8000';
   questionId = 1;
   optionStatus = "";
   optionSelected="";
@@ -30,6 +34,30 @@ export class IdcGameService {
   optionFive = new BehaviorSubject({id: -1, distortion: "distortion", message: "message"});   
   optionSix = new BehaviorSubject({id: -1, distortion: "distortion", message: "message"});
 
+  BRONZE_CONSTANT = 4;
+  SILVER_CONSTANT = 10;
+  GOLD_CONSTANT = 26;
+  bronzeValue!: any;
+  silverValue!: any;
+  goldValue!: any;
+  bronzeNumber!: any;
+  silverNumber!: any;
+  goldNumber!: any;
+  showTutorial!: boolean;
+  numCorrectAnswers = 10;
+  allBadgesInfo: BadgesInfo = new BadgesInfo(0, 0, 0, 0, 0, 0);
+
+
+  constructor(private http: HttpClient,
+    private badgesService: GamesBadgesService,) {}
+
+
+  // ngOnInit() {
+  //   this.updateBadgesValue();
+  //   this.badgesUpdate.emit();
+  // }
+
+
 // REMOVE THIS ONCE THE CODE IS MERGED
  headers = new HttpHeaders({
     'Content-Type': 'application/json',
@@ -43,6 +71,7 @@ export class IdcGameService {
 //          console.log(data);
 //  });
 //REMOVE TILL HERE
+
 serviceCall()
 {
   this.title.next(this.game.results[this.questionId-1].title);
@@ -58,7 +87,7 @@ serviceCall()
 }
 
   getGameData() {
-    return this.http.get(this.gameUrl  + '/api/v1/games/cognitive-distortion/icdgame-situation/', this.options).subscribe((data) => 
+    return this.http.get(environment.API_ENDPOINT  + IDC_SITUATION_DATA, this.options).subscribe((data) => 
     {
       this.game = data;
       console.log("Game Data", this.game);
@@ -70,5 +99,17 @@ serviceCall()
     console.log('start playing');
     this.playing = true;
     this.startPlayingIdc.emit();
+  }
+  updateBadgesValue() {
+    this.allBadgesInfo = this.badgesService.getBadgesInfo(this.BRONZE_CONSTANT,
+                              this.SILVER_CONSTANT, this.GOLD_CONSTANT,
+                              this.numCorrectAnswers);
+    this.bronzeNumber = this.allBadgesInfo.bronzeBadges;
+    this.silverNumber = this.allBadgesInfo.silverBadges;
+    this.goldNumber = this.allBadgesInfo.goldBadges;
+
+    this.bronzeValue = this.allBadgesInfo.bronzePercent;
+    this.silverValue = this.allBadgesInfo.silverPercent;
+    this.goldValue = this.allBadgesInfo.goldPercent;
   }
 }

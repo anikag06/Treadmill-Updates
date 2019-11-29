@@ -114,6 +114,10 @@ export const MIG_SITUATIONS_DATA = '/api/v1/games/mental-imagery/situations/';
 export const MIG_USER_DATA = '/api/v1/games/mental-imagery/user-data/';
 export const MIG_STORE_USER_DATA = '/api/v1/games/mental-imagery/store-user-data/';
 
+// Identify Cognitive Distortion Game(IDC) paths
+export  const IDC_SITUATION_DATA = '/api/v1/games/cognitive-distortion/icdgame-situation/';
+
+
 // flow and steps related paths
 export const FLOW_STEPS_DATA = '/api/v1/flow/flow/';
 export const FLOW_STEP_MARK_DONE = '/api/v1/flow/step/';

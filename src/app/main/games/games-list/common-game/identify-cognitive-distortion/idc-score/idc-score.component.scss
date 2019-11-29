@@ -1,4 +1,8 @@
-.score{
-    margin-left: 15px;
-    margin-top: 5px;
-}
+@import "styles.scss";
+@import "games-styles.scss";
+
+@import "../../../../shared/games-common.scss";
+
+.barsDiv {
+    font-size: 0.6em;
+  }
