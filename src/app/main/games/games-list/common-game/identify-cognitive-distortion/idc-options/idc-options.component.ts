@@ -33,8 +33,14 @@ export class IdcOptionsComponent implements OnInit {
 
   @ViewChild('checkElement', { static: false }) element!: ElementRef;
 
-  constructor(private gameService: IdcGameService, public dialog: MatDialog, private dialogBoxService: DialogBoxService) { }
+  constructor(private gameService: IdcGameService,
+              public dialog: MatDialog, 
+              private dialogBoxService: DialogBoxService) { }
 
+  ngOnInit() {
+    this.optionsCall();
+  }
+  
   openCustomDialog() {
     this.dialogBoxService.setDialogChild(IdcPopupComponent);
     const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
@@ -96,8 +102,6 @@ export class IdcOptionsComponent implements OnInit {
       this.correct = data;
     });
   }
-  ngOnInit() {
-    this.optionsCall();
-  }
+
 
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { IdcGameService } from '../idc-game.service';
 
 @Component({
   selector: 'app-idc-main',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IdcMainComponent implements OnInit {
 
-  constructor() { }
+  constructor( private gameService:IdcGameService) { }
 
   ngOnInit() {
+    this.gameService.getGameData();
   }
 
 }

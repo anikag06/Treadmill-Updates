@@ -9,10 +9,13 @@ import { IdcGameService } from '../idc-game.service';
 export class IdcSelectedOptionComponent implements OnInit {
 
   optionSelected="";
+  optionStatus! : any;
   constructor(private gameService: IdcGameService) {
-    this.optionSelected = this.gameService.optionSelected;
+    
    }
   ngOnInit() {
+    this.optionSelected = this.gameService.optionSelected;
+    this.optionStatus = this.gameService.optionStatus;
   }
 
 }

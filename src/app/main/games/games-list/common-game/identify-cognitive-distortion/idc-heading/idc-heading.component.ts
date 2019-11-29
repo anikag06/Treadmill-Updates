@@ -12,15 +12,16 @@ export class IdcHeadingComponent implements OnInit {
 
   game! : any;
   title! : any;
-  
-  titleCall() {
-this.gameService.title.subscribe((data) => {
-    this.title = data;
-  });
-}
+
   ngOnInit() {
-    this.gameService.getGameData();
+    // this.gameService.getGameData();
     this.titleCall();
   }
+
+  titleCall() {
+    this.gameService.title.subscribe((data) => {
+        this.title = data;
+      });
+    }
 
 }

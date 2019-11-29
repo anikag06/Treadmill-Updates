@@ -15,7 +15,9 @@ export class IdcScoreComponent implements OnInit {
   silverNumber = 10;
   goldNumber = 10;
   timeLeft = 75;
+  levelValue = -50;
   numCorrectAnswers!: number;
+  score! : number;
 
   constructor(private gameService: IdcGameService) {}
 
@@ -28,7 +30,9 @@ export class IdcScoreComponent implements OnInit {
     //   this.silverNumber = this.gameService.silverNumber;
     //   this.goldNumber = this.gameService.goldNumber;
     // })
+  this.score = this.gameService.score;
   }
+  
 
 
 }
