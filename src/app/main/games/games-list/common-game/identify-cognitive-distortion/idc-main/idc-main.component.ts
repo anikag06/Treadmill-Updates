@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { IdcGameService } from '../idc-game.service';
+import { IdcInfoComponent } from '../idc-info/idc-info.component';
+import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
 
 @Component({
   selector: 'app-idc-main',
@@ -8,10 +10,21 @@ import { IdcGameService } from '../idc-game.service';
 })
 export class IdcMainComponent implements OnInit {
 
-  constructor( private gameService:IdcGameService) { }
+  @ViewChild('infoElement', { static: false }) element!: ElementRef;
+
+
+  constructor( private gameService:IdcGameService,
+               private dialogBoxService: DialogBoxService) { }
+
 
   ngOnInit() {
     this.gameService.getGameData();
+  }
+
+  openInfoPopup() {
+    this.dialogBoxService.setDialogChild(IdcInfoComponent);
+    const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
+    this.element.nativeElement.dispatchEvent(domEvent);
   }
 
 }

@@ -138,6 +138,8 @@ import { IdcSelectedOptionContentComponent } from './games/games-list/common-gam
 import { IdcSituationComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-situation/idc-situation.component';
 import { IdentifyCognitiveDistortionComponent } from './games/games-list/common-game/identify-cognitive-distortion/identify-cognitive-distortion.component';
 import { IdcInstructionsComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-instructions/idc-instructions.component';
+import { IdcInfoComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-info/idc-info.component';
+import { IdcWinComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-win/idc-win.component';
 
 @NgModule({
   declarations: [
@@ -224,7 +226,9 @@ import { IdcInstructionsComponent } from './games/games-list/common-game/identif
     IdcSelectedOptionContentComponent,
     IdcSituationComponent,
     IdentifyCognitiveDistortionComponent,
-    IdcInstructionsComponent
+    IdcInstructionsComponent,
+    IdcInfoComponent,
+    IdcWinComponent
     
   ],
   imports: [
@@ -305,6 +309,8 @@ import { IdcInstructionsComponent } from './games/games-list/common-game/identif
     LhgScienceComponent,
     IdcPopupComponent,
     IdcInstructionsComponent,
+    IdcInfoComponent,
+    IdcWinComponent,
   ]
 })
 export class MainModule {

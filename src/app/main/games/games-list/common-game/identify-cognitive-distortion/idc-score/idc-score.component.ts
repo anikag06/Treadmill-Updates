@@ -15,7 +15,7 @@ export class IdcScoreComponent implements OnInit {
   silverNumber = 10;
   goldNumber = 10;
   timeLeft = 75;
-  levelValue = -50;
+  difficultyValue = 30;
   numCorrectAnswers!: number;
   score! : number;
 
