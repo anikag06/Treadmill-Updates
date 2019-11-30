@@ -84,10 +84,14 @@
   margin-right: 12px;
 }
 
+/* For 480 Resolution */
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+}
+
 // Normal mobile phones
 @media screen and (device-width: 360px) and (device-height: 640px) and (-webkit-min-device-pixel-ratio: 2) {
   .profile-card {
-    margin-top: 5px;
+    margin-top: 10px;
     margin-bottom: 10px;
     .value {
       margin-left: 12px;
@@ -120,7 +124,6 @@
 @media only screen and (min-device-width: 320px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
   .profile-card {
     margin-top: 5px;
-    // width: 92vw;
     width: auto;
     height: 300px;
     margin-bottom: 10px;
@@ -157,6 +160,42 @@
   margin-right: 10px;
 }
 
+@media only screen and (min-width: 1024px) and (max-height: 1366px) and (-webkit-min-device-pixel-ratio: 1.5) {
+  .profile-card {
+    margin-right: 10px;
+    .value {
+      margin-left: 12px;
+      font-size: 18px;
+    }
+    .circle {
+      bottom: 7px;
+      height: 10px;
+      width: 10px;
+    }
+    .box-blue {
+      bottom: 7px;
+      height: 10px;
+      width: 10px;
+    }
+    .mat-card-title {
+      margin-top: 20px;
+      font-size: 25px;
+    }
+    .badge {
+      height: 120px;
+    }
+    .medal {
+      margin-right: 0px;
+    }
+  }
+}
+//Tablets
+@media only screen and (min-width: 768px) and (max-height: 1024px) and (-webkit-min-device-pixel-ratio: 1.5) {
+  .profile-card {
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+}
 @media (min-width: 1200px) {
   .profile-card {
     width: 550px;
@@ -164,11 +203,36 @@
   }
 }
 
-@media (min-width: 992px) {
-}
-
-@media (min-width: 768px) {
+@media (max-width: 767px) {
   .mat-card-header-text {
     padding-right: 20px;
+  }
+  .profile-card {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    .value {
+      margin-left: 12px;
+      font-size: 18px;
+    }
+    .circle {
+      bottom: 7px;
+      height: 10px;
+      width: 10px;
+    }
+    .box-blue {
+      bottom: 7px;
+      height: 10px;
+      width: 10px;
+    }
+    .mat-card-title {
+      margin-top: 20px;
+      font-size: 25px;
+    }
+    .badge {
+      height: 120px;
+    }
+    .medal {
+      margin-right: 0px;
+    }
   }
 }

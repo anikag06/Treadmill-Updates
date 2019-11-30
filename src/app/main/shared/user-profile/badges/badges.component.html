@@ -1,5 +1,8 @@
 <div class="row-fluid">
-    <div class="cover-container">
+    <div class="cover-container" #widgetsContent>
+        <button class="left-arrow" (click)="scrollLeft()">
+            <mat-icon>keyboard_arrow_left</mat-icon>
+        </button>
         <div class="cover-item" *ngFor="let badge of badgeList">
             <div class="badge-box " [ngStyle]="{'opacity': !badge.user_has_badge ? '0.3': '1'}"> <img
                     class="badge-image img-responsive" src="assets/modules/badge.png" [alt]="badge.name"
@@ -7,5 +10,8 @@
                 <div class="badge-name">{{badge.name}}</div>
             </div>
         </div>
+        <button class="right-arrow" (click)="scrollRight()">
+            <mat-icon>keyboard_arrow_right</mat-icon>
+        </button>
     </div>
 </div>

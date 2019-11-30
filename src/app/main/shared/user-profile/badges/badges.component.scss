@@ -4,7 +4,7 @@
 }
 
 .badge-box {
-  width: 150px;
+  width: 140px;
   text-align: center;
   display: inline-block;
 }
@@ -13,44 +13,32 @@
   margin-top: 30px;
 }
 
-@media screen and (max-width: 1300px) {
-}
-
-@media screen and (max-width: 991px) {
-}
-
-@media screen and (max-width: 768px) {
-  .carousel-control {
-    bottom: 10px;
-  }
-
-  // .controlsBlock {
-  //   bottom: 0;
-  //   left: 0;
-  // }
+@media screen and (max-width: 767px) {
   .badge-box {
-    width: auto;
+    width: 90px;
   }
-
   .badge-image {
     height: 55px;
     margin-top: 30px;
   }
-
   .badge {
     width: 110px;
     text-align: center;
   }
 
   .badge-name {
-    font-size: 15px;
+    font-size: 12px;
     margin-top: 15px;
   }
-}
 
-// .carousel-item-next, .carousel-item-prev, .carousel-item.active {
-//   display: flex;
-// }
+  .left-arrow {
+    top: 60px;
+  }
+
+  .right-arrow {
+    top: 60px;
+  }
+}
 
 .cover-container {
   width: 100%;
@@ -67,4 +55,35 @@
   background-position: top left;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+.left-arrow {
+  left: 0px;
+  position: absolute;
+  top: 60px;
+  z-index: 200;
+  border: none;
+  background: none;
+  outline: none;
+}
+
+.right-arrow {
+  right: 0px;
+  position: absolute;
+  top: 60px;
+  z-index: 200;
+  border: none;
+  background: none;
+  outline: none;
+}
+.cover-container::-webkit-scrollbar {
+  width: 0 !important;
+}
+
+.cover-container {
+  overflow: -moz-scrollbars-none;
+}
+
+.cover-container {
+  -ms-overflow-style: none;
 }
