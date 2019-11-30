@@ -4,35 +4,36 @@
 }
 
 .options-heading{
-    font-size: 16px;
-    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-family: Roboto, sans-serif;
     text-align: center;
     color: #333333;
 }
 
 .options-content{
     display: flex;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Roboto, sans-serif;
     text-align: center;
 }
 
 .options-content button {
     border-radius: 20px 20px 20px 20px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    font-size: 10px;
-    min-width: 150px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    font-size: 12px;
+    height: 32px;
+    min-width: 157px;
     background-color: #fff;
     color: #4C4C4C;
-    margin: 9px;
+    margin: 10px 2px;
     border: 1px solid #A5A5A5;
     outline: none;
 }
 
-.group-1{
-    flex: 1;  
-}
+// .group-1{
+//     flex: 1;  
+// }
 
-.group-2{
-    flex: 1;
-}
+// .group-2{
+//     flex: 1;
+// }
