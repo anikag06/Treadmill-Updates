@@ -5,8 +5,8 @@
 .frog-game-flower, 
 .frog-game-flower-dry, 
 .frog-game-square-blank {
-	margin-right: 50px;
-	margin-bottom: 50px;
+	margin-right: 21.37px;
+	margin-bottom: 21.37px;
 }
 
 .frog-game-flower, 
@@ -14,14 +14,19 @@
 .frog-game-square-blank {
 	text-align: center;
 	line-height: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .frog-game-flower {
 	background: url("../assets/frog.jump.puzzle/flower.png") no-repeat center;
+	background-size: 37px 37px;
 }
 
 .frog-game-flower-dry{
 	background: url("../assets/frog.jump.puzzle/dry_flower.png") no-repeat center;
+	background-size: 14.18px 14.18px
 }
 
 .frog-right,
@@ -29,6 +34,7 @@
 .frog-up, 
 .frog-down {
 	background: url("../assets/frog.jump.puzzle/butterfly.png") no-repeat center;
+	background-size: 37px 37px;
 }
 
 .frog-left{
