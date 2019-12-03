@@ -1,12 +1,21 @@
 <div class="options-heading">
     <h4 class="identify">Identify the Thinking Errors({{correct.length}})</h4>
     </div>
+    <div class="row justify-content-center">
+        <div class="row border errorBar rounded ml-1 mr-1" style="height: 4px; width:90px;"
+          [ngClass]="{'errorsFound' : optionStatus === 'correct' || optionStatus === 'allcorrect'}" >
+          </div>
+          <div class="row border errorBar rounded ml-1 mr-1" style="height: 4px; width:90px;"
+          [ngClass]="{'errorsFound' : optionStatus === 'allcorrect'}">
+            </div>
+    </div>
+    
     <div class="options-content" #checkElement>
       <div class="group-1 mr-1">
           <button (click)="onOptionClick(optionOne)" style="cursor: pointer;">
             {{optionOneDistortion}}</button>
           <button (click)="onOptionClick(optionThree)" style="cursor: pointer;">
-            {{optionFourDistortion}}
+            {{optionThreeDistortion}}
           </button>
           <button (click)="onOptionClick(optionFive)" style="cursor: pointer;">
             {{optionFiveDistortion}}

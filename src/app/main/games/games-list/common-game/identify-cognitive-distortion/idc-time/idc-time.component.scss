@@ -1,8 +1,9 @@
+
 @import "styles.scss";
 @import "games-styles.scss";
 @import "../../../../shared/games-common.scss";
 
-.gameFinishedImg {
+.playAgainImg {
     height: 70px;
     width: 70px;
     text-align: center;
@@ -10,12 +11,4 @@
     margin-left: auto;
     margin-right: auto;
   
-  }
-  
-  .mat-new {
-    background-color: #0C8C95 !important;
-    border-color: #0C8C95 !important;
-    color: #FFF;
-    min-width: 260px;
-    align-items: center;
   }

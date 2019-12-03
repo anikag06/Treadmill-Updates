@@ -1,8 +1,8 @@
 import { Injectable,EventEmitter } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from 'environments/environment';
-import { IDC_SITUATION_DATA } from '@/app.constants';
+import { IDC_SITUATION_DATA, IDC_USER_DATA, IDC_STORE_USER_DATA } from '@/app.constants';
 import { BadgesInfo } from '@/main/games/shared/game-badges.model';
 import { GamesBadgesService } from '@/main/games/shared/games-badges.service';
 
@@ -12,7 +12,9 @@ import { GamesBadgesService } from '@/main/games/shared/games-badges.service';
 export class IdcGameService {
 
   startPlayingIdc = new EventEmitter();
-  badgesUpdate  = new EventEmitter();
+  levelUpdate  = new EventEmitter();
+  levelFinish = new EventEmitter();
+
   playing = false;
   selectedCorrectOptionsSet = new Set();
   game! : any;
@@ -20,9 +22,10 @@ export class IdcGameService {
   optionStatus = "";
   optionSelected="";
   optionMessage="";
-  score = 500;
+  score!: number;
   correctOptionsLength!: number;
   correctOptionFound=-1;
+  
   title = new BehaviorSubject("title");
   nat = new BehaviorSubject("nat");
   situation = new BehaviorSubject("situation");
@@ -34,9 +37,9 @@ export class IdcGameService {
   optionFive = new BehaviorSubject({id: -1, distortion: "distortion", message: "message"});   
   optionSix = new BehaviorSubject({id: -1, distortion: "distortion", message: "message"});
 
-  BRONZE_CONSTANT = 4;
-  SILVER_CONSTANT = 10;
-  GOLD_CONSTANT = 26;
+  BRONZE_CONSTANT!: any;
+  SILVER_CONSTANT!: any;
+  GOLD_CONSTANT!: any;
   bronzeValue!: any;
   silverValue!: any;
   goldValue!: any;
@@ -44,33 +47,30 @@ export class IdcGameService {
   silverNumber!: any;
   goldNumber!: any;
   showTutorial!: boolean;
-  numCorrectAnswers = 10;
+  numCorrectAnswers!: any;
   allBadgesInfo: BadgesInfo = new BadgesInfo(0, 0, 0, 0, 0, 0);
+  difficultyValue!: number;
 
+  maxTime = 120;
+  minTime = 30;
+  timeLeft!: number;
+  diffConst! : number;
+  timeActualLeft! : number;
+  interval! : any;
+  level: any;
+  
 
   constructor(private http: HttpClient,
-    private badgesService: GamesBadgesService,) {}
+    private badgesService: GamesBadgesService,) {
+      this.difficultyValue = 0.1 * 100;
+    }
 
 
-  // ngOnInit() {
+  ngOnInit() {
   //   this.updateBadgesValue();
   //   this.badgesUpdate.emit();
-  // }
+     }
 
-
-// REMOVE THIS ONCE THE CODE IS MERGED
- headers = new HttpHeaders({
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzUxMiJ9.eyJ1c2VyX2lkIjo3LCJ1c2VybmFtZSI6ImFya2EiLCJleHAiOjE1NzA2MTgwOTIsImVtYWlsIjoiYXJrYWdob3NoMDI0QGdtYWlsLmNvbSIsIm9yaWdfaWF0IjoxNTY4MDI2MDkyfQ.gw1w1hT-FLv0rsxQQPEiPkYMSn4eVopdOZ6xeX1eQjmRSjiveHyIoWbzSjqXDUiv826UjYJUxLrakCOVN2Tx593IuAxJL-LszqwKfmvPUbxzUykv3giC3mal2aeTB73e8sVdN4DA34tlPGFJk8zINDnm1mekF7sibMKsSuG7oczRmITw82UoVnx_dRECcbb7HGFxSwT8vbqHc4uR-jzcFSoWK4r0V-d9XBls11IH11AGnew4z1OajRlMLUBlq-a0bgJjWQDG92wtmKhCBxvtm2lpGQN6xYimhkvU3ufrtUrz2t6qrF-nfiIBU7A759NUtVDfJKuCdvLUQYj9ZPYK2EyK-Nl2Rx8OIrrQFLH828_O-myWEvjg1wey8pKISGmAeZqDObDiM8zGju00_Opfcx5c1WCt-sI-uK60yaVjwgoaHG6jb43d5g2iMHg1l7RW0MZ2u9ngLrmQxHLmlithVtgHQjn1QAxfYpofAeQGl5HdVCWLwjg7fpLAIt1oDalVoWL15qkU534KTUqCEvGNQNTfbImiKDcz5P693Qj-iH722dHVpEs6Z_ax05s1PJdAH4uTh0I2tcrbIu0VyHQ630JY31d97Dn0f_5A4SM0g1g_kvoNaunQndM_ILNGaEiZrdiXvy6UC4TKDCiFVEPVK73uvu8u_AmrCWkz92IABbo'
- });
-  options = {
-    headers: this.headers
- }
-//  this.http.post(URL, param, options)
-//     .subscribe(data => {
-//          console.log(data);
-//  });
-//REMOVE TILL HERE
 
 serviceCall()
 {
@@ -84,10 +84,11 @@ serviceCall()
   this.optionFour.next(this.game.results[this.questionId-1].options[3]);
   this.optionFive.next(this.game.results[this.questionId-1].options[4]);  
   this.optionSix.next(this.game.results[this.questionId-1].options[5]);
+  this.levelUpdate.emit();
 }
 
   getGameData() {
-    return this.http.get(environment.API_ENDPOINT  + IDC_SITUATION_DATA, this.options).subscribe((data) => 
+    return this.http.get(environment.API_ENDPOINT  + IDC_SITUATION_DATA).subscribe((data) => 
     {
       this.game = data;
       console.log("Game Data", this.game);
@@ -95,11 +96,13 @@ serviceCall()
       this.serviceCall();
     });
   }
+
   startPlaying() {
     console.log('start playing');
     this.playing = true;
     this.startPlayingIdc.emit();
   }
+
   updateBadgesValue() {
     this.allBadgesInfo = this.badgesService.getBadgesInfo(this.BRONZE_CONSTANT,
                               this.SILVER_CONSTANT, this.GOLD_CONSTANT,
@@ -111,5 +114,42 @@ serviceCall()
     this.bronzeValue = this.allBadgesInfo.bronzePercent;
     this.silverValue = this.allBadgesInfo.silverPercent;
     this.goldValue = this.allBadgesInfo.goldPercent;
+    console.log('Badges details', this.BRONZE_CONSTANT);
   }
+ 
+  initUserData() {
+    this.fetchUserData().subscribe( (data:any) => {
+      console.log('user data' , data);
+      this.level = data.last_completed_order;
+      this.score = data.points;
+      this.numCorrectAnswers = data.no_of_correct_answers;
+      this.BRONZE_CONSTANT = data.BRONZE_CONSTANT;
+      this.SILVER_CONSTANT = data.SILVER_CONSTANT;
+      this.GOLD_CONSTANT = data.GOLD_CONSTANT;
+      this.showTutorial = data.show_tutorial;
+      this.timeLeft = data.time;
+      this.updateBadgesValue();
+    });
+  }
+
+  updateDifficultyLevel() {
+    this.getDifficultyFactor();
+    if (this.timeActualLeft > Math.floor(0.8*this.timeLeft)){
+      this.timeLeft -= 20;
+      this.difficultyValue = this.diffConst * 100;
+    }
+  }
+
+  getDifficultyFactor() {
+    this.diffConst = ((this.maxTime - this.timeLeft)/(this.maxTime - this.minTime)+ 0.1);
+  }
+
+  fetchUserData() {
+    return this.http.get(environment.API_ENDPOINT + IDC_USER_DATA);
+  }
+
+  saveUserData(data: any) {
+    return this.http.patch(environment.API_ENDPOINT + IDC_USER_DATA, data);
+  }
+
 }

@@ -19,6 +19,8 @@ export class IdcMainComponent implements OnInit {
 
   ngOnInit() {
     this.gameService.getGameData();
+    this.gameService.initUserData();
+    console.log('Bronze main', this.gameService.BRONZE_CONSTANT);
   }
 
   openInfoPopup() {

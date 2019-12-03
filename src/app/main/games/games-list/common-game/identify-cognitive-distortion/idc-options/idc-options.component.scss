@@ -29,7 +29,20 @@
     border: 1px solid #A5A5A5;
     outline: none;
 }
+ 
+.errorBar {
+    background-color: #DFFDFF;
+    border: #DFFDFF;
+}
 
+.errorsFound {
+    background-color: #0C8C95;
+    border: #0C8C95;
+}
+.errorsNotFound {
+    background-color: #DFFDFF;
+    border: #DFFDFF;
+}
 // .group-1{
 //     flex: 1;  
 // }

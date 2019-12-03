@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { IdcGameService } from '../idc-game.service';
 import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
-import { MatDialog } from '@angular/material/dialog';
 import { IdcPopupComponent } from '../idc-popup/idc-popup.component';
+import { ICDGameUserData } from '@/main/games/shared/game-play.model';
 
 @Component({
   selector: 'app-idc-options',
@@ -29,16 +29,22 @@ export class IdcOptionsComponent implements OnInit {
   optionFiveDistortion!: any;
   optionSix!: any;
   optionSixDistortion!: any;
+  optionStatus = '';
+  userData = new ICDGameUserData(0,0,0);
 
 
   @ViewChild('checkElement', { static: false }) element!: ElementRef;
 
   constructor(private gameService: IdcGameService,
-              public dialog: MatDialog, 
               private dialogBoxService: DialogBoxService) { }
 
   ngOnInit() {
     this.optionsCall();
+    this.gameService.levelUpdate.subscribe(() => {
+      this.optionStatus = this.gameService.optionStatus;
+      console.log('option status', this.optionStatus);
+    });
+
   }
   
   openCustomDialog() {
@@ -48,14 +54,17 @@ export class IdcOptionsComponent implements OnInit {
   }
 
   onOptionClick(item:any) {
+
     this.gameService.optionSelected = item.distortion;
     this.gameService.optionMessage = item.message;
     this.correct.forEach((correctItem:any) => {
       if (correctItem.id === item.id) {
         this.gameService.selectedCorrectOptionsSet.add(item.id);
         this.gameService.optionStatus = "correct";
+        this.optionStatus = this.gameService.optionStatus;
         this.correctOptionFound = 1;
         this.gameService.score += 10;
+        this.gameService.numCorrectAnswers += 1;
       }
     });
     if (this.correctOptionFound != 1) {
@@ -65,9 +74,12 @@ export class IdcOptionsComponent implements OnInit {
     if (this.gameService.selectedCorrectOptionsSet.size === this.correct.length) {
       this.gameService.selectedCorrectOptionsSet.clear();
       this.gameService.optionStatus = "allcorrect";
-      this.gameService.numCorrectAnswers += 1;
+      this.optionStatus = this.gameService.optionStatus;
       this.gameService. updateBadgesValue();
-      this.gameService.badgesUpdate.emit();
+      this.gameService.levelFinish.emit();
+      this.updateUserData();
+      this.gameService.saveUserData(this.userData).subscribe();
+
     }
     this.openCustomDialog();
     this.correctOptionFound = -1;
@@ -102,6 +114,15 @@ export class IdcOptionsComponent implements OnInit {
       this.correct = data;
     });
   }
+
+  updateUserData() {
+    this.userData.last_completed_order = this.gameService.level;
+    this.userData.points = this.gameService.score;
+    this.userData.time = this.gameService.timeLeft;
+    console.log('user data', this.userData);
+
+  }
+
 
 
 }

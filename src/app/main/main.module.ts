@@ -140,6 +140,8 @@ import { IdentifyCognitiveDistortionComponent } from './games/games-list/common-
 import { IdcInstructionsComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-instructions/idc-instructions.component';
 import { IdcInfoComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-info/idc-info.component';
 import { IdcWinComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-win/idc-win.component';
+import { IdcTimeComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-time/idc-time.component';
+import { IdcGameService } from './games/games-list/common-game/identify-cognitive-distortion/idc-game.service';
 
 @NgModule({
   declarations: [
@@ -228,7 +230,8 @@ import { IdcWinComponent } from './games/games-list/common-game/identify-cogniti
     IdentifyCognitiveDistortionComponent,
     IdcInstructionsComponent,
     IdcInfoComponent,
-    IdcWinComponent
+    IdcWinComponent,
+    IdcTimeComponent
     
   ],
   imports: [
@@ -288,6 +291,7 @@ import { IdcWinComponent } from './games/games-list/common-game/identify-cogniti
     IbTrainingDataService,
     DialogBoxService,
     ExecControlHelpService,
+    IdcGameService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [
@@ -311,6 +315,7 @@ import { IdcWinComponent } from './games/games-list/common-game/identify-cogniti
     IdcInstructionsComponent,
     IdcInfoComponent,
     IdcWinComponent,
+    IdcTimeComponent,
   ]
 })
 export class MainModule {

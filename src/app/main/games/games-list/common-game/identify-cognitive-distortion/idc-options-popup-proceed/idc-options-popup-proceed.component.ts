@@ -30,15 +30,18 @@ export class IdcOptionsPopupProceedComponent implements OnInit {
     const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });
     this.element.nativeElement.dispatchEvent(domEvent);
     if (this.gameService.optionStatus === "allcorrect") {
+      this.openWinPopup();
       this.gameService.questionId++;
-      this.gameService.serviceCall();
-      this.openInfoPopup();
+      this.gameService.updateDifficultyLevel();
+      console.log('time', this.gameService.timeLeft);
+
     }
   }
 
-  openInfoPopup() {
+  openWinPopup() {
     this.dialogBoxService.setDialogChild(IdcWinComponent);
     const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
     this.element.nativeElement.dispatchEvent(domEvent);
+    this.gameService.optionStatus = '';
   }
 }
