@@ -30,15 +30,11 @@ export class IdcScoreComponent implements OnInit {
 
 
   ngOnInit() {
-    
-    this.score = this.gameService.score;
-    this.gameService.updateBadgesValue();
-      // this.timeLeft = this.gameService.timeLeft;
-      // this.startTimer();
       this.gameService.levelFinish.subscribe( () => {
           this.stopTimer();
         });
       this.gameService.levelUpdate.subscribe( () => {
+        this.score = this.gameService.score;
         this.timeLeft = this.gameService.timeLeft;
         this.difficultyValue = this.gameService.difficultyValue;
         console.log("this.difficulty value", this.difficultyValue);
@@ -83,5 +79,9 @@ export class IdcScoreComponent implements OnInit {
     this.bronzeValue = this.gameService.bronzeValue;
     this.silverNumber = this.gameService.silverNumber;
     this.silverValue = this.gameService.silverValue;
+    console.log('BV, BN', this.bronzeValue, this.bronzeNumber);
+  }
+  onPause() {
+    this.stopTimer();
   }
 }

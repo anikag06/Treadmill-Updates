@@ -34,7 +34,7 @@ export class IdcOptionsPopupProceedComponent implements OnInit {
       this.gameService.questionId++;
       this.gameService.updateDifficultyLevel();
       console.log('time', this.gameService.timeLeft);
-
+      this.gameService.updateUserData();
     }
   }
 

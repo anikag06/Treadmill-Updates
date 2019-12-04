@@ -2,9 +2,10 @@ import { Injectable,EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from 'environments/environment';
-import { IDC_SITUATION_DATA, IDC_USER_DATA, IDC_STORE_USER_DATA } from '@/app.constants';
+import { IDC_SITUATION_DATA, IDC_USER_DATA } from '@/app.constants';
 import { BadgesInfo } from '@/main/games/shared/game-badges.model';
 import { GamesBadgesService } from '@/main/games/shared/games-badges.service';
+import { ICDGameUserData } from '@/main/games/shared/game-play.model';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,10 @@ export class IdcGameService {
   score!: number;
   correctOptionsLength!: number;
   correctOptionFound=-1;
-  
+  userData = new ICDGameUserData(0,0,0);
+
+  level = new BehaviorSubject(0);
+
   title = new BehaviorSubject("title");
   nat = new BehaviorSubject("nat");
   situation = new BehaviorSubject("situation");
@@ -57,7 +61,8 @@ export class IdcGameService {
   diffConst! : number;
   timeActualLeft! : number;
   interval! : any;
-  level: any;
+  last_completed_order: any;
+  // level: any;
   
 
   constructor(private http: HttpClient,
@@ -74,6 +79,7 @@ export class IdcGameService {
 
 serviceCall()
 {
+  this.level.next(this.game.results[this.questionId-1].order);
   this.title.next(this.game.results[this.questionId-1].title);
   this.nat.next(this.game.results[this.questionId-1].nat);
   this.situation.next(this.game.results[this.questionId-1].situation);
@@ -84,7 +90,8 @@ serviceCall()
   this.optionFour.next(this.game.results[this.questionId-1].options[3]);
   this.optionFive.next(this.game.results[this.questionId-1].options[4]);  
   this.optionSix.next(this.game.results[this.questionId-1].options[5]);
-  this.levelUpdate.emit();
+  // this.levelUpdate.emit();
+  this.getUserData();
 }
 
   getGameData() {
@@ -114,13 +121,13 @@ serviceCall()
     this.bronzeValue = this.allBadgesInfo.bronzePercent;
     this.silverValue = this.allBadgesInfo.silverPercent;
     this.goldValue = this.allBadgesInfo.goldPercent;
-    console.log('Badges details', this.BRONZE_CONSTANT);
+    console.log('bronze Badges details', this.bronzeValue);
   }
  
   initUserData() {
     this.fetchUserData().subscribe( (data:any) => {
       console.log('user data' , data);
-      this.level = data.last_completed_order;
+      // this.level = data.last_completed_order;
       this.score = data.points;
       this.numCorrectAnswers = data.no_of_correct_answers;
       this.BRONZE_CONSTANT = data.BRONZE_CONSTANT;
@@ -129,6 +136,16 @@ serviceCall()
       this.showTutorial = data.show_tutorial;
       this.timeLeft = data.time;
       this.updateBadgesValue();
+      // this.levelUpdate.emit();
+    });
+  }
+
+  getUserData() {
+    this.fetchUserData().subscribe( (data:any) => {
+      // this.level = data.last_completed_order;
+      this.score = data.points;
+      this.timeLeft = data.time;
+      this.levelUpdate.emit();
     });
   }
 
@@ -150,6 +167,23 @@ serviceCall()
 
   saveUserData(data: any) {
     return this.http.patch(environment.API_ENDPOINT + IDC_USER_DATA, data);
+  }
+
+  getLevel() {
+    this.level.subscribe( (data) => {
+      this.last_completed_order = data;
+    })
+  }
+
+  updateUserData() {
+    this.getLevel();
+    this.userData.last_completed_order = this.last_completed_order;
+    this.userData.points = this.score;
+    this.userData.time = this.timeLeft;
+    console.log('user data', this.userData);
+    this.saveUserData(this.userData).subscribe();
+
+
   }
 
 }

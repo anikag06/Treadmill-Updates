@@ -17,7 +17,8 @@ export class IdcTimeComponent implements OnInit {
   continuePlay() {
     const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });
     this.elementRef.nativeElement.dispatchEvent(domEvent);
-    this.gameService.levelUpdate.emit();
+    // this.gameService.levelUpdate.emit();
+    this.gameService.getUserData();
 
   }
 

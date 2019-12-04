@@ -30,7 +30,6 @@ export class IdcOptionsComponent implements OnInit {
   optionSix!: any;
   optionSixDistortion!: any;
   optionStatus = '';
-  userData = new ICDGameUserData(0,0,0);
 
 
   @ViewChild('checkElement', { static: false }) element!: ElementRef;
@@ -77,8 +76,12 @@ export class IdcOptionsComponent implements OnInit {
       this.optionStatus = this.gameService.optionStatus;
       this.gameService. updateBadgesValue();
       this.gameService.levelFinish.emit();
-      this.updateUserData();
-      this.gameService.saveUserData(this.userData).subscribe();
+      // this.gameService.level += 1;
+      // this.updateUserData();
+      // this.gameService.saveUserData(this.userData).subscribe();
+      // if (this.gameService.last_completed_order === 4) {
+      //   this.gameService.getGameData();
+      // }
 
     }
     this.openCustomDialog();
@@ -115,14 +118,7 @@ export class IdcOptionsComponent implements OnInit {
     });
   }
 
-  updateUserData() {
-    this.userData.last_completed_order = this.gameService.level;
-    this.userData.points = this.gameService.score;
-    this.userData.time = this.gameService.timeLeft;
-    console.log('user data', this.userData);
-
-  }
-
+  
 
 
 }

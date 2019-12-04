@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { IdcGameService } from './idc-game.service';
+import { IdcScoreComponent } from './idc-score/idc-score.component';
 
 @Component({
   selector: 'app-identify-cognitive-distortion',
@@ -8,8 +9,10 @@ import { IdcGameService } from './idc-game.service';
 })
 export class IdentifyCognitiveDistortionComponent implements OnInit {
 
-  playing = false;
+  @ViewChild(IdcScoreComponent, {static: false}) idcScoreComponent!: IdcScoreComponent;
+
   constructor(private gameService: IdcGameService) { }
+
 
   ngOnInit() {
     this.gameService.startPlayingIdc.subscribe( () => {
@@ -17,9 +20,26 @@ export class IdentifyCognitiveDistortionComponent implements OnInit {
     });
   }
 
+ 
+  playing = false;
+
+
   startPlaying() {
     this.playing = true;
   }
 
+  replayIDCGame() {
+    // 
+  }
+
+  pauseIDCGame() {
+    console.log('stop timer',this.idcScoreComponent);
+
+    this.idcScoreComponent.onPause();
+  }
+
+  resumeIDCGame() {
+    // 
+  }
 
 }
