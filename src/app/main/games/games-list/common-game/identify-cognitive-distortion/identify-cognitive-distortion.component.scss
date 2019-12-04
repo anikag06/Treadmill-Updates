@@ -3,12 +3,21 @@
 
 @import "../../../shared/games-common.scss";
 
-.home{
-    // position: relative;
+// .home{
+//     // position: relative;
+//     max-width: 360px;
+//     height: 100%;
+//     /* width: 360px; */
+    
+//     background-color: white;
+// }
+
+.main{
+    position: relative;
     max-width: 360px;
     height: 100%;
     /* width: 360px; */
-    
+    justify-content: center !important;
     background-color: white;
 }
 

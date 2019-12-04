@@ -79,7 +79,6 @@ export class IdcScoreComponent implements OnInit {
     this.bronzeValue = this.gameService.bronzeValue;
     this.silverNumber = this.gameService.silverNumber;
     this.silverValue = this.gameService.silverValue;
-    console.log('BV, BN', this.bronzeValue, this.bronzeNumber);
   }
   onPause() {
     this.stopTimer();

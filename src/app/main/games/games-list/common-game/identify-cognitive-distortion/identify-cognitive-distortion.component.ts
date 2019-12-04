@@ -39,7 +39,7 @@ export class IdentifyCognitiveDistortionComponent implements OnInit {
   }
 
   resumeIDCGame() {
-    // 
+    this.idcScoreComponent.startTimer();
   }
 
 }
