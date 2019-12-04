@@ -46,15 +46,24 @@ export const PHQ_NINE_SCORE     = '/api/v1/questionnaire/phq-user-scores/';
 export const GAD_SEVEN_SCORE    = '/api/v1/questionnaire/gad-user-scores/';
 export const MOBILEWIDTH        = 768;
 
+// FORMS
+export const RECOMMENDED       = 'recommended';
+
+// Problem solving form
+export const PROBLEM_SOLVING = 'problem-solving';
+export const PROBLEM         = 'problem';
+
+// Task form
+export const TASK            = 'tasks';
+
+// Thought record form
+export const THOUGHT_RECORD  = 'thought-record';
+
 // Interpretation bias game(IBG) paths
 export const IBG_SENTENCE        = '/api/v1/games/interpretation-bias/sentences/';
 export const IBG_SCOREINFO       = '/api/v1/games/interpretation-bias/score/';
 export const IBG_USER_RESPONSE  = '/api/v1/games/interpretation-bias/user-responses/';
 
-export const PROBLEM_SOLVING = 'problem-solving';
-export const TASK            = 'tasks';
-export const PROBLEM         = 'problem';
-export const RECOMMENDED       = 'recommended';
 
 // Executive Control Game(ECG) paths
 export const ECG_USER_DATA      = '/api/v1/games/executive-control/user-data/';

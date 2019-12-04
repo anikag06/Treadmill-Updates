@@ -1,76 +1,40 @@
+@import '../../forms.component.scss';
+
 .form-control {
-    border-top-color: transparent;
-    border-left-color: transparent;
-    border-right-color: transparent;
-    box-shadow: none;
+  border-top-color: transparent;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  box-shadow: none;
 }
+
 .subtasks {
-    padding-left: 20px;
-    .subtask {
-        .mat-checkbox {
-            width: 90%;
-            display: inline-block;
-        }
-        span {
-            text-align: right;
-            width: 10%;
-            display: inline-block;
-        }
+  padding-left: 20px;
+
+  .subtask {
+    .mat-checkbox {
+      width: 90%;
+      display: inline-block;
     }
+
+    span {
+      text-align: right;
+      width: 10%;
+      display: inline-block;
+    }
+  }
 }
+
 label {
-    color:  #383838;
+  color: #383838;
 }
+
 .full-width {
-    width: 100%;
-}
-.card-header {
-  background-color: #FFEFD4;
-  font-weight: 700;
-}
-.card {
-  margin: 0 auto;
-  label {
-    padding: 10px;
-    margin-bottom: 0px;
-    border-bottom: 1px solid #dfdfdf;
-    &:last-child {
-      border-bottom: 1px solid transparent;
-    }
-  }
-  .continue-btn {
-    width: 100px;
-  }
-  .full-width {
-    width: 100%;
-  }
-  textarea {
-    color: #000000;
-  }
-  .pull-right {
-    float: right;
-  }
-}
-
-.card.card-240 {
-  max-width: 240px;
-}
-
-.card.card-full-width {
   width: 100%;
 }
 
-@media screen and (max-width: 992px) {
-  h1 {
-    font-size: 1.6rem;
-    font-weight: 600;
-  }
-  .card.card-240 {
-    max-width: 100%;
-  }
-  .container-fluid {
-    padding: 0 !important;
-  }
+.card-header {
+  background-color: #FFEFD4;
+  font-weight: 700;
 }
 
 .selected {

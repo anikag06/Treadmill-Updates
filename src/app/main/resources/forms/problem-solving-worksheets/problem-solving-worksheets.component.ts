@@ -7,9 +7,9 @@ import { NgForm } from '@angular/forms';
 import { AuthService } from '@/shared/auth/auth.service';
 import { User } from '@/shared/user.model';
 import { GeneralErrorService } from '@/main/shared/general-error.service';
-import { PROBLEM_SOLVING} from '@/app.constants';
-import {UserTask} from '@/main/resources/forms/shared/tasks/user-task.model';
-import {CdkTextareaAutosize} from '@angular/cdk/text-field';
+import { PROBLEM_SOLVING } from '@/app.constants';
+import { UserTask } from '@/main/resources/forms/shared/tasks/user-task.model';
+import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { take } from 'rxjs/operators';
 import { ProblemFormComponent } from './problem-form/problem-form.component';
 import { SolutionsComponent } from './solutions/solutions.component';
@@ -35,9 +35,9 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
 
   @ViewChild('solutionForm', { static: false }) solutionForm!: NgForm;
   @ViewChild('solutionTextArea', { static: false }) solutionTextArea!: ElementRef;
-  @ViewChild('autosize', {static: false}) autosize!: CdkTextareaAutosize;
-  @ViewChild(ProblemFormComponent, {static: false}) problemStatementForm!: ProblemFormComponent;
-  @ViewChild(SolutionsComponent, {static: false}) solutionsForm!: SolutionsComponent;
+  @ViewChild('autosize', { static: false }) autosize!: CdkTextareaAutosize;
+  @ViewChild(ProblemFormComponent, { static: false }) problemStatementForm!: ProblemFormComponent;
+  @ViewChild(SolutionsComponent, { static: false }) solutionsForm!: SolutionsComponent;
   constructor(
     private problemService: ProblemSolvingWorksheetsService,
     private authService: AuthService,
@@ -76,15 +76,15 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
     this.problemService.getSolutions(this.problem.id)
       .subscribe(
         (data: any) => {
-                  this.solutions = data.message;
-                  if (this.problem.bestsolution) {
-                    const bestSolution = this.solutions.find(sol => sol.id === this.problem.bestsolution.solution_id);
-                      if (bestSolution) {
-                        this.bestSolution = bestSolution;
-                        this.prosconsSaved = true;
-                      }
-                  }
-                },
+          this.solutions = data.message;
+          if (this.problem.bestsolution) {
+            const bestSolution = this.solutions.find(sol => sol.id === this.problem.bestsolution.solution_id);
+            if (bestSolution) {
+              this.bestSolution = bestSolution;
+              this.prosconsSaved = true;
+            }
+          }
+        },
         this.errorService.errorResponse('Something went wrong')
       );
   }
@@ -108,7 +108,7 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
     if (this.bestSolution) {
       this.problemService.putBestSolution(this.bestSolution.id, this.problem.id)
         .subscribe(
-          () => {},
+          () => { },
           this.errorService.errorResponse('Cannot select the best solution')
         );
     }
@@ -140,7 +140,7 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   }
 
   onEditSolutionClick() {
-    if ( this.solutionTextArea ) {
+    if (this.solutionTextArea) {
       this.solutionTextArea.nativeElement.focus();
     } else {
       this.solutionsForm.onEditTextClicked();
@@ -157,7 +157,7 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   onSolutionEdit(solution: Solution) {
     this.problemService.putSolution(solution.id, solution.solution)
       .subscribe(
-        (data: any) => {},
+        (data: any) => { },
         this.errorService.errorResponse('Something went wrong')
       );
   }

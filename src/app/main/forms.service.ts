@@ -6,8 +6,9 @@ import { Injectable } from '@angular/core';
 export class FormsService {
 
   forms = [
-    { name: 'Problem Solving', slug: 'problem-solving',  path: '/resources/forms/problem-solving', banner: 'assets/forms/form.svg' },
-    { name: 'Tasks', slug: 'tasks',  path: '/resources/forms/tasks', banner: 'assets/forms/form.svg' }
+    { name: 'Problem Solving', slug: 'problem-solving', path: '/resources/forms/problem-solving', banner: 'assets/forms/form.svg' },
+    { name: 'Tasks', slug: 'tasks', path: '/resources/forms/tasks', banner: 'assets/forms/form.svg' },
+    { name: 'Thought Record', slug: 'thought-record', path: '/resources/forms/thought-record', banner: 'assets/forms/form.svg' }
   ];
 
   constructor() { }
