@@ -137,7 +137,7 @@ export class ICDGameUserData {
         }
 }
 
-export class ICDGameUserAnswer {
+export class ICDGameUserAnswerData {
     constructor(
         public situation_distortion_map_id: number,
         public situation_displayed_at: any,

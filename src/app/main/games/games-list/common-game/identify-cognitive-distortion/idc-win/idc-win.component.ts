@@ -17,7 +17,7 @@ export class IdcWinComponent implements OnInit {
     const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });
     this.elementRef.nativeElement.dispatchEvent(domEvent);
     this.gameService.serviceCall();
-    this.gameService.optionStatus === 'incorrect';
+    this.gameService.optionStatusCount = 0;
 
   }
 

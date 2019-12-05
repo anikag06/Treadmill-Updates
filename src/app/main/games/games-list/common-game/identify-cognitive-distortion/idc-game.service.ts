@@ -2,10 +2,10 @@ import { Injectable,EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from 'environments/environment';
-import { IDC_SITUATION_DATA, IDC_USER_DATA } from '@/app.constants';
+import { IDC_SITUATION_DATA, IDC_USER_DATA, IDC_USER_ANSWER_DATA } from '@/app.constants';
 import { BadgesInfo } from '@/main/games/shared/game-badges.model';
 import { GamesBadgesService } from '@/main/games/shared/games-badges.service';
-import { ICDGameUserData } from '@/main/games/shared/game-play.model';
+import { ICDGameUserData, ICDGameUserAnswerData } from '@/main/games/shared/game-play.model';
 
 @Injectable({
   providedIn: 'root'
@@ -21,12 +21,15 @@ export class IdcGameService {
   game! : any;
   questionId = 1;
   optionStatus = "";
+  optionStatusCount = 0;
   optionSelected="";
   optionMessage="";
   score!: number;
   correctOptionsLength!: number;
   correctOptionFound=-1;
   userData = new ICDGameUserData(0,0,0);
+  userAnswerData = new ICDGameUserAnswerData(0,0,0);
+
 
   level = new BehaviorSubject(0);
 
@@ -40,6 +43,9 @@ export class IdcGameService {
   optionFour = new BehaviorSubject({id: -1, distortion: "distortion", message: "message"});
   optionFive = new BehaviorSubject({id: -1, distortion: "distortion", message: "message"});   
   optionSix = new BehaviorSubject({id: -1, distortion: "distortion", message: "message"});
+
+  time!: any;
+  situation_displayed_at!: any;
 
   BRONZE_CONSTANT!: any;
   SILVER_CONSTANT!: any;
@@ -79,6 +85,8 @@ export class IdcGameService {
 
 serviceCall()
 {
+  this.time = new Date();
+  this.situation_displayed_at = this.time.toJSON();
   this.level.next(this.game.results[this.questionId-1].order);
   this.title.next(this.game.results[this.questionId-1].title);
   this.nat.next(this.game.results[this.questionId-1].nat);
@@ -182,8 +190,10 @@ serviceCall()
     this.userData.time = this.timeLeft;
     console.log('user data', this.userData);
     this.saveUserData(this.userData).subscribe();
+  }
 
-
+  saveUserAnswerData(data:any) {
+    return this.http.post(environment.API_ENDPOINT + IDC_USER_ANSWER_DATA, data);
   }
 
 }

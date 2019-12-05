@@ -29,12 +29,11 @@ export class IdentifyCognitiveDistortionComponent implements OnInit {
   }
 
   replayIDCGame() {
-    // 
+    this.gameService.getUserData();
+    this.gameService.optionStatus = '';
   }
 
   pauseIDCGame() {
-    console.log('stop timer',this.idcScoreComponent);
-
     this.idcScoreComponent.onPause();
   }
 

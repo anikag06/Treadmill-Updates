@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { IdcGameService } from '../idc-game.service';
 import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
 import { IdcPopupComponent } from '../idc-popup/idc-popup.component';
-import { ICDGameUserData } from '@/main/games/shared/game-play.model';
+import { ICDGameUserData, ICDGameUserAnswerData } from '@/main/games/shared/game-play.model';
 
 @Component({
   selector: 'app-idc-options',
@@ -30,6 +30,14 @@ export class IdcOptionsComponent implements OnInit {
   optionSix!: any;
   optionSixDistortion!: any;
   optionStatus = '';
+  optionStatusCount = 0;
+  situation_distortion_map_id!: number;
+  situation_displayed_at!: any;
+  answered_at!: any;
+  time!: any;
+  userAnswerData = new ICDGameUserAnswerData(0,0,0);
+
+
 
 
   @ViewChild('checkElement', { static: false }) element!: ElementRef;
@@ -41,7 +49,9 @@ export class IdcOptionsComponent implements OnInit {
     this.optionsCall();
     this.gameService.levelUpdate.subscribe(() => {
       this.optionStatus = this.gameService.optionStatus;
-      console.log('option status', this.optionStatus);
+      this.optionStatusCount = this.gameService.optionStatusCount;
+
+      console.log('option status', this.optionStatusCount);
     });
 
   }
@@ -56,10 +66,18 @@ export class IdcOptionsComponent implements OnInit {
 
     this.gameService.optionSelected = item.distortion;
     this.gameService.optionMessage = item.message;
+    this.situation_distortion_map_id = item.id;
+    this.time = new Date();
+    this.answered_at = this.time.toJSON();
+    this.updateUserAnswerData();
+    this.storeUserData();
     this.correct.forEach((correctItem:any) => {
       if (correctItem.id === item.id) {
         this.gameService.selectedCorrectOptionsSet.add(item.id);
         this.gameService.optionStatus = "correct";
+        this.gameService.optionStatusCount += 1;
+        this.optionStatusCount = this.gameService.optionStatusCount;
+
         this.optionStatus = this.gameService.optionStatus;
         this.correctOptionFound = 1;
         this.gameService.score += 10;
@@ -116,9 +134,18 @@ export class IdcOptionsComponent implements OnInit {
     this.gameService.correct.subscribe((data) => {
       this.correct = data;
     });
+
   }
 
-  
+  updateUserAnswerData() {
+    this.userAnswerData.situation_distortion_map_id = this.situation_distortion_map_id ;
+    this.userAnswerData.situation_displayed_at = this.gameService.situation_displayed_at; 
+    this.userAnswerData.answered_at = this.answered_at;
+  }
 
+  storeUserData(){
+    this.gameService.saveUserAnswerData(this.userAnswerData).subscribe();
+    console.log('User Answer Data', this.userAnswerData);
+  }
 
 }

@@ -1,15 +1,14 @@
 <div class="options-heading">
-    <h4 class="identify">Identify the Thinking Errors({{correct.length}})</h4>
+    <h4 class="identify">Identify the thinking errors ({{correct.length}})</h4>
     </div>
-    <div class="row justify-content-center">
-        <div class="row border errorBar rounded ml-1 mr-1" style="height: 4px; width:90px;"
-          [ngClass]="{'errorsFound' : optionStatus === 'correct' || optionStatus === 'allcorrect'}" >
-          </div>
-          <div class="row border errorBar rounded ml-1 mr-1" style="height: 4px; width:90px;"
-          [ngClass]="{'errorsFound' : optionStatus === 'allcorrect'}">
-            </div>
-    </div>
-    
+ 
+     <div class="row justify-content-center" >
+        <div class=" border errorBar rounded ml-1 mr-1" style="height: 4px; width:90px;"
+          *ngFor= "let item of correct; index as i"
+          [ngClass]="{'errorsFound' : optionStatusCount === i+1 || optionStatusCount === i+2 || optionStatusCount === i+3}">
+        </div>
+       
+     </div>
     <div class="options-content" #checkElement>
       <div class="group-1 mr-1">
           <button (click)="onOptionClick(optionOne)" style="cursor: pointer;">
