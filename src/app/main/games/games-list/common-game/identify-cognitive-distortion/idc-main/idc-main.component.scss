@@ -1,3 +1,6 @@
+@import "styles.scss";
+@import "../../../../shared/games-common.scss";
+
 .main{
     position: relative;
     max-width: 360px;
@@ -6,8 +9,8 @@
     justify-content: center !important;
 }
 
-.info{
-    position: absolute;
-    bottom: 0;
-}
+// .info{
+//     position: absolute;
+//     bottom: 0;
+// }
 

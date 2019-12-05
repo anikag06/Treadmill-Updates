@@ -3,14 +3,6 @@
 
 @import "../../../shared/games-common.scss";
 
-// .home{
-//     // position: relative;
-//     max-width: 360px;
-//     height: 100%;
-//     /* width: 360px; */
-    
-//     background-color: white;
-// }
 
 .main{
     position: relative;
@@ -26,5 +18,16 @@
     text-align: center !important;
     padding-top: 200px;
 }
+
+.blurrContainer{
+    /* Add the blur effect */
+  filter: blur(0px);
+  -webkit-filter: blur(3px);
+}
+
+.info{
+       position: absolute;
+        bottom: 0;
+     }
 
 

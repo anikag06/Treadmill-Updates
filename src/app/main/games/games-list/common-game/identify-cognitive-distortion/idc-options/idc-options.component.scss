@@ -1,3 +1,7 @@
+@import "styles.scss";
+@import "games-styles.scss";
+
+@import "../../../../shared/games-common.scss";
 .identify {
     margin-top: 10px;
     font-size: 14px;
@@ -31,18 +35,18 @@
 }
  
 .errorBar {
-    background-color: #DFFDFF;
-    border: #DFFDFF;
+    background: #0C8C95 ;
+    opacity: 0.2;
+    height: 4px; 
+    width:90px;
 }
 
 .errorsFound {
     background-color: #0C8C95;
-    border: #0C8C95;
+    opacity: 1;
 }
-.errorsNotFound {
-    background-color: #DFFDFF;
-    border: #DFFDFF;
-}
+
+
 // .group-1{
 //     flex: 1;  
 // }
