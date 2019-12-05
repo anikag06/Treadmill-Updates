@@ -3,7 +3,7 @@
     </div>
  
      <div class="row justify-content-center" >
-        <div class=" border errorBar rounded ml-1 mr-1" style="height: 4px; width:90px;"
+        <div class="  errorBar rounded ml-1 mr-1" 
           *ngFor= "let item of correct; index as i"
           [ngClass]="{'errorsFound' : optionStatusCount === i+1 || optionStatusCount === i+2 || optionStatusCount === i+3}">
         </div>

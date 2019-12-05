@@ -70,7 +70,7 @@ export class IdcOptionsComponent implements OnInit {
     this.time = new Date();
     this.answered_at = this.time.toJSON();
     this.updateUserAnswerData();
-    this.storeUserData();
+    this.storeUserAnswerData();
     this.correct.forEach((correctItem:any) => {
       if (correctItem.id === item.id) {
         this.gameService.selectedCorrectOptionsSet.add(item.id);
@@ -94,13 +94,7 @@ export class IdcOptionsComponent implements OnInit {
       this.optionStatus = this.gameService.optionStatus;
       this.gameService. updateBadgesValue();
       this.gameService.levelFinish.emit();
-      // this.gameService.level += 1;
-      // this.updateUserData();
-      // this.gameService.saveUserData(this.userData).subscribe();
-      // if (this.gameService.last_completed_order === 4) {
-      //   this.gameService.getGameData();
-      // }
-
+      this.gameService.levelOrder += 1;
     }
     this.openCustomDialog();
     this.correctOptionFound = -1;
@@ -143,7 +137,7 @@ export class IdcOptionsComponent implements OnInit {
     this.userAnswerData.answered_at = this.answered_at;
   }
 
-  storeUserData(){
+  storeUserAnswerData(){
     this.gameService.saveUserAnswerData(this.userAnswerData).subscribe();
     console.log('User Answer Data', this.userAnswerData);
   }

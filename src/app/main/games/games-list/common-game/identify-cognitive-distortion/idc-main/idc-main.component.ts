@@ -10,9 +10,7 @@ import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service
 })
 export class IdcMainComponent implements OnInit {
 
-  @ViewChild('infoElement', { static: false }) element!: ElementRef;
-
-
+  
   constructor( private gameService:IdcGameService,
                private dialogBoxService: DialogBoxService) { }
 
@@ -20,13 +18,7 @@ export class IdcMainComponent implements OnInit {
   ngOnInit() {
     this.gameService.getGameData();
     this.gameService.initUserData();
-    console.log('Bronze main', this.gameService.BRONZE_CONSTANT);
   }
 
-  openInfoPopup() {
-    this.dialogBoxService.setDialogChild(IdcInfoComponent);
-    const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
-    this.element.nativeElement.dispatchEvent(domEvent);
-  }
-
+ 
 }

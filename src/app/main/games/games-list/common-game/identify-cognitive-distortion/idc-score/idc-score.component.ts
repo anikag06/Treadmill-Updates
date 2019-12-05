@@ -16,33 +16,29 @@ export class IdcScoreComponent implements OnInit {
   bronzeNumber: any;
   silverNumber: any;
   goldNumber: any;
-  
   interval!: any;
   difficultyValue!: number;
   numCorrectAnswers!: number;
   score!: number;
-  timeLeft! : number;
+  timeLeft!: number;
 
   @ViewChild('checkElement', { static: false }) element!: ElementRef;
 
   constructor(private gameService: IdcGameService,
-              private dialogBoxService: DialogBoxService) { }
+    private dialogBoxService: DialogBoxService) { }
 
 
   ngOnInit() {
-      this.gameService.levelFinish.subscribe( () => {
-          this.stopTimer();
-        });
-      this.gameService.levelUpdate.subscribe( () => {
-        this.score = this.gameService.score;
-        this.timeLeft = this.gameService.timeLeft;
-        this.difficultyValue = this.gameService.difficultyValue;
-        console.log("this.difficulty value", this.difficultyValue);
-
-        this.startTimer();
-        this.updateBadges();
-        
-      });
+    this.gameService.levelFinish.subscribe(() => {
+      this.stopTimer();
+    });
+    this.gameService.levelUpdate.subscribe(() => {
+      this.score = this.gameService.score;
+      this.timeLeft = this.gameService.timeLeft;
+      this.difficultyValue = this.gameService.difficultyValue;
+      this.startTimer();
+      this.updateBadges();
+    });
   }
 
   openCustomDialog() {
@@ -58,14 +54,13 @@ export class IdcScoreComponent implements OnInit {
 
   startTimer() {
     this.interval = setInterval(() => {
-        if (this.timeLeft > 0) {
-          this.timeLeft--;
-        } else {
-          this.openPopup();
-        }
-        console.log("set interval ",this.interval);
-      },1000);
-    }
+      if (this.timeLeft > 0) {
+        this.timeLeft--;
+      } else {
+        this.openPopup();
+      }
+    }, 1000);
+  }
 
   stopTimer() {
     clearInterval(this.interval);

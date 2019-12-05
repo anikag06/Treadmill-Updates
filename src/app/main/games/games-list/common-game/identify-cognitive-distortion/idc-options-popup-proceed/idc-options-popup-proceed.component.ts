@@ -3,6 +3,7 @@ import { IdcGameService } from '../idc-game.service';
 import { MatDialog } from '@angular/material/dialog';
 import { IdcWinComponent } from '../idc-win/idc-win.component';
 import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
+import { identifierModuleUrl } from '@angular/compiler';
 
 @Component({
   selector: 'app-idc-options-popup-proceed',
@@ -30,11 +31,16 @@ export class IdcOptionsPopupProceedComponent implements OnInit {
     const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });
     this.element.nativeElement.dispatchEvent(domEvent);
     if (this.gameService.optionStatus === "allcorrect") {
-      this.openWinPopup();
-      this.gameService.questionId++;
       this.gameService.updateDifficultyLevel();
-      console.log('time', this.gameService.timeLeft);
       this.gameService.updateUserData();
+      console.log('question id, level order', this.gameService.questionId, this.gameService.levelOrder);
+      if (this.gameService.levelOrder === 6) {
+        this.gameService.questionId = 1;
+        this.gameService.getGameData();
+      } else {
+        this.gameService.questionId++;
+      }
+      this.openWinPopup();
     }
   }
 
