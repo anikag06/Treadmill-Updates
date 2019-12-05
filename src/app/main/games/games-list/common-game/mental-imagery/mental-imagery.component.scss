@@ -1,67 +1,27 @@
 @import "styles.scss";
+@import "games-styles.scss";
+
 @import "../../../shared/games-common.scss";
-.title{
-  margin-top: 10vh;
-  font-size: 350%;
-  font-family: Helvetica, sans-serif;
-  font-weight: bold;
-  font-style: oblique;
-}
 
-
-#mi-game-div{
+#mi-game-div {
   height: 100%;
-  // width: 100%;
   max-width: 360px;
   display: flex;
-  justify-content:center !important;
-  // background-color: #45b9bc;
+  justify-content: center !important;
   padding-right: 0px !important;
   padding-left: 0px !important;
   background-image: url("../../../../../../assets/games/mental-imagery-game/Background with texture.png");
 
 }
+
 *:focus {
   outline: none;
 }
-// .game-start{
-//   height: 100%;
-//   display: flex;
-// 	// max-height: 640px;
-//   // max-width: 100%;
-//   max-width: 360px;
-//   background-image: url("../../../../../../assets/games/mental-imagery-game/Background with texture.png");
-//   // overflow: auto;
-// }
-.game-start-image{
+
+.game-start-image {
   margin-top: 10vh;
   width: 250px;
   height: 200px;
-  
-}
 
-.noteBook-border {
-  min-height: 100%; 
-  border-top: 1px solid black;
-  padding-top: 6px;
-  margin-top: 5vw;
-  position: relative;
-}
-    
-.noteBook-border:before{
-  content: '';
-  border-top: 1px solid black;
-  display: block;
-  width: 100%;
-}
-.noteBook-border::after {
-  content: '';
-  background-image: linear-gradient(to right,black,transparent,transparent,transparent,black); 
-  top: -4px;
-  bottom: -4px;
-  left: 5vw;
-  position: absolute;
-  width: 8px;
-  margin-top: -10vh;
 }
 

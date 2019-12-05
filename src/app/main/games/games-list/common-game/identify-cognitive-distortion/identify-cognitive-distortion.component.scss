@@ -1,0 +1,21 @@
+@import "styles.scss";
+@import "games-styles.scss";
+
+@import "../../../shared/games-common.scss";
+
+.home{
+    // position: relative;
+    max-width: 360px;
+    height: 100%;
+    /* width: 360px; */
+    
+    background-color: white;
+}
+
+.home-page{
+    padding-bottom: 0 !important;
+    text-align: center !important;
+    padding-top: 200px;
+}
+
+

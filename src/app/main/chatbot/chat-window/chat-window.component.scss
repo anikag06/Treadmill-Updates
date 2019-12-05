@@ -1,46 +1,78 @@
-@import url('https://fonts.googleapis.com/css?family=Comfortaa&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
 .chat-window {
-  border: 5px solid #f49080;
-  width: 320px;
+  width: 344px;
   margin-bottom: 5px;
   border-radius: 10px;
-  background-color: white;
+  border-radius: 10px 10px 0px 0px;
+  box-shadow: 0px -3px 8px #00000029;
+  font-family: "Roboto", sans-serif !important;
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  background-image:   url('assets/chatbot/Rectangle.png') ;
+  background-size: cover ;
   font-family: "Montserrat", sans-serif !important;
   .chat-header {
-    background-color: #f49080;
-    height: 37px;
+    height: 46px;
+    box-shadow: 0px 1px 3px #00000029;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border-radius: 10px 10px 0px 0px;
     h3 {
       float: left;
-      font-family: 'Comfortaa', cursive;
-      font-size: 1rem;
+      font-size: 20px;
       line-height: 2.3rem;
-      margin-left: 20px;
-      color: #ffffff;
+      margin-top: 2%;
+      margin-left: 12px;
+    }
+    .chatbot-screen-img{
+      float: left;
+      width: 37px;
+      height: 36px;
+      margin-top: 4px;
+      margin-left: 12px;
+    }
+    .close-icon{
+      margin-top: 7px;
+      margin-left: 12px;
+      outline: none;
     }
   }
   .chat-frame {
-    height: 55vh;
+    height: 60vh;
     overflow-y: scroll;
     overflow-x: hidden;
     width: 100%;
   }
-  form {
+  .mood-btn {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #000000;
+    border-radius: 20px;
+    text-align: left;
+    letter-spacing: 0;
+    color: #000000;
+    margin: auto ;
+    display:block;
+    outline: none;
+    margin-bottom: 10px;
+    margin-top: 5px;
+    padding: 5px 16px 5px 16px;
+    }
+  .form {
     height: 43px;
     width: 100%;
-    border-top: 3px solid #f49080;
+    bottom: 0;
+   
   }
   .message {
     max-width: 75%;
     margin: 5px 2px;
     float: right;
     .message-text {
-      background-color: #babfbd;
-      padding: 5px;
-      width: content-box;
-      border-radius: 6px;
+      padding: 10px 10px 10px 12px;
+      border-radius: 6px 0px 0px 6px;
       font-size: 0.9em;
-      text-align: center;
+      text-align: right;
+      box-shadow: 0px 1px 3px #00000029;
+      background: #FFFFFF 0% 0% no-repeat padding-box;
     }
     .meta {
       text-align: center;
@@ -57,7 +89,11 @@
   }
   .bot {
     .message-text {
-      background-color: #ebf0ee;
+      background: #E9FAFF 0% 0% no-repeat padding-box;
+      box-shadow: 0px 1px 3px #00000029;
+      border-radius: 0px 10px 10px 0px;
+      padding: 10px 12px 10px 10px;
+      text-align: left;
     }
     .message-text.waiting {
       padding: 15px;
@@ -88,6 +124,7 @@
   .btn-div {
     float: right;
     width: 12%;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
     button {
       background-color: transparent;
       max-width: 100%;
@@ -118,20 +155,23 @@
   }
 }
 
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 576px ) {
   .chat-window {
     position: fixed;
+    width: -moz-available;          
+    width: -webkit-fill-available; 
+    width: fill-available;
     top: 1vh;
     left: 0;
-    width: 100%;
     margin: 0;
-    z-index: 200;
+    z-index: 99;
+    margin: 4% 2% 0 2%;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    background-image:   url('assets/chatbot/Rectangle.png')  ;
+    background-size: cover;
+    box-shadow: 0px -3px 8px #00000029;
     .chat-frame {
-      border-bottom: 3px solid #f49080;;
-      height: 73vh;
-    }
-    .buttons {
-      min-width: 45%;
+      height: 75vh;
     }
   }
 }
@@ -139,17 +179,9 @@
 @media screen and (max-height: 500px) {
   .chat-window {
     .chat-frame {
-      border-bottom: 3px solid #f49080;;
-      height: 55vh;
+      height: 60vh;
     }
   }
-}
-
-::ng-deep img.emoji {
-  height: 1.1em;
-  width: 1.1em;
-  margin: 0 .05em 0 .1em;
-  vertical-align: -0.1em;
 }
 
 /**
@@ -243,4 +275,3 @@ $x3: - $leftPos + $dotSpacing;
       $x3 0 0 0 $dotAfterColor;
   }
 }
-

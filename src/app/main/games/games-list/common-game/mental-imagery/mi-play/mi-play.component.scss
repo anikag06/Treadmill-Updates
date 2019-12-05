@@ -1,194 +1,188 @@
 @import "styles.scss";
+@import "games-styles.scss";
+
 @import "../../../../shared/games-common.scss";
+
 h1 {
-    
-    color: #C75252;
-    margin-left:15px;
-   
+
+  color: #C75252;
+  margin-left: 15px;
+
 }
 
 .problem-space {
-    min-height: 100px;
-    
+  min-height: 100px;
+
 }
-// .input-group-text {
-//     background-color: white;
-//     border-color: transparent;
-// }
+
 .form-control {
-    border: 0;
+  border: 0;
 }
+
 input.form-control:focus {
-    outline-color: transparent !important;
-    box-shadow: none;
+  outline-color: transparent !important;
+  box-shadow: none;
 }
+
 form {
-    border: 0;
-    max-width: 99% !important;
+  border: 0;
+  max-width: 99% !important;
 }
 
 *:focus {
-    outline: none;
+  outline: none;
 }
 
-.scoreLocation{
-    margin-top: 7vw;
-    // text-align: right;
-    font-weight: bold;
-    font-family: Roboto, sans-serif;
+.scoreLocation {
+  margin-top: 7vw;
+  font-weight: bold;
+  font-family: Roboto, sans-serif;
 }
 
-.navBar{
-    position: fixed;
-    top: 2vh;
-    left: 3vw;
-    width: 20vw;
-    height: 90vh; 
-    z-index: 100;
-    background-color: rgba(255, 255, 255, 0.8);
-    padding-top: 8vh;
+.navBar {
+  position: fixed;
+  top: 2vh;
+  left: 3vw;
+  width: 20vw;
+  height: 90vh;
+  z-index: 100;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding-top: 8vh;
 }
 
 .icons input[type='image'] {
-    display: block;
-    height: 50px;
-    width: 50px;
-    margin: 5vh 6vw;
+  display: block;
+  height: 50px;
+  width: 50px;
+  margin: 5vh 6vw;
 
 }
-#containerDiv{
-    // width: 75vw;
-    // min-height: 80vh;
-    height: 100%;
-    
-   }
+
+#containerDiv {
+  
+  height: 100%;
+
+}
+
 .topBar {
-    position: relative;
-    overflow: hidden;
-    // top:10vh;
-    // background-color: rgba(255, 255, 255, 0.89);
-    max-width:360px;
-    margin-left:-15px;
-    margin-right:0px;
+  position: relative;
+  overflow: hidden;
+  max-width: 360px;
+  margin-left: -15px;
+  margin-right: 0px;
 }
+
 .main {
-    margin-top: 1vh;
-    overflow-y: auto;
-    overflow-x:hidden;
-    height:70%;
-    font-weight: 300;
-    
+  margin-top: 1vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 70%;
+  font-weight: 300;
+
 }
 
 
-.buttonLocation{
-    position: absolute;
-    bottom: 5px;
-    right: 4px;
+
+.buttonLocation {
+  position: absolute;
+  bottom: 5px;
+  right: 4px;
 }
 
 .buttonLocation input[type='image'] {
-    display: block;
-    height: 40px;
-    width: 40px;
-}
-.barsDiv{
-    font-size:0.6em;
+  display: block;
+  height: 40px;
+  width: 40px;
 }
 
-.mat-progress-bar{
-    height: 3px;
+.barsDiv {
+  font-size: 0.6em;
 }
 
-.doneBtn{
-color:#C75252;
-float:right;
+.mat-progress-bar {
+  height: 3px;
 }
-    
-.mat-new{
-    background-color: #F17878 !important;
-    border-color: #F17878 !important;
-    color: #FFF;
-    
+
+.doneBtn {
+  color: #C75252;
+  float: right;
 }
+
+.mat-new {
+  background-color: #F17878 !important;
+  border-color: #F17878 !important;
+  color: #FFF;
+
+}
+
 
 
 /* For thinning the ScrollBar */
 /* width */
 ::-webkit-scrollbar {
-    width: 2px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1;
-  }
-  
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: #888;
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555;
-  }
+  width: 2px;
+}
 
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
 
-// .gameProgressBar{
-//     margin-left: 15px;
-// }
-// .btn-primary {
-//     background-color: #F17878;
-//     color:  white;
-//     border-color: #C75252;
-//     border-radius: 5px;
-// }
-// .btn-primary:active    {
-//     background-color: #F17878;
-//     color: #FFF;
-//     c
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+#dummyDiv {
+  padding-top: 55px;
+}
 
 
 // Small devices (landscape phones, 576px and up)
-@media (min-width: 576px) { 
-    .scoreLocation{
-        margin-top: -5vw;
-        text-align: right;
-        font-weight: bold;
-        font-family: Arial, Helvetica, sans-serif
-    }
- }
+@media (min-width: 576px) {
+  .scoreLocation {
+    margin-top: -5vw;
+    text-align: right;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif
+  }
+}
 
 // Large devices (desktops, 992px and up)
 @media (min-width: 992px) {
-    .scoreLocation{
-        margin-top: -2vw;
-        text-align: right;
-        font-weight: bold;
-        font-family: Arial, Helvetica, sans-serif
-    }
+  .scoreLocation {
+    margin-top: -2vw;
+    text-align: right;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif
+  }
 
-    .navBar{
-        left: 1vw;
-        width: 10vw;
-    }
+  .navBar {
+    left: 1vw;
+    width: 10vw;
+  }
 
-    // .topBar {
-        
-    //     top:20vh;
-    // }
+  // .topBar {
 
-    .icons input[type='image'] {
-        display: block;
-        height: 60px;
-        width: 60px;
-        margin: 4vh 3vw;
+  //     top:20vh;
+  // }
 
-    }
-    .buttonLocation input[type='image'] {
-        height: 50px;
-        width: 50px;
-    }
+  .icons input[type='image'] {
+    display: block;
+    height: 60px;
+    width: 60px;
+    margin: 4vh 3vw;
 
-  } 
+  }
+
+  .buttonLocation input[type='image'] {
+    height: 50px;
+    width: 50px;
+  }
+
+}

@@ -27,6 +27,7 @@ export const FRIENDLY_FACE_GAME = 'Friendly Face Game';
 export const LEARNED_HELPLESSNESS_GAME = 'Learned Helplessness Game';
 export const ATTRIBUTE_STYLE_GAME = 'Attribute Style Game';
 export const MENTAL_IMAGERY_GAME = 'Mental Imagery Game';
+export const IDENTIFY_COGNITIVE_DISTORTION = 'Identify Cognitive Distortion';
 
 // ibGame time
 export const IBG_LESS_TIME = 120;
@@ -107,6 +108,15 @@ export const LOCKED = 'LOCKED';
 export const UNLOCKED = 'UNLOCKED';
 export const ACTIVE = 'ACTIVE';
 export const COMPLETED = 'COMPLETED';
+
+// Mental Imagery Game (MIG) paths
+export const MIG_SITUATIONS_DATA = '/api/v1/games/mental-imagery/situations/';
+export const MIG_USER_DATA = '/api/v1/games/mental-imagery/user-data/';
+export const MIG_STORE_USER_DATA = '/api/v1/games/mental-imagery/store-user-data/';
+
+// Identify Cognitive Distortion Game(IDC) paths
+export  const IDC_SITUATION_DATA = '/api/v1/games/cognitive-distortion/icdgame-situation/';
+
 
 // flow and steps related paths
 export const FLOW_STEPS_DATA = '/api/v1/flow/flow/';

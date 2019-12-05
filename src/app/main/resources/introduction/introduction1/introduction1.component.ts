@@ -46,6 +46,7 @@ export class Introduction1Component implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.introductionDataSubscription.unsubscribe();
+    this.saveData();
   }
 
   saveData() {

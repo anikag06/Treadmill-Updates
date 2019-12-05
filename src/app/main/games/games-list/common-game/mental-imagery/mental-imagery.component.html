@@ -1,31 +1,7 @@
-<div class="container-fluid justify-content-center" id="mi-game-div" >
-
-    
-    <!-- <div class="game-start"> -->
-      <!-- <p class="scoreLocation">
-          SCORE: {{ user.currentPoints()}}
-      </p> -->
-  
-      <!-- <p class="title text-center" *ngIf="home"  >MENTAL IMAGERY</p> -->
-      <div *ngIf="home">
-         <img class="game-start-image ml-1" src="../../../../../../assets/games/mental-imagery-game/Game start screen.png">
-      </div>
-        <!-- <app-mi-home 
-            [showInstructionIcon]='showInstructionIcon' 
-            *ngIf="home" 
-            (startPlayingMIGame)="startPlayingMIGame($event)" 
-            (goToMIGameInstruction)="goToMIGameInstruction($event)"></app-mi-home> -->
-        <!-- <app-mi-instructions 
-            *ngIf="instructions" 
-            (goToMIGameHome)="goToMIGameHome($event)" 
-            (startPlayingMIGame)="startPlayingMIGame($event)"></app-mi-instructions> -->
-        <app-mi-play 
-            *ngIf="playing" 
-            (scoreUpdated)="onScoreUpdate($event)"></app-mi-play>
-        <!-- <app-navigation-bar *ngIf="navbar" (play)="onNavBarPlay($event)" (replay)="onNavBarReplay($event)"></app-navigation-bar> -->
-    
-    
-  <!-- </div> -->
+<div class="container-fluid justify-content-center" id="mi-game-div">
+  <div *ngIf="home">
+    <img class="game-start-image ml-1" src="../../../../../../assets/games/mental-imagery-game/Game start screen.png">
   </div>
+      <app-mi-play *ngIf="playing" (scoreUpdated)="onScoreUpdate($event)"></app-mi-play>
 
-
+</div>

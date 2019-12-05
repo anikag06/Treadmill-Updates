@@ -114,3 +114,14 @@ export class FFGamePerformance {
 
     }
 }
+
+export class MIGameUserData {
+    constructor(
+        public game_sentence_id: number,
+        public score: number,
+        public answer: string,
+        public answer_correct: boolean,
+        public start_time: any,
+        public end_time: any
+    ) {}
+}
