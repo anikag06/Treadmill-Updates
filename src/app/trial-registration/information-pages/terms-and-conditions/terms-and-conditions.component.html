@@ -1,189 +1,197 @@
-<div class="container-fluid">
-    <app-trial-pages-header></app-trial-pages-header>
-
-    <div class="row mx-1 mt-3">
-        <p class="largest-font"> Terms and Conditions  </p>
-    </div>
+<div *ngIf="showRegistrationContent else desktopMessage">
+    <div class="container-fluid">
+        <app-trial-pages-header></app-trial-pages-header>
     
-    <div class="row mx-1 mb-3  small-font less-opacity ">
-        <div class="col-12 mb-2">
-            This page puts forth the terms and conditions that concerns your use of TreadWill website and the content in it. 
-            In this page, 'I', 'we', 'us', 'our', or 'TreadWill' means the team at Indian Institute of Technology Kanpur that developed TreadWill. 
-        </div>
-        <div class="col-12 my-2">
-            By using TreadWill, you are agreeing to follow our terms of usage and privacy policy. If any of these conditions are unacceptable 
-            to you, please refrain from using TreadWill.
-        </div>
-        <div class="col-12 my-2">
-            We may change our Terms of use and Privacy policy for various reasons including, 
-            but not limited to, reflect change to our services, improve our privacy practice, and to comply with the relevant law. 
-            The changes shall be effective immediately upon posting on the TreadWill website unless otherwise stated on the website. 
-            You agree to review these Terms of Use periodically to make sure that you are aware of any changes. 
-            By continuing to use this website you accept the Terms of Use as they apply from time to time. 
-            As per the Information Technology (Intermediaries guidelines) 
-            Rules, 2011, you agree to follow the following strictly. 
-            You agree not to host, display, upload, modify, publish, transmit, update or share any information that:
-        </div>
-    </div>
-
-    <div class="row mx-1 my-2 w-100">
-        <div class="col-12 small-font">
-            <span class="s-medium"> As per the Information Technology (Intermediaries guidelines) Rules, 2011,</span>
-            <span class="less-opacity">
-                you agree to follow the following strictly. You agree not to host, display, upload, modify, publish, 
-                transmit, update or share any information that:
-            </span>
-        </div>
-        <div class="col-12 small-font less-opacity pl-4 my-2 w-100">
-                belongs to another person and to which the user does not have any right to; <br> <br> 
-                
-                is grossly harmful, harassing, blasphemous, defamatory, obscene, pornographic, paedophilic, libellous, invasive of 
-                another's privacy, hateful, or racially, ethnically objectionable, disparaging, relating 
-                or encouraging money laundering or gambling, or otherwise unlawful in any manner 
-                whatsoever;  <br> <br>
-                
-                harms minors in any way; <br> <br>
-                
-                infringes any patent, trademark, copyright or other proprietary rights; <br> <br>
-                
-                violates any law for the time being in force; <br> <br>
-                
-                deceives or misleads the addressee about the origin of such messages or communicates any information 
-                which is grossly offensive or menacing in nature; <br> <br>
-                
-                impersonates another person; <br> <br>
-                
-                contains software viruses or any other computer code, files or programs designed to interrupt, 
-                destroy or limit the functionality of any computer resource; <br> <br>
-                
-                threatens the unity, integrity, defence, security or sovereignty of India or other countries, friendly 
-                relations with foreign states, or public order or causes incitement to the 
-                commission of any cognizable offence or prevents investigation of any offence or is insulting any nation.
-        </div>
-
-        <div class="row mx-1 my-3 small-font">
-            <div class="col-12 s-medium">
-                <p> Not a substitute of medical advice </p>
-            </div>
-            <div class="col-12 less-opacity ">
-                <p>
-                    The information provided in TreadWill is for skill development purposes. 
-                    The information provided is expected to help users with depressive symptoms. 
-                    This information, however, should not be considered to be comprehensive treatment
-                    material or a substitute for professional medical advice.
-                </p>
-            </div>
-        </div>
-
-        <div class="row mx-1 my-3 small-font">
-            <div class="col-12 s-medium">
-                <p> Third party links </p>
-            </div>
-            <div class="col-12 less-opacity ">
-                <p>
-                    TreadWill may contain link to other sites. Those links are provided for your convenience. 
-                    TreadWill or its members, however, have no control over the content provided in those 
-                    links and don't accept any responsibility for the content or accuracy of information on 
-                    those sites, nor do we endorse any information, opinions, goods or services referred to 
-                    on them. We are not responsible or liable for any loss or damage arising from or in 
-                    connection with your use of any other site.
-                </p>
-            </div>
-        </div>
-
-        <div class="row mx-1 my-3 small-font">
-            <div class="col-12 s-medium">
-                <p> Limitations of liability </p>
-            </div>
-            <div class="col-12 less-opacity ">
-                <p>
-                    The website and its content are provided entirely "AS IS". To the fullest extent permitted
-                    by law, TreadWill disclaims all warranties, either express or implied, statutory or 
-                    otherwise, including but not limited to, the implied warranties of merchantability, 
-                    non-infringement of third parties' rights, and fitness for particular purpose.  <br> <br>
-                    
-                    In no event shall TreadWill be liable for any damages (including, without limitation, 
-                    incidental, special, consequential or punitive damages, personal injury/wrongful 
-                    death, lost profits, or damages resulting from lost data or business interruption) resulting 
-                    from the use of or inability to use the website or the content, whether based on warranty, 
-                    contract, tort, or any other legal theory, and whether or not TreadWill is advised of the possibility of such damages.
-                </p>
-            </div>
-        </div>
-
-        <div class="row mx-1 my-3 small-font">
-            <div class="col-12 s-medium">
-                <p> Intellectual property rights </p>
-            </div>
-            <div class="col-12 less-opacity ">
-                <p>
-                    TreadWill contains a range of content such as videos, slides, quizzes, images, logos,
-                    textual material, and description of services. Unless otherwise stated, TreadWill 
-                    owns the copyright and other intellectual property rights in the content of this website
-                    or has the right to use it in this context. <br> <br>
-                    
-                    You are free to browse the content for personal uses only. 
-                    For any other usage, you will need our prior written permission. <br> <br>
-                      
-                    Consequences of breach of Terms of Use   <br> <br>
-                    
-                    If you do not comply with these Terms of Use, we reserve the right to: <br>
-                    immediately suspend or terminate all or any part of your access to TreadWill; or <br>
-                    temporarily or permanently remove your data relating to the TreadWill website.  <br>
-                </p>
-            </div>
-        </div>
-
-        <div class="row mx-1 my-3 small-font">
-            <div class="col-12 s-medium">
-                <p> Privacy </p>
-            </div>
-            <div class="col-12 less-opacity">
-                Please visit this link to read our 
-                <a routerLink="{{privacyPolicyLink}}" > privacy policy </a>
-            </div>
-        </div>
-
-        <div class="row mx-1 my-3 small-font">
-            <div class="col-12 s-medium">
-                <p> Grievance officer </p>
-            </div>
-            <div class="col-12 less-opacity">
-                Name: Dr. Nitin Gupta <br>
-                Phone number: +91-512-2594385 <br> 
-                Email-address: nitin@treadwill.org <br> 
-                Postal address: Lab-14, BSBE, IIT Kanpur, Uttar Pradesh - 208016.
-            </div>
-        </div>
-
-        <div class="row mx-1 my-3 small-font">
-            <div class="col-12 s-medium">
-                <p> Governing law</p>
-            </div>
-            <div class="col-12 less-opacity">
-                This agreement shall be governed by the laws of India, 
-                and the courts of Kanpur shall have exclusive jurisdiction
-                with respect to any dispute arising hereunder.
-            </div>
-        </div>
-
-        <div class="row mx-1 my-3 m-medium">
-            Last updated: 5 December 2017
+        <div class="row mx-1 mt-3">
+            <p class="largest-font"> Terms and Conditions  </p>
         </div>
         
-    </div>
-
-
-    <div class="row my-4 py-3">
-        <div class="col-12 text-center">
-            <span class="small-font less-opacity"> For any question check 
-                <a routerLink="{{faqLink}}" > FAQ </a>  or 
-                <span (click)= "contactUsClicked()" class="contactUsLink"> Contact Us </span>  
-            </span>
+        <div class="row mx-1 mb-3  small-font less-opacity ">
+            <div class="col-12 mb-2">
+                This page puts forth the terms and conditions that concerns your use of TreadWill website and the content in it. 
+                In this page, 'I', 'we', 'us', 'our', or 'TreadWill' means the team at Indian Institute of Technology Kanpur that developed TreadWill. 
+            </div>
+            <div class="col-12 my-2">
+                By using TreadWill, you are agreeing to follow our terms of usage and privacy policy. If any of these conditions are unacceptable 
+                to you, please refrain from using TreadWill.
+            </div>
+            <div class="col-12 my-2">
+                We may change our Terms of use and Privacy policy for various reasons including, 
+                but not limited to, reflect change to our services, improve our privacy practice, and to comply with the relevant law. 
+                The changes shall be effective immediately upon posting on the TreadWill website unless otherwise stated on the website. 
+                You agree to review these Terms of Use periodically to make sure that you are aware of any changes. 
+                By continuing to use this website you accept the Terms of Use as they apply from time to time. 
+                As per the Information Technology (Intermediaries guidelines) 
+                Rules, 2011, you agree to follow the following strictly. 
+                You agree not to host, display, upload, modify, publish, transmit, update or share any information that:
+            </div>
+        </div>
+    
+        <div class="row mx-1 my-2 w-100">
+            <div class="col-12 small-font">
+                <span class="s-medium"> As per the Information Technology (Intermediaries guidelines) Rules, 2011,</span>
+                <span class="less-opacity">
+                    you agree to follow the following strictly. You agree not to host, display, upload, modify, publish, 
+                    transmit, update or share any information that:
+                </span>
+            </div>
+            <div class="col-12 small-font less-opacity pl-4 my-2 w-100">
+                    belongs to another person and to which the user does not have any right to; <br> <br> 
+                    
+                    is grossly harmful, harassing, blasphemous, defamatory, obscene, pornographic, paedophilic, libellous, invasive of 
+                    another's privacy, hateful, or racially, ethnically objectionable, disparaging, relating 
+                    or encouraging money laundering or gambling, or otherwise unlawful in any manner 
+                    whatsoever;  <br> <br>
+                    
+                    harms minors in any way; <br> <br>
+                    
+                    infringes any patent, trademark, copyright or other proprietary rights; <br> <br>
+                    
+                    violates any law for the time being in force; <br> <br>
+                    
+                    deceives or misleads the addressee about the origin of such messages or communicates any information 
+                    which is grossly offensive or menacing in nature; <br> <br>
+                    
+                    impersonates another person; <br> <br>
+                    
+                    contains software viruses or any other computer code, files or programs designed to interrupt, 
+                    destroy or limit the functionality of any computer resource; <br> <br>
+                    
+                    threatens the unity, integrity, defence, security or sovereignty of India or other countries, friendly 
+                    relations with foreign states, or public order or causes incitement to the 
+                    commission of any cognizable offence or prevents investigation of any offence or is insulting any nation.
+            </div>
+    
+            <div class="row mx-1 my-3 small-font">
+                <div class="col-12 s-medium">
+                    <p> Not a substitute of medical advice </p>
+                </div>
+                <div class="col-12 less-opacity ">
+                    <p>
+                        The information provided in TreadWill is for skill development purposes. 
+                        The information provided is expected to help users with depressive symptoms. 
+                        This information, however, should not be considered to be comprehensive treatment
+                        material or a substitute for professional medical advice.
+                    </p>
+                </div>
+            </div>
+    
+            <div class="row mx-1 my-3 small-font">
+                <div class="col-12 s-medium">
+                    <p> Third party links </p>
+                </div>
+                <div class="col-12 less-opacity ">
+                    <p>
+                        TreadWill may contain link to other sites. Those links are provided for your convenience. 
+                        TreadWill or its members, however, have no control over the content provided in those 
+                        links and don't accept any responsibility for the content or accuracy of information on 
+                        those sites, nor do we endorse any information, opinions, goods or services referred to 
+                        on them. We are not responsible or liable for any loss or damage arising from or in 
+                        connection with your use of any other site.
+                    </p>
+                </div>
+            </div>
+    
+            <div class="row mx-1 my-3 small-font">
+                <div class="col-12 s-medium">
+                    <p> Limitations of liability </p>
+                </div>
+                <div class="col-12 less-opacity ">
+                    <p>
+                        The website and its content are provided entirely "AS IS". To the fullest extent permitted
+                        by law, TreadWill disclaims all warranties, either express or implied, statutory or 
+                        otherwise, including but not limited to, the implied warranties of merchantability, 
+                        non-infringement of third parties' rights, and fitness for particular purpose.  <br> <br>
+                        
+                        In no event shall TreadWill be liable for any damages (including, without limitation, 
+                        incidental, special, consequential or punitive damages, personal injury/wrongful 
+                        death, lost profits, or damages resulting from lost data or business interruption) resulting 
+                        from the use of or inability to use the website or the content, whether based on warranty, 
+                        contract, tort, or any other legal theory, and whether or not TreadWill is advised of the possibility of such damages.
+                    </p>
+                </div>
+            </div>
+    
+            <div class="row mx-1 my-3 small-font">
+                <div class="col-12 s-medium">
+                    <p> Intellectual property rights </p>
+                </div>
+                <div class="col-12 less-opacity ">
+                    <p>
+                        TreadWill contains a range of content such as videos, slides, quizzes, images, logos,
+                        textual material, and description of services. Unless otherwise stated, TreadWill 
+                        owns the copyright and other intellectual property rights in the content of this website
+                        or has the right to use it in this context. <br> <br>
+                        
+                        You are free to browse the content for personal uses only. 
+                        For any other usage, you will need our prior written permission. <br> <br>
+                            
+                        Consequences of breach of Terms of Use   <br> <br>
+                        
+                        If you do not comply with these Terms of Use, we reserve the right to: <br>
+                        immediately suspend or terminate all or any part of your access to TreadWill; or <br>
+                        temporarily or permanently remove your data relating to the TreadWill website.  <br>
+                    </p>
+                </div>
+            </div>
+    
+            <div class="row mx-1 my-3 small-font">
+                <div class="col-12 s-medium">
+                    <p> Privacy </p>
+                </div>
+                <div class="col-12 less-opacity">
+                    Please visit this link to read our 
+                    <a routerLink="{{privacyPolicyLink}}" > privacy policy </a>
+                </div>
+            </div>
+    
+            <div class="row mx-1 my-3 small-font">
+                <div class="col-12 s-medium">
+                    <p> Grievance officer </p>
+                </div>
+                <div class="col-12 less-opacity">
+                    Name: Dr. Nitin Gupta <br>
+                    Phone number: +91-512-2594385 <br> 
+                    Email-address: nitin@treadwill.org <br> 
+                    Postal address: Lab-14, BSBE, IIT Kanpur, Uttar Pradesh - 208016.
+                </div>
+            </div>
+    
+            <div class="row mx-1 my-3 small-font">
+                <div class="col-12 s-medium">
+                    <p> Governing law</p>
+                </div>
+                <div class="col-12 less-opacity">
+                    This agreement shall be governed by the laws of India, 
+                    and the courts of Kanpur shall have exclusive jurisdiction
+                    with respect to any dispute arising hereunder.
+                </div>
+            </div>
+    
+            <div class="row mx-1 my-3 m-medium">
+                Last updated: 5 December 2017
+            </div>
+            
+        </div>
+    
+    
+        <div class="row my-4 py-3">
+            <div class="col-12 text-center">
+                <span class="small-font less-opacity"> For any question check 
+                    <a routerLink="{{faqLink}}" > FAQ </a>  or 
+                    <span (click)= "contactUsClicked()" class="contactUsLink"> Contact Us </span>  
+                </span>
+            </div>
         </div>
     </div>
+    
+    <div class="row mt-3 mx-0">
+        <app-trial-pages-footer class="w-100"></app-trial-pages-footer>
+    </div>
 </div>
 
-<div class="row mt-3 mx-0">
-    <app-trial-pages-footer class="w-100"></app-trial-pages-footer>
-</div>
+<ng-template #desktopMessage>
+    <div>
+        Open this link on mobile only. Desktop support is not there.
+    </div>
+</ng-template>

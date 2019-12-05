@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TrialAuthService } from '../shared/trial-auth.service';
 import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-contact-us-dialog.service';
@@ -11,9 +11,16 @@ import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-co
 export class RegistrationStepOneComponent implements OnInit {
 
   @ViewChild('stepOneDiv', {static: false}) stepOneDiv!: ElementRef;
-  
+
   stepNo = 1;
-  faqLink = "../faqs";
+  faqLink = '../faqs';
+  touchDevice = false;
+  showRegistrationContent = false;
+
+  @HostListener('touchstart')
+  onTouchEvent() {
+    this.touchDevice = true;
+  }
 
   constructor(
     private route: ActivatedRoute,
@@ -23,6 +30,12 @@ export class RegistrationStepOneComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    const smallDevice = window.matchMedia('(max-width: 767px)').matches;
+    console.log(smallDevice);
+    console.log('touchDevice', this.touchDevice);
+    if (smallDevice) {
+      this.showRegistrationContent = true;
+    }
   }
 
   emailSubmit() {
@@ -37,6 +50,6 @@ export class RegistrationStepOneComponent implements OnInit {
 
   topJoinClicked() {
 
-    this.stepOneDiv.nativeElement.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
+    this.stepOneDiv.nativeElement.scrollIntoView({behavior: 'smooth', block: 'end', inline: 'nearest'});
   }
 }

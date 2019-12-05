@@ -8,15 +8,21 @@ import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-co
 })
 export class AboutUsPageComponent implements OnInit {
 
-  termsConditionsLink = "../terms-and-conditions";
-  privacyPolicyLink ="../privacy-policy";
-  faqLink = "../privacy-policy";
+  termsConditionsLink = '../terms-and-conditions';
+  privacyPolicyLink = '../privacy-policy';
+  faqLink = '../privacy-policy';
+  showRegistrationContent = false;
 
   constructor(
     private showContactUsService: MatContactUsDialogService,
   ) { }
 
   ngOnInit() {
+    const smallDevice = window.matchMedia('(max-width: 767px)').matches;
+    console.log(smallDevice);
+    if (smallDevice) {
+      this.showRegistrationContent = true;
+    }
   }
 
   contactUsClicked() {

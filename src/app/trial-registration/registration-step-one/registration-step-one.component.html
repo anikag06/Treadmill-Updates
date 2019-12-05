@@ -1,99 +1,115 @@
-<div class="container-fluid w-100 small-font" #stepOneDiv>
-    <app-trial-pages-header [stepNumber]="stepNo" (joinStudyClicked)="topJoinClicked()"></app-trial-pages-header>
-    <div class="row my-4 mx-1"  >
-        <div class="card text-left py-4 my-2">
-            <div class="card-title largest-font px-2">
-                <b> Are you feeling low, down, or depressed? </b>
+<div *ngIf="showRegistrationContent else desktopMessage">
+    <div class="container-fluid w-100 small-font" #stepOneDiv>
+        <app-trial-pages-header [stepNumber]="stepNo" (joinStudyClicked)="topJoinClicked()"></app-trial-pages-header>
+        <div class="row my-4 mx-1"  >
+            <div class="card text-left py-4 my-2">
+                <div class="card-title largest-font px-2">
+                    <b> Are you feeling low, down, or depressed? </b>
+                </div>
+                <img src="../../../assets/trial-registration/men_women_sad.png" 
+                    class="mx-auto" id="sad-img">
             </div>
-            <img src="../../../assets/trial-registration/men_women_sad.png" 
-                class="mx-auto" id="sad-img">
+            <p class="less-opacity"> 
+                TreadWill is a website designed to help individuals deal with stress, low mood, 
+                lethargy, and other depressive symptoms. We are conducting a study to see if 
+                TreadWill is effective in helping people deal with these symptoms.
+            </p>
+            
         </div>
-        <p class="less-opacity"> 
-            TreadWill is a website designed to help individuals deal with stress, low mood, 
-            lethargy, and other depressive symptoms. We are conducting a study to see if 
-            TreadWill is effective in helping people deal with these symptoms.
-        </p>
         
+        <div class="row mx-1 align-items-center">
+            <p class="l-medium"> Why you might want to join  </p>
+            <div class="row my-2">
+                <div class="col-6">
+                    <div class="card w-100 h-100 img-cards">
+                        <img src="../../../assets/trial-registration/learnSkills.png" 
+                            class="mx-auto my-auto " id="img-1">
+                    </div>
+                </div>
+                <div class="col-6 opacity-80 align-self-center">
+                    <span>
+                        Learn skills to deal with stressful situations.
+                    </span>
+                </div>
+            </div>
+            <div class="row my-2">
+                <div class="col-6 opacity-80 align-self-center">
+                    <span>
+                        Contribute to improving mental health care.
+                    </span>
+                </div>
+                <div class="col-6">
+                    <div class="card w-100 h-100 img-cards">
+                        <img src="../../../assets/trial-registration/Contribute.png" 
+                            class="mx-auto my-auto" id="img-2">
+                    </div>
+                </div>
+            </div>
+            <div class="row my-2">
+                <div class="col-6">
+                    <div class="card w-100 h-100 img-cards">
+                        <img src="../../../assets/trial-registration/Paticipatation.png" 
+                            class="my-auto mx-auto" id="img-3">
+                    </div>
+                </div>
+                <div class="col-6 opacity-80 align-self-center">
+                    <span>
+                        Participation is free, anonymous and does not require talking to anyone.
+                    </span>
+                </div>
+            </div>
+            <div class="row my-2">
+                <div class="col-6 opacity-80 align-self-center">
+                    <span>
+                        Requires just 15 minutes of daily learning over a period of six weeks,
+                        from the privacy of your room.
+                    </span>
+                </div>
+                <div class="col-6">
+                    <div class="card w-100 h-100 img-cards">
+                        <img src="../../../assets/trial-registration/Time.png" 
+                            class="my-auto mx-auto" id="img-4">
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="row my-5">
+            <div class="col-12 my-2">
+                <span class="l-medium"> Fill details</span>
+                <span class="float-right s-medium opacity-80"> Step 1 of 4</span>
+            </div>
+    
+            <div class="col-12 my-2">
+                <form class="w-100">
+                    <input type="email" class="form-control input-box form-elements" required 
+                        placeholder="Enter your email ID" aria-label="emailId" aria-describedby="basic-addon1">
+                    <div class="w-100 my-3">
+                        <button type="submit" class="w-100 form-elements" mat-raised-button 
+                            color="primary" (click)="emailSubmit()"> Join the Study </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    
+        <div class="row mt-4 mb-2">
+            <div class="col-12 text-center less-opacity">
+                <span> For any question check 
+                    <a routerLink="{{faqLink}}"> FAQ </a>  or 
+                    <span (click)= "contactUsClicked()" class="contactUsLink"> Contact Us </span>  
+                </span>
+            </div>
+        </div>
     </div>
     
-    <div class="row mx-1">
-        <p class="l-medium"> Why you might want to join : </p>
-        <div class="row my-2">
-            <div class="col-6">
-                <div class="card w-100 h-100 img-cards">
-                    <img src="../../../assets/trial-registration/learnSkills.png" 
-                        class="mx-auto my-auto " id="img-1">
-                </div>
-            </div>
-            <div class="col-6 opacity-80">
-                Learn skills to deal with stressful situations.
-            </div>
-        </div>
-        <div class="row my-2">
-            <div class="col-6 opacity-80">
-                Contribute to improving mental health care.
-            </div>
-            <div class="col-6">
-                <div class="card w-100 h-100 img-cards">
-                    <img src="../../../assets/trial-registration/Contribute.png" 
-                        class="mx-auto my-auto" id="img-2">
-                </div>
-            </div>
-        </div>
-        <div class="row my-2">
-            <div class="col-6">
-                <div class="card w-100 h-100 img-cards">
-                    <img src="../../../assets/trial-registration/Paticipatation.png" 
-                        class="my-auto mx-auto" id="img-3">
-                </div>
-            </div>
-            <div class="col-6 opacity-80">
-                Participation is free, anonymous and does not require talking to anyone.
-            </div>
-        </div>
-        <div class="row my-2">
-            <div class="col-6 opacity-80">
-                Requires just 15 minutes of daily learning over a period of six weeks,
-                from the privacy of your room.
-            </div>
-            <div class="col-6">
-                <div class="card w-100 h-100 img-cards">
-                    <img src="../../../assets/trial-registration/Time.png" 
-                        class="my-auto mx-auto" id="img-4">
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row my-5">
-        <div class="col-12 my-2">
-            <span class="l-medium"> Fill details</span>
-            <span class="float-right s-medium opacity-80"> Step 1 0f 4</span>
-        </div>
-
-        <div class="col-12 my-2">
-            <form class="w-100">
-                <input type="email" class="form-control input-box form-elements" required 
-                    placeholder="Enter your email ID" aria-label="emailId" aria-describedby="basic-addon1">
-                <div class="w-100 my-3">
-                    <button type="submit" class="w-100 form-elements" mat-raised-button 
-                        color="primary" (click)="emailSubmit()"> Join the Study </button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div class="row mt-4 mb-2">
-        <div class="col-12 text-center less-opacity">
-            <span> For any question check 
-                <a routerLink="{{faqLink}}"> FAQ </a>  or 
-                <span (click)= "contactUsClicked()" class="contactUsLink"> Contact Us </span>  
-            </span>
-        </div>
-    </div>
+    <div class="row mt-3 mx-0">
+        <app-trial-pages-footer class="w-100"></app-trial-pages-footer>
+    </div>    
 </div>
 
-<div class="row mt-3 mx-0">
-    <app-trial-pages-footer class="w-100"></app-trial-pages-footer>
-</div>
+<ng-template #desktopMessage>
+    <div>
+        Open this link on mobile only. Desktop support is not there.
+    </div>
+</ng-template>
 

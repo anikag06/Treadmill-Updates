@@ -11,7 +11,6 @@ import {
 } from '../games-list/common-game/interpretation-bias-game/ib-game-instructions/ib-game-instructions.component';
 import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
 import { MiInstructionsComponent } from '../games-list/common-game/mental-imagery/mi-instructions/mi-instructions.component';
-import { ExecControlInstructionsComponent } from '../games-list/common-game/executive-control-game/exec-control-instructions/exec-control-instructions.component';
 
 // for interpretation bias game
 declare var startIBGame: any;
@@ -190,10 +189,10 @@ export class GamePlayService  {
               this.ecGameSoundOn = isSoundOn;
               const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
               gamePauseDiv.nativeElement.dispatchEvent(domEvent);
-            } else if(!this.ecGameShowTutorial && !helpClicked) {
+            } else if (!this.ecGameShowTutorial && !helpClicked) {
               this.ecGameSoundOn = isSoundOn;
               this.startECGameFunc();
-            } else if(helpClicked) {
+            } else if (helpClicked) {
               this.ecGameShowTutorial = true;
             }
 
@@ -220,10 +219,11 @@ export class GamePlayService  {
       this.ecGameStarted = true;
   }
 
-  helpExecControlGame(isSoundOn: any, gamePauseDiv:any) {
+  helpExecControlGame(isSoundOn: any, gamePauseDiv: any) {
     this.ecGameSoundOn = isSoundOn;
     this.storeDataExecControlGame();
-    this.playExecControlGame(isSoundOn, gamePauseDiv, true);      // get new updated data on clicking help to start new game from the help dialog
+    // get new updated data on clicking help to start new game from the help dialog
+    this.playExecControlGame(isSoundOn, gamePauseDiv, true);
   }
   pauseExecControlGame() {
     pauseECGame();
@@ -540,7 +540,7 @@ export class GamePlayService  {
 
   // for mental imagery game
   playMentalImageryGame(gameDivElement: any) {
-    const domEvent =  new CustomEvent('overlayCalledEvent', {bubbles:true});
+    const domEvent =  new CustomEvent('overlayCalledEvent', {bubbles: true});
     gameDivElement.nativeElement.dispatchEvent(domEvent);
     this.helpMIGame();
 

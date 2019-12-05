@@ -1,136 +1,146 @@
-<div class="container-fluid">
-    <app-trial-pages-header></app-trial-pages-header>
-
-    <div class="row mx-1 my-3">
-        <p class="largest-font"> FAQs  </p>
-    </div>
-    <div class="row mx-1 my-3">
-        <mat-accordion>
-            <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                <mat-panel-title>
-                    About the study
-                </mat-panel-title>
-                </mat-expansion-panel-header>
-                <div class="py-3 lesser-opacity">
-                    TreadWill is a website designed to help individuals deal with stress, low mood, 
-                    lethargy, and other depressive symptoms. We are conducting this study to see if 
-                    TreadWill is effective in helping people deal with these symptoms. TreadWill is 
-                    based on an evidence-based therapeutic technique called Cognitive Behavioral Therapy (CBT).
-                </div>
-            </mat-expansion-panel>
-        </mat-accordion>
-    </div>
-
-    <div class="row mx-1 my-3">
-        <mat-accordion>
-            <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                <mat-panel-title>
-                    What is involved if I take part?
-                </mat-panel-title>
-                </mat-expansion-panel-header>
-                <div class="py-3 lesser-opacity">
-                    If you choose to participate, you will go through six modules over a period of 
-                    about six weeks. These modules will teach you different skills of CBT. You can 
-                    complete these modules at your own convenience from your room. Your mood will be 
-                    assessed at different stages to analyze the usefulness of the program. We will send 
-                    you an email 90 days after you complete the program to check the long-term 
-                    effectiveness of the program.
-                </div>
-            </mat-expansion-panel>
-        </mat-accordion>
-    </div>
-
-    <div class="row mx-1 my-3">
-        <mat-accordion>
-            <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                <mat-panel-title>
-                    Will my data be kept confidential?
-                </mat-panel-title>
-                </mat-expansion-panel-header>
-                <div class="py-3 lesser-opacity">
-                    Any information collected during your participation in the study will be kept confidential. 
-                    The data will remain anonymous and will not be traced back to you. However, if you pose 
-                    harm to yourself, to another person, or to the community, TreadWill reserves the right 
-                    to take steps as permitted by law to help prevent the potential harm from happening. 
-                    However, TreadWill or its members are not to be held responsible for any harm that 
-                    might befall on you during the course of your participation in the study.
-                </div>
-            </mat-expansion-panel>
-        </mat-accordion>
-    </div>
-
-    <div class="row mx-1 my-3">
-        <mat-accordion>
-            <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                <mat-panel-title>
-                    Why should I take part in the study?
-                </mat-panel-title>
-                </mat-expansion-panel-header>
-                <div class="py-3 lesser-opacity">
-                    If you are a person suffering from depressive symptoms, such as feeling low, 
-                    lack of pleasure in usual activities, you may find the contents of the site helpful. 
-                    If TreadWill benefits you, then it may help you overcome depressive symptoms, and 
-                    you may become more resilient against stressful events in the future. If TreadWill 
-                    does not benefit you directly, your participation will help us improve the program 
-                    so that it may become useful to you and the society. The results of the study are 
-                    likely to be published so that its findings are available to the scientific community 
-                    and the public; however, your confidential data will not be identified in any report or publication.
-                </div>
-            </mat-expansion-panel>
-        </mat-accordion>
+<div *ngIf="showRegistrationContent else desktopMessage">
+    <div class="container-fluid">
+        <app-trial-pages-header></app-trial-pages-header>
+    
+        <div class="row mx-1 my-3">
+            <p class="largest-font"> FAQs  </p>
+        </div>
+        <div class="row mx-1 my-3">
+            <mat-accordion>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        About the study
+                    </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="py-3 lesser-opacity">
+                        TreadWill is a website designed to help individuals deal with stress, low mood, 
+                        lethargy, and other depressive symptoms. We are conducting this study to see if 
+                        TreadWill is effective in helping people deal with these symptoms. TreadWill is 
+                        based on an evidence-based therapeutic technique called Cognitive Behavioral Therapy (CBT).
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+    
+        <div class="row mx-1 my-3">
+            <mat-accordion>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        What is involved if I take part?
+                    </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="py-3 lesser-opacity">
+                        If you choose to participate, you will go through six modules over a period of 
+                        about six weeks. These modules will teach you different skills of CBT. You can 
+                        complete these modules at your own convenience from your room. Your mood will be 
+                        assessed at different stages to analyze the usefulness of the program. We will send 
+                        you an email 90 days after you complete the program to check the long-term 
+                        effectiveness of the program.
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+    
+        <div class="row mx-1 my-3">
+            <mat-accordion>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Will my data be kept confidential?
+                    </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="py-3 lesser-opacity">
+                        Any information collected during your participation in the study will be kept confidential. 
+                        The data will remain anonymous and will not be traced back to you. However, if you pose 
+                        harm to yourself, to another person, or to the community, TreadWill reserves the right 
+                        to take steps as permitted by law to help prevent the potential harm from happening. 
+                        However, TreadWill or its members are not to be held responsible for any harm that 
+                        might befall on you during the course of your participation in the study.
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+    
+        <div class="row mx-1 my-3">
+            <mat-accordion>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Why should I take part in the study?
+                    </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="py-3 lesser-opacity">
+                        If you are a person suffering from depressive symptoms, such as feeling low, 
+                        lack of pleasure in usual activities, you may find the contents of the site helpful. 
+                        If TreadWill benefits you, then it may help you overcome depressive symptoms, and 
+                        you may become more resilient against stressful events in the future. If TreadWill 
+                        does not benefit you directly, your participation will help us improve the program 
+                        so that it may become useful to you and the society. The results of the study are 
+                        likely to be published so that its findings are available to the scientific community 
+                        and the public; however, your confidential data will not be identified in any report or publication.
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+        
+        <div class="row mx-1 my-3">
+            <mat-accordion>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        What will happen after the study ends?
+                    </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="py-3 lesser-opacity">
+                        You will still have access to your account and all the features of the site. You can continue using the program after the study ends.
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+        <div class="row mx-1 my-3">
+            <mat-accordion>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Who has reviewed the study?
+                    </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="py-3 lesser-opacity">
+                        The proposal has been reviewed by Institute Ethics Committee of IIT Kanpur.
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+    
+        <div class="row mx-1 my-3">
+            <mat-accordion>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        What should I do if there are any problems?
+                    </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="py-3 lesser-opacity">
+                        If you have any problems or concerns regarding any aspect of the study, 
+                        please contact the research team (Email: treadwill.iitk@gmail.com) or the 
+                        Principal Investigator (Email: guptan@iitk.ac.in).
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
     </div>
     
-    <div class="row mx-1 my-3">
-        <mat-accordion>
-            <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                <mat-panel-title>
-                    What will happen after the study ends?
-                </mat-panel-title>
-                </mat-expansion-panel-header>
-                <div class="py-3 lesser-opacity">
-                    You will still have access to your account and all the features of the site. You can continue using the program after the study ends.
-                </div>
-            </mat-expansion-panel>
-        </mat-accordion>
+    <div class="row mt-5 mx-0 ">
+        <app-trial-pages-footer class="w-100"></app-trial-pages-footer>
     </div>
-    <div class="row mx-1 my-3">
-        <mat-accordion>
-            <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                <mat-panel-title>
-                    Who has reviewed the study?
-                </mat-panel-title>
-                </mat-expansion-panel-header>
-                <div class="py-3 lesser-opacity">
-                    The proposal has been reviewed by Institute Ethics Committee of IIT Kanpur.
-                </div>
-            </mat-expansion-panel>
-        </mat-accordion>
-    </div>
-
-    <div class="row mx-1 my-3">
-        <mat-accordion>
-            <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                <mat-panel-title>
-                    What should I do if there are any problems?
-                </mat-panel-title>
-                </mat-expansion-panel-header>
-                <div class="py-3 lesser-opacity">
-                    If you have any problems or concerns regarding any aspect of the study, 
-                    please contact the research team (Email: treadwill.iitk@gmail.com) or the 
-                    Principal Investigator (Email: guptan@iitk.ac.in).
-                </div>
-            </mat-expansion-panel>
-        </mat-accordion>
-    </div>
+            
 </div>
 
-<div class="row mt-5 mx-0 ">
-    <app-trial-pages-footer class="w-100"></app-trial-pages-footer>
-</div>
+
+<ng-template #desktopMessage>
+    <div>
+        Open this link on mobile only. Desktop support is not there.
+    </div>
+</ng-template>

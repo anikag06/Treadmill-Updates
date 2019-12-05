@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-trial-pages-header',
@@ -8,7 +9,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class TrialPagesHeaderComponent implements OnInit {
 
   @Output() joinStudyClicked: EventEmitter<any> = new EventEmitter();
-  
+
   @Input() stepNumber!: number;
 
   stepOne = false;
@@ -16,7 +17,9 @@ export class TrialPagesHeaderComponent implements OnInit {
   stepThree = false;
   stepFour = false;
 
-  constructor() { }
+  constructor(
+    private router: Router,
+  ) { }
 
   ngOnInit() {
     console.log('step number', this.stepNumber);
@@ -28,11 +31,15 @@ export class TrialPagesHeaderComponent implements OnInit {
       this.stepThree = true;
     } else if (this.stepNumber === 4) {
       this.stepFour = true;
-    } 
+    }
   }
 
   topJoinStudyClick() {
     this.joinStudyClicked.emit('');
+  }
+
+  onLogoClick() {
+    this.router.navigate(['trial/trial-registration']);
   }
 
 }
