@@ -1,10 +1,11 @@
-import { Injectable,EventEmitter } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable, EventEmitter } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from 'environments/environment';
-import { IDC_SITUATION_DATA } from '@/app.constants';
+import { IDC_SITUATION_DATA, IDC_USER_DATA, IDC_USER_ANSWER_DATA } from '@/app.constants';
 import { BadgesInfo } from '@/main/games/shared/game-badges.model';
 import { GamesBadgesService } from '@/main/games/shared/games-badges.service';
+import { ICDGameUserData, ICDGameUserAnswerData } from '@/main/games/shared/game-play.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,31 +13,41 @@ import { GamesBadgesService } from '@/main/games/shared/games-badges.service';
 export class IdcGameService {
 
   startPlayingIdc = new EventEmitter();
-  badgesUpdate  = new EventEmitter();
+  levelUpdate = new EventEmitter();
+  levelFinish = new EventEmitter();
+
   playing = false;
   selectedCorrectOptionsSet = new Set();
-  game! : any;
+  game!: any;
   questionId = 1;
-  optionStatus = "";
-  optionSelected="";
-  optionMessage="";
-  score = 500;
+  optionStatus!: string;
+  optionStatusCount = 0;
+  optionSelected!: string;
+  optionMessage!: string;
+  score!: number;
   correctOptionsLength!: number;
-  correctOptionFound=-1;
-  title = new BehaviorSubject("title");
-  nat = new BehaviorSubject("nat");
-  situation = new BehaviorSubject("situation");
-  correct = new BehaviorSubject(["options"]);
-  optionOne = new BehaviorSubject({id: -1, distortion: "distortion", message: "message"});
-  optionTwo = new BehaviorSubject({id: -1, distortion: "distortion", message: "message"});
-  optionThree = new BehaviorSubject({id: -1, distortion: "distortion", message: "message"});
-  optionFour = new BehaviorSubject({id: -1, distortion: "distortion", message: "message"});
-  optionFive = new BehaviorSubject({id: -1, distortion: "distortion", message: "message"});   
-  optionSix = new BehaviorSubject({id: -1, distortion: "distortion", message: "message"});
+  correctOptionFound = -1;
+  userData = new ICDGameUserData(0, 0, 0);
+  userAnswerData = new ICDGameUserAnswerData(0, 0, 0);
 
-  BRONZE_CONSTANT = 4;
-  SILVER_CONSTANT = 10;
-  GOLD_CONSTANT = 26;
+
+  level = new BehaviorSubject(0);
+  title = new BehaviorSubject('title');
+  nat = new BehaviorSubject('nat');
+  situation = new BehaviorSubject('situation');
+  correct = new BehaviorSubject(['options']);
+  optionOne = new BehaviorSubject({ id: -1, distortion: 'distortion', message: 'message' });
+  optionTwo = new BehaviorSubject({ id: -1, distortion: 'distortion', message: 'message' });
+  optionThree = new BehaviorSubject({ id: -1, distortion: 'distortion', message: 'message' });
+  optionFour = new BehaviorSubject({ id: -1, distortion: 'distortion', message: 'message' });
+  optionFive = new BehaviorSubject({ id: -1, distortion: 'distortion', message: 'message' });
+  optionSix = new BehaviorSubject({ id: -1, distortion: 'distortion', message: 'message' });
+
+  time!: any;
+  situation_displayed_at!: any;
+  BRONZE_CONSTANT!: any;
+  SILVER_CONSTANT!: any;
+  GOLD_CONSTANT!: any;
   bronzeValue!: any;
   silverValue!: any;
   goldValue!: any;
@@ -44,66 +55,75 @@ export class IdcGameService {
   silverNumber!: any;
   goldNumber!: any;
   showTutorial!: boolean;
-  numCorrectAnswers = 10;
+  nextCall = false;
+  numCorrectAnswers!: any;
   allBadgesInfo: BadgesInfo = new BadgesInfo(0, 0, 0, 0, 0, 0);
+  difficultyValue!: number;
+
+  maxTime = 120;
+  minTime = 30;
+  timeLeft!: number;
+  diffConst!: number;
+  timeActualLeft!: number;
+  timeAlloted!: number;
+  extraTimeTaken = false;
+  interval!: any;
+  levelOrder: any;
 
 
   constructor(private http: HttpClient,
-    private badgesService: GamesBadgesService,) {}
+    private badgesService: GamesBadgesService) {
+    // this.difficultyValue = 0.1 * 100;
+
+  }
 
 
-  // ngOnInit() {
-  //   this.updateBadgesValue();
-  //   this.badgesUpdate.emit();
-  // }
+  ngOnInit() {
+  }
 
 
-// REMOVE THIS ONCE THE CODE IS MERGED
- headers = new HttpHeaders({
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzUxMiJ9.eyJ1c2VyX2lkIjo3LCJ1c2VybmFtZSI6ImFya2EiLCJleHAiOjE1NzA2MTgwOTIsImVtYWlsIjoiYXJrYWdob3NoMDI0QGdtYWlsLmNvbSIsIm9yaWdfaWF0IjoxNTY4MDI2MDkyfQ.gw1w1hT-FLv0rsxQQPEiPkYMSn4eVopdOZ6xeX1eQjmRSjiveHyIoWbzSjqXDUiv826UjYJUxLrakCOVN2Tx593IuAxJL-LszqwKfmvPUbxzUykv3giC3mal2aeTB73e8sVdN4DA34tlPGFJk8zINDnm1mekF7sibMKsSuG7oczRmITw82UoVnx_dRECcbb7HGFxSwT8vbqHc4uR-jzcFSoWK4r0V-d9XBls11IH11AGnew4z1OajRlMLUBlq-a0bgJjWQDG92wtmKhCBxvtm2lpGQN6xYimhkvU3ufrtUrz2t6qrF-nfiIBU7A759NUtVDfJKuCdvLUQYj9ZPYK2EyK-Nl2Rx8OIrrQFLH828_O-myWEvjg1wey8pKISGmAeZqDObDiM8zGju00_Opfcx5c1WCt-sI-uK60yaVjwgoaHG6jb43d5g2iMHg1l7RW0MZ2u9ngLrmQxHLmlithVtgHQjn1QAxfYpofAeQGl5HdVCWLwjg7fpLAIt1oDalVoWL15qkU534KTUqCEvGNQNTfbImiKDcz5P693Qj-iH722dHVpEs6Z_ax05s1PJdAH4uTh0I2tcrbIu0VyHQ630JY31d97Dn0f_5A4SM0g1g_kvoNaunQndM_ILNGaEiZrdiXvy6UC4TKDCiFVEPVK73uvu8u_AmrCWkz92IABbo'
- });
-  options = {
-    headers: this.headers
- }
-//  this.http.post(URL, param, options)
-//     .subscribe(data => {
-//          console.log(data);
-//  });
-//REMOVE TILL HERE
+  serviceCall() {
+    console.log('question id', this.questionId);
 
-serviceCall()
-{
-  this.title.next(this.game.results[this.questionId-1].title);
-  this.nat.next(this.game.results[this.questionId-1].nat);
-  this.situation.next(this.game.results[this.questionId-1].situation);
-  this.correct.next(this.game.results[this.questionId-1].correct);
-  this.optionOne.next(this.game.results[this.questionId-1].options[0]);
-  this.optionTwo.next(this.game.results[this.questionId-1].options[1]);
-  this.optionThree.next(this.game.results[this.questionId-1].options[2]);
-  this.optionFour.next(this.game.results[this.questionId-1].options[3]);
-  this.optionFive.next(this.game.results[this.questionId-1].options[4]);  
-  this.optionSix.next(this.game.results[this.questionId-1].options[5]);
-}
+    this.time = new Date();
+    this.situation_displayed_at = this.time.toJSON();
+    this.level.next(this.game.results[this.questionId - 1].order);
+    this.title.next(this.game.results[this.questionId - 1].title);
+    this.nat.next(this.game.results[this.questionId - 1].nat);
+    this.situation.next(this.game.results[this.questionId - 1].situation);
+    this.correct.next(this.game.results[this.questionId - 1].correct);
+    this.optionOne.next(this.game.results[this.questionId - 1].options[0]);
+    this.optionTwo.next(this.game.results[this.questionId - 1].options[1]);
+    this.optionThree.next(this.game.results[this.questionId - 1].options[2]);
+    this.optionFour.next(this.game.results[this.questionId - 1].options[3]);
+    this.optionFive.next(this.game.results[this.questionId - 1].options[4]);
+    this.optionSix.next(this.game.results[this.questionId - 1].options[5]);
+    this.getUserData();
+    // this.initScoreComponentData();
+    this.updateBadgesValue();
+    this.setDifficultyFactor();
+    this.setDifficultyValue();
+    this.getLevel();
+  }
 
   getGameData() {
-    return this.http.get(environment.API_ENDPOINT  + IDC_SITUATION_DATA, this.options).subscribe((data) => 
-    {
+    return this.http.get(environment.API_ENDPOINT + IDC_SITUATION_DATA).subscribe((data) => {
       this.game = data;
       console.log("Game Data", this.game);
 
       this.serviceCall();
     });
   }
+
   startPlaying() {
-    console.log('start playing');
     this.playing = true;
     this.startPlayingIdc.emit();
   }
+
   updateBadgesValue() {
     this.allBadgesInfo = this.badgesService.getBadgesInfo(this.BRONZE_CONSTANT,
-                              this.SILVER_CONSTANT, this.GOLD_CONSTANT,
-                              this.numCorrectAnswers);
+      this.SILVER_CONSTANT, this.GOLD_CONSTANT,
+      this.numCorrectAnswers);
     this.bronzeNumber = this.allBadgesInfo.bronzeBadges;
     this.silverNumber = this.allBadgesInfo.silverBadges;
     this.goldNumber = this.allBadgesInfo.goldBadges;
@@ -111,5 +131,86 @@ serviceCall()
     this.bronzeValue = this.allBadgesInfo.bronzePercent;
     this.silverValue = this.allBadgesInfo.silverPercent;
     this.goldValue = this.allBadgesInfo.goldPercent;
+    console.log('bronze Badges details', this.bronzeValue);
   }
+
+  initUserData() {
+    this.fetchUserData().subscribe((data: any) => {
+      console.log('user data', data);
+      this.score = data.points;
+      this.numCorrectAnswers = data.no_of_correct_answers;
+      this.BRONZE_CONSTANT = data.BRONZE_CONSTANT;
+      this.SILVER_CONSTANT = data.SILVER_CONSTANT;
+      this.GOLD_CONSTANT = data.GOLD_CONSTANT;
+      this.showTutorial = data.show_tutorial;
+      this.timeLeft = data.time;
+      this.timeAlloted = data.time;
+      // this.levelUpdate.emit();
+    });
+  }
+
+  initScoreComponentData() {
+    this.updateBadgesValue();
+    this.setDifficultyFactor();
+    this.setDifficultyValue();
+    this.getLevel();
+  }
+
+  getUserData() {
+    this.fetchUserData().subscribe((data: any) => {
+      this.score = data.points;
+      this.timeLeft = data.time;
+      this.timeAlloted = data.time;
+
+      if (!this.nextCall) {
+        this.levelUpdate.emit();
+      }
+      this.nextCall = false;
+
+    });
+  }
+
+  updateDifficultyLevel() {
+    this.setDifficultyFactor();
+    if (this.timeActualLeft > Math.floor(0.8 * this.timeLeft)) {
+      this.timeLeft -= 20;
+      this.timeAlloted = this.timeLeft;
+    }
+  }
+
+  setDifficultyValue() {
+    this.difficultyValue = this.diffConst * 100;
+
+  }
+
+  setDifficultyFactor() {
+    this.diffConst = ((this.maxTime - this.timeAlloted) / (this.maxTime - this.minTime));
+  }
+
+  fetchUserData() {
+    return this.http.get(environment.API_ENDPOINT + IDC_USER_DATA);
+  }
+
+  saveUserData(data: any) {
+    return this.http.patch(environment.API_ENDPOINT + IDC_USER_DATA, data);
+  }
+
+  getLevel() {
+    this.level.subscribe((data) => {
+      this.levelOrder = data;
+    });
+  }
+
+  updateUserData() {
+    this.userData.last_completed_order = this.levelOrder;
+    this.userData.points = this.score;
+    this.userData.time = this.timeAlloted;
+    console.log('user data', this.userData);
+    this.saveUserData(this.userData).subscribe();
+  }
+
+  saveUserAnswerData(data: any) {
+    return this.http.post(environment.API_ENDPOINT + IDC_USER_ANSWER_DATA, data);
+  }
+
 }

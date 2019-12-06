@@ -1,0 +1,7 @@
+
+<app-questionnaire *ngIf="active" [fromFlow]="true" [stepId]="stepID" [fromTrialRegistration]="false"></app-questionnaire>
+
+
+<ng-container *ngIf="!active">
+    <h2>This is not available</h2>
+</ng-container>

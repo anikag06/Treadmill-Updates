@@ -234,6 +234,9 @@ export class CommonGameComponent implements OnInit {
     if (this.gameName === MENTAL_IMAGERY_GAME) {
       this.miGameComponent.pauseMIGame();
     }
+    if (this.gameName === IDENTIFY_COGNITIVE_DISTORTION) {
+      this.idcComponent.pauseIDCGame();
+    }
   }
 
   onResumeClick() {
@@ -258,6 +261,9 @@ export class CommonGameComponent implements OnInit {
     if (this.gameName === MENTAL_IMAGERY_GAME) {
       this.miGameComponent.resumeMIGame();
     }
+    if (this.gameName === IDENTIFY_COGNITIVE_DISTORTION) {
+      this.idcComponent.resumeIDCGame();
+    }
   }
 
   onRestartClick() {
@@ -279,6 +285,9 @@ export class CommonGameComponent implements OnInit {
     }
     if (this.gameName === MENTAL_IMAGERY_GAME) {
       this.miGameComponent.replayMIGame();
+    }
+    if (this.gameName === IDENTIFY_COGNITIVE_DISTORTION) {
+      this.idcComponent.replayIDCGame();
     }
   }
 

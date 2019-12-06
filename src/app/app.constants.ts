@@ -116,6 +116,8 @@ export const MIG_STORE_USER_DATA = '/api/v1/games/mental-imagery/store-user-data
 
 // Identify Cognitive Distortion Game(IDC) paths
 export  const IDC_SITUATION_DATA = '/api/v1/games/cognitive-distortion/icdgame-situation/';
+export  const IDC_USER_DATA = '/api/v1/games/cognitive-distortion/icdgame-user-data/';
+export  const IDC_USER_ANSWER_DATA = '/api/v1/games/cognitive-distortion/icdgame-user-answer/';
 
 
 // flow and steps related paths
