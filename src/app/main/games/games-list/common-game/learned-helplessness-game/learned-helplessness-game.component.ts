@@ -1,5 +1,6 @@
 import { Component, OnInit, HostListener, Output } from '@angular/core';
 import { GamePlayService } from '@/main/games/shared/game-play.service';
+import { LoadFilesService } from '@/main/games/shared/load-files.service';
 
 @Component({
   selector: 'app-learned-helplessness-game',
@@ -9,7 +10,8 @@ import { GamePlayService } from '@/main/games/shared/game-play.service';
 export class LearnedHelplessnessGameComponent implements OnInit {
 
   constructor(
-    private gamePlayService: GamePlayService
+    private gamePlayService: GamePlayService,
+    private loadFileService: LoadFilesService,
   ) { }
 
   @HostListener('window:CallLevelChangeStoreFun')
@@ -18,6 +20,16 @@ export class LearnedHelplessnessGameComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadFileService.loadExternalScript("./assets/games/learning-helplessness/js/unsolvable_puzzle_1.js").then(() => {}).catch(() => {});
+    this.loadFileService.loadExternalScript("./assets/games/learning-helplessness/js/unsolvable_puzzle_2.js").then(() => {}).catch(() => {});
+    this.loadFileService.loadExternalScript("./assets/games/learning-helplessness/js/unsolvable_puzzle_3.js").then(() => {}).catch(() => {});
+    this.loadFileService.loadExternalScript("./assets/games/learning-helplessness/js/color_reverse_game.js").then(() => {}).catch(() => {});
+    this.loadFileService.loadExternalStyles("./assets/games/learning-helplessness/css/color_reverse_game.css").then(() => {}).catch(() => {});
+    this.loadFileService.loadExternalStyles("./assets/games/learning-helplessness/css/unsolvable_puzzle_1.css").then(() => {}).catch(() => {});
+    this.loadFileService.loadExternalStyles("./assets/games/learning-helplessness/css/unsolvable_puzzle_1.css").then(() => {}).catch(() => {});
+    this.loadFileService.loadExternalStyles("./assets/games/learning-helplessness/css/unsolvable_puzzle_2.css").then(() => {}).catch(() => {});
+    this.loadFileService.loadExternalStyles("./assets/games/learning-helplessness/css/unsolvable_puzzle_3.css").then(() => {}).catch(() => {});
+
   }
 
   updateColorReverseGameData() {
