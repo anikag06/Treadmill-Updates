@@ -1,20 +1,23 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
 
 .chat-window {
+  position: fixed;
   width: 344px;
+  right: 50px;
+  bottom: 4vh;
   margin-bottom: 5px;
   border-radius: 10px;
   border-radius: 10px 10px 0px 0px;
   box-shadow: 0px -3px 8px #00000029;
   font-family: "Roboto", sans-serif !important;
-  background: #FFFFFF 0% 0% no-repeat padding-box;
-  background-image:   url('assets/chatbot/Rectangle.png') ;
-  background-size: cover ;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  background-image: url("assets/chatbot/Rectangle.png");
+  background-size: cover;
   font-family: "Montserrat", sans-serif !important;
   .chat-header {
     height: 46px;
     box-shadow: 0px 1px 3px #00000029;
-    background: #FFFFFF 0% 0% no-repeat padding-box;
+    background: #ffffff 0% 0% no-repeat padding-box;
     border-radius: 10px 10px 0px 0px;
     h3 {
       float: left;
@@ -23,44 +26,45 @@
       margin-top: 2%;
       margin-left: 12px;
     }
-    .chatbot-screen-img{
+    .chatbot-screen-img {
       float: left;
       width: 37px;
       height: 36px;
       margin-top: 4px;
       margin-left: 12px;
     }
-    .close-icon{
+    .close-icon {
       margin-top: 7px;
       margin-left: 12px;
       outline: none;
+      float: right;
     }
   }
   .chat-frame {
-    height: 60vh;
     overflow-y: scroll;
     overflow-x: hidden;
     width: 100%;
+    height: 45vh;
+    max-height: 550px;
   }
   .mood-btn {
-    background: #FFFFFF 0% 0% no-repeat padding-box;
+    background: #ffffff 0% 0% no-repeat padding-box;
     border: 1px solid #000000;
     border-radius: 20px;
     text-align: left;
     letter-spacing: 0;
     color: #000000;
-    margin: auto ;
-    display:block;
+    margin: auto;
+    display: block;
     outline: none;
     margin-bottom: 10px;
     margin-top: 5px;
     padding: 5px 16px 5px 16px;
-    }
+  }
   .form {
     height: 43px;
     width: 100%;
     bottom: 0;
-   
   }
   .message {
     max-width: 75%;
@@ -72,7 +76,7 @@
       font-size: 0.9em;
       text-align: right;
       box-shadow: 0px 1px 3px #00000029;
-      background: #FFFFFF 0% 0% no-repeat padding-box;
+      background: #ffffff 0% 0% no-repeat padding-box;
     }
     .meta {
       text-align: center;
@@ -89,7 +93,7 @@
   }
   .bot {
     .message-text {
-      background: #E9FAFF 0% 0% no-repeat padding-box;
+      background: #e9faff 0% 0% no-repeat padding-box;
       box-shadow: 0px 1px 3px #00000029;
       border-radius: 0px 10px 10px 0px;
       padding: 10px 12px 10px 10px;
@@ -124,12 +128,12 @@
   .btn-div {
     float: right;
     width: 12%;
-    background: #FFFFFF 0% 0% no-repeat padding-box;
+    background: #ffffff 0% 0% no-repeat padding-box;
     button {
       background-color: transparent;
       max-width: 100%;
       height: 100%;
-      padding:8px 5px;
+      padding: 8px 5px;
       line-height: 16px;
       box-shadow: none;
       border: none;
@@ -155,19 +159,20 @@
   }
 }
 
-@media screen and (max-width: 576px ) {
+@media screen and (max-width: 576px) {
   .chat-window {
     position: fixed;
-    width: -moz-available;          
-    width: -webkit-fill-available; 
+    width: -moz-available;
+    width: -webkit-fill-available;
     width: fill-available;
+    max-height: 90vh;
     top: 1vh;
     left: 0;
     margin: 0;
     z-index: 99;
     margin: 4% 2% 0 2%;
-    background: #FFFFFF 0% 0% no-repeat padding-box;
-    background-image:   url('assets/chatbot/Rectangle.png')  ;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    background-image: url("assets/chatbot/Rectangle.png");
     background-size: cover;
     box-shadow: 0px -3px 8px #00000029;
     .chat-frame {
@@ -183,7 +188,12 @@
     }
   }
 }
-
+@media screen and (min-width: 1024px) {
+.chat-frame{
+  height: 50vh;
+  max-height: 600px;
+}
+}
 /**
 * Chat Waiting section
 */
@@ -200,11 +210,11 @@ $dotAfterColor: #808080;
 $dotSpacing: $dotWidth + $dotWidth/2;
 
 $leftPos: -9999px;
-$x1: - $leftPos - $dotSpacing;
-$x2: - $leftPos;
-$x3: - $leftPos + $dotSpacing;
+$x1: -$leftPos - $dotSpacing;
+$x2: -$leftPos;
+$x3: -$leftPos + $dotSpacing;
 
-@mixin dot($width: $dotWidth, $height: $dotHeight, $radius: $dotRadius,$bgColor: $dotBgColor, $color: $dotColor ) {
+@mixin dot($width: $dotWidth, $height: $dotHeight, $radius: $dotRadius, $bgColor: $dotBgColor, $color: $dotColor) {
   width: $width;
   height: $height;
   border-radius: $radius;
@@ -218,60 +228,36 @@ $x3: - $leftPos + $dotSpacing;
 
   @include dot;
 
-  box-shadow:
-    $x1 0 0 0 $dotBeforeColor,
-    $x2 0 0 0 $dotColor,
-    $x3 0 0 0 $dotAfterColor;
+  box-shadow: $x1 0 0 0 $dotBeforeColor, $x2 0 0 0 $dotColor, $x3 0 0 0 $dotAfterColor;
   animation: dotTyping 1.2s infinite linear;
 }
 
 @keyframes dotTyping {
   0% {
-    box-shadow:
-      $x1 0 0 0 $dotBeforeColor,
-      $x2 0 0 0 $dotColor,
-      $x3 0 0 0 $dotAfterColor;
+    box-shadow: $x1 0 0 0 $dotBeforeColor, $x2 0 0 0 $dotColor, $x3 0 0 0 $dotAfterColor;
   }
 
   16.667% {
-    box-shadow:
-      $x1 -10px 0 0 $dotBeforeColor,
-      $x2 0 0 0 $dotColor,
-      $x3 0 0 0 $dotAfterColor;
+    box-shadow: $x1 -10px 0 0 $dotBeforeColor, $x2 0 0 0 $dotColor, $x3 0 0 0 $dotAfterColor;
   }
 
   33.333% {
-    box-shadow:
-      $x1 0 0 0 $dotBeforeColor,
-      $x2 0 0 0 $dotColor,
-      $x3 0 0 0 $dotAfterColor;
+    box-shadow: $x1 0 0 0 $dotBeforeColor, $x2 0 0 0 $dotColor, $x3 0 0 0 $dotAfterColor;
   }
 
   50% {
-    box-shadow:
-      $x1 0 0 0 $dotBeforeColor,
-      $x2 -10px 0 0 $dotColor,
-      $x3 0 0 0 $dotAfterColor;
+    box-shadow: $x1 0 0 0 $dotBeforeColor, $x2 -10px 0 0 $dotColor, $x3 0 0 0 $dotAfterColor;
   }
 
   66.667% {
-    box-shadow:
-      $x1 0 0 0 $dotBeforeColor,
-      $x2 0 0 0 $dotColor,
-      $x3 0 0 0 $dotAfterColor;
+    box-shadow: $x1 0 0 0 $dotBeforeColor, $x2 0 0 0 $dotColor, $x3 0 0 0 $dotAfterColor;
   }
 
   83.333% {
-    box-shadow:
-      $x1 0 0 0 $dotBeforeColor,
-      $x2 0 0 0 $dotColor,
-      $x3 -10px 0 0 $dotAfterColor;
+    box-shadow: $x1 0 0 0 $dotBeforeColor, $x2 0 0 0 $dotColor, $x3 -10px 0 0 $dotAfterColor;
   }
 
   100% {
-    box-shadow:
-      $x1 0 0 0 $dotBeforeColor,
-      $x2 0 0 0 $dotColor,
-      $x3 0 0 0 $dotAfterColor;
+    box-shadow: $x1 0 0 0 $dotBeforeColor, $x2 0 0 0 $dotColor, $x3 0 0 0 $dotAfterColor;
   }
 }

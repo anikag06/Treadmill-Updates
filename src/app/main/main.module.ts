@@ -128,6 +128,7 @@ import { UserProfileComponent } from './shared/user-profile/user-profile.compone
 import { UserProfileService } from './shared/user-profile/userProfile.service';
 import { BadgesComponent } from './shared/user-profile/badges/badges.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { ClickOutsideDirective } from './support-groups/post-list/post-item/click-outside.directive';
 
 @NgModule({
   declarations: [
@@ -203,6 +204,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     LhgScienceComponent,
     UserProfileComponent,
     BadgesComponent,
+    ClickOutsideDirective,
   ],
   imports: [
     CommonModule,

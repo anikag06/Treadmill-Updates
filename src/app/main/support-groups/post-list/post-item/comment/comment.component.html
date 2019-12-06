@@ -17,12 +17,15 @@
       </fieldset>
     </form>
   </div>
-  <div class="col-3 text-center" *ngIf="!editMode">
-    <img [src]="comment.user.avatar" alt="User avatar" width="50" height="60">
+  <div class="col-3 text-center" *ngIf="!editMode" click-outside (clickOutside)="onClickOutside($event)">
+      <div class="support-profile-card" *ngIf="showProfile">
+          <app-user-profile class="support-group" [userProfile]="userProfile" ></app-user-profile>
+        </div>
+    <img [src]="comment.user.avatar" alt="User avatar" width="50" height="60" (click)="onCommentShowProfile(comment.user.username)">
     <p class="text-muted user">{{comment.user.username}}</p>
   </div>
   <div class="col-9" *ngIf="!editMode">
-    <div class='body' [innerHTML]="commentBody | safeHtml" [ngClass]="{'body-inline': partialBody}"></div>
+    <div class='body' [innerHTML]="commentBody | safeHtml" [ngClass]="{'body-inline': partialBody}" [ngStyle]="{'word-break': 'break-word'}"></div>
     <span><a class='toggler' (click)='toggleToFullBody()' *ngIf="partialBody">show more</a></span>
     <p><span class="text-muted date">{{ comment.created_at |  date: 'medium' | timeAgo }}</span></p>
     <div class="row">

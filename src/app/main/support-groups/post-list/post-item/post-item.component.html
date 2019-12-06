@@ -16,10 +16,13 @@
     <span>Report Sucide</span>
   </button>
 </mat-menu>
-<div class="post-item">
-  <div class="row no-gutters">
+<div class="post-item" >
+  <div class="row no-gutters" click-outside (clickOutside)="onClickOutside($event)">
+      <div class="support-profile-card" *ngIf="showProfile">
+          <app-user-profile class="support-group" [userProfile]="userProfile" ></app-user-profile>
+        </div>
     <div class="col-2 text-center">
-      <img [src]="supportGroupItem.user.avatar" alt="User avatar" width="50" height="50" class='post-user-avatar'>
+      <img [src]="supportGroupItem.user.avatar" alt="User avatar" width="50" height="50" class='post-user-avatar' (click)="onShowProfile(supportGroupItem.user.username)">
       <p class='user-avatar-username text-muted'>{{supportGroupItem.user.username}}</p>
     </div>
     <div class="col-9">
@@ -45,9 +48,9 @@
   <div class="row no-gutters">
     <div class='col-12'>
       <div class="main-content">
-        <div #htmlDiv [innerHTML]="body | safeHtml"></div>
+        <div #htmlDiv [innerHTML]="body | safeHtml" [ngStyle]="{'word-break': 'break-word'}"></div>
         <span *ngIf="plainBodyLength() > minBodyLength && !newPost" class="text-right">
-          <a (click)="toggleShow()" *ngIf="!showFullContent" class="toggler">show more</a>
+          <a (click)="toggleShow()" *ngIf="!showFullContent" class="toggler" >show more</a>
         </span>
       </div>
     </div>

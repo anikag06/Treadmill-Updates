@@ -4,8 +4,9 @@
             <mat-icon>keyboard_arrow_left</mat-icon>
         </button>
         <div class="cover-item" *ngFor="let badge of badgeList">
-            <div class="badge-box " [ngStyle]="{'opacity': !badge.user_has_badge ? '0.3': '1'}"> <img
-                    class="badge-image img-responsive" src="assets/modules/badge.png" [alt]="badge.name"
+            <div class="badge-box " [ngStyle]="{'opacity': !badge.user_has_badge ? '0.3': '1'}">
+                <div *ngIf="badge.no_badges_earned > 0" class="badge-count"><mat-icon class="clear-icon">clear</mat-icon>{{badge.no_badges_earned}} </div> <img
+                    class="badge-image" src="assets/modules/badge.png" [alt]="badge.name"
                     [matTooltip]='badge.description' matTooltipPosition="above">
                 <div class="badge-name">{{badge.name}}</div>
             </div>

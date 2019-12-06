@@ -21,3 +21,49 @@
         }
     }
 }
+.support-profile-card {
+    z-index: 300;
+    position: absolute;
+    text-align: initial;
+    max-width: 500px;
+    margin-left: 120px;
+    max-height: 340px;
+    min-width: 490px;
+  }
+  @media screen and (min-width: 768px) and (max-width: 1199px) {
+    .support-profile-card {
+      max-height: 280px;
+      left: 30px;
+      max-width: 400px;
+      margin-left: 85px;
+      min-width: 390px;
+    }
+  }
+  
+  @media screen and (max-width: 767px) {
+    .support-profile-card {
+      max-width: 450px;
+      min-width: 440px;
+      left: 100px;
+      max-height: 261px;
+    }
+  }
+  
+  @media screen and (max-width: 566px) {
+    .comment {
+      margin-bottom: 10px;
+      border-radius: 8px;
+      img {
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+      }
+    }
+    .support-profile-card {
+      width: 98vw;
+      min-width: 310px;
+      margin-left: 0;
+      left: -45px;
+    }
+  }
+  

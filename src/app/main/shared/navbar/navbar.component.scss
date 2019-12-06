@@ -35,7 +35,13 @@
     min-height: 70vh !important;
 
 }
-
+ @media screen and (min-width: 768px) and (max-width: 1200px) {
+.app-navbar{
+    .all-icons{
+        padding-right: 0px;
+    }
+}
+ }
 // @media screen and (max-width: 992px) {
     // .app-navbar {
     //     height: 20px;

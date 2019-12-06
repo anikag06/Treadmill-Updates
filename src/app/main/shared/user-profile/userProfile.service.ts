@@ -16,8 +16,8 @@ export class UserProfileService {
     ) { }
 
 
-    getUserProfile(): Observable<UserProfile> {
-        return this.http.get<UserProfile>(environment.API_ENDPOINT + USER_PROFILE)
+    getUserProfile(userName: string): Observable<UserProfile> {
+        return this.http.get<UserProfile>(environment.API_ENDPOINT + USER_PROFILE + userName);
 
     }
 }

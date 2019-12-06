@@ -1,54 +1,88 @@
 .comment {
-    margin-bottom: 10px;
-    background-color: #f2f2f2;
-    padding: 10px;
-    border-radius: 12px;
+  margin-bottom: 10px;
+  background-color: #f2f2f2;
+  padding: 10px;
+  border-radius: 12px;
+  img {
+    border-radius: 50%;
+    width: 60px;
+  }
+  .user {
+    padding-top: 10px;
+  }
+  .date {
+    font-size: 13px;
+  }
+  .btn {
+    box-shadow: none;
     img {
-        border-radius: 50%;
-        width: 60px;
+      width: 35px;
+      height: 18px;
     }
-    .user {
-        padding-top: 10px;
-    }
-    .date {
-        font-size: 13px;
-    }
-    .btn {
-        box-shadow: none;
-        img {
-            width: 35px;
-            height: 18px;
-        }
-    }
-    p {
-        margin-bottom: 10px;
-    }
-    .btn-sm {
-        padding: 4px;
-    }
+  }
+  p {
+    margin-bottom: 10px;
+  }
+  .btn-sm {
+    padding: 4px;
+  }
 }
 
 a.toggler {
+  color: #1a77e2;
+  text-decoration: underline;
+  &:hover {
     color: #1a77e2;
     text-decoration: underline;
-    &:hover {
-        color: #1a77e2;
-        text-decoration: underline;
-    }
+  }
 }
 
 .body-inline {
-    display: inline;
+  display: inline;
+}
+
+.support-profile-card {
+  z-index: 300;
+  position: absolute;
+  text-align: initial;
+  max-width: 600px;
+  margin-left: 120px;
+  max-height: 340px;
+  min-width: 590px;
+}
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+  .support-profile-card {
+    max-height: 280px;
+    left: 30px;
+    max-width: 400px;
+    margin-left: 85px;
+    min-width: 390px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .support-profile-card {
+    max-width: 450px;
+    left: 100px;
+    min-width: 440px;
+    max-height: 261px;
+  }
 }
 
 @media screen and (max-width: 566px) {
-    .comment {
-        margin-bottom: 10px;
-        border-radius: 8px;
-        img {
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-        }
+  .comment {
+    margin-bottom: 10px;
+    border-radius: 8px;
+    img {
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
     }
+  }
+  .support-profile-card {
+    width: 98vw;
+    min-width: 315px;
+    margin-left: 0;
+    left: -7px;
+  }
 }

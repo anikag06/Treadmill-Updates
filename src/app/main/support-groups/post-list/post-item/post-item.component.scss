@@ -1,99 +1,140 @@
 @import "styles.scss";
 
 a.toggler {
-    text-decoration: underline;
-    color: #1a77e2;
-    cursor: pointer;
+  text-decoration: underline;
+  color: #1a77e2;
+  cursor: pointer;
 }
 a.toggler:hover {
-    text-decoration: underline;
-    color: #1a77e2;
-    cursor: pointer;
+  text-decoration: underline;
+  color: #1a77e2;
+  cursor: pointer;
 }
 
 .hide-content {
-    white-space: pre-wrap;
-    height: 80px;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  white-space: pre-wrap;
+  height: 80px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .post-item {
-    @include box-shadow-1-1-10-d6();
-    background-color: #ffffff;
-    border-radius: 8px;
-    border: 1px solid #dddddd;
-    padding: 20px 10px 10px 10px;
-    margin-bottom: 20px;
-    width: 100%;
+  @include box-shadow-1-1-10-d6();
+  background-color: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #dddddd;
+  padding: 20px 10px 10px 10px;
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 100%;
+  .main-header {
+    padding-left: 10px;
+  }
+  .main-content {
+    margin: 0 4%;
+  }
+  .support-profile-card {
+    z-index: 300;
+    position: absolute;
+  }
+  h2 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0px;
     max-width: 100%;
-    .main-header {
-        padding-left: 10px;
+    word-break: break-word;
+  }
+  .context-button {
+    height: 100%;
+    text-align: right;
+  }
+  .post-time {
+    font-size: 14px;
+  }
+  .tags {
+    margin-bottom: 20px;
+    span > a {
+      text-decoration: none;
+      padding: 5px;
+      font-size: 12px;
+      color: #7a7a7a;
+      border: #919191 solid 1px;
+      border-radius: 20px;
     }
-    .main-content {
-        margin: 0 4%;
-    }
-    h2 {
-        font-size: 1.3rem;
-        font-weight: 700;
-        margin-bottom: 0px;
-        max-width: 100%;
-    }
-    .context-button {
-        height: 100%;
-        text-align: right;
-    }
-    .post-time {
-        font-size: 14px;
-    }
-    .tags {
-        margin-bottom: 20px;
-        span > a {
-            text-decoration: none;
-            padding: 5px;
-            font-size: 12px;
-            color: #7a7a7a;
-            border: #919191  solid 1px;
-            border-radius: 20px;
-        }
-    }
-    button.btn {
-        cursor: pointer;
-        box-shadow: none;
-    }
-    .comments-row {
-        margin-top: 15px;
-    }
+  }
+  button.btn {
+    cursor: pointer;
+    box-shadow: none;
+  }
+  .comments-row {
+    margin-top: 15px;
+  }
 }
 .post-user-avatar {
-    border-radius: 50%;
-    width: 70px;
-    height: 70px;
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
 }
 .user-avatar-username {
-    padding-top: 5px;
+  padding-top: 5px;
 }
 
-@media screen and (max-width: 768px) {
-    .post-user-avatar {
-        border-radius: 50%;
-        width: 60px;
-        height: 60px;
+@media screen and (min-width: 1200px) {
+  .post-item {
+    .support-profile-card {
+      margin-left: 110px;
+      max-height: 340px;
+      max-width: 600px;
+      min-width: 590px;
     }
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+  .post-item {
+    .support-profile-card {
+      max-height: 280px;
+      left: 30px;
+      width: 75%;
+      max-width: 650px;
+      margin-left: 85px;
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .post-user-avatar {
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+  }
+  .post-item {
+    .support-profile-card {
+      max-width: 450px;
+      left: 100px;
+      max-height: 261px;
+    }
+  }
 }
 
 @media screen and (max-width: 566px) {
-    .post-user-avatar {
-        border-radius: 50%;
-        width: 45px;
-        height: 45px;
+  .post-user-avatar {
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+  }
+  .post-item {
+    border-radius: 8px;
+    font-size: 14px;
+    margin-bottom: 10px;
+    h2 {
+      font-size: 1.1rem;
+      
     }
-    .post-item {
-        border-radius: 8px;
-        font-size: 14px;
-        margin-bottom: 10px;
-        h2 {
-            font-size: 1.1rem;
-        }
+    .support-profile-card {
+      width: 100%;
+      margin-left: 0;
+      left: 10px;
     }
+  }
 }

@@ -11,8 +11,11 @@
       </div>
     </form>
   </div>
-  <div class="col-3 offset-1 user-section text-center" *ngIf="!editMode">
-    <img [src]="userNestedComment.user.avatar" alt="User avatar" width="45" height="45">
+  <div class="col-3 offset-1 user-section text-center" *ngIf="!editMode" click-outside (clickOutside)="onClickOutside($event)">
+      <div class="support-profile-card" *ngIf="showProfile">
+          <app-user-profile class="support-group" [userProfile]="userProfile" ></app-user-profile>
+        </div>
+    <img [src]="userNestedComment.user.avatar" alt="User avatar" width="45" height="45" (click)="onNestedCommentShowProfile(userNestedComment.user.username)">
     <p class="text-muted user">{{userNestedComment.user.username}}</p>
   </div>
   <div class="col-8" *ngIf="!editMode">

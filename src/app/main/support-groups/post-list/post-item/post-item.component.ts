@@ -28,7 +28,8 @@ import { SupportGroupsService } from '../../support-groups.service';
 import { ThumbsService } from '../../thumbs.service';
 import { GeneralErrorService } from '@/main/shared/general-error.service';
 import { HttpErrorResponse } from '@angular/common/http';
-
+import { UserProfile } from '../../../shared/user-profile/UserProfile.model';
+import { UserProfileService } from '../../../shared/user-profile/userProfile.service'
 
 @Component({
   selector: 'app-post-item',
@@ -45,7 +46,7 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
   @Output() deleteEvent = new EventEmitter<SupportGroupItem>();
   @Output() editEvent = new EventEmitter<SupportGroupItem>();
   @Output() tagClick = new EventEmitter<string>();
- 
+
   tags: Tag[] = [];                                                           // Holds all the tags
   user!: User;                                                                // Current User
   commentsPage = 1;                                                           // Holds the pagination for comments
@@ -61,7 +62,8 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
   thumbsUp = '';
   thumbsDown = '';
   commentNos = 1;
-
+  showProfile = false;
+  userProfile = new UserProfile('Name', '', 0, 0, 0, 0, [], [], []);
 
   editorConfig: AngularEditorConfig = {                                       // Angular Editor Config
     editable: true,
@@ -93,6 +95,7 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
     private thumbsService: ThumbsService,
     private errorService: GeneralErrorService,
     private changeDetector: ChangeDetectorRef,
+    private userProfileService: UserProfileService,
   ) { }
 
   /*
@@ -133,7 +136,7 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
       }
       try {
         this.changeDetector.detectChanges();
-      } catch (ViewDestroyedError) {}
+      } catch (ViewDestroyedError) { }
     });
   }
 
@@ -145,7 +148,7 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
       this.fetchComments();
       try {
         this.changeDetector.detectChanges();
-      } catch (ViewDestroyedError) {}
+      } catch (ViewDestroyedError) { }
     });
   }
 
@@ -328,7 +331,7 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
     this.comments = this.comments.filter(uc => uc.id !== userComment.id);
     try {
       this.changeDetector.detectChanges();
-    } catch (ViewDestroyedError) {}
+    } catch (ViewDestroyedError) { }
   }
 
   /**
@@ -376,5 +379,22 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
 
   onTagClick(tag: Tag) {
     this.tagClick.emit(tag.name);
+  }
+
+  onShowProfile(username: string) {
+    this.userProfileService.getUserProfile(username).subscribe(profile => {
+      this.userProfile = new UserProfile(profile.username, profile.user_avatar,
+        profile.score, profile.no_of_bronze_badges, profile.no_of_silver_badges,
+        profile.no_of_gold_badges, profile.badge_list_bronze,
+        profile.badge_list_silver, profile.badge_list_gold);
+    })
+    this.showProfile = !this.showProfile;
+ 
+  }
+
+  onClickOutside(event: Object) {
+    if (event && (<any> event)['value'] === true) {
+      this.showProfile = false;
+    }
   }
 }

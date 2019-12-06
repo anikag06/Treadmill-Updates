@@ -1,62 +1,27 @@
 .badge-image {
   height: 78px;
-  margin-top: 35px;
 }
-
+.clear-icon{
+ font-size: 10px;
+}
 .badge-box {
   width: 140px;
   text-align: center;
   display: inline-block;
+  margin-top: 10px;
+  .badge-count{
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    right: 20px;
+    text-align: end;
+    opacity: 0.6;
+  }
 }
 .badge-name {
   font-size: 15px;
-  margin-top: 30px;
+  margin-top: 20px;
 }
-
-@media screen and (max-width: 767px) {
-  .badge-box {
-    width: 90px;
-  }
-  .badge-image {
-    height: 55px;
-    margin-top: 30px;
-  }
-  .badge {
-    width: 110px;
-    text-align: center;
-  }
-
-  .badge-name {
-    font-size: 12px;
-    margin-top: 15px;
-  }
-
-  .left-arrow {
-    top: 60px;
-  }
-
-  .right-arrow {
-    top: 60px;
-  }
-}
-
-.cover-container {
-  width: 100%;
-  white-space: nowrap;
-  overflow-x: scroll;
-  overflow-y: hidden;
-}
-.cover-item {
-  position: relative;
-  display: inline-block;
-  margin: 8px 8px;
-  border-top-right-radius: 4px;
-  vertical-align: bottom;
-  background-position: top left;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
 .left-arrow {
   left: 0px;
   position: absolute;
@@ -87,3 +52,75 @@
 .cover-container {
   -ms-overflow-style: none;
 }
+
+@media screen and (min-width: 768px) and (max-width: 1200px){
+  .badge-box{
+    width: 120px;
+    .badge-count{
+      right:15px;
+    }
+  }
+  .badge-image {
+    height: 65px;
+  }
+  .cover-container {
+    min-height: 110px;
+  }
+  .badge-name{
+    margin-top: 10px;
+  }
+  .left-arrow {
+    top: 50px;
+  }
+  .right-arrow {
+    top: 50px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .badge-box {  
+    width: 90px;
+    .badge-count{
+      right:3px;
+    }
+  }
+  .badge-image {
+    height: 55px;
+  }
+  .badge {
+    width: 110px;
+    text-align: center;
+  }
+
+  .badge-name {
+    font-size: 12px;
+    margin-top: 15px;
+  }
+
+  .left-arrow {
+    top: 50px;
+  }
+
+  .right-arrow {
+    top: 50px;
+  }
+}
+
+.cover-container {
+  width: 100%;
+  white-space: nowrap;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  min-height: 130px;
+}
+.cover-item {
+  position: relative;
+  display: inline-block;
+  margin: 8px 8px;
+  border-top-right-radius: 4px;
+  vertical-align: bottom;
+  background-position: top left;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+

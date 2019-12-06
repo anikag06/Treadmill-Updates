@@ -34,7 +34,7 @@ declare var twemoji: any;
       })),
       state('closed', style({
        visibility:'hidden',
-       transform:'translateY(+100%)'
+       transform:'translateY(0%)'
 
       })),
       transition('open => closed', [
