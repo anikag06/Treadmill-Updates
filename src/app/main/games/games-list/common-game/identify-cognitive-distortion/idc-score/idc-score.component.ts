@@ -56,6 +56,7 @@ export class IdcScoreComponent implements OnInit {
     this.interval = setInterval(() => {
       if (this.timeLeft > 0) {
         this.timeLeft--;
+        console.log('time left', this.timeLeft);
       } else {
         this.openPopup();
       }

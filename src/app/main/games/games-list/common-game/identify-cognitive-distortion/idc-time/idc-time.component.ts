@@ -31,6 +31,7 @@ export class IdcTimeComponent implements OnInit {
     this.gameService.timeLeft = 20;
     this.gameService.score -= 20;
     this.gameService.levelUpdate.emit();
+    this.gameService.extraTimeTaken = true;
   }
 
 }

@@ -55,6 +55,7 @@ export class IdcGameService {
   silverNumber!: any;
   goldNumber!: any;
   showTutorial!: boolean;
+  nextCall = false;
   numCorrectAnswers!: any;
   allBadgesInfo: BadgesInfo = new BadgesInfo(0, 0, 0, 0, 0, 0);
   difficultyValue!: number;
@@ -64,6 +65,8 @@ export class IdcGameService {
   timeLeft!: number;
   diffConst!: number;
   timeActualLeft!: number;
+  timeAlloted!: number;
+  extraTimeTaken = false;
   interval!: any;
   levelOrder: any;
 
@@ -96,6 +99,11 @@ export class IdcGameService {
     this.optionFive.next(this.game.results[this.questionId - 1].options[4]);
     this.optionSix.next(this.game.results[this.questionId - 1].options[5]);
     this.getUserData();
+    // this.initScoreComponentData();
+    this.updateBadgesValue();
+    this.setDifficultyFactor();
+    this.setDifficultyValue();
+    this.getLevel();
   }
 
   getGameData() {
@@ -136,21 +144,28 @@ export class IdcGameService {
       this.GOLD_CONSTANT = data.GOLD_CONSTANT;
       this.showTutorial = data.show_tutorial;
       this.timeLeft = data.time;
-      this.updateBadgesValue();
-      this.setDifficultyFactor();
-      this.setDifficultyValue();
-      this.getLevel();
-      this.levelUpdate.emit();
+      this.timeAlloted = data.time;
+      // this.levelUpdate.emit();
     });
+  }
+
+  initScoreComponentData() {
+    this.updateBadgesValue();
+    this.setDifficultyFactor();
+    this.setDifficultyValue();
+    this.getLevel();
   }
 
   getUserData() {
     this.fetchUserData().subscribe((data: any) => {
       this.score = data.points;
       this.timeLeft = data.time;
-      // if (this.questionId != 1) {
+      this.timeAlloted = data.time;
+
+      if (!this.nextCall) {
         this.levelUpdate.emit();
-      // }
+      }
+      this.nextCall = false;
 
     });
   }
@@ -159,6 +174,7 @@ export class IdcGameService {
     this.setDifficultyFactor();
     if (this.timeActualLeft > Math.floor(0.8 * this.timeLeft)) {
       this.timeLeft -= 20;
+      this.timeAlloted = this.timeLeft;
     }
   }
 
@@ -168,7 +184,7 @@ export class IdcGameService {
   }
 
   setDifficultyFactor() {
-    this.diffConst = ((this.maxTime - this.timeLeft) / (this.maxTime - this.minTime));
+    this.diffConst = ((this.maxTime - this.timeAlloted) / (this.maxTime - this.minTime));
   }
 
   fetchUserData() {
@@ -188,7 +204,7 @@ export class IdcGameService {
   updateUserData() {
     this.userData.last_completed_order = this.levelOrder;
     this.userData.points = this.score;
-    this.userData.time = this.timeLeft;
+    this.userData.time = this.timeAlloted;
     console.log('user data', this.userData);
     this.saveUserData(this.userData).subscribe();
   }
