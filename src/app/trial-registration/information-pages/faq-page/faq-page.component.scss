@@ -1,0 +1,16 @@
+@import "../../shared/common-styles.scss";
+
+
+mat-expansion-panel-header {
+    background: #F5BB56 0% 0% no-repeat padding-box;
+}
+
+.mat-expansion-panel-header.mat-expanded:focus, .mat-expansion-panel-header.mat-expanded:hover {
+    background: #F5BB56 0% 0% no-repeat padding-box;
+}
+
+.mat-expansion-panel:not(.mat-expanded):not([aria-disabled=true]) .mat-expansion-panel-header:hover {
+
+    background: #F5BB56 0% 0% no-repeat padding-box;
+
+}

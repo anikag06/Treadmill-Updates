@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Quiz } from './input/quiz';
 import { Response } from './input/response';
 import { GadResponse } from './input/gad_response';
@@ -6,14 +6,15 @@ import { QuizService } from './questionnaire.service';
 import { environment } from 'environments/environment';
 
 // tslint:disable-next-line:max-line-length
-import { User } from '@/shared/user.model';
+// import { User } from '@/shared/user.model';
 import { trigger, transition, animate, style, state } from '@angular/animations';
 import { DataService } from './data.service';
 import { FlowService } from '@/main/flow/flow.service';
-import { StepGroup } from '@/main/flow/step-group/step-group.model';
-import { ACTIVE, QUESTIONNAIRE, } from '@/app.constants';
+// import { StepGroup } from '@/main/flow/step-group/step-group.model';
+// import { ACTIVE, QUESTIONNAIRE, } from '@/app.constants';
 import { Router } from '@angular/router';
-import { Step } from '@/main/flow/step-group/step/step.model';
+// import { Step } from '@/main/flow/step-group/step/step.model';
+import { TrialAuthService } from '@/trial-registration/shared/trial-auth.service';
 
 @Component({
   animations: [
@@ -53,6 +54,11 @@ import { Step } from '@/main/flow/step-group/step/step.model';
   styleUrls: ['./questionnaire.component.scss'],
 })
 export class QuestionnaireComponent implements OnInit {
+
+  @Input() fromFlow!: boolean;
+  @Input() fromTrialRegistration!: boolean;
+  @Input() stepId!: number;
+
   quiz: Quiz = new Quiz(null);
   question_no = 0;
   total_question!: number;
@@ -95,37 +101,21 @@ export class QuestionnaireComponent implements OnInit {
   isLag!: boolean;
   // Timeout for each button
   buttonTimeout = 0;
-  step!: Step;
-  // If questionnaire is active
-  active = false;
+  // step!: Step;
+  // If questionnaire is loading
   loading = true;
 
   // tslint:disable-next-line:max-line-length
-  constructor(private quizService: QuizService,
+  constructor(
+    private quizService: QuizService,
     private flowService: FlowService,
     private router: Router,
-    private dataService: DataService) { }
+    private dataService: DataService,
+    private trialAuthService: TrialAuthService,
+  ) { }
 
   ngOnInit() {
     this.loadQuiz();
-    this.flowService.getFlow()
-      .subscribe(
-        (data: any) => {
-          this.loading = false;
-          const step_group = data.step_groups.find((sg: StepGroup) => sg.status === ACTIVE);
-          if (step_group) {
-            this.step = step_group.steps.find(
-              (step: Step) => {
-                return step.virtual_step === false && step.status === ACTIVE && step.data_type === QUESTIONNAIRE;
-              });
-            if (this.step && this.step.status === ACTIVE) {
-              console.log(this.step);
-              this.quizService.questionnaireActive = true;
-              this.active = true;
-            }
-          }
-        }
-      );
   }
 
 
@@ -140,6 +130,7 @@ export class QuestionnaireComponent implements OnInit {
         this.back = false;
         this.routing = false;
         this.dataService.setOption(this.routing);
+        this.loading = false;
       });
   }
 
@@ -378,7 +369,12 @@ export class QuestionnaireComponent implements OnInit {
         response.user_response[i].answer = this.score[i];
         response.user_response[i].question = i + 1;
       }
-      this.quizService.post_phq(response);
+      if (this.fromFlow === true) {
+        this.quizService.post_phq(response);
+      } else if( this.fromFlow === false && this.fromTrialRegistration === true){
+        console.log('save data for phq from trial');
+      }
+      
     }
     if (this.time.length === 7) {
       console.log('gad');
@@ -388,12 +384,13 @@ export class QuestionnaireComponent implements OnInit {
         gad_response.user_response[i].question = i + 1;
       }
       this.quizService.questionnaireActive = false;
-      this.quizService.post_gad(gad_response)
+      if (this.fromFlow === true) {
+        this.quizService.post_gad(gad_response)
         .subscribe(
           (data: any) => {
             console.log(data);
             // TODO: Darshit needs to add timer service here
-            this.flowService.markDone(this.step.id, 1003)
+            this.flowService.markDone(this.stepId, 1003)
               .subscribe(
                 (resp: any) => {
                   console.log(data);
@@ -403,8 +400,14 @@ export class QuestionnaireComponent implements OnInit {
             this.router.navigate(['/']);
           }
         );
+      } else if( this.fromFlow === false && this.fromTrialRegistration === true) {
+        // move to step 4 in trial registration
+        // and save data when APIs made
+        console.log('save data for gad from trial');
+        this.trialAuthService.activateChild(true);
+        this.router.navigate(['trial/trial-registration/step-4'])
+      }
     }
-
   }
 
   reset() {
