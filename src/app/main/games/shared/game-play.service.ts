@@ -203,10 +203,10 @@ export class GamePlayService  {
               this.ecGameSoundOn = isSoundOn;
               const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
               gamePauseDiv.nativeElement.dispatchEvent(domEvent);
-            } else if(!this.ecGameShowTutorial && !helpClicked) {
+            } else if (!this.ecGameShowTutorial && !helpClicked) {
               this.ecGameSoundOn = isSoundOn;
               this.startECGameFunc();
-            } else if(helpClicked) {
+            } else if (helpClicked) {
               this.ecGameShowTutorial = true;
             }
 
@@ -233,10 +233,11 @@ export class GamePlayService  {
       this.ecGameStarted = true;
   }
 
-  helpExecControlGame(isSoundOn: any, gamePauseDiv:any) {
+  helpExecControlGame(isSoundOn: any, gamePauseDiv: any) {
     this.ecGameSoundOn = isSoundOn;
     this.storeDataExecControlGame();
-    this.playExecControlGame(isSoundOn, gamePauseDiv, true);      // get new updated data on clicking help to start new game from the help dialog
+    // get new updated data on clicking help to start new game from the help dialog
+    this.playExecControlGame(isSoundOn, gamePauseDiv, true);
   }
   pauseExecControlGame() {
     pauseECGame();

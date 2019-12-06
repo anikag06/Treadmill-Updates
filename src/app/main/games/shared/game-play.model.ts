@@ -123,5 +123,28 @@ export class MIGameUserData {
         public answer_correct: boolean,
         public start_time: any,
         public end_time: any
-    ) {}
+    ) {
+
+    }
 }
+export class ICDGameUserData {
+    constructor(
+        public last_completed_order: number,
+        public points: number,
+        public time: number,
+        ) {
+
+        }
+}
+
+export class ICDGameUserAnswerData {
+    constructor(
+        public situation_distortion_map_id: number,
+        public situation_displayed_at: any,
+        public answered_at: any,
+        ) {
+
+        }
+}
+
+
