@@ -14,7 +14,7 @@ import { EXECUTIVE_CONTROL_GAME,
   LEARNED_HELPLESSNESS_GAME,
   ATTRIBUTE_STYLE_GAME,
   MENTAL_IMAGERY_GAME,
-  FRIENDLY_FACE_GAME, 
+  FRIENDLY_FACE_GAME,
   IDENTIFY_COGNITIVE_DISTORTION} from '@/app.constants';
 import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
 import { IbGameInstructionsComponent } from './interpretation-bias-game/ib-game-instructions/ib-game-instructions.component';
@@ -75,7 +75,6 @@ export class CommonGameComponent implements OnInit {
   @ViewChild(MentalImageryComponent, {static: false}) miGameComponent!: MentalImageryComponent;
   @ViewChild(IdentifyCognitiveDistortionComponent, {static: false}) idcComponent!: IdentifyCognitiveDistortionComponent;
 
-  
 
   constructor(private gamePlayService: GamePlayService,
     private gamesService: GamesService,
@@ -88,7 +87,7 @@ export class CommonGameComponent implements OnInit {
   ) {   }
 
   ngOnInit() {
-    
+
     this.subscriptionRouter = this.route.params
       .pipe(
         map(v => v.name),
@@ -120,7 +119,7 @@ export class CommonGameComponent implements OnInit {
             this.isMentalImagery = true;
             this.portraitGame = true;
           } else if (this.gameName === IDENTIFY_COGNITIVE_DISTORTION) {
-            console.log("cognitive distortion");
+            console.log('cognitive distortion');
             this.isIdentifyCognitiveDistortion = true;
             this.portraitGame = true;
           }
@@ -138,6 +137,14 @@ export class CommonGameComponent implements OnInit {
     }
     if (this.gameStarted === true && this.gamePaused === false) {
       this.onPauseClick();
+    }
+  }
+
+  onGameScreenClick() {
+    // if clicked on screen when the game is paused
+    if (this.gameStarted && this.pauseBtnElement.nativeElement.classList.contains('d-none')) {
+      console.log('resume game');
+      this.onResumeClick();
     }
   }
 
@@ -171,7 +178,7 @@ export class CommonGameComponent implements OnInit {
       this.gamePlayService.playMentalImageryGame(this.gameDivElement);
     } else if (this.gameName === IDENTIFY_COGNITIVE_DISTORTION) {
       // this.idcComponent.startPlaying();
-      this.gamePlayService.playIdentifyCognitiveDistortionGame(this.gameDivElement);      
+      this.gamePlayService.playIdentifyCognitiveDistortionGame(this.gameDivElement);
     }
   }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, OnDestroy, HostListener, EventEmitter, ViewChild, ElementRef } from '@angular/core';
-import { UserScoreData, UserResponseData } from '@/main/games/shared/game-play.model';
+import { IBGameUserScore, IBGameUserResponse } from '@/main/games/shared/game-play.model';
 import { Router } from '@angular/router';
 import { IBG_SENTENCE, IBG_LESS_TIME, IBG_MORE_TIME } from '@/app.constants';
 import { environment } from 'environments/environment';
@@ -57,8 +57,8 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   TOTAL_SENTENCES!: number;
 
   firstSentence = true;
-  userScoreData = new UserScoreData(0, 0, 0, 0, 0, 0);
-  userResponseData = new UserResponseData(1, false, 0) ;
+  IBGameUserScore = new IBGameUserScore(0, 0, 0, 0, 0, 0);
+  IBGameUserResponse = new IBGameUserResponse(1, false, 0) ;
 
   isLastSet = false;
   // for getting the sentence information
@@ -116,14 +116,12 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.loadFileService.loadExternalScript('assets/games/interpretation_bias_game/js/sentence_javascript.js').then(() => {
       this.scoresRelatedInfo();
-  
       this.ibTrainingService.ibgScoreDataObservable.subscribe((res) => {
         this.storeUserScoreInfo(res);
       });
       this.initSentencesData();
     }).catch(() => {});
 
-    
     // do not delete this (this.findValidSentence()) function, it is important
     // this.findValidSentence();        // this function is used to check if sentences in database are valid for generation of letters grid
   }
@@ -245,7 +243,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
     this.checkUserResponse(response);
     this.getScoreVariablesValue();
 
-    this.gameAuthService.ibGameStoreUserScoreInfo(this.userScoreData)
+    this.gameAuthService.ibGameStoreUserScoreInfo(this.IBGameUserScore)
       .subscribe( (data) => {
           if ((sentence_array.length - sentence_number === 1) && this.isLastSet) {
             this.index = 0;
@@ -274,20 +272,20 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
 
   getScoreVariablesValue() {
     const userData = getUpdatedVariables();                  // from sentence_javascript
-    this.userScoreData.order = userData[0];
+    this.IBGameUserScore.order = userData[0];
     ibGameUserOrder = userData[0];                              // used for getting the sentences
-    this.userScoreData.level = userData[1];
-    this.userScoreData.score = userData[2];
-    this.userScoreData.streak = userData[3];
-    this.userScoreData.time  = userData[4];
-    this.userScoreData.words_hidden = userData[5];
+    this.IBGameUserScore.level = userData[1];
+    this.IBGameUserScore.score = userData[2];
+    this.IBGameUserScore.streak = userData[3];
+    this.IBGameUserScore.time  = userData[4];
+    this.IBGameUserScore.words_hidden = userData[5];
 
-    this.userResponseData.sentence = userData[6];
-    this.userResponseData.response_time = userData[7];
+    this.IBGameUserResponse.sentence = userData[6];
+    this.IBGameUserResponse.response_time = userData[7];
   }
 
   storeUserResponse() {
-    this.gameAuthService.ibGameStoreUserResponseInfo(this.userResponseData)
+    this.gameAuthService.ibGameStoreUserResponseInfo(this.IBGameUserResponse)
       .subscribe( (data) => {
       },
       (error) => {
@@ -306,10 +304,10 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   checkUserResponse(response: any) {
     const correctResponse = ibGameCorrectResponse();
     if ( response === correctResponse) {
-      this.userResponseData.user_response = true;
+      this.IBGameUserResponse.user_response = true;
       this.no_correct_responses++;
     } else if (response !== correctResponse) {
-      this.userResponseData.user_response = false;
+      this.IBGameUserResponse.user_response = false;
     }
   }
 

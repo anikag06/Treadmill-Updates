@@ -153,6 +153,9 @@ canvas{
 .landscape-msg{
 	display: none;
 }
+.cursor-pointer {
+	cursor: pointer;
+}
 @media only screen and (max-width: 991px) and (max-width: 767px) {
 	/* For mobile phones: */
 	.ibGame-page {

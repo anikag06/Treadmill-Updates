@@ -6,12 +6,12 @@
 <div class="games-section" *ngIf="!gameStarted">
   <div class="row d-flex justify-content-around justify-content-sm-between justify-content-md-between">
     <ng-container *ngIf="games$ | async as games else loader">
-      <app-game-item
-        class="flex-fill"
-        *ngFor="let game of games"
-        [game]="game"
-        (click)="onGameClick(game)">
-      </app-game-item>
+      <div class="flex-fill" *ngFor="let game of games">
+        <app-game-item
+          [game]="game">
+        </app-game-item>
+      </div>
+      
     </ng-container>
   </div>
 </div>

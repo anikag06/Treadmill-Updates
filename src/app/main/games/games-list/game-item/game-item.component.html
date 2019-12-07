@@ -1,4 +1,4 @@
-<div class="mat-card">
+<div class="mat-card" (click)="onGameClick(game)">
   <img [src]="game.thumbnail" [alt]="game.name">
   <h3>{{game.name}}</h3>
 </div>
