@@ -41,7 +41,7 @@ a.toggler {
   display: inline;
 }
 
-.support-profile-card {
+.comment-profile-card {
   z-index: 300;
   position: absolute;
   text-align: initial;
@@ -51,7 +51,7 @@ a.toggler {
   min-width: 590px;
 }
 @media screen and (min-width: 768px) and (max-width: 1199px) {
-  .support-profile-card {
+  .comment-profile-card {
     max-height: 280px;
     left: 30px;
     max-width: 400px;
@@ -61,7 +61,7 @@ a.toggler {
 }
 
 @media screen and (max-width: 767px) {
-  .support-profile-card {
+  .comment-profile-card{
     max-width: 450px;
     left: 100px;
     min-width: 440px;
@@ -79,10 +79,10 @@ a.toggler {
       height: 50px;
     }
   }
-  .support-profile-card {
+  .comment-profile-card {
     width: 98vw;
     min-width: 315px;
     margin-left: 0;
-    left: -7px;
+    left: -9px;
   }
 }

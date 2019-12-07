@@ -1,28 +1,29 @@
-import {Directive, ElementRef, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
-import {fromEvent} from "rxjs";
-import {delay, tap} from 'rxjs/operators';
+import { Directive, ElementRef, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { fromEvent, Subscription, Observable } from "rxjs";
+import { delay, tap } from 'rxjs/operators';
 @Directive({
   selector: '[click-outside]'
 })
 export class ClickOutsideDirective implements OnInit {
   private listening: boolean;
-  private globalClick: any;
+  private globalClick!: Observable<MouseEvent>;
+  private globalClickSubscription!: Subscription;
   @Output('clickOutside') clickOutside: EventEmitter<Object>;
   constructor(private _elRef: ElementRef) {
     this.listening = false;
     this.clickOutside = new EventEmitter();
   }
   ngOnInit() {
-    this.globalClick = fromEvent(document, 'click')
-    this.globalClick.pipe(delay(1), tap(() => {
+    this.globalClick = fromEvent<MouseEvent>(document, 'click')
+    this.globalClickSubscription = this.globalClick.pipe(delay(1), tap(() => {
       this.listening = true;
     })).subscribe(((event: MouseEvent) => {
       this.onGlobalClick(event);
     }))
   }
-  // ngOnDestroy() {
-  //   this.globalClick.();
-  // }
+  ngOnDestroy() {
+    this.globalClickSubscription.unsubscribe();
+  }
   onGlobalClick(event: MouseEvent) {
     if (event instanceof MouseEvent && this.listening === true) {
       if (this.isDescendant(this._elRef.nativeElement, event.target) === true) {
@@ -38,7 +39,7 @@ export class ClickOutsideDirective implements OnInit {
       }
     }
   }
-  isDescendant(parent: any, child:any) {
+  isDescendant(parent: any, child: any) {
     let node = child;
     while (node !== null) {
       if (node === parent) {

@@ -18,7 +18,7 @@
     </form>
   </div>
   <div class="col-3 text-center" *ngIf="!editMode" click-outside (clickOutside)="onClickOutside($event)">
-      <div class="support-profile-card" *ngIf="showProfile">
+      <div class="comment-profile-card" *ngIf="showProfile">
           <app-user-profile class="support-group" [userProfile]="userProfile" ></app-user-profile>
         </div>
     <img [src]="comment.user.avatar" alt="User avatar" width="50" height="60" (click)="onCommentShowProfile(comment.user.username)">

@@ -21,13 +21,9 @@
 .mat-tab-body.mat-tab-body-active {
   overflow: hidden;
 }
-.profile-container {
-  padding-right: 0px;
-  padding-left: 0px;
-}
 
 .profile-card {
-  max-width: 85%;
+  max-width: 86%;
   .profile-header {
     background: #343434 0% 0% no-repeat padding-box;
     height: 35%;
@@ -97,15 +93,10 @@
   width: 100px;
   padding-left: 15px;
   padding-top: 15px;
+  margin-top: 10px;
 }
 .mat-card-actions {
   margin-right: 10px;
-}
-
-@media screen and (min-width: 1650px) {
-  .profile-card {
-    max-width: 86%;
-  }
 }
 
 @media screen and (min-width: 768px) and (max-width: 1320px) {
@@ -113,6 +104,7 @@
     max-width: 85%;
     margin: auto;
     .profile-header {
+      max-height: 100px;
       .profile-image {
         height: 80%;
         width: 80%;
@@ -148,10 +140,7 @@
     }
   }
   .mat-card-avatar {
-    height: 90px;
-    width: 90px;
-    padding-left: 15px;
-    padding-top: 15px;
+    margin-top: 8px;
   }
   
 }
@@ -215,5 +204,8 @@
     .scores {
       width: 150px;
     }
+  }
+  .mat-card-avatar {
+    margin-top: 0px;
   }
 }

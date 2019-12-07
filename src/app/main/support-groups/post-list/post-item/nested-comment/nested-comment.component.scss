@@ -21,7 +21,7 @@
         }
     }
 }
-.support-profile-card {
+.nested-comment-profile-card {
     z-index: 300;
     position: absolute;
     text-align: initial;
@@ -31,7 +31,7 @@
     min-width: 490px;
   }
   @media screen and (min-width: 768px) and (max-width: 1199px) {
-    .support-profile-card {
+    .nested-comment-profile-card {
       max-height: 280px;
       left: 30px;
       max-width: 400px;
@@ -41,7 +41,7 @@
   }
   
   @media screen and (max-width: 767px) {
-    .support-profile-card {
+    .nested-comment-profile-card {
       max-width: 450px;
       min-width: 440px;
       left: 100px;
@@ -59,7 +59,7 @@
         height: 50px;
       }
     }
-    .support-profile-card {
+    .nested-comment-profile-card{
       width: 98vw;
       min-width: 310px;
       margin-left: 0;
