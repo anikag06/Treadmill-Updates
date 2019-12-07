@@ -29,6 +29,7 @@ import { LhgScienceComponent } from './learned-helplessness-game/lhg-science/lhg
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { IdentifyCognitiveDistortionComponent } from './identify-cognitive-distortion/identify-cognitive-distortion.component';
 import { IdcInstructionsComponent } from './identify-cognitive-distortion/idc-instructions/idc-instructions.component';
+import { LhgHowtoplayComponent } from './learned-helplessness-game/lhg-howtoplay/lhg-howtoplay.component';
 
 declare let $: any;
 
@@ -157,7 +158,10 @@ export class CommonGameComponent implements OnInit {
       this.gamePlayService.playExecControlGame(this.isSoundOn, this.pauseBtnElement, false);
 
     } else if (this.gameName === LEARNED_HELPLESSNESS_GAME) {
-      this.gamePlayService.playLearnedHelplessnessGame();
+      this.dialogBoxService.setDialogChild(LhgHowtoplayComponent);
+      const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
+      this.pauseBtnElement.nativeElement.dispatchEvent(domEvent);
+      // this.gamePlayService.playLearnedHelplessnessGame();
 
     } else if (this.gameName === ATTRIBUTE_STYLE_GAME) {
       this.gamePlayService.playAttributionStyleGame();
@@ -194,6 +198,9 @@ export class CommonGameComponent implements OnInit {
     }
     if (this.gameName === IDENTIFY_COGNITIVE_DISTORTION) {
       this.dialogBoxService.setDialogChild(IdcInstructionsComponent);
+    }
+    if (this.gameName === LEARNED_HELPLESSNESS_GAME) {
+      this.dialogBoxService.setDialogChild(LhgHowtoplayComponent);
     }
     const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
     this.pauseBtnElement.nativeElement.dispatchEvent(domEvent);

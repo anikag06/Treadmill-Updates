@@ -1,17 +1,28 @@
-#lg-game-container{
+.lg-game-container{
     height: 100%;
     width: 360px;
-    overflow: scroll;
-    background: #a2e2ec;
+    // overflow: scroll;
+    background: #EEFFFA;
+    // background: #a2e2ec;
+    // display: flex;
+}
+
+.main{
+    height: 100%;
+    width: 360px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+// #lg-game-container{
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+// }
+
 .lhgame-btn{
-    background-color:#2AC79B;
-    border-radius: 4px;
-    color: white;
+    min-width: 80px;
     margin-right: 5px;
     margin-top: 5px;
     margin-bottom: 5px;
@@ -48,10 +59,9 @@
 }
 
 .lhgame-btn2{
-    background-color:#2AC79B;
-    border-radius: 4px;
+    min-width: 130px;
     margin: 5px;
-    color:white
+    
 }
 
 .flex-container{
@@ -59,3 +69,16 @@
     justify-content: center;
 
 }
+
+.instructions{
+
+    position: absolute;
+     bottom: 0;
+  }
+
+  .mat-new {
+    background-color: #2AC79B !important;
+    border-color: #2AC79B !important;
+    color: #FFF;
+    font-size:16px;
+  }

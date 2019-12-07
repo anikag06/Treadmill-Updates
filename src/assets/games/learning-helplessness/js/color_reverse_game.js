@@ -82,7 +82,6 @@ $(document).ready(function(){
 	$(document).on("click", "#btn-color-reverse-game-give-up", function(){
 		
 		if(first_puzzle && lhGameLevelCounter!=0 && lhGameArrayIndex!=0){
-			
 			lhGameLevelCounter--;
 			lhGameArrayIndex--;
 			previously_solved_level = lhGameLevelCounter-1;
@@ -92,6 +91,9 @@ $(document).ready(function(){
 			$("#color-reverse-game").addClass("d-none");
 			$("#explanation-row").removeClass("d-none");
 		}else if(unsolvable_game_counter == 3){
+			// show play next pop up
+			playNextGamePopup();
+
 			$("#color-reverse-game").addClass("d-none");
 			boxUpGameInit();
 			$("#box-up-game-row").removeClass("d-none");
@@ -101,6 +103,9 @@ $(document).ready(function(){
 				lhGameArrayIndex = previous_index;
 			}
 		}else if(unsolvable_game_counter == 2){
+			// show play next pop up
+			playNextGamePopup();
+			
 			resetFrogGame();
 			frogGameInit();
 			$("#color-reverse-game").addClass("d-none");
@@ -111,6 +116,9 @@ $(document).ready(function(){
 				lhGameArrayIndex = previous_index;
 			}
 		}else if(unsolvable_game_counter == 1){
+			// show play next pop up
+			playNextGamePopup();
+
 			$("#color-reverse-game").addClass("d-none");
 			$("#grid-puzzle-row").removeClass("d-none");
 			if(lhGameLevelCounter > 0){
@@ -318,4 +326,10 @@ function setColorReverseGameWidthAndHeight() {
 lhGameGetColorReverseData = function(){
 	var time_spent= Math.floor((Date.now()-start_time)/1000);
 	return [lhGameLevelCounter, time_spent, no_of_moves, success]
+}
+
+function playNextGamePopup() {
+	showPlayNextEvent = document.createEvent('CustomEvent');
+	showPlayNextEvent.initCustomEvent('CallPlayNext');
+	window.dispatchEvent(showPlayNextEvent);
 }

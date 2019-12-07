@@ -144,6 +144,9 @@ import { IdcInfoComponent } from './games/games-list/common-game/identify-cognit
 import { IdcWinComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-win/idc-win.component';
 import { IdcTimeComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-time/idc-time.component';
 import { IdcGameService } from './games/games-list/common-game/identify-cognitive-distortion/idc-game.service';
+import { LhgInstructionsComponent } from './games/games-list/common-game/learned-helplessness-game/lhg-instructions/lhg-instructions.component';
+import { LhgHowtoplayComponent } from './games/games-list/common-game/learned-helplessness-game/lhg-howtoplay/lhg-howtoplay.component';
+import { LhgPlaynextgameComponent } from './games/games-list/common-game/learned-helplessness-game/lhg-playnextgame/lhg-playnextgame.component';
 
 @NgModule({
   declarations: [
@@ -234,7 +237,10 @@ import { IdcGameService } from './games/games-list/common-game/identify-cognitiv
     IdcInstructionsComponent,
     IdcInfoComponent,
     IdcWinComponent,
-    IdcTimeComponent
+    IdcTimeComponent,
+    LhgInstructionsComponent,
+    LhgHowtoplayComponent,
+    LhgPlaynextgameComponent
     
   ],
   imports: [
@@ -320,6 +326,9 @@ import { IdcGameService } from './games/games-list/common-game/identify-cognitiv
     IdcInfoComponent,
     IdcWinComponent,
     IdcTimeComponent,
+    LhgHowtoplayComponent,
+    LhgInstructionsComponent,
+    LhgPlaynextgameComponent,
   ]
 })
 export class MainModule {

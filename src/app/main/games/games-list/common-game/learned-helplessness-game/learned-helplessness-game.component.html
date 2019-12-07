@@ -1,4 +1,5 @@
-<div class="container-fluid" id="lg-game-container" tabindex="0">
+<div class="container-fluid lg-game-container" id="lg-game-container" tabindex="0">
+	<div class="main" >
 	<div class="check-image"></div>
 	
 	<!-- unsolvable game 1 start -->
@@ -19,10 +20,10 @@
 			<br><br><br>
 			<div class="flex-container">
 				<div class="d-none" id="grid-puzzle-success-message">Great!!</div>
-				<!-- <div>
-					Arrange the tiles in order 1->2->3 to win.
-		</div> -->
-				<button id="btn-reset-three" class="lhgame-btn">Reset</button>
+				
+				<!-- <button id="btn-reset-three" class="lhgame-btn">Reset</button> -->
+				
+					<button mat-raised-button id="btn-reset-three" class="lhgame-btn" [color]="'new'" (click)="onReset()" type="button">Reset</button>
 			</div>
 		</div>
 
@@ -58,13 +59,18 @@
 			</div>
 			<br><br><br>
 			<div class="flex-container">
-				<div>
-					<!-- Arrange the tiles in order 1->2->3->......->15 to win. -->
-		</div>
-				<button id="btn-reset-fifteen"class="lhgame-btn">Reset</button>
-				<button id="btn-give-up-fifteen" 
+				
+				<!-- <button id="btn-reset-fifteen"class="lhgame-btn">Reset</button> -->
+				<button mat-raised-button id="btn-reset-fifteen" class="lhgame-btn" 
+						[color]="'new'" (click)="onReset()" type="button">Reset</button>
+
+				<!-- <button id="btn-give-up-fifteen" 
 					(click) = "updateUnsolvableTask1Data(true)"
-					class="d-none give-up-text-red lhgame-btn2">I give up</button>
+					class="d-none give-up-text-red lhgame-btn2">I give up</button> -->
+				<button mat-raised-button id="btn-give-up-fifteen" 
+						class="d-none give-up-text-red lhgame-btn2" [color]="'new'" 
+						(click)="updateUnsolvableTask1Data(true)" type="button">I give up</button>
+
 			</div>
 		</div>
 
@@ -95,19 +101,17 @@
 		    </div>
 			<br><br><br>
 			<div class="flex-container">
-				<div>
-					<!-- Arrange the tiles in order 1->2->3->......->8 to win. -->
-				</div>
-				<button id="btn-reset-nine" class="lhgame-btn">Reset</button>
-				<button id="btn-give-up-nine" 
+				
+				<!-- <button id="btn-reset-nine" class="lhgame-btn">Reset</button> -->
+				<button mat-raised-button id="btn-reset-nine" class="lhgame-btn" 
+						[color]="'new'" (click)="onReset()" type="button">Reset</button>
+				<!-- <button id="btn-give-up-nine" 
 					(click) = "updateUnsolvableTask1Data(false)"
-					class="d-none give-up-text-red lhgame-btn2">I give up</button>
-				<!-- <div>
-					<b>Instructions:</b>
-					<ol>
-						<li>Click on a square adjacent to the blank square to swap its position with the blank square.</li>
-					</ol>
-				</div> -->
+					class="d-none give-up-text-red lhgame-btn2">I give up</button> -->
+				<button mat-raised-button id="btn-give-up-nine" class="d-none give-up-text-red lhgame-btn2" 
+						[color]="'new'" (click)="updateUnsolvableTask1Data(false)" 
+						type="button">I give up</button>
+				
 			</div>
 		</div>
 	</div>
@@ -120,22 +124,15 @@
 			    <br>
 				<div class="flex-container">
 					<div class="d-none" id="frog-game-success-message">Great!!</div>
-					<button id="btn-frog-game-reset" class=" lhgame-btn">Reset</button>
-					<button class="d-none"
+					<!-- <button id="btn-frog-game-reset" class=" lhgame-btn">Reset</button> -->
+					<button mat-raised-button id="btn-frog-game-reset" class="lhgame-btn" 
+						[color]="'new'" (click)="onReset()" type="button">Reset</button>
+					<!-- <button class="d-none"
 					(click) = "updateUnsolvableTask2Data()" 
-					id="btn-frog-game-give-up" class="lhgame-btn2">I give up</button>
-					<!-- <div>
-						<b>Instructions:</b>
-						<ol>
-							<li>The butterfly can move from one flower to another. The butterfly can move forwards, to its left, and to its right, 
-							but can't move backwards.</li>
-							<br>
-							<li>When the butterfly sits on a flower, it withers away. The butterfly can only sit on a full flowers but can fly
-								over withered flowers.</li>
-							<br>
-							<li>Your goal is to make the butterfly sit on all flowers.</li>
-						</ol>
-				   	</div> -->
+					id="btn-frog-game-give-up" class="lhgame-btn2">I give up</button> -->
+					<button mat-raised-button id="btn-frog-game-give-up" class="d-none lhgame-btn2" 
+						[color]="'new'" (click)="updateUnsolvableTask2Data()" type="button">I give up</button>
+					
 			   </div>
 		   </div>	
 	  </div>
@@ -148,24 +145,15 @@
 			<br>
 			<div class="flex-container">
 				<div class="class d-none" id="box-up-game-success-message">Great!!</div>
-				<button id="btn-box-up-game-reset" class=" lhgame-btn">Reset</button>
-				<button class="d-none" 
+				<!-- <button id="btn-box-up-game-reset" class=" lhgame-btn">Reset</button> -->
+				<button mat-raised-button id="btn-box-up-game-reset" class="lhgame-btn" 
+						[color]="'new'" (click)="onReset()" type="button">Reset</button>
+				<!-- <button class="d-none" 
 					(click) = "updateUnsolvableTask3Data()"
-					id="btn-box-up-game-give-up" class="lhgame-btn2">I give up</button>
-				<!-- <div>
-					<b>Instructions:</b>
-					<ol>
-						<li>Get the ball inside an arc to move it.</li>
-						<br>
-						<li>Small arcs can get inside big arcs.</li>
-						<br>
-						<li>Small arcs cannot get inside other small arcs.</li>
-						<br>
-						<li>Big arcs cannot get inside other big arcs.</li>
-						<br>
-						<li>Your goal is to get the red arc inside the blue arc.</li>
-					</ol>
-				</div> -->
+					id="btn-box-up-game-give-up" class="lhgame-btn2">I give up</button> -->
+				<button mat-raised-button id="btn-box-up-game-give-up" class="d-none lhgame-btn2" 
+						[color]="'new'" (click)="updateUnsolvableTask3Data()" type="button">I give up</button>
+				
 			</div>
 		</div>
 	</div>
@@ -179,17 +167,13 @@
 			<br>
 			<div class="flex-container">
 				<div class="d-none" id="color-reverse-game-success-message">Great!!</div>
-				<button id="btn-color-reverse-game-reset" class="display-flex lhgame-btn"
-					(click) = "updateColorReverseGameData()">Reset</button>
-				<button id="btn-color-reverse-game-give-up" class="display-flex d-none lhgame-btn2">I give up</button>
-				<!-- <div>
-					<b>Instructions:</b>
-					<ol>
-						<li>Clicking on a triangle changes it and the adjacent squares to a circle.</li>
-						<br>
-						<li>Your goal is to change all the triangles into circles.</li>
-					</ol>
-				</div> -->
+				<!-- <button id="btn-color-reverse-game-reset" class="display-flex lhgame-btn"
+					(click) = "updateColorReverseGameData()">Reset</button> -->
+				<button mat-raised-button id="btn-color-reverse-game-reset" class="display-flex lhgame-btn" 
+						[color]="'new'" (click)="updateColorReverseGameData()" type="button">Reset</button>
+				<!-- <button id="btn-color-reverse-game-give-up" class="display-flex d-none lhgame-btn2">I give up</button> -->
+				<button mat-raised-button id="btn-color-reverse-game-give-up" class="display-flex d-none lhgame-btn2" 
+						[color]="'new'" type="button" >I give up</button>
 			</div>
 		</div>
 	</div>
@@ -229,4 +213,9 @@
 		<input type="hidden" name="unsolvable-task2-data-update-url" value="{% url 'findaway:updateUnsolvableTask2Attempt' %}">
 		<input type="hidden" name="unsolvable-task3-data-update-url" value="{% url 'findaway:updateUnsolvableTask3Attempt' %}"> -->
 	</div>
+</div>
+	<div class="instructions mb-1 justify-content-end float-left" #infoElement>
+        <img style="width:42px;height:42px; "src="../../../../../../../assets/games/learning-helplessness/assets/Info Icon.png"
+         (click)="openInstructionsPopup()">
+    </div>
 </div>
