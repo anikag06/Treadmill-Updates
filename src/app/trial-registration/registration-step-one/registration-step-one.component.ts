@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular
 import { ActivatedRoute, Router } from '@angular/router';
 import { TrialAuthService } from '../shared/trial-auth.service';
 import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-contact-us-dialog.service';
+import { INELIGIBLE_FOR_TRIAL } from '@/app.constants';
 
 @Component({
   selector: 'app-registration-step-one',
@@ -16,6 +17,7 @@ export class RegistrationStepOneComponent implements OnInit {
   faqLink = '../faqs';
   touchDevice = false;
   showRegistrationContent = false;
+  userEligible = false;
 
   @HostListener('touchstart')
   onTouchEvent() {
@@ -40,8 +42,17 @@ export class RegistrationStepOneComponent implements OnInit {
 
   emailSubmit() {
     console.log('on form submit');
-    this.authService.activateChild(true);
-    this.router.navigate(['step-2'], {relativeTo: this.route} );
+
+    // get data from backend
+    this.userEligible = true;
+
+    if (this.userEligible) {
+      this.authService.activateChild(true);
+      this.router.navigate(['step-2'], {relativeTo: this.route} );
+    } else {
+      this.authService.activateChild(true);
+      this.router.navigate([INELIGIBLE_FOR_TRIAL]);
+    }
   }
 
   contactUsClicked() {

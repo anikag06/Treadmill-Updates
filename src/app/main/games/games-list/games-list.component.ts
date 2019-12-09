@@ -11,23 +11,16 @@ import { GamePlayService } from '@/main/games/shared/game-play.service';
   styleUrls: ['./games-list.component.scss']
 })
 export class GamesListComponent implements OnInit {
-  // gameStarted = false;
   games$!: Observable<Game[]>;
 
   constructor(
     private gamesService: GamesService,
-    private router: Router,
-    private route: ActivatedRoute,
   ) { }
 
   ngOnInit() {
     this.games$ = this.gamesService.getGames();
   }
 
-  // onGameClick(game: Game) {
-  //   this.gameStarted = true;
-  //   this.router.navigate([game.slug], {relativeTo: this.route} );
-  // }
   getBackgroundImg() {
     return  'url(\"assets/games/executive-control-game/png/background_images/mountains.png\")';
   }

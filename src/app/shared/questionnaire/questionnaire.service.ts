@@ -19,6 +19,7 @@ export class QuizService {
   }
 
   post_phq(response: Response) {
+    console.log('data sent', response);
     this.http.post(
       environment.API_ENDPOINT + '/api/v1/questionnaire/phq-user-response/',
       response

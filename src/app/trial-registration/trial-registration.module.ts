@@ -16,15 +16,22 @@ import { PrivacyPolicyComponent } from './information-pages/privacy-policy/priva
 import { AboutUsPageComponent } from './information-pages/about-us-page/about-us-page.component';
 import { TermsAndConditionsComponent } from './information-pages/terms-and-conditions/terms-and-conditions.component';
 import { MatExpansionModule } from '@angular/material';
+import { IneligibleTrialPageComponent } from './information-pages/ineligible-trial-page/ineligible-trial-page.component';
 
 
 @NgModule({
   declarations: [
-    RegistrationStepOneComponent, 
-    TrialPagesFooterComponent, 
-    TrialPagesHeaderComponent, 
-    RegistrationStepTwoComponent, 
-    RegistrationStepThreeComponent, RegistrationStepFourComponent, FaqPageComponent, PrivacyPolicyComponent, AboutUsPageComponent, TermsAndConditionsComponent,
+    RegistrationStepOneComponent,
+    TrialPagesFooterComponent,
+    TrialPagesHeaderComponent,
+    RegistrationStepTwoComponent,
+    RegistrationStepThreeComponent,
+    RegistrationStepFourComponent,
+    FaqPageComponent,
+    PrivacyPolicyComponent,
+    AboutUsPageComponent,
+    TermsAndConditionsComponent,
+    IneligibleTrialPageComponent,
   ],
   imports: [
     CommonModule,

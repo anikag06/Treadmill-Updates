@@ -143,4 +143,8 @@ export const FORM_TASK = 'FORM-TASK';
 export const FORM_PROBLEM_SOLVING_WORKSHEET = 'FORM-PROBLEM-SOLVING-WORKSHEET';
 
 // committment options
-export const COMMITTMENT_OPTIONS = ["1/day", "2/day", "3/day", "4/day", "More than 4/day"];
+export const COMMITTMENT_OPTIONS = ['1/day', '2/day', '3/day', '4/day', 'More than 4/day'];
+
+// trial registration pages
+export const INELIGIBLE_FOR_TRIAL = '/trial/ineligible-for-trial';
+

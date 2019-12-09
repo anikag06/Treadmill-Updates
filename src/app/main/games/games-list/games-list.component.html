@@ -3,7 +3,7 @@
     <h1 class="main-heading-h1">Games</h1>
   </div>
 </div>
-<div class="games-section" *ngIf="!gameStarted">
+<div class="games-section" >
   <div class="row d-flex justify-content-around justify-content-sm-between justify-content-md-between">
     <ng-container *ngIf="games$ | async as games else loader">
       <div class="flex-fill" *ngFor="let game of games">
