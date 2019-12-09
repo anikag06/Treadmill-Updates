@@ -13,6 +13,8 @@ import { LhgPlaynextgameComponent } from './lhg-playnextgame/lhg-playnextgame.co
 })
 export class LearnedHelplessnessGameComponent implements OnInit {
 
+  
+
   constructor(
     private gamePlayService: GamePlayService,
     private loadFileService: LoadFilesService,

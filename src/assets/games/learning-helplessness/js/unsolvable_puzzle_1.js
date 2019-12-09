@@ -80,7 +80,11 @@ $(document).ready(function(){
 
 	$(document).on("click", "#btn-give-up-nine", function(){
 		fifteen = false;
-		
+		// show play next pop up
+		lhg_show_instructions = false;
+		console.log('grid game 1',lhg_show_instructions);
+
+		playNextGamePopup();
 		$("#grid-puzzle-row").addClass("d-none");
 		$("#color-reverse-game").removeClass("d-none");
 		second_time = true;

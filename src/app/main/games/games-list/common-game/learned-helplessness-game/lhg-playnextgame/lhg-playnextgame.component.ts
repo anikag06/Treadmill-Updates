@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
 import { LhgInstructionsComponent } from '../lhg-instructions/lhg-instructions.component';
+declare var lhg_show_instructions: boolean;
 
 @Component({
   selector: 'app-lhg-playnextgame',
@@ -19,9 +20,13 @@ export class LhgPlaynextgameComponent implements OnInit {
   onPlay() {
     const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });
     this.elementRef.nativeElement.dispatchEvent(domEvent);
-    this.openInstructionsPopup();
-    
+    console.log('play next + grid game',lhg_show_instructions);
+
+    if (lhg_show_instructions) {
+      this.openInstructionsPopup();
+    }
   }
+
   openInstructionsPopup() {
     this.dialogBoxService.setDialogChild(LhgInstructionsComponent);
     const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });

@@ -1,6 +1,12 @@
 <div class="container-fluid lg-game-container" id="lg-game-container" tabindex="0">
 	<div class="main" >
-	<div class="check-image"></div>
+	<div class="lhg-image justify-content-center">
+		<img id="lhg-image" src="../../../../../../assets/games/learning-helplessness/assets/Start page graphic.png">
+	<!-- </div>
+	<div class="lhg-text justify-content-center"> -->
+		<p class="my-4" id="lhg-text"><b>LEARNED HELPLESSNESS</b></p>
+	</div>	
+	
 	
 	<!-- unsolvable game 1 start -->
 	<div class="row d-none justify-content-center" id="grid-puzzle-row">
@@ -18,12 +24,12 @@
 			</div>
 			<br>
 			<br><br><br>
-			<div class="flex-container">
+			<div class="flex-container justify-content-center">
 				<div class="d-none" id="grid-puzzle-success-message">Great!!</div>
 				
 				<!-- <button id="btn-reset-three" class="lhgame-btn">Reset</button> -->
 				
-					<button mat-raised-button id="btn-reset-three" class="lhgame-btn" [color]="'new'" (click)="onReset()" type="button">Reset</button>
+					<button mat-raised-button id="btn-reset-three" class="lhgame-btn" [color]="'new'"  type="button">Reset</button>
 			</div>
 		</div>
 
@@ -58,11 +64,11 @@
 			</div>
 			</div>
 			<br><br><br>
-			<div class="flex-container">
+			<div class="flex-container justify-content-center">
 				
 				<!-- <button id="btn-reset-fifteen"class="lhgame-btn">Reset</button> -->
 				<button mat-raised-button id="btn-reset-fifteen" class="lhgame-btn" 
-						[color]="'new'" (click)="onReset()" type="button">Reset</button>
+						[color]="'new'" type="button">Reset</button>
 
 				<!-- <button id="btn-give-up-fifteen" 
 					(click) = "updateUnsolvableTask1Data(true)"
@@ -100,11 +106,11 @@
 			</div>
 		    </div>
 			<br><br><br>
-			<div class="flex-container">
+			<div class="flex-container justify-content-center">
 				
 				<!-- <button id="btn-reset-nine" class="lhgame-btn">Reset</button> -->
 				<button mat-raised-button id="btn-reset-nine" class="lhgame-btn" 
-						[color]="'new'" (click)="onReset()" type="button">Reset</button>
+						[color]="'new'" type="button">Reset</button>
 				<!-- <button id="btn-give-up-nine" 
 					(click) = "updateUnsolvableTask1Data(false)"
 					class="d-none give-up-text-red lhgame-btn2">I give up</button> -->
@@ -122,11 +128,11 @@
 		<div class="col-auto justify-content-md-center">  
 				<div id="frog-game-space"></div>
 			    <br>
-				<div class="flex-container">
+				<div class="flex-container justify-content-center">
 					<div class="d-none" id="frog-game-success-message">Great!!</div>
 					<!-- <button id="btn-frog-game-reset" class=" lhgame-btn">Reset</button> -->
 					<button mat-raised-button id="btn-frog-game-reset" class="lhgame-btn" 
-						[color]="'new'" (click)="onReset()" type="button">Reset</button>
+						[color]="'new'" type="button">Reset</button>
 					<!-- <button class="d-none"
 					(click) = "updateUnsolvableTask2Data()" 
 					id="btn-frog-game-give-up" class="lhgame-btn2">I give up</button> -->
@@ -143,11 +149,11 @@
 		<div class="col-auto">
 			<div id="box-up-game-space"></div>
 			<br>
-			<div class="flex-container">
+			<div class="flex-container justify-content-center">
 				<div class="class d-none" id="box-up-game-success-message">Great!!</div>
 				<!-- <button id="btn-box-up-game-reset" class=" lhgame-btn">Reset</button> -->
 				<button mat-raised-button id="btn-box-up-game-reset" class="lhgame-btn" 
-						[color]="'new'" (click)="onReset()" type="button">Reset</button>
+						[color]="'new'" type="button">Reset</button>
 				<!-- <button class="d-none" 
 					(click) = "updateUnsolvableTask3Data()"
 					id="btn-box-up-game-give-up" class="lhgame-btn2">I give up</button> -->
@@ -165,7 +171,7 @@
 			<div id="color-reverse-game-level"></div>
 			<div id="color-reverse-game-space"></div>
 			<br>
-			<div class="flex-container">
+			<div class="flex-container justify-content-center">
 				<div class="d-none" id="color-reverse-game-success-message">Great!!</div>
 				<!-- <button id="btn-color-reverse-game-reset" class="display-flex lhgame-btn"
 					(click) = "updateColorReverseGameData()">Reset</button> -->
@@ -214,7 +220,7 @@
 		<input type="hidden" name="unsolvable-task3-data-update-url" value="{% url 'findaway:updateUnsolvableTask3Attempt' %}"> -->
 	</div>
 </div>
-	<div class="instructions mb-1 justify-content-end float-left" #infoElement>
+	<div class="instructions mb-1 justify-content-end float-left d-none" id="infoElement" #infoElement>
         <img style="width:42px;height:42px; "src="../../../../../../../assets/games/learning-helplessness/assets/Info Icon.png"
          (click)="openInstructionsPopup()">
     </div>

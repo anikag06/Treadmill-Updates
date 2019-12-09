@@ -1032,6 +1032,10 @@ $(document).on('click', '#btn-box-up-game-give-up', function() {
 	box_up_no_of_moves = 0;
 
 	if(!box_up_first) {
+		// show play next pop up
+		lhg_show_instructions = false;
+		playNextGamePopup();
+		
 		$("#box-up-game-row").addClass("d-none");
 		$("#color-reverse-game").removeClass("d-none");
 		unsolvable_game_counter = 1;

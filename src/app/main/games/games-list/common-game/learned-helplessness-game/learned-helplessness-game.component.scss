@@ -1,8 +1,12 @@
+@import "styles.scss";
+@import "../../../shared/games-common.scss";
+
 .lg-game-container{
     height: 100%;
     width: 360px;
     // overflow: scroll;
     background: #EEFFFA;
+    font-family: Roboto, sans-serif;
     // background: #a2e2ec;
     // display: flex;
 }
@@ -13,6 +17,26 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.lhg-image {
+    top: 80px;
+    font-size: 26px;
+    justify-content: center;
+    position: absolute;
+}
+#lhg-text {
+    // display: flex;
+    font-size: 26px;
+    float: left;
+    
+}
+#lhg-image {
+    height: 140px;
+    width: 150px;
+    display: block;
+    margin: 0 auto;
+
 }
 
 // #lg-game-container{
@@ -26,6 +50,19 @@
     margin-right: 5px;
     margin-top: 5px;
     margin-bottom: 5px;
+    
+    top:20px;
+    position: relative;
+}
+
+.lhgame-btn2{
+    min-width: 130px;
+    margin: 5px;
+    // bottom: 100px;
+    // left:5px;
+    top:20px;
+    position: relative;
+    
 }
 
 .puzzborder{
@@ -58,11 +95,6 @@
     opacity: 1;
 }
 
-.lhgame-btn2{
-    min-width: 130px;
-    margin: 5px;
-    
-}
 
 .flex-container{
     display: flex;
@@ -76,9 +108,15 @@
      bottom: 0;
   }
 
-  .mat-new {
+.mat-new {
     background-color: #2AC79B !important;
     border-color: #2AC79B !important;
     color: #FFF;
     font-size:16px;
+  }
+
+#explanation-row {
+    height: 100%;
+    width: 360px;
+    overflow: auto;
   }
