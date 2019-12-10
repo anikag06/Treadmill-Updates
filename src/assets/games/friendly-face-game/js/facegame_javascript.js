@@ -225,7 +225,7 @@ $(document).ready(function(){
 		// 	total_time_taken_level3 = ffg_total_time_taken_level3_touch;
 		// }
 		console.log(device);
-		$(".ff-game-elements").removeClass("d-none");
+		$(".ff-game-container").removeClass("d-none");
 
 		$(".game-instructions").hide();
 
