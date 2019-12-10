@@ -15,8 +15,8 @@
 
       <mat-menu xPosition="before" yPosition="below" #thoughtRecordForms="matMenu" [overlapTrigger]="false">
         <div [ngStyle]="{'max-height': '350px'}">
-          <app-forms-sidebar [type]="type" (objectEmitter)="thoughtSelected($event)" (newForm)="onAddNewForm()">
-          </app-forms-sidebar>
+          <!-- <app-forms-sidebar [type]="type" (objectEmitter)="thoughtSelected($event)" (newForm)="onAddNewForm()">
+          </app-forms-sidebar> -->
         </div>
       </mat-menu>
     </mat-card-header>
@@ -34,7 +34,7 @@
                   edit </mat-icon>
               </div>
             </div>
-            <div class="card-body" *ngIf="situation && !situaionEditMode" (click)="onSituationClick()">
+            <div class="card-body" *ngIf="situation && !situationEditMode" (click)="onSituationClick()">
               <div class="form-editable-text-underline">
                 {{situation}}
               </div>
