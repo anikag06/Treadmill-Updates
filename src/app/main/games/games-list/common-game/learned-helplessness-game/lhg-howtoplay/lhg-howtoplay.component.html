@@ -1,10 +1,10 @@
-<div class="m-4">
+<div class="m-3">
     <h1>How to play?</h1>
     <img class="game-play-image" src="../../../../../../../assets/games/learning-helplessness/assets/Group 10102.png">
   
   
     <br>
-    <div class="instructionsDiv smallest-font ">
+    <div class="instructionsDiv smallest-font m-1 ">
       <p>
         Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. 
         Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. 
@@ -16,5 +16,8 @@
     <div class="ml-auto p-1">
       <button mat-raised-button [color]="'new'" (click)="onStart()" type="button" #startBtn>Start</button>
     </div>
+    <div class="ml-auto p-1 mt-2">
+        <button mat-raised-button [color]="'white'" (click)="onShowSummary()" id="summaryBtn" type="button" #showSummaryBtn>View summary</button>
+      </div>
   </div>
   

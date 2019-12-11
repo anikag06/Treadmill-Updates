@@ -290,6 +290,9 @@ export class CommonGameComponent implements OnInit {
     if (this.gameName === FRIENDLY_FACE_GAME) {
       this.gamePlayService.restartFaceGame();
     }
+    if (this.gameName === LEARNED_HELPLESSNESS_GAME) {
+      this.gamePlayService.playLearnedHelplessnessGame();
+    }
     if (this.gameName === MENTAL_IMAGERY_GAME) {
       this.miGameComponent.replayMIGame();
     }

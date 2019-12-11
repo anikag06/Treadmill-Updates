@@ -1,9 +1,9 @@
 .square, .fifteen-puzzle-square, .nine-puzzle-square, .three-puzzle-square{ 
 	background-color: white; 
-	margin-right: 5px;
-	margin-bottom: 5px;
-	margin-left: 5px;
-	margin-top: 5px;
+	margin-right: 3px;
+	margin-bottom: 3px;
+	margin-left: 3px;
+	margin-top: 3px;
 	text-align: center;
 	vertical-align: middle;
 	color: #0073B6;

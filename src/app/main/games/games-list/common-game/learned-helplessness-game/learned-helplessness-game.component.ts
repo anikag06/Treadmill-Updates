@@ -4,6 +4,7 @@ import { LoadFilesService } from '@/main/games/shared/load-files.service';
 import { LhgInstructionsComponent } from './lhg-instructions/lhg-instructions.component';
 import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
 import { LhgPlaynextgameComponent } from './lhg-playnextgame/lhg-playnextgame.component';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -13,12 +14,12 @@ import { LhgPlaynextgameComponent } from './lhg-playnextgame/lhg-playnextgame.co
 })
 export class LearnedHelplessnessGameComponent implements OnInit {
 
-  
 
   constructor(
     private gamePlayService: GamePlayService,
     private loadFileService: LoadFilesService,
-    private dialogBoxService: DialogBoxService
+    private dialogBoxService: DialogBoxService,
+    private router: Router,
   ) { }
 
   @ViewChild('infoElement', { static: false }) element!: ElementRef;
@@ -67,6 +68,14 @@ export class LearnedHelplessnessGameComponent implements OnInit {
     this.dialogBoxService.setDialogChild(LhgInstructionsComponent);
     const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
     this.element.nativeElement.dispatchEvent(domEvent);
+  }
+
+  onGoToHome() {
+    this.router.navigate(['/']);
+  }
+
+  onPlayAgain() {
+    this.gamePlayService.playLearnedHelplessnessGame();
   }
 
 }

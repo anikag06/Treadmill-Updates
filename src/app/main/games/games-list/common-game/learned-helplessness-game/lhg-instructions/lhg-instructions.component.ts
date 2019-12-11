@@ -4,6 +4,8 @@ declare var unsolvable_game_counter: any;
 declare var lhcolorReverseGame: any;
 
 
+
+
 @Component({
   selector: 'app-lhg-instructions',
   templateUrl: './lhg-instructions.component.html',
@@ -37,6 +39,13 @@ export class LhgInstructionsComponent implements OnInit {
     console.log(unsolvable_game_counter);
     const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });
     this.elementRef.nativeElement.dispatchEvent(domEvent);
-    
+    const game2_start = document.getElementById('frog-game-row');
+    if(game2_start) {
+      game2_start.focus();
+    }
+    const game3_start = document.getElementById('box-up-game-row');
+    if(game3_start) {
+      game3_start.focus();
+    }
   }
 }

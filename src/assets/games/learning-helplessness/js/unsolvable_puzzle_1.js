@@ -129,7 +129,7 @@ function setGridPuzzleGameWidthAndHeight() {
 			.fifteen-puzzle-square, 
 			.nine-puzzle-square, 
 			.three-puzzle-square`).css({
-				'width': '65'
+				'width': '50'
 			});
 	}else {
 		// !!IMPORTANT!!
@@ -138,7 +138,7 @@ function setGridPuzzleGameWidthAndHeight() {
 			.fifteen-puzzle-square, 
 			.nine-puzzle-square, 
 			.three-puzzle-square`).css({
-				'width': '65'
+				'width': '50'
 			});
 	}
 }
