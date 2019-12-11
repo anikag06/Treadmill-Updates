@@ -1,5 +1,5 @@
 // for storing interpretation bias game
-export class UserScoreData {
+export class IBGameUserScore {
 
     constructor(
          public order: number,
@@ -12,7 +12,7 @@ export class UserScoreData {
      }
  }
 
- export class UserResponseData {
+ export class IBGameUserResponse {
      constructor(
          public sentence: number,
          public user_response: boolean,

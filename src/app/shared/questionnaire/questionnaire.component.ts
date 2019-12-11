@@ -369,6 +369,7 @@ export class QuestionnaireComponent implements OnInit {
         response.user_response[i].answer = this.score[i];
         response.user_response[i].question = i + 1;
       }
+      console.log('response', response);
       if (this.fromFlow === true) {
         this.quizService.post_phq(response);
       } else if( this.fromFlow === false && this.fromTrialRegistration === true){
@@ -400,12 +401,15 @@ export class QuestionnaireComponent implements OnInit {
             this.router.navigate(['/']);
           }
         );
-      } else if( this.fromFlow === false && this.fromTrialRegistration === true) {
+      } else if ( this.fromFlow === false && this.fromTrialRegistration === true) {
         // move to step 4 in trial registration
         // and save data when APIs made
         console.log('save data for gad from trial');
+
+        // get information from database whether the user is eligible for the study or not
+        // redirect to ineligible page
         this.trialAuthService.activateChild(true);
-        this.router.navigate(['trial/trial-registration/step-4'])
+        this.router.navigate(['trial/trial-registration/step-4']);
       }
     }
   }

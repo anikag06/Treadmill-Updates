@@ -15,8 +15,8 @@
             <b> Please fill the form </b>
         </div>
 
-        <div class="form-group col-12">
-            <form class="w-100">
+        <div class="col-12">
+            <form class="w-100" [formGroup]="stepTwoForm">
                 <div class="row my-3">
                     <div class="col-6">
                         <mat-form-field class="w-100">
@@ -26,18 +26,39 @@
                     <div class="col-6">
                         <mat-form-field class="w-100">
                             <mat-label>Gender</mat-label>
-                            <mat-select #Gender value="Male" (selectionChange)="genderSelected()">
+                            <mat-select #Gender  (selectionChange)="genderSelected()">
                                 <mat-option value="Male">Male</mat-option>
                                 <mat-option value="Female">Female</mat-option>
+                                <mat-option value="Female">Other</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
                     <div class="col-12">
                         <mat-form-field class="w-100">
-                            <mat-label>Proffesion</mat-label>
-                            <mat-select #Proffesion value="Working Professional" (selectionChange)="genderSelected()">
-                                <mat-option value="Working Professional">Working Professional</mat-option>
-                                <mat-option value="Student">Student</mat-option>
+                            <mat-label>Education Qualification</mat-label>
+                            <mat-select #Education 
+                                [panelClass]="selectPanel"
+                                value="Education Qualification" 
+                                (selectionChange)="genderSelected()">
+                                <mat-option value="Not completed school">Not completed school</mat-option>
+                                <mat-option value="Completed school">Completed school</mat-option>
+                                <mat-option value="Completed undergraduate">Completed undergraduate</mat-option>
+                                <mat-option value="Completed postgraduate">Completed postgraduate</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-12">
+                        <mat-form-field class="w-100">
+                            <mat-label>Profession</mat-label>
+                            <mat-select #Profession  (selectionChange)="genderSelected()">
+                                <mat-option value="College Student">College or university student</mat-option>
+                                <mat-option value="Coaching after college">Coaching after college</mat-option>
+                                <mat-option value="Working professional">Working professional</mat-option>
+                                <mat-option value="Self-employed">Self-employed</mat-option>
+                                <mat-option value="Freelancer">Freelancer</mat-option>
+                                <mat-option value="Volunteer">Volunteer</mat-option>
+                                <mat-option value="Housewife">Housewife</mat-option>
+                                <mat-option value="Unemployed">Unemployed</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
@@ -52,31 +73,57 @@
                     </div>
 
                     <div class="col-12 my-2">
-                        <label class="lesser-opacity">Do you know English well enough to read and understand high school standard textbooks?</label>
-                        <mat-radio-group formControlName="floatLabel" color="primary">
-                            <mat-radio-button value="yes" class="mr-5">Yes</mat-radio-button>
-                            <mat-radio-button value="no" class="ml-4">No</mat-radio-button>
-                        </mat-radio-group>
-                    </div>
-                    <div class="col-12 my-2">
-                        <label class="lesser-opacity">Do you have internet enabled computer, laptop, or large tablet for using this site?</label>
-                        <mat-radio-group formControlName="floatLabel" color="primary">
-                            <mat-radio-button value="yes" class="mr-5">Yes</mat-radio-button>
-                            <mat-radio-button value="no" class="ml-4">No</mat-radio-button>
-                        </mat-radio-group>
-                    </div>
-                    <div class="col-12 my-2">
-                        <label class="lesser-opacity">Have you ever been diagnosed with bipolar disorder/ manic-depressive disorder or psychosis?</label>
-                        <mat-radio-group formControlName="floatLabel" color="primary">
-                            <mat-radio-button value="yes" class="mr-5">Yes</mat-radio-button>
-                            <mat-radio-button value="no" class="ml-4">No</mat-radio-button>
-                        </mat-radio-group>
-                    </div>
-                    <div class="col-12 my-2">
-                        <label class="lesser-opacity">Have you had a major traumatic event [For example:- death of an immediate family member, 
-                                getting fired unexpectedly] in the last two months?
+                        <label class="lesser-opacity">
+                            Do you know English well enough to read and understand 
+                            high school standard textbooks?
                         </label>
-                        <mat-radio-group formControlName="floatLabel" color="primary">
+                        <mat-radio-group formControlName="knowEnglish" color="primary">
+                            <mat-radio-button value="yes" class="mr-5">Yes</mat-radio-button>
+                            <mat-radio-button value="no" class="ml-4">No</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                    <div class="col-12 my-2">
+                        <label class="lesser-opacity">
+                            Do you have an internet-enabled personal mobile phone for 
+                            using this site?
+                        </label>
+                        <mat-radio-group formControlName="internetEnabled" color="primary">
+                            <mat-radio-button value="yes" class="mr-5">Yes</mat-radio-button>
+                            <mat-radio-button value="no" class="ml-4">No</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                    <div class="col-12 my-2">
+                        <label class="lesser-opacity">
+                            Are you currently taking any help for your psychiatric disorder, 
+                            if any? Select the most appropriate answer.
+                        </label>
+                        <mat-radio-group formControlName="psychiatricHelp" color="primary">
+                            <mat-radio-button value="Counseling">Counseling</mat-radio-button>
+                            <br>
+                            <mat-radio-button value="Medicines">Medicines</mat-radio-button>
+                            <br>
+                            <mat-radio-button value="Both">Both</mat-radio-button>
+                            <br>
+                            <mat-radio-button value="None">None</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                    <div class="col-12 my-2">
+                        <label class="lesser-opacity">
+                            Have you ever been diagnosed with bipolar disorder/ 
+                            manic-depressive disorder or psychosis?
+                        </label>
+                        <mat-radio-group formControlName="haveDisorder" color="primary">
+                            <mat-radio-button value="yes" class="mr-5">Yes</mat-radio-button>
+                            <mat-radio-button value="no" class="ml-4">No</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                    <div class="col-12 my-2">
+                        <label class="lesser-opacity">
+                            Have you had a major traumatic event [For example:- death of an 
+                            immediate family member, getting fired unexpectedly] in the 
+                            last two months?
+                        </label>
+                        <mat-radio-group formControlName="traumaticEvent" color="primary">
                             <mat-radio-button value="yes" class="mr-5">Yes</mat-radio-button>
                             <mat-radio-button value="no" class="ml-4">No</mat-radio-button>
                         </mat-radio-group>
@@ -87,22 +134,33 @@
                             <mat-label class="lesser-opacity">How did you get to know about the TreadWill study?</mat-label>
                             <mat-select #Know value="Email" (selectionChange)="genderSelected()">
                                 <mat-option value="Email">Email</mat-option>
+                                <mat-option value="Poster">Social media</mat-option>
+                                <mat-option value="Friend">Friend</mat-option>
                                 <mat-option value="Poster">Poster</mat-option>
+                                <mat-option value="Web search">Web search</mat-option>
+                                <mat-option value="Hospital">Hospital</mat-option>
+                                <mat-option value="Doctor">Doctor</mat-option>
+                                <mat-option value="Counselor">Counselor</mat-option>
+                                <mat-option value="Other">Other</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
 
                     <div class="col-12 my-3">
-                        <label class="lesser-opacity"> Select the most appropriate option: </label>
-                        <mat-radio-group formControlName="floatLabel" color="primary">
+                        <label class="lesser-opacity"> 
+                            Select the most appropriate option: 
+                        </label>
+                        <mat-radio-group formControlName="helpReason" color="primary">
                             <mat-radio-button value="NeedHelp">I need help for myself</mat-radio-button>
                             <mat-radio-button value="DoNotNeedHelp">I don't need any help for myself</mat-radio-button>
                         </mat-radio-group>
                     </div>
 
                     <div class="col-12 my-3 ">
-                        <label class="lesser-opacity"> Select the most appropriate option: </label>
-                        <mat-radio-group formControlName="floatLabel" color="primary">
+                        <label class="lesser-opacity"> 
+                            Select the most appropriate option: 
+                        </label>
+                        <mat-radio-group formControlName="programPlan" color="primary">
                             <mat-radio-button value="Complete" >I plan to complete the program</mat-radio-button>
                             <mat-radio-button value="MayComplete" >I may complete the program if I like it</mat-radio-button>
                             <mat-radio-button value="DoNotComplete">

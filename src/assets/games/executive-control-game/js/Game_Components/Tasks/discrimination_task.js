@@ -58,11 +58,10 @@ function discrimination_task_generator()
 		
 		//Record discrimination task start time
 	
-
-		discrimination_task_timestamp=generateTS();
 		date=new Date();
 		discrimination_task_start_time=date.getTime();
-
+		discrimination_task_timestamp = date.toJSON();
+		
 		//if tutorial not shown,wait only the required time for response
 		if(SHOW_TUTORIAL==false||task_tutorial_shown==true)
 		{
@@ -129,14 +128,7 @@ function discrimination_task_complete()
 
 }
 getECGameTaskData = function (){
-	console.log(game_object,flanker_task_timestamp,
-		flanker_task_response_type,
-		flanker_task_response_time,
-		flanker_task_congruency,
-		task_image_type,
-		discrimination_task_timestamp,
-		discrimination_task_response_type,
-		discrimination_task_response_time,);
+
 	return [
 		game_object,
 		flanker_task_timestamp,

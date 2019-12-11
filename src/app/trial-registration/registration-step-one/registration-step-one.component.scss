@@ -11,9 +11,13 @@
     min-height: 48px;
 }
 
-.ng-valid.required  {
-    border: 5px solid red; 
+.ng-untouched  {
+    border: 0px; 
 }
+.ng-touched .ng-invalid:not(form)  {
+    border: 1px solid red; /* red */
+}
+
 .input-box {
     box-shadow: 0px 1px 3px #00000029;
     border-radius: 4px;

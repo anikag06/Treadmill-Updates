@@ -77,10 +77,10 @@ function flanker_task_generator()
 		}
 		
 		//Record flanker task start time
-		flanker_task_timestamp=generateTS();
 		date=new Date();
 		flanker_task_start_time=date.getTime();
-		
+		flanker_task_timestamp = date.toJSON();
+
 		if(SHOW_TUTORIAL==false||task_tutorial_shown==true)
 		{
 			flanker_task_done = setTimeout(flanker_task_complete,TIME_FOR_FLANKER);
