@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TrialAuthService } from '../shared/trial-auth.service';
 import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-contact-us-dialog.service';
 import { INELIGIBLE_FOR_TRIAL } from '@/app.constants';
+import { FormGroup, FormControl } from '@angular/forms';
+import { RegistrationDataService } from '../shared/registration-data.service';
 
 @Component({
   selector: 'app-registration-step-one',
@@ -19,6 +21,10 @@ export class RegistrationStepOneComponent implements OnInit {
   showRegistrationContent = false;
   userEligible = false;
 
+  emailForm = new FormGroup({
+    email: new FormControl(''),
+  });
+
   @HostListener('touchstart')
   onTouchEvent() {
     this.touchDevice = true;
@@ -28,13 +34,13 @@ export class RegistrationStepOneComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authService: TrialAuthService,
-    private showContactUsService: MatContactUsDialogService
+    private showContactUsService: MatContactUsDialogService,
+    private registrationDataService: RegistrationDataService,
   ) { }
 
   ngOnInit() {
     const smallDevice = window.matchMedia('(max-width: 767px)').matches;
     console.log(smallDevice);
-    console.log('touchDevice', this.touchDevice);
     if (smallDevice) {
       this.showRegistrationContent = true;
     }
@@ -42,17 +48,29 @@ export class RegistrationStepOneComponent implements OnInit {
 
   emailSubmit() {
     console.log('on form submit');
-
+    console.log(this.emailForm.value);
+    console.log('is form valid', this.emailForm.valid);
     // get data from backend
     this.userEligible = true;
-
     if (this.userEligible) {
       this.authService.activateChild(true);
+      console.log('navigate');
       this.router.navigate(['step-2'], {relativeTo: this.route} );
     } else {
       this.authService.activateChild(true);
       this.router.navigate([INELIGIBLE_FOR_TRIAL]);
     }
+    if (this.emailForm.valid) {
+      this.registrationDataService.putEmailID(this.emailForm.value.email)
+        .subscribe( (res_data: any) => {
+          console.log(res_data);
+        },
+        (err) => {
+          console.log(err);
+        }
+        );
+    }
+
   }
 
   contactUsClicked() {

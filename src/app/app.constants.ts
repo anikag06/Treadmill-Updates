@@ -148,3 +148,6 @@ export const COMMITTMENT_OPTIONS = ['1/day', '2/day', '3/day', '4/day', 'More th
 // trial registration pages
 export const INELIGIBLE_FOR_TRIAL = '/trial/ineligible-for-trial';
 
+// trial registration step one
+export const EMAIL_REGISTRATION = ' /api/v1/trial-iitk/register-participant/';
+

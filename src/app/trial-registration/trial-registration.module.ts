@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '@/material.module';
 import {MatRadioModule} from '@angular/material/radio';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { TrialRegistrationRoutingModule } from './trial-registration-routing.module';
 import { RegistrationStepOneComponent } from './registration-step-one/registration-step-one.component';
@@ -17,6 +18,7 @@ import { AboutUsPageComponent } from './information-pages/about-us-page/about-us
 import { TermsAndConditionsComponent } from './information-pages/terms-and-conditions/terms-and-conditions.component';
 import { MatExpansionModule } from '@angular/material';
 import { IneligibleTrialPageComponent } from './information-pages/ineligible-trial-page/ineligible-trial-page.component';
+import { RegistrationDataService } from './shared/registration-data.service';
 
 
 @NgModule({
@@ -34,6 +36,8 @@ import { IneligibleTrialPageComponent } from './information-pages/ineligible-tri
     IneligibleTrialPageComponent,
   ],
   imports: [
+    FormsModule,
+    ReactiveFormsModule,
     CommonModule,
     MaterialModule,
     MatExpansionModule,
@@ -42,6 +46,7 @@ import { IneligibleTrialPageComponent } from './information-pages/ineligible-tri
     QuestionnaireModule,
   ],
   providers: [
+    RegistrationDataService,
   ]
 })
 export class TrialRegistrationModule { }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TrialAuthService } from '../shared/trial-auth.service';
 import { Router } from '@angular/router';
 import { INELIGIBLE_FOR_TRIAL } from '@/app.constants';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-registration-step-two',
@@ -13,6 +14,16 @@ export class RegistrationStepTwoComponent implements OnInit {
   stepNo = 2;
   userEligible = false;
 
+  stepTwoForm = new FormGroup({
+    knowEnglish: new FormControl(''),
+    internetEnabled: new FormControl(''),
+    psychiatricHelp: new FormControl(''),
+    haveDisorder: new FormControl(''),
+    traumaticEvent: new FormControl(''),
+    helpReason: new FormControl(''),
+    programPlan: new FormControl(''),
+  });
+
   constructor(
     private authService: TrialAuthService,
     private router: Router,
@@ -20,6 +31,7 @@ export class RegistrationStepTwoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log(this.stepTwoForm.value);
   }
   genderSelected() {
 

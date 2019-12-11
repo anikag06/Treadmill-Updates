@@ -15,8 +15,8 @@
             <b> Please fill the form </b>
         </div>
 
-        <div class="form-group col-12">
-            <form class="w-100">
+        <div class="col-12">
+            <form class="w-100" [formGroup]="stepTwoForm">
                 <div class="row my-3">
                     <div class="col-6">
                         <mat-form-field class="w-100">
@@ -73,27 +73,31 @@
                     </div>
 
                     <div class="col-12 my-2">
-                        <label class="lesser-opacity">Do you know English well enough to read and understand high school standard textbooks?</label>
-                        <mat-radio-group formControlName="floatLabel" color="primary">
+                        <label class="lesser-opacity">
+                            Do you know English well enough to read and understand 
+                            high school standard textbooks?
+                        </label>
+                        <mat-radio-group formControlName="knowEnglish" color="primary">
                             <mat-radio-button value="yes" class="mr-5">Yes</mat-radio-button>
                             <mat-radio-button value="no" class="ml-4">No</mat-radio-button>
                         </mat-radio-group>
                     </div>
                     <div class="col-12 my-2">
                         <label class="lesser-opacity">
-                            Do you have an internet-enabled personal mobile phone for using this site?
+                            Do you have an internet-enabled personal mobile phone for 
+                            using this site?
                         </label>
-                        <mat-radio-group formControlName="floatLabel" color="primary">
+                        <mat-radio-group formControlName="internetEnabled" color="primary">
                             <mat-radio-button value="yes" class="mr-5">Yes</mat-radio-button>
                             <mat-radio-button value="no" class="ml-4">No</mat-radio-button>
                         </mat-radio-group>
                     </div>
                     <div class="col-12 my-2">
                         <label class="lesser-opacity">
-                                Are you currently taking any help for your psychiatric disorder, 
-                                if any? Select the most appropriate answer.
+                            Are you currently taking any help for your psychiatric disorder, 
+                            if any? Select the most appropriate answer.
                         </label>
-                        <mat-radio-group formControlName="floatLabel" color="primary">
+                        <mat-radio-group formControlName="psychiatricHelp" color="primary">
                             <mat-radio-button value="Counseling">Counseling</mat-radio-button>
                             <br>
                             <mat-radio-button value="Medicines">Medicines</mat-radio-button>
@@ -105,18 +109,21 @@
                     </div>
                     <div class="col-12 my-2">
                         <label class="lesser-opacity">
-                            Have you ever been diagnosed with bipolar disorder/ manic-depressive disorder or psychosis?
+                            Have you ever been diagnosed with bipolar disorder/ 
+                            manic-depressive disorder or psychosis?
                         </label>
-                        <mat-radio-group formControlName="floatLabel" color="primary">
+                        <mat-radio-group formControlName="haveDisorder" color="primary">
                             <mat-radio-button value="yes" class="mr-5">Yes</mat-radio-button>
                             <mat-radio-button value="no" class="ml-4">No</mat-radio-button>
                         </mat-radio-group>
                     </div>
                     <div class="col-12 my-2">
-                        <label class="lesser-opacity">Have you had a major traumatic event [For example:- death of an immediate family member, 
-                                getting fired unexpectedly] in the last two months?
+                        <label class="lesser-opacity">
+                            Have you had a major traumatic event [For example:- death of an 
+                            immediate family member, getting fired unexpectedly] in the 
+                            last two months?
                         </label>
-                        <mat-radio-group formControlName="floatLabel" color="primary">
+                        <mat-radio-group formControlName="traumaticEvent" color="primary">
                             <mat-radio-button value="yes" class="mr-5">Yes</mat-radio-button>
                             <mat-radio-button value="no" class="ml-4">No</mat-radio-button>
                         </mat-radio-group>
@@ -140,16 +147,20 @@
                     </div>
 
                     <div class="col-12 my-3">
-                        <label class="lesser-opacity"> Select the most appropriate option: </label>
-                        <mat-radio-group formControlName="floatLabel" color="primary">
+                        <label class="lesser-opacity"> 
+                            Select the most appropriate option: 
+                        </label>
+                        <mat-radio-group formControlName="helpReason" color="primary">
                             <mat-radio-button value="NeedHelp">I need help for myself</mat-radio-button>
                             <mat-radio-button value="DoNotNeedHelp">I don't need any help for myself</mat-radio-button>
                         </mat-radio-group>
                     </div>
 
                     <div class="col-12 my-3 ">
-                        <label class="lesser-opacity"> Select the most appropriate option: </label>
-                        <mat-radio-group formControlName="floatLabel" color="primary">
+                        <label class="lesser-opacity"> 
+                            Select the most appropriate option: 
+                        </label>
+                        <mat-radio-group formControlName="programPlan" color="primary">
                             <mat-radio-button value="Complete" >I plan to complete the program</mat-radio-button>
                             <mat-radio-button value="MayComplete" >I may complete the program if I like it</mat-radio-button>
                             <mat-radio-button value="DoNotComplete">
