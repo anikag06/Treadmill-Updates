@@ -1,8 +1,13 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { GamePlayService } from '@/main/games/shared/game-play.service';
 import { GamesAuthService } from '@/main/games/shared/games-auth.service';
 import { FFGameUserData, FFGamePerformance } from '@/main/games/shared/game-play.model';
 import { LoadFilesService } from '@/main/games/shared/load-files.service';
+import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
+import { FfgNextgameComponent } from './ffg-nextgame/ffg-nextgame.component';
+import { FfgInstructionsComponent } from './ffg-instructions/ffg-instructions.component';
+import { FfgPlayagainComponent } from './ffg-playagain/ffg-playagain.component';
+import { FfgNolifeComponent } from './ffg-nolife/ffg-nolife.component';
 
 declare var ffGamePreloadImages: any;
 declare var ffGame_hostile_images: any;
@@ -19,24 +24,59 @@ declare var ffg_music_name_array: any;
 declare var ffg_last_music_order: number;
 
 declare var ffg_coins: number;
+declare var ffgmusicBarValue:number;
 
 @Component({
   selector: 'app-friendly-face-game',
   templateUrl: './friendly-face-game.component.html',
   styleUrls: ['./friendly-face-game.component.scss']
 })
+
+
 export class FriendlyFaceGameComponent implements OnInit {
 
   NO_IMAGES_IN_PAGE = 20;
   NO_SONGS_IN_PAGE = 2;
   ffGameMusicOrder!: number;
   no_of_songs!: number;
+  musicBarValue!: number;
+  toneBarValue!:number;
 
   constructor(
     private gamePlayService: GamePlayService,
     private gamesAuthService: GamesAuthService,
     private loadFileService: LoadFilesService,
+    private dialogBoxService:DialogBoxService,
   ) { }
+
+  @ViewChild('newElement', { static: false }) element!: ElementRef;
+  @HostListener('window:CallPlayNext')
+  openPlayNextPopup() {
+    this.dialogBoxService.setDialogChild(FfgNextgameComponent);
+    const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
+    this.element.nativeElement.dispatchEvent(domEvent);
+  }
+
+  @HostListener('window:showInstructions')
+  openShowInstructionsPopup() {
+    this.dialogBoxService.setDialogChild(FfgInstructionsComponent);
+    const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
+    this.element.nativeElement.dispatchEvent(domEvent);
+  }
+
+  @HostListener('window:Playagain')
+  openPlayagainPopup() {
+    this.dialogBoxService.setDialogChild(FfgPlayagainComponent);
+    const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
+    this.element.nativeElement.dispatchEvent(domEvent);
+  }
+
+  @HostListener('window:FFGNoLife')
+  openNoLifePopup() {
+    this.dialogBoxService.setDialogChild(FfgNolifeComponent);
+    const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
+    this.element.nativeElement.dispatchEvent(domEvent);
+  }
 
   ffgUserOrderData = new FFGameUserData(0, 0);
   ffgUserPerformane = new FFGamePerformance(1, 0, 'touch', 0, 0);
@@ -103,6 +143,7 @@ export class FriendlyFaceGameComponent implements OnInit {
   ffGameMusicData(pageNumber: number) {
     this.gamesAuthService.ffGameGetMusicInfo(pageNumber, this.NO_SONGS_IN_PAGE)
     .subscribe( (music_data) => {
+      console.log(music_data);
       this.no_of_songs = music_data.count;
       let i = 0;
       while (music_data.results[i]) {
@@ -156,4 +197,12 @@ export class FriendlyFaceGameComponent implements OnInit {
       .subscribe(
       );
   }
+
+  @HostListener('window:FFGUpdateMusicBar')
+  onMusicBarUpdate() {
+    this.musicBarValue = ffgmusicBarValue;
+    this.toneBarValue = this.musicBarValue*3.3;
+    console.log('music bar update',ffgmusicBarValue);
+  }
+
 }

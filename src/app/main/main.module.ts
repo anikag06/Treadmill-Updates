@@ -147,6 +147,10 @@ import { IdcGameService } from './games/games-list/common-game/identify-cognitiv
 import { LhgInstructionsComponent } from './games/games-list/common-game/learned-helplessness-game/lhg-instructions/lhg-instructions.component';
 import { LhgHowtoplayComponent } from './games/games-list/common-game/learned-helplessness-game/lhg-howtoplay/lhg-howtoplay.component';
 import { LhgPlaynextgameComponent } from './games/games-list/common-game/learned-helplessness-game/lhg-playnextgame/lhg-playnextgame.component';
+import { FfgNextgameComponent } from './games/games-list/common-game/friendly-face-game/ffg-nextgame/ffg-nextgame.component';
+import { FfgInstructionsComponent } from './games/games-list/common-game/friendly-face-game/ffg-instructions/ffg-instructions.component';
+import { FfgPlayagainComponent } from './games/games-list/common-game/friendly-face-game/ffg-playagain/ffg-playagain.component';
+import { FfgNolifeComponent } from './games/games-list/common-game/friendly-face-game/ffg-nolife/ffg-nolife.component';
 
 @NgModule({
   declarations: [
@@ -240,7 +244,11 @@ import { LhgPlaynextgameComponent } from './games/games-list/common-game/learned
     IdcTimeComponent,
     LhgInstructionsComponent,
     LhgHowtoplayComponent,
-    LhgPlaynextgameComponent
+    LhgPlaynextgameComponent,
+    FfgNextgameComponent,
+    FfgInstructionsComponent,
+    FfgPlayagainComponent,
+    FfgNolifeComponent
     
   ],
   imports: [
@@ -329,6 +337,10 @@ import { LhgPlaynextgameComponent } from './games/games-list/common-game/learned
     LhgHowtoplayComponent,
     LhgInstructionsComponent,
     LhgPlaynextgameComponent,
+    FfgNextgameComponent,
+    FfgInstructionsComponent,
+    FfgPlayagainComponent,
+    FfgNolifeComponent,
   ]
 })
 export class MainModule {

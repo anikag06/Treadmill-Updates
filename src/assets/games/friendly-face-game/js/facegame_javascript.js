@@ -23,6 +23,7 @@ var ffg_music_current_order;
 var ffg_music_order_first;
 var ffg_last_music_order;
 var ffg_music_name;
+var ffgmusicBarValue;
 
 var ffg_music_notes_array = [];
 var ffg_music_note_rate_array = [];
@@ -63,6 +64,9 @@ var timeBeingShown=75;
 var timer;
 var timeCounter;
 var timer_is_on=0;
+var ffgExtraTime = false;
+var startPlay = false;
+ffg_no_life = false
 
 
 //var fillMusicBar;
@@ -197,6 +201,7 @@ var song_playing;
 var ffg_coins = 0;
 
 $(document).ready(function(){
+	
 
 	ffGameStart = function(device_type){
 		no_positive_images_clicked_level1 = ffg_no_positive_images_clicked_level1;
@@ -225,10 +230,14 @@ $(document).ready(function(){
 		// 	total_time_taken_level3 = ffg_total_time_taken_level3_touch;
 		// }
 		console.log(device);
+		// show instructions popup
+		showInstructionsPopup();
+		
 		$(".ff-game-container").removeClass("d-none");
 
-		$(".game-instructions").hide();
+		$(".game-cover").hide();
 
+		
 		startGame();
 	
 		canvas1.addEventListener("mousedown", function(e){
@@ -284,27 +293,29 @@ $(document).ready(function(){
 	//		song_playing = !(song_playing);
 	//	});
 
-		$("#play-next-song").click(function(){
+		// $("#play-next-song").click(function(){
+			playnextsong = function() {
+			console.log('playnext song clicked');
 
-			switch(checked_value){
-				case 'time':
-					time_difficulty++;
-					$("#difficulty-message").html("");
-					setBarWidth();
-					break;
-				case 'errors':
-					if(total_life > 1){
-						total_life--;
-					}else{
-						$("#difficulty-message").html("Already at minimum");
-					}
-					break;
-				case 'nothing':
-					$("#difficulty-message").html("");
-					break;
-				default:
-					console.log("None");
-			}
+			// switch(checked_value){
+			// 	case 'time':
+			// 		time_difficulty++;
+			// 		$("#difficulty-message").html("");
+			// 		setBarWidth();
+			// 		break;
+			// 	case 'errors':
+			// 		if(total_life > 1){
+			// 			total_life--;
+			// 		}else{
+			// 			$("#difficulty-message").html("Already at minimum");
+			// 		}
+			// 		break;
+			// 	case 'nothing':
+			// 		$("#difficulty-message").html("");
+			// 		break;
+			// 	default:
+			// 		console.log("None");
+			// }
 
 			levelUp();
 			
@@ -319,14 +330,14 @@ $(document).ready(function(){
 			ffGameFillGrid();
 			drawLife(life);
 			getColor(100, 0, 100);
-		});
+		};
 
-		$(document).on('change', 'input[type=radio]', function(){
-			checked_value = this.id;
-			setTimeout(function(){
-				$("#play-next-song").click();
-			}, 500);
-		});
+		// $(document).on('change', 'input[type=radio]', function(){
+		// 	checked_value = this.id;
+		// 	setTimeout(function(){
+		// 		$("#play-next-song").click();
+		// 	}, 500);
+		// });
 
 		// $(document).on('click', '#play-again-button', function(){
 		// 	$(".loader").fadeIn("fast");
@@ -362,7 +373,7 @@ ffGResumeGame=function(){
 		//time_bar_interval = setInterval(timeBar, updation_interval);
 		showPauseButton();
 		$("#canvas1").removeClass("block-click");
-		timeCount();
+		ffgtimeCount();
 	
 	}
 	game_paused=false;
@@ -372,13 +383,16 @@ ffGResumeGame=function(){
 
 ffGRestartGame = function() {
 	$(".loader").fadeIn("fast");
-	initialize();
+	console.log('extra time', ffgExtraTime);
+	
+	// initialize();
 	//score=0;
 	//timeBeingShown=75;
 	
 	setTimeout(function(){
 		$("#game-over-div").addClass('d-none');
 		startGame();
+		ffgtimeCount();
 		$(".game-components").show();
 		}, 500);
 		//setTimeout(function(){
@@ -394,7 +408,9 @@ function startGame(reload){
 	ffg_music_note_rate = ffg_music_note_rate_array[ffGameSongCounter];
 	initialize();
 	setupTimers();
-	timeCount();
+	// ffgtimeCount();
+	
+	
 	//coinsIncrease(score);
 	//timeBar();
 	// positioning the game elements in the middle of the screen vertically
@@ -404,6 +420,8 @@ function startGame(reload){
 		updateUser(ffg_music_current_order, ffg_coins);
 	}
 }
+
+
 
 function setHeightAndWidth(){
 	title_width = canvas1.width-10-$(".fa-fast-forward").width();
@@ -531,6 +549,7 @@ function clickedFriendlyImage(canvas, event) {
 				playNote();
 			}
 			clearInterval(blink_first_image);
+			
 			return true;
 		}
 	}
@@ -553,7 +572,9 @@ function clickedFriendlyImage(canvas, event) {
 		}
 	}
 	
+	
 	return false;
+	
 }
 
 
@@ -562,7 +583,11 @@ function penalty(){
 	life--;
 	document.getElementById("life").innerHTML=life;
 	//drawLife(life);
-	if(life <= 0) showGameOver();
+	if(life <= 0) {
+		ffg_no_life = true;
+		showGameOver();
+		
+	};
 }
 
 
@@ -574,30 +599,30 @@ function updateTimeDisplay(){
 	}
 }
 
-/*function timeCount(){
+/*function ffgtimeCount(){
 	//console.log("inside time count");
 	document.getElementById("time-sec").innerHTML=timeBeingShown;
 	timeBeingShown=timeBeingShown-1;
-	timeCounter=setInterval(timeCount,1000);
+	timeCounter=setInterval(ffgtimeCount,1000);
 }
 
 function startCount(){
 	//console.log("inside start count");
 	if(!timer_is_on){
 		timer_is_on=1;
-		timeCount();
+		ffgtimeCount();
 	}
 }*/
 
-function timeCount(){
+function ffgtimeCount(){
 	timer = setInterval(function(){
 		document.getElementById("time-sec").innerHTML=timeBeingShown;
 		timeBeingShown--;
-		if (timeBeingShown<0){
+		if (timeBeingShown==0){
 			showGameOver();
 			//clearInterval();
 		}
-		console.log(game_paused);
+		console.log(timeBeingShown,game_paused);
 	}, 1000);
 	
 }
@@ -773,11 +798,19 @@ function playNote(){
 		// getNextSong();
 		
 	}
-
+	updateMusicBar();
 	if(ffg_music_counter>=ffg_music.length){
 		getNextSong();
 		songOver();
 	}
+}
+
+function updateMusicBar() {
+	ffgmusicBarValue = (ffg_music_counter/ffg_music.length)*100;
+	console.log('music bar',ffgmusicBarValue,ffg_music_counter,ffg_music.length);
+	UpdateMusicBarEvent = document.createEvent('CustomEvent');
+	UpdateMusicBarEvent.initCustomEvent('FFGUpdateMusicBar');
+	window.dispatchEvent(UpdateMusicBarEvent);
 }
 
 function playWrongNote(){
@@ -800,7 +833,10 @@ function playMusic(stop, song){
 }
 
 function songOver(){
-	// show great;
+	
+	// show play next modal
+	playNextGamePopup();
+	
 	updateUser(ffg_music_current_order, ffg_coins);
 	nextStage();
 	ffg_music = next_song;
@@ -811,6 +847,7 @@ function songOver(){
 }
 
 function levelUp(){
+	console.log('level up called', level);
 	// take to next level;
 	level++;
 	if (level > 3) level=1;
@@ -819,8 +856,8 @@ function levelUp(){
 	no_row = no_images/no_col;
 	ffg_music_counter = 0;
 	life = total_life;
-	average_speed = getAverageSpeed(level);
-	setDurationMultiplier(average_speed);
+	// average_speed = getAverageSpeed(level);
+	// setDurationMultiplier(average_speed);
 	allotted_time = (ffg_music.length-time_difficulty)*average_speed;
 	time_left = allotted_time;
 	updation_interval = allotted_time/100;
@@ -828,34 +865,42 @@ function levelUp(){
 	canvas1.height = level*(HEIGHT+2*margin);
 }
 
-function getAverageSpeed(level){
-	if(level == 1){
-		return total_time_taken_level1/no_positive_images_clicked_level1;
-	}else if(level == 2){
-		return total_time_taken_level2/no_positive_images_clicked_level2;
-	}else if(level == 3){
-		return total_time_taken_level3/no_positive_images_clicked_level3;
-	}
-}
+// function getAverageSpeed(level){
+// 	if(level == 1){
+// 		return total_time_taken_level1/no_positive_images_clicked_level1;
+// 	}else if(level == 2){
+// 		return total_time_taken_level2/no_positive_images_clicked_level2;
+// 	}else if(level == 3){
+// 		return total_time_taken_level3/no_positive_images_clicked_level3;
+// 	}
+// }
 
 function showGameOver(){
+	clearInterval(timer);
+	if (timeBeingShown == 0){
+		showPlayagainPopup();
+	}else {
+		showNoLifePopup();
+	}
+	
 	//clearInterval(time_bar_interval);
 	// clearInterval(ajaxFriendlyImages);
 	// clearInterval(ajaxHostileImages);
 	// clearInterval(ajaxUpdateStats);
-	clearInterval(timer);
+	
 	updateStats();
 	game_paused = true;
 	game_started = false;
 	first_click = true;
 	
-	showPlayButton();
+	// showPlayButton();
 	//playMusic(false, game_over_music);
-	$("#canvas1").addClass("block-click");
-	$(".game-components").fadeOut(2500, function(){
-		$("#game-over-div").removeClass('d-none');
-		$("#canvas1").removeClass("block-click");
-	});
+
+	// $("#canvas1").addClass("block-click");
+	// $(".game-components").fadeOut(2500, function(){
+	// 	$("#game-over-div").removeClass('d-none');
+	// 	$("#canvas1").removeClass("block-click");
+	// });
 	// getNextSong();
 	// songOver();
 	
@@ -985,7 +1030,14 @@ function initialize(){
 	life = 5;
 	total_life = 5;
 	score=0;
-	timeBeingShown=75;
+	if (ffgExtraTime) {
+		timeBeingShown = 20;
+		ffgExtraTime = false;
+	}else {
+		timeBeingShown=75;
+	}
+	
+	
 	drawLife(life);
 	disableElements();
 	no_row = no_images/no_col; // no. of rows in the matrix.
@@ -1160,4 +1212,28 @@ getFFGClickData = function() {
 		no_positive_images_clicked,
 		total_time_taken,
 		device ]
+}
+
+function playNextGamePopup() {
+	showPlayNextEvent = document.createEvent('CustomEvent');
+	showPlayNextEvent.initCustomEvent('CallPlayNext');
+	window.dispatchEvent(showPlayNextEvent);
+}
+
+function showInstructionsPopup() {
+	showInstructionsEvent = document.createEvent('CustomEvent');
+	showInstructionsEvent.initCustomEvent('showInstructions');
+	window.dispatchEvent(showInstructionsEvent);
+}
+
+function showPlayagainPopup() {
+	showPlayagainEvent = document.createEvent('CustomEvent');
+	showPlayagainEvent.initCustomEvent('Playagain');
+	window.dispatchEvent(showPlayagainEvent);
+}
+
+function showNoLifePopup() {
+	noLifeEvent = document.createEvent('CustomEvent');
+	noLifeEvent.initCustomEvent('FFGNoLife');
+	window.dispatchEvent(noLifeEvent);
 }
