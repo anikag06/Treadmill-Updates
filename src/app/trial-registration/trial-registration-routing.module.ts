@@ -18,10 +18,12 @@ const routes: Routes = [
     path: 'trial-registration', component: RegistrationStepOneComponent, canActivate: [TrialRegistrationAuthGuard]
   },
   {
-    path: 'trial-registration/step-2', component: RegistrationStepTwoComponent, canActivate: [TrialActivateGuard]
+    path: 'trial-registration/step-2', component: RegistrationStepTwoComponent,
+    canActivate: [TrialActivateGuard]
   },
   {
-    path: 'trial-registration/step-3', component: RegistrationStepThreeComponent, canActivate: [TrialActivateGuard]
+    path: 'trial-registration/step-3', component: RegistrationStepThreeComponent,
+    canActivate: [TrialActivateGuard]
   },
   {
     path: 'trial-registration/step-4', component: RegistrationStepFourComponent, canActivate: [TrialActivateGuard]
@@ -42,7 +44,7 @@ const routes: Routes = [
     canActivate: [TrialRegistrationAuthGuard]
   },
   {
-    path: 'ineligible-for-trial', component: IneligibleTrialPageComponent,
+    path: 'thankyou', component: IneligibleTrialPageComponent,
     // canActivate: [TrialActivateGuard],
   }
 ];
