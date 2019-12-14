@@ -17,7 +17,7 @@ import { TrialAuthService } from '@/trial-registration/shared/trial-auth.service
 import { RegistrationQuestionnaireScore } from '@/trial-registration/registration-step-three/resgistration-step-three-response.model';
 import { RegistrationDataService } from '@/trial-registration/shared/registration-data.service';
 import { QuestionnaireResponse } from './input/questionnaire-response.model';
-import { INELIGIBLE_FOR_TRIAL, REGISTRATION_PATH } from '@/app.constants';
+import { INELIGIBLE_FOR_TRIAL, REGISTRATION_PATH, GET_PHQ_QUESTIONS, GET_GAD_QUESTIONS, GET_SIQ_QUESTIONS } from '@/app.constants';
 
 @Component({
   animations: [
@@ -88,16 +88,21 @@ export class QuestionnaireComponent implements OnInit {
     option_2: [false, false, false, false, false, false, false, false, false],
     option_3: [false, false, false, false, false, false, false, false, false],
   };
+
   see0!: boolean;
   see1!: boolean;
   see2!: boolean;
   see3!: boolean;
-  // tslint:disable-next-line:max-line-length
-  api = [environment.API_ENDPOINT + '/api/v1/questionnaire/phq-nine-questions-list/', environment.API_ENDPOINT + '/api/v1/questionnaire/gad-questions-list/'];
+
+  api = [environment.API_ENDPOINT + GET_PHQ_QUESTIONS, environment.API_ENDPOINT + GET_GAD_QUESTIONS,
+    environment.API_ENDPOINT + GET_SIQ_QUESTIONS];
   index = 0;
   display_gad_start = false;
   display_questionnaire = false;
   display_phq_start = true;
+
+  is_siq_ques = false;
+
   routing!: boolean;
   visible!: boolean;
   id!: any;
@@ -127,6 +132,7 @@ export class QuestionnaireComponent implements OnInit {
   loadQuiz() {
     this.quizService.get(this.api[this.index])
       .subscribe((res: any) => {
+        console.log(res);
         this.quiz = new Quiz(res);
         this.pager.count = this.quiz.questions.length;
         this.total_question = this.pager.count - 1;

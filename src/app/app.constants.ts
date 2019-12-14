@@ -145,6 +145,11 @@ export const FORM_PROBLEM_SOLVING_WORKSHEET = 'FORM-PROBLEM-SOLVING-WORKSHEET';
 // committment options
 export const COMMITTMENT_OPTIONS = ['1/day', '2/day', '3/day', '4/day', 'More than 4/day'];
 
+// questionnaire paths
+export const GET_PHQ_QUESTIONS = '/api/v1/questionnaire/phq-nine-questions-list/';
+export const GET_GAD_QUESTIONS = '/api/v1/questionnaire/gad-questions-list/';
+export const GET_SIQ_QUESTIONS = '/api/v1/questionnaire/siq-questions-list/';
+
 // trial registration pages
 export const INELIGIBLE_FOR_TRIAL = '/trial/thankyou';
 export const REGISTRATION_PATH = '/trial/trial-registration';
@@ -154,6 +159,6 @@ export const EMAIL_REGISTRATION = '/api/v1/trial-iitk/register-participant/';
 export const REGISTRATION_STEP_TWO = '/api/v1/trial-iitk/participant-information/';
 export const REGISTRATION_PHQ_RESPONSE = '/api/v1/questionnaire/trial-phq-user-response/';
 export const REGISTRATION_GAD_RESPONSE = '/api/v1/questionnaire/trial-gad-user-response/';
-
+export const REGISTRATION_CONSENT = '/api/v1/trial-iitk/participant-consent/';
 
 

@@ -23,10 +23,11 @@ const routes: Routes = [
   },
   {
     path: 'trial-registration/step-3', component: RegistrationStepThreeComponent,
-    canActivate: [TrialActivateGuard]
+    // canActivate: [TrialActivateGuard]
   },
   {
-    path: 'trial-registration/step-4', component: RegistrationStepFourComponent, canActivate: [TrialActivateGuard]
+    path: 'trial-registration/step-4', component: RegistrationStepFourComponent,
+    canActivate: [TrialActivateGuard]
   },
   {
     path: 'faqs', component: FaqPageComponent, canActivate: [TrialRegistrationAuthGuard]
