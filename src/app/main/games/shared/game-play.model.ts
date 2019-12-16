@@ -1,5 +1,5 @@
 // for storing interpretation bias game
-export class UserScoreData {
+export class IBGameUserScore {
 
     constructor(
          public order: number,
@@ -12,7 +12,7 @@ export class UserScoreData {
      }
  }
 
- export class UserResponseData {
+ export class IBGameUserResponse {
      constructor(
          public sentence: number,
          public user_response: boolean,
@@ -114,3 +114,37 @@ export class FFGamePerformance {
 
     }
 }
+
+export class MIGameUserData {
+    constructor(
+        public game_sentence_id: number,
+        public score: number,
+        public answer: string,
+        public answer_correct: boolean,
+        public start_time: any,
+        public end_time: any
+    ) {
+
+    }
+}
+export class ICDGameUserData {
+    constructor(
+        public last_completed_order: number,
+        public points: number,
+        public time: number,
+        ) {
+
+        }
+}
+
+export class ICDGameUserAnswerData {
+    constructor(
+        public situation_distortion_map_id: number,
+        public situation_displayed_at: any,
+        public answered_at: any,
+        ) {
+
+        }
+}
+
+

@@ -1,28 +1,24 @@
 <mat-card class="container-fluid px-0 pt-0 pb-2 mb-2">
   <div class="row mb-2 no-gutters">
-    <mat-card-header class="col-12 w-100 px-0 card-header " id="main-heading">
-        <mat-card-title class="ml-4 my-auto d-inline-block">
-          <!-- <div class="ml-4 my-auto d-inline-block ">
+    <mat-card-header class="col-12 w-100 px-0 card-header main-heading">
+      <mat-card-title class="ml-4 my-auto d-inline-block">
+        <!-- <div class="ml-4 my-auto d-inline-block ">
           <p class="py-1 my-auto"> My tasks </p>
           </div> -->
-          My tasks
-        </mat-card-title>
-          
+        My tasks
+      </mat-card-title>
+
       <div class="d-inline-block ml-auto">
-        <button class="h-100"
-          mat-button [matMenuTriggerFor]="beforeMenu">
-          <i class="material-icons"  >
+        <button class="h-100 saved-forms-btn" mat-button [matMenuTriggerFor]="beforeMenu">
+          <i class="material-icons more-hor-icon">
             more_horiz
           </i>
         </button>
       </div>
-      
-      <mat-menu 
-        #beforeMenu="matMenu" xPosition="before" yPosition="below" >
+
+      <mat-menu #beforeMenu="matMenu" xPosition="before" yPosition="below">
         <div [ngStyle]="{'max-height':'350px'}">
-          <app-forms-sidebar
-            (objectEmitter)="taskSelected($event)"
-            (newForm)="onAddNewForm()">
+          <app-forms-sidebar (objectEmitter)="taskSelected($event)" (newForm)="onAddNewForm()">
           </app-forms-sidebar>
         </div>
       </mat-menu>

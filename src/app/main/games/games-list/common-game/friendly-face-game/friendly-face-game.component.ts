@@ -2,6 +2,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { GamePlayService } from '@/main/games/shared/game-play.service';
 import { GamesAuthService } from '@/main/games/shared/games-auth.service';
 import { FFGameUserData, FFGamePerformance } from '@/main/games/shared/game-play.model';
+import { LoadFilesService } from '@/main/games/shared/load-files.service';
 
 declare var ffGamePreloadImages: any;
 declare var ffGame_hostile_images: any;
@@ -33,14 +34,21 @@ export class FriendlyFaceGameComponent implements OnInit {
 
   constructor(
     private gamePlayService: GamePlayService,
-    private gamesAuthService: GamesAuthService
+    private gamesAuthService: GamesAuthService,
+    private loadFileService: LoadFilesService,
   ) { }
 
   ffgUserOrderData = new FFGameUserData(0, 0);
   ffgUserPerformane = new FFGamePerformance(1, 0, 'touch', 0, 0);
 
   ngOnInit() {
-    this.loadImages();
+    this.loadFileService.loadExternalScript('./assets/games/friendly-face-game/js/facegame_javascript.js')
+      .then(() => {
+        this.loadImages();
+      })
+      .catch(() => {});
+    this.loadFileService.loadExternalScript('./assets/games/friendly-face-game/js/tone.min.js').then(() => {}).catch(() => {});
+
   }
 
   loadImages() {

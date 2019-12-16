@@ -54,6 +54,8 @@ import { Conclusion2Component } from './conclusion/conclusion2/conclusion2.compo
 import { Conclusion3Component } from './conclusion/conclusion3/conclusion3.component';
 import { Conclusion4Component } from './conclusion/conclusion4/conclusion4.component';
 import { Conclusion5Component } from './conclusion/conclusion5/conclusion5.component';
+import { ThoughtRecordFormComponent } from './forms/thought-record-form/thought-record-form.component';
+import { TrfSituationComponent } from './forms/thought-record-form/trf-situation/trf-situation.component';
 
 @NgModule({
   declarations: [
@@ -87,6 +89,8 @@ import { Conclusion5Component } from './conclusion/conclusion5/conclusion5.compo
     Conclusion3Component,
     Conclusion4Component,
     Conclusion5Component,
+    ThoughtRecordFormComponent,
+    TrfSituationComponent,
   ],
   imports: [
     ResourcesRoutingModule,

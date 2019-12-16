@@ -2386,12 +2386,14 @@ getECScoreData = function(){
 	if(score > max_score){
 		max_score = score;
 	}
+	const end_time = new Date();
+	const endTime = end_time.toJSON();
 	return [
 		no_lives_taken,
 		game_object,
 		score,
 		level.number,
-		generateTS(),		// this is the end time
+		endTime,		// this is the end time
 		gameOver,
 
 		max_score,

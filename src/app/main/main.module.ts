@@ -71,8 +71,8 @@ import {ChatbotService} from '@/main/chatbot/chatbot.service';
 import {SlideService} from './resources/slides/slide.service';
 import {ProblemSolvingWorksheetsService} from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.service';
 
-import { DataService } from './dashboard/questionnaire/data.service';
-import { QuestionnaireComponent } from './dashboard/questionnaire/questionnaire.component';
+// import { DataService } from '@/shared/questionnaire/data.service';
+// import { QuestionnaireComponent } from '@/shared/questionnaire/questionnaire.component';
 import { PlotScoreGraphService } from './score/plot-score-graph.service';
 import {AngularFireMessagingModule} from '@angular/fire/messaging';
 import {AngularFireModule} from '@angular/fire';
@@ -93,7 +93,7 @@ import { StepGroupComponent } from './flow/step-group/step-group.component';
 import { FlowService } from './flow/flow.service';
 import { StepComponent } from './flow/step-group/step/step.component';
 import { StepsIndicatorComponent } from './flow/step-group/steps-indicator/steps-indicator.component';
-import { QuizService } from './dashboard/questionnaire/questionnaire.service';
+// import { QuizService } from '@/shared/questionnaire/questionnaire.service';
 import { FlowStepNavigationService } from './shared/flow-step-navigation.service';
 import { IntroduceComponent } from './shared/introduce/introduce.component';
 import { OverlayModule } from '@angular/cdk/overlay';
@@ -129,6 +129,27 @@ import { UserProfileService } from './shared/user-profile/userProfile.service';
 import { BadgesComponent } from './shared/user-profile/badges/badges.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { ClickOutsideDirective } from './support-groups/post-list/post-item/click-outside.directive';
+
+import { QuestionnaireModule } from '@/questionnaire.module';
+import { GetQuestionnaireComponent } from './dashboard/get-questionnaire/get-questionnaire.component';
+import { IdcHeadingComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-heading/idc-heading.component';
+import { IdcAllSituationsComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-all-situations/idc-all-situations.component';
+import { IdcMainComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-main/idc-main.component';
+import { IdcNatComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-nat/idc-nat.component';
+import { IdcOptionSolutionComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-option-solution/idc-option-solution.component';
+import { IdcOptionsComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-options/idc-options.component';
+import { IdcOptionsPopupProceedComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-options-popup-proceed/idc-options-popup-proceed.component';
+import { IdcPopupComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-popup/idc-popup.component';
+import { IdcScoreComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-score/idc-score.component';
+import { IdcSelectedOptionComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-selected-option/idc-selected-option.component';
+import { IdcSelectedOptionContentComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-selected-option-content/idc-selected-option-content.component';
+import { IdcSituationComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-situation/idc-situation.component';
+import { IdentifyCognitiveDistortionComponent } from './games/games-list/common-game/identify-cognitive-distortion/identify-cognitive-distortion.component';
+import { IdcInstructionsComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-instructions/idc-instructions.component';
+import { IdcInfoComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-info/idc-info.component';
+import { IdcWinComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-win/idc-win.component';
+import { IdcTimeComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-time/idc-time.component';
+import { IdcGameService } from './games/games-list/common-game/identify-cognitive-distortion/idc-game.service';
 
 @NgModule({
   declarations: [
@@ -172,7 +193,7 @@ import { ClickOutsideDirective } from './support-groups/post-list/post-item/clic
     MainComponent,
     ChatbotComponent,
     ChatWindowComponent,
-    QuestionnaireComponent,
+    // QuestionnaireComponent,
     AttributeStyleGameComponent,
     FriendlyFaceGameComponent,
     MentalImageryComponent,
@@ -205,6 +226,25 @@ import { ClickOutsideDirective } from './support-groups/post-list/post-item/clic
     UserProfileComponent,
     BadgesComponent,
     ClickOutsideDirective,
+    GetQuestionnaireComponent,
+    IdcAllSituationsComponent,
+    IdcHeadingComponent,
+    IdcMainComponent,
+    IdcNatComponent,
+    IdcOptionSolutionComponent,
+    IdcOptionsComponent,
+    IdcOptionsPopupProceedComponent,
+    IdcPopupComponent,
+    IdcScoreComponent,
+    IdcSelectedOptionComponent,
+    IdcSelectedOptionContentComponent,
+    IdcSituationComponent,
+    IdentifyCognitiveDistortionComponent,
+    IdcInstructionsComponent,
+    IdcInfoComponent,
+    IdcWinComponent,
+    IdcTimeComponent
+    
   ],
   imports: [
     CommonModule,
@@ -234,6 +274,7 @@ import { ClickOutsideDirective } from './support-groups/post-list/post-item/clic
     AngularFireMessagingModule,
     OverlayModule,
     MatTooltipModule
+    QuestionnaireModule,
   ],
   providers: [
     LocalStorageService,
@@ -251,13 +292,13 @@ import { ClickOutsideDirective } from './support-groups/post-list/post-item/clic
     GamesAuthService,
     ChatbotService,
     SlideService,
-    DataService,
+    // DataService,
     PlotScoreGraphService,
     FcmService,
     MICurrentStateService,
     FlowService,
     PassDataService,
-    QuizService,
+    // QuizService,
     FlowStepNavigationService,
     NavbarNotificationsService,
     GamesBadgesService,
@@ -265,6 +306,7 @@ import { ClickOutsideDirective } from './support-groups/post-list/post-item/clic
     DialogBoxService,
     ExecControlHelpService,
     UserProfileService
+    IdcGameService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [
@@ -284,6 +326,11 @@ import { ClickOutsideDirective } from './support-groups/post-list/post-item/clic
     MigScienceComponent,
     FfgScienceComponent,
     LhgScienceComponent,
+    IdcPopupComponent,
+    IdcInstructionsComponent,
+    IdcInfoComponent,
+    IdcWinComponent,
+    IdcTimeComponent,
   ]
 })
 export class MainModule {

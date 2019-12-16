@@ -12,6 +12,9 @@ import {
 import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
 import { MiInstructionsComponent } from '../games-list/common-game/mental-imagery/mi-instructions/mi-instructions.component';
 import { ExecControlInstructionsComponent } from '../games-list/common-game/executive-control-game/exec-control-instructions/exec-control-instructions.component';
+import { MIPlayService } from '../games-list/common-game/mental-imagery/mi-play.service';
+import { MICurrentStateService } from '../games-list/common-game/mental-imagery/mi-current-state.service';
+import { IdcInstructionsComponent } from '../games-list/common-game/identify-cognitive-distortion/idc-instructions/idc-instructions.component';
 
 // for interpretation bias game
 declare var startIBGame: any;
@@ -64,7 +67,8 @@ declare var lhGameGetTask3Data: any;
 
 // for friendly face game
 declare var ffGameStart: any;
-declare var ffGPauseResumeGame: any;
+declare var ffGPauseGame: any;
+declare var ffGResumeGame: any;
 declare var ffGRestartGame: any;
 declare var ffg_no_positive_images_clicked_level1: any;
 declare var ffg_no_positive_images_clicked_level2: any;
@@ -74,6 +78,12 @@ declare var ffg_total_time_taken_level2: any;
 declare var ffg_total_time_taken_level3: any;
 declare var ffGameSongCounter: number;
 declare var ffg_music_current_order: number;
+declare var fillMusicBar: any;
+declare var toneNumber: number;
+
+// for mental imagery game
+declare var miGameShowTutorial: boolean;
+
 
 @Injectable({
   providedIn: 'root'
@@ -112,6 +122,7 @@ export class GamePlayService  {
   // lhGameNextLevels = (this.LHGAME_CR_NUMBER_OF_LEVELS * this.lhGamePageNumber) - 3 ;
   // lhGamePreviousLevels = (this.LHGAME_CR_NUMBER_OF_LEVELS * (this.lhGamePageNumber - 1)) + 3;
   game!: any;
+ 
   // for mental imagery games
 
   constructor(
@@ -120,6 +131,8 @@ export class GamePlayService  {
     private gameBadgeService: GamesBadgesService,
     // private ibGameDialogService: IbDialogsService,
     private dialogBoxService: DialogBoxService,
+    private miPlayService: MIPlayService,
+    private miCurrentStateService: MICurrentStateService,
   ) { }
 
   getGameInfo(slug: string) {
@@ -190,10 +203,10 @@ export class GamePlayService  {
               this.ecGameSoundOn = isSoundOn;
               const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
               gamePauseDiv.nativeElement.dispatchEvent(domEvent);
-            } else if(!this.ecGameShowTutorial && !helpClicked) {
+            } else if (!this.ecGameShowTutorial && !helpClicked) {
               this.ecGameSoundOn = isSoundOn;
               this.startECGameFunc();
-            } else if(helpClicked) {
+            } else if (helpClicked) {
               this.ecGameShowTutorial = true;
             }
 
@@ -220,10 +233,11 @@ export class GamePlayService  {
       this.ecGameStarted = true;
   }
 
-  helpExecControlGame(isSoundOn: any, gamePauseDiv:any) {
+  helpExecControlGame(isSoundOn: any, gamePauseDiv: any) {
     this.ecGameSoundOn = isSoundOn;
     this.storeDataExecControlGame();
-    this.playExecControlGame(isSoundOn, gamePauseDiv, true);      // get new updated data on clicking help to start new game from the help dialog
+    // get new updated data on clicking help to start new game from the help dialog
+    this.playExecControlGame(isSoundOn, gamePauseDiv, true);
   }
   pauseExecControlGame() {
     pauseECGame();
@@ -482,6 +496,10 @@ export class GamePlayService  {
     this.ffGameTotalPerformance(1, device_type);      // as the game starts from level 1(i.e. grid row = 1)
   }
 
+  fillMusicBar(){
+    toneNumber=toneNumber+10;
+  }
+
   ffGameTotalPerformance(levelNumber: number, device_type: string) {
     this.gamesAuthService.ffGameGetTotalPerformance(levelNumber, device_type)
       .subscribe( (levelData) => {
@@ -526,10 +544,10 @@ export class GamePlayService  {
       });
   }
   pauseFaceGame() {
-    ffGPauseResumeGame();
+    ffGPauseGame();
   }
   resumeFaceGame() {
-    ffGPauseResumeGame();
+    ffGResumeGame();
   }
   restartFaceGame() {
     ffGRestartGame();
@@ -540,13 +558,27 @@ export class GamePlayService  {
 
   // for mental imagery game
   playMentalImageryGame(gameDivElement: any) {
+    if (this.miCurrentStateService.showTutorial === true) {
     const domEvent =  new CustomEvent('overlayCalledEvent', {bubbles:true});
     gameDivElement.nativeElement.dispatchEvent(domEvent);
     this.helpMIGame();
+    } else {
+      this.miPlayService.startPlaying.emit();
+    }
 
   }
   helpMIGame() {
     this.dialogBoxService.setDialogChild(MiInstructionsComponent);
   }
+  // for cognitive distortion game
+  playIdentifyCognitiveDistortionGame(gameDivElement: any) {
+    const domEvent =  new CustomEvent('overlayCalledEvent', {bubbles:true});
+    gameDivElement.nativeElement.dispatchEvent(domEvent);
+    this.helpIDCGame();
+  }
+  helpIDCGame(){
+    this.dialogBoxService.setDialogChild(IdcInstructionsComponent);
+  }
+
 }
 

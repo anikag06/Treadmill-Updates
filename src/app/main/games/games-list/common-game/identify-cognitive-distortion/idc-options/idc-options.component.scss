@@ -1,0 +1,56 @@
+@import "styles.scss";
+@import "games-styles.scss";
+
+@import "../../../../shared/games-common.scss";
+.identify {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.options-heading{
+    font-size: 14px;
+    font-family: Roboto, sans-serif;
+    text-align: center;
+    color: #333333;
+}
+
+.options-content{
+    display: flex;
+    font-family: Roboto, sans-serif;
+    text-align: center;
+}
+
+.options-content button {
+    border-radius: 20px 20px 20px 20px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    font-size: 12px;
+    height: 32px;
+    min-width: 157px;
+    background-color: #fff;
+    color: #4C4C4C;
+    margin: 10px 2px;
+    border: 1px solid #A5A5A5;
+    outline: none;
+}
+ 
+.errorBar {
+    background: #0C8C95 ;
+    opacity: 0.2;
+    height: 4px; 
+    width:90px;
+}
+
+.errorsFound {
+    background-color: #0C8C95;
+    opacity: 1;
+}
+
+
+// .group-1{
+//     flex: 1;  
+// }
+
+// .group-2{
+//     flex: 1;
+// }

@@ -1,0 +1,15 @@
+<div class="row sticky-top align-items-center" id="top-logo">
+    <div class="col px-0">
+        <img src="../../../assets/shared/logo_full.png"
+            (click)="onLogoClick()"
+            class="w-100 ml-n2">
+    </div>
+    <div class="col-5 mt-2 pl-0">
+        <button type="button" *ngIf="stepOne" (click)="topJoinStudyClick()"
+         class="btn btn-outline-warning mt-auto float-right">Join the Study</button>
+
+        <p *ngIf="stepTwo" class="text-property my-0"> <b>  Step 2 of 4  </b></p>
+        <p *ngIf="stepThree" class="text-property my-0"> <b> Step 3 of 4 </b>  </p>
+
+    </div>
+</div>

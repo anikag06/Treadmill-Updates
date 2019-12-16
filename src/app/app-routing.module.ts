@@ -4,6 +4,7 @@ import { LandingPageComponent } from './pre-login/landing-page/landing-page.comp
 import { PreLoginComponent } from './pre-login/pre-login.component';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { AuthGuard } from './shared/auth/auth.guard';
+import { TrialRegistrationAuthGuard } from './shared/auth/trial-registration-auth.guard';
 
 const routes: Routes = [
   { path: 'landing',
@@ -14,7 +15,9 @@ const routes: Routes = [
     ]
   },
   { path: '', loadChildren: './main/main.module#MainModule', canActivateChild: [AuthGuard] },
-  { path: '', loadChildren: './trial-registration/trial-registration.module#TrialRegistrationModule'},
+  {
+    path: 'trial', loadChildren: './trial-registration/trial-registration.module#TrialRegistrationModule',
+  },
   { path: '**', component: NotFoundComponent }
 ];
 

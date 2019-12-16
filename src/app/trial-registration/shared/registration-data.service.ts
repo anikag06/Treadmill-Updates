@@ -1,0 +1,41 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'environments/environment';
+import { Observable } from 'rxjs';
+import { EMAIL_REGISTRATION, REGISTRATION_STEP_TWO, REGISTRATION_PHQ_RESPONSE, REGISTRATION_GAD_RESPONSE } from '@/app.constants';
+import { RegistrationStepTwoForm } from '../registration-step-two/step-two-form-data.model';
+import { RegistrationQuestionnaireScore } from '../registration-step-three/resgistration-step-three-response.model';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class RegistrationDataService {
+
+  participationID!: number;
+
+  constructor(
+    private http: HttpClient,
+  ) { }
+
+  storeEmailID(emailID: any) {
+    console.log('sending email', emailID);
+    const sendData = {email: emailID};
+    return this.http.post(environment.API_ENDPOINT + EMAIL_REGISTRATION, sendData);
+  }
+
+  saveStepTwoForm(stepTwoData: RegistrationStepTwoForm) {
+    console.log('store 2', stepTwoData);
+    return this.http.put(environment.API_ENDPOINT + REGISTRATION_STEP_TWO, stepTwoData);
+  }
+
+  savePHQData(phqResponse: RegistrationQuestionnaireScore) {
+    console.log(phqResponse);
+    return this.http.post(environment.API_ENDPOINT + REGISTRATION_PHQ_RESPONSE, phqResponse );
+  }
+
+  saveGADData(gadResponse: RegistrationQuestionnaireScore) {
+    console.log(gadResponse);
+    return this.http.post(environment.API_ENDPOINT + REGISTRATION_GAD_RESPONSE, gadResponse );
+
+  }
+}

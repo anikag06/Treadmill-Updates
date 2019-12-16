@@ -1,0 +1,66 @@
+@import 'styles.scss';
+@import 'color.palette.scss';
+
+.small-font {
+    font-size: 14px;
+    letter-spacing: 0.29px;
+    font-family: "Roboto Regular";
+}
+.s-medium {
+    font-size: 14px;
+    letter-spacing: 0.29px;
+    font-family: "Roboto Medium";
+}
+
+.medium-font {
+    font-size: 16px;
+    letter-spacing: 0.29px;
+    font-family: "Roboto Regular";
+}
+.m-medium{
+    font-size: 16px;
+    letter-spacing: 0.29px;
+    font-family: "Roboto Medium";
+}
+
+.large-font {
+    font-size: 20px;
+    letter-spacing: 0.29px;
+    font-family: "Roboto";
+}
+.l-medium {
+    font-size: 20px;
+    letter-spacing: 0.29px;
+    font-family: "Roboto Medium";
+}
+.largest-font {
+    font-size: 24px;
+    letter-spacing: 0.29px;
+    font-family: "Roboto";
+}
+
+.less-opacity {
+    opacity: 0.6;
+}
+
+.lesser-opacity {
+    opacity: 0.54;
+}
+.opacity-80 {
+    opacity: 0.80;
+}
+
+.card {
+    box-shadow: 0px 1px 3px #00000029;
+    border-radius: 9px;
+    border: 0px;
+    opacity: 1;
+}
+
+.contactUsLink {
+    text-decoration: underline;
+    color: #007bff;
+}
+a {
+    text-decoration: underline;
+}

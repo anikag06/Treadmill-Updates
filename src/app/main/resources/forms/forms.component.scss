@@ -1,36 +1,138 @@
+@import 'styles.scss';
+@import 'color.palette.scss';
+
 *::-webkit-scrollbar {
   width: 0.3em;
 }
 
 *::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
 
 *::-webkit-scrollbar-thumb {
   background-color: darkgrey;
   // outline: 1px solid slategrey;
 }
-#form-container{
+
+#form-container {
   max-width: 900px;
   width: 65%;
   margin-left: 6%;
   max-height: 900px;
   // background-color: white;
 }
+
 .forms {
   padding-left: 20px;
   min-height: 70vh;
 }
+
 @media screen and (max-width: 992px) {
-  #form-container{
+  #form-container {
     width: 70%;
   }
 }
 
 @media screen and (max-width: 767px) {
-  #form-container{
+  #form-container {
     width: 100%;
     margin: 0%;
     padding: 0%;
+  }
+}
+
+.more-hor-icon {
+  color: white;
+  max-width: 100%;
+}
+
+.container-fluid {
+  background-color: white;
+  @include box-shadow-1-1-10-d6();
+}
+
+.form-editable-text-underline {
+  border-bottom: 1px solid #dcdcdc;
+}
+
+.card-header {
+  background-color: #FFEFD4;
+  font-weight: 700;
+}
+
+.card {
+  margin: 0 auto;
+
+  button {
+    width: 100%;
+  }
+
+  label {
+    padding: 10px;
+    margin-bottom: 0px;
+    border-bottom: 1px solid #969393;
+
+    &:last-child {
+      border-bottom: 1px solid transparent;
+    }
+  }
+
+  .continue-btn {
+    width: 100px;
+  }
+
+  .full-width {
+    width: 100%;
+  }
+
+  textarea {
+    color: #000000;
+  }
+
+  .pull-right {
+    float: right;
+  }
+}
+
+.card.card-240 {
+  max-width: 240px;
+}
+
+.card.card-full-width {
+  width: 100%;
+}
+
+.main-heading {
+  background-color: #343434;
+  color: white;
+  max-height: 45px;
+}
+
+.saved-forms-btn {
+  float: right;
+  margin: 2%;
+}
+
+.form-div {
+  width: 94%;
+  height: 90%;
+}
+
+.edit_icon {
+  cursor: pointer;
+}
+
+@media screen and (max-width: 992px) {
+  h1 {
+    font-size: 1.6rem;
+    font-weight: 600;
+  }
+
+  .card.card-240 {
+    max-width: 100%;
+  }
+
+  .container-fluid {
+    padding: 0 !important;
   }
 }

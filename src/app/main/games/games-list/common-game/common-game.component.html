@@ -1,6 +1,6 @@
 <div class="row justify-content-center align-items-center" 
   tabindex="0" id="game_div"  #gameDiv  appCustomOverlay *ngIf="showComponent" >
-  <div class="common-div w-100">
+  <div class="common-div w-100" >
     <!-- buttons shown when the game is paused -->
       <div 
         class="col d-flex justify-content-center align-items-center d-none"
@@ -54,7 +54,8 @@
           </div>
       </div>
  <!-- showing the game component  -->
-      <div class="row justify-content-center align-items-center h-100">
+      <div class="row justify-content-center align-items-center h-100"
+        (click)="onGameScreenClick()">
         <app-executive-control-game 
           class="w-100 h-100"
           *ngIf="isExecutiveControl"></app-executive-control-game>
@@ -73,6 +74,9 @@
         <app-mental-imagery
           class="w-100 h-100"
           *ngIf="isMentalImagery"></app-mental-imagery>
+        <app-identify-cognitive-distortion 
+          class="w-100 h-100"
+          *ngIf="isIdentifyCognitiveDistortion"></app-identify-cognitive-distortion>
       </div>
 <!-- buttons on first page -->
       

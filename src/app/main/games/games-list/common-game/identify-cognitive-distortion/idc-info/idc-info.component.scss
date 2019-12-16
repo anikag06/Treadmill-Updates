@@ -1,0 +1,16 @@
+@import "styles.scss";
+@import "games-styles.scss";
+
+@import "../../../../shared/games-common.scss";
+
+.heading {
+    color :#0C8C95;
+}
+
+.mat-new {
+    background-color: #0C8C95 !important;
+    border-color: #0C8C95 !important;
+    color: #FFF;
+    min-width: 260px;
+    align-items: center;
+  }

@@ -1,0 +1,33 @@
+@import "styles.scss";
+@import "games-styles.scss";
+
+@import "../../../shared/games-common.scss";
+
+
+.main{
+    position: relative;
+    max-width: 360px;
+    height: 100%;
+    /* width: 360px; */
+    justify-content: center !important;
+    background-color: white;
+}
+
+.home-page{
+    padding-bottom: 0 !important;
+    text-align: center !important;
+    padding-top: 200px;
+}
+
+.blurrContainer{
+    /* Add the blur effect */
+  filter: blur(0px);
+  -webkit-filter: blur(3px);
+}
+
+.info{
+       position: absolute;
+        bottom: 0;
+     }
+
+

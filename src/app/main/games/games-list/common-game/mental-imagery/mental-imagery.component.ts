@@ -15,7 +15,7 @@ export class MentalImageryComponent implements OnInit {
 
   @ViewChild(MiPlayComponent, {static: false}) miPlayComponent!: MiPlayComponent;
 
-  constructor(private getCurrentState: MICurrentStateService,
+  constructor(private getCurrentStateService: MICurrentStateService,
               private miPlayService: MIPlayService,
               private loadFilesService: LoadFilesService) { }
 
@@ -28,8 +28,7 @@ export class MentalImageryComponent implements OnInit {
   showInstructionIcon = true;
 
   ngOnInit() {
-    this.loadFilesService.loadExternalStyles('/games-styles.css').then(() => {}).catch(() => {});
-
+   
     this.miPlayService.startPlaying.subscribe( () => {
       this.startPlayingMIGame();
     });
@@ -65,14 +64,4 @@ export class MentalImageryComponent implements OnInit {
   resumeMIGame() {
     this.miPlayComponent.onResumePlay();
   }
-
-  // private loadExternalStyles(styleUrl: string) {
-  //   return new Promise((resolve, reject) => {
-  //     const styleElement = document.createElement('link');
-  //     styleElement.href = styleUrl;
-  //     styleElement.onload = resolve;
-  //     styleElement.rel = 'stylesheet';
-  //     document.head.appendChild(styleElement);
-  //   });
-  // }
 }

@@ -1,0 +1,21 @@
+@import "styles.scss";
+@import "games-styles.scss";
+@import "../../../../shared/games-common.scss";
+
+.gameFinishedImg {
+    height: 90px;
+    width: 76px;
+    text-align: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  
+  }
+  
+  .mat-new {
+    background-color: #0C8C95 !important;
+    border-color: #0C8C95 !important;
+    color: #FFF;
+    min-width: 260px;
+    align-items: center;
+  }

@@ -1,0 +1,102 @@
+<div class="container-fluid w-100 small-font">
+    <app-trial-pages-header [stepNumber]="stepNo"></app-trial-pages-header>
+
+    <div class="row mt-4">
+        <div class="col">
+            <p class="largest-font">  Consent </p>
+            <div class="medium-font">  Please see if these terms are acceptable to you. </div>
+        </div>
+    </div>
+
+    <div class="row lesser-opacity">
+        <div class="col-12 my-1">
+            <label class="my-3">I have read the information provided in the site about the study. If I had any concerns, 
+                I had contacted the research team and received satisfactory response to my concerns. 
+            </label>
+            <mat-radio-group formControlName="floatLabel" color="primary">
+                <mat-radio-button value="accept" class="mr-5">Accept</mat-radio-button>
+                <mat-radio-button value="decline" class="ml-4">Decline</mat-radio-button>
+            </mat-radio-group>
+        </div>
+
+        <div class="col-12 my-1">
+            <label class="my-3"> I understand that my participation is voluntary and that I am free to withdraw at any time, 
+                    without giving any reason, and without any current or future medical care or legal rights being affected.</label>
+            <mat-radio-group formControlName="floatLabel" color="primary">
+                <mat-radio-button value="accept" class="mr-5">Accept</mat-radio-button>
+                <mat-radio-button value="decline" class="ml-4">Decline</mat-radio-button>
+            </mat-radio-group>
+        </div>
+
+        <div class="col-12 my-1">
+            <label class="my-3">I understand that any information I provide while taking part in the study will be kept confidential. However, if I pose harm to myself,
+                to another person, or to the community, TreadWill reserves the right to take steps permitted by law to help prevent the potential harm from happening.
+                However, TreadWill or its members are not to be held responsible for any harm that might occur during the course of my participation in the study.</label>
+            <mat-radio-group formControlName="floatLabel" color="primary">
+                <mat-radio-button value="accept" class="mr-5">Accept</mat-radio-button>
+                <mat-radio-button value="decline" class="ml-4">Decline</mat-radio-button>
+            </mat-radio-group>
+        </div>
+
+        <div class="col-12 my-1">
+            <label class="my-3">I understand that relevant sections of my data collected during the study may be used by the TreadWill team for research purposes.
+                The results of the study may be published so that its findings are available to the scientific community and the public;
+                however, any personal identifiers will be removed from the data.</label>
+            <mat-radio-group formControlName="floatLabel" color="primary">
+                <mat-radio-button value="accept" class="mr-5">Accept</mat-radio-button>
+                <mat-radio-button value="decline" class="ml-4">Decline</mat-radio-button>
+            </mat-radio-group>
+        </div>
+
+        <div class="col-12 my-1">
+            <label class="my-3">I understand that the latest security measures will be employed, but there is still a risk of information leakage
+                in case of a security breach.
+                I understand that the TreadWill team is not to be held responsible for any breach.</label>
+            <mat-radio-group formControlName="floatLabel" color="primary">
+                <mat-radio-button value="accept" class="mr-5">Accept</mat-radio-button>
+                <mat-radio-button value="decline" class="ml-4">Decline</mat-radio-button>
+            </mat-radio-group>
+        </div>
+
+        <div class="col-12 my-1">
+            <label class="my-3">I agree to participate in the study.</label>
+            <mat-radio-group formControlName="floatLabel" color="primary">
+                <mat-radio-button value="accept" class="mr-5">Accept</mat-radio-button>
+                <mat-radio-button value="decline" class="ml-4">Decline</mat-radio-button>
+            </mat-radio-group>
+        </div>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col-12 mt-3">
+            <p class="mb-0 medium-font"> Notifications and app. </p>
+        </div>
+
+        <div class="col-12 mb-1 lesser-opacity">
+            <label class="my-3">For the purpose of this study, it is required that you add TreadWill to your home screen.
+                Please click accept to add TreadWill to your home screen.</label>
+            <mat-radio-group formControlName="floatLabel" color="primary">
+                <mat-radio-button value="accept" class="mr-5">Accept</mat-radio-button>
+                <mat-radio-button value="decline" class="ml-4">Decline</mat-radio-button>
+            </mat-radio-group>
+        </div>
+
+        <div class="col-12 my-1 lesser-opacity">
+            <label class="my-3"> Notifications are an essential part of this program. Please click accept to allow notifications.</label>
+            <mat-radio-group formControlName="floatLabel" color="primary">
+                <mat-radio-button value="accept" class="mr-5">Accept</mat-radio-button>
+                <mat-radio-button value="decline" class="ml-4">Decline</mat-radio-button>
+            </mat-radio-group>
+        </div>
+
+        <div class="col-12 my-3 ">
+            <button type="button" class="w-100 form-elements" mat-raised-button 
+                color="primary" (click)="step4DataSubmit()"> Submit 
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-5 mx-0">
+    <app-trial-pages-footer class="w-100"></app-trial-pages-footer>
+</div>

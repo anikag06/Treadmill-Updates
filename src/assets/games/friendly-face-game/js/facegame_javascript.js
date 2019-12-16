@@ -53,6 +53,19 @@ var ctx1;
 
 var no_positive;
 var no_images;
+var score;
+
+var goldPoints=0;
+var silverPoints=0;
+var bronzePoints=0;
+
+var timeBeingShown=75;
+var timer;
+var timeCounter;
+var timer_is_on=0;
+
+
+//var fillMusicBar;
 
 var image_urls_1; // for showing the initial image 1 sets
 var image_urls_2; // for showing the initial image 2 sets
@@ -212,7 +225,7 @@ $(document).ready(function(){
 		// 	total_time_taken_level3 = ffg_total_time_taken_level3_touch;
 		// }
 		console.log(device);
-		$(".ff-game-elements").removeClass("d-none");
+		$(".ff-game-container").removeClass("d-none");
 
 		$(".game-instructions").hide();
 
@@ -222,12 +235,15 @@ $(document).ready(function(){
 			if(first_click){
 				enableElements();
 				showPauseButton();
-				clearInterval(time_bar_interval);
-				time_bar_interval = setInterval(timeBar, updation_interval);
+				//clearInterval(time_bar_interval);
+				
+				//time_bar_interval = setInterval(timeBar, updation_interval);
 				first_click = false;
-				setOpacity();
+				//setOpacity();
 			}else if(game_started&&game_paused){
 				$("#pause-button").click();
+				//$("#time-sec").stop();
+				clearInterval(timer);
 			}
 			onCanvasClick(canvas1);
 		});
@@ -254,19 +270,19 @@ $(document).ready(function(){
 			mute = !(mute);
 		});
 
-		$("#play-song-button").click(function(){
-			if(!song_playing){
-				$("#canvas1").addClass("block-click");
-				showStopButton();
-				playMusic(false, ffg_music);
-			}else{
-				$("#canvas1").removeClass("block-click");
-				showMusicButton();
-				playMusic(true, ffg_music);
-			}
+	//	$("#play-song-button").click(function(){
+	//		if(!song_playing){
+	//			$("#canvas1").addClass("block-click");
+	//			showStopButton();
+	//			playMusic(false, ffg_music);
+	//		}else{
+	//			$("#canvas1").removeClass("block-click");
+	//			showMusicButton();
+	//			playMusic(true, ffg_music);
+	//		}
 
-			song_playing = !(song_playing);
-		});
+	//		song_playing = !(song_playing);
+	//	});
 
 		$("#play-next-song").click(function(){
 
@@ -326,27 +342,50 @@ $(document).ready(function(){
 	};
 });
 
-ffGPauseResumeGame = function(){
+ffGPauseGame = function(){
+	console.log("calling pause resume function");
 	if(!game_paused){
-		clearInterval(time_bar_interval);
+		console.log("game_paused: "+game_paused);
+		//clearInterval(time_bar_interval);
+		clearInterval(timer);
+		$("#canvas1").addClass("block-click");
 		showPlayButton();
-	}else{
-		clearInterval(time_bar_interval);
-		time_bar_interval = setInterval(timeBar, updation_interval);
-		showPauseButton();
+	
 	}
-	game_paused = !(game_paused);
+	game_paused=true;
 }
+
+ffGResumeGame=function(){
+	if(game_paused){
+		console.log("game_paused: "+game_paused);
+		//clearInterval(time_bar_interval);
+		//time_bar_interval = setInterval(timeBar, updation_interval);
+		showPauseButton();
+		$("#canvas1").removeClass("block-click");
+		timeCount();
+	
+	}
+	game_paused=false;
+}
+	//game_paused = !(game_paused);
+	
+
 ffGRestartGame = function() {
 	$(".loader").fadeIn("fast");
+	initialize();
+	//score=0;
+	//timeBeingShown=75;
+	
 	setTimeout(function(){
 		$("#game-over-div").addClass('d-none');
 		startGame();
 		$(".game-components").show();
 		}, 500);
-		setTimeout(function(){
-		$(".loader").fadeOut("fast");
-	}, 3000);
+		//setTimeout(function(){
+		//$(".loader").fadeOut("fast");
+	//}, 3000);
+		console.log("hello restart ");
+	$("#canvas1").removeClass("block-click");
 }
 function startGame(reload){
 	ffg_music = ffg_music_notes_array[ffGameSongCounter];
@@ -355,7 +394,9 @@ function startGame(reload){
 	ffg_music_note_rate = ffg_music_note_rate_array[ffGameSongCounter];
 	initialize();
 	setupTimers();
-
+	timeCount();
+	//coinsIncrease(score);
+	//timeBar();
 	// positioning the game elements in the middle of the screen vertically
 	setHeightAndWidth();
 	ffGameFillGrid();
@@ -375,12 +416,13 @@ function setHeightAndWidth(){
 }
 
 function drawLife(life){
-	$("#mistake-count").html("");
+	
+	$("#life").html("");
 	for(var i=0; i<life; i++){
-		$("#mistake-count").append("<i class=\"fas fa-smile face treadwill-color\"></i>");
+		$("#life").append("<i class=\"fas fa-smile face treadwill-color\"></i>");
 	}
 	for(var i=life; i<total_life; i++){
-		$("#mistake-count").append("<i class=\"fas fa-frown face wrong-color\"></i>");
+		$("#life").append("<i class=\"fas fa-frown face wrong-color\"></i>");
 	}
 }
 
@@ -452,10 +494,15 @@ function clickedFriendlyImage(canvas, event) {
 		if(friendly_image_coordinates[i].contains(x, y)){
 			friendly_image_coordinates[i].clicked = true;
 			no_friendly_image_clicked++;
+			score++;
+			//fillMusicBar();
+			//startCount();
+			document.getElementById("score-num").innerHTML=score;
 			no_wrong = 0;
 			markImage(friendly_image_coordinates[i], true);
 			date = new Date();
 			time = date.getTime();
+			
 			
 			if(!game_paused){
 				// giving more weightage to the most recent click
@@ -509,17 +556,50 @@ function clickedFriendlyImage(canvas, event) {
 	return false;
 }
 
+
+
 function penalty(){
 	life--;
-	drawLife(life);
+	document.getElementById("life").innerHTML=life;
+	//drawLife(life);
 	if(life <= 0) showGameOver();
 }
+
+
 
 function updateTimeDisplay(){
 	if(game_started && !game_paused){
 		var percent_val = time_left/allotted_time*100;
 		getColor(percent_val, 0, 100);
 	}
+}
+
+/*function timeCount(){
+	//console.log("inside time count");
+	document.getElementById("time-sec").innerHTML=timeBeingShown;
+	timeBeingShown=timeBeingShown-1;
+	timeCounter=setInterval(timeCount,1000);
+}
+
+function startCount(){
+	//console.log("inside start count");
+	if(!timer_is_on){
+		timer_is_on=1;
+		timeCount();
+	}
+}*/
+
+function timeCount(){
+	timer = setInterval(function(){
+		document.getElementById("time-sec").innerHTML=timeBeingShown;
+		timeBeingShown--;
+		if (timeBeingShown<0){
+			showGameOver();
+			//clearInterval();
+		}
+		console.log(game_paused);
+	}, 1000);
+	
 }
 
 function getColor(value, min, max){
@@ -529,16 +609,17 @@ function getColor(value, min, max){
     var hue=((v)*120).toString(10);
     var color = ["hsl(",hue,",100%,50%)"].join("")
     $("#progressBar").css('width', value+'%').attr('aria-valuenow', time_left);
-	$(".progress-bar").css('background-color', color);
+	//$(".progress-bar").css('background-color', color);
 }
 
-function timeBar(){
+/*function timeBar(){
 	time_left -= updation_interval;
 	if(time_left <= 0){
 		showGameOver();
 	}
+	console.log("hi");
 	updateTimeDisplay();
-}
+}*/
 
 function updateStats(){
 	var FFGPerformance = document.createEvent('CustomEvent');
@@ -561,7 +642,7 @@ function ffGameFillGrid(){
 	for(var i=0; i< no_row; i++){
 		for(var j=0; j< no_col; j++){
 			var img = images[counter++];
-			var img_coord = new coordinates((2*j+1)*margin+j*WIDTH, (2*i+1)*margin+i*HEIGHT, WIDTH, HEIGHT);
+			var img_coord = new coordinates((2*j+1)*margin+j*WIDTH, (2*i+1)*margin+i*HEIGHT, WIDTH,HEIGHT);
 			if(img.src.indexOf("friendly") != -1){
 				store_friendly_images_coordinates_1.push(img_coord);
 				if(ffg_music_counter==0)firstImageToggle(img, img_coord); //toggling the first image
@@ -569,11 +650,17 @@ function ffGameFillGrid(){
 				store_hostile_images_coordinates_1.push(img_coord);
 			}
 
-			ctx1.shadowOffestX = 7;
-			ctx1.shadowOffestY = 7;
-			ctx1.shadowColor = 'grey';
-			ctx1.shadowBlur = 10;
-			ctx1.drawImage(img, (2*j+1)*margin+j*WIDTH, (2*i+1)*margin+i*HEIGHT, WIDTH, HEIGHT);
+			//ctx1.shadowOffestX = 7;
+			//ctx1.shadowOffestY = 7;
+			//ctx1.shadowColor = 'grey';
+			//ctx1.shadowBlur = 10;
+			
+			ctx1.strokeStyle = '#707070';
+			ctx1.lineWidth = "1";
+			ctx1.strokeRect(img_coord.x, img_coord.y, img_coord.w, img_coord.h);
+			
+			//ctx1.roundRect(img_coord.x, img_coord.y, img_coord.w, img_coord.h,5);
+			ctx1.drawImage(img, (2*j+1)*margin+j*WIDTH, (2*i+1)*margin+i*HEIGHT, WIDTH,HEIGHT);
 		}
 	}
 	counter = 0;
@@ -752,16 +839,18 @@ function getAverageSpeed(level){
 }
 
 function showGameOver(){
-	clearInterval(time_bar_interval);
+	//clearInterval(time_bar_interval);
 	// clearInterval(ajaxFriendlyImages);
 	// clearInterval(ajaxHostileImages);
 	// clearInterval(ajaxUpdateStats);
+	clearInterval(timer);
 	updateStats();
 	game_paused = true;
 	game_started = false;
 	first_click = true;
+	
 	showPlayButton();
-	playMusic(false, game_over_music);
+	//playMusic(false, game_over_music);
 	$("#canvas1").addClass("block-click");
 	$(".game-components").fadeOut(2500, function(){
 		$("#game-over-div").removeClass('d-none');
@@ -798,7 +887,8 @@ function initialize(){
 	scaleWidth = 0.9;
 	scaleHeight = 0.8;
 	canvas1 = document.getElementById("canvas1");
-	canvas1.width = 324; //window.innerWidth*scaleWidth
+	canvas1.width = 266; //window.innerWidth*scaleWidth
+	
 	ctx1 = canvas1.getContext("2d");
 
 	image_urls_1 = []; // for showing the initial image 1 sets
@@ -820,9 +910,11 @@ function initialize(){
 	ajax_request_time_hostile = 1000; // this determines the time after which each ajax request is sent for retrieving the images
 	ajax_request_time_friendly = 1000; // this determines the time after which each ajax request is sent for retrieving the images
 	counter = 0;
-	margin = 5;
-	HEIGHT = 150;
-	WIDTH = canvas1.width/no_col-2*margin;
+	margin = 13;
+	// HEIGHT = 150;
+	//WIDTH = canvas1.width/no_col-2*margin;
+	HEIGHT = 107;
+	WIDTH = 107;
 	canvas1.height = HEIGHT+2*margin; //setting the initial canvas height based the image height
 
 	friendly_image_clicked = false;
@@ -872,7 +964,7 @@ function initialize(){
 
 	game_started = false;
 	game_start_counter = 0;
-	game_paused = true;
+	game_paused = false;
  
 	first_click = true; // required for starting the clock
 
@@ -892,13 +984,20 @@ function initialize(){
 
 	life = 5;
 	total_life = 5;
+	score=0;
+	timeBeingShown=75;
 	drawLife(life);
 	disableElements();
 	no_row = no_images/no_col; // no. of rows in the matrix.
-	WIDTH = canvas1.width/no_col-2*margin;
+	//WIDTH = canvas1.width/no_col-2*margin;
 	ffg_music_counter = 0;
 	document.getElementById("song-name").innerHTML = ffg_music_name;
-
+	document.getElementById("life").innerHTML=life;
+	document.getElementById("score-num").innerHTML=score;
+	document.getElementById("time-sec").innerHTML=timeBeingShown;
+	document.getElementById("gold-num").innerHTML=goldPoints;
+	document.getElementById("silver-num").innerHTML=silverPoints;
+	document.getElementById("bronze-num").innerHTML=bronzePoints;
 	song_playing = false;
 
 	game_over_music = [

@@ -1,0 +1,65 @@
+<div class="score row ml-0 pt-3 small-font">
+    <div class="col-6 pl-0">
+      <b>POINTS: {{score}}</b>
+      </div>
+    <div class="col-3">
+
+    </div>
+    <div class="col-3" #checkElement>
+       <img style="width:15px;height:15px; "src="../../../../../../../assets/games/cognitive-distortion-game/clock icon.png">
+        <div class="timeDisplay float-right">
+         <b>{{timeLeft}}s</b>
+        </div>
+         
+      </div>
+    </div>
+  <div class="row mb-2 ml-0 py-2">
+      <div class="col-6">
+          <div class="row">
+          <div class="col-2 barsDiv  w-75 justify-content-start mt-1 mr-2 pr-1 pl-0">
+                  <img src="../../../../../../../assets/games/cognitive-distortion-game/Gold badge symbol.svg">
+               
+                  {{goldNumber}}
+              <mat-progress-bar class="goldBar" mode="determinate" [value]="goldValue"></mat-progress-bar>
+            </div>
+            
+        
+          <div class="col-2 barsDiv w-75 justify-content-start mt-1 mr-2 pr-1 pl-0">
+              <img src="../../../../../../../assets/games/cognitive-distortion-game/Silver badge symbol.svg">
+             
+               {{silverNumber}}
+            <mat-progress-bar class="silverBar" mode="determinate" [value]="silverValue"></mat-progress-bar>
+            </div>
+           
+        
+        
+          <div class="col-2 barsDiv w-75 justify-content-start mt-1 pr-1 pl-0">
+              <img src="../../../../../../../assets/games/cognitive-distortion-game/Bronze badge symbol.svg">
+              
+              {{bronzeNumber}}
+            <mat-progress-bar class="bronzeBar" mode="determinate" [value]="bronzeValue"></mat-progress-bar>
+            </div>
+          </div>
+        </div>
+        <div class="col-2"></div>
+    
+      <div class="col-4 barsDiv mt-1">
+        <div class="row">
+            <div class="col-6 float-left">
+                <b>Easy</b>
+            </div>
+            <div class="col-6 float-right">
+              <b>Hard</b>
+            </div>
+          </div>
+          <div class="row border border-dark rounded difficultyBar ml-0" >
+            <mat-progress-bar
+              class="my-auto"
+              mode="determinate" 
+              [value]="difficultyValue">
+            </mat-progress-bar>
+          </div>
+                 
+      </div>
+  
+  

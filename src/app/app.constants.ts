@@ -27,6 +27,7 @@ export const FRIENDLY_FACE_GAME = 'Friendly Face Game';
 export const LEARNED_HELPLESSNESS_GAME = 'Learned Helplessness Game';
 export const ATTRIBUTE_STYLE_GAME = 'Attribute Style Game';
 export const MENTAL_IMAGERY_GAME = 'Mental Imagery Game';
+export const IDENTIFY_COGNITIVE_DISTORTION = 'Identify Cognitive Distortion';
 
 // ibGame time
 export const IBG_LESS_TIME = 120;
@@ -46,15 +47,24 @@ export const GAD_SEVEN_SCORE    = '/api/v1/questionnaire/gad-user-scores/';
 export const MOBILEWIDTH        = 768;
 export const USER_PROFILE       = '/api/v1/user/user-profile/';
 
+// FORMS
+export const RECOMMENDED       = 'recommended';
+
+// Problem solving form
+export const PROBLEM_SOLVING = 'problem-solving';
+export const PROBLEM         = 'problem';
+
+// Task form
+export const TASK            = 'tasks';
+
+// Thought record form
+export const THOUGHT_RECORD  = 'thought-record';
+
 // Interpretation bias game(IBG) paths
 export const IBG_SENTENCE        = '/api/v1/games/interpretation-bias/sentences/';
 export const IBG_SCOREINFO       = '/api/v1/games/interpretation-bias/score/';
 export const IBG_USER_RESPONSE  = '/api/v1/games/interpretation-bias/user-responses/';
 
-export const PROBLEM_SOLVING = 'problem-solving';
-export const TASK            = 'tasks';
-export const PROBLEM         = 'problem';
-export const RECOMMENDED       = 'recommended';
 
 // Executive Control Game(ECG) paths
 export const ECG_USER_DATA      = '/api/v1/games/executive-control/user-data/';
@@ -109,6 +119,17 @@ export const UNLOCKED = 'UNLOCKED';
 export const ACTIVE = 'ACTIVE';
 export const COMPLETED = 'COMPLETED';
 
+// Mental Imagery Game (MIG) paths
+export const MIG_SITUATIONS_DATA = '/api/v1/games/mental-imagery/situations/';
+export const MIG_USER_DATA = '/api/v1/games/mental-imagery/user-data/';
+export const MIG_STORE_USER_DATA = '/api/v1/games/mental-imagery/store-user-data/';
+
+// Identify Cognitive Distortion Game(IDC) paths
+export  const IDC_SITUATION_DATA = '/api/v1/games/cognitive-distortion/icdgame-situation/';
+export  const IDC_USER_DATA = '/api/v1/games/cognitive-distortion/icdgame-user-data/';
+export  const IDC_USER_ANSWER_DATA = '/api/v1/games/cognitive-distortion/icdgame-user-answer/';
+
+
 // flow and steps related paths
 export const FLOW_STEPS_DATA = '/api/v1/flow/flow/';
 export const FLOW_STEP_MARK_DONE = '/api/v1/flow/step/';
@@ -134,4 +155,17 @@ export const FORM_TASK = 'FORM-TASK';
 export const FORM_PROBLEM_SOLVING_WORKSHEET = 'FORM-PROBLEM-SOLVING-WORKSHEET';
 
 // committment options
-export const COMMITTMENT_OPTIONS = ["1/day", "2/day", "3/day", "4/day", "More than 4/day"];
+export const COMMITTMENT_OPTIONS = ['1/day', '2/day', '3/day', '4/day', 'More than 4/day'];
+
+// trial registration pages
+export const INELIGIBLE_FOR_TRIAL = '/trial/thankyou';
+export const REGISTRATION_PATH = '/trial/trial-registration';
+
+// trial registration step one
+export const EMAIL_REGISTRATION = '/api/v1/trial-iitk/register-participant/';
+export const REGISTRATION_STEP_TWO = '/api/v1/trial-iitk/participant-information/';
+export const REGISTRATION_PHQ_RESPONSE = '/api/v1/questionnaire/trial-phq-user-response/';
+export const REGISTRATION_GAD_RESPONSE = '/api/v1/questionnaire/trial-gad-user-response/';
+
+
+

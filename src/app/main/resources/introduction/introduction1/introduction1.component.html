@@ -1,34 +1,21 @@
+<div (click)="saveData()">
 <ng-template [ngIf]="dataLoaded && !locked">
-  <div>
+  <h4 class="mt-3">Dummy Introduction Title</h4>
+  <div class="small-font" >
     Do you know why some people are able to cope effectively when something bad happens to them while others can’t?
     Do you know how well you are able to cope when something bad happens to you?
     <br>
     Answer the following questions to find out how well you know your coping abilities.
     <br><br>
+    <h6>Dummy Sub Title</h6>
     Write a recent upsetting <span class="emphasis">situation</span>.
-    <mat-form-field>
+    <mat-form-field style="width:100% !important">
       <input type="text" matInput placeholder="Example- I got fired from my job." [(ngModel)]="situation">
     </mat-form-field>
-  </div>
-  <br><br>
-  <div>
-    How did this situation make you <span class="emphasis">feel</span>?
-    <mat-form-field>
-      <input type="text" matInput placeholder="Example- Extremely sad." [(ngModel)]="feeling">
-    </mat-form-field>
     <br><br>
   </div>
   <div>
-    How did you <span class="emphasis">behave</span> after this situation?
-    <mat-form-field>
-      <textarea matInput [(ngModel)]="behavior"
-        placeholder="Example- I wandered around aimlessly for two hours. After that, I went home. I didn't eat dinner and didn't talk to anyone. I cried myself to sleep that night."></textarea>
-    </mat-form-field>
-    <br><br>
-  </div>
-  <div>
-    What was going through your mind that made you <span class="emphasis">feel</span> and <span
-      class="emphasis">behave</span> this way?
+    What <span class="emphasis">thought</span> did you have after the <span class="emphasis">situation</span>?
     <mat-form-field>
       <textarea matInput [(ngModel)]="thought"
         placeholder="Example- I am a worthless piece of garbage. I will never get another job."></textarea>
@@ -36,9 +23,32 @@
     <br><br>
   </div>
   <div>
+    How did this <span class="emphasis">thought</span> make you <span class="emphasis">feel</span>?
+    <mat-form-field>
+      <input type="text" matInput placeholder="Example- Extremely sad." [(ngModel)]="feeling">
+    </mat-form-field>
+    <br><br>
+  </div>
+  <div>
+    How did this <span class="emphasis">thought</span> make you <span class="emphasis">behave</span>?
+    <mat-form-field>
+      <textarea matInput [(ngModel)]="behavior"
+        placeholder="Example- I wandered around aimlessly for two hours. After that, I went home. I didn't eat dinner and didn't talk to anyone. I cried myself to sleep that night."></textarea>
+    </mat-form-field>
+    <br><br>
+  </div>
+  <div>
+    Did you have trouble answering the above questions?<br>
+    Are you wondering if there is a relation between your <span class="emphasis">thoughts</span>, <span
+      class="emphasis">feelings</span>, and <span class="emphasis">behaviors</span>?<br><br>
+    You will know the answers to these question in this module.<br><br>
+    In the next step, you will see a form that will help you record your <span class="emphasis">thoughts</span>, <span
+      class="emphasis">feelings</span>, and <span class="emphasis">behaviors</span> following upsettings situations.
+  </div>
+  <div>
     <button class="completed-btn float-right" type="button" mat-raised-button color="primary" (click)="saveData()">
       Save data
-    </button>
+    </button> -->
   </div>
 </ng-template>
 <ng-template [ngIf]="dataLoaded && locked">
@@ -59,3 +69,4 @@
     </div>
   </div>
 </ng-template>
+</div>
