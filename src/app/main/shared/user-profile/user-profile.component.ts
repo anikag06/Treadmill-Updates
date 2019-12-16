@@ -18,7 +18,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
     inkBar[0].setAttribute('style', 'background: black;');
     const tabLabel = this.element.nativeElement.querySelectorAll('.mat-tab-label');
     for (let i = 0; i < tabLabel.length; i++) {
-      tabLabel[i].setAttribute('style', 'min-width: 80px;height:40px');
+      tabLabel[i].setAttribute('style', 'min-width: 80px;height:40px;opacity:1');
     }
     
     if(window.innerWidth < MOBILEWIDTH){
