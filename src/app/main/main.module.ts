@@ -273,7 +273,7 @@ import { IdcGameService } from './games/games-list/common-game/identify-cognitiv
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireMessagingModule,
     OverlayModule,
-    MatTooltipModule
+    MatTooltipModule,
     QuestionnaireModule,
   ],
   providers: [
@@ -305,7 +305,7 @@ import { IdcGameService } from './games/games-list/common-game/identify-cognitiv
     IbTrainingDataService,
     DialogBoxService,
     ExecControlHelpService,
-    UserProfileService
+    UserProfileService,
     IdcGameService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
