@@ -2,11 +2,7 @@
   <div id="face-game-main-div">
     <div class="game-cover row justify-content-center">
      
-        
           <img id="ffg-image" src="../../../../../../assets/games/friendly-face-game/images/Start page graphic.png">
-
-
-       
       <br>
 
     </div>
@@ -41,22 +37,22 @@
             <div class="d-flex align-items-end">
               <div class=" ml-1 coins1">
                 <img id="coin-img" src="../../../../../../assets/games/friendly-face-game/images/Gold badge symbol.svg">
-                <span class="coin-num" id="gold-num"></span>
-                <mat-progress-bar mode="determinate" class="gold-bar" value="40"></mat-progress-bar>
+                <span class="coin-num" id="gold-num">{{goldNumber}}</span>
+                <mat-progress-bar mode="determinate" class="gold-bar" [value]="goldValue"></mat-progress-bar>
               </div>
 
               <div class="ml-1 coins1">
                 <img id="coin-img"
                   src="../../../../../../assets/games/friendly-face-game/images/Silver badge symbol.svg">
-                <span class="coin-num" id="silver-num"></span>
-                <mat-progress-bar mode="determinate" class="silver-bar" value="40"></mat-progress-bar>
+                <span class="coin-num" id="silver-num">{{silverNumber}}</span>
+                <mat-progress-bar mode="determinate" class="silver-bar" [value]="silverValue"></mat-progress-bar>
               </div>
 
               <div class="ml-1 coins1">
                 <img id="coin-img"
                   src="../../../../../../assets/games/friendly-face-game/images/Bronze badge symbol.svg">
-                <span class="coin-num" id="bronze-num"></span>
-                <mat-progress-bar mode="determinate" class="bronze-bar" value="40"></mat-progress-bar>
+                <span class="coin-num" id="bronze-num">{{bronzeNumber}}</span>
+                <mat-progress-bar mode="determinate" class="bronze-bar" [value]="bronzeValue"></mat-progress-bar>
               </div>
 
               <div class="ml-auto  difficulty">
@@ -64,7 +60,7 @@
                   <b>Easy</b><b>Hard</b>
                 </div>
 
-                <mat-progress-bar mode="determinate" class="difficulty-bar" value="40">
+                <mat-progress-bar mode="determinate" class="difficulty-bar" [value]="difficultyBarValue">
                 </mat-progress-bar>
 
               </div>
@@ -84,6 +80,7 @@
         <div style="height: 80px;">
           <div>
             <img id="tone-on-bar" [style.margin-left]="toneBarValue + 'px'" src="../../../../../../assets/games/friendly-face-game/images/Tone.svg">
+
           </div>
           <div class="d-flex justify-content-center">
             <mat-progress-bar mode="determinate" class="music-bar ml-1" [value]="musicBarValue"></mat-progress-bar>

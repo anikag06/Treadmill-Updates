@@ -8,6 +8,8 @@ import { FfgNextgameComponent } from './ffg-nextgame/ffg-nextgame.component';
 import { FfgInstructionsComponent } from './ffg-instructions/ffg-instructions.component';
 import { FfgPlayagainComponent } from './ffg-playagain/ffg-playagain.component';
 import { FfgNolifeComponent } from './ffg-nolife/ffg-nolife.component';
+import { BadgesInfo } from '@/main/games/shared/game-badges.model';
+import { GamesBadgesService } from '@/main/games/shared/games-badges.service';
 
 declare var ffGamePreloadImages: any;
 declare var ffGame_hostile_images: any;
@@ -25,11 +27,12 @@ declare var ffg_last_music_order: number;
 
 declare var ffg_coins: number;
 declare var ffgmusicBarValue:number;
+declare var ffgDifficultyValue:number;
 
 @Component({
   selector: 'app-friendly-face-game',
   templateUrl: './friendly-face-game.component.html',
-  styleUrls: ['./friendly-face-game.component.scss']
+  styleUrls: ['./friendly-face-game.component.scss'],
 })
 
 
@@ -40,13 +43,28 @@ export class FriendlyFaceGameComponent implements OnInit {
   ffGameMusicOrder!: number;
   no_of_songs!: number;
   musicBarValue!: number;
-  toneBarValue!:number;
+  toneBarValue!: number;
+  difficultyBarValue!: number;
 
+  //badges info
+  BRONZE_CONSTANT = 6;
+  SILVER_CONSTANT = 10;
+  GOLD_CONSTANT = 20;
+  bronzeValue!: any;
+  silverValue!: any;
+  goldValue!: any;
+  bronzeNumber!: number;
+  silverNumber!: number;
+  goldNumber!: number;
+  no_correct_responses!: number;
+  allBadgesInfo: BadgesInfo = new BadgesInfo(0, 0, 0, 0, 0, 0);
+  
   constructor(
     private gamePlayService: GamePlayService,
     private gamesAuthService: GamesAuthService,
     private loadFileService: LoadFilesService,
-    private dialogBoxService:DialogBoxService,
+    private dialogBoxService: DialogBoxService,
+    private badgesService: GamesBadgesService,
   ) { }
 
   @ViewChild('newElement', { static: false }) element!: ElementRef;
@@ -78,6 +96,12 @@ export class FriendlyFaceGameComponent implements OnInit {
     this.element.nativeElement.dispatchEvent(domEvent);
   }
 
+  @HostListener('window:diffBarUpdate')
+  diffBarUpdate() {
+   this.difficultyBarValue = ffgDifficultyValue;
+   console.log('barwidth set in angular');
+  }
+
   ffgUserOrderData = new FFGameUserData(0, 0);
   ffgUserPerformane = new FFGamePerformance(1, 0, 'touch', 0, 0);
 
@@ -85,10 +109,10 @@ export class FriendlyFaceGameComponent implements OnInit {
     this.loadFileService.loadExternalScript('./assets/games/friendly-face-game/js/facegame_javascript.js')
       .then(() => {
         this.loadImages();
-      })
+        })
       .catch(() => {});
     this.loadFileService.loadExternalScript('./assets/games/friendly-face-game/js/tone.min.js').then(() => {}).catch(() => {});
-
+    
   }
 
   loadImages() {
@@ -187,11 +211,14 @@ export class FriendlyFaceGameComponent implements OnInit {
   }
   ffGameUpdateUserPerformance() {
     const performanceData = getFFGClickData();
+    console.log('performance data', performanceData);
     this.ffgUserPerformane.grid_rows  = performanceData[0];
     this.ffgUserPerformane.order  = performanceData[1];
     this.ffgUserPerformane .no_of_positive_images = performanceData[2];
     this.ffgUserPerformane.total_time_taken = performanceData[3];
     this.ffgUserPerformane.device_type = performanceData[4];
+    this.no_correct_responses = performanceData[5];
+    this.updateBadgesValue();
 
     this.gamesAuthService.ffGameStorePerformance(this.ffgUserPerformane)
       .subscribe(
@@ -203,6 +230,20 @@ export class FriendlyFaceGameComponent implements OnInit {
     this.musicBarValue = ffgmusicBarValue;
     this.toneBarValue = this.musicBarValue*3.3;
     console.log('music bar update',ffgmusicBarValue);
+  }
+
+  updateBadgesValue() {
+    this.allBadgesInfo = this.badgesService.getBadgesInfo(this.BRONZE_CONSTANT,
+                              this.SILVER_CONSTANT, this.GOLD_CONSTANT,
+                              this.no_correct_responses);
+    this.bronzeNumber = this.allBadgesInfo.bronzeBadges;
+    this.silverNumber = this.allBadgesInfo.silverBadges;
+    this.goldNumber = this.allBadgesInfo.goldBadges;
+
+    this.bronzeValue = this.allBadgesInfo.bronzePercent;
+    this.silverValue = this.allBadgesInfo.silverPercent;
+    this.goldValue = this.allBadgesInfo.goldPercent;
+    console.log('badges update', this.goldNumber, this.goldValue);
   }
 
 }

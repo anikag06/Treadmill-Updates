@@ -1,5 +1,7 @@
 import { Component, OnInit, ElementRef, HostListener } from '@angular/core';
 declare var ffGRestartGame:any;
+declare var ffGResumeGame:any;
+
 declare var ffgExtraTime:any;
 
 @Component({
@@ -24,7 +26,7 @@ export class FfgPlayagainComponent implements OnInit {
     const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });
     this.elementRef.nativeElement.dispatchEvent(domEvent);
     ffgExtraTime = true;
-    ffGRestartGame();
+    ffGResumeGame();
   }
 
 }

@@ -503,6 +503,7 @@ export class GamePlayService  {
   ffGameTotalPerformance(levelNumber: number, device_type: string) {
     this.gamesAuthService.ffGameGetTotalPerformance(levelNumber, device_type)
       .subscribe( (levelData) => {
+        console.log('leveldata', levelData);
         if (levelNumber === 1) {
           ffg_no_positive_images_clicked_level1 = levelData.total_positive_images;
           ffg_total_time_taken_level1 = levelData.total_time_taken;
@@ -539,7 +540,13 @@ export class GamePlayService  {
               ffg_total_time_taken_level3 = 1250;
             }
           }
-          ffGameStart(device_type);
+          const tid = setInterval( function () {
+            if ( document.readyState !== 'complete' ) return;
+            clearInterval( tid );       
+            // funtion to be called when document is ready
+            ffGameStart(device_type);
+        }, 100 );
+          
         }
       });
   }
