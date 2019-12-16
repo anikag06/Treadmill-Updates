@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
+import { RegistrationStepFourForm } from './step-four-consent.model';
+import { RegistrationDataService } from '../shared/registration-data.service';
+import { TrialAuthService } from '../shared/trial-auth.service';
+import { Router } from '@angular/router';
+import { REGISTRATION_PATH, INELIGIBLE_FOR_TRIAL } from '@/app.constants';
 
 @Component({
   selector: 'app-registration-step-four',
@@ -8,13 +14,80 @@ import { Component, OnInit } from '@angular/core';
 export class RegistrationStepFourComponent implements OnInit {
 
   stepNo = 4;
+  userEligible = false;
 
-  constructor() { }
+  consentForm = new FormGroup({
+    readInfo: new FormControl(),
+    voluntaryInfo: new FormControl(),
+    confidentialInfo: new FormControl(),
+    dataPubicationInfo: new FormControl(),
+    informationLeakage: new FormControl(),
+    agreementInfo: new FormControl(),
+    homeScreenInfo: new FormControl(),
+    notificationsInfo: new FormControl(),
+
+  });
+
+  stepFourFormData = new RegistrationStepFourForm(
+    0, 0, null , null, null, null, null, null, null, null, null,
+);
+
+  participationID!: number;
+  starting_time!: any;
+  completion_time!: any;
+
+
+  constructor(
+    private dataService: RegistrationDataService,
+    private authService: TrialAuthService,
+    private router: Router,
+  ) { }
 
   ngOnInit() {
+    const dateNow = new Date();
+    const dateTime = dateNow.toJSON();
+    this.starting_time = dateTime.replace('Z', '').replace('T', ' ');
+    console.log(this.starting_time);
   }
 
   step4DataSubmit() {
+    console.log(this.consentForm.value);
+    if (this.consentForm.valid) {
+      console.log('form is valid');
+      const dateNow = new Date();
+      const dateTime = dateNow.toJSON();
+      this.completion_time = dateTime.replace('Z', '').replace('T', ' ');
+      console.log(this.completion_time);
 
+      this.stepFourFormData.participant_id = this.dataService.participationID;
+      this.stepFourFormData.read_information_consent = this.consentForm.value.readInfo;
+      this.stepFourFormData.voluntary_involvement_consent = this.consentForm.value.voluntaryInfo;
+      this.stepFourFormData.information_confidential_consent = this.consentForm.value.confidentialInfo;
+      this.stepFourFormData.information_publication_consent = this.consentForm.value.dataPubicationInfo;
+      this.stepFourFormData.information_leakage_consent = this.consentForm.value.informationLeakage;
+      this.stepFourFormData.agreement_consent = this.consentForm.value.agreementInfo;
+      this.stepFourFormData.add_to_home_screen_consent = this.consentForm.value.homeScreenInfo;
+      this.stepFourFormData.notifications_consent = this.consentForm.value.notificationsInfo;
+      this.stepFourFormData.started_at = this.starting_time;
+      this.stepFourFormData.completed_at = this.completion_time;
+
+      this.dataService.saveConsentData(this.stepFourFormData)
+        .subscribe( (res_data: any) => {
+          console.log(res_data);
+
+          this.userEligible = !res_data.excluded;
+          this.dataService.participationID = res_data.participant_id;
+          if (this.userEligible) {
+            this.authService.activateChild(true);
+            const stepNumber = res_data.next_step;
+            const navigation_step = REGISTRATION_PATH + '/step-' + stepNumber;
+            this.router.navigate([navigation_step]);
+          } else {
+            this.authService.activateChild(true);
+            this.router.navigate([INELIGIBLE_FOR_TRIAL]);
+          }
+
+        });
+    }
   }
 }

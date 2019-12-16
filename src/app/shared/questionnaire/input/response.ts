@@ -8,3 +8,10 @@ export class QuesUserResponseArray {
     this.user_response = [];
   }
 }
+
+export class SIQResponseData {
+  constructor(
+    public term_id: number,
+    public user_response: Array<QuestionnaireResponse>,
+  ) {  }
+}

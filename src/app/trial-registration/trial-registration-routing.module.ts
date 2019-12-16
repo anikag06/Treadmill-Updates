@@ -11,6 +11,7 @@ import { PrivacyPolicyComponent } from './information-pages/privacy-policy/priva
 import { AboutUsPageComponent } from './information-pages/about-us-page/about-us-page.component';
 import { TrialRegistrationAuthGuard } from '@/shared/auth/trial-registration-auth.guard';
 import { IneligibleTrialPageComponent } from './information-pages/ineligible-trial-page/ineligible-trial-page.component';
+import { StepLastPageComponent } from './information-pages/step-last-page/step-last-page.component';
 
 
 const routes: Routes = [
@@ -26,7 +27,12 @@ const routes: Routes = [
     canActivate: [TrialActivateGuard]
   },
   {
-    path: 'trial-registration/step-4', component: RegistrationStepFourComponent, canActivate: [TrialActivateGuard]
+    path: 'trial-registration/step-4', component: RegistrationStepFourComponent,
+    canActivate: [TrialActivateGuard]
+  },
+  {
+    path: 'trial-registration/step-5', component: StepLastPageComponent,
+    canActivate: [TrialActivateGuard]
   },
   {
     path: 'faqs', component: FaqPageComponent, canActivate: [TrialRegistrationAuthGuard]

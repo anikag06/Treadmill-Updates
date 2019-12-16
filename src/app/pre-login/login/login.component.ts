@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { trigger, 
-  state, 
-  style, 
-  animate, 
-  transition 
+import { trigger,
+  state,
+  style,
+  animate,
+  transition
 } from '@angular/animations';
 import { Subscription } from 'rxjs';
 import { A2HSService } from '@/shared/a2hs.service';
