@@ -4,7 +4,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AuthService } from '@/shared/auth/auth.service';
-import { LOGGED_IN_PATH } from '@/app.constants';
+import { LOGGED_IN_PATH, INELIGIBLE_FOR_TRIAL } from '@/app.constants';
 import { LocalStorageService } from '@/shared/localstorage.service';
 import { ShowLoginSignupDialogService } from '@/pre-login/shared/show-login-signup-dialog.service';
 import { MatSignupDialogComponent } from '@/pre-login/signup/mat-signup-dialog/mat-signup-dialog.component';
@@ -41,9 +41,16 @@ export class MatLoginDialogComponent implements OnInit {
     this.authService.getUserDetails(this.loginForm.value)
       .then(
         (data: any) => {
-          this.authService.setLoginData(data);
-          this.dialogRef.close();
-          this.router.navigate([LOGGED_IN_PATH]);
+          console.log('login data', data);
+          this.authService.isUserExcluded = data.data.is_excluded;
+          if (data.data.is_excluded) {
+            this.dialogRef.close();
+            this.router.navigate([INELIGIBLE_FOR_TRIAL]);
+          } else {
+            this.authService.setLoginData(data);
+            this.dialogRef.close();
+            this.router.navigate([LOGGED_IN_PATH]);
+          }
         }
       ).catch(
         (error: any) => {

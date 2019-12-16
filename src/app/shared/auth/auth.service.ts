@@ -25,6 +25,9 @@ export class AuthService {
 
   user!: User;
   online = new BehaviorSubject<boolean>(true);
+
+  isUserExcluded = false;     // to check whether the user is excluded for the study or not
+
   constructor(
     private http: HttpClient,
     private router: Router,

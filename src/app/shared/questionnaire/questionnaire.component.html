@@ -4,7 +4,8 @@
     <div class="row">
       <div class="col-md-12 dashboard">
         <div class="row">
-          <div class="col-xl-4 col-md-6 col-sm-12" class="card text-center">
+          <div class="col-xl-4 col-md-6 col-sm-12 card text-center"
+            *ngIf="display_gad_start || display_phq_start || display_siq_start">
             <div class="card-body">
               <div class="" *ngIf="display_phq_start" >
                 <div id=bold> Before moving further, we need you to carefully answer 9 quick 
@@ -29,10 +30,14 @@
                   TreadWill as a useful resource.
                 </span>
               </div>
+              <div *ngIf="display_siq_start">
+                Show the siq. Answer carefully.
+              </div>
               
-
               <br><br><br>
-              <button id=btn type="button" class="btn btn-outline-dark" (click)="display()">
+              <button id=btn type="button" (click)="display()"
+                *ngIf="display_gad_start || display_phq_start || display_siq_start"
+                class="btn btn-outline-dark">
                 Start</button>
             </div>
           </div>
@@ -91,11 +96,11 @@
                         <span *ngIf="is_siq_ques"> Often </span>
                       </button>
                     </div>
-                    <div class="col-lg-3 col-sm-8" class="button-group " *ngIf="!submit">
+                    <div class="col-lg-3 col-sm-8" class="button-group " *ngIf="!submit && !is_siq_ques">
                       <button id=btn type="button" class="btn btn-outline-dark"
                         [ngClass]="{'backblack': see3, 'disabled': !visible, 'hower': !visible}"
                         (click)="visible === false || onselect3()">
-                        <span *ngIf="!is_siq_ques"> Nearly everyday</span>
+                        <span > Nearly everyday</span>
                       </button>
                     </div>
                   </div>
@@ -124,31 +129,6 @@
       </div>
     </div>
   </div>
-  <!-- <div class="container" *ngIf="display_gad_start" [@simpleFadeAnimation]="'in'">
-    <div class="row">
-      <div class="col-md-12 dashboard">
-        <div class="row">
-          <div class="col-xl-4 col-md-6 col-sm-12" class="card text-center">
-            <div class="card-body">
-              <span id=bold> Before moving further, we need ou to carefully answer 7 quick 
-                questions. This is a standard set of questions, called GAD-7, used in 
-                healthcare to assess anxiety symptoms (everyone has some!). 
-              </span>
-              <br><br>
-              <span id=bold>
-                Carefully answering these questions is important for you to track your
-                progress, for ensuring your participation, and for the development of 
-                TreadWill as a useful resource.
-              </span>
-              <br><br><br><br><br>
-              <button id=btn type="button" class="btn btn-outline-dark" (click)="display()">
-                Start</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div> -->
 </div>
 <ng-container *ngIf="loading">
   <div class="col-md-2 module-nav">

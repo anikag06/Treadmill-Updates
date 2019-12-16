@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Quiz } from './input/quiz';
-import { QuesUserResponseArray } from './input/response';
+import { QuesUserResponseArray, SIQResponseData } from './input/response';
 import { QuizService } from './questionnaire.service';
 import { environment } from 'environments/environment';
 
@@ -14,7 +14,8 @@ import { FlowService } from '@/main/flow/flow.service';
 import { Router, ActivatedRoute } from '@angular/router';
 // import { Step } from '@/main/flow/step-group/step/step.model';
 import { TrialAuthService } from '@/trial-registration/shared/trial-auth.service';
-import { RegistrationQuestionnaireScore } from '@/trial-registration/registration-step-three/resgistration-step-three-response.model';
+import { RegistrationQuestionnaireScore,
+  RegistrationSIQScore } from '@/trial-registration/registration-step-three/resgistration-step-three-response.model';
 import { RegistrationDataService } from '@/trial-registration/shared/registration-data.service';
 import { QuestionnaireResponse } from './input/questionnaire-response.model';
 import { INELIGIBLE_FOR_TRIAL, REGISTRATION_PATH, GET_PHQ_QUESTIONS, GET_GAD_QUESTIONS, GET_SIQ_QUESTIONS } from '@/app.constants';
@@ -96,12 +97,14 @@ export class QuestionnaireComponent implements OnInit {
 
   api = [environment.API_ENDPOINT + GET_PHQ_QUESTIONS, environment.API_ENDPOINT + GET_GAD_QUESTIONS,
     environment.API_ENDPOINT + GET_SIQ_QUESTIONS];
-  index = 0;
+  index = 0;             // index =0 is for phq-9, 1 for gad-7 and 2 for siq
   display_gad_start = false;
   display_questionnaire = false;
   display_phq_start = true;
+  display_siq_start = false;
 
   is_siq_ques = false;
+  siq_term_id!: number;
 
   routing!: boolean;
   visible!: boolean;
@@ -130,6 +133,7 @@ export class QuestionnaireComponent implements OnInit {
 
 
   loadQuiz() {
+    console.log('load quiz', this.api[this.index]);
     this.quizService.get(this.api[this.index])
       .subscribe((res: any) => {
         console.log(res);
@@ -155,20 +159,31 @@ export class QuestionnaireComponent implements OnInit {
   display() {
     if (this.display_phq_start === true) {
       this.display_phq_start = false;
+      this.is_siq_ques = false;
       this.IsDisabled();
       this.index = 0;
       this.startTime = new Date();
       this.display_questionnaire = true;
-    }
-    if (this.display_gad_start === true) {
+    } else if (this.display_gad_start === true) {
       this.display_gad_start = false;
+      this.is_siq_ques = false;
       this.index = 1;
       this.loadQuiz();
       this.question_no = 0;
       this.submit = false;
       this.startTime = new Date();
       this.display_questionnaire = true;
-      this.reset();
+      this.reset(7);
+    } else if (this.display_siq_start === true) {
+      this.display_siq_start = false;
+      this.is_siq_ques = true;
+      this.index = 2;
+      this.loadQuiz();
+      this.question_no = 0;
+      this.submit = false;
+      this.startTime = new Date();
+      this.display_questionnaire = true;
+      this.reset(10);
     }
   }
 
@@ -367,101 +382,152 @@ export class QuestionnaireComponent implements OnInit {
     let questionnaireResponse: any;
     const phq_response = new QuesUserResponseArray(questionnaireResponse);
     const gad_response = new QuesUserResponseArray(questionnaireResponse);
+    const siq_response = new QuesUserResponseArray(questionnaireResponse);
 
     const date = new Date;
     this.endDate = date.getDate();
     this.endMonth = date.getUTCMonth();
     this.endyear = date.getUTCFullYear();
     this.display_questionnaire = false;
-    this.index < 1 ? this.display_gad_start = true : this.display_gad_start = false;
+    // this.index < 1 ? this.display_gad_start = true : this.display_gad_start = false;
     this.index === 1 ? this.routing = true : this.routing = false;
     this.dataService.setOption(this.routing);
 
-    if (this.time.length === 9) {
-
-      for (let i = 0; i < 9; i++) {
-        const ques_response = new QuestionnaireResponse(
-          this.score[i], i + 1, this.time[i]);
-        phq_response.user_response.push(ques_response);
-      }
-      console.log('response', phq_response);
-
-      if (this.fromFlow === true) {
-        this.quizService.post_phq(phq_response);
-
-      } else if ( this.fromFlow === false && this.fromTrialRegistration === true) {
-        const registration_phq = new RegistrationQuestionnaireScore(0, phq_response.user_response);
-        registration_phq.participant_id = this.registrationDataService.participationID;
-
-        this.registrationDataService.savePHQData(registration_phq)
-          .subscribe( (res_data) => {
-              console.log(res_data);
-          });
-      }
+    if (this.index === 0) {       // index =0 is for phq-9
+      this.savePHQNineData(phq_response);
     }
-
-    if (this.time.length === 7) {
+    if (this.index === 1) {       // index = 1 is for gad-7
       console.log('gad');
-      for (let i = 0; i < 7; i++) {
-        const ques_response = new QuestionnaireResponse(
-          this.score[i], i + 1, this.time[i]);
-        gad_response.user_response.push(ques_response);
-      }
-      console.log('after updating gad', gad_response);
-
-      this.quizService.questionnaireActive = false;
-      if (this.fromFlow === true) {
-        this.quizService.post_gad(gad_response)
-        .subscribe(
-          (data: any) => {
-            console.log(data);
-            // TODO: Darshit needs to add timer service here
-            this.flowService.markDone(this.stepId, 1003)
-              .subscribe(
-                (resp: any) => {
-                  console.log(data);
-                },
-                error => console.log(error)
-              );
-            this.router.navigate(['/']);
-          }
-        );
-      } else if ( this.fromFlow === false && this.fromTrialRegistration === true) {
-        // move to step 4 in trial registration
-        console.log('save data for gad from trial');
-        const registration_gad = new RegistrationQuestionnaireScore(0, gad_response.user_response);
-        registration_gad.participant_id = this.registrationDataService.participationID;
-
-        this.registrationDataService.saveGADData(registration_gad)
-          .subscribe( (res_data: any) => {
-              console.log('gad response data', res_data);
-              const userEligible = !res_data.data.excluded;
-              this.registrationDataService.participationID = res_data.data.participant_id;
-              if (userEligible) {
-                this.trialAuthService.activateChild(true);
-                const stepNumber = res_data.data.next_step;
-                const navigation_step = REGISTRATION_PATH + '/step-' + stepNumber;
-                this.router.navigate([navigation_step]);
-              } else {
-                this.trialAuthService.activateChild(true);
-                this.router.navigate([INELIGIBLE_FOR_TRIAL]);
-              }
-          });
-      }
+      this.saveGADData(gad_response);
+    }
+    if (this.index === 2 ) {      // index = 2 is for siq
+      this.saveSIQData(siq_response);
     }
   }
 
-  reset() {
+  savePHQNineData(phq_response: QuesUserResponseArray) {
+    for (let i = 0; i < 9; i++) {
+      const ques_response = new QuestionnaireResponse(
+        this.score[i], i + 1, this.time[i]);
+      phq_response.user_response.push(ques_response);
+    }
+    console.log('response', phq_response);
+
+    if (phq_response.user_response[8].answer !== 0) {
+      console.log('show the siq ');
+      this.display_siq_start = true;
+    } else {
+      this.display_gad_start = true;
+    }
+    if (this.fromFlow === true) {
+      this.quizService.post_phq(phq_response);
+
+    } else if ( this.fromFlow === false && this.fromTrialRegistration === true) {
+      const registration_phq = new RegistrationQuestionnaireScore(0, phq_response.user_response);
+      registration_phq.participant_id = this.registrationDataService.participationID;
+
+      this.registrationDataService.savePHQData(registration_phq)
+        .subscribe( (res_data: any) => {
+            console.log(res_data);
+            this.siq_term_id = res_data.data.term_id;
+        });
+    }
+  }
+
+  saveGADData(gad_response: QuesUserResponseArray) {
+    for (let i = 0; i < 7; i++) {
+      const ques_response = new QuestionnaireResponse(
+        this.score[i], i + 1, this.time[i]);
+      gad_response.user_response.push(ques_response);
+    }
+    console.log('after updating gad', gad_response);
+    this.quizService.questionnaireActive = false;
+    if (this.fromFlow === true) {
+      this.quizService.post_gad(gad_response)
+      .subscribe(
+        (data: any) => {
+          console.log(data);
+          // TODO: Darshit needs to add timer service here
+          this.flowService.markDone(this.stepId, 1003)
+            .subscribe(
+              (resp: any) => {
+                console.log(data);
+              },
+              error => console.log(error)
+            );
+          this.router.navigate(['/']);
+        }
+      );
+    } else if ( this.fromFlow === false && this.fromTrialRegistration === true) {
+
+      const registration_gad = new RegistrationQuestionnaireScore(0, gad_response.user_response);
+      registration_gad.participant_id = this.registrationDataService.participationID;
+
+      this.registrationDataService.saveGADData(registration_gad)
+        .subscribe( (res_data: any) => {
+            console.log('gad response data', res_data);
+            const userEligible = !res_data.data.excluded;
+            this.registrationDataService.participationID = res_data.data.participant_id;
+            if (userEligible) {
+              this.trialAuthService.activateChild(true);
+              const stepNumber = res_data.data.next_step;
+              const navigation_step = REGISTRATION_PATH + '/step-' + stepNumber;
+              this.router.navigate([navigation_step]);
+            } else {
+              this.trialAuthService.activateChild(true);
+              this.router.navigate([INELIGIBLE_FOR_TRIAL]);
+            }
+        });
+    }
+  }
+
+  saveSIQData(siq_response: QuesUserResponseArray) {
+    for (let i = 0; i < 10; i++) {
+      const ques_response = new QuestionnaireResponse(
+        this.score[i], i + 1, this.time[i]);
+      siq_response.user_response.push(ques_response);
+    }
+    const siq_data = new SIQResponseData(this.siq_term_id, siq_response.user_response);
+
+    console.log(siq_data);
+
+    this.display_gad_start = true;
+    if (this.fromFlow === true) {
+      this.quizService.post_siq(siq_data);
+
+    } else if ( this.fromFlow === false && this.fromTrialRegistration === true) {
+      const registration_siq = new RegistrationSIQScore(0, this.siq_term_id, siq_response.user_response);
+      registration_siq.participant_id = this.registrationDataService.participationID;
+
+      this.registrationDataService.saveSIQData(registration_siq)
+        .subscribe( (res_data: any) => {
+            console.log(res_data);
+        });
+    }
+  }
+
+  reset(no_questions: number) {
     this.question_no = 0;
-    this.time = [0, 0, 0, 0, 0, 0, 0];
-    this.score = [0, 0, 0, 0, 0, 0, 0];
+    let i = no_questions;
+    this.time = [];
+    this.score = [];
     this.disabled = {
-      option_0: [false, false, false, false, false, false, false],
-      option_1: [false, false, false, false, false, false, false],
-      option_2: [false, false, false, false, false, false, false],
-      option_3: [false, false, false, false, false, false, false],
+      option_0: [],
+      option_1: [],
+      option_2: [],
+      option_3: [],
     };
-    this.answered = [false, false, false, false, false, false, false];
+    this.answered = [];
+    while ( i > 0) {
+      this.time.push(0);
+      this.score.push(0);
+      this.disabled.option_0.push(false);
+      this.disabled.option_1.push(false);
+      this.disabled.option_2.push(false);
+      this.disabled.option_3.push(false);
+      this.answered.push(false);
+      i--;
+    }
     this.sum = 0;
     this.see0 = false;
     this.see1 = false;

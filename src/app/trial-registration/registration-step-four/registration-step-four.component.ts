@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { RegistrationStepFourForm } from './step-four-consent.model';
 import { RegistrationDataService } from '../shared/registration-data.service';
+import { TrialAuthService } from '../shared/trial-auth.service';
+import { Router } from '@angular/router';
+import { REGISTRATION_PATH, INELIGIBLE_FOR_TRIAL } from '@/app.constants';
 
 @Component({
   selector: 'app-registration-step-four',
@@ -11,6 +14,7 @@ import { RegistrationDataService } from '../shared/registration-data.service';
 export class RegistrationStepFourComponent implements OnInit {
 
   stepNo = 4;
+  userEligible = false;
 
   consentForm = new FormGroup({
     readInfo: new FormControl(),
@@ -35,6 +39,8 @@ export class RegistrationStepFourComponent implements OnInit {
 
   constructor(
     private dataService: RegistrationDataService,
+    private authService: TrialAuthService,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -69,8 +75,17 @@ export class RegistrationStepFourComponent implements OnInit {
         .subscribe( (res_data: any) => {
           console.log(res_data);
 
-          // navigate to next step if eligible for the study
-
+          this.userEligible = !res_data.excluded;
+          this.dataService.participationID = res_data.participant_id;
+          if (this.userEligible) {
+            this.authService.activateChild(true);
+            const stepNumber = res_data.next_step;
+            const navigation_step = REGISTRATION_PATH + '/step-' + stepNumber;
+            this.router.navigate([navigation_step]);
+          } else {
+            this.authService.activateChild(true);
+            this.router.navigate([INELIGIBLE_FOR_TRIAL]);
+          }
 
         });
     }

@@ -19,6 +19,7 @@ import { TermsAndConditionsComponent } from './information-pages/terms-and-condi
 import { MatExpansionModule } from '@angular/material';
 import { IneligibleTrialPageComponent } from './information-pages/ineligible-trial-page/ineligible-trial-page.component';
 import { RegistrationDataService } from './shared/registration-data.service';
+import { StepLastPageComponent } from './information-pages/step-last-page/step-last-page.component';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { RegistrationDataService } from './shared/registration-data.service';
     AboutUsPageComponent,
     TermsAndConditionsComponent,
     IneligibleTrialPageComponent,
+    StepLastPageComponent,
   ],
   imports: [
     FormsModule,
