@@ -42,9 +42,13 @@ export class FriendlyFaceGameComponent implements OnInit {
   ffgUserPerformane = new FFGamePerformance(1, 0, 'touch', 0, 0);
 
   ngOnInit() {
-    this.loadFileService.loadExternalScript("./assets/games/friendly-face-game/js/facegame_javascript.js").then(() => {}).catch(() => {});
-    this.loadFileService.loadExternalScript("./assets/games/friendly-face-game/js/tone.min.js").then(() => {}).catch(() => {});
-    this.loadImages();
+    this.loadFileService.loadExternalScript('./assets/games/friendly-face-game/js/facegame_javascript.js')
+      .then(() => {
+        this.loadImages();
+      })
+      .catch(() => {});
+    this.loadFileService.loadExternalScript('./assets/games/friendly-face-game/js/tone.min.js').then(() => {}).catch(() => {});
+
   }
 
   loadImages() {

@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Quiz } from './input/quiz';
-import { Response } from './input/response';
-import { GadResponse } from './input/gad_response';
+import { QuesUserResponseArray } from './input/response';
 import { QuizService } from './questionnaire.service';
 import { environment } from 'environments/environment';
 
@@ -12,9 +11,13 @@ import { DataService } from './data.service';
 import { FlowService } from '@/main/flow/flow.service';
 // import { StepGroup } from '@/main/flow/step-group/step-group.model';
 // import { ACTIVE, QUESTIONNAIRE, } from '@/app.constants';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 // import { Step } from '@/main/flow/step-group/step/step.model';
 import { TrialAuthService } from '@/trial-registration/shared/trial-auth.service';
+import { RegistrationQuestionnaireScore } from '@/trial-registration/registration-step-three/resgistration-step-three-response.model';
+import { RegistrationDataService } from '@/trial-registration/shared/registration-data.service';
+import { QuestionnaireResponse } from './input/questionnaire-response.model';
+import { INELIGIBLE_FOR_TRIAL, REGISTRATION_PATH } from '@/app.constants';
 
 @Component({
   animations: [
@@ -112,6 +115,8 @@ export class QuestionnaireComponent implements OnInit {
     private router: Router,
     private dataService: DataService,
     private trialAuthService: TrialAuthService,
+    private registrationDataService: RegistrationDataService,
+    private route: ActivatedRoute,
   ) { }
 
   ngOnInit() {
@@ -352,8 +357,11 @@ export class QuestionnaireComponent implements OnInit {
   }
 
   onsubmit() {
-    const response = new Response;
-    const gad_response = new GadResponse;
+    // tslint:disable-next-line: prefer-const
+    let questionnaireResponse: any;
+    const phq_response = new QuesUserResponseArray(questionnaireResponse);
+    const gad_response = new QuesUserResponseArray(questionnaireResponse);
+
     const date = new Date;
     this.endDate = date.getDate();
     this.endMonth = date.getUTCMonth();
@@ -362,27 +370,39 @@ export class QuestionnaireComponent implements OnInit {
     this.index < 1 ? this.display_gad_start = true : this.display_gad_start = false;
     this.index === 1 ? this.routing = true : this.routing = false;
     this.dataService.setOption(this.routing);
+
     if (this.time.length === 9) {
-      console.log('phq');
+
       for (let i = 0; i < 9; i++) {
-        response.user_response[i].time_taken_to_complete = this.time[i];
-        response.user_response[i].answer = this.score[i];
-        response.user_response[i].question = i + 1;
+        const ques_response = new QuestionnaireResponse(
+          this.score[i], i + 1, this.time[i]);
+        phq_response.user_response.push(ques_response);
       }
+      console.log('response', phq_response);
+
       if (this.fromFlow === true) {
-        this.quizService.post_phq(response);
-      } else if( this.fromFlow === false && this.fromTrialRegistration === true){
-        console.log('save data for phq from trial');
+        this.quizService.post_phq(phq_response);
+
+      } else if ( this.fromFlow === false && this.fromTrialRegistration === true) {
+        const registration_phq = new RegistrationQuestionnaireScore(0, phq_response.user_response);
+        registration_phq.participant_id = this.registrationDataService.participationID;
+
+        this.registrationDataService.savePHQData(registration_phq)
+          .subscribe( (res_data) => {
+              console.log(res_data);
+          });
       }
-      
     }
+
     if (this.time.length === 7) {
       console.log('gad');
       for (let i = 0; i < 7; i++) {
-        gad_response.user_response[i].time_taken_to_complete = this.time[i];
-        gad_response.user_response[i].answer = this.score[i];
-        gad_response.user_response[i].question = i + 1;
+        const ques_response = new QuestionnaireResponse(
+          this.score[i], i + 1, this.time[i]);
+        gad_response.user_response.push(ques_response);
       }
+      console.log('after updating gad', gad_response);
+
       this.quizService.questionnaireActive = false;
       if (this.fromFlow === true) {
         this.quizService.post_gad(gad_response)
@@ -400,12 +420,27 @@ export class QuestionnaireComponent implements OnInit {
             this.router.navigate(['/']);
           }
         );
-      } else if( this.fromFlow === false && this.fromTrialRegistration === true) {
+      } else if ( this.fromFlow === false && this.fromTrialRegistration === true) {
         // move to step 4 in trial registration
-        // and save data when APIs made
         console.log('save data for gad from trial');
-        this.trialAuthService.activateChild(true);
-        this.router.navigate(['trial/trial-registration/step-4'])
+        const registration_gad = new RegistrationQuestionnaireScore(0, gad_response.user_response);
+        registration_gad.participant_id = this.registrationDataService.participationID;
+
+        this.registrationDataService.saveGADData(registration_gad)
+          .subscribe( (res_data: any) => {
+              console.log('gad response data', res_data);
+              const userEligible = !res_data.data.excluded;
+              this.registrationDataService.participationID = res_data.data.participant_id;
+              if (userEligible) {
+                this.trialAuthService.activateChild(true);
+                const stepNumber = res_data.data.next_step;
+                const navigation_step = REGISTRATION_PATH + '/step-' + stepNumber;
+                this.router.navigate([navigation_step]);
+              } else {
+                this.trialAuthService.activateChild(true);
+                this.router.navigate([INELIGIBLE_FOR_TRIAL]);
+              }
+          });
       }
     }
   }

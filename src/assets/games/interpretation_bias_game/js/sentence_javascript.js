@@ -176,11 +176,12 @@ var inactivity_check_interval;
 var inactivity_time = 0;
 
 var tip_msg_array = [
+	"Word can be left to right, right to left, diagonal",
 	"Search for extra words to earn extra points.",
 	"Look for the first letter of the word.",
 	"Look for the second letter of the word around the first letter.",
 	"Search for less-common letters, such as j, b, k, q, x, y, or z, first.",
-	"Try to search for multiple words at a time to find more words easily."
+	"Try to search for multiple words at a time to find more words easily.",
 ];
 var tip_number = 0;
 var word_tip_shown = [];							//words for which tip has already been shown

@@ -81,12 +81,15 @@
             </div>
     
             <div class="col-12 my-2">
-                <form class="w-100">
-                    <input type="email" class="form-control input-box form-elements" required 
-                        placeholder="Enter your email ID" aria-label="emailId" aria-describedby="basic-addon1">
+                <form [formGroup]="emailForm" class="w-100" >
+                    <input formControlName="email" 
+                        type="email" class="input-box w-100 px-2 form-elements" 
+                        required 
+                        email
+                        placeholder=" Enter your email ID" >
                     <div class="w-100 my-3">
                         <button type="submit" class="w-100 form-elements" mat-raised-button 
-                            color="primary" (click)="emailSubmit()"> Join the Study </button>
+                            color="primary" (click)="emailSubmit()" > Join the Study </button>
                     </div>
                 </form>
             </div>

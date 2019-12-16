@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '@/material.module';
 import {MatRadioModule} from '@angular/material/radio';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { TrialRegistrationRoutingModule } from './trial-registration-routing.module';
 import { RegistrationStepOneComponent } from './registration-step-one/registration-step-one.component';
@@ -16,17 +17,27 @@ import { PrivacyPolicyComponent } from './information-pages/privacy-policy/priva
 import { AboutUsPageComponent } from './information-pages/about-us-page/about-us-page.component';
 import { TermsAndConditionsComponent } from './information-pages/terms-and-conditions/terms-and-conditions.component';
 import { MatExpansionModule } from '@angular/material';
+import { IneligibleTrialPageComponent } from './information-pages/ineligible-trial-page/ineligible-trial-page.component';
+import { RegistrationDataService } from './shared/registration-data.service';
 
 
 @NgModule({
   declarations: [
-    RegistrationStepOneComponent, 
-    TrialPagesFooterComponent, 
-    TrialPagesHeaderComponent, 
-    RegistrationStepTwoComponent, 
-    RegistrationStepThreeComponent, RegistrationStepFourComponent, FaqPageComponent, PrivacyPolicyComponent, AboutUsPageComponent, TermsAndConditionsComponent,
+    RegistrationStepOneComponent,
+    TrialPagesFooterComponent,
+    TrialPagesHeaderComponent,
+    RegistrationStepTwoComponent,
+    RegistrationStepThreeComponent,
+    RegistrationStepFourComponent,
+    FaqPageComponent,
+    PrivacyPolicyComponent,
+    AboutUsPageComponent,
+    TermsAndConditionsComponent,
+    IneligibleTrialPageComponent,
   ],
   imports: [
+    FormsModule,
+    ReactiveFormsModule,
     CommonModule,
     MaterialModule,
     MatExpansionModule,
@@ -35,6 +46,7 @@ import { MatExpansionModule } from '@angular/material';
     QuestionnaireModule,
   ],
   providers: [
+    RegistrationDataService,
   ]
 })
 export class TrialRegistrationModule { }

@@ -1,111 +1,107 @@
-<div id="face-game-main-div">
-    <div class="game-instructions">
-        <div class="row justify-content-center">
-            <div class="col-12">
-                <div class="card">
-                    <h5 class="card-header">How to play?</h5>
-                    <div class="card-body">
-                        <p class="card-text">Click on the happy faces as quickly as you can.</p>
-                        <p class="card-text">Don't click on the non-happy faces.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <br>
-        <div class="row justify-content-center">
-            <div class="col-12">
-                <div class="card">
-                    <h5 class="card-header">Science behind the game.</h5>
-                    <div class="card-body">
-                        <p class="card-text">It has been shown that depressed people have very poor self-esteem. Their self-esteem is dependent on other people's approval. Let's say a depressed person is talking to a group of friends, and he cracks a joke. If some of his friends don't laugh at his joke, he will forget about the rest of his interactions with his friends and focus just on this fact that some of his friends didn't laugh at his joke. He might have thoughts like "My friends think I am stupid" based on this. He will ignore the fact that this was a one-time event and that some of his friends did laugh at his joke. One of the reasons why this happens is that depressed individuals tend to selectively focus on negative information and ignore positive information. This bias for negative information has a further negative impact on the person's self-esteem.
-                        <br>
-                        The "Identify the friendly face" game is supposed to modify this bias for negative information. It is supposed to train depressed individuals to focus on positive information and ignore negative information. We expect it to help improve their self-esteem and eventually with depression. But, you have to do it from time to time. You can't just do it once or twice and leave it.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- FOR ACTUAL GAME PLAY-->
-
-    <div class="container-fluid ff-game-elements h-100 d-flex flex-column d-none">
-        <div class="row">
-            <div class="col">
-                <div class="d-flex align-items-end score-life">
-                    <div class="ml-1" >    
-                        <span id="score" class="align-bottom"><b>SCORE:</b></span><span id="score-num" class="align-bottom"></span>
-                    </div>
-                
-                    <div class="ml-auto" >
-                        <img id="life-img" src="../../../../../../assets/games/friendly-face-game/images/Live (1).svg">
-                        <span id="life" class="align-bottom"></span>
-                    
-                        <img id="time-img" src="../../../../../../assets/games/time_transparent.png"> <!--class="float-right">-->
-                        <span id="time-sec" class="align-bottom"></span><span class="align-bottom"> <b>s</b></span>
-                    </div>      
-                        
-                    
-                </div>
-            </div>
-        </div>
-       
-        <div class="row">
-            <div class="col coins-difficulty">
-                <div class="d-flex align-items-end">
-                    <div class=" ml-1 coins1">
-                        <img id="coin-img" src="../../../../../../assets/games/friendly-face-game/images/Gold badge symbol.svg">
-                        <span class="coin-num" id="gold-num"></span>
-                        <mat-progress-bar mode="determinate" class="gold-bar" value="40"></mat-progress-bar>
-                    </div>
-
-                    <div class="ml-1 coins1">
-                        <img id="coin-img" src="../../../../../../assets/games/friendly-face-game/images/Silver badge symbol.svg">
-                        <span class="coin-num" id="silver-num"></span>
-                        <mat-progress-bar mode="determinate" class="silver-bar" value="40"></mat-progress-bar>
-                    </div>
-
-                    <div class="ml-1 coins1">
-                        <img id="coin-img" src="../../../../../../assets/games/friendly-face-game/images/Bronze badge symbol.svg">
-                        <span class="coin-num" id="bronze-num"></span>
-                        <mat-progress-bar mode="determinate" class="bronze-bar" value="40"></mat-progress-bar>
-                    </div>
-
-                    <div class="ml-auto  difficulty">
-                        <div class="d-flex justify-content-between">
-                            <b>Easy</b><b>Hard</b>
+<div class="ff-game-div h-100 w-100">
+    <div id="face-game-main-div">
+        <div class="game-instructions">
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    <div class="card">
+                        <h5 class="card-header">How to play?</h5>
+                        <div class="card-body">
+                            <p class="card-text">Click on the happy faces as quickly as you can.</p>
+                            <p class="card-text">Don't click on the non-happy faces.</p>
                         </div>
-                        
-                       <mat-progress-bar mode="determinate" class="difficulty-bar" value="40"></mat-progress-bar>
-                        
                     </div>
                 </div>
             </div>
+            <br>
+    
         </div>
+    
+        <!-- FOR ACTUAL GAME PLAY-->
+        <div class="container-fluid d-none h-100 ff-game-container">
+            <div class="ff-game-elements h-100 d-flex flex-column">
+                <div class="row my-2">
+                    <div class="col">
+                        <div class="d-flex align-items-end score-life">
+                            <div class="ml-1" >    
+                                <span id="score" class="align-bottom"><b>SCORE:</b></span><span id="score-num" class="align-bottom"></span>
+                            </div>
+                        
+                            <div class="ml-auto" >
+                                <img id="life-img" src="../../../../../../assets/games/friendly-face-game/images/Live (1).svg">
+                                <span id="life" class="align-bottom"></span>
+                            
+                                <img id="time-img" src="../../../../../../assets/games/time_transparent.png"> <!--class="float-right">-->
+                                <span id="time-sec" class="align-bottom"></span><span class="align-bottom"> <b>s</b></span>
+                            </div>      
+                                
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col coins-difficulty">
+                        <div class="d-flex align-items-end">
+                            <div class=" ml-1 coins1">
+                                <img id="coin-img" src="../../../../../../assets/games/friendly-face-game/images/Gold badge symbol.svg">
+                                <span class="coin-num" id="gold-num"></span>
+                                <mat-progress-bar mode="determinate" class="gold-bar" value="40"></mat-progress-bar>
+                            </div>
         
+                            <div class="ml-1 coins1">
+                                <img id="coin-img" src="../../../../../../assets/games/friendly-face-game/images/Silver badge symbol.svg">
+                                <span class="coin-num" id="silver-num"></span>
+                                <mat-progress-bar mode="determinate" class="silver-bar" value="40"></mat-progress-bar>
+                            </div>
         
-        <div id="canvas-div" class="row align-items-center game-components flex-grow-1">
-            <div class="col align-items-center ">
-                <div class="d-flex justify-content-center">
-                    <canvas id="canvas1" ></canvas>
+                            <div class="ml-1 coins1">
+                                <img id="coin-img" src="../../../../../../assets/games/friendly-face-game/images/Bronze badge symbol.svg">
+                                <span class="coin-num" id="bronze-num"></span>
+                                <mat-progress-bar mode="determinate" class="bronze-bar" value="40"></mat-progress-bar>
+                            </div>
+        
+                            <div class="ml-auto  difficulty">
+                                <div class="d-flex justify-content-between">
+                                    <b>Easy</b><b>Hard</b>
+                                </div>
+                                
+                                <mat-progress-bar mode="determinate" 
+                                    class="difficulty-bar" value="40">
+                                </mat-progress-bar>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div id="canvas-div" class="row align-items-center game-components flex-grow-1">
+                    <div class="col align-items-center ">
+                        <div class="d-flex justify-content-center">
+                            <canvas id="canvas1" ></canvas>
+                        </div>
+                    </div>
+                </div>   
+        
+                <div class="row " style="height: 100px;">
+                        
+                        <img id="tone-on-bar" src="../../../../../../assets/games/friendly-face-game/images/Tone.svg">
+                        <div class="d-flex justify-content-center">
+                            <mat-progress-bar mode="determinate" class="music-bar " value=50></mat-progress-bar>
+                        </div>
+                        <div class="music-box">
+                            <img id="border-music-box" src="../../../../../../assets/games/friendly-face-game/images/Button_small.svg">
+                            <img id="tone" src="../../../../../../assets/games/friendly-face-game/images/Tone.svg">
+                            <span id="song-name"></span>
+                        </div>
+                    
                 </div>
             </div>
-        </div>   
-
-        <div class="row " style="height: 100px;">
-                
-                <img id="tone-on-bar" src="../../../../../../assets/games/friendly-face-game/images/Tone.svg">
-                <div class="d-flex justify-content-center">
-                    <mat-progress-bar mode="determinate" class="music-bar " value=50></mat-progress-bar>
-                </div>
-                <div class="music-box">
-                    <img id="border-music-box" src="../../../../../../assets/games/friendly-face-game/images/Button_small.svg">
-                    <img id="tone" src="../../../../../../assets/games/friendly-face-game/images/Tone.svg">
-                    <span id="song-name"></span>
-                </div>
-            
+        </div>
+    
+        <div class="d-none">
+        
         </div>
     </div>
-    <div class="d-none">
-    
-    </div>
+            
 </div>
