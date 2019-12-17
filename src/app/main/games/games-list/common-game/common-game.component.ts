@@ -175,7 +175,7 @@ export class CommonGameComponent implements OnInit {
       // console.log('play button');
 
     } else if (this.gameName === FRIENDLY_FACE_GAME) {
-      this.gamePlayService.playFriendlyFaceGame(this.device_type);
+      this.gamePlayService.playFriendlyFaceGame(this.device_type,this.gameDivElement);
 
     } else if (this.gameName === MENTAL_IMAGERY_GAME) {
       // this.miGameComponent.startPlayingMIGame();

@@ -1,0 +1,11 @@
+@import "styles.scss";
+.loading{
+    position: relative;
+    max-width: 340px;
+    z-index: 30;
+}
+
+
+.loading-bar{
+	height:20px;
+}

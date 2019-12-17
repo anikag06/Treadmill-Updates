@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, ElementRef, ViewContainerRef } from '@angular/core';
 import { GamePlayService } from '@/main/games/shared/game-play.service';
 import { GamesAuthService } from '@/main/games/shared/games-auth.service';
 import { FFGameUserData, FFGamePerformance } from '@/main/games/shared/game-play.model';
@@ -45,6 +45,7 @@ export class FriendlyFaceGameComponent implements OnInit {
   musicBarValue!: number;
   toneBarValue!: number;
   difficultyBarValue!: number;
+  
 
   //badges info
   BRONZE_CONSTANT = 6;
@@ -65,6 +66,7 @@ export class FriendlyFaceGameComponent implements OnInit {
     private loadFileService: LoadFilesService,
     private dialogBoxService: DialogBoxService,
     private badgesService: GamesBadgesService,
+    public viewContainerRef: ViewContainerRef,
   ) { }
 
   @ViewChild('newElement', { static: false }) element!: ElementRef;
@@ -246,4 +248,5 @@ export class FriendlyFaceGameComponent implements OnInit {
     console.log('badges update', this.goldNumber, this.goldValue);
   }
 
+  
 }

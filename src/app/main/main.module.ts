@@ -151,6 +151,10 @@ import { FfgNextgameComponent } from './games/games-list/common-game/friendly-fa
 import { FfgInstructionsComponent } from './games/games-list/common-game/friendly-face-game/ffg-instructions/ffg-instructions.component';
 import { FfgPlayagainComponent } from './games/games-list/common-game/friendly-face-game/ffg-playagain/ffg-playagain.component';
 import { FfgNolifeComponent } from './games/games-list/common-game/friendly-face-game/ffg-nolife/ffg-nolife.component';
+import { LoadingBarComponent } from './games/shared/loading-bar/loading-bar.component';
+import { LoadingBarDirective } from './games/shared/loading-bar.directive';
+import { LoadingBarService } from './games/shared/loading-bar.service';
+import { LoadingBarChildDirective } from './games/shared/loading-bar/loading-bar-child.directive';
 
 @NgModule({
   declarations: [
@@ -248,7 +252,10 @@ import { FfgNolifeComponent } from './games/games-list/common-game/friendly-face
     FfgNextgameComponent,
     FfgInstructionsComponent,
     FfgPlayagainComponent,
-    FfgNolifeComponent
+    FfgNolifeComponent,
+    LoadingBarComponent,
+    LoadingBarDirective,
+    LoadingBarChildDirective
     
   ],
   imports: [
@@ -310,6 +317,7 @@ import { FfgNolifeComponent } from './games/games-list/common-game/friendly-face
     DialogBoxService,
     ExecControlHelpService,
     IdcGameService,
+    LoadingBarService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [
@@ -341,6 +349,7 @@ import { FfgNolifeComponent } from './games/games-list/common-game/friendly-face
     FfgInstructionsComponent,
     FfgPlayagainComponent,
     FfgNolifeComponent,
+    LoadingBarComponent,
   ]
 })
 export class MainModule {

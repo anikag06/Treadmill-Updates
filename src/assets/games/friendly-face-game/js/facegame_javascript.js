@@ -204,6 +204,7 @@ var song_playing;
 
 var ffg_coins = 0;
 
+
 $(document).ready(function(){
 	
 

@@ -1,4 +1,4 @@
-import { Injectable, ElementRef, } from '@angular/core';
+import { Injectable} from '@angular/core';
 import { map } from 'rxjs/operators';
 import {GamesService} from '@/main/shared/games.service';
 import {GamesAuthService} from '@/main/games/shared/games-auth.service';
@@ -80,6 +80,7 @@ declare var ffGameSongCounter: number;
 declare var ffg_music_current_order: number;
 declare var fillMusicBar: any;
 declare var toneNumber: number;
+declare var ffGamePlay:any;
 
 // for mental imagery game
 declare var miGameShowTutorial: boolean;
@@ -490,17 +491,17 @@ export class GamePlayService  {
 
   // for friendly face game
 // functions for getting data(images and music) are in face game component ts file, as data is loaded before the game starts
-  playFriendlyFaceGame(device_type: string) {
+  playFriendlyFaceGame(device_type: string, gameDivElement: any) {
     // data is according to user order
     ffGameSongCounter = 0;
-    this.ffGameTotalPerformance(1, device_type);      // as the game starts from level 1(i.e. grid row = 1)
+    this.ffGameTotalPerformance(1, device_type, gameDivElement);      // as the game starts from level 1(i.e. grid row = 1)
   }
 
   fillMusicBar(){
     toneNumber=toneNumber+10;
   }
 
-  ffGameTotalPerformance(levelNumber: number, device_type: string) {
+  ffGameTotalPerformance(levelNumber: number, device_type: string, gameDivElement: any) {
     this.gamesAuthService.ffGameGetTotalPerformance(levelNumber, device_type)
       .subscribe( (levelData) => {
         console.log('leveldata', levelData);
@@ -516,7 +517,7 @@ export class GamePlayService  {
               ffg_total_time_taken_level1 = 1050;
             }
           }
-          this.ffGameTotalPerformance(2, device_type);
+          this.ffGameTotalPerformance(2, device_type, gameDivElement);
         } else if (levelNumber === 2) {
           ffg_no_positive_images_clicked_level2 = levelData.total_positive_images;
           ffg_total_time_taken_level2 = levelData.total_time_taken;
@@ -528,7 +529,7 @@ export class GamePlayService  {
               ffg_total_time_taken_level2 = 1150;
             }
           }
-          this.ffGameTotalPerformance(3, device_type);
+          this.ffGameTotalPerformance(3, device_type, gameDivElement);
         } else if (levelNumber === 3) {
           ffg_no_positive_images_clicked_level3 = levelData.total_positive_images;
           ffg_total_time_taken_level3 = levelData.total_positive_images;
@@ -540,15 +541,26 @@ export class GamePlayService  {
               ffg_total_time_taken_level3 = 1250;
             }
           }
-          const tid = setInterval( function () {
-            if ( document.readyState !== 'complete' ) return;
-            clearInterval( tid );       
-            // funtion to be called when document is ready
-            ffGameStart(device_type);
-        }, 100 );
+          // let tid = setInterval( () => {
+          //   if ( document.readyState !== 'complete' ) return;
+          //   clearInterval( tid );       
+            // function to be called when document is ready
+            // ffGameStart(device_type);
+            this.ffGamePlay(device_type,gameDivElement);
+        // }, 100 );
           
         }
       });
+  }
+  ffGamePlay(device_type: string, gameDivElement: any) {
+    
+    // const domEvent = new CustomEvent('loadingBarEvent', { bubbles: true });
+    // //  gameDivElement.nativeElement.dispatchEvent(domEvent);
+    //  window.dispatchEvent(domEvent);
+
+    //  console.log('loadingbarevent',gameDivElement);
+    ffGameStart(device_type);
+
   }
   pauseFaceGame() {
     ffGPauseGame();
