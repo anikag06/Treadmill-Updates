@@ -150,6 +150,17 @@ import { IdcInfoComponent } from './games/games-list/common-game/identify-cognit
 import { IdcWinComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-win/idc-win.component';
 import { IdcTimeComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-time/idc-time.component';
 import { IdcGameService } from './games/games-list/common-game/identify-cognitive-distortion/idc-game.service';
+import { LhgInstructionsComponent } from './games/games-list/common-game/learned-helplessness-game/lhg-instructions/lhg-instructions.component';
+import { LhgHowtoplayComponent } from './games/games-list/common-game/learned-helplessness-game/lhg-howtoplay/lhg-howtoplay.component';
+import { LhgPlaynextgameComponent } from './games/games-list/common-game/learned-helplessness-game/lhg-playnextgame/lhg-playnextgame.component';
+import { FfgNextgameComponent } from './games/games-list/common-game/friendly-face-game/ffg-nextgame/ffg-nextgame.component';
+import { FfgInstructionsComponent } from './games/games-list/common-game/friendly-face-game/ffg-instructions/ffg-instructions.component';
+import { FfgPlayagainComponent } from './games/games-list/common-game/friendly-face-game/ffg-playagain/ffg-playagain.component';
+import { FfgNolifeComponent } from './games/games-list/common-game/friendly-face-game/ffg-nolife/ffg-nolife.component';
+import { LoadingBarComponent } from './games/shared/loading-bar/loading-bar.component';
+import { LoadingBarDirective } from './games/shared/loading-bar.directive';
+import { LoadingBarService } from './games/shared/loading-bar.service';
+import { LoadingBarChildDirective } from './games/shared/loading-bar/loading-bar-child.directive';
 
 @NgModule({
   declarations: [
@@ -243,7 +254,17 @@ import { IdcGameService } from './games/games-list/common-game/identify-cognitiv
     IdcInstructionsComponent,
     IdcInfoComponent,
     IdcWinComponent,
-    IdcTimeComponent
+    IdcTimeComponent,
+    LhgInstructionsComponent,
+    LhgHowtoplayComponent,
+    LhgPlaynextgameComponent,
+    FfgNextgameComponent,
+    FfgInstructionsComponent,
+    FfgPlayagainComponent,
+    FfgNolifeComponent,
+    LoadingBarComponent,
+    LoadingBarDirective,
+    LoadingBarChildDirective
     
   ],
   imports: [
@@ -307,6 +328,7 @@ import { IdcGameService } from './games/games-list/common-game/identify-cognitiv
     ExecControlHelpService,
     UserProfileService,
     IdcGameService,
+    LoadingBarService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [
@@ -331,6 +353,14 @@ import { IdcGameService } from './games/games-list/common-game/identify-cognitiv
     IdcInfoComponent,
     IdcWinComponent,
     IdcTimeComponent,
+    LhgHowtoplayComponent,
+    LhgInstructionsComponent,
+    LhgPlaynextgameComponent,
+    FfgNextgameComponent,
+    FfgInstructionsComponent,
+    FfgPlayagainComponent,
+    FfgNolifeComponent,
+    LoadingBarComponent,
   ]
 })
 export class MainModule {

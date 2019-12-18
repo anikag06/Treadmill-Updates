@@ -1,5 +1,5 @@
 .ff-game-div{
-	background-color: #00572A;
+	background-color: white;
 }
 #face-game-main-div{
     height: 100%;
@@ -18,6 +18,10 @@
 	max-width:491px;
 }
 
+#ffg-image{
+	height: 200px;
+	margin-top:70px;
+}
 
 #face-game-main-div{
 	background: #DEFFEE;
@@ -111,9 +115,15 @@
 }
 
 
+
+
 #tone-on-bar{
 	width: 9px;
 	height: 10px;
+	// margin-left: 20px;
+	margin-bottom: 5px;
+	transition: margin-left 0.5s ease;
+	
 }
 
 .music-bar{
@@ -137,8 +147,9 @@
 
 
 .music-box{
-	display:flex;
+	display:inline-block;
 	margin-top:2%;
+	position: relative;
 }
 
 	
@@ -150,24 +161,26 @@
 	height:16px;
 	margin-left: -100%;
 	margin-top: 8%;
+	position: absolute;
 }
 
 #song-name{
 	font-size:12px;
 	font-weight: bold;
 	width:100%;
-	margin-left: -32%;
+	margin-left: -45%;
 	margin-top: 6%;
 	
 	
 }
 
 #border-music-box{
-	width:159pt;
-	height:34pt;
+	// width:159pt;
+	height:42px;
+	// width:100%;
 	
-	width:100%;
 }
+
 	
 
 
@@ -251,7 +264,7 @@ label.btn-secondary.active{
 	border-color: #606090;
 }
 
-.game-instructions{
+.game-cover{
 	margin-top: 10px;
 	margin-bottom: 10px;
 }

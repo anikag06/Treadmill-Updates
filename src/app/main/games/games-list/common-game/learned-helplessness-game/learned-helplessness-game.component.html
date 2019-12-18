@@ -1,65 +1,17 @@
-<div class="container-fluid" id="lg-game-container" tabindex="0">
-	<div class="check-image"></div>
-	<!-- working memory game start -->
-	<div class="row d-none justify-content-center" id="squares-row">
-		<div id="squares" class="col-auto">
-			<div style="display: inline-flex;">
-				<div id="square-1" class="square"></div>
-				<div id="square-2" class="square"></div>
-				<div id="square-3" class="square"></div>
-				<div id="square-4" class="square"></div>
-			</div>
-			<br>
-			<div style="display: inline-flex;">
-				<div id="square-5" class="square"></div>
-				<div id="square-6" class="square"></div>
-				<div id="square-7" class="square"></div>
-				<div id="square-8" class="square"></div>
-			</div>
-			<br>
-			<div style="display: inline-flex;">
-				<div id="square-9" class="square"></div>
-				<div id="square-10" class="square"></div>
-				<div id="square-11" class="square"></div>
-				<div id="square-12" class="square"></div>
-			</div>
-			<br>
-			<div style="display: inline-flex;">
-				<div id="square-13" class="square"></div>
-				<div id="square-14" class="square"></div>
-				<div id="square-15" class="square"></div>
-				<div id="square-16" class="square"></div>
-			</div>
-			<br>
-			<div id="instructions" class="text">
-				We will highlight some of the squares in a sequence. Remember the sequence. You will have to click on the squares in that sequence after you hear a ping.
-				<br>
-				<button id="btn-start">Okay, start</button>
-				<button id="btn-restart" class="d-none">Okay, start</button>
-			</div>
-			<div id="correct" class="text d-none">
-				Correct.
-			</div>
-			<div id="incorrect" class="text d-none">
-				Incorrect. We will redirect you to a new game in 5 seconds.
-			</div>
-			<div id="reasons" class="text d-none">
-				Something really interesting just happened. You failed to remember this sequence of blocks. The interesting part is that this is the exact same sequence that you were able to remember just before playing the number-aligning game. Why do you think that happened?
-				<ol>
-					<li><input type="checkbox" name="reason-1">I didn't try hard enough<br></li>
-					<li><input type="checkbox" name="reason-2">I was tired<br></li>
-					<li><input type="checkbox" name="reason-3">I wasn't paying attention<br></li>
-					<li><input type="checkbox" name="reason-4">I was still thinking about the previous game<br></li>
-				</ol>
-			</div>
-		</div>
-	</div>
-	<!-- working memory game end -->
-
+<div class="container-fluid lg-game-container" id="lg-game-container" tabindex="0">
+	<div class="main" >
+	<div class="lhg-image justify-content-center" id="lhg-cover">
+		<img id="lhg-image" src="../../../../../../assets/games/learning-helplessness/assets/Start page graphic.png">
+	<!-- </div>
+	<div class="lhg-text justify-content-center"> -->
+		<p class="my-4" id="lhg-text"><b>LEARNED HELPLESSNESS</b></p>
+	</div>	
+	
+	
 	<!-- unsolvable game 1 start -->
 	<div class="row d-none justify-content-center" id="grid-puzzle-row">
-		<div id="three-puzzle-squares" class="col-auto justify-content-md-center">
-			<div class="puzzborderfour">
+		<div id="three-puzzle-squares" class="col-auto justify-content-md-center puzzborderfour px-0">
+			<div style="vertical-align: middle;">
 			<div style="display: inline-flex;">
 				<div id="three-puzzle-square-1" class="three-puzzle-square">3</div>
 				<div id="three-puzzle-square-2" class="three-puzzle-square">1</div>
@@ -72,12 +24,12 @@
 			</div>
 			<br>
 			<br><br><br>
-			<div class="flex-container">
-				<div class="d-none" id="grid-puzzle-success-message">Great!!</div>
-				<!-- <div>
-					Arrange the tiles in order 1->2->3 to win.
-		</div> -->
-				<button id="btn-reset-three" class="lhgame-btn">Reset</button>
+			
+			<div class="d-none greatDiv" id="grid-puzzle-success-message"><b>Great</b></div>
+			<div class="flex-container">	
+				<!-- <button id="btn-reset-three" class="lhgame-btn">Reset</button> -->
+				
+					<button mat-raised-button id="btn-reset-three" class="lhgame-btn" [color]="'new'"  type="button">Reset</button>
 			</div>
 		</div>
 
@@ -112,24 +64,29 @@
 			</div>
 			</div>
 			<br><br><br>
-			<div class="flex-container">
-				<div>
-					<!-- Arrange the tiles in order 1->2->3->......->15 to win. -->
-		</div>
-				<button id="btn-reset-fifteen"class="lhgame-btn">Reset</button>
-				<button id="btn-give-up-fifteen" 
+			<div class="flex-container justify-content-center">
+				
+				<!-- <button id="btn-reset-fifteen"class="lhgame-btn">Reset</button> -->
+				<button mat-raised-button id="btn-reset-fifteen" class="lhgame-btn" 
+						[color]="'new'" type="button">Reset</button>
+
+				<!-- <button id="btn-give-up-fifteen" 
 					(click) = "updateUnsolvableTask1Data(true)"
-					class="d-none give-up-text-red lhgame-btn2">I give up</button>
+					class="d-none give-up-text-red lhgame-btn2">I give up</button> -->
+				<button mat-raised-button id="btn-give-up-fifteen" 
+						class="d-none give-up-text-red lhgame-btn2" [color]="'new'" 
+						(click)="updateUnsolvableTask1Data(true)" type="button">I give up</button>
+
 			</div>
 		</div>
 
-		<div id="nine-puzzle-squares" class="col-auto justify-content-md-center d-none">
+		<div id="nine-puzzle-squares" class="col-auto puzzbordernine justify-content-md-center d-none px-0">
 			<!-- <div>
 				<div>
 					Okay, here is a simpler one. Try to solve this.
 				</div>
 			</div> -->
-			<div class="puzzborderfifteen">
+			<div style="vertical-align: middle;">
 			<div style="display: inline-flex;">
 				<div id="nine-puzzle-square-1" class="nine-puzzle-square">1</div>
 				<div id="nine-puzzle-square-2" class="nine-puzzle-square">2</div>
@@ -149,20 +106,18 @@
 			</div>
 		    </div>
 			<br><br><br>
-			<div class="flex-container">
-				<div>
-					<!-- Arrange the tiles in order 1->2->3->......->8 to win. -->
-				</div>
-				<button id="btn-reset-nine" class="lhgame-btn">Reset</button>
-				<button id="btn-give-up-nine" 
+			<div class="flex-container ">
+				
+				<!-- <button id="btn-reset-nine" class="lhgame-btn">Reset</button> -->
+				<button mat-raised-button id="btn-reset-nine" class="lhgame-btn" 
+						[color]="'new'" type="button">Reset</button>
+				<!-- <button id="btn-give-up-nine" 
 					(click) = "updateUnsolvableTask1Data(false)"
-					class="d-none give-up-text-red lhgame-btn2">I give up</button>
-				<!-- <div>
-					<b>Instructions:</b>
-					<ol>
-						<li>Click on a square adjacent to the blank square to swap its position with the blank square.</li>
-					</ol>
-				</div> -->
+					class="d-none give-up-text-red lhgame-btn2">I give up</button> -->
+				<button mat-raised-button id="btn-give-up-nine" class="d-none give-up-text-red lhgame-btn2" 
+						[color]="'new'" (click)="updateUnsolvableTask1Data(false)" 
+						type="button">I give up</button>
+				
 			</div>
 		</div>
 	</div>
@@ -173,24 +128,18 @@
 		<div class="col-auto justify-content-md-center">  
 				<div id="frog-game-space"></div>
 			    <br>
-				<div class="flex-container">
-					<div class="d-none" id="frog-game-success-message">Great!!</div>
-					<button id="btn-frog-game-reset" class=" lhgame-btn">Reset</button>
-					<button class="d-none"
+				
+				<div class="d-none greatDiv" id="frog-game-success-message"><b>Great</b></div>
+				<div class="flex-container mb-5">
+					<!-- <button id="btn-frog-game-reset" class=" lhgame-btn">Reset</button> -->
+					<button mat-raised-button id="btn-frog-game-reset" class="lhgame-btn btn-frog-game" 
+						[color]="'new'" type="button">Reset</button>
+					<!-- <button class="d-none"
 					(click) = "updateUnsolvableTask2Data()" 
-					id="btn-frog-game-give-up" class="lhgame-btn2">I give up</button>
-					<!-- <div>
-						<b>Instructions:</b>
-						<ol>
-							<li>The butterfly can move from one flower to another. The butterfly can move forwards, to its left, and to its right, 
-							but can't move backwards.</li>
-							<br>
-							<li>When the butterfly sits on a flower, it withers away. The butterfly can only sit on a full flowers but can fly
-								over withered flowers.</li>
-							<br>
-							<li>Your goal is to make the butterfly sit on all flowers.</li>
-						</ol>
-				   	</div> -->
+					id="btn-frog-game-give-up" class="lhgame-btn2">I give up</button> -->
+					<button mat-raised-button id="btn-frog-game-give-up" class="d-none lhgame-btn2 btn-frog-game" 
+						[color]="'new'" (click)="updateUnsolvableTask2Data()" type="button">I give up</button>
+					
 			   </div>
 		   </div>	
 	  </div>
@@ -201,59 +150,54 @@
 		<div class="col-auto">
 			<div id="box-up-game-space"></div>
 			<br>
-			<div class="flex-container">
-				<div class="class d-none" id="box-up-game-success-message">Great!!</div>
-				<button id="btn-box-up-game-reset" class=" lhgame-btn">Reset</button>
-				<button class="d-none" 
+			
+				<div class="d-none greatDiv " id="box-up-game-success-message"><b>Great</b></div>
+				<div class="flex-container ">
+				<!-- <button id="btn-box-up-game-reset" class=" lhgame-btn">Reset</button> -->
+				<button mat-raised-button id="btn-box-up-game-reset" class="lhgame-btn" 
+						[color]="'new'" type="button">Reset</button>
+				<!-- <button class="d-none" 
 					(click) = "updateUnsolvableTask3Data()"
-					id="btn-box-up-game-give-up" class="lhgame-btn2">I give up</button>
-				<!-- <div>
-					<b>Instructions:</b>
-					<ol>
-						<li>Get the ball inside an arc to move it.</li>
-						<br>
-						<li>Small arcs can get inside big arcs.</li>
-						<br>
-						<li>Small arcs cannot get inside other small arcs.</li>
-						<br>
-						<li>Big arcs cannot get inside other big arcs.</li>
-						<br>
-						<li>Your goal is to get the red arc inside the blue arc.</li>
-					</ol>
-				</div> -->
+					id="btn-box-up-game-give-up" class="lhgame-btn2">I give up</button> -->
+				<button mat-raised-button id="btn-box-up-game-give-up" class="d-none lhgame-btn2" 
+						[color]="'new'" (click)="updateUnsolvableTask3Data()" type="button">I give up</button>
+				
 			</div>
 		</div>
 	</div>
 	<!-- unsolvable game 3 end -->
 
 	<!-- color reverse game start -->
-	<div class="row d-none justify-content-center" id="color-reverse-game">
-		<div class="col-auto">
-			<div id="color-reverse-game-level"></div>
-			<div id="color-reverse-game-space"></div>
-			<br>
-			<div class="flex-container">
-				<div class="d-none" id="color-reverse-game-success-message">Great!!</div>
-				<button id="btn-color-reverse-game-reset" class="display-flex lhgame-btn"
-					(click) = "updateColorReverseGameData()">Reset</button>
-				<button id="btn-color-reverse-game-give-up" class="display-flex d-none lhgame-btn2">I give up</button>
-				<!-- <div>
-					<b>Instructions:</b>
-					<ol>
-						<li>Clicking on a triangle changes it and the adjacent squares to a circle.</li>
-						<br>
-						<li>Your goal is to change all the triangles into circles.</li>
-					</ol>
-				</div> -->
-			</div>
+	<div class="d-none justify-content-center" id="color-reverse-game">
+		<div class="row justify-content-center">
+			<div class="col-auto">
+				<div class="row justify-content-center mb-3" id="color-reverse-game-level"></div>
+				<div id="color-reverse-game-space"></div>
+				<br>
+			</div>	
 		</div>
+					<div class="d-none greatDiv" id="color-reverse-game-success-message"><b>Great</b></div>
+					<div class="flex-container ">
+					<!-- <button id="btn-color-reverse-game-reset" class="display-flex lhgame-btn"
+						(click) = "updateColorReverseGameData()">Reset</button> -->
+					<button mat-raised-button id="btn-color-reverse-game-reset" class="display-flex lhgame-btn" 
+							[color]="'new'" (click)="updateColorReverseGameData()" type="button">Reset</button>
+					<!-- <button id="btn-color-reverse-game-give-up" class="display-flex d-none lhgame-btn2">I give up</button> -->
+					<button mat-raised-button id="btn-color-reverse-game-give-up" class="display-flex d-none lhgame-btn2" 
+							[color]="'new'" type="button" >I give up</button>
+				</div>
+			
+		
 	</div>
+	
 	<!-- color reverse game end -->
 
 	<!-- explanation start -->
 	<div class="row d-none justify-content-center" id="explanation-row">
-		<div class="col-auto">
+		<div class="col-auto mr-4">
 			<div>
+				<b class="large-font">Summary</b>
+				<br><br>
 				Something very interesting just happened. You gave up on a level that you were able to solve earlier. One explanation for that is <em>Learned Helplessness.</em>
 				<br><br>
 				<b>What is Learned Helplessness?</b>
@@ -273,6 +217,14 @@
 				We develop Learned Helplessness when we think that we are responsible for our failure. But often there are other factors beyond our control. When you fail in anything, don't immediately jump to the conclusion that it was completely your fault. Check if there were other factors beyond your control that influenced the results. When facing a new situation, give it your best shot. Don't give up quickly because you think <em>"There is no point in trying, I am going to fail anyway."</em>
 			</div>
 		</div>
+		<br><br>
+		<div class="p-1 mr-3">
+				<button mat-raised-button [color]="'home'" (click)="onGoToHome()" type="button" >Go to dashboard</button>
+			  </div>
+			  <div class="p-1 mr-4">
+				  <button mat-raised-button [color]="'play'" (click)="onPlayAgain()" type="button" >Play again</button>
+				</div>
+			<div class="blankDiv"></div>
 	</div>
 	<!-- explanation end -->
 	<div class="d-none">
@@ -284,4 +236,9 @@
 		<input type="hidden" name="unsolvable-task2-data-update-url" value="{% url 'findaway:updateUnsolvableTask2Attempt' %}">
 		<input type="hidden" name="unsolvable-task3-data-update-url" value="{% url 'findaway:updateUnsolvableTask3Attempt' %}"> -->
 	</div>
+</div>
+	<div class="instructions mb-1 justify-content-end float-left d-none" id="infoElement" #infoElement>
+        <img style="width:42px;height:42px; "src="../../../../../../../assets/games/learning-helplessness/assets/Info Icon.png"
+         (click)="openInstructionsPopup()">
+    </div>
 </div>

@@ -1,0 +1,59 @@
+<div class="m-4">
+  <h1>Instructions</h1>
+  <div class="instructions smallest-font">
+<div *ngIf = 'colorReverseGame'>
+  <ol>
+    <li>Clicking on a triangle changes it and the adjacent squares to a circle.</li>
+    <br>
+    <li>Your goal is to change all the triangles into circles.</li>
+  </ol>
+</div> 
+
+<div *ngIf = 'game1' smallest-font>
+  Arrange the tiles in order 1->2->3 to win.
+
+  Arrange the tiles in order 1->2->3->......->15 to win.
+
+  Arrange the tiles in order 1->2->3->......->8 to win.
+
+  
+  <ol>
+    <li>Click on a square adjacent to the blank square to swap its position with the blank square.</li>
+  </ol>
+</div> 
+
+<div *ngIf = 'game2' >
+  
+  <ol>
+    <li>The butterfly can move from one flower to another. The butterfly can move forwards, to its left, and to its
+      right,
+      but can't move backwards.</li>
+    <br>
+    <li>When the butterfly sits on a flower, it withers away. The butterfly can only sit on a full flowers but can fly
+      over withered flowers.</li>
+    <br>
+    <li>Your goal is to make the butterfly sit on all flowers.</li>
+  </ol>
+</div>
+
+<div *ngIf = 'game3' >
+  
+  <ol>
+    <li>Get the ball inside an arc to move it.</li>
+    <br>
+    <li>Small arcs can get inside big arcs.</li>
+    <br>
+    <li>Small arcs cannot get inside other small arcs.</li>
+    <br>
+    <li>Big arcs cannot get inside other big arcs.</li>
+    <br>
+    <li>Your goal is to get the red arc inside the blue arc.</li>
+  </ol>
+</div>
+</div>
+  <img class="instructions-image" src="../../../../../../../assets/games/learning-helplessness/assets/Pop-up graphic (instruction, no problem).png">
+
+  <div class="ml-auto p-1">
+    <button mat-raised-button [color]="'new'" (click)="onPlay()" type="button" #startBtn>Play Game</button>
+  </div>
+</div>

@@ -80,7 +80,11 @@ $(document).ready(function(){
 
 	$(document).on("click", "#btn-give-up-nine", function(){
 		fifteen = false;
-		
+		// show play next pop up
+		lhg_show_instructions = false;
+		console.log('grid game 1',lhg_show_instructions);
+
+		playNextGamePopup();
 		$("#grid-puzzle-row").addClass("d-none");
 		$("#color-reverse-game").removeClass("d-none");
 		second_time = true;
@@ -125,7 +129,7 @@ function setGridPuzzleGameWidthAndHeight() {
 			.fifteen-puzzle-square, 
 			.nine-puzzle-square, 
 			.three-puzzle-square`).css({
-				'width': '65'
+				'width': '50'
 			});
 	}else {
 		// !!IMPORTANT!!
@@ -134,7 +138,7 @@ function setGridPuzzleGameWidthAndHeight() {
 			.fifteen-puzzle-square, 
 			.nine-puzzle-square, 
 			.three-puzzle-square`).css({
-				'width': '65'
+				'width': '50'
 			});
 	}
 }

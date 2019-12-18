@@ -57,6 +57,10 @@ $(document).ready(function(){
 		frog_no_of_moves = 0;
 
 		if(!first){
+			// show play next pop up
+			lhg_show_instructions = false;
+			playNextGamePopup();
+			
 			$("#frog-game-row").addClass("d-none");
 			$("#color-reverse-game").removeClass("d-none");
 			unsolvable_game_counter=3;		 
