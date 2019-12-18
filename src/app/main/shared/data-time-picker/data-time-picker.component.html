@@ -1,0 +1,38 @@
+<div class="overlay">
+    <div class="modal">
+        <div>
+            <label class="start-date">
+                Start Date
+                <div>
+                    {{startEndDate | date: 'shortDate'}}
+                </div>
+
+            </label>
+
+            <label class="end-date" *ngIf="showDays">
+                Last Date
+                <div>
+                    {{startEndDate[1]| date: 'shortDate'  }}
+                </div>
+            </label>
+        </div>
+        <div>
+            <owl-date-time-inline [(ngModel)]="startEndDate" [selectMode]="'range'" [min]="min"></owl-date-time-inline>
+        </div>
+            <div class="repeat-toggle">
+                <div [ngStyle]="{'display':'flex'}">
+                    <mat-slide-toggle (change)="onShowDays()">Repeat</mat-slide-toggle>
+                </div>
+                <div class="days" *ngIf="showDays">
+                    <button class="circle" *ngFor="let day of daysCircle;let i = index"
+                        [ngStyle]=" day.selected && {'background': '#2A3B3D','color':'#ffffff'}"
+                        (click)="onDaySelected(i)">
+                        {{day.day}}
+                    </button>
+                </div>
+            </div>
+
+            <button mat-raised-button class="done-btn">Done</button>
+
+        </div>
+    </div>

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-chatbot',
@@ -13,7 +14,8 @@ export class ChatbotComponent implements OnInit {
   blacklisted = ['/games', '/resources'];
 
   constructor(
-    private router: Router
+    private router: Router,
+   private elementRef: ElementRef,
   ) { }
 
   ngOnInit() {
@@ -29,6 +31,11 @@ export class ChatbotComponent implements OnInit {
 
   toggleChat() {
     this.chatwindowClosed = !this.chatwindowClosed;
+    if (!this.chatwindowClosed) {
+      const body = this.elementRef.nativeElement.querySelector('.body');
+      body.setAttribute('style','position:fixed;top:0');
+    
+    }
   }
 
   updateChatWindow(event: boolean) {

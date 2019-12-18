@@ -19,6 +19,9 @@ export const THURSDAY           = 'THURSDAY';
 export const FRIDAY             = 'FRIDAY';
 export const SATURDAY           = 'SATURDAY';
 export const WEEK               = [SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY];
+export const NEGATIVE_EMOTIONS  = ['Sad','Anxious','Angry','Guilty','Jealous','Hopeless','Worthless','Lonely','Frustrated','Embarassed','Afraid'];
+export const NEUTRAL_EMOTIONS   = ['Okay'];
+export const POSITIVE_EMOTIONS =  ['Happy','Excited','Optimistic','Joyful','Confident'];
 
 // Game names
 export const INTERPRETATION_BIAS_GAME = 'Interpretation Bias Game';

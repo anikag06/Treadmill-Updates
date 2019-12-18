@@ -18,6 +18,11 @@ import { ChatbotService } from '@/main/chatbot/chatbot.service';
 import { AuthService } from '@/shared/auth/auth.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { HttpErrorResponse } from '@angular/common/http';
+import { MatDialog } from '@angular/material';
+import { MoodTrackerComponent } from '@/main/shared/mood-tracker/mood-tracker.component';
+import { async } from '@angular/core/testing';
+
+
 
 declare var twemoji: any;
 
@@ -29,19 +34,19 @@ declare var twemoji: any;
   animations: [
     trigger('openClose', [
       state('open', style({
-       visibility: 'visible',
-       transform:'translateY(0%)'
+        visibility: 'visible',
+        transform: 'translateY(0%)'
       })),
       state('closed', style({
-       visibility:'hidden',
-       transform:'translateY(0%)'
+        visibility: 'hidden',
+        transform: 'translateY(0%)'
 
       })),
       transition('open => closed', [
         animate('0.5s linear')
       ]),
       transition('closed => open', [
-        animate( '0.5s linear')
+        animate('0.5s linear')
       ]),
     ])
   ]
@@ -52,6 +57,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
     private chatbotService: ChatbotService,
     private authService: AuthService,
     private changRef: ChangeDetectorRef,
+    public dialog: MatDialog,
   ) { }
 
   messages: Chat[] = [];
@@ -61,9 +67,10 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
   scrollTop = 0;
   totalDelay = 3000;
   halfwayDelay = 1500;
-  delayPerWord = 130;
+  delayPerWord = 50;
   chatClosed = false;
   retries = 0;
+  showMoodTracker = false;
 
 
   @ViewChild('messagesDiv', { static: false }) messagesDiv!: ElementRef;
@@ -111,9 +118,12 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
       const message = this.message;
       this.message = '';
       this.webSocket.send(JSON.stringify({ 'action': REPLY_CURRENT, 'message': { 'text': message, 'buttons': [] } }));
+      if (screen.availWidth > 576) {
+        this.ti.nativeElement.disabled = true;
+      }
     }
     setTimeout(() => {
-      this.ti.nativeElement.focus();
+      // this.ti.nativeElement.focus();
       this.scrollToBottom();
     });
   }
@@ -150,7 +160,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
   startChatSession(type: string) {
     this.webSocket = new WebSocket(environment.CHAT_HOST + '/ws/chat/?token=' + this.authService.getToken());
     this.webSocket.onopen = (event) => {
-      this.webSocket.send(JSON.stringify({ 'action': type, 'module_name': 'mood_tracker' }));
+      this.webSocket.send(JSON.stringify({ 'action': type, 'module_name': 'mood_tracker_follow_up' }));
     };
     this.webSocket.onmessage = (message: any) => {
       const data = JSON.parse(message.data);
@@ -161,17 +171,21 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
       } else if (data.action === 'ws_close') {
         this.closeChat();
       } else {
-        data.message.forEach((m: any, index: number) => {
-          const delayPerMessage = (this.totalDelay + this.getSentenceDelay(m.text || '')) * index;
-          setTimeout(() => {
-            if ((m.text && m.text.length > 0) || (m.buttons && m.buttons.length > 0)) {
-              this.showWritingAndPushChat(m);
-              setTimeout(() => {
-                this.scrollToBottom();
-              });
-            }
-          }, delayPerMessage);
-        });
+        // data.message.forEach((m: any, index: number) => {
+        //   console.log(m.text);
+        //   const delayPerMessage = (this.totalDelay + this.getSentenceDelay(m.text || '')) * index;
+        //   console.log(delayPerMessage);
+        //   setTimeout(() => {
+        //     if ((m.text && m.text.length > 0) || (m.buttons && m.buttons.length > 0)) {
+        //       this.showWritingAndPushChat(m);
+        //       setTimeout(() => {
+        //         this.scrollToBottom();
+        //       });
+        //     }
+        //   });
+        // });
+        console.log(data);
+        this.start(data.message);
       }
     };
 
@@ -189,7 +203,20 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
   }
 
   pushChat(m: any) {
+
     const item = new Chat(twemoji.parse(m.text || ''), false, m.buttons, m.mid, m.sid, m.datetime, false);
+    let  a: any;
+    //item.message = "this is sparta \"hello\" alright then";
+    if(item.message.indexOf('"') > -1 ){
+      console.log("hello")
+      let start = item.message.indexOf('"');
+      let last = item.message.lastIndexOf('"');
+      a = item.message.match(/"(\w*)"/) ;
+      let b:string;
+      b = a[1]; 
+     item.message = item.message.substring(0,start+1) + b.italics() + item.message.substring(last,item.message.length)  
+    }
+
     this.messages.push(item);
     this.scrollToBottom();
     if (this.ti) {
@@ -201,6 +228,23 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
       }
     }
   }
+
+  // showWritingAndPushChat(m: any) {
+  //   const item = new Chat('', false, [], '', '', new Date(), true);
+   
+  //   this.messages.push(item);
+  //   setTimeout(()=>{
+  //   },this.totalDelay + this.totalDelay)
+  //   setTimeout(this.scrollToBottom);
+  //   this.messages.pop();
+  //   this.pushChat(m);
+  //   setTimeout(this.scrollToBottom);
+  //   // setTimeout(() => {
+  //   //   this.messages.pop();
+  //   //   this.pushChat(m);
+  //   //   setTimeout(this.scrollToBottom);
+  //   // }, this.halfwayDelay + Math.floor((Math.random() * 800) + 1));
+  // }
 
   showWritingAndPushChat(m: any) {
     const item = new Chat('', false, [], '', '', new Date(), true);
@@ -230,4 +274,37 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
   getSentenceDelay(str: string) {
     return this.getWordCount(str) * this.delayPerWord;
   }
+
+  onMoodSelect() {
+    this.showMoodTracker = !this.showMoodTracker;
+  }
+
+  getMoodMessage($event: string) {
+ 
+    this.message = $event;
+  }
+
+  async start(messages: any) {
+    await this.asyncForEach(messages);
+
+  }
+
+  async asyncForEach(m: any) {
+    
+    for (let index = 0; index < m.length; index++) {
+      let delayPerMessage = (this.totalDelay + this.getSentenceDelay(m.text || '')) * index;
+      console.log(m[index]);
+      
+      if ((m[index].text && m[index].text.length > 0) || (m[index].buttons && m[index].buttons.length > 0)) {
+        setTimeout(()=>{
+           this.showWritingAndPushChat(m[index]);
+        },delayPerMessage);
+      
+      //  setTimeout(() => {
+      //     this.scrollToBottom();
+      //   }); 
+
+      }
+    }
+   }
 }
