@@ -1,9 +1,11 @@
-import { Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
-import {GamesService} from '@/main/shared/games.service';
-import {GamesAuthService} from '@/main/games/shared/games-auth.service';
-import { ECGameData, ECGameFlankerTask, ECGameDiscriminationTask, ECGameUserData,
-    LHGameColorReverseData, LHGameUserLevel, LHGamePerformance } from './game-play.model';
+import { GamesService } from '@/main/shared/games.service';
+import { GamesAuthService } from '@/main/games/shared/games-auth.service';
+import {
+  ECGameData, ECGameFlankerTask, ECGameDiscriminationTask, ECGameUserData,
+  LHGameColorReverseData, LHGameUserLevel, LHGamePerformance, LHGameOverallData
+} from './game-play.model';
 import { GamesBadgesService } from './games-badges.service';
 import { BadgesConstants } from './game-badges.model';
 import {
@@ -15,6 +17,8 @@ import { ExecControlInstructionsComponent } from '../games-list/common-game/exec
 import { MIPlayService } from '../games-list/common-game/mental-imagery/mi-play.service';
 import { MICurrentStateService } from '../games-list/common-game/mental-imagery/mi-current-state.service';
 import { IdcInstructionsComponent } from '../games-list/common-game/identify-cognitive-distortion/idc-instructions/idc-instructions.component';
+import { FfgInstructionsComponent } from '../games-list/common-game/friendly-face-game/ffg-instructions/ffg-instructions.component';
+import { FfgHelpService } from '../games-list/common-game/friendly-face-game/ffg-help.service';
 
 // for interpretation bias game
 declare var startIBGame: any;
@@ -29,7 +33,7 @@ declare var AttributeGame: any;
 declare var playAllObject: any;
 declare var pauseAllObject: any;
 declare var startGame: any;
-declare var  check: any;
+declare var check: any;
 // for executive control game
 declare var startExecControlGame: any;
 declare var pauseECGame: any;
@@ -64,6 +68,7 @@ declare var lhGameGetColorReverseData: any;
 declare var lhGameGetTask1Data: any;
 declare var lhGameGetTask2Data: any;
 declare var lhGameGetTask3Data: any;
+declare var lhgOverallData: any;
 
 // for friendly face game
 declare var ffGameStart: any;
@@ -80,7 +85,8 @@ declare var ffGameSongCounter: number;
 declare var ffg_music_current_order: number;
 declare var fillMusicBar: any;
 declare var toneNumber: number;
-declare var ffGamePlay:any;
+declare var ffGamePlay: any;
+
 
 // for mental imagery game
 declare var miGameShowTutorial: boolean;
@@ -89,7 +95,7 @@ declare var miGameShowTutorial: boolean;
 @Injectable({
   providedIn: 'root'
 })
-export class GamePlayService  {
+export class GamePlayService {
 
   gameName !: string;
 
@@ -103,7 +109,7 @@ export class GamePlayService  {
   ecGameID!: number;
 
   // initialising the variables
-  ecGameDataObject = new ECGameData(1, null,  1, 0, false, 0);
+  ecGameDataObject = new ECGameData(1, null, 1, 0, false, 0);
   ecGameUserDataObject = new ECGameUserData(1, 0, 0, false, false, false);
   ecGameFlankerData = new ECGameFlankerTask(1, null, 0, 0, 0, 1);
   ecGameDiscriminationData = new ECGameDiscriminationTask(1, null, 0, 0);
@@ -119,12 +125,17 @@ export class GamePlayService  {
   lhGameColorReverse = new LHGameColorReverseData(0, 0, 0, false);
   lhGameUserLevel = new LHGameUserLevel(0);
   lhGamePerformanceData = new LHGamePerformance(0, 0, 0);
+  lhGameOverallData = new LHGameOverallData(0, false, false);
+  lhgShowSummary!: boolean;
 
   // lhGameNextLevels = (this.LHGAME_CR_NUMBER_OF_LEVELS * this.lhGamePageNumber) - 3 ;
   // lhGamePreviousLevels = (this.LHGAME_CR_NUMBER_OF_LEVELS * (this.lhGamePageNumber - 1)) + 3;
   game!: any;
- 
+
   // for mental imagery games
+
+  // for friendly face game
+  ffg_show_tutorial = true;
 
   constructor(
     private gamesService: GamesService,
@@ -134,6 +145,7 @@ export class GamePlayService  {
     private dialogBoxService: DialogBoxService,
     private miPlayService: MIPlayService,
     private miCurrentStateService: MICurrentStateService,
+    private ffghelpService: FfgHelpService,
   ) { }
 
   getGameInfo(slug: string) {
@@ -143,9 +155,9 @@ export class GamePlayService  {
       );
   }
 
-// functions for Interpretation Bias Game
+  // functions for Interpretation Bias Game
   playIBGame(gameDivElement: any) {
-    if ( ibGameShowTutorial === true) {
+    if (ibGameShowTutorial === true) {
       // this.helpIBGame(gameDivElement);
       const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
       gameDivElement.nativeElement.dispatchEvent(domEvent);
@@ -168,7 +180,7 @@ export class GamePlayService  {
     ibGameHelp();
   }
 
-// for attribution game
+  // for attribution game
 
   playAttributionStyleGame() {
     // tslint:disable-next-line:no-unused-expression
@@ -189,14 +201,14 @@ export class GamePlayService  {
     console.log(this.game.scene.scenes[5]);
   }
 
-// functions for executive control game
+  // functions for executive control game
   playExecControlGame(isSoundOn: any, gamePauseDiv: any, helpClicked: boolean) {
 
     this.gamesAuthService.ecGameGetGameInfo()
       .subscribe((game_data) => {
         this.ecGameID = game_data.data.id;
         this.gamesAuthService.ecGameGetUserData()
-          .subscribe( (user_data) => {
+          .subscribe((user_data) => {
             this.ecGameUserData = user_data;
             this.ecGameShowTutorial = user_data.data.show_tutorial;
 
@@ -213,15 +225,15 @@ export class GamePlayService  {
 
           });
 
-    });
+      });
   }
-// this function calls the startGame function of executive control game in javascipt
+  // this function calls the startGame function of executive control game in javascipt
   startECGameFunc() {
     const user_data = this.ecGameUserData;
 
     const badgeInfo = this.gameBadgeService.getBadgesInfo(
       user_data.data.BRONZE_CONSTANT, user_data.data.SILVER_CONSTANT,
-      user_data.data.GOLD_CONSTANT, user_data.data.no_correct_responses );
+      user_data.data.GOLD_CONSTANT, user_data.data.no_correct_responses);
 
     const total_correct_responses = user_data.data.no_correct_responses;
     this.ecGameBadgeConstants.bronzeConstant = user_data.data.BRONZE_CONSTANT;
@@ -231,7 +243,7 @@ export class GamePlayService  {
     startExecControlGame(this.ecGameShowTutorial, user_data, this.ecGameID,
       this.ecGameSoundOn, badgeInfo, total_correct_responses,
       this.ecGameBadgeConstants);
-      this.ecGameStarted = true;
+    this.ecGameStarted = true;
   }
 
   helpExecControlGame(isSoundOn: any, gamePauseDiv: any) {
@@ -246,7 +258,7 @@ export class GamePlayService  {
   resumeExecControlGame() {
     resumeECGame();
   }
-  restartExecControlGame(isSoundOn: any, gamePauseDiv: any)  {
+  restartExecControlGame(isSoundOn: any, gamePauseDiv: any) {
     if (this.ecGameStarted) {
       this.closeExecControlGame();
       this.playExecControlGame(isSoundOn, gamePauseDiv, false);
@@ -283,8 +295,8 @@ export class GamePlayService  {
       this.gamesAuthService.ecGameStoreGameInfo(this.ecGameDataObject)
         .subscribe(() => { });
       this.gamesAuthService.ecGameUpdateUserData(this.ecGameUserDataObject)
-      .subscribe((data) => {
-      });
+        .subscribe((data) => {
+        });
     }
   }
 
@@ -294,23 +306,23 @@ export class GamePlayService  {
     this.ecGameFlankerData.starting_time = this.ecGameTaskData[1];
     this.ecGameFlankerData.response_type = this.ecGameTaskData[2];
     this.ecGameFlankerData.time_elapsed = this.ecGameTaskData[3];
-    this.ecGameFlankerData.congruency   = this.ecGameTaskData[4];
-    this.ecGameFlankerData.image_type   = this.ecGameTaskData[5];
+    this.ecGameFlankerData.congruency = this.ecGameTaskData[4];
+    this.ecGameFlankerData.image_type = this.ecGameTaskData[5];
 
     this.ecGameDiscriminationData.starting_time = this.ecGameTaskData[6];
     this.ecGameDiscriminationData.response_type = this.ecGameTaskData[7];
-    this.ecGameDiscriminationData.time_elapsed  = this.ecGameTaskData[8];
+    this.ecGameDiscriminationData.time_elapsed = this.ecGameTaskData[8];
 
     this.gamesAuthService.ecGameStoreFlankerData(this.ecGameFlankerData)
       .subscribe((flanker_data: any) => {
         this.ecGameDiscriminationData.flanker_task_id = flanker_data.data.id;
         this.gamesAuthService.ecGameStoreDiscriminationTaskData(this.ecGameDiscriminationData)
-          .subscribe( (dis_data) => {
-        });
+          .subscribe((dis_data) => {
+          });
       });
   }
 
-// for learned helplessness game
+  // for learned helplessness game
 
   playLearnedHelplessnessGame() {
     lhGameLevelStrings = [];
@@ -328,21 +340,24 @@ export class GamePlayService  {
     lh_ball_position_initials = [];
     lh_box_up_grid_dimensions = [];
 
+
     this.gamesAuthService.lhGameGetUserLevel()
       .subscribe((level_data) => {
+        console.log('level data', level_data);
         lhGameLevelCounter = level_data.level;
         this.lhGamePageNumber = Math.floor(lhGameLevelCounter / this.LHGAME_PAGE_SIZE) + 1;
         this.lhGameStarted = true;
         this.lhGameDataColorReverse(this.lhGamePageNumber, this.lhGameStarted);
 
         this.lhGameDataTask2();
-    });
+      });
   }
+
 
   // tslint:disable-next-line:no-shadowed-variable
   lhGameDataColorReverse(pageNumber: number, startGame: boolean) {
     this.gamesAuthService.lhGameGetColorReverseData(pageNumber, this.LHGAME_PAGE_SIZE)
-      .subscribe( (game_data) => {
+      .subscribe((game_data) => {
         if (game_data.next === null) {
           this.lhGameIslastData = true;
         }
@@ -363,7 +378,7 @@ export class GamePlayService  {
           lhGameHeights = [];
           lhGameArrayIndex = lhGameLevelCounter;
         } else {
-          if ( this.lhGameIslastData === false) {
+          if (this.lhGameIslastData === false) {
             pageNumber = pageNumber + 1;
             this.lhGameDataColorReverse(pageNumber, this.lhGameStarted);
           }
@@ -374,7 +389,7 @@ export class GamePlayService  {
   lhGameDataTask2() {
     this.gamesAuthService.lhGameGetUnsolvableTask2Data()
       .subscribe((task2_data) => {
-        for ( let i = 0; i < task2_data.count ; i++ ) {
+        for (let i = 0; i < task2_data.count; i++) {
           lh_frog_levels.push(task2_data.results[i].game_string);
           lh_frog_lengths.push(task2_data.results[i].length);
           lh_frog_heights.push(task2_data.results[i].height);
@@ -386,7 +401,7 @@ export class GamePlayService  {
   lhGameDataTask3() {
     this.gamesAuthService.lhGameGetUnsolvableTask3Data()
       .subscribe((task3_data) => {      // enter the data in the arrays for task 3
-        for ( let i = 0; i < task3_data.count ; i++) {
+        for (let i = 0; i < task3_data.count; i++) {
           lh_ball_position_initials.push([task3_data.results[i].ball_x, task3_data.results[i].ball_y]);
 
           lh_box_up_grid_dimensions.push(task3_data.results[i].grid_dimensions);
@@ -395,34 +410,34 @@ export class GamePlayService  {
 
           this.lhGameGetTask3Elements(task_3_element_length, task3_data, i);
         }
-      } );
+      });
   }
 
   lhGameGetTask3Elements(task_3_element_length: number, task3_data: any, i: number) {
     const small_obstacle_info = [];
     const big_obstacle_info = [];
-    for ( let j = 0; j < task_3_element_length; j++) {
+    for (let j = 0; j < task_3_element_length; j++) {
       const task3_element_info = task3_data.results[i].task_3_element[j];
       const x_value = task3_element_info.x;
-      const y_value =  task3_element_info.y;
+      const y_value = task3_element_info.y;
       const orientation_value = task3_element_info.orientation;
 
       // store the value position and orientation of inner and outer arc
       if (task3_element_info.inner_element === true && task3_element_info.outer_element === false) {
 
-        lh_inner_position_initials.push({x: x_value, y: y_value, orientation: orientation_value});
+        lh_inner_position_initials.push({ x: x_value, y: y_value, orientation: orientation_value });
 
       } else if (task3_element_info.inner_element === false && task3_element_info.outer_element === true) {
 
-        lh_outer_position_initials.push({x: x_value, y: y_value, orientation: orientation_value});
+        lh_outer_position_initials.push({ x: x_value, y: y_value, orientation: orientation_value });
 
       }
       // store the position and orientation of obstacles, also check their sizes
       if (task3_element_info.inner_element === false && task3_element_info.outer_element === false) {
         if (task3_element_info.size === 'small') {
-          small_obstacle_info.push({x: x_value, y: y_value, orientation: orientation_value});
+          small_obstacle_info.push({ x: x_value, y: y_value, orientation: orientation_value });
         } else if (task3_element_info.size === 'big') {
-          big_obstacle_info.push({x: x_value, y: y_value, orientation: orientation_value});
+          big_obstacle_info.push({ x: x_value, y: y_value, orientation: orientation_value });
         }
       }
     }
@@ -439,12 +454,25 @@ export class GamePlayService  {
     this.lhGameColorReverse.success = storeColorReverseData[3];
 
     this.gamesAuthService.lhGameStoreColorReverse(this.lhGameColorReverse)
-      .subscribe ( (data) => {
+      .subscribe((data) => {
         if (this.lhGameColorReverse.success) {
           this.lhGameUserLevel.level = this.lhGameColorReverse.level;
           this.gamesAuthService.lhGameUpdateUserLevel(this.lhGameUserLevel)
             .subscribe(() => { });
         }
+      });
+  }
+
+  lhGameStoreOverallData(userData: any) {
+    let storeOverallData;
+    storeOverallData = lhgOverallData();
+    this.lhGameOverallData.end_time = storeOverallData[0];
+    this.lhGameOverallData.game_completed = storeOverallData[1];
+    this.lhGameOverallData.all_levels_completed = storeOverallData[2];
+
+    this.gamesAuthService.lhGameUpdateOverallData(this.lhGameOverallData)
+      .subscribe((userData) => {
+        console.log('user data', userData);
       });
   }
   lhGameStoreTask1Data(isFirstLevel: boolean) {
@@ -454,10 +482,10 @@ export class GamePlayService  {
     this.lhGamePerformanceData.no_of_moves = storeTask1Data[1];
     this.lhGamePerformanceData.no_of_resets = storeTask1Data[2];
 
-    const task1performance = { performance: this.lhGamePerformanceData};
+    const task1performance = { performance: this.lhGamePerformanceData };
 
     this.gamesAuthService.lhGameUpdateTask1Data(task1performance, isFirstLevel)
-      .subscribe( () => { });
+      .subscribe(() => { });
   }
   lhGameStoreTask2Data() {
     let storeTask2Data;
@@ -465,10 +493,10 @@ export class GamePlayService  {
     this.lhGamePerformanceData.time_to_give_up = storeTask2Data[0];
     this.lhGamePerformanceData.no_of_moves = storeTask2Data[1];
     this.lhGamePerformanceData.no_of_resets = storeTask2Data[2];
-    const task2performance = { performance: this.lhGamePerformanceData};
+    const task2performance = { performance: this.lhGamePerformanceData };
 
     this.gamesAuthService.lhGameUpdateTask2Data(task2performance, storeTask2Data[3])
-      .subscribe( () => { });
+      .subscribe(() => { });
   }
   lhGameStoreTask3Data() {
     let storeTask3Data;
@@ -476,10 +504,10 @@ export class GamePlayService  {
     this.lhGamePerformanceData.time_to_give_up = storeTask3Data[0];
     this.lhGamePerformanceData.no_of_moves = storeTask3Data[1];
     this.lhGamePerformanceData.no_of_resets = storeTask3Data[2];
-    const task3performance = { performance: this.lhGamePerformanceData};
+    const task3performance = { performance: this.lhGamePerformanceData };
 
     this.gamesAuthService.lhGameUpdateTask3Data(task3performance, storeTask3Data[3])
-      .subscribe( () => { });
+      .subscribe(() => { });
   }
   pauseLHGame() {
     lhGamePause();
@@ -490,20 +518,20 @@ export class GamePlayService  {
   }
 
   // for friendly face game
-// functions for getting data(images and music) are in face game component ts file, as data is loaded before the game starts
+  // functions for getting data(images and music) are in face game component ts file, as data is loaded before the game starts
   playFriendlyFaceGame(device_type: string, gameDivElement: any) {
     // data is according to user order
     ffGameSongCounter = 0;
     this.ffGameTotalPerformance(1, device_type, gameDivElement);      // as the game starts from level 1(i.e. grid row = 1)
   }
 
-  fillMusicBar(){
-    toneNumber=toneNumber+10;
+  fillMusicBar() {
+    toneNumber = toneNumber + 10;
   }
 
   ffGameTotalPerformance(levelNumber: number, device_type: string, gameDivElement: any) {
     this.gamesAuthService.ffGameGetTotalPerformance(levelNumber, device_type)
-      .subscribe( (levelData) => {
+      .subscribe((levelData) => {
         console.log('leveldata', levelData);
         if (levelNumber === 1) {
           ffg_no_positive_images_clicked_level1 = levelData.total_positive_images;
@@ -541,26 +569,25 @@ export class GamePlayService  {
               ffg_total_time_taken_level3 = 1250;
             }
           }
-          // let tid = setInterval( () => {
-          //   if ( document.readyState !== 'complete' ) return;
-          //   clearInterval( tid );       
-            // function to be called when document is ready
-            // ffGameStart(device_type);
-            this.ffGamePlay(device_type,gameDivElement);
-        // }, 100 );
-          
+          this.ffGamePlay(device_type, gameDivElement);
+
         }
       });
   }
   ffGamePlay(device_type: string, gameDivElement: any) {
-    
-    // const domEvent = new CustomEvent('loadingBarEvent', { bubbles: true });
-    // //  gameDivElement.nativeElement.dispatchEvent(domEvent);
-    //  window.dispatchEvent(domEvent);
-
-    //  console.log('loadingbarevent',gameDivElement);
-    ffGameStart(device_type);
-
+    if (this.ffg_show_tutorial) {
+      const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
+      gameDivElement.nativeElement.dispatchEvent(domEvent);
+      this.helpFFGGame();
+    } else {
+      this.ffghelpService.showLoadingBar();
+    }
+    const tid = setInterval(() => {
+      if (document.readyState !== 'complete') return;
+      clearInterval(tid);
+      // function to be called when document is ready
+      ffGameStart(device_type);
+    }, 100);
   }
   pauseFaceGame() {
     ffGPauseGame();
@@ -574,13 +601,17 @@ export class GamePlayService  {
   musicFaceGame() {
 
   }
+  helpFFGGame() {
+    this.dialogBoxService.setDialogChild(FfgInstructionsComponent);
+  }
+  
 
   // for mental imagery game
   playMentalImageryGame(gameDivElement: any) {
     if (this.miCurrentStateService.showTutorial === true) {
-    const domEvent =  new CustomEvent('overlayCalledEvent', {bubbles:true});
-    gameDivElement.nativeElement.dispatchEvent(domEvent);
-    this.helpMIGame();
+      const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
+      gameDivElement.nativeElement.dispatchEvent(domEvent);
+      this.helpMIGame();
     } else {
       this.miPlayService.startPlaying.emit();
     }
@@ -591,11 +622,11 @@ export class GamePlayService  {
   }
   // for cognitive distortion game
   playIdentifyCognitiveDistortionGame(gameDivElement: any) {
-    const domEvent =  new CustomEvent('overlayCalledEvent', {bubbles:true});
+    const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
     gameDivElement.nativeElement.dispatchEvent(domEvent);
     this.helpIDCGame();
   }
-  helpIDCGame(){
+  helpIDCGame() {
     this.dialogBoxService.setDialogChild(IdcInstructionsComponent);
   }
 

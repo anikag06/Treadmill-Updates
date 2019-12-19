@@ -20,13 +20,14 @@
                   class="align-bottom"></span>
               </div>
 
-              <div class="ml-auto">
+              <div class=" ml-auto ">
                 <img id="life-img" src="../../../../../../assets/games/friendly-face-game/images/Live (1).svg">
                 <span id="life" class="align-bottom"></span>
 
                 <img id="time-img" src="../../../../../../assets/games/time_transparent.png">
                 <!--class="float-right">-->
-                <span id="time-sec" class="align-bottom"></span><span class="align-bottom"> <b>s</b></span>
+                <span id="time-sec" class="align-bottom">s</span>
+                <!-- <span class="align-bottom mb-0"> <b>s</b></span> -->
               </div>
 
 
@@ -40,25 +41,25 @@
               <div class=" ml-1 coins1">
                 <img id="coin-img" src="../../../../../../assets/games/friendly-face-game/images/Gold badge symbol.svg">
                 <span class="coin-num" id="gold-num">{{goldNumber}}</span>
-                <mat-progress-bar mode="determinate" class="gold-bar" [value]="goldValue"></mat-progress-bar>
+                <mat-progress-bar mode="determinate" class="goldBar" [value]="goldValue"></mat-progress-bar>
               </div>
 
               <div class="ml-1 coins1">
                 <img id="coin-img"
                   src="../../../../../../assets/games/friendly-face-game/images/Silver badge symbol.svg">
                 <span class="coin-num" id="silver-num">{{silverNumber}}</span>
-                <mat-progress-bar mode="determinate" class="silver-bar" [value]="silverValue"></mat-progress-bar>
+                <mat-progress-bar mode="determinate" class="silverBar" [value]="silverValue"></mat-progress-bar>
               </div>
 
               <div class="ml-1 coins1">
                 <img id="coin-img"
                   src="../../../../../../assets/games/friendly-face-game/images/Bronze badge symbol.svg">
                 <span class="coin-num" id="bronze-num">{{bronzeNumber}}</span>
-                <mat-progress-bar mode="determinate" class="bronze-bar" [value]="bronzeValue"></mat-progress-bar>
+                <mat-progress-bar mode="determinate" class="bronzeBar" [value]="bronzeValue"></mat-progress-bar>
               </div>
 
               <div class="ml-auto  difficulty">
-                <div class="d-flex justify-content-between">
+                <div class="d-flex justify-content-between mb-1">
                   <b>Easy</b><b>Hard</b>
                 </div>
 

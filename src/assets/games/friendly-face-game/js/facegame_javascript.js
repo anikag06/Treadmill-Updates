@@ -125,6 +125,7 @@ var last_click; // returns the number of milliseconds since Jan 1, 1970
 var next_song_data;
 var next_song;
 var next_song_name;
+var ffg_next_song;
 
 
 var timeBeingShown=75;
@@ -236,11 +237,13 @@ $(document).ready(function(){
 		// }
 		console.log(device);
 		// show instructions popup
-		showInstructionsPopup();
+		// showInstructionsPopup();
 		
 		$(".ff-game-container").removeClass("d-none");
 
-		$(".game-cover").hide();
+		// $(".game-cover").hide();
+		$(".game-cover").addClass("d-none");
+
 
 		
 		startGame();
@@ -249,6 +252,7 @@ $(document).ready(function(){
 			if(first_click){
 				enableElements();
 				showPauseButton();
+				ffgtimeCount();
 				//clearInterval(time_bar_interval);
 				
 				//time_bar_interval = setInterval(timeBar, updation_interval);
@@ -403,7 +407,7 @@ ffGRestartGame = function() {
 	setTimeout(function(){
 		$("#game-over-div").addClass('d-none');
 		startGame();
-		ffgtimeCount();
+		// ffgtimeCount();
 		$(".game-components").show();
 		}, 500);
 		//setTimeout(function(){
@@ -417,6 +421,7 @@ function startGame(reload){
 	ffg_music_current_order= ffg_music_order_array[ffGameSongCounter];
 	ffg_music_name = ffg_music_name_array[ffGameSongCounter];
 	ffg_music_note_rate = ffg_music_note_rate_array[ffGameSongCounter];
+	console.log('MUSIC DETAILS', ffg_music,ffg_music_current_order, ffg_music_name, ffg_music_note_rate);
 	initialize();
 	setupTimers();
 	// ffgtimeCount();
@@ -594,6 +599,11 @@ function clickedFriendlyImage(canvas, event) {
 
 function penalty(){
 	life--;
+	$("#life-img").addClass('blink-image');
+	setTimeout(function(){
+		$("#life-img").removeClass('blink-image');
+	}, 3000);
+
 	document.getElementById("life").innerHTML=life;
 	//drawLife(life);
 	if(life <= 0) {
@@ -819,7 +829,7 @@ function playNote(){
 		// getNextSong();
 		
 	}
-	updateMusicBar();
+	// updateMusicBar();
 	if(ffg_music_counter>=ffg_music.length){
 		timeActualLeft = timeBeingShown;
 		getNextSong();
@@ -863,6 +873,7 @@ function songOver(){
 	updateUser(ffg_music_current_order, ffg_coins);
 	nextStage();
 	ffg_music = next_song;
+	ffg_next_song = next_song_name;
 	ffg_music_name = next_song_name;
 	game_paused = true;
 	showPlayButton();
@@ -879,11 +890,13 @@ function levelUp(){
 	no_row = no_images/no_col;
 	ffg_music_counter = 0;
 	life = total_life;
+	// check timebeing shown with time recieved from backend
+	timeBeingShown = timeAlloted;
 	canvasClicked = false;
 	updateDifficultyLevel();
-	ffgtimeCount();
+	// ffgtimeCount();
 	updateDifficultyBar();
-	updateMusicBar();
+	// updateMusicBar();
 	// average_speed = getAverageSpeed(level);
 	// setDurationMultiplier(average_speed);
 	// allotted_time = (ffg_music.length-time_difficulty)*average_speed;
@@ -1056,7 +1069,7 @@ function initialize(){
 	getColor(100, 0, 100);
 	setBarWidth();
 	updateDifficultyBar();
-	updateMusicBar();
+	// updateMusicBar();
 
 	positive_messages = ["Great job!", "Fantastic!", "Awesome!", "Brilliant!", "Excellent!"];	
 

@@ -1,5 +1,6 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 declare var playnextsong: any;
+declare var ffg_next_song: any;
 
 @Component({
   selector: 'app-ffg-nextgame',
@@ -7,10 +8,12 @@ declare var playnextsong: any;
   styleUrls: ['./ffg-nextgame.component.scss']
 })
 export class FfgNextgameComponent implements OnInit {
-
+  ffg_next_song !: any;
   constructor(private elementRef: ElementRef) { }
 
   ngOnInit() {
+    this.ffg_next_song = ffg_next_song;
+
   }
 
   onPlayNext() {

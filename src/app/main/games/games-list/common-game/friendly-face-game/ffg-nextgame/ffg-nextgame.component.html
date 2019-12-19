@@ -2,14 +2,15 @@
     <img class="gameFinishedImg" src="../../../../../../../assets/games/friendly-face-game/images/Congratulation.png">
   
   
-    <p class="large-font"><b>Congratulations!</b></p>
-    <p class="smallest-font">You have finished this song.</p>
-    <p class="smallest-font"> <b>Next Song: </b></p>
-    <button style="min-width:100% !important;" 
+    <p class="big-font"><b>Congratulations!</b></p>
+    <p class="smallest-font" style="color:#798184;">You have finished this song.</p>
+    <p class="smallest-font">Next Song: {{ffg_next_song}}</p>
+    <button class="medium-font"
+            style="min-width:100% !important;" 
             mat-raised-button [color]="'new'" 
             (click)="onPlayNext()" type="button"
             id="play-next-song">
-      Play next level
+      Play 
     </button>
   </div>
   
