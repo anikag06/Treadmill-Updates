@@ -9,19 +9,22 @@ import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service
   styleUrls: ['./lhg-howtoplay.component.scss']
 })
 export class LhgHowtoplayComponent implements OnInit {
+  viewSummary!:boolean;
 
   constructor(private elementRef: ElementRef,
               private gamePlayService: GamePlayService,
               private dialogBoxService: DialogBoxService) { }
 
   ngOnInit() {
+    this.viewSummary = this.gamePlayService.lhgShowSummary;
+    console.log(this.viewSummary, this.gamePlayService.lhgShowSummary);
   }
 
   onStart() {
     const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });
     this.elementRef.nativeElement.dispatchEvent(domEvent);
     this.removeCoverImage();
-    this.gamePlayService.playLearnedHelplessnessGame();
+    // this.gamePlayService.playLearnedHelplessnessGame();
     this.openInstructionsPopup();
   }
 
@@ -37,7 +40,7 @@ export class LhgHowtoplayComponent implements OnInit {
     const showSummary = document.getElementById('explanation-row');
     const colorReverseGame = document.getElementById('color-reverse-game');
     this.removeCoverImage();
-    if(showSummary && colorReverseGame) {
+    if (showSummary && colorReverseGame) {
       showSummary.classList.remove('d-none');
       colorReverseGame.classList.add('d-none');
     }
@@ -45,7 +48,7 @@ export class LhgHowtoplayComponent implements OnInit {
 
   removeCoverImage() {
     const removeImage = document.getElementById('lhg-cover');
-    if(removeImage) {
+    if (removeImage) {
       removeImage.classList.add('d-none');
     }
   }

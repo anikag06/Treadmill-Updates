@@ -5,6 +5,8 @@ import { LhgInstructionsComponent } from './lhg-instructions/lhg-instructions.co
 import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
 import { LhgPlaynextgameComponent } from './lhg-playnextgame/lhg-playnextgame.component';
 import { Router } from '@angular/router';
+import { GamesAuthService } from '@/main/games/shared/games-auth.service';
+import { LhgGreatComponent } from './lhg-great/lhg-great.component';
 
 
 @Component({
@@ -20,6 +22,7 @@ export class LearnedHelplessnessGameComponent implements OnInit {
     private loadFileService: LoadFilesService,
     private dialogBoxService: DialogBoxService,
     private router: Router,
+    private gamesAuthService: GamesAuthService,
   ) { }
 
   @ViewChild('infoElement', { static: false }) element!: ElementRef;
@@ -35,6 +38,18 @@ export class LearnedHelplessnessGameComponent implements OnInit {
     this.element.nativeElement.dispatchEvent(domEvent);
   }
 
+  @HostListener('window:CallGreatPopUp')
+  openGreatPopup() {
+    this.dialogBoxService.setDialogChild(LhgGreatComponent);
+    const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
+    this.element.nativeElement.dispatchEvent(domEvent);
+  }
+
+  @HostListener('window:CallGameComplete')
+  onGameComplete(userData: any) {
+    this.updateOverallData(userData);
+  }
+
   ngOnInit() {
     this.loadFileService.loadExternalScript("./assets/games/learning-helplessness/js/unsolvable_puzzle_1.js").then(() => { }).catch(() => { });
     this.loadFileService.loadExternalScript("./assets/games/learning-helplessness/js/unsolvable_puzzle_2.js").then(() => { }).catch(() => { });
@@ -45,7 +60,11 @@ export class LearnedHelplessnessGameComponent implements OnInit {
     this.loadFileService.loadExternalStyles("./assets/games/learning-helplessness/css/unsolvable_puzzle_1.css").then(() => { }).catch(() => { });
     this.loadFileService.loadExternalStyles("./assets/games/learning-helplessness/css/unsolvable_puzzle_2.css").then(() => { }).catch(() => { });
     this.loadFileService.loadExternalStyles("./assets/games/learning-helplessness/css/unsolvable_puzzle_3.css").then(() => { }).catch(() => { });
-
+    this.gamesAuthService.lhGameGetOverallData()
+    .subscribe((overall_data) => {
+      console.log('overall data', overall_data.show_summary_button);
+      this.gamePlayService.lhgShowSummary = overall_data.show_summary_button;
+    });
   }
 
   updateColorReverseGameData() {
@@ -62,6 +81,10 @@ export class LearnedHelplessnessGameComponent implements OnInit {
   updateUnsolvableTask3Data() {
     this.gamePlayService.lhGameStoreTask3Data();
 
+  }
+
+  updateOverallData(userData: any) {
+    this.gamePlayService.lhGameStoreOverallData(userData);
   }
 
   openInstructionsPopup() {

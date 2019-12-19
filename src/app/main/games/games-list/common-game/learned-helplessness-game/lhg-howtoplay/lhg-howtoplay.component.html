@@ -16,7 +16,7 @@
     <div class="ml-auto p-1">
       <button mat-raised-button [color]="'new'" (click)="onStart()" type="button" #startBtn>Start</button>
     </div>
-    <div class="ml-auto p-1 mt-2">
+    <div class="ml-auto p-1 mt-2" *ngIf="viewSummary">
         <button mat-raised-button [color]="'white'" (click)="onShowSummary()" id="summaryBtn" type="button" #showSummaryBtn>View summary</button>
       </div>
   </div>
