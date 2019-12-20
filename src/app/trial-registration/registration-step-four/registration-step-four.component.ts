@@ -83,7 +83,7 @@ export class RegistrationStepFourComponent implements OnInit {
             const navigation_step = REGISTRATION_PATH + '/step-' + stepNumber;
             this.router.navigate([navigation_step]);
           } else {
-            this.authService.activateChild(true);
+            // this.authService.activateChild(true);
             this.router.navigate([INELIGIBLE_FOR_TRIAL]);
           }
 

@@ -5,6 +5,7 @@ import { INELIGIBLE_FOR_TRIAL, REGISTRATION_PATH } from '@/app.constants';
 import { FormGroup, FormControl } from '@angular/forms';
 import { RegistrationStepTwoForm } from './step-two-form-data.model';
 import { RegistrationDataService } from '../shared/registration-data.service';
+import { QuizService } from '@/shared/questionnaire/questionnaire.service';
 
 @Component({
   selector: 'app-registration-step-two',
@@ -44,11 +45,10 @@ export class RegistrationStepTwoComponent implements OnInit {
   otherOptionSelected = false;
 
   constructor(
-    private route: ActivatedRoute,
     private authService: TrialAuthService,
     private router: Router,
     private registrationDataService: RegistrationDataService,
-
+    private questionnaireService: QuizService,
   ) { }
 
   ngOnInit() {
@@ -57,9 +57,6 @@ export class RegistrationStepTwoComponent implements OnInit {
     this.starting_time = dateTime.replace('Z', '').replace('T', ' ');
     console.log(this.starting_time);
     this.participationID = this.registrationDataService.participationID;
-  }
-  genderSelected() {
-
   }
 
   stepDataSubmit() {
@@ -90,8 +87,6 @@ export class RegistrationStepTwoComponent implements OnInit {
 
       this.stepTwoFormData.source_of_information_other = this.stepTwoForm.value.otherReasonTextBox;
 
-      console.log(this.stepTwoFormData);
-      // get data from database
       this.registrationDataService.saveStepTwoForm(this.stepTwoFormData)
         .subscribe( (res_data: any) => {
           console.log(res_data);
@@ -101,9 +96,14 @@ export class RegistrationStepTwoComponent implements OnInit {
             this.authService.activateChild(true);
             const stepNumber = res_data.next_step;
             const navigation_step = REGISTRATION_PATH + '/step-' + stepNumber;
-            this.router.navigate([navigation_step]);
+            if (stepNumber === 3) {
+              this.questionnaireService.questinnaire_name = res_data.next_questionnaire;
+              this.router.navigate([navigation_step]);
+            } else {
+              this.router.navigate([navigation_step]);
+            }
           } else {
-            this.authService.activateChild(true);
+            // this.authService.activateChild(true);
             this.router.navigate([INELIGIBLE_FOR_TRIAL]);
           }
         });

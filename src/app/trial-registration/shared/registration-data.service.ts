@@ -7,7 +7,7 @@ import { EMAIL_REGISTRATION,
   REGISTRATION_PHQ_RESPONSE,
   REGISTRATION_GAD_RESPONSE, REGISTRATION_CONSENT, REGISTRATION_SIQ_RESPONSE } from '@/app.constants';
 import { RegistrationStepTwoForm } from '../registration-step-two/step-two-form-data.model';
-import { RegistrationQuestionnaireScore, RegistrationSIQScore } from '../registration-step-three/resgistration-step-three-response.model';
+import { RegistrationQuestionnaireScore, } from '../registration-step-three/resgistration-step-three-response.model';
 import { RegistrationStepFourForm } from '../registration-step-four/step-four-consent.model';
 
 @Injectable({
@@ -16,7 +16,6 @@ import { RegistrationStepFourForm } from '../registration-step-four/step-four-co
 export class RegistrationDataService {
 
   participationID!: number;
-
   constructor(
     private http: HttpClient,
   ) { }
@@ -37,7 +36,7 @@ export class RegistrationDataService {
     return this.http.post(environment.API_ENDPOINT + REGISTRATION_PHQ_RESPONSE, phqResponse );
   }
 
-  saveSIQData(siqResponse: RegistrationSIQScore) {
+  saveSIQData(siqResponse: RegistrationQuestionnaireScore) {
     console.log(siqResponse);
     return this.http.post(environment.API_ENDPOINT + REGISTRATION_SIQ_RESPONSE, siqResponse);
   }

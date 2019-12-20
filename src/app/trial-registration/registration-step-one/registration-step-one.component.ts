@@ -5,6 +5,7 @@ import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-co
 import { INELIGIBLE_FOR_TRIAL, REGISTRATION_PATH } from '@/app.constants';
 import { FormGroup, FormControl } from '@angular/forms';
 import { RegistrationDataService } from '../shared/registration-data.service';
+import { QuizService } from '@/shared/questionnaire/questionnaire.service';
 
 @Component({
   selector: 'app-registration-step-one',
@@ -31,16 +32,15 @@ export class RegistrationStepOneComponent implements OnInit {
   }
 
   constructor(
-    private route: ActivatedRoute,
     private router: Router,
     private authService: TrialAuthService,
     private showContactUsService: MatContactUsDialogService,
     private registrationDataService: RegistrationDataService,
+    private questionnaireService: QuizService
   ) { }
 
   ngOnInit() {
     const smallDevice = window.matchMedia('(max-width: 767px)').matches;
-    console.log(smallDevice);
     if (smallDevice) {
       this.showRegistrationContent = true;
     }
@@ -57,9 +57,15 @@ export class RegistrationStepOneComponent implements OnInit {
               this.authService.activateChild(true);
               const stepNumber = res_data.data.next_step;
               const navigation_step = REGISTRATION_PATH + '/step-' + stepNumber;
-              this.router.navigate([navigation_step]);
+
+              if (stepNumber === 3) {
+                this.questionnaireService.questinnaire_name = res_data.data.next_questionnaire;
+                this.router.navigate([navigation_step]);
+              } else {
+                this.router.navigate([navigation_step]);
+              }
             } else {
-              this.authService.activateChild(true);
+              // this.authService.activateChild(true);
               this.router.navigate([INELIGIBLE_FOR_TRIAL]);
             }
           },

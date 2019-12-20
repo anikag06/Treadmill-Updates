@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Quiz } from './input/quiz';
-import { QuesUserResponseArray, SIQResponseData } from './input/response';
+import { QuesUserResponseArray } from './input/response';
 import { QuizService } from './questionnaire.service';
 import { environment } from 'environments/environment';
 
@@ -14,11 +14,13 @@ import { FlowService } from '@/main/flow/flow.service';
 import { Router, ActivatedRoute } from '@angular/router';
 // import { Step } from '@/main/flow/step-group/step/step.model';
 import { TrialAuthService } from '@/trial-registration/shared/trial-auth.service';
-import { RegistrationQuestionnaireScore,
-  RegistrationSIQScore } from '@/trial-registration/registration-step-three/resgistration-step-three-response.model';
+import { RegistrationQuestionnaireScore} from '@/trial-registration/registration-step-three/resgistration-step-three-response.model';
 import { RegistrationDataService } from '@/trial-registration/shared/registration-data.service';
 import { QuestionnaireResponse } from './input/questionnaire-response.model';
-import { INELIGIBLE_FOR_TRIAL, REGISTRATION_PATH, GET_PHQ_QUESTIONS, GET_GAD_QUESTIONS, GET_SIQ_QUESTIONS } from '@/app.constants';
+import { INELIGIBLE_FOR_TRIAL,
+  REGISTRATION_PATH, GET_PHQ_QUESTIONS,
+  GET_GAD_QUESTIONS, GET_SIQ_QUESTIONS, GAD7, SIQ, PHQ9, DEFAULT_PATH } from '@/app.constants';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   animations: [
@@ -100,7 +102,7 @@ export class QuestionnaireComponent implements OnInit {
   index = 0;             // index =0 is for phq-9, 1 for gad-7 and 2 for siq
   display_gad_start = false;
   display_questionnaire = false;
-  display_phq_start = true;
+  display_phq_start = false;
   display_siq_start = false;
 
   is_siq_ques = false;
@@ -124,11 +126,26 @@ export class QuestionnaireComponent implements OnInit {
     private dataService: DataService,
     private trialAuthService: TrialAuthService,
     private registrationDataService: RegistrationDataService,
-    private route: ActivatedRoute,
+    private authService: AuthService,
   ) { }
 
   ngOnInit() {
-    this.loadQuiz();
+    console.log(this.quizService.questinnaire_name);
+    if (this.quizService.questinnaire_name === PHQ9) {
+      this.index = 0;
+      this.display_phq_start = true;
+      this.loadQuiz();
+    } else if (this.quizService.questinnaire_name === GAD7) {
+      this.index = 1;
+      this.display_gad_start = true;
+      this.loadQuiz();
+    } else if (this.quizService.questinnaire_name === SIQ) {
+      this.index = 2;
+      this.display_siq_start = true;
+      this.loadQuiz();
+    } else {
+      this.router.navigate([DEFAULT_PATH]);
+    }
   }
 
 
@@ -157,6 +174,7 @@ export class QuestionnaireComponent implements OnInit {
   }
 
   display() {
+    console.log('click on display');
     if (this.display_phq_start === true) {
       this.display_phq_start = false;
       this.is_siq_ques = false;
@@ -413,14 +431,12 @@ export class QuestionnaireComponent implements OnInit {
     }
     console.log('response', phq_response);
 
-    if (phq_response.user_response[8].answer !== 0) {
-      console.log('show the siq ');
-      this.display_siq_start = true;
-    } else {
-      this.display_gad_start = true;
-    }
     if (this.fromFlow === true) {
-      this.quizService.post_phq(phq_response);
+      this.quizService.post_phq(phq_response)
+        .subscribe( (res_data: any) => {
+          console.log('phq -9 res data', res_data);
+          this.phqNextStep(res_data.data.excluded, res_data.data.next_questionnaire, true);
+        });
 
     } else if ( this.fromFlow === false && this.fromTrialRegistration === true) {
       const registration_phq = new RegistrationQuestionnaireScore(0, phq_response.user_response);
@@ -428,9 +444,30 @@ export class QuestionnaireComponent implements OnInit {
 
       this.registrationDataService.savePHQData(registration_phq)
         .subscribe( (res_data: any) => {
-            console.log(res_data);
-            this.siq_term_id = res_data.data.term_id;
+            console.log(res_data, );
+            this.phqNextStep(res_data.data.excluded, res_data.data.next_questionnaire, false);
         });
+    }
+  }
+  phqNextStep(excluded: boolean, questionnaireName: string, user: boolean) {
+    if (excluded) {
+      this.quizService.questionnaireActive = false;
+      this.trialAuthService.activateChild(true);
+      this.routing = true;
+      this.dataService.setOption(this.routing);
+      if (user) {
+        this.authService.logout(false);
+        this.authService.isUserExcluded = true;
+      } else {
+        this.moveToThankYouPage();
+      }
+    } else {
+      if (questionnaireName === SIQ) {
+        console.log('show the siq ');
+        this.display_siq_start = true;
+      } else if (questionnaireName === GAD7) {
+        this.display_gad_start = true;
+      }
     }
   }
 
@@ -448,14 +485,20 @@ export class QuestionnaireComponent implements OnInit {
         (data: any) => {
           console.log(data);
           // TODO: Darshit needs to add timer service here
-          this.flowService.markDone(this.stepId, 1003)
+          if (data.data.excluded) {
+            this.trialAuthService.activateChild(true);
+            this.authService.logout(false);
+            this.authService.isUserExcluded = true;
+          } else {
+            this.flowService.markDone(this.stepId, 1003)
             .subscribe(
               (resp: any) => {
                 console.log(data);
               },
               error => console.log(error)
             );
-          this.router.navigate(['/']);
+            this.router.navigate(['/']);
+          }
         }
       );
     } else if ( this.fromFlow === false && this.fromTrialRegistration === true) {
@@ -474,8 +517,7 @@ export class QuestionnaireComponent implements OnInit {
               const navigation_step = REGISTRATION_PATH + '/step-' + stepNumber;
               this.router.navigate([navigation_step]);
             } else {
-              this.trialAuthService.activateChild(true);
-              this.router.navigate([INELIGIBLE_FOR_TRIAL]);
+              this.moveToThankYouPage();
             }
         });
     }
@@ -486,24 +528,50 @@ export class QuestionnaireComponent implements OnInit {
       const ques_response = new QuestionnaireResponse(
         this.score[i], i + 1, this.time[i]);
       siq_response.user_response.push(ques_response);
+      console.log(siq_response);
     }
-    const siq_data = new SIQResponseData(this.siq_term_id, siq_response.user_response);
 
-    console.log(siq_data);
-
-    this.display_gad_start = true;
     if (this.fromFlow === true) {
-      this.quizService.post_siq(siq_data);
+      this.quizService.post_siq(siq_response)
+        .subscribe( (res_data: any) => {
+          console.log('res data of siq', res_data);
+          this.siqNextStep(res_data.data.excluded, res_data.data.next_questionnaire, true);
+        });
 
     } else if ( this.fromFlow === false && this.fromTrialRegistration === true) {
-      const registration_siq = new RegistrationSIQScore(0, this.siq_term_id, siq_response.user_response);
+      const registration_siq = new RegistrationQuestionnaireScore(0, siq_response.user_response);
       registration_siq.participant_id = this.registrationDataService.participationID;
 
       this.registrationDataService.saveSIQData(registration_siq)
         .subscribe( (res_data: any) => {
-            console.log(res_data);
+          console.log(res_data);
+          this.siqNextStep(res_data.data.excluded, res_data.data.next_questionnaire, false);
         });
     }
+  }
+  siqNextStep(excluded: boolean, questionnaireName: string, user: boolean) {
+    if (excluded) {
+      this.quizService.questionnaireActive = false;
+      this.routing = true;
+      this.dataService.setOption(this.routing);
+      this.trialAuthService.activateChild(true);
+      console.log('if excluded', excluded, user);
+      if (user) {
+        this.authService.logout(false);
+        this.authService.isUserExcluded = true;
+      } else {
+        this.moveToThankYouPage();
+      }
+    } else {
+      if (questionnaireName === GAD7) {
+        this.display_gad_start = true;
+      }
+    }
+  }
+
+  moveToThankYouPage() {
+    // this.trialAuthService.activateChild(true);
+    this.router.navigate([INELIGIBLE_FOR_TRIAL]);
   }
 
   reset(no_questions: number) {

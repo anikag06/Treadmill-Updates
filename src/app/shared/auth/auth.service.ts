@@ -10,7 +10,8 @@ import { TOKEN,
   LOGIN_PATH, SIGNUP_PATH,
   USERAVATAR,
   ISADMIN,
-  ISACTIVE
+  ISACTIVE,
+  INELIGIBLE_FOR_TRIAL
 } from '@/app.constants';
 import { User } from '@/shared/user.model';
 import { Observable, BehaviorSubject } from 'rxjs';
@@ -96,10 +97,17 @@ export class AuthService {
     }
   }
 
-  async logout() {
+  async logout(showDefaultPage: boolean) {
+    console.log('log out', showDefaultPage);
     delete this.user;
     localStorage.clear();
-    this.router.navigate([DEFAULT_PATH]);
+    if (showDefaultPage) {
+      console.log('navigate to:', DEFAULT_PATH);
+      this.router.navigate([DEFAULT_PATH]);
+    } else {
+      console.log('navigate to;', INELIGIBLE_FOR_TRIAL);
+      this.router.navigate([INELIGIBLE_FOR_TRIAL]);
+    }
   }
 
   refresh() {

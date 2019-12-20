@@ -145,6 +145,11 @@ export const FORM_PROBLEM_SOLVING_WORKSHEET = 'FORM-PROBLEM-SOLVING-WORKSHEET';
 // committment options
 export const COMMITTMENT_OPTIONS = ['1/day', '2/day', '3/day', '4/day', 'More than 4/day'];
 
+// questionnaire constants
+export const PHQ9 = 'PHQ9';
+export const GAD7 = 'GAD7';
+export const SIQ  = 'SIQ';
+
 // questionnaire paths
 export const GET_PHQ_QUESTIONS = '/api/v1/questionnaire/phq-nine-questions-list/';
 export const GET_GAD_QUESTIONS = '/api/v1/questionnaire/gad-questions-list/';

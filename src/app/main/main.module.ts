@@ -142,6 +142,7 @@ import { IdentifyCognitiveDistortionComponent } from './games/games-list/common-
 import { IdcInstructionsComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-instructions/idc-instructions.component';
 import { IdcInfoComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-info/idc-info.component';
 import { IdcWinComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-win/idc-win.component';
+import { StepsDataService } from './resources/shared/steps-data.service';
 
 @NgModule({
   declarations: [
@@ -292,6 +293,7 @@ import { IdcWinComponent } from './games/games-list/common-game/identify-cogniti
     IbTrainingDataService,
     DialogBoxService,
     ExecControlHelpService,
+    StepsDataService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [
