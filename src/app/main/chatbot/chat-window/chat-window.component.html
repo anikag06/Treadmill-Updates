@@ -24,35 +24,40 @@
         </ng-template>
       </div>
       <div class="buttons">
-        <button  color="primary" *ngFor="let button of m.buttons"
-          (click)="chatButtonPressed(button, m)">
+        <button color="primary" *ngFor="let button of m.buttons" (click)="chatButtonPressed(button, m)">
           <span class="btn-text">
             {{ button.payload }}
           </span>
         </button>
       </div>
-    </div>
-    <!-- <button  (click)="onMoodSelect()"> <span class="btn-text">Select your mood</span></button> 
-   <div *ngIf="showMoodTracker">
-      <app-mood-tracker (onClose)="onMoodSelect()" (moodSubmit)="onChatSubmit($event)" (moodMessage)="getMoodMessage($event)"></app-mood-tracker>
-    </div> -->
-    <button type="input" (click)="onMoodSelect()">Date Time</button> 
-   <div *ngIf="showMoodTracker">
-      <app-data-time-picker (onClose)="onMoodSelect()"></app-data-time-picker>
+      <div class="buttons" *ngIf="m.widget===moodWidget">
+        <button (click)="onMoodSelect()"> <span class="btn-text">Select your mood</span></button>
+        <div *ngIf="showMoodTracker">
+          <app-mood-tracker (onClose)="onMoodSelect()" (moodSubmit)="onChatSubmit($event)"
+            (moodMessage)="getMoodMessage($event)"></app-mood-tracker>
+        </div>
+      </div>
+      <div class="buttons" *ngIf="m.widget===dateTimeWidget">
+        <button (click)="onDateTimeSelect()">Date Time</button>
+        <div *ngIf="showDateTime">
+        </div>
+
+        <app-data-time-picker (onClose)="onDateTimeSelect()"></app-data-time-picker>
+      </div>
     </div>
   </div>
-      <div class="form-div">
-        <form (ngSubmit)="onChatSubmit()">
-          <div class="textarea">
-            <textarea matInput class="form-control" placeholder="Enter your message" [(ngModel)]="message" name="message"
-           (keyup.enter)="onKey($event)" (focusin)="scrollToBottom()" #ti autocomplete="off">
+  <div class="form-div">
+    <form (ngSubmit)="onChatSubmit()">
+      <div class="textarea">
+        <textarea matInput class="form-control" placeholder="Enter your message" [(ngModel)]="message" name="message"
+          (keyup.enter)="onKey($event)" (focusin)="scrollToBottom()" #ti autocomplete="off">
         </textarea>
-          </div>
-          <div class="btn-div">
-            <button type="submit">
-              <mat-icon [ngStyle]="{'color':'grey'}">send</mat-icon>
-            </button>
-          </div>
-        </form>
       </div>
+      <div class="btn-div">
+        <button type="submit">
+          <mat-icon [ngStyle]="{'color':'grey'}">send</mat-icon>
+        </button>
+      </div>
+    </form>
+  </div>
 </div>

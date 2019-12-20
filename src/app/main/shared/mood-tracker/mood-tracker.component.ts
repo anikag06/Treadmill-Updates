@@ -135,13 +135,20 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
 
     for (let i = 0; i < emotions.length; i++) {
       let option = emotions[i].querySelector('.option');
+      let option_label = emotions[i].querySelector('.emotion-label');
       if (option.checked) {
-        let option_label = emotions[i].querySelector('.emotion-label');
-        let rangeValue = emotions[i].querySelector('.rangeValue');
-        let rangeValue_str: string = rangeValue.textContent;
+       
         let option_label_str: string = option_label.textContent;
-        chatMoodMessage += (rangeValue_str.trim().toLowerCase() + " " + option_label_str.trim().toLowerCase() + " ");
         count += 1
+        if(i!==11){
+          let rangeValue = emotions[i].querySelector('.rangeValue');
+          let rangeValue_str: string = rangeValue.textContent;
+          chatMoodMessage += (rangeValue_str.trim().toLowerCase() + " " + option_label_str.trim().toLowerCase() + " ");
+         
+        }
+        if(i===11){
+          chatMoodMessage += (option_label_str.trim().toLowerCase() + " ");
+        }
         if (count < this.emotionCount - 1 && this.emotionCount > 2) {
           chatMoodMessage += ", "
         }
@@ -152,7 +159,8 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
         if (count === this.emotionCount) {
           chatMoodMessage += " today."
         }
-      }
+        }
+
     }
     this.closeModal();
     this.moodMessage.emit(chatMoodMessage);

@@ -87,7 +87,7 @@
                                 <input type="checkbox" class="option" #option [ngStyle]="{'font-size': '14px'}"
                                     (change)="updateEmotionCount(option.checked)"> <label> {{emotion}}</label>
                             </div>
-                            <div class="emotion-range" *ngIf="option.checked" style="z-index: 200;">
+                            <!-- <div class="emotion-range" *ngIf="option.checked" style="z-index: 200;">
                                 <mat-icon class="range-icon remove">remove</mat-icon>
                                 <label for="range">
                                     <div class="rangeValue" [ngStyle]="{'margin-left': '63px'}">Quite</div>
@@ -95,7 +95,7 @@
                                         #ranger (input)="showRange(ranger.value,emotion)" />
                                 </label>
                                 <mat-icon class="range-icon">add</mat-icon>
-                            </div>
+                            </div> -->
                         </div>
 
                     </mat-list-item>
@@ -134,7 +134,7 @@
             </mat-expansion-panel>
         </mat-accordion>
     </div>
-    <button class="btn close-btn" (click)="closeModal()">
+    <button class=" close-btn" (click)="closeModal()">
         <mat-icon>close</mat-icon>
     </button>
     <button type="submit" mat-raised-button class="done-btn" [disabled]="emotionCount < 1"
