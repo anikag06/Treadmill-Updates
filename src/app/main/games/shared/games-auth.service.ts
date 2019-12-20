@@ -11,7 +11,7 @@ import {TOKEN,
   LHG_UNSOLVABLE_TASK2_LEVEL1, LHG_UNSOLVABLE_TASK2_LEVEL2,
   LHG_UNSOLVABLE_TASK3_LEVEL2, LHG_UNSOLVABLE_TASK3_LEVEL1,
   FFG_GET_FRIENDLY_IMAGES, FFG_GET_HOSTILE_IMAGES, FFG_USER_DATA,
-  FFG_PERFORMANCE, FFG_TOTAL_PERFORMANCE, FFG_MUSIC} from '@/app.constants';
+  FFG_PERFORMANCE, FFG_TOTAL_PERFORMANCE, FFG_MUSIC, LHG_USER_OVERALL_DATA} from '@/app.constants';
 import { ECGameData, ECGameFlankerTask, ECGameDiscriminationTask, ECGameUserData,
   LHGameColorReverseData, LHGameUserLevel, LHGamePerformance, FFGameUserData, FFGamePerformance, } from './game-play.model';
 
@@ -130,6 +130,14 @@ export class GamesAuthService {
     } else {
       return this.http.post(environment.API_ENDPOINT + LHG_UNSOLVABLE_TASK3_LEVEL2, task3Data);
     }
+  }
+
+  lhGameUpdateOverallData(user_overall_data: any) {
+    return this.http.put(environment.API_ENDPOINT + LHG_USER_OVERALL_DATA, user_overall_data);
+  }
+
+  lhGameGetOverallData(): Observable<any> {
+    return this.http.get(environment.API_ENDPOINT + LHG_USER_OVERALL_DATA);
   }
 
   // for the friendly face game

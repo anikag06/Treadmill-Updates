@@ -93,6 +93,15 @@ export class LHGamePerformance {
     }
 }
 
+export class LHGameOverallData {
+    constructor(
+        public end_time: any,
+        public game_completed: boolean,
+        public all_levels_completed: boolean,
+
+    ) {}
+}
+
 // for storing data of Friendly Face Game
 
 export class FFGameUserData {

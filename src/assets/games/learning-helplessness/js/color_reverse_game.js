@@ -36,6 +36,12 @@ var success;
 // for storing data when proceed to next level
 var storeLHScoreColorReverse;
 
+// for storing overall data
+var lhg_end_time;
+var lhg_game_completed = false;
+var lhg_all_levels_completed = false;
+var lhGameOverallData;
+
 function initializeVar(){
 	grid_string = lhGameLevelStrings[lhGameArrayIndex];
 	length = lhGameLengths[lhGameArrayIndex];
@@ -111,6 +117,9 @@ $(document).ready(function(){
 		}else if(lhGameLevelCounter!=0 && previously_solved_level==lhGameLevelCounter && lhGameArrayIndex!=0 && previous_index == lhGameArrayIndex){		// showing explanation if giving up on same level
 			$("#color-reverse-game").addClass("d-none");
 			$("#explanation-row").removeClass("d-none");
+			lhg_game_completed = true;
+			gameCompleted();
+			
 		}else if(unsolvable_game_counter == 3){
 			// show play next pop up
 			playNextGamePopup();
@@ -294,6 +303,15 @@ function detectSuccess(grid_array){
 			previous_index = lhGameArrayIndex;
 			lhGameLevelCounter++;
 			lhGameArrayIndex++;
+			console.log('Array Index', lhGameArrayIndex);
+			console.log('Array length', lhGameLevelStrings.length);
+			if (lhGameArrayIndex == lhGameLevelStrings.length){
+				lhg_all_levels_completed = true;
+				gameCompleted();
+				// show great popup
+				showGreatPopup();
+
+			}
 			clearTimeout(different_game_timeout);
 			$("#color-reverse-game-success-message").addClass("d-none");
 			$("#color-reverse-game-level").text("Level : "+lhGameLevelCounter);
@@ -367,9 +385,30 @@ function playNextGamePopup() {
 	window.dispatchEvent(showPlayNextEvent);
 }
 
+function showGreatPopup() {
+	showGreatEvent = document.createEvent('CustomEvent');
+	showGreatEvent.initCustomEvent('CallGreatPopUp');
+	window.dispatchEvent(showGreatEvent);
+}
+
 function onRestartGame() {
 	$('#grid-puzzle-row').addClass("d-none");
 	$('#frog-game-row').addClass("d-none");
 	$('#box-up-game-row').addClass("d-none");
 	$('#explanation-row').addClass("d-none");
+}
+
+lhgOverallData = function() {
+	
+	return[lhg_end_time,lhg_game_completed,lhg_all_levels_completed]
+}
+
+function gameCompleted() {
+	lhg_end_time = new Date().toJSON();
+	console.log(lhg_end_time);
+	
+	lhgOverallData();
+	gameCompleteEvent = document.createEvent('CustomEvent');
+	gameCompleteEvent.initCustomEvent('CallGameComplete');
+	window.dispatchEvent(gameCompleteEvent);
 }
