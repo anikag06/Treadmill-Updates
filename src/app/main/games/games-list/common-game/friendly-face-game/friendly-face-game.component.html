@@ -26,8 +26,8 @@
 
                 <img id="time-img" src="../../../../../../assets/games/time_transparent.png">
                 <!--class="float-right">-->
-                <span id="time-sec" class="align-bottom">s</span>
-                <!-- <span class="align-bottom mb-0"> <b>s</b></span> -->
+                <span id="time-sec" class="align-bottom"></span>
+                <!-- <span class="align-bottom mb-0"> <b class="mt-1">s</b></span> -->
               </div>
 
 
@@ -59,12 +59,14 @@
               </div>
 
               <div class="ml-auto  difficulty">
-                <div class="d-flex justify-content-between mb-1">
+                <div class="d-flex justify-content-between">
                   <b>Easy</b><b>Hard</b>
                 </div>
 
-                <mat-progress-bar mode="determinate" class="difficulty-bar" [value]="difficultyBarValue">
+                <div class="row border border-dark rounded difficulty-bar ml-0" >
+                <mat-progress-bar mode="determinate" class="gameDifficultyBar" [value]="difficultyBarValue">
                 </mat-progress-bar>
+              </div>
 
               </div>
             </div>
@@ -85,8 +87,8 @@
             <img id="tone-on-bar" [style.margin-left]="toneBarValue + 'px'" src="../../../../../../assets/games/friendly-face-game/images/Tone.svg">
 
           </div>
-          <div class="d-flex justify-content-center">
-            <mat-progress-bar mode="determinate" class="music-bar ml-1" [value]="musicBarValue"></mat-progress-bar>
+          <div class="d-flex justify-content-center music-bar">
+            <mat-progress-bar mode="determinate" class="ffgMusicBar" [value]="musicBarValue"></mat-progress-bar>
           </div>
           <div class="music-box">
             <img id="border-music-box" src="../../../../../../assets/games/friendly-face-game/images/Button_small.svg">

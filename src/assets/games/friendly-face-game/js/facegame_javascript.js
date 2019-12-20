@@ -639,7 +639,7 @@ function startCount(){
 
 function ffgtimeCount(){
 	timer = setInterval(function(){
-		document.getElementById("time-sec").innerHTML=timeBeingShown;
+		document.getElementById("time-sec").innerHTML=timeBeingShown+"s";
 		timeBeingShown--;
 		if (timeBeingShown==0){
 			showGameOver();
@@ -1088,7 +1088,7 @@ function initialize(){
 	document.getElementById("song-name").innerHTML = ffg_music_name;
 	document.getElementById("life").innerHTML=life;
 	document.getElementById("score-num").innerHTML=score;
-	document.getElementById("time-sec").innerHTML=timeBeingShown;
+	document.getElementById("time-sec").innerHTML=timeBeingShown+"s";
 	// document.getElementById("gold-num").innerHTML=goldPoints;
 	// document.getElementById("silver-num").innerHTML=silverPoints;
 	// document.getElementById("bronze-num").innerHTML=bronzePoints;
