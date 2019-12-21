@@ -84,6 +84,7 @@ export const LHG_UNSOLVABLE_TASK2_LEVEL1 = '/api/v1/games/learned-helplessness/u
 export const LHG_UNSOLVABLE_TASK2_LEVEL2 = '/api/v1/games/learned-helplessness/unsolvable-tasks2-level2/';
 export const LHG_UNSOLVABLE_TASK3_LEVEL1 = '/api/v1/games/learned-helplessness/unsolvable-tasks3-level1/';
 export const LHG_UNSOLVABLE_TASK3_LEVEL2 = '/api/v1/games/learned-helplessness/unsolvable-tasks3-level2/';
+export const LHG_USER_OVERALL_DATA = '/api/v1/games/learned-helplessness/user-overall-data/';
 
 //  Friendly Face Game (FFG) paths
 export const FFG_GET_FRIENDLY_IMAGES = '/api/v1/games/face-game/images-hostile/';
