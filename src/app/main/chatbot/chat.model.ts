@@ -7,6 +7,6 @@ export class Chat {
     public sid: string,
     public datetime: Date,
     public waiting: boolean,
-    public widget: string,
+    public widgets: string[],
   ) {}
 }

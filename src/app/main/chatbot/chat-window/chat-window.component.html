@@ -30,19 +30,24 @@
           </span>
         </button>
       </div>
-      <div class="buttons" *ngIf="m.widget===moodWidget">
-        <button (click)="onMoodSelect()"> <span class="btn-text">Select your mood</span></button>
-        <div *ngIf="showMoodTracker">
-          <app-mood-tracker (onClose)="onMoodSelect()" (moodSubmit)="onChatSubmit($event)"
-            (moodMessage)="getMoodMessage($event)"></app-mood-tracker>
+     
+      <div *ngFor="let widget of m.widgets">
+        <div class="buttons" *ngIf="widget===moodWidget">
+          <button (click)="onMoodSelect()"> <span class="btn-text">Select your mood</span></button>
+          <div *ngIf="showMoodTracker">
+            <app-mood-tracker (onClose)="onMoodSelect()" (moodSubmit)="onChatSubmit($event)"
+              (moodMessage)="getMoodMessage($event)"></app-mood-tracker>
+          </div>
         </div>
+        <div class="buttons" *ngIf="widget===dateTimeWidget">
+          <button (click)="onDateTimeSelect()">Date Time</button>
+          <div *ngIf="showDateTime">
+            <app-data-time-picker (onClose)="onDateTimeSelect()"></app-data-time-picker>
+          </div>
       </div>
-      <div class="buttons" *ngIf="m.widget===dateTimeWidget">
-        <button (click)="onDateTimeSelect()">Date Time</button>
-        <div *ngIf="showDateTime">
-        </div>
+     
 
-        <app-data-time-picker (onClose)="onDateTimeSelect()"></app-data-time-picker>
+       
       </div>
     </div>
   </div>
