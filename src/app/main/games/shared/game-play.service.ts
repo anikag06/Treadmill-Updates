@@ -19,6 +19,7 @@ import { MICurrentStateService } from '../games-list/common-game/mental-imagery/
 import { IdcInstructionsComponent } from '../games-list/common-game/identify-cognitive-distortion/idc-instructions/idc-instructions.component';
 import { FfgInstructionsComponent } from '../games-list/common-game/friendly-face-game/ffg-instructions/ffg-instructions.component';
 import { FfgHelpService } from '../games-list/common-game/friendly-face-game/ffg-help.service';
+import { IdcGameService } from '../games-list/common-game/identify-cognitive-distortion/idc-game.service';
 
 // for interpretation bias game
 declare var startIBGame: any;
@@ -146,6 +147,7 @@ export class GamePlayService {
     private miPlayService: MIPlayService,
     private miCurrentStateService: MICurrentStateService,
     private ffghelpService: FfgHelpService,
+    private idcGameService: IdcGameService,
   ) { }
 
   getGameInfo(slug: string) {
@@ -486,6 +488,7 @@ export class GamePlayService {
 
     this.gamesAuthService.lhGameUpdateTask1Data(task1performance, isFirstLevel)
       .subscribe(() => { });
+      console.log('task1 data', task1performance);
   }
   lhGameStoreTask2Data() {
     let storeTask2Data;
@@ -622,9 +625,13 @@ export class GamePlayService {
   }
   // for cognitive distortion game
   playIdentifyCognitiveDistortionGame(gameDivElement: any) {
-    const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
-    gameDivElement.nativeElement.dispatchEvent(domEvent);
-    this.helpIDCGame();
+    if (this.idcGameService.showTutorial === true) {
+      const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
+      gameDivElement.nativeElement.dispatchEvent(domEvent);
+      this.helpIDCGame();
+    } else {
+      this.idcGameService.startPlaying();
+    }
   }
   helpIDCGame() {
     this.dialogBoxService.setDialogChild(IdcInstructionsComponent);

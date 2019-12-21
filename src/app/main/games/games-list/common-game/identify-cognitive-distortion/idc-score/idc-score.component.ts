@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, OnDestroy } from '@angular/core';
 import { IdcGameService } from '../idc-game.service';
 import { IdcTimeComponent } from '../idc-time/idc-time.component';
 import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
@@ -8,7 +8,7 @@ import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service
   templateUrl: './idc-score.component.html',
   styleUrls: ['./idc-score.component.scss']
 })
-export class IdcScoreComponent implements OnInit {
+export class IdcScoreComponent implements OnInit, OnDestroy {
 
   bronzeValue: any;
   silverValue: any;
@@ -21,6 +21,7 @@ export class IdcScoreComponent implements OnInit {
   numCorrectAnswers!: number;
   score!: number;
   timeLeft!: number;
+  levelinitaliseSub!: any;
 
   @ViewChild('checkElement', { static: false }) element!: ElementRef;
 
@@ -32,13 +33,18 @@ export class IdcScoreComponent implements OnInit {
     this.gameService.levelFinish.subscribe(() => {
       this.stopTimer();
     });
-    this.gameService.levelUpdate.subscribe(() => {
+    this.levelinitaliseSub = this.gameService.levelInitialise.subscribe(() => {
       this.score = this.gameService.score;
       this.timeLeft = this.gameService.timeLeft;
       this.difficultyValue = this.gameService.difficultyValue;
       this.startTimer();
       this.updateBadges();
+      console.log('ngoninit called');
     });
+    // console.log('ngoninit called');
+  }
+  ngOnDestroy(): void {
+    this.levelinitaliseSub.unsubscribe();
   }
 
   openCustomDialog() {
@@ -48,7 +54,6 @@ export class IdcScoreComponent implements OnInit {
   }
 
   openPopup() {
-    this.stopTimer();
     this.openCustomDialog();
   }
 
@@ -56,11 +61,13 @@ export class IdcScoreComponent implements OnInit {
     this.interval = setInterval(() => {
       if (this.timeLeft > 0) {
         this.timeLeft--;
-        console.log('time left', this.timeLeft);
+        console.log('time left', this.timeLeft, this.interval);
       } else {
+        this.stopTimer();
         this.openPopup();
       }
     }, 1000);
+    console.log('interval name', this.interval);
   }
 
   stopTimer() {

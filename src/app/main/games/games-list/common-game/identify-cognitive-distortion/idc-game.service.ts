@@ -1,6 +1,6 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { environment } from 'environments/environment';
 import { IDC_SITUATION_DATA, IDC_USER_DATA, IDC_USER_ANSWER_DATA } from '@/app.constants';
 import { BadgesInfo } from '@/main/games/shared/game-badges.model';
@@ -13,13 +13,15 @@ import { ICDGameUserData, ICDGameUserAnswerData } from '@/main/games/shared/game
 export class IdcGameService {
 
   startPlayingIdc = new EventEmitter();
-  levelUpdate = new EventEmitter();
-  levelFinish = new EventEmitter();
+  // levelInitialise = new EventEmitter();
+  levelInitialise = new Subject();
+  levelFinish = new Subject();
+  
 
   playing = false;
   selectedCorrectOptionsSet = new Set();
   game!: any;
-  questionId = 1;
+  questionId!: any;
   optionStatus!: string;
   optionStatusCount = 0;
   optionSelected!: string;
@@ -98,6 +100,8 @@ export class IdcGameService {
     this.optionFour.next(this.game.results[this.questionId - 1].options[3]);
     this.optionFive.next(this.game.results[this.questionId - 1].options[4]);
     this.optionSix.next(this.game.results[this.questionId - 1].options[5]);
+    this.optionStatus = '';
+    this.optionStatusCount = 0;
     this.getUserData();
     // this.initScoreComponentData();
     this.updateBadgesValue();
@@ -132,6 +136,7 @@ export class IdcGameService {
     this.silverValue = this.allBadgesInfo.silverPercent;
     this.goldValue = this.allBadgesInfo.goldPercent;
     console.log('bronze Badges details', this.bronzeValue);
+    console.log('document ready state',document.readyState);
   }
 
   initUserData() {
@@ -145,7 +150,9 @@ export class IdcGameService {
       this.showTutorial = data.show_tutorial;
       this.timeLeft = data.time;
       this.timeAlloted = data.time;
-      // this.levelUpdate.emit();
+      this.questionId = data.last_completed_order;
+      // this.levelInitialise.emit();
+      // this.getGameData();
     });
   }
 
@@ -163,7 +170,9 @@ export class IdcGameService {
       this.timeAlloted = data.time;
 
       if (!this.nextCall) {
-        this.levelUpdate.emit();
+        this.levelFinish.next();
+        this.levelInitialise.next();
+        console.log('level initialise called');
       }
       this.nextCall = false;
 
@@ -172,9 +181,11 @@ export class IdcGameService {
 
   updateDifficultyLevel() {
     this.setDifficultyFactor();
-    if (this.timeActualLeft > Math.floor(0.8 * this.timeLeft)) {
+    if ((this.timeActualLeft > Math.floor(0.8 * this.timeLeft) && this.timeActualLeft > this.minTime)) {
       this.timeLeft -= 20;
       this.timeAlloted = this.timeLeft;
+    } else {
+      this.timeAlloted = this.minTime;
     }
   }
 
@@ -205,7 +216,7 @@ export class IdcGameService {
     this.userData.last_completed_order = this.levelOrder;
     this.userData.points = this.score;
     this.userData.time = this.timeAlloted;
-    console.log('user data', this.userData);
+    console.log('Update user data', this.userData);
     this.saveUserData(this.userData).subscribe();
   }
 

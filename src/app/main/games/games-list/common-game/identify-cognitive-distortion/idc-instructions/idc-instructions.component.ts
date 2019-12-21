@@ -8,7 +8,7 @@ import { IdcGameService } from '../idc-game.service';
 })
 export class IdcInstructionsComponent implements OnInit {
 
-  constructor(private gameService:IdcGameService,
+  constructor(private gameService: IdcGameService,
               private elementRef: ElementRef) { }
 
   ngOnInit() {

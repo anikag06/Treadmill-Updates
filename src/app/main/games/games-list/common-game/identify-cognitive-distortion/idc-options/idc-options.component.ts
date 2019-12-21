@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import { IdcGameService } from '../idc-game.service';
 import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
 import { IdcPopupComponent } from '../idc-popup/idc-popup.component';
@@ -35,7 +35,7 @@ export class IdcOptionsComponent implements OnInit {
   situation_displayed_at!: any;
   answered_at!: any;
   time!: any;
-  userAnswerData = new ICDGameUserAnswerData(0,0,0);
+  userAnswerData = new ICDGameUserAnswerData(0, 0, 0);
 
 
 
@@ -47,7 +47,7 @@ export class IdcOptionsComponent implements OnInit {
 
   ngOnInit() {
     this.optionsCall();
-    this.gameService.levelUpdate.subscribe(() => {
+      this.gameService.levelInitialise.subscribe(() => {
       this.optionStatus = this.gameService.optionStatus;
       this.optionStatusCount = this.gameService.optionStatusCount;
 
@@ -55,7 +55,7 @@ export class IdcOptionsComponent implements OnInit {
     });
 
   }
-  
+
   openCustomDialog() {
     this.dialogBoxService.setDialogChild(IdcPopupComponent);
     const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
@@ -93,7 +93,7 @@ export class IdcOptionsComponent implements OnInit {
       this.gameService.optionStatus = "allcorrect";
       this.optionStatus = this.gameService.optionStatus;
       this.gameService. updateBadgesValue();
-      this.gameService.levelFinish.emit();
+      this.gameService.levelFinish.next();
       this.gameService.levelOrder += 1;
     }
     this.openCustomDialog();
