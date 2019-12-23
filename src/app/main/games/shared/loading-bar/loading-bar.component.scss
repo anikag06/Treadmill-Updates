@@ -1,11 +1,30 @@
 @import "styles.scss";
+@import "games-styles.scss";
+
 .loading{
     position: relative;
     max-width: 340px;
     z-index: 30;
+    color:white;
+    text-align: center;
+    justify-content: center;
+    font-size: 12px;
 }
 
 
-.loading-bar{
-	height:20px;
+.loadingBar{
+    height:20px;
+    width:200px;
+    padding: 1px;
+   
+    margin-top: -20rem;
+    margin-left: 4rem;
+    
 }
+
+
+// @media only screen and (max-width: 767px){
+//     .dialog-content{
+//         margin-top: -33rem;
+//     }
+// }

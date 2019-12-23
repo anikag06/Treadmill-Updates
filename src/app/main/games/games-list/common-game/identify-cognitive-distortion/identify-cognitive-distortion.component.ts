@@ -21,6 +21,7 @@ export class IdentifyCognitiveDistortionComponent implements OnInit {
 
 
   ngOnInit() {
+    this.gameService.initUserData();
     this.gameService.startPlayingIdc.subscribe( () => {
       this.startPlaying();
     });
@@ -32,11 +33,16 @@ export class IdentifyCognitiveDistortionComponent implements OnInit {
 
   startPlaying() {
     this.playing = true;
+    if (this.idcScoreComponent) {
+      this.resumeIDCGame();
+    }
   }
 
   replayIDCGame() {
-    this.gameService.getUserData();
     this.gameService.optionStatus = '';
+    this.gameService.optionStatusCount = 0;
+    this.gameService.getUserData();
+    // this.gameService.levelInitialise.emit();
     this.removeBlurrBackground();
   }
 

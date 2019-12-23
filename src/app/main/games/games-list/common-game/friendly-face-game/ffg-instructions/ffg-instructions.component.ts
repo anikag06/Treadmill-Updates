@@ -1,5 +1,6 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
-declare var ffgtimeCount:any;
+import { FfgHelpService } from '../ffg-help.service';
+// declare var ffgtimeCount:any;
 
 @Component({
   selector: 'app-ffg-instructions',
@@ -8,7 +9,8 @@ declare var ffgtimeCount:any;
 })
 export class FfgInstructionsComponent implements OnInit {
 
-  constructor(private elementRef: ElementRef) { }
+  constructor(private elementRef: ElementRef,
+              private ffghelpService:FfgHelpService,) { }
 
   ngOnInit() {
     
@@ -16,7 +18,10 @@ export class FfgInstructionsComponent implements OnInit {
   onStart() {
     const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });
     this.elementRef.nativeElement.dispatchEvent(domEvent);
-    ffgtimeCount();
+    // ffgtimeCount();
+    if (document.readyState !== 'complete') {
+      this.ffghelpService.showLoadingBar();
+    }
   }
 
 }

@@ -28,7 +28,7 @@
 }
 
 .score-life{
-	line-height: 1;;
+	line-height: 1;
 }
 
 #score{
@@ -59,6 +59,62 @@
 	height:17px;
 	
 }
+
+//  Firefox old/
+@-moz-keyframes blink {
+    0% {
+        opacity:1;
+    }
+    50% {
+        opacity:0;
+    }
+    100% {
+        opacity:1;
+    }
+} 
+
+@-webkit-keyframes blink {
+    0% {
+        opacity:1;
+    }
+    50% {
+        opacity:0;
+    }
+    100% {
+        opacity:1;
+    }
+}
+/* IE */
+@-ms-keyframes blink {
+    0% {
+        opacity:1;
+    }
+    50% {
+        opacity:0;
+    }
+    100% {
+        opacity:1;
+    }
+} 
+/* Opera and prob css3 final iteration */
+@keyframes blink {
+    0% {
+        opacity:1;
+    }
+    50% {
+        opacity:0;
+    }
+    100% {
+        opacity:1;
+    }
+} 
+.blink-image {
+    -moz-animation: blink normal 2s infinite ease-in-out; /* Firefox */
+    -webkit-animation: blink normal 2s infinite ease-in-out; /* Webkit */
+    -ms-animation: blink normal 2s infinite ease-in-out; /* IE */
+    animation: blink normal 2s infinite ease-in-out; /* Opera and prob css3 final iteration */
+}
+
 
 #time-sec{
 	font-size: 14px;
@@ -97,21 +153,18 @@
 }
 
 .difficulty{
+	width: 80px;
 	font-size:10px;
 	color:#000000;
 }
 
 .difficulty-bar{
-	border-radius: 2px;
-  	background: rgb(89, 92, 87);
-  	padding: 2px;
-	width: 78px;
-	::ng-deep .mat-progress-bar-fill::after {
-		background-color:#000000;
-	}
-	::ng-deep .mat-progress-bar-buffer {
-		background-color: #ffffff;
-	}
+	// border-radius: 2px;
+  	// background: rgb(89, 92, 87);
+	min-height: 3.5px;
+	 padding: 0.40px;
+	width: 80px;
+	
 }
 
 
@@ -135,12 +188,12 @@
 	
 
 	//margin-top: 10px;
-	::ng-deep .mat-progress-bar-fill::after {
-		background-color:#006400;
-	}
-	::ng-deep .mat-progress-bar-buffer {
-		background: #90EE90;
-	}
+	// ::ng-deep .mat-progress-bar-fill::after {
+	// 	background-color:#006400;
+	// }
+	// ::ng-deep .mat-progress-bar-buffer {
+	// 	background: #90EE90;
+	// }
 	
 }
 
@@ -184,32 +237,32 @@
 	
 
 
-.gold-bar{
-	border-radius: 2px;
-	width:28px;
-	::ng-deep .mat-progress-bar-fill::after {
-		background-color:#d4af37;
-	}
-}
+// .gold-bar{
+// 	border-radius: 2px;
+// 	width:28px;
+// 	::ng-deep .mat-progress-bar-fill::after {
+// 		background-color:#d4af37;
+// 	}
+// }
 
-.silver-bar{
-	border-radius: 2px;
-	width:28px;
-	::ng-deep .mat-progress-bar-fill::after {
-		background-color: #aaa9ad;
-	}
-	::ng-deep .mat-progress-bar-buffer {
-		background: #E4E8EB;
-	}
-}
+// .silver-bar{
+// 	border-radius: 2px;
+// 	width:28px;
+// 	::ng-deep .mat-progress-bar-fill::after {
+// 		background-color: #aaa9ad;
+// 	}
+// 	::ng-deep .mat-progress-bar-buffer {
+// 		background: #E4E8EB;
+// 	}
+// }
 
-.bronze-bar{
-	border-radius: 2px;
-	width:28px;
-	::ng-deep .mat-progress-bar-fill::after {
-		background-color: #cd7f32;
-	}
-}
+// .bronze-bar{
+// 	border-radius: 2px;
+// 	width:28px;
+// 	::ng-deep .mat-progress-bar-fill::after {
+// 		background-color: #cd7f32;
+// 	}
+// }
 
 
 /*.face{

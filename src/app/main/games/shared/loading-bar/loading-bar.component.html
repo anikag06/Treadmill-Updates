@@ -1,15 +1,14 @@
 <!-- For Loading bar -->
-<div class="container-fluid  loading" appLoadingBarChild>
-<div class="ml-auto  loading-bar">
-        <div class="d-flex text-center">
-          <h4>Loading</h4>
-        </div>
+<div class="container-fluid  loading">
+<div class="mx-auto loadingBar" >
+       
+        <!-- <mat-progress-bar mode="query" class="gameLoadingBar"  [value]="loadingBarValue"> -->
+        <mat-progress-bar mode="indeterminate" class="gameLoadingBar" >
 
-        <mat-progress-bar mode="determinate" class="loading-bar" [value]="loadingBarValue">
-          
-        </mat-progress-bar>{{loadingBarValue}}%
-
+        </mat-progress-bar>
+        <br>
+        Loading <span>{{loadingBarValue}}%</span>
+      </div>
      
 
-    </div>
   </div>

@@ -17,7 +17,7 @@ export class IdcMainComponent implements OnInit {
 
   ngOnInit() {
     this.gameService.getGameData();
-    this.gameService.initUserData();
+    // this.gameService.initUserData();
   }
 
  

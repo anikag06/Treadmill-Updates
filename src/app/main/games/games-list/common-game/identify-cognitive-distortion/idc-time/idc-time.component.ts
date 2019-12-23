@@ -17,7 +17,6 @@ export class IdcTimeComponent implements OnInit {
   continuePlay() {
     const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });
     this.elementRef.nativeElement.dispatchEvent(domEvent);
-    // this.gameService.levelUpdate.emit();
     this.gameService.optionStatusCount = 0;
     this.gameService.optionStatus = '';
     this.gameService.selectedCorrectOptionsSet.clear();
@@ -30,7 +29,8 @@ export class IdcTimeComponent implements OnInit {
     this.elementRef.nativeElement.dispatchEvent(domEvent);
     this.gameService.timeLeft = 20;
     this.gameService.score -= 20;
-    this.gameService.levelUpdate.emit();
+    this.gameService.levelFinish.next();
+    this.gameService.levelInitialise.next();
     this.gameService.extraTimeTaken = true;
   }
 

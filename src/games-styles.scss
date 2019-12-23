@@ -1,44 +1,82 @@
-
-.gameProgressBar{
+.gameProgressBar {
   .mat-progress-bar-fill::after {
     background-color: #C75252;
-  }	
-   .mat-progress-bar-buffer {
-        background: #FFC1C1;
-    }
-}
-  .bronzeBar {
-    .mat-progress-bar-fill::after {
-      background-color: #A36817;
-    }	
-    .mat-progress-bar-buffer {
-      background-color: #FFD59A;
-    }
-  }
-  .silverBar{
-    .mat-progress-bar-fill::after {
-      background-color: #929292;
-    }
-    .mat-progress-bar-buffer {
-      background-color: #E5E5E5;
-    }
-  }
-  .goldBar{
-    .mat-progress-bar-fill::after {
-      background-color: #D5A521;
-    }
-    .mat-progress-bar-buffer {
-      background-color: #FFE59C;
-    }
   }
 
-#inputForm {
-    .mat-input-element {
-        caret-color:  #F17878;
-      }
-       
-      .mat-form-field-ripple {
-        background-color: #FFC1C1;
-    }
-    
+  .mat-progress-bar-buffer {
+    background: #FFC1C1;
+  }
 }
+
+.bronzeBar {
+  .mat-progress-bar-fill::after {
+    background-color: #A36817;
+  }
+
+  .mat-progress-bar-buffer {
+    background-color: #FFD59A;
+  }
+}
+
+.silverBar {
+  .mat-progress-bar-fill::after {
+    background-color: #929292;
+  }
+
+  .mat-progress-bar-buffer {
+    background-color: #E5E5E5;
+  }
+}
+
+.goldBar {
+  .mat-progress-bar-fill::after {
+    background-color: #D5A521;
+  }
+
+  .mat-progress-bar-buffer {
+    background-color: #FFE59C;
+  }
+}
+
+.gameLoadingBar {
+  height: 10px;
+
+  .mat-progress-bar-fill::after {
+    background-color: #9B9B9B;
+  }
+
+  .mat-progress-bar-buffer {
+    background: #1E1E1E;
+  }
+}
+
+.gameDifficultyBar {
+  .mat-progress-bar-fill::after {
+    background-color: #000000;
+  }
+
+  .mat-progress-bar-buffer {
+    background-color: #ffffff;
+  }
+}
+
+#inputForm {
+  .mat-input-element {
+    caret-color: #F17878;
+  }
+
+  .mat-form-field-ripple {
+    background-color: #FFC1C1;
+  }
+}
+
+.ffgMusicBar {
+  .mat-progress-bar-fill::after {
+      background-color: #006400;
+  }
+
+  .mat-progress-bar-buffer {
+      background: #90EE90;
+  }
+ }
+

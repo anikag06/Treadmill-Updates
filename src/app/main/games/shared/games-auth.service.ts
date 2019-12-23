@@ -11,7 +11,7 @@ import {TOKEN,
   LHG_UNSOLVABLE_TASK2_LEVEL1, LHG_UNSOLVABLE_TASK2_LEVEL2,
   LHG_UNSOLVABLE_TASK3_LEVEL2, LHG_UNSOLVABLE_TASK3_LEVEL1,
   FFG_GET_FRIENDLY_IMAGES, FFG_GET_HOSTILE_IMAGES, FFG_USER_DATA,
-  FFG_PERFORMANCE, FFG_TOTAL_PERFORMANCE, FFG_MUSIC} from '@/app.constants';
+  FFG_PERFORMANCE, FFG_TOTAL_PERFORMANCE, FFG_MUSIC, LHG_USER_OVERALL_DATA} from '@/app.constants';
 import { ECGameData, ECGameFlankerTask, ECGameDiscriminationTask, ECGameUserData,
   LHGameColorReverseData, LHGameUserLevel, LHGamePerformance, FFGameUserData, FFGamePerformance, } from './game-play.model';
 
@@ -132,6 +132,14 @@ export class GamesAuthService {
     }
   }
 
+  lhGameUpdateOverallData(user_overall_data: any) {
+    return this.http.put(environment.API_ENDPOINT + LHG_USER_OVERALL_DATA, user_overall_data);
+  }
+
+  lhGameGetOverallData(): Observable<any> {
+    return this.http.get(environment.API_ENDPOINT + LHG_USER_OVERALL_DATA);
+  }
+
   // for the friendly face game
   ffGameGetFriendlyImages(pageNumber: number, pageSize: number): Observable<any> {
     return this.http.get(environment.API_ENDPOINT + FFG_GET_FRIENDLY_IMAGES + this.NEXT_PAGE
@@ -141,11 +149,14 @@ export class GamesAuthService {
     return this.http.get(environment.API_ENDPOINT + FFG_GET_HOSTILE_IMAGES + this.NEXT_PAGE
        + pageNumber + this.PAGE_SIZE + pageSize);
   }
-  ffGameGetUserInfo(pageNumber: number): Observable<any>  {
-    return this.http.get(environment.API_ENDPOINT + FFG_USER_DATA + this.NEXT_PAGE + pageNumber);
+  // ffGameGetUserInfo(pageNumber: number): Observable<any>  {
+  //   return this.http.get(environment.API_ENDPOINT + FFG_USER_DATA + this.NEXT_PAGE + pageNumber);
+  // }
+  ffGameGetUserInfo(): Observable<any>  {
+    return this.http.get(environment.API_ENDPOINT + FFG_USER_DATA);
   }
   ffGameStoreUserInfo(userData: FFGameUserData) {
-    return this.http.put(environment.API_ENDPOINT + FFG_USER_DATA + '1/', userData);
+    return this.http.put(environment.API_ENDPOINT + FFG_USER_DATA , userData);
   }
   ffGameGetPerformance(): Observable<any>  {
     return this.http.get(environment.API_ENDPOINT + FFG_PERFORMANCE);
@@ -157,8 +168,11 @@ export class GamesAuthService {
     return this.http.get(environment.API_ENDPOINT + FFG_TOTAL_PERFORMANCE + this.FFG_GRID_ROW
        + levelNumber + this.FFG_DEVICE + device_type);
   }
-  ffGameGetMusicInfo(pageNumber: number, pageSize: number): Observable<any>  {
-    return this.http.get(environment.API_ENDPOINT + FFG_MUSIC + this.NEXT_PAGE
-      + pageNumber + this.PAGE_SIZE + pageSize);
+  // ffGameGetMusicInfo(pageNumber: number, pageSize: number): Observable<any>  {
+  //   return this.http.get(environment.API_ENDPOINT + FFG_MUSIC + this.NEXT_PAGE
+  //     + pageNumber + this.PAGE_SIZE + pageSize);
+  // }
+  ffGameGetMusicInfo(): Observable<any>  {
+    return this.http.get(environment.API_ENDPOINT + FFG_MUSIC );
   }
 }

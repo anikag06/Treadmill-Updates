@@ -6,22 +6,19 @@ import { Component, OnInit} from '@angular/core';
   templateUrl: './loading-bar.component.html',
   styleUrls: ['./loading-bar.component.scss']
 })
-export class LoadingBarComponent implements OnInit{
+export class LoadingBarComponent implements OnInit {
 
   loadingBarValue!: number;
   loadingInterval: any;
-  // childComponent!: any;
-  // viewContainerRef!: any;
 
   constructor( ) { }
 
-  
   ngOnInit() {
     this.loadingInterval = setInterval(() => {
       this.updateLoadingbar();
     }, 100);
   }
-  
+
   updateLoadingbar() {
     console.log(document.readyState);
     if (document.readyState === 'loading') { this.loadingBarValue = 50; }
@@ -29,6 +26,10 @@ export class LoadingBarComponent implements OnInit{
     else if (document.readyState === 'complete') {
     this.loadingBarValue = 100;
       clearInterval(this.loadingInterval);
+      setTimeout(() => {
+        const domEvent = new CustomEvent('removeloadingBarEvent', { bubbles: true });
+        window.dispatchEvent(domEvent);
+      }, 1000);
     }
   }
 }

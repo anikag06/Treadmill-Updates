@@ -160,7 +160,7 @@ import { FfgNolifeComponent } from './games/games-list/common-game/friendly-face
 import { LoadingBarComponent } from './games/shared/loading-bar/loading-bar.component';
 import { LoadingBarDirective } from './games/shared/loading-bar.directive';
 import { LoadingBarService } from './games/shared/loading-bar.service';
-import { LoadingBarChildDirective } from './games/shared/loading-bar/loading-bar-child.directive';
+import { LhgGreatComponent } from './games/games-list/common-game/learned-helplessness-game/lhg-great/lhg-great.component';
 
 @NgModule({
   declarations: [
@@ -264,7 +264,7 @@ import { LoadingBarChildDirective } from './games/shared/loading-bar/loading-bar
     FfgNolifeComponent,
     LoadingBarComponent,
     LoadingBarDirective,
-    LoadingBarChildDirective
+    LhgGreatComponent
     
   ],
   imports: [

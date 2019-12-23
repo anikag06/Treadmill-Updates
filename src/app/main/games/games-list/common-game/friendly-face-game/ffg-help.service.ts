@@ -6,4 +6,10 @@ import { Injectable } from '@angular/core';
 export class FfgHelpService {
 
   constructor() { }
+
+  showLoadingBar() {
+    console.log('Show loading bar');
+    const domEvent = new CustomEvent('loadingBarEvent', { bubbles: true });
+    window.dispatchEvent(domEvent);
+  }
 }
