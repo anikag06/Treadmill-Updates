@@ -48,9 +48,9 @@ export class FriendlyFaceGameComponent implements OnInit {
   
 
   //badges info
-  BRONZE_CONSTANT = 6;
-  SILVER_CONSTANT = 10;
-  GOLD_CONSTANT = 20;
+  BRONZE_CONSTANT!: any;
+  SILVER_CONSTANT!: any;
+  GOLD_CONSTANT!: any;
   bronzeValue!: any;
   silverValue!: any;
   goldValue!: any;
@@ -59,6 +59,10 @@ export class FriendlyFaceGameComponent implements OnInit {
   goldNumber!: number;
   no_correct_responses!: number;
   allBadgesInfo: BadgesInfo = new BadgesInfo(0, 0, 0, 0, 0, 0);
+  last_completed_order: any;
+  show_tutorial: any;
+  time_per_note: any;
+  total_positive_images: any;
   
   constructor(
     private gamePlayService: GamePlayService,
@@ -105,7 +109,7 @@ export class FriendlyFaceGameComponent implements OnInit {
   }
 
   ffgUserOrderData = new FFGameUserData(0, 0);
-  ffgUserPerformane = new FFGamePerformance(1, 0, 'touch', 0, 0);
+  ffgUserPerformane = new FFGamePerformance(1, 0, 'touch', 0, 0,false);
 
   ngOnInit() {
     this.loadFileService.loadExternalScript('./assets/games/friendly-face-game/js/facegame_javascript.js')
@@ -159,34 +163,59 @@ export class FriendlyFaceGameComponent implements OnInit {
     );
   }
   ffGameGetGameData() {
-    this.gamesAuthService.ffGameGetUserInfo(1)
+    this.gamesAuthService.ffGameGetUserInfo()
       .subscribe((user_data) => {
+        console.log('user data', user_data);
         this.ffGameMusicOrder = user_data.last_order;
-        ffg_coins = user_data.coins;
-        this.ffGameMusicData(1);          // start calling the data of music from page no. 1 as data received is according to user order
+        ffg_coins = user_data.score;  // user score
+        this.BRONZE_CONSTANT = user_data.BRONZE_CONSTANT;
+        this.SILVER_CONSTANT = user_data.SILVER_CONSTANT;
+        this.GOLD_CONSTANT = user_data.GOLD_CONSTANT;
+        this.last_completed_order = user_data.last_completed_order;
+        this.show_tutorial = user_data.show_tutorial;
+        this.time_per_note = user_data.time_per_note;  // timeAlloted in miliseconds
+        this.total_positive_images = user_data.total_positive_images;
+        this.ffGameMusicData();          // start calling the data of music from page no. 1 as data received is according to user order
       });
   }
-  ffGameMusicData(pageNumber: number) {
-    this.gamesAuthService.ffGameGetMusicInfo(pageNumber, this.NO_SONGS_IN_PAGE)
+  // ffGameMusicData(pageNumber: number) {
+  //   this.gamesAuthService.ffGameGetMusicInfo(pageNumber, this.NO_SONGS_IN_PAGE)
+  //   .subscribe( (music_data) => {
+  //     console.log(music_data);
+  //     this.no_of_songs = music_data.count;
+  //     let i = 0;
+  //     while (music_data.results[i]) {
+  //       const music_notes = music_data.results[i].notes;
+  //       const music_notes_json = JSON.parse(music_notes);
+  //       ffg_music_notes_array.push(music_notes_json);
+  //       ffg_music_order_array.push(music_data.results[i].order);
+  //       ffg_music_note_rate_array.push(music_data.results[i].note_rate);
+  //       ffg_music_name_array.push(music_data.results[i].name);
+  //       i++;
+  //     }
+  //     if (music_data.next != null) {
+  //       pageNumber++;
+  //       this.ffGameMusicData(pageNumber);
+  //     } else if ( music_data.next == null) {
+  //       ffg_last_music_order = music_data.results[i - 1].order;
+  //     }
+  //   });
+  // }
+
+  @HostListener('window:FFGUpdateMusic')
+  onMusicUpdate() {
+    this.ffGameMusicData();
+  }
+  ffGameMusicData() {
+    this.gamesAuthService.ffGameGetMusicInfo()
     .subscribe( (music_data) => {
-      console.log(music_data);
-      this.no_of_songs = music_data.count;
-      let i = 0;
-      while (music_data.results[i]) {
-        const music_notes = music_data.results[i].notes;
+      console.log('music data', music_data);
+      const music_notes = music_data.notes;
         const music_notes_json = JSON.parse(music_notes);
         ffg_music_notes_array.push(music_notes_json);
-        ffg_music_order_array.push(music_data.results[i].order);
-        ffg_music_note_rate_array.push(music_data.results[i].note_rate);
-        ffg_music_name_array.push(music_data.results[i].name);
-        i++;
-      }
-      if (music_data.next != null) {
-        pageNumber++;
-        this.ffGameMusicData(pageNumber);
-      } else if ( music_data.next == null) {
-        ffg_last_music_order = music_data.results[i - 1].order;
-      }
+        ffg_music_order_array.push(music_data.order);
+        ffg_music_note_rate_array.push(music_data.note_rate);
+        ffg_music_name_array.push(music_data.name);
     });
   }
 
@@ -199,7 +228,7 @@ export class FriendlyFaceGameComponent implements OnInit {
     this.ffgUserOrderData.coins = ffg_user[0];
     if (ffg_user[1] >= (ffg_last_music_order - 1)) {
       this.ffgUserOrderData.last_order = 0;
-      this.ffGameMusicData(1);
+      this.ffGameMusicData();
     } else {
       this.ffgUserOrderData.last_order = ffg_user[1];
     }
@@ -219,7 +248,8 @@ export class FriendlyFaceGameComponent implements OnInit {
     this.ffgUserPerformane .no_of_positive_images = performanceData[2];
     this.ffgUserPerformane.total_time_taken = performanceData[3];
     this.ffgUserPerformane.device_type = performanceData[4];
-    this.no_correct_responses = performanceData[5];
+    // this.no_correct_responses = performanceData[5];
+    this.ffgUserPerformane.completed = performanceData[5];
     this.updateBadgesValue();
 
     this.gamesAuthService.ffGameStorePerformance(this.ffgUserPerformane)

@@ -118,7 +118,8 @@ export class FFGamePerformance {
         public order: number,
         public device_type: string,
         public no_of_positive_images: number,
-        public total_time_taken: number
+        public total_time_taken: number,
+        public completed: boolean,
     ) {
 
     }

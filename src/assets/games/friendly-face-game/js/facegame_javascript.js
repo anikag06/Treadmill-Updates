@@ -16,6 +16,7 @@ var ffg_no_positive_images_clicked_level3;
 var ffg_total_time_taken_level1;
 var ffg_total_time_taken_level2;
 var ffg_total_time_taken_level3;
+var game_completed = false;
 
 var ffg_music;
 var ffg_music_note_rate;
@@ -203,7 +204,7 @@ var game_over_music;
 
 var song_playing;
 
-var ffg_coins = 0;
+var ffg_coins;
 
 
 $(document).ready(function(){
@@ -304,6 +305,7 @@ $(document).ready(function(){
 
 		// $("#play-next-song").click(function(){
 			playnextsong = function() {
+				game_completed = true;
 			console.log('playnext song clicked');
 
 			// switch(checked_value){
@@ -421,7 +423,7 @@ function startGame(reload){
 	ffg_music_current_order= ffg_music_order_array[ffGameSongCounter];
 	ffg_music_name = ffg_music_name_array[ffGameSongCounter];
 	ffg_music_note_rate = ffg_music_note_rate_array[ffGameSongCounter];
-	console.log('MUSIC DETAILS', ffg_music,ffg_music_current_order, ffg_music_name, ffg_music_note_rate);
+	console.log('MUSIC DETAILS', ffg_music.length,ffg_music_current_order, ffg_music_name, ffg_music_note_rate);
 	initialize();
 	setupTimers();
 	// ffgtimeCount();
@@ -676,12 +678,19 @@ function updateStats(){
 	window.dispatchEvent(FFGPerformance);
 }
 
+function updateMusic(){
+	UpdateMusicEvent = document.createEvent('CustomEvent');
+	UpdateMusicEvent.initCustomEvent('FFGUpdateMusic');
+	window.dispatchEvent(UpdateMusicEvent);
+}
+
 function getNextSong(){
 	ffGameSongCounter++;
 	next_song_name = ffg_music_name_array[ffGameSongCounter];
 	console.log('music array',ffg_music_name_array);
 	next_song	= ffg_music_notes_array[ffGameSongCounter];
 	ffg_music_current_order	= ffg_music_order_array[ffGameSongCounter];
+	
 }
 
 function ffGameFillGrid(){
@@ -825,11 +834,12 @@ function playNote(){
 	parts = ffg_music[ffg_music_counter++];
 	synth.triggerAttackRelease(parts.note, parts.duration);
 	
-	if(ffg_music_counter==Math.floor(ffg_music.length/2)){
-		// getNextSong();
+	if(ffg_music_counter >= Math.floor(ffg_music.length/1.3)){
+		console.log('FFG PLAY NOTE');
+		updateMusic();
 		
 	}
-	// updateMusicBar();
+	updateMusicBar();
 	if(ffg_music_counter>=ffg_music.length){
 		timeActualLeft = timeBeingShown;
 		getNextSong();
@@ -896,7 +906,7 @@ function levelUp(){
 	updateDifficultyLevel();
 	// ffgtimeCount();
 	updateDifficultyBar();
-	// updateMusicBar();
+	updateMusicBar();
 	// average_speed = getAverageSpeed(level);
 	// setDurationMultiplier(average_speed);
 	// allotted_time = (ffg_music.length-time_difficulty)*average_speed;
@@ -1069,13 +1079,14 @@ function initialize(){
 	getColor(100, 0, 100);
 	setBarWidth();
 	updateDifficultyBar();
-	// updateMusicBar();
+	updateMusicBar();
 
 	positive_messages = ["Great job!", "Fantastic!", "Awesome!", "Brilliant!", "Excellent!"];	
 
 	life = 5;
 	total_life = 5;
-	score=0;
+	console.log('ffg_coins', ffg_coins);
+	score=ffg_coins;
 	timeBeingShown=75;
 	
 	
@@ -1245,6 +1256,7 @@ var updateUser = function(order){
 	window.dispatchEvent(storeFFGUserDataEvent);
 }
 getFFGUser = function() {
+	ffg_coins = score;
 	return [ffg_coins, ffg_music_current_order]
 }
 
@@ -1270,7 +1282,8 @@ getFFGClickData = function() {
 		no_positive_images_clicked,
 		total_time_taken,
 		device,
-		no_positive_images_clicked_level1 ]
+		// no_positive_images_clicked_level1,
+		game_completed ]
 }
 
 function playNextGamePopup() {
