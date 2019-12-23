@@ -11,7 +11,7 @@
             placeholder="Write down the result of the implementation ?" [(ngModel)]="resultBody"></textarea>
         </mat-form-field>
 
-        <p class="text-right" (click)="onResultSubmit()"><button type="button" mat-raised-button color="primary"
+        <p class="text-right" (click)="onResultSubmit()"><button type="button" mat-raised-button
           class="continue-btn" *ngIf="!result || result.body != resultBody">Save</button></p>
       </div>
     </div>

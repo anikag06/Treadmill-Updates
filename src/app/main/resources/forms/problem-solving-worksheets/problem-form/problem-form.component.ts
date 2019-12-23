@@ -11,7 +11,8 @@ import { ProblemSolvingWorksheetsService } from '../problem-solving-worksheets.s
 export class ProblemFormComponent implements OnInit {
 
   @Input() problem!: Problem;
-  @Output() testOut = new EventEmitter<string>();
+  // TODO: Remove if code is not breaking due to this
+  // @Output() testOut = new EventEmitter<string>();
 
   @ViewChild('problemTextArea', { static: false }) problemTextArea!: ElementRef;
   problemStatement = '';

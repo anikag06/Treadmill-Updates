@@ -1,0 +1,27 @@
+<form>
+  <mat-form-field class="full-width">
+    <textarea name="beliefStatement" class="py-0" 
+              #beliefTextArea 
+              cdkTextareaAutosize 
+              cdkAutosizeMinRows="1"
+              cdkAutosizeMaxRows="5" 
+              id="beliefStatement" 
+              placeholder="Write the belief" 
+              matInput required [autofocus]
+              [(ngModel)]="beliefStatement"></textarea>
+  </mat-form-field>
+  <p class="text-right" (click)="onBeliefSubmit()">
+    <button type="button" mat-raised-button 
+      class="continue-btn">Continue</button>
+  </p>
+  <mat-slider 
+    thumbLabel 
+    [displayWith]="formatLabel" 
+    tickInterval="1" 
+    min="1" max="10"
+    ></mat-slider>
+    <p class="text-right" (click)="onBeliefRatingSubmit()">
+        <button type="button" mat-raised-button 
+          class="continue-btn">Continue</button>
+    </p>
+</form>

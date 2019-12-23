@@ -5,6 +5,7 @@ import { ProblemSolvingWorksheetsComponent } from '@/main/resources/forms/proble
 import { FormsListComponent } from '@/main/resources/forms/forms-list/forms-list.component';
 import { TaskFormsComponent } from '@/main/resources/forms/task-forms/task-forms.component';
 import { ThoughtRecordFormComponent } from '@/main/resources/forms/thought-record-form/thought-record-form.component';
+import { ExperimentToTestBeliefFormComponent } from '@/main/resources/forms/experiment-to-test-belief-form/experiment-to-test-belief-form.component';
 import { SlidesComponent } from './slides/slides.component';
 import { ConversationsComponent } from './conversation-group/conversations/conversations.component';
 import { ConversationGroupComponent } from './conversation-group/conversation-group.component';
@@ -28,6 +29,7 @@ export const resourcesRoutes: Routes = [
       { path: 'forms/problem-solving', component: ProblemSolvingWorksheetsComponent },
       { path: 'forms/tasks', component: TaskFormsComponent },
       { path: 'forms/thought-record', component: ThoughtRecordFormComponent },
+      { path: 'forms/test-belief', component: ExperimentToTestBeliefFormComponent},
     ]
   },
   { path: 'conversations', component: ConversationsComponent },

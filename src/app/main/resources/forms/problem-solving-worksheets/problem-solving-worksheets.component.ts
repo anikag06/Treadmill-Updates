@@ -10,9 +10,9 @@ import { GeneralErrorService } from '@/main/shared/general-error.service';
 import { PROBLEM_SOLVING } from '@/app.constants';
 import { UserTask } from '@/main/resources/forms/shared/tasks/user-task.model';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
-import { take } from 'rxjs/operators';
 import { ProblemFormComponent } from './problem-form/problem-form.component';
 import { SolutionsComponent } from './solutions/solutions.component';
+import { PROBLEM_SOLVING_FORM_NAME } from '@/app.constants';
 
 @Component({
   selector: 'app-problem-solving-worksheets',
@@ -32,6 +32,7 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   type = PROBLEM_SOLVING;
   subscriptions: Subscription[] = [];
   problemEditMode = false;
+  formName = PROBLEM_SOLVING_FORM_NAME;
 
   @ViewChild('solutionForm', { static: false }) solutionForm!: NgForm;
   @ViewChild('solutionTextArea', { static: false }) solutionTextArea!: ElementRef;
@@ -148,7 +149,6 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   }
   onEditProblemClick() {
     this.onProblemClick();
-    console.log(this.problemEditMode);
     if (this.problemStatementForm) {
       this.problemStatementForm.editProblemText();
     }

@@ -1,0 +1,66 @@
+<mat-card class="container-fluid px-0 pt-0 pb-2 mb-2">
+  <div class="class row no-gutters mb-2 card card-full-width">
+    <mat-card-header class="col-12 w-100 px-0 card-header main-heading">
+      <mat-card-title class="class ml-4 my-auto d-inlnie-block">
+        {{formName}}
+      </mat-card-title>
+
+      <div class="class h-100 d-inline-block ml-auto">
+        <button class="h-100 saved-forms-btn" mat-button [matMenuTriggerFor]="experimentToTestBeliefForms">
+          <i class="material-icons more-hor-icon">
+            more_horiz
+          </i>
+        </button>
+      </div>
+
+      <mat-menu xPosition="before" yPosition="below" #experimentToTestBeliefForms="matMenu" [overlapTrigger]="false">
+        <div [ngStyle]="{'max-height':'350px'}">
+          <!-- <app-forms-sidebar [type]="type" (objectEmitter)="beliefSelected($event)" (newForm)="onAddNewForm()">
+              </app-forms-sidebar> -->
+        </div>
+      </mat-menu>
+    </mat-card-header>
+  </div>
+
+  <div class="row no-gutters form-div mx-auto">
+    <div class="col-12 col-lg">
+      <div class="row mb-2">
+        <div class="col-12">
+          <div class="card-full-width">
+            <div class="card-header">
+              Write the negative belief that you would like to test.
+              <div class="float-right d-inline-block">
+                <mat-icon class="edit_icon" (click)="onEditBeliefClick()">
+                  edit </mat-icon>
+              </div>
+            </div>
+            <div class="card-body" *ngIf="belief && !beliefEditMode" (click)="onBeliefClick()">
+              <div class="form-editable-text-underline">
+                {{belief.belief}}
+              </div>
+            </div>
+            <div class="card-body" *ngIf="belief && beliefEditMode" (click)="onBeliefClick()">
+              <app-ettbf-belief [belief]="belief"></app-ettbf-belief>
+            </div>
+            <div class="card-body" *ngIf="!belief" (click)="onBeliefClick()">
+              <app-ettbf-belief></app-ettbf-belief>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-2">
+          <div class="col">
+              <div class="card-full-width">
+                  <div class="card-header">
+                      How can you test this belief?
+                  </div>
+                  <div class="card-body">
+                      
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</mat-card>

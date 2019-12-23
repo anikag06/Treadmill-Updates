@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormsService} from '@/main/forms.service';
+import { FormsService } from '@/main/forms.service';
 
 @Component({
   selector: 'app-forms',

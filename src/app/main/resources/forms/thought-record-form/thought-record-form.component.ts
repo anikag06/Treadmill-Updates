@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { THOUGHT_RECORD } from '@/app.constants';
+import { THOUGHT_RECORD, THOUGHT_RECROD_FORM_NAME } from '@/app.constants';
 
 @Component({
   selector: 'app-thought-record-form',
@@ -11,6 +11,7 @@ export class ThoughtRecordFormComponent implements OnInit {
   type = THOUGHT_RECORD;
   situation!: string;
   situationEditMode = false;
+  formName = THOUGHT_RECROD_FORM_NAME;
 
   constructor() { }
 

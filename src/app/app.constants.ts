@@ -21,13 +21,13 @@ export const SATURDAY           = 'SATURDAY';
 export const WEEK               = [SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY];
 
 // Game names
-export const INTERPRETATION_BIAS_GAME = 'Interpretation Bias Game';
-export const EXECUTIVE_CONTROL_GAME = 'Executive Control Game';
-export const FRIENDLY_FACE_GAME = 'Friendly Face Game';
-export const LEARNED_HELPLESSNESS_GAME = 'Learned Helplessness Game';
-export const ATTRIBUTE_STYLE_GAME = 'Attribute Style Game';
-export const MENTAL_IMAGERY_GAME = 'Mental Imagery Game';
-export const IDENTIFY_COGNITIVE_DISTORTION = 'Identify Cognitive Distortion';
+export const INTERPRETATION_BIAS_GAME       = 'Interpretation Bias Game';
+export const EXECUTIVE_CONTROL_GAME         = 'Executive Control Game';
+export const FRIENDLY_FACE_GAME             = 'Friendly Face Game';
+export const LEARNED_HELPLESSNESS_GAME      = 'Learned Helplessness Game';
+export const ATTRIBUTE_STYLE_GAME           = 'Attribute Style Game';
+export const MENTAL_IMAGERY_GAME            = 'Mental Imagery Game';
+export const IDENTIFY_COGNITIVE_DISTORTION  = 'Identify Cognitive Distortion';
 
 // ibGame time
 export const IBG_LESS_TIME = 120;
@@ -47,58 +47,45 @@ export const GAD_SEVEN_SCORE    = '/api/v1/questionnaire/gad-user-scores/';
 export const MOBILEWIDTH        = 768;
 export const USER_PROFILE       = '/api/v1/user/user-profile/';
 
-// FORMS
-export const RECOMMENDED       = 'recommended';
-
-// Problem solving form
-export const PROBLEM_SOLVING = 'problem-solving';
-export const PROBLEM         = 'problem';
-
-// Task form
-export const TASK            = 'tasks';
-
-// Thought record form
-export const THOUGHT_RECORD  = 'thought-record';
-
 // Interpretation bias game(IBG) paths
 export const IBG_SENTENCE        = '/api/v1/games/interpretation-bias/sentences/';
 export const IBG_SCOREINFO       = '/api/v1/games/interpretation-bias/score/';
-export const IBG_USER_RESPONSE  = '/api/v1/games/interpretation-bias/user-responses/';
+export const IBG_USER_RESPONSE   = '/api/v1/games/interpretation-bias/user-responses/';
 
 
 // Executive Control Game(ECG) paths
-export const ECG_USER_DATA      = '/api/v1/games/executive-control/user-data/';
-export const ECG_GAME_DATA      = '/api/v1/games/executive-control/game-data/';
-export const ECG_FLANKER_TASK   = '/api/v1/games/executive-control/flanker-task/';
-export const ECG_DISCIMINATION_TASK = '/api/v1/games/executive-control/discrimination-task/';
+export const ECG_USER_DATA              = '/api/v1/games/executive-control/user-data/';
+export const ECG_GAME_DATA              = '/api/v1/games/executive-control/game-data/';
+export const ECG_FLANKER_TASK           = '/api/v1/games/executive-control/flanker-task/';
+export const ECG_DISCIMINATION_TASK     = '/api/v1/games/executive-control/discrimination-task/';
 
 // Learned Helplessness Game(LHG) paths
-export const LHG_POST_COLOR_REVERSE = '/api/v1/games/learned-helplessness/color-reverse-attempt/';
-export const LHG_GET_COLOR_REVERSE  = '/api/v1/games/learned-helplessness/color-reverse/';
+export const LHG_POST_COLOR_REVERSE         = '/api/v1/games/learned-helplessness/color-reverse-attempt/';
+export const LHG_GET_COLOR_REVERSE          = '/api/v1/games/learned-helplessness/color-reverse/';
 export const LHG_COLOR_REVERSE_USER_ATTEMPT = '/api/v1/games/learned-helplessness/color-reverse-user-attempts/';
-export const LHG_USER_LEVEL         = '/api/v1/games/learned-helplessness/user-level/';
-export const LHG_UNSOLVABLE_TASK2_LEVELS = '/api/v1/games/learned-helplessness/unsolvable-tasks2-levels/';
-export const LHG_UNSOLVABLE_TASK3_LEVELS = '/api/v1/games/learned-helplessness/unsolvable-tasks3-levels/';
-export const LHG_UNSOLVABLE_TASK1_LEVEL1 = '/api/v1/games/learned-helplessness/unsolvable-tasks1-level1/';
-export const LHG_UNSOLVABLE_TASK1_LEVEL2 = '/api/v1/games/learned-helplessness/unsolvable-tasks1-level2/';
-export const LHG_UNSOLVABLE_TASK2_LEVEL1 = '/api/v1/games/learned-helplessness/unsolvable-tasks2-level1/';
-export const LHG_UNSOLVABLE_TASK2_LEVEL2 = '/api/v1/games/learned-helplessness/unsolvable-tasks2-level2/';
-export const LHG_UNSOLVABLE_TASK3_LEVEL1 = '/api/v1/games/learned-helplessness/unsolvable-tasks3-level1/';
-export const LHG_UNSOLVABLE_TASK3_LEVEL2 = '/api/v1/games/learned-helplessness/unsolvable-tasks3-level2/';
-export const LHG_USER_OVERALL_DATA = '/api/v1/games/learned-helplessness/user-overall-data/';
+export const LHG_USER_LEVEL                 = '/api/v1/games/learned-helplessness/user-level/';
+export const LHG_UNSOLVABLE_TASK2_LEVELS    = '/api/v1/games/learned-helplessness/unsolvable-tasks2-levels/';
+export const LHG_UNSOLVABLE_TASK3_LEVELS    = '/api/v1/games/learned-helplessness/unsolvable-tasks3-levels/';
+export const LHG_UNSOLVABLE_TASK1_LEVEL1    = '/api/v1/games/learned-helplessness/unsolvable-tasks1-level1/';
+export const LHG_UNSOLVABLE_TASK1_LEVEL2    = '/api/v1/games/learned-helplessness/unsolvable-tasks1-level2/';
+export const LHG_UNSOLVABLE_TASK2_LEVEL1    = '/api/v1/games/learned-helplessness/unsolvable-tasks2-level1/';
+export const LHG_UNSOLVABLE_TASK2_LEVEL2    = '/api/v1/games/learned-helplessness/unsolvable-tasks2-level2/';
+export const LHG_UNSOLVABLE_TASK3_LEVEL1    = '/api/v1/games/learned-helplessness/unsolvable-tasks3-level1/';
+export const LHG_UNSOLVABLE_TASK3_LEVEL2    = '/api/v1/games/learned-helplessness/unsolvable-tasks3-level2/';
+export const LHG_USER_OVERALL_DATA          = '/api/v1/games/learned-helplessness/user-overall-data/';
 
 //  Friendly Face Game (FFG) paths
-export const FFG_GET_FRIENDLY_IMAGES = '/api/v1/games/face-game/images-hostile/';
-export const FFG_GET_HOSTILE_IMAGES = '/api/v1/games/face-game/images-friendly/';
-export const FFG_USER_DATA       = '/api/v1/games/face-game/user-data/';
-export const FFG_PERFORMANCE     = '/api/v1/games/face-game/performance/';
-export const FFG_TOTAL_PERFORMANCE  = '/api/v1/games/face-game/total-performance/';
-export const FFG_MUSIC           = '/api/v1/games/face-game/music/1/';
+export const FFG_GET_FRIENDLY_IMAGES    = '/api/v1/games/face-game/images-hostile/';
+export const FFG_GET_HOSTILE_IMAGES     = '/api/v1/games/face-game/images-friendly/';
+export const FFG_USER_DATA              = '/api/v1/games/face-game/user-data/';
+export const FFG_PERFORMANCE            = '/api/v1/games/face-game/performance/';
+export const FFG_TOTAL_PERFORMANCE      = '/api/v1/games/face-game/total-performance/';
+export const FFG_MUSIC                  = '/api/v1/games/face-game/music/1/';
 
 
-export const NEW_CHAT = 'new_chat';
-export const RESUME_CHAT = 'resume_chat';
-export const REPLY_CURRENT = 'reply_current';
+export const NEW_CHAT       = 'new_chat';
+export const RESUME_CHAT    = 'resume_chat';
+export const REPLY_CURRENT  = 'reply_current';
 
 export const MAX_RETRIES = 10;
 export const CHATBOT_RETRY_TIMEOUT = 5000;
@@ -165,6 +152,27 @@ export const GET_SIQ_QUESTIONS = '/api/v1/questionnaire/siq-questions-list/';
 export const USER_PHQ_DATA = '/api/v1/questionnaire/phq-user-response/';
 export const USER_GAD_DATA = '/api/v1/questionnaire/gad-user-response/';
 export const USER_SIQ_DATA = '/api/v1/questionnaire/siq-user-response/';
+
+// FORMS
+export const RECOMMENDED       = 'recommended';
+
+// Problem solving form
+export const PROBLEM_SOLVING = 'problem-solving';
+export const PROBLEM         = 'problem';
+
+// Task form
+export const TASK            = 'tasks';
+
+// Thought record form
+export const THOUGHT_RECORD  = 'thought-record';
+
+// form names
+export const PROBLEM_SOLVING_FORM_NAME           = "Cope with a problem";
+export const SET_TASK_FORM_NAME                  = "Set an acitvity";
+export const THOUGHT_RECROD_FORM_NAME            = "Record a thought";
+export const EXPERIMENT_TO_TEST_BELIEF_FORM_NAME = "Test a belief";
+export const WORRY_PRODUCTIVELY_FORM_NAME        = "Worry productively";
+export const BELIEF_CHANGE_FORM_NAME             = "Change a belief";
 
 // trial registration pages
 export const INELIGIBLE_FOR_TRIAL = '/trial/thankyou';
