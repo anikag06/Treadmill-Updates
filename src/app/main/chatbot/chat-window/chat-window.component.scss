@@ -70,7 +70,7 @@
 }
 
 .message {
-  max-width: 75%;
+  max-width: 80%;
   float: right;
   .message-text {
     padding: 10px 10px 10px 12px;
@@ -134,7 +134,7 @@
   float: right;
   width: 12%;
   background: #ffffff 0% 0% no-repeat padding-box;
-  
+
   button {
     background-color: transparent;
     max-width: 100%;
@@ -154,7 +154,7 @@
   max-width: 80%;
   margin: 0 auto;
   justify-content: center;
-  button {
+  .radio_button {
     background: #ffffff 0% 0% no-repeat padding-box;
     border: 1px solid #000000;
     border-radius: 20px;
@@ -167,15 +167,24 @@
     margin-top: 10px;
     margin-left: 5px;
     padding: 5px 16px 5px 16px;
-    min-height: 36px;
     font-weight: 500;
-    // .btn-text {
-    //   display: inline-block;
-    //   width: 90%;
-    //   margin: 0 5%;
-    //   word-wrap: break-spaces;
-      font-size: 14px;
-    // }
+    font-size: 14px;
+  }
+  .module_button {
+    box-shadow: 0px 2px 3px #00000029;
+    border-radius: 10px;
+    letter-spacing: 0;
+    color:#343434;
+    max-width: 100%;
+    outline: none;
+    margin-bottom: 5px;
+    margin-top: 10px;
+    margin-left: 5px;
+    padding: 5px 16px 5px 16px;
+    min-height: 36px;
+    width: 136px;
+    height:72px;
+    font-size: 14px;
   }
 }
 
@@ -189,7 +198,7 @@
     top: 0;
     left: 0;
     // margin: 0;
-     margin: 4% 2% 0 2%;
+    margin: 4% 2% 0 2%;
     background: #ffffff 0% 0% no-repeat padding-box;
     background-image: url("assets/chatbot/Rectangle.png");
     background-size: cover;
@@ -198,8 +207,9 @@
       flex-grow: 1;
       display: block;
     }
-    .form-div{
-       bottom: 5px;
+    .form-div {
+      bottom: 5px;
+      margin-top: 10px;
     }
   }
 }
@@ -296,3 +306,31 @@ $x3: -$leftPos + $dotSpacing;
   margin-top: 5px;
   margin-bottom: 7px;
 }
+
+// .module_buttons {
+//   min-width: 33%;
+//   margin-right: 10px;
+//   max-width: 80%;
+//   margin: 0 auto;
+//   justify-content: center;
+//   .modules{
+//     text-align: center;
+//     display: inline-flex;
+//   }
+//   module_buttons {
+//     box-shadow: 0px 2px 3px #00000029;
+//     border-radius: 10px;
+//     letter-spacing: 0;
+//     color:#343434;
+//     max-width: 100%;
+//     outline: none;
+//     margin-bottom: 5px;
+//     margin-top: 10px;
+//     margin-left: 5px;
+//     padding: 5px 16px 5px 16px;
+//     min-height: 36px;
+//     width: 136px;
+//     height:72px;
+//     font-size: 14px;
+//   }
+// }

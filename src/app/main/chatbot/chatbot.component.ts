@@ -31,11 +31,6 @@ export class ChatbotComponent implements OnInit {
 
   toggleChat() {
     this.chatwindowClosed = !this.chatwindowClosed;
-    if (!this.chatwindowClosed) {
-      const body = this.elementRef.nativeElement.querySelector('.body');
-      body.setAttribute('style','position:fixed;top:0');
-    
-    }
   }
 
   updateChatWindow(event: boolean) {

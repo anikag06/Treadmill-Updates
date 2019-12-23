@@ -23,31 +23,29 @@
           </div>
         </ng-template>
       </div>
-      <div class="buttons">
-        <button color="primary" *ngFor="let button of m.buttons" (click)="chatButtonPressed(button, m)">
+      <div class="buttons" [ngStyle]="{'display': buttonType===colored ? 'flex': 'block'}">
+        <button *ngFor="let button of m.buttons" [ngClass]="{'btn radio_button': button.type===radio, 'btn module_button':  button.type ===colored}"  
+        (click)="button.type===colored? changeModule(button,m) :chatButtonPressed(button, m)" 
+        [ngStyle]="{'background': button.type===colored ? getRandomColor() : '#ffffff'}">
           <span class="btn-text">
             {{ button.payload }}
           </span>
         </button>
-      </div>
-     
+        </div>
+
       <div *ngFor="let widget of m.widgets">
-        <div class="buttons" *ngIf="widget===moodWidget">
-          <button (click)="onMoodSelect()"> <span class="btn-text">Select your mood</span></button>
+        <div class="buttons">
+          <button (click)="onMoodSelect()" *ngIf="widget===moodWidget"> <span class="btn-text">Select your mood</span></button>
           <div *ngIf="showMoodTracker">
             <app-mood-tracker (onClose)="onMoodSelect()" (moodSubmit)="onChatSubmit($event)"
               (moodMessage)="getMoodMessage($event)"></app-mood-tracker>
           </div>
+        <button (click)="onDateTimeSelect()" *ngIf="widget===dateTimeWidget">Date Time</button>
+        <div *ngIf="showDateTime">
+          <app-data-time-picker (onClose)="onDateTimeSelect()" (dateTimeSubmit)="onChatSubmit($event)"
+          (dateTimeMessage)="getDateTimeMessage($event)"></app-data-time-picker>
         </div>
-        <div class="buttons" *ngIf="widget===dateTimeWidget">
-          <button (click)="onDateTimeSelect()">Date Time</button>
-          <div *ngIf="showDateTime">
-            <app-data-time-picker (onClose)="onDateTimeSelect()"></app-data-time-picker>
-          </div>
       </div>
-     
-
-       
       </div>
     </div>
   </div>

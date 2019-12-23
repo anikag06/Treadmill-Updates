@@ -36,6 +36,7 @@
     <button class="close-btn" (click)="closeModal()">
         <mat-icon>close</mat-icon>
     </button>
-    <button mat-raised-button class="done-btn" [disabled]="!(startEndDate[1] !== null && startEndDate[0] !== null && startEndDate.length ===2)">Done</button>
+    <button type="submit" mat-raised-button class="done-btn" [disabled]="!(startEndDate[1] !== null && startEndDate[0] !== null && startEndDate.length ===2)" 
+    (click)="dateTimeMessageSubmit()"> Done </button>
 
 </div>
