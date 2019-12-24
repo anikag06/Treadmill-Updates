@@ -1,0 +1,57 @@
+<mat-card class="container-fluid px-0 pt-0 pb-2 mb-2"> 
+    <div class="row no-gutters mb-2 card card-full-width"> 
+      <mat-card-header class="col-12 w-100 px-0 card-header main-heading">  
+        <mat-card-title class="ml-4 my-auto d-inline-block">
+          Worry Productively form
+        </mat-card-title>
+        <div class="h-100 d-inline-block ml-auto">
+            <button class="h-100 saved-forms-btn" mat-button [matMenuTriggerFor]="problemSolvingForms">
+                <i class="material-icons more-hor-icon">
+                    more_horiz
+                </i>
+            </button>
+        </div>
+        
+
+        <mat-menu xPosition="before" yPosition="below" #problemSolvingForms="matMenu" [overlapTrigger]="false">
+            <div [ngStyle]="{'max-height':'350px'}">
+                <app-forms-sidebar [type]="type" (objectEmitter)="problemSelected($event)" (newForm)="onAddNewForm()">
+                </app-forms-sidebar>
+            </div>
+        </mat-menu>
+      </mat-card-header>
+    </div>
+
+    <div class="row no-gutters form-div mx-auto">
+        <div class="col-12 col-lg">
+            <div class="row mb-2">
+                <div class="col-12">
+                  <div class="card-full-width">
+                    <div class="card-header">
+                      What are you worried about?
+                      <div class="float-right d-inline-block">
+                        <mat-icon class="edit_icon" (click)="onEditProblemClick()">
+                          edit </mat-icon>
+                      </div>
+                    </div>
+                    <div class="card-body" *ngIf="problem && !problemEditMode" (click)="onProblemClick()">
+                      <div class="form-editable-text-underline">
+                        {{problem.problem}}
+                      </div>
+                    </div>
+                    <div class="card-body" *ngIf="problem && problemEditMode" (click)="onProblemClick()">
+                      <app-worry-form [problem]="problem"></app-worry-form>
+                    </div>
+                    <div class="card-body" *ngIf="!problem" (click)="onProblemClick()" >
+                      <app-worry-form (testOut)="OnSliderClick($event)" ></app-worry-form>
+                    </div>
+                    <div class="card-body" *ngIf="buttonClick" style="color:#00000099; letter-spacing:0.14px;"  >
+                       How bothered are you by your worry? <br/>
+                       <app-slider></app-slider>
+                    </div>     
+                  </div>
+                </div> 
+            </div>   
+        </div>    
+    </div>   
+</mat-card>

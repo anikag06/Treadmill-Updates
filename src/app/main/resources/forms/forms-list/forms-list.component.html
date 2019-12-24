@@ -7,8 +7,8 @@
   <div class="row">
     <div class="col-4" *ngFor="let form of forms">
       <a [routerLink]="form.path">
-        <mat-card class="example-card">
-          <mat-card-header>
+        <mat-card class="example-card" style="margin-bottom: 20px;">
+          <mat-card-header style="max-height : 15vh; min-height : 15vh;">
             <mat-card-title>{{form.name}}</mat-card-title>
           </mat-card-header>
           <img mat-card-image [src]="form.banner" width="100" height="110">

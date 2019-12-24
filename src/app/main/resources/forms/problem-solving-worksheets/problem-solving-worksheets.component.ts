@@ -31,7 +31,7 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   showSolutionsForm = false;
   type = PROBLEM_SOLVING;
   subscriptions: Subscription[] = [];
-  problemEditMode = false;
+ public problemEditMode = false;
 
   @ViewChild('solutionForm', { static: false }) solutionForm!: NgForm;
   @ViewChild('solutionTextArea', { static: false }) solutionTextArea!: ElementRef;
