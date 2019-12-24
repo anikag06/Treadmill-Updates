@@ -24,6 +24,7 @@
 
   <div class="row no-gutters form-div mx-auto">
     <div class="col-12 col-lg">
+      
       <div class="row mb-2">
         <div class="col-12">
           <div class="card-full-width">
@@ -56,11 +57,37 @@
                       How can you test this belief?
                   </div>
                   <div class="card-body">
-                      
+                      <app-tasks></app-tasks>
                   </div>
               </div>
           </div>
       </div>
+
+      <div class="row mb-2">
+        <div class="col-12">
+          <div class="card-full-width">
+            <div class="card-header">
+              What was the outcome?
+              <div class="float-right d-inline-block">
+                <mat-icon class="edit_icon" (click)="onEditOutcomeClick()">
+                  edit </mat-icon>
+              </div>
+            </div>
+            <div class="card-body" *ngIf="outcome && !outcomeEditMode" (click)="onEditOutcomeClick()">
+              <div class="form-editable-text-underline">
+                {{outcome.outcome}}
+              </div>
+            </div>
+            <div class="card-body" *ngIf="outcome && outcomeEditMode" (click)="onEditOutcomeClick()">
+              <app-ettbf-outcome [outcome]="outcome"></app-ettbf-outcome>
+            </div>
+            <div class="card-body" *ngIf="!outcome" (click)="onEditOutcomeClick()">
+              <app-ettbf-outcome></app-ettbf-outcome>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </mat-card>

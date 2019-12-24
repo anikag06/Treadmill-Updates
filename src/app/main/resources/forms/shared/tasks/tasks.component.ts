@@ -1,13 +1,13 @@
-import {Component, OnInit, EventEmitter, Output, Input, ChangeDetectorRef, OnChanges, SimpleChanges} from '@angular/core';
-import {FormBuilder, FormArray} from '@angular/forms';
-import {ProblemSolvingWorksheetsService} from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.service';
-import {Problem} from '@/main/resources/forms/problem-solving-worksheets/problem.model';
-import {UserTask} from './user-task.model';
-import {UserSubTask} from './user-sub-task.model';
-import {HttpErrorResponse} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {TasksService} from '@/main/resources/forms/shared/tasks/tasks.service';
-import {PROBLEM, RECOMMENDED, WEEK} from '@/app.constants';
+import { Component, OnInit, EventEmitter, Output, Input, ChangeDetectorRef, OnChanges, SimpleChanges } from '@angular/core';
+import { FormBuilder, FormArray } from '@angular/forms';
+import { ProblemSolvingWorksheetsService } from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.service';
+import { Problem } from '@/main/resources/forms/problem-solving-worksheets/problem.model';
+import { UserTask } from './user-task.model';
+import { UserSubTask } from './user-sub-task.model';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { TasksService } from '@/main/resources/forms/shared/tasks/tasks.service';
+import { PROBLEM, RECOMMENDED, WEEK } from '@/app.constants';
 import * as moment from 'moment';
 
 @Component({
@@ -38,6 +38,8 @@ export class TasksComponent implements OnInit, OnChanges {
     taskCompleted: [false],
     subTasks: this.fb.array([this.createItem(), this.createItem(), this.createItem()])
   });
+
+  subtaskPlaceholders: String[] = ['Wipe kitchen counters', 'Vacuum living room floor', 'Dust bookshelves', 'Put the clothes on your chair in your closet'];
 
   constructor(
     private fb: FormBuilder,
@@ -156,7 +158,7 @@ export class TasksComponent implements OnInit, OnChanges {
           resp.data.task_days,
           resp.data.origin_name,
           resp.data.origin_object);
-          this.taskService.addTask(this.task);
+        this.taskService.addTask(this.task);
         this.tasksGroup.controls.subTasks = this.fb.array([]);
         resp.data.sub_tasks.forEach((subtask: UserSubTask) => {
           this.task.sub_tasks.push(new UserSubTask(subtask.id, subtask.name, subtask.is_completed));
@@ -223,18 +225,18 @@ export class TasksComponent implements OnInit, OnChanges {
     this.taskService.taskBehaviour
       .subscribe(
         (data: any) => {
-            if (data.length > 0 )  {
-              this.task = data.find((t: UserTask) => {
-                if (this.problem.taskorigin === t.origin_object) {
-                  return t;
-                }
-              });
-              if (this.task) {
-                this.initializeTask();
-                this.taskLoaded.emit(this.task);
+          if (data.length > 0) {
+            this.task = data.find((t: UserTask) => {
+              if (this.problem.taskorigin === t.origin_object) {
+                return t;
               }
+            });
+            if (this.task) {
+              this.initializeTask();
+              this.taskLoaded.emit(this.task);
             }
-          },
+          }
+        },
         (error: HttpErrorResponse) => {
         }
       );
@@ -304,7 +306,7 @@ export class TasksComponent implements OnInit, OnChanges {
     const time = new Date(this.time);
     let timeDateFormat: moment.Moment;
     timeDateFormat = moment(this.start_date);
-    timeDateFormat.set({'hours': time.getHours(), 'minutes': time.getMinutes()});
+    timeDateFormat.set({ 'hours': time.getHours(), 'minutes': time.getMinutes() });
     this.time = timeDateFormat.toDate();
     this.start_date = timeDateFormat.toDate();
     this.updateTask();

@@ -1,0 +1,43 @@
+<form>
+    <mat-form-field class="full-width">
+      <textarea name="outcomeStatement" class="py-0" 
+                #outcomeTextArea 
+                cdkTextareaAutosize 
+                cdkAutosizeMinRows="1"
+                cdkAutosizeMaxRows="5" 
+                id="outcomeStatement" 
+                placeholder="I was able to clean the kitchend and dust the bookshelves." 
+                matInput required [autofocus]
+                [(ngModel)]="outcomeStatement"></textarea>
+    </mat-form-field>
+    <p class="text-right" (click)="onOutcomeSubmit()">
+      <button type="button" mat-raised-button 
+        class="continue-btn">Continue</button>
+    </p>
+    <mat-form-field class="full-width">
+        <textarea name="learningStatement" class="py-0" 
+                  #learningTextArea 
+                  cdkTextareaAutosize 
+                  cdkAutosizeMinRows="1"
+                  cdkAutosizeMaxRows="5" 
+                  id="learningStatement" 
+                  placeholder="I can clean up my apartment, at least partially if I want to."
+                  matInput required [autofocus]
+                  [(ngModel)]="learningStatement"></textarea>
+      </mat-form-field>
+      <p class="text-right" (click)="onLearningSubmit()">
+        <button type="button" mat-raised-button 
+          class="continue-btn">Continue</button>
+      </p>
+    <mat-slider 
+      thumbLabel 
+      [displayWith]="formatLabel" 
+      tickInterval="1" 
+      min="1" max="10"
+      ></mat-slider>
+      <p class="text-right" (click)="onOutcomeRatingSubmit()">
+          <button type="button" mat-raised-button 
+            class="continue-btn">Continue</button>
+      </p>
+  </form>
+  

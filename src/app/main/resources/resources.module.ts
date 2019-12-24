@@ -58,6 +58,7 @@ import { ThoughtRecordFormComponent } from './forms/thought-record-form/thought-
 import { TrfSituationComponent } from './forms/thought-record-form/trf-situation/trf-situation.component';
 import { ExperimentToTestBeliefFormComponent } from './forms/experiment-to-test-belief-form/experiment-to-test-belief-form.component';
 import { EttbfBeliefComponent } from './forms/experiment-to-test-belief-form/ettbf-belief/ettbf-belief.component';
+import { EttbfOutcomeComponent } from './forms/experiment-to-test-belief-form/ettbf-outcome/ettbf-outcome.component';
 
 @NgModule({
   declarations: [
@@ -95,6 +96,7 @@ import { EttbfBeliefComponent } from './forms/experiment-to-test-belief-form/ett
     TrfSituationComponent,
     ExperimentToTestBeliefFormComponent,
     EttbfBeliefComponent,
+    EttbfOutcomeComponent,
   ],
   imports: [
     ResourcesRoutingModule,
