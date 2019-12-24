@@ -525,58 +525,67 @@ export class GamePlayService {
   playFriendlyFaceGame(device_type: string, gameDivElement: any) {
     // data is according to user order
     ffGameSongCounter = 0;
-    this.ffGameTotalPerformance(1, device_type, gameDivElement);      // as the game starts from level 1(i.e. grid row = 1)
+    // this.ffGameUserPerformance();
+    this.ffGamePlay(device_type, gameDivElement);
+    // this.ffGameTotalPerformance(1, device_type, gameDivElement);      // as the game starts from level 1(i.e. grid row = 1)
   }
 
   fillMusicBar() {
     toneNumber = toneNumber + 10;
   }
 
-  ffGameTotalPerformance(levelNumber: number, device_type: string, gameDivElement: any) {
-    this.gamesAuthService.ffGameGetTotalPerformance(levelNumber, device_type)
-      .subscribe((levelData) => {
-        console.log('leveldata', levelData);
-        if (levelNumber === 1) {
-          ffg_no_positive_images_clicked_level1 = levelData.total_positive_images;
-          ffg_total_time_taken_level1 = levelData.total_time_taken;
-          // if user plays for the first time
-          if (ffg_no_positive_images_clicked_level1 == null || ffg_total_time_taken_level1 == null) {
-            ffg_no_positive_images_clicked_level1 = 1;
-            if (device_type === 'touch') {
-              ffg_total_time_taken_level1 = 950;
-            } else {
-              ffg_total_time_taken_level1 = 1050;
-            }
-          }
-          this.ffGameTotalPerformance(2, device_type, gameDivElement);
-        } else if (levelNumber === 2) {
-          ffg_no_positive_images_clicked_level2 = levelData.total_positive_images;
-          ffg_total_time_taken_level2 = levelData.total_time_taken;
-          if (ffg_no_positive_images_clicked_level2 == null || ffg_total_time_taken_level2 == null) {
-            ffg_no_positive_images_clicked_level2 = 1;
-            if (device_type === 'touch') {
-              ffg_total_time_taken_level2 = 1050;
-            } else {
-              ffg_total_time_taken_level2 = 1150;
-            }
-          }
-          this.ffGameTotalPerformance(3, device_type, gameDivElement);
-        } else if (levelNumber === 3) {
-          ffg_no_positive_images_clicked_level3 = levelData.total_positive_images;
-          ffg_total_time_taken_level3 = levelData.total_positive_images;
-          if (ffg_no_positive_images_clicked_level3 == null || ffg_total_time_taken_level3 == null) {
-            ffg_no_positive_images_clicked_level3 = 1;
-            if (device_type === 'touch') {
-              ffg_total_time_taken_level3 = 1150;
-            } else {
-              ffg_total_time_taken_level3 = 1250;
-            }
-          }
-          this.ffGamePlay(device_type, gameDivElement);
+  // ffGameUserPerformance() {
+  //   this.gamesAuthService.ffGameGetPerformance()
+  //   .subscribe( (user_performance) => {
+  //     console.log('user performance', user_performance);
+  //   });
+  // }
 
-        }
-      });
-  }
+  // ffGameTotalPerformance(levelNumber: number, device_type: string, gameDivElement: any) {
+  //   this.gamesAuthService.ffGameGetTotalPerformance(levelNumber, device_type)
+  //     .subscribe((levelData) => {
+  //       console.log('leveldata', levelData);
+  //       if (levelNumber === 1) {
+  //         ffg_no_positive_images_clicked_level1 = levelData.total_positive_images;
+  //         ffg_total_time_taken_level1 = levelData.total_time_taken;
+  //         // if user plays for the first time
+  //         if (ffg_no_positive_images_clicked_level1 == null || ffg_total_time_taken_level1 == null) {
+  //           ffg_no_positive_images_clicked_level1 = 1;
+  //           if (device_type === 'touch') {
+  //             ffg_total_time_taken_level1 = 950;
+  //           } else {
+  //             ffg_total_time_taken_level1 = 1050;
+  //           }
+  //         }
+  //         this.ffGameTotalPerformance(2, device_type, gameDivElement);
+  //       } else if (levelNumber === 2) {
+  //         ffg_no_positive_images_clicked_level2 = levelData.total_positive_images;
+  //         ffg_total_time_taken_level2 = levelData.total_time_taken;
+  //         if (ffg_no_positive_images_clicked_level2 == null || ffg_total_time_taken_level2 == null) {
+  //           ffg_no_positive_images_clicked_level2 = 1;
+  //           if (device_type === 'touch') {
+  //             ffg_total_time_taken_level2 = 1050;
+  //           } else {
+  //             ffg_total_time_taken_level2 = 1150;
+  //           }
+  //         }
+  //         this.ffGameTotalPerformance(3, device_type, gameDivElement);
+  //       } else if (levelNumber === 3) {
+  //         ffg_no_positive_images_clicked_level3 = levelData.total_positive_images;
+  //         ffg_total_time_taken_level3 = levelData.total_positive_images;
+  //         if (ffg_no_positive_images_clicked_level3 == null || ffg_total_time_taken_level3 == null) {
+  //           ffg_no_positive_images_clicked_level3 = 1;
+  //           if (device_type === 'touch') {
+  //             ffg_total_time_taken_level3 = 1150;
+  //           } else {
+  //             ffg_total_time_taken_level3 = 1250;
+  //           }
+  //         }
+  //         this.ffGamePlay(device_type, gameDivElement);
+
+  //       }
+  //     });
+  // }
   ffGamePlay(device_type: string, gameDivElement: any) {
     if (this.ffg_show_tutorial) {
       const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
@@ -606,6 +615,7 @@ export class GamePlayService {
   }
   helpFFGGame() {
     this.dialogBoxService.setDialogChild(FfgInstructionsComponent);
+    this.resumeFaceGame();
   }
   
 
