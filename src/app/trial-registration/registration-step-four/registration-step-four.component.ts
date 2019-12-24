@@ -5,6 +5,8 @@ import { RegistrationDataService } from '../shared/registration-data.service';
 import { TrialAuthService } from '../shared/trial-auth.service';
 import { Router } from '@angular/router';
 import { REGISTRATION_PATH, INELIGIBLE_FOR_TRIAL } from '@/app.constants';
+import { FcmService } from '@/shared/fcm.service';
+import { A2HSService } from '@/shared/a2hs.service';
 
 @Component({
   selector: 'app-registration-step-four',
@@ -32,7 +34,7 @@ export class RegistrationStepFourComponent implements OnInit {
     0, 0, null , null, null, null, null, null, null, null, null,
 );
 
-  participationID!: number;
+  participationID!: any;
   starting_time!: any;
   completion_time!: any;
 
@@ -41,6 +43,8 @@ export class RegistrationStepFourComponent implements OnInit {
     private dataService: RegistrationDataService,
     private authService: TrialAuthService,
     private router: Router,
+    private fcmService: FcmService,
+    private a2hsService: A2HSService,
   ) { }
 
   ngOnInit() {
@@ -48,6 +52,7 @@ export class RegistrationStepFourComponent implements OnInit {
     const dateTime = dateNow.toJSON();
     this.starting_time = dateTime.replace('Z', '').replace('T', ' ');
     console.log(this.starting_time);
+    this.a2hsService.setDeferredPrompt();
   }
 
   step4DataSubmit() {
@@ -67,9 +72,15 @@ export class RegistrationStepFourComponent implements OnInit {
       this.stepFourFormData.information_leakage_consent = this.consentForm.value.informationLeakage;
       this.stepFourFormData.agreement_consent = this.consentForm.value.agreementInfo;
       this.stepFourFormData.add_to_home_screen_consent = this.consentForm.value.homeScreenInfo;
-      this.stepFourFormData.notifications_consent = this.consentForm.value.notificationsInfo;
       this.stepFourFormData.started_at = this.starting_time;
       this.stepFourFormData.completed_at = this.completion_time;
+
+      if (!this.fcmService.permit) {
+        this.consentForm.value.notificationsInfo = 0;
+        console.log(this.fcmService.permit);
+      }
+      this.stepFourFormData.notifications_consent = this.consentForm.value.notificationsInfo;
+
 
       this.dataService.saveConsentData(this.stepFourFormData)
         .subscribe( (res_data: any) => {
@@ -83,11 +94,31 @@ export class RegistrationStepFourComponent implements OnInit {
             const navigation_step = REGISTRATION_PATH + '/step-' + stepNumber;
             this.router.navigate([navigation_step]);
           } else {
-            this.authService.activateChild(true);
+            // this.authService.activateChild(true);
             this.router.navigate([INELIGIBLE_FOR_TRIAL]);
           }
 
         });
+    }
+  }
+
+  notificationsPermission() {
+    if (this.consentForm.value.notificationsInfo) {
+      console.log('accepted');
+      this.fcmService.participantRequestPermission(this.participationID);
+      if (!this.fcmService.permit) {
+        this.consentForm.value.notificationsInfo = 0;
+        console.log(this.fcmService.permit);
+      }
+    }
+  }
+
+  homeScreenPermission() {
+    if (this.consentForm.value.homeScreenInfo) {
+      console.log('accepted');
+      // this.a2hsService.getDeferredPrompt().subscribe((deferredPrompt) => {
+      //     deferredPrompt.prompt();
+      //   });
     }
   }
 }

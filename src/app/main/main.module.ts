@@ -76,7 +76,7 @@ import {ProblemSolvingWorksheetsService} from '@/main/resources/forms/problem-so
 import { PlotScoreGraphService } from './score/plot-score-graph.service';
 import {AngularFireMessagingModule} from '@angular/fire/messaging';
 import {AngularFireModule} from '@angular/fire';
-import {FcmService} from '@/main/fcm.service';
+// import {FcmService} from '@/shared/fcm.service';
 import {environment} from '../../environments/environment';
 import { AttributeStyleGameComponent } from './games/games-list/common-game/attribute-style-game/attribute-style-game.component';
 import { PassDataService } from './resources/conversation-group/passdata.service';
@@ -161,6 +161,7 @@ import { LoadingBarComponent } from './games/shared/loading-bar/loading-bar.comp
 import { LoadingBarDirective } from './games/shared/loading-bar.directive';
 import { LoadingBarService } from './games/shared/loading-bar.service';
 import { LhgGreatComponent } from './games/games-list/common-game/learned-helplessness-game/lhg-great/lhg-great.component';
+import { StepsDataService } from './resources/shared/steps-data.service';
 
 @NgModule({
   declarations: [
@@ -315,7 +316,6 @@ import { LhgGreatComponent } from './games/games-list/common-game/learned-helple
     SlideService,
     // DataService,
     PlotScoreGraphService,
-    FcmService,
     MICurrentStateService,
     FlowService,
     PassDataService,
@@ -329,6 +329,7 @@ import { LhgGreatComponent } from './games/games-list/common-game/learned-helple
     UserProfileService,
     IdcGameService,
     LoadingBarService,
+    StepsDataService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [

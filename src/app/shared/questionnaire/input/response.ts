@@ -9,9 +9,3 @@ export class QuesUserResponseArray {
   }
 }
 
-export class SIQResponseData {
-  constructor(
-    public term_id: number,
-    public user_response: Array<QuestionnaireResponse>,
-  ) {  }
-}

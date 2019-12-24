@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { QuesUserResponseArray, SIQResponseData } from './input/response';
+import { QuesUserResponseArray } from './input/response';
 import { environment } from 'environments/environment';
 import { USER_PHQ_DATA, USER_GAD_DATA, USER_SIQ_DATA } from '@/app.constants';
 
@@ -9,6 +9,8 @@ import { USER_PHQ_DATA, USER_GAD_DATA, USER_SIQ_DATA } from '@/app.constants';
 export class QuizService {
 
   questionnaireActive = false;
+  questinnaire_name!: string;
+
 
   constructor(
     private http: HttpClient,
@@ -20,10 +22,7 @@ export class QuizService {
 
   post_phq(response: QuesUserResponseArray) {
     console.log('phq data sent', response);
-    this.http.post( environment.API_ENDPOINT + USER_PHQ_DATA, response)
-      .subscribe(responseData => {
-        console.log(responseData);
-      });
+    return this.http.post( environment.API_ENDPOINT + USER_PHQ_DATA, response);
   }
 
   post_gad(response: QuesUserResponseArray) {
@@ -31,7 +30,7 @@ export class QuizService {
     return this.http.post(environment.API_ENDPOINT + USER_GAD_DATA, response);
   }
 
-  post_siq(response: SIQResponseData) {
+  post_siq(response: QuesUserResponseArray) {
     console.log('post siq', response);
     return this.http.post(environment.API_ENDPOINT + USER_SIQ_DATA, response);
   }

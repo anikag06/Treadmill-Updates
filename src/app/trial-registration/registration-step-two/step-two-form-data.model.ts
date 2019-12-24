@@ -19,6 +19,7 @@ export class RegistrationStepTwoForm {
         public plans_to_complete: number,
         public started_at: any,
         public completed_at: any,
+        public time_zone: any,
         public source_of_information_other: any,
     ) {
 

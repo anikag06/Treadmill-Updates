@@ -28,7 +28,7 @@ const routes: Routes = [
   },
   {
     path: 'trial-registration/step-4', component: RegistrationStepFourComponent,
-    canActivate: [TrialActivateGuard]
+    // canActivate: [TrialActivateGuard]
   },
   {
     path: 'trial-registration/step-5', component: StepLastPageComponent,

@@ -11,7 +11,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 
   // check if users are eligible for the study or not,
   // get this value from db
-  eligible = true;
+  eligible!: boolean;
 
   constructor(
     private auth: AuthService,
@@ -24,11 +24,13 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     console.log('can activate', this.auth.isLoggedIn(), this.eligible);
     this.eligible = !this.auth.isUserExcluded;
-    if (!this.auth.isLoggedIn()) {
-      this.router.navigate([DEFAULT_PATH]);
-      return false;
-    } else if (!this.eligible) {
+    if (!this.auth.isLoggedIn() && !this.eligible) {
+      console.log('navigate to:', INELIGIBLE_FOR_TRIAL);
       this.router.navigate([INELIGIBLE_FOR_TRIAL]);
+      return false;
+    } else if (!this.auth.isLoggedIn() && this.eligible) {
+      console.log('navigate to:', DEFAULT_PATH);
+      this.router.navigate([DEFAULT_PATH]);
       return false;
     }
     return true;
@@ -39,11 +41,13 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     console.log('can activate child', this.auth.isLoggedIn(), this.eligible);
     this.eligible = !this.auth.isUserExcluded;
-    if (!this.auth.isLoggedIn()) {
-      this.router.navigate([DEFAULT_PATH]);
-      return false;
-    } else if (!this.eligible) {
+    if (!this.auth.isLoggedIn() && !this.eligible) {
+      console.log('navigate to:', INELIGIBLE_FOR_TRIAL);
       this.router.navigate([INELIGIBLE_FOR_TRIAL]);
+      return false;
+    } else if (!this.auth.isLoggedIn() && this.eligible) {
+      console.log('navigate to:', DEFAULT_PATH);
+      this.router.navigate([DEFAULT_PATH]);
       return false;
     }
     return true;
