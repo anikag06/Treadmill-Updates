@@ -6,6 +6,8 @@ import { INELIGIBLE_FOR_TRIAL, REGISTRATION_PATH } from '@/app.constants';
 import { FormGroup, FormControl } from '@angular/forms';
 import { RegistrationDataService } from '../shared/registration-data.service';
 import { QuizService } from '@/shared/questionnaire/questionnaire.service';
+import { A2HSService } from '@/shared/a2hs.service';
+import { FcmService } from '@/shared/fcm.service';
 
 @Component({
   selector: 'app-registration-step-one',
@@ -36,10 +38,12 @@ export class RegistrationStepOneComponent implements OnInit {
     private authService: TrialAuthService,
     private showContactUsService: MatContactUsDialogService,
     private registrationDataService: RegistrationDataService,
-    private questionnaireService: QuizService
+    private questionnaireService: QuizService,
+    private a2hsService: A2HSService,
   ) { }
 
   ngOnInit() {
+    // this.a2hsService.setDeferredPrompt();
     const smallDevice = window.matchMedia('(max-width: 767px)').matches;
     if (smallDevice) {
       this.showRegistrationContent = true;

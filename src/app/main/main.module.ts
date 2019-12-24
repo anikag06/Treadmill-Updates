@@ -76,7 +76,7 @@ import {ProblemSolvingWorksheetsService} from '@/main/resources/forms/problem-so
 import { PlotScoreGraphService } from './score/plot-score-graph.service';
 import {AngularFireMessagingModule} from '@angular/fire/messaging';
 import {AngularFireModule} from '@angular/fire';
-import {FcmService} from '@/main/fcm.service';
+// import {FcmService} from '@/shared/fcm.service';
 import {environment} from '../../environments/environment';
 import { AttributeStyleGameComponent } from './games/games-list/common-game/attribute-style-game/attribute-style-game.component';
 import { PassDataService } from './resources/conversation-group/passdata.service';
@@ -232,8 +232,7 @@ import { StepsDataService } from './resources/shared/steps-data.service';
     IdentifyCognitiveDistortionComponent,
     IdcInstructionsComponent,
     IdcInfoComponent,
-    IdcWinComponent
-    
+    IdcWinComponent,
   ],
   imports: [
     CommonModule,
@@ -282,7 +281,6 @@ import { StepsDataService } from './resources/shared/steps-data.service';
     SlideService,
     // DataService,
     PlotScoreGraphService,
-    FcmService,
     MICurrentStateService,
     FlowService,
     PassDataService,

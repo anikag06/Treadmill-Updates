@@ -4,6 +4,10 @@ import { Overlay } from '@angular/cdk/overlay';
 import { LoggerService } from '@/shared/logger.service';
 import { DialogSize } from '@/shared/dialog-size.service';
 import { MatContactUsDialogComponent } from '@/shared/mat-contact-us-dialog/mat-contact-us-dialog.component';
+import { environment } from 'environments/environment';
+import { CONTACT_US_DATA } from '@/app.constants';
+import { HttpClient } from '@angular/common/http';
+import { ContactUsData } from './contact-us-data.interface';
 
 @Injectable()
 export class MatContactUsDialogService {
@@ -15,11 +19,11 @@ export class MatContactUsDialogService {
         private overlay: Overlay,
         private logger: LoggerService,
         private dialogSize: DialogSize,
-    ){}
+    ) {}
 
     contactUsClicked() {
         const scrollStrategy = this.overlay.scrollStrategies.reposition();
-        
+
         const contactUsDialogRef = this.dialog.open(MatContactUsDialogComponent, {
             data: {emailid: this.emailid, message: this.message},
             minWidth: this.dialogSize.width,
@@ -34,4 +38,5 @@ export class MatContactUsDialogService {
             this.logger.log('Contact Us data: ', result);
         });
     }
+
 }

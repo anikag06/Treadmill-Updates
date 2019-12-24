@@ -1,4 +1,4 @@
 export interface ContactUsData {
-  emailid: string;
+  email: string;
   message: string;
 }

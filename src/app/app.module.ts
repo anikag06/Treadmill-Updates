@@ -25,6 +25,10 @@ import { LocalStorageService } from './shared/localstorage.service';
 import { MatSignupDialogComponent} from './pre-login/signup/mat-signup-dialog/mat-signup-dialog.component';
 import { SignupComponent } from '@/pre-login/signup/signup.component';
 import { QuestionnaireModule } from './questionnaire.module';
+import { ContactUsDataService } from './shared/mat-contact-us-dialog/contact-us-data.service';
+import { FcmService } from './shared/fcm.service';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
 declare let $: any;
 
 @NgModule({
@@ -51,6 +55,8 @@ declare let $: any;
     ServiceWorkerModule.register('sw-master.js', { enabled: environment.production }),
     AppRoutingModule,
     QuestionnaireModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireMessagingModule,
   ],
   providers: [
     {provide: LOCALE_ID, useValue: 'en-US'},
@@ -61,6 +67,8 @@ declare let $: any;
     AuthService,
     LoggerService,
     LocalStorageService,
+    ContactUsDataService,
+    FcmService,
     ],
   bootstrap: [AppComponent],
   entryComponents: [MatLoginDialogComponent, MatContactUsDialogComponent, ErrorDialogComponent, MatSignupDialogComponent],

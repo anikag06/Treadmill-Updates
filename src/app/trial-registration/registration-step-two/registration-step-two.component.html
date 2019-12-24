@@ -70,8 +70,23 @@
                             <mat-label>Country</mat-label>
                             <mat-select #Country required
                                 formControlName = "country">
-                                <mat-option [value]="1">India</mat-option>
-                                <mat-option [value]="2">Nepal</mat-option>
+                                <mat-option *ngFor="let count of country_data"
+                                    [value]="count.id">
+                                    {{count.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-12">
+                        <mat-form-field class="w-100">
+                            <mat-label>Time zone</mat-label>
+                            <mat-select #timezone required 
+                                [(ngModel)]="placeholder_tz"
+                                formControlName = "timezone">
+                                <mat-option *ngFor="let time of timezone_data"
+                                    [value]="time">
+                                    {{time}}
+                                </mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
@@ -84,8 +99,14 @@
                         <!-- for true using 1 and for false 0 -->
                         <mat-radio-group formControlName="knowEnglish" 
                             required color="primary">
-                            <mat-radio-button [value]="1" class="mr-5">Yes</mat-radio-button>
-                            <mat-radio-button [value]="0" class="ml-4">No</mat-radio-button>
+                            <mat-radio-button [value]="1" class="mr-5"
+                                #btn1 [ngClass]="{ 'checkedBtn': btn1.checked , 'unChecked': !btn1.checked}">
+                                Yes
+                            </mat-radio-button>
+                            <mat-radio-button [value]="0" class="ml-4"
+                                #btn2 [ngClass]="{ 'checkedBtn': btn2.checked , 'unChecked': !btn2.checked}">
+                                No
+                            </mat-radio-button>
                         </mat-radio-group>
                     </div>
                     <div class="col-12 my-2">
@@ -95,8 +116,14 @@
                         </label>
                         <mat-radio-group formControlName="internetEnabled" 
                             required color="primary">
-                            <mat-radio-button [value]="1" class="mr-5">Yes</mat-radio-button>
-                            <mat-radio-button [value]="0" class="ml-4">No</mat-radio-button>
+                            <mat-radio-button [value]="1" class="mr-5"
+                                #btn3 [ngClass]="{ 'checkedBtn': btn3.checked , 'unChecked': !btn3.checked}">
+                                Yes
+                            </mat-radio-button>
+                            <mat-radio-button [value]="0" class="ml-4"
+                                #btn4 [ngClass]="{ 'checkedBtn': btn4.checked , 'unChecked': !btn4.checked}">
+                                No
+                            </mat-radio-button>
                         </mat-radio-group>
                     </div>
                     <div class="col-12 my-2">
@@ -106,13 +133,25 @@
                         </label>
                         <mat-radio-group required
                             formControlName="psychiatricHelp" color="primary">
-                            <mat-radio-button value="counselling">Counselling</mat-radio-button>
+                            <mat-radio-button value="counselling"
+                                #btn5 [ngClass]="{ 'checkedBtn': btn5.checked , 'unChecked': !btn5.checked}">
+                                Counselling
+                            </mat-radio-button>
                             <br>
-                            <mat-radio-button value="medication">Medicines</mat-radio-button>
+                            <mat-radio-button value="medication"
+                                #btn6 [ngClass]="{ 'checkedBtn': btn6.checked , 'unChecked': !btn6.checked}">
+                                Medicines
+                            </mat-radio-button>
                             <br>
-                            <mat-radio-button value="both">Both</mat-radio-button>
+                            <mat-radio-button value="both"
+                                #btn6 [ngClass]="{ 'checkedBtn': btn6.checked , 'unChecked': !btn6.checked}">
+                                Both
+                            </mat-radio-button>
                             <br>
-                            <mat-radio-button value="none">None</mat-radio-button>
+                            <mat-radio-button value="none"
+                                #btn7 [ngClass]="{ 'checkedBtn': btn7.checked , 'unChecked': !btn7.checked}"    >
+                                None
+                            </mat-radio-button>
                         </mat-radio-group>
                     </div>
                     <div class="col-12 my-2">
@@ -122,8 +161,14 @@
                         </label>
                         <mat-radio-group required
                             formControlName="haveDisorder" color="primary">
-                            <mat-radio-button [value]="1" class="mr-5">Yes</mat-radio-button>
-                            <mat-radio-button [value]="0" class="ml-4">No</mat-radio-button>
+                            <mat-radio-button [value]="1" class="mr-5"
+                                #btn8 [ngClass]="{ 'checkedBtn': btn8.checked , 'unChecked': !btn8.checked}">
+                                Yes
+                            </mat-radio-button>
+                            <mat-radio-button [value]="0" class="ml-4"
+                                #btn9 [ngClass]="{ 'checkedBtn': btn9.checked , 'unChecked': !btn9.checked}">
+                                No
+                            </mat-radio-button>
                         </mat-radio-group>
                     </div>
                     <div class="col-12 my-2">
@@ -134,8 +179,14 @@
                         </label>
                         <mat-radio-group formControlName="traumaticEvent" 
                             required color="primary">
-                            <mat-radio-button [value]="1" class="mr-5">Yes</mat-radio-button>
-                            <mat-radio-button [value]="0" class="ml-4">No</mat-radio-button>
+                            <mat-radio-button [value]="1" class="mr-5"
+                                #btn10 [ngClass]="{ 'checkedBtn': btn10.checked , 'unChecked': !btn10.checked}">
+                                Yes
+                            </mat-radio-button>
+                            <mat-radio-button [value]="0" class="ml-4"
+                                #btn11 [ngClass]="{ 'checkedBtn': btn11.checked , 'unChecked': !btn11.checked}">
+                                No
+                            </mat-radio-button>
                         </mat-radio-group>
                     </div>
 
@@ -174,8 +225,14 @@
                         </label>
                         <mat-radio-group formControlName="helpReason"
                             required color="primary">
-                            <mat-radio-button [value]="1">I need help for myself</mat-radio-button>
-                            <mat-radio-button [value]="0">I don't need any help for myself</mat-radio-button>
+                            <mat-radio-button [value]="1"
+                                #btn12 [ngClass]="{ 'checkedBtn': btn12.checked , 'unChecked': !btn12.checked}">
+                                I need help for myself
+                            </mat-radio-button>
+                            <mat-radio-button [value]="0"
+                                #btn13 [ngClass]="{ 'checkedBtn': btn13.checked , 'unChecked': !btn13.checked}">
+                                I don't need any help for myself
+                            </mat-radio-button>
                         </mat-radio-group>
                     </div>
 
@@ -185,9 +242,16 @@
                         </label>
                         <mat-radio-group formControlName="programPlan" 
                             required color="primary">
-                            <mat-radio-button [value]="0" >I plan to complete the program</mat-radio-button>
-                            <mat-radio-button [value]="1" >I may complete the program if I like it</mat-radio-button>
-                            <mat-radio-button [value]="2">
+                            <mat-radio-button [value]="0" 
+                                #btn14 [ngClass]="{ 'checkedBtn': btn14.checked , 'unChecked': !btn14.checked}">
+                                I plan to complete the program
+                            </mat-radio-button>
+                            <mat-radio-button [value]="1" 
+                                #btn15 [ngClass]="{ 'checkedBtn': btn15.checked , 'unChecked': !btn15.checked}">
+                                I may complete the program if I like it
+                            </mat-radio-button>
+                            <mat-radio-button [value]="2"
+                                #btn16 [ngClass]="{ 'checkedBtn': btn16.checked , 'unChecked': !btn16.checked}">
                                 <span class="wrap-mat-radio-label"> 
                                     I want to check out the program and do not plan to complete it  
                                 </span> 
@@ -197,6 +261,7 @@
                 </div>  
                 
                 <div class="col-12 my-3 px-0">
+                    <mat-error *ngIf="showErrorMsg"> Select all the fields. </mat-error>
                     <button type="button" class="w-100 form-elements" mat-raised-button 
                         color="primary" (click)="stepDataSubmit()"> Submit </button>
                 </div>

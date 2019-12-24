@@ -162,7 +162,12 @@ export const USER_SIQ_DATA = '/api/v1/questionnaire/siq-user-response/';
 export const INELIGIBLE_FOR_TRIAL = '/trial/thankyou';
 export const REGISTRATION_PATH = '/trial/trial-registration';
 
-// trial registration step one
+// country list api
+export const GET_COUNTRY_LIST = '/api/v1/user/get-country-list/';
+// time zone
+export const GET_TIMEZONE = '/api/v1/trial-iitk/get-timezone-list/';
+
+// trial registration steps
 export const EMAIL_REGISTRATION = '/api/v1/trial-iitk/register-participant/';
 export const REGISTRATION_STEP_TWO = '/api/v1/trial-iitk/participant-information/';
 export const REGISTRATION_PHQ_RESPONSE = '/api/v1/questionnaire/trial-phq-user-response/';
@@ -170,4 +175,6 @@ export const REGISTRATION_GAD_RESPONSE = '/api/v1/questionnaire/trial-gad-user-r
 export const REGISTRATION_SIQ_RESPONSE = '/api/v1/questionnaire/trial-siq-user-response/';
 export const REGISTRATION_CONSENT = '/api/v1/trial-iitk/participant-consent/';
 
+// contact us dialog data api
+export const CONTACT_US_DATA = '/api/v1/trial-iitk/save-contact-us/';
 

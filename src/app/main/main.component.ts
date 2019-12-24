@@ -8,7 +8,7 @@ import { Router, NavigationStart } from '@angular/router';
 import { DEFAULT_PATH } from '@/app.constants';
 import { MatDrawer } from '@angular/material';
 import { DataService } from '@/shared/questionnaire/data.service';
-import {FcmService} from '@/main/fcm.service';
+import {FcmService} from '@/shared/fcm.service';
 import { QuizService } from '@/shared/questionnaire/questionnaire.service';
 import { FlowService } from './flow/flow.service';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';

@@ -8,6 +8,7 @@ export class A2HSService {
     private deferredPrompt!: any;
 
     setDeferredPrompt() {
+        console.log('set prompt');
         window.addEventListener('beforeinstallprompt', (e) => {
             // Prevent Chrome 67 and earlier from automatically showing the prompt
             e.preventDefault();
@@ -28,6 +29,7 @@ export class A2HSService {
     }
 
     getDeferredPrompt(): Observable<any> {
+        console.log(this.deferredPrompt);
         return of(this.deferredPrompt);
     }
 }

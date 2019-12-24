@@ -3,27 +3,37 @@
     <h3 mat-dialog-title>Contact us</h3>
     <mat-icon (click)="onCloseClick()" class="cursor-hand">close</mat-icon>
   </div>
-  <label for="emailid">Email id</label>
-  <mat-form-field>
-    <input matInput name="emailid" [formControl]="emailid" required>
-    <mat-error>Please enter a valid email id</mat-error>
-  </mat-form-field>
-  <br>
-  <label for="message">Message</label>
-  <mat-form-field>
-    <textarea 
-      matInput 
-      name="message"
-      [formControl]="message"
-      matTextareaAutosize 
-      matAutosizeMinRows=10
-      matAutosizeMaxRows=500
-      required>
-    </textarea>
-    <mat-error>Please write something here.</mat-error>
-  </mat-form-field>
+  <form [formGroup]="contactUsForm">
+    <label for="emailid">Email id</label>
+    <mat-form-field class="form-field">
+      <mat-hint> This email id will be visible to us </mat-hint>
+      <input matInput name="emailid"
+        formControlName="emailid" required>
+      <mat-error>Please enter a valid email id</mat-error>
+    </mat-form-field>
+    <br>
+    <label for="message">Message</label>
+    <mat-form-field>
+      <textarea maxlength="1024"
+        [(ngModel)]="messageText"
+        formControlName="message"
+        matInput 
+        name="message"
+        matTextareaAutosize 
+        matAutosizeMinRows=10
+        matAutosizeMaxRows=500
+        required>
+      </textarea>
+      <mat-hint> Characters remaining: {{1024 - messageText.length }} </mat-hint>
+      <mat-error>Please write something here.</mat-error>
+    </mat-form-field>
+  </form>
+  
 </div>
 <br>
 <div mat-dialog-actions align="center">
-  <button mat-raised-button [mat-dialog-close]="data" class="dialog-btn">Submit</button>
+  <button mat-raised-button
+    class="dialog-btn" (click)="submitData()">
+    Submit
+  </button>
 </div>
