@@ -3,5 +3,6 @@ export class Button{
         public type: string,
         public payload: string,
         public value: string,
+        public image_url: string,
     ){}
 }

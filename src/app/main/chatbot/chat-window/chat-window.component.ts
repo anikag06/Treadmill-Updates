@@ -1,27 +1,12 @@
-import {
-  AfterViewChecked,
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  Output,
-  ViewChild,
-} from '@angular/core';
+import { CHATBOT_RETRY_TIMEOUT, MAX_RETRIES, NEW_CHAT, REPLY_CURRENT, RESUME_CHAT } from '@/app.constants';
 import { Chat } from '@/main/chatbot/chat.model';
-import { environment } from '../../../../environments/environment';
-import { NEW_CHAT, REPLY_CURRENT, RESUME_CHAT, MAX_RETRIES, CHATBOT_RETRY_TIMEOUT } from '@/app.constants';
 import { ChatbotService } from '@/main/chatbot/chatbot.service';
 import { AuthService } from '@/shared/auth/auth.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { MoodTrackerComponent } from '@/main/shared/mood-tracker/mood-tracker.component';
-import { async } from '@angular/core/testing';
-import { Button } from './button.model';
+import { environment } from '../../../../environments/environment';
 
 
 
@@ -52,13 +37,14 @@ declare var twemoji: any;
     ])
   ]
 })
-export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterViewChecked {
+export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
 
   constructor(
     private chatbotService: ChatbotService,
     private authService: AuthService,
     private changRef: ChangeDetectorRef,
     public dialog: MatDialog,
+    private elementRef: ElementRef,
   ) { }
 
   messages: Chat[] = [];
@@ -75,9 +61,9 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
   showDateTime = false;
   moodWidget: string = "mood_widget";
   dateTimeWidget = "date_time_widget";
-  buttonsModule: string[] = ['', '', '', '', '', '', '', '', '', '']
+  buttonsModule: string[] = ['', '', '', '', '', '', '', '', '', ''];
   radio = "radio";
-  colored = "colored";
+  clickAble = "clickable_image";
   buttonType: string = 'radio';
 
 
@@ -106,16 +92,15 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
                 this.messages.push(
                   new Chat(twemoji.parse(message.text), message.is_sender_user, [], message.mid, message.sid, message.datetime, false, message.widgets));
                 this.scrollToBottom();
+                console.log(message);
               });
           }
+         
         },
         (error: HttpErrorResponse) => {
           console.log(error);
         }
       );
-  }
-  ngAfterViewChecked() {
-    this.scrollToBottom();
   }
 
   onChatSubmit() {
@@ -195,6 +180,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
         // });
         console.log(data);
         this.start(data.message);
+
       }
     };
 
@@ -213,7 +199,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
 
   pushChat(m: any) {
     const item = new Chat(twemoji.parse(m.text || ''), false, m.buttons, m.mid, m.sid, m.datetime, false, m.widgets);
-    if(m.buttons && m.buttons.length > 0){
+    if (m.buttons && m.buttons.length > 0) {
       this.buttonType = m.buttons[0].type;
     }
     this.messages.push(item);
@@ -247,15 +233,15 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
 
   showWritingAndPushChat(m: any) {
     const item = new Chat('', false, [], '', '', new Date(), true, []);
+    this.ti.nativeElement.disabled = true;
     this.messages.push(item);
     setTimeout(this.scrollToBottom);
-    this.ti.nativeElement.disabled = true;
     setTimeout(() => {
       this.messages.pop();
       this.pushChat(m);
       setTimeout(this.scrollToBottom);
-      this.ti.nativeElement.disabled = false;
     }, this.halfwayDelay + Math.floor((Math.random() * 800) + 1));
+
   }
 
   closeChat() {
@@ -289,9 +275,9 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
   }
 
   async start(messages: any) {
-    
+
     await this.loadEachMessage(messages);
-    
+
 
   }
 
@@ -302,7 +288,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
 
       if ((m[index].text && m[index].text.length > 0) || (m[index].buttons && m[index].buttons.length > 0)) {
         setTimeout(() => {
-          
+
           this.showWritingAndPushChat(m[index]);
         }, delayPerMessage);
 
@@ -317,23 +303,5 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges, AfterV
   onDateTimeSelect() {
     this.showDateTime = !this.showDateTime;
   }
-
-
-  getRandomColor() {
-    var letters = 'ABCDEF'.split('');
-    var color = '#';
-    for (var i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * letters.length)];
-    }
-    return color;
-  }
-
-  changeModule(button: Button, chat: Chat) {
-    chat.buttons = [];
-    this.messages.push(new Chat(button['payload'], true, [], '', '', new Date(), false, []));
-    this.webSocket.send(JSON.stringify({ 'action': RESUME_CHAT, 'module_name': button['payload'] }));
-    this.scrollToBottom();
-  }
-
 
 }
