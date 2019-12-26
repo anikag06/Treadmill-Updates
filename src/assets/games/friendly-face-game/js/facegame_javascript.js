@@ -27,6 +27,7 @@ var ffg_music_order_first;
 var ffg_last_music_order;
 var ffg_music_name;
 var ffgmusicBarValue;
+var ffg_current_song_order;
 
 var ffg_music_notes_array = [];
 var ffg_music_note_rate_array = [];
@@ -212,6 +213,10 @@ var song_playing;
 
 var ffg_coins;
 
+var ffg_perf_update = true;
+var firstLevel = true; //for setting the same level on reload
+var call_next_music = true; // to keep a check of calling next  music
+
 
 $(document).ready(function(){
 	
@@ -384,9 +389,11 @@ ffGPauseGame = function(){
 	
 	}
 	game_paused=true;
+	first_click=false;
 }
 
 ffGResumeGame=function(){
+	console.log('resume called');
 	if(game_paused){
 		console.log("game_paused: "+game_paused);
 		//clearInterval(time_bar_interval);
@@ -397,7 +404,8 @@ ffGResumeGame=function(){
 			timeBeingShown = 20;
 			score -= 20;
 			document.getElementById("score-num").innerHTML=score;
-			ffgExtraTime = false;}
+			ffgExtraTime = false;
+		}
 		ffgtimeCount();
 	
 	}
@@ -412,7 +420,9 @@ ffGRestartGame = function() {
 	// initialize();
 	//score=0;
 	//timeBeingShown=75;
-	console.log('SHOW LEVEL', level);
+	
+	gameRestart = true;
+	
 	setTimeout(function(){
 		$("#game-over-div").addClass('d-none');
 		startGame();
@@ -618,6 +628,7 @@ function penalty(){
 	//drawLife(life);
 	if(life <= 0) {
 		ffg_no_life = true;
+		clearInterval(timer);
 		showGameOver();
 		
 	};
@@ -651,7 +662,6 @@ function ffgtimeCount(){
 	timer = setInterval(function(){
 		timeBeingShown--;
 		document.getElementById("time-sec").innerHTML=timeBeingShown+"s";
-		console.log('interval', timer,timeBeingShown);
 		if (timeBeingShown==0){
 			clearInterval(timer);
 			showGameOver();
@@ -700,6 +710,8 @@ function getNextSong(){
 	console.log('music array',ffg_music_name_array);
 	next_song	= ffg_music_notes_array[ffGameSongCounter];
 	ffg_music_current_order	= ffg_music_order_array[ffGameSongCounter];
+	ffg_perf_update = true;
+	call_next_music = true;
 	
 }
 
@@ -842,9 +854,10 @@ function playNote(){
 	parts = ffg_music[ffg_music_counter++];
 	synth.triggerAttackRelease(parts.note, parts.duration);
 	
-	if(ffg_music_counter >= Math.floor(ffg_music.length/1.3)){
+	if(call_next_music  && ffg_music_counter >= Math.floor(ffg_music.length/1.3)){
 		console.log('FFG PLAY NOTE');
 		updateMusic();
+		call_next_music = false
 		
 	}
 	// ffg_total_images_clicked = no_positive_images_clicked_level1;
@@ -906,7 +919,10 @@ function songOver(){
 function levelUp(){
 	console.log('level up called', level);
 	// take to next level;
+	
 	level++;
+	
+	
 	if (level > 3) level=1;
 	no_images = no_images+2;
 	if (level == 1) no_images=2;
@@ -1010,11 +1026,12 @@ function initialize(){
 
 	store_friendly_images_coordinates_1 = new Array(); // for storing friendly image coordinates in canvas 1
 	store_hostile_images_coordinates_1 = new Array(); // for storing hostile image coordinates in canvas 1
-
 	no_positive = initial_no_positive;
 	no_images = initial_no_images;
-
 	level = 1; // this determines the size of the matrix to be shown. 2x2 for level 1; 3x3 for level 2; 4x3 for level 3.
+	
+	gameRestart = false;
+
 	stage = 1; // this determines the progress within a stage. the higher this gets the more difficult that particular level gets.
 	stage_counter = 0; // this checks how many iterations have been completed in a single stage and changes the stage counter once the number of iterations are completed
 	no_col = 2; // no. of columns in the matrix.
@@ -1103,8 +1120,8 @@ function initialize(){
 	console.log('ffg_coins', ffg_coins,ffg_time_per_note);
 	score=ffg_coins;
 	// timeBeingShown=75;
-	// timeBeingShown = Math.floor((ffg_time_per_note * ffg_music.length)/1000);
-	timeBeingShown = Math.floor((1000 * ffg_music.length)/1000);
+	timeBeingShown = Math.floor((ffg_time_per_note * ffg_music.length)/1000);
+	// timeBeingShown = Math.floor((1000 * ffg_music.length)/1000);
 
 	timeAlloted = timeBeingShown;
 	

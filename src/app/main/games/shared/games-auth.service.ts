@@ -164,6 +164,9 @@ export class GamesAuthService {
   ffGameStorePerformance(performanceData: FFGamePerformance) {
     return this.http.put(environment.API_ENDPOINT + FFG_PERFORMANCE, performanceData);
   }
+  ffGameUpdatePerformance(performanceData: FFGamePerformance) {
+    return this.http.post(environment.API_ENDPOINT + FFG_PERFORMANCE, performanceData);
+  }
   // ffGameGetTotalPerformance(levelNumber: number, device_type: string): Observable<any>  {
   //   return this.http.get(environment.API_ENDPOINT + FFG_TOTAL_PERFORMANCE + this.FFG_GRID_ROW
   //      + levelNumber + this.FFG_DEVICE + device_type);

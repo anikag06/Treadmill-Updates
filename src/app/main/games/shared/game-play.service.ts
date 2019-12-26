@@ -587,10 +587,11 @@ export class GamePlayService {
   //     });
   // }
   ffGamePlay(device_type: string, gameDivElement: any) {
+    console.log('Show Tutorial', this.ffg_show_tutorial);
     if (this.ffg_show_tutorial) {
       const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
       gameDivElement.nativeElement.dispatchEvent(domEvent);
-      this.helpFFGGame();
+      this.dialogBoxService.setDialogChild(FfgInstructionsComponent);
     } else {
       this.ffghelpService.showLoadingBar();
     }
