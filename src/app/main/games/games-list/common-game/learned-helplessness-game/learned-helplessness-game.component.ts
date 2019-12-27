@@ -94,10 +94,19 @@ export class LearnedHelplessnessGameComponent implements OnInit {
   }
 
   onGoToHome() {
+    const showSummary = document.getElementById('explanation-row');
+    if (showSummary) {
+      showSummary.classList.add('d-none');
+    }
     this.router.navigate(['/']);
+
   }
 
   onPlayAgain() {
+    const showSummary = document.getElementById('explanation-row');
+    if (showSummary) {
+      showSummary.classList.add('d-none');
+    }
     this.gamePlayService.playLearnedHelplessnessGame();
   }
 
