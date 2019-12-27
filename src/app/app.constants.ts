@@ -78,9 +78,9 @@ export const LHG_USER_OVERALL_DATA          = '/api/v1/games/learned-helplessnes
 export const FFG_GET_FRIENDLY_IMAGES    = '/api/v1/games/face-game/images-hostile/';
 export const FFG_GET_HOSTILE_IMAGES     = '/api/v1/games/face-game/images-friendly/';
 export const FFG_USER_DATA              = '/api/v1/games/face-game/user-data/';
-export const FFG_PERFORMANCE            = '/api/v1/games/face-game/performance/';
+export const FFG_PERFORMANCE            = '/api/v1/games/face-game/user-performance/';
 export const FFG_TOTAL_PERFORMANCE      = '/api/v1/games/face-game/total-performance/';
-export const FFG_MUSIC                  = '/api/v1/games/face-game/music/1/';
+export const FFG_MUSIC                  = '/api/v1/games/face-game/music/';
 
 
 export const NEW_CHAT       = 'new_chat';
