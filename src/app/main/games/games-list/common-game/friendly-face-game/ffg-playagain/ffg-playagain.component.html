@@ -1,20 +1,23 @@
-<div class="container text-center" style="margin: 20px;">
-    <img class="playAgainImg" src="../../../../../../../assets/games/friendly-face-game/images/Play again.png">
+<div class="container text-center my-3" >
+        <div class="text-center">
+                <img class="playAgainImg" src="../../../../../../../assets/games/friendly-face-game/images/0 sec.png">
   
   
-    <p class="big-font  text-center"><b>Play Again</b></p>
-    <p class="smallest-font text-center" style="color:#798184;">You could not complete song in time</p>
+                <p class="big-font  "><b>Time's up!</b></p>
+                <p class="smallest-font " style="color:#798184;">You could not complete song in time</p>
 
-    <div class="row small-font" (click)=continuePlay()>
+        </div>
+   
+
+    <div class="row small-font" style="margin: 10px;" (click)=continuePlay()>
             <img style="width:32px;height:32px;" 
                  class="replayImg mr-3" 
                  src="../../../../../../../assets/games/friendly-face-game/images/replay.png"
                  >
             <p class="mt-1">Replay</p>
 
-    </div>
-    <br> 
-    <div class="row small-font" (click)=addTimePlay()>
+    </div> 
+    <div class="row small-font" style="margin: 10px;" (click)=addTimePlay()>
             <img style="width:32px;height:32px;" 
                  class="timerImg mr-3" 
                  src="../../../../../../../assets/games/friendly-face-game/images/time.png"

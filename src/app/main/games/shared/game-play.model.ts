@@ -106,8 +106,9 @@ export class LHGameOverallData {
 
 export class FFGameUserData {
     constructor(
-        public coins: number,
-        public last_order: number
+        public score: number,
+        public last_completed_order: number,
+        public time_per_note: number,
     ) {
 
     }

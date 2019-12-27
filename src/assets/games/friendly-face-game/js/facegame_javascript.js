@@ -17,6 +17,8 @@ var ffg_total_time_taken_level1;
 var ffg_total_time_taken_level2;
 var ffg_total_time_taken_level3;
 var game_completed = false;
+// var ffg_total_images_clicked;
+var ffg_total_positive_images;
 
 var ffg_music;
 var ffg_music_note_rate;
@@ -25,6 +27,7 @@ var ffg_music_order_first;
 var ffg_last_music_order;
 var ffg_music_name;
 var ffgmusicBarValue;
+var ffg_current_song_order;
 
 var ffg_music_notes_array = [];
 var ffg_music_note_rate_array = [];
@@ -129,22 +132,23 @@ var next_song_name;
 var ffg_next_song;
 
 
-var timeBeingShown=75;
+var timeBeingShown;
 var timer;
 var timeCounter;
 var timer_is_on=0;
 var ffgExtraTime = false;
 var startPlay = false;
-ffg_no_life = false
+var ffg_no_life = false
 // var average_speed;
 var time_difficulty;
 // var allotted_time;
 var time_left;
 // var updation_interval; // how frequently the time bar should be updated 
 // var time_bar_interval;
-minTime = 20;
-maxTime = 100;
-timeAlloted = timeBeingShown;
+var min_time_per_note = 1000;
+var max_time_per_note = 5000;
+var timeAlloted;
+var ffg_time_per_note;
 
 
 var game_started = false;
@@ -188,12 +192,15 @@ var TIME = {
 var HIGHEST_DURATION = 32;
 var LOWEST_DURATION = 1;
 
-var no_positive_images_clicked_level1=1;
-var no_positive_images_clicked_level2=1;
-var no_positive_images_clicked_level3=1;
-var total_time_taken_level1=4;
-var total_time_taken_level2=4;
-var total_time_taken_level3=4;
+var no_positive_images_clicked = 0;
+// var no_positive_images_clicked_level1=0;
+// var no_positive_images_clicked_level2=0;
+// var no_positive_images_clicked_level3=0;
+var total_time_taken =0;
+
+// var total_time_taken_level1=4;
+// var total_time_taken_level2=4;
+// var total_time_taken_level3=4;
 
 var device;
 
@@ -206,18 +213,22 @@ var song_playing;
 
 var ffg_coins;
 
+var ffg_perf_update = true;
+var firstLevel = true; //for setting the same level on reload
+var call_next_music = true; // to keep a check of calling next  music
+
 
 $(document).ready(function(){
 	
 
 	ffGameStart = function(device_type){
-		no_positive_images_clicked_level1 = ffg_no_positive_images_clicked_level1;
-		no_positive_images_clicked_level2 = ffg_no_positive_images_clicked_level2;
-		no_positive_images_clicked_level3 = ffg_no_positive_images_clicked_level3;
-		total_time_taken_level1 = ffg_total_time_taken_level1;
-		total_time_taken_level2 = ffg_total_time_taken_level2;
-		total_time_taken_level3 = ffg_total_time_taken_level3;
-		console.log(no_positive_images_clicked_level1, ffg_no_positive_images_clicked_level2, ffg_no_positive_images_clicked_level3);
+		// no_positive_images_clicked_level1 = ffg_no_positive_images_clicked_level1;
+		// no_positive_images_clicked_level2 = ffg_no_positive_images_clicked_level2;
+		// no_positive_images_clicked_level3 = ffg_no_positive_images_clicked_level3;
+		// total_time_taken_level1 = ffg_total_time_taken_level1;
+		// total_time_taken_level2 = ffg_total_time_taken_level2;
+		// total_time_taken_level3 = ffg_total_time_taken_level3;
+		// console.log(no_positive_images_clicked_level1, ffg_no_positive_images_clicked_level2, ffg_no_positive_images_clicked_level3);
 		device = device_type;
 		// if(device_type === "click"){
 		// 	device = "click";
@@ -245,11 +256,12 @@ $(document).ready(function(){
 		// $(".game-cover").hide();
 		$(".game-cover").addClass("d-none");
 
-
+		console.log('CHECK whether first click', first_click);
 		
 		startGame();
 	
 		canvas1.addEventListener("mousedown", function(e){
+			console.log('whether first click', first_click);
 			if(first_click){
 				enableElements();
 				showPauseButton();
@@ -377,9 +389,11 @@ ffGPauseGame = function(){
 	
 	}
 	game_paused=true;
+	first_click=false;
 }
 
 ffGResumeGame=function(){
+	console.log('resume called');
 	if(game_paused){
 		console.log("game_paused: "+game_paused);
 		//clearInterval(time_bar_interval);
@@ -390,7 +404,8 @@ ffGResumeGame=function(){
 			timeBeingShown = 20;
 			score -= 20;
 			document.getElementById("score-num").innerHTML=score;
-			ffgExtraTime = false;}
+			ffgExtraTime = false;
+		}
 		ffgtimeCount();
 	
 	}
@@ -405,6 +420,8 @@ ffGRestartGame = function() {
 	// initialize();
 	//score=0;
 	//timeBeingShown=75;
+	
+	gameRestart = true;
 	
 	setTimeout(function(){
 		$("#game-over-div").addClass('d-none');
@@ -529,7 +546,6 @@ function clickedFriendlyImage(canvas, event) {
 	var hostile_image_coordinates = store_hostile_images_coordinates_1;
 	for(var i=0; i<friendly_image_coordinates.length; i++){
 		if(friendly_image_coordinates[i].contains(x, y)){
-			console.log('FRIENDLY IMAGE CLICKED');
 			friendly_image_coordinates[i].clicked = true;
 			no_friendly_image_clicked++;
 			score += 5;
@@ -545,21 +561,23 @@ function clickedFriendlyImage(canvas, event) {
 			if(!game_paused){
 				// giving more weightage to the most recent click
 				time_taken = time-last_click;
-				
-				if (level == 1){
-					no_positive_images_clicked_level1++;
-					console.log('positive images level1',no_positive_images_clicked_level1);
-					total_time_taken_level1 += time_taken;
-					// average_speed = total_time_taken_level1/no_positive_images_clicked_level1;
-				}else if(level == 2){
-					no_positive_images_clicked_level2++;
-					total_time_taken_level2 += time_taken;
-					// average_speed = total_time_taken_level2/no_positive_images_clicked_level2;
-				}else if(level == 3){
-					no_positive_images_clicked_level3++;
-					total_time_taken_level3 += time_taken;
-					// average_speed = total_time_taken_level3/no_positive_images_clicked_level3;
-				}
+				ffg_total_positive_images ++;
+				no_positive_images_clicked ++;
+				total_time_taken += time_taken;
+				// if (level == 1){
+				// 	no_positive_images_clicked_level1++;
+				// 	console.log('positive images level1',no_positive_images_clicked_level1);
+				// 	total_time_taken_level1 += time_taken;
+				// 	// average_speed = total_time_taken_level1/no_positive_images_clicked_level1;
+				// }else if(level == 2){
+				// 	no_positive_images_clicked_level2++;
+				// 	total_time_taken_level2 += time_taken;
+				// 	// average_speed = total_time_taken_level2/no_positive_images_clicked_level2;
+				// }else if(level == 3){
+				// 	no_positive_images_clicked_level3++;
+				// 	total_time_taken_level3 += time_taken;
+				// 	// average_speed = total_time_taken_level3/no_positive_images_clicked_level3;
+				// }
 			}else{
 				game_paused = false;
 			}
@@ -610,6 +628,7 @@ function penalty(){
 	//drawLife(life);
 	if(life <= 0) {
 		ffg_no_life = true;
+		clearInterval(timer);
 		showGameOver();
 		
 	};
@@ -641,11 +660,12 @@ function startCount(){
 
 function ffgtimeCount(){
 	timer = setInterval(function(){
-		document.getElementById("time-sec").innerHTML=timeBeingShown+"s";
 		timeBeingShown--;
+		document.getElementById("time-sec").innerHTML=timeBeingShown+"s";
 		if (timeBeingShown==0){
+			clearInterval(timer);
 			showGameOver();
-			//clearInterval();
+			
 		}
 		// console.log(timeBeingShown,game_paused);
 	}, 1000);
@@ -690,6 +710,8 @@ function getNextSong(){
 	console.log('music array',ffg_music_name_array);
 	next_song	= ffg_music_notes_array[ffGameSongCounter];
 	ffg_music_current_order	= ffg_music_order_array[ffGameSongCounter];
+	ffg_perf_update = true;
+	call_next_music = true;
 	
 }
 
@@ -734,9 +756,7 @@ function firstImageToggle(img, img_coord){
 				ctx1.strokeStyle = '#00FF00';
 			}else{
 				ctx1.strokeStyle = '#228B22';
-			}
-			console.log('blink',blink_first_image);
-			
+			}			
 				ctx1.lineWidth = 1;
 				ctx1.strokeRect(img_coord.x, img_coord.y, img_coord.w, img_coord.h);
 				toggle = !(toggle);
@@ -834,14 +854,18 @@ function playNote(){
 	parts = ffg_music[ffg_music_counter++];
 	synth.triggerAttackRelease(parts.note, parts.duration);
 	
-	if(ffg_music_counter >= Math.floor(ffg_music.length/1.3)){
+	if(call_next_music  && ffg_music_counter >= Math.floor(ffg_music.length/1.3)){
 		console.log('FFG PLAY NOTE');
 		updateMusic();
+		call_next_music = false
 		
 	}
+	// ffg_total_images_clicked = no_positive_images_clicked_level1;
 	updateMusicBar();
+	updateBadges();
 	if(ffg_music_counter>=ffg_music.length){
 		timeActualLeft = timeBeingShown;
+		clearInterval(timer);
 		getNextSong();
 		songOver();
 	}
@@ -876,11 +900,13 @@ function playMusic(stop, song){
 }
 
 function songOver(){
-	
+	// clearInterval(timer);
 	// show play next modal
 	playNextGamePopup();
-	clearInterval(timer);
-	updateUser(ffg_music_current_order, ffg_coins);
+	
+	// updateUser(ffg_music_current_order, ffg_coins);
+	updateUser();
+
 	nextStage();
 	ffg_music = next_song;
 	ffg_next_song = next_song_name;
@@ -893,7 +919,10 @@ function songOver(){
 function levelUp(){
 	console.log('level up called', level);
 	// take to next level;
+	
 	level++;
+	
+	
 	if (level > 3) level=1;
 	no_images = no_images+2;
 	if (level == 1) no_images=2;
@@ -930,9 +959,11 @@ function levelUp(){
 // }
 
 function showGameOver(){
-	clearInterval(timer);
 	if (timeBeingShown == 0){
 		showPlayagainPopup();
+		if(ffg_time_per_note<4500){
+			ffg_time_per_note += 500;
+		}
 	}else {
 		showNoLifePopup();
 	}
@@ -945,7 +976,7 @@ function showGameOver(){
 	updateStats();
 	game_paused = true;
 	game_started = false;
-	first_click = true;
+	// first_click = true;
 	
 	// showPlayButton();
 	//playMusic(false, game_over_music);
@@ -995,11 +1026,12 @@ function initialize(){
 
 	store_friendly_images_coordinates_1 = new Array(); // for storing friendly image coordinates in canvas 1
 	store_hostile_images_coordinates_1 = new Array(); // for storing hostile image coordinates in canvas 1
-
 	no_positive = initial_no_positive;
 	no_images = initial_no_images;
-
 	level = 1; // this determines the size of the matrix to be shown. 2x2 for level 1; 3x3 for level 2; 4x3 for level 3.
+	
+	gameRestart = false;
+
 	stage = 1; // this determines the progress within a stage. the higher this gets the more difficult that particular level gets.
 	stage_counter = 0; // this checks how many iterations have been completed in a single stage and changes the stage counter once the number of iterations are completed
 	no_col = 2; // no. of columns in the matrix.
@@ -1085,9 +1117,13 @@ function initialize(){
 
 	life = 5;
 	total_life = 5;
-	console.log('ffg_coins', ffg_coins);
+	console.log('ffg_coins', ffg_coins,ffg_time_per_note);
 	score=ffg_coins;
-	timeBeingShown=75;
+	// timeBeingShown=75;
+	timeBeingShown = Math.floor((ffg_time_per_note * ffg_music.length)/1000);
+	// timeBeingShown = Math.floor((1000 * ffg_music.length)/1000);
+
+	timeAlloted = timeBeingShown;
 	
 	
 	
@@ -1156,7 +1192,9 @@ function setBarWidth(){
 }
 
 function updateDifficultyBar() {
-	diffConst = ((maxTime - timeAlloted) / (maxTime - minTime));
+	// diffConst = ((maxTime - timeAlloted) / (maxTime - minTime));
+	diffConst = ((max_time_per_note - ffg_time_per_note) / (max_time_per_note - min_time_per_note));
+
 	ffgDifficultyValue = diffConst * 100;
 	diffBarEvent = document.createEvent('CustomEvent');
 	diffBarEvent.initCustomEvent('diffBarUpdate');
@@ -1165,9 +1203,14 @@ function updateDifficultyBar() {
 
 function updateDifficultyLevel() {
     if (timeActualLeft > Math.floor(0.8 * this.timeAlloted)) {
-		timeAlloted -= 20;
+		ffg_time_per_note -= 500;
+		timeBeingShown = Math.floor((ffg_time_per_note * ffg_music.length)/1000);
+	} else {
+		timeBeingShown = this.timeAlloted;
 	}
-	timeBeingShown = timeAlloted
+	console.log('time per note', ffg_time_per_note, timeAlloted);
+	
+	document.getElementById("time-sec").innerHTML=timeBeingShown+"s";
   }
 
 function startTimer(){
@@ -1249,7 +1292,7 @@ function enableElements(){
 	$("#song-name-div").addClass("fade-in");
 }
 
-var updateUser = function(order){
+var updateUser = function(){
 	var storeFFGUserDataEvent = document.createEvent('CustomEvent');
 	storeFFGUserDataEvent.initCustomEvent('FFGUserInfoUpdate');
 
@@ -1257,25 +1300,26 @@ var updateUser = function(order){
 }
 getFFGUser = function() {
 	ffg_coins = score;
-	return [ffg_coins, ffg_music_current_order]
+	console.log('time per note', ffg_time_per_note);
+	return [ffg_coins, ffg_music_current_order, ffg_time_per_note]
 }
 
 getFFGClickData = function() {
-	var no_positive_images_clicked;
-	var total_time_taken;
+	// var no_positive_images_clicked;
+	// var total_time_taken;
 	console.log(level);
-	if (level == 1){
-		no_positive_images_clicked = no_positive_images_clicked_level1 - ffg_no_positive_images_clicked_level1;
-		total_time_taken = total_time_taken_level1 - ffg_total_time_taken_level1;
-		console.log('FFGClickData',no_positive_images_clicked, no_positive_images_clicked_level1, ffg_no_positive_images_clicked_level1);
-		console.log(total_time_taken, total_time_taken_level1);
-	} else if(level ==2 ){
-		no_positive_images_clicked = no_positive_images_clicked_level2 -ffg_no_positive_images_clicked_level2;
-		total_time_taken = total_time_taken_level2 - ffg_total_time_taken_level2;
-	} else if(level ==3 ){
-		no_positive_images_clicked = no_positive_images_clicked_level3 - ffg_no_positive_images_clicked_level3;
-		total_time_taken = total_time_taken_level3 - ffg_total_time_taken_level3;
-	}
+	// if (level == 1){
+	// 	no_positive_images_clicked = no_positive_images_clicked_level1 - ffg_no_positive_images_clicked_level1;
+	// 	total_time_taken = total_time_taken_level1 - ffg_total_time_taken_level1;
+	// 	console.log('FFGClickData',no_positive_images_clicked, no_positive_images_clicked_level1, ffg_no_positive_images_clicked_level1);
+	// 	console.log(total_time_taken, total_time_taken_level1);
+	// } else if(level ==2 ){
+	// 	no_positive_images_clicked = no_positive_images_clicked_level2 -ffg_no_positive_images_clicked_level2;
+	// 	total_time_taken = total_time_taken_level2 - ffg_total_time_taken_level2;
+	// } else if(level ==3 ){
+	// 	no_positive_images_clicked = no_positive_images_clicked_level3 - ffg_no_positive_images_clicked_level3;
+	// 	total_time_taken = total_time_taken_level3 - ffg_total_time_taken_level3;
+	// }
 	return [
 		level,
 		ffg_music_current_order,
@@ -1308,4 +1352,10 @@ function showNoLifePopup() {
 	noLifeEvent = document.createEvent('CustomEvent');
 	noLifeEvent.initCustomEvent('FFGNoLife');
 	window.dispatchEvent(noLifeEvent);
+}
+
+function updateBadges() {
+	FFGUpdateBadgesEvent = document.createEvent('CustomEvent');
+	FFGUpdateBadgesEvent.initCustomEvent('FFGUpdateBadges');
+	window.dispatchEvent(FFGUpdateBadgesEvent);
 }
