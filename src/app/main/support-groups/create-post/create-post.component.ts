@@ -8,7 +8,7 @@ import { SupportGroupItem } from '../support-group-item.model';
 import { AuthService } from '@/shared/auth/auth.service';
 import { User } from '@/shared/user.model';
 import { AngularEditorConfig } from '@xw19/angular-editor';
-import { SanitizationService } from '../sanitization.service';
+import { SanitizationService } from '../../shared/sanitization.service';
 import { OverlayContainer } from '@angular/cdk/overlay';
 
 @Component({

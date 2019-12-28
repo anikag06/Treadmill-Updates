@@ -1,7 +1,7 @@
 <mat-card class="container-fluid px-0 pt-0 pb-2 mb-2">
   <div class="class row no-gutters mb-2 card card-full-width">
     <mat-card-header class="col-12 w-100 px-0 card-header main-heading">
-      <mat-card-title class="class ml-4 my-auto d-inlnie-block">
+      <mat-card-title class="class ml-4 my-auto d-inline-block">
         {{formName}}
       </mat-card-title>
 
@@ -24,7 +24,7 @@
 
   <div class="row no-gutters form-div mx-auto">
     <div class="col-12 col-lg">
-      
+
       <div class="row mb-2">
         <div class="col-12">
           <div class="card-full-width">
@@ -51,16 +51,16 @@
       </div>
 
       <div class="row mb-2">
-          <div class="col">
-              <div class="card-full-width">
-                  <div class="card-header">
-                      How can you test this belief?
-                  </div>
-                  <div class="card-body">
-                      <app-tasks></app-tasks>
-                  </div>
-              </div>
+        <div class="col">
+          <div class="card-full-width">
+            <div class="card-header">
+              How can you test if this belief is true?
+            </div>
+            <div class="card-body">
+              <app-tasks></app-tasks>
+            </div>
           </div>
+        </div>
       </div>
 
       <div class="row mb-2">
@@ -73,15 +73,15 @@
                   edit </mat-icon>
               </div>
             </div>
-            <div class="card-body" *ngIf="outcome && !outcomeEditMode" (click)="onEditOutcomeClick()">
+            <div class="card-body" *ngIf="outcome && !outcomeEditMode">
               <div class="form-editable-text-underline">
                 {{outcome.outcome}}
               </div>
             </div>
-            <div class="card-body" *ngIf="outcome && outcomeEditMode" (click)="onEditOutcomeClick()">
+            <div class="card-body" *ngIf="outcome && outcomeEditMode">
               <app-ettbf-outcome [outcome]="outcome"></app-ettbf-outcome>
             </div>
-            <div class="card-body" *ngIf="!outcome" (click)="onEditOutcomeClick()">
+            <div class="card-body" *ngIf="!outcome">
               <app-ettbf-outcome></app-ettbf-outcome>
             </div>
           </div>

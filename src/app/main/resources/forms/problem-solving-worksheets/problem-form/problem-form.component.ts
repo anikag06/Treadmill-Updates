@@ -40,10 +40,10 @@ export class ProblemFormComponent implements OnInit {
   onProblemSubmit() {
     if (this.problem && Object.entries(this.problem).length > 0) {
       this.problem.problem = this.problemStatement;
-      this.problemService.putProblem({id: this.problem.id, problem: this.problemStatement, bestsolution: null, taskorigin: 0})
+      this.problemService.putProblem({id: this.problem.id, problem: this.problemStatement, bestSolution: null, taskOrigin: 0})
         .subscribe(
           () => { },
-          (error) => {
+          (error: any) => {
             console.error(error);
           }
         );

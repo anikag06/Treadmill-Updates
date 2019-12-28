@@ -33,7 +33,7 @@ import { CreatePostComponent } from './support-groups/create-post/create-post.co
 import { NestedCommentComponent } from './support-groups/post-list/post-item/nested-comment/nested-comment.component';
 import { HttpClientModule} from '@angular/common/http';
 import { AngularEditorModule } from '@xw19/angular-editor';
-import { SanitizationService } from './support-groups/sanitization.service';
+import { SanitizationService } from './shared/sanitization.service';
 import { SafeHtmlPipe } from './support-groups/safe-html.pipe';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule, MatButtonModule, MatSidenavModule,
@@ -67,9 +67,10 @@ import { GamesBadgesService } from '@/main/games/shared/games-badges.service';
 import { LearnedHelplessnessGameComponent } from './games/games-list/common-game/learned-helplessness-game/learned-helplessness-game.component';
 import { ChatbotComponent } from './chatbot/chatbot.component';
 import { ChatWindowComponent } from './chatbot/chat-window/chat-window.component';
-import {ChatbotService} from '@/main/chatbot/chatbot.service';
-import {SlideService} from './resources/slides/slide.service';
-import {ProblemSolvingWorksheetsService} from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.service';
+import { ChatbotService } from '@/main/chatbot/chatbot.service';
+import { SlideService } from './resources/slides/slide.service';
+import { ProblemSolvingWorksheetsService } from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.service';
+import { ExperimentToTestBeliefService } from '@/main/resources/forms/experiment-to-test-belief-form/experiment-to-test-belief.service';
 
 // import { DataService } from '@/shared/questionnaire/data.service';
 // import { QuestionnaireComponent } from '@/shared/questionnaire/questionnaire.component';
@@ -266,7 +267,7 @@ import { StepsDataService } from './resources/shared/steps-data.service';
     LoadingBarComponent,
     LoadingBarDirective,
     LhgGreatComponent
-    
+
   ],
   imports: [
     CommonModule,
@@ -308,6 +309,7 @@ import { StepsDataService } from './resources/shared/steps-data.service';
     NetstedCommentService,
     TagService,
     ProblemSolvingWorksheetsService,
+    ExperimentToTestBeliefService,
     FormsService,
     TasksService,
     GamePlayService,

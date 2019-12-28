@@ -3,7 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { Problem } from '@/main/resources/forms/problem-solving-worksheets/problem.model';
 import { ProblemSolvingWorksheetsService } from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.service';
-import { PROBLEM_SOLVING } from '@/app.constants';
+import { PSF_PROBLEM_SOLVING } from '@/app.constants';
 import { TasksService } from '@/main/resources/forms/shared/tasks/tasks.service';
 import {UserTask} from '@/main/resources/forms/shared/tasks/user-task.model';
 import { ActivatedRoute } from '@angular/router';
@@ -31,7 +31,7 @@ export class FormsSidebarComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    if ( this.type === PROBLEM_SOLVING) {
+    if ( this.type === PSF_PROBLEM_SOLVING) {
       this.getProblems();
     } else {
       this.getTasks();

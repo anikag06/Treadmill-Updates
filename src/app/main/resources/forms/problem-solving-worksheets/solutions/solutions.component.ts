@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, QueryList, ViewChildren } from '@angular/core';
+
 import { Solution } from '../solution.model';
 import { ProblemSolvingWorksheetsService } from '../problem-solving-worksheets.service';
+import {SanitizationService} from '@/main/shared/sanitization.service';
 
 @Component({
   selector: 'app-solutions',
@@ -15,7 +17,8 @@ export class SolutionsComponent implements OnInit {
   @ViewChildren('lastSolution') lastSolutionDiv!: QueryList<any>;
 
   constructor(
-    private problemService: ProblemSolvingWorksheetsService
+    private problemService: ProblemSolvingWorksheetsService,
+    private sanitizer: SanitizationService,
   ) { }
 
   ngOnInit() {
@@ -38,7 +41,7 @@ export class SolutionsComponent implements OnInit {
 
   onFocusOut(event: FocusEvent, solution: Solution) {
     if ((<Element>event.target).innerHTML) {
-      solution.solution = this.problemService.changeExtraCharacters(event);
+      solution.solution = this.sanitizer.changeExtraCharacters(event);
       (<Element>event.target).innerHTML = solution.solution;
       this.solutionEdit.emit(solution);
     }

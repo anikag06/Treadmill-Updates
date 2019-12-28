@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef }
 import { ProsCons } from '../../../pros-cons.model';
 import {ProblemSolvingWorksheetsService} from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.service';
 import {GeneralErrorService} from '@/main/shared/general-error.service';
+import {SanitizationService} from '@/main/shared/sanitization.service';
 
 @Component({
   selector: 'app-procon-item',
@@ -17,7 +18,8 @@ export class ProconItemComponent implements OnInit {
 
   constructor(
     private problemService: ProblemSolvingWorksheetsService,
-    private errorService: GeneralErrorService
+    private errorService: GeneralErrorService,
+    private sanitizer: SanitizationService
   ) { }
 
   ngOnInit() {
@@ -44,7 +46,7 @@ export class ProconItemComponent implements OnInit {
   }
 
   saveProConData(event: any) {
-    const text = this.problemService.changeExtraCharacters(event);
+    const text = this.sanitizer.changeExtraCharacters(event);
     this.procon.body = text;
     this.hideRemove = true;
     this.problemService.putProsCons(this.procon.id, this.procon.body)

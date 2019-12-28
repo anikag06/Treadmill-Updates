@@ -2,7 +2,7 @@ export class Problem {
     constructor(
         public id: number,
         public problem: string,
-        public bestsolution: any,
-        public taskorigin: number,
+        public bestSolution: any,
+        public taskOrigin: number,
     ) {}
 }

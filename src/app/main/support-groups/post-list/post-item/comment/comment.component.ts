@@ -22,7 +22,7 @@ import { AuthService } from '@/shared/auth/auth.service';
 import { User } from '@/shared/user.model';
 import { AngularEditorConfig } from '@xw19/angular-editor';
 import { CommentService } from './comment.service';
-import { SanitizationService } from '@/main/support-groups/sanitization.service';
+import { SanitizationService } from '@/main/shared/sanitization.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { ThumbsService } from '@/main/support-groups/thumbs.service';

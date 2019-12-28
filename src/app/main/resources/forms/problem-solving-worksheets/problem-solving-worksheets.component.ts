@@ -7,7 +7,7 @@ import { NgForm } from '@angular/forms';
 import { AuthService } from '@/shared/auth/auth.service';
 import { User } from '@/shared/user.model';
 import { GeneralErrorService } from '@/main/shared/general-error.service';
-import { PROBLEM_SOLVING } from '@/app.constants';
+import { PSF_PROBLEM_SOLVING } from '@/app.constants';
 import { UserTask } from '@/main/resources/forms/shared/tasks/user-task.model';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { ProblemFormComponent } from './problem-form/problem-form.component';
@@ -29,7 +29,7 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   bestSolution!: Solution;
   showResult = false;
   showSolutionsForm = false;
-  type = PROBLEM_SOLVING;
+  type = PSF_PROBLEM_SOLVING;
   subscriptions: Subscription[] = [];
   problemEditMode = false;
   formName = PROBLEM_SOLVING_FORM_NAME;
@@ -78,8 +78,8 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
       .subscribe(
         (data: any) => {
           this.solutions = data.message;
-          if (this.problem.bestsolution) {
-            const bestSolution = this.solutions.find(sol => sol.id === this.problem.bestsolution.solution_id);
+          if (this.problem.bestSolution) {
+            const bestSolution = this.solutions.find(sol => sol.id === this.problem.bestSolution.solution_id);
             if (bestSolution) {
               this.bestSolution = bestSolution;
               this.prosconsSaved = true;

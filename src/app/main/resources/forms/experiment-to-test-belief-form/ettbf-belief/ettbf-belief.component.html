@@ -1,27 +1,41 @@
 <form>
   <mat-form-field class="full-width">
-    <textarea name="beliefStatement" class="py-0" 
-              #beliefTextArea 
-              cdkTextareaAutosize 
-              cdkAutosizeMinRows="1"
-              cdkAutosizeMaxRows="5" 
-              id="beliefStatement" 
-              placeholder="Write the belief" 
-              matInput required [autofocus]
-              [(ngModel)]="beliefStatement"></textarea>
+    <textarea
+      name="beliefStatement"
+      class="py-0"
+      #beliefTextArea
+      cdkTextareaAutosize
+      cdkAutosizeMinRows="1"
+      cdkAutosizeMaxRows="5"
+      id="beliefStatement"
+      placeholder="I can't do anything"
+      matInput
+      required
+      [autofocus]
+      [(ngModel)]="beliefStatement"
+    ></textarea>
   </mat-form-field>
   <p class="text-right" (click)="onBeliefSubmit()">
-    <button type="button" mat-raised-button 
-      class="continue-btn">Continue</button>
+    <button type="button" mat-raised-button class="continue-btn">
+      Continue
+    </button>
   </p>
-  <mat-slider 
-    thumbLabel 
-    [displayWith]="formatLabel" 
-    tickInterval="1" 
-    min="1" max="10"
+  <div class="slider-div">
+    <span class="rating-question-text">How strongly do you believe this?</span>
+    <br />
+    <br />
+    <mat-slider
+      thumbLabel
+      min="1"
+      max="10"
+      [(value)]="initialBeliefRating"
     ></mat-slider>
-    <p class="text-right" (click)="onBeliefRatingSubmit()">
-        <button type="button" mat-raised-button 
-          class="continue-btn">Continue</button>
-    </p>
+    <span class="rating-text rating-text-left-margin">Not at all</span>
+    <span class="rating-text float-right">Very strongly</span>
+  </div>
+  <p class="text-right" (click)="onBeliefRatingSubmit()">
+    <button type="button" mat-raised-button class="continue-btn">
+      Continue
+    </button>
+  </p>
 </form>

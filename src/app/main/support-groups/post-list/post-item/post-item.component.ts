@@ -22,7 +22,7 @@ import { User } from '@/shared/user.model';
 import { UserComment } from './comment/user-comment.model';
 import { Subscription } from 'rxjs';
 import { ApiResponse } from '@/main/shared/apiResponse.model';
-import { SanitizationService } from '../../sanitization.service';
+import { SanitizationService } from '../../../shared/sanitization.service';
 import { AngularEditorConfig } from '@xw19/angular-editor';
 import { SupportGroupsService } from '../../support-groups.service';
 import { ThumbsService } from '../../thumbs.service';
@@ -389,7 +389,7 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
         profile.badge_list_silver, profile.badge_list_gold);
     })
     this.showProfile = !this.showProfile;
- 
+
   }
 
   onClickOutside(event: Object) {

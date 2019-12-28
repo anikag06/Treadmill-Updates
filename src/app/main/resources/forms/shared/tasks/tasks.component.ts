@@ -7,7 +7,7 @@ import { UserSubTask } from './user-sub-task.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TasksService } from '@/main/resources/forms/shared/tasks/tasks.service';
-import { PROBLEM, RECOMMENDED, WEEK } from '@/app.constants';
+import { PSF_PROBLEM, RECOMMENDED, WEEK } from '@/app.constants';
 import * as moment from 'moment';
 
 @Component({
@@ -49,7 +49,7 @@ export class TasksComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    if (this.problem && this.problem.taskorigin) {
+    if (this.problem && this.problem.taskOrigin) {
       this.loadTasks();
     }
   }
@@ -57,9 +57,9 @@ export class TasksComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (this.task && (changes.task && changes.task.previousValue !== changes.task.currentValue)) {
       this.initializeTask();
-    } else if (this.problem && this.problem.taskorigin && (changes.problem.previousValue !== changes.problem.currentValue)) {
+    } else if (this.problem && this.problem.taskOrigin && (changes.problem.previousValue !== changes.problem.currentValue)) {
       this.loadTasks();
-    } else if (this.problem && !this.problem.taskorigin) {
+    } else if (this.problem && !this.problem.taskOrigin) {
       this.resetTask();
       this.taskLoaded.emit();
     }
@@ -227,7 +227,7 @@ export class TasksComponent implements OnInit, OnChanges {
         (data: any) => {
           if (data.length > 0) {
             this.task = data.find((t: UserTask) => {
-              if (this.problem.taskorigin === t.origin_object) {
+              if (this.problem.taskOrigin === t.origin_object) {
                 return t;
               }
             });
@@ -281,7 +281,7 @@ export class TasksComponent implements OnInit, OnChanges {
 
   getOriginName() {
     if (this.problem) {
-      return PROBLEM;
+      return PSF_PROBLEM;
     } else {
       return RECOMMENDED;
     }

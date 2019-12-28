@@ -1,54 +1,84 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 
-import { Belief } from '../belief.model';
+import { Belief } from './belief.model';
 import { ExperimentToTestBeliefService } from '../experiment-to-test-belief.service';
 
 @Component({
   selector: 'app-ettbf-belief',
   templateUrl: './ettbf-belief.component.html',
-  styleUrls: ['./ettbf-belief.component.scss']
+  styleUrls: ['./ettbf-belief.component.scss'],
 })
 export class EttbfBeliefComponent implements OnInit {
-
   @Input() belief!: Belief;
   @ViewChild('beliefTextArea', { static: false }) beliefTextArea!: ElementRef;
   beliefStatement = '';
+  initialBeliefRating!: number;
 
-  constructor(
-    private testBeliefService: ExperimentToTestBeliefService
-  ) { }
+  constructor(private ettbfBeliefService: ExperimentToTestBeliefService) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   editBeliefText() {
     this.beliefTextArea.nativeElement.focus();
   }
 
   onBeliefSubmit() {
-    // if (this.belief && Object.entries(this.belief).length > 0) {
-    //   this.belief.belief = this.beliefStatement;
-    //   this.testBeliefService.putBelief({id: this.belief.id, problem: this.beliefStatement})
-    //     .subscribe(
-    //       () => { },
-    //       (error) => {
-    //         console.error(error);
-    //       }
-    //     );
-    // } else if (this.beliefStatement.trim().length > 0) {
-    //   this.testBeliefService.postBelief(this.beliefStatement)
-    //     .subscribe(
-    //       () => { },
-    //       (error) => {
-    //         console.error(error);
-    //       }
-    //     );
-    // }
-    return true;
+    if (this.belief) {
+      this.belief.belief = this.beliefStatement;
+      this.ettbfBeliefService
+        .putBelief({
+          id: this.belief.id,
+          belief: this.belief.belief,
+        })
+        .subscribe(
+          (data: any) => {
+            this.belief = <Belief>data;
+          },
+          error => {
+            console.error(error);
+          },
+        );
+    } else {
+      if (this.beliefStatement.trim().length > 0) {
+        this.ettbfBeliefService.postBelief(this.beliefStatement).subscribe(
+          (data: any) => {
+            this.belief = <Belief>data;
+          },
+          error => {
+            console.error(error);
+          },
+        );
+      }
+    }
+  }
+
+  onBeliefRatingSubmit() {
+    if (this.belief) {
+      this.belief.beliefRating = this.initialBeliefRating;
+      this.ettbfBeliefService
+        .putBelief({
+          id: this.belief.id,
+          belief: this.belief.belief,
+          beliefRating: this.belief.beliefRating,
+        })
+        .subscribe(
+          (data: any) => {
+            this.belief = <Belief>data;
+          },
+          error => {
+            console.error(error);
+          },
+        );
+    }
   }
 
   onFocusOut(event: any) {
-    if (!((<Element>event.relatedTarget) && (<Element>event.relatedTarget).classList.contains('continue-btn'))) {
+    if (
+      !(
+        <Element>event.relatedTarget &&
+        (<Element>event.relatedTarget).classList.contains('continue-btn')
+      )
+    ) {
       this.onBeliefSubmit();
     }
   }
