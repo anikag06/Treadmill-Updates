@@ -1,4 +1,4 @@
-import {Component,NgModule} from '@angular/core';
+import {Component,NgModule,EventEmitter, Output} from '@angular/core';
 import 'hammerjs';
 /**
  * @title Slider with custom thumb label formatting.
@@ -10,6 +10,9 @@ import 'hammerjs';
 })
 export class SliderComponent {
   Sliderval=0;
+  public Cbutton=false;
+  @Output() testout = new EventEmitter<boolean>();
+  
   // constructor(){
   //   this.Sliderval
   // }
@@ -22,7 +25,11 @@ export class SliderComponent {
   }
   onSubmit(){
     console.log('Range Slider'+this.Sliderval);
+    this.Cbutton=true;
+    this.testout.emit(this.Cbutton);
   }
+  
+
 }
 
 

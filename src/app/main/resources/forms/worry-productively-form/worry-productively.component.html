@@ -43,15 +43,40 @@
                       <app-worry-form [problem]="problem"></app-worry-form>
                     </div>
                     <div class="card-body" *ngIf="!problem" (click)="onProblemClick()" >
-                      <app-worry-form (testOut)="OnSliderClick($event)" ></app-worry-form>
+                      <app-worry-form (testOut)="continuetoSlider($event)" ></app-worry-form>
                     </div>
                     <div class="card-body" *ngIf="buttonClick" style="color:#00000099; letter-spacing:0.14px;"  >
                        How bothered are you by your worry? <br/>
-                       <app-slider></app-slider>
+                       <app-slider (testout)="continuetoCharacteristics($event)"></app-slider>
                     </div>     
                   </div>
                 </div> 
             </div>   
+            <div class="row mb-2"  *ngIf="buttonclick">
+                <div class="col-12">
+                  <div class="card-full-width">
+                    <div class="card-header" >
+                     Tick all the useless characteristics of your worry?
+                    </div>
+                     
+                        <!-- <mat-checkbox [checked]="i.checked" (change)="OnCharacteristicCheck($event)" #Checkbox >
+                        {{i}}
+                        </mat-checkbox> -->
+                        <ng-container [formGroup]="form" *ngFor="let controlName of controlNames"><br/>
+                          <mat-checkbox  [formControlName]="controlName" >
+                            {{controlName}}
+                          </mat-checkbox>
+
+                        </ng-container>
+                        <p class="text-right"  (click)="OnCharacteristicCheck()">
+                          <button type="button" mat-raised-button color="primary"
+                            class="continue-btn"  >Continue</button>
+                        </p>
+                    
+                  </div>
+                </div>
+            </div>  
+        <app-techniques></app-techniques>
         </div>    
     </div>   
 </mat-card>

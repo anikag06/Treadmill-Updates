@@ -60,6 +60,8 @@ import { WorryProductivelyComponent } from '@/main/resources/forms/worry-product
 import { WorryFormComponent } from '@/main/resources/forms/worry-productively-form/worry-form/worry-form.component';
 import {MatSliderModule} from '@angular/material/slider';
 import { SliderComponent } from '@/main/resources/forms/worry-productively-form/Slidder/Slidder.component';
+import { TechniquesComponent } from './forms/worry-productively-form/techniques/techniques.component';
+import { EvaluateWorryComponent } from './forms/worry-productively-form/Techniques/evaluate-worry/evaluate-worry.component';
 
 
 @NgModule({
@@ -98,7 +100,9 @@ import { SliderComponent } from '@/main/resources/forms/worry-productively-form/
     TrfSituationComponent,
     WorryProductivelyComponent,
     WorryFormComponent,
-    SliderComponent
+    SliderComponent,
+    TechniquesComponent,
+    EvaluateWorryComponent
   ],
   imports: [
     ResourcesRoutingModule,

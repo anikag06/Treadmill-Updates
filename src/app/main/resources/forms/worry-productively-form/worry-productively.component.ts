@@ -12,6 +12,12 @@ import { AuthService } from '@/shared/auth/auth.service';
 import { User } from '@/shared/user.model';
 import { GeneralErrorService } from '@/main/shared/general-error.service';
 import { ProblemSolvingWorksheetsService } from '../problem-solving-worksheets/problem-solving-worksheets.service';
+// import { ReactiveFormsModule, FormsModule } from '@angular/forms'; 
+// import { MatCheckbox } from '@angular/material';
+import { FormBuilder } from '@angular/forms';
+import { map } from 'rxjs/operators';
+import { TechniquesComponent } from './techniques/techniques.component';
+
 @Component({
     selector: 'app-worryProd-form',
     templateUrl: './worry-productively.component.html',
@@ -27,18 +33,53 @@ import { ProblemSolvingWorksheetsService } from '../problem-solving-worksheets/p
     page = 1;
     problemEditMode = false;
     subscriptions: Subscription[] = [];
-    public buttonClick : boolean;
-    
+    buttonClick : boolean;
+    buttonclick : boolean;
+    form : any ;
+    controlNames :string[] ;
+    selectedNames$ = [{}] ;
+      // items = [
+      // 'Future \"what if...\"',
+      // 'Keeping seeking reassurance from others that everything is going to be okay but reassurance doesn\'t help.',
+      // 'Worried about worst going to happen',
+      // 'Guilty',
+      // 'Jealous',
+      // 'Hopeless',
+      // 'Worthless',
+      // 'Lonely',
+      // 'Frusutated',
+      // 'Embarrassed'
+      // ];
+   
     @ViewChild('autosize', { static: false }) autosize!: CdkTextareaAutosize;
     @ViewChild(WorryFormComponent, { static: false }) problemStatementForm!: WorryFormComponent;
+    // @ViewChild('Checkbox') private Checkbox: MatCheckbox;
+    
   
   constructor(
     // private http: HttpClient
     private problemService: ProblemSolvingWorksheetsService,
     private authService: AuthService,
     private errorService: GeneralErrorService,
+    private fb : FormBuilder
   ){
     this.buttonClick = false;
+    this.buttonclick = false;
+    this.form = this.fb.group({
+      'Future \"what if...\"':false,
+      'Keeping seeking reassurance from others that everything is going to be okay but reassurance doesn\'t help.':false,
+      'Worried about worst going to happen':false,
+      'Guilty':false,
+      'Jealous':false,
+      'Hopeless':false,
+      'Worthless':false,
+      'Lonely':false,
+      'Frustated':false,
+      'Embarrassed':false
+    })
+    this.controlNames = Object.keys(this.form.controls).map(_=>_)
+    this.selectedNames$ = this.form.valueChanges.pipe(map(v => Object.keys(v).filter(k => v[k])));
+    console.log(this.selectedNames$);
   }
   
   ngOnInit(){
@@ -97,8 +138,19 @@ import { ProblemSolvingWorksheetsService } from '../problem-solving-worksheets/p
       // this.OnSliderClick();
     }
     
-    OnSliderClick(selected :any){
-      console.log(this.problemEditMode);
+    continuetoSlider(selected :any){
       this.buttonClick=selected;
+      console.log(this.buttonClick);
+    }
+    continuetoCharacteristics(selected : any){
+      this.buttonclick=selected;
+      console.log(this.buttonclick);      
+    }
+    userresponse =false ;
+    OnCharacteristicCheck(){    
+     this.userresponse=true;
+      console.log('selected values'+this.selectedNames$);
+      // console.log(val2);
+      // this.userresponse = this.userresponse.push(.checked);
     }
   }
