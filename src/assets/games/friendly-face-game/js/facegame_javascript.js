@@ -351,6 +351,12 @@ $(document).ready(function(){
 			$("#harder-options").addClass("d-none");
 			$(".game-components").show();
 			disableElements();
+			if(ffg_music_name.length >= 30){
+			// trim music length
+			trimLength = ffg_music_name.length - 26;
+			ffg_music_name.slice(0, -trimLength) + " ...";
+
+			}
 			document.getElementById("song-name").innerHTML = ffg_music_name;
 			ffGameFillGrid();
 			drawLife(life);
@@ -1132,6 +1138,12 @@ function initialize(){
 	no_row = no_images/no_col; // no. of rows in the matrix.
 	//WIDTH = canvas1.width/no_col-2*margin;
 	ffg_music_counter = 0;
+	if(ffg_music_name.length >= 30){
+		// trim music length
+		trimLength = ffg_music_name.length - 26;
+		ffg_music_name = ffg_music_name.slice(0, -trimLength) + " ...";
+
+		}
 	document.getElementById("song-name").innerHTML = ffg_music_name;
 	document.getElementById("life").innerHTML=life;
 	document.getElementById("score-num").innerHTML=score;

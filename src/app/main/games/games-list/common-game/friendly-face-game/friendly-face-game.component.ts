@@ -221,6 +221,7 @@ export class FriendlyFaceGameComponent implements OnInit {
   ffGameMusicData() {
     console.log('CURRENT SONG ORDER', ffg_current_song_order, this.last_completed_order);
     this.gamesAuthService.ffGameGetMusicInfo(this.last_completed_order)
+
     .subscribe( (music_data) => {
       console.log('music data', music_data);
       const music_notes = music_data.notes;

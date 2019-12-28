@@ -9,11 +9,14 @@
     font-family: Roboto, sans-serif;
     // background: #a2e2ec;
     // display: flex;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .main{
     height: 100%;
-    width: 360px;
+    width: 330px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -123,7 +126,8 @@
 .instructions{
 
     position: absolute;
-     bottom: 0;
+    bottom: 0;
+    left:15px;
   }
 
 .mat-new {

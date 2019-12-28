@@ -357,6 +357,7 @@ import { StepsDataService } from './resources/shared/steps-data.service';
     LhgHowtoplayComponent,
     LhgInstructionsComponent,
     LhgPlaynextgameComponent,
+    LhgGreatComponent,
     FfgNextgameComponent,
     FfgInstructionsComponent,
     FfgPlayagainComponent,

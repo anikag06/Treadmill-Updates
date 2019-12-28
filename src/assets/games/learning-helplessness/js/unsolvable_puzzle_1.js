@@ -55,7 +55,8 @@ $(document).ready(function(){
 		}
 	});
 
-	$(document).on("click", "#btn-give-up-fifteen", function(){
+	$(document).on("click", "#btn-give-up-fifteen", function(ev){
+		ev.stopImmediatePropagation();
 		task1_no_of_resets = 0;
 		task1_no_of_moves = 0;
 		task1_time_to_give_up = Date.now();
@@ -78,7 +79,8 @@ $(document).ready(function(){
 		}, 120);
 	});
 
-	$(document).on("click", "#btn-give-up-nine", function(){
+	$(document).on("click", "#btn-give-up-nine", function(ev){
+		ev.stopImmediatePropagation();
 		fifteen = false;
 		// show play next pop up
 		lhg_show_instructions = false;

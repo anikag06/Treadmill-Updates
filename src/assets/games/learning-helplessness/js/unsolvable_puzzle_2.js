@@ -38,7 +38,7 @@ var frogGridSwipe;
 
 $(document).ready(function(){
 	
-	$(document).on("click", "#btn-frog-game-reset", function(){
+	$(document).on("click", "#btn-frog-game-reset", function(ev){
 		frog_grid = new FrogGrid(frog_length, frog_height, frog_grid_string, frog_face_direction);
 		frog_direction_class = getFrogDirection(frog_grid.frog_direction);
 		prev_frog_direction_class = prev_frog_direction_class;
@@ -46,7 +46,8 @@ $(document).ready(function(){
 		frog_no_of_resets++;
 	});
 
-	$(document).on("click", "#btn-frog-game-give-up", function(){
+	$(document).on("click", "#btn-frog-game-give-up", function(ev){
+		ev.stopImmediatePropagation();
 		if(frog_level_counter<(lh_frog_levels.length-1)) {
 			frog_level_counter++;
 			frogGameInit();

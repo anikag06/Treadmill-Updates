@@ -64,6 +64,7 @@ declare var lh_small_obstacle_initials: any;
 declare var lh_big_obstacle_initials: any;
 declare var lh_ball_position_initials: any;
 declare var lh_box_up_grid_dimensions: any;
+declare var lhg_first_puzzle: any;
 
 declare var lhGameGetColorReverseData: any;
 declare var lhGameGetTask1Data: any;
@@ -128,6 +129,7 @@ export class GamePlayService {
   lhGamePerformanceData = new LHGamePerformance(0, 0, 0);
   lhGameOverallData = new LHGameOverallData(0, false, false);
   lhgShowSummary!: boolean;
+  lhGameSub!: any;
 
   // lhGameNextLevels = (this.LHGAME_CR_NUMBER_OF_LEVELS * this.lhGamePageNumber) - 3 ;
   // lhGamePreviousLevels = (this.LHGAME_CR_NUMBER_OF_LEVELS * (this.lhGamePageNumber - 1)) + 3;
@@ -341,9 +343,10 @@ export class GamePlayService {
     lh_big_obstacle_initials = [];
     lh_ball_position_initials = [];
     lh_box_up_grid_dimensions = [];
+    lhg_first_puzzle = true;
 
 
-    this.gamesAuthService.lhGameGetUserLevel()
+   this.lhGameSub =  this.gamesAuthService.lhGameGetUserLevel()
       .subscribe((level_data) => {
         console.log('level data', level_data);
         lhGameLevelCounter = level_data.level;

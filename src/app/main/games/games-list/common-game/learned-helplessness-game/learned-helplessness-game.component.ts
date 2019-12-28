@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, Output, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, HostListener, Output, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { GamePlayService } from '@/main/games/shared/game-play.service';
 import { LoadFilesService } from '@/main/games/shared/load-files.service';
 import { LhgInstructionsComponent } from './lhg-instructions/lhg-instructions.component';
@@ -14,7 +14,7 @@ import { LhgGreatComponent } from './lhg-great/lhg-great.component';
   templateUrl: './learned-helplessness-game.component.html',
   styleUrls: ['./learned-helplessness-game.component.scss']
 })
-export class LearnedHelplessnessGameComponent implements OnInit {
+export class LearnedHelplessnessGameComponent implements OnInit, OnDestroy{
 
 
   constructor(
@@ -33,6 +33,7 @@ export class LearnedHelplessnessGameComponent implements OnInit {
 
   @HostListener('window:CallPlayNext')
   openPlayNextPopup() {
+    console.log('open play next popup');
     this.dialogBoxService.setDialogChild(LhgPlaynextgameComponent);
     const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
     this.element.nativeElement.dispatchEvent(domEvent);
@@ -62,9 +63,12 @@ export class LearnedHelplessnessGameComponent implements OnInit {
     this.loadFileService.loadExternalStyles("./assets/games/learning-helplessness/css/unsolvable_puzzle_3.css").then(() => { }).catch(() => { });
     this.gamesAuthService.lhGameGetOverallData()
     .subscribe((overall_data) => {
-      console.log('overall data', overall_data.show_summary_button);
+      console.log('overall data',overall_data);
       this.gamePlayService.lhgShowSummary = overall_data.show_summary_button;
     });
+  }
+
+  ngOnDestroy(): void {
   }
 
   updateColorReverseGameData() {
