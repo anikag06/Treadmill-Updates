@@ -87,9 +87,12 @@ export class GamesAuthService {
     return this.http.post(environment.API_ENDPOINT + LHG_POST_COLOR_REVERSE, color_reverse_data);
   }
 
-  lhGameGetColorReverseData(pageNumber: number, pageSize: number): Observable<any> {
-    return this.http.get(environment.API_ENDPOINT + LHG_GET_COLOR_REVERSE + this.NEXT_PAGE
-      + pageNumber + this.PAGE_SIZE + pageSize );
+  // lhGameGetColorReverseData(pageNumber: number, pageSize: number): Observable<any> {
+  //   return this.http.get(environment.API_ENDPOINT + LHG_GET_COLOR_REVERSE + this.NEXT_PAGE
+  //     + pageNumber + this.PAGE_SIZE + pageSize );
+  // }
+  lhGameGetColorReverseData(): Observable<any> {
+    return this.http.get(environment.API_ENDPOINT + LHG_GET_COLOR_REVERSE );
   }
 
   lhGameGetUnsolvableTask2Data(): Observable<any> {
