@@ -8,9 +8,8 @@ describe('EttbfBeliefComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EttbfBeliefComponent ]
-    })
-    .compileComponents();
+      declarations: [EttbfBeliefComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

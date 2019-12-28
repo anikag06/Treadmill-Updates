@@ -1,20 +1,20 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+
 import { Problem } from '@/main/resources/forms/problem-solving-worksheets/problem.model';
 import { ProblemSolvingWorksheetsService } from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.service';
 import { PSF_PROBLEM_SOLVING } from '@/app.constants';
 import { TasksService } from '@/main/resources/forms/shared/tasks/tasks.service';
-import {UserTask} from '@/main/resources/forms/shared/tasks/user-task.model';
-import { ActivatedRoute } from '@angular/router';
+import { UserTask } from '@/main/resources/forms/shared/tasks/user-task.model';
 
 @Component({
   selector: 'app-forms-sidebar',
   templateUrl: './forms-sidebar.component.html',
-  styleUrls: ['./forms-sidebar.component.scss']
+  styleUrls: ['./forms-sidebar.component.scss'],
 })
 export class FormsSidebarComponent implements OnInit {
-
   @Output() objectEmitter = new EventEmitter<Object>();
   @Output() newForm = new EventEmitter<void>();
   @Input() type!: String;
@@ -28,19 +28,18 @@ export class FormsSidebarComponent implements OnInit {
     private problemService: ProblemSolvingWorksheetsService,
     private tasksService: TasksService,
     private route: ActivatedRoute,
-    ) { }
+  ) {}
 
   ngOnInit() {
-    if ( this.type === PSF_PROBLEM_SOLVING) {
+    if (this.type === PSF_PROBLEM_SOLVING) {
       this.getProblems();
     } else {
       this.getTasks();
     }
 
-    this.route.queryParams
-      .subscribe(
-        params => this.object_id = parseInt(params.form_id, 10)
-      );
+    this.route.queryParams.subscribe(
+      params => (this.object_id = parseInt(params.form_id, 10)),
+    );
   }
 
   problemClicked(object: Object) {
@@ -53,31 +52,35 @@ export class FormsSidebarComponent implements OnInit {
   }
 
   getProblems() {
-    this.subscriptions[this.subscriptions.length] = this.problemService.getProblems();
-    this.subscriptions[this.subscriptions.length] = this.problemService.problemsBehaviour
-      .subscribe(
-        (problems: Problem[]) => {
-          this.objects = problems;
-          this.selectObject();
-        },
-        (error: HttpErrorResponse) => {
-          console.error(error);
-        }
-      );
+    this.subscriptions[
+      this.subscriptions.length
+    ] = this.problemService.getProblems();
+    this.subscriptions[
+      this.subscriptions.length
+    ] = this.problemService.problemsBehaviour.subscribe(
+      (problems: Problem[]) => {
+        this.objects = problems;
+        this.selectObject();
+      },
+      (error: HttpErrorResponse) => {
+        console.error(error);
+      },
+    );
   }
 
   getTasks() {
     this.tasksService.getTasks();
-    this.subscriptions[this.subscriptions.length] = this.tasksService.taskBehaviour
-      .subscribe(
-        (tasks: UserTask[]) => {
-         this.objects = tasks;
-         this.selectObject();
-        },
-        (error: HttpErrorResponse) => {
-          console.error(error);
-        }
-      );
+    this.subscriptions[
+      this.subscriptions.length
+    ] = this.tasksService.taskBehaviour.subscribe(
+      (tasks: UserTask[]) => {
+        this.objects = tasks;
+        this.selectObject();
+      },
+      (error: HttpErrorResponse) => {
+        console.error(error);
+      },
+    );
   }
 
   selectObject() {
@@ -88,5 +91,4 @@ export class FormsSidebarComponent implements OnInit {
       }
     }
   }
-
 }

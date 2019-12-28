@@ -8,9 +8,8 @@ describe('LhgGreatComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LhgGreatComponent ]
-    })
-    .compileComponents();
+      declarations: [LhgGreatComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -18,9 +18,10 @@ import {
   MatDatepickerModule,
   MatIconModule,
   MatListModule,
-  MatSidenavModule, MatSlideToggleModule,
+  MatSidenavModule,
+  MatSlideToggleModule,
   MatToolbarModule,
-  MatTooltipModule
+  MatTooltipModule,
 } from '@angular/material';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { FormsSidebarComponent } from './forms/shared/forms-sidebar/forms-sidebar.component';
@@ -59,6 +60,7 @@ import { TrfSituationComponent } from './forms/thought-record-form/trf-situation
 import { ExperimentToTestBeliefFormComponent } from './forms/experiment-to-test-belief-form/experiment-to-test-belief-form.component';
 import { EttbfBeliefComponent } from './forms/experiment-to-test-belief-form/ettbf-belief/ettbf-belief.component';
 import { EttbfOutcomeComponent } from './forms/experiment-to-test-belief-form/ettbf-outcome/ettbf-outcome.component';
+import { FormSliderComponent } from './forms/shared/form-slider/form-slider.component';
 
 @NgModule({
   declarations: [
@@ -97,6 +99,7 @@ import { EttbfOutcomeComponent } from './forms/experiment-to-test-belief-form/et
     ExperimentToTestBeliefFormComponent,
     EttbfBeliefComponent,
     EttbfOutcomeComponent,
+    FormSliderComponent,
   ],
   imports: [
     ResourcesRoutingModule,
@@ -124,10 +127,13 @@ import { EttbfOutcomeComponent } from './forms/experiment-to-test-belief-form/et
     CommonDialogsService,
     StepsDataService,
     IntroductionService,
-    ConclusionService
+    ConclusionService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  entryComponents: [CongratsDialogComponent, ProblemFormComponent, ProblemSolvingWorksheetsComponent]
+  entryComponents: [
+    CongratsDialogComponent,
+    ProblemFormComponent,
+    ProblemSolvingWorksheetsComponent,
+  ],
 })
-export class ResourcesModule {
-}
+export class ResourcesModule {}

@@ -3,14 +3,12 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 @Component({
   selector: 'app-lhg-great',
   templateUrl: './lhg-great.component.html',
-  styleUrls: ['./lhg-great.component.scss']
+  styleUrls: ['./lhg-great.component.scss'],
 })
 export class LhgGreatComponent implements OnInit {
+  constructor(private elementRef: ElementRef) {}
 
-  constructor(private elementRef: ElementRef,) { }
-
-  ngOnInit() {
-  }
+  ngOnInit() {}
   onShowSummary() {
     const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });
     this.elementRef.nativeElement.dispatchEvent(domEvent);
@@ -19,6 +17,6 @@ export class LhgGreatComponent implements OnInit {
     if (showSummary && colorReverseGame) {
       showSummary.classList.remove('d-none');
       colorReverseGame.classList.add('d-none');
-    }}
-
+    }
+  }
 }

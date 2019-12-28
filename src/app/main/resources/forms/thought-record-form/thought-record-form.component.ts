@@ -4,19 +4,18 @@ import { THOUGHT_RECORD, THOUGHT_RECROD_FORM_NAME } from '@/app.constants';
 @Component({
   selector: 'app-thought-record-form',
   templateUrl: './thought-record-form.component.html',
-  styleUrls: ['./thought-record-form.component.scss']
+  styleUrls: ['./thought-record-form.component.scss'],
 })
 export class ThoughtRecordFormComponent implements OnInit {
-
   type = THOUGHT_RECORD;
   situation!: string;
   situationEditMode = false;
   formName = THOUGHT_RECROD_FORM_NAME;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
-    this.situation = "I got a defective laptop."
+    this.situation = 'I got a defective laptop.';
   }
 
   thoughtSelected() {
@@ -33,7 +32,7 @@ export class ThoughtRecordFormComponent implements OnInit {
   }
 
   onSituationClick() {
-    if(this.situation) {
+    if (this.situation) {
       this.situationEditMode = true;
     }
   }

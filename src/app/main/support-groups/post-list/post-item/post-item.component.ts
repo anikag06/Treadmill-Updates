@@ -29,16 +29,16 @@ import { ThumbsService } from '../../thumbs.service';
 import { GeneralErrorService } from '@/main/shared/general-error.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UserProfile } from '../../../shared/user-profile/UserProfile.model';
-import { UserProfileService } from '../../../shared/user-profile/userProfile.service'
+import { UserProfileService } from '../../../shared/user-profile/userProfile.service';
 
 @Component({
   selector: 'app-post-item',
   templateUrl: './post-item.component.html',
   styleUrls: ['./post-item.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterContentInit, AfterViewInit {
-
+export class PostItemComponent
+  implements OnInit, DoCheck, OnDestroy, AfterContentInit, AfterViewInit {
   @Input() supportGroupItem!: SupportGroupItem;
   @Input() newPost!: boolean;
   @ViewChild('mainComment', { static: true }) commentForm!: NgForm;
@@ -47,25 +47,26 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
   @Output() editEvent = new EventEmitter<SupportGroupItem>();
   @Output() tagClick = new EventEmitter<string>();
 
-  tags: Tag[] = [];                                                           // Holds all the tags
-  user!: User;                                                                // Current User
-  commentsPage = 1;                                                           // Holds the pagination for comments
-  moreComments = false;                                                       // If there are any more comments
-  initial = true;                                                             // Initial state of comment
-  comments: UserComment[] = [];                                               // All comments
-  postCommentSubscription!: Subscription;                                     // Subscription for posting comments
-  getCommentsSubscription!: Subscription;                                     // Subscription for get comments
-  minBodyLength = 300;                                                        // Minimmum body length for text wrapping
-  showFullContent = false;                                                    // Wheter to show full body or not
-  body = '';                                                                  // Holds html value for the post body
-  disabledValue = false;                                                      // Comment posting
+  tags: Tag[] = []; // Holds all the tags
+  user!: User; // Current User
+  commentsPage = 1; // Holds the pagination for comments
+  moreComments = false; // If there are any more comments
+  initial = true; // Initial state of comment
+  comments: UserComment[] = []; // All comments
+  postCommentSubscription!: Subscription; // Subscription for posting comments
+  getCommentsSubscription!: Subscription; // Subscription for get comments
+  minBodyLength = 300; // Minimmum body length for text wrapping
+  showFullContent = false; // Wheter to show full body or not
+  body = ''; // Holds html value for the post body
+  disabledValue = false; // Comment posting
   thumbsUp = '';
   thumbsDown = '';
   commentNos = 1;
   showProfile = false;
   userProfile = new UserProfile('Name', '', 0, 0, 0, 0, [], [], []);
 
-  editorConfig: AngularEditorConfig = {                                       // Angular Editor Config
+  editorConfig: AngularEditorConfig = {
+    // Angular Editor Config
     editable: true,
     spellcheck: true,
     height: 'auto',
@@ -85,8 +86,8 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
   };
 
   /*
-  * Injects CommnetService, AuthService and SanitizationService
-  */
+   * Injects CommnetService, AuthService and SanitizationService
+   */
   constructor(
     private sgService: SupportGroupsService,
     private commentService: CommentService,
@@ -96,13 +97,17 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
     private errorService: GeneralErrorService,
     private changeDetector: ChangeDetectorRef,
     private userProfileService: UserProfileService,
-  ) { }
+  ) {}
 
   /*
-  * Angular Lifecycle hookup this is hack to check for updated content
-  */
+   * Angular Lifecycle hookup this is hack to check for updated content
+   */
   ngDoCheck(): void {
-    if (this.newPost || this.plainBodyLength() < this.minBodyLength || this.showFullContent) {
+    if (
+      this.newPost ||
+      this.plainBodyLength() < this.minBodyLength ||
+      this.showFullContent
+    ) {
       this.body = this.supportGroupItem.body;
       this.htmlDiv.nativeElement.style.display = 'block';
     } else {
@@ -121,7 +126,6 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
     this.user = <User>this.authService.isLoggedIn();
   }
 
-
   /**
    * If the post is a new post expand its body by default
    */
@@ -136,7 +140,7 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
       }
       try {
         this.changeDetector.detectChanges();
-      } catch (ViewDestroyedError) { }
+      } catch (ViewDestroyedError) {}
     });
   }
 
@@ -148,7 +152,7 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
       this.fetchComments();
       try {
         this.changeDetector.detectChanges();
-      } catch (ViewDestroyedError) { }
+      } catch (ViewDestroyedError) {}
     });
   }
 
@@ -168,16 +172,29 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
    * Action to be performed when form submit
    */
   onSubmit() {
-    if (this.commentForm.valid && this.sanititzationService.stripTags(this.commentForm.value['name']).length > 0) {
+    if (
+      this.commentForm.valid &&
+      this.sanititzationService.stripTags(this.commentForm.value['name'])
+        .length > 0
+    ) {
       this.disabledValue = true;
-      const comment = { post: this.supportGroupItem.id, body: this.commentForm.value['name'] };
-      this.postCommentSubscription = this.commentService.postComment(comment)
+      const comment = {
+        post: this.supportGroupItem.id,
+        body: this.commentForm.value['name'],
+      };
+      this.postCommentSubscription = this.commentService
+        .postComment(comment)
         .subscribe(
           (commentResponse: any) => {
             const persistedComment = new UserComment(
               commentResponse.data.comment_id,
               { username: this.user.username, avatar: this.user.avatar },
-              comment.body, 0, 0, new Date().toISOString(), -1);
+              comment.body,
+              0,
+              0,
+              new Date().toISOString(),
+              -1,
+            );
             this.supportGroupItem.comments_count += 1;
             this.commentForm.reset();
             this.initial = false;
@@ -188,8 +205,10 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
             this.changeDetector.detectChanges();
           },
           (error: HttpErrorResponse) => {
-            this.errorService.openErrorDialog(error.statusText + ' ' + 'Could not submit post');
-          }
+            this.errorService.openErrorDialog(
+              error.statusText + ' ' + 'Could not submit post',
+            );
+          },
         );
     }
   }
@@ -199,25 +218,23 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
    */
   fetchComments() {
     if (this.supportGroupItem) {
-      this.getCommentsSubscription = this.commentService.getMainComments(this.supportGroupItem, this.commentsPage)
-        .subscribe(
-          (data) => {
-            const apiResponse = <ApiResponse>data;
-            if (apiResponse.next) {
-              this.commentsPage += 1;
-              this.moreComments = true;
-            } else {
-              this.moreComments = false;
+      this.getCommentsSubscription = this.commentService
+        .getMainComments(this.supportGroupItem, this.commentsPage)
+        .subscribe(data => {
+          const apiResponse = <ApiResponse>data;
+          if (apiResponse.next) {
+            this.commentsPage += 1;
+            this.moreComments = true;
+          } else {
+            this.moreComments = false;
+          }
+          if (apiResponse.results.length > 0) {
+            this.comments.push(...(<UserComment[]>apiResponse.results));
+            if (this.initial === false) {
+              this.commentNos = this.comments.length;
             }
-            if (apiResponse.results.length > 0) {
-              this.comments.push(...<UserComment[]>apiResponse.results);
-              if (this.initial === false) {
-                this.commentNos = this.comments.length;
-              }
-            }
-          },
-          this.errorService.errorResponse('Cannot fetch comments')
-        );
+          }
+        }, this.errorService.errorResponse('Cannot fetch comments'));
     }
   }
 
@@ -240,7 +257,6 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
   showLoadMore() {
     return (this.initial && this.comments.length > 1) || this.moreComments;
   }
-
 
   /**
    * Initial State (Deprecated)
@@ -269,7 +285,9 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
    * Show sliced body
    */
   slicedBody() {
-    return this.sanititzationService.stripTags((this.supportGroupItem.body.slice(0, this.minBodyLength) + '...'));
+    return this.sanititzationService.stripTags(
+      this.supportGroupItem.body.slice(0, this.minBodyLength) + '...',
+    );
   }
 
   /**
@@ -310,7 +328,11 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
    */
   onFocusOut(event: FocusEvent) {
     const el = <Element>event.relatedTarget;
-    if (el == null || (el.innerHTML !== 'Comment' && !(el.matches('button.angular-editor-button')))) {
+    if (
+      el == null ||
+      (el.innerHTML !== 'Comment' &&
+        !el.matches('button.angular-editor-button'))
+    ) {
       this.editorConfig.showToolbar = false;
     }
   }
@@ -319,7 +341,8 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
    * Calculate the length of the body
    */
   plainBodyLength(): number {
-    return this.sanititzationService.stripTags(this.supportGroupItem.body).length;
+    return this.sanititzationService.stripTags(this.supportGroupItem.body)
+      .length;
   }
 
   /**
@@ -331,7 +354,7 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
     this.comments = this.comments.filter(uc => uc.id !== userComment.id);
     try {
       this.changeDetector.detectChanges();
-    } catch (ViewDestroyedError) { }
+    } catch (ViewDestroyedError) {}
   }
 
   /**
@@ -347,14 +370,15 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
       this.supportGroupItem.up_votes += 1;
       this.supportGroupItem.is_voted = 1;
     }
-    this.sgService.postUpVote({ post_id: this.supportGroupItem.id, vote: 1 })
+    this.sgService
+      .postUpVote({ post_id: this.supportGroupItem.id, vote: 1 })
       .subscribe(
-        () => { },
+        () => {},
         () => {
           this.errorService.openErrorDialog('Cannot upvote');
           this.supportGroupItem.is_voted = preVote;
           this.supportGroupItem.up_votes = preUpVote;
-        }
+        },
       );
   }
 
@@ -370,11 +394,9 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
     } else {
       this.supportGroupItem.is_voted = 0;
     }
-    this.sgService.postUpVote({ post_id: this.supportGroupItem.id, vote: 0 })
-      .subscribe(
-        () => { },
-        this.errorService.errorResponse('Cannot downvote')
-      );
+    this.sgService
+      .postUpVote({ post_id: this.supportGroupItem.id, vote: 0 })
+      .subscribe(() => {}, this.errorService.errorResponse('Cannot downvote'));
   }
 
   onTagClick(tag: Tag) {
@@ -383,17 +405,23 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
 
   onShowProfile(username: string) {
     this.userProfileService.getUserProfile(username).subscribe(profile => {
-      this.userProfile = new UserProfile(profile.username, profile.user_avatar,
-        profile.score, profile.no_of_bronze_badges, profile.no_of_silver_badges,
-        profile.no_of_gold_badges, profile.badge_list_bronze,
-        profile.badge_list_silver, profile.badge_list_gold);
-    })
+      this.userProfile = new UserProfile(
+        profile.username,
+        profile.user_avatar,
+        profile.score,
+        profile.no_of_bronze_badges,
+        profile.no_of_silver_badges,
+        profile.no_of_gold_badges,
+        profile.badge_list_bronze,
+        profile.badge_list_silver,
+        profile.badge_list_gold,
+      );
+    });
     this.showProfile = !this.showProfile;
-
   }
 
   onClickOutside(event: Object) {
-    if (event && (<any> event)['value'] === true) {
+    if (event && (<any>event)['value'] === true) {
       this.showProfile = false;
     }
   }

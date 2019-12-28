@@ -6,14 +6,16 @@ import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service
 @Component({
   selector: 'app-lhg-howtoplay',
   templateUrl: './lhg-howtoplay.component.html',
-  styleUrls: ['./lhg-howtoplay.component.scss']
+  styleUrls: ['./lhg-howtoplay.component.scss'],
 })
 export class LhgHowtoplayComponent implements OnInit {
-  viewSummary!:boolean;
+  viewSummary!: boolean;
 
-  constructor(private elementRef: ElementRef,
-              private gamePlayService: GamePlayService,
-              private dialogBoxService: DialogBoxService) { }
+  constructor(
+    private elementRef: ElementRef,
+    private gamePlayService: GamePlayService,
+    private dialogBoxService: DialogBoxService,
+  ) {}
 
   ngOnInit() {
     this.viewSummary = this.gamePlayService.lhgShowSummary;

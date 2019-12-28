@@ -5,16 +5,15 @@ import { FfgHelpService } from '../ffg-help.service';
 @Component({
   selector: 'app-ffg-instructions',
   templateUrl: './ffg-instructions.component.html',
-  styleUrls: ['./ffg-instructions.component.scss']
+  styleUrls: ['./ffg-instructions.component.scss'],
 })
 export class FfgInstructionsComponent implements OnInit {
+  constructor(
+    private elementRef: ElementRef,
+    private ffghelpService: FfgHelpService,
+  ) {}
 
-  constructor(private elementRef: ElementRef,
-              private ffghelpService:FfgHelpService,) { }
-
-  ngOnInit() {
-    
-  }
+  ngOnInit() {}
   onStart() {
     const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });
     this.elementRef.nativeElement.dispatchEvent(domEvent);
@@ -23,5 +22,4 @@ export class FfgInstructionsComponent implements OnInit {
       this.ffghelpService.showLoadingBar();
     }
   }
-
 }

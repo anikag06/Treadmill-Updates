@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LoadingBarComponent } from './loading-bar.component';
+import { FormSliderComponent } from './form-slider.component';
 
-describe('LoadingBarComponent', () => {
-  let component: LoadingBarComponent;
-  let fixture: ComponentFixture<LoadingBarComponent>;
+describe('FormSliderComponent', () => {
+  let component: FormSliderComponent;
+  let fixture: ComponentFixture<FormSliderComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [LoadingBarComponent],
+      declarations: [FormSliderComponent],
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LoadingBarComponent);
+    fixture = TestBed.createComponent(FormSliderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -11,10 +11,9 @@ import { A2HSService } from '@/shared/a2hs.service';
 @Component({
   selector: 'app-registration-step-four',
   templateUrl: './registration-step-four.component.html',
-  styleUrls: ['./registration-step-four.component.scss']
+  styleUrls: ['./registration-step-four.component.scss'],
 })
 export class RegistrationStepFourComponent implements OnInit {
-
   stepNo = 4;
   userEligible = false;
 
@@ -27,17 +26,25 @@ export class RegistrationStepFourComponent implements OnInit {
     agreementInfo: new FormControl(),
     homeScreenInfo: new FormControl(),
     notificationsInfo: new FormControl(),
-
   });
 
   stepFourFormData = new RegistrationStepFourForm(
-    0, 0, null , null, null, null, null, null, null, null, null,
-);
+    0,
+    0,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+  );
 
   participationID!: any;
   starting_time!: any;
   completion_time!: any;
-
 
   constructor(
     private dataService: RegistrationDataService,
@@ -45,7 +52,7 @@ export class RegistrationStepFourComponent implements OnInit {
     private router: Router,
     private fcmService: FcmService,
     private a2hsService: A2HSService,
-  ) { }
+  ) {}
 
   ngOnInit() {
     const dateNow = new Date();
@@ -81,9 +88,9 @@ export class RegistrationStepFourComponent implements OnInit {
       }
       this.stepFourFormData.notifications_consent = this.consentForm.value.notificationsInfo;
 
-
-      this.dataService.saveConsentData(this.stepFourFormData)
-        .subscribe( (res_data: any) => {
+      this.dataService
+        .saveConsentData(this.stepFourFormData)
+        .subscribe((res_data: any) => {
           console.log(res_data);
 
           this.userEligible = !res_data.excluded;
@@ -97,7 +104,6 @@ export class RegistrationStepFourComponent implements OnInit {
             // this.authService.activateChild(true);
             this.router.navigate([INELIGIBLE_FOR_TRIAL]);
           }
-
         });
     }
   }

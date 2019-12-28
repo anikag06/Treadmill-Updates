@@ -8,9 +8,8 @@ describe('FfgNolifeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FfgNolifeComponent ]
-    })
-    .compileComponents();
+      declarations: [FfgNolifeComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

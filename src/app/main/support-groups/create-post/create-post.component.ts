@@ -1,8 +1,21 @@
-import { Component, OnInit, Inject, ViewChild, ElementRef, AfterContentInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Inject,
+  ViewChild,
+  ElementRef,
+  AfterContentInit,
+} from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { TagService } from '@/main/shared/tag.service';
 import { Tag } from '@/main/shared/tag.model';
-import { NgForm, FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
+import {
+  NgForm,
+  FormGroup,
+  FormControl,
+  FormArray,
+  FormBuilder,
+} from '@angular/forms';
 import { SupportGroupsService } from '../support-groups.service';
 import { SupportGroupItem } from '../support-group-item.model';
 import { AuthService } from '@/shared/auth/auth.service';
@@ -14,10 +27,9 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 @Component({
   selector: 'app-create-post',
   templateUrl: './create-post.component.html',
-  styleUrls: ['./create-post.component.scss']
+  styleUrls: ['./create-post.component.scss'],
 })
 export class CreatePostComponent implements OnInit {
-
   tags!: Tag[];
   user!: User;
   formTags: number[] = [];
@@ -29,9 +41,8 @@ export class CreatePostComponent implements OnInit {
     title: [''],
     body: [''],
     id: [0],
-    tags: this.fb.array([])
+    tags: this.fb.array([]),
   });
-
 
   editorConfig: AngularEditorConfig = {
     editable: true,
@@ -60,12 +71,11 @@ export class CreatePostComponent implements OnInit {
     private authService: AuthService,
     private sanitizer: SanitizationService,
     private fb: FormBuilder,
-    private overlayContainer: OverlayContainer
+    private overlayContainer: OverlayContainer,
   ) {
     overlayContainer.getContainerElement().classList.add('custom-overlay');
     dialogRef.disableClose = true;
   }
-
 
   ngOnInit() {
     this.tags = this.tagService.tags;
@@ -95,58 +105,59 @@ export class CreatePostComponent implements OnInit {
         this.createPost(formData);
       }
     } else {
-      this.errors.push({ name: 'Post', value: 'You have not entered anything' });
+      this.errors.push({
+        name: 'Post',
+        value: 'You have not entered anything',
+      });
     }
   }
 
   createPost(data: any) {
-    this.sgService.createPost(data)
-      .subscribe(
-        (response: any) => {
-          const tags = this.tags.filter(item => this.formTags.includes(item.id));
-          const sgItem = new SupportGroupItem(response.data.post_id,
-            data.body,
-            data.title,
-            tags,
-            { username: this.user.username, avatar: this.user.avatar },
-            0,
-            new Date().toISOString(),
-            0,
-            -1);
-          this.sgService.sendPost(sgItem);
-          this.postForm.reset();
-          this.dialogRef.close();
-        },
+    this.sgService.createPost(data).subscribe(
+      (response: any) => {
+        const tags = this.tags.filter(item => this.formTags.includes(item.id));
+        const sgItem = new SupportGroupItem(
+          response.data.post_id,
+          data.body,
+          data.title,
+          tags,
+          { username: this.user.username, avatar: this.user.avatar },
+          0,
+          new Date().toISOString(),
+          0,
+          -1,
+        );
+        this.sgService.sendPost(sgItem);
+        this.postForm.reset();
+        this.dialogRef.close();
+      },
 
-        (httpErrorResponse) => {
-          this.errors = [];
-          const messages = httpErrorResponse.error.message;
-          for (const property in messages) {
-            if (httpErrorResponse.error.message.hasOwnProperty(property)) {
-              this.errors.push({ name: property, value: messages[property] });
-            } else {
-              this.errors.push({ name: 'error', value: 'something went wrong' });
-            }
+      httpErrorResponse => {
+        this.errors = [];
+        const messages = httpErrorResponse.error.message;
+        for (const property in messages) {
+          if (httpErrorResponse.error.message.hasOwnProperty(property)) {
+            this.errors.push({ name: property, value: messages[property] });
+          } else {
+            this.errors.push({ name: 'error', value: 'something went wrong' });
           }
         }
-      );
+      },
+    );
   }
 
   editPost(data: any) {
-    this.sgService.editPost(data)
-      .subscribe(
-        (response: any) => {
-          const sgi = <SupportGroupItem>this.data;
-          sgi.title = data.title;
-          sgi.body = data.body;
-          sgi.tags = data.tags.map((i: number) => {
-            return this.tags.find(tag => tag.id === i);
-          });
-          this.sgService.sendUpdated(sgi);
-          this.postForm.reset();
-          this.dialogRef.close();
-        }
-      )
+    this.sgService.editPost(data).subscribe((response: any) => {
+      const sgi = <SupportGroupItem>this.data;
+      sgi.title = data.title;
+      sgi.body = data.body;
+      sgi.tags = data.tags.map((i: number) => {
+        return this.tags.find(tag => tag.id === i);
+      });
+      this.sgService.sendUpdated(sgi);
+      this.postForm.reset();
+      this.dialogRef.close();
+    });
   }
 
   onCheckboxChange(tagId: number, event: any) {
@@ -156,7 +167,6 @@ export class CreatePostComponent implements OnInit {
       this.formTags = this.formTags.filter(i => tagId !== i);
     }
   }
-
 
   buildTags() {
     if (this.tags) {
@@ -174,8 +184,11 @@ export class CreatePostComponent implements OnInit {
     if (data.title && data.title.trim().length > 0) {
       return data.title.trim();
     } else {
-      return this.sanitizer.stripTags(data.body.replace(/&nbsp;/gi, ''))
-                .split(/\s+/).splice(0, 7).join(' ');
+      return this.sanitizer
+        .stripTags(data.body.replace(/&nbsp;/gi, ''))
+        .split(/\s+/)
+        .splice(0, 7)
+        .join(' ');
     }
   }
 

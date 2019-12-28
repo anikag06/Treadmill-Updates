@@ -14,8 +14,8 @@ export const environment = {
     projectId: 'treadwill-81e2f',
     storageBucket: 'treadwill-81e2f.appspot.com',
     messagingSenderId: '245629293466',
-    appId: '1:245629293466:web:eb0db0c07b608edf'
-  }
+    appId: '1:245629293466:web:eb0db0c07b608edf',
+  },
 };
 
 /*

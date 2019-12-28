@@ -2,6 +2,12 @@ import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 
 import { Belief } from './belief.model';
 import { ExperimentToTestBeliefService } from '../experiment-to-test-belief.service';
+import {
+  ETTBF_RATING_QUESTION,
+  ETTBF_MIN_RATING_TEXT,
+  ETTBF_MAX_RATING_TEXT,
+} from '@/app.constants';
+import { FormSliderComponent } from '@/main/resources/forms/shared/form-slider/form-slider.component';
 
 @Component({
   selector: 'app-ettbf-belief',
@@ -12,7 +18,11 @@ export class EttbfBeliefComponent implements OnInit {
   @Input() belief!: Belief;
   @ViewChild('beliefTextArea', { static: false }) beliefTextArea!: ElementRef;
   beliefStatement = '';
-  initialBeliefRating!: number;
+  @ViewChild(FormSliderComponent, { static: false })
+  initialSlider!: FormSliderComponent;
+  ratingQuestion = ETTBF_RATING_QUESTION;
+  minRatingText = ETTBF_MIN_RATING_TEXT;
+  maxRatingText = ETTBF_MAX_RATING_TEXT;
 
   constructor(private ettbfBeliefService: ExperimentToTestBeliefService) {}
 
@@ -31,8 +41,8 @@ export class EttbfBeliefComponent implements OnInit {
           belief: this.belief.belief,
         })
         .subscribe(
-          (data: any) => {
-            this.belief = <Belief>data;
+          (data: Belief) => {
+            this.belief = data;
           },
           error => {
             console.error(error);
@@ -41,8 +51,8 @@ export class EttbfBeliefComponent implements OnInit {
     } else {
       if (this.beliefStatement.trim().length > 0) {
         this.ettbfBeliefService.postBelief(this.beliefStatement).subscribe(
-          (data: any) => {
-            this.belief = <Belief>data;
+          (data: Belief) => {
+            this.belief = data;
           },
           error => {
             console.error(error);
@@ -52,18 +62,18 @@ export class EttbfBeliefComponent implements OnInit {
     }
   }
 
-  onBeliefRatingSubmit() {
+  onBeliefRatingBeforeSubmit() {
     if (this.belief) {
-      this.belief.beliefRating = this.initialBeliefRating;
+      this.belief.belief_rating_before = this.initialSlider.rating;
       this.ettbfBeliefService
         .putBelief({
           id: this.belief.id,
           belief: this.belief.belief,
-          beliefRating: this.belief.beliefRating,
+          belief_rating_before: this.belief.belief_rating_before,
         })
         .subscribe(
-          (data: any) => {
-            this.belief = <Belief>data;
+          (data: Belief) => {
+            this.belief = data;
           },
           error => {
             console.error(error);

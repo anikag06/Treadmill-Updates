@@ -13,10 +13,9 @@ import { MatLoginDialogComponent } from '@/pre-login/login/mat-login-dialog/mat-
   selector: 'app-pre-login',
   templateUrl: './pre-login.component.html',
   styleUrls: ['./pre-login.component.scss'],
-  providers: [MatContactUsDialogService]
+  providers: [MatContactUsDialogService],
 })
 export class PreLoginComponent implements OnInit {
-
   loggedIn = false;
 
   constructor(
@@ -24,7 +23,7 @@ export class PreLoginComponent implements OnInit {
     private showContactUsService: MatContactUsDialogService,
     private a2hsService: A2HSService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -38,9 +37,10 @@ export class PreLoginComponent implements OnInit {
   }
 
   onLoginClicked() {
-    this.showLoginSignupDialogService.broadcastLoginClicked(MatLoginDialogComponent);
+    this.showLoginSignupDialogService.broadcastLoginClicked(
+      MatLoginDialogComponent,
+    );
   }
-
 
   onContactUsClicked() {
     this.showContactUsService.contactUsClicked();

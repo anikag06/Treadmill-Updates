@@ -1,5 +1,5 @@
-import {NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ChartsModule } from 'ng2-charts';
 
 import { ModulesComponent } from '@/main/modules/modules.component';
@@ -31,15 +31,24 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommentComponent } from './support-groups/post-list/post-item/comment/comment.component';
 import { CreatePostComponent } from './support-groups/create-post/create-post.component';
 import { NestedCommentComponent } from './support-groups/post-list/post-item/nested-comment/nested-comment.component';
-import { HttpClientModule} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { AngularEditorModule } from '@xw19/angular-editor';
 import { SanitizationService } from './shared/sanitization.service';
 import { SafeHtmlPipe } from './support-groups/safe-html.pipe';
 import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule, MatButtonModule, MatSidenavModule,
-  MatIconModule, MatListModule, MatDatepickerModule, MatDialogModule,
-  MatNativeDateModule, MatSlideToggleModule, MatExpansionModule} from '@angular/material';
-import {MatProgressBarModule} from '@angular/material';
+import {
+  MatToolbarModule,
+  MatButtonModule,
+  MatSidenavModule,
+  MatIconModule,
+  MatListModule,
+  MatDatepickerModule,
+  MatDialogModule,
+  MatNativeDateModule,
+  MatSlideToggleModule,
+  MatExpansionModule,
+} from '@angular/material';
+import { MatProgressBarModule } from '@angular/material';
 import { ScrollingDirective } from './shared/scrolling.directive';
 import { ScrollingService } from './shared/scrolling.service';
 import { NavbarComponent } from './shared/navbar/navbar.component';
@@ -57,7 +66,7 @@ import { GadSevenComponent } from './score/gad-seven/gad-seven.component';
 import { InterpretationBiasGameComponent } from './games/games-list/common-game/interpretation-bias-game/interpretation-bias-game.component';
 
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
-import {FormsService} from '@/main/forms.service';
+import { FormsService } from '@/main/forms.service';
 import { ExecutiveControlGameComponent } from './games/games-list/common-game/executive-control-game/executive-control-game.component';
 import { CommonGameComponent } from './games/games-list/common-game/common-game.component';
 import { GamesAuthService } from './games/shared/games-auth.service';
@@ -75,10 +84,10 @@ import { ExperimentToTestBeliefService } from '@/main/resources/forms/experiment
 // import { DataService } from '@/shared/questionnaire/data.service';
 // import { QuestionnaireComponent } from '@/shared/questionnaire/questionnaire.component';
 import { PlotScoreGraphService } from './score/plot-score-graph.service';
-import {AngularFireMessagingModule} from '@angular/fire/messaging';
-import {AngularFireModule} from '@angular/fire';
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
+import { AngularFireModule } from '@angular/fire';
 // import {FcmService} from '@/shared/fcm.service';
-import {environment} from '../../environments/environment';
+import { environment } from '../../environments/environment';
 import { AttributeStyleGameComponent } from './games/games-list/common-game/attribute-style-game/attribute-style-game.component';
 import { PassDataService } from './resources/conversation-group/passdata.service';
 
@@ -86,8 +95,8 @@ import { FriendlyFaceGameComponent } from '@/main/games/games-list/common-game/f
 import { MentalImageryComponent } from '@/main/games/games-list/common-game/mental-imagery/mental-imagery.component';
 import { MiInstructionsComponent } from '@/main/games/games-list/common-game/mental-imagery/mi-instructions/mi-instructions.component';
 import { MiPlayComponent } from '@/main/games/games-list/common-game/mental-imagery/mi-play/mi-play.component';
-import {MIGameAutofocusDirective} from '@/main/games/games-list/common-game/mental-imagery/mi-autofocus.directive';
-import {MICurrentStateService} from '@/main/games/games-list/common-game/mental-imagery/mi-current-state.service';
+import { MIGameAutofocusDirective } from '@/main/games/games-list/common-game/mental-imagery/mi-autofocus.directive';
+import { MICurrentStateService } from '@/main/games/games-list/common-game/mental-imagery/mi-current-state.service';
 import { TasksService } from './resources/forms/shared/tasks/tasks.service';
 import { FlowComponent } from './flow/flow.component';
 import { StepGroupComponent } from './flow/step-group/step-group.component';
@@ -128,7 +137,7 @@ import { LhgScienceComponent } from './games/games-list/common-game/learned-help
 import { UserProfileComponent } from './shared/user-profile/user-profile.component';
 import { UserProfileService } from './shared/user-profile/userProfile.service';
 import { BadgesComponent } from './shared/user-profile/badges/badges.component';
-import {MatTooltipModule} from '@angular/material/tooltip';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { ClickOutsideDirective } from './support-groups/post-list/post-item/click-outside.directive';
 
 import { QuestionnaireModule } from '@/questionnaire.module';
@@ -266,8 +275,7 @@ import { StepsDataService } from './resources/shared/steps-data.service';
     FfgNolifeComponent,
     LoadingBarComponent,
     LoadingBarDirective,
-    LhgGreatComponent
-
+    LhgGreatComponent,
   ],
   imports: [
     CommonModule,
@@ -364,7 +372,6 @@ import { StepsDataService } from './resources/shared/steps-data.service';
     FfgPlayagainComponent,
     FfgNolifeComponent,
     LoadingBarComponent,
-  ]
+  ],
 })
-export class MainModule {
-}
+export class MainModule {}

@@ -7,29 +7,26 @@ import { IdcInfoComponent } from './idc-info/idc-info.component';
 @Component({
   selector: 'app-identify-cognitive-distortion',
   templateUrl: './identify-cognitive-distortion.component.html',
-  styleUrls: ['./identify-cognitive-distortion.component.scss']
+  styleUrls: ['./identify-cognitive-distortion.component.scss'],
 })
 export class IdentifyCognitiveDistortionComponent implements OnInit {
-
-  @ViewChild(IdcScoreComponent, {static: false}) idcScoreComponent!: IdcScoreComponent;
+  @ViewChild(IdcScoreComponent, { static: false })
+  idcScoreComponent!: IdcScoreComponent;
   @ViewChild('infoElement', { static: false }) element!: ElementRef;
 
-
-
-  constructor(private gameService: IdcGameService,
-              private dialogBoxService: DialogBoxService) { }
-
+  constructor(
+    private gameService: IdcGameService,
+    private dialogBoxService: DialogBoxService,
+  ) {}
 
   ngOnInit() {
     this.gameService.initUserData();
-    this.gameService.startPlayingIdc.subscribe( () => {
+    this.gameService.startPlayingIdc.subscribe(() => {
       this.startPlaying();
     });
   }
 
- 
   playing = false;
-
 
   startPlaying() {
     this.playing = true;
@@ -74,6 +71,4 @@ export class IdentifyCognitiveDistortionComponent implements OnInit {
     const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
     this.element.nativeElement.dispatchEvent(domEvent);
   }
-
-
 }

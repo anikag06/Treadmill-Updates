@@ -1,17 +1,23 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
 import { environment } from 'environments/environment';
 
-import { TOKEN,
+import {
+  TOKEN,
   DEFAULT_PATH,
   TOKEN_REFRESH_PATH,
-  LOGIN_PATH, SIGNUP_PATH,
+  LOGIN_PATH,
+  SIGNUP_PATH,
   USERAVATAR,
   ISADMIN,
   ISACTIVE,
-  INELIGIBLE_FOR_TRIAL
+  INELIGIBLE_FOR_TRIAL,
 } from '@/app.constants';
 import { User } from '@/shared/user.model';
 import { Observable, BehaviorSubject } from 'rxjs';
@@ -23,16 +29,12 @@ export interface Token {
   providedIn: 'root',
 })
 export class AuthService {
-
   user!: User;
   online = new BehaviorSubject<boolean>(true);
 
-  isUserExcluded = false;     // to check whether the user is excluded for the study or not
+  isUserExcluded = false; // to check whether the user is excluded for the study or not
 
-  constructor(
-    private http: HttpClient,
-    private router: Router,
-  ) { }
+  constructor(private http: HttpClient, private router: Router) {}
 
   setLoginData(data: any) {
     try {
@@ -46,20 +48,28 @@ export class AuthService {
       window.sessionStorage.setItem(USERAVATAR, data.data.avatar);
       window.sessionStorage.setItem(ISACTIVE, data.data.is_active);
     }
-    this.getUserFromToken(data.data.token, data.data.avatar, data.data.is_admin, data.data.is_active);
+    this.getUserFromToken(
+      data.data.token,
+      data.data.avatar,
+      data.data.is_admin,
+      data.data.is_active,
+    );
   }
-
 
   async getUserDetails(data: any) {
     window.localStorage.clear();
     window.sessionStorage.clear();
-    return this.http.post(environment.API_ENDPOINT + LOGIN_PATH, data).toPromise();
+    return this.http
+      .post(environment.API_ENDPOINT + LOGIN_PATH, data)
+      .toPromise();
   }
 
-  signupData (userSignupData: any): Observable<any> {
-    return this.http.post(environment.API_ENDPOINT + SIGNUP_PATH, userSignupData);
+  signupData(userSignupData: any): Observable<any> {
+    return this.http.post(
+      environment.API_ENDPOINT + SIGNUP_PATH,
+      userSignupData,
+    );
   }
-
 
   isLoggedIn() {
     if (this.user) {
@@ -72,13 +82,13 @@ export class AuthService {
       try {
         data = window.localStorage.getItem(TOKEN);
         avatar = window.localStorage.getItem(USERAVATAR);
-        isAdmin = (window.localStorage.getItem(ISADMIN) === 'true');
-        isActive = (window.localStorage.getItem(ISACTIVE) === 'true');
+        isAdmin = window.localStorage.getItem(ISADMIN) === 'true';
+        isActive = window.localStorage.getItem(ISACTIVE) === 'true';
       } catch (e) {
         data = window.sessionStorage.getItem(TOKEN);
         avatar = window.sessionStorage.getItem(USERAVATAR);
-        isAdmin = (window.sessionStorage.getItem(ISADMIN) === 'true');
-        isActive = (window.sessionStorage.getItem(ISACTIVE) === 'true');
+        isAdmin = window.sessionStorage.getItem(ISADMIN) === 'true';
+        isActive = window.sessionStorage.getItem(ISACTIVE) === 'true';
       }
       if (data && avatar && isActive) {
         return this.getUserFromToken(data, avatar, isAdmin, isActive);
@@ -86,11 +96,23 @@ export class AuthService {
     }
   }
 
-  getUserFromToken(data: any, avatar: string, isAdmin: boolean, isActive: boolean) {
+  getUserFromToken(
+    data: any,
+    avatar: string,
+    isAdmin: boolean,
+    isActive: boolean,
+  ) {
     const helper = new JwtHelperService();
-    const isExpired = helper.isTokenExpired((<string>data));
+    const isExpired = helper.isTokenExpired(<string>data);
     const userData = helper.decodeToken(<string>data);
-    const user = new User(+userData.user_id, userData.username, userData.email, avatar, isAdmin, isActive);
+    const user = new User(
+      +userData.user_id,
+      userData.username,
+      userData.email,
+      avatar,
+      isAdmin,
+      isActive,
+    );
     if (isExpired === false) {
       this.user = user;
       return user;
@@ -113,9 +135,12 @@ export class AuthService {
   refresh() {
     const token = this.getToken();
     if (token != null) {
-      this.http.post<Token>(environment.API_ENDPOINT + TOKEN_REFRESH_PATH, { 'token': token })
+      this.http
+        .post<Token>(environment.API_ENDPOINT + TOKEN_REFRESH_PATH, {
+          token: token,
+        })
         .subscribe(
-          (data) => {
+          data => {
             localStorage.setItem(TOKEN, data.token);
           },
           (error: HttpErrorResponse) => {
@@ -136,13 +161,15 @@ export class AuthService {
             } else {
               this.online.next(true);
             }
-          }
+          },
         );
     }
   }
 
   getToken() {
-    return window.localStorage.getItem(TOKEN) || window.sessionStorage.getItem(TOKEN);
+    return (
+      window.localStorage.getItem(TOKEN) || window.sessionStorage.getItem(TOKEN)
+    );
   }
 
   updateOnline() {
@@ -153,5 +180,4 @@ export class AuthService {
   returnOnline() {
     return this.online;
   }
-
 }

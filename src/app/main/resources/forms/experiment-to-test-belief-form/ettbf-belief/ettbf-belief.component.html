@@ -20,20 +20,12 @@
       Continue
     </button>
   </p>
-  <div class="slider-div">
-    <span class="rating-question-text">How strongly do you believe this?</span>
-    <br />
-    <br />
-    <mat-slider
-      thumbLabel
-      min="1"
-      max="10"
-      [(value)]="initialBeliefRating"
-    ></mat-slider>
-    <span class="rating-text rating-text-left-margin">Not at all</span>
-    <span class="rating-text float-right">Very strongly</span>
-  </div>
-  <p class="text-right" (click)="onBeliefRatingSubmit()">
+  <app-form-slider
+    [question]="ratingQuestion"
+    [minRatingText]="minRatingText"
+    [maxRatingText]="maxRatingText"
+  ></app-form-slider>
+  <p class="text-right" (click)="onBeliefRatingBeforeSubmit()">
     <button type="button" mat-raised-button class="continue-btn">
       Continue
     </button>

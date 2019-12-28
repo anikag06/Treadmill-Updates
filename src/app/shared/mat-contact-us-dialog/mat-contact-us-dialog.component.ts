@@ -8,10 +8,9 @@ import { ContactUsDataService } from './contact-us-data.service';
 @Component({
   selector: 'app-mat-contact-us-dialog',
   templateUrl: './mat-contact-us-dialog.component.html',
-  styleUrls: ['./mat-contact-us-dialog.component.scss']
+  styleUrls: ['./mat-contact-us-dialog.component.scss'],
 })
 export class MatContactUsDialogComponent implements OnInit {
-
   contactUsForm = new FormGroup({
     emailid: new FormControl('', [Validators.required, Validators.email]),
     message: new FormControl('', [Validators.required]),
@@ -28,7 +27,7 @@ export class MatContactUsDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<MatContactUsDialogComponent>,
     private snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: ContactUsData,
-  ) { }
+  ) {}
 
   ngOnInit() {
     // this.onChanges();
@@ -38,7 +37,6 @@ export class MatContactUsDialogComponent implements OnInit {
     // this.emailid.valueChanges.subscribe((value: any) => {
     //   this.data.emailid = value;
     // });
-
     // this.message.valueChanges.subscribe((value: any) => {
     //   this.data.message = value;
     // });
@@ -54,16 +52,16 @@ export class MatContactUsDialogComponent implements OnInit {
       this.data.email = this.contactUsForm.value.emailid;
       this.data.message = this.contactUsForm.value.message;
       console.log(this.data);
-      this.contactUsService.saveContactUsData(this.data)
-      .subscribe( (data: any) => {
-        console.log(data);
-        this.onCloseClick();
-        this.snackBar.open(this.msgReceived, this.action, {
-          duration: 4000,
+      this.contactUsService
+        .saveContactUsData(this.data)
+        .subscribe((data: any) => {
+          console.log(data);
+          this.onCloseClick();
+          this.snackBar.open(this.msgReceived, this.action, {
+            duration: 4000,
+          });
         });
-      });
     } else {
-
     }
   }
 }

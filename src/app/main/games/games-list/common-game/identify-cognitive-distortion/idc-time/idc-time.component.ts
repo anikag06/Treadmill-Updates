@@ -4,16 +4,16 @@ import { IdcGameService } from '../idc-game.service';
 @Component({
   selector: 'app-idc-time',
   templateUrl: './idc-time.component.html',
-  styleUrls: ['./idc-time.component.scss']
+  styleUrls: ['./idc-time.component.scss'],
 })
 export class IdcTimeComponent implements OnInit {
+  constructor(
+    private elementRef: ElementRef,
+    private gameService: IdcGameService,
+  ) {}
 
-  constructor(private elementRef: ElementRef,
-              private gameService: IdcGameService) { }
+  ngOnInit() {}
 
-  ngOnInit() {
-  }
-  
   continuePlay() {
     const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });
     this.elementRef.nativeElement.dispatchEvent(domEvent);
@@ -21,7 +21,6 @@ export class IdcTimeComponent implements OnInit {
     this.gameService.optionStatus = '';
     this.gameService.selectedCorrectOptionsSet.clear();
     this.gameService.getUserData();
-
   }
 
   addTimePlay() {
@@ -33,5 +32,4 @@ export class IdcTimeComponent implements OnInit {
     this.gameService.levelInitialise.next();
     this.gameService.extraTimeTaken = true;
   }
-
 }

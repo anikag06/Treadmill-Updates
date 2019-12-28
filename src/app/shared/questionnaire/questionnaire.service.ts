@@ -4,17 +4,12 @@ import { QuesUserResponseArray } from './input/response';
 import { environment } from 'environments/environment';
 import { USER_PHQ_DATA, USER_GAD_DATA, USER_SIQ_DATA } from '@/app.constants';
 
-
 @Injectable()
 export class QuizService {
-
   questionnaireActive = false;
   questinnaire_name!: string;
 
-
-  constructor(
-    private http: HttpClient,
-  ) { }
+  constructor(private http: HttpClient) {}
 
   get(url: string) {
     return this.http.get(url);
@@ -22,7 +17,7 @@ export class QuizService {
 
   post_phq(response: QuesUserResponseArray) {
     console.log('phq data sent', response);
-    return this.http.post( environment.API_ENDPOINT + USER_PHQ_DATA, response);
+    return this.http.post(environment.API_ENDPOINT + USER_PHQ_DATA, response);
   }
 
   post_gad(response: QuesUserResponseArray) {

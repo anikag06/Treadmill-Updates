@@ -34,7 +34,7 @@ export class ExperimentToTestBeliefService {
       .pipe(
         map((data: any) => {
           this.beliefObservable$.next(<Belief>data);
-          return data;
+          return <Belief>data;
         }),
       );
   }
@@ -44,12 +44,12 @@ export class ExperimentToTestBeliefService {
       .put(environment.API_ENDPOINT + ETTBF_BELIEF_URL + belief.id + '/', {
         id: belief.id,
         belief: belief.belief,
-        belief_rating_before: belief.beliefRating,
+        belief_rating_before: belief.belief_rating_before,
       })
       .pipe(
         map((data: any) => {
           this.beliefObservable$.next(<Belief>data);
-          return data;
+          return <Belief>data;
         }),
       );
   }
@@ -62,7 +62,7 @@ export class ExperimentToTestBeliefService {
       })
       .pipe(
         map((data: any) => {
-          return data;
+          return <Outcome>data;
         }),
       );
   }
@@ -74,11 +74,12 @@ export class ExperimentToTestBeliefService {
         belief_id: outcome.belief_id,
         outcome: outcome.outcome,
         learning: outcome.learning,
-        belief_rating_after: outcome.beliefRating,
+        belief_rating_after: outcome.belief_rating_after,
+        realistic_belief: outcome.realistic_belief,
       })
       .pipe(
         map((data: any) => {
-          return data;
+          return <Outcome>data;
         }),
       );
   }

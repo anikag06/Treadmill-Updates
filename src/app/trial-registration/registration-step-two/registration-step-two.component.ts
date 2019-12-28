@@ -10,10 +10,9 @@ import { QuizService } from '@/shared/questionnaire/questionnaire.service';
 @Component({
   selector: 'app-registration-step-two',
   templateUrl: './registration-step-two.component.html',
-  styleUrls: ['./registration-step-two.component.scss']
+  styleUrls: ['./registration-step-two.component.scss'],
 })
 export class RegistrationStepTwoComponent implements OnInit {
-
   stepNo = 2;
   userEligible = false;
 
@@ -36,8 +35,24 @@ export class RegistrationStepTwoComponent implements OnInit {
   });
 
   stepTwoFormData = new RegistrationStepTwoForm(
-      52, 0, null , 0, 1, 1, true, true, 'other', false,
-      false, 0, false, 0, null, null, null, null
+    52,
+    0,
+    null,
+    0,
+    1,
+    1,
+    true,
+    true,
+    'other',
+    false,
+    false,
+    0,
+    false,
+    0,
+    null,
+    null,
+    null,
+    null,
   );
 
   participationID!: number;
@@ -54,21 +69,19 @@ export class RegistrationStepTwoComponent implements OnInit {
     private router: Router,
     private registrationDataService: RegistrationDataService,
     private questionnaireService: QuizService,
-  ) { }
+  ) {}
 
   ngOnInit() {
     const dateNow = new Date();
     const dateTime = dateNow.toJSON();
     this.starting_time = dateTime.replace('Z', '').replace('T', ' ');
     this.placeholder_tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    this.registrationDataService.getCountryList()
-      .subscribe( (data: any) => {
-        this.country_data = data.results;
-      });
-    this.registrationDataService.getTimeZoneData()
-      .subscribe( (data: any) => {
-        this.timezone_data = data;
-      });
+    this.registrationDataService.getCountryList().subscribe((data: any) => {
+      this.country_data = data.results;
+    });
+    this.registrationDataService.getTimeZoneData().subscribe((data: any) => {
+      this.timezone_data = data;
+    });
     this.participationID = this.registrationDataService.participationID;
   }
 
@@ -99,16 +112,19 @@ export class RegistrationStepTwoComponent implements OnInit {
 
       this.stepTwoFormData.source_of_information_other = this.stepTwoForm.value.otherReasonTextBox;
 
-      this.registrationDataService.saveStepTwoForm(this.stepTwoFormData)
-        .subscribe( (res_data: any) => {
+      this.registrationDataService
+        .saveStepTwoForm(this.stepTwoFormData)
+        .subscribe((res_data: any) => {
           this.userEligible = !res_data.excluded;
-          this.registrationDataService.participationID = res_data.participant_id;
+          this.registrationDataService.participationID =
+            res_data.participant_id;
           if (this.userEligible) {
             this.authService.activateChild(true);
             const stepNumber = res_data.next_step;
             const navigation_step = REGISTRATION_PATH + '/step-' + stepNumber;
             if (stepNumber === 3) {
-              this.questionnaireService.questinnaire_name = res_data.next_questionnaire;
+              this.questionnaireService.questinnaire_name =
+                res_data.next_questionnaire;
               this.router.navigate([navigation_step]);
             } else {
               this.router.navigate([navigation_step]);

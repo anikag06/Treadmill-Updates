@@ -24,39 +24,51 @@ import { Conclusion5Component } from './conclusion/conclusion5/conclusion5.compo
 
 export const resourcesRoutes: Routes = [
   {
-    path: '', component: FormsComponent, children: [
+    path: '',
+    component: FormsComponent,
+    children: [
       { path: 'forms', component: FormsListComponent },
-      { path: 'forms/problem-solving', component: ProblemSolvingWorksheetsComponent },
+      {
+        path: 'forms/problem-solving',
+        component: ProblemSolvingWorksheetsComponent,
+      },
       { path: 'forms/tasks', component: TaskFormsComponent },
       { path: 'forms/thought-record', component: ThoughtRecordFormComponent },
-      { path: 'forms/test-belief', component: ExperimentToTestBeliefFormComponent},
-    ]
+      {
+        path: 'forms/test-belief',
+        component: ExperimentToTestBeliefFormComponent,
+      },
+    ],
   },
   { path: 'conversations', component: ConversationsComponent },
   { path: 'conversations-group/:id', component: ConversationGroupComponent },
-  { path: 'slides/:id', component: SlidesComponent },     //:id here is step_id
+  { path: 'slides/:id', component: SlidesComponent }, //:id here is step_id
   {
-    path: 'introduction', component: IntroductionComponent, children: [
+    path: 'introduction',
+    component: IntroductionComponent,
+    children: [
       { path: '1', component: Introduction1Component },
       { path: '2', component: Introduction2Component },
       { path: '3', component: Introduction3Component },
       { path: '4', component: Introduction4Component },
       { path: '5', component: Introduction5Component },
-    ]
+    ],
   },
   {
-    path: 'conclusion', component: ConclusionComponent, children: [
+    path: 'conclusion',
+    component: ConclusionComponent,
+    children: [
       { path: '1', component: Conclusion1Component },
       { path: '2', component: Conclusion2Component },
       { path: '3', component: Conclusion3Component },
       { path: '4', component: Conclusion4Component },
       { path: '5', component: Conclusion5Component },
-    ]
+    ],
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(resourcesRoutes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ResourcesRoutingModule { }
+export class ResourcesRoutingModule {}

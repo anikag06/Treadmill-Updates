@@ -211,6 +211,9 @@ export const PSF_RESULT_URL = '/api/v1/worksheets/problem-solving/results/';
 export const ETTBF_BELIEF_URL = '/api/v1/worksheets/expr-test-belief/beliefs/';
 export const ETTBF_OUTCOME_URL =
   '/api/v1/worksheets/expr-test-belief/outcomes/';
+export const ETTBF_RATING_QUESTION = 'How strong is your belief?';
+export const ETTBF_MIN_RATING_TEXT = 'Not at all';
+export const ETTBF_MAX_RATING_TEXT = 'Very strong';
 
 // Task form
 export const TASK = 'tasks';

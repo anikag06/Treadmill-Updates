@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import {NgModule, LOCALE_ID, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import { NgModule, LOCALE_ID, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from '@/material.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -22,7 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ErrorDialogComponent } from './shared/error-dialog/error-dialog.component';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { LocalStorageService } from './shared/localstorage.service';
-import { MatSignupDialogComponent} from './pre-login/signup/mat-signup-dialog/mat-signup-dialog.component';
+import { MatSignupDialogComponent } from './pre-login/signup/mat-signup-dialog/mat-signup-dialog.component';
 import { SignupComponent } from '@/pre-login/signup/signup.component';
 import { QuestionnaireModule } from './questionnaire.module';
 import { ContactUsDataService } from './shared/mat-contact-us-dialog/contact-us-data.service';
@@ -52,14 +52,16 @@ declare let $: any;
     ReactiveFormsModule,
     MaterialModule,
     HttpClientModule,
-    ServiceWorkerModule.register('sw-master.js', { enabled: environment.production }),
+    ServiceWorkerModule.register('sw-master.js', {
+      enabled: environment.production,
+    }),
     AppRoutingModule,
     QuestionnaireModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireMessagingModule,
   ],
   providers: [
-    {provide: LOCALE_ID, useValue: 'en-US'},
+    { provide: LOCALE_ID, useValue: 'en-US' },
     LoginComponent,
     LoggerService,
     DialogSize,
@@ -69,8 +71,13 @@ declare let $: any;
     LocalStorageService,
     ContactUsDataService,
     FcmService,
-    ],
+  ],
   bootstrap: [AppComponent],
-  entryComponents: [MatLoginDialogComponent, MatContactUsDialogComponent, ErrorDialogComponent, MatSignupDialogComponent],
+  entryComponents: [
+    MatLoginDialogComponent,
+    MatContactUsDialogComponent,
+    ErrorDialogComponent,
+    MatSignupDialogComponent,
+  ],
 })
-export class AppModule { }
+export class AppModule {}

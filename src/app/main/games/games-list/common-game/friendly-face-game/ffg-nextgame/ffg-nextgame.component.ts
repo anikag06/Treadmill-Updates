@@ -5,15 +5,14 @@ declare var ffg_next_song: any;
 @Component({
   selector: 'app-ffg-nextgame',
   templateUrl: './ffg-nextgame.component.html',
-  styleUrls: ['./ffg-nextgame.component.scss']
+  styleUrls: ['./ffg-nextgame.component.scss'],
 })
 export class FfgNextgameComponent implements OnInit {
-  ffg_next_song !: any;
-  constructor(private elementRef: ElementRef) { }
+  ffg_next_song!: any;
+  constructor(private elementRef: ElementRef) {}
 
   ngOnInit() {
     this.ffg_next_song = ffg_next_song;
-
   }
 
   onPlayNext() {

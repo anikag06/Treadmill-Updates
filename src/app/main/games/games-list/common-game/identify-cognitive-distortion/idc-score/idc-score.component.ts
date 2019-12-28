@@ -1,4 +1,10 @@
-import { Component, OnInit, ElementRef, ViewChild, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ElementRef,
+  ViewChild,
+  OnDestroy,
+} from '@angular/core';
 import { IdcGameService } from '../idc-game.service';
 import { IdcTimeComponent } from '../idc-time/idc-time.component';
 import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
@@ -6,10 +12,9 @@ import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service
 @Component({
   selector: 'app-idc-score',
   templateUrl: './idc-score.component.html',
-  styleUrls: ['./idc-score.component.scss']
+  styleUrls: ['./idc-score.component.scss'],
 })
 export class IdcScoreComponent implements OnInit, OnDestroy {
-
   bronzeValue: any;
   silverValue: any;
   goldValue: any;
@@ -25,9 +30,10 @@ export class IdcScoreComponent implements OnInit, OnDestroy {
 
   @ViewChild('checkElement', { static: false }) element!: ElementRef;
 
-  constructor(private gameService: IdcGameService,
-    private dialogBoxService: DialogBoxService) { }
-
+  constructor(
+    private gameService: IdcGameService,
+    private dialogBoxService: DialogBoxService,
+  ) {}
 
   ngOnInit() {
     this.gameService.levelFinish.subscribe(() => {

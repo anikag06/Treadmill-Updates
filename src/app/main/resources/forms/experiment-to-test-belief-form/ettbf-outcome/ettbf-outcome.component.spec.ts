@@ -8,9 +8,8 @@ describe('EttbfOutcomeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EttbfOutcomeComponent ]
-    })
-    .compileComponents();
+      declarations: [EttbfOutcomeComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

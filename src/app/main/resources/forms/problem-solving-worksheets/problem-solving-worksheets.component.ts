@@ -1,4 +1,11 @@
-import { Component, OnInit, ViewChild, OnDestroy, ElementRef, NgZone } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  OnDestroy,
+  ElementRef,
+  NgZone,
+} from '@angular/core';
 import { ProblemSolvingWorksheetsService } from './problem-solving-worksheets.service';
 import { Subscription } from 'rxjs';
 import { Problem } from './problem.model';
@@ -17,10 +24,9 @@ import { PROBLEM_SOLVING_FORM_NAME } from '@/app.constants';
 @Component({
   selector: 'app-problem-solving-worksheets',
   templateUrl: './problem-solving-worksheets.component.html',
-  styleUrls: ['./problem-solving-worksheets.component.scss']
+  styleUrls: ['./problem-solving-worksheets.component.scss'],
 })
 export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
-
   user!: User;
   problem!: Problem;
   solutions: Solution[] = [];
@@ -35,26 +41,27 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   formName = PROBLEM_SOLVING_FORM_NAME;
 
   @ViewChild('solutionForm', { static: false }) solutionForm!: NgForm;
-  @ViewChild('solutionTextArea', { static: false }) solutionTextArea!: ElementRef;
+  @ViewChild('solutionTextArea', { static: false })
+  solutionTextArea!: ElementRef;
   @ViewChild('autosize', { static: false }) autosize!: CdkTextareaAutosize;
-  @ViewChild(ProblemFormComponent, { static: false }) problemStatementForm!: ProblemFormComponent;
-  @ViewChild(SolutionsComponent, { static: false }) solutionsForm!: SolutionsComponent;
+  @ViewChild(ProblemFormComponent, { static: false })
+  problemStatementForm!: ProblemFormComponent;
+  @ViewChild(SolutionsComponent, { static: false })
+  solutionsForm!: SolutionsComponent;
   constructor(
     private problemService: ProblemSolvingWorksheetsService,
     private authService: AuthService,
     private errorService: GeneralErrorService,
-  ) { }
+  ) {}
 
   ngOnInit() {
-    this.subscriptions[this.subscriptions.length] = this.problemService.problemBehaviour
-      .subscribe(
-        (problem: any) => {
-          if (Object.entries(problem).length > 0) {
-            this.problemSelected(problem);
-          }
-        },
-        this.errorService.errorResponse('Something went wrong')
-      );
+    this.subscriptions[
+      this.subscriptions.length
+    ] = this.problemService.problemBehaviour.subscribe((problem: any) => {
+      if (Object.entries(problem).length > 0) {
+        this.problemSelected(problem);
+      }
+    }, this.errorService.errorResponse('Something went wrong'));
     const user = this.authService.isLoggedIn();
     if (user && user.is_active) {
       this.user = <User>user;
@@ -74,20 +81,18 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   }
 
   fetchSolutions() {
-    this.problemService.getSolutions(this.problem.id)
-      .subscribe(
-        (data: any) => {
-          this.solutions = data.message;
-          if (this.problem.bestSolution) {
-            const bestSolution = this.solutions.find(sol => sol.id === this.problem.bestSolution.solution_id);
-            if (bestSolution) {
-              this.bestSolution = bestSolution;
-              this.prosconsSaved = true;
-            }
-          }
-        },
-        this.errorService.errorResponse('Something went wrong')
-      );
+    this.problemService.getSolutions(this.problem.id).subscribe((data: any) => {
+      this.solutions = data.message;
+      if (this.problem.bestSolution) {
+        const bestSolution = this.solutions.find(
+          sol => sol.id === this.problem.bestSolution.solution_id,
+        );
+        if (bestSolution) {
+          this.bestSolution = bestSolution;
+          this.prosconsSaved = true;
+        }
+      }
+    }, this.errorService.errorResponse('Something went wrong'));
   }
 
   onAddNewForm() {
@@ -107,11 +112,10 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
       }
     });
     if (this.bestSolution) {
-      this.problemService.putBestSolution(this.bestSolution.id, this.problem.id)
-        .subscribe(
-          () => { },
-          this.errorService.errorResponse('Cannot select the best solution')
-        );
+      this.problemService
+        .putBestSolution(this.bestSolution.id, this.problem.id)
+        .subscribe(() => {},
+        this.errorService.errorResponse('Cannot select the best solution'));
     }
   }
 
@@ -123,17 +127,24 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   }
 
   onSolutionSubmit() {
-    if (this.solutionForm.value['solution'] && this.solutionForm.value['solution'].trim().length > 0) {
-      this.problemService.postSolution(this.solutionForm.value['solution'], this.problem.id)
-        .subscribe(
-          (resp: any) => {
-            const solution = new Solution(+resp.data.solution_id, this.problem.id, resp.data.solution, false, 0);
-            this.solutions.push(solution);
-            this.showSolutionsForm = false;
-            this.solutionForm.reset();
-          },
-          this.errorService.errorResponse('Something went wrong')
-        );
+    if (
+      this.solutionForm.value['solution'] &&
+      this.solutionForm.value['solution'].trim().length > 0
+    ) {
+      this.problemService
+        .postSolution(this.solutionForm.value['solution'], this.problem.id)
+        .subscribe((resp: any) => {
+          const solution = new Solution(
+            +resp.data.solution_id,
+            this.problem.id,
+            resp.data.solution,
+            false,
+            0,
+          );
+          this.solutions.push(solution);
+          this.showSolutionsForm = false;
+          this.solutionForm.reset();
+        }, this.errorService.errorResponse('Something went wrong'));
     } else {
       this.solutionForm.reset();
       this.showSolutionsForm = false;
@@ -155,27 +166,21 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   }
 
   onSolutionEdit(solution: Solution) {
-    this.problemService.putSolution(solution.id, solution.solution)
-      .subscribe(
-        (data: any) => { },
-        this.errorService.errorResponse('Something went wrong')
-      );
+    this.problemService
+      .putSolution(solution.id, solution.solution)
+      .subscribe((data: any) => {},
+      this.errorService.errorResponse('Something went wrong'));
   }
 
   onSolutionRemove(solution: Solution) {
-    this.problemService.deleteSolution(solution.id)
-      .subscribe(
-        (data: any) => {
-          this.solutions = this.solutions.filter(solu => solu !== solution);
-        },
-        this.errorService.errorResponse('Something went wrong')
-      );
+    this.problemService.deleteSolution(solution.id).subscribe((data: any) => {
+      this.solutions = this.solutions.filter(solu => solu !== solution);
+    }, this.errorService.errorResponse('Something went wrong'));
   }
 
   onNextStep() {
     this.showResult = true;
   }
-
 
   onSolutionSaved() {
     this.solutionsSaved = true;
