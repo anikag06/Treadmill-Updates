@@ -377,6 +377,6 @@ import { StepsDataService } from './resources/shared/steps-data.service';
     FfgNolifeComponent,
     LoadingBarComponent,
     MoodTrackerComponent,
-  ]
+  ],
 })
 export class MainModule {}
