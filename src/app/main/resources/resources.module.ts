@@ -30,7 +30,7 @@ import { ResourcesRoutingModule } from '@/main/resources/resources-routing.modul
 import { ProconItemComponent } from '@/main/resources/forms/problem-solving-worksheets/pros-cons-container/pros-cons/procon-item/procon-item.component';
 // tslint:disable-next-line:max-line-length
 import { ProsConsContainerComponent } from '@/main/resources/forms/problem-solving-worksheets/pros-cons-container/pros-cons-container.component';
-import { TaskFormsComponent } from './forms/task-forms/task-forms.component';
+import { TaskFormsComponent } from './forms/shared/tasks/task-forms/task-forms.component';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { SlidesComponent } from './slides/slides.component';
 import { FormDirective } from './slides/form.directive';
@@ -57,10 +57,15 @@ import { Conclusion4Component } from './conclusion/conclusion4/conclusion4.compo
 import { Conclusion5Component } from './conclusion/conclusion5/conclusion5.component';
 import { ThoughtRecordFormComponent } from './forms/thought-record-form/thought-record-form.component';
 import { TrfSituationComponent } from './forms/thought-record-form/trf-situation/trf-situation.component';
+import { WorryProductivelyComponent } from '@/main/resources/forms/worry-productively-form/worry-productively.component';
+import { WorryFormComponent } from '@/main/resources/forms/worry-productively-form/worry-form/worry-form.component';
+import { TechniquesComponent } from './forms/worry-productively-form/techniques/techniques.component';
+import { EvaluateWorryComponent } from './forms/worry-productively-form/Techniques/evaluate-worry/evaluate-worry.component';
 import { ExperimentToTestBeliefFormComponent } from './forms/experiment-to-test-belief-form/experiment-to-test-belief-form.component';
 import { EttbfBeliefComponent } from './forms/experiment-to-test-belief-form/ettbf-belief/ettbf-belief.component';
 import { EttbfOutcomeComponent } from './forms/experiment-to-test-belief-form/ettbf-outcome/ettbf-outcome.component';
 import { FormSliderComponent } from './forms/shared/form-slider/form-slider.component';
+
 
 @NgModule({
   declarations: [
@@ -100,6 +105,10 @@ import { FormSliderComponent } from './forms/shared/form-slider/form-slider.comp
     EttbfBeliefComponent,
     EttbfOutcomeComponent,
     FormSliderComponent,
+    WorryProductivelyComponent,
+    WorryFormComponent,
+    TechniquesComponent,
+    EvaluateWorryComponent
   ],
   imports: [
     ResourcesRoutingModule,
@@ -121,6 +130,7 @@ import { FormSliderComponent } from './forms/shared/form-slider/form-slider.comp
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     MatSlideToggleModule,
+    MatSliderModule
   ],
   providers: [
     SlideService,

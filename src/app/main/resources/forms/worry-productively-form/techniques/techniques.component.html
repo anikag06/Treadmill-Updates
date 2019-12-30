@@ -1,0 +1,39 @@
+
+    <div class="row mb-2" >
+        <div class="col-12">
+          <div class="card-full-width">
+            <div class="card-header" style = "background: #FBE9C8;" >
+             Select a technique that you would like to use to reduce your worry?
+             <div class="float-right d-inline-block">
+                <mat-icon class="edit_icon" >
+                  edit </mat-icon>
+              </div> 
+            </div>
+            <div class="card-body" >
+                You can evaluate your thought with multiple techniques.
+                <div class="float-right d-inline-block">
+                    <mat-icon class="info_icon" >
+                       info </mat-icon>
+                </div> <br/> <br/> 
+                <div class="card-header" style ="background: #FFFCE3;" (click)="EvaluateClick()">
+                  Evaluate Worry 
+                </div><br/>
+                  <app-evaluate-worry [EvaluatedClicked]="ifclicked"></app-evaluate-worry>
+                <div class="card-header" style = "background: #FEC1C1;" >
+                  Face my worst fear
+                </div><br/>
+                <div class="card-header" style = "background: #E2E5FF;" >
+                  Modify Beliefs
+                </div><br/>
+                <div class="card-header" style =  "background: #FEDEFF;" >
+                  Can I do anything about it?
+                </div><br/>
+                <div class="card-header" style = "background: #C9FFDA;" >
+                  Deal with intense worry
+                </div>
+
+              
+            </div>
+          </div>
+        </div>
+    </div>  
