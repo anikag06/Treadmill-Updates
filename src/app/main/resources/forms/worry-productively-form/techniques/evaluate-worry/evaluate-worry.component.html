@@ -1,10 +1,40 @@
-<form>
-        <div>
-         Can you identify the Thinking Errors in your negative thoughts?
-        </div> <br/>
-            <div *ngFor="let i of item" >
-                <mat-checkbox>
-                  {{i}}
-                </mat-checkbox>
+<form *ngIf = "EvaluatedClicked">
+        <div class = "card-body">  
+            <div>
+            Can you identify the Thinking Errors in your negative thoughts?
+            </div> <br/>
+                <div *ngFor="let i of item" >
+                    <mat-checkbox>
+                    {{i}}
+                    </mat-checkbox>
+                </div>
+                <p class="text-right" (click)="CheckSubmit()">
+                    <button type="button" mat-raised-button color="primary"
+                        class="continue-btn"  >Continue</button>
+                </p>
+            <div *ngIf="checksubmitted">                
+                Gather evidence
+                <div class= "card-body" *ngIf="evaluateEvidence && EvaluateEditMode" (click)="onEvaluateClick()">
+                    <app-worry-form [problem]="evaluateEvidence"></app-worry-form>
+                </div>
+                <div class= "card-body" *ngIf="!evaluateEvidence" (click)="onEvaluateClick()">
+                    <app-worry-form (testOut)="continuetoSlider($event)"></app-worry-form>
+                </div>
+            
             </div>
+            <div class="card-body" *ngIf="buttonClick" style="color:#00000099; letter-spacing:0.14px;" >
+                Guess Probability<br/>
+                <app-slider ></app-slider>
+            </div> 
+            <div  *ngIf="buttonClick">                
+                Accept uncertainity
+                <div class= "card-body" *ngIf="evaluateEvidence && EvaluateEditMode" (click)="onEvaluateClick()">
+                    <app-worry-form [problem]="evaluateEvidence"></app-worry-form>
+                </div>
+                <div class= "card-body" *ngIf="!evaluateEvidence" (click)="onEvaluateClick()">
+                    <app-worry-form (testOut)="continuetoSlider($event)"></app-worry-form>
+                </div>
+                
+            </div>
+        </div>
 </form>

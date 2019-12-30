@@ -34,15 +34,15 @@
                           edit </mat-icon>
                       </div>
                     </div>
-                    <div class="card-body" *ngIf="problem && !problemEditMode" (click)="onProblemClick()">
+                    <div class="card-body" *ngIf="worry && !worryEditMode" (click)="onWorryClick()">
                       <div class="form-editable-text-underline">
-                        {{problem.problem}}
+                        {{worry.problem}}
                       </div>
                     </div>
-                    <div class="card-body" *ngIf="problem && problemEditMode" (click)="onProblemClick()">
+                    <div class="card-body" *ngIf="worry && worryEditMode" (click)="onWorryClick()">
                       <app-worry-form [problem]="problem"></app-worry-form>
                     </div>
-                    <div class="card-body" *ngIf="!problem" (click)="onProblemClick()" >
+                    <div class="card-body" *ngIf="!worry" (click)="onWorryClick()" >
                       <app-worry-form (testOut)="continuetoSlider($event)" ></app-worry-form>
                     </div>
                     <div class="card-body" *ngIf="buttonClick" style="color:#00000099; letter-spacing:0.14px;"  >

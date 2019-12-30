@@ -11,5 +11,8 @@ export class TechniquesComponent implements OnInit {
 
   ngOnInit() {
   }
-
+  public ifclicked = false;
+  EvaluateClick(){
+  this.ifclicked=true;
+  }
 }

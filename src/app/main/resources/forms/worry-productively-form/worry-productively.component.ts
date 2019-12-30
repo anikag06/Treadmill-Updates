@@ -29,9 +29,9 @@ import { TechniquesComponent } from './techniques/techniques.component';
     
     // private problems: Problem[] = [];
     user!: User;
-    problem!: Worry;    
+    worry!: Worry;    
     page = 1;
-    problemEditMode = false;
+    worryEditMode = false;
     subscriptions: Subscription[] = [];
     buttonClick : boolean;
     buttonclick : boolean;
@@ -52,7 +52,7 @@ import { TechniquesComponent } from './techniques/techniques.component';
       // ];
    
     @ViewChild('autosize', { static: false }) autosize!: CdkTextareaAutosize;
-    @ViewChild(WorryFormComponent, { static: false }) problemStatementForm!: WorryFormComponent;
+    @ViewChild(WorryFormComponent, { static: false }) worryStatementForm!: WorryFormComponent;
     // @ViewChild('Checkbox') private Checkbox: MatCheckbox;
     
   
@@ -78,7 +78,7 @@ import { TechniquesComponent } from './techniques/techniques.component';
       'Embarrassed':false
     })
     this.controlNames = Object.keys(this.form.controls).map(_=>_)
-    this.selectedNames$ = this.form.valueChanges.pipe(map(v => Object.keys(v).filter(k => v[k])));
+    // this.selectedNames$ = this.form.valueChanges.pipe(map(v => Object.keys(v).filter(k => v[k])));
     console.log(this.selectedNames$);
   }
   
@@ -120,20 +120,20 @@ import { TechniquesComponent } from './techniques/techniques.component';
       sub.unsubscribe();
     });
   }
-    problemSelected(problem: Worry) {
-      this.problem = problem;
-      this.problemEditMode = false;
+    problemSelected(worry: Worry) {
+      this.worry = worry;
+      this.worryEditMode = false;
     }  
     onEditProblemClick() {
-      this.onProblemClick();
-      console.log(this.problemEditMode);
-      if (this.problemStatementForm) {
-        this.problemStatementForm.editProblemText();
+      this.onWorryClick();
+      console.log(this.worryEditMode);
+      if (this.worryStatementForm) {
+        this.worryStatementForm.editProblemText();
       }
     }
-    onProblemClick() {
-      if (this.problem) {
-        this.problemEditMode = true;
+    onWorryClick() {
+      if (this.worry) {
+        this.worryEditMode = true;
       }
       // this.OnSliderClick();
     }
