@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ModifyBeliefsComponent } from './modify-beliefs.component';
+import { WpfDealWithWorryComponent } from './wpf-deal-with-worry.component';
 
-describe('ModifyBeliefsComponent', () => {
-  let component: ModifyBeliefsComponent;
-  let fixture: ComponentFixture<ModifyBeliefsComponent>;
+describe('WpfDealWithWorryComponent', () => {
+  let component: WpfDealWithWorryComponent;
+  let fixture: ComponentFixture<WpfDealWithWorryComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ModifyBeliefsComponent],
+      declarations: [WpfDealWithWorryComponent],
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ModifyBeliefsComponent);
+    fixture = TestBed.createComponent(WpfDealWithWorryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

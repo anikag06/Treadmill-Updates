@@ -65,6 +65,9 @@ import { ExperimentToTestBeliefFormComponent } from './forms/experiment-to-test-
 import { EttbfBeliefComponent } from './forms/experiment-to-test-belief-form/ettbf-belief/ettbf-belief.component';
 import { EttbfOutcomeComponent } from './forms/experiment-to-test-belief-form/ettbf-outcome/ettbf-outcome.component';
 import { FormSliderComponent } from './forms/shared/form-slider/form-slider.component';
+import { FaceMyWorstFearComponent } from './forms/worry-productively-form/techniques/face-my-worst-fear/face-my-worst-fear.component';
+import { WpfProblemSolvingComponent } from './forms/worry-productively-form/techniques/wpf-problem-solving/wpf-problem-solving.component';
+import { WpfDealWithWorryComponent } from './forms/worry-productively-form/techniques/wpf-deal-with-worry/wpf-deal-with-worry.component';
 
 @NgModule({
   declarations: [
@@ -108,6 +111,9 @@ import { FormSliderComponent } from './forms/shared/form-slider/form-slider.comp
     WorryFormComponent,
     TechniquesComponent,
     EvaluateWorryComponent,
+    FaceMyWorstFearComponent,
+    WpfProblemSolvingComponent,
+    WpfDealWithWorryComponent,
   ],
   imports: [
     ResourcesRoutingModule,
