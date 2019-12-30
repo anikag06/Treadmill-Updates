@@ -11,7 +11,7 @@
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
 $treadwill-app-primary: mat-palette($treadwill-primary, 500);
-$treadwill-app-accent:  mat-palette($mat-pink);
+$treadwill-app-accent:  mat-palette($mat-grey);
 
 // The warn palette is optional (defaults to red).
 $treadwill-app-warn:    mat-palette($mat-red);

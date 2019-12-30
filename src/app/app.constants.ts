@@ -1,23 +1,23 @@
 // Textual Constants
-export const INTRODUCTION = 'INTRODUCTION';
-export const LEARN = 'LEARN';
-export const DISCUSS = 'DISCUSS';
-export const PRACTICE = 'PRACTICE';
-export const GAMES = 'games';
-export const MODULES = 'modules';
-export const CATEGORY = 'category_';
-export const TOKEN = 'jwt_token';
-export const USERAVATAR = 'user_avatar';
-export const ISADMIN = 'is_admin';
-export const ISACTIVE = 'is_active';
-export const TREADWILL = 'TreadWill';
-export const SUNDAY = 'SUNDAY';
-export const MONDAY = 'MONDAY';
-export const TUESDAY = 'TUESDAY';
-export const WEDNESDAY = 'WEDNESDAY';
-export const THURSDAY = 'THURSDAY';
-export const FRIDAY = 'FRIDAY';
-export const SATURDAY = 'SATURDAY';
+export const INTRODUCTION       = 'INTRODUCTION';
+export const LEARN              = 'LEARN';
+export const DISCUSS            = 'DISCUSS';
+export const PRACTICE           = 'PRACTICE';
+export const GAMES              = 'games';
+export const MODULES            = 'modules';
+export const CATEGORY           = 'category_';
+export const TOKEN              = 'jwt_token';
+export const USERAVATAR         = 'user_avatar';
+export const ISADMIN            = 'is_admin';
+export const ISACTIVE           = 'is_active';
+export const TREADWILL          = 'TreadWill';
+export const SUNDAY             = 'SUNDAY';
+export const MONDAY             = 'MONDAY';
+export const WEDNESDAY          = 'WEDNESDAY';
+export const TUESDAY            = 'TUESDAY';
+export const THURSDAY           = 'THURSDAY';
+export const FRIDAY             = 'FRIDAY';
+export const SATURDAY           = 'SATURDAY';
 export const WEEK = [
   SUNDAY,
   MONDAY,
@@ -27,6 +27,9 @@ export const WEEK = [
   FRIDAY,
   SATURDAY,
 ];
+export const NEGATIVE_EMOTIONS  = ['Sad','Anxious','Angry','Guilty','Jealous','Hopeless','Worthless','Lonely','Frustrated','Embarassed','Afraid'];
+export const NEUTRAL_EMOTIONS   = ['Okay'];
+export const POSITIVE_EMOTIONS =  ['Happy','Excited','Optimistic','Joyful','Confident'];
 
 // Game names
 export const INTERPRETATION_BIAS_GAME = 'Interpretation Bias Game';

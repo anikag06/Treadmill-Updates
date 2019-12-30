@@ -139,6 +139,8 @@ import { UserProfileService } from './shared/user-profile/userProfile.service';
 import { BadgesComponent } from './shared/user-profile/badges/badges.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ClickOutsideDirective } from './support-groups/post-list/post-item/click-outside.directive';
+import { MoodTrackerComponent } from './shared/mood-tracker/mood-tracker.component';
+import { DataTimePickerComponent } from './shared/data-time-picker/data-time-picker.component';
 
 import { QuestionnaireModule } from '@/questionnaire.module';
 import { GetQuestionnaireComponent } from './dashboard/get-questionnaire/get-questionnaire.component';
@@ -276,6 +278,8 @@ import { StepsDataService } from './resources/shared/steps-data.service';
     LoadingBarComponent,
     LoadingBarDirective,
     LhgGreatComponent,
+    MoodTrackerComponent,
+    DataTimePickerComponent,
   ],
   imports: [
     CommonModule,
@@ -372,6 +376,7 @@ import { StepsDataService } from './resources/shared/steps-data.service';
     FfgPlayagainComponent,
     FfgNolifeComponent,
     LoadingBarComponent,
-  ],
+    MoodTrackerComponent,
+  ]
 })
 export class MainModule {}

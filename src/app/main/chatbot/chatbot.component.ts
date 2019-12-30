@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-chatbot',
@@ -13,7 +14,8 @@ export class ChatbotComponent implements OnInit {
   blacklisted = ['/games', '/resources'];
 
   constructor(
-    private router: Router
+    private router: Router,
+   private elementRef: ElementRef,
   ) { }
 
   ngOnInit() {

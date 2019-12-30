@@ -1,64 +1,65 @@
-<div class="chat-window" [@openClose]="chatWindowClosed ? 'closed' : 'open'">
+<div class="container chat-window" [@openClose]="chatWindowClosed ? 'closed' : 'open'">
   <div class="chat-header">
     <img class="chatbot-screen-img" src="assets/chatbot/on_chat_screen.png" alt="">
     <h3>WillBot</h3>
-    <button mat-flat-button class="close-icon"  (click)="close()"><mat-icon>close</mat-icon></button>
+    <button mat-flat-button class="close-icon" (click)="close()">
+      <mat-icon>close</mat-icon>
+    </button>
   </div>
   <div class="chat-frame" #messagesDiv [scrollTop]="scrollTop">
-    <div class="clearfix" *ngFor="let m of messages">
+    <div class="clearfix messages" *ngFor="let m of messages">
       <div>
         <ng-container *ngIf="!m.waiting else waiting">
-            <div class="message" [ngClass]="{'bot': !m.user}" *ngIf="m.message">
-              <div class="message-text" [innerHTML]="m.message"></div>
-              <span class="date-time">{{m.datetime | date: 'short' }}</span>
-            </div>
+          <div class="message" [ngClass]="{'bot': !m.user}" *ngIf="m.message">
+            <div class="message-text" [innerHTML]="m.message"></div>
+            <!-- <span class="date-time">{{m.datetime | date: 'short' }}</span> -->
+          </div>
         </ng-container>
         <ng-template #waiting>
-            <div class="message bot">
-              <div class="message-text waiting">
-                <div class="dot-typing"></div>
-              </div>
+          <div class="message bot">
+            <div class="message-text waiting">
+              <div class="dot-typing"></div>
             </div>
+          </div>
         </ng-template>
       </div>
-      <div class="buttons">
-        <button
-          mat-raised-button
-          color="primary"
-          *ngFor="let button of m.buttons"
-          (click)="chatButtonPressed(button, m)">
-          <span class="btn-text">
-            {{ button.payload }}
-          </span>
+      <div class="buttons" [ngStyle]="{'display': buttonType===clickAble ? 'table-cell': 'block'}">
+        <button *ngFor="let button of m.buttons" [ngClass]="{'btn radio_button': button.type===radio, 'btn module_button':  button.type ===clickAble}"  
+        (click)="chatButtonPressed(button, m)" >
+        <img src="assets/chatbot/tracker.png" [alt]="button.payload" width="136px" height="72px" *ngIf =" button.type === clickAble else btnText" />
+        <ng-template #btnText> <span class="btn-text" >{{button.payload}}</span></ng-template>
+       
         </button>
+        </div>
+
+      <div *ngFor="let widget of m.widgets">
+        <div class="buttons">
+          <button (click)="onMoodSelect()" *ngIf="widget===moodWidget"> <span class="btn-text">Select your mood</span></button>
+          <div *ngIf="showMoodTracker">
+            <app-mood-tracker (onClose)="onMoodSelect()" (moodSubmit)="onChatSubmit($event)"
+              (moodMessage)="getMoodMessage($event)"></app-mood-tracker>
+          </div>
+        <button (click)="onDateTimeSelect()" *ngIf="widget===dateTimeWidget">Date Time</button>
+        <div *ngIf="showDateTime">
+          <app-data-time-picker (onClose)="onDateTimeSelect()" (dateTimeSubmit)="onChatSubmit($event)"
+          (dateTimeMessage)="getDateTimeMessage($event)"></app-data-time-picker>
+        </div>
+      </div>
       </div>
     </div>
-    <button class="mood-btn" type="input">Select your mood</button>
   </div>
   <div class="form-div">
-    <form (ngSubmit)="onChatSubmit()" >
+    <form (ngSubmit)="onChatSubmit()">
       <div class="textarea">
-        <textarea
-          class="form-control"
-          placeholder="Enter your message"
-          [(ngModel)]="message"
-          name="message"
-          [autofocus]
-          rows="1"
-          (keyup.enter)="onKey($event)"
-          (focusin)="scrollToBottom()"
-          #ti
-          autocomplete="off">
+        <textarea matInput class="form-control" placeholder="Enter your message" [(ngModel)]="message" name="message"
+          (keyup.enter)="onKey($event)" (focusin)="scrollToBottom()" #ti autocomplete="off">
         </textarea>
       </div>
       <div class="btn-div">
-        <button
-          type="submit"
-        >
-        <mat-icon [ngStyle]="{'color':'grey'}">send</mat-icon>
-      </button>
+        <button type="submit">
+          <mat-icon [ngStyle]="{'color':'grey'}">send</mat-icon>
+        </button>
       </div>
     </form>
   </div>
-  
 </div>
