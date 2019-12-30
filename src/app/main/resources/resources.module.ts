@@ -66,7 +66,6 @@ import { EttbfBeliefComponent } from './forms/experiment-to-test-belief-form/ett
 import { EttbfOutcomeComponent } from './forms/experiment-to-test-belief-form/ettbf-outcome/ettbf-outcome.component';
 import { FormSliderComponent } from './forms/shared/form-slider/form-slider.component';
 
-
 @NgModule({
   declarations: [
     FormsComponent,
@@ -108,7 +107,7 @@ import { FormSliderComponent } from './forms/shared/form-slider/form-slider.comp
     WorryProductivelyComponent,
     WorryFormComponent,
     TechniquesComponent,
-    EvaluateWorryComponent
+    EvaluateWorryComponent,
   ],
   imports: [
     ResourcesRoutingModule,
@@ -130,7 +129,7 @@ import { FormSliderComponent } from './forms/shared/form-slider/form-slider.comp
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     MatSlideToggleModule,
-    MatSliderModule
+    MatSliderModule,
   ],
   providers: [
     SlideService,
