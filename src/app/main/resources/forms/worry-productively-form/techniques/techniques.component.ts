@@ -3,16 +3,14 @@ import { EvaluateWorryComponent } from './evaluate-worry/evaluate-worry.componen
 @Component({
   selector: 'app-techniques',
   templateUrl: './techniques.component.html',
-  styleUrls: ['./techniques.component.scss']
+  styleUrls: ['./techniques.component.scss'],
 })
 export class TechniquesComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
+  ngOnInit() {}
   public ifclicked = false;
-  EvaluateClick(){
-  this.ifclicked=true;
+  EvaluateClick() {
+    this.ifclicked = true;
   }
 }

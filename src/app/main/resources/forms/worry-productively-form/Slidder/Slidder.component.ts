@@ -1,4 +1,4 @@
-import {Component,NgModule,EventEmitter, Output} from '@angular/core';
+import { Component, NgModule, EventEmitter, Output } from '@angular/core';
 import 'hammerjs';
 /**
  * @title Slider with custom thumb label formatting.
@@ -9,10 +9,10 @@ import 'hammerjs';
   styleUrls: ['Slidder.component.scss'],
 })
 export class SliderComponent {
-  Sliderval=0;
-  public Cbutton=false;
+  Sliderval = 0;
+  public Cbutton = false;
   @Output() testout = new EventEmitter<boolean>();
-  
+
   // constructor(){
   //   this.Sliderval
   // }
@@ -23,15 +23,12 @@ export class SliderComponent {
 
     return value;
   }
-  onSubmit(){
-    console.log('Range Slider'+this.Sliderval);
-    this.Cbutton=true;
+  onSubmit() {
+    console.log('Range Slider' + this.Sliderval);
+    this.Cbutton = true;
     this.testout.emit(this.Cbutton);
   }
-  
-
 }
-
 
 /**  Copyright 2019 Google LLC. All Rights Reserved.
     Use of this source code is governed by an MIT-style license that

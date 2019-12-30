@@ -37,7 +37,12 @@ export class FormsService {
       path: '/resources/forms/test-belief',
       banner: 'assets/forms/form.svg',
     },
-    { name: 'Worry Productively form', slug: 'worry-productively', path: '/resources/forms/worry-productively', banner: 'assets/forms/form.svg' }
+    {
+      name: 'Worry Productively form',
+      slug: 'worry-productively',
+      path: '/resources/forms/worry-productively',
+      banner: 'assets/forms/form.svg',
+    },
   ];
 
   constructor() {}

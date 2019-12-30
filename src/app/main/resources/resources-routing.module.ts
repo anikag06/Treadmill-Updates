@@ -39,9 +39,11 @@ export const resourcesRoutes: Routes = [
         path: 'forms/test-belief',
         component: ExperimentToTestBeliefFormComponent,
       },
-      { path: 'forms/worry-productively', component: WorryProductivelyComponent }
-      
-    ]
+      {
+        path: 'forms/worry-productively',
+        component: WorryProductivelyComponent,
+      },
+    ],
   },
   { path: 'conversations', component: ConversationsComponent },
   { path: 'conversations-group/:id', component: ConversationGroupComponent },

@@ -1,17 +1,17 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { WorryFormComponent } from  '../../worry-form/worry-form.component';
+import { WorryFormComponent } from '../../worry-form/worry-form.component';
 import { Worry } from '../../worry.model';
 import { TechniquesComponent } from '../techniques.component';
-import { SliderComponent } from '../../Slidder/Slidder.component'
+import { SliderComponent } from '../../Slidder/Slidder.component';
 @Component({
   selector: 'app-evaluate-worry',
   templateUrl: './evaluate-worry.component.html',
-  styleUrls: ['./evaluate-worry.component.scss']
+  styleUrls: ['./evaluate-worry.component.scss'],
 })
 export class EvaluateWorryComponent implements OnInit {
-  @Input()  EvaluatedClicked =false ;
-  @ViewChild(WorryFormComponent, { static: false }) evaluateStatementForm!: WorryFormComponent;
-  
+  @Input() EvaluatedClicked = false;
+  @ViewChild(WorryFormComponent, { static: false })
+  evaluateStatementForm!: WorryFormComponent;
 
   item = [
     'Emotional Reasoning',
@@ -23,24 +23,23 @@ export class EvaluateWorryComponent implements OnInit {
     'Worthless',
     'Lonely',
     'Frustated',
-    'Embarrassed'
+    'Embarrassed',
   ];
   EvaluateEditMode = false;
-  evaluateEvidence!: Worry;   
-  buttonClick : boolean;
+  evaluateEvidence!: Worry;
+  buttonClick: boolean;
   // show: any;
-  
-  constructor() {
-    this.buttonClick=false;
-    // this.show = this.EvaluatedClicked;
-   }
 
-  ngOnInit() {
+  constructor() {
+    this.buttonClick = false;
+    // this.show = this.EvaluatedClicked;
   }
+
+  ngOnInit() {}
   EvaluateSelected(evaluate: Worry) {
     this.evaluateEvidence = evaluate;
     this.EvaluateEditMode = false;
-  }  
+  }
   onEditEvaluateClick() {
     this.onEvaluateClick();
     console.log(this.EvaluateEditMode);
@@ -51,18 +50,18 @@ export class EvaluateWorryComponent implements OnInit {
   onEvaluateClick() {
     if (this.evaluateEvidence) {
       this.EvaluateEditMode = true;
-    }    
+    }
   }
-  continuetoSlider(selected :any){
-    this.buttonClick=selected;
+  continuetoSlider(selected: any) {
+    this.buttonClick = selected;
     console.log(this.buttonClick);
   }
-  checksubmitted= false;
-  CheckSubmit(){
-  this.checksubmitted = true;
+  checksubmitted = false;
+  CheckSubmit() {
+    this.checksubmitted = true;
   }
-  evidencesubmitted= false;  
-  EvidenceSubmit(){
-   this.evidencesubmitted=true;
+  evidencesubmitted = false;
+  EvidenceSubmit() {
+    this.evidencesubmitted = true;
   }
 }
