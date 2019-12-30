@@ -1,11 +1,25 @@
-import { Component, OnInit, EventEmitter, Output, ElementRef, AfterViewInit, ViewChild, ViewChildren, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  EventEmitter,
+  Output,
+  ElementRef,
+  AfterViewInit,
+  ViewChild,
+  ViewChildren,
+  Input,
+} from '@angular/core';
 import { Mood } from './mood.model';
-import { NEGATIVE_EMOTIONS, NEUTRAL_EMOTIONS, POSITIVE_EMOTIONS } from '@/app.constants';
+import {
+  NEGATIVE_EMOTIONS,
+  NEUTRAL_EMOTIONS,
+  POSITIVE_EMOTIONS,
+} from '@/app.constants';
 
 @Component({
   selector: 'app-mood-tracker',
   templateUrl: './mood-tracker.component.html',
-  styleUrls: ['./mood-tracker.component.scss']
+  styleUrls: ['./mood-tracker.component.scss'],
 })
 export class MoodTrackerComponent implements OnInit, AfterViewInit {
   @Output() onClose = new EventEmitter();
@@ -21,9 +35,7 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
   @Output() moodMessage = new EventEmitter();
   @Output() moodSubmit = new EventEmitter<any>();
 
-  constructor(
-    private element: ElementRef,
-  ) { }
+  constructor(private element: ElementRef) {}
 
   ngOnInit() {
     // let negative_mood = new Mood('assets/chatbot/Negative_emotion.png', 'Negative mood');
@@ -32,19 +44,28 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
     // this.moods.push(negative_mood, neutral_mood, positive_mood);
   }
   ngAfterViewInit() {
-
-    let listItem = this.element.nativeElement.querySelectorAll('.mat-list-item-content');
-    let listText = this.element.nativeElement.querySelectorAll('.mat-list-text');
-    let panelBody = this.element.nativeElement.querySelectorAll('.mat-expansion-panel-body');
-    let checkmark = this.element.nativeElement.querySelectorAll(' .mat-checkbox-checkmark-path');
-
+    let listItem = this.element.nativeElement.querySelectorAll(
+      '.mat-list-item-content',
+    );
+    let listText = this.element.nativeElement.querySelectorAll(
+      '.mat-list-text',
+    );
+    let panelBody = this.element.nativeElement.querySelectorAll(
+      '.mat-expansion-panel-body',
+    );
+    let checkmark = this.element.nativeElement.querySelectorAll(
+      ' .mat-checkbox-checkmark-path',
+    );
 
     for (let i = 0; i < listItem.length; i++) {
       listItem[i].setAttribute('style', 'padding-left:24px;padding-right: 0px');
     }
 
     for (let i = 0; i < listText.length; i++) {
-      listText[i].setAttribute('style', 'width:auto;padding-left:20px;font-size: 14px;');
+      listText[i].setAttribute(
+        'style',
+        'width:auto;padding-left:20px;font-size: 14px;',
+      );
     }
     for (let i = 0; i < panelBody.length; i++) {
       panelBody[i].setAttribute('style', 'padding: 0px;');
@@ -53,14 +74,11 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
     for (let i = 0; i < checkmark.length; i++) {
       checkmark[i].setAttribute('style', 'stroke: black !important;');
     }
-
-
   }
-
 
   setStep(index: number) {
     this.step = index;
-    console.log(this.step + "step");
+    console.log(this.step + 'step');
   }
 
   // nextStep() {
@@ -95,7 +113,7 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
     return NEUTRAL_EMOTIONS;
   }
   getPositiveEmotions() {
-    return POSITIVE_EMOTIONS
+    return POSITIVE_EMOTIONS;
   }
 
   closeModal() {
@@ -103,11 +121,9 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
   }
 
   updateEmotionCount(change: boolean) {
-
     if (change === true) {
       this.emotionCount += 1;
-    }
-    else {
+    } else {
       this.emotionCount -= 1;
     }
   }
@@ -120,49 +136,48 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
       if (option_label_str === emotion) {
         let rangeValue = emotions[i].querySelector('.rangeValue');
         rangeValue.style['margin-left'] = this.rangeMargin[index] + 'px';
-        rangeValue.innerText = this.range[index]
+        rangeValue.innerText = this.range[index];
       }
     }
-
   }
 
   onMoodSubmit() {
     let emotions = this.element.nativeElement.querySelectorAll('.emotions');
     let count = 0;
-    let chatMoodMessage = "I\'m feeling ";
+    let chatMoodMessage = "I'm feeling ";
     let neutral_index = 11;
     for (let i = 0; i < emotions.length; i++) {
       let option = emotions[i].querySelector('.option');
       let option_label = emotions[i].querySelector('.emotion-label');
       if (option.checked) {
-
         let option_label_str: string = option_label.textContent;
-        count += 1
+        count += 1;
         if (i !== neutral_index) {
           let rangeValue = emotions[i].querySelector('.rangeValue');
           let rangeValue_str: string = rangeValue.textContent;
-          chatMoodMessage += (rangeValue_str.trim().toLowerCase() + " " + option_label_str.trim().toLowerCase() + " ");
-
+          chatMoodMessage +=
+            rangeValue_str.trim().toLowerCase() +
+            ' ' +
+            option_label_str.trim().toLowerCase() +
+            ' ';
         }
         if (i === neutral_index) {
-          chatMoodMessage += (option_label_str.trim().toLowerCase() + " ");
+          chatMoodMessage += option_label_str.trim().toLowerCase() + ' ';
         }
         if (count < this.emotionCount - 1 && this.emotionCount > 2) {
-          chatMoodMessage += ", "
+          chatMoodMessage += ', ';
         }
 
         if (count === this.emotionCount - 1 && this.emotionCount > 1) {
-          chatMoodMessage += " and "
+          chatMoodMessage += ' and ';
         }
         if (count === this.emotionCount) {
-          chatMoodMessage += " today."
+          chatMoodMessage += ' today.';
         }
       }
-
     }
     this.closeModal();
     this.moodMessage.emit(chatMoodMessage);
     this.moodSubmit.emit();
   }
-
 }

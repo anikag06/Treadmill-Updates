@@ -1,8 +1,3 @@
-export class Day{
-    constructor(
-        public day: string,
-        public selected: boolean,
-    ){
-      
-    }
+export class Day {
+  constructor(public day: string, public selected: boolean) {}
 }

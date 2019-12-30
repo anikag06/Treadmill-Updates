@@ -8,9 +8,8 @@ describe('DataTimePickerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DataTimePickerComponent ]
-    })
-    .compileComponents();
+      declarations: [DataTimePickerComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

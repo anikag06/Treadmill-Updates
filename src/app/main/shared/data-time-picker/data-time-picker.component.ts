@@ -1,7 +1,15 @@
-import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit, ChangeDetectionStrategy, OnChanges } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter,
+  ViewChild,
+  ElementRef,
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  OnChanges,
+} from '@angular/core';
 import { Day } from './day.model';
-
-
 
 @Component({
   selector: 'app-data-time-picker',
@@ -9,9 +17,9 @@ import { Day } from './day.model';
   styleUrls: ['./data-time-picker.component.scss'],
 
   changeDetection: ChangeDetectionStrategy.OnPush,
-
 })
-export class DataTimePickerComponent implements OnInit, AfterViewInit, OnChanges {
+export class DataTimePickerComponent
+  implements OnInit, AfterViewInit, OnChanges {
   @Output() onClose = new EventEmitter();
   public min = new Date();
   public startDate!: Date;
@@ -24,34 +32,31 @@ export class DataTimePickerComponent implements OnInit, AfterViewInit, OnChanges
   public daysCircle: Day[] = [];
   @Output() dateTimeSubmit = new EventEmitter<any>();
 
-  constructor(
-    private element: ElementRef,
-  ) {
-
-  }
+  constructor(private element: ElementRef) {}
 
   ngOnInit() {
     this.days.forEach(day => {
       let newDay = new Day(day[0], true);
       this.daysCircle.push(newDay);
-
     });
-
   }
 
-
-
   ngAfterViewInit() {
-    let dateTimepicker = this.element.nativeElement.querySelectorAll('.owl-dt-inline-container');
-    let removeFromToDate = this.element.nativeElement.querySelectorAll('.owl-dt-container-info');
+    let dateTimepicker = this.element.nativeElement.querySelectorAll(
+      '.owl-dt-inline-container',
+    );
+    let removeFromToDate = this.element.nativeElement.querySelectorAll(
+      '.owl-dt-container-info',
+    );
     dateTimepicker[0].setAttribute('style', 'box-shadow:none');
     removeFromToDate[0].setAttribute('style', 'display:none');
   }
 
   ngOnChanges() {
-    let selectedDates = this.element.nativeElement.querySelectorAll('.owl-dt-calendar-table .owl-dt-calendar-cell-today:not(.owl-dt-calendar-cell-selected)');
+    let selectedDates = this.element.nativeElement.querySelectorAll(
+      '.owl-dt-calendar-table .owl-dt-calendar-cell-today:not(.owl-dt-calendar-cell-selected)',
+    );
     selectedDates[0].setAttribute('style', 'background-color: #00BDDE');
-
   }
 
   onShowDays() {
@@ -60,7 +65,7 @@ export class DataTimePickerComponent implements OnInit, AfterViewInit, OnChanges
     // }
     this.showDays = !this.showDays;
 
-    console.log(this.startEndDate)
+    console.log(this.startEndDate);
   }
   onDaySelected(index: number) {
     this.daysCircle[index].selected = !this.daysCircle[index].selected;
@@ -68,7 +73,6 @@ export class DataTimePickerComponent implements OnInit, AfterViewInit, OnChanges
 
   closeModal() {
     this.onClose.emit();
-
   }
 
   dateTimeMessageSubmit() {
@@ -76,45 +80,57 @@ export class DataTimePickerComponent implements OnInit, AfterViewInit, OnChanges
     let toDate: string;
     let date: string;
 
-    fromDate = this.startEndDate[0].getDate().toString() + "-" + (this.startEndDate[0].getMonth() + 1).toString() + "-" +
-      this.startEndDate[0].getUTCFullYear().toString().substr(-2);
-    toDate = this.startEndDate[1].getDate().toString() + "-" + (this.startEndDate[0].getMonth() + 1).toString() + "-" +
-      this.startEndDate[1].getUTCFullYear().toString().substr(-2);
+    fromDate =
+      this.startEndDate[0].getDate().toString() +
+      '-' +
+      (this.startEndDate[0].getMonth() + 1).toString() +
+      '-' +
+      this.startEndDate[0]
+        .getUTCFullYear()
+        .toString()
+        .substr(-2);
+    toDate =
+      this.startEndDate[1].getDate().toString() +
+      '-' +
+      (this.startEndDate[0].getMonth() + 1).toString() +
+      '-' +
+      this.startEndDate[1]
+        .getUTCFullYear()
+        .toString()
+        .substr(-2);
 
-    date = "Date:" + fromDate + " to " + toDate;
+    date = 'Date:' + fromDate + ' to ' + toDate;
 
     let time = this.startEndDate[1].getHours();
 
     let ampm = time >= 12 ? ' pm' : ' am';
-    let timeIn12 = ''
+    let timeIn12 = '';
     if (time > 12) {
       time %= 12;
       timeIn12 = '0' + time.toString();
-    }
-    else {
+    } else {
       timeIn12 = time.toString();
     }
     let minutes = this.startEndDate[1].getMinutes();
     let minutes_str = minutes.toString();
-    if(minutes < 10){
-      minutes_str  = '0' + minutes_str;
+    if (minutes < 10) {
+      minutes_str = '0' + minutes_str;
     }
 
-    let hourMinute = "Time:" + timeIn12 + ":"  + minutes_str + ampm ;
+    let hourMinute = 'Time:' + timeIn12 + ':' + minutes_str + ampm;
 
-    let repeat = "Repeat:";
-    
-    let repeatedDays:string[] = []
+    let repeat = 'Repeat:';
+
+    let repeatedDays: string[] = [];
     for (let i = 0; i < this.daysCircle.length; i++) {
       if (this.daysCircle[i].selected) {
         repeatedDays.push(this.days[i]);
       }
     }
     repeat += repeatedDays.join(',');
-    let chatDateTimeMessage = date + "<br/>" + hourMinute + "<br/>" + repeat;
+    let chatDateTimeMessage = date + '<br/>' + hourMinute + '<br/>' + repeat;
     this.closeModal();
     this.dateTimeMessage.emit(chatDateTimeMessage);
     this.dateTimeSubmit.emit();
   }
-
 }

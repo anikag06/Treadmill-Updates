@@ -1,8 +1,3 @@
-export class Mood{
-    constructor(
-        public image: string,
-        public type: string
-    ){
-
-    }
+export class Mood {
+  constructor(public image: string, public type: string) {}
 }

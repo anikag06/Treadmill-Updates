@@ -1,6 +1,5 @@
 import { Button } from './chat-window/button.model';
 
-
 export class Chat {
   constructor(
     public message: string,
