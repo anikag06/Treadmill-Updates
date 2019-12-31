@@ -60,7 +60,7 @@ import { TrfSituationComponent } from './forms/thought-record-form/trf-situation
 import { WorryProductivelyComponent } from '@/main/resources/forms/worry-productively-form/worry-productively.component';
 import { WorryFormComponent } from '@/main/resources/forms/worry-productively-form/worry-form/worry-form.component';
 import { TechniquesComponent } from './forms/worry-productively-form/techniques/techniques.component';
-import { EvaluateWorryComponent } from './forms/worry-productively-form/Techniques/evaluate-worry/evaluate-worry.component';
+import { EvaluateWorryComponent } from './forms/worry-productively-form/techniques/evaluate-worry/evaluate-worry.component';
 import { ExperimentToTestBeliefFormComponent } from './forms/experiment-to-test-belief-form/experiment-to-test-belief-form.component';
 import { EttbfBeliefComponent } from './forms/experiment-to-test-belief-form/ettbf-belief/ettbf-belief.component';
 import { EttbfOutcomeComponent } from './forms/experiment-to-test-belief-form/ettbf-outcome/ettbf-outcome.component';
@@ -135,7 +135,6 @@ import { WpfDealWithWorryComponent } from './forms/worry-productively-form/techn
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     MatSlideToggleModule,
-    MatSliderModule,
   ],
   providers: [
     SlideService,

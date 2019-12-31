@@ -23,6 +23,7 @@ export class WorryFormComponent implements OnInit {
   @Output() testOut = new EventEmitter<boolean>();
   @ViewChild('problemTextArea', { static: false }) problemTextArea!: ElementRef;
   problemStatement = '';
+  public Cbutton = false;
 
   constructor(private problemService: ProblemSolvingWorksheetsService) {}
 
@@ -44,38 +45,37 @@ export class WorryFormComponent implements OnInit {
     this.problemTextArea.nativeElement.focus();
     // this.problem.isDisabled=false;
   }
-  public Cbutton = false;
   onProblemSubmit() {
     // this.problem.isDisabled=false;
-    if (this.problem && Object.entries(this.problem).length > 0) {
-      this.problem.problem = this.problemStatement;
-      this.problemService
-        .putProblem({
-          id: this.problem.id,
-          problem: this.problemStatement,
-          bestsolution: null,
-          taskorigin: 0,
-        })
-        .subscribe(
-          (data: any) => {
-            console.log(data);
-          },
-          error => {
-            console.error(error);
-          },
-        );
-    } else if (this.problemStatement.trim().length > 0) {
-      this.problemService.postProblem(this.problemStatement).subscribe(
-        (data: any) => {
-          console.log(data);
-        },
-        error => {
-          console.error(error);
-        },
-      );
-    }
-    this.Cbutton = true;
-    this.testOut.emit(this.Cbutton);
+    // if (this.problem && Object.entries(this.problem).length > 0) {
+    //   this.problem.problem = this.problemStatement;
+    //   this.problemService
+    //     .putProblem({
+    //       id: this.problem.id,
+    //       problem: this.problemStatement,
+    //       bestsolution: null,
+    //       taskorigin: 0,
+    //     })
+    //     .subscribe(
+    //       (data: any) => {
+    //         console.log(data);
+    //       },
+    //       error => {
+    //         console.error(error);
+    //       },
+    //     );
+    // } else if (this.problemStatement.trim().length > 0) {
+    //   this.problemService.postProblem(this.problemStatement).subscribe(
+    //     (data: any) => {
+    //       console.log(data);
+    //     },
+    //     error => {
+    //       console.error(error);
+    //     },
+    //   );
+    // }
+    // this.Cbutton = true;
+    // this.testOut.emit(this.Cbutton);
   }
 
   //   AfterClick( data : boolean ){
