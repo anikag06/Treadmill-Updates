@@ -54,7 +54,7 @@ var start_time;
 var different_game_timeout;
 var different_game_wait = 15000;		// 15 seconds
 var second_time = false;				// to keep track of the unsolvable set of games to show to the user
-var first_puzzle = true;				// if it is the first color puzzle, then we can't show the explanation if the user gives up, so reducing the level
+var lhg_first_puzzle = true;				// if it is the first color puzzle, then we can't show the explanation if the user gives up, so reducing the level
 var unsolvable_game_counter = 1;		// 1 - show the 15 puzzle; 2 - show the frog game; 3 - show the box up game
 var success_wait_time = 1000;
 var lhg_show_instructions = true;
@@ -76,13 +76,14 @@ $(document).ready(function(){
 	}
 	lhGameResume = function(ev) {
 		$('#lg-game-container').unbind('click');
-		// $('#lg-game-container').focus();
-		// $("#box-up-game-row").focus();
-		// $("#frog-game-row").focus();
+		$('#lg-game-container').focus();
+		$("#box-up-game-row").focus();
+		$("#frog-game-row").focus();
 	}
 
 	$(document).on("click", ".color-reverse-game-square", function(ev){
 		ev.stopImmediatePropagation();
+
 		ev.preventDefault();
 		
 		$(".color-reverse-game-square").off();
@@ -91,8 +92,9 @@ $(document).ready(function(){
 		detectSuccess(grid.grid_array);
 	});
 
-	$(document).on("click", "#btn-color-reverse-game-reset", function(){
+	$(document).on("click", "#btn-color-reverse-game-reset", function(ev){
 		// updateAttemptData(false);
+		ev.stopImmediatePropagation();
 		success = false;
 		grid.grid_array = populateGrid(length, height, grid_string);
 		start_time = Date.now();
@@ -100,15 +102,15 @@ $(document).ready(function(){
 		showBlocks(grid.grid_array);
 	});
 
-	$(document).on("click", "#btn-color-reverse-game-give-up", function(){
-
+	$(document).on("click", "#btn-color-reverse-game-give-up", function(ev){
+		ev.stopImmediatePropagation();
 		lhg_show_instructions = true;
 		lhcolorReverseGame = false;
-		console.log(lhGameLevelCounter);
+		console.log('lhGameLevelCounter',lhGameLevelCounter);
 		if(lhGameLevelCounter == 1){
 			$("#btn-color-reverse-game-give-up").addClass("d-none");
 		}
-		if(first_puzzle && lhGameLevelCounter!=0 && lhGameArrayIndex!=0){
+		if(lhg_first_puzzle && lhGameLevelCounter!=0 && lhGameArrayIndex!=0){
 			lhGameLevelCounter--;
 			lhGameArrayIndex--;
 			previously_solved_level = lhGameLevelCounter-1;
@@ -118,6 +120,7 @@ $(document).ready(function(){
 			$("#color-reverse-game").addClass("d-none");
 			$("#explanation-row").removeClass("d-none");
 			lhg_game_completed = true;
+			console.log('GAME COMPLETED');
 			gameCompleted();
 			
 		}else if(unsolvable_game_counter == 3){
@@ -301,21 +304,21 @@ function detectSuccess(grid_array){
 			
 			previously_solved_level = lhGameLevelCounter;
 			previous_index = lhGameArrayIndex;
-			lhGameLevelCounter++;
-			lhGameArrayIndex++;
-			console.log('Array Index', lhGameArrayIndex);
-			console.log('Array length', lhGameLevelStrings.length);
-			if (lhGameArrayIndex == lhGameLevelStrings.length){
+			if (lhGameArrayIndex == lhGameLevelStrings.length - 1){
 				lhg_all_levels_completed = true;
 				gameCompleted();
 				// show great popup
 				showGreatPopup();
-
+			} else {
+			lhGameLevelCounter++;
+			lhGameArrayIndex++;
+			console.log('Array Index', lhGameArrayIndex);
+			console.log('Array length', lhGameLevelStrings.length);
 			}
 			clearTimeout(different_game_timeout);
 			$("#color-reverse-game-success-message").addClass("d-none");
 			$("#color-reverse-game-level").text("Level : "+lhGameLevelCounter);
-			first_puzzle = false;					// setting first puzzle to false if the user has solved one
+			lhg_first_puzzle = false;					// setting first puzzle to false if the user has solved one
 			colorReverseInit();
 		}, success_wait_time);
 	}

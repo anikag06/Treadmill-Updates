@@ -68,6 +68,7 @@ declare var lh_small_obstacle_initials: any;
 declare var lh_big_obstacle_initials: any;
 declare var lh_ball_position_initials: any;
 declare var lh_box_up_grid_dimensions: any;
+declare var lhg_first_puzzle: any;
 
 declare var lhGameGetColorReverseData: any;
 declare var lhGameGetTask1Data: any;
@@ -129,6 +130,7 @@ export class GamePlayService {
   lhGamePerformanceData = new LHGamePerformance(0, 0, 0);
   lhGameOverallData = new LHGameOverallData(0, false, false);
   lhgShowSummary!: boolean;
+  lhGameSub!: any;
 
   // lhGameNextLevels = (this.LHGAME_CR_NUMBER_OF_LEVELS * this.lhGamePageNumber) - 3 ;
   // lhGamePreviousLevels = (this.LHGAME_CR_NUMBER_OF_LEVELS * (this.lhGamePageNumber - 1)) + 3;
@@ -349,6 +351,7 @@ export class GamePlayService {
     lh_big_obstacle_initials = [];
     lh_ball_position_initials = [];
     lh_box_up_grid_dimensions = [];
+    lhg_first_puzzle = true;
 
     this.gamesAuthService.lhGameGetUserLevel().subscribe(level_data => {
       console.log('level data', level_data);
@@ -358,15 +361,24 @@ export class GamePlayService {
       this.lhGameStarted = true;
       this.lhGameDataColorReverse(this.lhGamePageNumber, this.lhGameStarted);
 
-      this.lhGameDataTask2();
-    });
+   this.lhGameSub =  this.gamesAuthService.lhGameGetUserLevel()
+      .subscribe((level_data) => {
+        console.log('level data', level_data);
+        lhGameLevelCounter = level_data.level;
+        // this.lhGamePageNumber = Math.floor(lhGameLevelCounter / this.LHGAME_PAGE_SIZE) + 1;
+        this.lhGameStarted = true;
+        this.lhGameDataColorReverse(this.lhGameStarted);
+
+        this.lhGameDataTask2();
+      });
   }
 
   // tslint:disable-next-line:no-shadowed-variable
-  lhGameDataColorReverse(pageNumber: number, startGame: boolean) {
-    this.gamesAuthService
-      .lhGameGetColorReverseData(pageNumber, this.LHGAME_PAGE_SIZE)
-      .subscribe(game_data => {
+  lhGameDataColorReverse(startGame: boolean) {
+
+    this.gamesAuthService.lhGameGetColorReverseData()
+      .subscribe((game_data) => {
+        console.log('game data', game_data);
         if (game_data.next === null) {
           this.lhGameIslastData = true;
         }
@@ -378,19 +390,19 @@ export class GamePlayService {
           i++;
         }
         if (startGame === true) {
-          lhGameArrayIndex = lhGameLevelCounter % this.LHGAME_PAGE_SIZE;
+          lhGameArrayIndex = lhGameLevelCounter;
           lhGameStart();
           this.lhGameStarted = false;
-          this.lhGameDataColorReverse(1, this.lhGameStarted);
+          this.lhGameDataColorReverse(this.lhGameStarted);
           lhGameLevelStrings = [];
           lhGameLengths = [];
           lhGameHeights = [];
-          lhGameArrayIndex = lhGameLevelCounter;
-        } else {
-          if (this.lhGameIslastData === false) {
-            pageNumber = pageNumber + 1;
-            this.lhGameDataColorReverse(pageNumber, this.lhGameStarted);
-          }
+          // lhGameArrayIndex = lhGameLevelCounter;
+        // } else {
+        //   if (this.lhGameIslastData === false) {
+        //     pageNumber = pageNumber + 1;
+        //     this.lhGameDataColorReverse(pageNumber, this.lhGameStarted);
+          // }
         }
       });
   }

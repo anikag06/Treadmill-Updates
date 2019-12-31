@@ -57,6 +57,7 @@ $(document).ready(function() {
 	$(document).on('keydown','#box-up-game-row', function(e) {
 		if (unsolvable_game_counter == 3 && !block_arrows) {
 			e.preventDefault();
+			e.stopImmediatePropagation();
 			boxUpMoveRouter(e.which);		
 		} else {
 		}
@@ -1023,7 +1024,8 @@ $(document).on('click', '#btn-box-up-game-reset', function() {
 	box_up_no_of_resets++;
 });
 
-$(document).on('click', '#btn-box-up-game-give-up', function() {
+$(document).on('click', '#btn-box-up-game-give-up', function(ev) {
+	ev.stopImmediatePropagation();
 	if(box_up_level_counter<(lh_inner_position_initials.length-1)) {
 		changeLevel();
 	}

@@ -139,18 +139,8 @@ export class GamesAuthService {
     );
   }
 
-  lhGameGetColorReverseData(
-    pageNumber: number,
-    pageSize: number,
-  ): Observable<any> {
-    return this.http.get(
-      environment.API_ENDPOINT +
-        LHG_GET_COLOR_REVERSE +
-        this.NEXT_PAGE +
-        pageNumber +
-        this.PAGE_SIZE +
-        pageSize,
-    );
+  lhGameGetColorReverseData(): Observable<any> {
+    return this.http.get(environment.API_ENDPOINT + LHG_GET_COLOR_REVERSE );
   }
 
   lhGameGetUnsolvableTask2Data(): Observable<any> {
