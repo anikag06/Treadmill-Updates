@@ -140,7 +140,7 @@ export class GamesAuthService {
   }
 
   lhGameGetColorReverseData(): Observable<any> {
-    return this.http.get(environment.API_ENDPOINT + LHG_GET_COLOR_REVERSE );
+    return this.http.get(environment.API_ENDPOINT + LHG_GET_COLOR_REVERSE);
   }
 
   lhGameGetUnsolvableTask2Data(): Observable<any> {

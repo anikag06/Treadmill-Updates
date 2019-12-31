@@ -14,12 +14,15 @@ import {
 } from './game-play.model';
 import { GamesBadgesService } from './games-badges.service';
 import { BadgesConstants } from './game-badges.model';
+// tslint:disable-next-line:max-line-length
 import { IbGameInstructionsComponent } from '../games-list/common-game/interpretation-bias-game/ib-game-instructions/ib-game-instructions.component';
 import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
 import { MiInstructionsComponent } from '../games-list/common-game/mental-imagery/mi-instructions/mi-instructions.component';
+// tslint:disable-next-line:max-line-length
 import { ExecControlInstructionsComponent } from '../games-list/common-game/executive-control-game/exec-control-instructions/exec-control-instructions.component';
 import { MIPlayService } from '../games-list/common-game/mental-imagery/mi-play.service';
 import { MICurrentStateService } from '../games-list/common-game/mental-imagery/mi-current-state.service';
+// tslint:disable-next-line:max-line-length
 import { IdcInstructionsComponent } from '../games-list/common-game/identify-cognitive-distortion/idc-instructions/idc-instructions.component';
 import { FfgInstructionsComponent } from '../games-list/common-game/friendly-face-game/ffg-instructions/ffg-instructions.component';
 import { FfgHelpService } from '../games-list/common-game/friendly-face-game/ffg-help.service';
@@ -120,9 +123,6 @@ export class GamePlayService {
   ecGameBadgeConstants = new BadgesConstants(0, 0, 0);
 
   // variables for lh game
-  LHGAME_PAGE_SIZE = 20;
-  lhGamePageNumber!: number;
-  lhGameCRNumberOfLevels!: number;
   lhGameIslastData = false;
   lhGameStarted = false;
   lhGameColorReverse = new LHGameColorReverseData(0, 0, 0, false);
@@ -132,8 +132,6 @@ export class GamePlayService {
   lhgShowSummary!: boolean;
   lhGameSub!: any;
 
-  // lhGameNextLevels = (this.LHGAME_CR_NUMBER_OF_LEVELS * this.lhGamePageNumber) - 3 ;
-  // lhGamePreviousLevels = (this.LHGAME_CR_NUMBER_OF_LEVELS * (this.lhGamePageNumber - 1)) + 3;
   game!: any;
 
   // for mental imagery games
@@ -145,7 +143,6 @@ export class GamePlayService {
     private gamesService: GamesService,
     private gamesAuthService: GamesAuthService,
     private gameBadgeService: GamesBadgesService,
-    // private ibGameDialogService: IbDialogsService,
     private dialogBoxService: DialogBoxService,
     private miPlayService: MIPlayService,
     private miCurrentStateService: MICurrentStateService,
@@ -162,7 +159,6 @@ export class GamePlayService {
   // functions for Interpretation Bias Game
   playIBGame(gameDivElement: any) {
     if (ibGameShowTutorial === true) {
-      // this.helpIBGame(gameDivElement);
       const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
       gameDivElement.nativeElement.dispatchEvent(domEvent);
       this.helpIBGame();
@@ -202,7 +198,6 @@ export class GamePlayService {
   pauseAttributionStyleGame() {
     // tslint:disable-next-line:no-unused-expression
     this.game.scene.scenes[5].pauseAllObject();
-    console.log(this.game.scene.scenes[5]);
   }
 
   // functions for executive control game
@@ -353,19 +348,11 @@ export class GamePlayService {
     lh_box_up_grid_dimensions = [];
     lhg_first_puzzle = true;
 
-    this.gamesAuthService.lhGameGetUserLevel().subscribe(level_data => {
-      console.log('level data', level_data);
-      lhGameLevelCounter = level_data.level;
-      this.lhGamePageNumber =
-        Math.floor(lhGameLevelCounter / this.LHGAME_PAGE_SIZE) + 1;
-      this.lhGameStarted = true;
-      this.lhGameDataColorReverse(this.lhGamePageNumber, this.lhGameStarted);
-
-   this.lhGameSub =  this.gamesAuthService.lhGameGetUserLevel()
-      .subscribe((level_data) => {
+    this.lhGameSub = this.gamesAuthService
+      .lhGameGetUserLevel()
+      .subscribe(level_data => {
         console.log('level data', level_data);
         lhGameLevelCounter = level_data.level;
-        // this.lhGamePageNumber = Math.floor(lhGameLevelCounter / this.LHGAME_PAGE_SIZE) + 1;
         this.lhGameStarted = true;
         this.lhGameDataColorReverse(this.lhGameStarted);
 
@@ -375,9 +362,9 @@ export class GamePlayService {
 
   // tslint:disable-next-line:no-shadowed-variable
   lhGameDataColorReverse(startGame: boolean) {
-
-    this.gamesAuthService.lhGameGetColorReverseData()
-      .subscribe((game_data) => {
+    this.gamesAuthService
+      .lhGameGetColorReverseData()
+      .subscribe((game_data: any) => {
         console.log('game data', game_data);
         if (game_data.next === null) {
           this.lhGameIslastData = true;
@@ -397,12 +384,6 @@ export class GamePlayService {
           lhGameLevelStrings = [];
           lhGameLengths = [];
           lhGameHeights = [];
-          // lhGameArrayIndex = lhGameLevelCounter;
-        // } else {
-        //   if (this.lhGameIslastData === false) {
-        //     pageNumber = pageNumber + 1;
-        //     this.lhGameDataColorReverse(pageNumber, this.lhGameStarted);
-          // }
         }
       });
   }
@@ -527,8 +508,9 @@ export class GamePlayService {
 
     this.gamesAuthService
       .lhGameUpdateOverallData(this.lhGameOverallData)
+      // tslint:disable-next-line:no-shadowed-variable
       .subscribe(userData => {
-        console.log('user data', userData);
+        return;
       });
   }
   lhGameStoreTask1Data(isFirstLevel: boolean) {
@@ -582,67 +564,13 @@ export class GamePlayService {
   playFriendlyFaceGame(device_type: string, gameDivElement: any) {
     // data is according to user order
     ffGameSongCounter = 0;
-    // this.ffGameUserPerformance();
     this.ffGamePlay(device_type, gameDivElement);
-    // this.ffGameTotalPerformance(1, device_type, gameDivElement);      // as the game starts from level 1(i.e. grid row = 1)
   }
 
   fillMusicBar() {
     toneNumber = toneNumber + 10;
   }
 
-  // ffGameUserPerformance() {
-  //   this.gamesAuthService.ffGameGetPerformance()
-  //   .subscribe( (user_performance) => {
-  //     console.log('user performance', user_performance);
-  //   });
-  // }
-
-  // ffGameTotalPerformance(levelNumber: number, device_type: string, gameDivElement: any) {
-  //   this.gamesAuthService.ffGameGetTotalPerformance(levelNumber, device_type)
-  //     .subscribe((levelData) => {
-  //       console.log('leveldata', levelData);
-  //       if (levelNumber === 1) {
-  //         ffg_no_positive_images_clicked_level1 = levelData.total_positive_images;
-  //         ffg_total_time_taken_level1 = levelData.total_time_taken;
-  //         // if user plays for the first time
-  //         if (ffg_no_positive_images_clicked_level1 == null || ffg_total_time_taken_level1 == null) {
-  //           ffg_no_positive_images_clicked_level1 = 1;
-  //           if (device_type === 'touch') {
-  //             ffg_total_time_taken_level1 = 950;
-  //           } else {
-  //             ffg_total_time_taken_level1 = 1050;
-  //           }
-  //         }
-  //         this.ffGameTotalPerformance(2, device_type, gameDivElement);
-  //       } else if (levelNumber === 2) {
-  //         ffg_no_positive_images_clicked_level2 = levelData.total_positive_images;
-  //         ffg_total_time_taken_level2 = levelData.total_time_taken;
-  //         if (ffg_no_positive_images_clicked_level2 == null || ffg_total_time_taken_level2 == null) {
-  //           ffg_no_positive_images_clicked_level2 = 1;
-  //           if (device_type === 'touch') {
-  //             ffg_total_time_taken_level2 = 1050;
-  //           } else {
-  //             ffg_total_time_taken_level2 = 1150;
-  //           }
-  //         }
-  //         this.ffGameTotalPerformance(3, device_type, gameDivElement);
-  //       } else if (levelNumber === 3) {
-  //         ffg_no_positive_images_clicked_level3 = levelData.total_positive_images;
-  //         ffg_total_time_taken_level3 = levelData.total_positive_images;
-  //         if (ffg_no_positive_images_clicked_level3 == null || ffg_total_time_taken_level3 == null) {
-  //           ffg_no_positive_images_clicked_level3 = 1;
-  //           if (device_type === 'touch') {
-  //             ffg_total_time_taken_level3 = 1150;
-  //           } else {
-  //             ffg_total_time_taken_level3 = 1250;
-  //           }
-  //         }
-  //         this.ffGamePlay(device_type, gameDivElement);
-
-  //       }
-  //     });
-  // }
   ffGamePlay(device_type: string, gameDivElement: any) {
     console.log('Show Tutorial', this.ffg_show_tutorial);
     if (this.ffg_show_tutorial) {
@@ -653,7 +581,9 @@ export class GamePlayService {
       this.ffghelpService.showLoadingBar();
     }
     const tid = setInterval(() => {
-      if (document.readyState !== 'complete') return;
+      if (document.readyState !== 'complete') {
+        return;
+      }
       clearInterval(tid);
       // function to be called when document is ready
       ffGameStart(device_type);
