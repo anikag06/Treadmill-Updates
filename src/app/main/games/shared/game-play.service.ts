@@ -619,7 +619,7 @@ export class GamePlayService {
   }
   // for cognitive distortion game
   playIdentifyCognitiveDistortionGame(gameDivElement: any) {
-    if (this.idcGameService.showTutorial === true) {
+    if (this.idcGameService.showTutorial) {
       const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
       gameDivElement.nativeElement.dispatchEvent(domEvent);
       this.helpIDCGame();
