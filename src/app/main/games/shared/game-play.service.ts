@@ -138,7 +138,7 @@ export class GamePlayService {
   // for mental imagery games
 
   // for friendly face game
-  ffg_show_tutorial = true;
+  ffg_show_tutorial!: any;
 
   constructor(
     private gamesService: GamesService,
@@ -346,7 +346,7 @@ export class GamePlayService {
     lhg_first_puzzle = true;
 
 
-   this.lhGameSub =  this.gamesAuthService.lhGameGetUserLevel()
+    this.lhGameSub = this.gamesAuthService.lhGameGetUserLevel()
       .subscribe((level_data) => {
         console.log('level data', level_data);
         lhGameLevelCounter = level_data.level;
@@ -361,8 +361,8 @@ export class GamePlayService {
 
   // tslint:disable-next-line:no-shadowed-variable
   // lhGameDataColorReverse(pageNumber: number, startGame: boolean) {
-    // this.gamesAuthService.lhGameGetColorReverseData(pageNumber, this.LHGAME_PAGE_SIZE)
-    //   .subscribe((game_data) => {
+  // this.gamesAuthService.lhGameGetColorReverseData(pageNumber, this.LHGAME_PAGE_SIZE)
+  //   .subscribe((game_data) => {
   lhGameDataColorReverse(startGame: boolean) {
 
     this.gamesAuthService.lhGameGetColorReverseData()
@@ -387,10 +387,10 @@ export class GamePlayService {
           lhGameLengths = [];
           lhGameHeights = [];
           // lhGameArrayIndex = lhGameLevelCounter;
-        // } else {
-        //   if (this.lhGameIslastData === false) {
-        //     pageNumber = pageNumber + 1;
-        //     this.lhGameDataColorReverse(pageNumber, this.lhGameStarted);
+          // } else {
+          //   if (this.lhGameIslastData === false) {
+          //     pageNumber = pageNumber + 1;
+          //     this.lhGameDataColorReverse(pageNumber, this.lhGameStarted);
           // }
         }
       });
@@ -496,7 +496,7 @@ export class GamePlayService {
 
     this.gamesAuthService.lhGameUpdateTask1Data(task1performance, isFirstLevel)
       .subscribe(() => { });
-      console.log('task1 data', task1performance);
+    console.log('task1 data', task1performance);
   }
   lhGameStoreTask2Data() {
     let storeTask2Data;
@@ -626,7 +626,7 @@ export class GamePlayService {
     this.dialogBoxService.setDialogChild(FfgInstructionsComponent);
     this.resumeFaceGame();
   }
-  
+
 
   // for mental imagery game
   playMentalImageryGame(gameDivElement: any) {
