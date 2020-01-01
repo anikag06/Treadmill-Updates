@@ -249,8 +249,8 @@ export class FriendlyFaceGameComponent implements OnInit {
     //   this.ffgUserOrderData.last_completed_order = 0;
     //   this.ffGameMusicData();
     // } else {
-    // this.ffgUserOrderData.last_completed_order = ffg_user[1];
-    this.ffgUserOrderData.last_completed_order = ffg_current_song_order;
+    this.ffgUserOrderData.last_completed_order = ffg_user[1];
+    // this.ffgUserOrderData.last_completed_order = ffg_current_song_order;
 
     // }
     this.ffgUserOrderData.time_per_note = ffg_user[2];
