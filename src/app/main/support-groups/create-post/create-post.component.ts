@@ -108,7 +108,7 @@ export class CreatePostComponent implements OnInit {
             data.body,
             data.title,
             tags,
-            { username: this.user.username, avatar: this.user.avatar },
+            { username: this.user.username },
             0,
             new Date().toISOString(),
             0,
@@ -175,7 +175,7 @@ export class CreatePostComponent implements OnInit {
       return data.title.trim();
     } else {
       return this.sanitizer.stripTags(data.body.replace(/&nbsp;/gi, ''))
-                .split(/\s+/).splice(0, 7).join(' ');
+        .split(/\s+/).splice(0, 7).join(' ');
     }
   }
 
