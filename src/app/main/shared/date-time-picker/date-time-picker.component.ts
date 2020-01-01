@@ -1,24 +1,14 @@
-import {
-  Component,
-  OnInit,
-  Output,
-  EventEmitter,
-  ViewChild,
-  ElementRef,
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  OnChanges,
-} from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, OnChanges, OnInit, Output } from '@angular/core';
 import { Day } from './day.model';
 
 @Component({
-  selector: 'app-data-time-picker',
-  templateUrl: './data-time-picker.component.html',
-  styleUrls: ['./data-time-picker.component.scss'],
+  selector: 'app-date-time-picker',
+  templateUrl: './date-time-picker.component.html',
+  styleUrls: ['./date-time-picker.component.scss'],
 
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DataTimePickerComponent
+export class DateTimePickerComponent
   implements OnInit, AfterViewInit, OnChanges {
   @Output() onClose = new EventEmitter();
   public min = new Date();
@@ -60,12 +50,7 @@ export class DataTimePickerComponent
   }
 
   onShowDays() {
-    // if (this.showDays && (this.startEndDate[1] === null || this.startEndDate[1] === undefined)) {
-
-    // }
     this.showDays = !this.showDays;
-
-    console.log(this.startEndDate);
   }
   onDaySelected(index: number) {
     this.daysCircle[index].selected = !this.daysCircle[index].selected;

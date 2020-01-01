@@ -1,28 +1,21 @@
-import {
-  Component,
-  OnInit,
-  EventEmitter,
-  Output,
-  Input,
-  ChangeDetectorRef,
-  OnChanges,
-  SimpleChanges,
-} from '@angular/core';
-import { FormBuilder, FormArray } from '@angular/forms';
-import { ProblemSolvingWorksheetsService } from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.service';
-import { Problem } from '@/main/resources/forms/problem-solving-worksheets/problem.model';
-import { UserTask } from './user-task.model';
-import { UserSubTask } from './user-sub-task.model';
-import { HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { TasksService } from '@/main/resources/forms/shared/tasks/tasks.service';
-import { PSF_PROBLEM, RECOMMENDED, WEEK } from '@/app.constants';
-import * as moment from 'moment';
+import { PSF_PROBLEM, RECOMMENDED, WEEK } from "@/app.constants";
+import { ProblemSolvingWorksheetsService } from "@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.service";
+import { Problem } from "@/main/resources/forms/problem-solving-worksheets/problem.model";
+import { TasksService } from "@/main/resources/forms/shared/tasks/tasks.service";
+import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
+import { HttpErrorResponse } from "@angular/common/http";
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ElementRef, ViewChild } from "@angular/core";
+import { FormArray, FormBuilder } from "@angular/forms";
+import * as moment from "moment";
+import { Observable } from "rxjs";
+import { UserSubTask } from "./user-sub-task.model";
+import { UserTask } from "./user-task.model";
+import { DateTimePickerComponent } from '@/main/shared/date-time-picker/date-time-picker.component';
 
 @Component({
-  selector: 'app-tasks',
-  templateUrl: './tasks.component.html',
-  styleUrls: ['./tasks.component.scss'],
+  selector: "app-tasks",
+  templateUrl: "./tasks.component.html",
+  styleUrls: ["./tasks.component.scss"]
 })
 export class TasksComponent implements OnInit, OnChanges {
   @Output() nextStepEmitter = new EventEmitter<null>();
@@ -30,6 +23,7 @@ export class TasksComponent implements OnInit, OnChanges {
   @Input() problem!: Problem;
   @Input() reset!: boolean;
   @Input() task!: UserTask;
+  @Input() taskHeading!: string;
 
   start_date!: any;
   time!: any;
@@ -39,30 +33,25 @@ export class TasksComponent implements OnInit, OnChanges {
   days: String[] = [];
   repeat = false;
   origin_object: number | null = null;
-  origin_name = '';
+  origin_name = "";
+  showDateTimePicker = false;
+  dateTime!: string;
+  
 
   tasksGroup = this.fb.group({
-    task: [''],
+    task: [""],
     taskCompleted: [false],
     subTasks: this.fb.array([
-      this.createItem(),
-      this.createItem(),
-      this.createItem(),
-    ]),
+    ])
   });
-
-  subtaskPlaceholders: String[] = [
-    'Wipe kitchen counters',
-    'Vacuum living room floor',
-    'Dust bookshelves',
-    'Put the clothes on your chair in your closet',
-  ];
 
   constructor(
     private fb: FormBuilder,
     private problemService: ProblemSolvingWorksheetsService,
     private taskService: TasksService,
     private changeDetector: ChangeDetectorRef,
+    private dialogBoxService: DialogBoxService,
+    private element: ElementRef,
   ) {}
 
   ngOnInit() {
@@ -70,7 +59,6 @@ export class TasksComponent implements OnInit, OnChanges {
       this.loadTasks();
     }
   }
-
   ngOnChanges(changes: SimpleChanges): void {
     if (
       this.task &&
@@ -94,21 +82,23 @@ export class TasksComponent implements OnInit, OnChanges {
     }
   }
 
-  createItem(id = 0, name = '', isCompleted = false, deleteMarked = false) {
+  createItem(id = 0, name = "", isCompleted = false, deleteMarked = false) {
     return this.fb.group({
       id: id,
       name: name,
       is_completed: isCompleted,
-      delete: deleteMarked,
+      delete: deleteMarked
     });
   }
 
   getSubTasksForm() {
-    return (<FormArray>this.tasksGroup.get('subTasks')).controls;
+    return (<FormArray>this.tasksGroup.get("subTasks")).controls;
   }
 
+ 
+
   addField() {
-    const formArray = this.tasksGroup.get('subTasks') as FormArray;
+    const formArray = this.tasksGroup.get("subTasks") as FormArray;
     formArray.push(this.createItem());
     this.changeDetector.detectChanges();
   }
@@ -118,21 +108,21 @@ export class TasksComponent implements OnInit, OnChanges {
       id: 0,
       origin_id: this.getOriginId(),
       origin_name: this.getOriginName(),
-      name: this.tasksGroup.value['task'],
+      name: this.tasksGroup.value["task"],
       time: new Date(this.time),
       start_date: new Date(this.start_date),
       end_date: new Date(this.end_date),
-      is_completed: this.tasksGroup.value['taskCompleted'],
+      is_completed: this.tasksGroup.value["taskCompleted"],
       sub_tasks: this.tasksGroup.controls.subTasks.value.filter(
-        (str: any) => str.name.trim().length > 0,
+        (str: any) => str.name.trim().length > 0
       ),
-      days: this.days,
+      days: this.days
     };
     if (this.task && this.task.id > 0) {
       object.id = this.task.id;
-      this.taskHandler(this.taskService.putTask(object), 'update');
+      this.taskHandler(this.taskService.putTask(object), "update");
     } else {
-      this.taskHandler(this.taskService.postTask(object), 'create');
+      this.taskHandler(this.taskService.postTask(object), "create");
     }
   }
 
@@ -162,7 +152,7 @@ export class TasksComponent implements OnInit, OnChanges {
   }
 
   taskHandler(observable: Observable<Object>, action: string) {
-    if (action === 'create') {
+    if (action === "create") {
       observable.subscribe((resp: any) => {
         this.task = new UserTask(
           +resp.data.id,
@@ -173,16 +163,16 @@ export class TasksComponent implements OnInit, OnChanges {
           resp.data.sub_tasks,
           resp.data.task_days,
           resp.data.origin_name,
-          resp.data.origin_object,
+          resp.data.origin_object
         );
         this.taskService.addTask(this.task);
         this.tasksGroup.controls.subTasks = this.fb.array([]);
         resp.data.sub_tasks.forEach((subtask: UserSubTask) => {
           this.task.sub_tasks.push(
-            new UserSubTask(subtask.id, subtask.name, subtask.is_completed),
+            new UserSubTask(subtask.id, subtask.name, subtask.is_completed)
           );
           (this.tasksGroup.controls.subTasks as FormArray).push(
-            this.createItem(subtask.id, subtask.name, subtask.is_completed),
+            this.createItem(subtask.id, subtask.name, subtask.is_completed)
           );
         });
         this.nextStepEmitter.emit(null);
@@ -191,7 +181,7 @@ export class TasksComponent implements OnInit, OnChanges {
     } else {
       observable.subscribe((resp: any) => {
         const task = this.taskService.tasks.find(
-          (t: UserTask) => t.id === +resp.data.id,
+          (t: UserTask) => t.id === +resp.data.id
         );
         if (task) {
           this.task = <UserTask>resp.data;
@@ -201,20 +191,25 @@ export class TasksComponent implements OnInit, OnChanges {
     }
   }
 
-  markForDeletion(subtask: any) {
-    this.taskService
-      .deleteSubTask(this.task.id, subtask.id)
-      .subscribe((data: any) => {
-        this.tasksGroup.controls.subTasks = this.fb.array([]);
-        this.task.sub_tasks = this.task.sub_tasks.filter(
-          (st: UserSubTask) => st.id !== subtask.id,
-        );
-        this.task.sub_tasks.forEach((stask: UserSubTask) => {
-          (this.tasksGroup.controls.subTasks as FormArray).push(
-            this.createItem(stask.id, stask.name, stask.is_completed),
+  markForDeletion(subtask: any, index: number) {
+    if (subtask.id) {
+      this.taskService
+        .deleteSubTask(this.task.id, subtask.id)
+        .subscribe((data: any) => {
+          this.tasksGroup.controls.subTasks = this.fb.array([]);
+          this.task.sub_tasks = this.task.sub_tasks.filter(
+            (st: UserSubTask) => st.id !== subtask.id
           );
+          this.task.sub_tasks.forEach((stask: UserSubTask) => {
+            (this.tasksGroup.controls.subTasks as FormArray).push(
+              this.createItem(stask.id, stask.name, stask.is_completed)
+            );
+          });
         });
-      });
+    }
+    const formArray = this.tasksGroup.get("subTasks") as FormArray;
+    formArray.removeAt(index);
+    this.changeDetector.detectChanges();
   }
 
   onDayChange(event: any, day: string) {
@@ -255,7 +250,7 @@ export class TasksComponent implements OnInit, OnChanges {
           }
         }
       },
-      (error: HttpErrorResponse) => {},
+      (error: HttpErrorResponse) => {}
     );
   }
 
@@ -263,8 +258,8 @@ export class TasksComponent implements OnInit, OnChanges {
     this.start_date = new Date(this.task.start_at);
     this.time = new Date(this.task.start_at);
     this.end_date = new Date(this.task.end_at);
-    this.tasksGroup.controls['task'].setValue(this.task.name);
-    this.tasksGroup.controls['taskCompleted'].setValue(this.task.is_completed);
+    this.tasksGroup.controls["task"].setValue(this.task.name);
+    this.tasksGroup.controls["taskCompleted"].setValue(this.task.is_completed);
     this.tasksGroup.controls.subTasks = this.fb.array([]);
     this.days = this.task.task_days;
     this.repeat = this.days.length > 0;
@@ -272,7 +267,7 @@ export class TasksComponent implements OnInit, OnChanges {
     this.origin_object = this.task.origin_object;
     this.task.sub_tasks.forEach((subtask: UserSubTask) => {
       (this.tasksGroup.controls.subTasks as FormArray).push(
-        this.createItem(subtask.id, subtask.name, subtask.is_completed),
+        this.createItem(subtask.id, subtask.name, subtask.is_completed)
       );
     });
   }
@@ -315,13 +310,11 @@ export class TasksComponent implements OnInit, OnChanges {
     delete this.origin_name;
     delete this.origin_object;
     this.tasksGroup = this.fb.group({
-      task: [''],
+      task: [""],
       taskCompleted: [false],
       subTasks: this.fb.array([
-        this.createItem(),
-        this.createItem(),
-        this.createItem(),
-      ]),
+        
+      ])
     });
   }
 
@@ -336,8 +329,19 @@ export class TasksComponent implements OnInit, OnChanges {
   }
   endDateParser() {
     let endDate: any;
-    endDate = moment(this.end_date).format('YYYY-MM-DD');
+    endDate = moment(this.end_date).format("YYYY-MM-DD");
     this.end_date = endDate;
     this.updateTask();
   }
+
+  onShowDateTime() {
+    this.showDateTimePicker = !this.showDateTimePicker;
+  }
+
+  getDateTimeMessage($event: string) {
+    this.dateTime = $event;
+  }
+
+
+
 }

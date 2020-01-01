@@ -1,66 +1,71 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsComponent } from '@/main/resources/forms/forms.component';
-import { ProblemSolvingWorksheetsComponent } from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.component';
-import { ProsConsComponent } from '@/main/resources/forms/problem-solving-worksheets/pros-cons-container/pros-cons/pros-cons.component';
-import { SolutionsComponent } from '@/main/resources/forms/problem-solving-worksheets/solutions/solutions.component';
-import { ProblemFormComponent } from '@/main/resources/forms/problem-solving-worksheets/problem-form/problem-form.component';
-import { ResultComponent } from '@/main/resources/forms/problem-solving-worksheets/result/result.component';
-import { TasksComponent } from '@/main/resources/forms/shared/tasks/tasks.component';
-import { FormsListComponent } from '@/main/resources/forms/forms-list/forms-list.component';
-import { MaterialModule } from '@/material.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AngularEditorModule } from '@xw19/angular-editor';
-import { LayoutModule } from '@angular/cdk/layout';
+import { FormsListComponent } from "@/main/resources/forms/forms-list/forms-list.component";
+import { FormsComponent } from "@/main/resources/forms/forms.component";
+import { ProblemFormComponent } from "@/main/resources/forms/problem-solving-worksheets/problem-form/problem-form.component";
+import { ProblemSolvingWorksheetsComponent } from "@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.component";
+// tslint:disable-next-line:max-line-length
+import { ProsConsContainerComponent } from "@/main/resources/forms/problem-solving-worksheets/pros-cons-container/pros-cons-container.component";
+// tslint:disable-next-line:max-line-length
+import { ProconItemComponent } from "@/main/resources/forms/problem-solving-worksheets/pros-cons-container/pros-cons/procon-item/procon-item.component";
+import { ProsConsComponent } from "@/main/resources/forms/problem-solving-worksheets/pros-cons-container/pros-cons/pros-cons.component";
+import { ResultComponent } from "@/main/resources/forms/problem-solving-worksheets/result/result.component";
+import { SolutionsComponent } from "@/main/resources/forms/problem-solving-worksheets/solutions/solutions.component";
+import { TasksComponent } from "@/main/resources/forms/shared/tasks/tasks.component";
+import { ResourcesRoutingModule } from "@/main/resources/resources-routing.module";
+import { MaterialModule } from "@/material.module";
+import { LayoutModule } from "@angular/cdk/layout";
+import { CommonModule } from "@angular/common";
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from "@angular/core";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {
-  MatDialogModule,
   MatButtonModule,
   MatDatepickerModule,
+  MatDialogModule,
   MatIconModule,
   MatListModule,
   MatSidenavModule,
   MatSlideToggleModule,
   MatToolbarModule,
-  MatTooltipModule,
-} from '@angular/material';
-import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
-import { FormsSidebarComponent } from './forms/shared/forms-sidebar/forms-sidebar.component';
-import { ResourcesRoutingModule } from '@/main/resources/resources-routing.module';
-// tslint:disable-next-line:max-line-length
-import { ProconItemComponent } from '@/main/resources/forms/problem-solving-worksheets/pros-cons-container/pros-cons/procon-item/procon-item.component';
-// tslint:disable-next-line:max-line-length
-import { ProsConsContainerComponent } from '@/main/resources/forms/problem-solving-worksheets/pros-cons-container/pros-cons-container.component';
-import { TaskFormsComponent } from './forms/task-forms/task-forms.component';
-import { MatMomentDateModule } from '@angular/material-moment-adapter';
-import { SlidesComponent } from './slides/slides.component';
-import { FormDirective } from './slides/form.directive';
-import { ConversationGroupComponent } from './conversation-group/conversation-group.component';
-import { ConversationsComponent } from './conversation-group/conversations/conversations.component';
-import { SlideService } from './slides/slide.service';
-import { CongratsDialogComponent } from './shared/congrats-dialog/congrats-dialog.component';
-import { CommonDialogsService } from './shared/common-dialogs.service';
-import { StepsDataService } from './shared/steps-data.service';
-import { UserFeedbackComponent } from './shared/user-feedback/user-feedback.component';
-import { IntroductionService } from './introduction/introduction.service';
-import { IntroductionComponent } from './introduction/introduction.component';
-import { Introduction1Component } from './introduction/introduction1/introduction1.component';
-import { Introduction2Component } from './introduction/introduction2/introduction2.component';
-import { Introduction3Component } from './introduction/introduction3/introduction3.component';
-import { Introduction4Component } from './introduction/introduction4/introduction4.component';
-import { Introduction5Component } from './introduction/introduction5/introduction5.component';
-import { ConclusionService } from './conclusion/conclusion.service';
-import { ConclusionComponent } from './conclusion/conclusion.component';
-import { Conclusion1Component } from './conclusion/conclusion1/conclusion1.component';
-import { Conclusion2Component } from './conclusion/conclusion2/conclusion2.component';
-import { Conclusion3Component } from './conclusion/conclusion3/conclusion3.component';
-import { Conclusion4Component } from './conclusion/conclusion4/conclusion4.component';
-import { Conclusion5Component } from './conclusion/conclusion5/conclusion5.component';
-import { ThoughtRecordFormComponent } from './forms/thought-record-form/thought-record-form.component';
-import { TrfSituationComponent } from './forms/thought-record-form/trf-situation/trf-situation.component';
-import { ExperimentToTestBeliefFormComponent } from './forms/experiment-to-test-belief-form/experiment-to-test-belief-form.component';
-import { EttbfBeliefComponent } from './forms/experiment-to-test-belief-form/ettbf-belief/ettbf-belief.component';
-import { EttbfOutcomeComponent } from './forms/experiment-to-test-belief-form/ettbf-outcome/ettbf-outcome.component';
-import { FormSliderComponent } from './forms/shared/form-slider/form-slider.component';
+  MatTooltipModule
+} from "@angular/material";
+import { MatMomentDateModule } from "@angular/material-moment-adapter";
+import { AngularEditorModule } from "@xw19/angular-editor";
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from "ng-pick-datetime";
+import { DateTimePickerComponent } from "../shared/date-time-picker/date-time-picker.component";
+import { ConclusionComponent } from "./conclusion/conclusion.component";
+import { ConclusionService } from "./conclusion/conclusion.service";
+import { Conclusion1Component } from "./conclusion/conclusion1/conclusion1.component";
+import { Conclusion2Component } from "./conclusion/conclusion2/conclusion2.component";
+import { Conclusion3Component } from "./conclusion/conclusion3/conclusion3.component";
+import { Conclusion4Component } from "./conclusion/conclusion4/conclusion4.component";
+import { Conclusion5Component } from "./conclusion/conclusion5/conclusion5.component";
+import { ConversationGroupComponent } from "./conversation-group/conversation-group.component";
+import { ConversationsComponent } from "./conversation-group/conversations/conversations.component";
+import { EttbfBeliefComponent } from "./forms/experiment-to-test-belief-form/ettbf-belief/ettbf-belief.component";
+import { EttbfOutcomeComponent } from "./forms/experiment-to-test-belief-form/ettbf-outcome/ettbf-outcome.component";
+import { ExperimentToTestBeliefFormComponent } from "./forms/experiment-to-test-belief-form/experiment-to-test-belief-form.component";
+import { FormSliderComponent } from "./forms/shared/form-slider/form-slider.component";
+import { FormsSidebarComponent } from "./forms/shared/forms-sidebar/forms-sidebar.component";
+import { TaskFormsComponent } from "./forms/task-forms/task-forms.component";
+import { ThoughtRecordFormComponent } from "./forms/thought-record-form/thought-record-form.component";
+import { TrfSituationComponent } from "./forms/thought-record-form/trf-situation/trf-situation.component";
+import { IntroductionComponent } from "./introduction/introduction.component";
+import { IntroductionService } from "./introduction/introduction.service";
+import { Introduction1Component } from "./introduction/introduction1/introduction1.component";
+import { Introduction2Component } from "./introduction/introduction2/introduction2.component";
+import { Introduction3Component } from "./introduction/introduction3/introduction3.component";
+import { Introduction4Component } from "./introduction/introduction4/introduction4.component";
+import { Introduction5Component } from "./introduction/introduction5/introduction5.component";
+import { CommonDialogsService } from "./shared/common-dialogs.service";
+import { CongratsDialogComponent } from "./shared/congrats-dialog/congrats-dialog.component";
+import { StepsDataService } from "./shared/steps-data.service";
+import { UserFeedbackComponent } from "./shared/user-feedback/user-feedback.component";
+import { FormDirective } from "./slides/form.directive";
+import { SlideService } from "./slides/slide.service";
+import { SlidesComponent } from "./slides/slides.component";
+import { CustomOverlayDirective } from "../shared/custom-dialog/custom-overlay.directive";
+import { DialogContainerComponent } from "../shared/custom-dialog/dialog-container/dialog-container.component";
+import { DialogBoxService } from "../shared/custom-dialog/dialog-box.service";
+import { DialogBoxChildDirective } from "../shared/custom-dialog/dialog-container/dialog-box-child.directive";
 
 @NgModule({
   declarations: [
@@ -100,6 +105,10 @@ import { FormSliderComponent } from './forms/shared/form-slider/form-slider.comp
     EttbfBeliefComponent,
     EttbfOutcomeComponent,
     FormSliderComponent,
+    DateTimePickerComponent,
+    CustomOverlayDirective,
+    DialogContainerComponent,
+    DialogBoxChildDirective
   ],
   imports: [
     ResourcesRoutingModule,
@@ -120,7 +129,7 @@ import { FormSliderComponent } from './forms/shared/form-slider/form-slider.comp
     MatMomentDateModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
-    MatSlideToggleModule,
+    MatSlideToggleModule
   ],
   providers: [
     SlideService,
@@ -128,12 +137,22 @@ import { FormSliderComponent } from './forms/shared/form-slider/form-slider.comp
     StepsDataService,
     IntroductionService,
     ConclusionService,
+    DialogBoxService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [
     CongratsDialogComponent,
     ProblemFormComponent,
     ProblemSolvingWorksheetsComponent,
+    DialogContainerComponent,
+    DateTimePickerComponent
   ],
+  exports: [
+    DateTimePickerComponent,
+    DialogContainerComponent,
+    CustomOverlayDirective,
+    DialogContainerComponent,
+    DialogBoxChildDirective,
+  ]
 })
 export class ResourcesModule {}

@@ -119,10 +119,10 @@ import { IbGameInstructionsComponent } from './games/games-list/common-game/inte
 import { IbMainTrainingComponent } from './games/games-list/common-game/interpretation-bias-game/ib-main-training/ib-main-training.component';
 // tslint:disable-next-line: max-line-length
 import { IbTrainingDataService } from '@/main/games/games-list/common-game/interpretation-bias-game/ib-main-training/ib-training-data.service';
-import { CustomOverlayDirective } from './shared/custom-dialog/custom-overlay.directive';
-import { DialogContainerComponent } from './shared/custom-dialog/dialog-container/dialog-container.component';
-import { DialogBoxService } from './shared/custom-dialog/dialog-box.service';
-import { DialogBoxChildDirective } from './shared/custom-dialog/dialog-container/dialog-box-child.directive';
+// import { CustomOverlayDirective } from './shared/custom-dialog/custom-overlay.directive';
+// import { DialogContainerComponent } from './shared/custom-dialog/dialog-container/dialog-container.component';
+// import { DialogBoxService } from './shared/custom-dialog/dialog-box.service';
+// import { DialogBoxChildDirective } from './shared/custom-dialog/dialog-container/dialog-box-child.directive';
 // tslint:disable-next-line: max-line-length
 import { ExecControlInstructionsComponent } from './games/games-list/common-game/executive-control-game/exec-control-instructions/exec-control-instructions.component';
 // tslint:disable-next-line: max-line-length
@@ -140,8 +140,6 @@ import { BadgesComponent } from './shared/user-profile/badges/badges.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ClickOutsideDirective } from './support-groups/post-list/post-item/click-outside.directive';
 import { MoodTrackerComponent } from './shared/mood-tracker/mood-tracker.component';
-import { DataTimePickerComponent } from './shared/data-time-picker/data-time-picker.component';
-
 import { QuestionnaireModule } from '@/questionnaire.module';
 import { GetQuestionnaireComponent } from './dashboard/get-questionnaire/get-questionnaire.component';
 import { IdcHeadingComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-heading/idc-heading.component';
@@ -174,6 +172,7 @@ import { LoadingBarDirective } from './games/shared/loading-bar.directive';
 import { LoadingBarService } from './games/shared/loading-bar.service';
 import { LhgGreatComponent } from './games/games-list/common-game/learned-helplessness-game/lhg-great/lhg-great.component';
 import { StepsDataService } from './resources/shared/steps-data.service';
+import { ResourcesModule } from './resources/resources.module';
 
 @NgModule({
   declarations: [
@@ -236,9 +235,9 @@ import { StepsDataService } from './resources/shared/steps-data.service';
     NotificationItemComponent,
     IbGameInstructionsComponent,
     IbMainTrainingComponent,
-    CustomOverlayDirective,
-    DialogContainerComponent,
-    DialogBoxChildDirective,
+    // CustomOverlayDirective,
+    // DialogContainerComponent,
+    // DialogBoxChildDirective,
     ExecControlInstructionsComponent,
     MiWinComponent,
     EcgScienceComponent,
@@ -279,7 +278,7 @@ import { StepsDataService } from './resources/shared/steps-data.service';
     LoadingBarDirective,
     LhgGreatComponent,
     MoodTrackerComponent,
-    DataTimePickerComponent,
+   
   ],
   imports: [
     CommonModule,
@@ -310,6 +309,7 @@ import { StepsDataService } from './resources/shared/steps-data.service';
     OverlayModule,
     MatTooltipModule,
     QuestionnaireModule,
+    ResourcesModule
   ],
   providers: [
     LocalStorageService,
@@ -338,7 +338,7 @@ import { StepsDataService } from './resources/shared/steps-data.service';
     NavbarNotificationsService,
     GamesBadgesService,
     IbTrainingDataService,
-    DialogBoxService,
+    // DialogBoxService,
     ExecControlHelpService,
     UserProfileService,
     IdcGameService,
@@ -353,7 +353,7 @@ import { StepsDataService } from './resources/shared/steps-data.service';
     NavbarNotificationsComponent,
     IbGameInstructionsComponent,
     IbMainTrainingComponent,
-    DialogContainerComponent,
+    // DialogContainerComponent,
     ExecControlInstructionsComponent,
     MiInstructionsComponent,
     MiWinComponent,

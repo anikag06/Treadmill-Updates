@@ -1,4 +1,4 @@
-<mat-card class="container-fluid px-0 pt-0 pb-2 mb-2">
+<mat-card class="container-fluid px-0 pt-0 pb-2 mb-2" appCustomOverlay>
   <div class="row mb-2 no-gutters">
     <mat-card-header class="col-12 w-100 px-0 card-header main-heading">
       <mat-card-title class="ml-4 my-auto d-inline-block">
@@ -27,7 +27,7 @@
 
   <div class="row no-gutters form-div mx-auto">
     <div class="col-12 col-lg-12 ">
-      <app-tasks [task]="task" [reset]="reset"></app-tasks>
+      <app-tasks [task]="task" [reset]="reset" [taskHeading]="taskHeading"></app-tasks>
     </div>
   </div>
 </mat-card>
