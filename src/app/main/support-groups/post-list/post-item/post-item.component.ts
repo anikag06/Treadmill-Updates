@@ -202,6 +202,7 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
       this.getCommentsSubscription = this.commentService.getMainComments(this.supportGroupItem, this.commentsPage)
         .subscribe(
           (data) => {
+            console.log('comments data', data);
             const apiResponse = <ApiResponse>data;
             if (apiResponse.next) {
               this.commentsPage += 1;

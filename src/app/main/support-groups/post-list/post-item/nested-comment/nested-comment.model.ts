@@ -6,6 +6,10 @@ export class UserNestedComment {
         public user: {
             username: string,
             avatar: string,
+            score: number,
+            no_of_gold_badges: number,
+            no_of_bronze_badges: number,
+            no_of_silver_badges: number
         },
         public is_voted: number,
         public created_at: string,

@@ -96,6 +96,8 @@ export class PostListComponent implements OnInit, OnDestroy {
       this.sgServiceSubscription = this.sgService.getPosts(this.page, this.tags, this.searchTerm)
         .subscribe(
           (data: any) => {
+            console.log('DATA', data);
+
             const response = <ApiResponse>data;
             this.searchResultCount = response.count;
             if (response.next == null) {
@@ -229,6 +231,11 @@ export class PostListComponent implements OnInit, OnDestroy {
   /**
    * Reset all the params
    */
+
+  onClear() {
+    //
+   }
+
   resetParams() {
     this.tags = [];
     this.page = 1;

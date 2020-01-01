@@ -141,6 +141,7 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy, Do
       this.nestedCommentSubscription = this.ncService.getNestedComments(this.comment, this.page)
         .subscribe(
           (data) => {
+            console.log('nested comments data', data);
             const response = <ApiResponse>data;
             if (response.next) {
               this.moreComments = true;

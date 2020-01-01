@@ -9,6 +9,10 @@ export class SupportGroupItem {
         public user: {
             username: string,
             avatar: string,
+            score: number,
+            no_of_gold_badges: number,
+            no_of_bronze_badges: number,
+            no_of_silver_badges: number
         },
         public up_votes: number,
         public created_at: string,
