@@ -167,7 +167,7 @@ export class GamesAuthService {
   }
 
   lhGameUpdateTask1Data(task1Data: any, firstLevel: boolean) {
-    if (firstLevel === true) {
+    if (firstLevel) {
       return this.http.post(
         environment.API_ENDPOINT + LHG_UNSOLVABLE_TASK1_LEVEL1,
         task1Data,
@@ -181,7 +181,7 @@ export class GamesAuthService {
   }
 
   lhGameUpdateTask2Data(task2Data: any, firstLevel: boolean) {
-    if (firstLevel === true) {
+    if (firstLevel) {
       return this.http.post(
         environment.API_ENDPOINT + LHG_UNSOLVABLE_TASK2_LEVEL1,
         task2Data,
@@ -195,7 +195,7 @@ export class GamesAuthService {
   }
 
   lhGameUpdateTask3Data(task3Data: any, firstLevel: boolean) {
-    if (firstLevel === true) {
+    if (firstLevel) {
       return this.http.post(
         environment.API_ENDPOINT + LHG_UNSOLVABLE_TASK3_LEVEL1,
         task3Data,
@@ -246,18 +246,14 @@ export class GamesAuthService {
         pageSize,
     );
   }
-  // ffGameGetUserInfo(pageNumber: number): Observable<any>  {
-  //   return this.http.get(environment.API_ENDPOINT + FFG_USER_DATA + this.NEXT_PAGE + pageNumber);
-  // }
+
   ffGameGetUserInfo(): Observable<any> {
     return this.http.get(environment.API_ENDPOINT + FFG_USER_DATA);
   }
   ffGameStoreUserInfo(userData: FFGameUserData) {
     return this.http.put(environment.API_ENDPOINT + FFG_USER_DATA, userData);
   }
-  // ffGameGetPerformance(): Observable<any>  {
-  //   return this.http.get(environment.API_ENDPOINT + FFG_PERFORMANCE);
-  // }
+
   ffGameStorePerformance(performanceData: FFGamePerformance) {
     return this.http.put(
       environment.API_ENDPOINT + FFG_PERFORMANCE,
@@ -270,14 +266,7 @@ export class GamesAuthService {
       performanceData,
     );
   }
-  // ffGameGetTotalPerformance(levelNumber: number, device_type: string): Observable<any>  {
-  //   return this.http.get(environment.API_ENDPOINT + FFG_TOTAL_PERFORMANCE + this.FFG_GRID_ROW
-  //      + levelNumber + this.FFG_DEVICE + device_type);
-  // }
-  // ffGameGetMusicInfo(pageNumber: number, pageSize: number): Observable<any>  {
-  //   return this.http.get(environment.API_ENDPOINT + FFG_MUSIC + this.NEXT_PAGE
-  //     + pageNumber + this.PAGE_SIZE + pageSize);
-  // }
+
   ffGameGetMusicInfo(songOrder: number): Observable<any> {
     return this.http.get(
       environment.API_ENDPOINT + FFG_MUSIC + songOrder + '/',

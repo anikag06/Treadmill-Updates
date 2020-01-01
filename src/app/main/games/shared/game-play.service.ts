@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { GamesService } from '@/main/shared/games.service';
 import { GamesAuthService } from '@/main/games/shared/games-auth.service';
@@ -95,6 +95,7 @@ declare var ffg_music_current_order: number;
 declare var fillMusicBar: any;
 declare var toneNumber: number;
 declare var ffGamePlay: any;
+declare var ffg_music: any;
 
 // for mental imagery game
 declare var miGameShowTutorial: boolean;
@@ -580,6 +581,7 @@ export class GamePlayService {
     } else {
       this.ffghelpService.showLoadingBar();
     }
+
     const tid = setInterval(() => {
       if (document.readyState !== 'complete') {
         return;

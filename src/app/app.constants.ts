@@ -118,9 +118,8 @@ export const LHG_USER_OVERALL_DATA =
 
 //  Friendly Face Game (FFG) paths
 export const FFG_GET_FRIENDLY_IMAGES =
-  '/api/v1/games/face-game/images-hostile/';
-export const FFG_GET_HOSTILE_IMAGES =
   '/api/v1/games/face-game/images-friendly/';
+export const FFG_GET_HOSTILE_IMAGES = '/api/v1/games/face-game/images-hostile/';
 export const FFG_USER_DATA = '/api/v1/games/face-game/user-data/';
 export const FFG_PERFORMANCE = '/api/v1/games/face-game/user-performance/';
 export const FFG_TOTAL_PERFORMANCE =
