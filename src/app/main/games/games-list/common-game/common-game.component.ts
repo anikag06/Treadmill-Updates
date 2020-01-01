@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, ViewChild, ElementRef, ChangeDetectorRef} from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { GamePlayService } from '../../shared/game-play.service';
 import { GamesService } from '@/main/shared/games.service';
 import { Router, ActivatedRoute, RouterEvent, NavigationStart } from '@angular/router';
@@ -9,13 +9,15 @@ import { Location } from '@angular/common';
 import { GamesAuthService } from '../../shared/games-auth.service';
 import { MentalImageryComponent } from './mental-imagery/mental-imagery.component';
 import { Overlay } from '@angular/cdk/overlay';
-import { EXECUTIVE_CONTROL_GAME,
+import {
+  EXECUTIVE_CONTROL_GAME,
   INTERPRETATION_BIAS_GAME,
   LEARNED_HELPLESSNESS_GAME,
   ATTRIBUTE_STYLE_GAME,
   MENTAL_IMAGERY_GAME,
   FRIENDLY_FACE_GAME,
-  IDENTIFY_COGNITIVE_DISTORTION} from '@/app.constants';
+  IDENTIFY_COGNITIVE_DISTORTION
+} from '@/app.constants';
 import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
 import { IbGameInstructionsComponent } from './interpretation-bias-game/ib-game-instructions/ib-game-instructions.component';
 import { ExecControlInstructionsComponent } from './executive-control-game/exec-control-instructions/exec-control-instructions.component';
@@ -28,6 +30,7 @@ import { FfgScienceComponent } from './friendly-face-game/ffg-science/ffg-scienc
 import { LhgScienceComponent } from './learned-helplessness-game/lhg-science/lhg-science.component';
 import { IdentifyCognitiveDistortionComponent } from './identify-cognitive-distortion/identify-cognitive-distortion.component';
 import { LhgHowtoplayComponent } from './learned-helplessness-game/lhg-howtoplay/lhg-howtoplay.component';
+import { IdcGameService } from './identify-cognitive-distortion/idc-game.service';
 
 declare let $: any;
 
@@ -62,17 +65,17 @@ export class CommonGameComponent implements OnInit {
 
   subscriptionRouter!: Subscription;
 
-  @ViewChild('firstpage_btns', {static: false}) firstPageElement!: ElementRef;
-  @ViewChild('start_game_btns', {static: false}) startGameBtn!: ElementRef;
-  @ViewChild('pause_common_div', {static: false}) pauseBtnElement!: ElementRef;
-  @ViewChild('gameDiv', {static: false}) gameDivElement!: ElementRef;
+  @ViewChild('firstpage_btns', { static: false }) firstPageElement!: ElementRef;
+  @ViewChild('start_game_btns', { static: false }) startGameBtn!: ElementRef;
+  @ViewChild('pause_common_div', { static: false }) pauseBtnElement!: ElementRef;
+  @ViewChild('gameDiv', { static: false }) gameDivElement!: ElementRef;
 
   gameElement!: ElementRef;
   showComponent = true;
 
   // for mental imagery game
-  @ViewChild(MentalImageryComponent, {static: false}) miGameComponent!: MentalImageryComponent;
-  @ViewChild(IdentifyCognitiveDistortionComponent, {static: false}) idcComponent!: IdentifyCognitiveDistortionComponent;
+  @ViewChild(MentalImageryComponent, { static: false }) miGameComponent!: MentalImageryComponent;
+  @ViewChild(IdentifyCognitiveDistortionComponent, { static: false }) idcComponent!: IdentifyCognitiveDistortionComponent;
 
 
   constructor(private gamePlayService: GamePlayService,
@@ -82,8 +85,9 @@ export class CommonGameComponent implements OnInit {
     private location: Location,
     private dialogBoxService: DialogBoxService,
     private miPlayService: MIPlayService,
-    private ref: ChangeDetectorRef
-  ) {   }
+    private ref: ChangeDetectorRef,
+    private idcGameService: IdcGameService,
+  ) { }
 
   ngOnInit() {
 
@@ -93,7 +97,7 @@ export class CommonGameComponent implements OnInit {
         switchMap(name => this.gamePlayService.getGameInfo(name))
       )
       .subscribe(
-        (game) =>  {
+        (game) => {
           this.game = <Game>game;
           this.gameName = this.game.name;
           console.log(this.gameName);
@@ -127,6 +131,10 @@ export class CommonGameComponent implements OnInit {
           this.router.navigate(['games']);
         }
       );
+    this.idcGameService.resumeGame.subscribe(() => {
+      this.onResumeClick();
+    }
+    );
   }
 
   @HostListener('window:blur', ['$event'])
@@ -173,7 +181,7 @@ export class CommonGameComponent implements OnInit {
       // console.log('play button');
 
     } else if (this.gameName === FRIENDLY_FACE_GAME) {
-      this.gamePlayService.playFriendlyFaceGame(this.device_type,this.gameDivElement);
+      this.gamePlayService.playFriendlyFaceGame(this.device_type, this.gameDivElement);
 
     } else if (this.gameName === MENTAL_IMAGERY_GAME) {
       // this.miGameComponent.startPlayingMIGame();

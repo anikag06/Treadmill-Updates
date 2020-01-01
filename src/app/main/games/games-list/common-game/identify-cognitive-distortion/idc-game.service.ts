@@ -13,10 +13,12 @@ import { ICDGameUserData, ICDGameUserAnswerData } from '@/main/games/shared/game
 export class IdcGameService {
 
   startPlayingIdc = new EventEmitter();
+  resumeGame = new EventEmitter();
   // levelInitialise = new EventEmitter();
   levelInitialise = new Subject();
-  levelFinish = new Subject();
-  
+  stopTimer = new Subject();
+  startTimer = new EventEmitter();
+
 
   playing = false;
   selectedCorrectOptionsSet = new Set();
@@ -89,17 +91,28 @@ export class IdcGameService {
 
     this.time = new Date();
     this.situation_displayed_at = this.time.toJSON();
-    this.level.next(this.game.results[this.questionId - 1].order);
-    this.title.next(this.game.results[this.questionId - 1].title);
-    this.nat.next(this.game.results[this.questionId - 1].nat);
-    this.situation.next(this.game.results[this.questionId - 1].situation);
-    this.correct.next(this.game.results[this.questionId - 1].correct);
-    this.optionOne.next(this.game.results[this.questionId - 1].options[0]);
-    this.optionTwo.next(this.game.results[this.questionId - 1].options[1]);
-    this.optionThree.next(this.game.results[this.questionId - 1].options[2]);
-    this.optionFour.next(this.game.results[this.questionId - 1].options[3]);
-    this.optionFive.next(this.game.results[this.questionId - 1].options[4]);
-    this.optionSix.next(this.game.results[this.questionId - 1].options[5]);
+    // this.level.next(this.game.results[this.questionId - 1].order);
+    // this.title.next(this.game.results[this.questionId - 1].title);
+    // this.nat.next(this.game.results[this.questionId - 1].nat);
+    // this.situation.next(this.game.results[this.questionId - 1].situation);
+    // this.correct.next(this.game.results[this.questionId - 1].correct);
+    // this.optionOne.next(this.game.results[this.questionId - 1].options[0]);
+    // this.optionTwo.next(this.game.results[this.questionId - 1].options[1]);
+    // this.optionThree.next(this.game.results[this.questionId - 1].options[2]);
+    // this.optionFour.next(this.game.results[this.questionId - 1].options[3]);
+    // this.optionFive.next(this.game.results[this.questionId - 1].options[4]);
+    // this.optionSix.next(this.game.results[this.questionId - 1].options[5]);
+    this.level.next(this.game.results[this.questionId].order);
+    this.title.next(this.game.results[this.questionId].title);
+    this.nat.next(this.game.results[this.questionId].nat);
+    this.situation.next(this.game.results[this.questionId].situation);
+    this.correct.next(this.game.results[this.questionId].correct);
+    this.optionOne.next(this.game.results[this.questionId].options[0]);
+    this.optionTwo.next(this.game.results[this.questionId].options[1]);
+    this.optionThree.next(this.game.results[this.questionId].options[2]);
+    this.optionFour.next(this.game.results[this.questionId].options[3]);
+    this.optionFive.next(this.game.results[this.questionId].options[4]);
+    this.optionSix.next(this.game.results[this.questionId].options[5]);
     this.optionStatus = '';
     this.optionStatusCount = 0;
     this.getUserData();
@@ -136,7 +149,7 @@ export class IdcGameService {
     this.silverValue = this.allBadgesInfo.silverPercent;
     this.goldValue = this.allBadgesInfo.goldPercent;
     console.log('bronze Badges details', this.bronzeValue);
-    console.log('document ready state',document.readyState);
+    console.log('document ready state', document.readyState);
   }
 
   initUserData() {
@@ -150,7 +163,11 @@ export class IdcGameService {
       this.showTutorial = data.show_tutorial;
       this.timeLeft = data.time;
       this.timeAlloted = data.time;
-      this.questionId = data.last_completed_order;
+      if (data.last_completed_order === 6) {
+        this.questionId = 0;
+      } else {
+        this.questionId = data.last_completed_order;
+      }
       // this.levelInitialise.emit();
       // this.getGameData();
     });
@@ -170,7 +187,7 @@ export class IdcGameService {
       this.timeAlloted = data.time;
 
       if (!this.nextCall) {
-        this.levelFinish.next();
+        this.stopTimer.next();
         this.levelInitialise.next();
         console.log('level initialise called');
       }
@@ -181,7 +198,7 @@ export class IdcGameService {
 
   updateDifficultyLevel() {
     this.setDifficultyFactor();
-    if ((this.timeActualLeft > Math.floor(0.8 * this.timeLeft) && this.timeActualLeft > this.minTime)) {
+    if ((this.timeActualLeft > Math.floor(0.2 * this.timeLeft) && this.timeActualLeft > this.minTime)) {
       this.timeLeft -= 20;
       this.timeAlloted = this.timeLeft;
     } else {

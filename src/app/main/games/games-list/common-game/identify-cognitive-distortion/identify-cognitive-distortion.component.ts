@@ -11,23 +11,26 @@ import { IdcInfoComponent } from './idc-info/idc-info.component';
 })
 export class IdentifyCognitiveDistortionComponent implements OnInit {
 
-  @ViewChild(IdcScoreComponent, {static: false}) idcScoreComponent!: IdcScoreComponent;
+  @ViewChild(IdcScoreComponent, { static: false }) idcScoreComponent!: IdcScoreComponent;
   @ViewChild('infoElement', { static: false }) element!: ElementRef;
 
 
 
   constructor(private gameService: IdcGameService,
-              private dialogBoxService: DialogBoxService) { }
+    private dialogBoxService: DialogBoxService) { }
 
 
   ngOnInit() {
     this.gameService.initUserData();
-    this.gameService.startPlayingIdc.subscribe( () => {
+    this.gameService.startPlayingIdc.subscribe(() => {
       this.startPlaying();
     });
+    // this.gameService.resumeGame.subscribe(() => {
+    //   this.resumeIDCGame();
+    // });
   }
 
- 
+
   playing = false;
 
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef} from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { IdcGameService } from '../idc-game.service';
 import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
 import { IdcPopupComponent } from '../idc-popup/idc-popup.component';
@@ -43,11 +43,11 @@ export class IdcOptionsComponent implements OnInit {
   @ViewChild('checkElement', { static: false }) element!: ElementRef;
 
   constructor(private gameService: IdcGameService,
-              private dialogBoxService: DialogBoxService) { }
+    private dialogBoxService: DialogBoxService) { }
 
   ngOnInit() {
     this.optionsCall();
-      this.gameService.levelInitialise.subscribe(() => {
+    this.gameService.levelInitialise.subscribe(() => {
       this.optionStatus = this.gameService.optionStatus;
       this.optionStatusCount = this.gameService.optionStatusCount;
 
@@ -62,8 +62,8 @@ export class IdcOptionsComponent implements OnInit {
     this.element.nativeElement.dispatchEvent(domEvent);
   }
 
-  onOptionClick(item:any) {
-
+  onOptionClick(item: any) {
+    this.gameService.stopTimer.next();
     this.gameService.optionSelected = item.distortion;
     this.gameService.optionMessage = item.message;
     this.situation_distortion_map_id = item.id;
@@ -71,7 +71,7 @@ export class IdcOptionsComponent implements OnInit {
     this.answered_at = this.time.toJSON();
     this.updateUserAnswerData();
     this.storeUserAnswerData();
-    this.correct.forEach((correctItem:any) => {
+    this.correct.forEach((correctItem: any) => {
       if (correctItem.id === item.id) {
         this.gameService.selectedCorrectOptionsSet.add(item.id);
         this.gameService.optionStatus = "correct";
@@ -92,8 +92,8 @@ export class IdcOptionsComponent implements OnInit {
       this.gameService.selectedCorrectOptionsSet.clear();
       this.gameService.optionStatus = "allcorrect";
       this.optionStatus = this.gameService.optionStatus;
-      this.gameService. updateBadgesValue();
-      this.gameService.levelFinish.next();
+      this.gameService.updateBadgesValue();
+      this.gameService.stopTimer.next();
       this.gameService.levelOrder += 1;
     }
     this.openCustomDialog();
@@ -132,12 +132,12 @@ export class IdcOptionsComponent implements OnInit {
   }
 
   updateUserAnswerData() {
-    this.userAnswerData.situation_distortion_map_id = this.situation_distortion_map_id ;
-    this.userAnswerData.situation_displayed_at = this.gameService.situation_displayed_at; 
+    this.userAnswerData.situation_distortion_map_id = this.situation_distortion_map_id;
+    this.userAnswerData.situation_displayed_at = this.gameService.situation_displayed_at;
     this.userAnswerData.answered_at = this.answered_at;
   }
 
-  storeUserAnswerData(){
+  storeUserAnswerData() {
     this.gameService.saveUserAnswerData(this.userAnswerData).subscribe();
     console.log('User Answer Data', this.userAnswerData);
   }

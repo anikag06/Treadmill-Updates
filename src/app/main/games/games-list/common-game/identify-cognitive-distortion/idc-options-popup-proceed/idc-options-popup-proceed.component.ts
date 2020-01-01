@@ -12,9 +12,9 @@ export class IdcOptionsPopupProceedComponent implements OnInit {
 
   displayButton = "Default Option";
 
-  constructor(private gameService: IdcGameService, 
+  constructor(private gameService: IdcGameService,
     private dialogBoxService: DialogBoxService,
-              private element: ElementRef) {
+    private element: ElementRef) {
     if (this.gameService.optionStatus == "correct") {
       this.displayButton = "Find Remaining Error";
     } else if (this.gameService.optionStatus == "incorrect") {
@@ -35,13 +35,15 @@ export class IdcOptionsPopupProceedComponent implements OnInit {
       this.gameService.extraTimeTaken = false;
       this.gameService.updateUserData();
       if (this.gameService.levelOrder === 6) {
-        this.gameService.questionId = 1;
+        this.gameService.questionId = 0;
         this.gameService.getGameData();
         this.gameService.nextCall = true;
       } else {
         this.gameService.questionId++;
       }
       this.openWinPopup();
+    } else {
+      this.gameService.startTimer.emit();
     }
   }
 

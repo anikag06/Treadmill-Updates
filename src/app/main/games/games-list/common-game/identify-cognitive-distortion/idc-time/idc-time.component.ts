@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, Output, EventEmitter } from '@angular/core';
 import { IdcGameService } from '../idc-game.service';
 
 @Component({
@@ -9,11 +9,11 @@ import { IdcGameService } from '../idc-game.service';
 export class IdcTimeComponent implements OnInit {
 
   constructor(private elementRef: ElementRef,
-              private gameService: IdcGameService) { }
+    private gameService: IdcGameService) { }
 
   ngOnInit() {
   }
-  
+
   continuePlay() {
     const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });
     this.elementRef.nativeElement.dispatchEvent(domEvent);
@@ -29,8 +29,8 @@ export class IdcTimeComponent implements OnInit {
     this.elementRef.nativeElement.dispatchEvent(domEvent);
     this.gameService.timeLeft = 20;
     this.gameService.score -= 20;
-    this.gameService.levelFinish.next();
-    this.gameService.levelInitialise.next();
+    // this.gameService.levelInitialise.next();
+    this.gameService.resumeGame.emit();
     this.gameService.extraTimeTaken = true;
   }
 
