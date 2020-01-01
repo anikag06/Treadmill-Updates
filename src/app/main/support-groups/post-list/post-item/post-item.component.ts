@@ -176,7 +176,7 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
           (commentResponse: any) => {
             const persistedComment = new UserComment(
               commentResponse.data.comment_id,
-              { username: this.user.username, avatar: this.user.avatar },
+              { username: this.user.username },
               comment.body, 0, 0, new Date().toISOString(), -1);
             this.supportGroupItem.comments_count += 1;
             this.commentForm.reset();
@@ -390,11 +390,11 @@ export class PostItemComponent implements OnInit, DoCheck, OnDestroy, AfterConte
         profile.badge_list_silver, profile.badge_list_gold);
     })
     this.showProfile = !this.showProfile;
- 
+
   }
 
   onClickOutside(event: Object) {
-    if (event && (<any> event)['value'] === true) {
+    if (event && (<any>event)['value'] === true) {
       this.showProfile = false;
     }
   }
