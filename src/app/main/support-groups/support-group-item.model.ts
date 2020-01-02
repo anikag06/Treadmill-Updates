@@ -8,11 +8,15 @@ export class SupportGroupItem {
         public tags: Tag[],
         public user: {
             username: string,
-            avatar: string,
+            avatar?: string,
+            score?: number,
+            no_of_gold_badges?: number,
+            no_of_bronze_badges?: number,
+            no_of_silver_badges?: number
         },
         public up_votes: number,
         public created_at: string,
         public comments_count: number,
         public is_voted: number,
-    ){}
+    ) { }
 }

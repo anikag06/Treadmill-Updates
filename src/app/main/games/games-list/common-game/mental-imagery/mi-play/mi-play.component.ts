@@ -151,8 +151,9 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
     this.getCurrentStateService.retry = false;
     this.retry = this.getCurrentStateService.retry;
     this.resetCurrent();
-    // tslint:disable-next-line:max-line-length
-    this.getCurrentStateService.user.points.push(-Math.abs(this.levelPoints));
+    if (this.currentPoints !== 0) {
+      this.getCurrentStateService.user.points.push(-Math.abs(this.levelPoints));
+    }
     this.currentPoints = this.user.currentPoints();
     this.getCurrentStateService.resetScenario();
     this.currentScenario = this.getCurrentStateService.currentScenario;
@@ -212,8 +213,9 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
       this.updatePreviousText();
       this.updateExtraContent('<i>' + this.currentScenario.wrongText + '</i>');
       this.updateNotification('You seem to be stuck in a negative thought cycle. ', '');
+      this.addTryAgnBtn();
       this.getCurrentStateService.retry = true;
-      this.retry = this.getCurrentStateService.retry;
+      // this.retry = this.getCurrentStateService.retry;
       this.setUserData();
       delete this.getCurrentStateService.currentScenario;
       delete this.currentScenario;
@@ -222,6 +224,12 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
     }
     this.storeUserData();
     this.blank = '';
+  }
+
+  addTryAgnBtn(){
+    setTimeout(() => {
+      this.retry = this.getCurrentStateService.retry;
+    }, 3000);
   }
 
   findMatching(options: string[], search: string) {
@@ -352,8 +360,8 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
   }
 
   setUserData() {
-    this.userData.answer_correct = !this.retry;
-    if (!this.retry) {
+    this.userData.answer_correct = !this.getCurrentStateService.retry;
+    if (!this.getCurrentStateService.retry) {
       this.userData.score = 5;
     } else {
       this.userData.score = 0;
@@ -361,6 +369,7 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
     this.userData.game_sentence_id = this.currentScenario.id;
     this.userData.start_time = this.getCurrentStateService.startTime;
     this.userData.end_time = this.endTime;
+    console.log(this.userData);
   }
 
   storeUserData(){

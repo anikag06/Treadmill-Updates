@@ -720,6 +720,7 @@ function playNote() {
     getNextSong();
     songOver();
   }
+    updateUser();
 }
 
 function updateMusicBar() {
@@ -753,7 +754,6 @@ function songOver() {
   playNextGamePopup();
 
   // updateUser(ffg_music_current_order, ffg_coins);
-  updateUser();
 
   nextStage();
   ffg_music = next_song;

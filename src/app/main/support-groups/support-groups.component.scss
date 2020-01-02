@@ -7,28 +7,48 @@
         .content {
             min-height: 50vh;
             padding: 5px;
-            background-color: #ffffff;
-            border: 1px solid #dadada;
-            box-shadow: 1px 2px 10px #dbdbdb;
-            border-radius: 8px;
+            // background-color: #ffffff;
+            // border: 1px solid #dadada;
+            // box-shadow: 1px 2px 10px #dbdbdb;
+            // border-radius: 8px;
             max-width: 320px;
             margin: 0 auto;
         }
     }
 }
 
+.newPostBtn {
+    color:white;
+    width:306px;
+    height: 77px;
+    margin-bottom: 100px;
+    font-size: 26px;
+}
+
+// @media screen and (max-width: 991px) {
+//     .body-bg {
+//         .aside {
+//             padding: 0px;
+//             margin: 0px;
+//             max-width: 100%;
+//             .content {
+//                 max-width: 768px;
+//                 min-height: 0;
+//                 height: auto;
+//             }
+//         }
+//     }
+// }
+
 @media screen and (max-width: 991px) {
     .body-bg {
-        .aside {
             padding: 0px;
             margin: 0px;
             max-width: 100%;
-            .content {
-                max-width: 768px;
-                min-height: 0;
-                height: auto;
-            }
+           
         }
+    .aside{
+        display: none;    
     }
 }
 
@@ -42,4 +62,5 @@
         }
     }
 }
+
 

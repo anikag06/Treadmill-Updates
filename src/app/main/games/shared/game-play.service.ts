@@ -138,7 +138,7 @@ export class GamePlayService {
   // for mental imagery games
 
   // for friendly face game
-  ffg_show_tutorial = true;
+  ffg_show_tutorial!: any;
 
   constructor(
     private gamesService: GamesService,
@@ -605,6 +605,7 @@ export class GamePlayService {
     this.dialogBoxService.setDialogChild(FfgInstructionsComponent);
     this.resumeFaceGame();
   }
+
 
   // for mental imagery game
   playMentalImageryGame(gameDivElement: any) {

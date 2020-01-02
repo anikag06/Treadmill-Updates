@@ -36,8 +36,11 @@ export class IdcScoreComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.gameService.levelFinish.subscribe(() => {
+    this.gameService.stopTimer.subscribe(() => {
       this.stopTimer();
+    });
+    this.gameService.startTimer.subscribe(() => {
+      this.startTimer();
     });
     this.levelinitaliseSub = this.gameService.levelInitialise.subscribe(() => {
       this.score = this.gameService.score;
@@ -47,7 +50,12 @@ export class IdcScoreComponent implements OnInit, OnDestroy {
       this.updateBadges();
       console.log('ngoninit called');
     });
-    // console.log('ngoninit called');
+    this.gameService.resumeGame.subscribe(() => {
+      this.score = this.gameService.score;
+      this.timeLeft = this.gameService.timeLeft;
+      console.log('resume game');
+    });
+
   }
   ngOnDestroy(): void {
     this.levelinitaliseSub.unsubscribe();

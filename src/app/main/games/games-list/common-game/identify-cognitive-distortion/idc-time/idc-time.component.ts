@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, Output, EventEmitter } from '@angular/core';
 import { IdcGameService } from '../idc-game.service';
 
 @Component({
@@ -28,8 +28,8 @@ export class IdcTimeComponent implements OnInit {
     this.elementRef.nativeElement.dispatchEvent(domEvent);
     this.gameService.timeLeft = 20;
     this.gameService.score -= 20;
-    this.gameService.levelFinish.next();
-    this.gameService.levelInitialise.next();
+    // this.gameService.levelInitialise.next();
+    this.gameService.resumeGame.emit();
     this.gameService.extraTimeTaken = true;
   }
 }

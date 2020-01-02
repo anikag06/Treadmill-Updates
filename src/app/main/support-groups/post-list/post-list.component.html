@@ -1,16 +1,29 @@
 <div class="container-fluid no-gutters">
   <div class="post-list">
     <div class="row search-row">
-      <div class="col-12 col-md-8 offset-md-2">
+      <!-- <div class="col-12 col-md-8 offset-md-2"> -->
+      <div class="col-12 no-gutters">
+
         <form (ngSubmit)="onSearchSubmit()">
-          <div class="form-row align-items-center search-form justify-content-center">
-            <input type="text" name="search" placeholder="Search" class="form-control mr-2" [(ngModel)]="search">
-            <button  mat-raised-button type="submit" class="mr-2" color="primary"><mat-icon>search</mat-icon></button>
-            <button mat-raised-button type="button" (click)="onReset()"><mat-icon>settings_backup_restore</mat-icon></button>
+          <!-- <div class="form-row align-items-center search-form justify-content-center"> -->
+            <div class="form-row  search-form ">
+            <!-- <input type="text" name="search" placeholder="Search" class="form-control mx-2" [(ngModel)]="search"> -->
+            <input id="searchinput" type="search" placeholder="Search" class="form-control" [(ngModel)]="search">
+            <span id="searchclear" class="glyphicon glyphicon-remove-circle"></span>
+                
+            <button  mat-raised-button type="submit" class="mr-1" ><mat-icon>search</mat-icon></button>
+            <!-- <button mat-raised-button type="button" (click)="onReset()"><mat-icon>settings_backup_restore</mat-icon></button> -->
+
+            <button mat-raised-button class="new-post ml-2" type="button" color="primary" (click)="onClear()">
+              <img src="../assets/support-group/edit (1).png" alt="new post" height="22" width="22"></button>
           </div>
         </form>
+
+      
+        
       </div>
     </div>
+    <div class=" post-content">
     <div class="row no-gutters" *ngIf="getSearchResultMessage()">
       <div class="col-12">
         <p class="message" [innerHTML]="getSearchResultMessage()"></p>
@@ -37,5 +50,6 @@
             </div>
           </div>
       </div>
+  </div>
   </div>
 </div>

@@ -42,6 +42,7 @@ import { FfgScienceComponent } from './friendly-face-game/ffg-science/ffg-scienc
 import { LhgScienceComponent } from './learned-helplessness-game/lhg-science/lhg-science.component';
 import { IdentifyCognitiveDistortionComponent } from './identify-cognitive-distortion/identify-cognitive-distortion.component';
 import { LhgHowtoplayComponent } from './learned-helplessness-game/lhg-howtoplay/lhg-howtoplay.component';
+import { IdcGameService } from './identify-cognitive-distortion/idc-game.service';
 
 declare let $: any;
 
@@ -99,7 +100,8 @@ export class CommonGameComponent implements OnInit {
     private dialogBoxService: DialogBoxService,
     private miPlayService: MIPlayService,
     private ref: ChangeDetectorRef,
-  ) {}
+    private idcGameService: IdcGameService,
+  ) { }
 
   ngOnInit() {
     this.subscriptionRouter = this.route.params
@@ -108,7 +110,7 @@ export class CommonGameComponent implements OnInit {
         switchMap(name => this.gamePlayService.getGameInfo(name)),
       )
       .subscribe(
-        game => {
+        (game) => {
           this.game = <Game>game;
           this.gameName = this.game.name;
           console.log(this.gameName);
@@ -142,6 +144,10 @@ export class CommonGameComponent implements OnInit {
           this.router.navigate(['games']);
         },
       );
+    this.idcGameService.resumeGame.subscribe(() => {
+      this.onResumeClick();
+    }
+    );
   }
 
   @HostListener('window:blur', ['$event'])

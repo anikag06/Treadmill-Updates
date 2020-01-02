@@ -63,6 +63,7 @@ export class IdcOptionsComponent implements OnInit {
   }
 
   onOptionClick(item: any) {
+    this.gameService.stopTimer.next();
     this.gameService.optionSelected = item.distortion;
     this.gameService.optionMessage = item.message;
     this.situation_distortion_map_id = item.id;
@@ -94,7 +95,7 @@ export class IdcOptionsComponent implements OnInit {
       this.gameService.optionStatus = 'allcorrect';
       this.optionStatus = this.gameService.optionStatus;
       this.gameService.updateBadgesValue();
-      this.gameService.levelFinish.next();
+      this.gameService.stopTimer.next();
       this.gameService.levelOrder += 1;
     }
     this.openCustomDialog();

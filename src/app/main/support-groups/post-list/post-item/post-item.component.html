@@ -16,16 +16,21 @@
     <span>Report Sucide</span>
   </button>
 </mat-menu>
-<div class="post-item" >
+<div class="post-item profile-card">
   <div class="row no-gutters" click-outside (clickOutside)="onClickOutside($event)">
-      <div class="support-profile-card" *ngIf="showProfile">
-          <app-user-profile class="support-group" [userProfile]="userProfile" ></app-user-profile>
-        </div>
-    <div class="col-2 text-center">
-      <img [src]="supportGroupItem.user.avatar" alt="User avatar" width="50" height="50" class='post-user-avatar' (click)="onShowProfile(supportGroupItem.user.username)">
-      <p class='user-avatar-username text-muted'>{{supportGroupItem.user.username}}</p>
+    <div class="support-profile-card" *ngIf="showProfile">
+      <app-user-profile class="support-group" [userProfile]="userProfile"></app-user-profile>
     </div>
-    <div class="col-9">
+    <div class="col col-sm-2 justify-content-start">
+      <img [src]="supportGroupItem.user.avatar" alt="User avatar" width="50" height="50" class='post-user-avatar'
+        (click)="onShowProfile(supportGroupItem.user.username)">
+    </div>
+    <div class="col col-sm-3 justify-content-start">
+      <p class='user-avatar-username mb-0 text-muted'><b>{{supportGroupItem.user.username}}</b></p>
+      <p><span class='post-time text-muted'>{{supportGroupItem.created_at | date: 'medium' | timeAgo }}</span></p>
+
+    </div>
+    <!-- <div class="col-9">
       <div class="main-header">
         <h2>{{supportGroupItem.title}}</h2>
         <p><span class='post-time text-muted'>{{supportGroupItem.created_at | date: 'medium' | timeAgo }}</span></p>
@@ -36,8 +41,26 @@
           </span>
         </div>
       </div>
+    </div> -->
+    <!-- <div class="profile-card"> -->
+    <div class="col scores mr-2 pt-1">
+      <div class='box-blue'></div>
+      <div class="value">{{supportGroupItem.user.score}}</div>
     </div>
-    <div class="col-1">
+    <div class="col medal mr-2 pt-1">
+      <div class='circle gold'></div>
+      <div class="value">{{supportGroupItem.user.no_of_gold_badges}}</div>
+    </div>
+    <div class="col medal mr-2 pt-1">
+      <div class='circle silver'></div>
+      <div class="value">{{supportGroupItem.user.no_of_silver_badges}}</div>
+    </div>
+    <div class="col medal mr-2 pt-1">
+      <div class='circle bronze'></div>
+      <div class="value">{{supportGroupItem.user.no_of_bronze_badges}}</div>
+    </div>
+    <!-- </div> -->
+    <div class="col justify-content-end">
       <div class="context-button">
         <button mat-icon-button [matMenuTriggerFor]="menu">
           <mat-icon>more_vert</mat-icon>
@@ -45,17 +68,42 @@
       </div>
     </div>
   </div>
-  <div class="row no-gutters">
+  <div class="row no-gutters mt-1">
+    <div class="main-header">
+      <h2>{{supportGroupItem.title}}</h2>
+      <!-- <p><span class='post-time text-muted'>{{supportGroupItem.created_at | date: 'medium' | timeAgo }}</span></p> -->
+      <!-- <div class="tags" *ngIf="supportGroupItem.tags.length > 0">
+        <span *ngFor="let tag of supportGroupItem.tags">
+          <a (click)="onTagClick(tag)">{{tag.name}}</a>
+          &nbsp;
+        </span>
+      </div> -->
+    </div>
+  </div>
+
+  <div class="row no-gutters mt-2">
     <div class='col-12'>
       <div class="main-content">
         <div #htmlDiv [innerHTML]="body | safeHtml" [ngStyle]="{'word-break': 'break-word'}"></div>
         <span *ngIf="plainBodyLength() > minBodyLength && !newPost" class="text-right">
-          <a (click)="toggleShow()" *ngIf="!showFullContent" class="toggler" >show more</a>
+          <a (click)="toggleShow()" *ngIf="!showFullContent" class="toggler">show more</a>
         </span>
       </div>
     </div>
   </div>
-  <div class="row no-gutters">
+
+  <div class="row no-gutters mt-2">
+    <div class='col-12'>
+      <div class="tags" *ngIf="supportGroupItem.tags.length > 0">
+        <span *ngFor="let tag of supportGroupItem.tags">
+          <a (click)="onTagClick(tag)">{{tag.name}}</a>
+          &nbsp;
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row no-gutters mt-1">
     <div class="col-12">
       <button class="btn btn-sm thumbs-up" (click)="onThumbsUp()"><img [src]="thumbsUp" width="20">
         {{supportGroupItem.up_votes}}</button>

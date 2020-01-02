@@ -113,24 +113,23 @@ export class CreatePostComponent implements OnInit {
   }
 
   createPost(data: any) {
-    this.sgService.createPost(data).subscribe(
-      (response: any) => {
-        const tags = this.tags.filter(item => this.formTags.includes(item.id));
-        const sgItem = new SupportGroupItem(
-          response.data.post_id,
-          data.body,
-          data.title,
-          tags,
-          { username: this.user.username, avatar: this.user.avatar },
-          0,
-          new Date().toISOString(),
-          0,
-          -1,
-        );
-        this.sgService.sendPost(sgItem);
-        this.postForm.reset();
-        this.dialogRef.close();
-      },
+    this.sgService.createPost(data)
+      .subscribe(
+        (response: any) => {
+          const tags = this.tags.filter(item => this.formTags.includes(item.id));
+          const sgItem = new SupportGroupItem(response.data.post_id,
+            data.body,
+            data.title,
+            tags,
+            { username: this.user.username },
+            0,
+            new Date().toISOString(),
+            0,
+            -1);
+          this.sgService.sendPost(sgItem);
+          this.postForm.reset();
+          this.dialogRef.close();
+        },
 
       httpErrorResponse => {
         this.errors = [];

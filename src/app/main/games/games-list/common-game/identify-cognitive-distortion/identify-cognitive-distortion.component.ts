@@ -24,6 +24,9 @@ export class IdentifyCognitiveDistortionComponent implements OnInit {
     this.gameService.startPlayingIdc.subscribe(() => {
       this.startPlaying();
     });
+    // this.gameService.resumeGame.subscribe(() => {
+    //   this.resumeIDCGame();
+    // });
   }
 
   playing = false;
