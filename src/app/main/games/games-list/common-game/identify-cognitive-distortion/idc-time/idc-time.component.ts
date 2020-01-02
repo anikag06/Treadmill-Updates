@@ -1,4 +1,10 @@
-import { Component, OnInit, ElementRef, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ElementRef,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 import { IdcGameService } from '../idc-game.service';
 
 @Component({

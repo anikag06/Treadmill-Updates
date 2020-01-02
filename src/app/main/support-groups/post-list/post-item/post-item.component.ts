@@ -189,7 +189,12 @@ export class PostItemComponent
             const persistedComment = new UserComment(
               commentResponse.data.comment_id,
               { username: this.user.username },
-              comment.body, 0, 0, new Date().toISOString(), -1);
+              comment.body,
+              0,
+              0,
+              new Date().toISOString(),
+              -1,
+            );
             this.supportGroupItem.comments_count += 1;
             this.commentForm.reset();
             this.initial = false;

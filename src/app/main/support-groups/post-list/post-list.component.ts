@@ -12,10 +12,9 @@ import { GeneralErrorService } from '@/main/shared/general-error.service';
 @Component({
   selector: 'app-post-list',
   templateUrl: './post-list.component.html',
-  styleUrls: ['./post-list.component.scss']
+  styleUrls: ['./post-list.component.scss'],
 })
 export class PostListComponent implements OnInit, OnDestroy {
-
   posts: SupportGroupItem[] = [];
   newPosts: SupportGroupItem[] = [];
   sgServiceSubscription!: Subscription;
@@ -28,7 +27,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   fetching = false;
   search = '';
   searchTerm = '';
-  tags: string[] | null =  null;
+  tags: string[] | null = null;
   searchResultCount = 0;
 
   constructor(
@@ -37,47 +36,43 @@ export class PostListComponent implements OnInit, OnDestroy {
     private router: Router,
     private scrollService: ScrollingService,
     public dialog: MatDialog,
-    private errorService: GeneralErrorService
-  ) { }
+    private errorService: GeneralErrorService,
+  ) {}
 
   ngOnInit() {
-    this.queryParamsSubscription = this.route.queryParams
-      .subscribe(
-        (data) => {
-          if (data.tags) {
-            this.tags = data.tags.split(',');
-          }
-          this.searchTerm = data.search || '';
-          this.posts = [];
-          this.page = 1;
-          this.morePosts = true;
-          this.getPosts();
-          this.tagsToSearch();
-          if (this.searchTerm && this.search !== this.searchTerm) {
-            this.search += this.searchTerm;
-          }
+    this.queryParamsSubscription = this.route.queryParams.subscribe(data => {
+      if (data.tags) {
+        this.tags = data.tags.split(',');
+      }
+      this.searchTerm = data.search || '';
+      this.posts = [];
+      this.page = 1;
+      this.morePosts = true;
+      this.getPosts();
+      this.tagsToSearch();
+      if (this.searchTerm && this.search !== this.searchTerm) {
+        this.search += this.searchTerm;
+      }
+    });
+    this.newSgServiceSubscription = this.sgService.supportGroupItem$.subscribe(
+      (sgItem: SupportGroupItem) => {
+        if (!isNaN(sgItem.id)) {
+          this.newPosts.unshift(sgItem);
         }
-      );
-    this.newSgServiceSubscription =  this.sgService.supportGroupItem$
-      .subscribe(
-        (sgItem: SupportGroupItem) => {
-          if (!isNaN(sgItem.id)) {
-            this.newPosts.unshift(sgItem);
-          }
+      },
+    );
+    this.updatedSgServiceSubscription = this.sgService.supportGroupItemUpdated$.subscribe(
+      (sgItem: SupportGroupItem) => {
+        if (!isNaN(sgItem.id)) {
+          this.posts = this.posts.map(post =>
+            post.id === sgItem.id ? sgItem : post,
+          );
         }
-      );
-    this.updatedSgServiceSubscription =  this.sgService.supportGroupItemUpdated$
-      .subscribe(
-        (sgItem: SupportGroupItem) => {
-          if (!isNaN(sgItem.id)) {
-            this.posts = this.posts.map(post => post.id === sgItem.id ? sgItem : post);
-          }
-        }
-      );
-    this.scrollService.scrollingBehaviour
-        .subscribe(
-          (i: number) => this.onScroll(i)
-        );
+      },
+    );
+    this.scrollService.scrollingBehaviour.subscribe((i: number) =>
+      this.onScroll(i),
+    );
   }
 
   ngOnDestroy() {
@@ -89,53 +84,46 @@ export class PostListComponent implements OnInit, OnDestroy {
     }
   }
 
-
   getPosts() {
     if (this.morePosts) {
       this.fetching = true;
-      this.sgServiceSubscription = this.sgService.getPosts(this.page, this.tags, this.searchTerm)
-        .subscribe(
-          (data: any) => {
-            console.log('DATA', data);
+      this.sgServiceSubscription = this.sgService
+        .getPosts(this.page, this.tags, this.searchTerm)
+        .subscribe((data: any) => {
+          console.log('DATA', data);
 
-            const response = <ApiResponse>data;
-            this.searchResultCount = response.count;
-            if (response.next == null) {
-              this.morePosts = false;
-            } else {
-              this.morePosts = true;
-              this.page += 1;
-            }
-            const fetchedPosts = <SupportGroupItem[]>response.results;
-            this.posts = this.arrayUnique([...this.posts, ...fetchedPosts]);
-            this.fetching = false;
-          },
-          this.errorService.errorResponse('Cannot fetch posts')
-        );
+          const response = <ApiResponse>data;
+          this.searchResultCount = response.count;
+          if (response.next == null) {
+            this.morePosts = false;
+          } else {
+            this.morePosts = true;
+            this.page += 1;
+          }
+          const fetchedPosts = <SupportGroupItem[]>response.results;
+          this.posts = this.arrayUnique([...this.posts, ...fetchedPosts]);
+          this.fetching = false;
+        }, this.errorService.errorResponse('Cannot fetch posts'));
     }
   }
 
   onScroll(scrollPercent: number) {
-    if (scrollPercent > 90.00 && this.fetching === false) {
+    if (scrollPercent > 90.0 && this.fetching === false) {
       this.getPosts();
     }
   }
 
   onItemDeletion(sgi: SupportGroupItem) {
     const data = { post_id: sgi.id };
-    this.sgService.deletePost(data)
-      .subscribe(
-        () => {
-          this.posts = this.posts.filter(post => {
-            return post.id !== sgi.id;
-          });
+    this.sgService.deletePost(data).subscribe(() => {
+      this.posts = this.posts.filter(post => {
+        return post.id !== sgi.id;
+      });
 
-          this.newPosts = this.newPosts.filter(post => {
-            return post.id !== sgi.id;
-          });
-        },
-        this.errorService.errorResponse('Cannot delete post')
-      );
+      this.newPosts = this.newPosts.filter(post => {
+        return post.id !== sgi.id;
+      });
+    }, this.errorService.errorResponse('Cannot delete post'));
   }
 
   onItemEdit(sgi: SupportGroupItem) {
@@ -152,7 +140,9 @@ export class PostListComponent implements OnInit, OnDestroy {
       this.posts = [];
       this.searchTerm = this.search.replace(/ *\[[^\]]*]/g, '');
       this.searchToTags();
-      setTimeout(() => { this.navigateSearch(); }, 200);
+      setTimeout(() => {
+        this.navigateSearch();
+      }, 200);
     }
   }
 
@@ -160,9 +150,9 @@ export class PostListComponent implements OnInit, OnDestroy {
    * Tags array to search
    */
   tagsToSearch() {
-    if (typeof(this.tags) === 'string') {
+    if (typeof this.tags === 'string') {
       this.search = '[' + this.tags + ']';
-    } else if (typeof(this.tags) === 'object' && this.tags != null) {
+    } else if (typeof this.tags === 'object' && this.tags != null) {
       this.search = '';
       this.tags.forEach(tag => {
         this.search += '[' + tag + ']';
@@ -176,7 +166,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   searchToTags() {
     const searchTags = <string[]>this.search.match(/\[(.*?)\]/g);
     if (searchTags && searchTags.length > 0) {
-      this.tags = searchTags.map((tag) => tag.slice(1, tag.length - 1));
+      this.tags = searchTags.map(tag => tag.slice(1, tag.length - 1));
     }
   }
 
@@ -186,7 +176,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   navigateSearch() {
     let queryParams = {};
     if (this.tags && this.tags.length > 0 && this.searchTerm.length > 0) {
-     queryParams = { tags: this.tags.join(','), search: this.searchTerm };
+      queryParams = { tags: this.tags.join(','), search: this.searchTerm };
     } else if (this.tags && this.tags.length > 0) {
       queryParams = { tags: this.tags.join(',') };
     } else if (this.searchTerm.length > 0) {
@@ -194,13 +184,22 @@ export class PostListComponent implements OnInit, OnDestroy {
     } else {
       queryParams = { tags: null, search: null };
     }
-    const newUrl = this.router.createUrlTree(['/support-groups'], { queryParams: queryParams, queryParamsHandling: 'merge'}).toString();
-    if ( newUrl === this.router.url) {
-      if (this.fetching === false ) {
+    const newUrl = this.router
+      .createUrlTree(['/support-groups'], {
+        queryParams: queryParams,
+        queryParamsHandling: 'merge',
+      })
+      .toString();
+    if (newUrl === this.router.url) {
+      if (this.fetching === false) {
         this.getPosts();
       }
     }
-    this.router.navigate([], {relativeTo: this.route, queryParams: queryParams, queryParamsHandling: 'merge'});
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: queryParams,
+      queryParamsHandling: 'merge',
+    });
   }
 
   onTagClick(tag: string) {
@@ -225,7 +224,9 @@ export class PostListComponent implements OnInit, OnDestroy {
   onReset() {
     this.resetParams();
     this.router.navigate(['/support-groups']);
-    setTimeout(() => { this.getPosts(); }, 200);
+    setTimeout(() => {
+      this.getPosts();
+    }, 200);
   }
 
   /**
@@ -234,7 +235,7 @@ export class PostListComponent implements OnInit, OnDestroy {
 
   onClear() {
     //
-   }
+  }
 
   resetParams() {
     this.tags = [];
@@ -246,19 +247,18 @@ export class PostListComponent implements OnInit, OnDestroy {
     this.searchTerm = '';
   }
 
-
   /**
    * Find unique items in the array
    * @param array
    */
   arrayUnique(array: SupportGroupItem[]) {
     const newArray = array.concat();
-    for ( let i = 0 ; i < newArray.length; ++i) {
-        for ( let j = i + 1; j < newArray.length; ++j) {
-            if ( newArray[i].id === newArray[j].id ) {
-              newArray.splice(j--, 1);
-            }
+    for (let i = 0; i < newArray.length; ++i) {
+      for (let j = i + 1; j < newArray.length; ++j) {
+        if (newArray[i].id === newArray[j].id) {
+          newArray.splice(j--, 1);
         }
+      }
     }
     return newArray;
   }
@@ -269,9 +269,17 @@ export class PostListComponent implements OnInit, OnDestroy {
   getSearchResultMessage() {
     if (this.fetching === false) {
       if (this.search && this.searchTerm && this.posts.length === 0) {
-        return 'Oops! we could not find any results for <i>' + this.search + '</i>' ;
+        return (
+          'Oops! we could not find any results for <i>' + this.search + '</i>'
+        );
       } else if (this.search && this.searchTerm && this.posts.length > 0) {
-        return 'We found ' + this.searchResultCount + ' results for <i>' + this.searchTerm + '</i>' ;
+        return (
+          'We found ' +
+          this.searchResultCount +
+          ' results for <i>' +
+          this.searchTerm +
+          '</i>'
+        );
       }
     }
   }

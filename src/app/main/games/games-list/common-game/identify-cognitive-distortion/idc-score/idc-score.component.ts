@@ -55,7 +55,6 @@ export class IdcScoreComponent implements OnInit, OnDestroy {
       this.timeLeft = this.gameService.timeLeft;
       console.log('resume game');
     });
-
   }
   ngOnDestroy(): void {
     this.levelinitaliseSub.unsubscribe();

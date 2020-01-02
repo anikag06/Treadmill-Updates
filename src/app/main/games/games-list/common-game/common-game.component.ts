@@ -101,7 +101,7 @@ export class CommonGameComponent implements OnInit {
     private miPlayService: MIPlayService,
     private ref: ChangeDetectorRef,
     private idcGameService: IdcGameService,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.subscriptionRouter = this.route.params
@@ -110,7 +110,7 @@ export class CommonGameComponent implements OnInit {
         switchMap(name => this.gamePlayService.getGameInfo(name)),
       )
       .subscribe(
-        (game) => {
+        game => {
           this.game = <Game>game;
           this.gameName = this.game.name;
           console.log(this.gameName);
@@ -146,8 +146,7 @@ export class CommonGameComponent implements OnInit {
       );
     this.idcGameService.resumeGame.subscribe(() => {
       this.onResumeClick();
-    }
-    );
+    });
   }
 
   @HostListener('window:blur', ['$event'])

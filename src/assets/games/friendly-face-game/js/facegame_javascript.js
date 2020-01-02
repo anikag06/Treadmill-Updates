@@ -717,10 +717,10 @@ function playNote() {
     timeActualLeft = timeBeingShown;
     // clearInterval(timer);
     timers.forEach(function(timer){clearInterval(timer);});
+    updateUser();
     getNextSong();
     songOver();
   }
-    updateUser();
 }
 
 function updateMusicBar() {

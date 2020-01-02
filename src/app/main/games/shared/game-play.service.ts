@@ -606,7 +606,6 @@ export class GamePlayService {
     this.resumeFaceGame();
   }
 
-
   // for mental imagery game
   playMentalImageryGame(gameDivElement: any) {
     if (this.miCurrentStateService.showTutorial === true) {

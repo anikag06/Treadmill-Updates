@@ -25,7 +25,6 @@ export class IdcGameService {
   stopTimer = new Subject();
   startTimer = new EventEmitter();
 
-
   playing = false;
   selectedCorrectOptionsSet = new Set();
   game!: any;
@@ -228,7 +227,10 @@ export class IdcGameService {
 
   updateDifficultyLevel() {
     this.setDifficultyFactor();
-    if ((this.timeActualLeft > Math.floor(0.2 * this.timeLeft) && this.timeActualLeft > this.minTime)) {
+    if (
+      this.timeActualLeft > Math.floor(0.2 * this.timeLeft) &&
+      this.timeActualLeft > this.minTime
+    ) {
       this.timeLeft -= 20;
       this.timeAlloted = this.timeLeft;
     } else {
