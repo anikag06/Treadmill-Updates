@@ -1,10 +1,7 @@
 <div class="ff-game-div h-100 w-100">
   <div id="face-game-main-div">
     <div class="game-cover row justify-content-center">
-      <img
-        id="ffg-image"
-        src="../../../../../../assets/games/friendly-face-game/images/Start page graphic.png"
-      />
+      <img id="ffg-image" src="../../../../../../assets/games/friendly-face-game/images/Start page graphic.png" />
       <br />
     </div>
 
@@ -15,21 +12,15 @@
           <div class="col">
             <div class="d-flex align-items-end score-life">
               <div class="ml-1">
-                <span id="score" class="align-bottom"><b>SCORE:</b></span
-                ><span id="score-num" class="align-bottom"></span>
+                <span id="score" class="align-bottom"><b>SCORE:</b></span><span id="score-num"
+                  class="align-bottom"></span>
               </div>
 
               <div class=" ml-auto ">
-                <img
-                  id="life-img"
-                  src="../../../../../../assets/games/friendly-face-game/images/Live (1).svg"
-                />
+                <img id="life-img" src="../../../../../../assets/games/friendly-face-game/images/Live (1).svg" />
                 <span id="life" class="align-bottom"></span>
 
-                <img
-                  id="time-img"
-                  src="../../../../../../assets/games/time_transparent.png"
-                />
+                <img id="time-img" src="../../../../../../assets/games/time_transparent.png" />
                 <!--class="float-right">-->
                 <span id="time-sec" class="align-bottom"></span>
                 <!-- <span class="align-bottom mb-0"> <b class="mt-1">s</b></span> -->
@@ -42,42 +33,24 @@
           <div class="col coins-difficulty">
             <div class="d-flex align-items-end">
               <div class=" ml-1 coins1">
-                <img
-                  class="coin-img"
-                  src="../../../../../../assets/games/friendly-face-game/images/Gold badge symbol.svg"
-                />
-                <span class="coin-num" id="gold-num">{{ goldNumber }}</span>
-                <mat-progress-bar
-                  mode="determinate"
-                  class="goldBar"
-                  [value]="goldValue"
-                ></mat-progress-bar>
+                <img class="coin-img"
+                  src="../../../../../../assets/games/friendly-face-game/images/Gold badge symbol.svg" />
+                <span class="coin-num float-right" id="gold-num">{{ goldNumber }}</span>
+                <mat-progress-bar mode="determinate" class="goldBar" [value]="goldValue"></mat-progress-bar>
               </div>
 
-              <div class="ml-1 coins1">
-                <img
-                  class="coin-img"
-                  src="../../../../../../assets/games/friendly-face-game/images/Silver badge symbol.svg"
-                />
-                <span class="coin-num" id="silver-num">{{ silverNumber }}</span>
-                <mat-progress-bar
-                  mode="determinate"
-                  class="silverBar"
-                  [value]="silverValue"
-                ></mat-progress-bar>
+              <div class="ml-2 coins1">
+                <img class="coin-img"
+                  src="../../../../../../assets/games/friendly-face-game/images/Silver badge symbol.svg" />
+                <span class="coin-num float-right" id="silver-num">{{ silverNumber }}</span>
+                <mat-progress-bar mode="determinate" class="silverBar" [value]="silverValue"></mat-progress-bar>
               </div>
 
-              <div class="ml-1 coins1">
-                <img
-                  class="coin-img"
-                  src="../../../../../../assets/games/friendly-face-game/images/Bronze badge symbol.svg"
-                />
-                <span class="coin-num" id="bronze-num">{{ bronzeNumber }}</span>
-                <mat-progress-bar
-                  mode="determinate"
-                  class="bronzeBar"
-                  [value]="bronzeValue"
-                ></mat-progress-bar>
+              <div class="ml-2 coins1">
+                <img class="coin-img"
+                  src="../../../../../../assets/games/friendly-face-game/images/Bronze badge symbol.svg" />
+                <span class="coin-num float-right" id="bronze-num">{{ bronzeNumber }}</span>
+                <mat-progress-bar mode="determinate" class="bronzeBar" [value]="bronzeValue"></mat-progress-bar>
               </div>
 
               <div class="ml-auto  difficulty">
@@ -86,11 +59,7 @@
                 </div>
 
                 <div class="row border border-dark rounded difficulty-bar ml-0">
-                  <mat-progress-bar
-                    mode="determinate"
-                    class="gameDifficultyBar"
-                    [value]="difficultyBarValue"
-                  >
+                  <mat-progress-bar mode="determinate" class="gameDifficultyBar" [value]="difficultyBarValue">
                   </mat-progress-bar>
                 </div>
               </div>
@@ -98,11 +67,7 @@
           </div>
         </div>
 
-        <div
-          id="canvas-div"
-          class="row align-items-center game-components flex-grow-1"
-          #newElement
-        >
+        <div id="canvas-div" class="row align-items-center game-components flex-grow-1" #newElement>
           <div class="col align-items-center ">
             <div class="d-flex justify-content-center">
               <canvas id="canvas1"></canvas>
@@ -112,25 +77,15 @@
 
         <div style="height: 80px;">
           <div>
-            <img
-              id="tone-on-bar"
-              [style.margin-left]="toneBarValue + 'px'"
-              src="../../../../../../assets/games/friendly-face-game/images/music green.png"
-            />
+            <img id="tone-on-bar" [style.margin-left]="toneBarValue + 'px'"
+              src="../../../../../../assets/games/friendly-face-game/images/music green.png" />
           </div>
           <div class="d-flex justify-content-center music-bar">
-            <mat-progress-bar
-              mode="determinate"
-              class="ffgMusicBar"
-              [value]="musicBarValue"
-            ></mat-progress-bar>
+            <mat-progress-bar mode="determinate" class="ffgMusicBar" [value]="musicBarValue"></mat-progress-bar>
           </div>
           <div class="music-box row">
             <!-- <img id="border-music-box" src="../../../../../../assets/games/friendly-face-game/images/Button_small.svg"> -->
-            <img
-              id="tone"
-              src="../../../../../../assets/games/friendly-face-game/images/Tone.svg"
-            />
+            <img id="tone" src="../../../../../../assets/games/friendly-face-game/images/Tone.svg" />
             <span id="song-name"></span>
           </div>
         </div>

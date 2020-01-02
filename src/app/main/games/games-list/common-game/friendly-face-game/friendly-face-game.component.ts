@@ -44,6 +44,8 @@ declare var ffgDifficultyValue: number;
 declare var ffg_total_positive_images: any;
 declare var ffg_perf_update: boolean;
 declare var ffg_current_song_order: number;
+declare var timers: any;
+declare var ffg_timer: any;
 
 @Component({
   selector: 'app-friendly-face-game',
@@ -59,7 +61,7 @@ export class FriendlyFaceGameComponent implements OnInit {
     private badgesService: GamesBadgesService,
     public viewContainerRef: ViewContainerRef,
     private ffgHelpService: FfgHelpService,
-  ) {}
+  ) { }
   NO_IMAGES_IN_PAGE = 20;
   NO_SONGS_IN_PAGE = 2;
   ffGameMusicOrder!: number;
@@ -131,13 +133,19 @@ export class FriendlyFaceGameComponent implements OnInit {
       .then(() => {
         this.loadImages();
       })
-      .catch(() => {});
+      .catch(() => { });
     this.loadFileService
       .loadExternalScript('./assets/games/friendly-face-game/js/tone.min.js')
-      .then(() => {})
-      .catch(() => {});
+      .then(() => { })
+      .catch(() => { });
     this.ffgHelpService.updateBadges.subscribe(() => {
       this.updateBadgesValue();
+    });
+  }
+
+  ngOnDestroy(): void {
+    timers.forEach(() => {
+      clearInterval(ffg_timer);
     });
   }
 
