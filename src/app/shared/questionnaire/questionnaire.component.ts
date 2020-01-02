@@ -6,7 +6,13 @@ import { environment } from 'environments/environment';
 
 // tslint:disable-next-line:max-line-length
 // import { User } from '@/shared/user.model';
-import { trigger, transition, animate, style, state } from '@angular/animations';
+import {
+  trigger,
+  transition,
+  animate,
+  style,
+  state,
+} from '@angular/animations';
 import { DataService } from './data.service';
 import { FlowService } from '@/main/flow/flow.service';
 // import { StepGroup } from '@/main/flow/step-group/step-group.model';
@@ -14,53 +20,80 @@ import { FlowService } from '@/main/flow/flow.service';
 import { Router, ActivatedRoute } from '@angular/router';
 // import { Step } from '@/main/flow/step-group/step/step.model';
 import { TrialAuthService } from '@/trial-registration/shared/trial-auth.service';
-import { RegistrationQuestionnaireScore} from '@/trial-registration/registration-step-three/resgistration-step-three-response.model';
+import { RegistrationQuestionnaireScore } from '@/trial-registration/registration-step-three/resgistration-step-three-response.model';
 import { RegistrationDataService } from '@/trial-registration/shared/registration-data.service';
 import { QuestionnaireResponse } from './input/questionnaire-response.model';
-import { INELIGIBLE_FOR_TRIAL,
-  REGISTRATION_PATH, GET_PHQ_QUESTIONS,
-  GET_GAD_QUESTIONS, GET_SIQ_QUESTIONS, GAD7, SIQ, PHQ9, DEFAULT_PATH } from '@/app.constants';
+import {
+  INELIGIBLE_FOR_TRIAL,
+  REGISTRATION_PATH,
+  GET_PHQ_QUESTIONS,
+  GET_GAD_QUESTIONS,
+  GET_SIQ_QUESTIONS,
+  GAD7,
+  SIQ,
+  PHQ9,
+  DEFAULT_PATH,
+} from '@/app.constants';
 import { AuthService } from '../auth/auth.service';
 
 @Component({
   animations: [
     trigger('in', [
-      transition(':decrement',
+      transition(
+        ':decrement',
         // tslint:disable-next-line:max-line-length
-        [style({ opacity: 0, transform: 'translateX(-26%)' }), animate('200ms ease-in-out', style({ opacity: 1, transform: 'translateX(0%)' }))]),
-      transition(':increment',
+        [
+          style({ opacity: 0, transform: 'translateX(-26%)' }),
+          animate(
+            '200ms ease-in-out',
+            style({ opacity: 1, transform: 'translateX(0%)' }),
+          ),
+        ],
+      ),
+      transition(
+        ':increment',
         // tslint:disable-next-line:max-line-length
-        [style({ opacity: 0, transform: 'translateX(26%)' }), animate('200ms ease-in-out', style({ opacity: 1, transform: 'translateX(0%)' }))]),
+        [
+          style({ opacity: 0, transform: 'translateX(26%)' }),
+          animate(
+            '200ms ease-in-out',
+            style({ opacity: 1, transform: 'translateX(0%)' }),
+          ),
+        ],
+      ),
     ]),
     trigger('simpleFadeAnimation', [
-
       // the "in" style determines the "resting" state of the element when it is visible.
       state('in', style({ opacity: 1 })),
 
       // fade in when created. this could also be written as transition('void => *')
       transition(':enter', [
         style({ opacity: 0, transform: 'translateX(50%)' }),
-        animate('1000ms ease-in-out', style({ opacity: 1, transform: 'translateX(0%)' }))
-      ])
+        animate(
+          '1000ms ease-in-out',
+          style({ opacity: 1, transform: 'translateX(0%)' }),
+        ),
+      ]),
     ]),
     trigger('submit_animation', [
-
       // the "in" style determines the "resting" state of the element when it is visible.
       state('in', style({ opacity: 1 })),
 
       // fade in when created. this could also be written as transition('void => *')
       transition(':enter', [
         style({ opacity: 1, transform: 'translateX(50%)' }),
-        animate('200ms ease-in-out', style({ opacity: 1, transform: 'translateX(0%)' }))
-      ])
-    ])
+        animate(
+          '200ms ease-in-out',
+          style({ opacity: 1, transform: 'translateX(0%)' }),
+        ),
+      ]),
+    ]),
   ],
   selector: 'app-questionnaire',
   templateUrl: './questionnaire.component.html',
   styleUrls: ['./questionnaire.component.scss'],
 })
 export class QuestionnaireComponent implements OnInit {
-
   @Input() fromFlow!: boolean;
   @Input() fromTrialRegistration!: boolean;
   @Input() stepId!: number;
@@ -73,7 +106,7 @@ export class QuestionnaireComponent implements OnInit {
   seconds!: any;
   pager = {
     count: 1,
-    index: 1
+    index: 1,
   };
   endDate!: any;
   endMonth!: any;
@@ -97,9 +130,12 @@ export class QuestionnaireComponent implements OnInit {
   see2!: boolean;
   see3!: boolean;
 
-  api = [environment.API_ENDPOINT + GET_PHQ_QUESTIONS, environment.API_ENDPOINT + GET_GAD_QUESTIONS,
-    environment.API_ENDPOINT + GET_SIQ_QUESTIONS];
-  index = 0;             // index =0 is for phq-9, 1 for gad-7 and 2 for siq
+  api = [
+    environment.API_ENDPOINT + GET_PHQ_QUESTIONS,
+    environment.API_ENDPOINT + GET_GAD_QUESTIONS,
+    environment.API_ENDPOINT + GET_SIQ_QUESTIONS,
+  ];
+  index = 0; // index =0 is for phq-9, 1 for gad-7 and 2 for siq
   display_gad_start = false;
   display_questionnaire = false;
   display_phq_start = false;
@@ -127,7 +163,7 @@ export class QuestionnaireComponent implements OnInit {
     private trialAuthService: TrialAuthService,
     private registrationDataService: RegistrationDataService,
     private authService: AuthService,
-  ) { }
+  ) {}
 
   ngOnInit() {
     console.log(this.quizService.questinnaire_name);
@@ -148,22 +184,20 @@ export class QuestionnaireComponent implements OnInit {
     }
   }
 
-
   loadQuiz() {
     console.log('load quiz', this.api[this.index]);
-    this.quizService.get(this.api[this.index])
-      .subscribe((res: any) => {
-        console.log(res);
-        this.quiz = new Quiz(res);
-        this.pager.count = this.quiz.questions.length;
-        this.total_question = this.pager.count - 1;
-        this.pager.index = 1;
-        this.ques = this.quiz.questions[0].name;
-        this.back = false;
-        this.routing = false;
-        this.dataService.setOption(this.routing);
-        this.loading = false;
-      });
+    this.quizService.get(this.api[this.index]).subscribe((res: any) => {
+      console.log(res);
+      this.quiz = new Quiz(res);
+      this.pager.count = this.quiz.questions.length;
+      this.total_question = this.pager.count - 1;
+      this.pager.index = 1;
+      this.ques = this.quiz.questions[0].name;
+      this.back = false;
+      this.routing = false;
+      this.dataService.setOption(this.routing);
+      this.loading = false;
+    });
   }
 
   // tslint:disable-next-line:use-life-cycle-interface
@@ -207,8 +241,10 @@ export class QuestionnaireComponent implements OnInit {
 
   tick() {
     const now = new Date();
-    const diff = (now.getTime() - this.startTime.getTime());
-    this.question_no >= 0 ? this.seconds = diff - this.sum : this.seconds = diff;
+    const diff = now.getTime() - this.startTime.getTime();
+    this.question_no >= 0
+      ? (this.seconds = diff - this.sum)
+      : (this.seconds = diff);
     this.seconds = this.seconds;
     this.sum = diff;
     return this.seconds;
@@ -241,13 +277,22 @@ export class QuestionnaireComponent implements OnInit {
     this.disabled.option_0[this.question_no] = true;
     this.see0 = this.disabled.option_0[this.question_no];
     // tslint:disable-next-line:max-line-length
-    this.time[this.question_no] > 0 ? this.time[this.question_no] = this.time[this.question_no] + this.tick() : this.time[this.question_no] = this.tick();
+    this.time[this.question_no] > 0
+      ? (this.time[this.question_no] =
+          this.time[this.question_no] + this.tick())
+      : (this.time[this.question_no] = this.tick());
     setTimeout(() => {
       this.IsDisabled();
       this.answered[this.question_no] = true;
-      this.question_no === this.total_question ? this.submit = true : this.submit = false;
-      this.question_no < this.total_question ? this.question_no = this.question_no + 1 : this.question_no = this.question_no;
-      this.pager.index < this.pager.count ? this.pager.index = this.pager.index + 1 : this.pager.index = this.pager.count;
+      this.question_no === this.total_question
+        ? (this.submit = true)
+        : (this.submit = false);
+      this.question_no < this.total_question
+        ? (this.question_no = this.question_no + 1)
+        : (this.question_no = this.question_no);
+      this.pager.index < this.pager.count
+        ? (this.pager.index = this.pager.index + 1)
+        : (this.pager.index = this.pager.count);
       this.ques = this.quiz.questions[this.question_no].name;
       this.back = true;
       this.see0 = this.disabled.option_0[this.question_no];
@@ -272,13 +317,22 @@ export class QuestionnaireComponent implements OnInit {
     this.disabled.option_1[this.question_no] = true;
     this.see1 = this.disabled.option_1[this.question_no];
     // tslint:disable-next-line:max-line-length
-    this.time[this.question_no] > 0 ? this.time[this.question_no] = this.time[this.question_no] + this.tick() : this.time[this.question_no] = this.tick();
+    this.time[this.question_no] > 0
+      ? (this.time[this.question_no] =
+          this.time[this.question_no] + this.tick())
+      : (this.time[this.question_no] = this.tick());
     setTimeout(() => {
       this.IsDisabled();
       this.answered[this.question_no] = true;
-      this.question_no === this.total_question ? this.submit = true : this.submit = false;
-      this.question_no < this.total_question ? this.question_no = this.question_no + 1 : this.question_no = this.question_no;
-      this.pager.index < this.pager.count ? this.pager.index = this.pager.index + 1 : this.pager.index = this.pager.count;
+      this.question_no === this.total_question
+        ? (this.submit = true)
+        : (this.submit = false);
+      this.question_no < this.total_question
+        ? (this.question_no = this.question_no + 1)
+        : (this.question_no = this.question_no);
+      this.pager.index < this.pager.count
+        ? (this.pager.index = this.pager.index + 1)
+        : (this.pager.index = this.pager.count);
       this.ques = this.quiz.questions[this.question_no].name;
       this.back = true;
       this.see0 = this.disabled.option_0[this.question_no];
@@ -303,13 +357,22 @@ export class QuestionnaireComponent implements OnInit {
     this.disabled.option_2[this.question_no] = true;
     this.see2 = this.disabled.option_2[this.question_no];
     // tslint:disable-next-line:max-line-length
-    this.time[this.question_no] > 0 ? this.time[this.question_no] = this.time[this.question_no] + this.tick() : this.time[this.question_no] = this.tick();
+    this.time[this.question_no] > 0
+      ? (this.time[this.question_no] =
+          this.time[this.question_no] + this.tick())
+      : (this.time[this.question_no] = this.tick());
     setTimeout(() => {
       this.IsDisabled();
       this.answered[this.question_no] = true;
-      this.question_no === this.total_question ? this.submit = true : this.submit = false;
-      this.question_no < this.total_question ? this.question_no = this.question_no + 1 : this.question_no = this.question_no;
-      this.pager.index < this.pager.count ? this.pager.index = this.pager.index + 1 : this.pager.index = this.pager.count;
+      this.question_no === this.total_question
+        ? (this.submit = true)
+        : (this.submit = false);
+      this.question_no < this.total_question
+        ? (this.question_no = this.question_no + 1)
+        : (this.question_no = this.question_no);
+      this.pager.index < this.pager.count
+        ? (this.pager.index = this.pager.index + 1)
+        : (this.pager.index = this.pager.count);
       this.ques = this.quiz.questions[this.question_no].name;
       this.back = true;
       this.see0 = this.disabled.option_0[this.question_no];
@@ -334,13 +397,22 @@ export class QuestionnaireComponent implements OnInit {
     this.disabled.option_3[this.question_no] = true;
     this.see3 = this.disabled.option_3[this.question_no];
     // tslint:disable-next-line:max-line-length
-    this.time[this.question_no] > 0 ? this.time[this.question_no] = this.time[this.question_no] + this.tick() : this.time[this.question_no] = this.tick();
+    this.time[this.question_no] > 0
+      ? (this.time[this.question_no] =
+          this.time[this.question_no] + this.tick())
+      : (this.time[this.question_no] = this.tick());
     setTimeout(() => {
       this.IsDisabled();
       this.answered[this.question_no] = true;
-      this.question_no === this.total_question ? this.submit = true : this.submit = false;
-      this.question_no < this.total_question ? this.question_no = this.question_no + 1 : this.question_no = this.question_no;
-      this.pager.index < this.pager.count ? this.pager.index = this.pager.index + 1 : this.pager.index = this.pager.count;
+      this.question_no === this.total_question
+        ? (this.submit = true)
+        : (this.submit = false);
+      this.question_no < this.total_question
+        ? (this.question_no = this.question_no + 1)
+        : (this.question_no = this.question_no);
+      this.pager.index < this.pager.count
+        ? (this.pager.index = this.pager.index + 1)
+        : (this.pager.index = this.pager.count);
       this.ques = this.quiz.questions[this.question_no].name;
       this.back = true;
       this.see0 = this.disabled.option_0[this.question_no];
@@ -362,15 +434,22 @@ export class QuestionnaireComponent implements OnInit {
   onback() {
     if (this.submit === false) {
       // tslint:disable-next-line:max-line-length
-      this.time[this.question_no] > 0 ? this.time[this.question_no] = this.time[this.question_no] + this.tick() : this.time[this.question_no] = this.tick();
-      this.question_no > 0 ? this.question_no = this.question_no - 1 : this.question_no = this.question_no;
-      this.pager.index > 1 ? this.pager.index = this.pager.index - 1 : this.pager.index = this.pager.index;
+      this.time[this.question_no] > 0
+        ? (this.time[this.question_no] =
+            this.time[this.question_no] + this.tick())
+        : (this.time[this.question_no] = this.tick());
+      this.question_no > 0
+        ? (this.question_no = this.question_no - 1)
+        : (this.question_no = this.question_no);
+      this.pager.index > 1
+        ? (this.pager.index = this.pager.index - 1)
+        : (this.pager.index = this.pager.index);
     } else {
       this.submit = false;
       this.question_no = this.total_question;
       this.pager.index = this.pager.count;
     }
-    this.question_no > 0 ? this.back = true : this.back = false;
+    this.question_no > 0 ? (this.back = true) : (this.back = false);
     this.ques = this.quiz.questions[this.question_no].name;
     this.see0 = this.disabled.option_0[this.question_no];
     this.see1 = this.disabled.option_1[this.question_no];
@@ -380,15 +459,27 @@ export class QuestionnaireComponent implements OnInit {
 
   onfront() {
     // tslint:disable-next-line:max-line-length
-    this.time[this.question_no] > 0 ? this.time[this.question_no] = this.time[this.question_no] + this.tick() : this.time[this.question_no] = this.tick();
-    this.question_no === this.total_question ? this.submit = true : this.submit = false;
-    this.question_no < this.total_question ? this.question_no = this.question_no + 1 : this.question_no = this.total_question;
-    this.pager.index < this.pager.count ? this.pager.index = this.pager.index + 1 : this.pager.index = this.pager.count;
+    this.time[this.question_no] > 0
+      ? (this.time[this.question_no] =
+          this.time[this.question_no] + this.tick())
+      : (this.time[this.question_no] = this.tick());
+    this.question_no === this.total_question
+      ? (this.submit = true)
+      : (this.submit = false);
+    this.question_no < this.total_question
+      ? (this.question_no = this.question_no + 1)
+      : (this.question_no = this.total_question);
+    this.pager.index < this.pager.count
+      ? (this.pager.index = this.pager.index + 1)
+      : (this.pager.index = this.pager.count);
     this.ques = this.quiz.questions[this.question_no].name;
-    this.question_no > 0 ? this.back = true : this.back = false;
+    this.question_no > 0 ? (this.back = true) : (this.back = false);
     this.back = true;
     // tslint:disable-next-line:max-line-length
-    this.time[this.question_no] > 0 ? this.time[this.question_no] = this.time[this.question_no] + this.tick() : this.time[this.question_no] = this.tick();
+    this.time[this.question_no] > 0
+      ? (this.time[this.question_no] =
+          this.time[this.question_no] + this.tick())
+      : (this.time[this.question_no] = this.tick());
     this.see0 = this.disabled.option_0[this.question_no];
     this.see1 = this.disabled.option_1[this.question_no];
     this.see2 = this.disabled.option_2[this.question_no];
@@ -402,23 +493,26 @@ export class QuestionnaireComponent implements OnInit {
     const gad_response = new QuesUserResponseArray(questionnaireResponse);
     const siq_response = new QuesUserResponseArray(questionnaireResponse);
 
-    const date = new Date;
+    const date = new Date();
     this.endDate = date.getDate();
     this.endMonth = date.getUTCMonth();
     this.endyear = date.getUTCFullYear();
     this.display_questionnaire = false;
     // this.index < 1 ? this.display_gad_start = true : this.display_gad_start = false;
-    this.index === 1 ? this.routing = true : this.routing = false;
+    this.index === 1 ? (this.routing = true) : (this.routing = false);
     this.dataService.setOption(this.routing);
 
-    if (this.index === 0) {       // index =0 is for phq-9
+    if (this.index === 0) {
+      // index =0 is for phq-9
       this.savePHQNineData(phq_response);
     }
-    if (this.index === 1) {       // index = 1 is for gad-7
+    if (this.index === 1) {
+      // index = 1 is for gad-7
       console.log('gad');
       this.saveGADData(gad_response);
     }
-    if (this.index === 2 ) {      // index = 2 is for siq
+    if (this.index === 2) {
+      // index = 2 is for siq
       this.saveSIQData(siq_response);
     }
   }
@@ -426,26 +520,39 @@ export class QuestionnaireComponent implements OnInit {
   savePHQNineData(phq_response: QuesUserResponseArray) {
     for (let i = 0; i < 9; i++) {
       const ques_response = new QuestionnaireResponse(
-        this.score[i], i + 1, this.time[i]);
+        this.score[i],
+        i + 1,
+        this.time[i],
+      );
       phq_response.user_response.push(ques_response);
     }
     console.log('response', phq_response);
 
     if (this.fromFlow === true) {
-      this.quizService.post_phq(phq_response)
-        .subscribe( (res_data: any) => {
-          console.log('phq -9 res data', res_data);
-          this.phqNextStep(res_data.data.excluded, res_data.data.next_questionnaire, true);
-        });
-
-    } else if ( this.fromFlow === false && this.fromTrialRegistration === true) {
-      const registration_phq = new RegistrationQuestionnaireScore(0, phq_response.user_response);
+      this.quizService.post_phq(phq_response).subscribe((res_data: any) => {
+        console.log('phq -9 res data', res_data);
+        this.phqNextStep(
+          res_data.data.excluded,
+          res_data.data.next_questionnaire,
+          true,
+        );
+      });
+    } else if (this.fromFlow === false && this.fromTrialRegistration === true) {
+      const registration_phq = new RegistrationQuestionnaireScore(
+        0,
+        phq_response.user_response,
+      );
       registration_phq.participant_id = this.registrationDataService.participationID;
 
-      this.registrationDataService.savePHQData(registration_phq)
-        .subscribe( (res_data: any) => {
-            console.log(res_data, );
-            this.phqNextStep(res_data.data.excluded, res_data.data.next_questionnaire, false);
+      this.registrationDataService
+        .savePHQData(registration_phq)
+        .subscribe((res_data: any) => {
+          console.log(res_data);
+          this.phqNextStep(
+            res_data.data.excluded,
+            res_data.data.next_questionnaire,
+            false,
+          );
         });
     }
   }
@@ -474,51 +581,54 @@ export class QuestionnaireComponent implements OnInit {
   saveGADData(gad_response: QuesUserResponseArray) {
     for (let i = 0; i < 7; i++) {
       const ques_response = new QuestionnaireResponse(
-        this.score[i], i + 1, this.time[i]);
+        this.score[i],
+        i + 1,
+        this.time[i],
+      );
       gad_response.user_response.push(ques_response);
     }
     console.log('after updating gad', gad_response);
     this.quizService.questionnaireActive = false;
     if (this.fromFlow === true) {
-      this.quizService.post_gad(gad_response)
-      .subscribe(
-        (data: any) => {
-          console.log(data);
-          // TODO: Darshit needs to add timer service here
-          if (data.data.excluded) {
-            this.trialAuthService.activateChild(true);
-            this.authService.logout(false);
-            this.authService.isUserExcluded = true;
-          } else {
-            this.flowService.markDone(this.stepId, 1003)
-            .subscribe(
-              (resp: any) => {
-                console.log(data);
-              },
-              error => console.log(error)
-            );
-            this.router.navigate(['/']);
-          }
+      this.quizService.post_gad(gad_response).subscribe((data: any) => {
+        console.log(data);
+        // TODO: Darshit needs to add timer service here
+        if (data.data.excluded) {
+          this.trialAuthService.activateChild(true);
+          this.authService.logout(false);
+          this.authService.isUserExcluded = true;
+        } else {
+          this.flowService.markDone(this.stepId, 1003).subscribe(
+            (resp: any) => {
+              console.log(data);
+            },
+            error => console.log(error),
+          );
+          this.router.navigate(['/']);
         }
+      });
+    } else if (this.fromFlow === false && this.fromTrialRegistration === true) {
+      const registration_gad = new RegistrationQuestionnaireScore(
+        0,
+        gad_response.user_response,
       );
-    } else if ( this.fromFlow === false && this.fromTrialRegistration === true) {
-
-      const registration_gad = new RegistrationQuestionnaireScore(0, gad_response.user_response);
       registration_gad.participant_id = this.registrationDataService.participationID;
 
-      this.registrationDataService.saveGADData(registration_gad)
-        .subscribe( (res_data: any) => {
-            console.log('gad response data', res_data);
-            const userEligible = !res_data.data.excluded;
-            this.registrationDataService.participationID = res_data.data.participant_id;
-            if (userEligible) {
-              this.trialAuthService.activateChild(true);
-              const stepNumber = res_data.data.next_step;
-              const navigation_step = REGISTRATION_PATH + '/step-' + stepNumber;
-              this.router.navigate([navigation_step]);
-            } else {
-              this.moveToThankYouPage();
-            }
+      this.registrationDataService
+        .saveGADData(registration_gad)
+        .subscribe((res_data: any) => {
+          console.log('gad response data', res_data);
+          const userEligible = !res_data.data.excluded;
+          this.registrationDataService.participationID =
+            res_data.data.participant_id;
+          if (userEligible) {
+            this.trialAuthService.activateChild(true);
+            const stepNumber = res_data.data.next_step;
+            const navigation_step = REGISTRATION_PATH + '/step-' + stepNumber;
+            this.router.navigate([navigation_step]);
+          } else {
+            this.moveToThankYouPage();
+          }
         });
     }
   }
@@ -526,26 +636,39 @@ export class QuestionnaireComponent implements OnInit {
   saveSIQData(siq_response: QuesUserResponseArray) {
     for (let i = 0; i < 10; i++) {
       const ques_response = new QuestionnaireResponse(
-        this.score[i], i + 1, this.time[i]);
+        this.score[i],
+        i + 1,
+        this.time[i],
+      );
       siq_response.user_response.push(ques_response);
       console.log(siq_response);
     }
 
     if (this.fromFlow === true) {
-      this.quizService.post_siq(siq_response)
-        .subscribe( (res_data: any) => {
-          console.log('res data of siq', res_data);
-          this.siqNextStep(res_data.data.excluded, res_data.data.next_questionnaire, true);
-        });
-
-    } else if ( this.fromFlow === false && this.fromTrialRegistration === true) {
-      const registration_siq = new RegistrationQuestionnaireScore(0, siq_response.user_response);
+      this.quizService.post_siq(siq_response).subscribe((res_data: any) => {
+        console.log('res data of siq', res_data);
+        this.siqNextStep(
+          res_data.data.excluded,
+          res_data.data.next_questionnaire,
+          true,
+        );
+      });
+    } else if (this.fromFlow === false && this.fromTrialRegistration === true) {
+      const registration_siq = new RegistrationQuestionnaireScore(
+        0,
+        siq_response.user_response,
+      );
       registration_siq.participant_id = this.registrationDataService.participationID;
 
-      this.registrationDataService.saveSIQData(registration_siq)
-        .subscribe( (res_data: any) => {
+      this.registrationDataService
+        .saveSIQData(registration_siq)
+        .subscribe((res_data: any) => {
           console.log(res_data);
-          this.siqNextStep(res_data.data.excluded, res_data.data.next_questionnaire, false);
+          this.siqNextStep(
+            res_data.data.excluded,
+            res_data.data.next_questionnaire,
+            false,
+          );
         });
     }
   }
@@ -586,7 +709,7 @@ export class QuestionnaireComponent implements OnInit {
       option_3: [],
     };
     this.answered = [];
-    while ( i > 0) {
+    while (i > 0) {
       this.time.push(0);
       this.score.push(0);
       this.disabled.option_0.push(false);

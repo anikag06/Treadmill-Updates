@@ -3,9 +3,10 @@ import { Routes, RouterModule } from '@angular/router';
 import { FormsComponent } from './forms/forms.component';
 import { ProblemSolvingWorksheetsComponent } from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.component';
 import { FormsListComponent } from '@/main/resources/forms/forms-list/forms-list.component';
-import { TaskFormsComponent } from '@/main/resources/forms/task-forms/task-forms.component';
+import { TaskFormsComponent } from '@/main/resources/forms/shared/tasks/task-forms/task-forms.component';
 import { ThoughtRecordFormComponent } from '@/main/resources/forms/thought-record-form/thought-record-form.component';
 import { ExperimentToTestBeliefFormComponent } from '@/main/resources/forms/experiment-to-test-belief-form/experiment-to-test-belief-form.component';
+import { WorryProductivelyComponent } from '@/main/resources/forms/worry-productively-form/worry-productively.component';
 import { SlidesComponent } from './slides/slides.component';
 import { ConversationsComponent } from './conversation-group/conversations/conversations.component';
 import { ConversationGroupComponent } from './conversation-group/conversation-group.component';
@@ -24,39 +25,55 @@ import { Conclusion5Component } from './conclusion/conclusion5/conclusion5.compo
 
 export const resourcesRoutes: Routes = [
   {
-    path: '', component: FormsComponent, children: [
+    path: '',
+    component: FormsComponent,
+    children: [
       { path: 'forms', component: FormsListComponent },
-      { path: 'forms/problem-solving', component: ProblemSolvingWorksheetsComponent },
+      {
+        path: 'forms/problem-solving',
+        component: ProblemSolvingWorksheetsComponent,
+      },
       { path: 'forms/tasks', component: TaskFormsComponent },
       { path: 'forms/thought-record', component: ThoughtRecordFormComponent },
-      { path: 'forms/test-belief', component: ExperimentToTestBeliefFormComponent},
-    ]
+      {
+        path: 'forms/test-belief',
+        component: ExperimentToTestBeliefFormComponent,
+      },
+      {
+        path: 'forms/worry-productively',
+        component: WorryProductivelyComponent,
+      },
+    ],
   },
   { path: 'conversations', component: ConversationsComponent },
   { path: 'conversations-group/:id', component: ConversationGroupComponent },
-  { path: 'slides/:id', component: SlidesComponent },     //:id here is step_id
+  { path: 'slides/:id', component: SlidesComponent }, //:id here is step_id
   {
-    path: 'introduction', component: IntroductionComponent, children: [
+    path: 'introduction',
+    component: IntroductionComponent,
+    children: [
       { path: '1', component: Introduction1Component },
       { path: '2', component: Introduction2Component },
       { path: '3', component: Introduction3Component },
       { path: '4', component: Introduction4Component },
       { path: '5', component: Introduction5Component },
-    ]
+    ],
   },
   {
-    path: 'conclusion', component: ConclusionComponent, children: [
+    path: 'conclusion',
+    component: ConclusionComponent,
+    children: [
       { path: '1', component: Conclusion1Component },
       { path: '2', component: Conclusion2Component },
       { path: '3', component: Conclusion3Component },
       { path: '4', component: Conclusion4Component },
       { path: '5', component: Conclusion5Component },
-    ]
+    ],
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(resourcesRoutes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ResourcesRoutingModule { }
+export class ResourcesRoutingModule {}

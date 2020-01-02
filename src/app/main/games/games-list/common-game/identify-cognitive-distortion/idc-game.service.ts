@@ -2,23 +2,28 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { environment } from 'environments/environment';
-import { IDC_SITUATION_DATA, IDC_USER_DATA, IDC_USER_ANSWER_DATA } from '@/app.constants';
+import {
+  IDC_SITUATION_DATA,
+  IDC_USER_DATA,
+  IDC_USER_ANSWER_DATA,
+} from '@/app.constants';
 import { BadgesInfo } from '@/main/games/shared/game-badges.model';
 import { GamesBadgesService } from '@/main/games/shared/games-badges.service';
-import { ICDGameUserData, ICDGameUserAnswerData } from '@/main/games/shared/game-play.model';
+import {
+  ICDGameUserData,
+  ICDGameUserAnswerData,
+} from '@/main/games/shared/game-play.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class IdcGameService {
-
   startPlayingIdc = new EventEmitter();
   resumeGame = new EventEmitter();
   // levelInitialise = new EventEmitter();
   levelInitialise = new Subject();
   stopTimer = new Subject();
   startTimer = new EventEmitter();
-
 
   playing = false;
   selectedCorrectOptionsSet = new Set();
@@ -34,18 +39,41 @@ export class IdcGameService {
   userData = new ICDGameUserData(0, 0, 0);
   userAnswerData = new ICDGameUserAnswerData(0, 0, 0);
 
-
   level = new BehaviorSubject(0);
   title = new BehaviorSubject('title');
   nat = new BehaviorSubject('nat');
   situation = new BehaviorSubject('situation');
   correct = new BehaviorSubject(['options']);
-  optionOne = new BehaviorSubject({ id: -1, distortion: 'distortion', message: 'message' });
-  optionTwo = new BehaviorSubject({ id: -1, distortion: 'distortion', message: 'message' });
-  optionThree = new BehaviorSubject({ id: -1, distortion: 'distortion', message: 'message' });
-  optionFour = new BehaviorSubject({ id: -1, distortion: 'distortion', message: 'message' });
-  optionFive = new BehaviorSubject({ id: -1, distortion: 'distortion', message: 'message' });
-  optionSix = new BehaviorSubject({ id: -1, distortion: 'distortion', message: 'message' });
+  optionOne = new BehaviorSubject({
+    id: -1,
+    distortion: 'distortion',
+    message: 'message',
+  });
+  optionTwo = new BehaviorSubject({
+    id: -1,
+    distortion: 'distortion',
+    message: 'message',
+  });
+  optionThree = new BehaviorSubject({
+    id: -1,
+    distortion: 'distortion',
+    message: 'message',
+  });
+  optionFour = new BehaviorSubject({
+    id: -1,
+    distortion: 'distortion',
+    message: 'message',
+  });
+  optionFive = new BehaviorSubject({
+    id: -1,
+    distortion: 'distortion',
+    message: 'message',
+  });
+  optionSix = new BehaviorSubject({
+    id: -1,
+    distortion: 'distortion',
+    message: 'message',
+  });
 
   time!: any;
   situation_displayed_at!: any;
@@ -74,17 +102,14 @@ export class IdcGameService {
   interval!: any;
   levelOrder: any;
 
-
-  constructor(private http: HttpClient,
-    private badgesService: GamesBadgesService) {
+  constructor(
+    private http: HttpClient,
+    private badgesService: GamesBadgesService,
+  ) {
     // this.difficultyValue = 0.1 * 100;
-
   }
 
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 
   serviceCall() {
     console.log('question id', this.questionId);
@@ -124,12 +149,14 @@ export class IdcGameService {
   }
 
   getGameData() {
-    return this.http.get(environment.API_ENDPOINT + IDC_SITUATION_DATA).subscribe((data) => {
-      this.game = data;
-      console.log("Game Data", this.game);
+    return this.http
+      .get(environment.API_ENDPOINT + IDC_SITUATION_DATA)
+      .subscribe(data => {
+        this.game = data;
+        console.log('Game Data', this.game);
 
-      this.serviceCall();
-    });
+        this.serviceCall();
+      });
   }
 
   startPlaying() {
@@ -138,9 +165,12 @@ export class IdcGameService {
   }
 
   updateBadgesValue() {
-    this.allBadgesInfo = this.badgesService.getBadgesInfo(this.BRONZE_CONSTANT,
-      this.SILVER_CONSTANT, this.GOLD_CONSTANT,
-      this.numCorrectAnswers);
+    this.allBadgesInfo = this.badgesService.getBadgesInfo(
+      this.BRONZE_CONSTANT,
+      this.SILVER_CONSTANT,
+      this.GOLD_CONSTANT,
+      this.numCorrectAnswers,
+    );
     this.bronzeNumber = this.allBadgesInfo.bronzeBadges;
     this.silverNumber = this.allBadgesInfo.silverBadges;
     this.goldNumber = this.allBadgesInfo.goldBadges;
@@ -192,13 +222,15 @@ export class IdcGameService {
         console.log('level initialise called');
       }
       this.nextCall = false;
-
     });
   }
 
   updateDifficultyLevel() {
     this.setDifficultyFactor();
-    if ((this.timeActualLeft > Math.floor(0.2 * this.timeLeft) && this.timeActualLeft > this.minTime)) {
+    if (
+      this.timeActualLeft > Math.floor(0.2 * this.timeLeft) &&
+      this.timeActualLeft > this.minTime
+    ) {
       this.timeLeft -= 20;
       this.timeAlloted = this.timeLeft;
     } else {
@@ -208,11 +240,11 @@ export class IdcGameService {
 
   setDifficultyValue() {
     this.difficultyValue = this.diffConst * 100;
-
   }
 
   setDifficultyFactor() {
-    this.diffConst = ((this.maxTime - this.timeAlloted) / (this.maxTime - this.minTime));
+    this.diffConst =
+      (this.maxTime - this.timeAlloted) / (this.maxTime - this.minTime);
   }
 
   fetchUserData() {
@@ -224,7 +256,7 @@ export class IdcGameService {
   }
 
   getLevel() {
-    this.level.subscribe((data) => {
+    this.level.subscribe(data => {
       this.levelOrder = data;
     });
   }
@@ -238,7 +270,9 @@ export class IdcGameService {
   }
 
   saveUserAnswerData(data: any) {
-    return this.http.post(environment.API_ENDPOINT + IDC_USER_ANSWER_DATA, data);
+    return this.http.post(
+      environment.API_ENDPOINT + IDC_USER_ANSWER_DATA,
+      data,
+    );
   }
-
 }

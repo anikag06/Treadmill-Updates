@@ -18,9 +18,10 @@ import {
   MatDatepickerModule,
   MatIconModule,
   MatListModule,
-  MatSidenavModule, MatSlideToggleModule,
+  MatSidenavModule,
+  MatSlideToggleModule,
   MatToolbarModule,
-  MatTooltipModule
+  MatTooltipModule,
 } from '@angular/material';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { FormsSidebarComponent } from './forms/shared/forms-sidebar/forms-sidebar.component';
@@ -29,7 +30,7 @@ import { ResourcesRoutingModule } from '@/main/resources/resources-routing.modul
 import { ProconItemComponent } from '@/main/resources/forms/problem-solving-worksheets/pros-cons-container/pros-cons/procon-item/procon-item.component';
 // tslint:disable-next-line:max-line-length
 import { ProsConsContainerComponent } from '@/main/resources/forms/problem-solving-worksheets/pros-cons-container/pros-cons-container.component';
-import { TaskFormsComponent } from './forms/task-forms/task-forms.component';
+import { TaskFormsComponent } from './forms/shared/tasks/task-forms/task-forms.component';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { SlidesComponent } from './slides/slides.component';
 import { FormDirective } from './slides/form.directive';
@@ -56,9 +57,17 @@ import { Conclusion4Component } from './conclusion/conclusion4/conclusion4.compo
 import { Conclusion5Component } from './conclusion/conclusion5/conclusion5.component';
 import { ThoughtRecordFormComponent } from './forms/thought-record-form/thought-record-form.component';
 import { TrfSituationComponent } from './forms/thought-record-form/trf-situation/trf-situation.component';
+import { WorryProductivelyComponent } from '@/main/resources/forms/worry-productively-form/worry-productively.component';
+import { WorryFormComponent } from '@/main/resources/forms/worry-productively-form/worry-form/worry-form.component';
+import { TechniquesComponent } from './forms/worry-productively-form/techniques/techniques.component';
+import { EvaluateWorryComponent } from './forms/worry-productively-form/techniques/evaluate-worry/evaluate-worry.component';
 import { ExperimentToTestBeliefFormComponent } from './forms/experiment-to-test-belief-form/experiment-to-test-belief-form.component';
 import { EttbfBeliefComponent } from './forms/experiment-to-test-belief-form/ettbf-belief/ettbf-belief.component';
 import { EttbfOutcomeComponent } from './forms/experiment-to-test-belief-form/ettbf-outcome/ettbf-outcome.component';
+import { FormSliderComponent } from './forms/shared/form-slider/form-slider.component';
+import { FaceMyWorstFearComponent } from './forms/worry-productively-form/techniques/face-my-worst-fear/face-my-worst-fear.component';
+import { WpfProblemSolvingComponent } from './forms/worry-productively-form/techniques/wpf-problem-solving/wpf-problem-solving.component';
+import { WpfDealWithWorryComponent } from './forms/worry-productively-form/techniques/wpf-deal-with-worry/wpf-deal-with-worry.component';
 
 @NgModule({
   declarations: [
@@ -97,6 +106,14 @@ import { EttbfOutcomeComponent } from './forms/experiment-to-test-belief-form/et
     ExperimentToTestBeliefFormComponent,
     EttbfBeliefComponent,
     EttbfOutcomeComponent,
+    FormSliderComponent,
+    WorryProductivelyComponent,
+    WorryFormComponent,
+    TechniquesComponent,
+    EvaluateWorryComponent,
+    FaceMyWorstFearComponent,
+    WpfProblemSolvingComponent,
+    WpfDealWithWorryComponent,
   ],
   imports: [
     ResourcesRoutingModule,
@@ -124,10 +141,13 @@ import { EttbfOutcomeComponent } from './forms/experiment-to-test-belief-form/et
     CommonDialogsService,
     StepsDataService,
     IntroductionService,
-    ConclusionService
+    ConclusionService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  entryComponents: [CongratsDialogComponent, ProblemFormComponent, ProblemSolvingWorksheetsComponent]
+  entryComponents: [
+    CongratsDialogComponent,
+    ProblemFormComponent,
+    ProblemSolvingWorksheetsComponent,
+  ],
 })
-export class ResourcesModule {
-}
+export class ResourcesModule {}

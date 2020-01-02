@@ -1,0 +1,13 @@
+<div class="slider-div">
+  <span class="rating-question-text">{{ question }}</span>
+  <br />
+  <br />
+  <mat-slider
+    thumbLabel
+    min="1"
+    max="10"
+    [(value)]="rating"
+  ></mat-slider>
+  <span class="rating-text rating-text-left-margin">{{ minRatingText }}</span>
+  <span class="rating-text float-right">{{ maxRatingText }}</span>
+</div>

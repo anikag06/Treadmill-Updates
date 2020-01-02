@@ -1,20 +1,14 @@
 import { Option } from './option';
 
 export class Question {
+  id: number;
+  name: string;
+  options!: Option[];
 
-    id: number;
-    name: string;
-    options!: Option[];
+  constructor(data: any) {
+    data = data || {};
 
-
-    constructor(data: any) {
-        data = data || {};
-
-        this.id = data.id;
-        this.name = data.question;
-
-    }
-
-
-
+    this.id = data.id;
+    this.name = data.question;
+  }
 }

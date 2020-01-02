@@ -1,8 +1,8 @@
 export class Problem {
-    constructor(
-        public id: number,
-        public problem: string,
-        public bestsolution: any,
-        public taskorigin: number,
-    ) {}
+  constructor(
+    public id: number,
+    public problem: string,
+    public bestSolution: any,
+    public taskOrigin: number,
+  ) {}
 }

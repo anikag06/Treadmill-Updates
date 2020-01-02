@@ -1,31 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-chatbot',
   templateUrl: './chatbot.component.html',
-  styleUrls: ['./chatbot.component.scss']
+  styleUrls: ['./chatbot.component.scss'],
 })
 export class ChatbotComponent implements OnInit {
-
   chatwindowClosed = true;
   removeChat = false;
   blacklisted = ['/games', '/resources'];
 
-  constructor(
-    private router: Router
-  ) { }
+  constructor(private router: Router, private elementRef: ElementRef) {}
 
   ngOnInit() {
-    this.router.events
-      .subscribe(
-        () => {
-          this.removingChat();
-        }
-      );
+    this.router.events.subscribe(() => {
+      this.removingChat();
+    });
     this.removingChat();
   }
-
 
   toggleChat() {
     this.chatwindowClosed = !this.chatwindowClosed;
@@ -37,7 +31,7 @@ export class ChatbotComponent implements OnInit {
 
   removingChat() {
     let match = false;
-    this.blacklisted.forEach((data) => {
+    this.blacklisted.forEach(data => {
       if (location.pathname.match(data)) {
         match = true;
       }

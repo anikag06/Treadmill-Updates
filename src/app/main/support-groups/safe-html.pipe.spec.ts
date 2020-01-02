@@ -1,5 +1,5 @@
 import { SafeHtmlPipe } from './safe-html.pipe';
-import { SanitizationService } from './sanitization.service';
+import { SanitizationService } from '../shared/sanitization.service';
 
 describe('SafeHtmlPipe', () => {
   it('create an instance', () => {

@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewChild, OnChanges, DoCheck } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  OnChanges,
+  DoCheck,
+} from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
@@ -8,7 +14,7 @@ import { Router, NavigationStart } from '@angular/router';
 import { DEFAULT_PATH } from '@/app.constants';
 import { MatDrawer } from '@angular/material';
 import { DataService } from '@/shared/questionnaire/data.service';
-import {FcmService} from '@/shared/fcm.service';
+import { FcmService } from '@/shared/fcm.service';
 import { QuizService } from '@/shared/questionnaire/questionnaire.service';
 import { FlowService } from './flow/flow.service';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
@@ -17,27 +23,22 @@ import { IntroduceComponent } from './shared/introduce/introduce.component';
 import { IntroduceService } from './shared/introduce/introduce.service';
 // tslint:disable-next-line:max-line-length
 
-
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss']
+  styleUrls: ['./main.component.scss'],
 })
 export class MainComponent implements OnInit, OnChanges, DoCheck {
-
-
   user!: User;
   routing!: boolean;
   overlayRef!: OverlayRef;
 
+  @ViewChild('drawer', { static: true }) drawer!: MatDrawer;
 
-  @ViewChild('drawer', {static : true}) drawer!: MatDrawer;
-
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.Handset, Breakpoints.Small])
-    .pipe(
-      map(result => result.matches)
-    );
-    isExpanded = true;
+  isHandset$: Observable<boolean> = this.breakpointObserver
+    .observe([Breakpoints.Handset, Breakpoints.Small])
+    .pipe(map(result => result.matches));
+  isExpanded = true;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -51,9 +52,7 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
     private introduceService: IntroduceService,
   ) {}
 
-  ngOnChanges() {
-  }
-
+  ngOnChanges() {}
 
   ngOnInit() {
     const user = this.authService.isLoggedIn();
@@ -65,23 +64,17 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
 
     this.fcmService.requestPermission();
 
-    this.flowService.introduceBehaviour
-      .subscribe(
-        (data: any) => {
-          if (data) {
-            this.startIntroduction();
-          }
-        }
-      );
+    this.flowService.introduceBehaviour.subscribe((data: any) => {
+      if (data) {
+        this.startIntroduction();
+      }
+    });
 
-      this.introduceService.closeBehaviour
-      .subscribe(
-        (data: any) => {
-          if (data) {
-            this.overlayRef.detach();
-          }
-        }
-      );
+    this.introduceService.closeBehaviour.subscribe((data: any) => {
+      if (data) {
+        this.overlayRef.detach();
+      }
+    });
   }
 
   ngDoCheck() {
@@ -95,11 +88,10 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
     }
     if (this.routing === false) {
       this.router.events
-      .pipe(
-        filter(e => e instanceof NavigationStart)
-      ).subscribe((e: any) => {
-        this.goToQuestionnaire(e);
-      });
+        .pipe(filter(e => e instanceof NavigationStart))
+        .subscribe((e: any) => {
+          this.goToQuestionnaire(e);
+        });
     }
   }
 
@@ -110,7 +102,11 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
   }
 
   goToQuestionnaire(e: any) {
-    if (e.url !== '/questionnaire' && this.user && this.quizService.questionnaireActive) {
+    if (
+      e.url !== '/questionnaire' &&
+      this.user &&
+      this.quizService.questionnaireActive
+    ) {
       this.router.navigate(['/questionnaire']);
     }
   }
@@ -118,7 +114,7 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
   startIntroduction() {
     this.overlayRef = this.overlay.create({
       height: '100vh',
-      width: '100vw'
+      width: '100vw',
     });
     const portal = new ComponentPortal(IntroduceComponent);
     this.overlayRef.attach(portal);

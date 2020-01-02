@@ -1,20 +1,18 @@
-import { Injectable, EventEmitter  } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FfgHelpService {
-
   updateBadges = new EventEmitter();
-  bronzeNumber!:any;
-  silverNumber!:any;
-  goldNumber!:any;
-  bronzeValue!:any;
-  silverValue!:any;
-  goldValue!:any;
+  bronzeNumber!: any;
+  silverNumber!: any;
+  goldNumber!: any;
+  bronzeValue!: any;
+  silverValue!: any;
+  goldValue!: any;
 
-
-  constructor() { }
+  constructor() {}
 
   showLoadingBar() {
     console.log('Show loading bar');

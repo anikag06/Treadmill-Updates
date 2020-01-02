@@ -10,7 +10,7 @@ import {
   DoCheck,
   ElementRef,
   ChangeDetectionStrategy,
-  ChangeDetectorRef
+  ChangeDetectorRef,
 } from '@angular/core';
 import { UserComment } from './user-comment.model';
 import { UserNestedComment } from '../nested-comment/nested-comment.model';
@@ -22,7 +22,7 @@ import { AuthService } from '@/shared/auth/auth.service';
 import { User } from '@/shared/user.model';
 import { AngularEditorConfig } from '@xw19/angular-editor';
 import { CommentService } from './comment.service';
-import { SanitizationService } from '@/main/support-groups/sanitization.service';
+import { SanitizationService } from '@/main/shared/sanitization.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { ThumbsService } from '@/main/support-groups/thumbs.service';
@@ -34,10 +34,10 @@ import { UserProfileService } from '@/main/shared/user-profile/userProfile.servi
   selector: 'app-comment',
   templateUrl: './comment.component.html',
   styleUrls: ['./comment.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CommentComponent implements OnInit, AfterContentInit, OnDestroy, DoCheck {
-
+export class CommentComponent
+  implements OnInit, AfterContentInit, OnDestroy, DoCheck {
   nestedComments: UserNestedComment[] = [];
   hide = true;
   moreComments = false;
@@ -92,7 +92,7 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy, Do
     private errorService: GeneralErrorService,
     private changeDetector: ChangeDetectorRef,
     private userProfileService: UserProfileService,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.user = <User>this.authService.isLoggedIn();
@@ -108,14 +108,20 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy, Do
 
   ngAfterContentInit() {
     setTimeout(() => {
-      if (this.comment && this.comment.nested_comment_count > this.nestedComments.length) {
+      if (
+        this.comment &&
+        this.comment.nested_comment_count > this.nestedComments.length
+      ) {
         this.moreComments = true;
       }
 
       if (this.comment) {
         this.editorBody = this.comment.body;
         if (this.plainBodyLength() > this.partialBodyLength) {
-          this.commentBody = this.sanitzer.stripTags(this.comment.body).slice(0, this.partialBodyLength) + ' ...';
+          this.commentBody =
+            this.sanitzer
+              .stripTags(this.comment.body)
+              .slice(0, this.partialBodyLength) + ' ...';
           this.partialBody = true;
         } else {
           this.commentBody = this.comment.body;
@@ -123,7 +129,7 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy, Do
       }
       try {
         this.changeDetector.detectChanges();
-      } catch (ViewDestroyedError) { }
+      } catch (ViewDestroyedError) {}
     });
   }
 
@@ -138,22 +144,19 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy, Do
 
   fetchNestedComment() {
     if (this.comment && this.moreComments) {
-      this.nestedCommentSubscription = this.ncService.getNestedComments(this.comment, this.page)
-        .subscribe(
-          (data) => {
-            console.log('nested comments data', data);
-            const response = <ApiResponse>data;
-            if (response.next) {
-              this.moreComments = true;
-              this.page += 1;
-            } else {
-              this.moreComments = false;
-            }
-            this.nestedComments.push(...<UserNestedComment[]>response.results);
-            this.changeDetector.detectChanges();
-          },
-          this.errorService.errorResponse('Cannot fetch nested comments')
-        );
+      this.nestedCommentSubscription = this.ncService
+        .getNestedComments(this.comment, this.page)
+        .subscribe(data => {
+          const response = <ApiResponse>data;
+          if (response.next) {
+            this.moreComments = true;
+            this.page += 1;
+          } else {
+            this.moreComments = false;
+          }
+          this.nestedComments.push(...(<UserNestedComment[]>response.results));
+          this.changeDetector.detectChanges();
+        }, this.errorService.errorResponse('Cannot fetch nested comments'));
     }
   }
 
@@ -168,21 +171,27 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy, Do
 
   submitReply() {
     if (this.replyForm.valid) {
-      const data = { comment: this.comment.id, body: this.replyForm.value['body'] };
-      this.ncService.postNestedComments(data)
-        .subscribe(
-          (resp) => {
-            this.replyForm.reset();
-            this.comment.nested_comment_count += 1;
-            const postResponse = <PostResponse>resp;
-            const persistedNestedcomment = new UserNestedComment(
-              postResponse.data.id, data.body, 0, this.user, -1, new Date().toISOString());
-            this.nestedComments.push(persistedNestedcomment);
-            this.toggleReply = false;
-            this.showNestedComment();
-            this.changeDetector.detectChanges();
-          }
+      const data = {
+        comment: this.comment.id,
+        body: this.replyForm.value['body'],
+      };
+      this.ncService.postNestedComments(data).subscribe(resp => {
+        this.replyForm.reset();
+        this.comment.nested_comment_count += 1;
+        const postResponse = <PostResponse>resp;
+        const persistedNestedcomment = new UserNestedComment(
+          postResponse.data.id,
+          data.body,
+          0,
+          this.user,
+          -1,
+          new Date().toISOString(),
         );
+        this.nestedComments.push(persistedNestedcomment);
+        this.toggleReply = false;
+        this.showNestedComment();
+        this.changeDetector.detectChanges();
+      });
     }
   }
 
@@ -192,11 +201,15 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy, Do
   }
 
   onSubmit() {
-    if (this.editForm.valid && this.sanitzer.stripTags(this.editorBody).length > 0) {
+    if (
+      this.editForm.valid &&
+      this.sanitzer.stripTags(this.editorBody).length > 0
+    ) {
       const updatedCommentBody = this.sanitzer.sanitizeHtml(this.editorBody);
-      this.editSubscription = this.commentService.updateComment(this.comment.id, updatedCommentBody)
+      this.editSubscription = this.commentService
+        .updateComment(this.comment.id, updatedCommentBody)
         .subscribe(
-          (data) => {
+          data => {
             this.comment.body = updatedCommentBody;
             this.comment = { ...this.comment };
             this.editMode = false;
@@ -206,7 +219,7 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy, Do
           (error: HttpErrorResponse) => {
             this.errors = [];
             this.errors.push({ name: 'comment', value: error.message });
-          }
+          },
         );
     } else {
       this.errors = [];
@@ -216,13 +229,9 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy, Do
 
   onDelete() {
     if (confirm('Are you sure to delete this comment')) {
-      this.commentService.deleteComment(this.comment.id)
-        .subscribe(
-          () => {
-            this.deleteEmitter.emit(this.comment);
-          },
-          this.errorService.errorResponse('Cannot Delete')
-        );
+      this.commentService.deleteComment(this.comment.id).subscribe(() => {
+        this.deleteEmitter.emit(this.comment);
+      }, this.errorService.errorResponse('Cannot Delete'));
     }
   }
 
@@ -233,15 +242,13 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy, Do
   }
 
   onNestedCommentDelete(userNestedComment: UserNestedComment) {
-    this.ncService.deleteNestedComment(userNestedComment.id)
-      .subscribe(
-        () => {
-          UserNestedComment.prototype.up_votes = 10;
-          this.nestedComments = this.nestedComments.filter(nc => nc.id !== userNestedComment.id);
-          this.changeDetector.detectChanges();
-        },
-        this.errorService.errorResponse('Cannot delete')
+    this.ncService.deleteNestedComment(userNestedComment.id).subscribe(() => {
+      UserNestedComment.prototype.up_votes = 10;
+      this.nestedComments = this.nestedComments.filter(
+        nc => nc.id !== userNestedComment.id,
       );
+      this.changeDetector.detectChanges();
+    }, this.errorService.errorResponse('Cannot delete'));
   }
 
   /**
@@ -257,14 +264,15 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy, Do
       this.comment.up_votes += 1;
       this.comment.is_voted = 1;
     }
-    this.commentService.voteComment({ comment_id: this.comment.id, vote: 1 })
+    this.commentService
+      .voteComment({ comment_id: this.comment.id, vote: 1 })
       .subscribe(
-        () => { },
+        () => {},
         () => {
           this.errorService.openErrorDialog('Cannot Upvote');
           this.comment.is_voted = preVote;
           this.comment.up_votes = preUpVote;
-        }
+        },
       );
   }
 
@@ -277,11 +285,9 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy, Do
     } else {
       this.comment.is_voted = 0;
     }
-    this.commentService.voteComment({ comment_id: this.comment.id, vote: 0 })
-      .subscribe(
-        () => { },
-        this.errorService.errorResponse('Cannot down vote')
-      );
+    this.commentService
+      .voteComment({ comment_id: this.comment.id, vote: 0 })
+      .subscribe(() => {}, this.errorService.errorResponse('Cannot down vote'));
   }
 
   onReplyClick() {
@@ -299,15 +305,20 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy, Do
   }
 
   onCommentShowProfile(username: string) {
-
     this.userProfileService.getUserProfile(username).subscribe(profile => {
-      this.userProfile = new UserProfile(profile.username, profile.user_avatar,
-        profile.score, profile.no_of_bronze_badges, profile.no_of_silver_badges,
-        profile.no_of_gold_badges, profile.badge_list_bronze,
-        profile.badge_list_silver, profile.badge_list_gold);
-    })
+      this.userProfile = new UserProfile(
+        profile.username,
+        profile.user_avatar,
+        profile.score,
+        profile.no_of_bronze_badges,
+        profile.no_of_silver_badges,
+        profile.no_of_gold_badges,
+        profile.badge_list_bronze,
+        profile.badge_list_silver,
+        profile.badge_list_gold,
+      );
+    });
     this.showProfile = !this.showProfile;
-
   }
 
   onClickOutside(event: Object) {
@@ -316,5 +327,3 @@ export class CommentComponent implements OnInit, AfterContentInit, OnDestroy, Do
     }
   }
 }
-
-

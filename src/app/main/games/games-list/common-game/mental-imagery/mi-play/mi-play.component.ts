@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterContentInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  AfterContentInit,
+} from '@angular/core';
 import { MIUser } from '../mi-user.model';
 import { Level } from '../level.model';
 import { Scenario } from '../scenario.model';
@@ -16,10 +22,8 @@ declare function require(name: string): any;
   selector: 'app-mi-play',
   templateUrl: './mi-play.component.html',
   styleUrls: ['./mi-play.component.scss'],
-
 })
 export class MiPlayComponent implements OnInit, AfterContentInit {
-
   @ViewChild('inputEl', { static: false }) inputEl!: ElementRef;
   @ViewChild('doneBtn', { static: false }) doneBtn!: ElementRef;
   @ViewChild('target', { static: false }) target!: ElementRef;
@@ -34,11 +38,33 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
   blank = '';
   YES = ['Y', 'y', 'ye', 'yes', 'YE', 'YES', 'Yes', 'yEs', 'yE', 'Ye'];
   NO = ['N', 'n', 'No', 'no', 'nO'];
-  poitiveInputs = ['will', 'do', 'have', 'should', 'must', 'might', 'may', 'shall', 'have to', 'could', 'would'];
-  negativeInputs = ['will not', 'not', 'cannot',
-    'can\'t', 'shouldn\'t', 'may not',
-    'couldn\'t', 'shall not',
-    'could not', 'couldn\'t', 'would not', 'wouldn\'t'];
+  poitiveInputs = [
+    'will',
+    'do',
+    'have',
+    'should',
+    'must',
+    'might',
+    'may',
+    'shall',
+    'have to',
+    'could',
+    'would',
+  ];
+  negativeInputs = [
+    'will not',
+    'not',
+    'cannot',
+    "can't",
+    "shouldn't",
+    'may not',
+    "couldn't",
+    'shall not',
+    'could not',
+    "couldn't",
+    'would not',
+    "wouldn't",
+  ];
   previousText = '';
   invalidInput = false;
   extraContent = '';
@@ -53,7 +79,7 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
   gameValue = 0;
   points = 5;
   levelPoints = 0;
-  currentPoints! : number;
+  currentPoints!: number;
   time!: any;
   startTime!: any;
   endTime!: any;
@@ -76,7 +102,7 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
     private miPlayService: MIPlayService,
     private dialogBoxService: DialogBoxService,
     private badgesService: GamesBadgesService,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.getCurrentStateService.setInitialOrder();
@@ -86,7 +112,6 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
       this.getCurrentStateService.continuePlaying = true;
       this.getCurrentStateService.initLevelsList();
       this.miPlayService.setLevel.subscribe(() => {
-
         this.currentLevel = this.getCurrentStateService.getCurrentLevel();
         this.getCurrentStateService.getScenario();
         this.currentScenario = this.getCurrentStateService.currentScenario;
@@ -101,16 +126,14 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
         // this.situationHandler();
       });
     });
-    this.miPlayService.levelUpdate.subscribe( () => {
-      console.log("level update event emitted,", this.currentLevel);
+    this.miPlayService.levelUpdate.subscribe(() => {
+      console.log('level update event emitted,', this.currentLevel);
       this.getCurrentStateService.continuePlaying = true;
       this.situationHandler();
     });
   }
 
-
   ngAfterContentInit() {
-
     // this.currentLevel = this.getCurrentStateService.getCurrentLevel();
     // this.getCurrentStateService.getScenario();
     // this.currentScenario = this.getCurrentStateService.currentScenario;
@@ -125,9 +148,7 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
     if (this.inputEl) {
       this.inputEl.nativeElement.focus();
     }
-
   }
-
 
   storeTypedLetters() {
     this.getCurrentStateService.blank = this.blank;
@@ -144,7 +165,6 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
       this.situationHandler();
     }
     this.scrollDown();
-
   }
 
   onTryAgain() {
@@ -165,16 +185,16 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
       this.getCurrentStateService.continuePlaying = false;
       this.getCurrentStateService.count += 1;
       return;
-    // TO DO : remove this code if not used
-    // } else if (this.getCurrentStateService.retry) {
-    //   this.getCurrentStateService.retry = false;
-    //   if (this.findMatching(this.YES, this.blank)) {
-    //     this.resetCurrent();
-    //     // tslint:disable-next-line:max-line-length
-    //     this.getCurrentStateService.user.points.push(-Math.abs(this.getCurrentStateService.user.currentPoints() - 1000 * this.getCurrentStateService.user.level));
-    //     this.getCurrentStateService.resetScenario();
-    //     this.currentScenario = this.getCurrentStateService.currentScenario;
-    //   }
+      // TO DO : remove this code if not used
+      // } else if (this.getCurrentStateService.retry) {
+      //   this.getCurrentStateService.retry = false;
+      //   if (this.findMatching(this.YES, this.blank)) {
+      //     this.resetCurrent();
+      //     // tslint:disable-next-line:max-line-length
+      //     this.getCurrentStateService.user.points.push(-Math.abs(this.getCurrentStateService.user.currentPoints() - 1000 * this.getCurrentStateService.user.level));
+      //     this.getCurrentStateService.resetScenario();
+      //     this.currentScenario = this.getCurrentStateService.currentScenario;
+      //   }
     } else if (this.getCurrentStateService.continuePlaying) {
       this.gameValue = 0;
       this.getCurrentStateService.continuePlaying = false;
@@ -184,7 +204,10 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
       this.getCurrentStateService.updateScenario();
       this.currentScenario = this.getCurrentStateService.currentScenario;
       const lastIndex = this.getCurrentStateService.levelList.length;
-      if ((this.user.level) === this.getCurrentStateService.levelList[lastIndex - 1].order) {
+      if (
+        this.user.level ===
+        this.getCurrentStateService.levelList[lastIndex - 1].order
+      ) {
         this.getCurrentStateService.updateLevelsList();
       }
     } else if (this.getCurrentStateService.currentScenario) {
@@ -208,11 +231,14 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
         delete this.currentScenario;
         this.updateNotification('Great', 'You have completed this task.');
         this.addDoneBtn();
-        }
+      }
     } else if (this.ifPositive(this.blank) === -1) {
       this.updatePreviousText();
       this.updateExtraContent('<i>' + this.currentScenario.wrongText + '</i>');
-      this.updateNotification('You seem to be stuck in a negative thought cycle. ', '');
+      this.updateNotification(
+        'You seem to be stuck in a negative thought cycle. ',
+        '',
+      );
       this.addTryAgnBtn();
       this.getCurrentStateService.retry = true;
       // this.retry = this.getCurrentStateService.retry;
@@ -226,7 +252,7 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
     this.blank = '';
   }
 
-  addTryAgnBtn(){
+  addTryAgnBtn() {
     setTimeout(() => {
       this.retry = this.getCurrentStateService.retry;
     }, 3000);
@@ -239,7 +265,6 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
   }
 
   ifPositive(input: string) {
-
     input = input.replace(/[^\w\s]/gi, '');
     input = input.toLocaleLowerCase();
     let ifNeg;
@@ -252,8 +277,15 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
       return -1;
     } else {
       try {
-        ifNeg = this.nlp(input).verbs().data()['0']['interpret']['negative'];
-        console.log(2, this.nlp(input).verbs().data());
+        ifNeg = this.nlp(input)
+          .verbs()
+          .data()['0']['interpret']['negative'];
+        console.log(
+          2,
+          this.nlp(input)
+            .verbs()
+            .data(),
+        );
       } catch (e) {
         return 0;
       }
@@ -267,13 +299,17 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
   }
 
   updatePreviousText() {
-    this.previousText += '<p>' +
+    this.previousText +=
+      '<p>' +
       this.currentScenario.problemBeforeDash +
       '<strong class="small-font"> <u> ' +
       this.blank +
       '</u> </strong>' +
       this.currentScenario.problemAfterDash +
-      '</p>' + '<p> >> ' + this.blank + '</p>';
+      '</p>' +
+      '<p> >> ' +
+      this.blank +
+      '</p>';
 
     this.getCurrentStateService.previousText = this.previousText;
   }
@@ -288,8 +324,7 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
     this.currentPoints = this.user.currentPoints();
     this.levelPoints += this.points;
     const numScenarios = this.getCurrentStateService.numOfScenarios();
-    this.gameValue = this.gameValue + (100 / numScenarios);
-
+    this.gameValue = this.gameValue + 100 / numScenarios;
   }
 
   updateNotification(header: string, body: string = '') {
@@ -305,7 +340,8 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
     this.getCurrentStateService.extraContent = this.extraContent = '';
     this.getCurrentStateService.previousText = this.previousText = '';
     this.getCurrentStateService.notificationBody = this.notificationBody = '';
-    this.getCurrentStateService.notificationHeader = this.notificationHeader = '';
+    this.getCurrentStateService.notificationHeader = this.notificationHeader =
+      '';
     this.blank = '';
   }
 
@@ -320,7 +356,6 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
       this.inputEl.nativeElement.focus();
     }
     this.openNavBar = false;
-
   }
   onPause() {
     this.getCurrentStateService.disabled = true;
@@ -372,7 +407,7 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
     console.log(this.userData);
   }
 
-  storeUserData(){
+  storeUserData() {
     this.getCurrentStateService.saveUserData(this.userData).subscribe();
   }
 
@@ -380,9 +415,12 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
     this.GOLD_CONSTANT = this.getCurrentStateService.GOLD_CONSTANT;
     this.SILVER_CONSTANT = this.getCurrentStateService.SILVER_CONSTANT;
     this.BRONZE_CONSTANT = this.getCurrentStateService.BRONZE_CONSTANT;
-    this.allBadgesInfo = this.badgesService.getBadgesInfo(this.BRONZE_CONSTANT,
-                              this.SILVER_CONSTANT, this.GOLD_CONSTANT,
-                              this.numCorrectAnswers);
+    this.allBadgesInfo = this.badgesService.getBadgesInfo(
+      this.BRONZE_CONSTANT,
+      this.SILVER_CONSTANT,
+      this.GOLD_CONSTANT,
+      this.numCorrectAnswers,
+    );
     this.bronzeNumber = this.allBadgesInfo.bronzeBadges;
     this.silverNumber = this.allBadgesInfo.silverBadges;
     this.goldNumber = this.allBadgesInfo.goldBadges;
@@ -391,5 +429,4 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
     this.silverValue = this.allBadgesInfo.silverPercent;
     this.goldValue = this.allBadgesInfo.goldPercent;
   }
-
 }

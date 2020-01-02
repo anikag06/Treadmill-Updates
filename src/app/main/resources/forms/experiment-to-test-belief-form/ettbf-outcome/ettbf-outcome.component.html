@@ -1,43 +1,95 @@
 <form>
-    <mat-form-field class="full-width">
-      <textarea name="outcomeStatement" class="py-0" 
-                #outcomeTextArea 
-                cdkTextareaAutosize 
-                cdkAutosizeMinRows="1"
-                cdkAutosizeMaxRows="5" 
-                id="outcomeStatement" 
-                placeholder="I was able to clean the kitchend and dust the bookshelves." 
-                matInput required [autofocus]
-                [(ngModel)]="outcomeStatement"></textarea>
-    </mat-form-field>
-    <p class="text-right" (click)="onOutcomeSubmit()">
-      <button type="button" mat-raised-button 
-        class="continue-btn">Continue</button>
+  <mat-form-field class="full-width">
+    <textarea
+      name="outcomeStatement"
+      class="py-0"
+      #outcomeTextArea
+      cdkTextareaAutosize
+      cdkAutosizeMinRows="1"
+      cdkAutosizeMaxRows="5"
+      id="outcomeStatement"
+      placeholder="I was able to clean the kitchen and dust the bookshelves."
+      matInput
+      required
+      [autofocus]
+      [(ngModel)]="outcomeStatement"
+    ></textarea>
+  </mat-form-field>
+  <p class="text-right" (click)="onOutcomeSubmit()">
+    <button type="button" mat-raised-button class="continue-btn">
+      Continue
+    </button>
+  </p>
+  <mat-form-field class="full-width">
+    <textarea
+      name="learningStatement"
+      class="py-0"
+      #learningTextArea
+      cdkTextareaAutosize
+      cdkAutosizeMinRows="1"
+      cdkAutosizeMaxRows="5"
+      id="learningStatement"
+      placeholder="I can clean up my apartment, at least partially, if I want to."
+      matInput
+      required
+      [autofocus]
+      [(ngModel)]="learningStatement"
+    ></textarea>
+  </mat-form-field>
+  <p class="text-right" (click)="onLearningSubmit()">
+    <button type="button" mat-raised-button class="continue-btn">
+      Continue
+    </button>
+  </p>
+  <app-form-slider
+    [question]="ratingQuestion"
+    [minRatingText]="minRatingText"
+    [maxRatingText]="maxRatingText"
+  ></app-form-slider>
+  <p class="text-right" (click)="onBeliefRatingAfterSubmit()">
+    <button type="button" mat-raised-button class="continue-btn">
+      Continue
+    </button>
+  </p>
+</form>
+<div *ngIf="bothRatingsExist">
+  <div *ngIf="beliefDecreased">
+    <p>
+      Great! What would be a more realistic belief?
     </p>
     <mat-form-field class="full-width">
-        <textarea name="learningStatement" class="py-0" 
-                  #learningTextArea 
-                  cdkTextareaAutosize 
-                  cdkAutosizeMinRows="1"
-                  cdkAutosizeMaxRows="5" 
-                  id="learningStatement" 
-                  placeholder="I can clean up my apartment, at least partially if I want to."
-                  matInput required [autofocus]
-                  [(ngModel)]="learningStatement"></textarea>
-      </mat-form-field>
-      <p class="text-right" (click)="onLearningSubmit()">
-        <button type="button" mat-raised-button 
-          class="continue-btn">Continue</button>
-      </p>
-    <mat-slider 
-      thumbLabel 
-      [displayWith]="formatLabel" 
-      tickInterval="1" 
-      min="1" max="10"
-      ></mat-slider>
-      <p class="text-right" (click)="onOutcomeRatingSubmit()">
-          <button type="button" mat-raised-button 
-            class="continue-btn">Continue</button>
-      </p>
-  </form>
-  
+      <textarea
+        name="realisticBeliefStatement"
+        class="py-0"
+        #realisticBeliefTextArea
+        cdkTextareaAutosize
+        cdkAutosizeMinRows="1"
+        cdkAutosizeMaxRows="5"
+        id="realisticBeliefStatement"
+        placeholder="I can still do some things if I want to."
+        matInput
+        required
+        [autofocus]
+        [(ngModel)]="realisticBeliefStatement"
+      ></textarea>
+    </mat-form-field>
+    <p class="text-right" (click)="onRealisticBeliefSubmit()">
+      <button type="button" mat-raised-button class="continue-btn">
+        Continue
+      </button>
+    </p>
+    <p *ngIf="outcome.realistic_belief">
+      Excellent! If you identify yourself thinking in terms of this negative
+      belief again, remind yourself: {{ realisticBeliefStatement }}
+    </p>
+  </div>
+  <div *ngIf="!beliefDecreased">
+    <p>
+      Hmmm... I can understand. It is hard to change our beliefs and it takes
+      time. Don't give up, try again after a few days. Meanwhile: - try to see
+      if you can find any evidences against this belief - it might help to look
+      at this belief from other points of view. Use the
+      https://trello.com/c/mYuLsdso to do that.
+    </p>
+  </div>
+</div>

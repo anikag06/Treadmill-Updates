@@ -2,11 +2,10 @@
   position: fixed;
   bottom: 4vh;
   right: 3%;
-  height: 80px;
   z-index: 100;
   width: 80px;
   outline: none;
-  text-align: right;
+  
 }
 @media screen and (max-width: 576px) {
   .chat-btn {

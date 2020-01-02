@@ -5,13 +5,10 @@ import { AuthService } from '../auth.service';
 @Component({
   selector: 'app-logout',
   template: '',
-  styles: ['']
+  styles: [''],
 })
 export class LogoutComponent {
-
-  constructor(
-    private authService: AuthService
-  ) {
+  constructor(private authService: AuthService) {
     this.authService.logout(true);
   }
 }

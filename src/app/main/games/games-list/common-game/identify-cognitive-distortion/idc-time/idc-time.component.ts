@@ -1,18 +1,24 @@
-import { Component, OnInit, ElementRef, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ElementRef,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 import { IdcGameService } from '../idc-game.service';
 
 @Component({
   selector: 'app-idc-time',
   templateUrl: './idc-time.component.html',
-  styleUrls: ['./idc-time.component.scss']
+  styleUrls: ['./idc-time.component.scss'],
 })
 export class IdcTimeComponent implements OnInit {
+  constructor(
+    private elementRef: ElementRef,
+    private gameService: IdcGameService,
+  ) {}
 
-  constructor(private elementRef: ElementRef,
-    private gameService: IdcGameService) { }
-
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   continuePlay() {
     const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });
@@ -21,7 +27,6 @@ export class IdcTimeComponent implements OnInit {
     this.gameService.optionStatus = '';
     this.gameService.selectedCorrectOptionsSet.clear();
     this.gameService.getUserData();
-
   }
 
   addTimePlay() {
@@ -33,5 +38,4 @@ export class IdcTimeComponent implements OnInit {
     this.gameService.resumeGame.emit();
     this.gameService.extraTimeTaken = true;
   }
-
 }

@@ -6,7 +6,9 @@ describe('ExperimentToTestBeliefService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: ExperimentToTestBeliefService = TestBed.get(ExperimentToTestBeliefService);
+    const service: ExperimentToTestBeliefService = TestBed.get(
+      ExperimentToTestBeliefService,
+    );
     expect(service).toBeTruthy();
   });
 });

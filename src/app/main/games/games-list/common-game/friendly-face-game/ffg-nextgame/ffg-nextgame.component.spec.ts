@@ -8,9 +8,8 @@ describe('FfgNextgameComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FfgNextgameComponent ]
-    })
-    .compileComponents();
+      declarations: [FfgNextgameComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

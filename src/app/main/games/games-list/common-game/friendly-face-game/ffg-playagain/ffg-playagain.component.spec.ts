@@ -8,9 +8,8 @@ describe('FfgPlayagainComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FfgPlayagainComponent ]
-    })
-    .compileComponents();
+      declarations: [FfgPlayagainComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

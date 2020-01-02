@@ -2,15 +2,17 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { IdcGameService } from '../idc-game.service';
 import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
 import { IdcPopupComponent } from '../idc-popup/idc-popup.component';
-import { ICDGameUserData, ICDGameUserAnswerData } from '@/main/games/shared/game-play.model';
+import {
+  ICDGameUserData,
+  ICDGameUserAnswerData,
+} from '@/main/games/shared/game-play.model';
 
 @Component({
   selector: 'app-idc-options',
   templateUrl: './idc-options.component.html',
-  styleUrls: ['./idc-options.component.scss']
+  styleUrls: ['./idc-options.component.scss'],
 })
 export class IdcOptionsComponent implements OnInit {
-
   index!: any;
   game!: any;
   correct!: any;
@@ -37,13 +39,12 @@ export class IdcOptionsComponent implements OnInit {
   time!: any;
   userAnswerData = new ICDGameUserAnswerData(0, 0, 0);
 
-
-
-
   @ViewChild('checkElement', { static: false }) element!: ElementRef;
 
-  constructor(private gameService: IdcGameService,
-    private dialogBoxService: DialogBoxService) { }
+  constructor(
+    private gameService: IdcGameService,
+    private dialogBoxService: DialogBoxService,
+  ) {}
 
   ngOnInit() {
     this.optionsCall();
@@ -53,7 +54,6 @@ export class IdcOptionsComponent implements OnInit {
 
       console.log('option status', this.optionStatusCount);
     });
-
   }
 
   openCustomDialog() {
@@ -74,7 +74,7 @@ export class IdcOptionsComponent implements OnInit {
     this.correct.forEach((correctItem: any) => {
       if (correctItem.id === item.id) {
         this.gameService.selectedCorrectOptionsSet.add(item.id);
-        this.gameService.optionStatus = "correct";
+        this.gameService.optionStatus = 'correct';
         this.gameService.optionStatusCount += 1;
         this.optionStatusCount = this.gameService.optionStatusCount;
 
@@ -85,12 +85,14 @@ export class IdcOptionsComponent implements OnInit {
       }
     });
     if (this.correctOptionFound != 1) {
-      this.gameService.optionStatus = "incorrect";
+      this.gameService.optionStatus = 'incorrect';
     }
 
-    if (this.gameService.selectedCorrectOptionsSet.size === this.correct.length) {
+    if (
+      this.gameService.selectedCorrectOptionsSet.size === this.correct.length
+    ) {
       this.gameService.selectedCorrectOptionsSet.clear();
-      this.gameService.optionStatus = "allcorrect";
+      this.gameService.optionStatus = 'allcorrect';
       this.optionStatus = this.gameService.optionStatus;
       this.gameService.updateBadgesValue();
       this.gameService.stopTimer.next();
@@ -101,34 +103,33 @@ export class IdcOptionsComponent implements OnInit {
   }
 
   optionsCall() {
-    this.gameService.optionOne.subscribe((data) => {
+    this.gameService.optionOne.subscribe(data => {
       this.optionOne = data;
       this.optionOneDistortion = data.distortion;
     });
-    this.gameService.optionTwo.subscribe((data) => {
+    this.gameService.optionTwo.subscribe(data => {
       this.optionTwo = data;
       this.optionTwoDistortion = data.distortion;
     });
-    this.gameService.optionThree.subscribe((data) => {
+    this.gameService.optionThree.subscribe(data => {
       this.optionThree = data;
       this.optionThreeDistortion = data.distortion;
     });
-    this.gameService.optionFour.subscribe((data) => {
+    this.gameService.optionFour.subscribe(data => {
       this.optionFour = data;
       this.optionFourDistortion = data.distortion;
     });
-    this.gameService.optionFive.subscribe((data) => {
+    this.gameService.optionFive.subscribe(data => {
       this.optionFive = data;
       this.optionFiveDistortion = data.distortion;
     });
-    this.gameService.optionSix.subscribe((data) => {
+    this.gameService.optionSix.subscribe(data => {
       this.optionSix = data;
       this.optionSixDistortion = data.distortion;
     });
-    this.gameService.correct.subscribe((data) => {
+    this.gameService.correct.subscribe(data => {
       this.correct = data;
     });
-
   }
 
   updateUserAnswerData() {
@@ -141,5 +142,4 @@ export class IdcOptionsComponent implements OnInit {
     this.gameService.saveUserAnswerData(this.userAnswerData).subscribe();
     console.log('User Answer Data', this.userAnswerData);
   }
-
 }

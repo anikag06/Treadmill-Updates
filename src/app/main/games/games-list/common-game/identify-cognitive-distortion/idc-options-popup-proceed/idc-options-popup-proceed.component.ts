@@ -6,29 +6,29 @@ import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service
 @Component({
   selector: 'app-idc-options-popup-proceed',
   templateUrl: './idc-options-popup-proceed.component.html',
-  styleUrls: ['./idc-options-popup-proceed.component.scss']
+  styleUrls: ['./idc-options-popup-proceed.component.scss'],
 })
 export class IdcOptionsPopupProceedComponent implements OnInit {
+  displayButton = 'Default Option';
 
-  displayButton = "Default Option";
-
-  constructor(private gameService: IdcGameService,
+  constructor(
+    private gameService: IdcGameService,
     private dialogBoxService: DialogBoxService,
-    private element: ElementRef) {
-    if (this.gameService.optionStatus == "correct") {
-      this.displayButton = "Find Remaining Error";
-    } else if (this.gameService.optionStatus == "incorrect") {
-      this.displayButton = "Try again";
-    } else if (this.gameService.optionStatus == "allcorrect") {
-      this.displayButton = "Done";
+    private element: ElementRef,
+  ) {
+    if (this.gameService.optionStatus == 'correct') {
+      this.displayButton = 'Find Remaining Error';
+    } else if (this.gameService.optionStatus == 'incorrect') {
+      this.displayButton = 'Try again';
+    } else if (this.gameService.optionStatus == 'allcorrect') {
+      this.displayButton = 'Done';
     }
   }
-  ngOnInit() {
-  }
+  ngOnInit() {}
   closePopup() {
     const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });
     this.element.nativeElement.dispatchEvent(domEvent);
-    if (this.gameService.optionStatus === "allcorrect") {
+    if (this.gameService.optionStatus === 'allcorrect') {
       if (!this.gameService.extraTimeTaken) {
         this.gameService.updateDifficultyLevel();
       }

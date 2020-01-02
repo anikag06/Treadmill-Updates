@@ -142,7 +142,7 @@
               <div class="list-group">
                 <label *ngFor="let solution of solutions" [for]="solution.id">
                   <input type="radio" [name]="solution.id"
-                    [checked]="problem.bestsolution && solution.id == problem.bestsolution.problem_id"
+                    [checked]="problem.bestSolution && solution.id == problem.bestSolution.problem_id"
                     (change)="onCheckBoxChange(solution, $event)" [id]="solution.id">
                   {{solution.solution}}
                 </label>

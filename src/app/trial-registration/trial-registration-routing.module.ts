@@ -13,50 +13,61 @@ import { TrialRegistrationAuthGuard } from '@/shared/auth/trial-registration-aut
 import { IneligibleTrialPageComponent } from './information-pages/ineligible-trial-page/ineligible-trial-page.component';
 import { StepLastPageComponent } from './information-pages/step-last-page/step-last-page.component';
 
-
 const routes: Routes = [
   {
-    path: 'trial-registration', component: RegistrationStepOneComponent, canActivate: [TrialRegistrationAuthGuard]
-  },
-  {
-    path: 'trial-registration/step-2', component: RegistrationStepTwoComponent,
-    canActivate: [TrialActivateGuard]
-  },
-  {
-    path: 'trial-registration/step-3', component: RegistrationStepThreeComponent,
-    canActivate: [TrialActivateGuard]
-  },
-  {
-    path: 'trial-registration/step-4', component: RegistrationStepFourComponent,
-    // canActivate: [TrialActivateGuard]
-  },
-  {
-    path: 'trial-registration/step-5', component: StepLastPageComponent,
-    canActivate: [TrialActivateGuard]
-  },
-  {
-    path: 'faqs', component: FaqPageComponent, canActivate: [TrialRegistrationAuthGuard]
-  },
-  {
-    path: 'terms-and-conditions', component: TermsAndConditionsComponent,
+    path: 'trial-registration',
+    component: RegistrationStepOneComponent,
     canActivate: [TrialRegistrationAuthGuard],
   },
   {
-    path: 'privacy-policy', component: PrivacyPolicyComponent,
-    canActivate: [TrialRegistrationAuthGuard]
+    path: 'trial-registration/step-2',
+    component: RegistrationStepTwoComponent,
+    canActivate: [TrialActivateGuard],
   },
   {
-    path: 'about-us', component: AboutUsPageComponent,
-    canActivate: [TrialRegistrationAuthGuard]
+    path: 'trial-registration/step-3',
+    component: RegistrationStepThreeComponent,
+    canActivate: [TrialActivateGuard],
   },
   {
-    path: 'thankyou', component: IneligibleTrialPageComponent,
+    path: 'trial-registration/step-4',
+    component: RegistrationStepFourComponent,
+    // canActivate: [TrialActivateGuard]
+  },
+  {
+    path: 'trial-registration/step-5',
+    component: StepLastPageComponent,
+    canActivate: [TrialActivateGuard],
+  },
+  {
+    path: 'faqs',
+    component: FaqPageComponent,
+    canActivate: [TrialRegistrationAuthGuard],
+  },
+  {
+    path: 'terms-and-conditions',
+    component: TermsAndConditionsComponent,
+    canActivate: [TrialRegistrationAuthGuard],
+  },
+  {
+    path: 'privacy-policy',
+    component: PrivacyPolicyComponent,
+    canActivate: [TrialRegistrationAuthGuard],
+  },
+  {
+    path: 'about-us',
+    component: AboutUsPageComponent,
+    canActivate: [TrialRegistrationAuthGuard],
+  },
+  {
+    path: 'thankyou',
+    component: IneligibleTrialPageComponent,
     // canActivate: [TrialActivateGuard],
-  }
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class TrialRegistrationRoutingModule { }
+export class TrialRegistrationRoutingModule {}

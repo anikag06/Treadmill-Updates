@@ -8,9 +8,8 @@ describe('FfgInstructionsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FfgInstructionsComponent ]
-    })
-    .compileComponents();
+      declarations: [FfgInstructionsComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

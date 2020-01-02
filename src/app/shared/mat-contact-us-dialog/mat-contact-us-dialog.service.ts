@@ -11,32 +11,31 @@ import { ContactUsData } from './contact-us-data.interface';
 
 @Injectable()
 export class MatContactUsDialogService {
-    private emailid!: string;
-    private message!: string;
+  private emailid!: string;
+  private message!: string;
 
-    constructor(
-        private dialog: MatDialog,
-        private overlay: Overlay,
-        private logger: LoggerService,
-        private dialogSize: DialogSize,
-    ) {}
+  constructor(
+    private dialog: MatDialog,
+    private overlay: Overlay,
+    private logger: LoggerService,
+    private dialogSize: DialogSize,
+  ) {}
 
-    contactUsClicked() {
-        const scrollStrategy = this.overlay.scrollStrategies.reposition();
+  contactUsClicked() {
+    const scrollStrategy = this.overlay.scrollStrategies.reposition();
 
-        const contactUsDialogRef = this.dialog.open(MatContactUsDialogComponent, {
-            data: {emailid: this.emailid, message: this.message},
-            minWidth: this.dialogSize.width,
-            minHeight: this.dialogSize.height,
-            disableClose: true,
-            hasBackdrop: true,
-            panelClass: 'contact-us-dialog',
-            scrollStrategy
-        });
+    const contactUsDialogRef = this.dialog.open(MatContactUsDialogComponent, {
+      data: { emailid: this.emailid, message: this.message },
+      minWidth: this.dialogSize.width,
+      minHeight: this.dialogSize.height,
+      disableClose: true,
+      hasBackdrop: true,
+      panelClass: 'contact-us-dialog',
+      scrollStrategy,
+    });
 
-        contactUsDialogRef.afterClosed().subscribe((result: string) => {
-            this.logger.log('Contact Us data: ', result);
-        });
-    }
-
+    contactUsDialogRef.afterClosed().subscribe((result: string) => {
+      this.logger.log('Contact Us data: ', result);
+    });
+  }
 }
