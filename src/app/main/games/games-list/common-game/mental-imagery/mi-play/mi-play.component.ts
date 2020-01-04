@@ -102,7 +102,7 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
     private miPlayService: MIPlayService,
     private dialogBoxService: DialogBoxService,
     private badgesService: GamesBadgesService,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.getCurrentStateService.setInitialOrder();
@@ -197,6 +197,7 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
       //   }
     } else if (this.getCurrentStateService.continuePlaying) {
       this.gameValue = 0;
+      this.levelPoints = 0;
       this.getCurrentStateService.continuePlaying = false;
       this.resetCurrent();
       this.getCurrentStateService.levelUpdate();
