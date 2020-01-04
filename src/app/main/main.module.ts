@@ -145,7 +145,6 @@ import { DataTimePickerComponent } from './shared/data-time-picker/data-time-pic
 import { QuestionnaireModule } from '@/questionnaire.module';
 import { GetQuestionnaireComponent } from './dashboard/get-questionnaire/get-questionnaire.component';
 import { IdcHeadingComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-heading/idc-heading.component';
-import { IdcAllSituationsComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-all-situations/idc-all-situations.component';
 import { IdcMainComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-main/idc-main.component';
 import { IdcNatComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-nat/idc-nat.component';
 import { IdcOptionSolutionComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-option-solution/idc-option-solution.component';
@@ -251,7 +250,6 @@ import { StepsDataService } from './resources/shared/steps-data.service';
     BadgesComponent,
     ClickOutsideDirective,
     GetQuestionnaireComponent,
-    IdcAllSituationsComponent,
     IdcHeadingComponent,
     IdcMainComponent,
     IdcNatComponent,
@@ -380,4 +378,4 @@ import { StepsDataService } from './resources/shared/steps-data.service';
     MoodTrackerComponent,
   ],
 })
-export class MainModule {}
+export class MainModule { }
