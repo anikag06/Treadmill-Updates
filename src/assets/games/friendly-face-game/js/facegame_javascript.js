@@ -63,7 +63,7 @@ var ctx1;
 
 var no_positive;
 var no_images;
-var score;
+var ffg_score;
 
 var goldPoints = 0;
 var silverPoints = 0;
@@ -131,7 +131,7 @@ var ffg_next_song;
 
 var timeBeingShown;
 var ffg_timer;
-var timers; // for storing references to all ffg_timer intervals
+var ffg_timers; // for storing references to all ffg_timer intervals
 var timeCounter;
 var timer_is_on = 0;
 var ffgExtraTime = false;
@@ -240,7 +240,7 @@ $(document).ready(function() {
       } else if (game_started && game_paused) {
         $("#pause-button").click();
         // clearInterval(ffg_timer);
-        timers.forEach(function(ffg_timer) {
+        ffg_timers.forEach(function(ffg_timer) {
           clearInterval(ffg_timer);
         });
       }
@@ -286,7 +286,7 @@ ffGPauseGame = function() {
   console.log("calling pause resume function");
   if (!game_paused) {
     // clearInterval(ffg_timer);
-    timers.forEach(function(ffg_timer) {
+    ffg_timers.forEach(function(ffg_timer) {
       clearInterval(ffg_timer);
     });
     $("#canvas1").addClass("block-click");
@@ -303,8 +303,8 @@ ffGResumeGame = function() {
     $("#canvas1").removeClass("block-click");
     if (ffgExtraTime) {
       timeBeingShown = 20;
-      score -= 20;
-      document.getElementById("score-num").innerHTML = score;
+      ffg_score -= 20;
+      document.getElementById("score-num").innerHTML = ffg_score;
       ffgExtraTime = false;
     }
     ffgTimeCount();
@@ -434,8 +434,8 @@ function clickedFriendlyImage(canvas, event) {
     if (friendly_image_coordinates[i].contains(x, y)) {
       friendly_image_coordinates[i].clicked = true;
       no_friendly_image_clicked++;
-      score += 1;
-      document.getElementById("score-num").innerHTML = score;
+      ffg_score += 1;
+      document.getElementById("score-num").innerHTML = ffg_score;
       no_wrong = 0;
       markImage(friendly_image_coordinates[i], true);
       date = new Date();
@@ -493,7 +493,7 @@ function penalty() {
   if (life <= 0) {
     ffg_no_life = true;
     // clearInterval(ffg_timer);
-    timers.forEach(function(ffg_timer) {
+    ffg_timers.forEach(function(ffg_timer) {
       clearInterval(ffg_timer);
     });
     showGameOver();
@@ -506,14 +506,14 @@ function ffgTimeCount() {
     timeBeingShown--;
     document.getElementById("time-sec").innerHTML = timeBeingShown + "s";
     if (timeBeingShown <= 0) {
-      timers.forEach(function(ffg_timer) {
+      ffg_timers.forEach(function(ffg_timer) {
         clearInterval(ffg_timer);
       });
       // clearInterval(ffg_timer);
       showGameOver();
     }
   }, 1000);
-  timers.push(ffg_timer);
+  ffg_timers.push(ffg_timer);
 }
 
 function getColor(value, min, max) {
@@ -722,7 +722,7 @@ function playNote() {
   if (ffg_music_counter >= ffg_music.length) {
     timeActualLeft = timeBeingShown;
     // clearInterval(ffg_timer);
-    timers.forEach(function(ffg_timer) {
+    ffg_timers.forEach(function(ffg_timer) {
       clearInterval(ffg_timer);
     });
     updateUser();
@@ -864,7 +864,7 @@ function initialize() {
 
   gameRestart = false;
 
-  timers = [];
+  ffg_timers = [];
 
   stage = 1; // this determines the progress within a stage. the higher this gets the more difficult that particular level gets.
   stage_counter = 0; // this checks how many iterations have been completed in a single stage and changes the stage counter once the number of iterations are completed
@@ -942,7 +942,7 @@ function initialize() {
   life = 5;
   total_life = 5;
   console.log("ffg_coins", ffg_coins, ffg_time_per_note);
-  score = ffg_coins;
+  ffg_score = ffg_coins;
   timeBeingShown = Math.floor((ffg_time_per_note * ffg_music.length) / 1000);
 
   timeAlloted = timeBeingShown;
@@ -957,7 +957,7 @@ function initialize() {
   }
   document.getElementById("song-name").innerHTML = ffg_music_name;
   document.getElementById("life").innerHTML = life;
-  document.getElementById("score-num").innerHTML = score;
+  document.getElementById("score-num").innerHTML = ffg_score;
   document.getElementById("time-sec").innerHTML = timeBeingShown + "s";
   song_playing = false;
 
@@ -1102,7 +1102,7 @@ var updateUser = function() {
 };
 
 getFFGUser = function() {
-  ffg_coins = score;
+  ffg_coins = ffg_score;
   console.log("time per note", ffg_time_per_note);
   return [ffg_coins, ffg_music_current_order, ffg_time_per_note];
 };

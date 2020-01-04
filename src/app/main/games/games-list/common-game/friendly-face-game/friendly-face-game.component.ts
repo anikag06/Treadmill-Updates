@@ -44,7 +44,7 @@ declare var ffgDifficultyValue: number;
 declare var ffg_total_positive_images: any;
 declare var ffg_perf_update: boolean;
 declare var ffg_current_song_order: number;
-declare var timers: any;
+declare var ffg_timers: any;
 declare var ffg_timer: any;
 
 @Component({
@@ -144,9 +144,11 @@ export class FriendlyFaceGameComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    timers.forEach(() => {
-      clearInterval(ffg_timer);
-    });
+    if (ffg_timers) {
+      ffg_timers.forEach(() => {
+        clearInterval(ffg_timer);
+      });
+    }
   }
 
   loadImages() {
