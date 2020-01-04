@@ -11,7 +11,8 @@ import { IbTrainingDataService } from './ib-main-training/ib-training-data.servi
 import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
 import { IbMainTrainingComponent } from './ib-main-training/ib-main-training.component';
 import { GameMatPropertyService } from '@/main/games/shared/game-mat-property.service';
-import {LoadFilesService} from '@/main/games/shared/load-files.service';
+import { LoadFilesService } from '@/main/games/shared/load-files.service';
+import { MatTooltip } from '@angular/material';
 
 declare var IBG_MAX_WORDS_HIDDEN: number;
 declare var sentence_number: any;
@@ -42,6 +43,14 @@ declare var ibGameMakeGridArray: any;
 declare var ibg_word_cost: any;
 declare var ibg_coordinate_cost: any;
 declare var ibg_time_cost: any;
+declare var ibg_score: any;
+
+// score varibles for borrowing extra time
+declare var ibg_borrow_time_score: any;
+declare var ibg_borrow_time_again_score: any;
+declare var ibg_btn_give_up_score: any;
+declare var ibg_btn_other_sentence_score: any;
+
 
 @Component({
   selector: 'app-interpretation-bias-game',
@@ -50,7 +59,8 @@ declare var ibg_time_cost: any;
 })
 export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
 
-  @ViewChild('ibgameDiv', {static: false } ) ibGameDiv!: ElementRef;
+  @ViewChild('ibgameDiv', { static: false }) ibGameDiv!: ElementRef;
+  @ViewChild('tooltip', { static: false }) showToolTip!: MatTooltip;
 
   NO_OF_SENTENCES_RECEIVED = 3;      // order of first sentence is 0
   // LEVEL_UP_SEN = 5;       // level up after how many sentences, here after 5 sentences;
@@ -58,7 +68,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
 
   firstSentence = true;
   IBGameUserScore = new IBGameUserScore(0, 0, 0, 0, 0, 0);
-  IBGameUserResponse = new IBGameUserResponse(1, false, 0) ;
+  IBGameUserResponse = new IBGameUserResponse(1, false, 0);
 
   isLastSet = false;
   // for getting the sentence information
@@ -75,6 +85,11 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   wordHintCost: any;
   coordHintCost: any;
   timeHintCost: any;
+
+  borrow_time_score: any;
+  borrow_time_again_score: any;
+  btn_give_up_score: any;
+  btn_other_sentence_score: any;
 
   SEN_URL = environment.API_ENDPOINT + IBG_SENTENCE;
 
@@ -94,8 +109,9 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   allBadgesInfo: BadgesInfo = new BadgesInfo(0, 0, 0, 0, 0, 0);
 
   difficultyValue = 5;
+  tooltipData = "You don't have sufficient points.";
 
-  constructor( private gameAuthService: GamesAuthService,
+  constructor(private gameAuthService: GamesAuthService,
     private gamePlayService: GamePlayService,
     private badgesService: GamesBadgesService,
     private ibTrainingService: IbTrainingDataService,
@@ -113,6 +129,11 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
     this.dialogBoxService.setDialogChild(IbMainTrainingComponent);
   }
 
+  @HostListener('window:toolTip')
+  showTooltip() {
+    this.tooltipShow();
+  }
+
   ngOnInit() {
     this.loadFileService.loadExternalScript('assets/games/interpretation_bias_game/js/sentence_javascript.js').then(() => {
       this.scoresRelatedInfo();
@@ -120,7 +141,11 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
         this.storeUserScoreInfo(res);
       });
       this.initSentencesData();
-    }).catch(() => {});
+      this.borrow_time_again_score = ibg_borrow_time_again_score;
+      this.borrow_time_score = ibg_borrow_time_score;
+      this.btn_give_up_score = ibg_btn_give_up_score;
+      this.btn_other_sentence_score = ibg_btn_other_sentence_score;
+    }).catch(() => { });
 
     // do not delete this (this.findValidSentence()) function, it is important
     // this.findValidSentence();        // this function is used to check if sentences in database are valid for generation of letters grid
@@ -131,6 +156,8 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
     // tslint:disable-next-line: max-line-length
     const difficultyBarEle = this.element.nativeElement.querySelectorAll('.difficultyBarIBG .mat-progress-bar .mat-progress-bar-fill');
     this.matPropertyService.changeMatProperty(difficultyBarEle[0], 'mat-progress-bar-fill', 'background-color', 'black');
+
+
   }
 
 
@@ -148,7 +175,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
 
   sentenceInfo(pageNumber: number) {
     this.gameAuthService.ibGameGetSentencesInfo(pageNumber, this.NO_OF_SENTENCES_RECEIVED)
-      .subscribe( (data) => {
+      .subscribe((data) => {
         if (data.next === null) {
           this.isLastSet = true;
         } else {
@@ -157,7 +184,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
         this.TOTAL_SENTENCES = data.count;
         this.FIRST_SENTENCE_ORDER = data.results[0].order;
         if (this.firstSentence) {
-          this.index = ibGameUserOrder % this.NO_OF_SENTENCES_RECEIVED ;
+          this.index = ibGameUserOrder % this.NO_OF_SENTENCES_RECEIVED;
         }
         // if ( ibGamelevel > 0) {
         //   this.showAllHints = true;
@@ -226,7 +253,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
         this.updateBadgesValue();
         this.difficultyBarUpdate();
 
-        if ( ibGameWordsHidden > 0 ) {
+        if (ibGameWordsHidden > 0) {
           this.showAllHints = true;
         } else if (ibGameWordsHidden === 0) {
           this.showAllHints = false;
@@ -234,9 +261,9 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
         this.sentencesPageInUrl = Math.floor(ibGameUserOrder / this.NO_OF_SENTENCES_RECEIVED);
         this.sentenceInfo(this.sentencesPageInUrl);
       },
-      (error) => {
-        // console.log(error);
-      });
+        (error) => {
+          // console.log(error);
+        });
   }
 
   storeUserScoreInfo(response: any) {
@@ -244,30 +271,30 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
     this.getScoreVariablesValue();
 
     this.gameAuthService.ibGameStoreUserScoreInfo(this.IBGameUserScore)
-      .subscribe( (data) => {
-          if ((sentence_array.length - sentence_number === 1) && this.isLastSet) {
-            this.index = 0;
-            this.firstSentence = false;
+      .subscribe((data) => {
+        if ((sentence_array.length - sentence_number === 1) && this.isLastSet) {
+          this.index = 0;
+          this.firstSentence = false;
+          this.sentencesPageInUrl = 0;
+          this.sentenceInfo(this.sentencesPageInUrl);    // call next set of sentences
+        } else if (sentence_array.length - sentence_number <= Math.ceil(this.NO_OF_SENTENCES_RECEIVED / 2)) {
+          this.index = 0;
+          this.firstSentence = false;
+          if (this.isLastSet) {
             this.sentencesPageInUrl = 0;
-            this.sentenceInfo(this.sentencesPageInUrl);    // call next set of sentences
-          } else if (sentence_array.length - sentence_number <= Math.ceil(this.NO_OF_SENTENCES_RECEIVED / 2)) {
-            this.index = 0;
-            this.firstSentence = false;
-            if (this.isLastSet) {
-              this.sentencesPageInUrl = 0;
-            } else {
-              this.sentencesPageInUrl++;
-            }
-            this.sentenceInfo(this.sentencesPageInUrl);    // call next set of sentences
+          } else {
+            this.sentencesPageInUrl++;
           }
-          this.updateBadgesValue();
-          this.difficultyBarUpdate();
-        },
+          this.sentenceInfo(this.sentencesPageInUrl);    // call next set of sentences
+        }
+        this.updateBadgesValue();
+        this.difficultyBarUpdate();
+      },
         (error) => {
 
         }
       );
-      this.storeUserResponse();
+    this.storeUserResponse();
   }
 
   getScoreVariablesValue() {
@@ -277,7 +304,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
     this.IBGameUserScore.level = userData[1];
     this.IBGameUserScore.score = userData[2];
     this.IBGameUserScore.streak = userData[3];
-    this.IBGameUserScore.time  = userData[4];
+    this.IBGameUserScore.time = userData[4];
     this.IBGameUserScore.words_hidden = userData[5];
 
     this.IBGameUserResponse.sentence = userData[6];
@@ -286,15 +313,15 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
 
   storeUserResponse() {
     this.gameAuthService.ibGameStoreUserResponseInfo(this.IBGameUserResponse)
-      .subscribe( (data) => {
+      .subscribe((data) => {
       },
-      (error) => {
+        (error) => {
 
-      });
+        });
   }
 
   onHintClick() {
-      this.gamePlayService.hintsIBGame();
+    this.gamePlayService.hintsIBGame();
   }
 
   nextSentenceClicked() {
@@ -303,7 +330,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
 
   checkUserResponse(response: any) {
     const correctResponse = ibGameCorrectResponse();
-    if ( response === correctResponse) {
+    if (response === correctResponse) {
       this.IBGameUserResponse.user_response = true;
       this.no_correct_responses++;
     } else if (response !== correctResponse) {
@@ -322,8 +349,8 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
 
   updateBadgesValue() {
     this.allBadgesInfo = this.badgesService.getBadgesInfo(this.BRONZE_CONSTANT,
-                              this.SILVER_CONSTANT, this.GOLD_CONSTANT,
-                              this.no_correct_responses);
+      this.SILVER_CONSTANT, this.GOLD_CONSTANT,
+      this.no_correct_responses);
     this.bronzeNumber = this.allBadgesInfo.bronzeBadges;
     this.silverNumber = this.allBadgesInfo.silverBadges;
     this.goldNumber = this.allBadgesInfo.goldBadges;
@@ -349,28 +376,37 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   }
 
   // this is for checking if the grid can be formed by using the given sentences
-  findValidSentence () {
+  findValidSentence() {
     this.getAllSentences(0);
   }
 
   getAllSentences(pageNumber: number) {
     let grid_formed;
     this.gameAuthService.ibGameGetSentencesInfo(pageNumber, 31)     // here 31 is the page size
-    .subscribe( (data) => {
-      let i = 0;
-      while (data.results[i]) {
-        grid_formed = ibGameMakeGridArray(data.results[i].sentence_text);
-        i++;
-      }
-      if (data.next != null) {
-        pageNumber = pageNumber + 1;
-        this.getAllSentences(pageNumber);
-      }
-    });
+      .subscribe((data) => {
+        let i = 0;
+        while (data.results[i]) {
+          grid_formed = ibGameMakeGridArray(data.results[i].sentence_text);
+          i++;
+        }
+        if (data.next != null) {
+          pageNumber = pageNumber + 1;
+          this.getAllSentences(pageNumber);
+        }
+      });
   }
 
   ngOnDestroy() {
     clearInterval(inactivity_check_interval);
+  }
+  tooltipShow() {
+    if (this.showToolTip.disabled) {
+      this.showToolTip.disabled = false;
+    }
+    this.showToolTip.position = 'above';
+    this.showToolTip.showDelay = 100;
+    this.showToolTip.hideDelay = 1000;
+    this.showToolTip.toggle();
   }
 
 }

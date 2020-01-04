@@ -1,38 +1,35 @@
 <div class="container-fluid justify-content-center" id="main_div" #ibgameDiv>
-	<div class="ibGame-page py-0 center-element justify-content-center">
-    
+  <div class="ibGame-page py-0 center-element justify-content-center">
+
     <div class="h-100 mx-auto" id="game_main_div">
       <div class="row game-first-page justify-content-center align-items-start">
         <img id="frontpage-image"
-          src="../../../../../../assets/games/interpretation_bias_game/images/frontpage_image.png"
-          class="col mt-5">
+          src="../../../../../../assets/games/interpretation_bias_game/images/frontpage_image.png" class="col mt-5">
       </div>
     </div>
-      
-<!-- GAME PLAY - START -->
+
+    <!-- GAME PLAY - START -->
     <div class="landscape-msg text-center">
       Play in portrait mode for better experience.
     </div>
-    <div class="row game py-1 d-none mx-auto" >
-        <!-- for score and timer info -->
-      <div id="score-col" 
-        class="score-col col-2 pb-0 changes-width d-none border-bottom border-light">   
+    <div class="row game py-1 d-none mx-auto">
+      <!-- for score and timer info -->
+      <div id="score-col" class="score-col col-2 pb-0 changes-width d-none border-bottom border-light">
         <div class="row d-flex small-font" style="margin-top: 1%">
-          <div id="score_info" class="d-inline justify-content-start score_info" > <b>Score:
-            <div id="score" class="d-inline score"></div> </b>
-          </div> 
+          <div id="score_info" class="d-inline justify-content-start score_info"> <b>Points:
+              <div id="score" class="d-inline score"></div> </b>
+          </div>
           <div class="showTimer justify-content-end ml-auto" id="showTimer">
             <div class="d-inline">
-              <img class="clock mr-2" 
-                  id="ibgame-clock-png"
-                  src="../../../../../../assets/games/time_transparent.png">
-              <img class="clock mr-2 d-none"
-                  id="ibgame-clock-gif"
-                  src="../../../../../../assets/games/interpretation_bias_game/images/Group 1919.gif">
+              <img class="clock mr-2" id="ibgame-clock-png" src="../../../../../../assets/games/time_transparent.png">
+              <img class="clock mr-2 d-none" id="ibgame-clock-gif"
+                src="../../../../../../assets/games/interpretation_bias_game/images/Group 1919.gif">
             </div>
-            <b><div class="d-inline-block countdown ml-2" id="countdown"></div></b>
-          </div> 
-        </div>  
+            <b>
+              <div class="d-inline-block countdown ml-2" id="countdown"></div>
+            </b>
+          </div>
+        </div>
         <div class="row mt-2 align-items-end">
           <div class="col-2 px-1 barsDiv smallest-font w-75 justify-content-start">
             <div class="float-left">
@@ -41,9 +38,7 @@
             <div class="float-right pr-1">
               {{goldNumber}}
             </div>
-            <mat-progress-bar class="goldBar"
-              mode="determinate" 
-              [value]="goldValue">
+            <mat-progress-bar class="goldBar" mode="determinate" [value]="goldValue">
             </mat-progress-bar>
           </div>
           <div class="col-2 px-1 barsDiv smallest-font w-75 justify-content-start">
@@ -53,9 +48,7 @@
             <div class="float-right pr-1">
               {{silverNumber}}
             </div>
-            <mat-progress-bar class="silverBar"
-              mode="determinate" 
-              [value]="silverValue">
+            <mat-progress-bar class="silverBar" mode="determinate" [value]="silverValue">
             </mat-progress-bar>
           </div>
           <div class="col-2 px-1 barsDiv smallest-font w-75 justify-content-start">
@@ -65,12 +58,10 @@
             <div class="float-right pr-1">
               {{bronzeNumber}}
             </div>
-            <mat-progress-bar class="bronzeBar"
-              mode="determinate" 
-              [value]='bronzeValue'>
+            <mat-progress-bar class="bronzeBar" mode="determinate" [value]='bronzeValue'>
             </mat-progress-bar>
           </div>
-          
+
           <div class="col"></div>
           <div class="col-3 px-1 smallest-font ">
             <div class="row px-0">
@@ -81,11 +72,8 @@
                 hard
               </div>
             </div>
-            <div class="row border border-dark rounded difficultyBarIBG" >
-              <mat-progress-bar
-                class=" my-auto"
-                mode="determinate" 
-                [value]="difficultyValue">
+            <div class="row border border-dark rounded difficultyBarIBG">
+              <mat-progress-bar class=" my-auto" mode="determinate" [value]="difficultyValue">
               </mat-progress-bar>
             </div>
           </div>
@@ -96,214 +84,198 @@
         <div class="row w-100 sentence-row justify-content-center small-font d-none">
           <div class="col w-100 stars-sen">
             <div class="stars text-center">
-              <p id="stars" style="letter-spacing: 1.5px" ></p>
+              <p id="stars" style="letter-spacing: 1.5px"></p>
             </div>
           </div>
         </div>
-          
+
         <!-- GRID -->
         <div class="row w-100 canvas-row align-center changes-width d-none">
           <div class="col w-100" id="canvas-div">
-            <div class="col tip my-1 center-element w-100" >
+            <div class="col tip my-1 center-element w-100">
               <div class="center-element">
                 <div class="text tip-text smallest-font d-inline" id="tip-text">
                 </div>
-                <img
-                  class="d-none"
-                  id="hint-img-tip"
-                  style="height: 19px"
+                <img class="d-none" id="hint-img-tip" style="height: 19px"
                   src="../../../../../../assets/games/hint.png">
               </div>
-            </div> 
+            </div>
             <div class="col w-100 h-100">
               <div class="px-1 float-left" style="height: 84%;width: 4.5%;">
-                <div class="row mx-auto pb-0 pt-2 w-100" 
-                  *ngFor="let ind of getArray(No_progress_bars); let i = index;let first=first" 
-                  #progressBar 
-                  [ngClass]="{
+                <div class="row mx-auto pb-0 pt-2 w-100"
+                  *ngFor="let ind of getArray(No_progress_bars); let i = index;let first=first" #progressBar [ngClass]="{
                       'progressBar': updateProgressBar(progressBar),
                       'firstBar': first === true
                     }">
-                  <div class="h-100 w-100 progress progress-bar-vertical" 
-                    [attr.id]="'ibg-pBar' + (i+1)">
-                    <div class="w-100 progress-bar" role="progressbar" 
-                      aria-valuenow="30" 
-                      aria-valuemin="0" aria-valuemax="100">
+                  <div class="h-100 w-100 progress progress-bar-vertical" [attr.id]="'ibg-pBar' + (i+1)">
+                    <div class="w-100 progress-bar" role="progressbar" aria-valuenow="30" aria-valuemin="0"
+                      aria-valuemax="100">
                     </div>
                   </div>
                 </div>
               </div>
               <div class="col">
-                <canvas id="canvas" class="rounded" ></canvas>
-              </div>            
+                <canvas id="canvas" class="rounded"></canvas>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="col hints-col mt-auto d-none" >
+      <div class="col hints-col mt-auto d-none">
         <!-- CONTROLS -->
         <div class="row h-100 changes-width justify-content-end">
           <mat-menu #ibgHints="matMenu" xPosition="after" yPosition="above">
             <div class="hints-menu h-100"
               [ngStyle]="{'max-width': '250px', 'min-width': '200px', 'max-height': '50vh'}">
-              
-              <button id="showWord" *ngIf="showAllHints"
-                [ngStyle]="{'min-height': '65px'}"
+
+              <button id="showWord" *ngIf="showAllHints" [ngStyle]="{'min-height': '65px'}"
                 class="btn-hint px-2 showWord w-100 btn bg-white text-center small-font">
-                  Show a word<br>
-                  <span id="showWordCost" class="w-100 smallest-font text-secondary">
-                    Cost:  {{wordHintCost}} 
-                  </span>
+                Show a word<br>
+                <span id="showWordCost" class="w-100 smallest-font text-secondary">
+                  Cost: {{wordHintCost}}points
+                </span>
               </button>
-              <button id="showCoordinates"
-                [ngStyle]="{'min-height': '65px'}"
-                class="btn-hint px-2 showCoordinates w-100 btn bg-white text-center small-font">
-                  Get position of first letter of a word<br>
-                  <span id="showCoordCost" class="w-100 smallest-font text-secondary">
-                    Cost:  {{coordHintCost}} 
-                  </span>
+              <button id="showCoordinates" [ngStyle]="{'min-height': '65px'}"
+                class="btn-hint px-2 showCoordinates w-100 btn bg-white text-center small-font" #tooltip="matTooltip"
+                matTooltipDisabled matTooltip={{tooltipData}}>
+                Get position of first letter of a word<br>
+                <span id="showCoordCost" class="w-100 smallest-font text-secondary">
+                  Cost: {{coordHintCost}}points
+                </span>
               </button>
-              <button id="increase_time" 
-                [ngStyle]="{'min-height': '65px'}"
-                class="btn-hint px-2 increase_time text-center w-100 btn bg-white small-font">
+              <button id="increase_time" [ngStyle]="{'min-height': '65px'}"
+                class="btn-hint px-2 increase_time text-center w-100 btn bg-white small-font" #tooltip="matTooltip"
+                matTooltipDisabled matTooltip={{tooltipData}}>
                 Add 20s to the clock<br />
                 <span id="addTimeCost" class="w-100 smallest-font text-secondary">
-                  Cost:  {{timeHintCost}} 
+                  Cost: {{timeHintCost}}points
                 </span>
               </button>
             </div>
-              
+
           </mat-menu>
-        
-          <div class="col w-100 px-2 h-100 hint-div mx-0" >
-            <button mat-icon-button [matMenuTriggerFor]="ibgHints"
-              class="float-left h-100">
-              <img class="img-btn my-0 align-bottom"
-                (click) = "onHintClick()"
-                src="../../../../../assets/games/hint.png">
+
+          <div class="col w-100 px-2 h-100 hint-div mx-0">
+            <button mat-icon-button [matMenuTriggerFor]="ibgHints" class="float-left h-100">
+              <img class="img-btn my-0 align-bottom" (click)="onHintClick()" src="../../../../../assets/games/hint.png">
             </button>
             <div id="showWordResult" class="px-1 h-100 d-none smallest-font ">
               <div id="aWord" class="h-100 pr-2 pt-3 "></div>
-            </div> 
+            </div>
             <div id="showCoordResult" class="px-1 h-100 d-none smallest-font">
               <div id="wordCoordinates" class="h-100 py-2 pl-4"></div>
-            </div> 
+            </div>
           </div>
         </div>
       </div>
-  <!-- GAME OVER (Time's up screens)-->
+      <!-- GAME OVER (Time's up screens)-->
       <div class="col h-75 game-over-row d-none">
         <div class="h-100 d-flex flex-row justify-content-center game-over-flex-row d-none">
-          <div id="timeup1" class="timeup1 d-none mt-4 mb-auto py-4 rounded px-2"
-            style="max-width: 90%">
+          <div id="timeup1" class="timeup1 d-none mt-4 mb-auto py-4 rounded px-2" style="max-width: 90%">
             <div class="row justify-content-center">
-              <div class="text-dark large-font"><b> Time's Up!</b></div>
+              <div class="text-dark large-font"><b> Time's up!</b></div>
             </div>
             <div class="row my-2 py-2">
               <div class="col-3">
-                <img id="btn-try-again"
-                  class="btn-try-again img-btn cursor-pointer "
+                <img id="btn-try-again" class="btn-try-again img-btn cursor-pointer "
                   src="../../../../../assets/games/replay.png">
               </div>
               <div class="col-8 text-left py-2">
                 <p class="medium-font btn-try-again cursor-pointer ">Replay </p>
               </div>
             </div>
-            <div class="row my-2 py-2">
+            <div class="row my-2 py-2" #tooltip="matTooltip" matTooltipDisabled matTooltip={{tooltipData}}>
               <div class="col-3 ">
-                <img id="btn-borrow-time" 
-                  class="btn-borrow-time img-btn cursor-pointer "
+                <img id="btn-borrow-time" class="btn-borrow-time img-btn cursor-pointer "
                   src="../../../../../assets/games/time.png">
               </div>
               <div class="col-8 text-left">
                 <p class="medium-font btn-borrow-time cursor-pointer ">
-                  Add 20s to the clock for 20 points </p>
+                  Add 20s to the clock for {{borrow_time_score}} points </p>
               </div>
             </div>
-            <div class="row my-2 py-2">
+            <div class="row my-2 py-2" #tooltip="matTooltip" matTooltipDisabled matTooltip={{tooltipData}}>
               <div class="col-3">
-                <img id="btn-other-sentence"
-                  class="btn-other-sentence img-btn cursor-pointer "
-                  (click) = 'storeUserScoreInfo(false)'
-                  src="../../../../../assets/games/forward.png">
+                <img id="btn-other-sentence" class="btn-other-sentence img-btn cursor-pointer "
+                  (click)='storeUserScoreInfo(false)' src="../../../../../assets/games/forward.png">
               </div>
               <div class="col-8 text-left">
                 <p class="medium-font btn-other-sentence cursor-pointer ">
-                  Go to the next sentence for 100 points</p>
+                  Go to the next sentence for {{btn_other_sentence_score}} points</p>
               </div>
             </div>
           </div>
-        
-          <div  id="timeup2" class="timeup2 d-none mt-4 mb-auto py-4 rounded px-2"
-          style="max-width: 90%">
+
+          <div id="timeup2" class="timeup2 d-none mt-4 mb-auto py-4 rounded px-2" style="max-width: 90%">
             <div class="row justify-content-center">
-              <div class="text-dark large-font"><b> Time's Up!</b></div>
+              <div class="text-dark large-font"><b> Time's up!</b></div>
             </div>
             <div class="row my-2 py-2">
               <div class="col-3">
-                <img id="btn-give-up" 
-                  class="btn-give-up col img-btn cursor-pointer "
+                <img id="btn-try-again" class="btn-try-again img-btn cursor-pointer "
+                  src="../../../../../assets/games/replay.png">
+              </div>
+              <div class="col-8 text-left py-2">
+                <p class="medium-font btn-try-again cursor-pointer ">Replay </p>
+              </div>
+            </div>
+            <div class="row my-2 py-2" #tooltip="matTooltip" matTooltipDisabled matTooltip={{tooltipData}}>
+              <div class="col-3">
+                <img id="btn-give-up" class="btn-give-up col img-btn cursor-pointer "
                   src="../../../../../assets/games/interpretation_bias_game/images/show_sentence.svg">
               </div>
               <div class="col-8 text-left">
-                <p class="medium-font btn-give-up cursor-pointer " >
-                  Show the sentence for 35 points </p>
+                <p class="medium-font btn-give-up cursor-pointer ">
+                  Show the sentence for {{btn_give_up_score}} points </p>
               </div>
             </div>
-            <div class="row my-2 py-2">
+            <div class="row my-2 py-2" #tooltip="matTooltip" matTooltipDisabled matTooltip={{tooltipData}}>
               <div class="col-3">
-                <img id="btn-borrow-time-again" 
+                <img id="btn-borrow-time-again"
                   class="btn-borrow-time-again col justify-content-center cursor-pointer img-btn"
                   src="../../../../../assets/games/time.png">
               </div>
               <div class="col-8 text-left">
                 <p class="medium-font btn-borrow-time-again cursor-pointer ">
-                  Add 20s to the clock for 30 points </p>
+                  Add 20s to the clock for {{borrow_time_again_score}} points </p>
               </div>
             </div>
           </div>
         </div>
       </div>
-        
-  <!-- MAIN TRAINING -->
+
+      <!-- MAIN TRAINING -->
       <div class="col h-75 sentence-word-row d-none">
         <div class="h-100 row justify-content-center">
-            <p id="congrats-msg" 
-              class="congrats-msg my-auto medium-font text-center d-none"> 
-              Great! Now you will see the whole sentence.  </p>
+          <p id="congrats-msg" class="congrats-msg my-auto medium-font text-center d-none">
+            Great! Now you will see the whole sentence. </p>
 
-          <div id="lastPage" 
-            class="row w-100 h-100 justify-content-center d-none">
-            <div class="col mt-4 mb-auto py-4 rounded bg-white" 
-              style="max-width: 90%">
+          <div id="lastPage" class="row w-100 h-100 justify-content-center d-none">
+            <div class="col mt-4 mb-auto py-4 rounded bg-white" style="max-width: 90%">
               <div class="row justify-content-center large-font">
-                <p class="d-none text-dark center-element" 
-                    id="correct"> <b> Correct </b> </p>
-                <p class="d-none text-dark center-element" 
-                  id="wrong"> <b> Wrong </b>  </p> 
+                <p class="d-none text-dark center-element" id="correct"> <b> Correct </b> </p>
+                <p class="d-none text-dark center-element" id="wrong"> <b> Wrong </b> </p>
               </div>
               <div class="row">
-                <p class="w-75 medium-font mx-auto" style="color: #636363"
-                  id="sincerity-message"></p>
+                <p class="w-75 medium-font mx-auto" style="color: #636363" id="sincerity-message"></p>
               </div>
               <div class="row justify-content-center medium-font mb-3 mt-2">
                 <p id="bonusScore" style="color: #636363"> </p>
               </div>
               <div class="row">
-                <p class="d-none w-50 rounded text-dark bg-light center-element" 
-                  id="levelup"> Wonderfull!! You have completed the level. 
-                    Let's see your performance in next level. </p>
+                <p class="d-none w-50 rounded text-dark bg-light center-element" id="levelup"> Wonderful!! You have
+                  completed the level.
+                  Let's see your performance in next level. </p>
               </div>
-              <div id="btn-next-sentence" (click)="nextSentenceClicked()" 
-                class="w-50 mx-auto py-3 my-3">
+              <div id="btn-next-sentence" (click)="nextSentenceClicked()" class="w-50 mx-auto py-3 my-3">
                 Next Sentence
               </div>
-            </div> 
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  
+
 </div>
