@@ -461,6 +461,7 @@ $(document).ready(function(){
 		// document.getElementById("score").innerHTML = score;
 		removeAddClassFun();
 		$("#timeup1").addClass("d-none");
+		$("#timeup2").addClass("d-none");
 		startIBGame();
 		isFirstAttempt = false;
 		// countdownReset();
@@ -479,7 +480,6 @@ $(document).ready(function(){
 			ibGameResume();
 			// ibCountdown();
 		}
-		
 	});
 	$(document).on("click",".btn-borrow-time-again", function(ev){
 	//if user had found 15-60% of words and time's up then borrowing time

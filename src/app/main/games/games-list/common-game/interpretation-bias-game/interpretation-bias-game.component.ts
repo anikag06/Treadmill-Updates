@@ -399,11 +399,17 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     clearInterval(inactivity_check_interval);
   }
+
+  forTooltip($event: any) {
+    $event.stopPropagation();
+    //Another instructions
+    this.tooltipShow();
+  }
   tooltipShow() {
     if (this.showToolTip.disabled) {
       this.showToolTip.disabled = false;
     }
-    this.showToolTip.position = 'above';
+    // this.showToolTip.position = 'above';
     this.showToolTip.showDelay = 100;
     this.showToolTip.hideDelay = 1000;
     this.showToolTip.toggle();

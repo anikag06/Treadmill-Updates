@@ -126,8 +126,8 @@
         <!-- CONTROLS -->
         <div class="row h-100 changes-width justify-content-end">
           <mat-menu #ibgHints="matMenu" xPosition="after" yPosition="above">
-            <div class="hints-menu h-100"
-              [ngStyle]="{'max-width': '250px', 'min-width': '200px', 'max-height': '50vh'}">
+            <div class="hints-menu h-100" [ngStyle]="{'max-width': '250px', 'min-width': '200px', 'max-height': '50vh'}"
+              (click)="forTooltip($event);">
 
               <button id="showWord" *ngIf="showAllHints" [ngStyle]="{'min-height': '65px'}"
                 class="btn-hint px-2 showWord w-100 btn bg-white text-center small-font">
@@ -185,7 +185,8 @@
                 <p class="medium-font btn-try-again cursor-pointer ">Replay </p>
               </div>
             </div>
-            <div class="row my-2 py-2" #tooltip="matTooltip" matTooltipDisabled matTooltip={{tooltipData}}>
+            <div class="row my-2 py-2" #tooltip="matTooltip" matTooltipDisabled matTooltip={{tooltipData}}
+              matTooltipPosition='below'>
               <div class="col-3 ">
                 <img id="btn-borrow-time" class="btn-borrow-time img-btn cursor-pointer "
                   src="../../../../../assets/games/time.png">
@@ -195,7 +196,8 @@
                   Add 20s to the clock for {{borrow_time_score}} points </p>
               </div>
             </div>
-            <div class="row my-2 py-2" #tooltip="matTooltip" matTooltipDisabled matTooltip={{tooltipData}}>
+            <div class="row my-2 py-2" #tooltip="matTooltip" matTooltipDisabled matTooltip={{tooltipData}}
+              matTooltipPosition='below'>
               <div class="col-3">
                 <img id="btn-other-sentence" class="btn-other-sentence img-btn cursor-pointer "
                   (click)='storeUserScoreInfo(false)' src="../../../../../assets/games/forward.png">
@@ -220,7 +222,8 @@
                 <p class="medium-font btn-try-again cursor-pointer ">Replay </p>
               </div>
             </div>
-            <div class="row my-2 py-2" #tooltip="matTooltip" matTooltipDisabled matTooltip={{tooltipData}}>
+            <div class="row my-2 py-2" #tooltip="matTooltip" matTooltipDisabled matTooltip={{tooltipData}}
+              matTooltipPosition='below'>
               <div class="col-3">
                 <img id="btn-give-up" class="btn-give-up col img-btn cursor-pointer "
                   src="../../../../../assets/games/interpretation_bias_game/images/show_sentence.svg">
@@ -230,7 +233,8 @@
                   Show the sentence for {{btn_give_up_score}} points </p>
               </div>
             </div>
-            <div class="row my-2 py-2" #tooltip="matTooltip" matTooltipDisabled matTooltip={{tooltipData}}>
+            <div class="row my-2 py-2" #tooltip="matTooltip" matTooltipDisabled matTooltip={{tooltipData}}
+              matTooltipPosition='below'>
               <div class="col-3">
                 <img id="btn-borrow-time-again"
                   class="btn-borrow-time-again col justify-content-center cursor-pointer img-btn"

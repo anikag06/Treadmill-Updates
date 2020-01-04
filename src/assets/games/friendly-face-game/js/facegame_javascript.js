@@ -135,6 +135,7 @@ var ffg_timers; // for storing references to all ffg_timer intervals
 var timeCounter;
 var timer_is_on = 0;
 var ffgExtraTime = false;
+var ffg_extra_points = 20;
 var startPlay = false;
 var ffg_no_life = false;
 // var average_speed;
@@ -303,7 +304,7 @@ ffGResumeGame = function() {
     $("#canvas1").removeClass("block-click");
     if (ffgExtraTime) {
       timeBeingShown = 20;
-      ffg_score -= 20;
+      ffg_score -= ffg_extra_points;
       document.getElementById("score-num").innerHTML = ffg_score;
       ffgExtraTime = false;
     }
