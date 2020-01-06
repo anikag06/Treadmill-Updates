@@ -1,4 +1,4 @@
-<mat-card class="container-fluid px-0 pt-0 pb-2 mb-2" appCustomOverlay>
+<mat-card class="container-fluid px-0 pt-0 pb-2 mb-2">
   <div class="row mb-2 no-gutters">
     <mat-card-header class="col-12 w-100 px-0 card-header main-heading">
       <mat-card-title class="ml-4 my-auto d-inline-block">
@@ -18,7 +18,7 @@
 
       <mat-menu #beforeMenu="matMenu" xPosition="before" yPosition="below">
         <div [ngStyle]="{'max-height':'350px'}">
-          <app-forms-sidebar (objectEmitter)="taskSelected($event)" (newForm)="onAddNewForm()">
+          <app-forms-sidebar (objectEmitter)="taskSelected($event)" (newForm)="onAddNewForm()" [task]="task">
           </app-forms-sidebar>
         </div>
       </mat-menu>

@@ -25,7 +25,9 @@ import {
   MatSidenavModule,
   MatSlideToggleModule,
   MatToolbarModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatSnackBarModule,
+  MatExpansionModule,
 } from "@angular/material";
 import { MatMomentDateModule } from "@angular/material-moment-adapter";
 import { AngularEditorModule } from "@xw19/angular-editor";
@@ -62,10 +64,7 @@ import { UserFeedbackComponent } from "./shared/user-feedback/user-feedback.comp
 import { FormDirective } from "./slides/form.directive";
 import { SlideService } from "./slides/slide.service";
 import { SlidesComponent } from "./slides/slides.component";
-import { CustomOverlayDirective } from "../shared/custom-dialog/custom-overlay.directive";
-import { DialogContainerComponent } from "../shared/custom-dialog/dialog-container/dialog-container.component";
-import { DialogBoxService } from "../shared/custom-dialog/dialog-box.service";
-import { DialogBoxChildDirective } from "../shared/custom-dialog/dialog-container/dialog-box-child.directive";
+import { ClickOutsideDirective } from '../shared/click-outside/click-outside.directive';
 
 @NgModule({
   declarations: [
@@ -106,9 +105,7 @@ import { DialogBoxChildDirective } from "../shared/custom-dialog/dialog-containe
     EttbfOutcomeComponent,
     FormSliderComponent,
     DateTimePickerComponent,
-    CustomOverlayDirective,
-    DialogContainerComponent,
-    DialogBoxChildDirective
+    ClickOutsideDirective
   ],
   imports: [
     ResourcesRoutingModule,
@@ -129,7 +126,9 @@ import { DialogBoxChildDirective } from "../shared/custom-dialog/dialog-containe
     MatMomentDateModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatSnackBarModule,
+    MatExpansionModule
   ],
   providers: [
     SlideService,
@@ -137,22 +136,17 @@ import { DialogBoxChildDirective } from "../shared/custom-dialog/dialog-containe
     StepsDataService,
     IntroductionService,
     ConclusionService,
-    DialogBoxService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [
     CongratsDialogComponent,
     ProblemFormComponent,
     ProblemSolvingWorksheetsComponent,
-    DialogContainerComponent,
     DateTimePickerComponent
   ],
   exports: [
     DateTimePickerComponent,
-    DialogContainerComponent,
-    CustomOverlayDirective,
-    DialogContainerComponent,
-    DialogBoxChildDirective,
+    ClickOutsideDirective
   ]
 })
 export class ResourcesModule {}

@@ -20,11 +20,9 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
     for (let i = 0; i < tabLabel.length; i++) {
       tabLabel[i].setAttribute('style', 'min-width: 80px;height:40px;opacity:1');
     }
-    
-    if(window.innerWidth < MOBILEWIDTH){
       const headerText = this.element.nativeElement.querySelectorAll('.mat-card-header-text');
       headerText[0].setAttribute('style','margin: 0px');
-    }
+ 
 
   }
 

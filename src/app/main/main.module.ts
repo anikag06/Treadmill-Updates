@@ -119,10 +119,10 @@ import { IbGameInstructionsComponent } from './games/games-list/common-game/inte
 import { IbMainTrainingComponent } from './games/games-list/common-game/interpretation-bias-game/ib-main-training/ib-main-training.component';
 // tslint:disable-next-line: max-line-length
 import { IbTrainingDataService } from '@/main/games/games-list/common-game/interpretation-bias-game/ib-main-training/ib-training-data.service';
-// import { CustomOverlayDirective } from './shared/custom-dialog/custom-overlay.directive';
-// import { DialogContainerComponent } from './shared/custom-dialog/dialog-container/dialog-container.component';
-// import { DialogBoxService } from './shared/custom-dialog/dialog-box.service';
-// import { DialogBoxChildDirective } from './shared/custom-dialog/dialog-container/dialog-box-child.directive';
+import { CustomOverlayDirective } from './shared/custom-dialog/custom-overlay.directive';
+import { DialogContainerComponent } from './shared/custom-dialog/dialog-container/dialog-container.component';
+import { DialogBoxService } from './shared/custom-dialog/dialog-box.service';
+import { DialogBoxChildDirective } from './shared/custom-dialog/dialog-container/dialog-box-child.directive';
 // tslint:disable-next-line: max-line-length
 import { ExecControlInstructionsComponent } from './games/games-list/common-game/executive-control-game/exec-control-instructions/exec-control-instructions.component';
 // tslint:disable-next-line: max-line-length
@@ -138,7 +138,6 @@ import { UserProfileComponent } from './shared/user-profile/user-profile.compone
 import { UserProfileService } from './shared/user-profile/userProfile.service';
 import { BadgesComponent } from './shared/user-profile/badges/badges.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { ClickOutsideDirective } from './support-groups/post-list/post-item/click-outside.directive';
 import { MoodTrackerComponent } from './shared/mood-tracker/mood-tracker.component';
 import { QuestionnaireModule } from '@/questionnaire.module';
 import { GetQuestionnaireComponent } from './dashboard/get-questionnaire/get-questionnaire.component';
@@ -235,9 +234,9 @@ import { ResourcesModule } from './resources/resources.module';
     NotificationItemComponent,
     IbGameInstructionsComponent,
     IbMainTrainingComponent,
-    // CustomOverlayDirective,
-    // DialogContainerComponent,
-    // DialogBoxChildDirective,
+    CustomOverlayDirective,
+    DialogContainerComponent,
+    DialogBoxChildDirective,
     ExecControlInstructionsComponent,
     MiWinComponent,
     EcgScienceComponent,
@@ -248,7 +247,6 @@ import { ResourcesModule } from './resources/resources.module';
     LhgScienceComponent,
     UserProfileComponent,
     BadgesComponent,
-    ClickOutsideDirective,
     GetQuestionnaireComponent,
     IdcAllSituationsComponent,
     IdcHeadingComponent,
@@ -277,8 +275,7 @@ import { ResourcesModule } from './resources/resources.module';
     LoadingBarComponent,
     LoadingBarDirective,
     LhgGreatComponent,
-    MoodTrackerComponent,
-   
+    MoodTrackerComponent
   ],
   imports: [
     CommonModule,
@@ -338,12 +335,12 @@ import { ResourcesModule } from './resources/resources.module';
     NavbarNotificationsService,
     GamesBadgesService,
     IbTrainingDataService,
-    // DialogBoxService,
+    DialogBoxService,
     ExecControlHelpService,
     UserProfileService,
     IdcGameService,
     LoadingBarService,
-    StepsDataService,
+    StepsDataService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [
@@ -353,7 +350,7 @@ import { ResourcesModule } from './resources/resources.module';
     NavbarNotificationsComponent,
     IbGameInstructionsComponent,
     IbMainTrainingComponent,
-    // DialogContainerComponent,
+    DialogContainerComponent,
     ExecControlInstructionsComponent,
     MiInstructionsComponent,
     MiWinComponent,
@@ -376,7 +373,7 @@ import { ResourcesModule } from './resources/resources.module';
     FfgPlayagainComponent,
     FfgNolifeComponent,
     LoadingBarComponent,
-    MoodTrackerComponent,
-  ],
+    MoodTrackerComponent
+  ]
 })
 export class MainModule {}

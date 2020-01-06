@@ -33,6 +33,9 @@
       border-radius: 50%;
       background: transparent 0% 0% cover padding-box;
     }
+    .points{
+      flex-wrap: inherit;
+    }
   }
   .box-blue {
     height: 11px;

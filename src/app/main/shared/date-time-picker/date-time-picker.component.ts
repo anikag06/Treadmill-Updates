@@ -1,12 +1,16 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, OnChanges, OnInit, Output } from '@angular/core';
-import { Day } from './day.model';
+import { WEEK } from "@/app.constants";
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Inject, OnChanges, OnInit, Optional, Output } from "@angular/core";
+import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
+import * as moment from "moment";
+import { Day } from "./day.model";
+import {DateTimePickerService} from "./date-time-picker.service"
 
 @Component({
-  selector: 'app-date-time-picker',
-  templateUrl: './date-time-picker.component.html',
-  styleUrls: ['./date-time-picker.component.scss'],
+  selector: "app-date-time-picker",
+  templateUrl: "./date-time-picker.component.html",
+  styleUrls: ["./date-time-picker.component.scss"],
 
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DateTimePickerComponent
   implements OnInit, AfterViewInit, OnChanges {
@@ -16,37 +20,65 @@ export class DateTimePickerComponent
   public endDate: Date = new Date();
   public startAt: Date = new Date();
   @Output() dateTimeMessage = new EventEmitter();
+  @Output() taskFormDateTime = new EventEmitter();
   public startEndDate: Date[] = [];
   public showDays = false;
-  public days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  public formDataDays: string[] = [];
   public daysCircle: Day[] = [];
   @Output() dateTimeSubmit = new EventEmitter<any>();
+  public formDateTime: any[] = [];
 
-  constructor(private element: ElementRef) {}
-
-  ngOnInit() {
-    this.days.forEach(day => {
-      let newDay = new Day(day[0], true);
+  constructor(
+    private element: ElementRef,
+    public dialogRef: MatDialogRef<DateTimePickerComponent>,
+    private dateTimePickerService: DateTimePickerService,
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: any
+  ) {
+    
+    WEEK.forEach(day => {
+      let newDay = new Day(day, true);
       this.daysCircle.push(newDay);
     });
+
+    if (data) {
+      let utcDate = data.end_date + " " + data.time;
+      let gmtDateTime = moment.utc(utcDate, "hh:mm");
+      let localTime = gmtDateTime.local().format("hh:mm A");
+
+      
+      this.startEndDate.push(new Date(data.startDate + " " + localTime));
+      this.startEndDate.push(new Date(data.endDate + " " + localTime));
+
+      if (data.days) {
+        let indexArray: number[] = [];
+        data.days.forEach((day: string) => {
+          if (WEEK.indexOf(day) > -1) {
+            indexArray.push(WEEK.indexOf(day));
+          }
+        });
+        this.daysCircle.forEach((dayCircle: Day, index) => {
+          if (indexArray.indexOf(index) < 0) {
+            this.daysCircle[index].selected = false;
+          }
+        });
+      }
+    }
   }
+
+  ngOnInit() {}
 
   ngAfterViewInit() {
     let dateTimepicker = this.element.nativeElement.querySelectorAll(
-      '.owl-dt-inline-container',
+      ".owl-dt-inline-container"
     );
     let removeFromToDate = this.element.nativeElement.querySelectorAll(
-      '.owl-dt-container-info',
+      ".owl-dt-container-info"
     );
-    dateTimepicker[0].setAttribute('style', 'box-shadow:none');
-    removeFromToDate[0].setAttribute('style', 'display:none');
+    dateTimepicker[0].setAttribute("style", "box-shadow:none");
+    removeFromToDate[0].setAttribute("style", "display:none");
   }
 
   ngOnChanges() {
-    let selectedDates = this.element.nativeElement.querySelectorAll(
-      '.owl-dt-calendar-table .owl-dt-calendar-cell-today:not(.owl-dt-calendar-cell-selected)',
-    );
-    selectedDates[0].setAttribute('style', 'background-color: #00BDDE');
   }
 
   onShowDays() {
@@ -61,61 +93,44 @@ export class DateTimePickerComponent
   }
 
   dateTimeMessageSubmit() {
-    let fromDate: string;
-    let toDate: string;
-    let date: string;
+    this.formDateTime.push(this.startEndDate[0], this.startEndDate[1]);
 
-    fromDate =
-      this.startEndDate[0].getDate().toString() +
-      '-' +
-      (this.startEndDate[0].getMonth() + 1).toString() +
-      '-' +
-      this.startEndDate[0]
-        .getUTCFullYear()
-        .toString()
-        .substr(-2);
-    toDate =
-      this.startEndDate[1].getDate().toString() +
-      '-' +
-      (this.startEndDate[0].getMonth() + 1).toString() +
-      '-' +
-      this.startEndDate[1]
-        .getUTCFullYear()
-        .toString()
-        .substr(-2);
+    let utcTime = this.dateTimePickerService.getUTCTime(this.startEndDate[0]);
 
-    date = 'Date:' + fromDate + ' to ' + toDate;
+    this.formDateTime.push(utcTime);
 
-    let time = this.startEndDate[1].getHours();
+    this.formDateTime.push(this.formDataDays);
 
-    let ampm = time >= 12 ? ' pm' : ' am';
-    let timeIn12 = '';
-    if (time > 12) {
-      time %= 12;
-      timeIn12 = '0' + time.toString();
-    } else {
-      timeIn12 = time.toString();
-    }
-    let minutes = this.startEndDate[1].getMinutes();
-    let minutes_str = minutes.toString();
-    if (minutes < 10) {
-      minutes_str = '0' + minutes_str;
-    }
+    let date = this.dateTimePickerService.getDateRange(this.startEndDate[0], this.startEndDate[1]);
+    let hourMinute = this.dateTimePickerService.getTimeAmPm(this.startEndDate[0]);
 
-    let hourMinute = 'Time:' + timeIn12 + ':' + minutes_str + ampm;
-
-    let repeat = 'Repeat:';
-
-    let repeatedDays: string[] = [];
-    for (let i = 0; i < this.daysCircle.length; i++) {
-      if (this.daysCircle[i].selected) {
-        repeatedDays.push(this.days[i]);
-      }
-    }
-    repeat += repeatedDays.join(',');
-    let chatDateTimeMessage = date + '<br/>' + hourMinute + '<br/>' + repeat;
+    let repeat = this.getRepeatedDays(this.daysCircle);
+    let chatDateTimeMessage = date + "<br/>" + hourMinute + "<br/>" + repeat;
     this.closeModal();
     this.dateTimeMessage.emit(chatDateTimeMessage);
     this.dateTimeSubmit.emit();
+    let fromDateTimeData = {
+      dateTime: this.formDateTime,
+      showDateTimePicker: false
+    };
+    console.log(this.startEndDate);
+    
+    console.log(this.formDateTime);
+    
+    this.dialogRef.close({ event: "close", data: fromDateTimeData });
   }
+
+  getRepeatedDays(days: Day[]): string {
+    let repeatedDays: string[] = [];
+    for (let i = 0; i < days.length; i++) {
+      if (days[i].selected) {
+        repeatedDays.push(WEEK[i]);
+        this.formDataDays.push(WEEK[i]);
+      }
+    }
+    let repeat = "Repeat:";
+    repeat += repeatedDays.join(",");
+    return repeat;
+  }
+
 }
