@@ -21,16 +21,18 @@
     <div class="support-profile-card" *ngIf="showProfile">
       <app-user-profile class="support-group" [userProfile]="userProfile"></app-user-profile>
     </div>
-    <div class="col col-sm-2 justify-content-start">
-      <img [src]="supportGroupItem.user.avatar" alt="User avatar" width="50" height="50" class='post-user-avatar'
+    <div class="col-2 justify-content-start">
+      <img [src]="supportGroupItem.user.avatar" alt="User avatar" width="42" height="42" class='post-user-avatar'
         (click)="onShowProfile(supportGroupItem.user.username)">
     </div>
-    <div class="col col-sm-3 justify-content-start">
-      <p class='user-avatar-username mb-0 text-muted'><b>{{supportGroupItem.user.username}}</b></p>
-      <p><span class='post-time text-muted'>{{supportGroupItem.created_at | date: 'medium' | timeAgo }}</span></p>
+    <div class="col justify-content-start">
+      <div class="row no-gutters">
+        <div class="col-3 justify-content-start">
+          <p class='user-avatar-username mb-0'><b>{{supportGroupItem.user.username}}</b></p>
+          <p><span class='post-time text-muted'>{{supportGroupItem.created_at | date: 'medium' | timeAgo }}</span></p>
 
-    </div>
-    <!-- <div class="col-9">
+        </div>
+        <!-- <div class="col-9">
       <div class="main-header">
         <h2>{{supportGroupItem.title}}</h2>
         <p><span class='post-time text-muted'>{{supportGroupItem.created_at | date: 'medium' | timeAgo }}</span></p>
@@ -42,25 +44,27 @@
         </div>
       </div>
     </div> -->
-    <!-- <div class="profile-card"> -->
-    <div class="col scores mr-2 pt-1">
-      <div class='box-blue'></div>
-      <div class="value">{{supportGroupItem.user.score}}</div>
-    </div>
-    <div class="col medal mr-2 pt-1">
-      <div class='circle gold'></div>
-      <div class="value">{{supportGroupItem.user.no_of_gold_badges}}</div>
-    </div>
-    <div class="col medal mr-2 pt-1">
-      <div class='circle silver'></div>
-      <div class="value">{{supportGroupItem.user.no_of_silver_badges}}</div>
-    </div>
-    <div class="col medal mr-2 pt-1">
-      <div class='circle bronze'></div>
-      <div class="value">{{supportGroupItem.user.no_of_bronze_badges}}</div>
+        <!-- <div class="profile-card"> -->
+        <div class="col scores mr-2 pt-1">
+          <div class='box-blue'></div>
+          <div class="value">{{supportGroupItem.user.score}}</div>
+        </div>
+        <div class="col medal mr-2 pt-1">
+          <div class='circle gold'></div>
+          <div class="value">{{supportGroupItem.user.no_of_gold_badges}}</div>
+        </div>
+        <div class="col medal mr-2 pt-1">
+          <div class='circle silver'></div>
+          <div class="value">{{supportGroupItem.user.no_of_silver_badges}}</div>
+        </div>
+        <div class="col medal mr-2 pt-1">
+          <div class='circle bronze'></div>
+          <div class="value">{{supportGroupItem.user.no_of_bronze_badges}}</div>
+        </div>
+      </div>
     </div>
     <!-- </div> -->
-    <div class="col justify-content-end">
+    <div class="col-1 justify-content-end">
       <div class="context-button">
         <button mat-icon-button [matMenuTriggerFor]="menu">
           <mat-icon>more_vert</mat-icon>
@@ -117,7 +121,9 @@
       </app-comment>
     </ng-container>
     <div class="col-12 text-center">
-      <button class="btn btn-sm btn-block btn-primary" type="button" *ngIf="showLoadMore()"
+      <!-- <button class="btn btn-sm btn-block btn-primary" type="button" *ngIf="showLoadMore()"
+        (click)="fetchOrShowComments()"> -->
+      <button type="button" mat-raised-button class="comments-btn" *ngIf="showLoadMore()"
         (click)="fetchOrShowComments()">
         View comments ({{supportGroupItem.comments_count - commentNos }})
       </button>

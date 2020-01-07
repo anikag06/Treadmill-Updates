@@ -1,45 +1,61 @@
 label {
-    color: black !important;
+  color: black !important;
 }
+
 .ng-valid {
-    color: black !important;
+  color: black !important;
 }
+
 h3 {
-    color: #9e3737;
-    font-size: 18px;
+  color: #9e3737;
+  font-size: 18px;
 }
 
 .ng-invalid {
-    .angular-editor {
-        border: 1px solid  #9e3737;
-    }
+  .angular-editor {
+    border: 1px solid #9e3737;
+  }
 }
 
+.submit-btn {
+  width: 100px;
+  color: white;
+  background-color: #2A3B3D;
+}
+
+.close-btn {
+  width: 100px;
+  color: #2A3B3D;
+  background-color: white;
+  border: #2A3B3D;
+}
 
 .error-div {
-    background-color: #feb7b7;
-    padding: 10px;
-    border: 2px dashed #9e3737;
-    border-radius: 5px;
-    ul {
-        color: #9e3737;
-        font-size: 14px;
-        text-transform: capitalize;
-        padding: 0;
-        li {
-            list-style-type: none;
-        }
+  background-color: #feb7b7;
+  padding: 10px;
+  border: 2px dashed #9e3737;
+  border-radius: 5px;
+
+  ul {
+    color: #9e3737;
+    font-size: 14px;
+    text-transform: capitalize;
+    padding: 0;
+
+    li {
+      list-style-type: none;
     }
+  }
 }
 
 @media screen and (max-width: 991px) {
-    .text-md-center {
-        text-align: center;
-    }
+  .text-md-center {
+    text-align: center;
+  }
 }
 
 @media screen and (min-width: 992px) {
-    .text-lg-right {
-        text-align: right;
-    }
+  .text-lg-right {
+    text-align: right;
+  }
 }

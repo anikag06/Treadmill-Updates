@@ -92,7 +92,7 @@ export class CommentComponent
     private errorService: GeneralErrorService,
     private changeDetector: ChangeDetectorRef,
     private userProfileService: UserProfileService,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.user = <User>this.authService.isLoggedIn();
@@ -129,7 +129,7 @@ export class CommentComponent
       }
       try {
         this.changeDetector.detectChanges();
-      } catch (ViewDestroyedError) {}
+      } catch (ViewDestroyedError) { }
     });
   }
 
@@ -267,7 +267,7 @@ export class CommentComponent
     this.commentService
       .voteComment({ comment_id: this.comment.id, vote: 1 })
       .subscribe(
-        () => {},
+        () => { },
         () => {
           this.errorService.openErrorDialog('Cannot Upvote');
           this.comment.is_voted = preVote;
@@ -287,7 +287,7 @@ export class CommentComponent
     }
     this.commentService
       .voteComment({ comment_id: this.comment.id, vote: 0 })
-      .subscribe(() => {}, this.errorService.errorResponse('Cannot down vote'));
+      .subscribe(() => { }, this.errorService.errorResponse('Cannot down vote'));
   }
 
   onReplyClick() {

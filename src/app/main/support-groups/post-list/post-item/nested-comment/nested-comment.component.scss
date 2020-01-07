@@ -1,69 +1,103 @@
+@import "styles.scss";
+@import "../post-item.component.scss";
+
 .nested-comment {
-    padding-top: 10px;
-    padding-left: 10px;
-    margin-bottom: 5px;
-   .user-section {
-       border-left: 5px solid #cccccc;
-        img {
-            border-radius: 50%;
-        }
-   }
-   .date {
-        font-size: 13px;
-   }
-    .btn-sm {
-        padding: 4px;
-        box-shadow: none;
-        font-size: 13px;
-        img {
-            width: 35px;
-            height: 18px;
-        }
+  padding-top: 10px;
+  padding-left: 10px;
+  margin-bottom: 5px;
+
+  .user-section {
+    border-left: 5px solid #cccccc;
+  }
+
+  .user-avatar {
+    img {
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      position: absolute;
+      left: -35px;
+      z-index: 100;
     }
+  }
+
+  .user {
+    font-size: 14px;
+  }
+
+  .date {
+    font-size: 13px;
+  }
+
+  .btn-sm {
+    padding: 4px;
+    box-shadow: none;
+    font-size: 13px;
+
+    img {
+      width: 35px;
+      height: 18px;
+    }
+  }
 }
+
 .nested-comment-profile-card {
-    z-index: 300;
-    position: absolute;
-    text-align: initial;
-    max-width: 500px;
-    margin-left: 120px;
-    max-height: 340px;
-    min-width: 490px;
+  z-index: 300;
+  position: absolute;
+  text-align: initial;
+  max-width: 500px;
+  margin-left: 120px;
+  max-height: 340px;
+  min-width: 490px;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+  .nested-comment-profile-card {
+    max-height: 280px;
+    left: 30px;
+    max-width: 400px;
+    margin-left: 85px;
+    min-width: 390px;
   }
-  @media screen and (min-width: 768px) and (max-width: 1199px) {
-    .nested-comment-profile-card {
-      max-height: 280px;
-      left: 30px;
-      max-width: 400px;
-      margin-left: 85px;
-      min-width: 390px;
-    }
+}
+
+@media screen and (max-width: 767px) {
+  .nested-comment-profile-card {
+    max-width: 450px;
+    min-width: 440px;
+    left: 100px;
+    max-height: 261px;
   }
-  
-  @media screen and (max-width: 767px) {
-    .nested-comment-profile-card {
-      max-width: 450px;
-      min-width: 440px;
-      left: 100px;
-      max-height: 261px;
-    }
-  }
-  
-  @media screen and (max-width: 566px) {
-    .comment {
-      margin-bottom: 10px;
-      border-radius: 8px;
+}
+
+@media screen and (max-width: 566px) {
+  .nested-comment {
+    margin-bottom: 10px;
+    border-radius: 8px;
+
+    .user-avatar {
       img {
         border-radius: 50%;
-        width: 50px;
-        height: 50px;
+        width: 36px;
+        height: 36px;
+        position: absolute;
+        left: -20px;
       }
     }
-    .nested-comment-profile-card{
-      width: 98vw;
-      min-width: 310px;
-      margin-left: 0;
-      left: -45px;
+
+    .user {
+      font-size: 12px;
+    }
+
+    .date {
+      font-size: 10px;
     }
   }
-  
+
+  .nested-comment-profile-card {
+    width: 98vw;
+    min-width: 310px;
+    margin-left: 0;
+    left: -45px;
+  }
+}

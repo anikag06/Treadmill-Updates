@@ -1,28 +1,43 @@
+@import "styles.scss";
+@import "../post-item.component.scss";
+
+
+
 .comment {
   margin-bottom: 10px;
   background-color: #f2f2f2;
   padding: 10px;
   border-radius: 12px;
+  font-size: 14px;
+
   img {
     border-radius: 50%;
     width: 60px;
+    height: 60px;
   }
+
   .user {
     padding-top: 10px;
+
   }
+
   .date {
     font-size: 13px;
   }
+
   .btn {
     box-shadow: none;
+
     img {
       width: 35px;
       height: 18px;
     }
   }
+
   p {
     margin-bottom: 10px;
   }
+
   .btn-sm {
     padding: 4px;
   }
@@ -31,6 +46,7 @@
 a.toggler {
   color: #1a77e2;
   text-decoration: underline;
+
   &:hover {
     color: #1a77e2;
     text-decoration: underline;
@@ -48,8 +64,28 @@ a.toggler {
   max-width: 600px;
   margin-left: 140px;
   max-height: 340px;
-  min-width: 590px; 
+  min-width: 590px;
 }
+
+.cancel-btn {
+  width: 100px;
+  color: #2A3B3D;
+  background-color: white;
+  border: #2A3B3D;
+}
+
+.reply-btn {
+  width: 100px;
+  color: white;
+  background-color: #2A3B3D;
+}
+
+.replies-btn {
+  width: 100px;
+  color: white;
+  background-color: #f4bb56;
+}
+
 @media screen and (min-width: 768px) and (max-width: 1199px) {
   .comment-profile-card {
     max-height: 280px;
@@ -61,7 +97,7 @@ a.toggler {
 }
 
 @media screen and (max-width: 767px) {
-  .comment-profile-card{
+  .comment-profile-card {
     max-width: 450px;
     left: 100px;
     min-width: 440px;
@@ -73,12 +109,23 @@ a.toggler {
   .comment {
     margin-bottom: 10px;
     border-radius: 8px;
+
+    .user {
+      font-size: 12px;
+
+    }
+
+    .date {
+      font-size: 10px;
+    }
+
     img {
       border-radius: 50%;
-      width: 50px;
-      height: 50px;
+      width: 36px;
+      height: 36px;
     }
   }
+
   .comment-profile-card {
     width: 98vw;
     min-width: 315px;

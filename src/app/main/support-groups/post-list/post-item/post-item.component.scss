@@ -6,6 +6,7 @@ a.toggler {
   color: #1a77e2;
   cursor: pointer;
 }
+
 a.toggler:hover {
   text-decoration: underline;
   color: #1a77e2;
@@ -28,16 +29,20 @@ a.toggler:hover {
   margin-bottom: 20px;
   width: 100%;
   max-width: 100%;
+
   .main-header {
     // padding-left: 10px;
   }
+
   .main-content {
     // margin: 0 4%;
   }
+
   .support-profile-card {
     z-index: 300;
     position: absolute;
   }
+
   h2 {
     font-size: 1.3rem;
     font-weight: 700;
@@ -45,16 +50,20 @@ a.toggler:hover {
     max-width: 100%;
     word-break: break-word;
   }
+
   .context-button {
     height: 100%;
     text-align: right;
   }
+
   .post-time {
-    font-size: 0.8rem;
+    font-size: 12px;
   }
+
   .tags {
     margin-bottom: 20px;
-    span > a {
+
+    span>a {
       text-decoration: none;
       padding: 5px;
       font-size: 12px;
@@ -63,44 +72,58 @@ a.toggler:hover {
       border-radius: 20px;
     }
   }
+
   button.btn {
     cursor: pointer;
     box-shadow: none;
   }
+
+  .comments-btn {
+    width: 100%;
+    color: white;
+    background-color: #f4bb56;
+  }
+
   .comments-row {
     margin-top: 15px;
   }
 }
+
 .post-user-avatar {
   border-radius: 50%;
   width: 70px;
   height: 70px;
 }
+
 .user-avatar-username {
   padding-top: 5px;
 }
 
 .profile-card {
-  
- .value {
-  margin-left: 10px;
-  font-size: 0.9rem;
- }
- .circle {
-  bottom: 5px;
-  height: 7px;
-  width: 7px;
-}
-.box-blue {
-  bottom: 5px;
-  height: 6px;
-  width: 6px;
-}
-.scores {
-  display: inline-table !important;
-  flex-grow: 0 !important;
-  padding-left: 0px;
-}
+
+  .value {
+    margin-left: 10px;
+    font-size: 14px;
+    color: #6C757D;
+  }
+
+  .circle {
+    bottom: 5px;
+    height: 7px;
+    width: 7px;
+  }
+
+  .box-blue {
+    bottom: 5px;
+    height: 6px;
+    width: 6px;
+  }
+
+  .scores {
+    display: inline-table !important;
+    flex-grow: 0 !important;
+    padding-left: 0px;
+  }
 }
 
 
@@ -133,6 +156,7 @@ a.toggler:hover {
     width: 60px;
     height: 60px;
   }
+
   .post-item {
     .support-profile-card {
       max-width: 450px;
@@ -148,19 +172,34 @@ a.toggler:hover {
     width: 45px;
     height: 45px;
   }
+
   .post-item {
     padding: 10px;
     border-radius: 8px;
     font-size: 14px;
     margin-bottom: 10px;
+
+    .post-time {
+      font-size: 10px;
+    }
+
     h2 {
       font-size: 1.1rem;
-      
+
     }
+
     .support-profile-card {
       width: 100%;
       margin-left: 0;
       left: 10px;
+    }
+  }
+
+  .profile-card {
+
+    .value {
+      margin-left: 10px;
+      font-size: 12px;
     }
   }
 }
