@@ -1,1 +1,14 @@
-<p>modify-beliefs works!</p>
+<form *ngIf = "modifyBeliefsClick" >
+    <div class = "card-body">  
+        <div>
+        Why do I worry so much? What will happen if I didn't worry?
+        </div> <br/>
+        <div class= "card-body" *ngIf="modifyBeliefs && beliefEditMode" (click)="onBeliefClick()">
+            <app-worry-form [problem]="modifyBeliefs"></app-worry-form>
+        </div>
+        <div class= "card-body" *ngIf="!modifyBeliefs" (click)="onBeliefClick()">
+            <app-worry-form (testOut)="continuetoBeliefForm($event)"></app-worry-form>
+        </div>
+        <span *ngIf = "spanDisplay" >You can also use belief change form</span>
+    </div>
+</form>

@@ -217,6 +217,10 @@ export const USER_SIQ_DATA = '/api/v1/questionnaire/siq-user-response/';
 
 // FORMS
 export const RECOMMENDED = 'recommended';
+export const TECHNIQUE_UNTOUCHED = 0;
+export const TECHNIQUE_OPENED = 1;
+export const TECHNIQUE_CLOSED = 2;
+
 
 // Problem solving form
 export const PSF_PROBLEM_SOLVING = 'problem-solving';

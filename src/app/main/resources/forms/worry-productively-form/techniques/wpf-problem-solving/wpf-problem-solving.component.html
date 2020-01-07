@@ -1,1 +1,45 @@
-<p>wpf-problem-solving works!</p>
+<form *ngIf = "canISolve" >
+        <div class = "card-body">  
+            <div class="text">
+            Is there anything that I can do to solve what I am worried about?
+                <div class="radio">
+                    <!-- <label for="choice"  *ngFor="let choice of choices">                     -->
+                        <input type="radio" name="choices" [(ngModel)]="radioResponse" value="Yes"> Yes
+                    <div class="text-align float-right">  
+                         <input type="radio" name="choices" [(ngModel)]="radioResponse" value="No"> No 
+                    </div>
+                    <!-- </label> -->
+                </div> <br/>
+            </div>
+            <div *ngIf= "radioResponse === 'Yes'">
+                <div>
+                    Can I put it as a problem statement?
+                    <div class= "card-body" *ngIf="solveProblem && solveEditMode" (click)="onSolveClick()">
+                        <app-worry-form [problem]="solveProblem"></app-worry-form>
+                    </div>
+                    <div class= "card-body" *ngIf="!solveProblem" (click)="onSolveClick()">
+                        <app-worry-form (testOut)="continuetoImage($event)"></app-worry-form>
+                    </div>                
+                </div>
+                <div *ngIf = "imageDisplay">
+                    <!-- <img> -->
+                    <p class="text-right" >
+                        <button type="button" mat-raised-button color="primary"
+                            class="continue-btn"  >Done</button>
+                    </p>
+               </div>            
+            </div>
+            <div *ngIf= "radioResponse === 'No'">
+                <p class="text-centre">
+                    Ohh .. Sometimes we can't control everything in our lives and we need to accept things
+                    the way they are by changing our attitude we can gradually overcome the problem. Do you 
+                    remember something that worried you earlier but doesn't bother you now?
+                </p>
+                <p class="text-right">
+                    <button type="button" mat-raised-button color="primary"
+                    class="continue-btn"  >Done</button>
+                </p>
+
+            </div>
+        </div>
+</form>

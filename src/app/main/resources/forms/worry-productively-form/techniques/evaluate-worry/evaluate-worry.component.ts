@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { WorryFormComponent } from '../../worry-form/worry-form.component';
 import { Worry } from '../../worry.model';
 import { TechniquesComponent } from '../techniques.component';
-import { SliderComponent } from '../../Slidder/Slidder.component';
+import { FormSliderComponent } from '../../../shared/form-slider/form-slider.component';
 @Component({
   selector: 'app-evaluate-worry',
   templateUrl: './evaluate-worry.component.html',
@@ -28,11 +28,12 @@ export class EvaluateWorryComponent implements OnInit {
   EvaluateEditMode = false;
   evaluateEvidence!: Worry;
   buttonClick: boolean;
-  // show: any;
+  evaluateSliderQuestion = 'Guess Probability';
+  evaSliderMinRangeText = 'Low';
+  evaSliderMaxRangeText = 'High';
 
   constructor() {
     this.buttonClick = false;
-    // this.show = this.EvaluatedClicked;
   }
 
   ngOnInit() {}
@@ -44,7 +45,7 @@ export class EvaluateWorryComponent implements OnInit {
     this.onEvaluateClick();
     console.log(this.EvaluateEditMode);
     if (this.evaluateStatementForm) {
-      this.evaluateStatementForm.editProblemText();
+      this.evaluateStatementForm.editWorryText();
     }
   }
   onEvaluateClick() {
@@ -63,5 +64,8 @@ export class EvaluateWorryComponent implements OnInit {
   evidencesubmitted = false;
   EvidenceSubmit() {
     this.evidencesubmitted = true;
+  }
+  onSliderSubmit(){
+    
   }
 }

@@ -23,8 +23,12 @@
             
             </div>
             <div class="card-body" *ngIf="buttonClick" style="color:#00000099; letter-spacing:0.14px;" >
-                Guess Probability<br/>
-                <app-slider ></app-slider>
+                <br/>
+                <app-form-slider [question]="evaluateSliderQuestion" [minRatingText]="evaSliderMinRangeText" [maxRatingText]="evaSliderMaxRangeText"></app-form-slider>
+                <p class="text-right"  (click)="onSliderSubmit()">
+                    <button type="button" mat-raised-button color="primary"
+                      class="continue-btn"  >Continue</button>
+                </p>
             </div> 
             <div  *ngIf="buttonClick">                
                 Accept uncertainity

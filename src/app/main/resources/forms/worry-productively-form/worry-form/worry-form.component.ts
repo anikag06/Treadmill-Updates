@@ -19,40 +19,40 @@ import { ProblemSolvingWorksheetsService } from '../../problem-solving-worksheet
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WorryFormComponent implements OnInit {
-  @Input() problem!: Worry;
+  @Input() worry!: Worry;
   @Output() testOut = new EventEmitter<boolean>();
-  @ViewChild('problemTextArea', { static: false }) problemTextArea!: ElementRef;
-  problemStatement = '';
-  public Cbutton = false;
-
+  @ViewChild('worryTextArea', { static: false }) worryTextArea!: ElementRef;
   constructor(private problemService: ProblemSolvingWorksheetsService) {}
+  worryStatement = '';
+  
+  public clickbutton = false;
 
   ngOnInit() {
-    if (this.problem) {
-      this.problemStatement = this.problem.problem;
+    if (this.worry) {
+      this.worryStatement = this.worry.problem;
       // this.problem.isDisabled=false;
     }
   }
   ngAfterViewInit() {
-    if (this.problem && this.problemTextArea) {
+    if (this.worry && this.worryTextArea) {
       setTimeout(() => {
-        this.editProblemText();
+        this.editWorryText();
       }, 100);
     }
   }
 
-  editProblemText() {
-    this.problemTextArea.nativeElement.focus();
+  editWorryText() {
+    this.worryTextArea.nativeElement.focus();
     // this.problem.isDisabled=false;
   }
-  onProblemSubmit() {
+  onWorrySubmit() {
     // this.problem.isDisabled=false;
     // if (this.problem && Object.entries(this.problem).length > 0) {
-    //   this.problem.problem = this.problemStatement;
+    //   this.problem.problem = this.worryStatement;
     //   this.problemService
     //     .putProblem({
     //       id: this.problem.id,
-    //       problem: this.problemStatement,
+    //       problem: this.worryStatement,
     //       bestsolution: null,
     //       taskorigin: 0,
     //     })
@@ -64,8 +64,8 @@ export class WorryFormComponent implements OnInit {
     //         console.error(error);
     //       },
     //     );
-    // } else if (this.problemStatement.trim().length > 0) {
-    //   this.problemService.postProblem(this.problemStatement).subscribe(
+    // } else if (this.worryStatement.trim().length > 0) {
+    //   this.problemService.postProblem(this.worryStatement).subscribe(
     //     (data: any) => {
     //       console.log(data);
     //     },
@@ -74,8 +74,8 @@ export class WorryFormComponent implements OnInit {
     //     },
     //   );
     // }
-    // this.Cbutton = true;
-    // this.testOut.emit(this.Cbutton);
+    this.clickbutton = true;
+    this.testOut.emit(this.clickbutton);
   }
 
   //   AfterClick( data : boolean ){
@@ -92,7 +92,7 @@ export class WorryFormComponent implements OnInit {
         (<Element>event.relatedTarget).classList.contains('continue-btn')
       )
     ) {
-      this.onProblemSubmit();
+      this.onWorrySubmit();
     }
   }
 }

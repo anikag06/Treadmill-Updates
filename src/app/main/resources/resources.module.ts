@@ -23,6 +23,7 @@ import {
   MatToolbarModule,
   MatTooltipModule,
 } from '@angular/material';
+import { HttpClientModule } from "@angular/common/http";
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { FormsSidebarComponent } from './forms/shared/forms-sidebar/forms-sidebar.component';
 import { ResourcesRoutingModule } from '@/main/resources/resources-routing.module';
@@ -135,6 +136,7 @@ import { WpfDealWithWorryComponent } from './forms/worry-productively-form/techn
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     MatSlideToggleModule,
+    HttpClientModule
   ],
   providers: [
     SlideService,

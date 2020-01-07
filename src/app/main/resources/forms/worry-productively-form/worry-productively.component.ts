@@ -9,14 +9,11 @@ import {
   ViewChild,
   ElementRef,
 } from '@angular/core';
-// import { Problem } from '../problem-solving-worksheets/problem.model';
 import { Worry } from './worry.model';
-// import { HttpClient, HttpParams, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-// import { environment } from 'environments/environment';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 // import { ProblemFormComponent } from '../problem-solving-worksheets/problem-form/problem-form.component';
 import { WorryFormComponent } from './worry-form/worry-form.component';
-import { SliderComponent } from './Slidder/Slidder.component';
+import { FormSliderComponent } from '../shared/form-slider/form-slider.component';
 import { Subscription } from 'rxjs';
 import { AuthService } from '@/shared/auth/auth.service';
 import { User } from '@/shared/user.model';
@@ -46,6 +43,10 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
   form: any;
   controlNames: string[];
   selectedNames$ = [{}];
+  worrySliderQuestion = ' How bothered are you by your worry?';
+  wSliderMinRangeText = 'Not at all';
+  wSliderMaxRangeText = 'Very Strongly';
+
   // items = [
   // 'Future \"what if...\"',
   // 'Keeping seeking reassurance from others that everything is going to be okay but reassurance doesn\'t help.',
@@ -95,7 +96,7 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
       this.subscriptions.length
     ] = this.problemService.problemBehaviour.subscribe((problem: any) => {
       if (Object.entries(problem).length > 0) {
-        this.problemSelected(problem);
+        this.worrySelected(problem);
       }
     }, this.errorService.errorResponse('Something went wrong'));
     const user = this.authService.isLoggedIn();
@@ -126,15 +127,15 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
       sub.unsubscribe();
     });
   }
-  problemSelected(worry: Worry) {
+  worrySelected(worry: Worry) {
     this.worry = worry;
     this.worryEditMode = false;
   }
-  onEditProblemClick() {
+  onEditWorryClick() {
     this.onWorryClick();
     console.log(this.worryEditMode);
     if (this.worryStatementForm) {
-      this.worryStatementForm.editProblemText();
+      this.worryStatementForm.editWorryText();
     }
   }
   onWorryClick() {
@@ -148,8 +149,8 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
     this.buttonClick = selected;
     console.log(this.buttonClick);
   }
-  continuetoCharacteristics(selected: any) {
-    this.buttonclick = selected;
+  continuetoCharacteristics() {
+    this.buttonclick = true;
     console.log(this.buttonclick);
   }
   userresponse = false;

@@ -15,7 +15,7 @@
 
         <mat-menu xPosition="before" yPosition="below" #problemSolvingForms="matMenu" [overlapTrigger]="false">
             <div [ngStyle]="{'max-height':'350px'}">
-                <app-forms-sidebar [type]="type" (objectEmitter)="problemSelected($event)" (newForm)="onAddNewForm()">
+                <app-forms-sidebar [type]="type" (objectEmitter)="worrySelected($event)" (newForm)="onAddNewForm()">
                 </app-forms-sidebar>
             </div>
         </mat-menu>
@@ -30,7 +30,7 @@
                     <div class="card-header">
                       What are you worried about?
                       <div class="float-right d-inline-block">
-                        <mat-icon class="edit_icon" (click)="onEditProblemClick()">
+                        <mat-icon class="edit_icon" (click)="onEditWorryClick()">
                           edit </mat-icon>
                       </div>
                     </div>
@@ -46,8 +46,12 @@
                       <app-worry-form (testOut)="continuetoSlider($event)" ></app-worry-form>
                     </div>
                     <div class="card-body" *ngIf="buttonClick" style="color:#00000099; letter-spacing:0.14px;"  >
-                       How bothered are you by your worry? <br/>
-                       <app-slider (testout)="continuetoCharacteristics($event)"></app-slider>
+                       <br/>
+                       <app-form-slider [question]="worrySliderQuestion" [minRatingText]="wSliderMinRangeText" [maxRatingText]="wSliderMaxRangeText"></app-form-slider>
+                        <p class="text-right" (click)="continuetoCharacteristics()">
+                          <button type="button" mat-raised-button color="primary"
+                            class="continue-btn"  >Continue</button>
+                        </p>
                     </div>     
                   </div>
                 </div> 
@@ -62,8 +66,8 @@
                         <!-- <mat-checkbox [checked]="i.checked" (change)="OnCharacteristicCheck($event)" #Checkbox >
                         {{i}}
                         </mat-checkbox> -->
-                        <ng-container [formGroup]="form" *ngFor="let controlName of controlNames"><br/>
-                          <mat-checkbox  [formControlName]="controlName" >
+                        <ng-container [formGroup]="form" *ngFor="let controlName of controlNames" ><br/>
+                          <mat-checkbox  [formControlName]="controlName"  >
                             {{controlName}}
                           </mat-checkbox>
 
@@ -76,7 +80,7 @@
                   </div>
                 </div>
             </div>  
-        <app-techniques></app-techniques>
+           <app-techniques></app-techniques>
         </div>    
     </div>   
 </mat-card>

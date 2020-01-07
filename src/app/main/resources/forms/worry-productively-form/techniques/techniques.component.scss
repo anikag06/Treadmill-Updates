@@ -1,0 +1,11 @@
+// button:not(:disabled) {
+//     position : absolute;
+//     left : 230px;
+// }
+[type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
+    position: absolute;
+    right: 40px;
+}
+strong {
+    color: black;
+}
