@@ -1,4 +1,4 @@
-<div class="row no-gutters nested-comment profile-card">
+<div class="row no-gutters nested-comment">
   <div class="col-12" *ngIf="editMode">
     <form class="form form-nc" (ngSubmit)="submitReply()" #replyForm="ngForm">
       <div class="form-group">
@@ -20,7 +20,7 @@
     (click)="onNestedCommentShowProfile(userNestedComment.user.username)"> -->
   <!-- <p class="text-muted user">{{userNestedComment.user.username}}</p> -->
   <!-- </div> -->
-  <div class="col-1 text-center offset-1 user-section user-avatar" *ngIf="!editMode" click-outside
+  <div class="row no-gutters text-center offset-1 user-section user-avatar" *ngIf="!editMode" click-outside
     (clickOutside)="onClickOutside($event)">
     <div class="nested-comment-profile-card" *ngIf="showProfile">
       <app-user-profile class="support-group" [userProfile]="userProfile"></app-user-profile>
@@ -31,26 +31,28 @@
 
     <!-- <p class="text-muted user">{{userNestedComment.user.username}}</p> -->
   </div>
-  <div class="col" *ngIf="!editMode">
+  <div class="user-stats " *ngIf="!editMode">
     <div class="row no-gutters ml-1">
-      <div class="col-4">
+      <div>
         <b class="user">{{userNestedComment.user.username}}</b>
       </div>
-      <div class="col scores mr-1">
-        <div class='box-blue'></div>
-        <div class="value">{{userNestedComment.user.score}}</div>
-      </div>
-      <div class="col medal mr-1">
-        <div class='circle gold'></div>
-        <div class="value">{{userNestedComment.user.no_of_gold_badges}}</div>
-      </div>
-      <div class="col medal mr-1 ">
-        <div class='circle silver'></div>
-        <div class="value">{{userNestedComment.user.no_of_silver_badges}}</div>
-      </div>
-      <div class="col medal">
-        <div class='circle bronze'></div>
-        <div class="value">{{userNestedComment.user.no_of_bronze_badges}}</div>
+      <div class=" row no-gutters profile-card">
+        <div class="col scores mr-1">
+          <div class='box-blue'></div>
+          <div class="value">{{userNestedComment.user.score}}</div>
+        </div>
+        <div class="col medal mr-1">
+          <div class='circle gold'></div>
+          <div class="value">{{userNestedComment.user.no_of_gold_badges}}</div>
+        </div>
+        <div class="col medal mr-1 ">
+          <div class='circle silver'></div>
+          <div class="value">{{userNestedComment.user.no_of_silver_badges}}</div>
+        </div>
+        <div class="col medal">
+          <div class='circle bronze'></div>
+          <div class="value">{{userNestedComment.user.no_of_bronze_badges}}</div>
+        </div>
       </div>
     </div>
     <div class="row no-gutters ml-1">

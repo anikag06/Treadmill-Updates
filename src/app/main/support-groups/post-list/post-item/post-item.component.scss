@@ -58,6 +58,7 @@ a.toggler:hover {
 
   .post-time {
     font-size: 12px;
+    margin-left: 12px;
   }
 
   .tags {
@@ -91,15 +92,22 @@ a.toggler:hover {
 
 .post-user-avatar {
   border-radius: 50%;
-  width: 70px;
-  height: 70px;
+  width: 52px;
+  height: 52px;
 }
 
 .user-avatar-username {
   padding-top: 5px;
 }
 
+.user-stats {
+  margin-left: 15px;
+}
+
 .profile-card {
+  max-width: 100%;
+  margin-left: 25px;
+  margin-top: 5px;
 
   .value {
     margin-left: 10px;
@@ -120,6 +128,7 @@ a.toggler:hover {
   }
 
   .scores {
+
     display: inline-table !important;
     flex-grow: 0 !important;
     padding-left: 0px;
@@ -193,9 +202,17 @@ a.toggler:hover {
       margin-left: 0;
       left: 10px;
     }
+
+    .user-stats {
+      margin-left: 12px;
+      width: 250px;
+    }
   }
 
   .profile-card {
+    margin-left: 12px;
+    margin-top: 5px;
+    max-width: 70%;
 
     .value {
       margin-left: 10px;
