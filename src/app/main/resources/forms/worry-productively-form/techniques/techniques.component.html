@@ -11,8 +11,8 @@
             </div>
             <div class="card-body" >
                 You can evaluate your thought with multiple techniques.
-                <div class="float-right d-inline-block">
-                    <mat-icon svgIcon="Info" >
+                <div class="float-right d-inline-block" #doneBtn>
+                    <mat-icon svgIcon="Info" (click) = "TechniqueInfo()" >
                         </mat-icon>                    
                 </div> <br/> <br/> 
                 <mat-expansion-panel hideToggle="true" (opened)="panelOpenState1 = 1"

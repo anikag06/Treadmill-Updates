@@ -9,6 +9,6 @@
         <div class= "card-body" *ngIf="!modifyBeliefs" (click)="onBeliefClick()">
             <app-worry-form (testOut)="continuetoBeliefForm($event)"></app-worry-form>
         </div>
-        <span *ngIf = "spanDisplay" >You can also use belief change form</span>
+        <span class="rating-text rating-text-left-margin" *ngIf = "spanDisplay" >You can also use belief change form</span>
     </div>
 </form>

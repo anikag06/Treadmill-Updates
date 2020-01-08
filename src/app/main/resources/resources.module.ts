@@ -69,6 +69,8 @@ import { FormSliderComponent } from './forms/shared/form-slider/form-slider.comp
 import { FaceMyWorstFearComponent } from './forms/worry-productively-form/techniques/face-my-worst-fear/face-my-worst-fear.component';
 import { WpfProblemSolvingComponent } from './forms/worry-productively-form/techniques/wpf-problem-solving/wpf-problem-solving.component';
 import { WpfDealWithWorryComponent } from './forms/worry-productively-form/techniques/wpf-deal-with-worry/wpf-deal-with-worry.component';
+import { ModifyBeliefsComponent } from './forms/worry-productively-form/techniques/modify-beliefs/modify-beliefs.component';
+import { TechniqueInfoComponent } from './forms/worry-productively-form/techniques/technique-info/technique-info.component';
 
 @NgModule({
   declarations: [
@@ -115,6 +117,8 @@ import { WpfDealWithWorryComponent } from './forms/worry-productively-form/techn
     FaceMyWorstFearComponent,
     WpfProblemSolvingComponent,
     WpfDealWithWorryComponent,
+    ModifyBeliefsComponent,
+    TechniqueInfoComponent
   ],
   imports: [
     ResourcesRoutingModule,
