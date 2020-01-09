@@ -8,7 +8,6 @@
   background-color: #f2f2f2;
   padding: 10px;
   border-radius: 12px;
-  font-size: 14px;
 
   img {
     border-radius: 50%;
@@ -18,7 +17,13 @@
 
   .user {
     padding-top: 10px;
+    color: #00000099;
+    font-size: 14px;
 
+  }
+
+  .profile-card {
+    margin-top: 0px;
   }
 
   .date {
@@ -74,7 +79,8 @@ a.toggler {
   border: #2A3B3D;
 }
 
-.reply-btn {
+.reply-btn,
+.comment-btn {
   width: 100px;
   color: white;
   background-color: #2A3B3D;
@@ -82,8 +88,9 @@ a.toggler {
 
 .replies-btn {
   width: 100px;
-  color: white;
-  background-color: #f4bb56;
+  color: #000000DE;
+  opacity: 0.87;
+  background-color: #E2E2E2;
 }
 
 @media screen and (min-width: 768px) and (max-width: 1199px) {

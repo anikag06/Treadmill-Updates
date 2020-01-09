@@ -1,4 +1,4 @@
-<div class="row no-gutters comment">
+<div class="d-flex flex-column comment">
   <div class="col-12" *ngIf="editMode">
     <div class="errors" *ngIf="errors.length > 0">
       <ul>
@@ -10,77 +10,81 @@
         <angular-editor name="name" [(ngModel)]="editorBody" required [config]="editorConfig" [autofocus]="true">
         </angular-editor>
         <div class="btn-area text-right">
-          <button type="submit" class="btn btn-primary btn-sm"
+          <button type="submit" mat-raised-button class="btn comment-btn"
             [disabled]="this.sanitzer.stripTags(this.editorBody).length === 0">Comment</button>
           &nbsp;
-          <button type="button" class="btn btn-warning btn-sm" (click)="onCancel()">Cancel</button>
+          <button type="button" mat-raised-button class="cancel-btn" (click)="onCancel()">Cancel</button>
         </div>
       </fieldset>
     </form>
   </div>
-  <div class="col-2 justify-content-center" *ngIf="!editMode" click-outside (clickOutside)="onClickOutside($event)">
-    <div class="comment-profile-card" *ngIf="showProfile">
-      <app-user-profile class="support-group" [userProfile]="userProfile"></app-user-profile>
-    </div>
-    <img [src]="comment.user.avatar" alt="User avatar" width="36" height="36"
-      (click)="onCommentShowProfile(comment.user.username)">
-    <!-- <p class="text-muted user">{{comment.user.username}}</p> -->
-  </div>
-  <div class="col" *ngIf="!editMode">
-    <div class="row no-gutters">
-      <div>
-        <b class="user">{{comment.user.username}}</b>
+  <div class="d-flex flex-row">
+    <div class="d-inline-flex flex-row justify-content-center" *ngIf="!editMode" click-outside
+      (clickOutside)="onClickOutside($event)">
+      <div class="comment-profile-card" *ngIf="showProfile">
+        <app-user-profile class="support-group" [userProfile]="userProfile"></app-user-profile>
       </div>
-      <div class=" row no-gutters profile-card">
-        <div class="col scores mr-2">
-          <div class='box-blue'></div>
-          <div class="value">{{comment.user.score}}</div>
+      <img [src]="comment.user.avatar" alt="User avatar" width="36" height="36"
+        (click)="onCommentShowProfile(comment.user.username)">
+      <!-- <p class="text-muted user">{{comment.user.username}}</p> -->
+    </div>
+    <div class="d-inline-flex flex-column" *ngIf="!editMode">
+      <div class="d-inline-flex flex-row user-stats  align-items-start">
+        <div>
+          <b class="user">{{comment.user.username}}</b>
         </div>
-        <div class="col medal mr-2">
-          <div class='circle gold'></div>
-          <div class="value">{{comment.user.no_of_gold_badges}}</div>
-        </div>
-        <div class="col medal mr-2">
-          <div class='circle silver'></div>
-          <div class="value">{{comment.user.no_of_silver_badges}}</div>
-        </div>
-        <div class="col medal mr-2">
-          <div class='circle bronze'></div>
-          <div class="value">{{comment.user.no_of_bronze_badges}}</div>
+        <div class=" row no-gutters profile-card mb-0">
+          <div class="col scores mr-2">
+            <div class='box-blue'></div>
+            <div class="value">{{comment.user.score}}</div>
+          </div>
+          <div class="col medal mr-2">
+            <div class='circle gold'></div>
+            <div class="value">{{comment.user.no_of_gold_badges}}</div>
+          </div>
+          <div class="col medal mr-2">
+            <div class='circle silver'></div>
+            <div class="value">{{comment.user.no_of_silver_badges}}</div>
+          </div>
+          <div class="col medal mr-2">
+            <div class='circle bronze'></div>
+            <div class="value">{{comment.user.no_of_bronze_badges}}</div>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class='body' [innerHTML]="commentBody | safeHtml" [ngClass]="{'body-inline': partialBody}"
-      [ngStyle]="{'word-break': 'break-word'}"></div>
+      <div class='body user-stats' [innerHTML]="commentBody | safeHtml" [ngClass]="{'body-inline': partialBody}"
+        [ngStyle]="{'word-break': 'break-word'}"></div>
 
-    <span><a class='toggler' (click)='toggleToFullBody()' *ngIf="partialBody">show more</a></span>
-    <span class="text-muted date">{{ comment.created_at |  date: 'medium' | timeAgo }}</span>
-    <div class="row no-gutters">
-      <div class="col-12">
-        <button class="btn btn-sm thumbs-up" (click)="onThumbsUp()"><img [src]="thumbsUp" width="18"
-            height="18">{{comment.up_votes}}</button>
-        <button class="btn btn-sm thumbs-down" (click)="onThumbsDown()"><img [src]="thumbsDown" width="18"
-            height="18"></button>
-        <button class="btn btn-sm btn-bold comment-reply" (click)="onReplyClick()">Reply</button>
-        <span *ngIf="comment.user.username == user.username">
-          <button class="btn btn-sm btn-bold comment-edit" (click)="onEdit()">Edit</button>
-          <button class="btn btn-sm btn-bold comment-delete" (click)="onDelete()">Delete</button>
-        </span>
+      <span><a class='toggler user-stats' (click)='toggleToFullBody()' *ngIf="partialBody">show more</a></span>
+      <span class="text-muted date user-stats">{{ comment.created_at |  date: 'medium' | timeAgo }}</span>
+      <div class="row no-gutters">
+        <div class="col-12">
+          <button class="btn btn-sm thumbs-up" (click)="onThumbsUp()"><img [src]="thumbsUp" width="18"
+              height="18">{{comment.up_votes}}</button>
+          <button class="btn btn-sm thumbs-down" (click)="onThumbsDown()"><img [src]="thumbsDown" width="18"
+              height="18"></button>
+          <button class="btn btn-sm btn-bold comment-reply" (click)="onReplyClick()">Reply</button>
+          <span *ngIf="comment.user.username == user.username">
+            <button class="btn btn-sm btn-bold comment-edit" (click)="onEdit()">Edit</button>
+            <button class="btn btn-sm btn-bold comment-delete" (click)="onDelete()">Delete</button>
+          </span>
+        </div>
       </div>
     </div>
   </div>
-  <div class="col-12">
+
+  <div class="col-12 pr-0">
     <div class="show-nested-comments" *ngIf="comment.nested_comment_count > 0">
       <ng-container *ngIf="!hide">
         <app-nested-comment *ngFor="let ncomment of nestedComments" (deleteEmitter)="onNestedCommentDelete($event)"
           [userNestedComment]="ncomment">
         </app-nested-comment>
       </ng-container>
-      <p class="text-right">
+      <div class="text-right ">
         <button class="replies-btn" mat-raised-button (click)="showNestedComment()" *ngIf="moreComments || hide">Replies
           ({{comment.nested_comment_count}})</button>
-      </p>
+      </div>
       <!-- <button class="btn btn-sm btn-underline" (click)="showLessNestedComment()" *ngIf="!hide && comment.nested_comment_count > 0 && nestedComments.length > 0">Hide Replies</button> -->
     </div>
   </div>
@@ -92,13 +96,12 @@
             placeholder="Enter your reply to above comment"></textarea>
         </div>
         <div class="text-right">
-          <!-- <button type="submit" class="btn btn-primary btn-sm">Reply</button> -->
-          <button type="submit" mat-raised-button class="reply-btn">Reply</button>
-          &nbsp;
-          <!-- <button type="button" class="btn btn-warning btn-sm" (click)="toggleReply = false">Cancel</button> -->
           <button type="button" mat-raised-button class="cancel-btn" (click)="toggleReply = false">Cancel</button>
+          &nbsp;
+          <button type="submit" mat-raised-button class="reply-btn">Reply</button>
         </div>
       </form>
     </div>
   </div>
+
 </div>

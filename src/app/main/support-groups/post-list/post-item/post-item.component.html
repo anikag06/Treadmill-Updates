@@ -17,7 +17,7 @@
   </button>
 </mat-menu>
 <div class="post-item">
-  <div class="row no-gutters" click-outside (clickOutside)="onClickOutside($event)">
+  <div class="d-flex flex-row" click-outside (clickOutside)="onClickOutside($event)">
     <div class="support-profile-card" *ngIf="showProfile">
       <app-user-profile class="support-group" [userProfile]="userProfile"></app-user-profile>
     </div>
@@ -28,9 +28,9 @@
 
       <div class=" d-flex flex-column align-items-start">
         <div class="user-stats d-flex flex-row align-items-start">
-          <b class='user-avatar-username mb-0'>{{supportGroupItem.user.username}}</b>
+          <div class='user-avatar-username mb-0'>{{supportGroupItem.user.username}}</div>
 
-          <div class="d-flex flex-row profile-card">
+          <div class="d-flex flex-row profile-card mb-0">
             <div class="col scores mr-2">
               <div class='box-blue'></div>
               <div class="value">{{supportGroupItem.user.score}}</div>
@@ -53,7 +53,7 @@
         <span class='post-time text-muted mt-auto'>{{supportGroupItem.created_at | date: 'medium' | timeAgo }}</span>
       </div>
     </div>
-    <div class="d-inline-flex context-button">
+    <div class="d-inline-flex context-button ml-auto">
       <button mat-icon-button [matMenuTriggerFor]="menu">
         <mat-icon>more_vert</mat-icon>
       </button>
@@ -103,10 +103,11 @@
     <div class="col-12 text-center">
       <!-- <button class="btn btn-sm btn-block btn-primary" type="button" *ngIf="showLoadMore()"
         (click)="fetchOrShowComments()"> -->
-      <button type="button" mat-raised-button class="comments-btn" *ngIf="showLoadMore()"
-        (click)="fetchOrShowComments()">
-        View comments ({{supportGroupItem.comments_count - commentNos }})
-      </button>
+      <!-- <button type="button" mat-raised-button class="comments-btn" *ngIf="showLoadMore()"
+        (click)="fetchOrShowComments()"> -->
+      <a *ngIf="showLoadMore()" class="toggler" (click)="fetchOrShowComments()">View comments
+        ({{supportGroupItem.comments_count - commentNos }})</a>
+      <!-- </button> -->
     </div>
   </div>
   <div class="row no-gutters">

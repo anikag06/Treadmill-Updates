@@ -1,3 +1,5 @@
+@import "../support-groups.component.scss";
+
 .post-list {
   position: relative;
   // overflow-y: hidden !important;
@@ -17,7 +19,7 @@
   background-color: #ffffff;
   border: 1px solid #dadada;
   padding: 5px;
-  box-shadow: 1px 2px 10px #dddddd;
+  box-shadow: 0px 2px 4px #c5c5c5;
   margin: 10px 0px;
   border-radius: 8px;
 
