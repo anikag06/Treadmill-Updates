@@ -49,13 +49,16 @@ export class WorryProductivelyService {
         },
       );
   }
-
+ public postdata =0 ;
   postWorry(worry: string) {
     return this.http
       .post(environment.API_ENDPOINT + WPF_WORRY_URL, { worry: worry })
       .pipe(
         map((data: any) => {
+          this.postdata = data.id;
           this.worries.push(<Worry>data.data);
+          console.log(this.worries);
+          console.log(this.postdata);
           this.worryBehaviour.next(<Worry>data.data);
           return data.data;
         }),

@@ -18,12 +18,12 @@ import { WorryProductivelyService } from '../worry-productively.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WorryFormComponent implements OnInit {
-c 
+  @Input() worry!: Worry;
   @Output() testOut = new EventEmitter<boolean>();
   @ViewChild('worryTextArea', { static: false }) worryTextArea!: ElementRef;
   constructor(private worryService: WorryProductivelyService) {}
   worryStatement = '';
-  
+
   public clickbutton = false;
 
   ngOnInit() {
