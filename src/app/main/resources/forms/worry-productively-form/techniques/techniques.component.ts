@@ -59,6 +59,7 @@ export class TechniquesComponent implements OnInit {
     this.dealWithWorry = true;
   }
   TechniqueInfo(){    
+    console.log(this.doneBtn);
     const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
     this.doneBtn.nativeElement.dispatchEvent(domEvent);
     this.dialogBoxService.setDialogChild(TechniqueInfoComponent);

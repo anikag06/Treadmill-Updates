@@ -9,8 +9,7 @@ import {
   ElementRef,
 } from '@angular/core';
 import { Worry } from '../worry.model';
-import { ProblemSolvingWorksheetsService } from '../../problem-solving-worksheets/problem-solving-worksheets.service';
-// import { Problem } from '../problem-solving-worksheets/problem.model';
+import { WorryProductivelyService } from '../worry-productively.service';
 
 @Component({
   selector: 'app-worry-form',
@@ -19,17 +18,17 @@ import { ProblemSolvingWorksheetsService } from '../../problem-solving-worksheet
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WorryFormComponent implements OnInit {
-  @Input() worry!: Worry;
+c 
   @Output() testOut = new EventEmitter<boolean>();
   @ViewChild('worryTextArea', { static: false }) worryTextArea!: ElementRef;
-  constructor(private problemService: ProblemSolvingWorksheetsService) {}
+  constructor(private worryService: WorryProductivelyService) {}
   worryStatement = '';
   
   public clickbutton = false;
 
   ngOnInit() {
     if (this.worry) {
-      this.worryStatement = this.worry.problem;
+      this.worryStatement = this.worry.worry;
       // this.problem.isDisabled=false;
     }
   }
@@ -43,37 +42,35 @@ export class WorryFormComponent implements OnInit {
 
   editWorryText() {
     this.worryTextArea.nativeElement.focus();
-    // this.problem.isDisabled=false;
   }
   onWorrySubmit() {
-    // this.problem.isDisabled=false;
-    // if (this.problem && Object.entries(this.problem).length > 0) {
-    //   this.problem.problem = this.worryStatement;
-    //   this.problemService
-    //     .putProblem({
-    //       id: this.problem.id,
-    //       problem: this.worryStatement,
-    //       bestsolution: null,
-    //       taskorigin: 0,
-    //     })
-    //     .subscribe(
-    //       (data: any) => {
-    //         console.log(data);
-    //       },
-    //       error => {
-    //         console.error(error);
-    //       },
-    //     );
-    // } else if (this.worryStatement.trim().length > 0) {
-    //   this.problemService.postProblem(this.worryStatement).subscribe(
-    //     (data: any) => {
-    //       console.log(data);
-    //     },
-    //     error => {
-    //       console.error(error);
-    //     },
-    //   );
-    // }
+    if (this.worry && Object.entries(this.worry).length > 0) {
+      this.worry.worry = this.worryStatement;
+      // this.worryService
+      //   .putProblem({
+      //     id: this.worry.id,
+      //     problem: this.worryStatement,
+      //     // bestsolution: null,
+      //     // taskorigin: 0,
+      //   })
+      //   .subscribe(
+      //     (data: any) => {
+      //       console.log(data);
+      //     },
+      //     error => {
+      //       console.error(error);
+      //     },
+      //   );
+    } else if (this.worryStatement.trim().length > 0) {
+      this.worryService.postWorry(this.worryStatement).subscribe(
+        (data: any) => {
+          console.log(data);
+        },
+        error => {
+          console.error(error);
+        },
+      );
+    }
     this.clickbutton = true;
     this.testOut.emit(this.clickbutton);
   }

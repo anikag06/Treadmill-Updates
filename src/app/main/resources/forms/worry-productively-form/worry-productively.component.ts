@@ -11,7 +11,6 @@ import {
 } from '@angular/core';
 import { Worry } from './worry.model';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
-// import { ProblemFormComponent } from '../problem-solving-worksheets/problem-form/problem-form.component';
 import { WorryFormComponent } from './worry-form/worry-form.component';
 import { FormSliderComponent } from '../shared/form-slider/form-slider.component';
 import { Subscription } from 'rxjs';
@@ -104,24 +103,6 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
       this.user = <User>user;
     }
   }
-
-  // getProblems() {
-  //   const params = new HttpParams().set('page', this.page.toString());
-  //   return this.http.get<Problem[]>(environment.API_ENDPOINT + '/api/v1/worksheets/problem-solving/problems/', { params: params })
-  //     .subscribe(
-  //       (data: any) => {
-  //         const problems = <Problem[]>data.results;
-  //         if (this.page === 1) {
-  //           this.problems = [];
-  //         }
-  //         this.problems.push(...problems);
-  //         console.log('Problem :'+ this.problems);
-  //       },
-  //       (error: HttpErrorResponse) => {
-  //         console.error(error);
-  //       }
-  //     );
-  //   }
   ngOnDestroy() {
     this.subscriptions.forEach(sub => {
       sub.unsubscribe();

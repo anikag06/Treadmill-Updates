@@ -174,6 +174,7 @@ import { LoadingBarDirective } from './games/shared/loading-bar.directive';
 import { LoadingBarService } from './games/shared/loading-bar.service';
 import { LhgGreatComponent } from './games/games-list/common-game/learned-helplessness-game/lhg-great/lhg-great.component';
 import { StepsDataService } from './resources/shared/steps-data.service';
+import { WorryProductivelyService } from '@/main/resources/forms/worry-productively-form/worry-productively.service';
 
 @NgModule({
   declarations: [
@@ -344,6 +345,7 @@ import { StepsDataService } from './resources/shared/steps-data.service';
     IdcGameService,
     LoadingBarService,
     StepsDataService,
+    WorryProductivelyService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [
