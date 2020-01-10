@@ -46,7 +46,6 @@
 
 .post-content {
   max-height: 70%;
-  // overflow-y: scroll;
 }
 
 .message {
@@ -58,12 +57,23 @@
   border-radius: 8px;
 }
 
-@media screen and (max-width: 768px) {
-  .post-list {
-    margin: 0;
-    padding: 20px 0;
-  }
 
+@media screen and (min-width:992px) and (max-width:1200px) {
+  .search-row {
+    .search-form {
+      input[type='search'] {
+        width: 85%;
+      }
+
+      button {
+        min-width: 10%;
+        padding: 0;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 991px) {
   .new-post {
     display: block;
   }
@@ -79,5 +89,12 @@
         padding: 0;
       }
     }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .post-list {
+    margin: 0;
+    padding: 20px 0;
   }
 }

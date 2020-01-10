@@ -26,7 +26,7 @@ export class SupportGroupsComponent implements OnInit {
 
   onCreatePostClick() {
     const dialogRef = this.dialog.open(CreatePostComponent, {
-      width: '60%',
+      width: '65%',
       data: null,
     });
 

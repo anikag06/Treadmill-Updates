@@ -30,9 +30,7 @@
     </div>
     <div class="d-inline-flex flex-column" *ngIf="!editMode">
       <div class="d-inline-flex flex-row user-stats  align-items-start">
-        <div>
-          <b class="user">{{comment.user.username}}</b>
-        </div>
+        <div class="user pt-0">{{comment.user.username}}</div>
         <div class=" row no-gutters profile-card mb-0">
           <div class="col scores mr-2">
             <div class='box-blue'></div>
@@ -57,17 +55,17 @@
         [ngStyle]="{'word-break': 'break-word'}"></div>
 
       <span><a class='toggler user-stats' (click)='toggleToFullBody()' *ngIf="partialBody">show more</a></span>
-      <span class="text-muted date user-stats">{{ comment.created_at |  date: 'medium' | timeAgo }}</span>
+      <span class="date user-stats">{{ comment.created_at |  date: 'medium' | timeAgo }}</span>
       <div class="row no-gutters">
-        <div class="col-12">
+        <div class="col-12 ">
           <button class="btn btn-sm thumbs-up" (click)="onThumbsUp()"><img [src]="thumbsUp" width="18"
               height="18">{{comment.up_votes}}</button>
           <button class="btn btn-sm thumbs-down" (click)="onThumbsDown()"><img [src]="thumbsDown" width="18"
               height="18"></button>
-          <button class="btn btn-sm btn-bold comment-reply" (click)="onReplyClick()">Reply</button>
+          <button class="btn btn-sm comment-reply" (click)="onReplyClick()">Reply</button>
           <span *ngIf="comment.user.username == user.username">
-            <button class="btn btn-sm btn-bold comment-edit" (click)="onEdit()">Edit</button>
-            <button class="btn btn-sm btn-bold comment-delete" (click)="onDelete()">Delete</button>
+            <button class="btn btn-sm comment-edit" (click)="onEdit()">Edit</button>
+            <button class="btn btn-sm comment-delete" (click)="onDelete()">Delete</button>
           </span>
         </div>
       </div>
@@ -82,7 +80,7 @@
         </app-nested-comment>
       </ng-container>
       <div class="text-right ">
-        <button class="replies-btn" mat-raised-button (click)="showNestedComment()" *ngIf="moreComments || hide">Replies
+        <button class="replies-btn" mat-button (click)="showNestedComment()" *ngIf="moreComments || hide">Replies
           ({{comment.nested_comment_count}})</button>
       </div>
       <!-- <button class="btn btn-sm btn-underline" (click)="showLessNestedComment()" *ngIf="!hide && comment.nested_comment_count > 0 && nestedComments.length > 0">Hide Replies</button> -->

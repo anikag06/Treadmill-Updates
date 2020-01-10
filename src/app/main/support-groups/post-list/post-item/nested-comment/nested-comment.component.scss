@@ -36,18 +36,33 @@
 
   .date {
     font-size: 13px;
+    color: #00000099;
   }
+
 
   .btn-sm {
     padding: 4px;
     box-shadow: none;
     font-size: 13px;
+    color: #00000099;
 
     img {
       width: 35px;
       height: 18px;
     }
   }
+}
+
+.cancel-btn {
+  width: 100px;
+  color: #2A3B3D;
+  background-color: white;
+}
+
+.save-btn {
+  width: 100px;
+  color: white;
+  background-color: #2A3B3D;
 }
 
 .nested-comment-profile-card {
@@ -103,6 +118,10 @@
     }
 
     .user {
+      font-size: 12px;
+    }
+
+    .btn-sm {
       font-size: 12px;
     }
 

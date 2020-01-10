@@ -28,6 +28,8 @@
 
   .date {
     font-size: 13px;
+    color: #00000099;
+
   }
 
   .btn {
@@ -45,6 +47,8 @@
 
   .btn-sm {
     padding: 4px;
+    color: #00000099;
+    font-size: 13px;
   }
 }
 
@@ -86,10 +90,12 @@ a.toggler {
   background-color: #2A3B3D;
 }
 
+
+
 .replies-btn {
   width: 100px;
   color: #000000DE;
-  opacity: 0.87;
+
   background-color: #E2E2E2;
 }
 
