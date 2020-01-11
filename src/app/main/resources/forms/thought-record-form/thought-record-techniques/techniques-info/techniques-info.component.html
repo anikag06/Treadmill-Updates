@@ -1,0 +1,22 @@
+<div class="">
+  <div class="">
+    {{ about }}
+  </div>
+  <div class="card-body">
+    <div class="technique-div" *ngFor="let technique of techniques">
+      <div class="technique-heading">
+        <div class="rect" [ngStyle]="{'background-color': technique.color}"></div>
+        <div class="technique-name">
+          {{technique.name}}
+        </div>
+      </div>
+      <div class="technique-description">
+        {{technique.description}}
+      </div>
+    </div>
+  </div>
+
+  <button mat-raised-button class="btn back-btn" (click)="closeInfoModal()">
+    Back To Form
+  </button>
+</div>

@@ -2,50 +2,73 @@
   <div class="row no-gutters mb-2 card card-full-width">
     <mat-card-header class="col-12 w-100 px-0 card-header main-heading">
       <mat-card-title class="ml-4 my-auto d-inline-block">
-        {{formName}}
+        {{ formName }}
       </mat-card-title>
 
       <div class="h-100 d-inline-block ml-auto">
-        <button class="h-100 saved-forms-btn" mat-button [matMenuTriggerFor]="thoughtRecordForms">
-          <i class="material-icons more-hor-icon">
+        <button
+          class="h-100 saved-forms-btn"
+          mat-button
+          [matMenuTriggerFor]="thoughtRecordForms"
+        >
+          <mat-icon>
             more_horiz
-          </i>
+          </mat-icon>
         </button>
       </div>
 
-      <mat-menu xPosition="before" yPosition="below" #thoughtRecordForms="matMenu" [overlapTrigger]="false">
-        <div [ngStyle]="{'max-height': '350px'}">
-          <!-- <app-forms-sidebar [type]="type" (objectEmitter)="thoughtSelected($event)" (newForm)="onAddNewForm()">
-          </app-forms-sidebar> -->
+      <mat-menu
+        xPosition="before"
+        yPosition="below"
+        #thoughtRecordForms="matMenu"
+        [overlapTrigger]="false"
+      >
+        <div [ngStyle]="{ 'max-height': '350px' }">
+          <app-forms-sidebar
+            [type]="type"
+            (objectEmitter)="thoughtSelected($event)"
+            (newForm)="onAddNewForm()"
+          >
+          </app-forms-sidebar>
         </div>
       </mat-menu>
     </mat-card-header>
   </div>
-
   <div class="row no-gutters form-div mx-auto">
     <div class="col-12 col-lg">
       <div class="row mb-2">
         <div class="col-12">
-          <div class="card-full-width">
-            <div class="card-header">
-              What happened?
-              <div class="float-right d-inline-block">
-                <mat-icon class="edit_icon" (click)="onEditSituationClick()">
-                  edit </mat-icon>
-              </div>
-            </div>
-            <div class="card-body" *ngIf="situation && !situationEditMode" (click)="onSituationClick()">
-              <div class="form-editable-text-underline">
-                {{situation}}
-              </div>
-            </div>
-            <div class="card-body" *ngIf="situation && situationEditMode" (click)="onSituationClick()">
-              <app-trf-situation [situation]="situation"></app-trf-situation>
-            </div>
-            <div class="card-body" *ngIf="!situation" (click)="onSituationClick()">
-              <app-trf-situation></app-trf-situation>
-            </div>
-          </div>
+         <app-form-card
+            [header]="situationHeader"
+            (showNegative)="onShowNegative($event)"
+          ></app-form-card>
+          <app-form-card
+            *ngIf="situationAdded"
+            (onShowSlider)="onShowSlider($event)"
+            [header]="negativeThoughtHeader"
+          ></app-form-card>
+
+          <app-form-slider
+            [minRatingText]="minRating"
+            [maxRatingText]="maxRating"
+            [question]="scaleThought"
+            *ngIf="negativeThoughtAdded"
+            (selectMood)="onSelectMood($event)"
+          ></app-form-slider>
+          <app-mood-widget-card
+            *ngIf="showMood"
+            [showMood]="showMood"
+            [header]="moodSelect"
+            (onShowRecordBehave)="onShowRecordBehave($event)"
+          ></app-mood-widget-card>
+          <app-form-card
+            *ngIf = "showRecordBehave"
+            [header]="recordBehaveHeader"
+            (onShowTechniques) = "onShowTechniques($event)"
+          ></app-form-card>
+
+          <app-thought-record-techniques ></app-thought-record-techniques>
+
         </div>
       </div>
     </div>

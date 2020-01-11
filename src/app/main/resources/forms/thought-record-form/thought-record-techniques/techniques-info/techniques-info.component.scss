@@ -1,0 +1,27 @@
+.rect {
+  width: 4px;
+  height: 20px;
+}
+
+.technique-name {
+  font-size: 12px;
+  font-weight: 500;
+  margin-left: 16px;
+  margin-bottom: 8px;
+}
+.technique-heading {
+  display: flex;
+}
+.technique-description{
+    font-size: 12px;
+    margin-bottom: 18px;
+}
+
+.back-btn{
+    margin: auto;
+    display: block;
+    background: #2A3B3D;
+    color: white;
+    outline: none;
+    box-shadow: none;
+}

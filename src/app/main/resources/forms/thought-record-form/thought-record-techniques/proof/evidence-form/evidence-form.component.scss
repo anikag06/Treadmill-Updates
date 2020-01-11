@@ -1,0 +1,17 @@
+@import "../../tr-technique";
+
+.add-evidence{
+  float: left;
+  display: flex;
+  opacity: 0.6;
+}
+
+#trash-icon {
+  display: flex;
+  align-self: flex-end;
+  cursor: pointer;
+}
+
+.statement{
+  margin-bottom: 10px;
+}

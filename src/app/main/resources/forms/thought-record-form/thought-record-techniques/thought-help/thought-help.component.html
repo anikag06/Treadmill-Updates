@@ -1,0 +1,121 @@
+<mat-expansion-panel hideToggle #panel>
+  <mat-expansion-panel-header
+    [ngStyle]="{ background: '#FEDEFF' }"
+    [expandedHeight]="'42px'"
+    [collapsedHeight]="'42px'"
+  >
+    <mat-panel-title
+      [ngStyle]="{
+        'font-size': panel.expanded ? '16px' : '14px',
+        'font-weight': '500'
+      }"
+    >
+      {{ techniqueName }}
+    </mat-panel-title>
+    <mat-panel-description>
+      <div class="iconsDiv" *ngIf="panel.expanded">
+        <mat-icon>close</mat-icon>
+      </div>
+      <div class="iconsDiv" *ngIf="!panel.expanded && submitted">
+        <img src="assets/forms/edit_errors.png" width="24px" />
+      </div>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+
+  <ng-template matExpansionPanelContent>
+    <form [formGroup]="thoughtHelpForm">
+      <div class="q-heading">
+        {{ keepThoughtQues }}
+      </div>
+      <div>
+        <textarea
+          matInput
+          cdkTextareaAutosize
+          cdkAutosizeMinRows="2"
+          cdkAutosizeMaxRows="4"
+          formControlName="keepThought"
+          class="form-control"
+          required
+          placeholder="Write Here"
+          #outcome
+        ></textarea>
+      </div>
+      <br />
+      <div class="q-heading">
+        {{ changeThoughtQues }}
+      </div>
+      <div>
+        <textarea
+          matInput
+          cdkTextareaAutosize
+          cdkAutosizeMinRows="2"
+          cdkAutosizeMaxRows="4"
+          formControlName="changeThought"
+          class="form-control"
+          required
+          placeholder="Write Here"
+          #outcome
+        ></textarea>
+      </div>
+      <br />
+      <div class="q-heading">
+        {{ canSolveQues }}
+      </div>
+      <div>
+        <mat-radio-group formControlName="canSolve">
+          <mat-radio-button value="true">
+            Yes
+          </mat-radio-button>
+          <mat-radio-button value="false" [ngStyle]="{ float: 'right' }">
+            No
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <br />
+      <div>
+        <ng-container
+          *ngIf="
+            thoughtHelpForm.valid &&
+            thoughtHelpForm.value['canSolve'] === 'true'
+          "
+        >
+          <div>
+            {{ yes }}
+          </div>
+        </ng-container>
+        <ng-container
+          *ngIf="
+            thoughtHelpForm.valid &&
+            thoughtHelpForm.value['canSolve'] === 'false'
+          "
+        >
+          <div>
+            {{ no }}
+          </div>
+        </ng-container>
+      </div>
+      <br />
+      <div>
+        <button
+          type="submit"
+          mat-raised-button
+          class="btn continue-btn"
+          *ngIf="thoughtHelpForm.valid"
+          [ngStyle]="{ float: 'right' }"
+          (click)="onSubmit()"
+        >
+          Done
+        </button>
+      </div>
+    </form>
+  </ng-template>
+</mat-expansion-panel>
+
+<mat-card class="card-body" *ngIf="!panel.expanded && submitted">
+  <mat-card-content>
+    <div [ngStyle]="{ 'font-size': '12px' }">Summary</div>
+    <div [ngStyle]="{ 'margin-top': '8px', 'font-size': '12px' }">
+      {{ summary }}
+    </div>
+  </mat-card-content>
+</mat-card>

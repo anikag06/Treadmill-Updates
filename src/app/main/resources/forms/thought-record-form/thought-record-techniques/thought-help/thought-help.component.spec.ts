@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TrfSituationComponent } from './trf-situation.component';
+import { ThoughtHelpComponent } from './thought-help.component';
 
-describe('TrfSituationComponent', () => {
-  let component: TrfSituationComponent;
-  let fixture: ComponentFixture<TrfSituationComponent>;
+describe('ThoughtHelpComponent', () => {
+  let component: ThoughtHelpComponent;
+  let fixture: ComponentFixture<ThoughtHelpComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TrfSituationComponent ]
+      declarations: [ ThoughtHelpComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TrfSituationComponent);
+    fixture = TestBed.createComponent(ThoughtHelpComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

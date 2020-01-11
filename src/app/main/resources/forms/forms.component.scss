@@ -67,7 +67,11 @@ $form-secondary-color: #2A3B3D;
 .continue-btn {
   width: 100px;
   color: white;
-  background-color: $form-secondary-color;
+  background-color: #2A3B3D;
+  outline: none;
+  color: white;
+  outline: none;
+  box-shadow: none;
 }
 
 .card {
@@ -75,6 +79,7 @@ $form-secondary-color: #2A3B3D;
 
   button {
     width: 100%;
+
   }
 
   label {
@@ -128,10 +133,17 @@ $form-secondary-color: #2A3B3D;
 .edit_icon {
   cursor: pointer;
 }
+.mat-card-header .mat-card-title{
+  font-size: 18px;
+}
+
+.mat-icon{
+  cursor: pointer;
+}
 
 @media screen and (max-width: 992px) {
   h1 {
-    font-size: 1.6rem;
+    font-size: 1.3rem;
     font-weight: 600;
   }
 

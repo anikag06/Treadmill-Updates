@@ -1,0 +1,30 @@
+@import '../../forms.component.scss';
+.q-heading {
+  margin-top: 16px;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+.close-icon {
+  position: absolute;
+  right: 45px;
+}
+.technique {
+  margin-top: 12px;
+  margin-bottom: 16px;
+}
+.iconsDiv{
+  position: absolute;
+  right: 40px;
+}
+.form-control{
+  border-top-color: transparent;
+  border-bottom-color: #00000066;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  box-shadow: none;
+}
+.form-control:focus{
+  border-bottom-color: #000000DE;
+}
+
+

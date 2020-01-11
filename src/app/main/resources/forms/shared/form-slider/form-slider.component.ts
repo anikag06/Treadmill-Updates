@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output,EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-form-slider',
@@ -10,8 +10,14 @@ export class FormSliderComponent implements OnInit {
   @Input() question!: string;
   @Input() minRatingText!: string;
   @Input() maxRatingText!: string;
+  @Output() selectMood = new EventEmitter();
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+  
+  }
+  onSubmit(){
+    this.selectMood.emit(true);
+  }
 }

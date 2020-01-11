@@ -1,23 +1,22 @@
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  z-index: 10;
-}
+// .overlay {
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   height: 100%;
+//   width: 100%;
+//   z-index: 10;
+// }
 
-/* just some content with arbitrary styles for explanation purposes */
-.modal {
-  width: 98%;
-  height: 100%;
-  display: inline-block;
+.moodTrackerDiv {
+  width: auto;
+  height: 620px;
   margin-top: 5px;
   margin-left: 3px;
   background: #ffffff 0% 0% no-repeat padding-box;
   border-radius: 5px;
   text-align: center;
   z-index: 11;
+  position: relative;
 }
 
 .close-btn {
@@ -72,13 +71,12 @@
 
 .done-btn {
   z-index: 200;
-  position: absolute;
-  bottom: 30px;
+  
   margin: auto;
   display: grid;
   width: 90%;
   padding: auto;
-  margin-left: 20px;
+ 
   color: #fafafa;
   background-color: #343434;
   outline: none;
@@ -102,17 +100,17 @@
   left: 8px;
 }
 
-input[type="range"] {
+input[type='range'] {
   -webkit-appearance: none;
   background-color: transparent;
   width: 150px;
   height: 38px;
   padding-top: 10px;
 }
-input[type="range"]:focus {
+input[type='range']:focus {
   outline: none;
 }
-input[type="range"]::-webkit-slider-thumb {
+input[type='range']::-webkit-slider-thumb {
   -webkit-appearance: none;
   height: 8px;
   width: 8px;
@@ -124,21 +122,27 @@ input[type="range"]::-webkit-slider-thumb {
   box-shadow: 0 0 0 5px goldenrod;
   z-index: 500;
 }
-input[type="range"]::-webkit-slider-thumb:after {
-  content: "";
+input[type='range']::-webkit-slider-thumb:after {
+  content: '';
   position: absolute;
   z-index: 100;
   left: -285px;
 }
 
-input[type="range"]::-webkit-slider-runnable-track:before {
-  content: "";
+input[type='range']::-webkit-slider-runnable-track:before {
+  content: '';
   position: absolute;
   height: 38px;
   width: 150px;
   background: #e8e8e8;
   background: -moz-linear-gradient(top, #dfdfdf 0%, #d8d8d8 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #dfdfdf), color-stop(100%, #d8d8d8));
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    color-stop(0%, #dfdfdf),
+    color-stop(100%, #d8d8d8)
+  );
   background: -webkit-linear-gradient(top, #dfdfdf 0%, #d8d8d8 100%);
   background: -o-linear-gradient(top, #dfdfdf 0%, #d8d8d8 100%);
   background: -ms-linear-gradient(top, #dfdfdf 0%, #d8d8d8 100%);
@@ -147,8 +151,8 @@ input[type="range"]::-webkit-slider-runnable-track:before {
   bottom: 0px;
   left: 0;
 }
-input[type="range"]::-webkit-slider-runnable-track:after {
-  content: "";
+input[type='range']::-webkit-slider-runnable-track:after {
+  content: '';
   position: absolute;
   height: 10px;
   width: 150px;
@@ -156,8 +160,8 @@ input[type="range"]::-webkit-slider-runnable-track:after {
   top: 0;
   right: 26px;
 }
-input[type="range"]:before {
-  content: "";
+input[type='range']:before {
+  content: '';
   position: absolute;
   background: #9a9a9a;
   width: 150px;
@@ -165,16 +169,17 @@ input[type="range"]:before {
   top: 29px;
   z-index: 1;
 }
-input[type="range"]:after {
-  content: "";
+input[type='range']:after {
+  content: '';
   position: absolute;
   background: rgb(190, 190, 190);
   width: 5px;
   border-radius: 50%;
   height: 5px;
   top: 27px;
-  box-shadow: 38px 0 0 rgb(190, 190, 190), 72px 0 0 rgb(190, 190, 190), 110px 0 0 rgb(190, 190, 190),
-    145px 0 0 rgb(190, 190, 190), 38px 1px 0 rgb(255, 255, 255), 72px 1px 0 rgb(235, 235, 235),
+  box-shadow: 38px 0 0 rgb(190, 190, 190), 72px 0 0 rgb(190, 190, 190),
+    110px 0 0 rgb(190, 190, 190), 145px 0 0 rgb(190, 190, 190),
+    38px 1px 0 rgb(255, 255, 255), 72px 1px 0 rgb(235, 235, 235),
     110px 1px 0 rgb(235, 235, 235), 145px 1px 0 rgb(235, 235, 235);
 }
 .rangeValue {
@@ -192,4 +197,14 @@ input.option {
 label {
   font-size: 14px;
   margin-left: 10px;
+}
+.done-btn-div {
+  bottom: 20px;
+  position: absolute;
+  width: 100%;
+}
+
+:host-context(.forms) .moodTrackerDiv {
+ width: auto;
+ margin-left: none;
 }

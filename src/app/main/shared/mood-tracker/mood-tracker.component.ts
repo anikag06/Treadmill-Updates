@@ -1,25 +1,12 @@
-import {
-  Component,
-  OnInit,
-  EventEmitter,
-  Output,
-  ElementRef,
-  AfterViewInit,
-  ViewChild,
-  ViewChildren,
-  Input,
-} from '@angular/core';
+import { NEGATIVE_EMOTIONS, NEUTRAL_EMOTIONS, POSITIVE_EMOTIONS } from '@/app.constants';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MatDialogRef } from '@angular/material';
 import { Mood } from './mood.model';
-import {
-  NEGATIVE_EMOTIONS,
-  NEUTRAL_EMOTIONS,
-  POSITIVE_EMOTIONS,
-} from '@/app.constants';
 
 @Component({
   selector: 'app-mood-tracker',
   templateUrl: './mood-tracker.component.html',
-  styleUrls: ['./mood-tracker.component.scss'],
+  styleUrls: ['./mood-tracker.component.scss']
 })
 export class MoodTrackerComponent implements OnInit, AfterViewInit {
   @Output() onClose = new EventEmitter();
@@ -34,8 +21,10 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
   rangeValue: string = '';
   @Output() moodMessage = new EventEmitter();
   @Output() moodSubmit = new EventEmitter<any>();
+  @Input() forChatBot: boolean = false;
 
-  constructor(private element: ElementRef) {}
+  constructor(private element: ElementRef,
+    public dialogRef: MatDialogRef<MoodTrackerComponent>) {}
 
   ngOnInit() {
     // let negative_mood = new Mood('assets/chatbot/Negative_emotion.png', 'Negative mood');
@@ -45,16 +34,16 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
   }
   ngAfterViewInit() {
     let listItem = this.element.nativeElement.querySelectorAll(
-      '.mat-list-item-content',
+      '.mat-list-item-content'
     );
     let listText = this.element.nativeElement.querySelectorAll(
-      '.mat-list-text',
+      '.mat-list-text'
     );
     let panelBody = this.element.nativeElement.querySelectorAll(
-      '.mat-expansion-panel-body',
+      '.mat-expansion-panel-body'
     );
     let checkmark = this.element.nativeElement.querySelectorAll(
-      ' .mat-checkbox-checkmark-path',
+      ' .mat-checkbox-checkmark-path'
     );
 
     for (let i = 0; i < listItem.length; i++) {
@@ -64,7 +53,7 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
     for (let i = 0; i < listText.length; i++) {
       listText[i].setAttribute(
         'style',
-        'width:auto;padding-left:20px;font-size: 14px;',
+        'width:auto;padding-left:20px;font-size: 14px;'
       );
     }
     for (let i = 0; i < panelBody.length; i++) {
@@ -178,6 +167,8 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
     }
     this.closeModal();
     this.moodMessage.emit(chatMoodMessage);
-    this.moodSubmit.emit();
+    this.moodSubmit.emit(); 
+    this.dialogRef.close({ event: "close" });
+    
   }
 }

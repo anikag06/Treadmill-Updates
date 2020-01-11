@@ -71,9 +71,41 @@ import { WorryProductivelyComponent } from '@/main/resources/forms/worry-product
 import { WorryFormComponent } from '@/main/resources/forms/worry-productively-form/worry-form/worry-form.component';
 import { TechniquesComponent } from './forms/worry-productively-form/techniques/techniques.component';
 import { EvaluateWorryComponent } from './forms/worry-productively-form/techniques/evaluate-worry/evaluate-worry.component';
+import { MoodWidgetCardComponent } from './forms/thought-record-form/mood-widget-card/mood-widget-card.component';
+import { FormCardComponent } from './forms/thought-record-form/form-card/form-card.component';
+import { MoodTrackerComponent } from '../shared/mood-tracker/mood-tracker.component';
 import { FaceMyWorstFearComponent } from './forms/worry-productively-form/techniques/face-my-worst-fear/face-my-worst-fear.component';
-import { WpfProblemSolvingComponent } from './forms/worry-productively-form/techniques/wpf-problem-solving/wpf-problem-solving.component';
+import { TechniquesComponent } from './forms/worry-productively-form/techniques/techniques.component';
 import { WpfDealWithWorryComponent } from './forms/worry-productively-form/techniques/wpf-deal-with-worry/wpf-deal-with-worry.component';
+import { WpfProblemSolvingComponent } from './forms/worry-productively-form/techniques/wpf-problem-solving/wpf-problem-solving.component';
+import { IntroductionComponent } from './introduction/introduction.component';
+import { IntroductionService } from './introduction/introduction.service';
+import { Introduction1Component } from './introduction/introduction1/introduction1.component';
+import { Introduction2Component } from './introduction/introduction2/introduction2.component';
+import { Introduction3Component } from './introduction/introduction3/introduction3.component';
+import { Introduction4Component } from './introduction/introduction4/introduction4.component';
+import { Introduction5Component } from './introduction/introduction5/introduction5.component';
+import { CommonDialogsService } from './shared/common-dialogs.service';
+import { CongratsDialogComponent } from './shared/congrats-dialog/congrats-dialog.component';
+import { StepsDataService } from './shared/steps-data.service';
+import { UserFeedbackComponent } from './shared/user-feedback/user-feedback.component';
+import { FormDirective } from './slides/form.directive';
+import { SlideService } from './slides/slide.service';
+import { SlidesComponent } from './slides/slides.component';
+// tslint:disable-next-line:max-line-length
+import { ThoughtRecordTechniquesComponent } from './forms/thought-record-form/thought-record-techniques/thought-record-techniques.component';
+import { TechniquesInfoComponent } from './forms/thought-record-form/thought-record-techniques/techniques-info/techniques-info.component';
+// tslint:disable-next-line:max-line-length
+import { IdentifyThinkingComponent } from './forms/thought-record-form/thought-record-techniques/identify-thinking/identify-thinking.component';
+
+import { ProofComponent } from './forms/thought-record-form/thought-record-techniques/proof/proof.component';
+import { ClickOutsideDirective } from '../shared/click-outside/click-outside.directive';
+import { EvidenceFormComponent } from './forms/thought-record-form/thought-record-techniques/proof/evidence-form/evidence-form.component';
+import { ExplainationComponent } from './forms/thought-record-form/thought-record-techniques/explaination/explaination.component';
+import { RecordOutcomeComponent } from './forms/thought-record-form/thought-record-techniques/record-outcome/record-outcome.component';
+import { FormTextareaComponent } from './forms/shared/form-textarea/form-textarea.component';
+import { ThoughtHelpComponent } from './forms/thought-record-form/thought-record-techniques/thought-help/thought-help.component';
+import { TellFriendComponent } from './forms/thought-record-form/thought-record-techniques/tell-friend/tell-friend.component';
 
 @NgModule({
   declarations: [
@@ -108,7 +140,6 @@ import { WpfDealWithWorryComponent } from './forms/worry-productively-form/techn
     Conclusion4Component,
     Conclusion5Component,
     ThoughtRecordFormComponent,
-    TrfSituationComponent,
     ExperimentToTestBeliefFormComponent,
     EttbfBeliefComponent,
     EttbfOutcomeComponent,
@@ -120,8 +151,21 @@ import { WpfDealWithWorryComponent } from './forms/worry-productively-form/techn
     FaceMyWorstFearComponent,
     WpfProblemSolvingComponent,
     WpfDealWithWorryComponent,
+    FormCardComponent,
+    MoodTrackerComponent,
+    MoodWidgetCardComponent,
+    ThoughtRecordTechniquesComponent,
+    TechniquesInfoComponent,
+    IdentifyThinkingComponent,
+    ProofComponent,
+    ClickOutsideDirective,
+    EvidenceFormComponent,
+    ExplainationComponent,
+    RecordOutcomeComponent,
+    FormTextareaComponent,
+    ThoughtHelpComponent,
+    TellFriendComponent,
     DateTimePickerComponent,
-    ClickOutsideDirective
   ],
   imports: [
     ResourcesRoutingModule,
@@ -143,8 +187,9 @@ import { WpfDealWithWorryComponent } from './forms/worry-productively-form/techn
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     MatSlideToggleModule,
+    MatExpansionModule,
+    MatRadioModule,
     MatSnackBarModule,
-    MatExpansionModule
   ],
   providers: [
     SlideService,
@@ -158,6 +203,8 @@ import { WpfDealWithWorryComponent } from './forms/worry-productively-form/techn
     CongratsDialogComponent,
     ProblemFormComponent,
     ProblemSolvingWorksheetsComponent,
+    MoodTrackerComponent,
+    TechniquesInfoComponent,
     DateTimePickerComponent
   ],
   exports: [

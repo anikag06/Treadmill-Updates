@@ -1,0 +1,43 @@
+<div class="card-full-width">
+  <div class="card-header">
+    {{ header }}
+  </div>
+  <div class="card-body">
+    <div
+      class="multiple-technique-info"
+      [ngStyle]="{ display: 'flex', 'font-size': '12px' }"
+    >
+      {{ info }}
+      <div [ngStyle]="{ 'margin-left': 'auto' }" (click)="onShowInfo()">
+        <mat-icon>info_outline</mat-icon>
+      </div>
+    </div>
+    <div class="techniques">
+      <mat-accordion>
+        <div class="technique">
+          <app-identify-thinking></app-identify-thinking>
+        </div>
+
+        <div class="technique">
+          <app-proof></app-proof>
+        </div>
+
+        <div class="technique">
+          <app-explaination></app-explaination>
+        </div>
+
+        <div class="technique">
+          <app-record-outcome></app-record-outcome>
+        </div>
+
+        <div class="technique">
+          <app-thought-help></app-thought-help>
+        </div>
+
+        <div class="technique">
+          <app-tell-friend></app-tell-friend>
+        </div>
+      </mat-accordion>
+    </div>
+  </div>
+</div>

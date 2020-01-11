@@ -1,5 +1,5 @@
-<div class="overlay">
-    <div class="modal">
+
+    <div class="moodTrackerDiv"> 
          <mat-accordion class="moods">
          <!--   <mat-expansion-panel *ngFor="let mood of moods;let i = index;" hideToggle (opened)="setStep(i)">
                 <mat-expansion-panel-header [collapsedHeight]="customCollapsedHeight"
@@ -133,10 +133,13 @@
                 </mat-list>
             </mat-expansion-panel>
         </mat-accordion>
-    </div>
-    <button class=" close-btn" (click)="closeModal()">
+  
+    <button class="close-btn" (click)="closeModal()">
         <mat-icon>close</mat-icon>
     </button>
-    <button type="submit" mat-raised-button class="done-btn" [disabled]="emotionCount < 1"
+    <div class="done-btn-div">
+        <button type="submit" mat-raised-button class="done-btn" [disabled]="emotionCount < 1"
         (click)="onMoodSubmit()">Done</button>
-</div>
+    </div>
+    
+</div> 

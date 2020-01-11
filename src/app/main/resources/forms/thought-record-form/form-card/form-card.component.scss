@@ -1,4 +1,5 @@
-@import '../forms.component.scss';
+@import '../../forms.component.scss';
+
 
 .main-heading{
     background: #ffffff;
@@ -14,4 +15,15 @@
 .card-header{
     font-size: 14px;
     font-weight: 400;
+    align-items: center;
+    display: flex;
+}
+
+.card-body{
+    padding-bottom: 0;
+}
+.edit-icon{
+    vertical-align: middle;
+    margin-left: auto;
+    order: 2;
 }

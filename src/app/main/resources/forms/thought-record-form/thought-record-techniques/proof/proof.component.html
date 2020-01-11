@@ -1,0 +1,62 @@
+
+  <mat-expansion-panel hideToggle #panel>
+    <mat-expansion-panel-header
+      [ngStyle]="{ background: '#D4FFEF' }"
+      [expandedHeight]="'42px'"
+      [collapsedHeight]="'42px'"
+    >
+      <mat-panel-title
+        [ngStyle]="{
+          'font-size': panel.expanded ? '16px' : '14px',
+          'font-weight': '500'
+        }"
+      >
+        What is the proof?
+      </mat-panel-title>
+      <mat-panel-description>
+        <div class="iconsDiv" *ngIf="panel.expanded">
+          <mat-icon>close</mat-icon>
+        </div>
+        <div
+          class="iconsDiv"
+          *ngIf="!panel.expanded && submitted"
+        >
+          <img src="assets/forms/edit_errors.png" width="24px" />
+        </div>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <ng-template matExpansionPanelContent>
+      <div>
+        <app-evidence-form [title]="favorTitle" (valueUpdate)="getFavourUpdatedvalue($event)"></app-evidence-form>
+        <br><br><br>
+        <app-evidence-form [title]="againstTitle" (valueUpdate)="getAgainstpdatedvalue($event)"></app-evidence-form>
+      </div>
+<br><br>
+
+  <button
+          mat-raised-button
+          class="btn continue-btn"
+          [ngStyle]="{ float: 'right' }"
+          (click)="onSubmit()"
+  >
+    Done
+  </button>
+
+<br><br>
+    </ng-template>
+  </mat-expansion-panel>
+  <ng-template>
+    <div
+      class="card-body"
+      *ngIf="!panel.expanded  && submitted"
+    >
+      <div [ngStyle]="{ 'font-size': '12px' }">
+
+      </div>
+      <div [ngStyle]="{ 'margin-top': '8px', 'font-size': '12px' }">
+       Summary
+      </div>
+    </div>
+  </ng-template>
+

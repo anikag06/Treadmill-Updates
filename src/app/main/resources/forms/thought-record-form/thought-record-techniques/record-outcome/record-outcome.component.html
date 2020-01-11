@@ -1,0 +1,103 @@
+
+  <mat-expansion-panel hideToggle #panel>
+    <mat-expansion-panel-header
+      [ngStyle]="{ background: '#EBEDFF' }"
+      [expandedHeight]="height"
+      [collapsedHeight]="height"
+    >
+      <mat-panel-title
+        [ngStyle]="{
+          'font-size': panel.expanded ? '16px' : '14px',
+          'font-weight': '500'
+        }"
+      >
+        {{ techniqueName }}
+      </mat-panel-title>
+      <mat-panel-description>
+        <div class="iconsDiv" *ngIf="panel.expanded">
+          <mat-icon>close</mat-icon>
+        </div>
+        <div class="iconsDiv" *ngIf="!panel.expanded && submitted">
+          <img src="assets/forms/edit_errors.png" width="24px" />
+        </div>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <ng-template matExpansionPanelContent>
+      <form [formGroup]="outcomeRecordForm" >
+        <div class="q-heading">
+          {{ worstOutcomeQuestion }}
+        </div>
+        <div>
+          <textarea
+            matInput
+            cdkTextareaAutosize
+            cdkAutosizeMinRows="2"
+            cdkAutosizeMaxRows="4"
+            formControlName="worstOutcome"
+            class="form-control"
+            required
+            placeholder="Write Here"
+            #outcome
+          ></textarea>
+        </div>
+        <br />
+        <div class="q-heading">
+          {{ bestOutcomeQuestion }}
+        </div>
+        <div>
+          <textarea
+            matInput
+            cdkTextareaAutosize
+            cdkAutosizeMinRows="2"
+            cdkAutosizeMaxRows="4"
+            formControlName="bestOutcome"
+            class="form-control"
+            required
+            placeholder="Write Here"
+            #outcome
+          ></textarea>
+        </div>
+        <br />
+        <div class="q-heading">
+          {{ likelyOutcomeQuestion }}
+        </div>
+        <div>
+          <textarea
+            matInput
+            cdkTextareaAutosize
+            cdkAutosizeMinRows="2"
+            cdkAutosizeMaxRows="4"
+            formControlName="likelyOutcome"
+            class="form-control"
+            required
+            placeholder="Write Here"
+            #outcome
+          ></textarea>
+        </div>
+        <br />
+        <div>
+          <button
+            type="submit"
+            mat-raised-button
+            class="btn continue-btn"
+            *ngIf="outcomeRecordForm.valid"
+            [ngStyle]="{ float: 'right' }"
+            (click)="onSubmit()"
+          >
+            Done
+          </button>
+        </div>
+      </form>
+    </ng-template>
+  </mat-expansion-panel>
+
+  <mat-card class="card-body" *ngIf="!panel.expanded && submitted">
+    <mat-card-content>
+      <div [ngStyle]="{ 'font-size': '12px' }">Summary</div>
+      <div [ngStyle]="{ 'margin-top': '8px', 'font-size': '12px' }">
+        {{ summary }}
+      </div>
+    </mat-card-content>
+  </mat-card>
+
