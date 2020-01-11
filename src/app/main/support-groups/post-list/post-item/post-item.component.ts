@@ -187,6 +187,7 @@ export class PostItemComponent
         .postComment(comment)
         .subscribe(
           (commentResponse: any) => {
+            console.log(this.user);
             const persistedComment = new UserComment(
               commentResponse.data.comment_id,
               {
@@ -198,13 +199,26 @@ export class PostItemComponent
               new Date().toISOString(),
               -1,
             );
-            console.log(persistedComment);
+            const updatedComment = new UserComment(
+              persistedComment.id, {
+              username: persistedComment.user.username,
+              score: this.supportGroupItem.user.score,
+              no_of_gold_badges: this.supportGroupItem.user.no_of_gold_badges,
+              no_of_bronze_badges: this.supportGroupItem.user.no_of_bronze_badges,
+              no_of_silver_badges: this.supportGroupItem.user.no_of_silver_badges,
+            },
+              persistedComment.body,
+              persistedComment.up_votes,
+              persistedComment.nested_comment_count,
+              persistedComment.created_at,
+              persistedComment.is_voted
+            );
             this.supportGroupItem.comments_count += 1;
             this.commentForm.reset();
             this.initial = false;
             this.disabledValue = false;
             this.editorConfig.showToolbar = false;
-            this.comments.push(persistedComment);
+            this.comments.push(updatedComment);
             this.commentNos = this.comments.length;
             this.changeDetector.detectChanges();
           },
@@ -216,6 +230,7 @@ export class PostItemComponent
         );
     }
   }
+
 
   /**
    * To fetch comments on posts
@@ -332,13 +347,18 @@ export class PostItemComponent
    */
   onFocusOut(event: FocusEvent) {
     const el = <Element>event.relatedTarget;
+    console.log(el);
     if (
       el == null ||
-      (el.innerHTML !== 'Comment' &&
-        !el.matches('button.angular-editor-button'))
+      // (el.innerHTML !== 'Comment' &&
+      !el.matches('button.angular-editor-button')
     ) {
       this.editorConfig.showToolbar = false;
+    } else if (el.matches('button.comment-btn.mat-raised-button')) {
+      this.onSubmit();
+      this.editorConfig.showToolbar = false;
     }
+
   }
 
   /**
