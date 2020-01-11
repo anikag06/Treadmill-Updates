@@ -64,6 +64,7 @@ export class PostItemComponent
   commentNos = 1;
   showProfile = false;
   userProfile = new UserProfile('Name', '', 0, 0, 0, 0, [], [], []);
+  thankYouIcon = '../../../assets/support-group/Group 11055.png';
 
   editorConfig: AngularEditorConfig = {
     // Angular Editor Config
@@ -97,7 +98,7 @@ export class PostItemComponent
     private errorService: GeneralErrorService,
     private changeDetector: ChangeDetectorRef,
     private userProfileService: UserProfileService,
-  ) {}
+  ) { }
 
   /*
    * Angular Lifecycle hookup this is hack to check for updated content
@@ -140,7 +141,7 @@ export class PostItemComponent
       }
       try {
         this.changeDetector.detectChanges();
-      } catch (ViewDestroyedError) {}
+      } catch (ViewDestroyedError) { }
     });
   }
 
@@ -152,7 +153,7 @@ export class PostItemComponent
       this.fetchComments();
       try {
         this.changeDetector.detectChanges();
-      } catch (ViewDestroyedError) {}
+      } catch (ViewDestroyedError) { }
     });
   }
 
@@ -179,7 +180,7 @@ export class PostItemComponent
     ) {
       this.disabledValue = true;
       const comment = {
-        post: this.supportGroupItem.id,
+        post_id: this.supportGroupItem.id,
         body: this.commentForm.value['name'],
       };
       this.postCommentSubscription = this.commentService
@@ -188,13 +189,16 @@ export class PostItemComponent
           (commentResponse: any) => {
             const persistedComment = new UserComment(
               commentResponse.data.comment_id,
-              { username: this.user.username },
+              {
+                username: this.user.username,
+              },
               comment.body,
               0,
               0,
               new Date().toISOString(),
               -1,
             );
+            console.log(persistedComment);
             this.supportGroupItem.comments_count += 1;
             this.commentForm.reset();
             this.initial = false;
@@ -354,7 +358,7 @@ export class PostItemComponent
     this.comments = this.comments.filter(uc => uc.id !== userComment.id);
     try {
       this.changeDetector.detectChanges();
-    } catch (ViewDestroyedError) {}
+    } catch (ViewDestroyedError) { }
   }
 
   /**
@@ -373,7 +377,7 @@ export class PostItemComponent
     this.sgService
       .postUpVote({ post_id: this.supportGroupItem.id, vote: 1 })
       .subscribe(
-        () => {},
+        () => { },
         () => {
           this.errorService.openErrorDialog('Cannot upvote');
           this.supportGroupItem.is_voted = preVote;
@@ -396,9 +400,12 @@ export class PostItemComponent
     }
     this.sgService
       .postUpVote({ post_id: this.supportGroupItem.id, vote: 0 })
-      .subscribe(() => {}, this.errorService.errorResponse('Cannot downvote'));
+      .subscribe(() => { }, this.errorService.errorResponse('Cannot downvote'));
   }
 
+  onThankYou() {
+    //
+  }
   onTagClick(tag: Tag) {
     this.tagClick.emit(tag.name);
   }

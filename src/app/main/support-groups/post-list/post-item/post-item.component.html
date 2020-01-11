@@ -92,6 +92,7 @@
       <button class="btn btn-sm thumbs-up" (click)="onThumbsUp()"><img [src]="thumbsUp" width="20">
         {{supportGroupItem.up_votes}}</button>
       <button class="btn btn-sm thumbs-down" (click)="onThumbsDown()"><img [src]="thumbsDown" width="20"></button>
+      <button class="btn btn-sm thumbs-down" (click)="onThankYou()"><img [src]="thankYouIcon" width="20"></button>
     </div>
   </div>
   <div class="row no-gutters comments-row">
@@ -117,7 +118,10 @@
           <angular-editor name="name" ngModel required (focus)="onFocus()" (focusout)="onFocusOut($event)"
             [config]="editorConfig"></angular-editor>
           <div class="text-right">
-            <button type="submit" class="btn btn-primary btn-sm" *ngIf="editorConfig.showToolbar">Comment</button>
+            <button type="submit" mat-raised-button class="comment-btn">Comment</button>
+            <!-- <button type="submit" mat-raised-button class="comment-btn"
+              *ngIf="editorConfig.showToolbar">Comment</button> -->
+
           </div>
         </fieldset>
       </form>
