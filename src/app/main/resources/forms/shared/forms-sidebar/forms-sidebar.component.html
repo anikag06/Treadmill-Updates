@@ -2,19 +2,38 @@
   SAVED FORMS
 </div> -->
 <ul class="list-group" id="forms-data">
-  <div id="add-new-form" class="mx-auto my-3">
-    <button mat-raised-button color="primary" (click)="onAddNewForm()">
-      <mat-icon>add</mat-icon>
-      Add new form
+  <div id="add-new-form">
+    <button mat-menu-item (click)="onAddNewForm()">
+      Create new form
     </button>
   </div>
-  <div class="" id="saved-forms-heading">Saved Forms</div>
+  <div id="delete-form">
+    <button mat-menu-item [disabled]="!task" (click)="onDeleteForm(task)">
+      Delete form
+    </button>
+  </div>
+  <!-- <div class="" id="saved-forms-heading"> -->
   <!-- <li class="list-group-item" *ngFor="let obj of objects" (click)="problemClicked(obj)" [ngClass]="obj === selectedObject ? 'selected' : ''">
     {{(obj.problem || obj.name).substring(0, 25)}}
   </li> -->
-  <button mat-menu-item
-    *ngFor="let obj of objects; let i = index"
-    (click)="problemClicked(obj)" [ngClass]="obj === selectedObject ? 'selected' : ''"
-    >
-    {{i+1}}.  {{(obj.problem || obj.name).substring(0, 25)}}</button>
+  <mat-accordion  (click)="$event.stopPropagation()">
+    <mat-expansion-panel [hideToggle]="objects.lenght > 0">
+      <mat-expansion-panel-header>
+        Saved Forms
+      </mat-expansion-panel-header>
+      <ng-template matExpansionPanelContent>
+        <div>
+          <button
+            mat-menu-item
+            *ngFor="let obj of objects; let i = index"
+            (click)="problemClicked(obj)"
+            [ngClass]="obj === selectedObject ? 'selected' : ''"
+          >
+            {{ i + 1 }}. {{ (obj.problem || obj.name).substring(0, 25) }}
+          </button>
+        </div>
+      </ng-template>
+    </mat-expansion-panel>
+  </mat-accordion>
+  <!-- </div> -->
 </ul>

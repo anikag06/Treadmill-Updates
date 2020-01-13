@@ -1,0 +1,84 @@
+<div class="dateTimeDiv">
+  <div class="startEndDate">
+    <ng-container *ngIf="startEndDate.length === 0">
+      <span [ngStyle]="{ opacity: '0.4', 'font-size': '24px' }">
+        When do you want to start?
+      </span>
+    </ng-container>
+    <ng-container *ngIf="startEndDate[1] === null && startEndDate.length > 1">
+      <span [ngStyle]="{ opacity: '0.4', 'font-size': '24px' }">
+        and till when?
+      </span>
+    </ng-container>
+    <ng-container
+      *ngIf="
+        startEndDate[1] !== null &&
+        startEndDate[0] !== null &&
+        startEndDate.length === 2
+      "
+    >
+      <div class="date-range">
+        <div class="date">
+          {{ startEndDate[0] | date: "shortDate" | date: "dd MMM" }}
+          {{ "-" }}
+          {{ startEndDate[1] | date: "shortDate" | date: "dd MMM" }}
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <div [ngStyle]="{ 'margin-top': '1em' }">
+    <owl-date-time-inline
+      [(ngModel)]="startEndDate"
+      hour12Timer="true"
+      [selectMode]="'range'"
+      [min]="min"
+      [startAt]="startAt"
+     
+    >
+    </owl-date-time-inline>
+  </div>
+  <div
+    class="repeat"
+    *ngIf="
+      startEndDate[1] !== null &&
+      startEndDate[0] !== null &&
+      startEndDate.length === 2
+    "
+  >
+    <div
+      [ngStyle]="{ display: 'flex', 'margin-left': '9%', 'margin-top': '3%' }"
+    >
+      Repeat
+    </div>
+    <div class="days">
+      <button
+        class="circle"
+        *ngFor="let day of daysCircle; let i = index"
+        [ngStyle]="day.selected && { background: '#2A3B3D', color: '#ffffff' }"
+        (click)="onDaySelected(i)"
+      >
+        {{ day.day[0] }}
+      </button>
+    </div>
+  </div>
+
+  <!-- <button class="close-btn" (click)="closeModal()">
+        <mat-icon>close</mat-icon>
+    </button> -->
+  <button
+    type="submit"
+    mat-raised-button
+    class="done-btn"
+    [disabled]="
+      !(
+        startEndDate[1] !== null &&
+        startEndDate[0] !== null &&
+        startEndDate.length === 2
+      )
+    "
+    (click)="dateTimeMessageSubmit()"
+  >
+    Done
+  </button>
+</div>

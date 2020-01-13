@@ -1,16 +1,4 @@
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  z-index: 10;
-}
-
-/* just some content with arbitrary styles for explanation purposes */
-.modal {
-  width: 98%;
-  height: 100%;
+.dateTimeDiv {
   margin-top: 5px;
   background: #ffffff 0% 0% no-repeat padding-box;
   border-radius: 5px;
@@ -29,16 +17,17 @@
 
 .done-btn {
   z-index: 200;
-  position: absolute;
-  bottom: 30px;
+  position: relative;
   margin-left: 5%;
   margin-right: 5%;
+  margin-top: 3%;
   display: grid;
   width: 90%;
   padding: auto;
   color: #fafafa;
-  background-color: #343434;
+  background: rgb(42, 59, 61);
   outline: none;
+  margin-bottom: 3%;
 }
 
 .owl-datetime-inline {
@@ -57,9 +46,9 @@
   opacity: 0.87;
 }
 
-.owl-dt-container-info {
-  display: none;
-}
+// .owl-dt-container-info {
+//   display: none;
+// }
 
 .circle {
   width: 30px;
@@ -85,11 +74,11 @@
 .mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
   background-color: rgba(10, 10, 10, 0.54);
 }
-.owl-dt-inline-container .owl-dt-calendar,
-.owl-dt-popup-container .owl-dt-calendar {
-  height: 17.25em;
-  overflow: hidden;
-}
+// .owl-dt-inline-container .owl-dt-calendar,
+// .owl-dt-popup-container .owl-dt-calendar {
+//   height: 17.25em;
+//   overflow: hidden;
+// }
 
 .close-btn {
   right: -10px;
@@ -107,6 +96,25 @@
   .startEndDate {
     margin-top: 5%;
   }
+  .dateTimeDiv {
+    width: 340px;
+    .done-btn {
+      margin-top: 5px;
+      position: relative;
+      bottom: auto;
+      margin: auto;
+      margin-bottom: 15px;
+     
+    }
+    .days {
+      display: flex;
+      margin-bottom: 10px;
+      padding: none;
+      margin: auto;
+      margin-bottom: 2%;
+      width: 340px;
+    }
+  }
 }
 
 @media screen and (min-height: 725px) and (max-width: 576px) {
@@ -120,4 +128,10 @@
     margin-top: 15%;
     height: 7%;
   }
+}
+
+@media screen and (max-width: 576px) {
+  //  .dateTimeDiv{
+  //    width: 340px;
+  //  }
 }

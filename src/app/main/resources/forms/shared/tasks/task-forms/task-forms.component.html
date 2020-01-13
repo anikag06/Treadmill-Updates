@@ -18,7 +18,7 @@
 
       <mat-menu #beforeMenu="matMenu" xPosition="before" yPosition="below">
         <div [ngStyle]="{'max-height':'350px'}">
-          <app-forms-sidebar (objectEmitter)="taskSelected($event)" (newForm)="onAddNewForm()">
+          <app-forms-sidebar (objectEmitter)="taskSelected($event)" (newForm)="onAddNewForm()" [task]="task">
           </app-forms-sidebar>
         </div>
       </mat-menu>
@@ -27,7 +27,7 @@
 
   <div class="row no-gutters form-div mx-auto">
     <div class="col-12 col-lg-12 ">
-      <app-tasks [task]="task" [reset]="reset"></app-tasks>
+      <app-tasks [task]="task" [reset]="reset" [taskHeading]="taskHeading"></app-tasks>
     </div>
   </div>
 </mat-card>

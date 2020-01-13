@@ -282,3 +282,20 @@ img.emoji {
     overflow: hidden;
   }
 }
+
+.mat-checkbox-layout{
+  width: 100%;
+}
+
+.mat-checkbox-label{
+  width: 100%;
+}
+
+
+.dateTime-dialog-container .mat-dialog-container {
+  padding: 0px !important;
+  width: 340px;
+  height: 620px;
+  display: contents;
+
+}

@@ -138,10 +138,7 @@ import { UserProfileComponent } from './shared/user-profile/user-profile.compone
 import { UserProfileService } from './shared/user-profile/userProfile.service';
 import { BadgesComponent } from './shared/user-profile/badges/badges.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { ClickOutsideDirective } from './support-groups/post-list/post-item/click-outside.directive';
 import { MoodTrackerComponent } from './shared/mood-tracker/mood-tracker.component';
-import { DataTimePickerComponent } from './shared/data-time-picker/data-time-picker.component';
-
 import { QuestionnaireModule } from '@/questionnaire.module';
 import { GetQuestionnaireComponent } from './dashboard/get-questionnaire/get-questionnaire.component';
 import { IdcHeadingComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-heading/idc-heading.component';
@@ -174,6 +171,7 @@ import { LoadingBarDirective } from './games/shared/loading-bar.directive';
 import { LoadingBarService } from './games/shared/loading-bar.service';
 import { LhgGreatComponent } from './games/games-list/common-game/learned-helplessness-game/lhg-great/lhg-great.component';
 import { StepsDataService } from './resources/shared/steps-data.service';
+import { ResourcesModule } from './resources/resources.module';
 
 @NgModule({
   declarations: [
@@ -249,7 +247,6 @@ import { StepsDataService } from './resources/shared/steps-data.service';
     LhgScienceComponent,
     UserProfileComponent,
     BadgesComponent,
-    ClickOutsideDirective,
     GetQuestionnaireComponent,
     IdcAllSituationsComponent,
     IdcHeadingComponent,
@@ -278,8 +275,7 @@ import { StepsDataService } from './resources/shared/steps-data.service';
     LoadingBarComponent,
     LoadingBarDirective,
     LhgGreatComponent,
-    MoodTrackerComponent,
-    DataTimePickerComponent,
+    MoodTrackerComponent
   ],
   imports: [
     CommonModule,
@@ -310,6 +306,7 @@ import { StepsDataService } from './resources/shared/steps-data.service';
     OverlayModule,
     MatTooltipModule,
     QuestionnaireModule,
+    ResourcesModule
   ],
   providers: [
     LocalStorageService,
@@ -343,7 +340,7 @@ import { StepsDataService } from './resources/shared/steps-data.service';
     UserProfileService,
     IdcGameService,
     LoadingBarService,
-    StepsDataService,
+    StepsDataService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [
@@ -377,7 +374,7 @@ import { StepsDataService } from './resources/shared/steps-data.service';
     FfgPlayagainComponent,
     FfgNolifeComponent,
     LoadingBarComponent,
-    MoodTrackerComponent,
-  ],
+    MoodTrackerComponent
+  ]
 })
 export class MainModule {}

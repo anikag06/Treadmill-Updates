@@ -1,4 +1,4 @@
-@import '../../forms.component.scss';
+@import "../../forms.component.scss";
 
 .form-control {
   border-top-color: transparent;
@@ -12,7 +12,7 @@
 
   .subtask {
     .mat-checkbox {
-      width: 90%;
+      width: 100%;
       display: inline-block;
     }
 
@@ -33,10 +33,61 @@ label {
 }
 
 .card-header {
-  background-color: #FFEFD4;
-  font-weight: 700;
+  background-color: #ffefd4;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
 }
 
 .selected {
   background-color: #999999;
+}
+.date-time-button {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border: 1px solid #000000;
+  border-radius: 20px;
+  text-align: center;
+  letter-spacing: 0;
+  color: #000000;
+  max-width: 100%;
+  outline: none;
+  margin-bottom: 5px;
+  margin-top: 10px;
+  padding: 5px 16px 5px 16px;
+  font-size: 14px;
+  box-shadow: none;
+}
+
+#trash-icon {
+  display: flex;
+  align-self: flex-end;
+  cursor: pointer;
+}
+
+.form-control:focus{
+  border-bottom: 1px solid;
+}
+
+.task-info-icon{
+  height: 26px;
+}
+
+.task-info{
+  height: 40px;
+    margin-top: 10px;
+}
+
+.add-subtask{
+  float: left;
+  display: flex;
+  padding-left: 18px;
+  opacity: 0.6;
+  margin-top: 30px;
+}
+
+.task-data{
+  margin-left: 22px;
+  height: 24px;
+  display: inline-block;
 }

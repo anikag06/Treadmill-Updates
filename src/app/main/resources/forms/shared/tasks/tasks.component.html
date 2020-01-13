@@ -1,92 +1,138 @@
 <div>
-  <mat-card-header class="card-header">
-    What action will take to go about the solution
-  </mat-card-header>
+  <mat-card-title class="card-header">
+    {{ taskHeading }}
+  </mat-card-title>
   <div class="card-body">
     <div class="row">
       <div class="col-12 col-lg-12">
         <form [formGroup]="tasksGroup">
           <div>
-            <mat-checkbox class="full-width" formControlName="taskCompleted" (change)="taskCompletedChange($event)"
-              [checked]="tasksGroup.controls.dtaskCompleted">
-              <input type="text" formControlName="task" class="form-control full-width" required
-                placeholder="Clean up my apartment" (focusout)="updateTask()">
+            <mat-checkbox
+              class="full-width"
+              formControlName="taskCompleted"
+              (change)="taskCompletedChange($event)"
+              [checked]="tasksGroup.controls.dtaskCompleted"
+            >
+              <textarea
+                matInput
+                cdkTextareaAutosize
+                #autosize="cdkTextareaAutosize"
+                cdkAutosizeMinRows="2"
+                cdkAutosizeMaxRows="4"
+                formControlName="task"
+                class="form-control"
+                required
+                placeholder="Enter Task Here"
+                (focusout)="updateTask()"
+              ></textarea>
             </mat-checkbox>
           </div>
-          <div class="subtasks" formArrayName="subTasks" *ngFor="let subtask of getSubTasksForm(); let i = index;">
-            <div [formGroupName]="i" class="subtask">
-              <mat-checkbox class="full-width" formControlName="is_completed" [checked]="is_completed"
-                (change)="subTaskCompletedChange($event, id)">
-                <input type="hidden" formControlName="id" [value]="id">
-                <input type="text" formControlName="name" class="form-control" placeholder="{{ subtaskPlaceholders[i] }}" required>
+          <div [ngStyle]="{ opacity: '0.6', 'font-size': '14px' }">
+            SubTasks
+          </div>
+          <div class="subtasks" formArrayName="subTasks">
+            <div
+              [formGroupName]="i"
+              class="subtask"
+              [ngStyle]="{ display: 'flex' }"
+              *ngFor="let subtask of getSubTasksForm(); let i = index"
+              click-outside
+              (clickOutside)="onClickOutside($event, i)"
+            >
+              <mat-checkbox
+                class="full-width"
+                formControlName="is_completed"
+                [checked]="is_completed"
+                (change)="subTaskCompletedChange($event, id)"
+              >
+                <input type="hidden" formControlName="id" [value]="id" />
+                <textarea
+                  matInput
+                  cdkTextareaAutosize
+                  #autosize="cdkTextareaAutosize"
+                  cdkAutosizeMinRows="2"
+                  cdkAutosizeMaxRows="4"
+                  formControlName="name"
+                  class="form-control"
+                  placeholder="Enter Subtask Here"
+                  required
+                  (focus)="onShowTrashIcon(i)"
+                  #answer="matInput"
+                ></textarea>
               </mat-checkbox>
-              <span (click)="markForDeletion(subtask.value, i)">
-                <mat-icon>remove_circle</mat-icon>
-              </span>
+              <div
+                id="trash-icon"
+                (click)="markForDeletion(subtask.value, i)"
+                *ngIf="showTrashIcon[i]"
+              >
+                <mat-icon>delete</mat-icon>
+              </div>
             </div>
           </div>
         </form>
-        <div>
-          <span class="pull-right" (click)="addField()">
-            <mat-icon>add_circle</mat-icon>
-          </span>
+
+        <div class="add-subtask" (click)="addField()">
+          <mat-icon
+            [ngStyle]="{
+              'font-size': '19px',
+              'padding-top': '2px',
+              cursor: 'pointer'
+            }"
+            >add</mat-icon
+          >
+          <div [ngStyle]="{ 'padding-left': '5px' }">
+            Add Subtask
+          </div>
         </div>
       </div>
       <div class="col-12 col-lg-12">
-        <strong>When do you want to do the task</strong>
-        <form class="form">
-          <div class="row mb-3">
-            <div class="col-12 col-md-12">
-              <mat-form-field class="w-100">
-                <input matInput placeholder="Select Start Date" [owlDateTimeTrigger]="datePicker"
-                  [owlDateTime]="datePicker" [(ngModel)]="start_date" name="date" (focusout)="dateTimeParser()">
-              </mat-form-field>
-              <owl-date-time [pickerType]="'calendar'" #datePicker="owlDateTime"></owl-date-time>
-            </div>
-
-            <div class="col-12 col-md-12">
-              <mat-form-field class="w-100">
-                <input matInput placeholder="Select Time" [owlDateTimeTrigger]="timePicker" [owlDateTime]="timePicker"
-                  [(ngModel)]="time" name="startTime" (focusout)="dateTimeParser()">
-              </mat-form-field>
-              <owl-date-time [pickerType]="'timer'" #timePicker="owlDateTime"></owl-date-time>
-            </div>
-
-            <div class="col-12 col-md-12">
-              <mat-slide-toggle [(ngModel)]="repeat" name="repeat" (change)="onRepeatChange($event)" ngDefaultControl
-                [disableRipple]="true">
-                Repeat
-              </mat-slide-toggle>
-            </div>
-
-            <div class="col-12 col-md-12" *ngIf="repeat">
-              <div class="w-100">
-                <mat-checkbox (change)="onAllCheck($event)" [disableRipple]="true"
-                  [checked]="days.length === week.length">
-                  <span color="primary">All</span>
-                </mat-checkbox>
-              </div>
-              <div class="w-100" *ngFor="let day of week">
-                <mat-checkbox [checked]="days.includes(day)" (change)="onDayChange($event, day)" [disableRipple]="true">
-                  {{day}}
-                </mat-checkbox>
-              </div>
-
-            </div>
-
-            <div class="col-12 col-md-12" *ngIf="repeat">
-              <mat-form-field class="w-100">
-                <input matInput placeholder="Select End Date" [owlDateTimeTrigger]="endDatePicker"
-                  [owlDateTime]="endDatePicker" [(ngModel)]="end_date" name="endDate" (focusout)="endDateParser()">
-              </mat-form-field>
-              <owl-date-time [pickerType]="'calendar'" #endDatePicker="owlDateTime"></owl-date-time>
-            </div>
+        <div [ngStyle]="{ 'margin-top': '50px' }">
+          <div [ngStyle]="{ opacity: '0.6' }">
+            When do you want to do the task?
           </div>
-        </form>
+          <div>
+            <div>
+              <button
+                class="btn date-time-button"
+                (click)="onShowDateTime()"
+                *ngIf="!dateTimeMessage"
+              >
+                Select Date & Time
+              </button>
+            </div>
+            <div
+              [ngStyle]="{ 'margin-bottom': '8px', 'margin-top': '8px' }"
+              *ngIf="dateTimeMessage"
+            >
+              <div class="task-info">
+                <img src="assets/forms/calendar.png" class="task-info-icon" />
+                <div class="task-data">  {{ dateRange }} </div>
+              </div>
+              <div class="task-info">
+                <img src="assets/forms/clock.png" class="task-info-icon" />
+                <div class="task-data">{{ endTime }}</div> 
+              </div>
+              <div class="task-info">
+                <img src="assets/forms/repeat.png" class="task-info-icon" />
+               <div class="task-data">{{ repeatedDays }}</div> 
+              </div>
+            </div>
+            <button
+              [ngStyle]="{'padding-left': '0px' }"
+              class="btn btn-link"
+              (click)="onChangeDateTime()"
+              *ngIf="dateTimeMessage"
+            >
+              Change Date & Time
+            </button>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="text-right" *ngIf="!this.task">
-      <button mat-raised-button class="continue-btn" (click)="saveData()">Continue</button>
+    <div class="text-right"  *ngIf="!this.task || taskValueChanged">
+      <button mat-raised-button class="continue-btn" [disabled]="tasksGroup.invalid" (click)="saveData()">
+        Continue
+      </button>
     </div>
   </div>
 </div>

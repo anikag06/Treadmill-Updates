@@ -41,8 +41,8 @@
           </div>
         <button (click)="onDateTimeSelect()" *ngIf="widget===dateTimeWidget">Date Time</button>
         <div *ngIf="showDateTime">
-          <app-data-time-picker (onClose)="onDateTimeSelect()" (dateTimeSubmit)="onChatSubmit($event)"
-          (dateTimeMessage)="getDateTimeMessage($event)"></app-data-time-picker>
+          <app-date-time-picker (onClose)="onDateTimeSelect()" (dateTimeSubmit)="onChatSubmit($event)"
+          (dateTimeMessage)="getDateTimeMessage($event)"></app-date-time-picker>
         </div>
       </div>
       </div>
