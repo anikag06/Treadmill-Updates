@@ -19,7 +19,7 @@ import { TimerService } from '@/shared/timer.service';
 import { PassDataService } from '../passdata.service';
 import { FormDirective } from '../../slides/form.directive';
 import { ProblemSolvingWorksheetsComponent } from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.component';
-import { TaskFormsComponent } from '@/main/resources/forms/shared/tasks/task-forms/task-forms.component';
+import { TaskFormsComponent } from '@/main/resources/forms/task-forms/task-forms.component';
 
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';

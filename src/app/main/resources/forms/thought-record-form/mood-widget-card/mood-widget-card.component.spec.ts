@@ -1,6 +1,6 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {MoodWidgetCardComponent} from './mood-widget-card.component';
+import { MoodWidgetCardComponent } from './mood-widget-card.component';
 
 describe('MoodWidgetCardComponent', () => {
   let component: MoodWidgetCardComponent;
@@ -8,9 +8,8 @@ describe('MoodWidgetCardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MoodWidgetCardComponent ]
-    })
-    .compileComponents();
+      declarations: [MoodWidgetCardComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

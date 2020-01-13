@@ -27,8 +27,7 @@ export class RecordOutcomeComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {}
 
-  ngAfterViewInit(): void {
-  }
+  ngAfterViewInit(): void {}
 
   onSubmit() {
     this.submitted = true;

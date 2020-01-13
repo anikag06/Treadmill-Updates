@@ -1,5 +1,5 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormControl, Validators} from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-explaination',
@@ -22,12 +22,10 @@ export class ExplainationComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-   this.explaination  = this.explainationForm.value['explaination'];
+    this.explaination = this.explainationForm.value['explaination'];
     console.log(this.explaination);
     this.panel.expanded = false;
   }
 
-  updateExplaination(){
-
-  }
+  updateExplaination() {}
 }

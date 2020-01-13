@@ -25,7 +25,7 @@ export const WEEK = [
   WEDNESDAY,
   THURSDAY,
   FRIDAY,
-  SATURDAY
+  SATURDAY,
 ];
 export const NEGATIVE_EMOTIONS = [
   'Sad',
@@ -38,7 +38,7 @@ export const NEGATIVE_EMOTIONS = [
   'Lonely',
   'Frustrated',
   'Embarassed',
-  'Afraid'
+  'Afraid',
 ];
 export const NEUTRAL_EMOTIONS = ['Okay'];
 export const POSITIVE_EMOTIONS = [
@@ -46,7 +46,7 @@ export const POSITIVE_EMOTIONS = [
   'Excited',
   'Optimistic',
   'Joyful',
-  'Confident'
+  'Confident',
 ];
 
 // Game names
@@ -197,7 +197,7 @@ export const COMMITTMENT_OPTIONS = [
   '2/day',
   '3/day',
   '4/day',
-  'More than 4/day'
+  'More than 4/day',
 ];
 
 // questionnaire constants
@@ -237,7 +237,7 @@ export const ETTBF_MAX_RATING_TEXT = 'Very strong';
 
 // Task form
 export const TASK = 'tasks';
-export const SET_ACTIVITY = 'set-activity'
+export const SET_ACTIVITY = 'set-activity';
 // Thought record form
 export const THOUGHT_RECORD = 'thought-record';
 

@@ -1,21 +1,30 @@
-import { PSF_PROBLEM, RECOMMENDED, WEEK } from "@/app.constants";
-import { ProblemSolvingWorksheetsService } from "@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.service";
-import { Problem } from "@/main/resources/forms/problem-solving-worksheets/problem.model";
-import { TasksService } from "@/main/resources/forms/shared/tasks/tasks.service";
-import { DateTimePickerComponent } from "@/main/shared/date-time-picker/date-time-picker.component";
+import { PSF_PROBLEM, RECOMMENDED, WEEK } from '@/app.constants';
+import { ProblemSolvingWorksheetsService } from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.service';
+import { Problem } from '@/main/resources/forms/problem-solving-worksheets/problem.model';
+import { TasksService } from '@/main/resources/forms/shared/tasks/tasks.service';
+import { DateTimePickerComponent } from '@/main/shared/date-time-picker/date-time-picker.component';
 import { DateTimePickerService } from '@/main/shared/date-time-picker/date-time-picker.service';
-import { HttpErrorResponse } from "@angular/common/http";
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from "@angular/core";
-import { FormArray, FormBuilder, Validators } from "@angular/forms";
-import { MatDialog } from "@angular/material";
-import { UserSubTask } from "./user-sub-task.model";
-import { UserTask } from "./user-task.model";
-
+import { HttpErrorResponse } from '@angular/common/http';
+import {
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
+import { FormArray, FormBuilder, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material';
+import { UserSubTask } from './user-sub-task.model';
+import { UserTask } from './user-task.model';
 
 @Component({
-  selector: "app-tasks",
-  templateUrl: "./tasks.component.html",
-  styleUrls: ["./tasks.component.scss"]
+  selector: 'app-tasks',
+  templateUrl: './tasks.component.html',
+  styleUrls: ['./tasks.component.scss'],
 })
 export class TasksComponent implements OnInit, OnChanges {
   @Output() nextStepEmitter = new EventEmitter<null>();
@@ -36,7 +45,7 @@ export class TasksComponent implements OnInit, OnChanges {
   days: String[] = [];
   repeat = false;
   origin_object: number | null = null;
-  origin_name = "";
+  origin_name = '';
   showDateTimePicker = false;
   dateTimeMessage: boolean = false;
   formDateTime: any[] = [];
@@ -48,7 +57,7 @@ export class TasksComponent implements OnInit, OnChanges {
   tasksGroup = this.fb.group({
     task: ['', Validators.required],
     taskCompleted: [false],
-    subTasks: this.fb.array([])
+    subTasks: this.fb.array([]),
   });
 
   constructor(
@@ -58,8 +67,7 @@ export class TasksComponent implements OnInit, OnChanges {
     private changeDetector: ChangeDetectorRef,
     private element: ElementRef,
     public dialog: MatDialog,
-    private dateTimePickerService: DateTimePickerService
-   
+    private dateTimePickerService: DateTimePickerService,
   ) {}
 
   ngOnInit() {
@@ -73,7 +81,6 @@ export class TasksComponent implements OnInit, OnChanges {
       changes.task &&
       changes.task.previousValue !== changes.task.currentValue
     ) {
-      
       this.initializeTask();
     } else if (
       this.problem &&
@@ -91,29 +98,29 @@ export class TasksComponent implements OnInit, OnChanges {
     }
   }
 
-  createItem(name = "", isCompleted = false) {
+  createItem(name = '', isCompleted = false) {
     return this.fb.group({
       name: name,
-      is_completed: isCompleted
+      is_completed: isCompleted,
       // delete: deleteMarked
     });
   }
 
-  createEditItem(id = 0, name = "", isCompleted = false) {
+  createEditItem(id = 0, name = '', isCompleted = false) {
     return this.fb.group({
       id: id,
       name: name,
-      is_completed: isCompleted
+      is_completed: isCompleted,
       // delete: deleteMarked
     });
   }
 
   getSubTasksForm() {
-    return (<FormArray>this.tasksGroup.get("subTasks")).controls;
+    return (<FormArray>this.tasksGroup.get('subTasks')).controls;
   }
 
   addField() {
-    const formArray = this.tasksGroup.get("subTasks") as FormArray;
+    const formArray = this.tasksGroup.get('subTasks') as FormArray;
     formArray.push(this.createEditItem());
     this.showTrashIcon.push(false);
     this.changeDetector.detectChanges();
@@ -124,42 +131,42 @@ export class TasksComponent implements OnInit, OnChanges {
     let status: boolean;
     this.submitted = true;
     const object = {
-      name: this.tasksGroup.value["task"],
-      is_completed: this.tasksGroup.value["taskCompleted"],
+      name: this.tasksGroup.value['task'],
+      is_completed: this.tasksGroup.value['taskCompleted'],
       start_date: this.start_date,
       time: this.time,
       end_date: this.end_date,
       sub_tasks: this.tasksGroup.controls.subTasks.value.filter(
-        (str: any) => str.name.trim().length > 0
+        (str: any) => str.name.trim().length > 0,
       ),
       days: this.days,
       origin_object: this.getOriginId(),
-      origin_name: this.getOriginName()
+      origin_name: this.getOriginName(),
     };
 
     if (this.task && this.task.id > 0) {
       this.taskService.putTask(object, this.task.id).subscribe(resp => {
-        taskBody =  resp.body.data;
+        taskBody = resp.body.data;
         status = resp.body.status;
         if (status) {
-          this.taskService.openSnackBar("Task Updated Successfully", "OK");
+          this.taskService.openSnackBar('Task Updated Successfully', 'OK');
           this.taskValueChanged = false;
         } else {
-          this.taskService.openSnackBar("Error Occured", "Retry");
+          this.taskService.openSnackBar('Error Occured', 'Retry');
         }
-        this.taskHandler(taskBody, "update");
+        this.taskHandler(taskBody, 'update');
       });
     } else {
       this.taskService.postTask(object).subscribe(resp => {
         taskBody = resp.body.data;
         status = resp.body.status;
         if (status) {
-          this.taskService.openSnackBar("Task Created Successfully", "OK");
+          this.taskService.openSnackBar('Task Created Successfully', 'OK');
           this.taskValueChanged = false;
         } else {
-          this.taskService.openSnackBar("Error Occured", "Retry");
+          this.taskService.openSnackBar('Error Occured', 'Retry');
         }
-        this.taskHandler(taskBody, "create");
+        this.taskHandler(taskBody, 'create');
       });
     }
   }
@@ -190,7 +197,7 @@ export class TasksComponent implements OnInit, OnChanges {
   }
 
   taskHandler(data: UserTask, action: string) {
-    if (action === "create") {
+    if (action === 'create') {
       // this.tasksGroup.controls.subTasks = this.fb.array([]);
       // data.sub_tasks.forEach((subtask: UserSubTask) => {
       //   this.task.sub_tasks.push(
@@ -211,15 +218,15 @@ export class TasksComponent implements OnInit, OnChanges {
         data.sub_tasks,
         data.task_days,
         data.origin_name,
-        data.origin_object
+        data.origin_object,
       );
       this.taskService.addTask(this.task);
-      
+
       this.nextStepEmitter.emit(null);
       this.hideNextStep = true;
     } else {
       const task = this.taskService.tasks.find(
-        (t: UserTask) => t.id === +data.id
+        (t: UserTask) => t.id === +data.id,
       );
       if (task) {
         this.task = <UserTask>data;
@@ -236,22 +243,22 @@ export class TasksComponent implements OnInit, OnChanges {
         .subscribe((resp: any) => {
           this.tasksGroup.controls.subTasks = this.fb.array([]);
           this.task.sub_tasks = this.task.sub_tasks.filter(
-            (st: UserSubTask) => st.id !== subtask.id
+            (st: UserSubTask) => st.id !== subtask.id,
           );
           this.task.sub_tasks.forEach((stask: UserSubTask) => {
             (this.tasksGroup.controls.subTasks as FormArray).push(
-              this.createEditItem(stask.id, stask.name, stask.is_completed)
+              this.createEditItem(stask.id, stask.name, stask.is_completed),
             );
           });
           status = resp.body.status;
           if (status) {
-            this.taskService.openSnackBar("Subtask deleted Successfully", "OK");
+            this.taskService.openSnackBar('Subtask deleted Successfully', 'OK');
           } else {
-            this.taskService.openSnackBar("Error Occured", "Retry");
+            this.taskService.openSnackBar('Error Occured', 'Retry');
           }
         });
     }
-    const formArray = this.tasksGroup.get("subTasks") as FormArray;
+    const formArray = this.tasksGroup.get('subTasks') as FormArray;
     formArray.removeAt(index);
     this.showTrashIcon.splice(index);
     this.changeDetector.detectChanges();
@@ -296,7 +303,7 @@ export class TasksComponent implements OnInit, OnChanges {
           }
         }
       },
-      (error: HttpErrorResponse) => {}
+      (error: HttpErrorResponse) => {},
     );
   }
 
@@ -304,8 +311,8 @@ export class TasksComponent implements OnInit, OnChanges {
     this.start_date = this.task.start_at;
     this.time = this.task.time;
     this.end_date = this.task.end_at;
-    this.tasksGroup.controls["task"].setValue(this.task.name);
-    this.tasksGroup.controls["taskCompleted"].setValue(this.task.is_completed);
+    this.tasksGroup.controls['task'].setValue(this.task.name);
+    this.tasksGroup.controls['taskCompleted'].setValue(this.task.is_completed);
     this.tasksGroup.controls.subTasks = this.fb.array([]);
     this.days = this.task.task_days;
     this.repeat = this.days.length > 0;
@@ -315,15 +322,21 @@ export class TasksComponent implements OnInit, OnChanges {
     this.dateTimeMessage = true;
     this.task.sub_tasks.forEach((subtask: UserSubTask) => {
       (this.tasksGroup.controls.subTasks as FormArray).push(
-        this.createEditItem(subtask.id, subtask.name, subtask.is_completed)
+        this.createEditItem(subtask.id, subtask.name, subtask.is_completed),
       );
       this.showTrashIcon.push(false);
     });
 
-    this.dateRange = this.dateTimePickerService.getTaskDateRange(this.task.start_at, this.task.end_at);
+    this.dateRange = this.dateTimePickerService.getTaskDateRange(
+      this.task.start_at,
+      this.task.end_at,
+    );
     this.repeatedDays = this.getRepeatedDays(this.days);
 
-    this.endTime = this.dateTimePickerService.getUTCTimeInAmPm(this.end_date,this.time);
+    this.endTime = this.dateTimePickerService.getUTCTimeInAmPm(
+      this.end_date,
+      this.time,
+    );
   }
 
   onAllCheck(event: any) {
@@ -364,9 +377,9 @@ export class TasksComponent implements OnInit, OnChanges {
     delete this.origin_name;
     delete this.origin_object;
     this.tasksGroup = this.fb.group({
-      task: [""],
+      task: [''],
       taskCompleted: [false],
-      subTasks: this.fb.array([])
+      subTasks: this.fb.array([]),
     });
     this.showTrashIcon = [];
     delete this.dateTimeMessage;
@@ -391,48 +404,53 @@ export class TasksComponent implements OnInit, OnChanges {
   onShowDateTime() {
     this.showDateTimePicker = !this.showDateTimePicker;
     const dialogRef = this.dialog.open(DateTimePickerComponent, {
-    
-      panelClass: "dateTime-dialog-container",
+      panelClass: 'dateTime-dialog-container',
     });
     this.onDialogRefClosed(dialogRef);
   }
 
   onChangeDateTime() {
     this.showDateTimePicker = !this.showDateTimePicker;
-    const dialogRef = this.dialog.open(DateTimePickerComponent, { 
-      panelClass: "dateTime-dialog-container",
+    const dialogRef = this.dialog.open(DateTimePickerComponent, {
+      panelClass: 'dateTime-dialog-container',
       data: {
         startDate: this.start_date,
         endDate: this.end_date,
         days: this.days,
         time: this.time,
-      }
+      },
     });
     this.onDialogRefClosed(dialogRef);
   }
 
-  onDialogRefClosed(dialogRef:any){
+  onDialogRefClosed(dialogRef: any) {
     dialogRef.afterClosed().subscribe((result: any) => {
-      if(result){
+      if (result) {
         this.taskValueChanged = true;
-      this.dateTime = result.data.dateTime;
-      this.showDateTimePicker = result.data.showDateTimePicker;
-      this.dateTimeMessage = true;
-      this.start_date = new Date(this.dateTime[0]).toISOString().slice(0, 10);
-      this.end_date = new Date(this.dateTime[1]).toISOString().slice(0, 10);
-      this.time = this.dateTime[2];
-      this.days = this.dateTime[3];
-      this.dateRange = this.dateTimePickerService.getTaskDateRange(this.start_date, this.end_date);
+        this.dateTime = result.data.dateTime;
+        this.showDateTimePicker = result.data.showDateTimePicker;
+        this.dateTimeMessage = true;
+        this.start_date = new Date(this.dateTime[0]).toISOString().slice(0, 10);
+        this.end_date = new Date(this.dateTime[1]).toISOString().slice(0, 10);
+        this.time = this.dateTime[2];
+        this.days = this.dateTime[3];
+        this.dateRange = this.dateTimePickerService.getTaskDateRange(
+          this.start_date,
+          this.end_date,
+        );
 
-      this.endTime = this.dateTimePickerService.getUTCTimeInAmPm(this.end_date,this.dateTime[2]);
+        this.endTime = this.dateTimePickerService.getUTCTimeInAmPm(
+          this.end_date,
+          this.dateTime[2],
+        );
 
-      this.repeatedDays = this.getRepeatedDays(this.dateTime[3]);
+        this.repeatedDays = this.getRepeatedDays(this.dateTime[3]);
       }
     });
   }
 
   onClickOutside(event: Object, index: number) {
-    if (event && (<any>event)["value"] === true) {
+    if (event && (<any>event)['value'] === true) {
       this.showTrashIcon[index] = false;
     }
   }
@@ -445,10 +463,10 @@ export class TasksComponent implements OnInit, OnChanges {
     for (let i = 0; i < days.length; i++) {
       this.days[i].toUpperCase();
       repeatedDays.push(
-        days[i].charAt(0) + this.days[i].substr(1, 2).toLowerCase()
+        days[i].charAt(0) + this.days[i].substr(1, 2).toLowerCase(),
       );
     }
-    let repeat = repeatedDays.join(",");
+    let repeat = repeatedDays.join(',');
     return repeat;
   }
 }

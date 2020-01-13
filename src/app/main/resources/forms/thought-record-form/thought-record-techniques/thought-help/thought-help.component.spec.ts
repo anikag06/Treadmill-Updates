@@ -8,9 +8,8 @@ describe('ThoughtHelpComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ThoughtHelpComponent ]
-    })
-    .compileComponents();
+      declarations: [ThoughtHelpComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

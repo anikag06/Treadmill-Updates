@@ -8,9 +8,8 @@ describe('TellFriendComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TellFriendComponent ]
-    })
-    .compileComponents();
+      declarations: [TellFriendComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

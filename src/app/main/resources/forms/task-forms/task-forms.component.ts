@@ -9,7 +9,7 @@ import { TASK } from '@/app.constants';
 export class TaskFormsComponent implements OnInit {
   task!: UserTask | undefined;
   reset = false;
-  taskHeading: string = "Set Task";
+  taskHeading: string = 'Set Task';
   constructor() {}
 
   ngOnInit() {}

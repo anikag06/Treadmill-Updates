@@ -275,7 +275,7 @@ import { ResourcesModule } from './resources/resources.module';
     LoadingBarComponent,
     LoadingBarDirective,
     LhgGreatComponent,
-    MoodTrackerComponent
+    MoodTrackerComponent,
   ],
   imports: [
     CommonModule,
@@ -306,7 +306,7 @@ import { ResourcesModule } from './resources/resources.module';
     OverlayModule,
     MatTooltipModule,
     QuestionnaireModule,
-    ResourcesModule
+    ResourcesModule,
   ],
   providers: [
     LocalStorageService,
@@ -340,7 +340,7 @@ import { ResourcesModule } from './resources/resources.module';
     UserProfileService,
     IdcGameService,
     LoadingBarService,
-    StepsDataService
+    StepsDataService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [
@@ -374,7 +374,7 @@ import { ResourcesModule } from './resources/resources.module';
     FfgPlayagainComponent,
     FfgNolifeComponent,
     LoadingBarComponent,
-    MoodTrackerComponent
-  ]
+    MoodTrackerComponent,
+  ],
 })
 export class MainModule {}

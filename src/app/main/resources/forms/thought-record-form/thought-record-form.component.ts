@@ -1,6 +1,6 @@
-import {THOUGHT_RECORD, THOUGHT_RECROD_FORM_NAME} from '@/app.constants';
-import {Component, OnInit} from '@angular/core';
-import {Thought} from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
+import { THOUGHT_RECORD, THOUGHT_RECROD_FORM_NAME } from '@/app.constants';
+import { Component, OnInit } from '@angular/core';
+import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
 
 @Component({
   selector: 'app-thought-record-form',
@@ -26,7 +26,7 @@ export class ThoughtRecordFormComponent implements OnInit {
   maxRating = 'Very Strongly';
   recordBehaveHeader = 'How did this negative thought make you behave?';
   situationCall = 'situation';
-  thougtCall = 'thought'
+  thougtCall = 'thought';
   reset = false;
   thought!: Thought | undefined;
   constructor() {}

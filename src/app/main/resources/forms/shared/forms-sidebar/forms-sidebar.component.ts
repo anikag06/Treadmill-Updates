@@ -1,4 +1,13 @@
-import { Component, OnInit, EventEmitter, Output, Input, AfterViewInit, ElementRef, OnChanges } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  EventEmitter,
+  Output,
+  Input,
+  AfterViewInit,
+  ElementRef,
+  OnChanges,
+} from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
@@ -8,15 +17,15 @@ import { ProblemSolvingWorksheetsService } from '@/main/resources/forms/problem-
 import { PSF_PROBLEM_SOLVING } from '@/app.constants';
 import { TasksService } from '@/main/resources/forms/shared/tasks/tasks.service';
 import { UserTask } from '@/main/resources/forms/shared/tasks/user-task.model';
-import {ThoughtRecordService} from '@/main/resources/forms/thought-record-form/thought-record.service';
-import {Thought} from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
+import { ThoughtRecordService } from '@/main/resources/forms/thought-record-form/thought-record.service';
+import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
 
 @Component({
   selector: 'app-forms-sidebar',
   templateUrl: './forms-sidebar.component.html',
   styleUrls: ['./forms-sidebar.component.scss'],
 })
-export class FormsSidebarComponent implements OnInit,AfterViewInit {
+export class FormsSidebarComponent implements OnInit, AfterViewInit {
   @Output() objectEmitter = new EventEmitter<Object>();
   @Output() newForm = new EventEmitter<void>();
   @Input() type!: String;
@@ -49,9 +58,11 @@ export class FormsSidebarComponent implements OnInit,AfterViewInit {
       params => (this.object_id = parseInt(params.form_id, 10)),
     );
   }
-  ngAfterViewInit(){
-    const panel_body  = this.element.nativeElement.querySelectorAll('.mat-expansion-panel-body');
-    panel_body[0].setAttribute('style','padding:0px;padding-left:16px;')
+  ngAfterViewInit() {
+    const panel_body = this.element.nativeElement.querySelectorAll(
+      '.mat-expansion-panel-body',
+    );
+    panel_body[0].setAttribute('style', 'padding:0px;padding-left:16px;');
   }
 
   problemClicked(object: any) {
@@ -130,17 +141,17 @@ export class FormsSidebarComponent implements OnInit,AfterViewInit {
       }
     }
   }
-  onDeleteForm(task : any){
-    this.tasksService.deleteTask(task.id).subscribe(resp=>{
+  onDeleteForm(task: any) {
+    this.tasksService.deleteTask(task.id).subscribe(resp => {
       let status = resp.body.status;
       if (status) {
-        this.tasksService.openSnackBar("Task Deleted Successfully", "OK");
-       this.onAddNewForm();
-      this.tasksService.removeTask(task);
-       console.log(this.objects);
+        this.tasksService.openSnackBar('Task Deleted Successfully', 'OK');
+        this.onAddNewForm();
+        this.tasksService.removeTask(task);
+        console.log(this.objects);
       } else {
-        this.tasksService.openSnackBar("Error Occured", "Retry");
+        this.tasksService.openSnackBar('Error Occured', 'Retry');
       }
-    })
+    });
   }
 }

@@ -8,9 +8,8 @@ describe('ThoughRecordTechniquesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ThoughtRecordTechniquesComponent ]
-    })
-    .compileComponents();
+      declarations: [ThoughtRecordTechniquesComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

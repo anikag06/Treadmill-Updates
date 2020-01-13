@@ -1,7 +1,13 @@
-import {AfterViewInit, Component, ElementRef, Input, OnInit,} from '@angular/core';
-import {MOBILEWIDTH} from '@/app.constants';
-import {Badge} from './badges/badge.model';
-import {UserProfile} from './UserProfile.model';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+} from '@angular/core';
+import { MOBILEWIDTH } from '@/app.constants';
+import { Badge } from './badges/badge.model';
+import { UserProfile } from './UserProfile.model';
 
 @Component({
   selector: 'app-user-profile',

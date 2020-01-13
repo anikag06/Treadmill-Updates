@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { FormsComponent } from './forms/forms.component';
 import { ProblemSolvingWorksheetsComponent } from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.component';
 import { FormsListComponent } from '@/main/resources/forms/forms-list/forms-list.component';
-import { TaskFormsComponent } from '@/main/resources/forms/shared/tasks/task-forms/task-forms.component';
+import { TaskFormsComponent } from '@/main/resources/forms/task-forms/task-forms.component';
 import { ThoughtRecordFormComponent } from '@/main/resources/forms/thought-record-form/thought-record-form.component';
 import { ExperimentToTestBeliefFormComponent } from '@/main/resources/forms/experiment-to-test-belief-form/experiment-to-test-belief-form.component';
 import { WorryProductivelyComponent } from '@/main/resources/forms/worry-productively-form/worry-productively.component';

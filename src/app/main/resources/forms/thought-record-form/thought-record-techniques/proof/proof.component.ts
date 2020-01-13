@@ -1,6 +1,12 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild,} from '@angular/core';
-import {FormArray, FormBuilder} from '@angular/forms';
-import {CdkTextareaAutosize} from '@angular/cdk/text-field';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import { FormArray, FormBuilder } from '@angular/forms';
+import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 
 @Component({
   selector: 'app-proof',
@@ -48,7 +54,9 @@ export class ProofComponent implements OnInit, AfterViewInit {
   onSubmit() {
     this.submitted = true;
     console.log(this.proofStatementForm);
-    const arrayControl = this.proofStatementForm.get('favorEvidences') as FormArray;
+    const arrayControl = this.proofStatementForm.get(
+      'favorEvidences',
+    ) as FormArray;
     this.summary = arrayControl.at(0).value.evidence;
 
     this.panel.expanded = false;

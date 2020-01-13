@@ -1,6 +1,6 @@
-import {TestBed} from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
-import {ThoughtRecordService} from './thought-record.service';
+import { ThoughtRecordService } from './thought-record.service';
 
 describe('ThoughtRecordService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

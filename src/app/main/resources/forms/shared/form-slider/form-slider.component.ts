@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output,EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-form-slider',
@@ -14,10 +14,8 @@ export class FormSliderComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {
-  
-  }
-  onSubmit(){
+  ngOnInit() {}
+  onSubmit() {
     this.selectMood.emit(true);
   }
 }

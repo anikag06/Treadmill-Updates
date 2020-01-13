@@ -1,7 +1,7 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
-import {FormBuilder} from '@angular/forms';
-import {IdentifyThinkingService} from '@/main/resources/forms/thought-record-form/thought-record-techniques/identify-thinking/identify-thinking.service';
+import { FormBuilder } from '@angular/forms';
+import { IdentifyThinkingService } from '@/main/resources/forms/thought-record-form/thought-record-techniques/identify-thinking/identify-thinking.service';
 
 @Component({
   selector: 'app-identify-thinking',

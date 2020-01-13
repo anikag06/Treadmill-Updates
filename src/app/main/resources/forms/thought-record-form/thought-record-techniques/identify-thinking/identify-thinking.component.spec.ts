@@ -8,9 +8,8 @@ describe('IdentifyThinkingTechniqueComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ IdentifyThinkingComponent ]
-    })
-    .compileComponents();
+      declarations: [IdentifyThinkingComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

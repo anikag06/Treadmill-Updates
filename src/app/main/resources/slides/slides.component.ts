@@ -10,7 +10,7 @@ import { SlideService } from './slide.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { FormDirective } from './form.directive';
 import { ProblemSolvingWorksheetsComponent } from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.component';
-import { TaskFormsComponent } from '../forms/shared/tasks/task-forms/task-forms.component';
+import { TaskFormsComponent } from '../forms/task-forms/task-forms.component';
 import { Slide } from './Slide.model';
 import { SlidesFeedback, SlidesFeedbackText } from './slide.feedback.model';
 import { StepCompleteData } from '../shared/completion-data.model';
