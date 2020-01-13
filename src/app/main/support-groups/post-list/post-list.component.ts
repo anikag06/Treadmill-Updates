@@ -148,7 +148,10 @@ export class PostListComponent implements OnInit, OnDestroy {
         this.navigateSearch();
       }, 200);
     }
-    this.clearSearch = true;
+    if (this.searchTerm !== "") {
+      this.clearSearch = true;
+    }
+
   }
 
   /**

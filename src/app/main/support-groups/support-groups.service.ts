@@ -5,6 +5,7 @@ import { SupportGroupItem } from './support-group-item.model';
 import { BehaviorSubject } from 'rxjs';
 import * as localforage from 'localforage';
 import { TOKEN } from '@/app.constants';
+import { UserProfile } from '../shared/user-profile/UserProfile.model';
 
 
 @Injectable({
@@ -14,6 +15,7 @@ export class SupportGroupsService {
 
   supportGroupItem$ = new BehaviorSubject({} as SupportGroupItem);
   supportGroupItemUpdated$ = new BehaviorSubject({} as SupportGroupItem);
+  userProfileData = new UserProfile('Name', '', 0, 0, 0, 0);
 
 
   constructor(
@@ -28,7 +30,7 @@ export class SupportGroupsService {
     if (search.trim().length > 0) {
       params = params.append('search', search);
     }
-    return this.http.get(environment.API_ENDPOINT + '/api/v1/support-group/posts/', { params: params});
+    return this.http.get(environment.API_ENDPOINT + '/api/v1/support-group/posts/', { params: params });
   }
 
   createPost(data: any) {
@@ -59,4 +61,5 @@ export class SupportGroupsService {
   postUpVote(data: any) {
     return this.http.post(environment.API_ENDPOINT + '/api/v1/support-group/post-vote/', data);
   }
+
 }

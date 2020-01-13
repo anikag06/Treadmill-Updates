@@ -127,7 +127,25 @@ export class CreatePostComponent implements OnInit {
           0,
           -1,
         );
-        this.sgService.sendPost(sgItem);
+        const updatedsgItem = new SupportGroupItem(
+          sgItem.id,
+          sgItem.body,
+          sgItem.title,
+          sgItem.tags,
+          {
+            username: sgItem.user.username,
+            avatar: this.sgService.userProfileData.user_avatar,
+            score: this.sgService.userProfileData.score,
+            no_of_gold_badges: this.sgService.userProfileData.no_of_gold_badges,
+            no_of_bronze_badges: this.sgService.userProfileData.no_of_bronze_badges,
+            no_of_silver_badges: this.sgService.userProfileData.no_of_silver_badges,
+          },
+          sgItem.up_votes,
+          sgItem.created_at,
+          sgItem.comments_count,
+          sgItem.is_voted,
+        );
+        this.sgService.sendPost(updatedsgItem);
         this.postForm.reset();
         this.dialogRef.close();
       },

@@ -29,9 +29,9 @@
       <!-- <p class="text-muted user">{{comment.user.username}}</p> -->
     </div>
     <div class="d-inline-flex flex-column" *ngIf="!editMode">
-      <div class="d-inline-flex flex-row user-stats  align-items-start">
+      <div class="d-inline-flex  flex-row user-stats  align-items-start">
         <div class="user pt-0">{{comment.user.username}}</div>
-        <div class=" row no-gutters profile-card mb-0">
+        <div class=" d-flex flex-row points profile-card mb-0">
           <div class="col scores mr-2">
             <div class='box-blue'></div>
             <div class="value">{{comment.user.score}}</div>

@@ -272,3 +272,6 @@ export const REGISTRATION_CONSENT = '/api/v1/trial-iitk/participant-consent/';
 
 // contact us dialog data api
 export const CONTACT_US_DATA = '/api/v1/trial-iitk/save-contact-us/';
+
+// treadwill email
+export const ADMIN_EMAIL = 'treadwill.iitk@gmail.com';

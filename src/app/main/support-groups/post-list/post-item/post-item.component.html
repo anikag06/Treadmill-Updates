@@ -7,13 +7,13 @@
     <mat-icon>delete</mat-icon>
     <span>Delete</span>
   </button>
-  <button mat-menu-item *ngIf="!ownPost() || user.is_admin">
+  <button mat-menu-item (click)="onReportProblem()" *ngIf="!ownPost() || user.is_admin">
     <mat-icon>report_problem</mat-icon>
     <span>Report Problem</span>
   </button>
-  <button mat-menu-item *ngIf="!ownPost() || user.is_admin">
+  <button mat-menu-item (click)="onReportSuicide()" *ngIf="!ownPost() || user.is_admin">
     <mat-icon>error</mat-icon>
-    <span>Report Sucide</span>
+    <span>Report Suicide</span>
   </button>
 </mat-menu>
 <div class="post-item">
@@ -30,7 +30,7 @@
         <div class="user-stats d-flex flex-row align-items-start">
           <div class='user-avatar-username mb-0'>{{supportGroupItem.user.username}}</div>
 
-          <div class="d-flex flex-row profile-card mb-0">
+          <div class="d-flex points flex-row profile-card mb-0">
             <div class="col scores mr-2">
               <div class='box-blue'></div>
               <div class="value">{{supportGroupItem.user.score}}</div>
@@ -113,15 +113,14 @@
   </div>
   <div class="row no-gutters">
     <div class="col-12">
+      <!-- <form (ngSubmit)="onSubmit()" #mainComment="ngForm"> -->
       <form (ngSubmit)="onSubmit()" #mainComment="ngForm">
         <fieldset [disabled]="disabledValue" class="comment-form">
           <angular-editor name="name" ngModel required (focus)="onFocus()" (focusout)="onFocusOut($event)"
             [config]="editorConfig"></angular-editor>
           <div class="text-right">
-            <button type="submit" mat-raised-button class="comment-btn">Comment</button>
-            <!-- <button type="submit" mat-raised-button class="comment-btn"
-              *ngIf="editorConfig.showToolbar">Comment</button> -->
-
+            <button type="submit" mat-raised-button class="comment-btn"
+              *ngIf="editorConfig.showToolbar">Comment</button>
           </div>
         </fieldset>
       </form>

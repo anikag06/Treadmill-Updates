@@ -29,6 +29,7 @@ import { ThumbsService } from '@/main/support-groups/thumbs.service';
 import { GeneralErrorService } from '@/main/shared/general-error.service';
 import { UserProfile } from '@/main/shared/user-profile/UserProfile.model';
 import { UserProfileService } from '@/main/shared/user-profile/userProfile.service';
+import { SupportGroupsService } from '@/main/support-groups/support-groups.service';
 
 @Component({
   selector: 'app-comment',
@@ -92,6 +93,7 @@ export class CommentComponent
     private errorService: GeneralErrorService,
     private changeDetector: ChangeDetectorRef,
     private userProfileService: UserProfileService,
+    private sgService: SupportGroupsService,
   ) { }
 
   ngOnInit() {
@@ -187,7 +189,21 @@ export class CommentComponent
           -1,
           new Date().toISOString(),
         );
-        this.nestedComments.push(persistedNestedcomment);
+        const updatedNestedComment = new UserNestedComment(
+          persistedNestedcomment.id,
+          persistedNestedcomment.body,
+          persistedNestedcomment.up_votes, {
+          username: persistedNestedcomment.user.username,
+          avatar: this.sgService.userProfileData.user_avatar,
+          score: this.sgService.userProfileData.score,
+          no_of_gold_badges: this.sgService.userProfileData.no_of_gold_badges,
+          no_of_bronze_badges: this.sgService.userProfileData.no_of_bronze_badges,
+          no_of_silver_badges: this.sgService.userProfileData.no_of_silver_badges,
+        },
+          persistedNestedcomment.is_voted,
+          persistedNestedcomment.created_at
+        );
+        this.nestedComments.push(updatedNestedComment);
         this.toggleReply = false;
         this.showNestedComment();
         this.changeDetector.detectChanges();

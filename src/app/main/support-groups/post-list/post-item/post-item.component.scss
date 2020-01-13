@@ -130,10 +130,12 @@ a.toggler:hover {
   }
 
   .scores {
-
-    display: inline-table !important;
     flex-grow: 0 !important;
     padding: 0px;
+  }
+
+  .medal {
+    display: inherit;
   }
 }
 
