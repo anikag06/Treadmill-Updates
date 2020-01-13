@@ -92,20 +92,23 @@ import { UserFeedbackComponent } from './shared/user-feedback/user-feedback.comp
 import { FormDirective } from './slides/form.directive';
 import { SlideService } from './slides/slide.service';
 import { SlidesComponent } from './slides/slides.component';
+import {IdentifyThinkingService} from './forms/thought-record-form/thought-record-techniques/identify-thinking/identify-thinking.service';
+import {AngularEditorModule} from '@xw19/angular-editor';
 // tslint:disable-next-line:max-line-length
-import { ThoughtRecordTechniquesComponent } from './forms/thought-record-form/thought-record-techniques/thought-record-techniques.component';
-import { TechniquesInfoComponent } from './forms/thought-record-form/thought-record-techniques/techniques-info/techniques-info.component';
+import {ThoughtRecordTechniquesComponent} from './forms/thought-record-form/thought-record-techniques/thought-record-techniques.component';
+import {TechniquesInfoComponent} from './forms/thought-record-form/thought-record-techniques/techniques-info/techniques-info.component';
 // tslint:disable-next-line:max-line-length
-import { IdentifyThinkingComponent } from './forms/thought-record-form/thought-record-techniques/identify-thinking/identify-thinking.component';
+import {IdentifyThinkingComponent} from './forms/thought-record-form/thought-record-techniques/identify-thinking/identify-thinking.component';
 
-import { ProofComponent } from './forms/thought-record-form/thought-record-techniques/proof/proof.component';
-import { ClickOutsideDirective } from '../shared/click-outside/click-outside.directive';
-import { EvidenceFormComponent } from './forms/thought-record-form/thought-record-techniques/proof/evidence-form/evidence-form.component';
-import { ExplainationComponent } from './forms/thought-record-form/thought-record-techniques/explaination/explaination.component';
-import { RecordOutcomeComponent } from './forms/thought-record-form/thought-record-techniques/record-outcome/record-outcome.component';
-import { FormTextareaComponent } from './forms/shared/form-textarea/form-textarea.component';
-import { ThoughtHelpComponent } from './forms/thought-record-form/thought-record-techniques/thought-help/thought-help.component';
-import { TellFriendComponent } from './forms/thought-record-form/thought-record-techniques/tell-friend/tell-friend.component';
+import {ProofComponent} from './forms/thought-record-form/thought-record-techniques/proof/proof.component';
+import {ClickOutsideDirective} from '../shared/click-outside/click-outside.directive';
+import {EvidenceFormComponent} from './forms/thought-record-form/thought-record-techniques/proof/evidence-form/evidence-form.component';
+import {ExplainationComponent} from './forms/thought-record-form/thought-record-techniques/explaination/explaination.component';
+import {RecordOutcomeComponent} from './forms/thought-record-form/thought-record-techniques/record-outcome/record-outcome.component';
+import {FormTextareaComponent} from './forms/shared/form-textarea/form-textarea.component';
+import {ThoughtHelpComponent} from './forms/thought-record-form/thought-record-techniques/thought-help/thought-help.component';
+import {TellFriendComponent} from './forms/thought-record-form/thought-record-techniques/tell-friend/tell-friend.component';
+import {ThoughtRecordService} from '@/main/resources/forms/thought-record-form/thought-record.service';
 
 @NgModule({
   declarations: [
@@ -197,6 +200,8 @@ import { TellFriendComponent } from './forms/thought-record-form/thought-record-
     StepsDataService,
     IntroductionService,
     ConclusionService,
+    ThoughtRecordService,
+    IdentifyThinkingService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [

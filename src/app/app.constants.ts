@@ -237,7 +237,7 @@ export const ETTBF_MAX_RATING_TEXT = 'Very strong';
 
 // Task form
 export const TASK = 'tasks';
-
+export const SET_ACTIVITY = 'set-activity'
 // Thought record form
 export const THOUGHT_RECORD = 'thought-record';
 

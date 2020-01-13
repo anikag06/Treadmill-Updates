@@ -8,8 +8,8 @@ import { ProblemSolvingWorksheetsService } from '@/main/resources/forms/problem-
 import { PSF_PROBLEM_SOLVING } from '@/app.constants';
 import { TasksService } from '@/main/resources/forms/shared/tasks/tasks.service';
 import { UserTask } from '@/main/resources/forms/shared/tasks/user-task.model';
-import { MatSnackBar } from '@angular/material';
-import {Router} from "@angular/router"
+import {ThoughtRecordService} from '@/main/resources/forms/thought-record-form/thought-record.service';
+import {Thought} from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
 
 @Component({
   selector: 'app-forms-sidebar',
@@ -26,10 +26,12 @@ export class FormsSidebarComponent implements OnInit,AfterViewInit {
   page = 1;
   subscriptions: Subscription[] = [];
   selectedObject!: any;
+  @Input() object!: any;
 
   constructor(
     private problemService: ProblemSolvingWorksheetsService,
     private tasksService: TasksService,
+    private thoughtRecordService: ThoughtRecordService,
     private route: ActivatedRoute,
     private element: ElementRef,
   ) {}
@@ -37,8 +39,10 @@ export class FormsSidebarComponent implements OnInit,AfterViewInit {
   ngOnInit() {
     if (this.type === PSF_PROBLEM_SOLVING) {
       this.getProblems();
-    } else {
+    } else if (this.type === SET_ACTIVITY) {
       this.getTasks();
+    } else if (this.type === THOUGHT_RECORD) {
+      this.getThoughts();
     }
 
     this.route.queryParams.subscribe(
@@ -91,6 +95,33 @@ export class FormsSidebarComponent implements OnInit,AfterViewInit {
     );
   }
 
+  getThoughts() {
+    this.thoughtRecordService.getThoughts();
+    this.subscriptions[
+      this.subscriptions.length
+    ] = this.thoughtRecordService.thoughtBehaviour.subscribe(
+      (thoughts: Thought[]) => {
+        this.objects = thoughts;
+        this.selectObject();
+      },
+      (error: HttpErrorResponse) => {
+        console.error(error);
+      },
+    );
+  }
+
+  onDeleteForm(object: any) {
+    if (this.type === THOUGHT_RECORD) {
+      this.thoughtRecordService.deleteSituation(object.id).subscribe(resp => {
+        const status = resp.ok;
+        if (status) {
+          this.onAddNewForm();
+          this.thoughtRecordService.removeSituation(object);
+          console.log(this.objects);
+        }
+      });
+    }
+  }
   selectObject() {
     if (this.objects.length > 0 && this.object_id > 0) {
       const form = this.objects.find(object => object.id === this.object_id);

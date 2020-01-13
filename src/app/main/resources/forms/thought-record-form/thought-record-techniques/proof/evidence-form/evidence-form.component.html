@@ -2,14 +2,13 @@
   {{ title }}
 </div>
 <div>
-  <form [formGroup]="evidenceForm">
+
     <div
       class="statements"
-      formArrayName="evidences"
-      *ngFor="let statement of getStatements(); let i = index"
+      *ngFor="let evidence of control.controls;let i=index;"
     >
       <div
-        [formGroupName]="i"
+
         class="statement"
         [ngStyle]="{ display: 'flex' }"
         click-outside
@@ -21,7 +20,7 @@
           cdkTextareaAutosize
           cdkAutosizeMinRows="2"
           cdkAutosizeMaxRows="4"
-          formControlName="statement"
+          [formControl]="evidence.get('evidence')"
           class="form-control"
           placeholder="Type Here"
           required
@@ -30,14 +29,14 @@
 
         <div
           id="trash-icon"
-          (click)="markForDeletion(statement.value, i)"
+          (click)="markForDeletion(evidence.get('evidence').value, i)"
           *ngIf="showTrashIcon[i]"
         >
           <mat-icon>delete</mat-icon>
         </div>
       </div>
     </div>
-  </form>
+
 </div>
 <div class="add-evidence" (click)="addField()">
   <mat-icon

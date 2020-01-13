@@ -1,0 +1,36 @@
+<div class="card-full-width">
+  <div class="card-header">
+    {{ header }}
+  </div>
+  <div class="card-body">
+    <div *ngIf="showMood">
+      <button
+        class="btn"
+        (click)="onShowMoodWidget()"
+        *ngIf="!showContinueButton"
+      >
+        Select your feelings
+      </button>
+      <div [innerHTML]="selectedMood" *ngIf="showContinueButton">
+      <button
+      [ngStyle]="{'padding-left': '0px' }"
+      class="btn btn-link"
+      (click)="onChangeMood()"
+      *ngIf="selectedMood"
+    >
+      Change Date & Time
+    </button>
+    
+    </div>
+    <p class="text-right">
+      <button
+        mat-raised-button
+        *ngIf="showContinueButton && !submitted"
+        class="btn continue-btn"
+        (click)="onMoodSubmit()"
+      >
+        Continue
+      </button>
+    </p>
+  </div>
+</div>

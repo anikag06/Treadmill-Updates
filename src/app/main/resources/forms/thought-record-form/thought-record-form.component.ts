@@ -1,5 +1,6 @@
-import { THOUGHT_RECORD, THOUGHT_RECROD_FORM_NAME } from '@/app.constants';
-import { Component, OnInit } from '@angular/core';
+import {THOUGHT_RECORD, THOUGHT_RECROD_FORM_NAME} from '@/app.constants';
+import {Component, OnInit} from '@angular/core';
+import {Thought} from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
 
 @Component({
   selector: 'app-thought-record-form',
@@ -16,29 +17,31 @@ export class ThoughtRecordFormComponent implements OnInit {
   scaleThought =
     'On a scale of 1-10 how strongly do you believe the thought to be true?';
   moodSelect = 'How did this negative thought make you feel?';
-  situationAdded: boolean = false;
-  negativeThoughtAdded: boolean = false;
-  showMood: boolean = false;
-  showRecordBehave: boolean = false;
-  showTechniques: boolean = false;
+  situationAdded = false;
+  negativeThoughtAdded = false;
+  showMood = false;
+  showRecordBehave = false;
+  showTechniques = false;
   minRating = 'Not At All';
   maxRating = 'Very Strongly';
   recordBehaveHeader = 'How did this negative thought make you behave?';
-
+  situationCall = 'situation';
+  thougtCall = 'thought'
+  reset = false;
+  thought!: Thought | undefined;
   constructor() {}
 
   ngOnInit() {}
 
-  thoughtSelected() {
-    return 0;
+  thoughtSelected(thought: Thought) {
+    this.thought = thought;
   }
 
   onAddNewForm() {
-    return 0;
+    this.thought = undefined;
+    this.reset = !this.reset;
   }
-
   onShowNegative(value: boolean) {
-    console.log(value);
     this.situationAdded = value;
   }
 

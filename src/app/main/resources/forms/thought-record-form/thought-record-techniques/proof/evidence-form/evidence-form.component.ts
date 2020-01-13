@@ -1,12 +1,5 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import {ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output,} from '@angular/core';
+import {FormArray, FormBuilder} from '@angular/forms';
 
 @Component({
   selector: 'app-evidence-form',
@@ -21,37 +14,29 @@ export class EvidenceFormComponent implements OnInit {
   showTrashIcon: boolean[] = [];
   @Input() title!: string;
   @Output() valueUpdate = new EventEmitter();
-  evidenceForm!: FormGroup;
+  @Input() control!: FormArray;
   evidences!: FormArray;
   statements: string[] = [];
-  ngOnInit() {
-    this.evidenceForm = new FormGroup({
-      evidences: this.fb.array([this.createItem()]),
-    });
-  }
+  ngOnInit() {}
 
   createItem(name = '') {
     return this.fb.group({
-      statement: name,
+      evidence: name,
     });
   }
 
   createEditItem(id = 0, name = '') {
     return this.fb.group({
       id: id,
-      statement: name,
+      evidence: name,
     });
   }
 
   addField() {
-    const formArray = this.evidenceForm.get('evidences') as FormArray;
-    formArray.push(this.createItem());
+    this.control.push(this.createItem());
+
     // this.showTrashIcon.push(false);
     this.changeDetector.detectChanges();
-  }
-
-  getStatements() {
-      return (<FormArray>this.evidenceForm.get('evidences')).controls;
   }
 
   markForDeletion(subtask: any, index: number) {
@@ -77,8 +62,8 @@ export class EvidenceFormComponent implements OnInit {
     //         }
     //       });
     // }
-    const formArray = this.evidenceForm.get('evidences') as FormArray;
-    formArray.removeAt(index);
+
+    this.control.removeAt(index);
     this.showTrashIcon.splice(index);
     this.changeDetector.detectChanges();
   }
@@ -92,9 +77,9 @@ export class EvidenceFormComponent implements OnInit {
     this.showTrashIcon[index] = !this.showTrashIcon[index];
   }
 
-  updateValue(value: string) {
-    this.statements.push(value);
-    this.evidenceForm.setControl('evidences', this.fb.array(this.statements));
-    this.valueUpdate.emit(this.evidenceForm);
-  }
+  // updateValue(value: string) {
+  //   this.statements.push(value);
+  //   this.evidenceForm.setControl('evidences', this.fb.array(this.statements));
+  //   this.valueUpdate.emit(this.evidenceForm);
+  // }
 }

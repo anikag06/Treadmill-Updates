@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {FormGroup, Validators, FormBuilder, FormControl} from '@angular/forms';
+import {FormBuilder, FormControl, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-explaination',
@@ -14,7 +14,7 @@ export class ExplainationComponent implements OnInit {
   @ViewChild('panel', { static: false }) panel!: any;
 
   explainationForm = this.formBuilder.group({
-    suggestion: new FormControl('', [Validators.required]),
+    explaination: new FormControl('', [Validators.required]),
   });
   constructor(private formBuilder: FormBuilder) {}
 
@@ -23,7 +23,7 @@ export class ExplainationComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
    this.explaination  = this.explainationForm.value['explaination'];
-    console.log(this.suggestion);
+    console.log(this.explaination);
     this.panel.expanded = false;
   }
 
