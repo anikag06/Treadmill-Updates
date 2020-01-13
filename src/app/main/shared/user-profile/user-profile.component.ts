@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnInit, Input } from '@angular/core';
-import { MOBILEWIDTH} from '@/app.constants';
+import { MOBILEWIDTH } from '@/app.constants';
 import { Badge } from './badges/badge.model';
 import { UserProfile } from './UserProfile.model';
 @Component({
@@ -10,7 +10,7 @@ import { UserProfile } from './UserProfile.model';
 export class UserProfileComponent implements OnInit, AfterViewInit {
   constructor(private element: ElementRef) { }
   @Input() userProfile!: UserProfile;
-  ngOnInit(){
+  ngOnInit() {
   }
 
   ngAfterViewInit() {
@@ -20,24 +20,24 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
     for (let i = 0; i < tabLabel.length; i++) {
       tabLabel[i].setAttribute('style', 'min-width: 80px;height:40px;opacity:1');
     }
-    
-    if(window.innerWidth < MOBILEWIDTH){
+
+    if (window.innerWidth < MOBILEWIDTH) {
       const headerText = this.element.nativeElement.querySelectorAll('.mat-card-header-text');
-      headerText[0].setAttribute('style','margin: 0px');
+      headerText[0].setAttribute('style', 'margin: 0px');
     }
 
   }
 
 
-  getGoldBadgeList(): Badge[] {
+  getGoldBadgeList() {
 
     return this.userProfile.badge_list_gold;
   }
 
-  getSilverBadgeList(): Badge[] {
+  getSilverBadgeList() {
     return this.userProfile.badge_list_silver;
   }
-  getBronzeBadgeList(): Badge[] {
+  getBronzeBadgeList() {
     return this.userProfile.badge_list_bronze;
   }
 
