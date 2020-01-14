@@ -11,7 +11,7 @@
   <form (ngSubmit)="formSubmit()" [formGroup]="postForm" class="row">
     <div class="col-lg-6 create-post">
       <div class="form-group">
-        <label for="body">Write your post</label>
+        <label for="body">Write your post </label>
         <angular-editor formControlName="body" [config]="editorConfig" required></angular-editor>
       </div>
       <div class="form-group">
@@ -20,15 +20,105 @@
       </div>
       <input type="hidden" name="id" formControlName="id">
     </div>
+    <!-- <div class="col-lg-6">
+      <label for="tagsGroup">Select tags</label>
+      <div class="d-flex flex-row flex-wrap">
+        <div class="form-group d-flex flex-column" *ngFor="let tagGroup of tagsGroup; index as k">
+          <label for="tagsGroup" class="sub-heading">
+            {{tagGroup.group_name}}</label>
+          <div class="col" *ngFor="let tag of tagGroup.tags_list; let i = index">
+            <label formArrayName="tags">
+              <input type="checkbox" [formControlName]="i" (change)="onCheckboxChange(tags[i].id, $event)">
+              {{tag.name}}
+            </label>
+          </div>
+        </div>
+      </div>
+    </div> -->
     <div class="col-lg-6">
-      <label for="tags">Select tags</label>
-      <div class="form-group row">
-        <!-- <label for="tags-heading" class="sub-heading">Health</label> -->
-        <div class="col-4" *ngFor="let tag of getFormTags(); let i = index">
-          <label formArrayName="tags">
-            <input type="checkbox" [formControlName]="i" (change)="onCheckboxChange(tags[i].id, $event)">
-            {{tags[i].name}}
-          </label>
+      <label for="tagsGroup">Select tags</label>
+      <div class="d-flex flex-row justify-content-between">
+        <div class="d-inline-flex flex-column">
+          <div class="d-flex flex-column flex-wrap">
+            <label for="tagsGroup" class="sub-heading">
+              {{tagsGroup[1].group_name}}</label>
+            <div class="d-flex flex-row" *ngFor="let tag of tagsGroup[1].tags_list; let i = index">
+              <label formArrayName="tags">
+                <input type="checkbox" [formControlName]="i" (change)="onCheckboxChange(tags[i].id, $event)">
+                {{tag.name}}
+              </label>
+            </div>
+          </div>
+
+          <div class="d-flex flex-column flex-wrap">
+            <label for="tagsGroup" class="sub-heading">
+              {{tagsGroup[2].group_name}}</label>
+            <div class="d-flex flex-row" *ngFor="let tag of tagsGroup[5].tags_list; let i = index">
+              <label formArrayName="tags">
+                <input type="checkbox" [formControlName]="i" (change)="onCheckboxChange(tags[i].id, $event)">
+                {{tag.name}}
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-inline-flex flex-column">
+          <div class="d-flex flex-column flex-wrap">
+            <label for="tagsGroup" class="sub-heading">
+              {{tagsGroup[3].group_name}}</label>
+            <div class="d-flex flex-row" *ngFor="let tag of tagsGroup[3].tags_list; let i = index">
+              <label formArrayName="tags">
+                <input type="checkbox" [formControlName]="i" (change)="onCheckboxChange(tags[i].id, $event)">
+                {{tag.name}}
+              </label>
+            </div>
+          </div>
+
+          <div class="d-flex flex-column flex-wrap">
+            <label for="tagsGroup" class="sub-heading">
+              {{tagsGroup[4].group_name}}</label>
+            <div class="d-flex flex-row" *ngFor="let tag of tagsGroup[4].tags_list; let i = index">
+              <label formArrayName="tags">
+                <input type="checkbox" [formControlName]="i" (change)="onCheckboxChange(tags[i].id, $event)">
+                {{tag.name}}
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-inline-flex flex-column">
+          <div class="d-flex flex-column flex-wrap">
+            <label for="tagsGroup" class="sub-heading">
+              {{tagsGroup[5].group_name}}</label>
+            <div class="d-flex flex-row" *ngFor="let tag of tagsGroup[2].tags_list; let i = index">
+              <label formArrayName="tags">
+                <input type="checkbox" [formControlName]="i" (change)="onCheckboxChange(tags[i].id, $event)">
+                {{tag.name}}
+              </label>
+            </div>
+          </div>
+
+          <div class="d-flex flex-column flex-wrap">
+            <label for="tagsGroup" class="sub-heading">
+              {{tagsGroup[0].group_name}}</label>
+            <div class="d-flex flex-row" *ngFor="let tag of tagsGroup[0].tags_list; let i = index">
+              <label formArrayName="tags">
+                <input type="checkbox" [formControlName]="i" (change)="onCheckboxChange(tags[i].id, $event)">
+                {{tag.name}}
+              </label>
+            </div>
+          </div>
+
+          <div class="d-flex flex-column flex-wrap">
+            <label for="tagsGroup" class="sub-heading">
+              {{tagsGroup[6].group_name}}</label>
+            <div class="d-flex flex-row" *ngFor="let tag of tagsGroup[6].tags_list; let i = index">
+              <label formArrayName="tags">
+                <input type="checkbox" [formControlName]="i" (change)="onCheckboxChange(tags[i].id, $event)">
+                {{tag.name}}
+              </label>
+            </div>
+          </div>
         </div>
       </div>
     </div>

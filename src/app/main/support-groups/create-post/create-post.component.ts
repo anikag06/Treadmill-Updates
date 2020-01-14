@@ -23,6 +23,7 @@ import { User } from '@/shared/user.model';
 import { AngularEditorConfig } from '@xw19/angular-editor';
 import { SanitizationService } from '../../shared/sanitization.service';
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { TagGroup } from '@/main/shared/tag-group.model';
 
 @Component({
   selector: 'app-create-post',
@@ -30,6 +31,7 @@ import { OverlayContainer } from '@angular/cdk/overlay';
   styleUrls: ['./create-post.component.scss'],
 })
 export class CreatePostComponent implements OnInit {
+  tagsGroup!: TagGroup[];
   tags!: Tag[];
   user!: User;
   formTags: number[] = [];
@@ -78,6 +80,7 @@ export class CreatePostComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.tagsGroup = this.tagService.tagsGroup;
     this.tags = this.tagService.tags;
     this.user = <User>this.authService.isLoggedIn();
     if (this.data) {
@@ -89,6 +92,7 @@ export class CreatePostComponent implements OnInit {
 
       this.formTags = this.data.tags.map(tag => tag.id);
     }
+    console.log('tags data', this.tagsGroup);
     this.buildTags();
   }
 
@@ -219,4 +223,7 @@ export class CreatePostComponent implements OnInit {
   getFormTags() {
     return (<FormArray>this.postForm.get('tags')).controls;
   }
+  // getFormTagsGroup() {
+  //   return (<FormArray>this.postForm.get('tagsGroup')).controls;
+  // }
 }

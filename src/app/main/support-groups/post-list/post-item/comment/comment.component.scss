@@ -36,10 +36,12 @@
     box-shadow: none;
 
     img {
+      border-radius: 0%;
       width: 35px;
       height: 18px;
     }
   }
+
 
   p {
     margin-bottom: 10px;
@@ -51,6 +53,13 @@
     font-size: 13px;
   }
 }
+
+.thankyou-img {
+  width: 18px !important;
+  height: inherit !important;
+}
+
+
 
 a.toggler {
   color: #1a77e2;

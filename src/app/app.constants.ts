@@ -275,3 +275,6 @@ export const CONTACT_US_DATA = '/api/v1/trial-iitk/save-contact-us/';
 
 // treadwill email
 export const ADMIN_EMAIL = 'treadwill.iitk@gmail.com';
+
+// support group
+export const SUPPORT_GROUP_TAGS_LIST = '/api/v1/support-group/tags-list/';

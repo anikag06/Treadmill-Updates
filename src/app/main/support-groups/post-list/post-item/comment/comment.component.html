@@ -56,17 +56,20 @@
 
       <span><a class='toggler user-stats' (click)='toggleToFullBody()' *ngIf="partialBody">show more</a></span>
       <span class="date user-stats">{{ comment.created_at |  date: 'medium' | timeAgo }}</span>
-      <div class="row no-gutters">
+      <div class=" row no-gutters">
         <div class="col-12 ">
-          <button class="btn btn-sm thumbs-up" (click)="onThumbsUp()"><img [src]="thumbsUp" width="18"
+          <button class="btn btn-sm thumbs-up pl-0" (click)="onThumbsUp()"><img [src]="thumbsUp" width="18"
               height="18">{{comment.up_votes}}</button>
           <button class="btn btn-sm thumbs-down" (click)="onThumbsDown()"><img [src]="thumbsDown" width="18"
               height="18"></button>
+          <button class="btn btn-sm" (click)="onThankYou()"><img class="thankyou-img" [src]="thankYouIcon"
+              width="18"></button>
           <button class="btn btn-sm comment-reply" (click)="onReplyClick()">Reply</button>
           <span *ngIf="comment.user.username == user.username">
             <button class="btn btn-sm comment-edit" (click)="onEdit()">Edit</button>
             <button class="btn btn-sm comment-delete" (click)="onDelete()">Delete</button>
           </span>
+
         </div>
       </div>
     </div>
