@@ -34,29 +34,22 @@
                           edit </mat-icon>
                       </div>
                     </div>
-                    <div class="card-body" *ngIf="worry && !worryEditMode" (click)="onWorryClick()">
+                    <!-- <div class="card-body" *ngIf="worry && !worryEditMode" (click)="onWorryClick()">
                       <div class="form-editable-text-underline">
                         {{worry.worry}}
                       </div>
-                    </div>
+                    </div> -->
                     <div class="card-body" *ngIf="worry && worryEditMode" (click)="onWorryClick()">
-                      <app-worry-form [problem]="problem"></app-worry-form>
+                      <app-worry-form [worry]="worry"></app-worry-form>
                     </div>
                     <div class="card-body" *ngIf="!worry" (click)="onWorryClick()" >
-                      <app-worry-form (testOut)="continuetoSlider($event)" ></app-worry-form>
+                      <app-worry-form (testOut)="continueAfterSlider($event)" ></app-worry-form>
                     </div>
-                    <div class="card-body" *ngIf="buttonClick" style="color:#00000099; letter-spacing:0.14px;"  >
-                       <br/>
-                       <app-form-slider [question]="worrySliderQuestion" [minRatingText]="wSliderMinRangeText" [maxRatingText]="wSliderMaxRangeText"></app-form-slider>
-                        <p class="text-right" (click)="continuetoCharacteristics()">
-                          <button type="button" mat-raised-button color="primary"
-                            class="continue-btn"  >Continue</button>
-                        </p>
-                    </div>     
+                         
                   </div>
                 </div> 
             </div>   
-            <div class="row mb-2"  *ngIf="buttonclick">
+            <div class="row mb-2"  *ngIf="buttonClick">
                 <div class="col-12">
                   <div class="card-full-width">
                     <div class="card-header" >

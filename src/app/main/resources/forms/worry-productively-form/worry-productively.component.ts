@@ -12,7 +12,7 @@ import {
 import { Worry } from './worry.model';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { WorryFormComponent } from './worry-form/worry-form.component';
-import { FormSliderComponent } from '../shared/form-slider/form-slider.component';
+// import { FormSliderComponent } from '../shared/form-slider/form-slider.component';
 import { Subscription } from 'rxjs';
 import { AuthService } from '@/shared/auth/auth.service';
 import { User } from '@/shared/user.model';
@@ -23,6 +23,7 @@ import { ProblemSolvingWorksheetsService } from '../problem-solving-worksheets/p
 import { FormBuilder } from '@angular/forms';
 import { map } from 'rxjs/operators';
 import { TechniquesComponent } from './techniques/techniques.component';
+import { WorryProductivelyService } from '@/main/resources/forms/worry-productively-form/worry-productively.service';
 
 @Component({
   selector: 'app-worryProd-form',
@@ -37,15 +38,12 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
   page = 1;
   worryEditMode = false;
   subscriptions: Subscription[] = [];
-  buttonClick: boolean;
-  buttonclick: boolean;
+  buttonClick = false;
+  // buttonclick: boolean;
   form: any;
   controlNames: string[];
   selectedNames$ = [{}];
-  worrySliderQuestion = ' How bothered are you by your worry?';
-  wSliderMinRangeText = 'Not at all';
-  wSliderMaxRangeText = 'Very Strongly';
-
+  
   // items = [
   // 'Future \"what if...\"',
   // 'Keeping seeking reassurance from others that everything is going to be okay but reassurance doesn\'t help.',
@@ -66,24 +64,23 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
 
   constructor(
     // private http: HttpClient
-    private problemService: ProblemSolvingWorksheetsService,
+    private worryService: WorryProductivelyService,
     private authService: AuthService,
     private errorService: GeneralErrorService,
     private fb: FormBuilder,
   ) {
-    this.buttonClick = false;
-    this.buttonclick = false;
+  
     this.form = this.fb.group({
       'Future "what if..."': false,
-      "Keeping seeking reassurance from others that everything is going to be okay but reassurance doesn't help.": false,
+      'Keeping seeking reassurance from others that everything is going to be okay but reassurance doesn\'t help.': false,
       'Worried about worst going to happen': false,
-      Guilty: false,
-      Jealous: false,
-      Hopeless: false,
-      Worthless: false,
-      Lonely: false,
-      Frustated: false,
-      Embarrassed: false,
+      'Guilty': false,
+      'Jealous': false,
+      'Hopeless': false,
+      'Worthless': false,
+      'Lonely': false,
+      'Frustated': false,
+      'Embarrassed': false,
     });
     this.controlNames = Object.keys(this.form.controls).map(_ => _);
     // this.selectedNames$ = this.form.valueChanges.pipe(map(v => Object.keys(v).filter(k => v[k])));
@@ -93,9 +90,9 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscriptions[
       this.subscriptions.length
-    ] = this.problemService.problemBehaviour.subscribe((problem: any) => {
-      if (Object.entries(problem).length > 0) {
-        this.worrySelected(problem);
+    ] = this.worryService.worryBehaviour.subscribe((worry: any) => {
+      if (Object.entries(worry).length > 0) {
+        this.worrySelected(worry);
       }
     }, this.errorService.errorResponse('Something went wrong'));
     const user = this.authService.isLoggedIn();
@@ -126,14 +123,14 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
     // this.OnSliderClick();
   }
 
-  continuetoSlider(selected: any) {
+  continueAfterSlider(selected: any) {
     this.buttonClick = selected;
     console.log(this.buttonClick);
   }
-  continuetoCharacteristics() {
-    this.buttonclick = true;
-    console.log(this.buttonclick);
-  }
+  // continuetoCharacteristics() {
+  //   this.buttonclick = true;
+  //   console.log(this.buttonclick);
+  // }
   userresponse = false;
   OnCharacteristicCheck() {
     this.userresponse = true;

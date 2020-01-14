@@ -6,10 +6,18 @@
               cdkAutosizeMaxRows="5"
               id="worryStatement" placeholder="Write here"
               matInput required [autofocus] [(ngModel)]="worryStatement" 
-              (focusout)="onFocusOut($event)">text</textarea>
+              (focus)= "onFocus()" (focusout)="onFocusOut($event)">text</textarea>
   </mat-form-field>
-  <p class="text-right"  (click)="onWorrySubmit()">
+  <p class="text-right"  (click)="onWorrySubmit()" *ngIf="continueBut">
     <button type="button" mat-raised-button color="primary"
       class="continue-btn"  >Continue</button>
   </p>
+  <div *ngIf="clickbutton" style="color:#00000099; letter-spacing:0.14px;"  >
+    <app-form-slider [question]="worrySliderQuestion" [minRatingText]="wSliderMinRangeText" [maxRatingText]="wSliderMaxRangeText"></app-form-slider>
+    <p class="text-right" (click)="continuetoCharacteristics()">
+      <button type="button" mat-raised-button color="primary"
+      class="continue-btn"  >Continue</button>
+    </p>
+    <br/>                       
+  </div>
   </form>
