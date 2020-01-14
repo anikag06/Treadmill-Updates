@@ -11,7 +11,7 @@ export class FormSliderComponent implements OnInit {
   @Input() minRatingText!: string;
   @Input() maxRatingText!: string;
 
-  constructor() {}
+  constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 }

@@ -1,79 +1,78 @@
-<mat-card class="container-fluid px-0 pt-0 pb-2 mb-2"> 
-    <div class="row no-gutters mb-2 card card-full-width"> 
-      <mat-card-header class="col-12 w-100 px-0 card-header main-heading">  
-        <mat-card-title class="ml-4 my-auto d-inline-block">
-          Worry Productively form
-        </mat-card-title>
-        <div class="h-100 d-inline-block ml-auto">
-            <button class="h-100 saved-forms-btn" mat-button [matMenuTriggerFor]="problemSolvingForms">
-                <i class="material-icons more-hor-icon">
-                    more_horiz
-                </i>
-            </button>
+<mat-card class="container-fluid px-0 pt-0 pb-2 mb-2">
+  <div class="row no-gutters mb-2 card card-full-width">
+    <mat-card-header class="col-12 w-100 px-0 card-header main-heading">
+      <mat-card-title class="ml-4 my-auto d-inline-block">
+        Worry Productively form
+      </mat-card-title>
+      <div class="h-100 d-inline-block ml-auto">
+        <button class="h-100 saved-forms-btn" mat-button [matMenuTriggerFor]="problemSolvingForms">
+          <i class="material-icons more-hor-icon">
+            more_horiz
+          </i>
+        </button>
+      </div>
+
+
+      <mat-menu xPosition="before" yPosition="below" #problemSolvingForms="matMenu" [overlapTrigger]="false">
+        <div [ngStyle]="{'max-height':'350px'}">
+          <app-forms-sidebar [type]="type" (objectEmitter)="worrySelected($event)" (newForm)="onAddNewForm()">
+          </app-forms-sidebar>
         </div>
-        
+      </mat-menu>
+    </mat-card-header>
+  </div>
 
-        <mat-menu xPosition="before" yPosition="below" #problemSolvingForms="matMenu" [overlapTrigger]="false">
-            <div [ngStyle]="{'max-height':'350px'}">
-                <app-forms-sidebar [type]="type" (objectEmitter)="worrySelected($event)" (newForm)="onAddNewForm()">
-                </app-forms-sidebar>
+  <div class="row no-gutters form-div mx-auto">
+    <div class="col-12 col-lg">
+      <div class="row mb-2">
+        <div class="col-12">
+          <div class="card-full-width">
+            <div class="card-header">
+              What are you worried about?
+              <div class="float-right d-inline-block">
+                <mat-icon class="edit_icon" (click)="onEditWorryClick()">
+                  edit </mat-icon>
+              </div>
             </div>
-        </mat-menu>
-      </mat-card-header>
-    </div>
-
-    <div class="row no-gutters form-div mx-auto">
-        <div class="col-12 col-lg">
-            <div class="row mb-2">
-                <div class="col-12">
-                  <div class="card-full-width">
-                    <div class="card-header">
-                      What are you worried about?
-                      <div class="float-right d-inline-block">
-                        <mat-icon class="edit_icon" (click)="onEditWorryClick()">
-                          edit </mat-icon>
-                      </div>
-                    </div>
-                    <!-- <div class="card-body" *ngIf="worry && !worryEditMode" (click)="onWorryClick()">
+            <!-- <div class="card-body" *ngIf="worry && !worryEditMode" (click)="onWorryClick()">
                       <div class="form-editable-text-underline">
                         {{worry.worry}}
                       </div>
                     </div> -->
-                    <div class="card-body" *ngIf="worry && worryEditMode" (click)="onWorryClick()">
-                      <app-worry-form [worry]="worry"></app-worry-form>
-                    </div>
-                    <div class="card-body" *ngIf="!worry" (click)="onWorryClick()" >
-                      <app-worry-form (testOut)="continueAfterSlider($event)" ></app-worry-form>
-                    </div>
-                         
-                  </div>
-                </div> 
-            </div>   
-            <div class="row mb-2"  *ngIf="buttonClick">
-                <div class="col-12">
-                  <div class="card-full-width">
-                    <div class="card-header" >
-                     Tick all the useless characteristics of your worry?
-                    </div>
-                     
-                        <!-- <mat-checkbox [checked]="i.checked" (change)="OnCharacteristicCheck($event)" #Checkbox >
+            <div class="card-body" *ngIf="worry && worryEditMode" (click)="onWorryClick()">
+              <app-worry-form [worry]="worry" (testOut)="continueAfterSlider($event)"></app-worry-form>
+            </div>
+            <div class="card-body" *ngIf="!worry" (click)="onWorryClick()">
+              <app-worry-form (testOut)="continueAfterSlider($event)"></app-worry-form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="row mb-2" *ngIf="buttonClick">
+        <div class="col-12">
+          <div class="card-full-width">
+            <div class="card-header">
+              Tick all the useless characteristics of your worry?
+            </div>
+
+            <!-- <mat-checkbox [checked]="i.checked" (change)="OnCharacteristicCheck($event)" #Checkbox >
                         {{i}}
                         </mat-checkbox> -->
-                        <ng-container [formGroup]="form" *ngFor="let controlName of controlNames" ><br/>
-                          <mat-checkbox  [formControlName]="controlName"  >
-                            {{controlName}}
-                          </mat-checkbox>
+            <ng-container [formGroup]="form" *ngFor="let controlName of controlNames"><br />
+              <mat-checkbox [formControlName]="controlName">
+                {{controlName}}
+              </mat-checkbox>
 
-                        </ng-container>
-                        <p class="text-right"  (click)="OnCharacteristicCheck()">
-                          <button type="button" mat-raised-button color="primary"
-                            class="continue-btn"  >Continue</button>
-                        </p>
-                    
-                  </div>
-                </div>
-            </div>  
-           <app-techniques></app-techniques>
-        </div>    
-    </div>   
+            </ng-container>
+            <p class="text-right" (click)="OnCharacteristicCheck()">
+              <button type="button" mat-raised-button color="primary" class="continue-btn">Continue</button>
+            </p>
+
+          </div>
+        </div>
+      </div>
+      <app-techniques></app-techniques>
+    </div>
+  </div>
 </mat-card>

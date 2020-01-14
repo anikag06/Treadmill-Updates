@@ -22,7 +22,9 @@ export class WorryFormComponent implements OnInit {
   @Input() worry!: Worry;
   @Output() testOut = new EventEmitter<boolean>();
   @ViewChild('worryTextArea', { static: false }) worryTextArea!: ElementRef;
-  constructor(private worryService: WorryProductivelyService) {}
+  @ViewChild(FormSliderComponent, { static: false })
+  sliderRating !: FormSliderComponent;
+  constructor(private worryService: WorryProductivelyService) { }
   worryStatement = '';
   worrySliderQuestion = 'How bothered are you by your worry?';
   wSliderMinRangeText = 'Not at all';
@@ -30,11 +32,10 @@ export class WorryFormComponent implements OnInit {
   public continueBut = false;
   public clickbutton = false;
   public sliderEmit = false;
-  sliderRating !: FormSliderComponent;
   ngOnInit() {
     if (this.worry) {
       this.worryStatement = this.worry.worry;
-      // this.problem.isDisabled=false;
+      // console.log('slider value is' + this.sliderRating.rating);
     }
   }
   ngAfterViewInit() {
@@ -47,18 +48,18 @@ export class WorryFormComponent implements OnInit {
 
   editWorryText() {
     this.worryTextArea.nativeElement.focus();
-    this.continueBut =  true;
+    this.continueBut = true;
   }
   onWorrySubmit() {
+    this.clickbutton = true;
     if (this.worry && Object.entries(this.worry).length > 0) {
       this.worry.worry = this.worryStatement;
+      this.worry.worry_rating_initial = this.sliderRating.rating;
       this.worryService
         .putWorry({
           id: this.worry.id,
-          worry : this.worryStatement,
-          worry_rating_final : this.sliderRating.rating           
-          // bestsolution: null,
-          // taskorigin: 0,
+          worry: this.worry.worry,
+          worry_rating_initial: this.worry.worry_rating_initial
         })
         .subscribe(
           (data: any) => {
@@ -78,15 +79,14 @@ export class WorryFormComponent implements OnInit {
         },
       );
     }
-    this.clickbutton = true;
     this.continueBut = false;
   }
-  continuetoCharacteristics(){
+  continuetoCharacteristics() {
     this.sliderEmit = true;
     this.testOut.emit(this.sliderEmit);
     this.onWorrySubmit();
   }
-  onFocus(){
+  onFocus() {
     this.continueBut = true;
   }
   onFocusOut(event: any) {

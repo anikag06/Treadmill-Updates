@@ -26,7 +26,7 @@ import { TechniquesComponent } from './techniques/techniques.component';
 import { WorryProductivelyService } from '@/main/resources/forms/worry-productively-form/worry-productively.service';
 
 @Component({
-  selector: 'app-worryProd-form',
+  selector: 'app-worry-productively-form',
   templateUrl: './worry-productively.component.html',
   styleUrls: ['./worry-productively.component.scss'],
   //   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -43,7 +43,7 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
   form: any;
   controlNames: string[];
   selectedNames$ = [{}];
-  
+
   // items = [
   // 'Future \"what if...\"',
   // 'Keeping seeking reassurance from others that everything is going to be okay but reassurance doesn\'t help.',
@@ -69,7 +69,7 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
     private errorService: GeneralErrorService,
     private fb: FormBuilder,
   ) {
-  
+
     this.form = this.fb.group({
       'Future "what if..."': false,
       'Keeping seeking reassurance from others that everything is going to be okay but reassurance doesn\'t help.': false,
