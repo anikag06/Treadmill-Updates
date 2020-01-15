@@ -21,6 +21,10 @@ h3 {
   max-width: 600px;
 }
 
+.tagDiv {
+  // min-width: 450px;
+}
+
 .post-form {
   max-width: 60%;
 }
@@ -57,12 +61,17 @@ h3 {
 }
 
 .sub-heading {
-  opacity: 0.6;
+  opacity: 0.4;
 }
 
 @media screen and (max-width: 991px) {
   .text-md-center {
     text-align: center;
+  }
+
+  .form-row {
+    max-width: 600px;
+    margin: auto;
   }
 }
 
@@ -70,4 +79,9 @@ h3 {
   .text-lg-right {
     text-align: right;
   }
+
+  .tagDiv {
+    min-width: 450px;
+  }
+
 }
