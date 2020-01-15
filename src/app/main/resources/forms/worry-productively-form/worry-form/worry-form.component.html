@@ -2,18 +2,17 @@
   <mat-form-field class="full-width">
     <textarea name="worryStatement" class="py-0" #worryTextArea cdkTextareaAutosize cdkAutosizeMinRows="1"
       cdkAutosizeMaxRows="5" id="worryStatement" placeholder="Write here" matInput required [autofocus]
-      [(ngModel)]="worryStatement" (focus)="onFocus()" (focusout)="onFocusOut($event)">text</textarea>
+      [(ngModel)]="worryStatement" (focusout)="onFocusOut($event)">text</textarea>
   </mat-form-field>
-  <p class="text-right" (click)="onWorrySubmit()" *ngIf="continueBut">
+  <p class="text-right" (click)="onWorrySubmit()" *ngIf="worryTextArea.value">
     <button type="button" mat-raised-button color="primary" class="continue-btn">Continue</button>
   </p>
-  <div style="color:#00000099; letter-spacing:0.14px;">
+  <div *ngIf="clickbutton" (click)="showSliderContinue()">
     <app-form-slider [question]="worrySliderQuestion" [minRatingText]="wSliderMinRangeText"
-      [maxRatingText]="wSliderMaxRangeText"></app-form-slider>
-    <p class="text-right" (click)="continuetoCharacteristics()">
+      [maxRatingText]="wSliderMaxRangeText" [rating]="value"></app-form-slider>
+    <p class="text-right" *ngIf="showSliderCont" (click)="continuetoCharacteristics()">
       <button type="button" mat-raised-button color="primary" class="continue-btn">Continue</button>
     </p>
     <br />
   </div>
 </form>
-<!-- *ngIf="clickbutton" -->

@@ -24,13 +24,15 @@ export class WorryFormComponent implements OnInit {
   @ViewChild('worryTextArea', { static: false }) worryTextArea!: ElementRef;
   @ViewChild(FormSliderComponent, { static: false })
   sliderRating !: FormSliderComponent;
-  constructor(private worryService: WorryProductivelyService) { }
+  constructor(private worryService: WorryProductivelyService) {
+  }
   worryStatement = '';
   worrySliderQuestion = 'How bothered are you by your worry?';
   wSliderMinRangeText = 'Not at all';
   wSliderMaxRangeText = 'Very Strongly';
-  public continueBut = false;
-  public clickbutton = false;
+  continueText = false;
+  clickbutton = false;
+  showSliderCont = false;
   public sliderEmit = false;
   ngOnInit() {
     if (this.worry) {
@@ -45,10 +47,14 @@ export class WorryFormComponent implements OnInit {
       }, 100);
     }
   }
-
+  value = 1;
   editWorryText() {
     this.worryTextArea.nativeElement.focus();
-    this.continueBut = true;
+    this.continueText = true;
+    this.clickbutton = true;
+    if (this.worry.worry_rating_initial != null) {
+      this.value = this.worry.worry_rating_initial;
+    }
   }
   onWorrySubmit() {
     this.clickbutton = true;
@@ -79,16 +85,17 @@ export class WorryFormComponent implements OnInit {
         },
       );
     }
-    this.continueBut = false;
+    this.continueText = false;
   }
   continuetoCharacteristics() {
     this.sliderEmit = true;
     this.testOut.emit(this.sliderEmit);
     this.onWorrySubmit();
   }
-  onFocus() {
-    this.continueBut = true;
+  showSliderContinue() {
+    this.showSliderCont = true;
   }
+
   onFocusOut(event: any) {
     if (
       !(
@@ -96,7 +103,7 @@ export class WorryFormComponent implements OnInit {
         (<Element>event.relatedTarget).classList.contains('continue-btn')
       )
     ) {
-      this.continueBut = false;
+      this.continueText = false;
     }
   }
 }
