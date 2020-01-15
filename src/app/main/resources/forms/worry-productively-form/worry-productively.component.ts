@@ -12,7 +12,7 @@ import {
 import { Worry } from './worry.model';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { WorryFormComponent } from './worry-form/worry-form.component';
-// import { FormSliderComponent } from '../shared/form-slider/form-slider.component';
+import { FormSliderComponent } from '../shared/form-slider/form-slider.component';
 import { Subscription } from 'rxjs';
 import { AuthService } from '@/shared/auth/auth.service';
 import { User } from '@/shared/user.model';
@@ -60,6 +60,9 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
   @ViewChild('autosize', { static: false }) autosize!: CdkTextareaAutosize;
   @ViewChild(WorryFormComponent, { static: false })
   worryStatementForm!: WorryFormComponent;
+  worrySliderQuestion = 'How bothered are you by your worry?';
+  wSliderMinRangeText = 'Not at all';
+  wSliderMaxRangeText = 'Very Strongly';
   // @ViewChild('Checkbox') private Checkbox: MatCheckbox;
 
   constructor(

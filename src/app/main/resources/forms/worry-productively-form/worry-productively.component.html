@@ -34,11 +34,14 @@
                   edit </mat-icon>
               </div>
             </div>
-            <!-- <div class="card-body" *ngIf="worry && !worryEditMode" (click)="onWorryClick()">
-                      <div class="form-editable-text-underline">
-                        {{worry.worry}}
-                      </div>
-                    </div> -->
+            <div class="card-body" *ngIf="worry && !worryEditMode" (click)="onWorryClick()">
+              <div class="form-editable-text-underline">
+                  {{worry.worry}}
+              </div>
+              <app-form-slider [question]="worrySliderQuestion" [minRatingText]="wSliderMinRangeText"
+                  [maxRatingText]="wSliderMaxRangeText" [rating]="worry.worry_rating_initial">
+              </app-form-slider>                    
+            </div>
             <div class="card-body" *ngIf="worry && worryEditMode" (click)="onWorryClick()">
               <app-worry-form [worry]="worry" (testOut)="continueAfterSlider($event)"></app-worry-form>
             </div>

@@ -6,7 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./form-slider.component.scss'],
 })
 export class FormSliderComponent implements OnInit {
-  rating!: number;
+  @Input() rating = 1;
   @Input() question!: string;
   @Input() minRatingText!: string;
   @Input() maxRatingText!: string;
