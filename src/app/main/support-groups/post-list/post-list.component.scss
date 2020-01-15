@@ -29,7 +29,7 @@
         -webkit-appearance: searchfield-cancel-button;
       }
 
-      width: 90%;
+      width: 89%;
       -webkit-appearance: none;
     }
 
@@ -73,9 +73,33 @@
   }
 }
 
-@media screen and (max-width: 991px) {
+@media screen and (min-width:577px) and (max-width: 991px) {
   .new-post {
     display: block;
+  }
+
+  .search-row {
+    .search-form {
+      input[type='search'] {
+        width: 75%;
+      }
+
+      button {
+        min-width: 10%;
+        padding: 0;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .new-post {
+    display: block;
+  }
+
+  .post-list {
+    margin: 0;
+    padding: 20px 0;
   }
 
   .search-row {
@@ -89,12 +113,5 @@
         padding: 0;
       }
     }
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .post-list {
-    margin: 0;
-    padding: 20px 0;
   }
 }
