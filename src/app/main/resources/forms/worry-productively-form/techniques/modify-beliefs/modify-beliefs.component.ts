@@ -1,7 +1,6 @@
-import { Component, OnInit,  ViewChild, Input } from '@angular/core';
-import { WorryFormComponent } from '../../worry-form/worry-form.component';
+import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { Worry } from '../../worry.model';
-import { TechniquesComponent } from '../techniques.component';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 @Component({
   selector: 'app-modify-beliefs',
   templateUrl: './modify-beliefs.component.html',
@@ -9,32 +8,25 @@ import { TechniquesComponent } from '../techniques.component';
 })
 export class ModifyBeliefsComponent implements OnInit {
   @Input() modifyBeliefsClick = false;
-  @ViewChild(WorryFormComponent, { static: false })
-  beliefStatementForm!: WorryFormComponent;
-  beliefEditMode = false;
-  modifyBeliefs !:Worry
-  spanDisplay = false;
-  constructor() {}
+  @Output() summaryModifyEvent = new EventEmitter<boolean>();
+  summary = false;
+  summaryText = '';
+  beliefForm = this.fb.group({
+    beliefStatement: new FormControl('', Validators.required)
+  });
 
-  ngOnInit() {}
-  BeliefSelected(evaluate: Worry) {
-    this.modifyBeliefs = evaluate;
-    this.beliefEditMode = false;
+  constructor(
+    private fb: FormBuilder,
+
+  ) {
   }
-  onEditBeliefClick() {
-    this.onBeliefClick();
-    console.log(this.beliefEditMode);
-    if (this.beliefStatementForm) {
-      this.beliefStatementForm.editWorryText();
-    }
+
+  ngOnInit() { }
+
+  onBeliefSubmit() {
+    this.summaryText = this.beliefForm.value['beliefStatement'];
+    this.summary = true;
+    this.summaryModifyEvent.emit(this.summary);
   }
-  onBeliefClick() {
-    if (this.modifyBeliefs) {
-      this.beliefEditMode = true;
-    }
-  }
-  continuetoBeliefForm(data : any){
-    this.spanDisplay=data;
-    console.log(this.spanDisplay);
-  }
+
 }

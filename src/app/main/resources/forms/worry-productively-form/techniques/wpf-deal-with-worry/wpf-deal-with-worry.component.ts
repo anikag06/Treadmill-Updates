@@ -1,7 +1,6 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { WorryFormComponent } from '../../worry-form/worry-form.component';
+import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { Worry } from '../../worry.model';
-import { TechniquesComponent } from '../techniques.component';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-wpf-deal-with-worry',
@@ -10,31 +9,30 @@ import { TechniquesComponent } from '../techniques.component';
 })
 export class WpfDealWithWorryComponent implements OnInit {
   @Input() dealWorryClick = false;
-  @ViewChild(WorryFormComponent, { static: false })
-  dealingWorryStatementForm!: WorryFormComponent;
-  dealWorryEditMode = false;
-  dealWorry !:Worry;
-  calmMyself = false;  
-  constructor() {}
+  @Output() summaryDealingEvent = new EventEmitter<boolean>();
+  summary = false;
+  calmMyself = false;
+  summaryText = '';
+  DealWorryForm = this.fb.group({
+    DealWorryStatement: new FormControl('', Validators.required)
+  });
 
-  ngOnInit() {}
-  DealWithWorrySelected(deal: Worry) {
-    this.dealWorry = deal;
-    this.dealWorryEditMode = false;
+  constructor(
+    private fb: FormBuilder,
+  ) {
   }
-  onEditDealingWorryClick() {
-    this.onDealwithWorryClick();
-    console.log(this.dealWorryEditMode);
-    if (this.dealingWorryStatementForm) {
-      this.dealingWorryStatementForm.editWorryText();
+
+  ngOnInit() { }
+
+  ondealWorrySubmit() {
+    this.calmMyself = true;
+  }
+  continuetocalmMyself() {
+    this.summaryText = this.DealWorryForm.value['DealWorryStatement'];
+    this.summary = true;
+    if (this.summary) {
+      this.summaryDealingEvent.emit(this.summary);
+
     }
-  }
-  onDealwithWorryClick() {
-    if (this.dealWorry) {
-      this.dealWorryEditMode = true;
-    }
-  }
-  continuetocalmMyself( data : any){
-   this.calmMyself = data;
   }
 }

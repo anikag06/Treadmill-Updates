@@ -6,3 +6,7 @@
 // .float-right {
 //     margin-right: 34px;
 // }
+
+textarea.mat-input-element.cdk-textarea-autosize {
+  resize: auto;
+}

@@ -17,7 +17,6 @@ import { Subscription } from 'rxjs';
 import { AuthService } from '@/shared/auth/auth.service';
 import { User } from '@/shared/user.model';
 import { GeneralErrorService } from '@/main/shared/general-error.service';
-import { ProblemSolvingWorksheetsService } from '../problem-solving-worksheets/problem-solving-worksheets.service';
 // import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 // import { MatCheckbox } from '@angular/material';
 import { FormBuilder } from '@angular/forms';

@@ -1,23 +1,28 @@
-<form *ngIf = "dealWorryClick" >
-    <div class = "card-body">  
-        <div>
-           <strong>Distract Myself</strong> <br/>
-           It might help to distract myself if my worry gets very intense. What can I do to distract myself?
-        </div> <br/>
-        <div class= "card-body" *ngIf="dealWorry && dealWorryEditMode" (click)="onDealwithWorryClick()">
-            <app-worry-form [problem]="dealWorry"></app-worry-form>
-        </div>
-        <div class= "card-body" *ngIf="!dealWorry" (click)="onDealwithWorryClick()">
-            <app-worry-form (testOut)="continuetocalmMyself($event)"></app-worry-form>
-        </div>
-        <div *ngIf= "calmMyself"> 
-            <strong>Calm Myself</strong><br/>
-            It might help to do mindful breathig if my worry gets very intense (link).
-            <p class="text-right" >
-                <button type="button" mat-raised-button color="primary"
-                    class="continue-btn"  >Done</button>
-            </p>
-        </div>
-
-    </div>    
-</form>    
+<form *ngIf="dealWorryClick">
+  <div class="card-body" *ngIf="!summary">
+    <div>
+      <strong>Distract Myself</strong> <br /> <br />
+      It might help to distract myself if my worry gets very intense. What can I do to distract myself?
+    </div> <br />
+    <mat-form-field class="full-width" [formGroup]="DealWorryForm">
+      <textarea class="py-0" formControlName="DealWorryStatement" #isText cdkTextareaAutosize cdkAutosizeMinRows="1"
+        cdkAutosizeMaxRows="5" placeholder="Write here" matInput required [autofocus]
+        (focusout)="onFocusOut($event)"></textarea>
+    </mat-form-field>
+    <p class="text-right" (click)="ondealWorrySubmit()" *ngIf="isText.value">
+      <button type="button" mat-raised-button color="primary" class="continue-btn">Done</button>
+    </p>
+    <div *ngIf="calmMyself">
+      <strong>Calm Myself</strong><br /> <br />
+      It might help to do mindful breathig if my worry gets very intense (link).
+      <p class="text-right">
+        <button type="button" mat-raised-button color="primary" class="continue-btn"
+          (click)="continuetocalmMyself()">Done</button>
+      </p>
+    </div>
+  </div>
+  <div class="card-body" *ngIf="summary">
+    Summary <br />
+    {{summaryText}}
+  </div>
+</form>

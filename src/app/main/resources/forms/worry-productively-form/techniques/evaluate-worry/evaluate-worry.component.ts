@@ -1,8 +1,7 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
-// import { WorryFormComponent } from '../../worry-form/worry-form.component';
+import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { Worry } from '../../worry.model';
-import { TechniquesComponent } from '../techniques.component';
 import { FormSliderComponent } from '../../../shared/form-slider/form-slider.component';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 @Component({
   selector: 'app-evaluate-worry',
   templateUrl: './evaluate-worry.component.html',
@@ -10,6 +9,7 @@ import { FormSliderComponent } from '../../../shared/form-slider/form-slider.com
 })
 export class EvaluateWorryComponent implements OnInit {
   @Input() EvaluatedClicked = false;
+  @Output() summaryEvaluateEvent = new EventEmitter<boolean>();
   // @ViewChild(WorryFormComponent, { static: false })
   // evaluateStatementForm!: WorryFormComponent;
 
@@ -25,36 +25,27 @@ export class EvaluateWorryComponent implements OnInit {
     'Frustated',
     'Embarrassed',
   ];
-  // EvaluateEditMode = false;
-  // evaluateEvidence!: Worry;
+
   buttonClick = false;
   summary = false;
+  sliderSubmit = false;
   continueText = false;
   evaluateSliderQuestion = 'Guess Probability';
   evaSliderMinRangeText = 'Low';
   evaSliderMaxRangeText = 'High';
+  summaryText = '';
+  evaluateForm = this.fb.group({
+    evaluateStatement: new FormControl('', Validators.required)
+  });
+  constructor(
+    private fb: FormBuilder,
+  ) {
 
-  constructor() {
   }
 
   ngOnInit() { }
-  // EvaluateSelected(evaluate: Worry) {
-  //   this.evaluateEvidence = evaluate;
-  //   this.EvaluateEditMode = false;
-  // }
-  // onEditEvaluateClick() {
-  //   this.onEvaluateClick();
-  //   console.log(this.EvaluateEditMode);
-  //   if (this.evaluateStatementForm) {
-  //     this.evaluateStatementForm.editWorryText();
-  //   }
-  // }
-  // onEvaluateClick() {
-  //   if (this.evaluateEvidence) {
-  //     this.EvaluateEditMode = true;
-  //   }
-  // }
   onEvaluateSubmit() {
+    this.summaryText = this.evaluateForm.value['evaluateStatement'];
     this.buttonClick = true;
     console.log(this.buttonClick);
   }
@@ -67,7 +58,11 @@ export class EvaluateWorryComponent implements OnInit {
     this.evidencesubmitted = true;
   }
   onSliderSubmit() {
+    this.sliderSubmit = true;
+  }
+  doneSummary() {
     this.summary = true;
+    this.summaryEvaluateEvent.emit(this.summary);
   }
   setSummary() {
     this.summary = false;

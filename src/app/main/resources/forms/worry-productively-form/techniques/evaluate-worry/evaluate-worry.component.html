@@ -19,10 +19,10 @@
                 <div class= "card-body" *ngIf="!evaluateEvidence" (click)="onEvaluateClick()">
                     <app-worry-form (testOut)="continuetoSlider($event)"></app-worry-form>
                </div> -->
-      <mat-form-field class="full-width">
-        <textarea name="evaluateStatement" class="py-0" #isText cdkTextareaAutosize cdkAutosizeMinRows="1"
-          cdkAutosizeMaxRows="5" id="evaluateStatement" placeholder="Write here" matInput required [autofocus]
-          [(ngModel)]="evaluateStatement" (focusout)="onFocusOut($event)">text</textarea>
+      <mat-form-field class="full-width" [formGroup]="evaluateForm">
+        <textarea class="py-0" formControlName="evaluateStatement" #isText cdkTextareaAutosize cdkAutosizeMinRows="1"
+          cdkAutosizeMaxRows="5" placeholder="Write here" matInput required [autofocus]
+          (focusout)="onFocusOut($event)"></textarea>
       </mat-form-field>
       <p class="text-right" (click)="onEvaluateSubmit()" *ngIf="isText.value">
         <button type="button" mat-raised-button color="primary" class="continue-btn">Continue</button>
@@ -37,7 +37,7 @@
       </p>
     </div> <br />
   </div>
-  <div *ngIf="summary">
+  <div class="card-body" *ngIf="summary || sliderSubmit">
     Accept uncertainity <br /><br />
     <!-- <div class= "card-body" *ngIf="evaluateEvidence && EvaluateEditMode" (click)="onEvaluateClick()">
                       <app-worry-form [problem]="evaluateEvidence"></app-worry-form>
@@ -45,6 +45,9 @@
                   <div class= "card-body" *ngIf="!evaluateEvidence" (click)="onEvaluateClick()">
                       <app-worry-form (testOut)="continuetoSlider($event)"></app-worry-form>
                   </div> -->
-    {{evaluateStatement}}
+    {{summaryText}}
+    <p class="text-right" (click)="doneSummary()">
+      <button type="button" mat-raised-button color="primary" class="continue-btn">Done</button>
+    </p>
   </div>
 </form>

@@ -1,7 +1,6 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { WorryFormComponent } from '../../worry-form/worry-form.component';
+import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { Worry } from '../../worry.model';
-import { TechniquesComponent } from '../techniques.component';
+import { FormControl, Validators, FormBuilder } from '@angular/forms';
 @Component({
   selector: 'app-wpf-problem-solving',
   templateUrl: './wpf-problem-solving.component.html',
@@ -9,36 +8,30 @@ import { TechniquesComponent } from '../techniques.component';
 })
 export class WpfProblemSolvingComponent implements OnInit {
   @Input() canISolve = false;
-  @ViewChild(WorryFormComponent, { static: false })
-  solveProblemStatementForm!: WorryFormComponent;
-  // choices : string[];
+  @Output() summaryProbSolvingEvent = new EventEmitter<boolean>();
   radioResponse = '';
-  solveEditMode = false;
-  solveProblem !:Worry;
   imageDisplay = false;
-  choices = [ 'Yes', 'No'];
-  constructor() {}
+  choices = ['Yes', 'No'];
+  summary = false;
+  summaryText = '';
+  problemSolvingForm = this.fb.group({
+    problemSolvingStatement: new FormControl('', Validators.required)
+  });
+  constructor(
+    private fb: FormBuilder,
+  ) {
+  }
 
   ngOnInit() {
   }
-  solveProblemSelected(solve: Worry) {
-    this.solveProblem = solve;
-    this.solveEditMode = false;
+
+  continuetoImage() {
+    this.imageDisplay = true;
   }
-  onEditsolveProblemClick() {
-    this.onSolveClick();
-    console.log(this.solveEditMode);
-    if (this.solveProblemStatementForm) {
-      this.solveProblemStatementForm.editWorryText();
-    }
-  }
-  onSolveClick() {
-    if (this.solveProblem) {
-      this.solveEditMode = true;
-    }
-  }
-  continuetoImage(data : any){
-    this.imageDisplay=true;
-    console.log(this.imageDisplay);
+  showSummary() {
+    this.summaryText = this.problemSolvingForm.value['problemSolvingStatement'];
+    this.summary = true;
+    this.summaryProbSolvingEvent.emit(this.summary);
+
   }
 }
