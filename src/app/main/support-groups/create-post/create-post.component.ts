@@ -36,6 +36,7 @@ export class CreatePostComponent implements OnInit {
   user!: User;
   formTags: number[] = [];
   errors: any = [];
+  crossIcon = '../../assets/support-group/Close.png';
 
   @ViewChild('checkboxDiv', { static: false }) checkboxDiv!: ElementRef;
 
@@ -182,12 +183,23 @@ export class CreatePostComponent implements OnInit {
     });
   }
 
-  onCheckboxChange(tagId: number, event: any) {
-    if (event.currentTarget.checked) {
-      this.formTags.push(tagId);
-    } else {
-      this.formTags = this.formTags.filter(i => tagId !== i);
+  onTagButtonClick(tagId: number, event: any) {
+    console.log('tag clicked', event, tagId);
+    if (event) {
+      if (this.formTags.includes(tagId)) {
+        event.target.classList.remove('toggleButton');
+        event.target.children[0].classList.add('d-none');
+        console.log(' event.target.innerHTML', event.target.innerHTML);
+        this.formTags = this.formTags.filter(i => tagId !== i);
+      } else {
+        this.formTags.push(tagId);
+        event.target.classList.add('toggleButton');
+        console.log('event.target.classList', event.target.classList);
+        event.target.children[0].classList.remove('d-none');
+
+      }
     }
+
   }
 
   buildTags() {
