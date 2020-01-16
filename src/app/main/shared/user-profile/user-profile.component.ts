@@ -1,16 +1,29 @@
 import { AfterViewInit, Component, ElementRef, OnInit, Input } from '@angular/core';
-import { MOBILEWIDTH} from '@/app.constants';
+import {DEFAULT_PATH, MOBILEWIDTH} from '@/app.constants';
 import { Badge } from './badges/badge.model';
 import { UserProfile } from './UserProfile.model';
+import { User } from '@/shared/user.model';
+import { Router } from '@angular/router';
+import { AuthService } from '@/shared/auth/auth.service';
+
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.scss'],
 })
 export class UserProfileComponent implements OnInit, AfterViewInit {
-  constructor(private element: ElementRef) { }
+  constructor(private element: ElementRef, private authService: AuthService,
+              private router: Router) { }
   @Input() userProfile!: UserProfile;
-  ngOnInit(){
+  user!: User;
+
+  ngOnInit() {
+    const user = this.authService.isLoggedIn();
+    if (user && user.is_active) {
+      this.user = <User>user;
+    } else {
+      this.router.navigate([DEFAULT_PATH]);
+    }
   }
 
   ngAfterViewInit() {
@@ -20,7 +33,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
     for (let i = 0; i < tabLabel.length; i++) {
       tabLabel[i].setAttribute('style', 'min-width: 80px;height:40px;opacity:1');
     }
-    
+
     if(window.innerWidth < MOBILEWIDTH){
       const headerText = this.element.nativeElement.querySelectorAll('.mat-card-header-text');
       headerText[0].setAttribute('style','margin: 0px');

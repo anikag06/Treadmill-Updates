@@ -1,21 +1,33 @@
-import { Component, OnInit, ViewChild, ComponentFactoryResolver, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ComponentFactoryResolver,
+  OnDestroy
+} from '@angular/core';
 import { NavbarFlowDirective } from './navbar-flow.directive';
 import { interval, Subscription } from 'rxjs';
 import { NavbarFlowComponent } from './navbar-flow/navbar-flow.component';
 import { NavbarNotificationDirective } from './navbar-notification.directive';
 import { NavbarNotificationsComponent } from './navbar-notifications/navbar-notifications.component';
 import { NavbarNotificationsService } from './navbar-notifications.service';
+import { User } from '@/shared/user.model';
+import {DEFAULT_PATH} from '@/app.constants';
+import {AuthService} from '@/shared/auth/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+  styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit, OnDestroy {
-
-  @ViewChild(NavbarFlowDirective, { static: false }) flowHost!: NavbarFlowDirective;
-  @ViewChild(NavbarNotificationDirective, { static: false }) notifactionHost!: NavbarNotificationDirective;
-
+   user!: User;
+   // x = User.is_exp;
+  @ViewChild(NavbarFlowDirective, { static: false })
+  flowHost!: NavbarFlowDirective;
+  @ViewChild(NavbarNotificationDirective, { static: false })
+  notificationHost!: NavbarNotificationDirective;
 
   intervalSubscription!: Subscription;
   showFlow = false;
@@ -24,38 +36,49 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   userNotificationSubscription!: Subscription;
 
+   // user = new User(1, 'tester', 'test@gmail.com', '', true, true, false);
+
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
     private notificationService: NavbarNotificationsService,
-  ) { }
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
-    this.notificationService.closeSubject
-      .subscribe(
-        (data) => {
-          if (data) {
-            this.notificationClick();
-          }
-        }
-      );
+    const user = this.authService.isLoggedIn();
+    if (user && user.is_active) {
+      this.user = <User>user;
+    } else {
+      this.router.navigate([DEFAULT_PATH]);
+    }
+
+    this.notificationService.closeSubject.subscribe(data => {
+      if (data) {
+        this.notificationClick();
+      }
+    });
+    this.getNotificationsCount();
+    this.intervalSubscription = interval(60000).subscribe(() => {
       this.getNotificationsCount();
-      this.intervalSubscription = interval(60000)
-      .subscribe(() => { this.getNotificationsCount(); });
+    });
   }
 
   notificationClick() {
     this.showNotifications = !this.showNotifications;
-    const viewContainerRef = this.notifactionHost.viewContainerRef;
+    const viewContainerRef = this.notificationHost.viewContainerRef;
     viewContainerRef.clear();
     if (this.showNotifications) {
-      const componentFactory = this.componentFactoryResolver.resolveComponentFactory(NavbarNotificationsComponent);
+      const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
+        NavbarNotificationsComponent,
+      );
       viewContainerRef.createComponent(componentFactory);
     }
     this.unreadCount = 0;
-    const notifications  = this.notificationService.putUserNotifications().toPromise();
-    notifications.then(
-      (data) => console.log(data)
-    );
+    const notifications = this.notificationService
+      .putUserNotifications()
+      .toPromise();
+    notifications.then(data => console.log(data));
   }
 
   flowClick(event: Event) {
@@ -63,24 +86,25 @@ export class NavbarComponent implements OnInit, OnDestroy {
     const viewContainerRef = this.flowHost.viewContainerRef;
     viewContainerRef.clear();
     if (this.showFlow) {
-      const componentFactory = this.componentFactoryResolver.resolveComponentFactory(NavbarFlowComponent);
+      const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
+        NavbarFlowComponent,
+      );
       viewContainerRef.createComponent(componentFactory);
     }
   }
 
   ngOnDestroy(): void {
-    if ( this.userNotificationSubscription) {
+    if (this.userNotificationSubscription) {
       this.userNotificationSubscription.unsubscribe();
     }
   }
 
   getNotificationsCount() {
-    const notificationCountPromise = this.notificationService.getUserNotifications().toPromise();
-    notificationCountPromise.then(
-      (data: any) => this.unreadCount = data.data
-    ).catch(
-      error => console.log(error)
-    );
+    const notificationCountPromise = this.notificationService
+      .getUserNotifications()
+      .toPromise();
+    notificationCountPromise
+      .then((data: any) => (this.unreadCount = data.data))
+      .catch(error => console.log(error));
   }
-
 }

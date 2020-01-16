@@ -22,6 +22,7 @@ import { Conclusion2Component } from './conclusion/conclusion2/conclusion2.compo
 import { Conclusion3Component } from './conclusion/conclusion3/conclusion3.component';
 import { Conclusion4Component } from './conclusion/conclusion4/conclusion4.component';
 import { Conclusion5Component } from './conclusion/conclusion5/conclusion5.component';
+import { ControlContentComponent } from '@/main/resources/control-content/control-content.component';
 
 export const resourcesRoutes: Routes = [
   {
@@ -70,6 +71,7 @@ export const resourcesRoutes: Routes = [
       { path: '5', component: Conclusion5Component },
     ],
   },
+  { path: 'control-content/:id', component: ControlContentComponent },
 ];
 
 @NgModule({
