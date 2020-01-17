@@ -1,8 +1,8 @@
 <mat-expansion-panel hideToggle #panel>
   <mat-expansion-panel-header
-    [ngStyle]="{ background: '#FFF3E9' }"
-    [expandedHeight]="'42px'"
-    [collapsedHeight]="'42px'"
+          [ngStyle]="{ background: '#FFF3E9',paddingLeft:'16px' }"
+          [expandedHeight]="'42px'"
+          [collapsedHeight]="'42px'"
   >
     <mat-panel-title
       [ngStyle]="{
@@ -29,18 +29,20 @@
 
     <form [formGroup]="suggestionForm">
       <div>
-        <textarea
-          matInput
-          cdkTextareaAutosize
-          cdkAutosizeMinRows="2"
-          cdkAutosizeMaxRows="4"
-          formControlName="suggestion"
-          class="form-control"
-          required
-          placeholder="Write Here"
-          (focusout)="updateSuggestion()"
-          #explain
-        ></textarea>
+        <mat-form-field>
+          <textarea
+                  matInput
+                  cdkTextareaAutosize
+                  cdkAutosizeMinRows="2"
+                  cdkAutosizeMaxRows="4"
+                  formControlName="suggestion"
+                  class="form-control"
+                  required
+                  placeholder="Write Here"
+                  (focusout)="updateSuggestion()"
+                  #explain
+          ></textarea>
+        </mat-form-field>
       </div>
       <br />
       <div>

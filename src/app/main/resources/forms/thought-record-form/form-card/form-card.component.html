@@ -27,11 +27,11 @@
       </mat-form-field>
       <p class="text-right">
         <button
-        mat-raised-button
-          type="button"
-          *ngIf="thoughtRecordForm.valid"
-          class="btn continue-btn "
-          (click)="onProblemSubmit()"
+                mat-raised-button
+                type="button"
+                *ngIf="thoughtRecordForm.valid  && !submitted "
+                class="btn continue-btn "
+                (click)="onProblemSubmit()"
         >
           Continue
         </button>

@@ -1,69 +1,68 @@
 <mat-expansion-panel hideToggle #panel>
   <mat-expansion-panel-header
-    [ngStyle]="{ background: '#FFFCE3' }"
-    [expandedHeight]="'42px'"
-    [collapsedHeight]="'42px'"
+          [ngStyle]="{ background: '#D4FFEF', paddingLeft: '16px' }"
+          [expandedHeight]="'42px'"
+          [collapsedHeight]="'42px'"
   >
-    <mat-panel-title
-      [ngStyle]="{
+      <mat-panel-title
+              [ngStyle]="{
         'font-size': panel.expanded ? '16px' : '14px',
         'font-weight': '500'
       }"
-    >
-      Identify Thinking
-    </mat-panel-title>
+      >
+          {{ techniqueName }}
+      </mat-panel-title>
     <mat-panel-description>
       <div class="iconsDiv" *ngIf="panel.expanded">
         <mat-icon>help_outline</mat-icon>
         <mat-icon>close</mat-icon>
       </div>
-      <div
-        class="iconsDiv"
-        *ngIf="!panel.expanded && errorCount > 0 && submitted"
-      >
-        <img src="assets/forms/edit_errors.png" width="24px" />
-      </div>
+        <div class="iconsDiv" *ngIf="!panel.expanded && thinkingErrors">
+            <img src="assets/forms/edit_errors.png" width="24px"/>
+        </div>
     </mat-panel-description>
   </mat-expansion-panel-header>
 
-  <ng-template matExpansionPanelContent>
-    <div class="q-heading">
-      {{ title }}
-    </div>
-    <form [formGroup]="identifyThinkingForm">
-      <div *ngFor="let error of errors; let i = index" formArrayName="emotions">
-        <mat-checkbox
-          [formControlName]="i"
-          #option
-          (change)="updateErrorCount(option.checked, i)"
-        >
-          {{ error }}
-        </mat-checkbox>
-      </div>
+    <ng-template matExpansionPanelContent>
+        <div class="q-heading">
+            {{ title }}
+        </div>
+        <div [ngStyle]="{ 'padding-left': '5px' }">
+            <form [formGroup]="identifyThinkingForm">
+                <div
+                        *ngFor="let error of errors; let i = index"
+                        formArrayName="emotions"
+                >
+                    <mat-checkbox
+                            [value]="error.error"
+                            (change)="updateErrorCount($event, i)"
+                            [checked]="error.isChecked"
+                    >
+                        {{ error.error }}
+                    </mat-checkbox>
+                </div>
 
-      <button
-        mat-raised-button
-        class="btn continue-btn"
-        [ngStyle]="{ float: 'right' }"
-        *ngIf="errorCount > 0"
-        (click)="onSubmit()"
-      >
-        Done
-      </button>
-    </form>
+                <button
+                        mat-raised-button
+                        class="btn continue-btn"
+                        [ngStyle]="{ float: 'right' }"
+                        *ngIf="this.errorCount > 0"
+                        (click)="onSubmit()"
+                >
+                    Done
+                </button>
+            </form>
+        </div>
   </ng-template>
 </mat-expansion-panel>
 
-<mat-card
-  class="card-body"
-  *ngIf="!panel.expanded && errorCount > 0 && submitted"
->
-  <mat-card-content>
-    <div [ngStyle]="{ 'font-size': '12px' }">
-      Thinking Errors
-    </div>
-    <div [ngStyle]="{ 'margin-top': '8px', 'font-size': '12px' }">
-      {{ thinkingErrors }}
-    </div>
-  </mat-card-content>
+<mat-card class="card-body" *ngIf="!panel.expanded && thinkingErrors">
+    <mat-card-content>
+        <div [ngStyle]="{ 'font-size': '12px' }">
+            Thinking Errors
+        </div>
+        <div [ngStyle]="{ 'margin-top': '8px', 'font-size': '12px' }">
+            {{ thinkingErrors }}
+        </div>
+    </mat-card-content>
 </mat-card>

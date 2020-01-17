@@ -1,10 +1,18 @@
-@import "../../forms.component.scss";
+@import '../../forms.component.scss';
 
 .form-control {
   border-top-color: transparent;
   border-left-color: transparent;
   border-right-color: transparent;
   box-shadow: none;
+}
+
+::-webkit-scrollbar {
+  width: 0 !important;
+}
+
+textarea {
+  scrollbar-width: none;
 }
 
 .subtasks {
@@ -60,25 +68,25 @@ label {
 }
 
 #trash-icon {
-  display: flex;
+  display: flow-root;
   align-self: flex-end;
   cursor: pointer;
 }
 
-.form-control:focus{
-  border-bottom: 1px solid;
-}
+//.form-control:focus{
+//  border-bottom-color: black;
+//}
 
-.task-info-icon{
+.task-info-icon {
   height: 26px;
 }
 
-.task-info{
+.task-info {
   height: 40px;
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
-.add-subtask{
+.add-subtask {
   float: left;
   display: flex;
   padding-left: 18px;
@@ -86,7 +94,7 @@ label {
   margin-top: 30px;
 }
 
-.task-data{
+.task-data {
   margin-left: 22px;
   height: 24px;
   display: inline-block;

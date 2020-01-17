@@ -1,6 +1,7 @@
-import { THOUGHT_RECORD, THOUGHT_RECROD_FORM_NAME } from '@/app.constants';
-import { Component, OnInit } from '@angular/core';
-import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
+import {THOUGHT_RECORD, THOUGHT_RECROD_FORM_NAME} from '@/app.constants';
+import {Component, OnInit} from '@angular/core';
+import {Thought} from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
+import {ThoughtRecordService} from '@/main/resources/forms/thought-record-form/thought-record.service';
 
 @Component({
   selector: 'app-thought-record-form',
@@ -15,7 +16,7 @@ export class ThoughtRecordFormComponent implements OnInit {
   situationHeader = 'What is the situation?';
   negativeThoughtHeader = 'What is the negative thought?';
   scaleThought =
-    'On a scale of 1-10 how strongly do you believe the thought to be true?';
+      'On a scale of 1-10 how strongly do you believe the thought to be true?';
   moodSelect = 'How did this negative thought make you feel?';
   situationAdded = false;
   negativeThoughtAdded = false;
@@ -25,32 +26,47 @@ export class ThoughtRecordFormComponent implements OnInit {
   minRating = 'Not At All';
   maxRating = 'Very Strongly';
   recordBehaveHeader = 'How did this negative thought make you behave?';
-  situationCall = 'situation';
-  thougtCall = 'thought';
+  situationApi = 'situation';
+  thoughtApi = 'thought';
+  behaviorApi = 'behavior';
   reset = false;
-  thought!: Thought | undefined;
-  constructor() {}
+  thought!: any;
+  negativeMoodRating = 1;
+  negativeThought: any;
+  editMode = false;
 
-  ngOnInit() {}
+  constructor(private thoughtRecordService: ThoughtRecordService) {
+  }
+
+  ngOnInit() {
+
+  }
 
   thoughtSelected(thought: Thought) {
     this.thought = thought;
+  }
+
+  updateThought(thought: any) {
+    this.thought = thought;
+    this.onShowNegative(true);
   }
 
   onAddNewForm() {
     this.thought = undefined;
     this.reset = !this.reset;
   }
+
   onShowNegative(value: boolean) {
     this.situationAdded = value;
   }
 
-  onShowSlider(value: boolean) {
+  onShowSlider(data: any) {
     if (this.situationAdded) {
-      console.log(value);
-      this.negativeThoughtAdded = value;
+      this.negativeThoughtAdded = data.showSlider;
+      this.negativeThought = data.negativeThought;
     }
   }
+
   onSelectMood(value: boolean) {
     if (this.negativeThoughtAdded) {
       this.showMood = value;
@@ -68,6 +84,27 @@ export class ThoughtRecordFormComponent implements OnInit {
     if (this.showRecordBehave) {
       this.showTechniques = value;
     }
+  }
+
+  getRating(value: any) {
+    this.negativeMoodRating = value;
+  }
+
+  onThoughtSubmit() {
+    const object = {
+      situation_id: this.thought.id,
+      thought: this.negativeThought,
+      thought_rating_initial: this.negativeMoodRating,
+    };
+    console.log(object);
+    this.thoughtRecordService
+        .putThoughtRating(object, this.thought.id)
+        .subscribe((resp: any) => {
+          const status = resp.ok;
+          if (status) {
+            this.showMood = true;
+          }
+        });
   }
 
   // onEditSituationClick() {
