@@ -9,7 +9,7 @@ import { of, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'environments/environment';
 import { Worry } from './worry.model';
-import { WPF_WORRY_URL } from '@/app.constants';
+import { WPF_WORRY_URL, USELESS_CHARAC_URL } from '@/app.constants';
 
 @Injectable({
   providedIn: 'root'
@@ -86,5 +86,12 @@ export class WorryProductivelyService {
           return data;
         }),
       );
+  }
+
+  getUselessCharacteristics() {
+    return this.http.get(environment.API_ENDPOINT + USELESS_CHARAC_URL);
+  }
+  postUselessCharacteristics() {
+
   }
 }
