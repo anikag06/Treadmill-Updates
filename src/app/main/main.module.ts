@@ -342,7 +342,7 @@ import { WorryProductivelyService } from '@/main/resources/forms/worry-productiv
     IdcGameService,
     LoadingBarService,
     StepsDataService,
-    WorryProductivelyService
+    WorryProductivelyService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [

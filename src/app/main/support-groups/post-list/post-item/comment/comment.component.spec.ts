@@ -19,29 +19,47 @@ describe('CommentComponent', () => {
   let component: CommentComponent;
   let fixture: ComponentFixture<CommentComponent>;
   const mockDialogRef = {
-    close: jasmine.createSpy('close')
+    close: jasmine.createSpy('close'),
   };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ FormsModule, AngularEditorModule, HttpClientTestingModule, RouterTestingModule, MaterialModule],
-      declarations: [ CommentComponent, SafeHtmlPipe, TimeAgoPipe, NestedCommentComponent ],
+      imports: [
+        FormsModule,
+        AngularEditorModule,
+        HttpClientTestingModule,
+        RouterTestingModule,
+        MaterialModule,
+      ],
+      declarations: [
+        CommentComponent,
+        SafeHtmlPipe,
+        TimeAgoPipe,
+        NestedCommentComponent,
+      ],
       providers: [
         {
           provide: MatDialogRef,
-          useValue: mockDialogRef
+          useValue: mockDialogRef,
         },
         { provide: MAT_DIALOG_DATA, useValue: {} },
-        { provide: AuthService, useClass: MockAuth},
-       ]
-    })
-    .compileComponents();
+        { provide: AuthService, useClass: MockAuth },
+      ],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(CommentComponent);
     component = fixture.componentInstance;
-    component.comment = new UserComment(1, { username: 'test', avatar: ''}, 'this is a comment', 1, 1, '', -1);
+    component.comment = new UserComment(
+      1,
+      { username: 'test', avatar: '' },
+      'this is a comment',
+      1,
+      1,
+      '',
+      -1,
+    );
     fixture.detectChanges();
   });
 

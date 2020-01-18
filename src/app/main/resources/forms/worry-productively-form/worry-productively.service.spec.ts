@@ -6,7 +6,9 @@ describe('WorryProductivelyService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: WorryProductivelyService = TestBed.get(WorryProductivelyService);
+    const service: WorryProductivelyService = TestBed.get(
+      WorryProductivelyService,
+    );
     expect(service).toBeTruthy();
   });
 });

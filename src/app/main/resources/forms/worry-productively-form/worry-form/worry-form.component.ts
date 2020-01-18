@@ -23,9 +23,8 @@ export class WorryFormComponent implements OnInit {
   @Output() testOut = new EventEmitter<boolean>();
   @ViewChild('worryTextArea', { static: false }) worryTextArea!: ElementRef;
   @ViewChild(FormSliderComponent, { static: false })
-  sliderRating !: FormSliderComponent;
-  constructor(private worryService: WorryProductivelyService) {
-  }
+  sliderRating!: FormSliderComponent;
+  constructor(private worryService: WorryProductivelyService) {}
   worryStatement = '';
   worrySliderQuestion = 'How bothered are you by your worry?';
   wSliderMinRangeText = 'Not at all';
@@ -65,7 +64,7 @@ export class WorryFormComponent implements OnInit {
         .putWorry({
           id: this.worry.id,
           worry: this.worry.worry,
-          worry_rating_initial: this.worry.worry_rating_initial
+          worry_rating_initial: this.worry.worry_rating_initial,
         })
         .subscribe(
           (data: any) => {

@@ -25,15 +25,15 @@ describe('PostListComponent', () => {
         RouterTestingModule,
         AngularEditorModule,
       ],
-      declarations: [ PostListComponent,
-                      PostItemComponent,
-                      TimeAgoPipe,
-                      SafeHtmlPipe,
-                      CommentComponent,
-                      NestedCommentComponent,
-                    ]
-    })
-    .compileComponents();
+      declarations: [
+        PostListComponent,
+        PostItemComponent,
+        TimeAgoPipe,
+        SafeHtmlPipe,
+        CommentComponent,
+        NestedCommentComponent,
+      ],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

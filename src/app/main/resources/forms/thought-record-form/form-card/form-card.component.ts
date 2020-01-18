@@ -1,9 +1,18 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild,} from '@angular/core';
-import {MatDialog} from '@angular/material';
-import {FormBuilder, FormControl, Validators} from '@angular/forms';
-import {ThoughtRecordService} from '@/main/resources/forms/thought-record-form/thought-record.service';
-import {Thought} from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
-import {HttpErrorResponse} from '@angular/common/http';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
+import { MatDialog } from '@angular/material';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { ThoughtRecordService } from '@/main/resources/forms/thought-record-form/thought-record.service';
+import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-form-card',
@@ -20,15 +29,14 @@ export class FormCardComponent implements OnInit {
   @Input() reset!: boolean;
   @Input() editMode!: boolean;
   @Output() updateThought = new EventEmitter();
-  @ViewChild('problemTextArea', {static: false}) element!: ElementRef;
+  @ViewChild('problemTextArea', { static: false }) element!: ElementRef;
   submitted = false;
 
   constructor(
-      public dialog: MatDialog,
-      private formBuilder: FormBuilder,
-      private thoughtRecordService: ThoughtRecordService,
-  ) {
-  }
+    public dialog: MatDialog,
+    private formBuilder: FormBuilder,
+    private thoughtRecordService: ThoughtRecordService,
+  ) {}
 
   thoughtRecordForm = this.formBuilder.group({
     text: new FormControl('', [Validators.required]),
@@ -60,16 +68,16 @@ export class FormCardComponent implements OnInit {
   loadSituation() {
     this.thoughtRecordService.getThoughts();
     this.thoughtRecordService.thoughtsBehaviour.subscribe(
-        (data: any) => {
-          if (data.length > 0) {
-            this.thought = data.find((t: Thought) => {
-              if (this.thought.id === t.id) {
-                return t;
-              }
-            });
-            if (this.thought) {
-              this.initializeThought();
+      (data: any) => {
+        if (data.length > 0) {
+          this.thought = data.find((t: Thought) => {
+            if (this.thought.id === t.id) {
+              return t;
             }
+          });
+          if (this.thought) {
+            this.initializeThought();
+          }
         }
       },
       (error: HttpErrorResponse) => {},
@@ -110,10 +118,10 @@ export class FormCardComponent implements OnInit {
     };
     if (this.thought && this.thought.id > 0) {
       this.thoughtRecordService
-          .putSituation(object, this.thought.id)
-          .subscribe(resp => {
-            status = resp.body.status;
-          });
+        .putSituation(object, this.thought.id)
+        .subscribe(resp => {
+          status = resp.body.status;
+        });
     } else {
       this.thoughtRecordService.postSituation(object).subscribe(resp => {
         const status = resp.ok;
@@ -151,10 +159,10 @@ export class FormCardComponent implements OnInit {
     };
     if (this.thought && this.thought.id > 0 && this.editMode) {
       this.thoughtRecordService
-          .putBehavior(object, this.thought.id)
-          .subscribe(resp => {
-            status = resp.body.status;
-          });
+        .putBehavior(object, this.thought.id)
+        .subscribe(resp => {
+          status = resp.body.status;
+        });
     } else {
       this.thoughtRecordService.postBehavior(object).subscribe(resp => {
         const status = resp.ok;

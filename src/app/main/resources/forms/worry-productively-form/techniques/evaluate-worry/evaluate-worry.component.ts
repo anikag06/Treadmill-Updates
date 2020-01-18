@@ -1,4 +1,11 @@
-import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  Input,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 import { Worry } from '../../worry.model';
 import { FormSliderComponent } from '../../../shared/form-slider/form-slider.component';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
@@ -35,15 +42,11 @@ export class EvaluateWorryComponent implements OnInit {
   evaSliderMaxRangeText = 'High';
   summaryText = '';
   evaluateForm = this.fb.group({
-    evaluateStatement: new FormControl('', Validators.required)
+    evaluateStatement: new FormControl('', Validators.required),
   });
-  constructor(
-    private fb: FormBuilder,
-  ) {
+  constructor(private fb: FormBuilder) {}
 
-  }
-
-  ngOnInit() { }
+  ngOnInit() {}
   onEvaluateSubmit() {
     this.summaryText = this.evaluateForm.value['evaluateStatement'];
     this.buttonClick = true;

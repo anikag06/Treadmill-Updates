@@ -2,11 +2,15 @@ import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { EvaluateWorryComponent } from './evaluate-worry/evaluate-worry.component';
 import { ModifyBeliefsComponent } from './modify-beliefs/modify-beliefs.component';
 import { WpfProblemSolvingComponent } from './wpf-problem-solving/wpf-problem-solving.component';
-import { MatIconRegistry } from "@angular/material/icon";
-import { DomSanitizer } from "@angular/platform-browser";
-import { TECHNIQUE_UNTOUCHED, TECHNIQUE_OPENED, TECHNIQUE_CLOSED } from "@/app.constants";
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
+import {
+  TECHNIQUE_UNTOUCHED,
+  TECHNIQUE_OPENED,
+  TECHNIQUE_CLOSED,
+} from '@/app.constants';
 import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
-import { TechniqueInfoComponent } from './technique-info/technique-info.component'
+import { TechniqueInfoComponent } from './technique-info/technique-info.component';
 @Component({
   selector: 'app-techniques',
   templateUrl: './techniques.component.html',
@@ -17,23 +21,35 @@ export class TechniquesComponent implements OnInit {
   constructor(
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer,
-    private dialogBoxService: DialogBoxService
+    private dialogBoxService: DialogBoxService,
   ) {
     this.matIconRegistry.addSvgIcon(
-      "Info",
-      this.domSanitizer.bypassSecurityTrustResourceUrl("../../../../../../assets/forms/Info.svg"));
+      'Info',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../../../../../../assets/forms/Info.svg',
+      ),
+    );
     this.matIconRegistry.addSvgIcon(
-      "EditErrors",
-      this.domSanitizer.bypassSecurityTrustResourceUrl("../../../../../../assets/forms/EditErrors.svg"));
+      'EditErrors',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../../../../../../assets/forms/EditErrors.svg',
+      ),
+    );
     this.matIconRegistry.addSvgIcon(
-      "Close",
-      this.domSanitizer.bypassSecurityTrustResourceUrl("../../../../../../assets/forms/Close.svg"));
+      'Close',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../../../../../../assets/forms/Close.svg',
+      ),
+    );
     this.matIconRegistry.addSvgIcon(
-      "QuestionMark",
-      this.domSanitizer.bypassSecurityTrustResourceUrl("../../../../../../assets/forms/QuestionMark.svg"));
+      'QuestionMark',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../../../../../../assets/forms/QuestionMark.svg',
+      ),
+    );
   }
 
-  ngOnInit() { }
+  ngOnInit() {}
   public ifevaluatedclicked = false;
   public beliefsClicked = false;
   public solveProbClicked = false;

@@ -1,7 +1,14 @@
-import {ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output,} from '@angular/core';
-import {FormArray, FormBuilder} from '@angular/forms';
-import {Thought} from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
-import {ProofService} from '@/main/resources/forms/thought-record-form/thought-record-techniques/proof/proof.service';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { FormArray, FormBuilder } from '@angular/forms';
+import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
+import { ProofService } from '@/main/resources/forms/thought-record-form/thought-record-techniques/proof/proof.service';
 
 @Component({
   selector: 'app-evidence-form',
@@ -10,9 +17,9 @@ import {ProofService} from '@/main/resources/forms/thought-record-form/thought-r
 })
 export class EvidenceFormComponent implements OnInit {
   constructor(
-      private fb: FormBuilder,
-      private changeDetector: ChangeDetectorRef,
-      private proofService: ProofService,
+    private fb: FormBuilder,
+    private changeDetector: ChangeDetectorRef,
+    private proofService: ProofService,
   ) {}
   showTrashIcon: boolean[] = [];
   @Input() title!: string;
@@ -24,28 +31,27 @@ export class EvidenceFormComponent implements OnInit {
   statements: string[] = [];
   @Input() thought!: Thought;
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   ngOnChanges() {
     if (this.thought) {
       this.proofService
-          .getEvidences(this.thought.id, this.type)
-          .subscribe((resp: any) => {
-            if (resp.body.data.evidences.length !== 0) {
-              for (let i = 0; i < resp.body.data.evidences.length; i++) {
-                this.control.push(
-                    this.createEditItem(
-                        resp.body.data.evidences[i].id,
-                        resp.body.data.evidences[i].evidence,
-                    ),
-                );
-              }
-              this.setSummary.emit();
-            } else {
-              this.control.push(this.createItem());
+        .getEvidences(this.thought.id, this.type)
+        .subscribe((resp: any) => {
+          if (resp.body.data.evidences.length !== 0) {
+            for (let i = 0; i < resp.body.data.evidences.length; i++) {
+              this.control.push(
+                this.createEditItem(
+                  resp.body.data.evidences[i].id,
+                  resp.body.data.evidences[i].evidence,
+                ),
+              );
             }
-          });
+            this.setSummary.emit();
+          } else {
+            this.control.push(this.createItem());
+          }
+        });
     } else {
       this.control.push(this.createItem());
     }
@@ -76,13 +82,13 @@ export class EvidenceFormComponent implements OnInit {
 
     if (evidence.value.id) {
       this.proofService
-          .deleteEvidence(evidence.value.id, this.type)
-          .subscribe((resp: any) => {
-            const status = resp.ok;
-            if (status) {
-              console.log('deleted');
-            }
-          });
+        .deleteEvidence(evidence.value.id, this.type)
+        .subscribe((resp: any) => {
+          const status = resp.ok;
+          if (status) {
+            console.log('deleted');
+          }
+        });
     }
     // if (subtask.id) {
     //   let status;

@@ -220,8 +220,8 @@ export const TECHNIQUE_UNTOUCHED = 0;
 export const TECHNIQUE_OPENED = 1;
 export const TECHNIQUE_CLOSED = 2;
 export const WPF_WORRY_URL = '/api/v1/worksheets/worry-productively/worry/';
-export const USELESS_CHARAC_URL = '/api/v1/worksheets/worry-productively/get-useless-characteristics/';
-
+export const USELESS_CHARAC_URL =
+  '/api/v1/worksheets/worry-productively/get-useless-characteristics/';
 
 // Problem solving form
 export const PSF_PROBLEM_SOLVING = 'problem-solving';

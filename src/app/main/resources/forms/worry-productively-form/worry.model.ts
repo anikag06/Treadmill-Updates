@@ -4,5 +4,5 @@ export class Worry {
     public worry: string,
     public worry_rating_initial?: any,
     public useless_characteristics?: string,
-  ) { }
+  ) {}
 }

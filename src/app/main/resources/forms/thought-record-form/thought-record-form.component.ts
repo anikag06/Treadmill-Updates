@@ -1,7 +1,7 @@
-import {THOUGHT_RECORD, THOUGHT_RECROD_FORM_NAME} from '@/app.constants';
-import {Component, OnInit} from '@angular/core';
-import {Thought} from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
-import {ThoughtRecordService} from '@/main/resources/forms/thought-record-form/thought-record.service';
+import { THOUGHT_RECORD, THOUGHT_RECROD_FORM_NAME } from '@/app.constants';
+import { Component, OnInit } from '@angular/core';
+import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
+import { ThoughtRecordService } from '@/main/resources/forms/thought-record-form/thought-record.service';
 
 @Component({
   selector: 'app-thought-record-form',
@@ -16,7 +16,7 @@ export class ThoughtRecordFormComponent implements OnInit {
   situationHeader = 'What is the situation?';
   negativeThoughtHeader = 'What is the negative thought?';
   scaleThought =
-      'On a scale of 1-10 how strongly do you believe the thought to be true?';
+    'On a scale of 1-10 how strongly do you believe the thought to be true?';
   moodSelect = 'How did this negative thought make you feel?';
   situationAdded = false;
   negativeThoughtAdded = false;
@@ -35,12 +35,9 @@ export class ThoughtRecordFormComponent implements OnInit {
   negativeThought: any;
   editMode = false;
 
-  constructor(private thoughtRecordService: ThoughtRecordService) {
-  }
+  constructor(private thoughtRecordService: ThoughtRecordService) {}
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
   thoughtSelected(thought: Thought) {
     this.thought = thought;
@@ -98,13 +95,13 @@ export class ThoughtRecordFormComponent implements OnInit {
     };
     console.log(object);
     this.thoughtRecordService
-        .putThoughtRating(object, this.thought.id)
-        .subscribe((resp: any) => {
-          const status = resp.ok;
-          if (status) {
-            this.showMood = true;
-          }
-        });
+      .putThoughtRating(object, this.thought.id)
+      .subscribe((resp: any) => {
+        const status = resp.ok;
+        if (status) {
+          this.showMood = true;
+        }
+      });
   }
 
   // onEditSituationClick() {

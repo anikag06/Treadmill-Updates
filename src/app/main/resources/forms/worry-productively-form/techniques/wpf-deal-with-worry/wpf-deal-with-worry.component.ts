@@ -1,4 +1,11 @@
-import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  Input,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 import { Worry } from '../../worry.model';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 
@@ -14,15 +21,12 @@ export class WpfDealWithWorryComponent implements OnInit {
   calmMyself = false;
   summaryText = '';
   DealWorryForm = this.fb.group({
-    DealWorryStatement: new FormControl('', Validators.required)
+    DealWorryStatement: new FormControl('', Validators.required),
   });
 
-  constructor(
-    private fb: FormBuilder,
-  ) {
-  }
+  constructor(private fb: FormBuilder) {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   ondealWorrySubmit() {
     this.calmMyself = true;
@@ -32,7 +36,6 @@ export class WpfDealWithWorryComponent implements OnInit {
     this.summary = true;
     if (this.summary) {
       this.summaryDealingEvent.emit(this.summary);
-
     }
   }
 }

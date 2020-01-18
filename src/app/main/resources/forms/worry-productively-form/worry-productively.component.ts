@@ -67,7 +67,6 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
     characteristics: this.fb.array([]),
   });
 
-
   constructor(
     // private http: HttpClient
     private worryService: WorryProductivelyService,
@@ -75,18 +74,17 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
     private errorService: GeneralErrorService,
     private fb: FormBuilder,
   ) {
-
     this.form = this.fb.group({
       'Future "what if..."': false,
-      'Keeping seeking reassurance from others that everything is going to be okay but reassurance doesn\'t help.': false,
+      "Keeping seeking reassurance from others that everything is going to be okay but reassurance doesn't help.": false,
       'Worried about worst going to happen': false,
-      'Guilty': false,
-      'Jealous': false,
-      'Hopeless': false,
-      'Worthless': false,
-      'Lonely': false,
-      'Frustated': false,
-      'Embarrassed': false,
+      Guilty: false,
+      Jealous: false,
+      Hopeless: false,
+      Worthless: false,
+      Lonely: false,
+      Frustated: false,
+      Embarrassed: false,
     });
     this.controlNames = Object.keys(this.form.controls).map(_ => _);
     // this.selectedNames$ = this.form.valueChanges.pipe(map(v => Object.keys(v).filter(k => v[k])));
@@ -106,13 +104,12 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
     if (user && user.is_active) {
       this.user = <User>user;
     }
-    this.worryService.getUselessCharacteristics()
-      .subscribe((data: any) => {
-        data.map((uselessChar: any) => {
-          (this.data.push({ value: uselessChar, is_checked: false }));
-          console.log(this.data + 'and data' + uselessChar);
-        });
+    this.worryService.getUselessCharacteristics().subscribe((data: any) => {
+      data.map((uselessChar: any) => {
+        this.data.push({ value: uselessChar, is_checked: false });
+        console.log(this.data + 'and data' + uselessChar);
       });
+    });
     this.data.shift();
   }
   ngOnDestroy() {

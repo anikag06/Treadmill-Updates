@@ -1,8 +1,16 @@
-import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild,} from '@angular/core';
-import {FormArray, FormBuilder, Validators} from '@angular/forms';
-import {CdkTextareaAutosize} from '@angular/cdk/text-field';
-import {Thought} from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
-import {ProofService} from '@/main/resources/forms/thought-record-form/thought-record-techniques/proof/proof.service';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import { FormArray, FormBuilder, Validators } from '@angular/forms';
+import { CdkTextareaAutosize } from '@angular/cdk/text-field';
+import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
+import { ProofService } from '@/main/resources/forms/thought-record-form/thought-record-techniques/proof/proof.service';
 
 @Component({
   selector: 'app-proof',
@@ -15,10 +23,10 @@ export class ProofComponent implements OnInit, AfterViewInit {
   summary = '';
   forType = 'for';
   againstType = 'against';
-  @ViewChild('autosize', {static: false}) autosize!: CdkTextareaAutosize;
+  @ViewChild('autosize', { static: false }) autosize!: CdkTextareaAutosize;
   submitted = false;
   @Input() thought!: Thought;
-  @ViewChild('panel', {static: false}) panel!: any;
+  @ViewChild('panel', { static: false }) panel!: any;
 
   proofStatementForm = this.fb.group({
     favorEvidences: this.fb.array([], [Validators.required]),
@@ -27,39 +35,37 @@ export class ProofComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     const panel = this.element.nativeElement.querySelectorAll(
-        '.mat-expansion-panel-body',
+      '.mat-expansion-panel-body',
     );
     panel[0].setAttribute('style', 'padding: 0px 0px 0px 16px');
   }
 
   constructor(
-      private fb: FormBuilder,
-      private element: ElementRef,
-      private proofService: ProofService,
-      private changeDetector: ChangeDetectorRef,
-  ) {
-  }
+    private fb: FormBuilder,
+    private element: ElementRef,
+    private proofService: ProofService,
+    private changeDetector: ChangeDetectorRef,
+  ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   ngOnChanges() {
     if (this.thought) {
       this.proofService
-          .getEvidences(this.thought.id, this.againstType)
+        .getEvidences(this.thought.id, this.againstType)
+        .subscribe((resp: any) => {
+          if (resp.body.data.evidences.length !== 0) {
+            this.summary = resp.body.data.evidences[0].evidence;
+          }
+        });
+      if (this.summary === '') {
+        this.proofService
+          .getEvidences(this.thought.id, this.forType)
           .subscribe((resp: any) => {
             if (resp.body.data.evidences.length !== 0) {
               this.summary = resp.body.data.evidences[0].evidence;
             }
           });
-      if (this.summary === '') {
-        this.proofService
-            .getEvidences(this.thought.id, this.forType)
-            .subscribe((resp: any) => {
-              if (resp.body.data.evidences.length !== 0) {
-                this.summary = resp.body.data.evidences[0].evidence;
-              }
-            });
       }
     }
   }
@@ -92,24 +98,24 @@ export class ProofComponent implements OnInit, AfterViewInit {
 
   callPostEvidences(evidences: any, type: string) {
     this.proofService
-        .postEvidences(evidences, this.thought.id, type)
-        .subscribe((resp: any) => {
-          const status = resp.ok;
-          if (status) {
-            console.log('post done');
-          }
-        });
+      .postEvidences(evidences, this.thought.id, type)
+      .subscribe((resp: any) => {
+        const status = resp.ok;
+        if (status) {
+          console.log('post done');
+        }
+      });
   }
 
   setSummary() {
     if (this.proofStatementForm.controls['favorEvidences'].value) {
       this.summary = this.proofStatementForm.controls[
-          'favorEvidences'
-          ].value[0].evidence;
+        'favorEvidences'
+      ].value[0].evidence;
     } else if (this.proofStatementForm.controls['againstEvidences'].value) {
       this.summary = this.proofStatementForm.controls[
-          'againstEvidences'
-          ].value[0].evidence;
+        'againstEvidences'
+      ].value[0].evidence;
     }
     this.changeDetector.detectChanges();
   }

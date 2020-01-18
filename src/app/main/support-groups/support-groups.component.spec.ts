@@ -10,7 +10,10 @@ import { MaterialModule } from '@/material.module';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TimeAgoPipe } from '@/shared/time-ago.pipe';
 import { SafeHtmlPipe } from './safe-html.pipe';
-import { AngularEditorComponent, AngularEditorModule } from '@xw19/angular-editor';
+import {
+  AngularEditorComponent,
+  AngularEditorModule,
+} from '@xw19/angular-editor';
 import { RouterTestingModule } from '@angular/router/testing';
 
 describe('SupportGroupsComponent', () => {
@@ -34,9 +37,8 @@ describe('SupportGroupsComponent', () => {
         NestedCommentComponent,
         TimeAgoPipe,
         SafeHtmlPipe,
-      ]
-    })
-    .compileComponents();
+      ],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

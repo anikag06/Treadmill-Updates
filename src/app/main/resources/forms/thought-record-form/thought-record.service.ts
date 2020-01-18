@@ -1,30 +1,29 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpResponse} from '@angular/common/http';
-import {environment} from '../../../../../environments/environment';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {Thought} from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { environment } from '../../../../../environments/environment';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
 
 @Injectable({
-    providedIn: 'root',
+  providedIn: 'root',
 })
 export class ThoughtRecordService {
-    thoughts: Thought[] = [];
-    thought!: Thought;
-    // thoughtBehaviour = new BehaviorSubject({});
-    thoughtsBehaviour = new BehaviorSubject<Thought[]>(this.thoughts);
-    thoughtBehaviour = new BehaviorSubject<Thought>(this.thought);
+  thoughts: Thought[] = [];
+  thought!: Thought;
+  // thoughtBehaviour = new BehaviorSubject({});
+  thoughtsBehaviour = new BehaviorSubject<Thought[]>(this.thoughts);
+  thoughtBehaviour = new BehaviorSubject<Thought>(this.thought);
 
-    page = 1;
-    nextPage = true;
+  page = 1;
+  nextPage = true;
 
-    constructor(private http: HttpClient) {
-    }
+  constructor(private http: HttpClient) {}
 
-    getThoughts() {
-        if (this.nextPage) {
-            this.http
-                .get<Thought[]>(
-                    environment.API_ENDPOINT +
+  getThoughts() {
+    if (this.nextPage) {
+      this.http
+        .get<Thought[]>(
+          environment.API_ENDPOINT +
             '/api/v1/worksheets/thought-record/situation/',
         )
         .subscribe((data: any) => {
@@ -32,8 +31,8 @@ export class ThoughtRecordService {
           //   this.thoughts = [];
           // }
 
-            this.thoughts.push(...data.results);
-            this.thoughtsBehaviour.next(this.thoughts);
+          this.thoughts.push(...data.results);
+          this.thoughtsBehaviour.next(this.thoughts);
           if (data.next) {
             this.page += 1;
             this.nextPage = true;
@@ -48,23 +47,23 @@ export class ThoughtRecordService {
   }
 
   addSituation(thought: Thought) {
-      this.thoughts.push(thought);
-      this.thoughtBehaviour.next(thought);
-      this.thoughtsBehaviour.next(this.thoughts);
+    this.thoughts.push(thought);
+    this.thoughtBehaviour.next(thought);
+    this.thoughtsBehaviour.next(this.thoughts);
   }
 
   updateSituation(situation: any) {
     const thought = this.thoughts.find((t: Thought) => t.id === situation.id);
     if (thought) {
-        this.thoughts[this.thoughts.indexOf(thought)] = situation;
-        this.thoughtsBehaviour.next(this.thoughts);
+      this.thoughts[this.thoughts.indexOf(thought)] = situation;
+      this.thoughtsBehaviour.next(this.thoughts);
     }
   }
 
   removeSituation(situation: Thought) {
     const situationIndex = this.thoughts.indexOf(situation);
-      this.thoughts.splice(situationIndex, 1);
-      this.thoughtsBehaviour.next(this.thoughts);
+    this.thoughts.splice(situationIndex, 1);
+    this.thoughtsBehaviour.next(this.thoughts);
     // console.log(this.thoughts)
 
     // this.thoughts.forEach((thought: any, index) => {
@@ -102,77 +101,77 @@ export class ThoughtRecordService {
   }
 
   deleteSituation(id: any): Observable<HttpResponse<any>> {
-      return this.http.delete(
-          environment.API_ENDPOINT +
-          '/api/v1/worksheets/thought-record/situation/' +
-          id +
-          '/',
-          {
-              observe: 'response',
-          },
-      );
+    return this.http.delete(
+      environment.API_ENDPOINT +
+        '/api/v1/worksheets/thought-record/situation/' +
+        id +
+        '/',
+      {
+        observe: 'response',
+      },
+    );
   }
 
-    postThought(data: any) {
-        return this.http.post<any>(
-            environment.API_ENDPOINT + '/api/v1/worksheets/thought-record/thought/',
-            data,
-            {
-                observe: 'response',
-            },
-        );
-    }
+  postThought(data: any) {
+    return this.http.post<any>(
+      environment.API_ENDPOINT + '/api/v1/worksheets/thought-record/thought/',
+      data,
+      {
+        observe: 'response',
+      },
+    );
+  }
 
-    getThought() {
-        return this.thoughtBehaviour.asObservable();
-    }
+  getThought() {
+    return this.thoughtBehaviour.asObservable();
+  }
 
-    putThoughtRating(data: any, id: number) {
-        return this.http.put<any>(
-            environment.API_ENDPOINT +
-            '/api/v1/worksheets/thought-record/thought/' +
-            id +
-            '/',
-            data,
-            {
-                observe: 'response',
-            },
-        );
-    }
+  putThoughtRating(data: any, id: number) {
+    return this.http.put<any>(
+      environment.API_ENDPOINT +
+        '/api/v1/worksheets/thought-record/thought/' +
+        id +
+        '/',
+      data,
+      {
+        observe: 'response',
+      },
+    );
+  }
 
-    putBehavior(data: any, id: number) {
-        return this.http.put<any>(
-            environment.API_ENDPOINT +
-            '/api/v1/worksheets/thought-record/behavior/' +
-            id +
-            '/',
-            data,
-            {
-                observe: 'response',
-            },
-        );
-    }
+  putBehavior(data: any, id: number) {
+    return this.http.put<any>(
+      environment.API_ENDPOINT +
+        '/api/v1/worksheets/thought-record/behavior/' +
+        id +
+        '/',
+      data,
+      {
+        observe: 'response',
+      },
+    );
+  }
 
-    postBehavior(data: any) {
-        return this.http.post<any>(
-            environment.API_ENDPOINT + '/api/v1/worksheets/thought-record/behavior/',
-            data,
-            {
-                observe: 'response',
-            },
-        );
-    }
+  postBehavior(data: any) {
+    return this.http.post<any>(
+      environment.API_ENDPOINT + '/api/v1/worksheets/thought-record/behavior/',
+      data,
+      {
+        observe: 'response',
+      },
+    );
+  }
 
-    postFeelings(data: any, id: number) {
-        return this.http.post<any>(
-            environment.API_ENDPOINT +
-            '/api/v1/worksheets/thought-record/feelings/' +
-            id +
-            '/',
-            data,
-            {
-                observe: 'response',
-            },
-        );
-    }
+  postFeelings(data: any, id: number) {
+    return this.http.post<any>(
+      environment.API_ENDPOINT +
+        '/api/v1/worksheets/thought-record/feelings/' +
+        id +
+        '/',
+      data,
+      {
+        observe: 'response',
+      },
+    );
+  }
 }

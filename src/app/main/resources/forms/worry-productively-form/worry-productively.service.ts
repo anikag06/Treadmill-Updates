@@ -12,7 +12,7 @@ import { Worry } from './worry.model';
 import { WPF_WORRY_URL, USELESS_CHARAC_URL } from '@/app.constants';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class WorryProductivelyService {
   private worries: Worry[] = [];
@@ -21,9 +21,7 @@ export class WorryProductivelyService {
   moreWorries = true;
   page = 1;
   public postdata = 0;
-  constructor(
-    private http: HttpClient
-  ) { }
+  constructor(private http: HttpClient) {}
   // getWorries() {
   //   const params = new HttpParams().set('page', this.page.toString());
   //   return this.http
@@ -70,7 +68,7 @@ export class WorryProductivelyService {
       .put(environment.API_ENDPOINT + WPF_WORRY_URL + worry.id + '/', {
         id: worry.id,
         worry: worry.worry,
-        worry_rating_initial: worry.worry_rating_initial
+        worry_rating_initial: worry.worry_rating_initial,
       })
       .pipe(
         map((data: any) => {
@@ -91,7 +89,5 @@ export class WorryProductivelyService {
   getUselessCharacteristics() {
     return this.http.get(environment.API_ENDPOINT + USELESS_CHARAC_URL);
   }
-  postUselessCharacteristics() {
-
-  }
+  postUselessCharacteristics() {}
 }

@@ -1,4 +1,11 @@
-import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  ViewChild,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 import { Worry } from '../../worry.model';
 import { FormControl, Validators, FormBuilder } from '@angular/forms';
 @Component({
@@ -15,15 +22,11 @@ export class WpfProblemSolvingComponent implements OnInit {
   summary = false;
   summaryText = '';
   problemSolvingForm = this.fb.group({
-    problemSolvingStatement: new FormControl('', Validators.required)
+    problemSolvingStatement: new FormControl('', Validators.required),
   });
-  constructor(
-    private fb: FormBuilder,
-  ) {
-  }
+  constructor(private fb: FormBuilder) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   continuetoImage() {
     this.imageDisplay = true;
@@ -32,6 +35,5 @@ export class WpfProblemSolvingComponent implements OnInit {
     this.summaryText = this.problemSolvingForm.value['problemSolvingStatement'];
     this.summary = true;
     this.summaryProbSolvingEvent.emit(this.summary);
-
   }
 }

@@ -27,23 +27,31 @@ describe('PostItemComponent', () => {
         HttpClientTestingModule,
         RouterTestingModule,
       ],
-      declarations: [ PostItemComponent,
-                      TimeAgoPipe,
-                      SafeHtmlPipe,
-                      CommentComponent,
-                      NestedCommentComponent,
-                    ],
-      providers: [
-        { provide: AuthService, useClass: MockAuth}
-      ]
-    })
-    .compileComponents();
+      declarations: [
+        PostItemComponent,
+        TimeAgoPipe,
+        SafeHtmlPipe,
+        CommentComponent,
+        NestedCommentComponent,
+      ],
+      providers: [{ provide: AuthService, useClass: MockAuth }],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(PostItemComponent);
     component = fixture.componentInstance;
-    component.supportGroupItem = new SupportGroupItem(1, 'body', 'title', [], { username: 'tester', avatar: 'avater' }, 1, '', 1, -1);
+    component.supportGroupItem = new SupportGroupItem(
+      1,
+      'body',
+      'title',
+      [],
+      { username: 'tester', avatar: 'avater' },
+      1,
+      '',
+      1,
+      -1,
+    );
     fixture.detectChanges();
   });
 
