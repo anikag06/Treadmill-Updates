@@ -1,1 +1,21 @@
-<p>modify-beliefs works!</p>
+<form *ngIf="modifyBeliefsClick">
+  <div class="card-body" *ngIf="!summary">
+    <div>
+      Why do I worry so much? What will happen if I didn't worry?
+    </div> <br />
+    <mat-form-field class="full-width" [formGroup]="beliefForm">
+      <textarea class="py-0" formControlName="beliefStatement" #isText cdkTextareaAutosize cdkAutosizeMinRows="1"
+        cdkAutosizeMaxRows="5" placeholder="Write here" matInput required [autofocus]
+        (focusout)="onFocusOut($event)"></textarea>
+    </mat-form-field>
+    <span class="span-rating-text">
+      You can also use belief change form</span>
+    <p class="text-right" (click)="onBeliefSubmit()" *ngIf="isText.value">
+      <button type="button" mat-raised-button color="primary" class="continue-btn">Done</button>
+    </p>
+  </div>
+  <div class="card-body" *ngIf="summary">
+    Summary <br />
+    {{summaryText}}
+  </div>
+</form>

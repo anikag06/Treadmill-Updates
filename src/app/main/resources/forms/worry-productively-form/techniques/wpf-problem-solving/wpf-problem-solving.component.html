@@ -1,1 +1,51 @@
-<p>wpf-problem-solving works!</p>
+<form *ngIf="canISolve">
+  <div class="card-body" *ngIf="!summary">
+    <div class="text">
+      Is there anything that I can do to solve what I am worried about? <br /> <br />
+      <div class="radio">
+        <!-- <label for="choice"  *ngFor="let choice of choices">                     -->
+        <input type="radio" name="choices" [(ngModel)]="radioResponse" value="Yes"> Yes
+        <div class="text-align float-right">
+          <input type="radio" name="choices" [(ngModel)]="radioResponse" value="No"> No
+        </div>
+        <!-- </label> -->
+      </div> <br />
+    </div>
+    <div *ngIf="radioResponse === 'Yes'">
+      <div>
+        Can I put it as a problem statement? <br /> <br />
+        <mat-form-field class="full-width" [formGroup]="problemSolvingForm">
+          <textarea class="py-0" formControlName="problemSolvingStatement" #isText cdkTextareaAutosize
+            cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" placeholder="Write here" matInput required [autofocus]
+            (focusout)="onFocusOut($event)"></textarea>
+        </mat-form-field>
+        <p class="text-right" (click)="continuetoImage()" *ngIf="isText.value">
+          <button type="button" mat-raised-button color="primary" class="continue-btn">Done</button>
+        </p>
+      </div>
+      <div *ngIf="imageDisplay">
+        <!-- <img> --> some Image <br /> <br />
+        <p class="text-right">
+          <button type="button" mat-raised-button color="primary" class="continue-btn"
+            (click)="showSummary()">Done</button>
+        </p>
+      </div>
+    </div>
+    <div *ngIf="radioResponse === 'No'">
+      <p class="text-centre">
+        Ohh .. Sometimes we can't control everything in our lives and we need to accept things
+        the way they are by changing our attitude we can gradually overcome the problem. Do you
+        remember something that worried you earlier but doesn't bother you now?
+      </p>
+      <div class="card-body">
+        <p class="text-right">
+          <button type="button" mat-raised-button color="primary" class="continue-btn">Done</button>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="card-body" *ngIf="summary">
+    Summary <br />
+    {{summaryText}}
+  </div>
+</form>

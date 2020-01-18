@@ -1,8 +1,7 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { WorryFormComponent } from '../../worry-form/worry-form.component';
+import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { Worry } from '../../worry.model';
-import { TechniquesComponent } from '../techniques.component';
-import { SliderComponent } from '../../Slidder/Slidder.component';
+import { FormSliderComponent } from '../../../shared/form-slider/form-slider.component';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 @Component({
   selector: 'app-evaluate-worry',
   templateUrl: './evaluate-worry.component.html',
@@ -10,8 +9,9 @@ import { SliderComponent } from '../../Slidder/Slidder.component';
 })
 export class EvaluateWorryComponent implements OnInit {
   @Input() EvaluatedClicked = false;
-  @ViewChild(WorryFormComponent, { static: false })
-  evaluateStatementForm!: WorryFormComponent;
+  @Output() summaryEvaluateEvent = new EventEmitter<boolean>();
+  // @ViewChild(WorryFormComponent, { static: false })
+  // evaluateStatementForm!: WorryFormComponent;
 
   item = [
     'Emotional Reasoning',
@@ -25,35 +25,28 @@ export class EvaluateWorryComponent implements OnInit {
     'Frustated',
     'Embarrassed',
   ];
-  EvaluateEditMode = false;
-  evaluateEvidence!: Worry;
-  buttonClick: boolean;
-  // show: any;
 
-  constructor() {
-    this.buttonClick = false;
-    // this.show = this.EvaluatedClicked;
+  buttonClick = false;
+  summary = false;
+  sliderSubmit = false;
+  continueText = false;
+  evaluateSliderQuestion = 'Guess Probability';
+  evaSliderMinRangeText = 'Low';
+  evaSliderMaxRangeText = 'High';
+  summaryText = '';
+  evaluateForm = this.fb.group({
+    evaluateStatement: new FormControl('', Validators.required)
+  });
+  constructor(
+    private fb: FormBuilder,
+  ) {
+
   }
 
-  ngOnInit() {}
-  EvaluateSelected(evaluate: Worry) {
-    this.evaluateEvidence = evaluate;
-    this.EvaluateEditMode = false;
-  }
-  onEditEvaluateClick() {
-    this.onEvaluateClick();
-    console.log(this.EvaluateEditMode);
-    if (this.evaluateStatementForm) {
-      this.evaluateStatementForm.editProblemText();
-    }
-  }
-  onEvaluateClick() {
-    if (this.evaluateEvidence) {
-      this.EvaluateEditMode = true;
-    }
-  }
-  continuetoSlider(selected: any) {
-    this.buttonClick = selected;
+  ngOnInit() { }
+  onEvaluateSubmit() {
+    this.summaryText = this.evaluateForm.value['evaluateStatement'];
+    this.buttonClick = true;
     console.log(this.buttonClick);
   }
   checksubmitted = false;
@@ -63,5 +56,25 @@ export class EvaluateWorryComponent implements OnInit {
   evidencesubmitted = false;
   EvidenceSubmit() {
     this.evidencesubmitted = true;
+  }
+  onSliderSubmit() {
+    this.sliderSubmit = true;
+  }
+  doneSummary() {
+    this.summary = true;
+    this.summaryEvaluateEvent.emit(this.summary);
+  }
+  setSummary() {
+    this.summary = false;
+  }
+  onFocusOut(event: any) {
+    if (
+      !(
+        <Element>event.relatedTarget &&
+        (<Element>event.relatedTarget).classList.contains('continue-btn')
+      )
+    ) {
+      this.continueText = false;
+    }
   }
 }

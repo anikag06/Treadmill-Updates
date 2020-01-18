@@ -1,8 +1,8 @@
 export class Worry {
   constructor(
     public id: number,
-    public problem: string,
-    public bestsolution: any,
-    public taskorigin: number, // public isDisabled : boolean
-  ) {}
+    public worry: string,
+    public worry_rating_initial?: any,
+    public useless_characteristics?: string,
+  ) { }
 }

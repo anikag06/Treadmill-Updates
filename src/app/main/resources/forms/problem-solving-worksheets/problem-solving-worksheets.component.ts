@@ -76,6 +76,7 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
 
   problemSelected(problem: Problem) {
     this.problem = problem;
+    console.log('Problem'+this.problem.problem +'has problem ID'+this.problem.id);
     this.problemEditMode = false;
     this.fetchSolutions();
   }

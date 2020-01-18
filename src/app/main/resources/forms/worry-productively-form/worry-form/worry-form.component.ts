@@ -9,8 +9,8 @@ import {
   ElementRef,
 } from '@angular/core';
 import { Worry } from '../worry.model';
-import { ProblemSolvingWorksheetsService } from '../../problem-solving-worksheets/problem-solving-worksheets.service';
-// import { Problem } from '../problem-solving-worksheets/problem.model';
+import { WorryProductivelyService } from '../worry-productively.service';
+import { FormSliderComponent } from '../../shared/form-slider/form-slider.component';
 
 @Component({
   selector: 'app-worry-form',
@@ -19,72 +19,83 @@ import { ProblemSolvingWorksheetsService } from '../../problem-solving-worksheet
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WorryFormComponent implements OnInit {
-  @Input() problem!: Worry;
+  @Input() worry!: Worry;
   @Output() testOut = new EventEmitter<boolean>();
-  @ViewChild('problemTextArea', { static: false }) problemTextArea!: ElementRef;
-  problemStatement = '';
-  public Cbutton = false;
-
-  constructor(private problemService: ProblemSolvingWorksheetsService) {}
-
+  @ViewChild('worryTextArea', { static: false }) worryTextArea!: ElementRef;
+  @ViewChild(FormSliderComponent, { static: false })
+  sliderRating !: FormSliderComponent;
+  constructor(private worryService: WorryProductivelyService) {
+  }
+  worryStatement = '';
+  worrySliderQuestion = 'How bothered are you by your worry?';
+  wSliderMinRangeText = 'Not at all';
+  wSliderMaxRangeText = 'Very Strongly';
+  continueText = false;
+  clickbutton = false;
+  showSliderCont = false;
+  public sliderEmit = false;
   ngOnInit() {
-    if (this.problem) {
-      this.problemStatement = this.problem.problem;
-      // this.problem.isDisabled=false;
+    if (this.worry) {
+      this.worryStatement = this.worry.worry;
+      // console.log('slider value is' + this.sliderRating.rating);
     }
   }
   ngAfterViewInit() {
-    if (this.problem && this.problemTextArea) {
+    if (this.worry && this.worryTextArea) {
       setTimeout(() => {
-        this.editProblemText();
+        this.editWorryText();
       }, 100);
     }
   }
-
-  editProblemText() {
-    this.problemTextArea.nativeElement.focus();
-    // this.problem.isDisabled=false;
+  value = 1;
+  editWorryText() {
+    this.worryTextArea.nativeElement.focus();
+    this.continueText = true;
+    this.clickbutton = true;
+    if (this.worry.worry_rating_initial != null) {
+      this.value = this.worry.worry_rating_initial;
+    }
   }
-  onProblemSubmit() {
-    // this.problem.isDisabled=false;
-    // if (this.problem && Object.entries(this.problem).length > 0) {
-    //   this.problem.problem = this.problemStatement;
-    //   this.problemService
-    //     .putProblem({
-    //       id: this.problem.id,
-    //       problem: this.problemStatement,
-    //       bestsolution: null,
-    //       taskorigin: 0,
-    //     })
-    //     .subscribe(
-    //       (data: any) => {
-    //         console.log(data);
-    //       },
-    //       error => {
-    //         console.error(error);
-    //       },
-    //     );
-    // } else if (this.problemStatement.trim().length > 0) {
-    //   this.problemService.postProblem(this.problemStatement).subscribe(
-    //     (data: any) => {
-    //       console.log(data);
-    //     },
-    //     error => {
-    //       console.error(error);
-    //     },
-    //   );
-    // }
-    // this.Cbutton = true;
-    // this.testOut.emit(this.Cbutton);
+  onWorrySubmit() {
+    this.clickbutton = true;
+    if (this.worry && Object.entries(this.worry).length > 0) {
+      this.worry.worry = this.worryStatement;
+      this.worry.worry_rating_initial = this.sliderRating.rating;
+      this.worryService
+        .putWorry({
+          id: this.worry.id,
+          worry: this.worry.worry,
+          worry_rating_initial: this.worry.worry_rating_initial
+        })
+        .subscribe(
+          (data: any) => {
+            console.log(data);
+          },
+          error => {
+            console.error(error);
+          },
+        );
+    } else if (this.worryStatement.trim().length > 0) {
+      this.worryService.postWorry(this.worryStatement).subscribe(
+        (data: any) => {
+          console.log(data);
+        },
+        error => {
+          console.error(error);
+        },
+      );
+    }
+    this.continueText = false;
+  }
+  continuetoCharacteristics() {
+    this.sliderEmit = true;
+    this.testOut.emit(this.sliderEmit);
+    this.onWorrySubmit();
+  }
+  showSliderContinue() {
+    this.showSliderCont = true;
   }
 
-  //   AfterClick( data : boolean ){
-  //     //     this.problem.isDisabled=true;
-
-  //    return this.testOut.emit(this.Cbutton);
-  // //     console.log('slider') ;
-  // }
-  //
   onFocusOut(event: any) {
     if (
       !(
@@ -92,7 +103,7 @@ export class WorryFormComponent implements OnInit {
         (<Element>event.relatedTarget).classList.contains('continue-btn')
       )
     ) {
-      this.onProblemSubmit();
+      this.continueText = false;
     }
   }
 }
