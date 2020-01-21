@@ -222,6 +222,12 @@ export const TECHNIQUE_CLOSED = 2;
 export const WPF_WORRY_URL = '/api/v1/worksheets/worry-productively/worry/';
 export const USELESS_CHARAC_URL =
   '/api/v1/worksheets/worry-productively/get-useless-characteristics/';
+export const WORRY_USELESS_CHARAC = 
+  '/api/v1/worksheets/worry-productively/worry-useless-characteristics/';
+export const THINKING_ERROR_URL = 
+  '/api/v1/worksheets/worry-productively/get-thinking-errors/';
+export const EVALUATE_THINKING_ERROR = 
+  '/api/v1/worksheets/worry-productively/evaluate-worry-thinking-errors/';
 
 // Problem solving form
 export const PSF_PROBLEM_SOLVING = 'problem-solving';

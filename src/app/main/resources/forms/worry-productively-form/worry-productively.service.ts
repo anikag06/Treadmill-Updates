@@ -9,7 +9,7 @@ import { of, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'environments/environment';
 import { Worry } from './worry.model';
-import { WPF_WORRY_URL, USELESS_CHARAC_URL } from '@/app.constants';
+import { WPF_WORRY_URL, USELESS_CHARAC_URL, WORRY_USELESS_CHARAC, THINKING_ERROR_URL, EVALUATE_THINKING_ERROR } from '@/app.constants';
 
 @Injectable({
   providedIn: 'root',
@@ -77,7 +77,7 @@ export class WorryProductivelyService {
               return data;
             } else {
               return wprod;
-            }
+            } 
           });
           this.worrysBehaviour.next(this.worries);
           this.worryBehaviour.next(<Worry>data);
@@ -89,5 +89,34 @@ export class WorryProductivelyService {
   getUselessCharacteristics() {
     return this.http.get(environment.API_ENDPOINT + USELESS_CHARAC_URL);
   }
-  postUselessCharacteristics() {}
+  postUselessCharacteristics(data: any, id: number ) {
+    return this.http.post(environment.API_ENDPOINT + WORRY_USELESS_CHARAC + id + '/',
+       data,{
+        observe : 'response',
+       }, 
+    );
+  }
+  getCharacteristics(id : number){
+    return this.http.get( environment.API_ENDPOINT + WORRY_USELESS_CHARAC + id + '/',{
+        observe : 'response',
+      },
+    );
+  }
+  thinkingErrors(){
+    return this.http.get(environment.API_ENDPOINT + THINKING_ERROR_URL);
+  }
+  postThinkingErrors(data : any, id : number){
+    return this.http.post(environment.API_ENDPOINT + EVALUATE_THINKING_ERROR + id + '/', 
+      data,{
+        observe : 'response',
+      },
+    );
+  }
+  getThinkingErrors(id : number){
+    return this.http.get(environment.API_ENDPOINT + EVALUATE_THINKING_ERROR + id + '/', 
+      {
+        observe : 'response',
+      }, 
+    );
+  }
 }

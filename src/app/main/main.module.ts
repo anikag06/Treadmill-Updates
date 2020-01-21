@@ -138,7 +138,7 @@ import { UserProfileComponent } from './shared/user-profile/user-profile.compone
 import { UserProfileService } from './shared/user-profile/userProfile.service';
 import { BadgesComponent } from './shared/user-profile/badges/badges.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MoodTrackerComponent } from './shared/mood-tracker/mood-tracker.component';
+// import { MoodTrackerComponent } from './shared/mood-tracker/mood-tracker.component';
 import { QuestionnaireModule } from '@/questionnaire.module';
 import { GetQuestionnaireComponent } from './dashboard/get-questionnaire/get-questionnaire.component';
 import { IdcHeadingComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-heading/idc-heading.component';
@@ -276,7 +276,7 @@ import { WorryProductivelyService } from '@/main/resources/forms/worry-productiv
     LoadingBarComponent,
     LoadingBarDirective,
     LhgGreatComponent,
-    MoodTrackerComponent,
+    // MoodTrackerComponent,
   ],
   imports: [
     CommonModule,
@@ -376,7 +376,7 @@ import { WorryProductivelyService } from '@/main/resources/forms/worry-productiv
     FfgPlayagainComponent,
     FfgNolifeComponent,
     LoadingBarComponent,
-    MoodTrackerComponent,
+    // MoodTrackerComponent,
   ],
 })
 export class MainModule {}

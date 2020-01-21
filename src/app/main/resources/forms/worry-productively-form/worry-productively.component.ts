@@ -39,8 +39,6 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
   buttonClick = false;
   characteristicCount = 0;
-  form: any;
-  controlNames: string[];
   data = [{ value: '', is_checked: false }];
   useless_characteristic: string[] = [];
   useless_characteristics = '';
@@ -73,23 +71,7 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private errorService: GeneralErrorService,
     private fb: FormBuilder,
-  ) {
-    this.form = this.fb.group({
-      'Future "what if..."': false,
-      "Keeping seeking reassurance from others that everything is going to be okay but reassurance doesn't help.": false,
-      'Worried about worst going to happen': false,
-      Guilty: false,
-      Jealous: false,
-      Hopeless: false,
-      Worthless: false,
-      Lonely: false,
-      Frustated: false,
-      Embarrassed: false,
-    });
-    this.controlNames = Object.keys(this.form.controls).map(_ => _);
-    // this.selectedNames$ = this.form.valueChanges.pipe(map(v => Object.keys(v).filter(k => v[k])));
-    // console.log(this.selectedNames$);
-  }
+  ) {}
 
   ngOnInit() {
     // let datacheckbox !: [{ value: string, is_checked: boolean }];
@@ -111,6 +93,26 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
       });
     });
     this.data.shift();
+  }
+  ngOnChanges() {
+    if (this.worry) {
+      this.worryService
+        .getCharacteristics(this.worry.id)
+        .subscribe((resp: any) => {
+          if (resp.body.data) {
+            resp.body.data.forEach((data: any) => {
+              // @ts-ignore
+              const obj = this.data.find((x, i) => {
+                if (x.value === data) {
+                  this.data[i].is_checked = true;
+                  this.characteristicCount += 1;
+                  return true;
+                }
+              });
+            });
+          }
+        });
+    }
   }
   ngOnDestroy() {
     this.subscriptions.forEach(sub => {
@@ -157,16 +159,16 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
     console.log(this.data);
     this.useless_characteristics = this.useless_characteristic.join(',');
     const object = {
-      thinking_errors: this.uselessCharacteristicsForm.value['characteristics'],
+      useless_characteristics : this.uselessCharacteristicsForm.value['characteristics'],
     };
     console.log(object);
-    // this.identifyThinkingService
-    //   .postThinkingErrors(object, this.worry.id)
-    //   .subscribe((resp: any) => {
-    //     const status = resp.ok;
-    //     if (status) {
-    //       this.submitted = true;
-    //     }
-    //   });
+    this.worryService
+      .postUselessCharacteristics(object, this.worry.id)
+      .subscribe((resp: any) => {
+        const status = resp.ok;
+        if (status) {
+          console.log('The request has been submited');
+        }
+      });
   }
 }
