@@ -61,7 +61,14 @@ h3 {
   background: #FFFFFF 0% 0% no-repeat padding-box;
   // box-shadow: 0px 1px 2px #00000029;
   opacity: 1;
-  // background-image: url("../../assets/support-group/Close.png");
+}
+
+.submitDiv1 {
+  display: block;
+}
+
+.submitDiv2 {
+  display: none;
 }
 
 .error-div {
@@ -85,7 +92,6 @@ h3 {
 .toggleButton {
   background-color: white !important;
   border-color: #000000D9;
-
 }
 
 .tagButton {
@@ -118,12 +124,27 @@ h3 {
 }
 
 @media screen and (min-width: 992px) {
+
+  .form-row {
+    // max-width: 600px;
+    margin-left: -20px;
+    margin-right: -20px;
+  }
+
   .text-lg-right {
     text-align: right;
   }
 
   .tagDiv {
-    min-width: 450px;
+    // min-width: 400px;
+  }
+
+  .submitDiv1 {
+    display: none;
+  }
+
+  .submitDiv2 {
+    display: block;
   }
 }
 

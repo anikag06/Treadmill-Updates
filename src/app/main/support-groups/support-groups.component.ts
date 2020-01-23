@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { TagService } from '../shared/tag.service';
 import { CreatePostComponent } from './create-post/create-post.component';
 import { MatDialog } from '@angular/material';
@@ -24,6 +24,7 @@ export class SupportGroupsComponent implements OnInit {
     private userProfileService: UserProfileService,
     private authService: AuthService,
     private sgService: SupportGroupsService,
+    private elem: ElementRef,
   ) {
     this.titleService.setTitle('Support Group | ' + TREADWILL);
   }
@@ -51,9 +52,9 @@ export class SupportGroupsComponent implements OnInit {
 
   onCreatePostClick() {
     const dialogRef = this.dialog.open(CreatePostComponent, {
-      width: '95%',
+      maxWidth: '95vw',
+      width: '90%',
       data: null,
     });
-
   }
 }

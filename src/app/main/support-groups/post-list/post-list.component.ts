@@ -222,6 +222,7 @@ export class PostListComponent implements OnInit, OnDestroy {
       this.posts = [];
       this.tagsToSearch();
       this.navigateSearch();
+      this.clearSearch = true;
     }
   }
 
