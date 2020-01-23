@@ -1,59 +1,69 @@
 @import "styles.scss";
 
 .things-todo {
-    @include box-shadow-1-1-10-d6();
-    background-color: #ffffff;
-    width: 330px;
-    border-radius: 10px;
-    overflow: hidden;
-    .things-todo-main {
-        border-left: 55px solid #f7e2df;
-        height: 260px;
-        h3 {
-            font-size: 18px;
-            padding: 22px 5px 20px 0;
-            font-weight: 600;
-        }
-        .main-list {
-            list-style: none;
-            padding-left: 0;
-            li {
-                margin: 10px 0;
-                
-            }
-        }
+  //   @include box-shadow-1-1-10-d6();
+  box-shadow: 0px 2px 8px #00000033;
+  width: 300px;
+  overflow: hidden;
+
+  .things-todo-main {
+    border-top: 50px solid #2DAA84;
+    height: 470px;
+
+    h3 {
+      font-size: 20px;
+      padding: 22px 5px 20px 0;
+      font-weight: 600;
+      color: white;
+      top: -55px;
+      position: absolute;
     }
+
+    .main-list {
+      list-style: none;
+      padding-left: 0;
+
+      li {
+        margin: 10px 0;
+
+      }
+    }
+  }
 }
 
 @media screen and (max-width: 1300px) {
-    .things-todo {
-        width: 250px;
-        .things-todo-main {
-            border-left: 30px solid #f7e2df;
-            height: 253px;
-            .mat-checkbox-label {
-                font-size: 14px !important;
-            }
-        }
+  .things-todo {
+    width: 250px;
+
+    .things-todo-main {
+      border-top: 50px solid #2DAA84;
+      height: 253px;
+
+      .mat-checkbox-label {
+        font-size: 14px !important;
+      }
     }
+  }
 }
 
 @media screen and (max-width: 991px) {
-    .things-todo {
-        width: 280px;
-        .things-todo-main {
-            border-left: 30px solid #f7e2df;
-        }
+  .things-todo {
+    width: 280px;
+
+    .things-todo-main {
+      border-top: 50px solid #2DAA84;
     }
+  }
 }
 
 
 @media screen and (max-width: 767px) {
-    .things-todo {
-        width: 330px;
-        .things-todo-main {
-            height: 260px;
-            border-left: 30px solid #f7e2df;
-        }
+  .things-todo {
+    width: 330px;
+
+    .things-todo-main {
+      height: 260px;
+      border-top: 30px solid #2DAA84;
     }
+  }
 }

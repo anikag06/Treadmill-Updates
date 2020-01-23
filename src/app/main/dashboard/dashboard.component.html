@@ -1,14 +1,25 @@
 <div class="container-fluid body-bg">
-    <div class="row">
-        <div class="col-md-6 px-0">
-            <app-flow [navBar]="false"></app-flow>
-        </div>
-        <!-- <div class="col-md-6">
+  <div class="row">
+    <div class="col-md-6 px-0">
+      <app-flow [navBar]="false"></app-flow>
+    </div>
+    <!-- <div class="col-md-6">
             <app-progress></app-progress>
         </div> -->
-        <div class="col-md-6 px-0">
-            <app-user-profile [userProfile]="userProfile"></app-user-profile>
+
+    <div class="col-md-6 px-0">
+      <app-user-profile [userProfile]="userProfile"></app-user-profile>
+      <div class="col">
+        <div class="col-md-6 mt-4">
+
+          <app-suggested-post></app-suggested-post>
         </div>
-    
+        <div class="col-md-5 mt-4">
+          <app-things-todo></app-things-todo>
+
+        </div>
+      </div>
     </div>
+
+  </div>
 </div>

@@ -1,11 +1,10 @@
-<div class="row things-todo">
+<div class="things-todo">
+
   <div class="col-12 things-todo-main">
-    <h3>Things to do:</h3>
+    <h3>Things to do</h3>
     <ul class="main-list">
       <li *ngFor="let todo of todos">
-        <mat-checkbox
-          [checked]="todo.done"
-          (change)="onTodoChange(todo, $event)">
+        <mat-checkbox [checked]="todo.done" (change)="onTodoChange(todo, $event)">
           {{ todo.name }}
         </mat-checkbox>
       </li>

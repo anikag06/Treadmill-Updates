@@ -1,0 +1,30 @@
+.suggested-post {
+
+  box-shadow: 0px 2px 8px #00000033;
+  width: 410px;
+  overflow: hidden;
+
+  .suggested-post-main {
+    border-top: 50px solid #3BB7D1;
+    height: 470px;
+
+    h3 {
+      font-size: 20px;
+      padding: 22px 5px 20px 0;
+      font-weight: 600;
+      color: white;
+      top: -55px;
+      position: absolute;
+    }
+
+    .main-list {
+      list-style: none;
+      padding-left: 0;
+
+      li {
+        margin: 10px 0;
+
+      }
+    }
+  }
+}
