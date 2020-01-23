@@ -16,7 +16,7 @@
   <!-- <li class="list-group-item" *ngFor="let obj of objects" (click)="problemClicked(obj)" [ngClass]="obj === selectedObject ? 'selected' : ''">
     {{(obj.problem || obj.name).substring(0, 25)}}
   </li> -->
-  <mat-accordion  (click)="$event.stopPropagation()">
+  <mat-accordion (click)="$event.stopPropagation()">
     <mat-expansion-panel [hideToggle]="objects.length < 1">
       <mat-expansion-panel-header>
         Saved Forms
@@ -29,7 +29,15 @@
                   (click)="problemClicked(obj)"
                   [ngClass]="obj === selectedObject ? 'selected' : ''"
           >
-            {{ i + 1 }}. {{ (obj.problem || obj.name || obj.situation).substring(0, 25) }}
+            {{ i + 1 }}.
+            {{
+            (
+                    obj.problem ||
+                    obj.name ||
+                    obj.situation ||
+                    obj.belief
+            ).substring(0, 25)
+            }}
           </button>
         </div>
       </ng-template>

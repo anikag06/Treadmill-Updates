@@ -246,6 +246,7 @@ export const TASK = 'tasks';
 export const SET_ACTIVITY = 'set-activity';
 // Thought record form
 export const THOUGHT_RECORD = 'thought-record';
+export const BELIEF_CHANGE = 'belief-change';
 
 // form names
 export const PROBLEM_SOLVING_FORM_NAME = 'Cope with a problem';
@@ -253,7 +254,7 @@ export const SET_TASK_FORM_NAME = 'Set an acitvity';
 export const THOUGHT_RECROD_FORM_NAME = 'Thought Record Form';
 export const EXPERIMENT_TO_TEST_BELIEF_FORM_NAME = 'Test a belief';
 export const WORRY_PRODUCTIVELY_FORM_NAME = 'Worry productively';
-export const BELIEF_CHANGE_FORM_NAME = 'Change a belief';
+export const BELIEF_CHANGE_FORM_NAME = 'Belief Change Form';
 
 // trial registration pages
 export const INELIGIBLE_FOR_TRIAL = '/trial/thankyou';

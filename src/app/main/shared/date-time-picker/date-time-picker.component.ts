@@ -1,4 +1,4 @@
-import { WEEK } from '@/app.constants';
+import {WEEK} from '@/app.constants';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -11,10 +11,10 @@ import {
   Optional,
   Output,
 } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import * as moment from 'moment';
-import { Day } from './day.model';
-import { DateTimePickerService } from './date-time-picker.service';
+import {Day} from './day.model';
+import {DateTimePickerService} from './date-time-picker.service';
 
 @Component({
   selector: 'app-date-time-picker',
@@ -24,7 +24,7 @@ import { DateTimePickerService } from './date-time-picker.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DateTimePickerComponent
-  implements OnInit, AfterViewInit, OnChanges {
+    implements OnInit, AfterViewInit, OnChanges {
   @Output() onClose = new EventEmitter();
   public min = new Date();
   public startDate!: Date;
@@ -46,20 +46,20 @@ export class DateTimePickerComponent
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
     WEEK.forEach(day => {
-      let newDay = new Day(day, true);
+      const newDay = new Day(day, true);
       this.daysCircle.push(newDay);
     });
 
     if (data) {
-      let utcDate = data.end_date + ' ' + data.time;
-      let gmtDateTime = moment.utc(utcDate, 'hh:mm');
-      let localTime = gmtDateTime.local().format('hh:mm A');
+      const utcDate = data.end_date + ' ' + data.time;
+      const gmtDateTime = moment.utc(utcDate, 'hh:mm');
+      const localTime = gmtDateTime.local().format('hh:mm A');
 
       this.startEndDate.push(new Date(data.startDate + ' ' + localTime));
       this.startEndDate.push(new Date(data.endDate + ' ' + localTime));
 
       if (data.days) {
-        let indexArray: number[] = [];
+        const indexArray: number[] = [];
         data.days.forEach((day: string) => {
           if (WEEK.indexOf(day) > -1) {
             indexArray.push(WEEK.indexOf(day));
@@ -77,11 +77,11 @@ export class DateTimePickerComponent
   ngOnInit() {}
 
   ngAfterViewInit() {
-    let dateTimepicker = this.element.nativeElement.querySelectorAll(
-      '.owl-dt-inline-container',
+    const dateTimepicker = this.element.nativeElement.querySelectorAll(
+        '.owl-dt-inline-container',
     );
-    let removeFromToDate = this.element.nativeElement.querySelectorAll(
-      '.owl-dt-container-info',
+    const removeFromToDate = this.element.nativeElement.querySelectorAll(
+        '.owl-dt-container-info',
     );
     dateTimepicker[0].setAttribute('style', 'box-shadow:none');
     removeFromToDate[0].setAttribute('style', 'display:none');
@@ -103,26 +103,26 @@ export class DateTimePickerComponent
   dateTimeMessageSubmit() {
     this.formDateTime.push(this.startEndDate[0], this.startEndDate[1]);
 
-    let utcTime = this.dateTimePickerService.getUTCTime(this.startEndDate[0]);
+    const utcTime = this.dateTimePickerService.getUTCTime(this.startEndDate[0]);
 
     this.formDateTime.push(utcTime);
 
     this.formDateTime.push(this.formDataDays);
 
-    let date = this.dateTimePickerService.getDateRange(
-      this.startEndDate[0],
-      this.startEndDate[1],
+    const date = this.dateTimePickerService.getDateRange(
+        this.startEndDate[0],
+        this.startEndDate[1],
     );
-    let hourMinute = this.dateTimePickerService.getTimeAmPm(
-      this.startEndDate[0],
+    const hourMinute = this.dateTimePickerService.getTimeAmPm(
+        this.startEndDate[0],
     );
 
-    let repeat = this.getRepeatedDays(this.daysCircle);
-    let chatDateTimeMessage = date + '<br/>' + hourMinute + '<br/>' + repeat;
+    const repeat = this.getRepeatedDays(this.daysCircle);
+    const chatDateTimeMessage = date + '<br/>' + hourMinute + '<br/>' + repeat;
     this.closeModal();
     this.dateTimeMessage.emit(chatDateTimeMessage);
     this.dateTimeSubmit.emit();
-    let fromDateTimeData = {
+    const fromDateTimeData = {
       dateTime: this.formDateTime,
       showDateTimePicker: false,
     };
@@ -134,7 +134,7 @@ export class DateTimePickerComponent
   }
 
   getRepeatedDays(days: Day[]): string {
-    let repeatedDays: string[] = [];
+    const repeatedDays: string[] = [];
     for (let i = 0; i < days.length; i++) {
       if (days[i].selected) {
         repeatedDays.push(WEEK[i]);

@@ -12,15 +12,15 @@
       >
           {{ techniqueName }}
       </mat-panel-title>
-    <mat-panel-description>
-      <div class="iconsDiv" *ngIf="panel.expanded">
-        <mat-icon>help_outline</mat-icon>
-        <mat-icon>close</mat-icon>
-      </div>
-        <div class="iconsDiv" *ngIf="!panel.expanded && thinkingErrors">
-            <img src="assets/forms/edit_errors.png" width="24px"/>
-        </div>
-    </mat-panel-description>
+      <mat-panel-description>
+          <div class="iconsDiv" *ngIf="panel.expanded">
+              <mat-icon>help_outline</mat-icon>
+              <mat-icon>close</mat-icon>
+          </div>
+          <div class="iconsDiv" *ngIf="!panel.expanded && summary.length > 0">
+              <img src="assets/forms/edit_errors.png" width="24px"/>
+          </div>
+      </mat-panel-description>
   </mat-expansion-panel-header>
 
     <ng-template matExpansionPanelContent>
@@ -46,7 +46,6 @@
                         mat-raised-button
                         class="btn continue-btn"
                         [ngStyle]="{ float: 'right' }"
-                        *ngIf="this.errorCount > 0"
                         (click)="onSubmit()"
                 >
                     Done
@@ -56,13 +55,13 @@
   </ng-template>
 </mat-expansion-panel>
 
-<mat-card class="card-body" *ngIf="!panel.expanded && thinkingErrors">
+<mat-card class="card-body" *ngIf="!panel.expanded && summary.length > 1">
     <mat-card-content>
         <div [ngStyle]="{ 'font-size': '12px' }">
             Thinking Errors
         </div>
         <div [ngStyle]="{ 'margin-top': '8px', 'font-size': '12px' }">
-            {{ thinkingErrors }}
+            {{ summary }}
         </div>
     </mat-card-content>
 </mat-card>

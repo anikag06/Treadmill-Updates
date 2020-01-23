@@ -1,26 +1,18 @@
-import {
-  AfterViewInit,
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  Input,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
-import { FormArray, FormBuilder, Validators } from '@angular/forms';
-import { CdkTextareaAutosize } from '@angular/cdk/text-field';
-import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
-import { ProofService } from '@/main/resources/forms/thought-record-form/thought-record-techniques/proof/proof.service';
+import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild,} from '@angular/core';
+import {FormArray, FormBuilder, Validators} from '@angular/forms';
+import {CdkTextareaAutosize} from '@angular/cdk/text-field';
+import {Thought} from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
+import {ProofService} from '@/main/resources/forms/thought-record-form/thought-record-techniques/proof/proof.service';
 
 @Component({
-  selector: 'app-proof',
-  templateUrl: './proof.component.html',
-  styleUrls: ['./proof.component.scss'],
+    selector: 'app-proof',
+    templateUrl: './proof.component.html',
+    styleUrls: ['./proof.component.scss'],
 })
 export class ProofComponent implements OnInit, AfterViewInit {
-  favorTitle = 'What are the evidences supporting this negative thought?';
-  againstTitle = 'What are the evidences against this negative thought?';
-  summary = '';
+    favorTitle = 'What are the evidences supporting this negative thought?';
+    againstTitle = 'What are the evidences against this negative thought?';
+    summary = '';
   forType = 'for';
   againstType = 'against';
   @ViewChild('autosize', { static: false }) autosize!: CdkTextareaAutosize;
@@ -58,15 +50,15 @@ export class ProofComponent implements OnInit, AfterViewInit {
             this.summary = resp.body.data.evidences[0].evidence;
           }
         });
-      if (this.summary === '') {
-        this.proofService
-          .getEvidences(this.thought.id, this.forType)
-          .subscribe((resp: any) => {
-            if (resp.body.data.evidences.length !== 0) {
-              this.summary = resp.body.data.evidences[0].evidence;
-            }
-          });
-      }
+        if (this.summary.length === 0) {
+            this.proofService
+                .getEvidences(this.thought.id, this.forType)
+                .subscribe((resp: any) => {
+                    if (resp.body.data.evidences.length !== 0) {
+                        this.summary = resp.body.data.evidences[0].evidence;
+                    }
+                });
+        }
     }
   }
 
@@ -108,15 +100,15 @@ export class ProofComponent implements OnInit, AfterViewInit {
   }
 
   setSummary() {
-    if (this.proofStatementForm.controls['favorEvidences'].value) {
-      this.summary = this.proofStatementForm.controls[
-        'favorEvidences'
-      ].value[0].evidence;
-    } else if (this.proofStatementForm.controls['againstEvidences'].value) {
-      this.summary = this.proofStatementForm.controls[
-        'againstEvidences'
-      ].value[0].evidence;
-    }
+      if (this.proofStatementForm.controls['againstEvidences'].value[0]) {
+          this.summary = this.proofStatementForm.controls[
+              'againstEvidences'
+              ].value[0].evidence;
+      } else if (this.proofStatementForm.controls['favorEvidences'].value[0]) {
+          this.summary = this.proofStatementForm.controls[
+              'favorEvidences'
+              ].value[0].evidence;
+      }
     this.changeDetector.detectChanges();
   }
 }

@@ -1,17 +1,23 @@
 @import '../forms.component.scss';
 
-.main-heading{
+
+.mat-card-header{
+  border-bottom: none;
+}
+
+.card {
+  border: none;
+}
+
+.card-header {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+@media screen and (max-width: 576px) {
+  .main-heading {
     background: #ffffff;
     color: black;
     max-height: 50px;
-}
-.mat-card-header{
-    border-bottom: none;
-}
-.card{
-    border: none;
-}
-.card-header{
-    font-size: 14px;
-    font-weight: 500;
+  }
 }

@@ -1,18 +1,18 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
-import { environment } from '../../../../../environments/environment';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpResponse} from '@angular/common/http';
+import {environment} from '../../../../../environments/environment';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {Thought} from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
 
 @Injectable({
-  providedIn: 'root',
+    providedIn: 'root',
 })
 export class ThoughtRecordService {
-  thoughts: Thought[] = [];
-  thought!: Thought;
-  // thoughtBehaviour = new BehaviorSubject({});
-  thoughtsBehaviour = new BehaviorSubject<Thought[]>(this.thoughts);
-  thoughtBehaviour = new BehaviorSubject<Thought>(this.thought);
+    thoughts: Thought[] = [];
+    thought!: Thought;
+    // thoughtBehaviour = new BehaviorSubject({});
+    thoughtsBehaviour = new BehaviorSubject<Thought[]>(this.thoughts);
+    thoughtBehaviour = new BehaviorSubject<Thought>(this.thought);
 
   page = 1;
   nextPage = true;
@@ -116,25 +116,37 @@ export class ThoughtRecordService {
     return this.http.post<any>(
       environment.API_ENDPOINT + '/api/v1/worksheets/thought-record/thought/',
       data,
-      {
-        observe: 'response',
-      },
+        {
+            observe: 'response',
+        },
     );
   }
 
-  getThought() {
-    return this.thoughtBehaviour.asObservable();
-  }
+    getThoughtBehavior() {
+        return this.thoughtBehaviour.asObservable();
+    }
 
-  putThoughtRating(data: any, id: number) {
-    return this.http.put<any>(
-      environment.API_ENDPOINT +
-        '/api/v1/worksheets/thought-record/thought/' +
-        id +
-        '/',
-      data,
-      {
-        observe: 'response',
+    getThought(id: number) {
+        return this.http.get<any>(
+            environment.API_ENDPOINT +
+            '/api/v1/worksheets/thought-record/thought/' +
+            id +
+            '/',
+            {
+                observe: 'response',
+            },
+        );
+    }
+
+    putThoughtRating(data: any, id: number) {
+        return this.http.put<any>(
+            environment.API_ENDPOINT +
+            '/api/v1/worksheets/thought-record/thought/' +
+            id +
+            '/',
+            data,
+            {
+                observe: 'response',
       },
     );
   }
@@ -152,25 +164,49 @@ export class ThoughtRecordService {
     );
   }
 
-  postBehavior(data: any) {
-    return this.http.post<any>(
-      environment.API_ENDPOINT + '/api/v1/worksheets/thought-record/behavior/',
-      data,
-      {
-        observe: 'response',
-      },
-    );
-  }
+    postBehavior(data: any) {
+        return this.http.post<any>(
+            environment.API_ENDPOINT + '/api/v1/worksheets/thought-record/behavior/',
+            data,
+            {
+                observe: 'response',
+            },
+        );
+    }
 
-  postFeelings(data: any, id: number) {
-    return this.http.post<any>(
-      environment.API_ENDPOINT +
-        '/api/v1/worksheets/thought-record/feelings/' +
-        id +
-        '/',
-      data,
-      {
-        observe: 'response',
+    getBehavior(id: number) {
+        return this.http.get<any>(
+            environment.API_ENDPOINT +
+            '/api/v1/worksheets/thought-record/behavior/' +
+            id +
+            '/',
+            {
+                observe: 'response',
+            },
+        );
+    }
+
+    getFeelings(id: number) {
+        return this.http.get<any>(
+            environment.API_ENDPOINT +
+            '/api/v1/worksheets/thought-record/feelings/' +
+            id +
+            '/',
+            {
+                observe: 'response',
+            },
+        );
+    }
+
+    postFeelings(data: any, id: number) {
+        return this.http.post<any>(
+            environment.API_ENDPOINT +
+            '/api/v1/worksheets/thought-record/feelings/' +
+            id +
+            '/',
+            data,
+            {
+                observe: 'response',
       },
     );
   }

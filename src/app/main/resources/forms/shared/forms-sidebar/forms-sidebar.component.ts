@@ -1,27 +1,17 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
-import { HttpErrorResponse } from '@angular/common/http';
-import { Subscription } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import {AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output,} from '@angular/core';
+import {HttpErrorResponse} from '@angular/common/http';
+import {Subscription} from 'rxjs';
+import {ActivatedRoute} from '@angular/router';
 
-import { Problem } from '@/main/resources/forms/problem-solving-worksheets/problem.model';
-import { ProblemSolvingWorksheetsService } from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.service';
-import {
-  PSF_PROBLEM_SOLVING,
-  SET_ACTIVITY,
-  THOUGHT_RECORD,
-} from '@/app.constants';
-import { TasksService } from '@/main/resources/forms/shared/tasks/tasks.service';
-import { UserTask } from '@/main/resources/forms/shared/tasks/user-task.model';
-import { ThoughtRecordService } from '@/main/resources/forms/thought-record-form/thought-record.service';
-import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
+import {Problem} from '@/main/resources/forms/problem-solving-worksheets/problem.model';
+import {ProblemSolvingWorksheetsService} from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.service';
+import {BELIEF_CHANGE, PSF_PROBLEM_SOLVING, SET_ACTIVITY, THOUGHT_RECORD,} from '@/app.constants';
+import {TasksService} from '@/main/resources/forms/shared/tasks/tasks.service';
+import {UserTask} from '@/main/resources/forms/shared/tasks/user-task.model';
+import {ThoughtRecordService} from '@/main/resources/forms/thought-record-form/thought-record.service';
+import {Thought} from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
+import {BeliefChangeService} from '@/main/resources/forms/belief-change/belief-change.service';
+import {Belief} from '@/main/resources/forms/belief-change/belief.model';
 
 @Component({
   selector: 'app-forms-sidebar',
@@ -41,11 +31,12 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
   @Input() object!: any;
 
   constructor(
-    private problemService: ProblemSolvingWorksheetsService,
-    private tasksService: TasksService,
-    private thoughtRecordService: ThoughtRecordService,
-    private route: ActivatedRoute,
-    private element: ElementRef,
+      private problemService: ProblemSolvingWorksheetsService,
+      private tasksService: TasksService,
+      private thoughtRecordService: ThoughtRecordService,
+      private beliefChangeService: BeliefChangeService,
+      private route: ActivatedRoute,
+      private element: ElementRef,
   ) {}
 
   ngOnInit() {
@@ -55,6 +46,8 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
       this.getTasks();
     } else if (this.type === THOUGHT_RECORD) {
       this.getThoughts();
+    } else if (this.type === BELIEF_CHANGE) {
+      this.getBeliefs();
     }
 
     this.route.queryParams.subscribe(
@@ -112,15 +105,30 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
   getThoughts() {
     this.thoughtRecordService.getThoughts();
     this.subscriptions[
-      this.subscriptions.length
-    ] = this.thoughtRecordService.thoughtsBehaviour.subscribe(
-      (thoughts: Thought[]) => {
-        this.objects = thoughts;
-        this.selectObject();
-      },
-      (error: HttpErrorResponse) => {
-        console.error(error);
-      },
+        this.subscriptions.length
+        ] = this.thoughtRecordService.thoughtsBehaviour.subscribe(
+        (thoughts: Thought[]) => {
+          this.objects = thoughts;
+          this.selectObject();
+        },
+        (error: HttpErrorResponse) => {
+          console.error(error);
+        },
+    );
+  }
+
+  getBeliefs() {
+    this.beliefChangeService.getBeliefs();
+    this.subscriptions[
+        this.subscriptions.length
+        ] = this.beliefChangeService.beliefsBehaviour.subscribe(
+        (beliefs: Belief[]) => {
+          this.objects = beliefs;
+          this.selectObject();
+        },
+        (error: HttpErrorResponse) => {
+          console.error(error);
+        },
     );
   }
 

@@ -1,11 +1,10 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {
-  PROBLEM_SOLVING_FORM_NAME,
-  SET_TASK_FORM_NAME,
-  THOUGHT_RECROD_FORM_NAME,
-  EXPERIMENT_TO_TEST_BELIEF_FORM_NAME,
-  WORRY_PRODUCTIVELY_FORM_NAME,
-  BELIEF_CHANGE_FORM_NAME,
+    BELIEF_CHANGE_FORM_NAME,
+    EXPERIMENT_TO_TEST_BELIEF_FORM_NAME,
+    PROBLEM_SOLVING_FORM_NAME,
+    SET_TASK_FORM_NAME,
+    THOUGHT_RECROD_FORM_NAME,
 } from '@/app.constants';
 
 @Injectable({
@@ -32,17 +31,23 @@ export class FormsService {
       banner: 'assets/forms/form.svg',
     },
     {
-      name: EXPERIMENT_TO_TEST_BELIEF_FORM_NAME,
-      slug: 'thought-record',
-      path: '/resources/forms/test-belief',
-      banner: 'assets/forms/form.svg',
+        name: EXPERIMENT_TO_TEST_BELIEF_FORM_NAME,
+        slug: 'thought-record',
+        path: '/resources/forms/test-belief',
+        banner: 'assets/forms/form.svg',
     },
-    {
-      name: 'Worry Productively form',
-      slug: 'worry-productively',
-      path: '/resources/forms/worry-productively',
-      banner: 'assets/forms/form.svg',
-    },
+      {
+          name: 'Worry Productively form',
+          slug: 'worry-productively',
+          path: '/resources/forms/worry-productively',
+          banner: 'assets/forms/form.svg',
+      },
+      {
+          name: BELIEF_CHANGE_FORM_NAME,
+          slug: 'belief-change',
+          path: '/resources/forms/belief-change',
+          banner: 'assets/forms/form.svg',
+      },
   ];
 
   constructor() {}

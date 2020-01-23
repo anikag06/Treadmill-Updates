@@ -1,26 +1,18 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
-import { MatDialogRef } from '@angular/material';
-import { Mood } from './mood.model';
-import { Feelings } from '@/main/shared/mood-tracker/feelings.model';
-import { MoodTrackerService } from '@/main/shared/mood-tracker/mood-tracker.service';
+import {AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output,} from '@angular/core';
+import {MatDialogRef} from '@angular/material';
+import {Mood} from './mood.model';
+import {Feelings} from '@/main/shared/mood-tracker/feelings.model';
+import {MoodTrackerService} from '@/main/shared/mood-tracker/mood-tracker.service';
 
 @Component({
-  selector: 'app-mood-tracker',
-  templateUrl: './mood-tracker.component.html',
-  styleUrls: ['./mood-tracker.component.scss'],
+    selector: 'app-mood-tracker',
+    templateUrl: './mood-tracker.component.html',
+    styleUrls: ['./mood-tracker.component.scss'],
 })
 export class MoodTrackerComponent implements OnInit, AfterViewInit {
-  @Output() onClose = new EventEmitter();
-  moods: Mood[] = [];
-  step = 0;
+    @Output() onClose = new EventEmitter();
+    moods: Mood[] = [];
+    step = 0;
   emotions: string[] = [];
   customCollapsedHeight = '48px';
   customExpandedHeight = '48px';
@@ -136,7 +128,8 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
   }
 
   closeModal() {
-    this.onClose.emit();
+      this.onClose.emit();
+      this.dialogRef.close({event: 'close'});
   }
 
   updateEmotionCount(change: boolean) {

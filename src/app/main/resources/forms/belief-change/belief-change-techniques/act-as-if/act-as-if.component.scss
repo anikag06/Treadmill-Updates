@@ -1,0 +1,14 @@
+@import '../../../shared/techniques-info/techniques';
+@import '../../../forms.component.scss';
+
+
+.add-statement {
+  float: left;
+  display: flex;
+  opacity: 0.6;
+}
+
+
+.statement {
+  margin-bottom: 10px;
+}

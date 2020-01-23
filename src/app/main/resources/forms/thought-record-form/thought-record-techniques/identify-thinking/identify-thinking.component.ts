@@ -1,28 +1,22 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  Input,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnInit, ViewChild,} from '@angular/core';
 
-import { FormArray, FormBuilder, FormControl } from '@angular/forms';
-import { IdentifyThinkingService } from '@/main/resources/forms/thought-record-form/thought-record-techniques/identify-thinking/identify-thinking.service';
-import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
-import { ThinkingErrorModel } from '@/main/resources/forms/thought-record-form/thought-record-techniques/identify-thinking/thinking-error.model';
+import {FormArray, FormBuilder, FormControl} from '@angular/forms';
+import {IdentifyThinkingService} from '@/main/resources/forms/thought-record-form/thought-record-techniques/identify-thinking/identify-thinking.service';
+import {Thought} from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
+import {ThinkingErrorModel} from '@/main/resources/forms/thought-record-form/thought-record-techniques/identify-thinking/thinking-error.model';
 
 @Component({
-  selector: 'app-identify-thinking',
-  templateUrl: './identify-thinking.component.html',
-  styleUrls: ['./identify-thinking.component.scss'],
+    selector: 'app-identify-thinking',
+    templateUrl: './identify-thinking.component.html',
+    styleUrls: ['./identify-thinking.component.scss'],
 })
 export class IdentifyThinkingComponent implements OnInit {
-  title = 'Can you identify the thinking errors in your negative thought?';
-  errors: ThinkingErrorModel[] = [];
-  errorCount = 0;
-  thinkingError: string[] = [];
-  thinkingErrors = '';
-  submitted = false;
+    title = 'Can you identify the thinking errors in your negative thought?';
+    errors: ThinkingErrorModel[] = [];
+    errorCount = 0;
+    thinkingError: string[] = [];
+    summary = '';
+    submitted = false;
   @Input() thought!: Thought;
   techniqueName = 'Identify Thinking Error';
   @ViewChild('panel', { static: false }) panel!: any;
@@ -53,17 +47,21 @@ export class IdentifyThinkingComponent implements OnInit {
         .getSelectedThinkingErrors(this.thought.id)
         .subscribe((resp: any) => {
           if (resp.body.data) {
-            this.setSummary(resp.body.data);
-            resp.body.data.forEach((data: any) => {
-              // @ts-ignore
-              const obj = this.errors.find((x, i) => {
-                if (x.error === data) {
-                  this.errors[i].isChecked = true;
-                  this.errorCount += 1;
-                  return true;
-                }
+              this.setSummary(resp.body.data);
+              this.identifyThinkingForm.setControl(
+                  'emotions',
+                  this.formBuilder.array(resp.body.data),
+              );
+              resp.body.data.forEach((data: any) => {
+                  // @ts-ignore
+                  const obj = this.errors.find((x, i) => {
+                      if (x.error === data) {
+                          this.errors[i].isChecked = true;
+                          this.errorCount += 1;
+                          return true;
+                      }
+                  });
               });
-            });
           }
         });
     }
@@ -91,7 +89,6 @@ export class IdentifyThinkingComponent implements OnInit {
   }
 
   onSubmit() {
-    this.setSummary(this.thinkingError);
     const object = {
       thinking_errors: this.identifyThinkingForm.value['emotions'],
     };
@@ -100,7 +97,8 @@ export class IdentifyThinkingComponent implements OnInit {
       .subscribe((resp: any) => {
         const status = resp.ok;
         if (status) {
-          this.submitted = true;
+            this.submitted = true;
+            this.setSummary(this.identifyThinkingForm.value['emotions']);
         }
       });
 
@@ -108,7 +106,7 @@ export class IdentifyThinkingComponent implements OnInit {
   }
 
   setSummary(thinkingErrors: string[]) {
-    this.thinkingErrors = thinkingErrors.join(',');
+      this.summary = thinkingErrors.join(',');
     // this.changeDetector.detectChanges();
   }
 }
