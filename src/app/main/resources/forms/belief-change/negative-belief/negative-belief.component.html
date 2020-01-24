@@ -1,80 +1,81 @@
 <div class="card-full-width">
-    <div class="card-header">
-        {{ header }}
+  <div class="card-header">
+    {{ header }}
+  </div>
+  <div class="card-body">
+    <div class="q-heading">
+      {{ title }}
     </div>
-    <div class="card-body">
-        <div class="q-heading">
-            {{ title }}
+    <div>
+      <div [ngStyle]="{ 'text-align': 'center' }" *ngIf="!showBeliefLink">
+        <button class="btn dialog-button" (click)="onSelectCommonBelief()">
+          List of Beliefs
+        </button>
+        <br />
+        <ng-container>
+          or
+        </ng-container>
+      </div>
+      <div class="q-heading" *ngIf="!showBeliefLink">
+        Write your own
+      </div>
+
+      <form [formGroup]="negativeBeliefForm">
+        <div>
+          <mat-form-field class="full-width">
+            <textarea
+              matInput
+              cdkTextareaAutosize
+              cdkAutosizeMinRows="2"
+              cdkAutosizeMaxRows="4"
+              formControlName="belief"
+              required
+              placeholder="Write Here"
+              (focusout)="onNegativeMantraSubmit()"
+              (focus)="onShowContinue()"
+              #belief
+            ></textarea>
+          </mat-form-field>
+        </div>
+        <div *ngIf="showBeliefLink">
+          <button class="btn btn-link" (click)="onSelectCommonBelief()">
+            List of Belief
+          </button>
         </div>
         <div>
-            <div [ngStyle]="{ 'text-align': 'center' }" *ngIf="!showBeliefLink">
-                <button class="btn dialog-button" (click)="onSelectCommonBelief()">
-                    List of Beliefs
-                </button>
-                <br/>
-                <ng-container>
-                    or
-                </ng-container>
-            </div>
-            <div class="q-heading" *ngIf="!showBeliefLink">
-                Write your own
-            </div>
-
-            <form [formGroup]="negativeBeliefForm">
-                <div>
-                    <mat-form-field class="full-width">
-            <textarea
-                    matInput
-                    cdkTextareaAutosize
-                    cdkAutosizeMinRows="2"
-                    cdkAutosizeMaxRows="4"
-                    formControlName="belief"
-                    required
-                    placeholder="Write Here"
-                    (focusout)="onNegativeMantraSubmit()"
-                    (focus)="onShowContinue()"
-                    #explain
-            ></textarea>
-                    </mat-form-field>
-                </div>
-                <div *ngIf="showBeliefLink">
-                    <button class="btn btn-link" (click)="onSelectCommonBelief()">
-                        List of Belief
-                    </button>
-                </div>
-                <div>
-                    <button
-                            type="submit"
-                            mat-raised-button
-                            class="btn continue-btn"
-                            (click)="onBeliefSubmit()"
-                            *ngIf="showContiue"
-                            [ngStyle]="{ float: 'right' }"
-                    >
-                        Continue
-                    </button>
-                </div>
-            </form>
+          <button
+            type="submit"
+            mat-raised-button
+            class="btn continue-btn"
+            (click)="onBeliefSubmit()"
+            *ngIf="showContiue"
+            [ngStyle]="{ float: 'right' }"
+          >
+            Continue
+          </button>
         </div>
+      </form>
     </div>
+  </div>
 </div>
 <div *ngIf="showSlider">
-    <app-form-slider
-            [minRatingText]="minRating"
-            [maxRatingText]="maxRating"
-            [question]="scaleBelief"
-            (getRating)="getRating($event)"
-            [rating]="beliefRatingInitial"
-    ></app-form-slider>
-    <div *ngIf="showSliderButton">
-        <div class="text-right">
-            <button
-                    mat-raised-button
-                    (click)="onNegativeMantraSubmit()"
-                    class=" btn continue-btn"
-            >
-                Continue
-            </button>
-        </div>
+  <app-form-slider
+    [minRatingText]="minRating"
+    [maxRatingText]="maxRating"
+    [question]="scaleBelief"
+    (getRating)="getRating($event)"
+    [rating]="beliefRatingInitial"
+  ></app-form-slider>
+  <div *ngIf="showSliderButton">
+    <div class="text-right">
+      <button
+        mat-raised-button
+        (click)="onNegativeMantraSubmit()"
+        class=" btn continue-btn"
+      >
+        Continue
+      </button>
+      <br />
     </div>
+  </div>
 </div>

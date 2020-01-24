@@ -113,6 +113,7 @@ import {TellFriendBeliefService} from '@/main/resources/forms/belief-change/beli
 import {ActAsIfComponent} from './forms/belief-change/belief-change-techniques/act-as-if/act-as-if.component';
 import {ActAsIfService} from '@/main/resources/forms/belief-change/belief-change-techniques/act-as-if/act-as-if.service';
 import {NegativeBeliefFinalComponent} from './forms/belief-change/negative-belief-final/negative-belief-final.component';
+import {FormMessageComponent} from './forms/shared/form-message/form-message.component';
 
 @NgModule({
     declarations: [
@@ -185,6 +186,7 @@ import {NegativeBeliefFinalComponent} from './forms/belief-change/negative-belie
         TellFriendBeliefComponent,
         ActAsIfComponent,
         NegativeBeliefFinalComponent,
+        FormMessageComponent,
     ],
   imports: [
     ResourcesRoutingModule,

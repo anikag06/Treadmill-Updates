@@ -8,17 +8,25 @@
         My tasks
       </mat-card-title>
 
-      <div class="d-inline-block ml-auto">
-        <button class="h-100 saved-forms-btn" mat-button [matMenuTriggerFor]="beforeMenu">
-          <i class="material-icons more-hor-icon">
+      <div class="h-100 d-inline-block ml-auto">
+        <button
+          class="h-100 saved-forms-btn"
+          mat-button
+          [matMenuTriggerFor]="beforeMenu"
+        >
+          <mat-icon>
             more_horiz
-          </i>
+          </mat-icon>
         </button>
       </div>
 
       <mat-menu #beforeMenu="matMenu" xPosition="before" yPosition="below">
-        <div [ngStyle]="{'max-height':'350px'}">
-          <app-forms-sidebar (objectEmitter)="taskSelected($event)" (newForm)="onAddNewForm()" [task]="task">
+        <div [ngStyle]="{ 'max-height': '350px' }">
+          <app-forms-sidebar
+            (objectEmitter)="taskSelected($event)"
+            (newForm)="onAddNewForm()"
+            [task]="task"
+          >
           </app-forms-sidebar>
         </div>
       </mat-menu>
@@ -27,7 +35,11 @@
 
   <div class="row no-gutters form-div mx-auto">
     <div class="col-12 col-lg-12 ">
-      <app-tasks [task]="task" [reset]="reset" [taskHeading]="taskHeading"></app-tasks>
+      <app-tasks
+        [task]="task"
+        [reset]="reset"
+        [taskHeading]="taskHeading"
+      ></app-tasks>
     </div>
   </div>
 </mat-card>

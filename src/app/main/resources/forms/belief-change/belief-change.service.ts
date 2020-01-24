@@ -11,136 +11,169 @@ import {Belief} from '@/main/resources/forms/belief-change/belief.model';
 export class BeliefChangeService {
   beliefs: Belief[] = [];
   belief!: Belief;
-  // thoughtBehaviour = new BehaviorSubject({});
+  // beliefBehaviour = new BehaviorSubject({});
   beliefsBehaviour = new BehaviorSubject<Belief[]>(this.beliefs);
   beliefBehaviour = new BehaviorSubject<Belief>(this.belief);
 
   page = 1;
   nextPage = true;
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
+  getBeliefBehavior() {
+    return this.beliefBehaviour.asObservable();
+  }
   getBeliefs() {
     if (this.nextPage) {
       this.http
-          .get<Belief[]>(
-              environment.API_ENDPOINT + '/api/v1/worksheets/belief-change/belief/',
-          )
-          .subscribe((data: any) => {
-            // if (this.page === 1) {
-            //   this.thoughts = [];
-            // }
+        .get<Belief[]>(
+          environment.API_ENDPOINT + '/api/v1/worksheets/belief-change/belief/',
+        )
+        .subscribe((data: any) => {
+          // if (this.page === 1) {
+          //   this.beliefs = [];
+          // }
 
-            this.beliefs.push(...data.results);
-            this.beliefsBehaviour.next(this.beliefs);
-            if (data.next) {
-              this.page += 1;
-              this.nextPage = true;
-              setTimeout(() => {
-                this.getBeliefs();
-              }, 10);
-            } else {
-              this.nextPage = false;
-            }
-          });
+          this.beliefs.push(...data.results);
+          this.beliefsBehaviour.next(this.beliefs);
+          if (data.next) {
+            this.page += 1;
+            this.nextPage = true;
+            setTimeout(() => {
+              this.getBeliefs();
+            }, 10);
+          } else {
+            this.nextPage = false;
+          }
+        });
     }
+  }
+
+  deleteBelief(id: number) {
+    return this.http.delete(
+      environment.API_ENDPOINT +
+        '/api/v1/worksheets/belief-change/belief/' +
+        id +
+        '/',
+      {
+        observe: 'response',
+      },
+    );
+  }
+  addBelief(belief: Belief) {
+    this.beliefs.push(belief);
+    this.beliefBehaviour.next(belief);
+    this.beliefsBehaviour.next(this.beliefs);
+  }
+
+  updateBelief(beliefData: any) {
+    const belief = this.beliefs.find((t: Belief) => t.id === beliefData.id);
+    if (belief) {
+      this.beliefs[this.beliefs.indexOf(belief)] = beliefData;
+      this.beliefsBehaviour.next(this.beliefs);
+    }
+  }
+
+  removeBelief(belief: Belief) {
+    const beliefIndex = this.beliefs.indexOf(belief);
+    this.beliefs.splice(beliefIndex, 1);
+    this.beliefsBehaviour.next(this.beliefs);
   }
 
   postBelief(data: any) {
     return this.http.post<any>(
-        environment.API_ENDPOINT + '/api/v1/worksheets/belief-change/belief/',
-        data,
-        {
-          observe: 'response',
-        },
+      environment.API_ENDPOINT + '/api/v1/worksheets/belief-change/belief/',
+      data,
+      {
+        observe: 'response',
+      },
     );
   }
 
   putBelief(data: any, id: any) {
     return this.http.put<any>(
-        environment.API_ENDPOINT +
+      environment.API_ENDPOINT +
         '/api/v1/worksheets/belief-change/belief/' +
         id +
         '/',
-        data,
-        {
-          observe: 'response',
-        },
+      data,
+      {
+        observe: 'response',
+      },
     );
   }
 
   postFinalBeliefRating(finalRating: any) {
     return this.http.post<any>(
-        environment.API_ENDPOINT +
+      environment.API_ENDPOINT +
         '/api/v1/worksheets/belief-change/final-rating/',
-        finalRating,
-        {
-          observe: 'response',
-        },
+      finalRating,
+      {
+        observe: 'response',
+      },
     );
   }
 
   putFinalRating(finalBelief: any, id: number) {
     return this.http.put<any>(
-        environment.API_ENDPOINT +
+      environment.API_ENDPOINT +
         '/api/v1/worksheets/belief-change/final-rating/' +
         id +
         '/',
-        finalBelief,
-        {
-          observe: 'response',
-        },
+      finalBelief,
+      {
+        observe: 'response',
+      },
     );
   }
 
   getFinalRating(id: number) {
     return this.http.get<any>(
-        environment.API_ENDPOINT +
+      environment.API_ENDPOINT +
         '/api/v1/worksheets/belief-change/final-rating/' +
         id +
         '/',
 
-        {
-          observe: 'response',
-        },
+      {
+        observe: 'response',
+      },
     );
   }
 
   getRealisticBelief(id: number) {
     return this.http.get<any>(
-        environment.API_ENDPOINT +
+      environment.API_ENDPOINT +
         '/api/v1/worksheets/belief-change/realistic-belief/' +
         id +
         '/',
 
-        {
-          observe: 'response',
-        },
+      {
+        observe: 'response',
+      },
     );
   }
 
   postRealisticBelief(realBelief: any) {
     return this.http.post<any>(
-        environment.API_ENDPOINT +
+      environment.API_ENDPOINT +
         '/api/v1/worksheets/belief-change/realistic-belief/',
-        realBelief,
-        {
-          observe: 'response',
-        },
+      realBelief,
+      {
+        observe: 'response',
+      },
     );
   }
 
   putRealisticBelief(realBelief: any, id: number) {
     return this.http.put<any>(
-        environment.API_ENDPOINT +
+      environment.API_ENDPOINT +
         '/api/v1/worksheets/belief-change/realistic-belief/' +
         id +
         '/',
-        realBelief,
-        {
-          observe: 'response',
-        },
+      realBelief,
+      {
+        observe: 'response',
+      },
     );
   }
 }

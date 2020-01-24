@@ -25,10 +25,10 @@
       >
         <div [ngStyle]="{ 'max-height': '350px' }">
           <app-forms-sidebar
-                  [type]="type"
-                  (objectEmitter)="thoughtSelected($event)"
-                  (newForm)="onAddNewForm()"
-                  [object]="thought"
+            [type]="type"
+            (objectEmitter)="thoughtSelected($event)"
+            (newForm)="onAddNewForm()"
+            [object]="thought"
           >
           </app-forms-sidebar>
         </div>
@@ -38,42 +38,45 @@
   <div class="row no-gutters form-div mx-auto">
     <div class="col-12 col-lg">
       <div class="row mb-2">
-          <div class="col-12">
-              <app-form-card
-                      [header]="situationHeader"
-                      (showNegative)="onShowNegative($event)"
-                      [apiToCall]="situationApi"
-                      [thought]="thought"
-                      [reset]="reset"
-                      (updateThought)="updateThought($event)"
-              ></app-form-card>
-              <app-negative-thought-card
-                      [thought]="thought"
-                      [header]="negativeThoughtHeader"
-                      [reset]="reset"
-                      *ngIf="situationAdded"
-                      (onShowSelectMood)="showSelectMood()"
-              ></app-negative-thought-card>
+        <div class="col-12">
+          <app-form-card
+            [header]="situationHeader"
+            (showNegative)="onShowNegative($event)"
+            [apiToCall]="situationApi"
+            [thought]="thought"
+            [reset]="reset"
+            (updateThought)="updateThought($event)"
+          ></app-form-card>
+          <app-negative-thought-card
+            [thought]="thought"
+            [header]="negativeThoughtHeader"
 
-              <app-mood-widget-card
-                      *ngIf="showMood"
-                      [header]="moodSelect"
-                      [thought]="thought"
-                      (onShowRecordBehave)="onShowRecordBehave($event)"
-              ></app-mood-widget-card>
-              <app-form-card
-                      [thought]="thought"
-                      [apiToCall]="behaviorApi"
-                      [header]="recordBehaveHeader"
-                      *ngIf="showRecordBehave"
-                      (onShowTechniques)="onShowTechniques($event)"
-              ></app-form-card>
+            *ngIf="situationAdded"
+            (onShowSelectMood)="showSelectMood($event)"
+          ></app-negative-thought-card>
 
-              <app-thought-record-techniques
-                      [thought]="thought"
-                      *ngIf="showTechniques"
-              ></app-thought-record-techniques>
-          </div>
+          <app-mood-widget-card
+            *ngIf="showMood"
+            [header]="moodSelect"
+            [thought]="thought"
+            (onShowRecordBehave)="onShowRecordBehave($event)"
+
+          ></app-mood-widget-card>
+          <app-form-card
+            [thought]="thought"
+            [apiToCall]="behaviorApi"
+            [header]="recordBehaveHeader"
+
+            *ngIf="showRecordBehave"
+            (onShowTechniques)="onShowTechniques($event)"
+          ></app-form-card>
+
+          <app-thought-record-techniques
+            [thought]="thought"
+            *ngIf="showTechniques"
+
+          ></app-thought-record-techniques>
+        </div>
       </div>
     </div>
   </div>

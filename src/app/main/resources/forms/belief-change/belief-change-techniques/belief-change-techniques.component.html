@@ -1,31 +1,34 @@
 <div class="card-full-width">
-    <div class="card-header">
-        {{ header }}
+  <div class="card-header">
+    {{ header }}
+  </div>
+  <div class="card-body">
+    <div
+      class="multiple-technique-info"
+      [ngStyle]="{ display: 'flex', 'font-size': '12px' }"
+    >
+      {{ info }}
+      <div [ngStyle]="{ 'margin-left': 'auto' }" (click)="onShowInfo()">
+        <mat-icon>info_outline</mat-icon>
+      </div>
     </div>
-    <div class="card-body">
-        <div
-                class="multiple-technique-info"
-                [ngStyle]="{ display: 'flex', 'font-size': '12px' }"
-        >
-            {{ info }}
-            <div [ngStyle]="{ 'margin-left': 'auto' }" (click)="onShowInfo()">
-                <mat-icon>info_outline</mat-icon>
-            </div>
+    <div class="techniques">
+      <mat-accordion>
+        <div class="technique">
+          <app-proof-belief [belief]="belief"></app-proof-belief>
         </div>
-        <div class="techniques">
-            <mat-accordion>
-                <div class="technique">
-                    <app-proof-belief [belief]="belief"></app-proof-belief>
-                </div>
 
-                <div class="technique">
-                    <app-tell-friend-belief [belief]="belief"></app-tell-friend-belief>
-                </div>
-
-                <div class="technique">
-                    <app-act-as-if [belief]="belief"></app-act-as-if>
-                </div>
-            </mat-accordion>
+        <div class="technique">
+          <app-tell-friend-belief [belief]="belief"></app-tell-friend-belief>
         </div>
+
+        <div class="technique">
+          <app-act-as-if
+            (triggerShowFinalBelief)="triggerShowFinalBelief()"
+            [belief]="belief"
+          ></app-act-as-if>
+        </div>
+      </mat-accordion>
     </div>
+  </div>
 </div>

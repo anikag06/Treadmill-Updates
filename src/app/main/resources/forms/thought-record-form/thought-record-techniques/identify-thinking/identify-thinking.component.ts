@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, Input, OnInit, ViewChild,} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnInit, SimpleChanges, ViewChild,} from '@angular/core';
 
 import {FormArray, FormBuilder, FormControl} from '@angular/forms';
 import {IdentifyThinkingService} from '@/main/resources/forms/thought-record-form/thought-record-techniques/identify-thinking/identify-thinking.service';
@@ -6,18 +6,19 @@ import {Thought} from '@/main/resources/forms/thought-record-form/thoughtRecord.
 import {ThinkingErrorModel} from '@/main/resources/forms/thought-record-form/thought-record-techniques/identify-thinking/thinking-error.model';
 
 @Component({
-    selector: 'app-identify-thinking',
-    templateUrl: './identify-thinking.component.html',
-    styleUrls: ['./identify-thinking.component.scss'],
+  selector: 'app-identify-thinking',
+  templateUrl: './identify-thinking.component.html',
+  styleUrls: ['./identify-thinking.component.scss'],
 })
 export class IdentifyThinkingComponent implements OnInit {
-    title = 'Can you identify the thinking errors in your negative thought?';
-    errors: ThinkingErrorModel[] = [];
-    errorCount = 0;
-    thinkingError: string[] = [];
-    summary = '';
-    submitted = false;
+  title = 'Can you identify the thinking errors in your negative thought?';
+  errors: ThinkingErrorModel[] = [];
+  errorCount = 0;
+  thinkingError: string[] = [];
+  summary = '';
+  submitted = false;
   @Input() thought!: Thought;
+  @Input() reset!: boolean;
   techniqueName = 'Identify Thinking Error';
   @ViewChild('panel', { static: false }) panel!: any;
 
@@ -41,27 +42,27 @@ export class IdentifyThinkingComponent implements OnInit {
 
   ngOnInit() {}
 
-  ngOnChanges() {
+  ngOnChanges(changes: SimpleChanges) {
     if (this.thought) {
       this.identifyThinkingService
         .getSelectedThinkingErrors(this.thought.id)
         .subscribe((resp: any) => {
           if (resp.body.data) {
-              this.setSummary(resp.body.data);
-              this.identifyThinkingForm.setControl(
-                  'emotions',
-                  this.formBuilder.array(resp.body.data),
-              );
-              resp.body.data.forEach((data: any) => {
-                  // @ts-ignore
-                  const obj = this.errors.find((x, i) => {
-                      if (x.error === data) {
-                          this.errors[i].isChecked = true;
-                          this.errorCount += 1;
-                          return true;
-                      }
-                  });
+            this.setSummary(resp.body.data);
+            this.identifyThinkingForm.setControl(
+              'emotions',
+              this.formBuilder.array(resp.body.data),
+            );
+            resp.body.data.forEach((data: any) => {
+              // @ts-ignore
+              const obj = this.errors.find((x, i) => {
+                if (x.error === data) {
+                  this.errors[i].isChecked = true;
+                  this.errorCount += 1;
+                  return true;
+                }
               });
+            });
           }
         });
     }
@@ -97,8 +98,8 @@ export class IdentifyThinkingComponent implements OnInit {
       .subscribe((resp: any) => {
         const status = resp.ok;
         if (status) {
-            this.submitted = true;
-            this.setSummary(this.identifyThinkingForm.value['emotions']);
+          this.submitted = true;
+          this.setSummary(this.identifyThinkingForm.value['emotions']);
         }
       });
 
@@ -106,7 +107,7 @@ export class IdentifyThinkingComponent implements OnInit {
   }
 
   setSummary(thinkingErrors: string[]) {
-      this.summary = thinkingErrors.join(',');
+    this.summary = thinkingErrors.join(',');
     // this.changeDetector.detectChanges();
   }
 }

@@ -3,14 +3,14 @@ import {Component, OnInit} from '@angular/core';
 import {ThoughtRecordService} from '@/main/resources/forms/thought-record-form/thought-record.service';
 
 @Component({
-    selector: 'app-thought-record-form',
-    templateUrl: './thought-record-form.component.html',
-    styleUrls: ['./thought-record-form.component.scss'],
+  selector: 'app-thought-record-form',
+  templateUrl: './thought-record-form.component.html',
+  styleUrls: ['./thought-record-form.component.scss'],
 })
 export class ThoughtRecordFormComponent implements OnInit {
-    type = THOUGHT_RECORD;
-    situation!: string;
-    // situationEditMode = false;
+  type = THOUGHT_RECORD;
+  situation!: string;
+  // situationEditMode = false;
   formName = THOUGHT_RECROD_FORM_NAME;
   situationHeader = 'What is the situation?';
   negativeThoughtHeader = 'What is the negative thought?';
@@ -30,67 +30,42 @@ export class ThoughtRecordFormComponent implements OnInit {
 
   ngOnInit() {}
 
-    thoughtSelected(thought: any) {
-        this.thought = thought;
-    }
+  thoughtSelected(thought: any) {
+    this.thought = thought;
+  }
 
   updateThought(thought: any) {
     this.thought = thought;
-    this.onShowNegative(true);
+    // this.onShowNegative(true);
   }
 
-    onAddNewForm() {
-        this.thought = undefined;
-        this.reset = !this.reset;
+  onAddNewForm() {
+    this.thought = undefined;
+    this.reset = !this.reset;
+    this.situationAdded = false;
+    this.showMood = false;
+    this.showRecordBehave = false;
+    this.showTechniques = false;
+  }
+
+  onShowNegative(value: boolean) {
+    this.situationAdded = value;
+  }
+
+  showSelectMood(value: boolean) {
+    console.log(value);
+    this.showMood = value;
+  }
+
+  onShowRecordBehave(value: boolean) {
+    if (this.showMood) {
+      this.showRecordBehave = value;
     }
+  }
 
-    onShowNegative(value: boolean) {
-        this.situationAdded = value;
+  onShowTechniques(value: boolean) {
+    if (this.showRecordBehave) {
+      this.showTechniques = value;
     }
-
-    //
-    // onShowSlider(data: any) {
-    //   if (this.situationAdded) {
-    //     this.negativeThoughtAdded = data.showSlider;
-    //     this.negativeThought = data.negativeThought;
-    //   }
-    // }
-
-    // onSelectMood(value: boolean) {
-    //   if (this.negativeThoughtAdded) {
-    //     this.showMood = value;
-    //     // this.onDialogRefClosed(dialogRef);
-    //   }
-    // }
-
-    showSelectMood() {
-        this.showMood = true;
-    }
-
-    onShowRecordBehave(value: boolean) {
-        if (this.showMood) {
-            this.showRecordBehave = value;
-        }
-    }
-
-    onShowTechniques(value: boolean) {
-        if (this.showRecordBehave) {
-            this.showTechniques = value;
-        }
-    }
-
-    // getRating(value: any) {
-    //   this.negativeMoodRating = value;
-    // }
-
-    // onEditSituationClick() {
-    //   this.onSituationClick();
-    //   return 0;
-    // }
-
-    // onSituationClick() {
-    //   if (this.situation) {
-    //     this.situationEditMode = true;
-    //   }
-  // }
+  }
 }

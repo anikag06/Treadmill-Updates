@@ -5,7 +5,7 @@ import {ActivatedRoute} from '@angular/router';
 
 import {Problem} from '@/main/resources/forms/problem-solving-worksheets/problem.model';
 import {ProblemSolvingWorksheetsService} from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.service';
-import {BELIEF_CHANGE, PSF_PROBLEM_SOLVING, SET_ACTIVITY, THOUGHT_RECORD,} from '@/app.constants';
+import {BELIEF_CHANGE, PSF_PROBLEM_SOLVING, SET_ACTIVITY, TASK, THOUGHT_RECORD,} from '@/app.constants';
 import {TasksService} from '@/main/resources/forms/shared/tasks/tasks.service';
 import {UserTask} from '@/main/resources/forms/shared/tasks/user-task.model';
 import {ThoughtRecordService} from '@/main/resources/forms/thought-record-form/thought-record.service';
@@ -31,12 +31,12 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
   @Input() object!: any;
 
   constructor(
-      private problemService: ProblemSolvingWorksheetsService,
-      private tasksService: TasksService,
-      private thoughtRecordService: ThoughtRecordService,
-      private beliefChangeService: BeliefChangeService,
-      private route: ActivatedRoute,
-      private element: ElementRef,
+    private problemService: ProblemSolvingWorksheetsService,
+    private tasksService: TasksService,
+    private thoughtRecordService: ThoughtRecordService,
+    private beliefChangeService: BeliefChangeService,
+    private route: ActivatedRoute,
+    private element: ElementRef,
   ) {}
 
   ngOnInit() {
@@ -105,43 +105,51 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
   getThoughts() {
     this.thoughtRecordService.getThoughts();
     this.subscriptions[
-        this.subscriptions.length
-        ] = this.thoughtRecordService.thoughtsBehaviour.subscribe(
-        (thoughts: Thought[]) => {
-          this.objects = thoughts;
-          this.selectObject();
-        },
-        (error: HttpErrorResponse) => {
-          console.error(error);
-        },
+      this.subscriptions.length
+    ] = this.thoughtRecordService.thoughtsBehaviour.subscribe(
+      (thoughts: Thought[]) => {
+        this.objects = thoughts;
+        this.selectObject();
+      },
+      (error: HttpErrorResponse) => {
+        console.error(error);
+      },
     );
   }
 
   getBeliefs() {
     this.beliefChangeService.getBeliefs();
     this.subscriptions[
-        this.subscriptions.length
-        ] = this.beliefChangeService.beliefsBehaviour.subscribe(
-        (beliefs: Belief[]) => {
-          this.objects = beliefs;
-          this.selectObject();
-        },
-        (error: HttpErrorResponse) => {
-          console.error(error);
-        },
+      this.subscriptions.length
+    ] = this.beliefChangeService.beliefsBehaviour.subscribe(
+      (beliefs: Belief[]) => {
+        this.objects = beliefs;
+        this.selectObject();
+      },
+      (error: HttpErrorResponse) => {
+        console.error(error);
+      },
     );
   }
 
   onDeleteForm(object: any) {
     if (this.type === THOUGHT_RECORD) {
-      this.thoughtRecordService.deleteSituation(object.id).subscribe(resp => {
-        const status = resp.ok;
-        if (status) {
-          this.onAddNewForm();
-          this.thoughtRecordService.removeSituation(object);
-        }
-      });
+      this.deleteThoughtRecordForm(object);
+    } else if (this.type === BELIEF_CHANGE) {
+      this.deleteBeliefForm(object);
+    } else if (this.type === TASK) {
+      this.deleteTaskForm(object);
     }
+  }
+
+  deleteThoughtRecordForm(object: any) {
+    this.thoughtRecordService.deleteSituation(object.id).subscribe(resp => {
+      const status = resp.ok;
+      if (status) {
+        this.onAddNewForm();
+        this.thoughtRecordService.removeSituation(object);
+      }
+    });
   }
 
   selectObject() {
@@ -153,7 +161,16 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onDeleteTaskForm(task: any) {
+  deleteBeliefForm(object: any) {
+    this.beliefChangeService.deleteBelief(this.object.id).subscribe(resp => {
+      if (resp.ok) {
+        this.onAddNewForm();
+        this.beliefChangeService.removeBelief(object);
+      }
+    });
+  }
+
+  deleteTaskForm(task: any) {
     this.tasksService.deleteTask(task.id).subscribe(resp => {
       const status = resp.body.status;
       if (status) {

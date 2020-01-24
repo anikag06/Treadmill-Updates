@@ -1,24 +1,27 @@
-<div>
-    <div>
-        Common beliefs
-    </div>
-    <div>
-        <mat-radio-group class="example-radio-group" [(ngModel)]="radioSelected">
-            <div *ngFor="let option of beliefList">
-                <mat-radio-button
-                        [value]="option"
-                        class="example-radio-button"
-                        color="primary"
-                >
-                    {{ option }}
-                </mat-radio-button>
-            </div>
-        </mat-radio-group>
-    </div>
+<div [ngStyle]="{position:'relative'}">
+  <div [ngStyle]="{marginTop:'20px'}">
+    Common beliefs
+  </div>
+  <div [ngStyle]="{marginTop:'10px'}">
+    <mat-radio-group class="example-radio-group" [(ngModel)]="radioSelected">
+      <div *ngFor="let option of beliefList">
+        <mat-radio-button
+          [value]="option"
+          class="example-radio-button"
+          color="primary"
+        >
+          {{ option }}
+        </mat-radio-button>
+      </div>
+    </mat-radio-group>
+  </div>
 
-    <div class="done-btn-div">
-        <button class="btn continue-btn" (click)="onBeliefSelect()">
-            Done
-        </button>
-    </div>
+  <div class="done-btn-div">
+    <button class="btn continue-btn" (click)="onBeliefSelect()">
+      Done
+    </button>
+  </div>
+  <button  class="btn close-btn" (click)="closeCommonBelief()">
+    <mat-icon>close</mat-icon>
+  </button>
 </div>

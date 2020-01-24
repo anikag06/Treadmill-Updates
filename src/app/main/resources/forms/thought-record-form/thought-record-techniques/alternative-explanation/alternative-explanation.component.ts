@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, SimpleChanges, ViewChild,} from '@angular/core';
 import {FormBuilder, FormControl, Validators} from '@angular/forms';
 import {Thought} from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
 import {AlternativeExplanationService} from './alternative-explanation.service';
@@ -14,36 +14,35 @@ export class AlternativeExplanationComponent implements OnInit {
   submitted = false;
   explanation = '';
   summary = '';
+  @Input() reset!: boolean;
   updateExplanation!: boolean;
   @Input() thought!: Thought;
-  @ViewChild('panel', {static: false}) panel!: any;
+  @ViewChild('panel', { static: false }) panel!: any;
 
   explanationForm = this.formBuilder.group({
     explanation: new FormControl('', [Validators.required]),
   });
 
   constructor(
-      private formBuilder: FormBuilder,
-      private alternativeExplanationService: AlternativeExplanationService,
-  ) {
-  }
+    private formBuilder: FormBuilder,
+    private alternativeExplanationService: AlternativeExplanationService,
+  ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
-  ngOnChanges() {
+  ngOnChanges(changes: SimpleChanges) {
     if (this.thought) {
       this.alternativeExplanationService
-          .getExplanation(this.thought.id)
-          .subscribe((resp: any) => {
-            if (resp.ok) {
-              this.updateExplanation = true;
-              this.explanationForm.controls['explanation'].setValue(
-                  resp.body.explanation,
-              );
-              this.summary = resp.body.explanation;
-            }
-          });
+        .getExplanation(this.thought.id)
+        .subscribe((resp: any) => {
+          if (resp.ok) {
+            this.updateExplanation = true;
+            this.explanationForm.controls['explanation'].setValue(
+              resp.body.explanation,
+            );
+            this.summary = resp.body.explanation;
+          }
+        });
     }
   }
 
@@ -57,22 +56,22 @@ export class AlternativeExplanationComponent implements OnInit {
 
     if (this.updateExplanation) {
       this.alternativeExplanationService
-          .putExplanation(object, this.thought.id)
-          .subscribe((resp: any) => {
-            const status = resp.ok;
-            if (status) {
-              console.log('put done');
-            }
-          });
+        .putExplanation(object, this.thought.id)
+        .subscribe((resp: any) => {
+          const status = resp.ok;
+          if (status) {
+            console.log('put done');
+          }
+        });
     } else {
       this.alternativeExplanationService
-          .postExplanation(object)
-          .subscribe((resp: any) => {
-            const status = resp.ok;
-            if (status) {
-              console.log('post done');
-            }
-          });
+        .postExplanation(object)
+        .subscribe((resp: any) => {
+          const status = resp.ok;
+          if (status) {
+            console.log('post done');
+          }
+        });
     }
     this.summary = this.explanationForm.value['explanation'];
     this.panel.expanded = false;

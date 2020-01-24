@@ -5,14 +5,14 @@ import {Feelings} from '@/main/shared/mood-tracker/feelings.model';
 import {MoodTrackerService} from '@/main/shared/mood-tracker/mood-tracker.service';
 
 @Component({
-    selector: 'app-mood-tracker',
-    templateUrl: './mood-tracker.component.html',
-    styleUrls: ['./mood-tracker.component.scss'],
+  selector: 'app-mood-tracker',
+  templateUrl: './mood-tracker.component.html',
+  styleUrls: ['./mood-tracker.component.scss'],
 })
 export class MoodTrackerComponent implements OnInit, AfterViewInit {
-    @Output() onClose = new EventEmitter();
-    moods: Mood[] = [];
-    step = 0;
+  @Output() onClose = new EventEmitter();
+  moods: Mood[] = [];
+  step = 0;
   emotions: string[] = [];
   customCollapsedHeight = '48px';
   customExpandedHeight = '48px';
@@ -64,9 +64,6 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
     const panelBody = this.element.nativeElement.querySelectorAll(
       '.mat-expansion-panel-body',
     );
-    const checkmark = this.element.nativeElement.querySelectorAll(
-      ' .mat-checkbox-checkmark-path',
-    );
 
     for (let i = 0; i < listItem.length; i++) {
       listItem[i].setAttribute('style', 'padding-left:24px;padding-right: 0px');
@@ -80,10 +77,6 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
     }
     for (let i = 0; i < panelBody.length; i++) {
       panelBody[i].setAttribute('style', 'padding: 0px;');
-    }
-
-    for (let i = 0; i < checkmark.length; i++) {
-      checkmark[i].setAttribute('style', 'stroke: black !important;');
     }
   }
 
@@ -128,8 +121,8 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
   }
 
   closeModal() {
-      this.onClose.emit();
-      this.dialogRef.close({event: 'close'});
+    this.onClose.emit();
+    this.dialogRef.close({ event: 'close' });
   }
 
   updateEmotionCount(change: boolean) {
