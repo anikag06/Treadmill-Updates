@@ -174,6 +174,7 @@ import { LoadingBarService } from './games/shared/loading-bar.service';
 import { LhgGreatComponent } from './games/games-list/common-game/learned-helplessness-game/lhg-great/lhg-great.component';
 import { StepsDataService } from './resources/shared/steps-data.service';
 import { SuggestedPostComponent } from './dashboard/suggested-post/suggested-post.component';
+import { SuggestedPostItemComponent } from './dashboard/suggested-post/suggested-post-item/suggested-post-item.component';
 
 @NgModule({
   declarations: [
@@ -280,6 +281,7 @@ import { SuggestedPostComponent } from './dashboard/suggested-post/suggested-pos
     MoodTrackerComponent,
     DataTimePickerComponent,
     SuggestedPostComponent,
+    SuggestedPostItemComponent,
   ],
   imports: [
     CommonModule,

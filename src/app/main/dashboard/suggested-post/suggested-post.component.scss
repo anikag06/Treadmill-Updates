@@ -3,6 +3,7 @@
   box-shadow: 0px 2px 8px #00000033;
   width: 410px;
   overflow: hidden;
+  background-color: white;
 
   .suggested-post-main {
     border-top: 50px solid #3BB7D1;
@@ -10,10 +11,10 @@
 
     h3 {
       font-size: 20px;
-      padding: 22px 5px 20px 0;
-      font-weight: 600;
+      padding: 0px 5px 20px 25px;
+      font-weight: 500;
       color: white;
-      top: -55px;
+      top: -35px;
       position: absolute;
     }
 
@@ -25,6 +26,31 @@
         margin: 10px 0;
 
       }
+    }
+  }
+}
+
+.no-gutters {
+  margin: 0;
+  padding: 0;
+}
+
+@media screen and (max-width: 1320px) and (min-width: 768px) {
+  .suggested-post {
+    max-width: 300px;
+    margin: auto;
+  }
+}
+
+@media screen and (max-width: 770px) {
+  .suggested-post {
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
+
+    .suggested-post-main {
+      height: 325px;
+      border-top: 40px solid #3BB7D1;
     }
   }
 }

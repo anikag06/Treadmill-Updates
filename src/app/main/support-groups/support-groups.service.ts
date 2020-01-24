@@ -62,4 +62,7 @@ export class SupportGroupsService {
     return this.http.post(environment.API_ENDPOINT + '/api/v1/support-group/post-vote/', data);
   }
 
+  getSuggestedPosts() {
+    return this.http.get(environment.API_ENDPOINT + '/api/v1/support-group/suggested-posts/');
+  }
 }

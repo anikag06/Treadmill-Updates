@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { Todo } from '@/main/shared/todo.model';
+import { TasksService } from '@/main/resources/forms/shared/tasks/tasks.service';
 
 @Component({
   selector: 'app-things-todo',
@@ -9,21 +10,33 @@ import { Todo } from '@/main/shared/todo.model';
 
 export class ThingsTodoComponent implements OnInit {
 
-  todos = [
-    new Todo('Visit peer group', true),
-    new Todo('Play a game', false),
-    new Todo('Start your next module', false),
-  ];
-
-  constructor() { }
+  todos: Todo[] = [];
+  element!: ElementRef;
+  constructor(private taskService: TasksService) { }
 
   ngOnInit() {
+    this.taskService.getTodoList()
+      .subscribe(
+        (data: any) => { this.todos = data.results; });
+  }
+
+  ngAfterViewInit() {
+
   }
 
   onTodoChange(todo: Todo, event: Event) {
     todo.done = !todo.done;
     console.log(todo);
     console.log(event);
+    console.log(this.element);
+    let checkboxColor = this.element.nativeElement.querySelectorAll(
+      '.mat-checkbox-background',
+    );
+
+    // for (let i = 0; i < checkboxColor.length; i++) {
+    checkboxColor[0].setAttribute('style', 'background-color: #2DAA84; !important;');
+    console.log(checkboxColor);
+    // }
   }
 
 }

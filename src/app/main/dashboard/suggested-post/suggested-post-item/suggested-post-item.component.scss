@@ -1,0 +1,35 @@
+.post-item {
+
+  padding: 20px 10px 10px 10px;
+  margin-bottom: 10px;
+  width: 100%;
+  max-width: 100%;
+
+  img {
+    margin-right: 25px
+  }
+
+  .main-content {
+    // margin: 0 4%;
+  }
+
+
+  h2 {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 0px;
+    max-width: 100%;
+    word-break: break-word;
+  }
+
+}
+
+.post-user-avatar {
+  border-radius: 50%;
+  width: 49px;
+  height: 49px;
+}
+
+.user-avatar-username {
+  padding-top: 5px;
+}

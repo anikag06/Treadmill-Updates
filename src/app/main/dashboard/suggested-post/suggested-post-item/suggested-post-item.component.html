@@ -1,0 +1,34 @@
+<div class="d-flex flex-row post-item no-gutters">
+
+  <div class=" d-inline-flex flex-column align-items-start">
+
+    <img [src]="suggestedPost.avatar" alt="User avatar" width="42" height="42" class='post-user-avatar'>
+
+    <!-- <div class=" d-flex flex-column align-items-start">
+        <div class="user-stats d-flex flex-row align-items-start">
+          <div class='user-avatar-username mb-0'>{{suggestedPost.username}}</div>
+        </div>
+      </div>
+    </div> -->
+
+  </div>
+  <div class=" d-inline-flex flex-column align-items-start">
+
+    <div class="main-header">
+      <h2>{{suggestedPost.title}}</h2>
+    </div>
+    <div class="post-body">
+      {{suggestedPost.body}}
+    </div>
+  </div>
+
+  <!-- <div class="row no-gutters mt-2">
+    <div class='col-12'>
+      <div class="main-content">
+        <div #htmlDiv [innerHTML]="body | safeHtml" [ngStyle]="{'word-break': 'break-word'}"></div>
+        <span *ngIf="plainBodyLength() > minBodyLength && !newPost" class="text-right">
+          <a (click)="toggleShow()" *ngIf="!showFullContent" class="toggler">show more</a>
+        </span>
+      </div>
+    </div>
+  </div> -->
