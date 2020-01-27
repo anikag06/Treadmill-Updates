@@ -204,6 +204,12 @@ $small_logo_height: 40px;
   font-family: "Lato", sans-serif !important;
 }
 
+.things-todo-main-list {
+  .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+    background-color: #2DAA84 !important;
+  }
+}
+
 img.emoji {
   height: 1.1em;
   width: 1.1em;
