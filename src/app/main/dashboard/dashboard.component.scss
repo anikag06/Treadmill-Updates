@@ -13,21 +13,38 @@
   margin-bottom: 80px;
 }
 
-.suggPostDiv {
-  min-width: 280px;
+// .suggPostDiv {
+//   min-width: 280px;
 
-}
+// }
 
-.todoDiv {
-  min-width: 200px;
+// .todoDiv {
+//   min-width: 200px;
 
-}
+// }
 
 .no-gutters {
   margin: 0;
   padding: 0;
 }
 
+@media screen and (min-width: 1576px) {
+  .sugg-post-things-todo-row {
+    max-width: 94%;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .suggPostDiv {
+    min-width: 270px;
+
+  }
+
+  .todoDiv {
+    min-width: 200px;
+
+  }
+}
 
 @media screen and (max-width: 767px) {
   .card {

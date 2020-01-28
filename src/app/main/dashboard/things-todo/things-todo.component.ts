@@ -27,16 +27,7 @@ export class ThingsTodoComponent implements OnInit {
   onTodoChange(todo: Todo, event: Event) {
     todo.done = !todo.done;
     console.log(todo);
-    console.log(event.source);
-    console.log(this.element);
-    let checkboxColor = this.element.nativeElement.querySelectorAll(
-      '.mat-checkbox-background',
-    );
-
-    for (let i = 0; i < checkboxColor.length; i++) {
-      checkboxColor[0].setAttribute('style', 'background-color: #2DAA84; !important;');
-      console.log(checkboxColor);
-    }
+    console.log(event);
   }
 
 }

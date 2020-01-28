@@ -1,7 +1,7 @@
 .suggested-post {
 
   box-shadow: 0px 2px 8px #00000033;
-  max-width: 410px;
+  max-width: 400px;
   overflow: hidden;
   background-color: white;
   border-bottom-left-radius: 4px;
@@ -10,7 +10,7 @@
 
   .suggested-post-main {
     border-top: 50px solid #3BB7D1;
-    height: 470px;
+    height: 450px;
 
     h3 {
       font-size: 20px;
@@ -38,21 +38,35 @@
   padding: 0;
 }
 
-@media screen and (min-width: 1201px) {
+// @media screen and (min-width: 1576px) {
+//   .suggested-post {
+//     width: 336px;
+//     // margin: auto;
+//   }
+// }
+
+@media screen and (min-width: 1200px) and (max-width:1270px) {
   .suggested-post {
-    min-width: 280px;
+    width: 270px;
     margin: auto;
   }
 }
 
-@media screen and (max-width: 1200px) and (min-width: 771px) {
+@media screen and (min-width: 1271px) {
   .suggested-post {
-    max-width: 86%;
+    min-width: 270px;
     margin: auto;
   }
 }
 
-@media screen and (max-width: 770px) {
+@media screen and (max-width: 1199px) and (min-width: 768px) {
+  .suggested-post {
+    max-width: 88%;
+    margin: auto;
+  }
+}
+
+@media screen and (max-width: 767px) {
   .suggested-post {
     width: 100%;
     max-width: 400px;

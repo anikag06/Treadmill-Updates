@@ -4,16 +4,14 @@
     <h3>Things to do</h3>
     <ul class="things-todo-main-list">
       <li *ngFor="let todo of todos">
-        <mat-checkbox [checked]="todo.done" (change)="onTodoChange(todo, $event)"><span class="todoName">
-            {{ todo.name }}
-          </span>
+        <mat-checkbox [checked]="todo.done" [ngStyle]="{'color': todo.done ? '#2DAA84':'black'}"
+          (change)="onTodoChange(todo, $event)">
+          <!-- <span class="todoName"> -->
+          {{ todo.name }}
+          <!-- </span> -->
 
         </mat-checkbox>
-        <!-- <label> &nbsp; {{ todo.name }}
-          <input type="checkbox" [checked]="todo.done" (change)="onTodoChange(todo, $event)">
 
-          <span class="checkmark"></span>
-        </label> -->
       </li>
     </ul>
   </div>

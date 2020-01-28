@@ -1,10 +1,10 @@
 .post-item {
 
-  padding: 20px 10px 10px 10px;
+  padding: 20px 10px 18px 10px;
   margin-bottom: 10px;
   width: 100%;
   max-width: 100%;
-  font-size: 14px;
+
 
   img {
     margin-right: 25px
@@ -12,6 +12,11 @@
 
   .main-content {
     // margin: 0 4%;
+  }
+
+  .post-body {
+    font-size: 14px;
+    color: #00000099;
   }
 
 
