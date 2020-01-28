@@ -129,6 +129,7 @@ export const FFG_MUSIC = '/api/v1/games/face-game/music/';
 export const NEW_CHAT = 'new_chat';
 export const RESUME_CHAT = 'resume_chat';
 export const REPLY_CURRENT = 'reply_current';
+export const UNSPLASH_URL = 'https://api.unsplash.com';
 
 export const MAX_RETRIES = 10;
 export const CHATBOT_RETRY_TIMEOUT = 5000;

@@ -4,9 +4,10 @@
 
 export const environment = {
   production: false,
-  HOST: '172.26.90.50:9000',
-  CHAT_HOST: 'ws://172.26.90.49:8000',
-  API_ENDPOINT: 'http://172.26.90.50:9000',
+  HOST: '172.26.90.49:8000',
+  CHAT_HOST: 'ws://127.0.0.1:8000',
+  API_ENDPOINT: 'http://127.0.0.1:8000',
+  CLIENT_KEY: '9bd2732a096202a8c7f9b6f95ef06838580ddd34e7c73fb8234546019379c041',
   firebase: {
     apiKey: 'AIzaSyA2uLe3D1HIF3STgFuP7Spp0-UVwL-kK-c',
     authDomain: 'treadwill-81e2f.firebaseapp.com',

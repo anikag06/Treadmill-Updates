@@ -1,93 +1,113 @@
-
-    <div class="moodTrackerDiv"> 
-         <mat-accordion class="moods">
-         <!--   <mat-expansion-panel *ngFor="let mood of moods;let i = index;" hideToggle (opened)="setStep(i)">
-                <mat-expansion-panel-header [collapsedHeight]="customCollapsedHeight"
-                    [expandedHeight]="customExpandedHeight" class="disable-ripple">
-                    <mat-panel-title>
-                        <div class="select-mood">
-                            <img class="mood-emoji" src="mood.image" alt="mood.type">
-                            {{mood.type}}
-                        </div>
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
-                <mat-list>
-                    <mat-list-item *ngFor="let emotion of getEmotions()"
-                        [ngStyle]="option.checked && {'background': '#FEF6E7 0% 0% no-repeat padding-box'}">
-                        <div class="emotions">
-                            <div class="emotion-label">
-                                <input type="checkbox" class="option" #option [ngStyle]="{'font-size': '14px'}"
-                                    (change)="updateEmotionCount(option.checked)"> <label> {{emotion}}</label>
-                            </div>
-                            <div class="emotion-range" *ngIf="option.checked" style="z-index: 200;">
-                                <mat-icon class="range-icon remove">remove</mat-icon>
-                                <label for="range">
-                                    <div class="rangeValue" [ngStyle]="{'margin-left': '63px'}">Quite</div>
-                                    <input type="range" name="range" id="range" min="0" max="4" step="1" value="2"
-                                        #ranger (input)="showRange(ranger.value,emotion)" />
-                                </label>
-                                <mat-icon class="range-icon">add</mat-icon>
-                            </div>
-                        </div>
-
-                    </mat-list-item>
-                </mat-list>
-            </mat-expansion-panel> -->
-
-
-
-
-            <mat-expansion-panel hideToggle>
-                <mat-expansion-panel-header [collapsedHeight]="customCollapsedHeight"
-                    [expandedHeight]="customExpandedHeight" class="disable-ripple">
-                    <mat-panel-title>
-                        <div class="select-mood">
-                            <img class="mood-emoji" src="assets/chatbot/Negative_emotion.png" alt="Negative mood">
-                            Negative mood
-                        </div>
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
-                <mat-list>
-                    <mat-list-item *ngFor="let emotion of getNegativeEmotions()"
-                        [ngStyle]="option.checked && {'background': '#FEF6E7 0% 0% no-repeat padding-box'}">
-                        <div class="emotions">
-                            <div class="emotion-label">
-                                <input type="checkbox" class="option" #option [ngStyle]="{'font-size': '14px'}"
-                                    (change)="updateEmotionCount(option.checked)"> <label> {{emotion}}</label>
-                            </div>
-                            <div class="emotion-range" *ngIf="option.checked" style="z-index: 200;">
-                                <mat-icon class="range-icon remove">remove</mat-icon>
-                                <label for="range">
-                                    <div class="rangeValue" [ngStyle]="{'margin-left': '63px'}">Quite</div>
-                                    <input type="range" name="range" id="range" min="0" max="4" step="1" value="2"
-                                        #ranger (input)="showRange(ranger.value,emotion)" />
-                                </label>
-                                <mat-icon class="range-icon">add</mat-icon>
-                            </div>
-                        </div>
-
-                    </mat-list-item>
-                </mat-list>
-            </mat-expansion-panel>
-            <mat-expansion-panel hideToggle>
-                <mat-expansion-panel-header [collapsedHeight]="customCollapsedHeight"
-                    [expandedHeight]="customExpandedHeight" class="disable-ripple">
-                    <mat-panel-title>
-                        <div class="select-mood">
-                            <img class="mood-emoji" src="assets/chatbot/Neutral_emotion.png" alt="Neutral Mood">
-                            Neutral mood
-                        </div>
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
-                <mat-list>
-                    <mat-list-item *ngFor="let emotion of getNeutralEmotions()"
-                        [ngStyle]="option.checked && {'background': '#FEF6E7 0% 0% no-repeat padding-box'}">
-                        <div class="emotions">
-                            <div class="emotion-label">
-                                <input type="checkbox" class="option" #option [ngStyle]="{'font-size': '14px'}"
-                                    (change)="updateEmotionCount(option.checked)"> <label> {{emotion}}</label>
-                            </div>
-                            <!-- <div class="emotion-range" *ngIf="option.checked" style="z-index: 200;">
+<div class="overlay">
+  <div class="modal">
+    <div class="moodTrackerDiv">
+      <mat-accordion class="moods">
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header
+            [collapsedHeight]="customCollapsedHeight"
+            [expandedHeight]="customExpandedHeight"
+            class="disable-ripple"
+          >
+            <mat-panel-title>
+              <div class="select-mood">
+                <img
+                  class="mood-emoji"
+                  src="assets/chatbot/Negative_emotion.png"
+                  alt="Negative mood"
+                />
+                Negative mood
+              </div>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-list>
+            <mat-list-item
+              *ngFor="let emotion of getNegativeEmotions()"
+              [ngStyle]="
+                option.checked && {
+                  background: '#FEF6E7 0% 0% no-repeat padding-box'
+                }
+              "
+            >
+              <div class="emotions">
+                <div class="emotion-label">
+                  <input
+                    type="checkbox"
+                    class="option"
+                    #option
+                    [ngStyle]="{ 'font-size': '14px' }"
+                    (change)="updateEmotionCount(option.checked)"
+                  />
+                  <label> {{ emotion }}</label>
+                </div>
+                <div
+                  class="emotion-range"
+                  *ngIf="option.checked"
+                  style="z-index: 200;"
+                >
+                  <mat-icon class="range-icon remove">remove</mat-icon>
+                  <label for="range">
+                    <div
+                      class="rangeValue"
+                      [ngStyle]="{ 'margin-left': '63px' }"
+                    >
+                      Quite
+                    </div>
+                    <input
+                      type="range"
+                      name="range"
+                      id="range"
+                      min="0"
+                      max="4"
+                      step="1"
+                      value="2"
+                      #ranger
+                      (input)="showRange(ranger.value, emotion)"
+                    />
+                  </label>
+                  <mat-icon class="range-icon">add</mat-icon>
+                </div>
+              </div>
+            </mat-list-item>
+          </mat-list>
+        </mat-expansion-panel>
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header
+            [collapsedHeight]="customCollapsedHeight"
+            [expandedHeight]="customExpandedHeight"
+            class="disable-ripple"
+          >
+            <mat-panel-title>
+              <div class="select-mood">
+                <img
+                  class="mood-emoji"
+                  src="assets/chatbot/Neutral_emotion.png"
+                  alt="Neutral Mood"
+                />
+                Neutral mood
+              </div>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-list>
+            <mat-list-item
+              *ngFor="let emotion of getNeutralEmotions()"
+              [ngStyle]="
+                option.checked && {
+                  background: '#FEF6E7 0% 0% no-repeat padding-box'
+                }
+              "
+            >
+              <div class="emotions">
+                <div class="emotion-label">
+                  <input
+                    type="checkbox"
+                    class="option"
+                    #option
+                    [ngStyle]="{ 'font-size': '14px' }"
+                    (change)="updateEmotionCount(option.checked)"
+                  />
+                  <label> {{ emotion }}</label>
+                </div>
+                <!-- <div class="emotion-range" *ngIf="option.checked" style="z-index: 200;">
                                 <mat-icon class="range-icon remove">remove</mat-icon>
                                 <label for="range">
                                     <div class="rangeValue" [ngStyle]="{'margin-left': '63px'}">Quite</div>
@@ -96,50 +116,93 @@
                                 </label>
                                 <mat-icon class="range-icon">add</mat-icon>
                             </div> -->
-                        </div>
-
-                    </mat-list-item>
-                </mat-list>
-            </mat-expansion-panel>
-            <mat-expansion-panel hideToggle>
-                <mat-expansion-panel-header [collapsedHeight]="customCollapsedHeight"
-                    [expandedHeight]="customExpandedHeight" class="disable-ripple">
-                    <mat-panel-title>
-                        <div class="select-mood">
-                            <img class="mood-emoji" src="assets/chatbot/Positive_emotion.png" alt="Positive Mood">
-                            Positive mood
-                        </div>
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
-                <mat-list>
-                    <mat-list-item *ngFor="let emotion of getPositiveEmotions()"
-                        [ngStyle]="option.checked && {'background': '#FEF6E7 0% 0% no-repeat padding-box'}">
-                        <div class="emotions">
-                            <div class="emotion-label">
-                                <input type="checkbox" class="option" #option [ngStyle]="{'font-size': '14px'}"
-                                    (change)="updateEmotionCount(option.checked)"> <label> {{emotion}}</label>
-                            </div>
-                            <div class="emotion-range" *ngIf="option.checked" style="z-index: 200;">
-                                <mat-icon class="range-icon remove">remove</mat-icon>
-                                <label for="range">
-                                    <div class="rangeValue" [ngStyle]="{'margin-left': '63px'}">Quite</div>
-                                    <input type="range" name="range" id="range" min="0" max="4" step="1" value="2"
-                                        #ranger (input)="showRange(ranger.value,emotion)" />
-                                </label>
-                                <mat-icon class="range-icon">add</mat-icon>
-                            </div>
-                        </div>
-                    </mat-list-item>
-                </mat-list>
-            </mat-expansion-panel>
-        </mat-accordion>
-  
+              </div>
+            </mat-list-item>
+          </mat-list>
+        </mat-expansion-panel>
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header
+            [collapsedHeight]="customCollapsedHeight"
+            [expandedHeight]="customExpandedHeight"
+            class="disable-ripple"
+          >
+            <mat-panel-title>
+              <div class="select-mood">
+                <img
+                  class="mood-emoji"
+                  src="assets/chatbot/Positive_emotion.png"
+                  alt="Positive Mood"
+                />
+                Positive mood
+              </div>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-list>
+            <mat-list-item
+              *ngFor="let emotion of getPositiveEmotions()"
+              [ngStyle]="
+                option.checked && {
+                  background: '#FEF6E7 0% 0% no-repeat padding-box'
+                }
+              "
+            >
+              <div class="emotions">
+                <div class="emotion-label">
+                  <input
+                    type="checkbox"
+                    class="option"
+                    #option
+                    [ngStyle]="{ 'font-size': '14px' }"
+                    (change)="updateEmotionCount(option.checked)"
+                  />
+                  <label> {{ emotion }}</label>
+                </div>
+                <div
+                  class="emotion-range"
+                  *ngIf="option.checked"
+                  style="z-index: 200;"
+                >
+                  <mat-icon class="range-icon remove">remove</mat-icon>
+                  <label for="range">
+                    <div
+                      class="rangeValue"
+                      [ngStyle]="{ 'margin-left': '63px' }"
+                    >
+                      Quite
+                    </div>
+                    <input
+                      type="range"
+                      name="range"
+                      id="range"
+                      min="0"
+                      max="4"
+                      step="1"
+                      value="2"
+                      #ranger
+                      (input)="showRange(ranger.value, emotion)"
+                    />
+                  </label>
+                  <mat-icon class="range-icon">add</mat-icon>
+                </div>
+              </div>
+            </mat-list-item>
+          </mat-list>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
     <button class="close-btn" (click)="closeModal()">
-        <mat-icon>close</mat-icon>
+      <mat-icon>close</mat-icon>
     </button>
     <div class="done-btn-div">
-        <button type="submit" mat-raised-button class="done-btn" [disabled]="emotionCount < 1"
-        (click)="onMoodSubmit()">Done</button>
+      <button
+        type="submit"
+        mat-raised-button
+        class="done-btn"
+        [disabled]="emotionCount < 1"
+        (click)="onMoodSubmit()"
+      >
+        Done
+      </button>
     </div>
-    
-</div> 
+  </div>
+</div>

@@ -79,12 +79,13 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   retries = 0;
   showMoodTracker = false;
   showDateTime = false;
-  moodWidget: string = 'mood_widget';
+  moodWidget = 'mood_widget';
   dateTimeWidget = 'date_time_widget';
   buttonsModule: string[] = ['', '', '', '', '', '', '', '', '', ''];
   radio = 'radio';
   clickAble = 'clickable_image';
-  buttonType: string = 'radio';
+  buttonType = 'radio';
+  images: any[] = [];
 
   @ViewChild('messagesDiv', { static: false }) messagesDiv!: ElementRef;
   @ViewChild('ti', { static: false }) ti!: ElementRef;
@@ -119,10 +120,11 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
                 message.datetime,
                 false,
                 message.widgets,
+                [],
               ),
             );
             this.scrollToBottom();
-            console.log(message);
+            // console.log(message);
           });
         }
       },
@@ -144,6 +146,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
           '',
           new Date(),
           false,
+          [],
           [],
         ),
       );
@@ -178,7 +181,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   chatButtonPressed(button: any, chat: Chat) {
     chat.buttons = [];
     this.messages.push(
-      new Chat(button['payload'], true, [], '', '', new Date(), false, []),
+      new Chat(button['payload'], true, [], '', '', new Date(), false, [], []),
     );
     this.webSocket.send(
       JSON.stringify({
@@ -207,21 +210,20 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       environment.CHAT_HOST + '/ws/chat/?token=' + this.authService.getToken(),
     );
     this.webSocket.onopen = event => {
-      this.webSocket.send(
-        JSON.stringify({ action: type, module_name: 'mood_tracker_follow_up' }),
-      );
+      this.webSocket.send(JSON.stringify({ action: type, module_name: '' }));
     };
     this.webSocket.onmessage = (message: any) => {
       const data = JSON.parse(message.data);
       if (data.error === true) {
         const item = new Chat(
-          JSON.stringify(data),
+          data.text,
           false,
           [],
           '',
           '',
           new Date(),
           false,
+          [],
           [],
         );
         this.messages.push(item);
@@ -268,6 +270,21 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   pushChat(m: any) {
+    console.log('inside images');
+    this.images = [];
+    console.log(m.images);
+    if (m.images) {
+      m.images.forEach((image: any) => {
+        if (image.type === 'unsplash_collection') {
+          this.getImageFromCollection(image.cid);
+        } else if (image.type === 'unsplash_photo') {
+          this.getImageByID(image.pid);
+        } else {
+          this.getImage(image);
+        }
+      });
+    }
+
     const item = new Chat(
       twemoji.parse(m.text || ''),
       false,
@@ -277,7 +294,9 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       m.datetime,
       false,
       m.widgets,
+      this.images,
     );
+    console.log();
     if (m.buttons && m.buttons.length > 0) {
       this.buttonType = m.buttons[0].type;
     }
@@ -286,6 +305,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     if (this.ti) {
       if (m.buttons && m.buttons.length > 1) {
         this.ti.nativeElement.disabled = true;
+        // this.scrollToBottom();
       } else {
         this.ti.nativeElement.disabled = false;
         this.ti.nativeElement.focus();
@@ -311,7 +331,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   // }
 
   showWritingAndPushChat(m: any) {
-    const item = new Chat('', false, [], '', '', new Date(), true, []);
+    const item = new Chat('', false, [], '', '', new Date(), true, [], []);
     this.ti.nativeElement.disabled = true;
     this.messages.push(item);
     setTimeout(this.scrollToBottom);
@@ -358,7 +378,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
 
   async loadEachMessage(m: any) {
     for (let index = 0; index < m.length; index++) {
-      let delayPerMessage =
+      const delayPerMessage =
         (this.totalDelay + this.getSentenceDelay(m.text || '')) * index;
 
       if (
@@ -378,5 +398,43 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
 
   onDateTimeSelect() {
     this.showDateTime = !this.showDateTime;
+  }
+
+  getImageFromCollection(cid: string) {
+    this.chatbotService.getRandomPhoto(cid).subscribe((resp: any) => {
+      // console.log(resp);
+      // url = resp.body.urls.small;
+      const image = {
+        url: resp.body.urls.raw,
+        link: resp.body.links.html,
+        color: resp.body.color,
+        name: resp.body.user.name,
+        credits: true,
+      };
+
+      this.images.push(image);
+    });
+  }
+
+  getImageByID(pid: string) {
+    this.chatbotService.getPhoto(pid).subscribe((resp: any) => {
+      const image = {
+        url: resp.body.urls.raw,
+        link: resp.body.links.html,
+        color: resp.body.color,
+        name: resp.body.user.name,
+        credits: true,
+      };
+
+      this.images.push(image);
+    });
+  }
+
+  getImage(image: any) {
+    const photo = {
+      url: image.url,
+      credits: false,
+    };
+    this.images.push(photo);
   }
 }

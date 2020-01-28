@@ -1,6 +1,13 @@
-<div class="container chat-window" [@openClose]="chatWindowClosed ? 'closed' : 'open'">
+<div
+  class="container chat-window"
+  [@openClose]="chatWindowClosed ? 'closed' : 'open'"
+>
   <div class="chat-header">
-    <img class="chatbot-screen-img" src="assets/chatbot/on_chat_screen.png" alt="">
+    <img
+      class="chatbot-screen-img"
+      src="assets/chatbot/on_chat_screen.png"
+      alt=""
+    />
     <h3>WillBot</h3>
     <button mat-flat-button class="close-icon" (click)="close()">
       <mat-icon>close</mat-icon>
@@ -9,8 +16,8 @@
   <div class="chat-frame" #messagesDiv [scrollTop]="scrollTop">
     <div class="clearfix messages" *ngFor="let m of messages">
       <div>
-        <ng-container *ngIf="!m.waiting else waiting">
-          <div class="message" [ngClass]="{'bot': !m.user}" *ngIf="m.message">
+        <ng-container *ngIf="!m.waiting; else waiting">
+          <div class="message" [ngClass]="{ bot: !m.user }" *ngIf="m.message">
             <div class="message-text" [innerHTML]="m.message"></div>
             <!-- <span class="date-time">{{m.datetime | date: 'short' }}</span> -->
           </div>
@@ -23,41 +30,94 @@
           </div>
         </ng-template>
       </div>
-      <div class="buttons" [ngStyle]="{'display': buttonType===clickAble ? 'table-cell': 'block'}">
-        <button *ngFor="let button of m.buttons" [ngClass]="{'btn radio_button': button.type===radio, 'btn module_button':  button.type ===clickAble}"  
-        (click)="chatButtonPressed(button, m)" >
-        <img src="assets/chatbot/tracker.png" [alt]="button.payload" width="136px" height="72px" *ngIf =" button.type === clickAble else btnText" />
-        <ng-template #btnText> <span class="btn-text" >{{button.payload}}</span></ng-template>
-       
-        </button>
+      <div *ngFor="let image of m.images" [ngStyle]="{ width: 'fit-content' }">
+        <img class="msg-img" [src]="image.url" alt="image" />
+
+        <div class="credits" *ngIf="image.credits">
+          <div class="creditDiv">
+            <a class="link" [href]="image.link">{{ image.name }}</a>
+            <span> / </span>
+            <a class="link" href="https://unsplash.com">Unsplash</a>
+          </div>
         </div>
+      </div>
+      <div
+        class="buttons"
+        [ngStyle]="{
+          display: buttonType === clickAble ? 'table-cell' : 'block'
+        }"
+      >
+        <button
+          *ngFor="let button of m.buttons"
+          [ngClass]="{
+            'btn radio_button': button.type === radio,
+            'btn module_button': button.type === clickAble
+          }"
+          (click)="chatButtonPressed(button, m)"
+        >
+          <img
+            src="assets/chatbot/tracker.png"
+            [alt]="button.payload"
+            width="136px"
+            height="72px"
+            *ngIf="button.type === clickAble; else btnText"
+          />
+          <ng-template #btnText>
+            <span class="btn-text">{{ button.payload }}</span></ng-template
+          >
+        </button>
+      </div>
 
       <div *ngFor="let widget of m.widgets">
         <div class="buttons">
-          <button (click)="onMoodSelect()" *ngIf="widget===moodWidget"> <span class="btn-text">Select your mood</span></button>
+          <button (click)="onMoodSelect()" *ngIf="widget === moodWidget">
+            <span class="btn-text">Select your mood</span>
+          </button>
           <div *ngIf="showMoodTracker">
-            <app-mood-tracker (onClose)="onMoodSelect()" (moodSubmit)="onChatSubmit($event)"
-              (moodMessage)="getMoodMessage($event)"></app-mood-tracker>
+            <app-mood-tracker
+              (onClose)="onMoodSelect()"
+              (moodSubmit)="onChatSubmit($event)"
+              (moodMessage)="getMoodMessage($event)"
+            ></app-mood-tracker>
           </div>
-        <button (click)="onDateTimeSelect()" *ngIf="widget===dateTimeWidget">Date Time</button>
-        <div *ngIf="showDateTime">
-          <app-date-time-picker (onClose)="onDateTimeSelect()" (dateTimeSubmit)="onChatSubmit($event)"
-          (dateTimeMessage)="getDateTimeMessage($event)"></app-date-time-picker>
+          <button
+            (click)="onDateTimeSelect()"
+            *ngIf="widget === dateTimeWidget"
+          >
+            Date Time
+          </button>
+          <div *ngIf="showDateTime">
+            <app-date-time-picker
+              (onClose)="onDateTimeSelect()"
+              (dateTimeSubmit)="onChatSubmit($event)"
+              (dateTimeMessage)="getDateTimeMessage($event)"
+            ></app-date-time-picker>
+          </div>
         </div>
-      </div>
       </div>
     </div>
   </div>
   <div class="form-div">
     <form (ngSubmit)="onChatSubmit()">
       <div class="textarea">
-        <textarea matInput class="form-control" placeholder="Enter your message" [(ngModel)]="message" name="message"
-          (keyup.enter)="onKey($event)" (focusin)="scrollToBottom()" #ti autocomplete="off">
+        <textarea
+          matInput
+          cdkTextareaAutosize
+          cdkAutosizeMinRows="1"
+          cdkAutosizeMaxRows="4"
+          placeholder="Enter your message"
+          [(ngModel)]="message"
+          name="message"
+          (keyup.enter)="onKey($event)"
+          (focusin)="scrollToBottom()"
+          #ti
+          autocomplete="off"
+        >
         </textarea>
       </div>
       <div class="btn-div">
         <button type="submit">
-          <mat-icon [ngStyle]="{'color':'grey'}">send</mat-icon>
+          <mat-icon [ngStyle]="{ color: 'grey' }">send</mat-icon>
         </button>
       </div>
     </form>

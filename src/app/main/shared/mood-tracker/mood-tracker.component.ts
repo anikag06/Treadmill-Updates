@@ -10,6 +10,7 @@ import {
   EventEmitter,
   Input,
   OnInit,
+  Optional,
   Output,
 } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
@@ -25,19 +26,19 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
   moods: Mood[] = [];
   step = 0;
   emotions: string[] = [];
-  customCollapsedHeight: string = '48px';
-  customExpandedHeight: string = '48px';
-  emotionCount: number = 0;
+  customCollapsedHeight = '48px';
+  customExpandedHeight = '48px';
+  emotionCount = 0;
   range: string[] = ['Slightly', 'Somewhat', 'Quite', 'Very', 'Extremely'];
   rangeMargin: string[] = ['-10', '17', '63', '100', '125'];
-  rangeValue: string = '';
+  rangeValue = '';
   @Output() moodMessage = new EventEmitter();
   @Output() moodSubmit = new EventEmitter<any>();
-  @Input() forChatBot: boolean = false;
+  @Input() forChatBot = false;
 
   constructor(
     private element: ElementRef,
-    public dialogRef: MatDialogRef<MoodTrackerComponent>,
+    @Optional() public dialogRef: MatDialogRef<MoodTrackerComponent>,
   ) {}
 
   ngOnInit() {
@@ -47,16 +48,16 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
     // this.moods.push(negative_mood, neutral_mood, positive_mood);
   }
   ngAfterViewInit() {
-    let listItem = this.element.nativeElement.querySelectorAll(
+    const listItem = this.element.nativeElement.querySelectorAll(
       '.mat-list-item-content',
     );
-    let listText = this.element.nativeElement.querySelectorAll(
+    const listText = this.element.nativeElement.querySelectorAll(
       '.mat-list-text',
     );
-    let panelBody = this.element.nativeElement.querySelectorAll(
+    const panelBody = this.element.nativeElement.querySelectorAll(
       '.mat-expansion-panel-body',
     );
-    let checkmark = this.element.nativeElement.querySelectorAll(
+    const checkmark = this.element.nativeElement.querySelectorAll(
       ' .mat-checkbox-checkmark-path',
     );
 
@@ -132,12 +133,12 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
   }
 
   showRange(index: number, emotion: string): void {
-    let emotions = this.element.nativeElement.querySelectorAll('.emotions');
+    const emotions = this.element.nativeElement.querySelectorAll('.emotions');
     for (let i = 0; i < emotions.length; i++) {
-      let option_label = emotions[i].querySelector('.emotion-label');
-      let option_label_str: string = option_label.innerText;
+      const option_label = emotions[i].querySelector('.emotion-label');
+      const option_label_str: string = option_label.innerText;
       if (option_label_str === emotion) {
-        let rangeValue = emotions[i].querySelector('.rangeValue');
+        const rangeValue = emotions[i].querySelector('.rangeValue');
         rangeValue.style['margin-left'] = this.rangeMargin[index] + 'px';
         rangeValue.innerText = this.range[index];
       }
@@ -145,19 +146,19 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
   }
 
   onMoodSubmit() {
-    let emotions = this.element.nativeElement.querySelectorAll('.emotions');
+    const emotions = this.element.nativeElement.querySelectorAll('.emotions');
     let count = 0;
     let chatMoodMessage = "I'm feeling ";
-    let neutral_index = 11;
+    const neutral_index = 11;
     for (let i = 0; i < emotions.length; i++) {
-      let option = emotions[i].querySelector('.option');
-      let option_label = emotions[i].querySelector('.emotion-label');
+      const option = emotions[i].querySelector('.option');
+      const option_label = emotions[i].querySelector('.emotion-label');
       if (option.checked) {
-        let option_label_str: string = option_label.textContent;
+        const option_label_str: string = option_label.textContent;
         count += 1;
         if (i !== neutral_index) {
-          let rangeValue = emotions[i].querySelector('.rangeValue');
-          let rangeValue_str: string = rangeValue.textContent;
+          const rangeValue = emotions[i].querySelector('.rangeValue');
+          const rangeValue_str: string = rangeValue.textContent;
           chatMoodMessage +=
             rangeValue_str.trim().toLowerCase() +
             ' ' +
