@@ -92,8 +92,8 @@ export class CreatePostComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
-    //Add 'implements AfterViewInit' to the class.
+    // Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
+    // Add 'implements AfterViewInit' to the class.
     const angEditor = this.elem.nativeElement.querySelectorAll(
       '.angular-editor',
     );

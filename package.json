@@ -25,7 +25,7 @@
     "@angular/pwa": "^0.13.9",
     "@angular/router": "^8.2.14",
     "@angular/service-worker": "^8.2.14",
-    "@arkaghosh024/angular-editor": "^0.16.1",
+    "@arkaghosh024/angular-editor": "^0.16.4",
     "@auth0/angular-jwt": "^2.1.2",
     "bootstrap": "^4.4.1",
     "chart.js": "^2.9.3",

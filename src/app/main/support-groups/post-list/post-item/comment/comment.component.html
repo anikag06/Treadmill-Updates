@@ -11,7 +11,7 @@
         </angular-editor>
         <div class="btn-area text-right">
           <button type="submit" mat-raised-button class="btn comment-btn"
-            [disabled]="this.sanitzer.stripTags(this.editorBody).length === 0">Comment</button>
+            [disabled]="this.sanitizer.stripTags(this.editorBody).length === 0">Comment</button>
           &nbsp;
           <button type="button" mat-raised-button class="cancel-btn" (click)="onCancel()">Cancel</button>
         </div>

@@ -82,7 +82,7 @@ export class CommentComponent
     private commentService: CommentService,
     private ncService: NetstedCommentService,
     private authService: AuthService,
-    private sanitzer: SanitizationService,
+    private sanitizer: SanitizationService,
     private thumbsService: ThumbsService,
     private errorService: GeneralErrorService,
     private changeDetector: ChangeDetectorRef,
@@ -115,7 +115,7 @@ export class CommentComponent
         this.editorBody = this.comment.body;
         if (this.plainBodyLength() > this.partialBodyLength) {
           this.commentBody =
-            this.sanitzer
+            this.sanitizer
               .stripTags(this.comment.body)
               .slice(0, this.partialBodyLength) + ' ...';
           this.partialBody = true;
@@ -216,9 +216,9 @@ export class CommentComponent
   onSubmit() {
     if (
       this.editForm.valid &&
-      this.sanitzer.stripTags(this.editorBody).length > 0
+      this.sanitizer.stripTags(this.editorBody).length > 0
     ) {
-      const updatedCommentBody = this.sanitzer.sanitizeHtml(this.editorBody);
+      const updatedCommentBody = this.sanitizer.sanitizeHtml(this.editorBody);
       this.editSubscription = this.commentService
         .updateComment(this.comment.id, updatedCommentBody)
         .subscribe(
@@ -309,7 +309,7 @@ export class CommentComponent
   }
 
   plainBodyLength() {
-    return this.sanitzer.stripTags(this.comment.body).length;
+    return this.sanitizer.stripTags(this.comment.body).length;
   }
 
   toggleToFullBody() {
