@@ -64,6 +64,8 @@ export class PostItemComponent
   commentNos = 1;
   showProfile = false;
   userProfile = new UserProfile('Name', '', 0, 0, 0, 0, [], [], []);
+  thankYouIcon = '../../../assets/support-group/Group 11055.png';
+  userProfileData = new UserProfile('Name', '', 0, 0, 0, 0);
 
   editorConfig: AngularEditorConfig = {
     // Angular Editor Config
@@ -97,7 +99,7 @@ export class PostItemComponent
     private errorService: GeneralErrorService,
     private changeDetector: ChangeDetectorRef,
     private userProfileService: UserProfileService,
-  ) {}
+  ) { }
 
   /*
    * Angular Lifecycle hookup this is hack to check for updated content
@@ -124,6 +126,15 @@ export class PostItemComponent
    */
   ngOnInit() {
     this.user = <User>this.authService.isLoggedIn();
+    // this.userProfileService.getUserProfile(this.user.username).subscribe(profile => {
+    //   this.userProfileData = new UserProfile(
+    //     profile.username,
+    //     profile.user_avatar,
+    //     profile.score,
+    //     profile.no_of_bronze_badges,
+    //     profile.no_of_silver_badges,
+    //     profile.no_of_gold_badges);
+    // });
   }
 
   /**
@@ -140,7 +151,7 @@ export class PostItemComponent
       }
       try {
         this.changeDetector.detectChanges();
-      } catch (ViewDestroyedError) {}
+      } catch (ViewDestroyedError) { }
     });
   }
 
@@ -152,7 +163,7 @@ export class PostItemComponent
       this.fetchComments();
       try {
         this.changeDetector.detectChanges();
-      } catch (ViewDestroyedError) {}
+      } catch (ViewDestroyedError) { }
     });
   }
 
@@ -179,28 +190,46 @@ export class PostItemComponent
     ) {
       this.disabledValue = true;
       const comment = {
-        post: this.supportGroupItem.id,
+        post_id: this.supportGroupItem.id,
         body: this.commentForm.value['name'],
       };
       this.postCommentSubscription = this.commentService
         .postComment(comment)
         .subscribe(
           (commentResponse: any) => {
+            console.log(this.user);
             const persistedComment = new UserComment(
               commentResponse.data.comment_id,
-              { username: this.user.username },
+              {
+                username: this.user.username,
+              },
               comment.body,
               0,
               0,
               new Date().toISOString(),
               -1,
             );
+            const updatedComment = new UserComment(
+              persistedComment.id, {
+              username: persistedComment.user.username,
+              avatar: this.sgService.userProfileData.user_avatar,
+              score: this.sgService.userProfileData.score,
+              no_of_gold_badges: this.sgService.userProfileData.no_of_gold_badges,
+              no_of_bronze_badges: this.sgService.userProfileData.no_of_bronze_badges,
+              no_of_silver_badges: this.sgService.userProfileData.no_of_silver_badges,
+            },
+              persistedComment.body,
+              persistedComment.up_votes,
+              persistedComment.nested_comment_count,
+              persistedComment.created_at,
+              persistedComment.is_voted
+            );
             this.supportGroupItem.comments_count += 1;
             this.commentForm.reset();
             this.initial = false;
             this.disabledValue = false;
             this.editorConfig.showToolbar = false;
-            this.comments.push(persistedComment);
+            this.comments.push(updatedComment);
             this.commentNos = this.comments.length;
             this.changeDetector.detectChanges();
           },
@@ -212,6 +241,7 @@ export class PostItemComponent
         );
     }
   }
+
 
   /**
    * To fetch comments on posts
@@ -328,13 +358,19 @@ export class PostItemComponent
    */
   onFocusOut(event: FocusEvent) {
     const el = <Element>event.relatedTarget;
+    console.log(el);
     if (
-      el == null ||
-      (el.innerHTML !== 'Comment' &&
-        !el.matches('button.angular-editor-button'))
+      el == null
     ) {
       this.editorConfig.showToolbar = false;
+    } else if (el.matches('button.comment-btn.mat-raised-button')) {
+      this.onSubmit();
+      this.editorConfig.showToolbar = false;
+    } else if (el.innerHTML !== 'Comment' &&
+      !el.matches('button.angular-editor-button')) {
+      console.log('el.matches');
     }
+
   }
 
   /**
@@ -354,7 +390,7 @@ export class PostItemComponent
     this.comments = this.comments.filter(uc => uc.id !== userComment.id);
     try {
       this.changeDetector.detectChanges();
-    } catch (ViewDestroyedError) {}
+    } catch (ViewDestroyedError) { }
   }
 
   /**
@@ -373,7 +409,7 @@ export class PostItemComponent
     this.sgService
       .postUpVote({ post_id: this.supportGroupItem.id, vote: 1 })
       .subscribe(
-        () => {},
+        () => { },
         () => {
           this.errorService.openErrorDialog('Cannot upvote');
           this.supportGroupItem.is_voted = preVote;
@@ -396,9 +432,20 @@ export class PostItemComponent
     }
     this.sgService
       .postUpVote({ post_id: this.supportGroupItem.id, vote: 0 })
-      .subscribe(() => {}, this.errorService.errorResponse('Cannot downvote'));
+      .subscribe(() => { }, this.errorService.errorResponse('Cannot downvote'));
   }
 
+  onThankYou() {
+    //
+  }
+
+  onReportSuicide() {
+    //
+  }
+
+  onReportProblem() {
+    //
+  }
   onTagClick(tag: Tag) {
     this.tagClick.emit(tag.name);
   }

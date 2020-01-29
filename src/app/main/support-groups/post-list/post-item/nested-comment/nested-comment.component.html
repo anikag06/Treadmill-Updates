@@ -1,34 +1,68 @@
-<div class="row no-gutters nested-comment">
+<div class="d-flex nested-comment">
   <div class="col-12" *ngIf="editMode">
     <form class="form form-nc" (ngSubmit)="submitReply()" #replyForm="ngForm">
       <div class="form-group">
         <textarea type="text" name="body" class="form-control" [(ngModel)]="body" [autofocus]></textarea>
       </div>
       <div class="text-right">
-        <button type="submit" class="btn btn-primary btn-sm nc-submit">Save</button>
+        <button type="button" mat-raised-button class="nc-cancel cancel-btn" (click)="onCancel()">Cancel</button>
         &nbsp;
-        <button type="button" class="btn btn-warning btn-sm nc-cancel" (click)="onCancel()">Cancel</button>
+        <button type="submit" mat-raised-button class="nc-submit save-btn">Save</button>
       </div>
     </form>
   </div>
-  <div class="col-3 offset-1 user-section text-center" *ngIf="!editMode" click-outside (clickOutside)="onClickOutside($event)">
-      <div class="nested-comment-profile-card" *ngIf="showProfile">
-          <app-user-profile class="support-group" [userProfile]="userProfile" ></app-user-profile>
+
+  <div class="row no-gutters text-center offset-1 user-section user-avatar" *ngIf="!editMode" click-outside
+    (clickOutside)="onClickOutside($event)">
+    <div class="nested-comment-profile-card" *ngIf="showProfile">
+      <app-user-profile class="support-group" [userProfile]="userProfile"></app-user-profile>
+    </div>
+    <img [src]="userNestedComment.user.avatar" alt="User avatar"
+      (click)="onNestedCommentShowProfile(userNestedComment.user.username)">
+
+
+    <!-- <p class="text-muted user">{{userNestedComment.user.username}}</p> -->
+  </div>
+  <div class="user-stats " *ngIf="!editMode">
+    <div class="row no-gutters">
+      <div class="user">{{userNestedComment.user.username}}</div>
+      <div class=" d-flex flex-row points profile-card">
+        <div class="col scores mr-1">
+          <div class='box-blue'></div>
+          <div class="value">{{userNestedComment.user.score}}</div>
         </div>
-    <img [src]="userNestedComment.user.avatar" alt="User avatar" width="45" height="45" (click)="onNestedCommentShowProfile(userNestedComment.user.username)">
-    <p class="text-muted user">{{userNestedComment.user.username}}</p>
+        <div class="col medal mr-1">
+          <div class='circle gold'></div>
+          <div class="value">{{userNestedComment.user.no_of_gold_badges}}</div>
+        </div>
+        <div class="col medal mr-1 ">
+          <div class='circle silver'></div>
+          <div class="value">{{userNestedComment.user.no_of_silver_badges}}</div>
+        </div>
+        <div class="col medal">
+          <div class='circle bronze'></div>
+          <div class="value">{{userNestedComment.user.no_of_bronze_badges}}</div>
+        </div>
+      </div>
+    </div>
+    <div class="row no-gutters">
+      <div class="col-12" *ngIf="!editMode">
+        <p class="nc">{{userNestedComment.body}}</p>
+
+        <div><span class="date">{{ userNestedComment.created_at |  date: 'medium' | timeAgo }}</span></div>
+        <p style="margin-left:-11px;">
+          <button class="btn btn-sm" (click)="onThumbsUp()"><img [src]="thumbsUp" width="18" height="18">
+            {{userNestedComment.up_votes}}</button>
+          <button class="btn btn-sm" (click)="onThumbsDown()"><img [src]="thumbsDown" width="16" height="16"></button>
+          <button class="btn btn-sm thumbs-down" (click)="onThankYou()"><img class="thankyou-img" [src]="thankYouIcon"
+              width="18" height="18"></button>
+          <span *ngIf="user.username == userNestedComment.user.username">
+            <button class="btn btn-sm nc-edit" (click)="onEdit()">Edit</button>
+            <button class="btn btn-sm nc-delete" (click)="onDelete()">Delete</button>
+          </span>
+
+        </p>
+      </div>
+    </div>
+
   </div>
-  <div class="col-8" *ngIf="!editMode">
-    <p class="nc">{{userNestedComment.body}}</p>
-    <div><span class="text-muted date">{{ userNestedComment.created_at |  date: 'medium' | timeAgo }}</span></div>
-    <p>
-      <button class="btn btn-sm" (click)="onThumbsUp()"><img [src]="thumbsUp" width="18" height="18">
-        {{userNestedComment.up_votes}}</button>
-      <button class="btn btn-sm" (click)="onThumbsDown()"><img [src]="thumbsDown" width="16" height="16"></button>
-      <span *ngIf="user.username == userNestedComment.user.username">
-        <button class="btn btn-sm nc-edit" (click)="onEdit()"><b>Edit</b></button>
-        <button class="btn btn-sm nc-delete" (click)="onDelete()"><b>Delete</b></button>
-      </span>
-    </p>
-  </div>
-</div>

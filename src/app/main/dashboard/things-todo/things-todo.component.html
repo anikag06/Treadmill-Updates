@@ -1,13 +1,17 @@
-<div class="row things-todo">
-  <div class="col-12 things-todo-main">
-    <h3>Things to do:</h3>
-    <ul class="main-list">
+<div class="things-todo">
+
+  <div class="col-12 things-todo-main no-gutters">
+    <h3>Things to do</h3>
+    <ul class="things-todo-main-list">
       <li *ngFor="let todo of todos">
-        <mat-checkbox
-          [checked]="todo.done"
+        <mat-checkbox [checked]="todo.done" [ngStyle]="{'color': todo.done ? '#2DAA84':'black'}"
           (change)="onTodoChange(todo, $event)">
+          <!-- <span class="todoName"> -->
           {{ todo.name }}
+          <!-- </span> -->
+
         </mat-checkbox>
+
       </li>
     </ul>
   </div>

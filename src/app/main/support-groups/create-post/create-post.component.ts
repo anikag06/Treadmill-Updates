@@ -23,6 +23,7 @@ import { User } from '@/shared/user.model';
 import { AngularEditorConfig } from '@arkaghosh024/angular-editor';
 import { SanitizationService } from '../../shared/sanitization.service';
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { TagGroup } from '@/main/shared/tag-group.model';
 
 @Component({
   selector: 'app-create-post',
@@ -30,10 +31,12 @@ import { OverlayContainer } from '@angular/cdk/overlay';
   styleUrls: ['./create-post.component.scss'],
 })
 export class CreatePostComponent implements OnInit {
+  tagsGroup!: TagGroup[];
   tags!: Tag[];
   user!: User;
   formTags: number[] = [];
   errors: any = [];
+  crossIcon = '../../assets/support-group/Close.png';
 
   @ViewChild('checkboxDiv', { static: false }) checkboxDiv!: ElementRef;
 
@@ -72,12 +75,14 @@ export class CreatePostComponent implements OnInit {
     private sanitizer: SanitizationService,
     private fb: FormBuilder,
     private overlayContainer: OverlayContainer,
+    private elem: ElementRef,
   ) {
     overlayContainer.getContainerElement().classList.add('custom-overlay');
     dialogRef.disableClose = true;
   }
 
   ngOnInit() {
+    this.tagsGroup = this.tagService.tagsGroup;
     this.tags = this.tagService.tags;
     this.user = <User>this.authService.isLoggedIn();
     if (this.data) {
@@ -89,7 +94,16 @@ export class CreatePostComponent implements OnInit {
 
       this.formTags = this.data.tags.map(tag => tag.id);
     }
+    console.log('tags data', this.tagsGroup);
     this.buildTags();
+
+  }
+
+  ngAfterViewInit(): void {
+    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
+    //Add 'implements AfterViewInit' to the class.
+    const angEditor = this.elem.nativeElement.querySelectorAll('.angular-editor');
+    angEditor[0].setAttribute('style', ' background-color:white !important;');
   }
 
   formSubmit() {
@@ -127,7 +141,25 @@ export class CreatePostComponent implements OnInit {
           0,
           -1,
         );
-        this.sgService.sendPost(sgItem);
+        const updatedsgItem = new SupportGroupItem(
+          sgItem.id,
+          sgItem.body,
+          sgItem.title,
+          sgItem.tags,
+          {
+            username: sgItem.user.username,
+            avatar: this.sgService.userProfileData.user_avatar,
+            score: this.sgService.userProfileData.score,
+            no_of_gold_badges: this.sgService.userProfileData.no_of_gold_badges,
+            no_of_bronze_badges: this.sgService.userProfileData.no_of_bronze_badges,
+            no_of_silver_badges: this.sgService.userProfileData.no_of_silver_badges,
+          },
+          sgItem.up_votes,
+          sgItem.created_at,
+          sgItem.comments_count,
+          sgItem.is_voted,
+        );
+        this.sgService.sendPost(updatedsgItem);
         this.postForm.reset();
         this.dialogRef.close();
       },
@@ -160,12 +192,42 @@ export class CreatePostComponent implements OnInit {
     });
   }
 
-  onCheckboxChange(tagId: number, event: any) {
-    if (event.currentTarget.checked) {
-      this.formTags.push(tagId);
-    } else {
-      this.formTags = this.formTags.filter(i => tagId !== i);
+  onTagButtonClick(tagId: number, event: any) {
+    console.log('tag clicked', event, tagId);
+    if (event) {
+      if (this.formTags.includes(tagId)) {
+        if (event.target.nodeName === "BUTTON") {
+          console.log('Button');
+          event.target.classList.remove('toggleButton');
+          event.target.children[0].children[0].classList.add('d-none');
+        } else if (event.target.nodeName === "SPAN") {
+          console.log('Span');
+          event.target.parentElement.classList.remove('toggleButton');
+          event.target.children[0].classList.add('d-none');
+        } else {
+          event.target.parentElement.offsetParent.classList.remove('toggleButton');
+          event.target.classList.add('d-none');
+        }
+        console.log(' event.target.innerHTML', event);
+        this.formTags = this.formTags.filter(i => tagId !== i);
+      } else {
+        this.formTags.push(tagId);
+        if (event.target.nodeName === "BUTTON") {
+          console.log('Button');
+          event.target.classList.add('toggleButton');
+          event.target.children[0].children[0].classList.remove('d-none');
+        } else if (event.target.nodeName === "SPAN") {
+          console.log('Span');
+          event.target.parentElement.classList.add('toggleButton');
+          event.target.children[0].classList.remove('d-none');
+        }
+
+        console.log('event', event);
+        // event.target.children[0].classList.remove('d-none');
+
+      }
     }
+
   }
 
   buildTags() {
@@ -201,4 +263,7 @@ export class CreatePostComponent implements OnInit {
   getFormTags() {
     return (<FormArray>this.postForm.get('tags')).controls;
   }
+  // getFormTagsGroup() {
+  //   return (<FormArray>this.postForm.get('tagsGroup')).controls;
+  // }
 }

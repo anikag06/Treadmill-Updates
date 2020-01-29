@@ -1,12 +1,12 @@
 <div class="container-fluid no-gutters-sm body-bg">
   <div class="row no-gutters">
-      <div class="col-md-12">
-        <div class="row no-gutters">
-          <div class="col-12 col-lg-9">
-              <app-post-list></app-post-list>
-          </div>
-          <div class="col-12 col-lg-3 order-first order-lg-last">
-            <!-- <aside class="aside">
+    <div class="col-md-12">
+      <div class="row no-gutters">
+        <div class="col-12 col-lg-8">
+          <app-post-list (createPost)="onCreatePostClick()"></app-post-list>
+        </div>
+        <div class="col-12 col-lg-4 order-first order-lg-last">
+          <!-- <aside class="aside">
                 <div class="content">
                    <div class="text-center">
                       <button class="btn btn-lg btn-warning new-post" (click)="onCreatePostClick()">
@@ -15,23 +15,26 @@
                 </div>
             </aside> -->
 
-             <aside class="aside">
-                <div class="content">
-                   <div class="text-center">
-                      <button mat-raised-button type="submit" class="mr-2 newPostBtn" color="primary" (click)="onCreatePostClick()">
-                        <img src="assets/support-group/edit (1).png" alt="new post" height="42" width="42" class="mr-3"> New Post</button>
-                      </div>
-                <!-- </div>
+          <aside class="aside">
+            <div class="content">
+              <div class="text-center">
+                <button mat-raised-button type="submit" class="mr-2 newPostBtn" color="primary"
+                  (click)="onCreatePostClick()">
+                  <img src="assets/support-group/edit (1).png" alt="new post" height="36" width="36" class="mr-3"> New
+                  Post</button>
+              </div>
+              <!-- </div>
             </aside>
             <aside class="aside">
                 <div class="content"> -->
-                   <div class="text-center">
-                      <img src="assets/support-group/undraw_wall_post_83ul (2).png" alt="new post" width="305px">
-                  </div>
-                </div>
-            </aside>
-          </div>
+              <div class="text-center">
+                <img class="create-img" src="assets/support-group/undraw_wall_post_83ul (2).png" alt="new post"
+                  width="305px">
+              </div>
+            </div>
+          </aside>
         </div>
       </div>
+    </div>
   </div>
 </div>

@@ -46,10 +46,10 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
     return this.userProfile.badge_list_gold;
   }
 
-  getSilverBadgeList(): Badge[] {
+  getSilverBadgeList() {
     return this.userProfile.badge_list_silver;
   }
-  getBronzeBadgeList(): Badge[] {
+  getBronzeBadgeList() {
     return this.userProfile.badge_list_bronze;
   }
 }

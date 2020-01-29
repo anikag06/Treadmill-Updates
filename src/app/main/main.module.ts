@@ -142,7 +142,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { QuestionnaireModule } from '@/questionnaire.module';
 import { GetQuestionnaireComponent } from './dashboard/get-questionnaire/get-questionnaire.component';
 import { IdcHeadingComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-heading/idc-heading.component';
-import { IdcAllSituationsComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-all-situations/idc-all-situations.component';
 import { IdcMainComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-main/idc-main.component';
 import { IdcNatComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-nat/idc-nat.component';
 import { IdcOptionSolutionComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-option-solution/idc-option-solution.component';
@@ -172,6 +171,8 @@ import { LoadingBarService } from './games/shared/loading-bar.service';
 import { LhgGreatComponent } from './games/games-list/common-game/learned-helplessness-game/lhg-great/lhg-great.component';
 import { StepsDataService } from './resources/shared/steps-data.service';
 import { ResourcesModule } from './resources/resources.module';
+import { SuggestedPostComponent } from './dashboard/suggested-post/suggested-post.component';
+import { SuggestedPostItemComponent } from './dashboard/suggested-post/suggested-post-item/suggested-post-item.component';
 
 @NgModule({
   declarations: [
@@ -248,7 +249,6 @@ import { ResourcesModule } from './resources/resources.module';
     UserProfileComponent,
     BadgesComponent,
     GetQuestionnaireComponent,
-    IdcAllSituationsComponent,
     IdcHeadingComponent,
     IdcMainComponent,
     IdcNatComponent,
@@ -275,7 +275,10 @@ import { ResourcesModule } from './resources/resources.module';
     LoadingBarComponent,
     LoadingBarDirective,
     LhgGreatComponent,
-    // MoodTrackerComponent,
+    MoodTrackerComponent,
+    DataTimePickerComponent,
+    SuggestedPostComponent,
+    SuggestedPostItemComponent,
   ],
   imports: [
     CommonModule,
@@ -377,4 +380,4 @@ import { ResourcesModule } from './resources/resources.module';
     // MoodTrackerComponent,
   ],
 })
-export class MainModule {}
+export class MainModule { }

@@ -24,6 +24,7 @@ import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service
 import { IbMainTrainingComponent } from './ib-main-training/ib-main-training.component';
 import { GameMatPropertyService } from '@/main/games/shared/game-mat-property.service';
 import { LoadFilesService } from '@/main/games/shared/load-files.service';
+import { MatTooltip } from '@angular/material';
 
 declare var IBG_MAX_WORDS_HIDDEN: number;
 declare var sentence_number: any;
@@ -54,6 +55,14 @@ declare var ibGameMakeGridArray: any;
 declare var ibg_word_cost: any;
 declare var ibg_coordinate_cost: any;
 declare var ibg_time_cost: any;
+declare var ibg_score: any;
+
+// score varibles for borrowing extra time
+declare var ibg_borrow_time_score: any;
+declare var ibg_borrow_time_again_score: any;
+declare var ibg_btn_give_up_score: any;
+declare var ibg_btn_other_sentence_score: any;
+
 
 @Component({
   selector: 'app-interpretation-bias-game',
@@ -63,7 +72,10 @@ declare var ibg_time_cost: any;
 export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   @ViewChild('ibgameDiv', { static: false }) ibGameDiv!: ElementRef;
 
-  NO_OF_SENTENCES_RECEIVED = 3; // order of first sentence is 0
+  @ViewChild('ibgameDiv', { static: false }) ibGameDiv!: ElementRef;
+  @ViewChild('tooltip', { static: false }) showToolTip!: MatTooltip;
+
+  NO_OF_SENTENCES_RECEIVED = 3;      // order of first sentence is 0
   // LEVEL_UP_SEN = 5;       // level up after how many sentences, here after 5 sentences;
   TOTAL_SENTENCES!: number;
 
@@ -87,6 +99,11 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   coordHintCost: any;
   timeHintCost: any;
 
+  borrow_time_score: any;
+  borrow_time_again_score: any;
+  btn_give_up_score: any;
+  btn_other_sentence_score: any;
+
   SEN_URL = environment.API_ENDPOINT + IBG_SENTENCE;
 
   No_progress_bars = 4;
@@ -105,6 +122,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   allBadgesInfo: BadgesInfo = new BadgesInfo(0, 0, 0, 0, 0, 0);
 
   difficultyValue = 5;
+  tooltipData = "You don't have sufficient points.";
 
   constructor(
     private gameAuthService: GamesAuthService,
@@ -124,19 +142,23 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
     this.dialogBoxService.setDialogChild(IbMainTrainingComponent);
   }
 
+  @HostListener('window:toolTip')
+  showTooltip() {
+    this.tooltipShow();
+  }
+
   ngOnInit() {
-    this.loadFileService
-      .loadExternalScript(
-        'assets/games/interpretation_bias_game/js/sentence_javascript.js',
-      )
-      .then(() => {
-        this.scoresRelatedInfo();
-        this.ibTrainingService.ibgScoreDataObservable.subscribe(res => {
-          this.storeUserScoreInfo(res);
-        });
-        this.initSentencesData();
-      })
-      .catch(() => {});
+    this.loadFileService.loadExternalScript('assets/games/interpretation_bias_game/js/sentence_javascript.js').then(() => {
+      this.scoresRelatedInfo();
+      this.ibTrainingService.ibgScoreDataObservable.subscribe((res) => {
+        this.storeUserScoreInfo(res);
+      });
+      this.initSentencesData();
+      this.borrow_time_again_score = ibg_borrow_time_again_score;
+      this.borrow_time_score = ibg_borrow_time_score;
+      this.btn_give_up_score = ibg_btn_give_up_score;
+      this.btn_other_sentence_score = ibg_btn_other_sentence_score;
+    }).catch(() => { });
 
     // do not delete this (this.findValidSentence()) function, it is important
     // this.findValidSentence();        // this function is used to check if sentences in database are valid for generation of letters grid
@@ -409,4 +431,20 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     clearInterval(inactivity_check_interval);
   }
+
+  forTooltip($event: any) {
+    $event.stopPropagation();
+    //Another instructions
+    this.tooltipShow();
+  }
+  tooltipShow() {
+    if (this.showToolTip.disabled) {
+      this.showToolTip.disabled = false;
+    }
+    // this.showToolTip.position = 'above';
+    this.showToolTip.showDelay = 100;
+    this.showToolTip.hideDelay = 1000;
+    this.showToolTip.toggle();
+  }
+
 }

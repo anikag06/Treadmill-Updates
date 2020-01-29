@@ -69,8 +69,10 @@ var extra_word = false;								//flag for keeping track if the word is in senten
 var bonus_word_score = 5;							//coins for finding an extra word
 
 var ibg_time_cost = 50;						//coins subtracted for using increase time hint
-var borrow_time_score = 100;						//coins subtracted for borrowing time after time's up
-var borrow_time_again_score = 150;					//if more than 15% words then borrowing time after time's up
+var ibg_borrow_time_score = 20;						//coins subtracted for borrowing time after time's up
+var ibg_borrow_time_again_score = 30;					//if more than 15% words then borrowing time after time's up
+var ibg_btn_give_up_score = 35;
+var ibg_btn_other_sentence_score = 100;
 var min_score_increaseTime = 20;					//minimum score to unlock the 'increase the time' power
 var ibg_word_cost = 30; 							// if user uses show word hint
 var guess_word_score = 20;							// if user uses guess the word hint 
@@ -232,7 +234,7 @@ function initializeVariables(){
 	textwidth = [];
 	letters_x_coordinate = [];
 	letters_y_coordinate = [];
-	score = ibGameScore;
+	ibg_score = ibGameScore;
 	$(".game").removeClass("d-none");
 	$('.instructions-row').addClass("d-none");
 	$('.game-first-page').addClass("d-none");
@@ -253,7 +255,7 @@ function getUpdatedVariables() {
 	ibGameUserOrder = sentence_order_array[sentence_number+1];
 	gameLevel = ibGamelevel;
 	gameOrder = ibGameUserOrder;
-	ibGameScore = score;
+	ibGameScore = ibg_score;
 	gameStreak = ibGameStreak;
 	gameResponseTime=0;
 	gameUserSentenceId = sentence_ids[sentence_number];
@@ -382,8 +384,8 @@ $(document).ready(function(){
 	$(document).on("click", "#showWord", function(ev){
 		if($('#showWordResult').hasClass("d-none")){
 			if(showWord(sentence_array[sentence_number])){
-				score = score - ibg_word_cost;
-				document.getElementById("score").innerHTML = score;
+				ibg_score = ibg_score - ibg_word_cost;
+				document.getElementById("score").innerHTML = ibg_score;
 				$('#showWordResult').removeClass("d-none");
 			}
 		}else{
@@ -392,22 +394,26 @@ $(document).ready(function(){
 	});
 
 	$(document).on("click", "#showCoordinates", function(ev){
+		if(ibg_score<ibg_coordinate_cost){
+			showTooltip();
+		} else {
 		if($('#showCoordResult').hasClass("d-none")){
 			if(showFirstLetterCoordinates()){
-				score = score - ibg_coordinate_cost;
-				document.getElementById("score").innerHTML = score;
+				ibg_score = ibg_score - ibg_coordinate_cost;
+				document.getElementById("score").innerHTML = ibg_score;
 			}
 			$('#showCoordResult').removeClass("d-none");
 		}else{
 			$('#showCoordResult').addClass("d-none");
 		}
+	}
 	});
 
 	$(document).on("click", "#guessWord", function(ev){
 		if($('#guessWordResult').hasClass("d-none")){
 			if(guessWord(sentence_array[sentence_number])){
-				score = score - guess_word_score;
-				document.getElementById("score").innerHTML = score;
+				ibg_score = ibg_score - guess_word_score;
+				document.getElementById("score").innerHTML = ibg_score;
 			}
 			$('#guessWordResult').removeClass("d-none");
 			$('#showWord').addClass("d-none");
@@ -421,6 +427,10 @@ $(document).ready(function(){
 	});
 	
 	$(document).on("click","#increase_time", function(ev){
+		if(ibg_score< ibg_time_cost){
+			showTooltip();		
+		} else {
+
 		$('#ibgame-clock-gif').removeClass("d-none");
 		$('#ibgame-clock-png').addClass("d-none");
 		// if(score >= min_score_increaseTime){
@@ -434,8 +444,8 @@ $(document).ready(function(){
 		// if(unlock == true){
 			game_timer = game_timer + increased_time;
 			//ibCountdown();
-			score = score - ibg_time_cost;
-			document.getElementById("score").innerHTML = score;
+			ibg_score = ibg_score - ibg_time_cost;
+			document.getElementById("score").innerHTML = ibg_score;
 		// }else if(unlock == false){
 			//console.log("Need" + min_score_increaseTime + " coins to unlock this power");
 		// }
@@ -444,13 +454,14 @@ $(document).ready(function(){
 			$('#ibgame-clock-png').removeClass("d-none");
 			$('#ibgame-clock-gif').addClass("d-none");
 		},1500);
-
+	}
 	});
 	$(document).on("click",".btn-try-again", function(ev){
 		// score = score-try_again_score;
 		// document.getElementById("score").innerHTML = score;
 		removeAddClassFun();
 		$("#timeup1").addClass("d-none");
+		$("#timeup2").addClass("d-none");
 		startIBGame();
 		isFirstAttempt = false;
 		// countdownReset();
@@ -458,22 +469,32 @@ $(document).ready(function(){
 	});
 	$(document).on("click",".btn-borrow-time", function(ev){
 		//if user had found 0-15% of words and time's up then borrowing time
-		game_timer = game_timer + (borrowed_time);
-		score = score - borrow_time_score;
-		document.getElementById("score").innerHTML = score;
-		removeAddClassFun();
-		$("#timeup1").addClass("d-none");
-		ibCountdown();
+		if (ibg_score< ibg_borrow_time_score) {
+			showTooltip();
+		} else {
+			game_timer = game_timer + (borrowed_time);
+			ibg_score = ibg_score - ibg_borrow_time_score;
+			document.getElementById("score").innerHTML = ibg_score;
+			removeAddClassFun();
+			$("#timeup1").addClass("d-none");
+			ibGameResume();
+			// ibCountdown();
+		}
 	});
 	$(document).on("click",".btn-borrow-time-again", function(ev){
 	//if user had found 15-60% of words and time's up then borrowing time
+	if (ibg_score< ibg_borrow_time_again_score) {
+		showTooltip();
+	} else {
 		game_timer = game_timer +(borrowed_time);
-		score = score-borrow_time_again_score;
-		document.getElementById("score").innerHTML = score;
+		ibg_score = ibg_score-ibg_borrow_time_again_score;
+		document.getElementById("score").innerHTML = ibg_score;
 		removeAddClassFun();
 		$('.game-over-flex-row').addClass("d-none");
 		$("#timeup2").addClass("d-none");
-		ibCountdown();
+		ibGameResume();
+		// ibCountdown();
+	}
 	});
 	
 	$(document).on("click","#ibg-yes", function(ev){  //if the user clicks yes when asked whether the word and sentence are related or not
@@ -485,9 +506,9 @@ $(document).ready(function(){
 		}
 		
 		$("#word").addClass("d-none");
-		score+=coins;
+		ibg_score+=coins;
 		document.getElementById("bonusScore").innerHTML = "Bonus:"+coins;
-		document.getElementById("score").innerHTML = score;
+		document.getElementById("score").innerHTML = ibg_score;
 		$("#lastPage").removeClass("d-none");
 		$(".btn-sentence-word-rel").removeAttr("disabled");
 		$(".main-training").addClass('d-none');
@@ -503,9 +524,9 @@ $(document).ready(function(){
 		}
 	
 		$("#word").addClass("d-none");
-		score+=coins;
+		ibg_score+=coins;
 		document.getElementById("bonusScore").innerHTML = "Bonus:"+coins;
-		document.getElementById("score").innerHTML = score;
+		document.getElementById("score").innerHTML = ibg_score;
 
 		$('#lastPage').removeClass("d-none");
 		$(".btn-sentence-word-rel").removeAttr("disabled");
@@ -515,15 +536,36 @@ $(document).ready(function(){
 
 	$(document).on("click",".btn-give-up", function(ev){
 	 //if time's up and user had found less then 60% of words and then he choose give up option
+	 if (ibg_score< ibg_btn_give_up_score) {
+		showTooltip();
+	} else {
+		ibg_score = ibg_score-ibg_btn_give_up_score;
+		document.getElementById("score").innerHTML = ibg_score;
 		$("#timeup2").addClass("d-none");
 		showSentence();
+	}
 	});
 	
-	$(document).on("click","#btn-next-sentence, .btn-other-sentence", function(ev){
-		answer=false;
-		ibGameScore = score;
-		playNextSentence();
-		isFirstAttempt = true;
+	$(document).on("click",".btn-other-sentence", function(ev){
+		if (ibg_score< ibg_btn_other_sentence_score) {
+			showTooltip();
+		} else {
+			ibg_score = ibg_score-ibg_btn_other_sentence_score;
+			document.getElementById("score").innerHTML = ibg_score;
+			answer=false;
+			ibGameScore = ibg_score;
+			playNextSentence();
+			isFirstAttempt = true;
+		}
+	});	
+
+	$(document).on("click","#btn-next-sentence",function(ev){
+		
+			answer=false;
+			ibGameScore = ibg_score;
+			playNextSentence();
+			isFirstAttempt = true;
+		
 	});	
 	
 	$(document).on("click","#exit", function(e){
@@ -552,8 +594,11 @@ function playNextSentence(){
 }
 
 function hideCanvas(){
-	imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	if (ctx) {
+		imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+	}
+	
 }
 
 function showCanvas(){
@@ -1181,11 +1226,11 @@ function replaceStars(word,strArray,pos, star_sentence){
 	star_sentence= starWords.join(sentence_splitter);				//star sentence now changed, have the words found
 	// countTrue+=1;
 	if(game_timer>FIRST_HINTS_TIME){
-		score=score+(score_each_letter[0]*word.length);
+		ibg_score=ibg_score+(score_each_letter[0]*word.length);
 	}else if(game_timer>SECOND_HINTS_TIME){
-		score=score+(score_each_letter[1]*word.length);
+		ibg_score=ibg_score+(score_each_letter[1]*word.length);
 	}else{
-		score=score+(score_each_letter[2]*word.length);
+		ibg_score=ibg_score+(score_each_letter[2]*word.length);
 	}
 
 	return star_sentence;
@@ -1249,7 +1294,7 @@ function searchWordInArray(str, sorted_words, star_sentence, sentence) {
 					extra_word = true;
 					extra_word_already_found.push(str);
 					ctx.strokeStyle = "black";
-					score = score+bonus_word_score;
+					ibg_score = ibg_score+bonus_word_score;
 				
 				}
 			}
@@ -1388,7 +1433,7 @@ function foundWord(sentence,sentence_word){
 	makeCanvasGrid(playGrid,sorted_words,sentence,GRID_LENGTH);
 	
 	// var storeWord;
-	document.getElementById('score').innerHTML = score;
+	document.getElementById('score').innerHTML = ibg_score;
 }
 
 //swipe detection
@@ -1521,7 +1566,7 @@ function detectSwipe(playGrid,canvas,rect,sorted_words,sentence){
 				sendWord = storeWord;
 				star_sentence = searchWordInArray(sendWord,sorted_words,star_sentence, sentence);  //if word present in sorted words array
 				document.getElementById('stars').innerHTML = star_sentence;
-				document.getElementById('score').innerHTML = score;
+				document.getElementById('score').innerHTML = ibg_score;
 				storeLetter = [];    //clear storeLetter to store another set of letters
 			
 		}
@@ -2169,4 +2214,10 @@ function hiddenWordsInfo(){
 		}
 	}
 	return count;
+}
+
+function showTooltip() {
+	showTooltipEvent = document.createEvent("CustomEvent");
+	showTooltipEvent.initCustomEvent("toolTip");
+	window.dispatchEvent(showTooltipEvent);
 }

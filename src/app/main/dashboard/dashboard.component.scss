@@ -1,34 +1,97 @@
 @import "styles.scss";
 
 .dashboard {
-    @include font-montserrat($font-weight: 400);
+  @include font-montserrat($font-weight: 400);
 }
+
 .grid-item {
-    margin-top: 30px;
-    margin-bottom: 104px;
+  margin-top: 30px;
+  margin-bottom: 104px;
 }
+
 .grid-item:last-child {
-    margin-bottom: 80px;
+  margin-bottom: 80px;
+}
+
+// .suggPostDiv {
+//   min-width: 280px;
+
+// }
+
+// .todoDiv {
+//   min-width: 200px;
+
+// }
+
+.no-gutters {
+  margin: 0;
+  padding: 0;
+}
+
+@media screen and (min-width: 1576px) {
+  .sugg-post-things-todo-row {
+    max-width: 94%;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .suggPostDiv {
+    min-width: 270px;
+
+  }
+
+  .todoDiv {
+    min-width: 200px;
+
+  }
 }
 
 @media screen and (max-width: 767px) {
-    .card {
-        width: 64%;
-        font-size: 14px;
-        line-height: 16px;
-        padding-left: 10px;
-        padding-right: 10px;
-        height: 90px;
-    }
-    .grid-item {
-        margin-top: 30px;
-        margin-bottom: 30px;
-    }
-    .grid-item.chatbot {
-        margin-bottom: 10px;
-    }
-    .grid-item:last-child {
-        margin-bottom: 0px;
-    }
-    
+  .card {
+    width: 64%;
+    font-size: 14px;
+    line-height: 16px;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 90px;
+  }
+
+  .grid-item {
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+
+  .grid-item.chatbot {
+    margin-bottom: 10px;
+  }
+
+  .grid-item:last-child {
+    margin-bottom: 0px;
+  }
+
+  .suggPostDiv {
+    min-width: 400px;
+    margin: auto;
+
+  }
+
+  .todoDiv {
+    min-width: 400px;
+    margin: auto;
+  }
+
+}
+
+@media screen and (max-width: 576px) {
+  .suggPostDiv {
+    min-width: 342px;
+    margin: auto;
+
+  }
+
+  .todoDiv {
+    min-width: 342px;
+    margin: auto;
+
+  }
 }

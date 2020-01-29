@@ -28,6 +28,7 @@ export class NestedCommentComponent implements OnInit, AfterContentInit, DoCheck
   thumbsDown = '';
   showProfile = false;
   userProfile = new UserProfile('Name', '', 0, 0, 0, 0, [], [], []);
+  thankYouIcon = '../../../assets/support-group/Group 11055.png';
 
   constructor(
     private ncService: NetstedCommentService,
@@ -36,7 +37,7 @@ export class NestedCommentComponent implements OnInit, AfterContentInit, DoCheck
     private errorService: GeneralErrorService,
     private changeDetector: ChangeDetectorRef,
     private userProfileService: UserProfileService,
-  ) {}
+  ) { }
 
   /**
    * Lifecycle hook on init
@@ -76,7 +77,7 @@ export class NestedCommentComponent implements OnInit, AfterContentInit, DoCheck
         .subscribe(
           (data: any) => {
             this.editMode = false;
-            this.userNestedComment = {...this.userNestedComment, body: this.body};
+            this.userNestedComment = { ...this.userNestedComment, body: this.body };
             this.submitting = false;
             this.changeDetector.detectChanges();
           },
@@ -121,7 +122,7 @@ export class NestedCommentComponent implements OnInit, AfterContentInit, DoCheck
     }
     this.ncService.voteComment({ nested_comment_id: this.userNestedComment.id, vote: 1 })
       .subscribe(
-        () => {},
+        () => { },
         () => {
           this.errorService.openErrorDialog('Cannot Upvote');
           this.userNestedComment.is_voted = preVote;
@@ -144,7 +145,7 @@ export class NestedCommentComponent implements OnInit, AfterContentInit, DoCheck
     }
     this.ncService.voteComment({ nested_comment_id: this.userNestedComment.id, vote: 0 })
       .subscribe(
-        () => {},
+        () => { },
         () => {
           this.errorService.openErrorDialog('Cannot down vote');
         }

@@ -27,19 +27,22 @@ export class IdcScoreComponent implements OnInit, OnDestroy {
   score!: number;
   timeLeft!: number;
   levelinitaliseSub!: any;
+  startTimerSub: any;
+  stopTimerSub: any;
+  idcTimer: any[] = [];
 
   @ViewChild('checkElement', { static: false }) element!: ElementRef;
 
   constructor(
     private gameService: IdcGameService,
     private dialogBoxService: DialogBoxService,
-  ) {}
+  ) { }
 
   ngOnInit() {
-    this.gameService.stopTimer.subscribe(() => {
+    this.stopTimerSub = this.gameService.stopTimer.subscribe(() => {
       this.stopTimer();
     });
-    this.gameService.startTimer.subscribe(() => {
+    this.startTimerSub = this.gameService.startTimer.subscribe(() => {
       this.startTimer();
     });
     this.levelinitaliseSub = this.gameService.levelInitialise.subscribe(() => {
@@ -58,6 +61,11 @@ export class IdcScoreComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy(): void {
     this.levelinitaliseSub.unsubscribe();
+    this.startTimerSub.unsubscribe();
+    this.stopTimerSub.unsubscribe();
+    this.idcTimer.forEach(() => {
+      clearInterval(this.interval);
+    });
   }
 
   openCustomDialog() {
@@ -81,6 +89,7 @@ export class IdcScoreComponent implements OnInit, OnDestroy {
       }
     }, 1000);
     console.log('interval name', this.interval);
+    this.idcTimer.push(this.interval);
   }
 
   stopTimer() {

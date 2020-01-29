@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { Todo } from '@/main/shared/todo.model';
+import { TasksService } from '@/main/resources/forms/shared/tasks/tasks.service';
 
 @Component({
   selector: 'app-things-todo',
@@ -9,15 +10,18 @@ import { Todo } from '@/main/shared/todo.model';
 
 export class ThingsTodoComponent implements OnInit {
 
-  todos = [
-    new Todo('Visit peer group', true),
-    new Todo('Play a game', false),
-    new Todo('Start your next module', false),
-  ];
-
-  constructor() { }
+  todos: Todo[] = [];
+  element!: ElementRef;
+  constructor(private taskService: TasksService) { }
 
   ngOnInit() {
+    this.taskService.getTodoList()
+      .subscribe(
+        (data: any) => { this.todos = data.results; });
+  }
+
+  ngAfterViewInit() {
+
   }
 
   onTodoChange(todo: Todo, event: Event) {

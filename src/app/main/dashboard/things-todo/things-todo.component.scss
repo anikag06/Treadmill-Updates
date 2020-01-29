@@ -1,59 +1,116 @@
 @import "styles.scss";
 
 .things-todo {
-    @include box-shadow-1-1-10-d6();
-    background-color: #ffffff;
-    width: 330px;
-    border-radius: 10px;
-    overflow: hidden;
-    .things-todo-main {
-        border-left: 55px solid #f7e2df;
-        height: 260px;
-        h3 {
-            font-size: 18px;
-            padding: 22px 5px 20px 0;
-            font-weight: 600;
-        }
-        .main-list {
-            list-style: none;
-            padding-left: 0;
-            li {
-                margin: 10px 0;
-                
-            }
-        }
+  //   @include box-shadow-1-1-10-d6();
+  box-shadow: 0px 2px 8px #00000033;
+  max-width: 300px;
+  overflow: hidden;
+  background-color: white;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  font-family: "Roboto";
+
+  .things-todo-main {
+    border-top: 50px solid #2DAA84;
+    height: 450px;
+
+
+    h3 {
+      font-size: 20px;
+      padding: 0px 5px 20px 25px;
+      font-weight: 500;
+      color: white;
+      top: -35px;
+      position: absolute;
     }
+
+    .things-todo-main-list {
+      list-style: none;
+      font-size: 16px;
+      padding: 20px 5px 20px 25px;
+
+      li {
+        margin: 10px 0;
+
+      }
+    }
+  }
 }
 
-@media screen and (max-width: 1300px) {
-    .things-todo {
-        width: 250px;
-        .things-todo-main {
-            border-left: 30px solid #f7e2df;
-            height: 253px;
-            .mat-checkbox-label {
-                font-size: 14px !important;
-            }
-        }
+.no-gutters {
+  margin: 0;
+  padding: 0;
+}
+
+// @media screen and (min-width: 1576px) {
+//   .things-todo {
+//     width: 266px;
+//     margin-left: 30px;
+//   }
+// }
+
+
+@media screen and (min-width: 1200px) and (max-width:1270px) {
+  .things-todo {
+    width: 200px;
+    margin-left: 20px;
+  }
+}
+
+
+@media screen and (min-width: 1271px) {
+  .things-todo {
+    min-width: 200px;
+    margin-left: 20px;
+
+    .things-todo-main {
+      border-top: 50px solid #2DAA84;
+
+      // height: 253px;
+
+      .mat-checkbox-label {
+        font-size: 14px !important;
+      }
     }
+  }
 }
 
 @media screen and (max-width: 991px) {
-    .things-todo {
-        width: 280px;
-        .things-todo-main {
-            border-left: 30px solid #f7e2df;
-        }
+  .things-todo {
+    // width: 280px;
+
+    .things-todo-main {
+      border-top: 50px solid #2DAA84;
+
+
     }
+  }
 }
 
+@media screen and (max-width: 1199px) and (min-width: 768px) {
+  .things-todo {
+    max-width: 88%;
+    margin: auto;
+    margin-bottom: 20px;
+  }
+}
 
 @media screen and (max-width: 767px) {
-    .things-todo {
-        width: 330px;
-        .things-todo-main {
-            height: 260px;
-            border-left: 30px solid #f7e2df;
-        }
+  .things-todo {
+    // width: 330px;
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
+    margin-bottom: 20px;
+
+    .things-todo-main {
+      height: 205px;
+      border-top: 40px solid #2DAA84;
+
+      h3 {
+        top: -30px;
+      }
+
     }
+  }
 }

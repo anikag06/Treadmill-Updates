@@ -53,6 +53,7 @@ $small_logo_height: 40px;
   font-weight: $font-weight;
   font-style: $font-style;
 }
+
 @mixin common-dialog-style() {
   background-color: mat-color($treadwill-app-primary);
   color: $mat-white;
@@ -81,6 +82,7 @@ $small_logo_height: 40px;
     width: 80% !important;
   }
 }
+
 .signup-dialog .mat-dialog-container {
   @include common-dialog-style();
 
@@ -94,6 +96,7 @@ $small_logo_height: 40px;
     width: 80% !important;
   }
 }
+
 .contact-us-dialog .mat-dialog-container {
   @include common-dialog-style();
 
@@ -119,6 +122,11 @@ $small_logo_height: 40px;
     display: none;
   }
 }
+
+.create-new-post .mat-dialog-container {
+  background: #fffaf3;
+}
+
 
 // to make the login dialog scrollable in mobile landscape mode
 .cdk-global-overlay-wrapper {
@@ -153,7 +161,7 @@ $small_logo_height: 40px;
   position: absolute;
   bottom: 0;
 
-  > .mat-list-item-content {
+  >.mat-list-item-content {
     flex-direction: column !important;
   }
 
@@ -180,13 +188,14 @@ $small_logo_height: 40px;
 .font-roboto-normal {
   @include font-roboto($font-weight: 500);
 }
+
 .font-roboto-bold {
   @include font-roboto($font-weight: 700);
 }
 
 .app-main {
   // min-height: 100vh;
-  background-image: url('assets/modules/background.png');
+  background-color: #FAF4EA;
 }
 
 .row-nopadding {
@@ -197,6 +206,13 @@ $small_logo_height: 40px;
 .mat-checkbox-label {
   font-family: 'Lato', sans-serif !important;
 }
+
+.things-todo-main-list {
+  .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+    background-color: #2DAA84 !important;
+  }
+}
+
 img.emoji {
   height: 1.1em;
   width: 1.1em;
@@ -216,6 +232,7 @@ img.emoji {
   width: 100%;
   min-height: 80vh;
 }
+
 .full-width {
   width: 100%;
 }
@@ -227,6 +244,7 @@ img.emoji {
 .btn-underline {
   text-decoration: underline;
 }
+
 .btn-underline:hover {
   text-decoration: underline !important;
 }
@@ -247,10 +265,12 @@ img.emoji {
     padding-left: 20px;
     padding-top: 30px;
   }
+
   .custom-overlay {
     .cdk-overlay-pane {
-      max-width: 94vw !important;
-      width: 94vw !important;
+      // max-width: 94vw !important;
+      // width: 94vw !important;
+
       .mat-dialog-container {
         margin-top: 10px;
         margin-bottom: 10px;
@@ -275,6 +295,7 @@ img.emoji {
 }
 
 @media screen and (max-height: 640px) {
+
   .owl-dt-inline-container .owl-dt-calendar,
   .owl-dt-popup-container .owl-dt-calendar {
     height: 17.25em;

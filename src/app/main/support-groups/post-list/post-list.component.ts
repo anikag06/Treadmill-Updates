@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { SupportGroupsService } from '../support-groups.service';
 import { Subscription } from 'rxjs';
 import { SupportGroupItem } from '../support-group-item.model';
@@ -15,6 +15,8 @@ import { GeneralErrorService } from '@/main/shared/general-error.service';
   styleUrls: ['./post-list.component.scss'],
 })
 export class PostListComponent implements OnInit, OnDestroy {
+
+  @Output() createPost = new EventEmitter<any>();
   posts: SupportGroupItem[] = [];
   newPosts: SupportGroupItem[] = [];
   sgServiceSubscription!: Subscription;
@@ -29,6 +31,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   searchTerm = '';
   tags: string[] | null = null;
   searchResultCount = 0;
+  clearSearch!: boolean;
 
   constructor(
     private sgService: SupportGroupsService,
@@ -37,7 +40,7 @@ export class PostListComponent implements OnInit, OnDestroy {
     private scrollService: ScrollingService,
     public dialog: MatDialog,
     private errorService: GeneralErrorService,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.queryParamsSubscription = this.route.queryParams.subscribe(data => {
@@ -73,6 +76,7 @@ export class PostListComponent implements OnInit, OnDestroy {
     this.scrollService.scrollingBehaviour.subscribe((i: number) =>
       this.onScroll(i),
     );
+    this.clearSearch = false;
   }
 
   ngOnDestroy() {
@@ -144,6 +148,10 @@ export class PostListComponent implements OnInit, OnDestroy {
         this.navigateSearch();
       }, 200);
     }
+    if (this.searchTerm !== "") {
+      this.clearSearch = true;
+    }
+
   }
 
   /**
@@ -214,6 +222,7 @@ export class PostListComponent implements OnInit, OnDestroy {
       this.posts = [];
       this.tagsToSearch();
       this.navigateSearch();
+      this.clearSearch = true;
     }
   }
 
@@ -227,6 +236,7 @@ export class PostListComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.getPosts();
     }, 200);
+    this.clearSearch = false;
   }
 
   /**
@@ -235,6 +245,10 @@ export class PostListComponent implements OnInit, OnDestroy {
 
   onClear() {
     //
+  }
+
+  onNewPostClick() {
+    this.createPost.emit();
   }
 
   resetParams() {

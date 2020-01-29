@@ -7,77 +7,61 @@
     <mat-icon>delete</mat-icon>
     <span>Delete</span>
   </button>
-  <button mat-menu-item *ngIf="!ownPost() || user.is_admin">
+  <button mat-menu-item (click)="onReportProblem()" *ngIf="!ownPost() || user.is_admin">
     <mat-icon>report_problem</mat-icon>
     <span>Report Problem</span>
   </button>
-  <button mat-menu-item *ngIf="!ownPost() || user.is_admin">
+  <button mat-menu-item (click)="onReportSuicide()" *ngIf="!ownPost() || user.is_admin">
     <mat-icon>error</mat-icon>
-    <span>Report Sucide</span>
+    <span>Report Suicide</span>
   </button>
 </mat-menu>
-<div class="post-item profile-card">
-  <div class="row no-gutters" click-outside (clickOutside)="onClickOutside($event)">
+<div class="post-item">
+  <div class="d-flex flex-row" click-outside (clickOutside)="onClickOutside($event)">
     <div class="support-profile-card" *ngIf="showProfile">
       <app-user-profile class="support-group" [userProfile]="userProfile"></app-user-profile>
     </div>
-    <div class="col col-sm-2 justify-content-start">
-      <img [src]="supportGroupItem.user.avatar" alt="User avatar" width="50" height="50" class='post-user-avatar'
-        (click)="onShowProfile(supportGroupItem.user.username)">
-    </div>
-    <div class="col col-sm-3 justify-content-start">
-      <p class='user-avatar-username mb-0 text-muted'><b>{{supportGroupItem.user.username}}</b></p>
-      <p><span class='post-time text-muted'>{{supportGroupItem.created_at | date: 'medium' | timeAgo }}</span></p>
+    <div class=" d-inline-flex flex-row align-items-start">
 
-    </div>
-    <!-- <div class="col-9">
-      <div class="main-header">
-        <h2>{{supportGroupItem.title}}</h2>
-        <p><span class='post-time text-muted'>{{supportGroupItem.created_at | date: 'medium' | timeAgo }}</span></p>
-        <div class="tags" *ngIf="supportGroupItem.tags.length > 0">
-          <span *ngFor="let tag of supportGroupItem.tags">
-            <a (click)="onTagClick(tag)">{{tag.name}}</a>
-            &nbsp;
-          </span>
+      <img [src]="supportGroupItem.user.avatar" alt="User avatar" width="42" height="42" class='post-user-avatar'
+        (click)="onShowProfile(supportGroupItem.user.username)">
+
+      <div class=" d-flex flex-column align-items-start">
+        <div class="user-stats d-flex flex-row align-items-start">
+          <div class='user-avatar-username mb-0'>{{supportGroupItem.user.username}}</div>
+
+          <div class="d-flex points flex-row profile-card mb-0">
+            <div class="col scores mr-2">
+              <div class='box-blue'></div>
+              <div class="value">{{supportGroupItem.user.score}}</div>
+            </div>
+            <div class="col medal mr-2">
+              <div class='circle gold'></div>
+              <div class="value">{{supportGroupItem.user.no_of_gold_badges}}</div>
+            </div>
+            <div class="col medal mr-2">
+              <div class='circle silver'></div>
+              <div class="value">{{supportGroupItem.user.no_of_silver_badges}}</div>
+            </div>
+            <div class="col medal mr-2">
+              <div class='circle bronze'></div>
+              <div class="value">{{supportGroupItem.user.no_of_bronze_badges}}</div>
+            </div>
+          </div>
+
         </div>
+        <span class='post-time text-muted mt-auto'>{{supportGroupItem.created_at | date: 'medium' | timeAgo }}</span>
       </div>
-    </div> -->
-    <!-- <div class="profile-card"> -->
-    <div class="col scores mr-2 pt-1">
-      <div class='box-blue'></div>
-      <div class="value">{{supportGroupItem.user.score}}</div>
     </div>
-    <div class="col medal mr-2 pt-1">
-      <div class='circle gold'></div>
-      <div class="value">{{supportGroupItem.user.no_of_gold_badges}}</div>
-    </div>
-    <div class="col medal mr-2 pt-1">
-      <div class='circle silver'></div>
-      <div class="value">{{supportGroupItem.user.no_of_silver_badges}}</div>
-    </div>
-    <div class="col medal mr-2 pt-1">
-      <div class='circle bronze'></div>
-      <div class="value">{{supportGroupItem.user.no_of_bronze_badges}}</div>
-    </div>
-    <!-- </div> -->
-    <div class="col justify-content-end">
-      <div class="context-button">
-        <button mat-icon-button [matMenuTriggerFor]="menu">
-          <mat-icon>more_vert</mat-icon>
-        </button>
-      </div>
+    <div class="d-inline-flex context-button ml-auto">
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
     </div>
   </div>
   <div class="row no-gutters mt-1">
     <div class="main-header">
       <h2>{{supportGroupItem.title}}</h2>
-      <!-- <p><span class='post-time text-muted'>{{supportGroupItem.created_at | date: 'medium' | timeAgo }}</span></p> -->
-      <!-- <div class="tags" *ngIf="supportGroupItem.tags.length > 0">
-        <span *ngFor="let tag of supportGroupItem.tags">
-          <a (click)="onTagClick(tag)">{{tag.name}}</a>
-          &nbsp;
-        </span>
-      </div> -->
     </div>
   </div>
 
@@ -93,9 +77,9 @@
   </div>
 
   <div class="row no-gutters mt-2">
-    <div class='col-12'>
-      <div class="tags" *ngIf="supportGroupItem.tags.length > 0">
-        <span *ngFor="let tag of supportGroupItem.tags">
+    <div class='d-flex align-content-between flex-wrap' *ngIf="supportGroupItem.tags.length > 0">
+      <div class="tags" *ngFor="let tag of supportGroupItem.tags">
+        <span>
           <a (click)="onTagClick(tag)">{{tag.name}}</a>
           &nbsp;
         </span>
@@ -108,6 +92,7 @@
       <button class="btn btn-sm thumbs-up" (click)="onThumbsUp()"><img [src]="thumbsUp" width="20">
         {{supportGroupItem.up_votes}}</button>
       <button class="btn btn-sm thumbs-down" (click)="onThumbsDown()"><img [src]="thumbsDown" width="20"></button>
+      <button class="btn btn-sm thumbs-down" (click)="onThankYou()"><img [src]="thankYouIcon" width="20"></button>
     </div>
   </div>
   <div class="row no-gutters comments-row">
@@ -117,20 +102,25 @@
       </app-comment>
     </ng-container>
     <div class="col-12 text-center">
-      <button class="btn btn-sm btn-block btn-primary" type="button" *ngIf="showLoadMore()"
-        (click)="fetchOrShowComments()">
-        View comments ({{supportGroupItem.comments_count - commentNos }})
-      </button>
+      <!-- <button class="btn btn-sm btn-block btn-primary" type="button" *ngIf="showLoadMore()"
+        (click)="fetchOrShowComments()"> -->
+      <!-- <button type="button" mat-raised-button class="comments-btn" *ngIf="showLoadMore()"
+        (click)="fetchOrShowComments()"> -->
+      <a *ngIf="showLoadMore()" class="toggler" (click)="fetchOrShowComments()">View comments
+        ({{supportGroupItem.comments_count - commentNos }})</a>
+      <!-- </button> -->
     </div>
   </div>
   <div class="row no-gutters">
     <div class="col-12">
+      <!-- <form (ngSubmit)="onSubmit()" #mainComment="ngForm"> -->
       <form (ngSubmit)="onSubmit()" #mainComment="ngForm">
         <fieldset [disabled]="disabledValue" class="comment-form">
           <angular-editor name="name" ngModel required (focus)="onFocus()" (focusout)="onFocusOut($event)"
             [config]="editorConfig"></angular-editor>
           <div class="text-right">
-            <button type="submit" class="btn btn-primary btn-sm" *ngIf="editorConfig.showToolbar">Comment</button>
+            <button type="submit" mat-raised-button class="comment-btn"
+              *ngIf="editorConfig.showToolbar">Comment</button>
           </div>
         </fieldset>
       </form>

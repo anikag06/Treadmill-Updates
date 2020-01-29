@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+declare var ffg_music_notes_array: any;
+declare var ffg_loaded_friendly_images: any;
+declare var ffg_loaded_hostile_images: any;
 
 @Component({
   selector: 'app-loading-bar',
@@ -9,7 +12,7 @@ export class LoadingBarComponent implements OnInit {
   loadingBarValue!: number;
   loadingInterval: any;
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit() {
     this.loadingInterval = setInterval(() => {
@@ -24,14 +27,17 @@ export class LoadingBarComponent implements OnInit {
     } else if (document.readyState === 'interactive') {
       this.loadingBarValue = 75;
     } else if (document.readyState === 'complete') {
-      this.loadingBarValue = 100;
-      clearInterval(this.loadingInterval);
-      setTimeout(() => {
-        const domEvent = new CustomEvent('removeloadingBarEvent', {
-          bubbles: true,
-        });
-        window.dispatchEvent(domEvent);
-      }, 1000);
+      this.loadingBarValue = 95;
+      if (ffg_music_notes_array.length !== 0 && ffg_loaded_friendly_images.length !== 0 && ffg_loaded_hostile_images.length !== 0) {
+        this.loadingBarValue = 100;
+        clearInterval(this.loadingInterval);
+        setTimeout(() => {
+          const domEvent = new CustomEvent('removeloadingBarEvent', {
+            bubbles: true,
+          });
+          window.dispatchEvent(domEvent);
+        }, 1000);
+      }
     }
   }
 }

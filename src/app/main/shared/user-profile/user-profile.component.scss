@@ -1,32 +1,40 @@
 .mat-card {
   padding: 0;
 }
+
 .mat-card-avatar {
   height: 117px;
   width: 117px;
   padding-left: 15px;
   padding-top: 15px;
 }
+
 .mat-card-title {
   margin-top: 30px;
   font-size: 30px;
   color: whitesmoke;
 }
+
 .mat-card-actions {
   position: absolute;
   bottom: 5px;
   right: 0;
   margin-right: 20px;
 }
+
 .mat-tab-body.mat-tab-body-active {
   overflow: hidden;
 }
 
 .profile-card {
-  max-width: 86%;
+  // max-width: 86%;
+  max-width: 93%;
+  margin-left: -15px;
+
   .profile-header {
     background: #343434 0% 0% no-repeat padding-box;
     height: 35%;
+
     .profile-image {
       height: 100%;
       width: 100%;
@@ -37,6 +45,7 @@
       flex-wrap: inherit;
     }
   }
+
   .box-blue {
     height: 11px;
     width: 11px;
@@ -45,6 +54,7 @@
     background-color: blue;
     text-align: right;
   }
+
   .circle {
     height: 11px;
     width: 11px;
@@ -53,21 +63,26 @@
     bottom: 8px;
     display: inline-block;
   }
+
   .gold {
     background: transparent linear-gradient(137deg, #ffd76a 0%, #dfad21 100%) 0% 0% no-repeat padding-box;
   }
+
   .silver {
     background: transparent linear-gradient(137deg, #d4d4d4 0%, #c4c4c4 100%) 0% 0% no-repeat padding-box;
   }
+
   .bronze {
     background: transparent linear-gradient(141deg, #efb05e 0%, #b27725 100%) 0% 0% no-repeat padding-box;
   }
+
   .value {
     margin-left: 15px;
     font-size: 1.4rem;
     color: #c1c1c1;
   }
 }
+
 .scores {
   padding-left: 15px;
   width: 250px;
@@ -80,6 +95,7 @@
   flex-grow: 0;
   margin-right: 12px;
 }
+
 .label-circle {
   height: 11px;
   width: 11px;
@@ -87,10 +103,12 @@
   bottom: 8px;
   display: inline-block;
 }
+
 .tab-label {
   padding-left: 0px;
   padding-right: 0px;
 }
+
 .mat-card-avatar {
   height: 100px;
   width: 100px;
@@ -98,67 +116,94 @@
   padding-top: 15px;
   margin-top: 10px;
 }
+
 .mat-card-actions {
   margin-right: 10px;
 }
 
-@media screen and (min-width: 768px) and (max-width: 1320px) {
+@media screen and (min-width: 1576px) {
+  .profile-card {
+    max-width: 86%;
+  }
+}
+
+@media screen and (min-width: 1200px) and (max-width:1270px) {
+  .profile-card {
+    max-width: 490px;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1199px) {
   .profile-card {
     max-width: 85%;
     margin: auto;
+
     .profile-header {
       max-height: 100px;
+
       .profile-image {
         height: 80%;
         width: 80%;
       }
     }
+
     .value {
       margin-left: 10px;
       font-size: 14px;
     }
+
     .circle {
       bottom: 5px;
       height: 8px;
       width: 8px;
     }
+
     .box-blue {
       bottom: 8px;
       height: 9px;
       width: 9px;
     }
+
     .mat-card-title {
       margin-top: 20px;
       font-size: 25px;
     }
+
     .medal {
       margin-right: 3px;
     }
+
     .mat-tab-label {
       min-width: 90px;
       height: 40px;
     }
+
     .scores {
       width: 200px;
     }
   }
+
   .mat-card-avatar {
     margin-top: 8px;
   }
-  
+
 }
+
 :host-context(.support-group) .profile-card {
   margin: 0;
   max-width: 98%;
 }
+
 @media screen and (max-width: 767px) {
   .mat-card-avatar {
     height: 90px;
     width: 90px;
   }
+
   .mat-card-header-text {
     margin: 0 px;
   }
+
   .profile-card {
     margin: auto;
     width: 95%;
@@ -170,6 +215,7 @@
         height: 80%;
         width: 80%;
       }
+
       .mat-card-header-text {
         margin: 0 px;
       }
@@ -183,15 +229,18 @@
         font-size: 20px;
       }
     }
+
     .value {
       margin-left: 12px;
       font-size: 14px;
     }
+
     .circle {
       bottom: 5px;
       height: 9px;
       width: 9px;
     }
+
     .box-blue {
       bottom: 7px;
       height: 9px;
@@ -201,13 +250,16 @@
     .medal {
       margin-right: 3px;
     }
+
     .mat-tab-label {
       height: 40px;
     }
+
     .scores {
       width: 150px;
     }
   }
+
   .mat-card-avatar {
     margin-top: 0px;
   }

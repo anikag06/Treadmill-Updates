@@ -95,7 +95,9 @@ declare var ffg_music_current_order: number;
 declare var fillMusicBar: any;
 declare var toneNumber: number;
 declare var ffGamePlay: any;
-declare var ffg_music: any;
+declare var ffg_music_notes_array: any;
+declare var ffg_loaded_friendly_images: any;
+declare var ffg_loaded_hostile_images: any;
 
 // for mental imagery game
 declare var miGameShowTutorial: boolean;
@@ -138,7 +140,7 @@ export class GamePlayService {
   // for mental imagery games
 
   // for friendly face game
-  ffg_show_tutorial!: any;
+  ffg_show_tutorial!: boolean;
 
   constructor(
     private gamesService: GamesService,
@@ -149,7 +151,7 @@ export class GamePlayService {
     private miCurrentStateService: MICurrentStateService,
     private ffghelpService: FfgHelpService,
     private idcGameService: IdcGameService,
-  ) {}
+  ) { }
 
   getGameInfo(slug: string) {
     return this.gamesService
@@ -300,10 +302,10 @@ export class GamePlayService {
 
       this.gamesAuthService
         .ecGameStoreGameInfo(this.ecGameDataObject)
-        .subscribe(() => {});
+        .subscribe(() => { });
       this.gamesAuthService
         .ecGameUpdateUserData(this.ecGameUserDataObject)
-        .subscribe(data => {});
+        .subscribe(data => { });
     }
   }
 
@@ -326,7 +328,7 @@ export class GamePlayService {
         this.ecGameDiscriminationData.flanker_task_id = flanker_data.data.id;
         this.gamesAuthService
           .ecGameStoreDiscriminationTaskData(this.ecGameDiscriminationData)
-          .subscribe(dis_data => {});
+          .subscribe(dis_data => { });
       });
   }
 
@@ -495,7 +497,7 @@ export class GamePlayService {
           this.lhGameUserLevel.level = this.lhGameColorReverse.level;
           this.gamesAuthService
             .lhGameUpdateUserLevel(this.lhGameUserLevel)
-            .subscribe(() => {});
+            .subscribe(() => { });
         }
       });
   }
@@ -525,7 +527,7 @@ export class GamePlayService {
 
     this.gamesAuthService
       .lhGameUpdateTask1Data(task1performance, isFirstLevel)
-      .subscribe(() => {});
+      .subscribe(() => { });
     console.log('task1 data', task1performance);
   }
   lhGameStoreTask2Data() {
@@ -538,7 +540,7 @@ export class GamePlayService {
 
     this.gamesAuthService
       .lhGameUpdateTask2Data(task2performance, storeTask2Data[3])
-      .subscribe(() => {});
+      .subscribe(() => { });
   }
   lhGameStoreTask3Data() {
     let storeTask3Data;
@@ -550,7 +552,7 @@ export class GamePlayService {
 
     this.gamesAuthService
       .lhGameUpdateTask3Data(task3performance, storeTask3Data[3])
-      .subscribe(() => {});
+      .subscribe(() => { });
   }
   pauseLHGame() {
     lhGamePause();
@@ -583,13 +585,15 @@ export class GamePlayService {
     }
 
     const tid = setInterval(() => {
-      if (document.readyState !== 'complete') {
+      if (document.readyState !== 'complete' || ffg_music_notes_array.length === 0 || ffg_loaded_friendly_images.length === 0 || ffg_loaded_hostile_images.length === 0) {
+        console.log('checking if statement', ffg_music_notes_array.length);
         return;
       }
       clearInterval(tid);
       // function to be called when document is ready
+      console.log('calling ffgame start');
       ffGameStart(device_type);
-    }, 100);
+    }, 1000);
   }
   pauseFaceGame() {
     ffGPauseGame();
@@ -600,7 +604,7 @@ export class GamePlayService {
   restartFaceGame() {
     ffGRestartGame();
   }
-  musicFaceGame() {}
+  musicFaceGame() { }
   helpFFGGame() {
     this.dialogBoxService.setDialogChild(FfgInstructionsComponent);
     this.resumeFaceGame();
