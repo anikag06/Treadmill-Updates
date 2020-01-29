@@ -123,6 +123,10 @@ $small_logo_height: 40px;
   }
 }
 
+.create-new-post .mat-dialog-container {
+  background: #fffaf3;
+}
+
 
 // to make the login dialog scrollable in mobile landscape mode
 .cdk-global-overlay-wrapper {

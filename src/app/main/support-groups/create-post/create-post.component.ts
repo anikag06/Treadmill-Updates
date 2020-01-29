@@ -99,6 +99,13 @@ export class CreatePostComponent implements OnInit {
 
   }
 
+  ngAfterViewInit(): void {
+    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
+    //Add 'implements AfterViewInit' to the class.
+    const angEditor = this.elem.nativeElement.querySelectorAll('.angular-editor');
+    angEditor[0].setAttribute('style', ' background-color:white !important;');
+  }
+
   formSubmit() {
     if (this.postForm.valid) {
       const formData = this.postForm.value;

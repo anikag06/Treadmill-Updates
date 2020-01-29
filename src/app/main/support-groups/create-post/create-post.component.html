@@ -13,7 +13,8 @@
     <div class="flex-column col-lg-6 create-post">
       <div class="form-group">
         <label for="body">Write your post </label>
-        <angular-editor formControlName="body" [config]="editorConfig" required></angular-editor>
+        <angular-editor formControlName="body" [config]="editorConfig" style="background-color: white;" required>
+        </angular-editor>
       </div>
       <div class="form-group">
         <label for="title">Give your post a title</label>
@@ -61,8 +62,8 @@
       <label for="tagsGroup" class="sub-heading">
         {{tagsGroup[5].group_name}}</label>
       <div class="d-flex flex-row flex-wrap">
-        <div class="d-flex col-4 col-xl-3 no-gutters" *ngFor="let tag of tagsGroup[5].tags_list; let i = index">
-          <label formArrayName="tags" class="mb-3">
+        <div class="d-flex no-gutters" *ngFor="let tag of tagsGroup[5].tags_list; let i = index">
+          <label formArrayName="tags" class="mb-3 mr-1 mr-md-3">
             <button type="button" class="tagButton" mat-stroked-button (click)="onTagButtonClick(tag.id, $event)">
               {{tag.name}}
               <img class=" d-none crossIcon" src="../../../../assets/support-group/Close.png" /></button>
@@ -74,8 +75,8 @@
         {{tagsGroup[3].group_name}}</label>
       <div class="d-flex flex-row flex-wrap">
 
-        <div class="d-flex col-4 col-xl-3 no-gutters" *ngFor="let tag of tagsGroup[3].tags_list; let i = index">
-          <label formArrayName="tags" class="mb-3">
+        <div class="d-flex  no-gutters" *ngFor="let tag of tagsGroup[3].tags_list; let i = index">
+          <label formArrayName="tags" class="mb-3 mr-1 mr-md-3">
             <button type="button" class="tagButton" mat-stroked-button (click)="onTagButtonClick(tag.id, $event)">
               {{tag.name}}
               <img class=" d-none crossIcon" src="../../../../assets/support-group/Close.png" /></button>
@@ -88,8 +89,8 @@
         {{tagsGroup[0].group_name}}</label>
       <div class="d-flex flex-row flex-wrap">
 
-        <div class="d-flex col-4 col-xl-3 no-gutters" *ngFor="let tag of tagsGroup[0].tags_list; let i = index">
-          <label formArrayName="tags" class="mb-3">
+        <div class="d-flex  no-gutters" *ngFor="let tag of tagsGroup[0].tags_list; let i = index">
+          <label formArrayName="tags" class="mb-3 mr-1 mr-md-3">
             <button type="button" class="tagButton" mat-stroked-button (click)="onTagButtonClick(tag.id, $event)">
               {{tag.name}}
               <img class=" d-none crossIcon" src="../../../../assets/support-group/Close.png" /> </button>
@@ -101,8 +102,8 @@
         {{tagsGroup[2].group_name}}</label>
       <div class="d-flex flex-row flex-wrap">
 
-        <div class="d-flex col-4 col-xl-3 no-gutters" *ngFor="let tag of tagsGroup[2].tags_list; let i = index">
-          <label formArrayName="tags" class="mb-3">
+        <div class="d-flex  no-gutters" *ngFor="let tag of tagsGroup[2].tags_list; let i = index">
+          <label formArrayName="tags" class="mb-3 mr-1 mr-md-3">
             <button type="button" class="tagButton" mat-stroked-button (click)="onTagButtonClick(tag.id, $event)">
               {{tag.name}}
               <img class=" d-none crossIcon" src="../../../../assets/support-group/Close.png" /> </button>
@@ -116,8 +117,8 @@
         {{tagsGroup[1].group_name}}</label>
       <div class="d-flex flex-row flex-wrap">
 
-        <div class="d-flex col-4 col-xl-3 no-gutters" *ngFor="let tag of tagsGroup[1].tags_list; let i = index">
-          <label formArrayName="tags" class="mb-3">
+        <div class="d-flex  no-gutters" *ngFor="let tag of tagsGroup[1].tags_list; let i = index">
+          <label formArrayName="tags" class="mb-3 mr-1 mr-md-3">
             <button type="button" class="tagButton" mat-stroked-button (click)="onTagButtonClick(tag.id, $event)">
               {{tag.name}}
               <img class=" d-none crossIcon" src="../../../../assets/support-group/Close.png" /> </button>
@@ -129,8 +130,8 @@
         {{tagsGroup[4].group_name}}</label>
       <div class="d-flex flex-row flex-wrap">
 
-        <div class="d-flex col-4 col-xl-3 no-gutters" *ngFor="let tag of tagsGroup[4].tags_list; let i = index">
-          <label formArrayName="tags" class="mb-3">
+        <div class="d-flex no-gutters" *ngFor="let tag of tagsGroup[4].tags_list; let i = index">
+          <label formArrayName="tags" class="mb-3 mr-1 mr-md-3">
             <button type="button" class="tagButton" mat-stroked-button (click)="onTagButtonClick(tag.id, $event)">
               {{tag.name}}
               <img class=" d-none crossIcon" src="../../../../assets/support-group/Close.png" /> </button>
@@ -142,8 +143,8 @@
         {{tagsGroup[6].group_name}}</label>
       <div class="d-flex flex-row flex-wrap">
 
-        <div class="d-flex col-4 col-xl-3 no-gutters" *ngFor="let tag of tagsGroup[6].tags_list; let i = index">
-          <label formArrayName="tags" class="mb-3">
+        <div class="d-flex  no-gutters" *ngFor="let tag of tagsGroup[6].tags_list; let i = index">
+          <label formArrayName="tags" class="mb-3 mr-1 mr-md-3">
             <button type="button" class="tagButton" mat-stroked-button (click)="onTagButtonClick(tag.id, $event)">
               {{tag.name}}
               <img class=" d-none crossIcon" src="../../../../assets/support-group/Close.png" /> </button>
