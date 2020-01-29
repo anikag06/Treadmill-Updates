@@ -8,17 +8,16 @@ import { UserProfileService } from '../shared/user-profile/userProfile.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-
   mobileView = false;
 
   user: User = new User(0, 'tester', 'tester@iitk.ac.in', '', false, false);
   constructor(
     private authService: AuthService,
     private titleService: Title,
-    private userProfileService: UserProfileService
+    private userProfileService: UserProfileService,
   ) {
     this.titleService.setTitle('Dashboard | ' + TREADWILL);
   }
@@ -28,13 +27,21 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.user = <User>this.authService.isLoggedIn();
     this.mobileView = window.innerWidth < MOBILEWIDTH;
-    
-    this.userProfileService.getUserProfile(this.user.username).subscribe(profile => {
-      this.userProfile = new UserProfile(profile.username, profile.user_avatar,
-        profile.score, profile.no_of_bronze_badges, profile.no_of_silver_badges,
-        profile.no_of_gold_badges, profile.badge_list_bronze,
-        profile.badge_list_silver, profile.badge_list_gold);
-    })
 
+    this.userProfileService
+      .getUserProfile(this.user.username)
+      .subscribe(profile => {
+        this.userProfile = new UserProfile(
+          profile.username,
+          profile.user_avatar,
+          profile.score,
+          profile.no_of_bronze_badges,
+          profile.no_of_silver_badges,
+          profile.no_of_gold_badges,
+          profile.badge_list_bronze,
+          profile.badge_list_silver,
+          profile.badge_list_gold,
+        );
+      });
   }
 }

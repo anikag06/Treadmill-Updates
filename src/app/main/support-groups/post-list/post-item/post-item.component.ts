@@ -23,7 +23,7 @@ import { UserComment } from './comment/user-comment.model';
 import { Subscription } from 'rxjs';
 import { ApiResponse } from '@/main/shared/apiResponse.model';
 import { SanitizationService } from '../../../shared/sanitization.service';
-import { AngularEditorConfig } from '@xw19/angular-editor';
+import { AngularEditorConfig } from '@arkaghosh024/angular-editor';
 import { SupportGroupsService } from '../../support-groups.service';
 import { ThumbsService } from '../../thumbs.service';
 import { GeneralErrorService } from '@/main/shared/general-error.service';

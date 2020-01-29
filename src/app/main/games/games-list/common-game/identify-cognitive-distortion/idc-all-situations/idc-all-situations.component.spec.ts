@@ -8,9 +8,8 @@ describe('IdcAllSituationsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ IdcAllSituationsComponent ]
-    })
-    .compileComponents();
+      declarations: [IdcAllSituationsComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

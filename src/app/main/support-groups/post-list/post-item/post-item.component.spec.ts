@@ -6,7 +6,7 @@ import { TimeAgoPipe } from '@/shared/time-ago.pipe';
 import { SafeHtmlPipe } from '../../safe-html.pipe';
 import { CommentComponent } from './comment/comment.component';
 import { FormsModule } from '@angular/forms';
-import { AngularEditorModule } from '@xw19/angular-editor';
+import { AngularEditorModule } from '@arkaghosh024/angular-editor';
 import { NestedCommentComponent } from './nested-comment/nested-comment.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -27,23 +27,31 @@ describe('PostItemComponent', () => {
         HttpClientTestingModule,
         RouterTestingModule,
       ],
-      declarations: [ PostItemComponent,
-                      TimeAgoPipe,
-                      SafeHtmlPipe,
-                      CommentComponent,
-                      NestedCommentComponent,
-                    ],
-      providers: [
-        { provide: AuthService, useClass: MockAuth}
-      ]
-    })
-    .compileComponents();
+      declarations: [
+        PostItemComponent,
+        TimeAgoPipe,
+        SafeHtmlPipe,
+        CommentComponent,
+        NestedCommentComponent,
+      ],
+      providers: [{ provide: AuthService, useClass: MockAuth }],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(PostItemComponent);
     component = fixture.componentInstance;
-    component.supportGroupItem = new SupportGroupItem(1, 'body', 'title', [], { username: 'tester', avatar: 'avater' }, 1, '', 1, -1);
+    component.supportGroupItem = new SupportGroupItem(
+      1,
+      'body',
+      'title',
+      [],
+      { username: 'tester', avatar: 'avater' },
+      1,
+      '',
+      1,
+      -1,
+    );
     fixture.detectChanges();
   });
 

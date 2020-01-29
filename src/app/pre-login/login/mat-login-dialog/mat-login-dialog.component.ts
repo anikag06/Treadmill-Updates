@@ -12,7 +12,7 @@ import { MatSignupDialogComponent } from '@/pre-login/signup/mat-signup-dialog/m
 @Component({
   selector: 'app-mat-login-dialog',
   templateUrl: './mat-login-dialog.component.html',
-  styleUrls: ['./mat-login-dialog.component.scss']
+  styleUrls: ['./mat-login-dialog.component.scss'],
 })
 export class MatLoginDialogComponent implements OnInit {
   hide = true;
@@ -28,7 +28,7 @@ export class MatLoginDialogComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private showLoginSignupService: ShowLoginSignupDialogService,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.loginAfterSignup = this.showLoginSignupService.loginAfterSignup();
@@ -38,37 +38,36 @@ export class MatLoginDialogComponent implements OnInit {
     localStorage.clear();
     this.showForm = false;
     this.loginAfterSignup = false;
-    this.authService.getUserDetails(this.loginForm.value)
-      .then(
-        (data: any) => {
-          console.log('login data', data);
-          this.authService.isUserExcluded = data.data.is_excluded;
-          if (data.data.is_excluded) {
-            this.dialogRef.close();
-            this.router.navigate([INELIGIBLE_FOR_TRIAL]);
-          } else {
-            this.authService.setLoginData(data);
-            this.dialogRef.close();
-            this.router.navigate([LOGGED_IN_PATH]);
-          }
+    this.authService
+      .getUserDetails(this.loginForm.value)
+      .then((data: any) => {
+        console.log('login data', data);
+        this.authService.isUserExcluded = data.data.is_excluded;
+        if (data.data.is_excluded) {
+          this.dialogRef.close();
+          this.router.navigate([INELIGIBLE_FOR_TRIAL]);
+        } else {
+          this.authService.setLoginData(data);
+          this.dialogRef.close();
+          this.router.navigate([LOGGED_IN_PATH]);
         }
-      ).catch(
-        (error: any) => {
-          this.errorStatus = true;
-          if (error.error.message.username) {
-            this.errorMessage = error.error.message.username;
-          } else if (error.error.message.password) {
-              this.errorMessage = error.error.message.password;
-          } else {
-            this.errorMessage = error.error.message;
-          }
-          if (error.status === 400 ) {
-            // this.loginForm.reset();
-            // this.showForm = true;
-            this.formInvalid = true;
-          }
+      })
+      .catch((error: any) => {
+        this.errorStatus = true;
+        if (error.error.message.username) {
+          this.errorMessage = error.error.message.username;
+        } else if (error.error.message.password) {
+          this.errorMessage = error.error.message.password;
+        } else {
+          this.errorMessage = error.error.message;
         }
-      ).finally(() => {
+        if (error.status === 400) {
+          // this.loginForm.reset();
+          // this.showForm = true;
+          this.formInvalid = true;
+        }
+      })
+      .finally(() => {
         this.showForm = true;
         this.errorStatus = false;
       });

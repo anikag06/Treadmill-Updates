@@ -14,7 +14,11 @@ import { ActivatedRoute } from '@angular/router';
 
 import { Problem } from '@/main/resources/forms/problem-solving-worksheets/problem.model';
 import { ProblemSolvingWorksheetsService } from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.service';
-import { PSF_PROBLEM_SOLVING } from '@/app.constants';
+import {
+  PSF_PROBLEM_SOLVING,
+  THOUGHT_RECORD,
+  SET_ACTIVITY,
+} from '@/app.constants';
 import { TasksService } from '@/main/resources/forms/shared/tasks/tasks.service';
 import { UserTask } from '@/main/resources/forms/shared/tasks/user-task.model';
 import { ThoughtRecordService } from '@/main/resources/forms/thought-record-form/thought-record.service';
@@ -141,17 +145,17 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
       }
     }
   }
-  onDeleteForm(task: any) {
-    this.tasksService.deleteTask(task.id).subscribe(resp => {
-      let status = resp.body.status;
-      if (status) {
-        this.tasksService.openSnackBar('Task Deleted Successfully', 'OK');
-        this.onAddNewForm();
-        this.tasksService.removeTask(task);
-        console.log(this.objects);
-      } else {
-        this.tasksService.openSnackBar('Error Occured', 'Retry');
-      }
-    });
-  }
+  // onDeleteForm(task: any) {
+  //   this.tasksService.deleteTask(task.id).subscribe(resp => {
+  //     let status = resp.body.status;
+  //     if (status) {
+  //       this.tasksService.openSnackBar('Task Deleted Successfully', 'OK');
+  //       this.onAddNewForm();
+  //       this.tasksService.removeTask(task);
+  //       console.log(this.objects);
+  //     } else {
+  //       this.tasksService.openSnackBar('Error Occured', 'Retry');
+  //     }
+  //   });
+  // }
 }

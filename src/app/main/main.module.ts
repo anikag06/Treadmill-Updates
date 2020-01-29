@@ -32,7 +32,7 @@ import { CommentComponent } from './support-groups/post-list/post-item/comment/c
 import { CreatePostComponent } from './support-groups/create-post/create-post.component';
 import { NestedCommentComponent } from './support-groups/post-list/post-item/nested-comment/nested-comment.component';
 import { HttpClientModule } from '@angular/common/http';
-import { AngularEditorModule } from '@xw19/angular-editor';
+import { AngularEditorModule } from '@arkaghosh024/angular-editor';
 import { SanitizationService } from './shared/sanitization.service';
 import { SafeHtmlPipe } from './support-groups/safe-html.pipe';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -138,7 +138,7 @@ import { UserProfileComponent } from './shared/user-profile/user-profile.compone
 import { UserProfileService } from './shared/user-profile/userProfile.service';
 import { BadgesComponent } from './shared/user-profile/badges/badges.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MoodTrackerComponent } from './shared/mood-tracker/mood-tracker.component';
+// import { MoodTrackerComponent } from './shared/mood-tracker/mood-tracker.component';
 import { QuestionnaireModule } from '@/questionnaire.module';
 import { GetQuestionnaireComponent } from './dashboard/get-questionnaire/get-questionnaire.component';
 import { IdcHeadingComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-heading/idc-heading.component';
@@ -275,7 +275,7 @@ import { ResourcesModule } from './resources/resources.module';
     LoadingBarComponent,
     LoadingBarDirective,
     LhgGreatComponent,
-    MoodTrackerComponent,
+    // MoodTrackerComponent,
   ],
   imports: [
     CommonModule,
@@ -374,7 +374,7 @@ import { ResourcesModule } from './resources/resources.module';
     FfgPlayagainComponent,
     FfgNolifeComponent,
     LoadingBarComponent,
-    MoodTrackerComponent,
+    // MoodTrackerComponent,
   ],
 })
 export class MainModule {}

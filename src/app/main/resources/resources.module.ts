@@ -75,7 +75,7 @@ import { FaceMyWorstFearComponent } from './forms/worry-productively-form/techni
 import { WpfDealWithWorryComponent } from './forms/worry-productively-form/techniques/wpf-deal-with-worry/wpf-deal-with-worry.component';
 import { WpfProblemSolvingComponent } from './forms/worry-productively-form/techniques/wpf-problem-solving/wpf-problem-solving.component';
 import { IdentifyThinkingService } from './forms/thought-record-form/thought-record-techniques/identify-thinking/identify-thinking.service';
-import { AngularEditorModule } from '@xw19/angular-editor';
+import { AngularEditorModule } from '@arkaghosh024/angular-editor';
 // tslint:disable-next-line:max-line-length
 import { ThoughtRecordTechniquesComponent } from './forms/thought-record-form/thought-record-techniques/thought-record-techniques.component';
 import { TechniquesInfoComponent } from './forms/thought-record-form/thought-record-techniques/techniques-info/techniques-info.component';

@@ -10,7 +10,7 @@ import { CommentComponent } from './post-item/comment/comment.component';
 import { NestedCommentComponent } from './post-item/nested-comment/nested-comment.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AngularEditorModule } from '@xw19/angular-editor';
+import { AngularEditorModule } from '@arkaghosh024/angular-editor';
 
 describe('PostListComponent', () => {
   let component: PostListComponent;
@@ -25,15 +25,15 @@ describe('PostListComponent', () => {
         RouterTestingModule,
         AngularEditorModule,
       ],
-      declarations: [ PostListComponent,
-                      PostItemComponent,
-                      TimeAgoPipe,
-                      SafeHtmlPipe,
-                      CommentComponent,
-                      NestedCommentComponent,
-                    ]
-    })
-    .compileComponents();
+      declarations: [
+        PostListComponent,
+        PostItemComponent,
+        TimeAgoPipe,
+        SafeHtmlPipe,
+        CommentComponent,
+        NestedCommentComponent,
+      ],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
