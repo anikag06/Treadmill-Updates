@@ -7,20 +7,15 @@ import * as localforage from 'localforage';
 import { TOKEN } from '@/app.constants';
 import { UserProfile } from '../shared/user-profile/UserProfile.model';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SupportGroupsService {
-
   supportGroupItem$ = new BehaviorSubject({} as SupportGroupItem);
   supportGroupItemUpdated$ = new BehaviorSubject({} as SupportGroupItem);
   userProfileData = new UserProfile('Name', '', 0, 0, 0, 0);
 
-
-  constructor(
-    private http: HttpClient
-  ) { }
+  constructor(private http: HttpClient) {}
 
   getPosts(page: number = 1, tags: string[] | null, search: string) {
     let params = new HttpParams().set('page', page.toString());
@@ -30,11 +25,17 @@ export class SupportGroupsService {
     if (search.trim().length > 0) {
       params = params.append('search', search);
     }
-    return this.http.get(environment.API_ENDPOINT + '/api/v1/support-group/posts/', { params: params });
+    return this.http.get(
+      environment.API_ENDPOINT + '/api/v1/support-group/posts/',
+      { params: params },
+    );
   }
 
   createPost(data: any) {
-    return this.http.post(environment.API_ENDPOINT + '/api/v1/support-group/post/', data);
+    return this.http.post(
+      environment.API_ENDPOINT + '/api/v1/support-group/post/',
+      data,
+    );
   }
 
   sendPost(post: SupportGroupItem) {
@@ -45,13 +46,20 @@ export class SupportGroupsService {
     return localforage.getItem(TOKEN);
   }
 
-
   deletePost(data: any) {
-    return this.http.delete(environment.API_ENDPOINT + '/api/v1/support-group/post/' + data.post_id + '/');
+    return this.http.delete(
+      environment.API_ENDPOINT +
+        '/api/v1/support-group/post/' +
+        data.post_id +
+        '/',
+    );
   }
 
   editPost(data: any) {
-    return this.http.put(environment.API_ENDPOINT + '/api/v1/support-group/post/' + data.id + '/', data);
+    return this.http.put(
+      environment.API_ENDPOINT + '/api/v1/support-group/post/' + data.id + '/',
+      data,
+    );
   }
 
   sendUpdated(data: any) {
@@ -59,10 +67,15 @@ export class SupportGroupsService {
   }
 
   postUpVote(data: any) {
-    return this.http.post(environment.API_ENDPOINT + '/api/v1/support-group/post-vote/', data);
+    return this.http.post(
+      environment.API_ENDPOINT + '/api/v1/support-group/post-vote/',
+      data,
+    );
   }
 
   getSuggestedPosts() {
-    return this.http.get(environment.API_ENDPOINT + '/api/v1/support-group/suggested-posts/');
+    return this.http.get(
+      environment.API_ENDPOINT + '/api/v1/support-group/suggested-posts/',
+    );
   }
 }

@@ -13,13 +13,18 @@ export class FfgInstructionsComponent implements OnInit {
   constructor(
     private elementRef: ElementRef,
     private ffghelpService: FfgHelpService,
-  ) { }
+  ) {}
 
-  ngOnInit() { }
+  ngOnInit() {}
   onStart() {
     const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });
     this.elementRef.nativeElement.dispatchEvent(domEvent);
-    if (document.readyState !== 'complete' || ffg_music_notes_array.length === 0 || ffg_loaded_friendly_images.length === 0 || ffg_loaded_hostile_images.length === 0) {
+    if (
+      document.readyState !== 'complete' ||
+      ffg_music_notes_array.length === 0 ||
+      ffg_loaded_friendly_images.length === 0 ||
+      ffg_loaded_hostile_images.length === 0
+    ) {
       this.ffghelpService.showLoadingBar();
     }
   }

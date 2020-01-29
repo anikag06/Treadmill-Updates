@@ -5,22 +5,17 @@ import { SuggestedPost } from './suggested-post.model';
 @Component({
   selector: 'app-suggested-post',
   templateUrl: './suggested-post.component.html',
-  styleUrls: ['./suggested-post.component.scss']
+  styleUrls: ['./suggested-post.component.scss'],
 })
 export class SuggestedPostComponent implements OnInit {
-
-  constructor(
-    private sgService: SupportGroupsService,
-  ) { }
+  constructor(private sgService: SupportGroupsService) {}
 
   posts: SuggestedPost[] = [];
 
   ngOnInit() {
     this.sgService.getSuggestedPosts().subscribe((data: any) => {
-
       this.posts = data.results;
       console.log('sugg posts', this.posts);
     });
   }
-
 }

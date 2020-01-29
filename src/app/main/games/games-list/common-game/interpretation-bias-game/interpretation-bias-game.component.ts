@@ -63,7 +63,6 @@ declare var ibg_borrow_time_again_score: any;
 declare var ibg_btn_give_up_score: any;
 declare var ibg_btn_other_sentence_score: any;
 
-
 @Component({
   selector: 'app-interpretation-bias-game',
   templateUrl: './interpretation-bias-game.component.html',
@@ -71,11 +70,9 @@ declare var ibg_btn_other_sentence_score: any;
 })
 export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   @ViewChild('ibgameDiv', { static: false }) ibGameDiv!: ElementRef;
-
-  @ViewChild('ibgameDiv', { static: false }) ibGameDiv!: ElementRef;
   @ViewChild('tooltip', { static: false }) showToolTip!: MatTooltip;
 
-  NO_OF_SENTENCES_RECEIVED = 3;      // order of first sentence is 0
+  NO_OF_SENTENCES_RECEIVED = 3; // order of first sentence is 0
   // LEVEL_UP_SEN = 5;       // level up after how many sentences, here after 5 sentences;
   TOTAL_SENTENCES!: number;
 
@@ -148,17 +145,22 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.loadFileService.loadExternalScript('assets/games/interpretation_bias_game/js/sentence_javascript.js').then(() => {
-      this.scoresRelatedInfo();
-      this.ibTrainingService.ibgScoreDataObservable.subscribe((res) => {
-        this.storeUserScoreInfo(res);
-      });
-      this.initSentencesData();
-      this.borrow_time_again_score = ibg_borrow_time_again_score;
-      this.borrow_time_score = ibg_borrow_time_score;
-      this.btn_give_up_score = ibg_btn_give_up_score;
-      this.btn_other_sentence_score = ibg_btn_other_sentence_score;
-    }).catch(() => { });
+    this.loadFileService
+      .loadExternalScript(
+        'assets/games/interpretation_bias_game/js/sentence_javascript.js',
+      )
+      .then(() => {
+        this.scoresRelatedInfo();
+        this.ibTrainingService.ibgScoreDataObservable.subscribe(res => {
+          this.storeUserScoreInfo(res);
+        });
+        this.initSentencesData();
+        this.borrow_time_again_score = ibg_borrow_time_again_score;
+        this.borrow_time_score = ibg_borrow_time_score;
+        this.btn_give_up_score = ibg_btn_give_up_score;
+        this.btn_other_sentence_score = ibg_btn_other_sentence_score;
+      })
+      .catch(() => {});
 
     // do not delete this (this.findValidSentence()) function, it is important
     // this.findValidSentence();        // this function is used to check if sentences in database are valid for generation of letters grid
@@ -446,5 +448,4 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
     this.showToolTip.hideDelay = 1000;
     this.showToolTip.toggle();
   }
-
 }

@@ -30,6 +30,7 @@ import { GeneralErrorService } from '@/main/shared/general-error.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UserProfile } from '../../../shared/user-profile/UserProfile.model';
 import { UserProfileService } from '../../../shared/user-profile/userProfile.service';
+import { COMMON_EDITOR_CONFIG } from '@/app.constants';
 
 @Component({
   selector: 'app-post-item',
@@ -68,23 +69,14 @@ export class PostItemComponent
   userProfileData = new UserProfile('Name', '', 0, 0, 0, 0);
 
   editorConfig: AngularEditorConfig = {
-    // Angular Editor Config
-    editable: true,
-    spellcheck: true,
+    ...COMMON_EDITOR_CONFIG,
+    placeholder: 'Enter text here ...',
+    showToolbar: false,
     height: 'auto',
     minHeight: '52px',
     maxHeight: '520px',
     width: 'auto',
     minWidth: '0',
-    translate: 'yes',
-    enableToolbar: true,
-    showToolbar: false,
-    placeholder: 'Comment...',
-    defaultParagraphSeparator: 'p',
-    defaultFontName: 'lato',
-    defaultFontSize: '14',
-    fonts: [],
-    uploadUrl: '',
   };
 
   /*
@@ -99,7 +91,7 @@ export class PostItemComponent
     private errorService: GeneralErrorService,
     private changeDetector: ChangeDetectorRef,
     private userProfileService: UserProfileService,
-  ) { }
+  ) {}
 
   /*
    * Angular Lifecycle hookup this is hack to check for updated content
@@ -151,7 +143,7 @@ export class PostItemComponent
       }
       try {
         this.changeDetector.detectChanges();
-      } catch (ViewDestroyedError) { }
+      } catch (ViewDestroyedError) {}
     });
   }
 
@@ -163,7 +155,7 @@ export class PostItemComponent
       this.fetchComments();
       try {
         this.changeDetector.detectChanges();
-      } catch (ViewDestroyedError) { }
+      } catch (ViewDestroyedError) {}
     });
   }
 
@@ -210,19 +202,23 @@ export class PostItemComponent
               -1,
             );
             const updatedComment = new UserComment(
-              persistedComment.id, {
-              username: persistedComment.user.username,
-              avatar: this.sgService.userProfileData.user_avatar,
-              score: this.sgService.userProfileData.score,
-              no_of_gold_badges: this.sgService.userProfileData.no_of_gold_badges,
-              no_of_bronze_badges: this.sgService.userProfileData.no_of_bronze_badges,
-              no_of_silver_badges: this.sgService.userProfileData.no_of_silver_badges,
-            },
+              persistedComment.id,
+              {
+                username: persistedComment.user.username,
+                avatar: this.sgService.userProfileData.user_avatar,
+                score: this.sgService.userProfileData.score,
+                no_of_gold_badges: this.sgService.userProfileData
+                  .no_of_gold_badges,
+                no_of_bronze_badges: this.sgService.userProfileData
+                  .no_of_bronze_badges,
+                no_of_silver_badges: this.sgService.userProfileData
+                  .no_of_silver_badges,
+              },
               persistedComment.body,
               persistedComment.up_votes,
               persistedComment.nested_comment_count,
               persistedComment.created_at,
-              persistedComment.is_voted
+              persistedComment.is_voted,
             );
             this.supportGroupItem.comments_count += 1;
             this.commentForm.reset();
@@ -241,7 +237,6 @@ export class PostItemComponent
         );
     }
   }
-
 
   /**
    * To fetch comments on posts
@@ -359,18 +354,17 @@ export class PostItemComponent
   onFocusOut(event: FocusEvent) {
     const el = <Element>event.relatedTarget;
     console.log(el);
-    if (
-      el == null
-    ) {
+    if (el == null) {
       this.editorConfig.showToolbar = false;
     } else if (el.matches('button.comment-btn.mat-raised-button')) {
       this.onSubmit();
       this.editorConfig.showToolbar = false;
-    } else if (el.innerHTML !== 'Comment' &&
-      !el.matches('button.angular-editor-button')) {
+    } else if (
+      el.innerHTML !== 'Comment' &&
+      !el.matches('button.angular-editor-button')
+    ) {
       console.log('el.matches');
     }
-
   }
 
   /**
@@ -390,7 +384,7 @@ export class PostItemComponent
     this.comments = this.comments.filter(uc => uc.id !== userComment.id);
     try {
       this.changeDetector.detectChanges();
-    } catch (ViewDestroyedError) { }
+    } catch (ViewDestroyedError) {}
   }
 
   /**
@@ -409,7 +403,7 @@ export class PostItemComponent
     this.sgService
       .postUpVote({ post_id: this.supportGroupItem.id, vote: 1 })
       .subscribe(
-        () => { },
+        () => {},
         () => {
           this.errorService.openErrorDialog('Cannot upvote');
           this.supportGroupItem.is_voted = preVote;
@@ -432,7 +426,7 @@ export class PostItemComponent
     }
     this.sgService
       .postUpVote({ post_id: this.supportGroupItem.id, vote: 0 })
-      .subscribe(() => { }, this.errorService.errorResponse('Cannot downvote'));
+      .subscribe(() => {}, this.errorService.errorResponse('Cannot downvote'));
   }
 
   onThankYou() {

@@ -5,29 +5,24 @@ import { TasksService } from '@/main/resources/forms/shared/tasks/tasks.service'
 @Component({
   selector: 'app-things-todo',
   templateUrl: './things-todo.component.html',
-  styleUrls: ['./things-todo.component.scss']
+  styleUrls: ['./things-todo.component.scss'],
 })
-
 export class ThingsTodoComponent implements OnInit {
-
   todos: Todo[] = [];
   element!: ElementRef;
-  constructor(private taskService: TasksService) { }
+  constructor(private taskService: TasksService) {}
 
   ngOnInit() {
-    this.taskService.getTodoList()
-      .subscribe(
-        (data: any) => { this.todos = data.results; });
+    this.taskService.getTodoList().subscribe((data: any) => {
+      this.todos = data.results;
+    });
   }
 
-  ngAfterViewInit() {
-
-  }
+  ngAfterViewInit() {}
 
   onTodoChange(todo: Todo, event: Event) {
     todo.done = !todo.done;
     console.log(todo);
     console.log(event);
   }
-
 }

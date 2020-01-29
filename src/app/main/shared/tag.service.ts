@@ -8,42 +8,37 @@ import { SUPPORT_GROUP_TAGS_LIST } from '@/app.constants';
 import { TagGroup } from './tag-group.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TagService implements OnInit, OnDestroy {
-
   tags: Tag[] = [];
   tagsGroup: TagGroup[] = [];
   tagSubscription!: Subscription;
 
-  constructor(
-    private http: HttpClient
-  ) { }
+  constructor(private http: HttpClient) {}
 
-  ngOnInit(): void { }
-
+  ngOnInit(): void {}
 
   getTags() {
-    this.tagSubscription = this.http.get(environment.API_ENDPOINT + SUPPORT_GROUP_TAGS_LIST)
-      .subscribe(
-        (data) => {
-          console.log(data);
-          const response = <ApiResponse>data;
-          this.tagsGroup = <TagGroup[]>response.results;
-          console.log(this.tagsGroup);
-          let i = 0;
-          while (i < this.tagsGroup.length) {
-            console.log(this.tagsGroup[i].tags_list);
-            let j = 0;
-            while (j < this.tagsGroup[i].tags_list.length) {
-              this.tags.push(this.tagsGroup[i].tags_list[j]);
-              j++;
-            }
-
-            i++;
+    this.tagSubscription = this.http
+      .get(environment.API_ENDPOINT + SUPPORT_GROUP_TAGS_LIST)
+      .subscribe(data => {
+        console.log(data);
+        const response = <ApiResponse>data;
+        this.tagsGroup = <TagGroup[]>response.results;
+        console.log(this.tagsGroup);
+        let i = 0;
+        while (i < this.tagsGroup.length) {
+          console.log(this.tagsGroup[i].tags_list);
+          let j = 0;
+          while (j < this.tagsGroup[i].tags_list.length) {
+            this.tags.push(this.tagsGroup[i].tags_list[j]);
+            j++;
           }
+
+          i++;
         }
-      );
+      });
   }
 
   ngOnDestroy() {

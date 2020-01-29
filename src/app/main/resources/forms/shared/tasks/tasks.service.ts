@@ -124,5 +124,4 @@ export class TasksService {
   getTodoList() {
     return this.http.get(environment.API_ENDPOINT + '/api/v1/tasks/todo/list/');
   }
-
 }

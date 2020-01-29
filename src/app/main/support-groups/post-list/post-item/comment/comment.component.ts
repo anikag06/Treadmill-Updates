@@ -30,6 +30,7 @@ import { GeneralErrorService } from '@/main/shared/general-error.service';
 import { UserProfile } from '@/main/shared/user-profile/UserProfile.model';
 import { UserProfileService } from '@/main/shared/user-profile/userProfile.service';
 import { SupportGroupsService } from '@/main/support-groups/support-groups.service';
+import { COMMON_EDITOR_CONFIG } from '@/app.constants';
 
 @Component({
   selector: 'app-comment',
@@ -67,22 +68,14 @@ export class CommentComponent
   @ViewChild('replyText', { static: false }) replyText!: ElementRef;
 
   editorConfig: AngularEditorConfig = {
-    editable: true,
-    spellcheck: true,
+    ...COMMON_EDITOR_CONFIG,
+    placeholder: 'Enter text here ...',
+    showToolbar: true,
     height: 'auto',
     minHeight: '52px',
     maxHeight: '520px',
     width: 'auto',
     minWidth: '0',
-    translate: 'yes',
-    enableToolbar: true,
-    showToolbar: true,
-    placeholder: 'Enter text here...',
-    defaultParagraphSeparator: 'p',
-    defaultFontName: 'lato',
-    defaultFontSize: '14',
-    fonts: [],
-    uploadUrl: '',
   };
 
   constructor(
@@ -95,7 +88,7 @@ export class CommentComponent
     private changeDetector: ChangeDetectorRef,
     private userProfileService: UserProfileService,
     private sgService: SupportGroupsService,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.user = <User>this.authService.isLoggedIn();
@@ -132,7 +125,7 @@ export class CommentComponent
       }
       try {
         this.changeDetector.detectChanges();
-      } catch (ViewDestroyedError) { }
+      } catch (ViewDestroyedError) {}
     });
   }
 
@@ -193,16 +186,19 @@ export class CommentComponent
         const updatedNestedComment = new UserNestedComment(
           persistedNestedcomment.id,
           persistedNestedcomment.body,
-          persistedNestedcomment.up_votes, {
-          username: persistedNestedcomment.user.username,
-          avatar: this.sgService.userProfileData.user_avatar,
-          score: this.sgService.userProfileData.score,
-          no_of_gold_badges: this.sgService.userProfileData.no_of_gold_badges,
-          no_of_bronze_badges: this.sgService.userProfileData.no_of_bronze_badges,
-          no_of_silver_badges: this.sgService.userProfileData.no_of_silver_badges,
-        },
+          persistedNestedcomment.up_votes,
+          {
+            username: persistedNestedcomment.user.username,
+            avatar: this.sgService.userProfileData.user_avatar,
+            score: this.sgService.userProfileData.score,
+            no_of_gold_badges: this.sgService.userProfileData.no_of_gold_badges,
+            no_of_bronze_badges: this.sgService.userProfileData
+              .no_of_bronze_badges,
+            no_of_silver_badges: this.sgService.userProfileData
+              .no_of_silver_badges,
+          },
           persistedNestedcomment.is_voted,
-          persistedNestedcomment.created_at
+          persistedNestedcomment.created_at,
         );
         this.nestedComments.push(updatedNestedComment);
         this.toggleReply = false;
@@ -284,7 +280,7 @@ export class CommentComponent
     this.commentService
       .voteComment({ comment_id: this.comment.id, vote: 1 })
       .subscribe(
-        () => { },
+        () => {},
         () => {
           this.errorService.openErrorDialog('Cannot Upvote');
           this.comment.is_voted = preVote;
@@ -304,7 +300,7 @@ export class CommentComponent
     }
     this.commentService
       .voteComment({ comment_id: this.comment.id, vote: 0 })
-      .subscribe(() => { }, this.errorService.errorResponse('Cannot down vote'));
+      .subscribe(() => {}, this.errorService.errorResponse('Cannot down vote'));
   }
 
   onReplyClick() {

@@ -61,7 +61,7 @@ export class FriendlyFaceGameComponent implements OnInit {
     private badgesService: GamesBadgesService,
     public viewContainerRef: ViewContainerRef,
     private ffgHelpService: FfgHelpService,
-  ) { }
+  ) {}
   NO_IMAGES_IN_PAGE = 20;
   NO_SONGS_IN_PAGE = 2;
   ffGameMusicOrder!: number;
@@ -133,11 +133,11 @@ export class FriendlyFaceGameComponent implements OnInit {
       .then(() => {
         this.loadImages();
       })
-      .catch(() => { });
+      .catch(() => {});
     this.loadFileService
       .loadExternalScript('./assets/games/friendly-face-game/js/tone.min.js')
-      .then(() => { })
-      .catch(() => { });
+      .then(() => {})
+      .catch(() => {});
     this.ffgHelpService.updateBadges.subscribe(() => {
       this.updateBadgesValue();
     });

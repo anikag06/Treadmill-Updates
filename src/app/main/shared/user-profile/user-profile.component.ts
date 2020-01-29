@@ -42,7 +42,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
     }
   }
 
-  getGoldBadgeList(): Badge[] {
+  getGoldBadgeList() {
     return this.userProfile.badge_list_gold;
   }
 

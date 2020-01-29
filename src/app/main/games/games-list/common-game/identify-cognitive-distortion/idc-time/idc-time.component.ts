@@ -1,9 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ElementRef,
-  ViewChild,
-} from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { IdcGameService } from '../idc-game.service';
 import { MatTooltip } from '@angular/material';
 
@@ -13,18 +8,18 @@ import { MatTooltip } from '@angular/material';
   styleUrls: ['./idc-time.component.scss'],
 })
 export class IdcTimeComponent implements OnInit {
-
   @ViewChild('tooltip', { static: false }) showToolTip!: MatTooltip;
   constructor(
     private elementRef: ElementRef,
     private gameService: IdcGameService,
-  ) { }
+  ) {}
 
   tooltipData!: any;
   idcExtraScore = 20;
 
   ngOnInit() {
-    this.tooltipData = "You don't have sufficient points to buy extra time. Instead, click on replay.";
+    this.tooltipData =
+      "You don't have sufficient points to buy extra time. Instead, click on replay.";
   }
 
   continuePlay() {

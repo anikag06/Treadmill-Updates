@@ -278,3 +278,14 @@ export const ADMIN_EMAIL = 'treadwill.iitk@gmail.com';
 
 // support group
 export const SUPPORT_GROUP_TAGS_LIST = '/api/v1/support-group/tags-list/';
+export const COMMON_EDITOR_CONFIG = {
+  editable: true,
+  spellcheck: true,
+  translate: 'yes',
+  enableToolbar: true,
+  defaultParagraphSeparator: 'p',
+  defaultFontName: 'Roboto',
+  defaultFontSize: '3',
+  fonts: [],
+  uploadUrl: '',
+};

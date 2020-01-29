@@ -24,6 +24,7 @@ import { AngularEditorConfig } from '@arkaghosh024/angular-editor';
 import { SanitizationService } from '../../shared/sanitization.service';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { TagGroup } from '@/main/shared/tag-group.model';
+import { COMMON_EDITOR_CONFIG } from '@/app.constants';
 
 @Component({
   selector: 'app-create-post',
@@ -48,22 +49,14 @@ export class CreatePostComponent implements OnInit {
   });
 
   editorConfig: AngularEditorConfig = {
-    editable: true,
-    spellcheck: true,
+    ...COMMON_EDITOR_CONFIG,
+    placeholder: 'Enter your post here',
+    showToolbar: true,
     height: '15rem',
     minHeight: '0',
     maxHeight: 'auto',
     width: 'auto',
     minWidth: '0',
-    translate: 'yes',
-    enableToolbar: true,
-    showToolbar: true,
-    placeholder: 'Enter your post here',
-    defaultParagraphSeparator: 'p',
-    defaultFontName: 'Helvetica',
-    defaultFontSize: '14',
-    fonts: [],
-    uploadUrl: '',
   };
 
   constructor(
@@ -96,13 +89,14 @@ export class CreatePostComponent implements OnInit {
     }
     console.log('tags data', this.tagsGroup);
     this.buildTags();
-
   }
 
   ngAfterViewInit(): void {
     //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
     //Add 'implements AfterViewInit' to the class.
-    const angEditor = this.elem.nativeElement.querySelectorAll('.angular-editor');
+    const angEditor = this.elem.nativeElement.querySelectorAll(
+      '.angular-editor',
+    );
     angEditor[0].setAttribute('style', ' background-color:white !important;');
   }
 
@@ -151,8 +145,10 @@ export class CreatePostComponent implements OnInit {
             avatar: this.sgService.userProfileData.user_avatar,
             score: this.sgService.userProfileData.score,
             no_of_gold_badges: this.sgService.userProfileData.no_of_gold_badges,
-            no_of_bronze_badges: this.sgService.userProfileData.no_of_bronze_badges,
-            no_of_silver_badges: this.sgService.userProfileData.no_of_silver_badges,
+            no_of_bronze_badges: this.sgService.userProfileData
+              .no_of_bronze_badges,
+            no_of_silver_badges: this.sgService.userProfileData
+              .no_of_silver_badges,
           },
           sgItem.up_votes,
           sgItem.created_at,
@@ -196,27 +192,29 @@ export class CreatePostComponent implements OnInit {
     console.log('tag clicked', event, tagId);
     if (event) {
       if (this.formTags.includes(tagId)) {
-        if (event.target.nodeName === "BUTTON") {
+        if (event.target.nodeName === 'BUTTON') {
           console.log('Button');
           event.target.classList.remove('toggleButton');
           event.target.children[0].children[0].classList.add('d-none');
-        } else if (event.target.nodeName === "SPAN") {
+        } else if (event.target.nodeName === 'SPAN') {
           console.log('Span');
           event.target.parentElement.classList.remove('toggleButton');
           event.target.children[0].classList.add('d-none');
         } else {
-          event.target.parentElement.offsetParent.classList.remove('toggleButton');
+          event.target.parentElement.offsetParent.classList.remove(
+            'toggleButton',
+          );
           event.target.classList.add('d-none');
         }
         console.log(' event.target.innerHTML', event);
         this.formTags = this.formTags.filter(i => tagId !== i);
       } else {
         this.formTags.push(tagId);
-        if (event.target.nodeName === "BUTTON") {
+        if (event.target.nodeName === 'BUTTON') {
           console.log('Button');
           event.target.classList.add('toggleButton');
           event.target.children[0].children[0].classList.remove('d-none');
-        } else if (event.target.nodeName === "SPAN") {
+        } else if (event.target.nodeName === 'SPAN') {
           console.log('Span');
           event.target.parentElement.classList.add('toggleButton');
           event.target.children[0].classList.remove('d-none');
@@ -224,10 +222,8 @@ export class CreatePostComponent implements OnInit {
 
         console.log('event', event);
         // event.target.children[0].classList.remove('d-none');
-
       }
     }
-
   }
 
   buildTags() {

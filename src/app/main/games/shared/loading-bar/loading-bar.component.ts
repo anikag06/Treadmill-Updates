@@ -12,7 +12,7 @@ export class LoadingBarComponent implements OnInit {
   loadingBarValue!: number;
   loadingInterval: any;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
     this.loadingInterval = setInterval(() => {
@@ -28,7 +28,11 @@ export class LoadingBarComponent implements OnInit {
       this.loadingBarValue = 75;
     } else if (document.readyState === 'complete') {
       this.loadingBarValue = 95;
-      if (ffg_music_notes_array.length !== 0 && ffg_loaded_friendly_images.length !== 0 && ffg_loaded_hostile_images.length !== 0) {
+      if (
+        ffg_music_notes_array.length !== 0 &&
+        ffg_loaded_friendly_images.length !== 0 &&
+        ffg_loaded_hostile_images.length !== 0
+      ) {
         this.loadingBarValue = 100;
         clearInterval(this.loadingInterval);
         setTimeout(() => {

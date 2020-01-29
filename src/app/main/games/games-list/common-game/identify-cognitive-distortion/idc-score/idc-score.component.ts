@@ -36,7 +36,7 @@ export class IdcScoreComponent implements OnInit, OnDestroy {
   constructor(
     private gameService: IdcGameService,
     private dialogBoxService: DialogBoxService,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.stopTimerSub = this.gameService.stopTimer.subscribe(() => {

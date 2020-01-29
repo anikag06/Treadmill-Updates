@@ -102,7 +102,7 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
     private miPlayService: MIPlayService,
     private dialogBoxService: DialogBoxService,
     private badgesService: GamesBadgesService,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.getCurrentStateService.setInitialOrder();

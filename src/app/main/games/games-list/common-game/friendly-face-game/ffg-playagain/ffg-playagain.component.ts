@@ -1,4 +1,10 @@
-import { Component, OnInit, ElementRef, HostListener, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ElementRef,
+  HostListener,
+  ViewChild,
+} from '@angular/core';
 import { MatTooltip } from '@angular/material';
 declare var ffGRestartGame: any;
 declare var ffGResumeGame: any;
@@ -12,14 +18,14 @@ declare var ffg_extra_points: any;
   styleUrls: ['./ffg-playagain.component.scss'],
 })
 export class FfgPlayagainComponent implements OnInit {
-
   @ViewChild('tooltip', { static: false }) showToolTip!: MatTooltip;
-  constructor(private elementRef: ElementRef) { }
+  constructor(private elementRef: ElementRef) {}
   tooltipData!: any;
   ffgExtraPoints!: number;
 
   ngOnInit() {
-    this.tooltipData = "You don't have sufficient points to buy extra time. Instead, click on replay.";
+    this.tooltipData =
+      "You don't have sufficient points to buy extra time. Instead, click on replay.";
     this.ffgExtraPoints = ffg_extra_points;
   }
   continuePlay() {

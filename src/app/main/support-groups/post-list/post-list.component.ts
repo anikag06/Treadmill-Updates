@@ -1,4 +1,10 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 import { SupportGroupsService } from '../support-groups.service';
 import { Subscription } from 'rxjs';
 import { SupportGroupItem } from '../support-group-item.model';
@@ -15,7 +21,6 @@ import { GeneralErrorService } from '@/main/shared/general-error.service';
   styleUrls: ['./post-list.component.scss'],
 })
 export class PostListComponent implements OnInit, OnDestroy {
-
   @Output() createPost = new EventEmitter<any>();
   posts: SupportGroupItem[] = [];
   newPosts: SupportGroupItem[] = [];
@@ -40,7 +45,7 @@ export class PostListComponent implements OnInit, OnDestroy {
     private scrollService: ScrollingService,
     public dialog: MatDialog,
     private errorService: GeneralErrorService,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.queryParamsSubscription = this.route.queryParams.subscribe(data => {
@@ -148,10 +153,9 @@ export class PostListComponent implements OnInit, OnDestroy {
         this.navigateSearch();
       }, 200);
     }
-    if (this.searchTerm !== "") {
+    if (this.searchTerm !== '') {
       this.clearSearch = true;
     }
-
   }
 
   /**
