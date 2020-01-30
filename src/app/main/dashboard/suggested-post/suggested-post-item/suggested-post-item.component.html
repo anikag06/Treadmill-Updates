@@ -12,7 +12,8 @@
     </div> -->
 
   </div>
-  <div class=" d-inline-flex flex-column align-items-start">
+  <div class=" d-inline-flex flex-column align-items-start" style="cursor:pointer;"
+    (click)="onPostClick(suggestedPost.id)">
 
     <div class="main-header">
       <h2>{{suggestedPost.title}}</h2>

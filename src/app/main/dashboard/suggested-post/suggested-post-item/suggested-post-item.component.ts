@@ -7,8 +7,12 @@ import { SuggestedPost } from '../suggested-post.model';
   styleUrls: ['./suggested-post-item.component.scss'],
 })
 export class SuggestedPostItemComponent implements OnInit {
-  constructor() {}
+  constructor() { }
   @Input() suggestedPost!: SuggestedPost;
 
-  ngOnInit() {}
+  ngOnInit() { }
+
+  onPostClick(id: number) {
+    console.log(id);
+  }
 }
