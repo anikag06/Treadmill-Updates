@@ -1,18 +1,10 @@
 
-.content-box{
-  max-width: 780px;
-  max-height: 1563px;
-  border: 1px solid #FAF4EA ;
-  box-shadow: #00000033;
-}
-
-
-
-
-
-
 .bold-text{
   font-weight: bold;
+}
+
+.emphasis-text{
+  font-style: italic;
 }
 
 .font-12{
@@ -27,20 +19,126 @@
   text-align: center;
   color: white;
   font-size: 24px ;
-  background-color: black;
+ // margin: 0 auto;
 }
 
 .content-title{
-  font-size: 28px;
+  font-size: 24px;
   text-align: left;
+  font-weight: bold;
+  padding-bottom: 24px;
+}
+
+.content-subtitle{
+  font-size: 16px;
+  text-align: left;
+  font-weight: bold;
+  padding-bottom: 8px;
+  font-style: italic;
+
 
 }
 
 .content-body{
-  font-size: 20px;
+  font-size: 14px;
   text-align: left;
+  //background-color: #0C8C95;
+  font-weight: normal;
+  padding-bottom: 24px;
+
 }
 
-.img{
+.img-specs{
+
+  //width: auto;
+  width:280px;
+  height: auto;
+  //height: 180px;
+  //border: 1px solid #707070;
+  padding-bottom: 4px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  align-content: center;
+
+}
+
+.img-subtitle{
+  font-size: 12px;
+  padding-bottom: 20px;
+  //margin-left: auto;
+  //margin-right: auto;
+  //display: flex;
+  //alignment: center;
+  //margin-left: auto;
+ // margin-right: auto;
+  display: flex;
+  //align-content: center;
+  justify-content: center;
+
+}
+
+.table-body{
+  font-size: 14px;
+  font-weight: normal;
+  //line-height: 20;
+  padding: 10px;
+}
+
+.table-title{
+  font-weight: bold;
+  font-size: 16px;
+  padding: 8px 10px;
+}
+
+@media only screen and (min-width: 768px){
+  .content-header{
+    font-size: 24px ;
+
+  }
+
+  .content-title{
+    font-size: 24px;
+    padding-bottom: 36px;
+  }
+
+  .content-subtitle{
+    font-size: 20px;
+    padding-bottom: 16px;
+
+  }
+
+  .content-body{
+    font-size: 16px;
+    padding-bottom: 36px;
+  }
+
+  .img-specs{
+    width:300px;
+    //height:340px;
+    height: auto;
+    padding-bottom: 12px;
+  }
+
+  .img-subtitle{
+    font-size: 14px;
+    padding-bottom: 36px;
+
+
+  }
+
+  .table-body{
+    font-size: 16px;
+    padding: 8px 10px;
+
+  }
+
+  .table-title{
+    font-size: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+
 
 }
