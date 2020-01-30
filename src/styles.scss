@@ -196,6 +196,11 @@ $small_logo_height: 40px;
 .app-main {
   // min-height: 100vh;
   background-color: #FAF4EA;
+  // height: 100%;
+}
+
+.dashboard-mat-drawer-content {
+  overflow-x: hidden !important;
 }
 
 .row-nopadding {
@@ -259,6 +264,12 @@ img.emoji {
   text-align: right;
 }
 
+@media screen and (min-width: 1200px) {
+  .app-main {
+    height: 100%;
+  }
+}
+
 @media screen and (max-width: 992px) {
   .main-heading-h1 {
     width: 100%;
@@ -303,11 +314,11 @@ img.emoji {
   }
 }
 
-.mat-checkbox-layout{
+.mat-checkbox-layout {
   width: 100%;
 }
 
-.mat-checkbox-label{
+.mat-checkbox-label {
   width: 100%;
 }
 
@@ -319,6 +330,7 @@ img.emoji {
   display: contents;
 
 }
+
 .moodTracker-dialog-container .mat-dialog-container {
   padding: 0px !important;
   width: 340px;
@@ -333,4 +345,10 @@ img.emoji {
   overflow-y: auto;
   transform-origin: right top;
   position: relative;
+}
+
+@media screen and (max-width: 400px) {
+  .app-main {
+    background-color: white;
+  }
 }

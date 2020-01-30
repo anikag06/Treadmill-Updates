@@ -116,7 +116,7 @@
       <!-- <form (ngSubmit)="onSubmit()" #mainComment="ngForm"> -->
       <form (ngSubmit)="onSubmit()" #mainComment="ngForm">
         <fieldset [disabled]="disabledValue" class="comment-form">
-          <angular-editor name="name" ngModel required (focus)="onFocus()" (focusout)="onFocusOut($event)"
+          <angular-editor name="name" ngModel required (focusin)="onFocus($event)" (focusout)="onFocusOut($event)"
             [config]="editorConfig"></angular-editor>
           <div class="text-right">
             <button type="submit" mat-raised-button class="comment-btn"
