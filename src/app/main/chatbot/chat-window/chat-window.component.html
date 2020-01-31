@@ -66,7 +66,7 @@
         }"
       >
         <button
-          *ngFor="let button of showButtons"
+          *ngFor="let button of m.buttons"
           [ngClass]="{
             'btn radio_button': button.type === radio,
             'btn module_button': button.type === clickAble
@@ -86,7 +86,7 @@
         </button>
         <div>
           <button
-                  id = "more_button"
+            id="more_button"
             *ngIf="showMore"
             class="btn btn-link"
             (click)="getButtons(m.buttons, m)"

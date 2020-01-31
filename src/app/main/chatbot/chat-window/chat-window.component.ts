@@ -146,7 +146,13 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
 
   async pushPreviousChat(message: any) {
     console.log(message);
-    this.showMore = message.butttons.length > 4;
+    // if (message.buttons && message.buttons.length < 4) {
+    //   this.showButtons = message.buttons;
+    // } else {
+    //   this.showButtons = message.buttons.slice(0, 4);
+    //   this.showMore = message.buttons.length > 4;
+    // }
+
     await this.messages.push(
       new Chat(
         twemoji.parse(message.text),
@@ -290,11 +296,12 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     m.buttons.forEach((button: any) => {
       button.payload = twemoji.parse(button.payload);
     });
-    if (m.buttons) {
-      this.showButtons = [];
-      this.showButtons = m.buttons.slice(0, 4);
-      this.showMore = m.buttons.length > 4;
-    }
+    // if (m.buttons && m.buttons.length < 4) {
+    //   this.showButtons = m.buttons;
+    // } else {
+    //   this.showButtons = m.buttons.slice(0, 4);
+    //   this.showMore = m.buttons.length > 4;
+    // }
     const item = new Chat(
       twemoji.parse(m.text || ''),
       false,
