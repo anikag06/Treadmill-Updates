@@ -65,7 +65,11 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     private changRef: ChangeDetectorRef,
     public dialog: MatDialog,
     private elementRef: ElementRef,
-  ) {}
+  ) {
+    this.chatbotService.createOnline$().subscribe(isOnline => {
+      this.isOnline = isOnline;
+    });
+  }
 
   messages: Chat[] = [];
   message = '';
@@ -86,11 +90,14 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   clickAble = 'clickable_image';
   buttonType = 'radio';
   images: any[] = [];
-
+  isOnline = true;
   @ViewChild('messagesDiv', { static: false }) messagesDiv!: ElementRef;
   @ViewChild('ti', { static: false }) ti!: ElementRef;
   @Input() chatWindowClosed = false;
   @Output() chatWindowClosedEmitter = new EventEmitter<Boolean>();
+  counter = 4;
+  showMore = false;
+  showButtons = [];
 
   ngOnChanges(): void {
     if (this.chatWindowClosed === false) {
@@ -109,20 +116,23 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     this.chatbotService.postPreviousChat().subscribe(
       (data: any) => {
         if (data.status) {
+          console.log(data);
           data.data.messages.forEach((message: any) => {
-            this.messages.push(
-              new Chat(
-                twemoji.parse(message.text),
-                message.is_sender_user,
-                [],
-                message.mid,
-                message.sid,
-                message.datetime,
-                false,
-                message.widgets,
-                [],
-              ),
-            );
+            this.pushImage(message);
+            this.pushPreviousChat(message);
+            // this.messages.push(
+            //   new Chat(
+            //     twemoji.parse(message.text),
+            //     message.is_sender_user,
+            //     [],
+            //     message.mid,
+            //     message.sid,
+            //     message.datetime,
+            //     false,
+            //     message.widgets,
+            //     this.images,
+            //   ),
+            // );
             this.scrollToBottom();
             // console.log(message);
           });
@@ -131,6 +141,24 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       (error: HttpErrorResponse) => {
         console.log(error);
       },
+    );
+  }
+
+  async pushPreviousChat(message: any) {
+    console.log(message);
+    this.showMore = message.butttons.length > 4;
+    await this.messages.push(
+      new Chat(
+        twemoji.parse(message.text),
+        message.is_sender_user,
+        [],
+        message.mid,
+        message.sid,
+        message.datetime,
+        false,
+        [],
+        this.images,
+      ),
     );
   }
 
@@ -152,6 +180,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       );
       this.scrollToBottom();
       const message = this.message;
+      console.log(message);
       this.message = '';
 
       this.webSocket.send(
@@ -231,20 +260,6 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       } else if (data.action === 'ws_close') {
         this.closeChat();
       } else {
-        // data.message.forEach((m: any, index: number) => {
-        //   console.log(m.text);
-        //   const delayPerMessage = (this.totalDelay + this.getSentenceDelay(m.text || '')) * index;
-        //   console.log(delayPerMessage);
-        //   setTimeout(() => {
-        //     if ((m.text && m.text.length > 0) || (m.buttons && m.buttons.length > 0)) {
-        //       this.showWritingAndPushChat(m);
-        //       setTimeout(() => {
-        //         this.scrollToBottom();
-        //       });
-        //     }
-        //   });
-        // });
-        console.log(data);
         this.start(data.message);
       }
     };
@@ -270,21 +285,16 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   pushChat(m: any) {
-    console.log('inside images');
-    this.images = [];
-    console.log(m.images);
-    if (m.images) {
-      m.images.forEach((image: any) => {
-        if (image.type === 'unsplash_collection') {
-          this.getImageFromCollection(image.cid);
-        } else if (image.type === 'unsplash_photo') {
-          this.getImageByID(image.pid);
-        } else {
-          this.getImage(image);
-        }
-      });
+    console.log(m);
+    this.pushImage(m);
+    m.buttons.forEach((button: any) => {
+      button.payload = twemoji.parse(button.payload);
+    });
+    if (m.buttons) {
+      this.showButtons = [];
+      this.showButtons = m.buttons.slice(0, 4);
+      this.showMore = m.buttons.length > 4;
     }
-
     const item = new Chat(
       twemoji.parse(m.text || ''),
       false,
@@ -296,7 +306,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       m.widgets,
       this.images,
     );
-    console.log();
+    // console.log();
     if (m.buttons && m.buttons.length > 0) {
       this.buttonType = m.buttons[0].type;
     }
@@ -312,23 +322,6 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       }
     }
   }
-
-  // showWritingAndPushChat(m: any) {
-  //   const item = new Chat('', false, [], '', '', new Date(), true);
-
-  //   this.messages.push(item);
-  //   setTimeout(()=>{
-  //   },this.totalDelay + this.totalDelay)
-  //   setTimeout(this.scrollToBottom);
-  //   this.messages.pop();
-  //   this.pushChat(m);
-  //   setTimeout(this.scrollToBottom);
-  //   // setTimeout(() => {
-  //   //   this.messages.pop();
-  //   //   this.pushChat(m);
-  //   //   setTimeout(this.scrollToBottom);
-  //   // }, this.halfwayDelay + Math.floor((Math.random() * 800) + 1));
-  // }
 
   showWritingAndPushChat(m: any) {
     const item = new Chat('', false, [], '', '', new Date(), true, [], []);
@@ -436,5 +429,78 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       credits: false,
     };
     this.images.push(photo);
+  }
+
+  getGIFByID(gid: string) {
+    this.chatbotService.getGIF(gid).subscribe((resp: any) => {
+      // console.log(resp);
+      const image = {
+        url: resp.body.data.images.original.url,
+        creditsGIF: true,
+      };
+
+      this.images.push(image);
+    });
+  }
+
+  async pushImage(m: any) {
+    this.images = [];
+
+    // setTimeout(()=>{
+    //
+    // })
+    // if(m.images)
+    // const images: Image[] = m.images;
+    // console.log(Object.keys(images).length, typeof images);
+    if (m.images && m.images.length > 1) {
+      await m.images.forEach((image: any) => {
+        if (image.type === 'unsplash_collection') {
+          this.getImageFromCollection(image.cid);
+        } else if (image.type === 'unsplash_photo') {
+          this.getImageByID(image.pid);
+        } else if (image.type === 'giphy') {
+          this.getGIFByID(image.gid);
+        } else {
+          this.getImage(image);
+        }
+      });
+    }
+  }
+
+  scrollFrame(value: string) {
+    if (value === 'up') {
+      console.log('Moving up');
+    }
+    if (value === 'down') {
+      console.log('Moving down');
+    }
+  }
+  getButtons(m: any, message: any) {
+    // console.log(this.counter + 'dat size' + message.buttons.length);
+    // for (let i = this.counter + 1; i < message.buttons.length; i++) {
+    //   m.push(message.buttons[i]);
+    //   this.counter += 1;
+    //   if (i % 4 === 0) {
+    //     break;
+    //   }
+    // }
+
+    for (let i = 0; i < 4; i++) {
+      if (this.counter === message.buttons.length) {
+        this.showMore = false;
+        this.scrollToBottom();
+        break;
+      } else {
+        // console.log(this.counter)
+        // @ts-ignore
+        this.showButtons.push(message.buttons[this.counter]);
+        this.counter += 1;
+        this.counter === message.buttons.length
+          ? (this.showMore = false)
+          : // tslint:disable-next-line:no-unused-expression
+            null;
+      }
+    }
+    this.scrollToBottom();
   }
 }

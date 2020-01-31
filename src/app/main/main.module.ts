@@ -172,6 +172,10 @@ import { LoadingBarService } from './games/shared/loading-bar.service';
 import { LhgGreatComponent } from './games/games-list/common-game/learned-helplessness-game/lhg-great/lhg-great.component';
 import { StepsDataService } from './resources/shared/steps-data.service';
 import { ResourcesModule } from './resources/resources.module';
+import { SliderComponent } from '@/main/resources/forms/worry-productively-form/Slidder/Slidder.component';
+import { ModifyBeliefsComponent } from '@/main/resources/forms/worry-productively-form/techniques/modify-beliefs/modify-beliefs.component';
+import { LazyLoadingImageDirective } from './shared/lazy-loading-image/lazy-loading-image.directive';
+import { InfiniteScrollDirective } from './shared/infinite-scroll/infinite-scroll.directive';
 
 @NgModule({
   declarations: [
@@ -275,7 +279,11 @@ import { ResourcesModule } from './resources/resources.module';
     LoadingBarComponent,
     LoadingBarDirective,
     LhgGreatComponent,
-    MoodTrackerComponent,
+    SliderComponent,
+    ModifyBeliefsComponent,
+    LazyLoadingImageDirective,
+    InfiniteScrollDirective,
+    // MoodTrackerComponent,
   ],
   imports: [
     CommonModule,
@@ -374,7 +382,7 @@ import { ResourcesModule } from './resources/resources.module';
     FfgPlayagainComponent,
     FfgNolifeComponent,
     LoadingBarComponent,
-    MoodTrackerComponent,
+    // MoodTrackerComponent,
   ],
 })
 export class MainModule {}

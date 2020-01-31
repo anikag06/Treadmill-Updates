@@ -48,10 +48,11 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     if (this.type === PSF_PROBLEM_SOLVING) {
       this.getProblems();
-    } else if (this.type === SET_ACTIVITY) {
-      this.getTasks();
-    } else if (this.type === THOUGHT_RECORD) {
-      this.getThoughts();
+
+      // } else if (this.type === SET_ACTIVITY) {
+      //   this.getTasks();
+      // } else if (this.type === THOUGHT_RECORD) {
+      //   this.getThoughts();
     }
 
     this.route.queryParams.subscribe(
@@ -122,16 +123,16 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
   }
 
   onDeleteForm(object: any) {
-    if (this.type === THOUGHT_RECORD) {
-      this.thoughtRecordService.deleteSituation(object.id).subscribe(resp => {
-        const status = resp.ok;
-        if (status) {
-          this.onAddNewForm();
-          this.thoughtRecordService.removeSituation(object);
-          console.log(this.objects);
-        }
-      });
-    }
+    // if (this.type === THOUGHT_RECORD) {
+    //   this.thoughtRecordService.deleteSituation(object.id).subscribe(resp => {
+    //     const status = resp.ok;
+    //     if (status) {
+    //       this.onAddNewForm();
+    //       this.thoughtRecordService.removeSituation(object);
+    //       console.log(this.objects);
+    //     }
+    //   });
+    // }
   }
   selectObject() {
     if (this.objects.length > 0 && this.object_id > 0) {
@@ -141,17 +142,17 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
       }
     }
   }
-  onDeleteForm(task: any) {
-    this.tasksService.deleteTask(task.id).subscribe(resp => {
-      let status = resp.body.status;
-      if (status) {
-        this.tasksService.openSnackBar('Task Deleted Successfully', 'OK');
-        this.onAddNewForm();
-        this.tasksService.removeTask(task);
-        console.log(this.objects);
-      } else {
-        this.tasksService.openSnackBar('Error Occured', 'Retry');
-      }
-    });
-  }
+  // onDeleteForm(task: any) {
+  //   this.tasksService.deleteTask(task.id).subscribe(resp => {
+  //     let status = resp.body.status;
+  //     if (status) {
+  //       this.tasksService.openSnackBar('Task Deleted Successfully', 'OK');
+  //       this.onAddNewForm();
+  //       this.tasksService.removeTask(task);
+  //       console.log(this.objects);
+  //     } else {
+  //       this.tasksService.openSnackBar('Error Occured', 'Retry');
+  //     }
+  //   });
+  // }
 }
