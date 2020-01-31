@@ -1,3 +1,19 @@
+<mat-menu #menu="matMenu" xPosition="before">
+  <button mat-menu-item (click)="onEdit()" *ngIf="comment.user.username == user.username|| user.is_admin"
+    class="edit-item">
+    <span>Edit</span>
+  </button>
+  <button mat-menu-item (click)="onDelete()" *ngIf="comment.user.username == user.username|| user.is_admin"
+    class="delete-item">
+    <span>Delete</span>
+  </button>
+  <button mat-menu-item (click)="onReportProblem()" *ngIf="!comment.user.username == user.username|| user.is_admin">
+    <span>Report Problem</span>
+  </button>
+  <button mat-menu-item (click)="onReportSuicide()" *ngIf="!comment.user.username == user.username || user.is_admin">
+    <span>Report Suicide</span>
+  </button>
+</mat-menu>
 <div class="d-flex flex-column comment">
   <div class="col-12" *ngIf="editMode">
     <div class="errors" *ngIf="errors.length > 0">
@@ -51,6 +67,7 @@
         </div>
       </div>
 
+
       <div class='body user-stats' [innerHTML]="commentBody | safeHtml" [ngClass]="{'body-inline': partialBody}"
         [ngStyle]="{'word-break': 'break-word'}"></div>
 
@@ -65,13 +82,18 @@
           <button class="btn btn-sm" (click)="onThankYou()"><img class="thankyou-img" [src]="thankYouIcon"
               width="18"></button>
           <button class="btn btn-sm comment-reply" (click)="onReplyClick()">Reply</button>
-          <span *ngIf="comment.user.username == user.username">
+          <!-- <span *ngIf="comment.user.username == user.username || user.is_admin ">
             <button class="btn btn-sm comment-edit" (click)="onEdit()">Edit</button>
             <button class="btn btn-sm comment-delete" (click)="onDelete()">Delete</button>
-          </span>
+          </span> -->
 
         </div>
       </div>
+    </div>
+    <div class="d-inline-flex context-button ml-auto">
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_horiz</mat-icon>
+      </button>
     </div>
   </div>
 

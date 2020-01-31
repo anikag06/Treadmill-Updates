@@ -53,11 +53,6 @@ a.toggler:hover {
     word-break: break-word;
   }
 
-  .context-button {
-    height: 100%;
-    text-align: right;
-  }
-
   .post-time {
     font-size: 12px;
     margin-left: 12px;
@@ -90,6 +85,12 @@ a.toggler:hover {
   .comments-row {
     margin-top: 15px;
   }
+}
+
+.context-button {
+  height: 100%;
+  text-align: right;
+  color: #848484 !important;
 }
 
 .post-user-avatar {
