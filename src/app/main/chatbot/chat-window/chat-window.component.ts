@@ -85,7 +85,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   showDateTime = false;
   moodWidget = 'mood_widget';
   dateTimeWidget = 'date_time_widget';
-  buttonsModule: string[] = ['', '', '', '', '', '', '', '', '', ''];
+  // buttonsModule: string[] = ['', '', '', '', '', '', '', '', '', ''];
   radio = 'radio';
   clickAble = 'clickable_image';
   buttonType = 'radio';
@@ -98,7 +98,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   counter = 4;
   showMore = false;
   showButtons = [];
-
+  buttonsBuffer = [];
   ngOnChanges(): void {
     if (this.chatWindowClosed === false) {
       if (
@@ -116,23 +116,23 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     this.chatbotService.postPreviousChat().subscribe(
       (data: any) => {
         if (data.status) {
-          console.log(data);
+          // console.log(data);
           data.data.messages.forEach((message: any) => {
+            // this.pushPreviousChat(message);
             this.pushImage(message);
-            this.pushPreviousChat(message);
-            // this.messages.push(
-            //   new Chat(
-            //     twemoji.parse(message.text),
-            //     message.is_sender_user,
-            //     [],
-            //     message.mid,
-            //     message.sid,
-            //     message.datetime,
-            //     false,
-            //     message.widgets,
-            //     this.images,
-            //   ),
-            // );
+            this.messages.push(
+              new Chat(
+                twemoji.parse(message.text),
+                message.is_sender_user,
+                [],
+                message.mid,
+                message.sid,
+                message.datetime,
+                false,
+                [],
+                this.images,
+              ),
+            );
             this.scrollToBottom();
             // console.log(message);
           });
@@ -144,29 +144,23 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     );
   }
 
-  async pushPreviousChat(message: any) {
-    console.log(message);
-    // if (message.buttons && message.buttons.length < 4) {
-    //   this.showButtons = message.buttons;
-    // } else {
-    //   this.showButtons = message.buttons.slice(0, 4);
-    //   this.showMore = message.buttons.length > 4;
-    // }
-
-    await this.messages.push(
-      new Chat(
-        twemoji.parse(message.text),
-        message.is_sender_user,
-        [],
-        message.mid,
-        message.sid,
-        message.datetime,
-        false,
-        [],
-        this.images,
-      ),
-    );
-  }
+  //  pushPreviousChat(message: any) {
+  //   console.log(message);
+  //   this.pushImage(message);
+  //    this.messages.push(
+  //     new Chat(
+  //       twemoji.parse(message.text),
+  //       message.is_sender_user,
+  //       [],
+  //       message.mid,
+  //       message.sid,
+  //       message.datetime,
+  //       false,
+  //       [],
+  //       this.images,
+  //     ),
+  //   );
+  // }
 
   onChatSubmit() {
     if (this.message.length > 0 && this.message.trim().length > 0) {
@@ -213,8 +207,8 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     this.closeChat();
   }
 
-  chatButtonPressed(button: any, chat: Chat) {
-    chat.buttons = [];
+  chatButtonPressed(button: any) {
+    // chat.buttons = [];
     this.messages.push(
       new Chat(button['payload'], true, [], '', '', new Date(), false, [], []),
     );
@@ -224,6 +218,8 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
         message: { text: '', buttons: [button] },
       }),
     );
+    this.showButtons = [];
+    this.showMore = false;
   }
 
   scrollToBottom() {
@@ -291,21 +287,26 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   pushChat(m: any) {
+    this.buttonsBuffer = [];
     console.log(m);
     this.pushImage(m);
     m.buttons.forEach((button: any) => {
       button.payload = twemoji.parse(button.payload);
     });
-    // if (m.buttons && m.buttons.length < 4) {
-    //   this.showButtons = m.buttons;
-    // } else {
-    //   this.showButtons = m.buttons.slice(0, 4);
-    //   this.showMore = m.buttons.length > 4;
-    // }
+
+    console.log(m.buttons);
+    if (m.buttons && m.buttons.length < 4) {
+      this.showButtons = m.buttons;
+    } else {
+      this.buttonsBuffer = m.buttons;
+      this.showButtons = m.buttons.slice(0, 4);
+      this.showMore = m.buttons.length > 4;
+    }
+
     const item = new Chat(
       twemoji.parse(m.text || ''),
       false,
-      m.buttons,
+      this.showButtons,
       m.mid,
       m.sid,
       m.datetime,
@@ -318,6 +319,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       this.buttonType = m.buttons[0].type;
     }
     this.messages.push(item);
+    // this.showButtons = [];
     this.scrollToBottom();
     if (this.ti) {
       if (m.buttons && m.buttons.length > 1) {
@@ -338,6 +340,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     setTimeout(() => {
       this.messages.pop();
       this.pushChat(m);
+      // this.showButtons = [];
       setTimeout(this.scrollToBottom);
     }, this.halfwayDelay + Math.floor(Math.random() * 800 + 1));
   }
@@ -376,7 +379,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     await this.loadEachMessage(messages);
   }
 
-  async loadEachMessage(m: any) {
+  loadEachMessage(m: any) {
     for (let index = 0; index < m.length; index++) {
       const delayPerMessage =
         (this.totalDelay + this.getSentenceDelay(m.text || '')) * index;
@@ -450,17 +453,10 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     });
   }
 
-  async pushImage(m: any) {
+  pushImage(m: any) {
     this.images = [];
-
-    // setTimeout(()=>{
-    //
-    // })
-    // if(m.images)
-    // const images: Image[] = m.images;
-    // console.log(Object.keys(images).length, typeof images);
-    if (m.images && m.images.length > 1) {
-      await m.images.forEach((image: any) => {
+    if (m.images && m.images.length > 0) {
+      m.images.forEach((image: any) => {
         if (image.type === 'unsplash_collection') {
           this.getImageFromCollection(image.cid);
         } else if (image.type === 'unsplash_photo') {
@@ -482,7 +478,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       console.log('Moving down');
     }
   }
-  getButtons(m: any, message: any) {
+  getButtons(m: any) {
     // console.log(this.counter + 'dat size' + message.buttons.length);
     // for (let i = this.counter + 1; i < message.buttons.length; i++) {
     //   m.push(message.buttons[i]);
@@ -493,16 +489,16 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     // }
 
     for (let i = 0; i < 4; i++) {
-      if (this.counter === message.buttons.length) {
+      if (this.counter === this.buttonsBuffer.length) {
         this.showMore = false;
         this.scrollToBottom();
         break;
       } else {
         // console.log(this.counter)
         // @ts-ignore
-        this.showButtons.push(message.buttons[this.counter]);
+        this.showButtons.push(this.buttonsBuffer[this.counter]);
         this.counter += 1;
-        this.counter === message.buttons.length
+        this.counter === this.buttonsBuffer.length
           ? (this.showMore = false)
           : // tslint:disable-next-line:no-unused-expression
             null;

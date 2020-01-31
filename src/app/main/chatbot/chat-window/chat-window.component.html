@@ -59,42 +59,42 @@
           </div>
         </div>
       </div>
-      <div
-        class="buttons"
-        [ngStyle]="{
-          display: buttonType === clickAble ? 'table-cell' : 'block'
-        }"
-      >
-        <button
-          *ngFor="let button of m.buttons"
-          [ngClass]="{
-            'btn radio_button': button.type === radio,
-            'btn module_button': button.type === clickAble
-          }"
-          (click)="chatButtonPressed(button, m)"
-        >
-          <img
-            src="assets/chatbot/tracker.png"
-            [alt]="button.payload"
-            width="136px"
-            height="72px"
-            *ngIf="button.type === clickAble; else btnText"
-          />
-          <ng-template #btnText>
-            <span class="btn-text" [innerHTML]="button.payload"></span
-          ></ng-template>
-        </button>
-        <div>
-          <button
-            id="more_button"
-            *ngIf="showMore"
-            class="btn btn-link"
-            (click)="getButtons(m.buttons, m)"
-          >
-            + more...
-          </button>
-        </div>
-      </div>
+<!--      <div-->
+<!--        class="buttons"-->
+<!--        [ngStyle]="{-->
+<!--          display: buttonType === clickAble ? 'table-cell' : 'block'-->
+<!--        }"-->
+<!--      >-->
+<!--        <button-->
+<!--          *ngFor="let button of m.buttons"-->
+<!--          [ngClass]="{-->
+<!--            'btn radio_button': button.type === radio,-->
+<!--            'btn module_button': button.type === clickAble-->
+<!--          }"-->
+<!--          (click)="chatButtonPressed(button, m)"-->
+<!--        >-->
+<!--          <img-->
+<!--            src="assets/chatbot/tracker.png"-->
+<!--            [alt]="button.payload"-->
+<!--            width="136px"-->
+<!--            height="72px"-->
+<!--            *ngIf="button.type === clickAble; else btnText"-->
+<!--          />-->
+<!--          <ng-template #btnText>-->
+<!--            <span class="btn-text" [innerHTML]="button.payload"></span-->
+<!--          ></ng-template>-->
+<!--        </button>-->
+<!--        <div>-->
+<!--          <button-->
+<!--            id="more_button"-->
+<!--            *ngIf="showMore"-->
+<!--            class="btn btn-link"-->
+<!--            (click)="getButtons(m.buttons, m)"-->
+<!--          >-->
+<!--            + more...-->
+<!--          </button>-->
+<!--        </div>-->
+<!--      </div>-->
 
       <div *ngFor="let widget of m.widgets">
         <div class="buttons">
@@ -123,6 +123,42 @@
           </div>
         </div>
       </div>
+    </div>
+    <div
+            class="buttons"
+            [ngStyle]="{
+          display: buttonType === clickAble ? 'table-cell' : 'block'
+        }"
+    >
+      <button
+              *ngFor="let button of showButtons"
+              [ngClass]="{
+            'btn radio_button': button.type === radio,
+            'btn module_button': button.type === clickAble
+          }"
+              (click)="chatButtonPressed(button)"
+      >
+        <img
+                src="assets/chatbot/tracker.png"
+                [alt]="button.payload"
+                width="136px"
+                height="72px"
+                *ngIf="button.type === clickAble; else btnText"
+        />
+        <ng-template #btnText>
+            <span class="btn-text" [innerHTML]="button.payload"></span
+            ></ng-template>
+      </button>
+              <div>
+                <button
+                  id="more_button"
+                  *ngIf="showMore"
+                  class="btn btn-link"
+                  (click)="getButtons()"
+                >
+                  + more...
+                </button>
+              </div>
     </div>
     <div class="clearfix no-internet" *ngIf="!isOnline">
       <!--        {{ isOnline }}-->
