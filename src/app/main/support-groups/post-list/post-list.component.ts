@@ -37,6 +37,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   tags: string[] | null = null;
   searchResultCount = 0;
   clearSearch!: boolean;
+  id!: number;
 
   constructor(
     private sgService: SupportGroupsService,
@@ -45,21 +46,30 @@ export class PostListComponent implements OnInit, OnDestroy {
     private scrollService: ScrollingService,
     public dialog: MatDialog,
     private errorService: GeneralErrorService,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.queryParamsSubscription = this.route.queryParams.subscribe(data => {
-      if (data.tags) {
-        this.tags = data.tags.split(',');
-      }
-      this.searchTerm = data.search || '';
-      this.posts = [];
-      this.page = 1;
-      this.morePosts = true;
-      this.getPosts();
-      this.tagsToSearch();
-      if (this.searchTerm && this.search !== this.searchTerm) {
-        this.search += this.searchTerm;
+
+      if (data.id) {
+        console.log('Data id', data.id);
+        this.posts = [];
+        this.id = data.id;
+        this.getPost();
+
+      } else {
+        if (data.tags) {
+          this.tags = data.tags.split(',');
+        }
+        this.searchTerm = data.search || '';
+        this.posts = [];
+        this.page = 1;
+        this.morePosts = true;
+        this.getPosts();
+        this.tagsToSearch();
+        if (this.searchTerm && this.search !== this.searchTerm) {
+          this.search += this.searchTerm;
+        }
       }
     });
     this.newSgServiceSubscription = this.sgService.supportGroupItem$.subscribe(
@@ -85,12 +95,31 @@ export class PostListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.sgServiceSubscription.unsubscribe();
+    if (this.sgServiceSubscription) {
+      this.sgServiceSubscription.unsubscribe();
+    }
+
     this.newSgServiceSubscription.unsubscribe();
     this.queryParamsSubscription.unsubscribe();
     if (this.scrollSubcscription) {
       this.scrollSubcscription.unsubscribe();
     }
+  }
+
+  getPost() {
+    this.sgService
+      .getPost(this.id)
+      .subscribe((data: any) => {
+        console.log('get id DATA', data);
+        const fetchedPosts = <SupportGroupItem>data;
+        this.clearSearch = true;
+        // this.posts = this.arrayUnique([...this.posts, ...fetchedPosts]);
+        this.posts.push(fetchedPosts);
+        console.log('fetched post', fetchedPosts);
+        this.fetching = false;
+        this.search = fetchedPosts.title;
+      }, this.errorService.errorResponse('Cannot fetch posts'));
+
   }
 
   getPosts() {
@@ -110,6 +139,7 @@ export class PostListComponent implements OnInit, OnDestroy {
             this.page += 1;
           }
           const fetchedPosts = <SupportGroupItem[]>response.results;
+          console.log('posts', fetchedPosts);
           this.posts = this.arrayUnique([...this.posts, ...fetchedPosts]);
           this.fetching = false;
         }, this.errorService.errorResponse('Cannot fetch posts'));
