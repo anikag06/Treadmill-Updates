@@ -7,10 +7,10 @@
     class="delete-item">
     <span>Delete</span>
   </button>
-  <button mat-menu-item (click)="onReportProblem()" *ngIf="!comment.user.username == user.username|| user.is_admin">
+  <button mat-menu-item (click)="onReportProblem()" *ngIf="comment.user.username !== user.username|| user.is_admin">
     <span>Report Problem</span>
   </button>
-  <button mat-menu-item (click)="onReportSuicide()" *ngIf="!comment.user.username == user.username || user.is_admin">
+  <button mat-menu-item (click)="onReportSuicide()" *ngIf="comment.user.username !== user.username || user.is_admin">
     <span>Report Suicide</span>
   </button>
 </mat-menu>
@@ -79,8 +79,7 @@
               height="18">{{comment.up_votes}}</button>
           <button class="btn btn-sm thumbs-down" (click)="onThumbsDown()"><img [src]="thumbsDown" width="18"
               height="18"></button>
-          <button class="btn btn-sm" (click)="onThankYou()"><img class="thankyou-img" [src]="thankYouIcon"
-              width="18"></button>
+          <button class="btn btn-sm thumbs-down" (click)="onThankYou()">Thanks</button>
           <button class="btn btn-sm comment-reply" (click)="onReplyClick()">Reply</button>
           <!-- <span *ngIf="comment.user.username == user.username || user.is_admin ">
             <button class="btn btn-sm comment-edit" (click)="onEdit()">Edit</button>

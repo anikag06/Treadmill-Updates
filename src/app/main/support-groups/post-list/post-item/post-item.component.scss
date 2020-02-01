@@ -53,6 +53,18 @@ a.toggler:hover {
     word-break: break-word;
   }
 
+  .context-button {
+    // height: 100%;
+    text-align: right;
+    color: #848484 !important;
+
+    .mat-icon-button {
+      width: 24px;
+      height: 24px;
+      line-height: 32px;
+    }
+  }
+
   .post-time {
     font-size: 12px;
     margin-left: 12px;
@@ -87,11 +99,7 @@ a.toggler:hover {
   }
 }
 
-.context-button {
-  height: 100%;
-  text-align: right;
-  color: #848484 !important;
-}
+
 
 .post-user-avatar {
   border-radius: 50%;
@@ -213,7 +221,7 @@ a.toggler:hover {
 
   .user-stats {
     margin-left: 10px;
-    width: 250px;
+    width: 220px;
   }
 
   .profile-card {
