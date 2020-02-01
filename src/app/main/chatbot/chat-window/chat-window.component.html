@@ -36,12 +36,17 @@
           </div>
         </ng-template>
       </div>
-      <div *ngFor="let image of m.images" [ngStyle]="{ width: 'fit-content' }">
+      <div
+        *ngFor="let image of m.images; let i = index"
+        [ngStyle]="{ width: 'fit-content' }"
+      >
         <img
           appLazyLoad
           loading="lazy"
           class="msg-img"
-          [src]="image.url"
+          src="{{ image.url }}"
+          (click)="changeUrl(image, i)"
+          (load)="hideSpinner(i)"
           alt="image"
         />
 
@@ -53,52 +58,69 @@
           </div>
         </div>
         <div class="credits" *ngIf="image.creditsGIF">
+          <div
+            class="gifDiv"
+            *ngIf="image.url === image.static_url"
+            (click)="changeUrl(image, i)"
+          >
+            GIF
+          </div>
+          <div class="spinnerDiv" *ngIf="image.showSpinner">
+            <mat-progress-spinner
+              mode="indeterminate"
+              diameter="20"
+              color="accent"
+            ></mat-progress-spinner>
+          </div>
           <div class="creditDiv">
             <span> Powered By </span>
             <a class="link" href="https://giphy.com">GIPHY</a>
           </div>
         </div>
       </div>
-<!--      <div-->
-<!--        class="buttons"-->
-<!--        [ngStyle]="{-->
-<!--          display: buttonType === clickAble ? 'table-cell' : 'block'-->
-<!--        }"-->
-<!--      >-->
-<!--        <button-->
-<!--          *ngFor="let button of m.buttons"-->
-<!--          [ngClass]="{-->
-<!--            'btn radio_button': button.type === radio,-->
-<!--            'btn module_button': button.type === clickAble-->
-<!--          }"-->
-<!--          (click)="chatButtonPressed(button, m)"-->
-<!--        >-->
-<!--          <img-->
-<!--            src="assets/chatbot/tracker.png"-->
-<!--            [alt]="button.payload"-->
-<!--            width="136px"-->
-<!--            height="72px"-->
-<!--            *ngIf="button.type === clickAble; else btnText"-->
-<!--          />-->
-<!--          <ng-template #btnText>-->
-<!--            <span class="btn-text" [innerHTML]="button.payload"></span-->
-<!--          ></ng-template>-->
-<!--        </button>-->
-<!--        <div>-->
-<!--          <button-->
-<!--            id="more_button"-->
-<!--            *ngIf="showMore"-->
-<!--            class="btn btn-link"-->
-<!--            (click)="getButtons(m.buttons, m)"-->
-<!--          >-->
-<!--            + more...-->
-<!--          </button>-->
-<!--        </div>-->
-<!--      </div>-->
+      <!--      <div-->
+      <!--        class="buttons"-->
+      <!--        [ngStyle]="{-->
+      <!--          display: buttonType === clickAble ? 'table-cell' : 'block'-->
+      <!--        }"-->
+      <!--      >-->
+      <!--        <button-->
+      <!--          *ngFor="let button of m.buttons"-->
+      <!--          [ngClass]="{-->
+      <!--            'btn radio_button': button.type === radio,-->
+      <!--            'btn module_button': button.type === clickAble-->
+      <!--          }"-->
+      <!--          (click)="chatButtonPressed(button, m)"-->
+      <!--        >-->
+      <!--          <img-->
+      <!--            src="assets/chatbot/tracker.png"-->
+      <!--            [alt]="button.payload"-->
+      <!--            width="136px"-->
+      <!--            height="72px"-->
+      <!--            *ngIf="button.type === clickAble; else btnText"-->
+      <!--          />-->
+      <!--          <ng-template #btnText>-->
+      <!--            <span class="btn-text" [innerHTML]="button.payload"></span-->
+      <!--          ></ng-template>-->
+      <!--        </button>-->
+      <!--        <div>-->
+      <!--          <button-->
+      <!--            id="more_button"-->
+      <!--            *ngIf="showMore"-->
+      <!--            class="btn btn-link"-->
+      <!--            (click)="getButtons(m.buttons, m)"-->
+      <!--          >-->
+      <!--            + more...-->
+      <!--          </button>-->
+      <!--        </div>-->
+      <!--      </div>-->
 
       <div *ngFor="let widget of m.widgets">
         <div class="buttons">
-          <button (click)="onMoodSelect()" *ngIf="widget === moodWidget">
+          <button
+            (click)="onMoodSelect()"
+            *ngIf="widget === moodWidget && showMoodWidget"
+          >
             <span class="btn-text">Select your mood</span>
           </button>
           <div *ngIf="showMoodTracker">
@@ -125,40 +147,40 @@
       </div>
     </div>
     <div
-            class="buttons"
-            [ngStyle]="{
-          display: buttonType === clickAble ? 'table-cell' : 'block'
-        }"
+      class="buttons"
+      [ngStyle]="{
+        display: buttonType === clickAble ? 'table-cell' : 'block'
+      }"
     >
       <button
-              *ngFor="let button of showButtons"
-              [ngClass]="{
-            'btn radio_button': button.type === radio,
-            'btn module_button': button.type === clickAble
-          }"
-              (click)="chatButtonPressed(button)"
+        *ngFor="let button of showButtons"
+        [ngClass]="{
+          'btn radio_button': button.type === radio,
+          'btn module_button': button.type === clickAble
+        }"
+        (click)="chatButtonPressed(button)"
       >
         <img
-                src="assets/chatbot/tracker.png"
-                [alt]="button.payload"
-                width="136px"
-                height="72px"
-                *ngIf="button.type === clickAble; else btnText"
+          src="assets/chatbot/tracker.png"
+          [alt]="button.payload"
+          width="136px"
+          height="72px"
+          *ngIf="button.type === clickAble; else btnText"
         />
         <ng-template #btnText>
-            <span class="btn-text" [innerHTML]="button.payload"></span
-            ></ng-template>
+          <span class="btn-text" [innerHTML]="button.payload"></span
+        ></ng-template>
       </button>
-              <div>
-                <button
-                  id="more_button"
-                  *ngIf="showMore"
-                  class="btn btn-link"
-                  (click)="getButtons()"
-                >
-                  + more...
-                </button>
-              </div>
+      <div>
+        <button
+          id="more_button"
+          *ngIf="showMore"
+          class="btn btn-link"
+          (click)="getButtons()"
+        >
+          + more...
+        </button>
+      </div>
     </div>
     <div class="clearfix no-internet" *ngIf="!isOnline">
       <!--        {{ isOnline }}-->

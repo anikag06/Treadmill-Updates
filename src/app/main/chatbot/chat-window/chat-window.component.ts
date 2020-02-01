@@ -99,6 +99,10 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   showMore = false;
   showButtons = [];
   buttonsBuffer = [];
+  widgetValues: any[] = [];
+  showMoodWidget = true;
+  showDateTimeWidget = true;
+  showSpinner = true;
   ngOnChanges(): void {
     if (this.chatWindowClosed === false) {
       if (
@@ -180,13 +184,27 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       );
       this.scrollToBottom();
       const message = this.message;
+      const widgetValues = this.widgetValues;
       console.log(message);
       this.message = '';
-
+      this.widgetValues = [];
+      console.log(
+        JSON.stringify({
+          message: {
+            text: message,
+            buttons: [],
+            values: widgetValues.length > 0 ? widgetValues : [],
+          },
+        }),
+      );
       this.webSocket.send(
         JSON.stringify({
           action: REPLY_CURRENT,
-          message: { text: message, buttons: [] },
+          message: {
+            text: message,
+            buttons: [],
+            values: widgetValues.length > 0 ? widgetValues : [],
+          },
         }),
       );
       if (screen.availWidth > 576) {
@@ -367,8 +385,10 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     this.showMoodTracker = !this.showMoodTracker;
   }
 
-  getMoodMessage($event: string) {
-    this.message = $event;
+  getMoodMessage($event: any) {
+    this.message = $event.moodMessage;
+    this.widgetValues = $event.moodValues;
+    this.showMoodWidget = false;
   }
 
   getDateTimeMessage($event: string) {
@@ -403,6 +423,23 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     this.showDateTime = !this.showDateTime;
   }
 
+  pushImage(m: any) {
+    this.images = [];
+    if (m.images && m.images.length > 0) {
+      m.images.forEach((image: any) => {
+        if (image.type === 'unsplash_collection') {
+          this.getImageFromCollection(image.cid);
+        } else if (image.type === 'unsplash_photo') {
+          this.getImageByID(image.pid);
+        } else if (image.type === 'giphy') {
+          this.getGIFByID(image.gid);
+        } else {
+          this.getImage(image);
+        }
+      });
+    }
+  }
+
   getImageFromCollection(cid: string) {
     this.chatbotService.getRandomPhoto(cid).subscribe((resp: any) => {
       // console.log(resp);
@@ -433,41 +470,27 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     });
   }
 
-  getImage(image: any) {
-    const photo = {
-      url: image.url,
+  getImage(photo: any) {
+    const image = {
+      url: photo.url,
       credits: false,
     };
-    this.images.push(photo);
+    this.images.push(image);
   }
 
   getGIFByID(gid: string) {
     this.chatbotService.getGIF(gid).subscribe((resp: any) => {
       // console.log(resp);
       const image = {
-        url: resp.body.data.images.original.url,
+        url: resp.body.data.images.original_still.url,
+        dynamic_url: resp.body.data.images.original.url,
+        static_url: resp.body.data.images.original_still.url,
+        showSpinner: true,
         creditsGIF: true,
       };
 
       this.images.push(image);
     });
-  }
-
-  pushImage(m: any) {
-    this.images = [];
-    if (m.images && m.images.length > 0) {
-      m.images.forEach((image: any) => {
-        if (image.type === 'unsplash_collection') {
-          this.getImageFromCollection(image.cid);
-        } else if (image.type === 'unsplash_photo') {
-          this.getImageByID(image.pid);
-        } else if (image.type === 'giphy') {
-          this.getGIFByID(image.gid);
-        } else {
-          this.getImage(image);
-        }
-      });
-    }
   }
 
   scrollFrame(value: string) {
@@ -479,15 +502,6 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     }
   }
   getButtons(m: any) {
-    // console.log(this.counter + 'dat size' + message.buttons.length);
-    // for (let i = this.counter + 1; i < message.buttons.length; i++) {
-    //   m.push(message.buttons[i]);
-    //   this.counter += 1;
-    //   if (i % 4 === 0) {
-    //     break;
-    //   }
-    // }
-
     for (let i = 0; i < 4; i++) {
       if (this.counter === this.buttonsBuffer.length) {
         this.showMore = false;
@@ -498,12 +512,36 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
         // @ts-ignore
         this.showButtons.push(this.buttonsBuffer[this.counter]);
         this.counter += 1;
-        this.counter === this.buttonsBuffer.length
-          ? (this.showMore = false)
-          : // tslint:disable-next-line:no-unused-expression
-            null;
+        if (this.counter === this.buttonsBuffer.length) {
+          this.showMore = false;
+          this.buttonsBuffer = [];
+          this.showButtons = [];
+        }
       }
     }
     this.scrollToBottom();
+  }
+
+  changeUrl(image: any, index: number) {
+    if (image.dynamic_url) {
+      this.images[index].showSpinner = true;
+      this.images[index].url =
+        this.images[index].url === this.images[index].static_url
+          ? this.images[index].dynamic_url
+          : this.images[index].static_url;
+    }
+    // console.log(image.dynamic_url === image.url);
+  }
+
+  hideSpinner(index: number) {
+    if (this.images[index].showSpinner) {
+      this.images[index].showSpinner = false;
+      setTimeout(() => {
+        if (this.images[index].url === this.images[index].dynamic_url) {
+          this.images[index].url = this.images[index].static_url;
+        }
+      }, 10000);
+      console.log('hide spinner');
+    }
   }
 }

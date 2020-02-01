@@ -52,7 +52,7 @@
     //max-height: 540px;
   }
   .form-div {
-    position: absolute;
+    position: relative;
     width: 100%;
     display: inline-block;
     //height: 50px;
@@ -367,6 +367,18 @@ $x3: -$leftPos + $dotSpacing;
   border-radius: 10px;
   padding: 3px 5px 3px 5px;
 }
+.gifDiv {
+  width: 50px;
+  height: 50px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 50%;
+  text-align: center;
+  font-size: 16px;
+  position: absolute;
+  padding-top: 13px;
+  top: -80px;
+  right: 100px;
+}
 
 .msg-img {
   max-height: 400px;
@@ -392,4 +404,14 @@ $x3: -$leftPos + $dotSpacing;
 #more_button {
   color: #4071f9;
   border: 1px solid #4071f9;
+}
+.mat-progress-spinner circle, .mat-spinner circle {
+  stroke: #3fb53f;
+}
+
+.spinnerDiv{
+  position: absolute;
+  padding-top: 13px;
+  top: -80px;
+  right: 120px;
 }

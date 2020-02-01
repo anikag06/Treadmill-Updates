@@ -1,16 +1,26 @@
-import { Directive, ElementRef, HostBinding, Input } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  HostBinding,
+  Input,
+  OnDestroy,
+} from '@angular/core';
 
 @Directive({
   selector: 'img[appLazyLoad]',
 })
-export class LazyLoadingImageDirective {
+export class LazyLoadingImageDirective implements OnDestroy {
   @HostBinding('attr.src') srcAttr = null;
   @Input() src!: string;
-
+  observer!: IntersectionObserver;
   constructor(private el: ElementRef) {}
 
   ngAfterViewInit() {
     this.canLazyLoad() ? this.lazyLoadImage() : this.loadImage();
+  }
+
+  ngOnChanges() {
+    this.loadImage();
   }
 
   private canLazyLoad() {
@@ -18,19 +28,23 @@ export class LazyLoadingImageDirective {
   }
 
   private lazyLoadImage() {
-    const obs = new IntersectionObserver(entries => {
+    this.observer = new IntersectionObserver(entries => {
       entries.forEach(({ isIntersecting }) => {
         if (isIntersecting) {
           this.loadImage();
-          obs.unobserve(this.el.nativeElement);
+          this.observer.unobserve(this.el.nativeElement);
         }
       });
     });
-    obs.observe(this.el.nativeElement);
+    this.observer.observe(this.el.nativeElement);
   }
 
   private loadImage() {
     // @ts-ignore
     this.srcAttr = this.src;
+  }
+
+  ngOnDestroy() {
+    this.observer.disconnect();
   }
 }
