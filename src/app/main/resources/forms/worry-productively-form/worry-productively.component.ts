@@ -32,7 +32,6 @@ import { WORRY_PRODUCTIVELY } from '@/app.constants';
   //   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WorryProductivelyComponent implements OnInit, OnDestroy {
-  // private problems: Problem[] = [];
   user!: User;
   worry!: Worry | undefined;
   type = WORRY_PRODUCTIVELY;
@@ -46,19 +45,6 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
   useless_characteristic: string[] = [];
   useless_characteristics = '';
   sliderResponse !: string[];
-  // items = [
-  // 'Future \"what if...\"',
-  // 'Keeping seeking reassurance from others that everything is going to be okay but reassurance doesn\'t help.',
-  // 'Worried about worst going to happen',
-  // 'Guilty',
-  // 'Jealous',
-  // 'Hopeless',
-  // 'Worthless',
-  // 'Lonely',
-  // 'Frusutated',
-  // 'Embarrassed'
-  // ];
-
   @ViewChild('autosize', { static: false }) autosize!: CdkTextareaAutosize;
   @ViewChild(WorryFormComponent, { static: false })
   worryStatementForm!: WorryFormComponent;
@@ -72,7 +58,6 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
   });
 
   constructor(
-    // private http: HttpClient
     private worryService: WorryProductivelyService,
     private authService: AuthService,
     private errorService: GeneralErrorService,
@@ -80,7 +65,6 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    // let datacheckbox !: [{ value: string, is_checked: boolean }];
     this.subscriptions[
       this.subscriptions.length
     ] = this.worryService.worryBehaviour.subscribe((worry: any) => {
@@ -109,7 +93,6 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
         .subscribe((resp: any) => {
           if (resp.body.data) {
             resp.body.data.forEach((data: any) => {
-              // @ts-ignore
               const obj = this.data.find((x, i) => {
                 if (x.value === data) {
                   this.data[i].is_checked = true;
@@ -151,7 +134,7 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
             );
             this.buttonClick = true;
             resp.body.data.forEach((data: any) => {
-              // @ts-ignore
+             
               const obj = this.data.find((x, i) => {
                 if (x.value === data) {
                   this.data[i].is_checked = true;

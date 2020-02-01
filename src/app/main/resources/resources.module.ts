@@ -77,7 +77,6 @@ import { WpfProblemSolvingComponent } from './forms/worry-productively-form/tech
 import { IdentifyThinkingService } from './forms/thought-record-form/thought-record-techniques/identify-thinking/identify-thinking.service';
 import { AngularEditorModule } from '@xw19/angular-editor';
 import { ModifyBeliefsComponent } from './forms/worry-productively-form/techniques/modify-beliefs/modify-beliefs.component';
-import { SliderComponent } from './forms/worry-productively-form/Slidder/Slidder.component';
 // tslint:disable-next-line:max-line-length
 import { ThoughtRecordTechniquesComponent } from './forms/thought-record-form/thought-record-techniques/thought-record-techniques.component';
 import { TechniquesInfoComponent } from './forms/thought-record-form/thought-record-techniques/techniques-info/techniques-info.component';
@@ -155,7 +154,6 @@ import { ProofService } from '@/main/resources/forms/thought-record-form/thought
     TellFriendComponent,
     DateTimePickerComponent,
     ModifyBeliefsComponent,
-    SliderComponent,
   ],
   imports: [
     ResourcesRoutingModule,
