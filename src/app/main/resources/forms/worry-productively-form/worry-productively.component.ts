@@ -35,7 +35,7 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
   user!: User;
   worry!: Worry | undefined;
   type = WORRY_PRODUCTIVELY;
-  reset = false ; 
+  reset = false;
   page = 1;
   worryEditMode = false;
   subscriptions: Subscription[] = [];
@@ -44,7 +44,7 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
   data = [{ value: '', is_checked: false }];
   useless_characteristic: string[] = [];
   useless_characteristics = '';
-  sliderResponse !: string[];
+  sliderResponse!: string[];
   @ViewChild('autosize', { static: false }) autosize!: CdkTextareaAutosize;
   @ViewChild(WorryFormComponent, { static: false })
   worryStatementForm!: WorryFormComponent;
@@ -76,16 +76,15 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
     if (user && user.is_active) {
       this.user = <User>user;
     }
-    
-      this.worryService.getUselessCharacteristics().subscribe((data: any) => {
-        data.map((uselessChar: any) => {
-          this.data.push({ value: uselessChar, is_checked: false });
-          console.log(this.data + 'and data' + uselessChar);
-        });
+
+    this.worryService.getUselessCharacteristics().subscribe((data: any) => {
+      data.map((uselessChar: any) => {
+        this.data.push({ value: uselessChar, is_checked: false });
+        console.log(this.data + 'and data' + uselessChar);
       });
-      this.data.shift();
-     
-    }
+    });
+    this.data.shift();
+  }
   ngOnChanges() {
     if (this.worry) {
       this.worryService
@@ -104,15 +103,13 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
           }
         });
     }
-    if(this.worry){
-      this.worryService.getFinalSlider(this.worry.id).subscribe(
-        (resp : any) => {
-          if(resp){
-            console.log('final slider data is :'+resp.body);
-            this.sliderResponse = resp.body.data;
-          }
+    if (this.worry) {
+      this.worryService.getFinalSlider(this.worry.id).subscribe((resp: any) => {
+        if (resp) {
+          console.log('final slider data is :' + resp.body);
+          this.sliderResponse = resp.body.data;
         }
-      )
+      });
     }
   }
   ngOnDestroy() {
@@ -134,7 +131,6 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
             );
             this.buttonClick = true;
             resp.body.data.forEach((data: any) => {
-             
               const obj = this.data.find((x, i) => {
                 if (x.value === data) {
                   this.data[i].is_checked = true;
@@ -146,17 +142,14 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
           }
         });
     }
-    if(this.worry){
-      this.worryService.getFinalSlider(this.worry.id).subscribe(
-        (resp : any) => {
-          if(resp){
-            console.log('final slider data is :'+resp.body);
-            this.sliderResponse = resp.body.worry_rating_final;
-          }
+    if (this.worry) {
+      this.worryService.getFinalSlider(this.worry.id).subscribe((resp: any) => {
+        if (resp) {
+          console.log('final slider data is :' + resp.body);
+          this.sliderResponse = resp.body.worry_rating_final;
         }
-      )
+      });
     }
-
   }
   onEditWorryClick() {
     this.onWorryClick();
@@ -175,8 +168,6 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
     this.worry = undefined;
     this.reset = !this.reset;
     // this.buttonClick = false;
-
-
   }
   continueAfterSlider(selected: any) {
     this.buttonClick = selected;
@@ -200,9 +191,11 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
   OnCharacteristicCheck() {
     console.log(this.data);
     this.useless_characteristics = this.useless_characteristic.join(',');
-    if(this.worry){ 
-    const object = {
-        useless_characteristics : this.uselessCharacteristicsForm.value['characteristics'],
+    if (this.worry) {
+      const object = {
+        useless_characteristics: this.uselessCharacteristicsForm.value[
+          'characteristics'
+        ],
       };
       console.log(object);
       this.worryService
@@ -213,38 +206,35 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
             console.log('The request has been submited');
           }
         });
-    }    
-  }
-  OnFinalSliderClick(){
-  if(this.sliderResponse == undefined && this.worry) {
-    const object = {
-      worry_id : this.worry.id,
-      worry_rating_final : this.sliderRating.rating
     }
-      this.worryService.postFinalSlider(object).subscribe(
-        (resp : any) => {
+  }
+  OnFinalSliderClick() {
+    if (this.sliderResponse == undefined && this.worry) {
+      const object = {
+        worry_id: this.worry.id,
+        worry_rating_final: this.sliderRating.rating,
+      };
+      this.worryService.postFinalSlider(object).subscribe((resp: any) => {
+        const status = resp.ok;
+        if (status) {
+          console.log('The request has been submited');
+        }
+        this.sliderResponse = resp;
+      });
+    } else if (this.sliderResponse != undefined && this.worry) {
+      const object = {
+        worry_id: this.worry.id,
+        worry_rating_final: this.sliderRating.rating,
+      };
+      this.worryService
+        .putFinalSlider(object, this.worry.id)
+        .subscribe((resp: any) => {
           const status = resp.ok;
           if (status) {
             console.log('The request has been submited');
-          } 
-          this.sliderResponse = resp;
-        }
-      );
-    } else if (this.sliderResponse != undefined && this.worry){
-      const object = {
-        worry_id : this.worry.id,
-        worry_rating_final : this.sliderRating.rating
-      }
-        this.worryService.putFinalSlider(object, this.worry.id).subscribe(
-          (resp : any) => {
-            const status = resp.ok;
-            if (status) {
-              console.log('The request has been submited');
-              console.log( 'final slider response '+this.sliderResponse);
-            } 
+            console.log('final slider response ' + this.sliderResponse);
           }
-        );
+        });
     }
   }
-
 }

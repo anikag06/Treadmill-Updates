@@ -23,16 +23,16 @@ export const EVALUATE_DATA = [
     description:
       'Lorem ipsum dolor sit amet, consetetur teg sadipscing elitr, sed',
   },
-//   {
-//     color: '#C788C9',
-//     name: 'Does this thought help me?',
-//     description:
-//       'Lorem ipsum dolor sit amet, consetetur teg sadipscing elitr, sed',
-//   },
-//   {
-//     color: '#E1B998',
-//     name: 'What would I tell a friend?',
-//     description:
-//       'Lorem ipsum dolor sit amet, consetetur teg sadipscing elitr, sed',
-//   },
+  //   {
+  //     color: '#C788C9',
+  //     name: 'Does this thought help me?',
+  //     description:
+  //       'Lorem ipsum dolor sit amet, consetetur teg sadipscing elitr, sed',
+  //   },
+  //   {
+  //     color: '#E1B998',
+  //     name: 'What would I tell a friend?',
+  //     description:
+  //       'Lorem ipsum dolor sit amet, consetetur teg sadipscing elitr, sed',
+  //   },
 ];

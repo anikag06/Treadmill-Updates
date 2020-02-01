@@ -10,9 +10,13 @@ import {
 } from '@angular/core';
 import { Worry } from '../../worry.model';
 import { FormSliderComponent } from '../../../shared/form-slider/form-slider.component';
-import { FormBuilder, FormControl, Validators, FormArray } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  Validators,
+  FormArray,
+} from '@angular/forms';
 import { WorryProductivelyService } from '@/main/resources/forms/worry-productively-form/worry-productively.service';
-
 
 @Component({
   selector: 'app-evaluate-worry',
@@ -22,11 +26,11 @@ import { WorryProductivelyService } from '@/main/resources/forms/worry-productiv
 export class EvaluateWorryComponent implements OnInit, AfterContentChecked {
   @Input() EvaluatedClicked = false;
   // @Input() summary = false;
-  @Input() worry !: Worry;
+  @Input() worry!: Worry;
   @Output() valueUpdate = new EventEmitter();
   @Output() summaryEvaluateEvent = new EventEmitter<boolean>();
   @ViewChild(FormSliderComponent, { static: false })
-  sliderRating!: FormSliderComponent; 
+  sliderRating!: FormSliderComponent;
   buttonClick = false;
   summary = false;
   sliderSubmit = false;
@@ -40,21 +44,21 @@ export class EvaluateWorryComponent implements OnInit, AfterContentChecked {
   evaSliderMaxRangeText = 'High';
   summaryText = '';
   evaluateForm = this.fb.group({
-    thinking_errors : this.fb.array([]),
+    thinking_errors: this.fb.array([]),
     evidences: this.fb.array([]),
   });
   data = [{ value: '', is_checked: false }];
   errorCount = 0;
   thinkingError: string[] = [];
   thinkingErrors = '';
-  
+
   constructor(
     private fb: FormBuilder,
     private worryService: WorryProductivelyService,
     private changeDetector: ChangeDetectorRef,
   ) {}
 
-  ngOnInit() {   
+  ngOnInit() {
     this.worryService.thinkingErrors().subscribe((data: any) => {
       data.map((uselessChar: any) => {
         this.data.push({ value: uselessChar, is_checked: false });
@@ -89,36 +93,32 @@ export class EvaluateWorryComponent implements OnInit, AfterContentChecked {
 
     const formArray = this.getEvidence;
     if (this.worry) {
-      this.worryService
-      .getEvidences(this.worry.id)
-      .subscribe((resp: any) => {
+      this.worryService.getEvidences(this.worry.id).subscribe((resp: any) => {
         if (resp.body.data.evidences.length !== 0) {
-            for (let i = 0; i < resp.body.data.evidences.length; i++) {
-              formArray.push(
-                this.createEditItem(
-                  resp.body.data.evidences[i].id,
-                  resp.body.data.evidences[i].evidence,
-                ),
-              );
-            }
-            // this.setSummary.emit();
-            this.summaryText = resp.body.data.evidences[0].evidence;
-
-          } else {
-            formArray.push(this.createItem());
+          for (let i = 0; i < resp.body.data.evidences.length; i++) {
+            formArray.push(
+              this.createEditItem(
+                resp.body.data.evidences[i].id,
+                resp.body.data.evidences[i].evidence,
+              ),
+            );
           }
-        });
+          // this.setSummary.emit();
+          this.summaryText = resp.body.data.evidences[0].evidence;
+        } else {
+          formArray.push(this.createItem());
+        }
+      });
     } else {
       formArray.push(this.createItem());
-      console.log('form array is :'+formArray);
+      console.log('form array is :' + formArray);
     }
-  
   }
-  get getEvidence(){
+  get getEvidence() {
     return this.evaluateForm.get('evidences') as FormArray;
   }
   worrySelected(worry: Worry) {
-    this.worry = worry
+    this.worry = worry;
   }
   onEvaluateSubmit() {
     // this.summaryText = this.evaluateForm.value['evaluateStatement'];
@@ -128,8 +128,8 @@ export class EvaluateWorryComponent implements OnInit, AfterContentChecked {
     //  for(var i=0;i<Object.entries(this.evaluate).length;i++){
     //     const object = {
     //       id : this.evaluate.id,
-    //       evidences :  this.evaluateForm.controls['evidences'].value 
-    //     } 
+    //       evidences :  this.evaluateForm.controls['evidences'].value
+    //     }
     //     this.worryService.putEvidences(object,this.worry.id).subscribe(
     //       (resp : any) => {
     //         const status = resp.ok;
@@ -139,16 +139,17 @@ export class EvaluateWorryComponent implements OnInit, AfterContentChecked {
     //     });
     //   }
     // } else {
-      const object = {
-        evidences :  this.evaluateForm.controls['evidences'].value  
-      } 
-      this.summaryText = object.evidences[0].evidence;
-      this.worryService.postEvidences(object,this.worry.id).subscribe(
-        (resp : any) => {
-          const status = resp.ok;
-          if (status) {
-            console.log('The request has been submited');
-          }
+    const object = {
+      evidences: this.evaluateForm.controls['evidences'].value,
+    };
+    this.summaryText = object.evidences[0].evidence;
+    this.worryService
+      .postEvidences(object, this.worry.id)
+      .subscribe((resp: any) => {
+        const status = resp.ok;
+        if (status) {
+          console.log('The request has been submited');
+        }
       });
     // }
   }
@@ -160,7 +161,7 @@ export class EvaluateWorryComponent implements OnInit, AfterContentChecked {
       thinking_errors: this.evaluateForm.value['thinking_errors'],
     };
     console.log(object);
-    if(this.worry){
+    if (this.worry) {
       this.worryService
         .postThinkingErrors(object, this.worry.id)
         .subscribe((resp: any) => {
@@ -196,16 +197,17 @@ export class EvaluateWorryComponent implements OnInit, AfterContentChecked {
     this.sliderSubmit = true;
     console.log(this.sliderRating.rating);
     const object = {
-      worry_id : this.worry.id,
-      probability_rating : this.sliderRating.rating,
-    }
-    this.worryService.putProbabilityRating(object , this.worry.id).subscribe( 
-      (resp : any) => {
+      worry_id: this.worry.id,
+      probability_rating: this.sliderRating.rating,
+    };
+    this.worryService
+      .putProbabilityRating(object, this.worry.id)
+      .subscribe((resp: any) => {
         const status = resp.ok;
         if (status) {
           console.log('The request has been submited');
         }
-    });
+      });
   }
 
   doneSummary() {
@@ -213,8 +215,6 @@ export class EvaluateWorryComponent implements OnInit, AfterContentChecked {
     this.summaryEvaluateEvent.emit(this.summary);
   }
 
- 
-  
   createItem(name = '') {
     return this.fb.group({
       evidence: name,
@@ -242,7 +242,7 @@ export class EvaluateWorryComponent implements OnInit, AfterContentChecked {
           }
         });
     }
-    
+
     FormArray.removeAt(index);
     this.showTrashIcon.splice(index, 1);
     this.changeDetector.detectChanges();
@@ -264,8 +264,8 @@ export class EvaluateWorryComponent implements OnInit, AfterContentChecked {
   onShowTrashIcon(index: number) {
     this.showTrashIcon[index] = !this.showTrashIcon[index];
   }
-    
-  ngAfterContentChecked() : void {
+
+  ngAfterContentChecked(): void {
     this.changeDetector.detectChanges();
-}
+  }
 }

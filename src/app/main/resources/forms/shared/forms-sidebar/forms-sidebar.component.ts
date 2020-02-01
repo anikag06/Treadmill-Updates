@@ -59,7 +59,7 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
       this.getTasks();
     } else if (this.type === THOUGHT_RECORD) {
       this.getThoughts();
-    } else if (this.type === WORRY_PRODUCTIVELY){
+    } else if (this.type === WORRY_PRODUCTIVELY) {
       this.getWorries();
     }
 
@@ -99,7 +99,7 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
       },
     );
   }
-  getWorries(){
+  getWorries() {
     this.subscriptions[
       this.subscriptions.length
     ] = this.worryService.getWorries();
@@ -154,15 +154,14 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
           this.thoughtRecordService.removeSituation(object);
         }
       });
-    }
-    else if(this.type === WORRY_PRODUCTIVELY){
-      this.worryService.deleteWorry(object.id).subscribe( resp => {
+    } else if (this.type === WORRY_PRODUCTIVELY) {
+      this.worryService.deleteWorry(object.id).subscribe(resp => {
         const status = resp.ok;
         if (status) {
           this.onAddNewForm();
           this.worryService.removeSituation(object);
         }
-      })
+      });
     }
   }
 
@@ -188,7 +187,5 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
       }
     });
   }
-  deleteWorryForm(worry : any){
-   
-  }
+  deleteWorryForm(worry: any) {}
 }

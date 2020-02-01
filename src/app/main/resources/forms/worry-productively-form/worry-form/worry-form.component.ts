@@ -34,7 +34,7 @@ export class WorryFormComponent implements OnInit {
   clickbutton = false;
   showSliderCont = false;
   public sliderEmit = false;
-  worryResponse !: undefined;
+  worryResponse!: undefined;
   ngOnInit() {
     if (this.worry) {
       this.worryStatement = this.worry.worry;
@@ -69,15 +69,16 @@ export class WorryFormComponent implements OnInit {
           worry_rating_initial: this.worry.worry_rating_initial,
         })
         .subscribe(
-          (data: any) => {
-            
-          },
+          (data: any) => {},
           error => {
             console.error(error);
           },
         );
-    } else if (this.worryStatement.trim().length > 0 && this.worryResponse == undefined ) {
-      this.worryService.postWorry(this.worryStatement ).subscribe(
+    } else if (
+      this.worryStatement.trim().length > 0 &&
+      this.worryResponse == undefined
+    ) {
+      this.worryService.postWorry(this.worryStatement).subscribe(
         (data: any) => {
           console.log(data);
           this.worryResponse = data.body;
@@ -89,7 +90,6 @@ export class WorryFormComponent implements OnInit {
     }
     this.continueText = false;
     // this.continueButton = false;
-
   }
   continuetoCharacteristics() {
     this.sliderEmit = true;
@@ -109,10 +109,9 @@ export class WorryFormComponent implements OnInit {
     ) {
       this.continueText = false;
       this.continueButton = false;
-
     }
   }
-  onFocus(){
+  onFocus() {
     this.continueButton = true;
   }
 }

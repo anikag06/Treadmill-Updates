@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef, ViewChild, Input } from '@angular/core';
-import {MatDialog} from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import {
@@ -20,7 +20,7 @@ import { Worry } from '../worry.model';
 })
 export class TechniquesComponent implements OnInit {
   @ViewChild('doneBtn', { static: false }) doneBtn!: ElementRef;
-  @Input() worry !: Worry;
+  @Input() worry!: Worry;
   constructor(
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer,
@@ -106,26 +106,25 @@ export class TechniquesComponent implements OnInit {
     }
   }
   TechniqueInfo() {
-  //   console.log(this.doneBtn);
-  //   const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
-  //   this.doneBtn.nativeElement.dispatchEvent(domEvent);
-  //   this.dialogBoxService.setDialogChild(TechniqueInfoComponent);
+    //   console.log(this.doneBtn);
+    //   const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
+    //   this.doneBtn.nativeElement.dispatchEvent(domEvent);
+    //   this.dialogBoxService.setDialogChild(TechniqueInfoComponent);
     const dialogRef = this.dialog.open(TechniquesInfoComponent, {
-        panelClass: 'technique-info-dialog-container',
-        autoFocus: false,
-        data: {
-            techniquesInfo: TECHNIQUE_DATA,
-        },
+      panelClass: 'technique-info-dialog-container',
+      autoFocus: false,
+      data: {
+        techniquesInfo: TECHNIQUE_DATA,
+      },
     });
-
   }
   onShowInfo() {
-      const dialogRef = this.dialog.open(TechniquesInfoComponent, {
-          panelClass: 'technique-info-dialog-container',
-          autoFocus: false,
-          data: {
-              techniquesInfo: EVALUATE_DATA,
-          },
-      })
+    const dialogRef = this.dialog.open(TechniquesInfoComponent, {
+      panelClass: 'technique-info-dialog-container',
+      autoFocus: false,
+      data: {
+        techniquesInfo: EVALUATE_DATA,
+      },
+    });
   }
 }

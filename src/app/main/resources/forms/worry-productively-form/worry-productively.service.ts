@@ -10,17 +10,18 @@ import { of, BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'environments/environment';
 import { Worry } from './worry.model';
-import { WPF_WORRY_URL, 
-         USELESS_CHARAC_URL, 
-         WORRY_USELESS_CHARAC, 
-         THINKING_ERROR_URL, 
-         EVALUATE_THINKING_ERROR,
-         EVALUATE_EVIDENCES, 
-         EVALUATE_PROBABILITY,
-         MODIFY_BELIEFS,
-         DEAL_WITH_WORRY,
-         WORRY_PROBLEM_SOLVING,
-         WORRY_FINAL_SLIDER,
+import {
+  WPF_WORRY_URL,
+  USELESS_CHARAC_URL,
+  WORRY_USELESS_CHARAC,
+  THINKING_ERROR_URL,
+  EVALUATE_THINKING_ERROR,
+  EVALUATE_EVIDENCES,
+  EVALUATE_PROBABILITY,
+  MODIFY_BELIEFS,
+  DEAL_WITH_WORRY,
+  WORRY_PROBLEM_SOLVING,
+  WORRY_FINAL_SLIDER,
 } from '@/app.constants';
 
 @Injectable({
@@ -32,12 +33,13 @@ export class WorryProductivelyService {
   worrysBehaviour = new BehaviorSubject(this.worries);
   moreWorries = true;
   page = 1;
-  worryId !: number  ;
+  worryId!: number;
   constructor(private http: HttpClient) {}
   getWorries() {
     // const params = new HttpParams().set('page', this.page.toString());
     return this.http
-      .get<Worry[]>(environment.API_ENDPOINT + WPF_WORRY_URL,
+      .get<Worry[]>(
+        environment.API_ENDPOINT + WPF_WORRY_URL,
         // , {params: params,}
       )
       .subscribe(
@@ -89,7 +91,7 @@ export class WorryProductivelyService {
               return data;
             } else {
               return wprod;
-            } 
+            }
           });
           this.worrysBehaviour.next(this.worries);
           this.worryBehaviour.next(<Worry>data);
@@ -126,156 +128,174 @@ export class WorryProductivelyService {
   getUselessCharacteristics() {
     return this.http.get(environment.API_ENDPOINT + USELESS_CHARAC_URL);
   }
-  postUselessCharacteristics(data: any, id: number ) {
-    return this.http.post(environment.API_ENDPOINT + WORRY_USELESS_CHARAC + id + '/',
-       data,{
-        observe : 'response',
-       }, 
-    );
-  }
-  getCharacteristics(id : number){
-    return this.http.get( environment.API_ENDPOINT + WORRY_USELESS_CHARAC + id + '/',{
-        observe : 'response',
+  postUselessCharacteristics(data: any, id: number) {
+    return this.http.post(
+      environment.API_ENDPOINT + WORRY_USELESS_CHARAC + id + '/',
+      data,
+      {
+        observe: 'response',
       },
     );
   }
-  thinkingErrors(){
+  getCharacteristics(id: number) {
+    return this.http.get(
+      environment.API_ENDPOINT + WORRY_USELESS_CHARAC + id + '/',
+      {
+        observe: 'response',
+      },
+    );
+  }
+  thinkingErrors() {
     return this.http.get(environment.API_ENDPOINT + THINKING_ERROR_URL);
   }
-  postThinkingErrors(data : any, id : number){
-    return this.http.post(environment.API_ENDPOINT + EVALUATE_THINKING_ERROR + id + '/', 
-      data,{
-        observe : 'response',
+  postThinkingErrors(data: any, id: number) {
+    return this.http.post(
+      environment.API_ENDPOINT + EVALUATE_THINKING_ERROR + id + '/',
+      data,
+      {
+        observe: 'response',
       },
     );
   }
-  getThinkingErrors(id : number){
-    return this.http.get(environment.API_ENDPOINT + EVALUATE_THINKING_ERROR + id + '/', 
+  getThinkingErrors(id: number) {
+    return this.http.get(
+      environment.API_ENDPOINT + EVALUATE_THINKING_ERROR + id + '/',
       {
-        observe : 'response',
-      }, 
+        observe: 'response',
+      },
     );
   }
-  getEvidences(id: number){
-    return this.http.get(environment.API_ENDPOINT + EVALUATE_EVIDENCES + 'get/' + id + '/',
+  getEvidences(id: number) {
+    return this.http.get(
+      environment.API_ENDPOINT + EVALUATE_EVIDENCES + 'get/' + id + '/',
       {
-        observe : 'response',
-      }, 
+        observe: 'response',
+      },
     );
   }
-  deleteEvidence(id: number){
-    return this.http.delete<any>(environment.API_ENDPOINT + EVALUATE_EVIDENCES + 'delete/' + id + '/',
+  deleteEvidence(id: number) {
+    return this.http.delete<any>(
+      environment.API_ENDPOINT + EVALUATE_EVIDENCES + 'delete/' + id + '/',
       {
-        observe : 'response',
-      }, 
+        observe: 'response',
+      },
     );
   }
-  putEvidences(data : any, id : number){
-    return this.http.put(environment.API_ENDPOINT + EVALUATE_EVIDENCES + id + '/', data ,
+  putEvidences(data: any, id: number) {
+    return this.http.put(
+      environment.API_ENDPOINT + EVALUATE_EVIDENCES + id + '/',
+      data,
       {
-        observe : 'response',
-      }, 
+        observe: 'response',
+      },
     );
   }
-  postEvidences(data : any, id : number){
-    return this.http.post(environment.API_ENDPOINT + EVALUATE_EVIDENCES + id + '/', data ,
+  postEvidences(data: any, id: number) {
+    return this.http.post(
+      environment.API_ENDPOINT + EVALUATE_EVIDENCES + id + '/',
+      data,
       {
-        observe : 'response',
-      }, 
+        observe: 'response',
+      },
     );
   }
-  putProbabilityRating(data : any, id : number){
-    return this.http.put(environment.API_ENDPOINT + EVALUATE_PROBABILITY + id + '/', data ,
+  putProbabilityRating(data: any, id: number) {
+    return this.http.put(
+      environment.API_ENDPOINT + EVALUATE_PROBABILITY + id + '/',
+      data,
       {
-        observe : 'response',
-      }, 
+        observe: 'response',
+      },
     );
   }
-  postModifyBeliefs(data : any){
-    return this.http.post(environment.API_ENDPOINT + MODIFY_BELIEFS , data ,
+  postModifyBeliefs(data: any) {
+    return this.http.post(environment.API_ENDPOINT + MODIFY_BELIEFS, data, {
+      observe: 'response',
+    });
+  }
+  putModifyBeliefs(data: any, id: number) {
+    return this.http.put(
+      environment.API_ENDPOINT + MODIFY_BELIEFS + id + '/',
+      data,
       {
-        observe : 'response',
-      }, 
+        observe: 'response',
+      },
     );
   }
-  putModifyBeliefs(data : any, id : number){
-    return this.http.put(environment.API_ENDPOINT + MODIFY_BELIEFS + id +'/', data ,
+  getModifyBeliefs(id: number) {
+    return this.http.get(environment.API_ENDPOINT + MODIFY_BELIEFS + id + '/', {
+      observe: 'response',
+    });
+  }
+
+  postProblemSolving(data: any) {
+    return this.http.post(
+      environment.API_ENDPOINT + WORRY_PROBLEM_SOLVING,
+      data,
       {
-        observe : 'response',
-      }, 
+        observe: 'response',
+      },
     );
   }
-  getModifyBeliefs(id : number){
-    return this.http.get(environment.API_ENDPOINT + MODIFY_BELIEFS + id + '/',
+  getProblemSolving(id: number) {
+    return this.http.get(
+      environment.API_ENDPOINT + WORRY_PROBLEM_SOLVING + id + '/',
       {
-        observe : 'response',
-      }, 
+        observe: 'response',
+      },
     );
   }
-   
-  postProblemSolving( data : any){
-    return this.http.post(environment.API_ENDPOINT + WORRY_PROBLEM_SOLVING , data ,
+  putProblemSolving(data: any, id: number) {
+    return this.http.put(
+      environment.API_ENDPOINT + WORRY_PROBLEM_SOLVING + id + '/',
+      data,
       {
-        observe : 'response',
-      }, 
+        observe: 'response',
+      },
     );
   }
-  getProblemSolving(id : number){
-    return this.http.get(environment.API_ENDPOINT + WORRY_PROBLEM_SOLVING + id + '/',
+  postDealWithWorry(data: any) {
+    return this.http.post(environment.API_ENDPOINT + DEAL_WITH_WORRY, data, {
+      observe: 'response',
+    });
+  }
+  getDealWithWorry(id: number) {
+    return this.http.get(
+      environment.API_ENDPOINT + DEAL_WITH_WORRY + id + '/',
       {
-        observe : 'response',
-      }, 
+        observe: 'response',
+      },
     );
   }
-  putProblemSolving(data : any, id : number){
-    return this.http.put(environment.API_ENDPOINT + WORRY_PROBLEM_SOLVING + id +'/', data ,
+  putDealWithWorry(data: any, id: number) {
+    return this.http.put(
+      environment.API_ENDPOINT + DEAL_WITH_WORRY + id + '/',
+      data,
       {
-        observe : 'response',
-      }, 
+        observe: 'response',
+      },
     );
   }
-  postDealWithWorry(data : any){
-    return this.http.post(environment.API_ENDPOINT + DEAL_WITH_WORRY , data ,
+  postFinalSlider(data: any) {
+    return this.http.post(environment.API_ENDPOINT + WORRY_FINAL_SLIDER, data, {
+      observe: 'response',
+    });
+  }
+  putFinalSlider(data: any, id: number) {
+    return this.http.put(
+      environment.API_ENDPOINT + WORRY_FINAL_SLIDER + id + '/',
+      data,
       {
-        observe : 'response',
-      }, 
+        observe: 'response',
+      },
     );
   }
-  getDealWithWorry(id : number){
-    return this.http.get(environment.API_ENDPOINT + DEAL_WITH_WORRY + id + '/' ,
+  getFinalSlider(id: number) {
+    return this.http.get(
+      environment.API_ENDPOINT + WORRY_FINAL_SLIDER + id + '/',
       {
-        observe : 'response',
-      }, 
+        observe: 'response',
+      },
     );
   }
-  putDealWithWorry( data : any, id : number){
-    return this.http.put(environment.API_ENDPOINT + DEAL_WITH_WORRY + id + '/', data ,
-      {
-        observe : 'response',
-      }, 
-    );
-  }
-  postFinalSlider(data : any){
-    return this.http.post(environment.API_ENDPOINT + WORRY_FINAL_SLIDER , data ,
-      {
-        observe : 'response',
-      }, 
-    );
-  }
-  putFinalSlider( data : any, id : number){
-    return this.http.put(environment.API_ENDPOINT + WORRY_FINAL_SLIDER + id + '/', data ,
-      {
-        observe : 'response',
-      }, 
-    );
-  }
-  getFinalSlider(id : number){
-    return this.http.get(environment.API_ENDPOINT + WORRY_FINAL_SLIDER + id + '/' ,
-      {
-        observe : 'response',
-      }, 
-    );
-  }
-  
 }
- 

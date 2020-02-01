@@ -7,7 +7,12 @@ import {
   EventEmitter,
 } from '@angular/core';
 import { Worry } from '../../worry.model';
-import { FormBuilder, FormControl, Validators, FormGroup } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  Validators,
+  FormGroup,
+} from '@angular/forms';
 import { WorryProductivelyService } from '../../worry-productively.service';
 
 @Component({
@@ -17,14 +22,14 @@ import { WorryProductivelyService } from '../../worry-productively.service';
 })
 export class WpfDealWithWorryComponent implements OnInit {
   @Input() dealWorryClick = false;
-  @Input() worry !: Worry;
+  @Input() worry!: Worry;
   @Output() summaryDealingEvent = new EventEmitter<boolean>();
   summary = false;
   calmMyself = false;
   summaryText = '';
   continueButton = false;
-  responseData ='';
-  dealWithWorry : string[]=[];
+  responseData = '';
+  dealWithWorry: string[] = [];
   DealWorryForm = this.fb.group({
     DealWorryStatement: new FormControl('', Validators.required),
   });
@@ -32,58 +37,56 @@ export class WpfDealWithWorryComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private worryService: WorryProductivelyService,
-    ) {}
+  ) {}
 
   ngOnInit() {}
-  ngOnChanges(){
-
-    if(this.worry){
-      this.worryService.getDealWithWorry(this.worry.id).subscribe(
-        (resp : any) => {
-          console.log('deal with worrry'+resp);
-          if(resp.body.length !== 0){
-            this.DealWorryForm.controls['DealWorryStatement'].setValue(resp.body.distract);
+  ngOnChanges() {
+    if (this.worry) {
+      this.worryService
+        .getDealWithWorry(this.worry.id)
+        .subscribe((resp: any) => {
+          console.log('deal with worrry' + resp);
+          if (resp.body.length !== 0) {
+            this.DealWorryForm.controls['DealWorryStatement'].setValue(
+              resp.body.distract,
+            );
             this.dealWithWorry.push(resp);
           }
-        }
-      );
+        });
     }
   }
-  
+
   ondealWorrySubmit() {
     this.calmMyself = true;
     this.continueButton = false;
     this.summaryText = this.DealWorryForm.value['DealWorryStatement'];
-    
-    if(this.responseData.length == 0 && this.dealWithWorry.length == 0){
+
+    if (this.responseData.length == 0 && this.dealWithWorry.length == 0) {
       const object = {
-        worry_id : this.worry.id,
-        distract : this.summaryText,
-      }
-      this.worryService.postDealWithWorry(object).subscribe(
-        (resp : any) => {
+        worry_id: this.worry.id,
+        distract: this.summaryText,
+      };
+      this.worryService.postDealWithWorry(object).subscribe((resp: any) => {
+        const status = resp.ok;
+        if (status) {
+          console.log('The request has been submited');
+        }
+        console.log(resp.body);
+        this.responseData = resp.body.distract;
+      });
+    } else if (this.responseData.length > 0) {
+      const object = {
+        worry_id: this.worry.id,
+        distract: this.summaryText,
+      };
+      this.worryService
+        .putDealWithWorry(object, this.worry.id)
+        .subscribe((resp: any) => {
           const status = resp.ok;
           if (status) {
             console.log('The request has been submited');
           }
-           console.log(resp.body);
-           this.responseData = resp.body.distract;
-        }
-      );
-    }
-    else if(this.responseData.length >0 ) {
-      const object = {
-        worry_id : this.worry.id,
-        distract : this.summaryText,
-      }
-      this.worryService.putDealWithWorry(object, this.worry.id).subscribe(
-        (resp : any) => {
-          const status = resp.ok;
-          if (status) {
-            console.log('The request has been submited');
-          }
-        }
-      );
+        });
     }
   }
   continuetocalmMyself() {
@@ -91,9 +94,8 @@ export class WpfDealWithWorryComponent implements OnInit {
     if (this.summary) {
       this.summaryDealingEvent.emit(this.summary);
     }
-    
   }
-  onFocus(){
+  onFocus() {
     this.continueButton = true;
   }
 }
