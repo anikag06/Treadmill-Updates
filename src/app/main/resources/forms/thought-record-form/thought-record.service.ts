@@ -9,10 +9,14 @@ import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecor
 })
 export class ThoughtRecordService {
   thoughts: Thought[] = [];
+  thought!: Thought;
   // thoughtBehaviour = new BehaviorSubject({});
-  thoughtBehaviour = new BehaviorSubject<Thought[]>(this.thoughts);
+  thoughtsBehaviour = new BehaviorSubject<Thought[]>(this.thoughts);
+  thoughtBehaviour = new BehaviorSubject<Thought>(this.thought);
+
   page = 1;
   nextPage = true;
+
   constructor(private http: HttpClient) {}
 
   getThoughts() {
@@ -28,7 +32,7 @@ export class ThoughtRecordService {
           // }
 
           this.thoughts.push(...data.results);
-          this.thoughtBehaviour.next(this.thoughts);
+          this.thoughtsBehaviour.next(this.thoughts);
           if (data.next) {
             this.page += 1;
             this.nextPage = true;
@@ -44,22 +48,22 @@ export class ThoughtRecordService {
 
   addSituation(thought: Thought) {
     this.thoughts.push(thought);
-    this.thoughtBehaviour.next(this.thoughts);
+    this.thoughtBehaviour.next(thought);
+    this.thoughtsBehaviour.next(this.thoughts);
   }
 
   updateSituation(situation: any) {
     const thought = this.thoughts.find((t: Thought) => t.id === situation.id);
     if (thought) {
       this.thoughts[this.thoughts.indexOf(thought)] = situation;
-      this.thoughtBehaviour.next(this.thoughts);
+      this.thoughtsBehaviour.next(this.thoughts);
     }
   }
 
   removeSituation(situation: Thought) {
     const situationIndex = this.thoughts.indexOf(situation);
-    console.log(situationIndex);
     this.thoughts.splice(situationIndex, 1);
-    this.thoughtBehaviour.next(this.thoughts);
+    this.thoughtsBehaviour.next(this.thoughts);
     // console.log(this.thoughts)
 
     // this.thoughts.forEach((thought: any, index) => {
@@ -102,6 +106,69 @@ export class ThoughtRecordService {
         '/api/v1/worksheets/thought-record/situation/' +
         id +
         '/',
+      {
+        observe: 'response',
+      },
+    );
+  }
+
+  postThought(data: any) {
+    return this.http.post<any>(
+      environment.API_ENDPOINT + '/api/v1/worksheets/thought-record/thought/',
+      data,
+      {
+        observe: 'response',
+      },
+    );
+  }
+
+  getThought() {
+    return this.thoughtBehaviour.asObservable();
+  }
+
+  putThoughtRating(data: any, id: number) {
+    return this.http.put<any>(
+      environment.API_ENDPOINT +
+        '/api/v1/worksheets/thought-record/thought/' +
+        id +
+        '/',
+      data,
+      {
+        observe: 'response',
+      },
+    );
+  }
+
+  putBehavior(data: any, id: number) {
+    return this.http.put<any>(
+      environment.API_ENDPOINT +
+        '/api/v1/worksheets/thought-record/behavior/' +
+        id +
+        '/',
+      data,
+      {
+        observe: 'response',
+      },
+    );
+  }
+
+  postBehavior(data: any) {
+    return this.http.post<any>(
+      environment.API_ENDPOINT + '/api/v1/worksheets/thought-record/behavior/',
+      data,
+      {
+        observe: 'response',
+      },
+    );
+  }
+
+  postFeelings(data: any, id: number) {
+    return this.http.post<any>(
+      environment.API_ENDPOINT +
+        '/api/v1/worksheets/thought-record/feelings/' +
+        id +
+        '/',
+      data,
       {
         observe: 'response',
       },

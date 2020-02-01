@@ -1,40 +1,93 @@
-<form *ngIf = "EvaluatedClicked">
-        <div class = "card-body">  
-            <div>
-            Can you identify the Thinking Errors in your negative thoughts?
-            </div> <br/>
-                <div *ngFor="let i of item" >
-                    <mat-checkbox>
-                    {{i}}
-                    </mat-checkbox>
-                </div>
-                <p class="text-right" (click)="CheckSubmit()">
-                    <button type="button" mat-raised-button color="primary"
-                        class="continue-btn"  >Continue</button>
-                </p>
-            <div *ngIf="checksubmitted">                
-                Gather evidence
-                <div class= "card-body" *ngIf="evaluateEvidence && EvaluateEditMode" (click)="onEvaluateClick()">
+<div *ngIf="EvaluatedClicked">
+  <div class="card-body" *ngIf="!summary" [formGroup]="evaluateForm">
+    <div>
+      Can you identify the Thinking Errors in your negative thoughts?
+    </div> <br />
+    <div >
+      <div formArrayName="thinking_errors" *ngFor="let val of data; let i = index "><br />
+        <mat-checkbox [value]="val.value" (change)="updateValueChange($event,i)" [checked]="val.is_checked">
+             {{val.value }}
+        </mat-checkbox>
+      </div>
+              
+        <p class="text-right" (click)="CheckSubmit()">
+          <button type="button" mat-raised-button color="primary" class="continue-btn">Continue</button>
+        </p> <br /> <br />
+    </div>
+    <div *ngIf="checksubmitted" >
+      Gather evidence 
+      <!-- <div class= "card-body" *ngIf="evaluateEvidence && EvaluateEditMode" (click)="onEvaluateClick()">
                     <app-worry-form [problem]="evaluateEvidence"></app-worry-form>
                 </div>
                 <div class= "card-body" *ngIf="!evaluateEvidence" (click)="onEvaluateClick()">
                     <app-worry-form (testOut)="continuetoSlider($event)"></app-worry-form>
-                </div>
-            
+               </div> -->
+      <div formArrayName="evidences">
+        <div
+          class="statements"
+          *ngFor="let evidence of getEvidence.controls; let i = index"
+        >
+          <div
+            class="statement"
+            [formGroupName]="i"
+            [ngStyle]="{ display: 'flex' }"
+            click-outside
+            (clickOutside)="onClickOutside($event, i)"
+          >             
+          <mat-form-field > <br/> 
+            <textarea class="py-0" [formControl]="evidence.get('evidence')"  cdkTextareaAutosize cdkAutosizeMinRows="1"
+              cdkAutosizeMaxRows="5" placeholder="Write here" matInput required [autofocus] (focus)="onShowTrashIcon(i)"
+              ></textarea>
+          </mat-form-field> 
+          <div
+                  id="trash-icon"
+                  (click)="markForDeletion(evidence, i)"
+                  *ngIf="showTrashIcon[i]"
+          >
+            <mat-icon>delete</mat-icon>
+          </div> 
+          <div class="add-evidence" >
+            <br/> <br/>
+            <mat-icon
+              [ngStyle]="{
+                'font-size': '19px',
+                'padding-top': '2px',
+                cursor: 'pointer'
+              }"
+              (click)="addField()"
+              > <br/> <br/>add</mat-icon
+            >
+            <div [ngStyle]="{ 'padding-left': '5px' }">
+              Add Evidence
             </div>
-            <div class="card-body" *ngIf="buttonClick" style="color:#00000099; letter-spacing:0.14px;" >
-                Guess Probability<br/>
-                <app-slider ></app-slider>
-            </div> 
-            <div  *ngIf="buttonClick">                
-                Accept uncertainity
-                <div class= "card-body" *ngIf="evaluateEvidence && EvaluateEditMode" (click)="onEvaluateClick()">
-                    <app-worry-form [problem]="evaluateEvidence"></app-worry-form>
-                </div>
-                <div class= "card-body" *ngIf="!evaluateEvidence" (click)="onEvaluateClick()">
-                    <app-worry-form (testOut)="continuetoSlider($event)"></app-worry-form>
-                </div>
-                
-            </div>
+          </div>
+          
+          </div> <br />          
         </div>
-</form>
+        <p class="text-right" (click)="onEvaluateSubmit()" *ngIf="evaluateForm.valid" >
+          <button type="button" mat-raised-button color="primary" class="continue-btn">Continue</button>
+        </p>
+      </div>
+    <div  *ngIf="buttonClick" style="color:#00000099; letter-spacing:0.14px;">
+      <br />
+      <app-form-slider [question]="evaluateSliderQuestion" [minRatingText]="evaSliderMinRangeText"
+        [maxRatingText]="evaSliderMaxRangeText"></app-form-slider>
+      <p class="text-right" (click)="onSliderSubmit()">
+        <button type="button" mat-raised-button color="primary" class="continue-btn">Continue</button>
+      </p>
+    </div> <br />
+  </div>
+</div>
+<div class="card-body" *ngIf="sliderSubmit">
+  Accept uncertainity <br /><br />
+  <!-- <div class= "card-body" *ngIf="evaluateEvidence && EvaluateEditMode" (click)="onEvaluateClick()">
+                    <app-worry-form [problem]="evaluateEvidence"></app-worry-form>
+                </div>
+                <div class= "card-body" *ngIf="!evaluateEvidence" (click)="onEvaluateClick()">
+                    <app-worry-form (testOut)="continuetoSlider($event)"></app-worry-form>
+                </div> -->
+  {{summaryText}}
+  <p class="text-right" (click)="doneSummary()">
+    <button type="button" mat-raised-button color="primary" class="continue-btn">Done</button>
+  </p>
+</div>

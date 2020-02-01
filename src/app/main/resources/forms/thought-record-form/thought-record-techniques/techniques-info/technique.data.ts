@@ -6,31 +6,31 @@ export const TECHNIQUE_DATA = [
       'Lorem ipsum dolor sit amet, consetetur teg sadipscing elitr, sed',
   },
   {
-    color: '#FFFCE3',
+    color: '#E3D87A',
     name: 'What is the proof?',
     description:
       'Lorem ipsum dolor sit amet, consetetur teg sadipscing elitr, sed',
   },
   {
-    color: '#FEC1C1',
+    color: '#E38383',
     name: 'Is this the only explanation?',
     description:
       'Lorem ipsum dolor sit amet, consetetur teg sadipscing elitr, sed',
   },
   {
-    color: '#EBEDFF',
+    color: '#8089D9',
     name: 'What is the worst that can happen?',
     description:
       'Lorem ipsum dolor sit amet, consetetur teg sadipscing elitr, sed',
   },
   {
-    color: '#FEDEFF',
+    color: '#C788C9',
     name: 'Does this thought help me?',
     description:
       'Lorem ipsum dolor sit amet, consetetur teg sadipscing elitr, sed',
   },
   {
-    color: '#FFF3E9',
+    color: '#E1B998',
     name: 'What would I tell a friend?',
     description:
       'Lorem ipsum dolor sit amet, consetetur teg sadipscing elitr, sed',

@@ -9,154 +9,242 @@ import {
   ViewChild,
   ElementRef,
 } from '@angular/core';
-// import { Problem } from '../problem-solving-worksheets/problem.model';
 import { Worry } from './worry.model';
-// import { HttpClient, HttpParams, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-// import { environment } from 'environments/environment';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
-// import { ProblemFormComponent } from '../problem-solving-worksheets/problem-form/problem-form.component';
 import { WorryFormComponent } from './worry-form/worry-form.component';
-import { SliderComponent } from './Slidder/Slidder.component';
+import { FormSliderComponent } from '../shared/form-slider/form-slider.component';
 import { Subscription } from 'rxjs';
 import { AuthService } from '@/shared/auth/auth.service';
 import { User } from '@/shared/user.model';
 import { GeneralErrorService } from '@/main/shared/general-error.service';
-import { ProblemSolvingWorksheetsService } from '../problem-solving-worksheets/problem-solving-worksheets.service';
 // import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 // import { MatCheckbox } from '@angular/material';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormControl, FormArray } from '@angular/forms';
 import { map } from 'rxjs/operators';
 import { TechniquesComponent } from './techniques/techniques.component';
+import { WorryProductivelyService } from '@/main/resources/forms/worry-productively-form/worry-productively.service';
+import { WORRY_PRODUCTIVELY } from '@/app.constants';
 
 @Component({
-  selector: 'app-worryProd-form',
+  selector: 'app-worry-productively-form',
   templateUrl: './worry-productively.component.html',
   styleUrls: ['./worry-productively.component.scss'],
   //   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WorryProductivelyComponent implements OnInit, OnDestroy {
-  // private problems: Problem[] = [];
   user!: User;
-  worry!: Worry;
+  worry!: Worry | undefined;
+  type = WORRY_PRODUCTIVELY;
+  reset = false ; 
   page = 1;
   worryEditMode = false;
   subscriptions: Subscription[] = [];
-  buttonClick: boolean;
-  buttonclick: boolean;
-  form: any;
-  controlNames: string[];
-  selectedNames$ = [{}];
-  // items = [
-  // 'Future \"what if...\"',
-  // 'Keeping seeking reassurance from others that everything is going to be okay but reassurance doesn\'t help.',
-  // 'Worried about worst going to happen',
-  // 'Guilty',
-  // 'Jealous',
-  // 'Hopeless',
-  // 'Worthless',
-  // 'Lonely',
-  // 'Frusutated',
-  // 'Embarrassed'
-  // ];
-
+  buttonClick = false;
+  characteristicCount = 0;
+  data = [{ value: '', is_checked: false }];
+  useless_characteristic: string[] = [];
+  useless_characteristics = '';
+  sliderResponse !: string[];
   @ViewChild('autosize', { static: false }) autosize!: CdkTextareaAutosize;
   @ViewChild(WorryFormComponent, { static: false })
   worryStatementForm!: WorryFormComponent;
-  // @ViewChild('Checkbox') private Checkbox: MatCheckbox;
+  @ViewChild(FormSliderComponent, { static: false })
+  sliderRating!: FormSliderComponent;
+  worrySliderQuestion = 'How bothered are you by your worry?';
+  wSliderMinRangeText = 'Not at all';
+  wSliderMaxRangeText = 'Very Strongly';
+  uselessCharacteristicsForm = this.fb.group({
+    characteristics: this.fb.array([]),
+  });
 
   constructor(
-    // private http: HttpClient
-    private problemService: ProblemSolvingWorksheetsService,
+    private worryService: WorryProductivelyService,
     private authService: AuthService,
     private errorService: GeneralErrorService,
     private fb: FormBuilder,
-  ) {
-    this.buttonClick = false;
-    this.buttonclick = false;
-    this.form = this.fb.group({
-      'Future "what if..."': false,
-      "Keeping seeking reassurance from others that everything is going to be okay but reassurance doesn't help.": false,
-      'Worried about worst going to happen': false,
-      Guilty: false,
-      Jealous: false,
-      Hopeless: false,
-      Worthless: false,
-      Lonely: false,
-      Frustated: false,
-      Embarrassed: false,
-    });
-    this.controlNames = Object.keys(this.form.controls).map(_ => _);
-    // this.selectedNames$ = this.form.valueChanges.pipe(map(v => Object.keys(v).filter(k => v[k])));
-    console.log(this.selectedNames$);
-  }
+  ) {}
 
   ngOnInit() {
     this.subscriptions[
       this.subscriptions.length
-    ] = this.problemService.problemBehaviour.subscribe((problem: any) => {
-      if (Object.entries(problem).length > 0) {
-        this.problemSelected(problem);
+    ] = this.worryService.worryBehaviour.subscribe((worry: any) => {
+      if (Object.entries(worry).length > 0) {
+        this.worrySelected(worry);
       }
     }, this.errorService.errorResponse('Something went wrong'));
     const user = this.authService.isLoggedIn();
     if (user && user.is_active) {
       this.user = <User>user;
     }
+    
+      this.worryService.getUselessCharacteristics().subscribe((data: any) => {
+        data.map((uselessChar: any) => {
+          this.data.push({ value: uselessChar, is_checked: false });
+          console.log(this.data + 'and data' + uselessChar);
+        });
+      });
+      this.data.shift();
+     
+    }
+  ngOnChanges() {
+    if (this.worry) {
+      this.worryService
+        .getCharacteristics(this.worry.id)
+        .subscribe((resp: any) => {
+          if (resp.body.data) {
+            resp.body.data.forEach((data: any) => {
+              const obj = this.data.find((x, i) => {
+                if (x.value === data) {
+                  this.data[i].is_checked = true;
+                  this.characteristicCount += 1;
+                  return true;
+                }
+              });
+            });
+          }
+        });
+    }
+    if(this.worry){
+      this.worryService.getFinalSlider(this.worry.id).subscribe(
+        (resp : any) => {
+          if(resp){
+            console.log('final slider data is :'+resp.body);
+            this.sliderResponse = resp.body.data;
+          }
+        }
+      )
+    }
   }
-
-  // getProblems() {
-  //   const params = new HttpParams().set('page', this.page.toString());
-  //   return this.http.get<Problem[]>(environment.API_ENDPOINT + '/api/v1/worksheets/problem-solving/problems/', { params: params })
-  //     .subscribe(
-  //       (data: any) => {
-  //         const problems = <Problem[]>data.results;
-  //         if (this.page === 1) {
-  //           this.problems = [];
-  //         }
-  //         this.problems.push(...problems);
-  //         console.log('Problem :'+ this.problems);
-  //       },
-  //       (error: HttpErrorResponse) => {
-  //         console.error(error);
-  //       }
-  //     );
-  //   }
   ngOnDestroy() {
     this.subscriptions.forEach(sub => {
       sub.unsubscribe();
     });
   }
-  problemSelected(worry: Worry) {
+  worrySelected(worry: Worry) {
     this.worry = worry;
     this.worryEditMode = false;
+    if (this.worry) {
+      this.worryService
+        .getCharacteristics(this.worry.id)
+        .subscribe((resp: any) => {
+          if (resp.body.data) {
+            this.uselessCharacteristicsForm.setControl(
+              'characteristics',
+              this.fb.array(resp.body.data),
+            );
+            this.buttonClick = true;
+            resp.body.data.forEach((data: any) => {
+             
+              const obj = this.data.find((x, i) => {
+                if (x.value === data) {
+                  this.data[i].is_checked = true;
+                  this.characteristicCount += 1;
+                  return true;
+                }
+              });
+            });
+          }
+        });
+    }
+    if(this.worry){
+      this.worryService.getFinalSlider(this.worry.id).subscribe(
+        (resp : any) => {
+          if(resp){
+            console.log('final slider data is :'+resp.body);
+            this.sliderResponse = resp.body.worry_rating_final;
+          }
+        }
+      )
+    }
+
   }
-  onEditProblemClick() {
+  onEditWorryClick() {
     this.onWorryClick();
     console.log(this.worryEditMode);
     if (this.worryStatementForm) {
-      this.worryStatementForm.editProblemText();
+      this.worryStatementForm.editWorryText();
     }
   }
   onWorryClick() {
     if (this.worry) {
       this.worryEditMode = true;
     }
-    // this.OnSliderClick();
   }
 
-  continuetoSlider(selected: any) {
+  onAddNewForm() {
+    this.worry = undefined;
+    this.reset = !this.reset;
+    // this.buttonClick = false;
+
+
+  }
+  continueAfterSlider(selected: any) {
     this.buttonClick = selected;
-    console.log(this.buttonClick);
   }
-  continuetoCharacteristics(selected: any) {
-    this.buttonclick = selected;
-    console.log(this.buttonclick);
+  updateValueChange(event: any, index: number) {
+    const characteristics = (<FormArray>(
+      this.uselessCharacteristicsForm.get('characteristics')
+    )) as FormArray;
+    if (event.checked) {
+      characteristics.push(new FormControl(event.source.value));
+      this.characteristicCount += 1;
+    } else {
+      const i = characteristics.controls.findIndex(
+        x => x.value === event.source.value,
+      );
+      characteristics.removeAt(i);
+      this.characteristicCount -= 1;
+    }
   }
-  userresponse = false;
+
   OnCharacteristicCheck() {
-    this.userresponse = true;
-    console.log('selected values' + this.selectedNames$);
-    // console.log(val2);
-    // this.userresponse = this.userresponse.push(.checked);
+    console.log(this.data);
+    this.useless_characteristics = this.useless_characteristic.join(',');
+    if(this.worry){ 
+    const object = {
+        useless_characteristics : this.uselessCharacteristicsForm.value['characteristics'],
+      };
+      console.log(object);
+      this.worryService
+        .postUselessCharacteristics(object, this.worry.id)
+        .subscribe((resp: any) => {
+          const status = resp.ok;
+          if (status) {
+            console.log('The request has been submited');
+          }
+        });
+    }    
   }
+  OnFinalSliderClick(){
+  if(this.sliderResponse == undefined && this.worry) {
+    const object = {
+      worry_id : this.worry.id,
+      worry_rating_final : this.sliderRating.rating
+    }
+      this.worryService.postFinalSlider(object).subscribe(
+        (resp : any) => {
+          const status = resp.ok;
+          if (status) {
+            console.log('The request has been submited');
+          } 
+          this.sliderResponse = resp;
+        }
+      );
+    } else if (this.sliderResponse != undefined && this.worry){
+      const object = {
+        worry_id : this.worry.id,
+        worry_rating_final : this.sliderRating.rating
+      }
+        this.worryService.putFinalSlider(object, this.worry.id).subscribe(
+          (resp : any) => {
+            const status = resp.ok;
+            if (status) {
+              console.log('The request has been submited');
+              console.log( 'final slider response '+this.sliderResponse);
+            } 
+          }
+        );
+    }
+  }
+
 }

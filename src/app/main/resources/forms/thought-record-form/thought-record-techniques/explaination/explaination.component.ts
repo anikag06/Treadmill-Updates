@@ -7,8 +7,8 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./explaination.component.scss'],
 })
 export class ExplainationComponent implements OnInit {
-  techniqueName = 'Is this the only application?';
-  question = 'Can there be another explanation for this situation?';
+  techniqueName = 'Is this the only explaination?';
+  question = 'Can there be another explaination for this situation?';
   submitted = false;
   explaination = '';
   @ViewChild('panel', { static: false }) panel!: any;
@@ -16,6 +16,7 @@ export class ExplainationComponent implements OnInit {
   explainationForm = this.formBuilder.group({
     explaination: new FormControl('', [Validators.required]),
   });
+
   constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit() {}

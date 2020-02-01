@@ -11,7 +11,32 @@ export class IdentifyThinkingService {
   getThinkingErrors() {
     return this.http.get(
       environment.API_ENDPOINT +
-        'api/v1/worksheets/thought-record/get-thinking-errors/',
+        '/api/v1/worksheets/thought-record/get-thinking-errors/',
+    );
+  }
+
+  postThinkingErrors(data: any, id: number) {
+    return this.http.post<any>(
+      environment.API_ENDPOINT +
+        '/api/v1/worksheets/thought-record/thinking-errors/' +
+        id +
+        '/',
+      data,
+      {
+        observe: 'response',
+      },
+    );
+  }
+
+  getSelectedThinkingErrors(id: number) {
+    return this.http.get(
+      environment.API_ENDPOINT +
+        '/api/v1/worksheets/thought-record/thinking-errors/' +
+        id +
+        '/',
+      {
+        observe: 'response',
+      },
     );
   }
 }

@@ -1,71 +1,71 @@
-
-  <mat-expansion-panel hideToggle #panel>
+<mat-expansion-panel hideToggle #panel>
     <mat-expansion-panel-header
-      [ngStyle]="{ background: '#FEC1C1' }"
-      [expandedHeight]="'42px'"
-      [collapsedHeight]="'42px'"
+            [ngStyle]="{ background: '#FEC1C1', paddingLeft: '16px' }"
+            [expandedHeight]="'42px'"
+            [collapsedHeight]="'42px'"
     >
-      <mat-panel-title
-        [ngStyle]="{
-          'font-size': panel.expanded ? '16px' : '14px',
-          'font-weight': '500'
-        }"
-      >
-        {{ techniqueName }}
-      </mat-panel-title>
-      <mat-panel-description>
-        <div class="iconsDiv" *ngIf="panel.expanded">
-          <mat-icon>close</mat-icon>
-        </div>
-        <div class="iconsDiv" *ngIf="!panel.expanded && submitted">
-          <img src="assets/forms/edit_errors.png" width="24px" />
-        </div>
-      </mat-panel-description>
+        <mat-panel-title
+                [ngStyle]="{
+        'font-size': panel.expanded ? '16px' : '14px',
+        'font-weight': '500'
+      }"
+        >
+            {{ techniqueName }}
+        </mat-panel-title>
+        <mat-panel-description>
+            <div class="iconsDiv" *ngIf="panel.expanded">
+                <mat-icon>close</mat-icon>
+            </div>
+            <div class="iconsDiv" *ngIf="!panel.expanded && submitted">
+                <img src="assets/forms/edit_errors.png" width="24px"/>
+            </div>
+        </mat-panel-description>
     </mat-expansion-panel-header>
 
     <ng-template matExpansionPanelContent>
-      <div class="q-heading">
-        {{ question }}
-      </div>
+        <div class="q-heading">
+            {{ question }}
+        </div>
 
-      <form [formGroup]="explainationForm">
-        <div>
+        <form [formGroup]="explainationForm">
+            <div>
+                <mat-form-field class="full-width">
           <textarea
-            matInput
-            cdkTextareaAutosize
-            cdkAutosizeMinRows="2"
-            cdkAutosizeMaxRows="4"
-            formControlName="explaination"
-            class="form-control"
-            required
-            placeholder="Write Here"
-            (focusout)="updateExplaination()"
-            #explain
+                  matInput
+                  cdkTextareaAutosize
+                  cdkAutosizeMinRows="2"
+                  cdkAutosizeMaxRows="4"
+                  formControlName="explaination"
+                  class="form-control"
+                  required
+                  placeholder="Write Here"
+                  (focusout)="updateExplaination()"
+                  #explain
           ></textarea>
-        </div>
-        <br />
-        <div>
-          <button
-            type="submit"
-            mat-raised-button
-            class="btn continue-btn"
-            *ngIf="explain.value"
-            [ngStyle]="{ float: 'right' }"
-            (click)="onSubmit()"
-          >
-            Done
-          </button>
-        </div>
-      </form>
+                </mat-form-field>
+            </div>
+            <br/>
+            <div>
+                <button
+                        type="submit"
+                        mat-raised-button
+                        class="btn continue-btn"
+                        *ngIf="explain.value"
+                        [ngStyle]="{ float: 'right' }"
+                        (click)="onSubmit()"
+                >
+                    Done
+                </button>
+            </div>
+        </form>
     </ng-template>
-  </mat-expansion-panel>
+</mat-expansion-panel>
 
-  <mat-card class="card-body" *ngIf="!panel.expanded && submitted">
+<mat-card class="card-body" *ngIf="!panel.expanded && submitted">
     <mat-card-content>
-      <div [ngStyle]="{ 'font-size': '12px' }">Summary</div>
-      <div [ngStyle]="{ 'margin-top': '8px', 'font-size': '12px' }">
-        {{ explaination }}
-      </div>
+        <div [ngStyle]="{ 'font-size': '12px' }">Summary</div>
+        <div [ngStyle]="{ 'margin-top': '8px', 'font-size': '12px' }">
+            {{ explaination }}
+        </div>
     </mat-card-content>
-  </mat-card>
-
+</mat-card>

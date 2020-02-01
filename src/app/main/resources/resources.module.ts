@@ -76,6 +76,7 @@ import { WpfDealWithWorryComponent } from './forms/worry-productively-form/techn
 import { WpfProblemSolvingComponent } from './forms/worry-productively-form/techniques/wpf-problem-solving/wpf-problem-solving.component';
 import { IdentifyThinkingService } from './forms/thought-record-form/thought-record-techniques/identify-thinking/identify-thinking.service';
 import { AngularEditorModule } from '@arkaghosh024/angular-editor';
+import { ModifyBeliefsComponent } from './forms/worry-productively-form/techniques/modify-beliefs/modify-beliefs.component';
 // tslint:disable-next-line:max-line-length
 import { ThoughtRecordTechniquesComponent } from './forms/thought-record-form/thought-record-techniques/thought-record-techniques.component';
 import { TechniquesInfoComponent } from './forms/thought-record-form/thought-record-techniques/techniques-info/techniques-info.component';
@@ -90,6 +91,8 @@ import { FormTextareaComponent } from './forms/shared/form-textarea/form-textare
 import { ThoughtHelpComponent } from './forms/thought-record-form/thought-record-techniques/thought-help/thought-help.component';
 import { TellFriendComponent } from './forms/thought-record-form/thought-record-techniques/tell-friend/tell-friend.component';
 import { ThoughtRecordService } from '@/main/resources/forms/thought-record-form/thought-record.service';
+import { MoodTrackerService } from '@/main/shared/mood-tracker/mood-tracker.service';
+import { ProofService } from '@/main/resources/forms/thought-record-form/thought-record-techniques/proof/proof.service';
 
 @NgModule({
   declarations: [
@@ -150,6 +153,7 @@ import { ThoughtRecordService } from '@/main/resources/forms/thought-record-form
     ThoughtHelpComponent,
     TellFriendComponent,
     DateTimePickerComponent,
+    ModifyBeliefsComponent,
   ],
   imports: [
     ResourcesRoutingModule,
@@ -183,6 +187,8 @@ import { ThoughtRecordService } from '@/main/resources/forms/thought-record-form
     ConclusionService,
     ThoughtRecordService,
     IdentifyThinkingService,
+    ProofService,
+    MoodTrackerService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [

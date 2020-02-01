@@ -2,41 +2,39 @@
   {{ title }}
 </div>
 <div>
-
+  <div
+          class="statements"
+          *ngFor="let evidence of control.controls; let i = index"
+  >
     <div
-      class="statements"
-      *ngFor="let evidence of control.controls;let i=index;"
+            class="statement"
+            [ngStyle]="{ display: 'flex' }"
+            click-outside
+            (clickOutside)="onClickOutside($event, i)"
     >
-      <div
-
-        class="statement"
-        [ngStyle]="{ display: 'flex' }"
-        click-outside
-        (clickOutside)="onClickOutside($event, i)"
-      >
-        <!--        <input type="hidden" formControlName="id" [value]="id" />-->
+      <!--                <input type="hidden" formControlName="id" [value]="id" />-->
+      <mat-form-field>
         <textarea
-          matInput
-          cdkTextareaAutosize
-          cdkAutosizeMinRows="2"
-          cdkAutosizeMaxRows="4"
-          [formControl]="evidence.get('evidence')"
-          class="form-control"
-          placeholder="Type Here"
-          required
-          (focus)="onShowTrashIcon(i)"
+                matInput
+                cdkTextareaAutosize
+                cdkAutosizeMinRows="2"
+                cdkAutosizeMaxRows="4"
+                [formControl]="evidence.get('evidence')"
+                class="form-control"
+                placeholder="Type Here"
+                required
+                (focus)="onShowTrashIcon(i)"
         ></textarea>
-
-        <div
-          id="trash-icon"
-          (click)="markForDeletion(evidence.get('evidence').value, i)"
-          *ngIf="showTrashIcon[i]"
-        >
-          <mat-icon>delete</mat-icon>
-        </div>
+      </mat-form-field>
+      <div
+              id="trash-icon"
+              (click)="markForDeletion(evidence, i)"
+              *ngIf="showTrashIcon[i]"
+      >
+        <mat-icon>delete</mat-icon>
       </div>
     </div>
-
+  </div>
 </div>
 <div class="add-evidence" (click)="addField()">
   <mat-icon

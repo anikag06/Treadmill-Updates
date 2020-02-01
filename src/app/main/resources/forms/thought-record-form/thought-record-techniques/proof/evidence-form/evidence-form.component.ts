@@ -7,6 +7,8 @@ import {
   Output,
 } from '@angular/core';
 import { FormArray, FormBuilder } from '@angular/forms';
+import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
+import { ProofService } from '@/main/resources/forms/thought-record-form/thought-record-techniques/proof/proof.service';
 
 @Component({
   selector: 'app-evidence-form',
@@ -17,14 +19,43 @@ export class EvidenceFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private changeDetector: ChangeDetectorRef,
+    private proofService: ProofService,
   ) {}
   showTrashIcon: boolean[] = [];
   @Input() title!: string;
   @Output() valueUpdate = new EventEmitter();
+  @Output() setSummary = new EventEmitter();
   @Input() control!: FormArray;
+  @Input() type!: string;
   evidences!: FormArray;
   statements: string[] = [];
+  @Input() thought!: Thought;
+
   ngOnInit() {}
+
+  ngOnChanges() {
+    if (this.thought) {
+      this.proofService
+        .getEvidences(this.thought.id, this.type)
+        .subscribe((resp: any) => {
+          if (resp.body.data.evidences.length !== 0) {
+            for (let i = 0; i < resp.body.data.evidences.length; i++) {
+              this.control.push(
+                this.createEditItem(
+                  resp.body.data.evidences[i].id,
+                  resp.body.data.evidences[i].evidence,
+                ),
+              );
+            }
+            this.setSummary.emit();
+          } else {
+            this.control.push(this.createItem());
+          }
+        });
+    } else {
+      this.control.push(this.createItem());
+    }
+  }
 
   createItem(name = '') {
     return this.fb.group({
@@ -46,7 +77,19 @@ export class EvidenceFormComponent implements OnInit {
     this.changeDetector.detectChanges();
   }
 
-  markForDeletion(subtask: any, index: number) {
+  markForDeletion(evidence: any, index: number) {
+    console.log(evidence.value.id);
+
+    if (evidence.value.id) {
+      this.proofService
+        .deleteEvidence(evidence.value.id, this.type)
+        .subscribe((resp: any) => {
+          const status = resp.ok;
+          if (status) {
+            console.log('deleted');
+          }
+        });
+    }
     // if (subtask.id) {
     //   let status;
     //   this.taskService
@@ -71,7 +114,7 @@ export class EvidenceFormComponent implements OnInit {
     // }
 
     this.control.removeAt(index);
-    this.showTrashIcon.splice(index);
+    this.showTrashIcon.splice(index, 1);
     this.changeDetector.detectChanges();
   }
 
@@ -83,10 +126,4 @@ export class EvidenceFormComponent implements OnInit {
   onShowTrashIcon(index: number) {
     this.showTrashIcon[index] = !this.showTrashIcon[index];
   }
-
-  // updateValue(value: string) {
-  //   this.statements.push(value);
-  //   this.evidenceForm.setControl('evidences', this.fb.array(this.statements));
-  //   this.valueUpdate.emit(this.evidenceForm);
-  // }
 }

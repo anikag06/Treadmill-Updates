@@ -1,12 +1,8 @@
 @import '../../../forms.component';
-@import "../tr-technique";
+@import '../tr-technique';
 
-
-@media screen and (max-width: 576px){
-  .iconsDiv{
-    padding-top: 10px;
-  }
-  .mat-expansion-panel-header{
-    padding: 0 0 0 24px;
-  }
+@media screen and (max-width: 576px) {
+  //.mat-expansion-panel-header {
+  //  padding: 0 0 0 24px;
+  //}
 }

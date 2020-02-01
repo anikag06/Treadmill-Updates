@@ -1,8 +1,8 @@
 <mat-expansion-panel hideToggle #panel>
   <mat-expansion-panel-header
-    [ngStyle]="{ background: '#FEDEFF' }"
-    [expandedHeight]="'42px'"
-    [collapsedHeight]="'42px'"
+          [ngStyle]="{ background: '#FEDEFF',paddingLeft:'16px' }"
+          [expandedHeight]="'42px'"
+          [collapsedHeight]="'42px'"
   >
     <mat-panel-title
       [ngStyle]="{
@@ -28,34 +28,38 @@
         {{ keepThoughtQues }}
       </div>
       <div>
-        <textarea
-          matInput
-          cdkTextareaAutosize
-          cdkAutosizeMinRows="2"
-          cdkAutosizeMaxRows="4"
-          formControlName="keepThought"
-          class="form-control"
-          required
-          placeholder="Write Here"
-          #outcome
-        ></textarea>
+        <mat-form-field>
+          <textarea
+                  matInput
+                  cdkTextareaAutosize
+                  cdkAutosizeMinRows="2"
+                  cdkAutosizeMaxRows="4"
+                  formControlName="keepThought"
+                  class="form-control"
+                  required
+                  placeholder="Write Here"
+                  #outcome
+          ></textarea>
+        </mat-form-field>
       </div>
       <br />
       <div class="q-heading">
         {{ changeThoughtQues }}
       </div>
       <div>
-        <textarea
-          matInput
-          cdkTextareaAutosize
-          cdkAutosizeMinRows="2"
-          cdkAutosizeMaxRows="4"
-          formControlName="changeThought"
-          class="form-control"
-          required
-          placeholder="Write Here"
-          #outcome
-        ></textarea>
+        <mat-form-field>
+          <textarea
+                  matInput
+                  cdkTextareaAutosize
+                  cdkAutosizeMinRows="2"
+                  cdkAutosizeMaxRows="4"
+                  formControlName="changeThought"
+                  class="form-control"
+                  required
+                  placeholder="Write Here"
+                  #outcome
+          ></textarea>
+        </mat-form-field>
       </div>
       <br />
       <div class="q-heading">

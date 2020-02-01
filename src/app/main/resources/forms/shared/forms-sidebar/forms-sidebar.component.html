@@ -17,19 +17,19 @@
     {{(obj.problem || obj.name).substring(0, 25)}}
   </li> -->
   <mat-accordion  (click)="$event.stopPropagation()">
-    <mat-expansion-panel [hideToggle]="objects.length > 0">
+    <mat-expansion-panel [hideToggle]="objects.length < 1">
       <mat-expansion-panel-header>
         Saved Forms
       </mat-expansion-panel-header>
       <ng-template matExpansionPanelContent>
         <div>
           <button
-            mat-menu-item
-            *ngFor="let obj of objects; let i = index"
-            (click)="problemClicked(obj)"
-            [ngClass]="obj === selectedObject ? 'selected' : ''"
+                  mat-menu-item
+                  *ngFor="let obj of objects; let i = index"
+                  (click)="problemClicked(obj)"
+                  [ngClass]="obj === selectedObject ? 'selected' : ''"
           >
-            {{ i + 1 }}. {{ (obj.problem || obj.name || obj.situation).substring(0, 25) }}
+            {{ i + 1 }}. {{ (obj.problem || obj.name || obj.situation || obj.worry ).substring(0, 25) }}
           </button>
         </div>
       </ng-template>

@@ -61,7 +61,8 @@ $form-secondary-color: #2A3B3D;
 
 .card-header {
   background-color: #FFEFD4;
-  font-weight: 700;
+  font-weight: 500;
+  font-size: 14px;
 }
 
 .continue-btn {
@@ -137,8 +138,12 @@ $form-secondary-color: #2A3B3D;
   font-size: 18px;
 }
 
-.mat-icon{
+.mat-icon {
   cursor: pointer;
+}
+
+.mat-form-field {
+  width: 100%;
 }
 
 @media screen and (max-width: 992px) {

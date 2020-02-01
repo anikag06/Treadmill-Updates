@@ -303,27 +303,30 @@ img.emoji {
   }
 }
 
-.mat-checkbox-layout{
+.mat-checkbox-layout {
   width: 100%;
 }
 
-.mat-checkbox-label{
+.mat-checkbox-label {
   width: 100%;
 }
-
 
 .dateTime-dialog-container .mat-dialog-container {
   padding: 0px !important;
   width: 340px;
   height: 620px;
   display: contents;
-
 }
 .moodTracker-dialog-container .mat-dialog-container {
   padding: 0px !important;
   width: 340px;
   height: 620px;
   overflow: hidden;
+
+  .mat-list-item-content {
+    padding-left: 24px;
+    padding-right: 0px;
+  }
 }
 
 .technique-info-dialog-container .mat-dialog-container {
@@ -333,4 +336,8 @@ img.emoji {
   overflow-y: auto;
   transform-origin: right top;
   position: relative;
+}
+
+.mat-slider-thumb {
+  background-color: #2a3b3d;
 }

@@ -1,25 +1,13 @@
-<div class="card-body">
+<div >
 
 <div class="slider-div">
   <span class="rating-question-text">{{ question }}</span>
   <br />
   <br />
-  <mat-slider
-    thumbLabel
-    min="1"
-    max="10"
-    [(value)]="rating"
-  ></mat-slider>
-  <div [ngStyle]="{'display':'flex','width':'320px','margin-bottom':'10px'}">
-    <div class="rating-text left ">{{ minRatingText }}</div>
-    <div class="rating-text right">{{ maxRatingText }}</div>
-  </div>
-
-</div>
-<div class="text-right" >
-  <button  mat-raised-button (click)="onSubmit()"
-    class=" btn continue-btn">Continue</button>
+  <mat-slider thumbLabel min="1" max="10" [(value)]="rating"></mat-slider> <br/>
+  <span class="rating-text rating-text-left-margin">{{ minRatingText }}</span>
+  <span class="rating-text float-right">{{ maxRatingText }}</span>
 </div>
 
-  
+
 </div>

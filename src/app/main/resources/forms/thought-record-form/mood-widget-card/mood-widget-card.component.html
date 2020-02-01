@@ -3,26 +3,59 @@
     {{ header }}
   </div>
   <div class="card-body">
-    <div *ngIf="showMood">
       <button
-        class="btn"
-        (click)="onShowMoodWidget()"
-        *ngIf="!showContinueButton"
+              class="btn"
+              (click)="onShowMoodWidget()"
+              *ngIf="!showContinueButton"
       >
-        Select your feelings
+          Select your feelings
       </button>
-      <div [innerHTML]="selectedMood" *ngIf="showContinueButton">
-      <button
-      [ngStyle]="{'padding-left': '0px' }"
-      class="btn btn-link"
-      (click)="onChangeMood()"
-      *ngIf="selectedMood"
-    >
-      Change Date & Time
-    </button>
-    
-    </div>
-    <p class="text-right">
+      <div *ngIf="moodSelected" [ngStyle]="{ postion: 'inline-grid' }">
+          <div *ngFor="let userFeeling of userFeelings; let i = index">
+              <div class="row" class="emotion-range" [ngStyle]="{ height: '35px' }">
+                  <div class="col-4">
+                      {{ userFeeling.feeling }}
+                  </div>
+                  <div class="col-8">
+                      <label for="range">
+                          <div
+                                  class="rangeValue"
+                                  [ngStyle]="{
+                  'margin-left': rangeMargin[rating[i]],
+                  'font-size': '12px',
+                  'margin-top': '3px'
+                }"
+                          >
+                              {{ userFeeling.feeling_rating }}
+                              <div
+                                      class="circle"
+                                      [ngStyle]="{ 'margin-left': circleMargin[rating[i]] }"
+                              ></div>
+                          </div>
+                          <input
+                                  disabled="true"
+                                  type="range"
+                                  name="range"
+                                  id="range"
+                                  min="0"
+                                  max="4"
+                                  step="1"
+                                  [value]="rating[i]"
+                          />
+                      </label>
+                  </div>
+              </div>
+          </div>
+
+          <button
+                  [ngStyle]="{ 'padding-left': '0px' }"
+                  class="btn btn-link"
+                  (click)="onShowMoodWidget()"
+          >
+              Edit Feelings
+          </button>
+      </div>
+      <p class="text-right">
       <button
         mat-raised-button
         *ngIf="showContinueButton && !submitted"

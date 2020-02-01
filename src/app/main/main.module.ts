@@ -172,6 +172,7 @@ import { StepsDataService } from './resources/shared/steps-data.service';
 import { ResourcesModule } from './resources/resources.module';
 import { SuggestedPostComponent } from './dashboard/suggested-post/suggested-post.component';
 import { SuggestedPostItemComponent } from './dashboard/suggested-post/suggested-post-item/suggested-post-item.component';
+import { WorryProductivelyService } from '@/main/resources/forms/worry-productively-form/worry-productively.service';
 
 @NgModule({
   declarations: [
@@ -341,6 +342,7 @@ import { SuggestedPostItemComponent } from './dashboard/suggested-post/suggested
     IdcGameService,
     LoadingBarService,
     StepsDataService,
+    WorryProductivelyService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [
