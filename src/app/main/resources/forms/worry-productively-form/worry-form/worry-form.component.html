@@ -2,9 +2,9 @@
   <mat-form-field class="full-width">
     <textarea name="worryStatement" class="py-0" #worryTextArea cdkTextareaAutosize cdkAutosizeMinRows="1"
       cdkAutosizeMaxRows="5" id="worryStatement" placeholder="Write here" matInput required [autofocus]
-      [(ngModel)]="worryStatement" (focusout)="onFocusOut($event)">text</textarea>
+      [(ngModel)]="worryStatement" (focus)="onFocus()" (focusout)="onFocusOut($event)">text</textarea>
   </mat-form-field>
-  <p class="text-right" (click)="onWorrySubmit()" *ngIf="worryTextArea.value">
+  <p class="text-right" (click)="onWorrySubmit()" *ngIf="worryTextArea.value && continueButton">
     <button type="button" mat-raised-button color="primary" class="continue-btn">Continue</button>
   </p>
   <div *ngIf="clickbutton" (click)="showSliderContinue()">

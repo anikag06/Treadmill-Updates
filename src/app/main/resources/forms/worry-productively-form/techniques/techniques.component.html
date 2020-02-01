@@ -19,11 +19,11 @@
             <mat-panel-description>
               <strong> Evaluate Worry </strong>
             </mat-panel-description>
-            <mat-icon *ngIf="panelOpenState1 == 1" svgIcon="QuestionMark"></mat-icon>
+            <mat-icon *ngIf="panelOpenState1 == 1" (click)="onShowInfo()" svgIcon="QuestionMark"></mat-icon>
             <mat-icon *ngIf="panelOpenState1 == 1" svgIcon="Close"></mat-icon>
             <mat-icon *ngIf="panelOpenState1 == 2" svgIcon="EditErrors"></mat-icon>
           </mat-expansion-panel-header>
-          <app-evaluate-worry [EvaluatedClicked]="ifevaluatedclicked" (summaryEvaluateEvent)="setEvaluateIcon($event)">
+          <app-evaluate-worry [EvaluatedClicked]="ifevaluatedclicked" (summaryEvaluateEvent)="setEvaluateIcon($event)"[worry]="worry">
           </app-evaluate-worry>
         </mat-expansion-panel><br />
         <mat-expansion-panel hideToggle="true" (opened)="panelOpenState2 = 1" (closed)="panelOpenState2 = 2">
@@ -43,7 +43,7 @@
             <mat-icon *ngIf="panelOpenState3 == 1" svgIcon="Close"></mat-icon>
             <mat-icon *ngIf="panelOpenState3 == 2" svgIcon="EditErrors"></mat-icon>
           </mat-expansion-panel-header>
-          <app-modify-beliefs [modifyBeliefsClick]="beliefsClicked" (summaryModifyEvent)="setBeliefIcon($event)">
+          <app-modify-beliefs [modifyBeliefsClick]="beliefsClicked" (summaryModifyEvent)="setBeliefIcon($event)" [worry]="worry">
           </app-modify-beliefs>
         </mat-expansion-panel><br />
         <mat-expansion-panel hideToggle="true" (opened)="panelOpenState4 = 1" (closed)="panelOpenState4 = 2">
@@ -54,7 +54,7 @@
             <mat-icon *ngIf="panelOpenState4 == 1" svgIcon="Close"></mat-icon>
             <mat-icon *ngIf="panelOpenState4 == 2" svgIcon="EditErrors"></mat-icon>
           </mat-expansion-panel-header>
-          <app-wpf-problem-solving [canISolve]="solveProbClicked" (summaryProbSolvingEvent)="setProbIcon($event)">
+          <app-wpf-problem-solving [canISolve]="solveProbClicked" (summaryProbSolvingEvent)="setProbIcon($event)" [worry]="worry">
           </app-wpf-problem-solving>
         </mat-expansion-panel><br />
         <mat-expansion-panel hideToggle="true" (opened)="panelOpenState5 = 1" (closed)="panelOpenState5 = 2">
@@ -65,7 +65,7 @@
             <mat-icon *ngIf="panelOpenState5 == 1" svgIcon="Close"></mat-icon>
             <mat-icon *ngIf="panelOpenState5 == 2" svgIcon="EditErrors"></mat-icon>
           </mat-expansion-panel-header>
-          <app-wpf-deal-with-worry [dealWorryClick]="dealWithWorry" (summaryDealingEvent)="setDealWorryIcon($event)">
+          <app-wpf-deal-with-worry [dealWorryClick]="dealWithWorry" (summaryDealingEvent)="setDealWorryIcon($event)" [worry]="worry">
           </app-wpf-deal-with-worry>
         </mat-expansion-panel>
 

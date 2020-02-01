@@ -30,9 +30,11 @@ export class WorryFormComponent implements OnInit {
   wSliderMinRangeText = 'Not at all';
   wSliderMaxRangeText = 'Very Strongly';
   continueText = false;
+  continueButton = false;
   clickbutton = false;
   showSliderCont = false;
   public sliderEmit = false;
+  worryResponse !: undefined;
   ngOnInit() {
     if (this.worry) {
       this.worryStatement = this.worry.worry;
@@ -68,16 +70,17 @@ export class WorryFormComponent implements OnInit {
         })
         .subscribe(
           (data: any) => {
-            console.log(data);
+            
           },
           error => {
             console.error(error);
           },
         );
-    } else if (this.worryStatement.trim().length > 0) {
-      this.worryService.postWorry(this.worryStatement).subscribe(
+    } else if (this.worryStatement.trim().length > 0 && this.worryResponse == undefined ) {
+      this.worryService.postWorry(this.worryStatement ).subscribe(
         (data: any) => {
           console.log(data);
+          this.worryResponse = data.body;
         },
         error => {
           console.error(error);
@@ -85,6 +88,8 @@ export class WorryFormComponent implements OnInit {
       );
     }
     this.continueText = false;
+    // this.continueButton = false;
+
   }
   continuetoCharacteristics() {
     this.sliderEmit = true;
@@ -103,6 +108,11 @@ export class WorryFormComponent implements OnInit {
       )
     ) {
       this.continueText = false;
+      this.continueButton = false;
+
     }
+  }
+  onFocus(){
+    this.continueButton = true;
   }
 }

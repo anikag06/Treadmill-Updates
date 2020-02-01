@@ -29,7 +29,7 @@
                   (click)="problemClicked(obj)"
                   [ngClass]="obj === selectedObject ? 'selected' : ''"
           >
-            {{ i + 1 }}. {{ (obj.problem || obj.name || obj.situation).substring(0, 25) }}
+            {{ i + 1 }}. {{ (obj.problem || obj.name || obj.situation || obj.worry ).substring(0, 25) }}
           </button>
         </div>
       </ng-template>

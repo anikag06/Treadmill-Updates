@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\main",
+    "\\src\\app\\main\\resources",
+    "\\src\\app\\main\\resources\\forms",
+    "\\src\\app\\main\\resources\\forms\\thought-record-form",
+    "\\src\\app\\main\\resources\\forms\\worry-productively-form",
+    "\\src\\app\\main\\resources\\forms\\worry-productively-form\\techniques",
+    "\\src\\app\\main\\resources\\forms\\worry-productively-form\\techniques\\evaluate-worry"
+  ],
+  "SelectedNode": "\\src\\app\\main\\resources\\forms\\thought-record-form\\thought-record-techniques\\proof\\evidence-form\\evidence-form.component.ts",
+  "PreviewInSolutionExplorer": false
+}

@@ -216,6 +216,7 @@ export const USER_SIQ_DATA = '/api/v1/questionnaire/siq-user-response/';
 
 // FORMS
 export const RECOMMENDED = 'recommended';
+export const WORRY_PRODUCTIVELY = 'worry-productivelty';
 export const TECHNIQUE_UNTOUCHED = 0;
 export const TECHNIQUE_OPENED = 1;
 export const TECHNIQUE_CLOSED = 2;
@@ -228,7 +229,18 @@ export const THINKING_ERROR_URL =
   '/api/v1/worksheets/worry-productively/get-thinking-errors/';
 export const EVALUATE_THINKING_ERROR = 
   '/api/v1/worksheets/worry-productively/evaluate-worry-thinking-errors/';
-
+export const EVALUATE_EVIDENCES =
+  '/api/v1/worksheets/worry-productively/evaluate-worry-evidences/';
+export const EVALUATE_PROBABILITY =
+  '/api/v1/worksheets/worry-productively/evaluate-worry/';
+export const MODIFY_BELIEFS =
+  '/api/v1/worksheets/worry-productively/modify-belief/';
+export const DEAL_WITH_WORRY =
+  '/api/v1/worksheets/worry-productively/deal-with-worry/';
+export const WORRY_PROBLEM_SOLVING =  
+  '/api/v1/worksheets/worry-productively/problem-solving/';
+export const WORRY_FINAL_SLIDER =  
+  '/api/v1/worksheets/worry-productively/final-worry-rating/'
 // Problem solving form
 export const PSF_PROBLEM_SOLVING = 'problem-solving';
 export const PSF_PROBLEM = 'problem';

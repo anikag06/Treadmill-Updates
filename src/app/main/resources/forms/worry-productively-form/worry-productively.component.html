@@ -5,7 +5,7 @@
         Worry Productively form
       </mat-card-title>
       <div class="h-100 d-inline-block ml-auto">
-        <button class="h-100 saved-forms-btn" mat-button [matMenuTriggerFor]="problemSolvingForms">
+        <button class="h-100 saved-forms-btn" mat-button [matMenuTriggerFor]="worryProductivelyForms">
           <i class="material-icons more-hor-icon">
             more_horiz
           </i>
@@ -13,9 +13,9 @@
       </div>
 
 
-      <mat-menu xPosition="before" yPosition="below" #problemSolvingForms="matMenu" [overlapTrigger]="false">
+      <mat-menu xPosition="before" yPosition="below" #worryProductivelyForms="matMenu" [overlapTrigger]="false">
         <div [ngStyle]="{'max-height':'350px'}">
-          <app-forms-sidebar [type]="type" (objectEmitter)="worrySelected($event)" (newForm)="onAddNewForm()">
+          <app-forms-sidebar [type]="type" (objectEmitter)="worrySelected($event)" (newForm)="onAddNewForm()" [object]="worry">
           </app-forms-sidebar>
         </div>
       </mat-menu>
@@ -28,21 +28,21 @@
         <div class="col-12">
           <div class="card-full-width">
             <div class="card-header">
-              What are you worried about?
+                <strong>What are you worried about?</strong>
               <div class="float-right d-inline-block">
                 <mat-icon class="edit_icon" (click)="onEditWorryClick()">
                   edit </mat-icon>
               </div>
             </div>
-            <div class="card-body" *ngIf="worry && !worryEditMode" (click)="onWorryClick()">
+            <!-- <div class="card-body" *ngIf="worry && !worryEditMode" (click)="onWorryClick()">
               <div class="form-editable-text-underline">
                 {{worry.worry}}
               </div> <br />
               <app-form-slider [question]="worrySliderQuestion" [minRatingText]="wSliderMinRangeText"
                 [maxRatingText]="wSliderMaxRangeText" [rating]="worry.worry_rating_initial">
               </app-form-slider>
-            </div>
-            <div class="card-body" *ngIf="worry && worryEditMode " (click)="onWorryClick()">
+            </div> -->
+            <div class="card-body" *ngIf="worry " (click)="onWorryClick()">
               <app-worry-form [worry]="worry" (testOut)="continueAfterSlider($event)"></app-worry-form>
             </div>
             <div class="card-body" *ngIf="!worry" (click)="onWorryClick()">
@@ -64,8 +64,8 @@
                         </mat-checkbox> -->
             <form [formGroup]="uselessCharacteristicsForm">
               <div formArrayName="characteristics" *ngFor="let val of data; let i = index "><br />
-                <mat-checkbox [value]="val.value" (change)="updateValueChange($event,i)" [checked]="data.is_checked">
-                  {{val.value }}
+                <mat-checkbox [value]="val.value" (change)="updateValueChange($event,i)" [checked]="val.is_checked">
+                  {{val.value }} 
                 </mat-checkbox>
 
               </div>
@@ -76,7 +76,44 @@
           </div>
         </div>
       </div>
-      <app-techniques></app-techniques>
+      <app-techniques [worry]="worry"></app-techniques>
     </div>
   </div>
+  <div class="row no-gutters form-div mx-auto" *ngIf="buttonClick">
+    <div class="col-12 col-lg">
+      <div class="row mb-2">
+        <div class="col-12">
+          <div class="card-full-width">
+            <div class="card-header" >
+              How bothered are you by your worry? 
+            </div>
+            <div class = "card-body" >
+              <div class="worryBox" *ngIf = "worry"> 
+                 <div class="worryText"><br/> Your original worry <br/> 
+                    <div class="worrybody">{{worry.worry}} <br/>
+                    </div>
+                 </div>
+              </div>
+            </div>
+            <div class = "card-body" *ngIf = "sliderResponse == undefined ">
+              <app-form-slider [question]="worrySliderQuestion" [minRatingText]="wSliderMinRangeText"
+              [maxRatingText]="wSliderMaxRangeText" >
+              </app-form-slider>
+            </div>
+            <div class = "card-body" *ngIf = "sliderResponse != undefined">
+              <app-form-slider [question]="worrySliderQuestion" [minRatingText]="wSliderMinRangeText"
+              [maxRatingText]="wSliderMaxRangeText" [rating]="sliderResponse">
+              </app-form-slider>
+            </div>
+            <div class = "card-body">
+              <p class="text-right" (click)="OnFinalSliderClick()">
+                <button type="button" mat-raised-button color="primary" class="continue-btn">Continue</button>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    
 </mat-card>

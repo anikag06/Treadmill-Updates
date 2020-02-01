@@ -1,12 +1,12 @@
 <form *ngIf="modifyBeliefsClick">
-  <div class="card-body" *ngIf="!summary">
+  <div class="card-body" >
     <div>
       Why do I worry so much? What will happen if I didn't worry?
     </div> <br />
     <mat-form-field class="full-width" [formGroup]="beliefForm">
       <textarea class="py-0" formControlName="beliefStatement" #isText cdkTextareaAutosize cdkAutosizeMinRows="1"
         cdkAutosizeMaxRows="5" placeholder="Write here" matInput required [autofocus]
-        (focusout)="onFocusOut($event)"></textarea>
+        ></textarea>
     </mat-form-field>
     <span class="span-rating-text">
       You can also use belief change form</span>

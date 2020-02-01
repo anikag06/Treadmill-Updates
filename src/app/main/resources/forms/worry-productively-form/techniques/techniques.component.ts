@@ -1,7 +1,5 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { EvaluateWorryComponent } from './evaluate-worry/evaluate-worry.component';
-import { ModifyBeliefsComponent } from './modify-beliefs/modify-beliefs.component';
-import { WpfProblemSolvingComponent } from './wpf-problem-solving/wpf-problem-solving.component';
+import { Component, OnInit, ElementRef, ViewChild, Input } from '@angular/core';
+import {MatDialog} from '@angular/material';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import {
@@ -9,8 +7,12 @@ import {
   TECHNIQUE_OPENED,
   TECHNIQUE_CLOSED,
 } from '@/app.constants';
-import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
-import { TechniqueInfoComponent } from './technique-info/technique-info.component';
+import { EVALUATE_DATA } from './evaluate-worry/evaluate-info.data';
+import { TechniquesInfoComponent } from '../../thought-record-form/thought-record-techniques/techniques-info/techniques-info.component';
+import { TECHNIQUE_DATA } from './techniques-info.data';
+import { Worry } from '../worry.model';
+// import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
+// import { TechniqueInfoComponent } from './technique-info/technique-info.component';
 @Component({
   selector: 'app-techniques',
   templateUrl: './techniques.component.html',
@@ -18,10 +20,12 @@ import { TechniqueInfoComponent } from './technique-info/technique-info.componen
 })
 export class TechniquesComponent implements OnInit {
   @ViewChild('doneBtn', { static: false }) doneBtn!: ElementRef;
+  @Input() worry !: Worry;
   constructor(
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer,
-    private dialogBoxService: DialogBoxService,
+    // private dialogBoxService: DialogBoxService,
+    public dialog: MatDialog,
   ) {
     this.matIconRegistry.addSvgIcon(
       'Info',
@@ -102,9 +106,26 @@ export class TechniquesComponent implements OnInit {
     }
   }
   TechniqueInfo() {
-    console.log(this.doneBtn);
-    const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
-    this.doneBtn.nativeElement.dispatchEvent(domEvent);
-    this.dialogBoxService.setDialogChild(TechniqueInfoComponent);
+  //   console.log(this.doneBtn);
+  //   const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
+  //   this.doneBtn.nativeElement.dispatchEvent(domEvent);
+  //   this.dialogBoxService.setDialogChild(TechniqueInfoComponent);
+    const dialogRef = this.dialog.open(TechniquesInfoComponent, {
+        panelClass: 'technique-info-dialog-container',
+        autoFocus: false,
+        data: {
+            techniquesInfo: TECHNIQUE_DATA,
+        },
+    });
+
+  }
+  onShowInfo() {
+      const dialogRef = this.dialog.open(TechniquesInfoComponent, {
+          panelClass: 'technique-info-dialog-container',
+          autoFocus: false,
+          data: {
+              techniquesInfo: EVALUATE_DATA,
+          },
+      })
   }
 }
