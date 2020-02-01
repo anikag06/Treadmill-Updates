@@ -92,13 +92,13 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
         .subscribe((resp: any) => {
           if (resp.body.data) {
             resp.body.data.forEach((data: any) => {
-              const obj = this.data.find((x, i) => {
-                if (x.value === data) {
-                  this.data[i].is_checked = true;
-                  this.characteristicCount += 1;
-                  return true;
-                }
-              });
+              // const obj = this.data.find((x, i) => {
+              //   if (x.value === data) {
+              //     this.data[i].is_checked = true;
+              //     this.characteristicCount += 1;
+              //     return true;
+              //   }
+              // });
             });
           }
         });
@@ -131,13 +131,13 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
             );
             this.buttonClick = true;
             resp.body.data.forEach((data: any) => {
-              const obj = this.data.find((x, i) => {
-                if (x.value === data) {
-                  this.data[i].is_checked = true;
-                  this.characteristicCount += 1;
-                  return true;
-                }
-              });
+              // const obj = this.data.find((x, i) => {
+              //   if (x.value === data) {
+              //     this.data[i].is_checked = true;
+              //     this.characteristicCount += 1;
+              //     return true;
+              //   }
+              // });
             });
           }
         });
