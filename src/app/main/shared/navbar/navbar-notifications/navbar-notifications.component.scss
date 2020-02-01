@@ -95,3 +95,20 @@
     }
   }
 }
+
+@media screen and (max-height: 700px) {
+  .navbar-notification {
+    height: 80vh;
+
+    .more-btn {
+
+      padding: 12px 0;
+
+    }
+
+    .no-more-btn {
+
+      padding: 12px 0;
+    }
+  }
+}

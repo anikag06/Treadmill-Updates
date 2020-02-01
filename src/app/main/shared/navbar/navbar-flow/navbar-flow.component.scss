@@ -39,3 +39,9 @@
     }
   }
 }
+
+@media screen and (max-height: 700px) {
+  .navbar-flow {
+    height: 80vh;
+  }
+}
