@@ -4,10 +4,9 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-user-feedback',
   templateUrl: './user-feedback.component.html',
-  styleUrls: ['./user-feedback.component.scss']
+  styleUrls: ['./user-feedback.component.scss'],
 })
 export class UserFeedbackComponent implements OnInit {
-
   @Input() disliked!: boolean;
   @Input() liked!: boolean;
   @Input() lastStepCompleted!: boolean;
@@ -24,22 +23,19 @@ export class UserFeedbackComponent implements OnInit {
   final_feedback!: any;
   feedback_text!: string;
 
-  constructor(
-    private router: Router,
-  ) { }
+  constructor(private router: Router) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   onDislikeBtnClick() {
     this.scrollPageToBottom();
     this.showFeedBackBox = true;
-    if (this.disliked === true) {
-      this.final_feedback = 0;      // changing from dislike to no like/dislike state
-    } else if (this.liked === true) {
-      this.final_feedback = -1;         // changing from like to dislike state
+    if (this.disliked) {
+      this.final_feedback = 0; // changing from dislike to no like/dislike state
+    } else if (this.liked) {
+      this.final_feedback = -1; // changing from like to dislike state
     } else {
-      this.final_feedback = -1;      // changing from no like/dislike state to dislike
+      this.final_feedback = -1; // changing from no like/dislike state to dislike
     }
     this.disliked = !this.disliked;
     this.liked = false;
@@ -48,12 +44,12 @@ export class UserFeedbackComponent implements OnInit {
   onLikeBtnClick() {
     this.scrollPageToBottom();
     this.showFeedBackBox = true;
-    if (this.liked === true) {
-      this.final_feedback = 0;      // changing from like to no like/dislike state
-    } else if (this.disliked === true) {
-      this.final_feedback = 1;      // changing from dislike to no like state
+    if (this.liked) {
+      this.final_feedback = 0; // changing from like to no like/dislike state
+    } else if (this.disliked) {
+      this.final_feedback = 1; // changing from dislike to no like state
     } else {
-      this.final_feedback = 1;      // changing from no like/dislike state to like
+      this.final_feedback = 1; // changing from no like/dislike state to like
     }
     this.liked = !this.liked;
     this.disliked = false;
