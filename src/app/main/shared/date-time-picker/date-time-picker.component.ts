@@ -41,7 +41,7 @@ export class DateTimePickerComponent
 
   constructor(
     private element: ElementRef,
-    public dialogRef: MatDialogRef<DateTimePickerComponent>,
+    @Optional() public dialogRef: MatDialogRef<DateTimePickerComponent>,
     private dateTimePickerService: DateTimePickerService,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
@@ -98,6 +98,7 @@ export class DateTimePickerComponent
 
   closeModal() {
     this.onClose.emit();
+    this.dialogRef.close({ event: 'close' });
   }
 
   dateTimeMessageSubmit() {

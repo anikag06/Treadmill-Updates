@@ -173,6 +173,8 @@ import { ResourcesModule } from './resources/resources.module';
 import { SuggestedPostComponent } from './dashboard/suggested-post/suggested-post.component';
 import { SuggestedPostItemComponent } from './dashboard/suggested-post/suggested-post-item/suggested-post-item.component';
 import { WorryProductivelyService } from '@/main/resources/forms/worry-productively-form/worry-productively.service';
+import { InfiniteScrollDirective } from './shared/infinite-scroll/infinite-scroll.directive';
+import { LazyLoadingImageDirective } from './shared/lazy-loading-image/lazy-loading-image.directive';
 
 @NgModule({
   declarations: [
@@ -277,6 +279,8 @@ import { WorryProductivelyService } from '@/main/resources/forms/worry-productiv
     LhgGreatComponent,
     SuggestedPostComponent,
     SuggestedPostItemComponent,
+    LazyLoadingImageDirective,
+    InfiniteScrollDirective,
   ],
   imports: [
     CommonModule,

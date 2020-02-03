@@ -8,7 +8,7 @@
 // }
 
 .moodTrackerDiv {
-  width: auto;
+  width: 340px;
   height: 620px;
   margin-top: 5px;
   margin-left: 3px;
@@ -18,7 +18,26 @@
   z-index: 11;
   position: relative;
 }
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 10;
+}
 
+.modal {
+  width: 98%;
+  height: 100%;
+  display: inline-block;
+  margin-top: 5px;
+  margin-left: 3px;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border-radius: 5px;
+  text-align: center;
+  z-index: 11;
+}
 .close-btn {
   right: 0px;
   position: absolute;

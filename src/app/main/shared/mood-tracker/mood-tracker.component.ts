@@ -5,6 +5,7 @@ import {
   EventEmitter,
   Input,
   OnInit,
+  Optional,
   Output,
 } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
@@ -41,11 +42,10 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
   rangeValue = '';
   @Output() moodMessage = new EventEmitter();
   @Output() moodSubmit = new EventEmitter<any>();
-  @Input() forChatBot = false;
-
+  moodArray: any[] = [];
   constructor(
     private element: ElementRef,
-    public dialogRef: MatDialogRef<MoodTrackerComponent>,
+    @Optional() public dialogRef: MatDialogRef<MoodTrackerComponent>,
     public moodTrackerService: MoodTrackerService,
   ) {}
 
@@ -168,6 +168,11 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
         if (i !== neutral_index) {
           const rangeValue = emotions[i].querySelector('.rangeValue');
           const rangeValue_str: string = rangeValue.textContent;
+          const moodObject = {
+            mood: option_label_str.trim().toLowerCase(),
+            strength: rangeValue_str.trim().toLowerCase(),
+          };
+          this.moodArray.push(moodObject);
           chatMoodMessage +=
             rangeValue_str.trim().toLowerCase() +
             ' ' +
@@ -177,7 +182,12 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
           this.feelingRatingsData.push(rangeValue_str.trim());
         }
         if (i === neutral_index) {
+          const moodObject = {
+            mood: option_label_str.trim().toLowerCase(),
+            strength: null,
+          };
           chatMoodMessage += option_label_str.trim().toLowerCase() + ' ';
+          this.moodArray.push(moodObject);
         }
         if (count < this.emotionCount - 1 && this.emotionCount > 2) {
           chatMoodMessage += ', ';
@@ -191,13 +201,14 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
         }
       }
     }
-    this.closeModal();
-    this.moodMessage.emit(chatMoodMessage);
-    this.moodSubmit.emit();
-    const feelingsData = {
-      feelingData: this.feelingData,
-      feelingRatingsData: this.feelingRatingsData,
+    const moodSelected = {
+      moodMessage: chatMoodMessage,
+      moodValues: this.moodArray,
     };
-    this.dialogRef.close({ event: 'close', data: feelingsData });
+    this.closeModal();
+    this.moodMessage.emit(moodSelected);
+    this.moodSubmit.emit();
+
+    this.dialogRef.close({ event: 'close' });
   }
 }
