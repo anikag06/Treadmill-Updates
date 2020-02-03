@@ -1,81 +1,89 @@
 .app-navbar {
+  height: 100px;
+  width: 100%;
+
+  .all-icons {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
     height: 100px;
-    width: 100%;
-    .all-icons {
-        display: flex;
-        flex-direction: row-reverse;
-        align-items: center;
-        height: 100px;
-        padding-right: 10%;
-        .icon-items {
-            margin: 10px 30px;
-            background: transparent;
-            &:hover, &:active {
-                cursor: pointer;
-            }
-        }
-        .unread-count {
-            position: relative;
-            height: 25px;
-            width: 25px;
-            left: 74px;
-            background-color: #fa3e3e;
-            border-radius: 50%;
-            color: #ffffff;
-            font-size: 12px;
-            line-height: 25px;
-            bottom: 8px;
-            text-align: center;
-        }
+    padding-right: 10%;
+
+    .icon-items {
+      margin: 10px 30px;
+      background: transparent;
+
+      &:hover,
+      &:active {
+        cursor: pointer;
+      }
     }
-    
-}
-::ng-deep.navBarPanelClass{
-    min-width: 350px !important;
-    min-height: 70vh !important;
+
+    .unread-count {
+      position: relative;
+      height: 25px;
+      width: 25px;
+      left: 74px;
+      background-color: #fa3e3e;
+      border-radius: 50%;
+      color: #ffffff;
+      font-size: 12px;
+      line-height: 25px;
+      bottom: 8px;
+      text-align: center;
+    }
+  }
 
 }
- @media screen and (min-width: 768px) and (max-width: 1200px) {
-.app-navbar{
-    .all-icons{
-        padding-right: 0px;
+
+@media screen and (min-width: 768px) and (max-width: 1200px) {
+  .app-navbar {
+    .all-icons {
+      padding-right: 0px;
     }
+  }
 }
- }
+
 // @media screen and (max-width: 992px) {
-    // .app-navbar {
-    //     height: 20px;
-    //     .all-icons {
-    //         position: absolute;
-    //         top: -80px;
-    //         right: 10px;
-    //         .icon-items {
-    //             margin: 10px 20px;
-    //         }
-    //         .unread-count {
-    //             left: 64px;
-    //         }
-    //     }   
-    // }
+// .app-navbar {
+//     height: 20px;
+//     .all-icons {
+//         position: absolute;
+//         top: -80px;
+//         right: 10px;
+//         .icon-items {
+//             margin: 10px 20px;
+//         }
+//         .unread-count {
+//             left: 64px;
+//         }
+//     }   
+// }
 // }
 @media screen and (max-width: 767px) {
-    .app-navbar {
-        height: 0px;
-    }
+  .app-navbar {
+    height: 0px;
+  }
 }
-@media screen and (max-width: 960px) {   // putting this 960 as otherwise no nav bar is shown
-    .app-navbar {
-        // height: 20px;
-        .all-icons {
-            position: absolute;
-            top: -80px;
-            right: 10px;
-            .icon-items {
-                margin: 10px 20px;
-            }
-            .unread-count {
-                left: 64px;
-            }
-        }   
+
+@media screen and (max-width: 960px) {
+
+  // putting this 960 as otherwise no nav bar is shown
+  .app-navbar {
+
+    // height: 20px;
+    .all-icons {
+      position: absolute;
+      top: -80px;
+      right: 10px;
+
+      .icon-items {
+        margin: 10px 20px;
+      }
+
+      .unread-count {
+        left: 64px;
+      }
     }
+  }
 }

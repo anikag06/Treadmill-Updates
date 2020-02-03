@@ -23,6 +23,7 @@
 
   .profile-card {
     margin-top: 0px;
+    // max-width: 100%;
   }
 
   .user-stats {
@@ -39,6 +40,21 @@
     color: #00000099;
   }
 
+  .nested-comment-body p {
+    margin-bottom: 0px;
+  }
+
+  .context-button {
+    // height: 100%;
+    text-align: right;
+    color: #848484 !important;
+
+    .mat-icon-button {
+      width: 24px;
+      height: 24px;
+      line-height: 24px;
+    }
+  }
 
   .btn-sm {
     padding: 4px;

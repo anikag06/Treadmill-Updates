@@ -36,7 +36,6 @@ export class SupportGroupsComponent implements OnInit {
   @HostListener('window:resize', ['$event'])
   getScreenSize(event?: any) {
     this.srcWidth = window.innerWidth;
-    console.log('window width', this.srcWidth);
   }
 
   ngOnInit() {
@@ -65,12 +64,13 @@ export class SupportGroupsComponent implements OnInit {
         width: '95%',
         data: null,
       });
-      // } else if (this.srcWidth <= 1500) {
-      //   const dialogRef = this.dialog.open(CreatePostComponent, {
-      //     maxWidth: '95vw',
-      //     width: '80%',
-      //     data: null,
-      //   });
+    } else if (this.srcWidth <= 1300) {
+      const dialogRef = this.dialog.open(CreatePostComponent, {
+        maxWidth: '95vw',
+        width: '90%',
+        data: null,
+        panelClass: 'create-new-post',
+      });
     } else {
       const dialogRef = this.dialog.open(CreatePostComponent, {
         maxWidth: '98vw',

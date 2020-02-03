@@ -148,7 +148,7 @@
   </mat-drawer>
 
 
-  <mat-drawer-content appScrolling>
+  <mat-drawer-content class="dashboard-mat-drawer-content" appScrolling>
     <mat-toolbar *ngIf="isHandset$ | async">
       <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
         *ngIf="isHandset$ | async">

@@ -32,6 +32,18 @@
 
   }
 
+  .context-button {
+    // height: 100%;
+    text-align: right;
+    color: #848484 !important;
+
+    .mat-icon-button {
+      width: 24px;
+      height: 24px;
+      line-height: 24px;
+    }
+  }
+
   .btn {
     box-shadow: none;
 
@@ -74,6 +86,8 @@ a.toggler {
 .body-inline {
   display: inline;
 }
+
+
 
 .comment-profile-card {
   z-index: 300;
