@@ -523,7 +523,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   changeUrl(image: any, index: number) {
-    if (image.dynamic_url) {
+    if (this.images[index] && this.images[index].dynamic_url) {
       this.images[index].showSpinner = true;
       this.images[index].url =
         this.images[index].url === this.images[index].static_url

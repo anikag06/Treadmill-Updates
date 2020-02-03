@@ -355,7 +355,6 @@ $x3: -$leftPos + $dotSpacing;
 
   a {
     color: inherit;
-    text-decoration: underline;
     outline: none;
   }
 }
@@ -366,6 +365,7 @@ $x3: -$leftPos + $dotSpacing;
   background: rgba(0, 0, 0, 0.4);
   border-radius: 10px;
   padding: 3px 5px 3px 5px;
+  opacity: 0.6;
 }
 .gifDiv {
   width: 50px;
@@ -405,11 +405,12 @@ $x3: -$leftPos + $dotSpacing;
   color: #4071f9;
   border: 1px solid #4071f9;
 }
-.mat-progress-spinner circle, .mat-spinner circle {
+.mat-progress-spinner circle,
+.mat-spinner circle {
   stroke: #3fb53f;
 }
 
-.spinnerDiv{
+.spinnerDiv {
   position: absolute;
   padding-top: 13px;
   top: -80px;

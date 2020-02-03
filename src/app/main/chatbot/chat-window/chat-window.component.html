@@ -52,9 +52,13 @@
 
         <div class="credits" *ngIf="image.credits">
           <div class="creditDiv">
-            <a class="link" [href]="image.link">{{ image.name }}</a>
+            <a class="link" [href]="image.link" target="_blank">{{
+              image.name
+            }}</a>
             <span> / </span>
-            <a class="link" href="https://unsplash.com">Unsplash</a>
+            <a class="link" href="https://unsplash.com" target="_blank"
+              >Unsplash</a
+            >
           </div>
         </div>
         <div class="credits" *ngIf="image.creditsGIF">
@@ -74,7 +78,7 @@
           </div>
           <div class="creditDiv">
             <span> Powered By </span>
-            <a class="link" href="https://giphy.com">GIPHY</a>
+            <a class="link" href="https://giphy.com" target="_blank">GIPHY</a>
           </div>
         </div>
       </div>
