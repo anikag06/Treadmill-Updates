@@ -46,17 +46,15 @@ export class PostListComponent implements OnInit, OnDestroy {
     private scrollService: ScrollingService,
     public dialog: MatDialog,
     private errorService: GeneralErrorService,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.queryParamsSubscription = this.route.queryParams.subscribe(data => {
-
       if (data.id) {
         console.log('Data id', data.id);
         this.posts = [];
         this.id = data.id;
         this.getPost();
-
       } else {
         if (data.tags) {
           this.tags = data.tags.split(',');
@@ -107,19 +105,16 @@ export class PostListComponent implements OnInit, OnDestroy {
   }
 
   getPost() {
-    this.sgService
-      .getPost(this.id)
-      .subscribe((data: any) => {
-        console.log('get id DATA', data);
-        const fetchedPosts = <SupportGroupItem>data;
-        this.clearSearch = true;
-        // this.posts = this.arrayUnique([...this.posts, ...fetchedPosts]);
-        this.posts.push(fetchedPosts);
-        console.log('fetched post', fetchedPosts);
-        this.fetching = false;
-        this.search = fetchedPosts.title;
-      }, this.errorService.errorResponse('Cannot fetch posts'));
-
+    this.sgService.getPost(this.id).subscribe((data: any) => {
+      console.log('get id DATA', data);
+      const fetchedPosts = <SupportGroupItem>data;
+      this.clearSearch = true;
+      // this.posts = this.arrayUnique([...this.posts, ...fetchedPosts]);
+      this.posts.push(fetchedPosts);
+      console.log('fetched post', fetchedPosts);
+      this.fetching = false;
+      this.search = fetchedPosts.title;
+    }, this.errorService.errorResponse('Cannot fetch posts'));
   }
 
   getPosts() {

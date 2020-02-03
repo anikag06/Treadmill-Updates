@@ -15,7 +15,7 @@ export class SupportGroupsService {
   supportGroupItemUpdated$ = new BehaviorSubject({} as SupportGroupItem);
   userProfileData = new UserProfile('Name', '', 0, 0, 0, 0);
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getPosts(page: number = 1, tags: string[] | null, search: string) {
     let params = new HttpParams().set('page', page.toString());
@@ -49,9 +49,9 @@ export class SupportGroupsService {
   deletePost(data: any) {
     return this.http.delete(
       environment.API_ENDPOINT +
-      '/api/v1/support-group/post/' +
-      data.post_id +
-      '/',
+        '/api/v1/support-group/post/' +
+        data.post_id +
+        '/',
     );
   }
 
@@ -64,7 +64,7 @@ export class SupportGroupsService {
 
   getPost(id: number) {
     return this.http.get(
-      environment.API_ENDPOINT + '/api/v1/support-group/post/' + id + '/'
+      environment.API_ENDPOINT + '/api/v1/support-group/post/' + id + '/',
     );
   }
 

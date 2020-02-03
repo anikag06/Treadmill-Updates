@@ -47,7 +47,7 @@ export class NestedCommentComponent
     private errorService: GeneralErrorService,
     private changeDetector: ChangeDetectorRef,
     private userProfileService: UserProfileService,
-  ) { }
+  ) {}
 
   /**
    * Lifecycle hook on init
@@ -139,7 +139,7 @@ export class NestedCommentComponent
     this.ncService
       .voteComment({ nested_comment_id: this.userNestedComment.id, vote: 1 })
       .subscribe(
-        () => { },
+        () => {},
         () => {
           this.errorService.openErrorDialog('Cannot Upvote');
           this.userNestedComment.is_voted = preVote;
@@ -163,7 +163,7 @@ export class NestedCommentComponent
     this.ncService
       .voteComment({ nested_comment_id: this.userNestedComment.id, vote: 0 })
       .subscribe(
-        () => { },
+        () => {},
         () => {
           this.errorService.openErrorDialog('Cannot down vote');
         },

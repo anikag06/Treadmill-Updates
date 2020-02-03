@@ -5,5 +5,5 @@ export class SuggestedPost {
     public title: string,
     public username: string,
     public avatar: string,
-  ) { }
+  ) {}
 }

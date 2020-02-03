@@ -9,20 +9,21 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./suggested-post-item.component.scss'],
 })
 export class SuggestedPostItemComponent implements OnInit {
-  constructor(private sgService: SupportGroupsService,
+  constructor(
+    private sgService: SupportGroupsService,
     private route: ActivatedRoute,
-    private router: Router, ) { }
+    private router: Router,
+  ) {}
 
   @Input() suggestedPost!: SuggestedPost;
   id!: number;
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   onPostClick(id: number) {
     // console.log(id);
     this.id = id;
     this.navigateSearch();
-
   }
 
   /**

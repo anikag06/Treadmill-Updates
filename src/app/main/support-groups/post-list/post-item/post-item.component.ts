@@ -91,7 +91,7 @@ export class PostItemComponent
     private errorService: GeneralErrorService,
     private changeDetector: ChangeDetectorRef,
     private userProfileService: UserProfileService,
-  ) { }
+  ) {}
 
   /*
    * Angular Lifecycle hookup this is hack to check for updated content
@@ -143,7 +143,7 @@ export class PostItemComponent
       }
       try {
         this.changeDetector.detectChanges();
-      } catch (ViewDestroyedError) { }
+      } catch (ViewDestroyedError) {}
     });
   }
 
@@ -155,7 +155,7 @@ export class PostItemComponent
       this.fetchComments();
       try {
         this.changeDetector.detectChanges();
-      } catch (ViewDestroyedError) { }
+      } catch (ViewDestroyedError) {}
     });
   }
 
@@ -384,7 +384,7 @@ export class PostItemComponent
     this.comments = this.comments.filter(uc => uc.id !== userComment.id);
     try {
       this.changeDetector.detectChanges();
-    } catch (ViewDestroyedError) { }
+    } catch (ViewDestroyedError) {}
   }
 
   /**
@@ -403,7 +403,7 @@ export class PostItemComponent
     this.sgService
       .postUpVote({ post_id: this.supportGroupItem.id, vote: 1 })
       .subscribe(
-        () => { },
+        () => {},
         () => {
           this.errorService.openErrorDialog('Cannot upvote');
           this.supportGroupItem.is_voted = preVote;
@@ -426,7 +426,7 @@ export class PostItemComponent
     }
     this.sgService
       .postUpVote({ post_id: this.supportGroupItem.id, vote: 0 })
-      .subscribe(() => { }, this.errorService.errorResponse('Cannot downvote'));
+      .subscribe(() => {}, this.errorService.errorResponse('Cannot downvote'));
   }
 
   onThankYou() {
