@@ -31,7 +31,7 @@ export class RegistrationStepTwoComponent implements OnInit {
     infoSource: new FormControl(null, [Validators.required]),
     helpReason: new FormControl(null, [Validators.required]),
     programPlan: new FormControl(null, [Validators.required]),
-    otherReasonTextBox: new FormControl(null, [Validators.required]),
+    otherReasonTextBox: new FormControl(null),
   });
 
   stepTwoFormData = new RegistrationStepTwoForm(
@@ -86,6 +86,7 @@ export class RegistrationStepTwoComponent implements OnInit {
   }
 
   stepDataSubmit() {
+    console.log('step two form: ', this.stepTwoForm);
     if (this.stepTwoForm.valid) {
       this.showErrorMsg = false;
       const dateNow = new Date();

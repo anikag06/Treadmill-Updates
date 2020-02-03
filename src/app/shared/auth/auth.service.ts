@@ -156,7 +156,6 @@ export class AuthService {
               window.sessionStorage.removeItem(ISADMIN);
               window.sessionStorage.removeItem(ISACTIVE);
             } else if (error.status === 0) {
-              // console.log('error = 0');
               this.updateOnline();
             } else {
               this.online.next(true);

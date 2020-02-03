@@ -21,7 +21,7 @@ export class RegistrationStepFourComponent implements OnInit {
     readInfo: new FormControl(),
     voluntaryInfo: new FormControl(),
     confidentialInfo: new FormControl(),
-    dataPubicationInfo: new FormControl(),
+    dataPublicationInfo: new FormControl(),
     informationLeakage: new FormControl(),
     agreementInfo: new FormControl(),
     homeScreenInfo: new FormControl(),
@@ -42,12 +42,12 @@ export class RegistrationStepFourComponent implements OnInit {
     null,
   );
 
-  participationID!: any;
+  participationID!: number;
   starting_time!: any;
   completion_time!: any;
 
   constructor(
-    private dataService: RegistrationDataService,
+    private registrationDataService: RegistrationDataService,
     private authService: TrialAuthService,
     private router: Router,
     private fcmService: FcmService,
@@ -59,6 +59,7 @@ export class RegistrationStepFourComponent implements OnInit {
     const dateTime = dateNow.toJSON();
     this.starting_time = dateTime.replace('Z', '').replace('T', ' ');
     console.log(this.starting_time);
+    this.participationID = this.registrationDataService.participationID;
     this.a2hsService.setDeferredPrompt();
   }
 
@@ -71,11 +72,11 @@ export class RegistrationStepFourComponent implements OnInit {
       this.completion_time = dateTime.replace('Z', '').replace('T', ' ');
       console.log(this.completion_time);
 
-      this.stepFourFormData.participant_id = this.dataService.participationID;
+      this.stepFourFormData.participant_id = this.registrationDataService.participationID;
       this.stepFourFormData.read_information_consent = this.consentForm.value.readInfo;
       this.stepFourFormData.voluntary_involvement_consent = this.consentForm.value.voluntaryInfo;
       this.stepFourFormData.information_confidential_consent = this.consentForm.value.confidentialInfo;
-      this.stepFourFormData.information_publication_consent = this.consentForm.value.dataPubicationInfo;
+      this.stepFourFormData.information_publication_consent = this.consentForm.value.dataPublicationInfo;
       this.stepFourFormData.information_leakage_consent = this.consentForm.value.informationLeakage;
       this.stepFourFormData.agreement_consent = this.consentForm.value.agreementInfo;
       this.stepFourFormData.add_to_home_screen_consent = this.consentForm.value.homeScreenInfo;
@@ -88,13 +89,14 @@ export class RegistrationStepFourComponent implements OnInit {
       }
       this.stepFourFormData.notifications_consent = this.consentForm.value.notificationsInfo;
 
-      this.dataService
+      this.registrationDataService
         .saveConsentData(this.stepFourFormData)
         .subscribe((res_data: any) => {
           console.log(res_data);
 
           this.userEligible = !res_data.excluded;
-          this.dataService.participationID = res_data.participant_id;
+          this.registrationDataService.participationID =
+            res_data.participant_id;
           if (this.userEligible) {
             this.authService.activateChild(true);
             const stepNumber = res_data.next_step;
@@ -110,7 +112,7 @@ export class RegistrationStepFourComponent implements OnInit {
 
   notificationsPermission() {
     if (this.consentForm.value.notificationsInfo) {
-      console.log('accepted');
+      console.log('participant ID: ', this.participationID);
       this.fcmService.participantRequestPermission(this.participationID);
       if (!this.fcmService.permit) {
         this.consentForm.value.notificationsInfo = 0;

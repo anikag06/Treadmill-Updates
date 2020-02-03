@@ -21,7 +21,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   @ViewChild(NavbarFlowDirective, { static: false })
   flowHost!: NavbarFlowDirective;
   @ViewChild(NavbarNotificationDirective, { static: false })
-  notifactionHost!: NavbarNotificationDirective;
+  notificationHost!: NavbarNotificationDirective;
 
   intervalSubscription!: Subscription;
   showFlow = false;
@@ -49,7 +49,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   notificationClick() {
     this.showNotifications = !this.showNotifications;
-    const viewContainerRef = this.notifactionHost.viewContainerRef;
+    const viewContainerRef = this.notificationHost.viewContainerRef;
     viewContainerRef.clear();
     if (this.showNotifications) {
       const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
