@@ -10,7 +10,7 @@ import { TasksComponent } from '@/main/resources/forms/shared/tasks/tasks.compon
 import { FormsListComponent } from '@/main/resources/forms/forms-list/forms-list.component';
 import { MaterialModule } from '@/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AngularEditorModule } from '@xw19/angular-editor';
+import { AngularEditorModule } from '@arkaghosh024/angular-editor';
 import { LayoutModule } from '@angular/cdk/layout';
 import {
   MatDialogModule,

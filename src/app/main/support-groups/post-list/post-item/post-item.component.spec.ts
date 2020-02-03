@@ -6,7 +6,7 @@ import { TimeAgoPipe } from '@/shared/time-ago.pipe';
 import { SafeHtmlPipe } from '../../safe-html.pipe';
 import { CommentComponent } from './comment/comment.component';
 import { FormsModule } from '@angular/forms';
-import { AngularEditorModule } from '@xw19/angular-editor';
+import { AngularEditorModule } from '@arkaghosh024/angular-editor';
 import { NestedCommentComponent } from './nested-comment/nested-comment.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';

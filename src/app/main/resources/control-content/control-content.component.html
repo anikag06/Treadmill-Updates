@@ -1,21 +1,37 @@
-<div class="container ">
-  <div class="row">
-    <div class="col-lg-6 col-md-8 col-sm-12 fix-content-box ">
-        <mat-card-header class="fix-content-header d-flex justify-content-center">
-          <mat-card-title class="fix-content-header-title  " [innerHTML]="displayHtmlHeader"></mat-card-title>
+<div #target id="no-use-div"></div>
+<div class="container">
+  <div class="row"  >
+    <div class="col-lg-6 col-md-8 col-sm-12 fix-content-box " >
+
+        <mat-card-header class="fix-content-header d-flex justify-content-center" >
+          <mat-card-title class="fix-content-header-title "  [innerHTML]="displayHtmlHeader" ></mat-card-title>
         </mat-card-header>
       <mat-card >
         <mat-card-content class="fix-content-body "
-                          [innerHTML]="displayHtml"
+                          [innerHTML]="displayHtml" *ngIf = "dataloaded; else loader "
         ></mat-card-content>
-        <button (click)="onHtmlComplete()" *ngIf="!nextBtnShow">Completed</button>
-        <button  (click)="onHtmlNextClick()" *ngIf="nextBtnShow && !isLastStep">NEXT</button>
-        <button (click)="onHtmlDashboard()" *ngIf="isLastStep"> Go to dashboard</button>
+        <button mat-raised-button  (click)="onHtmlComplete()" *ngIf="!nextBtnShow">Completed </button>
+        <span class = "nextLoad" *ngIf="nextBtnShow && !isLastStep">
+          <button mat-raised-button  (click)="onHtmlNext()"  *ngIf="nextLoaded; else nextLoad" >NEXT</button></span>
+        <button mat-raised-button  (click)="onHtmlDashboard()" *ngIf="isLastStep"> Go to dashboard</button>
       </mat-card>
 
     </div>
   </div>
 </div>
+
+<ng-template #loader>
+  <div class = "col">
+    <div class="text-center loader">
+      <img src = "assets/shared/dna-loader.svg" alt="loader" width="200">
+    </div>
+  </div>
+</ng-template>
+<ng-template #nextLoad>
+  <div class="col">
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+  </div>
+</ng-template>
 
 <!---
 eval thots

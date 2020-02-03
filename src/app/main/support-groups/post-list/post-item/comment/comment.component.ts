@@ -20,7 +20,7 @@ import { NgForm } from '@angular/forms';
 import { PostResponse } from '@/shared/post-response.model';
 import { AuthService } from '@/shared/auth/auth.service';
 import { User } from '@/shared/user.model';
-import { AngularEditorConfig } from '@xw19/angular-editor';
+import { AngularEditorConfig } from '@arkaghosh024/angular-editor';
 import { CommentService } from './comment.service';
 import { SanitizationService } from '@/main/shared/sanitization.service';
 import { HttpErrorResponse } from '@angular/common/http';

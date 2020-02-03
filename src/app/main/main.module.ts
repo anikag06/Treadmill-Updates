@@ -32,7 +32,7 @@ import { CommentComponent } from './support-groups/post-list/post-item/comment/c
 import { CreatePostComponent } from './support-groups/create-post/create-post.component';
 import { NestedCommentComponent } from './support-groups/post-list/post-item/nested-comment/nested-comment.component';
 import { HttpClientModule } from '@angular/common/http';
-import { AngularEditorModule } from '@xw19/angular-editor';
+import { AngularEditorModule } from '@arkaghosh024/angular-editor';
 import { SanitizationService } from './shared/sanitization.service';
 import { SafeHtmlPipe } from './support-groups/safe-html.pipe';
 import { LayoutModule } from '@angular/cdk/layout';

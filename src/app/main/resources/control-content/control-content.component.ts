@@ -1,7 +1,7 @@
-import { Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { FlowService } from '@/main/flow/flow.service';
 import { map, switchMap } from 'rxjs/operators';
-import {ActivatedRoute, Route, Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 import {LoadFilesService} from '@/main/games/shared/load-files.service';
 import {ControlContentService} from '@/main/resources/control-content/control-content.service';
@@ -9,13 +9,16 @@ import {FlowStepNavigationService} from '@/main/shared/flow-step-navigation.serv
 import {PassDataService} from '@/main/resources/conversation-group/passdata.service';
 import {StepCompleteData} from '@/main/resources/shared/completion-data.model';
 
+
+
 @Component({
   selector: 'app-control-content',
   templateUrl: './control-content.component.html',
   styleUrls: ['./control-content.component.scss'],
   providers: [FlowService],
 })
-export class ControlContentComponent implements OnInit{
+export class ControlContentComponent implements OnInit {
+  @ViewChild('target', {static: false}) target!: ElementRef;
   // x = '<div class="row"><div class="col"><h2 >hi</h2></div></div>' ;
   displayHtml: string | undefined;
   displayHtmlHeader: string | undefined;
@@ -23,6 +26,8 @@ export class ControlContentComponent implements OnInit{
   completionData: StepCompleteData = new StepCompleteData(0, 0);
   current_step_id!: number;
   isLastStep =  false;
+  dataloaded: boolean;
+  nextLoaded: boolean;
 
 
 
@@ -35,8 +40,10 @@ export class ControlContentComponent implements OnInit{
     private flowStepService: FlowStepNavigationService,
     private router: Router,
     private passData: PassDataService
+
   ) {}
   nextBtnShow = false;
+
 
 
   ngOnInit() {
@@ -54,12 +61,19 @@ export class ControlContentComponent implements OnInit{
         this.next_step_id = control_data.data.next_step_id;
         this.current_step_id = control_data.data.id;
         this.isLastStep = control_data.data.is_last_step;
+
+        this.dataloaded = true;
+        this.nextLoaded = true;
+       // this.nextLoaded = true;
         if (control_data.data.status === 'COMPLETED') {
           this.nextBtnShow = true;
+        } else if (control_data.data.status === 'ACTIVE'){
+          this.nextBtnShow = false;
         }
 
       });
   }
+
 
   onHtmlNext() {
     this.flowStepService.getNextStepData(this.next_step_id).subscribe(next_step => {
@@ -68,21 +82,29 @@ export class ControlContentComponent implements OnInit{
       const next_step_url = this.flowStepService.goToFlowNextStep(next_step.data);
       console.log('url is', next_step_url);
       this.router.navigate([next_step_url]);
+      this.onScrollToTop();
+     // this.nextButton(next_step);
     });
+    this.dataloaded = false;
+    //this.nextLoaded = false;
+
+
 
   }
-
-
 
   onHtmlComplete() {
     this.completionData.step_id = this.current_step_id;
     this.completionData.time_spent = 100;
 
     this.stepDataService.storeCompletionData(this.completionData)
-      .subscribe(() => {});
+      .subscribe(() => {this.nextLoaded = true; });
 
 
     this.nextBtnShow = true;
+    this.dataloaded = true;
+    //this.onHtmlNext();
+    //this.nextButton(this.current_step_id);
+    this.nextLoaded = false;
   }
 
 
@@ -91,10 +113,24 @@ export class ControlContentComponent implements OnInit{
     this.router.navigate(['/']);
   }
 
-  onHtmlNextClick(){
+  onHtmlNextClick() {
     this.router.navigate([this.onHtmlNext()]);
   }
   // tslint:disable-next-line:use-life-cycle-interface
+
+  onScrollToTop() {
+    setTimeout(() => {
+      this.target.nativeElement.scrollIntoView({ behavior: 'smooth' });
+    }, 10);
+
+
+
+  }
+  //nextButton(control_data){
+    //if (control_data.data.status === 'COMPLETED') {
+      //this.nextBtnShow = true;
+    //}
+  //}
 
 }
 
