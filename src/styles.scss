@@ -225,6 +225,13 @@ img.emoji {
   vertical-align: -0.1em;
 }
 
+.navBarPanelClass {
+  min-width: 350px !important;
+  min-height: 70vh !important;
+  overflow: hidden !important;
+}
+
+
 .main-heading-h1 {
   @include font-montserrat($font-weight: 700);
   width: 100%;
