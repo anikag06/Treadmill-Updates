@@ -28,7 +28,7 @@
             [type]="type"
             (objectEmitter)="thoughtSelected($event)"
             (newForm)="onAddNewForm()"
-           [object]="thought"
+            [object]="thought"
           >
           </app-forms-sidebar>
         </div>
@@ -39,44 +39,43 @@
     <div class="col-12 col-lg">
       <div class="row mb-2">
         <div class="col-12">
-         <app-form-card
+          <app-form-card
             [header]="situationHeader"
             (showNegative)="onShowNegative($event)"
-            [apiToCall] = "situationApi"
-            [thought] = "thought"
-            [reset] = "reset"
-          ></app-form-card>
-          <app-form-card
-            *ngIf="situationAdded"
-            (onShowSlider)="onShowSlider($event)"
-            [header]="negativeThoughtHeader"
-            [apiToCall] = ""
-            [thought] = "thought"
-            [reset] = "reset"
-          ></app-form-card>
-
-          <app-form-slider
-            [minRatingText]="minRating"
-            [maxRatingText]="maxRating"
-            [question]="scaleThought"
-            *ngIf="negativeThoughtAdded"
-            (selectMood)="onSelectMood($event)"
+            [apiToCall]="situationApi"
             [thought]="thought"
-          ></app-form-slider>
+            [reset]="reset"
+            (updateThought)="updateThought($event)"
+          ></app-form-card>
+          <app-negative-thought-card
+            [thought]="thought"
+            [header]="negativeThoughtHeader"
+
+            *ngIf="situationAdded"
+            (onShowSelectMood)="showSelectMood($event)"
+          ></app-negative-thought-card>
+
           <app-mood-widget-card
             *ngIf="showMood"
-            [showMood]="showMood"
             [header]="moodSelect"
+            [thought]="thought"
             (onShowRecordBehave)="onShowRecordBehave($event)"
+
           ></app-mood-widget-card>
           <app-form-card
-            *ngIf = "showRecordBehave"
+            [thought]="thought"
+            [apiToCall]="behaviorApi"
             [header]="recordBehaveHeader"
-            (onShowTechniques) = "onShowTechniques($event)"
+
+            *ngIf="showRecordBehave"
+            (onShowTechniques)="onShowTechniques($event)"
           ></app-form-card>
 
-<!--          <app-thought-record-techniques ></app-thought-record-techniques>-->
+          <app-thought-record-techniques
+            [thought]="thought"
+            *ngIf="showTechniques"
 
+          ></app-thought-record-techniques>
         </div>
       </div>
     </div>

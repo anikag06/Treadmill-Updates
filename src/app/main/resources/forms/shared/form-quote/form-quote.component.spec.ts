@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ExplainationComponent } from './explaination.component';
+import { FormQuoteComponent } from './form-quote.component';
 
-describe('ExplainationComponent', () => {
-  let component: ExplainationComponent;
-  let fixture: ComponentFixture<ExplainationComponent>;
+describe('FormQuoteComponent', () => {
+  let component: FormQuoteComponent;
+  let fixture: ComponentFixture<FormQuoteComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ExplainationComponent],
+      declarations: [FormQuoteComponent],
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ExplainationComponent);
+    fixture = TestBed.createComponent(FormQuoteComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

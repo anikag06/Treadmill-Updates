@@ -1,0 +1,14 @@
+<div class="messageDiv">
+  <div>
+    <img class="emoji" [src]="formMessage.emoji" />
+  </div>
+
+  <div class="heading" *ngIf="formMessage.header">
+    {{ formMessage.header }}
+  </div>
+
+  <div class="message">
+    {{ formMessage.message }}
+  </div>
+  <br />
+</div>

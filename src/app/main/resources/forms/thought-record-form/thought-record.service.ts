@@ -122,8 +122,20 @@ export class ThoughtRecordService {
     );
   }
 
-  getThought() {
+  getThoughtBehavior() {
     return this.thoughtBehaviour.asObservable();
+  }
+
+  getThought(id: number) {
+    return this.http.get<any>(
+      environment.API_ENDPOINT +
+        '/api/v1/worksheets/thought-record/thought/' +
+        id +
+        '/',
+      {
+        observe: 'response',
+      },
+    );
   }
 
   putThoughtRating(data: any, id: number) {
@@ -156,6 +168,30 @@ export class ThoughtRecordService {
     return this.http.post<any>(
       environment.API_ENDPOINT + '/api/v1/worksheets/thought-record/behavior/',
       data,
+      {
+        observe: 'response',
+      },
+    );
+  }
+
+  getBehavior(id: number) {
+    return this.http.get<any>(
+      environment.API_ENDPOINT +
+        '/api/v1/worksheets/thought-record/behavior/' +
+        id +
+        '/',
+      {
+        observe: 'response',
+      },
+    );
+  }
+
+  getFeelings(id: number) {
+    return this.http.get<any>(
+      environment.API_ENDPOINT +
+        '/api/v1/worksheets/thought-record/feelings/' +
+        id +
+        '/',
       {
         observe: 'response',
       },

@@ -6,7 +6,8 @@ import {
   OnInit,
 } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { TechniquesInfoComponent } from './techniques-info/techniques-info.component';
+import { TECHNIQUE_DATA } from '../../shared/techniques-info/thought-record-techniques.data';
+import { TechniquesInfoComponent } from '../../shared/techniques-info/techniques-info.component';
 import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
 import { ThoughtRecordService } from '@/main/resources/forms/thought-record-form/thought-record.service';
 
@@ -20,23 +21,17 @@ export class ThoughtRecordTechniquesComponent implements OnInit, AfterViewInit {
     public dialog: MatDialog,
     public element: ElementRef,
     public thoughtRecordService: ThoughtRecordService,
-  ) {
-    this.thoughtRecordService.getThought().subscribe(data => {
-      this.thought = data;
-    });
-  }
+  ) {}
 
   @Input() thought!: Thought;
 
   header =
     'Select the technique that you would like to use to evaluate the negative thought';
-  info = 'Use some of these techniques to evaluate thoughts : ';
+  info = 'Use some of these techniques to evaluate thoughts.';
 
-  ngOnInit() {
-    this.thoughtRecordService.getThought().subscribe(data => {
-      this.thought = data;
-    });
-  }
+  @Input() reset!: boolean;
+
+  ngOnInit() {}
 
   ngAfterViewInit() {
     const panel = this.element.nativeElement.querySelectorAll(
@@ -60,6 +55,9 @@ export class ThoughtRecordTechniquesComponent implements OnInit, AfterViewInit {
     const dialogRef = this.dialog.open(TechniquesInfoComponent, {
       panelClass: 'technique-info-dialog-container',
       autoFocus: false,
+      data: {
+        techniquesInfo: TECHNIQUE_DATA,
+      },
     });
   }
 }

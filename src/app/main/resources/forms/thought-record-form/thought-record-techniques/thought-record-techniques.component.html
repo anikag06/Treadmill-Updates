@@ -15,27 +15,27 @@
     <div class="techniques">
       <mat-accordion>
         <div class="technique">
-          <app-identify-thinking [thought]="thought"></app-identify-thinking>
+          <app-identify-thinking [thought]="thought"  [reset]="reset"></app-identify-thinking>
         </div>
 
         <div class="technique">
-            <app-proof [thought]="thought"></app-proof>
+          <app-proof [thought]="thought"  [reset]="reset"></app-proof>
         </div>
 
         <div class="technique">
-          <app-explaination></app-explaination>
+            <app-explanation [thought]="thought"  [reset]="reset"></app-explanation>
         </div>
 
         <div class="technique">
-          <app-record-outcome></app-record-outcome>
+            <app-record-outcome [thought]="thought"  [reset]="reset"></app-record-outcome>
         </div>
 
         <div class="technique">
-          <app-thought-help></app-thought-help>
+            <app-thought-help [thought]="thought"  [reset]="reset"></app-thought-help>
         </div>
 
         <div class="technique">
-          <app-tell-friend></app-tell-friend>
+            <app-tell-friend [thought]="thought"  [reset]="reset"></app-tell-friend>
         </div>
       </mat-accordion>
     </div>

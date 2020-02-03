@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { MoodTrackerComponent } from '@/main/shared/mood-tracker/mood-tracker.component';
 import { MatDialog } from '@angular/material';
 import { UserFeeling } from '@/main/resources/forms/thought-record-form/mood-widget-card/userfeeling.model';
@@ -22,19 +29,26 @@ export class MoodWidgetCardComponent implements OnInit {
   submitted = false;
   @Output() onShowRecordBehave = new EventEmitter();
   @Input() header!: string;
-  @Input() showMood!: string;
+  @Input() thought!: Thought;
+  @Input() reset!: boolean;
 
-  thought!: Thought;
   userFeelings: UserFeeling[] = [];
   rangeMargin: string[] = ['-20px', '17px', '60px', '98px', '125px'];
   circleMargin: string[] = ['15px', '17px', '11px', '10px', '17px'];
   emotions = ['Slightly', 'Somewhat', 'Quite', 'Very', 'Extremely'];
-  rating: number[] = [];
 
-  ngOnInit() {
-    this.thoughtRecordService.getThought().subscribe((thought: any) => {
-      this.thought = thought;
-    });
+  ngOnInit() {}
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (this.thought) {
+      this.thoughtRecordService.getFeelings(this.thought.id).subscribe(resp => {
+        if (resp.body.data && resp.body.data.feelings.length > 1) {
+          this.moodSelected = true;
+          this.userFeelings = resp.body.data.feelings;
+          this.onShowRecordBehave.emit(true);
+        }
+      });
+    }
   }
 
   onShowMoodWidget() {
@@ -49,26 +63,39 @@ export class MoodWidgetCardComponent implements OnInit {
 
   onDialogRefClosed(dialogRef: any) {
     dialogRef.afterClosed().subscribe((result: any) => {
-      this.userFeelings = [];
-      this.rating = [];
-      if (result) {
+      if (result.data) {
+        // this.userFeelings = [];
+        // this.rating = [];
         const feelingData = result.data.feelingData;
         const feelingRatingData = result.data.feelingRatingsData;
-        console.log();
-        for (let i = 0; i < feelingData.length; i++) {
-          this.rating.push(
-            this.emotions.indexOf(result.data.feelingRatingsData[i]),
-          );
-          this.userFeelings.push(<UserFeeling>{
-            feeling: result.data.feelingData[i],
-            feeling_rating: result.data.feelingRatingsData[i],
+        // if (this.userFeelings.length > 0) {
+        feelingData.forEach((feeling: string) => {
+          let isFound = false;
+          // @ts-ignore
+          this.userFeelings.find(obj => {
+            if (obj.feeling === feeling) {
+              obj.feeling_rating =
+                feelingRatingData[feelingData.indexOf(feeling)];
+              isFound = true;
+            }
           });
-        }
-
+          if (!isFound) {
+            // this.rating.push(this.emotions.indexOf(feeling));
+            this.userFeelings.push(<UserFeeling>{
+              feeling: feeling,
+              feeling_rating: feelingRatingData[feelingData.indexOf(feeling)],
+            });
+          }
+          // console.log(this.rating);
+        });
         this.moodSelected = true;
         this.showContinueButton = true;
       }
     });
+  }
+
+  getMargin(rating: string) {
+    return this.emotions.indexOf(rating);
   }
 
   onMoodSubmit() {
@@ -76,6 +103,7 @@ export class MoodWidgetCardComponent implements OnInit {
     const object = {
       feelings: this.userFeelings,
     };
+    console.log(this.userFeelings);
     this.thoughtRecordService
       .postFeelings(object, this.thought.id)
       .subscribe((resp: any) => {
@@ -85,13 +113,4 @@ export class MoodWidgetCardComponent implements OnInit {
         }
       });
   }
-
-  // onChangeMood() {
-  //   const dialogRef = this.dialog.open(MoodTrackerComponent, {
-  //     panelClass: 'moodTracker-dialog-container',
-  //     maxWidth: '100vw',
-  //     autoFocus: false,
-  //   });
-  //   this.onDialogRefClosed(dialogRef);
-  // }
 }

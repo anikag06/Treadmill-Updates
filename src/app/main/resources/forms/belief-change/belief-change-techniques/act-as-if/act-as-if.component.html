@@ -1,0 +1,162 @@
+<mat-expansion-panel hideToggle #panel>
+  <mat-expansion-panel-header
+    [ngStyle]="{ background: '#FFFCE3 ', paddingLeft: '16px' }"
+    [collapsedHeight]="'64px'"
+    [expandedHeight]="'64px'"
+  >
+    <mat-panel-title
+      [ngStyle]="{
+        'font-size': panel.expanded ? '16px' : '14px',
+        'font-weight': '500'
+      }"
+    >
+      {{ techniqueName }}
+    </mat-panel-title>
+
+    <mat-panel-description>
+      <div class="iconsDiv" *ngIf="panel.expanded">
+        <mat-icon>close</mat-icon>
+      </div>
+      <div class="iconsDiv" *ngIf="!panel.expanded && summary">
+        <img src="assets/forms/edit_errors.png" width="24px" />
+      </div>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <ng-template matExpansionPanelContent>
+    <form [formGroup]="actAsIfForm">
+      <div>
+        <div class="q-heading">
+          {{ techniqueName }}
+        </div>
+        <div>
+          <mat-form-field>
+            <textarea
+              matInput
+              cdkTextareaAutosize
+              cdkAutosizeMinRows="2"
+              cdkAutosizeMaxRows="4"
+              formControlName="how_would_i_act"
+              required
+              placeholder="Write Here"
+              (focus)="onShowActBtn()"
+            ></textarea>
+          </mat-form-field>
+          <button
+            mat-raised-button
+            class="btn continue-btn"
+            [ngStyle]="{ float: 'right' }"
+            (click)="onSubmit()"
+            *ngIf="showActContinue"
+          >
+            Done
+          </button>
+        </div>
+      </div>
+      <br />
+      <div *ngIf="showRadioDiv">
+        <div class="q-heading">
+          {{ acting_help }}
+        </div>
+
+        <div>
+          <mat-radio-group formControlName="would_it_help">
+            <mat-radio-button [value]="1">
+              Yes
+            </mat-radio-button>
+            <mat-radio-button [value]="0" [ngStyle]="{ marginLeft: '65px' }">
+              No
+            </mat-radio-button>
+          </mat-radio-group>
+          <div>
+            <button
+              mat-raised-button
+              class="btn continue-btn"
+              [ngStyle]="{ float: 'right' }"
+              (click)="onActSubmit()"
+              *ngIf="getRadio.valid && showRadioCntBtn"
+            >
+              Done
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <br />
+      <div *ngIf="showAdvantages">
+        <div class="q-heading">
+          {{ advantageQues }}
+        </div>
+        <div class="advantages" formArrayName="advantages">
+          <div
+            class="statement"
+            *ngFor="let advantage of getAdvantages.controls; let i = index"
+          >
+            <div
+              class="statement"
+              [formGroupName]="i"
+              [ngStyle]="{ display: 'flex' }"
+              click-outside
+              (clickOutside)="onClickOutside($event, i)"
+            >
+              <!--                <input type="hidden" formControlName="id" [value]="id" />-->
+              <mat-form-field>
+                <textarea
+                  matInput
+                  cdkTextareaAutosize
+                  cdkAutosizeMinRows="2"
+                  cdkAutosizeMaxRows="4"
+                  formControlName="advantage"
+                  placeholder="Write Here"
+                  required
+                  (focus)="onShowTrashIcon(i)"
+                ></textarea>
+              </mat-form-field>
+              <div
+                class="trash-icon"
+                (click)="markForDeletion(advantage, i)"
+                *ngIf="showTrashIcon[i]"
+              >
+                <mat-icon>delete</mat-icon>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="add-statement" (click)="addField()">
+          <mat-icon
+            [ngStyle]="{
+              'font-size': '19px',
+              'padding-top': '2px',
+              cursor: 'pointer'
+            }"
+            >add
+          </mat-icon>
+          <div [ngStyle]="{ 'padding-left': '5px' }">
+            Add Advantages
+          </div>
+        </div>
+
+        <div>
+          <br />
+          <button
+            mat-raised-button
+            class="btn continue-btn"
+            [ngStyle]="{ float: 'right' }"
+            (click)="onSubmitAdvantages()"
+          >
+            Done
+          </button>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+</mat-expansion-panel>
+<mat-card class="card-body" *ngIf="!panel.expanded && this.summary">
+  <mat-card-content>
+    <div [ngStyle]="{ 'font-size': '12px' }">
+      Summary
+    </div>
+    <div [ngStyle]="{ 'margin-top': '8px', 'font-size': '12px' }">
+      {{ summary }}
+    </div>
+  </mat-card-content>
+</mat-card>

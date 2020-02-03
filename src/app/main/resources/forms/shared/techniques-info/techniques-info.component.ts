@@ -1,13 +1,13 @@
 import {
   Component,
-  OnInit,
-  Output,
   EventEmitter,
-  Optional,
   Inject,
+  OnInit,
+  Optional,
+  Output,
 } from '@angular/core';
-import { TECHNIQUE_DATA } from './technique.data';
-import { MatDialogRef } from '@angular/material';
+
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-techniques-info',
@@ -17,9 +17,16 @@ import { MatDialogRef } from '@angular/material';
 export class TechniquesInfoComponent implements OnInit {
   @Output() closeInfo = new EventEmitter();
   about = 'About Techniques';
-  techniques = TECHNIQUE_DATA;
+  techniques!: any;
 
-  constructor(public dialogRef: MatDialogRef<TechniquesInfoComponent>) {}
+  constructor(
+    public dialogRef: MatDialogRef<TechniquesInfoComponent>,
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
+  ) {
+    if (data) {
+      this.techniques = data.techniquesInfo;
+    }
+  }
 
   ngOnInit() {}
 

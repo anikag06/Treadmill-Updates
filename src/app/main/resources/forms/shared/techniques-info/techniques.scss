@@ -1,18 +1,16 @@
-@import '../../forms.component.scss';
-.q-heading {
-  margin-top: 16px;
-  margin-bottom: 16px;
-  font-size: 14px;
-}
+@import '../../forms.component';
+
 .close-icon {
   position: absolute;
   right: 45px;
 }
+
 .technique {
   margin-top: 12px;
   margin-bottom: 16px;
 }
-.iconsDiv{
+
+.iconsDiv {
   position: absolute;
   right: 40px;
 }

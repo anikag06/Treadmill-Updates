@@ -1,6 +1,6 @@
 <mat-expansion-panel hideToggle #panel>
     <mat-expansion-panel-header
-            [ngStyle]="{ background: '#EBEDFF',paddingLeft:'16px' }"
+            [ngStyle]="{ background: '#EBEDFF', paddingLeft: '16px' }"
             [expandedHeight]="height"
             [collapsedHeight]="height"
     >
@@ -16,7 +16,7 @@
             <div class="iconsDiv" *ngIf="panel.expanded">
                 <mat-icon>close</mat-icon>
             </div>
-            <div class="iconsDiv" *ngIf="!panel.expanded && submitted">
+            <div class="iconsDiv" *ngIf="!panel.expanded && this.summary.length > 0">
                 <img src="assets/forms/edit_errors.png" width="24px"/>
             </div>
         </mat-panel-description>
@@ -97,7 +97,7 @@
     </ng-template>
 </mat-expansion-panel>
 
-<mat-card class="card-body" *ngIf="!panel.expanded && submitted">
+<mat-card class="card-body" *ngIf="!panel.expanded && summary.length > 0">
     <mat-card-content>
         <div [ngStyle]="{ 'font-size': '12px' }">Summary</div>
         <div [ngStyle]="{ 'margin-top': '8px', 'font-size': '12px' }">

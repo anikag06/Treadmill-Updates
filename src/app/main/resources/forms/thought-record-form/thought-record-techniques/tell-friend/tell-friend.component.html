@@ -1,24 +1,24 @@
 <mat-expansion-panel hideToggle #panel>
   <mat-expansion-panel-header
-          [ngStyle]="{ background: '#FFF3E9',paddingLeft:'16px' }"
+          [ngStyle]="{ background: '#FFF3E9', paddingLeft: '16px' }"
           [expandedHeight]="'42px'"
           [collapsedHeight]="'42px'"
   >
-    <mat-panel-title
-      [ngStyle]="{
+      <mat-panel-title
+              [ngStyle]="{
         'font-size': panel.expanded ? '16px' : '14px',
         'font-weight': '500'
       }"
-    >
-      {{ techniqueName }}
-    </mat-panel-title>
-    <mat-panel-description>
+      >
+          {{ techniqueName }}
+      </mat-panel-title>
+      <mat-panel-description>
       <div class="iconsDiv" *ngIf="panel.expanded">
         <mat-icon>close</mat-icon>
       </div>
-      <div class="iconsDiv" *ngIf="!panel.expanded && submitted">
-        <img src="assets/forms/edit_errors.png" width="24px" />
-      </div>
+          <div class="iconsDiv" *ngIf="!panel.expanded && summary.length > 0">
+              <img src="assets/forms/edit_errors.png" width="24px"/>
+          </div>
     </mat-panel-description>
   </mat-expansion-panel-header>
 
@@ -27,19 +27,18 @@
       {{ question }}
     </div>
 
-    <form [formGroup]="suggestionForm">
-      <div>
-        <mat-form-field>
+      <form [formGroup]="tellFriendForm">
+          <div>
+              <mat-form-field>
           <textarea
                   matInput
                   cdkTextareaAutosize
                   cdkAutosizeMinRows="2"
                   cdkAutosizeMaxRows="4"
-                  formControlName="suggestion"
+                  formControlName="tell_a_friend"
                   class="form-control"
                   required
                   placeholder="Write Here"
-                  (focusout)="updateSuggestion()"
                   #explain
           ></textarea>
         </mat-form-field>
@@ -61,11 +60,11 @@
   </ng-template>
 </mat-expansion-panel>
 
-<mat-card class="card-body" *ngIf="!panel.expanded && submitted">
-  <mat-card-content>
-    <div [ngStyle]="{ 'font-size': '12px' }">Summary</div>
-    <div [ngStyle]="{ 'margin-top': '8px', 'font-size': '12px' }">
-      {{ suggestion }}
-    </div>
-  </mat-card-content>
+<mat-card class="card-body" *ngIf="!panel.expanded && summary.length > 0">
+    <mat-card-content>
+        <div [ngStyle]="{ 'font-size': '12px' }">Summary</div>
+        <div [ngStyle]="{ 'margin-top': '8px', 'font-size': '12px' }">
+            {{ summary }}
+        </div>
+    </mat-card-content>
 </mat-card>

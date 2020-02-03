@@ -8,30 +8,30 @@
     </div>
   </div>
   <div class="card-body">
-    <form [formGroup]="thoughtRecordForm">
-      <mat-form-field class="full-width">
+    <form [formGroup]="formCardGroup">
+        <mat-form-field class="full-width">
         <textarea
-          matInput
-          name="problemStatement"
-          class="py-0"
-          #problemTextArea
-          cdkTextareaAutosize
-          cdkAutosizeMinRows="1"
-          cdkAutosizeMaxRows="5"
-          id="problemStatement"
-          formControlName="text"
-          placeholder="Write here"
-          required
-          (focusout)="updateText()"
+                matInput
+                name="problemStatement"
+                class="py-0"
+                #textArea
+                cdkTextareaAutosize
+                cdkAutosizeMinRows="1"
+                cdkAutosizeMaxRows="5"
+                formControlName="text"
+                placeholder="Write here"
+                required
+                (focusout)="updateText()"
+                (focus)="onShowContinueButton()"
         ></textarea>
       </mat-form-field>
       <p class="text-right">
         <button
                 mat-raised-button
                 type="button"
-                *ngIf="thoughtRecordForm.valid  && !submitted "
+                *ngIf="showContinue"
                 class="btn continue-btn "
-                (click)="onProblemSubmit()"
+                (click)="onTextSubmit()"
         >
           Continue
         </button>

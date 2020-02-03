@@ -3,6 +3,7 @@ import {
   Component,
   Input,
   OnInit,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 
@@ -21,9 +22,10 @@ export class IdentifyThinkingComponent implements OnInit {
   errors: ThinkingErrorModel[] = [];
   errorCount = 0;
   thinkingError: string[] = [];
-  thinkingErrors = '';
+  summary = '';
   submitted = false;
   @Input() thought!: Thought;
+  @Input() reset!: boolean;
   techniqueName = 'Identify Thinking Error';
   @ViewChild('panel', { static: false }) panel!: any;
 
@@ -47,13 +49,17 @@ export class IdentifyThinkingComponent implements OnInit {
 
   ngOnInit() {}
 
-  ngOnChanges() {
+  ngOnChanges(changes: SimpleChanges) {
     if (this.thought) {
       this.identifyThinkingService
         .getSelectedThinkingErrors(this.thought.id)
         .subscribe((resp: any) => {
           if (resp.body.data) {
             this.setSummary(resp.body.data);
+            this.identifyThinkingForm.setControl(
+              'emotions',
+              this.formBuilder.array(resp.body.data),
+            );
             resp.body.data.forEach((data: any) => {
               // @ts-ignore
               const obj = this.errors.find((x, i) => {
@@ -91,7 +97,6 @@ export class IdentifyThinkingComponent implements OnInit {
   }
 
   onSubmit() {
-    this.setSummary(this.thinkingError);
     const object = {
       thinking_errors: this.identifyThinkingForm.value['emotions'],
     };
@@ -101,6 +106,7 @@ export class IdentifyThinkingComponent implements OnInit {
         const status = resp.ok;
         if (status) {
           this.submitted = true;
+          this.setSummary(this.identifyThinkingForm.value['emotions']);
         }
       });
 
@@ -108,7 +114,7 @@ export class IdentifyThinkingComponent implements OnInit {
   }
 
   setSummary(thinkingErrors: string[]) {
-    this.thinkingErrors = thinkingErrors.join(',');
+    this.summary = thinkingErrors.join(',');
     // this.changeDetector.detectChanges();
   }
 }

@@ -18,6 +18,8 @@ import {
   SET_ACTIVITY,
   THOUGHT_RECORD,
   WORRY_PRODUCTIVELY,
+  BELIEF_CHANGE,
+  TASK,
 } from '@/app.constants';
 import { TasksService } from '@/main/resources/forms/shared/tasks/tasks.service';
 import { UserTask } from '@/main/resources/forms/shared/tasks/user-task.model';
@@ -25,6 +27,8 @@ import { ThoughtRecordService } from '@/main/resources/forms/thought-record-form
 import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
 import { WorryProductivelyService } from '../../worry-productively-form/worry-productively.service';
 import { Worry } from '../../worry-productively-form/worry.model';
+import { BeliefChangeService } from '@/main/resources/forms/belief-change/belief-change.service';
+import { Belief } from '@/main/resources/forms/belief-change/belief.model';
 
 @Component({
   selector: 'app-forms-sidebar',
@@ -48,6 +52,7 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
     private worryService: WorryProductivelyService,
     private tasksService: TasksService,
     private thoughtRecordService: ThoughtRecordService,
+    private beliefChangeService: BeliefChangeService,
     private route: ActivatedRoute,
     private element: ElementRef,
   ) {}
@@ -61,6 +66,8 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
       this.getThoughts();
     } else if (this.type === WORRY_PRODUCTIVELY) {
       this.getWorries();
+    } else if (this.type === BELIEF_CHANGE) {
+      this.getBeliefs();
     }
 
     this.route.queryParams.subscribe(
@@ -145,24 +152,41 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
     );
   }
 
+  getBeliefs() {
+    this.beliefChangeService.getBeliefs();
+    this.subscriptions[
+      this.subscriptions.length
+    ] = this.beliefChangeService.beliefsBehaviour.subscribe(
+      (beliefs: Belief[]) => {
+        this.objects = beliefs;
+        this.selectObject();
+      },
+      (error: HttpErrorResponse) => {
+        console.error(error);
+      },
+    );
+  }
+
   onDeleteForm(object: any) {
     if (this.type === THOUGHT_RECORD) {
-      this.thoughtRecordService.deleteSituation(object.id).subscribe(resp => {
-        const status = resp.ok;
-        if (status) {
-          this.onAddNewForm();
-          this.thoughtRecordService.removeSituation(object);
-        }
-      });
+      this.deleteThoughtRecordForm(object);
+    } else if (this.type === BELIEF_CHANGE) {
+      this.deleteBeliefForm(object);
+    } else if (this.type === TASK) {
+      this.deleteTaskForm(object);
     } else if (this.type === WORRY_PRODUCTIVELY) {
-      this.worryService.deleteWorry(object.id).subscribe(resp => {
-        const status = resp.ok;
-        if (status) {
-          this.onAddNewForm();
-          this.worryService.removeSituation(object);
-        }
-      });
+      this.deleteWorryForm(object);
     }
+  }
+
+  deleteThoughtRecordForm(object: any) {
+    this.thoughtRecordService.deleteSituation(object.id).subscribe(resp => {
+      const status = resp.ok;
+      if (status) {
+        this.onAddNewForm();
+        this.thoughtRecordService.removeSituation(object);
+      }
+    });
   }
 
   selectObject() {
@@ -174,7 +198,16 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onDeleteTaskForm(task: any) {
+  deleteBeliefForm(object: any) {
+    this.beliefChangeService.deleteBelief(this.object.id).subscribe(resp => {
+      if (resp.ok) {
+        this.onAddNewForm();
+        this.beliefChangeService.removeBelief(object);
+      }
+    });
+  }
+
+  deleteTaskForm(task: any) {
     this.tasksService.deleteTask(task.id).subscribe(resp => {
       const status = resp.body.status;
       if (status) {
@@ -187,5 +220,13 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
       }
     });
   }
-  deleteWorryForm(worry: any) {}
+  deleteWorryForm(worry: any) {
+    this.worryService.deleteWorry(worry.id).subscribe(resp => {
+      const status = resp.ok;
+      if (status) {
+        this.onAddNewForm();
+        this.worryService.removeSituation(worry);
+      }
+    });
+  }
 }

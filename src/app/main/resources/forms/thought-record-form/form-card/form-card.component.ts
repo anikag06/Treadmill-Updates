@@ -8,7 +8,6 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { MatDialog } from '@angular/material';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ThoughtRecordService } from '@/main/resources/forms/thought-record-form/thought-record.service';
 import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
@@ -27,33 +26,31 @@ export class FormCardComponent implements OnInit {
   @Input() apiToCall: string | undefined;
   @Input() thought!: any;
   @Input() reset!: boolean;
-  @Input() editMode!: boolean;
+  @Input() editMode = false;
   @Output() updateThought = new EventEmitter();
-  @ViewChild('problemTextArea', { static: false }) element!: ElementRef;
+  @ViewChild('textArea', { static: false }) element!: ElementRef;
+  showContinue = false;
   submitted = false;
 
   constructor(
-    public dialog: MatDialog,
+    // public dialog: MatDialog,
     private formBuilder: FormBuilder,
     private thoughtRecordService: ThoughtRecordService,
   ) {}
 
-  thoughtRecordForm = this.formBuilder.group({
+  formCardGroup = this.formBuilder.group({
     text: new FormControl('', [Validators.required]),
   });
 
-  ngOnInit() {
-    this.thoughtRecordService.getThought().subscribe(data => {
-      this.thought = data;
-    });
-  }
+  ngOnInit() {}
+
   ngOnChanges(changes: SimpleChanges): void {
     if (
       this.thought &&
       changes.thought &&
       changes.thought.previousValue !== changes.thought.currentValue
     ) {
-      this.initializeThought();
+      this.initializeTextArea();
     }
     if (changes.reset) {
       this.resetText();
@@ -61,7 +58,7 @@ export class FormCardComponent implements OnInit {
   }
 
   onEditSituationClick() {
-    this.submitted = false;
+    // this.submitted = false;
     this.element.nativeElement.focus();
   }
 
@@ -76,36 +73,40 @@ export class FormCardComponent implements OnInit {
             }
           });
           if (this.thought) {
-            this.initializeThought();
+            this.initializeTextArea();
           }
         }
       },
       (error: HttpErrorResponse) => {},
     );
   }
-  initializeThought() {
+
+  initializeTextArea() {
     if (this.apiToCall === 'situation') {
-      this.thoughtRecordForm.controls['text'].setValue(this.thought.situation);
+      this.formCardGroup.controls['text'].setValue(this.thought.situation);
       this.showNegative.emit(true);
+      this.editMode = true;
     }
-    // if (this.apiToCall === 'thought') {
-    //   this.thoughtRecordForm.controls['text'].setValue('ABC');
-    //   // this.onShowSlider.emit(true);
-    // }
+    if (this.apiToCall === 'behavior') {
+      this.thoughtRecordService.getBehavior(this.thought.id).subscribe(resp => {
+        if (resp.ok) {
+          this.formCardGroup.controls['text'].setValue(resp.body.behavior);
+          this.editMode = true;
+          this.onShowTechniques.emit(true);
+        }
+      });
+    }
   }
 
   updateText() {
-    // if (this.thought) {
-    //   this.saveData();
-    // }
+    if (this.thought && this.editMode) {
+      this.saveData();
+    }
   }
 
   saveData() {
     if (this.apiToCall === 'situation') {
       this.saveSituation();
-    }
-    if (this.apiToCall === 'thought') {
-      this.saveThought();
     }
     if (this.apiToCall === 'behavior') {
       this.saveBehavior();
@@ -114,13 +115,14 @@ export class FormCardComponent implements OnInit {
 
   saveSituation() {
     const object = {
-      situation: this.thoughtRecordForm.value['text'],
+      situation: this.formCardGroup.value['text'],
     };
     if (this.thought && this.thought.id > 0) {
       this.thoughtRecordService
         .putSituation(object, this.thought.id)
         .subscribe(resp => {
           status = resp.body.status;
+          this.showContinue = false;
         });
     } else {
       this.thoughtRecordService.postSituation(object).subscribe(resp => {
@@ -128,48 +130,35 @@ export class FormCardComponent implements OnInit {
         if (status) {
           this.updateThought.emit(resp.body);
           this.textSituationHandler(resp.body, 'create');
-        }
-      });
-    }
-  }
-
-  saveThought() {
-    const object = {
-      situation_id: this.thought.id,
-      thought: this.thoughtRecordForm.value['text'],
-    };
-    if (this.thought && this.thought.id > 0) {
-      this.thoughtRecordService.postThought(object).subscribe(resp => {
-        const status = resp.ok;
-        if (status) {
-          const object = {
-            showSlider: true,
-            negativeThought: resp.body.thought,
-          };
-          this.onShowSlider.emit(object);
+          this.showContinue = false;
         }
       });
     }
   }
 
   saveBehavior() {
-    const object = {
-      situation_id: this.thought.id,
-      behavior: this.thoughtRecordForm.value['text'],
-    };
-    if (this.thought && this.thought.id > 0 && this.editMode) {
-      this.thoughtRecordService
-        .putBehavior(object, this.thought.id)
-        .subscribe(resp => {
-          status = resp.body.status;
+    if (this.thought) {
+      const object = {
+        situation_id: this.thought.id,
+        behavior: this.formCardGroup.value['text'],
+      };
+
+      if (this.thought && this.thought.id > 0 && this.editMode) {
+        this.thoughtRecordService
+          .putBehavior(object, this.thought.id)
+          .subscribe(resp => {
+            status = resp.body.status;
+            this.showContinue = false;
+          });
+      } else {
+        this.thoughtRecordService.postBehavior(object).subscribe(resp => {
+          const status = resp.ok;
+          if (status) {
+            this.onShowTechniques.emit(true);
+            this.showContinue = false;
+          }
         });
-    } else {
-      this.thoughtRecordService.postBehavior(object).subscribe(resp => {
-        const status = resp.ok;
-        if (status) {
-          this.onShowTechniques.emit(true);
-        }
-      });
+      }
     }
   }
 
@@ -191,17 +180,21 @@ export class FormCardComponent implements OnInit {
     }
   }
 
-  onProblemSubmit() {
-    this.submitted = true;
+  onTextSubmit() {
     this.saveData();
 
     // this.onShowTechniques.emit(true);
   }
 
+  onShowContinueButton() {
+    this.showContinue = true;
+  }
+
   resetText() {
-    delete this.submitted;
     delete this.thought;
-    this.thoughtRecordForm = this.formBuilder.group({
+    this.updateThought.emit(this.thought);
+    // this.showNegative.emit(false);
+    this.formCardGroup = this.formBuilder.group({
       text: new FormControl(''),
     });
   }

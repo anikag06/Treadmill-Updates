@@ -1,6 +1,6 @@
 <mat-expansion-panel hideToggle #panel>
     <mat-expansion-panel-header
-            [ngStyle]="{ background: '#FEC1C1', paddingLeft: '16px' }"
+            [ngStyle]="{ background: '#FFF3E9', paddingLeft: '16px' }"
             [expandedHeight]="'42px'"
             [collapsedHeight]="'42px'"
     >
@@ -16,7 +16,7 @@
             <div class="iconsDiv" *ngIf="panel.expanded">
                 <mat-icon>close</mat-icon>
             </div>
-            <div class="iconsDiv" *ngIf="!panel.expanded && submitted">
+            <div class="iconsDiv" *ngIf="!panel.expanded && summary.length > 0">
                 <img src="assets/forms/edit_errors.png" width="24px"/>
             </div>
         </mat-panel-description>
@@ -27,19 +27,18 @@
             {{ question }}
         </div>
 
-        <form [formGroup]="explainationForm">
+        <form [formGroup]="tellFriendForm">
             <div>
-                <mat-form-field class="full-width">
+                <mat-form-field>
           <textarea
                   matInput
                   cdkTextareaAutosize
                   cdkAutosizeMinRows="2"
                   cdkAutosizeMaxRows="4"
-                  formControlName="explaination"
+                  formControlName="tell_a_friend"
                   class="form-control"
                   required
                   placeholder="Write Here"
-                  (focusout)="updateExplaination()"
                   #explain
           ></textarea>
                 </mat-form-field>
@@ -50,7 +49,6 @@
                         type="submit"
                         mat-raised-button
                         class="btn continue-btn"
-                        *ngIf="explain.value"
                         [ngStyle]="{ float: 'right' }"
                         (click)="onSubmit()"
                 >
@@ -61,11 +59,11 @@
     </ng-template>
 </mat-expansion-panel>
 
-<mat-card class="card-body" *ngIf="!panel.expanded && submitted">
+<mat-card class="card-body" *ngIf="!panel.expanded && summary.length > 0">
     <mat-card-content>
         <div [ngStyle]="{ 'font-size': '12px' }">Summary</div>
         <div [ngStyle]="{ 'margin-top': '8px', 'font-size': '12px' }">
-            {{ explaination }}
+            {{ summary }}
         </div>
     </mat-card-content>
 </mat-card>

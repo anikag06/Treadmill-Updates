@@ -72,9 +72,6 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
     const panelBody = this.element.nativeElement.querySelectorAll(
       '.mat-expansion-panel-body',
     );
-    const checkmark = this.element.nativeElement.querySelectorAll(
-      ' .mat-checkbox-checkmark-path',
-    );
 
     for (let i = 0; i < listItem.length; i++) {
       listItem[i].setAttribute('style', 'padding-left:24px;padding-right: 0px');
@@ -88,10 +85,6 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
     }
     for (let i = 0; i < panelBody.length; i++) {
       panelBody[i].setAttribute('style', 'padding: 0px;');
-    }
-
-    for (let i = 0; i < checkmark.length; i++) {
-      checkmark[i].setAttribute('style', 'stroke: black !important;');
     }
   }
 
@@ -137,6 +130,7 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
 
   closeModal() {
     this.onClose.emit();
+    this.dialogRef.close({ event: 'close' });
   }
 
   updateEmotionCount(change: boolean) {

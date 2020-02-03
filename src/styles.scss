@@ -330,12 +330,18 @@ img.emoji {
 }
 
 .technique-info-dialog-container .mat-dialog-container {
-  width: 280px;
+  width: 300px;
   height: 495px;
   overflow-x: hidden;
   overflow-y: auto;
-  transform-origin: right top;
-  position: relative;
+}
+
+.common-belief-dialog-container .mat-dialog-container {
+  width: 336px;
+  height: 495px;
+  padding-top: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .mat-slider-thumb {

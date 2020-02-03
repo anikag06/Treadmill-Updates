@@ -1,0 +1,62 @@
+<div class="card-full-width">
+  <div class="card-header">
+    {{ header }}
+  </div>
+  <div>
+    <app-form-slider
+      [minRatingText]="minRating"
+      [maxRatingText]="maxRating"
+      (getRating)="getRating($event)"
+      [rating]="beliefRatingFinal"
+    ></app-form-slider>
+    <div>
+      <button
+        type="submit"
+        mat-raised-button
+        class="btn continue-btn"
+        (click)="onFinalRatingSubmit()"
+        *ngIf="showContinue"
+        [ngStyle]="{ float: 'right' }"
+      >
+        Continue
+      </button>
+      <br />
+    </div>
+  </div>
+  <div class="card-body" *ngIf="showRealisticDiv">
+    <div class="q-heading">
+      {{ finalQues }}
+    </div>
+    <form [formGroup]="negativeBeliefFinalForm">
+      <div>
+        <mat-form-field class="full-width">
+          <textarea
+            matInput
+            cdkTextareaAutosize
+            cdkAutosizeMinRows="2"
+            cdkAutosizeMaxRows="4"
+            formControlName="realistic_belief"
+            required
+            placeholder="Write Here"
+            (focus)="showRealisticBtn()"
+          ></textarea>
+        </mat-form-field>
+      </div>
+      <div>
+        <button
+          type="submit"
+          mat-raised-button
+          class="btn continue-btn"
+          (click)="onRealisticBeliefSubmit()"
+          *ngIf="showRealistic"
+          [ngStyle]="{ float: 'right' }"
+        >
+          Continue
+        </button>
+      </div>
+    </form>
+    <!--        <div *ngIf="showQuote">-->
+    <!--            QUOTE GOES HERE-->
+    <!--        </div>-->
+  </div>
+</div>

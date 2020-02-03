@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { FormsComponent } from './forms/forms.component';
 import { ProblemSolvingWorksheetsComponent } from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.component';
 import { FormsListComponent } from '@/main/resources/forms/forms-list/forms-list.component';
@@ -22,6 +22,7 @@ import { Conclusion2Component } from './conclusion/conclusion2/conclusion2.compo
 import { Conclusion3Component } from './conclusion/conclusion3/conclusion3.component';
 import { Conclusion4Component } from './conclusion/conclusion4/conclusion4.component';
 import { Conclusion5Component } from './conclusion/conclusion5/conclusion5.component';
+import { BeliefChangeComponent } from '@/main/resources/forms/belief-change/belief-change.component';
 
 export const resourcesRoutes: Routes = [
   {
@@ -42,6 +43,10 @@ export const resourcesRoutes: Routes = [
       {
         path: 'forms/worry-productively',
         component: WorryProductivelyComponent,
+      },
+      {
+        path: 'forms/belief-change',
+        component: BeliefChangeComponent,
       },
     ],
   },

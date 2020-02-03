@@ -27,6 +27,7 @@ export class ProofComponent implements OnInit, AfterViewInit {
   submitted = false;
   @Input() thought!: Thought;
   @ViewChild('panel', { static: false }) panel!: any;
+  @Input() reset!: boolean;
 
   proofStatementForm = this.fb.group({
     favorEvidences: this.fb.array([], [Validators.required]),
@@ -51,6 +52,7 @@ export class ProofComponent implements OnInit, AfterViewInit {
 
   ngOnChanges() {
     if (this.thought) {
+      this.resetForm();
       this.proofService
         .getEvidences(this.thought.id, this.againstType)
         .subscribe((resp: any) => {
@@ -58,7 +60,7 @@ export class ProofComponent implements OnInit, AfterViewInit {
             this.summary = resp.body.data.evidences[0].evidence;
           }
         });
-      if (this.summary === '') {
+      if (this.summary.length === 0) {
         this.proofService
           .getEvidences(this.thought.id, this.forType)
           .subscribe((resp: any) => {
@@ -108,15 +110,21 @@ export class ProofComponent implements OnInit, AfterViewInit {
   }
 
   setSummary() {
-    if (this.proofStatementForm.controls['favorEvidences'].value) {
-      this.summary = this.proofStatementForm.controls[
-        'favorEvidences'
-      ].value[0].evidence;
-    } else if (this.proofStatementForm.controls['againstEvidences'].value) {
+    if (this.proofStatementForm.controls['againstEvidences'].value[0]) {
       this.summary = this.proofStatementForm.controls[
         'againstEvidences'
       ].value[0].evidence;
+    } else if (this.proofStatementForm.controls['favorEvidences'].value[0]) {
+      this.summary = this.proofStatementForm.controls[
+        'favorEvidences'
+      ].value[0].evidence;
     }
     this.changeDetector.detectChanges();
+  }
+  resetForm() {
+    this.proofStatementForm = this.fb.group({
+      favorEvidences: this.fb.array([]),
+      againstEvidences: this.fb.array([]),
+    });
   }
 }

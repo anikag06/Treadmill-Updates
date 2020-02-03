@@ -1,0 +1,72 @@
+<mat-card class="container-fluid px-0 pt-0 pb-2 mb-2">
+  <div class="row no-gutters mb-2 card card-full-width">
+    <mat-card-header class="col-12 w-100 px-0 card-header main-heading">
+      <mat-card-title class="ml-4 my-auto d-inline-block">
+        {{ formName }}
+      </mat-card-title>
+
+      <div class="h-100 d-inline-block ml-auto">
+        <button
+          class="h-100 saved-forms-btn"
+          mat-button
+          [matMenuTriggerFor]="beforeMenu"
+        >
+          <mat-icon>
+            more_horiz
+          </mat-icon>
+        </button>
+      </div>
+
+      <mat-menu
+        xPosition="before"
+        yPosition="below"
+        #beforeMenu="matMenu"
+        [overlapTrigger]="false"
+      >
+        <div [ngStyle]="{ 'max-height': '350px' }">
+          <app-forms-sidebar
+            [type]="type"
+            (objectEmitter)="beliefSelected($event)"
+            (newForm)="onAddNewForm()"
+            [object]="belief"
+          >
+          </app-forms-sidebar>
+        </div>
+      </mat-menu>
+    </mat-card-header>
+  </div>
+  <div class="row no-gutters form-div mx-auto">
+    <div class="col-12 col-lg">
+      <div class="row mb-2">
+        <div class="col-12">
+          <app-negative-belief
+            [belief]="belief"
+            (onShowTechniques)="onShowTechniques()"
+            (initialRatingChange)="onInitialRatingChange($event)"
+            (updateBelief)="updateBelief($event)"
+            [reset]="reset"
+          ></app-negative-belief>
+          <app-belief-change-techniques
+            *ngIf="showTechniques"
+            [belief]="belief"
+            (showFinalBelief)="onShowFinalBelief()"
+          ></app-belief-change-techniques>
+          <app-negative-belief-final
+            *ngIf="showFinalBelief"
+            [belief]="belief"
+            (formComplete)="finalFormComplete($event)"
+            (finalRatingChange)="onFinalRatingChange($event)"
+          >
+          </app-negative-belief-final>
+          <app-form-message *ngIf="showMessage" [formMessage]="message">
+          </app-form-message>
+          <app-form-quote
+            *ngIf="showMessage"
+            [quote]="quote"
+            [quotedBy]="quotedBy"
+          ></app-form-quote>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-card>

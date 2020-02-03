@@ -1,5 +1,13 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { ThoughtHelpService } from '@/main/resources/forms/thought-record-form/thought-record-techniques/thought-help/thought-help.service';
+import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
 
 @Component({
   selector: 'app-thought-help',
@@ -17,26 +25,78 @@ export class ThoughtHelpComponent implements OnInit {
   yes = 'Great ! Think of a more balanced thought.';
   no = 'Okay';
   @ViewChild('panel', { static: false }) panel!: any;
+  @Input() thought!: Thought;
+  updateHelp = false;
 
   thoughtHelpForm = this.formBuilder.group({
     keepThought: new FormControl('', [Validators.required]),
     changeThought: new FormControl('', [Validators.required]),
     canSolve: new FormControl('', [Validators.required]),
   });
-  constructor(private formBuilder: FormBuilder) {}
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private thoughtHelpService: ThoughtHelpService,
+  ) {}
 
   ngOnInit() {}
 
-  onSubmit() {
-    this.submitted = true;
-    this.summary =
-      this.thoughtHelpForm.value['keepThought'] +
-      this.thoughtHelpForm.value['changeThought'];
-
-    if (this.summary.length > 50) {
-      this.summary = this.summary.substring(0, 50) + '...';
+  ngOnChanges(changes: SimpleChanges) {
+    if (this.thought) {
+      this.thoughtHelpService
+        .getThoughtHelp(this.thought.id)
+        .subscribe((resp: any) => {
+          if (resp.ok) {
+            this.updateHelp = true;
+            this.initializeHelp(resp);
+            this.summary = resp.body.change_thinking;
+          }
+        });
     }
-    console.log(this.summary);
+  }
+
+  initializeHelp(resp: any) {
+    this.thoughtHelpForm.controls['keepThought'].setValue(
+      resp.body.keep_thinking,
+    );
+    this.thoughtHelpForm.controls['changeThought'].setValue(
+      resp.body.change_thinking,
+    );
+    if (resp.body.changed_thinking_help) {
+      this.thoughtHelpForm.controls['canSolve'].setValue(1);
+    } else {
+      this.thoughtHelpForm.controls['canSolve'].setValue(0);
+    }
+  }
+
+  onSubmit() {
+    // this.submitted = true;
+
+    const object = {
+      situation_id: this.thought.id,
+      keep_thinking: this.thoughtHelpForm.value['keepThought'],
+      change_thinking: this.thoughtHelpForm.value['changeThought'],
+      changed_thinking_help: <number>this.thoughtHelpForm.value['canSolve'],
+    };
+
+    if (this.updateHelp && this.summary.length > 0) {
+      this.thoughtHelpService
+        .putThoughtHelp(object, this.thought.id)
+        .subscribe((resp: any) => {
+          const status = resp.ok;
+          if (status) {
+            console.log('put done');
+          }
+        });
+    } else {
+      this.thoughtHelpService.postThoughtHelp(object).subscribe((resp: any) => {
+        const status = resp.ok;
+        if (status) {
+          console.log('post done');
+        }
+      });
+    }
+    this.summary = this.thoughtHelpForm.value['changeThought'];
     this.panel.expanded = false;
   }
 }
