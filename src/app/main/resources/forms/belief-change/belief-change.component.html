@@ -60,6 +60,11 @@
           </app-negative-belief-final>
           <app-form-message *ngIf="showMessage" [formMessage]="message">
           </app-form-message>
+          <app-form-quote
+            *ngIf="showMessage"
+            [quote]="quote"
+            [quotedBy]="quotedBy"
+          ></app-form-quote>
         </div>
       </div>
     </div>

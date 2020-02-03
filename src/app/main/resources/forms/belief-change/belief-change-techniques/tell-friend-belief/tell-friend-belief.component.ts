@@ -70,6 +70,7 @@ export class TellFriendBeliefComponent implements OnInit {
         .subscribe((resp: any) => {
           const status = resp.ok;
           if (status) {
+            this.updateTellFriend = true;
             console.log('post done');
             this.summary = this.tellFriendForm.value['tell_a_friend'];
             this.panel.expanded = false;

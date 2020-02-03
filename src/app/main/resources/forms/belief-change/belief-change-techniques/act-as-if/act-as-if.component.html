@@ -81,7 +81,7 @@
         </div>
       </div>
 
-      <br /><br />
+      <br />
       <div *ngIf="showAdvantages">
         <div class="q-heading">
           {{ advantageQues }}
@@ -92,8 +92,8 @@
             *ngFor="let advantage of getAdvantages.controls; let i = index"
           >
             <div
-              [formGroupName]="i"
               class="statement"
+              [formGroupName]="i"
               [ngStyle]="{ display: 'flex' }"
               click-outside
               (clickOutside)="onClickOutside($event, i)"
@@ -105,7 +105,7 @@
                   cdkTextareaAutosize
                   cdkAutosizeMinRows="2"
                   cdkAutosizeMaxRows="4"
-                  [formControl]="advantage.get('advantage')"
+                  formControlName="advantage"
                   placeholder="Write Here"
                   required
                   (focus)="onShowTrashIcon(i)"

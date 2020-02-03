@@ -44,6 +44,7 @@ export class ProofComponent implements OnInit, AfterViewInit {
 
   ngOnChanges() {
     if (this.thought) {
+      this.resetForm();
       this.proofService
         .getEvidences(this.thought.id, this.againstType)
         .subscribe((resp: any) => {
@@ -111,5 +112,11 @@ export class ProofComponent implements OnInit, AfterViewInit {
       ].value[0].evidence;
     }
     this.changeDetector.detectChanges();
+  }
+  resetForm() {
+    this.proofStatementForm = this.fb.group({
+      favorEvidences: this.fb.array([]),
+      againstEvidences: this.fb.array([]),
+    });
   }
 }

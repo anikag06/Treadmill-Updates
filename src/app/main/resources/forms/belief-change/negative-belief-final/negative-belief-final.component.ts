@@ -72,7 +72,7 @@ export class NegativeBeliefFinalComponent implements OnInit {
     // this.beliefChangeService.getBeliefBehavior().subscribe((belief: any) => {
     //   this.belief = belief;
     // });
-    console.log(this.belief);
+
     const object = {
       belief_id: this.belief.id,
       belief_rating_final: this.beliefRatingFinal,

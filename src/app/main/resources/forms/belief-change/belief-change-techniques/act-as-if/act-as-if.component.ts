@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild,} from '@angular/core';
+import {ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild,} from '@angular/core';
 import {Belief} from '@/main/resources/forms/belief-change/belief.model';
 import {FormArray, FormBuilder, FormControl, Validators,} from '@angular/forms';
 import {ActAsIfService} from '@/main/resources/forms/belief-change/belief-change-techniques/act-as-if/act-as-if.service';
@@ -39,9 +39,7 @@ export class ActAsIfComponent implements OnInit {
 
   ngOnInit() {}
 
-  ngOnChanges() {
-    const formArray = this.getAdvantages;
-
+  ngOnChanges(changes: SimpleChanges) {
     if (this.belief) {
       this.actAsIfService
         .getActingAsIf(this.belief.id)
@@ -51,27 +49,28 @@ export class ActAsIfComponent implements OnInit {
             this.initalizeActAsIf(resp);
           }
         });
+      this.resetAdvantages();
       this.actAsIfService
         .getAdvantages(this.belief.id)
         .subscribe((resp: any) => {
-          console.log('inside subscribe');
-          if (resp.body.data.advantages.length !== 0) {
-            for (let i = 0; i < resp.body.data.advantages.length; i++) {
-              formArray.push(
-                this.createEditItem(
-                  resp.body.data.advantages[i].id,
-                  resp.body.data.advantages[i].advantage,
-                ),
+          if (resp.body.data.advantages.length > 0) {
+            resp.body.data.advantages.forEach((object: any) => {
+              (this.actAsIfForm.controls.advantages as FormArray).push(
+                this.createEditItem(object.id, object.advantage),
               );
-            }
+              this.showTrashIcon.push(false);
+            });
             this.triggerShowFinalBelief.emit();
           } else {
-            console.log('inside ad item');
-            formArray.push(this.createItem());
+            this.actAsIfForm.controls.advantages = this.formBuilder.array([
+              this.createItem(),
+            ]);
           }
         });
     } else {
-      formArray.push(this.createItem());
+      this.actAsIfForm.controls.advantages = this.formBuilder.array([
+        this.createItem(),
+      ]);
     }
   }
 
@@ -198,5 +197,9 @@ export class ActAsIfComponent implements OnInit {
           this.triggerShowFinalBelief.emit();
         }
       });
+  }
+
+  resetAdvantages() {
+    this.actAsIfForm.controls.advantages = this.formBuilder.array([]);
   }
 }

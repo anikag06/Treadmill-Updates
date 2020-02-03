@@ -83,15 +83,9 @@ export class BeliefChangeComponent implements OnInit {
     if (this.initialRating > 0 && this.finalRating > 0 && this.formComplete) {
       this.showMessage = true;
       if (this.finalRating < this.initialRating) {
-        this.message = new FormMessage(
-          WELL_DONE_IMG,
-          'Well Done',
-          this.text,
-          this.quote,
-          this.quotedBy,
-        );
+        this.message = new FormMessage(WELL_DONE_IMG, 'Well Done', this.text);
       } else {
-        this.message = new FormMessage(THINKING_IMG, '', this.text, '', '');
+        this.message = new FormMessage(THINKING_IMG, '', this.text);
       }
     }
   }

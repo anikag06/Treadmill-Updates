@@ -45,6 +45,7 @@ export class ProofBeliefComponent implements OnInit {
 
   ngOnChanges() {
     if (this.belief) {
+      this.resetForm();
       this.proofBeliefService
         .getEvidences(this.belief.id, this.againstType)
         .subscribe((resp: any) => {
@@ -112,5 +113,12 @@ export class ProofBeliefComponent implements OnInit {
       ].value[0].evidence;
     }
     this.changeDetector.detectChanges();
+  }
+
+  resetForm() {
+    this.proofStatementForm = this.fb.group({
+      favorEvidences: this.fb.array([], [Validators.required]),
+      againstEvidences: this.fb.array([], [Validators.required]),
+    });
   }
 }

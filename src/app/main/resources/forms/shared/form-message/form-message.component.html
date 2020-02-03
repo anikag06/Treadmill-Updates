@@ -1,4 +1,4 @@
-<div class ="messageDiv">
+<div class="messageDiv">
   <div>
     <img class="emoji" [src]="formMessage.emoji" />
   </div>
@@ -11,17 +11,4 @@
     {{ formMessage.message }}
   </div>
   <br />
-  <div class="quote" *ngIf="formMessage.quote">
-    <hr />
-
-    <q>
-      {{ formMessage.quote }}
-    </q>
-
-    <div [ngStyle]="{ textAlign: 'end', color: '#debe88', fontSize: '14px' }">
-      -{{ formMessage.quotedBy }}
-    </div>
-
-    <hr />
-  </div>
 </div>

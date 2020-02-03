@@ -133,6 +133,7 @@ export class NegativeBeliefComponent implements OnInit {
             this.onShowTechniques.emit();
             this.updateBelief.emit(resp.body);
             this.initialRatingChange.emit(this.beliefRatingInitial);
+            this.beliefHandler(resp.body, '');
           }
         });
     }

@@ -114,6 +114,7 @@ import {ActAsIfComponent} from './forms/belief-change/belief-change-techniques/a
 import {ActAsIfService} from '@/main/resources/forms/belief-change/belief-change-techniques/act-as-if/act-as-if.service';
 import {NegativeBeliefFinalComponent} from './forms/belief-change/negative-belief-final/negative-belief-final.component';
 import {FormMessageComponent} from './forms/shared/form-message/form-message.component';
+import {FormQuoteComponent} from './forms/shared/form-quote/form-quote.component';
 
 @NgModule({
     declarations: [
@@ -187,6 +188,7 @@ import {FormMessageComponent} from './forms/shared/form-message/form-message.com
         ActAsIfComponent,
         NegativeBeliefFinalComponent,
         FormMessageComponent,
+        FormQuoteComponent,
     ],
   imports: [
     ResourcesRoutingModule,
