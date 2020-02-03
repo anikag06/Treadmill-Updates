@@ -6,18 +6,21 @@ import { environment } from 'environments/environment';
 import { INTRODUCTION_DATA } from '@/app.constants';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class IntroductionService {
-  constructor(
-    private http: HttpClient,
-  ) { }
+  constructor(private http: HttpClient) {}
 
   getIntroductionData(stepGroupSequence: number): Observable<any> {
-    return this.http.get(environment.API_ENDPOINT+INTRODUCTION_DATA+stepGroupSequence+"/");
+    return this.http.get(
+      environment.API_ENDPOINT + INTRODUCTION_DATA + stepGroupSequence + '/',
+    );
   }
 
   storeIntroductionData(stepGroupSequence: number, data: any) {
-    return this.http.put(environment.API_ENDPOINT+INTRODUCTION_DATA+stepGroupSequence+"/", {data: data});
+    return this.http.put(
+      environment.API_ENDPOINT + INTRODUCTION_DATA + stepGroupSequence + '/',
+      { data: data },
+    );
   }
 }

@@ -8,9 +8,8 @@ describe('ThoughtRecordFormComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ThoughtRecordFormComponent ]
-    })
-    .compileComponents();
+      declarations: [ThoughtRecordFormComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

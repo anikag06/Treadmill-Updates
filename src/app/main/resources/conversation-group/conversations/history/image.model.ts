@@ -1,15 +1,9 @@
 export class Image {
-    image!: any;
-    type!: string;
+  image!: any;
+  type!: string;
 
-    constructor(image: any, type: any) {
-        this.image = image;
-        this.type = type;
-    }
-
-
-
-
-
-
+  constructor(image: any, type: any) {
+    this.image = image;
+    this.type = type;
+  }
 }

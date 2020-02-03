@@ -9,15 +9,17 @@ import { LoadFilesService } from '@/main/games/shared/load-files.service';
 @Component({
   selector: 'app-mental-imagery',
   templateUrl: './mental-imagery.component.html',
-  styleUrls: ['./mental-imagery.component.scss']
+  styleUrls: ['./mental-imagery.component.scss'],
 })
 export class MentalImageryComponent implements OnInit {
+  @ViewChild(MiPlayComponent, { static: false })
+  miPlayComponent!: MiPlayComponent;
 
-  @ViewChild(MiPlayComponent, {static: false}) miPlayComponent!: MiPlayComponent;
-
-  constructor(private getCurrentStateService: MICurrentStateService,
-              private miPlayService: MIPlayService,
-              private loadFilesService: LoadFilesService) { }
+  constructor(
+    private getCurrentStateService: MICurrentStateService,
+    private miPlayService: MIPlayService,
+    private loadFilesService: LoadFilesService,
+  ) {}
 
   user = new MIUser('sourav', 0, [], null);
   levelList: Level[] = [];
@@ -28,8 +30,7 @@ export class MentalImageryComponent implements OnInit {
   showInstructionIcon = true;
 
   ngOnInit() {
-   
-    this.miPlayService.startPlaying.subscribe( () => {
+    this.miPlayService.startPlaying.subscribe(() => {
       this.startPlayingMIGame();
     });
   }

@@ -11,17 +11,16 @@ import { CommonDialogsService } from '../../shared/common-dialogs.service';
 @Component({
   selector: 'app-conclusion5',
   templateUrl: './conclusion5.component.html',
-  styleUrls: ['./conclusion5.component.scss']
+  styleUrls: ['./conclusion5.component.scss'],
 })
 export class Conclusion5Component implements OnInit {
-
   stepGroupSequence!: number;
   options = COMMITTMENT_OPTIONS;
   commitment!: string;
   worry!: string;
   conclusionDataSubscription!: Subscription;
   // TODO: provide link for thought record form and problem solving form
-  controlWorryingFormLink = "";
+  controlWorryingFormLink = '';
   dataLoaded: boolean = true;
   locked: boolean = false;
   stepCompleted: boolean = false;
@@ -39,35 +38,38 @@ export class Conclusion5Component implements OnInit {
     private router: Router,
     private stepDataService: StepsDataService,
     private commonDialogService: CommonDialogsService,
-  ) { }
+  ) {}
 
   ngOnInit() {
-    this.activatedRoute.url.subscribe((data) => {
+    this.activatedRoute.url.subscribe(data => {
       this.stepGroupSequence = +data[0].path;
-      this.stepDataService.getBadgeInfo(this.stepGroupSequence)
+      this.stepDataService
+        .getBadgeInfo(this.stepGroupSequence)
         .subscribe((badge_data: any) => {
           console.log(badge_data);
           this.commonDialogService.updateBadgeInfo(badge_data.results);
         });
     });
 
-    this.conclusionDataSubscription = this.conclusionService.getConclusionData(this.stepGroupSequence).subscribe((data) => {
-      if (data.user_step_status != LOCKED) {
-        this.moduleName = data.module_name;
-        this.nextModuleName = data.next_module_name;
-        this.currentStepId = data.current_step_id;
-        this.nextStepId = data.next_step_id;
-        this.commitment = data.data.commitment;
-        this.worry = data.data.worry;
-        this.locked = false;
-        if (data.user_step_status === COMPLETED) {
-          this.stepCompleted = true;
+    this.conclusionDataSubscription = this.conclusionService
+      .getConclusionData(this.stepGroupSequence)
+      .subscribe(data => {
+        if (data.user_step_status != LOCKED) {
+          this.moduleName = data.module_name;
+          this.nextModuleName = data.next_module_name;
+          this.currentStepId = data.current_step_id;
+          this.nextStepId = data.next_step_id;
+          this.commitment = data.data.commitment;
+          this.worry = data.data.worry;
+          this.locked = false;
+          if (data.user_step_status === COMPLETED) {
+            this.stepCompleted = true;
+          }
+        } else {
+          this.locked = true;
         }
-      } else {
-        this.locked = true;
-      }
-      this.dataLoaded = true;
-    });
+        this.dataLoaded = true;
+      });
   }
 
   saveData() {
@@ -75,9 +77,11 @@ export class Conclusion5Component implements OnInit {
       commitment: this.commitment,
       worry: this.worry,
     };
-    this.conclusionService.storeConclusionData(this.stepGroupSequence, data).subscribe((data) => {
-      console.log("data saved");
-    });
+    this.conclusionService
+      .storeConclusionData(this.stepGroupSequence, data)
+      .subscribe(data => {
+        console.log('data saved');
+      });
   }
 
   ngOnDestroy() {
@@ -91,15 +95,19 @@ export class Conclusion5Component implements OnInit {
     this.timeSpent = 200;
     this.completionData.time_spent = this.timeSpent;
     this.completionData.step_id = this.currentStepId;
-    this.stepDataService.storeCompletionData(this.completionData)
-      .subscribe((data) => {
+    this.stepDataService
+      .storeCompletionData(this.completionData)
+      .subscribe(data => {
         console.log(data);
       });
-    this.commonDialogService.openCongratsDialog(this.currentStepId, this.nextStepId, true);
+    this.commonDialogService.openCongratsDialog(
+      this.currentStepId,
+      this.nextStepId,
+      true,
+    );
   }
 
   onDashboard() {
     this.router.navigate(['/dashboard']);
   }
-
 }

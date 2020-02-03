@@ -8,7 +8,7 @@ import { LOCKED } from '@/app.constants';
 @Component({
   selector: 'app-introduction2',
   templateUrl: './introduction2.component.html',
-  styleUrls: ['./introduction2.component.scss']
+  styleUrls: ['./introduction2.component.scss'],
 })
 export class Introduction2Component implements OnInit, OnDestroy {
   stepGroupSequence!: number;
@@ -21,25 +21,27 @@ export class Introduction2Component implements OnInit, OnDestroy {
 
   constructor(
     private introductionService: IntroductionService,
-    private activatedRoute: ActivatedRoute
-  ) { }
+    private activatedRoute: ActivatedRoute,
+  ) {}
 
   ngOnInit() {
-    this.activatedRoute.url.subscribe((data) => {
+    this.activatedRoute.url.subscribe(data => {
       this.stepGroupSequence = +data[0].path;
     });
 
-    this.introductionDataSubscription = this.introductionService.getIntroductionData(this.stepGroupSequence).subscribe((data) => {
-      if(data.user_step_status != LOCKED) {
-        this.enjoyable = data.enjoyable;
-        this.mastery = data.mastery;
-        this.miserable = data.miserable;
-        this.locked = false;
-      } else {
-        this.locked = true;
-      }
-      this.dataLoaded = true;
-    });
+    this.introductionDataSubscription = this.introductionService
+      .getIntroductionData(this.stepGroupSequence)
+      .subscribe(data => {
+        if (data.user_step_status != LOCKED) {
+          this.enjoyable = data.enjoyable;
+          this.mastery = data.mastery;
+          this.miserable = data.miserable;
+          this.locked = false;
+        } else {
+          this.locked = true;
+        }
+        this.dataLoaded = true;
+      });
   }
 
   ngOnDestroy() {
@@ -52,8 +54,10 @@ export class Introduction2Component implements OnInit, OnDestroy {
       mastery: this.mastery,
       miserable: this.miserable,
     };
-    this.introductionService.storeIntroductionData(this.stepGroupSequence, data).subscribe((data) => {
-      console.log("success");
-    });
+    this.introductionService
+      .storeIntroductionData(this.stepGroupSequence, data)
+      .subscribe(data => {
+        console.log('success');
+      });
   }
 }

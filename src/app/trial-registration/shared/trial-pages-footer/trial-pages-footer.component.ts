@@ -5,17 +5,15 @@ import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-co
 @Component({
   selector: 'app-trial-pages-footer',
   templateUrl: './trial-pages-footer.component.html',
-  styleUrls: ['./trial-pages-footer.component.scss']
+  styleUrls: ['./trial-pages-footer.component.scss'],
 })
 export class TrialPagesFooterComponent implements OnInit {
-
   constructor(
     private router: Router,
-    private showContactUsService: MatContactUsDialogService
-  ) { }
+    private showContactUsService: MatContactUsDialogService,
+  ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   onAboutUsClick() {
     this.router.navigate(['trial/about-us']);

@@ -13,38 +13,52 @@ export interface ThoughtSet {
 @Component({
   selector: 'app-introduction3',
   templateUrl: './introduction3.component.html',
-  styleUrls: ['./introduction3.component.scss']
+  styleUrls: ['./introduction3.component.scss'],
 })
 export class Introduction3Component implements OnInit, OnDestroy {
   stepGroupSequence!: number;
   dataLoaded: boolean = false;
   locked: boolean = true;
   introductionDataSubscription!: Subscription;
-  negativeThoughts = ["Negative thought 1", "Negative thought 2", "Negative thought 3", "Negative thought 4", "Negative thought 5"];
-  balancedThoughts = ["Balanced thought 1", "Balanced thought 2", "Balanced thought 3", "Balanced thought 4", "Balanced thought 5"];
+  negativeThoughts = [
+    'Negative thought 1',
+    'Negative thought 2',
+    'Negative thought 3',
+    'Negative thought 4',
+    'Negative thought 5',
+  ];
+  balancedThoughts = [
+    'Balanced thought 1',
+    'Balanced thought 2',
+    'Balanced thought 3',
+    'Balanced thought 4',
+    'Balanced thought 5',
+  ];
   selectedThought!: string;
   balancedThought!: string;
 
   constructor(
     private introductionService: IntroductionService,
-    private activatedRoute: ActivatedRoute
-  ) { }
+    private activatedRoute: ActivatedRoute,
+  ) {}
 
   ngOnInit() {
-    this.activatedRoute.url.subscribe((data) => {
+    this.activatedRoute.url.subscribe(data => {
       this.stepGroupSequence = +data[0].path;
     });
 
-    this.introductionDataSubscription = this.introductionService.getIntroductionData(this.stepGroupSequence).subscribe((data) => {
-      if (data.user_step_status != LOCKED) {
-        this.locked = false;
-        this.selectedThought = data.data.selectedThought;
-        this.onThoughtChanged();
-      } else {
-        this.locked = true;
-      }
-      this.dataLoaded = true;
-    });
+    this.introductionDataSubscription = this.introductionService
+      .getIntroductionData(this.stepGroupSequence)
+      .subscribe(data => {
+        if (data.user_step_status != LOCKED) {
+          this.locked = false;
+          this.selectedThought = data.data.selectedThought;
+          this.onThoughtChanged();
+        } else {
+          this.locked = true;
+        }
+        this.dataLoaded = true;
+      });
   }
 
   ngOnDestroy() {
@@ -52,15 +66,19 @@ export class Introduction3Component implements OnInit, OnDestroy {
   }
 
   onThoughtChanged() {
-    this.balancedThought = this.balancedThoughts[this.negativeThoughts.indexOf(this.selectedThought)];
+    this.balancedThought = this.balancedThoughts[
+      this.negativeThoughts.indexOf(this.selectedThought)
+    ];
   }
 
   saveData() {
     let data = {
       selectedThought: this.selectedThought,
     };
-    this.introductionService.storeIntroductionData(this.stepGroupSequence, data).subscribe((data) => {
-      console.log("success");
-    });
+    this.introductionService
+      .storeIntroductionData(this.stepGroupSequence, data)
+      .subscribe(data => {
+        console.log('success');
+      });
   }
 }

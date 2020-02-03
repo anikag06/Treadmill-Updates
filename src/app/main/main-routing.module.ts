@@ -20,47 +20,57 @@ import { ConversationsComponent } from './resources/conversation-group/conversat
 import { ConversationGroupComponent } from './resources/conversation-group/conversation-group.component';
 import { GetQuestionnaireComponent } from './dashboard/get-questionnaire/get-questionnaire.component';
 
-
-
 export const mainRoutes: Routes = [
-    {
-        path: '', component: MainComponent, canActivateChild: [AuthGuard], children: [
-            { path: 'dashboard', component: DashboardComponent},
-            { path: 'questionnaire', component: GetQuestionnaireComponent},
-            { path: 'support-groups', component: SupportGroupsComponent },
-            {
-                path: 'modules', component: ModulesComponent, canActivateChild: [AuthGuard], children: [
-                    { path: ':name', component: ModuleDetailComponent },
-                    { path: '', component: ModuleListComponent },
-                ]
-            },
-            {
-                path: 'games', component: GamesComponent, children: [
-                    { path: '', component: GamesListComponent },
-                    // { path: 'interpretationbias', component: InterpretationBiasGameComponent},
-                    { path: ':name', component: CommonGameComponent}
-                ]
-            },
-            {
-                path: 'scores', component: ScoreComponent, children: [
-                    { path: 'phq', component: PhqNineComponent },
-                    { path: 'gad', component: GadSevenComponent }
-                ]
-            },
-            { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-            { path: 'logout', component: LogoutComponent },
-            {
-                path: 'resources',
-                loadChildren: () => import('./resources/resources.module').then(mod => mod.ResourcesModule),
-                canActivateChild: [AuthGuard]
-            },
-        ]
-    }
+  {
+    path: '',
+    component: MainComponent,
+    canActivateChild: [AuthGuard],
+    children: [
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'questionnaire', component: GetQuestionnaireComponent },
+      { path: 'support-groups', component: SupportGroupsComponent },
+      {
+        path: 'modules',
+        component: ModulesComponent,
+        canActivateChild: [AuthGuard],
+        children: [
+          { path: ':name', component: ModuleDetailComponent },
+          { path: '', component: ModuleListComponent },
+        ],
+      },
+      {
+        path: 'games',
+        component: GamesComponent,
+        children: [
+          { path: '', component: GamesListComponent },
+          // { path: 'interpretationbias', component: InterpretationBiasGameComponent},
+          { path: ':name', component: CommonGameComponent },
+        ],
+      },
+      {
+        path: 'scores',
+        component: ScoreComponent,
+        children: [
+          { path: 'phq', component: PhqNineComponent },
+          { path: 'gad', component: GadSevenComponent },
+        ],
+      },
+      { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+      { path: 'logout', component: LogoutComponent },
+      {
+        path: 'resources',
+        loadChildren: () =>
+          import('./resources/resources.module').then(
+            mod => mod.ResourcesModule,
+          ),
+        canActivateChild: [AuthGuard],
+      },
+    ],
+  },
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(mainRoutes)],
-    exports: [RouterModule]
+  imports: [RouterModule.forChild(mainRoutes)],
+  exports: [RouterModule],
 })
-export class MainRoutingModule {
-}
+export class MainRoutingModule {}

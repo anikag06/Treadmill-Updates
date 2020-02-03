@@ -1,12 +1,8 @@
 import { Directive, ViewContainerRef } from '@angular/core';
 
 @Directive({
-  selector: '[appDialogBoxChild]'
+  selector: '[appDialogBoxChild]',
 })
 export class DialogBoxChildDirective {
-
-  constructor(
-    public viewContainerRef: ViewContainerRef
-  ) { }
-
+  constructor(public viewContainerRef: ViewContainerRef) {}
 }

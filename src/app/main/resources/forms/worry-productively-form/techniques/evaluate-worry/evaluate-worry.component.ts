@@ -62,7 +62,6 @@ export class EvaluateWorryComponent implements OnInit, AfterContentChecked {
     this.worryService.thinkingErrors().subscribe((data: any) => {
       data.map((uselessChar: any) => {
         this.data.push({ value: uselessChar, is_checked: false });
-        //console.log(this.data + 'and data' + uselessChar);
       });
     });
     this.data.shift();

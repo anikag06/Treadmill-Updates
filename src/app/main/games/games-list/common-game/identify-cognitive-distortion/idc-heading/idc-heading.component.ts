@@ -4,14 +4,13 @@ import { IdcGameService } from '../idc-game.service';
 @Component({
   selector: 'app-idc-heading',
   templateUrl: './idc-heading.component.html',
-  styleUrls: ['./idc-heading.component.scss']
+  styleUrls: ['./idc-heading.component.scss'],
 })
 export class IdcHeadingComponent implements OnInit {
+  constructor(private gameService: IdcGameService, private ngZone: NgZone) {}
 
-  constructor(private gameService: IdcGameService, private ngZone: NgZone) { }
-
-  game! : any;
-  title! : any;
+  game!: any;
+  title!: any;
 
   ngOnInit() {
     // this.gameService.getGameData();
@@ -19,9 +18,8 @@ export class IdcHeadingComponent implements OnInit {
   }
 
   titleCall() {
-    this.gameService.title.subscribe((data) => {
-        this.title = data;
-      });
-    }
-
+    this.gameService.title.subscribe(data => {
+      this.title = data;
+    });
+  }
 }

@@ -1,8 +1,4 @@
 export class Texting {
-    message!: string;
-    dialog!: string;
-
-
-
-
+  message!: string;
+  dialog!: string;
 }

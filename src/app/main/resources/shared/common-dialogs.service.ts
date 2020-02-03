@@ -7,7 +7,7 @@ import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.se
 import { Step } from '@/main/flow/step-group/step/step.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CommonDialogsService {
   // @Input() step!: Step;
@@ -19,21 +19,17 @@ export class CommonDialogsService {
     private dialog: MatDialog,
     private http: HttpClient,
     private flowNavService: FlowStepNavigationService,
-  ) { }
+  ) {}
   openCongratsDialog(curr_id: number, step_id: number, isLastStep: boolean) {
     this.isLocked = false;
     if (isLastStep) {
-      this.flowNavService.isNextModuleLocked(curr_id)
-        .subscribe(
-          (data) => {
-            this.nextStepData = data.data;
-            this.isLocked = !data.data.next_step_group_unlocked;
-            this.openDialog(true);
-          }
-        );
+      this.flowNavService.isNextModuleLocked(curr_id).subscribe(data => {
+        this.nextStepData = data.data;
+        this.isLocked = !data.data.next_step_group_unlocked;
+        this.openDialog(true);
+      });
     } else {
-      this.flowNavService.getNextStepData(step_id)
-      .subscribe( (next_step_data) => {
+      this.flowNavService.getNextStepData(step_id).subscribe(next_step_data => {
         if (next_step_data.data.status === LOCKED) {
           this.isLocked = true;
         }
@@ -53,7 +49,7 @@ export class CommonDialogsService {
         nextStepData: this.nextStepData,
         badgeData: this.badgeData,
       },
-      autoFocus: false
+      autoFocus: false,
     });
   }
 

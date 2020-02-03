@@ -8,9 +8,8 @@ describe('MiWinComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MiWinComponent ]
-    })
-    .compileComponents();
+      declarations: [MiWinComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

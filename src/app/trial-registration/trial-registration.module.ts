@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '@/material.module';
-import {MatRadioModule} from '@angular/material/radio';
+import { MatRadioModule } from '@angular/material/radio';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { TrialRegistrationRoutingModule } from './trial-registration-routing.module';
@@ -20,7 +20,6 @@ import { MatExpansionModule } from '@angular/material';
 import { IneligibleTrialPageComponent } from './information-pages/ineligible-trial-page/ineligible-trial-page.component';
 import { RegistrationDataService } from './shared/registration-data.service';
 import { StepLastPageComponent } from './information-pages/step-last-page/step-last-page.component';
-
 
 @NgModule({
   declarations: [
@@ -47,8 +46,6 @@ import { StepLastPageComponent } from './information-pages/step-last-page/step-l
     TrialRegistrationRoutingModule,
     QuestionnaireModule,
   ],
-  providers: [
-    RegistrationDataService,
-  ]
+  providers: [RegistrationDataService],
 })
-export class TrialRegistrationModule { }
+export class TrialRegistrationModule {}

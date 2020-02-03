@@ -3,14 +3,12 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-faq-page',
   templateUrl: './faq-page.component.html',
-  styleUrls: ['./faq-page.component.scss']
+  styleUrls: ['./faq-page.component.scss'],
 })
 export class FaqPageComponent implements OnInit {
-
-
   showRegistrationContent = false;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
     const smallDevice = window.matchMedia('(max-width: 767px)').matches;
@@ -19,5 +17,4 @@ export class FaqPageComponent implements OnInit {
       this.showRegistrationContent = true;
     }
   }
-
 }

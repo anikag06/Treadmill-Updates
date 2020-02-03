@@ -8,9 +8,8 @@ describe('TrialPagesFooterComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TrialPagesFooterComponent ]
-    })
-    .compileComponents();
+      declarations: [TrialPagesFooterComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

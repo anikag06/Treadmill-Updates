@@ -8,9 +8,8 @@ describe('RegistrationStepTwoComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RegistrationStepTwoComponent ]
-    })
-    .compileComponents();
+      declarations: [RegistrationStepTwoComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

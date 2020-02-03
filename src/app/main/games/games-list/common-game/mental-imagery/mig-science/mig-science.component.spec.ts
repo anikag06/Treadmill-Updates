@@ -8,9 +8,8 @@ describe('MigScienceComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MigScienceComponent ]
-    })
-    .compileComponents();
+      declarations: [MigScienceComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

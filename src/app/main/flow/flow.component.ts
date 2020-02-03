@@ -1,4 +1,10 @@
-import { Component, OnInit, SimpleChanges, Input, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  SimpleChanges,
+  Input,
+  OnDestroy,
+} from '@angular/core';
 import { FlowService } from './flow.service';
 import { StepGroup } from './step-group/step-group.model';
 import { Subscription } from 'rxjs';
@@ -6,7 +12,7 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-flow',
   templateUrl: './flow.component.html',
-  styleUrls: ['./flow.component.scss']
+  styleUrls: ['./flow.component.scss'],
 })
 export class FlowComponent implements OnInit, OnDestroy {
   @Input() navBar!: any;
@@ -14,17 +20,12 @@ export class FlowComponent implements OnInit, OnDestroy {
   flowSubscription!: Subscription;
   dataloaded = false;
 
-  constructor(
-    private flowService: FlowService
-  ) { }
+  constructor(private flowService: FlowService) {}
 
   ngOnInit() {
     console.log(this.navBar);
     this.dataloaded = false;
-    this.flowService.loadBehaviour
-      .subscribe(
-        data => this.loadData()
-      );
+    this.flowService.loadBehaviour.subscribe(data => this.loadData());
   }
 
   ngOnDestroy(): void {
@@ -37,13 +38,11 @@ export class FlowComponent implements OnInit, OnDestroy {
     if (this.flowSubscription) {
       this.flowSubscription.unsubscribe();
     }
-    this.flowSubscription = this.flowService.getFlow()
-      .subscribe(
-        (data: any) => {
-          this.stepGroups = data.step_groups;
-          this.dataloaded = true;
-        }
-      );
+    this.flowSubscription = this.flowService
+      .getFlow()
+      .subscribe((data: any) => {
+        this.stepGroups = data.step_groups;
+        this.dataloaded = true;
+      });
   }
-
 }

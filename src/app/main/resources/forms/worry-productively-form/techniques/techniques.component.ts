@@ -8,11 +8,9 @@ import {
   TECHNIQUE_CLOSED,
 } from '@/app.constants';
 import { EVALUATE_DATA } from './evaluate-worry/evaluate-info.data';
-// import { TechniquesInfoComponent } from '../../thought-record-form/thought-record-techniques/techniques-info/techniques-info.component';
+import { TechniquesInfoComponent } from '../../shared/techniques-info/techniques-info.component';
 import { TECHNIQUE_DATA } from './techniques-info.data';
 import { Worry } from '../worry.model';
-// import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
-// import { TechniqueInfoComponent } from './technique-info/technique-info.component';
 @Component({
   selector: 'app-techniques',
   templateUrl: './techniques.component.html',
@@ -24,7 +22,6 @@ export class TechniquesComponent implements OnInit {
   constructor(
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer,
-    // private dialogBoxService: DialogBoxService,
     public dialog: MatDialog,
   ) {
     this.matIconRegistry.addSvgIcon(
@@ -106,25 +103,24 @@ export class TechniquesComponent implements OnInit {
     }
   }
   TechniqueInfo() {
-    //   console.log(this.doneBtn);
-    //   const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
-    //   this.doneBtn.nativeElement.dispatchEvent(domEvent);
-    //   this.dialogBoxService.setDialogChild(TechniqueInfoComponent);
-    // const dialogRef = this.dialog.open(TechniquesInfoComponent, {
-    //   panelClass: 'technique-info-dialog-container',
-    //   autoFocus: false,
-    //   data: {
-    //     techniquesInfo: TECHNIQUE_DATA,
-    //   },
-    // });
+    console.log(this.doneBtn);
+    const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
+    this.doneBtn.nativeElement.dispatchEvent(domEvent);
+    const dialogRef = this.dialog.open(TechniquesInfoComponent, {
+      panelClass: 'technique-info-dialog-container',
+      autoFocus: false,
+      data: {
+        techniquesInfo: TECHNIQUE_DATA,
+      },
+    });
   }
   onShowInfo() {
-    // const dialogRef = this.dialog.open(TechniquesInfoComponent, {
-    //   panelClass: 'technique-info-dialog-container',
-    //   autoFocus: false,
-    //   data: {
-    //     techniquesInfo: EVALUATE_DATA,
-    //   },
-    // });
+    const dialogRef = this.dialog.open(TechniquesInfoComponent, {
+      panelClass: 'technique-info-dialog-container',
+      autoFocus: false,
+      data: {
+        techniquesInfo: EVALUATE_DATA,
+      },
+    });
   }
 }

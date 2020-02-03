@@ -8,15 +8,11 @@ declare var startIBGame: any;
   styleUrls: ['./ib-game-instructions.component.scss'],
 })
 export class IbGameInstructionsComponent implements OnInit {
-
   game_element!: any;
 
-  constructor(
-    private elementRef: ElementRef,
-  ) { }
+  constructor(private elementRef: ElementRef) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   onPlayClicked() {
     const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });

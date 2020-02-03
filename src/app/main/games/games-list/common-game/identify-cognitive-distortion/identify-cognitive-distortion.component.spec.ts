@@ -8,9 +8,8 @@ describe('IdentifyCognitiveDistortionComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ IdentifyCognitiveDistortionComponent ]
-    })
-    .compileComponents();
+      declarations: [IdentifyCognitiveDistortionComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

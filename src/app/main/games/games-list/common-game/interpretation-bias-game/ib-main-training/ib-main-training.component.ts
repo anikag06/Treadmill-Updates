@@ -4,13 +4,13 @@ declare var ibGameTrainingSen: any;
 @Component({
   selector: 'app-ib-main-training',
   templateUrl: './ib-main-training.component.html',
-  styleUrls: ['./ib-main-training.component.scss']
+  styleUrls: ['./ib-main-training.component.scss'],
 })
 export class IbMainTrainingComponent implements OnInit {
   constructor(
     private elementRef: ElementRef,
     private ibDialogService: IbTrainingDataService,
-  ) {  }
+  ) {}
 
   ngOnInit() {
     ibGameTrainingSen();
@@ -21,5 +21,4 @@ export class IbMainTrainingComponent implements OnInit {
     const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });
     this.elementRef.nativeElement.dispatchEvent(domEvent);
   }
-
 }

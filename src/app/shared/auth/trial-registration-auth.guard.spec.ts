@@ -5,11 +5,14 @@ import { TrialRegistrationAuthGuard } from './trial-registration-auth.guard';
 describe('TrialRegistrationAuthGuard', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [TrialRegistrationAuthGuard]
+      providers: [TrialRegistrationAuthGuard],
     });
   });
 
-  it('should ...', inject([TrialRegistrationAuthGuard], (guard: TrialRegistrationAuthGuard) => {
-    expect(guard).toBeTruthy();
-  }));
+  it('should ...', inject(
+    [TrialRegistrationAuthGuard],
+    (guard: TrialRegistrationAuthGuard) => {
+      expect(guard).toBeTruthy();
+    },
+  ));
 });

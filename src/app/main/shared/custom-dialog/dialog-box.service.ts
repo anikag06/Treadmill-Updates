@@ -1,14 +1,13 @@
 import { Injectable, Component } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DialogBoxService {
-
   childComponent!: any;
   isDialogBoxRemoved!: any;
 
-  constructor() { }
+  constructor() {}
 
   setDialogChild(component: any) {
     this.childComponent = component;

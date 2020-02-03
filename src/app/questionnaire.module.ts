@@ -5,25 +5,13 @@ import { DataService } from './shared/questionnaire/data.service';
 import { QuizService } from './shared/questionnaire/questionnaire.service';
 import { RouterModule, Routes } from '@angular/router';
 
-const appRoutes: Routes = [
-
-]
+const appRoutes: Routes = [];
 
 @NgModule({
-  declarations: [
-    QuestionnaireComponent,
-  ],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(appRoutes),
-  ],
-  
-  providers: [
-    DataService,
-    QuizService
-  ],
-  exports: [
-    QuestionnaireComponent,
-  ]
+  declarations: [QuestionnaireComponent],
+  imports: [CommonModule, RouterModule.forChild(appRoutes)],
+
+  providers: [DataService, QuizService],
+  exports: [QuestionnaireComponent],
 })
-export class QuestionnaireModule { }
+export class QuestionnaireModule {}

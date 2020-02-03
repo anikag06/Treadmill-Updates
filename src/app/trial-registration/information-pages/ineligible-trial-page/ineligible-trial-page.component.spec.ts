@@ -8,9 +8,8 @@ describe('IneligibleTrialPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ IneligibleTrialPageComponent ]
-    })
-    .compileComponents();
+      declarations: [IneligibleTrialPageComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

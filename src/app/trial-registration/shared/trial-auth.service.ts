@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TrialAuthService {
-
   canNavigateNextPage = false;
 
-  constructor() { }
+  constructor() {}
 
   activateChild(nextPage: boolean) {
     this.canNavigateNextPage = nextPage;

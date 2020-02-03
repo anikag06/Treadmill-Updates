@@ -5,10 +5,9 @@ import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-co
 @Component({
   selector: 'app-terms-and-conditions',
   templateUrl: './terms-and-conditions.component.html',
-  styleUrls: ['./terms-and-conditions.component.scss']
+  styleUrls: ['./terms-and-conditions.component.scss'],
 })
 export class TermsAndConditionsComponent implements OnInit {
-
   faqLink = '../faqs';
   privacyPolicyLink = '../privacy-policy';
   showRegistrationContent = false;
@@ -16,7 +15,7 @@ export class TermsAndConditionsComponent implements OnInit {
   constructor(
     private router: Router,
     private showContactUsService: MatContactUsDialogService,
-  ) { }
+  ) {}
 
   ngOnInit() {
     const smallDevice = window.matchMedia('(max-width: 767px)').matches;
@@ -29,8 +28,5 @@ export class TermsAndConditionsComponent implements OnInit {
   contactUsClicked() {
     console.log('contact us');
     this.showContactUsService.contactUsClicked();
-
   }
-
-
 }

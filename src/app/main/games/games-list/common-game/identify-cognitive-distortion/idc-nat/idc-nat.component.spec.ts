@@ -8,9 +8,8 @@ describe('IdcNatComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ IdcNatComponent ]
-    })
-    .compileComponents();
+      declarations: [IdcNatComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -13,10 +13,9 @@ import { DatePipe } from '@angular/common';
   selector: 'app-step',
   templateUrl: './step.component.html',
   styleUrls: ['./step.component.scss'],
-  providers: [DatePipe]
+  providers: [DatePipe],
 })
 export class StepComponent implements OnInit {
-
   @Input() step!: Step;
   @Input() stepGroup!: StepGroup;
   @ViewChild('tooltip', { static: false }) showToolTip!: MatTooltip;
@@ -24,7 +23,7 @@ export class StepComponent implements OnInit {
   prevModuleLastStep: any;
   tooltipData!: any;
   isConversationStep = false;
-  conversationBarValue = 25;           // default value is kept 5
+  conversationBarValue = 25; // default value is kept 5
   isShowConversationBar = false;
 
   constructor(
@@ -33,11 +32,14 @@ export class StepComponent implements OnInit {
     private flowService: FlowService,
     private datePipe: DatePipe,
     private element: ElementRef,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.tooltipData = 'Complete the previous steps first';
-    if (this.step.data_type === CONVERSATION_GROUP && this.step.status !== LOCKED) {
+    if (
+      this.step.data_type === CONVERSATION_GROUP &&
+      this.step.status !== LOCKED
+    ) {
       if (this.step.step_data.data.conversation_completed_percentage > 0) {
         this.conversationBarValue = this.step.step_data.data.conversation_completed_percentage;
       }
@@ -49,16 +51,37 @@ export class StepComponent implements OnInit {
 
   ngAfterViewInit() {
     // this is done to change the properties of progress bar in conversation in flow
-    const stepProgressBar = this.element.nativeElement.querySelectorAll('.step-progress-bar .mat-progress-bar');
+    const stepProgressBar = this.element.nativeElement.querySelectorAll(
+      '.step-progress-bar .mat-progress-bar',
+    );
     // tslint:disable-next-line: max-line-length
-    const stepProgressBarBuffer = this.element.nativeElement.querySelectorAll('.step-progress-bar .mat-progress-bar .mat-progress-bar-buffer');
-    const stepProgressBarFill = this.element.nativeElement.querySelectorAll('.step-progress-bar .mat-progress-bar .mat-progress-bar-fill');
+    const stepProgressBarBuffer = this.element.nativeElement.querySelectorAll(
+      '.step-progress-bar .mat-progress-bar .mat-progress-bar-buffer',
+    );
+    const stepProgressBarFill = this.element.nativeElement.querySelectorAll(
+      '.step-progress-bar .mat-progress-bar .mat-progress-bar-fill',
+    );
     if (stepProgressBar.length > 0) {
-      stepProgressBar[0].setAttribute('style', 'border-radius: 2px; !important');
-      stepProgressBarBuffer[0].setAttribute('style', 'background-color: #E4E8EB; !important');
+      stepProgressBar[0].setAttribute(
+        'style',
+        'border-radius: 2px; !important',
+      );
+      stepProgressBarBuffer[0].setAttribute(
+        'style',
+        'background-color: #E4E8EB; !important',
+      );
 
       const afterElement = document.createElement('style');
-      afterElement.innerHTML += ' .' + 'mat-progress-bar-fill' + ':' + 'after' + '{' + 'background-color' + ':' + '#5E5E5E' + '}';
+      afterElement.innerHTML +=
+        ' .' +
+        'mat-progress-bar-fill' +
+        ':' +
+        'after' +
+        '{' +
+        'background-color' +
+        ':' +
+        '#5E5E5E' +
+        '}';
       stepProgressBarFill[0].appendChild(afterElement);
     }
   }
@@ -81,8 +104,8 @@ export class StepComponent implements OnInit {
 
   markDone() {
     const prev = this.previousStep(this.stepGroup, this.step);
-    if (!prev || prev && prev.status === COMPLETED) {
-      this.flowStepNavService.virtualStepMarkDone(this.step, 1);        // here 1 is the time spent
+    if (!prev || (prev && prev.status === COMPLETED)) {
+      this.flowStepNavService.virtualStepMarkDone(this.step, 1); // here 1 is the time spent
     }
   }
 
@@ -117,12 +140,11 @@ export class StepComponent implements OnInit {
       const prev = this.previousStep(this.stepGroup, this.step);
       if (!prev) {
         this.flowService.getModuleUnlockTime(this.stepGroup);
-        this.flowService.unlockModuleTime
-          .subscribe((data) => {
-            const time = this.datePipe.transform(data, 'hh:mm a');
-            const date = this.datePipe.transform(data, 'dd-MM-yyy');
-            this.tooltipData = 'unlocks at: ' + time + ' on ' + date;
-          });
+        this.flowService.unlockModuleTime.subscribe(data => {
+          const time = this.datePipe.transform(data, 'hh:mm a');
+          const date = this.datePipe.transform(data, 'dd-MM-yyy');
+          this.tooltipData = 'unlocks at: ' + time + ' on ' + date;
+        });
       } else {
         this.tooltipData = 'Complete the previous steps first';
       }
@@ -137,5 +159,4 @@ export class StepComponent implements OnInit {
     this.showToolTip.hideDelay = 100;
     this.showToolTip.toggle();
   }
-
 }

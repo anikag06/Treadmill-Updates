@@ -3,16 +3,12 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 @Component({
   selector: 'app-asg-science',
   templateUrl: './asg-science.component.html',
-  styleUrls: ['./asg-science.component.scss']
+  styleUrls: ['./asg-science.component.scss'],
 })
 export class AsgScienceComponent implements OnInit {
+  constructor(private elementRef: ElementRef) {}
 
-  constructor(
-    private elementRef: ElementRef,
-  ) { }
-
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   onclose() {
     const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });

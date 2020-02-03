@@ -5,18 +5,16 @@ declare var closeECGame: any;
 @Component({
   selector: 'app-exec-control-instructions',
   templateUrl: './exec-control-instructions.component.html',
-  styleUrls: ['./exec-control-instructions.component.scss']
+  styleUrls: ['./exec-control-instructions.component.scss'],
 })
 export class ExecControlInstructionsComponent implements OnInit {
-
   constructor(
     // private gamePlayService: GamePlayService,
     private elementRef: ElementRef,
     private ecGameHelpService: ExecControlHelpService,
-  ) { }
+  ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   ecGameStart() {
     closeECGame();

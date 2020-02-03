@@ -6,18 +6,21 @@ import { environment } from 'environments/environment';
 import { CONCLUSION_DATA } from '@/app.constants';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ConclusionService {
-  constructor(
-    private http: HttpClient
-  ) { }
+  constructor(private http: HttpClient) {}
 
   getConclusionData(stepGroupSequence: number): Observable<any> {
-    return this.http.get(environment.API_ENDPOINT+CONCLUSION_DATA+stepGroupSequence+"/");
+    return this.http.get(
+      environment.API_ENDPOINT + CONCLUSION_DATA + stepGroupSequence + '/',
+    );
   }
 
   storeConclusionData(stepGroupSequence: number, data: any) {
-    return this.http.put(environment.API_ENDPOINT+CONCLUSION_DATA+stepGroupSequence+"/", {data: data});
+    return this.http.put(
+      environment.API_ENDPOINT + CONCLUSION_DATA + stepGroupSequence + '/',
+      { data: data },
+    );
   }
 }

@@ -4,16 +4,13 @@ import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-co
 @Component({
   selector: 'app-privacy-policy',
   templateUrl: './privacy-policy.component.html',
-  styleUrls: ['./privacy-policy.component.scss']
+  styleUrls: ['./privacy-policy.component.scss'],
 })
 export class PrivacyPolicyComponent implements OnInit {
-
   faqLink = '../faqs';
   showRegistrationContent = false;
 
-  constructor(
-    private showContactUsService: MatContactUsDialogService,
-  ) { }
+  constructor(private showContactUsService: MatContactUsDialogService) {}
 
   ngOnInit() {
     const smallDevice = window.matchMedia('(max-width: 767px)').matches;
@@ -26,5 +23,4 @@ export class PrivacyPolicyComponent implements OnInit {
   contactUsClicked() {
     this.showContactUsService.contactUsClicked();
   }
-
 }

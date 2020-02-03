@@ -1,16 +1,20 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GameMatPropertyService {
+  constructor() {}
 
-  constructor() { }
-
-  changeMatProperty(targetElement: any, targetClass: any, property: any, value: any ) {
+  changeMatProperty(
+    targetElement: any,
+    targetClass: any,
+    property: any,
+    value: any,
+  ) {
     const afterElement = document.createElement('style');
-    afterElement.innerHTML += ' .' + targetClass + ':' + 'after' + '{' + property + ':' + value + '}';
+    afterElement.innerHTML +=
+      ' .' + targetClass + ':' + 'after' + '{' + property + ':' + value + '}';
     targetElement.appendChild(afterElement);
-
   }
 }

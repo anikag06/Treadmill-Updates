@@ -8,9 +8,8 @@ describe('StepLastPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ StepLastPageComponent ]
-    })
-    .compileComponents();
+      declarations: [StepLastPageComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

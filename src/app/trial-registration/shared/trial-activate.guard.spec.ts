@@ -5,7 +5,7 @@ import { TrialActivateGuard } from './trial-activate.guard';
 describe('TrialActivateGuard', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [TrialActivateGuard]
+      providers: [TrialActivateGuard],
     });
   });
 

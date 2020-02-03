@@ -5,25 +5,31 @@ import { environment } from 'environments/environment';
 import { GET_STEP_DATA, FLOW_STEP_MARK_DONE } from '@/app.constants';
 import { StepCompleteData } from './completion-data.model';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class StepsDataService {
-
-  constructor(
-    private http: HttpClient
-  ) { }
+  constructor(private http: HttpClient) {}
 
   getStepData(stepId: number) {
-    return this.http.get(environment.API_ENDPOINT + GET_STEP_DATA + stepId + '/');
+    return this.http.get(
+      environment.API_ENDPOINT + GET_STEP_DATA + stepId + '/',
+    );
   }
 
   storeCompletionData(completionData: StepCompleteData) {
-    return this.http.post(environment.API_ENDPOINT + FLOW_STEP_MARK_DONE, completionData);
+    return this.http.post(
+      environment.API_ENDPOINT + FLOW_STEP_MARK_DONE,
+      completionData,
+    );
   }
 
   getBadgeInfo(moduleSequence: number) {
-    return this.http.get(environment.API_ENDPOINT + '/api/v1/badges/MODULE-' + moduleSequence + '/');
+    return this.http.get(
+      environment.API_ENDPOINT +
+        '/api/v1/badges/MODULE-' +
+        moduleSequence +
+        '/',
+    );
   }
 }

@@ -5,19 +5,15 @@ import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 import { UserProfile } from './UserProfile.model';
 
-
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserProfileService {
+  constructor(private http: HttpClient) {}
 
-    constructor(
-        private http: HttpClient
-    ) { }
-
-
-    getUserProfile(userName: string): Observable<UserProfile> {
-        return this.http.get<UserProfile>(environment.API_ENDPOINT + USER_PROFILE + userName);
-
-    }
+  getUserProfile(userName: string): Observable<UserProfile> {
+    return this.http.get<UserProfile>(
+      environment.API_ENDPOINT + USER_PROFILE + userName,
+    );
+  }
 }
