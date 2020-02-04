@@ -38,7 +38,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
-    private notificationService: NavbarNotificationsService,
+    private notificationService: NavbarNotificationsService
   ) {}
 
   ngOnInit() {
