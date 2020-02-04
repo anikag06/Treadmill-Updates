@@ -1,21 +1,16 @@
-<div class="card-body">
-    <div>
-        <span class="rating-question-text">{{ question }}</span>
-        <br/>
-        <br/>
-        <mat-slider
-                thumbLabel
-                min="1"
-                max="10"
-                [(value)]="rating"
-                (input)="onInputChange($event)"
-        ></mat-slider>
+<div>
+  <span class="rating-question-text">{{ question }}</span>
+  <br />
+  <mat-slider
+    thumbLabel
+    min="1"
+    max="10"
+    [(value)]="rating"
+    (input)="onInputChange($event)"
+  ></mat-slider>
 
-        <div
-                [ngStyle]="{ display: 'flex', width: '320px', 'margin-bottom': '10px' }"
-        >
-            <div class="rating-text left ">{{ minRatingText }}</div>
-            <div class="rating-text right">{{ maxRatingText }}</div>
-        </div>
-    </div>
+  <div [ngStyle]="{ display: 'flex', width: '320px', 'margin-bottom': '10px' }">
+    <div class="rating-text left ">{{ minRatingText }}</div>
+    <div class="rating-text right">{{ maxRatingText }}</div>
+  </div>
 </div>

@@ -1,17 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import {
-  BELIEF_CHANGE,
-  BELIEF_CHANGE_FORM_NAME,
-  THINKING_IMG,
-  WELL_DONE_IMG,
-} from '@/app.constants';
-import { FormMessage } from '@/main/resources/forms/shared/form-message/form-message.model';
-import { Belief } from '@/main/resources/forms/belief-change/belief.model';
-
-// export interface Belief {
-//   id: string;
-//   belief: string;
-// }
+import {Component, OnInit} from '@angular/core';
+import {BELIEF_CHANGE, BELIEF_CHANGE_FORM_NAME, THINKING_IMG, WELL_DONE_IMG,} from '@/app.constants';
+import {FormMessage} from '@/main/resources/forms/shared/form-message/form-message.model';
+import {Belief} from '@/main/resources/forms/belief-change/belief.model';
 
 @Component({
   selector: 'app-belief-change',
@@ -32,12 +22,16 @@ export class BeliefChangeComponent implements OnInit {
   showMessage!: boolean;
   message!: FormMessage;
   showFinalBelief = false;
+  finalRatignHeader = 'On a scale of 1-10, how strongly do you believe this?';
   formComplete = false;
   text =
     'If you have this negative thought again, remind yourself this realistic thought.';
   quote =
     'the happiness of your life depends upon the quality of your thoughts.';
   quotedBy = 'Marcus Aurelius';
+  reviewTitle = 'Original Belief';
+  realisticQues = 'Great! What would be a more realistic belief?';
+  beliefObject!: any;
   ngOnInit() {}
 
   onAddNewForm() {
@@ -53,10 +47,18 @@ export class BeliefChangeComponent implements OnInit {
 
   beliefSelected(belief: Belief) {
     this.belief = belief;
+    this.beliefObject = {
+      id: this.belief.id,
+      text: this.belief.belief,
+    };
   }
 
   updateBelief(belief: Belief) {
     this.belief = belief;
+    this.beliefObject = {
+      id: this.belief.id,
+      text: this.belief.belief,
+    };
   }
   onShowSlider() {
     this.showSlider = true;

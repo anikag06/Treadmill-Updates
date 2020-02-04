@@ -1,61 +1,62 @@
 <div class="card-full-width">
-    <div class="card-header">
-        {{ header }}
-        <div class="edit-icon">
-            <mat-icon class="edit_icon" (click)="onEditSituationClick()">
-                edit
-            </mat-icon>
-        </div>
+  <div class="card-header">
+    {{ header }}
+    <div class="edit-icon">
+      <mat-icon class="edit_icon" (click)="onEditSituationClick()">
+        edit
+      </mat-icon>
     </div>
-    <div class="card-body">
-        <form [formGroup]="thoughtRecordForm">
-            <mat-form-field class="full-width">
+  </div>
+  <div class="card-body">
+    <form [formGroup]="thoughtRecordForm">
+      <mat-form-field class="full-width">
         <textarea
-                matInput
-                name="problemStatement"
-                class="py-0"
-                #thoughtTextArea
-                cdkTextareaAutosize
-                cdkAutosizeMinRows="1"
-                cdkAutosizeMaxRows="5"
-                id="problemStatement"
-                formControlName="thought"
-                placeholder="Write here"
-                (focusout)="updateThought()"
-                (focus)="onShowContinueButton()"
-                required
+          matInput
+          name="problemStatement"
+          class="py-0"
+          #thoughtTextArea
+          cdkTextareaAutosize
+          cdkAutosizeMinRows="1"
+          cdkAutosizeMaxRows="5"
+          id="problemStatement"
+          formControlName="thought"
+          placeholder="Write here"
+          (focusout)="updateThought()"
+          (focus)="onShowContinueButton()"
+          required
         ></textarea>
-            </mat-form-field>
-            <p class="text-right">
-                <button
-                        mat-raised-button
-                        type="button"
-                        *ngIf="showContinueButton"
-                        class="btn continue-btn "
-                        (click)="onThoughtSubmit()"
-                >
-                    Continue
-                </button>
-            </p>
-        </form>
-    </div>
+      </mat-form-field>
+      <p class="text-right">
+        <button
+          mat-raised-button
+          type="button"
+          *ngIf="showContinueButton"
+          class="btn continue-btn "
+          (click)="onThoughtSubmit()"
+        >
+          Continue
+        </button>
+      </p>
+    </form>
+
     <app-form-slider
-            [minRatingText]="minRating"
-            [maxRatingText]="maxRating"
-            [question]="scaleThought"
-            *ngIf="showSlider"
-            (getRating)="getRating($event)"
-            [rating]="negativeMoodRating"
+      [minRatingText]="minRating"
+      [maxRatingText]="maxRating"
+      [question]="scaleThought"
+      *ngIf="showSlider"
+      (getRating)="getRating($event)"
+      [rating]="negativeMoodRating"
     ></app-form-slider>
     <div *ngIf="showSliderButton">
-        <div class="text-right">
-            <button
-                    mat-raised-button
-                    (click)="onThoughtRatingSubmit()"
-                    class=" btn continue-btn"
-            >
-                Continue
-            </button>
-        </div>
+      <div class="text-right">
+        <button
+          mat-raised-button
+          (click)="onThoughtRatingSubmit()"
+          class=" btn continue-btn"
+        >
+          Continue
+        </button>
+      </div>
     </div>
+  </div>
 </div>

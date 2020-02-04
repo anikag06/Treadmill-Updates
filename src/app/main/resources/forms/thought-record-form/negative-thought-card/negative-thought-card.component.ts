@@ -1,15 +1,7 @@
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  ViewChild,
-} from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
-import { ThoughtRecordService } from '@/main/resources/forms/thought-record-form/thought-record.service';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild,} from '@angular/core';
+import {FormBuilder, FormControl, Validators} from '@angular/forms';
+import {Thought} from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
+import {ThoughtRecordService} from '@/main/resources/forms/thought-record-form/thought-record.service';
 
 @Component({
   selector: 'app-negative-thought-card',
@@ -28,7 +20,7 @@ export class NegativeThoughtCardComponent implements OnInit {
   @Output() onShowSelectMood = new EventEmitter();
   showSlider = false;
   editMode = false;
-
+  @Output() initialRatingChange = new EventEmitter();
   thoughtRecordForm = this.fb.group({
     thought: new FormControl('', [Validators.required]),
   });
@@ -76,6 +68,7 @@ export class NegativeThoughtCardComponent implements OnInit {
       this.negativeMoodRating = resp.body.thought_rating_initial;
       this.showSlider = true;
       // this.showSliderButton = true;
+      this.initialRatingChange.emit(this.negativeMoodRating);
       this.onShowSelectMood.emit(true);
     }
   }
@@ -114,6 +107,7 @@ export class NegativeThoughtCardComponent implements OnInit {
           this.onShowSelectMood.emit(true);
           this.showContinueButton = false;
           this.showSliderButton = false;
+          this.initialRatingChange.emit(this.negativeMoodRating);
         }
       });
   }

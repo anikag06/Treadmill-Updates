@@ -1,17 +1,8 @@
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  SimpleChanges,
-  ViewChild,
-} from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { ThoughtRecordService } from '@/main/resources/forms/thought-record-form/thought-record.service';
-import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
-import { HttpErrorResponse } from '@angular/common/http';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild,} from '@angular/core';
+import {FormBuilder, FormControl, Validators} from '@angular/forms';
+import {ThoughtRecordService} from '@/main/resources/forms/thought-record-form/thought-record.service';
+import {Thought} from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-form-card',
@@ -192,7 +183,6 @@ export class FormCardComponent implements OnInit {
 
   resetText() {
     delete this.thought;
-    this.updateThought.emit(this.thought);
     // this.showNegative.emit(false);
     this.formCardGroup = this.formBuilder.group({
       text: new FormControl(''),

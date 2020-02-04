@@ -1,13 +1,7 @@
-import {
-  Component,
-  Input,
-  OnInit,
-  SimpleChanges,
-  ViewChild,
-} from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
-import { TellFriendService } from '@/main/resources/forms/thought-record-form/thought-record-techniques/tell-friend/tell-friend.service';
+import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild,} from '@angular/core';
+import {FormBuilder, FormControl, Validators} from '@angular/forms';
+import {Thought} from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
+import {TellFriendService} from '@/main/resources/forms/thought-record-form/thought-record-techniques/tell-friend/tell-friend.service';
 
 @Component({
   selector: 'app-tell-friend',
@@ -25,6 +19,7 @@ export class TellFriendComponent implements OnInit {
   });
   @Input() thought!: Thought;
   @ViewChild('panel', { static: false }) panel!: any;
+  @Output() triggerShowFinalThought = new EventEmitter();
 
   updateTellFriend = false;
   summary = '';
@@ -47,6 +42,7 @@ export class TellFriendComponent implements OnInit {
               resp.body.tell_a_friend,
             );
             this.summary = resp.body.tell_a_friend;
+            this.triggerShowFinalThought.emit();
           }
         });
     }
@@ -74,6 +70,7 @@ export class TellFriendComponent implements OnInit {
         if (status) {
           console.log('post done');
           this.summary = this.tellFriendForm.value['tell_a_friend'];
+          this.triggerShowFinalThought.emit();
           this.panel.expanded = false;
         }
       });

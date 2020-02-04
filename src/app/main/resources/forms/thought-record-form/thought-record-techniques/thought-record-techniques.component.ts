@@ -1,15 +1,8 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  Input,
-  OnInit,
-} from '@angular/core';
-import { MatDialog } from '@angular/material';
-import { TECHNIQUE_DATA } from '../../shared/techniques-info/thought-record-techniques.data';
-import { TechniquesInfoComponent } from '../../shared/techniques-info/techniques-info.component';
-import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
-import { ThoughtRecordService } from '@/main/resources/forms/thought-record-form/thought-record.service';
+import {AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output,} from '@angular/core';
+import {MatDialog} from '@angular/material';
+import {TECHNIQUE_DATA} from '../../shared/techniques-info/thought-record-techniques.data';
+import {TechniquesInfoComponent} from '../../shared/techniques-info/techniques-info.component';
+import {Thought} from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
 
 @Component({
   selector: 'app-thought-record-techniques',
@@ -17,14 +10,10 @@ import { ThoughtRecordService } from '@/main/resources/forms/thought-record-form
   styleUrls: ['./thought-record-techniques.component.scss'],
 })
 export class ThoughtRecordTechniquesComponent implements OnInit, AfterViewInit {
-  constructor(
-    public dialog: MatDialog,
-    public element: ElementRef,
-    public thoughtRecordService: ThoughtRecordService,
-  ) {}
+  constructor(public dialog: MatDialog, public element: ElementRef) {}
 
   @Input() thought!: Thought;
-
+  @Output() showFinalThought = new EventEmitter();
   header =
     'Select the technique that you would like to use to evaluate the negative thought';
   info = 'Use some of these techniques to evaluate thoughts.';
@@ -49,6 +38,10 @@ export class ThoughtRecordTechniquesComponent implements OnInit, AfterViewInit {
         'padding-left:16px;padding-right:16px',
       );
     }
+  }
+
+  triggerShowFinalThought() {
+    this.showFinalThought.emit();
   }
 
   onShowInfo() {

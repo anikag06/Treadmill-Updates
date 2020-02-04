@@ -1,16 +1,9 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  SimpleChanges,
-} from '@angular/core';
-import { MoodTrackerComponent } from '@/main/shared/mood-tracker/mood-tracker.component';
-import { MatDialog } from '@angular/material';
-import { UserFeeling } from '@/main/resources/forms/thought-record-form/mood-widget-card/userfeeling.model';
-import { ThoughtRecordService } from '@/main/resources/forms/thought-record-form/thought-record.service';
-import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
+import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges,} from '@angular/core';
+import {MoodTrackerComponent} from '@/main/shared/mood-tracker/mood-tracker.component';
+import {MatDialog} from '@angular/material';
+import {UserFeeling} from '@/main/resources/forms/thought-record-form/mood-widget-card/userfeeling.model';
+import {ThoughtRecordService} from '@/main/resources/forms/thought-record-form/thought-record.service';
+import {Thought} from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
 
 @Component({
   selector: 'app-mood-widget-card',
@@ -24,7 +17,7 @@ export class MoodWidgetCardComponent implements OnInit {
   ) {}
 
   showMoodWidget = false;
-  showContinueButton = false;
+  showSaveButton = false;
   moodSelected = false;
   submitted = false;
   @Output() onShowRecordBehave = new EventEmitter();
@@ -66,6 +59,7 @@ export class MoodWidgetCardComponent implements OnInit {
       if (result.data) {
         // this.userFeelings = [];
         // this.rating = [];
+        console.log(result.data);
         const feelingData = result.data.feelingData;
         const feelingRatingData = result.data.feelingRatingsData;
         // if (this.userFeelings.length > 0) {
@@ -89,7 +83,7 @@ export class MoodWidgetCardComponent implements OnInit {
           // console.log(this.rating);
         });
         this.moodSelected = true;
-        this.showContinueButton = true;
+        this.showSaveButton = true;
       }
     });
   }

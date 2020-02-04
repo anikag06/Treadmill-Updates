@@ -56,26 +56,26 @@
         </div>
       </form>
     </div>
-  </div>
-</div>
-<div *ngIf="showSlider">
-  <app-form-slider
-    [minRatingText]="minRating"
-    [maxRatingText]="maxRating"
-    [question]="scaleBelief"
-    (getRating)="getRating($event)"
-    [rating]="beliefRatingInitial"
-  ></app-form-slider>
-  <div *ngIf="showSliderButton">
-    <div class="text-right">
-      <button
-        mat-raised-button
-        (click)="onNegativeMantraSubmit()"
-        class=" btn continue-btn"
-      >
-        Continue
-      </button>
-      <br />
+    <div *ngIf="showSlider">
+      <app-form-slider
+        [minRatingText]="minRating"
+        [maxRatingText]="maxRating"
+        [question]="scaleBelief"
+        (getRating)="getRating($event)"
+        [rating]="beliefRatingInitial"
+      ></app-form-slider>
+      <div *ngIf="showSliderButton">
+        <div class="text-right">
+          <button
+            mat-raised-button
+            (click)="onNegativeMantraSubmit()"
+            class=" btn continue-btn"
+          >
+            Continue
+          </button>
+          <br />
+        </div>
+      </div>
     </div>
   </div>
 </div>

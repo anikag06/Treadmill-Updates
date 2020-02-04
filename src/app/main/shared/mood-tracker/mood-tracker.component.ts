@@ -1,17 +1,8 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  OnInit,
-  Optional,
-  Output,
-} from '@angular/core';
-import { MatDialogRef } from '@angular/material';
-import { Mood } from './mood.model';
-import { Feelings } from '@/main/shared/mood-tracker/feelings.model';
-import { MoodTrackerService } from '@/main/shared/mood-tracker/mood-tracker.service';
+import {AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Optional, Output,} from '@angular/core';
+import {MatDialogRef} from '@angular/material';
+import {Mood} from './mood.model';
+import {Feelings} from '@/main/shared/mood-tracker/feelings.model';
+import {MoodTrackerService} from '@/main/shared/mood-tracker/mood-tracker.service';
 
 @Component({
   selector: 'app-mood-tracker',
@@ -178,8 +169,10 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
             ' ' +
             option_label_str.trim().toLowerCase() +
             ' ';
-          this.feelingData.push(option_label_str.trim());
-          this.feelingRatingsData.push(rangeValue_str.trim());
+          if (this.dialogRef) {
+            this.feelingData.push(option_label_str.trim());
+            this.feelingRatingsData.push(rangeValue_str.trim());
+          }
         }
         if (i === neutral_index) {
           const moodObject = {
@@ -188,6 +181,10 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
           };
           chatMoodMessage += option_label_str.trim().toLowerCase() + ' ';
           this.moodArray.push(moodObject);
+          if (this.dialogRef) {
+            this.feelingData.push(option_label_str.trim());
+            this.feelingRatingsData.push('');
+          }
         }
         if (count < this.emotionCount - 1 && this.emotionCount > 2) {
           chatMoodMessage += ', ';
@@ -208,7 +205,12 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
     this.closeModal();
     this.moodMessage.emit(moodSelected);
     this.moodSubmit.emit();
-
-    this.dialogRef.close({ event: 'close' });
+    if (this.dialogRef) {
+      const feelingsData = {
+        feelingData: this.feelingData,
+        feelingRatingsData: this.feelingRatingsData,
+      };
+      this.dialogRef.close({ event: 'close', data: feelingsData });
+    }
   }
 }

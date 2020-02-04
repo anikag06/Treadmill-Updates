@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
-import { environment } from '../../../../../../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {environment} from '../../../../../../../environments/environment';
+import {HttpClient} from '@angular/common/http';
+import {RECDORD_OUTCOME_URL} from '@/app.constants';
 
 @Injectable({
   providedIn: 'root',
@@ -10,10 +11,7 @@ export class RecordOutcomeService {
 
   getOutcome(id: number) {
     return this.http.get(
-      environment.API_ENDPOINT +
-        '/api/v1/worksheets/thought-record/worst-outcome/' +
-        id +
-        '/',
+      environment.API_ENDPOINT + RECDORD_OUTCOME_URL + id + '/',
       {
         observe: 'response',
       },
@@ -22,8 +20,7 @@ export class RecordOutcomeService {
 
   postOutcome(outcome: any) {
     return this.http.post<any>(
-      environment.API_ENDPOINT +
-        '/api/v1/worksheets/thought-record/worst-outcome/',
+      environment.API_ENDPOINT + RECDORD_OUTCOME_URL,
       outcome,
       {
         observe: 'response',
@@ -33,10 +30,7 @@ export class RecordOutcomeService {
 
   putOutCome(outcome: any, id: number) {
     return this.http.put<any>(
-      environment.API_ENDPOINT +
-        '/api/v1/worksheets/thought-record/worst-outcome/' +
-        id +
-        '/',
+      environment.API_ENDPOINT + RECDORD_OUTCOME_URL + id + '/',
       outcome,
       {
         observe: 'response',

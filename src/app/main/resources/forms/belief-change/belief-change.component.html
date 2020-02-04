@@ -51,13 +51,24 @@
             [belief]="belief"
             (showFinalBelief)="onShowFinalBelief()"
           ></app-belief-change-techniques>
-          <app-negative-belief-final
+          <!--          <app-negative-belief-final-->
+          <!--            *ngIf="showFinalBelief"-->
+          <!--            [belief]="belief"-->
+          <!--            (formComplete)="finalFormComplete($event)"-->
+          <!--            (finalRatingChange)="onFinalRatingChange($event)"-->
+          <!--          >-->
+          <!--          </app-negative-belief-final>-->
+          <app-form-final-rating
             *ngIf="showFinalBelief"
-            [belief]="belief"
+            [header]="finalRatignHeader"
+            [object]="beliefObject"
+            [service]="0"
+            [object]="belief"
+            [realisticQuestion]="realisticQues"
             (formComplete)="finalFormComplete($event)"
             (finalRatingChange)="onFinalRatingChange($event)"
-          >
-          </app-negative-belief-final>
+            [original_title]="reviewTitle"
+          ></app-form-final-rating>
           <app-form-message *ngIf="showMessage" [formMessage]="message">
           </app-form-message>
           <app-form-quote

@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
-import { environment } from '../../../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {environment} from '../../../../environments/environment';
+import {HttpClient} from '@angular/common/http';
+import {GET_FEELING_LIST_URL} from '@/app.constants';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ export class MoodTrackerService {
   getFeelingsList() {
     return this.http.get(
       environment.API_ENDPOINT +
-        '/api/v1/worksheets/thought-record/get-feelings-list/',
+        GET_FEELING_LIST_URL,
     );
   }
 }

@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
-import { environment } from '../../../../../../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {environment} from '../../../../../../../environments/environment';
+import {HttpClient} from '@angular/common/http';
+import {ACT_AS_IF_ADVANTAGE_DELETE_URL, ACT_AS_IF_ADVANTAGE_URL, ACT_AS_IF_URL} from '@/app.constants';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ export class ActAsIfService {
   getAdvantages(id: number) {
     return this.http.get(
       environment.API_ENDPOINT +
-        '/api/v1/worksheets/belief-change/acting-as-if/advantages/' +
+        ACT_AS_IF_ADVANTAGE_URL +
         id +
         '/',
       {
@@ -23,7 +24,7 @@ export class ActAsIfService {
   getActingAsIf(id: number) {
     return this.http.get(
       environment.API_ENDPOINT +
-        '/api/v1/worksheets/belief-change/acting-as-if/' +
+        ACT_AS_IF_URL +
         id +
         '/',
       {
@@ -35,7 +36,7 @@ export class ActAsIfService {
   postAdvantages(data: any, id: number) {
     return this.http.post<any>(
       environment.API_ENDPOINT +
-        '/api/v1/worksheets/belief-change/acting-as-if/advantages/' +
+        ACT_AS_IF_ADVANTAGE_URL +
         id +
         '/',
       data,
@@ -48,7 +49,7 @@ export class ActAsIfService {
   deleteAdvantage(id: number) {
     return this.http.delete<any>(
       environment.API_ENDPOINT +
-        '/api/v1/worksheets/belief-change/acting-as-if/advantage/delete/' +
+        ACT_AS_IF_ADVANTAGE_DELETE_URL +
         id +
         '/',
       {
@@ -60,7 +61,7 @@ export class ActAsIfService {
   postActAsIf(act: any) {
     return this.http.post<any>(
       environment.API_ENDPOINT +
-        '/api/v1/worksheets/belief-change/acting-as-if/',
+        ACT_AS_IF_URL,
       act,
       {
         observe: 'response',
@@ -71,7 +72,7 @@ export class ActAsIfService {
   putActAsIf(act: any, id: number) {
     return this.http.put<any>(
       environment.API_ENDPOINT +
-        '/api/v1/worksheets/belief-change/acting-as-if/' +
+        ACT_AS_IF_URL +
         id +
         '/',
       act,

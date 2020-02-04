@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
-import { environment } from '../../../../../../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {environment} from '../../../../../../../environments/environment';
+import {HttpClient} from '@angular/common/http';
+import {THOUGHT_HELP_URL} from '@/app.constants';
 
 @Injectable({
   providedIn: 'root',
@@ -10,10 +11,7 @@ export class ThoughtHelpService {
 
   getThoughtHelp(id: number) {
     return this.http.get(
-      environment.API_ENDPOINT +
-        '/api/v1/worksheets/thought-record/does-it-help/' +
-        id +
-        '/',
+      environment.API_ENDPOINT + THOUGHT_HELP_URL + id + '/',
       {
         observe: 'response',
       },
@@ -22,8 +20,7 @@ export class ThoughtHelpService {
 
   postThoughtHelp(thoughtHelp: any) {
     return this.http.post<any>(
-      environment.API_ENDPOINT +
-        '/api/v1/worksheets/thought-record/does-it-help/',
+      environment.API_ENDPOINT + THOUGHT_HELP_URL,
       thoughtHelp,
       {
         observe: 'response',
@@ -33,10 +30,7 @@ export class ThoughtHelpService {
 
   putThoughtHelp(thoughtHelp: any, id: number) {
     return this.http.put<any>(
-      environment.API_ENDPOINT +
-        '/api/v1/worksheets/thought-record/does-it-help/' +
-        id +
-        '/',
+      environment.API_ENDPOINT + THOUGHT_HELP_URL + id + '/',
       thoughtHelp,
       {
         observe: 'response',

@@ -50,9 +50,9 @@
           <app-negative-thought-card
             [thought]="thought"
             [header]="negativeThoughtHeader"
-
             *ngIf="situationAdded"
             (onShowSelectMood)="showSelectMood($event)"
+            (initialRatingChange)="onInitialRatingChange($event)"
           ></app-negative-thought-card>
 
           <app-mood-widget-card
@@ -60,13 +60,11 @@
             [header]="moodSelect"
             [thought]="thought"
             (onShowRecordBehave)="onShowRecordBehave($event)"
-
           ></app-mood-widget-card>
           <app-form-card
             [thought]="thought"
             [apiToCall]="behaviorApi"
             [header]="recordBehaveHeader"
-
             *ngIf="showRecordBehave"
             (onShowTechniques)="onShowTechniques($event)"
           ></app-form-card>
@@ -74,8 +72,26 @@
           <app-thought-record-techniques
             [thought]="thought"
             *ngIf="showTechniques"
-
+            (showFinalThought)="onShowFinalThought()"
           ></app-thought-record-techniques>
+          <app-form-final-rating
+            *ngIf="showFinalThought"
+            [header]="finalRatingHeader"
+            [object]="thoughtObject"
+            [service]="1"
+            [realisticQuestion]="realisticQues"
+            (formComplete)="finalFormComplete($event)"
+            (finalRatingChange)="onFinalRatingChange($event)"
+            [original_title]="reviewTitle"
+          >
+          </app-form-final-rating>
+          <app-form-message *ngIf="showMessage" [formMessage]="message">
+          </app-form-message>
+          <app-form-quote
+            *ngIf="showMessage"
+            [quote]="quote"
+            [quotedBy]="quotedBy"
+          ></app-form-quote>
         </div>
       </div>
     </div>

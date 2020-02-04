@@ -19,23 +19,23 @@
         </div>
 
         <div class="technique">
-          <app-proof [thought]="thought"  [reset]="reset"></app-proof>
+          <app-proof [thought]="thought" [reset]="reset"></app-proof>
         </div>
 
         <div class="technique">
-            <app-explanation [thought]="thought"  [reset]="reset"></app-explanation>
+            <app-explanation [thought]="thought"></app-explanation>
         </div>
 
         <div class="technique">
-            <app-record-outcome [thought]="thought"  [reset]="reset"></app-record-outcome>
+            <app-record-outcome [thought]="thought"></app-record-outcome>
         </div>
 
         <div class="technique">
-            <app-thought-help [thought]="thought"  [reset]="reset"></app-thought-help>
+            <app-thought-help [thought]="thought"></app-thought-help>
         </div>
 
         <div class="technique">
-            <app-tell-friend [thought]="thought"  [reset]="reset"></app-tell-friend>
+            <app-tell-friend [thought]="thought" (triggerShowFinalThought)="triggerShowFinalThought()"></app-tell-friend>
         </div>
       </mat-accordion>
     </div>
