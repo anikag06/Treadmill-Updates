@@ -13,6 +13,7 @@ import {
   INTRODUCTION_PAGE,
   CONCLUSION_PAGE,
   INTRODUCTORY_ANIMATION,
+  CONTROL_PAGE,
 } from '@/app.constants';
 import { Observable } from 'rxjs';
 import { environment } from 'environments/environment';
@@ -30,8 +31,9 @@ export class FlowStepNavigationService {
   constructor(private http: HttpClient) {}
 
   goToFlowNextStep(step: any): string {
-    // console.log(step);
+    console.log('step outside: ', step);
     if (step.status !== LOCKED) {
+      console.log('step inside: ', step);
       if (step.data_type === SLIDE) {
         return `/resources/slides/${step.id}/`;
       } else if (step.data_type === CONVERSATION_GROUP) {
@@ -54,6 +56,8 @@ export class FlowStepNavigationService {
         return `/resources/conclusion/${step.step_group_sequence}/`;
       } else if (step.data_type === INTRODUCTORY_ANIMATION) {
         return `/dashboard`;
+      } else if (step.data_type === CONTROL_PAGE) {
+        return `resources/control-content/${step.id}/`;
       }
     }
     return '/';

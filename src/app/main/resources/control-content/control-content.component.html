@@ -1,0 +1,473 @@
+<div id="no-use-div" #target ></div>
+<div class="container" >
+  <div class="row"  >
+    <div class="col-lg-7 col-md-9 col-sm-12 fix-content-box " >
+
+        <mat-card-header class="fix-content-header d-flex justify-content-center" >
+
+          <mat-card-title class="fix-content-header-title "  [innerHTML]="displayHtmlHeader"  ></mat-card-title>
+        </mat-card-header>
+      <mat-card >
+        <mat-card-content class="fix-content-body "
+                          [innerHTML]="displayHtml" *ngIf = "dataloaded; else loader "
+        ></mat-card-content>
+        <div class="butn-position d-flex flex-row justify-content-end">
+        <button mat-raised-button class="another-step " color="primary" (click)="onHtmlComplete()" *ngIf="!nextBtnShow">Completed </button>
+        <span class = "nextLoad" *ngIf="nextBtnShow && !isLastStep">
+          <button mat-raised-button type="button" class="another-step-next " color="primary" (click)="onHtmlNext()"  *ngIf="nextLoaded; else nextLoad" >NEXT</button></span>
+          <div class="dashboard-btn" ><button mat-raised-button class="another-step " color="primary" (click)="onHtmlDashboard()" *ngIf="isLastStep"> Go to dashboard</button></div>
+        </div>
+      </mat-card>
+
+    </div>
+  </div>
+</div>
+
+<ng-template #loader>
+  <div class = "col">
+    <div class="text-center loader">
+      <img src = "assets/shared/dna-loader.svg" alt="loader" width="200">
+    </div>
+  </div>
+</ng-template>
+<ng-template #nextLoad>
+  <div class="col">
+    <span class="spinner-border spinner-border-sm  " role="status" aria-hidden="true"></span>
+  </div>
+</ng-template>
+
+<!---
+eval thots
+
+<div class="content-body">
+  <p>You&rsquo;ve learned how to identify negative thoughts and how to identify thinking errors in your negative thoughts. Identifying thinking errors will help you feel better but might not be sufficient. But, what to do if identifying the thinking errors doesn&rsquo;t help? Let&rsquo;s see.</p>
+  <p>The techniques in this step are the most important part of TreadWill. It is necessary to practice these techniques if you want to get a long-term benefit from TreadWill. As you are reading the techniques, think about how to apply these to your negative thoughts.You can use the &ldquo;<span class="emphasis-text">Thought record form&rdquo;</span> to identify note down your thoughts and evaluate them.</p>
+  <p>When you have negative thoughts, you will believe the thoughts to be the eternal truth. But, you should remember that when you are going through an episode of depression, majority of your negative thoughts are either <span class="bold-text">false</span> or only <span class="bold-text">partially true</span>. So, whenever you identify a negative thought, take a step back and evaluate the negative thought. There are <span class="emphasis-text">6 </span>techniques you can use to evaluate your negative thoughts.</p>
+  <p>Let me tell you a secret. Our brain filters out information based on our current mood. You will remember happy events when you are happy. You will remember sad events when you are sad. So don&rsquo;t come to negative conclusions about yourself when you are sad. You will be forming an opinion based on an incomplete picture. When you have a negative thought, ask yourself these questions.<br /><span class="emphasis-text">What is the proof that my thought is true?</span><br /><span class="bold-text">What is the proof that my thought is false?</span></p>
+  <p>Ask your close friends if they think what you feel about yourself is true. Take time and develop the full picture.</p>
+  <p><img src="assets/Control-group-content/Eval_thoughts1.PNG" class="img-specs" alt="Situation: You Scored D in one subject -> Thought: I am the worst student in the class."></p>
+  <p><span class="bold-text">Evidences against:</span> This was a difficult course, and the professor gave C to most of the students. I have a grade of 7.2/10. I know people who have worse grades. I have scored A, B, and C in other subjects.</p>
+  <p>What are the evidences <span class="bold-text">for</span> your negative thought? What are the evidences <span class="bold-text">against</span> your negative thought? Write it down in the <span class="emphasis-text">Thought Record Form.</span></p>
+  <p><img src="assets/Control-group-content/Eval_thoughts2.PNG" class="img-specs" alt="Situation: You failed a test. -> Thought: I am the dumbest student in the class."><br />Do you think that this negative thought is valid? There is something else it could mean.<br />What about &ldquo;You didn&rsquo;t prepare enough&rdquo;?<br />What about &ldquo;Most of the questions were from topics you didn&rsquo;t study properly&rdquo;?<br />Doesn't that sound fair? Before arriving at any conclusion, think of other possibilities that can explain the situation.</p>
+  <p><img src="assets/Control-group-content/Eval_thoughts3.PNG" class="img-specs" alt="Situation: You Scored D in one subject -> Thought: I am the worst student in the class."><br /><span class="bold-text">Alternative Explanation:</span> Most of the questions were from portions the teacher didn&rsquo;t teach properly.<br />Balanced thought: I might have scored one poor grade. But, that doesn&rsquo;t say anything about my capabilities 😌.</p>
+  <p>Is the negative thought that you have the only explanation? Write it down in the <span class="emphasis-text">Thought Record Form.</span></p>
+  <p><img src="assets/Control-group-content/Eval_thoughts4.PNG" class="img-specs" alt="Situation: A professor tells you that you didn’t do well in the final exams. -> What is the worst that can happen? -> Thought: I am going to fail the course."><br />How will you cope if the worst really happens? You can give a makeup exam, or you can take it again next year.<br />What is the best that can happen? You pass with a B. The professor only meant you didn&rsquo;t do as well as he expected.<br />What is most likely to happen? You can pass with a C or a D.</p>
+  <p>Sometimes, you might be worried about the worst possible outcome. In such cases, it would help to plan a coping strategy in case the worst does happen. At the same time, remember that the worst outcome is very unlikely to happen, and ask yourself &ldquo;What is the most likely outcome?&rdquo;<br />What is the worst that can happen?<br />How will you cope if it happens?<br />What is the best that can happen?<br />What is most likely to happen?<br />Write it down in the <span class="emphasis-text">Thought Record Form.</span></p>
+  <p><img src="assets/Control-group-content/Eval_thoughts5.PNG" class="img-specs" alt="Situation: You’ve been rejected by a company after the interview process. -> Thought: I am not smart enough to get a job."><br />Does this thought make you feel better? No,right? What will happen if you keep thinking this way? You will lose hope, and you will be afraid of applying for new job opportunities.</p>
+  <p>What could happen if you can change your thinking style? For example, what could happen if you had the balanced thought:<br /><span class="emphasis-text">Thought:</span> They were looking for a candidate with different skill set. I&rsquo;ll get the next job.<br />You will not lose hope, and will start looking for the next job opportunity. Check if the negative thought is helpful to you or not. If you realize that it is not helpful, that might motivate you to think of a more balanced thought.</p>
+  <p>Does this thought make you feel better? What will happen if I keep thinking this way? What could happen if you changed this thought? Write it down in the <span class="emphasis-text">Thought Record Form.</span></p>
+  <p><img src="assets/Control-group-content/Eval_thoughts6.PNG" class="img-specs" alt="Situation: Your boyfriend broke up with you. -> Thought: I’m unlovable."><br />Sometimes it might help to think: &ldquo;What would I tell a friend who is having the same thought?&rdquo;</p>
+  <p>Situation: Your boyfriend broke up with you.<br />Your boyfriend broke up with you. Why do you think he broke up with you? What would you tell a friend who is having a similar thought? You would probably say: "You weren&rsquo;t happy with him. It&rsquo;s not your fault that it is over. You will meet someone better 🙂". Does that not apply to you?<br />What would I tell a close friend or relative if they were having this thought? Write it down in the <span class="emphasis-text">Thought Record Form.</span></p>
+  <p><img src="assets/Control-group-content/Eval_thoughts7.PNG" class="img-specs" alt="Situation: You were rejected by 10 companies after the programming round. -> Thought: I’m not good at programming."><br />This thought is negative. But, this thought might be true (based on the 10 rejections). After evaluating your negative thought, if you think that your negative thought is true, it&rsquo;ll be best to acknowledge that you have a problem and work on solving it. For example, let&rsquo;s say that the thought &ldquo;I&rsquo;m not good at programming&rdquo; is true. This thought indicates a problem that can be solved. You just need to learn programming.<br />There is a method called <span class="bold-text">SOLVED</span> that can be used to solve problems. You can use the <span class="emphasis-text">Problem solving form</span> to SOLVED method in one place.</p>
+  <p><img src="assets/Control-group-content/Eval_thoughts8a.PNG" class="img-specs" alt="Specify a problem. -> Open your mind to possible solutions. You can take help from the Support Group if you need possible solutions. -> List the pros and cons of each possible solution. -> Verify the best solution. Weigh the pros and cons and rank the solutions in an order of priority. -> Enact the best solution. -> Decide if the solution worked. -> Yes -> Great, problem solved "> <img src="assets/Control-group-content/Eval_thoughts8b.PNG" class="img-specs" alt="-> No -> Try another solution."></p>
+  <p><img src="assets/Control-group-content/Eval_thoughts9a.PNG" class="img-specs" alt="Problem - I need to learn Programming. -> Possible solutions ->"><br /><img src="assets/Control-group-content/Eval_thoughts9b.PNG" class="img-specs" alt="1. Take up a project under a professor. 2. Join programming club. 3. Self-learn from an online course.
+Pros -1.  Will get to work on a real project. 2. Pros - Can get help from others. 3. Pros - Flexibility; can learn any language any time.
+Cons -1. Don’t like working with profs. 2. Cons - Will have to depend on others. 3. Cons - Won’t work on a real project."><br /><img src="assets/Control-group-content/Eval_thoughts9c.PNG" class="img-specs" alt="Best solution? -> Join programming club. -> Implement Best solution"></p>
+  <p>Does this negative thought indicate a problem that you can solve? Use the Problem solving form to solve it.</p>
+  <p>What if the negative thought is true and it is a problem that can&rsquo;t be solved?<br />There are many things in our lives that we can&rsquo;t control, and hence, there will be problems in your life that you can&rsquo;t solve. In such cases, it is best to accept the situation and move on. You may be under a false hope that an unresolvable problem will somehow, magically improve. When you realize that some problem is unresolvable, it will hurt, and you will feel sad. It is okay to feel sad. It is a part of moving on.<br />Example - You&rsquo;ve had a breakup, and in your heart of hearts you know it is final. But, you still can&rsquo;t stop thinking about her, and you hope (falsely) that someday she will realize her mistake and come back to you.</p>
+  <p>It is best to accept that it is over. It will hurt, and it will take you time to accept it fully. Give yourself time to grieve, it is normal to feel sad, and it is part of the process of moving on.</p>
+  <p>When you are having intense negative feelings, it might be difficult for you to evaluate your negative thoughts. In such cases, note down the negative thought in the Thought record form and evaluate it when you are feeling at least a little better.<br />Initially, you&rsquo;ll have to use the Thought record form to evaluate your thoughts, but once you get into the habit of evaluating your thoughts, the process will become automatic, and you&rsquo;ll start doing it in your head.</p>
+  <p>You might be thinking why you have these negative thoughts while others don&rsquo;t? The thoughts we have after a situation depends on our beliefs. You will learn more about it in the next module, &ldquo;Modifying beliefs.&rdquo;</p>
+  <p><span class="emphasis-text">Take home message</span> - Most of your negative thoughts are false or only partially true. Evaluate your negative thoughts to modify your negative thinking style.</p>
+</div>
+
+
+
+conversations worry
+<div class="content-body">
+  <p>What are you worried about?</p>
+  <p>I am not getting a job. I am worried that I will still be jobless after my graduation and I will have to ask for money from my father.</p>
+  <p><br /><br /><br /></p>
+  <table>
+    <tbody>
+    <tr>
+      <td>
+        <p>Robin: Hi &lt;username&gt;</p>
+        <p>User: Hi Robin. You look a little off today, what&rsquo;s wrong?</p>
+        <p>R: I only have one more month before I have to leave college. I don&rsquo;t have a job offer yet 😢. How am I going to face my parents? They will be devastated if I tell them that I don&rsquo;t have a job. How is my father going to face his colleagues?</p>
+        <p>U: Don&rsquo;t they know that you don&rsquo;t have a job offer yet?</p>
+        <p>R: No, I have lied to them 🤥. I&rsquo;ve told them that I have a job offer. I feel terrible 😢 whenever I think about it.</p>
+        <p>U: Oh&hellip; you&rsquo;re in quite a pickle.</p>
+        <p>R: That I am. What am I going to do? I am worried sick 🤒.</p>
+        <p>U: What are you mainly worried about, not getting a job or facing your parents without a job?</p>
+        <p>R: Well, I am worried about both. But, I guess I will be much more relieved if I can just get an assurance that my parents would be okay with me not having a job right out of college.</p>
+        <p>U: Hmmm&hellip; why did you lie to your parents?</p>
+        <p>R: When I went home right after the placement season, there was a festival and all my relatives came to our home. I didn&rsquo;t want to tell them my real condition, so I lied. I thought that I&rsquo;ll be able to get a job by the time I graduate and no one will know that I had lied.</p>
+        <p>U: What if they remembered the name of the company that you mentioned? If you joined a different company, they&rsquo;d have known.</p>
+        <p>R: There is very little chance that they&rsquo;d have remembered. Even if they did, I&rsquo;d just told them that I got a better offer, and I am joining that company.</p>
+        <p>U: I see. So, you don&rsquo;t have any problem with lying to your parents as long as you don&rsquo;t get caught.</p>
+        <p>R: Not really, I was trying to make them feel better about me. I know it is morally incorrect. You must think that I&rsquo;m a horrible person 👿.</p>
+        <p>U: Well, I guess an average inhuman lies in every average human 🤔.</p>
+        <p>R: Oooh, hello Mr. Philosopher. What am I going to do?</p>
+        <p>U: Well, I guess you are worried about their reaction to you being jobless after you graduate, right?</p>
+        <p>R: Yes.</p>
+        <p>U: Well Robin, sometimes we worry about the worst possible scenario and forget that it might not even happen.</p>
+        <p>R: Um hmmm&hellip; catastrophizing.</p>
+        <p>U: Exactly. And it helps to realistically evaluate the probability that the worst is going to happen. Okay, what is the <span class="bold-text">worst</span> possible outcome that you can imagine will happen if you tell your parents that you don&rsquo;t have a job? Tell me the absolute <span class="bold-text">worst</span> that you can think about. Don&rsquo;t hold back, let your imagination run wild for a moment.</p>
+        <p>R: At first, my father will yell at me for wasting his money. Then he is going to blame my mother for my incompetence. Then he is going to stop talking to me and my mother. You know, it&rsquo;ll be like a real drama.</p>
+        <p>U: Alright, that&rsquo;s pretty bad. Okay, on a scale of 1-10 where 1 means <span class="bold-text"><span class="emphasis-text">very unlikely</span></span> and 10 means <span class="bold-text"><span class="emphasis-text">very likely</span></span>, how likely would you say that this would happen?</p>
+        <p>R: I would say less than 1.</p>
+        <p>U: Alright, that&rsquo;s good. How would you deal with it if this actually happens?</p>
+        <p>R: I will leave home and stay with my friends.</p>
+        <p>U: Okay, now let&rsquo;s think about the best possible outcome. What is the <span class="bold-text">best</span> thing that can happen if your parents come to know that you don&rsquo;t have a job?</p>
+        <p>R: The best that can happen is that they will be really supportive of me. They&rsquo;ll tell me that it is okay that I don&rsquo;t have a job and that they are glad that I&rsquo;ll be able to stay at home with them after four years at college.</p>
+        <p>U: Okay, great! Again, on the scale of 1-10 (1- very unlikely, 10 - very likely), how likely do you think that this will happen?</p>
+        <p>R: It is pretty unlikely, I think on the scale, it would be at 2.</p>
+        <p>U: Cool. Now let&rsquo;s think about the most likely outcome. What do you think is most likely to happen?<br />R: The most likely outcome is that my father is going to be upset about it and won&rsquo;t talk to me for a few days but then things will get back to normal gradually.</p>
+        <p>U: Okay, how likely is that to happen on the scale of 1-10?</p>
+        <p>R: About 8.</p>
+        <p>U: Okay, that is quite likely.</p>
+        <p>R: Yeah.</p>
+        <p>U: Does this help you to know that things will get back to normal eventually?</p>
+        <p>R: Yes, it does. Now, I&rsquo;ll be able to focus on my preparation better.</p>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <p><br /><br /><br /></p>
+  <p><span class="bold-text">For Monica</span></p>
+  <p>&nbsp;</p>
+  <table>
+    <tbody>
+    <tr>
+      <td>
+        <p><span class="bold-text">Monica</span>: Hi &lt;username&gt;</p>
+        <p><span class="bold-text">User</span>: Hi Monica, what&rsquo;s up?</p>
+        <p><span class="bold-text">M</span>: Well, I am doing better than earlier thank you very much. I am not feeling hollow all the time anymore.</p>
+        <p><span class="bold-text">U</span>: That&rsquo;s good to know 😃.</p>
+        <p><span class="bold-text">M</span>: Yeah&hellip;.</p>
+        <p><span class="bold-text">U</span>: So&hellip;. what else is going on in your life?</p>
+        <p><span class="bold-text">M</span>: Not much. I am going to work, I am taking care of myself, I am trying to be more social, I am trying to eat healthier, etc. etc. etc.</p>
+        <p><span class="bold-text">U</span>: Or in other words, you are leading a normal life.</p>
+        <p><span class="bold-text">M</span>: Yep&hellip;. oh and I&rsquo;m planning to buy a new laptop 💻.</p>
+        <p><span class="bold-text">U</span>: Great&hellip;.</p>
+        <p><span class="bold-text">M</span>: Yeah, but I haven&rsquo;t been able to make a decision on which one to buy.</p>
+        <p><span class="bold-text">U</span>: Oh, really? Why not?</p>
+        <p><span class="bold-text">M</span>: Whichever model I look up has a few very negative reviews. A few users have had a horrible experience. The laptop stops working within a few months; the service centers give horrible service. And I think &ldquo;<span class="bold-text"><span class="emphasis-text">What if I buy this model and that happens to me?</span></span>&rdquo;, and I decide not to buy that model.</p>
+        <p><span class="bold-text">U</span>: Okay, aren&rsquo;t there any models with a perfect rating and no bad reviews?</p>
+        <p><span class="bold-text">M</span>: Yes, there are but then the ones that have a perfect rating have been rated by very few people. So, that rating is not reliable; that model would probably also have negative reviews if more people used it.</p>
+        <p><span class="bold-text">U</span>: Hmmm&hellip;. that&rsquo;s true. So to put it succinctly, the ones with perfect ratings haven&rsquo;t been tried by many users, and the ones that have been tried out by many users don&rsquo;t have a perfect rating ‒ does that sum it up?</p>
+        <p><span class="bold-text">M</span>: Yes.</p>
+        <p><span class="bold-text">U</span>: Monica, it seems to me like you are looking for an <span class="bold-text"><span class="emphasis-text">absolute certainty</span></span> that the laptop you buy won&rsquo;t turn out to be a faulty model, is that correct?</p>
+        <p><span class="bold-text">M</span>: Yes.</p>
+        <p><span class="bold-text">U</span>: Do you notice this in any other aspect of your life as well? Do you generally look for absolute certainty that things are going to go perfectly well before you make any major decisions?</p>
+        <p><span class="bold-text">M</span>: Yes, of course, don&rsquo;t we all?</p>
+        <p><span class="bold-text">U</span>: I am not sure if all of us look for <span class="bold-text"><span class="emphasis-text">absolute certainty</span></span> before making a decision. Actually, I don&rsquo;t think that it is possible to get <span class="bold-text"><span class="emphasis-text">absolute certainty</span></span> about the future, do you?</p>
+        <p><span class="bold-text">M</span>: Well, no.</p>
+        <p><span class="bold-text">U</span>: Then why are you looking for it?</p>
+        <p><span class="bold-text">M</span>: I don&rsquo;t know. I&rsquo;ve never actually thought about it this way. I guess I&rsquo;ve always been like this.</p>
+        <p><span class="bold-text">U</span>: Can you think about any other example?</p>
+        <p><span class="bold-text">M</span>: Yeah&hellip;. my parents have been trying to fix me up for marriage, but I am trying to put it off because I keep thinking &ldquo;<span class="bold-text"><span class="emphasis-text">What if my in-laws will turn out to be the most controlling people in the world</span></span> 🙁?&rdquo;</p>
+        <p><span class="bold-text">U</span>: Can you think of other examples?</p>
+        <p><span class="bold-text">M</span>: Well, I have been thinking of leaving my current job for quite some time now, but I haven&rsquo;t started the application process yet because I keep thinking &ldquo;<span class="bold-text"><span class="emphasis-text">What if my new position is horrible as well</span></span>?&rdquo;</p>
+        <p><span class="bold-text">U</span>: Hmmm&hellip;. It seems to me that whenever you face any uncertainty, you assume that the worst is going to happen to you. You are afraid that:</p>
+        <ul>
+          <li >your laptop will be faulty</li>
+          <li >your in-laws will be controlling</li>
+          <li >your job position will be horrible</li>
+        </ul>
+        <p>Is that correct?</p>
+        <p><span class="bold-text">M</span>: Yes, that is correct.</p>
+        <p><span class="bold-text">U</span>: Can you recognize the thinking error in your thoughts?</p>
+        <p><span class="bold-text">M</span>: I guess it is <span class="bold-text"><span class="emphasis-text">Catastrophizing</span></span>.</p>
+        <p><span class="bold-text">U</span>: Correct.</p>
+        <p><span class="bold-text">M</span>: Okay, I get that I tend to <span class="bold-text"><span class="emphasis-text">Catastrophize</span></span>. What can I do to stop it?</p>
+        <p><span class="bold-text">U</span>: Monica, the first step is to correctly guess the chance of your most feared outcome. In most cases, you will realize that the chance of the worst outcome is pretty low. Let&rsquo;s take the example of you buying the laptop. For the laptop that had received negative reviews, how many ratings were negative out of the total number of ratings?</p>
+        <p><span class="bold-text">M</span>: About 2%.</p>
+        <p><span class="bold-text">U</span>: Hmmm&hellip;. would you agree that 2% is a pretty low chance?<br /><span class="bold-text">M</span>: Yes, but it can still happen, can&rsquo;t it?</p>
+        <p><span class="bold-text">U</span>: Yes, it can happen, and that brings us to the next step ‒ reducing beliefs of helplessness. Now, is there nothing you can do if your laptop turns out to be faulty?</p>
+        <p><span class="bold-text">M</span>: No, I can take it to the service center and get it fixed.</p>
+        <p><span class="bold-text">U</span>: So, you are not completely helpless if something happens.</p>
+        <p><span class="bold-text">M</span>: Yes, I guess I can do that, but is it wrong to be worried about the future?</p>
+        <p><span class="bold-text">U</span>: No, it is certainly not wrong. On the contrary, it is very normal to be a <span class="bold-text"><span class="emphasis-text">little</span></span> worried whenever you have to make a important decision, becuase that propels you to gather information and make an informed decision. But, you should be gathering information to reduce your <span class="bold-text"><span class="emphasis-text">chance</span></span> of something bad happening. It is never possible to be <span class="bold-text"><span class="emphasis-text">absolutely certain</span></span> about anything. You will have to learn to accept uncertainty in your life.</p>
+        <p>M: Okay, how will I do that?</p>
+        <p><span class="bold-text">U</span>: Well, I would suggest that you start by accepting uncertainty in your daily life. Let&rsquo;s start with something small. Can you think of something from your daily life where you spend more time making a decision than you should?</p>
+        <p><span class="bold-text">M</span>: Yes, I guess &hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;..</p>
+        <p><span class="bold-text">U</span>: Great, let&rsquo;s start with that and then you can gradually accept uncertainty about more important things.</p>
+        <p><span class="bold-text">M</span>: Cool, I&rsquo;ll do that.</p>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <p>&nbsp;</p>
+  <p>Parents are asking me to get married. I am worried that I&rsquo;ll have to (become a housewife/sacrifice my career) after marriage.</p>
+</div>
+
+conversations: evaluating thoughts:identifying thinking errors
+<div class="content-body">
+  <table>
+    <tbody>
+    <tr>
+      <td>
+        <p>Robin: Hey &lt;username&gt;, what&rsquo;s up?</p>
+        <p>User: Good, how are you?</p>
+        <p>R: Pretty good, actually 😀. I&rsquo;ve been feeling a little better now, thanks to your advice on &ldquo;<span class="bold-text"><span class="emphasis-text">Making good things happen</span></span>&rdquo; for myself 🙏.</p>
+        <p>U: I am glad to hear that it helped you. Have you been able to do the tasks that you set for yourself?</p>
+        <p>R: Yeah, that really helped. After a long time, I feel like I am not totally worthless. I can still do something if I want to.</p>
+        <p>U: That&rsquo;s great to hear Robin 😁. I am glad that you feel good about yourself. Do you want to talk about the negative thoughts that you were having earlier?</p>
+        <p>R: Yup.</p>
+        <p>U: Great! The last time we talked, you told me that whenever you thought of starting to prepare for placements, you used to get overwhelmed by the amount of material you would have to cover and you thought &ldquo;<span class="bold-text"><span class="emphasis-text">There&rsquo;s just too much to do; I&rsquo;ll never be able to finish all this.</span></span>&rdquo; Is that correct?</p>
+        <p>R: Uh-huh&hellip;&nbsp;</p>
+        <p>U: What do you think about it now? Is that thought correct?</p>
+        <p>R: I guess not.</p>
+        <p>U: How do you think now about your preparation?</p>
+        <p>R: Well, I was correct about thinking that there&rsquo;s too much to do. I guess I was wrong about thinking that I&rsquo;ll <span class="bold-text"><span class="emphasis-text">never</span></span> be able to finish it.</p>
+        <p>U: Exactly 👍👏👏. That was very smart of you to understand. Looking at the amount of work to be done, you <span class="bold-text"><span class="emphasis-text">Jumped to a conclusion</span></span>. You assumed that the worst is going to happen - &ldquo;<span class="bold-text"><span class="emphasis-text">I&rsquo;ll never be able to finish all this</span></span>&rdquo;.</p>
+        <p>R: Uh-huh&hellip;&nbsp;</p>
+        <p>U: What would&rsquo;ve been a more rational thought?</p>
+        <p>R: I guess it would&rsquo;ve been &ldquo;<span class="bold-text"><span class="emphasis-text">There&rsquo;s a lot to do; I&rsquo;ll have to put in a lot of time and effort to finish all this.</span></span>&rdquo;</p>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <p>&nbsp;</p>
+  <table>
+    <tbody>
+    <tr>
+      <td>
+        <p>U: Great 👏👏! Do you want to work on another thought?</p>
+        <p>R: Sure. I&rsquo;d love to.</p>
+        <p>U: Okay. Can you tell me another negative thought you had?</p>
+        <p>R: Yeah, I can remember one&hellip; it might sound a little silly though, but I felt really bad about it.&nbsp;</p>
+        <p>U: Oh please go on&hellip; I won&rsquo;t judge you.</p>
+        <p>R: We were having the annual day celebration at our department. I had invited a friend to the dinner party. Initially, she agreed to come, but she called me at the last moment and canceled saying that she&rsquo;s not feeling well.</p>
+        <p>U: What was your negative thought?</p>
+        <p>R: <span class="bold-text"><span class="emphasis-text">She&rsquo;s lying to me. She just doesn&rsquo;t want to go out with me.</span></span><br />U: Hmmm&hellip; what do you think about it now?</p>
+        <p>R: Now I know that she wasn&rsquo;t lying. I met her the next day, and she was actually sick.</p>
+        <p>U: Mm-hmmm&hellip; so you see, once again you <span class="bold-text"><span class="emphasis-text">Jumped to a conclusion</span></span> without any evidence.</p>
+        <p>R: Yeah&hellip; I can see that.</p>
+      </td>
+      <td>
+        <p>U: Great 👏👏!</p>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <p>&nbsp;</p>
+  <table>
+    <tbody>
+    <tr>
+      <td>
+        <p>U: I&rsquo;ve been recently reading about these <span class="bold-text"><span class="emphasis-text">Thinking Errors</span></span> that make people vulnerable to negative thinking. <span class="bold-text"><span class="emphasis-text">Jumping to conclusion</span></span> is one such <span class="bold-text"><span class="emphasis-text">Thinking Error</span></span> common in people going through an episode of depression. You seem to be vulnerable to this particular <span class="bold-text"><span class="emphasis-text">Thinking Error</span></span>.</p>
+        <p>R: How many <span class="bold-text"><span class="emphasis-text">Thinking Errors</span></span> are there?</p>
+        <p>U: There are 10 such <span class="bold-text"><span class="emphasis-text">Thinking Errors</span></span>. One thought can have multiple <span class="bold-text"><span class="emphasis-text">Thinking Errors</span></span>.</p>
+        <p>R: Okay. Thanks for telling me. But, how will it be useful to me?<br />U: Well, from now on. Whenever you identify a negative thought, try to identify the <span class="bold-text"><span class="emphasis-text">Thinking Errors</span></span> in that negative thought.</p>
+        <p>R: And that will help me feel better?</p>
+        <p>U: Well, it will help, but it won&rsquo;t be sufficient. There are more techniques to evaluate our negative thoughts. I&rsquo;ll learn that later in this module. I&rsquo;ll tell you about that the next time we talk.</p>
+        <p>R: Okay&hellip; bye 👋. For now, I&rsquo;ll just identify the <span class="bold-text"><span class="emphasis-text">Thinking Errors</span></span> in my negative thoughts.</p>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <p><br /><br /><br /></p>
+  <table>
+    <tbody>
+    <tr>
+      <td>
+        <p><span class="bold-text">Monica</span>: Hi &lt;username&gt;</p>
+        <p><span class="bold-text">User</span>: Hello Monica, how are you today?</p>
+        <p><span class="bold-text">M</span>: I&rsquo;m doing okay. I guess I am better than how I have been feeling over the past few months, but I am worse than how I felt the last time we talked.</p>
+        <p><span class="bold-text">U</span>: Did anything happen after that?</p>
+        <p><span class="bold-text">M</span>: Yeah&hellip; I had a very bad day at work 😢.</p>
+        <p><span class="bold-text">U</span>: Ohh&hellip; I am sorry to hear that. What happened?</p>
+        <p><span class="bold-text">M</span>: I was going to attend a meeting, and one of my colleagues made a very rude comment about me.</p>
+        <p><span class="bold-text">U</span>: That really sucks. Can you tell me what she said?</p>
+        <p><span class="bold-text">M</span>: She said in a sarcastic tone, &ldquo;<span class="bold-text"><span class="emphasis-text">Oh, Monica would be joining us! And here I was thinking that I would go home soon</span></span>.&rdquo; It made me feel really angry 😡.</p>
+        <p><span class="bold-text">U</span>: What did you do after that?</p>
+        <p><span class="bold-text">M</span>: I did nothing&hellip; I am not very good at face to face confrontation. I sat through the meeting without saying anything, came home after the meeting and yelled at my mother when she called me at night.</p>
+        <p><span class="bold-text">U</span>: Hmmm&hellip; can you remember the thought that made you feel so angry?</p>
+        <p><span class="bold-text">M</span>: Yeah, I have noted it down. I was thinking &ldquo;<span class="bold-text"><span class="emphasis-text">That bitch&hellip; she shouldn&rsquo;t say such things to my face</span></span><span class="emphasis-text">.</span>&rdquo;</p>
+        <p><span class="bold-text">U</span>: I can understand how you might have felt.</p>
+        <p><span class="bold-text">M</span>: Okay&hellip;&nbsp;</p>
+        <p><span class="bold-text">U</span>: Monica, I think I can help you feel better about it. Do you want my help?</p>
+        <p><span class="bold-text">M</span>: Sure.</p>
+        <p><span class="bold-text">U</span>: Okay, our thoughts often have some thinking errors in them. Identifying these thinking errors can help us feel better.</p>
+        <p><span class="bold-text">M</span>: Okay&hellip; what are the thinking errors in my thought?</p>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <p>&nbsp;</p>
+  <table>
+    <tbody>
+    <tr>
+      <td>
+        <p><span class="bold-text">U</span>: Your thought ‒ &ldquo;<span class="bold-text"><span class="emphasis-text">That bitch&hellip; she shouldn&rsquo;t say such things to my face</span></span>&rdquo; ‒ is a <span class="bold-text">should </span>statement. Can we really control what others say?</p>
+        <p>M: I can understand that we can&rsquo;t control it, but she still shouldn&rsquo;t say such things.</p>
+        <p>U: Again, do we really have any control over what others say about us?</p>
+        <p>M: No, I guess not.</p>
+        <p>U: What is in our control?</p>
+        <p>M: Our attitude?</p>
+        <p>U: Exactly! Others can say whatever they want about you, but you can train yourself to be not bothered by it.</p>
+        <p>M: How can I train myself?</p>
+        <p>U: From now on, whenever you identify a negative thought, try to find out the thinking errors in that thought. Identifying thinking errors is the first step towards thinking healthy.</p>
+        <p>M: Okay&hellip; I&rsquo;ll do that.</p>
+        <p>U: Just one more thing&hellip; there is another thinking error in your thought. Can you tell me what it is?</p>
+        <p>M: No&hellip; I don&rsquo;t really know much about thinking errors yet.</p>
+      </td>
+      <td>
+        <p>U: &lt;something wrong&gt;</p>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <p>&nbsp;</p>
+  <table>
+    <tbody>
+    <tr>
+      <td>
+        <p><span class="bold-text">U</span>: Okay, it is <span class="bold-text">Labelling. </span>I&rsquo;ll leave it to you to find out how it is an example of <span class="bold-text">Labelling</span>.</p>
+        <p><span class="bold-text">M</span>: What if identifying thinking errors don&rsquo;t help me?</p>
+        <p><span class="bold-text">U</span>: I am glad you brought it up.There are more techniques to evaluate our negative thoughts and feel better. I&rsquo;ll learn that later in this module. I&rsquo;ll tell you about that the next time we talk.</p>
+        <p><span class="bold-text">M</span>: Okay&hellip; buh-bye 👋. For now, I&rsquo;ll just identify the <span class="bold-text"><span class="emphasis-text">Thinking Errors</span></span> in my negative thoughts.</p>
+      </td>
+      <td>
+        <p>U: &lt;something wrong&gt;</p>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <p>&nbsp;</p>
+  <p><span class="bold-text">For Monica</span></p>
+  <p>&nbsp;</p>
+  <p>It can be about betrayal by a friend.</p>
+  <ul>
+    <li style=>They planned a startup together and the friend bailed out.</li>
+    <li style=>The friend didn&rsquo;t set him up for a job that she had promised.</li>
+  </ul>
+  <p><br /><br /></p>
+</div>
+
+conversations: evaluating thoughts:evaluating thoughts
+<div class="content-body">
+  <table>
+    <tbody>
+    <tr>
+      <td>
+        <p><span class="bold-text">Robin</span>: Hi &lt;username&gt;, how are you?</p>
+        <p><span class="bold-text">User</span>: Hi Robin. I&rsquo;m okay. How are you?</p>
+        <p><span class="bold-text">R</span>: Same as earlier. Feeling better about being me after a long time 😇.</p>
+        <p><span class="bold-text">U</span>: Great!</p>
+        <p><span class="bold-text">R</span>: I still need some help in evaluating my negative thoughts.</p>
+        <p><span class="bold-text">U</span>: Right, before we get started let me tell you a little bit about negative thoughts.</p>
+        <p><span class="bold-text">R</span>: Sure&hellip; I&rsquo;m listening👂.</p>
+        <p><span class="bold-text">U</span>: We generally have three different types of negative thoughts:</p>
+        <ul>
+          <li>Negative and false</li>
+          <li>Negative and true but unhelpful</li>
+          <li>Negative and true and helpful</li>
+        </ul>
+        <p><span class="bold-text">R</span>: Okay&hellip; thanks for the information. But I&rsquo;m not sure how this information is going to help me 😕.</p>
+        <p><span class="bold-text">U</span>: Well, it will help you decide which technique to use for evaluating which thought. Let&rsquo;s start with a thought&hellip; can you remember any of your negative thoughts?</p>
+        <p><span class="bold-text">R</span>: Yes&hellip; I applied for a position in a software development company and got rejected, I had the thought &ldquo;<span class="bold-text"><span class="emphasis-text">I&rsquo;m a complete moron.</span></span> <span class="bold-text"><span class="emphasis-text">I&rsquo;ll never get a job</span></span>&rdquo; 😢.</p>
+        <p><span class="bold-text">U</span>: Okay, this thought has two parts. Let&rsquo;s evaluate the thought, &ldquo;<span class="bold-text"><span class="emphasis-text">I&rsquo;m a complete moron</span></span>&rdquo;, first. What is the evidence that you are a <span class="bold-text"><span class="emphasis-text">&ldquo;complete</span></span> <span class="bold-text"><span class="emphasis-text">moron&rdquo;</span></span>?</p>
+        <p><span class="bold-text">R</span>: I&rsquo;ve been rejected by more than 20 companies.</p>
+        <p><span class="bold-text">U</span>: Could it be for some other reason than you being a <span class="bold-text"><span class="emphasis-text">&ldquo;complete moron&rdquo;</span></span>?</p>
+        <p><span class="bold-text">R</span>: I don&rsquo;t know. What else could it be?</p>
+        <p><span class="bold-text">U</span>: There might be a lot of reasons. To name a few:</p>
+        <ul>
+          <li>You might not fit the job profile very well</li>
+          <li>They might have gotten a more qualified candidate</li>
+        </ul>
+        <p><span class="bold-text">R</span>: Yup, that is also possible. I guess I was <span class="bold-text"><span class="emphasis-text">Jumping to a conclusion</span></span> and unfairly <span class="bold-text"><span class="emphasis-text">Labelling</span></span> myself.</p>
+        <p><span class="bold-text">U</span>: Excellent, you have identified the thinking errors in this part of the thought. Now, let&rsquo;s see if there are any evidences that suggest that you are <span class="bold-text">not</span> a <span class="bold-text"><span class="emphasis-text">&ldquo;complete moron.&rdquo; </span></span>Can you think of any?</p>
+        <p><span class="bold-text">R</span>: Well, I used to be a good student before joining college.</p>
+        <p><span class="bold-text">U</span>: Great!! So, would you agree that your thought &ldquo;<span class="bold-text"><span class="emphasis-text">I&rsquo;m a complete moron</span></span>&rdquo; is false?</p>
+        <p><span class="bold-text">R</span>: Yes, it is not completely true. I guess &ldquo;<span class="bold-text"><span class="emphasis-text">I&rsquo;m just a partial moron</span></span>&rdquo;, just like most people 😔.</p>
+        <p><span class="bold-text">U</span>: 😄 that&rsquo;s funny and true at the same time. So, this thought falls in the first category &ldquo;Negative and false.&rdquo; To evaluate such thoughts try to find evidences against the thought and try to look for alternative explanations. Now let&rsquo;s look at the second part of the thought &mdash; &ldquo;<span class="bold-text"><span class="emphasis-text">I&rsquo;ll never get a job</span></span>.&rdquo;</p>
+        <p><span class="bold-text">R</span>: Yeah&hellip; how to evaluate that?<br /><span class="bold-text">U</span>: So, you told me that you have been rejected by more than 20 companies, is that correct?</p>
+        <p><span class="bold-text">R</span>: Yeah&hellip; 😢.</p>
+        <p><span class="bold-text">U</span>: And that made you think that &ldquo;<span class="bold-text"><span class="emphasis-text">I&rsquo;ll never get a job</span></span>.&rdquo;</p>
+        <p><span class="bold-text">R</span>: Yup.</p>
+        <p><span class="bold-text">U</span>: Do you really think that this thought is true that you will <span class="bold-text"><span class="emphasis-text">never</span></span> get a job?</p>
+        <p><span class="bold-text">R</span>: No it is not compeletely true. I will get a job someday. I guess once again I jumped to the <span class="bold-text"><span class="emphasis-text">worst</span></span> possible conclusion.</p>
+        <p><span class="bold-text">U</span>: Uh-huh&hellip; for thoughts like these when you are clearly assuming that the worst is going to happen, ask yourself &ldquo;<span class="bold-text"><span class="emphasis-text">How likely is the worst outcome?</span></span>&rdquo;</p>
+        <p><span class="bold-text">R</span>: It is not that easy really. It is easy to look at the thoughts objectively after a while. But, when I get the rejection emails, I feel so upset that I don&rsquo;t have the mental energy to evaluate thoughts or think about thinking errors.</p>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <p>&nbsp;</p>
+  <table>
+    <tbody>
+    <tr>
+      <td>
+        <p><span class="bold-text">U</span>: That is a fair point, I agree with you. When you are feeling very upset, it is very hard to evaluate your thoughts. But you also mentioned that it becomes easier to look at thoughts objectively after a while. So, what I suggest you do is that if you don&rsquo;t have the mental energy to evaluate a negative thought, just write it down. Evaluate it later when you feel like it.</p>
+        <p><span class="bold-text">R</span>: Okay. How long will I have to keep evaluating my thoughts?</p>
+        <p><span class="bold-text">U</span>: Well there is no fixed time. You have a habit of negative thinking, and it is going to take time and <span class="bold-text">conscious effort</span> for you to change that habit. The only way to do it is to keep evaluating your thoughts using the &lt;<span class="bold-text"><span class="emphasis-text">thought_record_form</span></span>&gt;. After some time, I don&rsquo;t know how much, you will start evaluating your thoughts automatically in your head. Until then, happy thought evaluation 😊.</p>
+        <p><span class="bold-text">R</span>: Okay, happy thought evaluation to you too.</p>
+      </td>
+      <td>
+        <p><span class="bold-text">U</span>: Well you have to force yourself.</p>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <p>&nbsp;</p>
+  <table>
+    <tbody>
+    <tr>
+      <td>
+        <p><span class="bold-text">Message</span>: Evaluate your thoughts using the techniques you have learned. If you identify a negative thought but don&rsquo;t have the energy to evaluate it, just write it down using the &lt;<span class="bold-text"><span class="emphasis-text">thought_record_form</span></span>&gt;.</p>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <p><br /><br /></p>
+  <p><span class="bold-text">For Monica</span></p>
+  <p>&nbsp;</p>
+  <table>
+    <tbody>
+    <tr>
+      <td>
+        <p><span class="bold-text">Monica:</span> Hi &lt;username&gt;.</p>
+        <p><span class="bold-text">User</span>: Hi Monica&hellip; how are you doing?</p>
+        <p><span class="bold-text">M</span>: I am not doing well.</p>
+        <p><span class="bold-text">U</span>: Why not?</p>
+        <p><span class="bold-text">M</span>: I think that I am not qualified for my job. Nobody respects my opinion at work 😢.</p>
+        <p><span class="bold-text">U</span>: Oh&hellip;. I&rsquo;m sorry to hear that you feel that way. Did something happen that made you think, &ldquo;<span class="bold-text"><span class="emphasis-text">I am not good at my job</span></span>&rdquo;?</p>
+        <p><span class="bold-text">M</span>: Yeah&hellip;. Nobody respects my opinion. Nobody listens to my ideas in the meetings.</p>
+        <p><span class="bold-text">U</span>: Hmmm&hellip;. Monica, this sentence &ldquo;<span class="bold-text"><span class="emphasis-text">Nobody listens to my ideas in the meetings</span></span>&rdquo; looks like an <span class="bold-text"><span class="emphasis-text">Overgeneralized</span></span> sentence to me. Is it possible that you are <span class="bold-text"><span class="emphasis-text">Overgeneralizing</span></span> from a few isolated incidents?</p>
+        <p><span class="bold-text">M</span>: No no, I&rsquo;ve considered that possibility. I&rsquo;m not <span class="bold-text"><span class="emphasis-text">Overgeneralizing</span></span> from a few incidents; it is a consistent pattern.</p>
+        <p><span class="bold-text">U</span>: Okay, I accept that you are not <span class="bold-text"><span class="emphasis-text">Overgeneralizing</span></span>, but thinking that &ldquo;<span class="bold-text"><span class="emphasis-text">I am not good at my job</span></span>&rdquo; because your colleagues don&rsquo;t listen to your ideas might be <span class="bold-text"><span class="emphasis-text">Jumping to conclusion</span></span>, don&rsquo;t you think?</p>
+        <p><span class="bold-text">M</span>: Well, what else can explain it?</p>
+        <p><span class="bold-text">U</span>: I don&rsquo;t know yet. Let&rsquo;s look at the team more closely. How many members are there in the team?</p>
+        <p><span class="bold-text">M</span>: 8 members ‒ 1 product manager, 5 developers, and 2 designers.</p>
+        <p><span class="bold-text">U</span>: Okay&hellip;. how many of them are male?</p>
+        <p><span class="bold-text">M</span>: 7 male team members. I am the only female in the team.</p>
+        <p><span class="bold-text">U</span>: Hmmm&hellip; do your colleagues listen to your male designer colleague in these meetings?</p>
+        <p><span class="bold-text">M</span>: Yes, they do. That&rsquo;s what makes me think that I&rsquo;m not good enough.</p>
+        <p><span class="bold-text">U</span>: I&rsquo;m still not sure that you should conclude that you are not good enough. What you just described can also be an indication of a subtle form of workplace discrimination.</p>
+        <br />
+        <p>Your colleagues might be ignoring your ideas just because you are female. Do you think that is possible?</p>
+        <p><span class="bold-text">M</span>: I guess that is a possibility.</p>
+        <p><span class="bold-text">U</span>: I wonder if there can be a way to test if they are ignoring your ideas because your ideas are not good or if they are ignoring your ideas because you are a woman.</p>
+        <p><span class="bold-text">M</span>: I guess I can ask my male designer colleague to suggest one of my ideas and see if they ignore it as well.</p>
+        <p><span class="bold-text">U</span>: That is an excellent idea. Try that. If they listen to him when he shares your ideas, you&rsquo;ll know that they are not ignoring you and not your ideas.</p>
+        <p><span class="bold-text">M</span>: What will I do I figure out that they are ignoring me?</p>
+        <p><span class="bold-text">U</span>: Then you should start looking for a new job.</p>
+        <p><span class="bold-text">M</span>: Should I give up that easily? Shouldn&rsquo;t I try to get them to change their attitude?</p>
+        <p><span class="bold-text">U</span>: Monica, by now, you must have realized that it is quite difficult to change our own attitudes. Just imagine how hard it would be to get others to change their attitudes.</p>
+        <p>You can try to do it if you really want to stay in your current company. If not, then it might be time to polish up your resume.</p>
+        <p><span class="bold-text">M</span>: Okay&hellip;. and what if they are ignoring my ideas because they are actually bad?</p>
+        <p><span class="bold-text">U</span>: Well, then it might help you to take a Graphics Design course to improve your skills.</p>
+        <p><span class="bold-text">M</span>: 😞 that doesn&rsquo;t help me feel better.</p>
+        <p><span class="bold-text">U</span>: Monica, I&rsquo;m sorry to have to break this to you, but sometimes our negative thoughts can be true. If that turns out to be the case, then it is best to accept the facts and work on improving ourselves.</p>
+        <p>But, we don&rsquo;t need to assume anything yet. You try your little experiment first and we can decide what to do depending on that.</p>
+        <p><span class="bold-text">M</span>: Okay&hellip;. 🤞let&rsquo;s keep our fingers crossed. Talk to you later.</p>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <p>&nbsp;</p>
+  <p>I don&rsquo;t have any close friends anymore. People who I used to think were good friends have started to avoid me. Solution: First try to undistort the thinking and then accept it.</p>
+  <p>&nbsp;</p>
+  <p>Other conversations (One with Robin, Two with Monica):&nbsp;</p>
+  <ul>
+    <li>One conversation on what to do about negative, true, and unhelpful thoughts</li>
+    <li>One conversation on what to do about negative, true, and helpful thoughts that can be solved - Problem solving</li>
+    <li>One conversation on what to do about negative, true, and helpful thoughts that can&rsquo;t be sovled - Acceptance (for Robin this can be about accepting the guilt he is feeling about wasting the 3 and a half years of his B.Tech, the guilt in going back home after graduating and taking money from his father)</li>
+  </ul>
+  <p><br /><br /></p>
+</div>
+--->

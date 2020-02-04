@@ -39,7 +39,15 @@ describe('NestedCommentComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(NestedCommentComponent);
     component = fixture.componentInstance;
-    component.user = new User(1, 'test', 'test@test.com', '', false, false);
+    component.user = new User(
+      1,
+      'test',
+      'test@test.com',
+      '',
+      false,
+      false,
+      true,
+    );
     component.userNestedComment = new UserNestedComment(
       1,
       'nested component',

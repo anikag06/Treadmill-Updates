@@ -1,36 +1,50 @@
-import { Injectable } from '@angular/core';
+import { ElementRef, Injectable, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NavbarNotificationsService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   closeSubject = new BehaviorSubject(false);
 
-
   getNotifications(page = 1) {
-    return this.http.get(environment.API_ENDPOINT + '/api/v1/notifications/ui-notification/?page=' + page);
+    return this.http.get(
+      environment.API_ENDPOINT +
+        '/api/v1/notifications/ui-notification/?page=' +
+        page,
+    );
   }
 
   markNotificationDone(notificationId: number) {
-    return this.http.patch(environment.API_ENDPOINT + `/api/v1/notifications/ui-notification/${notificationId}/`, {user_read: true})
+    return this.http.patch(
+      environment.API_ENDPOINT +
+        `/api/v1/notifications/ui-notification/${notificationId}/`,
+      { user_read: true },
+    );
   }
 
   getUserNotifications() {
-    return this.http.get(environment.API_ENDPOINT + `/api/v1/notifications/user-ui-notification/`);
+    return this.http.get(
+      environment.API_ENDPOINT + `/api/v1/notifications/user-ui-notification/`,
+    );
   }
 
   putUserNotifications() {
-    return this.http.put(environment.API_ENDPOINT + `/api/v1/notifications/user-ui-notification/`, {});
+    return this.http.put(
+      environment.API_ENDPOINT + `/api/v1/notifications/user-ui-notification/`,
+      {},
+    );
   }
 
   putMarkAllRead() {
-    return this.http.put(environment.API_ENDPOINT + `/api/v1/notifications/mark-all-read/`, {});
+    return this.http.put(
+      environment.API_ENDPOINT + `/api/v1/notifications/mark-all-read/`,
+      {},
+    );
   }
 
   closeNotification() {

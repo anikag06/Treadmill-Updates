@@ -82,6 +82,7 @@ import { ThoughtRecordTechniquesComponent } from './forms/thought-record-form/th
 import { TechniquesInfoComponent } from './forms/shared/techniques-info/techniques-info.component';
 // tslint:disable-next-line:max-line-length
 import { IdentifyThinkingComponent } from './forms/thought-record-form/thought-record-techniques/identify-thinking/identify-thinking.component';
+import { ControlContentComponent } from './control-content/control-content.component';
 
 import { ProofComponent } from './forms/thought-record-form/thought-record-techniques/proof/proof.component';
 import { EvidenceFormComponent } from './forms/thought-record-form/thought-record-techniques/proof/evidence-form/evidence-form.component';
@@ -187,6 +188,7 @@ import { FormQuoteComponent } from './forms/shared/form-quote/form-quote.compone
     NegativeBeliefFinalComponent,
     FormMessageComponent,
     FormQuoteComponent,
+    ControlContentComponent,
   ],
   imports: [
     ResourcesRoutingModule,

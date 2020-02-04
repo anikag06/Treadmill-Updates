@@ -10,6 +10,7 @@ export const TOKEN = 'jwt_token';
 export const USERAVATAR = 'user_avatar';
 export const ISADMIN = 'is_admin';
 export const ISACTIVE = 'is_active';
+export const IS_EXP = 'is_exp';
 export const TREADWILL = 'TreadWill';
 export const SUNDAY = 'SUNDAY';
 export const MONDAY = 'MONDAY';
@@ -146,6 +147,7 @@ export const SURVEY = 'SURVEY';
 export const INTRODUCTORY_ANIMATION = 'INTRODUCTORY_ANIMATION';
 export const INTRODUCTION_PAGE = 'INTRODUCTION_PAGE';
 export const CONCLUSION_PAGE = 'CONCLUSION_PAGE';
+export const CONTROL_PAGE = 'CONTROL_PAGE';
 
 export const LOCKED = 'LOCKED';
 export const UNLOCKED = 'UNLOCKED';

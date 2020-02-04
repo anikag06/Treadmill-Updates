@@ -41,7 +41,6 @@ export class MatLoginDialogComponent implements OnInit {
     this.authService
       .getUserDetails(this.loginForm.value)
       .then((data: any) => {
-        console.log('login data', data);
         this.authService.isUserExcluded = data.data.is_excluded;
         if (data.data.is_excluded) {
           this.dialogRef.close();

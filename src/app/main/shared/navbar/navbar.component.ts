@@ -11,6 +11,10 @@ import { NavbarFlowComponent } from './navbar-flow/navbar-flow.component';
 import { NavbarNotificationDirective } from './navbar-notification.directive';
 import { NavbarNotificationsComponent } from './navbar-notifications/navbar-notifications.component';
 import { NavbarNotificationsService } from './navbar-notifications.service';
+import { User } from '@/shared/user.model';
+import { DEFAULT_PATH } from '@/app.constants';
+import { AuthService } from '@/shared/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -29,6 +33,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
   unreadCount = 0;
 
   userNotificationSubscription!: Subscription;
+
+  // user = new User(1, 'tester', 'test@gmail.com', '', true, true, false);
 
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,

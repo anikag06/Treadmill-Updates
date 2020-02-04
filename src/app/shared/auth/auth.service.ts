@@ -18,6 +18,7 @@ import {
   ISADMIN,
   ISACTIVE,
   INELIGIBLE_FOR_TRIAL,
+  IS_EXP,
 } from '@/app.constants';
 import { User } from '@/shared/user.model';
 import { Observable, BehaviorSubject } from 'rxjs';
@@ -42,17 +43,20 @@ export class AuthService {
       window.localStorage.setItem(ISADMIN, data.data.is_admin);
       window.localStorage.setItem(USERAVATAR, data.data.avatar);
       window.localStorage.setItem(ISACTIVE, data.data.is_active);
+      window.localStorage.setItem(IS_EXP, data.data.is_exp);
     } catch (e) {
       window.sessionStorage.setItem(TOKEN, data.data.token);
       window.sessionStorage.setItem(ISADMIN, data.data.is_admin);
       window.sessionStorage.setItem(USERAVATAR, data.data.avatar);
       window.sessionStorage.setItem(ISACTIVE, data.data.is_active);
+      window.sessionStorage.setItem(IS_EXP, data.data.is_exp);
     }
     this.getUserFromToken(
       data.data.token,
       data.data.avatar,
       data.data.is_admin,
       data.data.is_active,
+      data.data.is_exp,
     );
   }
 
@@ -79,19 +83,22 @@ export class AuthService {
       let avatar!: string | null;
       let isAdmin = false;
       let isActive = false;
+      let isExp = false;
       try {
         data = window.localStorage.getItem(TOKEN);
         avatar = window.localStorage.getItem(USERAVATAR);
         isAdmin = window.localStorage.getItem(ISADMIN) === 'true';
         isActive = window.localStorage.getItem(ISACTIVE) === 'true';
+        isExp = window.localStorage.getItem(IS_EXP) === 'true';
       } catch (e) {
         data = window.sessionStorage.getItem(TOKEN);
         avatar = window.sessionStorage.getItem(USERAVATAR);
         isAdmin = window.sessionStorage.getItem(ISADMIN) === 'true';
         isActive = window.sessionStorage.getItem(ISACTIVE) === 'true';
+        isExp = window.sessionStorage.getItem(IS_EXP) === 'true';
       }
       if (data && avatar && isActive) {
-        return this.getUserFromToken(data, avatar, isAdmin, isActive);
+        return this.getUserFromToken(data, avatar, isAdmin, isActive, isExp);
       }
     }
   }
@@ -101,6 +108,7 @@ export class AuthService {
     avatar: string,
     isAdmin: boolean,
     isActive: boolean,
+    isExp: boolean,
   ) {
     const helper = new JwtHelperService();
     const isExpired = helper.isTokenExpired(<string>data);
@@ -112,6 +120,7 @@ export class AuthService {
       avatar,
       isAdmin,
       isActive,
+      isExp,
     );
     if (isExpired === false) {
       this.user = user;
@@ -150,11 +159,13 @@ export class AuthService {
               window.localStorage.removeItem(USERAVATAR);
               window.localStorage.removeItem(ISADMIN);
               window.localStorage.removeItem(ISACTIVE);
+              window.localStorage.removeItem(IS_EXP);
 
               window.sessionStorage.removeItem(TOKEN);
               window.sessionStorage.removeItem(USERAVATAR);
               window.sessionStorage.removeItem(ISADMIN);
               window.sessionStorage.removeItem(ISACTIVE);
+              window.sessionStorage.removeItem(IS_EXP);
             } else if (error.status === 0) {
               this.updateOnline();
             } else {

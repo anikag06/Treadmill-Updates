@@ -13,7 +13,8 @@ import { UserProfileService } from '../shared/user-profile/userProfile.service';
 export class DashboardComponent implements OnInit {
   mobileView = false;
 
-  user: User = new User(0, 'tester', 'tester@iitk.ac.in', '', false, false);
+  // user: User = new User(0, 'tester', 'tester@iitk.ac.in', '', false, false, );
+  user!: User;
   constructor(
     private authService: AuthService,
     private titleService: Title,
