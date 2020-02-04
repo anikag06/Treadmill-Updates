@@ -33,8 +33,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   unreadCount = 0;
 
   userNotificationSubscription!: Subscription;
-
-  // user = new User(1, 'tester', 'test@gmail.com', '', true, true, false);
+  user!: User;
 
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
