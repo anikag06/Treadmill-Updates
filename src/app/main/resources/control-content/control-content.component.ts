@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import { FlowService } from '@/main/flow/flow.service';
 import { map, switchMap } from 'rxjs/operators';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -11,6 +11,7 @@ import {StepCompleteData} from '@/main/resources/shared/completion-data.model';
 
 
 
+
 @Component({
   selector: 'app-control-content',
   templateUrl: './control-content.component.html',
@@ -19,6 +20,7 @@ import {StepCompleteData} from '@/main/resources/shared/completion-data.model';
 })
 export class ControlContentComponent implements OnInit {
   @ViewChild('target', {static: false}) target!: ElementRef;
+
   // x = '<div class="row"><div class="col"><h2 >hi</h2></div></div>' ;
   displayHtml: string | undefined;
   displayHtmlHeader: string | undefined;
@@ -26,8 +28,9 @@ export class ControlContentComponent implements OnInit {
   completionData: StepCompleteData = new StepCompleteData(0, 0);
   current_step_id!: number;
   isLastStep =  false;
-  dataloaded: boolean;
-  nextLoaded: boolean;
+  dataloaded = true;
+  nextLoaded = true;
+ // elem = document.getElementById('hi');
 
 
 
@@ -40,6 +43,7 @@ export class ControlContentComponent implements OnInit {
     private flowStepService: FlowStepNavigationService,
     private router: Router,
     private passData: PassDataService
+
 
   ) {}
   nextBtnShow = false;
@@ -67,7 +71,7 @@ export class ControlContentComponent implements OnInit {
        // this.nextLoaded = true;
         if (control_data.data.status === 'COMPLETED') {
           this.nextBtnShow = true;
-        } else if (control_data.data.status === 'ACTIVE'){
+        } else if (control_data.data.status === 'ACTIVE') {
           this.nextBtnShow = false;
         }
 
@@ -86,7 +90,7 @@ export class ControlContentComponent implements OnInit {
      // this.nextButton(next_step);
     });
     this.dataloaded = false;
-    //this.nextLoaded = false;
+    // this.nextLoaded = false;
 
 
 
@@ -102,8 +106,8 @@ export class ControlContentComponent implements OnInit {
 
     this.nextBtnShow = true;
     this.dataloaded = true;
-    //this.onHtmlNext();
-    //this.nextButton(this.current_step_id);
+    // this.onHtmlNext();
+    // this.nextButton(this.current_step_id);
     this.nextLoaded = false;
   }
 
@@ -119,18 +123,31 @@ export class ControlContentComponent implements OnInit {
   // tslint:disable-next-line:use-life-cycle-interface
 
   onScrollToTop() {
-    setTimeout(() => {
-      this.target.nativeElement.scrollIntoView({ behavior: 'smooth' });
+    // this.elem.scrollTo(0, 0);
+    // this.target.nativeElement.scrollTop(0);
+    // document.getElementById('hi').scrollTo({top: 0});
+
+  //  if (navigator.userAgent.match(/(iPod|iPhone|iPad|Android)/)){
+    //  window.scrollTo(0);
+    //} else {
+     setTimeout(() => {
+       this.target.nativeElement.scrollIntoView();
+      //window.scrollTo(0, 0);
+
     }, 10);
+  //  $('another-step-next').click(function{
+    //  $('target').scrollTop(0);
+
+    // })
 
 
 
   }
-  //nextButton(control_data){
-    //if (control_data.data.status === 'COMPLETED') {
-      //this.nextBtnShow = true;
-    //}
-  //}
+  // nextButton(control_data){
+    // if (control_data.data.status === 'COMPLETED') {
+      // this.nextBtnShow = true;
+    // }
+  // }
 
 }
 

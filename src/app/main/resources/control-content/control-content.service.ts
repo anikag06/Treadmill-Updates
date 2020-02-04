@@ -1,4 +1,5 @@
-import {Injectable} from '@angular/core';
+import {ElementRef, Injectable, ViewChild} from '@angular/core';
+import {NavbarComponent} from '@/main/shared/navbar/navbar.component';
 
 
 @Injectable({
@@ -6,10 +7,17 @@ import {Injectable} from '@angular/core';
 })
 
 export class ControlContentService{
+  @ViewChild('targetOnNavbar',{static: false}) targetOnNavbar!: ElementRef;
+
   constructor() {
   }
+
   getHtml(){
    // ControlC
 
   }
+  moveToTop(){
+    this.targetOnNavbar.nativeElement.scrollIntoView();
+    console.log('hello');
+}
 }

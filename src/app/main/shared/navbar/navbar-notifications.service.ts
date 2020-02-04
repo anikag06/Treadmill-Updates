@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {ElementRef, Injectable, ViewChild} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { BehaviorSubject } from 'rxjs';
@@ -7,6 +7,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class NavbarNotificationsService {
+
 
   constructor(private http: HttpClient) { }
 
@@ -36,4 +37,5 @@ export class NavbarNotificationsService {
   closeNotification() {
     this.closeSubject.next(true);
   }
+
 }

@@ -1,19 +1,22 @@
-<div #target id="no-use-div"></div>
-<div class="container">
+<div id="no-use-div" #target ></div>
+<div class="container" >
   <div class="row"  >
-    <div class="col-lg-6 col-md-8 col-sm-12 fix-content-box " >
+    <div class="col-lg-7 col-md-9 col-sm-12 fix-content-box " >
 
         <mat-card-header class="fix-content-header d-flex justify-content-center" >
-          <mat-card-title class="fix-content-header-title "  [innerHTML]="displayHtmlHeader" ></mat-card-title>
+
+          <mat-card-title class="fix-content-header-title "  [innerHTML]="displayHtmlHeader"  ></mat-card-title>
         </mat-card-header>
       <mat-card >
         <mat-card-content class="fix-content-body "
                           [innerHTML]="displayHtml" *ngIf = "dataloaded; else loader "
         ></mat-card-content>
-        <button mat-raised-button  (click)="onHtmlComplete()" *ngIf="!nextBtnShow">Completed </button>
+        <div class="butn-position d-flex flex-row justify-content-end">
+        <button mat-raised-button class="another-step " color="primary" (click)="onHtmlComplete()" *ngIf="!nextBtnShow">Completed </button>
         <span class = "nextLoad" *ngIf="nextBtnShow && !isLastStep">
-          <button mat-raised-button  (click)="onHtmlNext()"  *ngIf="nextLoaded; else nextLoad" >NEXT</button></span>
-        <button mat-raised-button  (click)="onHtmlDashboard()" *ngIf="isLastStep"> Go to dashboard</button>
+          <button mat-raised-button type="button" class="another-step-next " color="primary" (click)="onHtmlNext()"  *ngIf="nextLoaded; else nextLoad" >NEXT</button></span>
+          <div class="dashboard-btn" ><button mat-raised-button class="another-step " color="primary" (click)="onHtmlDashboard()" *ngIf="isLastStep"> Go to dashboard</button></div>
+        </div>
       </mat-card>
 
     </div>
@@ -29,7 +32,7 @@
 </ng-template>
 <ng-template #nextLoad>
   <div class="col">
-    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+    <span class="spinner-border spinner-border-sm  " role="status" aria-hidden="true"></span>
   </div>
 </ng-template>
 

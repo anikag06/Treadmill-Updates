@@ -3,7 +3,7 @@ import {
   OnInit,
   ViewChild,
   OnChanges,
-  DoCheck,
+  DoCheck, 
 } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
@@ -35,6 +35,7 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
   user!: User;
   routing!: boolean;
   overlayRef!: OverlayRef;
+
 
   @ViewChild('drawer', { static: true }) drawer!: MatDrawer;
 
@@ -126,4 +127,5 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
     const portal = new ComponentPortal(IntroduceComponent);
     this.overlayRef.attach(portal);
   }
+
 }

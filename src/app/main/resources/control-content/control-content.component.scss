@@ -1,33 +1,66 @@
-.fix-content-header{
+.fix-content-header {
   background-color: black;
-  }
-
-.fix-content-header-title{
-  margin-top: 2px; //this value is for desktop, phone value will be different and needs to be changed
-  margin-bottom: 2px;
-  color: white;
-  font-size: 24px ; //this value is for desktop, phone value will be different and needs to be changed
- }
-
-.fix-content-body{
-  margin-top: 45px;
-  }
-
-.fix-content-box{
-  margin: 4%;
-  }
-
-.btnn{
-  color: #343434;
 }
 
-@media only screen and (min-width: 768px){
-  .fix-content-header{
-   height: 42px;
+.fix-content-header-title {
+  //margin-top: 2px; //this value is for desktop, phone value will be different and needs to be changed
+  margin-top: 13px;
+  margin-bottom: 2px;
+  color: white;
+  //font-size: 24px; //this value is for desktop, phone value will be different and needs to be changed
+  font-size: 24px;
+}
+
+.fix-content-body {
+  margin-top: 45px;
+  // overflow-y: scroll;
+}
+
+.fix-content-box {
+  // margin-left: 4%;
+
+  margin-top: 0;
+  padding: 0;
+  //max-width: 750px;
+  //width: 100%;
+  // max-width: 400px;
+
+  // margin: 0 auto;
+}
+
+.butn-position {
+  justify-content: end;
+  margin-right: 17px;
+  //paddipx;
+}
+
+#no-use-div {
+ // padding-top: 11px;
+  background-color: black;
+}
+
+.dashboard-btn {
+  margin-left: 2px;
+}
+
+@media only screen and (min-width: 768px) {
+  .fix-content-header {
+    height: 42px;
     min-height: 42px;
   }
 
-  .fix-content-header-title{
-  }//changing title font size for mobile
+  .fix-content-header-title {
+    margin-top: 2px;
+    font-size: 24px;
+  } //changing title font size for mobile
 
+  .fix-content-box{
+    margin-left: 7.5%;
+  }
+
+  #no-use-div{
+    padding-top: 0px;
+  }
 }
+
+

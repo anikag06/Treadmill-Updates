@@ -3,7 +3,7 @@ import {
   OnInit,
   ViewChild,
   ComponentFactoryResolver,
-  OnDestroy
+  OnDestroy, ElementRef
 } from '@angular/core';
 import { NavbarFlowDirective } from './navbar-flow.directive';
 import { interval, Subscription } from 'rxjs';
@@ -22,6 +22,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit, OnDestroy {
+
    user!: User;
    // x = User.is_exp;
   @ViewChild(NavbarFlowDirective, { static: false })
@@ -107,4 +108,5 @@ export class NavbarComponent implements OnInit, OnDestroy {
       .then((data: any) => (this.unreadCount = data.data))
       .catch(error => console.log(error));
   }
+
 }
