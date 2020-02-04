@@ -4,6 +4,7 @@ import {
   ViewChild,
   ComponentFactoryResolver,
   OnDestroy,
+  Input,
 } from '@angular/core';
 import { NavbarFlowDirective } from './navbar-flow.directive';
 import { interval, Subscription } from 'rxjs';
@@ -33,8 +34,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   unreadCount = 0;
 
   userNotificationSubscription!: Subscription;
-  user: User = new User(0, 'tester', 'tester@iitk.ac.in', '', false, false,false );
- // user!: User;
+  @Input() user!: User;
 
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,

@@ -163,7 +163,7 @@
       <span></span>
     </mat-toolbar>
     <div class="app-main">
-      <app-navbar></app-navbar>
+      <app-navbar [user]="user"></app-navbar>
       <router-outlet></router-outlet>
       <app-chatbot *ngIf="user.is_exp"></app-chatbot>
     </div>
