@@ -13,9 +13,14 @@ import { NavbarNotificationDirective } from './navbar-notification.directive';
 import { NavbarNotificationsComponent } from './navbar-notifications/navbar-notifications.component';
 import { NavbarNotificationsService } from './navbar-notifications.service';
 import { User } from '@/shared/user.model';
-import { DEFAULT_PATH } from '@/app.constants';
-import { AuthService } from '@/shared/auth/auth.service';
-import { Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+  Event,
+  NavigationStart,
+  NavigationEnd,
+  NavigationError,
+} from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -32,14 +37,39 @@ export class NavbarComponent implements OnInit, OnDestroy {
   showFlow = false;
   showNotifications = false;
   unreadCount = 0;
-
+  navbarTitle!: string;
   userNotificationSubscription!: Subscription;
   @Input() user!: User;
+  navbarTitleInfo = {
+    '/modules': 'Hello Name',
+    '/games': 'Games',
+  };
 
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
     private notificationService: NavbarNotificationsService,
-  ) {}
+    private route: ActivatedRoute,
+    private router: Router,
+  ) {
+    this.router.events.subscribe((event: Event) => {
+      if (event instanceof NavigationStart) {
+        // Show loading indicator
+      }
+
+      if (event instanceof NavigationEnd) {
+        // Hide loading indicator
+        console.log('route info', event.url);
+        this.getRouteInfo(event.url);
+      }
+
+      if (event instanceof NavigationError) {
+        // Hide loading indicator
+
+        // Present error to user
+        console.log(event.error);
+      }
+    });
+  }
 
   ngOnInit() {
     this.notificationService.closeSubject.subscribe(data => {
@@ -95,5 +125,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
     notificationCountPromise
       .then((data: any) => (this.unreadCount = data.data))
       .catch(error => console.log(error));
+  }
+  getRouteInfo(data: string) {
+    console.log(data);
+    this.navbarTitle = this.navbarTitleInfo['/modules'];
   }
 }
