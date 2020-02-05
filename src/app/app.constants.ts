@@ -321,3 +321,6 @@ export const COMMON_EDITOR_CONFIG = {
   fonts: [],
   uploadUrl: '',
 };
+
+// toast
+export const SHOW_TOAST_DURATION = 10000;

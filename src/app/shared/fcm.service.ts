@@ -5,12 +5,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { GeneralErrorService } from '../main/shared/general-error.service';
 import { TOKEN } from '@/app.constants';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FcmService {
   permit = false;
+  newNotification = new Subject<any>();
 
   constructor(
     private afMessaging: AngularFireMessaging,
@@ -23,10 +25,9 @@ export class FcmService {
       .pipe(mergeMapTo(this.afMessaging.tokenChanges))
       .subscribe(
         token => {
-          console.log('Permission granted! Save to the server!', token);
           if (token) {
             this.updateToken(token).subscribe(data => {
-              console.log('Token Updated');
+              this.listenForNewMessage();
             });
           }
         },
@@ -44,14 +45,12 @@ export class FcmService {
     } catch (e) {
       jwt_token = window.sessionStorage.getItem(TOKEN);
     }
-    console.log('jwt token: ', jwt_token);
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + jwt_token,
       }),
     };
-    console.log('http options: ', httpOptions);
     return this.http.post(
       environment.API_ENDPOINT + '/api/v1/notifications/device-registration/',
       { registration_id: token },
@@ -86,5 +85,12 @@ export class FcmService {
         '/api/v1/notifications/store-device-registration/',
       { participant_id: part_id, registration_id: token },
     );
+  }
+
+  listenForNewMessage() {
+    this.afMessaging.messages.subscribe(message => {
+      // emit signal for notification message
+      this.newNotification.next(message);
+    });
   }
 }

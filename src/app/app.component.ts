@@ -10,22 +10,19 @@ import { Title } from '@angular/platform-browser';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  animations: [ slideInAnimation ]
+  animations: [slideInAnimation],
 })
 export class AppComponent implements OnInit, OnDestroy {
-
   subscription!: Subscription;
 
-  constructor(
-    private auth: AuthService,
-    private titleService: Title,
-  ) {
+  constructor(private auth: AuthService, private titleService: Title) {
     this.titleService.setTitle('Treadwill');
   }
 
   ngOnInit() {
-    this.subscription = interval(60000)
-      .subscribe((val) => { this.auth.refresh(); });
+    this.subscription = interval(60000).subscribe(val => {
+      this.auth.refresh();
+    });
   }
 
   ngOnDestroy(): void {
@@ -37,5 +34,4 @@ export class AppComponent implements OnInit, OnDestroy {
   getRouteData(outlet: RouterOutlet) {
     return outlet.isActivated ? outlet.activatedRoute : '';
   }
-
 }

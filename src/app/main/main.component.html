@@ -165,6 +165,7 @@
     <div class="app-main">
       <app-navbar [user]="user"></app-navbar>
       <router-outlet></router-outlet>
+      <app-toast-notification></app-toast-notification>
       <app-chatbot *ngIf="user.is_exp"></app-chatbot>
     </div>
   </mat-drawer-content>

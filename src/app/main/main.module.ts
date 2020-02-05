@@ -82,7 +82,6 @@ import { ProblemSolvingWorksheetsService } from '@/main/resources/forms/problem-
 import { ExperimentToTestBeliefService } from '@/main/resources/forms/experiment-to-test-belief-form/experiment-to-test-belief.service';
 
 // import { DataService } from '@/shared/questionnaire/data.service';
-// import { QuestionnaireComponent } from '@/shared/questionnaire/questionnaire.component';
 import { PlotScoreGraphService } from './score/plot-score-graph.service';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { AngularFireModule } from '@angular/fire';
@@ -175,6 +174,7 @@ import { SuggestedPostItemComponent } from './dashboard/suggested-post/suggested
 import { WorryProductivelyService } from '@/main/resources/forms/worry-productively-form/worry-productively.service';
 import { InfiniteScrollDirective } from './shared/infinite-scroll/infinite-scroll.directive';
 import { LazyLoadingImageDirective } from './shared/lazy-loading-image/lazy-loading-image.directive';
+import { ToastNotificationComponent } from '@/shared/toast-notification/toast-notification.component';
 
 @NgModule({
   declarations: [
@@ -218,7 +218,6 @@ import { LazyLoadingImageDirective } from './shared/lazy-loading-image/lazy-load
     MainComponent,
     ChatbotComponent,
     ChatWindowComponent,
-    // QuestionnaireComponent,
     AttributeStyleGameComponent,
     FriendlyFaceGameComponent,
     MentalImageryComponent,
@@ -281,6 +280,7 @@ import { LazyLoadingImageDirective } from './shared/lazy-loading-image/lazy-load
     SuggestedPostItemComponent,
     LazyLoadingImageDirective,
     InfiniteScrollDirective,
+    ToastNotificationComponent,
   ],
   imports: [
     CommonModule,
@@ -330,12 +330,10 @@ import { LazyLoadingImageDirective } from './shared/lazy-loading-image/lazy-load
     GamesAuthService,
     ChatbotService,
     SlideService,
-    // DataService,
     PlotScoreGraphService,
     MICurrentStateService,
     FlowService,
     PassDataService,
-    // QuizService,
     FlowStepNavigationService,
     NavbarNotificationsService,
     GamesBadgesService,
