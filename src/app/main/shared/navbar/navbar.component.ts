@@ -21,6 +21,7 @@ import {
   NavigationEnd,
   NavigationError,
 } from '@angular/router';
+import { AuthService } from '@/shared/auth/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -39,18 +40,19 @@ export class NavbarComponent implements OnInit, OnDestroy {
   unreadCount = 0;
   navbarTitle!: string;
   userNotificationSubscription!: Subscription;
+  can!: any;
   @Input() user!: User;
-  navbarTitleInfo = {
-    '/modules': 'Hello Name',
-    '/games': 'Games',
-  };
+
 
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
     private notificationService: NavbarNotificationsService,
     private route: ActivatedRoute,
     private router: Router,
+    private auth: AuthService,
   ) {
+
+
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationStart) {
         // Show loading indicator
@@ -58,8 +60,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
       if (event instanceof NavigationEnd) {
         // Hide loading indicator
-        console.log('route info', event.url);
-        this.getRouteInfo(event.url);
+        console.log('FROM AUTH.TS', this.auth.navbarTitle);
+        this.navbarTitle = this.auth.navbarTitle;
+        // });
       }
 
       if (event instanceof NavigationError) {
@@ -126,8 +129,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
       .then((data: any) => (this.unreadCount = data.data))
       .catch(error => console.log(error));
   }
-  getRouteInfo(data: string) {
-    console.log(data);
-    this.navbarTitle = this.navbarTitleInfo['/modules'];
-  }
+  // getRouteInfo(data: string) {
+  //   console.log(data);
+  //   this.navbarTitle = this.navbarTitleInfo[data];
+  // }
+
 }
