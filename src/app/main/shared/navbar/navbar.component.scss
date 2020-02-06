@@ -3,7 +3,10 @@
   width: 100%;
 
   h1 {
-    text-transform: capitalize;
+    // text-transform: capitalize;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .navbar-title {
