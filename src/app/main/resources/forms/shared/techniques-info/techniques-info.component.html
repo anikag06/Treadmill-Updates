@@ -3,15 +3,25 @@
     {{ about }}
   </div>
   <div class="card-body">
-    <div class="technique-div" *ngFor="let technique of techniques">
+    <div
+      class="technique-div"
+      *ngFor="let technique of techniques; let i = index"
+    >
       <div class="technique-heading">
-        <div class="rect" [ngStyle]="{'background-color': technique.color}"></div>
+        <div
+          *ngIf="technique.color; else indexDiv"
+          class="rect"
+          [ngStyle]="{ 'background-color': technique.color }"
+        ></div>
+        <ng-template #indexDiv>
+          <div  class="indexDiv">{{ i + 1 }}.</div>
+        </ng-template>
         <div class="technique-name">
-          {{technique.name}}
+          {{ technique.name }}
         </div>
       </div>
       <div class="technique-description">
-        {{technique.description}}
+        {{ technique.description }}
       </div>
     </div>
   </div>

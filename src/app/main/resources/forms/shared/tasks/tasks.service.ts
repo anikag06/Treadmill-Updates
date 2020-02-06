@@ -1,9 +1,12 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
-import { environment } from 'environments/environment';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { UserTask } from '@/main/resources/forms/shared/tasks/user-task.model';
-import { MatSnackBar } from '@angular/material';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpResponse} from '@angular/common/http';
+import {environment} from 'environments/environment';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {UserTask} from '@/main/resources/forms/shared/tasks/user-task.model';
+import {MatSnackBar} from '@angular/material';
+import {SUBTASK_PATH, TASK_API} from '@/app.constants';
+import {catchError} from 'rxjs/operators';
+import {handleError} from '@/main/shared/error-handling';
 
 @Injectable({
   providedIn: 'root',
@@ -41,24 +44,20 @@ export class TasksService {
     }
   }
 
-  postTask(data: any): Observable<HttpResponse<any>> {
-    return this.http.post<any>(
-      environment.API_ENDPOINT + '/api/v1/tasks/task/',
-      data,
-      {
+  postTask(data: any) {
+    return this.http
+      .post(environment.API_ENDPOINT + TASK_API, data, {
         observe: 'response',
-      },
-    );
+      })
+      .pipe(catchError(handleError));
   }
 
-  putTask(data: any, id: number): Observable<HttpResponse<any>> {
-    return this.http.put<any>(
-      environment.API_ENDPOINT + '/api/v1/tasks/task/' + id + '/',
-      data,
-      {
+  putTask(data: any, id: number) {
+    return this.http
+      .put(environment.API_ENDPOINT + TASK_API + id + '/', data, {
         observe: 'response',
-      },
-    );
+      })
+      .pipe(catchError(handleError));
   }
 
   addTask(task: UserTask) {
@@ -89,11 +88,7 @@ export class TasksService {
 
   deleteSubTask(task_id: number, subtask_id: number) {
     return this.http.delete(
-      environment.API_ENDPOINT +
-        '/api/v1/tasks/task/' +
-        task_id +
-        '/sub-task/?subtask_id=' +
-        subtask_id,
+      environment.API_ENDPOINT + TASK_API + task_id + SUBTASK_PATH + subtask_id,
       {
         observe: 'response',
       },
@@ -102,7 +97,7 @@ export class TasksService {
 
   deleteTask(task_id: number): Observable<HttpResponse<any>> {
     return this.http.delete(
-      environment.API_ENDPOINT + '/api/v1/tasks/task/' + task_id + '/',
+      environment.API_ENDPOINT + TASK_API + task_id + '/',
       {
         observe: 'response',
       },
@@ -118,7 +113,7 @@ export class TasksService {
 
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
-      duration: 1000,
+      duration: 5000,
     });
   }
   getTodoList() {

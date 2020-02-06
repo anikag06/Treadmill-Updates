@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {environment} from '../../../../../../../environments/environment';
 import {HttpClient} from '@angular/common/http';
-import {ACT_AS_IF_ADVANTAGE_DELETE_URL, ACT_AS_IF_ADVANTAGE_URL, ACT_AS_IF_URL} from '@/app.constants';
+import {ACT_AS_IF_ADVANTAGE_API, ACT_AS_IF_ADVANTAGE_DELETE_API, ACT_AS_IF_API} from '@/app.constants';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +12,7 @@ export class ActAsIfService {
   getAdvantages(id: number) {
     return this.http.get(
       environment.API_ENDPOINT +
-        ACT_AS_IF_ADVANTAGE_URL +
+        ACT_AS_IF_ADVANTAGE_API +
         id +
         '/',
       {
@@ -24,7 +24,7 @@ export class ActAsIfService {
   getActingAsIf(id: number) {
     return this.http.get(
       environment.API_ENDPOINT +
-        ACT_AS_IF_URL +
+        ACT_AS_IF_API +
         id +
         '/',
       {
@@ -36,7 +36,7 @@ export class ActAsIfService {
   postAdvantages(data: any, id: number) {
     return this.http.post<any>(
       environment.API_ENDPOINT +
-        ACT_AS_IF_ADVANTAGE_URL +
+        ACT_AS_IF_ADVANTAGE_API +
         id +
         '/',
       data,
@@ -49,7 +49,7 @@ export class ActAsIfService {
   deleteAdvantage(id: number) {
     return this.http.delete<any>(
       environment.API_ENDPOINT +
-        ACT_AS_IF_ADVANTAGE_DELETE_URL +
+        ACT_AS_IF_ADVANTAGE_DELETE_API +
         id +
         '/',
       {
@@ -61,7 +61,7 @@ export class ActAsIfService {
   postActAsIf(act: any) {
     return this.http.post<any>(
       environment.API_ENDPOINT +
-        ACT_AS_IF_URL,
+        ACT_AS_IF_API,
       act,
       {
         observe: 'response',
@@ -72,7 +72,7 @@ export class ActAsIfService {
   putActAsIf(act: any, id: number) {
     return this.http.put<any>(
       environment.API_ENDPOINT +
-        ACT_AS_IF_URL +
+        ACT_AS_IF_API +
         id +
         '/',
       act,

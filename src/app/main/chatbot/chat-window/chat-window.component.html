@@ -118,19 +118,30 @@
       <!--          </button>-->
       <!--        </div>-->
       <!--      </div>-->
-<!--      <button-->
-<!--        (click)="onMoodSelect()"-->
+      <!--      <button-->
+      <!--        (click)="onMoodSelect()"-->
 
-<!--      >-->
-<!--        <span class="btn-text">Select your mood</span>-->
+      <!--      >-->
+      <!--        <span class="btn-text">Select your mood</span>-->
+      <!--      </button>-->
+      <!--      <div *ngIf="showMoodTracker">-->
+      <!--        <app-mood-tracker-->
+      <!--                class="chatbot"-->
+      <!--          (onClose)="onMoodSelect()"-->
+      <!--          (moodSubmit)="onChatSubmit($event)"-->
+      <!--          (moodMessage)="getMoodMessage($event)"-->
+      <!--        ></app-mood-tracker>-->
+      <!--      </div>-->
+<!--      <button (click)="onDateTimeSelect()">-->
+<!--        Date Time-->
 <!--      </button>-->
-<!--      <div *ngIf="showMoodTracker">-->
-<!--        <app-mood-tracker-->
-<!--                class="chatbot"-->
-<!--          (onClose)="onMoodSelect()"-->
-<!--          (moodSubmit)="onChatSubmit($event)"-->
-<!--          (moodMessage)="getMoodMessage($event)"-->
-<!--        ></app-mood-tracker>-->
+<!--      <div *ngIf="showDateTime">-->
+<!--        <app-date-time-picker-->
+<!--          class="chatbot"-->
+<!--          (onClose)="onDateTimeSelect()"-->
+<!--          (dateTimeSubmit)="onChatSubmit($event)"-->
+<!--          (dateTimeMessage)="getDateTimeMessage($event)"-->
+<!--        ></app-date-time-picker>-->
 <!--      </div>-->
       <div *ngFor="let widget of m.widgets">
         <div class="buttons">
@@ -142,7 +153,7 @@
           </button>
           <div *ngIf="showMoodTracker">
             <app-mood-tracker
-                    class="chatbot"
+              class="chatbot"
               (onClose)="onMoodSelect()"
               (moodSubmit)="onChatSubmit($event)"
               (moodMessage)="getMoodMessage($event)"
@@ -156,6 +167,7 @@
           </button>
           <div *ngIf="showDateTime">
             <app-date-time-picker
+              class="chatbot"
               (onClose)="onDateTimeSelect()"
               (dateTimeSubmit)="onChatSubmit($event)"
               (dateTimeMessage)="getDateTimeMessage($event)"

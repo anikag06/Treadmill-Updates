@@ -4,7 +4,7 @@ import {BehaviorSubject} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../../../environments/environment';
 import {Belief} from '@/main/resources/forms/belief-change/belief.model';
-import {BELIEF_FORM_URL} from '@/app.constants';
+import {BELIEF_FORM_API} from '@/app.constants';
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +27,7 @@ export class BeliefChangeService {
   getBeliefs() {
     if (this.nextPage) {
       this.http
-        .get<Belief[]>(environment.API_ENDPOINT + BELIEF_FORM_URL)
+        .get<Belief[]>(environment.API_ENDPOINT + BELIEF_FORM_API)
         .subscribe((data: any) => {
           // if (this.page === 1) {
           //   this.beliefs = [];
@@ -50,7 +50,7 @@ export class BeliefChangeService {
 
   deleteBelief(id: number) {
     return this.http.delete(
-      environment.API_ENDPOINT + BELIEF_FORM_URL + id + '/',
+      environment.API_ENDPOINT + BELIEF_FORM_API + id + '/',
       {
         observe: 'response',
       },
@@ -78,7 +78,7 @@ export class BeliefChangeService {
 
   postBelief(data: any) {
     return this.http.post<any>(
-      environment.API_ENDPOINT + BELIEF_FORM_URL,
+      environment.API_ENDPOINT + BELIEF_FORM_API,
       data,
       {
         observe: 'response',
@@ -88,7 +88,7 @@ export class BeliefChangeService {
 
   putBelief(data: any, id: any) {
     return this.http.put<any>(
-      environment.API_ENDPOINT + BELIEF_FORM_URL + id + '/',
+      environment.API_ENDPOINT + BELIEF_FORM_API + id + '/',
       data,
       {
         observe: 'response',

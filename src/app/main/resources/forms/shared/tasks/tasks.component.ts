@@ -1,25 +1,15 @@
-import { PSF_PROBLEM, RECOMMENDED, WEEK } from '@/app.constants';
-import { ProblemSolvingWorksheetsService } from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.service';
-import { Problem } from '@/main/resources/forms/problem-solving-worksheets/problem.model';
-import { TasksService } from '@/main/resources/forms/shared/tasks/tasks.service';
-import { DateTimePickerComponent } from '@/main/shared/date-time-picker/date-time-picker.component';
-import { DateTimePickerService } from '@/main/shared/date-time-picker/date-time-picker.service';
-import { HttpErrorResponse } from '@angular/common/http';
-import {
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  OnChanges,
-  OnInit,
-  Output,
-  SimpleChanges,
-} from '@angular/core';
-import { FormArray, FormBuilder, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material';
-import { UserSubTask } from './user-sub-task.model';
-import { UserTask } from './user-task.model';
+import {PSF_PROBLEM, RECOMMENDED, WEEK} from '@/app.constants';
+import {ProblemSolvingWorksheetsService} from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.service';
+import {Problem} from '@/main/resources/forms/problem-solving-worksheets/problem.model';
+import {TasksService} from '@/main/resources/forms/shared/tasks/tasks.service';
+import {DateTimePickerComponent} from '@/main/shared/date-time-picker/date-time-picker.component';
+import {DateTimePickerService} from '@/main/shared/date-time-picker/date-time-picker.service';
+import {HttpErrorResponse} from '@angular/common/http';
+import {ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges,} from '@angular/core';
+import {FormArray, FormBuilder, Validators} from '@angular/forms';
+import {MatDialog} from '@angular/material';
+import {UserSubTask} from './user-sub-task.model';
+import {UserTask} from './user-task.model';
 
 @Component({
   selector: 'app-tasks',
@@ -145,7 +135,7 @@ export class TasksComponent implements OnInit, OnChanges {
     };
 
     if (this.task && this.task.id > 0) {
-      this.taskService.putTask(object, this.task.id).subscribe(resp => {
+      this.taskService.putTask(object, this.task.id).subscribe((resp: any) => {
         taskBody = resp.body.data;
         status = resp.body.status;
         if (status) {
@@ -157,17 +147,29 @@ export class TasksComponent implements OnInit, OnChanges {
         this.taskHandler(taskBody, 'update');
       });
     } else {
-      this.taskService.postTask(object).subscribe(resp => {
-        taskBody = resp.body.data;
-        status = resp.body.status;
-        if (status) {
+      this.taskService.postTask(object).subscribe(
+        (resp: any) => {
           this.taskService.openSnackBar('Task Created Successfully', 'OK');
           this.taskValueChanged = false;
-        } else {
-          this.taskService.openSnackBar('Error Occured', 'Retry');
-        }
-        this.taskHandler(taskBody, 'create');
-      });
+          taskBody = resp.body.data;
+          this.taskHandler(taskBody, 'create');
+        },
+        error => {
+          console.log(error);
+          this.taskService.openSnackBar(error.error.non_field_errors, 'Retry');
+        },
+        // console.log(resp);
+        // taskBody = resp.body.data;
+        // status = resp.body.ok;
+        // console.log(resp.body);
+        // if (status) {
+        //   this.taskService.openSnackBar('Task Created Successfully', 'OK');
+        //   this.taskValueChanged = false;
+        // } else {
+        //   this.taskService.openSnackBar(resp.body.error, 'Retry');
+        // }
+        // this.taskHandler(taskBody, 'create');
+      );
     }
   }
 
@@ -425,7 +427,7 @@ export class TasksComponent implements OnInit, OnChanges {
 
   onDialogRefClosed(dialogRef: any) {
     dialogRef.afterClosed().subscribe((result: any) => {
-      if (result) {
+      if (result && result.data) {
         this.taskValueChanged = true;
         this.dateTime = result.data.dateTime;
         this.showDateTimePicker = result.data.showDateTimePicker;

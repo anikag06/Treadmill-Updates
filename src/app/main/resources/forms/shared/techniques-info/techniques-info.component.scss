@@ -1,27 +1,35 @@
 .rect {
   width: 4px;
   height: 20px;
+  margin-right: 0.75em;
 }
-
+.card-body {
+  padding-left: 0;
+  padding-right: 0;
+}
 .technique-name {
   font-size: 12px;
   font-weight: 500;
-  margin-left: 16px;
-  margin-bottom: 8px;
 }
 .technique-heading {
   display: flex;
 }
-.technique-description{
-    font-size: 12px;
-    margin-bottom: 18px;
+.technique-description {
+  font-size: 12px;
+  margin-bottom: 1rem;
+  margin-left: 1rem;
 }
 
-.back-btn{
-    margin: auto;
-    display: block;
-    background: #2A3B3D;
-    color: white;
-    outline: none;
-    box-shadow: none;
+.back-btn {
+  margin: auto;
+  display: block;
+  background: #2a3b3d;
+  color: white;
+  outline: none;
+  box-shadow: none;
+}
+.indexDiv {
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin-right: 0.25rem;
 }

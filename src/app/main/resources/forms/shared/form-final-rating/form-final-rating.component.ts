@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Inject, Input, OnInit, Output,} from '@angular/core';
 import {FormBuilder, FormControl, Validators} from '@angular/forms';
-import {IFinalRatingServices} from '@/main/resources/forms/shared/form-final-rating/final-rating-service.service';
+import {IFinalRatingServices} from '@/main/resources/forms/shared/form-final-rating/IFinalRatingServices';
 
 @Component({
   selector: 'app-form-final-rating',
@@ -41,7 +41,6 @@ export class FormFinalRatingComponent implements OnInit {
       this.providerService[this.service]
         .getFinalRating(this.object.id)
         .subscribe((data: any) => {
-          console.log(data);
           if (data.final_rating) {
             this.finalRating = data.final_rating;
             this.finalRatingChange.emit(this.finalRating);

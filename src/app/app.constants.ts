@@ -131,7 +131,8 @@ export const RESUME_CHAT = 'resume_chat';
 export const REPLY_CURRENT = 'reply_current';
 export const UNSPLASH_URL = 'https://api.unsplash.com';
 export const GIPHY_URL = 'https://api.giphy.com/v1/gifs/';
-export const GET_FEELING_LIST_URL = '/api/v1/worksheets/thought-record/get-feelings-list/';
+export const GET_FEELING_LIST_URL =
+  '/api/v1/worksheets/thought-record/get-feelings-list/';
 
 export const MAX_RETRIES = 10;
 export const CHATBOT_RETRY_TIMEOUT = 5000;
@@ -268,39 +269,53 @@ export const ETTBF_MAX_RATING_TEXT = 'Very strong';
 // Task form
 export const TASK = 'tasks';
 export const SET_ACTIVITY = 'set-activity';
+export const TASK_API  = '/api/v1/tasks/task/';
+export const SUBTASK_PATH =  '/sub-task/?subtask_id=';
 
 // Thought record form
 export const THOUGHT_RECORD = 'thought-record';
-export const THOUGHT_RECORD_SITUATION_URL =
+export const THOUGHT_RECORD_SITUATION_API =
   '/api/v1/worksheets/thought-record/situation/';
-export const THOUGHT_RECORD_URL = '/api/v1/worksheets/thought-record/thought/';
-export const THOUGHT_RECORD_BEHAVIOR_URL = '/api/v1/worksheets/thought-record/behavior/';
-export const THOUGHT_RECORD_FEELING_URL  =  '/api/v1/worksheets/thought-record/feelings/';
-export const IDENTIFY_THINKING_ERRORS_URL =
+export const THOUGHT_RECORD_API = '/api/v1/worksheets/thought-record/thought/';
+export const THOUGHT_RECORD_BEHAVIOR_API =
+  '/api/v1/worksheets/thought-record/behavior/';
+export const THOUGHT_RECORD_FEELING_API =
+  '/api/v1/worksheets/thought-record/feelings/';
+export const IDENTIFY_THINKING_ERRORS_API =
   '/api/v1/worksheets/thought-record/thinking-errors/';
-export const IDENTIFY_THINKING_ERRORS_GET_URL =
+export const IDENTIFY_THINKING_ERRORS_GET_API =
   '/api/v1/worksheets/thought-record/get-thinking-errors/';
-export const RECDORD_OUTCOME_URL =
+export const RECDORD_OUTCOME_API =
   '/api/v1/worksheets/thought-record/worst-outcome/';
-export const THOUGHT_HELP_URL =
+export const THOUGHT_HELP_API =
   '/api/v1/worksheets/thought-record/does-it-help/';
-export const FINAL_RATING_THOUGHT =
+export const FINAL_RATING_THOUGHT_API =
   '/api/v1/worksheets/thought-record/final-rating/';
-export const REALISTIC_THOUGHT =
+export const REALISTIC_THOUGHT_API =
   '/api/v1/worksheets/thought-record/realistic-thought/';
+export const THOUGHT_PROOF_EVIDENCES_API =
+  '/api/v1/worksheets/thought-record/evidences/';
+export const THOUGHT_TELL_FRIEND_API =
+  '/api/v1/worksheets/thought-record/tell-a-friend/';
+export const ALTERNATE_EXPLANATION_API =
+  '/api/v1/worksheets/thought-record/alternative-explanation/';
 
 // Belief Change Form
 export const BELIEF_CHANGE = 'belief-change';
-export const BELIEF_FORM_URL = '/api/v1/worksheets/belief-change/belief/';
-export const ACT_AS_IF_URL = '/api/v1/worksheets/belief-change/acting-as-if/';
-export const ACT_AS_IF_ADVANTAGE_URL =
+export const BELIEF_FORM_API = '/api/v1/worksheets/belief-change/belief/';
+export const ACT_AS_IF_API = '/api/v1/worksheets/belief-change/acting-as-if/';
+export const ACT_AS_IF_ADVANTAGE_API =
   '/api/v1/worksheets/belief-change/acting-as-if/advantages/';
-export const ACT_AS_IF_ADVANTAGE_DELETE_URL =
+export const ACT_AS_IF_ADVANTAGE_DELETE_API =
   '/api/v1/worksheets/belief-change/acting-as-if/advantage/delete/';
-export const FINAL_RATING_BELIEF =
+export const FINAL_RATING_BELIEF_API =
   '/api/v1/worksheets/belief-change/final-rating/';
-export const REALISTIC_BELIEF =
+export const REALISTIC_BELIEF_API =
   '/api/v1/worksheets/belief-change/realistic-belief/';
+export const BELIEF_PROOF_EVIDNECES_API =
+  '/api/v1/worksheets/belief-change/evidences/';
+export const BELIEF_TELL_FRIEND_API =
+  '/api/v1/worksheets/belief-change/tell-a-friend/';
 
 // form names
 export const PROBLEM_SOLVING_FORM_NAME = 'Cope with a problem';

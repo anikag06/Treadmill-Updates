@@ -1,6 +1,6 @@
 <mat-expansion-panel hideToggle #panel>
   <mat-expansion-panel-header
-    [ngStyle]="{ background: '#D4FFEF', paddingLeft: '16px' }"
+    [ngStyle]="{ background: headerColor, paddingLeft: '16px' }"
     [expandedHeight]="'42px'"
     [collapsedHeight]="'42px'"
   >
@@ -14,10 +14,9 @@
     </mat-panel-title>
     <mat-panel-description>
       <div class="iconsDiv" *ngIf="panel.expanded">
-        <mat-icon (click)="onShowInfo($event)">help_outline</mat-icon>
         <mat-icon>close</mat-icon>
       </div>
-      <div class="iconsDiv" *ngIf="!panel.expanded && summary.length > 0">
+      <div class="iconsDiv" *ngIf="!panel.expanded && this.summary.length > 0">
         <img src="assets/forms/edit_errors.png" width="24px" />
       </div>
     </mat-panel-description>
@@ -25,41 +24,45 @@
 
   <ng-template matExpansionPanelContent>
     <div class="q-heading">
-      {{ title }}
+      {{ question }}
     </div>
-    <div [ngStyle]="{ 'padding-left': '5px' }">
-      <form [formGroup]="identifyThinkingForm">
-        <div
-          *ngFor="let error of errors; let i = index"
-          formArrayName="emotions"
-        >
-          <mat-checkbox
-            [value]="error.error"
-            (change)="updateErrorCount($event, i)"
-            [checked]="error.isChecked"
-          >
-            {{ error.error }}
-          </mat-checkbox>
-        </div>
 
+    <form [formGroup]="techniqueForm">
+      <div>
+        <mat-form-field class="full-width">
+          <textarea
+            matInput
+            cdkTextareaAutosize
+            cdkAutosizeMinRows="2"
+            cdkAutosizeMaxRows="4"
+            formControlName="text"
+            class="form-control"
+            required
+            placeholder="Write Here"
+            #explain
+          ></textarea>
+        </mat-form-field>
+      </div>
+      <br />
+      <div>
         <button
+          type="submit"
           mat-raised-button
           class="btn continue-btn"
+          *ngIf="explain.value"
           [ngStyle]="{ float: 'right' }"
           (click)="onSubmit()"
         >
           Done
         </button>
-      </form>
-    </div>
+      </div>
+    </form>
   </ng-template>
 </mat-expansion-panel>
 
-<mat-card class="card-body" *ngIf="!panel.expanded && summary.length > 1">
+<mat-card class="card-body" *ngIf="!panel.expanded && summary.length > 0">
   <mat-card-content>
-    <div [ngStyle]="{ 'font-size': '12px' }">
-      Thinking Errors
-    </div>
+    <div [ngStyle]="{ 'font-size': '12px' }">Summary</div>
     <div [ngStyle]="{ 'margin-top': '8px', 'font-size': '12px' }">
       {{ summary }}
     </div>

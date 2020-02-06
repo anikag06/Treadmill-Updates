@@ -1,15 +1,8 @@
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
-import { TechniquesInfoComponent } from '@/main/resources/forms/shared/techniques-info/techniques-info.component';
-import { TECHNIQUE_DATA } from '@/main/resources/forms/shared/techniques-info/thought-record-techniques.data';
-import { MatDialog } from '@angular/material';
-import { Belief } from '@/main/resources/forms/belief-change/belief.model';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output,} from '@angular/core';
+import {TechniquesInfoComponent} from '@/main/resources/forms/shared/techniques-info/techniques-info.component';
+import {TRF_TECHNIQUES_DATA} from '@/main/resources/forms/shared/techniques-info/thought-record-techniques.data';
+import {MatDialog} from '@angular/material';
+import {Belief} from '@/main/resources/forms/belief-change/belief.model';
 
 @Component({
   selector: 'app-belief-change-techniques',
@@ -24,6 +17,13 @@ export class BeliefChangeTechniquesComponent implements OnInit {
   info = 'Use some of these techniques to modify beliefs.';
   @Input() belief!: Belief;
   @Output() showFinalBelief = new EventEmitter();
+  bg_color = '#FFFCE3';
+  favorTitle = 'What are the evidences supporting this belief?';
+  againstTitle = 'What are the evidences against this belief?';
+  tellTechnique = 'What would I tell a friend?';
+  tellQuestion =
+    'What would I tell a close friend or relative if they were having this belief?';
+  tellHdrColor = '#FFF3E9';
 
   ngOnInit() {}
 
@@ -50,7 +50,7 @@ export class BeliefChangeTechniquesComponent implements OnInit {
       panelClass: 'technique-info-dialog-container',
       autoFocus: false,
       data: {
-        techniquesInfo: TECHNIQUE_DATA,
+        techniquesInfo: TRF_TECHNIQUES_DATA,
       },
     });
   }

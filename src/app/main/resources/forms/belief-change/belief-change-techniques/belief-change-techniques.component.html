@@ -15,11 +15,25 @@
     <div class="techniques">
       <mat-accordion>
         <div class="technique">
-          <app-proof-belief [belief]="belief"></app-proof-belief>
+          <app-proof-evidences
+            [bg_Color]="bg_color"
+            [favorTitle]="favorTitle"
+            [againstTitle]="againstTitle"
+            [service]="1"
+            [id]="belief.id"
+          >
+          </app-proof-evidences>
         </div>
 
         <div class="technique">
-          <app-tell-friend-belief [belief]="belief"></app-tell-friend-belief>
+          <app-form-technique
+            [techniqueName]="tellTechnique"
+            [question]="tellQuestion"
+            [service]="2"
+            [id]="belief.id"
+            [headerColor]="tellHdrColor"
+          >
+          </app-form-technique>
         </div>
 
         <div class="technique">

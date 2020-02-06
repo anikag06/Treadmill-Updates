@@ -127,7 +127,6 @@ $small_logo_height: 40px;
   background: #fffaf3;
 }
 
-
 // to make the login dialog scrollable in mobile landscape mode
 .cdk-global-overlay-wrapper {
   overflow: auto;
@@ -161,7 +160,7 @@ $small_logo_height: 40px;
   position: absolute;
   bottom: 0;
 
-  >.mat-list-item-content {
+  > .mat-list-item-content {
     flex-direction: column !important;
   }
 
@@ -195,7 +194,7 @@ $small_logo_height: 40px;
 
 .app-main {
   // min-height: 100vh;
-  background-color: #FAF4EA;
+  background-color: #faf4ea;
   // height: 100%;
 }
 
@@ -214,7 +213,7 @@ $small_logo_height: 40px;
 
 .things-todo-main-list {
   .mat-checkbox-checked.mat-accent .mat-checkbox-background {
-    background-color: #2DAA84 !important;
+    background-color: #2daa84 !important;
   }
 }
 
@@ -230,7 +229,6 @@ img.emoji {
   min-height: 70vh !important;
   overflow: hidden !important;
 }
-
 
 .main-heading-h1 {
   @include font-montserrat($font-weight: 700);
@@ -313,7 +311,6 @@ img.emoji {
 }
 
 @media screen and (max-height: 640px) {
-
   .owl-dt-inline-container .owl-dt-calendar,
   .owl-dt-popup-container .owl-dt-calendar {
     height: 17.25em;
@@ -333,7 +330,6 @@ img.emoji {
   padding: 0px !important;
   width: 340px;
   height: 620px;
-  display: contents;
 }
 
 .moodTracker-dialog-container .mat-dialog-container {
@@ -357,10 +353,10 @@ img.emoji {
 
 .common-belief-dialog-container .mat-dialog-container {
   width: 336px;
-  height: 495px;
+  height: 520px;
   padding-top: 0;
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: hidden;
 }
 
 .mat-slider-thumb {
@@ -371,4 +367,15 @@ img.emoji {
   .app-main {
     background-color: white;
   }
+}
+.mat-radio-label {
+  white-space: normal !important;
+  align-items: end !important;
+}
+
+.mat-radio-button.mat-primary .mat-radio-inner-circle {
+  background-color: #000000de !important;
+}
+.mat-radio-outer-circle {
+  border-color: #000000de !important;
 }

@@ -1,13 +1,6 @@
-import {
-  Component,
-  EventEmitter,
-  Inject,
-  OnInit,
-  Optional,
-  Output,
-} from '@angular/core';
+import {Component, EventEmitter, Inject, OnInit, Optional, Output,} from '@angular/core';
 
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 
 @Component({
   selector: 'app-techniques-info',
@@ -24,6 +17,7 @@ export class TechniquesInfoComponent implements OnInit {
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
     if (data) {
+      console.log(data);
       this.techniques = data.techniquesInfo;
     }
   }

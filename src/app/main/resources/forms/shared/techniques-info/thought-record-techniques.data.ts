@@ -1,4 +1,4 @@
-export const TECHNIQUE_DATA = [
+export const TRF_TECHNIQUES_DATA = [
   {
     color: '#85E5C1',
     name: 'Identify thinking',

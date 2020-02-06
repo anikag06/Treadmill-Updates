@@ -1,16 +1,12 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  Input,
-  OnInit,
-  SimpleChanges,
-  ViewChild,
-} from '@angular/core';
+import {Component, Input, OnInit, SimpleChanges, ViewChild,} from '@angular/core';
 
-import { FormArray, FormBuilder, FormControl } from '@angular/forms';
-import { IdentifyThinkingService } from '@/main/resources/forms/thought-record-form/thought-record-techniques/identify-thinking/identify-thinking.service';
-import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
-import { ThinkingErrorModel } from '@/main/resources/forms/thought-record-form/thought-record-techniques/identify-thinking/thinking-error.model';
+import {FormArray, FormBuilder, FormControl} from '@angular/forms';
+import {IdentifyThinkingService} from '@/main/resources/forms/thought-record-form/thought-record-techniques/identify-thinking/identify-thinking.service';
+import {Thought} from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
+import {ThinkingErrorModel} from '@/main/resources/forms/thought-record-form/thought-record-techniques/identify-thinking/thinking-error.model';
+import {TechniquesInfoComponent} from '@/main/resources/forms/shared/techniques-info/techniques-info.component';
+import {MatDialog} from '@angular/material';
+import {THINIKING_ERROR_DATA} from '@/main/resources/forms/shared/techniques-info/thinking-error-technique.data';
 
 @Component({
   selector: 'app-identify-thinking',
@@ -36,7 +32,7 @@ export class IdentifyThinkingComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private identifyThinkingService: IdentifyThinkingService,
-    private changeDetector: ChangeDetectorRef,
+    public dialog: MatDialog,
   ) {
     this.identifyThinkingService
       .getThinkingErrors()
@@ -116,5 +112,16 @@ export class IdentifyThinkingComponent implements OnInit {
   setSummary(thinkingErrors: string[]) {
     this.summary = thinkingErrors.join(',');
     // this.changeDetector.detectChanges();
+  }
+
+  onShowInfo($event: Event) {
+    $event.stopPropagation();
+    const dialogRef = this.dialog.open(TechniquesInfoComponent, {
+      panelClass: 'technique-info-dialog-container',
+      autoFocus: false,
+      data: {
+        techniquesInfo: THINIKING_ERROR_DATA,
+      },
+    });
   }
 }

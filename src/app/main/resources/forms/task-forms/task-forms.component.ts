@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { UserTask } from '@/main/resources/forms/shared/tasks/user-task.model';
-import { TASK } from '@/app.constants';
+import {Component, OnInit} from '@angular/core';
+import {UserTask} from '@/main/resources/forms/shared/tasks/user-task.model';
+import {SET_ACTIVITY} from '@/app.constants';
+
 @Component({
   selector: 'app-task-forms',
   templateUrl: './task-forms.component.html',
@@ -9,7 +10,8 @@ import { TASK } from '@/app.constants';
 export class TaskFormsComponent implements OnInit {
   task!: UserTask | undefined;
   reset = false;
-  taskHeading: string = 'Set Task';
+  taskHeading = 'Set Task';
+  type = SET_ACTIVITY;
   constructor() {}
 
   ngOnInit() {}

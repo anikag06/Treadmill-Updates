@@ -16,20 +16,6 @@ import {LayoutModule} from '@angular/cdk/layout';
 import {CommonModule} from '@angular/common';
 import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {
-  MatButtonModule,
-  MatDatepickerModule,
-  MatDialogModule,
-  MatExpansionModule,
-  MatIconModule,
-  MatListModule,
-  MatRadioModule,
-  MatSidenavModule,
-  MatSlideToggleModule,
-  MatSnackBarModule,
-  MatToolbarModule,
-  MatTooltipModule,
-} from '@angular/material';
 import {MatMomentDateModule} from '@angular/material-moment-adapter';
 import {OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
 import {DateTimePickerComponent} from '../shared/date-time-picker/date-time-picker.component';
@@ -69,7 +55,6 @@ import {WorryFormComponent} from '@/main/resources/forms/worry-productively-form
 import {TechniquesComponent} from './forms/worry-productively-form/techniques/techniques.component';
 import {EvaluateWorryComponent} from './forms/worry-productively-form/techniques/evaluate-worry/evaluate-worry.component';
 import {MoodWidgetCardComponent} from './forms/thought-record-form/mood-widget-card/mood-widget-card.component';
-import {FormCardComponent} from './forms/thought-record-form/form-card/form-card.component';
 import {MoodTrackerComponent} from '../shared/mood-tracker/mood-tracker.component';
 import {FaceMyWorstFearComponent} from './forms/worry-productively-form/techniques/face-my-worst-fear/face-my-worst-fear.component';
 import {WpfDealWithWorryComponent} from './forms/worry-productively-form/techniques/wpf-deal-with-worry/wpf-deal-with-worry.component';
@@ -83,42 +68,39 @@ import {TechniquesInfoComponent} from './forms/shared/techniques-info/techniques
 // tslint:disable-next-line:max-line-length
 import {IdentifyThinkingComponent} from './forms/thought-record-form/thought-record-techniques/identify-thinking/identify-thinking.component';
 
-import {ProofComponent} from './forms/thought-record-form/thought-record-techniques/proof/proof.component';
-import {EvidenceFormComponent} from './forms/thought-record-form/thought-record-techniques/proof/evidence-form/evidence-form.component';
-// tslint:disable-next-line:max-line-length
-import {AlternativeExplanationComponent} from './forms/thought-record-form/thought-record-techniques/alternative-explanation/alternative-explanation.component';
 import {RecordOutcomeComponent} from './forms/thought-record-form/thought-record-techniques/record-outcome/record-outcome.component';
 import {FormTextareaComponent} from './forms/shared/form-textarea/form-textarea.component';
 import {ThoughtHelpComponent} from './forms/thought-record-form/thought-record-techniques/thought-help/thought-help.component';
-import {TellFriendComponent} from './forms/thought-record-form/thought-record-techniques/tell-friend/tell-friend.component';
+
 import {ThoughtRecordService} from '@/main/resources/forms/thought-record-form/thought-record.service';
 import {MoodTrackerService} from '@/main/shared/mood-tracker/mood-tracker.service';
-import {ProofService} from '@/main/resources/forms/thought-record-form/thought-record-techniques/proof/proof.service';
-import {AlternativeExplanationService} from './forms/thought-record-form/thought-record-techniques/alternative-explanation/alternative-explanation.service';
+
 import {RecordOutcomeService} from './forms/thought-record-form/thought-record-techniques/record-outcome/record-outcome.service';
 import {ThoughtHelpService} from './forms/thought-record-form/thought-record-techniques/thought-help/thought-help.service';
-import {TellFriendService} from '@/main/resources/forms/thought-record-form/thought-record-techniques/tell-friend/tell-friend.service';
+
 import {BeliefChangeComponent} from './forms/belief-change/belief-change.component';
 import {NegativeBeliefComponent} from './forms/belief-change/negative-belief/negative-belief.component';
 import {CommonBeliefComponent} from './forms/belief-change/negative-belief/common-belief/common-belief.component';
 import {NegativeThoughtCardComponent} from './forms/thought-record-form/negative-thought-card/negative-thought-card.component';
 import {BeliefChangeTechniquesComponent} from './forms/belief-change/belief-change-techniques/belief-change-techniques.component';
 import {BeliefChangeService} from '@/main/resources/forms/belief-change/belief-change.service';
-import {ProofBeliefComponent} from './forms/belief-change/belief-change-techniques/proof-belief/proof-belief.component';
-import {BeliefEvidencesComponent} from './forms/belief-change/belief-change-techniques/proof-belief/belief-evidences/belief-evidences.component';
-import {ProofBeliefService} from '@/main/resources/forms/belief-change/belief-change-techniques/proof-belief/proof-belief.service';
-import {TellFriendBeliefComponent} from './forms/belief-change/belief-change-techniques/tell-friend-belief/tell-friend-belief.component';
-import {TellFriendBeliefService} from '@/main/resources/forms/belief-change/belief-change-techniques/tell-friend-belief/tell-friend-belief.service';
 import {ActAsIfComponent} from './forms/belief-change/belief-change-techniques/act-as-if/act-as-if.component';
 import {ActAsIfService} from '@/main/resources/forms/belief-change/belief-change-techniques/act-as-if/act-as-if.service';
 import {FormMessageComponent} from './forms/shared/form-message/form-message.component';
 import {FormQuoteComponent} from './forms/shared/form-quote/form-quote.component';
 
 import {FormFinalRatingComponent} from './forms/shared/form-final-rating/form-final-rating.component';
+import {NegativeBeliefFinalService, ThoughtRecordFinalService,} from '@/main/resources/forms/shared/form-final-rating/final-rating.service';
+import {ProofEvidencesComponent} from './forms/shared/proof-evidences/proof-evidences.component';
+import {EvidencesComponent} from './forms/shared/proof-evidences/evidences/evidences.component';
+import {BeliefProofService, TRFProofService,} from '@/main/resources/forms/shared/proof-evidences/proof-evidences.service';
+import {FormCardComponent} from '@/main/resources/forms/thought-record-form/form-card/form-card.component';
+import {FormTechniqueComponent} from './forms/shared/form-technique/form-technique.component';
 import {
-  NegativeBeliefFinalService,
-  ThoughtRecordFinalService,
-} from '@/main/resources/forms/shared/form-final-rating/final-rating-service.service';
+    AlternateExplanationService,
+    BeliefTellFriendService,
+    TRFTellFriendService,
+} from '@/main/resources/forms/shared/form-technique/form-technique.service';
 
 @NgModule({
   declarations: [
@@ -170,14 +152,10 @@ import {
     ThoughtRecordTechniquesComponent,
     TechniquesInfoComponent,
     IdentifyThinkingComponent,
-    ProofComponent,
     ClickOutsideDirective,
-    EvidenceFormComponent,
-    AlternativeExplanationComponent,
     RecordOutcomeComponent,
     FormTextareaComponent,
     ThoughtHelpComponent,
-    TellFriendComponent,
     DateTimePickerComponent,
     ModifyBeliefsComponent,
     BeliefChangeComponent,
@@ -185,13 +163,13 @@ import {
     CommonBeliefComponent,
     NegativeThoughtCardComponent,
     BeliefChangeTechniquesComponent,
-    ProofBeliefComponent,
-    BeliefEvidencesComponent,
-    TellFriendBeliefComponent,
     ActAsIfComponent,
     FormMessageComponent,
     FormQuoteComponent,
     FormFinalRatingComponent,
+    ProofEvidencesComponent,
+    EvidencesComponent,
+    FormTechniqueComponent,
   ],
   imports: [
     ResourcesRoutingModule,
@@ -200,22 +178,10 @@ import {
     FormsModule,
     AngularEditorModule,
     LayoutModule,
-    MatToolbarModule,
-    MatTooltipModule,
-    MatButtonModule,
-    MatDialogModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
     ReactiveFormsModule,
-    MatDatepickerModule,
     MatMomentDateModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
-    MatSlideToggleModule,
-    MatExpansionModule,
-    MatRadioModule,
-    MatSnackBarModule,
   ],
   providers: [
     SlideService,
@@ -225,15 +191,10 @@ import {
     ConclusionService,
     ThoughtRecordService,
     IdentifyThinkingService,
-    ProofService,
     MoodTrackerService,
-    AlternativeExplanationService,
     RecordOutcomeService,
     ThoughtHelpService,
-    TellFriendService,
     BeliefChangeService,
-    ProofBeliefService,
-    TellFriendBeliefService,
     ActAsIfService,
     {
       provide: 'IFinalRatingServices',
@@ -243,6 +204,32 @@ import {
     {
       provide: 'IFinalRatingServices',
       useClass: ThoughtRecordFinalService,
+      multi: true,
+    },
+    {
+      provide: 'IProofEvidences',
+      useClass: TRFProofService,
+      multi: true,
+    },
+    {
+      provide: 'IProofEvidences',
+      useClass: BeliefProofService,
+      multi: true,
+    },
+
+    {
+      provide: 'IFormTechniqueServices',
+      useClass: AlternateExplanationService,
+      multi: true,
+    },
+    {
+      provide: 'IFormTechniqueServices',
+      useClass: TRFTellFriendService,
+      multi: true,
+    },
+    {
+      provide: 'IFormTechniqueServices',
+      useClass: BeliefTellFriendService,
       multi: true,
     },
   ],

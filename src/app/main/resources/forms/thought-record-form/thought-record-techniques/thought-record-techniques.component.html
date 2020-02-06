@@ -15,27 +15,50 @@
     <div class="techniques">
       <mat-accordion>
         <div class="technique">
-          <app-identify-thinking [thought]="thought"  [reset]="reset"></app-identify-thinking>
+          <app-identify-thinking
+            [thought]="thought"
+            [reset]="reset"
+          ></app-identify-thinking>
+        </div>
+        <div class="technique">
+          <app-proof-evidences
+            [bg_Color]="proofHdrColor"
+            [favorTitle]="favorTitle"
+            [againstTitle]="againstTitle"
+            [service]="0"
+            [id]="thought.id"
+          >
+          </app-proof-evidences>
         </div>
 
         <div class="technique">
-          <app-proof [thought]="thought" [reset]="reset"></app-proof>
+          <app-form-technique
+            [techniqueName]="explnTechnique"
+            [question]="explnQuestion"
+            [service]="0"
+            [id]="thought.id"
+            [headerColor]="explnHdrColor"
+          >
+          </app-form-technique>
         </div>
 
         <div class="technique">
-            <app-explanation [thought]="thought"></app-explanation>
+          <app-record-outcome [thought]="thought"></app-record-outcome>
         </div>
 
         <div class="technique">
-            <app-record-outcome [thought]="thought"></app-record-outcome>
+          <app-thought-help [thought]="thought"></app-thought-help>
         </div>
 
         <div class="technique">
-            <app-thought-help [thought]="thought"></app-thought-help>
-        </div>
-
-        <div class="technique">
-            <app-tell-friend [thought]="thought" (triggerShowFinalThought)="triggerShowFinalThought()"></app-tell-friend>
+          <app-form-technique
+            [techniqueName]="tellTechnique"
+            [question]="tellQuestion"
+            [service]="1"
+            [id]="thought.id"
+            [headerColor]="tellHdrColor"
+          >
+          </app-form-technique>
         </div>
       </mat-accordion>
     </div>

@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output,} from '@angular/core';
 import {MatDialog} from '@angular/material';
-import {TECHNIQUE_DATA} from '../../shared/techniques-info/thought-record-techniques.data';
+import {TRF_TECHNIQUES_DATA} from '../../shared/techniques-info/thought-record-techniques.data';
 import {TechniquesInfoComponent} from '../../shared/techniques-info/techniques-info.component';
 import {Thought} from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
 
@@ -17,6 +17,16 @@ export class ThoughtRecordTechniquesComponent implements OnInit, AfterViewInit {
   header =
     'Select the technique that you would like to use to evaluate the negative thought';
   info = 'Use some of these techniques to evaluate thoughts.';
+  favorTitle = 'What are the evidences supporting this negative thought?';
+  againstTitle = 'What are the evidences against this negative thought?';
+  proofHdrColor = '#FFFCE3';
+  explnHdrColor = '#FEC1C1';
+  tellHdrColor = '#FFF3E9';
+  explnTechnique = 'Is this the only explanation?';
+  explnQuestion = 'Can there be another explanation for this situation?';
+  tellTechnique = 'What would I tell a friend?';
+  tellQuestion =
+    'What would I tell a close friend or relative if they were having this thought?';
 
   @Input() reset!: boolean;
 
@@ -49,7 +59,7 @@ export class ThoughtRecordTechniquesComponent implements OnInit, AfterViewInit {
       panelClass: 'technique-info-dialog-container',
       autoFocus: false,
       data: {
-        techniquesInfo: TECHNIQUE_DATA,
+        techniquesInfo: TRF_TECHNIQUES_DATA,
       },
     });
   }
