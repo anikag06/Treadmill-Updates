@@ -51,6 +51,7 @@ export const mainRoutes: Routes = [
       {
         path: 'scores',
         component: ScoreComponent,
+        data: { title: 'Questionnaire Scores' },
         children: [
           { path: 'phq', component: PhqNineComponent },
           { path: 'gad', component: GadSevenComponent },

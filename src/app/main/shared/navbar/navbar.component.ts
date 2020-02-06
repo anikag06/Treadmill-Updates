@@ -22,6 +22,7 @@ import {
   NavigationError,
 } from '@angular/router';
 import { AuthService } from '@/shared/auth/auth.service';
+import { GamePlayService } from '@/main/games/shared/game-play.service';
 
 @Component({
   selector: 'app-navbar',
@@ -50,19 +51,25 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private auth: AuthService,
+    private gamePlayService: GamePlayService,
   ) {
 
 
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationStart) {
         // Show loading indicator
+
       }
 
       if (event instanceof NavigationEnd) {
-        // Hide loading indicator
-        console.log('FROM AUTH.TS', this.auth.navbarTitle);
-        this.navbarTitle = this.auth.navbarTitle;
-        // });
+
+        if (this.auth.navbarTitle) {
+          this.navbarTitle = this.auth.navbarTitle;
+        }
+        this.gamePlayService.gameTitle.subscribe(() => {
+          console.log('FROM NAVBAR', this.gamePlayService.gameName);
+          this.navbarTitle = this.gamePlayService.gameName;
+        });
       }
 
       if (event instanceof NavigationError) {
