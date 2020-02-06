@@ -2,6 +2,10 @@
   height: 100px;
   width: 100%;
 
+  h1 {
+    text-transform: capitalize;
+  }
+
   .navbar-title {
     // height: 100px;
     padding-left: 50px;
@@ -93,12 +97,14 @@
 
     h1 {
       font-size: 1.2rem;
+      color: white;
+
     }
 
     .all-icons-mobile {
       display: block;
       position: absolute;
-      top: -80px;
+      top: -50px;
       right: 10px;
 
       .icon-items {
