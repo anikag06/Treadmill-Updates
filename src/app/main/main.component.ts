@@ -1,17 +1,20 @@
 import {
   Component,
+  ComponentFactoryResolver,
+  ComponentRef,
+  DoCheck,
+  OnChanges,
   OnInit,
   ViewChild,
-  OnChanges,
-  DoCheck,
+  ViewContainerRef,
 } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 import { AuthService } from '@/shared/auth/auth.service';
 import { User } from '@/shared/user.model';
-import { Router, NavigationStart } from '@angular/router';
-import { DEFAULT_PATH } from '@/app.constants';
+import { NavigationStart, Router } from '@angular/router';
+import { DEFAULT_PATH, SHOW_TOAST_DURATION } from '@/app.constants';
 import { MatDrawer } from '@angular/material';
 import { DataService } from '@/shared/questionnaire/data.service';
 import { FcmService } from '@/shared/fcm.service';
@@ -21,6 +24,8 @@ import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { IntroduceComponent } from './shared/introduce/introduce.component';
 import { IntroduceService } from './shared/introduce/introduce.service';
+import { ToastNotificationDirective } from '@/shared/toast-notification/toast-notification.directive';
+import { ToastNotificationComponent } from '@/shared/toast-notification/toast-notification.component';
 
 // tslint:disable-next-line:max-line-length
 
@@ -40,6 +45,8 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
     .observe([Breakpoints.Handset, Breakpoints.Small])
     .pipe(map(result => result.matches));
   isExpanded = true;
+  @ViewChild(ToastNotificationDirective, { static: true })
+  toastNotification!: ToastNotificationDirective;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -51,6 +58,7 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
     private flowService: FlowService,
     private overlay: Overlay,
     private introduceService: IntroduceService,
+    private componentFactoryResolver: ComponentFactoryResolver,
   ) {}
 
   ngOnChanges() {}
@@ -76,6 +84,20 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
         this.overlayRef.detach();
       }
     });
+
+    this.fcmService.newNotification.subscribe(message => {
+      const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
+        ToastNotificationComponent,
+      );
+      const toastComponentRef = this.toastNotification.viewContainerRef.createComponent(
+        componentFactory,
+      );
+      toastComponentRef.instance.title = message.notification.title;
+      toastComponentRef.instance.body = message.notification.body;
+      setTimeout(() => {
+        toastComponentRef.destroy();
+      }, SHOW_TOAST_DURATION);
+    });
   }
 
   ngDoCheck() {
@@ -83,11 +105,11 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
     const user = this.authService.isLoggedIn();
     if (user && user.is_active) {
       this.user = <User>user;
-      if (this.routing === false) {
+      if (!this.routing) {
         this.goToQuestionnaire(this.router);
       }
     }
-    if (this.routing === false) {
+    if (!this.routing) {
       this.router.events
         .pipe(filter(e => e instanceof NavigationStart))
         .subscribe((e: any) => {

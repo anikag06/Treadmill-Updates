@@ -115,3 +115,9 @@ button:focus {
     height: 40px;
   }
 }
+
+.notification-div {
+  position: sticky;
+  bottom: 10px;
+  z-index: 100;
+}

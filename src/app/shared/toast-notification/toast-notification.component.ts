@@ -1,30 +1,40 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { SHOW_TOAST_DURATION } from '@/app.constants';
-import { FcmService } from '@/shared/fcm.service';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  OnInit,
+  Output,
+} from '@angular/core';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+} from '@angular/animations';
 
 @Component({
   selector: 'app-toast-notification',
   templateUrl: './toast-notification.component.html',
   styleUrls: ['./toast-notification.component.scss'],
+  animations: [
+    trigger('showHide', [
+      state(
+        'show',
+        style({
+          opacity: 1,
+        }),
+      ),
+      transition('* => show', [animate('0.4s')]),
+    ]),
+  ],
 })
 export class ToastNotificationComponent implements OnInit {
-  showToast = false;
   title!: string;
   body!: string;
-  constructor(private fcmService: FcmService) {}
-
-  ngOnInit() {
-    this.fcmService.newNotification.subscribe(message => {
-      this.showToast = true;
-      this.title = message.notification.title;
-      this.body = message.notification.body;
-      setTimeout(() => {
-        this.showToast = false;
-      }, SHOW_TOAST_DURATION);
-    });
-  }
-
-  closeToast() {
-    this.showToast = false;
+  constructor(private host: ElementRef<HTMLElement>) {}
+  ngOnInit() {}
+  onClose() {
+    this.host.nativeElement.remove();
   }
 }

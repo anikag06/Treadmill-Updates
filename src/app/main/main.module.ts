@@ -175,6 +175,7 @@ import { WorryProductivelyService } from '@/main/resources/forms/worry-productiv
 import { InfiniteScrollDirective } from './shared/infinite-scroll/infinite-scroll.directive';
 import { LazyLoadingImageDirective } from './shared/lazy-loading-image/lazy-loading-image.directive';
 import { ToastNotificationComponent } from '@/shared/toast-notification/toast-notification.component';
+import { ToastNotificationDirective } from '@/shared/toast-notification/toast-notification.directive';
 
 @NgModule({
   declarations: [
@@ -281,6 +282,7 @@ import { ToastNotificationComponent } from '@/shared/toast-notification/toast-no
     LazyLoadingImageDirective,
     InfiniteScrollDirective,
     ToastNotificationComponent,
+    ToastNotificationDirective,
   ],
   imports: [
     CommonModule,
@@ -378,6 +380,7 @@ import { ToastNotificationComponent } from '@/shared/toast-notification/toast-no
     FfgPlayagainComponent,
     FfgNolifeComponent,
     LoadingBarComponent,
+    ToastNotificationComponent,
   ],
 })
 export class MainModule {}
