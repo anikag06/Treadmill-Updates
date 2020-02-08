@@ -26,7 +26,7 @@ export const mainRoutes: Routes = [
     component: MainComponent,
     canActivateChild: [AuthGuard],
     children: [
-      { path: 'dashboard', component: DashboardComponent, data: { title: 'Hello Name' } },
+      { path: 'dashboard', component: DashboardComponent, data: { title: 'Hello ' } },
       { path: 'questionnaire', component: GetQuestionnaireComponent },
       { path: 'support-groups', component: SupportGroupsComponent, data: { title: 'Support Group' } },
       {

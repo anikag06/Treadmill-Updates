@@ -42,6 +42,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   navbarTitle!: string;
   userNotificationSubscription!: Subscription;
   can!: any;
+  isDashboard = false;
   @Input() user!: User;
 
 
@@ -62,9 +63,13 @@ export class NavbarComponent implements OnInit, OnDestroy {
       }
 
       if (event instanceof NavigationEnd) {
-
+        this.isDashboard = false;
         if (this.auth.navbarTitle) {
           this.navbarTitle = this.auth.navbarTitle;
+          console.log(event);
+          if (event.url === '/dashboard') {
+            this.isDashboard = true;
+          }
         }
         this.gamePlayService.gameTitle.subscribe(() => {
           console.log('FROM NAVBAR', this.gamePlayService.gameName);
