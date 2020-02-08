@@ -1,15 +1,18 @@
 .badge-image {
   height: 78px;
 }
-.clear-icon{
- font-size: 10px;
+
+.clear-icon {
+  font-size: 10px;
 }
+
 .badge-box {
   width: 140px;
   text-align: center;
   display: inline-block;
   margin-top: 10px;
-  .badge-count{
+
+  .badge-count {
     height: 30px;
     width: 30px;
     position: absolute;
@@ -18,10 +21,12 @@
     opacity: 0.6;
   }
 }
+
 .badge-name {
   font-size: 15px;
   margin-top: 20px;
 }
+
 .left-arrow {
   left: 0px;
   position: absolute;
@@ -41,6 +46,7 @@
   background: none;
   outline: none;
 }
+
 .cover-container::-webkit-scrollbar {
   width: 0 !important;
 }
@@ -53,40 +59,49 @@
   -ms-overflow-style: none;
 }
 
-@media screen and (min-width: 768px) and (max-width: 1200px){
-  .badge-box{
+@media screen and (min-width: 768px) and (max-width: 1368px) {
+  .badge-box {
     width: 120px;
-    .badge-count{
-      right:15px;
+
+    .badge-count {
+      right: 15px;
     }
   }
+
   .badge-image {
     height: 65px;
   }
+
   .cover-container {
     min-height: 110px;
   }
-  .badge-name{
+
+  .badge-name {
     margin-top: 10px;
   }
+
   .left-arrow {
     top: 50px;
   }
+
   .right-arrow {
     top: 50px;
   }
 }
 
 @media screen and (max-width: 767px) {
-  .badge-box {  
+  .badge-box {
     width: 90px;
-    .badge-count{
-      right:3px;
+
+    .badge-count {
+      right: 3px;
     }
   }
+
   .badge-image {
     height: 55px;
   }
+
   .badge {
     width: 110px;
     text-align: center;
@@ -114,6 +129,7 @@
   min-height: 130px;
   max-height: 150px;
 }
+
 .cover-item {
   position: relative;
   display: inline-block;
@@ -124,4 +140,3 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
-

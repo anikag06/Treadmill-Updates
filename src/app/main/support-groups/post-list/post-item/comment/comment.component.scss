@@ -93,10 +93,10 @@ a.toggler {
   z-index: 300;
   position: absolute;
   text-align: initial;
-  max-width: 600px;
+  max-width: 500px;
   margin-left: 140px;
   max-height: 340px;
-  min-width: 590px;
+  min-width: 490px;
 }
 
 .cancel-btn {
@@ -122,7 +122,7 @@ a.toggler {
   background-color: #E2E2E2;
 }
 
-@media screen and (min-width: 768px) and (max-width: 1199px) {
+@media screen and (min-width: 768px) and (max-width: 1366px) {
   .comment-profile-card {
     max-height: 280px;
     left: 30px;
@@ -134,10 +134,11 @@ a.toggler {
 
 @media screen and (max-width: 767px) {
   .comment-profile-card {
-    max-width: 450px;
+    max-width: 350px;
     left: 100px;
-    min-width: 440px;
+    min-width: 340px;
     max-height: 261px;
+    margin-left: 10px;
   }
 }
 
@@ -163,9 +164,10 @@ a.toggler {
   }
 
   .comment-profile-card {
-    width: 98vw;
+    width: 96vw;
     min-width: 315px;
-    margin-left: 0;
-    left: -9px;
+    margin-left: 10px;
+    margin-top: 15px;
+    left: 0px;
   }
 }

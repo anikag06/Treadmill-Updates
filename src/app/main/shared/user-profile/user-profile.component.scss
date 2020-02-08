@@ -41,7 +41,8 @@
       border-radius: 50%;
       background: transparent 0% 0% cover padding-box;
     }
-    .points{
+
+    .points {
       flex-wrap: inherit;
     }
   }
@@ -127,13 +128,20 @@
   }
 }
 
-@media screen and (min-width: 1200px) and (max-width:1270px) {
-  .profile-card {
-    max-width: 490px;
-  }
-}
+// @media screen and (min-width: 1200px) and (max-width:1270px) {
+//   .profile-card {
+//     max-width: 490px;
+//   }
+// }
 
-@media screen and (min-width: 768px) and (max-width: 1199px) {
+// @media screen and (min-width: 1200px) and (max-width:13680px) {
+//   :host-context(.dashboard-profile-card) .profile-card {
+//     margin: 0;
+//     max-width: 98%;
+//   }
+// }
+
+@media screen and (min-width: 768px) and (max-width: 1368px) {
   .profile-card {
     max-width: 85%;
     margin: auto;
