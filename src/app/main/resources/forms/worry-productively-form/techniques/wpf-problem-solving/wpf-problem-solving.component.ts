@@ -15,19 +15,18 @@ import { WorryProductivelyService } from '../../worry-productively.service';
   styleUrls: ['./wpf-problem-solving.component.scss'],
 })
 export class WpfProblemSolvingComponent implements OnInit {
-  @Input() canISolve = false;
   @Input() worry!: Worry;
-  @Output() summaryProbSolvingEvent = new EventEmitter<boolean>();
+  @Output() summaryProbSolvingEvent = new EventEmitter<string>();
   radioResponse = '';
   imageDisplay = false;
   // choices = ['Yes', 'No'];
-  summary = false;
   summaryText = '';
   responseData = '';
   problemSolving: string[] = [];
+  canDoAnything!: number;
   problemSolvingForm = this.fb.group({
-    problemSolvingStatement: new FormControl('', Validators.required),
-    choices: new FormControl(),
+    problemSolvingStatement: new FormControl('', [Validators.required]),
+    choices: new FormControl(''),
   });
   continueButton = false;
   constructor(
@@ -37,24 +36,35 @@ export class WpfProblemSolvingComponent implements OnInit {
 
   ngOnInit() {}
   ngOnChanges() {
+    this.resetForm();
+    // this.summaryProbSolvingEvent.emit(this.summaryText);
     if (this.worry) {
       this.worryService
         .getProblemSolving(this.worry.id)
         .subscribe((resp: any) => {
-          console.log('problem solving' + resp);
           if (resp.body) {
             if (resp.body.can_do_anything) {
               this.problemSolvingForm.controls['choices'].setValue('1');
+              this.summaryText = resp.body.problem_statement;
+              this.summaryProbSolvingEvent.emit(this.summaryText);
             } else if (!resp.body.can_do_anything) {
               this.problemSolvingForm.controls['choices'].setValue('0');
             }
             this.problemSolvingForm.controls[
               'problemSolvingStatement'
             ].setValue(resp.body.problem_statement);
-            this.problemSolving.push(resp);
+            this.problemSolving.push(resp.body.problem_statement);
           }
         });
     }
+  } 
+  resetForm(){
+    this.problemSolvingForm = this.fb.group({
+      problemSolvingStatement : new FormControl(''),
+      choices : new FormControl(''),
+    })
+    this.summaryText = '';
+    this.summaryProbSolvingEvent.emit(this.summaryText);
   }
   // worrySelected(worry: Worry) {
   //   this.worry = worry
@@ -70,7 +80,7 @@ export class WpfProblemSolvingComponent implements OnInit {
   //     );
   //   }
   // }
-  canDoAnything!: number;
+  
   // setResponse(){
   //   this.radioResponse = this.problemSolvingForm.value['choices'];
   //   console.log(this.radioResponse);
@@ -102,7 +112,7 @@ export class WpfProblemSolvingComponent implements OnInit {
         console.log(resp.body);
         this.responseData = resp.body.problem_statement;
       });
-    } else if (this.responseData.length > 0) {
+    } else if (this.responseData.length > 0 || this.problemSolving.length != 0) {
       const object = {
         worry_id: this.worry.id,
         can_do_anything: this.canDoAnything,
@@ -119,8 +129,7 @@ export class WpfProblemSolvingComponent implements OnInit {
     }
   }
   showSummary() {
-    this.summary = true;
-    this.summaryProbSolvingEvent.emit(this.summary);
+    this.summaryProbSolvingEvent.emit(this.summaryText);
   }
 
   falseResponse() {

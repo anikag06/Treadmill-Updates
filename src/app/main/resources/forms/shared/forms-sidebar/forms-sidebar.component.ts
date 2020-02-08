@@ -6,6 +6,7 @@ import {
   Input,
   OnInit,
   Output,
+  ViewChild,
 } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
@@ -29,6 +30,7 @@ import { WorryProductivelyService } from '../../worry-productively-form/worry-pr
 import { Worry } from '../../worry-productively-form/worry.model';
 import { BeliefChangeService } from '@/main/resources/forms/belief-change/belief-change.service';
 import { Belief } from '@/main/resources/forms/belief-change/belief.model';
+import { WorryProductivelyComponent } from '../../worry-productively-form/worry-productively.component';
 
 @Component({
   selector: 'app-forms-sidebar',
@@ -46,6 +48,8 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
   subscriptions: Subscription[] = [];
   selectedObject!: any;
   @Input() object!: any;
+  @ViewChild(WorryProductivelyComponent, { static: false })
+  worryForm!: WorryProductivelyComponent;
 
   constructor(
     private problemService: ProblemSolvingWorksheetsService,
@@ -226,6 +230,9 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
       if (status) {
         this.onAddNewForm();
         this.worryService.removeSituation(worry);
+        // if(worryform){
+        // this.worryForm.deleteWorry();
+        // }
       }
     });
   }

@@ -1,6 +1,6 @@
 @import '../techniques.component.scss';
 @import "../../../../forms/shared/techniques-info/techniques-info.component";
-
+@import "../../../forms.component.scss";
 // mat-slider[_ngcontent-kbk-c17] {
 //     width : 280px;
 // }
@@ -12,24 +12,24 @@ textarea.mat-input-element.cdk-textarea-autosize {
   resize: auto;
 }
 
-.add-evidence{
-  // float: left;
-  // display: flex;
-  opacity: 0.6;
-  position: absolute;
-  padding-top: 5px;
-}
+// .add-evidence{
+//   // float: left;
+//   // display: flex;
+//   opacity: 0.6;
+//   position: absolute;
+//   padding-top: 5px;
+// }
 .mat-form-field {
   padding-top: 15px;
 }
 
 
-#trash-icon {
-  display: flex;
-  align-self: flex-end;
-  cursor: pointer;
-}
+// #trash-icon {
+//   display: flex;
+//   align-self: flex-end;
+//   cursor: pointer;
+// }
 
-.statement{
-  margin-bottom: 10px;
-}
+// .statement{
+//   margin-bottom: 10px;
+// }

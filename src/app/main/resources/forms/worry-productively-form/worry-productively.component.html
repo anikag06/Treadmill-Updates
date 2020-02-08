@@ -76,10 +76,13 @@
           </div>
         </div>
       </div>
-      <app-techniques [worry]="worry"></app-techniques>
+      <app-techniques [techniquesCall]= "characteristicCheck" [worry]="worry" (originalWorry)="showOriginalWorry($event)"></app-techniques>
+      <p class="text-right" (click)="onOriginalWorry()" *ngIf="!originalWorryClick && originalWorryContinue">
+        <button type="button" mat-raised-button color="primary" class="continue-btn" >Continue</button> <br/> <br/>
+      </p>
     </div>
   </div>
-  <div class="row no-gutters form-div mx-auto" *ngIf="buttonClick">
+  <div class="row no-gutters form-div mx-auto" *ngIf="originalWorryClick">
     <div class="col-12 col-lg">
       <div class="row mb-2">
         <div class="col-12">

@@ -1,4 +1,4 @@
-<form *ngIf="modifyBeliefsClick">
+<form >
   <div class="card-body" >
     <div>
       Why do I worry so much? What will happen if I didn't worry?
@@ -13,9 +13,5 @@
     <p class="text-right" (click)="onBeliefSubmit()" *ngIf="isText.value">
       <button type="button" mat-raised-button color="primary" class="continue-btn">Done</button>
     </p>
-  </div>
-  <div class="card-body" *ngIf="summary">
-    Summary <br />
-    {{summaryText}}
   </div>
 </form>

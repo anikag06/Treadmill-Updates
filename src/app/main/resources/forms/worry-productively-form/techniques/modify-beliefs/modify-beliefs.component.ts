@@ -15,10 +15,8 @@ import { WorryProductivelyService } from '../../worry-productively.service';
   styleUrls: ['./modify-beliefs.component.scss'],
 })
 export class ModifyBeliefsComponent implements OnInit {
-  @Input() modifyBeliefsClick = false;
-  @Output() summaryModifyEvent = new EventEmitter<boolean>();
+  @Output() summaryModifyEvent = new EventEmitter<string>();
   @Input() worry!: Worry;
-  summary = false;
   summaryText = '';
   responseData = '';
   modifyBeliefs: string[] = [];
@@ -43,15 +41,14 @@ export class ModifyBeliefsComponent implements OnInit {
               resp.body.belief,
             );
             this.modifyBeliefs.push(resp);
+            this.summaryText = resp.body.belief;
+            this.summaryModifyEvent.emit(this.summaryText);
           }
         });
     }
   }
   onBeliefSubmit() {
     this.summaryText = this.beliefForm.value['beliefStatement'];
-    this.summary = true;
-    this.summaryModifyEvent.emit(this.summary);
-
     if (this.responseData.length == 0 && this.modifyBeliefs.length == 0) {
       const object = {
         worry_id: this.worry.id,
@@ -79,5 +76,6 @@ export class ModifyBeliefsComponent implements OnInit {
           }
         });
     }
+    this.summaryModifyEvent.emit(this.summaryText);
   }
 }

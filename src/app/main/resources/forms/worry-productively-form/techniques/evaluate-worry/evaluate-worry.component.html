@@ -1,5 +1,5 @@
-<div *ngIf="EvaluatedClicked">
-  <div class="card-body" *ngIf="!summary" [formGroup]="evaluateForm">
+<div >
+  <div class="card-body"  [formGroup]="evaluateForm">
     <div>
       Can you identify the Thinking Errors in your negative thoughts?
     </div> <br />
@@ -24,7 +24,7 @@
                </div> -->
       <div formArrayName="evidences">
         <div
-          class="statements"
+          
           *ngFor="let evidence of getEvidence.controls; let i = index"
         >
           <div
@@ -34,58 +34,60 @@
             click-outside
             (clickOutside)="onClickOutside($event, i)"
           >             
-          <mat-form-field > <br/> 
+          <mat-form-field >  
             <textarea class="py-0" [formControl]="evidence.get('evidence')"  cdkTextareaAutosize cdkAutosizeMinRows="1"
               cdkAutosizeMaxRows="5" placeholder="Write here" matInput required [autofocus] (focus)="onShowTrashIcon(i)"
               ></textarea>
           </mat-form-field> 
           <div
-                  id="trash-icon"
+                  class="trash-icon"
                   (click)="markForDeletion(evidence, i)"
                   *ngIf="showTrashIcon[i]"
           >
             <mat-icon>delete</mat-icon>
           </div> 
-          <div class="add-evidence" >
-            <br/> <br/>
-            <mat-icon
-              [ngStyle]="{
-                'font-size': '19px',
-                'padding-top': '2px',
-                cursor: 'pointer'
-              }"
-              (click)="addField()"
-              > <br/> <br/>add</mat-icon
-            >
-            <div [ngStyle]="{ 'padding-left': '5px' }">
-              Add Evidence
-            </div>
-          </div>
           
-          </div> <br />          
-        </div>
+        </div>        
+      </div>
+              <div class="add-statement" >
+                <br/> <br/>
+                <mat-icon
+                  [ngStyle]="{
+                    'font-size': '19px',
+                    'padding-top': '2px',
+                    cursor: 'pointer'
+                  }"
+                  (click)="addField()"
+                  > add</mat-icon
+                >
+                <div [ngStyle]="{ 'padding-left': '5px' }">
+                  Add Evidence
+                </div>
+              </div>
         <p class="text-right" (click)="onEvaluateSubmit()" *ngIf="evaluateForm.valid" >
           <button type="button" mat-raised-button color="primary" class="continue-btn">Continue</button>
         </p>
-      </div>
+      </div> <br />
     <div  *ngIf="buttonClick" style="color:#00000099; letter-spacing:0.14px;">
       <br />
-      <app-form-slider [question]="evaluateSliderQuestion" [minRatingText]="evaSliderMinRangeText"
+      <div *ngIf = "sliderResponse == undefined ">
+        <app-form-slider [question]="evaluateSliderQuestion" [minRatingText]="evaSliderMinRangeText"
         [maxRatingText]="evaSliderMaxRangeText"></app-form-slider>
+      </div>
+      <div class = "card-body" *ngIf = "sliderResponse != undefined">
+        <app-form-slider [question]="evaluateSliderQuestion" [minRatingText]="evaSliderMinRangeText"
+        [maxRatingText]="evaSliderMaxRangeText" [rating]="sliderResponse"></app-form-slider>
+      </div>
+      
       <p class="text-right" (click)="onSliderSubmit()">
         <button type="button" mat-raised-button color="primary" class="continue-btn">Continue</button>
       </p>
     </div> <br />
-  </div>
+  </div> 
 </div>
-<div class="card-body" *ngIf="sliderSubmit">
+<div class="card-body" style="color: #00000099;" *ngIf="sliderSubmit">
   Accept uncertainity <br /><br />
-  <!-- <div class= "card-body" *ngIf="evaluateEvidence && EvaluateEditMode" (click)="onEvaluateClick()">
-                    <app-worry-form [problem]="evaluateEvidence"></app-worry-form>
-                </div>
-                <div class= "card-body" *ngIf="!evaluateEvidence" (click)="onEvaluateClick()">
-                    <app-worry-form (testOut)="continuetoSlider($event)"></app-worry-form>
-                </div> -->
+
   {{summaryText}}
   <p class="text-right" (click)="doneSummary()">
     <button type="button" mat-raised-button color="primary" class="continue-btn">Done</button>

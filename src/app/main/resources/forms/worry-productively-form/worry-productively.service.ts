@@ -167,7 +167,7 @@ export class WorryProductivelyService {
   }
   getEvidences(id: number) {
     return this.http.get(
-      environment.API_ENDPOINT + EVALUATE_EVIDENCES + 'get/' + id + '/',
+      environment.API_ENDPOINT + EVALUATE_EVIDENCES + id + '/',
       {
         observe: 'response',
       },
@@ -203,6 +203,14 @@ export class WorryProductivelyService {
     return this.http.put(
       environment.API_ENDPOINT + EVALUATE_PROBABILITY + id + '/',
       data,
+      {
+        observe: 'response',
+      },
+    );
+  }
+  getProbablityRating(id: number){
+    return this.http.get(
+      environment.API_ENDPOINT + EVALUATE_PROBABILITY + id + '/',
       {
         observe: 'response',
       },

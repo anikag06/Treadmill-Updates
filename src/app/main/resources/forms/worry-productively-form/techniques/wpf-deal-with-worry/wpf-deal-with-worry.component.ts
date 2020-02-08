@@ -21,10 +21,8 @@ import { WorryProductivelyService } from '../../worry-productively.service';
   styleUrls: ['./wpf-deal-with-worry.component.scss'],
 })
 export class WpfDealWithWorryComponent implements OnInit {
-  @Input() dealWorryClick = false;
   @Input() worry!: Worry;
-  @Output() summaryDealingEvent = new EventEmitter<boolean>();
-  summary = false;
+  @Output() summaryDealingEvent = new EventEmitter<string>();
   calmMyself = false;
   summaryText = '';
   continueButton = false;
@@ -41,6 +39,7 @@ export class WpfDealWithWorryComponent implements OnInit {
 
   ngOnInit() {}
   ngOnChanges() {
+    this.resetForm();
     if (this.worry) {
       this.worryService
         .getDealWithWorry(this.worry.id)
@@ -50,7 +49,9 @@ export class WpfDealWithWorryComponent implements OnInit {
             this.DealWorryForm.controls['DealWorryStatement'].setValue(
               resp.body.distract,
             );
-            this.dealWithWorry.push(resp);
+            this.dealWithWorry.push(resp.body.distract);
+            this.summaryText = resp.body.distract;
+            this.summaryDealingEvent.emit(this.summaryText);
           }
         });
     }
@@ -74,7 +75,7 @@ export class WpfDealWithWorryComponent implements OnInit {
         console.log(resp.body);
         this.responseData = resp.body.distract;
       });
-    } else if (this.responseData.length > 0) {
+    } else if (this.responseData.length > 0 || this.dealWithWorry.length != 0) {
       const object = {
         worry_id: this.worry.id,
         distract: this.summaryText,
@@ -89,11 +90,15 @@ export class WpfDealWithWorryComponent implements OnInit {
         });
     }
   }
+  resetForm(){
+    this.DealWorryForm = this.fb.group({
+      DealWorryStatement : new FormControl(''),
+    });
+    this.summaryText = '';
+    this.summaryDealingEvent.emit(this.summaryText);
+  }
   continuetocalmMyself() {
-    this.summary = true;
-    if (this.summary) {
-      this.summaryDealingEvent.emit(this.summary);
-    }
+      this.summaryDealingEvent.emit(this.summaryText);
   }
   onFocus() {
     this.continueButton = true;

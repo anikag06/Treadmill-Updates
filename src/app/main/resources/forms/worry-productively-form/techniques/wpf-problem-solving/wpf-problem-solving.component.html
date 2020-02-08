@@ -1,5 +1,5 @@
-<form *ngIf="canISolve">
-  <div class="card-body" *ngIf="!summary" [formGroup]="problemSolvingForm">
+<form >
+  <div class="card-body" [formGroup]="problemSolvingForm">
     <div class="text" >
       Is there anything that I can do to solve what I am worried about? <br /> <br />
       <div class="radio">
@@ -45,9 +45,5 @@
         </p>
       </div>
     </div>
-  </div>
-  <div class="card-body" *ngIf="summary">
-    Summary <br />
-    {{summaryText}}
   </div>
 </form>
