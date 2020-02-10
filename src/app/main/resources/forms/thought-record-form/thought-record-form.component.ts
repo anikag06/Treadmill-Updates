@@ -1,7 +1,8 @@
 import {THINKING_IMG, THOUGHT_RECORD, THOUGHT_RECROD_FORM_NAME, WELL_DONE_IMG,} from '@/app.constants';
 import {Component, OnInit} from '@angular/core';
-import {ThoughtRecordService} from '@/main/resources/forms/thought-record-form/thought-record.service';
 import {FormMessage} from '@/main/resources/forms/shared/form-message/form-message.model';
+import {TRF_NEGATIVE_MSG, TRF_POSITIVE_MSG, TRF_QUOTES,} from '@/main/resources/forms/thought-record-form/trf-message';
+import {FormService} from '@/main/resources/forms/shared/form.service';
 
 @Component({
   selector: 'app-thought-record-form',
@@ -11,7 +12,6 @@ import {FormMessage} from '@/main/resources/forms/shared/form-message/form-messa
 export class ThoughtRecordFormComponent implements OnInit {
   type = THOUGHT_RECORD;
   situation!: string;
-  // situationEditMode = false;
   formName = THOUGHT_RECROD_FORM_NAME;
   situationHeader = 'What is the situation?';
   negativeThoughtHeader = 'What is the negative thought?';
@@ -21,15 +21,12 @@ export class ThoughtRecordFormComponent implements OnInit {
   showRecordBehave = false;
   showTechniques = false;
   recordBehaveHeader = 'How did this negative thought make you behave?';
-  situationApi = 'situation';
-  behaviorApi = 'behavior';
   reset = false;
   thought!: any;
   negativeThought: any;
   message!: FormMessage;
-  quote =
-    'the happiness of your life depends upon the quality of your thoughts.';
-  quotedBy = 'Marcus Aurelius';
+  quote!: string;
+  quotedBy!: string;
   initialRating = 0;
   finalRating = 0;
   showMessage!: boolean;
@@ -41,14 +38,14 @@ export class ThoughtRecordFormComponent implements OnInit {
   realisticQues = 'Great! Now tell what would be a more realistic thought?';
   reviewTitle = 'Original Thought';
   thoughtObject!: any;
-  showContinueButton = false;
   showFinalThought = false;
-  constructor(private thoughtRecordService: ThoughtRecordService) {}
+  constructor(private formService: FormService) {}
 
   ngOnInit() {}
 
   thoughtSelected(thought: any) {
     this.thought = thought;
+    this.resetForm();
     this.thoughtObject = {
       id: thought.id,
       text: thought.situation,
@@ -66,15 +63,9 @@ export class ThoughtRecordFormComponent implements OnInit {
   }
 
   onAddNewForm() {
-    this.thought = undefined;
     this.reset = !this.reset;
-    this.situationAdded = false;
-    this.showMood = false;
-    this.showRecordBehave = false;
-    this.showTechniques = false;
-    delete this.finalRating;
-    delete this.initialRating;
-    delete this.formComplete;
+    this.thought = undefined;
+    this.resetForm();
   }
 
   onShowNegative(value: boolean) {
@@ -82,19 +73,22 @@ export class ThoughtRecordFormComponent implements OnInit {
   }
 
   showSelectMood(value: boolean) {
-    console.log(value);
     this.showMood = value;
   }
 
   onShowRecordBehave(value: boolean) {
     if (this.showMood) {
       this.showRecordBehave = value;
+    } else {
+      this.showRecordBehave = false;
     }
   }
 
   onShowTechniques(value: boolean) {
     if (this.showRecordBehave) {
       this.showTechniques = value;
+    } else {
+      this.showTechniques = false;
     }
   }
   finalFormComplete(value: number) {
@@ -112,15 +106,40 @@ export class ThoughtRecordFormComponent implements OnInit {
   }
   onShowMessage() {
     if (this.initialRating > 0 && this.finalRating > 0 && this.formComplete) {
+      const index = this.formService.getRandomInt(TRF_QUOTES.length);
+      this.quote = TRF_QUOTES[index].quote;
+      this.quotedBy = TRF_QUOTES[index].by;
       this.showMessage = true;
       if (this.finalRating < this.initialRating) {
-        this.message = new FormMessage(WELL_DONE_IMG, 'Well Done', this.text);
+        this.message = new FormMessage(
+          WELL_DONE_IMG,
+          'Well Done',
+          TRF_POSITIVE_MSG[
+            this.formService.getRandomInt(TRF_POSITIVE_MSG.length)
+          ],
+        );
       } else {
-        this.message = new FormMessage(THINKING_IMG, '', this.text);
+        this.message = new FormMessage(
+          THINKING_IMG,
+          '',
+          TRF_NEGATIVE_MSG[
+            this.formService.getRandomInt(TRF_NEGATIVE_MSG.length)
+          ],
+        );
       }
     }
   }
-
+  resetForm() {
+    this.situationAdded = false;
+    this.showMood = false;
+    this.showTechniques = false;
+    this.showFinalThought = false;
+    this.showRecordBehave = false;
+    this.showMessage = false;
+    delete this.finalRating;
+    delete this.initialRating;
+    delete this.formComplete;
+  }
   onFinalRatingChange(value: number) {
     this.finalRating = value;
     this.onShowMessage();

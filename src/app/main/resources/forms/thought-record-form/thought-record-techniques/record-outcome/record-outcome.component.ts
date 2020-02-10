@@ -1,14 +1,7 @@
-import {
-  AfterViewInit,
-  Component,
-  Input,
-  OnInit,
-  SimpleChanges,
-  ViewChild,
-} from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
-import { RecordOutcomeService } from '@/main/resources/forms/thought-record-form/thought-record-techniques/record-outcome/record-outcome.service';
+import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild,} from '@angular/core';
+import {FormBuilder, FormControl, Validators} from '@angular/forms';
+import {Thought} from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
+import {RecordOutcomeService} from '@/main/resources/forms/thought-record-form/thought-record-techniques/record-outcome/record-outcome.service';
 
 @Component({
   selector: 'app-record-outcome',
@@ -26,6 +19,7 @@ export class RecordOutcomeComponent implements OnInit, AfterViewInit {
   @Input() thought!: Thought;
   updateOutcome = false;
   @ViewChild('panel', { static: false }) panel!: any;
+  @Output() showFinalThought = new EventEmitter();
 
   techniqueName = 'What is the worst that can happen?';
   outcomeRecordForm = this.formBuilder.group({
@@ -43,6 +37,7 @@ export class RecordOutcomeComponent implements OnInit, AfterViewInit {
 
   ngOnChanges(changes: SimpleChanges) {
     if (this.thought) {
+      this.resetForm();
       this.recordOutcomeService
         .getOutcome(this.thought.id)
         .subscribe((resp: any) => {
@@ -50,6 +45,7 @@ export class RecordOutcomeComponent implements OnInit, AfterViewInit {
             this.updateOutcome = true;
             this.initializeOutcome(resp);
             this.summary = resp.body.realistic_outcome;
+            this.showFinalThought.emit();
           }
         });
     }
@@ -85,21 +81,35 @@ export class RecordOutcomeComponent implements OnInit, AfterViewInit {
           const status = resp.ok;
           if (status) {
             console.log('put done');
+            this.setSummary();
           }
         });
     } else {
       this.recordOutcomeService.postOutcome(object).subscribe((resp: any) => {
         const status = resp.ok;
         if (status) {
-          console.log('post done');
+          this.setSummary();
         }
       });
     }
-    this.summary = this.outcomeRecordForm.value['likelyOutcome'];
-    if (this.summary.length > 50) {
-      this.summary = this.summary.substring(0, 50) + '...';
-    }
 
+    // if (this.summary.length > 50) {
+    //   this.summary = this.summary.substring(0, 50) + '...';
+    // }
+  }
+
+  setSummary() {
+    this.summary = this.outcomeRecordForm.value['likelyOutcome'];
+    this.showFinalThought.emit();
     this.panel.expanded = false;
+  }
+
+  resetForm() {
+    this.outcomeRecordForm = this.formBuilder.group({
+      worstOutcome: new FormControl(''),
+      bestOutcome: new FormControl(''),
+      likelyOutcome: new FormControl(''),
+    });
+    this.summary = '';
   }
 }

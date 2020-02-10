@@ -18,6 +18,7 @@
           <app-identify-thinking
             [thought]="thought"
             [reset]="reset"
+            (showFinalThought)="triggerShowFinalThought()"
           ></app-identify-thinking>
         </div>
         <div class="technique">
@@ -27,6 +28,7 @@
             [againstTitle]="againstTitle"
             [service]="0"
             [id]="thought.id"
+            (showFinal)="triggerShowFinalThought()"
           >
           </app-proof-evidences>
         </div>
@@ -38,16 +40,23 @@
             [service]="0"
             [id]="thought.id"
             [headerColor]="explnHdrColor"
+            (showFinal)="triggerShowFinalThought()"
           >
           </app-form-technique>
         </div>
 
         <div class="technique">
-          <app-record-outcome [thought]="thought"></app-record-outcome>
+          <app-record-outcome
+            [thought]="thought"
+            (showFinalThought)="triggerShowFinalThought()"
+          ></app-record-outcome>
         </div>
 
         <div class="technique">
-          <app-thought-help [thought]="thought"></app-thought-help>
+          <app-thought-help
+            [thought]="thought"
+            (showFinalThought)="triggerShowFinalThought()"
+          ></app-thought-help>
         </div>
 
         <div class="technique">
@@ -57,6 +66,7 @@
             [service]="1"
             [id]="thought.id"
             [headerColor]="tellHdrColor"
+            (showFinal)="triggerShowFinalThought()"
           >
           </app-form-technique>
         </div>

@@ -20,6 +20,7 @@ export class FormFinalRatingComponent implements OnInit {
   finalRating!: number;
   @Input() realisticQuestion!: string;
   @Input() original_title!: string;
+  @Input() initialRating!: number;
   showRealistic = false;
   showContinue = false;
   @Input() object!: any;
@@ -38,6 +39,7 @@ export class FormFinalRatingComponent implements OnInit {
 
   ngOnChanges() {
     if (this.object) {
+      this.resetForm();
       this.providerService[this.service]
         .getFinalRating(this.object.id)
         .subscribe((data: any) => {
@@ -47,17 +49,23 @@ export class FormFinalRatingComponent implements OnInit {
             this.showContinue = false;
             this.editSlider = true;
             // this.showRealistic = true;
-            this.showRealisticDiv = true;
-          }
-        });
-      this.providerService[this.service]
-        .getRealistic(this.object.id)
-        .subscribe((data: any) => {
-          if (data.realistic) {
-            this.finalRatingForm.controls['realistic'].setValue(data.realistic);
-            this.showRealistic = false;
-            this.editRealistic = true;
-            this.formComplete.emit(this.finalRating);
+            if (this.initialRating > this.finalRating) {
+              this.showRealisticDiv = true;
+              this.providerService[this.service]
+                .getRealistic(this.object.id)
+                .subscribe((data: any) => {
+                  if (data.realistic) {
+                    this.finalRatingForm.controls['realistic'].setValue(
+                      data.realistic,
+                    );
+                    this.showRealistic = false;
+                    this.editRealistic = true;
+                    this.formComplete.emit(this.finalRating);
+                  }
+                });
+            } else {
+              this.formComplete.emit(this.finalRating);
+            }
           }
         });
     }
@@ -71,10 +79,16 @@ export class FormFinalRatingComponent implements OnInit {
   onFinalRatingSubmit() {
     if (this.editSlider && this.object) {
       this.providerService[this.service]
-        .putFinalRating(this.finalRating, this.object.id)
+        .putFinalRating(this.object.id, this.finalRating)
         .subscribe((resp: any) => {
           if (resp.ok) {
             this.showContinue = false;
+            if (this.initialRating > this.finalRating) {
+              this.showRealisticDiv = true;
+            } else {
+              this.showRealisticDiv = false;
+              this.formComplete.emit(this.finalRating);
+            }
             this.finalRatingChange.emit(this.finalRating);
           }
         });
@@ -85,7 +99,9 @@ export class FormFinalRatingComponent implements OnInit {
           if (resp.ok) {
             this.showContinue = false;
             this.showRealistic = false;
-            this.showRealisticDiv = true;
+            if (this.initialRating > this.finalRating) {
+              this.showRealisticDiv = true;
+            }
             this.editSlider = true;
             this.finalRatingChange.emit(this.finalRating);
           }
@@ -118,5 +134,11 @@ export class FormFinalRatingComponent implements OnInit {
 
   showRealisticBtn() {
     this.showRealistic = true;
+  }
+
+  resetForm() {
+    this.finalRatingForm = this.formBuilder.group({
+      realistic: new FormControl('', [Validators.required]),
+    });
   }
 }

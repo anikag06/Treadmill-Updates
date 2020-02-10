@@ -1,34 +1,19 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
-import { HttpErrorResponse } from '@angular/common/http';
-import { Subscription } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import {AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output,} from '@angular/core';
+import {HttpErrorResponse} from '@angular/common/http';
+import {Subscription} from 'rxjs';
+import {ActivatedRoute} from '@angular/router';
 
-import { Problem } from '@/main/resources/forms/problem-solving-worksheets/problem.model';
-import { ProblemSolvingWorksheetsService } from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.service';
-import {
-  PSF_PROBLEM_SOLVING,
-  SET_ACTIVITY,
-  THOUGHT_RECORD,
-  WORRY_PRODUCTIVELY,
-  BELIEF_CHANGE,
-  TASK,
-} from '@/app.constants';
-import { TasksService } from '@/main/resources/forms/shared/tasks/tasks.service';
-import { UserTask } from '@/main/resources/forms/shared/tasks/user-task.model';
-import { ThoughtRecordService } from '@/main/resources/forms/thought-record-form/thought-record.service';
-import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
-import { WorryProductivelyService } from '../../worry-productively-form/worry-productively.service';
-import { Worry } from '../../worry-productively-form/worry.model';
-import { BeliefChangeService } from '@/main/resources/forms/belief-change/belief-change.service';
-import { Belief } from '@/main/resources/forms/belief-change/belief.model';
+import {Problem} from '@/main/resources/forms/problem-solving-worksheets/problem.model';
+import {ProblemSolvingWorksheetsService} from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.service';
+import {BELIEF_CHANGE, PSF_PROBLEM_SOLVING, SET_ACTIVITY, THOUGHT_RECORD, WORRY_PRODUCTIVELY,} from '@/app.constants';
+import {TasksService} from '@/main/resources/forms/shared/tasks/tasks.service';
+import {UserTask} from '@/main/resources/forms/shared/tasks/user-task.model';
+import {ThoughtRecordService} from '@/main/resources/forms/thought-record-form/thought-record.service';
+import {Thought} from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
+import {WorryProductivelyService} from '../../worry-productively-form/worry-productively.service';
+import {Worry} from '../../worry-productively-form/worry.model';
+import {BeliefChangeService} from '@/main/resources/forms/belief-change/belief-change.service';
+import {Belief} from '@/main/resources/forms/belief-change/belief.model';
 
 @Component({
   selector: 'app-forms-sidebar',
@@ -39,7 +24,6 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
   @Output() objectEmitter = new EventEmitter<Object>();
   @Output() newForm = new EventEmitter<void>();
   @Input() type!: String;
-  @Input() task!: any;
   objects: any[] = [];
   object_id = -1;
   page = 1;
@@ -172,7 +156,7 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
       this.deleteThoughtRecordForm(object);
     } else if (this.type === BELIEF_CHANGE) {
       this.deleteBeliefForm(object);
-    } else if (this.type === TASK) {
+    } else if (this.type === SET_ACTIVITY) {
       this.deleteTaskForm(object);
     } else if (this.type === WORRY_PRODUCTIVELY) {
       this.deleteWorryForm(object);

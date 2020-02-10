@@ -1,14 +1,8 @@
 @import '../../../shared/techniques-info/techniques';
 @import '../../../forms.component.scss';
 
-
-.add-statement {
-  float: left;
-  display: flex;
-  opacity: 0.6;
-}
-
-
-.statement {
-  margin-bottom: 10px;
+@media screen and (max-width: 400px) {
+  .iconsDiv {
+    margin-top: 8px;
+  }
 }

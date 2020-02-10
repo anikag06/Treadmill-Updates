@@ -163,6 +163,7 @@ export class ThoughtRecordService {
   }
 
   postFeelings(data: any, id: number) {
+    console.log(data);
     return this.http.post<any>(
       environment.API_ENDPOINT + THOUGHT_RECORD_FEELING_API + id + '/',
       data,

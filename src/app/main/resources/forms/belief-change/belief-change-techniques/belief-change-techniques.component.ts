@@ -17,7 +17,7 @@ export class BeliefChangeTechniquesComponent implements OnInit {
   info = 'Use some of these techniques to modify beliefs.';
   @Input() belief!: Belief;
   @Output() showFinalBelief = new EventEmitter();
-  bg_color = '#FFFCE3';
+  // bg_color = '#FFFCE3';
   favorTitle = 'What are the evidences supporting this belief?';
   againstTitle = 'What are the evidences against this belief?';
   tellTechnique = 'What would I tell a friend?';

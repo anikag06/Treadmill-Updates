@@ -1,13 +1,7 @@
-import {
-  Component,
-  Input,
-  OnInit,
-  SimpleChanges,
-  ViewChild,
-} from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { ThoughtHelpService } from '@/main/resources/forms/thought-record-form/thought-record-techniques/thought-help/thought-help.service';
-import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
+import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild,} from '@angular/core';
+import {FormBuilder, FormControl, Validators} from '@angular/forms';
+import {ThoughtHelpService} from '@/main/resources/forms/thought-record-form/thought-record-techniques/thought-help/thought-help.service';
+import {Thought} from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
 
 @Component({
   selector: 'app-thought-help',
@@ -26,6 +20,7 @@ export class ThoughtHelpComponent implements OnInit {
   no = 'Okay';
   @ViewChild('panel', { static: false }) panel!: any;
   @Input() thought!: Thought;
+  @Output() showFinalThought = new EventEmitter();
   updateHelp = false;
 
   thoughtHelpForm = this.formBuilder.group({
@@ -43,6 +38,7 @@ export class ThoughtHelpComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
     if (this.thought) {
+      this.resetForm();
       this.thoughtHelpService
         .getThoughtHelp(this.thought.id)
         .subscribe((resp: any) => {
@@ -85,18 +81,31 @@ export class ThoughtHelpComponent implements OnInit {
         .subscribe((resp: any) => {
           const status = resp.ok;
           if (status) {
-            console.log('put done');
+            this.setSummary();
           }
         });
     } else {
       this.thoughtHelpService.postThoughtHelp(object).subscribe((resp: any) => {
         const status = resp.ok;
         if (status) {
-          console.log('post done');
+          this.setSummary();
         }
       });
     }
+  }
+
+  setSummary() {
     this.summary = this.thoughtHelpForm.value['changeThought'];
+    this.showFinalThought.emit();
     this.panel.expanded = false;
+  }
+
+  resetForm() {
+    this.thoughtHelpForm = this.formBuilder.group({
+      keepThought: new FormControl(''),
+      changeThought: new FormControl(''),
+      canSolve: new FormControl(''),
+    });
+    this.summary = '';
   }
 }

@@ -90,17 +90,20 @@ import {FormMessageComponent} from './forms/shared/form-message/form-message.com
 import {FormQuoteComponent} from './forms/shared/form-quote/form-quote.component';
 
 import {FormFinalRatingComponent} from './forms/shared/form-final-rating/form-final-rating.component';
-import {NegativeBeliefFinalService, ThoughtRecordFinalService,} from '@/main/resources/forms/shared/form-final-rating/final-rating.service';
+import {NegativeBeliefFinalService, ThoughtRecordFinalService} from '@/main/resources/forms/shared/form-final-rating/final-rating.service';
 import {ProofEvidencesComponent} from './forms/shared/proof-evidences/proof-evidences.component';
 import {EvidencesComponent} from './forms/shared/proof-evidences/evidences/evidences.component';
 import {BeliefProofService, TRFProofService,} from '@/main/resources/forms/shared/proof-evidences/proof-evidences.service';
-import {FormCardComponent} from '@/main/resources/forms/thought-record-form/form-card/form-card.component';
 import {FormTechniqueComponent} from './forms/shared/form-technique/form-technique.component';
 import {
-    AlternateExplanationService,
-    BeliefTellFriendService,
-    TRFTellFriendService,
+  AlternateExplanationService,
+  BeliefTellFriendService,
+  TRFTellFriendService,
 } from '@/main/resources/forms/shared/form-technique/form-technique.service';
+import {TrfBehaviorCardComponent} from './forms/thought-record-form/trf-behavior-card/trf-behavior-card.component';
+import {SummaryCardComponent} from './forms/shared/summary-card/summary-card.component';
+import {TrfSituationCardComponent} from '@/main/resources/forms/thought-record-form/trf-situation-card/trf-situation-card.component';
+
 
 @NgModule({
   declarations: [
@@ -146,7 +149,7 @@ import {
     FaceMyWorstFearComponent,
     WpfProblemSolvingComponent,
     WpfDealWithWorryComponent,
-    FormCardComponent,
+    TrfSituationCardComponent,
     MoodTrackerComponent,
     MoodWidgetCardComponent,
     ThoughtRecordTechniquesComponent,
@@ -170,6 +173,8 @@ import {
     ProofEvidencesComponent,
     EvidencesComponent,
     FormTechniqueComponent,
+    TrfBehaviorCardComponent,
+    SummaryCardComponent,
   ],
   imports: [
     ResourcesRoutingModule,

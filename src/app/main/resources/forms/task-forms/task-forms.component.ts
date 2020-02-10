@@ -2,6 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {UserTask} from '@/main/resources/forms/shared/tasks/user-task.model';
 import {SET_ACTIVITY} from '@/app.constants';
 
+import {FormService} from '@/main/resources/forms/shared/form.service';
+import {TASK_QUOTES} from '@/main/resources/forms/task-forms/task-form-message';
+
 @Component({
   selector: 'app-task-forms',
   templateUrl: './task-forms.component.html',
@@ -12,7 +15,10 @@ export class TaskFormsComponent implements OnInit {
   reset = false;
   taskHeading = 'Set Task';
   type = SET_ACTIVITY;
-  constructor() {}
+  quote!: string;
+  quotedBy!: string;
+  showMessage = false;
+  constructor(private formService: FormService) {}
 
   ngOnInit() {}
 
@@ -23,5 +29,12 @@ export class TaskFormsComponent implements OnInit {
   onAddNewForm() {
     this.task = undefined;
     this.reset = !this.reset;
+  }
+
+  setShowMessage(value: boolean) {
+    this.showMessage = value;
+    const index = this.formService.getRandomInt(TASK_QUOTES.length);
+    this.quote = TASK_QUOTES[index].quote;
+    this.quotedBy = TASK_QUOTES[index].by;
   }
 }

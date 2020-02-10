@@ -1,8 +1,6 @@
 <mat-expansion-panel hideToggle #panel>
   <mat-expansion-panel-header
     [ngStyle]="{ background: headerColor, paddingLeft: '16px' }"
-    [expandedHeight]="'42px'"
-    [collapsedHeight]="'42px'"
   >
     <mat-panel-title
       [ngStyle]="{
@@ -60,11 +58,8 @@
   </ng-template>
 </mat-expansion-panel>
 
-<mat-card class="card-body" *ngIf="!panel.expanded && summary.length > 0">
-  <mat-card-content>
-    <div [ngStyle]="{ 'font-size': '12px' }">Summary</div>
-    <div [ngStyle]="{ 'margin-top': '8px', 'font-size': '12px' }">
-      {{ summary }}
-    </div>
-  </mat-card-content>
-</mat-card>
+<app-summary-card
+  *ngIf="summary"
+  [summary]="summary"
+  [expanded]="panel.expanded"
+></app-summary-card>

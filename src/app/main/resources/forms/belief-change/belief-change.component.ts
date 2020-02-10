@@ -2,6 +2,12 @@ import {Component, OnInit} from '@angular/core';
 import {BELIEF_CHANGE, BELIEF_CHANGE_FORM_NAME, THINKING_IMG, WELL_DONE_IMG,} from '@/app.constants';
 import {FormMessage} from '@/main/resources/forms/shared/form-message/form-message.model';
 import {Belief} from '@/main/resources/forms/belief-change/belief.model';
+import {FormService} from '@/main/resources/forms/shared/form.service';
+import {
+    BELEIF_CHANGE_QUOTES,
+    BELIEF_CHANGE_NEGATIVE_MSG,
+    BELIEF_CHANGE_POSITIVE_MSG,
+} from '@/main/resources/forms/belief-change/belief-change-message';
 
 @Component({
   selector: 'app-belief-change',
@@ -9,7 +15,7 @@ import {Belief} from '@/main/resources/forms/belief-change/belief.model';
   styleUrls: ['./belief-change.component.scss'],
 })
 export class BeliefChangeComponent implements OnInit {
-  constructor() {}
+  constructor(private formService: FormService) {}
 
   formName = BELIEF_CHANGE_FORM_NAME;
   belief!: Belief | undefined;
@@ -37,16 +43,12 @@ export class BeliefChangeComponent implements OnInit {
   onAddNewForm() {
     this.belief = undefined;
     this.reset = !this.reset;
-    delete this.finalRating;
-    delete this.initialRating;
-    delete this.formComplete;
-    this.showTechniques = false;
-    this.showFinalBelief = false;
-    this.showMessage = false;
+    this.resetForm();
   }
 
   beliefSelected(belief: Belief) {
     this.belief = belief;
+    this.resetForm();
     this.beliefObject = {
       id: this.belief.id,
       text: this.belief.belief,
@@ -88,12 +90,36 @@ export class BeliefChangeComponent implements OnInit {
   }
   onShowMessage() {
     if (this.initialRating > 0 && this.finalRating > 0 && this.formComplete) {
+      const index = this.formService.getRandomInt(BELEIF_CHANGE_QUOTES.length);
+      this.quote = BELEIF_CHANGE_QUOTES[index].quote;
+      this.quotedBy = BELEIF_CHANGE_QUOTES[index].by;
       this.showMessage = true;
       if (this.finalRating < this.initialRating) {
-        this.message = new FormMessage(WELL_DONE_IMG, 'Well Done', this.text);
+        this.message = new FormMessage(
+          WELL_DONE_IMG,
+          'Well Done',
+          BELIEF_CHANGE_POSITIVE_MSG[
+            this.formService.getRandomInt(BELIEF_CHANGE_POSITIVE_MSG.length)
+          ],
+        );
       } else {
-        this.message = new FormMessage(THINKING_IMG, '', this.text);
+        this.message = new FormMessage(
+          THINKING_IMG,
+          '',
+          BELIEF_CHANGE_NEGATIVE_MSG[
+            this.formService.getRandomInt(BELIEF_CHANGE_NEGATIVE_MSG.length)
+          ],
+        );
       }
     }
+  }
+
+  resetForm() {
+    delete this.finalRating;
+    delete this.initialRating;
+    delete this.formComplete;
+    this.showTechniques = false;
+    this.showFinalBelief = false;
+    this.showMessage = false;
   }
 }

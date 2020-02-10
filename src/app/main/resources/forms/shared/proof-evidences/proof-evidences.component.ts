@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, ElementRef, Inject, Input, OnInit, ViewChild,} from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild,} from '@angular/core';
 import {CdkTextareaAutosize} from '@angular/cdk/text-field';
 import {FormArray, FormBuilder, Validators} from '@angular/forms';
 
@@ -20,7 +20,9 @@ export class ProofEvidencesComponent implements OnInit {
   submitted = false;
   @Input() id!: number;
   @ViewChild('panel', { static: false }) panel!: any;
-  @Input() bg_Color!: string;
+  @Output() showFinal = new EventEmitter();
+  techniqueName = 'What is the proof?';
+  headerColor = '#FFFCE3';
 
   proofStatementForm = this.fb.group({
     favorEvidences: this.fb.array([], [Validators.required]),
@@ -53,12 +55,14 @@ export class ProofEvidencesComponent implements OnInit {
         .subscribe((object: any) => {
           if (object.evidences.length !== 0) {
             this.summary = object.evidences[0].evidence;
+            this.showFinal.emit();
             if (this.summary.length === 0) {
               this.providerService[this.service]
                 .getEvidences(this.id, this.forType)
                 .subscribe((resp: any) => {
                   if (resp.evidences.length !== 0) {
                     this.summary = object.evidences[0].evidence;
+                    this.showFinal.emit();
                   }
                 });
             }
@@ -109,10 +113,12 @@ export class ProofEvidencesComponent implements OnInit {
       this.summary = this.proofStatementForm.controls[
         'againstEvidences'
       ].value[0].evidence;
+      this.showFinal.emit();
     } else if (this.proofStatementForm.controls['favorEvidences'].value[0]) {
       this.summary = this.proofStatementForm.controls[
         'favorEvidences'
       ].value[0].evidence;
+      this.showFinal.emit();
     }
     this.changeDetector.detectChanges();
   }

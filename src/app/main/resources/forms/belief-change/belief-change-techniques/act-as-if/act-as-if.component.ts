@@ -1,22 +1,7 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  SimpleChanges,
-  ViewChild,
-} from '@angular/core';
-import { Belief } from '@/main/resources/forms/belief-change/belief.model';
-import {
-  FormArray,
-  FormBuilder,
-  FormControl,
-  Validators,
-} from '@angular/forms';
-import { ActAsIfService } from '@/main/resources/forms/belief-change/belief-change-techniques/act-as-if/act-as-if.service';
-import { BeliefChangeService } from '@/main/resources/forms/belief-change/belief-change.service';
+import {ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild,} from '@angular/core';
+import {Belief} from '@/main/resources/forms/belief-change/belief.model';
+import {FormArray, FormBuilder, FormControl, Validators,} from '@angular/forms';
+import {ActAsIfService} from '@/main/resources/forms/belief-change/belief-change-techniques/act-as-if/act-as-if.service';
 
 @Component({
   selector: 'app-act-as-if',
@@ -26,7 +11,7 @@ import { BeliefChangeService } from '@/main/resources/forms/belief-change/belief
 export class ActAsIfComponent implements OnInit {
   techniqueName = "How would I act if I didn't have this belief?";
   showTrashIcon: boolean[] = [];
-  summary!: string;
+  summary = '';
   actAsIfForm = this.formBuilder.group({
     how_would_i_act: new FormControl('', [Validators.required]),
     would_it_help: new FormControl('', [Validators.required]),
@@ -39,12 +24,13 @@ export class ActAsIfComponent implements OnInit {
   showRadioDiv = false;
   showAdvantages = false;
   showRadioCntBtn = false;
+  headerColor = '#FFFCE3';
 
   constructor(
     private formBuilder: FormBuilder,
     private changeDetector: ChangeDetectorRef,
     private actAsIfService: ActAsIfService,
-    private beliefChangeService: BeliefChangeService,
+    private element: ElementRef,
   ) {}
 
   @Input() belief!: Belief;
@@ -55,6 +41,7 @@ export class ActAsIfComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
     if (this.belief) {
+      this.resetForm();
       this.actAsIfService
         .getActingAsIf(this.belief.id)
         .subscribe((resp: any) => {
@@ -63,7 +50,7 @@ export class ActAsIfComponent implements OnInit {
             this.initalizeActAsIf(resp);
           }
         });
-      this.resetAdvantages();
+
       this.actAsIfService
         .getAdvantages(this.belief.id)
         .subscribe((resp: any) => {
@@ -180,9 +167,6 @@ export class ActAsIfComponent implements OnInit {
   }
 
   onActSubmit() {
-    // this.beliefChangeService.getBeliefBehavior().subscribe((belief: any) => {
-    //   this.belief = belief;
-    // });
     if (this.belief) {
       const object = {
         belief_id: this.belief.id,
@@ -193,6 +177,9 @@ export class ActAsIfComponent implements OnInit {
         if (resp.ok) {
           this.showAdvantages = true;
           this.showRadioCntBtn = false;
+          this.actAsIfForm.controls.advantages = this.formBuilder.array([
+            this.createItem(),
+          ]);
         }
       });
     }
@@ -201,7 +188,7 @@ export class ActAsIfComponent implements OnInit {
     const advantages = {
       advantages: this.actAsIfForm.controls['advantages'].value,
     };
-    console.log(advantages);
+
     this.actAsIfService
       .postAdvantages(advantages, this.belief.id)
       .subscribe(resp => {
@@ -213,7 +200,12 @@ export class ActAsIfComponent implements OnInit {
       });
   }
 
-  resetAdvantages() {
-    this.actAsIfForm.controls.advantages = this.formBuilder.array([]);
+  resetForm() {
+    this.actAsIfForm = this.formBuilder.group({
+      how_would_i_act: new FormControl('', [Validators.required]),
+      would_it_help: new FormControl('', [Validators.required]),
+      advantages: this.formBuilder.array([]),
+    });
+    this.summary = '';
   }
 }

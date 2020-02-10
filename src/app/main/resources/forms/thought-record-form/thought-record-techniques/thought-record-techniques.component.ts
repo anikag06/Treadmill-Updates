@@ -27,7 +27,7 @@ export class ThoughtRecordTechniquesComponent implements OnInit, AfterViewInit {
   tellTechnique = 'What would I tell a friend?';
   tellQuestion =
     'What would I tell a close friend or relative if they were having this thought?';
-
+  info_heading = 'About Techniques';
   @Input() reset!: boolean;
 
   ngOnInit() {}
@@ -60,6 +60,7 @@ export class ThoughtRecordTechniquesComponent implements OnInit, AfterViewInit {
       autoFocus: false,
       data: {
         techniquesInfo: TRF_TECHNIQUES_DATA,
+        about: this.info_heading,
       },
     });
   }

@@ -1,8 +1,6 @@
 <mat-expansion-panel hideToggle #panel>
   <mat-expansion-panel-header
-    [ngStyle]="{ background: bg_Color, paddingLeft: '16px' }"
-    [expandedHeight]="'42px'"
-    [collapsedHeight]="'42px'"
+    [ngStyle]="{ background: headerColor, paddingLeft: '16px' }"
   >
     <mat-panel-title
       [ngStyle]="{
@@ -21,6 +19,13 @@
       </div>
     </mat-panel-description>
   </mat-expansion-panel-header>
+  <!--  <app-technique-title-->
+  <!--    [summary]="summary"-->
+  <!--    [headerColor]="headerColor"-->
+  <!--    [techniqueName]="techniqueName"-->
+  <!--    [expanded]="panel.expanded"-->
+  <!--  >-->
+  <!--  </app-technique-title>-->
 
   <ng-template matExpansionPanelContent>
     <form [formGroup]="proofStatementForm">
@@ -58,13 +63,7 @@
   </ng-template>
 </mat-expansion-panel>
 
-<mat-card class="card-body" *ngIf="!panel.expanded && this.summary">
-  <mat-card-content>
-    <div [ngStyle]="{ 'font-size': '12px' }">
-      Summary
-    </div>
-    <div [ngStyle]="{ 'margin-top': '8px', 'font-size': '12px' }">
-      {{ summary }}
-    </div>
-  </mat-card-content>
-</mat-card>
+<app-summary-card
+  [summary]="summary"
+  [expanded]="panel.expanded"
+></app-summary-card>

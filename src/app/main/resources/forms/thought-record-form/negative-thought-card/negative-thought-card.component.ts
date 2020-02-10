@@ -41,6 +41,7 @@ export class NegativeThoughtCardComponent implements OnInit {
 
   ngOnChanges() {
     if (this.thought) {
+      this.resetForm();
       this.thoughtRecordService
         .getThought(this.thought.id)
         .subscribe((resp: any) => {
@@ -64,9 +65,9 @@ export class NegativeThoughtCardComponent implements OnInit {
 
   initializeThought(resp: any) {
     this.thoughtRecordForm.controls['thought'].setValue(resp.body.thought);
+    this.showSlider = true;
     if (resp.body.thought_rating_initial) {
       this.negativeMoodRating = resp.body.thought_rating_initial;
-      this.showSlider = true;
       // this.showSliderButton = true;
       this.initialRatingChange.emit(this.negativeMoodRating);
       this.onShowSelectMood.emit(true);
@@ -98,7 +99,7 @@ export class NegativeThoughtCardComponent implements OnInit {
       thought: this.thoughtRecordForm.value['thought'],
       thought_rating_initial: this.negativeMoodRating,
     };
-    // console.log(object);
+
     this.thoughtRecordService
       .putThoughtRating(object, this.thought.id)
       .subscribe((resp: any) => {
@@ -120,5 +121,13 @@ export class NegativeThoughtCardComponent implements OnInit {
     if (this.thought) {
       this.onThoughtRatingSubmit();
     }
+  }
+
+  resetForm() {
+    this.thoughtRecordForm = this.fb.group({
+      thought: new FormControl('', [Validators.required]),
+    });
+    this.showSlider = false;
+    this.onShowSelectMood.emit(false);
   }
 }

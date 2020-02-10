@@ -34,10 +34,14 @@ export class MoodWidgetCardComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
     if (this.thought) {
+      console.log(this.thought);
+      this.resetMoodForm();
       this.thoughtRecordService.getFeelings(this.thought.id).subscribe(resp => {
-        if (resp.body.data && resp.body.data.feelings.length > 1) {
+        console.log(resp);
+        if (resp.body.data && resp.body.data.feelings.length > 0) {
           this.moodSelected = true;
           this.userFeelings = resp.body.data.feelings;
+          console.log(this.userFeelings);
           this.onShowRecordBehave.emit(true);
         }
       });
@@ -104,7 +108,14 @@ export class MoodWidgetCardComponent implements OnInit {
         const status = resp.ok;
         if (status) {
           this.onShowRecordBehave.emit(true);
+          this.showSaveButton = false;
         }
       });
+  }
+
+  resetMoodForm() {
+    this.userFeelings = [];
+    this.moodSelected = false;
+    this.onShowRecordBehave.emit(false);
   }
 }

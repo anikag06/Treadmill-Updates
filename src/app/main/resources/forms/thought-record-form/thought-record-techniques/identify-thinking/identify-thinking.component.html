@@ -30,7 +30,7 @@
     <div [ngStyle]="{ 'padding-left': '5px' }">
       <form [formGroup]="identifyThinkingForm">
         <div
-          *ngFor="let error of errors; let i = index"
+          *ngFor="let error of thinkingErrors; let i = index"
           formArrayName="emotions"
         >
           <mat-checkbox
@@ -54,14 +54,7 @@
     </div>
   </ng-template>
 </mat-expansion-panel>
-
-<mat-card class="card-body" *ngIf="!panel.expanded && summary.length > 1">
-  <mat-card-content>
-    <div [ngStyle]="{ 'font-size': '12px' }">
-      Thinking Errors
-    </div>
-    <div [ngStyle]="{ 'margin-top': '8px', 'font-size': '12px' }">
-      {{ summary }}
-    </div>
-  </mat-card-content>
-</mat-card>
+<app-summary-card
+  [summary]="summary"
+  [expanded]="panel.expanded"
+></app-summary-card>

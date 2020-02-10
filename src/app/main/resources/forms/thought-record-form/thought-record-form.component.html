@@ -39,14 +39,13 @@
     <div class="col-12 col-lg">
       <div class="row mb-2">
         <div class="col-12">
-          <app-form-card
+          <app-trf-situation-card
             [header]="situationHeader"
             (showNegative)="onShowNegative($event)"
-            [apiToCall]="situationApi"
             [thought]="thought"
             [reset]="reset"
             (updateThought)="updateThought($event)"
-          ></app-form-card>
+          ></app-trf-situation-card>
           <app-negative-thought-card
             [thought]="thought"
             [header]="negativeThoughtHeader"
@@ -61,13 +60,12 @@
             [thought]="thought"
             (onShowRecordBehave)="onShowRecordBehave($event)"
           ></app-mood-widget-card>
-          <app-form-card
+          <app-trf-behavior-card
             [thought]="thought"
-            [apiToCall]="behaviorApi"
             [header]="recordBehaveHeader"
             *ngIf="showRecordBehave"
-            (onShowTechniques)="onShowTechniques($event)"
-          ></app-form-card>
+            (showTechniques)="onShowTechniques($event)"
+          ></app-trf-behavior-card>
 
           <app-thought-record-techniques
             [thought]="thought"
@@ -80,11 +78,13 @@
             [object]="thoughtObject"
             [service]="1"
             [realisticQuestion]="realisticQues"
+            [initialRating]="initialRating"
             (formComplete)="finalFormComplete($event)"
             (finalRatingChange)="onFinalRatingChange($event)"
             [original_title]="reviewTitle"
           >
           </app-form-final-rating>
+          <br />
           <app-form-message *ngIf="showMessage" [formMessage]="message">
           </app-form-message>
           <app-form-quote

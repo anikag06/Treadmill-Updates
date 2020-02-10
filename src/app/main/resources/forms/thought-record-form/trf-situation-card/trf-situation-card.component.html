@@ -8,7 +8,7 @@
     </div>
   </div>
   <div class="card-body">
-    <form [formGroup]="formCardGroup">
+    <form [formGroup]="situationFormGroup">
         <mat-form-field class="full-width">
         <textarea
                 matInput
@@ -18,7 +18,7 @@
                 cdkTextareaAutosize
                 cdkAutosizeMinRows="1"
                 cdkAutosizeMaxRows="5"
-                formControlName="text"
+                formControlName="situation"
                 placeholder="Write here"
                 required
                 (focusout)="updateText()"
@@ -31,7 +31,7 @@
                 type="button"
                 *ngIf="showContinue"
                 class="btn continue-btn "
-                (click)="onTextSubmit()"
+                (click)="onSituationSubmit()"
         >
           Continue
         </button>

@@ -57,9 +57,6 @@ export class NegativeBeliefComponent implements OnInit {
       panelClass: 'common-belief-dialog-container',
       maxWidth: '100vw',
       autoFocus: false,
-      data: {
-        commonBelief: this.negativeBeliefForm.controls['belief'],
-      },
     });
     this.onDialogRefClosed(dialogRef);
   }
@@ -86,6 +83,8 @@ export class NegativeBeliefComponent implements OnInit {
       this.beliefRatingInitial = this.belief.belief_rating_initial;
       this.onShowTechniques.emit();
       this.initialRatingChange.emit(this.beliefRatingInitial);
+    } else {
+      delete this.beliefRatingInitial;
     }
   }
 
@@ -94,7 +93,9 @@ export class NegativeBeliefComponent implements OnInit {
   }
 
   resetBelief() {
-    this.negativeBeliefForm.controls['belief'].setValue('');
+    this.negativeBeliefForm = this.formBuilder.group({
+      belief: new FormControl('', [Validators.required]),
+    });
     delete this.beliefRatingInitial;
     this.showSlider = false;
     this.showBeliefLink = false;

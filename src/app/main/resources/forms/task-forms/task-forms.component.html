@@ -25,7 +25,7 @@
           <app-forms-sidebar
             (objectEmitter)="taskSelected($event)"
             (newForm)="onAddNewForm()"
-            [task]="task"
+            [object]="task"
             [type]="type"
           >
           </app-forms-sidebar>
@@ -40,7 +40,13 @@
         [task]="task"
         [reset]="reset"
         [taskHeading]="taskHeading"
+        (showMessage)="setShowMessage($event)"
       ></app-tasks>
+      <app-form-quote
+        *ngIf="showMessage"
+        [quote]="quote"
+        [quotedBy]="quotedBy"
+      ></app-form-quote>
     </div>
   </div>
 </mat-card>

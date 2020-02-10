@@ -1,9 +1,9 @@
-import {Component, Input, OnInit, SimpleChanges, ViewChild,} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild,} from '@angular/core';
 
 import {FormArray, FormBuilder, FormControl} from '@angular/forms';
 import {IdentifyThinkingService} from '@/main/resources/forms/thought-record-form/thought-record-techniques/identify-thinking/identify-thinking.service';
 import {Thought} from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
-import {ThinkingErrorModel} from '@/main/resources/forms/thought-record-form/thought-record-techniques/identify-thinking/thinking-error.model';
+import {ThinkingError} from '@/main/resources/forms/thought-record-form/thought-record-techniques/identify-thinking/thinking.error';
 import {TechniquesInfoComponent} from '@/main/resources/forms/shared/techniques-info/techniques-info.component';
 import {MatDialog} from '@angular/material';
 import {THINIKING_ERROR_DATA} from '@/main/resources/forms/shared/techniques-info/thinking-error-technique.data';
@@ -15,14 +15,16 @@ import {THINIKING_ERROR_DATA} from '@/main/resources/forms/shared/techniques-inf
 })
 export class IdentifyThinkingComponent implements OnInit {
   title = 'Can you identify the thinking errors in your negative thought?';
-  errors: ThinkingErrorModel[] = [];
+  thinkingErrors: ThinkingError[] = [];
   errorCount = 0;
   thinkingError: string[] = [];
   summary = '';
   submitted = false;
   @Input() thought!: Thought;
   @Input() reset!: boolean;
+  @Output() showFinalThought = new EventEmitter();
   techniqueName = 'Identify Thinking Error';
+  info_heading = 'Type of Thinking Errors';
   @ViewChild('panel', { static: false }) panel!: any;
 
   identifyThinkingForm = this.formBuilder.group({
@@ -36,9 +38,9 @@ export class IdentifyThinkingComponent implements OnInit {
   ) {
     this.identifyThinkingService
       .getThinkingErrors()
-      .subscribe((errors: any) => {
-        errors.map((error: any) => {
-          this.errors.push(new ThinkingErrorModel(error, false));
+      .subscribe((thinkingErrors: any) => {
+        thinkingErrors.map((error: any) => {
+          this.thinkingErrors.push(new ThinkingError(error, false));
         });
       });
   }
@@ -47,28 +49,33 @@ export class IdentifyThinkingComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
     if (this.thought) {
+      this.resetForm();
       this.identifyThinkingService
         .getSelectedThinkingErrors(this.thought.id)
         .subscribe((resp: any) => {
-          if (resp.body.data) {
-            this.setSummary(resp.body.data);
-            this.identifyThinkingForm.setControl(
-              'emotions',
-              this.formBuilder.array(resp.body.data),
-            );
-            resp.body.data.forEach((data: any) => {
-              // @ts-ignore
-              const obj = this.errors.find((x, i) => {
-                if (x.error === data) {
-                  this.errors[i].isChecked = true;
-                  this.errorCount += 1;
-                  return true;
-                }
-              });
-            });
+          if (resp.body.data.length > 0) {
+            this.initializeErrors(resp.body.data);
           }
         });
     }
+  }
+
+  initializeErrors(data: any) {
+    this.setSummary(data);
+    this.identifyThinkingForm.setControl(
+      'emotions',
+      this.formBuilder.array(data),
+    );
+    data.forEach((error: any) => {
+      // @ts-ignore
+      const obj = this.thinkingErrors.find((x, i) => {
+        if (x.error === error) {
+          this.thinkingErrors[i].isChecked = true;
+          this.errorCount += 1;
+          return true;
+        }
+      });
+    });
   }
 
   updateErrorCount(event: any, index: number) {
@@ -111,6 +118,7 @@ export class IdentifyThinkingComponent implements OnInit {
 
   setSummary(thinkingErrors: string[]) {
     this.summary = thinkingErrors.join(',');
+    this.showFinalThought.emit();
     // this.changeDetector.detectChanges();
   }
 
@@ -121,7 +129,15 @@ export class IdentifyThinkingComponent implements OnInit {
       autoFocus: false,
       data: {
         techniquesInfo: THINIKING_ERROR_DATA,
+        about: this.info_heading,
       },
     });
+  }
+
+  resetForm() {
+    this.thinkingErrors.forEach((thinkingError: ThinkingError) => {
+      thinkingError.isChecked = false;
+    });
+    this.summary = '';
   }
 }

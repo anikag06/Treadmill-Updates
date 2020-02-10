@@ -1,12 +1,10 @@
 <mat-expansion-panel hideToggle #panel>
   <mat-expansion-panel-header
-    [ngStyle]="{ background: '#FFFCE3 ', paddingLeft: '16px' }"
-    [collapsedHeight]="'64px'"
-    [expandedHeight]="'64px'"
+    [ngStyle]="{ background: '#EBEDFF', paddingLeft: '1rem' }"
   >
     <mat-panel-title
       [ngStyle]="{
-        'font-size': panel.expanded ? '16px' : '14px',
+        'font-size': panel.expanded ? '1rem' : '0.88rem',
         'font-weight': '500'
       }"
     >
@@ -22,6 +20,7 @@
       </div>
     </mat-panel-description>
   </mat-expansion-panel-header>
+
   <ng-template matExpansionPanelContent>
     <form [formGroup]="actAsIfForm">
       <div>
@@ -63,7 +62,7 @@
             <mat-radio-button [value]="1">
               Yes
             </mat-radio-button>
-            <mat-radio-button [value]="0" [ngStyle]="{ marginLeft: '65px' }">
+            <mat-radio-button [value]="0" [ngStyle]="{ marginLeft: '4.5rem' }">
               No
             </mat-radio-button>
           </mat-radio-group>
@@ -150,13 +149,7 @@
     </form>
   </ng-template>
 </mat-expansion-panel>
-<mat-card class="card-body" *ngIf="!panel.expanded && this.summary">
-  <mat-card-content>
-    <div [ngStyle]="{ 'font-size': '12px' }">
-      Summary
-    </div>
-    <div [ngStyle]="{ 'margin-top': '8px', 'font-size': '12px' }">
-      {{ summary }}
-    </div>
-  </mat-card-content>
-</mat-card>
+<app-summary-card
+  [summary]="summary"
+  [expanded]="panel.expanded"
+></app-summary-card>

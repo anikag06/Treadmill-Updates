@@ -16,11 +16,11 @@
       <mat-accordion>
         <div class="technique">
           <app-proof-evidences
-            [bg_Color]="bg_color"
             [favorTitle]="favorTitle"
             [againstTitle]="againstTitle"
             [service]="1"
             [id]="belief.id"
+            (showFinal)="triggerShowFinalBelief()"
           >
           </app-proof-evidences>
         </div>
@@ -32,6 +32,7 @@
             [service]="2"
             [id]="belief.id"
             [headerColor]="tellHdrColor"
+            (showFinal)="triggerShowFinalBelief()"
           >
           </app-form-technique>
         </div>

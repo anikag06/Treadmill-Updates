@@ -8,22 +8,22 @@
         <form [formGroup]="tasksGroup">
           <div>
             <mat-checkbox
-                    class="full-width"
-                    formControlName="taskCompleted"
-                    (change)="taskCompletedChange($event)"
-                    [checked]="tasksGroup.controls.dtaskCompleted"
+              class="full-width"
+              formControlName="taskCompleted"
+              (change)="taskCompletedChange($event)"
+              [checked]="tasksGroup.controls.dtaskCompleted"
             >
               <mat-form-field class="full-width">
                 <textarea
-                        matInput
-                        cdkTextareaAutosize
-                        #autosize="cdkTextareaAutosize"
-                        cdkAutosizeMaxRows="4"
-                        formControlName="task"
-                        class="form-control"
-                        required
-                        placeholder="Enter Task Here"
-                        (focusout)="updateTask()"
+                  matInput
+                  cdkTextareaAutosize
+                  #autosize="cdkTextareaAutosize"
+                  cdkAutosizeMaxRows="4"
+                  formControlName="task"
+                  class="form-control"
+                  required
+                  placeholder="Enter Task Here"
+                  (focusout)="updateTask()"
                 ></textarea>
               </mat-form-field>
             </mat-checkbox>
@@ -41,24 +41,24 @@
               (clickOutside)="onClickOutside($event, i)"
             >
               <mat-checkbox
-                      class="full-width"
-                      formControlName="is_completed"
-                      [checked]="is_completed"
-                      (change)="subTaskCompletedChange($event, id)"
+                class="full-width"
+                formControlName="is_completed"
+                [checked]="is_completed"
+                (change)="subTaskCompletedChange($event, id)"
               >
-                <input type="hidden" formControlName="id" [value]="id"/>
+                <input type="hidden" formControlName="id" [value]="id" />
                 <mat-form-field class="full-width">
                   <textarea
-                          matInput
-                          cdkTextareaAutosize
-                          #autosize="cdkTextareaAutosize"
-                          cdkAutosizeMaxRows="4"
-                          formControlName="name"
-                          class="form-control"
-                          placeholder="Enter Subtask Here"
-                          required
-                          (focus)="onShowTrashIcon(i)"
-                          #answer="matInput"
+                    matInput
+                    cdkTextareaAutosize
+                    #autosize="cdkTextareaAutosize"
+                    cdkAutosizeMaxRows="4"
+                    formControlName="name"
+                    class="form-control"
+                    placeholder="Enter Subtask Here"
+                    required
+                    (focus)="onShowTrashIcon(i)"
+                    #answer="matInput"
                   ></textarea>
                 </mat-form-field>
               </mat-checkbox>
@@ -95,9 +95,9 @@
           <div>
             <div>
               <button
-                      class="btn dialog-button"
-                      (click)="onShowDateTime()"
-                      *ngIf="!dateTimeMessage"
+                class="btn dialog-button"
+                (click)="onShowDateTime()"
+                *ngIf="!dateTimeMessage"
               >
                 Select Date & Time
               </button>
@@ -120,10 +120,11 @@
               </div>
             </div>
             <button
-                    [ngStyle]="{ 'padding-left': '0px' }"
-                    class="btn btn-link"
-                    (click)="onChangeDateTime()"
-                    *ngIf="dateTimeMessage"
+              #dateTimeBtn
+              [ngStyle]="{ 'padding-left': '0px' }"
+              class="btn btn-link"
+              (click)="onChangeDateTime()"
+              *ngIf="dateTimeMessage"
             >
               Change Date & Time
             </button>
@@ -131,14 +132,15 @@
         </div>
       </div>
     </div>
+    <br />
     <div class="text-right" *ngIf="!this.task || taskValueChanged">
       <button
-              mat-raised-button
-              class="continue-btn"
-              [disabled]="tasksGroup.invalid"
-              (click)="saveData()"
+        mat-raised-button
+        class="continue-btn"
+        [disabled]="tasksGroup.invalid"
+        (click)="saveData()"
       >
-        Continue
+        Save
       </button>
     </div>
   </div>

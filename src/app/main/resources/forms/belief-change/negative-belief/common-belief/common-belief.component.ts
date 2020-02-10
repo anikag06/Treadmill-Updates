@@ -1,5 +1,5 @@
-import {Component, Inject, OnInit, Optional} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {Component, OnInit} from '@angular/core';
+import {MatDialogRef} from '@angular/material';
 
 @Component({
   selector: 'app-common-belief',
@@ -23,14 +23,7 @@ export class CommonBeliefComponent implements OnInit {
     " I'm hopeless and bound to feel depressed forever because the problems in my life are impossible to solve.",
   ];
 
-  constructor(
-    public dialogRef: MatDialogRef<CommonBeliefComponent>,
-    @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
-  ) {
-    if (data.commonBelief) {
-      this.radioSelected = data.commonBelief;
-    }
-  }
+  constructor(public dialogRef: MatDialogRef<CommonBeliefComponent>) {}
 
   ngOnInit() {}
 

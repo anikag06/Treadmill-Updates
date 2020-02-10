@@ -9,7 +9,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 })
 export class TechniquesInfoComponent implements OnInit {
   @Output() closeInfo = new EventEmitter();
-  about = 'About Techniques';
+  about!: string;
   techniques!: any;
 
   constructor(
@@ -17,8 +17,8 @@ export class TechniquesInfoComponent implements OnInit {
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
     if (data) {
-      console.log(data);
       this.techniques = data.techniquesInfo;
+      this.about = data.about;
     }
   }
 

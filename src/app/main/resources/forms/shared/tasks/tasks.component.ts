@@ -23,10 +23,12 @@ export class TasksComponent implements OnInit, OnChanges {
   @Input() reset!: boolean;
   @Input() task!: UserTask;
   @Input() taskHeading!: string;
+  @Output() showMessage = new EventEmitter();
+  // @ViewChild('dateTimeBtn', { static: false }) dateTimeBtn!: ElementRef;
 
-  taskValueChanged: boolean = false;
+  taskValueChanged = false;
   showTrashIcon: boolean[] = [];
-  submitted: boolean = false;
+  submitted = false;
   start_date!: any;
   time!: any;
   end_date!: any;
@@ -37,12 +39,13 @@ export class TasksComponent implements OnInit, OnChanges {
   origin_object: number | null = null;
   origin_name = '';
   showDateTimePicker = false;
-  dateTimeMessage: boolean = false;
+  dateTimeMessage = false;
   formDateTime: any[] = [];
   dateTime: any;
   dateRange!: string;
   endTime!: string;
   repeatedDays!: string;
+  errorMessage = 'Date and Time cannot be empty.';
 
   tasksGroup = this.fb.group({
     task: ['', Validators.required],
@@ -135,17 +138,18 @@ export class TasksComponent implements OnInit, OnChanges {
     };
 
     if (this.task && this.task.id > 0) {
-      this.taskService.putTask(object, this.task.id).subscribe((resp: any) => {
-        taskBody = resp.body.data;
-        status = resp.body.status;
-        if (status) {
+      this.taskService.putTask(object, this.task.id).subscribe(
+        (resp: any) => {
+          taskBody = resp.body.data;
           this.taskService.openSnackBar('Task Updated Successfully', 'OK');
           this.taskValueChanged = false;
-        } else {
+          this.taskHandler(taskBody, 'update');
+        },
+        error => {
           this.taskService.openSnackBar('Error Occured', 'Retry');
-        }
-        this.taskHandler(taskBody, 'update');
-      });
+          this.taskService.openSnackBar(error.error.non_field_errors, 'Retry');
+        },
+      );
     } else {
       this.taskService.postTask(object).subscribe(
         (resp: any) => {
@@ -153,22 +157,15 @@ export class TasksComponent implements OnInit, OnChanges {
           this.taskValueChanged = false;
           taskBody = resp.body.data;
           this.taskHandler(taskBody, 'create');
+          this.showMessage.emit(true);
         },
         error => {
           console.log(error);
-          this.taskService.openSnackBar(error.error.non_field_errors, 'Retry');
+          this.taskService.openSnackBar(
+            error.error.non_field_errors || this.errorMessage,
+            'Retry',
+          );
         },
-        // console.log(resp);
-        // taskBody = resp.body.data;
-        // status = resp.body.ok;
-        // console.log(resp.body);
-        // if (status) {
-        //   this.taskService.openSnackBar('Task Created Successfully', 'OK');
-        //   this.taskValueChanged = false;
-        // } else {
-        //   this.taskService.openSnackBar(resp.body.error, 'Retry');
-        // }
-        // this.taskHandler(taskBody, 'create');
       );
     }
   }
@@ -339,6 +336,7 @@ export class TasksComponent implements OnInit, OnChanges {
       this.end_date,
       this.time,
     );
+    this.showMessage.emit(true);
   }
 
   onAllCheck(event: any) {
@@ -385,6 +383,7 @@ export class TasksComponent implements OnInit, OnChanges {
     });
     this.showTrashIcon = [];
     delete this.dateTimeMessage;
+    this.showMessage.emit(false);
   }
 
   // dateTimeParser() {
@@ -405,8 +404,11 @@ export class TasksComponent implements OnInit, OnChanges {
 
   onShowDateTime() {
     this.showDateTimePicker = !this.showDateTimePicker;
+
     const dialogRef = this.dialog.open(DateTimePickerComponent, {
       panelClass: 'dateTime-dialog-container',
+      maxWidth: '100vw',
+      autoFocus: false,
     });
     this.onDialogRefClosed(dialogRef);
   }
@@ -461,14 +463,14 @@ export class TasksComponent implements OnInit, OnChanges {
   }
 
   getRepeatedDays(days: String[]): string {
-    let repeatedDays: string[] = [];
+    const repeatedDays: string[] = [];
     for (let i = 0; i < days.length; i++) {
       this.days[i].toUpperCase();
       repeatedDays.push(
         days[i].charAt(0) + this.days[i].substr(1, 2).toLowerCase(),
       );
     }
-    let repeat = repeatedDays.join(',');
+    const repeat = repeatedDays.join(',');
     return repeat;
   }
 }

@@ -1,4 +1,4 @@
-import {Component, Inject, Input, OnInit, SimpleChanges, ViewChild,} from '@angular/core';
+import {Component, EventEmitter, Inject, Input, OnInit, Output, SimpleChanges, ViewChild,} from '@angular/core';
 import {FormBuilder, FormControl, Validators} from '@angular/forms';
 import {IFormTechniqueServices} from '@/main/resources/forms/shared/form-technique/IFormTechniqueServices';
 
@@ -8,8 +8,6 @@ import {IFormTechniqueServices} from '@/main/resources/forms/shared/form-techniq
   styleUrls: ['./form-technique.component.scss'],
 })
 export class FormTechniqueComponent implements OnInit {
-  // techniqueName = 'Is this the only explanation?';
-  // question = 'Can there be another explanation for this situation?';
   submitted = false;
   explanation = '';
   summary = '';
@@ -21,6 +19,7 @@ export class FormTechniqueComponent implements OnInit {
   @Input() service!: number;
   @ViewChild('panel', { static: false }) panel!: any;
   @Input() headerColor!: string;
+  @Output() showFinal = new EventEmitter();
 
   techniqueForm = this.formBuilder.group({
     text: new FormControl('', [Validators.required]),
@@ -36,13 +35,14 @@ export class FormTechniqueComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
     if (this.id) {
+      this.resetForm();
       this.providerService[this.service]
         .getData(this.id)
         .subscribe((resp: any) => {
           if (resp) {
             this.updateText = true;
             this.techniqueForm.controls['text'].setValue(resp.text);
-            this.summary = resp.text;
+            this.setSummary(resp.text);
           }
         });
     }
@@ -59,6 +59,7 @@ export class FormTechniqueComponent implements OnInit {
           const status = resp.ok;
           if (status) {
             console.log('put done');
+            this.setSummary(data);
           }
         });
     } else {
@@ -68,10 +69,22 @@ export class FormTechniqueComponent implements OnInit {
           const status = resp.ok;
           if (status) {
             console.log('post done');
+            this.setSummary(data);
           }
         });
     }
+  }
+
+  setSummary(data: string) {
     this.summary = data;
+    this.showFinal.emit();
     this.panel.expanded = false;
+  }
+
+  resetForm() {
+    this.techniqueForm = this.formBuilder.group({
+      text: new FormControl(''),
+    });
+    this.summary = '';
   }
 }
