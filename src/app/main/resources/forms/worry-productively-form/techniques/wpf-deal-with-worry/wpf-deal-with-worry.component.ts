@@ -23,8 +23,9 @@ import { WorryProductivelyService } from '../../worry-productively.service';
 export class WpfDealWithWorryComponent implements OnInit {
   @Input() worry!: Worry;
   @Output() summaryDealingEvent = new EventEmitter<string>();
+  @ViewChild('panel5', { static: false }) panel5!: any;
   calmMyself = false;
-  summaryText = '';
+  summaryText !: string;
   continueButton = false;
   responseData = '';
   dealWithWorry: string[] = [];
@@ -51,7 +52,7 @@ export class WpfDealWithWorryComponent implements OnInit {
             );
             this.dealWithWorry.push(resp.body.distract);
             this.summaryText = resp.body.distract;
-            this.summaryDealingEvent.emit(this.summaryText);
+            // this.summaryDealingEvent.emit(this.summaryText);
           }
         });
     }
@@ -95,10 +96,11 @@ export class WpfDealWithWorryComponent implements OnInit {
       DealWorryStatement : new FormControl(''),
     });
     this.summaryText = '';
-    this.summaryDealingEvent.emit(this.summaryText);
+    // this.summaryDealingEvent.emit(this.summaryText);
   }
   continuetocalmMyself() {
       this.summaryDealingEvent.emit(this.summaryText);
+      this.panel5.expanded = false;
   }
   onFocus() {
     this.continueButton = true;

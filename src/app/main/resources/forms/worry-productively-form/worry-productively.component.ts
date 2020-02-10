@@ -177,7 +177,7 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
     if (this.worry) {
       this.worryEditMode = true;
     }
-    console.log('show ' + this.originalWorryContinue + 'click' + this.originalWorryClick);
+
   }
 
   onAddNewForm() {

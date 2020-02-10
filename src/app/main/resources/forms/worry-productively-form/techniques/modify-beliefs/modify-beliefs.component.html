@@ -1,4 +1,12 @@
-<form >
+<mat-expansion-panel hideToggle="true" #panel3>
+  <mat-expansion-panel-header style="background: #E2E5FF;" >
+    <mat-panel-description>
+      <strong> Modify Beliefs </strong>
+    </mat-panel-description>
+    <mat-icon *ngIf="panel3.expanded" svgIcon="Close"></mat-icon>
+    <mat-icon *ngIf="!panel3.expanded && summaryText" svgIcon="EditErrors"></mat-icon>
+  </mat-expansion-panel-header>
+  <ng-template matExpansionPanelContent >
   <div class="card-body" >
     <div>
       Why do I worry so much? What will happen if I didn't worry?
@@ -14,4 +22,15 @@
       <button type="button" mat-raised-button color="primary" class="continue-btn">Done</button>
     </p>
   </div>
-</form>
+</ng-template>
+</mat-expansion-panel>
+<mat-card class="card-body" *ngIf="!panel3.expanded && summaryText">
+  <mat-card-content>
+      <div [ngStyle]="{ 'font-size': '12px' }">
+          Summary
+      </div>
+      <div [ngStyle]="{ 'margin-top': '8px', 'font-size': '12px' }">
+          {{ summaryText }}
+      </div>
+  </mat-card-content>
+</mat-card> <br/>

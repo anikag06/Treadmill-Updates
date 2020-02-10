@@ -17,7 +17,8 @@ import { WorryProductivelyService } from '../../worry-productively.service';
 export class ModifyBeliefsComponent implements OnInit {
   @Output() summaryModifyEvent = new EventEmitter<string>();
   @Input() worry!: Worry;
-  summaryText = '';
+  @ViewChild('panel3', { static: false }) panel3!: any;
+  summaryText !:string;
   responseData = '';
   modifyBeliefs: string[] = [];
   beliefForm = this.fb.group({
@@ -42,13 +43,14 @@ export class ModifyBeliefsComponent implements OnInit {
             );
             this.modifyBeliefs.push(resp);
             this.summaryText = resp.body.belief;
-            this.summaryModifyEvent.emit(this.summaryText);
+            // this.summaryModifyEvent.emit(this.summaryText);
           }
         });
     }
   }
   onBeliefSubmit() {
     this.summaryText = this.beliefForm.value['beliefStatement'];
+    this.panel3.expanded = false;
     if (this.responseData.length == 0 && this.modifyBeliefs.length == 0) {
       const object = {
         worry_id: this.worry.id,
@@ -76,6 +78,6 @@ export class ModifyBeliefsComponent implements OnInit {
           }
         });
     }
-    this.summaryModifyEvent.emit(this.summaryText);
+    // this.summaryModifyEvent.emit(this.summaryText);
   }
 }

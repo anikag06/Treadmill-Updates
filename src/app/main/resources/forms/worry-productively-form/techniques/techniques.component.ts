@@ -13,11 +13,11 @@ import { Worry } from '../worry.model';
 })
 export class TechniquesComponent implements OnInit {
   @ViewChild('doneBtn', { static: false }) doneBtn!: ElementRef;
-  @ViewChild('panel1', { static: false }) panel1!: any;
+  // @ViewChild('panel1', { static: false }) panel1!: any;
   @ViewChild('panel2', { static: false }) panel2!: any;
-  @ViewChild('panel3', { static: false }) panel3!: any;
-  @ViewChild('panel4', { static: false }) panel4!: any;
-  @ViewChild('panel5', { static: false }) panel5!: any;
+  // @ViewChild('panel3', { static: false }) panel3!: any;
+  // @ViewChild('panel4', { static: false }) panel4!: any;
+  // @ViewChild('panel5', { static: false }) panel5!: any;
 
   @Input() worry!: Worry;
   @Input() techniquesCall = false;
@@ -54,28 +54,29 @@ export class TechniquesComponent implements OnInit {
   }
 
   evaluateSummary !: string;
+  fearSummary !: string;
   beliefSummary !: string;
   solveProbSummary !: string ;
   dealWorrySummary !: string;
   continueOriginalWorry = false;
   ngOnInit() {}
 
-  setEvaluateSummary(data : any){
-    this.evaluateSummary = data;
-    this.panel1.expanded = false;
-  }
-  setBeliefSummary(data: any) {
-    this.beliefSummary = data;
-    this.panel3.expanded = false;
+  // setEvaluateSummary(data : any){
+  //   this.evaluateSummary = data;
+  //   this.panel1.expanded = false;
+  // }
+  // setBeliefSummary(data: any) {
+  //   this.beliefSummary = data;
+  //   this.panel3.expanded = false;
 
-  }
-  setProbSummary(data: any) {
-    this.solveProbSummary = data;
-    this.panel4.expanded = false;
-  }
+  // }
+  // setProbSummary(data: any) {
+  //   this.solveProbSummary = data;
+  //   this.panel4.expanded = false;
+  // }
   setDealSummary(data: any) {
-    this.dealWorrySummary = data;
-    this.panel5.expanded = false;
+    // this.dealWorrySummary = data;
+    // this.panel5.expanded = false;
     this.continueOriginalWorry = true;
     this.originalWorry.emit(this.continueOriginalWorry);
   }

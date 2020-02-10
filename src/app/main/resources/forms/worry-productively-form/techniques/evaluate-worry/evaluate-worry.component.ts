@@ -28,6 +28,7 @@ export class EvaluateWorryComponent implements OnInit, AfterContentChecked {
   @Output() valueUpdate = new EventEmitter();
   @Output() summaryEvaluateEvent = new EventEmitter<string>();
   @ViewChild(FormSliderComponent, { static: false })
+  @ViewChild('panel1', { static: false }) panel1!: any;
   sliderRating!: FormSliderComponent;
   buttonClick = false;
   sliderSubmit = false;
@@ -39,6 +40,7 @@ export class EvaluateWorryComponent implements OnInit, AfterContentChecked {
   evaluateSliderQuestion = 'Guess Probability';
   evaSliderMinRangeText = 'Low';
   evaSliderMaxRangeText = 'High';
+
   summaryText = '';
   evaluateForm = this.fb.group({
     thinking_errors: this.fb.array([]),
@@ -107,7 +109,7 @@ export class EvaluateWorryComponent implements OnInit, AfterContentChecked {
             );
           }
           this.summaryText = resp.body.data.evidences[0].evidence;
-          this.summaryEvaluateEvent.emit(this.summaryText);
+          // this.summaryEvaluateEvent.emit(this.summaryText);
         } else {
           formArray.push(this.createItem());
         }
@@ -222,7 +224,8 @@ export class EvaluateWorryComponent implements OnInit, AfterContentChecked {
   }
 
   doneSummary() {
-    this.summaryEvaluateEvent.emit(this.summaryText);
+    // this.summaryEvaluateEvent.emit(this.summaryText);
+    this.panel1.expanded =false;
   }
 
   createItem(name = '') {

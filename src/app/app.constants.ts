@@ -238,6 +238,8 @@ export const WORRY_PROBLEM_SOLVING =
   '/api/v1/worksheets/worry-productively/problem-solving/';
 export const WORRY_FINAL_SLIDER =
   '/api/v1/worksheets/worry-productively/final-worry-rating/';
+export const FACE_WORST_FEAR =
+  '/api/v1/worksheets/worry-productively/face-worst-fear/';
 export const THINKING_IMG = 'assets/forms/thinking.png';
 export const WELL_DONE_IMG = 'assets/forms/well_done.png';
 

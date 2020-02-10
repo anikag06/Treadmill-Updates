@@ -1,4 +1,12 @@
-<form >
+<mat-expansion-panel hideToggle="true" #panel5>
+  <mat-expansion-panel-header style="background: #C9FFDA;" >
+    <mat-panel-description>
+      <strong> Deal with intense worry </strong>
+    </mat-panel-description>
+    <mat-icon *ngIf="panel5.expanded" svgIcon="Close"></mat-icon>
+    <mat-icon *ngIf="!panel5.expanded && summaryText" svgIcon="EditErrors"></mat-icon>
+  </mat-expansion-panel-header>
+  <ng-template matExpansionPanelContent >
   <div class="card-body" >
     <div>
       <strong>Distract Myself</strong> <br /> <br />
@@ -21,4 +29,16 @@
       </p>
     </div>
   </div>
-</form>
+</ng-template>
+</mat-expansion-panel>
+<mat-card class="card-body" *ngIf="!panel5.expanded && summaryText">
+  <mat-card-content>
+      <div [ngStyle]="{ 'font-size': '12px' }">
+          Summary
+      </div>
+      <div [ngStyle]="{ 'margin-top': '8px', 'font-size': '12px' }">
+          {{ summaryText }}
+      </div>
+  </mat-card-content>
+</mat-card> <br/>
+

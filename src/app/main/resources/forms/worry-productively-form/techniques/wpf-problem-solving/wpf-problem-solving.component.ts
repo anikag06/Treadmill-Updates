@@ -17,15 +17,16 @@ import { WorryProductivelyService } from '../../worry-productively.service';
 export class WpfProblemSolvingComponent implements OnInit {
   @Input() worry!: Worry;
   @Output() summaryProbSolvingEvent = new EventEmitter<string>();
+  @ViewChild('panel4', { static: false }) panel4!: any;
   radioResponse = '';
   imageDisplay = false;
   // choices = ['Yes', 'No'];
-  summaryText = '';
+  summaryText !: string;
   responseData = '';
   problemSolving: string[] = [];
   canDoAnything!: number;
   problemSolvingForm = this.fb.group({
-    problemSolvingStatement: new FormControl('', [Validators.required]),
+    problemSolvingStatement: new FormControl('', Validators.required),
     choices: new FormControl(''),
   });
   continueButton = false;
@@ -64,27 +65,9 @@ export class WpfProblemSolvingComponent implements OnInit {
       choices : new FormControl(''),
     })
     this.summaryText = '';
-    this.summaryProbSolvingEvent.emit(this.summaryText);
+    // this.summaryProbSolvingEvent.emit(this.summaryText);
   }
-  // worrySelected(worry: Worry) {
-  //   this.worry = worry
-  //   if(this.worry){
-  //     this.worryService.getProblemSolving(this.worry.id).subscribe(
-  //       (resp : any) => {
-  //         console.log('problem solving'+resp);
-  //         if(resp.body.length !== 0){
-
-  //           this.problemSolving.push(resp);
-  //         }
-  //       }
-  //     );
-  //   }
-  // }
-  
-  // setResponse(){
-  //   this.radioResponse = this.problemSolvingForm.value['choices'];
-  //   console.log(this.radioResponse);
-  // }
+ 
   continueSummary() {
     this.imageDisplay = true;
     this.continueButton = false;
@@ -129,7 +112,8 @@ export class WpfProblemSolvingComponent implements OnInit {
     }
   }
   showSummary() {
-    this.summaryProbSolvingEvent.emit(this.summaryText);
+    // this.summaryProbSolvingEvent.emit(this.summaryText);
+    this.panel4.expanded = false;
   }
 
   falseResponse() {

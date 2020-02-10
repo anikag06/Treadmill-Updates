@@ -1,4 +1,14 @@
-<div >
+<mat-expansion-panel hideToggle="true" #panel1 >
+  <mat-expansion-panel-header style="background: #FFFCE3;" >
+    <mat-panel-description>
+      <strong> Evaluate Worry </strong>
+    </mat-panel-description>
+    <mat-icon *ngIf="panel1.expanded" (click)="onShowInfo()" svgIcon="QuestionMark"></mat-icon>
+    <mat-icon *ngIf="panel1.expanded" svgIcon="Close"></mat-icon>
+    <mat-icon *ngIf="!panel1.expanded && summaryText" svgIcon="EditErrors"></mat-icon>
+  </mat-expansion-panel-header>
+  <ng-template matExpansionPanelContent > 
+
   <div class="card-body"  [formGroup]="evaluateForm">
     <div>
       Can you identify the Thinking Errors in your negative thoughts?
@@ -93,3 +103,16 @@
     <button type="button" mat-raised-button color="primary" class="continue-btn">Done</button>
   </p>
 </div>
+</ng-template>
+            
+</mat-expansion-panel>
+<mat-card class="card-body" *ngIf="!panel1.expanded && summaryText">
+  <mat-card-content>
+      <div [ngStyle]="{ 'font-size': '12px' }">
+          Summary
+      </div>
+      <div [ngStyle]="{ 'margin-top': '8px', 'font-size': '12px' }">
+          {{ summaryText }}
+      </div>
+  </mat-card-content>
+</mat-card> <br/>
