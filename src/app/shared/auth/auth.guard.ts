@@ -53,7 +53,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    console.log('can activate child', this.auth.isLoggedIn(), this.eligible, next.data);
+    console.log('can activate child', this.auth.isLoggedIn(), this.eligible, next, next.data);
     this.auth.navbarTitle = next.data.title;
     this.eligible = !this.auth.isUserExcluded;
     if (!this.auth.isLoggedIn() && !this.eligible) {

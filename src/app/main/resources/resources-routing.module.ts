@@ -30,33 +30,38 @@ export const resourcesRoutes: Routes = [
     path: '',
     component: FormsComponent,
     children: [
-      { path: 'forms', component: FormsListComponent },
+      { path: 'forms', component: FormsListComponent, data: { title: 'Forms' } },
       {
         path: 'forms/problem-solving',
         component: ProblemSolvingWorksheetsComponent,
+        data: { title: 'Form' },
       },
-      { path: 'forms/tasks', component: TaskFormsComponent },
-      { path: 'forms/thought-record', component: ThoughtRecordFormComponent },
+      { path: 'forms/tasks', component: TaskFormsComponent, data: { title: 'Form' } },
+      { path: 'forms/thought-record', component: ThoughtRecordFormComponent, data: { title: 'Form' } },
       {
         path: 'forms/test-belief',
         component: ExperimentToTestBeliefFormComponent,
+        data: { title: 'Form' },
       },
       {
         path: 'forms/worry-productively',
         component: WorryProductivelyComponent,
+        data: { title: 'Form' },
       },
       {
         path: 'forms/belief-change',
         component: BeliefChangeComponent,
+        data: { title: 'Form' },
       },
     ],
   },
-  { path: 'conversations', component: ConversationsComponent },
+  { path: 'conversations', component: ConversationsComponent, data: { title: 'Conversations' }, },
   { path: 'conversations-group/:id', component: ConversationGroupComponent },
   { path: 'slides/:id', component: SlidesComponent }, // :id here is step_id
   {
     path: 'introduction',
     component: IntroductionComponent,
+    data: { title: 'Introduction' },
     children: [
       { path: '1', component: Introduction1Component },
       { path: '2', component: Introduction2Component },
@@ -83,4 +88,4 @@ export const resourcesRoutes: Routes = [
   imports: [RouterModule.forChild(resourcesRoutes)],
   exports: [RouterModule],
 })
-export class ResourcesRoutingModule {}
+export class ResourcesRoutingModule { }
