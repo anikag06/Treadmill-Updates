@@ -18,6 +18,7 @@ import { ProgressComponent } from './dashboard/progress/progress.component';
 import { CurrentModuleComponent } from './dashboard/current-module/current-module.component';
 import { ThingsTodoComponent } from './dashboard/things-todo/things-todo.component';
 import { TimeAgoPipe } from '../shared/time-ago.pipe';
+import { TrimStringPipe } from './shared/trim-string.pipe';
 import { ChatbotAvatarComponent } from './dashboard/chatbot-avatar/chatbot-avatar.component';
 import { GamesComponent } from './games/games.component';
 import { GamesListComponent } from './games/games-list/games-list.component';
@@ -191,6 +192,7 @@ import { LazyLoadingImageDirective } from './shared/lazy-loading-image/lazy-load
     CurrentModuleComponent,
     ThingsTodoComponent,
     TimeAgoPipe,
+    TrimStringPipe,
     ChatbotAvatarComponent,
     GamesComponent,
     GamesListComponent,
@@ -382,4 +384,4 @@ import { LazyLoadingImageDirective } from './shared/lazy-loading-image/lazy-load
     LoadingBarComponent,
   ],
 })
-export class MainModule {}
+export class MainModule { }
