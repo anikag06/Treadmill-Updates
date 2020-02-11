@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { FLOW_STEP_MARK_DONE, FLOW_STEPS_DATA } from '@/app.constants';
@@ -15,6 +15,10 @@ export class FlowService {
   introduceBehaviour = new BehaviorSubject(false);
   loadBehaviour = new BehaviorSubject(true);
   unlockModuleTime = new BehaviorSubject(0);
+  stepDetail = new EventEmitter<any>();
+  stepSequence = 0;
+  stepGroupSequence = 0;
+  stepName = '';
 
   constructor(
     private http: HttpClient,
@@ -26,7 +30,7 @@ export class FlowService {
   }
 
   markDone(stepId: number, timeSpent: number) {
-    return this.http.post(environment.API_ENDPOINT + FLOW_STEP_MARK_DONE, {step_id: stepId, time_spent: timeSpent});
+    return this.http.post(environment.API_ENDPOINT + FLOW_STEP_MARK_DONE, { step_id: stepId, time_spent: timeSpent });
   }
 
   triggerIntroduction() {
@@ -39,7 +43,7 @@ export class FlowService {
 
   getModuleUnlockTime(currStepGroup: StepGroup) {
     this.getFlow()
-      .subscribe( (data: any) => {
+      .subscribe((data: any) => {
         const prevLastStepId = this.previousStepGroupLastStep(data.step_groups, currStepGroup.id);
         this.flowNavService.isNextModuleLocked(prevLastStepId)
           .subscribe(

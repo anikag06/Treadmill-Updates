@@ -3,6 +3,7 @@
   width: 100%;
 
   h1 {
+    padding-left: 50px;
     text-transform: capitalize;
     white-space: nowrap;
     overflow: hidden;
@@ -11,8 +12,17 @@
 
   .navbar-title {
     // height: 100px;
-    padding-left: 50px;
+
     font-style: roboto;
+    font-size: 36px;
+    color: black;
+    opacity: 1;
+  }
+
+  .conv-title {
+    color: #343434;
+    opacity: 0.56;
+    font-size: 20px;
   }
 
   .all-icons-mobile {

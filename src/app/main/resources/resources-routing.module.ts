@@ -55,18 +55,18 @@ export const resourcesRoutes: Routes = [
       },
     ],
   },
-  { path: 'conversations', component: ConversationsComponent, data: { title: 'Conversations' }, },
-  { path: 'conversations-group/:id', component: ConversationGroupComponent },
-  { path: 'slides/:id', component: SlidesComponent }, // :id here is step_id
+  { path: 'conversations', component: ConversationsComponent, },
+  { path: 'conversations-group/:id', component: ConversationGroupComponent, },
+  { path: 'slides/:id', component: SlidesComponent, }, // :id here is step_id
   {
     path: 'introduction',
     component: IntroductionComponent,
     children: [
-      { path: '1', component: Introduction1Component, data: { title: '2.1 Introduction' }, },
-      { path: '2', component: Introduction2Component, data: { title: '3.1 Introduction' }, },
-      { path: '3', component: Introduction3Component, data: { title: '4.1 Introduction' }, },
-      { path: '4', component: Introduction4Component, data: { title: '5.1 Introduction' }, },
-      { path: '5', component: Introduction5Component, data: { title: '6.1 Introduction' }, },
+      { path: '1', component: Introduction1Component, },
+      { path: '2', component: Introduction2Component, },
+      { path: '3', component: Introduction3Component, },
+      { path: '4', component: Introduction4Component, },
+      { path: '5', component: Introduction5Component, },
     ],
   },
   {

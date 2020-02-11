@@ -32,7 +32,7 @@ export class StepComponent implements OnInit {
     private flowService: FlowService,
     private datePipe: DatePipe,
     private element: ElementRef,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.tooltipData = 'Complete the previous steps first';
@@ -47,6 +47,7 @@ export class StepComponent implements OnInit {
         this.isShowConversationBar = true;
       }
     }
+    // console.log('step', this.step, this.stepGroup);
   }
 
   ngAfterViewInit() {
@@ -120,6 +121,11 @@ export class StepComponent implements OnInit {
       setTimeout(() => this.flowService.triggerLoad(), 1);
       setTimeout(() => this.flowService.triggerLoad(), 10);
     }
+    console.log('navigate', this.stepGroup.sequence + 1, this.stepGroup.name, this.step.sequence + 1, this.step.name);
+    this.flowService.stepGroupSequence = this.stepGroup.sequence + 1;
+    this.flowService.stepSequence = this.step.sequence + 1;
+    this.flowService.stepName = this.step.name;
+    this.flowService.stepDetail.emit();
     return this.router.navigate([this.nextLink()]);
   }
 

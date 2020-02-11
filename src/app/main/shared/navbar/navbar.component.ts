@@ -23,6 +23,7 @@ import {
 } from '@angular/router';
 import { AuthService } from '@/shared/auth/auth.service';
 import { GamePlayService } from '@/main/games/shared/game-play.service';
+import { FlowService } from '@/main/flow/flow.service';
 
 @Component({
   selector: 'app-navbar',
@@ -43,6 +44,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   userNotificationSubscription!: Subscription;
   can!: any;
   isDashboard = false;
+  isConversation = false;
   @Input() user!: User;
 
 
@@ -53,6 +55,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private router: Router,
     private auth: AuthService,
     private gamePlayService: GamePlayService,
+    private flowService: FlowService,
   ) {
 
 
@@ -64,6 +67,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
       if (event instanceof NavigationEnd) {
         this.isDashboard = false;
+        this.isConversation = false;
+
         if (this.auth.navbarTitle) {
           this.navbarTitle = this.auth.navbarTitle;
           console.log(event);
@@ -75,6 +80,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
           console.log('FROM NAVBAR', this.gamePlayService.gameName);
           this.navbarTitle = this.gamePlayService.gameName;
         });
+        this.flowService.stepDetail.subscribe(() => {
+          this.navbarTitle = this.flowService.stepGroupSequence.toString() + '.' + this.flowService.stepSequence.toString() + ' ' + this.flowService.stepName;
+
+        })
       }
 
       if (event instanceof NavigationError) {
