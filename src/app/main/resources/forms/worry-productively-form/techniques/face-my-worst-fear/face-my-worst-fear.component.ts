@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { FormControl, FormBuilder, Validators } from '@angular/forms';
 import { WorryProductivelyService } from '../../worry-productively.service';
 import { Worry } from '../../worry.model';
@@ -10,6 +10,8 @@ import { Worry } from '../../worry.model';
 })
 export class FaceMyWorstFearComponent implements OnInit {
   @Input() worry !:Worry;
+  @ViewChild('panel2', { static: false }) panel2!: any;
+
   faceYourWorstFearForm = this.fb.group({
     faceYourWorstFear: new FormControl('', Validators.required),
     emergency_plan: new FormControl('', Validators.required),
@@ -20,6 +22,7 @@ export class FaceMyWorstFearComponent implements OnInit {
   showTasks = false;
   responseData ='';
   taskHeading = "Decide a time when you will worry about it.";
+  summaryText !: string;
   constructor(
     private fb: FormBuilder,
     private worryService: WorryProductivelyService,
@@ -34,6 +37,7 @@ export class FaceMyWorstFearComponent implements OnInit {
             this.faceYourWorstFearForm.controls['faceYourWorstFear'].setValue(resp.body.worst_fear,);
             this.faceYourWorstFearForm.controls['emergency_plan'].setValue(resp.body.emergency_plan,);
             this.faceYourFear.push(resp.body.worst_fear);
+            this.summaryText = resp.body.worst_fear;
             this.continueButton = true;
             this.showTasks = true;
 
@@ -43,10 +47,11 @@ export class FaceMyWorstFearComponent implements OnInit {
     } 
   }
   
-  OnWorstFearClick(){
+  onWorstFearClick(){
     this.continueButton = false;
     this.continueEmergency = false;
     this.showTasks = true;
+    this.summaryText =  this.faceYourWorstFearForm.controls['faceYourWorstFear'].value;
     if(this.responseData.length==0 && this.faceYourFear.length ==0){  
       const object ={
         worry_id : this.worry.id,
@@ -75,7 +80,11 @@ export class FaceMyWorstFearComponent implements OnInit {
         })
     }
   }
-  
+  onEmergencyPlan(){
+    this.summaryText =  this.faceYourWorstFearForm.controls['faceYourWorstFear'].value;
+    this.panel2.expanded = false;
+    this.onWorstFearClick();
+  }
   onFocus() {
     this.continueButton = true;
     this.continueEmergency = true;

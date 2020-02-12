@@ -21,6 +21,7 @@ import {
   WORRY_PRODUCTIVELY,
   BELIEF_CHANGE,
   TASK,
+  TEST_BELIEF,
 } from '@/app.constants';
 import { TasksService } from '@/main/resources/forms/shared/tasks/tasks.service';
 import { UserTask } from '@/main/resources/forms/shared/tasks/user-task.model';
@@ -31,6 +32,7 @@ import { Worry } from '../../worry-productively-form/worry.model';
 import { BeliefChangeService } from '@/main/resources/forms/belief-change/belief-change.service';
 import { Belief } from '@/main/resources/forms/belief-change/belief.model';
 import { WorryProductivelyComponent } from '../../worry-productively-form/worry-productively.component';
+import { ExperimentToTestBeliefService } from '../../experiment-to-test-belief-form/experiment-to-test-belief.service';
 
 @Component({
   selector: 'app-forms-sidebar',
@@ -57,6 +59,7 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
     private tasksService: TasksService,
     private thoughtRecordService: ThoughtRecordService,
     private beliefChangeService: BeliefChangeService,
+    private ettbfBeliefService: ExperimentToTestBeliefService, 
     private route: ActivatedRoute,
     private element: ElementRef,
   ) {}
@@ -72,7 +75,10 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
       this.getWorries();
     } else if (this.type === BELIEF_CHANGE) {
       this.getBeliefs();
+    } else if (this.type === TEST_BELIEF) {
+      this.getTestBelief();
     }
+
 
     this.route.queryParams.subscribe(
       params => (this.object_id = parseInt(params.form_id, 10)),
@@ -119,6 +125,23 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
     ] = this.worryService.worrysBehaviour.subscribe(
       (worries: Worry[]) => {
         this.objects = worries;
+        this.selectObject();
+      },
+      (error: HttpErrorResponse) => {
+        console.error(error);
+      },
+    );
+  }
+
+  getTestBelief(){
+    this.subscriptions[
+      this.subscriptions.length
+    ] = this.ettbfBeliefService.getBelief();
+    this.subscriptions[
+      this.subscriptions.length
+    ] = this.ettbfBeliefService.beliefbehaviours.subscribe(
+      (beliefs: Belief[]) => {
+        this.objects = beliefs;
         this.selectObject();
       },
       (error: HttpErrorResponse) => {
@@ -180,7 +203,9 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
       this.deleteTaskForm(object);
     } else if (this.type === WORRY_PRODUCTIVELY) {
       this.deleteWorryForm(object);
-    }
+    } else if (this.type === TEST_BELIEF) {
+      this.deleteTestBeliefForm(object);
+    } 
   }
 
   deleteThoughtRecordForm(object: any) {
@@ -236,4 +261,16 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
       }
     });
   }
+  deleteTestBeliefForm(belief : any) {
+    this.ettbfBeliefService.deleteBelief(belief.id).subscribe(resp =>{
+      const status = resp.ok;
+      if (status) {
+        this.onAddNewForm();
+        console.log('Form Deleted');
+        this.ettbfBeliefService.removeSituation(belief);
+
+      }
+    })
+  }
+
 }

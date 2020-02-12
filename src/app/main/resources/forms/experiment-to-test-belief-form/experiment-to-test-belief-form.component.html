@@ -15,8 +15,8 @@
 
       <mat-menu xPosition="before" yPosition="below" #experimentToTestBeliefForms="matMenu" [overlapTrigger]="false">
         <div [ngStyle]="{'max-height':'350px'}">
-          <!-- <app-forms-sidebar [type]="type" (objectEmitter)="beliefSelected($event)" (newForm)="onAddNewForm()">
-              </app-forms-sidebar> -->
+          <app-forms-sidebar [type]="type" (objectEmitter)="beliefSelected($event)" (newForm)="onAddNewForm()" [object]="belief">
+              </app-forms-sidebar>
         </div>
       </mat-menu>
     </mat-card-header>
@@ -49,45 +49,48 @@
           </div>
         </div>
       </div>
-
-      <div class="row mb-2">
-        <div class="col">
-          <div class="card-full-width">
-            <div class="card-header">
-              How can you test if this belief is true?
-            </div>
-            <div class="card-body">
-              <app-tasks></app-tasks>
+      
+      <!-- <div *ngIf= "taskContinue">s -->
+        <div class="row mb-2">
+          <div class="col">
+            <div class="card-full-width">
+              <!-- <div class="card-header">
+                How can you test if this belief is true?
+              </div> -->
+              <div class="card-body">
+                <app-tasks (taskLoaded)="taskLoaded($event)" [taskHeading]= "taskHeading"></app-tasks>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-
-      <div class="row mb-2">
-        <div class="col-12">
-          <div class="card-full-width">
-            <div class="card-header">
-              What was the outcome?
-              <div class="float-right d-inline-block">
-                <mat-icon class="edit_icon" (click)="onEditOutcomeClick()">
-                  edit </mat-icon>
+      <!-- </div> -->
+    
+      <!-- <div *ngIf="taskEmitted"> -->
+        <div class="row mb-2">
+          <div class="col-12">
+            <div class="card-full-width">
+              <!-- <div class="card-header">
+                What was the outcome?
+                <div class="float-right d-inline-block">
+                  <mat-icon class="edit_icon" (click)="onEditOutcomeClick()">
+                    edit </mat-icon>
+                </div>
+              </div> -->
+              <div  *ngIf="outcome && !outcomeEditMode">
+                <div class="form-editable-text-underline">
+                  {{outcome.outcome}}
+                </div>
               </div>
-            </div>
-            <div class="card-body" *ngIf="outcome && !outcomeEditMode">
-              <div class="form-editable-text-underline">
-                {{outcome.outcome}}
+              <div *ngIf="outcome && outcomeEditMode">
+                <app-ettbf-outcome [outcome]="outcome"></app-ettbf-outcome>
               </div>
-            </div>
-            <div class="card-body" *ngIf="outcome && outcomeEditMode">
-              <app-ettbf-outcome [outcome]="outcome"></app-ettbf-outcome>
-            </div>
-            <div class="card-body" *ngIf="!outcome">
-              <app-ettbf-outcome></app-ettbf-outcome>
+              <div  *ngIf="!outcome">
+                <app-ettbf-outcome></app-ettbf-outcome>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-
+      <!-- </div> -->
     </div>
   </div>
 </mat-card>

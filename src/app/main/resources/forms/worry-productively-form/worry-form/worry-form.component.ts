@@ -41,6 +41,10 @@ export class WorryFormComponent implements OnInit {
       // console.log('slider value is' + this.sliderRating.rating);
     }
   }
+  ngOnChanges(){
+    this.worryStatement = this.worry.worry;
+    this.value = this.worry.worry_rating_initial;
+  }
   ngAfterViewInit() {
     if (this.worry && this.worryTextArea) {
       setTimeout(() => {

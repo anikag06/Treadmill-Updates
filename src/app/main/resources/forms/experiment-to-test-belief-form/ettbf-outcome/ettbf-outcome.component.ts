@@ -40,7 +40,8 @@ export class EttbfOutcomeComponent implements OnInit, OnDestroy {
   maxRatingText = ETTBF_MAX_RATING_TEXT;
   bothRatingsExist = false;
   beliefDecreased!: boolean;
-
+  outcomeText = false;
+  learningText = false;
   constructor(private ettbfBeliefService: ExperimentToTestBeliefService) {}
 
   ngOnInit() {
@@ -160,5 +161,11 @@ export class EttbfOutcomeComponent implements OnInit, OnDestroy {
       this.beliefDecreased =
         this.outcome.belief_rating_after < this.belief.belief_rating_before;
     }
+  }
+  onFocusOutcome(){
+    this.outcomeText = true;
+  }
+  onFocusLearning(){
+    this.learningText = true;
   }
 }

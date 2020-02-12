@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
+import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { SanitizationService } from '@/main/shared/sanitization.service';
@@ -13,8 +13,12 @@ import { ETTBF_BELIEF_URL, ETTBF_OUTCOME_URL } from '@/app.constants';
   providedIn: 'root',
 })
 export class ExperimentToTestBeliefService {
+  
+  beliefs : Belief[]=[]; 
   beliefObservable$ = new BehaviorSubject({});
-
+  beliefbehaviours = new BehaviorSubject(this.beliefs);
+  morebeliefs = true;
+  page = 1;
   constructor(
     private http: HttpClient,
     private sanitizer: SanitizationService,
@@ -22,10 +26,24 @@ export class ExperimentToTestBeliefService {
 
   getBelief() {
     return this.http
-      .get<Belief>(environment.API_ENDPOINT + ETTBF_BELIEF_URL + '1/')
+      .get<Belief[]>(environment.API_ENDPOINT + ETTBF_BELIEF_URL )
       .subscribe((data: any) => {
         console.log('ETTBF data: ', data);
-      });
+        const beliefs = <Belief[]>data.results;
+        this.beliefs.push(...beliefs);
+        this.beliefbehaviours.next(this.beliefs);
+        if (data.next) {
+          this.morebeliefs = true;
+          this.page += 1;
+          // this.getBelief();
+        } else {
+          this.morebeliefs = false;
+        }
+      },
+        (error: HttpErrorResponse) => {
+          console.error(error);
+        },
+      );
   }
 
   postBelief(belief: string) {
@@ -33,6 +51,7 @@ export class ExperimentToTestBeliefService {
       .post(environment.API_ENDPOINT + ETTBF_BELIEF_URL, { belief: belief })
       .pipe(
         map((data: any) => {
+          this.beliefs.push(<Belief>data)
           this.beliefObservable$.next(<Belief>data);
           return <Belief>data;
         }),
@@ -48,10 +67,26 @@ export class ExperimentToTestBeliefService {
       })
       .pipe(
         map((data: any) => {
+          this.beliefs = this.beliefs.map(btest => {
+            if (belief.id === btest.id) {
+              return data;
+            } else {
+              return btest;
+            }
+          });
+          this.beliefbehaviours.next(this.beliefs);
           this.beliefObservable$.next(<Belief>data);
           return <Belief>data;
         }),
       );
+  }
+  deleteBelief(id: number): Observable<HttpResponse<any>>{
+    return this.http.delete(
+      environment.API_ENDPOINT + ETTBF_BELIEF_URL + id + '/',
+      {
+        observe: 'response',
+      },
+    );
   }
 
   postOutcome(belief_id: number, outcome: string) {
@@ -68,6 +103,7 @@ export class ExperimentToTestBeliefService {
   }
 
   putOutcome(outcome: Outcome) {
+    
     return this.http
       .put(environment.API_ENDPOINT + ETTBF_OUTCOME_URL + outcome.id + '/', {
         id: outcome.id,
@@ -82,5 +118,23 @@ export class ExperimentToTestBeliefService {
           return <Outcome>data;
         }),
       );
+  }
+  addSituation(belief: Belief) {
+    this.beliefs.push(belief);
+    this.beliefObservable$.next(belief);
+    this.beliefbehaviours.next(this.beliefs);
+  }
+
+  updateSituation(data: any) {
+    const belief = this.beliefs.find((t: Belief) => t.id === data.id);
+    if (belief) {
+      this.beliefs[this.beliefs.indexOf(belief)] = data;
+      this.beliefbehaviours.next(this.beliefs);
+    }
+  }
+  removeSituation(beliefForm : Belief){
+    const BeliefFormIndex = this.beliefs.indexOf(beliefForm);
+    this.beliefs.splice(BeliefFormIndex, 1);
+    this.beliefbehaviours.next(this.beliefs);
   }
 }

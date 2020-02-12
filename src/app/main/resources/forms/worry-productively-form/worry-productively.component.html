@@ -69,7 +69,8 @@
                 </mat-checkbox>
 
               </div>
-              <p class="text-right" (click)="OnCharacteristicCheck()">
+    
+              <p class="text-right" (click)="OnCharacteristicCheck()" *ngIf="checkBoxContinue">
                 <button type="button" mat-raised-button color="primary" class="continue-btn">Continue</button>
               </p>
             </form>
@@ -118,5 +119,11 @@
       </div>
     </div>
   </div>
-    
+  <!-- <app-form-message *ngIf="showMessage" [formMessage]="message">
+  </app-form-message>
+  <app-form-quote
+    *ngIf="showMessage"
+    [quote]="quote"
+    [quotedBy]="quotedBy"
+  ></app-form-quote> -->
 </mat-card>

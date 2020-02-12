@@ -1,19 +1,33 @@
-<div class="card-body">   
-    <div>
-      Write down the worst fear in as much detail as possible.  <br/> <br/> 
-    
+<mat-expansion-panel hideToggle="true" #panel2>
+    <mat-expansion-panel-header style="background: #FEC1C1;">
+      <mat-panel-description>
+        <strong> Face my worst fear </strong>
+      </mat-panel-description>
+      <mat-icon *ngIf="panel2.expanded " svgIcon="Close"></mat-icon>
+      <mat-icon *ngIf="!panel2.expanded && summaryText " svgIcon="EditErrors"></mat-icon>
+    </mat-expansion-panel-header>
+<ng-template matExpansionPanelContent >
+<div class="card-body" style="padding: 15px 2px 16px;">   
+    <div class="headingText">
+        Write down the worst fear in as much detail as possible.  <br/> <br/> 
+    </div>
+    <div>  
         <mat-form-field class="full-width" [formGroup]="faceYourWorstFearForm">
         <textarea class="py-0" formControlName="faceYourWorstFear" #fear cdkTextareaAutosize cdkAutosizeMinRows="1"
             cdkAutosizeMaxRows="5" placeholder="Write here" matInput required [autofocus] (focus)="onFocus()" 
             ></textarea>
         </mat-form-field>
-        <p class="text-right" *ngIf="fear.value && continueButton" (click)="OnWorstFearClick()">
+        <p class="text-right" *ngIf="fear.value && continueButton" (click)="onWorstFearClick()">
             <button type="button" mat-raised-button color="primary" class="continue-btn">Continue</button>
         </p>
 
     </div> 
     <div *ngIf="showTasks">
         <app-tasks [taskHeading]= "taskHeading"></app-tasks> <br/> <br/>
+    </div>
+    
+    <div class="headingText" *ngIf="showTasks">
+        Write down the emergency plan (You can write the emergency plan after worrying regularly for 2-3 weeks) <br/> <br/>
     </div>
     <div>
         <mat-form-field class="full-width" [formGroup]="faceYourWorstFearForm">
@@ -22,7 +36,20 @@
                 ></textarea>
         </mat-form-field>
     </div>
-    <p class="text-right" *ngIf="Text.value " (click)="OnWorstFearClick()">
+    <p class="text-right" *ngIf="Text.value " (click)="onEmergencyPlan()">
         <button type="button" mat-raised-button color="primary" class="continue-btn">Continue</button>
     </p>
 </div>
+</ng-template>
+</mat-expansion-panel>
+
+<mat-card class="card-body" *ngIf="!panel2.expanded && summaryText">
+    <mat-card-content>
+        <div [ngStyle]="{ 'font-size': '12px' }">
+            Summary
+        </div>
+        <div [ngStyle]="{ 'margin-top': '8px', 'font-size': '12px' }">
+            {{ summaryText }}
+        </div>
+    </mat-card-content>
+  </mat-card> <br/>

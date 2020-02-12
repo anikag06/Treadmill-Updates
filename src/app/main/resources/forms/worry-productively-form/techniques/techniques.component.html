@@ -20,18 +20,8 @@
               </app-evaluate-worry>
            
         
-          <mat-expansion-panel hideToggle="true" #panel2>
-            <mat-expansion-panel-header style="background: #FEC1C1;">
-              <mat-panel-description>
-                <strong> Face my worst fear </strong>
-              </mat-panel-description>
-              <mat-icon *ngIf="panel2.expanded " svgIcon="Close"></mat-icon>
-              <mat-icon *ngIf="!panel2.expanded" svgIcon="EditErrors"></mat-icon>
-            </mat-expansion-panel-header>
-            <ng-template matExpansionPanelContent >
+          
               <app-face-my-worst-fear [worry]="worry"></app-face-my-worst-fear>
-            </ng-template>
-          </mat-expansion-panel><br />
           
               <app-modify-beliefs [worry]="worry">
               </app-modify-beliefs>

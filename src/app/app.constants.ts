@@ -267,6 +267,7 @@ export const SET_ACTIVITY = 'set-activity';
 // Thought record form
 export const THOUGHT_RECORD = 'thought-record';
 export const BELIEF_CHANGE = 'belief-change';
+export const TEST_BELIEF = 'test-belief';
 
 // form names
 export const PROBLEM_SOLVING_FORM_NAME = 'Cope with a problem';
