@@ -1,22 +1,41 @@
 <app-procon-item
   *ngFor="let procon of prosCons"
   [procon]="procon"
-  (proconDelete)=onProconDelete($event)>
+  (proconDelete)="onProconDelete($event)"
+>
 </app-procon-item>
 <div>
-  <button class="close-btn pull-right" (click)="showForm=!showForm">
-    <mat-icon *ngIf="!(showForm ||  prosCons.length === 0)">add_circle</mat-icon>
-    <mat-icon *ngIf="(showForm ||  prosCons.length === 0)">clear_circle</mat-icon>
-  </button>
+  <div
+    [ngStyle]="{ display: 'flex' }"
+    *ngIf="showForm || prosCons.length === 0"
+  >
+    <form class="full-width" (ngSubmit)="onSubmit()" #proconForm="ngForm">
+      <mat-form-field class="full-width">
+        <textarea
+          class="py-0"
+          name="procon"
+          id="procon"
+          rows="1"
+          placeholder="Enter  {{ pro ? 'pro' : 'con' }}"
+          matInput
+          required
+          [autofocus]
+          ngModel
+          cdkTextareaAutosize
+          cdkAutosizeMinRows="1"
+          cdkAutosizeMaxRows="5"
+          (focusout)="onTextAreaFocusOut($event)"
+          (keyup.enter)="onEnterPress($event)"
+        ></textarea>
+      </mat-form-field>
+    </form>
+    <div>
+    </div>
+  </div>
 </div>
-<div *ngIf="showForm || prosCons.length === 0">
-  <form (ngSubmit)="onSubmit()" #proconForm="ngForm">
-    <mat-form-field class="full-width">
-      <textarea name="procon" id="procon" 
-        rows="1" placeholder="Enter  {{pro ? 'pro' : 'con'}}"
-        matInput required [autofocus] ngModel 
-        (focusout)="onTextAreaFocusOut($event)"
-        (keyup.enter)="onEnterPress($event)"></textarea>
-    </mat-form-field>
-  </form>
+<div (click)="showForm = !showForm">
+  <div class="float-left add-statement">
+    <mat-icon [ngStyle]="{ fontSize: '16px', paddingTop: '2px' }">add</mat-icon>
+    <div>Add {{ pro ? 'Pro' : 'Con' }}</div>
+  </div>
 </div>

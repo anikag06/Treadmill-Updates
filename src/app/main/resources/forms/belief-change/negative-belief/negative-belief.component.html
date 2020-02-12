@@ -41,18 +41,18 @@
           <button class="btn btn-link" (click)="onSelectCommonBelief()">
             List of Beliefs
           </button>
-        </div>
-        <div>
-          <button
-            type="submit"
-            mat-raised-button
-            class="btn continue-btn"
-            (click)="onBeliefSubmit()"
-            *ngIf="showContiue"
-            [ngStyle]="{ float: 'right' }"
-          >
-            Continue
-          </button>
+          <div *ngIf="showContiue" [ngStyle]="{ display: 'initial' }">
+            <button
+              type="submit"
+              mat-raised-button
+              class="btn continue-btn"
+              (click)="onBeliefSubmit()"
+              [ngStyle]="{ float: 'right' }"
+            >
+              Continue
+            </button>
+            <br />
+          </div>
         </div>
       </form>
     </div>

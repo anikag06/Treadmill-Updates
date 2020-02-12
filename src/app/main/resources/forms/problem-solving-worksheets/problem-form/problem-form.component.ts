@@ -1,15 +1,6 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  EventEmitter,
-  Output,
-  ChangeDetectionStrategy,
-  ViewChild,
-  ElementRef,
-} from '@angular/core';
-import { Problem } from '../problem.model';
-import { ProblemSolvingWorksheetsService } from '../problem-solving-worksheets.service';
+import {ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, ViewChild,} from '@angular/core';
+import {Problem} from '../problem.model';
+import {ProblemSolvingWorksheetsService} from '../problem-solving-worksheets.service';
 
 @Component({
   selector: 'app-problem-form',
@@ -50,8 +41,8 @@ export class ProblemFormComponent implements OnInit {
         .putProblem({
           id: this.problem.id,
           problem: this.problemStatement,
-          bestSolution: null,
-          taskOrigin: 0,
+          bestsolution: null,
+          taskorigin: this.problem.taskorigin,
         })
         .subscribe(
           () => {},

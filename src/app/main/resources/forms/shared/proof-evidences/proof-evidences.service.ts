@@ -3,14 +3,18 @@ import {HttpClient} from '@angular/common/http';
 import {IProofEvidences} from '@/main/resources/forms/shared/proof-evidences/IProofEvidences';
 import {environment} from '../../../../../../environments/environment';
 import {catchError, map} from 'rxjs/operators';
-import {handleError} from '@/main/shared/error-handling';
+
 import {BELIEF_PROOF_EVIDNECES_API, THOUGHT_PROOF_EVIDENCES_API,} from '@/app.constants';
+import {GeneralErrorService} from '@/main/shared/general-error.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TRFProofService implements IProofEvidences {
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private errorService: GeneralErrorService,
+  ) {}
 
   getEvidences(id: number, type: string): any {
     return this.http
@@ -29,7 +33,7 @@ export class TRFProofService implements IProofEvidences {
           };
           return object;
         }),
-        catchError(handleError),
+        catchError(this.errorService.handleError),
       );
   }
 
@@ -47,7 +51,7 @@ export class TRFProofService implements IProofEvidences {
           observe: 'response',
         },
       )
-      .pipe(catchError(handleError));
+      .pipe(catchError(this.errorService.handleError));
   }
 
   deleteEvidence(id: number, type: string): any {
@@ -63,7 +67,7 @@ export class TRFProofService implements IProofEvidences {
           observe: 'response',
         },
       )
-      .pipe(catchError(handleError));
+      .pipe(catchError(this.errorService.handleError));
   }
 }
 
@@ -71,7 +75,10 @@ export class TRFProofService implements IProofEvidences {
   providedIn: 'root',
 })
 export class BeliefProofService implements IProofEvidences {
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private errorService: GeneralErrorService,
+  ) {}
 
   getEvidences(id: number, type: string): any {
     return this.http
@@ -91,7 +98,7 @@ export class BeliefProofService implements IProofEvidences {
           return object;
         }),
 
-        catchError(handleError),
+        catchError(this.errorService.handleError),
       );
   }
 
@@ -109,7 +116,7 @@ export class BeliefProofService implements IProofEvidences {
           observe: 'response',
         },
       )
-      .pipe(catchError(handleError));
+      .pipe(catchError(this.errorService.handleError));
   }
 
   deleteEvidence(id: number, type: string): any {
@@ -125,6 +132,6 @@ export class BeliefProofService implements IProofEvidences {
           observe: 'response',
         },
       )
-      .pipe(catchError(handleError));
+      .pipe(catchError(this.errorService.handleError));
   }
 }

@@ -1,25 +1,17 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  OnDestroy,
-  ElementRef,
-  NgZone,
-} from '@angular/core';
-import { ProblemSolvingWorksheetsService } from './problem-solving-worksheets.service';
-import { Subscription } from 'rxjs';
-import { Problem } from './problem.model';
-import { Solution } from './solution.model';
-import { NgForm } from '@angular/forms';
-import { AuthService } from '@/shared/auth/auth.service';
-import { User } from '@/shared/user.model';
-import { GeneralErrorService } from '@/main/shared/general-error.service';
-import { PSF_PROBLEM_SOLVING } from '@/app.constants';
-import { UserTask } from '@/main/resources/forms/shared/tasks/user-task.model';
-import { CdkTextareaAutosize } from '@angular/cdk/text-field';
-import { ProblemFormComponent } from './problem-form/problem-form.component';
-import { SolutionsComponent } from './solutions/solutions.component';
-import { PROBLEM_SOLVING_FORM_NAME } from '@/app.constants';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild,} from '@angular/core';
+import {ProblemSolvingWorksheetsService} from './problem-solving-worksheets.service';
+import {Subscription} from 'rxjs';
+import {Problem} from './problem.model';
+import {Solution} from './solution.model';
+import {NgForm} from '@angular/forms';
+import {AuthService} from '@/shared/auth/auth.service';
+import {User} from '@/shared/user.model';
+import {GeneralErrorService} from '@/main/shared/general-error.service';
+import {PROBLEM_SOLVING_FORM_NAME, PSF_PROBLEM_SOLVING,} from '@/app.constants';
+import {UserTask} from '@/main/resources/forms/shared/tasks/user-task.model';
+import {CdkTextareaAutosize} from '@angular/cdk/text-field';
+import {ProblemFormComponent} from './problem-form/problem-form.component';
+import {SolutionsComponent} from './solutions/solutions.component';
 
 @Component({
   selector: 'app-problem-solving-worksheets',
@@ -36,9 +28,11 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   showResult = false;
   showSolutionsForm = false;
   type = PSF_PROBLEM_SOLVING;
+  heading = 'How will you implement this solution? ';
   subscriptions: Subscription[] = [];
   problemEditMode = false;
   formName = PROBLEM_SOLVING_FORM_NAME;
+  task!: UserTask;
 
   @ViewChild('solutionForm', { static: false }) solutionForm!: NgForm;
   @ViewChild('solutionTextArea', { static: false })
@@ -76,16 +70,31 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
 
   problemSelected(problem: Problem) {
     this.problem = problem;
+    console.log(this.problem);
     this.problemEditMode = false;
     this.fetchSolutions();
+    this.fetchTask();
+  }
+
+  fetchTask() {
+    if (this.problem.taskorigin) {
+      this.problemService
+        .getTask(this.problem.taskorigin.task_id)
+        .subscribe((resp: any) => {
+          if (resp.data) {
+            this.task = resp.data;
+            this.showResult = true;
+          }
+        });
+    }
   }
 
   fetchSolutions() {
     this.problemService.getSolutions(this.problem.id).subscribe((data: any) => {
       this.solutions = data.message;
-      if (this.problem.bestSolution) {
+      if (this.problem.bestsolution) {
         const bestSolution = this.solutions.find(
-          sol => sol.id === this.problem.bestSolution.solution_id,
+          sol => sol.id === this.problem.bestsolution.solution_id,
         );
         if (bestSolution) {
           this.bestSolution = bestSolution;
@@ -99,6 +108,7 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
     this.solutions = [];
     delete this.bestSolution;
     delete this.problem;
+    delete this.task;
   }
 
   onCheckBoxChange(solution: Solution, event: Event) {

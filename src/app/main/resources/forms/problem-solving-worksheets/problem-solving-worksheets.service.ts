@@ -1,24 +1,14 @@
-import { Injectable } from '@angular/core';
-import {
-  HttpClient,
-  HttpParams,
-  HttpErrorResponse,
-  HttpHeaders,
-} from '@angular/common/http';
-import { of, BehaviorSubject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams,} from '@angular/common/http';
+import {BehaviorSubject} from 'rxjs';
+import {catchError, map} from 'rxjs/operators';
 
-import { ProsCons } from './pros-cons.model';
-import { environment } from 'environments/environment';
-import { Problem } from './problem.model';
-import { SanitizationService } from '@/main/shared/sanitization.service';
-import {
-  PSF_PROBLEM_URL,
-  PSF_SOLUTION_URL,
-  PSF_BEST_SOLUTION_URL,
-  PSF_PRO_CON_URL,
-  PSF_RESULT_URL,
-} from '@/app.constants';
+import {ProsCons} from './pros-cons.model';
+import {environment} from 'environments/environment';
+import {Problem} from './problem.model';
+import {SanitizationService} from '@/main/shared/sanitization.service';
+import {PSF_BEST_SOLUTION_URL, PSF_PRO_CON_URL, PSF_PROBLEM_URL, PSF_RESULT_URL, PSF_SOLUTION_URL, TASK_API,} from '@/app.constants';
+import {GeneralErrorService} from '@/main/shared/general-error.service';
 
 @Injectable({
   providedIn: 'root',
@@ -33,6 +23,7 @@ export class ProblemSolvingWorksheetsService {
   constructor(
     private http: HttpClient,
     private sanitizer: SanitizationService,
+    private errorService: GeneralErrorService,
   ) {}
 
   getProblems() {
@@ -61,6 +52,15 @@ export class ProblemSolvingWorksheetsService {
           console.error(error);
         },
       );
+  }
+
+  deleteProblem(problem_id: number) {
+    return this.http.delete(
+      environment.API_ENDPOINT + PSF_PROBLEM_URL + problem_id + '/',
+      {
+        observe: 'response',
+      },
+    );
   }
 
   postProblem(problem: string) {
@@ -135,6 +135,12 @@ export class ProblemSolvingWorksheetsService {
     );
   }
 
+  getTask(task: number) {
+    return this.http
+      .get(environment.API_ENDPOINT + TASK_API + task + '/')
+      .pipe(catchError(this.errorService.handleError));
+  }
+
   // Some Issues with the backend we need to send a form
   postSolution(solution: string, problemId: number) {
     const params = new HttpParams()
@@ -207,5 +213,11 @@ export class ProblemSolvingWorksheetsService {
       environment.API_ENDPOINT + PSF_RESULT_URL + result_id + '/',
       { solution_id: solution_id, body: body },
     );
+  }
+
+  removeProblem(problem: Problem) {
+    const beliefIndex = this.problems.indexOf(problem);
+    this.problems.splice(beliefIndex, 1);
+    this.problemsBehaviour.next(this.problems);
   }
 }

@@ -1,12 +1,15 @@
 <div class="item">
   <button class="pull-right" (click)="removeProcon()" *ngIf="!hideRemove">
-    <mat-icon>remove_circle</mat-icon>
+    <mat-icon>delete</mat-icon>
   </button>
-  <div contenteditable="true" #editableDiv
-    (focusout)="onFocusOut($event)" 
-    (focusin)="onFocus()" 
+  <div
+    contenteditable="true"
+    #editableDiv
+    (focusout)="onFocusOut($event)"
+    (focusin)="onFocus()"
     class="procon"
-    (keydown.enter)="onFocusOut($event)">
-    {{procon.body}}
+    (keydown.enter)="onFocusOut($event)"
+  >
+    {{ procon.body }}
   </div>
 </div>

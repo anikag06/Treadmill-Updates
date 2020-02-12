@@ -17,12 +17,13 @@
                 <textarea
                   matInput
                   cdkTextareaAutosize
-                  #autosize="cdkTextareaAutosize"
-                  cdkAutosizeMaxRows="4"
+                  cdkAutosizeMinRows="1"
+                  cdkAutosizeMaxRows="5"
                   formControlName="task"
                   class="form-control"
                   required
                   placeholder="Enter Task Here"
+                  (focusin)="showSaveBtn()"
                   (focusout)="updateTask()"
                 ></textarea>
               </mat-form-field>
@@ -47,6 +48,7 @@
                 (change)="subTaskCompletedChange($event, id)"
               >
                 <input type="hidden" formControlName="id" [value]="id" />
+                &nbsp;
                 <mat-form-field class="full-width">
                   <textarea
                     matInput
@@ -55,15 +57,16 @@
                     cdkAutosizeMaxRows="4"
                     formControlName="name"
                     class="form-control"
-                    placeholder="Enter Subtask Here"
+                    [placeholder]="showTrashIcon[i] ? 'Enter Subtask Here' : ''"
                     required
+                    (focusout)="this.updateTask()"
                     (focus)="onShowTrashIcon(i)"
                     #answer="matInput"
                   ></textarea>
                 </mat-form-field>
               </mat-checkbox>
               <div
-                id="trash-icon"
+                class="trash-icon"
                 (click)="markForDeletion(subtask.value, i)"
                 *ngIf="showTrashIcon[i]"
               >

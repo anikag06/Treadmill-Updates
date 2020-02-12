@@ -6,7 +6,8 @@ import {UserTask} from '@/main/resources/forms/shared/tasks/user-task.model';
 import {MatSnackBar} from '@angular/material';
 import {SUBTASK_PATH, TASK_API} from '@/app.constants';
 import {catchError} from 'rxjs/operators';
-import {handleError} from '@/main/shared/error-handling';
+
+import {GeneralErrorService} from '@/main/shared/general-error.service';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +18,8 @@ export class TasksService {
   nextPage = true;
   taskBehaviour = new BehaviorSubject<UserTask[]>(this.tasks);
 
-  constructor(private http: HttpClient, public snackBar: MatSnackBar) {}
+  constructor(private http: HttpClient, public snackBar: MatSnackBar,
+              private errorService: GeneralErrorService,) {}
 
   getTasks() {
     if (this.nextPage) {
@@ -49,7 +51,7 @@ export class TasksService {
       .post(environment.API_ENDPOINT + TASK_API, data, {
         observe: 'response',
       })
-      .pipe(catchError(handleError));
+      .pipe(catchError(this.errorService.handleError));
   }
 
   putTask(data: any, id: number) {
@@ -57,7 +59,7 @@ export class TasksService {
       .put(environment.API_ENDPOINT + TASK_API + id + '/', data, {
         observe: 'response',
       })
-      .pipe(catchError(handleError));
+      .pipe(catchError(this.errorService.handleError));
   }
 
   addTask(task: UserTask) {

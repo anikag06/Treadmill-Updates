@@ -64,7 +64,7 @@ export class TasksComponent implements OnInit, OnChanges {
   ) {}
 
   ngOnInit() {
-    if (this.problem && this.problem.taskOrigin) {
+    if (this.problem && this.problem.taskorigin) {
       this.loadTasks();
     }
   }
@@ -77,11 +77,11 @@ export class TasksComponent implements OnInit, OnChanges {
       this.initializeTask();
     } else if (
       this.problem &&
-      this.problem.taskOrigin &&
+      this.problem.taskorigin &&
       changes.problem.previousValue !== changes.problem.currentValue
     ) {
       this.loadTasks();
-    } else if (this.problem && !this.problem.taskOrigin) {
+    } else if (this.problem && !this.problem.taskorigin) {
       this.resetTask();
       this.taskLoaded.emit();
     }
@@ -114,7 +114,7 @@ export class TasksComponent implements OnInit, OnChanges {
 
   addField() {
     const formArray = this.tasksGroup.get('subTasks') as FormArray;
-    formArray.push(this.createEditItem());
+    formArray.push(this.createItem());
     this.showTrashIcon.push(false);
     this.changeDetector.detectChanges();
   }
@@ -133,7 +133,7 @@ export class TasksComponent implements OnInit, OnChanges {
         (str: any) => str.name.trim().length > 0,
       ),
       days: this.days,
-      origin_object: this.getOriginId(),
+      origin_id: this.getOriginId(),
       origin_name: this.getOriginName(),
     };
 
@@ -291,7 +291,7 @@ export class TasksComponent implements OnInit, OnChanges {
       (data: any) => {
         if (data.length > 0) {
           this.task = data.find((t: UserTask) => {
-            if (this.problem.taskOrigin === t.origin_object) {
+            if (this.problem.taskorigin.id === t.origin_object) {
               return t;
             }
           });
@@ -339,18 +339,18 @@ export class TasksComponent implements OnInit, OnChanges {
     this.showMessage.emit(true);
   }
 
-  onAllCheck(event: any) {
-    if (event.checked) {
-      this.days = WEEK;
-    } else {
-      this.days = [];
-    }
-    this.updateTask();
-  }
-
-  allDaysChecked() {
-    return this.start_date.length === 7;
-  }
+  // onAllCheck(event: any) {
+  //   if (event.checked) {
+  //     this.days = WEEK;
+  //   } else {
+  //     this.days = [];
+  //   }
+  //   this.updateTask();
+  // }
+  //
+  // allDaysChecked() {
+  //   return this.start_date.length === 7;
+  // }
 
   getOriginId() {
     if (this.problem) {
@@ -417,6 +417,7 @@ export class TasksComponent implements OnInit, OnChanges {
     this.showDateTimePicker = !this.showDateTimePicker;
     const dialogRef = this.dialog.open(DateTimePickerComponent, {
       panelClass: 'dateTime-dialog-container',
+      maxWidth: '100vw',
       data: {
         startDate: this.start_date,
         endDate: this.end_date,
@@ -460,6 +461,7 @@ export class TasksComponent implements OnInit, OnChanges {
   }
   onShowTrashIcon(index: number) {
     this.showTrashIcon[index] = !this.showTrashIcon[index];
+    this.taskValueChanged = true;
   }
 
   getRepeatedDays(days: String[]): string {
@@ -472,5 +474,9 @@ export class TasksComponent implements OnInit, OnChanges {
     }
     const repeat = repeatedDays.join(',');
     return repeat;
+  }
+
+  showSaveBtn() {
+    this.taskValueChanged = true;
   }
 }

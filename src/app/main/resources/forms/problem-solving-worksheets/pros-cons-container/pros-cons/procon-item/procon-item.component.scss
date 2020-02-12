@@ -1,14 +1,14 @@
-@import "../../../../../../../../color.palette.scss";
+@import '../../../../../../../../color.palette.scss';
 
 button {
-    background-color: transparent;
-    border-radius: 50%;
-    border: none;
+  background-color: transparent;
+  border-radius: 50%;
+  border: none;
 }
 
 .procon {
   padding: 5px;
-  margin: 10px;
+  margin: 5px;
   font-size: 14px;
   border-bottom: 1px solid #dcdcdc;
   &:focus {

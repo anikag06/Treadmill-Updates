@@ -1,11 +1,14 @@
+@import '../../../forms.component';
+
 .pull-right {
-    float: right;
+  float: right;
 }
 button {
   background-color: transparent;
   border: none;
   height: 25px;
-  &:active, &:hover {
+  &:active,
+  &:hover {
     outline: none;
   }
 }

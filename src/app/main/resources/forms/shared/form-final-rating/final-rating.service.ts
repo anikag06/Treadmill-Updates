@@ -4,14 +4,15 @@ import {HttpClient} from '@angular/common/http';
 import {FINAL_RATING_BELIEF_API, FINAL_RATING_THOUGHT_API, REALISTIC_BELIEF_API, REALISTIC_THOUGHT_API,} from '@/app.constants';
 import {catchError, map} from 'rxjs/operators';
 import {IFinalRatingServices} from '@/main/resources/forms/shared/form-final-rating/IFinalRatingServices';
-import {handleError} from '@/main/shared/error-handling';
+import {GeneralErrorService} from '@/main/shared/general-error.service';
 
 
 @Injectable({
   providedIn: 'root',
 })
 export class NegativeBeliefFinalService implements IFinalRatingServices {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,
+              private errorService: GeneralErrorService, ) {}
 
   postFinalRating(id: number, finalRating: number) {
     const object = {
@@ -22,7 +23,7 @@ export class NegativeBeliefFinalService implements IFinalRatingServices {
       .post<any>(environment.API_ENDPOINT + FINAL_RATING_BELIEF_API, object, {
         observe: 'response',
       })
-      .pipe(catchError(handleError));
+      .pipe(catchError(this.errorService.handleError));
   }
 
   putFinalRating(id: number, finalRating: number) {
@@ -38,7 +39,7 @@ export class NegativeBeliefFinalService implements IFinalRatingServices {
           observe: 'response',
         },
       )
-      .pipe(catchError(handleError));
+      .pipe(catchError(this.errorService.handleError));
   }
 
   getFinalRating(id: number) {
@@ -51,7 +52,7 @@ export class NegativeBeliefFinalService implements IFinalRatingServices {
           };
           return object;
         }),
-        catchError(handleError),
+        catchError(this.errorService.handleError),
       );
   }
 
@@ -65,7 +66,7 @@ export class NegativeBeliefFinalService implements IFinalRatingServices {
           };
           return object;
         }),
-        catchError(handleError),
+        catchError(this.errorService.handleError),
       );
   }
 
@@ -78,7 +79,7 @@ export class NegativeBeliefFinalService implements IFinalRatingServices {
       .post<any>(environment.API_ENDPOINT + REALISTIC_BELIEF_API, object, {
         observe: 'response',
       })
-      .pipe(catchError(handleError));
+      .pipe(catchError(this.errorService.handleError));
   }
 
   putRealistic(id: number, realistic: string) {
@@ -94,7 +95,7 @@ export class NegativeBeliefFinalService implements IFinalRatingServices {
           observe: 'response',
         },
       )
-      .pipe(catchError(handleError));
+      .pipe(catchError(this.errorService.handleError));
   }
 }
 
@@ -102,7 +103,8 @@ export class NegativeBeliefFinalService implements IFinalRatingServices {
   providedIn: 'root',
 })
 export class ThoughtRecordFinalService implements IFinalRatingServices {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,
+              private errorService: GeneralErrorService) {}
 
   postFinalRating(id: number, finalRating: number) {
     const object = {
@@ -113,7 +115,7 @@ export class ThoughtRecordFinalService implements IFinalRatingServices {
       .post<any>(environment.API_ENDPOINT + FINAL_RATING_THOUGHT_API, object, {
         observe: 'response',
       })
-      .pipe(catchError(handleError));
+      .pipe(catchError(this.errorService.handleError));
   }
 
   putFinalRating(id: number, finalRating: number) {
@@ -129,7 +131,7 @@ export class ThoughtRecordFinalService implements IFinalRatingServices {
           observe: 'response',
         },
       )
-      .pipe(catchError(handleError));
+      .pipe(catchError(this.errorService.handleError));
   }
 
   getFinalRating(id: number) {
@@ -142,7 +144,7 @@ export class ThoughtRecordFinalService implements IFinalRatingServices {
           };
           return object;
         }),
-        catchError(handleError),
+        catchError(this.errorService.handleError),
       );
   }
 
@@ -156,7 +158,7 @@ export class ThoughtRecordFinalService implements IFinalRatingServices {
           };
           return object;
         }),
-        catchError(handleError),
+        catchError(this.errorService.handleError),
       );
   }
 
@@ -169,7 +171,7 @@ export class ThoughtRecordFinalService implements IFinalRatingServices {
       .post<any>(environment.API_ENDPOINT + REALISTIC_THOUGHT_API, object, {
         observe: 'response',
       })
-      .pipe(catchError(handleError));
+      .pipe(catchError(this.errorService.handleError));
   }
 
   putRealistic(id: number, realThought: string) {
@@ -185,6 +187,6 @@ export class ThoughtRecordFinalService implements IFinalRatingServices {
           observe: 'response',
         },
       )
-      .pipe(catchError(handleError));
+      .pipe(catchError(this.errorService.handleError));
   }
 }

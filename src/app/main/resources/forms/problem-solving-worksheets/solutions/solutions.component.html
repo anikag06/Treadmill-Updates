@@ -1,19 +1,30 @@
 <ul class="list-group" *ngIf="solutions && solutions.length > 0">
-  <li class="list-group-item border-0 py-0" 
-    *ngFor="let solution of solutions; let i = index; let last = last">
+  <li
+    class="list-group-item border-0 py-0"
+    *ngFor="let solution of solutions; let i = index; let last = last"
+  >
     <div class="solution row py-3">
-      <div class="col-1 float-left">{{i+1}}. </div>
-      <div class="col-9 text d-inline-block"
+      <div class="col-1 float-left">{{ i + 1 }}.</div>
+      <div
+        class="col-10 text"
         #lastSolution
-        (focusout)="onFocusOut($event, solution)"
-        contenteditable="true" tabindex="10">
-        {{solution.solution}}
+        (focusout)="onFocusOut($event, solution, i)"
+        (focusin)="onFocus(i)"
+        contenteditable="true"
+        tabindex="10"
+        click-outside
+        (clickOutside)="onClickOutside($event, i)"
+      >
+        {{ solution.solution }}
       </div>
-      
-    <span class="ml-auto col align-self-end d-inline-block" 
-      (click)="onSolutionRemove(solution)">
-      <mat-icon>remove_circle</mat-icon>
-    </span>
+
+      <div
+        class="trash-icon"
+        (click)="onSolutionRemove(i, solution)"
+        *ngIf="showDeleteIcon[i]"
+      >
+        <mat-icon>delete</mat-icon>
+      </div>
     </div>
   </li>
 </ul>

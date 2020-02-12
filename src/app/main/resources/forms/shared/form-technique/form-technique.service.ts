@@ -3,14 +3,18 @@ import {IFormTechniqueServices} from '@/main/resources/forms/shared/form-techniq
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../../../../environments/environment';
 import {catchError, map} from 'rxjs/operators';
-import {handleError} from '@/main/shared/error-handling';
+
 import {ALTERNATE_EXPLANATION_API, BELIEF_TELL_FRIEND_API, THOUGHT_TELL_FRIEND_API,} from '@/app.constants';
+import {GeneralErrorService} from '@/main/shared/general-error.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TRFTellFriendService implements IFormTechniqueServices {
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private errorService: GeneralErrorService,
+  ) {}
 
   getData(id: number): any {
     return this.http
@@ -22,7 +26,7 @@ export class TRFTellFriendService implements IFormTechniqueServices {
           };
           return object;
         }),
-        catchError(handleError),
+        catchError(this.errorService.handleError),
       );
   }
 
@@ -35,7 +39,7 @@ export class TRFTellFriendService implements IFormTechniqueServices {
       .post<any>(environment.API_ENDPOINT + THOUGHT_TELL_FRIEND_API, object, {
         observe: 'response',
       })
-      .pipe(catchError(handleError));
+      .pipe(catchError(this.errorService.handleError));
   }
 
   putData(id: number, data: string): any {
@@ -43,13 +47,15 @@ export class TRFTellFriendService implements IFormTechniqueServices {
       situation_id: id,
       tell_a_friend: data,
     };
-    return this.http.put<any>(
-      environment.API_ENDPOINT + THOUGHT_TELL_FRIEND_API + id + '/',
-      object,
-      {
-        observe: 'response',
-      },
-    );
+    return this.http
+      .put<any>(
+        environment.API_ENDPOINT + THOUGHT_TELL_FRIEND_API + id + '/',
+        object,
+        {
+          observe: 'response',
+        },
+      )
+      .pipe(catchError(this.errorService.handleError));
   }
 }
 
@@ -57,7 +63,10 @@ export class TRFTellFriendService implements IFormTechniqueServices {
   providedIn: 'root',
 })
 export class BeliefTellFriendService implements IFormTechniqueServices {
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private errorService: GeneralErrorService,
+  ) {}
 
   getData(id: number): any {
     return this.http
@@ -69,7 +78,7 @@ export class BeliefTellFriendService implements IFormTechniqueServices {
           };
           return object;
         }),
-        catchError(handleError),
+        catchError(this.errorService.handleError),
       );
   }
 
@@ -82,7 +91,7 @@ export class BeliefTellFriendService implements IFormTechniqueServices {
       .post<any>(environment.API_ENDPOINT + BELIEF_TELL_FRIEND_API, object, {
         observe: 'response',
       })
-      .pipe(catchError(handleError));
+      .pipe(catchError(this.errorService.handleError));
   }
 
   putData(id: number, data: string): any {
@@ -104,7 +113,10 @@ export class BeliefTellFriendService implements IFormTechniqueServices {
   providedIn: 'root',
 })
 export class AlternateExplanationService implements IFormTechniqueServices {
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private errorService: GeneralErrorService,
+  ) {}
 
   getData(id: number): any {
     return this.http
@@ -116,7 +128,7 @@ export class AlternateExplanationService implements IFormTechniqueServices {
           };
           return object;
         }),
-        catchError(handleError),
+        catchError(this.errorService.handleError),
       );
   }
 
@@ -129,7 +141,7 @@ export class AlternateExplanationService implements IFormTechniqueServices {
       .post<any>(environment.API_ENDPOINT + ALTERNATE_EXPLANATION_API, object, {
         observe: 'response',
       })
-      .pipe(catchError(handleError));
+      .pipe(catchError(this.errorService.handleError));
   }
 
   putData(id: number, data: string): any {
@@ -146,6 +158,6 @@ export class AlternateExplanationService implements IFormTechniqueServices {
           observe: 'response',
         },
       )
-      .pipe(catchError(handleError));
+      .pipe(catchError(this.errorService.handleError));
   }
 }

@@ -1,36 +1,36 @@
 @import '../../../../../../../node_modules/@angular/material/theming';
-@import "../../../../../../color.palette.scss";
-@import "../../../../../../treadwill.theme.scss";
-
+@import '../../../../../../color.palette.scss';
+@import '../../../../../../treadwill.theme.scss';
+@import '../../forms.component';
 .solution {
-    .text{
-        // width: 90%;
-        // margin: 5px;
-        max-height: 100px;
-        padding: 0%;        
-        border-bottom: 1px solid #dcdcdc;
-        overflow: auto;
-        &:focus {
-            border-top: none;
-            border-left: none;
-            border-right: none;
-            border-bottom: 2px solid $treadwill-yellow;
-            box-shadow: none;
-            outline: none;
-          }
+  .text {
+    // width: 90%;
+    // margin: 5px;
+    max-height: 100px;
+    padding: 0%;
+    border-bottom: 1px solid #dcdcdc;
+    overflow: auto;
+    &:focus {
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      border-bottom: 2px solid $treadwill-yellow;
+      box-shadow: none;
+      outline: none;
     }
-    p {
-        // width: 98%;
-        &:focus {
-            border: 1px solid transparent;
-            outline: none;
-            box-shadow: none;
-            border-bottom: 2px solid $treadwill-yellow;
-        }
+  }
+  p {
+    // width: 98%;
+    &:focus {
+      border: 1px solid transparent;
+      outline: none;
+      box-shadow: none;
+      border-bottom: 2px solid $treadwill-yellow;
     }
-    span {
-        text-align: right;
-        width: 5%;
-        float: right;
-    }
+  }
+  span {
+    //text-align: right;
+    //width: 5%;
+    //float: right;
+  }
 }

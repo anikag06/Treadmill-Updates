@@ -13,7 +13,7 @@ import {TASK_QUOTES} from '@/main/resources/forms/task-forms/task-form-message';
 export class TaskFormsComponent implements OnInit {
   task!: UserTask | undefined;
   reset = false;
-  taskHeading = 'Set Task';
+  taskHeading = 'Task Description';
   type = SET_ACTIVITY;
   quote!: string;
   quotedBy!: string;

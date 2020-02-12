@@ -58,6 +58,7 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
       params => (this.object_id = parseInt(params.form_id, 10)),
     );
   }
+
   ngAfterViewInit() {
     const panel_body = this.element.nativeElement.querySelectorAll(
       '.mat-expansion-panel-body',
@@ -90,6 +91,7 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
       },
     );
   }
+
   getWorries() {
     this.subscriptions[
       this.subscriptions.length
@@ -106,6 +108,7 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
       },
     );
   }
+
   getTasks() {
     this.tasksService.getTasks();
     this.subscriptions[
@@ -160,6 +163,8 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
       this.deleteTaskForm(object);
     } else if (this.type === WORRY_PRODUCTIVELY) {
       this.deleteWorryForm(object);
+    } else if (this.type === PSF_PROBLEM_SOLVING) {
+      this.deleteDeleteProblem(object);
     }
   }
 
@@ -204,12 +209,22 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
       }
     });
   }
+
   deleteWorryForm(worry: any) {
     this.worryService.deleteWorry(worry.id).subscribe(resp => {
       const status = resp.ok;
       if (status) {
         this.onAddNewForm();
         this.worryService.removeSituation(worry);
+      }
+    });
+  }
+
+  deleteDeleteProblem(problem: any) {
+    this.problemService.deleteProblem(problem.id).subscribe(resp => {
+      if (resp.ok) {
+        this.onAddNewForm();
+        this.problemService.removeProblem(problem);
       }
     });
   }
