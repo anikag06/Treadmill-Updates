@@ -17,10 +17,14 @@ export class SuggestedPostItemComponent implements OnInit {
 
   @Input() suggestedPost!: SuggestedPost;
   id!: number;
-  titleLength!: number;
-  bodyLength!: number;
+  bodyLength = 60;
 
-  ngOnInit() { }
+  ngOnInit() {
+
+  }
+  ngAfterViewInit(): void {
+
+  }
 
   onPostClick(id: number) {
     // console.log(id);

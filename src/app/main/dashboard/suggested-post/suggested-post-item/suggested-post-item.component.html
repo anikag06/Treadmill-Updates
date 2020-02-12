@@ -16,8 +16,7 @@
     (click)="onPostClick(suggestedPost.id)">
 
     <div class="main-header">
-      <h2>{{suggestedPost.title | trimString:titleLength }}</h2>
-      {{container.offsetWidth}}
+      <h2 [style.max-width]="container.offsetWidth - 100 + 'px'">{{suggestedPost.title }}</h2>
     </div>
     <div class="post-body">
       {{suggestedPost.body | trimString:bodyLength }}
