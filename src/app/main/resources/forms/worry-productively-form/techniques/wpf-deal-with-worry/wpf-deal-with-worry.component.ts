@@ -36,16 +36,15 @@ export class WpfDealWithWorryComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private worryService: WorryProductivelyService,
-  ) {}
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
   ngOnChanges() {
     this.resetForm();
     if (this.worry) {
       this.worryService
         .getDealWithWorry(this.worry.id)
         .subscribe((resp: any) => {
-          console.log('deal with worrry' + resp);
           if (resp.body.length !== 0) {
             this.DealWorryForm.controls['DealWorryStatement'].setValue(
               resp.body.distract,
@@ -91,16 +90,16 @@ export class WpfDealWithWorryComponent implements OnInit {
         });
     }
   }
-  resetForm(){
+  resetForm() {
     this.DealWorryForm = this.fb.group({
-      DealWorryStatement : new FormControl(''),
+      DealWorryStatement: new FormControl(''),
     });
     this.summaryText = '';
     // this.summaryDealingEvent.emit(this.summaryText);
   }
   continuetocalmMyself() {
-      this.summaryDealingEvent.emit(this.summaryText);
-      this.panel5.expanded = false;
+    this.summaryDealingEvent.emit(this.summaryText);
+    this.panel5.expanded = false;
   }
   onFocus() {
     this.continueButton = true;

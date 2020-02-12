@@ -32,7 +32,7 @@ import { WORRY_PRODUCTIVELY_QUOTES, WORRY_PRODUCTIVELY_MESSAGE, WORRY_PRODUCTIVE
 })
 export class WorryProductivelyComponent implements OnInit, OnDestroy {
   user!: User;
-  worry!: Worry ;
+  worry!: Worry;
   type = WORRY_PRODUCTIVELY;
   reset = false;
   page = 1;
@@ -40,7 +40,7 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
   characteristicCheck = false;
   subscriptions: Subscription[] = [];
   buttonClick = false;
-  originalWorryClick = false; 
+  originalWorryClick = false;
   originalWorryContinue = false;
   checkBoxContinue = false;
   characteristicCount = 0;
@@ -53,14 +53,14 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
   worryStatementForm!: WorryFormComponent;
   @ViewChild(FormSliderComponent, { static: false })
   sliderRating!: FormSliderComponent;
-  @ViewChild(TechniquesComponent, {static: false} )
+  @ViewChild(TechniquesComponent, { static: false })
   technique!: TechniquesComponent;
   worrySliderQuestion = 'How bothered are you by your worry?';
   wSliderMinRangeText = 'Not at all';
   wSliderMaxRangeText = 'Very Strongly';
   quote !: string;;
-  quotedBy !:string;
-  finalRating !:number;
+  quotedBy !: string;
+  finalRating !: number;
   initialRating !: number;
   showMessage !: boolean;
   formComplete !: boolean;
@@ -75,7 +75,7 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
     private errorService: GeneralErrorService,
     private fb: FormBuilder,
     // private formService: FormService,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.subscriptions[
@@ -93,12 +93,11 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
     this.worryService.getUselessCharacteristics().subscribe((data: any) => {
       data.map((uselessChar: any) => {
         this.data.push({ value: uselessChar, is_checked: false });
-        console.log(this.data + 'and data' + uselessChar);
       });
     });
     this.data.shift();
   }
-  ngOnChanges() {}
+  ngOnChanges() { }
   ngOnDestroy() {
     this.subscriptions.forEach(sub => {
       sub.unsubscribe();
@@ -106,7 +105,7 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
   }
   worrySelected(worry: Worry) {
     this.onAddNewForm();
-    console.log(worry.worry  + "value " + worry.worry_rating_initial);
+    console.log(worry.worry + "value " + worry.worry_rating_initial);
     this.initialRating = parseInt(worry.worry_rating_initial);
     this.worry = worry;
     this.worryEditMode = false;
@@ -119,7 +118,7 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
               'characteristics',
               this.fb.array(resp.body.data),
             );
-            if(this.worry.worry_rating_initial != null){
+            if (this.worry.worry_rating_initial != null) {
               this.buttonClick = true;
             }
             resp.body.data.forEach((data: any) => {
@@ -130,8 +129,8 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
               //     return true;
               //   }
               // });
-              for( var i=0; i < this.data.length; i++){
-                if(this.data[i].value === data){
+              for (var i = 0; i < this.data.length; i++) {
+                if (this.data[i].value === data) {
                   this.data[i].is_checked = true;
                   this.characteristicCheck = true;
                 }
@@ -143,7 +142,6 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
     if (this.worry) {
       this.worryService.getFinalSlider(this.worry.id).subscribe((resp: any) => {
         if (resp) {
-          console.log('final slider data is :' + resp.body);
           this.sliderResponseFinal = resp.body.worry_rating_final;
           this.originalWorryClick = true;
         }
@@ -171,7 +169,7 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
     this.uselessCharacteristicsForm = this.fb.group({
       characteristics: this.fb.array([]),
     });
-    for ( var i=0; i< this.data.length; i++){
+    for (var i = 0; i < this.data.length; i++) {
       this.data[i].is_checked = false;
     }
     this.sliderResponseFinal = undefined;
@@ -182,7 +180,7 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
     this.showMessage = false;
     // this.technique.resetTechniques();
   }
-  deleteWorry(){
+  deleteWorry() {
     this.buttonClick = false;
     this.characteristicCheck = false;
     this.originalWorryClick = false;
@@ -209,7 +207,6 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
 
   OnCharacteristicCheck() {
     this.checkBoxContinue = false;
-    console.log(this.data);
     this.characteristicCheck = true;
     // this.techniquesCall.emit(this.characteristicCheck);
     this.useless_characteristics = this.useless_characteristic.join(',');
@@ -219,7 +216,6 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
           'characteristics'
         ],
       };
-      console.log(object);
       this.worryService
         .postUselessCharacteristics(object, this.worry.id)
         .subscribe((resp: any) => {
@@ -230,10 +226,10 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
         });
     }
   }
-  showOriginalWorry(event : any){
+  showOriginalWorry(event: any) {
     this.originalWorryContinue = event;
   }
-  onOriginalWorry(){
+  onOriginalWorry() {
     this.originalWorryClick = true;
   }
   OnFinalSliderClick() {
@@ -262,7 +258,6 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
           const status = resp.ok;
           if (status) {
             console.log('The request has been submited');
-            console.log('final slider response ' + this.sliderResponseFinal);
           }
         });
     }

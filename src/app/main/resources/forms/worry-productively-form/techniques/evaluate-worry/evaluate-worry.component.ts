@@ -28,8 +28,8 @@ export class EvaluateWorryComponent implements OnInit, AfterContentChecked {
   @Output() valueUpdate = new EventEmitter();
   @Output() summaryEvaluateEvent = new EventEmitter<string>();
   @ViewChild(FormSliderComponent, { static: false })
-  @ViewChild('panel1', { static: false }) panel1!: any;
   sliderRating!: FormSliderComponent;
+  @ViewChild('panel1', { static: false }) panel1!: any;
   buttonClick = false;
   sliderSubmit = false;
   continueText = false;
@@ -52,14 +52,14 @@ export class EvaluateWorryComponent implements OnInit, AfterContentChecked {
   data = [{ value: '', is_checked: false }];
   errorCount = 0;
   thinkingError: string[] = [];
-  sliderResponse!: string[];
+  sliderResponse!: number;
   thinkingErrors = '';
 
   constructor(
     private fb: FormBuilder,
     private worryService: WorryProductivelyService,
     private changeDetector: ChangeDetectorRef,
-  ) {}
+  ) { }
 
   ngOnInit() {
     // this.worryService.thinkingErrors().subscribe((data: any) => {
@@ -71,6 +71,7 @@ export class EvaluateWorryComponent implements OnInit, AfterContentChecked {
   }
   ngOnChanges() {
     this.resetForm();
+    console.log(this.sliderRating);
     const formArray = this.getEvidence;
     this.worryService.thinkingErrors().subscribe((data: any) => {
       data.map((uselessChar: any) => {
@@ -101,7 +102,7 @@ export class EvaluateWorryComponent implements OnInit, AfterContentChecked {
         });
     }
 
-    
+
     if (this.worry) {
       this.worryService.getEvidences(this.worry.id).subscribe((resp: any) => {
         if (resp.body.data.evidences.length !== 0) {
@@ -114,6 +115,8 @@ export class EvaluateWorryComponent implements OnInit, AfterContentChecked {
             );
           }
           this.checksubmitted = true;
+          this.sliderSubmit = true;
+          this.buttonClick = true;
           this.summaryText = resp.body.data.evidences[0].evidence;
           // this.summaryEvaluateEvent.emit(this.summaryText);
         } else {
@@ -127,10 +130,13 @@ export class EvaluateWorryComponent implements OnInit, AfterContentChecked {
     if (this.worry) {
       this.worryService.getProbablityRating(this.worry.id).subscribe((resp: any) => {
         if (resp) {
-          console.log('final slider data is :' + resp.body);
-          this.sliderResponse = resp.body.probability_rating;
-          this.buttonClick = true;
-          // this.sliderSubmit = true;
+          console.log('final slider data is :' + resp.body.probability_rating);
+          if (resp.body.probability_rating == null) {
+            this.sliderResponse = 1;
+          }
+          else {
+            this.sliderResponse = resp.body.probability_rating;
+          }
         }
       });
     }
@@ -162,7 +168,8 @@ export class EvaluateWorryComponent implements OnInit, AfterContentChecked {
     // }
   }
   CheckSubmit() {
-    this.checkBoxContinue = false;   
+    console.log(" button" + this.buttonClick + "and " + this.checksubmitted);
+    this.checkBoxContinue = false;
     this.checksubmitted = true;
     console.log(this.data);
     this.thinkingErrors = this.thinkingError.join(',');
@@ -183,7 +190,7 @@ export class EvaluateWorryComponent implements OnInit, AfterContentChecked {
   }
 
   updateValueChange(event: any, index: number) {
-    this.checkBoxContinue = true;  
+    this.checkBoxContinue = true;
     const thinking_errors = (<FormArray>(
       this.evaluateForm.get('thinking_errors')
     )) as FormArray;
@@ -207,6 +214,7 @@ export class EvaluateWorryComponent implements OnInit, AfterContentChecked {
     this.sliderSubmit = true;
     this.sliderContinue = false;
     console.log(this.sliderRating.rating);
+    // if (this.sliderRating == undefined) {
     const object = {
       worry_id: this.worry.id,
       probability_rating: this.sliderRating.rating,
@@ -219,8 +227,9 @@ export class EvaluateWorryComponent implements OnInit, AfterContentChecked {
           console.log('The request has been submited');
         }
       });
+    // } 
   }
-  resetForm(){
+  resetForm() {
     this.evaluateForm = this.fb.group({
       thinking_errors: this.fb.array([]),
       evidences: this.fb.array([]),
@@ -228,13 +237,13 @@ export class EvaluateWorryComponent implements OnInit, AfterContentChecked {
     this.summaryText = '';
     this.checksubmitted = false;
     this.buttonClick = false;
-    this.sliderSubmit = false;    
+    this.sliderSubmit = false;
   }
-  showSliderContinue(){
+  showSliderContinue() {
     this.sliderContinue = true;
   }
-  doneSummary() {    
-    this.panel1.expanded =false;
+  doneSummary() {
+    this.panel1.expanded = false;
   }
 
   createItem(name = '') {

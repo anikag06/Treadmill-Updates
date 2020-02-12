@@ -18,7 +18,7 @@ export class ModifyBeliefsComponent implements OnInit {
   @Output() summaryModifyEvent = new EventEmitter<string>();
   @Input() worry!: Worry;
   @ViewChild('panel3', { static: false }) panel3!: any;
-  summaryText !:string;
+  summaryText !: string;
   responseData = '';
   modifyBeliefs: string[] = [];
   beliefForm = this.fb.group({
@@ -28,15 +28,14 @@ export class ModifyBeliefsComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private worryService: WorryProductivelyService,
-  ) {}
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
   ngOnChanges() {
     if (this.worry) {
       this.worryService
         .getModifyBeliefs(this.worry.id)
         .subscribe((resp: any) => {
-          console.log('Modify Beliefs' + resp);
           if (resp.body.length !== 0) {
             this.beliefForm.controls['beliefStatement'].setValue(
               resp.body.belief,

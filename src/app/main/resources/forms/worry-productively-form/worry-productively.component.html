@@ -15,7 +15,8 @@
 
       <mat-menu xPosition="before" yPosition="below" #worryProductivelyForms="matMenu" [overlapTrigger]="false">
         <div [ngStyle]="{'max-height':'350px'}">
-          <app-forms-sidebar [type]="type" (objectEmitter)="worrySelected($event)" (newForm)="onAddNewForm()" [object]="worry">
+          <app-forms-sidebar [type]="type" (objectEmitter)="worrySelected($event)" (newForm)="onAddNewForm()"
+            [object]="worry">
           </app-forms-sidebar>
         </div>
       </mat-menu>
@@ -28,7 +29,7 @@
         <div class="col-12">
           <div class="card-full-width">
             <div class="card-header">
-                <strong>What are you worried about?</strong>
+              <strong>What are you worried about?</strong>
               <div class="float-right d-inline-block">
                 <mat-icon class="edit_icon" (click)="onEditWorryClick()">
                   edit </mat-icon>
@@ -65,11 +66,11 @@
             <form [formGroup]="uselessCharacteristicsForm">
               <div formArrayName="characteristics" *ngFor="let val of data; let i = index "><br />
                 <mat-checkbox [value]="val.value" (change)="updateValueChange($event,i)" [checked]="val.is_checked">
-                  {{val.value }} 
+                  {{val.value }}
                 </mat-checkbox>
 
               </div>
-    
+
               <p class="text-right" (click)="OnCharacteristicCheck()" *ngIf="checkBoxContinue">
                 <button type="button" mat-raised-button color="primary" class="continue-btn">Continue</button>
               </p>
@@ -77,9 +78,10 @@
           </div>
         </div>
       </div>
-      <app-techniques [techniquesCall]= "characteristicCheck" [worry]="worry" (originalWorry)="showOriginalWorry($event)"></app-techniques>
+      <app-techniques [techniquesCall]="characteristicCheck" [worry]="worry"
+        (originalWorry)="showOriginalWorry($event)"></app-techniques>
       <p class="text-right" (click)="onOriginalWorry()" *ngIf="!originalWorryClick && originalWorryContinue">
-        <button type="button" mat-raised-button color="primary" class="continue-btn" >Continue</button> <br/> <br/>
+        <button type="button" mat-raised-button color="primary" class="continue-btn">Continue</button> <br /> <br />
       </p>
     </div>
   </div>
@@ -88,28 +90,28 @@
       <div class="row mb-2">
         <div class="col-12">
           <div class="card-full-width">
-            <div class="card-header" >
-              How bothered are you by your worry? 
+            <div class="card-header">
+              How bothered are you by your worry?
             </div>
-            <div class = "card-body" >
-              <div class="worryBox" *ngIf = "worry"> 
-                 <div class="worryText"><br/> Your original worry <br/> 
-                    <div class="worrybody">{{worry.worry}} <br/>
-                    </div>
-                 </div>
+            <div class="card-body">
+              <div class="worryBox" *ngIf="worry">
+                <div class="worryText"><br /> Your original worry <br />
+                  <div class="worrybody">{{worry.worry}} <br />
+                  </div>
+                </div>
               </div>
             </div>
-            <div class = "card-body" *ngIf = "sliderResponse == undefined ">
+            <div class="card-body" *ngIf="sliderResponseFinal == undefined ">
               <app-form-slider [question]="worrySliderQuestion" [minRatingText]="wSliderMinRangeText"
-              [maxRatingText]="wSliderMaxRangeText" >
+                [maxRatingText]="wSliderMaxRangeText">
               </app-form-slider>
             </div>
-            <div class = "card-body" *ngIf = "sliderResponse != undefined">
+            <div class="card-body" *ngIf="sliderResponseFinal != undefined">
               <app-form-slider [question]="worrySliderQuestion" [minRatingText]="wSliderMinRangeText"
-              [maxRatingText]="wSliderMaxRangeText" [rating]="sliderResponse">
+                [maxRatingText]="wSliderMaxRangeText" [rating]="sliderResponseFinal">
               </app-form-slider>
             </div>
-            <div class = "card-body">
+            <div class="card-body">
               <p class="text-right" (click)="OnFinalSliderClick()">
                 <button type="button" mat-raised-button color="primary" class="continue-btn">Continue</button>
               </p>
