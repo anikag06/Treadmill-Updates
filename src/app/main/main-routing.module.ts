@@ -19,6 +19,7 @@ import { CommonGameComponent } from './games/games-list/common-game/common-game.
 import { ConversationsComponent } from './resources/conversation-group/conversations/conversations.component';
 import { ConversationGroupComponent } from './resources/conversation-group/conversation-group.component';
 import { GetQuestionnaireComponent } from './dashboard/get-questionnaire/get-questionnaire.component';
+import { SurveyComponent } from './shared/survey/survey.component';
 
 export const mainRoutes: Routes = [
   {
@@ -28,6 +29,7 @@ export const mainRoutes: Routes = [
     children: [
       { path: 'dashboard', component: DashboardComponent, data: { title: 'Hello ' } },
       { path: 'questionnaire', component: GetQuestionnaireComponent },
+      { path: 'survey', component: SurveyComponent, }, // :id here is step_id
       { path: 'support-groups', component: SupportGroupsComponent, data: { title: 'Support Group' } },
       {
         path: 'modules',

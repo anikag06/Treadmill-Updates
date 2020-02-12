@@ -176,6 +176,7 @@ import { SuggestedPostItemComponent } from './dashboard/suggested-post/suggested
 import { WorryProductivelyService } from '@/main/resources/forms/worry-productively-form/worry-productively.service';
 import { InfiniteScrollDirective } from './shared/infinite-scroll/infinite-scroll.directive';
 import { LazyLoadingImageDirective } from './shared/lazy-loading-image/lazy-loading-image.directive';
+import { SurveyComponent } from './shared/survey/survey.component';
 
 @NgModule({
   declarations: [
@@ -283,6 +284,7 @@ import { LazyLoadingImageDirective } from './shared/lazy-loading-image/lazy-load
     SuggestedPostItemComponent,
     LazyLoadingImageDirective,
     InfiniteScrollDirective,
+    SurveyComponent,
   ],
   imports: [
     CommonModule,
