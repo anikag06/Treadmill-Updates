@@ -1,28 +1,118 @@
 <div class="survey-component">
-  <div class="container" [@simpleFadeAnimation]="'in'">
-    <div class="row main">
-      <div class="col-md-12">
-        <div class="row card mx-0">
-          <div class="col-xl-4 col-md-6 col-sm-12 mx-auto">
+  <div class="container" [@simpleFadeAnimation]="'in'" *ngIf="!display_survey">
+    <div class="row main mx-auto text-center">
+      <div class="col-md-6 mx-auto ">
+        <!-- <div class="row mx-0"> -->
+        <!-- <div class="col-xl-4 col-md-6 col-sm-12 mx-auto"> -->
 
-            <div class="card-body">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-              ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-              fugiat
-              nulla pariatur.
-              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-              laborum.
+        <!-- <div class="card-body"> -->
+        <div class=" survey-start">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+          dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+          ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+          fugiat
+          nulla pariatur.
+          Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+          laborum.
+        </div>
+        <button type="button" class="answerButton" mat-stroked-button (click)="loadQuestions()"> Start
+          Survey</button>
+
+      </div>
+      <!-- </div> -->
+      <!-- </div> -->
+    </div>
+  </div>
+  <div>
+    <div class="container justify-content-center" *ngIf="display_survey" [@simpleFadeAnimation]="'in'">
+      <div class="row main mx-auto">
+        <div class="col-md-12">
+          <div class="row">
+            <!-- <div class="col-xl-4 col-md-6 col-sm-12" class="card text-center"> -->
+            <!-- <div class="row h-100 "> -->
+            <div class="col-2 my-auto ">
+              <button type="button" class="btn btn-default" aria-label="Left Align" (click)="onback()" *ngIf="back">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+              </button>
             </div>
-            <button type="button" class="startButton" mat-stroked-button (click)="loadQuestions()"> Start
-              Survey</button>
+            <div class="col-8 my-auto" [@in]="quesCount">
+              <div>
+                <div class="mt-4 mb-2 text-muted row justify-content-center" *ngIf="!newQues">Question {{pager.index }}
+                  of
+                  {{pager.count}}</div>
+                <br>
+                <div class="col" *ngIf="!newQues">
+                  <div id=question>
+                    <div id=bold><b>{{ques}}</b></div>
+                  </div>
+                </div>
+                <br>
+                <div class="row justify-content-center">
+                  <div class=".col-md-6 .offset-md-3" class="button-group " *ngIf="!newQues">
+                    <button id="option1" type="button" (click)="onselect($event)" class="answerButton"
+                      mat-stroked-button>
 
+                      <span>Strongly agree</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="row justify-content-center">
+                  <div class=".col-md-6 .offset-md-3 " class="button-group " *ngIf="!newQues">
+                    <button id="option2" type="button" (click)="onselect($event)" class="answerButton"
+                      mat-stroked-button>
+
+                      <span> Somewhat agree </span>
+                    </button>
+                  </div>
+                </div>
+                <div class="row justify-content-center">
+                  <div class=".col-md-6 .offset-md-3 " class="button-group " *ngIf="!newQues">
+                    <button id="option3" type="button" (click)="onselect($event)" class="answerButton"
+                      mat-stroked-button>
+                      <span> Neither agree nor disagree</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="row justify-content-center">
+                  <div class=".col-md-6 .offset-md-3" class="button-group " *ngIf="!newQues ">
+                    <button id="option4" type="button" (click)="onselect($event)" class="answerButton"
+                      mat-stroked-button>
+                      <span> Somewhat disagree</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="row justify-content-center">
+                  <div class=".col-md-6 .offset-md-3" class="button-group " *ngIf="!newQues">
+                    <button id="option5" type="button" (click)="onselect($event)" class="answerButton"
+                      mat-stroked-button>
+                      <span> Strongly disagree</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-2 my-auto ">
+              <button type="button" class="btn btn-default" aria-label="Right Align" (click)="onfront()"
+                *ngIf="display_front()">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+              </button>
+            </div>
+            <!-- </div> -->
+            <!-- </div> -->
+          </div>
+        </div>
+      </div>
+      <div *ngIf="submit" [@simpleFadeAnimation]="'in'">
+        <div class="row">
+          <div class="col">
+            <div id=submit>
+              Thank you for your response!
+            </div>
+            <button id=btn type="button" class="btn btn-outline-dark" *ngIf="submit" (click)="onsubmit()">Submit
+            </button>
           </div>
         </div>
       </div>
     </div>
-
-
-
   </div>
-</div>

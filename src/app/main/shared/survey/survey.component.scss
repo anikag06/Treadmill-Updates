@@ -1,3 +1,5 @@
+@import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css");
+
 .survey-component {
   .main {
     background-color: white;
@@ -5,6 +7,16 @@
     max-width: 80%;
     justify-content: center;
 
+  }
+
+  .survey-start {
+    margin-top: 50px;
+    margin-bottom: 30px;
+    font-size: 20px;
+  }
+
+  .button-group {
+    margin: auto;
   }
 
   .startButton {
@@ -17,4 +29,30 @@
     opacity: 0.6;
   }
 
+  .answerButton {
+    font-size: 16px;
+    border-radius: 26px;
+    background-color: #f3f3f3;
+    min-width: 278px;
+    height: 48px;
+    font-weight: 400;
+    opacity: 0.6;
+    margin-bottom: 10px;
+  }
+
+  .glyphicon {
+    font-size: 30px;
+  }
+
+  .glyphicon:focus,
+  .glyphicon:active {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  .toggleButton {
+    background-color: white;
+    color: black;
+    border-color: 2px black;
+  }
 }
