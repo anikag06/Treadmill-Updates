@@ -11,7 +11,7 @@
 
     <div class="card-body" style="padding: 15px 2px 16px;" [formGroup]="evaluateForm">
       <div>
-        Can you identify the Thinking Errors in your negative thoughts?
+        What are the Thinking Errors in your worry?
       </div> <br />
       <div>
         <div formArrayName="thinking_errors" *ngFor="let val of data; let i = index "><br />
@@ -21,12 +21,11 @@
         </div>
 
         <p class="text-right" (click)="CheckSubmit()" *ngIf="checkBoxContinue">
-          <button type="button" mat-raised-button color="primary" class="continue-btn">Continue</button>
+          <button type="button" mat-raised-button class="continue-btn">Continue</button>
         </p> <br /> <br />
       </div>
       <div *ngIf="checksubmitted">
-        Gather evidence
-
+        Can you think of any evidence that suggest that your worry is unlikely to happen?
         <div formArrayName="evidences">
           <div *ngFor="let evidence of getEvidence.controls; let i = index">
             <div class="statement" [formGroupName]="i" [ngStyle]="{ display: 'flex' }" click-outside
@@ -42,19 +41,19 @@
 
             </div>
           </div>
-          <div class="add-statement">
+          <div class="add-statement" (click)="addField()">
             <br /> <br />
             <mat-icon [ngStyle]="{
                     'font-size': '19px',
                     'padding-top': '2px',
                     cursor: 'pointer'
-                  }" (click)="addField()"> add</mat-icon>
+                  }" > add</mat-icon>
             <div [ngStyle]="{ 'padding-left': '5px' }">
               Add Evidence
             </div>
           </div>
           <p class="text-right" (click)="onEvaluateSubmit()" *ngIf="evaluateForm.valid && evidenceContinue">
-            <button type="button" mat-raised-button color="primary" class="continue-btn">Continue</button>
+            <button type="button" mat-raised-button  class="continue-btn">Continue</button>
           </p>
         </div> <br />
         <div *ngIf="buttonClick" style="color:#00000099; letter-spacing:0.14px;">
@@ -69,7 +68,7 @@
           </div>
 
           <p class="text-right" (click)="onSliderSubmit()" *ngIf="sliderContinue">
-            <button type="button" mat-raised-button color="primary" class="continue-btn">Continue</button>
+            <button type="button" mat-raised-button  class="continue-btn">Continue</button>
           </p>
         </div> <br />
       </div>
@@ -77,9 +76,9 @@
     <div class="card-body" style="color: #00000099; padding: 0px 2px 16px;" *ngIf="sliderSubmit">
       Accept uncertainity <br /><br />
 
-      {{summaryText}}
+      Accept uncertainty in life. Nobody can give you a guarantee about the future. Bad things can happen but they are very unlikely.
       <p class="text-right" (click)="doneSummary()">
-        <button type="button" mat-raised-button color="primary" class="continue-btn">Done</button>
+        <button type="button" mat-raised-button  class="continue-btn">Done</button>
       </p>
     </div>
   </ng-template>

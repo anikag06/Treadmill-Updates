@@ -34,7 +34,7 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
   user!: User;
   worry!: Worry;
   type = WORRY_PRODUCTIVELY;
-  reset = false;
+  // reset = false;
   page = 1;
   worryEditMode = false;
   characteristicCheck = false;
@@ -104,7 +104,8 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
     });
   }
   worrySelected(worry: Worry) {
-    this.onAddNewForm();
+    this.resetForm();
+    // this.onAddNewForm()
     console.log(worry.worry + "value " + worry.worry_rating_initial);
     this.initialRating = parseInt(worry.worry_rating_initial);
     this.worry = worry;
@@ -165,7 +166,7 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
 
   onAddNewForm() {
     delete this.worry;
-    this.reset = !this.reset;
+    // this.reset = !this.reset;
     this.uselessCharacteristicsForm = this.fb.group({
       characteristics: this.fb.array([]),
     });
@@ -179,6 +180,15 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
     this.originalWorryContinue = false;
     this.showMessage = false;
     // this.technique.resetTechniques();
+  }
+  resetForm(){
+    delete this.worry;
+    this.uselessCharacteristicsForm = this.fb.group({
+      characteristics: this.fb.array([]),
+    });
+    for (var i = 0; i < this.data.length; i++) {
+      this.data[i].is_checked = false;
+    }
   }
   deleteWorry() {
     this.buttonClick = false;

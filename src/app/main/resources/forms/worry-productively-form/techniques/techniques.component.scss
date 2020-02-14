@@ -1,3 +1,5 @@
+@import '../../forms.component.scss';
+
 // button:not(:disabled) {
 //     position : absolute;
 //     left : 230px;
@@ -15,4 +17,7 @@ strong {
 }
 .mat-expansion-panel-body {
   padding: 0 2px 16px;
+}
+textarea.mat-input-element.cdk-textarea-autosize {
+  resize: none;
 }

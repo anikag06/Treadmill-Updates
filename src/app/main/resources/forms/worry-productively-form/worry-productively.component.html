@@ -52,7 +52,7 @@
 
           </div>
         </div>
-      </div>
+      </div>{{buttonClick}}
       <div class="row mb-2" *ngIf="buttonClick">
         <div class="col-12">
           <div class="card-full-width">
@@ -72,7 +72,7 @@
               </div>
 
               <p class="text-right" (click)="OnCharacteristicCheck()" *ngIf="checkBoxContinue">
-                <button type="button" mat-raised-button color="primary" class="continue-btn">Continue</button>
+                <button type="button" mat-raised-button class="continue-btn">Continue</button>
               </p>
             </form>
           </div>
@@ -81,7 +81,7 @@
       <app-techniques [techniquesCall]="characteristicCheck" [worry]="worry"
         (originalWorry)="showOriginalWorry($event)"></app-techniques>
       <p class="text-right" (click)="onOriginalWorry()" *ngIf="!originalWorryClick && originalWorryContinue">
-        <button type="button" mat-raised-button color="primary" class="continue-btn">Continue</button> <br /> <br />
+        <button type="button" mat-raised-button class="continue-btn">Continue</button> <br /> <br />
       </p>
     </div>
   </div>
@@ -113,7 +113,7 @@
             </div>
             <div class="card-body">
               <p class="text-right" (click)="OnFinalSliderClick()">
-                <button type="button" mat-raised-button color="primary" class="continue-btn">Continue</button>
+                <button type="button" mat-raised-button class="continue-btn">Continue</button>
               </p>
             </div>
           </div>

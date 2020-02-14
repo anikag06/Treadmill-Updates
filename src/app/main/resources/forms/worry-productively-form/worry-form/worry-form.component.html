@@ -5,14 +5,14 @@
       [(ngModel)]="worryStatement" (focus)="onFocus()" (focusout)="onFocusOut($event)">text</textarea>
   </mat-form-field>
   <p class="text-right" (click)="onWorrySubmit()" *ngIf="worryTextArea.value && continueButton">
-    <button type="button" mat-raised-button color="primary" class="continue-btn">Continue</button>
+    <button type="button" mat-raised-button class="continue-btn">Continue</button>
   </p>
   <div *ngIf="clickbutton" (click)="showSliderContinue()">
     <app-form-slider [question]="worrySliderQuestion" [minRatingText]="wSliderMinRangeText"
       [maxRatingText]="wSliderMaxRangeText" [rating]="value"></app-form-slider>
-    <p class="text-right" *ngIf="showSliderCont" (click)="continuetoCharacteristics()">
-      <button type="button" mat-raised-button color="primary" class="continue-btn">Continue</button>
-    </p>
-    <br />
   </div>
+  <p class="text-right" *ngIf="showSliderCont" (click)="continuetoCharacteristics()">
+    <button type="button" mat-raised-button class="continue-btn">Continue</button>
+  </p>
+  <br />
 </form>

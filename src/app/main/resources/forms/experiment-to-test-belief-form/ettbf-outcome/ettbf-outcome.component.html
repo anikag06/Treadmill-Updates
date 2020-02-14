@@ -70,7 +70,12 @@
   </div>
   </div>
   <div class="card-body">
-    original belief
+    <div class="beliefBox" *ngIf="belief">
+      <div class="beliefText"><br /> original belief <br />
+        <div class="beliefbody">{{belief.belief}} <br />
+        </div>
+      </div>
+    </div>
     <app-form-slider
       [question]="ratingQuestion"
       [minRatingText]="minRatingText"

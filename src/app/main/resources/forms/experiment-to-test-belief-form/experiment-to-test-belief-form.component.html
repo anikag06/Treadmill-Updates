@@ -35,12 +35,12 @@
                   edit </mat-icon>
               </div>
             </div>
-            <div class="card-body" *ngIf="belief && !beliefEditMode" (click)="onBeliefClick()">
+            <!-- <div class="card-body" *ngIf="belief && !beliefEditMode" (click)="onBeliefClick()">
               <div class="form-editable-text-underline">
                 {{belief.belief}}
               </div>
-            </div>
-            <div class="card-body" *ngIf="belief && beliefEditMode" (click)="onBeliefClick()">
+            </div> -->
+            <div class="card-body" *ngIf="belief " (click)="onBeliefClick()">
               <app-ettbf-belief [belief]="belief"></app-ettbf-belief>
             </div>
             <div class="card-body" *ngIf="!belief" (click)="onBeliefClick()">

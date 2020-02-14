@@ -40,7 +40,7 @@ export class EvaluateWorryComponent implements OnInit, AfterContentChecked {
   sliderContinue = false;
   showTrashIcon: boolean[] = [];
   // evidences!: FormArray;
-  evaluateSliderQuestion = 'Guess Probability';
+  evaluateSliderQuestion = 'Based on these, how likely is the outcome that you are worried about?';
   evaSliderMinRangeText = 'Low';
   evaSliderMaxRangeText = 'High';
 
@@ -73,12 +73,14 @@ export class EvaluateWorryComponent implements OnInit, AfterContentChecked {
     this.resetForm();
     console.log(this.sliderRating);
     const formArray = this.getEvidence;
-    this.worryService.thinkingErrors().subscribe((data: any) => {
-      data.map((uselessChar: any) => {
-        this.data.push({ value: uselessChar, is_checked: false });
+    if(this.data[0].value == ''  ){  
+      this.worryService.thinkingErrors().subscribe((data: any) => {
+        data.map((uselessChar: any) => {
+          this.data.push({ value: uselessChar, is_checked: false });
+        });
       });
-    });
-    this.data.shift();
+      this.data.shift();
+    }
     if (this.worry) {
       this.worryService
         .getThinkingErrors(this.worry.id)
@@ -234,6 +236,9 @@ export class EvaluateWorryComponent implements OnInit, AfterContentChecked {
       thinking_errors: this.fb.array([]),
       evidences: this.fb.array([]),
     });
+    for (var i = 0; i < this.data.length; i++) {
+      this.data[i].is_checked = false;
+    }
     this.summaryText = '';
     this.checksubmitted = false;
     this.buttonClick = false;

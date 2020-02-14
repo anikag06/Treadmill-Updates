@@ -1,1 +1,19 @@
 @import '../../forms.component.scss';
+.beliefBox{
+    // width: 760px;
+    // height: 78px;
+    position : relative;
+    background: #F5F5F5 0% 0% no-repeat padding-box;
+    border: 0.5px dashed #0000005E;
+    border-radius: 4px;
+    opacity: 1;
+}
+.beliefText{
+     color: #00000099;
+     padding-left: 10px;
+
+}
+.beliefbody{
+    color : black ;
+    padding-left: 10px;
+}

@@ -18,13 +18,13 @@
      ></textarea>
     </mat-form-field>
     <p class="text-right" (click)="ondealWorrySubmit()" *ngIf="isText.value && continueButton">
-      <button type="button" mat-raised-button color="primary" class="continue-btn">Done</button>
+      <button type="button" mat-raised-button class="continue-btn">Done</button>
     </p>
     <div *ngIf="calmMyself">
       <strong>Calm Myself</strong><br /> <br />
       It might help to do mindful breathing if my worry gets very intense (link).
       <p class="text-right">
-        <button type="button" mat-raised-button color="primary" class="continue-btn"
+        <button type="button" mat-raised-button class="continue-btn"
           (click)="continuetocalmMyself()">Done</button>
       </p>
     </div>

@@ -97,6 +97,7 @@ export class WorryFormComponent implements OnInit {
   }
   continuetoCharacteristics() {
     this.sliderEmit = true;
+    this.showSliderCont = false;
     this.testOut.emit(this.sliderEmit);
     this.onWorrySubmit();
   }
