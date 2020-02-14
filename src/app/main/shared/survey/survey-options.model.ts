@@ -1,27 +1,8 @@
 export class SurveyOption {
-    count!: number;
-    next!: null;
-    previous!: null;
-    results!: [
-        {
-            id: number;
-            name: string;
-            score: number;
-        },
-        {
-            id: number;
-            name: string;
-            score: number;
-        },
-        {
-            id: number;
-            name: string;
-            score: number;
-        },
-        {
-            id: number;
-            name: string;
-            score: number;
-        },
-    ];
+    value: number;
+    name: string;
+    constructor(value: number, name: string) {
+        this.value = value;
+        this.name = name;
+    }
 }

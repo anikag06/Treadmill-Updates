@@ -177,6 +177,7 @@ import { WorryProductivelyService } from '@/main/resources/forms/worry-productiv
 import { InfiniteScrollDirective } from './shared/infinite-scroll/infinite-scroll.directive';
 import { LazyLoadingImageDirective } from './shared/lazy-loading-image/lazy-loading-image.directive';
 import { SurveyComponent } from './shared/survey/survey.component';
+import { SurveyService } from './shared/survey.service';
 
 @NgModule({
   declarations: [
@@ -351,6 +352,7 @@ import { SurveyComponent } from './shared/survey/survey.component';
     LoadingBarService,
     StepsDataService,
     WorryProductivelyService,
+    SurveyService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [

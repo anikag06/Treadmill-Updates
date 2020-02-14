@@ -1,14 +1,12 @@
 import { SurveyOption } from './survey-options.model';
 
 export class SurveyQuestion {
-    id: number;
-    name: string;
-    options!: SurveyOption[];
+    index: number;
+    ques: string;
+    // options!: SurveyOption[];
 
-    constructor(data: any) {
-        data = data || {};
-
-        this.id = data.id;
-        this.name = data.question;
+    constructor(index: number, ques: string) {
+        this.index = index;
+        this.ques = ques;
     }
 }

@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger, transition, state, useAnimation, style } from '@angular/animations';
 import { decrementAnimation, incrementAnimation, enterAnimation, enterSubmitAnimation } from '@/shared/animations';
+import { SurveyQuestion } from './survey-questions.model';
+import { SurveyOption } from './survey-options.model';
+import { SurveyOptionSelected } from './survey-option-selected.model';
+import { SurveyService } from '../survey.service';
 
 @Component({
   animations: [
@@ -51,68 +55,85 @@ export class SurveyComponent implements OnInit {
     count: 1,
     index: 1,
   };
-  submit = false;
-  newQues = false;
-  questionArray = [
-    'Lorem ipsum dolor 1 sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    'Lorem ipsum dolor 2 sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    'Lorem ipsum dolor 3 sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    'Lorem ipsum dolor 4 sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-  ];
   back = false;
+  backCount = 0;
+  front = false;
+  selected = false;
   quesCount = 0;
   ques!: string;
-  optionSelected!: number;
+  quesArray!: SurveyQuestion[];
+  currQues!: SurveyQuestion;
+  options!: SurveyOption[];
+  currOption!: SurveyOption;
+  userResponse!: SurveyOptionSelected;
+  userResponseArray: any = [];
+  selectedOptionValue!: number;
 
-  constructor() { }
+  constructor(private surveyService: SurveyService) { }
 
   ngOnInit() {
-    this.pager.count = 14;
+    this.surveyService.getSurveyData().subscribe((data) => {
+      console.log(data);
+      this.quesArray = data.questions;
+      this.options = data.options;
+      this.pager.count = this.quesArray.length;
+    });
   }
 
   loadQuestions() {
+    console.log(this.quesArray[this.quesCount]);
     this.display_survey = true;
-    this.newQues = false;
-    this.ques = this.questionArray[this.quesCount];
+    this.ques = this.quesArray[this.quesCount].ques;
   }
 
   onback() {
+    this.backCount += 1;
     this.quesCount -= 1;
-    this.ques = this.questionArray[this.quesCount];
+    this.ques = this.quesArray[this.quesCount].ques;
     this.pager.index -= 1;
     this.back = true;
-    this.display_front();
+    this.front = true;
+    console.log(this.userResponseArray[this.quesCount].optionSelected.value);
+    this.selectedOptionValue = this.userResponseArray[this.quesCount].optionSelected.value;
 
   }
   onfront() {
+    this.backCount -= 1;
     this.quesCount += 1;
-    this.ques = this.questionArray[this.quesCount];
+    this.ques = this.quesArray[this.quesCount].ques;
     this.pager.index += 1;
     this.back = false;
-    this.display_front();
+    if (this.backCount === 0) {
+      this.front = false;
+      // check
+      this.selectedOptionValue = 4;
+    } else {
+      this.selectedOptionValue = this.userResponseArray[this.quesCount].optionSelected.value;
+    }
   }
 
-  display_front() {
-    // if (this.question_no < this.total_question) {
-    //   return this.answered[this.question_no];
-    // } else {
-    return true;
-    // }
-  }
+  onselect(event: any, id: number, name: string) {
+    event.target.classList.add('toggle-button');
+    console.log('event', event, id);
+    this.currQues = { index: this.quesArray[this.quesCount].index, ques: this.quesArray[this.quesCount].ques };
+    this.currOption = { value: id, name: name };
+    this.userResponse = { ques: this.currQues, optionSelected: this.currOption };
+    this.userResponseArray.push(this.userResponse);
+    if (this.backCount === 0) {
+      this.front = false;
+    } else {
+      this.backCount -= 1;
+      this.selectedOptionValue = 4;
+    }
 
-  onselect(event: any) {
-    event.target.classList.add('toggleButton');
-    console.log(event);
-    this.quesCount += 1;
-    this.newQues = false;
-    this.ques = this.questionArray[this.quesCount];
-    this.pager.index = this.quesCount + 1;
-    // if (event.target.id === 'option1') {
-    //   this.optionsArray.push('option1');
-    // }
-    // this.submit = false;
-    this.back = true;
-    // this.optionsArray.push()
+    setTimeout(() => {
+      this.quesCount += 1;
+      event.target.classList.remove('toggle-button');
+      this.ques = this.quesArray[this.quesCount].ques;
+      this.pager.index = this.quesCount + 1;
+      this.back = true;
+    }, 2000);
+    console.log('user response', this.userResponseArray, this.userResponse);
   }
 
 }
