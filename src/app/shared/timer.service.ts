@@ -4,7 +4,7 @@ import { AuthService } from '@/shared/auth/auth.service';
 @Injectable()
 export class TimerService {
 
-    constructor (private authservice: AuthService) {
+    constructor(private authservice: AuthService) {
     }
 
 
@@ -16,6 +16,7 @@ export class TimerService {
     i = false;
     onunload = 0;
     online!: any;
+    timeSum = 0;
 
 
     tick() {
@@ -53,20 +54,32 @@ export class TimerService {
         );
     }
 
-    get_onunload () {
+    get_onunload() {
         return this.onunload;
     }
 
     internet_check() {
         this.online = this.authservice.returnOnline();
         this.online.subscribe((f: any) => {
-                if (f === false) {
-                    console.log('no internet connection');
-                } else {
-                    console.log('you are connected');
-                }
+            if (f === false) {
+                console.log('no internet connection');
+            } else {
+                console.log('you are connected');
+            }
         }
         );
+    }
+
+    showTime(question_no: number, startTime: Date) {
+        const now = new Date();
+        const timeDiff = now.getTime() - startTime.getTime();
+        question_no >= 0
+            ? (this.seconds = timeDiff - this.timeSum)
+            : (this.seconds = timeDiff);
+        this.seconds = this.seconds;
+        this.timeSum = timeDiff;
+        console.log('TIME', question_no, now, startTime, this.seconds);
+        return this.seconds;
     }
 
 }

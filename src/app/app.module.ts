@@ -29,6 +29,7 @@ import { ContactUsDataService } from './shared/mat-contact-us-dialog/contact-us-
 import { FcmService } from './shared/fcm.service';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
+import { TimerService } from './shared/timer.service';
 declare let $: any;
 
 @NgModule({
@@ -71,6 +72,7 @@ declare let $: any;
     LocalStorageService,
     ContactUsDataService,
     FcmService,
+    TimerService,
   ],
   bootstrap: [AppComponent],
   entryComponents: [
@@ -80,4 +82,4 @@ declare let $: any;
     MatSignupDialogComponent,
   ],
 })
-export class AppModule {}
+export class AppModule { }

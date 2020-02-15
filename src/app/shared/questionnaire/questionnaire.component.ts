@@ -37,6 +37,7 @@ import {
 } from '@/app.constants';
 import { AuthService } from '../auth/auth.service';
 import { incrementAnimation, decrementAnimation, enterAnimation, enterSubmitAnimation } from '../animations';
+import { TimerService } from '../timer.service';
 
 
 @Component({
@@ -170,6 +171,7 @@ export class QuestionnaireComponent implements OnInit {
     private trialAuthService: TrialAuthService,
     private registrationDataService: RegistrationDataService,
     private authService: AuthService,
+    private timerService: TimerService,
   ) { }
 
   ngOnInit() {
@@ -246,16 +248,16 @@ export class QuestionnaireComponent implements OnInit {
     }
   }
 
-  tick() {
-    const now = new Date();
-    const diff = now.getTime() - this.startTime.getTime();
-    this.question_no >= 0
-      ? (this.seconds = diff - this.sum)
-      : (this.seconds = diff);
-    this.seconds = this.seconds;
-    this.sum = diff;
-    return this.seconds;
-  }
+  // tick() {
+  //   const now = new Date();
+  //   const diff = now.getTime() - this.startTime.getTime();
+  //   this.question_no >= 0
+  //     ? (this.seconds = diff - this.sum)
+  //     : (this.seconds = diff);
+  //   this.seconds = this.seconds;
+  //   this.sum = diff;
+  //   return this.seconds;
+  // }
 
   IsDisabled() {
     this.visible = false;
@@ -286,8 +288,8 @@ export class QuestionnaireComponent implements OnInit {
     // tslint:disable-next-line:max-line-length
     this.time[this.question_no] > 0
       ? (this.time[this.question_no] =
-        this.time[this.question_no] + this.tick())
-      : (this.time[this.question_no] = this.tick());
+        this.time[this.question_no] + this.timerService.showTime(this.question_no, this.startTime))
+      : (this.time[this.question_no] = this.timerService.showTime(this.question_no, this.startTime));
     setTimeout(() => {
       this.IsDisabled();
       this.answered[this.question_no] = true;
@@ -326,8 +328,8 @@ export class QuestionnaireComponent implements OnInit {
     // tslint:disable-next-line:max-line-length
     this.time[this.question_no] > 0
       ? (this.time[this.question_no] =
-        this.time[this.question_no] + this.tick())
-      : (this.time[this.question_no] = this.tick());
+        this.time[this.question_no] + this.timerService.showTime(this.question_no, this.startTime))
+      : (this.time[this.question_no] = this.timerService.showTime(this.question_no, this.startTime));
     setTimeout(() => {
       this.IsDisabled();
       this.answered[this.question_no] = true;
@@ -366,8 +368,8 @@ export class QuestionnaireComponent implements OnInit {
     // tslint:disable-next-line:max-line-length
     this.time[this.question_no] > 0
       ? (this.time[this.question_no] =
-        this.time[this.question_no] + this.tick())
-      : (this.time[this.question_no] = this.tick());
+        this.time[this.question_no] + this.timerService.showTime(this.question_no, this.startTime))
+      : (this.time[this.question_no] = this.timerService.showTime(this.question_no, this.startTime));
     setTimeout(() => {
       this.IsDisabled();
       this.answered[this.question_no] = true;
@@ -406,8 +408,8 @@ export class QuestionnaireComponent implements OnInit {
     // tslint:disable-next-line:max-line-length
     this.time[this.question_no] > 0
       ? (this.time[this.question_no] =
-        this.time[this.question_no] + this.tick())
-      : (this.time[this.question_no] = this.tick());
+        this.time[this.question_no] + this.timerService.showTime(this.question_no, this.startTime))
+      : (this.time[this.question_no] = this.timerService.showTime(this.question_no, this.startTime));
     setTimeout(() => {
       this.IsDisabled();
       this.answered[this.question_no] = true;
@@ -443,8 +445,8 @@ export class QuestionnaireComponent implements OnInit {
       // tslint:disable-next-line:max-line-length
       this.time[this.question_no] > 0
         ? (this.time[this.question_no] =
-          this.time[this.question_no] + this.tick())
-        : (this.time[this.question_no] = this.tick());
+          this.time[this.question_no] + this.timerService.showTime(this.question_no, this.startTime))
+        : (this.time[this.question_no] = this.timerService.showTime(this.question_no, this.startTime));
       this.question_no > 0
         ? (this.question_no = this.question_no - 1)
         : (this.question_no = this.question_no);
@@ -468,8 +470,8 @@ export class QuestionnaireComponent implements OnInit {
     // tslint:disable-next-line:max-line-length
     this.time[this.question_no] > 0
       ? (this.time[this.question_no] =
-        this.time[this.question_no] + this.tick())
-      : (this.time[this.question_no] = this.tick());
+        this.time[this.question_no] + this.timerService.showTime(this.question_no, this.startTime))
+      : (this.time[this.question_no] = this.timerService.showTime(this.question_no, this.startTime));
     this.question_no === this.total_question
       ? (this.submit = true)
       : (this.submit = false);
@@ -485,8 +487,8 @@ export class QuestionnaireComponent implements OnInit {
     // tslint:disable-next-line:max-line-length
     this.time[this.question_no] > 0
       ? (this.time[this.question_no] =
-        this.time[this.question_no] + this.tick())
-      : (this.time[this.question_no] = this.tick());
+        this.time[this.question_no] + this.timerService.showTime(this.question_no, this.startTime))
+      : (this.time[this.question_no] = this.timerService.showTime(this.question_no, this.startTime));
     this.see0 = this.disabled.option_0[this.question_no];
     this.see1 = this.disabled.option_1[this.question_no];
     this.see2 = this.disabled.option_2[this.question_no];
