@@ -21,19 +21,18 @@
       <div class="row main mx-auto">
         <div class="col-md-12">
           <div class="row">
-
             <div class="col-2 my-auto ">
               <button type="button" class="btn btn-default" aria-label="Left Align" (click)="onback()" *ngIf="back">
                 <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
               </button>
             </div>
-            <div class="col-8 my-auto" [@in]="quesCount">
+            <div class="col-8 my-auto" *ngIf="!submit" [@in]="quesCount">
               <div>
                 <div class="mt-4 mb-2 text-muted row justify-content-center" *ngIf="!newQues">Question {{pager.index }}
                   of
                   {{pager.count}}</div>
                 <br>
-                <div class="col text-center" *ngIf="!newQues">
+                <div class="col mb-4 text-center" *ngIf="!newQues">
 
                   <div><b>{{ques}}</b></div>
 
@@ -49,41 +48,19 @@
                     </button>
                   </div>
                 </div>
-                <!-- <div class="row justify-content-center">
-                  <div class=".col-md-6 .offset-md-3 " class="button-group " *ngIf="!newQues">
-                    <button id="option2" type="button" (click)="onselect($event)" class="answerButton"
-                      mat-stroked-button>
-
-                      <span> Somewhat agree </span>
-                    </button>
-                  </div>
-                </div>
-                <div class="row justify-content-center">
-                  <div class=".col-md-6 .offset-md-3 " class="button-group " *ngIf="!newQues">
-                    <button id="option3" type="button" (click)="onselect($event)" class="answerButton"
-                      mat-stroked-button>
-                      <span> Neither agree nor disagree</span>
-                    </button>
-                  </div>
-                </div>
-                <div class="row justify-content-center">
-                  <div class=".col-md-6 .offset-md-3" class="button-group " *ngIf="!newQues ">
-                    <button id="option4" type="button" (click)="onselect($event)" class="answerButton"
-                      mat-stroked-button>
-                      <span> Somewhat disagree</span>
-                    </button>
-                  </div>
-                </div>
-                <div class="row justify-content-center">
-                  <div class=".col-md-6 .offset-md-3" class="button-group " *ngIf="!newQues">
-                    <button id="option5" type="button" (click)="onselect($event)" class="answerButton"
-                      mat-stroked-button>
-                      <span> Strongly disagree</span>
-                    </button>
-                  </div>
-                </div> -->
               </div>
 
+            </div>
+            <div class="col-8 my-auto" *ngIf="submit" [@simpleFadeAnimation]="'in'">
+              <div class="row">
+                <div class="col">
+                  <div id=submit>
+                    Thank you for your response!
+                  </div>
+                  <button id=btn type="button" class="btn btn-outline-dark" *ngIf="submit" (click)="onsubmit()">Submit
+                  </button>
+                </div>
+              </div>
             </div>
             <div class="col-2 my-auto ">
               <button type="button" class="btn btn-default" aria-label="Right Align" (click)="onfront()" *ngIf="front">
@@ -94,7 +71,7 @@
           </div>
         </div>
       </div>
-      <div *ngIf="submit" [@simpleFadeAnimation]="'in'">
+      <!-- <div *ngIf="submit" [@simpleFadeAnimation]="'in'">
         <div class="row">
           <div class="col">
             <div id=submit>
@@ -104,6 +81,6 @@
             </button>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>

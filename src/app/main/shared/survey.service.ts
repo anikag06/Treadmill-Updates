@@ -14,8 +14,12 @@ export class SurveyService {
     return this.http.get(environment.API_ENDPOINT + '/api/v1/survey/get-questions-options/');
   }
 
-  // storeUserResponse(data: any): Observable<any> {
-  //   // return this.http.put( , data);
-  // }
+  storeUserResponse(data: any): Observable<any> {
+    return this.http.post(environment.API_ENDPOINT + '/api/v1/survey/save-survey-response/', data);
+  }
+
+  getSurveyTerm(): Observable<any> {
+    return this.http.get(environment.API_ENDPOINT + '/api/v1/survey/get-survey-term/');
+  }
 
 }
