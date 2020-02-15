@@ -20,6 +20,8 @@ export class EttbfBeliefComponent implements OnInit {
   beliefStatement = '';
   @ViewChild(FormSliderComponent, { static: false })
   initialSlider!: FormSliderComponent;
+  value = 1;
+  beliefResponse !: undefined;
   ratingQuestion = ETTBF_RATING_QUESTION;
   minRatingText = ETTBF_MIN_RATING_TEXT;
   maxRatingText = ETTBF_MAX_RATING_TEXT;
@@ -27,32 +29,43 @@ export class EttbfBeliefComponent implements OnInit {
   constructor(private ettbfBeliefService: ExperimentToTestBeliefService) {}
 
   ngOnInit() {}
-
+  ngOnChanges(){
+    this.beliefStatement = this.belief.belief;
+    this.value = this.belief.belief_rating_before;
+  }
   editBeliefText() {
     this.beliefTextArea.nativeElement.focus();
+    if (this.belief.belief_rating_before != null) {
+      this.value = this.belief.belief_rating_before;
+    }
   }
 
   onBeliefSubmit() {
     if (this.belief) {
       this.belief.belief = this.beliefStatement;
+      this.belief.belief_rating_before = this.initialSlider.rating;
       this.ettbfBeliefService
         .putBelief({
           id: this.belief.id,
           belief: this.belief.belief,
+          belief_rating_before:this.belief.belief_rating_before,
         })
         .subscribe(
-          (data: Belief) => {
-            this.belief = data;
+          (data: any) => {
+            this.belief = data.body;
+            console.log('the put request has been submitted');
           },
           error => {
             console.error(error);
           },
         );
     } else {
-      if (this.beliefStatement.trim().length > 0) {
+      if (this.beliefStatement.trim().length > 0 && this.beliefResponse == undefined) {
         this.ettbfBeliefService.postBelief(this.beliefStatement).subscribe(
-          (data: Belief) => {
+          (data: any) => {
             this.belief = data;
+            this.beliefResponse = data.body;
+            console.log('the post request has been submitted');
           },
           error => {
             console.error(error);
@@ -63,23 +76,7 @@ export class EttbfBeliefComponent implements OnInit {
   }
 
   onBeliefRatingBeforeSubmit() {
-    if (this.belief) {
-      this.belief.belief_rating_before = this.initialSlider.rating;
-      this.ettbfBeliefService
-        .putBelief({
-          id: this.belief.id,
-          belief: this.belief.belief,
-          belief_rating_before: this.belief.belief_rating_before,
-        })
-        .subscribe(
-          (data: Belief) => {
-            this.belief = data;
-          },
-          error => {
-            console.error(error);
-          },
-        );
-    }
+    this.onBeliefSubmit();
   }
 
   onFocusOut(event: any) {

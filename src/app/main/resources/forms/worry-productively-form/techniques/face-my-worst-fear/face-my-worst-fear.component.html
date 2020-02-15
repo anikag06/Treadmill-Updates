@@ -23,10 +23,10 @@
 
       </div>
       <div *ngIf="showTasks">
-        <app-tasks [taskHeading]="taskHeading"></app-tasks> <br /> <br />
+        <app-tasks [taskHeading]="taskHeading" (showMessage)="taskLoaded($event)" [object]="taskObject" [task]="task"></app-tasks> <br /> <br />
       </div>
 
-      <div class="headingText" *ngIf="showTasks">
+      <div class="headingText" *ngIf="taskEmitted">
         Write down the emergency plan (You can write the emergency plan after worrying regularly for 2-3 weeks) <br />
         <br />
         <div>

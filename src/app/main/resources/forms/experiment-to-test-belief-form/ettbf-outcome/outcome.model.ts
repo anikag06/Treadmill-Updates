@@ -4,8 +4,8 @@ export class Outcome {
     public id: number,
     public belief_id: number,
     public outcome: string,
-    public learning?: string,
-    public belief_rating_after?: number,
-    public realistic_belief?: string,
+    public learning?: any,
+    public belief_rating_after?: any,
+    public realistic_belief?: any,
   ) {}
 }

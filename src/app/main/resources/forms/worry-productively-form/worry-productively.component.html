@@ -52,7 +52,7 @@
 
           </div>
         </div>
-      </div>{{buttonClick}}
+      </div>
       <div class="row mb-2" *ngIf="buttonClick">
         <div class="col-12">
           <div class="card-full-width">
@@ -63,7 +63,7 @@
             <!-- <mat-checkbox [checked]="i.checked" (change)="OnCharacteristicCheck($event)" #Checkbox >
                         {{i}}
                         </mat-checkbox> -->
-            <form [formGroup]="uselessCharacteristicsForm">
+            <div class="characteristics" [formGroup]="uselessCharacteristicsForm" >
               <div formArrayName="characteristics" *ngFor="let val of data; let i = index "><br />
                 <mat-checkbox [value]="val.value" (change)="updateValueChange($event,i)" [checked]="val.is_checked">
                   {{val.value }}
@@ -74,7 +74,7 @@
               <p class="text-right" (click)="OnCharacteristicCheck()" *ngIf="checkBoxContinue">
                 <button type="button" mat-raised-button class="continue-btn">Continue</button>
               </p>
-            </form>
+            </div>
           </div>
         </div>
       </div>

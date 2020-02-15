@@ -24,6 +24,7 @@ import {
 })
 export class EttbfOutcomeComponent implements OnInit, OnDestroy {
   @Input() outcome!: Outcome;
+  @Input() belief!: Belief;
   @ViewChild('outcomeTextArea', { static: false }) outcomeTextArea!: ElementRef;
   @ViewChild('learningTextArea', { static: false })
   learningTextArea!: ElementRef;
@@ -32,7 +33,6 @@ export class EttbfOutcomeComponent implements OnInit, OnDestroy {
   outcomeStatement = '';
   learningStatement = '';
   realisticBeliefStatement = '';
-  belief!: Belief;
   @ViewChild(FormSliderComponent, { static: false })
   finalSlider!: FormSliderComponent;
   ratingQuestion = ETTBF_RATING_QUESTION;
@@ -42,6 +42,9 @@ export class EttbfOutcomeComponent implements OnInit, OnDestroy {
   beliefDecreased!: boolean;
   outcomeText = false;
   learningText = false;
+  outcomeResponse !: undefined;
+  outcome_belief_id !: number;
+  value = 1;
   constructor(private ettbfBeliefService: ExperimentToTestBeliefService) {}
 
   ngOnInit() {
@@ -49,7 +52,20 @@ export class EttbfOutcomeComponent implements OnInit, OnDestroy {
       this.belief = data;
     });
   }
+  ngOnChanges(){
+    this.resetForm();
+    if(this.belief){
+      this.outcome_belief_id = this.belief.id;
+    }
+    console.log(this.outcome);
+    if(this.outcome){
+      this.outcomeStatement = this.outcome.outcome;
+      this.learningStatement = this.outcome.learning;
+      this.value = this.outcome.belief_rating_after;
+      this.realisticBeliefStatement = this.outcome.realistic_belief;
+    }
 
+  }
   ngOnDestroy() {
     this.ettbfBeliefService.beliefObservable$.unsubscribe();
   }
@@ -57,31 +73,48 @@ export class EttbfOutcomeComponent implements OnInit, OnDestroy {
   editOutcomeText() {
     this.outcomeTextArea.nativeElement.focus();
   }
-
+  resetForm(){
+    this.outcomeStatement ='';
+    this.learningStatement = '';
+    this.value =1;
+    this.realisticBeliefStatement='';
+  }
   onOutcomeSubmit() {
-    if (this.outcome) {
+    if (this.outcome && Object.entries(this.outcome).length > 0) {
+
+      this.outcome.belief_id = this.outcome_belief_id;
       this.outcome.outcome = this.outcomeStatement;
+      this.outcome.learning = this.learningStatement;
+      this.outcome.belief_rating_after = this.finalSlider.rating;
+      this.outcome.realistic_belief = this.realisticBeliefStatement;
       this.ettbfBeliefService
         .putOutcome({
           id: this.outcome.id,
           belief_id: this.outcome.belief_id,
           outcome: this.outcome.outcome,
+          learning: this.outcome.learning,
+          belief_rating_after: this.outcome.belief_rating_after,
+          realistic_belief: this.outcome.realistic_belief,
         })
         .subscribe(
-          (data: Outcome) => {
+          (data: any) => {
             this.outcome = data;
+            // this.outcomeResponse = data.body;
+            console.log('The put request has been submitted');
           },
           error => {
             console.error(error);
           },
         );
     } else {
-      if (this.outcomeStatement.trim().length > 0) {
+      if (this.outcomeStatement.trim().length > 0 && this.outcomeResponse == undefined) {
         this.ettbfBeliefService
           .postOutcome(this.belief.id, this.outcomeStatement)
           .subscribe(
-            (data: Outcome) => {
+            (data: any) => {
               this.outcome = data;
+              this.outcomeResponse = data.outcome;
+              console.log('The post request has been submitted');
             },
             error => {
               console.error(error);
@@ -90,26 +123,9 @@ export class EttbfOutcomeComponent implements OnInit, OnDestroy {
       }
     }
   }
-
+ 
   onLearningSubmit() {
-    if (this.outcome) {
-      this.outcome.learning = this.learningStatement;
-      this.ettbfBeliefService
-        .putOutcome({
-          id: this.outcome.id,
-          belief_id: this.outcome.belief_id,
-          outcome: this.outcome.outcome,
-          learning: this.outcome.learning,
-        })
-        .subscribe(
-          (data: Outcome) => {
-            this.outcome = data;
-          },
-          error => {
-            console.error(error);
-          },
-        );
-    }
+    this.onOutcomeSubmit();
   }
 
   onBeliefRatingAfterSubmit() {
@@ -117,43 +133,12 @@ export class EttbfOutcomeComponent implements OnInit, OnDestroy {
       this.outcome.belief_rating_after = this.finalSlider.rating;
       this.bothRatingsExist = true;
       this.compareRating();
-      this.ettbfBeliefService
-        .putOutcome({
-          id: this.outcome.id,
-          belief_id: this.outcome.belief_id,
-          outcome: this.outcome.outcome,
-          belief_rating_after: this.outcome.belief_rating_after,
-        })
-        .subscribe(
-          (data: Outcome) => {
-            this.outcome = data;
-          },
-          error => {
-            console.error(error);
-          },
-        );
+      this.onOutcomeSubmit();
     }
   }
 
   onRealisticBeliefSubmit() {
-    if (this.outcome) {
-      this.outcome.realistic_belief = this.realisticBeliefStatement;
-      this.ettbfBeliefService
-        .putOutcome({
-          id: this.outcome.id,
-          belief_id: this.outcome.belief_id,
-          outcome: this.outcome.outcome,
-          realistic_belief: this.outcome.realistic_belief,
-        })
-        .subscribe(
-          (data: Outcome) => {
-            this.outcome = data;
-          },
-          error => {
-            console.error(error);
-          },
-        );
-    }
+    this.onOutcomeSubmit();
   }
 
   compareRating() {

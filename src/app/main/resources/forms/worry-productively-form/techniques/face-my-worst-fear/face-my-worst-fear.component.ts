@@ -2,6 +2,8 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { FormControl, FormBuilder, Validators } from '@angular/forms';
 import { WorryProductivelyService } from '../../worry-productively.service';
 import { Worry } from '../../worry.model';
+import { WORRY_PROBLEM } from '@/app.constants';
+import { UserTask } from '../../../shared/tasks/user-task.model';
 
 @Component({
   selector: 'app-face-my-worst-fear',
@@ -11,13 +13,15 @@ import { Worry } from '../../worry.model';
 export class FaceMyWorstFearComponent implements OnInit {
   @Input() worry !: Worry;
   @ViewChild('panel2', { static: false }) panel2!: any;
-
+  task !: UserTask;
+  taskObject !: any ;
   faceYourWorstFearForm = this.fb.group({
     faceYourWorstFear: new FormControl('', Validators.required),
     emergency_plan: new FormControl('', Validators.required),
   });
   continueButton = false;
   continueEmergency = false;
+  taskEmitted = false;                                                                                    
   faceYourFear: string[] = [];
   showTasks = false;
   responseData = '';
@@ -27,9 +31,20 @@ export class FaceMyWorstFearComponent implements OnInit {
     private fb: FormBuilder,
     private worryService: WorryProductivelyService,
   ) { }
-
   ngOnInit() { }
   ngOnChanges() {
+    // if(this.taskEmitted){
+    //   this.worryService.getTasks(this.worry.taskorigin.task_id).subscribe(
+    //     (resp : any)=>{
+    //       this.task = resp.data;
+    //     }
+    //   );
+    // }
+    this.taskObject = {
+      id : this.worry.id,
+      origin_name : WORRY_PROBLEM,
+      taskorigin : this.worry.taskOrigin,    
+    };
     this.resetForm();
     if (this.worry) {
       this.worryService.getWorstFear(this.worry.id).subscribe(
@@ -89,6 +104,9 @@ export class FaceMyWorstFearComponent implements OnInit {
     this.summaryText = this.faceYourWorstFearForm.controls['faceYourWorstFear'].value;
     this.panel2.expanded = false;
     this.onWorstFearClick();
+  }
+  taskLoaded(data : any){
+    this.taskEmitted = data;
   }
   resetForm() {
     this.faceYourWorstFearForm = this.fb.group({

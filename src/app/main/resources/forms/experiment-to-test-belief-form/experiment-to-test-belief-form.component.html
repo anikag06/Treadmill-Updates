@@ -50,7 +50,7 @@
         </div>
       </div>
       
-      <!-- <div *ngIf= "taskContinue">s -->
+      <!-- <div *ngIf= "taskContinue"> -->
         <div class="row mb-2">
           <div class="col">
             <div class="card-full-width">
@@ -58,7 +58,7 @@
                 How can you test if this belief is true?
               </div> -->
               <div class="card-body">
-                <app-tasks (taskLoaded)="taskLoaded($event)" [taskHeading]= "taskHeading"></app-tasks>
+                <app-tasks  (showMessage)="taskLoaded($event)" [object]="taskObject" [task]="task" [taskHeading]= "taskHeading"></app-tasks>
               </div>
             </div>
           </div>
@@ -76,16 +76,16 @@
                     edit </mat-icon>
                 </div>
               </div> -->
-              <div  *ngIf="outcome && !outcomeEditMode">
+              <!-- <div  *ngIf="outcome && !outcomeEditMode">
                 <div class="form-editable-text-underline">
                   {{outcome.outcome}}
                 </div>
-              </div>
-              <div *ngIf="outcome && outcomeEditMode">
-                <app-ettbf-outcome [outcome]="outcome"></app-ettbf-outcome>
+              </div> -->
+              <div *ngIf="outcome ">
+                <app-ettbf-outcome [outcome]="outcome" [belief]="belief"></app-ettbf-outcome>
               </div>
               <div  *ngIf="!outcome">
-                <app-ettbf-outcome></app-ettbf-outcome>
+                <app-ettbf-outcome [belief]="belief"></app-ettbf-outcome>
               </div>
             </div>
           </div>

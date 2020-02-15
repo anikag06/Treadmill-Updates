@@ -23,6 +23,7 @@ import {
   WORRY_PROBLEM_SOLVING,
   WORRY_FINAL_SLIDER,
   FACE_WORST_FEAR,
+  GET_TASKS,
 } from '@/app.constants';
 
 @Injectable({
@@ -235,6 +236,11 @@ export class WorryProductivelyService {
     return this.http.get(environment.API_ENDPOINT + FACE_WORST_FEAR + id + '/', {
       observe: 'response',
     });
+  }
+  getTasks(id : number){
+    return this.http.get(environment.API_ENDPOINT + GET_TASKS + id + '/' ,{
+      observe: 'response',
+    })
   }
   postModifyBeliefs(data: any) {
     return this.http.post(environment.API_ENDPOINT + MODIFY_BELIEFS, data, {

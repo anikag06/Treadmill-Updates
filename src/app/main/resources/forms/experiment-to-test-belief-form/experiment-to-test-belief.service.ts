@@ -7,7 +7,7 @@ import { SanitizationService } from '@/main/shared/sanitization.service';
 import { Belief } from '@/main/resources/forms/experiment-to-test-belief-form/ettbf-belief/belief.model';
 import { Outcome } from '@/main/resources/forms/experiment-to-test-belief-form/ettbf-outcome/outcome.model';
 import { environment } from '@/../environments/environment';
-import { ETTBF_BELIEF_URL, ETTBF_OUTCOME_URL } from '@/app.constants';
+import { ETTBF_BELIEF_URL, ETTBF_OUTCOME_URL, GET_TASKS } from '@/app.constants';
 
 @Injectable({
   providedIn: 'root',
@@ -88,7 +88,11 @@ export class ExperimentToTestBeliefService {
       },
     );
   }
-
+  getTasks(id : number){
+    return this.http.get(environment.API_ENDPOINT + GET_TASKS + id + '/' ,{
+      observe: 'response',
+    })
+  }
   postOutcome(belief_id: number, outcome: string) {
     return this.http
       .post(environment.API_ENDPOINT + ETTBF_OUTCOME_URL, {
@@ -105,7 +109,7 @@ export class ExperimentToTestBeliefService {
   putOutcome(outcome: Outcome) {
     
     return this.http
-      .put(environment.API_ENDPOINT + ETTBF_OUTCOME_URL + outcome.id + '/', {
+      .put(environment.API_ENDPOINT + ETTBF_OUTCOME_URL + outcome.belief_id + '/', {
         id: outcome.id,
         belief_id: outcome.belief_id,
         outcome: outcome.outcome,
@@ -118,6 +122,14 @@ export class ExperimentToTestBeliefService {
           return <Outcome>data;
         }),
       );
+  }
+  getOutcome(id: number){
+    return this.http.get(
+      environment.API_ENDPOINT + ETTBF_OUTCOME_URL + id + '/',
+      {
+        observe: 'response',
+      },
+    );
   }
   addSituation(belief: Belief) {
     this.beliefs.push(belief);
