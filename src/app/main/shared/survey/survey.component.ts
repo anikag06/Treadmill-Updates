@@ -78,6 +78,7 @@ export class SurveyComponent implements OnInit {
     private timerService: TimerService) { }
 
   ngOnInit() {
+    this.surveyService.disableLinks.emit();
   }
 
   loadQuestions() {
@@ -104,12 +105,7 @@ export class SurveyComponent implements OnInit {
     this.quesCount -= 1;
     this.ques = this.quesArray[this.quesCount].ques;
     this.pager.index -= 1;
-    // if (this.userResponseArray[this.quesCount]) {
-    //   // tslint:disable-next-line: max-line-length
-    //   this.userResponseArray[this.quesCount].time_taken_to_complete = this.userResponseArray[this.quesCount].time_taken_to_complete + this.timerService.showTime(this.quesCount, this.startTime);
-    // } else {
-    //   this.userResponseArray[this.quesCount].time_taken_to_complete = this.timerService.showTime(this.quesCount, this.startTime);
-    // }
+
     this.updateTimeTaken();
     if (this.quesCount === 0) {
       this.back = false;
@@ -123,19 +119,25 @@ export class SurveyComponent implements OnInit {
 
   }
   onfront() {
-    this.backCount -= 1;
-    this.quesCount += 1;
-    this.ques = this.quesArray[this.quesCount].ques;
-    this.pager.index += 1;
-    this.updateTimeTaken();
-    if (this.backCount === 0) {
+    if (this.quesCount >= 13) {
+      this.submit = true;
       this.front = false;
-      // this.back = false;
-      // check
-      this.selectedOptionValue = 4;
     } else {
-      this.back = true;
-      this.selectedOptionValue = this.userResponseArray[this.quesCount].optionSelected.value;
+      this.quesCount += 1;
+      this.ques = this.quesArray[this.quesCount].ques;
+      this.pager.index += 1;
+      this.updateTimeTaken();
+      this.backCount -= 1;
+
+      if (this.backCount === 0) {
+        this.front = false;
+        // this.back = false;
+        // check
+        this.selectedOptionValue = 4;
+      } else {
+        this.back = true;
+        this.selectedOptionValue = this.userResponseArray[this.quesCount].optionSelected.value;
+      }
     }
   }
 
@@ -165,14 +167,18 @@ export class SurveyComponent implements OnInit {
       }, 100);
     } else {
       this.submit = true;
+      this.quesCount += 1;
+      this.pager.index = this.quesCount + 1;
     }
     console.log('user response', this.userResponseArray, this.userResponse);
   }
 
   onSubmit() {
-    this.surveyService.storeUserResponse({ survey_id: this.surveyId, survey_responses: this.userResponseArray }).subscribe((data) => {
-      console.log(data);
-    });
+    this.surveyService.storeUserResponse({ survey_id: this.surveyId, survey_responses: this.userResponseArray })
+      .subscribe((data) => {
+        console.log(data);
+      });
+    // next step
   }
 
   updateTimeTaken() {

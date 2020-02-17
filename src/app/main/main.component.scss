@@ -20,6 +20,12 @@
   height: 100vh;
 }
 
+.is-active {
+  cursor: default;
+  text-decoration: none;
+  pointer-events: none;
+}
+
 .sidenav {
   max-width: 205px;
   width: 205px;

@@ -4,6 +4,7 @@ import {
   ViewChild,
   OnChanges,
   DoCheck,
+  ElementRef,
 } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
@@ -12,7 +13,7 @@ import { AuthService } from '@/shared/auth/auth.service';
 import { User } from '@/shared/user.model';
 import { Router, NavigationStart } from '@angular/router';
 import { DEFAULT_PATH } from '@/app.constants';
-import { MatDrawer } from '@angular/material';
+import { MatDrawer, MatTooltip } from '@angular/material';
 import { DataService } from '@/shared/questionnaire/data.service';
 import { FcmService } from '@/shared/fcm.service';
 import { QuizService } from '@/shared/questionnaire/questionnaire.service';
@@ -21,6 +22,7 @@ import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { IntroduceComponent } from './shared/introduce/introduce.component';
 import { IntroduceService } from './shared/introduce/introduce.service';
+import { SurveyService } from './shared/survey.service';
 
 // tslint:disable-next-line:max-line-length
 
@@ -32,9 +34,12 @@ import { IntroduceService } from './shared/introduce/introduce.service';
 export class MainComponent implements OnInit, OnChanges, DoCheck {
   user!: User;
   routing!: boolean;
+  homeLinkEnabled = false;
   overlayRef!: OverlayRef;
+  tooltipData!: any;
 
   @ViewChild('drawer', { static: true }) drawer!: MatDrawer;
+  @ViewChild('tooltip', { static: false }) showToolTip!: MatTooltip;
 
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe([Breakpoints.Handset, Breakpoints.Small])
@@ -51,11 +56,14 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
     private flowService: FlowService,
     private overlay: Overlay,
     private introduceService: IntroduceService,
-  ) {}
+    private element: ElementRef,
+    private surveyService: SurveyService,
+  ) { }
 
-  ngOnChanges() {}
+  ngOnChanges() { }
 
   ngOnInit() {
+    this.tooltipData = "Please complete the survey.";
     const user = this.authService.isLoggedIn();
     if (user && user.is_active) {
       this.user = <User>user;
@@ -76,9 +84,21 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
         this.overlayRef.detach();
       }
     });
+    this.surveyService.disableLinks.subscribe(() => {
+      const disableLinks = this.element.nativeElement.querySelectorAll('a');
+      console.log(disableLinks);
+      let i = 0;
+      while (i <= (disableLinks.length)) {
+        disableLinks[i].setAttribute('style', 'cursor: default;text-decoration: none;pointer-events: none;');
+        i += 1;
+        console.log(disableLinks[i]);
+      }
+    });
+
   }
 
   ngDoCheck() {
+
     this.routing = this.dataService.getOption();
     const user = this.authService.isLoggedIn();
     if (user && user.is_active) {
@@ -88,12 +108,14 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
       }
     }
     if (this.routing === false) {
+
       this.router.events
         .pipe(filter(e => e instanceof NavigationStart))
         .subscribe((e: any) => {
           this.goToQuestionnaire(e);
         });
     }
+
   }
 
   onLinkClick(event: Event) {
@@ -119,5 +141,14 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
     });
     const portal = new ComponentPortal(IntroduceComponent);
     this.overlayRef.attach(portal);
+  }
+
+  tooltipShow() {
+    if (this.showToolTip.disabled) {
+      this.showToolTip.disabled = false;
+    }
+    this.showToolTip.showDelay = 300;
+    this.showToolTip.hideDelay = 100;
+    this.showToolTip.toggle();
   }
 }

@@ -17,18 +17,19 @@
     </div>
   </div>
   <div>
-    <div class="container justify-content-center" *ngIf="display_survey" [@simpleFadeAnimation]="'in'">
+    <div class="container justify-content-center px-0" *ngIf="display_survey" [@simpleFadeAnimation]="'in'">
       <div class="row main mx-auto">
         <div class="col-md-12">
           <div class="row">
-            <div class="col-2 my-auto ">
+            <div class="col-1 col-md-2 my-auto px-0">
               <button type="button" class="btn btn-default" aria-label="Left Align" (click)="onback()" *ngIf="back">
-                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <mat-icon>arrow_back_ios</mat-icon>
               </button>
             </div>
-            <div class="col-8 my-auto" *ngIf="!submit" [@in]="quesCount">
+            <div class="col-10 col-md-8 my-auto" *ngIf="!submit" [@in]="quesCount">
               <div>
-                <div class="mt-4 mb-2 text-muted row justify-content-center" *ngIf="!newQues">Question {{pager.index }}
+                <div class="pager mt-4 mb-2 text-muted row justify-content-center" *ngIf="!newQues">Question
+                  {{pager.index }}
                   of
                   {{pager.count}}</div>
                 <br>
@@ -51,36 +52,26 @@
               </div>
 
             </div>
-            <div class="col-8 my-auto" *ngIf="submit" [@simpleFadeAnimation]="'in'">
-              <div class="row">
-                <div class="col">
-                  <div id=submit>
-                    Thank you for your response!
-                  </div>
-                  <button id=btn type="button" class="btn btn-outline-dark" *ngIf="submit" (click)="onsubmit()">Submit
-                  </button>
-                </div>
+            <div class="col-10 col-md-8 text-center my-auto" *ngIf="submit" [@simpleFadeAnimation]="'in'">
+              <div class="row justify-content-center" style="margin-top:60px;">
+                Thank you for your feedback.
+              </div>
+              <div class="row justify-content-center">
+                <button type="button" class="answer-button" style="margin-top:60px; min-width: 140px !important;"
+                  mat-stroked-button *ngIf="submit" (click)="onsubmit()">Submit
+                </button>
               </div>
             </div>
-            <div class="col-2 my-auto ">
+            <div class="col-1 col-md-2 my-auto px-0">
               <button type="button" class="btn btn-default" aria-label="Right Align" (click)="onfront()" *ngIf="front">
-                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+
+                <mat-icon>arrow_forward_ios</mat-icon>
               </button>
             </div>
 
           </div>
         </div>
       </div>
-      <!-- <div *ngIf="submit" [@simpleFadeAnimation]="'in'">
-        <div class="row">
-          <div class="col">
-            <div id=submit>
-              Thank you for your response!
-            </div>
-            <button id=btn type="button" class="btn btn-outline-dark" *ngIf="submit" (click)="onsubmit()">Submit
-            </button>
-          </div>
-        </div>
-      </div> -->
+
     </div>
   </div>

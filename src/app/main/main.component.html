@@ -1,29 +1,16 @@
-<mat-drawer-container class="sidenav-container" autosize>
-  <mat-drawer
-    #drawer
-    class="sidenav"
-    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'side'"
-    [opened]="(isHandset$ | async) === false"
-  >
+<mat-drawer-container class="sidenav-container" autosize #tooltip="matTooltip" matTooltipDisabled
+  matTooltip={{tooltipData}} (click)="tooltipShow()">
+  <mat-drawer #drawer class="sidenav" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
     <mat-toolbar>
       <div>
         <a class="main-logo" routerLink="/dashboard">
-          <img
-            src="https://www.treadwill.org/static/cbt2/images/logo/treadwill_logo.png"
-            style="margin-top: 10px; width: 75%;"
-            class="center"
-            alt="treadwill_logo"
-          />
+          <img src="https://www.treadwill.org/static/cbt2/images/logo/treadwill_logo.png"
+            style="margin-top: 10px; width: 75%;" class="center" alt="treadwill_logo" />
         </a>
       </div>
       <div>
-        <a routerLink="/dashboard"
-          ><img
-            *ngIf="!isExpanded"
-            src="assets/modules/dashboard.png"
-            class="icons-width"
-          />
+        <a routerLink="/dashboard"><img *ngIf="!isExpanded" src="assets/modules/dashboard.png" class="icons-width" />
         </a>
       </div>
     </mat-toolbar>
@@ -31,12 +18,7 @@
     <mat-nav-list role="navigation" (click)="onLinkClick($event)">
       <div class="list-wrapper">
         <div class="list-user">
-          <img
-            [src]="user.avatar"
-            [alt]="user.username"
-            width="80"
-            height="80"
-          />
+          <img [src]="user.avatar" [alt]="user.username" width="80" height="80" />
         </div>
         <br />
         <div class="list-user-name">
@@ -44,13 +26,9 @@
         </div>
 
         <div class="list-wrapper-items">
-          <a mat-list-item routerLink="/dashboard">
+          <a mat-list-item routerLink='/dashboard'>
             <span class="list-wrapper-items-icon">
-              <img
-                class="icons-width"
-                src="assets/modules/Dashboard-icon.png"
-                alt="dashboard-icon"
-              />
+              <img class="icons-width" src="assets/modules/Dashboard-icon.png" alt="dashboard-icon" />
             </span>
             <span class="list-wrapper-items-name">
               Dashboard
@@ -116,16 +94,8 @@
         <div class="list-wrapper-items">
           <a mat-list-item href="#">
             <span class="list-wrapper-items-icon">
-              <img
-                style="margin-left: 4px;"
-                width="25px"
-                src="assets/modules/need to talk.png"
-              />
-              <img
-                *ngIf="!isExpanded"
-                width="25px"
-                src="assets/modules/need to talk.png"
-              />
+              <img style="margin-left: 4px;" width="25px" src="assets/modules/need to talk.png" />
+              <img *ngIf="!isExpanded" width="25px" src="assets/modules/need to talk.png" />
             </span>
             <span class="list-wrapper-items-name"> Need to <br />talk? </span>
           </a>
@@ -134,11 +104,7 @@
         <div class="list-wrapper-items">
           <a mat-list-item routerLink="/logout">
             <span class="list-wrapper-items-icon">
-              <img
-                class="icons-width"
-                style="margin-left: 2px;"
-                src="assets/modules/logout.png"
-              />
+              <img class="icons-width" style="margin-left: 2px;" src="assets/modules/logout.png" />
             </span>
             <span class="list-wrapper-items-name">
               Logout
@@ -151,13 +117,8 @@
 
   <mat-drawer-content class="dashboard-mat-drawer-content" appScrolling>
     <mat-toolbar *ngIf="isHandset$ | async">
-      <button
-        type="button"
-        aria-label="Toggle sidenav"
-        mat-icon-button
-        (click)="drawer.toggle()"
-        *ngIf="isHandset$ | async"
-      >
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <span></span>
