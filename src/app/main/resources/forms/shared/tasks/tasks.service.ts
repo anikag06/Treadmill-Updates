@@ -18,8 +18,11 @@ export class TasksService {
   nextPage = true;
   taskBehaviour = new BehaviorSubject<UserTask[]>(this.tasks);
 
-  constructor(private http: HttpClient, public snackBar: MatSnackBar,
-              private errorService: GeneralErrorService,) {}
+  constructor(
+    private http: HttpClient,
+    public snackBar: MatSnackBar,
+    private errorService: GeneralErrorService,
+  ) {}
 
   getTasks() {
     if (this.nextPage) {
@@ -66,7 +69,11 @@ export class TasksService {
     this.tasks.push(task);
     this.taskBehaviour.next(this.tasks);
   }
-
+  getTask(task: number) {
+    return this.http
+      .get(environment.API_ENDPOINT + TASK_API + task + '/')
+      .pipe(catchError(this.errorService.handleError));
+  }
   removeTask(userTask: UserTask) {
     let taskIndex = -1;
     this.tasks.forEach((task: UserTask, index) => {

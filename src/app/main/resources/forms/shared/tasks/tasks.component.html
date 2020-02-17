@@ -45,9 +45,9 @@
                 class="full-width"
                 formControlName="is_completed"
                 [checked]="is_completed"
-                (change)="subTaskCompletedChange($event, id)"
+                (change)="subTaskCompletedChange($event, i)"
               >
-                <input type="hidden" formControlName="id" [value]="id" />
+                <!--                <input type="hidden" formControlName="id" [value]="i" />-->
                 &nbsp;
                 <mat-form-field class="full-width">
                   <textarea
@@ -136,6 +136,7 @@
       </div>
     </div>
     <br />
+
     <div class="text-right" *ngIf="!this.task || taskValueChanged">
       <button
         mat-raised-button

@@ -3,13 +3,23 @@
     <div class="dateTimeDiv">
       <div class="startEndDate">
         <ng-container *ngIf="showWhenStart">
-          <span [ngStyle]="{ opacity: '0.4', 'font-size': '1.5rem' }">
+          <span class="span-text">
             When do you want to start?
           </span>
         </ng-container>
         <ng-container *ngIf="showTillWhen">
-          <span [ngStyle]="{ opacity: '0.4', 'font-size': '1.5rem' }">
+          <span class="span-text">
             and till when?
+            <div
+              [ngStyle]="{
+                fontSize: '0.75rem',
+                opacity: '0.4'
+              }"
+            >
+              Tap
+              {{ startEndDate[START_DATE] | date: 'shortDate' | date: 'dd' }}
+              again for same day
+            </div>
           </span>
         </ng-container>
         <ng-container *ngIf="showStartEndDate">

@@ -45,9 +45,12 @@ $form-secondary-color: #2a3b3d;
   }
 }
 
-.more-hor-icon {
-  color: white;
-  max-width: 100%;
+//.more-hor-icon {
+//  color: white;
+//  max-width: 100%;
+//}
+strong {
+  word-wrap: break-word;
 }
 
 .container-fluid {
@@ -70,7 +73,6 @@ $form-secondary-color: #2a3b3d;
   color: white;
   background-color: #2a3b3d;
   outline: none;
-  color: white;
   box-shadow: none;
 }
 

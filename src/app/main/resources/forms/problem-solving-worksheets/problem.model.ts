@@ -1,4 +1,4 @@
-import {TaskOrigin} from '@/main/resources/forms/problem-solving-worksheets/taskOrigin.model';
+import {TaskOrigin} from '@/main/resources/forms/shared/model/taskorigin.model';
 
 export class Problem {
   constructor(

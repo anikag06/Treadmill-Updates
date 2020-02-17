@@ -14,7 +14,6 @@
         <textarea
           class="py-0"
           name="procon"
-          id="procon"
           rows="1"
           placeholder="Enter  {{ pro ? 'pro' : 'con' }}"
           matInput
@@ -24,13 +23,13 @@
           cdkTextareaAutosize
           cdkAutosizeMinRows="1"
           cdkAutosizeMaxRows="5"
+          maxlength="500"
           (focusout)="onTextAreaFocusOut($event)"
           (keyup.enter)="onEnterPress($event)"
         ></textarea>
       </mat-form-field>
     </form>
-    <div>
-    </div>
+    <div></div>
   </div>
 </div>
 <div (click)="showForm = !showForm">

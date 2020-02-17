@@ -1,6 +1,5 @@
-import {PSF_PROBLEM, RECOMMENDED, WEEK} from '@/app.constants';
+import {TASK, WEEK} from '@/app.constants';
 import {ProblemSolvingWorksheetsService} from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.service';
-import {Problem} from '@/main/resources/forms/problem-solving-worksheets/problem.model';
 import {TasksService} from '@/main/resources/forms/shared/tasks/tasks.service';
 import {DateTimePickerComponent} from '@/main/shared/date-time-picker/date-time-picker.component';
 import {DateTimePickerService} from '@/main/shared/date-time-picker/date-time-picker.service';
@@ -19,7 +18,7 @@ import {UserTask} from './user-task.model';
 export class TasksComponent implements OnInit, OnChanges {
   @Output() nextStepEmitter = new EventEmitter<null>();
   @Output() taskLoaded = new EventEmitter<UserTask>();
-  @Input() problem!: Problem;
+  @Input() object!: any;
   @Input() reset!: boolean;
   @Input() task!: UserTask;
   @Input() taskHeading!: string;
@@ -64,9 +63,9 @@ export class TasksComponent implements OnInit, OnChanges {
   ) {}
 
   ngOnInit() {
-    if (this.problem && this.problem.taskorigin) {
-      this.loadTasks();
-    }
+    // if (this.object && this.object.taskorigin) {
+    //   this.loadTasks();
+    // }
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (
@@ -76,12 +75,12 @@ export class TasksComponent implements OnInit, OnChanges {
     ) {
       this.initializeTask();
     } else if (
-      this.problem &&
-      this.problem.taskorigin &&
-      changes.problem.previousValue !== changes.problem.currentValue
+      this.object &&
+      this.object.taskorigin &&
+      changes.object.previousValue !== changes.object.currentValue
     ) {
       this.loadTasks();
-    } else if (this.problem && !this.problem.taskorigin) {
+    } else if (this.object && !this.object.taskorigin) {
       this.resetTask();
       this.taskLoaded.emit();
     }
@@ -144,8 +143,10 @@ export class TasksComponent implements OnInit, OnChanges {
           this.taskService.openSnackBar('Task Updated Successfully', 'OK');
           this.taskValueChanged = false;
           this.taskHandler(taskBody, 'update');
+          this.taskLoaded.emit(this.task);
         },
         error => {
+          console.log(error);
           this.taskService.openSnackBar('Error Occured', 'Retry');
           this.taskService.openSnackBar(error.error.non_field_errors, 'Retry');
         },
@@ -157,6 +158,7 @@ export class TasksComponent implements OnInit, OnChanges {
           this.taskValueChanged = false;
           taskBody = resp.body.data;
           this.taskHandler(taskBody, 'create');
+          this.taskLoaded.emit(this.task);
           this.showMessage.emit(true);
         },
         error => {
@@ -291,14 +293,13 @@ export class TasksComponent implements OnInit, OnChanges {
       (data: any) => {
         if (data.length > 0) {
           this.task = data.find((t: UserTask) => {
-            if (this.problem.taskorigin.id === t.origin_object) {
+            if (this.object.taskorigin.id === t.origin_object) {
               return t;
             }
           });
           if (this.task) {
-            console.log(this.task);
             this.initializeTask();
-            this.taskLoaded.emit(this.task);
+            // this.taskLoaded.emit(this.task);
           }
         }
       },
@@ -353,18 +354,18 @@ export class TasksComponent implements OnInit, OnChanges {
   // }
 
   getOriginId() {
-    if (this.problem) {
-      return this.problem.id;
+    if (this.object) {
+      return this.object.id;
     } else {
       return null;
     }
   }
 
   getOriginName() {
-    if (this.problem) {
-      return PSF_PROBLEM;
+    if (this.object) {
+      return this.object.origin_name;
     } else {
-      return RECOMMENDED;
+      return TASK;
     }
   }
 
@@ -376,6 +377,7 @@ export class TasksComponent implements OnInit, OnChanges {
     this.repeat = false;
     delete this.origin_name;
     delete this.origin_object;
+    delete this.taskValueChanged;
     this.tasksGroup = this.fb.group({
       task: [''],
       taskCompleted: [false],
@@ -418,6 +420,7 @@ export class TasksComponent implements OnInit, OnChanges {
     const dialogRef = this.dialog.open(DateTimePickerComponent, {
       panelClass: 'dateTime-dialog-container',
       maxWidth: '100vw',
+      autoFocus: false,
       data: {
         startDate: this.start_date,
         endDate: this.end_date,

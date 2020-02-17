@@ -1,13 +1,13 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams,} from '@angular/common/http';
 import {BehaviorSubject} from 'rxjs';
-import {catchError, map} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
 
 import {ProsCons} from './pros-cons.model';
 import {environment} from 'environments/environment';
 import {Problem} from './problem.model';
 import {SanitizationService} from '@/main/shared/sanitization.service';
-import {PSF_BEST_SOLUTION_URL, PSF_PRO_CON_URL, PSF_PROBLEM_URL, PSF_RESULT_URL, PSF_SOLUTION_URL, TASK_API,} from '@/app.constants';
+import {PSF_BEST_SOLUTION_URL, PSF_PRO_CON_URL, PSF_PROBLEM_URL, PSF_RESULT_URL, PSF_SOLUTION_URL,} from '@/app.constants';
 import {GeneralErrorService} from '@/main/shared/general-error.service';
 
 @Injectable({
@@ -135,12 +135,6 @@ export class ProblemSolvingWorksheetsService {
     );
   }
 
-  getTask(task: number) {
-    return this.http
-      .get(environment.API_ENDPOINT + TASK_API + task + '/')
-      .pipe(catchError(this.errorService.handleError));
-  }
-
   // Some Issues with the backend we need to send a form
   postSolution(solution: string, problemId: number) {
     const params = new HttpParams()
@@ -201,17 +195,17 @@ export class ProblemSolvingWorksheetsService {
     );
   }
 
-  postResult(solution_id: number, body: string) {
-    return this.http.post(environment.API_ENDPOINT + PSF_RESULT_URL, {
-      solution_id: solution_id,
-      body: body,
-    });
+  postResult(solution_id: number, resultObject: any) {
+    return this.http.post(
+      environment.API_ENDPOINT + PSF_RESULT_URL,
+      resultObject,
+    );
   }
 
-  putResult(solution_id: number, body: string, result_id: number) {
+  putResult(solution_id: number, resultObject: any, result_id: number) {
     return this.http.put(
       environment.API_ENDPOINT + PSF_RESULT_URL + result_id + '/',
-      { solution_id: solution_id, body: body },
+      resultObject,
     );
   }
 

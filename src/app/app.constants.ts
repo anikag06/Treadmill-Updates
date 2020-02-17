@@ -219,7 +219,7 @@ export const USER_GAD_DATA = '/api/v1/questionnaire/gad-user-response/';
 export const USER_SIQ_DATA = '/api/v1/questionnaire/siq-user-response/';
 
 // FORMS
-export const RECOMMENDED = 'recommended';
+export const TASK = 'task';
 export const WORRY_PRODUCTIVELY = 'worry-productivelty';
 export const TECHNIQUE_UNTOUCHED = 0;
 export const TECHNIQUE_OPENED = 1;
@@ -267,10 +267,10 @@ export const ETTBF_MIN_RATING_TEXT = 'Not at all';
 export const ETTBF_MAX_RATING_TEXT = 'Very strong';
 
 // Task form
-export const TASK = 'tasks';
+// export const TASKS = 'tasks';
 export const SET_ACTIVITY = 'set-activity';
-export const TASK_API  = '/api/v1/tasks/task/';
-export const SUBTASK_PATH =  '/sub-task/?subtask_id=';
+export const TASK_API = '/api/v1/tasks/task/';
+export const SUBTASK_PATH = '/sub-task/?subtask_id=';
 
 // Thought record form
 export const THOUGHT_RECORD = 'thought-record';

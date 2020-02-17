@@ -45,41 +45,12 @@
             class="btn continue-btn"
             [ngStyle]="{ float: 'right' }"
             (click)="onSubmit()"
-            *ngIf="showActContinue"
+            *ngIf="showActContinue && !editMode"
           >
             Done
           </button>
         </div>
       </div>
-      <br />
-      <div *ngIf="showRadioDiv">
-        <div class="q-heading">
-          {{ acting_help }}
-        </div>
-
-        <div>
-          <mat-radio-group formControlName="would_it_help">
-            <mat-radio-button [value]="1">
-              Yes
-            </mat-radio-button>
-            <mat-radio-button [value]="0" [ngStyle]="{ marginLeft: '4.5rem' }">
-              No
-            </mat-radio-button>
-          </mat-radio-group>
-          <div>
-            <button
-              mat-raised-button
-              class="btn continue-btn"
-              [ngStyle]="{ float: 'right' }"
-              (click)="onActSubmit()"
-              *ngIf="getRadio.valid && showRadioCntBtn"
-            >
-              Done
-            </button>
-          </div>
-        </div>
-      </div>
-
       <br />
       <div *ngIf="showAdvantages">
         <div class="q-heading">
@@ -133,19 +104,60 @@
             Add Advantages
           </div>
         </div>
+        <br />
+        <!--        <div>-->
 
+        <!--          <button-->
+        <!--            mat-raised-button-->
+        <!--            class="btn continue-btn"-->
+        <!--            [ngStyle]="{ float: 'right' }"-->
+        <!--            (click)="onSubmitAdvantages()"-->
+        <!--          >-->
+        <!--            Done-->
+        <!--          </button>-->
+        <!--        </div>-->
         <div>
-          <br />
-          <button
-            mat-raised-button
-            class="btn continue-btn"
-            [ngStyle]="{ float: 'right' }"
-            (click)="onSubmitAdvantages()"
-          >
-            Done
-          </button>
+          <div class="q-heading">
+            {{ acting_help }}
+          </div>
+
+          <div>
+            <mat-radio-group color="primary" formControlName="would_it_help">
+              <mat-radio-button [value]="true">
+                Yes
+              </mat-radio-button>
+              <mat-radio-button
+                [value]="false"
+                [ngStyle]="{ marginLeft: '4.5rem' }"
+              >
+                No
+              </mat-radio-button>
+            </mat-radio-group>
+            <div>
+              <br />
+              <div>
+                <div *ngIf="actAsIfForm.value['would_it_help'] === true">
+                  {{ yes }}
+                </div>
+                <div *ngIf="actAsIfForm.value['would_it_help'] === false">
+                  {{ no }}
+                </div>
+              </div>
+              <br />
+              <button
+                mat-raised-button
+                class="btn continue-btn"
+                [ngStyle]="{ float: 'right' }"
+                (click)="onSubmit()"
+              >
+                Done
+              </button>
+            </div>
+          </div>
         </div>
       </div>
+
+      <br />
     </form>
   </ng-template>
 </mat-expansion-panel>

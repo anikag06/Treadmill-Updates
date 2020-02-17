@@ -7,11 +7,14 @@ import {NgForm} from '@angular/forms';
 import {AuthService} from '@/shared/auth/auth.service';
 import {User} from '@/shared/user.model';
 import {GeneralErrorService} from '@/main/shared/general-error.service';
-import {PROBLEM_SOLVING_FORM_NAME, PSF_PROBLEM_SOLVING,} from '@/app.constants';
+import {PROBLEM_SOLVING_FORM_NAME, PSF_PROBLEM, PSF_PROBLEM_SOLVING,} from '@/app.constants';
 import {UserTask} from '@/main/resources/forms/shared/tasks/user-task.model';
 import {CdkTextareaAutosize} from '@angular/cdk/text-field';
 import {ProblemFormComponent} from './problem-form/problem-form.component';
 import {SolutionsComponent} from './solutions/solutions.component';
+import {FormService} from '@/main/resources/forms/shared/form.service';
+import {PROBLEM_SOLVING_QUOTES} from '@/main/resources/forms/problem-solving-worksheets/problem-solving-message';
+import {TasksService} from '@/main/resources/forms/shared/tasks/tasks.service';
 
 @Component({
   selector: 'app-problem-solving-worksheets',
@@ -33,6 +36,10 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   problemEditMode = false;
   formName = PROBLEM_SOLVING_FORM_NAME;
   task!: UserTask;
+  problemObject!: any;
+  quote!: string;
+  quotedBy!: string;
+  showMessage!: boolean;
 
   @ViewChild('solutionForm', { static: false }) solutionForm!: NgForm;
   @ViewChild('solutionTextArea', { static: false })
@@ -46,6 +53,8 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
     private problemService: ProblemSolvingWorksheetsService,
     private authService: AuthService,
     private errorService: GeneralErrorService,
+    private formService: FormService,
+    private taskService: TasksService,
   ) {}
 
   ngOnInit() {
@@ -70,7 +79,11 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
 
   problemSelected(problem: Problem) {
     this.problem = problem;
-    console.log(this.problem);
+    this.problemObject = {
+      id: this.problem.id,
+      origin_name: PSF_PROBLEM,
+      taskorigin: this.problem.taskorigin,
+    };
     this.problemEditMode = false;
     this.fetchSolutions();
     this.fetchTask();
@@ -78,7 +91,7 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
 
   fetchTask() {
     if (this.problem.taskorigin) {
-      this.problemService
+      this.taskService
         .getTask(this.problem.taskorigin.task_id)
         .subscribe((resp: any) => {
           if (resp.data) {
@@ -92,6 +105,9 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   fetchSolutions() {
     this.problemService.getSolutions(this.problem.id).subscribe((data: any) => {
       this.solutions = data.message;
+      if (this.solutions.length > 0) {
+        this.solutionsSaved = true;
+      }
       if (this.problem.bestsolution) {
         const bestSolution = this.solutions.find(
           sol => sol.id === this.problem.bestsolution.solution_id,
@@ -106,6 +122,7 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
 
   onAddNewForm() {
     this.solutions = [];
+    delete this.solutionsSaved;
     delete this.bestSolution;
     delete this.problem;
     delete this.task;
@@ -185,6 +202,9 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   onSolutionRemove(solution: Solution) {
     this.problemService.deleteSolution(solution.id).subscribe((data: any) => {
       this.solutions = this.solutions.filter(solu => solu !== solution);
+      if (this.solutions.length === 0) {
+        this.solutionsSaved = false;
+      }
     }, this.errorService.errorResponse('Something went wrong'));
   }
 
@@ -215,12 +235,20 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   }
 
   onTaskLoad(task: UserTask) {
-    setTimeout(() => {
-      this.showResult = !!task;
-    }, 1);
+    console.log('task loaded');
+    this.showResult = !!task;
+    this.task = task;
   }
 
   renderResult(): Boolean {
+    // this.showMessage = true;
+    // this.onShowMessage();
     return this.solutions && this.bestSolution && this.showResult;
+  }
+
+  onShowMessage() {
+    const index = this.formService.getRandomInt(PROBLEM_SOLVING_QUOTES.length);
+    this.quote = PROBLEM_SOLVING_QUOTES[index].quote;
+    this.quotedBy = PROBLEM_SOLVING_QUOTES[index].by;
   }
 }

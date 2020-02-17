@@ -11,9 +11,9 @@
           mat-button
           [matMenuTriggerFor]="problemSolvingForms"
         >
-          <i class="material-icons more-hor-icon">
+          <mat-icon>
             more_horiz
-          </i>
+          </mat-icon>
         </button>
       </div>
 
@@ -54,7 +54,10 @@
               *ngIf="problem && !problemEditMode"
               (click)="onProblemClick()"
             >
-              <div class="form-editable-text-underline">
+              <div
+                class="form-editable-text-underline"
+                [ngStyle]="{ wordWrap: 'break-word' }"
+              >
                 {{ problem.problem }}
               </div>
             </div>
@@ -119,17 +122,14 @@
                   <div class="float-left add-statement">
                     <mat-icon
                       [ngStyle]="{ fontSize: '16px', paddingTop: '2px' }"
-                      *ngIf="!showForm"
                       >add</mat-icon
                     >
                     <div>Add Solution</div>
                   </div>
-
-                  <mat-icon *ngIf="showForm">clear_circle</mat-icon>
                   <br />
                 </div>
               </div>
-              <div class="text-right mt-2 mb-2" *ngIf="solutions.length < 2">
+              <div class="text-right mt-2 mb-2" *ngIf="!solutionsSaved">
                 <button
                   type="button"
                   mat-raised-button
@@ -191,7 +191,7 @@
               <div>
                 <div class="row">
                   <div class="col-12">
-                    <div>
+                    <div [ngStyle]="{ wordWrap: 'break-word' }">
                       {{ bestSolution.solution }}
                     </div>
                     <div
@@ -214,7 +214,7 @@
                   [task]="task"
                   [taskHeading]="heading"
                   (nextStepEmitter)="onNextStep()"
-                  [problem]="problem"
+                  [object]="problemObject"
                   (taskLoaded)="onTaskLoad($event)"
                 >
                 </app-tasks>
@@ -227,9 +227,11 @@
             </div>
             <div class="card-body">
               <div class="list-group">
-                <label *ngFor="let solution of solutions" [for]="solution.id">
-                  <input
-                    type="radio"
+                <div
+                  *ngFor="let solution of solutions"
+                  [ngStyle]="{ wordBreak: 'break-word' }"
+                >
+                  <mat-radio-button
                     [name]="solution.id"
                     [checked]="
                       problem.bestsolution &&
@@ -237,9 +239,10 @@
                     "
                     (change)="onCheckBoxChange(solution, $event)"
                     [id]="solution.id"
-                  />
-                  {{ solution.solution }}
-                </label>
+                  >
+                    {{ solution.solution }}
+                  </mat-radio-button>
+                </div>
               </div>
               <div class="text-right">
                 <button
@@ -255,7 +258,7 @@
         </div>
       </div>
       <div class="mb-2" *ngIf="renderResult()">
-        <app-result [solution]="bestSolution"></app-result>
+        <app-result [task]="task" [solution]="bestSolution"></app-result>
       </div>
     </div>
   </div>

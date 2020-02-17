@@ -9,11 +9,15 @@
 }
 .message {
   font-size: 14px;
-
 }
 
 .messageDiv {
-  width: 280px;
+  width: 70%;
   margin: auto;
   text-align: center;
 }
+//@media screen and (min-width: 576px) {
+//  .messageDiv {
+//    width: 60%;
+//  }
+//}

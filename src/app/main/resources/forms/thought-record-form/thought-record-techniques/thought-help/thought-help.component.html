@@ -77,26 +77,12 @@
       </div>
       <br />
       <div>
-        <ng-container
-          *ngIf="
-            thoughtHelpForm.valid &&
-            thoughtHelpForm.value['canSolve'] === 'true'
-          "
-        >
-          <div>
-            {{ yes }}
-          </div>
-        </ng-container>
-        <ng-container
-          *ngIf="
-            thoughtHelpForm.valid &&
-            thoughtHelpForm.value['canSolve'] === 'false'
-          "
-        >
-          <div>
-            {{ no }}
-          </div>
-        </ng-container>
+        <div *ngIf="thoughtHelpForm.value['canSolve'] === 'true'">
+          {{ yes }}
+        </div>
+        <div *ngIf="thoughtHelpForm.value['canSolve'] === 'false'">
+          {{ no }}
+        </div>
       </div>
       <br />
       <div>

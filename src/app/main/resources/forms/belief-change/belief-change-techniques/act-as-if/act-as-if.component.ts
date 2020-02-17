@@ -21,9 +21,12 @@ export class ActAsIfComponent implements OnInit {
   @Output() triggerShowFinalBelief = new EventEmitter();
   advantageQues = 'What are the advantages having this belief?';
   acting_help = 'Would acting this way help me?';
-  showRadioDiv = false;
+
   showAdvantages = false;
-  showRadioCntBtn = false;
+
+  editMode = false;
+  yes = 'Great! Then act "As if" you don\'t have the negative belief.';
+  no = 'Then continue to believe what you believe currently.';
   headerColor = '#FFFCE3';
 
   constructor(
@@ -79,14 +82,17 @@ export class ActAsIfComponent implements OnInit {
     this.actAsIfForm.controls['how_would_i_act'].setValue(
       resp.body.how_would_i_act,
     );
-    this.showRadioDiv = true;
+    this.showAdvantages = true;
+    this.editMode = true;
     this.summary = resp.body.how_would_i_act;
-    if (resp.body.would_it_help === true) {
-      this.actAsIfForm.controls['would_it_help'].setValue(1);
-      this.showAdvantages = true;
-    } else if (resp.body.would_it_help === false) {
-      this.actAsIfForm.controls['would_it_help'].setValue(0);
-      this.showAdvantages = true;
+    if (
+      resp.body.would_it_help !== undefined &&
+      resp.body.would_it_help !== null
+    ) {
+      this.actAsIfForm.controls['would_it_help'].setValue(
+        resp.body.would_it_help,
+      );
+      console.log(this.actAsIfForm.controls['would_it_help']);
     }
   }
 
@@ -151,7 +157,7 @@ export class ActAsIfComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.belief) {
+    if (this.belief && !this.editMode) {
       const object = {
         belief_id: this.belief.id,
         how_would_i_act: this.actAsIfForm.value['how_would_i_act'],
@@ -159,31 +165,26 @@ export class ActAsIfComponent implements OnInit {
       this.actAsIfService.postActAsIf(object).subscribe(resp => {
         if (resp.ok) {
           this.showActContinue = false;
-          this.showRadioDiv = true;
-          this.showRadioCntBtn = true;
+
+          this.showAdvantages = true;
+          this.editMode = true;
+          // this.showRadioCntBtn = true;
+        }
+      });
+    } else {
+      const object = {
+        belief_id: this.belief.id,
+        how_would_i_act: this.actAsIfForm.value['how_would_i_act'],
+        would_it_help: this.actAsIfForm.value['would_it_help'],
+      };
+      this.actAsIfService.putActAsIf(object, this.belief.id).subscribe(resp => {
+        if (resp.ok) {
+          this.onSubmitAdvantages();
         }
       });
     }
   }
 
-  onActSubmit() {
-    if (this.belief) {
-      const object = {
-        belief_id: this.belief.id,
-        how_would_i_act: this.actAsIfForm.value['how_would_i_act'],
-        would_it_help: <number>this.actAsIfForm.value['would_it_help'],
-      };
-      this.actAsIfService.putActAsIf(object, this.belief.id).subscribe(resp => {
-        if (resp.ok) {
-          this.showAdvantages = true;
-          this.showRadioCntBtn = false;
-          this.actAsIfForm.controls.advantages = this.formBuilder.array([
-            this.createItem(),
-          ]);
-        }
-      });
-    }
-  }
   onSubmitAdvantages() {
     const advantages = {
       advantages: this.actAsIfForm.controls['advantages'].value,

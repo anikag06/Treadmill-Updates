@@ -6,14 +6,71 @@
         What was the result of implementation?
       </div>
       <div class="card-body">
-        <mat-form-field class="full-width">
-          <textarea matInput name="result" rows="5"
-            placeholder="Write down the result of the implementation ?" [(ngModel)]="resultBody"></textarea>
-        </mat-form-field>
+        <div *ngIf="!disableResult">
+          <mat-form-field class="full-width">
+            <textarea
+              matInput
+              class="px-0 py-0"
+              cdkTextareaAutosize
+              #autosize="cdkTextareaAutosize"
+              cdkAutosizeMaxRows="5"
+              required
+              name="result"
+              placeholder="Write here"
+              [disabled]="disableResult"
+              [(ngModel)]="resultBody"
+            ></textarea>
+          </mat-form-field>
+          <div>
+            Was your problem solved?
 
-        <p class="text-right" (click)="onResultSubmit()"><button type="button" mat-raised-button
-          class="continue-btn" *ngIf="!result || result.body != resultBody">Save</button></p>
+            <div>
+              <mat-radio-group color="primary" [(ngModel)]="didWork">
+                <mat-radio-button [value]="true">
+                  Yes
+                </mat-radio-button>
+                <mat-radio-button
+                  [value]="false"
+                  [ngStyle]="{ marginLeft: '4rem' }"
+                >
+                  No
+                </mat-radio-button>
+              </mat-radio-group>
+              <div class="my-2 text-center">
+                <div *ngIf="didWork === true">
+                  {{ yes }}
+                </div>
+
+                <div *ngIf="didWork === false">
+                  {{ no }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="disableResult" class="hideResult col-12 my-2"></div>
+        <div *ngIf="disableResult" class="notice my-4">
+          The text field to write emergency plan will be active after
+          {{ getEndDate() }}.
+        </div>
+
+        <p *ngIf="!disableResult" class="text-right" (click)="onResultSubmit()">
+          <button
+            *ngIf="showContinue()"
+            type="button"
+            mat-raised-button
+            class="continue-btn"
+          >
+            Save
+          </button>
+        </p>
       </div>
     </div>
   </div>
 </div>
+
+<app-form-quote
+  *ngIf="showMessage && !disableResult"
+  [quote]="quote"
+  [quotedBy]="quotedBy"
+></app-form-quote>
