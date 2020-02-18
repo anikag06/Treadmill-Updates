@@ -143,7 +143,7 @@ export class SurveyComponent implements OnInit {
 
   onselect(event: any, id: number, name: string) {
     console.log('questn count', this.quesCount);
-    event.target.classList.add('toggle-button');
+    event.target.classList.add('active-button');
     console.log('event', event, id);
     this.updateTimeTaken();
     this.currQues = { index: this.quesArray[this.quesCount].index, ques: this.quesArray[this.quesCount].ques };
@@ -160,11 +160,11 @@ export class SurveyComponent implements OnInit {
     if (this.quesCount < 13) {
       setTimeout(() => {
         this.quesCount += 1;
-        event.target.classList.remove('toggle-button');
+        event.target.classList.remove('active-button');
         this.ques = this.quesArray[this.quesCount].ques;
         this.pager.index = this.quesCount + 1;
         this.back = true;
-      }, 100);
+      }, 2000);
     } else {
       this.submit = true;
       this.quesCount += 1;

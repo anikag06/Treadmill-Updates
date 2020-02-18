@@ -178,6 +178,7 @@ import { InfiniteScrollDirective } from './shared/infinite-scroll/infinite-scrol
 import { LazyLoadingImageDirective } from './shared/lazy-loading-image/lazy-loading-image.directive';
 import { SurveyComponent } from './shared/survey/survey.component';
 import { SurveyService } from './shared/survey.service';
+import { DisableClickDirective } from '@/shared/disable-click.directive';
 
 @NgModule({
   declarations: [
@@ -286,6 +287,8 @@ import { SurveyService } from './shared/survey.service';
     LazyLoadingImageDirective,
     InfiniteScrollDirective,
     SurveyComponent,
+    DisableClickDirective,
+
   ],
   imports: [
     CommonModule,

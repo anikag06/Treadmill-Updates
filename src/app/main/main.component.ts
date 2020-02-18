@@ -23,6 +23,7 @@ import { ComponentPortal } from '@angular/cdk/portal';
 import { IntroduceComponent } from './shared/introduce/introduce.component';
 import { IntroduceService } from './shared/introduce/introduce.service';
 import { SurveyService } from './shared/survey.service';
+import { DisableClickDirective } from '@/shared/disable-click.directive';
 
 // tslint:disable-next-line:max-line-length
 
@@ -34,9 +35,9 @@ import { SurveyService } from './shared/survey.service';
 export class MainComponent implements OnInit, OnChanges, DoCheck {
   user!: User;
   routing!: boolean;
-  homeLinkEnabled = false;
   overlayRef!: OverlayRef;
   tooltipData!: any;
+  isDisabled = false;
 
   @ViewChild('drawer', { static: true }) drawer!: MatDrawer;
   @ViewChild('tooltip', { static: false }) showToolTip!: MatTooltip;
@@ -56,14 +57,17 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
     private flowService: FlowService,
     private overlay: Overlay,
     private introduceService: IntroduceService,
-    private element: ElementRef,
     private surveyService: SurveyService,
-  ) { }
+  ) {
+
+
+  }
 
   ngOnChanges() { }
 
   ngOnInit() {
-    this.tooltipData = "Please complete the survey.";
+    console.log('status', this.isDisabled);
+    this.tooltipData = 'Please complete the survey.';
     const user = this.authService.isLoggedIn();
     if (user && user.is_active) {
       this.user = <User>user;
@@ -84,17 +88,19 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
         this.overlayRef.detach();
       }
     });
-    this.surveyService.disableLinks.subscribe(() => {
-      const disableLinks = this.element.nativeElement.querySelectorAll('a');
-      console.log(disableLinks);
-      let i = 0;
-      while (i <= (disableLinks.length)) {
-        disableLinks[i].setAttribute('style', 'cursor: default;text-decoration: none;pointer-events: none;');
-        i += 1;
-        console.log(disableLinks[i]);
-      }
-    });
 
+  }
+  ngAfterContentInit(): void {
+    this.surveyService.disableLinks.subscribe(() => {
+      setTimeout(() => {
+        this.isDisabled = true;
+        this.tooltipShow();
+      }, 10);
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.surveyService.disableLinks.unsubscribe();
   }
 
   ngDoCheck() {
@@ -144,11 +150,11 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
   }
 
   tooltipShow() {
-    if (this.showToolTip.disabled) {
-      this.showToolTip.disabled = false;
-    }
-    this.showToolTip.showDelay = 300;
-    this.showToolTip.hideDelay = 100;
+    // if (this.showToolTip.disabled) {
+    this.showToolTip.disabled = false;
+    // }
+
     this.showToolTip.toggle();
   }
+
 }

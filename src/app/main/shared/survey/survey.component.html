@@ -11,7 +11,7 @@
           Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
           laborum.
         </div>
-        <button type="button" class="answer-button" mat-stroked-button (click)="loadQuestions()"> Start
+        <button type="button" class="active-button" mat-stroked-button (click)="loadQuestions()"> Start
           Survey</button>
       </div>
     </div>
@@ -43,7 +43,7 @@
                   <div class=".col-md-6 .offset-md-3" class="button-group">
                     <button id="option1" type="button" (click)="onselect($event, option.value, option.name)"
                       mat-stroked-button
-                      [ngClass]="{'toggle-button':option.value===selectedOptionValue,'answer-button':option.value!==selectedOptionValue}">
+                      [ngClass]="{'active-button':option.value===selectedOptionValue,'disabled-button':option.value!==selectedOptionValue}">
 
                       <span>{{option.name}}</span>
                     </button>
@@ -57,7 +57,7 @@
                 Thank you for your feedback.
               </div>
               <div class="row justify-content-center">
-                <button type="button" class="answer-button" style="margin-top:60px; min-width: 140px !important;"
+                <button type="button" class="disabled-button" style="margin-top:60px; min-width: 140px !important;"
                   mat-stroked-button *ngIf="submit" (click)="onsubmit()">Submit
                 </button>
               </div>
