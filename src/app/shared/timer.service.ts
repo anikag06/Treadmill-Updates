@@ -78,7 +78,7 @@ export class TimerService {
             : (this.seconds = timeDiff);
         this.seconds = this.seconds;
         this.timeSum = timeDiff;
-        console.log('TIME', question_no, now, startTime, this.seconds);
+        console.log('Question no, Time', question_no + 1, this.seconds);
         return this.seconds;
     }
 

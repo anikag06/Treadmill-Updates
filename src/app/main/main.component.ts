@@ -4,7 +4,6 @@ import {
   ViewChild,
   OnChanges,
   DoCheck,
-  ElementRef,
 } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
@@ -23,7 +22,6 @@ import { ComponentPortal } from '@angular/cdk/portal';
 import { IntroduceComponent } from './shared/introduce/introduce.component';
 import { IntroduceService } from './shared/introduce/introduce.service';
 import { SurveyService } from './shared/survey.service';
-import { DisableClickDirective } from '@/shared/disable-click.directive';
 
 // tslint:disable-next-line:max-line-length
 
@@ -38,6 +36,7 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
   overlayRef!: OverlayRef;
   tooltipData!: any;
   isDisabled = false;
+  showChatbot = true;
 
   @ViewChild('drawer', { static: true }) drawer!: MatDrawer;
   @ViewChild('tooltip', { static: false }) showToolTip!: MatTooltip;
@@ -58,16 +57,12 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
     private overlay: Overlay,
     private introduceService: IntroduceService,
     private surveyService: SurveyService,
-  ) {
-
-
-  }
+  ) { }
 
   ngOnChanges() { }
 
   ngOnInit() {
-    console.log('status', this.isDisabled);
-    this.tooltipData = 'Please complete the survey.';
+
     const user = this.authService.isLoggedIn();
     if (user && user.is_active) {
       this.user = <User>user;
@@ -88,19 +83,25 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
         this.overlayRef.detach();
       }
     });
-
   }
+
   ngAfterContentInit(): void {
-    this.surveyService.disableLinks.subscribe(() => {
-      setTimeout(() => {
-        this.isDisabled = true;
-        this.tooltipShow();
-      }, 10);
+    this.surveyService.disableLinks.subscribe((data: string) => {
+      this.disableLinks(data);
+    });
+    this.surveyService.enableLinks.subscribe(() => {
+      this.enableLinks();
+    });
+    this.quizService.disableLinks.subscribe((data: string) => {
+      this.disableLinks(data);
+
+    });
+    this.quizService.enableLinks.subscribe(() => {
+      this.enableLinks();
     });
   }
 
   ngOnDestroy(): void {
-    this.surveyService.disableLinks.unsubscribe();
   }
 
   ngDoCheck() {
@@ -150,11 +151,25 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
   }
 
   tooltipShow() {
-    // if (this.showToolTip.disabled) {
-    this.showToolTip.disabled = false;
-    // }
-
+    console.log('tooltip');
     this.showToolTip.toggle();
+  }
+
+  disableLinks(data: string) {
+    setTimeout(() => {
+      this.isDisabled = true;
+      this.showToolTip.disabled = false;
+      this.showChatbot = false;
+      this.tooltipData = data;
+    }, 10);
+  }
+
+  enableLinks() {
+    setTimeout(() => {
+      this.isDisabled = false;
+      this.showToolTip.disabled = true;
+      this.showChatbot = true;
+    }, 10);
   }
 
 }

@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class SurveyService {
   disableLinks = new EventEmitter();
+  enableLinks = new EventEmitter();
 
   constructor(private http: HttpClient) { }
 

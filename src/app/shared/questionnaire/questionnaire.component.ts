@@ -137,6 +137,7 @@ export class QuestionnaireComponent implements OnInit {
   see1!: boolean;
   see2!: boolean;
   see3!: boolean;
+  data = 'Please complete the questionnaire before leaving the page.';
 
   api = [
     environment.API_ENDPOINT + GET_PHQ_QUESTIONS,
@@ -194,6 +195,7 @@ export class QuestionnaireComponent implements OnInit {
   }
 
   loadQuiz() {
+    this.quizService.disableLinks.emit(this.data);
     console.log('load quiz', this.api[this.index]);
     this.quizService.get(this.api[this.index]).subscribe((res: any) => {
       console.log(res);
@@ -214,6 +216,7 @@ export class QuestionnaireComponent implements OnInit {
     if (this.id) {
       clearInterval(this.id);
     }
+    this.quizService.enableLinks.emit();
   }
 
   display() {

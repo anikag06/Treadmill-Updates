@@ -6,6 +6,7 @@ import { SurveyOption } from './survey-options.model';
 import { SurveyOptionSelected } from './survey-option-selected.model';
 import { SurveyService } from '../survey.service';
 import { TimerService } from '@/shared/timer.service';
+import { SurveyResponse } from './survey-response.model';
 
 @Component({
   animations: [
@@ -67,18 +68,21 @@ export class SurveyComponent implements OnInit {
   currQues!: SurveyQuestion;
   options!: SurveyOption[];
   currOption!: SurveyOption;
-  userResponse!: SurveyOptionSelected;
+  // userResponse!: SurveyOptionSelected;
+  userResponse!: SurveyResponse;
   userResponseArray: any = [];
+  surveyResponseArray!: SurveyResponse[];
   selectedOptionValue!: number;
   surveyId!: number;
   timeTaken!: number;
   startTime!: Date;
+  data = 'Please complete the survey before leaving the page.';
 
   constructor(private surveyService: SurveyService,
     private timerService: TimerService) { }
 
   ngOnInit() {
-    this.surveyService.disableLinks.emit();
+    this.surveyService.disableLinks.emit(this.data);
   }
 
   loadQuestions() {
@@ -93,7 +97,7 @@ export class SurveyComponent implements OnInit {
 
     });
     this.surveyService.getSurveyTerm().subscribe((data) => {
-      console.log(data);
+      console.log('term', data);
       this.surveyId = data.id;
     });
 
@@ -114,8 +118,8 @@ export class SurveyComponent implements OnInit {
     }
 
     this.front = true;
-    console.log('question count', this.userResponseArray[this.quesCount].optionSelected.value, this.quesCount);
-    this.selectedOptionValue = this.userResponseArray[this.quesCount].optionSelected.value;
+    console.log('question count', this.userResponseArray[this.quesCount].option, this.quesCount);
+    this.selectedOptionValue = this.userResponseArray[this.quesCount].option;
 
   }
   onfront() {
@@ -136,35 +140,44 @@ export class SurveyComponent implements OnInit {
         this.selectedOptionValue = 4;
       } else {
         this.back = true;
-        this.selectedOptionValue = this.userResponseArray[this.quesCount].optionSelected.value;
+        this.selectedOptionValue = this.userResponseArray[this.quesCount].option;
       }
     }
   }
 
   onselect(event: any, id: number, name: string) {
-    console.log('questn count', this.quesCount);
-    event.target.classList.add('active-button');
-    console.log('event', event, id);
+    // event.target.classList.add('active-button');
     this.updateTimeTaken();
     this.currQues = { index: this.quesArray[this.quesCount].index, ques: this.quesArray[this.quesCount].ques };
     this.currOption = { value: id, name: name };
-    this.userResponse = { ques: this.currQues, optionSelected: this.currOption, time_taken_to_complete: this.timeTaken };
-    this.userResponseArray.push(this.userResponse);
+    // this.userResponse = { ques: this.currQues, optionSelected: this.currOption, time_taken_to_complete: this.timeTaken };
+    // this.userResponse = { question: this.currQues.ques, option: this.currOption.value, time_taken_to_complete: this.timeTaken };
+    // this.userResponseArray.push(this.userResponse);
+    this.updateSurveyResponse();
     if (this.backCount === 0) {
       this.front = false;
+      // this.selectedOptionValue = 4;
     } else {
       this.backCount -= 1;
       // check
-      this.selectedOptionValue = 4;
+      this.selectedOptionValue = this.userResponseArray[this.quesCount].option;
+      console.log('selected option value', this.selectedOptionValue);
     }
     if (this.quesCount < 13) {
       setTimeout(() => {
         this.quesCount += 1;
-        event.target.classList.remove('active-button');
         this.ques = this.quesArray[this.quesCount].ques;
         this.pager.index = this.quesCount + 1;
         this.back = true;
-      }, 2000);
+        if (this.backCount !== 0) {
+          //   // event.target.classList.remove('active-button');
+          this.selectedOptionValue = this.userResponseArray[this.quesCount].option;
+        } else {
+          this.selectedOptionValue = 4;
+        }
+
+        console.log('selected option value 2', this.selectedOptionValue);
+      }, 1000);
     } else {
       this.submit = true;
       this.quesCount += 1;
@@ -174,13 +187,25 @@ export class SurveyComponent implements OnInit {
   }
 
   onSubmit() {
+    this.back = false;
+    this.front = false;
     this.surveyService.storeUserResponse({ survey_id: this.surveyId, survey_responses: this.userResponseArray })
       .subscribe((data) => {
         console.log(data);
       });
+    this.surveyService.enableLinks.emit();
     // next step
   }
 
+  updateSurveyResponse() {
+    if (this.userResponseArray[this.quesCount]) {
+      this.userResponseArray[this.quesCount].question = this.currQues.ques;
+      this.userResponseArray[this.quesCount].option = this.currOption.value;
+    } else {
+      this.userResponse = { question: this.currQues.ques, option: this.currOption.value, time_taken_to_complete: this.timeTaken };
+      this.userResponseArray.push(this.userResponse);
+    }
+  }
   updateTimeTaken() {
     if (this.userResponseArray[this.quesCount]) {
       // tslint:disable-next-line: max-line-length
