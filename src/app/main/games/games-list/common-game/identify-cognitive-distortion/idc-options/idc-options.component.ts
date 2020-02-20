@@ -44,7 +44,7 @@ export class IdcOptionsComponent implements OnInit {
   constructor(
     private gameService: IdcGameService,
     private dialogBoxService: DialogBoxService,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.optionsCall();
@@ -53,6 +53,10 @@ export class IdcOptionsComponent implements OnInit {
       this.optionStatusCount = this.gameService.optionStatusCount;
 
       console.log('option status', this.optionStatusCount);
+    });
+    this.gameService.resumeGame.subscribe(() => {
+      this.optionStatus = this.gameService.optionStatus;
+      this.optionStatusCount = this.gameService.optionStatusCount;
     });
   }
 
@@ -72,7 +76,7 @@ export class IdcOptionsComponent implements OnInit {
     this.updateUserAnswerData();
     this.storeUserAnswerData();
     this.correct.forEach((correctItem: any) => {
-      if (correctItem.id === item.id) {
+      if ((correctItem.id === item.id) && (!this.gameService.selectedCorrectOptionsSet.has(item.id))) {
         this.gameService.selectedCorrectOptionsSet.add(item.id);
         this.gameService.optionStatus = 'correct';
         this.gameService.optionStatusCount += 1;
