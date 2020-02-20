@@ -352,7 +352,14 @@ $(document).ready(function(){
 		}
 	}
 	ibUsehints = function(ev){
-		
+		console.log('USE HINTS',ibg_score, ibg_time_cost, ibg_coordinate_cost, ibg_word_cost);
+		// if(ibg_score > ibg_time_cost ) {
+		// 	if(ibg_score > ibg_word_cost) {
+		// 		if(ibg_score >  ibg_coordinate_cost) {
+
+		// 		}
+		// 	}
+		// }
 		if(hiddenWordsInfo() > 0){
 			if($('#showWord').hasClass("disabled")){
 				$('#showWord').removeClass("disabled");
@@ -382,19 +389,25 @@ $(document).ready(function(){
 			$('.game-first-page').addClass("d-none");
 	}
 	$(document).on("click", "#showWord", function(ev){
-		if($('#showWordResult').hasClass("d-none")){
-			if(showWord(sentence_array[sentence_number])){
-				ibg_score = ibg_score - ibg_word_cost;
-				document.getElementById("score").innerHTML = ibg_score;
-				$('#showWordResult').removeClass("d-none");
+		if(ibg_score < ibg_word_cost) {
+			showTooltip();
+		 }
+		else {
+			if($('#showWordResult').hasClass("d-none")){
+				if(showWord(sentence_array[sentence_number])){
+					ibg_score = ibg_score - ibg_word_cost;
+					document.getElementById("score").innerHTML = ibg_score;
+					$('#showWordResult').removeClass("d-none");
+				}
+			}else{
+				$('#showWordResult').addClass("d-none");
 			}
-		}else{
-			$('#showWordResult').addClass("d-none");
 		}
+		
 	});
 
 	$(document).on("click", "#showCoordinates", function(ev){
-		if(ibg_score<ibg_coordinate_cost){
+		if(ibg_score < ibg_coordinate_cost){
 			showTooltip();
 		} else {
 		if($('#showCoordResult').hasClass("d-none")){
@@ -427,7 +440,7 @@ $(document).ready(function(){
 	});
 	
 	$(document).on("click","#increase_time", function(ev){
-		if(ibg_score< ibg_time_cost){
+		if(ibg_score < ibg_time_cost){
 			showTooltip();		
 		} else {
 
