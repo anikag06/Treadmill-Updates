@@ -3,9 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuard } from '@/shared/auth/auth.guard';
 import { SupportGroupsComponent } from './support-groups/support-groups.component';
-import { ModulesComponent } from './modules/modules.component';
-import { ModuleDetailComponent } from './modules/module-detail/module-detail.component';
-import { ModuleListComponent } from './modules/module-list/module-list.component';
 import { GamesComponent } from './games/games.component';
 import { GamesListComponent } from './games/games-list/games-list.component';
 import { LogoutComponent } from '@/shared/auth/logout/logout.component';
@@ -31,15 +28,6 @@ export const mainRoutes: Routes = [
       { path: 'questionnaire', component: GetQuestionnaireComponent },
       { path: 'survey', component: SurveyComponent, }, // :id here is step_id
       { path: 'support-groups', component: SupportGroupsComponent, data: { title: 'Support Group' } },
-      {
-        path: 'modules',
-        component: ModulesComponent,
-        canActivateChild: [AuthGuard],
-        children: [
-          { path: ':name', component: ModuleDetailComponent },
-          { path: '', component: ModuleListComponent },
-        ],
-      },
       {
         path: 'games',
         component: GamesComponent,

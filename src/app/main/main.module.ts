@@ -2,20 +2,12 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ChartsModule } from 'ng2-charts';
 
-import { ModulesComponent } from '@/main/modules/modules.component';
 import { DashboardComponent } from '@/main/dashboard/dashboard.component';
-import { ModuleDetailComponent } from './modules/module-detail/module-detail.component';
-import { ModuleItemComponent } from './modules/module-list/module-item/module-item.component';
-import { ModuleOverviewComponent } from './modules/module-list/module-overview/module-overview.component';
-import { ModuleListComponent } from './modules/module-list/module-list.component';
 import { CategorySmallComponent } from './shared/category-small/category-small.component';
 import { LocalStorageService } from '../shared/localstorage.service';
-import { CategoryBigComponent } from './modules/module-detail/category-big/category-big.component';
-import { SectionCardComponent } from './modules/module-detail/section-card/section-card.component';
 import { MainComponent } from './main.component';
 import { LogoutComponent } from '../shared/auth/logout/logout.component';
 import { ProgressComponent } from './dashboard/progress/progress.component';
-import { CurrentModuleComponent } from './dashboard/current-module/current-module.component';
 import { ThingsTodoComponent } from './dashboard/things-todo/things-todo.component';
 import { TimeAgoPipe } from '../shared/time-ago.pipe';
 import { TrimStringPipe } from './shared/trim-string.pipe';
@@ -182,17 +174,9 @@ import { DisableClickDirective } from '@/shared/disable-click.directive';
 
 @NgModule({
   declarations: [
-    ModulesComponent,
-    ModuleDetailComponent,
-    ModuleItemComponent,
-    ModuleOverviewComponent,
-    ModuleListComponent,
     CategorySmallComponent,
-    CategoryBigComponent,
-    SectionCardComponent,
     LogoutComponent,
     ProgressComponent,
-    CurrentModuleComponent,
     ThingsTodoComponent,
     TimeAgoPipe,
     TrimStringPipe,
