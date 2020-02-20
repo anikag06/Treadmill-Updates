@@ -29,6 +29,7 @@ import { ContactUsDataService } from './shared/mat-contact-us-dialog/contact-us-
 import { FcmService } from './shared/fcm.service';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
+import {VideoItem} from '@/main/resources2/shared/video.model';
 declare let $: any;
 
 @NgModule({
@@ -71,6 +72,7 @@ declare let $: any;
     LocalStorageService,
     ContactUsDataService,
     FcmService,
+    //VideoItem
   ],
   bootstrap: [AppComponent],
   entryComponents: [

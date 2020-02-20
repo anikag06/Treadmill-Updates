@@ -116,6 +116,7 @@ import { NegativeBeliefFinalComponent } from './forms/belief-change/negative-bel
 import { FormMessageComponent } from './forms/shared/form-message/form-message.component';
 import { FormQuoteComponent } from './forms/shared/form-quote/form-quote.component';
 
+
 @NgModule({
   declarations: [
     FormsComponent,
@@ -189,6 +190,7 @@ import { FormQuoteComponent } from './forms/shared/form-quote/form-quote.compone
     FormMessageComponent,
     FormQuoteComponent,
     ControlContentComponent,
+
   ],
   imports: [
     ResourcesRoutingModule,

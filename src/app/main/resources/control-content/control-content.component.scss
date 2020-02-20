@@ -45,12 +45,15 @@
 
 @media only screen and (min-width: 768px) {
   .fix-content-header {
-    height: 42px;
+    height: 48px;
     min-height: 42px;
+
   }
 
   .fix-content-header-title {
-    margin-top: 2px;
+    //margin-top: 2px;
+    margin-top: 11px;
+    margin-bottom: 18px;
     font-size: 24px;
   } //changing title font size for mobile
 

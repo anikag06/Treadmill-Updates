@@ -175,6 +175,14 @@ import { SuggestedPostItemComponent } from './dashboard/suggested-post/suggested
 import { WorryProductivelyService } from '@/main/resources/forms/worry-productively-form/worry-productively.service';
 import { InfiniteScrollDirective } from './shared/infinite-scroll/infinite-scroll.directive';
 import { LazyLoadingImageDirective } from './shared/lazy-loading-image/lazy-loading-image.directive';
+import { Resources2Component } from './resources2/resources2.component';
+import { VideosComponent } from './resources2/videos/videos.component';
+import { ReadingMaterialComponent } from './resources2/reading-material/reading-material.component';
+import { ReadingItemComponent } from './resources2/reading-material/reading-item/reading-item.component';
+import { VideoItemComponent } from './resources2/videos/video-item/video-item.component';
+import {Resources2Service} from '@/main/resources2/resources2.service';
+
+
 
 @NgModule({
   declarations: [
@@ -281,6 +289,13 @@ import { LazyLoadingImageDirective } from './shared/lazy-loading-image/lazy-load
     SuggestedPostItemComponent,
     LazyLoadingImageDirective,
     InfiniteScrollDirective,
+    Resources2Component,
+    VideosComponent,
+    ReadingMaterialComponent,
+    ReadingItemComponent,
+    VideoItemComponent,
+
+
   ],
   imports: [
     CommonModule,
@@ -312,6 +327,7 @@ import { LazyLoadingImageDirective } from './shared/lazy-loading-image/lazy-load
     MatTooltipModule,
     QuestionnaireModule,
     ResourcesModule,
+
   ],
   providers: [
     LocalStorageService,
@@ -347,6 +363,7 @@ import { LazyLoadingImageDirective } from './shared/lazy-loading-image/lazy-load
     LoadingBarService,
     StepsDataService,
     WorryProductivelyService,
+    Resources2Service
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [
