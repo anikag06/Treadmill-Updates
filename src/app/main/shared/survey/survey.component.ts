@@ -3,7 +3,6 @@ import { trigger, transition, state, useAnimation, style } from '@angular/animat
 import { decrementAnimation, incrementAnimation, enterAnimation, enterSubmitAnimation } from '@/shared/animations';
 import { SurveyQuestion } from './survey-questions.model';
 import { SurveyOption } from './survey-options.model';
-import { SurveyOptionSelected } from './survey-option-selected.model';
 import { SurveyService } from '../survey.service';
 import { TimerService } from '@/shared/timer.service';
 import { SurveyResponse } from './survey-response.model';
@@ -68,11 +67,9 @@ export class SurveyComponent implements OnInit {
   currQues!: SurveyQuestion;
   options!: SurveyOption[];
   currOption!: SurveyOption;
-  // userResponse!: SurveyOptionSelected;
   userResponse!: SurveyResponse;
   userResponseArray: any = [];
-  surveyResponseArray!: SurveyResponse[];
-  selectedOptionValue!: number;
+  selectedOptionValue!: any;
   surveyId!: number;
   timeTaken!: number;
   startTime!: Date;
@@ -90,27 +87,26 @@ export class SurveyComponent implements OnInit {
       this.quesArray = data.questions;
       this.options = data.options;
       this.pager.count = this.quesArray.length;
-      console.log(this.quesArray[this.quesCount]);
       this.display_survey = true;
       this.ques = this.quesArray[this.quesCount].ques;
       this.startTime = new Date();
 
     });
     this.surveyService.getSurveyTerm().subscribe((data) => {
-      console.log('term', data);
       this.surveyId = data.id;
     });
 
   }
 
   onback() {
+    this.updateTimeTaken();
     this.submit = false;
     this.backCount += 1;
     this.quesCount -= 1;
     this.ques = this.quesArray[this.quesCount].ques;
     this.pager.index -= 1;
 
-    this.updateTimeTaken();
+
     if (this.quesCount === 0) {
       this.back = false;
     } else {
@@ -118,7 +114,6 @@ export class SurveyComponent implements OnInit {
     }
 
     this.front = true;
-    console.log('question count', this.userResponseArray[this.quesCount].option, this.quesCount);
     this.selectedOptionValue = this.userResponseArray[this.quesCount].option;
 
   }
@@ -127,17 +122,16 @@ export class SurveyComponent implements OnInit {
       this.submit = true;
       this.front = false;
     } else {
+      this.updateTimeTaken();
       this.quesCount += 1;
       this.ques = this.quesArray[this.quesCount].ques;
       this.pager.index += 1;
-      this.updateTimeTaken();
+
       this.backCount -= 1;
 
       if (this.backCount === 0) {
         this.front = false;
-        // this.back = false;
-        // check
-        this.selectedOptionValue = 4;
+        this.selectedOptionValue = null;
       } else {
         this.back = true;
         this.selectedOptionValue = this.userResponseArray[this.quesCount].option;
@@ -146,22 +140,15 @@ export class SurveyComponent implements OnInit {
   }
 
   onselect(event: any, id: number, name: string) {
-    // event.target.classList.add('active-button');
     this.updateTimeTaken();
     this.currQues = { index: this.quesArray[this.quesCount].index, ques: this.quesArray[this.quesCount].ques };
     this.currOption = { value: id, name: name };
-    // this.userResponse = { ques: this.currQues, optionSelected: this.currOption, time_taken_to_complete: this.timeTaken };
-    // this.userResponse = { question: this.currQues.ques, option: this.currOption.value, time_taken_to_complete: this.timeTaken };
-    // this.userResponseArray.push(this.userResponse);
     this.updateSurveyResponse();
     if (this.backCount === 0) {
       this.front = false;
-      // this.selectedOptionValue = 4;
     } else {
       this.backCount -= 1;
-      // check
       this.selectedOptionValue = this.userResponseArray[this.quesCount].option;
-      console.log('selected option value', this.selectedOptionValue);
     }
     if (this.quesCount < 13) {
       setTimeout(() => {
@@ -170,13 +157,11 @@ export class SurveyComponent implements OnInit {
         this.pager.index = this.quesCount + 1;
         this.back = true;
         if (this.backCount !== 0) {
-          //   // event.target.classList.remove('active-button');
           this.selectedOptionValue = this.userResponseArray[this.quesCount].option;
         } else {
-          this.selectedOptionValue = 4;
+          this.selectedOptionValue = null;
         }
 
-        console.log('selected option value 2', this.selectedOptionValue);
       }, 1000);
     } else {
       this.submit = true;
@@ -209,7 +194,8 @@ export class SurveyComponent implements OnInit {
   updateTimeTaken() {
     if (this.userResponseArray[this.quesCount]) {
       // tslint:disable-next-line: max-line-length
-      this.userResponseArray[this.quesCount].time_taken_to_complete = this.userResponseArray[this.quesCount].time_taken_to_complete + this.timerService.showTime(this.quesCount, this.startTime);
+      this.timeTaken = this.timerService.showTime(this.quesCount, this.startTime);
+      this.userResponseArray[this.quesCount].time_taken_to_complete = this.userResponseArray[this.quesCount].time_taken_to_complete + this.timeTaken;
     } else {
       this.timeTaken = this.timerService.showTime(this.quesCount, this.startTime);
     }
