@@ -9,34 +9,46 @@ import { Section } from './section.model';
 import { CATEGORY } from '@/app.constants';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CategoryService {
-
   constructor(
     private localStorageService: LocalStorageService,
-    private http: HttpClient
-  ) { }
+    private http: HttpClient,
+  ) {}
 
   async getCategories(module: Module) {
     let newCategories: Category[] = [];
-    const categoriesLS = <Category[]>this.localStorageService.getItemWithDate(CATEGORY + module.id);
+    const categoriesLS = <Category[]>(
+      this.localStorageService.getItemWithDate(CATEGORY + module.id)
+    );
     if (categoriesLS && categoriesLS.length > 0) {
       newCategories = categoriesLS;
     } else {
-      await this.http.get(environment.API_ENDPOINT + '/api/v1/modules/section-listing/' + module.id + '/').toPromise()
-        .then((data) => {
+      await this.http
+        .get(
+          environment.API_ENDPOINT +
+            '/api/v1/modules/section-listing/' +
+            module.id +
+            '/',
+        )
+        .toPromise()
+        .then(data => {
           const response = <ApiResponse>data;
           module.categories.forEach((category: Category) => {
-            const sections = response.results
-              .filter((section: Section) => {
-                return section.category.toLowerCase() === category.name.toLowerCase();
-              });
+            const sections = response.results.filter((section: Section) => {
+              return (
+                section.category.toLowerCase() === category.name.toLowerCase()
+              );
+            });
             if (sections.length > 0) {
               category.sections = sections;
             }
             newCategories.push(category);
-            this.localStorageService.setItemWithDate(CATEGORY + module.id, newCategories);
+            this.localStorageService.setItemWithDate(
+              CATEGORY + module.id,
+              newCategories,
+            );
           });
         });
     }

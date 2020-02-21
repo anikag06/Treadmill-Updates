@@ -4,13 +4,10 @@ import { ErrorDialogComponent } from '@/shared/error-dialog/error-dialog.compone
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GeneralErrorService {
-
-  constructor(
-    private dialog: MatDialog
-  ) { }
+  constructor(private dialog: MatDialog) {}
 
   /**
    * Open Error Dialog
@@ -18,7 +15,7 @@ export class GeneralErrorService {
   openErrorDialog(errorStr: string) {
     this.dialog.open(ErrorDialogComponent, {
       width: '350px',
-      data: errorStr
+      data: errorStr,
     });
   }
 
