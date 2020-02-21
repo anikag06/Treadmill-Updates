@@ -33,9 +33,7 @@
     </div>
     <br /><br />
     <div *ngIf="showRealisticDiv">
-      <div class="q-heading">
-        {{ realisticQuestion }}
-      </div>
+      <div class="q-heading" [innerHTML]="realisticQuestion"></div>
       <form [formGroup]="finalRatingForm">
         <div>
           <mat-form-field class="full-width">
@@ -46,7 +44,9 @@
               cdkAutosizeMaxRows="4"
               formControlName="realistic"
               required
-              placeholder="Write Here"
+              [placeholder]="
+                service === 1 ? 'Realistic Thought' : 'Realistic Belief'
+              "
               (focus)="showRealisticBtn()"
             ></textarea>
           </mat-form-field>

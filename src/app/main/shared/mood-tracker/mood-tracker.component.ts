@@ -1,5 +1,5 @@
-import {AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Optional, Output,} from '@angular/core';
-import {MatDialogRef} from '@angular/material';
+import {AfterViewInit, Component, ElementRef, EventEmitter, Inject, OnInit, Optional, Output,} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {Mood} from './mood.model';
 import {Feelings} from '@/main/shared/mood-tracker/feelings.model';
 import {MoodTrackerService} from '@/main/shared/mood-tracker/mood-tracker.service';
@@ -26,7 +26,7 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
   formMoodData: any[] = [];
   feelingData: string[] = [];
   feelingRatingsData: string[] = [];
-
+  QUITE  = 'Quite';
   negativeHeading!: string;
   positiveHeading!: string;
   neutralheading!: string;
@@ -38,7 +38,11 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
     private element: ElementRef,
     @Optional() public dialogRef: MatDialogRef<MoodTrackerComponent>,
     public moodTrackerService: MoodTrackerService,
-  ) {}
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
+  ) {
+    if (data) {
+    }
+  }
 
   ngOnInit() {
     this.moodTrackerService.getFeelingsList().subscribe((feelings: any) => {
@@ -125,7 +129,7 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
   }
 
   updateEmotionCount(change: boolean) {
-    if (change === true) {
+    if (change) {
       this.emotionCount += 1;
     } else {
       this.emotionCount -= 1;
@@ -183,7 +187,7 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
           this.moodArray.push(moodObject);
           if (this.dialogRef) {
             this.feelingData.push(option_label_str.trim());
-            this.feelingRatingsData.push('');
+            this.feelingRatingsData.push(this.QUITE);
           }
         }
         if (count < this.emotionCount - 1 && this.emotionCount > 2) {

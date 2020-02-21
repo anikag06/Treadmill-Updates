@@ -1,9 +1,15 @@
 <mat-card class="card-body" *ngIf="!expanded && summary">
   <mat-card-content>
     <div [ngStyle]="{ 'font-size': '12px' }">
-      Thinking Errors
+      {{ cardHeading }}
     </div>
-    <div [ngStyle]="{ 'margin-top': '8px', 'font-size': '12px' }">
+    <div
+      [ngStyle]="{
+        marginTop: '8px',
+        fontSize: '0.75rem',
+        wordBreak: 'break-all'
+      }"
+    >
       {{ summary }}
     </div>
   </mat-card-content>

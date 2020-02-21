@@ -16,17 +16,22 @@
       <mat-accordion>
         <div class="technique">
           <app-proof-evidences
+            [summaryIndex]="0"
+            (techniqueExpanded)="onTechniqueExpanded()"
+            (techniqueCollapsed)="onTechniqueCollapsed($event)"
             [favorTitle]="favorTitle"
             [againstTitle]="againstTitle"
             [service]="1"
             [id]="belief.id"
-            (showFinal)="triggerShowFinalBelief()"
           >
           </app-proof-evidences>
         </div>
 
         <div class="technique">
           <app-form-technique
+            [summaryIndex]="1"
+            (techniqueExpanded)="onTechniqueExpanded()"
+            (techniqueCollapsed)="onTechniqueCollapsed($event)"
             [techniqueName]="tellTechnique"
             [question]="tellQuestion"
             [service]="2"
@@ -39,11 +44,27 @@
 
         <div class="technique">
           <app-act-as-if
+            [summaryIndex]="2"
+            (techniqueExpanded)="onTechniqueExpanded()"
+            (techniqueCollapsed)="onTechniqueCollapsed($event)"
             (triggerShowFinalBelief)="triggerShowFinalBelief()"
             [belief]="belief"
           ></app-act-as-if>
         </div>
       </mat-accordion>
     </div>
+    <div *ngIf="showContinue && !isCompleted">
+      <button
+        type="submit"
+        mat-raised-button
+        class="btn continue-btn "
+        [ngStyle]="{ float: 'right' }"
+        (click)="onShowFinalBelief()"
+      >
+        Done
+      </button>
+      <br /><br />
+    </div>
   </div>
 </div>
+<!--(showFinal)="triggerShowFinalBelief()"-->

@@ -18,9 +18,8 @@
       <li
         class="suggestion"
         *ngFor="let suggestion of formMessage.message.suggestions"
-      >
-        {{ suggestion }}
-      </li>
+        [innerHTML]="suggestion"
+      ></li>
     </ul>
   </div>
 

@@ -99,7 +99,7 @@ export class DateTimePickerComponent
     );
 
     const utcTime = this.dateTimePickerService.getUTCTime(
-      this.startEndDate[this.START_DATE],
+      this.startEndDate[this.END_DATE],
     );
 
     this.formDateTime.push(utcTime);
@@ -111,7 +111,7 @@ export class DateTimePickerComponent
       this.startEndDate[this.END_DATE],
     );
     const hourMinute = this.dateTimePickerService.getTimeAmPm(
-      this.startEndDate[this.START_DATE],
+      this.startEndDate[this.END_DATE],
     );
 
     const repeat = this.getRepeatedDays(this.daysCircle);

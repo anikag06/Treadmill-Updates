@@ -2,6 +2,7 @@
   *ngFor="let procon of prosCons"
   [procon]="procon"
   (proconDelete)="onProconDelete($event)"
+  [solution_id]="solution.id"
 >
 </app-procon-item>
 <div>
@@ -25,7 +26,6 @@
           cdkAutosizeMaxRows="5"
           maxlength="500"
           (focusout)="onTextAreaFocusOut($event)"
-          (keyup.enter)="onEnterPress($event)"
         ></textarea>
       </mat-form-field>
     </form>

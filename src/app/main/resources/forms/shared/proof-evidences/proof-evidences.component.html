@@ -1,4 +1,9 @@
-<mat-expansion-panel hideToggle #panel>
+<mat-expansion-panel
+  hideToggle
+  #panel
+  (afterExpand)="techniqueExpanded.emit()"
+  (afterCollapse)="panelCollapse()"
+>
   <mat-expansion-panel-header
     [ngStyle]="{ background: headerColor, paddingLeft: '16px' }"
   >
@@ -48,6 +53,7 @@
         class="btn continue-btn"
         [ngStyle]="{ float: 'right' }"
         (click)="onSubmit()"
+        type="button"
       >
         Done
       </button>
@@ -57,6 +63,7 @@
 </mat-expansion-panel>
 
 <app-summary-card
+  [cardHeading]="summaryHeading"
   [summary]="summary"
   [expanded]="panel.expanded"
 ></app-summary-card>

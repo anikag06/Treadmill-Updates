@@ -35,7 +35,8 @@ export class ThoughtRecordFormComponent implements OnInit {
   formComplete = false;
   finalRatingHeader =
     'On a scale of 1-10 how strongly do you believe the thought?';
-  realisticQues = 'Great! Now tell what would be a more realistic thought?';
+  realisticQues =
+    'Great! Now write what would be a more <strong>realistic thought</strong>?';
   reviewTitle = 'Original Thought';
   thoughtObject!: any;
   showFinalThought = false;
@@ -60,6 +61,7 @@ export class ThoughtRecordFormComponent implements OnInit {
       id: thought.id,
       text: thought.situation,
     };
+    console.log(this.thoughtObject);
   }
 
   onAddNewForm() {

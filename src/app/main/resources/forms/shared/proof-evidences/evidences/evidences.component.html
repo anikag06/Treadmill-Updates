@@ -1,54 +1,53 @@
 <div class="q-heading">
-    {{ title }}
+  {{ title }}
 </div>
 <div>
+  <div class="statements">
     <div
-            class="statements"
-            *ngFor="let evidence of control.controls; let i = index"
+      class="statement"
+      [ngStyle]="{ display: 'flex' }"
+      click-outside
+      (clickOutside)="onClickOutside($event, i)"
+      #formRow
+      *ngFor="let evidence of control.controls; let i = index"
     >
-        <div
-                class="statement"
-                [ngStyle]="{ display: 'flex' }"
-                click-outside
-                (clickOutside)="onClickOutside($event, i)"
-        >
-            <!--                <input type="hidden" formControlName="id" [value]="id" />-->
-            <mat-form-field>
+      <!--                <input type="hidden" formControlName="id" [value]="id" />-->
+      <mat-form-field class="full-width">
         <textarea
-                matInput
-                cdkTextareaAutosize
-                cdkAutosizeMinRows="2"
-                cdkAutosizeMaxRows="4"
-                [formControl]="evidence.get('evidence')"
-                class="form-control"
-                placeholder="Type Here"
-                required
-                (focus)="onShowTrashIcon(i)"
+          matInput
+          class="py-0"
+          cdkTextareaAutosize
+          cdkAutosizeMinRows="1"
+          cdkAutosizeMaxRows="4"
+          [formControl]="evidence.get('evidence')"
+          placeholder="Type Here"
+          required
+          [autofocus]
+          (focus)="onShowTrashIcon(i)"
         ></textarea>
-            </mat-form-field>
-            <div
-                    class="trash-icon"
-                    (click)="markForDeletion(evidence, i)"
-                    *ngIf="showTrashIcon[i]"
-            >
-                <mat-icon>delete</mat-icon>
-            </div>
-        </div>
+      </mat-form-field>
+      <div
+        class="trash-icon"
+        (click)="markForDeletion(evidence, i)"
+        *ngIf="showTrashIcon[i]"
+      >
+        <mat-icon>delete</mat-icon>
+      </div>
     </div>
+  </div>
 </div>
 <div class="add-statement" (click)="addField()">
-    <mat-icon
-            [ngStyle]="{
+  <mat-icon
+    [ngStyle]="{
       'font-size': '19px',
       'padding-top': '2px',
       cursor: 'pointer'
     }"
     >add
-    </mat-icon
-    >
-    <div [ngStyle]="{ 'padding-left': '5px' }">
-        Add Evidence
-    </div>
+  </mat-icon>
+  <div [ngStyle]="{ 'padding-left': '5px' }">
+    Add Evidence
+  </div>
 </div>
 
 <div></div>

@@ -22,6 +22,9 @@ export class EvidencesComponent implements OnInit {
   @Input() control!: FormArray;
   @Input() type!: string;
   @Input() service!: number;
+  // @ViewChildren('formRow', { read: false }) evidenceField!: QueryList<
+  //   ElementRef
+  // >;
   evidences!: FormArray;
   statements: string[] = [];
   @Input() id!: number;
@@ -67,10 +70,12 @@ export class EvidencesComponent implements OnInit {
             this.setSummary.emit();
           } else {
             this.control.push(this.createItem());
+            // this.evidenceField.last.nativeElement.focus();
           }
         });
     } else {
       this.control.push(this.createItem());
+      // this.evidenceField.last.nativeElement.focus();
     }
   }
 
@@ -89,9 +94,11 @@ export class EvidencesComponent implements OnInit {
 
   addField() {
     this.control.push(this.createItem());
+    // console.log(this.evidenceField.length);
 
     // this.showTrashIcon.push(false);
     this.changeDetector.detectChanges();
+    // this.evidenceField.last.nativeElement.focus();
   }
 
   markForDeletion(evidence: any, index: number) {

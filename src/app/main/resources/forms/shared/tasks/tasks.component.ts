@@ -44,7 +44,7 @@ export class TasksComponent implements OnInit, OnChanges {
   dateRange!: string;
   endTime!: string;
   repeatedDays!: string;
-  errorMessage = 'Date and Time cannot be empty.';
+  errorMessage = "Sorry, we're unable to save the Task. We're on it already.";
 
   tasksGroup = this.fb.group({
     task: ['', Validators.required],
@@ -135,7 +135,6 @@ export class TasksComponent implements OnInit, OnChanges {
       origin_id: this.getOriginId(),
       origin_name: this.getOriginName(),
     };
-
     if (this.task && this.task.id > 0) {
       this.taskService.putTask(object, this.task.id).subscribe(
         (resp: any) => {
@@ -143,7 +142,7 @@ export class TasksComponent implements OnInit, OnChanges {
           this.taskService.openSnackBar('Task Updated Successfully', 'OK');
           this.taskValueChanged = false;
           this.taskHandler(taskBody, 'update');
-          this.taskLoaded.emit(this.task);
+          this.taskLoaded.emit(taskBody);
         },
         error => {
           console.log(error);
@@ -151,6 +150,8 @@ export class TasksComponent implements OnInit, OnChanges {
           this.taskService.openSnackBar(error.error.non_field_errors, 'Retry');
         },
       );
+    } else if (object.start_date === undefined || object.time === undefined) {
+      this.taskService.openSnackBar('Date & Time cannot be empty. ', 'Error');
     } else {
       this.taskService.postTask(object).subscribe(
         (resp: any) => {
@@ -385,6 +386,7 @@ export class TasksComponent implements OnInit, OnChanges {
     });
     this.showTrashIcon = [];
     delete this.dateTimeMessage;
+    delete this.task;
     this.showMessage.emit(false);
   }
 
@@ -449,7 +451,7 @@ export class TasksComponent implements OnInit, OnChanges {
 
         this.endTime = this.dateTimePickerService.getUTCTimeInAmPm(
           this.end_date,
-          this.dateTime[2],
+          this.time,
         );
 
         this.repeatedDays = this.getRepeatedDays(this.dateTime[3]);

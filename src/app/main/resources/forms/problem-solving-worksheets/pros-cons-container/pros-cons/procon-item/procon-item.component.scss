@@ -9,8 +9,10 @@ button {
 .procon {
   padding: 5px;
   margin: 5px;
-  font-size: 14px;
-  border-bottom: 1px solid #dcdcdc;
+  margin-top: 11px;
+  font-size: 16px;
+  border-bottom: 1px solid #888585;
+  margin-bottom: 1.25em;
   &:focus {
     border-top: none;
     border-left: none;
@@ -19,4 +21,10 @@ button {
     box-shadow: none;
     outline: none;
   }
+}
+
+.delete-btn {
+  position: relative;
+  right: -25px;
+  top: -25px;
 }

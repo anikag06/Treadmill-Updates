@@ -16,61 +16,86 @@
       <mat-accordion>
         <div class="technique">
           <app-identify-thinking
+            [summaryIndex]="0"
+            (techniqueExpanded)="onTechniqueExpanded()"
+            (techniqueCollapsed)="onTechniqueCollapsed($event)"
             [thought]="thought"
             [reset]="reset"
-            (showFinalThought)="triggerShowFinalThought()"
           ></app-identify-thinking>
         </div>
         <div class="technique">
           <app-proof-evidences
-            [bg_Color]="proofHdrColor"
+            [summaryIndex]="1"
+            (techniqueExpanded)="onTechniqueExpanded()"
+            (techniqueCollapsed)="onTechniqueCollapsed($event)"
             [favorTitle]="favorTitle"
             [againstTitle]="againstTitle"
             [service]="0"
             [id]="thought.id"
-            (showFinal)="triggerShowFinalThought()"
           >
           </app-proof-evidences>
         </div>
 
         <div class="technique">
           <app-form-technique
+            [summaryIndex]="2"
+            (techniqueExpanded)="onTechniqueExpanded()"
+            (techniqueCollapsed)="onTechniqueCollapsed($event)"
             [techniqueName]="explnTechnique"
             [question]="explnQuestion"
             [service]="0"
             [id]="thought.id"
             [headerColor]="explnHdrColor"
-            (showFinal)="triggerShowFinalThought()"
           >
           </app-form-technique>
         </div>
 
         <div class="technique">
           <app-record-outcome
+            [summaryIndex]="3"
+            (techniqueExpanded)="onTechniqueExpanded()"
+            (techniqueCollapsed)="onTechniqueCollapsed($event)"
             [thought]="thought"
-            (showFinalThought)="triggerShowFinalThought()"
           ></app-record-outcome>
         </div>
 
         <div class="technique">
           <app-thought-help
+            [summaryIndex]="4"
+            (techniqueExpanded)="onTechniqueExpanded()"
+            (techniqueCollapsed)="onTechniqueCollapsed($event)"
             [thought]="thought"
-            (showFinalThought)="triggerShowFinalThought()"
           ></app-thought-help>
         </div>
 
         <div class="technique">
           <app-form-technique
+            [summaryIndex]="5"
+            (techniqueExpanded)="onTechniqueExpanded()"
+            (techniqueCollapsed)="onTechniqueCollapsed($event)"
             [techniqueName]="tellTechnique"
             [question]="tellQuestion"
             [service]="1"
             [id]="thought.id"
             [headerColor]="tellHdrColor"
-            (showFinal)="triggerShowFinalThought()"
           >
           </app-form-technique>
         </div>
       </mat-accordion>
     </div>
+
+    <div *ngIf="showContinue && !isCompleted">
+      <button
+        type="submit"
+        mat-raised-button
+        class="btn continue-btn "
+        [ngStyle]="{ float: 'right' }"
+        (click)="onShowFinalThought()"
+      >
+        Done
+      </button>
+      <br /><br />
+    </div>
   </div>
 </div>
+<!--(showFinal)="triggerShowFinalThought()"-->

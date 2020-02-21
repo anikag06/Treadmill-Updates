@@ -1,15 +1,18 @@
 <div class="item">
-  <button class="pull-right" (click)="removeProcon()" *ngIf="!hideRemove">
-    <mat-icon>delete</mat-icon>
-  </button>
   <div
     contenteditable="true"
     #editableDiv
     (focusout)="onFocusOut($event)"
     (focusin)="onFocus()"
     class="procon"
-    (keydown.enter)="onFocusOut($event)"
   >
     {{ procon.body }}
   </div>
+  <button
+    *ngIf="!hideRemove"
+    class="pull-right delete-btn"
+    (click)="removeProcon()"
+  >
+    <mat-icon>delete</mat-icon>
+  </button>
 </div>

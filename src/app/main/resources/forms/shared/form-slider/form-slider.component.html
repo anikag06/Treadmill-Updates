@@ -1,12 +1,12 @@
 <div>
-  <span class="rating-question-text">{{ question }}</span>
+  <div class="rating-question-text">{{ question }}</div>
   <br />
   <mat-slider
     thumbLabel
     min="1"
     max="10"
     [(value)]="rating"
-    (input)="onInputChange($event)"
+    (change)="onInputChange($event)"
   ></mat-slider>
 
   <div [ngStyle]="{ display: 'flex', width: '320px', 'margin-bottom': '10px' }">

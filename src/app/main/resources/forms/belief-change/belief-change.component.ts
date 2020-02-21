@@ -3,11 +3,7 @@ import {BELIEF_CHANGE, BELIEF_CHANGE_FORM_NAME, THINKING_IMG, WELL_DONE_IMG,} fr
 import {FormMessage} from '@/main/resources/forms/shared/form-message/form-message.model';
 import {Belief} from '@/main/resources/forms/belief-change/belief.model';
 import {FormService} from '@/main/resources/forms/shared/form.service';
-import {
-    BELEIF_CHANGE_QUOTES,
-    BELIEF_CHANGE_NEGATIVE_MSG,
-    BELIEF_CHANGE_POSITIVE_MSG,
-} from '@/main/resources/forms/belief-change/belief-change-message';
+import {BELEIF_CHANGE_QUOTES, BELIEF_CHANGE_NEGATIVE_MSG, BELIEF_CHANGE_POSITIVE_MSG,} from '@/main/resources/forms/belief-change/belief-change-message';
 
 @Component({
   selector: 'app-belief-change',
@@ -36,7 +32,8 @@ export class BeliefChangeComponent implements OnInit {
     'the happiness of your life depends upon the quality of your thoughts.';
   quotedBy = 'Marcus Aurelius';
   reviewTitle = 'Original Belief';
-  realisticQues = 'Great! What would be a more realistic belief?';
+  realisticQues =
+    'Great! What would be a more <strong>realistic belief?</strong>';
   beliefObject!: any;
   ngOnInit() {}
 

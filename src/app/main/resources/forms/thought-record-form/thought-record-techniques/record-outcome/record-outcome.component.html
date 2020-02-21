@@ -1,8 +1,11 @@
-<mat-expansion-panel hideToggle #panel>
+<mat-expansion-panel
+  hideToggle
+  #panel
+  (afterExpand)="techniqueExpanded.emit()"
+  (afterCollapse)="panelCollapse()"
+>
   <mat-expansion-panel-header
     [ngStyle]="{ background: '#EBEDFF', paddingLeft: '16px' }"
-    [expandedHeight]="height"
-    [collapsedHeight]="height"
   >
     <mat-panel-title
       [ngStyle]="{
@@ -98,6 +101,7 @@
 </mat-expansion-panel>
 
 <app-summary-card
+  [cardHeading]="summaryHeading"
   [summary]="summary"
   [expanded]="panel.expanded"
 ></app-summary-card>

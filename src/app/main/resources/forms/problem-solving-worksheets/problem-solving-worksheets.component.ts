@@ -40,7 +40,7 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   quote!: string;
   quotedBy!: string;
   showMessage!: boolean;
-
+  showTask!: boolean;
   @ViewChild('solutionForm', { static: false }) solutionForm!: NgForm;
   @ViewChild('solutionTextArea', { static: false })
   solutionTextArea!: ElementRef;
@@ -49,6 +49,7 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   problemStatementForm!: ProblemFormComponent;
   @ViewChild(SolutionsComponent, { static: false })
   solutionsForm!: SolutionsComponent;
+  saveSolutionBtn!: boolean;
   constructor(
     private problemService: ProblemSolvingWorksheetsService,
     private authService: AuthService,
@@ -84,9 +85,35 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
       origin_name: PSF_PROBLEM,
       taskorigin: this.problem.taskorigin,
     };
+    this.prosconsSaved = false;
+    this.solutionsSaved = false;
     this.problemEditMode = false;
+    // delete this.task;
+    this.showTask = false;
+    this.showResult = false;
     this.fetchSolutions();
+
     this.fetchTask();
+  }
+
+  fetchBestSolution() {
+    this.problemService
+      .getBestSolution(this.problem.id)
+      .subscribe((resp: any) => {
+        this.problem.bestsolution = resp.solution_id;
+        if (this.problem.bestsolution) {
+          const bestSolution = this.solutions.find(
+            sol => sol.id === this.problem.bestsolution.solution_id,
+          );
+        }
+      });
+  }
+
+  getBestSolutionText(solution_id: number) {
+    const bestSolution = this.solutions.find(sol => sol.id === solution_id);
+    if (bestSolution) {
+      return bestSolution.solution;
+    }
   }
 
   fetchTask() {
@@ -96,61 +123,79 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
         .subscribe((resp: any) => {
           if (resp.data) {
             this.task = resp.data;
+            this.showTask = true;
             this.showResult = true;
           }
         });
+    } else {
+      delete this.task;
     }
   }
 
   fetchSolutions() {
-    this.problemService.getSolutions(this.problem.id).subscribe((data: any) => {
-      this.solutions = data.message;
+    this.problemService.getSolutions(this.problem.id).subscribe((resp: any) => {
+      this.solutions = resp.body.data.solutions;
+      // console.log(this.solutions);
       if (this.solutions.length > 0) {
         this.solutionsSaved = true;
+        this.fetchBestSolution();
       }
-      if (this.problem.bestsolution) {
-        const bestSolution = this.solutions.find(
-          sol => sol.id === this.problem.bestsolution.solution_id,
-        );
-        if (bestSolution) {
-          this.bestSolution = bestSolution;
-          this.prosconsSaved = true;
-        }
-      }
+      // if (this.problem.bestsolution) {
+      //   const bestSolution = this.solutions.find(
+      //     sol => sol.id === this.problem.bestsolution.solution_id,
+      //   );
+      //   if (bestSolution) {
+      //     this.bestSolution = bestSolution;
+      //     this.prosconsSaved = true;
+      //   }
+      // }
     }, this.errorService.errorResponse('Something went wrong'));
   }
 
   onAddNewForm() {
     this.solutions = [];
     delete this.solutionsSaved;
-    delete this.bestSolution;
+    // delete this.bestSolution;
+    delete this.showResult;
     delete this.problem;
     delete this.task;
+    this.prosconsSaved = false;
   }
 
   onCheckBoxChange(solution: Solution, event: Event) {
-    delete this.bestSolution;
-    this.solutions.map(sol => {
-      if (sol.id === solution.id) {
-        sol.best_solution = true;
-        this.bestSolution = solution;
-      } else {
-        sol.best_solution = false;
-      }
-    });
-    if (this.bestSolution) {
+    // delete this.bestSolution;
+    // this.solutions.map(sol => {
+    //   if (sol.id === solution.id) {
+    //     sol.best_solution = true;
+    //     this.problem.bestsolution = solution.id;
+    //   } else {
+    //     sol.best_solution = false;
+    //   }
+    // });
+    if (this.problem.bestsolution) {
+      this.problem.bestsolution = solution.id;
+      // if (this.bestSolution) {
       this.problemService
-        .putBestSolution(this.bestSolution.id, this.problem.id)
+        .putBestSolution(this.problem.bestsolution, this.problem.id)
         .subscribe(() => {},
         this.errorService.errorResponse('Cannot select the best solution'));
+    } else {
+      this.problemService
+        .postBestSolution(solution.id, this.problem.id)
+        .subscribe(() => {
+          this.problem.bestsolution = solution.id;
+        }, this.errorService.errorResponse('Cannot select the best solution'));
     }
+
+    // }
   }
 
   selectBestSolution() {
-    const solution = this.solutions.find(sol => sol.best_solution);
-    if (solution && solution.best_solution) {
-      this.bestSolution = solution;
-    }
+    // const solution = this.solutions.find(sol => sol.best_solution);
+    // if (solution && solution.best_solution) {
+    //   this.bestSolution = solution;
+    // }
+    this.showTask = true;
   }
 
   onSolutionSubmit() {
@@ -161,15 +206,17 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
       this.problemService
         .postSolution(this.solutionForm.value['solution'], this.problem.id)
         .subscribe((resp: any) => {
+          const lastIndex = resp.data.solutions.length - 1;
           const solution = new Solution(
-            +resp.data.solution_id,
+            +resp.data.solutions[lastIndex].id,
             this.problem.id,
-            resp.data.solution,
+            resp.data.solutions[lastIndex].solution,
             false,
             0,
           );
           this.solutions.push(solution);
           this.showSolutionsForm = false;
+          this.saveSolutionBtn = false;
           this.solutionForm.reset();
         }, this.errorService.errorResponse('Something went wrong'));
     } else {
@@ -194,7 +241,7 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
 
   onSolutionEdit(solution: Solution) {
     this.problemService
-      .putSolution(solution.id, solution.solution)
+      .putSolution(this.problem.id, solution.id, solution.solution)
       .subscribe((data: any) => {},
       this.errorService.errorResponse('Something went wrong'));
   }
@@ -221,13 +268,22 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   }
 
   deleteBestSolution() {
-    delete this.bestSolution;
+    // delete this.bestSolution;
+    this.showTask = false;
   }
+
+  // getBestSolution(solution_id: number) {
+  //   this.solutions.find();
+  // }
 
   onProblemClick() {
     if (this.problem) {
       this.problemEditMode = true;
     }
+  }
+
+  onShowSaveSolution() {
+    this.saveSolutionBtn = true;
   }
 
   onSolutionFocusOut() {
@@ -237,13 +293,15 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   onTaskLoad(task: UserTask) {
     console.log('task loaded');
     this.showResult = !!task;
+    console.log(task);
     this.task = task;
+    // console.log(this.task);
   }
 
   renderResult(): Boolean {
     // this.showMessage = true;
     // this.onShowMessage();
-    return this.solutions && this.bestSolution && this.showResult;
+    return this.solutions && this.showTask && this.showResult;
   }
 
   onShowMessage() {

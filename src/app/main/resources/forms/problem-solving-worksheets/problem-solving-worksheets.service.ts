@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams,} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpParams,} from '@angular/common/http';
 import {BehaviorSubject} from 'rxjs';
-import {map} from 'rxjs/operators';
+import {catchError} from 'rxjs/operators';
 
 import {ProsCons} from './pros-cons.model';
 import {environment} from 'environments/environment';
@@ -14,7 +14,7 @@ import {GeneralErrorService} from '@/main/shared/general-error.service';
   providedIn: 'root',
 })
 export class ProblemSolvingWorksheetsService {
-  private problems: Problem[] = [];
+  problems: Problem[] = [];
   moreProblems = true;
   page = 1;
   problemBehaviour = new BehaviorSubject({});
@@ -64,134 +64,173 @@ export class ProblemSolvingWorksheetsService {
   }
 
   postProblem(problem: string) {
-    return this.http
-      .post(environment.API_ENDPOINT + PSF_PROBLEM_URL, { problem: problem })
-      .pipe(
-        map((data: any) => {
-          this.problems.push(<Problem>data.data);
-          this.problemBehaviour.next(<Problem>data.data);
-          console.log(this.problemBehaviour);
-          return data.data;
-        }),
-      );
+    return this.http.post(
+      environment.API_ENDPOINT + PSF_PROBLEM_URL,
+      { problem: problem },
+      {
+        observe: 'response',
+      },
+    );
+    // .pipe(
+    //   // map((data: any) => {
+    //   //   this.problems.push(<Problem>data.data);
+    //   //   this.problemBehaviour.next(<Problem>data.data);
+    //   //   console.log(this.problemBehaviour);
+    //   //   return data.data;
+    //   ),
+    // );
   }
 
-  putProblem(problem: Problem) {
-    return this.http
-      .put(environment.API_ENDPOINT + PSF_PROBLEM_URL + problem.id + '/', {
+  putProblem(problem: any, id: number) {
+    return this.http.put(
+      environment.API_ENDPOINT + PSF_PROBLEM_URL + id + '/',
+      {
         problem: problem.problem,
         id: problem.id,
-      })
-      .pipe(
-        map((data: any) => {
-          this.problems = this.problems.map(prob => {
-            if (problem.id === prob.id) {
-              return data.data;
-            } else {
-              return prob;
-            }
-          });
-          this.problemsBehaviour.next(this.problems);
-          this.problemBehaviour.next(<Problem>data.data);
-          return data.data;
-        }),
-      );
+      },
+      {
+        observe: 'response',
+      },
+    );
+    // .pipe(
+    //   map((data: any) => {
+    //     this.problems = this.problems.map(prob => {
+    //       if (problem.id === prob.id) {
+    //         return data.data;
+    //       } else {
+    //         return prob;
+    //       }
+    //     });
+    //     this.problemsBehaviour.next(this.problems);
+    //     this.problemBehaviour.next(<Problem>data.data);
+    //     return data.data;
+    //   }),
+    // );
+  }
+
+  addProblem(problem: Problem) {
+    this.problems.push(problem);
+    this.problemBehaviour.next(problem);
+    this.problemsBehaviour.next(this.problems);
+  }
+
+  updateProblem(problemData: Problem) {
+    const problem = this.problems.find((t: Problem) => t.id === problemData.id);
+    if (problem) {
+      this.problems[this.problems.indexOf(problem)] = problemData;
+      this.problemBehaviour.next(<Problem>problem);
+      this.problemsBehaviour.next(this.problems);
+    }
   }
 
   deleteSolution(solutionId: number) {
     return this.http.delete(
       environment.API_ENDPOINT +
         PSF_SOLUTION_URL +
-        '?solution_id=' +
-        solutionId,
+        'delete/' +
+        solutionId +
+        '/',
     );
   }
 
-  putSolution(solutionId: number, solution: string) {
+  putSolution(problem_id: number, solutionId: number, solution: string) {
     solution = this.sanitizer.stripTags(solution);
-    const params = new HttpParams()
-      .set('solution_id', solutionId.toString())
-      .set('solution', solution);
-    return this.http.put(environment.API_ENDPOINT + PSF_SOLUTION_URL, params, {
-      headers: new HttpHeaders().set(
-        'Content-Type',
-        'application/x-www-form-urlencoded',
-      ),
-    });
+
+    return this.http
+      .put(environment.API_ENDPOINT + PSF_SOLUTION_URL + problem_id + '/', {
+        solution: solution,
+        solution_id: solutionId,
+      })
+      .pipe(catchError(this.errorService.handleError));
+  }
+
+  getBestSolution(problemId: number) {
+    return this.http
+      .get(environment.API_ENDPOINT + PSF_BEST_SOLUTION_URL + problemId + '/')
+      .pipe(catchError(this.errorService.handleError));
   }
 
   putBestSolution(solutionId: number, problemId: number) {
-    return this.http.put(environment.API_ENDPOINT + PSF_BEST_SOLUTION_URL, {
-      solution_id: solutionId,
-      problem_id: problemId,
-    });
+    return this.http
+      .put(environment.API_ENDPOINT + PSF_BEST_SOLUTION_URL + problemId + '/', {
+        solution_id: solutionId,
+        problem_id: problemId,
+      })
+      .pipe(catchError(this.errorService.handleError));
+  }
+
+  postBestSolution(solutionId: number, problemId: number) {
+    return this.http
+      .post(
+        environment.API_ENDPOINT + PSF_BEST_SOLUTION_URL + problemId + '/',
+        {
+          solution_id: solutionId,
+          problem_id: problemId,
+        },
+      )
+      .pipe(catchError(this.errorService.handleError));
   }
 
   getSolutions(problem: number) {
-    const params = new HttpParams().set('problem_id', problem.toString());
-    return this.http.get<Problem[]>(
-      environment.API_ENDPOINT + PSF_SOLUTION_URL,
-      { params: params },
-    );
+    return this.http
+      .get<Problem[]>(
+        environment.API_ENDPOINT + PSF_SOLUTION_URL + problem + '/',
+        {
+          observe: 'response',
+        },
+      )
+      .pipe(catchError(this.errorService.handleError));
   }
 
   // Some Issues with the backend we need to send a form
   postSolution(solution: string, problemId: number) {
-    const params = new HttpParams()
-      .set('problem_id', problemId.toString())
-      .set('solution', solution);
-    return this.http.post(environment.API_ENDPOINT + PSF_SOLUTION_URL, params, {
-      headers: new HttpHeaders().set(
-        'Content-Type',
-        'application/x-www-form-urlencoded',
-      ),
-    });
+    return this.http.post(
+      environment.API_ENDPOINT + PSF_SOLUTION_URL + problemId + '/',
+      {
+        solution: solution,
+      },
+    );
   }
 
-  getProsCons(solution_id: number) {
-    const params = new HttpParams().set('solution_id', solution_id.toString());
-    return this.http.get(environment.API_ENDPOINT + PSF_PRO_CON_URL, {
-      params: params,
-    });
+  getProsCons(problem_id: number) {
+    // const params = new HttpParams().set('solution_id', solution_id.toString());
+    return this.http
+      .get(environment.API_ENDPOINT + PSF_PRO_CON_URL + problem_id + '/')
+      .pipe(catchError(this.errorService.handleError));
   }
 
   postProsCons(proCon: ProsCons, solutionId: number) {
-    let params = new HttpParams().set('solution_id', solutionId.toString());
-    if (proCon.is_pros) {
-      params = params.set('pros', proCon.body);
-    } else {
-      params = params.set('cons', proCon.body);
-    }
-    return this.http.post(environment.API_ENDPOINT + PSF_PRO_CON_URL, params, {
-      headers: new HttpHeaders().set(
-        'Content-Type',
-        'application/x-www-form-urlencoded',
-      ),
-    });
+    return this.http.post(
+      environment.API_ENDPOINT + PSF_PRO_CON_URL + solutionId + '/',
+      {
+        body: proCon.body,
+        is_pros: proCon.is_pros,
+      },
+      {},
+    );
   }
 
   deleteProsCons(proConId: number) {
     return this.http.delete(
-      environment.API_ENDPOINT + PSF_PRO_CON_URL + '?pros_cons_id=' + proConId,
+      environment.API_ENDPOINT + PSF_PRO_CON_URL + 'delete/' + proConId + '/',
     );
   }
 
-  putProsCons(proconId: number, body: string) {
-    body = this.sanitizer.stripTags(body);
-    const params = new HttpParams()
-      .set('pros_cons_id', proconId.toString())
-      .set('body', body);
-    return this.http.put(environment.API_ENDPOINT + PSF_PRO_CON_URL, params, {
-      headers: new HttpHeaders().set(
-        'Content-Type',
-        'application/x-www-form-urlencoded',
-      ),
-    });
+  putProsCons(procon: ProsCons, solution_id: number) {
+    procon.body = this.sanitizer.stripTags(procon.body);
+
+    return this.http
+      .post(environment.API_ENDPOINT + PSF_PRO_CON_URL + solution_id + '/', {
+        body: procon.body,
+        is_pros: procon.is_pros,
+        pro_con_id: procon.id,
+      })
+      .pipe(catchError(this.errorService.handleError));
   }
 
   getResult(solution_id: number) {
     return this.http.get(
-      environment.API_ENDPOINT + PSF_RESULT_URL + '?solution_id=' + solution_id,
+      environment.API_ENDPOINT + PSF_RESULT_URL + solution_id + '/',
     );
   }
 
@@ -202,9 +241,9 @@ export class ProblemSolvingWorksheetsService {
     );
   }
 
-  putResult(solution_id: number, resultObject: any, result_id: number) {
+  putResult(solution_id: number, resultObject: any) {
     return this.http.put(
-      environment.API_ENDPOINT + PSF_RESULT_URL + result_id + '/',
+      environment.API_ENDPOINT + PSF_RESULT_URL + solution_id + '/',
       resultObject,
     );
   }

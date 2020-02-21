@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Inject, Input, OnInit, Output, SimpleChanges, ViewChild,} from '@angular/core';
 import {FormBuilder, FormControl, Validators} from '@angular/forms';
 import {IFormTechniqueServices} from '@/main/resources/forms/shared/form-technique/IFormTechniqueServices';
+import {SUMMARY} from '@/app.constants';
 
 @Component({
   selector: 'app-form-technique',
@@ -12,15 +13,18 @@ export class FormTechniqueComponent implements OnInit {
   explanation = '';
   summary = '';
   updateText!: boolean;
+  summaryHeading = SUMMARY;
   @Input() techniqueName!: string;
   @Input() question!: string;
+  @Input() summaryIndex!: number;
   // @Input() reset!: boolean;
   @Input() id!: number;
   @Input() service!: number;
   @ViewChild('panel', { static: false }) panel!: any;
   @Input() headerColor!: string;
   @Output() showFinal = new EventEmitter();
-
+  @Output() techniqueExpanded = new EventEmitter();
+  @Output() techniqueCollapsed = new EventEmitter();
   techniqueForm = this.formBuilder.group({
     text: new FormControl('', [Validators.required]),
   });
@@ -39,7 +43,7 @@ export class FormTechniqueComponent implements OnInit {
       this.providerService[this.service]
         .getData(this.id)
         .subscribe((resp: any) => {
-          if (resp) {
+          if (resp.text) {
             this.updateText = true;
             this.techniqueForm.controls['text'].setValue(resp.text);
             this.setSummary(resp.text);
@@ -68,7 +72,9 @@ export class FormTechniqueComponent implements OnInit {
         .subscribe((resp: any) => {
           const status = resp.ok;
           if (status) {
+            this.updateText = true;
             console.log('post done');
+
             this.setSummary(data);
           }
         });
@@ -77,8 +83,9 @@ export class FormTechniqueComponent implements OnInit {
 
   setSummary(data: string) {
     this.summary = data;
-    this.showFinal.emit();
     this.panel.expanded = false;
+    this.showFinal.emit();
+    this.panelCollapse();
   }
 
   resetForm() {
@@ -86,5 +93,14 @@ export class FormTechniqueComponent implements OnInit {
       text: new FormControl(''),
     });
     this.summary = '';
+    delete this.updateText;
+  }
+
+  panelCollapse() {
+    const object = {
+      index: this.summaryIndex,
+      summary: this.summary ? this.summary : '',
+    };
+    this.techniqueCollapsed.emit(object);
   }
 }

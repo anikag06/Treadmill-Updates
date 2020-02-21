@@ -1,6 +1,6 @@
 import {ChangeDetectorRef, Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild,} from '@angular/core';
 import {CdkTextareaAutosize} from '@angular/cdk/text-field';
-import {FormArray, FormBuilder, Validators} from '@angular/forms';
+import {FormArray, FormBuilder} from '@angular/forms';
 
 import {IProofEvidences} from '@/main/resources/forms/shared/proof-evidences/IProofEvidences';
 
@@ -13,20 +13,24 @@ export class ProofEvidencesComponent implements OnInit {
   @Input() favorTitle!: string;
   @Input() againstTitle!: string;
   @Input() service!: number;
+  @Output() techniqueExpanded = new EventEmitter();
+  @Output() techniqueCollapsed = new EventEmitter();
   summary = '';
   forType = 'for';
   againstType = 'against';
+  summaryHeading = 'Summary';
   @ViewChild('autosize', { static: false }) autosize!: CdkTextareaAutosize;
-  submitted = false;
+
   @Input() id!: number;
   @ViewChild('panel', { static: false }) panel!: any;
   @Output() showFinal = new EventEmitter();
   techniqueName = 'What is the proof?';
   headerColor = '#FFFCE3';
+  @Input() summaryIndex!: number;
 
   proofStatementForm = this.fb.group({
-    favorEvidences: this.fb.array([], [Validators.required]),
-    againstEvidences: this.fb.array([], [Validators.required]),
+    favorEvidences: this.fb.array([]),
+    againstEvidences: this.fb.array([]),
   });
 
   ngAfterViewInit(): void {
@@ -80,8 +84,6 @@ export class ProofEvidencesComponent implements OnInit {
   }
 
   onSubmit() {
-    this.submitted = true;
-
     const forEvidences = {
       evidences: this.proofStatementForm.controls['favorEvidences'].value,
     };
@@ -120,14 +122,22 @@ export class ProofEvidencesComponent implements OnInit {
       ].value[0].evidence;
       this.showFinal.emit();
     }
+    this.panelCollapse();
     this.changeDetector.detectChanges();
   }
 
   resetForm() {
     this.proofStatementForm = this.fb.group({
-      favorEvidences: this.fb.array([], [Validators.required]),
-      againstEvidences: this.fb.array([], [Validators.required]),
+      favorEvidences: this.fb.array([]),
+      againstEvidences: this.fb.array([]),
     });
     delete this.summary;
+  }
+  panelCollapse() {
+    const object = {
+      index: this.summaryIndex,
+      summary: this.summary ? this.summary : '',
+    };
+    this.techniqueCollapsed.emit(object);
   }
 }

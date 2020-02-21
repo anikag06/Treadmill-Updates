@@ -8,6 +8,7 @@ import {Component, Input, OnInit} from '@angular/core';
 export class SummaryCardComponent implements OnInit {
   @Input() summary!: string;
   @Input() expanded!: string;
+  @Input() cardHeading!: string;
 
   constructor() {}
 

@@ -101,6 +101,8 @@ export class FormFinalRatingComponent implements OnInit {
             this.showRealistic = false;
             if (this.initialRating > this.finalRating) {
               this.showRealisticDiv = true;
+            } else {
+              this.formComplete.emit(this.finalRating);
             }
             this.editSlider = true;
             this.finalRatingChange.emit(this.finalRating);

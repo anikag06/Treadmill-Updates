@@ -2,6 +2,7 @@ import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output, SimpleCha
 import {FormBuilder, FormControl, Validators} from '@angular/forms';
 import {Thought} from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
 import {RecordOutcomeService} from '@/main/resources/forms/thought-record-form/thought-record-techniques/record-outcome/record-outcome.service';
+import {SUMMARY} from '@/app.constants';
 
 @Component({
   selector: 'app-record-outcome',
@@ -16,11 +17,14 @@ export class RecordOutcomeComponent implements OnInit, AfterViewInit {
   submitted = false;
   summary = '';
   height = '42px';
+  summaryHeading = SUMMARY;
   @Input() thought!: Thought;
   updateOutcome = false;
   @ViewChild('panel', { static: false }) panel!: any;
   @Output() showFinalThought = new EventEmitter();
-
+  @Output() techniqueExpanded = new EventEmitter();
+  @Output() techniqueCollapsed = new EventEmitter();
+  @Input() summaryIndex!: number;
   techniqueName = 'What is the worst that can happen?';
   outcomeRecordForm = this.formBuilder.group({
     worstOutcome: new FormControl('', [Validators.required]),
@@ -44,7 +48,7 @@ export class RecordOutcomeComponent implements OnInit, AfterViewInit {
           if (resp.ok) {
             this.updateOutcome = true;
             this.initializeOutcome(resp);
-            this.summary = resp.body.realistic_outcome;
+            // this.summary = resp.body.realistic_outcome;
             this.showFinalThought.emit();
           }
         });
@@ -63,6 +67,7 @@ export class RecordOutcomeComponent implements OnInit, AfterViewInit {
     this.outcomeRecordForm.controls['likelyOutcome'].setValue(
       resp.body.realistic_outcome,
     );
+    this.setSummary();
   }
 
   onSubmit() {
@@ -101,6 +106,7 @@ export class RecordOutcomeComponent implements OnInit, AfterViewInit {
   setSummary() {
     this.summary = this.outcomeRecordForm.value['likelyOutcome'];
     this.showFinalThought.emit();
+    this.panelCollapse();
     this.panel.expanded = false;
   }
 
@@ -111,5 +117,13 @@ export class RecordOutcomeComponent implements OnInit, AfterViewInit {
       likelyOutcome: new FormControl(''),
     });
     this.summary = '';
+  }
+
+  panelCollapse() {
+    const object = {
+      index: this.summaryIndex,
+      summary: this.summary ? this.summary : '',
+    };
+    this.techniqueCollapsed.emit(object);
   }
 }

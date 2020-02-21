@@ -113,6 +113,7 @@ export class TrfSituationCardComponent implements OnInit {
         .subscribe(resp => {
           status = resp.body.status;
           this.showContinue = false;
+          this.updateThought.emit(resp.body);
         });
     } else {
       this.thoughtRecordService.postSituation(object).subscribe(resp => {

@@ -38,9 +38,9 @@ export class BeliefChangeService {
           if (data.next) {
             this.page += 1;
             this.nextPage = true;
-            setTimeout(() => {
-              this.getBeliefs();
-            }, 10);
+            // setTimeout(() => {
+            //   this.getBeliefs();
+            // }, 10);
           } else {
             this.nextPage = false;
           }

@@ -29,6 +29,7 @@ export class NegativeBeliefComponent implements OnInit {
   scaleBelief = 'On a scale of 1-10, how strongly do you belief this?';
   beliefRatingInitial!: number;
   showSliderButton = false;
+  editMode = false;
   @Output() onShowTechniques = new EventEmitter();
   @Output() initialRatingChange = new EventEmitter();
   negativeBeliefForm = this.formBuilder.group({
@@ -79,6 +80,7 @@ export class NegativeBeliefComponent implements OnInit {
     this.showSlider = true;
     this.showContiue = false;
     this.showBeliefLink = true;
+    this.editMode = true;
     if (this.belief.belief_rating_initial) {
       this.beliefRatingInitial = this.belief.belief_rating_initial;
       this.onShowTechniques.emit();
@@ -102,17 +104,21 @@ export class NegativeBeliefComponent implements OnInit {
   }
 
   onBeliefSubmit() {
-    const object = {
-      belief: this.negativeBeliefForm.value['belief'],
-    };
-    this.beliefChangeService.postBelief(object).subscribe((resp: any) => {
-      if (resp.ok) {
-        this.showSlider = true;
-        this.showContiue = false;
-        this.showBeliefLink = true;
-        this.beliefHandler(resp.body, 'create');
-      }
-    });
+    if (!this.editMode) {
+      const object = {
+        belief: this.negativeBeliefForm.value['belief'],
+      };
+      this.beliefChangeService.postBelief(object).subscribe((resp: any) => {
+        if (resp.ok) {
+          this.showSlider = true;
+          this.showContiue = false;
+          this.showBeliefLink = true;
+          this.beliefHandler(resp.body, 'create');
+        }
+      });
+    } else {
+      this.onNegativeMantraSubmit();
+    }
   }
 
   getRating(value: any) {
@@ -123,7 +129,7 @@ export class NegativeBeliefComponent implements OnInit {
   onNegativeMantraSubmit() {
     if (this.beliefRatingInitial) {
       const object = {
-        belief: this.belief.belief,
+        belief: this.negativeBeliefForm.value['belief'],
         belief_rating_initial: this.beliefRatingInitial,
       };
       this.beliefChangeService
@@ -133,6 +139,7 @@ export class NegativeBeliefComponent implements OnInit {
             this.showSliderButton = false;
             this.onShowTechniques.emit();
             this.updateBelief.emit(resp.body);
+            this.showContiue = false;
             this.initialRatingChange.emit(this.beliefRatingInitial);
             this.beliefHandler(resp.body, '');
           }

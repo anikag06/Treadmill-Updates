@@ -1,5 +1,4 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges,} from '@angular/core';
-import {Solution} from '../solution.model';
 import {ProblemSolvingWorksheetsService} from '../problem-solving-worksheets.service';
 import {Result} from './result.model';
 import {HttpErrorResponse} from '@angular/common/http';
@@ -18,7 +17,7 @@ export class ResultComponent implements OnInit, OnChanges {
     private problemService: ProblemSolvingWorksheetsService,
     private formService: FormService,
   ) {}
-  @Input() solution!: Solution;
+  @Input() solution_id!: number;
   @Input() task!: UserTask;
   result!: Result;
   resultBody = '';
@@ -38,22 +37,19 @@ export class ResultComponent implements OnInit, OnChanges {
     }
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(changes: SimpleChanges) {
     if (changes.task) {
       this.getEndDate();
       this.onDisableResult();
     }
-    if (changes.solution) {
-      this.problemService.getResult(this.solution.id).subscribe(
+    if (changes.solution_id && this.solution_id) {
+      console.log(this.solution_id);
+      this.problemService.getResult(this.solution_id).subscribe(
         (data: any) => {
-          if (data.results.length > 0) {
-            this.result = new Result(
-              +data.results[0].id,
-              data.results[0].result,
-              data.results[0].did_it_work,
-            );
-            this.resultBody = data.results[0].result;
-            this.didWork = data.results[0].did_it_work;
+          if (data) {
+            this.result = new Result(+data.id, data.result, data.did_it_work);
+            this.resultBody = data.result;
+            this.didWork = data.did_it_work;
             this.onShowMessage();
           } else {
             delete this.result;
@@ -69,31 +65,21 @@ export class ResultComponent implements OnInit, OnChanges {
 
   onResultSubmit() {
     const object = {
-      solution_id: this.solution.id,
+      solution_id: this.solution_id,
       result: this.resultBody,
       did_it_work: this.didWork,
     };
     if (this.result) {
-      this.problemService
-        .putResult(this.solution.id, object, this.result.id)
-        .subscribe(
-          (data: any) => {
-            this.result = new Result(
-              +data.data.id,
-              this.resultBody,
-              this.didWork,
-            );
-          },
-          error => console.log(error),
-        );
-    } else {
-      this.problemService.postResult(this.solution.id, object).subscribe(
+      this.problemService.putResult(this.solution_id, object).subscribe(
         (data: any) => {
-          this.result = new Result(
-            +data.data.id,
-            this.resultBody,
-            this.didWork,
-          );
+          this.result = new Result(+data.id, this.resultBody, this.didWork);
+        },
+        error => console.log(error),
+      );
+    } else {
+      this.problemService.postResult(this.solution_id, object).subscribe(
+        (data: any) => {
+          this.result = new Result(data.id, this.resultBody, this.didWork);
           this.onShowMessage();
         },
         error => console.log(error),

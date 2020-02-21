@@ -20,9 +20,13 @@ export class IdentifyThinkingComponent implements OnInit {
   thinkingError: string[] = [];
   summary = '';
   submitted = false;
+  summaryHeading = 'Thinking Errors';
   @Input() thought!: Thought;
   @Input() reset!: boolean;
   @Output() showFinalThought = new EventEmitter();
+  @Output() techniqueExpanded = new EventEmitter();
+  @Output() techniqueCollapsed = new EventEmitter();
+  @Input() summaryIndex!: number;
   techniqueName = 'Identify Thinking Error';
   info_heading = 'Type of Thinking Errors';
   @ViewChild('panel', { static: false }) panel!: any;
@@ -117,9 +121,11 @@ export class IdentifyThinkingComponent implements OnInit {
   }
 
   setSummary(thinkingErrors: string[]) {
-    this.summary = thinkingErrors.join(',');
-    this.showFinalThought.emit();
+    this.summary = thinkingErrors.join(', ');
+    this.summary = this.summary.length > 0 ? this.summary + '.' : this.summary;
+    this.showFinalThought.emit(this.summary);
     // this.changeDetector.detectChanges();
+    this.panelCollapse();
   }
 
   onShowInfo($event: Event) {
@@ -139,5 +145,13 @@ export class IdentifyThinkingComponent implements OnInit {
       thinkingError.isChecked = false;
     });
     this.summary = '';
+  }
+
+  panelCollapse() {
+    const object = {
+      index: this.summaryIndex,
+      summary: this.summary ? this.summary : '',
+    };
+    this.techniqueCollapsed.emit(object);
   }
 }

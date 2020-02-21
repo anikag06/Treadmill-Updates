@@ -2,6 +2,7 @@ import {ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, O
 import {Belief} from '@/main/resources/forms/belief-change/belief.model';
 import {FormArray, FormBuilder, FormControl, Validators,} from '@angular/forms';
 import {ActAsIfService} from '@/main/resources/forms/belief-change/belief-change-techniques/act-as-if/act-as-if.service';
+import {SUMMARY} from '@/app.constants';
 
 @Component({
   selector: 'app-act-as-if',
@@ -19,15 +20,17 @@ export class ActAsIfComponent implements OnInit {
   });
   @ViewChild('panel', { static: false }) panel!: any;
   @Output() triggerShowFinalBelief = new EventEmitter();
-  advantageQues = 'What are the advantages having this belief?';
+  @Output() techniqueExpanded = new EventEmitter();
+  @Output() techniqueCollapsed = new EventEmitter();
+  @Input() summaryIndex!: number;
+  advantageQues = 'What are the advantage having this belief?';
   acting_help = 'Would acting this way help me?';
-
   showAdvantages = false;
 
   editMode = false;
   yes = 'Great! Then act "As if" you don\'t have the negative belief.';
-  no = 'Then continue to believe what you believe currently.';
-  headerColor = '#FFFCE3';
+  no = 'Okay';
+  summaryHeading = SUMMARY;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -37,7 +40,7 @@ export class ActAsIfComponent implements OnInit {
   ) {}
 
   @Input() belief!: Belief;
-  editAct = false;
+
   showActContinue = false;
 
   ngOnInit() {}
@@ -49,7 +52,7 @@ export class ActAsIfComponent implements OnInit {
         .getActingAsIf(this.belief.id)
         .subscribe((resp: any) => {
           if (resp.body.how_would_i_act) {
-            this.editAct = true;
+            // this.editAct = true;
             this.initalizeActAsIf(resp);
           }
         });
@@ -85,6 +88,7 @@ export class ActAsIfComponent implements OnInit {
     this.showAdvantages = true;
     this.editMode = true;
     this.summary = resp.body.how_would_i_act;
+    this.panelCollapse();
     if (
       resp.body.would_it_help !== undefined &&
       resp.body.would_it_help !== null
@@ -92,7 +96,6 @@ export class ActAsIfComponent implements OnInit {
       this.actAsIfForm.controls['would_it_help'].setValue(
         resp.body.would_it_help,
       );
-      console.log(this.actAsIfForm.controls['would_it_help']);
     }
   }
 
@@ -179,6 +182,7 @@ export class ActAsIfComponent implements OnInit {
       };
       this.actAsIfService.putActAsIf(object, this.belief.id).subscribe(resp => {
         if (resp.ok) {
+          this.summary = this.actAsIfForm.value['how_would_i_act'];
           this.onSubmitAdvantages();
         }
       });
@@ -195,6 +199,7 @@ export class ActAsIfComponent implements OnInit {
       .subscribe(resp => {
         if (resp.ok) {
           this.panel.expanded = false;
+          this.panelCollapse();
           this.summary = this.actAsIfForm.value['how_would_i_act'];
           this.triggerShowFinalBelief.emit();
         }
@@ -203,10 +208,22 @@ export class ActAsIfComponent implements OnInit {
 
   resetForm() {
     this.actAsIfForm = this.formBuilder.group({
-      how_would_i_act: new FormControl('', [Validators.required]),
-      would_it_help: new FormControl('', [Validators.required]),
+      how_would_i_act: new FormControl(''),
+      would_it_help: new FormControl(''),
       advantages: this.formBuilder.array([]),
     });
     this.summary = '';
+
+    delete this.showActContinue;
+    delete this.editMode;
+    delete this.showAdvantages;
+  }
+
+  panelCollapse() {
+    const object = {
+      index: this.summaryIndex,
+      summary: this.summary ? this.summary : '',
+    };
+    this.techniqueCollapsed.emit(object);
   }
 }

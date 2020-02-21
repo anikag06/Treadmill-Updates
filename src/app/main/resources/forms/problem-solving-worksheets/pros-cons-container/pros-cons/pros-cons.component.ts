@@ -40,7 +40,8 @@ export class ProsConsComponent implements OnInit {
       this.problemsService
         .postProsCons(procon, this.solution.id)
         .subscribe((data: any) => {
-          procon.id = data.data.ids[0];
+          console.log(data);
+          procon.id = data.data.id;
           this.prosCons.push(procon);
           this.showForm = false;
           this.proconForm.reset();

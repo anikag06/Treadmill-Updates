@@ -220,6 +220,7 @@ export const USER_SIQ_DATA = '/api/v1/questionnaire/siq-user-response/';
 
 // FORMS
 export const TASK = 'task';
+export const SUMMARY = 'Summary';
 export const WORRY_PRODUCTIVELY = 'worry-productivelty';
 export const TECHNIQUE_UNTOUCHED = 0;
 export const TECHNIQUE_OPENED = 1;
