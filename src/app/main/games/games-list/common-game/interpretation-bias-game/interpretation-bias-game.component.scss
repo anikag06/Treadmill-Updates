@@ -1,207 +1,240 @@
 /* You can add global styles to this file, and also import other style files */
 @import "styles.scss";
 @import "../../../shared/games-common.scss";
-.ibGame-page{
-	margin: auto;
-	align-content: center;
-	align-items: center;
-	text-align: center;
-	flex-direction: row;
-	max-width: 100%;
-	height: 100%;
-	max-height: 100%;
+
+.ibGame-page {
+  margin: auto;
+  align-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: row;
+  max-width: 100%;
+  height: 100%;
+  max-height: 100%;
 }
-p{
-	margin: 0%;
-	padding: 0%;
+
+p {
+  margin: 0%;
+  padding: 0%;
 }
-.container-fluid{
-	// background-image: url("/assets/games/interpretation_bias_game/images/background.png");
-	background-color: #9af0f7;
-	max-width: 100%;
-	height: 100%;
-	max-height: 100%;
-	padding-right: 0px !important;
-	padding-left: 0px !important;
+
+.container-fluid {
+  // background-image: url("/assets/games/interpretation_bias_game/images/background.png");
+  background-color: #9af0f7;
+  max-width: 100%;
+  height: 100%;
+  max-height: 100%;
+  padding-right: 0px !important;
+  padding-left: 0px !important;
 }
-#game_main_div{
-	max-width: 360px;
+
+#game_main_div {
+  max-width: 360px;
 }
-.game-first-page{
-	// background-image: url("/assets/games/interpretation_bias_game/images/Automatic Interpretive Bias.png");
-	// background-size: 95%;
-	// background-position: center;
-	// background-repeat: no-repeat;
-	background-color: #C7FBFF;
-	height: 100%;
-	max-height: 100%;
-	text-align: center;
-	max-width: 100%;
+
+.game-first-page {
+  // background-image: url("/assets/games/interpretation_bias_game/images/Automatic Interpretive Bias.png");
+  // background-size: 95%;
+  // background-position: center;
+  // background-repeat: no-repeat;
+  background-color: #C7FBFF;
+  height: 100%;
+  max-height: 100%;
+  text-align: center;
+  max-width: 100%;
 }
+
 .game {
-	height: 100%;
-	max-height: 640px;
-	max-width: 360px;
-	background-color: #C7FBFF;
-}
-#frontpage-image{
-	max-width: 75%;
-}
-.score-col{
-	min-height: 13%;
-	max-height: 14%;
-}
-.stars,.selected-word{
-	margin: auto;
-	max-width: 88%;
-}
-.clock{
-	max-width: 18px;
-	margin: 1.2px;
-}
-.timeup1, .timeup2{
-	background-color: #FFFFFF;
-}
-.color-change{
-	color:#45b9bc;
-}
-.hints-col{ 
-	max-height: 65px;
-	margin-bottom: 3.4px;
-}
-#aWord, #wordCoordinates{
-	margin-left: 0%;
-	max-width: 61%;
-	height: 91%;
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: 91%;
-	background-image: url("/assets/games/button_big.svg");
-	line-height: 13px;
-	padding: 3.5%;
-}
-canvas{
-	max-width: 100%;
-	background-color: white;
-}
-#canvas-div{
-	padding-left: 0%;
-	padding-right: 0%;
-}
-.row{
-	margin-left: 0px;
-	margin-right: 0px;
+  height: 100%;
+  max-height: 640px;
+  max-width: 360px;
+  background-color: #C7FBFF;
 }
 
-.col, .col-12{
-	padding-right: 0px;
-	padding-left: 0px;
+#frontpage-image {
+  max-width: 75%;
 }
 
-.material-icons{
-	color: black;
+.score-col {
+  min-height: 13%;
+  max-height: 14%;
 }
 
-.rotate-180{
-	-webkit-transform:rotate(180deg);
-	-moz-transform: rotate(180deg);
-	-ms-transform: rotate(180deg);
-	-o-transform: rotate(180deg);
-	transform: rotate(180deg);
+.stars,
+.selected-word {
+  margin: auto;
+  max-width: 88%;
 }
-.tip{
-	min-height: 31px;
-	color: #449798 ;
-	max-width: 80%;
-	line-height: 12px;
+
+.clock {
+  max-width: 18px;
+  margin: 1.2px;
 }
+
+.timeup1,
+.timeup2 {
+  background-color: #FFFFFF;
+}
+
+.color-change {
+  color: #45b9bc;
+}
+
+.hints-col {
+  max-height: 65px;
+  margin-bottom: 3.4px;
+}
+
+#aWord,
+#wordCoordinates {
+  margin-left: 0%;
+  max-width: 61%;
+  height: 91%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 91%;
+  background-image: url("/assets/games/button_big.svg");
+  line-height: 13px;
+  padding: 3.5%;
+}
+
+canvas {
+  max-width: 100%;
+  background-color: white;
+}
+
+#canvas-div {
+  padding-left: 0%;
+  padding-right: 0%;
+}
+
+.row {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+.col,
+.col-12 {
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+.material-icons {
+  color: black;
+}
+
+.rotate-180 {
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+.tip {
+  min-height: 31px;
+  color: #449798;
+  max-width: 80%;
+  line-height: 12px;
+}
+
 .progress-bar-vertical {
-	// width: 5%;
-	float: left;
-	background-color: rgba(100, 216, 216, 0.5);
-  }
-  
-.progress-bar-vertical .progress-bar {
-	width: 100%;
-	height: 0;
-	-webkit-transition: height 0.6s ease;
-	-o-transition: height 0.6s ease;
-	transition: height 0.6s ease;
+  // width: 5%;
+  float: left;
+  background-color: rgba(100, 216, 216, 0.5);
 }
 
-.barsDiv{
-	max-width: 40px !important;
+.progress-bar-vertical .progress-bar {
+  width: 100%;
+  height: 0;
+  -webkit-transition: height 0.6s ease;
+  -o-transition: height 0.6s ease;
+  transition: height 0.6s ease;
+}
+
+.barsDiv {
+  max-width: 45px !important;
 }
 
 .difficultyBarIBG {
-	min-height: 3.8px;
-	padding: 0.40px;
+  min-height: 3.8px;
+  padding: 0.40px;
 }
 
-.firstBar{
-	padding-top: 0px !important; 
+.firstBar {
+  padding-top: 0px !important;
 }
 
-#btn-next-sentence{
-	background-image: url("/assets/games/button_big.svg"); 
-	background-repeat: no-repeat;
-	background-size: 100%;
-	background-position: center;
-	cursor: pointer;
-	font-size: 14px;
+#btn-next-sentence {
+  background-image: url("/assets/games/button_big.svg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center;
+  cursor: pointer;
+  font-size: 14px;
 }
-.landscape-msg{
-	display: none;
+
+.landscape-msg {
+  display: none;
 }
+
 .cursor-pointer {
-	cursor: pointer;
-}
-@media only screen and (max-width: 991px) and (max-width: 767px) {
-	/* For mobile phones: */
-	.ibGame-page {
-		padding: 0px;
-		margin: 0px;
-		max-width: 100%;
-		min-height: 100%   
-	}
-	.container-fluid{
-		// background-image: url("/assets/games/interpretation_bias_game/images/background_mobile.png");
-		// background-color: #C7FBFF;
-		max-width: 100%;
-		min-height: 100%;
-	}
-	.game-first-page{
-		// background-image: url("/assets/games/interpretation_bias_game/images/aib_mobile.png");
-		// background-repeat: no-repeat;
-		// background-size: 35%;
-		// background-position-x: 4%;
-		text-align: center;
-		width: 100%;
-		min-height: 100%; 
-	}
-	// #frontpage-image{
-	// 	max-width: 60vw;
-	// }
-	
-	#hint-div{
-		margin-left: 5%;
-		margin-top: 0%;
-	}
-	.pause-hints{
-		max-width: 35%;
-	}
-}
-@media screen and (max-width: 767px) and (orientation:landscape) {
-	.landscape-msg{
-		display: block;
-	}
-	.score-col{
-		max-height: 18%;
-	}
-}
-@media only screen and (max-width: 359px) {
-	.change-padding {
-		padding: 0% !important;
-	}
+  cursor: pointer;
 }
 
+@media only screen and (max-width: 991px) and (max-width: 767px) {
+
+  /* For mobile phones: */
+  .ibGame-page {
+    padding: 0px;
+    margin: 0px;
+    max-width: 100%;
+    min-height: 100%
+  }
+
+  .container-fluid {
+    // background-image: url("/assets/games/interpretation_bias_game/images/background_mobile.png");
+    // background-color: #C7FBFF;
+    max-width: 100%;
+    min-height: 100%;
+  }
+
+  .game-first-page {
+    // background-image: url("/assets/games/interpretation_bias_game/images/aib_mobile.png");
+    // background-repeat: no-repeat;
+    // background-size: 35%;
+    // background-position-x: 4%;
+    text-align: center;
+    width: 100%;
+    min-height: 100%;
+  }
+
+  // #frontpage-image{
+  // 	max-width: 60vw;
+  // }
+
+  #hint-div {
+    margin-left: 5%;
+    margin-top: 0%;
+  }
+
+  .pause-hints {
+    max-width: 35%;
+  }
+}
+
+@media screen and (max-width: 767px) and (orientation:landscape) {
+  .landscape-msg {
+    display: block;
+  }
+
+  .score-col {
+    max-height: 18%;
+  }
+}
+
+@media only screen and (max-width: 359px) {
+  .change-padding {
+    padding: 0% !important;
+  }
+}

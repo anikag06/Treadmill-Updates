@@ -38,21 +38,37 @@ export class IdcOptionsComponent implements OnInit {
   answered_at!: any;
   time!: any;
   userAnswerData = new ICDGameUserAnswerData(0, 0, 0);
+  errorBarWidth!: number;
 
   @ViewChild('checkElement', { static: false }) element!: ElementRef;
 
   constructor(
     private gameService: IdcGameService,
     private dialogBoxService: DialogBoxService,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.optionsCall();
+
     this.gameService.levelInitialise.subscribe(() => {
       this.optionStatus = this.gameService.optionStatus;
       this.optionStatusCount = this.gameService.optionStatusCount;
+      console.log('ELEMENT', this.element);
+      this.errorBarWidth = Math.floor(200 / this.correct.length);
+      const button = this.element.nativeElement.querySelectorAll(
+        'button'
+      );
+      console.log('BUTTON', button);
+      for (let i = button.length - 1; i >= 0; i--) {
+        button[i].classList.remove('correctOption');
+        button[i].classList.remove('incorrectOption');
 
+      }
       console.log('option status', this.optionStatusCount);
+    });
+    this.gameService.resumeGame.subscribe(() => {
+      this.optionStatus = this.gameService.optionStatus;
+      this.optionStatusCount = this.gameService.optionStatusCount;
     });
   }
 
@@ -62,7 +78,8 @@ export class IdcOptionsComponent implements OnInit {
     this.element.nativeElement.dispatchEvent(domEvent);
   }
 
-  onOptionClick(item: any) {
+  onOptionClick(item: any, event: any) {
+    console.log('option', item);
     this.gameService.stopTimer.next();
     this.gameService.optionSelected = item.distortion;
     this.gameService.optionMessage = item.message;
@@ -73,18 +90,23 @@ export class IdcOptionsComponent implements OnInit {
     this.storeUserAnswerData();
     this.correct.forEach((correctItem: any) => {
       if (correctItem.id === item.id) {
-        this.gameService.selectedCorrectOptionsSet.add(item.id);
+        event.target.classList.add('correctOption');
+        if (!this.gameService.selectedCorrectOptionsSet.has(item.id)) {
+          this.gameService.optionStatusCount += 1;
+          this.gameService.selectedCorrectOptionsSet.add(item.id);
+        }
         this.gameService.optionStatus = 'correct';
-        this.gameService.optionStatusCount += 1;
         this.optionStatusCount = this.gameService.optionStatusCount;
-
         this.optionStatus = this.gameService.optionStatus;
         this.correctOptionFound = 1;
         this.gameService.score += 10;
         this.gameService.numCorrectAnswers += 1;
+
+      } else {
+        event.target.classList.add('incorrectOption');
       }
     });
-    if (this.correctOptionFound != 1) {
+    if (this.correctOptionFound !== 1) {
       this.gameService.optionStatus = 'incorrect';
     }
 

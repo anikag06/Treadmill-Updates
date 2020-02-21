@@ -109,7 +109,7 @@ export class IdcGameService {
     // this.difficultyValue = 0.1 * 100;
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   serviceCall() {
     console.log('question id', this.questionId);
@@ -217,7 +217,7 @@ export class IdcGameService {
       this.timeAlloted = data.time;
 
       if (!this.nextCall) {
-        this.stopTimer.next();
+        // this.stopTimer.next();
         this.levelInitialise.next();
         console.log('level initialise called');
       }

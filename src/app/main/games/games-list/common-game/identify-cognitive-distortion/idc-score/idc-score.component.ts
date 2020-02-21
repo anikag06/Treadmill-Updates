@@ -36,11 +36,12 @@ export class IdcScoreComponent implements OnInit, OnDestroy {
   constructor(
     private gameService: IdcGameService,
     private dialogBoxService: DialogBoxService,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.stopTimerSub = this.gameService.stopTimer.subscribe(() => {
       this.stopTimer();
+      this.gameService.timeLeft = this.timeLeft;
     });
     this.startTimerSub = this.gameService.startTimer.subscribe(() => {
       this.startTimer();
@@ -49,7 +50,8 @@ export class IdcScoreComponent implements OnInit, OnDestroy {
       this.score = this.gameService.score;
       this.timeLeft = this.gameService.timeLeft;
       this.difficultyValue = this.gameService.difficultyValue;
-      this.startTimer();
+      // this.startTimer();
+      this.gameService.resumeGame.emit();
       this.updateBadges();
       console.log('ngoninit called');
     });

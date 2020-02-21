@@ -4,20 +4,21 @@
 @import "../../../../shared/games-common.scss";
 
 .barsDiv {
-    font-size: 0.6em;
-  }
+  font-size: 12px;
+  max-width: 45px;
+}
 
-.difficulty{
-	font-size:10px;
-	color:#000000;
+.difficulty {
+  font-size: 10px;
+  color: #000000;
 }
 
 
-.difficultyBar{
-	min-height: 3.5px;
-	padding: 0.40px;
-	// border-radius: 2px;
-  	// background: rgb(89, 92, 87);
-  	// padding: 2px;
-	width: 80px;
+.difficultyBar {
+  min-height: 3.5px;
+  padding: 0.40px;
+  // border-radius: 2px;
+  // background: rgb(89, 92, 87);
+  // padding: 2px;
+  width: 72px;
 }

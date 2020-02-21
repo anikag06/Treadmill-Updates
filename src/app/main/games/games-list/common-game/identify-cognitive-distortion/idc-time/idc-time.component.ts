@@ -12,7 +12,7 @@ export class IdcTimeComponent implements OnInit {
   constructor(
     private elementRef: ElementRef,
     private gameService: IdcGameService,
-  ) {}
+  ) { }
 
   tooltipData!: any;
   idcExtraScore = 20;
@@ -28,7 +28,8 @@ export class IdcTimeComponent implements OnInit {
     this.gameService.optionStatusCount = 0;
     this.gameService.optionStatus = '';
     this.gameService.selectedCorrectOptionsSet.clear();
-    this.gameService.getUserData();
+    // this.gameService.getUserData();
+    this.gameService.resumeGame.emit();
   }
 
   addTimePlay() {

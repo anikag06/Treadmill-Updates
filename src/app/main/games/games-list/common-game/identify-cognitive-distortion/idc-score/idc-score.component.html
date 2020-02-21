@@ -15,41 +15,39 @@
   </div>
 </div>
 <div class="row mb-2 ml-0 py-2">
-  <div class="col-6">
-    <div class="row">
-      <div class="col-2 barsDiv  w-75 justify-content-start mt-1 mr-2 pr-1 pl-0">
-        <img src="../../../../../../../assets/games/cognitive-distortion-game/Gold badge symbol.svg">
 
-        {{goldNumber}}
-        <mat-progress-bar class="goldBar" mode="determinate" [value]="goldValue"></mat-progress-bar>
-      </div>
+  <div class="col-2 barsDiv  w-75 justify-content-start mt-1 pr-2 pl-0">
+    <img src="../../../../../../../assets/games/cognitive-distortion-game/Gold badge symbol.svg">
 
-
-      <div class="col-2 barsDiv w-75 justify-content-start mt-1 mr-2 pr-1 pl-0">
-        <img src="../../../../../../../assets/games/cognitive-distortion-game/Silver badge symbol.svg">
-
-        {{silverNumber}}
-        <mat-progress-bar class="silverBar" mode="determinate" [value]="silverValue"></mat-progress-bar>
-      </div>
-
-
-
-      <div class="col-2 barsDiv w-75 justify-content-start mt-1 pr-1 pl-0">
-        <img src="../../../../../../../assets/games/cognitive-distortion-game/Bronze badge symbol.svg">
-
-        {{bronzeNumber}}
-        <mat-progress-bar class="bronzeBar" mode="determinate" [value]="bronzeValue"></mat-progress-bar>
-      </div>
-    </div>
+    <span class="float-right">{{goldNumber}} </span>
+    <mat-progress-bar class="goldBar" mode="determinate" [value]="goldValue"></mat-progress-bar>
   </div>
-  <div class="col-2"></div>
 
-  <div class="col-4 barsDiv mt-1">
-    <div class="row">
+
+  <div class="col-2 barsDiv w-75 justify-content-start mt-1  pr-2 pl-0">
+    <img src="../../../../../../../assets/games/cognitive-distortion-game/Silver badge symbol.svg">
+
+    <span class="float-right"> {{silverNumber}}</span>
+    <mat-progress-bar class="silverBar" mode="determinate" [value]="silverValue"></mat-progress-bar>
+  </div>
+
+
+
+  <div class="col-2 barsDiv w-75 justify-content-start mt-1 pr-2 pl-0">
+    <img src="../../../../../../../assets/games/cognitive-distortion-game/Bronze badge symbol.svg">
+
+    <span class="float-right">{{bronzeNumber}} </span>
+    <mat-progress-bar class="bronzeBar" mode="determinate" [value]="bronzeValue"></mat-progress-bar>
+  </div>
+
+  <div class="col"></div>
+
+  <div class="col-3 pl-0 mt-1">
+    <div class="row smallest-font">
       <div class="col-6 float-left">
         <b>Easy</b>
       </div>
-      <div class="col-6 float-right">
+      <div class="col-6 pl-2 float-right">
         <b>Hard</b>
       </div>
     </div>
