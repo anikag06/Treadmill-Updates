@@ -82,4 +82,4 @@ declare let $: any;
     MatSignupDialogComponent,
   ],
 })
-export class AppModule { }
+export class AppModule {}

@@ -24,10 +24,18 @@ export const mainRoutes: Routes = [
     component: MainComponent,
     canActivateChild: [AuthGuard],
     children: [
-      { path: 'dashboard', component: DashboardComponent, data: { title: 'Hello ' } },
+      {
+        path: 'dashboard',
+        component: DashboardComponent,
+        data: { title: 'Hello ' },
+      },
       { path: 'questionnaire', component: GetQuestionnaireComponent },
-      { path: 'survey', component: SurveyComponent, }, // :id here is step_id
-      { path: 'support-groups', component: SupportGroupsComponent, data: { title: 'Support Group' } },
+      { path: 'survey', component: SurveyComponent }, // :id here is step_id
+      {
+        path: 'support-groups',
+        component: SupportGroupsComponent,
+        data: { title: 'Support Group' },
+      },
       {
         path: 'games',
         component: GamesComponent,
@@ -65,4 +73,4 @@ export const mainRoutes: Routes = [
   imports: [RouterModule.forChild(mainRoutes)],
   exports: [RouterModule],
 })
-export class MainRoutingModule { }
+export class MainRoutingModule {}

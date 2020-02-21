@@ -47,7 +47,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
   isConversation = false;
   @Input() user!: User;
 
-
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
     private notificationService: NavbarNotificationsService,
@@ -57,12 +56,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private gamePlayService: GamePlayService,
     private flowService: FlowService,
   ) {
-
-
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationStart) {
         // Show loading indicator
-
       }
 
       if (event instanceof NavigationEnd) {
@@ -81,9 +77,13 @@ export class NavbarComponent implements OnInit, OnDestroy {
           this.navbarTitle = this.gamePlayService.gameName;
         });
         this.flowService.stepDetail.subscribe(() => {
-          this.navbarTitle = this.flowService.stepGroupSequence.toString() + '.' + this.flowService.stepSequence.toString() + ' ' + this.flowService.stepName;
-
-        })
+          this.navbarTitle =
+            this.flowService.stepGroupSequence.toString() +
+            '.' +
+            this.flowService.stepSequence.toString() +
+            ' ' +
+            this.flowService.stepName;
+        });
       }
 
       if (event instanceof NavigationError) {
@@ -154,5 +154,4 @@ export class NavbarComponent implements OnInit, OnDestroy {
   //   console.log(data);
   //   this.navbarTitle = this.navbarTitleInfo[data];
   // }
-
 }

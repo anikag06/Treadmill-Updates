@@ -28,9 +28,8 @@ describe('DashboardComponent', () => {
         ThingsTodoComponent,
         ProgressComponent,
         CategorySmallComponent,
-      ]
-    })
-      .compileComponents();
+      ],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

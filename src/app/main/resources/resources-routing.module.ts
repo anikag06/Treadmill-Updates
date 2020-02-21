@@ -30,14 +30,26 @@ export const resourcesRoutes: Routes = [
     path: '',
     component: FormsComponent,
     children: [
-      { path: 'forms', component: FormsListComponent, data: { title: 'Forms' } },
+      {
+        path: 'forms',
+        component: FormsListComponent,
+        data: { title: 'Forms' },
+      },
       {
         path: 'forms/problem-solving',
         component: ProblemSolvingWorksheetsComponent,
         data: { title: 'Form' },
       },
-      { path: 'forms/tasks', component: TaskFormsComponent, data: { title: 'Form' } },
-      { path: 'forms/thought-record', component: ThoughtRecordFormComponent, data: { title: 'Form' } },
+      {
+        path: 'forms/tasks',
+        component: TaskFormsComponent,
+        data: { title: 'Form' },
+      },
+      {
+        path: 'forms/thought-record',
+        component: ThoughtRecordFormComponent,
+        data: { title: 'Form' },
+      },
       {
         path: 'forms/test-belief',
         component: ExperimentToTestBeliefFormComponent,
@@ -55,18 +67,18 @@ export const resourcesRoutes: Routes = [
       },
     ],
   },
-  { path: 'conversations', component: ConversationsComponent, },
-  { path: 'conversations-group/:id', component: ConversationGroupComponent, },
-  { path: 'slides/:id', component: SlidesComponent, }, // :id here is step_id
+  { path: 'conversations', component: ConversationsComponent },
+  { path: 'conversations-group/:id', component: ConversationGroupComponent },
+  { path: 'slides/:id', component: SlidesComponent }, // :id here is step_id
   {
     path: 'introduction',
     component: IntroductionComponent,
     children: [
-      { path: '1', component: Introduction1Component, },
-      { path: '2', component: Introduction2Component, },
-      { path: '3', component: Introduction3Component, },
-      { path: '4', component: Introduction4Component, },
-      { path: '5', component: Introduction5Component, },
+      { path: '1', component: Introduction1Component },
+      { path: '2', component: Introduction2Component },
+      { path: '3', component: Introduction3Component },
+      { path: '4', component: Introduction4Component },
+      { path: '5', component: Introduction5Component },
     ],
   },
   {
@@ -87,4 +99,4 @@ export const resourcesRoutes: Routes = [
   imports: [RouterModule.forChild(resourcesRoutes)],
   exports: [RouterModule],
 })
-export class ResourcesRoutingModule { }
+export class ResourcesRoutingModule {}

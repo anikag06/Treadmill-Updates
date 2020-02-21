@@ -375,4 +375,4 @@ import { DisableClickDirective } from '@/shared/disable-click.directive';
     ToastNotificationComponent,
   ],
 })
-export class MainModule { }
+export class MainModule {}

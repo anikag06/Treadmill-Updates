@@ -4,24 +4,30 @@ import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SurveyService {
   disableLinks = new EventEmitter();
   enableLinks = new EventEmitter();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getSurveyData(): Observable<any> {
-    return this.http.get(environment.API_ENDPOINT + '/api/v1/survey/get-questions-options/');
+    return this.http.get(
+      environment.API_ENDPOINT + '/api/v1/survey/get-questions-options/',
+    );
   }
 
   storeUserResponse(data: any): Observable<any> {
-    return this.http.post(environment.API_ENDPOINT + '/api/v1/survey/save-survey-response/', data);
+    return this.http.post(
+      environment.API_ENDPOINT + '/api/v1/survey/save-survey-response/',
+      data,
+    );
   }
 
   getSurveyTerm(): Observable<any> {
-    return this.http.get(environment.API_ENDPOINT + '/api/v1/survey/get-survey-term/');
+    return this.http.get(
+      environment.API_ENDPOINT + '/api/v1/survey/get-survey-term/',
+    );
   }
-
 }

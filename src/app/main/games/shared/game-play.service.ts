@@ -498,7 +498,7 @@ export class GamePlayService {
           this.lhGameUserLevel.level = this.lhGameColorReverse.level;
           this.gamesAuthService
             .lhGameUpdateUserLevel(this.lhGameUserLevel)
-            .subscribe(() => { });
+            .subscribe(() => {});
         }
       });
   }
@@ -528,7 +528,7 @@ export class GamePlayService {
 
     this.gamesAuthService
       .lhGameUpdateTask1Data(task1performance, isFirstLevel)
-      .subscribe(() => { });
+      .subscribe(() => {});
     console.log('task1 data', task1performance);
   }
   lhGameStoreTask2Data() {
@@ -541,7 +541,7 @@ export class GamePlayService {
 
     this.gamesAuthService
       .lhGameUpdateTask2Data(task2performance, storeTask2Data[3])
-      .subscribe(() => { });
+      .subscribe(() => {});
   }
   lhGameStoreTask3Data() {
     let storeTask3Data;
@@ -553,7 +553,7 @@ export class GamePlayService {
 
     this.gamesAuthService
       .lhGameUpdateTask3Data(task3performance, storeTask3Data[3])
-      .subscribe(() => { });
+      .subscribe(() => {});
   }
   pauseLHGame() {
     lhGamePause();
@@ -610,7 +610,7 @@ export class GamePlayService {
   restartFaceGame() {
     ffGRestartGame();
   }
-  musicFaceGame() { }
+  musicFaceGame() {}
   helpFFGGame() {
     this.dialogBoxService.setDialogChild(FfgInstructionsComponent);
     this.resumeFaceGame();

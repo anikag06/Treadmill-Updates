@@ -29,7 +29,7 @@ export class FlowStepNavigationService {
     [FORM_PROBLEM_SOLVING_WORKSHEET, 'problem-solving'],
   ]);
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   goToFlowNextStep(step: any): string {
     console.log('step outside: ', step);
@@ -75,9 +75,9 @@ export class FlowStepNavigationService {
   isNextModuleLocked(stepId: number): Observable<any> {
     return this.http.get(
       environment.API_ENDPOINT +
-      '/api/v1/flow/next-step-group-status/' +
-      stepId +
-      '/',
+        '/api/v1/flow/next-step-group-status/' +
+        stepId +
+        '/',
     );
   }
   virtualStepMarkDone(step: any, timeSpent: number) {

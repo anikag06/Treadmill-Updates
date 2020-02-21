@@ -65,12 +65,11 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
     private introduceService: IntroduceService,
     private componentFactoryResolver: ComponentFactoryResolver,
     private surveyService: SurveyService,
-  ) { }
+  ) {}
 
-  ngOnChanges() { }
+  ngOnChanges() {}
 
   ngOnInit() {
-
     const user = this.authService.isLoggedIn();
     if (user && user.is_active) {
       this.user = <User>user;
@@ -116,18 +115,15 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
     });
     this.quizService.disableLinks.subscribe((data: string) => {
       this.disableLinks(data);
-
     });
     this.quizService.enableLinks.subscribe(() => {
       this.enableLinks();
     });
   }
 
-  ngOnDestroy(): void {
-  }
+  ngOnDestroy(): void {}
 
   ngDoCheck() {
-
     this.routing = this.dataService.getOption();
     const user = this.authService.isLoggedIn();
     if (user && user.is_active) {
@@ -143,7 +139,6 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
           this.goToQuestionnaire(e);
         });
     }
-
   }
 
   onLinkClick(event: Event) {
@@ -192,5 +187,4 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
       this.showChatbot = true;
     }, 10);
   }
-
 }

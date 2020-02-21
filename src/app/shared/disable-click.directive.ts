@@ -1,13 +1,18 @@
-import { Directive, ElementRef, Renderer2, Input, HostListener } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  Renderer2,
+  Input,
+  HostListener,
+} from '@angular/core';
 
 @Directive({
-  selector: '[appDisableClick]'
+  selector: '[appDisableClick]',
 })
 export class DisableClickDirective {
   disabled!: boolean;
 
-  constructor(private el: ElementRef,
-    private renderer: Renderer2) { }
+  constructor(private el: ElementRef, private renderer: Renderer2) {}
   @Input('appDisableClick') options: any;
 
   ngDoCheck(): void {
@@ -17,8 +22,4 @@ export class DisableClickDirective {
       this.renderer.removeClass(this.el.nativeElement, 'is-disabled');
     }
   }
-
-
-
-
 }

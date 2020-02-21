@@ -11,7 +11,7 @@ export class QuizService {
   disableLinks = new EventEmitter();
   enableLinks = new EventEmitter();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   get(url: string) {
     return this.http.get(url);
