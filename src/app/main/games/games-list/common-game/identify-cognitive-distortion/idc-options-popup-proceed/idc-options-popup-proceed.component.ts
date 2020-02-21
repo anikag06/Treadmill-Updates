@@ -24,7 +24,7 @@ export class IdcOptionsPopupProceedComponent implements OnInit {
       this.displayButton = 'Done';
     }
   }
-  ngOnInit() { }
+  ngOnInit() {}
   closePopup() {
     const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });
     this.element.nativeElement.dispatchEvent(domEvent);

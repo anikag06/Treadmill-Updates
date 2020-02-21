@@ -45,7 +45,7 @@ export class IdcOptionsComponent implements OnInit {
   constructor(
     private gameService: IdcGameService,
     private dialogBoxService: DialogBoxService,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.optionsCall();
@@ -55,14 +55,11 @@ export class IdcOptionsComponent implements OnInit {
       this.optionStatusCount = this.gameService.optionStatusCount;
       console.log('ELEMENT', this.element);
       this.errorBarWidth = Math.floor(200 / this.correct.length);
-      const button = this.element.nativeElement.querySelectorAll(
-        'button'
-      );
+      const button = this.element.nativeElement.querySelectorAll('button');
       console.log('BUTTON', button);
       for (let i = button.length - 1; i >= 0; i--) {
         button[i].classList.remove('correctOption');
         button[i].classList.remove('incorrectOption');
-
       }
       console.log('option status', this.optionStatusCount);
     });
@@ -101,7 +98,6 @@ export class IdcOptionsComponent implements OnInit {
         this.correctOptionFound = 1;
         this.gameService.score += 10;
         this.gameService.numCorrectAnswers += 1;
-
       } else {
         event.target.classList.add('incorrectOption');
       }

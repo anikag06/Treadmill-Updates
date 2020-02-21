@@ -12,7 +12,7 @@ export class IdcTimeComponent implements OnInit {
   constructor(
     private elementRef: ElementRef,
     private gameService: IdcGameService,
-  ) { }
+  ) {}
 
   tooltipData!: any;
   idcExtraScore = 20;

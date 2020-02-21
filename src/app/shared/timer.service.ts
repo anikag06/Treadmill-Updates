@@ -5,35 +5,29 @@ import { AuthService } from '@/shared/auth/auth.service';
 export class TimerService {
   constructor(private authservice: AuthService) {}
 
-    constructor (private authservice: AuthService) {
-    }
+  seconds!: number;
+  startTime!: Date;
+  endTime!: any;
+  sum = 0;
+  i = false;
+  onunload = 0;
+  online!: any;
+  timeSum = 0;
 
-
-
-    seconds!: number;
-    startTime!: Date;
-    endTime!: any;
-    sum = 0;
-    i = false;
-    onunload = 0;
-    online!: any;
-    timeSum = 0;
-
-
-    tick() {
-        if (document.visibilityState === 'visible') {
-            this.startTime = new Date();
-            this.i = true;
-        } else {
-            this.endTime = new Date();
-            if (this.i === false) {
-                this.sum = this.endTime.getTime() - this.startTime.getTime();
-            }
-            console.log(this.endTime);
-            if (this.i === true) {
-                this.sum = this.sum + (this.endTime.getTime() - this.startTime.getTime());
-            }
-        }
+  tick() {
+    if (document.visibilityState === 'visible') {
+      this.startTime = new Date();
+      this.i = true;
+    } else {
+      this.endTime = new Date();
+      if (this.i === false) {
+        this.sum = this.endTime.getTime() - this.startTime.getTime();
+      }
+      console.log(this.endTime);
+      if (this.i === true) {
+        this.sum =
+          this.sum + (this.endTime.getTime() - this.startTime.getTime());
+      }
     }
   }
 
@@ -59,28 +53,26 @@ export class TimerService {
     return this.onunload;
   }
 
-    internet_check() {
-        this.online = this.authservice.returnOnline();
-        this.online.subscribe((f: any) => {
-            if (f === false) {
-                console.log('no internet connection');
-            } else {
-                console.log('you are connected');
-            }
-        }
-        );
-    }
+  internet_check() {
+    this.online = this.authservice.returnOnline();
+    this.online.subscribe((f: any) => {
+      if (f === false) {
+        console.log('no internet connection');
+      } else {
+        console.log('you are connected');
+      }
+    });
+  }
 
-    showTime(question_no: number, startTime: Date) {
-        const now = new Date();
-        const timeDiff = now.getTime() - startTime.getTime();
-        question_no >= 0
-            ? (this.seconds = timeDiff - this.timeSum)
-            : (this.seconds = timeDiff);
-        this.seconds = this.seconds;
-        this.timeSum = timeDiff;
-        console.log('Question no, Time', question_no + 1, this.seconds);
-        return this.seconds;
-    }
-
+  showTime(question_no: number, startTime: Date) {
+    const now = new Date();
+    const timeDiff = now.getTime() - startTime.getTime();
+    question_no >= 0
+      ? (this.seconds = timeDiff - this.timeSum)
+      : (this.seconds = timeDiff);
+    this.seconds = this.seconds;
+    this.timeSum = timeDiff;
+    console.log('Question no, Time', question_no + 1, this.seconds);
+    return this.seconds;
+  }
 }
