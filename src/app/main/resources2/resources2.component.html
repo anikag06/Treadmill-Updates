@@ -1,0 +1,40 @@
+<!--*ngIf="!notOn; else elseblock"-->
+<div class="container"  *ngIf="outlet.isActivated == false">
+
+  <div class="row">
+    <div class="col">
+
+
+
+     <p class="heading">Videos</p>
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col" *ngFor = "let videoItem of videoItems" >
+
+      <app-videos [videoItem]="videoItem" (click) = "videoClick(videoItem)" ></app-videos>
+
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <p class="heading">Reading Material</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col" *ngFor = "let readingItem of readingItem">
+      <app-reading-material [readingItem]="readingItem"></app-reading-material>
+    </div>
+  </div>
+
+</div>
+<!--<ng-template #elseblock>-->
+<div class="container">
+<router-outlet  #outlet="outlet"></router-outlet>
+
+</div>
+<!--</ng-template>-->
+
+
