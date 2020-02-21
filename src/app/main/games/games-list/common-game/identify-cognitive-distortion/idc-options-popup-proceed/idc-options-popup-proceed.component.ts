@@ -24,7 +24,7 @@ export class IdcOptionsPopupProceedComponent implements OnInit {
       this.displayButton = 'Done';
     }
   }
-  ngOnInit() {}
+  ngOnInit() { }
   closePopup() {
     const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });
     this.element.nativeElement.dispatchEvent(domEvent);
@@ -34,6 +34,7 @@ export class IdcOptionsPopupProceedComponent implements OnInit {
       }
       this.gameService.extraTimeTaken = false;
       this.gameService.updateUserData();
+      // check level order manually set here
       if (this.gameService.levelOrder === 6) {
         this.gameService.questionId = 0;
         this.gameService.getGameData();
@@ -43,7 +44,9 @@ export class IdcOptionsPopupProceedComponent implements OnInit {
       }
       this.openWinPopup();
     } else {
-      this.gameService.startTimer.emit();
+      this.gameService.resumeGame.emit();
+      console.log('TIME LEFT', this.gameService.timeLeft);
+      // this.gameService.startTimer.emit();
     }
   }
 
