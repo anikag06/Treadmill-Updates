@@ -15,7 +15,7 @@ import { AuthService } from '@/shared/auth/auth.service';
 import { User } from '@/shared/user.model';
 import { NavigationStart, Router } from '@angular/router';
 import { DEFAULT_PATH, SHOW_TOAST_DURATION } from '@/app.constants';
-import { MatDrawer } from '@angular/material';
+import { MatDrawer, MatTooltip } from '@angular/material';
 import { DataService } from '@/shared/questionnaire/data.service';
 import { FcmService } from '@/shared/fcm.service';
 import { QuizService } from '@/shared/questionnaire/questionnaire.service';
@@ -24,6 +24,7 @@ import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { IntroduceComponent } from './shared/introduce/introduce.component';
 import { IntroduceService } from './shared/introduce/introduce.service';
+import { SurveyService } from './shared/survey.service';
 import { ToastNotificationDirective } from '@/shared/toast-notification/toast-notification.directive';
 import { ToastNotificationComponent } from '@/shared/toast-notification/toast-notification.component';
 
@@ -38,8 +39,12 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
   user!: User;
   routing!: boolean;
   overlayRef!: OverlayRef;
+  tooltipData!: any;
+  isDisabled = false;
+  showChatbot = true;
 
   @ViewChild('drawer', { static: true }) drawer!: MatDrawer;
+  @ViewChild('tooltip', { static: false }) showToolTip!: MatTooltip;
 
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe([Breakpoints.Handset, Breakpoints.Small])
@@ -59,11 +64,13 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
     private overlay: Overlay,
     private introduceService: IntroduceService,
     private componentFactoryResolver: ComponentFactoryResolver,
-  ) {}
+    private surveyService: SurveyService,
+  ) { }
 
-  ngOnChanges() {}
+  ngOnChanges() { }
 
   ngOnInit() {
+
     const user = this.authService.isLoggedIn();
     if (user && user.is_active) {
       this.user = <User>user;
@@ -100,7 +107,27 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
     });
   }
 
+  ngAfterContentInit(): void {
+    this.surveyService.disableLinks.subscribe((data: string) => {
+      this.disableLinks(data);
+    });
+    this.surveyService.enableLinks.subscribe(() => {
+      this.enableLinks();
+    });
+    this.quizService.disableLinks.subscribe((data: string) => {
+      this.disableLinks(data);
+
+    });
+    this.quizService.enableLinks.subscribe(() => {
+      this.enableLinks();
+    });
+  }
+
+  ngOnDestroy(): void {
+  }
+
   ngDoCheck() {
+
     this.routing = this.dataService.getOption();
     const user = this.authService.isLoggedIn();
     if (user && user.is_active) {
@@ -116,6 +143,7 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
           this.goToQuestionnaire(e);
         });
     }
+
   }
 
   onLinkClick(event: Event) {
@@ -142,4 +170,27 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
     const portal = new ComponentPortal(IntroduceComponent);
     this.overlayRef.attach(portal);
   }
+
+  tooltipShow() {
+    console.log('tooltip');
+    this.showToolTip.toggle();
+  }
+
+  disableLinks(data: string) {
+    setTimeout(() => {
+      this.isDisabled = true;
+      this.showToolTip.disabled = false;
+      this.showChatbot = false;
+      this.tooltipData = data;
+    }, 10);
+  }
+
+  enableLinks() {
+    setTimeout(() => {
+      this.isDisabled = false;
+      this.showToolTip.disabled = true;
+      this.showChatbot = true;
+    }, 10);
+  }
+
 }

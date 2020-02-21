@@ -1,4 +1,4 @@
-<div class="d-flex flex-row post-item no-gutters">
+<div class="d-flex flex-row post-item no-gutters" #container>
 
   <div class=" d-inline-flex flex-column align-items-start">
 
@@ -16,10 +16,10 @@
     (click)="onPostClick(suggestedPost.id)">
 
     <div class="main-header">
-      <h2>{{suggestedPost.title}}</h2>
+      <h2 [style.max-width]="container.offsetWidth - 100 + 'px'">{{suggestedPost.title }}</h2>
     </div>
     <div class="post-body">
-      {{suggestedPost.body}}
+      {{suggestedPost.body | trimString:bodyLength }}
     </div>
   </div>
 

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { FLOW_STEP_MARK_DONE, FLOW_STEPS_DATA } from '@/app.constants';
@@ -14,6 +14,10 @@ export class FlowService {
   introduceBehaviour = new BehaviorSubject(false);
   loadBehaviour = new BehaviorSubject(true);
   unlockModuleTime = new BehaviorSubject(0);
+  stepDetail = new EventEmitter<any>();
+  stepSequence = 0;
+  stepGroupSequence = 0;
+  stepName = '';
 
   constructor(
     private http: HttpClient,

@@ -19,7 +19,8 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   // get this value from db
   eligible!: boolean;
 
-  constructor(private auth: AuthService, private router: Router) {}
+
+  constructor(private auth: AuthService, private router: Router) { }
 
   canActivate(
     next: ActivatedRouteSnapshot,
@@ -30,6 +31,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     | boolean
     | UrlTree {
     console.log('can activate', this.auth.isLoggedIn(), this.eligible);
+
     this.eligible = !this.auth.isUserExcluded;
     if (!this.auth.isLoggedIn() && !this.eligible) {
       console.log('navigate to:', INELIGIBLE_FOR_TRIAL);
@@ -51,7 +53,8 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    console.log('can activate child', this.auth.isLoggedIn(), this.eligible);
+    console.log('can activate child', this.auth.isLoggedIn(), this.eligible, next, next.data);
+    this.auth.navbarTitle = next.data.title;
     this.eligible = !this.auth.isUserExcluded;
     if (!this.auth.isLoggedIn() && !this.eligible) {
       console.log('navigate to:', INELIGIBLE_FOR_TRIAL);

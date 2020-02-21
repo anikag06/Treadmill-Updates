@@ -13,12 +13,18 @@ export class SuggestedPostItemComponent implements OnInit {
     private sgService: SupportGroupsService,
     private route: ActivatedRoute,
     private router: Router,
-  ) {}
+  ) { }
 
   @Input() suggestedPost!: SuggestedPost;
   id!: number;
+  bodyLength = 60;
 
-  ngOnInit() {}
+  ngOnInit() {
+
+  }
+  ngAfterViewInit(): void {
+
+  }
 
   onPostClick(id: number) {
     // console.log(id);

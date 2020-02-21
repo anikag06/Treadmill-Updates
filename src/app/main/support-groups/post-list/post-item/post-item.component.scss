@@ -149,25 +149,26 @@ a.toggler:hover {
 }
 
 
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 1367px) {
   .post-item {
     .support-profile-card {
       margin-left: 110px;
       max-height: 340px;
-      max-width: 600px;
-      min-width: 590px;
+      max-width: 500px;
+      min-width: 490px;
     }
   }
 }
 
-@media screen and (min-width: 768px) and (max-width: 1199px) {
+@media screen and (min-width: 768px) and (max-width: 1366px) {
   .post-item {
     .support-profile-card {
       max-height: 280px;
       left: 30px;
       width: 75%;
-      max-width: 650px;
+      max-width: 400px;
       margin-left: 85px;
+      min-width: 390px;
     }
   }
 }
@@ -181,9 +182,11 @@ a.toggler:hover {
 
   .post-item {
     .support-profile-card {
-      max-width: 450px;
+      max-width: 350px;
+      min-width: 340px;
       left: 100px;
       max-height: 261px;
+      margin-left: 10px;
     }
   }
 }
@@ -213,8 +216,9 @@ a.toggler:hover {
     }
 
     .support-profile-card {
-      width: 100%;
-      margin-left: 0;
+      width: 96vw;
+      margin-left: 10px;
+      margin-top: 15px;
       left: 10px;
     }
   }

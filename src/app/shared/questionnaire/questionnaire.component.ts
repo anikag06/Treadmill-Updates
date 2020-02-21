@@ -7,6 +7,7 @@ import { environment } from 'environments/environment';
 // tslint:disable-next-line:max-line-length
 // import { User } from '@/shared/user.model';
 import {
+  useAnimation,
   trigger,
   transition,
   animate,
@@ -35,6 +36,9 @@ import {
   DEFAULT_PATH,
 } from '@/app.constants';
 import { AuthService } from '../auth/auth.service';
+import { incrementAnimation, decrementAnimation, enterAnimation, enterSubmitAnimation } from '../animations';
+import { TimerService } from '../timer.service';
+
 
 @Component({
   animations: [
@@ -43,22 +47,24 @@ import { AuthService } from '../auth/auth.service';
         ':decrement',
         // tslint:disable-next-line:max-line-length
         [
-          style({ opacity: 0, transform: 'translateX(-26%)' }),
-          animate(
-            '200ms ease-in-out',
-            style({ opacity: 1, transform: 'translateX(0%)' }),
-          ),
+          // style({ opacity: 0, transform: 'translateX(-26%)' }),
+          // animate(
+          //   '200ms ease-in-out',
+          //   style({ opacity: 1, transform: 'translateX(0%)' }),
+          // ),
+          useAnimation(decrementAnimation)
         ],
       ),
       transition(
         ':increment',
         // tslint:disable-next-line:max-line-length
         [
-          style({ opacity: 0, transform: 'translateX(26%)' }),
-          animate(
-            '200ms ease-in-out',
-            style({ opacity: 1, transform: 'translateX(0%)' }),
-          ),
+          // style({ opacity: 0, transform: 'translateX(26%)' }),
+          // animate(
+          //   '200ms ease-in-out',
+          //   style({ opacity: 1, transform: 'translateX(0%)' }),
+          // ),
+          useAnimation(incrementAnimation)
         ],
       ),
     ]),
@@ -68,11 +74,12 @@ import { AuthService } from '../auth/auth.service';
 
       // fade in when created. this could also be written as transition('void => *')
       transition(':enter', [
-        style({ opacity: 0, transform: 'translateX(50%)' }),
-        animate(
-          '1000ms ease-in-out',
-          style({ opacity: 1, transform: 'translateX(0%)' }),
-        ),
+        // style({ opacity: 0, transform: 'translateX(50%)' }),
+        // animate(
+        //   '1000ms ease-in-out',
+        //   style({ opacity: 1, transform: 'translateX(0%)' }),
+        // ),
+        useAnimation(enterAnimation)
       ]),
     ]),
     trigger('submit_animation', [
@@ -81,11 +88,12 @@ import { AuthService } from '../auth/auth.service';
 
       // fade in when created. this could also be written as transition('void => *')
       transition(':enter', [
-        style({ opacity: 1, transform: 'translateX(50%)' }),
-        animate(
-          '200ms ease-in-out',
-          style({ opacity: 1, transform: 'translateX(0%)' }),
-        ),
+        // style({ opacity: 1, transform: 'translateX(50%)' }),
+        // animate(
+        //   '200ms ease-in-out',
+        //   style({ opacity: 1, transform: 'translateX(0%)' }),
+        // ),
+        useAnimation(enterSubmitAnimation)
       ]),
     ]),
   ],
@@ -129,6 +137,7 @@ export class QuestionnaireComponent implements OnInit {
   see1!: boolean;
   see2!: boolean;
   see3!: boolean;
+  data = 'Please complete the questionnaire before leaving the page.';
 
   api = [
     environment.API_ENDPOINT + GET_PHQ_QUESTIONS,
@@ -163,7 +172,8 @@ export class QuestionnaireComponent implements OnInit {
     private trialAuthService: TrialAuthService,
     private registrationDataService: RegistrationDataService,
     private authService: AuthService,
-  ) {}
+    private timerService: TimerService,
+  ) { }
 
   ngOnInit() {
     console.log(this.quizService.questinnaire_name);
@@ -185,6 +195,7 @@ export class QuestionnaireComponent implements OnInit {
   }
 
   loadQuiz() {
+    this.quizService.disableLinks.emit(this.data);
     console.log('load quiz', this.api[this.index]);
     this.quizService.get(this.api[this.index]).subscribe((res: any) => {
       console.log(res);
@@ -205,6 +216,7 @@ export class QuestionnaireComponent implements OnInit {
     if (this.id) {
       clearInterval(this.id);
     }
+    this.quizService.enableLinks.emit();
   }
 
   display() {
@@ -239,16 +251,16 @@ export class QuestionnaireComponent implements OnInit {
     }
   }
 
-  tick() {
-    const now = new Date();
-    const diff = now.getTime() - this.startTime.getTime();
-    this.question_no >= 0
-      ? (this.seconds = diff - this.sum)
-      : (this.seconds = diff);
-    this.seconds = this.seconds;
-    this.sum = diff;
-    return this.seconds;
-  }
+  // tick() {
+  //   const now = new Date();
+  //   const diff = now.getTime() - this.startTime.getTime();
+  //   this.question_no >= 0
+  //     ? (this.seconds = diff - this.sum)
+  //     : (this.seconds = diff);
+  //   this.seconds = this.seconds;
+  //   this.sum = diff;
+  //   return this.seconds;
+  // }
 
   IsDisabled() {
     this.visible = false;
@@ -279,8 +291,8 @@ export class QuestionnaireComponent implements OnInit {
     // tslint:disable-next-line:max-line-length
     this.time[this.question_no] > 0
       ? (this.time[this.question_no] =
-          this.time[this.question_no] + this.tick())
-      : (this.time[this.question_no] = this.tick());
+        this.time[this.question_no] + this.timerService.showTime(this.question_no, this.startTime))
+      : (this.time[this.question_no] = this.timerService.showTime(this.question_no, this.startTime));
     setTimeout(() => {
       this.IsDisabled();
       this.answered[this.question_no] = true;
@@ -319,8 +331,8 @@ export class QuestionnaireComponent implements OnInit {
     // tslint:disable-next-line:max-line-length
     this.time[this.question_no] > 0
       ? (this.time[this.question_no] =
-          this.time[this.question_no] + this.tick())
-      : (this.time[this.question_no] = this.tick());
+        this.time[this.question_no] + this.timerService.showTime(this.question_no, this.startTime))
+      : (this.time[this.question_no] = this.timerService.showTime(this.question_no, this.startTime));
     setTimeout(() => {
       this.IsDisabled();
       this.answered[this.question_no] = true;
@@ -359,8 +371,8 @@ export class QuestionnaireComponent implements OnInit {
     // tslint:disable-next-line:max-line-length
     this.time[this.question_no] > 0
       ? (this.time[this.question_no] =
-          this.time[this.question_no] + this.tick())
-      : (this.time[this.question_no] = this.tick());
+        this.time[this.question_no] + this.timerService.showTime(this.question_no, this.startTime))
+      : (this.time[this.question_no] = this.timerService.showTime(this.question_no, this.startTime));
     setTimeout(() => {
       this.IsDisabled();
       this.answered[this.question_no] = true;
@@ -399,8 +411,8 @@ export class QuestionnaireComponent implements OnInit {
     // tslint:disable-next-line:max-line-length
     this.time[this.question_no] > 0
       ? (this.time[this.question_no] =
-          this.time[this.question_no] + this.tick())
-      : (this.time[this.question_no] = this.tick());
+        this.time[this.question_no] + this.timerService.showTime(this.question_no, this.startTime))
+      : (this.time[this.question_no] = this.timerService.showTime(this.question_no, this.startTime));
     setTimeout(() => {
       this.IsDisabled();
       this.answered[this.question_no] = true;
@@ -436,8 +448,8 @@ export class QuestionnaireComponent implements OnInit {
       // tslint:disable-next-line:max-line-length
       this.time[this.question_no] > 0
         ? (this.time[this.question_no] =
-            this.time[this.question_no] + this.tick())
-        : (this.time[this.question_no] = this.tick());
+          this.time[this.question_no] + this.timerService.showTime(this.question_no, this.startTime))
+        : (this.time[this.question_no] = this.timerService.showTime(this.question_no, this.startTime));
       this.question_no > 0
         ? (this.question_no = this.question_no - 1)
         : (this.question_no = this.question_no);
@@ -461,8 +473,8 @@ export class QuestionnaireComponent implements OnInit {
     // tslint:disable-next-line:max-line-length
     this.time[this.question_no] > 0
       ? (this.time[this.question_no] =
-          this.time[this.question_no] + this.tick())
-      : (this.time[this.question_no] = this.tick());
+        this.time[this.question_no] + this.timerService.showTime(this.question_no, this.startTime))
+      : (this.time[this.question_no] = this.timerService.showTime(this.question_no, this.startTime));
     this.question_no === this.total_question
       ? (this.submit = true)
       : (this.submit = false);
@@ -478,8 +490,8 @@ export class QuestionnaireComponent implements OnInit {
     // tslint:disable-next-line:max-line-length
     this.time[this.question_no] > 0
       ? (this.time[this.question_no] =
-          this.time[this.question_no] + this.tick())
-      : (this.time[this.question_no] = this.tick());
+        this.time[this.question_no] + this.timerService.showTime(this.question_no, this.startTime))
+      : (this.time[this.question_no] = this.timerService.showTime(this.question_no, this.startTime));
     this.see0 = this.disabled.option_0[this.question_no];
     this.see1 = this.disabled.option_1[this.question_no];
     this.see2 = this.disabled.option_2[this.question_no];

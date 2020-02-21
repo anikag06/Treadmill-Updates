@@ -1,7 +1,9 @@
 <div class="app-navbar">
   <div class="row">
-    <div class="col-6">
-      <h1>{{navbarTitle}}</h1>
+    <div class="col-6 d-flex navbar-title align-items-center">
+      <h1 [ngClass]="{'conv-title': isConversation===true, 
+      'navbar-title': isConversation===false }">{{navbarTitle}}<span class="navbar-title"
+          *ngIf="isDashboard || isConversation">{{user.username}}</span></h1>
     </div>
     <div class="col-6">
       <div class="all-icons">
@@ -9,13 +11,9 @@
                     <img src="assets/shared/notification.svg" alt="Flow">
                 </div> -->
         <div *ngIf="user.is_exp">
-          <div
-            class="icon-items"
-            (menuClosed)="notificationClick()"
-            (menuOpened)="notificationClick()"
-            [matMenuTriggerFor]="appNavBarNotify"
-          >
-            <img src="assets/shared/notification.svg" alt="Flow" />
+          <div class="icon-items" (menuClosed)="notificationClick()" (menuOpened)="notificationClick()"
+            [matMenuTriggerFor]="appNavBarNotify">
+            <img src="assets/shared/Notification.png" height=" 40px" width="40px" alt="Flow">
           </div>
           <div class="unread-count" *ngIf="unreadCount > 0">
             <span *ngIf="unreadCount < 100; else manyMore">{{
@@ -27,35 +25,40 @@
         <!-- <div class='icon-items' (click)="flowClick()">
                     <img src="assets/shared/flow.svg" alt="Flow">
                 </div> -->
-        <div
-          class="icon-items"
-          (menuClosed)="flowClick($event)"
-          (menuOpened)="flowClick($event)"
-          [matMenuTriggerFor]="appNavBarFlow"
-        >
-          <img src="assets/shared/flow.svg" alt="Flow" />
+        <div class="icon-items" (menuClosed)="flowClick($event)" (menuOpened)="flowClick($event)"
+          [matMenuTriggerFor]="appNavBarFlow">
+          <img src="assets/shared/Flow.png" height=" 40px" width="40px" alt="Flow">
+        </div>
+      </div>
+      <div class="all-icons-mobile">
+        <div class="d-flex flex-row-reverse">
+          <div *ngIf="user.is_exp">
+            <div class="icon-items" (menuClosed)="notificationClick()" (menuOpened)="notificationClick()"
+              [matMenuTriggerFor]="appNavBarNotify">
+              <img src="assets/shared/Notification mobile.png" height=" 24px" width="24px" alt="Flow" />
+            </div>
+            <div class="unread-count" *ngIf="unreadCount > 0">
+              <span *ngIf="unreadCount < 100; else manyMore">{{
+              unreadCount
+            }}</span>
+            </div>
+          </div>
+          <div class="icon-items" (menuClosed)="flowClick($event)" (menuOpened)="flowClick($event)"
+            [matMenuTriggerFor]="appNavBarFlow">
+            <img src="assets/shared/Flow mobile.png" height=" 24px" width="24px" alt="Flow" />
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <mat-menu
-    #appNavBarFlow="matMenu"
-    xPosition="before"
-    yPosition="below"
-    class="navBarPanelClass"
-  >
+  <mat-menu #appNavBarFlow="matMenu" xPosition="before" yPosition="below" class="navBarPanelClass">
     <div class="row w-100 h-100 px-0 mx-0 " (click)="$event.stopPropagation()">
       <div appNavbarFlow></div>
     </div>
   </mat-menu>
 
-  <mat-menu
-    #appNavBarNotify="matMenu"
-    class="navBarPanelClass"
-    xPosition="before"
-    yPosition="below"
-  >
+  <mat-menu #appNavBarNotify="matMenu" class="navBarPanelClass" xPosition="before" yPosition="below">
     <div class="row w-100 h-100 px-0 mx-0" (click)="$event.stopPropagation()">
       <div appNavbarNotification></div>
     </div>

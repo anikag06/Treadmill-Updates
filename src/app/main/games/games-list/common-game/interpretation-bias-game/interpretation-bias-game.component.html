@@ -126,11 +126,12 @@
         <!-- CONTROLS -->
         <div class="row h-100 changes-width justify-content-end">
           <mat-menu #ibgHints="matMenu" xPosition="after" yPosition="above">
-            <div class="hints-menu h-100" [ngStyle]="{'max-width': '250px', 'min-width': '200px', 'max-height': '50vh'}"
-              (click)="forTooltip($event);">
+            <div class="hints-menu h-100"
+              [ngStyle]="{'max-width': '250px', 'min-width': '200px', 'max-height': '50vh'}">
 
               <button id="showWord" *ngIf="showAllHints" [ngStyle]="{'min-height': '65px'}"
-                class="btn-hint px-2 showWord w-100 btn bg-white text-center small-font">
+                class="btn-hint px-2 showWord w-100 btn bg-white text-center small-font" #tooltip="matTooltip"
+                matTooltipDisabled matTooltip={{tooltipData}}>
                 Show a word<br>
                 <span id="showWordCost" class="w-100 smallest-font text-secondary">
                   Cost: {{wordHintCost}}points

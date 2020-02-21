@@ -114,6 +114,10 @@ export class CommonGameComponent implements OnInit {
           this.game = <Game>game;
           this.gameName = this.game.name;
           console.log(this.gameName);
+          this.gamePlayService.gameName = this.gameName;
+          console.log(this.gamePlayService.gameName);
+          this.gamePlayService.gameTitle.emit();
+
           if (this.gameName === EXECUTIVE_CONTROL_GAME) {
             this.isExecutiveControl = true;
             this.portraitGame = false;

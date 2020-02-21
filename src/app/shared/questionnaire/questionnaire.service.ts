@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { QuesUserResponseArray } from './input/response';
 import { environment } from 'environments/environment';
@@ -8,8 +8,10 @@ import { USER_PHQ_DATA, USER_GAD_DATA, USER_SIQ_DATA } from '@/app.constants';
 export class QuizService {
   questionnaireActive = false;
   questinnaire_name!: string;
+  disableLinks = new EventEmitter();
+  enableLinks = new EventEmitter();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   get(url: string) {
     return this.http.get(url);

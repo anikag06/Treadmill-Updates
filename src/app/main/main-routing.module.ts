@@ -3,9 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuard } from '@/shared/auth/auth.guard';
 import { SupportGroupsComponent } from './support-groups/support-groups.component';
-import { ModulesComponent } from './modules/modules.component';
-import { ModuleDetailComponent } from './modules/module-detail/module-detail.component';
-import { ModuleListComponent } from './modules/module-list/module-list.component';
 import { GamesComponent } from './games/games.component';
 import { GamesListComponent } from './games/games-list/games-list.component';
 import { LogoutComponent } from '@/shared/auth/logout/logout.component';
@@ -19,6 +16,7 @@ import { CommonGameComponent } from './games/games-list/common-game/common-game.
 import { ConversationsComponent } from './resources/conversation-group/conversations/conversations.component';
 import { ConversationGroupComponent } from './resources/conversation-group/conversation-group.component';
 import { GetQuestionnaireComponent } from './dashboard/get-questionnaire/get-questionnaire.component';
+import { SurveyComponent } from './shared/survey/survey.component';
 
 export const mainRoutes: Routes = [
   {
@@ -26,21 +24,14 @@ export const mainRoutes: Routes = [
     component: MainComponent,
     canActivateChild: [AuthGuard],
     children: [
-      { path: 'dashboard', component: DashboardComponent },
+      { path: 'dashboard', component: DashboardComponent, data: { title: 'Hello ' } },
       { path: 'questionnaire', component: GetQuestionnaireComponent },
-      { path: 'support-groups', component: SupportGroupsComponent },
-      {
-        path: 'modules',
-        component: ModulesComponent,
-        canActivateChild: [AuthGuard],
-        children: [
-          { path: ':name', component: ModuleDetailComponent },
-          { path: '', component: ModuleListComponent },
-        ],
-      },
+      { path: 'survey', component: SurveyComponent, }, // :id here is step_id
+      { path: 'support-groups', component: SupportGroupsComponent, data: { title: 'Support Group' } },
       {
         path: 'games',
         component: GamesComponent,
+        data: { title: 'Games' },
         children: [
           { path: '', component: GamesListComponent },
           // { path: 'interpretationbias', component: InterpretationBiasGameComponent},
@@ -50,6 +41,7 @@ export const mainRoutes: Routes = [
       {
         path: 'scores',
         component: ScoreComponent,
+        data: { title: 'Questionnaire Scores' },
         children: [
           { path: 'phq', component: PhqNineComponent },
           { path: 'gad', component: GadSevenComponent },
@@ -73,4 +65,4 @@ export const mainRoutes: Routes = [
   imports: [RouterModule.forChild(mainRoutes)],
   exports: [RouterModule],
 })
-export class MainRoutingModule {}
+export class MainRoutingModule { }

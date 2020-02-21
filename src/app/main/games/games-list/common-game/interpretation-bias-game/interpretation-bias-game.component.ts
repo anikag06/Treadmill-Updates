@@ -130,7 +130,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
     private element: ElementRef,
     private matPropertyService: GameMatPropertyService,
     private loadFileService: LoadFilesService,
-  ) {}
+  ) { }
 
   @HostListener('window:iBGameSentenceDialogFun')
   showSentence() {
@@ -160,7 +160,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
         this.btn_give_up_score = ibg_btn_give_up_score;
         this.btn_other_sentence_score = ibg_btn_other_sentence_score;
       })
-      .catch(() => {});
+      .catch(() => { });
 
     // do not delete this (this.findValidSentence()) function, it is important
     // this.findValidSentence();        // this function is used to check if sentences in database are valid for generation of letters grid
@@ -320,7 +320,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
           this.updateBadgesValue();
           this.difficultyBarUpdate();
         },
-        error => {},
+        error => { },
       );
     this.storeUserResponse();
   }
@@ -343,8 +343,8 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
     this.gameAuthService
       .ibGameStoreUserResponseInfo(this.IBGameUserResponse)
       .subscribe(
-        data => {},
-        error => {},
+        data => { },
+        error => { },
       );
   }
 
@@ -435,9 +435,9 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   }
 
   forTooltip($event: any) {
-    $event.stopPropagation();
+    // $event.stopPropagation();
     //Another instructions
-    this.tooltipShow();
+    // this.tooltipShow();
   }
   tooltipShow() {
     if (this.showToolTip.disabled) {

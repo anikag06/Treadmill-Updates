@@ -2,22 +2,15 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ChartsModule } from 'ng2-charts';
 
-import { ModulesComponent } from '@/main/modules/modules.component';
 import { DashboardComponent } from '@/main/dashboard/dashboard.component';
-import { ModuleDetailComponent } from './modules/module-detail/module-detail.component';
-import { ModuleItemComponent } from './modules/module-list/module-item/module-item.component';
-import { ModuleOverviewComponent } from './modules/module-list/module-overview/module-overview.component';
-import { ModuleListComponent } from './modules/module-list/module-list.component';
 import { CategorySmallComponent } from './shared/category-small/category-small.component';
 import { LocalStorageService } from '../shared/localstorage.service';
-import { CategoryBigComponent } from './modules/module-detail/category-big/category-big.component';
-import { SectionCardComponent } from './modules/module-detail/section-card/section-card.component';
 import { MainComponent } from './main.component';
 import { LogoutComponent } from '../shared/auth/logout/logout.component';
 import { ProgressComponent } from './dashboard/progress/progress.component';
-import { CurrentModuleComponent } from './dashboard/current-module/current-module.component';
 import { ThingsTodoComponent } from './dashboard/things-todo/things-todo.component';
 import { TimeAgoPipe } from '../shared/time-ago.pipe';
+import { TrimStringPipe } from './shared/trim-string.pipe';
 import { ChatbotAvatarComponent } from './dashboard/chatbot-avatar/chatbot-avatar.component';
 import { GamesComponent } from './games/games.component';
 import { GamesListComponent } from './games/games-list/games-list.component';
@@ -176,22 +169,18 @@ import { InfiniteScrollDirective } from './shared/infinite-scroll/infinite-scrol
 import { LazyLoadingImageDirective } from './shared/lazy-loading-image/lazy-loading-image.directive';
 import { ToastNotificationComponent } from '@/shared/toast-notification/toast-notification.component';
 import { ToastNotificationDirective } from '@/shared/toast-notification/toast-notification.directive';
+import { SurveyComponent } from './shared/survey/survey.component';
+import { SurveyService } from './shared/survey.service';
+import { DisableClickDirective } from '@/shared/disable-click.directive';
 
 @NgModule({
   declarations: [
-    ModulesComponent,
-    ModuleDetailComponent,
-    ModuleItemComponent,
-    ModuleOverviewComponent,
-    ModuleListComponent,
     CategorySmallComponent,
-    CategoryBigComponent,
-    SectionCardComponent,
     LogoutComponent,
     ProgressComponent,
-    CurrentModuleComponent,
     ThingsTodoComponent,
     TimeAgoPipe,
+    TrimStringPipe,
     ChatbotAvatarComponent,
     GamesComponent,
     GamesListComponent,
@@ -283,6 +272,8 @@ import { ToastNotificationDirective } from '@/shared/toast-notification/toast-no
     InfiniteScrollDirective,
     ToastNotificationComponent,
     ToastNotificationDirective,
+    SurveyComponent,
+    DisableClickDirective,
   ],
   imports: [
     CommonModule,
@@ -347,6 +338,7 @@ import { ToastNotificationDirective } from '@/shared/toast-notification/toast-no
     LoadingBarService,
     StepsDataService,
     WorryProductivelyService,
+    SurveyService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [
@@ -383,4 +375,4 @@ import { ToastNotificationDirective } from '@/shared/toast-notification/toast-no
     ToastNotificationComponent,
   ],
 })
-export class MainModule {}
+export class MainModule { }

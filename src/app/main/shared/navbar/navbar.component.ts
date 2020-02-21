@@ -21,6 +21,9 @@ import {
   NavigationEnd,
   NavigationError,
 } from '@angular/router';
+import { AuthService } from '@/shared/auth/auth.service';
+import { GamePlayService } from '@/main/games/shared/game-play.service';
+import { FlowService } from '@/main/flow/flow.service';
 
 @Component({
   selector: 'app-navbar',
@@ -39,27 +42,48 @@ export class NavbarComponent implements OnInit, OnDestroy {
   unreadCount = 0;
   navbarTitle!: string;
   userNotificationSubscription!: Subscription;
+  can!: any;
+  isDashboard = false;
+  isConversation = false;
   @Input() user!: User;
-  navbarTitleInfo = {
-    '/modules': 'Hello Name',
-    '/games': 'Games',
-  };
+
 
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
     private notificationService: NavbarNotificationsService,
     private route: ActivatedRoute,
     private router: Router,
+    private auth: AuthService,
+    private gamePlayService: GamePlayService,
+    private flowService: FlowService,
   ) {
+
+
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationStart) {
         // Show loading indicator
+
       }
 
       if (event instanceof NavigationEnd) {
-        // Hide loading indicator
-        console.log('route info', event.url);
-        this.getRouteInfo(event.url);
+        this.isDashboard = false;
+        this.isConversation = false;
+
+        if (this.auth.navbarTitle) {
+          this.navbarTitle = this.auth.navbarTitle;
+          console.log(event);
+          if (event.url === '/dashboard') {
+            this.isDashboard = true;
+          }
+        }
+        this.gamePlayService.gameTitle.subscribe(() => {
+          console.log('FROM NAVBAR', this.gamePlayService.gameName);
+          this.navbarTitle = this.gamePlayService.gameName;
+        });
+        this.flowService.stepDetail.subscribe(() => {
+          this.navbarTitle = this.flowService.stepGroupSequence.toString() + '.' + this.flowService.stepSequence.toString() + ' ' + this.flowService.stepName;
+
+        })
       }
 
       if (event instanceof NavigationError) {
@@ -126,8 +150,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
       .then((data: any) => (this.unreadCount = data.data))
       .catch(error => console.log(error));
   }
-  getRouteInfo(data: string) {
-    console.log(data);
-    this.navbarTitle = this.navbarTitleInfo['/modules'];
-  }
+  // getRouteInfo(data: string) {
+  //   console.log(data);
+  //   this.navbarTitle = this.navbarTitleInfo[data];
+  // }
+
 }

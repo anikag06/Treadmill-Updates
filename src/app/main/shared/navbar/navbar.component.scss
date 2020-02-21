@@ -2,6 +2,33 @@
   height: 100px;
   width: 100%;
 
+  h1 {
+    padding-left: 50px;
+    text-transform: capitalize;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .navbar-title {
+    // height: 100px;
+
+    font-style: roboto;
+    // font-size: 36px;
+    // color: black;
+    opacity: 1;
+  }
+
+  .conv-title {
+    color: #343434;
+    opacity: 0.56;
+    font-size: 20px;
+  }
+
+  .all-icons-mobile {
+    display: none;
+  }
+
   .all-icons {
     display: flex;
     flex-direction: row-reverse;
@@ -63,18 +90,34 @@
 @media screen and (max-width: 767px) {
   .app-navbar {
     height: 0px;
+
+    h1 {
+      font-size: 1.2rem;
+    }
   }
+
 }
 
 @media screen and (max-width: 960px) {
 
   // putting this 960 as otherwise no nav bar is shown
   .app-navbar {
+    .navbar-title {
+      // position: absolute;
+      top: -40px;
+      left: 40px;
+    }
 
-    // height: 20px;
-    .all-icons {
+    h1 {
+      font-size: 1.2rem;
+      color: white;
+
+    }
+
+    .all-icons-mobile {
+      display: block;
       position: absolute;
-      top: -80px;
+      top: -50px;
       right: 10px;
 
       .icon-items {
@@ -84,6 +127,11 @@
       .unread-count {
         left: 64px;
       }
+    }
+
+    // height: 20px;
+    .all-icons {
+      display: none
     }
   }
 }

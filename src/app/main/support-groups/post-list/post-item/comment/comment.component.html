@@ -35,8 +35,7 @@
     </form>
   </div>
   <div class="d-flex flex-row">
-    <div class="d-inline-flex flex-row justify-content-center" *ngIf="!editMode" click-outside
-      (clickOutside)="onClickOutside($event)">
+    <div class="d-inline-flex flex-row" *ngIf="!editMode" click-outside (clickOutside)="onClickOutside($event)">
       <div class="comment-profile-card" *ngIf="showProfile">
         <app-user-profile class="support-group" [userProfile]="userProfile"></app-user-profile>
       </div>
@@ -79,7 +78,7 @@
               height="18">{{comment.up_votes}}</button>
           <button class="btn btn-sm thumbs-down" (click)="onThumbsDown()"><img [src]="thumbsDown" width="18"
               height="18"></button>
-          <button class="btn btn-sm thumbs-down" (click)="onThankYou()">Thanks</button>
+          <button class="btn btn-sm thumbs-down" (click)="onThankYou()">Thank</button>
           <button class="btn btn-sm comment-reply" (click)="onReplyClick()">Reply</button>
           <!-- <span *ngIf="comment.user.username == user.username || user.is_admin ">
             <button class="btn btn-sm comment-edit" (click)="onEdit()">Edit</button>

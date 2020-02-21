@@ -10,6 +10,7 @@ import {
   GAME_FRIENDLY_FACE,
   GAME_MENTAL_IMAGERY,
   GAME_IDENTIFY_COGNITIVE_DISTORTION,
+  GAME_LEARNED_HELPLESSNESS,
 } from '@/app.constants';
 
 @Injectable({
@@ -33,6 +34,7 @@ export class GamesService {
       'Learned Helplessness Game',
       'https://via.placeholder.com/360x200?text=Mario',
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.',
+      GAME_LEARNED_HELPLESSNESS,
     ),
     new Game(
       'Identify Cognitive Distortion',
@@ -60,7 +62,7 @@ export class GamesService {
     ),
   ];
 
-  constructor(private localStorageService: LocalStorageService) {}
+  constructor(private localStorageService: LocalStorageService) { }
 
   getGames() {
     let games = <Game[]>this.localStorageService.getItemWithDate(GAMES);

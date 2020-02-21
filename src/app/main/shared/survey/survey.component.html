@@ -1,0 +1,79 @@
+<div class="survey-component">
+  <div class="container" [@simpleFadeAnimation]="'in'" *ngIf="!display_survey">
+    <div class="row main mx-auto text-center">
+      <div class="col-md-6 mx-auto ">
+        <div class=" survey-start">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+          dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+          ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+          fugiat
+          nulla pariatur.
+          Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+          laborum.
+        </div>
+        <button type="button" class="active-button" mat-stroked-button (click)="loadQuestions()"> Start
+          Survey</button>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div class="container justify-content-center px-0" *ngIf="display_survey" [@simpleFadeAnimation]="'in'">
+      <div class="row main mx-auto">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-1 col-md-2 my-auto px-0">
+              <button type="button" class="btn btn-default btn-left" aria-label="Left Align" (click)="onback()"
+                *ngIf="back">
+                <mat-icon>arrow_back_ios</mat-icon>
+              </button>
+            </div>
+            <div class="col-10 col-md-8 my-auto" *ngIf="!submit" [@in]="quesCount">
+              <div>
+                <div class="pager mt-4 mb-2 text-muted row justify-content-center" *ngIf="!newQues">Question
+                  {{pager.index }}
+                  of
+                  {{pager.count}}</div>
+                <br>
+                <div class="col mb-4 text-center" *ngIf="!newQues">
+
+                  <div><b>{{ques}}</b></div>
+
+                </div>
+                <br>
+                <div class="row justify-content-center" *ngFor="let option of options">
+                  <div class=".col-md-6 .offset-md-3" class="button-group">
+                    <button id="option1" type="button" (click)="onselect($event, option.value, option.name)"
+                      mat-stroked-button
+                      [ngClass]="{'active-button':option.value===selectedOptionValue,'disabled-button':option.value!==selectedOptionValue}">
+
+                      <span>{{option.name}}</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-10 col-md-8 text-center my-auto" *ngIf="submit" [@simpleFadeAnimation]="'in'">
+              <div class="row justify-content-center" style="margin-top:60px;">
+                Thank you for your feedback.
+              </div>
+              <div class="row justify-content-center">
+                <button type="button" class="disabled-button" style="margin-top:60px; min-width: 140px !important;"
+                  mat-stroked-button *ngIf="submit" (click)="onSubmit()">Submit
+                </button>
+              </div>
+            </div>
+            <div class="col-1 col-md-2 my-auto px-0">
+              <button type="button" class="btn btn-default btn-right" aria-label="Right Align" (click)="onfront()"
+                *ngIf="front">
+
+                <mat-icon>arrow_forward_ios</mat-icon>
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
