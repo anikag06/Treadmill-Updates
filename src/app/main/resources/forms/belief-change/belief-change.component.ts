@@ -16,6 +16,7 @@ export class BeliefChangeComponent implements OnInit {
   formName = BELIEF_CHANGE_FORM_NAME;
   belief!: Belief | undefined;
   reset = false;
+
   type = BELIEF_CHANGE;
   showSlider = false;
   showTechniques = false;
@@ -39,12 +40,13 @@ export class BeliefChangeComponent implements OnInit {
 
   onAddNewForm() {
     this.belief = undefined;
-    this.reset = !this.reset;
+    // this.reset = true;
     this.resetForm();
   }
 
   beliefSelected(belief: Belief) {
     this.belief = belief;
+    this.reset = true;
     this.resetForm();
     this.beliefObject = {
       id: this.belief.id,
@@ -54,6 +56,7 @@ export class BeliefChangeComponent implements OnInit {
 
   updateBelief(belief: Belief) {
     this.belief = belief;
+    this.reset = false;
     this.beliefObject = {
       id: this.belief.id,
       text: this.belief.belief,

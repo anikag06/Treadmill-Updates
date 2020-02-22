@@ -44,14 +44,15 @@
             (onShowTechniques)="onShowTechniques()"
             (initialRatingChange)="onInitialRatingChange($event)"
             (updateBelief)="updateBelief($event)"
-            [reset]="reset"
           ></app-negative-belief>
           <app-belief-change-techniques
+            [resetTechnique]="reset"
             *ngIf="showTechniques"
             [belief]="belief"
             (showFinalBelief)="onShowFinalBelief()"
           ></app-belief-change-techniques>
           <app-form-final-rating
+            [reset]="reset"
             *ngIf="showFinalBelief"
             [header]="finalRatignHeader"
             [object]="beliefObject"

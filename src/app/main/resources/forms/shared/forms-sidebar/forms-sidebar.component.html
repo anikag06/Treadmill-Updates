@@ -27,6 +27,7 @@
             mat-menu-item
             *ngFor="let obj of objects; let i = index"
             (click)="problemClicked(obj)"
+            [disabled]="obj === selectedObject"
             [ngClass]="obj === selectedObject ? 'selected' : ''"
           >
             {{ i + 1 }}.

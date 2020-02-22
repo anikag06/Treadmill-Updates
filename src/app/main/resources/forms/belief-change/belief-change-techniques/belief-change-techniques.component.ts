@@ -1,6 +1,6 @@
 import {Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, SimpleChanges,} from '@angular/core';
 import {TechniquesInfoComponent} from '@/main/resources/forms/shared/techniques-info/techniques-info.component';
-import {BELIEF_CHANGE_TECHNIQUES_DATA,} from '@/main/resources/forms/shared/techniques-info/techniques.data';
+import {BELIEF_CHANGE_TECHNIQUES_DATA} from '@/main/resources/forms/shared/techniques-info/techniques.data';
 import {MatDialog} from '@angular/material';
 import {Belief} from '@/main/resources/forms/belief-change/belief.model';
 import {IFinalRatingServices} from '@/main/resources/forms/shared/form-final-rating/IFinalRatingServices';
@@ -32,11 +32,12 @@ export class BeliefChangeTechniquesComponent implements OnInit {
   tellHdrColor = '#FFF3E9';
   showContinue = false;
   isCompleted = false;
+  @Input() resetTechnique!: boolean;
   totalSummary: string[] = Array(3).fill('');
   ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.belief) {
+    if (changes.belief && this.resetTechnique) {
       this.reset();
       this.providerService[0]
         .getFinalRating(this.belief.id)
@@ -105,6 +106,7 @@ export class BeliefChangeTechniquesComponent implements OnInit {
 
   reset() {
     delete this.showContinue;
+    delete this.isCompleted;
     this.totalSummary = Array(3).fill('');
   }
 }

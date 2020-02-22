@@ -30,8 +30,11 @@ export class TrfBehaviorCardComponent implements OnInit {
   ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (this.thought) {
+    if (changes.thought && this.reset) {
       this.initializeBehavior();
+    }
+    if (this.reset) {
+      this.resetBehavior();
     }
   }
 
@@ -40,7 +43,6 @@ export class TrfBehaviorCardComponent implements OnInit {
   }
 
   initializeBehavior() {
-    this.resetBehavior();
     this.thoughtRecordService.getBehavior(this.thought.id).subscribe(resp => {
       if (resp.ok) {
         this.behaviorFormGroup.controls['behavior'].setValue(

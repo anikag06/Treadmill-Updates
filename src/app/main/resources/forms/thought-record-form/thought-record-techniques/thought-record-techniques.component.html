@@ -17,6 +17,7 @@
         <div class="technique">
           <app-identify-thinking
             [summaryIndex]="0"
+            [reset]="resetTechnique"
             (techniqueExpanded)="onTechniqueExpanded()"
             (techniqueCollapsed)="onTechniqueCollapsed($event)"
             [thought]="thought"
@@ -25,6 +26,7 @@
         </div>
         <div class="technique">
           <app-proof-evidences
+            [reset]="resetTechnique"
             [summaryIndex]="1"
             (techniqueExpanded)="onTechniqueExpanded()"
             (techniqueCollapsed)="onTechniqueCollapsed($event)"
@@ -38,6 +40,7 @@
 
         <div class="technique">
           <app-form-technique
+            [reset]="resetTechnique"
             [summaryIndex]="2"
             (techniqueExpanded)="onTechniqueExpanded()"
             (techniqueCollapsed)="onTechniqueCollapsed($event)"
@@ -52,6 +55,7 @@
 
         <div class="technique">
           <app-record-outcome
+            [reset]="resetTechnique"
             [summaryIndex]="3"
             (techniqueExpanded)="onTechniqueExpanded()"
             (techniqueCollapsed)="onTechniqueCollapsed($event)"
@@ -61,6 +65,7 @@
 
         <div class="technique">
           <app-thought-help
+            [reset]="resetTechnique"
             [summaryIndex]="4"
             (techniqueExpanded)="onTechniqueExpanded()"
             (techniqueCollapsed)="onTechniqueCollapsed($event)"
@@ -70,6 +75,7 @@
 
         <div class="technique">
           <app-form-technique
+            [reset]="resetTechnique"
             [summaryIndex]="5"
             (techniqueExpanded)="onTechniqueExpanded()"
             (techniqueCollapsed)="onTechniqueCollapsed($event)"

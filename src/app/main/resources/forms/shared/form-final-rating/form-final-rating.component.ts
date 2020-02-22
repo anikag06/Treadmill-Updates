@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Inject, Input, OnInit, Output,} from '@angular/core';
+import {Component, EventEmitter, Inject, Input, OnInit, Output, SimpleChanges,} from '@angular/core';
 import {FormBuilder, FormControl, Validators} from '@angular/forms';
 import {IFinalRatingServices} from '@/main/resources/forms/shared/form-final-rating/IFinalRatingServices';
 
@@ -24,6 +24,7 @@ export class FormFinalRatingComponent implements OnInit {
   showRealistic = false;
   showContinue = false;
   @Input() object!: any;
+  @Input() reset!: boolean;
   @Output() finalRatingChange = new EventEmitter();
   @Output() formComplete = new EventEmitter();
   showQuote = false;
@@ -37,9 +38,8 @@ export class FormFinalRatingComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  ngOnChanges() {
-    if (this.object) {
-      this.resetForm();
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.object && this.reset) {
       this.providerService[this.service]
         .getFinalRating(this.object.id)
         .subscribe((data: any) => {
@@ -68,6 +68,9 @@ export class FormFinalRatingComponent implements OnInit {
             }
           }
         });
+    }
+    if (this.reset) {
+      this.resetForm();
     }
   }
 

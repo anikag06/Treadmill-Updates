@@ -26,6 +26,7 @@ export class ThoughtHelpComponent implements OnInit {
   @Output() techniqueExpanded = new EventEmitter();
   @Output() techniqueCollapsed = new EventEmitter();
   @Input() summaryIndex!: number;
+  @Input() reset!: boolean;
   updateHelp = false;
 
   thoughtHelpForm = this.formBuilder.group({
@@ -42,8 +43,7 @@ export class ThoughtHelpComponent implements OnInit {
   ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges) {
-    if (this.thought) {
-      this.resetForm();
+    if (changes.thought && this.reset) {
       this.thoughtHelpService
         .getThoughtHelp(this.thought.id)
         .subscribe((resp: any) => {
@@ -53,6 +53,9 @@ export class ThoughtHelpComponent implements OnInit {
             this.setSummary();
           }
         });
+    }
+    if (this.reset) {
+      this.resetForm();
     }
   }
 

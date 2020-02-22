@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild,} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild,} from '@angular/core';
 import {FormBuilder, FormControl, Validators} from '@angular/forms';
 import {Thought} from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
 import {ThoughtRecordService} from '@/main/resources/forms/thought-record-form/thought-record.service';
@@ -39,9 +39,8 @@ export class NegativeThoughtCardComponent implements OnInit {
     // console.log(this.thought);
   }
 
-  ngOnChanges() {
-    if (this.thought) {
-      this.resetForm();
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.thought && this.reset) {
       this.thoughtRecordService
         .getThought(this.thought.id)
         .subscribe((resp: any) => {
@@ -49,6 +48,9 @@ export class NegativeThoughtCardComponent implements OnInit {
             this.initializeThought(resp);
           }
         });
+    }
+    if (this.reset) {
+      this.resetForm();
     }
   }
 

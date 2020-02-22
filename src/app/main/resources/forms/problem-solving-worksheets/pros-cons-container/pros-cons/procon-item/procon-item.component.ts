@@ -50,10 +50,15 @@ export class ProconItemComponent implements OnInit {
   saveProConData(event: any) {
     const text = this.sanitizer.changeExtraCharacters(event);
     this.procon.body = text;
-    this.hideRemove = true;
     this.problemService
       .putProsCons(this.procon, this.solution_id)
       .subscribe((data: any) => {},
       this.errorService.errorResponse('Cannot update that'));
+  }
+
+  onClickOutside(event: any) {
+    if (event && (<any>event)['value'] === true) {
+      this.hideRemove = true;
+    }
   }
 }

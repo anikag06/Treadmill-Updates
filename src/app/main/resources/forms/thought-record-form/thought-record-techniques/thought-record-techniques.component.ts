@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output,} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, SimpleChanges,} from '@angular/core';
 import {MatDialog} from '@angular/material';
 import {TRF_TECHNIQUES_DATA} from '../../shared/techniques-info/techniques.data';
 import {TechniquesInfoComponent} from '../../shared/techniques-info/techniques-info.component';
@@ -19,7 +19,7 @@ export class ThoughtRecordTechniquesComponent implements OnInit, AfterViewInit {
   ) {}
 
   @Input() thought!: Thought;
-
+  @Input() resetTechnique!: boolean;
   @Output() showFinalThought = new EventEmitter();
   @Input() finalThought!: boolean;
   header =
@@ -36,23 +36,26 @@ export class ThoughtRecordTechniquesComponent implements OnInit, AfterViewInit {
   tellQuestion =
     'What would I tell a close friend or relative if they were having this thought?';
   info_heading = 'About Techniques';
-  // @Input() reset!: boolean;
+
   showContinue = false;
   isCompleted = false;
   totalSummary: string[] = Array(6).fill('');
   ngOnInit() {}
 
-  ngOnChanges() {
-    this.providerService[1]
-      .getFinalRating(this.thought.id)
-      .subscribe((data: any) => {
-        if (data.final_rating) {
-          console.log(data);
-          this.onShowFinalThought();
-          this.isCompleted = true;
-          this.showContinue = false;
-        }
-      });
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.thought && this.resetTechnique) {
+      this.reset();
+      this.providerService[1]
+        .getFinalRating(this.thought.id)
+        .subscribe((data: any) => {
+          if (data.final_rating) {
+            console.log(data);
+            this.onShowFinalThought();
+            this.isCompleted = true;
+            this.showContinue = false;
+          }
+        });
+    }
   }
 
   ngAfterViewInit() {
@@ -120,6 +123,7 @@ export class ThoughtRecordTechniquesComponent implements OnInit, AfterViewInit {
   // }
   reset() {
     delete this.showContinue;
+    delete this.isCompleted;
     this.totalSummary = Array(6).fill('');
   }
 }

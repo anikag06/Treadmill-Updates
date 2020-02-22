@@ -97,10 +97,23 @@ export class DateTimePickerComponent
       this.startEndDate[this.START_DATE],
       this.startEndDate[this.END_DATE],
     );
-
-    const utcTime = this.dateTimePickerService.getUTCTime(
-      this.startEndDate[this.END_DATE],
-    );
+    let utcTime;
+    if (
+      this.data &&
+      this.data.startDate ===
+        this.dateToString(this.startEndDate[this.START_DATE]) &&
+      this.data.endDate ===
+        this.dateToString(this.startEndDate[this.END_DATE]) &&
+      this.timeToString(this.startEndDate[this.START_DATE]) !== this.data.time
+    ) {
+      utcTime = this.dateTimePickerService.getUTCTime(
+        this.startEndDate[this.START_DATE],
+      );
+    } else {
+      utcTime = this.dateTimePickerService.getUTCTime(
+        this.startEndDate[this.END_DATE],
+      );
+    }
 
     this.formDateTime.push(utcTime);
 
@@ -110,6 +123,7 @@ export class DateTimePickerComponent
       this.startEndDate[this.START_DATE],
       this.startEndDate[this.END_DATE],
     );
+
     const hourMinute = this.dateTimePickerService.getTimeAmPm(
       this.startEndDate[this.END_DATE],
     );
@@ -127,6 +141,19 @@ export class DateTimePickerComponent
       };
       this.dialogRef.close({ event: 'close', data: fromDateTimeData });
     }
+  }
+
+  dateToString(date: Date) {
+    // const gmtDateTime = moment.utc(date);
+    const localDate = moment(date).format('YYYY-MM-DD');
+    return localDate.toString();
+  }
+
+  timeToString(date: Date) {
+    const gmtDateTime = moment.utc(date, 'hh:mm');
+    const localTime = gmtDateTime.format('hh:mm');
+
+    return localTime.toString();
   }
 
   getRepeatedDays(days: Day[]): string {

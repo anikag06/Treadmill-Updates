@@ -19,6 +19,7 @@ export class RecordOutcomeComponent implements OnInit, AfterViewInit {
   height = '42px';
   summaryHeading = SUMMARY;
   @Input() thought!: Thought;
+  @Input() reset!: boolean;
   updateOutcome = false;
   @ViewChild('panel', { static: false }) panel!: any;
   @Output() showFinalThought = new EventEmitter();
@@ -40,8 +41,7 @@ export class RecordOutcomeComponent implements OnInit, AfterViewInit {
   ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges) {
-    if (this.thought) {
-      this.resetForm();
+    if (changes.thought && this.reset) {
       this.recordOutcomeService
         .getOutcome(this.thought.id)
         .subscribe((resp: any) => {
@@ -52,6 +52,9 @@ export class RecordOutcomeComponent implements OnInit, AfterViewInit {
             this.showFinalThought.emit();
           }
         });
+    }
+    if (this.reset) {
+      this.resetForm();
     }
   }
 

@@ -46,6 +46,7 @@ export class ThoughtRecordFormComponent implements OnInit {
 
   thoughtSelected(thought: any) {
     this.thought = thought;
+    this.reset = true;
     this.resetForm();
     this.thoughtObject = {
       id: thought.id,
@@ -61,6 +62,7 @@ export class ThoughtRecordFormComponent implements OnInit {
       id: thought.id,
       text: thought.situation,
     };
+    this.reset = false;
     console.log(this.thoughtObject);
   }
 

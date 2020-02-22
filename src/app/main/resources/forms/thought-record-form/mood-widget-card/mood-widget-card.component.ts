@@ -33,9 +33,8 @@ export class MoodWidgetCardComponent implements OnInit {
   ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges) {
-    if (this.thought) {
+    if (changes.thought && this.reset) {
       // console.log(this.thought);
-      this.resetMoodForm();
       this.thoughtRecordService.getFeelings(this.thought.id).subscribe(resp => {
         // console.log(resp);
         if (resp.body.data && resp.body.data.feelings.length > 0) {
@@ -45,6 +44,9 @@ export class MoodWidgetCardComponent implements OnInit {
           this.onShowRecordBehave.emit(true);
         }
       });
+    }
+    if (this.reset) {
+      this.resetMoodForm();
     }
   }
 
@@ -65,7 +67,7 @@ export class MoodWidgetCardComponent implements OnInit {
       maxWidth: '100vw',
       autoFocus: false,
       data: {
-        feelingData: this.userFeelings
+        feelingData: this.userFeelings,
       },
     });
     this.onDialogRefClosed(dialogRef);

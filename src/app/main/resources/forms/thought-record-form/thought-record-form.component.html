@@ -43,11 +43,11 @@
             [header]="situationHeader"
             (showNegative)="onShowNegative($event)"
             [thought]="thought"
-            [reset]="reset"
             (updateThought)="updateThought($event)"
           ></app-trf-situation-card>
           <app-negative-thought-card
             [thought]="thought"
+            [reset]="reset"
             [header]="negativeThoughtHeader"
             *ngIf="situationAdded"
             (onShowSelectMood)="showSelectMood($event)"
@@ -56,11 +56,13 @@
 
           <app-mood-widget-card
             *ngIf="showMood"
+            [reset]="reset"
             [header]="moodSelect"
             [thought]="thought"
             (onShowRecordBehave)="onShowRecordBehave($event)"
           ></app-mood-widget-card>
           <app-trf-behavior-card
+            [reset]="reset"
             [thought]="thought"
             [header]="recordBehaveHeader"
             *ngIf="showRecordBehave"
@@ -68,12 +70,14 @@
           ></app-trf-behavior-card>
 
           <app-thought-record-techniques
+                  [resetTechnique]="reset"
             [thought]="thought"
             *ngIf="showTechniques"
             [finalThought]="showFinalThought"
             (showFinalThought)="onShowFinalThought()"
           ></app-thought-record-techniques>
           <app-form-final-rating
+            [reset]="reset"
             *ngIf="showFinalThought"
             [header]="finalRatingHeader"
             [object]="thoughtObject"

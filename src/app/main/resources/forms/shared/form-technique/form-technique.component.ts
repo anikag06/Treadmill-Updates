@@ -17,7 +17,7 @@ export class FormTechniqueComponent implements OnInit {
   @Input() techniqueName!: string;
   @Input() question!: string;
   @Input() summaryIndex!: number;
-  // @Input() reset!: boolean;
+  @Input() reset!: boolean;
   @Input() id!: number;
   @Input() service!: number;
   @ViewChild('panel', { static: false }) panel!: any;
@@ -38,8 +38,7 @@ export class FormTechniqueComponent implements OnInit {
   ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges) {
-    if (this.id) {
-      this.resetForm();
+    if (changes.id && this.reset) {
       this.providerService[this.service]
         .getData(this.id)
         .subscribe((resp: any) => {
@@ -49,6 +48,9 @@ export class FormTechniqueComponent implements OnInit {
             this.setSummary(resp.text);
           }
         });
+    }
+    if (this.reset) {
+      this.resetForm();
     }
   }
 

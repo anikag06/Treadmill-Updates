@@ -59,17 +59,17 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.subscriptions[
-      this.subscriptions.length
-    ] = this.problemService.problemBehaviour.subscribe((problem: any) => {
-      if (Object.entries(problem).length > 0) {
-        this.problemSelected(problem);
-      }
-    }, this.errorService.errorResponse('Something went wrong'));
-    const user = this.authService.isLoggedIn();
-    if (user && user.is_active) {
-      this.user = <User>user;
-    }
+    // this.subscriptions[
+    //   this.subscriptions.length
+    // ] = this.problemService.problemBehaviour.subscribe((problem: any) => {
+    //   if (Object.entries(problem).length > 0) {
+    //     this.problemSelected(problem);
+    //   }
+    // }, this.errorService.errorResponse('Something went wrong'));
+    // const user = this.authService.isLoggedIn();
+    // if (user && user.is_active) {
+    //   this.user = <User>user;
+    // }
   }
 
   ngOnDestroy() {
@@ -94,6 +94,10 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
     this.fetchSolutions();
 
     this.fetchTask();
+  }
+
+  updateProblem(problem: Problem) {
+    this.problemEditMode = false;
   }
 
   fetchBestSolution() {
@@ -199,6 +203,7 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   }
 
   onSolutionSubmit() {
+
     if (
       this.solutionForm.value['solution'] &&
       this.solutionForm.value['solution'].trim().length > 0

@@ -20,6 +20,7 @@
 
       <div
         class="trash-icon"
+        [ngStyle]="{ position: 'relative', bottom: '-1.25rem' }"
         (click)="onSolutionRemove(i, solution)"
         *ngIf="showDeleteIcon[i]"
       >

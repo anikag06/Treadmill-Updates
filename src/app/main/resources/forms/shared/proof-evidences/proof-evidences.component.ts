@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild,} from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, SimpleChanges, ViewChild,} from '@angular/core';
 import {CdkTextareaAutosize} from '@angular/cdk/text-field';
 import {FormArray, FormBuilder} from '@angular/forms';
 
@@ -13,6 +13,7 @@ export class ProofEvidencesComponent implements OnInit {
   @Input() favorTitle!: string;
   @Input() againstTitle!: string;
   @Input() service!: number;
+  @Input() reset!: boolean;
   @Output() techniqueExpanded = new EventEmitter();
   @Output() techniqueCollapsed = new EventEmitter();
   summary = '';
@@ -51,9 +52,8 @@ export class ProofEvidencesComponent implements OnInit {
 
   ngOnInit() {}
 
-  ngOnChanges() {
-    if (this.id) {
-      this.resetForm();
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.id && this.reset) {
       this.providerService[this.service]
         .getEvidences(this.id, this.againstType)
         .subscribe((object: any) => {
@@ -72,6 +72,9 @@ export class ProofEvidencesComponent implements OnInit {
             }
           }
         });
+    }
+    if (this.reset) {
+      this.resetForm();
     }
   }
 

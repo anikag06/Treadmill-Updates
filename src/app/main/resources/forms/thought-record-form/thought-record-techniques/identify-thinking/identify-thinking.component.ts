@@ -52,8 +52,7 @@ export class IdentifyThinkingComponent implements OnInit {
   ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges) {
-    if (this.thought) {
-      this.resetForm();
+    if (changes.thought && this.reset) {
       this.identifyThinkingService
         .getSelectedThinkingErrors(this.thought.id)
         .subscribe((resp: any) => {
@@ -61,6 +60,9 @@ export class IdentifyThinkingComponent implements OnInit {
             this.initializeErrors(resp.body.data);
           }
         });
+    }
+    if (this.reset) {
+      this.resetForm();
     }
   }
 

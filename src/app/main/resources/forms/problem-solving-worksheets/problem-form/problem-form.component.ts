@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, ViewChild,} from '@angular/core';
+import {ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild,} from '@angular/core';
 import {Problem} from '../problem.model';
 import {ProblemSolvingWorksheetsService} from '../problem-solving-worksheets.service';
 
@@ -10,6 +10,8 @@ import {ProblemSolvingWorksheetsService} from '../problem-solving-worksheets.ser
 })
 export class ProblemFormComponent implements OnInit {
   @Input() problem!: Problem;
+  @Output() addProblem = new EventEmitter();
+  @Output() updateProblem = new EventEmitter();
   // TODO: Remove if code is not breaking due to this
   // @Output() testOut = new EventEmitter<string>();
 
@@ -47,6 +49,7 @@ export class ProblemFormComponent implements OnInit {
         .subscribe(
           (resp: any) => {
             this.problemHandler(resp.body, '');
+            this.updateProblem.emit(this.problem);
           },
           (error: any) => {
             console.error(error);
@@ -57,6 +60,7 @@ export class ProblemFormComponent implements OnInit {
         (resp: any) => {
           console.log(resp);
           this.problemHandler(resp.body, 'create');
+          this.addProblem.emit(resp.body);
         },
         error => {
           console.error(error);
