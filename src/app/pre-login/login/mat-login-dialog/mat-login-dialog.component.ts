@@ -7,7 +7,6 @@ import { AuthService } from '@/shared/auth/auth.service';
 import { LOGGED_IN_PATH, INELIGIBLE_FOR_TRIAL } from '@/app.constants';
 import { LocalStorageService } from '@/shared/localstorage.service';
 import { ShowLoginSignupDialogService } from '@/pre-login/shared/show-login-signup-dialog.service';
-import { MatSignupDialogComponent } from '@/pre-login/signup/mat-signup-dialog/mat-signup-dialog.component';
 
 @Component({
   selector: 'app-mat-login-dialog',
@@ -79,6 +78,6 @@ export class MatLoginDialogComponent implements OnInit {
 
   onJoinTheStudyClicked() {
     this.dialogRef.close();
-    this.showLoginSignupService.joinStudyClicked(MatSignupDialogComponent);
+    this.showLoginSignupService.joinStudyClicked();
   }
 }

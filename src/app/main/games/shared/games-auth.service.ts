@@ -5,7 +5,7 @@ import { environment } from 'environments/environment';
 import {
   TOKEN,
   IBG_SENTENCE,
-  IBG_SCOREINFO,
+  IBG_SCORE_INFO,
   IBG_USER_RESPONSE,
   ECG_DISCIMINATION_TASK,
   ECG_FLANKER_TASK,
@@ -69,11 +69,11 @@ export class GamesAuthService {
   }
 
   ibGameGetScoresInfo(): Observable<any> {
-    return this.http.get(environment.API_ENDPOINT + IBG_SCOREINFO);
+    return this.http.get(environment.API_ENDPOINT + IBG_SCORE_INFO);
   }
 
   ibGameStoreUserScoreInfo(saveData: any): Observable<any> {
-    return this.http.put(environment.API_ENDPOINT + IBG_SCOREINFO, saveData);
+    return this.http.put(environment.API_ENDPOINT + IBG_SCORE_INFO, saveData);
   }
 
   ibGameStoreUserResponseInfo(saveResponseData: any): Observable<any> {

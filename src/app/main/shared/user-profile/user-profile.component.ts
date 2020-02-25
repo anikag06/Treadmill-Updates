@@ -5,7 +5,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { MOBILEWIDTH } from '@/app.constants';
+import { MOBILE_WIDTH } from '@/app.constants';
 import { Badge } from './badges/badge.model';
 import { UserProfile } from './UserProfile.model';
 
@@ -34,7 +34,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
       );
     }
 
-    if (window.innerWidth < MOBILEWIDTH) {
+    if (window.innerWidth < MOBILE_WIDTH) {
       const headerText = this.element.nativeElement.querySelectorAll(
         '.mat-card-header-text',
       );

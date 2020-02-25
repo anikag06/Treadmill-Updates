@@ -5,6 +5,7 @@ import { PreLoginComponent } from './pre-login/pre-login.component';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { AuthGuard } from './shared/auth/auth.guard';
 import { TrialRegistrationAuthGuard } from './shared/auth/trial-registration-auth.guard';
+import { SignUpComponent } from '@/pre-login/signup/signup.component';
 
 const routes: Routes = [
   {
@@ -14,6 +15,11 @@ const routes: Routes = [
     children: [
       { path: '', component: LandingPageComponent, pathMatch: 'full' },
     ],
+  },
+  {
+    path: 'sign-up/:unique-code',
+    component: SignUpComponent,
+    pathMatch: 'prefix',
   },
   {
     path: '',

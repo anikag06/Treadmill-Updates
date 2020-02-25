@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { User } from '@/shared/user.model';
 import { AuthService } from '@/shared/auth/auth.service';
-import { MOBILEWIDTH, TREADWILL } from '@/app.constants';
+import { MOBILE_WIDTH, TREADWILL } from '@/app.constants';
 import { Title } from '@angular/platform-browser';
 import { UserProfile } from '../shared/user-profile/UserProfile.model';
 import { UserProfileService } from '../shared/user-profile/userProfile.service';
@@ -25,7 +25,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.user = <User>this.authService.isLoggedIn();
-    this.mobileView = window.innerWidth < MOBILEWIDTH;
+    this.mobileView = window.innerWidth < MOBILE_WIDTH;
 
     this.userProfileService
       .getUserProfile(this.user.username)

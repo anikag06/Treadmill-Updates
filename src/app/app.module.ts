@@ -1,10 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, LOCALE_ID, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from '@/material.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ServiceWorkerModule } from '@angular/service-worker';
-
 import { AppRoutingModule } from '@/app-routing.module';
 import { AppComponent } from '@/app.component';
 import { LoginComponent } from '@/pre-login/login/login.component';
@@ -22,14 +21,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { ErrorDialogComponent } from './shared/error-dialog/error-dialog.component';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { LocalStorageService } from './shared/localstorage.service';
-import { MatSignupDialogComponent } from './pre-login/signup/mat-signup-dialog/mat-signup-dialog.component';
-import { SignupComponent } from '@/pre-login/signup/signup.component';
+import { SignUpComponent } from '@/pre-login/signup/signup.component';
 import { QuestionnaireModule } from './questionnaire.module';
 import { ContactUsDataService } from './shared/mat-contact-us-dialog/contact-us-data.service';
 import { FcmService } from './shared/fcm.service';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { TimerService } from './shared/timer.service';
+import { SignUpService } from '@/pre-login/signup/sign-up.service';
 declare let $: any;
 
 @NgModule({
@@ -37,14 +36,13 @@ declare let $: any;
     AppComponent,
     LoginComponent,
     MatLoginDialogComponent,
-    MatSignupDialogComponent,
     PreLoginFooterComponent,
     PreLoginComponent,
     MatContactUsDialogComponent,
     LandingPageComponent,
     ErrorDialogComponent,
     NotFoundComponent,
-    SignupComponent,
+    SignUpComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,13 +71,13 @@ declare let $: any;
     ContactUsDataService,
     FcmService,
     TimerService,
+    SignUpService,
   ],
   bootstrap: [AppComponent],
   entryComponents: [
     MatLoginDialogComponent,
     MatContactUsDialogComponent,
     ErrorDialogComponent,
-    MatSignupDialogComponent,
   ],
 })
 export class AppModule {}

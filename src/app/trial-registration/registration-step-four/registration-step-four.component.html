@@ -15,6 +15,7 @@
                     the study. If I had any concerns, I had contacted the research team and
                     received satisfactory response to my concerns.
                 </label>
+                <br>
                 <mat-radio-group formControlName="readInfo" color="primary" required>
                     <mat-radio-button [value]="1" class="mr-5"
                         #btn1 [ngClass]="{ 'checkedBtn': btn1.checked , 'unChecked': !btn1.checked}">
@@ -30,6 +31,7 @@
                     I am free to withdraw at any time, without giving any reason, and without
                     any current or future medical care or legal rights being affected.
                 </label>
+                <br>
                 <mat-radio-group formControlName="voluntaryInfo" color="primary" required>
                     <mat-radio-button [value]="1" class="mr-5"
                         #btn3 [ngClass]="{ 'checkedBtn': btn3.checked , 'unChecked': !btn3.checked}">
@@ -48,6 +50,7 @@
                     However, TreadWill or its members are not to be held responsible for any harm
                     that might occur during the course of my participation in the study.
                 </label>
+                <br>
                 <mat-radio-group formControlName="confidentialInfo" color="primary" required>
                     <mat-radio-button [value]="1" class="mr-5"
                         #btn5 [ngClass]="{ 'checkedBtn': btn5.checked , 'unChecked': !btn5.checked}">
@@ -65,6 +68,7 @@
                     to the scientific community and the public; however, any personal identifiers
                     will be removed from the data.
                 </label>
+                <br>
                 <mat-radio-group formControlName="dataPublicationInfo" color="primary" required>
                     <mat-radio-button [value]="1" class="mr-5"
                         #btn7 [ngClass]="{ 'checkedBtn': btn7.checked , 'unChecked': !btn7.checked}">
@@ -81,6 +85,7 @@
                     in case of a security breach. I understand that the TreadWill team is not to
                     be held responsible for any breach.
                 </label>
+                <br>
                 <mat-radio-group formControlName="informationLeakage" color="primary" required>
                     <mat-radio-button [value]="1" class="mr-5"
                         #btn9 [ngClass]="{ 'checkedBtn': btn9.checked , 'unChecked': !btn9.checked}">
@@ -93,6 +98,7 @@
 
             <div class="col-12 my-1">
                 <label class="my-3 lesser-opacity">I agree to participate in the study.</label>
+                <br>
                 <mat-radio-group formControlName="agreementInfo" color="primary" required>
                     <mat-radio-button [value]="1" class="mr-5"
                         #btn11 [ngClass]="{ 'checkedBtn': btn11.checked , 'unChecked': !btn11.checked}">
@@ -113,6 +119,7 @@
                 <label class="my-3  lesser-opacity">For the purpose of this study, it is required that you add
                     TreadWill to your home screen.
                     Please click accept to add TreadWill to your home screen.</label>
+                <br>
                 <mat-radio-group (change) = "homeScreenPermission()"
                     formControlName="homeScreenInfo" color="primary" required>
                     <mat-radio-button [value]="1" class="mr-5"
@@ -128,6 +135,7 @@
                 <label class="my-3 lesser-opacity"> Notifications are an essential part of this program.
                     Please click accept to allow notifications.
                 </label>
+                <br>
                 <mat-radio-group (change) = "notificationsPermission()"
                     formControlName="notificationsInfo" color="primary" required>
                     <mat-radio-button [value]="1" class="mr-5"

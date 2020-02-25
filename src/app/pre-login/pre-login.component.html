@@ -1,7 +1,6 @@
 <mat-drawer-container class="pre-login-side-nav-drawer-container">
     <mat-drawer #drawer class="pre-login-side-nav-drawer">
       <mat-nav-list role="navigation">
-        <a (click)="onTrialReg()"> Trial registration </a>
         <a
           mat-list-item
           class="pre-login-side-nav-anchor"
@@ -9,13 +8,7 @@
           *ngIf="!loggedIn">
           Login
         </a>
-        <a
-          mat-list-item
-          class="pre-login-side-nav-anchor"
-          [routerLink]="['/dashboard']"
-          *ngIf="loggedIn">
-          Dashboard
-        </a>
+        <a mat-list-item class="pre-login-side-nav-anchor" (click)="onJoinTheStudyClicked()">Join the study</a>
         <a mat-list-item class="pre-login-side-nav-anchor">Work with us</a>
         <a mat-list-item class="pre-login-side-nav-anchor">About us</a>
         <a mat-list-item class="pre-login-side-nav-anchor" (click)="onContactUsClicked()">Contact us</a>
@@ -35,21 +28,14 @@
           <img alt="TreadWill logo" src="assets/shared/logo_full.png" class="logo-landscape">
         </div>
         <div class="d-none d-sm-block flex-fill">
-          <a mat-button class="anchorify-pre-login-toolbar-button float-right">About us</a>
           <a mat-button class="anchorify-pre-login-toolbar-button float-right">Work with us</a>
+          <a mat-button class="anchorify-pre-login-toolbar-button float-right" (click)="onJoinTheStudyClicked()">Join the study</a>
           <a
             mat-button
             class="anchorify-pre-login-toolbar-button float-right login-btn"
             (click)="onLoginClicked()"
             *ngIf="!loggedIn">
             Login
-          </a>
-          <a
-            mat-button
-            class="anchorify-pre-login-toolbar-button float-right"
-            [routerLink]="['/dashboard']"
-            *ngIf="loggedIn">
-            Dashboard
           </a>
         </div>
       </mat-toolbar>

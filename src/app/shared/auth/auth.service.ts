@@ -13,7 +13,7 @@ import {
   DEFAULT_PATH,
   TOKEN_REFRESH_PATH,
   LOGIN_PATH,
-  SIGNUP_PATH,
+  SIGN_UP_PATH,
   USERAVATAR,
   ISADMIN,
   ISACTIVE,
@@ -67,13 +67,6 @@ export class AuthService {
     return this.http
       .post(environment.API_ENDPOINT + LOGIN_PATH, data)
       .toPromise();
-  }
-
-  signupData(userSignupData: any): Observable<any> {
-    return this.http.post(
-      environment.API_ENDPOINT + SIGNUP_PATH,
-      userSignupData,
-    );
   }
 
   isLoggedIn() {

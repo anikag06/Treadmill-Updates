@@ -1,15 +1,15 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { trigger,
+import { Component, OnInit } from '@angular/core';
+import {
+  trigger,
   state,
   style,
   animate,
-  transition
+  transition,
 } from '@angular/animations';
 
 import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-contact-us-dialog.service';
 import { ShowLoginSignupDialogService } from '@/pre-login/shared/show-login-signup-dialog.service';
-import { MatSignupDialogComponent } from '@/pre-login/signup/mat-signup-dialog/mat-signup-dialog.component';
-import { MatLoginDialogComponent} from '@/pre-login/login/mat-login-dialog/mat-login-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-landing-page',
@@ -18,49 +18,55 @@ import { MatLoginDialogComponent} from '@/pre-login/login/mat-login-dialog/mat-l
   providers: [MatContactUsDialogService],
   animations: [
     trigger('fadeInOut', [
-      state('visible', style({
-        opacity: 1
-      })),
-      state('inVisible', style({
-        opacity: 0
-      })),
-      transition('visible => inVisible', [
-        animate('1s ease-in')
-      ]),
-      transition('inVisible => visible', [
-        animate('1s ease-out')
-      ]),
+      state(
+        'visible',
+        style({
+          opacity: 1,
+        }),
+      ),
+      state(
+        'inVisible',
+        style({
+          opacity: 0,
+        }),
+      ),
+      transition('visible => inVisible', [animate('1s ease-in')]),
+      transition('inVisible => visible', [animate('1s ease-out')]),
     ]),
   ],
 })
 export class LandingPageComponent implements OnInit {
-
   // 4s uptime and 1s downtime
-  private pulseDuration: number = 5000;
-  private downTime: number = 1000;
-  private pulseOne: boolean = true;
-  private pulseTwo: boolean = true;
+  private pulseDuration = 5000;
+  private downTime = 1000;
+  private pulseOne = true;
+  private pulseTwo = true;
 
   // showing a set of thoughts
-  private thoughArray: string[] = [ "I won't be able to do it",
-                                    "I am not good enough",
-                                    "I have let others down",
-                                    "I have no self control at all"];
+  private thoughArray: string[] = [
+    "I won't be able to do it",
+    'I am not good enough',
+    'I have let others down',
+    'I have no self control at all',
+  ];
   nat: string = this.thoughArray[0];
-  private thoughtChangeCounter: number = 0;
+  private thoughtChangeCounter = 0;
 
   // showing a set of reasons how TreadWill will help the user
-  private helpReasonsArray: string[] = ["It teaches you techniques of Cognitive Behavioral Therapy",
-                                        "It helps you connect with others having similar problems",
-                                        "It adapts to your problems",
-                                        "And it's free"];
+  private helpReasonsArray: string[] = [
+    'It teaches you techniques of Cognitive Behavioral Therapy',
+    'It helps you connect with others having similar problems',
+    'It adapts to your problems',
+    "And it's free",
+  ];
   helpReason: string = this.helpReasonsArray[0];
-  private helpReasonChangeCounter: number = 0;
-  isVisible: boolean = true;
+  private helpReasonChangeCounter = 0;
+  isVisible = true;
 
   constructor(
     private showContactUsService: MatContactUsDialogService,
     private showLoginSignupService: ShowLoginSignupDialogService,
+    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -69,11 +75,11 @@ export class LandingPageComponent implements OnInit {
     }, this.pulseDuration);
     setTimeout(() => {
       this.togglePulseTwo();
-    }, (this.pulseDuration - this.downTime));
+    }, this.pulseDuration - this.downTime);
   }
 
   updateThoughtCounter() {
-    if (this.thoughtChangeCounter < (this.thoughArray.length-1)) {
+    if (this.thoughtChangeCounter < this.thoughArray.length - 1) {
       this.thoughtChangeCounter++;
     } else {
       this.thoughtChangeCounter = 0;
@@ -82,7 +88,7 @@ export class LandingPageComponent implements OnInit {
   }
 
   updateReasonCounter() {
-    if (this.helpReasonChangeCounter < (this.helpReasonsArray.length-1)) {
+    if (this.helpReasonChangeCounter < this.helpReasonsArray.length - 1) {
       this.helpReasonChangeCounter++;
     } else {
       this.helpReasonChangeCounter = 0;
@@ -94,7 +100,6 @@ export class LandingPageComponent implements OnInit {
     // for the first time
     this.pulseOne = !this.pulseOne;
     this.setIsVisible();
-   
     setInterval(() => {
       this.pulseOne = !this.pulseOne;
       this.setIsVisible();
@@ -113,19 +118,20 @@ export class LandingPageComponent implements OnInit {
   }
 
   setIsVisible() {
-    this.isVisible = (this.pulseOne && this.pulseTwo) || (!this.pulseOne && !this.pulseTwo);
+    this.isVisible =
+      (this.pulseOne && this.pulseTwo) || (!this.pulseOne && !this.pulseTwo);
 
-    if(this.isVisible) {
+    if (this.isVisible) {
       this.updateThoughtCounter();
       this.updateReasonCounter();
     }
   }
 
   onLandingPageContactUsClicked() {
-    this.showContactUsService.contactUsClicked()
+    this.showContactUsService.contactUsClicked();
   }
-  onJoinTheStudyClicked() {
 
-    this.showLoginSignupService.joinStudyClickedBeforeLogin(MatSignupDialogComponent, MatLoginDialogComponent);
+  onJoinTheStudyClicked() {
+    this.showLoginSignupService.joinStudyClicked();
   }
 }

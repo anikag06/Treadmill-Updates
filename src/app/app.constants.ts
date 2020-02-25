@@ -71,15 +71,16 @@ export const DEFAULT_PATH = '/landing';
 export const LOGGED_IN_PATH = '/dashboard';
 export const TOKEN_REFRESH_PATH = '/api/v1/user/api-token-refresh/';
 export const LOGIN_PATH = '/api/v1/user/login/';
-export const SIGNUP_PATH = '/api/v1/user/registration/';
+export const SIGN_UP_PATH = '/api/v1/user/registration/';
+export const VERIFY_PARTICIPANT = '/api/v1/trial-iitk/verify-sign-up-link/';
 export const PHQ_NINE_SCORE = '/api/v1/questionnaire/phq-user-scores/';
 export const GAD_SEVEN_SCORE = '/api/v1/questionnaire/gad-user-scores/';
-export const MOBILEWIDTH = 768;
+export const MOBILE_WIDTH = 768;
 export const USER_PROFILE = '/api/v1/user/user-profile/';
 
 // Interpretation bias game(IBG) paths
 export const IBG_SENTENCE = '/api/v1/games/interpretation-bias/sentences/';
-export const IBG_SCOREINFO = '/api/v1/games/interpretation-bias/score/';
+export const IBG_SCORE_INFO = '/api/v1/games/interpretation-bias/score/';
 export const IBG_USER_RESPONSE =
   '/api/v1/games/interpretation-bias/user-responses/';
 

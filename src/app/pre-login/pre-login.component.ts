@@ -46,7 +46,7 @@ export class PreLoginComponent implements OnInit {
     this.showContactUsService.contactUsClicked();
   }
 
-  onTrialReg() {
-    this.router.navigate(['trial/trial-registration']);
+  onJoinTheStudyClicked() {
+    this.showLoginSignupDialogService.joinStudyClicked();
   }
 }
