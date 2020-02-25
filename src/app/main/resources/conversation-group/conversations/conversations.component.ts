@@ -127,7 +127,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     private commonDialogService: CommonDialogsService,
     private flowStepService: FlowStepNavigationService,
     private stepDataService: StepsDataService,
-  ) {}
+  ) { }
   currenthistory!: CurrentHistory;
   dialog_history!: DialogInHistory;
   conversation_id!: number;
@@ -171,8 +171,8 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
 
   isDislikeBox = false;
   isLikeBox = false;
-  slideLiked = false;
-  slideDisliked = false;
+  convLiked = false;
+  convDisliked = false;
   likeDislikeRemoved = false;
 
   initial_feedback!: number;
@@ -181,8 +181,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   unsend = true;
 
   @ViewChild('form_div', { static: false }) formDiv!: ElementRef;
-  @ViewChild('slideDiv', { static: false }) slideDiv!: ElementRef;
-  @ViewChild('slidePage', { static: false }) slidePage!: ElementRef;
+  @ViewChild('convDiv', { static: false }) convDiv!: ElementRef;
 
   b = new Map<number, Dialog>();
 
@@ -234,8 +233,8 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     this.conversationsService
       .get(
         environment.API_ENDPOINT +
-          '/api/v1/conversation/conversation/?conversation_id=' +
-          this.conversation_id,
+        '/api/v1/conversation/conversation/?conversation_id=' +
+        this.conversation_id,
       )
       .subscribe((res: any) => {
         this.conversation = new Conversation(
@@ -305,8 +304,8 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     this.conversationsService
       .get(
         environment.API_ENDPOINT +
-          '/api/v1/conversation/history/current/?conversation_id=' +
-          this.conversation_id,
+        '/api/v1/conversation/history/current/?conversation_id=' +
+        this.conversation_id,
       )
       .subscribe((res: any) => {
         this.conversationsService
@@ -315,13 +314,13 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
             if (feedback_data.exists) {
               this.initial_feedback = feedback_data.feedback;
               if (this.initial_feedback === 1) {
-                this.slideLiked = true;
+                this.convLiked = true;
               } else if (this.initial_feedback === -1) {
-                this.slideDisliked = true;
+                this.convDisliked = true;
               }
             } else {
-              this.slideDisliked = false;
-              this.slideLiked = false;
+              this.convDisliked = false;
+              this.convLiked = false;
               this.initial_feedback = 0; // if it the first response
             }
           });
@@ -329,7 +328,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
           this.isvisible = true;
         } else {
           setTimeout(
-            () => this.slideDiv.nativeElement.classList.add('col-5'),
+            () => this.convDiv.nativeElement.classList.add('col-5'),
             1000,
           );
         }
@@ -541,15 +540,15 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   }
 
   scrollPageToBottom() {
-    this.scrollTop = this.slideDiv.nativeElement.scrollHeight;
+    this.scrollTop = this.convDiv.nativeElement.scrollHeight;
   }
 
   onDislikeBtnClick() {
-    if (this.slideDisliked === true) {
+    if (this.convDisliked === true) {
       this.final_feedback = 0; // changing from dislike to no like/dislike state
       this.likeDislikeRemoved = true;
       this.isDislikeBox = false;
-    } else if (this.slideLiked === true) {
+    } else if (this.convLiked === true) {
       this.final_feedback = -1; // changing from like to dislike state
       this.likeDislikeRemoved = true;
       this.isDislikeBox = false;
@@ -558,17 +557,17 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       this.likeDislikeRemoved = false;
       this.isDislikeBox = true;
     }
-    this.slideDisliked = !this.slideDisliked;
-    this.slideLiked = false;
+    this.convDisliked = !this.convDisliked;
+    this.convLiked = false;
     this.isLikeBox = false;
     this.storeFeedBackData();
   }
   onLikeBtnClick() {
-    if (this.slideLiked === true) {
+    if (this.convLiked === true) {
       this.final_feedback = 0; // changing from like to no like/dislike state
       this.likeDislikeRemoved = true;
       this.isLikeBox = false;
-    } else if (this.slideDisliked === true) {
+    } else if (this.convDisliked === true) {
       this.final_feedback = 1; // changing from dislike to no like state
       this.likeDislikeRemoved = true;
       this.isLikeBox = false;
@@ -577,8 +576,8 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       this.final_feedback = 1; // changing from no like/dislike state to like
       this.likeDislikeRemoved = false;
     }
-    this.slideLiked = !this.slideLiked;
-    this.slideDisliked = false;
+    this.convLiked = !this.convLiked;
+    this.convDisliked = false;
     this.isDislikeBox = false;
     this.storeFeedBackData();
   }
@@ -618,7 +617,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     this.isConversation = false;
   }
 
-  onShowSlides() {
+  onShowConv() {
     this.isvisible = !this.isvisible;
     this.isConversation = true;
     this.isFormVisible = false;

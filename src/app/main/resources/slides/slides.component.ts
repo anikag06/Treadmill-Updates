@@ -34,6 +34,8 @@ import { CommonDialogsService } from '../shared/common-dialogs.service';
 import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.service';
 import { StepsDataService } from '../shared/steps-data.service';
 import { UserFeedbackComponent } from '../shared/user-feedback/user-feedback.component';
+import { MatBottomSheet } from '@angular/material';
+import { SlidesBottomsheetComponent } from './slides-bottomsheet/slides-bottomsheet.component';
 
 @Component({
   selector: 'app-slides',
@@ -83,6 +85,7 @@ export class SlidesComponent implements OnInit {
     private commonDialogService: CommonDialogsService,
     private flowStepService: FlowStepNavigationService,
     private stepDataService: StepsDataService,
+    private _bottomSheet: MatBottomSheet,
   ) { }
 
   slide!: Slide;
@@ -187,6 +190,7 @@ export class SlidesComponent implements OnInit {
 
   ngAfterContentInit(): void {
     this.screenHeight = window.screen.height;
+    this.openBottomSheet();
   }
 
   loadForm(component: any) {
@@ -266,6 +270,9 @@ export class SlidesComponent implements OnInit {
       .updateFeedBackInfo(this.feedbackText, this.feedbackDataId)
       .subscribe(data => { });
     this.scrollTop = 0;
+  }
+  openBottomSheet() {
+    this._bottomSheet.open(SlidesBottomsheetComponent);
   }
 
 }
