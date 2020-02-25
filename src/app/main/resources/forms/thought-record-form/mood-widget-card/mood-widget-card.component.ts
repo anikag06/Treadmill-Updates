@@ -67,7 +67,7 @@ export class MoodWidgetCardComponent implements OnInit {
       maxWidth: '100vw',
       autoFocus: false,
       data: {
-        feelingData: this.userFeelings,
+        emotionsData: this.userFeelings,
       },
     });
     this.onDialogRefClosed(dialogRef);
@@ -79,27 +79,31 @@ export class MoodWidgetCardComponent implements OnInit {
         // this.userFeelings = [];
         // this.rating = [];
         // console.log(result.data);
-        const feelingData = result.data.feelingData;
-        const feelingRatingData = result.data.feelingRatingsData;
-        // if (this.userFeelings.length > 0) {
-        feelingData.forEach((feeling: string) => {
+        const emotions = result.data.emotions;
+        const emotionsRating = result.data.emotionsRating;
+        const filtered = this.userFeelings.filter(function(e: UserFeeling) {
+          // @ts-ignore
+          return this.indexOf(e.feeling) >= 0;
+        }, emotions);
+        this.userFeelings = filtered;
+
+        console.log(this.userFeelings);
+
+        emotions.forEach((feeling: string) => {
           let isFound = false;
           // @ts-ignore
           this.userFeelings.find(obj => {
             if (obj.feeling === feeling) {
-              obj.feeling_rating =
-                feelingRatingData[feelingData.indexOf(feeling)];
+              obj.feeling_rating = emotionsRating[emotions.indexOf(feeling)];
               isFound = true;
             }
           });
           if (!isFound) {
-            // this.rating.push(this.emotions.indexOf(feeling));
             this.userFeelings.push(<UserFeeling>{
               feeling: feeling,
-              feeling_rating: feelingRatingData[feelingData.indexOf(feeling)],
+              feeling_rating: emotionsRating[emotions.indexOf(feeling)],
             });
           }
-          // console.log(this.rating);
         });
         this.moodSelected = true;
         this.showSaveButton = true;

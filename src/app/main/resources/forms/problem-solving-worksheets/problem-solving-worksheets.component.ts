@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild,} from '@angular/core';
+import {Component, ElementRef, Input, OnDestroy, OnInit, ViewChild,} from '@angular/core';
 import {ProblemSolvingWorksheetsService} from './problem-solving-worksheets.service';
 import {Subscription} from 'rxjs';
 import {Problem} from './problem.model';
@@ -50,6 +50,8 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   @ViewChild(SolutionsComponent, { static: false })
   solutionsForm!: SolutionsComponent;
   saveSolutionBtn!: boolean;
+  showProConBtn!: boolean;
+  @Input() fromSlide!: boolean;
   constructor(
     private problemService: ProblemSolvingWorksheetsService,
     private authService: AuthService,
@@ -195,15 +197,12 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   }
 
   selectBestSolution() {
-    // const solution = this.solutions.find(sol => sol.best_solution);
-    // if (solution && solution.best_solution) {
-    //   this.bestSolution = solution;
-    // }
-    this.showTask = true;
+    if (this.problem.bestsolution) {
+      this.showTask = true;
+    }
   }
 
   onSolutionSubmit() {
-
     if (
       this.solutionForm.value['solution'] &&
       this.solutionForm.value['solution'].trim().length > 0
@@ -267,6 +266,10 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   onSolutionSaved() {
     this.solutionsSaved = true;
   }
+
+  // onShowBestSolution(value: boolean) {
+  //   this.showProConBtn = value;
+  // }
 
   onProsConsSaved() {
     this.prosconsSaved = true;

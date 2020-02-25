@@ -23,6 +23,7 @@ export class ActAsIfComponent implements OnInit {
   @Output() techniqueExpanded = new EventEmitter();
   @Output() techniqueCollapsed = new EventEmitter();
   @Input() summaryIndex!: number;
+  @Input() reset!: boolean;
   advantageQues = 'What are the advantage having this belief?';
   acting_help = 'Would acting this way help me?';
   showAdvantages = false;
@@ -46,8 +47,7 @@ export class ActAsIfComponent implements OnInit {
   ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges) {
-    if (this.belief) {
-      this.resetForm();
+    if (changes.belief && this.reset) {
       this.actAsIfService
         .getActingAsIf(this.belief.id)
         .subscribe((resp: any) => {
@@ -78,6 +78,9 @@ export class ActAsIfComponent implements OnInit {
       this.actAsIfForm.controls.advantages = this.formBuilder.array([
         this.createItem(),
       ]);
+    }
+    if (this.reset) {
+      this.resetForm();
     }
   }
 

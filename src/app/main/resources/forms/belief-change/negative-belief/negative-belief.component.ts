@@ -48,7 +48,7 @@ export class NegativeBeliefComponent implements OnInit {
     ) {
       this.initializeBelief();
     }
-    if (changes.reset) {
+    if (changes.belief && this.belief === undefined) {
       this.resetBelief();
     }
   }

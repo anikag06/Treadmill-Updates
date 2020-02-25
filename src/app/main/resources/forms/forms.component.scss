@@ -59,15 +59,15 @@ strong {
 
 .container-fluid {
   max-width: 900px;
-  width: 65%;
-  margin-left: 6%;
+  width: 94%;
+  margin-left: 3%;
   //max-height: 900px;
   height: auto;
 }
 
 @media screen and (max-width: 992px) {
   .container-fluid {
-    width: 70%;
+    width: 94%;
     padding: 0 !important;
     height: auto;
   }

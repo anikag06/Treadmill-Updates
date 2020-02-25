@@ -42,7 +42,7 @@ export class TrfSituationCardComponent implements OnInit {
     ) {
       this.initializeSituation();
     }
-    if (changes.reset) {
+    if (changes.thought && this.thought === undefined) {
       this.resetForm();
     }
   }

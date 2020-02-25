@@ -1,39 +1,20 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  ComponentFactoryResolver,
-  ElementRef,
-  ChangeDetectorRef,
-} from '@angular/core';
-import { SlideService } from './slide.service';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { FormDirective } from './form.directive';
-import { ProblemSolvingWorksheetsComponent } from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.component';
-import { TaskFormsComponent } from '../forms/task-forms/task-forms.component';
-import { Slide } from './Slide.model';
-import { SlidesFeedback, SlidesFeedbackText } from './slide.feedback.model';
-import { StepCompleteData } from '../shared/completion-data.model';
-import { ActivatedRoute, Router } from '@angular/router';
-import { map, switchMap } from 'rxjs/operators';
-import {
-  trigger,
-  transition,
-  style,
-  animate,
-  state,
-} from '@angular/animations';
-import {
-  SLIDE,
-  FORM_PROBLEM_SOLVING_WORKSHEET,
-  FORM_TASK,
-  COMPLETED,
-  ACTIVE,
-} from '@/app.constants';
-import { CommonDialogsService } from '../shared/common-dialogs.service';
-import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.service';
-import { StepsDataService } from '../shared/steps-data.service';
-import { UserFeedbackComponent } from '../shared/user-feedback/user-feedback.component';
+import {Component, ComponentFactoryResolver, ElementRef, OnInit, ViewChild,} from '@angular/core';
+import {SlideService} from './slide.service';
+import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
+import {FormDirective} from './form.directive';
+import {ProblemSolvingWorksheetsComponent} from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.component';
+import {TaskFormsComponent} from '../forms/task-forms/task-forms.component';
+import {Slide} from './Slide.model';
+import {SlidesFeedback, SlidesFeedbackText} from './slide.feedback.model';
+import {StepCompleteData} from '../shared/completion-data.model';
+import {ActivatedRoute, Router} from '@angular/router';
+import {map, switchMap} from 'rxjs/operators';
+import {animate, state, style, transition, trigger,} from '@angular/animations';
+import {ACTIVE, COMPLETED, FORM_PROBLEM_SOLVING_WORKSHEET, FORM_TASK, SLIDE,} from '@/app.constants';
+import {CommonDialogsService} from '../shared/common-dialogs.service';
+import {FlowStepNavigationService} from '@/main/shared/flow-step-navigation.service';
+import {StepsDataService} from '../shared/steps-data.service';
+import {UserFeedbackComponent} from '../shared/user-feedback/user-feedback.component';
 
 @Component({
   selector: 'app-slides',
@@ -185,7 +166,9 @@ export class SlidesComponent implements OnInit {
     );
     const viewContainerRef = this.formHost.viewContainerRef;
     viewContainerRef.clear();
-    viewContainerRef.createComponent(componentFactory);
+    const componentRef = viewContainerRef.createComponent(componentFactory);
+    // @ts-ignore
+    componentRef.instance.fromSlide = true;
     if (window.matchMedia('(max-width: 767px)').matches) {
       this.isFormVisible = false;
     } else {

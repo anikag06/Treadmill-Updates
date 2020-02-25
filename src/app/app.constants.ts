@@ -131,7 +131,7 @@ export const RESUME_CHAT = 'resume_chat';
 export const REPLY_CURRENT = 'reply_current';
 export const UNSPLASH_URL = 'https://api.unsplash.com';
 export const GIPHY_URL = 'https://api.giphy.com/v1/gifs/';
-export const GET_FEELING_LIST_URL =
+export const FEELING_LIST_API =
   '/api/v1/worksheets/thought-record/get-feelings-list/';
 
 export const MAX_RETRIES = 10;
@@ -300,6 +300,7 @@ export const THOUGHT_TELL_FRIEND_API =
   '/api/v1/worksheets/thought-record/tell-a-friend/';
 export const ALTERNATE_EXPLANATION_API =
   '/api/v1/worksheets/thought-record/alternative-explanation/';
+export const SHOW_FULL_FORM_API = '/api/v1/worksheets/thought-record/show-full-form/';
 
 // Belief Change Form
 export const BELIEF_CHANGE = 'belief-change';

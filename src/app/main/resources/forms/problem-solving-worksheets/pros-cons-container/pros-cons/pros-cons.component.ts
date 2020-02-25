@@ -16,6 +16,7 @@ export class ProsConsComponent implements OnInit {
   @Input() prosCons: ProsCons[] = [];
   @Output() proconAdd = new EventEmitter<ProsCons>();
   @Output() proconRemove = new EventEmitter<ProsCons>();
+  // @Output() triggerBtn = new EventEmitter();
   @ViewChild('proconForm', { static: false }) proconForm!: NgForm;
   showForm = false;
 
@@ -47,8 +48,12 @@ export class ProsConsComponent implements OnInit {
           this.proconForm.reset();
           if (this.prosCons.length === 0) {
             this.showForm = true;
+            // this.triggerBtn.emit(false);
           }
-        }, this.errorService.errorResponse('Cannot post an pro or con'));
+          // else {
+          //   this.triggerBtn.emit(true);
+          // }
+        }, this.errorService.errorResponse('Cannot post pro or con'));
     } else {
       this.showForm = false;
       this.proconForm.reset();
@@ -60,6 +65,9 @@ export class ProsConsComponent implements OnInit {
     this.problemsService.deleteProsCons(procon.id).subscribe(() => {
       this.prosCons = this.prosCons.filter(pc => pc.id !== procon.id);
     });
+    if (this.prosCons.length === 0) {
+      // this.triggerBtn.emit(false);
+    }
   }
 
   onFocusOut(procon: ProsCons, event: any) {

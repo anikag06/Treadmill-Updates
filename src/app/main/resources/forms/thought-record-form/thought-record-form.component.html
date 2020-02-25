@@ -68,9 +68,14 @@
             *ngIf="showRecordBehave"
             (showTechniques)="onShowTechniques($event)"
           ></app-trf-behavior-card>
-
+          <app-form-recommend
+            *ngIf="showRecommend"
+            [recommendPath]="recommend"
+            [characterImg]="imgSrc"
+            (recommedComplete)="accessTechniques()"
+          ></app-form-recommend>
           <app-thought-record-techniques
-                  [resetTechnique]="reset"
+            [resetTechnique]="reset"
             [thought]="thought"
             *ngIf="showTechniques"
             [finalThought]="showFinalThought"

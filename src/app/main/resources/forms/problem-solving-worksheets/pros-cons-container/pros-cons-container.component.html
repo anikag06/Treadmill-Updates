@@ -1,10 +1,19 @@
 <div class="row">
-  <div class="col-12 col-lg-6 mb-3 mb-lg-0">
+  <div
+    [ngClass]="
+      fromSlide ? 'col-12 mb-3 mb-lg-0' : 'col-12 col-lg-6  mb-3 mb-lg-0'
+    "
+  >
     <ng-container>Pros</ng-container>
     <app-pros-cons [pro]="true" [prosCons]="pros" [solution]="solution">
     </app-pros-cons>
   </div>
-  <div class="col-12 col-lg-6 mb-3 mb-lg-0">
+  <!--  (triggerBtn)="triggerContinueBtn($event)"-->
+  <div
+    [ngClass]="
+      fromSlide ? 'col-12 mb-3 mb-lg-0' : 'col-12 col-lg-6  mb-3 mb-lg-0'
+    "
+  >
     <ng-container>Cons</ng-container>
     <app-pros-cons [pro]="false" [prosCons]="cons" [solution]="solution">
     </app-pros-cons>

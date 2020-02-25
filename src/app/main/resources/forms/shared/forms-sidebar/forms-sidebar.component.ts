@@ -72,6 +72,7 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
   }
 
   onAddNewForm() {
+    this.selectedObject = undefined;
     this.newForm.emit();
   }
 

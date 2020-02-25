@@ -12,8 +12,10 @@ import {Problem} from '@/main/resources/forms/problem-solving-worksheets/problem
 export class ProsConsContainerComponent implements OnInit {
   @Input() solution!: Problem;
   @Output() proConsSaved = new EventEmitter();
+  // @Output() showContinueBtn = new EventEmitter();
   pros: ProsCons[] = [];
   cons: ProsCons[] = [];
+  @Input() fromSlide!: boolean;
   constructor(
     private problemService: ProblemSolvingWorksheetsService,
     private errorService: GeneralErrorService,
@@ -27,6 +29,7 @@ export class ProsConsContainerComponent implements OnInit {
       this.cons = resp.data.cons;
       if (this.cons.length > 0 || this.pros.length > 0) {
         console.log(this.pros, this.cons);
+        // this.triggerContinueBtn(true);
         this.onProConSave();
       }
     }, this.errorService.errorResponse('Cannot fetch Pros and cons'));
@@ -35,4 +38,8 @@ export class ProsConsContainerComponent implements OnInit {
   onProConSave() {
     this.proConsSaved.emit();
   }
+
+  // triggerContinueBtn(value: boolean) {
+  //   this.showContinueBtn.emit(value);
+  // }
 }

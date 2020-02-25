@@ -95,14 +95,11 @@ import {ProofEvidencesComponent} from './forms/shared/proof-evidences/proof-evid
 import {EvidencesComponent} from './forms/shared/proof-evidences/evidences/evidences.component';
 import {BeliefProofService, TRFProofService,} from '@/main/resources/forms/shared/proof-evidences/proof-evidences.service';
 import {FormTechniqueComponent} from './forms/shared/form-technique/form-technique.component';
-import {
-  AlternateExplanationService,
-  BeliefTellFriendService,
-  TRFTellFriendService,
-} from '@/main/resources/forms/shared/form-technique/form-technique.service';
+import {AlternateExplanationService, BeliefTellFriendService, TRFTellFriendService,} from '@/main/resources/forms/shared/form-technique/form-technique.service';
 import {TrfBehaviorCardComponent} from './forms/thought-record-form/trf-behavior-card/trf-behavior-card.component';
 import {SummaryCardComponent} from './forms/shared/summary-card/summary-card.component';
 import {TrfSituationCardComponent} from '@/main/resources/forms/thought-record-form/trf-situation-card/trf-situation-card.component';
+import {FormRecommendComponent} from './forms/shared/form-recommend/form-recommend.component';
 
 
 @NgModule({
@@ -175,6 +172,7 @@ import {TrfSituationCardComponent} from '@/main/resources/forms/thought-record-f
     FormTechniqueComponent,
     TrfBehaviorCardComponent,
     SummaryCardComponent,
+    FormRecommendComponent,
   ],
   imports: [
     ResourcesRoutingModule,
