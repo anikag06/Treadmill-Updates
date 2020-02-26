@@ -13,8 +13,8 @@
 }
 
 .like-btns-div {
-  height: 4.7vh;
-  max-height: 36px;
+  height: 36px;
+  // max-height: 36px;
 }
 
 .like-dislike-btns {
@@ -29,6 +29,12 @@
 .next-step-btn {
   line-height: 0%;
   font-size: 14px;
+  // width: 100px;
+  color: white;
+  background-color: #2a3b3d;
+  outline: none;
+  color: white;
+  box-shadow: none;
 }
 
 @media screen and (max-width: 767px) {

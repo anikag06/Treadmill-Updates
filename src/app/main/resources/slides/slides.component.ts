@@ -114,6 +114,7 @@ export class SlidesComponent implements OnInit {
   next_step_id!: number;
   step_type: any;
   screenHeight: any;
+  screenWidth: any;
 
   ngOnInit() {
     this.activateRoute.params
@@ -190,7 +191,8 @@ export class SlidesComponent implements OnInit {
 
   ngAfterContentInit(): void {
     this.screenHeight = window.screen.height;
-    this.openBottomSheet();
+    this.screenWidth = window.screen.width;
+    setTimeout(() => this.openBottomSheet(), 100);
   }
 
   loadForm(component: any) {

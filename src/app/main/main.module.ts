@@ -173,7 +173,6 @@ import { SurveyComponent } from './shared/survey/survey.component';
 import { SurveyService } from './shared/survey.service';
 import { DisableClickDirective } from '@/shared/disable-click.directive';
 import { SlidesVideoComponent } from './resources/slides/slides-video/slides-video.component';
-import { SafeUrlPipe } from '@/shared/safe-url.pipe';
 
 @NgModule({
   declarations: [

@@ -2,10 +2,11 @@
   <ng-container *ngIf="slide else loader">
     <div class="col-1 in-desktop"></div>
     <div class="col px-0 changes-width" #slideDiv id="slide-container"
-      [@slideInOut]="isSlidesVisible ? 'show' : 'hidden'" [style.height]="container.offsetHeight + 110 + 'px'">
+      [@slideInOut]="isSlidesVisible ? 'show' : 'hidden'"
+      [style.height]="screenWidth <= 768 ? container.offsetHeight + 68 + 'px' : container.offsetHeight + 110 + 'px'">
       <div class="row h-100 justify-content-center">
-        <div class="row mb-1 w-100">
-          <mat-card-header class="col-12 w-100 px-0 card-header in-desktop slideTitle">
+        <div class="row mb-1 w-100 in-desktop">
+          <mat-card-header class="col-12 w-100 my-auto px-0 card-header in-desktop slideTitle">
             <mat-card-title class="my-auto d-inline-block">
               {{slide.title}}
             </mat-card-title>

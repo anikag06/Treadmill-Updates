@@ -133,10 +133,18 @@ $small_logo_height: 40px;
   background: #fffaf3;
 }
 
+.slide-video .mat-dialog-container {
+  padding: 0px;
+}
+
 
 // to make the login dialog scrollable in mobile landscape mode
 .cdk-global-overlay-wrapper {
   overflow: auto;
+
+  .mat-bottom-sheet-container {
+    overflow: hidden;
+  }
 }
 
 .anchorify-default {
