@@ -186,7 +186,6 @@ export class SlidesComponent implements OnInit {
           this.notAvailable = true;
         }
       });
-
   }
 
   ngAfterContentInit(): void {
