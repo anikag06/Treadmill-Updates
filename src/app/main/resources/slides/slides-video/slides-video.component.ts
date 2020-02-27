@@ -13,7 +13,7 @@ export class SlidesVideoComponent implements OnInit, AfterViewInit {
   sanitizedUrl!: SafeUrl;
   videoUrl = 'https://www.youtube.com/embed/k5E2AVpwsko?autoplay=1&enablejsapi=1&mute=1';
   player!: any;
-  videoWatchedPercent = 0.001;
+  videoTimeLeft = 10;
 
   @ViewChild('slideVideo', { static: false }) slideVideo!: ElementRef;
   @ViewChild('backBtn', { static: false }) backBtn!: ElementRef;
@@ -33,16 +33,16 @@ export class SlidesVideoComponent implements OnInit, AfterViewInit {
     (<any>window).onYouTubeIframeAPIReady = () => {
       console.log('you tube iframe');
       setTimeout(() => {
-      this.player = new (<any>window).YT.Player('player', {
-        events: {
-          'onReady': (event: any) => { this.onPlayerReady(event); },
-          'onStateChange': (event: any) => { this.onPlayerStateChange(event); }
-        },
-        playerVars: {
-          'autoplay': 1,
-          'origin': window.location.href
-        },
-      });
+        this.player = new (<any>window).YT.Player('player', {
+          events: {
+            'onReady': (event: any) => { this.onPlayerReady(event); },
+            'onStateChange': (event: any) => { this.onPlayerStateChange(event); }
+          },
+          playerVars: {
+            'autoplay': 1,
+            'origin': window.location.href
+          },
+        });
       }, 1000);
     };
 
@@ -57,7 +57,7 @@ export class SlidesVideoComponent implements OnInit, AfterViewInit {
 
     const videoInt = setInterval(() => {
       console.log('current time', this.player.getCurrentTime());
-      if (this.player.getCurrentTime() >= this.videoWatchedPercent * this.player.getDuration()) {
+      if (this.player.getCurrentTime() >= this.player.getDuration() - this.videoTimeLeft) {
         clearInterval(videoInt);
         this.enableBackBtn();
       }
