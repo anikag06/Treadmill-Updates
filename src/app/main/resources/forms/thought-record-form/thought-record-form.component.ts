@@ -4,6 +4,7 @@ import {FormMessage} from '@/main/resources/forms/shared/form-message/form-messa
 import {TRF_NEGATIVE_MSG, TRF_POSITIVE_MSG, TRF_QUOTES,} from '@/main/resources/forms/thought-record-form/trf-message';
 import {FormService} from '@/main/resources/forms/shared/form.service';
 import {ThoughtRecordService} from '@/main/resources/forms/thought-record-form/thought-record.service';
+import {Thought} from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
 
 @Component({
   selector: 'app-thought-record-form',
@@ -23,7 +24,7 @@ export class ThoughtRecordFormComponent implements OnInit {
   showTechniques = false;
   recordBehaveHeader = 'How did this negative thought make you behave?';
   reset = false;
-  thought!: any;
+  thought!: Thought;
   negativeThought: any;
   message!: FormMessage;
   quote!: string;
@@ -52,8 +53,9 @@ export class ThoughtRecordFormComponent implements OnInit {
 
   ngOnInit() {}
 
-  thoughtSelected(thought: any) {
+  thoughtSelected(thought: Thought) {
     this.thought = thought;
+    // this.showRecommend = !thought.show_full;
     this.reset = true;
     this.resetForm();
     this.thoughtObject = {
@@ -62,7 +64,7 @@ export class ThoughtRecordFormComponent implements OnInit {
     };
   }
 
-  updateThought(thought: any) {
+  updateThought(thought: Thought) {
     this.thought = thought;
     // this.onShowNegative(true);
 
@@ -70,11 +72,12 @@ export class ThoughtRecordFormComponent implements OnInit {
       id: thought.id,
       text: thought.situation,
     };
+    // this.showRecommend = !thought.show_full;
     this.reset = false;
   }
 
   onAddNewForm() {
-    this.thought = undefined;
+    delete this.thought;
     this.resetForm();
   }
 
@@ -96,11 +99,8 @@ export class ThoughtRecordFormComponent implements OnInit {
 
   onShowTechniques(value: boolean) {
     if (this.showRecordBehave) {
-      this.thoughtRecordService.getShowFullForm().subscribe((resp: any) => {
-        console.log(resp);
-        this.showRecommend = !resp.body.data;
-        this.showTechniques = this.showRecommend ? false : true;
-      });
+      this.showRecommend = !this.thought.show_full;
+      this.showTechniques = this.showRecommend ? false : true;
     } else {
       this.showTechniques = false;
     }
@@ -156,7 +156,7 @@ export class ThoughtRecordFormComponent implements OnInit {
     this.showFinalThought = false;
     this.showRecordBehave = false;
     this.showMessage = false;
-    this.showRecommend = false;
+    delete this.showRecommend;
     delete this.finalRating;
     delete this.initialRating;
     delete this.formComplete;

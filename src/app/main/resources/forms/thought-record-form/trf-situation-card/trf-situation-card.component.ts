@@ -14,7 +14,7 @@ export class TrfSituationCardComponent implements OnInit {
   @Output() showNegative = new EventEmitter();
   @Output() onShowSlider = new EventEmitter();
 
-  @Input() thought!: any;
+  @Input() thought!: Thought;
   @Input() reset!: boolean;
   @Input() editMode = false;
   @Output() updateThought = new EventEmitter();
@@ -85,9 +85,9 @@ export class TrfSituationCardComponent implements OnInit {
     }
   }
 
-  situationHandler(data: any, action: string) {
+  situationHandler(data: Thought, action: string) {
     if (action === 'create') {
-      this.thought = new Thought(data.id, data.situation);
+      this.thought = new Thought(data.id, data.situation, data.show_full);
       this.thoughtRecordService.addSituation(this.thought);
 
       this.showNegative.emit(true);

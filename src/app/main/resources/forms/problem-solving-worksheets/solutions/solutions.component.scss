@@ -9,8 +9,8 @@
     max-height: 100px;
     padding: 0%;
     border-bottom: 1px solid #dcdcdc;
-    overflow: auto;
-    &:focus {
+    overflow-y: auto;
+      &:focus {
       border-top: none;
       border-left: none;
       border-right: none;

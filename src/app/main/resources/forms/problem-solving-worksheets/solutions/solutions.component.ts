@@ -50,10 +50,8 @@ export class SolutionsComponent implements OnInit {
     }
   }
   onSolutionRemove(index: number, solution: Solution) {
-    if (confirm('Are you sure to delete this solution')) {
-      this.solutionDelete.emit(solution);
-      this.showDeleteIcon.splice(index, 1);
-    }
+    this.solutionDelete.emit(solution);
+    this.showDeleteIcon.splice(index, 1);
   }
 
   onFocusOut(event: FocusEvent, solution: Solution, index: number) {

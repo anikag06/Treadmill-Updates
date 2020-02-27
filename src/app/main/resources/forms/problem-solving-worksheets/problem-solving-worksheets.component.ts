@@ -309,7 +309,12 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   renderResult(): Boolean {
     // this.showMessage = true;
     // this.onShowMessage();
-    return this.solutions && this.showTask && this.showResult;
+    return (
+      this.solutions.length > 0 &&
+      this.showTask &&
+      this.showResult &&
+      this.prosconsSaved
+    );
   }
 
   onShowMessage() {

@@ -20,8 +20,7 @@ textarea {
 
   .subtask {
     .mat-checkbox {
-      width: 100%;
-      display: inline-block;
+      display: flex;
     }
 
     span {
@@ -76,4 +75,7 @@ label {
 .task-data {
   margin-left: 1.375rem;
   display: inline;
+}
+.mat-checkbox {
+  display: flex;
 }

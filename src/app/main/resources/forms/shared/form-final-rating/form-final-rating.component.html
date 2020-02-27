@@ -39,14 +39,20 @@
           <mat-form-field class="full-width">
             <textarea
               matInput
+              #formInput="matInput"
+              [placeholder]="
+                formInput.focused
+                  ? service === 1
+                    ? 'Realistic Thought'
+                    : 'Realistic Belief'
+                  : ''
+              "
+              class="py-0"
               cdkTextareaAutosize
-              cdkAutosizeMinRows="2"
-              cdkAutosizeMaxRows="4"
+              cdkAutosizeMinRows="1"
+              cdkAutosizeMaxRows="5"
               formControlName="realistic"
               required
-              [placeholder]="
-                service === 1 ? 'Realistic Thought' : 'Realistic Belief'
-              "
               (focus)="showRealisticBtn()"
             ></textarea>
           </mat-form-field>

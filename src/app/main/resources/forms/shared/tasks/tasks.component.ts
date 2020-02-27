@@ -44,7 +44,7 @@ export class TasksComponent implements OnInit, OnChanges {
   dateRange!: string;
   endTime!: string;
   repeatedDays!: string;
-  errorMessage = "Sorry, we're unable to save the Task. We're on it already.";
+  errorMessage = "Sorry, the Task couldn't be saved. We're on it already.";
 
   tasksGroup = this.fb.group({
     task: ['', Validators.required],
@@ -146,8 +146,11 @@ export class TasksComponent implements OnInit, OnChanges {
         },
         error => {
           console.log(error);
-          this.taskService.openSnackBar('Error Occured', 'Retry');
-          this.taskService.openSnackBar(error.error.non_field_errors, 'Retry');
+          // this.taskService.openSnackBar('Error Occured', 'Retry');
+          this.taskService.openSnackBar(
+            error.error.non_field_errors || this.errorMessage,
+            'Retry',
+          );
         },
       );
     } else if (object.start_date === undefined || object.time === undefined) {
@@ -163,7 +166,7 @@ export class TasksComponent implements OnInit, OnChanges {
           this.showMessage.emit(true);
         },
         error => {
-          console.log(error);
+          // console.log(error);
           this.taskService.openSnackBar(
             error.error.non_field_errors || this.errorMessage,
             'Retry',

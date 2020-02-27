@@ -90,7 +90,7 @@ import {FormMessageComponent} from './forms/shared/form-message/form-message.com
 import {FormQuoteComponent} from './forms/shared/form-quote/form-quote.component';
 
 import {FormFinalRatingComponent} from './forms/shared/form-final-rating/form-final-rating.component';
-import {NegativeBeliefFinalService, ThoughtRecordFinalService} from '@/main/resources/forms/shared/form-final-rating/final-rating.service';
+import {NegativeBeliefFinalService, ThoughtRecordFinalService,} from '@/main/resources/forms/shared/form-final-rating/final-rating.service';
 import {ProofEvidencesComponent} from './forms/shared/proof-evidences/proof-evidences.component';
 import {EvidencesComponent} from './forms/shared/proof-evidences/evidences/evidences.component';
 import {BeliefProofService, TRFProofService,} from '@/main/resources/forms/shared/proof-evidences/proof-evidences.service';
@@ -100,7 +100,8 @@ import {TrfBehaviorCardComponent} from './forms/thought-record-form/trf-behavior
 import {SummaryCardComponent} from './forms/shared/summary-card/summary-card.component';
 import {TrfSituationCardComponent} from '@/main/resources/forms/thought-record-form/trf-situation-card/trf-situation-card.component';
 import {FormRecommendComponent} from './forms/shared/form-recommend/form-recommend.component';
-
+import {DeleteDialogComponent} from '@/main/shared/delete-dialog/delete-dialog.component';
+import {ScrollToTopDirective} from '@/main/shared/scrollToTop/scroll-to-top.directive';
 
 @NgModule({
   declarations: [
@@ -152,7 +153,6 @@ import {FormRecommendComponent} from './forms/shared/form-recommend/form-recomme
     ThoughtRecordTechniquesComponent,
     TechniquesInfoComponent,
     IdentifyThinkingComponent,
-    ClickOutsideDirective,
     RecordOutcomeComponent,
     FormTextareaComponent,
     ThoughtHelpComponent,
@@ -173,6 +173,9 @@ import {FormRecommendComponent} from './forms/shared/form-recommend/form-recomme
     TrfBehaviorCardComponent,
     SummaryCardComponent,
     FormRecommendComponent,
+    DeleteDialogComponent,
+    ClickOutsideDirective,
+    ScrollToTopDirective,
   ],
   imports: [
     ResourcesRoutingModule,
@@ -245,11 +248,14 @@ import {FormRecommendComponent} from './forms/shared/form-recommend/form-recomme
     TechniquesInfoComponent,
     DateTimePickerComponent,
     CommonBeliefComponent,
+    DeleteDialogComponent,
   ],
   exports: [
     DateTimePickerComponent,
     ClickOutsideDirective,
     MoodTrackerComponent,
+    DeleteDialogComponent,
+    ScrollToTopDirective,
   ],
 })
 export class ResourcesModule {}

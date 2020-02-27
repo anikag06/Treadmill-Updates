@@ -2,8 +2,9 @@
   <div class="col">
     <!-- <div class="card"> -->
     <div>
-      <div class="card-header">
+      <div class="card-header d-flex">
         What was the result of implementation?
+        <div class="red-circle" *ngIf="disableResult"></div>
       </div>
       <div class="card-body">
         <div *ngIf="!disableResult">

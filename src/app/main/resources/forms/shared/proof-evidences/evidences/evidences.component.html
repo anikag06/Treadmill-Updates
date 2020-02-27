@@ -6,7 +6,7 @@
     <div
       class="statement"
       [ngStyle]="{ display: 'flex' }"
-      click-outside
+      appClickOutside
       (clickOutside)="onClickOutside($event, i)"
       #formRow
       *ngFor="let evidence of control.controls; let i = index"
@@ -15,12 +15,14 @@
       <mat-form-field class="full-width">
         <textarea
           matInput
+          #formInput="matInput"
+          [placeholder]="formInput.focused ? 'Write Here' : ''"
           class="py-0"
+          minlength="5"
           cdkTextareaAutosize
           cdkAutosizeMinRows="1"
           cdkAutosizeMaxRows="4"
           [formControl]="evidence.get('evidence')"
-          placeholder="Type Here"
           required
           [autofocus]
           (focus)="onShowTrashIcon(i)"
@@ -40,7 +42,6 @@
   <mat-icon
     [ngStyle]="{
       'font-size': '19px',
-      'padding-top': '2px',
       cursor: 'pointer'
     }"
     >add

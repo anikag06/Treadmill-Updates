@@ -17,7 +17,7 @@
   </button>
 </mat-menu>
 <div class="post-item">
-  <div class="d-flex flex-row" click-outside (clickOutside)="onClickOutside($event)">
+  <div class="d-flex flex-row" appClickOutside (clickOutside)="onClickOutside($event)">
     <div class="support-profile-card" *ngIf="showProfile">
       <app-user-profile class="support-group" [userProfile]="userProfile"></app-user-profile>
     </div>

@@ -3,7 +3,7 @@ import {HttpClient, HttpResponse} from '@angular/common/http';
 import {environment} from '../../../../../environments/environment';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {Thought} from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
-import {SHOW_FULL_FORM_API, THOUGHT_RECORD_API, THOUGHT_RECORD_BEHAVIOR_API, THOUGHT_RECORD_FEELING_API, THOUGHT_RECORD_SITUATION_API,} from '@/app.constants';
+import {THOUGHT_RECORD_API, THOUGHT_RECORD_BEHAVIOR_API, THOUGHT_RECORD_FEELING_API, THOUGHT_RECORD_SITUATION_API,} from '@/app.constants';
 
 @Injectable({
   providedIn: 'root',
@@ -171,10 +171,5 @@ export class ThoughtRecordService {
         observe: 'response',
       },
     );
-  }
-  getShowFullForm() {
-    return this.http.get<any>(environment.API_ENDPOINT + SHOW_FULL_FORM_API, {
-      observe: 'response',
-    });
   }
 }

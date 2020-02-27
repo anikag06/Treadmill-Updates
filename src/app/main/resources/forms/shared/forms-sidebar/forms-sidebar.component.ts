@@ -14,6 +14,8 @@ import {WorryProductivelyService} from '../../worry-productively-form/worry-prod
 import {Worry} from '../../worry-productively-form/worry.model';
 import {BeliefChangeService} from '@/main/resources/forms/belief-change/belief-change.service';
 import {Belief} from '@/main/resources/forms/belief-change/belief.model';
+import {DeleteDialogComponent} from '@/main/shared/delete-dialog/delete-dialog.component';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'app-forms-sidebar',
@@ -39,6 +41,7 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
     private beliefChangeService: BeliefChangeService,
     private route: ActivatedRoute,
     private element: ElementRef,
+    public dialog: MatDialog,
   ) {}
 
   ngOnInit() {
@@ -156,17 +159,29 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
   }
 
   onDeleteForm(object: any) {
-    if (this.type === THOUGHT_RECORD) {
-      this.deleteThoughtRecordForm(object);
-    } else if (this.type === BELIEF_CHANGE) {
-      this.deleteBeliefForm(object);
-    } else if (this.type === SET_ACTIVITY) {
-      this.deleteTaskForm(object);
-    } else if (this.type === WORRY_PRODUCTIVELY) {
-      this.deleteWorryForm(object);
-    } else if (this.type === PSF_PROBLEM_SOLVING) {
-      this.deleteDeleteProblem(object);
-    }
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      panelClass: 'common-delete-dialog-container',
+      autoFocus: false,
+      data: {
+        confirm: 'Delete this Form?',
+        warning: ' All data will be deleted',
+      },
+    });
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result && result.data) {
+        if (this.type === THOUGHT_RECORD) {
+          this.deleteThoughtRecordForm(object);
+        } else if (this.type === BELIEF_CHANGE) {
+          this.deleteBeliefForm(object);
+        } else if (this.type === SET_ACTIVITY) {
+          this.deleteTaskForm(object);
+        } else if (this.type === WORRY_PRODUCTIVELY) {
+          this.deleteWorryForm(object);
+        } else if (this.type === PSF_PROBLEM_SOLVING) {
+          this.deleteDeleteProblem(object);
+        }
+      }
+    });
   }
 
   deleteThoughtRecordForm(object: any) {

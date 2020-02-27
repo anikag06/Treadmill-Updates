@@ -5,11 +5,11 @@
   (afterCollapse)="panelCollapse()"
 >
   <mat-expansion-panel-header
-    [ngStyle]="{ background: headerColor, paddingLeft: '16px' }"
+    [ngStyle]="{ background: headerColor, paddingLeft: '1rem' }"
   >
     <mat-panel-title
       [ngStyle]="{
-        'font-size': panel.expanded ? '16px' : '14px',
+        'font-size': panel.expanded ? '1rem' : '14px',
         'font-weight': '500'
       }"
     >
@@ -25,41 +25,39 @@
     </mat-panel-description>
   </mat-expansion-panel-header>
 
-  <ng-template matExpansionPanelContent>
-    <form [formGroup]="proofStatementForm">
-      <div>
-        <app-evidences
-          [title]="favorTitle"
-          [control]="favorEvidences"
-          [type]="forType"
-          [id]="id"
-          [service]="service"
-          (setSummary)="setSummary()"
-        ></app-evidences>
-        <br /><br />
-        <app-evidences
-          [title]="againstTitle"
-          [control]="againstEvidences"
-          [type]="againstType"
-          [id]="id"
-          [service]="service"
-          (setSummary)="setSummary()"
-        ></app-evidences>
-      </div>
+  <form [formGroup]="proofStatementForm">
+    <div>
+      <app-evidences
+        [title]="favorTitle"
+        [control]="favorEvidences()"
+        [type]="forType"
+        [id]="id"
+        [service]="service"
+        (setSummary)="setSummary($event)"
+      ></app-evidences>
       <br /><br />
-
-      <button
-        mat-raised-button
-        class="btn continue-btn"
-        [ngStyle]="{ float: 'right' }"
-        (click)="onSubmit()"
-        type="button"
-      >
-        Done
-      </button>
-    </form>
+      <app-evidences
+        [title]="againstTitle"
+        [control]="againstEvidences()"
+        [type]="againstType"
+        [id]="id"
+        [service]="service"
+        (setSummary)="setSummary($event)"
+      ></app-evidences>
+    </div>
     <br /><br />
-  </ng-template>
+
+    <button
+      mat-raised-button
+      class="btn continue-btn"
+      [ngStyle]="{ float: 'right' }"
+      (click)="onSubmit()"
+      type="button"
+    >
+      Done
+    </button>
+  </form>
+  <br /><br />
 </mat-expansion-panel>
 
 <app-summary-card

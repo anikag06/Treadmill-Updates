@@ -358,6 +358,11 @@ img.emoji {
   overflow-x: hidden;
   overflow-y: hidden;
 }
+.common-delete-dialog-container .mat-dialog-container{
+  width: 320px;
+  height: 150px;
+}
+
 
 .mat-slider-thumb {
   background-color: #2a3b3d;
@@ -379,3 +384,7 @@ img.emoji {
 .mat-radio-outer-circle {
   border-color: #000000de !important;
 }
+
+//.label {
+//  margin-bottom: 0;
+//}

@@ -25,9 +25,7 @@ export class ProconItemComponent implements OnInit {
   ngOnInit() {}
 
   removeProcon() {
-    if (confirm('Are you sure to remove this?')) {
-      this.proconDelete.emit(this.procon);
-    }
+    this.proconDelete.emit(this.procon);
   }
 
   onFocus() {

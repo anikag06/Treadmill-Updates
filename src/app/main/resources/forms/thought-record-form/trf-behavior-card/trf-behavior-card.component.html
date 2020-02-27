@@ -1,41 +1,42 @@
 <div class="card-full-width">
-    <div class="card-header">
-        {{ header }}
-        <div class="edit-icon" >
-            <mat-icon class="edit_icon" (click)="onEditSituationClick()">
-                edit
-            </mat-icon>
-        </div>
+  <div class="card-header">
+    {{ header }}
+    <div class="edit-icon">
+      <mat-icon class="edit_icon" (click)="onEditSituationClick()">
+        edit
+      </mat-icon>
     </div>
-    <div class="card-body">
-        <form [formGroup]="behaviorFormGroup">
-            <mat-form-field class="full-width">
+  </div>
+  <div class="card-body">
+    <form [formGroup]="behaviorFormGroup">
+      <mat-form-field class="full-width">
         <textarea
-                matInput
-                name="problemStatement"
-                class="py-0"
-                #textArea
-                cdkTextareaAutosize
-                cdkAutosizeMinRows="1"
-                cdkAutosizeMaxRows="5"
-                formControlName="behavior"
-                placeholder="Write here"
-                required
-                (focusout)="updateText()"
-                (focus)="onShowContinueButton()"
+          matInput
+          name="problemStatement"
+          class="py-0"
+          #formInput="matInput"
+          [placeholder]="formInput.focused ? 'Write Here' : ''"
+          #textArea
+          cdkTextareaAutosize
+          cdkAutosizeMinRows="1"
+          cdkAutosizeMaxRows="5"
+          formControlName="behavior"
+          required
+          (focusout)="updateText()"
+          (focus)="onShowContinueButton()"
         ></textarea>
-            </mat-form-field>
-            <p class="text-right">
-                <button
-                        mat-raised-button
-                        type="button"
-                        *ngIf="showContinue"
-                        class="btn continue-btn "
-                        (click)="onBehaviorSubmit()"
-                >
-                    Continue
-                </button>
-            </p>
-        </form>
-    </div>
+      </mat-form-field>
+      <p class="text-right">
+        <button
+          mat-raised-button
+          type="button"
+          *ngIf="showContinue"
+          class="btn continue-btn "
+          (click)="onBehaviorSubmit()"
+        >
+          Continue
+        </button>
+      </p>
+    </form>
+  </div>
 </div>

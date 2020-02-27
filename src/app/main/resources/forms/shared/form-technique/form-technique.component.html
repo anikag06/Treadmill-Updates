@@ -35,13 +35,14 @@
         <mat-form-field class="full-width">
           <textarea
             matInput
+            #formInput="matInput"
+            [placeholder]="formInput.focused ? 'Write Here' : ''"
             cdkTextareaAutosize
             cdkAutosizeMinRows="2"
             cdkAutosizeMaxRows="4"
             formControlName="text"
             class="form-control"
             required
-            placeholder="Write Here"
             (focusout)="onSubmit()"
             #explain
           ></textarea>

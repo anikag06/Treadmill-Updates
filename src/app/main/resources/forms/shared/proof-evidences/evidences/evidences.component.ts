@@ -67,7 +67,7 @@ export class EvidencesComponent implements OnInit {
                 ),
               );
             }
-            this.setSummary.emit();
+            this.setSummary.emit(object.evidences[0].evidence);
           } else {
             this.control.push(this.createItem());
             // this.evidenceField.last.nativeElement.focus();

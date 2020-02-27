@@ -6,28 +6,30 @@
     <div class="row">
       <div class="col-12 col-lg-12">
         <form [formGroup]="tasksGroup">
-          <div>
+          <div class="d-flex">
             <mat-checkbox
-              class="full-width"
+              class="mr-3"
               formControlName="taskCompleted"
               (change)="taskCompletedChange($event)"
               [checked]="tasksGroup.controls.dtaskCompleted"
             >
-              <mat-form-field class="full-width">
-                <textarea
-                  matInput
-                  cdkTextareaAutosize
-                  cdkAutosizeMinRows="1"
-                  cdkAutosizeMaxRows="5"
-                  formControlName="task"
-                  class="form-control"
-                  required
-                  placeholder="Enter Task Here"
-                  (focusin)="showSaveBtn()"
-                  (focusout)="updateTask()"
-                ></textarea>
-              </mat-form-field>
             </mat-checkbox>
+
+            <mat-form-field class="full-width" appearance="">
+              <textarea
+                matInput
+                #formInput="matInput"
+                cdkTextareaAutosize
+                cdkAutosizeMinRows="1"
+                cdkAutosizeMaxRows="5"
+                formControlName="task"
+                class="form-control"
+                required
+                [placeholder]="formInput.focused ? 'Enter Task Here' : ''"
+                (focusin)="showSaveBtn()"
+                (focusout)="updateTask()"
+              ></textarea>
+            </mat-form-field>
           </div>
           <div [ngStyle]="{ opacity: '0.6', 'font-size': '14px' }">
             SubTasks
@@ -38,33 +40,38 @@
               class="subtask"
               [ngStyle]="{ display: 'flex' }"
               *ngFor="let subtask of getSubTasksForm(); let i = index"
-              click-outside
+              clickOutside
               (clickOutside)="onClickOutside($event, i)"
             >
               <mat-checkbox
-                class="full-width"
+                class="mr-3 mb-0"
                 formControlName="is_completed"
                 [checked]="is_completed"
                 (change)="subTaskCompletedChange($event, i)"
               >
-                <!--                <input type="hidden" formControlName="id" [value]="i" />-->
-                &nbsp;
-                <mat-form-field class="full-width">
-                  <textarea
-                    matInput
-                    cdkTextareaAutosize
-                    #autosize="cdkTextareaAutosize"
-                    cdkAutosizeMaxRows="4"
-                    formControlName="name"
-                    class="form-control"
-                    [placeholder]="showTrashIcon[i] ? 'Enter Subtask Here' : ''"
-                    required
-                    (focusout)="this.updateTask()"
-                    (focus)="onShowTrashIcon(i)"
-                    #answer="matInput"
-                  ></textarea>
-                </mat-form-field>
-              </mat-checkbox>
+              </mat-checkbox
+              ><!--                <input type="hidden" formControlName="id" [value]="i" />-->
+              &nbsp;
+              <mat-form-field class="full-width">
+                <textarea
+                  matInput
+                  class="py-0"
+                  cdkTextareaAutosize
+                  #autosize="cdkTextareaAutosize"
+                  #formSubTaskInput="matInput"
+                  cdkAutosizeMaxRows="4"
+                  formControlName="name"
+                  class="form-control"
+                  [placeholder]="
+                    formSubTaskInput.focused ? 'Enter Subtask Here' : ''
+                  "
+                  required
+                  (focusout)="this.updateTask()"
+                  (focus)="onShowTrashIcon(i)"
+                  #answer="matInput"
+                ></textarea>
+              </mat-form-field>
+
               <div
                 class="trash-icon"
                 (click)="markForDeletion(subtask.value, i)"
@@ -121,8 +128,7 @@
             </div>
             <button
               #dateTimeBtn
-              [ngStyle]="{ 'padding-left': '0px' }"
-              class="btn btn-link"
+              class="btn btn-link pl-0"
               (click)="onChangeDateTime()"
               *ngIf="dateTimeMessage"
             >

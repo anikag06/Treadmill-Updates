@@ -1,15 +1,9 @@
-import {
-  Directive,
-  ElementRef,
-  EventEmitter,
-  OnInit,
-  Output,
-} from '@angular/core';
-import { fromEvent, Observable, Subscription } from 'rxjs';
-import { delay, tap } from 'rxjs/operators';
+import {Directive, ElementRef, EventEmitter, OnInit, Output,} from '@angular/core';
+import {fromEvent, Observable, Subscription} from 'rxjs';
+import {delay, tap} from 'rxjs/operators';
 
 @Directive({
-  selector: '[click-outside]',
+  selector: '[appClickOutside]',
 })
 export class ClickOutsideDirective implements OnInit {
   private listening: boolean;
