@@ -1,80 +1,75 @@
-<div *ngIf="!showSignUpForm" class="d-flex align-items-center justify-content-center" style="height: 450px; width: 100%;">
-  <img src="assets/shared/dna-loader.svg" alt="loader">
-</div>
-
-<div *ngIf="showSignUpForm && participantValid && !userExists">
-  <form
-    #signupForm="ngForm"
-    class="signup-form">
-    <div class="input-container text-center">
-      <mat-error *ngIf= "errorStatus"> {{usernameError}} </mat-error>
-      <mat-error *ngIf= "errorStatus"> {{passwordError}} </mat-error>
-      <mat-error *ngIf = "!passwordMatch"> {{passwordMatchError}} </mat-error>
-      <div class="tips">
-        Tips: Use a nickname to maintain anonymity
+<div class="row signup-page w-100">
+  <div class="col-5 cover-page text-center">
+    <img src="https://www.treadwill.org/static/cbt2/images/logo/treadwill_logo.png" style="width: 75%;" class="center"
+      alt="treadwill_logo" />
+  </div>
+  <div class="col-7 text-center ">
+    <div class="d-flex flex-row justify-content-center">
+      <h4> SIGN UP</h4>
+      <div *ngIf="!showSignUpForm" class="d-flex flex-row align-items-center justify-content-center"
+        style="height: 450px; width: 100%;">
+        <img src="assets/shared/dna-loader.svg" alt="loader">
       </div>
-      <mat-form-field>
-        <input
-          matInput
-          placeholder="Username"
-          type="text"
-          ngModel
-          required
-          name="username"
-          class="example-right-align">
-        <mat-error>Username is required</mat-error>
-      </mat-form-field>
-      <mat-form-field>
-        <input
-          matInput
-          placeholder="Enter your password"
-          [type]="hide ? 'password' : 'text'"
-          ngModel
-          required
-          name="password"
-        >
-        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-        <mat-error>Password is required</mat-error>
-      </mat-form-field>
-      <mat-form-field>
-        <input
-          matInput
-          placeholder="Confirm password"
-          [type]="hide ? 'password' : 'text'"
-          ngModel
-          required
-          name="passwordConfirm">
-        <mat-error> Password is required </mat-error>
-      </mat-form-field>
-      <mat-checkbox
-        ngModel
-        required
-        name = "terms_conditions">
-        I agree to the <a class="anchorify-terms-conditions-content" (click) = "onTermsConClick()">Terms and Conditions</a>
-        <mat-error *ngIf="!termsConditionChecked"> Accept the terms and condtions.</mat-error>
-      </mat-checkbox>
-      <div
-        mat-dialog-actions
-        class="d-flex justify-content-center">
-        <button
-          mat-raised-button
-          class="dialog-btn"
-          type="submit"
-          (click)="onSignUpSubmit()"
-        >
-          Sign Up
-        </button>
+
+      <div *ngIf="showSignUpForm && participantValid && !userExists">
+        <form #signupForm="ngForm" class="signup-form">
+          <div class="input-container text-center">
+            <mat-error *ngIf="errorStatus"> {{usernameError}} </mat-error>
+            <mat-error *ngIf="errorStatus"> {{passwordError}} </mat-error>
+            <mat-error *ngIf="!passwordMatch"> {{passwordMatchError}} </mat-error>
+            <div class="tips">
+              Tips: Use a nickname to maintain anonymity
+            </div>
+            <div class="row justify-content-center">
+              <mat-form-field>
+                <input matInput placeholder="Username" type="text" ngModel required name="username"
+                  class="example-right-align">
+                <mat-error>Username is required</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="row justify-content-center">
+              <mat-form-field>
+                <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'" ngModel required
+                  name="password">
+                <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                <mat-error>Password is required</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="row justify-content-center">
+              <mat-form-field>
+                <input matInput placeholder="Confirm password" [type]="hide ? 'password' : 'text'" ngModel required
+                  name="passwordConfirm">
+                <mat-error> Password is required </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="row justify-content-center">
+              <mat-checkbox ngModel required name="terms_conditions">
+                I agree to the <a class="anchorify-terms-conditions-content" (click)="onTermsConClick()">Terms and
+                  Conditions</a>
+                <mat-error *ngIf="!termsConditionChecked"> Accept the terms and condtions.</mat-error>
+              </mat-checkbox>
+            </div>
+
+            <div mat-dialog-actions class="d-flex justify-content-center">
+              <button mat-raised-button class="dialog-btn" type="submit" (click)="onSignUpSubmit()">
+                Sign Up
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div *ngIf="showSignUpForm && !participantValid">
+        <p>The link is invalid. Please enter your email id here to receive the proper link: </p>
+      </div>
+
+      <div *ngIf="userExists">
+        <p>You have already Signed up for TreadWill. Your username is: {{username}}. <a routerLink="/landing">Log in</a>
+        </p>
       </div>
     </div>
-  </form>
-</div>
-
-<div *ngIf="showSignUpForm && !participantValid">
-  <p>The link is invalid. Please enter your email id here to receive the proper link: </p>
-</div>
-
-<div *ngIf="userExists">
-  <p>You have already Signed up for TreadWill. Your username is: {{username}}. <a routerLink="/landing">Log in</a></p>
+  </div>
 </div>
 <!--<ng-template #loader>-->
 <!--  -->
