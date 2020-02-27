@@ -172,6 +172,7 @@ import { ToastNotificationDirective } from '@/shared/toast-notification/toast-no
 import { SurveyComponent } from './shared/survey/survey.component';
 import { SurveyService } from './shared/survey.service';
 import { DisableClickDirective } from '@/shared/disable-click.directive';
+import { SlidesVideoComponent } from './resources/slides/slides-video/slides-video.component';
 
 @NgModule({
   declarations: [
@@ -373,6 +374,7 @@ import { DisableClickDirective } from '@/shared/disable-click.directive';
     FfgNolifeComponent,
     LoadingBarComponent,
     ToastNotificationComponent,
+    SlidesVideoComponent
   ],
 })
-export class MainModule {}
+export class MainModule { }

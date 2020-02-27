@@ -29,6 +29,7 @@ import {
   MatSnackBarModule,
   MatToolbarModule,
   MatTooltipModule,
+  MatBottomSheetModule,
 } from '@angular/material';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
@@ -115,6 +116,8 @@ import { ActAsIfService } from '@/main/resources/forms/belief-change/belief-chan
 import { NegativeBeliefFinalComponent } from './forms/belief-change/negative-belief-final/negative-belief-final.component';
 import { FormMessageComponent } from './forms/shared/form-message/form-message.component';
 import { FormQuoteComponent } from './forms/shared/form-quote/form-quote.component';
+import { SlidesBottomsheetComponent } from './slides/slides-bottomsheet/slides-bottomsheet.component';
+import { SlidesVideoComponent } from './slides/slides-video/slides-video.component';
 
 @NgModule({
   declarations: [
@@ -189,6 +192,8 @@ import { FormQuoteComponent } from './forms/shared/form-quote/form-quote.compone
     FormMessageComponent,
     FormQuoteComponent,
     ControlContentComponent,
+    SlidesBottomsheetComponent,
+    SlidesVideoComponent,
   ],
   imports: [
     ResourcesRoutingModule,
@@ -213,6 +218,7 @@ import { FormQuoteComponent } from './forms/shared/form-quote/form-quote.compone
     MatExpansionModule,
     MatRadioModule,
     MatSnackBarModule,
+    MatBottomSheetModule,
   ],
   providers: [
     SlideService,
@@ -242,6 +248,8 @@ import { FormQuoteComponent } from './forms/shared/form-quote/form-quote.compone
     TechniquesInfoComponent,
     DateTimePickerComponent,
     CommonBeliefComponent,
+    SlidesBottomsheetComponent,
+
   ],
   exports: [
     DateTimePickerComponent,
@@ -249,4 +257,4 @@ import { FormQuoteComponent } from './forms/shared/form-quote/form-quote.compone
     MoodTrackerComponent,
   ],
 })
-export class ResourcesModule {}
+export class ResourcesModule { }

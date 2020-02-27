@@ -34,6 +34,8 @@ import { CommonDialogsService } from '../shared/common-dialogs.service';
 import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.service';
 import { StepsDataService } from '../shared/steps-data.service';
 import { UserFeedbackComponent } from '../shared/user-feedback/user-feedback.component';
+import { MatBottomSheet } from '@angular/material';
+import { SlidesBottomsheetComponent } from './slides-bottomsheet/slides-bottomsheet.component';
 
 @Component({
   selector: 'app-slides',
@@ -69,6 +71,7 @@ export class SlidesComponent implements OnInit {
   @ViewChild('form_div', { static: false }) formDiv!: ElementRef;
   @ViewChild('slideDiv', { static: false }) slideDiv!: ElementRef;
   @ViewChild('slidePage', { static: false }) slidePage!: ElementRef;
+  @ViewChild('container', { static: false }) container!: ElementRef;
   @ViewChild(UserFeedbackComponent, { static: false })
   userFeedback!: UserFeedbackComponent;
   scrollTop = 0;
@@ -82,7 +85,8 @@ export class SlidesComponent implements OnInit {
     private commonDialogService: CommonDialogsService,
     private flowStepService: FlowStepNavigationService,
     private stepDataService: StepsDataService,
-  ) {}
+    private _bottomSheet: MatBottomSheet,
+  ) { }
 
   slide!: Slide;
   sanitizedUrl!: SafeUrl;
@@ -109,6 +113,8 @@ export class SlidesComponent implements OnInit {
   lastStepCompleted = false;
   next_step_id!: number;
   step_type: any;
+  screenHeight: any;
+  screenWidth: any;
 
   ngOnInit() {
     this.activateRoute.params
@@ -169,7 +175,10 @@ export class SlidesComponent implements OnInit {
             this.visible = true;
           } else {
             setTimeout(
-              () => this.slideDiv.nativeElement.classList.add('col-5'),
+              () => {
+                this.slideDiv.nativeElement.classList.add('col-5'),
+                  console.log('iframe height', window.screen.height, this.slideDiv.nativeElement.offsetHeight);
+              },
               1000,
             );
           }
@@ -177,6 +186,12 @@ export class SlidesComponent implements OnInit {
           this.notAvailable = true;
         }
       });
+  }
+
+  ngAfterContentInit(): void {
+    this.screenHeight = window.screen.height;
+    this.screenWidth = window.screen.width;
+    setTimeout(() => this.openBottomSheet(), 100);
   }
 
   loadForm(component: any) {
@@ -228,7 +243,7 @@ export class SlidesComponent implements OnInit {
     this.completionData.step_id = this.current_step_id;
     this.stepDataService
       .storeCompletionData(this.completionData)
-      .subscribe(data => {});
+      .subscribe(data => { });
     this.commonDialogService.openCongratsDialog(
       this.current_step_id,
       this.next_step_id,
@@ -254,7 +269,11 @@ export class SlidesComponent implements OnInit {
     this.feedbackText.feedback_text = this.userFeedback.feedback_text;
     this.slideService
       .updateFeedBackInfo(this.feedbackText, this.feedbackDataId)
-      .subscribe(data => {});
+      .subscribe(data => { });
     this.scrollTop = 0;
   }
+  openBottomSheet() {
+    this._bottomSheet.open(SlidesBottomsheetComponent);
+  }
+
 }

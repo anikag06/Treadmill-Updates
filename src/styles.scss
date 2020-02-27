@@ -23,6 +23,12 @@ $small_logo_height: 40px;
   box-shadow: 0px 4px 10px #525252;
 }
 
+@mixin box-shadow-common() {
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+    0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+}
+
 @mixin border-dashed() {
   border-image-source: url('assets/modules/border-dashed.png');
   border-image-slice: 2;
@@ -127,10 +133,19 @@ $small_logo_height: 40px;
   background: #fffaf3;
 }
 
+.slide-video .mat-dialog-container {
+  padding: 0px;
+  overflow: hidden;
+}
+
 
 // to make the login dialog scrollable in mobile landscape mode
 .cdk-global-overlay-wrapper {
   overflow: auto;
+
+  .mat-bottom-sheet-container {
+    overflow: hidden;
+  }
 }
 
 .anchorify-default {

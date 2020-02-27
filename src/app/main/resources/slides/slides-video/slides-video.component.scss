@@ -1,0 +1,31 @@
+.slide-video {
+  background-color: white;
+  height: 100%;
+  font-family: Roboto;
+  font-size: 14px;
+  margin: 8px;
+
+  .play-text {
+    color: #00000066;
+  }
+
+  .back-text {
+    font-weight: 400;
+    color: #999999;
+  }
+
+  .back-higlight-text {
+    font-weight: 400;
+    color: blue;
+  }
+
+  .slide-video-iframe {
+    margin-bottom: 0%;
+    height: 54vh;
+    width: 100%;
+    min-width: 320px;
+    min-height: 400px;
+    overflow: hidden;
+  }
+
+}

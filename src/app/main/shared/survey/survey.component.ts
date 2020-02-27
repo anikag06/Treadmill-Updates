@@ -80,7 +80,7 @@ export class SurveyComponent implements OnInit {
   constructor(
     private surveyService: SurveyService,
     private timerService: TimerService,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.surveyService.disableLinks.emit(this.data);
@@ -142,6 +142,8 @@ export class SurveyComponent implements OnInit {
   }
 
   onselect(event: any, id: number, name: string) {
+    event.target.classList.remove('disabled-button');
+    event.target.classList.add('active-button');
     this.updateTimeTaken();
     this.currQues = {
       index: this.quesArray[this.quesCount].index,
@@ -154,9 +156,15 @@ export class SurveyComponent implements OnInit {
     } else {
       this.backCount -= 1;
       this.selectedOptionValue = this.userResponseArray[this.quesCount].option;
+      this.selectedOptionValue = this.userResponseArray[this.quesCount].option;
+
     }
     if (this.quesCount < 13) {
       setTimeout(() => {
+        if (!this.backCount) {
+          event.target.classList.remove('active-button');
+          event.target.classList.add('disabled-button');
+        }
         this.quesCount += 1;
         this.ques = this.quesArray[this.quesCount].ques;
         this.pager.index = this.quesCount + 1;
@@ -168,7 +176,7 @@ export class SurveyComponent implements OnInit {
         } else {
           this.selectedOptionValue = null;
         }
-      }, 1000);
+      }, 500);
     } else {
       this.submit = true;
       this.quesCount += 1;
