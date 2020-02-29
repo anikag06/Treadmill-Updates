@@ -249,7 +249,6 @@ import { SlidesVideoComponent } from './slides/slides-video/slides-video.compone
     DateTimePickerComponent,
     CommonBeliefComponent,
     SlidesBottomsheetComponent,
-
   ],
   exports: [
     DateTimePickerComponent,
@@ -257,4 +256,4 @@ import { SlidesVideoComponent } from './slides/slides-video/slides-video.compone
     MoodTrackerComponent,
   ],
 })
-export class ResourcesModule { }
+export class ResourcesModule {}

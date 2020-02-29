@@ -127,7 +127,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     private commonDialogService: CommonDialogsService,
     private flowStepService: FlowStepNavigationService,
     private stepDataService: StepsDataService,
-  ) { }
+  ) {}
   currenthistory!: CurrentHistory;
   dialog_history!: DialogInHistory;
   conversation_id!: number;
@@ -233,8 +233,8 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     this.conversationsService
       .get(
         environment.API_ENDPOINT +
-        '/api/v1/conversation/conversation/?conversation_id=' +
-        this.conversation_id,
+          '/api/v1/conversation/conversation/?conversation_id=' +
+          this.conversation_id,
       )
       .subscribe((res: any) => {
         this.conversation = new Conversation(
@@ -304,8 +304,8 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     this.conversationsService
       .get(
         environment.API_ENDPOINT +
-        '/api/v1/conversation/history/current/?conversation_id=' +
-        this.conversation_id,
+          '/api/v1/conversation/history/current/?conversation_id=' +
+          this.conversation_id,
       )
       .subscribe((res: any) => {
         this.conversationsService

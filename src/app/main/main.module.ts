@@ -374,7 +374,7 @@ import { SlidesVideoComponent } from './resources/slides/slides-video/slides-vid
     FfgNolifeComponent,
     LoadingBarComponent,
     ToastNotificationComponent,
-    SlidesVideoComponent
+    SlidesVideoComponent,
   ],
 })
-export class MainModule { }
+export class MainModule {}

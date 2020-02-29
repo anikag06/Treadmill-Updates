@@ -1,18 +1,26 @@
-import { Component, OnInit, HostListener, ElementRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  HostListener,
+  ElementRef,
+  ViewChild,
+} from '@angular/core';
 import { MatBottomSheetRef, MatDialog } from '@angular/material';
 import { SlidesVideoComponent } from '../slides-video/slides-video.component';
 
 @Component({
   selector: 'app-slides-bottomsheet',
   templateUrl: './slides-bottomsheet.component.html',
-  styleUrls: ['./slides-bottomsheet.component.scss']
+  styleUrls: ['./slides-bottomsheet.component.scss'],
 })
 export class SlidesBottomsheetComponent implements OnInit {
   srcWidth!: number;
   @ViewChild('yesbtn', { static: false }) yesbtn!: ElementRef;
-  constructor(private _bottomSheetRef: MatBottomSheetRef<SlidesBottomsheetComponent>,
+  constructor(
+    private _bottomSheetRef: MatBottomSheetRef<SlidesBottomsheetComponent>,
     public dialog: MatDialog,
-    private element: ElementRef) {
+    private element: ElementRef,
+  ) {
     this.getScreenSize();
   }
 
@@ -21,10 +29,7 @@ export class SlidesBottomsheetComponent implements OnInit {
     this.srcWidth = window.innerWidth;
   }
 
-
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
   onClickYes() {
     this._bottomSheetRef.dismiss();
@@ -46,11 +51,8 @@ export class SlidesBottomsheetComponent implements OnInit {
         panelClass: 'slide-video',
       });
     }
-
   }
   onClickNo() {
     this._bottomSheetRef.dismiss();
   }
-
-
 }

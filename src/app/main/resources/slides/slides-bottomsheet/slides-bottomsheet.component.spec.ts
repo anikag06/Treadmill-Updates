@@ -8,9 +8,8 @@ describe('SlidesBottomsheetComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SlidesBottomsheetComponent ]
-    })
-    .compileComponents();
+      declarations: [SlidesBottomsheetComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

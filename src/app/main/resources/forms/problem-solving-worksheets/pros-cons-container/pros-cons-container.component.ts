@@ -7,32 +7,26 @@ import { GeneralErrorService } from '@/main/shared/general-error.service';
 @Component({
   selector: 'app-pros-cons-container',
   templateUrl: './pros-cons-container.component.html',
-  styleUrls: ['./pros-cons-container.component.scss']
+  styleUrls: ['./pros-cons-container.component.scss'],
 })
 export class ProsConsContainerComponent implements OnInit {
-
   @Input() solution!: Solution;
   pros: ProsCons[] = [];
   cons: ProsCons[] = [];
   constructor(
     private problemService: ProblemSolvingWorksheetsService,
-    private errorService: GeneralErrorService
-  ) { }
+    private errorService: GeneralErrorService,
+  ) {}
 
   ngOnInit() {
-    this.problemService.getProsCons(this.solution.id)
-      .subscribe(
-        (data: any) => {
-          data.data.forEach((pc: any) => {
-            if (pc.is_pros) {
-              this.pros.push(pc);
-            } else {
-              this.cons.push(pc);
-            }
-          });
-        },
-        this.errorService.errorResponse('Cannot fetch Pros and cons')
-      );
+    this.problemService.getProsCons(this.solution.id).subscribe((data: any) => {
+      data.data.forEach((pc: any) => {
+        if (pc.is_pros) {
+          this.pros.push(pc);
+        } else {
+          this.cons.push(pc);
+        }
+      });
+    }, this.errorService.errorResponse('Cannot fetch Pros and cons'));
   }
-
 }

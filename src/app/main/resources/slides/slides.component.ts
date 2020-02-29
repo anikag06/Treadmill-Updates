@@ -86,7 +86,7 @@ export class SlidesComponent implements OnInit {
     private flowStepService: FlowStepNavigationService,
     private stepDataService: StepsDataService,
     private _bottomSheet: MatBottomSheet,
-  ) { }
+  ) {}
 
   slide!: Slide;
   sanitizedUrl!: SafeUrl;
@@ -174,13 +174,14 @@ export class SlidesComponent implements OnInit {
           if (window.matchMedia('(max-width: 767px)').matches) {
             this.visible = true;
           } else {
-            setTimeout(
-              () => {
-                this.slideDiv.nativeElement.classList.add('col-5'),
-                  console.log('iframe height', window.screen.height, this.slideDiv.nativeElement.offsetHeight);
-              },
-              1000,
-            );
+            setTimeout(() => {
+              this.slideDiv.nativeElement.classList.add('col-5'),
+                console.log(
+                  'iframe height',
+                  window.screen.height,
+                  this.slideDiv.nativeElement.offsetHeight,
+                );
+            }, 1000);
           }
         } else {
           this.notAvailable = true;
@@ -243,7 +244,7 @@ export class SlidesComponent implements OnInit {
     this.completionData.step_id = this.current_step_id;
     this.stepDataService
       .storeCompletionData(this.completionData)
-      .subscribe(data => { });
+      .subscribe(data => {});
     this.commonDialogService.openCongratsDialog(
       this.current_step_id,
       this.next_step_id,
@@ -269,11 +270,10 @@ export class SlidesComponent implements OnInit {
     this.feedbackText.feedback_text = this.userFeedback.feedback_text;
     this.slideService
       .updateFeedBackInfo(this.feedbackText, this.feedbackDataId)
-      .subscribe(data => { });
+      .subscribe(data => {});
     this.scrollTop = 0;
   }
   openBottomSheet() {
     this._bottomSheet.open(SlidesBottomsheetComponent);
   }
-
 }

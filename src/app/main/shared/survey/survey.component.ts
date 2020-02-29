@@ -80,7 +80,7 @@ export class SurveyComponent implements OnInit {
   constructor(
     private surveyService: SurveyService,
     private timerService: TimerService,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.surveyService.disableLinks.emit(this.data);
@@ -157,7 +157,6 @@ export class SurveyComponent implements OnInit {
       this.backCount -= 1;
       this.selectedOptionValue = this.userResponseArray[this.quesCount].option;
       this.selectedOptionValue = this.userResponseArray[this.quesCount].option;
-
     }
     if (this.quesCount < 13) {
       setTimeout(() => {
