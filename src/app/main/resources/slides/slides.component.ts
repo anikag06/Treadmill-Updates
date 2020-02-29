@@ -25,7 +25,7 @@ import {
 } from '@angular/animations';
 import {
   SLIDE,
-  FORM_PROBLEM_SOLVING_WORKSHEET,
+  FORM_PROBLEM_SOLVING,
   FORM_TASK,
   COMPLETED,
   ACTIVE,
@@ -163,7 +163,7 @@ export class SlidesComponent implements OnInit {
             this.notAvailable = true;
           }
           const formName = slide_data.data.action[0];
-          if (formName === FORM_PROBLEM_SOLVING_WORKSHEET) {
+          if (formName === FORM_PROBLEM_SOLVING) {
             setTimeout(
               () => this.loadForm(ProblemSolvingWorksheetsComponent),
               1000,

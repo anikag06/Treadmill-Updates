@@ -6,8 +6,6 @@ import {
   GAME,
   FORM,
   SUPPORT_GROUP,
-  FORM_TASK,
-  FORM_PROBLEM_SOLVING_WORKSHEET,
   FLOW_STEP_MARK_DONE,
   QUESTIONNAIRE,
   INTRODUCTION_PAGE,
@@ -15,6 +13,7 @@ import {
   INTRODUCTORY_ANIMATION,
   CONTROL_PAGE,
   SURVEY,
+  FORM_URL_MAP,
 } from '@/app.constants';
 import { Observable } from 'rxjs';
 import { environment } from 'environments/environment';
@@ -24,11 +23,6 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class FlowStepNavigationService {
-  urlMap = new Map([
-    [FORM_TASK, 'task'],
-    [FORM_PROBLEM_SOLVING_WORKSHEET, 'problem-solving'],
-  ]);
-
   constructor(private http: HttpClient) {}
 
   goToFlowNextStep(step: any): string {
@@ -43,7 +37,7 @@ export class FlowStepNavigationService {
         const game_name = step.action[0];
         return `/games/${game_name}/`;
       } else if (step.data_type === FORM) {
-        const form_name = this.urlMap.get(step.action[0]);
+        const form_name = FORM_URL_MAP.get(step.action[0]);
         return `/resources/forms/${form_name}/`;
       } else if (step.data_type === SUPPORT_GROUP) {
         return `/support-groups/`;
@@ -52,8 +46,6 @@ export class FlowStepNavigationService {
       } else if (step.data_type === INTRODUCTION_PAGE) {
         return `/resources/introduction/${step.step_group_sequence}/`;
       } else if (step.data_type === CONCLUSION_PAGE) {
-        console.log('conclusion page: ', step.step_group_sequence);
-        console.log('data type: ', step.data_type);
         return `/resources/conclusion/${step.step_group_sequence}/`;
       } else if (step.data_type === INTRODUCTORY_ANIMATION) {
         return `/dashboard`;

@@ -173,6 +173,7 @@ import { SurveyComponent } from './shared/survey/survey.component';
 import { SurveyService } from './shared/survey.service';
 import { DisableClickDirective } from '@/shared/disable-click.directive';
 import { SlidesVideoComponent } from './resources/slides/slides-video/slides-video.component';
+import { ThingsTodoService } from '@/main/dashboard/things-todo/things-todo.service';
 
 @NgModule({
   declarations: [
@@ -340,6 +341,7 @@ import { SlidesVideoComponent } from './resources/slides/slides-video/slides-vid
     StepsDataService,
     WorryProductivelyService,
     SurveyService,
+    ThingsTodoService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [

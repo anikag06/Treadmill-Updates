@@ -7,7 +7,7 @@ import {
   IBG_SENTENCE,
   IBG_SCORE_INFO,
   IBG_USER_RESPONSE,
-  ECG_DISCIMINATION_TASK,
+  ECG_DISCRIMINATION_TASK,
   ECG_FLANKER_TASK,
   ECG_GAME_DATA,
   ECG_USER_DATA,
@@ -125,7 +125,7 @@ export class GamesAuthService {
     discrimination_task: ECGameDiscriminationTask,
   ) {
     return this.http.post(
-      environment.API_ENDPOINT + ECG_DISCIMINATION_TASK,
+      environment.API_ENDPOINT + ECG_DISCRIMINATION_TASK,
       discrimination_task,
     );
   }

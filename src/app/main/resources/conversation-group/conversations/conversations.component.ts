@@ -39,6 +39,7 @@ import {
 import { StepCompleteData } from '../../shared/completion-data.model';
 import { StepsDataService } from '../../shared/steps-data.service';
 import { environment } from 'environments/environment';
+import { PROBLEM_SOLVING, TASK } from '@/app.constants';
 
 @Component({
   selector: 'app-conversations',
@@ -333,11 +334,11 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
           );
         }
         // const formName = this.passdata.getFormName();
-        const formName = 'task';
+        const formName = TASK;
         console.log(this.passdata.getFormName());
-        if (formName === 'task') {
+        if (formName === TASK) {
           setTimeout(() => this.loadForm(TaskFormsComponent), 1000);
-        } else if (formName === 'problem-solving') {
+        } else if (formName === PROBLEM_SOLVING) {
           setTimeout(
             () => this.loadForm(ProblemSolvingWorksheetsComponent),
             1000,

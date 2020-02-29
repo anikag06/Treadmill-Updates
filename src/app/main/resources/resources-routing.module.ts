@@ -41,7 +41,7 @@ export const resourcesRoutes: Routes = [
         data: { title: 'Form' },
       },
       {
-        path: 'forms/tasks',
+        path: 'forms/task',
         component: TaskFormsComponent,
         data: { title: 'Form' },
       },

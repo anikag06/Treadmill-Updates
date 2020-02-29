@@ -121,7 +121,4 @@ export class TasksService {
       duration: 1000,
     });
   }
-  getTodoList() {
-    return this.http.get(environment.API_ENDPOINT + '/api/v1/tasks/todo/list/');
-  }
 }

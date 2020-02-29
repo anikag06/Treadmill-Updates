@@ -1,4 +1,4 @@
-import { THOUGHT_RECORD, THOUGHT_RECROD_FORM_NAME } from '@/app.constants';
+import { THOUGHT_RECORD, THOUGHT_RECORD_FORM_NAME } from '@/app.constants';
 import { Component, OnInit } from '@angular/core';
 import { ThoughtRecordService } from '@/main/resources/forms/thought-record-form/thought-record.service';
 
@@ -11,7 +11,7 @@ export class ThoughtRecordFormComponent implements OnInit {
   type = THOUGHT_RECORD;
   situation!: string;
   // situationEditMode = false;
-  formName = THOUGHT_RECROD_FORM_NAME;
+  formName = THOUGHT_RECORD_FORM_NAME;
   situationHeader = 'What is the situation?';
   negativeThoughtHeader = 'What is the negative thought?';
   moodSelect = 'How did this negative thought make you feel?';

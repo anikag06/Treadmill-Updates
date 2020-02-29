@@ -4,7 +4,13 @@ import {
   EXPERIMENT_TO_TEST_BELIEF_FORM_NAME,
   PROBLEM_SOLVING_FORM_NAME,
   SET_TASK_FORM_NAME,
-  THOUGHT_RECROD_FORM_NAME,
+  THOUGHT_RECORD_FORM_NAME,
+  THOUGHT_RECORD,
+  WORRY_PRODUCTIVELY,
+  TASK,
+  BELIEF_CHANGE,
+  TEST_BELIEF,
+  PROBLEM_SOLVING,
 } from '@/app.constants';
 
 @Injectable({
@@ -14,37 +20,37 @@ export class FormsService {
   forms = [
     {
       name: PROBLEM_SOLVING_FORM_NAME,
-      slug: 'problem-solving',
+      slug: PROBLEM_SOLVING,
       path: '/resources/forms/problem-solving',
       banner: 'assets/forms/form.svg',
     },
     {
       name: SET_TASK_FORM_NAME,
-      slug: 'tasks',
-      path: '/resources/forms/tasks',
+      slug: TASK,
+      path: '/resources/forms/task',
       banner: 'assets/forms/form.svg',
     },
     {
-      name: THOUGHT_RECROD_FORM_NAME,
-      slug: 'thought-record',
+      name: THOUGHT_RECORD_FORM_NAME,
+      slug: THOUGHT_RECORD,
       path: '/resources/forms/thought-record',
       banner: 'assets/forms/form.svg',
     },
     {
       name: EXPERIMENT_TO_TEST_BELIEF_FORM_NAME,
-      slug: 'thought-record',
+      slug: TEST_BELIEF,
       path: '/resources/forms/test-belief',
       banner: 'assets/forms/form.svg',
     },
     {
       name: 'Worry Productively form',
-      slug: 'worry-productively',
+      slug: WORRY_PRODUCTIVELY,
       path: '/resources/forms/worry-productively',
       banner: 'assets/forms/form.svg',
     },
     {
       name: BELIEF_CHANGE_FORM_NAME,
-      slug: 'belief-change',
+      slug: BELIEF_CHANGE,
       path: '/resources/forms/belief-change',
       banner: 'assets/forms/form.svg',
     },

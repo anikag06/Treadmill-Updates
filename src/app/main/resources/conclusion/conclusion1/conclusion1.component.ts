@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { LOCKED, COMPLETED, COMMITTMENT_OPTIONS } from '@/app.constants';
+import { LOCKED, COMPLETED, COMMITMENT_OPTIONS } from '@/app.constants';
 import { ConclusionService } from '../conclusion.service';
 import { StepsDataService } from '../../shared/steps-data.service';
 import { StepCompleteData } from '../../shared/completion-data.model';
@@ -15,7 +15,7 @@ import { CommonDialogsService } from '../../shared/common-dialogs.service';
 })
 export class Conclusion1Component implements OnInit, OnDestroy {
   stepGroupSequence!: number;
-  options = COMMITTMENT_OPTIONS;
+  options = COMMITMENT_OPTIONS;
   commitment!: string;
   conclusionDataSubscription!: Subscription;
   // TODO: provide link for thought record form

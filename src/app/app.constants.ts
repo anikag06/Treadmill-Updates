@@ -4,8 +4,6 @@ export const LEARN = 'LEARN';
 export const DISCUSS = 'DISCUSS';
 export const PRACTICE = 'PRACTICE';
 export const GAMES = 'games';
-export const MODULES = 'modules';
-export const CATEGORY = 'category_';
 export const TOKEN = 'jwt_token';
 export const USERAVATAR = 'user_avatar';
 export const ISADMIN = 'is_admin';
@@ -38,7 +36,7 @@ export const NEGATIVE_EMOTIONS = [
   'Worthless',
   'Lonely',
   'Frustrated',
-  'Embarassed',
+  'Embarrassed',
   'Afraid',
 ];
 export const NEUTRAL_EMOTIONS = ['Okay'];
@@ -88,7 +86,7 @@ export const IBG_USER_RESPONSE =
 export const ECG_USER_DATA = '/api/v1/games/executive-control/user-data/';
 export const ECG_GAME_DATA = '/api/v1/games/executive-control/game-data/';
 export const ECG_FLANKER_TASK = '/api/v1/games/executive-control/flanker-task/';
-export const ECG_DISCIMINATION_TASK =
+export const ECG_DISCRIMINATION_TASK =
   '/api/v1/games/executive-control/discrimination-task/';
 
 // Learned Helplessness Game(LHG) paths
@@ -155,6 +153,9 @@ export const UNLOCKED = 'UNLOCKED';
 export const ACTIVE = 'ACTIVE';
 export const COMPLETED = 'COMPLETED';
 
+export const CHAT_BOT = 'CHAT_BOT';
+export const MINDFULNESS_VIDEO = 'MINDFULNESS_VIDEO';
+
 // Mental Imagery Game (MIG) paths
 export const MIG_SITUATIONS_DATA = '/api/v1/games/mental-imagery/situations/';
 export const MIG_USER_DATA = '/api/v1/games/mental-imagery/user-data/';
@@ -194,10 +195,14 @@ export const GAME_IDENTIFY_COGNITIVE_DISTORTION =
   'GAME-IDENTIFY-COGNITIVE-DISTORTION';
 export const GAME_MENTAL_IMAGERY = 'GAME-MENTAL-IMAGERY';
 export const FORM_TASK = 'FORM-TASK';
-export const FORM_PROBLEM_SOLVING_WORKSHEET = 'FORM-PROBLEM-SOLVING-WORKSHEET';
+export const FORM_PROBLEM_SOLVING = 'FORM-PROBLEM-SOLVING';
+export const FORM_THOUGHT_RECORD = 'FORM-THOUGHT-RECORD';
+export const FORM_WORRY_PRODUCTIVELY = 'FORM-WORRY-PRODUCTIVELY';
+export const FORM_BELIEF_CHANGE = 'FORM-BELIEF-CHANGE';
+export const FORM_EXPERIMENT_TO_TEST_BELIEF = 'FORM-EXPERIMENT-TO-TEST-BELIEF';
 
-// committment options
-export const COMMITTMENT_OPTIONS = [
+// commitment options
+export const COMMITMENT_OPTIONS = [
   '1/day',
   '2/day',
   '3/day',
@@ -221,7 +226,6 @@ export const USER_SIQ_DATA = '/api/v1/questionnaire/siq-user-response/';
 
 // FORMS
 export const RECOMMENDED = 'recommended';
-export const WORRY_PRODUCTIVELY = 'worry-productivelty';
 export const TECHNIQUE_UNTOUCHED = 0;
 export const TECHNIQUE_OPENED = 1;
 export const TECHNIQUE_CLOSED = 2;
@@ -268,16 +272,19 @@ export const ETTBF_MIN_RATING_TEXT = 'Not at all';
 export const ETTBF_MAX_RATING_TEXT = 'Very strong';
 
 // Task form
-export const TASK = 'tasks';
+export const TASK = 'task';
 export const SET_ACTIVITY = 'set-activity';
 // Thought record form
 export const THOUGHT_RECORD = 'thought-record';
 export const BELIEF_CHANGE = 'belief-change';
+export const PROBLEM_SOLVING = 'problem-solving';
+export const WORRY_PRODUCTIVELY = 'worry-productively';
+export const TEST_BELIEF = 'test-belief';
 
 // form names
 export const PROBLEM_SOLVING_FORM_NAME = 'Cope with a problem';
 export const SET_TASK_FORM_NAME = 'Set an acitvity';
-export const THOUGHT_RECROD_FORM_NAME = 'Thought Record Form';
+export const THOUGHT_RECORD_FORM_NAME = 'Thought Record Form';
 export const EXPERIMENT_TO_TEST_BELIEF_FORM_NAME = 'Test a belief';
 export const WORRY_PRODUCTIVELY_FORM_NAME = 'Worry productively';
 export const BELIEF_CHANGE_FORM_NAME = 'Belief Change Form';
@@ -325,3 +332,118 @@ export const COMMON_EDITOR_CONFIG = {
 
 // toast
 export const SHOW_TOAST_DURATION = 10000;
+
+export const FORM_URL_MAP = new Map([
+  [FORM_TASK, TASK],
+  [FORM_PROBLEM_SOLVING, PROBLEM_SOLVING],
+  [FORM_BELIEF_CHANGE, BELIEF_CHANGE],
+  [FORM_WORRY_PRODUCTIVELY, WORRY_PRODUCTIVELY],
+  [FORM_THOUGHT_RECORD, THOUGHT_RECORD],
+  [FORM_EXPERIMENT_TO_TEST_BELIEF, TEST_BELIEF],
+]);
+
+export const EXPLORE_MAP = new Map([
+  [FORM_TASK, ['/resources/forms/' + TASK, 'Set a task']],
+  [
+    FORM_PROBLEM_SOLVING,
+    ['/resources/forms/' + PROBLEM_SOLVING, 'Solve a problem'],
+  ],
+  [
+    FORM_BELIEF_CHANGE,
+    ['/resources/forms/' + BELIEF_CHANGE, 'Change a belief'],
+  ],
+  [
+    FORM_WORRY_PRODUCTIVELY,
+    ['/resources/forms/' + WORRY_PRODUCTIVELY, 'Worry productively'],
+  ],
+  [
+    FORM_THOUGHT_RECORD,
+    ['/resources/forms/' + THOUGHT_RECORD, 'Record a thought'],
+  ],
+  [
+    FORM_EXPERIMENT_TO_TEST_BELIEF,
+    ['/resources/forms/' + TEST_BELIEF, 'Test a belief'],
+  ],
+  [
+    GAME_ATTRIBUTION_STYLE,
+    ['/games/' + GAME_ATTRIBUTION_STYLE, 'Learn about your attribution style'],
+  ],
+  [
+    GAME_INTERPRETATION_BIAS,
+    ['/games/' + GAME_INTERPRETATION_BIAS, 'Be more positive'],
+  ],
+  [
+    GAME_LEARNED_HELPLESSNESS,
+    ['/games/' + GAME_LEARNED_HELPLESSNESS, 'Learn about learned helplessness'],
+  ],
+  [
+    GAME_FRIENDLY_FACE,
+    ['/games/' + GAME_FRIENDLY_FACE, 'Look at the positive things in life'],
+  ],
+  [
+    GAME_EXECUTIVE_CONTROL,
+    ['/games/' + GAME_EXECUTIVE_CONTROL, 'Stop ruminating'],
+  ],
+  [
+    GAME_IDENTIFY_COGNITIVE_DISTORTION,
+    [
+      '/games/' + GAME_IDENTIFY_COGNITIVE_DISTORTION,
+      'Identify negative thoughts',
+    ],
+  ],
+  [
+    GAME_MENTAL_IMAGERY,
+    ['/games/' + GAME_MENTAL_IMAGERY, 'Think positively about the future'],
+  ],
+  [SUPPORT_GROUP, ['/support-groups', 'Visit the SupportGroup']],
+  [CHAT_BOT, ['Open chat window', 'Chat with Willbot']],
+  [MINDFULNESS_VIDEO, ['/resources2', 'Practice mindfulness']],
+]);
+
+export const EXPLORE_JSON = {
+  // FORM_TASK: ['/resources/forms/' + TASK, 'Set a task'],
+  // FORM_PROBLEM_SOLVING_WORKSHEET: [
+  //   '/resources/forms/' + PROBLEM_SOLVING,
+  //   'Solve a problem',
+  // ],
+  // FORM_BELIEF_CHANGE: ['/resources/forms/' + BELIEF_CHANGE, 'Change a belief'],
+  // FORM_WORRY_PRODUCTIVELY: [
+  //   '/resources/forms/' + WORRY_PRODUCTIVELY,
+  //   'Worry productively',
+  // ],
+  // FORM_THOUGHT_RECORD: [
+  //   '/resources/forms/' + THOUGHT_RECORD,
+  //   'Record a thought',
+  // ],
+  // FORM_EXPERIMENT_TO_TEST_BELIEF: [
+  //   '/resources/forms/' + TEST_BELIEF,
+  //   'Test a belief',
+  // ],
+  // GAME_ATTRIBUTION_STYLE: [
+  //   '/games/' + GAME_ATTRIBUTION_STYLE,
+  //   'Learn about your attribution style',
+  // ],
+  // GAME_INTERPRETATION_BIAS: [
+  //   '/games/' + GAME_INTERPRETATION_BIAS,
+  //   'Be more positive',
+  // ],
+  // GAME_LEARNED_HELPLESSNESS: [
+  //   '/games/' + GAME_LEARNED_HELPLESSNESS,
+  //   'Learn about learned helplessness',
+  // ],
+  // GAME_FRIENDLY_FACE: [
+  //   '/games/' + GAME_FRIENDLY_FACE,
+  //   'Look at the positive things in life',
+  // ],
+  // GAME_EXECUTIVE_CONTROL: [
+  //   '/games/' + GAME_EXECUTIVE_CONTROL,
+  //   'Stop ruminating',
+  // ],
+  // GAME_IDENTIFY_COGNITIVE_DISTORTION: [
+  //   '/games/' + GAME_IDENTIFY_COGNITIVE_DISTORTION,
+  //   'Identify negative thoughts',
+  // ],
+  // SUPPORT_GROUP: ['/support-groups', 'Visit the SupportGroup'],
+  // CHAT_BOT: ['Open chat window', 'Chat with Willbot'],
+  // MINDFULNESS_VIDEO: ['/resources2', 'Practice mindfulness'],
+};
