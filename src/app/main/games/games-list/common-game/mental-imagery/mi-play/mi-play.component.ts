@@ -15,6 +15,7 @@ import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service
 import { MIGameUserData } from '@/main/games/shared/game-play.model';
 import { BadgesInfo } from '@/main/games/shared/game-badges.model';
 import { GamesBadgesService } from '@/main/games/shared/games-badges.service';
+import { GamesFeedbackComponent } from '../../games-feedback/games-feedback.component';
 
 declare function require(name: string): any;
 
@@ -102,7 +103,8 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
     private miPlayService: MIPlayService,
     private dialogBoxService: DialogBoxService,
     private badgesService: GamesBadgesService,
-  ) {}
+    private el: ElementRef,
+  ) { }
 
   ngOnInit() {
     this.getCurrentStateService.setInitialOrder();
@@ -133,6 +135,14 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
     });
   }
 
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
+      this.el.nativeElement.dispatchEvent(domEvent);
+      this.dialogBoxService.setDialogChild(GamesFeedbackComponent);
+      console.log('give feedback');
+    }, 5000);
+  }
   ngAfterContentInit() {
     // this.currentLevel = this.getCurrentStateService.getCurrentLevel();
     // this.getCurrentStateService.getScenario();

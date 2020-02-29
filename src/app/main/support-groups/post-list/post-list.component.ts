@@ -38,6 +38,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   searchResultCount = 0;
   clearSearch!: boolean;
   id!: number;
+  suggPost = false;
 
   constructor(
     private sgService: SupportGroupsService,
@@ -46,7 +47,7 @@ export class PostListComponent implements OnInit, OnDestroy {
     private scrollService: ScrollingService,
     public dialog: MatDialog,
     private errorService: GeneralErrorService,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.queryParamsSubscription = this.route.queryParams.subscribe(data => {
@@ -54,6 +55,7 @@ export class PostListComponent implements OnInit, OnDestroy {
         console.log('Data id', data.id);
         this.posts = [];
         this.id = data.id;
+        this.suggPost = true;
         this.getPost();
       } else {
         if (data.tags) {
@@ -142,7 +144,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   }
 
   onScroll(scrollPercent: number) {
-    if (scrollPercent > 90.0 && this.fetching === false) {
+    if (scrollPercent > 90.0 && this.fetching === false && !this.suggPost) {
       this.getPosts();
     }
   }

@@ -173,6 +173,7 @@ import { SurveyComponent } from './shared/survey/survey.component';
 import { SurveyService } from './shared/survey.service';
 import { DisableClickDirective } from '@/shared/disable-click.directive';
 import { SlidesVideoComponent } from './resources/slides/slides-video/slides-video.component';
+import { GamesFeedbackComponent } from './games/games-list/common-game/games-feedback/games-feedback.component';
 
 @NgModule({
   declarations: [
@@ -275,6 +276,7 @@ import { SlidesVideoComponent } from './resources/slides/slides-video/slides-vid
     ToastNotificationDirective,
     SurveyComponent,
     DisableClickDirective,
+    GamesFeedbackComponent,
   ],
   imports: [
     CommonModule,
@@ -375,6 +377,7 @@ import { SlidesVideoComponent } from './resources/slides/slides-video/slides-vid
     LoadingBarComponent,
     ToastNotificationComponent,
     SlidesVideoComponent,
+    GamesFeedbackComponent,
   ],
 })
-export class MainModule {}
+export class MainModule { }

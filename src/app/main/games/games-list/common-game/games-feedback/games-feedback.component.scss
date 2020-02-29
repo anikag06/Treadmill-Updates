@@ -1,0 +1,27 @@
+.game-feedback {
+  font-family: Roboto;
+  margin: 16px;
+  font-size: 14px;
+
+  .submit-btn {
+    // line-height: 0%;
+    font-size: 14px;
+    width: 60px;
+    color: white;
+    background-color: #2a3b3d;
+    text-align: center;
+    padding: 0%;
+  }
+
+  .cancel-btn {
+    // line-height: 0%;
+    font-size: 14px;
+    width: 60px;
+    color: #2a3b3d;
+    background-color: white;
+    text-align: center;
+    padding: 0%;
+  }
+
+  .close-btn {}
+}
