@@ -13,10 +13,10 @@ import { Worry } from '../worry.model';
 })
 export class TechniquesComponent implements OnInit {
   @ViewChild('doneBtn', { static: false }) doneBtn!: ElementRef;
-
   @Input() worry!: Worry;
   @Input() techniquesCall = false;
   @Output() originalWorry = new EventEmitter<boolean>();
+
   constructor(
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer,
@@ -48,12 +48,17 @@ export class TechniquesComponent implements OnInit {
     );
   }
 
-  
+  ifDataSummary !: string;
   continueOriginalWorry = false;
   ngOnInit() {}
-
+  ngOnChanges(){
+    if(this.ifDataSummary){
+      this.continueOriginalWorry = true;
+    }
+  }
 
   setDealSummary(data: any) {
+    this.ifDataSummary = data;
     this.continueOriginalWorry = true;
     this.originalWorry.emit(this.continueOriginalWorry);
   }

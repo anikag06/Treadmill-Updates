@@ -41,16 +41,16 @@
               </div>
             </div> -->
             <div class="card-body" *ngIf="belief " (click)="onBeliefClick()">
-              <app-ettbf-belief [belief]="belief"></app-ettbf-belief>
+              <app-ettbf-belief [belief]="belief" (beliefClicked)="LoadTasks($event)"></app-ettbf-belief>
             </div>
             <div class="card-body" *ngIf="!belief" (click)="onBeliefClick()">
-              <app-ettbf-belief></app-ettbf-belief>
+              <app-ettbf-belief (beliefClicked)="LoadTasks($event)"></app-ettbf-belief>
             </div>
           </div>
         </div>
       </div>
       
-      <!-- <div *ngIf= "taskContinue"> -->
+      <div *ngIf= "taskContinue">
         <div class="row mb-2">
           <div class="col">
             <div class="card-full-width">
@@ -58,14 +58,14 @@
                 How can you test if this belief is true?
               </div> -->
               <div class="card-body">
-                <app-tasks  (showMessage)="taskLoaded($event)" [object]="taskObject" [task]="task" [taskHeading]= "taskHeading"></app-tasks>
+                <app-tasks  (taskLoaded)="taskLoaded($event)" [object]="taskObject" [task]="task" [taskHeading]= "taskHeading"></app-tasks>
               </div>
             </div>
           </div>
         </div>
-      <!-- </div> -->
+      </div>
     
-      <!-- <div *ngIf="taskEmitted"> -->
+      <div *ngIf="taskEmitted">
         <div class="row mb-2">
           <div class="col-12">
             <div class="card-full-width">
@@ -81,16 +81,23 @@
                   {{outcome.outcome}}
                 </div>
               </div> -->
-              <div *ngIf="outcome ">
-                <app-ettbf-outcome [outcome]="outcome" [belief]="belief"></app-ettbf-outcome>
+              <div *ngIf="outcome " >
+                <app-ettbf-outcome [outcome]="outcome" [task]="task" [belief]="belief" (finalSliderRating)="finalSliderEmit($event)"></app-ettbf-outcome>
               </div>
-              <div  *ngIf="!outcome">
-                <app-ettbf-outcome [belief]="belief"></app-ettbf-outcome>
+              <div *ngIf="!outcome" >
+                <app-ettbf-outcome [belief]="belief" [task]="task" [getNotification]="notification" (finalSliderRating)="finalSliderEmit($event)"></app-ettbf-outcome>
               </div>
             </div>
           </div>
         </div>
-      <!-- </div> -->
+      </div>
     </div>
   </div>
+  <app-form-message *ngIf="showMessage" [formMessage]="message">
+  </app-form-message>
+  <app-form-quote
+    *ngIf="showMessage"
+    [quote]="quote"
+    [quotedBy]="quotedBy"
+  ></app-form-quote>
 </mat-card>

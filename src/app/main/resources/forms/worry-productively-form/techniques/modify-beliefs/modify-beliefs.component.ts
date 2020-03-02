@@ -32,6 +32,7 @@ export class ModifyBeliefsComponent implements OnInit {
 
   ngOnInit() { }
   ngOnChanges() {
+    this.resetForm();
     if (this.worry) {
       this.worryService
         .getModifyBeliefs(this.worry.id)
@@ -46,6 +47,12 @@ export class ModifyBeliefsComponent implements OnInit {
           }
         });
     }
+  }
+  resetForm() {
+    this.beliefForm = this.fb.group({
+      beliefStatement: new FormControl('', Validators.required),
+    });
+    this.summaryText = '';
   }
   onBeliefSubmit() {
     this.summaryText = this.beliefForm.value['beliefStatement'];

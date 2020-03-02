@@ -20,9 +20,11 @@ import { GeneralErrorService } from '@/main/shared/general-error.service';
 import { FormBuilder, FormControl, FormArray } from '@angular/forms';
 import { map } from 'rxjs/operators';
 import { WorryProductivelyService } from '@/main/resources/forms/worry-productively-form/worry-productively.service';
-import { WORRY_PRODUCTIVELY } from '@/app.constants';
+import { WORRY_PRODUCTIVELY, WELL_DONE_IMG, THINKING_IMG } from '@/app.constants';
 import { TechniquesComponent } from './techniques/techniques.component';
 import { WORRY_PRODUCTIVELY_QUOTES, WORRY_PRODUCTIVELY_MESSAGE, WORRY_PRODUCTIVELY_NGT_MESSAGE } from './worry-productively-message';
+import { FormService } from '../shared/form.service';
+import { FormMessage } from '../shared/form-message/form-message.model';
 
 @Component({
   selector: 'app-worry-productively-form',
@@ -32,7 +34,7 @@ import { WORRY_PRODUCTIVELY_QUOTES, WORRY_PRODUCTIVELY_MESSAGE, WORRY_PRODUCTIVE
 })
 export class WorryProductivelyComponent implements OnInit, OnDestroy {
   user!: User;
-  worry!: Worry;
+  worry!: Worry|undefined;
   type = WORRY_PRODUCTIVELY;
   // reset = false;
   page = 1;
@@ -43,6 +45,7 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
   originalWorryClick = false;
   originalWorryContinue = false;
   checkBoxContinue = false;
+  finalSliderCont = false; 
   characteristicCount = 0;
   data = [{ value: '', is_checked: false }];
   useless_characteristic: string[] = [];
@@ -60,6 +63,7 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
   wSliderMaxRangeText = 'Very Strongly';
   quote !: string;;
   quotedBy !: string;
+  message!: FormMessage;
   finalRating !: number;
   initialRating !: number;
   showMessage !: boolean;
@@ -74,7 +78,7 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private errorService: GeneralErrorService,
     private fb: FormBuilder,
-    // private formService: FormService,
+    private formService: FormService,
   ) { }
 
   ngOnInit() {
@@ -119,8 +123,10 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
               'characteristics',
               this.fb.array(resp.body.data),
             );
-            if (this.worry.worry_rating_initial != null) {
-              this.buttonClick = true;
+            if(this.worry){
+              if (this.worry.worry_rating_initial != null) {
+                this.buttonClick = true;
+              }
             }
             resp.body.data.forEach((data: any) => {
               // const obj = this.data.find((x , i) => {
@@ -145,6 +151,9 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
         if (resp) {
           this.sliderResponseFinal = resp.body.worry_rating_final;
           this.originalWorryClick = true;
+          this.finalRating = resp.body.worry_rating_final;
+          this.formComplete = true;
+          this.onShowMessage();
         }
 
       });
@@ -189,6 +198,8 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
     for (var i = 0; i < this.data.length; i++) {
       this.data[i].is_checked = false;
     }
+    this.sliderResponseFinal = undefined;
+    this.originalWorryClick = false;
   }
   deleteWorry() {
     this.buttonClick = false;
@@ -271,32 +282,36 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
           }
         });
     }
+    this.finalSliderCont = false;
     this.formComplete = true;
-    // this.onShowMessage();
+    this.onShowMessage();
   }
-  // onShowMessage() {
-  //   if (this.initialRating > 0 && this.finalRating > 0 && this.formComplete) {
-  //     const index = this.formService.getRandomInt(WORRY_PRODUCTIVELY_QUOTES.length);
-  //     this.quote = WORRY_PRODUCTIVELY_QUOTES[index].quote;
-  //     this.quotedBy = WORRY_PRODUCTIVELY_QUOTES[index].by;
-  //     this.showMessage = true;
-  //     if (this.finalRating < this.initialRating) {
-  //       this.message = new FormMessage(
-  //         WELL_DONE_IMG,
-  //         'Well Done',
-  //         WORRY_PRODUCTIVELY_MESSAGE[
-  //           this.formService.getRandomInt(WORRY_PRODUCTIVELY_MESSAGE.length)
-  //         ],
-  //       );
-  //     } else {
-  //       this.message = new FormMessage(
-  //         THINKING_IMG,
-  //         '',
-  //         WORRY_PRODUCTIVELY_NGT_MESSAGE[
-  //           this.formService.getRandomInt(WORRY_PRODUCTIVELY_NGT_MESSAGE.length)
-  //         ],
-  //       );
-  //     }
-  //   }
-  // }
+  hideFinalSliderCont(){
+    this.finalSliderCont = true;
+  }
+  onShowMessage() {
+    if (this.initialRating > 0 && this.finalRating > 0 && this.formComplete) {
+      const index = this.formService.getRandomInt(WORRY_PRODUCTIVELY_QUOTES.length);
+      this.quote = WORRY_PRODUCTIVELY_QUOTES[index].quote;
+      this.quotedBy = WORRY_PRODUCTIVELY_QUOTES[index].by;
+      this.showMessage = true;
+      if (this.finalRating < this.initialRating) {
+        this.message = new FormMessage(
+          WELL_DONE_IMG,
+          'Well Done',
+          WORRY_PRODUCTIVELY_MESSAGE[
+            this.formService.getRandomInt(WORRY_PRODUCTIVELY_MESSAGE.length)
+          ],
+        );
+      } else {
+        this.message = new FormMessage(
+          THINKING_IMG,
+          '',
+          WORRY_PRODUCTIVELY_NGT_MESSAGE[
+            this.formService.getRandomInt(WORRY_PRODUCTIVELY_NGT_MESSAGE.length)
+          ],
+        );
+      }
+    }
+  }
 }

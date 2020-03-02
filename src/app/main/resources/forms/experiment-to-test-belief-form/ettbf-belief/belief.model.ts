@@ -6,6 +6,6 @@ export class Belief {
     public id: number,
     public belief: string,
     public belief_rating_before?: any,
-    public taskOrigin?: TaskOrigin,
+    public taskorigin?: TaskOrigin,
   ) {}
 }

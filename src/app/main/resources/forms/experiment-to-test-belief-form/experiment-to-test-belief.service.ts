@@ -14,7 +14,7 @@ import { ETTBF_BELIEF_URL, ETTBF_OUTCOME_URL, GET_TASKS } from '@/app.constants'
 })
 export class ExperimentToTestBeliefService {
   
-  beliefs : Belief[]=[]; 
+  private beliefs : Belief[]=[]; 
   beliefObservable$ = new BehaviorSubject({});
   beliefbehaviours = new BehaviorSubject(this.beliefs);
   morebeliefs = true;

@@ -51,7 +51,7 @@ export class WpfDealWithWorryComponent implements OnInit {
             );
             this.dealWithWorry.push(resp.body.distract);
             this.summaryText = resp.body.distract;
-            // this.summaryDealingEvent.emit(this.summaryText);
+            this.summaryDealingEvent.emit(this.summaryText);
           }
         });
     }

@@ -1,9 +1,10 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, SimpleChanges } from '@angular/core';
 import { FormControl, FormBuilder, Validators } from '@angular/forms';
 import { WorryProductivelyService } from '../../worry-productively.service';
 import { Worry } from '../../worry.model';
 import { WORRY_PROBLEM } from '@/app.constants';
 import { UserTask } from '../../../shared/tasks/user-task.model';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-face-my-worst-fear',
@@ -13,7 +14,7 @@ import { UserTask } from '../../../shared/tasks/user-task.model';
 export class FaceMyWorstFearComponent implements OnInit {
   @Input() worry !: Worry;
   @ViewChild('panel2', { static: false }) panel2!: any;
-  task !: UserTask;
+  @Input() task !: UserTask;
   taskObject !: any ;
   faceYourWorstFearForm = this.fb.group({
     faceYourWorstFear: new FormControl('', Validators.required),
@@ -22,30 +23,46 @@ export class FaceMyWorstFearComponent implements OnInit {
   continueButton = false;
   continueEmergency = false;
   taskEmitted = false;                                                                                    
-  faceYourFear: string[] = [];
   showTasks = false;
+  doneShowSummary = false;
+  emergencyPlan ?: Boolean;
+  faceYourFear: string[] = [];
+  summaryText !: string;
+  disableEmergency!: boolean;
   responseData = '';
   taskHeading = "Decide a time when you will worry about it.";
-  summaryText !: string;
   constructor(
     private fb: FormBuilder,
     private worryService: WorryProductivelyService,
   ) { }
-  ngOnInit() { }
-  ngOnChanges() {
-    // if(this.taskEmitted){
-    //   this.worryService.getTasks(this.worry.taskorigin.task_id).subscribe(
-    //     (resp : any)=>{
-    //       this.task = resp.data;
-    //     }
-    //   );
-    // }
+  ngOnInit() { 
+    this.emergencyPlan = undefined;
+    if (this.task) {
+      this.getEndDate();
+      this.onDisableEmergency();
+      this.taskLoaded;
+    }
+    console.log(this.disableEmergency + 'log');
+    
+  }
+  ngOnChanges(changes: SimpleChanges) {
+    this.resetForm();
+    if(this.worry.taskorigin){
+      this.worryService.getTasks(this.worry.taskorigin.task_id).subscribe(
+        (resp : any)=>{
+          this.task = resp.body.data;
+          this.getEndDate();
+          this.onDisableEmergency();
+          this.taskEmitted = true;
+        }
+      );
+    }
     this.taskObject = {
       id : this.worry.id,
       origin_name : WORRY_PROBLEM,
-      taskorigin : this.worry.taskOrigin,    
+      taskorigin : this.worry.taskorigin,    
     };
-    this.resetForm();
+    
     if (this.worry) {
       this.worryService.getWorstFear(this.worry.id).subscribe(
         (resp: any) => {
@@ -57,16 +74,24 @@ export class FaceMyWorstFearComponent implements OnInit {
             this.summaryText = resp.body.worst_fear;
             this.continueButton = false;
             this.continueEmergency = false;
-            if (resp.body.emergency_plan != '') {
+            if (resp.body.worst_fear !== '') {
               this.showTasks = true;
             }
-
+            if(resp.body.emergency_plan !==''){
+              this.emergencyPlan = true;
+            }
           }
         }
       )
     }
-  }
+    if (changes.task) {
+      this.getEndDate();
+      this.onDisableEmergency();
+    }
+    
+    console.log(this.disableEmergency + 'changes');
 
+  }
   onWorstFearClick() {
     this.continueButton = false;
     this.continueEmergency = false;
@@ -85,7 +110,7 @@ export class FaceMyWorstFearComponent implements OnInit {
             this.responseData = resp.body;
           }
         })
-    } else if (this.responseData.length != 0 || this.faceYourFear.length != 0) {
+    } else if (this.responseData.length !== 0 || this.faceYourFear.length !== 0) {
       const object = {
         worry_id: this.worry.id,
         worst_fear: this.faceYourWorstFearForm.controls['faceYourWorstFear'].value,
@@ -100,13 +125,45 @@ export class FaceMyWorstFearComponent implements OnInit {
         })
     }
   }
+  getEndDate() {
+    return moment(this.task.end_at).format('DD-MMM');
+  }
+  onDisableEmergency() {
+    const date = this.task.end_at + ' ' + this.task.time;
+    this.disableEmergency =
+      moment().format('YYYY-MM-DD HH:mm') <
+      moment
+        .utc(date)
+        .local()
+        .format('YYYY-MM-DD HH:mm');
+  }
+
   onEmergencyPlan() {
+   this.doneShowSummary = true;
+   this.onWorstFearClick(); 
+  }
+  onSummary(){
     this.summaryText = this.faceYourWorstFearForm.controls['faceYourWorstFear'].value;
     this.panel2.expanded = false;
-    this.onWorstFearClick();
   }
-  taskLoaded(data : any){
+  taskSubmitted(data : any){ 
     this.taskEmitted = data;
+  }
+  taskLoaded(task : UserTask){
+    this.task = task;
+    this.getEndDate();
+    this.onDisableEmergency();
+    if(task){
+      if (this.faceYourWorstFearForm.controls['emergency_plan'].value === '' && this.summaryText !== '' && this.taskEmitted){
+        this.emergencyPlan = false;
+      }
+      else {
+        this.emergencyPlan = true;
+      }
+    }
+    console.log(this.disableEmergency + 'loaded');
+    console.log(this.emergencyPlan + 'emergency' + 'loaded');
+
   }
   resetForm() {
     this.faceYourWorstFearForm = this.fb.group({
@@ -114,7 +171,10 @@ export class FaceMyWorstFearComponent implements OnInit {
       emergency_plan: new FormControl('', Validators.required),
     });
     this.showTasks = false;
-
+    this.doneShowSummary =  false;
+    this.taskEmitted = false;
+    this.emergencyPlan = undefined;
+    this.summaryText = '';
   }
   onFocusfear() {
     this.continueButton = true;

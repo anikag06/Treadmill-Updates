@@ -43,12 +43,12 @@
                 [maxRatingText]="wSliderMaxRangeText" [rating]="worry.worry_rating_initial">
               </app-form-slider>
             </div> -->
-            <div class="card-body" *ngIf="worry " (click)="onWorryClick()">
+            <div class="card-body"  (click)="onWorryClick()">
               <app-worry-form [worry]="worry" (testOut)="continueAfterSlider($event)"></app-worry-form>
             </div>
-            <div class="card-body" *ngIf="!worry" (click)="onWorryClick()">
+            <!-- <div class="card-body" *ngIf="!worry" (click)="onWorryClick()">
               <app-worry-form (testOut)="continueAfterSlider($event)"></app-worry-form>
-            </div>
+            </div> -->
 
           </div>
         </div>
@@ -101,17 +101,17 @@
                 </div>
               </div>
             </div>
-            <div class="card-body" *ngIf="sliderResponseFinal == undefined ">
+            <div class="card-body" *ngIf="sliderResponseFinal == undefined" (click)="hideFinalSliderCont()">
               <app-form-slider [question]="worrySliderQuestion" [minRatingText]="wSliderMinRangeText"
                 [maxRatingText]="wSliderMaxRangeText">
               </app-form-slider>
             </div>
-            <div class="card-body" *ngIf="sliderResponseFinal != undefined">
+            <div class="card-body" *ngIf="sliderResponseFinal != undefined" (click)="hideFinalSliderCont()">
               <app-form-slider [question]="worrySliderQuestion" [minRatingText]="wSliderMinRangeText"
                 [maxRatingText]="wSliderMaxRangeText" [rating]="sliderResponseFinal">
               </app-form-slider>
             </div>
-            <div class="card-body">
+            <div class="card-body" *ngIf="finalSliderCont">
               <p class="text-right" (click)="OnFinalSliderClick()">
                 <button type="button" mat-raised-button class="continue-btn">Continue</button>
               </p>
@@ -121,11 +121,11 @@
       </div>
     </div>
   </div>
-  <!-- <app-form-message *ngIf="showMessage" [formMessage]="message">
+  <app-form-message *ngIf="showMessage" [formMessage]="message">
   </app-form-message>
   <app-form-quote
     *ngIf="showMessage"
     [quote]="quote"
     [quotedBy]="quotedBy"
-  ></app-form-quote> -->
+  ></app-form-quote>
 </mat-card>

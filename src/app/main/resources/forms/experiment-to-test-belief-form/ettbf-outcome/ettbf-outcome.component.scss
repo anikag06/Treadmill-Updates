@@ -17,3 +17,28 @@
     color : black ;
     padding-left: 10px;
 }
+.circle {
+    width: 8px;
+    height: 8px;
+    background: red;
+    border-radius: 50%;
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+
+.notice {
+    background: #fff9ee;
+    border: 0.5px dashed #0000005e;
+    vertical-align: middle;
+    border-radius: 4px;
+    min-height: 55px;
+    padding: inherit;
+  }
+  .hideResult {
+    padding-bottom: 0px;
+    height: 45px;
+    max-height: 45px;
+    background: #eeeeee;
+    border-bottom: black solid 1px;
+  }
+    

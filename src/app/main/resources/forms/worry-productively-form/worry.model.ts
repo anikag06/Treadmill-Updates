@@ -5,6 +5,6 @@ export class Worry {
     public id: number,
     public worry: string,
     public worry_rating_initial?: any,
-    public taskOrigin ?: TaskOrigin, // public useless_characteristics?: string,
+    public taskorigin ?: TaskOrigin, // public useless_characteristics?: string,
   ) {}
 }

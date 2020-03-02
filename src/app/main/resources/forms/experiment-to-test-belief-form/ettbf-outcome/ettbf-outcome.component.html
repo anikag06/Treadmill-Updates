@@ -1,131 +1,140 @@
-<form>
-  <div class="card-header">
-    What was the outcome of your experiment?
-    <div class="float-right d-inline-block">
-      <mat-icon class="edit_icon" (click)="onEditOutcomeClick()">
-        edit </mat-icon>
-  </div>
-  </div>
-  <div class="card-body">
-    <mat-form-field class="full-width">
-      <textarea
-        name="outcomeStatement"
-        class="py-0"
-        #outcomeTextArea
-        cdkTextareaAutosize
-        cdkAutosizeMinRows="1"
-        cdkAutosizeMaxRows="5"
-        id="outcomeStatement"
-        placeholder="I was able to clean the kitchen and dust the bookshelves."
-        matInput
-        required
-        [autofocus]
-        (focus)="onFocusOutcome()"
-        [(ngModel)]="outcomeStatement"
-      ></textarea>
-    </mat-form-field> 
-  
-    <p class="text-right" (click)="onOutcomeSubmit()" *ngIf="outcomeTextArea.value && outcomeText">
-      <button type="button" mat-raised-button class="continue-btn">
-        Continue
-      </button>
-    </p>
-  </div>
-  <div class="card-header">
-    What did you learn from the outcome?
-    <div class="float-right d-inline-block">
-      <mat-icon class="edit_icon" (click)="onEditOutcomeClick()">
-        edit </mat-icon>
-  </div>
-  </div>
-  <div class="card-body">
-    <mat-form-field class="full-width">
-      <textarea
-        name="learningStatement"
-        class="py-0"
-        #learningTextArea
-        cdkTextareaAutosize
-        cdkAutosizeMinRows="1"
-        cdkAutosizeMaxRows="5"
-        id="learningStatement"
-        placeholder="I can clean up my apartment, at least partially, if I want to."
-        matInput
-        required
-        [autofocus]
-        (focus)="onFocusLearning()"
-        [(ngModel)]="learningStatement"
-      ></textarea>
-    </mat-form-field>
-    <p class="text-right" (click)="onLearningSubmit()" *ngIf="learningTextArea.value && learningText">
-      <button type="button" mat-raised-button class="continue-btn">
-        Continue
-      </button>
-    </p>
-  </div>
-  <div class="card-header">
-    On a scale of 1-10 how strongly do you believe your belief to be true?
-    <div class="float-right d-inline-block">
-      <mat-icon class="edit_icon" (click)="onEditOutcomeClick()">
-        edit </mat-icon>
-  </div>
-  </div>
-  <div class="card-body">
-    <div class="beliefBox" *ngIf="belief">
-      <div class="beliefText"><br /> original belief <br />
-        <div class="beliefbody">{{belief.belief}} <br />
+<div class="card-header">
+  What was the outcome of your experiment? <div class="circle" *ngIf="emergencyPlan === false && !disableEmergency"></div> 
+  <div class="float-right d-inline-block">
+    <mat-icon class="edit_icon" (click)="onEditOutcomeClick()">
+      edit </mat-icon>
+</div>
+</div>
+<div *ngIf="disableEmergency" class="hideResult col-12 my-2"></div>
+        <div *ngIf="disableEmergency" class="notice my-4"> 
+          The Text to write emergency plan will be active after
+          {{ getEndDate() }}. 
+        </div>
+<div *ngIf="!disableEmergency">
+  <form>
+    <div class="card-body">
+      <mat-form-field class="full-width">
+        <textarea
+          name="outcomeStatement"
+          class="py-0"
+          #outcomeTextArea
+          cdkTextareaAutosize
+          cdkAutosizeMinRows="1"
+          cdkAutosizeMaxRows="5"
+          id="outcomeStatement"
+          placeholder="I was able to clean the kitchen and dust the bookshelves."
+          matInput
+          required
+          [autofocus]
+          (focus)="onFocusOutcome()"
+          [(ngModel)]="outcomeStatement"
+        ></textarea>
+      </mat-form-field> 
+    
+      <p class="text-right" (click)="onOutcomeSubmit()" *ngIf="outcomeTextArea.value && outcomeText">
+        <button type="button" mat-raised-button class="continue-btn">
+          Continue
+        </button>
+      </p>
+    </div>
+    <div class="card-header" *ngIf="showLearning">
+      What did you learn from the outcome?
+      <div class="float-right d-inline-block">
+        <mat-icon class="edit_icon" (click)="onEditOutcomeClick()">
+          edit </mat-icon>
+    </div>
+    </div>
+    <div class="card-body" *ngIf="showLearning">
+      <mat-form-field class="full-width">
+        <textarea
+          name="learningStatement"
+          class="py-0"
+          #learningTextArea
+          cdkTextareaAutosize
+          cdkAutosizeMinRows="1"
+          cdkAutosizeMaxRows="5"
+          id="learningStatement"
+          placeholder="I can clean up my apartment, at least partially, if I want to."
+          matInput
+          required
+          [autofocus]
+          (focus)="onFocusLearning()"
+          [(ngModel)]="learningStatement"
+        ></textarea>
+      </mat-form-field>
+      <p class="text-right" (click)="onLearningSubmit()" *ngIf="learningTextArea.value && learningText">
+        <button type="button" mat-raised-button class="continue-btn">
+          Continue
+        </button>
+      </p>
+    </div>
+    <div class="card-header" *ngIf="showSlider">
+      On a scale of 1-10 how strongly do you believe your belief to be true?
+      <div class="float-right d-inline-block">
+        <mat-icon class="edit_icon" (click)="onEditOutcomeClick()">
+          edit </mat-icon>
+    </div>
+    </div>
+    <div class="card-body" *ngIf="showSlider" (click)="showSliderCont()">
+      <div class="beliefBox" *ngIf="belief">
+        <div class="beliefText"><br /> original belief <br />
+          <div class="beliefbody">{{belief.belief}} <br />
+          </div>
         </div>
       </div>
+      <app-form-slider
+        [question]="ratingQuestion"
+        [minRatingText]="minRatingText"
+        [maxRatingText]="maxRatingText"
+        [rating]="value"
+      ></app-form-slider>
+      <p class="text-right" *ngIf="showSliderContinue" (click)="onBeliefRatingAfterSubmit()">
+        <button type="button" mat-raised-button class="continue-btn">
+          Continue
+        </button>
+      </p>
     </div>
-    <app-form-slider
-      [question]="ratingQuestion"
-      [minRatingText]="minRatingText"
-      [maxRatingText]="maxRatingText"
-    ></app-form-slider>
-    <p class="text-right" (click)="onBeliefRatingAfterSubmit()">
-      <button type="button" mat-raised-button class="continue-btn">
-        Continue
-      </button>
-    </p>
-  </div>
-</form>
-<div class="card-body" *ngIf="bothRatingsExist">
-  <div *ngIf="beliefDecreased">
-    <p>
-      Great! What would be a more realistic belief?
-    </p>
-    <mat-form-field class="full-width">
-      <textarea
-        name="realisticBeliefStatement"
-        class="py-0"
-        #realisticBeliefTextArea
-        cdkTextareaAutosize
-        cdkAutosizeMinRows="1"
-        cdkAutosizeMaxRows="5"
-        id="realisticBeliefStatement"
-        placeholder="I can still do some things if I want to."
-        matInput
-        required
-        [autofocus]
-        [(ngModel)]="realisticBeliefStatement"
-      ></textarea>
-    </mat-form-field>
-    <p class="text-right" (click)="onRealisticBeliefSubmit()">
-      <button type="button" mat-raised-button class="continue-btn">
-        Continue
-      </button>
-    </p>
-    <p *ngIf="outcome.realistic_belief">
-      Excellent! If you identify yourself thinking in terms of this negative
-      belief again, remind yourself: {{ realisticBeliefStatement }}
-    </p>
-  </div>
-  <div *ngIf="!beliefDecreased">
-    <p>
-      Hmmm... I can understand. It is hard to change our beliefs and it takes
-      time. Don't give up, try again after a few days. Meanwhile: - try to see
-      if you can find any evidences against this belief - it might help to look
-      at this belief from other points of view. Use the
-      https://trello.com/c/mYuLsdso to do that.
-    </p>
+  </form>
+  <div class="card-body" *ngIf="bothRatingsExist">
+    <div *ngIf="beliefDecreased">
+      <p>
+        Great! What would be a more realistic belief?
+      </p>
+      <mat-form-field class="full-width">
+        <textarea
+          name="realisticBeliefStatement"
+          class="py-0"
+          #realisticBeliefTextArea
+          cdkTextareaAutosize
+          cdkAutosizeMinRows="1"
+          cdkAutosizeMaxRows="5"
+          id="realisticBeliefStatement"
+          placeholder="I can still do some things if I want to."
+          matInput
+          required
+          [autofocus]
+          [(ngModel)]="realisticBeliefStatement"
+          (focus)="onFocusRealistic()"
+        ></textarea>
+      </mat-form-field>
+      <p class="text-right" *ngIf="realisticContinue" (click)="onRealisticBeliefSubmit()">
+        <button type="button" mat-raised-button class="continue-btn">
+          Continue
+        </button>
+      </p>
+      <!-- <p *ngIf="outcome.realistic_belief">
+        Excellent! If you identify yourself thinking in terms of this negative
+        belief again, remind yourself: {{ realisticBeliefStatement }}
+      </p> -->
+    </div>
+    <!-- <div *ngIf="!beliefDecreased">
+      <p>
+        Hmmm... I can understand. It is hard to change our beliefs and it takes
+        time. Don't give up, try again after a few days. Meanwhile: - try to see
+        if you can find any evidences against this belief - it might help to look
+        at this belief from other points of view. Use the
+        https://trello.com/c/mYuLsdso to do that.
+      </p>
+    </div> -->
   </div>
 </div>
