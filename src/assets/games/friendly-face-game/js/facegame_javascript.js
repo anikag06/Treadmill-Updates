@@ -727,8 +727,8 @@ function playNote() {
       clearInterval(ffg_timer);
     });
     updateUser();
-    getNextSong();
     songOver();
+    getNextSong();
   }
 }
 
@@ -760,7 +760,12 @@ function playMusic(stop, song) {
 
 function songOver() {
   // show play next modal
-  playNextGamePopup();
+  console.log("song order", ffg_music_current_order);
+  if (ffg_music_current_order === 4) {
+    gameFeedbackPopup();
+  } else {
+    playNextGamePopup();
+  }
 
   // updateUser(ffg_music_current_order, ffg_coins);
 
@@ -1153,6 +1158,12 @@ function getImages(imageType) {
   getImagesEvent = document.createEvent("CustomEvent");
   getImagesEvent.initCustomEvent(imageType);
   window.dispatchEvent(getImagesEvent);
+}
+
+function gameFeedbackPopup() {
+  feedbackEvent = document.createEvent("CustomEvent");
+  feedbackEvent.initCustomEvent("Feedback");
+  window.dispatchEvent(feedbackEvent);
 }
 
 function getDifficultyLevel(time_per_note) {

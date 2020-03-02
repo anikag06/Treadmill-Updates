@@ -1,4 +1,5 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
+import { GamesFeedbackService } from './games-feedback.service';
 
 @Component({
   selector: 'app-games-feedback',
@@ -12,12 +13,15 @@ export class GamesFeedbackComponent implements OnInit {
   disliked = false;
   giveFeedback = false;
   feedback_text!: string;
+  game = '';
 
   constructor(
-    private el: ElementRef
+    private el: ElementRef,
+    private gamesFeedbackService: GamesFeedbackService,
   ) { }
 
   ngOnInit() {
+    this.game = 'mental_imagery';
   }
 
   onLikeBtnClick() {
@@ -48,5 +52,10 @@ export class GamesFeedbackComponent implements OnInit {
   onClose() {
     const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });
     this.el.nativeElement.dispatchEvent(domEvent);
+    if (this.game === 'mental_imagery') {
+      this.gamesFeedbackService.feedback.emit();
+    } else if (this.game === 'friendly_face') {
+      this.gamesFeedbackService.feedback.emit();
+    }
   }
 }
