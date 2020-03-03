@@ -174,6 +174,7 @@ import { SurveyService } from './shared/survey.service';
 import { DisableClickDirective } from '@/shared/disable-click.directive';
 import { SlidesVideoComponent } from './resources/slides/slides-video/slides-video.component';
 import { GamesFeedbackComponent } from './games/games-list/common-game/games-feedback/games-feedback.component';
+import { GamesFeedbackService } from './games/games-list/common-game/games-feedback/games-feedback.service';
 
 @NgModule({
   declarations: [
@@ -342,6 +343,7 @@ import { GamesFeedbackComponent } from './games/games-list/common-game/games-fee
     StepsDataService,
     WorryProductivelyService,
     SurveyService,
+    GamesFeedbackService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [

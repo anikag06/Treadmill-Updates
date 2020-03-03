@@ -86,8 +86,9 @@ export class FriendlyFaceGameComponent implements OnInit {
   no_correct_responses!: number;
   allBadgesInfo: BadgesInfo = new BadgesInfo(0, 0, 0, 0, 0, 0);
   last_completed_order: any;
-  show_tutorial: any;
+  show_tutorial!: boolean;
   time_per_note: any;
+  ask_feedback!: boolean;
 
   @ViewChild('newElement', { static: false }) element!: ElementRef;
 
@@ -123,9 +124,11 @@ export class FriendlyFaceGameComponent implements OnInit {
   }
   @HostListener('window:Feedback')
   openFeedbackPopup() {
-    this.dialogBoxService.setDialogChild(GamesFeedbackComponent);
-    const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
-    this.element.nativeElement.dispatchEvent(domEvent);
+    if (this.ask_feedback) {
+      this.dialogBoxService.setDialogChild(GamesFeedbackComponent);
+      const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
+      this.element.nativeElement.dispatchEvent(domEvent);
+    }
   }
 
   @HostListener('window:diffBarUpdate')
@@ -220,6 +223,8 @@ export class FriendlyFaceGameComponent implements OnInit {
       this.GOLD_CONSTANT = user_data.GOLD_CONSTANT;
       this.last_completed_order = user_data.last_completed_order;
       this.show_tutorial = user_data.show_tutorial;
+      this.ask_feedback = user_data.ask_for_feedback;
+      this.gamesFeedbackService.ask_feedback = this.ask_feedback;
       ffg_time_per_note = user_data.time_per_note; // timeAlloted in miliseconds
       ffg_total_positive_images = user_data.total_positive_images;
       this.ffGameMusicData(); // start calling the data of music from page no. 1 as data received is according to user order

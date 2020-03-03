@@ -727,8 +727,8 @@ function playNote() {
       clearInterval(ffg_timer);
     });
     updateUser();
-    songOver();
     getNextSong();
+    songOver();
   }
 }
 
@@ -770,10 +770,12 @@ function songOver() {
   // updateUser(ffg_music_current_order, ffg_coins);
 
   nextStage();
+
   ffg_music = next_song;
   ffg_next_song = next_song_name;
   ffg_music_name = next_song_name;
   game_paused = true;
+  console.log("ffg_music", ffg_music);
   showPlayButton();
 }
 

@@ -1,5 +1,7 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { GamesFeedbackService } from './games-feedback.service';
+import { GameFeedback } from './game-feedback.model';
+import { GamePlayService } from '@/main/games/shared/game-play.service';
 
 @Component({
   selector: 'app-games-feedback',
@@ -13,15 +15,20 @@ export class GamesFeedbackComponent implements OnInit {
   disliked = false;
   giveFeedback = false;
   feedback_text!: string;
-  game = '';
+  game!: string;
+  feedback!: GameFeedback;
+  ask_feedback!: boolean;
+  thank_text = false;
 
   constructor(
     private el: ElementRef,
     private gamesFeedbackService: GamesFeedbackService,
+    private gamePlayService: GamePlayService,
   ) { }
 
   ngOnInit() {
-    this.game = 'mental_imagery';
+    this.game = this.gamePlayService.gameName;
+    this.ask_feedback = this.gamesFeedbackService.ask_feedback;
   }
 
   onLikeBtnClick() {
@@ -41,21 +48,27 @@ export class GamesFeedbackComponent implements OnInit {
   }
 
   onSubmitCommentClicked(text: string) {
+    this.thank_text = true;
     this.giveFeedback = false;
     this.feedback_text = text;
+    this.feedback = { game: this.game, feedback: this.ask_feedback, feedback_text: this.feedback_text };
+    this.gamesFeedbackService.sendFeedback(this.feedback).subscribe();
+    setTimeout(() => {
+      this.onClose();
+    }, 2000);
   }
 
   onCancel() {
+    this.thank_text = true;
     this.giveFeedback = false;
+    setTimeout(() => {
+      this.onClose();
+    }, 2000);
   }
 
   onClose() {
     const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });
     this.el.nativeElement.dispatchEvent(domEvent);
-    if (this.game === 'mental_imagery') {
-      this.gamesFeedbackService.feedback.emit();
-    } else if (this.game === 'friendly_face') {
-      this.gamesFeedbackService.feedback.emit();
-    }
+    this.gamesFeedbackService.feedback.emit();
   }
 }

@@ -25,6 +25,8 @@ import { IbMainTrainingComponent } from './ib-main-training/ib-main-training.com
 import { GameMatPropertyService } from '@/main/games/shared/game-mat-property.service';
 import { LoadFilesService } from '@/main/games/shared/load-files.service';
 import { MatTooltip } from '@angular/material';
+import { GamesFeedbackComponent } from '../games-feedback/games-feedback.component';
+import { GamesFeedbackService } from '../games-feedback/games-feedback.service';
 
 declare var IBG_MAX_WORDS_HIDDEN: number;
 declare var sentence_number: any;
@@ -44,11 +46,13 @@ declare var ibGameUserOrder: number;
 declare var ibGameTime: any;
 declare var ibGameWordsHidden: number;
 declare var ibGameShowTutorial: boolean;
+declare var ibGame_ask_feedback: boolean;
 // for storing the score related info of the user
 declare var success: any;
 declare var inactivity_check_interval: any;
 declare var ibGameCorrectResponse: any;
 declare function getUpdatedVariables(): any;
+declare function playNextSentence(): any;
 
 declare var ibGDifficultyValue: any;
 declare var ibGameMakeGridArray: any;
@@ -130,7 +134,8 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
     private element: ElementRef,
     private matPropertyService: GameMatPropertyService,
     private loadFileService: LoadFilesService,
-  ) {}
+    private gamesFeedbackService: GamesFeedbackService,
+  ) { }
 
   @HostListener('window:iBGameSentenceDialogFun')
   showSentence() {
@@ -138,6 +143,14 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
     this.ibGameDiv.nativeElement.dispatchEvent(domEvent);
     this.dialogBoxService.setDialogChild(IbMainTrainingComponent);
   }
+
+  @HostListener('window:iBGFeedback')
+  giveFeedback() {
+    const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
+    this.ibGameDiv.nativeElement.dispatchEvent(domEvent);
+    this.dialogBoxService.setDialogChild(GamesFeedbackComponent);
+  }
+
 
   @HostListener('window:toolTip')
   showTooltip() {
@@ -160,8 +173,10 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
         this.btn_give_up_score = ibg_btn_give_up_score;
         this.btn_other_sentence_score = ibg_btn_other_sentence_score;
       })
-      .catch(() => {});
-
+      .catch(() => { });
+    this.gamesFeedbackService.feedback.subscribe(() => {
+      playNextSentence();
+    });
     // do not delete this (this.findValidSentence()) function, it is important
     // this.findValidSentence();        // this function is used to check if sentences in database are valid for generation of letters grid
   }
@@ -262,6 +277,8 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
         ibGameTime = data.data.time;
         ibGameWordsHidden = data.data.words_hidden;
         ibGameShowTutorial = data.data.show_tutorial;
+        ibGame_ask_feedback = data.data.ask_for_feedback;
+        this.gamesFeedbackService.ask_feedback = ibGame_ask_feedback;
         this.BRONZE_CONSTANT = data.data.BRONZE_CONSTANT;
         this.SILVER_CONSTANT = data.data.SILVER_CONSTANT;
         this.GOLD_CONSTANT = data.data.GOLD_CONSTANT;
@@ -320,7 +337,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
           this.updateBadgesValue();
           this.difficultyBarUpdate();
         },
-        error => {},
+        error => { },
       );
     this.storeUserResponse();
   }
@@ -343,8 +360,8 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
     this.gameAuthService
       .ibGameStoreUserResponseInfo(this.IBGameUserResponse)
       .subscribe(
-        data => {},
-        error => {},
+        data => { },
+        error => { },
       );
   }
 

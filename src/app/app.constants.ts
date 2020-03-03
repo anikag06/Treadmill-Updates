@@ -78,6 +78,9 @@ export const GAD_SEVEN_SCORE = '/api/v1/questionnaire/gad-user-scores/';
 export const MOBILE_WIDTH = 768;
 export const USER_PROFILE = '/api/v1/user/user-profile/';
 
+// Games Feedback
+export const GAMES_FEEDBACK_DATA = '/api/v1/games/common/feedback/';
+
 // Interpretation bias game(IBG) paths
 export const IBG_SENTENCE = '/api/v1/games/interpretation-bias/sentences/';
 export const IBG_SCORE_INFO = '/api/v1/games/interpretation-bias/score/';

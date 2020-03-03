@@ -393,7 +393,7 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
   }
 
   onClickDone() {
-    if (this.currentLevel.order === 3) {
+    if (this.currentLevel.order === 3 && this.getCurrentStateService.ask_feedback) {
       const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
       this.el.nativeElement.dispatchEvent(domEvent);
       this.dialogBoxService.setDialogChild(GamesFeedbackComponent);

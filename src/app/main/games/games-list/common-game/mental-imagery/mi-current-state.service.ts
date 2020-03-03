@@ -10,6 +10,7 @@ import {
   MIG_USER_DATA,
   MIG_STORE_USER_DATA,
 } from '@/app.constants';
+import { GamesFeedbackService } from '../games-feedback/games-feedback.service';
 
 @Injectable({
   providedIn: 'root',
@@ -41,8 +42,11 @@ export class MICurrentStateService {
   SILVER_CONSTANT!: any;
   GOLD_CONSTANT!: any;
   showTutorial!: boolean;
+  ask_feedback: any;
 
-  constructor(private http: HttpClient, private miPlayService: MIPlayService) {}
+  constructor(private http: HttpClient,
+    private miPlayService: MIPlayService,
+    private gamesFeedbackService: GamesFeedbackService, ) { }
 
   initLevelsList() {
     this.fetchSituationData(this.user.level).subscribe((data: any) => {
@@ -81,6 +85,9 @@ export class MICurrentStateService {
       this.SILVER_CONSTANT = data.SILVER_CONSTANT;
       this.GOLD_CONSTANT = data.GOLD_CONSTANT;
       this.showTutorial = data.show_tutorial;
+      this.ask_feedback = data.ask_for_feedback;
+      this.gamesFeedbackService.ask_feedback = this.ask_feedback;
+
       this.miPlayService.startNext.emit();
     });
   }
