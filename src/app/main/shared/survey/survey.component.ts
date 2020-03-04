@@ -80,13 +80,22 @@ export class SurveyComponent implements OnInit {
   constructor(
     private surveyService: SurveyService,
     private timerService: TimerService,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.surveyService.disableLinks.emit(this.data);
   }
 
-  loadQuestions() {
+  loadQuestions(event: any) {
+    if (event.target.nodeName === 'BUTTON') {
+      console.log('Button');
+      event.target.classList.remove('disabled-button');
+      event.target.classList.add('active-button');
+    } else if (event.target.nodeName === 'SPAN') {
+      console.log('Span');
+      event.target.parentElement.parentElement.classList.remove('disabled-button');
+      event.target.parentElement.parentElement.classList.add('active-button');
+    }
     this.surveyService.getSurveyData().subscribe(data => {
       this.quesArray = data.questions;
       this.options = data.options;
@@ -142,8 +151,16 @@ export class SurveyComponent implements OnInit {
   }
 
   onselect(event: any, id: number, name: string) {
-    event.target.classList.remove('disabled-button');
-    event.target.classList.add('active-button');
+    if (event.target.nodeName === 'BUTTON') {
+      console.log('Button');
+      event.target.classList.remove('disabled-button');
+      event.target.classList.add('active-button');
+    } else if (event.target.nodeName === 'SPAN') {
+      console.log('Span');
+      event.target.parentElement.parentElement.classList.remove('disabled-button');
+      event.target.parentElement.parentElement.classList.add('active-button');
+    }
+    console.log('event', event);
     this.updateTimeTaken();
     this.currQues = {
       index: this.quesArray[this.quesCount].index,
@@ -161,8 +178,15 @@ export class SurveyComponent implements OnInit {
     if (this.quesCount < 13) {
       setTimeout(() => {
         if (!this.backCount) {
-          event.target.classList.remove('active-button');
-          event.target.classList.add('disabled-button');
+          if (event.target.nodeName === 'BUTTON') {
+            console.log('Button');
+            event.target.classList.remove('active-button');
+            event.target.classList.add('disabled-button');
+          } else if (event.target.nodeName === 'SPAN') {
+            console.log('Span');
+            event.target.parentElement.parentElement.classList.remove('active-button');
+            event.target.parentElement.parentElement.classList.add('disabled-button');
+          }
         }
         this.quesCount += 1;
         this.ques = this.quesArray[this.quesCount].ques;
@@ -184,7 +208,16 @@ export class SurveyComponent implements OnInit {
     console.log('user response', this.userResponseArray, this.userResponse);
   }
 
-  onSubmit() {
+  onSubmit(event: any) {
+    if (event.target.nodeName === 'BUTTON') {
+      console.log('Button');
+      event.target.classList.remove('disabled-button');
+      event.target.classList.add('active-button');
+    } else if (event.target.nodeName === 'SPAN') {
+      console.log('Span');
+      event.target.parentElement.parentElement.classList.remove('disabled-button');
+      event.target.parentElement.parentElement.classList.add('active-button');
+    }
     this.back = false;
     this.front = false;
     this.surveyService
