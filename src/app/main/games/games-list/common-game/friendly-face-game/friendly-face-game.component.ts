@@ -224,7 +224,6 @@ export class FriendlyFaceGameComponent implements OnInit {
       this.last_completed_order = user_data.last_completed_order;
       this.show_tutorial = user_data.show_tutorial;
       this.ask_feedback = user_data.ask_for_feedback;
-      this.gamesFeedbackService.ask_feedback = this.ask_feedback;
       ffg_time_per_note = user_data.time_per_note; // timeAlloted in miliseconds
       ffg_total_positive_images = user_data.total_positive_images;
       this.ffGameMusicData(); // start calling the data of music from page no. 1 as data received is according to user order

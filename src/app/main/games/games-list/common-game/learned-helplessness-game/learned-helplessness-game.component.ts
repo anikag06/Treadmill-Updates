@@ -130,6 +130,7 @@ export class LearnedHelplessnessGameComponent implements OnInit, OnDestroy {
       if (this.goHome) {
         this.onGoToHome();
       }
+      console.log('STATUS', this.playAgain, this.goHome);
     });
   }
 
@@ -160,6 +161,7 @@ export class LearnedHelplessnessGameComponent implements OnInit, OnDestroy {
 
   onGoToHome() {
     this.goHome = true;
+    this.gamePlayService.lhGameHome = this.goHome;
     if (this.ask_feedback) {
       this.openFeedbackPopup();
       this.ask_feedback = false;
@@ -174,6 +176,7 @@ export class LearnedHelplessnessGameComponent implements OnInit, OnDestroy {
 
   onPlayAgain() {
     this.playAgain = true;
+    this.gamePlayService.lhGamePlayAgain = this.playAgain;
     if (this.ask_feedback) {
       this.openFeedbackPopup();
       this.ask_feedback = false;

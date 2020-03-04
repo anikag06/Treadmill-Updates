@@ -101,7 +101,7 @@ export class CommonGameComponent implements OnInit {
     private miPlayService: MIPlayService,
     private ref: ChangeDetectorRef,
     private idcGameService: IdcGameService,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.subscriptionRouter = this.route.params
@@ -115,6 +115,7 @@ export class CommonGameComponent implements OnInit {
           this.gameName = this.game.name;
           console.log(this.gameName);
           this.gamePlayService.gameName = this.gameName;
+          this.gamePlayService.gameSlug = this.game.slug;
           console.log(this.gamePlayService.gameName);
           this.gamePlayService.gameTitle.emit();
 

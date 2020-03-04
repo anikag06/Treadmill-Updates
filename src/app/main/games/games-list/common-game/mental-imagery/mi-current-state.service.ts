@@ -86,8 +86,6 @@ export class MICurrentStateService {
       this.GOLD_CONSTANT = data.GOLD_CONSTANT;
       this.showTutorial = data.show_tutorial;
       this.ask_feedback = data.ask_for_feedback;
-      this.gamesFeedbackService.ask_feedback = this.ask_feedback;
-
       this.miPlayService.startNext.emit();
     });
   }

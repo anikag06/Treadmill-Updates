@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { GamesFeedbackService } from './games-feedback.service';
 import { GameFeedback } from './game-feedback.model';
 import { GamePlayService } from '@/main/games/shared/game-play.service';
+import { LEARNED_HELPLESSNESS_GAME } from '@/app.constants';
 
 @Component({
   selector: 'app-games-feedback',
@@ -17,8 +18,11 @@ export class GamesFeedbackComponent implements OnInit {
   feedback_text!: string;
   game!: string;
   feedback!: GameFeedback;
-  ask_feedback!: boolean;
+  feedbackStatus!: boolean;
   thank_text = false;
+  lhGameHome!: boolean;
+  lhGamePlayAgain!: boolean;
+  gameName!: string;
 
   constructor(
     private el: ElementRef,
@@ -27,8 +31,14 @@ export class GamesFeedbackComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.game = this.gamePlayService.gameName;
-    this.ask_feedback = this.gamesFeedbackService.ask_feedback;
+    this.game = this.gamePlayService.gameSlug;
+    this.gameName = this.gamePlayService.gameName;
+    console.log(this.gameName);
+    if (this.gameName === LEARNED_HELPLESSNESS_GAME) {
+      console.log('TRUE');
+      this.lhGameHome = this.gamePlayService.lhGameHome;
+      this.lhGamePlayAgain = this.gamePlayService.lhGamePlayAgain;
+    }
   }
 
   onLikeBtnClick() {
@@ -36,6 +46,7 @@ export class GamesFeedbackComponent implements OnInit {
       this.disliked = false;
     }
     this.liked = true;
+    this.feedbackStatus = true;
     this.giveFeedback = true;
   }
 
@@ -44,6 +55,7 @@ export class GamesFeedbackComponent implements OnInit {
       this.liked = false;
     }
     this.disliked = true;
+    this.feedbackStatus = false;
     this.giveFeedback = true;
   }
 
@@ -51,11 +63,11 @@ export class GamesFeedbackComponent implements OnInit {
     this.thank_text = true;
     this.giveFeedback = false;
     this.feedback_text = text;
-    this.feedback = { game: this.game, feedback: this.ask_feedback, feedback_text: this.feedback_text };
+    this.feedback = { game: this.game, feedback: this.feedbackStatus, feedback_text: this.feedback_text };
     this.gamesFeedbackService.sendFeedback(this.feedback).subscribe();
     setTimeout(() => {
       this.onClose();
-    }, 2000);
+    }, 1000);
   }
 
   onCancel() {
@@ -63,7 +75,7 @@ export class GamesFeedbackComponent implements OnInit {
     this.giveFeedback = false;
     setTimeout(() => {
       this.onClose();
-    }, 2000);
+    }, 1000);
   }
 
   onClose() {

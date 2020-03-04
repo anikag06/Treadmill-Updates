@@ -278,7 +278,6 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
         ibGameWordsHidden = data.data.words_hidden;
         ibGameShowTutorial = data.data.show_tutorial;
         ibGame_ask_feedback = data.data.ask_for_feedback;
-        this.gamesFeedbackService.ask_feedback = ibGame_ask_feedback;
         this.BRONZE_CONSTANT = data.data.BRONZE_CONSTANT;
         this.SILVER_CONSTANT = data.data.SILVER_CONSTANT;
         this.GOLD_CONSTANT = data.data.GOLD_CONSTANT;

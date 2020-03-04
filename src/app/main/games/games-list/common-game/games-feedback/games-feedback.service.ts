@@ -9,7 +9,6 @@ import { GAMES_FEEDBACK_DATA } from '@/app.constants';
 })
 export class GamesFeedbackService {
 
-  ask_feedback!: boolean;
   feedback = new EventEmitter<any>();
   constructor(private http: HttpClient) { }
 
