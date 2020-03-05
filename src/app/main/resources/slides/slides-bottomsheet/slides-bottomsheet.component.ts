@@ -29,7 +29,7 @@ export class SlidesBottomsheetComponent implements OnInit {
     this.srcWidth = window.innerWidth;
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   onClickYes() {
     this._bottomSheetRef.dismiss();
@@ -39,7 +39,7 @@ export class SlidesBottomsheetComponent implements OnInit {
   openDialog() {
     if (this.srcWidth <= 576) {
       this.dialog.open(SlidesVideoComponent, {
-        height: '80vh',
+        height: '90vh',
         width: '99vw',
         maxWidth: '99vw',
         panelClass: 'slide-video',

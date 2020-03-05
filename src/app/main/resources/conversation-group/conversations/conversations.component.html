@@ -28,7 +28,7 @@
       <div class="row h-100 justify-content-center conv-elements-div">
         <div *ngFor="let item of show">
           <div class="d-flex justify-content-start mb-3 ">
-            <div class="img_cont_msg mx-3">
+            <div class="img_cont_msg ml-3">
               <img src="../../../../assets/shared/logo_full.png" class="rounded-circle user_img_msg">
             </div>
             <div class="msg_cotainer">
@@ -36,7 +36,7 @@
             </div>
           </div>
           <div class="d-flex justify-content-end mb-3 ">
-            <div class="msg_cotainer_send mx-3">
+            <div class="msg_cotainer_send ml-3">
               <p [innerHtml]="item.dialog"></p>
             </div>
           </div>
@@ -46,7 +46,7 @@
         <!-- <div class="card-body"> -->
         <div class="row">
           <div class="d-flex justify-content-start mb-3 ">
-            <div class="img_cont_msg mx-3">
+            <div class="img_cont_msg ml-3">
               <img src="../../../../assets/shared/logo_full.png" class="rounded-circle user_img_msg">
             </div>
             <div class="msg_cotainer">
@@ -130,7 +130,7 @@
             </p>
             <textarea class="w-100 rounded form-control" rows="3" #feedbackText
               placeholder="Your message goes here ..."> </textarea>
-            <button class="px-0 my-1 btn-padding" mat-raised-button color="primary"
+            <button class="submit-btn px-0 my-1 btn-padding" mat-raised-button color="primary"
               (click)="onSubmitComment(feedbackText.value)">
               Submit
             </button>

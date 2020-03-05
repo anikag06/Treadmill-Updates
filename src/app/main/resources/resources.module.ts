@@ -118,6 +118,7 @@ import { FormMessageComponent } from './forms/shared/form-message/form-message.c
 import { FormQuoteComponent } from './forms/shared/form-quote/form-quote.component';
 import { SlidesBottomsheetComponent } from './slides/slides-bottomsheet/slides-bottomsheet.component';
 import { SlidesVideoComponent } from './slides/slides-video/slides-video.component';
+import { ConversationsService } from './conversation-group/conversations.service';
 
 @NgModule({
   declarations: [
@@ -238,6 +239,7 @@ import { SlidesVideoComponent } from './slides/slides-video/slides-video.compone
     ProofBeliefService,
     TellFriendBeliefService,
     ActAsIfService,
+    ConversationsService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [
@@ -256,4 +258,4 @@ import { SlidesVideoComponent } from './slides/slides-video/slides-video.compone
     MoodTrackerComponent,
   ],
 })
-export class ResourcesModule {}
+export class ResourcesModule { }

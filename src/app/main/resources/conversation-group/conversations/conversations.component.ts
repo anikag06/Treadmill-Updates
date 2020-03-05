@@ -39,6 +39,7 @@ import {
 import { StepCompleteData } from '../../shared/completion-data.model';
 import { StepsDataService } from '../../shared/steps-data.service';
 import { environment } from 'environments/environment';
+import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifications.service';
 
 @Component({
   selector: 'app-conversations',
@@ -127,7 +128,8 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     private commonDialogService: CommonDialogsService,
     private flowStepService: FlowStepNavigationService,
     private stepDataService: StepsDataService,
-  ) {}
+    private notificationService: NavbarNotificationsService,
+  ) { }
   currenthistory!: CurrentHistory;
   dialog_history!: DialogInHistory;
   conversation_id!: number;
@@ -191,6 +193,10 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     this.timerservice.visibility();
     this.timerservice.unload();
     this.timerservice.internet_check();
+    this.notificationService.showFullConv.subscribe(() => {
+      this.speed_run();
+    });
+
   }
 
   run() {
@@ -233,8 +239,8 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     this.conversationsService
       .get(
         environment.API_ENDPOINT +
-          '/api/v1/conversation/conversation/?conversation_id=' +
-          this.conversation_id,
+        '/api/v1/conversation/conversation/?conversation_id=' +
+        this.conversation_id,
       )
       .subscribe((res: any) => {
         this.conversation = new Conversation(
@@ -304,8 +310,8 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     this.conversationsService
       .get(
         environment.API_ENDPOINT +
-          '/api/v1/conversation/history/current/?conversation_id=' +
-          this.conversation_id,
+        '/api/v1/conversation/history/current/?conversation_id=' +
+        this.conversation_id,
       )
       .subscribe((res: any) => {
         this.conversationsService

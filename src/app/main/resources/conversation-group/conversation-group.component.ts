@@ -7,6 +7,7 @@ import { PassDataService } from './passdata.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
 import { COMPLETED, ACTIVE, UNLOCKED } from '@/app.constants';
+import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifications.service';
 
 
 @Component({
@@ -35,7 +36,8 @@ export class ConversationGroupComponent implements OnInit {
     private timer: TimerService,
     private passdata: PassDataService,
     private router: Router,
-    private activeroute: ActivatedRoute) { }
+    private activeroute: ActivatedRoute,
+    private notificationService: NavbarNotificationsService, ) { }
 
   ngOnInit() {
     this.loadConversationGroup();
@@ -77,6 +79,8 @@ export class ConversationGroupComponent implements OnInit {
   current_history(i: number) {
     this.conversation_id = this.group[i].id;
     this.passdata.setOption(this.conversation_id, false, true, false);
+    console.log('event emitted');
+    this.notificationService.showFullConvIcon.emit();
     this.router.navigate(['/resources/conversations']);
 
   }
