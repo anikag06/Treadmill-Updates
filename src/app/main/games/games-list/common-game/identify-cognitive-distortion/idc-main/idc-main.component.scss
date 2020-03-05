@@ -1,16 +1,16 @@
 @import "styles.scss";
 @import "../../../../shared/games-common.scss";
 
-.main{
-    position: relative;
-    max-width: 360px;
-    height: 100%;
-    /* width: 360px; */
-    justify-content: center !important;
+.main {
+  position: relative;
+  max-width: 360px;
+  max-height: 640px;
+  height: 100%;
+  /* width: 360px; */
+  justify-content: center !important;
 }
 
 // .info{
 //     position: absolute;
 //     bottom: 0;
 // }
-

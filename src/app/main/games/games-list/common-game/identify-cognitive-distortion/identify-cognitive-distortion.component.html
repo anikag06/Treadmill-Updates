@@ -1,20 +1,23 @@
-<div class="main container-fluid justify-content-center">
-   
-    
+<div class="game-container justify-content-center">
+
+
+  <div class="main container-fluid justify-content-center">
+
+
     <div class="home-page" *ngIf="!playing">
-        <h1>Cognitive Distortion</h1>
+      <h1>Cognitive Distortion</h1>
     </div>
     <div>
-        <app-idc-score *ngIf="playing"></app-idc-score>
+      <app-idc-score *ngIf="playing"></app-idc-score>
 
     </div>
     <div id="blurrContainer">
-        <app-idc-main *ngIf="playing"  ></app-idc-main>
+      <app-idc-main *ngIf="playing"></app-idc-main>
 
     </div>
     <div class="info mb-1 justify-content-end float-left" *ngIf="playing" #infoElement>
-        <img style="width:42px;height:42px; "src="../../../../../../../assets/games/cognitive-distortion-game/Info Icon.png"
-         (click)="openInfoPopup()">
+      <img style="width:42px;height:42px; "
+        src="../../../../../../../assets/games/cognitive-distortion-game/Info Icon.png" (click)="openInfoPopup()">
     </div>
   </div>
-  
+</div>
