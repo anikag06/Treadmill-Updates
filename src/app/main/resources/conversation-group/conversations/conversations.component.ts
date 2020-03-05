@@ -233,6 +233,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       false,
       false,
     );
+    this.notificationService.removeFullConvIcon.emit();
   }
 
   loadConversation(current_id: boolean) {

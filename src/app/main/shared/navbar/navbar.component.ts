@@ -88,8 +88,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
             this.flowService.stepName;
         });
         this.notificationService.showFullConvIcon.subscribe(() => {
-          console.log('SHOW MORE');
           this.convMode = true;
+        });
+        this.notificationService.removeFullConvIcon.subscribe(() => {
+          this.convMode = false;
         });
       }
 
