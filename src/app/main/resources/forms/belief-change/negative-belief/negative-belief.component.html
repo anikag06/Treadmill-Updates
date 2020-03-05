@@ -26,11 +26,12 @@
             <textarea
               matInput
               #formInput="matInput"
-              [placeholder]="formInput.focused ? 'Write Here' : ''"
+              [placeholder]="
+                formInput.focused || formInput.empty ? 'Write Here' : ''
+              "
               class="py-0"
               cdkTextareaAutosize
               cdkAutosizeMinRows="1"
-              cdkAutosizeMaxRows="4"
               formControlName="belief"
               required
               (focusout)="onNegativeMantraSubmit()"

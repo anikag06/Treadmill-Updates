@@ -5,7 +5,7 @@ import {HttpErrorResponse} from '@angular/common/http';
 import {UserTask} from '@/main/resources/forms/shared/tasks/user-task.model';
 import * as moment from 'moment';
 import {PROBLEM_SOLVING_QUOTES} from '@/main/resources/forms/problem-solving-worksheets/problem-solving-message';
-import {FormService} from '@/main/resources/forms/shared/form.service';
+import {FormService} from '@/main/resources/forms/form.service';
 
 @Component({
   selector: 'app-result',

@@ -25,6 +25,12 @@
 }
 
 .mat-expansion-panel-body {
-  padding: none;
+  padding: 0;
   padding-left: 16px;
+}
+.red-circle {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #f66c6c;
 }

@@ -23,15 +23,17 @@ import {MatDialog} from '@angular/material';
   styleUrls: ['./forms-sidebar.component.scss'],
 })
 export class FormsSidebarComponent implements OnInit, AfterViewInit {
-  @Output() objectEmitter = new EventEmitter<Object>();
-  @Output() newForm = new EventEmitter<void>();
-  @Input() type!: String;
   objects: any[] = [];
   object_id = -1;
   page = 1;
   subscriptions: Subscription[] = [];
   selectedObject!: any;
+  show_dot = false;
+  @Input() type!: String;
   @Input() object!: any;
+  @Output() objectEmitter = new EventEmitter<Object>();
+  @Output() newForm = new EventEmitter<void>();
+  @Output() showDot = new EventEmitter();
 
   constructor(
     private problemService: ProblemSolvingWorksheetsService,
@@ -88,6 +90,18 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
     ] = this.problemService.problemsBehaviour.subscribe(
       (problems: Problem[]) => {
         this.objects = problems;
+        // @ts-ignore
+        // this.objects.find(o => {
+        //   if (o.show_follow_up_dot === true) {
+        //     this.show_dot = true;
+        //     this.showDot.emit(true);
+        //     return true; // stop searching
+        //   }
+        // });
+        this.show_dot = this.objects.some(
+          obj => obj.show_follow_up_dot === true,
+        );
+        this.showDot.emit(this.show_dot);
         this.selectObject();
       },
       (error: HttpErrorResponse) => {
@@ -164,7 +178,7 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
       autoFocus: false,
       data: {
         confirm: 'Delete this Form?',
-        warning: ' All data will be deleted',
+        warning: ' All data of this form will be deleted',
       },
     });
     dialogRef.afterClosed().subscribe((result: any) => {

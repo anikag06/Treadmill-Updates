@@ -41,7 +41,7 @@
               matInput
               #formInput="matInput"
               [placeholder]="
-                formInput.focused
+                formInput.focused || formInput.empty
                   ? service === 1
                     ? 'Realistic Thought'
                     : 'Realistic Belief'
@@ -50,7 +50,6 @@
               class="py-0"
               cdkTextareaAutosize
               cdkAutosizeMinRows="1"
-              cdkAutosizeMaxRows="5"
               formControlName="realistic"
               required
               (focus)="showRealisticBtn()"

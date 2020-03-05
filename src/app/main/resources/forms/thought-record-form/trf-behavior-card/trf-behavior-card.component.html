@@ -15,11 +15,12 @@
           name="problemStatement"
           class="py-0"
           #formInput="matInput"
-          [placeholder]="formInput.focused ? 'Write Here' : ''"
-          #textArea
+          [placeholder]="
+            formInput.focused || formInput.empty ? 'Write Here' : ''
+          "
+          class="py-0"
           cdkTextareaAutosize
           cdkAutosizeMinRows="1"
-          cdkAutosizeMaxRows="5"
           formControlName="behavior"
           required
           (focusout)="updateText()"

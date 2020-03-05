@@ -4,13 +4,20 @@
     <div>
       <div class="card-header d-flex">
         What was the result of implementation?
-        <div class="red-circle" *ngIf="disableResult"></div>
+        <div
+                class="red-dot"
+                *ngIf="!disableResult && resultBody.length < 1"
+        ></div>
       </div>
       <div class="card-body">
         <div *ngIf="!disableResult">
           <mat-form-field class="full-width">
             <textarea
               matInput
+              #formInput="matInput"
+              [placeholder]="
+                formInput.focused || formInput.empty ? 'Write Here' : ''
+              "
               class="px-0 py-0"
               cdkTextareaAutosize
               #autosize="cdkTextareaAutosize"

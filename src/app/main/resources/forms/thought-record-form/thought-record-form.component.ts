@@ -2,7 +2,7 @@ import {THINKING_IMG, THOUGHT_RECORD, THOUGHT_RECROD_FORM_NAME, WELL_DONE_IMG,} 
 import {Component, OnInit} from '@angular/core';
 import {FormMessage} from '@/main/resources/forms/shared/form-message/form-message.model';
 import {TRF_NEGATIVE_MSG, TRF_POSITIVE_MSG, TRF_QUOTES,} from '@/main/resources/forms/thought-record-form/trf-message';
-import {FormService} from '@/main/resources/forms/shared/form.service';
+import {FormService} from '@/main/resources/forms/form.service';
 import {ThoughtRecordService} from '@/main/resources/forms/thought-record-form/thought-record.service';
 import {Thought} from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
 

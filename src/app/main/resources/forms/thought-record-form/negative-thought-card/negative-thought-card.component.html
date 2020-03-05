@@ -13,13 +13,14 @@
         <textarea
           matInput
           #formInput="matInput"
-          [placeholder]="formInput.focused ? 'Write Here' : ''"
+          [placeholder]="
+            formInput.focused || formInput.empty ? 'Write Here' : ''
+          "
           name="problemStatement"
           class="py-0"
           #thoughtTextArea
           cdkTextareaAutosize
           cdkAutosizeMinRows="1"
-          cdkAutosizeMaxRows="5"
           formControlName="thought"
           (focusout)="updateThought()"
           (focus)="onShowContinueButton()"

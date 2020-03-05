@@ -35,12 +35,13 @@
           <textarea
             matInput
             #formInput="matInput"
-            [placeholder]="formInput.focused ? 'Write Here' : ''"
+            [placeholder]="
+              formInput.focused || formInput.empty ? 'Write Here' : ''
+            "
             cdkTextareaAutosize
-            cdkAutosizeMinRows="2"
-            cdkAutosizeMaxRows="4"
+            cdkAutosizeMinRows="1"
             formControlName="worstOutcome"
-            class="form-control"
+            class="py-0"
             required
             #outcome
           ></textarea>
@@ -55,12 +56,13 @@
           <textarea
             matInput
             #formInput="matInput"
-            [placeholder]="formInput.focused ? 'Write Here' : ''"
+            [placeholder]="
+              formInput.focused || formInput.empty ? 'Write Here' : ''
+            "
             cdkTextareaAutosize
-            cdkAutosizeMinRows="2"
-            cdkAutosizeMaxRows="4"
+            cdkAutosizeMinRows="1"
             formControlName="bestOutcome"
-            class="form-control"
+            class="py-0"
             required
             #outcome
           ></textarea>
@@ -75,12 +77,13 @@
           <textarea
             matInput
             #formInput="matInput"
-            [placeholder]="formInput.focused ? 'Write Here' : ''"
+            [placeholder]="
+              formInput.focused || formInput.empty ? 'Write Here' : ''
+            "
             cdkTextareaAutosize
-            cdkAutosizeMinRows="2"
-            cdkAutosizeMaxRows="4"
+            cdkAutosizeMinRows="1"
             formControlName="likelyOutcome"
-            class="form-control"
+            class="py-0"
             required
             placeholder="Write Here"
             #outcome

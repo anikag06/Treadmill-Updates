@@ -6,13 +6,14 @@ import {catchError, map} from 'rxjs/operators';
 import {IFinalRatingServices} from '@/main/resources/forms/shared/form-final-rating/IFinalRatingServices';
 import {GeneralErrorService} from '@/main/shared/general-error.service';
 
-
 @Injectable({
   providedIn: 'root',
 })
 export class NegativeBeliefFinalService implements IFinalRatingServices {
-  constructor(private http: HttpClient,
-              private errorService: GeneralErrorService, ) {}
+  constructor(
+    private http: HttpClient,
+    private errorService: GeneralErrorService,
+  ) {}
 
   postFinalRating(id: number, finalRating: number) {
     const object = {
@@ -103,8 +104,10 @@ export class NegativeBeliefFinalService implements IFinalRatingServices {
   providedIn: 'root',
 })
 export class ThoughtRecordFinalService implements IFinalRatingServices {
-  constructor(private http: HttpClient,
-              private errorService: GeneralErrorService) {}
+  constructor(
+    private http: HttpClient,
+    private errorService: GeneralErrorService,
+  ) {}
 
   postFinalRating(id: number, finalRating: number) {
     const object = {
@@ -182,7 +185,7 @@ export class ThoughtRecordFinalService implements IFinalRatingServices {
     return this.http
       .put<any>(
         environment.API_ENDPOINT + REALISTIC_THOUGHT_API + id + '/',
-        realThought,
+        object,
         {
           observe: 'response',
         },

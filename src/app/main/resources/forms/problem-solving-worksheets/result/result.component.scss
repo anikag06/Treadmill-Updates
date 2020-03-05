@@ -27,11 +27,11 @@
   background: #eeeeee;
   border-bottom: black solid 1px;
 }
-.red-circle {
-  width: 10px;
-  height: 10px;
+.red-dot {
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background-color: red;
-  opacity: 0.6;
   margin-left: 0.25rem;
+  position: relative;
+  background: #f66c6c;
 }

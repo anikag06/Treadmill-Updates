@@ -1,6 +1,18 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, SimpleChanges, ViewChild,} from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    EventEmitter,
+    Inject,
+    Input,
+    OnInit,
+    Output,
+    SimpleChanges,
+    ViewChild,
+} from '@angular/core';
 import {CdkTextareaAutosize} from '@angular/cdk/text-field';
-import {FormArray, FormBuilder} from '@angular/forms';
+import {FormArray, FormBuilder, ValidatorFn} from '@angular/forms';
 
 import {IProofEvidences} from '@/main/resources/forms/shared/proof-evidences/IProofEvidences';
 
@@ -53,29 +65,39 @@ export class ProofEvidencesComponent implements OnInit {
     private providerService: IProofEvidences[],
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    const validator = this.getEmptyArrayValidator(
+      'favorEvidences',
+      'againstEvidences',
+    );
+    this.proofStatementForm = this.fb.group(
+      {
+        favorEvidences: this.fb.array([]),
+        againstEvidences: this.fb.array([]),
+      },
+      { validators: validator },
+    );
+  }
+
+  private getEmptyArrayValidator(...arrayNames: string[]): ValidatorFn {
+    // @ts-ignore
+    return (group: FormGroup): ValidationErrors | null => {
+      const arrays: FormArray[] = arrayNames.map(
+        x => group.get(x) as FormArray,
+      );
+      // Check that at least one array has at least one item.
+      // If you need more complex validation logic, this can be changed easily.
+      if (arrays.some(array => array.controls.length > 0)) {
+        return null;
+      }
+
+      return {
+        emptyArrays: 'Lists are empty',
+      };
+    };
+  }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.id && this.reset) {
-      // this.providerService[this.service]
-      //   .getEvidences(this.id, this.againstType)
-      //   .subscribe((object: any) => {
-      //     if (object.evidences.length !== 0) {
-      //       this.summary = object.evidences[0].evidence;
-      //       this.showFinal.emit();
-      //     }
-      //     if (this.summary.length === 0) {
-      //       this.providerService[this.service]
-      //         .getEvidences(this.id, this.forType)
-      //         .subscribe((resp: any) => {
-      //           if (resp.evidences.length !== 0) {
-      //             this.summary = resp.evidences[0].evidence;
-      //             this.showFinal.emit();
-      //           }
-      //         });
-      //     }
-      //   });
-    }
     if (this.reset) {
       this.resetForm();
     }
@@ -141,10 +163,17 @@ export class ProofEvidencesComponent implements OnInit {
   }
 
   resetForm() {
-    this.proofStatementForm = this.fb.group({
-      favorEvidences: this.fb.array([]),
-      againstEvidences: this.fb.array([]),
-    });
+    const validator = this.getEmptyArrayValidator(
+      'favorEvidences',
+      'againstEvidences',
+    );
+    this.proofStatementForm = this.fb.group(
+      {
+        favorEvidences: this.fb.array([]),
+        againstEvidences: this.fb.array([]),
+      },
+      { validators: validator },
+    );
     delete this.summary;
   }
   panelCollapse() {

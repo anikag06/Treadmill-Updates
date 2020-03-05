@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {UserTask} from '@/main/resources/forms/shared/tasks/user-task.model';
 import {SET_ACTIVITY} from '@/app.constants';
 
-import {FormService} from '@/main/resources/forms/shared/form.service';
+import {FormService} from '@/main/resources/forms/form.service';
 import {TASK_QUOTES} from '@/main/resources/forms/task-forms/task-form-message';
 
 @Component({

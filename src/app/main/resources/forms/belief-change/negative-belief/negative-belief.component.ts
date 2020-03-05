@@ -101,6 +101,7 @@ export class NegativeBeliefComponent implements OnInit {
     delete this.beliefRatingInitial;
     this.showSlider = false;
     this.showBeliefLink = false;
+    delete this.editMode;
   }
 
   onBeliefSubmit() {

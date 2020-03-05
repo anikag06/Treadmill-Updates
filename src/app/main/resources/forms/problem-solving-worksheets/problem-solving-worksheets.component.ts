@@ -12,9 +12,12 @@ import {UserTask} from '@/main/resources/forms/shared/tasks/user-task.model';
 import {CdkTextareaAutosize} from '@angular/cdk/text-field';
 import {ProblemFormComponent} from './problem-form/problem-form.component';
 import {SolutionsComponent} from './solutions/solutions.component';
-import {FormService} from '@/main/resources/forms/shared/form.service';
+import {FormService} from '@/main/resources/forms/form.service';
 import {PROBLEM_SOLVING_QUOTES} from '@/main/resources/forms/problem-solving-worksheets/problem-solving-message';
 import {TasksService} from '@/main/resources/forms/shared/tasks/tasks.service';
+import {TechniquesInfoComponent} from '@/main/resources/forms/shared/techniques-info/techniques-info.component';
+import {THINIKING_ERROR_DATA} from '@/main/resources/forms/shared/techniques-info/thinking-error-technique.data';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'app-problem-solving-worksheets',
@@ -27,7 +30,7 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   solutions: Solution[] = [];
   solutionsSaved = false;
   prosconsSaved = false;
-  bestSolution!: Solution;
+  // bestSolution!: Solution;
   showResult = false;
   showSolutionsForm = false;
   type = PSF_PROBLEM_SOLVING;
@@ -51,13 +54,17 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   solutionsForm!: SolutionsComponent;
   saveSolutionBtn!: boolean;
   showProConBtn!: boolean;
+  showFollowUp = false;
+  // menuOpen = false;
   @Input() fromSlide!: boolean;
+  bestSolution!: any;
   constructor(
     private problemService: ProblemSolvingWorksheetsService,
     private authService: AuthService,
     private errorService: GeneralErrorService,
     private formService: FormService,
     private taskService: TasksService,
+    public dialog: MatDialog,
   ) {}
 
   ngOnInit() {
@@ -130,6 +137,7 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
           if (resp.data) {
             this.task = resp.data;
             this.showTask = true;
+            this.prosconsSaved = true;
             this.showResult = true;
           }
         });
@@ -321,5 +329,20 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
     const index = this.formService.getRandomInt(PROBLEM_SOLVING_QUOTES.length);
     this.quote = PROBLEM_SOLVING_QUOTES[index].quote;
     this.quotedBy = PROBLEM_SOLVING_QUOTES[index].by;
+  }
+
+  onShowFollowUp(value: boolean) {
+    this.showFollowUp = value;
+  }
+
+  onShowInfo() {
+    const dialogRef = this.dialog.open(TechniquesInfoComponent, {
+      panelClass: 'technique-info-dialog-container',
+      autoFocus: false,
+      data: {
+        techniquesInfo: THINIKING_ERROR_DATA,
+        about: 'Pros and Cons Example',
+      },
+    });
   }
 }
