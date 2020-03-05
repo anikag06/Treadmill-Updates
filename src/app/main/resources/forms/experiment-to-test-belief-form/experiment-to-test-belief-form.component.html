@@ -1,22 +1,36 @@
 <mat-card class="container-fluid px-0 pt-0 pb-2 mb-2">
   <div class="class row no-gutters mb-2 card card-full-width">
-    <mat-card-header class="col-12 w-100 px-0 card-header main-heading">
-      <mat-card-title class="class ml-4 my-auto d-inline-block">
-        {{formName}}
+    <mat-card-header class="col-12 w-100 px-0 py-0 card-header main-heading">
+      <mat-card-title class="class ml-4 py-2 my-auto d-inline-block">
+        {{ formName }}
       </mat-card-title>
 
       <div class="class h-100 d-inline-block ml-auto">
-        <button class="h-100 saved-forms-btn" mat-button [matMenuTriggerFor]="experimentToTestBeliefForms">
-          <i class="material-icons more-hor-icon">
+        <button
+          class="h-100 saved-forms-btn"
+          mat-button
+          [matMenuTriggerFor]="experimentToTestBeliefForms"
+        >
+          <mat-icon>
             more_horiz
-          </i>
+          </mat-icon>
         </button>
       </div>
 
-      <mat-menu xPosition="before" yPosition="below" #experimentToTestBeliefForms="matMenu" [overlapTrigger]="false">
-        <div [ngStyle]="{'max-height':'350px'}">
-          <app-forms-sidebar [type]="type" (objectEmitter)="beliefSelected($event)" (newForm)="onAddNewForm()" [object]="belief">
-              </app-forms-sidebar>
+      <mat-menu
+        xPosition="before"
+        yPosition="below"
+        #experimentToTestBeliefForms="matMenu"
+        [overlapTrigger]="false"
+      >
+        <div [ngStyle]="{ 'max-height': '350px' }">
+          <app-forms-sidebar
+            [type]="type"
+            (objectEmitter)="beliefSelected($event)"
+            (newForm)="onAddNewForm()"
+            [object]="belief"
+          >
+          </app-forms-sidebar>
         </div>
       </mat-menu>
     </mat-card-header>
@@ -24,15 +38,21 @@
 
   <div class="row no-gutters form-div mx-auto">
     <div class="col-12 col-lg">
-
       <div class="row mb-2">
         <div class="col-12">
           <div class="card-full-width">
-            <div class="card-header">
-              Write the negative belief that you would like to test.
-              <div class="float-right d-inline-block">
+            <div class="card-header d-flex">
+              <div>
+                Write the negative belief that you would like to test.
+              </div>
+
+              <div
+                class="float-right d-inline-block position-absolute"
+                [ngStyle]="{ right: '20px' }"
+              >
                 <mat-icon class="edit_icon" (click)="onEditBeliefClick()">
-                  edit </mat-icon>
+                  edit
+                </mat-icon>
               </div>
             </div>
             <!-- <div class="card-body" *ngIf="belief && !beliefEditMode" (click)="onBeliefClick()">
@@ -40,17 +60,22 @@
                 {{belief.belief}}
               </div>
             </div> -->
-            <div class="card-body" *ngIf="belief " (click)="onBeliefClick()">
-              <app-ettbf-belief [belief]="belief" (beliefClicked)="LoadTasks($event)"></app-ettbf-belief>
+            <div class="card-body" *ngIf="belief" (click)="onBeliefClick()">
+              <app-ettbf-belief
+                [belief]="belief"
+                (beliefClicked)="LoadTasks($event)"
+              ></app-ettbf-belief>
             </div>
             <div class="card-body" *ngIf="!belief" (click)="onBeliefClick()">
-              <app-ettbf-belief (beliefClicked)="LoadTasks($event)"></app-ettbf-belief>
+              <app-ettbf-belief
+                (beliefClicked)="LoadTasks($event)"
+              ></app-ettbf-belief>
             </div>
           </div>
         </div>
       </div>
-      
-      <div *ngIf= "taskContinue">
+
+      <div *ngIf="taskContinue">
         <div class="row mb-2">
           <div class="col">
             <div class="card-full-width">
@@ -58,34 +83,37 @@
                 How can you test if this belief is true?
               </div> -->
               <div class="card-body">
-                <app-tasks  (taskLoaded)="taskLoaded($event)" [object]="taskObject" [task]="task" [taskHeading]= "taskHeading"></app-tasks>
+                <app-tasks
+                  (taskLoaded)="taskLoaded($event)"
+                  [object]="taskObject"
+                  [task]="task"
+                  [taskHeading]="taskHeading"
+                ></app-tasks>
               </div>
             </div>
           </div>
         </div>
       </div>
-    
+
       <div *ngIf="taskEmitted">
         <div class="row mb-2">
           <div class="col-12">
             <div class="card-full-width">
-              <!-- <div class="card-header">
-                What was the outcome?
-                <div class="float-right d-inline-block">
-                  <mat-icon class="edit_icon" (click)="onEditOutcomeClick()">
-                    edit </mat-icon>
-                </div>
-              </div> -->
-              <!-- <div  *ngIf="outcome && !outcomeEditMode">
-                <div class="form-editable-text-underline">
-                  {{outcome.outcome}}
-                </div>
-              </div> -->
-              <div *ngIf="outcome " >
-                <app-ettbf-outcome [outcome]="outcome" [task]="task" [belief]="belief" (finalSliderRating)="finalSliderEmit($event)"></app-ettbf-outcome>
+              <div *ngIf="outcome">
+                <app-ettbf-outcome
+                  [outcome]="outcome"
+                  [task]="task"
+                  [belief]="belief"
+                  (finalSliderRating)="finalSliderEmit($event)"
+                ></app-ettbf-outcome>
               </div>
-              <div *ngIf="!outcome" >
-                <app-ettbf-outcome [belief]="belief" [task]="task" [getNotification]="notification" (finalSliderRating)="finalSliderEmit($event)"></app-ettbf-outcome>
+              <div *ngIf="!outcome">
+                <app-ettbf-outcome
+                  [belief]="belief"
+                  [task]="task"
+                  [getNotification]="notification"
+                  (finalSliderRating)="finalSliderEmit($event)"
+                ></app-ettbf-outcome>
               </div>
             </div>
           </div>

@@ -1,4 +1,4 @@
-import { TaskOrigin } from '../../shared/model/taskOrigin.model';
+import { TaskOrigin } from '../../shared/models/taskorigin.model';
 
 export class Belief {
   // had to use snake case due to backend convention

@@ -59,7 +59,7 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
     private tasksService: TasksService,
     private thoughtRecordService: ThoughtRecordService,
     private beliefChangeService: BeliefChangeService,
-    private ettbfBeliefService: ExperimentToTestBeliefService, 
+    private ettbfBeliefService: ExperimentToTestBeliefService,
     private route: ActivatedRoute,
     private element: ElementRef,
   ) {}
@@ -125,6 +125,10 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
     ] = this.worryService.worrysBehaviour.subscribe(
       (worries: Worry[]) => {
         this.objects = worries;
+        this.show_dot = this.objects.some(
+          obj => obj.show_follow_up_dot === true,
+        );
+        this.showDot.emit(this.show_dot);
         this.selectObject();
       },
       (error: HttpErrorResponse) => {
@@ -133,7 +137,7 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
     );
   }
 
-  getTestBelief(){
+  getTestBelief() {
     this.subscriptions[
       this.subscriptions.length
     ] = this.ettbfBeliefService.getBelief();
@@ -205,7 +209,7 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
       this.deleteWorryForm(object);
     } else if (this.type === TEST_BELIEF) {
       this.deleteTestBeliefForm(object);
-    } 
+    }
   }
 
   deleteThoughtRecordForm(object: any) {
@@ -261,16 +265,14 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
       }
     });
   }
-  deleteTestBeliefForm(belief : any) {
-    this.ettbfBeliefService.deleteBelief(belief.id).subscribe(resp =>{
+  deleteTestBeliefForm(belief: any) {
+    this.ettbfBeliefService.deleteBelief(belief.id).subscribe(resp => {
       const status = resp.ok;
       if (status) {
         this.onAddNewForm();
         console.log('Form Deleted');
         this.ettbfBeliefService.removeSituation(belief);
-
       }
-    })
+    });
   }
-
 }

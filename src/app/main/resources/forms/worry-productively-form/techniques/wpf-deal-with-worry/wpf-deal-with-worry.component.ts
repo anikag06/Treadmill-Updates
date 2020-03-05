@@ -25,10 +25,13 @@ export class WpfDealWithWorryComponent implements OnInit {
   @Output() summaryDealingEvent = new EventEmitter<string>();
   @ViewChild('panel5', { static: false }) panel5!: any;
   calmMyself = false;
-  summaryText !: string;
+  summaryText!: string;
   continueButton = false;
   responseData = '';
   dealWithWorry: string[] = [];
+  @Output() techniqueExpanded = new EventEmitter();
+  @Output() techniqueCollapsed = new EventEmitter();
+  @Input() summaryIndex!: number;
   DealWorryForm = this.fb.group({
     DealWorryStatement: new FormControl('', Validators.required),
   });
@@ -36,9 +39,9 @@ export class WpfDealWithWorryComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private worryService: WorryProductivelyService,
-  ) { }
+  ) {}
 
-  ngOnInit() { }
+  ngOnInit() {}
   ngOnChanges() {
     this.resetForm();
     if (this.worry) {
@@ -51,6 +54,7 @@ export class WpfDealWithWorryComponent implements OnInit {
             );
             this.dealWithWorry.push(resp.body.distract);
             this.summaryText = resp.body.distract;
+            this.panelCollapse();
             this.summaryDealingEvent.emit(this.summaryText);
           }
         });
@@ -103,5 +107,12 @@ export class WpfDealWithWorryComponent implements OnInit {
   }
   onFocus() {
     this.continueButton = true;
+  }
+  panelCollapse() {
+    const object = {
+      index: this.summaryIndex,
+      summary: this.summaryText ? this.summaryText : '',
+    };
+    this.techniqueCollapsed.emit(object);
   }
 }

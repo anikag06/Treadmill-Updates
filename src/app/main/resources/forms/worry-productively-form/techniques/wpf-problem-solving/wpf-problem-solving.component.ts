@@ -18,15 +18,18 @@ export class WpfProblemSolvingComponent implements OnInit {
   @Input() worry!: Worry;
   @Output() summaryProbSolvingEvent = new EventEmitter<string>();
   @ViewChild('panel4', { static: false }) panel4!: any;
+  @Output() techniqueExpanded = new EventEmitter();
+  @Output() techniqueCollapsed = new EventEmitter();
+  @Input() summaryIndex!: number;
   radioResponse = '';
   imageDisplay = false;
   // choices = ['Yes', 'No'];
-  summaryText !: string;
+  summaryText!: string;
   responseData = '';
   problemSolving: string[] = [];
   canDoAnything!: number;
   problemSolvingForm = this.fb.group({
-    problemSolvingStatement: new FormControl('', Validators.required),
+    problemSolvingStatement: new FormControl(''),
     choices: new FormControl(''),
   });
   continueButton = false;
@@ -45,11 +48,12 @@ export class WpfProblemSolvingComponent implements OnInit {
         .subscribe((resp: any) => {
           if (resp.body) {
             if (resp.body.can_do_anything) {
-              this.problemSolvingForm.controls['choices'].setValue('1');
+              this.problemSolvingForm.controls['choices'].setValue(true);
               this.summaryText = resp.body.problem_statement;
+              this.panelCollapse();
               this.summaryProbSolvingEvent.emit(this.summaryText);
             } else if (!resp.body.can_do_anything) {
-              this.problemSolvingForm.controls['choices'].setValue('0');
+              this.problemSolvingForm.controls['choices'].setValue(false);
             }
             this.problemSolvingForm.controls[
               'problemSolvingStatement'
@@ -58,30 +62,30 @@ export class WpfProblemSolvingComponent implements OnInit {
           }
         });
     }
-  } 
-  resetForm(){
+  }
+  resetForm() {
     this.problemSolvingForm = this.fb.group({
-      problemSolvingStatement : new FormControl(''),
-      choices : new FormControl(''),
-    })
+      problemSolvingStatement: new FormControl(''),
+      choices: new FormControl(''),
+    });
     this.summaryText = '';
     // this.summaryProbSolvingEvent.emit(this.summaryText);
   }
- 
+
   continueSummary() {
     this.imageDisplay = true;
     this.continueButton = false;
-    if (this.problemSolvingForm.value['choices'] == '1') {
+    if (this.problemSolvingForm.value['choices'] === true) {
       this.summaryText = this.problemSolvingForm.value[
         'problemSolvingStatement'
       ];
       this.canDoAnything = 1;
-    } else if (this.problemSolvingForm.value['choices'] == '0') {
+    } else if (this.problemSolvingForm.value['choices'] === false) {
       this.canDoAnything = 0;
       this.summaryText = '';
     }
 
-    if (this.responseData.length == 0 && this.problemSolving.length == 0) {
+    if (this.responseData.length === 0 && this.problemSolving.length === 0) {
       const object = {
         worry_id: this.worry.id,
         can_do_anything: this.canDoAnything,
@@ -95,7 +99,10 @@ export class WpfProblemSolvingComponent implements OnInit {
         console.log(resp.body);
         this.responseData = resp.body.problem_statement;
       });
-    } else if (this.responseData.length > 0 || this.problemSolving.length != 0) {
+    } else if (
+      this.responseData.length > 0 ||
+      this.problemSolving.length !== 0
+    ) {
       const object = {
         worry_id: this.worry.id,
         can_do_anything: this.canDoAnything,
@@ -118,8 +125,17 @@ export class WpfProblemSolvingComponent implements OnInit {
 
   falseResponse() {
     this.continueSummary();
+    this.panel4.expanded = false;
   }
   onFocus() {
     this.continueButton = true;
+  }
+
+  panelCollapse() {
+    const object = {
+      index: this.summaryIndex,
+      summary: this.summaryText ? this.summaryText : '',
+    };
+    this.techniqueCollapsed.emit(object);
   }
 }

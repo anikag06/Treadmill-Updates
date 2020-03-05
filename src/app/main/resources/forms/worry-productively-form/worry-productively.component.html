@@ -1,22 +1,37 @@
 <mat-card class="container-fluid px-0 pt-0 pb-2 mb-2">
   <div class="row no-gutters mb-2 card card-full-width">
-    <mat-card-header class="col-12 w-100 px-0 card-header main-heading">
-      <mat-card-title class="ml-4 my-auto d-inline-block">
+    <mat-card-header class="col-12 w-100 px-0 py-0 card-header main-heading">
+      <mat-card-title class="ml-4 my-auto py-2 d-inline-block">
         Worry Productively form
       </mat-card-title>
       <div class="h-100 d-inline-block ml-auto">
-        <button class="h-100 saved-forms-btn" mat-button [matMenuTriggerFor]="worryProductivelyForms">
-          <i class="material-icons more-hor-icon">
+        <div *ngIf="showFollowUp && !t.menuOpen" class="red-circle"></div>
+        <button
+          class="h-100 saved-forms-btn"
+          mat-button
+          [matMenuTriggerFor]="worryProductivelyForms"
+          #t="matMenuTrigger"
+        >
+          <mat-icon>
             more_horiz
-          </i>
+          </mat-icon>
         </button>
       </div>
 
-
-      <mat-menu xPosition="before" yPosition="below" #worryProductivelyForms="matMenu" [overlapTrigger]="false">
-        <div [ngStyle]="{'max-height':'350px'}">
-          <app-forms-sidebar [type]="type" (objectEmitter)="worrySelected($event)" (newForm)="onAddNewForm()"
-            [object]="worry">
+      <mat-menu
+        xPosition="before"
+        yPosition="below"
+        #worryProductivelyForms="matMenu"
+        [overlapTrigger]="false"
+      >
+        <div [ngStyle]="{ 'max-height': '350px' }">
+          <app-forms-sidebar
+            [type]="type"
+            (objectEmitter)="worrySelected($event)"
+            (showDot)="onShowFollowUp($event)"
+            (newForm)="onAddNewForm()"
+            [object]="worry"
+          >
           </app-forms-sidebar>
         </div>
       </mat-menu>
@@ -32,7 +47,8 @@
               <strong>What are you worried about?</strong>
               <div class="float-right d-inline-block">
                 <mat-icon class="edit_icon" (click)="onEditWorryClick()">
-                  edit </mat-icon>
+                  edit
+                </mat-icon>
               </div>
             </div>
             <!-- <div class="card-body" *ngIf="worry && !worryEditMode" (click)="onWorryClick()">
@@ -43,13 +59,15 @@
                 [maxRatingText]="wSliderMaxRangeText" [rating]="worry.worry_rating_initial">
               </app-form-slider>
             </div> -->
-            <div class="card-body"  (click)="onWorryClick()">
-              <app-worry-form [worry]="worry" (testOut)="continueAfterSlider($event)"></app-worry-form>
+            <div class="card-body" (click)="onWorryClick()">
+              <app-worry-form
+                [worry]="worry"
+                (testOut)="continueAfterSlider($event)"
+              ></app-worry-form>
             </div>
             <!-- <div class="card-body" *ngIf="!worry" (click)="onWorryClick()">
               <app-worry-form (testOut)="continueAfterSlider($event)"></app-worry-form>
             </div> -->
-
           </div>
         </div>
       </div>
@@ -63,26 +81,46 @@
             <!-- <mat-checkbox [checked]="i.checked" (change)="OnCharacteristicCheck($event)" #Checkbox >
                         {{i}}
                         </mat-checkbox> -->
-            <div class="characteristics" [formGroup]="uselessCharacteristicsForm" >
-              <div formArrayName="characteristics" *ngFor="let val of data; let i = index "><br />
-                <mat-checkbox [value]="val.value" (change)="updateValueChange($event,i)" [checked]="val.is_checked">
-                  {{val.value }}
+            <div
+              class="characteristics"
+              [formGroup]="uselessCharacteristicsForm"
+            >
+              <div
+                formArrayName="characteristics"
+                *ngFor="let val of data; let i = index"
+                class="my-2"
+              >
+                <mat-checkbox
+                  [value]="val.value"
+                  (change)="updateValueChange($event, i)"
+                  [checked]="val.is_checked"
+                >
+                  {{ val.value }}
                 </mat-checkbox>
-
               </div>
 
-              <p class="text-right" (click)="OnCharacteristicCheck()" *ngIf="checkBoxContinue">
-                <button type="button" mat-raised-button class="continue-btn">Continue</button>
+              <p
+                class="text-right"
+                (click)="OnCharacteristicCheck()"
+                *ngIf="checkBoxContinue"
+              >
+                <button type="button" mat-raised-button class="continue-btn">
+                  Continue
+                </button>
               </p>
             </div>
           </div>
         </div>
       </div>
-      <app-techniques [techniquesCall]="characteristicCheck" [worry]="worry"
-        (originalWorry)="showOriginalWorry($event)"></app-techniques>
-      <p class="text-right" (click)="onOriginalWorry()" *ngIf="!originalWorryClick && originalWorryContinue">
-        <button type="button" mat-raised-button class="continue-btn">Continue</button> <br /> <br />
-      </p>
+      <app-techniques
+        (onOriginalWorry)="onOriginalWorry()"
+        [techniquesCall]="characteristicCheck"
+        [worry]="worry"
+        (originalWorry)="showOriginalWorry($event)"
+      ></app-techniques>
+      <!--      <p class="text-right" (click)="onOriginalWorry()" *ngIf="!originalWorryClick && originalWorryContinue">-->
+      <!--        <button type="button" mat-raised-button class="continue-btn">Continue</button> <br /> <br />-->
+      <!--      </p>-->
     </div>
   </div>
   <div class="row no-gutters form-div mx-auto" *ngIf="originalWorryClick">
@@ -95,25 +133,45 @@
             </div>
             <div class="card-body">
               <div class="worryBox" *ngIf="worry">
-                <div class="worryText"><br /> Your original worry <br />
-                  <div class="worrybody">{{worry.worry}} <br />
-                  </div>
+                <div
+                  class="worryText my-1 px-2"
+                  [ngStyle]="{ fontSize: '12px' }"
+                >
+                  Your original worry
                 </div>
+                <div class="worrybody px-2 mb-1">{{ worry.worry }} <br /></div>
               </div>
             </div>
-            <div class="card-body" *ngIf="sliderResponseFinal == undefined" (click)="hideFinalSliderCont()">
-              <app-form-slider [question]="worrySliderQuestion" [minRatingText]="wSliderMinRangeText"
-                [maxRatingText]="wSliderMaxRangeText">
+            <div
+              class="card-body"
+              *ngIf="sliderResponseFinal === undefined"
+              (click)="hideFinalSliderCont()"
+            >
+              <app-form-slider
+                [question]="worrySliderQuestion"
+                [minRatingText]="wSliderMinRangeText"
+                [maxRatingText]="wSliderMaxRangeText"
+              >
               </app-form-slider>
             </div>
-            <div class="card-body" *ngIf="sliderResponseFinal != undefined" (click)="hideFinalSliderCont()">
-              <app-form-slider [question]="worrySliderQuestion" [minRatingText]="wSliderMinRangeText"
-                [maxRatingText]="wSliderMaxRangeText" [rating]="sliderResponseFinal">
+            <div
+              class="card-body"
+              *ngIf="sliderResponseFinal !== undefined"
+              (click)="hideFinalSliderCont()"
+            >
+              <app-form-slider
+                [question]="worrySliderQuestion"
+                [minRatingText]="wSliderMinRangeText"
+                [maxRatingText]="wSliderMaxRangeText"
+                [rating]="sliderResponseFinal"
+              >
               </app-form-slider>
             </div>
             <div class="card-body" *ngIf="finalSliderCont">
               <p class="text-right" (click)="OnFinalSliderClick()">
-                <button type="button" mat-raised-button class="continue-btn">Continue</button>
+                <button type="button" mat-raised-button class="continue-btn">
+                  Continue
+                </button>
               </p>
             </div>
           </div>

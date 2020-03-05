@@ -17,8 +17,11 @@ import { WorryProductivelyService } from '../../worry-productively.service';
 export class ModifyBeliefsComponent implements OnInit {
   @Output() summaryModifyEvent = new EventEmitter<string>();
   @Input() worry!: Worry;
+  @Output() techniqueExpanded = new EventEmitter();
+  @Output() techniqueCollapsed = new EventEmitter();
+  @Input() summaryIndex!: number;
   @ViewChild('panel3', { static: false }) panel3!: any;
-  summaryText !: string;
+  summaryText!: string;
   responseData = '';
   modifyBeliefs: string[] = [];
   beliefForm = this.fb.group({
@@ -28,9 +31,9 @@ export class ModifyBeliefsComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private worryService: WorryProductivelyService,
-  ) { }
+  ) {}
 
-  ngOnInit() { }
+  ngOnInit() {}
   ngOnChanges() {
     this.resetForm();
     if (this.worry) {
@@ -43,6 +46,7 @@ export class ModifyBeliefsComponent implements OnInit {
             );
             this.modifyBeliefs.push(resp);
             this.summaryText = resp.body.belief;
+            this.panelCollapse();
             // this.summaryModifyEvent.emit(this.summaryText);
           }
         });
@@ -55,17 +59,18 @@ export class ModifyBeliefsComponent implements OnInit {
     this.summaryText = '';
   }
   onBeliefSubmit() {
-    this.summaryText = this.beliefForm.value['beliefStatement'];
-    this.panel3.expanded = false;
-    if (this.responseData.length == 0 && this.modifyBeliefs.length == 0) {
+    if (this.responseData.length === 0 && this.modifyBeliefs.length === 0) {
       const object = {
         worry_id: this.worry.id,
-        belief: this.summaryText,
+        belief: this.beliefForm.value['beliefStatement'],
       };
       this.worryService.postModifyBeliefs(object).subscribe((resp: any) => {
         const status = resp.ok;
         if (status) {
           console.log('The request has been submited');
+          this.summaryText = this.beliefForm.value['beliefStatement'];
+          this.panel3.expanded = false;
+          this.panelCollapse();
         }
         console.log(resp.body);
         this.responseData = resp.body.belief;
@@ -73,17 +78,27 @@ export class ModifyBeliefsComponent implements OnInit {
     } else if (this.responseData.length > 0) {
       const object = {
         worry_id: this.worry.id,
-        belief: this.summaryText,
+        belief: this.beliefForm.value['beliefStatement'],
       };
       this.worryService
         .putModifyBeliefs(object, this.worry.id)
         .subscribe((resp: any) => {
           const status = resp.ok;
           if (status) {
-            console.log('The request has been submited');
+            this.summaryText = this.beliefForm.value['beliefStatement'];
+            this.panel3.expanded = false;
+            this.panelCollapse();
           }
         });
     }
     // this.summaryModifyEvent.emit(this.summaryText);
+  }
+
+  panelCollapse() {
+    const object = {
+      index: this.summaryIndex,
+      summary: this.summaryText ? this.summaryText : '',
+    };
+    this.techniqueCollapsed.emit(object);
   }
 }

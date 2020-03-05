@@ -1,27 +1,33 @@
 @import '../forms.component.scss';
 
-.mat-checkbox  {
-    margin-left : 20px;
+.mat-checkbox {
+  margin-left: 20px;
 }
-.worryBox{
-    // width: 760px;
-    // height: 78px;
-    position : relative;
-    background: #F5F5F5 0% 0% no-repeat padding-box;
-    border: 0.5px dashed #0000005E;
-    border-radius: 4px;
-    opacity: 1;
+.worryBox {
+  // width: 760px;
+  // height: 78px;
+  position: relative;
+  background: #f5f5f5 0% 0% no-repeat padding-box;
+  border: 0.5px dashed #0000005e;
+  border-radius: 4px;
+  opacity: 1;
 }
-.worryText{
-     color: #00000099;
-     padding-left: 10px;
+.worryText {
+  color: #00000099;
+  padding-left: 10px;
+}
+.worrybody {
+  color: black;
+  padding-left: 10px;
+}
+.characteristics {
+  margin-left: 3px;
+  margin-right: 10px;
+}
 
-}
-.worrybody{
-    color : black ;
-    padding-left: 10px;
-}
-.characteristics{
-    margin-left: 3px;
-    margin-right : 10px;
+.red-circle {
+  margin-left: 0.25rem;
+  position: absolute;
+  right: 16px;
+  top: 13px;
 }

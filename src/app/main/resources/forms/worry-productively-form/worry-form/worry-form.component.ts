@@ -42,7 +42,7 @@ export class WorryFormComponent implements OnInit {
       // console.log('slider value is' + this.sliderRating.rating);
     }
   }
-  ngOnChanges(){
+  ngOnChanges() {
     this.resetForm();
     if (this.worry) {
       this.worryStatement = this.worry.worry;
@@ -65,7 +65,7 @@ export class WorryFormComponent implements OnInit {
       this.value = this.worry.worry_rating_initial;
     }
   }
-  resetForm(){
+  resetForm() {
     this.worryStatement = '';
     this.value = 1;
     this.clickbutton = false;

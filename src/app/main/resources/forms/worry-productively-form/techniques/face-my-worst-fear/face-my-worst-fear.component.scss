@@ -1,41 +1,35 @@
-@import "../../../forms.component.scss";
+@import '../../../forms.component.scss';
 @import '../techniques.component.scss';
 
-
-.mat-expansion-panel-header-description{
-    color: rgba(0, 0, 0, 1);
+.mat-expansion-panel-header-description {
+  color: rgba(0, 0, 0, 1);
 }
-.headingText{
-    color : #00000099;
+.headingText {
+  color: #00000099;
+  word-break: break-all;
 }
-
 
 .circle {
-    width: 8px;
-    height: 8px;
-    background: red;
-    border-radius: 50%;
-  }
-.position{
-    position: absolute;
-    right: 98px;
-    display : inline-block;
+  width: 8px;
+  height: 8px;
+  background: #f66c6c;
+  border-radius: 50%;
 }
-// .position[_ngcontent-vju-c24] 
+
+// .position[_ngcontent-vju-c24]
 
 .notice {
-    background: #fff9ee;
-    border: 0.5px dashed #0000005e;
-    vertical-align: middle;
-    border-radius: 4px;
-    min-height: 55px;
-    padding: inherit;
-  }
-  .hideResult {
-    padding-bottom: 0px;
-    height: 45px;
-    max-height: 45px;
-    background: #eeeeee;
-    border-bottom: black solid 1px;
-  }
-    
+  background: #fff9ee;
+  border: 0.5px dashed #0000005e;
+  vertical-align: middle;
+  border-radius: 4px;
+  min-height: 55px;
+  padding: inherit;
+}
+.hideResult {
+  padding-bottom: 0px;
+  height: 45px;
+  max-height: 45px;
+  background: #eeeeee;
+  border-bottom: black solid 1px;
+}

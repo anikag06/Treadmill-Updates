@@ -1,88 +1,175 @@
-<mat-expansion-panel hideToggle="true" #panel1>
+<mat-expansion-panel
+  hideToggle="true"
+  #panel1
+  (afterExpand)="techniqueExpanded.emit()"
+  (afterCollapse)="panelCollapse()"
+>
   <mat-expansion-panel-header style="background: #FFFCE3;">
     <mat-panel-description>
       <strong> Evaluate Worry </strong>
     </mat-panel-description>
-    <mat-icon *ngIf="panel1.expanded" (click)="onShowInfo()" svgIcon="QuestionMark"></mat-icon>
+    <mat-icon
+      *ngIf="panel1.expanded"
+      (click)="onShowInfo($event)"
+      svgIcon="QuestionMark"
+    ></mat-icon>
     <mat-icon *ngIf="panel1.expanded" svgIcon="Close"></mat-icon>
-    <mat-icon *ngIf="!panel1.expanded && summaryText" svgIcon="EditErrors"></mat-icon>
+    <mat-icon
+      *ngIf="!panel1.expanded && summaryText"
+      svgIcon="EditErrors"
+    ></mat-icon>
   </mat-expansion-panel-header>
   <ng-template matExpansionPanelContent>
-
-    <div class="card-body" style="padding: 15px 2px 16px;" [formGroup]="evaluateForm">
+    <div
+      class="card-body"
+      style="padding: 15px 2px 16px;"
+      [formGroup]="evaluateForm"
+    >
       <div>
         What are the Thinking Errors in your worry?
-      </div> <br />
+      </div>
+      <br />
       <div>
-        <div formArrayName="thinking_errors" *ngFor="let val of data; let i = index "><br />
-          <mat-checkbox [value]="val.value" (change)="updateValueChange($event,i)" [checked]="val.is_checked">
-            {{val.value }}
+        <div
+          formArrayName="thinking_errors"
+          *ngFor="let val of data; let i = index"
+        >
+          <br />
+          <mat-checkbox
+            [value]="val.value"
+            (change)="updateValueChange($event, i)"
+            [checked]="val.is_checked"
+          >
+            {{ val.value }}
           </mat-checkbox>
         </div>
 
         <p class="text-right" (click)="CheckSubmit()" *ngIf="checkBoxContinue">
-          <button type="button" mat-raised-button class="continue-btn">Continue</button>
-        </p> <br /> <br />
+          <button type="button" mat-raised-button class="continue-btn">
+            Continue
+          </button>
+        </p>
+        <br />
+        <br />
       </div>
       <div *ngIf="checksubmitted">
-        Can you think of any evidence that suggest that your worry is unlikely to happen?
+        Can you think of any evidence that suggest that your worry is unlikely
+        to happen?
         <div formArrayName="evidences">
           <div *ngFor="let evidence of getEvidence.controls; let i = index">
-            <div class="statement" [formGroupName]="i" [ngStyle]="{ display: 'flex' }" click-outside
-              (clickOutside)="onClickOutside($event, i)">
+            <div
+              class="statement"
+              [formGroupName]="i"
+              [ngStyle]="{ display: 'flex' }"
+              click-outside
+              (clickOutside)="onClickOutside($event, i)"
+            >
               <mat-form-field>
-                <textarea class="py-0" [formControl]="evidence.get('evidence')" cdkTextareaAutosize
-                  cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" placeholder="Write here" matInput required [autofocus]
-                  (focus)="onShowTrashIcon(i)"></textarea>
+                <textarea
+                  class="py-0"
+                  [formControl]="evidence.get('evidence')"
+                  cdkTextareaAutosize
+                  cdkAutosizeMinRows="1"
+                  cdkAutosizeMaxRows="5"
+                  placeholder="Write here"
+                  matInput
+                  required
+                  [autofocus]
+                  (focus)="onShowTrashIcon(i)"
+                ></textarea>
               </mat-form-field>
-              <div class="trash-icon" (click)="markForDeletion(evidence, i)" *ngIf="showTrashIcon[i]">
+              <div
+                class="trash-icon"
+                (click)="markForDeletion(evidence, i)"
+                *ngIf="showTrashIcon[i]"
+              >
                 <mat-icon>delete</mat-icon>
               </div>
-
             </div>
           </div>
           <div class="add-statement" (click)="addField()">
-            <br /> <br />
-            <mat-icon [ngStyle]="{
-                    'font-size': '19px',
-                    'padding-top': '2px',
-                    cursor: 'pointer'
-                  }" > add</mat-icon>
+            <br />
+            <br />
+            <mat-icon
+              [ngStyle]="{
+                'font-size': '19px',
+                'padding-top': '2px',
+                cursor: 'pointer'
+              }"
+            >
+              add</mat-icon
+            >
             <div [ngStyle]="{ 'padding-left': '5px' }">
               Add Evidence
             </div>
           </div>
-          <p class="text-right" (click)="onEvaluateSubmit()" *ngIf="evaluateForm.valid && evidenceContinue">
-            <button type="button" mat-raised-button  class="continue-btn">Continue</button>
+          <p
+            class="text-right"
+            (click)="onEvaluateSubmit()"
+            *ngIf="evaluateForm.valid && evidenceContinue"
+          >
+            <button type="button" mat-raised-button class="continue-btn">
+              Continue
+            </button>
           </p>
-        </div> <br />
-        <div *ngIf="buttonClick" style="color:#00000099; letter-spacing:0.14px;">
+        </div>
+        <br />
+        <div
+          *ngIf="buttonClick"
+          style="color:#00000099; letter-spacing:0.14px;"
+        >
           <br />
-          <div *ngIf="sliderResponse == undefined " (click)="showSliderContinue()">
-            <app-form-slider [question]="evaluateSliderQuestion" [minRatingText]="evaSliderMinRangeText"
-              [maxRatingText]="evaSliderMaxRangeText"></app-form-slider>
+          <div
+            *ngIf="sliderResponse == undefined"
+            (click)="showSliderContinue()"
+          >
+            <app-form-slider
+              [question]="evaluateSliderQuestion"
+              [minRatingText]="evaSliderMinRangeText"
+              [maxRatingText]="evaSliderMaxRangeText"
+            ></app-form-slider>
           </div>
-          <div *ngIf="sliderResponse != undefined" (click)="showSliderContinue()">
-            <app-form-slider [question]="evaluateSliderQuestion" [minRatingText]="evaSliderMinRangeText"
-              [maxRatingText]="evaSliderMaxRangeText" [rating]="sliderResponse"></app-form-slider>
+          <div
+            *ngIf="sliderResponse != undefined"
+            (click)="showSliderContinue()"
+          >
+            <app-form-slider
+              [question]="evaluateSliderQuestion"
+              [minRatingText]="evaSliderMinRangeText"
+              [maxRatingText]="evaSliderMaxRangeText"
+              [rating]="sliderResponse"
+            ></app-form-slider>
           </div>
 
-          <p class="text-right" (click)="onSliderSubmit()" *ngIf="sliderContinue">
-            <button type="button" mat-raised-button  class="continue-btn">Continue</button>
+          <p
+            class="text-right"
+            (click)="onSliderSubmit()"
+            *ngIf="sliderContinue"
+          >
+            <button type="button" mat-raised-button class="continue-btn">
+              Continue
+            </button>
           </p>
-        </div> <br />
+        </div>
+        <br />
       </div>
     </div>
-    <div class="card-body" style="color: #00000099; padding: 0px 2px 16px;" *ngIf="sliderSubmit">
+    <div
+      class="card-body"
+      style="color: #00000099; padding: 0px 2px 16px;"
+      *ngIf="sliderSubmit"
+    >
       Accept uncertainity <br /><br />
 
-      Accept uncertainty in life. Nobody can give you a guarantee about the future. Bad things can happen but they are very unlikely.
+      Accept uncertainty in life. Nobody can give you a guarantee about the
+      future. Bad things can happen but they are very unlikely.
       <p class="text-right" (click)="doneSummary()">
-        <button type="button" mat-raised-button  class="continue-btn">Done</button>
+        <button type="button" mat-raised-button class="continue-btn">
+          Done
+        </button>
       </p>
     </div>
   </ng-template>
-
 </mat-expansion-panel>
 <mat-card class="card-body" *ngIf="!panel1.expanded && summaryText">
   <mat-card-content>
@@ -93,4 +180,5 @@
       {{ summaryText }}
     </div>
   </mat-card-content>
-</mat-card> <br />
+</mat-card>
+<br />

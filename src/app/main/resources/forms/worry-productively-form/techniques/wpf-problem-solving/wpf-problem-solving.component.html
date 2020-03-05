@@ -1,68 +1,127 @@
-<mat-expansion-panel hideToggle="true" #panel4>
-  <mat-expansion-panel-header style="background: #FEDEFF;" >
+<mat-expansion-panel
+  hideToggle="true"
+  #panel4
+  (afterExpand)="techniqueExpanded.emit()"
+  (afterCollapse)="panelCollapse()"
+>
+  <mat-expansion-panel-header style="background: #FEDEFF;">
     <mat-panel-description>
       <strong>Can I do anything about it? </strong>
     </mat-panel-description>
     <mat-icon *ngIf="panel4.expanded" svgIcon="Close"></mat-icon>
-    <mat-icon *ngIf="!panel4.expanded && summaryText" svgIcon="EditErrors"></mat-icon>
+    <mat-icon
+      *ngIf="!panel4.expanded && summaryText"
+      svgIcon="EditErrors"
+    ></mat-icon>
   </mat-expansion-panel-header>
-  <ng-template matExpansionPanelContent >
-  <div class="card-body" style="padding: 15px 2px 16px;" [formGroup]="problemSolvingForm">
-    <div class="text" >
-      Is there anything that I can do to solve what I am worried about? <br /> <br />
-      <div class="radio">
-        <!-- <label for="choice"  *ngFor="let choice of choices">                     -->
-        <input type="radio" name="choices" formControlName="choices" value=1> Yes
-        <div class="text-align float-right">
-          <input type="radio" name="choices" formControlName="choices" value=0> No
-        </div>
-        <!-- </label> -->
-      </div> <br />
-    </div>
-    <div *ngIf="problemSolvingForm.value['choices'] === '1'">
+  <ng-template matExpansionPanelContent>
+    <div
+      class="card-body"
+      style="padding: 15px 2px 16px;"
+      [formGroup]="problemSolvingForm"
+    >
       <div class="text">
-        Can I put it as a problem statement? <br /> <br />
-        <mat-form-field class="full-width" [formGroup]="problemSolvingForm">
-          <textarea class="py-0" formControlName="problemSolvingStatement" #isText cdkTextareaAutosize
-            cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" placeholder="Write here" matInput required [autofocus]
-            (focus)="onFocus()"  ></textarea>
-        </mat-form-field>
-        <p class="text-right" *ngIf="isText.value && continueButton" >
-          <button type="button" mat-raised-button (click)="continueSummary()" class="continue-btn">Done</button>
-        </p>
+        Is there anything that I can do to solve what I am worried about? <br />
+        <br />
+        <!--      <div class="radio">-->
+        <!--        &lt;!&ndash; <label for="choice"  *ngFor="let choice of choices">                     &ndash;&gt;-->
+        <!--        <input type="radio" name="choices" formControlName="choices" value=1> Yes-->
+        <!--        <div class="text-align ml-4">-->
+        <!--          <input type="radio" name="choices" formControlName="choices" value=0> No-->
+        <!--        </div>-->
+        <!--        &lt;!&ndash; </label> &ndash;&gt;-->
+        <!--      </div> <br />-->
+        <mat-radio-group formControlName="choices" color="primary">
+          <mat-radio-button [value]="true">
+            Yes
+          </mat-radio-button>
+          <mat-radio-button [value]="false" class="ml-3">
+            No
+          </mat-radio-button>
+        </mat-radio-group>
       </div>
-      <div *ngIf="imageDisplay" class="finalText">
-        <br/> <br/>
-        <img src="../../../../../../../assets/forms/clock.png" class="imageSummary"> 
-        Well Done! use the problem solving form to tackle that<br /> <br />
-        <p class="text-right">
-          <button type="button" mat-raised-button class="continue-btn"
-            (click)="showSummary()">Done</button>
+      <div *ngIf="problemSolvingForm.value['choices'] === true">
+        <div class="text">
+          Can I put it as a problem statement? <br />
+          <br />
+          <mat-form-field class="full-width" [formGroup]="problemSolvingForm">
+            <textarea
+              class="py-0"
+              formControlName="problemSolvingStatement"
+              #isText
+              cdkTextareaAutosize
+              cdkAutosizeMinRows="1"
+              cdkAutosizeMaxRows="5"
+              placeholder="Write here"
+              matInput
+              required
+              [autofocus]
+              (focus)="onFocus()"
+            ></textarea>
+          </mat-form-field>
+          <p class="text-right" *ngIf="isText.value && continueButton">
+            <button
+              type="button"
+              mat-raised-button
+              (click)="continueSummary()"
+              class="continue-btn"
+            >
+              Contniue
+            </button>
+          </p>
+        </div>
+        <div *ngIf="imageDisplay" class="finalText">
+          <br />
+          <br />
+          <img
+            src="../../../../../../../assets/forms/clock.png"
+            class="imageSummary"
+          />
+          Well Done! use the problem solving form to tackle that<br />
+          <br />
+          <p class="text-right">
+            <button
+              type="button"
+              mat-raised-button
+              class="continue-btn"
+              (click)="showSummary()"
+            >
+              Done
+            </button>
+          </p>
+        </div>
+      </div>
+      <div *ngIf="problemSolvingForm.value['choices'] === false">
+        <p class="text-centre">
+          Ohh .. Sometimes we can't control everything in our lives and we need
+          to accept things the way they are by changing our attitude we can
+          gradually overcome the problem. Do you remember something that worried
+          you earlier but doesn't bother you now?
         </p>
+        <div class="card-body">
+          <p class="text-right">
+            <button
+              type="button"
+              mat-raised-button
+              class="continue-btn"
+              (click)="falseResponse()"
+            >
+              Continue
+            </button>
+          </p>
+        </div>
       </div>
     </div>
-    <div *ngIf="problemSolvingForm.value['choices'] === '0'">
-      <p class="text-centre">
-        Ohh .. Sometimes we can't control everything in our lives and we need to accept things
-        the way they are by changing our attitude we can gradually overcome the problem. Do you
-        remember something that worried you earlier but doesn't bother you now?
-      </p>
-      <div class="card-body">
-        <p class="text-right">
-          <button type="button" mat-raised-button class="continue-btn" (click)="falseResponse()">Done</button>
-        </p>
-      </div>
-    </div>
-  </div>
-</ng-template>
+  </ng-template>
 </mat-expansion-panel>
 <mat-card class="card-body" *ngIf="!panel4.expanded && summaryText">
   <mat-card-content>
-      <div [ngStyle]="{ 'font-size': '12px' }">
-          Summary
-      </div>
-      <div [ngStyle]="{ 'margin-top': '8px', 'font-size': '12px' }">
-          {{ summaryText }}
-      </div>
+    <div [ngStyle]="{ 'font-size': '12px' }">
+      Summary
+    </div>
+    <div [ngStyle]="{ 'margin-top': '8px', 'font-size': '12px' }">
+      {{ summaryText }}
+    </div>
   </mat-card-content>
-</mat-card> <br/>
+</mat-card>
+<br />

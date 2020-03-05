@@ -1,36 +1,58 @@
-<mat-expansion-panel hideToggle="true" #panel3>
-  <mat-expansion-panel-header style="background: #E2E5FF;" >
+<mat-expansion-panel
+  hideToggle="true"
+  #panel3
+  (afterExpand)="techniqueExpanded.emit()"
+  (afterCollapse)="panelCollapse()"
+>
+  <mat-expansion-panel-header style="background: #E2E5FF;">
     <mat-panel-description>
       <strong> Modify Beliefs </strong>
     </mat-panel-description>
     <mat-icon *ngIf="panel3.expanded" svgIcon="Close"></mat-icon>
-    <mat-icon *ngIf="!panel3.expanded && summaryText" svgIcon="EditErrors"></mat-icon>
+    <mat-icon
+      *ngIf="!panel3.expanded && summaryText"
+      svgIcon="EditErrors"
+    ></mat-icon>
   </mat-expansion-panel-header>
-  <ng-template matExpansionPanelContent >
-  <div class="card-body" style="padding: 15px 2px 16px;" >
-    <div class="headingText">
-      Why do I worry so much? What will happen if I didn't worry?
-    </div> <br />
-    <mat-form-field class="full-width" [formGroup]="beliefForm">
-      <textarea class="py-0" formControlName="beliefStatement" #isText cdkTextareaAutosize cdkAutosizeMinRows="1"
-        cdkAutosizeMaxRows="5" placeholder="Write here" matInput required [autofocus]
+  <ng-template matExpansionPanelContent>
+    <div class="card-body" style="padding: 15px 2px 16px;">
+      <div class="headingText">
+        Why do I worry so much? What will happen if I didn't worry?
+      </div>
+      <br />
+      <mat-form-field class="full-width" [formGroup]="beliefForm">
+        <textarea
+          class="py-0"
+          formControlName="beliefStatement"
+          #isText
+          cdkTextareaAutosize
+          cdkAutosizeMinRows="1"
+          cdkAutosizeMaxRows="5"
+          placeholder="Write here"
+          matInput
+          required
+          [autofocus]
         ></textarea>
-    </mat-form-field>
-    <span class="headingText">
-      You can use the belief change form to modify this belief</span>
-    <p class="text-right" (click)="onBeliefSubmit()" *ngIf="isText.value">
-      <button type="button" mat-raised-button class="continue-btn">Done</button>
-    </p>
-  </div>
-</ng-template>
+      </mat-form-field>
+      <span class="headingText">
+        You can use the belief change form to modify this belief</span
+      >
+      <p class="text-right" (click)="onBeliefSubmit()" *ngIf="isText.value">
+        <button type="button" mat-raised-button class="continue-btn">
+          Done
+        </button>
+      </p>
+    </div>
+  </ng-template>
 </mat-expansion-panel>
 <mat-card class="card-body" *ngIf="!panel3.expanded && summaryText">
   <mat-card-content>
-      <div [ngStyle]="{ 'font-size': '12px' }">
-          Summary
-      </div>
-      <div [ngStyle]="{ 'margin-top': '8px', 'font-size': '12px' }">
-          {{ summaryText }}
-      </div>
+    <div [ngStyle]="{ 'font-size': '12px' }">
+      Summary
+    </div>
+    <div [ngStyle]="{ 'margin-top': '8px', 'font-size': '12px' }">
+      {{ summaryText }}
+    </div>
   </mat-card-content>
-</mat-card> <br/>
+</mat-card>
+<br />

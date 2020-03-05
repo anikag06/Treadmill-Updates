@@ -21,6 +21,7 @@ import {
 } from '@/app.constants';
 import { UserTask } from '../../shared/tasks/user-task.model';
 import * as moment from 'moment';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-ettbf-outcome',
@@ -30,12 +31,14 @@ import * as moment from 'moment';
 export class EttbfOutcomeComponent implements OnInit {
   @Input() outcome!: Outcome;
   @Input() belief!: Belief;
-  @Input() task !: UserTask;
-  @Input() getNotification !: boolean;
+  @Input() task!: UserTask;
+  @Input() getNotification!: boolean;
   @Output() finalSliderRating = new EventEmitter();
   @ViewChild('outcomeTextArea', { static: false }) outcomeTextArea!: ElementRef;
   @ViewChild('learningTextArea', { static: false })
   learningTextArea!: ElementRef;
+  @ViewChild('expectedOutcome', { static: false })
+  expectedOutcomeArea!: ElementRef;
   @ViewChild('realisticBeliefTextArea', { static: false })
   realisticBeliefTextArea!: ElementRef;
   outcomeStatement = '';
@@ -54,47 +57,66 @@ export class EttbfOutcomeComponent implements OnInit {
   showSlider = false;
   showSliderContinue = false;
   realisticContinue = false;
-  outcomeResponse !: undefined;
-  outcome_belief_id !: number;
+  outcomeResponse!: undefined;
+  outcome_belief_id!: number;
   disableEmergency!: boolean;
-  emergencyPlan !: boolean;
+  emergencyPlan!: boolean;
+  showExpectedBtn!: boolean;
   value = 1;
-  constructor(private ettbfBeliefService: ExperimentToTestBeliefService) {}
+  showOutcome!: boolean;
 
-  ngOnInit(){
-    
+  expectedOutComeForm = this.formBuilder.group({
+    expected_outcome: new FormControl('', [Validators.required]),
+  });
+  constructor(
+    private ettbfBeliefService: ExperimentToTestBeliefService,
+    private formBuilder: FormBuilder,
+  ) {}
+
+  ngOnInit() {
     if (this.task) {
       this.getEndDate();
       this.onDisableEmergency();
-      this.taskLoaded;
+      // this.taskLoaded;
     }
     // if( this.belief.taskorigin){
     //   this.ettbfBeliefService.getTasks(this.belief.taskorigin.task_id).subscribe(
     //     (resp : any)=>{
     //       this.task = resp.body.data;
-    //       this.taskLoaded(this.task);          
+    //       this.taskLoaded(this.task);
     //     }
     //   );
     // }
   }
-  ngOnChanges(changes: SimpleChanges){
+  ngOnChanges(changes: SimpleChanges) {
     this.resetForm();
-    if(this.belief){
+    if (this.belief) {
       this.outcome_belief_id = this.belief.id;
+      this.ettbfBeliefService
+        .getExpectedOutcome(this.belief)
+        .subscribe((resp: any) => {
+          if (resp.ok &&
+              resp.body.expected_outcome) {
+            this.expectedOutComeForm.controls['expected_outcome'].setValue(
+              resp.body.expected_outcome,
+            );
+            this.showOutcome = true;
+          }
+        });
     }
     console.log(this.outcome);
-    if(this.outcome){
+    if (this.outcome) {
       this.outcomeStatement = this.outcome.outcome;
-      if(this.outcome.learning !==''){
+      if (this.outcome.learning !== '') {
         this.learningStatement = this.outcome.learning;
         this.showLearning = true;
         this.emergencyPlan = true;
       }
-      if(this.outcome.belief_rating_after !== null){
+      if (this.outcome.belief_rating_after !== null) {
         this.value = this.outcome.belief_rating_after;
         this.showSlider = true;
       }
-      if(this.outcome.realistic_belief !==''){
+      if (this.outcome.realistic_belief !== '') {
         this.realisticBeliefStatement = this.outcome.realistic_belief;
         this.beliefDecreased = true;
       }
@@ -102,13 +124,12 @@ export class EttbfOutcomeComponent implements OnInit {
     if (changes.task) {
       this.getEndDate();
       this.onDisableEmergency();
-      this.taskLoaded;
+      // this.taskLoaded();
     }
-    if(this.getNotification){
-      if (this.outcomeStatement === ''){
+    if (this.getNotification) {
+      if (this.outcomeStatement === '') {
         this.emergencyPlan = false;
-      }
-      else {
+      } else {
         this.emergencyPlan = true;
       }
     }
@@ -117,18 +138,28 @@ export class EttbfOutcomeComponent implements OnInit {
   editOutcomeText() {
     this.outcomeTextArea.nativeElement.focus();
   }
-  resetForm(){
-    this.outcomeStatement ='';
+
+  editExpectedOutcomeText() {
+    this.expectedOutcomeArea.nativeElement.focus();
+  }
+
+  editLearnigOutcome() {
+    this.learningTextArea.nativeElement.focus();
+  }
+
+  resetForm() {
+    this.outcomeStatement = '';
     this.learningStatement = '';
     this.value = 1;
-    this.realisticBeliefStatement='';
+    this.realisticBeliefStatement = '';
     this.showLearning = false;
     this.showSlider = false;
     this.bothRatingsExist = false;
+    this.showOutcome = false;
+    this.expectedOutComeForm.reset();
   }
   onOutcomeSubmit() {
     if (this.outcome && Object.entries(this.outcome).length > 0) {
-
       this.outcome.belief_id = this.outcome_belief_id;
       this.outcome.outcome = this.outcomeStatement;
       this.outcome.learning = this.learningStatement;
@@ -154,7 +185,10 @@ export class EttbfOutcomeComponent implements OnInit {
           },
         );
     } else {
-      if (this.outcomeStatement.trim().length > 0 && this.outcomeResponse == undefined) {
+      if (
+        this.outcomeStatement.trim().length > 0 &&
+        this.outcomeResponse === undefined
+      ) {
         this.ettbfBeliefService
           .postOutcome(this.belief.id, this.outcomeStatement)
           .subscribe(
@@ -172,7 +206,7 @@ export class EttbfOutcomeComponent implements OnInit {
     this.outcomeText = false;
     this.showLearning = true;
   }
- 
+
   onLearningSubmit() {
     this.onOutcomeSubmit();
     this.learningText = false;
@@ -185,13 +219,13 @@ export class EttbfOutcomeComponent implements OnInit {
       this.bothRatingsExist = true;
       this.compareRating();
       this.onOutcomeSubmit();
-      if(!this.beliefDecreased){
+      if (!this.beliefDecreased) {
         this.finalSliderRating.emit(this.outcome.belief_rating_after);
       }
     }
     this.showSliderContinue = false;
   }
-  showSliderCont(){
+  showSliderCont() {
     this.showSliderContinue = true;
   }
   onRealisticBeliefSubmit() {
@@ -199,18 +233,18 @@ export class EttbfOutcomeComponent implements OnInit {
     this.finalSliderRating.emit(this.outcome.belief_rating_after);
     this.realisticContinue = false;
   }
-  
+
   compareRating() {
     if (this.outcome.belief_rating_after && this.belief.belief_rating_before) {
       this.beliefDecreased =
-      this.outcome.belief_rating_after < this.belief.belief_rating_before;
-      if(this.beliefDecreased){
+        this.outcome.belief_rating_after < this.belief.belief_rating_before;
+      if (this.beliefDecreased) {
         this.finalSliderRating.emit(false);
       }
     }
   }
   getEndDate() {
-    if(this.task){
+    if (this.task) {
       return moment(this.task.end_at).format('DD-MMM');
     }
   }
@@ -223,28 +257,42 @@ export class EttbfOutcomeComponent implements OnInit {
         .local()
         .format('YYYY-MM-DD HH:mm');
   }
-  taskLoaded(data : any){
+  taskLoaded(data: any) {
     this.task = data;
-    if(this.task){
+    if (this.task) {
       this.getEndDate();
       this.onDisableEmergency();
     }
-    if(data){
-      if (this.outcomeStatement === ''){
+    if (data) {
+      if (this.outcomeStatement === '') {
         this.emergencyPlan = false;
-      }
-      else {
+      } else {
         this.emergencyPlan = true;
       }
     }
   }
-  onFocusOutcome(){
+  onFocusOutcome() {
     this.outcomeText = true;
   }
-  onFocusLearning(){
+  onFocusLearning() {
     this.learningText = true;
   }
-  onFocusRealistic(){
+  onFocusRealistic() {
     this.realisticContinue = true;
+  }
+
+  onExpectedOutcomeSubmit() {
+    const data = this.expectedOutComeForm.value['expected_outcome'];
+    this.ettbfBeliefService
+      .putExpectedOutcome(this.belief, data)
+      .subscribe((resp: any) => {
+        if (resp.ok) {
+          this.showExpectedBtn = false;
+        }
+      });
+  }
+
+  onShowExpectedBtn() {
+    this.showExpectedBtn = true;
   }
 }
