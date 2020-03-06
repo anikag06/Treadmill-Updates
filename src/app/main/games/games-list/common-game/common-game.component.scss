@@ -3,8 +3,8 @@
 
 #game_div {
   max-width: 900px;
-  height: 78vh;
-  max-height: 540px;
+  height: 524px;
+  // max-height: 524px;
   margin-left: auto;
   margin-right: auto;
   position: relative;
@@ -94,7 +94,7 @@
   #game_div,
   .common-div {
     max-width: 100%;
-    min-height: 90vh !important;
+    // min-height: 90vh !important;
     // max-height: 100%;
     padding: 0%;
   }
@@ -131,5 +131,11 @@
 
   #common-pause-clicked-div {
     max-width: 20%;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  #game_div {
+    height: 90vh;
   }
 }

@@ -4,8 +4,10 @@
 @import "../../../shared/games-common.scss";
 
 .game-container {
-  height: 524px;
-  width: 900px;
+  height: 100%;
+  width: 100%;
+  max-height: 640px;
+  max-width: 900px;
   background-image: url("../../../../../../assets/games/cognitive-distortion-game/Cognitive distortion game background.png");
 }
 
