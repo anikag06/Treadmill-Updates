@@ -1,4 +1,4 @@
-import { TaskOrigin } from '@/main/resources/forms/shared/model/taskorigin.model';
+import { TaskOrigin } from '@/main/resources/forms/shared/models/taskorigin.model';
 
 export class Problem {
   constructor(

@@ -17,19 +17,11 @@ import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
-  MatButtonModule,
-  MatDatepickerModule,
-  MatDialogModule,
+  MatBottomSheetModule,
   MatExpansionModule,
-  MatIconModule,
-  MatListModule,
   MatRadioModule,
-  MatSidenavModule,
   MatSlideToggleModule,
   MatSnackBarModule,
-  MatToolbarModule,
-  MatTooltipModule,
-  MatBottomSheetModule,
 } from '@angular/material';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
@@ -84,9 +76,6 @@ import { TechniquesInfoComponent } from './forms/shared/techniques-info/techniqu
 import { IdentifyThinkingComponent } from './forms/thought-record-form/thought-record-techniques/identify-thinking/identify-thinking.component';
 import { ControlContentComponent } from './control-content/control-content.component';
 
-import { RecordOutcomeComponent } from './forms/thought-record-form/thought-record-techniques/record-outcome/record-outcome.component';
-import { FormTextareaComponent } from './forms/shared/form-textarea/form-textarea.component';
-import { ThoughtHelpComponent } from './forms/thought-record-form/thought-record-techniques/thought-help/thought-help.component';
 // tslint:disable-next-line:max-line-length
 import { RecordOutcomeComponent } from './forms/thought-record-form/thought-record-techniques/record-outcome/record-outcome.component';
 import { FormTextareaComponent } from './forms/shared/form-textarea/form-textarea.component';
@@ -101,31 +90,12 @@ import { CommonBeliefComponent } from './forms/belief-change/negative-belief/com
 import { NegativeThoughtCardComponent } from './forms/thought-record-form/negative-thought-card/negative-thought-card.component';
 import { BeliefChangeTechniquesComponent } from './forms/belief-change/belief-change-techniques/belief-change-techniques.component';
 import { BeliefChangeService } from '@/main/resources/forms/belief-change/belief-change.service';
-import { ProofBeliefComponent } from './forms/belief-change/belief-change-techniques/proof-belief/proof-belief.component';
 import { ActAsIfComponent } from './forms/belief-change/belief-change-techniques/act-as-if/act-as-if.component';
 import { ActAsIfService } from '@/main/resources/forms/belief-change/belief-change-techniques/act-as-if/act-as-if.service';
-import { NegativeBeliefFinalComponent } from './forms/belief-change/negative-belief-final/negative-belief-final.component';
 import { FormMessageComponent } from './forms/shared/form-message/form-message.component';
 import { FormQuoteComponent } from './forms/shared/form-quote/form-quote.component';
 import { SlidesBottomsheetComponent } from './slides/slides-bottomsheet/slides-bottomsheet.component';
 import { SlidesVideoComponent } from './slides/slides-video/slides-video.component';
-
-import { ThoughtRecordService } from '@/main/resources/forms/thought-record-form/thought-record.service';
-import { MoodTrackerService } from '@/main/shared/mood-tracker/mood-tracker.service';
-
-import { RecordOutcomeService } from './forms/thought-record-form/thought-record-techniques/record-outcome/record-outcome.service';
-import { ThoughtHelpService } from './forms/thought-record-form/thought-record-techniques/thought-help/thought-help.service';
-
-import { BeliefChangeComponent } from './forms/belief-change/belief-change.component';
-import { NegativeBeliefComponent } from './forms/belief-change/negative-belief/negative-belief.component';
-import { CommonBeliefComponent } from './forms/belief-change/negative-belief/common-belief/common-belief.component';
-import { NegativeThoughtCardComponent } from './forms/thought-record-form/negative-thought-card/negative-thought-card.component';
-import { BeliefChangeTechniquesComponent } from './forms/belief-change/belief-change-techniques/belief-change-techniques.component';
-import { BeliefChangeService } from '@/main/resources/forms/belief-change/belief-change.service';
-import { ActAsIfComponent } from './forms/belief-change/belief-change-techniques/act-as-if/act-as-if.component';
-import { ActAsIfService } from '@/main/resources/forms/belief-change/belief-change-techniques/act-as-if/act-as-if.service';
-import { FormMessageComponent } from './forms/shared/form-message/form-message.component';
-import { FormQuoteComponent } from './forms/shared/form-quote/form-quote.component';
 
 import { FormFinalRatingComponent } from './forms/shared/form-final-rating/form-final-rating.component';
 import {

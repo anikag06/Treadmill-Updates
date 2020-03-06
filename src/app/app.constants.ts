@@ -227,7 +227,6 @@ export const USER_SIQ_DATA = '/api/v1/questionnaire/siq-user-response/';
 
 // FORMS
 export const RECOMMENDED = 'recommended';
-export const WORRY_PRODUCTIVELY = 'worry-productivelty';
 export const WORRY_PROBLEM = 'worry';
 export const SUMMARY = 'Summary';
 export const WPF_WORRY_URL = '/api/v1/worksheets/worry-productively/worry/';
@@ -254,6 +253,7 @@ export const WORRY_FINAL_SLIDER =
 export const FACE_WORST_FEAR =
   '/api/v1/worksheets/worry-productively/face-worst-fear/';
 export const GET_TASKS = '/api/v1/tasks/task/';
+export const THINKING_IMG = 'assets/forms/thinking.png'
 export const WELL_DONE_IMG = 'assets/forms/well_done.png';
 
 // Problem solving form
@@ -312,6 +312,7 @@ export const ALTERNATE_EXPLANATION_API =
   '/api/v1/worksheets/thought-record/alternative-explanation/';
 export const SHOW_FULL_FORM_API =
   '/api/v1/worksheets/thought-record/show-full-form/';
+export const THOUGHT_RECROD_FORM_NAME = 'Thought Record Form';
 
 // Belief Change Form
 export const BELIEF_CHANGE = 'belief-change';

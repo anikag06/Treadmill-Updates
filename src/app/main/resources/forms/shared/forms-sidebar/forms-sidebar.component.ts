@@ -20,7 +20,6 @@ import {
   SET_ACTIVITY,
   THOUGHT_RECORD,
   WORRY_PRODUCTIVELY,
-  BELIEF_CHANGE,
   TASK,
   TEST_BELIEF,
 } from '@/app.constants';
@@ -115,14 +114,6 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
     ] = this.problemService.problemsBehaviour.subscribe(
       (problems: Problem[]) => {
         this.objects = problems;
-        // @ts-ignore
-        // this.objects.find(o => {
-        //   if (o.show_follow_up_dot === true) {
-        //     this.show_dot = true;
-        //     this.showDot.emit(true);
-        //     return true; // stop searching
-        //   }
-        // });
         this.show_dot = this.objects.some(
           obj => obj.show_follow_up_dot === true,
         );
@@ -165,6 +156,10 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
     ] = this.ettbfBeliefService.beliefbehaviours.subscribe(
       (beliefs: Belief[]) => {
         this.objects = beliefs;
+        this.show_dot = this.objects.some(
+            obj => obj.show_follow_up_dot === true,
+        );
+        this.showDot.emit(this.show_dot);
         this.selectObject();
       },
       (error: HttpErrorResponse) => {
@@ -223,7 +218,7 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
       autoFocus: false,
       data: {
         confirm: 'Delete this Form?',
-        warning: ' All data of this form will be deleted',
+        warning: ' All data of this form will be deleted.',
       },
     });
     dialogRef.afterClosed().subscribe((result: any) => {
@@ -237,7 +232,7 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
         } else if (this.type === WORRY_PRODUCTIVELY) {
           this.deleteWorryForm(object);
         } else if (this.type === PSF_PROBLEM_SOLVING) {
-          this.deleteDeleteProblem(object);
+          this.deleteProblem(object);
         }
       }
     });
@@ -298,7 +293,7 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
     });
   }
 
-  deleteDeleteProblem(problem: any) {
+  deleteProblem(problem: any) {
     this.problemService.deleteProblem(problem.id).subscribe(resp => {
       if (resp.ok) {
         this.onAddNewForm();

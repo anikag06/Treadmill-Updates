@@ -213,7 +213,7 @@ export class ExperimentToTestBeliefFormComponent implements OnInit {
   }
   finalSliderEmit(data: any) {
     this.finalRating = data;
-    this.showMessage = false;
+    this.showMessage = true;
     if (data && this.outcome) {
       this.formComplete = true;
       this.onShowMessage();

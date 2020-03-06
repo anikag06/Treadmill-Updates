@@ -92,17 +92,18 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    // this.subscriptions[
-    //   this.subscriptions.length
-    // ] = this.worryService.worryBehaviour.subscribe((worry: any) => {
-    //   if (Object.entries(worry).length > 0) {
-    //     this.worrySelected(worry);
-    //   }
-    // }, this.errorService.errorResponse('Something went wrong'));
-    // const user = this.authService.isLoggedIn();
-    // if (user && user.is_active) {
-    //   this.user = <User>user;
-    // }
+    this.subscriptions[
+      this.subscriptions.length
+    ] = this.worryService.worryBehaviour.subscribe((worry: any) => {
+      if (Object.entries(worry).length > 0) {
+        this.worrySelected(worry);
+      }
+    }, this.errorService.errorResponse('Something went wrong'));
+    const user = this.authService.isLoggedIn();
+    if (user && user.is_active) {
+      this.user = <User>user;
+
+    }
 
     this.worryService.getUselessCharacteristics().subscribe((data: any) => {
       data.map((uselessChar: any) => {
