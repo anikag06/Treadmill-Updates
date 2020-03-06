@@ -321,4 +321,6 @@ export const COMMON_EDITOR_CONFIG = {
   fonts: [],
   uploadUrl: '',
 };
-export const VIDEO_LIST = '/api/v1/resources/videos-list/';
+export const VIDEO_LIST = '/api/v1/resources/videos/';
+export const READING_LIST = '/api/v1/resources/reading-materials/';
+export const EACH_VIDEO = '/api/v1/resources/videos/';

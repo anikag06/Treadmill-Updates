@@ -3,18 +3,19 @@ import {VideoItem} from '@/main/resources2/shared/video.model';
 import {HttpClient} from '@angular/common/http';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Resources2Service} from '@/main/resources2/resources2.service';
+import {LoadFilesService} from '@/main/games/shared/load-files.service';
 
 @Component({
   selector: 'app-videos',
   templateUrl: './videos.component.html',
   styleUrls: ['./videos.component.scss'],
-  providers: [Resources2Service]
 })
 export class VideosComponent implements OnInit {
   @Input() videoItem!: VideoItem;
   videoLink: string | undefined;
   videoFooter: string | undefined;
   //@Output() event1 = new EventEmitter();
+  showState = false;
 
   notOn = true;
 //  @Output() onVideoEvent=  new EventEmitter();
@@ -22,10 +23,11 @@ export class VideosComponent implements OnInit {
     private http: HttpClient,
     private router: Router,
     private route: ActivatedRoute,
-    private resources2Service: Resources2Service
+    private resources2Service: Resources2Service,
   ) { }
 
   ngOnInit() {
+
 
     // this.http.get<VideoItem>('').subscribe((data) => {
     //   this.getVideo(data);
@@ -61,6 +63,9 @@ export class VideosComponent implements OnInit {
   //redirect(){
    // this.resources2Service.videoGo();
   //}
+  expandLine(){
+    this.showState = true;
+  }
 
 
 }

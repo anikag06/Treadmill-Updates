@@ -10,23 +10,57 @@
 
     </div>
   </div>
-  <div class="row">
-    <div class="col" *ngFor = "let videoItem of videoItems" >
+  <div class = "videos-section">
+  <div [ngClass] = "showVideoState==true? 'show-all-cards': 'videos-card-hidden'">
+  <div class="row no-gutters ">
+
+
+    <div class="each-item" *ngFor = "let videoItem of videoItems" >
+
 
       <app-videos [videoItem]="videoItem" (click) = "videoClick(videoItem)" ></app-videos>
 
+    </div>
 
+  </div>
+  </div>
+  </div>
+  <div *ngIf = "countVideoItem > 2">
+  <div class = "row">
+    <div class = "col">
+      <div class = "d-flex justify-content-end ">
+      <a  (click) = "changeVideoState()"  class = "see-all " *ngIf = "showVideoState == false; else videoSeeLess"><i class = "arrow down" ></i>&nbsp; See all </a>
+      </div>
     </div>
   </div>
+  </div>
+
+
+  <div [ngClass] = "showReadingMaterialState==true? 'show-all-cards': 'reading-card-hidden'">
   <div class="row">
-    <div class="col">
+    <div class="col reading-heading-col">
       <p class="heading">Reading Material</p>
     </div>
   </div>
-  <div class="row">
-    <div class="col" *ngFor = "let readingItem of readingItem">
-      <app-reading-material [readingItem]="readingItem"></app-reading-material>
+  <div class="row no-gutters">
+    <div class="each-item" *ngFor = "let readingItem of readingItems" >
+
+      <app-reading-material [readingItem]="readingItem" (click) = "readingItemClick(readingItem)"></app-reading-material>
+
+
     </div>
+  </div>
+
+  </div>
+  <div *ngIf = "countReadingItem > 2">
+  <div class = "row">
+    <div class = "col">
+     <div class = "d-flex justify-content-end mr-1">
+       <a  (click) = "changeReadingMaterialState()" class = "see-all mr-lg-3" *ngIf = "showReadingMaterialState == false; else readingMaterialSeeLess"><i class = "arrow down" ></i>&nbsp;See all</a>
+     </div>
+
+    </div>
+  </div>
   </div>
 
 </div>
@@ -36,5 +70,11 @@
 
 </div>
 <!--</ng-template>-->
+<ng-template #videoSeeLess>
+  <a (click)="changeVideoState()" class = "see-all"><i class = "arrow up" ></i>&nbsp;See less</a>
+</ng-template>
 
+<ng-template #readingMaterialSeeLess>
+  <a (click) = "changeReadingMaterialState()" class = "see-all"><i class = "arrow up" ></i>&nbsp;See less</a>
+</ng-template>
 

@@ -1,4 +1,4 @@
-.fix-content-header-title {
+.fix-reading-header-title {
   //margin-top: 2px; //this value is for desktop, phone value will be different and needs to be changed
   margin-top: 13px;
   margin-bottom: 2px;
@@ -7,12 +7,12 @@
   font-size: 24px;
 }
 
-.fix-content-body {
+.fix-reading-body {
   margin-top: 45px;
   // overflow-y: scroll;
 }
 
-.fix-content-box {
+.fix-reading-box {
   // margin-left: 4%;
 
   margin-top: 0;
@@ -24,43 +24,26 @@
   // margin: 0 auto;
 }
 
-.butn-position {
-  justify-content: end;
-  margin-right: 17px;
-  //paddipx;
-}
-
-#no-use-div {
- // padding-top: 11px;
-  background-color: black;
-}
-
-.dashboard-btn {
-  margin-left: 2px;
-}
-
 @media only screen and (min-width: 768px) {
-  .fix-content-header {
+  .fix-reading-header {
     height: 48px;
     min-height: 42px;
     background-color: black;
 
   }
 
-  .fix-content-header-title {
+  .fix-reading-header-title {
     //margin-top: 2px;
     margin-top: 11px;
     margin-bottom: 18px;
     font-size: 24px;
   } //changing title font size for mobile
 
-  .fix-content-box{
-    margin-left: 7.5%;
+  .fix-reading-box{
+    //margin-left: 7.5%;
   }
 
-  #no-use-div{
-    padding-top: 0px;
-  }
+
 }
 
 

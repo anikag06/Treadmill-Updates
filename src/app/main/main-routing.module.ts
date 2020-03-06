@@ -72,13 +72,15 @@ export const mainRoutes: Routes = [
       },
       {
         path: 'resources2',
-        component: Resources2Component,
-        children: [
-          { path: 'videos', component: VideosComponent },
-          // {path: 'readingItem', component: ReadingMaterialComponent}
-          { path: 'videoItem/:id', component: VideoItemComponent },
-           {path: 'ReadingItem', component: ReadingItemComponent}
-        ],
+        // component: Resources2Component,
+        // children: [
+        //   { path: 'videos', component: VideosComponent },
+        //   // {path: 'readingItem', component: ReadingMaterialComponent}
+        //   { path: 'videoItem/:id', component: VideoItemComponent },
+        //   {path: 'readingItem/:id', component: ReadingItemComponent}
+        // ],
+        loadChildren: () => import('./resources2/resources2.module').then(m =>
+        m.Resources2Module)
       },
     ],
   },
@@ -86,6 +88,8 @@ export const mainRoutes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(mainRoutes)],
+  //imports: [RouterModule.forRoot(mainRoutes, {onSameUrlNavigation: 'reload'})],
   exports: [RouterModule],
 })
 export class MainRoutingModule {}
+

@@ -41,7 +41,8 @@
               "node_modules/normalize.css/normalize.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               { "input": "src/games-styles.scss","lazy":true, "bundleName": "games-styles" },
-              { "input": "src/control-content-styles.scss", "lazy": true, "bundleName":  "control-content-styles"}
+              { "input": "src/control-content-styles.scss", "lazy": true, "bundleName":  "control-content-styles"},
+              { "input":  "src/resources2-styles.scss", "lazy": true, "bundleName":  "resources2-styles"}
 
             ],
             "stylePreprocessorOptions": {

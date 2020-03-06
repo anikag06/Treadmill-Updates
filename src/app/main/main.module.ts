@@ -181,6 +181,9 @@ import { ReadingMaterialComponent } from './resources2/reading-material/reading-
 import { ReadingItemComponent } from './resources2/reading-material/reading-item/reading-item.component';
 import { VideoItemComponent } from './resources2/videos/video-item/video-item.component';
 import {Resources2Service} from '@/main/resources2/resources2.service';
+import { SafeUrlPipe } from './resources2/safe-url.pipe';
+// import { Resources2Routing } from './resources2/resources2-routing.module.ts/resources2-routing.module.ts.component';
+
 
 
 
@@ -289,12 +292,12 @@ import {Resources2Service} from '@/main/resources2/resources2.service';
     SuggestedPostItemComponent,
     LazyLoadingImageDirective,
     InfiniteScrollDirective,
-    Resources2Component,
-    VideosComponent,
-    ReadingMaterialComponent,
-    ReadingItemComponent,
-    VideoItemComponent,
-
+   // Resources2Component,
+   //  VideosComponent,
+   //  ReadingMaterialComponent,
+   //  ReadingItemComponent,
+   //  VideoItemComponent,
+   //  SafeUrlPipe,
 
   ],
   imports: [

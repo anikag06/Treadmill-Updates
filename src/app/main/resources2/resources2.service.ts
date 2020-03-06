@@ -1,12 +1,19 @@
-import {EventEmitter, Injectable, Output} from '@angular/core';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import { EventEmitter, Injectable, Output } from '@angular/core';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { VideoItem } from '@/main/resources2/shared/video.model';
 import { environment } from '../../../environments/environment';
-import { VIDEO_LIST } from '@/app.constants';
+import {READING_LIST, VIDEO, VIDEO_LIST} from '@/app.constants';
 import { switchMap } from 'rxjs/operators';
-import {AsyncSubject, BehaviorSubject, forkJoin, Observable, Subject} from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
-import {VideosComponent} from '@/main/resources2/videos/videos.component';
+import {
+  AsyncSubject,
+  BehaviorSubject,
+  forkJoin,
+  Observable,
+  Subject,
+} from 'rxjs';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { VideosComponent } from '@/main/resources2/videos/videos.component';
+import {ReadingItem} from '@/main/resources2/shared/reading.model';
 
 @Injectable({
   providedIn: 'root',
@@ -14,12 +21,16 @@ import {VideosComponent} from '@/main/resources2/videos/videos.component';
 export class Resources2Service {
   videoClicked = false;
   videoInResource!: VideoItem;
-    //= new VideoItem(1, 'hi', 'hi');
+  readingItemInResource!: ReadingItem;
+  //= new VideoItem(1, 'hi', 'hi');
   notOn = true;
- // @Output() event1 = new EventEmitter(); : BehaviorSubject<VideoItem>
-  event1: BehaviorSubject<any> = new BehaviorSubject<any>(this.videoInResource);
-  //event1: Subject<any> = new Subject<any>();
-  //event1: AsyncSubject<any> = new AsyncSubject<any>();
+  // @Output() event1 = new EventEmitter(); : BehaviorSubject<VideoItem>
+  videoClickBehavior: BehaviorSubject<VideoItem> = new BehaviorSubject<VideoItem>(this.videoInResource);
+  videoClickedEvent = this.videoClickBehavior.asObservable();
+
+  readingItemClickBehavior: BehaviorSubject<ReadingItem> = new BehaviorSubject<ReadingItem>(this.readingItemInResource);
+  readingItemClickedEvent = this.readingItemClickBehavior.asObservable();
+
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -29,14 +40,27 @@ export class Resources2Service {
     return this.http.get<VideoItem[]>(environment.API_ENDPOINT + VIDEO_LIST);
   }
 
-  getEvent1(): Observable<VideoItem> {
-    return this.event1.asObservable();
+  getReadingItem(){
+    return this.http.get<ReadingItem[]>(environment.API_ENDPOINT + READING_LIST);
   }
 
-  callBehavior(x:VideoItem){
-    this.event1.next(x);
+  getAVideo(videoId: number){
+    return this.http.get<VideoItem>(environment.API_ENDPOINT + VIDEO_LIST + videoId + '/');
+  }
+
+  getAReadingItem(readingItemId: number){
+    return this.http.get<ReadingItem>(environment.API_ENDPOINT + READING_LIST + readingItemId + '/');
   }
 
 
+  // getParticularVideo(videoId: Params){
+  //   return this.http.get<VideoItem>(environment.API_ENDPOINT  + VIDEO_LIST + videoId + '/')
+  // }
 
+  // getEvent1(): Observable<VideoItem> {
+  //   return this.videoClickBehavior.asObservable();
+  // }
+  // callBehavior(x: VideoItem) {
+  //   this.videoClickBehavior.next(x);
+  // }
 }
