@@ -44,8 +44,6 @@ export class EttbfOutcomeComponent implements OnInit {
   outcomeStatement = '';
   learningStatement = '';
   realisticBeliefStatement = '';
-  @ViewChild(FormSliderComponent, { static: false })
-  finalSlider!: FormSliderComponent;
   ratingQuestion = ETTBF_RATING_QUESTION;
   minRatingText = ETTBF_MIN_RATING_TEXT;
   maxRatingText = ETTBF_MAX_RATING_TEXT;
@@ -64,6 +62,7 @@ export class EttbfOutcomeComponent implements OnInit {
   showExpectedBtn!: boolean;
   value = 1;
   showOutcome!: boolean;
+  finalRating!: number;
 
   expectedOutComeForm = this.formBuilder.group({
     expected_outcome: new FormControl('', [Validators.required]),
@@ -95,8 +94,7 @@ export class EttbfOutcomeComponent implements OnInit {
       this.ettbfBeliefService
         .getExpectedOutcome(this.belief)
         .subscribe((resp: any) => {
-          if (resp.ok &&
-              resp.body.expected_outcome) {
+          if (resp.ok && resp.body.expected_outcome) {
             this.expectedOutComeForm.controls['expected_outcome'].setValue(
               resp.body.expected_outcome,
             );
@@ -156,6 +154,7 @@ export class EttbfOutcomeComponent implements OnInit {
     this.showSlider = false;
     this.bothRatingsExist = false;
     this.showOutcome = false;
+    delete this.finalRating;
     this.expectedOutComeForm.reset();
   }
   onOutcomeSubmit() {
@@ -163,7 +162,8 @@ export class EttbfOutcomeComponent implements OnInit {
       this.outcome.belief_id = this.outcome_belief_id;
       this.outcome.outcome = this.outcomeStatement;
       this.outcome.learning = this.learningStatement;
-      this.outcome.belief_rating_after = this.finalSlider.rating;
+      this.outcome.belief_rating_after =
+        this.finalRating > 0 ? this.finalRating : null;
       this.outcome.realistic_belief = this.realisticBeliefStatement;
       this.ettbfBeliefService
         .putOutcome({
@@ -215,7 +215,7 @@ export class EttbfOutcomeComponent implements OnInit {
 
   onBeliefRatingAfterSubmit() {
     if (this.outcome) {
-      this.outcome.belief_rating_after = this.finalSlider.rating;
+      this.outcome.belief_rating_after = this.finalRating;
       this.bothRatingsExist = true;
       this.compareRating();
       this.onOutcomeSubmit();
@@ -225,9 +225,7 @@ export class EttbfOutcomeComponent implements OnInit {
     }
     this.showSliderContinue = false;
   }
-  showSliderCont() {
-    this.showSliderContinue = true;
-  }
+
   onRealisticBeliefSubmit() {
     this.onOutcomeSubmit();
     this.finalSliderRating.emit(this.outcome.belief_rating_after);
@@ -288,11 +286,18 @@ export class EttbfOutcomeComponent implements OnInit {
       .subscribe((resp: any) => {
         if (resp.ok) {
           this.showExpectedBtn = false;
+          this.showOutcome = true;
         }
       });
   }
 
   onShowExpectedBtn() {
     this.showExpectedBtn = true;
+  }
+
+  getRating(value: any) {
+    this.finalRating = value;
+    this.showSliderContinue = true;
+    // this.showContinue = true;
   }
 }

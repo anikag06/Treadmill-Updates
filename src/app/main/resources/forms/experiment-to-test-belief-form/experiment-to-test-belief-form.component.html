@@ -6,10 +6,12 @@
       </mat-card-title>
 
       <div class="class h-100 d-inline-block ml-auto">
+        <div *ngIf="showFollowUp && !t.menuOpen" class="red-circle"></div>
         <button
           class="h-100 saved-forms-btn"
           mat-button
           [matMenuTriggerFor]="experimentToTestBeliefForms"
+          #t="matMenuTrigger"
         >
           <mat-icon>
             more_horiz
@@ -28,6 +30,7 @@
             [type]="type"
             (objectEmitter)="beliefSelected($event)"
             (newForm)="onAddNewForm()"
+            (showDot)="onShowFollowUp($event)"
             [object]="belief"
           >
           </app-forms-sidebar>

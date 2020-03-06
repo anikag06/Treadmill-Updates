@@ -32,11 +32,11 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     console.log('can activate', this.auth.isLoggedIn(), this.eligible);
     this.eligible = !this.auth.isUserExcluded;
     if (!this.auth.isLoggedIn() && !this.eligible) {
-      console.log('navigate to:', INELIGIBLE_FOR_TRIAL);
+      // console.log('navigate to:', INELIGIBLE_FOR_TRIAL);
       this.router.navigate([INELIGIBLE_FOR_TRIAL]);
       return false;
     } else if (!this.auth.isLoggedIn() && this.eligible) {
-      console.log('navigate to:', DEFAULT_PATH);
+      // console.log('navigate to:', DEFAULT_PATH);
       this.router.navigate([DEFAULT_PATH]);
       return false;
     }
@@ -51,7 +51,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    console.log('can activate child', this.auth.isLoggedIn(), this.eligible);
+    // console.log('can activate child', this.auth.isLoggedIn(), this.eligible);
     this.eligible = !this.auth.isUserExcluded;
     if (!this.auth.isLoggedIn() && !this.eligible) {
       console.log('navigate to:', INELIGIBLE_FOR_TRIAL);

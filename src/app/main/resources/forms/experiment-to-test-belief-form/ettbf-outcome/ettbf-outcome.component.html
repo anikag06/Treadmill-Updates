@@ -42,13 +42,17 @@
 </div>
 
 <div *ngIf="showOutcome">
-  <div class="card-header">
+  <div class="card-header d-flex">
     What was the outcome of your experiment?
     <div
       class="circle"
       *ngIf="emergencyPlan === false && !disableEmergency"
     ></div>
-    <div class="float-right d-inline-block" (click)="editOutcomeText()">
+    <div
+      class="float-right d-inline-block position-absolute"
+      (click)="editOutcomeText()"
+      [ngStyle]="{ right: '20px' }"
+    >
       <mat-icon class="edit_icon"> edit </mat-icon>
     </div>
   </div>
@@ -67,7 +71,6 @@
             #outcomeTextArea
             cdkTextareaAutosize
             cdkAutosizeMinRows="1"
-            cdkAutosizeMaxRows="5"
             id="outcomeStatement"
             placeholder="I was able to clean the kitchen and dust the bookshelves."
             matInput
@@ -105,7 +108,6 @@
             #learningTextArea
             cdkTextareaAutosize
             cdkAutosizeMinRows="1"
-            cdkAutosizeMaxRows="5"
             id="learningStatement"
             placeholder="I can clean up my apartment, at least partially, if I want to."
             matInput
@@ -133,7 +135,7 @@
       <div class="card-header" *ngIf="showSlider">
         On a scale of 1-10 how strongly do you believe your belief to be true?
       </div>
-      <div class="card-body" *ngIf="showSlider" (click)="showSliderCont()">
+      <div class="card-body" *ngIf="showSlider" >
         <div class="beliefBox" *ngIf="belief">
           <div class="beliefText my-1 px-2" [ngStyle]="{ fontSize: '12px' }">
             Original belief
@@ -147,10 +149,10 @@
           [question]="ratingQuestion"
           [minRatingText]="minRatingText"
           [maxRatingText]="maxRatingText"
+          (getRating)="getRating($event)"
           [rating]="value"
         ></app-form-slider>
         <div
-          class=""
           *ngIf="showSliderContinue"
           (click)="onBeliefRatingAfterSubmit()"
         >
@@ -201,20 +203,7 @@
           </button>
           <br /><br />
         </div>
-        <!-- <p *ngIf="outcome.realistic_belief">
-        Excellent! If you identify yourself thinking in terms of this negative
-        belief again, hremind yourself: {{ realisticBeliefStatement }}
-      </p> -->
       </div>
-      <!-- <div *ngIf="!beliefDecreased">
-      <p>
-        Hmmm... I can understand. It is hard to change our beliefs and it takes
-        time. Don't give up, try again after a few days. Meanwhile: - try to see
-        if you can find any evidences against this belief - it might help to look
-        at this belief from other points of view. Use the
-        https://trello.com/c/mYuLsdso to do that.
-      </p>
-    </div> -->
     </div>
   </div>
 </div>

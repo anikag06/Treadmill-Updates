@@ -63,6 +63,7 @@ export class ExperimentToTestBeliefFormComponent implements OnInit {
   taskEmitted = false;
   notification = false;
   taskHeading = 'How can you test if this belief is true?';
+  showFollowUp = false;
   @ViewChild(EttbfBeliefComponent, { static: false })
   beliefStatementForm!: EttbfBeliefComponent;
   @ViewChild(EttbfOutcomeComponent, { static: false })
@@ -105,6 +106,7 @@ export class ExperimentToTestBeliefFormComponent implements OnInit {
   onAddNewForm() {
     delete this.belief;
     delete this.outcome;
+    delete this.task;
     this.taskContinue = false;
     this.taskEmitted = false;
     this.formComplete = false;
@@ -247,5 +249,9 @@ export class ExperimentToTestBeliefFormComponent implements OnInit {
         );
       }
     }
+  }
+
+  onShowFollowUp(value: boolean) {
+    this.showFollowUp = value;
   }
 }
