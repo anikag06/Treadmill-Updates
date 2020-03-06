@@ -1,6 +1,14 @@
-import {Component, EventEmitter, Inject, Input, OnInit, Output, SimpleChanges,} from '@angular/core';
-import {FormBuilder, FormControl, Validators} from '@angular/forms';
-import {IFinalRatingServices} from '@/main/resources/forms/shared/form-final-rating/IFinalRatingServices';
+import {
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { IFinalRatingServices } from '@/main/resources/forms/shared/form-final-rating/IFinalRatingServices';
 
 @Component({
   selector: 'app-form-final-rating',

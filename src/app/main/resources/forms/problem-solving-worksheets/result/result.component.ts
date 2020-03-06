@@ -1,11 +1,17 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges,} from '@angular/core';
-import {ProblemSolvingWorksheetsService} from '../problem-solving-worksheets.service';
-import {Result} from './result.model';
-import {HttpErrorResponse} from '@angular/common/http';
-import {UserTask} from '@/main/resources/forms/shared/tasks/user-task.model';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
+import { ProblemSolvingWorksheetsService } from '../problem-solving-worksheets.service';
+import { Result } from './result.model';
+import { HttpErrorResponse } from '@angular/common/http';
+import { UserTask } from '@/main/resources/forms/shared/tasks/user-task.model';
 import * as moment from 'moment';
-import {PROBLEM_SOLVING_QUOTES} from '@/main/resources/forms/problem-solving-worksheets/problem-solving-message';
-import {FormService} from '@/main/resources/forms/form.service';
+import { PROBLEM_SOLVING_QUOTES } from '@/main/resources/forms/problem-solving-worksheets/problem-solving-message';
+import { FormService } from '@/main/resources/forms/form.service';
 
 @Component({
   selector: 'app-result',

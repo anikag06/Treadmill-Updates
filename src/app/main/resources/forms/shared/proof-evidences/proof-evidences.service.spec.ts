@@ -1,6 +1,6 @@
-import {TestBed} from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
-import {ProofEvidencesService} from './proof-evidences.service';
+import { ProofEvidencesService } from './proof-evidences.service';
 
 describe('ProofEvidencesService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

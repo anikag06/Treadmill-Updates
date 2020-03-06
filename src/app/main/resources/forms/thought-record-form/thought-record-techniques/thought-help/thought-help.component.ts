@@ -1,8 +1,16 @@
-import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild,} from '@angular/core';
-import {FormBuilder, FormControl, Validators} from '@angular/forms';
-import {ThoughtHelpService} from '@/main/resources/forms/thought-record-form/thought-record-techniques/thought-help/thought-help.service';
-import {Thought} from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
-import {SUMMARY} from '@/app.constants';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { ThoughtHelpService } from '@/main/resources/forms/thought-record-form/thought-record-techniques/thought-help/thought-help.service';
+import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
+import { SUMMARY } from '@/app.constants';
 
 @Component({
   selector: 'app-thought-help',

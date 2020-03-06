@@ -1,12 +1,17 @@
-import {Component, OnInit} from '@angular/core';
-import {BELIEF_CHANGE, BELIEF_CHANGE_FORM_NAME, THINKING_IMG, WELL_DONE_IMG,} from '@/app.constants';
-import {FormMessage} from '@/main/resources/forms/shared/form-message/form-message.model';
-import {Belief} from '@/main/resources/forms/belief-change/belief.model';
-import {FormService} from '@/main/resources/forms/form.service';
+import { Component, OnInit } from '@angular/core';
 import {
-    BELEIF_CHANGE_QUOTES,
-    BELIEF_CHANGE_NEGATIVE_MSG,
-    BELIEF_CHANGE_POSITIVE_MSG,
+  BELIEF_CHANGE,
+  BELIEF_CHANGE_FORM_NAME,
+  THINKING_IMG,
+  WELL_DONE_IMG,
+} from '@/app.constants';
+import { FormMessage } from '@/main/resources/forms/shared/form-message/form-message.model';
+import { Belief } from '@/main/resources/forms/belief-change/belief.model';
+import { FormService } from '@/main/resources/forms/form.service';
+import {
+  BELEIF_CHANGE_QUOTES,
+  BELIEF_CHANGE_NEGATIVE_MSG,
+  BELIEF_CHANGE_POSITIVE_MSG,
 } from '@/main/resources/forms/belief-change/belief-change-message';
 
 @Component({

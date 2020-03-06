@@ -1,9 +1,14 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpResponse} from '@angular/common/http';
-import {environment} from '../../../../../environments/environment';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {Thought} from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
-import {THOUGHT_RECORD_API, THOUGHT_RECORD_BEHAVIOR_API, THOUGHT_RECORD_FEELING_API, THOUGHT_RECORD_SITUATION_API,} from '@/app.constants';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { environment } from '../../../../../environments/environment';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
+import {
+  THOUGHT_RECORD_API,
+  THOUGHT_RECORD_BEHAVIOR_API,
+  THOUGHT_RECORD_FEELING_API,
+  THOUGHT_RECORD_SITUATION_API,
+} from '@/app.constants';
 
 @Injectable({
   providedIn: 'root',

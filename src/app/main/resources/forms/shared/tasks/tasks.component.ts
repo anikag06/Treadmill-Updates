@@ -1,14 +1,24 @@
-import {TASK, WEEK} from '@/app.constants';
-import {ProblemSolvingWorksheetsService} from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.service';
-import {TasksService} from '@/main/resources/forms/shared/tasks/tasks.service';
-import {DateTimePickerComponent} from '@/main/shared/date-time-picker/date-time-picker.component';
-import {DateTimePickerService} from '@/main/shared/date-time-picker/date-time-picker.service';
-import {HttpErrorResponse} from '@angular/common/http';
-import {ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges,} from '@angular/core';
-import {FormArray, FormBuilder, Validators} from '@angular/forms';
-import {MatDialog} from '@angular/material';
-import {UserSubTask} from './user-sub-task.model';
-import {UserTask} from './user-task.model';
+import { TASK, WEEK } from '@/app.constants';
+import { ProblemSolvingWorksheetsService } from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.service';
+import { TasksService } from '@/main/resources/forms/shared/tasks/tasks.service';
+import { DateTimePickerComponent } from '@/main/shared/date-time-picker/date-time-picker.component';
+import { DateTimePickerService } from '@/main/shared/date-time-picker/date-time-picker.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import {
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
+import { FormArray, FormBuilder, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material';
+import { UserSubTask } from './user-sub-task.model';
+import { UserTask } from './user-task.model';
 
 @Component({
   selector: 'app-tasks',

@@ -1,8 +1,16 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild,} from '@angular/core';
-import {ProsCons} from '../../../pros-cons.model';
-import {ProblemSolvingWorksheetsService} from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.service';
-import {GeneralErrorService} from '@/main/shared/general-error.service';
-import {SanitizationService} from '@/main/shared/sanitization.service';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
+import { ProsCons } from '../../../pros-cons.model';
+import { ProblemSolvingWorksheetsService } from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.service';
+import { GeneralErrorService } from '@/main/shared/general-error.service';
+import { SanitizationService } from '@/main/shared/sanitization.service';
 
 @Component({
   selector: 'app-procon-item',

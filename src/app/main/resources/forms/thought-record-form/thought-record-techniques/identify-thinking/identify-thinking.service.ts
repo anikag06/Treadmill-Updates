@@ -1,7 +1,10 @@
-import {Injectable} from '@angular/core';
-import {environment} from '../../../../../../../environments/environment';
-import {HttpClient} from '@angular/common/http';
-import {IDENTIFY_THINKING_ERRORS_API, IDENTIFY_THINKING_ERRORS_GET_API,} from '@/app.constants';
+import { Injectable } from '@angular/core';
+import { environment } from '../../../../../../../environments/environment';
+import { HttpClient } from '@angular/common/http';
+import {
+  IDENTIFY_THINKING_ERRORS_API,
+  IDENTIFY_THINKING_ERRORS_GET_API,
+} from '@/app.constants';
 
 @Injectable({
   providedIn: 'root',

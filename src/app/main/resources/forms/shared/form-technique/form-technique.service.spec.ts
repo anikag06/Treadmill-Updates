@@ -1,6 +1,6 @@
-import {TestBed} from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
-import {FormTechniqueService} from './form-technique.service';
+import { FormTechniqueService } from './form-technique.service';
 
 describe('FormTechniqueService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

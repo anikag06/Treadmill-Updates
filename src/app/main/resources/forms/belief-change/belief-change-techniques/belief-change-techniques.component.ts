@@ -1,9 +1,18 @@
-import {Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, SimpleChanges,} from '@angular/core';
-import {TechniquesInfoComponent} from '@/main/resources/forms/shared/techniques-info/techniques-info.component';
-import {BELIEF_CHANGE_TECHNIQUES_DATA} from '@/main/resources/forms/shared/techniques-info/techniques.data';
-import {MatDialog} from '@angular/material';
-import {Belief} from '@/main/resources/forms/belief-change/belief.model';
-import {IFinalRatingServices} from '@/main/resources/forms/shared/form-final-rating/IFinalRatingServices';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Inject,
+  Input,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
+import { TechniquesInfoComponent } from '@/main/resources/forms/shared/techniques-info/techniques-info.component';
+import { BELIEF_CHANGE_TECHNIQUES_DATA } from '@/main/resources/forms/shared/techniques-info/techniques.data';
+import { MatDialog } from '@angular/material';
+import { Belief } from '@/main/resources/forms/belief-change/belief.model';
+import { IFinalRatingServices } from '@/main/resources/forms/shared/form-final-rating/IFinalRatingServices';
 
 @Component({
   selector: 'app-belief-change-techniques',

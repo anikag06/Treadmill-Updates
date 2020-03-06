@@ -1,13 +1,13 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpResponse} from '@angular/common/http';
-import {environment} from 'environments/environment';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {UserTask} from '@/main/resources/forms/shared/tasks/user-task.model';
-import {MatSnackBar} from '@angular/material';
-import {SUBTASK_PATH, TASK_API} from '@/app.constants';
-import {catchError} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { environment } from 'environments/environment';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { UserTask } from '@/main/resources/forms/shared/tasks/user-task.model';
+import { MatSnackBar } from '@angular/material';
+import { SUBTASK_PATH, TASK_API } from '@/app.constants';
+import { catchError } from 'rxjs/operators';
 
-import {GeneralErrorService} from '@/main/shared/general-error.service';
+import { GeneralErrorService } from '@/main/shared/general-error.service';
 
 @Injectable({
   providedIn: 'root',

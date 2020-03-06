@@ -2,7 +2,7 @@
  * importing all the material elements to be used in this project
  */
 
-import {NgModule} from '@angular/core';
+import { NgModule } from '@angular/core';
 
 import {
   MatButtonModule,
@@ -52,7 +52,7 @@ import {
     MatDatepickerModule,
     MatNativeDateModule,
     MatSlideToggleModule,
-    MatRadioModule
+    MatRadioModule,
   ],
   exports: [
     MatButtonModule,
@@ -76,7 +76,7 @@ import {
     MatDatepickerModule,
     MatNativeDateModule,
     MatSlideToggleModule,
-    MatRadioModule
+    MatRadioModule,
   ],
 })
 export class MaterialModule {}

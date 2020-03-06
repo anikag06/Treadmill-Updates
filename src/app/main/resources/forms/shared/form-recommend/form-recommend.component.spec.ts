@@ -1,6 +1,6 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FormRecommendComponent} from './form-recommend.component';
+import { FormRecommendComponent } from './form-recommend.component';
 
 describe('FormRecommendComponent', () => {
   let component: FormRecommendComponent;
@@ -8,9 +8,8 @@ describe('FormRecommendComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FormRecommendComponent ]
-    })
-    .compileComponents();
+      declarations: [FormRecommendComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

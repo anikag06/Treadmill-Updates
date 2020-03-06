@@ -17,7 +17,7 @@ export const THINIKING_ERROR_DATA = [
   {
     name: '"Should" statements',
     description:
-      'You know how you or others should behave, and when these criteria are not met, you can\'t stand it.',
+      "You know how you or others should behave, and when these criteria are not met, you can't stand it.",
   },
   {
     name: 'Ignoring the positive',
@@ -31,13 +31,13 @@ export const THINIKING_ERROR_DATA = [
   {
     name: 'All-or-none Thinking',
     description:
-    // tslint:disable-next-line:max-line-length
+      // tslint:disable-next-line:max-line-length
       'You think in extremes and avoid taking any middle ground.You divide everything in either perfect or absolute crap. There is nothing called “good enough” in your dictionary.',
   },
   {
     name: 'Jumping to conclusion',
     description:
-    // tslint:disable-next-line:max-line-length
+      // tslint:disable-next-line:max-line-length
       'When you jump to conclusion you either think that the worst possible outcome is going to occur or you try to read other people’s minds.',
   },
   {

@@ -1,9 +1,16 @@
-import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges,} from '@angular/core';
-import {MoodTrackerComponent} from '@/main/shared/mood-tracker/mood-tracker.component';
-import {MatDialog} from '@angular/material';
-import {UserFeeling} from '@/main/resources/forms/thought-record-form/mood-widget-card/userfeeling.model';
-import {ThoughtRecordService} from '@/main/resources/forms/thought-record-form/thought-record.service';
-import {Thought} from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
+import { MoodTrackerComponent } from '@/main/shared/mood-tracker/mood-tracker.component';
+import { MatDialog } from '@angular/material';
+import { UserFeeling } from '@/main/resources/forms/thought-record-form/mood-widget-card/userfeeling.model';
+import { ThoughtRecordService } from '@/main/resources/forms/thought-record-form/thought-record.service';
+import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
 
 @Component({
   selector: 'app-mood-widget-card',

@@ -1,8 +1,17 @@
-import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild,} from '@angular/core';
-import {FormBuilder, FormControl, Validators} from '@angular/forms';
-import {Thought} from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
-import {RecordOutcomeService} from '@/main/resources/forms/thought-record-form/thought-record-techniques/record-outcome/record-outcome.service';
-import {SUMMARY} from '@/app.constants';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
+import { RecordOutcomeService } from '@/main/resources/forms/thought-record-form/thought-record-techniques/record-outcome/record-outcome.service';
+import { SUMMARY } from '@/app.constants';
 
 @Component({
   selector: 'app-record-outcome',

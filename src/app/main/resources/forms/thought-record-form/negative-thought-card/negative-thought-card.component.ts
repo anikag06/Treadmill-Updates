@@ -1,7 +1,16 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild,} from '@angular/core';
-import {FormBuilder, FormControl, Validators} from '@angular/forms';
-import {Thought} from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
-import {ThoughtRecordService} from '@/main/resources/forms/thought-record-form/thought-record.service';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
+import { ThoughtRecordService } from '@/main/resources/forms/thought-record-form/thought-record.service';
 
 @Component({
   selector: 'app-negative-thought-card',

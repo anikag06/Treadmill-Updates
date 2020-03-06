@@ -1,8 +1,16 @@
-import {Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren,} from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  QueryList,
+  ViewChildren,
+} from '@angular/core';
 
-import {Solution} from '../solution.model';
-import {ProblemSolvingWorksheetsService} from '../problem-solving-worksheets.service';
-import {SanitizationService} from '@/main/shared/sanitization.service';
+import { Solution } from '../solution.model';
+import { ProblemSolvingWorksheetsService } from '../problem-solving-worksheets.service';
+import { SanitizationService } from '@/main/shared/sanitization.service';
 
 @Component({
   selector: 'app-solutions',

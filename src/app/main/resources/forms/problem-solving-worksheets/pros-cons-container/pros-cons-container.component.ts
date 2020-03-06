@@ -1,8 +1,8 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {ProsCons} from '../pros-cons.model';
-import {ProblemSolvingWorksheetsService} from '../problem-solving-worksheets.service';
-import {GeneralErrorService} from '@/main/shared/general-error.service';
-import {Problem} from '@/main/resources/forms/problem-solving-worksheets/problem.model';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ProsCons } from '../pros-cons.model';
+import { ProblemSolvingWorksheetsService } from '../problem-solving-worksheets.service';
+import { GeneralErrorService } from '@/main/shared/general-error.service';
+import { Problem } from '@/main/resources/forms/problem-solving-worksheets/problem.model';
 
 @Component({
   selector: 'app-pros-cons-container',

@@ -307,7 +307,8 @@ export const THOUGHT_TELL_FRIEND_API =
   '/api/v1/worksheets/thought-record/tell-a-friend/';
 export const ALTERNATE_EXPLANATION_API =
   '/api/v1/worksheets/thought-record/alternative-explanation/';
-export const SHOW_FULL_FORM_API = '/api/v1/worksheets/thought-record/show-full-form/';
+export const SHOW_FULL_FORM_API =
+  '/api/v1/worksheets/thought-record/show-full-form/';
 
 // Belief Change Form
 export const BELIEF_CHANGE = 'belief-change';

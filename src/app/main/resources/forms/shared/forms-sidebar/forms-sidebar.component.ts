@@ -1,21 +1,35 @@
-import {AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output,} from '@angular/core';
-import {HttpErrorResponse} from '@angular/common/http';
-import {Subscription} from 'rxjs';
-import {ActivatedRoute} from '@angular/router';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
-import {Problem} from '@/main/resources/forms/problem-solving-worksheets/problem.model';
-import {ProblemSolvingWorksheetsService} from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.service';
-import {BELIEF_CHANGE, PSF_PROBLEM_SOLVING, SET_ACTIVITY, THOUGHT_RECORD, WORRY_PRODUCTIVELY,} from '@/app.constants';
-import {TasksService} from '@/main/resources/forms/shared/tasks/tasks.service';
-import {UserTask} from '@/main/resources/forms/shared/tasks/user-task.model';
-import {ThoughtRecordService} from '@/main/resources/forms/thought-record-form/thought-record.service';
-import {Thought} from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
-import {WorryProductivelyService} from '../../worry-productively-form/worry-productively.service';
-import {Worry} from '../../worry-productively-form/worry.model';
-import {BeliefChangeService} from '@/main/resources/forms/belief-change/belief-change.service';
-import {Belief} from '@/main/resources/forms/belief-change/belief.model';
-import {DeleteDialogComponent} from '@/main/shared/delete-dialog/delete-dialog.component';
-import {MatDialog} from '@angular/material';
+import { Problem } from '@/main/resources/forms/problem-solving-worksheets/problem.model';
+import { ProblemSolvingWorksheetsService } from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.service';
+import {
+  BELIEF_CHANGE,
+  PSF_PROBLEM_SOLVING,
+  SET_ACTIVITY,
+  THOUGHT_RECORD,
+  WORRY_PRODUCTIVELY,
+} from '@/app.constants';
+import { TasksService } from '@/main/resources/forms/shared/tasks/tasks.service';
+import { UserTask } from '@/main/resources/forms/shared/tasks/user-task.model';
+import { ThoughtRecordService } from '@/main/resources/forms/thought-record-form/thought-record.service';
+import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
+import { WorryProductivelyService } from '../../worry-productively-form/worry-productively.service';
+import { Worry } from '../../worry-productively-form/worry.model';
+import { BeliefChangeService } from '@/main/resources/forms/belief-change/belief-change.service';
+import { Belief } from '@/main/resources/forms/belief-change/belief.model';
+import { DeleteDialogComponent } from '@/main/shared/delete-dialog/delete-dialog.component';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-forms-sidebar',

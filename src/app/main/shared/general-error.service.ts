@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {MatDialog} from '@angular/material';
-import {ErrorDialogComponent} from '@/shared/error-dialog/error-dialog.component';
-import {HttpErrorResponse} from '@angular/common/http';
-import {throwError} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { MatDialog } from '@angular/material';
+import { ErrorDialogComponent } from '@/shared/error-dialog/error-dialog.component';
+import { HttpErrorResponse } from '@angular/common/http';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',

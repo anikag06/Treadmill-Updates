@@ -1,6 +1,6 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {TrfBehaviorCardComponent} from './trf-behavior-card.component';
+import { TrfBehaviorCardComponent } from './trf-behavior-card.component';
 
 describe('TrfBehaviorCardComponent', () => {
   let component: TrfBehaviorCardComponent;
@@ -8,9 +8,8 @@ describe('TrfBehaviorCardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TrfBehaviorCardComponent ]
-    })
-    .compileComponents();
+      declarations: [TrfBehaviorCardComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

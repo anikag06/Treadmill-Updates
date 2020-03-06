@@ -1,9 +1,19 @@
-import {AfterViewInit, Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, SimpleChanges,} from '@angular/core';
-import {MatDialog} from '@angular/material';
-import {TRF_TECHNIQUES_DATA} from '../../shared/techniques-info/techniques.data';
-import {TechniquesInfoComponent} from '../../shared/techniques-info/techniques-info.component';
-import {Thought} from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
-import {IFinalRatingServices} from '@/main/resources/forms/shared/form-final-rating/IFinalRatingServices';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Inject,
+  Input,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
+import { MatDialog } from '@angular/material';
+import { TRF_TECHNIQUES_DATA } from '../../shared/techniques-info/techniques.data';
+import { TechniquesInfoComponent } from '../../shared/techniques-info/techniques-info.component';
+import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
+import { IFinalRatingServices } from '@/main/resources/forms/shared/form-final-rating/IFinalRatingServices';
 
 @Component({
   selector: 'app-thought-record-techniques',

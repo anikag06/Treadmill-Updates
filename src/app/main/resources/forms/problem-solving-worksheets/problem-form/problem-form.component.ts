@@ -1,6 +1,15 @@
-import {ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild,} from '@angular/core';
-import {Problem} from '../problem.model';
-import {ProblemSolvingWorksheetsService} from '../problem-solving-worksheets.service';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
+import { Problem } from '../problem.model';
+import { ProblemSolvingWorksheetsService } from '../problem-solving-worksheets.service';
 
 @Component({
   selector: 'app-problem-form',

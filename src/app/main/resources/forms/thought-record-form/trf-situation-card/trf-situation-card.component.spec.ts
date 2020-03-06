@@ -1,6 +1,6 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {TrfSituationCardComponent} from './trf-situation-card.component';
+import { TrfSituationCardComponent } from './trf-situation-card.component';
 
 describe('FormCardComponent', () => {
   let component: TrfSituationCardComponent;

@@ -1,4 +1,4 @@
-import {ScrollToTopDirective} from './scroll-to-top.directive';
+import { ScrollToTopDirective } from './scroll-to-top.directive';
 
 describe('ScrollToTopDirective', () => {
   it('should create an instance', () => {

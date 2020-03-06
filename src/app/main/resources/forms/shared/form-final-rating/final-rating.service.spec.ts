@@ -1,5 +1,8 @@
-import {TestBed} from '@angular/core/testing';
-import {NegativeBeliefFinalService, ThoughtRecordFinalService} from '@/main/resources/forms/shared/form-final-rating/final-rating.service';
+import { TestBed } from '@angular/core/testing';
+import {
+  NegativeBeliefFinalService,
+  ThoughtRecordFinalService,
+} from '@/main/resources/forms/shared/form-final-rating/final-rating.service';
 
 describe('FinalRatingServiceService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

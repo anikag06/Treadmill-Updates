@@ -1,11 +1,10 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FormService {
-
-  constructor() { }
+  constructor() {}
 
   getRandomInt(max: number) {
     return Math.floor(Math.random() * Math.floor(max));

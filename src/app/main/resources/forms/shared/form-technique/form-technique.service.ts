@@ -1,11 +1,15 @@
-import {Injectable} from '@angular/core';
-import {IFormTechniqueServices} from '@/main/resources/forms/shared/form-technique/IFormTechniqueServices';
-import {HttpClient} from '@angular/common/http';
-import {environment} from '../../../../../../environments/environment';
-import {catchError, map} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { IFormTechniqueServices } from '@/main/resources/forms/shared/form-technique/IFormTechniqueServices';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../../../environments/environment';
+import { catchError, map } from 'rxjs/operators';
 
-import {ALTERNATE_EXPLANATION_API, BELIEF_TELL_FRIEND_API, THOUGHT_TELL_FRIEND_API,} from '@/app.constants';
-import {GeneralErrorService} from '@/main/shared/general-error.service';
+import {
+  ALTERNATE_EXPLANATION_API,
+  BELIEF_TELL_FRIEND_API,
+  THOUGHT_TELL_FRIEND_API,
+} from '@/app.constants';
+import { GeneralErrorService } from '@/main/shared/general-error.service';
 
 @Injectable({
   providedIn: 'root',

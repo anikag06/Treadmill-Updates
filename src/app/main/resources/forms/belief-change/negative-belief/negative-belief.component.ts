@@ -1,9 +1,16 @@
-import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges,} from '@angular/core';
-import {FormBuilder, FormControl, Validators} from '@angular/forms';
-import {MatDialog} from '@angular/material';
-import {CommonBeliefComponent} from '@/main/resources/forms/belief-change/negative-belief/common-belief/common-belief.component';
-import {Belief} from '@/main/resources/forms/belief-change/belief.model';
-import {BeliefChangeService} from '@/main/resources/forms/belief-change/belief-change.service';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material';
+import { CommonBeliefComponent } from '@/main/resources/forms/belief-change/negative-belief/common-belief/common-belief.component';
+import { Belief } from '@/main/resources/forms/belief-change/belief.model';
+import { BeliefChangeService } from '@/main/resources/forms/belief-change/belief-change.service';
 
 @Component({
   selector: 'app-negative-belief',

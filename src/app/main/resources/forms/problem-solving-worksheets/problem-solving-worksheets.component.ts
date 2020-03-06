@@ -1,23 +1,34 @@
-import {Component, ElementRef, Input, OnDestroy, OnInit, ViewChild,} from '@angular/core';
-import {ProblemSolvingWorksheetsService} from './problem-solving-worksheets.service';
-import {Subscription} from 'rxjs';
-import {Problem} from './problem.model';
-import {Solution} from './solution.model';
-import {NgForm} from '@angular/forms';
-import {AuthService} from '@/shared/auth/auth.service';
-import {User} from '@/shared/user.model';
-import {GeneralErrorService} from '@/main/shared/general-error.service';
-import {PROBLEM_SOLVING_FORM_NAME, PSF_PROBLEM, PSF_PROBLEM_SOLVING,} from '@/app.constants';
-import {UserTask} from '@/main/resources/forms/shared/tasks/user-task.model';
-import {CdkTextareaAutosize} from '@angular/cdk/text-field';
-import {ProblemFormComponent} from './problem-form/problem-form.component';
-import {SolutionsComponent} from './solutions/solutions.component';
-import {FormService} from '@/main/resources/forms/form.service';
-import {PROBLEM_SOLVING_QUOTES} from '@/main/resources/forms/problem-solving-worksheets/problem-solving-message';
-import {TasksService} from '@/main/resources/forms/shared/tasks/tasks.service';
-import {TechniquesInfoComponent} from '@/main/resources/forms/shared/techniques-info/techniques-info.component';
-import {THINIKING_ERROR_DATA} from '@/main/resources/forms/shared/techniques-info/thinking-error-technique.data';
-import {MatDialog} from '@angular/material';
+import {
+  Component,
+  ElementRef,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import { ProblemSolvingWorksheetsService } from './problem-solving-worksheets.service';
+import { Subscription } from 'rxjs';
+import { Problem } from './problem.model';
+import { Solution } from './solution.model';
+import { NgForm } from '@angular/forms';
+import { AuthService } from '@/shared/auth/auth.service';
+import { User } from '@/shared/user.model';
+import { GeneralErrorService } from '@/main/shared/general-error.service';
+import {
+  PROBLEM_SOLVING_FORM_NAME,
+  PSF_PROBLEM,
+  PSF_PROBLEM_SOLVING,
+} from '@/app.constants';
+import { UserTask } from '@/main/resources/forms/shared/tasks/user-task.model';
+import { CdkTextareaAutosize } from '@angular/cdk/text-field';
+import { ProblemFormComponent } from './problem-form/problem-form.component';
+import { SolutionsComponent } from './solutions/solutions.component';
+import { FormService } from '@/main/resources/forms/form.service';
+import { PROBLEM_SOLVING_QUOTES } from '@/main/resources/forms/problem-solving-worksheets/problem-solving-message';
+import { TasksService } from '@/main/resources/forms/shared/tasks/tasks.service';
+import { TechniquesInfoComponent } from '@/main/resources/forms/shared/techniques-info/techniques-info.component';
+import { THINIKING_ERROR_DATA } from '@/main/resources/forms/shared/techniques-info/thinking-error-technique.data';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-problem-solving-worksheets',

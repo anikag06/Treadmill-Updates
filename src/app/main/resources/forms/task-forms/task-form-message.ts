@@ -9,7 +9,7 @@ export const TASK_QUOTES = [
     by: 'Aristotle',
   },
   {
-    quote: 'If you don\'t make things happen, things will happen to you.',
+    quote: "If you don't make things happen, things will happen to you.",
     by: 'Anonymous',
   },
 ];

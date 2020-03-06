@@ -1,6 +1,6 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {ProofEvidencesComponent} from './proof-evidences.component';
+import { ProofEvidencesComponent } from './proof-evidences.component';
 
 describe('ProofEvidencesComponent', () => {
   let component: ProofEvidencesComponent;
@@ -8,9 +8,8 @@ describe('ProofEvidencesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProofEvidencesComponent ]
-    })
-    .compileComponents();
+      declarations: [ProofEvidencesComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

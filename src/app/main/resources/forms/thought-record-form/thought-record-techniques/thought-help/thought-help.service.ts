@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
-import {environment} from '../../../../../../../environments/environment';
-import {HttpClient} from '@angular/common/http';
-import {THOUGHT_HELP_API} from '@/app.constants';
+import { Injectable } from '@angular/core';
+import { environment } from '../../../../../../../environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { THOUGHT_HELP_API } from '@/app.constants';
 
 @Injectable({
   providedIn: 'root',

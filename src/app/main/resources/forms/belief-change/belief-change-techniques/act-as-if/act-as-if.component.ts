@@ -1,8 +1,23 @@
-import {ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild,} from '@angular/core';
-import {Belief} from '@/main/resources/forms/belief-change/belief.model';
-import {FormArray, FormBuilder, FormControl, Validators,} from '@angular/forms';
-import {ActAsIfService} from '@/main/resources/forms/belief-change/belief-change-techniques/act-as-if/act-as-if.service';
-import {SUMMARY} from '@/app.constants';
+import {
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
+import { Belief } from '@/main/resources/forms/belief-change/belief.model';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  Validators,
+} from '@angular/forms';
+import { ActAsIfService } from '@/main/resources/forms/belief-change/belief-change-techniques/act-as-if/act-as-if.service';
+import { SUMMARY } from '@/app.constants';
 
 @Component({
   selector: 'app-act-as-if',

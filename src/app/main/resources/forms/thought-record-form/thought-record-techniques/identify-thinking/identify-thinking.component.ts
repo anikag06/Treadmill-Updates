@@ -1,12 +1,20 @@
-import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild,} from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 
-import {FormArray, FormBuilder, FormControl} from '@angular/forms';
-import {IdentifyThinkingService} from '@/main/resources/forms/thought-record-form/thought-record-techniques/identify-thinking/identify-thinking.service';
-import {Thought} from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
-import {ThinkingError} from '@/main/resources/forms/thought-record-form/thought-record-techniques/identify-thinking/thinking.error';
-import {TechniquesInfoComponent} from '@/main/resources/forms/shared/techniques-info/techniques-info.component';
-import {MatDialog} from '@angular/material';
-import {THINIKING_ERROR_DATA} from '@/main/resources/forms/shared/techniques-info/thinking-error-technique.data';
+import { FormArray, FormBuilder, FormControl } from '@angular/forms';
+import { IdentifyThinkingService } from '@/main/resources/forms/thought-record-form/thought-record-techniques/identify-thinking/identify-thinking.service';
+import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
+import { ThinkingError } from '@/main/resources/forms/thought-record-form/thought-record-techniques/identify-thinking/thinking.error';
+import { TechniquesInfoComponent } from '@/main/resources/forms/shared/techniques-info/techniques-info.component';
+import { MatDialog } from '@angular/material';
+import { THINIKING_ERROR_DATA } from '@/main/resources/forms/shared/techniques-info/thinking-error-technique.data';
 
 @Component({
   selector: 'app-identify-thinking',

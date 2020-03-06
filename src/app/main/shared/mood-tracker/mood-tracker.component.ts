@@ -1,9 +1,21 @@
-import {AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Inject, OnInit, Optional, Output, QueryList, ViewChildren,} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {Mood} from './mood.model';
-import {Feelings} from '@/main/shared/mood-tracker/feelings.model';
-import {MoodTrackerService} from '@/main/shared/mood-tracker/mood-tracker.service';
-import {UserFeeling} from '@/main/resources/forms/thought-record-form/mood-widget-card/userfeeling.model';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Inject,
+  OnInit,
+  Optional,
+  Output,
+  QueryList,
+  ViewChildren,
+} from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { Mood } from './mood.model';
+import { Feelings } from '@/main/shared/mood-tracker/feelings.model';
+import { MoodTrackerService } from '@/main/shared/mood-tracker/mood-tracker.service';
+import { UserFeeling } from '@/main/resources/forms/thought-record-form/mood-widget-card/userfeeling.model';
 
 @Component({
   selector: 'app-mood-tracker',

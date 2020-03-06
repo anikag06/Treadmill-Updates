@@ -1,9 +1,16 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild,} from '@angular/core';
-import {ProsCons} from '../../pros-cons.model';
-import {NgForm} from '@angular/forms';
-import {ProblemSolvingWorksheetsService} from '../../problem-solving-worksheets.service';
-import {Solution} from '../../solution.model';
-import {GeneralErrorService} from '@/main/shared/general-error.service';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
+import { ProsCons } from '../../pros-cons.model';
+import { NgForm } from '@angular/forms';
+import { ProblemSolvingWorksheetsService } from '../../problem-solving-worksheets.service';
+import { Solution } from '../../solution.model';
+import { GeneralErrorService } from '@/main/shared/general-error.service';
 
 @Component({
   selector: 'app-pros-cons',

@@ -1,7 +1,16 @@
-import {Component, EventEmitter, Inject, Input, OnInit, Output, SimpleChanges, ViewChild,} from '@angular/core';
-import {FormBuilder, FormControl, Validators} from '@angular/forms';
-import {IFormTechniqueServices} from '@/main/resources/forms/shared/form-technique/IFormTechniqueServices';
-import {SUMMARY} from '@/app.constants';
+import {
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  OnInit,
+  Output,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { IFormTechniqueServices } from '@/main/resources/forms/shared/form-technique/IFormTechniqueServices';
+import { SUMMARY } from '@/app.constants';
 
 @Component({
   selector: 'app-form-technique',

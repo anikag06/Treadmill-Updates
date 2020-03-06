@@ -6,7 +6,7 @@ export const BELEIF_CHANGE_QUOTES = [
   },
   {
     quote:
-      'If you don\'t change your beliefs, your life will be like this forever. Is that good news?',
+      "If you don't change your beliefs, your life will be like this forever. Is that good news?",
     by: ' W. Somerset Maugham',
   },
 ];
@@ -14,7 +14,7 @@ export const BELEIF_CHANGE_QUOTES = [
 export const BELIEF_CHANGE_NEGATIVE_MSG = [
   {
     message:
-      'Hmmm... I can understand. It is hard to change our beliefs and it takes time. Don\'t give up, try again after a few days. Meanwhile, try to see if you can find any evidences against this belief.',
+      "Hmmm... I can understand. It is hard to change our beliefs and it takes time. Don't give up, try again after a few days. Meanwhile, try to see if you can find any evidences against this belief.",
     suggestions: [],
   },
   {

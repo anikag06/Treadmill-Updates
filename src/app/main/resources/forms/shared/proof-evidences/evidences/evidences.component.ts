@@ -1,6 +1,14 @@
-import {ChangeDetectorRef, Component, EventEmitter, Inject, Input, OnInit, Output,} from '@angular/core';
-import {FormArray, FormBuilder} from '@angular/forms';
-import {IProofEvidences} from '@/main/resources/forms/shared/proof-evidences/IProofEvidences';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { FormArray, FormBuilder } from '@angular/forms';
+import { IProofEvidences } from '@/main/resources/forms/shared/proof-evidences/IProofEvidences';
 
 @Component({
   selector: 'app-evidences',

@@ -1,14 +1,24 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse, HttpParams,} from '@angular/common/http';
-import {BehaviorSubject} from 'rxjs';
-import {catchError} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpParams,
+} from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
-import {ProsCons} from './pros-cons.model';
-import {environment} from 'environments/environment';
-import {Problem} from './problem.model';
-import {SanitizationService} from '@/main/shared/sanitization.service';
-import {PSF_BEST_SOLUTION_URL, PSF_PRO_CON_URL, PSF_PROBLEM_URL, PSF_RESULT_URL, PSF_SOLUTION_URL,} from '@/app.constants';
-import {GeneralErrorService} from '@/main/shared/general-error.service';
+import { ProsCons } from './pros-cons.model';
+import { environment } from 'environments/environment';
+import { Problem } from './problem.model';
+import { SanitizationService } from '@/main/shared/sanitization.service';
+import {
+  PSF_BEST_SOLUTION_URL,
+  PSF_PRO_CON_URL,
+  PSF_PROBLEM_URL,
+  PSF_RESULT_URL,
+  PSF_SOLUTION_URL,
+} from '@/app.constants';
+import { GeneralErrorService } from '@/main/shared/general-error.service';
 
 @Injectable({
   providedIn: 'root',

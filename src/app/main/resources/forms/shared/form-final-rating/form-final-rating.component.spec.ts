@@ -1,6 +1,6 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FormFinalRatingComponent} from './form-final-rating.component';
+import { FormFinalRatingComponent } from './form-final-rating.component';
 
 describe('FormFinalRatingComponent', () => {
   let component: FormFinalRatingComponent;
@@ -8,9 +8,8 @@ describe('FormFinalRatingComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FormFinalRatingComponent ]
-    })
-    .compileComponents();
+      declarations: [FormFinalRatingComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,10 +1,15 @@
-import {Injectable} from '@angular/core';
-import {environment} from '../../../../../../environments/environment';
-import {HttpClient} from '@angular/common/http';
-import {FINAL_RATING_BELIEF_API, FINAL_RATING_THOUGHT_API, REALISTIC_BELIEF_API, REALISTIC_THOUGHT_API,} from '@/app.constants';
-import {catchError, map} from 'rxjs/operators';
-import {IFinalRatingServices} from '@/main/resources/forms/shared/form-final-rating/IFinalRatingServices';
-import {GeneralErrorService} from '@/main/shared/general-error.service';
+import { Injectable } from '@angular/core';
+import { environment } from '../../../../../../environments/environment';
+import { HttpClient } from '@angular/common/http';
+import {
+  FINAL_RATING_BELIEF_API,
+  FINAL_RATING_THOUGHT_API,
+  REALISTIC_BELIEF_API,
+  REALISTIC_THOUGHT_API,
+} from '@/app.constants';
+import { catchError, map } from 'rxjs/operators';
+import { IFinalRatingServices } from '@/main/resources/forms/shared/form-final-rating/IFinalRatingServices';
+import { GeneralErrorService } from '@/main/shared/general-error.service';
 
 @Injectable({
   providedIn: 'root',

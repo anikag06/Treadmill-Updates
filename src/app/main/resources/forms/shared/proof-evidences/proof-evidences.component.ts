@@ -1,20 +1,20 @@
 import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    ElementRef,
-    EventEmitter,
-    Inject,
-    Input,
-    OnInit,
-    Output,
-    SimpleChanges,
-    ViewChild,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Inject,
+  Input,
+  OnInit,
+  Output,
+  SimpleChanges,
+  ViewChild,
 } from '@angular/core';
-import {CdkTextareaAutosize} from '@angular/cdk/text-field';
-import {FormArray, FormBuilder, ValidatorFn} from '@angular/forms';
+import { CdkTextareaAutosize } from '@angular/cdk/text-field';
+import { FormArray, FormBuilder, ValidatorFn } from '@angular/forms';
 
-import {IProofEvidences} from '@/main/resources/forms/shared/proof-evidences/IProofEvidences';
+import { IProofEvidences } from '@/main/resources/forms/shared/proof-evidences/IProofEvidences';
 
 @Component({
   selector: 'app-proof-evidences',

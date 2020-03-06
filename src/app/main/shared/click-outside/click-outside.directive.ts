@@ -1,6 +1,12 @@
-import {Directive, ElementRef, EventEmitter, OnInit, Output,} from '@angular/core';
-import {fromEvent, Observable, Subscription} from 'rxjs';
-import {delay, tap} from 'rxjs/operators';
+import {
+  Directive,
+  ElementRef,
+  EventEmitter,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { fromEvent, Observable, Subscription } from 'rxjs';
+import { delay, tap } from 'rxjs/operators';
 
 @Directive({
   selector: '[appClickOutside]',

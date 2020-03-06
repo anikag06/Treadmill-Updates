@@ -1,8 +1,17 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild,} from '@angular/core';
-import {FormBuilder, FormControl, Validators} from '@angular/forms';
-import {ThoughtRecordService} from '@/main/resources/forms/thought-record-form/thought-record.service';
-import {Thought} from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
-import {HttpErrorResponse} from '@angular/common/http';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { ThoughtRecordService } from '@/main/resources/forms/thought-record-form/thought-record.service';
+import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-trf-situation-card',
