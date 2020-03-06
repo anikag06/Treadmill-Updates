@@ -1,10 +1,37 @@
+@import '../../forms.component';
 .card {
-    // .card-header {
-    //     background-color: #FFEFD4;
-    //     font-weight: 700;
-    // }
+  // .card-header {
+  //     background-color: #FFEFD4;
+  //     font-weight: 700;
+  // }
 }
+
+.notice {
+  background: #fff9ee;
+  border: 0.5px dashed #0000005e;
+  vertical-align: middle;
+  border-radius: 4px;
+  min-height: 55px;
+  padding: inherit;
+}
+
 .card-header {
-    background-color: #FFEFD4;
-    font-weight: 700;
+  background-color: #ffefd4;
+  font-weight: 700;
+}
+
+.hideResult {
+  padding-bottom: 0px;
+  height: 45px;
+  max-height: 45px;
+  background: #eeeeee;
+  border-bottom: black solid 1px;
+}
+.red-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-left: 0.25rem;
+  position: relative;
+  background: #f66c6c;
 }

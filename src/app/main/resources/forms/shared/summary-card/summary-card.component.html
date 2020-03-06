@@ -1,0 +1,16 @@
+<mat-card class="card-body" *ngIf="!expanded && summary">
+  <mat-card-content>
+    <div [ngStyle]="{ 'font-size': '12px' }">
+      {{ cardHeading }}
+    </div>
+    <div
+      [ngStyle]="{
+        marginTop: '8px',
+        fontSize: '0.75rem',
+        wordBreak: 'break-all'
+      }"
+    >
+      {{ summary }}
+    </div>
+  </mat-card-content>
+</mat-card>

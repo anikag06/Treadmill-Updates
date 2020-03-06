@@ -1,27 +1,14 @@
-import { WEEK } from '@/app.constants';
-import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  EventEmitter,
-  Inject,
-  OnChanges,
-  OnInit,
-  Optional,
-  Output,
-} from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import {WEEK} from '@/app.constants';
+import {AfterViewInit, Component, ElementRef, EventEmitter, Inject, OnChanges, OnInit, Optional, Output,} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import * as moment from 'moment';
-import { Day } from './day.model';
-import { DateTimePickerService } from './date-time-picker.service';
+import {Day} from './day.model';
+import {DateTimePickerService} from './date-time-picker.service';
 
 @Component({
   selector: 'app-date-time-picker',
   templateUrl: './date-time-picker.component.html',
   styleUrls: ['./date-time-picker.component.scss'],
-
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DateTimePickerComponent
   implements OnInit, AfterViewInit, OnChanges {
@@ -38,6 +25,8 @@ export class DateTimePickerComponent
   public daysCircle: Day[] = [];
   @Output() dateTimeSubmit = new EventEmitter<any>();
   public formDateTime: any[] = [];
+  START_DATE = 0;
+  END_DATE = 1;
 
   constructor(
     private element: ElementRef,
@@ -98,24 +87,45 @@ export class DateTimePickerComponent
 
   closeModal() {
     this.onClose.emit();
-    this.dialogRef.close({ event: 'close' });
+    if (this.dialogRef) {
+      this.dialogRef.close({ event: 'close' });
+    }
   }
 
   dateTimeMessageSubmit() {
-    this.formDateTime.push(this.startEndDate[0], this.startEndDate[1]);
-
-    const utcTime = this.dateTimePickerService.getUTCTime(this.startEndDate[0]);
+    this.formDateTime.push(
+      this.startEndDate[this.START_DATE],
+      this.startEndDate[this.END_DATE],
+    );
+    let utcTime;
+    if (
+      this.data &&
+      this.data.startDate ===
+        this.dateToString(this.startEndDate[this.START_DATE]) &&
+      this.data.endDate ===
+        this.dateToString(this.startEndDate[this.END_DATE]) &&
+      this.timeToString(this.startEndDate[this.START_DATE]) !== this.data.time
+    ) {
+      utcTime = this.dateTimePickerService.getUTCTime(
+        this.startEndDate[this.START_DATE],
+      );
+    } else {
+      utcTime = this.dateTimePickerService.getUTCTime(
+        this.startEndDate[this.END_DATE],
+      );
+    }
 
     this.formDateTime.push(utcTime);
 
     this.formDateTime.push(this.formDataDays);
 
     const date = this.dateTimePickerService.getDateRange(
-      this.startEndDate[0],
-      this.startEndDate[1],
+      this.startEndDate[this.START_DATE],
+      this.startEndDate[this.END_DATE],
     );
+
     const hourMinute = this.dateTimePickerService.getTimeAmPm(
-      this.startEndDate[0],
+      this.startEndDate[this.END_DATE],
     );
 
     const repeat = this.getRepeatedDays(this.daysCircle);
@@ -123,15 +133,27 @@ export class DateTimePickerComponent
     this.closeModal();
     this.dateTimeMessage.emit(chatDateTimeMessage);
     this.dateTimeSubmit.emit();
-    const fromDateTimeData = {
-      dateTime: this.formDateTime,
-      showDateTimePicker: false,
-    };
-    console.log(this.startEndDate);
 
-    console.log(this.formDateTime);
+    if (this.dialogRef) {
+      const fromDateTimeData = {
+        dateTime: this.formDateTime,
+        showDateTimePicker: false,
+      };
+      this.dialogRef.close({ event: 'close', data: fromDateTimeData });
+    }
+  }
 
-    this.dialogRef.close({ event: 'close', data: fromDateTimeData });
+  dateToString(date: Date) {
+    // const gmtDateTime = moment.utc(date);
+    const localDate = moment(date).format('YYYY-MM-DD');
+    return localDate.toString();
+  }
+
+  timeToString(date: Date) {
+    const gmtDateTime = moment.utc(date, 'hh:mm');
+    const localTime = gmtDateTime.format('hh:mm');
+
+    return localTime.toString();
   }
 
   getRepeatedDays(days: Day[]): string {
@@ -145,5 +167,23 @@ export class DateTimePickerComponent
     let repeat = 'Repeat:';
     repeat += repeatedDays.join(',');
     return repeat;
+  }
+
+  get showWhenStart() {
+    return this.startEndDate.length === 0;
+  }
+
+  get showTillWhen() {
+    return (
+      this.startEndDate[this.END_DATE] === null && this.startEndDate.length > 1
+    );
+  }
+
+  get showStartEndDate() {
+    return (
+      this.startEndDate[this.END_DATE] !== null &&
+      this.startEndDate[this.START_DATE] !== null &&
+      this.startEndDate.length === 2
+    );
   }
 }

@@ -1,11 +1,11 @@
 <mat-card class="container-fluid px-0 pt-0 pb-2 mb-2">
   <div class="row no-gutters mb-2 card card-full-width">
-    <mat-card-header class="col-12 w-100 px-0 card-header main-heading">
-      <mat-card-title class="ml-4 my-auto d-inline-block">
+    <mat-card-header class="col-12 w-100 px-0  py-0 card-header main-heading">
+      <mat-card-title class="ml-4 my-auto py-2 d-inline-block">
         {{ formName }}
       </mat-card-title>
 
-      <div class="h-100 d-inline-block ml-auto">
+      <div class="d-inline-block ml-auto">
         <button
           class="h-100 saved-forms-btn"
           mat-button
@@ -44,20 +44,25 @@
             (onShowTechniques)="onShowTechniques()"
             (initialRatingChange)="onInitialRatingChange($event)"
             (updateBelief)="updateBelief($event)"
-            [reset]="reset"
           ></app-negative-belief>
           <app-belief-change-techniques
+            [resetTechnique]="reset"
             *ngIf="showTechniques"
             [belief]="belief"
             (showFinalBelief)="onShowFinalBelief()"
           ></app-belief-change-techniques>
-          <app-negative-belief-final
+          <app-form-final-rating
+            [reset]="reset"
             *ngIf="showFinalBelief"
-            [belief]="belief"
+            [header]="finalRatignHeader"
+            [object]="beliefObject"
+            [initialRating]="belief.belief_rating_initial"
+            [service]="0"
+            [realisticQuestion]="realisticQues"
             (formComplete)="finalFormComplete($event)"
             (finalRatingChange)="onFinalRatingChange($event)"
-          >
-          </app-negative-belief-final>
+            [original_title]="reviewTitle"
+          ></app-form-final-rating>
           <app-form-message *ngIf="showMessage" [formMessage]="message">
           </app-form-message>
           <app-form-quote

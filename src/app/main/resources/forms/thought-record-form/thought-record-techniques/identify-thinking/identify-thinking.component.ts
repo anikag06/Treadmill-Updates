@@ -1,16 +1,12 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  Input,
-  OnInit,
-  SimpleChanges,
-  ViewChild,
-} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild,} from '@angular/core';
 
-import { FormArray, FormBuilder, FormControl } from '@angular/forms';
-import { IdentifyThinkingService } from '@/main/resources/forms/thought-record-form/thought-record-techniques/identify-thinking/identify-thinking.service';
-import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
-import { ThinkingErrorModel } from '@/main/resources/forms/thought-record-form/thought-record-techniques/identify-thinking/thinking-error.model';
+import {FormArray, FormBuilder, FormControl} from '@angular/forms';
+import {IdentifyThinkingService} from '@/main/resources/forms/thought-record-form/thought-record-techniques/identify-thinking/identify-thinking.service';
+import {Thought} from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
+import {ThinkingError} from '@/main/resources/forms/thought-record-form/thought-record-techniques/identify-thinking/thinking.error';
+import {TechniquesInfoComponent} from '@/main/resources/forms/shared/techniques-info/techniques-info.component';
+import {MatDialog} from '@angular/material';
+import {THINIKING_ERROR_DATA} from '@/main/resources/forms/shared/techniques-info/thinking-error-technique.data';
 
 @Component({
   selector: 'app-identify-thinking',
@@ -19,14 +15,20 @@ import { ThinkingErrorModel } from '@/main/resources/forms/thought-record-form/t
 })
 export class IdentifyThinkingComponent implements OnInit {
   title = 'Can you identify the thinking errors in your negative thought?';
-  errors: ThinkingErrorModel[] = [];
+  thinkingErrors: ThinkingError[] = [];
   errorCount = 0;
   thinkingError: string[] = [];
   summary = '';
   submitted = false;
+  summaryHeading = 'Thinking Errors';
   @Input() thought!: Thought;
   @Input() reset!: boolean;
+  @Output() showFinalThought = new EventEmitter();
+  @Output() techniqueExpanded = new EventEmitter();
+  @Output() techniqueCollapsed = new EventEmitter();
+  @Input() summaryIndex!: number;
   techniqueName = 'Identify Thinking Error';
+  info_heading = 'Type of Thinking Errors';
   @ViewChild('panel', { static: false }) panel!: any;
 
   identifyThinkingForm = this.formBuilder.group({
@@ -36,13 +38,13 @@ export class IdentifyThinkingComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private identifyThinkingService: IdentifyThinkingService,
-    private changeDetector: ChangeDetectorRef,
+    public dialog: MatDialog,
   ) {
     this.identifyThinkingService
       .getThinkingErrors()
-      .subscribe((errors: any) => {
-        errors.map((error: any) => {
-          this.errors.push(new ThinkingErrorModel(error, false));
+      .subscribe((thinkingErrors: any) => {
+        thinkingErrors.map((error: any) => {
+          this.thinkingErrors.push(new ThinkingError(error, false));
         });
       });
   }
@@ -50,29 +52,36 @@ export class IdentifyThinkingComponent implements OnInit {
   ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges) {
-    if (this.thought) {
+    if (changes.thought && this.reset) {
       this.identifyThinkingService
         .getSelectedThinkingErrors(this.thought.id)
         .subscribe((resp: any) => {
-          if (resp.body.data) {
-            this.setSummary(resp.body.data);
-            this.identifyThinkingForm.setControl(
-              'emotions',
-              this.formBuilder.array(resp.body.data),
-            );
-            resp.body.data.forEach((data: any) => {
-              // @ts-ignore
-              const obj = this.errors.find((x, i) => {
-                if (x.error === data) {
-                  this.errors[i].isChecked = true;
-                  this.errorCount += 1;
-                  return true;
-                }
-              });
-            });
+          if (resp.body.data.length > 0) {
+            this.initializeErrors(resp.body.data);
           }
         });
     }
+    if (this.reset) {
+      this.resetForm();
+    }
+  }
+
+  initializeErrors(data: any) {
+    this.setSummary(data);
+    this.identifyThinkingForm.setControl(
+      'emotions',
+      this.formBuilder.array(data),
+    );
+    data.forEach((error: any) => {
+      // @ts-ignore
+      const obj = this.thinkingErrors.find((x, i) => {
+        if (x.error === error) {
+          this.thinkingErrors[i].isChecked = true;
+          this.errorCount += 1;
+          return true;
+        }
+      });
+    });
   }
 
   updateErrorCount(event: any, index: number) {
@@ -114,7 +123,37 @@ export class IdentifyThinkingComponent implements OnInit {
   }
 
   setSummary(thinkingErrors: string[]) {
-    this.summary = thinkingErrors.join(',');
+    this.summary = thinkingErrors.join(', ');
+    this.summary = this.summary.length > 0 ? this.summary + '.' : this.summary;
+    this.showFinalThought.emit(this.summary);
     // this.changeDetector.detectChanges();
+    this.panelCollapse();
+  }
+
+  onShowInfo($event: Event) {
+    $event.stopPropagation();
+    const dialogRef = this.dialog.open(TechniquesInfoComponent, {
+      panelClass: 'technique-info-dialog-container',
+      autoFocus: false,
+      data: {
+        techniquesInfo: THINIKING_ERROR_DATA,
+        about: this.info_heading,
+      },
+    });
+  }
+
+  resetForm() {
+    this.thinkingErrors.forEach((thinkingError: ThinkingError) => {
+      thinkingError.isChecked = false;
+    });
+    this.summary = '';
+  }
+
+  panelCollapse() {
+    const object = {
+      index: this.summaryIndex,
+      summary: this.summary ? this.summary : '',
+    };
+    this.techniqueCollapsed.emit(object);
   }
 }

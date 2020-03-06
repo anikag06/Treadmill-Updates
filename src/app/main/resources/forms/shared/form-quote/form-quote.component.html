@@ -1,13 +1,11 @@
 <div class="quote">
-    <hr />
+  <hr />
+  <q>
+    {{ quote }}
+  </q>
 
-    <q>
-        {{ quote }}
-    </q>
-
-    <div [ngStyle]="{ textAlign: 'end', color: '#debe88', fontSize: '14px' }">
-        -{{ quotedBy }}
-    </div>
-
-    <hr />
+  <div [ngStyle]="{ textAlign: 'end', color: '#debe88', fontSize: '14px' }">
+    -{{ quotedBy }}
+  </div>
+  <hr />
 </div>

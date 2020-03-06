@@ -1,4 +1,4 @@
-<div class="card-full-width">
+  <div class="card-full-width">
   <div class="card-header">
     {{ header }}
   </div>
@@ -15,29 +15,93 @@
     <div class="techniques">
       <mat-accordion>
         <div class="technique">
-          <app-identify-thinking [thought]="thought"  [reset]="reset"></app-identify-thinking>
+          <app-identify-thinking
+            [summaryIndex]="0"
+            [reset]="resetTechnique"
+            (techniqueExpanded)="onTechniqueExpanded()"
+            (techniqueCollapsed)="onTechniqueCollapsed($event)"
+            [thought]="thought"
+            [reset]="reset"
+          ></app-identify-thinking>
+        </div>
+        <div class="technique">
+          <app-proof-evidences
+            [reset]="resetTechnique"
+            [summaryIndex]="1"
+            (techniqueExpanded)="onTechniqueExpanded()"
+            (techniqueCollapsed)="onTechniqueCollapsed($event)"
+            [favorTitle]="favorTitle"
+            [againstTitle]="againstTitle"
+            [service]="0"
+            [id]="thought.id"
+          >
+          </app-proof-evidences>
         </div>
 
         <div class="technique">
-          <app-proof [thought]="thought"  [reset]="reset"></app-proof>
+          <app-form-technique
+            [reset]="resetTechnique"
+            [summaryIndex]="2"
+            (techniqueExpanded)="onTechniqueExpanded()"
+            (techniqueCollapsed)="onTechniqueCollapsed($event)"
+            [techniqueName]="explnTechnique"
+            [question]="explnQuestion"
+            [service]="0"
+            [id]="thought.id"
+            [headerColor]="explnHdrColor"
+          >
+          </app-form-technique>
         </div>
 
         <div class="technique">
-            <app-explanation [thought]="thought"  [reset]="reset"></app-explanation>
+          <app-record-outcome
+            [reset]="resetTechnique"
+            [summaryIndex]="3"
+            (techniqueExpanded)="onTechniqueExpanded()"
+            (techniqueCollapsed)="onTechniqueCollapsed($event)"
+            [thought]="thought"
+          ></app-record-outcome>
         </div>
 
         <div class="technique">
-            <app-record-outcome [thought]="thought"  [reset]="reset"></app-record-outcome>
+          <app-thought-help
+            [reset]="resetTechnique"
+            [summaryIndex]="4"
+            (techniqueExpanded)="onTechniqueExpanded()"
+            (techniqueCollapsed)="onTechniqueCollapsed($event)"
+            [thought]="thought"
+          ></app-thought-help>
         </div>
 
         <div class="technique">
-            <app-thought-help [thought]="thought"  [reset]="reset"></app-thought-help>
-        </div>
-
-        <div class="technique">
-            <app-tell-friend [thought]="thought"  [reset]="reset"></app-tell-friend>
+          <app-form-technique
+            [reset]="resetTechnique"
+            [summaryIndex]="5"
+            (techniqueExpanded)="onTechniqueExpanded()"
+            (techniqueCollapsed)="onTechniqueCollapsed($event)"
+            [techniqueName]="tellTechnique"
+            [question]="tellQuestion"
+            [service]="1"
+            [id]="thought.id"
+            [headerColor]="tellHdrColor"
+          >
+          </app-form-technique>
         </div>
       </mat-accordion>
     </div>
+
+    <div *ngIf="showContinue && !isCompleted">
+      <button
+        type="submit"
+        mat-raised-button
+        class="btn continue-btn "
+        [ngStyle]="{ float: 'right' }"
+        (click)="onShowFinalThought()"
+      >
+        Done
+      </button>
+      <br /><br />
+    </div>
   </div>
 </div>
+<!--(showFinal)="triggerShowFinalThought()"-->

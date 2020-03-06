@@ -1,107 +1,114 @@
-<mat-expansion-panel hideToggle #panel>
-    <mat-expansion-panel-header
-            [ngStyle]="{ background: '#EBEDFF', paddingLeft: '16px' }"
-            [expandedHeight]="height"
-            [collapsedHeight]="height"
-    >
-        <mat-panel-title
-                [ngStyle]="{
+<mat-expansion-panel
+  hideToggle
+  #panel
+  (afterExpand)="techniqueExpanded.emit()"
+  (afterCollapse)="panelCollapse()"
+>
+  <mat-expansion-panel-header
+    [ngStyle]="{ background: '#EBEDFF', paddingLeft: '16px' }"
+  >
+    <mat-panel-title
+      [ngStyle]="{
         'font-size': panel.expanded ? '16px' : '14px',
         'font-weight': '500'
       }"
-        >
-            {{ techniqueName }}
-        </mat-panel-title>
-        <mat-panel-description>
-            <div class="iconsDiv" *ngIf="panel.expanded">
-                <mat-icon>close</mat-icon>
-            </div>
-            <div class="iconsDiv" *ngIf="!panel.expanded && this.summary.length > 0">
-                <img src="assets/forms/edit_errors.png" width="24px"/>
-            </div>
-        </mat-panel-description>
-    </mat-expansion-panel-header>
+    >
+      {{ techniqueName }}
+    </mat-panel-title>
+    <mat-panel-description>
+      <div class="iconsDiv" *ngIf="panel.expanded">
+        <mat-icon>close</mat-icon>
+      </div>
+      <div class="iconsDiv" *ngIf="!panel.expanded && this.summary.length > 0">
+        <img src="assets/forms/edit_errors.png" width="24px" />
+      </div>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
 
-    <ng-template matExpansionPanelContent>
-        <form [formGroup]="outcomeRecordForm">
-            <div class="q-heading">
-                {{ worstOutcomeQuestion }}
-            </div>
-            <div>
-                <mat-form-field>
+  <ng-template matExpansionPanelContent>
+    <form [formGroup]="outcomeRecordForm">
+      <div class="q-heading">
+        {{ worstOutcomeQuestion }}
+      </div>
+      <div>
+        <mat-form-field>
           <textarea
-                  matInput
-                  cdkTextareaAutosize
-                  cdkAutosizeMinRows="2"
-                  cdkAutosizeMaxRows="4"
-                  formControlName="worstOutcome"
-                  class="form-control"
-                  required
-                  placeholder="Write Here"
-                  #outcome
+            matInput
+            #formInput="matInput"
+            [placeholder]="
+              formInput.focused || formInput.empty ? 'Write Here' : ''
+            "
+            cdkTextareaAutosize
+            cdkAutosizeMinRows="1"
+            formControlName="worstOutcome"
+            class="py-0"
+            required
+            #outcome
           ></textarea>
-                </mat-form-field>
-            </div>
-            <br/>
-            <div class="q-heading">
-                {{ bestOutcomeQuestion }}
-            </div>
-            <div>
-                <mat-form-field>
+        </mat-form-field>
+      </div>
+      <br />
+      <div class="q-heading">
+        {{ bestOutcomeQuestion }}
+      </div>
+      <div>
+        <mat-form-field>
           <textarea
-                  matInput
-                  cdkTextareaAutosize
-                  cdkAutosizeMinRows="2"
-                  cdkAutosizeMaxRows="4"
-                  formControlName="bestOutcome"
-                  class="form-control"
-                  required
-                  placeholder="Write Here"
-                  #outcome
+            matInput
+            #formInput="matInput"
+            [placeholder]="
+              formInput.focused || formInput.empty ? 'Write Here' : ''
+            "
+            cdkTextareaAutosize
+            cdkAutosizeMinRows="1"
+            formControlName="bestOutcome"
+            class="py-0"
+            required
+            #outcome
           ></textarea>
-                </mat-form-field>
-            </div>
-            <br/>
-            <div class="q-heading">
-                {{ likelyOutcomeQuestion }}
-            </div>
-            <div>
-                <mat-form-field>
+        </mat-form-field>
+      </div>
+      <br />
+      <div class="q-heading">
+        {{ likelyOutcomeQuestion }}
+      </div>
+      <div>
+        <mat-form-field>
           <textarea
-                  matInput
-                  cdkTextareaAutosize
-                  cdkAutosizeMinRows="2"
-                  cdkAutosizeMaxRows="4"
-                  formControlName="likelyOutcome"
-                  class="form-control"
-                  required
-                  placeholder="Write Here"
-                  #outcome
+            matInput
+            #formInput="matInput"
+            [placeholder]="
+              formInput.focused || formInput.empty ? 'Write Here' : ''
+            "
+            cdkTextareaAutosize
+            cdkAutosizeMinRows="1"
+            formControlName="likelyOutcome"
+            class="py-0"
+            required
+            placeholder="Write Here"
+            #outcome
           ></textarea>
-                </mat-form-field>
-            </div>
-            <br/>
-            <div>
-                <button
-                        type="submit"
-                        mat-raised-button
-                        class="btn continue-btn"
-                        *ngIf="outcomeRecordForm.valid"
-                        [ngStyle]="{ float: 'right' }"
-                        (click)="onSubmit()"
-                >
-                    Done
-                </button>
-            </div>
-        </form>
-    </ng-template>
+        </mat-form-field>
+      </div>
+      <br />
+      <div>
+        <button
+          type="submit"
+          mat-raised-button
+          class="btn continue-btn"
+          *ngIf="outcomeRecordForm.valid"
+          [ngStyle]="{ float: 'right' }"
+          (click)="onSubmit()"
+        >
+          Done
+        </button>
+      </div>
+    </form>
+  </ng-template>
 </mat-expansion-panel>
 
-<mat-card class="card-body" *ngIf="!panel.expanded && summary.length > 0">
-    <mat-card-content>
-        <div [ngStyle]="{ 'font-size': '12px' }">Summary</div>
-        <div [ngStyle]="{ 'margin-top': '8px', 'font-size': '12px' }">
-            {{ summary }}
-        </div>
-    </mat-card-content>
-</mat-card>
+<app-summary-card
+  [cardHeading]="summaryHeading"
+  [summary]="summary"
+  [expanded]="panel.expanded"
+></app-summary-card>

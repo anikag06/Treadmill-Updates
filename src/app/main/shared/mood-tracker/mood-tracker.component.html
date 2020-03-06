@@ -19,6 +19,7 @@
               </div>
             </mat-panel-title>
           </mat-expansion-panel-header>
+
           <mat-list>
             <mat-list-item
               *ngFor="let emotion of getNegativeEmotions()"
@@ -30,14 +31,15 @@
             >
               <div class="emotions">
                 <div class="emotion-label">
-                  <input
-                    type="checkbox"
+                  <mat-checkbox
                     class="option"
+                    [checked]="emotion.isChecked"
                     #option
                     [ngStyle]="{ 'font-size': '14px' }"
                     (change)="updateEmotionCount(option.checked)"
-                  />
-                  <label> {{ emotion }}</label>
+                    >{{ emotion.emotion }}</mat-checkbox
+                  >
+                  <!--                  <label> {{ emotion }}</label>-->
                 </div>
                 <div
                   class="emotion-range"
@@ -48,9 +50,11 @@
                   <label for="range">
                     <div
                       class="rangeValue"
-                      [ngStyle]="{ 'margin-left': '63px' }"
+                      [ngStyle]="{
+                        marginLeft: getMargin(emotion.range)
+                      }"
                     >
-                      Quite
+                      {{ range[emotion.range] }}
                     </div>
                     <input
                       type="range"
@@ -59,9 +63,10 @@
                       min="0"
                       max="4"
                       step="1"
-                      value="2"
+                      [value]="emotion.range"
+                      [(ngModel)]="emotion.range"
                       #ranger
-                      (input)="showRange(ranger.value, emotion)"
+                      (input)="showRange(emotion.range, emotion.emotion)"
                     />
                   </label>
                   <mat-icon class="range-icon">add</mat-icon>
@@ -98,24 +103,16 @@
             >
               <div class="emotions">
                 <div class="emotion-label">
-                  <input
-                    type="checkbox"
+                  <mat-checkbox
                     class="option"
+                    [checked]="emotion.isChecked"
                     #option
                     [ngStyle]="{ 'font-size': '14px' }"
                     (change)="updateEmotionCount(option.checked)"
-                  />
-                  <label> {{ emotion }}</label>
+                    >{{ emotion.emotion }}</mat-checkbox
+                  >
+                  <!--                  <label> {{ emotion }}</label>-->
                 </div>
-                <!-- <div class="emotion-range" *ngIf="option.checked" style="z-index: 200;">
-                                <mat-icon class="range-icon remove">remove</mat-icon>
-                                <label for="range">
-                                    <div class="rangeValue" [ngStyle]="{'margin-left': '63px'}">Quite</div>
-                                    <input type="range" name="range" id="range" min="0" max="4" step="1" value="2"
-                                        #ranger (input)="showRange(ranger.value,emotion)" />
-                                </label>
-                                <mat-icon class="range-icon">add</mat-icon>
-                            </div> -->
               </div>
             </mat-list-item>
           </mat-list>
@@ -148,14 +145,15 @@
             >
               <div class="emotions">
                 <div class="emotion-label">
-                  <input
-                    type="checkbox"
+                  <mat-checkbox
                     class="option"
+                    [checked]="emotion.isChecked"
                     #option
                     [ngStyle]="{ 'font-size': '14px' }"
                     (change)="updateEmotionCount(option.checked)"
-                  />
-                  <label> {{ emotion }}</label>
+                    >{{ emotion.emotion }}</mat-checkbox
+                  >
+                  <!--                  <label> {{ emotion }}</label>-->
                 </div>
                 <div
                   class="emotion-range"
@@ -166,9 +164,11 @@
                   <label for="range">
                     <div
                       class="rangeValue"
-                      [ngStyle]="{ 'margin-left': '63px' }"
+                      [ngStyle]="{
+                        marginLeft: getMargin(emotion.range)
+                      }"
                     >
-                      Quite
+                      {{ range[emotion.range] }}
                     </div>
                     <input
                       type="range"
@@ -177,9 +177,10 @@
                       min="0"
                       max="4"
                       step="1"
-                      value="2"
+                      [value]="emotion.range"
+                      [(ngModel)]="emotion.range"
                       #ranger
-                      (input)="showRange(ranger.value, emotion)"
+                      (input)="showRange(emotion.range, emotion.emotion)"
                     />
                   </label>
                   <mat-icon class="range-icon">add</mat-icon>

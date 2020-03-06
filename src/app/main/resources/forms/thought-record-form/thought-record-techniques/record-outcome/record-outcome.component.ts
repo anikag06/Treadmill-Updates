@@ -1,14 +1,8 @@
-import {
-  AfterViewInit,
-  Component,
-  Input,
-  OnInit,
-  SimpleChanges,
-  ViewChild,
-} from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
-import { RecordOutcomeService } from '@/main/resources/forms/thought-record-form/thought-record-techniques/record-outcome/record-outcome.service';
+import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild,} from '@angular/core';
+import {FormBuilder, FormControl, Validators} from '@angular/forms';
+import {Thought} from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
+import {RecordOutcomeService} from '@/main/resources/forms/thought-record-form/thought-record-techniques/record-outcome/record-outcome.service';
+import {SUMMARY} from '@/app.constants';
 
 @Component({
   selector: 'app-record-outcome',
@@ -23,10 +17,15 @@ export class RecordOutcomeComponent implements OnInit, AfterViewInit {
   submitted = false;
   summary = '';
   height = '42px';
+  summaryHeading = SUMMARY;
   @Input() thought!: Thought;
+  @Input() reset!: boolean;
   updateOutcome = false;
   @ViewChild('panel', { static: false }) panel!: any;
-
+  @Output() showFinalThought = new EventEmitter();
+  @Output() techniqueExpanded = new EventEmitter();
+  @Output() techniqueCollapsed = new EventEmitter();
+  @Input() summaryIndex!: number;
   techniqueName = 'What is the worst that can happen?';
   outcomeRecordForm = this.formBuilder.group({
     worstOutcome: new FormControl('', [Validators.required]),
@@ -42,16 +41,20 @@ export class RecordOutcomeComponent implements OnInit, AfterViewInit {
   ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges) {
-    if (this.thought) {
+    if (changes.thought && this.reset) {
       this.recordOutcomeService
         .getOutcome(this.thought.id)
         .subscribe((resp: any) => {
           if (resp.ok) {
             this.updateOutcome = true;
             this.initializeOutcome(resp);
-            this.summary = resp.body.realistic_outcome;
+            // this.summary = resp.body.realistic_outcome;
+            this.showFinalThought.emit();
           }
         });
+    }
+    if (this.reset) {
+      this.resetForm();
     }
   }
 
@@ -67,6 +70,7 @@ export class RecordOutcomeComponent implements OnInit, AfterViewInit {
     this.outcomeRecordForm.controls['likelyOutcome'].setValue(
       resp.body.realistic_outcome,
     );
+    this.setSummary();
   }
 
   onSubmit() {
@@ -85,21 +89,44 @@ export class RecordOutcomeComponent implements OnInit, AfterViewInit {
           const status = resp.ok;
           if (status) {
             console.log('put done');
+            this.setSummary();
           }
         });
     } else {
       this.recordOutcomeService.postOutcome(object).subscribe((resp: any) => {
         const status = resp.ok;
         if (status) {
-          console.log('post done');
+          this.setSummary();
         }
       });
     }
-    this.summary = this.outcomeRecordForm.value['likelyOutcome'];
-    if (this.summary.length > 50) {
-      this.summary = this.summary.substring(0, 50) + '...';
-    }
 
+    // if (this.summary.length > 50) {
+    //   this.summary = this.summary.substring(0, 50) + '...';
+    // }
+  }
+
+  setSummary() {
+    this.summary = this.outcomeRecordForm.value['likelyOutcome'];
+    this.showFinalThought.emit();
+    this.panelCollapse();
     this.panel.expanded = false;
+  }
+
+  resetForm() {
+    this.outcomeRecordForm = this.formBuilder.group({
+      worstOutcome: new FormControl(''),
+      bestOutcome: new FormControl(''),
+      likelyOutcome: new FormControl(''),
+    });
+    this.summary = '';
+  }
+
+  panelCollapse() {
+    const object = {
+      index: this.summaryIndex,
+      summary: this.summary ? this.summary : '',
+    };
+    this.techniqueCollapsed.emit(object);
   }
 }

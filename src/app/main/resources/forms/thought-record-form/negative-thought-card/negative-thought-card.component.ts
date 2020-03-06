@@ -1,15 +1,7 @@
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  ViewChild,
-} from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
-import { ThoughtRecordService } from '@/main/resources/forms/thought-record-form/thought-record.service';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild,} from '@angular/core';
+import {FormBuilder, FormControl, Validators} from '@angular/forms';
+import {Thought} from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
+import {ThoughtRecordService} from '@/main/resources/forms/thought-record-form/thought-record.service';
 
 @Component({
   selector: 'app-negative-thought-card',
@@ -28,7 +20,7 @@ export class NegativeThoughtCardComponent implements OnInit {
   @Output() onShowSelectMood = new EventEmitter();
   showSlider = false;
   editMode = false;
-
+  @Output() initialRatingChange = new EventEmitter();
   thoughtRecordForm = this.fb.group({
     thought: new FormControl('', [Validators.required]),
   });
@@ -47,8 +39,8 @@ export class NegativeThoughtCardComponent implements OnInit {
     // console.log(this.thought);
   }
 
-  ngOnChanges() {
-    if (this.thought) {
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.thought && this.reset) {
       this.thoughtRecordService
         .getThought(this.thought.id)
         .subscribe((resp: any) => {
@@ -56,6 +48,9 @@ export class NegativeThoughtCardComponent implements OnInit {
             this.initializeThought(resp);
           }
         });
+    }
+    if (this.reset) {
+      this.resetForm();
     }
   }
 
@@ -72,10 +67,11 @@ export class NegativeThoughtCardComponent implements OnInit {
 
   initializeThought(resp: any) {
     this.thoughtRecordForm.controls['thought'].setValue(resp.body.thought);
+    this.showSlider = true;
     if (resp.body.thought_rating_initial) {
       this.negativeMoodRating = resp.body.thought_rating_initial;
-      this.showSlider = true;
       // this.showSliderButton = true;
+      this.initialRatingChange.emit(this.negativeMoodRating);
       this.onShowSelectMood.emit(true);
     }
   }
@@ -105,7 +101,7 @@ export class NegativeThoughtCardComponent implements OnInit {
       thought: this.thoughtRecordForm.value['thought'],
       thought_rating_initial: this.negativeMoodRating,
     };
-    // console.log(object);
+
     this.thoughtRecordService
       .putThoughtRating(object, this.thought.id)
       .subscribe((resp: any) => {
@@ -114,6 +110,7 @@ export class NegativeThoughtCardComponent implements OnInit {
           this.onShowSelectMood.emit(true);
           this.showContinueButton = false;
           this.showSliderButton = false;
+          this.initialRatingChange.emit(this.negativeMoodRating);
         }
       });
   }
@@ -126,5 +123,13 @@ export class NegativeThoughtCardComponent implements OnInit {
     if (this.thought) {
       this.onThoughtRatingSubmit();
     }
+  }
+
+  resetForm() {
+    this.thoughtRecordForm = this.fb.group({
+      thought: new FormControl('', [Validators.required]),
+    });
+    this.showSlider = false;
+    this.onShowSelectMood.emit(false);
   }
 }

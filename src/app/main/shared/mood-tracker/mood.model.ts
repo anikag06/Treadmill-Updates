@@ -1,3 +1,7 @@
 export class Mood {
-  constructor(public image: string, public type: string) {}
+  constructor(
+    public emotion: string,
+    public range = 2,
+    public isChecked = false,
+  ) {}
 }

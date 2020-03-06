@@ -1,5 +1,5 @@
-import { Component, Inject, OnInit, Optional } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import {Component, OnInit} from '@angular/core';
+import {MatDialogRef} from '@angular/material';
 
 @Component({
   selector: 'app-common-belief',
@@ -7,25 +7,23 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
   styleUrls: ['./common-belief.component.scss'],
 })
 export class CommonBeliefComponent implements OnInit {
-  radioSelected!: string;
+  radioSelected: string | undefined;
   beliefList = [
-    'Belief 1',
-    'Belief 2',
-    'Belief 1',
-    'Belief 1',
-    'Belief 1',
-    'Belief 1',
-    'Belief 1',
+    'I am a loser.',
+    'I am unlovable.',
+    'I am worthless.',
+    'I must always try to be perfect.',
+    'Other people are to blame for my problems.',
+    'The world should always meet my expectations',
+    'I am basically defective and inferior to other people.',
+    "I must always please people and live up to everyone's expectations.",
+    " If someone criticizes me, it means there's something wrong with me",
+    'If I worry or feel bad about a situation, it will somehow make things better.',
+    ' I must have the love and approval of others before I can feel good about myself.',
+    " I'm hopeless and bound to feel depressed forever because the problems in my life are impossible to solve.",
   ];
 
-  constructor(
-    public dialogRef: MatDialogRef<CommonBeliefComponent>,
-    @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
-  ) {
-    if (data.commonBelief) {
-      this.radioSelected = data.commonBelief;
-    }
-  }
+  constructor(public dialogRef: MatDialogRef<CommonBeliefComponent>) {}
 
   ngOnInit() {}
 

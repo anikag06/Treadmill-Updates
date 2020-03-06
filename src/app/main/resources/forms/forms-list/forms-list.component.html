@@ -1,19 +1,33 @@
 <div class="row">
-  <div class="col-12">
-    <!-- <h1 class="main-heading-h1">Forms</h1> -->
+  <div class="col-12 mx-2">
+    <h1>Forms</h1>
   </div>
 </div>
 <div class="forms">
-  <div class="row">
-    <div class="col-4" *ngFor="let form of forms">
-      <a [routerLink]="form.path">
-        <mat-card class="example-card" style="margin-bottom: 20px;">
-          <mat-card-header style="max-height : 15vh; min-height : 15vh;">
-            <mat-card-title>{{form.name}}</mat-card-title>
-          </mat-card-header>
-          <img mat-card-image [src]="form.banner" width="100" height="110">
-        </mat-card>
-      </a>
+  <div class="row mx-auto">
+    <div
+      class="col-lg-4 col-md-6 col-sm-12 px-lg-3 px-md-2 col-xs-12 form-div mb-lg-4 mb-md-3"
+      *ngFor="let form of forms"
+    >
+      <!--      <a [routerLink]="form.path">-->
+      <mat-card
+        class="pl-0 form-card"
+        (click)="navigate(form)"
+        [ngStyle]="{ cursor: 'pointer' }"
+      >
+        <mat-card-header style="max-height : 25vh; min-height : 20vh;">
+          <!--            <mat-card-title>{{form.name}}</mat-card-title>-->
+        </mat-card-header>
+        <mat-card-content> </mat-card-content>
+        <!--          <img mat-card-image [src]="form.banner" width="100" height="110">-->
+        <mat-card-footer>
+          <div class="form-name ml-3 pl-3">
+            {{ form.name }}
+          </div>
+        </mat-card-footer>
+      </mat-card>
+      <!--      </a>-->
     </div>
   </div>
 </div>
+<!--col-lg-4 col-md-6 col-sm-12 px-lg-3 px-md-2 col-xs-12 form-div mb-lg-4 mb-md-3-->

@@ -1,11 +1,9 @@
 .dateTimeDiv {
-  margin-top: 5px;
   background: #ffffff 0% 0% no-repeat padding-box;
   border-radius: 5px;
   text-align: center;
   z-index: 11;
-  display: flex;
-  flex-direction: column;
+  position: relative;
 }
 .mat-calendar {
   height: 240px;
@@ -81,7 +79,7 @@
 // }
 
 .close-btn {
-  right: -10px;
+  right: -4px;
   position: absolute;
   z-index: 100;
   outline: none;
@@ -130,29 +128,35 @@
   }
 }
 
-@media screen and (max-width: 576px) {
-  //  .dateTimeDiv{
-  //    width: 340px;
-  //  }
-}
+//@media screen and (max-width: 576px) {
+//  //  .dateTimeDiv{
+//  //    width: 340px;
+//  //  }
+//}
 
 .overlay {
   position: absolute;
-  top: 0;
-  left: 0;
   height: 100%;
   width: 100%;
   z-index: 10;
 }
 
+.span-text {
+  opacity: 0.4;
+  font-size: 1.5rem;
+}
+
 .modal {
-  width: 98%;
-  height: 100%;
+  width: 340px;
+  height: 620px;
+  top: auto;
+  left: auto;
   display: inline-block;
-  margin-top: 5px;
-  margin-left: 3px;
   background: #ffffff 0% 0% no-repeat padding-box;
   border-radius: 5px;
   text-align: center;
   z-index: 11;
+}
+:host-context(.chatbot) .modal {
+  top: 0;
 }

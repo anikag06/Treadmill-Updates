@@ -1,0 +1,74 @@
+<div class="card-full-width">
+  <div class="card-header">
+    {{ header }}
+  </div>
+  <div class="card-body">
+    <div class="original">
+      <div class="original_title">
+        {{ original_title }}
+      </div>
+      <div class="reviewStatement">
+        {{ object.text }}
+      </div>
+    </div>
+    <div>
+      <app-form-slider
+        [minRatingText]="minRating"
+        [maxRatingText]="maxRating"
+        (getRating)="getRating($event)"
+        [rating]="finalRating"
+      ></app-form-slider>
+      <div>
+        <button
+          type="submit"
+          mat-raised-button
+          class="btn continue-btn"
+          (click)="onFinalRatingSubmit()"
+          *ngIf="showContinue"
+          [ngStyle]="{ float: 'right' }"
+        >
+          Continue
+        </button>
+      </div>
+    </div>
+    <br /><br />
+    <div *ngIf="showRealisticDiv">
+      <div class="q-heading" [innerHTML]="realisticQuestion"></div>
+      <form [formGroup]="finalRatingForm">
+        <div>
+          <mat-form-field class="full-width">
+            <textarea
+              matInput
+              #formInput="matInput"
+              [placeholder]="
+                formInput.focused || formInput.empty
+                  ? service === 1
+                    ? 'Realistic Thought'
+                    : 'Realistic Belief'
+                  : ''
+              "
+              class="py-0"
+              cdkTextareaAutosize
+              cdkAutosizeMinRows="1"
+              formControlName="realistic"
+              required
+              (focus)="showRealisticBtn()"
+            ></textarea>
+          </mat-form-field>
+        </div>
+        <div>
+          <button
+            type="submit"
+            mat-raised-button
+            class="btn continue-btn"
+            (click)="onRealisticBeliefSubmit()"
+            *ngIf="showRealistic"
+            [ngStyle]="{ float: 'right' }"
+          >
+            Continue
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

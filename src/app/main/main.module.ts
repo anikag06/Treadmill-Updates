@@ -1,6 +1,6 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ChartsModule } from 'ng2-charts';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {ChartsModule} from 'ng2-charts';
 
 import { DashboardComponent } from '@/main/dashboard/dashboard.component';
 import { CategorySmallComponent } from './shared/category-small/category-small.component';
@@ -29,18 +29,6 @@ import { AngularEditorModule } from '@arkaghosh024/angular-editor';
 import { SanitizationService } from './shared/sanitization.service';
 import { SafeHtmlPipe } from './support-groups/safe-html.pipe';
 import { LayoutModule } from '@angular/cdk/layout';
-import {
-  MatToolbarModule,
-  MatButtonModule,
-  MatSidenavModule,
-  MatIconModule,
-  MatListModule,
-  MatDatepickerModule,
-  MatDialogModule,
-  MatNativeDateModule,
-  MatSlideToggleModule,
-  MatExpansionModule,
-} from '@angular/material';
 import { MatProgressBarModule } from '@angular/material';
 import { ScrollingDirective } from './shared/scrolling.directive';
 import { ScrollingService } from './shared/scrolling.service';
@@ -56,67 +44,66 @@ import { ScoreComponent } from './score/score.component';
 import { PhqNineComponent } from './score/phq-nine/phq-nine.component';
 import { GadSevenComponent } from './score/gad-seven/gad-seven.component';
 // tslint:disable-next-line:max-line-length
-import { InterpretationBiasGameComponent } from './games/games-list/common-game/interpretation-bias-game/interpretation-bias-game.component';
+import {InterpretationBiasGameComponent} from './games/games-list/common-game/interpretation-bias-game/interpretation-bias-game.component';
 
-import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
-import { FormsService } from '@/main/forms.service';
-import { ExecutiveControlGameComponent } from './games/games-list/common-game/executive-control-game/executive-control-game.component';
-import { CommonGameComponent } from './games/games-list/common-game/common-game.component';
-import { GamesAuthService } from './games/shared/games-auth.service';
-import { GamePlayService } from './games/shared/game-play.service';
-import { GamesBadgesService } from '@/main/games/shared/games-badges.service';
+import {OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
+import {FormsService} from '@/main/forms.service';
+import {ExecutiveControlGameComponent} from './games/games-list/common-game/executive-control-game/executive-control-game.component';
+import {CommonGameComponent} from './games/games-list/common-game/common-game.component';
+import {GamesAuthService} from './games/shared/games-auth.service';
+import {GamePlayService} from './games/shared/game-play.service';
+import {GamesBadgesService} from '@/main/games/shared/games-badges.service';
 // tslint:disable-next-line:max-line-length
-import { LearnedHelplessnessGameComponent } from './games/games-list/common-game/learned-helplessness-game/learned-helplessness-game.component';
-import { ChatbotComponent } from './chatbot/chatbot.component';
-import { ChatWindowComponent } from './chatbot/chat-window/chat-window.component';
-import { ChatbotService } from '@/main/chatbot/chatbot.service';
-import { SlideService } from './resources/slides/slide.service';
-import { ProblemSolvingWorksheetsService } from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.service';
-import { ExperimentToTestBeliefService } from '@/main/resources/forms/experiment-to-test-belief-form/experiment-to-test-belief.service';
-
+import {LearnedHelplessnessGameComponent} from './games/games-list/common-game/learned-helplessness-game/learned-helplessness-game.component';
+import {ChatbotComponent} from './chatbot/chatbot.component';
+import {ChatWindowComponent} from './chatbot/chat-window/chat-window.component';
+import {ChatbotService} from '@/main/chatbot/chatbot.service';
+import {SlideService} from './resources/slides/slide.service';
+import {ProblemSolvingWorksheetsService} from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.service';
+import {ExperimentToTestBeliefService} from '@/main/resources/forms/experiment-to-test-belief-form/experiment-to-test-belief.service';
 // import { DataService } from '@/shared/questionnaire/data.service';
 import { PlotScoreGraphService } from './score/plot-score-graph.service';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { AngularFireModule } from '@angular/fire';
 // import {FcmService} from '@/shared/fcm.service';
-import { environment } from '../../environments/environment';
-import { AttributeStyleGameComponent } from './games/games-list/common-game/attribute-style-game/attribute-style-game.component';
-import { PassDataService } from './resources/conversation-group/passdata.service';
+import {environment} from '../../environments/environment';
+import {AttributeStyleGameComponent} from './games/games-list/common-game/attribute-style-game/attribute-style-game.component';
+import {PassDataService} from './resources/conversation-group/passdata.service';
 
-import { FriendlyFaceGameComponent } from '@/main/games/games-list/common-game/friendly-face-game/friendly-face-game.component';
-import { MentalImageryComponent } from '@/main/games/games-list/common-game/mental-imagery/mental-imagery.component';
-import { MiInstructionsComponent } from '@/main/games/games-list/common-game/mental-imagery/mi-instructions/mi-instructions.component';
-import { MiPlayComponent } from '@/main/games/games-list/common-game/mental-imagery/mi-play/mi-play.component';
-import { MIGameAutofocusDirective } from '@/main/games/games-list/common-game/mental-imagery/mi-autofocus.directive';
-import { MICurrentStateService } from '@/main/games/games-list/common-game/mental-imagery/mi-current-state.service';
-import { TasksService } from './resources/forms/shared/tasks/tasks.service';
-import { FlowComponent } from './flow/flow.component';
-import { StepGroupComponent } from './flow/step-group/step-group.component';
-import { FlowService } from './flow/flow.service';
-import { StepComponent } from './flow/step-group/step/step.component';
-import { StepsIndicatorComponent } from './flow/step-group/steps-indicator/steps-indicator.component';
+import {FriendlyFaceGameComponent} from '@/main/games/games-list/common-game/friendly-face-game/friendly-face-game.component';
+import {MentalImageryComponent} from '@/main/games/games-list/common-game/mental-imagery/mental-imagery.component';
+import {MiInstructionsComponent} from '@/main/games/games-list/common-game/mental-imagery/mi-instructions/mi-instructions.component';
+import {MiPlayComponent} from '@/main/games/games-list/common-game/mental-imagery/mi-play/mi-play.component';
+import {MIGameAutofocusDirective} from '@/main/games/games-list/common-game/mental-imagery/mi-autofocus.directive';
+import {MICurrentStateService} from '@/main/games/games-list/common-game/mental-imagery/mi-current-state.service';
+import {TasksService} from './resources/forms/shared/tasks/tasks.service';
+import {FlowComponent} from './flow/flow.component';
+import {StepGroupComponent} from './flow/step-group/step-group.component';
+import {FlowService} from './flow/flow.service';
+import {StepComponent} from './flow/step-group/step/step.component';
+import {StepsIndicatorComponent} from './flow/step-group/steps-indicator/steps-indicator.component';
 // import { QuizService } from '@/shared/questionnaire/questionnaire.service';
-import { FlowStepNavigationService } from './shared/flow-step-navigation.service';
-import { IntroduceComponent } from './shared/introduce/introduce.component';
-import { OverlayModule } from '@angular/cdk/overlay';
-import { NavbarFlowComponent } from './shared/navbar/navbar-flow/navbar-flow.component';
-import { NavbarFlowDirective } from './shared/navbar/navbar-flow.directive';
-import { NavbarNotificationDirective } from './shared/navbar/navbar-notification.directive';
-import { NavbarNotificationsComponent } from './shared/navbar/navbar-notifications/navbar-notifications.component';
-import { NavbarNotificationsService } from './shared/navbar/navbar-notifications.service';
-import { NotificationItemComponent } from './shared/navbar/navbar-notifications/notification-item/notification-item.component';
+import {FlowStepNavigationService} from './shared/flow-step-navigation.service';
+import {IntroduceComponent} from './shared/introduce/introduce.component';
+import {OverlayModule} from '@angular/cdk/overlay';
+import {NavbarFlowComponent} from './shared/navbar/navbar-flow/navbar-flow.component';
+import {NavbarFlowDirective} from './shared/navbar/navbar-flow.directive';
+import {NavbarNotificationDirective} from './shared/navbar/navbar-notification.directive';
+import {NavbarNotificationsComponent} from './shared/navbar/navbar-notifications/navbar-notifications.component';
+import {NavbarNotificationsService} from './shared/navbar/navbar-notifications.service';
+import {NotificationItemComponent} from './shared/navbar/navbar-notifications/notification-item/notification-item.component';
 // tslint:disable-next-line: max-line-length
-import { IbGameInstructionsComponent } from './games/games-list/common-game/interpretation-bias-game/ib-game-instructions/ib-game-instructions.component';
+import {IbGameInstructionsComponent} from './games/games-list/common-game/interpretation-bias-game/ib-game-instructions/ib-game-instructions.component';
 // tslint:disable-next-line: max-line-length
-import { IbMainTrainingComponent } from './games/games-list/common-game/interpretation-bias-game/ib-main-training/ib-main-training.component';
+import {IbMainTrainingComponent} from './games/games-list/common-game/interpretation-bias-game/ib-main-training/ib-main-training.component';
 // tslint:disable-next-line: max-line-length
-import { IbTrainingDataService } from '@/main/games/games-list/common-game/interpretation-bias-game/ib-main-training/ib-training-data.service';
-import { CustomOverlayDirective } from './shared/custom-dialog/custom-overlay.directive';
-import { DialogContainerComponent } from './shared/custom-dialog/dialog-container/dialog-container.component';
-import { DialogBoxService } from './shared/custom-dialog/dialog-box.service';
-import { DialogBoxChildDirective } from './shared/custom-dialog/dialog-container/dialog-box-child.directive';
+import {IbTrainingDataService} from '@/main/games/games-list/common-game/interpretation-bias-game/ib-main-training/ib-training-data.service';
+import {CustomOverlayDirective} from './shared/custom-dialog/custom-overlay.directive';
+import {DialogContainerComponent} from './shared/custom-dialog/dialog-container/dialog-container.component';
+import {DialogBoxService} from './shared/custom-dialog/dialog-box.service';
+import {DialogBoxChildDirective} from './shared/custom-dialog/dialog-container/dialog-box-child.directive';
 // tslint:disable-next-line: max-line-length
-import { ExecControlInstructionsComponent } from './games/games-list/common-game/executive-control-game/exec-control-instructions/exec-control-instructions.component';
+import {ExecControlInstructionsComponent} from './games/games-list/common-game/executive-control-game/exec-control-instructions/exec-control-instructions.component';
 // tslint:disable-next-line: max-line-length
 import { ExecControlHelpService } from '@/main/games/games-list/common-game/executive-control-game/exec-control-instructions/exec-control-help.service';
 import { MiWinComponent } from './games/games-list/common-game/mental-imagery/mi-win/mi-win.component';
@@ -286,21 +273,11 @@ import { ThingsTodoService } from '@/main/dashboard/things-todo/things-todo.serv
     AuthModule,
     AngularEditorModule,
     LayoutModule,
-    MatDialogModule,
-    MatExpansionModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
     MatProgressBarModule,
-    MatListModule,
     ReactiveFormsModule,
     MainRoutingModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
-    MatSlideToggleModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireMessagingModule,
     OverlayModule,

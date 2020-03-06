@@ -1,9 +1,9 @@
-import { FormsListComponent } from '@/main/resources/forms/forms-list/forms-list.component';
-import { FormsComponent } from '@/main/resources/forms/forms.component';
-import { ProblemFormComponent } from '@/main/resources/forms/problem-solving-worksheets/problem-form/problem-form.component';
-import { ProblemSolvingWorksheetsComponent } from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.component';
+import {FormsListComponent} from '@/main/resources/forms/forms-list/forms-list.component';
+import {FormsComponent} from '@/main/resources/forms/forms.component';
+import {ProblemFormComponent} from '@/main/resources/forms/problem-solving-worksheets/problem-form/problem-form.component';
+import {ProblemSolvingWorksheetsComponent} from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.component';
 // tslint:disable-next-line:max-line-length
-import { ProsConsContainerComponent } from '@/main/resources/forms/problem-solving-worksheets/pros-cons-container/pros-cons-container.component';
+import {ProsConsContainerComponent} from '@/main/resources/forms/problem-solving-worksheets/pros-cons-container/pros-cons-container.component';
 // tslint:disable-next-line:max-line-length
 import { ProconItemComponent } from '@/main/resources/forms/problem-solving-worksheets/pros-cons-container/pros-cons/procon-item/procon-item.component';
 import { ProsConsComponent } from '@/main/resources/forms/problem-solving-worksheets/pros-cons-container/pros-cons/pros-cons.component';
@@ -70,7 +70,6 @@ import { WorryFormComponent } from '@/main/resources/forms/worry-productively-fo
 import { TechniquesComponent } from './forms/worry-productively-form/techniques/techniques.component';
 import { EvaluateWorryComponent } from './forms/worry-productively-form/techniques/evaluate-worry/evaluate-worry.component';
 import { MoodWidgetCardComponent } from './forms/thought-record-form/mood-widget-card/mood-widget-card.component';
-import { FormCardComponent } from './forms/thought-record-form/form-card/form-card.component';
 import { MoodTrackerComponent } from '../shared/mood-tracker/mood-tracker.component';
 import { FaceMyWorstFearComponent } from './forms/worry-productively-form/techniques/face-my-worst-fear/face-my-worst-fear.component';
 import { WpfDealWithWorryComponent } from './forms/worry-productively-form/techniques/wpf-deal-with-worry/wpf-deal-with-worry.component';
@@ -79,27 +78,23 @@ import { IdentifyThinkingService } from './forms/thought-record-form/thought-rec
 import { AngularEditorModule } from '@arkaghosh024/angular-editor';
 import { ModifyBeliefsComponent } from './forms/worry-productively-form/techniques/modify-beliefs/modify-beliefs.component';
 // tslint:disable-next-line:max-line-length
-import { ThoughtRecordTechniquesComponent } from './forms/thought-record-form/thought-record-techniques/thought-record-techniques.component';
-import { TechniquesInfoComponent } from './forms/shared/techniques-info/techniques-info.component';
+import {ThoughtRecordTechniquesComponent} from './forms/thought-record-form/thought-record-techniques/thought-record-techniques.component';
+import {TechniquesInfoComponent} from './forms/shared/techniques-info/techniques-info.component';
 // tslint:disable-next-line:max-line-length
 import { IdentifyThinkingComponent } from './forms/thought-record-form/thought-record-techniques/identify-thinking/identify-thinking.component';
 import { ControlContentComponent } from './control-content/control-content.component';
 
-import { ProofComponent } from './forms/thought-record-form/thought-record-techniques/proof/proof.component';
-import { EvidenceFormComponent } from './forms/thought-record-form/thought-record-techniques/proof/evidence-form/evidence-form.component';
+import {RecordOutcomeComponent} from './forms/thought-record-form/thought-record-techniques/record-outcome/record-outcome.component';
+import {FormTextareaComponent} from './forms/shared/form-textarea/form-textarea.component';
+import {ThoughtHelpComponent} from './forms/thought-record-form/thought-record-techniques/thought-help/thought-help.component';
 // tslint:disable-next-line:max-line-length
-import { AlternativeExplanationComponent } from './forms/thought-record-form/thought-record-techniques/alternative-explanation/alternative-explanation.component';
 import { RecordOutcomeComponent } from './forms/thought-record-form/thought-record-techniques/record-outcome/record-outcome.component';
 import { FormTextareaComponent } from './forms/shared/form-textarea/form-textarea.component';
 import { ThoughtHelpComponent } from './forms/thought-record-form/thought-record-techniques/thought-help/thought-help.component';
-import { TellFriendComponent } from './forms/thought-record-form/thought-record-techniques/tell-friend/tell-friend.component';
 import { ThoughtRecordService } from '@/main/resources/forms/thought-record-form/thought-record.service';
 import { MoodTrackerService } from '@/main/shared/mood-tracker/mood-tracker.service';
-import { ProofService } from '@/main/resources/forms/thought-record-form/thought-record-techniques/proof/proof.service';
-import { AlternativeExplanationService } from './forms/thought-record-form/thought-record-techniques/alternative-explanation/alternative-explanation.service';
 import { RecordOutcomeService } from './forms/thought-record-form/thought-record-techniques/record-outcome/record-outcome.service';
 import { ThoughtHelpService } from './forms/thought-record-form/thought-record-techniques/thought-help/thought-help.service';
-import { TellFriendService } from '@/main/resources/forms/thought-record-form/thought-record-techniques/tell-friend/tell-friend.service';
 import { BeliefChangeComponent } from './forms/belief-change/belief-change.component';
 import { NegativeBeliefComponent } from './forms/belief-change/negative-belief/negative-belief.component';
 import { CommonBeliefComponent } from './forms/belief-change/negative-belief/common-belief/common-belief.component';
@@ -107,10 +102,6 @@ import { NegativeThoughtCardComponent } from './forms/thought-record-form/negati
 import { BeliefChangeTechniquesComponent } from './forms/belief-change/belief-change-techniques/belief-change-techniques.component';
 import { BeliefChangeService } from '@/main/resources/forms/belief-change/belief-change.service';
 import { ProofBeliefComponent } from './forms/belief-change/belief-change-techniques/proof-belief/proof-belief.component';
-import { BeliefEvidencesComponent } from './forms/belief-change/belief-change-techniques/proof-belief/belief-evidences/belief-evidences.component';
-import { ProofBeliefService } from '@/main/resources/forms/belief-change/belief-change-techniques/proof-belief/proof-belief.service';
-import { TellFriendBeliefComponent } from './forms/belief-change/belief-change-techniques/tell-friend-belief/tell-friend-belief.component';
-import { TellFriendBeliefService } from '@/main/resources/forms/belief-change/belief-change-techniques/tell-friend-belief/tell-friend-belief.service';
 import { ActAsIfComponent } from './forms/belief-change/belief-change-techniques/act-as-if/act-as-if.component';
 import { ActAsIfService } from '@/main/resources/forms/belief-change/belief-change-techniques/act-as-if/act-as-if.service';
 import { NegativeBeliefFinalComponent } from './forms/belief-change/negative-belief-final/negative-belief-final.component';
@@ -118,6 +109,37 @@ import { FormMessageComponent } from './forms/shared/form-message/form-message.c
 import { FormQuoteComponent } from './forms/shared/form-quote/form-quote.component';
 import { SlidesBottomsheetComponent } from './slides/slides-bottomsheet/slides-bottomsheet.component';
 import { SlidesVideoComponent } from './slides/slides-video/slides-video.component';
+
+import {ThoughtRecordService} from '@/main/resources/forms/thought-record-form/thought-record.service';
+import {MoodTrackerService} from '@/main/shared/mood-tracker/mood-tracker.service';
+
+import {RecordOutcomeService} from './forms/thought-record-form/thought-record-techniques/record-outcome/record-outcome.service';
+import {ThoughtHelpService} from './forms/thought-record-form/thought-record-techniques/thought-help/thought-help.service';
+
+import {BeliefChangeComponent} from './forms/belief-change/belief-change.component';
+import {NegativeBeliefComponent} from './forms/belief-change/negative-belief/negative-belief.component';
+import {CommonBeliefComponent} from './forms/belief-change/negative-belief/common-belief/common-belief.component';
+import {NegativeThoughtCardComponent} from './forms/thought-record-form/negative-thought-card/negative-thought-card.component';
+import {BeliefChangeTechniquesComponent} from './forms/belief-change/belief-change-techniques/belief-change-techniques.component';
+import {BeliefChangeService} from '@/main/resources/forms/belief-change/belief-change.service';
+import {ActAsIfComponent} from './forms/belief-change/belief-change-techniques/act-as-if/act-as-if.component';
+import {ActAsIfService} from '@/main/resources/forms/belief-change/belief-change-techniques/act-as-if/act-as-if.service';
+import {FormMessageComponent} from './forms/shared/form-message/form-message.component';
+import {FormQuoteComponent} from './forms/shared/form-quote/form-quote.component';
+
+import {FormFinalRatingComponent} from './forms/shared/form-final-rating/form-final-rating.component';
+import {NegativeBeliefFinalService, ThoughtRecordFinalService,} from '@/main/resources/forms/shared/form-final-rating/final-rating.service';
+import {ProofEvidencesComponent} from './forms/shared/proof-evidences/proof-evidences.component';
+import {EvidencesComponent} from './forms/shared/proof-evidences/evidences/evidences.component';
+import {BeliefProofService, TRFProofService,} from '@/main/resources/forms/shared/proof-evidences/proof-evidences.service';
+import {FormTechniqueComponent} from './forms/shared/form-technique/form-technique.component';
+import {AlternateExplanationService, BeliefTellFriendService, TRFTellFriendService,} from '@/main/resources/forms/shared/form-technique/form-technique.service';
+import {TrfBehaviorCardComponent} from './forms/thought-record-form/trf-behavior-card/trf-behavior-card.component';
+import {SummaryCardComponent} from './forms/shared/summary-card/summary-card.component';
+import {TrfSituationCardComponent} from '@/main/resources/forms/thought-record-form/trf-situation-card/trf-situation-card.component';
+import {FormRecommendComponent} from './forms/shared/form-recommend/form-recommend.component';
+import {DeleteDialogComponent} from '@/main/shared/delete-dialog/delete-dialog.component';
+import {ScrollToTopDirective} from '@/main/shared/scrollToTop/scroll-to-top.directive';
 
 @NgModule({
   declarations: [
@@ -163,20 +185,15 @@ import { SlidesVideoComponent } from './slides/slides-video/slides-video.compone
     FaceMyWorstFearComponent,
     WpfProblemSolvingComponent,
     WpfDealWithWorryComponent,
-    FormCardComponent,
+    TrfSituationCardComponent,
     MoodTrackerComponent,
     MoodWidgetCardComponent,
     ThoughtRecordTechniquesComponent,
     TechniquesInfoComponent,
     IdentifyThinkingComponent,
-    ProofComponent,
-    ClickOutsideDirective,
-    EvidenceFormComponent,
-    AlternativeExplanationComponent,
     RecordOutcomeComponent,
     FormTextareaComponent,
     ThoughtHelpComponent,
-    TellFriendComponent,
     DateTimePickerComponent,
     ModifyBeliefsComponent,
     BeliefChangeComponent,
@@ -184,16 +201,22 @@ import { SlidesVideoComponent } from './slides/slides-video/slides-video.compone
     CommonBeliefComponent,
     NegativeThoughtCardComponent,
     BeliefChangeTechniquesComponent,
-    ProofBeliefComponent,
-    BeliefEvidencesComponent,
-    TellFriendBeliefComponent,
     ActAsIfComponent,
-    NegativeBeliefFinalComponent,
     FormMessageComponent,
     FormQuoteComponent,
     ControlContentComponent,
     SlidesBottomsheetComponent,
     SlidesVideoComponent,
+    FormFinalRatingComponent,
+    ProofEvidencesComponent,
+    EvidencesComponent,
+    FormTechniqueComponent,
+    TrfBehaviorCardComponent,
+    SummaryCardComponent,
+    FormRecommendComponent,
+    DeleteDialogComponent,
+    ClickOutsideDirective,
+    ScrollToTopDirective,
   ],
   imports: [
     ResourcesRoutingModule,
@@ -202,15 +225,7 @@ import { SlidesVideoComponent } from './slides/slides-video/slides-video.compone
     FormsModule,
     AngularEditorModule,
     LayoutModule,
-    MatToolbarModule,
-    MatTooltipModule,
-    MatButtonModule,
-    MatDialogModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
     ReactiveFormsModule,
-    MatDatepickerModule,
     MatMomentDateModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
@@ -228,16 +243,47 @@ import { SlidesVideoComponent } from './slides/slides-video/slides-video.compone
     ConclusionService,
     ThoughtRecordService,
     IdentifyThinkingService,
-    ProofService,
     MoodTrackerService,
-    AlternativeExplanationService,
     RecordOutcomeService,
     ThoughtHelpService,
-    TellFriendService,
     BeliefChangeService,
-    ProofBeliefService,
-    TellFriendBeliefService,
     ActAsIfService,
+    {
+      provide: 'IFinalRatingServices',
+      useClass: NegativeBeliefFinalService,
+      multi: true,
+    },
+    {
+      provide: 'IFinalRatingServices',
+      useClass: ThoughtRecordFinalService,
+      multi: true,
+    },
+    {
+      provide: 'IProofEvidences',
+      useClass: TRFProofService,
+      multi: true,
+    },
+    {
+      provide: 'IProofEvidences',
+      useClass: BeliefProofService,
+      multi: true,
+    },
+
+    {
+      provide: 'IFormTechniqueServices',
+      useClass: AlternateExplanationService,
+      multi: true,
+    },
+    {
+      provide: 'IFormTechniqueServices',
+      useClass: TRFTellFriendService,
+      multi: true,
+    },
+    {
+      provide: 'IFormTechniqueServices',
+      useClass: BeliefTellFriendService,
+      multi: true,
+    },
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [
@@ -249,11 +295,14 @@ import { SlidesVideoComponent } from './slides/slides-video/slides-video.compone
     DateTimePickerComponent,
     CommonBeliefComponent,
     SlidesBottomsheetComponent,
+    DeleteDialogComponent,
   ],
   exports: [
     DateTimePickerComponent,
     ClickOutsideDirective,
     MoodTrackerComponent,
+    DeleteDialogComponent,
+    ScrollToTopDirective,
   ],
 })
 export class ResourcesModule {}

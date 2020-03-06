@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { FormsService } from '@/main/forms.service';
+import {Component, OnInit} from '@angular/core';
+import {FormsService} from '@/main/forms.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-forms',
@@ -7,11 +8,14 @@ import { FormsService } from '@/main/forms.service';
   styleUrls: ['./forms-list.component.scss'],
 })
 export class FormsListComponent implements OnInit {
-  constructor(private formsService: FormsService) {}
+  constructor(private formsService: FormsService, private router: Router) {}
 
   forms: any = [];
 
   ngOnInit() {
     this.forms = this.formsService.forms;
+  }
+  navigate(form: any) {
+    this.router.navigateByUrl(form.path);
   }
 }

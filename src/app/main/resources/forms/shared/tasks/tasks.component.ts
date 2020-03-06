@@ -1,25 +1,14 @@
-import { PSF_PROBLEM, RECOMMENDED, WEEK } from '@/app.constants';
-import { ProblemSolvingWorksheetsService } from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.service';
-import { Problem } from '@/main/resources/forms/problem-solving-worksheets/problem.model';
-import { TasksService } from '@/main/resources/forms/shared/tasks/tasks.service';
-import { DateTimePickerComponent } from '@/main/shared/date-time-picker/date-time-picker.component';
-import { DateTimePickerService } from '@/main/shared/date-time-picker/date-time-picker.service';
-import { HttpErrorResponse } from '@angular/common/http';
-import {
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  OnChanges,
-  OnInit,
-  Output,
-  SimpleChanges,
-} from '@angular/core';
-import { FormArray, FormBuilder, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material';
-import { UserSubTask } from './user-sub-task.model';
-import { UserTask } from './user-task.model';
+import {TASK, WEEK} from '@/app.constants';
+import {ProblemSolvingWorksheetsService} from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.service';
+import {TasksService} from '@/main/resources/forms/shared/tasks/tasks.service';
+import {DateTimePickerComponent} from '@/main/shared/date-time-picker/date-time-picker.component';
+import {DateTimePickerService} from '@/main/shared/date-time-picker/date-time-picker.service';
+import {HttpErrorResponse} from '@angular/common/http';
+import {ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges,} from '@angular/core';
+import {FormArray, FormBuilder, Validators} from '@angular/forms';
+import {MatDialog} from '@angular/material';
+import {UserSubTask} from './user-sub-task.model';
+import {UserTask} from './user-task.model';
 
 @Component({
   selector: 'app-tasks',
@@ -29,14 +18,16 @@ import { UserTask } from './user-task.model';
 export class TasksComponent implements OnInit, OnChanges {
   @Output() nextStepEmitter = new EventEmitter<null>();
   @Output() taskLoaded = new EventEmitter<UserTask>();
-  @Input() problem!: Problem;
+  @Input() object!: any;
   @Input() reset!: boolean;
   @Input() task!: UserTask;
   @Input() taskHeading!: string;
+  @Output() showMessage = new EventEmitter();
+  // @ViewChild('dateTimeBtn', { static: false }) dateTimeBtn!: ElementRef;
 
-  taskValueChanged: boolean = false;
+  taskValueChanged = false;
   showTrashIcon: boolean[] = [];
-  submitted: boolean = false;
+  submitted = false;
   start_date!: any;
   time!: any;
   end_date!: any;
@@ -47,12 +38,13 @@ export class TasksComponent implements OnInit, OnChanges {
   origin_object: number | null = null;
   origin_name = '';
   showDateTimePicker = false;
-  dateTimeMessage: boolean = false;
+  dateTimeMessage = false;
   formDateTime: any[] = [];
   dateTime: any;
   dateRange!: string;
   endTime!: string;
   repeatedDays!: string;
+  errorMessage = "Sorry, the Task couldn't be saved. We're on it already.";
 
   tasksGroup = this.fb.group({
     task: ['', Validators.required],
@@ -71,9 +63,9 @@ export class TasksComponent implements OnInit, OnChanges {
   ) {}
 
   ngOnInit() {
-    if (this.problem && this.problem.taskOrigin) {
-      this.loadTasks();
-    }
+    // if (this.object && this.object.taskorigin) {
+    //   this.loadTasks();
+    // }
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (
@@ -83,12 +75,12 @@ export class TasksComponent implements OnInit, OnChanges {
     ) {
       this.initializeTask();
     } else if (
-      this.problem &&
-      this.problem.taskOrigin &&
-      changes.problem.previousValue !== changes.problem.currentValue
+      this.object &&
+      this.object.taskorigin &&
+      changes.object.previousValue !== changes.object.currentValue
     ) {
       this.loadTasks();
-    } else if (this.problem && !this.problem.taskOrigin) {
+    } else if (this.object && !this.object.taskorigin) {
       this.resetTask();
       this.taskLoaded.emit();
     }
@@ -121,7 +113,7 @@ export class TasksComponent implements OnInit, OnChanges {
 
   addField() {
     const formArray = this.tasksGroup.get('subTasks') as FormArray;
-    formArray.push(this.createEditItem());
+    formArray.push(this.createItem());
     this.showTrashIcon.push(false);
     this.changeDetector.detectChanges();
   }
@@ -140,34 +132,47 @@ export class TasksComponent implements OnInit, OnChanges {
         (str: any) => str.name.trim().length > 0,
       ),
       days: this.days,
-      origin_object: this.getOriginId(),
+      origin_id: this.getOriginId(),
       origin_name: this.getOriginName(),
     };
-
     if (this.task && this.task.id > 0) {
-      this.taskService.putTask(object, this.task.id).subscribe(resp => {
-        taskBody = resp.body.data;
-        status = resp.body.status;
-        if (status) {
+      this.taskService.putTask(object, this.task.id).subscribe(
+        (resp: any) => {
+          taskBody = resp.body.data;
           this.taskService.openSnackBar('Task Updated Successfully', 'OK');
           this.taskValueChanged = false;
-        } else {
-          this.taskService.openSnackBar('Error Occured', 'Retry');
-        }
-        this.taskHandler(taskBody, 'update');
-      });
+          this.taskHandler(taskBody, 'update');
+          this.taskLoaded.emit(taskBody);
+        },
+        error => {
+          console.log(error);
+          // this.taskService.openSnackBar('Error Occured', 'Retry');
+          this.taskService.openSnackBar(
+            error.error.non_field_errors || this.errorMessage,
+            'Retry',
+          );
+        },
+      );
+    } else if (object.start_date === undefined || object.time === undefined) {
+      this.taskService.openSnackBar('Date & Time cannot be empty. ', 'Error');
     } else {
-      this.taskService.postTask(object).subscribe(resp => {
-        taskBody = resp.body.data;
-        status = resp.body.status;
-        if (status) {
+      this.taskService.postTask(object).subscribe(
+        (resp: any) => {
           this.taskService.openSnackBar('Task Created Successfully', 'OK');
           this.taskValueChanged = false;
-        } else {
-          this.taskService.openSnackBar('Error Occured', 'Retry');
-        }
-        this.taskHandler(taskBody, 'create');
-      });
+          taskBody = resp.body.data;
+          this.taskHandler(taskBody, 'create');
+          this.taskLoaded.emit(this.task);
+          this.showMessage.emit(true);
+        },
+        error => {
+          // console.log(error);
+          this.taskService.openSnackBar(
+            error.error.non_field_errors || this.errorMessage,
+            'Retry',
+          );
+        },
+      );
     }
   }
 
@@ -292,14 +297,13 @@ export class TasksComponent implements OnInit, OnChanges {
       (data: any) => {
         if (data.length > 0) {
           this.task = data.find((t: UserTask) => {
-            if (this.problem.taskOrigin === t.origin_object) {
+            if (this.object.taskorigin.id === t.origin_object) {
               return t;
             }
           });
           if (this.task) {
-            console.log(this.task);
             this.initializeTask();
-            this.taskLoaded.emit(this.task);
+            // this.taskLoaded.emit(this.task);
           }
         }
       },
@@ -337,34 +341,35 @@ export class TasksComponent implements OnInit, OnChanges {
       this.end_date,
       this.time,
     );
+    this.showMessage.emit(true);
   }
 
-  onAllCheck(event: any) {
-    if (event.checked) {
-      this.days = WEEK;
-    } else {
-      this.days = [];
-    }
-    this.updateTask();
-  }
-
-  allDaysChecked() {
-    return this.start_date.length === 7;
-  }
+  // onAllCheck(event: any) {
+  //   if (event.checked) {
+  //     this.days = WEEK;
+  //   } else {
+  //     this.days = [];
+  //   }
+  //   this.updateTask();
+  // }
+  //
+  // allDaysChecked() {
+  //   return this.start_date.length === 7;
+  // }
 
   getOriginId() {
-    if (this.problem) {
-      return this.problem.id;
+    if (this.object) {
+      return this.object.id;
     } else {
       return null;
     }
   }
 
   getOriginName() {
-    if (this.problem) {
-      return PSF_PROBLEM;
+    if (this.object) {
+      return this.object.origin_name;
     } else {
-      return RECOMMENDED;
+      return TASK;
     }
   }
 
@@ -376,6 +381,7 @@ export class TasksComponent implements OnInit, OnChanges {
     this.repeat = false;
     delete this.origin_name;
     delete this.origin_object;
+    delete this.taskValueChanged;
     this.tasksGroup = this.fb.group({
       task: [''],
       taskCompleted: [false],
@@ -383,6 +389,8 @@ export class TasksComponent implements OnInit, OnChanges {
     });
     this.showTrashIcon = [];
     delete this.dateTimeMessage;
+    delete this.task;
+    this.showMessage.emit(false);
   }
 
   // dateTimeParser() {
@@ -403,8 +411,11 @@ export class TasksComponent implements OnInit, OnChanges {
 
   onShowDateTime() {
     this.showDateTimePicker = !this.showDateTimePicker;
+
     const dialogRef = this.dialog.open(DateTimePickerComponent, {
       panelClass: 'dateTime-dialog-container',
+      maxWidth: '100vw',
+      autoFocus: false,
     });
     this.onDialogRefClosed(dialogRef);
   }
@@ -413,6 +424,8 @@ export class TasksComponent implements OnInit, OnChanges {
     this.showDateTimePicker = !this.showDateTimePicker;
     const dialogRef = this.dialog.open(DateTimePickerComponent, {
       panelClass: 'dateTime-dialog-container',
+      maxWidth: '100vw',
+      autoFocus: false,
       data: {
         startDate: this.start_date,
         endDate: this.end_date,
@@ -425,7 +438,7 @@ export class TasksComponent implements OnInit, OnChanges {
 
   onDialogRefClosed(dialogRef: any) {
     dialogRef.afterClosed().subscribe((result: any) => {
-      if (result) {
+      if (result && result.data) {
         this.taskValueChanged = true;
         this.dateTime = result.data.dateTime;
         this.showDateTimePicker = result.data.showDateTimePicker;
@@ -441,7 +454,7 @@ export class TasksComponent implements OnInit, OnChanges {
 
         this.endTime = this.dateTimePickerService.getUTCTimeInAmPm(
           this.end_date,
-          this.dateTime[2],
+          this.time,
         );
 
         this.repeatedDays = this.getRepeatedDays(this.dateTime[3]);
@@ -456,17 +469,22 @@ export class TasksComponent implements OnInit, OnChanges {
   }
   onShowTrashIcon(index: number) {
     this.showTrashIcon[index] = !this.showTrashIcon[index];
+    this.taskValueChanged = true;
   }
 
   getRepeatedDays(days: String[]): string {
-    let repeatedDays: string[] = [];
+    const repeatedDays: string[] = [];
     for (let i = 0; i < days.length; i++) {
       this.days[i].toUpperCase();
       repeatedDays.push(
         days[i].charAt(0) + this.days[i].substr(1, 2).toLowerCase(),
       );
     }
-    let repeat = repeatedDays.join(',');
+    const repeat = repeatedDays.join(',');
     return repeat;
+  }
+
+  showSaveBtn() {
+    this.taskValueChanged = true;
   }
 }

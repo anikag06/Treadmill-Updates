@@ -1,16 +1,9 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  ViewChild,
-  Output,
-  EventEmitter,
-} from '@angular/core';
-import { ProsCons } from '../../pros-cons.model';
-import { NgForm } from '@angular/forms';
-import { ProblemSolvingWorksheetsService } from '../../problem-solving-worksheets.service';
-import { Solution } from '../../solution.model';
-import { GeneralErrorService } from '@/main/shared/general-error.service';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild,} from '@angular/core';
+import {ProsCons} from '../../pros-cons.model';
+import {NgForm} from '@angular/forms';
+import {ProblemSolvingWorksheetsService} from '../../problem-solving-worksheets.service';
+import {Solution} from '../../solution.model';
+import {GeneralErrorService} from '@/main/shared/general-error.service';
 
 @Component({
   selector: 'app-pros-cons',
@@ -23,6 +16,7 @@ export class ProsConsComponent implements OnInit {
   @Input() prosCons: ProsCons[] = [];
   @Output() proconAdd = new EventEmitter<ProsCons>();
   @Output() proconRemove = new EventEmitter<ProsCons>();
+  // @Output() triggerBtn = new EventEmitter();
   @ViewChild('proconForm', { static: false }) proconForm!: NgForm;
   showForm = false;
 
@@ -34,7 +28,10 @@ export class ProsConsComponent implements OnInit {
   ngOnInit() {}
 
   onSubmit() {
-    if (this.proconForm.value['procon'].trim().length > 0) {
+    if (
+      this.proconForm.value['procon'] &&
+      this.proconForm.value['procon'].trim().length > 0
+    ) {
       const procon = new ProsCons(
         0,
         this.solution.id,
@@ -44,14 +41,19 @@ export class ProsConsComponent implements OnInit {
       this.problemsService
         .postProsCons(procon, this.solution.id)
         .subscribe((data: any) => {
-          procon.id = data.data.ids[0];
+          console.log(data);
+          procon.id = data.data.id;
           this.prosCons.push(procon);
           this.showForm = false;
           this.proconForm.reset();
           if (this.prosCons.length === 0) {
             this.showForm = true;
+            // this.triggerBtn.emit(false);
           }
-        }, this.errorService.errorResponse('Cannot post an pro or con'));
+          // else {
+          //   this.triggerBtn.emit(true);
+          // }
+        }, this.errorService.errorResponse('Cannot post pro or con'));
     } else {
       this.showForm = false;
       this.proconForm.reset();
@@ -63,11 +65,15 @@ export class ProsConsComponent implements OnInit {
     this.problemsService.deleteProsCons(procon.id).subscribe(() => {
       this.prosCons = this.prosCons.filter(pc => pc.id !== procon.id);
     });
+    if (this.prosCons.length === 0) {
+      // this.triggerBtn.emit(false);
+    }
   }
 
   onFocusOut(procon: ProsCons, event: any) {
     const prc = <ProsCons>this.prosCons.find(pc => pc === procon);
     prc.body = (<Element>event.target).innerHTML;
+    this.onSubmit();
   }
 
   onTextAreaFocusOut(event: any) {

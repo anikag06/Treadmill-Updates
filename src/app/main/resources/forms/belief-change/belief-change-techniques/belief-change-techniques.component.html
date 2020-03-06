@@ -15,20 +15,59 @@
     <div class="techniques">
       <mat-accordion>
         <div class="technique">
-          <app-proof-belief [belief]="belief"></app-proof-belief>
+          <app-proof-evidences
+            [summaryIndex]="0"
+            [reset]="resetTechnique"
+            (techniqueExpanded)="onTechniqueExpanded()"
+            (techniqueCollapsed)="onTechniqueCollapsed($event)"
+            [favorTitle]="favorTitle"
+            [againstTitle]="againstTitle"
+            [service]="1"
+            [id]="belief.id"
+          >
+          </app-proof-evidences>
         </div>
 
         <div class="technique">
-          <app-tell-friend-belief [belief]="belief"></app-tell-friend-belief>
+          <app-form-technique
+            [reset]="resetTechnique"
+            [summaryIndex]="1"
+            (techniqueExpanded)="onTechniqueExpanded()"
+            (techniqueCollapsed)="onTechniqueCollapsed($event)"
+            [techniqueName]="tellTechnique"
+            [question]="tellQuestion"
+            [service]="2"
+            [id]="belief.id"
+            [headerColor]="tellHdrColor"
+            (showFinal)="triggerShowFinalBelief()"
+          >
+          </app-form-technique>
         </div>
 
         <div class="technique">
           <app-act-as-if
+            [reset]="resetTechnique"
+            [summaryIndex]="2"
+            (techniqueExpanded)="onTechniqueExpanded()"
+            (techniqueCollapsed)="onTechniqueCollapsed($event)"
             (triggerShowFinalBelief)="triggerShowFinalBelief()"
             [belief]="belief"
           ></app-act-as-if>
         </div>
       </mat-accordion>
     </div>
+    <div *ngIf="showContinue && !isCompleted">
+      <button
+        type="submit"
+        mat-raised-button
+        class="btn continue-btn "
+        [ngStyle]="{ float: 'right' }"
+        (click)="onShowFinalBelief()"
+      >
+        Done
+      </button>
+      <br /><br />
+    </div>
   </div>
 </div>
+<!--(showFinal)="triggerShowFinalBelief()"-->

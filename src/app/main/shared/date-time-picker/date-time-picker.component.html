@@ -2,30 +2,34 @@
   <div class="modal">
     <div class="dateTimeDiv">
       <div class="startEndDate">
-        <ng-container *ngIf="startEndDate.length === 0">
-          <span [ngStyle]="{ opacity: '0.4', 'font-size': '24px' }">
+        <ng-container *ngIf="showWhenStart">
+          <span class="span-text">
             When do you want to start?
           </span>
         </ng-container>
-        <ng-container
-          *ngIf="startEndDate[1] === null && startEndDate.length > 1"
-        >
-          <span [ngStyle]="{ opacity: '0.4', 'font-size': '24px' }">
+        <ng-container *ngIf="showTillWhen">
+          <span class="span-text">
             and till when?
+            <div
+              [ngStyle]="{
+                fontSize: '0.75rem',
+                opacity: '0.4'
+              }"
+            >
+              Tap on
+              {{ startEndDate[START_DATE] | date: 'shortDate' | date: 'd' }}
+              for same day
+            </div>
           </span>
         </ng-container>
-        <ng-container
-          *ngIf="
-            startEndDate[1] !== null &&
-            startEndDate[0] !== null &&
-            startEndDate.length === 2
-          "
-        >
+        <ng-container *ngIf="showStartEndDate">
           <div class="date-range">
             <div class="date">
-              {{ startEndDate[0] | date: 'shortDate' | date: 'dd MMM' }}
+              {{
+                startEndDate[START_DATE] | date: 'shortDate' | date: 'dd MMM'
+              }}
               {{ '-' }}
-              {{ startEndDate[1] | date: 'shortDate' | date: 'dd MMM' }}
+              {{ startEndDate[END_DATE] | date: 'shortDate' | date: 'dd MMM' }}
             </div>
           </div>
         </ng-container>
@@ -41,19 +45,11 @@
         >
         </owl-date-time-inline>
       </div>
-      <div
-        class="repeat"
-        *ngIf="
-          startEndDate[1] !== null &&
-          startEndDate[0] !== null &&
-          startEndDate.length === 2
-        "
-      >
+      <div class="repeat" *ngIf="showStartEndDate">
         <div
           [ngStyle]="{
             display: 'flex',
-            'margin-left': '9%',
-            'margin-top': '3%'
+            'margin-left': '9%'
           }"
         >
           Repeat
@@ -79,13 +75,7 @@
       type="submit"
       mat-raised-button
       class="done-btn"
-      [disabled]="
-        !(
-          startEndDate[1] !== null &&
-          startEndDate[0] !== null &&
-          startEndDate.length === 2
-        )
-      "
+      [disabled]="!showStartEndDate"
       (click)="dateTimeMessageSubmit()"
     >
       Done

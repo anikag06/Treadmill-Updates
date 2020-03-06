@@ -3,73 +3,73 @@
     {{ header }}
   </div>
   <div class="card-body">
-      <div [ngStyle]="{ 'text-align': 'center' }">
-          <button
-                  class="btn dialog-button"
-                  (click)="onShowMoodWidget()"
-                  *ngIf="!moodSelected"
-          >
-              Select your feelings
-          </button>
-      </div>
+    <div [ngStyle]="{ 'text-align': 'center' }">
+      <button
+        class="btn dialog-button"
+        (click)="onShowMoodWidget()"
+        *ngIf="!moodSelected"
+      >
+        Select your feelings
+      </button>
+    </div>
 
-      <div *ngIf="moodSelected" [ngStyle]="{ postion: 'inline-grid' }">
-          <div *ngFor="let userFeeling of userFeelings; let i = index">
-              <div class="row" class="emotion-range" [ngStyle]="{ height: '35px' }">
-                  <div class="col-4">
-                      {{ userFeeling.feeling }}
-                  </div>
-                  <div class="col-8">
-                      <label for="range">
-                          <div
-                                  class="rangeValue"
-                                  [ngStyle]="{
+    <div *ngIf="moodSelected" [ngStyle]="{ postion: 'inline-grid' }">
+      <div *ngFor="let userFeeling of userFeelings; let i = index">
+        <div class="row" class="emotion-range" [ngStyle]="{ height: '35px' }">
+          <div class="col-4">
+            {{ userFeeling.feeling }}
+          </div>
+          <div class="col-8" *ngIf="!(userFeeling.feeling === 'Okay')">
+            <label for="range">
+              <div
+                class="rangeValue"
+                [ngStyle]="{
                   'margin-left':
                     rangeMargin[getMargin(userFeeling.feeling_rating)],
                   'font-size': '12px',
                   'margin-top': '3px'
                 }"
-                          >
-                              {{ userFeeling.feeling_rating }}
-                              <div
-                                      class="circle"
-                                      [ngStyle]="{
+              >
+                {{ userFeeling.feeling_rating }}
+                <div
+                  class="circle"
+                  [ngStyle]="{
                     'margin-left':
                       circleMargin[getMargin(userFeeling.feeling_rating)]
                   }"
-                              ></div>
-                          </div>
-                          <input
-                                  disabled="true"
-                                  type="range"
-                                  name="range"
-                                  id="range"
-                                  min="0"
-                                  max="4"
-                                  step="1"
-                          />
-                      </label>
-                  </div>
+                ></div>
               </div>
+              <input
+                disabled="true"
+                type="range"
+                name="range"
+                id="range"
+                min="0"
+                max="4"
+                step="1"
+              />
+            </label>
           </div>
-
-          <button
-                  [ngStyle]="{ 'padding-left': '0px' }"
-                  class="btn btn-link"
-                  (click)="onShowMoodWidget()"
-          >
-              Edit Feelings
-          </button>
+        </div>
       </div>
-      <p class="text-right">
-          <button
-                  mat-raised-button
-                  *ngIf="showContinueButton && !submitted"
-                  class="btn continue-btn"
-                  (click)="onMoodSubmit()"
-          >
-              Continue
-          </button>
-      </p>
+
+      <button
+        [ngStyle]="{ 'padding-left': '0px' }"
+        class="btn btn-link"
+        (click)="onChangeMoodWidget()"
+      >
+        Edit Feelings
+      </button>
+    </div>
+    <p class="text-right">
+      <button
+        mat-raised-button
+        *ngIf="showSaveButton"
+        class="btn continue-btn"
+        (click)="onMoodSubmit()"
+      >
+        Save
+      </button>
+    </p>
   </div>
 </div>

@@ -1,0 +1,17 @@
+<div class="text-center" >
+  <hr class="my-0" />
+  <hr class="my-1" />
+  <div class="my-3 ">
+    <img class="character" [src]="characterImg" />
+  </div>
+
+  <div class="my-2" [ngStyle]="{ fontSize: '0.875rem', color: '#00000099' }">
+    {{ recommendPath }}
+  </div>
+
+  <div class="my-3">
+    <button class="btn btn-link text-de" (click)="nextStep()">
+      <u>Access it Anyway</u>
+    </button>
+  </div>
+</div>

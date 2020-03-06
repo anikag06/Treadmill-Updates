@@ -1,16 +1,8 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  Output,
-  EventEmitter,
-  ViewChild,
-  ElementRef,
-} from '@angular/core';
-import { ProsCons } from '../../../pros-cons.model';
-import { ProblemSolvingWorksheetsService } from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.service';
-import { GeneralErrorService } from '@/main/shared/general-error.service';
-import { SanitizationService } from '@/main/shared/sanitization.service';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild,} from '@angular/core';
+import {ProsCons} from '../../../pros-cons.model';
+import {ProblemSolvingWorksheetsService} from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.service';
+import {GeneralErrorService} from '@/main/shared/general-error.service';
+import {SanitizationService} from '@/main/shared/sanitization.service';
 
 @Component({
   selector: 'app-procon-item',
@@ -19,6 +11,7 @@ import { SanitizationService } from '@/main/shared/sanitization.service';
 })
 export class ProconItemComponent implements OnInit {
   @Input() procon!: ProsCons;
+  @Input() solution_id!: number;
   @Output() proconDelete = new EventEmitter<ProsCons>();
   hideRemove = true;
   @ViewChild('editableDiv', { static: false }) proCondiv!: ElementRef;
@@ -32,9 +25,7 @@ export class ProconItemComponent implements OnInit {
   ngOnInit() {}
 
   removeProcon() {
-    if (confirm('Are you sure to remove this?')) {
-      this.proconDelete.emit(this.procon);
-    }
+    this.proconDelete.emit(this.procon);
   }
 
   onFocus() {
@@ -57,10 +48,15 @@ export class ProconItemComponent implements OnInit {
   saveProConData(event: any) {
     const text = this.sanitizer.changeExtraCharacters(event);
     this.procon.body = text;
-    this.hideRemove = true;
     this.problemService
-      .putProsCons(this.procon.id, this.procon.body)
+      .putProsCons(this.procon, this.solution_id)
       .subscribe((data: any) => {},
       this.errorService.errorResponse('Cannot update that'));
+  }
+
+  onClickOutside(event: any) {
+    if (event && (<any>event)['value'] === true) {
+      this.hideRemove = true;
+    }
   }
 }

@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
-import { BehaviorSubject } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../../../environments/environment';
-import { Belief } from '@/main/resources/forms/belief-change/belief.model';
+import {BehaviorSubject} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {environment} from '../../../../../environments/environment';
+import {Belief} from '@/main/resources/forms/belief-change/belief.model';
+import {BELIEF_FORM_API} from '@/app.constants';
 
 @Injectable({
   providedIn: 'root',
@@ -26,9 +27,7 @@ export class BeliefChangeService {
   getBeliefs() {
     if (this.nextPage) {
       this.http
-        .get<Belief[]>(
-          environment.API_ENDPOINT + '/api/v1/worksheets/belief-change/belief/',
-        )
+        .get<Belief[]>(environment.API_ENDPOINT + BELIEF_FORM_API)
         .subscribe((data: any) => {
           // if (this.page === 1) {
           //   this.beliefs = [];
@@ -39,9 +38,9 @@ export class BeliefChangeService {
           if (data.next) {
             this.page += 1;
             this.nextPage = true;
-            setTimeout(() => {
-              this.getBeliefs();
-            }, 10);
+            // setTimeout(() => {
+            //   this.getBeliefs();
+            // }, 10);
           } else {
             this.nextPage = false;
           }
@@ -51,10 +50,7 @@ export class BeliefChangeService {
 
   deleteBelief(id: number) {
     return this.http.delete(
-      environment.API_ENDPOINT +
-        '/api/v1/worksheets/belief-change/belief/' +
-        id +
-        '/',
+      environment.API_ENDPOINT + BELIEF_FORM_API + id + '/',
       {
         observe: 'response',
       },
@@ -82,7 +78,7 @@ export class BeliefChangeService {
 
   postBelief(data: any) {
     return this.http.post<any>(
-      environment.API_ENDPOINT + '/api/v1/worksheets/belief-change/belief/',
+      environment.API_ENDPOINT + BELIEF_FORM_API,
       data,
       {
         observe: 'response',
@@ -92,85 +88,8 @@ export class BeliefChangeService {
 
   putBelief(data: any, id: any) {
     return this.http.put<any>(
-      environment.API_ENDPOINT +
-        '/api/v1/worksheets/belief-change/belief/' +
-        id +
-        '/',
+      environment.API_ENDPOINT + BELIEF_FORM_API + id + '/',
       data,
-      {
-        observe: 'response',
-      },
-    );
-  }
-
-  postFinalBeliefRating(finalRating: any) {
-    return this.http.post<any>(
-      environment.API_ENDPOINT +
-        '/api/v1/worksheets/belief-change/final-rating/',
-      finalRating,
-      {
-        observe: 'response',
-      },
-    );
-  }
-
-  putFinalRating(finalBelief: any, id: number) {
-    return this.http.put<any>(
-      environment.API_ENDPOINT +
-        '/api/v1/worksheets/belief-change/final-rating/' +
-        id +
-        '/',
-      finalBelief,
-      {
-        observe: 'response',
-      },
-    );
-  }
-
-  getFinalRating(id: number) {
-    return this.http.get<any>(
-      environment.API_ENDPOINT +
-        '/api/v1/worksheets/belief-change/final-rating/' +
-        id +
-        '/',
-
-      {
-        observe: 'response',
-      },
-    );
-  }
-
-  getRealisticBelief(id: number) {
-    return this.http.get<any>(
-      environment.API_ENDPOINT +
-        '/api/v1/worksheets/belief-change/realistic-belief/' +
-        id +
-        '/',
-
-      {
-        observe: 'response',
-      },
-    );
-  }
-
-  postRealisticBelief(realBelief: any) {
-    return this.http.post<any>(
-      environment.API_ENDPOINT +
-        '/api/v1/worksheets/belief-change/realistic-belief/',
-      realBelief,
-      {
-        observe: 'response',
-      },
-    );
-  }
-
-  putRealisticBelief(realBelief: any, id: number) {
-    return this.http.put<any>(
-      environment.API_ENDPOINT +
-        '/api/v1/worksheets/belief-change/realistic-belief/' +
-        id +
-        '/',
-      realBelief,
       {
         observe: 'response',
       },

@@ -1,24 +1,27 @@
-<mat-expansion-panel hideToggle #panel>
+<mat-expansion-panel
+  hideToggle
+  #panel
+  (afterExpand)="techniqueExpanded.emit()"
+  (afterCollapse)="techniqueCollapsed.emit(summary)"
+>
   <mat-expansion-panel-header
-          [ngStyle]="{ background: '#FEDEFF', paddingLeft: '16px' }"
-          [expandedHeight]="'42px'"
-          [collapsedHeight]="'42px'"
+    [ngStyle]="{ background: '#FEDEFF', paddingLeft: '16px' }"
   >
-      <mat-panel-title
-              [ngStyle]="{
+    <mat-panel-title
+      [ngStyle]="{
         'font-size': panel.expanded ? '16px' : '14px',
         'font-weight': '500'
       }"
-      >
-          {{ techniqueName }}
-      </mat-panel-title>
-      <mat-panel-description>
+    >
+      {{ techniqueName }}
+    </mat-panel-title>
+    <mat-panel-description>
       <div class="iconsDiv" *ngIf="panel.expanded">
         <mat-icon>close</mat-icon>
       </div>
-          <div class="iconsDiv" *ngIf="!panel.expanded && this.summary.length > 0">
-              <img src="assets/forms/edit_errors.png" width="24px"/>
-          </div>
+      <div class="iconsDiv" *ngIf="!panel.expanded && this.summary.length > 0">
+        <img src="assets/forms/edit_errors.png" width="24px" />
+      </div>
     </mat-panel-description>
   </mat-expansion-panel-header>
 
@@ -30,15 +33,18 @@
       <div>
         <mat-form-field>
           <textarea
-                  matInput
-                  cdkTextareaAutosize
-                  cdkAutosizeMinRows="2"
-                  cdkAutosizeMaxRows="4"
-                  formControlName="keepThought"
-                  class="form-control"
-                  required
-                  placeholder="Write Here"
-                  #outcome
+            matInput
+            #formInput="matInput"
+            [placeholder]="
+              formInput.focused || formInput.empty ? 'Write Here' : ''
+            "
+            cdkTextareaAutosize
+            cdkAutosizeMinRows="1"
+            formControlName="keepThought"
+            class="py-0"
+            required
+            placeholder="Write Here"
+            #outcome
           ></textarea>
         </mat-form-field>
       </div>
@@ -49,15 +55,18 @@
       <div>
         <mat-form-field>
           <textarea
-                  matInput
-                  cdkTextareaAutosize
-                  cdkAutosizeMinRows="2"
-                  cdkAutosizeMaxRows="4"
-                  formControlName="changeThought"
-                  class="form-control"
-                  required
-                  placeholder="Write Here"
-                  #outcome
+            matInput
+            #formInput="matInput"
+            [placeholder]="
+              formInput.focused || formInput.empty ? 'Write Here' : ''
+            "
+            cdkTextareaAutosize
+            cdkAutosizeMinRows="1"
+            formControlName="changeThought"
+            class="py-0"
+            required
+            placeholder="Write Here"
+            #outcome
           ></textarea>
         </mat-form-field>
       </div>
@@ -66,37 +75,24 @@
         {{ canSolveQues }}
       </div>
       <div>
-        <mat-radio-group formControlName="canSolve">
-            <mat-radio-button [value]="1">
-                Yes
-            </mat-radio-button>
-            <mat-radio-button [value]="0" [ngStyle]="{ float: 'right' }">
-                No
-            </mat-radio-button>
+        <mat-radio-group formControlName="canSolve" color="primary">
+          <mat-radio-button [value]="true">
+            Yes
+          </mat-radio-button>
+          <mat-radio-button [value]="false" [ngStyle]="{ marginLeft: '5%' }">
+            No
+          </mat-radio-button>
         </mat-radio-group>
       </div>
       <br />
       <div>
-        <ng-container
-          *ngIf="
-            thoughtHelpForm.valid &&
-            thoughtHelpForm.value['canSolve'] === 'true'
-          "
-        >
-          <div>
-            {{ yes }}
-          </div>
-        </ng-container>
-        <ng-container
-          *ngIf="
-            thoughtHelpForm.valid &&
-            thoughtHelpForm.value['canSolve'] === 'false'
-          "
-        >
-          <div>
-            {{ no }}
-          </div>
-        </ng-container>
+        <div
+          *ngIf="thoughtHelpForm.value['canSolve'] === true"
+          [innerHTML]="yes"
+        ></div>
+        <div *ngIf="thoughtHelpForm.value['canSolve'] === false">
+          {{ no }}
+        </div>
       </div>
       <br />
       <div>
@@ -115,11 +111,8 @@
   </ng-template>
 </mat-expansion-panel>
 
-<mat-card class="card-body" *ngIf="!panel.expanded && this.summary.length > 0">
-    <mat-card-content>
-        <div [ngStyle]="{ 'font-size': '12px' }">Summary</div>
-        <div [ngStyle]="{ 'margin-top': '8px', 'font-size': '12px' }">
-            {{ summary }}
-        </div>
-    </mat-card-content>
-</mat-card>
+<app-summary-card
+  [cardHeading]="summaryHeading"
+  [summary]="summary"
+  [expanded]="panel.expanded"
+></app-summary-card>

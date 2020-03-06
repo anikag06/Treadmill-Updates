@@ -1,0 +1,45 @@
+<div class="card-full-width">
+  <div class="card-header">
+    {{ header }}
+    <div class="edit-icon">
+      <mat-icon class="edit_icon" (click)="onEditSituationClick()">
+        edit
+      </mat-icon>
+    </div>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="situationFormGroup">
+      <mat-form-field class="full-width">
+        <textarea
+          matInput
+          appScrollToTop
+          #formInput="matInput"
+          [placeholder]="
+            formInput.focused || formInput.empty ? 'Write Here' : ''
+          "
+          class="py-0"
+          cdkTextareaAutosize
+          cdkAutosizeMinRows="1"
+          name="problemStatement"
+          class="py-0"
+          #textArea
+          formControlName="situation"
+          required
+          (focusout)="updateText()"
+          (focus)="onShowContinueButton()"
+        ></textarea>
+      </mat-form-field>
+      <p class="text-right">
+        <button
+          mat-raised-button
+          type="button"
+          *ngIf="showContinue"
+          class="btn continue-btn "
+          (click)="onSituationSubmit()"
+        >
+          Continue
+        </button>
+      </p>
+    </form>
+  </div>
+</div>

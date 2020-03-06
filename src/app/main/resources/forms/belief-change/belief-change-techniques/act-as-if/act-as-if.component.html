@@ -1,12 +1,15 @@
-<mat-expansion-panel hideToggle #panel>
+<mat-expansion-panel
+  hideToggle
+  #panel
+  (afterExpand)="techniqueExpanded.emit()"
+  (afterCollapse)="panelCollapse()"
+>
   <mat-expansion-panel-header
-    [ngStyle]="{ background: '#FFFCE3 ', paddingLeft: '16px' }"
-    [collapsedHeight]="'64px'"
-    [expandedHeight]="'64px'"
+    [ngStyle]="{ background: '#EBEDFF', paddingLeft: '1rem' }"
   >
     <mat-panel-title
       [ngStyle]="{
-        'font-size': panel.expanded ? '16px' : '14px',
+        'font-size': panel.expanded ? '1rem' : '0.88rem',
         'font-weight': '500'
       }"
     >
@@ -22,6 +25,7 @@
       </div>
     </mat-panel-description>
   </mat-expansion-panel-header>
+
   <ng-template matExpansionPanelContent>
     <form [formGroup]="actAsIfForm">
       <div>
@@ -32,8 +36,13 @@
           <mat-form-field>
             <textarea
               matInput
+              #formInput="matInput"
+              [placeholder]="
+                formInput.focused || formInput.empty ? 'Write Here' : ''
+              "
+              class="py-0"
               cdkTextareaAutosize
-              cdkAutosizeMinRows="2"
+              cdkAutosizeMinRows="1"
               cdkAutosizeMaxRows="4"
               formControlName="how_would_i_act"
               required
@@ -46,41 +55,12 @@
             class="btn continue-btn"
             [ngStyle]="{ float: 'right' }"
             (click)="onSubmit()"
-            *ngIf="showActContinue"
+            *ngIf="showActContinue && !editMode"
           >
             Done
           </button>
         </div>
       </div>
-      <br />
-      <div *ngIf="showRadioDiv">
-        <div class="q-heading">
-          {{ acting_help }}
-        </div>
-
-        <div>
-          <mat-radio-group formControlName="would_it_help">
-            <mat-radio-button [value]="1">
-              Yes
-            </mat-radio-button>
-            <mat-radio-button [value]="0" [ngStyle]="{ marginLeft: '65px' }">
-              No
-            </mat-radio-button>
-          </mat-radio-group>
-          <div>
-            <button
-              mat-raised-button
-              class="btn continue-btn"
-              [ngStyle]="{ float: 'right' }"
-              (click)="onActSubmit()"
-              *ngIf="getRadio.valid && showRadioCntBtn"
-            >
-              Done
-            </button>
-          </div>
-        </div>
-      </div>
-
       <br />
       <div *ngIf="showAdvantages">
         <div class="q-heading">
@@ -95,16 +75,20 @@
               class="statement"
               [formGroupName]="i"
               [ngStyle]="{ display: 'flex' }"
-              click-outside
+              appClickOutside
               (clickOutside)="onClickOutside($event, i)"
             >
               <!--                <input type="hidden" formControlName="id" [value]="id" />-->
               <mat-form-field>
                 <textarea
                   matInput
+                  #formInput="matInput"
+                  [placeholder]="
+                    formInput.focused || formInput.empty ? 'Write Here' : ''
+                  "
+                  class="py-0"
                   cdkTextareaAutosize
-                  cdkAutosizeMinRows="2"
-                  cdkAutosizeMaxRows="4"
+                  cdkAutosizeMinRows="1"
                   formControlName="advantage"
                   placeholder="Write Here"
                   required
@@ -131,32 +115,58 @@
             >add
           </mat-icon>
           <div [ngStyle]="{ 'padding-left': '5px' }">
-            Add Advantages
+            Add Advantage
           </div>
         </div>
+        <br />
 
         <div>
-          <br />
-          <button
-            mat-raised-button
-            class="btn continue-btn"
-            [ngStyle]="{ float: 'right' }"
-            (click)="onSubmitAdvantages()"
-          >
-            Done
-          </button>
+          <div class="q-heading">
+            {{ acting_help }}
+          </div>
+
+          <div>
+            <mat-radio-group color="primary" formControlName="would_it_help">
+              <mat-radio-button [value]="true">
+                Yes
+              </mat-radio-button>
+              <mat-radio-button
+                [value]="false"
+                [ngStyle]="{ marginLeft: '4.5rem' }"
+              >
+                No
+              </mat-radio-button>
+            </mat-radio-group>
+            <div>
+              <br />
+              <div>
+                <div *ngIf="actAsIfForm.value['would_it_help'] === true">
+                  {{ yes }}
+                </div>
+                <div *ngIf="actAsIfForm.value['would_it_help'] === false">
+                  {{ no }}
+                </div>
+              </div>
+              <br />
+              <button
+                mat-raised-button
+                class="btn continue-btn"
+                [ngStyle]="{ float: 'right' }"
+                (click)="onSubmit()"
+              >
+                Done
+              </button>
+            </div>
+          </div>
         </div>
       </div>
+
+      <br />
     </form>
   </ng-template>
 </mat-expansion-panel>
-<mat-card class="card-body" *ngIf="!panel.expanded && this.summary">
-  <mat-card-content>
-    <div [ngStyle]="{ 'font-size': '12px' }">
-      Summary
-    </div>
-    <div [ngStyle]="{ 'margin-top': '8px', 'font-size': '12px' }">
-      {{ summary }}
-    </div>
-  </mat-card-content>
-</mat-card>
+<app-summary-card
+  [cardHeading]="summaryHeading"
+  [summary]="summary"
+  [expanded]="panel.expanded"
+></app-summary-card>

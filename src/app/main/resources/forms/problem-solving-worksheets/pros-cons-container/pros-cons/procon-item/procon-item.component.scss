@@ -1,16 +1,18 @@
-@import "../../../../../../../../color.palette.scss";
-
+@import '../../../../../../../../color.palette.scss';
+@import '../../../../forms.component';
 button {
-    background-color: transparent;
-    border-radius: 50%;
-    border: none;
+  background-color: transparent;
+  border-radius: 50%;
+  border: none;
 }
 
 .procon {
-  padding: 5px;
-  margin: 10px;
-  font-size: 14px;
-  border-bottom: 1px solid #dcdcdc;
+  padding: 0.3125rem;
+  margin: 0.3125rem;
+  margin-top: 0.6875rem;
+  font-size: 1rem;
+  border-bottom: 1px solid #888585;
+  margin-bottom: 1.25em;
   &:focus {
     border-top: none;
     border-left: none;
@@ -19,4 +21,10 @@ button {
     box-shadow: none;
     outline: none;
   }
+}
+
+.delete-btn {
+  position: relative;
+  right: -25px;
+  top: -25px;
 }

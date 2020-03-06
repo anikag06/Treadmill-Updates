@@ -25,12 +25,15 @@
           <mat-form-field class="full-width">
             <textarea
               matInput
+              #formInput="matInput"
+              [placeholder]="
+                formInput.focused || formInput.empty ? 'Write Here' : ''
+              "
+              class="py-0"
               cdkTextareaAutosize
-              cdkAutosizeMinRows="2"
-              cdkAutosizeMaxRows="4"
+              cdkAutosizeMinRows="1"
               formControlName="belief"
               required
-              placeholder="Write Here"
               (focusout)="onNegativeMantraSubmit()"
               (focus)="onShowContinue()"
               #belief
@@ -38,44 +41,46 @@
           </mat-form-field>
         </div>
         <div *ngIf="showBeliefLink">
-          <button class="btn btn-link" (click)="onSelectCommonBelief()">
-            List of Belief
+          <button class="btn btn-link px-0" (click)="onSelectCommonBelief()">
+            List of Beliefs
           </button>
         </div>
-        <div>
+        <div [ngStyle]="{ display: 'initial' }">
           <button
+            *ngIf="showContiue"
             type="submit"
             mat-raised-button
             class="btn continue-btn"
             (click)="onBeliefSubmit()"
-            *ngIf="showContiue"
             [ngStyle]="{ float: 'right' }"
           >
             Continue
           </button>
+          <br />
+          <br />
         </div>
       </form>
     </div>
-  </div>
-</div>
-<div *ngIf="showSlider">
-  <app-form-slider
-    [minRatingText]="minRating"
-    [maxRatingText]="maxRating"
-    [question]="scaleBelief"
-    (getRating)="getRating($event)"
-    [rating]="beliefRatingInitial"
-  ></app-form-slider>
-  <div *ngIf="showSliderButton">
-    <div class="text-right">
-      <button
-        mat-raised-button
-        (click)="onNegativeMantraSubmit()"
-        class=" btn continue-btn"
-      >
-        Continue
-      </button>
-      <br />
+    <div *ngIf="showSlider">
+      <app-form-slider
+        [minRatingText]="minRating"
+        [maxRatingText]="maxRating"
+        [question]="scaleBelief"
+        (getRating)="getRating($event)"
+        [rating]="beliefRatingInitial"
+      ></app-form-slider>
+      <div *ngIf="showSliderButton">
+        <div class="text-right">
+          <button
+            mat-raised-button
+            (click)="onNegativeMantraSubmit()"
+            class=" btn continue-btn"
+          >
+            Continue
+          </button>
+          <br />
+        </div>
+      </div>
     </div>
   </div>
 </div>

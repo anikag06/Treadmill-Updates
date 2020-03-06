@@ -1,15 +1,8 @@
-import { Injectable } from '@angular/core';
-import {
-  CanActivate,
-  CanActivateChild,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-  UrlTree,
-  Router,
-} from '@angular/router';
-import { Observable } from 'rxjs';
-import { AuthService } from './auth.service';
-import { DEFAULT_PATH, INELIGIBLE_FOR_TRIAL } from '@/app.constants';
+import {Injectable} from '@angular/core';
+import {ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot, UrlTree,} from '@angular/router';
+import {Observable} from 'rxjs';
+import {AuthService} from './auth.service';
+import {DEFAULT_PATH, INELIGIBLE_FOR_TRIAL} from '@/app.constants';
 
 @Injectable({
   providedIn: 'root',

@@ -1,12 +1,22 @@
-<div class="item">
-  <button class="pull-right" (click)="removeProcon()" *ngIf="!hideRemove">
-    <mat-icon>remove_circle</mat-icon>
-  </button>
-  <div contenteditable="true" #editableDiv
-    (focusout)="onFocusOut($event)" 
-    (focusin)="onFocus()" 
-    class="procon"
-    (keydown.enter)="onFocusOut($event)">
-    {{procon.body}}
-  </div>
-</div>
+<ul>
+  <li>
+    <div class="item" appClickOutside (clickOutside)="onClickOutside($event)">
+      <div
+        contenteditable="true"
+        #editableDiv
+        (focusout)="onFocusOut($event)"
+        (focusin)="onFocus()"
+        class="procon"
+      >
+        {{ procon.body }}
+      </div>
+      <div
+        *ngIf="!hideRemove"
+        class="pull-right delete-btn"
+        (click)="removeProcon()"
+      >
+        <mat-icon>delete</mat-icon>
+      </div>
+    </div>
+  </li>
+</ul>

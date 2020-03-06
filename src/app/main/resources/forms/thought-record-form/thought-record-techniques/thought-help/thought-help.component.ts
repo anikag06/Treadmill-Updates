@@ -1,13 +1,8 @@
-import {
-  Component,
-  Input,
-  OnInit,
-  SimpleChanges,
-  ViewChild,
-} from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { ThoughtHelpService } from '@/main/resources/forms/thought-record-form/thought-record-techniques/thought-help/thought-help.service';
-import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
+import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild,} from '@angular/core';
+import {FormBuilder, FormControl, Validators} from '@angular/forms';
+import {ThoughtHelpService} from '@/main/resources/forms/thought-record-form/thought-record-techniques/thought-help/thought-help.service';
+import {Thought} from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
+import {SUMMARY} from '@/app.constants';
 
 @Component({
   selector: 'app-thought-help',
@@ -20,12 +15,18 @@ export class ThoughtHelpComponent implements OnInit {
   summary = '';
   keepThoughtQues = 'What will happen if you keep thinking this way?';
   changeThoughtQues = 'What could happen if you changed this thought?';
-  canSolveQues =
-    'Is there anything that I can do to solve what I am worried about?';
-  yes = 'Great ! Think of a more balanced thought.';
+  canSolveQues = 'Would it help me to change the thought?';
+  yes =
+    '<img src="assets/forms/well_done.png" height="16px" >Great ! Think of a more balanced thought.';
   no = 'Okay';
+  summaryHeading = SUMMARY;
   @ViewChild('panel', { static: false }) panel!: any;
   @Input() thought!: Thought;
+  @Output() showFinalThought = new EventEmitter();
+  @Output() techniqueExpanded = new EventEmitter();
+  @Output() techniqueCollapsed = new EventEmitter();
+  @Input() summaryIndex!: number;
+  @Input() reset!: boolean;
   updateHelp = false;
 
   thoughtHelpForm = this.formBuilder.group({
@@ -42,16 +43,19 @@ export class ThoughtHelpComponent implements OnInit {
   ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges) {
-    if (this.thought) {
+    if (changes.thought && this.reset) {
       this.thoughtHelpService
         .getThoughtHelp(this.thought.id)
         .subscribe((resp: any) => {
           if (resp.ok) {
             this.updateHelp = true;
             this.initializeHelp(resp);
-            this.summary = resp.body.change_thinking;
+            this.setSummary();
           }
         });
+    }
+    if (this.reset) {
+      this.resetForm();
     }
   }
 
@@ -63,9 +67,9 @@ export class ThoughtHelpComponent implements OnInit {
       resp.body.change_thinking,
     );
     if (resp.body.changed_thinking_help) {
-      this.thoughtHelpForm.controls['canSolve'].setValue(1);
-    } else {
-      this.thoughtHelpForm.controls['canSolve'].setValue(0);
+      this.thoughtHelpForm.controls['canSolve'].setValue(
+        resp.body.changed_thinking_help,
+      );
     }
   }
 
@@ -85,18 +89,39 @@ export class ThoughtHelpComponent implements OnInit {
         .subscribe((resp: any) => {
           const status = resp.ok;
           if (status) {
-            console.log('put done');
+            this.setSummary();
           }
         });
     } else {
       this.thoughtHelpService.postThoughtHelp(object).subscribe((resp: any) => {
         const status = resp.ok;
         if (status) {
-          console.log('post done');
+          this.setSummary();
         }
       });
     }
+  }
+
+  setSummary() {
     this.summary = this.thoughtHelpForm.value['changeThought'];
+    this.showFinalThought.emit();
     this.panel.expanded = false;
+    this.panelCollapse();
+  }
+
+  resetForm() {
+    this.thoughtHelpForm = this.formBuilder.group({
+      keepThought: new FormControl(''),
+      changeThought: new FormControl(''),
+      canSolve: new FormControl(''),
+    });
+    this.summary = '';
+  }
+  panelCollapse() {
+    const object = {
+      index: this.summaryIndex,
+      summary: this.summary ? this.summary : '',
+    };
+    this.techniqueCollapsed.emit(object);
   }
 }

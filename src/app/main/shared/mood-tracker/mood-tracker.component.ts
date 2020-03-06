@@ -1,22 +1,15 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  OnInit,
-  Optional,
-  Output,
-} from '@angular/core';
-import { MatDialogRef } from '@angular/material';
-import { Mood } from './mood.model';
-import { Feelings } from '@/main/shared/mood-tracker/feelings.model';
-import { MoodTrackerService } from '@/main/shared/mood-tracker/mood-tracker.service';
+import {AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Inject, OnInit, Optional, Output, QueryList, ViewChildren,} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {Mood} from './mood.model';
+import {Feelings} from '@/main/shared/mood-tracker/feelings.model';
+import {MoodTrackerService} from '@/main/shared/mood-tracker/mood-tracker.service';
+import {UserFeeling} from '@/main/resources/forms/thought-record-form/mood-widget-card/userfeeling.model';
 
 @Component({
   selector: 'app-mood-tracker',
   templateUrl: './mood-tracker.component.html',
   styleUrls: ['./mood-tracker.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MoodTrackerComponent implements OnInit, AfterViewInit {
   @Output() onClose = new EventEmitter();
@@ -27,41 +20,108 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
   customExpandedHeight = '48px';
   emotionCount = 0;
   range: string[] = [];
-  rangeMargin: string[] = ['-10', '17', '63', '100', '125'];
-  negativeEmotions: string[] = [];
-  neutralEmotions: string[] = [];
-  positiveEmotions: string[] = [];
+  rangeMargin: string[] = ['-10px', '17px', '63px', '100px', '125px'];
+  negativeEmotions: Mood[] = [];
+  neutralEmotions: Mood[] = [];
+  positiveEmotions: Mood[] = [];
   feelings!: Feelings;
   formMoodData: any[] = [];
   feelingData: string[] = [];
   feelingRatingsData: string[] = [];
-
+  QUITE = 'Quite';
   negativeHeading!: string;
   positiveHeading!: string;
   neutralheading!: string;
   rangeValue = '';
   @Output() moodMessage = new EventEmitter();
   @Output() moodSubmit = new EventEmitter<any>();
+  @ViewChildren('option') checkBox!: QueryList<any>;
   moodArray: any[] = [];
   constructor(
     private element: ElementRef,
     @Optional() public dialogRef: MatDialogRef<MoodTrackerComponent>,
     public moodTrackerService: MoodTrackerService,
-  ) {}
-
-  ngOnInit() {
-    this.moodTrackerService.getFeelingsList().subscribe((feelings: any) => {
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
+  ) {
+    this.moodTrackerService.getFeelingsList().then((feelings: any) => {
       this.feelings = feelings;
 
-      this.negativeEmotions = this.feelings.group_feelings_1;
-      this.positiveEmotions = this.feelings.group_feelings_2;
-      this.neutralEmotions = this.feelings.group_feelings_3;
+      this.feelings.group_feelings_1.forEach(emotion => {
+        this.negativeEmotions.push(new Mood(emotion));
+      });
+      this.feelings.group_feelings_2.forEach(emotion => {
+        this.positiveEmotions.push(new Mood(emotion));
+      });
+      this.feelings.group_feelings_3.forEach(emotion => {
+        this.neutralEmotions.push(new Mood(emotion));
+      });
+      // this.positiveEmotions = this.feelings.group_feelings_2;
+      // this.neutralEmotions = this.feelings.group_feelings_3;
       this.range = this.feelings.rating_options;
       this.negativeHeading = this.feelings.group_name_1;
       this.positiveHeading = this.feelings.group_name_2;
       this.neutralheading = this.feelings.group_name_3;
+      if (this.data && this.data.emotionsData) {
+        this.setUserFeelings();
+      }
     });
   }
+
+  getMargin(index: number) {
+    return this.rangeMargin[index];
+  }
+
+  setUserFeelings() {
+    console.log(this.data);
+    this.data.emotionsData.forEach((userFeeling: UserFeeling) => {
+      let isNegative = false;
+      let isNeutral = false;
+      for (let i = 0; i < this.neutralEmotions.length; i++) {
+        if (
+          userFeeling.feeling.toLowerCase() ===
+          this.neutralEmotions[i].emotion.toLowerCase()
+        ) {
+          this.neutralEmotions[i].isChecked = true;
+          this.neutralEmotions[i].range = this.range.indexOf(
+            userFeeling.feeling_rating,
+          );
+          isNeutral = true;
+          this.emotionCount += 1;
+        }
+      }
+      if (!isNeutral) {
+        for (let i = 0; i < this.negativeEmotions.length; i++) {
+          if (
+            userFeeling.feeling.toLowerCase() ===
+            this.negativeEmotions[i].emotion.toLowerCase()
+          ) {
+            this.negativeEmotions[i].isChecked = true;
+            this.negativeEmotions[i].range = this.range.indexOf(
+              userFeeling.feeling_rating,
+            );
+            isNegative = true;
+            this.emotionCount += 1;
+          }
+        }
+      }
+      if (!isNeutral && !isNegative) {
+        for (let i = 0; i < this.positiveEmotions.length; i++) {
+          if (
+            userFeeling.feeling.toLowerCase() ===
+            this.positiveEmotions[i].emotion.toLowerCase()
+          ) {
+            this.positiveEmotions[i].isChecked = true;
+            this.positiveEmotions[i].range = this.range.indexOf(
+              userFeeling.feeling_rating,
+            );
+            this.emotionCount += 1;
+          }
+        }
+      }
+    });
+  }
+
+  ngOnInit() {}
   ngAfterViewInit() {
     const listItem = this.element.nativeElement.querySelectorAll(
       '.mat-list-item-content',
@@ -93,30 +153,6 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
     console.log(this.step + 'step');
   }
 
-  // nextStep() {
-  //   this.step++;
-  // }
-
-  // prevStep() {
-  //   this.step--;
-  // }
-
-  // getEmotions() {
-
-  //   console.log(this.step + "inside emotion");
-  //   let emotions: string[] = [];
-  //   if (this.step === 0) {
-  //     emotions = NEGATIVE_EMOTIONS;
-  //   }
-  //   if (this.step === 1) {
-  //     emotions = NEUTRAL_EMOTIONS;
-  //   }
-  //   if (this.step === 2) {
-  //     emotions = POSITIVE_EMOTIONS;
-  //   }
-  //   return emotions;
-  // }
-
   getNegativeEmotions() {
     return this.negativeEmotions;
   }
@@ -134,7 +170,7 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
   }
 
   updateEmotionCount(change: boolean) {
-    if (change === true) {
+    if (change) {
       this.emotionCount += 1;
     } else {
       this.emotionCount -= 1;
@@ -160,10 +196,12 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
     let chatMoodMessage = "I'm feeling ";
     const neutral_index = 11;
     for (let i = 0; i < emotions.length; i++) {
-      const option = emotions[i].querySelector('.option');
-      const option_label = emotions[i].querySelector('.emotion-label');
+      const option = this.checkBox.find((ele, index) => index === i); //emotions[i].querySelector('.option');
+      // const option_label = oemotions[i].querySelector('.emotion-label');
+
       if (option.checked) {
-        const option_label_str: string = option_label.textContent;
+        const option_label_str: string =
+          option._elementRef.nativeElement.textContent;
         count += 1;
         if (i !== neutral_index) {
           const rangeValue = emotions[i].querySelector('.rangeValue');
@@ -178,8 +216,10 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
             ' ' +
             option_label_str.trim().toLowerCase() +
             ' ';
-          this.feelingData.push(option_label_str.trim());
-          this.feelingRatingsData.push(rangeValue_str.trim());
+          if (this.dialogRef) {
+            this.feelingData.push(option_label_str.trim());
+            this.feelingRatingsData.push(rangeValue_str.trim());
+          }
         }
         if (i === neutral_index) {
           const moodObject = {
@@ -188,6 +228,10 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
           };
           chatMoodMessage += option_label_str.trim().toLowerCase() + ' ';
           this.moodArray.push(moodObject);
+          if (this.dialogRef) {
+            this.feelingData.push(option_label_str.trim());
+            this.feelingRatingsData.push(this.QUITE);
+          }
         }
         if (count < this.emotionCount - 1 && this.emotionCount > 2) {
           chatMoodMessage += ', ';
@@ -208,7 +252,12 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
     this.closeModal();
     this.moodMessage.emit(moodSelected);
     this.moodSubmit.emit();
-
-    this.dialogRef.close({ event: 'close' });
+    if (this.dialogRef) {
+      const feelingsData = {
+        emotions: this.feelingData,
+        emotionsRating: this.feelingRatingsData,
+      };
+      this.dialogRef.close({ event: 'close', data: feelingsData });
+    }
   }
 }

@@ -1,18 +1,8 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  Output,
-  EventEmitter,
-  ViewChild,
-  ElementRef,
-  QueryList,
-  ViewChildren,
-} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren,} from '@angular/core';
 
-import { Solution } from '../solution.model';
-import { ProblemSolvingWorksheetsService } from '../problem-solving-worksheets.service';
-import { SanitizationService } from '@/main/shared/sanitization.service';
+import {Solution} from '../solution.model';
+import {ProblemSolvingWorksheetsService} from '../problem-solving-worksheets.service';
+import {SanitizationService} from '@/main/shared/sanitization.service';
 
 @Component({
   selector: 'app-solutions',
@@ -24,13 +14,31 @@ export class SolutionsComponent implements OnInit {
   @Output() solutionDelete = new EventEmitter<Solution>();
   @Output() solutionEdit = new EventEmitter<Solution>();
   @ViewChildren('lastSolution') lastSolutionDiv!: QueryList<any>;
+  showDeleteIcon: boolean[] = [];
 
   constructor(
     private problemService: ProblemSolvingWorksheetsService,
     private sanitizer: SanitizationService,
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (this.solutions) {
+      this.showDeleteIcon = Array.apply(null, Array(3)).map(
+        Boolean.prototype.valueOf,
+        false,
+      );
+    }
+  }
+
+  ngOnChanges() {
+    if (this.solutions) {
+      this.showDeleteIcon = [];
+      this.showDeleteIcon = Array.apply(null, Array(3)).map(
+        Boolean.prototype.valueOf,
+        false,
+      );
+    }
+  }
 
   ngAfterViewInit() {
     // this.lastSolutionDiv.forEach(div => console.log(div));
@@ -41,17 +49,26 @@ export class SolutionsComponent implements OnInit {
       this.lastSolutionDiv.last.nativeElement.focus();
     }
   }
-  onSolutionRemove(solution: Solution) {
-    if (confirm('Are you sure to delete this solution')) {
-      this.solutionDelete.emit(solution);
-    }
+  onSolutionRemove(index: number, solution: Solution) {
+    this.solutionDelete.emit(solution);
+    this.showDeleteIcon.splice(index, 1);
   }
 
-  onFocusOut(event: FocusEvent, solution: Solution) {
+  onFocusOut(event: FocusEvent, solution: Solution, index: number) {
     if ((<Element>event.target).innerHTML) {
       solution.solution = this.sanitizer.changeExtraCharacters(event);
       (<Element>event.target).innerHTML = solution.solution;
       this.solutionEdit.emit(solution);
+    }
+  }
+
+  onFocus(index: number) {
+    this.showDeleteIcon[index] = true;
+  }
+
+  onClickOutside(event: Object, index: number) {
+    if (event && (<any>event)['value'] === true) {
+      this.showDeleteIcon[index] = false;
     }
   }
 }

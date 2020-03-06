@@ -45,14 +45,48 @@ $form-secondary-color: #2a3b3d;
   }
 }
 
-.more-hor-icon {
-  color: white;
-  max-width: 100%;
+//.more-hor-icon {
+//  color: white;
+//  max-width: 100%;
+//}
+.form-list-container {
+  max-width: 85%;
+  margin: auto;
+}
+strong {
+  word-wrap: break-word;
 }
 
 .container-fluid {
-  background-color: white;
-  @include box-shadow-1-1-10-d6();
+  max-width: 900px;
+  width: 94%;
+  margin-left: 3%;
+  //max-height: 900px;
+  height: auto;
+}
+
+@media screen and (max-width: 992px) {
+  .container-fluid {
+    width: 94%;
+    padding: 0 !important;
+    height: auto;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .container-fluid {
+    width: 100%;
+    margin: 0%;
+    padding: 0%;
+    height: auto;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .container-fluid {
+    background-color: white;
+    @include box-shadow-1-1-10-d6();
+  }
 }
 
 .form-editable-text-underline {
@@ -69,8 +103,6 @@ $form-secondary-color: #2a3b3d;
   width: 100px;
   color: white;
   background-color: #2a3b3d;
-  outline: none;
-  color: white;
   outline: none;
   box-shadow: none;
 }
@@ -156,14 +188,14 @@ $form-secondary-color: #2a3b3d;
     max-width: 100%;
   }
 
-  .container-fluid {
-    padding: 0 !important;
-  }
+  //.container-fluid {
+  //  padding: 0 !important;
+  //}
 }
 
 .q-heading {
-  margin-top: 16px;
-  margin-bottom: 16px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
   font-size: 14px;
 }
 
@@ -203,7 +235,16 @@ $form-secondary-color: #2a3b3d;
   opacity: 0.6;
 }
 
-
 .statement {
   margin-bottom: 10px;
+}
+.technique {
+  margin-top: 12px;
+  margin-bottom: 16px;
+}
+
+.red-circle {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
 }

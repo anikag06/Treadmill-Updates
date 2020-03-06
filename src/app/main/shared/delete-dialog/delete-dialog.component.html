@@ -1,0 +1,18 @@
+<div>
+  <div class="mb-2">
+    {{ this.confirm }}
+  </div>
+
+  <div class="mb-3" [ngStyle]="{ opacity: '0.6', fontSize: '0.75rem' }">
+    {{ this.warning }}
+  </div>
+
+  <div class="float-right">
+    <button mat-raised-button (click)="onCancel()">
+      Cancel
+    </button>
+    <button mat-raised-button class="btn btn-danger ml-3" (click)="onDelete()">
+      Delete
+    </button>
+  </div>
+</div>

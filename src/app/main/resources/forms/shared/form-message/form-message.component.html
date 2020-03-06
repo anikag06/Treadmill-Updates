@@ -7,8 +7,21 @@
     {{ formMessage.header }}
   </div>
 
-  <div class="message">
-    {{ formMessage.message }}
+  <div
+    class="message"
+    [ngStyle]="{
+      textAlign: formMessage.message.suggestions.length > 0 ? 'left' : 'center'
+    }"
+  >
+    {{ formMessage.message.message }}
+    <ul class="suggestion-list" *ngIf="formMessage.message.suggestions">
+      <li
+        class="suggestion"
+        *ngFor="let suggestion of formMessage.message.suggestions"
+        [innerHTML]="suggestion"
+      ></li>
+    </ul>
   </div>
+
   <br />
 </div>

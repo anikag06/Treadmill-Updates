@@ -2,31 +2,35 @@
   background-color: #f3b54f;
 }
 
-
-#saved-forms-heading{
+#saved-forms-heading {
   color: grey;
   font-size: 12px;
   margin-left: 4%;
 }
 
-#forms-data{
+#forms-data {
   min-width: 200px;
 }
 @media screen and (max-width: 992px) {
-  #saved-forms-heading{
+  #saved-forms-heading {
     font-size: 0.8rem;
   }
-
 }
 
-.mat-expansion-panel-header{
+.mat-expansion-panel-header {
   padding: 0 16px;
 }
-.mat-expansion-panel{
+.mat-expansion-panel {
   box-shadow: none;
 }
 
 .mat-expansion-panel-body {
-  padding: none;
+  padding: 0;
   padding-left: 16px;
+}
+.red-circle {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #f66c6c;
 }

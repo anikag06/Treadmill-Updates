@@ -1,0 +1,55 @@
+<div class="q-heading">
+  {{ title }}
+</div>
+<div>
+  <div class="statements">
+    <div
+      class="statement"
+      [ngStyle]="{ display: 'flex' }"
+      appClickOutside
+      (clickOutside)="onClickOutside($event, i)"
+      #formRow
+      *ngFor="let evidence of control.controls; let i = index"
+    >
+      <!--                <input type="hidden" formControlName="id" [value]="id" />-->
+      <mat-form-field class="full-width">
+        <textarea
+          matInput
+          #formInput="matInput"
+          [placeholder]="
+            formInput.focused || formInput.empty ? 'Write Here' : ''
+          "
+          class="py-0"
+          minlength="5"
+          cdkTextareaAutosize
+          cdkAutosizeMinRows="1"
+          [formControl]="evidence.get('evidence')"
+          required
+          [autofocus]
+          (focus)="onShowTrashIcon(i)"
+        ></textarea>
+      </mat-form-field>
+      <div
+        class="trash-icon"
+        (click)="markForDeletion(evidence, i)"
+        *ngIf="showTrashIcon[i]"
+      >
+        <mat-icon>delete</mat-icon>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="add-statement" (click)="addField()">
+  <mat-icon
+    [ngStyle]="{
+      'font-size': '19px',
+      cursor: 'pointer'
+    }"
+    >add
+  </mat-icon>
+  <div [ngStyle]="{ 'padding-left': '5px' }">
+    Add Evidence
+  </div>
+</div>
+
+<div></div>

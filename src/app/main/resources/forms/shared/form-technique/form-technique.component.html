@@ -1,0 +1,74 @@
+<mat-expansion-panel
+  hideToggle
+  #panel
+  (afterExpand)="techniqueExpanded.emit()"
+  (afterCollapse)="techniqueCollapsed.emit(summary)"
+>
+  <mat-expansion-panel-header
+    [ngStyle]="{ background: headerColor, paddingLeft: '16px' }"
+  >
+    <mat-panel-title
+      [ngStyle]="{
+        'font-size': panel.expanded ? '16px' : '14px',
+        'font-weight': '500'
+      }"
+    >
+      {{ techniqueName }}
+    </mat-panel-title>
+    <mat-panel-description>
+      <div class="iconsDiv" *ngIf="panel.expanded">
+        <mat-icon>close</mat-icon>
+      </div>
+      <div class="iconsDiv" *ngIf="!panel.expanded && this.summary.length > 0">
+        <img src="assets/forms/edit_errors.png" width="24px" />
+      </div>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+
+  <ng-template matExpansionPanelContent>
+    <div class="q-heading">
+      {{ question }}
+    </div>
+
+    <form [formGroup]="techniqueForm">
+      <div>
+        <mat-form-field class="full-width">
+          <textarea
+            matInput
+            #formInput="matInput"
+            [placeholder]="
+              formInput.focused || formInput.empty ? 'Write Here' : ''
+            "
+            class="py-0"
+            cdkTextareaAutosize
+            cdkAutosizeMinRows="1"
+            formControlName="text"
+            required
+            (focusout)="onSubmit()"
+            #explain
+          ></textarea>
+        </mat-form-field>
+      </div>
+      <br />
+      <div>
+        <button
+          type="submit"
+          mat-raised-button
+          class="btn continue-btn"
+          *ngIf="explain.value"
+          [ngStyle]="{ float: 'right' }"
+          (click)="onSubmit()"
+        >
+          Done
+        </button>
+      </div>
+    </form>
+  </ng-template>
+</mat-expansion-panel>
+
+<app-summary-card
+  *ngIf="summary"
+  [cardHeading]="summaryHeading"
+  [summary]="summary"
+  [expanded]="panel.expanded"
+></app-summary-card>

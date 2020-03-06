@@ -20,8 +20,7 @@ textarea {
 
   .subtask {
     .mat-checkbox {
-      width: 100%;
-      display: inline-block;
+      display: flex;
     }
 
     span {
@@ -52,13 +51,6 @@ label {
   background-color: #999999;
 }
 
-
-#trash-icon {
-  display: flow-root;
-  align-self: flex-end;
-  cursor: pointer;
-}
-
 //.form-control:focus{
 //  border-bottom-color: black;
 //}
@@ -68,8 +60,8 @@ label {
 }
 
 .task-info {
-  height: 40px;
-  margin-top: 10px;
+  margin-top: 1.25rem;
+  display: flex;
 }
 
 .add-subtask {
@@ -81,7 +73,9 @@ label {
 }
 
 .task-data {
-  margin-left: 22px;
-  height: 24px;
-  display: inline-block;
+  margin-left: 1.375rem;
+  display: inline;
+}
+.mat-checkbox {
+  display: flex;
 }
