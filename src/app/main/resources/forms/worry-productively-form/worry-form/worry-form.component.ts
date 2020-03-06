@@ -26,6 +26,7 @@ export class WorryFormComponent implements OnInit {
   sliderRating!: FormSliderComponent;
   constructor(private worryService: WorryProductivelyService) {}
   worryStatement = '';
+  value = 1;
   worrySliderQuestion = 'How bothered are you by your worry?';
   wSliderMinRangeText = 'Not at all';
   wSliderMaxRangeText = 'Very Strongly';
@@ -41,6 +42,14 @@ export class WorryFormComponent implements OnInit {
       // console.log('slider value is' + this.sliderRating.rating);
     }
   }
+  ngOnChanges() {
+    this.resetForm();
+    if (this.worry) {
+      this.worryStatement = this.worry.worry;
+      this.value = this.worry.worry_rating_initial;
+      this.clickbutton = true;
+    }
+  }
   ngAfterViewInit() {
     if (this.worry && this.worryTextArea) {
       setTimeout(() => {
@@ -48,7 +57,6 @@ export class WorryFormComponent implements OnInit {
       }, 100);
     }
   }
-  value = 1;
   editWorryText() {
     this.worryTextArea.nativeElement.focus();
     this.continueText = true;
@@ -56,6 +64,11 @@ export class WorryFormComponent implements OnInit {
     if (this.worry.worry_rating_initial != null) {
       this.value = this.worry.worry_rating_initial;
     }
+  }
+  resetForm() {
+    this.worryStatement = '';
+    this.value = 1;
+    this.clickbutton = false;
   }
   onWorrySubmit() {
     this.clickbutton = true;
@@ -89,10 +102,11 @@ export class WorryFormComponent implements OnInit {
       );
     }
     this.continueText = false;
-    // this.continueButton = false;
+    this.continueButton = false;
   }
   continuetoCharacteristics() {
     this.sliderEmit = true;
+    this.showSliderCont = false;
     this.testOut.emit(this.sliderEmit);
     this.onWorrySubmit();
   }

@@ -1,16 +1,20 @@
-import { Component, OnInit, ElementRef, ViewChild, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ElementRef,
+  ViewChild,
+  Input,
+  Output,
+  EventEmitter,
+  SimpleChanges,
+} from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
-import {
-  TECHNIQUE_UNTOUCHED,
-  TECHNIQUE_OPENED,
-  TECHNIQUE_CLOSED,
-} from '@/app.constants';
-import { EVALUATE_DATA } from './evaluate-worry/evaluate-info.data';
 import { TechniquesInfoComponent } from '../../shared/techniques-info/techniques-info.component';
 import { TECHNIQUE_DATA } from './techniques-info.data';
 import { Worry } from '../worry.model';
+import { WorryProductivelyService } from '@/main/resources/forms/worry-productively-form/worry-productively.service';
 @Component({
   selector: 'app-techniques',
   templateUrl: './techniques.component.html',
@@ -19,10 +23,18 @@ import { Worry } from '../worry.model';
 export class TechniquesComponent implements OnInit {
   @ViewChild('doneBtn', { static: false }) doneBtn!: ElementRef;
   @Input() worry!: Worry;
+  @Input() techniquesCall = false;
+  @Output() originalWorry = new EventEmitter<boolean>();
+  @Output() onOriginalWorry = new EventEmitter();
+  showContinue = false;
+  isCompleted = false;
+  totalSummary: string[] = Array(5).fill('');
+
   constructor(
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer,
     public dialog: MatDialog,
+    private worryService: WorryProductivelyService,
   ) {
     this.matIconRegistry.addSvgIcon(
       'Info',
@@ -49,63 +61,52 @@ export class TechniquesComponent implements OnInit {
       ),
     );
   }
-  public ifevaluatedclicked = false;
-  public beliefsClicked = false;
-  public solveProbClicked = false;
-  public dealWithWorry = false;
-  evaluateSummary = false;
-  beliefSummary = false;
-  solveProbSummary = false;
-  dealWorrySummary = false;
-  panelOpenState1 = 0;
-  panelOpenState2 = 0;
-  panelOpenState3 = 0;
-  panelOpenState4 = 0;
-  panelOpenState5 = 0;
 
+  ifDataSummary!: string;
+  continueOriginalWorry = false;
   ngOnInit() {}
+  ngOnChanges(changes: SimpleChanges) {
+    this.reset();
+    if (changes.worry && this.worry) {
+      this.worryService.getFinalSlider(this.worry.id).subscribe((resp: any) => {
+        console.log(resp);
+        if (resp.ok) {
+          this.isCompleted = true;
+          this.showContinue = false;
+        }
+      });
+    }
+    // if (this.ifDataSummary) {
+    //   this.continueOriginalWorry = true;
+    // }
+  }
 
-  EvaluateClick() {
-    this.ifevaluatedclicked = true;
+  setDealSummary(data: any) {
+    this.ifDataSummary = data;
+    this.continueOriginalWorry = true;
+    this.originalWorry.emit(this.continueOriginalWorry);
   }
-  setEvaluateIcon(data: any) {
-    this.evaluateSummary = data;
-    if (this.evaluateSummary) {
-      this.panelOpenState1 = 2;
+
+  onTechniqueExpanded() {
+    this.showContinue = false;
+  }
+
+  onTechniqueCollapsed(summaryObject: any) {
+    this.totalSummary[summaryObject.index] = summaryObject.summary;
+    for (let i = 0; i < this.totalSummary.length; i++) {
+      if (this.totalSummary[i].length > 0) {
+        this.showContinue = true;
+        break;
+      }
     }
   }
-  BeliefsClick() {
-    this.beliefsClicked = true;
-    console.log(this.beliefsClicked);
+
+  showFinalRating() {
+    this.showContinue = false;
+    this.onOriginalWorry.emit();
   }
-  setBeliefIcon(data: any) {
-    this.beliefSummary = data;
-    if (this.beliefSummary) {
-      this.panelOpenState3 = 2;
-    }
-  }
-  solveProbClick() {
-    this.solveProbClicked = true;
-  }
-  setProbIcon(data: any) {
-    this.solveProbSummary = data;
-    if (this.solveProbSummary) {
-      this.panelOpenState4 = 2;
-    }
-  }
-  DealwithWorryClick() {
-    this.dealWithWorry = true;
-  }
-  setDealWorryIcon(data: any) {
-    this.dealWorrySummary = data;
-    if (this.dealWorrySummary) {
-      this.panelOpenState5 = 2;
-    }
-  }
-  TechniqueInfo() {
-    console.log(this.doneBtn);
-    const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
-    this.doneBtn.nativeElement.dispatchEvent(domEvent);
+
+  techniqueInfo() {
     const dialogRef = this.dialog.open(TechniquesInfoComponent, {
       panelClass: 'technique-info-dialog-container',
       autoFocus: false,
@@ -114,13 +115,9 @@ export class TechniquesComponent implements OnInit {
       },
     });
   }
-  onShowInfo() {
-    const dialogRef = this.dialog.open(TechniquesInfoComponent, {
-      panelClass: 'technique-info-dialog-container',
-      autoFocus: false,
-      data: {
-        techniquesInfo: EVALUATE_DATA,
-      },
-    });
+  reset() {
+    delete this.showContinue;
+    delete this.isCompleted;
+    this.totalSummary = Array(5).fill('');
   }
 }

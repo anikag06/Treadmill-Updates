@@ -33,11 +33,11 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 
     this.eligible = !this.auth.isUserExcluded;
     if (!this.auth.isLoggedIn() && !this.eligible) {
-      console.log('navigate to:', INELIGIBLE_FOR_TRIAL);
+      // console.log('navigate to:', INELIGIBLE_FOR_TRIAL);
       this.router.navigate([INELIGIBLE_FOR_TRIAL]);
       return false;
     } else if (!this.auth.isLoggedIn() && this.eligible) {
-      console.log('navigate to:', DEFAULT_PATH);
+      // console.log('navigate to:', DEFAULT_PATH);
       this.router.navigate([DEFAULT_PATH]);
       return false;
     }

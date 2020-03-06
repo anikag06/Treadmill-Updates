@@ -6,6 +6,7 @@ import {
   Input,
   OnInit,
   Output,
+  ViewChild,
 } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
@@ -19,6 +20,9 @@ import {
   SET_ACTIVITY,
   THOUGHT_RECORD,
   WORRY_PRODUCTIVELY,
+  BELIEF_CHANGE,
+  TASK,
+  TEST_BELIEF,
 } from '@/app.constants';
 import { TasksService } from '@/main/resources/forms/shared/tasks/tasks.service';
 import { UserTask } from '@/main/resources/forms/shared/tasks/user-task.model';
@@ -28,6 +32,8 @@ import { WorryProductivelyService } from '../../worry-productively-form/worry-pr
 import { Worry } from '../../worry-productively-form/worry.model';
 import { BeliefChangeService } from '@/main/resources/forms/belief-change/belief-change.service';
 import { Belief } from '@/main/resources/forms/belief-change/belief.model';
+import { WorryProductivelyComponent } from '../../worry-productively-form/worry-productively.component';
+import { ExperimentToTestBeliefService } from '../../experiment-to-test-belief-form/experiment-to-test-belief.service';
 import { DeleteDialogComponent } from '@/main/shared/delete-dialog/delete-dialog.component';
 import { MatDialog } from '@angular/material';
 
@@ -45,6 +51,8 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
   show_dot = false;
   @Input() type!: String;
   @Input() object!: any;
+  @ViewChild(WorryProductivelyComponent, { static: false })
+  worryForm!: WorryProductivelyComponent;
   @Output() objectEmitter = new EventEmitter<Object>();
   @Output() newForm = new EventEmitter<void>();
   @Output() showDot = new EventEmitter();
@@ -55,6 +63,7 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
     private tasksService: TasksService,
     private thoughtRecordService: ThoughtRecordService,
     private beliefChangeService: BeliefChangeService,
+    private ettbfBeliefService: ExperimentToTestBeliefService,
     private route: ActivatedRoute,
     private element: ElementRef,
     public dialog: MatDialog,
@@ -71,6 +80,8 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
       this.getWorries();
     } else if (this.type === BELIEF_CHANGE) {
       this.getBeliefs();
+    } else if (this.type === TEST_BELIEF) {
+      this.getTestBelief();
     }
 
     this.route.queryParams.subscribe(
@@ -133,6 +144,10 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
     ] = this.worryService.worrysBehaviour.subscribe(
       (worries: Worry[]) => {
         this.objects = worries;
+        this.show_dot = this.objects.some(
+          obj => obj.show_follow_up_dot === true,
+        );
+        this.showDot.emit(this.show_dot);
         this.selectObject();
       },
       (error: HttpErrorResponse) => {
@@ -141,6 +156,22 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
     );
   }
 
+  getTestBelief() {
+    this.subscriptions[
+      this.subscriptions.length
+    ] = this.ettbfBeliefService.getBelief();
+    this.subscriptions[
+      this.subscriptions.length
+    ] = this.ettbfBeliefService.beliefbehaviours.subscribe(
+      (beliefs: Belief[]) => {
+        this.objects = beliefs;
+        this.selectObject();
+      },
+      (error: HttpErrorResponse) => {
+        console.error(error);
+      },
+    );
+  }
   getTasks() {
     this.tasksService.getTasks();
     this.subscriptions[
@@ -260,6 +291,9 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
       if (status) {
         this.onAddNewForm();
         this.worryService.removeSituation(worry);
+        // if(worryform){
+        // this.worryForm.deleteWorry();
+        // }
       }
     });
   }
@@ -269,6 +303,16 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
       if (resp.ok) {
         this.onAddNewForm();
         this.problemService.removeProblem(problem);
+      }
+    });
+  }
+  deleteTestBeliefForm(belief: any) {
+    this.ettbfBeliefService.deleteBelief(belief.id).subscribe(resp => {
+      const status = resp.ok;
+      if (status) {
+        this.onAddNewForm();
+        console.log('Form Deleted');
+        this.ettbfBeliefService.removeSituation(belief);
       }
     });
   }

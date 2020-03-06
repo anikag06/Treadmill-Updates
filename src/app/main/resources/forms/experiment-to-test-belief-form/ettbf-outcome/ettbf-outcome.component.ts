@@ -5,6 +5,9 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
+  Output,
+  EventEmitter,
+  SimpleChanges,
 } from '@angular/core';
 
 import { Outcome } from '@/main/resources/forms/experiment-to-test-belief-form/ettbf-outcome/outcome.model';
@@ -16,71 +19,183 @@ import {
   ETTBF_MIN_RATING_TEXT,
   ETTBF_RATING_QUESTION,
 } from '@/app.constants';
+import { UserTask } from '../../shared/tasks/user-task.model';
+import * as moment from 'moment';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-ettbf-outcome',
   templateUrl: './ettbf-outcome.component.html',
   styleUrls: ['./ettbf-outcome.component.scss'],
 })
-export class EttbfOutcomeComponent implements OnInit, OnDestroy {
+export class EttbfOutcomeComponent implements OnInit {
   @Input() outcome!: Outcome;
+  @Input() belief!: Belief;
+  @Input() task!: UserTask;
+  @Input() getNotification!: boolean;
+  @Output() finalSliderRating = new EventEmitter();
   @ViewChild('outcomeTextArea', { static: false }) outcomeTextArea!: ElementRef;
   @ViewChild('learningTextArea', { static: false })
   learningTextArea!: ElementRef;
+  @ViewChild('expectedOutcome', { static: false })
+  expectedOutcomeArea!: ElementRef;
   @ViewChild('realisticBeliefTextArea', { static: false })
   realisticBeliefTextArea!: ElementRef;
   outcomeStatement = '';
   learningStatement = '';
   realisticBeliefStatement = '';
-  belief!: Belief;
-  @ViewChild(FormSliderComponent, { static: false })
-  finalSlider!: FormSliderComponent;
   ratingQuestion = ETTBF_RATING_QUESTION;
   minRatingText = ETTBF_MIN_RATING_TEXT;
   maxRatingText = ETTBF_MAX_RATING_TEXT;
   bothRatingsExist = false;
   beliefDecreased!: boolean;
+  outcomeText = false;
+  learningText = false;
+  showLearning = false;
+  showSlider = false;
+  showSliderContinue = false;
+  realisticContinue = false;
+  outcomeResponse!: undefined;
+  outcome_belief_id!: number;
+  disableEmergency!: boolean;
+  emergencyPlan!: boolean;
+  showExpectedBtn!: boolean;
+  value = 1;
+  showOutcome!: boolean;
+  finalRating!: number;
 
-  constructor(private ettbfBeliefService: ExperimentToTestBeliefService) {}
+  expectedOutComeForm = this.formBuilder.group({
+    expected_outcome: new FormControl('', [Validators.required]),
+  });
+  constructor(
+    private ettbfBeliefService: ExperimentToTestBeliefService,
+    private formBuilder: FormBuilder,
+  ) {}
 
   ngOnInit() {
-    this.ettbfBeliefService.beliefObservable$.subscribe((data: any) => {
-      this.belief = data;
-    });
+    if (this.task) {
+      this.getEndDate();
+      this.onDisableEmergency();
+      // this.taskLoaded;
+    }
+    // if( this.belief.taskorigin){
+    //   this.ettbfBeliefService.getTasks(this.belief.taskorigin.task_id).subscribe(
+    //     (resp : any)=>{
+    //       this.task = resp.body.data;
+    //       this.taskLoaded(this.task);
+    //     }
+    //   );
+    // }
   }
-
-  ngOnDestroy() {
-    this.ettbfBeliefService.beliefObservable$.unsubscribe();
+  ngOnChanges(changes: SimpleChanges) {
+    this.resetForm();
+    if (this.belief) {
+      this.outcome_belief_id = this.belief.id;
+      this.ettbfBeliefService
+        .getExpectedOutcome(this.belief)
+        .subscribe((resp: any) => {
+          if (resp.ok && resp.body.expected_outcome) {
+            this.expectedOutComeForm.controls['expected_outcome'].setValue(
+              resp.body.expected_outcome,
+            );
+            this.showOutcome = true;
+          }
+        });
+    }
+    console.log(this.outcome);
+    if (this.outcome) {
+      this.outcomeStatement = this.outcome.outcome;
+      if (this.outcome.learning !== '') {
+        this.learningStatement = this.outcome.learning;
+        this.showLearning = true;
+        this.emergencyPlan = true;
+      }
+      if (this.outcome.belief_rating_after !== null) {
+        this.value = this.outcome.belief_rating_after;
+        this.showSlider = true;
+      }
+      if (this.outcome.realistic_belief !== '') {
+        this.realisticBeliefStatement = this.outcome.realistic_belief;
+        this.beliefDecreased = true;
+      }
+    }
+    if (changes.task) {
+      this.getEndDate();
+      this.onDisableEmergency();
+      // this.taskLoaded();
+    }
+    if (this.getNotification) {
+      if (this.outcomeStatement === '') {
+        this.emergencyPlan = false;
+      } else {
+        this.emergencyPlan = true;
+      }
+    }
   }
 
   editOutcomeText() {
     this.outcomeTextArea.nativeElement.focus();
   }
 
+  editExpectedOutcomeText() {
+    this.expectedOutcomeArea.nativeElement.focus();
+  }
+
+  editLearnigOutcome() {
+    this.learningTextArea.nativeElement.focus();
+  }
+
+  resetForm() {
+    this.outcomeStatement = '';
+    this.learningStatement = '';
+    this.value = 1;
+    this.realisticBeliefStatement = '';
+    this.showLearning = false;
+    this.showSlider = false;
+    this.bothRatingsExist = false;
+    this.showOutcome = false;
+    delete this.finalRating;
+    this.expectedOutComeForm.reset();
+  }
   onOutcomeSubmit() {
-    if (this.outcome) {
+    if (this.outcome && Object.entries(this.outcome).length > 0) {
+      this.outcome.belief_id = this.outcome_belief_id;
       this.outcome.outcome = this.outcomeStatement;
+      this.outcome.learning = this.learningStatement;
+      this.outcome.belief_rating_after =
+        this.finalRating > 0 ? this.finalRating : null;
+      this.outcome.realistic_belief = this.realisticBeliefStatement;
       this.ettbfBeliefService
         .putOutcome({
           id: this.outcome.id,
           belief_id: this.outcome.belief_id,
           outcome: this.outcome.outcome,
+          learning: this.outcome.learning,
+          belief_rating_after: this.outcome.belief_rating_after,
+          realistic_belief: this.outcome.realistic_belief,
         })
         .subscribe(
-          (data: Outcome) => {
+          (data: any) => {
             this.outcome = data;
+            this.outcomeResponse = data.body;
+            console.log('The put request has been submitted');
           },
           error => {
             console.error(error);
           },
         );
     } else {
-      if (this.outcomeStatement.trim().length > 0) {
+      if (
+        this.outcomeStatement.trim().length > 0 &&
+        this.outcomeResponse === undefined
+      ) {
         this.ettbfBeliefService
           .postOutcome(this.belief.id, this.outcomeStatement)
           .subscribe(
-            (data: Outcome) => {
+            (data: any) => {
               this.outcome = data;
+              this.outcomeResponse = data.outcome;
+              console.log('The post request has been submitted');
             },
             error => {
               console.error(error);
@@ -88,77 +203,101 @@ export class EttbfOutcomeComponent implements OnInit, OnDestroy {
           );
       }
     }
+    this.outcomeText = false;
+    this.showLearning = true;
   }
 
   onLearningSubmit() {
-    if (this.outcome) {
-      this.outcome.learning = this.learningStatement;
-      this.ettbfBeliefService
-        .putOutcome({
-          id: this.outcome.id,
-          belief_id: this.outcome.belief_id,
-          outcome: this.outcome.outcome,
-          learning: this.outcome.learning,
-        })
-        .subscribe(
-          (data: Outcome) => {
-            this.outcome = data;
-          },
-          error => {
-            console.error(error);
-          },
-        );
-    }
+    this.onOutcomeSubmit();
+    this.learningText = false;
+    this.showSlider = true;
   }
 
   onBeliefRatingAfterSubmit() {
     if (this.outcome) {
-      this.outcome.belief_rating_after = this.finalSlider.rating;
+      this.outcome.belief_rating_after = this.finalRating;
       this.bothRatingsExist = true;
       this.compareRating();
-      this.ettbfBeliefService
-        .putOutcome({
-          id: this.outcome.id,
-          belief_id: this.outcome.belief_id,
-          outcome: this.outcome.outcome,
-          belief_rating_after: this.outcome.belief_rating_after,
-        })
-        .subscribe(
-          (data: Outcome) => {
-            this.outcome = data;
-          },
-          error => {
-            console.error(error);
-          },
-        );
+      this.onOutcomeSubmit();
+      if (!this.beliefDecreased) {
+        this.finalSliderRating.emit(this.outcome.belief_rating_after);
+      }
     }
+    this.showSliderContinue = false;
   }
 
   onRealisticBeliefSubmit() {
-    if (this.outcome) {
-      this.outcome.realistic_belief = this.realisticBeliefStatement;
-      this.ettbfBeliefService
-        .putOutcome({
-          id: this.outcome.id,
-          belief_id: this.outcome.belief_id,
-          outcome: this.outcome.outcome,
-          realistic_belief: this.outcome.realistic_belief,
-        })
-        .subscribe(
-          (data: Outcome) => {
-            this.outcome = data;
-          },
-          error => {
-            console.error(error);
-          },
-        );
-    }
+    this.onOutcomeSubmit();
+    this.finalSliderRating.emit(this.outcome.belief_rating_after);
+    this.realisticContinue = false;
   }
 
   compareRating() {
     if (this.outcome.belief_rating_after && this.belief.belief_rating_before) {
       this.beliefDecreased =
         this.outcome.belief_rating_after < this.belief.belief_rating_before;
+      if (this.beliefDecreased) {
+        this.finalSliderRating.emit(false);
+      }
     }
+  }
+  getEndDate() {
+    if (this.task) {
+      return moment(this.task.end_at).format('DD-MMM');
+    }
+  }
+  onDisableEmergency() {
+    const date = this.task.end_at + ' ' + this.task.time;
+    this.disableEmergency =
+      moment().format('YYYY-MM-DD HH:mm') <
+      moment
+        .utc(date)
+        .local()
+        .format('YYYY-MM-DD HH:mm');
+  }
+  taskLoaded(data: any) {
+    this.task = data;
+    if (this.task) {
+      this.getEndDate();
+      this.onDisableEmergency();
+    }
+    if (data) {
+      if (this.outcomeStatement === '') {
+        this.emergencyPlan = false;
+      } else {
+        this.emergencyPlan = true;
+      }
+    }
+  }
+  onFocusOutcome() {
+    this.outcomeText = true;
+  }
+  onFocusLearning() {
+    this.learningText = true;
+  }
+  onFocusRealistic() {
+    this.realisticContinue = true;
+  }
+
+  onExpectedOutcomeSubmit() {
+    const data = this.expectedOutComeForm.value['expected_outcome'];
+    this.ettbfBeliefService
+      .putExpectedOutcome(this.belief, data)
+      .subscribe((resp: any) => {
+        if (resp.ok) {
+          this.showExpectedBtn = false;
+          this.showOutcome = true;
+        }
+      });
+  }
+
+  onShowExpectedBtn() {
+    this.showExpectedBtn = true;
+  }
+
+  getRating(value: any) {
+    this.finalRating = value;
+    this.showSliderContinue = true;
+    // this.showContinue = true;
   }
 }

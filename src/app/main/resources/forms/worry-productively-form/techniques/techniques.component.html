@@ -1,75 +1,79 @@
-<div class="row mb-2">
-  <div class="col-12">
-    <div class="card-full-width">
-      <div class="card-header" style="background: #FBE9C8;">
-        <strong> Select a technique that you would like to use to reduce your worry? </strong>
-        <div class="float-right d-inline-block">
-          <mat-icon class="edit_icon">
-            edit </mat-icon>
+<div *ngIf="techniquesCall">
+  <div class="row mb-2">
+    <div class="col-12">
+      <div class="card-full-width">
+        <div class="card-header" style="background: #FBE9C8;">
+          <strong>
+            Select a technique that you would like to use to reduce your worry?
+          </strong>
         </div>
-      </div>
-      <div class="card-body">
-        You can evaluate your thought with multiple techniques.
-        <div class="float-right d-inline-block" #doneBtn>
-          <mat-icon svgIcon="Info" (click)="TechniqueInfo()">
-          </mat-icon>
-        </div> <br /> <br />
-        <mat-expansion-panel hideToggle="true" (opened)="panelOpenState1 = 1" (closed)="panelOpenState1 = 2">
-          <mat-expansion-panel-header style="background: #FFFCE3;" (click)="EvaluateClick()">
-            <mat-panel-description>
-              <strong> Evaluate Worry </strong>
-            </mat-panel-description>
-            <mat-icon *ngIf="panelOpenState1 == 1" (click)="onShowInfo()" svgIcon="QuestionMark"></mat-icon>
-            <mat-icon *ngIf="panelOpenState1 == 1" svgIcon="Close"></mat-icon>
-            <mat-icon *ngIf="panelOpenState1 == 2" svgIcon="EditErrors"></mat-icon>
-          </mat-expansion-panel-header>
-          <app-evaluate-worry [EvaluatedClicked]="ifevaluatedclicked" (summaryEvaluateEvent)="setEvaluateIcon($event)"[worry]="worry">
-          </app-evaluate-worry>
-        </mat-expansion-panel><br />
-        <mat-expansion-panel hideToggle="true" (opened)="panelOpenState2 = 1" (closed)="panelOpenState2 = 2">
-          <mat-expansion-panel-header style="background: #FEC1C1;">
-            <mat-panel-description>
-              <strong> Face my worst fear </strong>
-            </mat-panel-description>
-            <mat-icon *ngIf="panelOpenState2 == 1" svgIcon="Close"></mat-icon>
-            <mat-icon *ngIf="panelOpenState2 == 2" svgIcon="EditErrors"></mat-icon>
-          </mat-expansion-panel-header>
-        </mat-expansion-panel><br />
-        <mat-expansion-panel hideToggle="true" (opened)="panelOpenState3 = 1" (closed)="panelOpenState3 = 2">
-          <mat-expansion-panel-header style="background: #E2E5FF;" (click)="BeliefsClick()">
-            <mat-panel-description>
-              <strong>Modify Beliefs </strong>
-            </mat-panel-description>
-            <mat-icon *ngIf="panelOpenState3 == 1" svgIcon="Close"></mat-icon>
-            <mat-icon *ngIf="panelOpenState3 == 2" svgIcon="EditErrors"></mat-icon>
-          </mat-expansion-panel-header>
-          <app-modify-beliefs [modifyBeliefsClick]="beliefsClicked" (summaryModifyEvent)="setBeliefIcon($event)" [worry]="worry">
-          </app-modify-beliefs>
-        </mat-expansion-panel><br />
-        <mat-expansion-panel hideToggle="true" (opened)="panelOpenState4 = 1" (closed)="panelOpenState4 = 2">
-          <mat-expansion-panel-header style="background: #FEDEFF;" (click)="solveProbClick()">
-            <mat-panel-description>
-              <strong>Can I do anything about it? </strong>
-            </mat-panel-description>
-            <mat-icon *ngIf="panelOpenState4 == 1" svgIcon="Close"></mat-icon>
-            <mat-icon *ngIf="panelOpenState4 == 2" svgIcon="EditErrors"></mat-icon>
-          </mat-expansion-panel-header>
-          <app-wpf-problem-solving [canISolve]="solveProbClicked" (summaryProbSolvingEvent)="setProbIcon($event)" [worry]="worry">
-          </app-wpf-problem-solving>
-        </mat-expansion-panel><br />
-        <mat-expansion-panel hideToggle="true" (opened)="panelOpenState5 = 1" (closed)="panelOpenState5 = 2">
-          <mat-expansion-panel-header style="background: #C9FFDA;" (click)="DealwithWorryClick()">
-            <mat-panel-description>
-              <strong> Deal with intense worry </strong>
-            </mat-panel-description>
-            <mat-icon *ngIf="panelOpenState5 == 1" svgIcon="Close"></mat-icon>
-            <mat-icon *ngIf="panelOpenState5 == 2" svgIcon="EditErrors"></mat-icon>
-          </mat-expansion-panel-header>
-          <app-wpf-deal-with-worry [dealWorryClick]="dealWithWorry" (summaryDealingEvent)="setDealWorryIcon($event)" [worry]="worry">
-          </app-wpf-deal-with-worry>
-        </mat-expansion-panel>
+        <div class="card-body">
+          You can evaluate your worry thought with multiple techniques.
+          <div class="float-right d-inline-block" #doneBtn>
+            <mat-icon
+              svgIcon="Info"
+              class="edit_icon"
+              (click)="techniqueInfo()"
+            >
+            </mat-icon>
+          </div>
+          <br />
+          <br />
+          <mat-accordion>
+            <app-evaluate-worry
+              [worry]="worry"
+              [summaryIndex]="0"
+              (techniqueExpanded)="onTechniqueExpanded()"
+              (techniqueCollapsed)="onTechniqueCollapsed($event)"
+            >
+            </app-evaluate-worry>
 
+            <app-face-my-worst-fear
+              [worry]="worry"
+              [summaryIndex]="1"
+              (techniqueExpanded)="onTechniqueExpanded()"
+              (techniqueCollapsed)="onTechniqueCollapsed($event)"
+            ></app-face-my-worst-fear>
 
+            <app-modify-beliefs
+              [worry]="worry"
+              [summaryIndex]="2"
+              (techniqueExpanded)="onTechniqueExpanded()"
+              (techniqueCollapsed)="onTechniqueCollapsed($event)"
+            >
+            </app-modify-beliefs>
+
+            <app-wpf-problem-solving
+              [worry]="worry"
+              [summaryIndex]="3"
+              (techniqueExpanded)="onTechniqueExpanded()"
+              (techniqueCollapsed)="onTechniqueCollapsed($event)"
+            >
+            </app-wpf-problem-solving>
+
+            <app-wpf-deal-with-worry
+              [summaryIndex]="4"
+              (techniqueExpanded)="onTechniqueExpanded()"
+              (techniqueCollapsed)="onTechniqueCollapsed($event)"
+              (summaryDealingEvent)="setDealSummary($event)"
+              [worry]="worry"
+            >
+            </app-wpf-deal-with-worry>
+          </mat-accordion>
+
+        </div>
+        <div *ngIf="showContinue && !isCompleted">
+          <button
+            type="submit"
+            mat-raised-button
+            class="btn continue-btn "
+            [ngStyle]="{ float: 'right' }"
+            (click)="showFinalRating()"
+          >
+            Done
+          </button>
+          <br /><br />
+        </div>
       </div>
     </div>
   </div>

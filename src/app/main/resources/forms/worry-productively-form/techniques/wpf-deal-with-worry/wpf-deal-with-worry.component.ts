@@ -21,15 +21,17 @@ import { WorryProductivelyService } from '../../worry-productively.service';
   styleUrls: ['./wpf-deal-with-worry.component.scss'],
 })
 export class WpfDealWithWorryComponent implements OnInit {
-  @Input() dealWorryClick = false;
   @Input() worry!: Worry;
-  @Output() summaryDealingEvent = new EventEmitter<boolean>();
-  summary = false;
+  @Output() summaryDealingEvent = new EventEmitter<string>();
+  @ViewChild('panel5', { static: false }) panel5!: any;
   calmMyself = false;
-  summaryText = '';
+  summaryText!: string;
   continueButton = false;
   responseData = '';
   dealWithWorry: string[] = [];
+  @Output() techniqueExpanded = new EventEmitter();
+  @Output() techniqueCollapsed = new EventEmitter();
+  @Input() summaryIndex!: number;
   DealWorryForm = this.fb.group({
     DealWorryStatement: new FormControl('', Validators.required),
   });
@@ -41,16 +43,19 @@ export class WpfDealWithWorryComponent implements OnInit {
 
   ngOnInit() {}
   ngOnChanges() {
+    this.resetForm();
     if (this.worry) {
       this.worryService
         .getDealWithWorry(this.worry.id)
         .subscribe((resp: any) => {
-          console.log('deal with worrry' + resp);
           if (resp.body.length !== 0) {
             this.DealWorryForm.controls['DealWorryStatement'].setValue(
               resp.body.distract,
             );
-            this.dealWithWorry.push(resp);
+            this.dealWithWorry.push(resp.body.distract);
+            this.summaryText = resp.body.distract;
+            this.panelCollapse();
+            this.summaryDealingEvent.emit(this.summaryText);
           }
         });
     }
@@ -74,7 +79,7 @@ export class WpfDealWithWorryComponent implements OnInit {
         console.log(resp.body);
         this.responseData = resp.body.distract;
       });
-    } else if (this.responseData.length > 0) {
+    } else if (this.responseData.length > 0 || this.dealWithWorry.length != 0) {
       const object = {
         worry_id: this.worry.id,
         distract: this.summaryText,
@@ -89,13 +94,25 @@ export class WpfDealWithWorryComponent implements OnInit {
         });
     }
   }
+  resetForm() {
+    this.DealWorryForm = this.fb.group({
+      DealWorryStatement: new FormControl(''),
+    });
+    this.summaryText = '';
+    // this.summaryDealingEvent.emit(this.summaryText);
+  }
   continuetocalmMyself() {
-    this.summary = true;
-    if (this.summary) {
-      this.summaryDealingEvent.emit(this.summary);
-    }
+    this.summaryDealingEvent.emit(this.summaryText);
+    this.panel5.expanded = false;
   }
   onFocus() {
     this.continueButton = true;
+  }
+  panelCollapse() {
+    const object = {
+      index: this.summaryIndex,
+      summary: this.summaryText ? this.summaryText : '',
+    };
+    this.techniqueCollapsed.emit(object);
   }
 }

@@ -15,19 +15,22 @@ import { WorryProductivelyService } from '../../worry-productively.service';
   styleUrls: ['./wpf-problem-solving.component.scss'],
 })
 export class WpfProblemSolvingComponent implements OnInit {
-  @Input() canISolve = false;
   @Input() worry!: Worry;
-  @Output() summaryProbSolvingEvent = new EventEmitter<boolean>();
+  @Output() summaryProbSolvingEvent = new EventEmitter<string>();
+  @ViewChild('panel4', { static: false }) panel4!: any;
+  @Output() techniqueExpanded = new EventEmitter();
+  @Output() techniqueCollapsed = new EventEmitter();
+  @Input() summaryIndex!: number;
   radioResponse = '';
   imageDisplay = false;
   // choices = ['Yes', 'No'];
-  summary = false;
-  summaryText = '';
+  summaryText!: string;
   responseData = '';
   problemSolving: string[] = [];
+  canDoAnything!: number;
   problemSolvingForm = this.fb.group({
-    problemSolvingStatement: new FormControl('', Validators.required),
-    choices: new FormControl(),
+    problemSolvingStatement: new FormControl(''),
+    choices: new FormControl(''),
   });
   continueButton = false;
   constructor(
@@ -37,58 +40,52 @@ export class WpfProblemSolvingComponent implements OnInit {
 
   ngOnInit() {}
   ngOnChanges() {
+    this.resetForm();
+    // this.summaryProbSolvingEvent.emit(this.summaryText);
     if (this.worry) {
       this.worryService
         .getProblemSolving(this.worry.id)
         .subscribe((resp: any) => {
-          console.log('problem solving' + resp);
           if (resp.body) {
             if (resp.body.can_do_anything) {
-              this.problemSolvingForm.controls['choices'].setValue('1');
+              this.problemSolvingForm.controls['choices'].setValue(true);
+              this.summaryText = resp.body.problem_statement;
+              this.panelCollapse();
+              this.summaryProbSolvingEvent.emit(this.summaryText);
             } else if (!resp.body.can_do_anything) {
-              this.problemSolvingForm.controls['choices'].setValue('0');
+              this.problemSolvingForm.controls['choices'].setValue(false);
             }
             this.problemSolvingForm.controls[
               'problemSolvingStatement'
             ].setValue(resp.body.problem_statement);
-            this.problemSolving.push(resp);
+            this.problemSolving.push(resp.body.problem_statement);
           }
         });
     }
   }
-  // worrySelected(worry: Worry) {
-  //   this.worry = worry
-  //   if(this.worry){
-  //     this.worryService.getProblemSolving(this.worry.id).subscribe(
-  //       (resp : any) => {
-  //         console.log('problem solving'+resp);
-  //         if(resp.body.length !== 0){
+  resetForm() {
+    this.problemSolvingForm = this.fb.group({
+      problemSolvingStatement: new FormControl(''),
+      choices: new FormControl(''),
+    });
+    this.summaryText = '';
+    // this.summaryProbSolvingEvent.emit(this.summaryText);
+  }
 
-  //           this.problemSolving.push(resp);
-  //         }
-  //       }
-  //     );
-  //   }
-  // }
-  canDoAnything!: number;
-  // setResponse(){
-  //   this.radioResponse = this.problemSolvingForm.value['choices'];
-  //   console.log(this.radioResponse);
-  // }
   continueSummary() {
     this.imageDisplay = true;
     this.continueButton = false;
-    if (this.problemSolvingForm.value['choices'] == '1') {
+    if (this.problemSolvingForm.value['choices'] === true) {
       this.summaryText = this.problemSolvingForm.value[
         'problemSolvingStatement'
       ];
       this.canDoAnything = 1;
-    } else if (this.problemSolvingForm.value['choices'] == '0') {
+    } else if (this.problemSolvingForm.value['choices'] === false) {
       this.canDoAnything = 0;
       this.summaryText = '';
     }
 
-    if (this.responseData.length == 0 && this.problemSolving.length == 0) {
+    if (this.responseData.length === 0 && this.problemSolving.length === 0) {
       const object = {
         worry_id: this.worry.id,
         can_do_anything: this.canDoAnything,
@@ -102,7 +99,10 @@ export class WpfProblemSolvingComponent implements OnInit {
         console.log(resp.body);
         this.responseData = resp.body.problem_statement;
       });
-    } else if (this.responseData.length > 0) {
+    } else if (
+      this.responseData.length > 0 ||
+      this.problemSolving.length !== 0
+    ) {
       const object = {
         worry_id: this.worry.id,
         can_do_anything: this.canDoAnything,
@@ -119,14 +119,23 @@ export class WpfProblemSolvingComponent implements OnInit {
     }
   }
   showSummary() {
-    this.summary = true;
-    this.summaryProbSolvingEvent.emit(this.summary);
+    // this.summaryProbSolvingEvent.emit(this.summaryText);
+    this.panel4.expanded = false;
   }
 
   falseResponse() {
     this.continueSummary();
+    this.panel4.expanded = false;
   }
   onFocus() {
     this.continueButton = true;
+  }
+
+  panelCollapse() {
+    const object = {
+      index: this.summaryIndex,
+      summary: this.summaryText ? this.summaryText : '',
+    };
+    this.techniqueCollapsed.emit(object);
   }
 }

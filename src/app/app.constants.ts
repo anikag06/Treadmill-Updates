@@ -60,7 +60,6 @@ export const IDENTIFY_COGNITIVE_DISTORTION = 'Identify Cognitive Distortion';
 // ibGame time
 export const IBG_LESS_TIME = 120;
 export const IBG_MORE_TIME = 150;
-
 // LOCAL STORAGE
 export const LS_TIME = 120;
 
@@ -228,10 +227,9 @@ export const USER_SIQ_DATA = '/api/v1/questionnaire/siq-user-response/';
 
 // FORMS
 export const RECOMMENDED = 'recommended';
+export const WORRY_PRODUCTIVELY = 'worry-productivelty';
+export const WORRY_PROBLEM = 'worry';
 export const SUMMARY = 'Summary';
-export const TECHNIQUE_UNTOUCHED = 0;
-export const TECHNIQUE_OPENED = 1;
-export const TECHNIQUE_CLOSED = 2;
 export const WPF_WORRY_URL = '/api/v1/worksheets/worry-productively/worry/';
 export const USELESS_CHARAC_URL =
   '/api/v1/worksheets/worry-productively/get-useless-characteristics/';
@@ -253,7 +251,9 @@ export const WORRY_PROBLEM_SOLVING =
   '/api/v1/worksheets/worry-productively/problem-solving/';
 export const WORRY_FINAL_SLIDER =
   '/api/v1/worksheets/worry-productively/final-worry-rating/';
-export const THINKING_IMG = '/assets/forms/thinking.png';
+export const FACE_WORST_FEAR =
+  '/api/v1/worksheets/worry-productively/face-worst-fear/';
+export const GET_TASKS = '/api/v1/tasks/task/';
 export const WELL_DONE_IMG = 'assets/forms/well_done.png';
 
 // Problem solving form
@@ -273,6 +273,9 @@ export const ETTBF_OUTCOME_URL =
 export const ETTBF_RATING_QUESTION = 'How strong is your belief?';
 export const ETTBF_MIN_RATING_TEXT = 'Not at all';
 export const ETTBF_MAX_RATING_TEXT = 'Very strong';
+export const TEST_BELIEF_ORIGIN = 'expr_test_belief';
+export const ETTBF_EXPECTED_OUTCOME =
+  '/api/v1/worksheets/expr-test-belief/beliefs/';
 
 // Task form
 export const TASK = 'task';

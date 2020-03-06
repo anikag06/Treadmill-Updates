@@ -22,6 +22,8 @@ import {
   DEAL_WITH_WORRY,
   WORRY_PROBLEM_SOLVING,
   WORRY_FINAL_SLIDER,
+  FACE_WORST_FEAR,
+  GET_TASKS,
 } from '@/app.constants';
 
 @Injectable({
@@ -167,7 +169,7 @@ export class WorryProductivelyService {
   }
   getEvidences(id: number) {
     return this.http.get(
-      environment.API_ENDPOINT + EVALUATE_EVIDENCES + 'get/' + id + '/',
+      environment.API_ENDPOINT + EVALUATE_EVIDENCES + id + '/',
       {
         observe: 'response',
       },
@@ -207,6 +209,41 @@ export class WorryProductivelyService {
         observe: 'response',
       },
     );
+  }
+  getProbablityRating(id: number) {
+    return this.http.get(
+      environment.API_ENDPOINT + EVALUATE_PROBABILITY + id + '/',
+      {
+        observe: 'response',
+      },
+    );
+  }
+  postWorstFear(data: any) {
+    return this.http.post(environment.API_ENDPOINT + FACE_WORST_FEAR, data, {
+      observe: 'response',
+    });
+  }
+  putWorstFear(data: any, id: number) {
+    return this.http.put(
+      environment.API_ENDPOINT + FACE_WORST_FEAR + id + '/',
+      data,
+      {
+        observe: 'response',
+      },
+    );
+  }
+  getWorstFear(id: number) {
+    return this.http.get(
+      environment.API_ENDPOINT + FACE_WORST_FEAR + id + '/',
+      {
+        observe: 'response',
+      },
+    );
+  }
+  getTasks(id: number) {
+    return this.http.get(environment.API_ENDPOINT + GET_TASKS + id + '/', {
+      observe: 'response',
+    });
   }
   postModifyBeliefs(data: any) {
     return this.http.post(environment.API_ENDPOINT + MODIFY_BELIEFS, data, {
