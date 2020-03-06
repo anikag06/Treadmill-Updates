@@ -54,7 +54,7 @@
     </div>
 
     <div class="col mx-0 px-0 form-div changes-width" #form_div [@formInOut]="isFormVisible ? 'show' : 'hidden'"
-      [style.height]="slideDiv.offsetHeight < screenHeight ? slideDiv.offsetHeight + 'px' : screenHeight- 0.01*screenHeight +'px' ">
+      [style.height]="slideDiv.offsetHeight >= screenHeight ? screenHeight - 0.01*screenHeight +'px': slideDiv.offsetHeight + 'px'  ">
 
       <div class="mx-0 px-0" form-host></div>
     </div>
