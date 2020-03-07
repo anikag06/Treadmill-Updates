@@ -1169,11 +1169,11 @@ function gameFeedbackPopup() {
 }
 
 function getDifficultyLevel(time_per_note) {
-  // if (time_per_note >= EASY_LEVEL_THRESHOLD) {
-  //   return { level: 1, no_images: 2 };
-  // } else if (time_per_note >= MEDIUM_LEVEL_THRESHOLD) {
-  //   return { level: 2, no_images: 4 };
-  // } else {
-  return { level: 3, no_images: 6 };
-  // }
+  if (time_per_note >= EASY_LEVEL_THRESHOLD) {
+    return { level: 1, no_images: 2 };
+  } else if (time_per_note >= MEDIUM_LEVEL_THRESHOLD) {
+    return { level: 2, no_images: 4 };
+  } else {
+    return { level: 3, no_images: 6 };
+  }
 }
