@@ -40,6 +40,7 @@ import {
   MatNativeDateModule,
   MatSlideToggleModule,
   MatExpansionModule,
+  MatRippleModule,
 } from '@angular/material';
 import { MatProgressBarModule } from '@angular/material';
 import { ScrollingDirective } from './shared/scrolling.directive';
@@ -309,6 +310,7 @@ import { GamesFeedbackService } from './games/games-list/common-game/games-feedb
     MatTooltipModule,
     QuestionnaireModule,
     ResourcesModule,
+    MatRippleModule,
   ],
   providers: [
     LocalStorageService,

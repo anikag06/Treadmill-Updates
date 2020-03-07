@@ -560,6 +560,7 @@ $(document).ready(function(){
 	});
 	
 	$(document).on("click",".btn-other-sentence", function(ev){
+		console.log('ROW CLICKED');
 		if (ibg_score< ibg_btn_other_sentence_score) {
 			showTooltip();
 		} else {

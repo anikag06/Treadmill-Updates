@@ -159,7 +159,7 @@
 
           <div class="col w-100 px-2 h-100 hint-div mx-0">
             <button mat-icon-button [matMenuTriggerFor]="ibgHints" class="float-left h-100">
-              <img class="img-btn my-0 align-bottom" (click)="onHintClick()" src="../../../../../assets/games/hint.png">
+              <img class="img-btn mb-2 align-bottom" (click)="onHintClick()" src="../../../../../assets/games/hint.png">
             </button>
             <div id="showWordResult" class="px-1 h-100 d-none smallest-font ">
               <div id="aWord" class="h-100 pr-2 pt-3 "></div>
@@ -177,7 +177,7 @@
             <div class="row justify-content-center">
               <div class="text-dark large-font"><b> Time's up!</b></div>
             </div>
-            <div class="row my-2 py-2">
+            <div class="row my-2 py-2" matRipple [matRippleColor]="'#00000020'">
               <div class="col-3">
                 <img id="btn-try-again" class="btn-try-again img-btn cursor-pointer "
                   src="../../../../../assets/games/replay.png">
@@ -187,7 +187,7 @@
               </div>
             </div>
             <div class="row my-2 py-2" #tooltip="matTooltip" matTooltipDisabled matTooltip={{tooltipData}}
-              matTooltipPosition='below'>
+              matTooltipPosition='below' matRipple [matRippleColor]="'#00000020'">
               <div class="col-3 ">
                 <img id="btn-borrow-time" class="btn-borrow-time img-btn cursor-pointer "
                   src="../../../../../assets/games/time.png">
@@ -197,14 +197,15 @@
                   Add 20s to the clock for {{borrow_time_score}} points </p>
               </div>
             </div>
-            <div class="row my-2 py-2" #tooltip="matTooltip" matTooltipDisabled matTooltip={{tooltipData}}
-              matTooltipPosition='below'>
+            <div class="btn-other-sentence row my-2 py-2 " #tooltip="matTooltip" matTooltipDisabled
+              matTooltip={{tooltipData}} matTooltipPosition='below' matRipple [matRippleColor]="'#00000020'"
+              (click)='storeUserScoreInfo(false)'>
               <div class="col-3">
-                <img id="btn-other-sentence" class="btn-other-sentence img-btn cursor-pointer "
-                  (click)='storeUserScoreInfo(false)' src="../../../../../assets/games/forward.png">
+                <img id="btn-other-sentence" class="img-btn cursor-pointer "
+                  src="../../../../../assets/games/forward.png">
               </div>
               <div class="col-8 text-left">
-                <p class="medium-font btn-other-sentence cursor-pointer ">
+                <p class="medium-font  cursor-pointer ">
                   Go to the next sentence for {{btn_other_sentence_score}} points</p>
               </div>
             </div>
@@ -214,7 +215,7 @@
             <div class="row justify-content-center">
               <div class="text-dark large-font"><b> Time's up!</b></div>
             </div>
-            <div class="row my-2 py-2">
+            <div class="row my-2 py-2" matRipple [matRippleColor]="'#00000020'">
               <div class="col-3">
                 <img id="btn-try-again" class="btn-try-again img-btn cursor-pointer "
                   src="../../../../../assets/games/replay.png">
@@ -224,7 +225,7 @@
               </div>
             </div>
             <div class="row my-2 py-2" #tooltip="matTooltip" matTooltipDisabled matTooltip={{tooltipData}}
-              matTooltipPosition='below'>
+              matTooltipPosition='below' matRipple [matRippleColor]="'#00000020'">
               <div class="col-3">
                 <img id="btn-give-up" class="btn-give-up col img-btn cursor-pointer "
                   src="../../../../../assets/games/interpretation_bias_game/images/show_sentence.svg">
@@ -235,7 +236,7 @@
               </div>
             </div>
             <div class="row my-2 py-2" #tooltip="matTooltip" matTooltipDisabled matTooltip={{tooltipData}}
-              matTooltipPosition='below'>
+              matTooltipPosition='below' matRipple [matRippleColor]="'#00000020'">
               <div class="col-3">
                 <img id="btn-borrow-time-again"
                   class="btn-borrow-time-again col justify-content-center cursor-pointer img-btn"

@@ -24,7 +24,7 @@ export class IdcGameService {
   levelInitialise = new Subject();
   stopTimer = new Subject();
   startTimer = new EventEmitter();
-
+  replay = false;
   playing = false;
   selectedCorrectOptionsSet = new Set();
   game!: any;
