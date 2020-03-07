@@ -66,6 +66,7 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   saveSolutionBtn!: boolean;
   showProConBtn!: boolean;
   showFollowUp = false;
+  showSolutionContBtn = false;
   // menuOpen = false;
   @Input() fromSlide!: boolean;
   bestSolution!: any;
@@ -286,6 +287,9 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
     this.solutionsSaved = true;
   }
 
+  onShowSolutionContinue() {
+    this.showSolutionContBtn = true;
+  }
   // onShowBestSolution(value: boolean) {
   //   this.showProConBtn = value;
   // }
@@ -314,6 +318,7 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   }
 
   onSolutionFocusOut() {
+    this.showSolutionContBtn = false;
     this.onSolutionSubmit();
   }
 

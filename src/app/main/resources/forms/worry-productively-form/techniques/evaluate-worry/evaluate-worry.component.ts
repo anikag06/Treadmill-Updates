@@ -95,6 +95,7 @@ export class EvaluateWorryComponent implements OnInit, AfterContentChecked {
         .getThinkingErrors(this.worry.id)
         .subscribe((resp: any) => {
           if (resp.body.data) {
+            this.checksubmitted = true;
             this.evaluateForm.setControl(
               'thinking_errors',
               this.fb.array(resp.body.data),

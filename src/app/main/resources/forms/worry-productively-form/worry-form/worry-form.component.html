@@ -1,18 +1,49 @@
 <form>
   <mat-form-field class="full-width">
-    <textarea name="worryStatement" class="py-0" #worryTextArea cdkTextareaAutosize cdkAutosizeMinRows="1"
-      cdkAutosizeMaxRows="5" id="worryStatement" placeholder="Write here" matInput required [autofocus]
-      [(ngModel)]="worryStatement" (focus)="onFocus()" (focusout)="onFocusOut($event)">text</textarea>
+    <textarea
+      name="worryStatement"
+      class="py-0"
+      #worryTextArea
+      cdkTextareaAutosize
+      matInput
+      #formInput="matInput"
+      [placeholder]="formInput.focused || formInput.empty ? 'Write Here' : ''"
+      cdkAutosizeMinRows="1"
+      id="worryStatement"
+      required
+      [autofocus]
+      [(ngModel)]="worryStatement"
+      (focus)="onFocus()"
+      (focusout)="onFocusOut($event)"
+    ></textarea>
   </mat-form-field>
-  <p class="text-right" (click)="onWorrySubmit()" *ngIf="worryTextArea.value && continueButton">
-    <button type="button" mat-raised-button class="continue-btn">Continue </button> <br/> <br/>
+  <p
+    class="text-right"
+    (click)="onWorrySubmit()"
+    *ngIf="worryTextArea.value && continueButton"
+  >
+    <button type="button" mat-raised-button class="continue-btn">
+      Continue
+    </button>
+    <br />
+    <br />
   </p>
   <div *ngIf="clickbutton" (click)="showSliderContinue()">
-    <app-form-slider [question]="worrySliderQuestion" [minRatingText]="wSliderMinRangeText"
-      [maxRatingText]="wSliderMaxRangeText" [rating]="value"></app-form-slider>
+    <app-form-slider
+      [question]="worrySliderQuestion"
+      [minRatingText]="wSliderMinRangeText"
+      [maxRatingText]="wSliderMaxRangeText"
+      [rating]="value"
+    ></app-form-slider>
   </div>
-  <p class="text-right" *ngIf="showSliderCont" (click)="continuetoCharacteristics()">
-    <button type="button" mat-raised-button class="continue-btn">Continue</button>
+  <p
+    class="text-right"
+    *ngIf="showSliderCont"
+    (click)="continuetoCharacteristics()"
+  >
+    <button type="button" mat-raised-button class="continue-btn">
+      Continue
+    </button>
   </p>
   <br />
 </form>

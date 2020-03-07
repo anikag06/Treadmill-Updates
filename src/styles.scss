@@ -25,8 +25,7 @@ $small_logo_height: 40px;
 
 @mixin box-shadow-common() {
   box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
-    0px 1px 1px 0px rgba(0, 0, 0, 0.14),
-    0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
 }
 
 @mixin border-dashed() {
@@ -374,14 +373,13 @@ img.emoji {
   overflow-x: hidden;
   overflow-y: hidden;
 }
-.common-delete-dialog-container .mat-dialog-container{
+.common-delete-dialog-container .mat-dialog-container {
   width: 320px;
   height: 150px;
 }
 
-
 .mat-slider-thumb {
-  background-color: #2a3b3d;
+  background-color: #2a3b3d !important;
 }
 
 @media screen and (max-width: 400px) {
@@ -404,3 +402,16 @@ img.emoji {
 //.label {
 //  margin-bottom: 0;
 //}
+.mat-accent .mat-slider-track-fill {
+  background-color: #2a3b3d !important;
+}
+.mat-accent .mat-slider-thumb-label {
+  background-color: #2a3b3d !important;
+}
+.mat-accent .mat-slider-thumb-label-text {
+  color: white !important;
+}
+
+.mat-slider-horizontal .mat-slider-track-background {
+  transform: none !important;
+}

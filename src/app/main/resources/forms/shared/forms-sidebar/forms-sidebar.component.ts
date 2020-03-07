@@ -157,7 +157,7 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
       (beliefs: Belief[]) => {
         this.objects = beliefs;
         this.show_dot = this.objects.some(
-            obj => obj.show_follow_up_dot === true,
+          obj => obj.show_follow_up_dot === true,
         );
         this.showDot.emit(this.show_dot);
         this.selectObject();
@@ -233,6 +233,8 @@ export class FormsSidebarComponent implements OnInit, AfterViewInit {
           this.deleteWorryForm(object);
         } else if (this.type === PSF_PROBLEM_SOLVING) {
           this.deleteProblem(object);
+        } else {
+          this.deleteTestBeliefForm(object);
         }
       }
     });

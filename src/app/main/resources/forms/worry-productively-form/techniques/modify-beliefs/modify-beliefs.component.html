@@ -27,9 +27,11 @@
           #isText
           cdkTextareaAutosize
           cdkAutosizeMinRows="1"
-          cdkAutosizeMaxRows="5"
-          placeholder="Write here"
           matInput
+          #formInput="matInput"
+          [placeholder]="
+            formInput.focused || formInput.empty ? 'Write Here' : ''
+          "
           required
           [autofocus]
         ></textarea>

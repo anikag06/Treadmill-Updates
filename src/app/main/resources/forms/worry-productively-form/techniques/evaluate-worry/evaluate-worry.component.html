@@ -34,7 +34,6 @@
           formArrayName="thinking_errors"
           *ngFor="let val of data; let i = index"
         >
-          <br />
           <mat-checkbox
             [value]="val.value"
             (change)="updateValueChange($event, i)"
@@ -61,7 +60,7 @@
               class="statement"
               [formGroupName]="i"
               [ngStyle]="{ display: 'flex' }"
-              click-outside
+              appClickOutside
               (clickOutside)="onClickOutside($event, i)"
             >
               <mat-form-field>
@@ -70,9 +69,11 @@
                   [formControl]="evidence.get('evidence')"
                   cdkTextareaAutosize
                   cdkAutosizeMinRows="1"
-                  cdkAutosizeMaxRows="5"
-                  placeholder="Write here"
                   matInput
+                  #formInput="matInput"
+                  [placeholder]="
+                    formInput.focused || formInput.empty ? 'Write Here' : ''
+                  "
                   required
                   [autofocus]
                   (focus)="onShowTrashIcon(i)"

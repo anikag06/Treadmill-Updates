@@ -5,8 +5,8 @@
       <div class="card-header d-flex">
         What was the result of implementation?
         <div
-                class="red-dot"
-                *ngIf="!disableResult && resultBody.length < 1"
+          class="red-dot"
+          *ngIf="!disableResult && resultBody.length < 1"
         ></div>
       </div>
       <div class="card-body">
@@ -21,10 +21,8 @@
               class="px-0 py-0"
               cdkTextareaAutosize
               #autosize="cdkTextareaAutosize"
-              cdkAutosizeMaxRows="5"
               required
               name="result"
-              placeholder="Write here"
               [disabled]="disableResult"
               [(ngModel)]="resultBody"
             ></textarea>
@@ -56,7 +54,7 @@
             </div>
           </div>
         </div>
-        <div *ngIf="disableResult" class="hideResult col-12 my-2"></div>
+        <div *ngIf="disableResult" class="hideResult col-12 my-2">Disabled</div>
         <div *ngIf="disableResult" class="notice my-4">
           Write the result of the implementation after
           {{ getEndDate() }}.

@@ -28,26 +28,29 @@
             formControlName="faceYourWorstFear"
             #fear
             cdkTextareaAutosize
-            cdkAutosizeMinRows="1"
-            cdkAutosizeMaxRows="5"
-            placeholder="Write here"
             matInput
+            #formInput="matInput"
+            [placeholder]="
+              formInput.focused || formInput.empty ? 'Write Here' : ''
+            "
             required
             [autofocus]
             (focus)="onFocusfear()"
           ></textarea>
         </mat-form-field>
-        <p
-          class="text-right"
-          *ngIf="fear.value && continueButton"
-          (click)="onWorstFearClick()"
-        >
-          <button type="button" mat-raised-button class="continue-btn">
-            Continue</button
-          ><br /><br />
-        </p>
       </div>
+      <div
+        class="float-right h-36 mb-3"
+        *ngIf="fear.value && continueButton"
+        (click)="onWorstFearClick()"
+      >
+        <button type="button" mat-raised-button class="continue-btn">
+          Continue
+        </button>
+      </div>
+      <br /><br />
       <div *ngIf="showTasks">
+        <br />
         <app-tasks
           [taskHeading]="taskHeading"
           (showMessage)="taskSubmitted($event)"
@@ -68,18 +71,25 @@
         </div>
         <br />
         <br />
-        <div *ngIf="disableEmergency" class="hideResult col-12 my-2"></div>
+        <div *ngIf="disableEmergency" class="hideResult col-12 my-2">
+          Disabled
+        </div>
         <div *ngIf="disableEmergency" class="notice my-4">
-          The Text to write emergency plan will be active after
+          The fields to write the outcome will be active after
           {{ getEndDate() }}.
         </div>
-        <p class="text-right" *ngIf="disableEmergency" (click)="onSummary()">
-          <button type="button" mat-raised-button class="continue-btn">
+        <div class="float" *ngIf="disableEmergency">
+          <button
+            type="button"
+            (click)="onSummary()"
+            mat-raised-button
+            class="continue-btn"
+          >
             Done
           </button>
           <br />
           <br />
-        </p>
+        </div>
         <div *ngIf="!disableEmergency">
           <mat-form-field
             class="full-width"
@@ -90,10 +100,11 @@
               formControlName="emergency_plan"
               #Text
               cdkTextareaAutosize
-              cdkAutosizeMinRows="1"
-              cdkAutosizeMaxRows="5"
-              placeholder="Write here"
               matInput
+              #formInput="matInput"
+              [placeholder]="
+                formInput.focused || formInput.empty ? 'Write Here' : ''
+              "
               required
               [autofocus]
               [disabled]="disableEmergency"
@@ -109,11 +120,16 @@
               Continue
             </button>
           </p>
-          <p class="text-right" *ngIf="doneShowSummary" (click)="onSummary()">
-            <button type="button" mat-raised-button class="continue-btn">
+          <div class="text-right" *ngIf="doneShowSummary">
+            <button
+              type="button"
+              (click)="onSummary()"
+              mat-raised-button
+              class="continue-btn"
+            >
               Done
             </button>
-          </p>
+          </div>
         </div>
       </div>
     </div>

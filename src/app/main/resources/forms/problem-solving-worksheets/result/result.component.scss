@@ -25,7 +25,9 @@
   height: 45px;
   max-height: 45px;
   background: #eeeeee;
-  border-bottom: black solid 1px;
+  border-bottom: rgb(0, 0, 0) solid 1px;
+  padding-top: 15px;
+  opacity: 0.4;
 }
 .red-dot {
   width: 8px;

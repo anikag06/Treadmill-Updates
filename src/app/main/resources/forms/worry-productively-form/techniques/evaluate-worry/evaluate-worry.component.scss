@@ -1,5 +1,5 @@
 @import '../techniques.component.scss';
-@import "../../../../forms/shared/techniques-info/techniques-info.component";
+//@import "../../../../forms/shared/techniques-info/techniques-info.component";
 @import "../../../forms.component.scss";
 // mat-slider[_ngcontent-kbk-c17] {
 //     width : 280px;
@@ -8,9 +8,9 @@
 //     margin-right: 34px;
 // }
 
-textarea.mat-input-element.cdk-textarea-autosize {
-  resize: auto;
-}
+//textarea.mat-input-element.cdk-textarea-autosize {
+//  resize: auto;
+//}
 
 // .add-evidence{
 //   // float: left;

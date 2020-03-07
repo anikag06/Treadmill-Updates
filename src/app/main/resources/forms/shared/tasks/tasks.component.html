@@ -21,11 +21,12 @@
                 #formInput="matInput"
                 cdkTextareaAutosize
                 cdkAutosizeMinRows="1"
-                cdkAutosizeMaxRows="5"
                 formControlName="task"
                 class="form-control"
                 required
-                [placeholder]="formInput.focused ? 'Enter Task Here' : ''"
+                [placeholder]="
+                  formInput.focused || formInput.empty ? 'Enter Task Here' : ''
+                "
                 (focusin)="showSaveBtn()"
                 (focusout)="updateTask()"
               ></textarea>
@@ -40,7 +41,7 @@
               class="subtask"
               [ngStyle]="{ display: 'flex' }"
               *ngFor="let subtask of getSubTasksForm(); let i = index"
-              clickOutside
+              appClickOutside
               (clickOutside)="onClickOutside($event, i)"
             >
               <mat-checkbox
@@ -59,11 +60,12 @@
                   cdkTextareaAutosize
                   #autosize="cdkTextareaAutosize"
                   #formSubTaskInput="matInput"
-                  cdkAutosizeMaxRows="4"
                   formControlName="name"
                   class="form-control"
                   [placeholder]="
-                    formSubTaskInput.focused ? 'Enter Subtask Here' : ''
+                    formSubTaskInput.focused || formSubTaskInput.empty
+                      ? 'Enter Subtask Here'
+                      : ''
                   "
                   required
                   (focusout)="this.updateTask()"

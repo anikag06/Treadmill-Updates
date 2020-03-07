@@ -32,6 +32,10 @@ export class WpfProblemSolvingComponent implements OnInit {
     problemSolvingStatement: new FormControl(''),
     choices: new FormControl(''),
   });
+  noSelectedSummary =
+    'No, sometimes we can\'t control everything in our lives and ' +
+    'we need to accept things the way they are by changing our attitude we ' +
+    'can gradually overcome the problem.';
   continueButton = false;
   constructor(
     private fb: FormBuilder,
@@ -54,6 +58,8 @@ export class WpfProblemSolvingComponent implements OnInit {
               this.summaryProbSolvingEvent.emit(this.summaryText);
             } else if (!resp.body.can_do_anything) {
               this.problemSolvingForm.controls['choices'].setValue(false);
+              this.summaryText = this.noSelectedSummary;
+              this.panelCollapse();
             }
             this.problemSolvingForm.controls[
               'problemSolvingStatement'
@@ -82,7 +88,7 @@ export class WpfProblemSolvingComponent implements OnInit {
       this.canDoAnything = 1;
     } else if (this.problemSolvingForm.value['choices'] === false) {
       this.canDoAnything = 0;
-      this.summaryText = '';
+      this.summaryText = this.noSelectedSummary;
     }
 
     if (this.responseData.length === 0 && this.problemSolving.length === 0) {

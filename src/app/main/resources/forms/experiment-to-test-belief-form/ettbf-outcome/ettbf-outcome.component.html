@@ -56,9 +56,9 @@
       <mat-icon class="edit_icon"> edit </mat-icon>
     </div>
   </div>
-  <div *ngIf="disableEmergency" class="hideResult col-12 my-2"></div>
+  <div *ngIf="disableEmergency" class="hideResult col-12 my-2">Disabled</div>
   <div *ngIf="disableEmergency" class="notice my-4">
-    The Text to write emergency plan will be active after
+    The fields to write the outcome will be active after
     {{ getEndDate() }}.
   </div>
   <div *ngIf="!disableEmergency">
@@ -135,7 +135,7 @@
       <div class="card-header" *ngIf="showSlider">
         On a scale of 1-10 how strongly do you believe your belief to be true?
       </div>
-      <div class="card-body" *ngIf="showSlider" >
+      <div class="card-body" *ngIf="showSlider">
         <div class="beliefBox" *ngIf="belief">
           <div class="beliefText my-1 px-2" [ngStyle]="{ fontSize: '12px' }">
             Original belief
@@ -152,10 +152,7 @@
           (getRating)="getRating($event)"
           [rating]="value"
         ></app-form-slider>
-        <div
-          *ngIf="showSliderContinue"
-          (click)="onBeliefRatingAfterSubmit()"
-        >
+        <div *ngIf="showSliderContinue" (click)="onBeliefRatingAfterSubmit()">
           <button
             type="button"
             mat-raised-button
@@ -177,12 +174,14 @@
             name="realisticBeliefStatement"
             class="py-0"
             #realisticBeliefTextArea
+            matInput
+            #formInput="matInput"
+            [placeholder]="
+              formInput.focused || formInput.empty ? 'Write Here' : ''
+            "
             cdkTextareaAutosize
             cdkAutosizeMinRows="1"
-            cdkAutosizeMaxRows="5"
             id="realisticBeliefStatement"
-            placeholder="I can still do some things if I want to."
-            matInput
             required
             [autofocus]
             [(ngModel)]="realisticBeliefStatement"

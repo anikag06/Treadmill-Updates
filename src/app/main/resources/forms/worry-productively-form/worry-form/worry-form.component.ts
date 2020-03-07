@@ -60,10 +60,10 @@ export class WorryFormComponent implements OnInit {
   editWorryText() {
     this.worryTextArea.nativeElement.focus();
     this.continueText = true;
-    this.clickbutton = true;
-    if (this.worry.worry_rating_initial != null) {
-      this.value = this.worry.worry_rating_initial;
-    }
+    // this.clickbutton = true;
+    // if (this.worry.worry_rating_initial !== null) {
+    //   this.value = this.worry.worry_rating_initial;
+    // }
   }
   resetForm() {
     this.worryStatement = '';
@@ -89,7 +89,7 @@ export class WorryFormComponent implements OnInit {
         );
     } else if (
       this.worryStatement.trim().length > 0 &&
-      this.worryResponse == undefined
+      this.worryResponse === undefined
     ) {
       this.worryService.postWorry(this.worryStatement).subscribe(
         (data: any) => {

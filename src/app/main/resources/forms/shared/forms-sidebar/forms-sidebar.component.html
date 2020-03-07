@@ -23,13 +23,11 @@
           mat-menu-item
           *ngFor="let obj of objects; let i = index"
           class="d-flex px-0"
+          [disabled]="obj === selectedObject"
+          (click)="problemClicked(obj)"
           [ngClass]="obj === selectedObject ? 'selected' : ''"
         >
-          <button
-            class="btn"
-            (click)="problemClicked(obj)"
-            [disabled]="obj === selectedObject"
-          >
+          <button class="btn" [ngStyle]="{ boxShadow: 'none' }">
             {{ i + 1 }}.
             {{
               (

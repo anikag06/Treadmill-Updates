@@ -4,32 +4,43 @@
       name="beliefStatement"
       class="py-0"
       #beliefTextArea
+      matInput
+      #formInput="matInput"
+      [placeholder]="
+            formInput.focused || formInput.empty ? 'Write here' : ''
+          "
       cdkTextareaAutosize
       cdkAutosizeMinRows="1"
-      cdkAutosizeMaxRows="5"
       id="beliefStatement"
-      placeholder="I can't do anything"
-      matInput
       required
       [autofocus]
       [(ngModel)]="beliefStatement"
       (focus)="onFocus()"
     ></textarea>
   </mat-form-field>
-  <p class="text-right" *ngIf="beliefContinue " >
-    <button type="button" mat-raised-button class="continue-btn" (click)="onBeliefSubmit()">
+  <p class="text-right" *ngIf="beliefContinue">
+    <button
+      type="button"
+      mat-raised-button
+      class="continue-btn"
+      (click)="onBeliefSubmit()"
+    >
       Continue
     </button>
   </p>
   <div *ngIf="showSlider" (click)="showSliderCont()">
-    <app-form-slider 
+    <app-form-slider
       [question]="ratingQuestion"
       [minRatingText]="minRatingText"
       [maxRatingText]="maxRatingText"
-      [rating] = "value"
+      [rating]="value"
     ></app-form-slider>
-  </div> 
-  <p class="text-right" *ngIf="sliderContinue" (click)="onBeliefRatingBeforeSubmit()">
+  </div>
+  <p
+    class="text-right"
+    *ngIf="sliderContinue"
+    (click)="onBeliefRatingBeforeSubmit()"
+  >
     <button type="button" mat-raised-button class="continue-btn">
       Continue
     </button>

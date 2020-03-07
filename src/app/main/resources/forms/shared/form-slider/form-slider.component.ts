@@ -24,29 +24,6 @@ export class FormSliderComponent implements OnInit {
 
   ngOnInit() {}
 
-  ngAfterViewInit() {
-    const track = this.element.nativeElement.querySelectorAll(
-      '.mat-accent .mat-slider-track-fill',
-    );
-    const thumb = this.element.nativeElement.querySelectorAll(
-      '.mat-accent .mat-slider-thumb',
-    );
-    const slider = this.element.nativeElement.querySelectorAll(
-      '.mat-accent .mat-slider-thumb-label',
-    );
-    const labelText = this.element.nativeElement.querySelectorAll(
-      '.mat-accent .mat-slider-thumb-label-text',
-    );
-    const trackBackground = this.element.nativeElement.querySelectorAll(
-      '.mat-slider-horizontal .mat-slider-track-background',
-    );
-    track[0].setAttribute('style', 'background-color: #2a3b3d');
-    slider[0].setAttribute('style', 'background-color: #2a3b3d;');
-    thumb[0].setAttribute('style', 'background-color: #2a3b3d');
-    labelText[0].setAttribute('style', 'color:white;');
-    trackBackground[0].setAttribute('style', 'transform:none;');
-  }
-
   onInputChange(event: MatSliderChange) {
     this.getRating.emit(event.value || undefined);
   }

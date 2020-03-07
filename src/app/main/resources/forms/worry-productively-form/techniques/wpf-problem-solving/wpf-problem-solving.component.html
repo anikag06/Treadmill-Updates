@@ -51,9 +51,12 @@
               #isText
               cdkTextareaAutosize
               cdkAutosizeMinRows="1"
-              cdkAutosizeMaxRows="5"
-              placeholder="Write here"
               matInput
+              #formInput="matInput"
+              [placeholder]="
+                formInput.focused || formInput.empty ? 'Write Here' : ''
+              "
+              placeholder="Write here"
               required
               [autofocus]
               (focus)="onFocus()"
@@ -73,11 +76,9 @@
         <div *ngIf="imageDisplay" class="finalText">
           <br />
           <br />
-          <img
-            src="../../../../../../../assets/forms/clock.png"
-            class="imageSummary"
-          />
-          Well Done! use the problem solving form to tackle that<br />
+                    <img src="assets/forms/well_done.png" class="imageSummary" />
+          Well Done! use the problem solving form to
+          tackle that<br />
           <br />
           <p class="text-right">
             <button

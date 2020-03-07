@@ -1,15 +1,26 @@
-  <form>
+<form>
   <mat-form-field class="full-width">
-    <textarea name="problemStatement" class="py-0" #problemTextArea
-              cdkTextareaAutosize
-              cdkAutosizeMinRows="1"
-              cdkAutosizeMaxRows="5"
-              id="problemStatement" placeholder="Enter your problem"
-              matInput required [autofocus] [(ngModel)]="problemStatement"
-              (focusout)="onFocusOut($event)"></textarea>
+    <textarea
+      name="problemStatement"
+      class="py-0"
+      #problemTextArea
+      cdkTextareaAutosize
+      cdkAutosizeMinRows="1"
+      id="problemStatement"
+      matInput
+      #formInput="matInput"
+      [placeholder]="
+        formInput.focused || formInput.empty ? 'Enter your problem' : ''
+      "
+      required
+      [autofocus]
+      [(ngModel)]="problemStatement"
+      (focusout)="onFocusOut($event)"
+    ></textarea>
   </mat-form-field>
   <p class="text-right" (click)="onProblemSubmit()">
-    <button type="button" mat-raised-button
-      class="continue-btn">Continue</button>
+    <button type="button" mat-raised-button class="continue-btn">
+      Continue
+    </button>
   </p>
 </form>

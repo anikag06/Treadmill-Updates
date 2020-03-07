@@ -8,10 +8,10 @@
       <div class="d-inline-block ml-auto">
         <div *ngIf="showFollowUp && !t.menuOpen" class="red-circle"></div>
         <button
-                class="saved-forms-btn"
-                mat-button
-                [matMenuTriggerFor]="problemSolvingForms"
-                #t="matMenuTrigger"
+          class="saved-forms-btn"
+          mat-button
+          [matMenuTriggerFor]="problemSolvingForms"
+          #t="matMenuTrigger"
         >
           <mat-icon>
             more_horiz
@@ -20,18 +20,18 @@
       </div>
 
       <mat-menu
-              xPosition="before"
-              yPosition="below"
-              #problemSolvingForms="matMenu"
-              [overlapTrigger]="false"
+        xPosition="before"
+        yPosition="below"
+        #problemSolvingForms="matMenu"
+        [overlapTrigger]="false"
       >
         <div [ngStyle]="{ 'max-height': '350px' }">
           <app-forms-sidebar
-                  [object]="problem"
-                  [type]="type"
-                  (showDot)="onShowFollowUp($event)"
-                  (objectEmitter)="problemSelected($event)"
-                  (newForm)="onAddNewForm()"
+            [object]="problem"
+            [type]="type"
+            (showDot)="onShowFollowUp($event)"
+            (objectEmitter)="problemSelected($event)"
+            (newForm)="onAddNewForm()"
           >
           </app-forms-sidebar>
         </div>
@@ -54,30 +54,30 @@
             </div>
 
             <div
-                    class="card-body"
-                    *ngIf="problem && !problemEditMode"
-                    (click)="onProblemClick()"
+              class="card-body"
+              *ngIf="problem && !problemEditMode"
+              (click)="onProblemClick()"
             >
               <div
-                      class="form-editable-text-underline"
-                      [ngStyle]="{ wordWrap: 'break-word' }"
+                class="form-editable-text-underline"
+                [ngStyle]="{ wordWrap: 'break-word' }"
               >
                 {{ problem.problem }}
               </div>
             </div>
             <div
-                    class="card-body"
-                    *ngIf="problem && problemEditMode"
-                    (click)="onProblemClick()"
+              class="card-body"
+              *ngIf="problem && problemEditMode"
+              (click)="onProblemClick()"
             >
               <app-problem-form
-                      [problem]="problem"
-                      (updateProblem)="updateProblem($event)"
+                [problem]="problem"
+                (updateProblem)="updateProblem($event)"
               ></app-problem-form>
             </div>
             <div class="card-body" *ngIf="!problem" (click)="onProblemClick()">
               <app-problem-form
-                      (addProblem)="problemSelected($event)"
+                (addProblem)="problemSelected($event)"
               ></app-problem-form>
             </div>
           </div>
@@ -96,59 +96,58 @@
             </div>
 
             <app-solutions
-                    [solutions]="solutions"
-                    (solutionDelete)="onSolutionRemove($event)"
-                    (solutionEdit)="onSolutionEdit($event)"
+              [solutions]="solutions"
+              (solutionDelete)="onSolutionRemove($event)"
+              (solutionEdit)="onSolutionEdit($event)"
             ></app-solutions>
             <div class="card-body">
               <div
-                      *ngIf="
+                *ngIf="
                   (solutions && solutions.length === 0) || showSolutionsForm
                 "
               >
                 <form (ngSubmit)="onSolutionSubmit()" #solutionForm="ngForm">
                   <mat-form-field class="full-width">
                     <span matPrefix
-                    >{{ solutions.length + 1 }}.&nbsp;&nbsp;</span
+                      >{{ solutions.length + 1 }}.&nbsp;&nbsp;</span
                     >
                     <textarea
-                            class="py-0"
-                            name="solution"
-                            id="solution"
-                            #solutionTextArea
-                            placeholder="Enter your solution"
-                            matInput
-                            required
-                            [autofocus]
-                            ngModel
-                            (focus)="onShowSaveSolution()"
-                            (focusout)="onSolutionFocusOut()"
-                            cdkTextareaAutosize
-                            cdkAutosizeMinRows="1"
-                            cdkAutosizeMaxRows="5"
+                      class="py-0"
+                      name="solution"
+                      id="solution"
+                      #solutionTextArea
+                      placeholder="Enter your solution"
+                      matInput
+                      required
+                      [autofocus]
+                      ngModel
+                      (focus)="onShowSaveSolution()"
+                      (focusout)="onSolutionFocusOut()"
+                      cdkTextareaAutosize
+                      cdkAutosizeMinRows="1"
                     ></textarea>
                   </mat-form-field>
-                  <!--                  <div class="float-right" *ngIf="solutions.length > 0">-->
-                  <!--                    <button-->
-                  <!--                      type="button"-->
-                  <!--                      mat-raised-button-->
-                  <!--                      class="continue-btn"-->
-                  <!--                      (click)="showSolutionsForm = !showSolutionsForm"-->
-                  <!--                    >-->
-                  <!--                      Save-->
-                  <!--                    </button>-->
-                  <!--                  </div>-->
+                  <div class="float-right" *ngIf="solutions.length > 0 || showSolutionContBtn">
+                    <button
+                      type="button"
+                      mat-raised-button
+                      class="continue-btn"
+                      (click)="showSolutionsForm = !showSolutionsForm"
+                    >
+                      Continue
+                    </button>
+                  </div>
                 </form>
               </div>
               <div *ngIf="solutions" class="text-right">
                 <div>
                   <div
-                          class="float-left add-statement"
-                          (click)="showSolutionsForm = !showSolutionsForm"
+                    class="float-left add-statement"
+                    (click)="showSolutionsForm = !showSolutionsForm"
                   >
                     <mat-icon
-                            [ngStyle]="{ fontSize: '1rem', paddingTop: '0.125rem' }"
-                    >add</mat-icon
+                      [ngStyle]="{ fontSize: '1rem', paddingTop: '0.125rem' }"
+                      >add</mat-icon
                     >
                     <div>Add Solution</div>
                   </div>
@@ -156,14 +155,14 @@
                 </div>
               </div>
               <div
-                      class="text-right mt-2 mb-2"
-                      *ngIf="!solutionsSaved || solutions.length < 1"
+                class="text-right mt-2 mb-2"
+                *ngIf="!solutionsSaved || solutions.length < 1"
               >
                 <button
-                        type="button"
-                        mat-raised-button
-                        class="continue-btn"
-                        (click)="onSolutionSaved()"
+                  type="button"
+                  mat-raised-button
+                  class="continue-btn"
+                  (click)="onSolutionSaved()"
                 >
                   Continue
                 </button>
@@ -174,8 +173,8 @@
       </div>
       <div class="row mb-2">
         <div
-                class="col-12"
-                *ngIf="problem && solutions.length > 0 && solutionsSaved"
+          class="col-12"
+          *ngIf="problem && solutions.length > 0 && solutionsSaved"
         >
           <div class="card-full-width">
             <div class="card-header">
@@ -192,18 +191,18 @@
                   <div>Solution: {{ solution.solution }}</div>
                 </div>
                 <app-pros-cons-container
-                        [fromSlide]="fromSlide"
-                        (proConsSaved)="onProsConsSaved()"
-                        [solution]="solution"
+                  [fromSlide]="fromSlide"
+                  (proConsSaved)="onProsConsSaved()"
+                  [solution]="solution"
                 ></app-pros-cons-container>
               </div>
             </div>
             <div class="text-right m-2" *ngIf="!prosconsSaved">
               <button
-                      type="button"
-                      mat-raised-button
-                      class="continue-btn"
-                      (click)="onProsConsSaved()"
+                type="button"
+                mat-raised-button
+                class="continue-btn"
+                (click)="onProsConsSaved()"
               >
                 Continue
               </button>
@@ -212,8 +211,8 @@
         </div>
       </div>
       <div
-              class="row mb-2"
-              *ngIf="solutions && solutions.length > 0 && prosconsSaved"
+        class="row mb-2"
+        *ngIf="solutions && solutions.length > 0 && prosconsSaved"
       >
         <div class="col">
           <div class="card-full-width" *ngIf="showTask">
@@ -230,9 +229,9 @@
                     <div class="float-left my-2">
                       <!--                        *ngIf="solutions.length > 0 && bestSolution"-->
                       <button
-                              type="button"
-                              class="btn btn-link px-0"
-                              (click)="deleteBestSolution()"
+                        type="button"
+                        class="btn btn-link px-0"
+                        (click)="deleteBestSolution()"
                       >
                         change best solution
                       </button>
@@ -242,11 +241,11 @@
               </div>
               <div class="card">
                 <app-tasks
-                        [task]="task"
-                        [taskHeading]="heading"
-                        (nextStepEmitter)="onNextStep()"
-                        [object]="problemObject"
-                        (taskLoaded)="onTaskLoad($event)"
+                  [task]="task"
+                  [taskHeading]="heading"
+                  (nextStepEmitter)="onNextStep()"
+                  [object]="problemObject"
+                  (taskLoaded)="onTaskLoad($event)"
                 >
                 </app-tasks>
               </div>
@@ -259,18 +258,18 @@
             <div class="card-body">
               <div class="list-group">
                 <div
-                        *ngFor="let solution of solutions"
-                        [ngStyle]="{ wordBreak: 'break-word' }"
+                  *ngFor="let solution of solutions"
+                  [ngStyle]="{ wordBreak: 'break-word' }"
                 >
                   <mat-radio-button
-                          color="primary"
-                          [name]="solution.id"
-                          [checked]="
+                    color="primary"
+                    [name]="solution.id"
+                    [checked]="
                       problem.bestsolution &&
                       solution.id === problem.bestsolution
                     "
-                          (change)="onCheckBoxChange(solution, $event)"
-                          [id]="solution.id"
+                    (change)="onCheckBoxChange(solution, $event)"
+                    [id]="solution.id"
                   >
                     {{ solution.solution }}
                   </mat-radio-button>
@@ -278,9 +277,9 @@
               </div>
               <div class="text-right">
                 <button
-                        mat-raised-button
-                        class="continue-btn"
-                        (click)="selectBestSolution()"
+                  mat-raised-button
+                  class="continue-btn"
+                  (click)="selectBestSolution()"
                 >
                   Continue
                 </button>
@@ -291,8 +290,8 @@
       </div>
       <div class="mb-2" *ngIf="renderResult()">
         <app-result
-                [task]="task"
-                [solution_id]="problem.bestsolution"
+          [task]="task"
+          [solution_id]="problem.bestsolution"
         ></app-result>
       </div>
     </div>
