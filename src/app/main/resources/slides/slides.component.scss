@@ -18,6 +18,11 @@
 //   overflow: scroll;
 // }
 
+.no-gutters {
+  margin: 0;
+  padding: 0;
+}
+
 .card {
   margin: 0 auto;
 
@@ -166,6 +171,10 @@
 }
 
 @media screen and (max-width: 767px) {
+
+  #slide-page {
+    background-color: white;
+  }
 
   #slide-container {
     height: 90vh;
