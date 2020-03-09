@@ -33,7 +33,7 @@ export class WpfProblemSolvingComponent implements OnInit {
     choices: new FormControl(''),
   });
   noSelectedSummary =
-    'No, sometimes we can\'t control everything in our lives and ' +
+    "No, sometimes we can't control everything in our lives and " +
     'we need to accept things the way they are by changing our attitude we ' +
     'can gradually overcome the problem.';
   continueButton = false;
