@@ -63,7 +63,7 @@
 .form-div {
   float: right;
   background-color: white;
-  margin-bottom: 1vh;
+  margin-bottom: 1vh !important;
   // height: 99vh;
   //   max-height: 900px;
   overflow-y: auto;
@@ -217,19 +217,19 @@
   .extra-form-div {
     background-color: white;
     max-width: 2%;
-    height: 85vh;
+    // height: 85vh;
     border-color: #BFBFBF;
     float: right;
-    max-height: 900px;
+    // max-height: 900px;
   }
 
   .extra-slide-div {
     background-color: white;
     max-width: 2%;
-    height: 85vh;
+    // height: 85vh;
     border-color: #BFBFBF;
     float: left;
-    max-height: 900px;
+    // max-height: 900px;
   }
 
   @media screen and (max-width: 360px) {
