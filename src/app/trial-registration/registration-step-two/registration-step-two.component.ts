@@ -26,6 +26,7 @@ export class RegistrationStepTwoComponent implements OnInit {
     knowEnglish: new FormControl(null, [Validators.required]),
     internetEnabled: new FormControl(null, [Validators.required]),
     psychiatricHelp: new FormControl(null, [Validators.required]),
+    haveUsedEarlier: new FormControl(null, [Validators.required]),
     haveDisorder: new FormControl(null, [Validators.required]),
     traumaticEvent: new FormControl(null, [Validators.required]),
     infoSource: new FormControl(null, [Validators.required]),
@@ -44,6 +45,7 @@ export class RegistrationStepTwoComponent implements OnInit {
     true,
     true,
     'other',
+    false,
     false,
     false,
     0,
@@ -86,7 +88,6 @@ export class RegistrationStepTwoComponent implements OnInit {
   }
 
   stepDataSubmit() {
-    console.log('step two form: ', this.stepTwoForm);
     if (this.stepTwoForm.valid) {
       this.showErrorMsg = false;
       const dateNow = new Date();
@@ -102,6 +103,7 @@ export class RegistrationStepTwoComponent implements OnInit {
       this.stepTwoFormData.english = this.stepTwoForm.value.knowEnglish;
       this.stepTwoFormData.tech_access = this.stepTwoForm.value.internetEnabled;
       this.stepTwoFormData.secondary_help = this.stepTwoForm.value.psychiatricHelp;
+      this.stepTwoFormData.have_used_earlier = this.stepTwoForm.value.haveUsedEarlier;
       this.stepTwoFormData.psychosis_or_bipolar = this.stepTwoForm.value.haveDisorder;
       this.stepTwoFormData.traumatic_event = this.stepTwoForm.value.traumaticEvent;
       this.stepTwoFormData.source_of_information = this.stepTwoForm.value.infoSource;
@@ -110,7 +112,6 @@ export class RegistrationStepTwoComponent implements OnInit {
       this.stepTwoFormData.time_zone = this.stepTwoForm.value.timezone;
       this.stepTwoFormData.started_at = this.starting_time;
       this.stepTwoFormData.completed_at = this.completion_time;
-
       this.stepTwoFormData.source_of_information_other = this.stepTwoForm.value.otherReasonTextBox;
 
       this.registrationDataService

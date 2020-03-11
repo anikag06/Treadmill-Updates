@@ -11,6 +11,7 @@ export class RegistrationStepTwoForm {
     public english: any,
     public tech_access: any,
     public secondary_help: any,
+    public have_used_earlier: any,
     public psychosis_or_bipolar: any,
     public traumatic_event: any,
     public source_of_information: number,
