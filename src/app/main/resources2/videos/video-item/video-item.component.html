@@ -1,34 +1,18 @@
 
   <div class = "row " >
-    <div class="col col-margin">
+    <div class="col col-margin" *ngIf = "isLoaded; else loader">
       <!--<mat-card class = "card">-->
-        <div *ngIf = "!isLoaded">
-          <div class="col-sm-9 col-lg-12">
-            <img src="assets/shared/dna-loader.svg" alt="dna" >
-          </div>
-        </div>
-        <div  class ="footer-margin-adjust" *ngIf = "isLoaded">
-          <div class="video-container">
 
+
+          <div class="video-container">
           <iframe class = "video-specs" [src]="video.url | safeUrl"></iframe><br/>
           </div>
-
-
           <mat-card-footer class= "footer-text" [innerHTML]="video.title"></mat-card-footer>
-        </div>
-
-
-
-
-
-
-
-
-     <!-- </mat-card>-->
+             <!-- </mat-card>-->
     </div>
   </div>
 
-  <ng-template #loading>
+  <ng-template #loader>
     <div class="col-sm-9 col-lg-12">
       <img src="assets/shared/dna-loader.svg" alt="dna" >
     </div>

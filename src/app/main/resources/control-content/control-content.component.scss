@@ -2,7 +2,8 @@
   //margin-top: 2px; //this value is for desktop, phone value will be different and needs to be changed
   margin-top: 13px;
   margin-bottom: 2px;
-  color: white;
+  //color: white;
+  color: black;
   //font-size: 24px; //this value is for desktop, phone value will be different and needs to be changed
   font-size: 24px;
 }
@@ -52,6 +53,7 @@
     margin-top: 11px;
     margin-bottom: 18px;
     font-size: 24px;
+    color: white;
   } //changing title font size for mobile
 
   .fix-content-box{

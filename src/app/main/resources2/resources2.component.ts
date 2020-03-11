@@ -82,7 +82,7 @@ export class Resources2Component implements OnInit {
    changeVideoState() {
      this.showVideoState = !this.showVideoState;
      //this.value = "See all";
-     console.log('state to true');
+     console.log('state to true', this.showVideoState);
    }
 
   changeReadingMaterialState() {

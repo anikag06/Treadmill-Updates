@@ -1,15 +1,13 @@
-<div class="row">
-  <div class="col">
+
     <mat-card class="card" >
 
 
       <img class = "preview-img" [src]="readingItem.preview_img" [alt]="readingItem.title">
-      <!--<mat-card-footer   [ngClass] = "showState == true ? 'footer-font' :'show'" [innerHTML]="readingItem.title"></mat-card-footer><a (click) = "expandLine()">...</a>-->-->
-      <mat-card-footer class ="show-footer-style" >[innerHTML]="readingItem.title"</mat-card-footer>
+      <!--<mat-card-footer   [ngClass] = "showState == true ? 'footer-font' :'show'" [innerHTML]="readingItem.title"></mat-card-footer><a (click) = "expandLine()">...</a>-->
+      <mat-card-footer class ="show-footer-style" [innerHTML]="readingItem.title"></mat-card-footer>
 
 
     </mat-card>
-  </div>
-</div>
+
 
 

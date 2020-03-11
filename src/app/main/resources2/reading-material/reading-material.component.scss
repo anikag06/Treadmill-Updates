@@ -32,76 +32,98 @@
 
 .preview-img{
   width: 100%;
+  height: 100%;
   // background-size: cover;
 }
 
-
-@media screen and (max-width: 1500px) {
+@media screen and (min-width: 1501px) {
   .footer-font-size{      //for resource page  // for video page
     font-size: 20px;
   }
 
 
   .card {
-    width: 292px; // calculate the size of side nav alo which is 205
+    //width: 292px;  // calculate the size of side nav alo which is 205
+    width: 348px;
     margin: 0px 0px 16px;
+    flex-grow: 1;
   }
   .show-footer-style{
     font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 1500px) {
+  .footer-font-size{      //for resource page  // for video page
+    font-size: 16px;
+  }
+
+
+  .card {
+   // width: 292px; // calculate the size of side nav alo which is 205
+    width: 328px;
+    margin: 0px 0px 16px;
+  }
+  .show-footer-style{
+    font-size: 16px;
   }
 }
 
 @media screen and (max-width: 1280px) {
   .footer-font-size{      //for resource page  // for video page
-    font-size: 20px;
+    font-size: 16px;
   }
 
 
   .card {
-    width: 292px; // calculate the size of side nav alo which is 205
+    //width: 292px; // calculate the size of side nav alo which is 205
+    width: 224px; //for 3 cards
     margin: 0px 0px 16px;
   }
   .show-footer-style{
-    font-size: 20px;
+    font-size: 16px;
   }
 }
 
 
 @media screen and (max-width: 991px) {
   .footer-font-size{      //for resource page  // for video page
-    font-size: 20px;
+    font-size: 16px;
   }
 
 
   .card {
-    width: 324px;
+    //width: 324px;
+    width: 268px;
     margin: 0px 0px 16px;
   }
   .show-footer-style{
-    font-size: 20px;
+    font-size: 16px;
   }
 
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
   .footer-font-size{      //for resource page  // for video page
-    font-size: 20px;
+    font-size: 16px;
   }
 
 
   .card {
-    width: 324px;
+    //width: 324px;
+    width: 238px;
     margin: 0px 0px 16px;
   }
   .show-footer-style{
-    font-size: 20px;
+    font-size: 16px;
   }
 
 }
 
-@media screen and (max-width: 568px) {
+@media screen and (max-width: 525px) {
   .card {
-    width: 186px;
+    //width: 186px;
+    width: 165px;
     margin: 0px 0px 14px;
   }
   .show-footer-style{

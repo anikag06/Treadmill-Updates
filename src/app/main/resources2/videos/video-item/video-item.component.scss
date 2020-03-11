@@ -1,12 +1,12 @@
-.footer-text{
+.mat-card-footer.footer-text{
   font-size: 16px;
-  padding-left: 0.8%;
+  font-weight: bold;
+  margin: 0px;
+ // padding-left: 0.5vw;
  // font-weight: bold;
 }
 
-footer-margin-adjust{
 
-}
 
 .card{
   padding: 0px 0px;
@@ -20,7 +20,8 @@ footer-margin-adjust{
   height: 0;
   width: 100%;
   overflow: hidden;
-  margin-top: 45px;
+  //margin-top: 45px;
+  margin-top: 0px;
 }
 .video-container iframe {
   position: absolute;
@@ -38,14 +39,19 @@ footer-margin-adjust{
 //}
 
 @media only screen and (min-width: 768px){
-  .footer-text{
+  .mat-card-footer.footer-text{
     font-size: 36px;
+    font-weight: bold;
 
   }
 
   .col-margin{
-    padding-left: 96px;
+    padding-left: 16px;
     padding-right: 20%;
+  }
+  .videos-specs{
+    vertical-align: initial;
+    margin-top: 0px;
   }
 
  // .video-specs{

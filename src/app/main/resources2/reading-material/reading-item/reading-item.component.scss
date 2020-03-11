@@ -2,7 +2,8 @@
   //margin-top: 2px; //this value is for desktop, phone value will be different and needs to be changed
   margin-top: 13px;
   margin-bottom: 2px;
-  color: white;
+ // color: white;
+  color: black;
   //font-size: 24px; //this value is for desktop, phone value will be different and needs to be changed
   font-size: 24px;
 }
@@ -13,7 +14,8 @@
 }
 
 .fix-reading-box {
-  // margin-left: 4%;
+  margin-left: 7px;
+  //padding-left: 7px;
 
   margin-top: 0;
   padding: 0;
@@ -24,7 +26,12 @@
   // margin: 0 auto;
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 769px) {
+  .reading-container{
+    margin-left: 0px;
+    padding-left: 0px;
+  }
+
   .fix-reading-header {
     height: 48px;
     min-height: 42px;
@@ -37,10 +44,11 @@
     margin-top: 11px;
     margin-bottom: 18px;
     font-size: 24px;
+    color: white;
   } //changing title font size for mobile
 
   .fix-reading-box{
-    //margin-left: 7.5%;
+    margin-left: 16px;
   }
 
 

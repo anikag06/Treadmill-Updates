@@ -14,7 +14,7 @@ import {MatCard, MatCardModule} from '@angular/material';
 @NgModule({
   imports: [Resources2RoutingModule,
     CommonModule,
-    MaterialModule,
+   // MaterialModule,
     MatCardModule],
   declarations: [Resources2Component,
     VideosComponent,
