@@ -12,7 +12,7 @@ export class IdcTimeComponent implements OnInit {
   constructor(
     private elementRef: ElementRef,
     private gameService: IdcGameService,
-  ) { }
+  ) {}
 
   tooltipData!: any;
   idcExtraScore = 20;
@@ -40,7 +40,9 @@ export class IdcTimeComponent implements OnInit {
       if (this.gameService.score < this.idcExtraScore) {
         this.tooltipShow();
       } else {
-        const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });
+        const domEvent = new CustomEvent('removeOverlayEvent', {
+          bubbles: true,
+        });
         this.elementRef.nativeElement.dispatchEvent(domEvent);
         this.gameService.timeLeft = 20;
         this.gameService.score -= this.idcExtraScore;

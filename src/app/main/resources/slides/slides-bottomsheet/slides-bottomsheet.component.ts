@@ -29,7 +29,7 @@ export class SlidesBottomsheetComponent implements OnInit {
     this.srcWidth = window.innerWidth;
   }
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   onClickYes() {
     this._bottomSheetRef.dismiss();

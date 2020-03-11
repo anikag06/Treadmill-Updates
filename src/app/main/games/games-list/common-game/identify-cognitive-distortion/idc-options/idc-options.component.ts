@@ -45,7 +45,7 @@ export class IdcOptionsComponent implements OnInit {
   constructor(
     private gameService: IdcGameService,
     private dialogBoxService: DialogBoxService,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.optionsCall();

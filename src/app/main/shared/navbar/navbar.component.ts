@@ -114,7 +114,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.intervalSubscription = interval(60000).subscribe(() => {
       this.getNotificationsCount();
     });
-
   }
 
   notificationClick() {

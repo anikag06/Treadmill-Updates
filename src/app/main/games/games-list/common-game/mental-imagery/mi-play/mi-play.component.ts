@@ -106,7 +106,7 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
     private badgesService: GamesBadgesService,
     private el: ElementRef,
     private gamesFeedbackService: GamesFeedbackService,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.getCurrentStateService.setInitialOrder();
@@ -128,7 +128,6 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
         this.user = this.getCurrentStateService.user;
         this.currentPoints = this.user.currentPoints();
         // this.situationHandler();
-
       });
     });
     this.miPlayService.levelUpdate.subscribe(() => {
@@ -141,9 +140,7 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
     });
   }
 
-  ngAfterViewInit(): void {
-
-  }
+  ngAfterViewInit(): void {}
   ngAfterContentInit() {
     // this.currentLevel = this.getCurrentStateService.getCurrentLevel();
     // this.getCurrentStateService.getScenario();
@@ -393,7 +390,10 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
   }
 
   onClickDone() {
-    if (this.currentLevel.order === 3 && this.getCurrentStateService.ask_feedback) {
+    if (
+      this.currentLevel.order === 3 &&
+      this.getCurrentStateService.ask_feedback
+    ) {
       const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
       this.el.nativeElement.dispatchEvent(domEvent);
       this.dialogBoxService.setDialogChild(GamesFeedbackComponent);

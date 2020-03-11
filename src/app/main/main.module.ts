@@ -375,4 +375,4 @@ import { ThingsTodoService } from '@/main/dashboard/things-todo/things-todo.serv
     GamesFeedbackComponent,
   ],
 })
-export class MainModule { }
+export class MainModule {}

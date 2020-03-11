@@ -110,7 +110,7 @@ export class IdcGameService {
     // this.difficultyValue = 0.1 * 100;
   }
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   serviceCall() {
     console.log('question id', this.questionId);

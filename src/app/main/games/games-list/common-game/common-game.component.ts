@@ -101,7 +101,7 @@ export class CommonGameComponent implements OnInit {
     private miPlayService: MIPlayService,
     private ref: ChangeDetectorRef,
     private idcGameService: IdcGameService,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.subscriptionRouter = this.route.params

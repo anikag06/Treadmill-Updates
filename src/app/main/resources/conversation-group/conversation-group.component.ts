@@ -9,15 +9,13 @@ import { map, switchMap } from 'rxjs/operators';
 import { COMPLETED, ACTIVE, UNLOCKED } from '@/app.constants';
 import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifications.service';
 
-
 @Component({
   selector: 'app-conversation-group',
   templateUrl: './conversation-group.component.html',
   styleUrls: ['./conversation-group.component.scss'],
-  providers: [ConversationsService, TimerService]
+  providers: [ConversationsService, TimerService],
 })
 export class ConversationGroupComponent implements OnInit {
-
   step!: Step;
   group!: ConversationGroup[];
   conversation_id!: number;
@@ -29,15 +27,15 @@ export class ConversationGroupComponent implements OnInit {
   islast!: boolean;
   nextstep!: number;
 
-
-
   // tslint:disable-next-line:max-line-length
-  constructor(private conversationservice: ConversationsService,
+  constructor(
+    private conversationservice: ConversationsService,
     private timer: TimerService,
     private passdata: PassDataService,
     private router: Router,
     private activeroute: ActivatedRoute,
-    private notificationService: NavbarNotificationsService, ) { }
+    private notificationService: NavbarNotificationsService,
+  ) {}
 
   ngOnInit() {
     this.loadConversationGroup();
@@ -47,7 +45,7 @@ export class ConversationGroupComponent implements OnInit {
     this.activeroute.params
       .pipe(
         map(v => v.id),
-        switchMap(id => this.conversationservice.getConversationGroup(id))
+        switchMap(id => this.conversationservice.getConversationGroup(id)),
       )
       .subscribe(
         (res: any) => {
@@ -66,7 +64,7 @@ export class ConversationGroupComponent implements OnInit {
             this.notallowed = true;
           }
         },
-        (error) => console.log(error)
+        error => console.log(error),
       );
   }
 
@@ -82,13 +80,10 @@ export class ConversationGroupComponent implements OnInit {
     console.log('event emitted');
     this.notificationService.showFullConvIcon.emit();
     this.router.navigate(['/resources/conversations']);
-
   }
 
   speed_run(i: number) {
     this.conversation_id = this.group[i].id;
     this.passdata.setOption(this.conversation_id, false, false, true);
   }
-
-
 }

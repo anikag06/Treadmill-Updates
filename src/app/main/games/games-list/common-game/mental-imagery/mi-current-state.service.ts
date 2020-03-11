@@ -44,9 +44,11 @@ export class MICurrentStateService {
   showTutorial!: boolean;
   ask_feedback: any;
 
-  constructor(private http: HttpClient,
+  constructor(
+    private http: HttpClient,
     private miPlayService: MIPlayService,
-    private gamesFeedbackService: GamesFeedbackService, ) { }
+    private gamesFeedbackService: GamesFeedbackService,
+  ) {}
 
   initLevelsList() {
     this.fetchSituationData(this.user.level).subscribe((data: any) => {

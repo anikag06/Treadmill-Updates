@@ -3,14 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { GAMES_FEEDBACK_DATA } from '@/app.constants';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GamesFeedbackService {
-
   feedback = new EventEmitter<any>();
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   sendFeedback(data: any) {
     console.log('feedback data', data);

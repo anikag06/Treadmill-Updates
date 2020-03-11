@@ -14,9 +14,9 @@ export class IdcWinComponent implements OnInit {
     private elementRef: ElementRef,
     private gameService: IdcGameService,
     private dialogBoxService: DialogBoxService,
-  ) { }
+  ) {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   onStartNext() {
     const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });

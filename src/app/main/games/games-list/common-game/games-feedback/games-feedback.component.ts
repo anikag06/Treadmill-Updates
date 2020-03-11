@@ -7,11 +7,9 @@ import { LEARNED_HELPLESSNESS_GAME } from '@/app.constants';
 @Component({
   selector: 'app-games-feedback',
   templateUrl: './games-feedback.component.html',
-  styleUrls: ['./games-feedback.component.scss']
+  styleUrls: ['./games-feedback.component.scss'],
 })
 export class GamesFeedbackComponent implements OnInit {
-
-
   liked = false;
   disliked = false;
   giveFeedback = false;
@@ -28,7 +26,7 @@ export class GamesFeedbackComponent implements OnInit {
     private el: ElementRef,
     private gamesFeedbackService: GamesFeedbackService,
     private gamePlayService: GamePlayService,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.game = this.gamePlayService.gameSlug;
@@ -63,7 +61,11 @@ export class GamesFeedbackComponent implements OnInit {
     this.thank_text = true;
     this.giveFeedback = false;
     this.feedback_text = text;
-    this.feedback = { game: this.game, feedback: this.feedbackStatus, feedback_text: this.feedback_text };
+    this.feedback = {
+      game: this.game,
+      feedback: this.feedbackStatus,
+      feedback_text: this.feedback_text,
+    };
     this.gamesFeedbackService.sendFeedback(this.feedback).subscribe();
     setTimeout(() => {
       this.onClose();

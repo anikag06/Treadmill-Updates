@@ -80,7 +80,7 @@ export class SurveyComponent implements OnInit {
   constructor(
     private surveyService: SurveyService,
     private timerService: TimerService,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.surveyService.disableLinks.emit(this.data);
@@ -93,7 +93,9 @@ export class SurveyComponent implements OnInit {
       event.target.classList.add('active-button');
     } else if (event.target.nodeName === 'SPAN') {
       console.log('Span');
-      event.target.parentElement.parentElement.classList.remove('disabled-button');
+      event.target.parentElement.parentElement.classList.remove(
+        'disabled-button',
+      );
       event.target.parentElement.parentElement.classList.add('active-button');
     }
     this.surveyService.getSurveyData().subscribe(data => {
@@ -157,7 +159,9 @@ export class SurveyComponent implements OnInit {
       event.target.classList.add('active-button');
     } else if (event.target.nodeName === 'SPAN') {
       console.log('Span');
-      event.target.parentElement.parentElement.classList.remove('disabled-button');
+      event.target.parentElement.parentElement.classList.remove(
+        'disabled-button',
+      );
       event.target.parentElement.parentElement.classList.add('active-button');
     }
     console.log('event', event);
@@ -184,8 +188,12 @@ export class SurveyComponent implements OnInit {
             event.target.classList.add('disabled-button');
           } else if (event.target.nodeName === 'SPAN') {
             console.log('Span');
-            event.target.parentElement.parentElement.classList.remove('active-button');
-            event.target.parentElement.parentElement.classList.add('disabled-button');
+            event.target.parentElement.parentElement.classList.remove(
+              'active-button',
+            );
+            event.target.parentElement.parentElement.classList.add(
+              'disabled-button',
+            );
           }
         }
         this.quesCount += 1;
@@ -215,7 +223,9 @@ export class SurveyComponent implements OnInit {
       event.target.classList.add('active-button');
     } else if (event.target.nodeName === 'SPAN') {
       console.log('Span');
-      event.target.parentElement.parentElement.classList.remove('disabled-button');
+      event.target.parentElement.parentElement.classList.remove(
+        'disabled-button',
+      );
       event.target.parentElement.parentElement.classList.add('active-button');
     }
     this.back = false;

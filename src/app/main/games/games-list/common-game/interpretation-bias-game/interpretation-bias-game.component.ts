@@ -135,7 +135,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
     private matPropertyService: GameMatPropertyService,
     private loadFileService: LoadFilesService,
     private gamesFeedbackService: GamesFeedbackService,
-  ) { }
+  ) {}
 
   @HostListener('window:iBGameSentenceDialogFun')
   showSentence() {
@@ -150,7 +150,6 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
     this.ibGameDiv.nativeElement.dispatchEvent(domEvent);
     this.dialogBoxService.setDialogChild(GamesFeedbackComponent);
   }
-
 
   @HostListener('window:toolTip')
   showTooltip() {
@@ -173,7 +172,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
         this.btn_give_up_score = ibg_btn_give_up_score;
         this.btn_other_sentence_score = ibg_btn_other_sentence_score;
       })
-      .catch(() => { });
+      .catch(() => {});
     this.gamesFeedbackService.feedback.subscribe(() => {
       playNextSentence();
     });
@@ -336,7 +335,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
           this.updateBadgesValue();
           this.difficultyBarUpdate();
         },
-        error => { },
+        error => {},
       );
     this.storeUserResponse();
   }
@@ -359,8 +358,8 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
     this.gameAuthService
       .ibGameStoreUserResponseInfo(this.IBGameUserResponse)
       .subscribe(
-        data => { },
-        error => { },
+        data => {},
+        error => {},
       );
   }
 

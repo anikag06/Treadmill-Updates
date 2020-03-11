@@ -155,7 +155,7 @@ export class GamePlayService {
     private miCurrentStateService: MICurrentStateService,
     private ffghelpService: FfgHelpService,
     private idcGameService: IdcGameService,
-  ) { }
+  ) {}
 
   getGameInfo(slug: string) {
     return this.gamesService
@@ -306,10 +306,10 @@ export class GamePlayService {
 
       this.gamesAuthService
         .ecGameStoreGameInfo(this.ecGameDataObject)
-        .subscribe(() => { });
+        .subscribe(() => {});
       this.gamesAuthService
         .ecGameUpdateUserData(this.ecGameUserDataObject)
-        .subscribe(data => { });
+        .subscribe(data => {});
     }
   }
 
@@ -332,7 +332,7 @@ export class GamePlayService {
         this.ecGameDiscriminationData.flanker_task_id = flanker_data.data.id;
         this.gamesAuthService
           .ecGameStoreDiscriminationTaskData(this.ecGameDiscriminationData)
-          .subscribe(dis_data => { });
+          .subscribe(dis_data => {});
       });
   }
 
@@ -501,7 +501,7 @@ export class GamePlayService {
           this.lhGameUserLevel.level = this.lhGameColorReverse.level;
           this.gamesAuthService
             .lhGameUpdateUserLevel(this.lhGameUserLevel)
-            .subscribe(() => { });
+            .subscribe(() => {});
         }
       });
   }
@@ -531,7 +531,7 @@ export class GamePlayService {
 
     this.gamesAuthService
       .lhGameUpdateTask1Data(task1performance, isFirstLevel)
-      .subscribe(() => { });
+      .subscribe(() => {});
     console.log('task1 data', task1performance);
   }
   lhGameStoreTask2Data() {
@@ -544,7 +544,7 @@ export class GamePlayService {
 
     this.gamesAuthService
       .lhGameUpdateTask2Data(task2performance, storeTask2Data[3])
-      .subscribe(() => { });
+      .subscribe(() => {});
   }
   lhGameStoreTask3Data() {
     let storeTask3Data;
@@ -556,7 +556,7 @@ export class GamePlayService {
 
     this.gamesAuthService
       .lhGameUpdateTask3Data(task3performance, storeTask3Data[3])
-      .subscribe(() => { });
+      .subscribe(() => {});
   }
   pauseLHGame() {
     lhGamePause();
@@ -613,7 +613,7 @@ export class GamePlayService {
   restartFaceGame() {
     ffGRestartGame();
   }
-  musicFaceGame() { }
+  musicFaceGame() {}
   helpFFGGame() {
     this.dialogBoxService.setDialogChild(FfgInstructionsComponent);
     this.resumeFaceGame();

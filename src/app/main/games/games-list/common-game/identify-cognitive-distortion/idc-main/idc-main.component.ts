@@ -14,16 +14,14 @@ export class IdcMainComponent implements OnInit {
   constructor(
     private gameService: IdcGameService,
     private gamesFeedbackService: GamesFeedbackService,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.gameService.getGameData();
     // this.gameService.initUserData();
-    this.feedbackSub = this.gamesFeedbackService.feedback.subscribe(
-      () => {
-        this.gameService.serviceCall();
-        console.log('GAME FEEDBACK');
-      }
-    );
+    this.feedbackSub = this.gamesFeedbackService.feedback.subscribe(() => {
+      this.gameService.serviceCall();
+      console.log('GAME FEEDBACK');
+    });
   }
 }

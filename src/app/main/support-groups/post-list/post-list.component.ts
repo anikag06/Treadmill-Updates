@@ -47,7 +47,7 @@ export class PostListComponent implements OnInit, OnDestroy {
     private scrollService: ScrollingService,
     public dialog: MatDialog,
     private errorService: GeneralErrorService,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.queryParamsSubscription = this.route.queryParams.subscribe(data => {
