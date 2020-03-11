@@ -1,10 +1,9 @@
 <div class="things-todo">
-
   <div class="col-12 things-todo-main no-gutters">
     <h3>Explore</h3>
     <ul class="things-todo-main-list">
-      <li *ngFor="let todo of todoList">
-        <a (click)="onThingsTodoClicked(todo[0])" class="things-todo-text">{{todo[1]}}</a>
+      <li *ngFor="let todo of todoList; let i = index" class="things-todo-item">
+        <a (click)="onThingsTodoClicked(todo[0])" class="things-todo-text"><img class="icon-item" [src]="iconList[i]" alt="icon"/>{{todo[1]}}</a>
         <br>
       </li>
     </ul>

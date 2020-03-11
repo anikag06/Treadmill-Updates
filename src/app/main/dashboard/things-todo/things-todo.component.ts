@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { ThingsTodoService } from '@/main/dashboard/things-todo/things-todo.service';
-import { CHAT_BOT, EXPLORE_JSON, EXPLORE_MAP } from '@/app.constants';
+import { EXPLORE_MAP } from '@/app.constants';
 import { Router } from '@angular/router';
 
 @Component({
@@ -15,10 +15,20 @@ export class ThingsTodoComponent implements OnInit {
     private router: Router,
   ) {}
   todoList = [];
+  iconList: String[] = [];
 
   ngOnInit() {
     this.thingsTodoService.getThingsTodo().subscribe((data: any) => {
+      console.log('data: ', data.data);
       data.data.forEach((element: any) => {
+        console.log('element: ', element);
+        if (element[0].indexOf('FORM') !== -1) {
+          this.iconList.push('../../../../assets/modules/icon-form-wb.png');
+        } else if (element[0].indexOf('GAME') !== -1) {
+          this.iconList.push('../../../../assets/modules/icon-game-wb.png');
+        } else {
+          this.iconList.push('../../../../assets/modules/icon-video-wb.png');
+        }
         // @ts-ignore
         this.todoList.push(EXPLORE_MAP.get(element[0]));
       });
@@ -27,11 +37,6 @@ export class ThingsTodoComponent implements OnInit {
 
   onThingsTodoClicked(element: any) {
     console.log('ELEMENT: ', element);
-    if (element === CHAT_BOT) {
-      //  todo: call chatbot here
-    } else {
-      console.log('ELEMENT INSIDE: ', element);
-      this.router.navigate([element]);
-    }
+    this.router.navigate([element]);
   }
 }
