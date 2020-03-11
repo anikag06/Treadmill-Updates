@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { VideoItem } from '@/main/resources2/shared/video.model';
+import { VideoItem } from '@/main/extra-resources/shared/video.model';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Resources2Service } from '@/main/resources2/resources2.service';
-import { VideosComponent } from '@/main/resources2/videos/videos.component';
+import { ExtraResourcesService } from '@/main/extra-resources/extra-resources.service';
+import { VideosComponent } from '@/main/extra-resources/videos/videos.component';
 import {
   DomSanitizer,
   SafeResourceUrl,
@@ -29,7 +29,7 @@ export class VideoItemComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private resources2Service: Resources2Service,
+    private extraResourcesService: ExtraResourcesService,
     private sanitizer: DomSanitizer,
     private http: HttpClient, //  private videos: VideosComponent
   ) {}
@@ -40,18 +40,20 @@ export class VideoItemComponent implements OnInit {
         this.videoIdToSend = data.id;
         console.log('reload id:', data.id);
       });
-      this.resources2Service.getAVideo(this.videoIdToSend).subscribe(data => {
-        this.video = <VideoItem>data;
-        this.isLoaded = true;
-      });
+      this.extraResourcesService
+        .getAVideo(this.videoIdToSend)
+        .subscribe(data => {
+          this.video = <VideoItem>data;
+          this.isLoaded = true;
+        });
       // this.isLoaded = true;
       // }
-      //   this.resources2Service.getVideoItem()
+      //   this.extraResourcesService.getVideoItem()
       //     .subscribe((data: any) => {
       //       this.video = <VideoItem>data.id;
       //     });
     } else {
-      this.resources2Service.videoClickedEvent.subscribe(data => {
+      this.extraResourcesService.videoClickedEvent.subscribe(data => {
         console.log('data: ', data);
         this.video = <VideoItem>data;
         this.isLoaded = true;
@@ -61,9 +63,9 @@ export class VideoItemComponent implements OnInit {
       // this.isLoaded = true;
     }
 
-    // this.resources2Service.getVideoDetail(this.video);
-    // this.video = this.resources2Service.getVideo();
-    // this.resources2Service.event1.next([1, 'welcome', 'world']);
+    // this.extraResourcesService.getVideoDetail(this.video);
+    // this.video = this.extraResourcesService.getVideo();
+    // this.extraResourcesService.event1.next([1, 'welcome', 'world']);
     //  this.activatedRoute.params // to execute******
     //    .subscribe((data) => {
     //      console.log('through route', data);
@@ -72,7 +74,7 @@ export class VideoItemComponent implements OnInit {
     //      this.videoUrl = data.url;
     //    });
 
-    // this.resources2Service.getEvent1() // to check its execution******
+    // this.extraResourcesService.getEvent1() // to check its execution******
     //   .subscribe((data) => {
     //     console.log('clicked video', <VideoItem>data); });
 
@@ -84,24 +86,24 @@ export class VideoItemComponent implements OnInit {
     //   });
     // });
 
-    //   this.resources2Service.getParticularVideo(1)
+    //   this.extraResourcesService.getParticularVideo(1)
     //     .subscribe((data) =>{
     //     this.video}
     // })
 
-    //   this.resources2Service.event1
+    //   this.extraResourcesService.event1
     //     .subscribe((data) => {
     //       console.log('clicked video', data);
     //       this.video = <VideoItem>data;
     //      // this.subject.next(this.video);
     //
     //     });
-    // this.resources2Service.event1.next(['2', 'hello', 'world']);
+    // this.extraResourcesService.event1.next(['2', 'hello', 'world']);
 
-    // this.resources2Service.getEvent1().subscribe((data) => {
+    // this.extraResourcesService.getEvent1().subscribe((data) => {
     //      console.log('clicked video', data);
 
-    //  this.resources2Service.getEvent1()
+    //  this.extraResourcesService.getEvent1()
     //    .subscribe((data) => {
     //      console.log('clicked video', data);
     // //     this.video = <VideoItem>data;
@@ -127,7 +129,7 @@ export class VideoItemComponent implements OnInit {
     // console.log('id is', this.video.id);
   }
 
-  //  this.resources2Service.getVideoDetail
+  //  this.extraResourcesService.getVideoDetail
   // onVideoItem(videoItem: VideoItem){
   //   this.video = <VideoItem>videoItem;
   //

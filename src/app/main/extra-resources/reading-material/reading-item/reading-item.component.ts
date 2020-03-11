@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
-import { Resources2Service } from '@/main/resources2/resources2.service';
-import { ReadingItem } from '@/main/resources2/shared/reading.model';
+import { ExtraResourcesService } from '@/main/extra-resources/extra-resources.service';
+import { ReadingItem } from '@/main/extra-resources/shared/reading.model';
 import { LoadFilesService } from '@/main/games/shared/load-files.service';
 
 @Component({
@@ -19,7 +19,7 @@ export class ReadingItemComponent implements OnInit {
 
   constructor(
     private activateRoutes: ActivatedRoute,
-    private resources2Service: Resources2Service,
+    private extraResourcesService: ExtraResourcesService,
     private loadFilesService: LoadFilesService,
   ) {}
 
@@ -28,21 +28,21 @@ export class ReadingItemComponent implements OnInit {
       this.activateRoutes.params.subscribe(data => {
         this.readingIdToSend = data.id;
       });
-      this.resources2Service
+      this.extraResourcesService
         .getAReadingItem(this.readingIdToSend)
         .subscribe(data => {
           this.readingItem = <ReadingItem>data;
           this.isLoaded = true;
         });
     } else {
-      this.resources2Service.readingItemClickedEvent.subscribe(data => {
+      this.extraResourcesService.readingItemClickedEvent.subscribe(data => {
         console.log('data:', data);
         this.readingItem = <ReadingItem>data;
         this.isLoaded = true;
       });
     }
     this.loadFilesService
-      .loadExternalStyles('/resources2-styles.css')
+      .loadExternalStyles('/extra-resources-styles.css')
       .then(() => {})
       .catch(() => {});
   }

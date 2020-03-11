@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ReadingItem } from '@/main/resources2/shared/reading.model';
+import { ReadingItem } from '@/main/extra-resources/shared/reading.model';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { LoadFilesService } from '@/main/games/shared/load-files.service';

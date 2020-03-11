@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { VideoItem } from '@/main/resources2/shared/video.model';
+import { VideoItem } from '@/main/extra-resources/shared/video.model';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Resources2Service } from '@/main/resources2/resources2.service';
+import { ExtraResourcesService } from '@/main/extra-resources/extra-resources.service';
 import { LoadFilesService } from '@/main/games/shared/load-files.service';
 
 @Component({
@@ -23,7 +23,7 @@ export class VideosComponent implements OnInit {
     private http: HttpClient,
     private router: Router,
     private route: ActivatedRoute,
-    private resources2Service: Resources2Service,
+    private extraResourcesService: ExtraResourcesService,
   ) {}
 
   ngOnInit() {
@@ -55,7 +55,7 @@ export class VideosComponent implements OnInit {
   // }
 
   //redirect(){
-  // this.resources2Service.videoGo();
+  // this.extraResourcesService.videoGo();
   //}
   expandLine() {
     this.showState = true;

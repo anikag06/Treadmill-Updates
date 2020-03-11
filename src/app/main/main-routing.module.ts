@@ -17,11 +17,11 @@ import { ConversationsComponent } from './resources/conversation-group/conversat
 import { ConversationGroupComponent } from './resources/conversation-group/conversation-group.component';
 import { GetQuestionnaireComponent } from './dashboard/get-questionnaire/get-questionnaire.component';
 import { SurveyComponent } from './shared/survey/survey.component';
-import { Resources2Component } from '@/main/resources2/resources2.component';
-import { ReadingItemComponent } from '@/main/resources2/reading-material/reading-item/reading-item.component';
-import { VideoItemComponent } from '@/main/resources2/videos/video-item/video-item.component';
-import { VideosComponent } from '@/main/resources2/videos/videos.component';
-import { ReadingMaterialComponent } from '@/main/resources2/reading-material/reading-material.component';
+import { ExtraResourcesComponent } from '@/main/extra-resources/extra-resources.component';
+import { ReadingItemComponent } from '@/main/extra-resources/reading-material/reading-item/reading-item.component';
+import { VideoItemComponent } from '@/main/extra-resources/videos/video-item/video-item.component';
+import { VideosComponent } from '@/main/extra-resources/videos/videos.component';
+import { ReadingMaterialComponent } from '@/main/extra-resources/reading-material/reading-material.component';
 
 export const mainRoutes: Routes = [
   {
@@ -71,7 +71,7 @@ export const mainRoutes: Routes = [
         canActivateChild: [AuthGuard],
       },
       {
-        path: 'resources2',
+        path: 'extra-resources',
         // component: Resources2Component,
         // children: [
         //   { path: 'videos', component: VideosComponent },
@@ -80,8 +80,8 @@ export const mainRoutes: Routes = [
         //   {path: 'readingItem/:id', component: ReadingItemComponent}
         // ],
         loadChildren: () =>
-          import('./resources2/resources2.module').then(
-            m => m.Resources2Module,
+          import('./extra-resources/extra-resources.module').then(
+            m => m.ExtraResourcesModule,
           ),
       },
     ],

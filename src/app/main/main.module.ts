@@ -176,14 +176,14 @@ import { SlidesVideoComponent } from './resources/slides/slides-video/slides-vid
 import { GamesFeedbackComponent } from './games/games-list/common-game/games-feedback/games-feedback.component';
 import { GamesFeedbackService } from './games/games-list/common-game/games-feedback/games-feedback.service';
 import { ThingsTodoService } from '@/main/dashboard/things-todo/things-todo.service';
-import { Resources2Component } from './resources2/resources2.component';
-import { VideosComponent } from './resources2/videos/videos.component';
-import { ReadingMaterialComponent } from './resources2/reading-material/reading-material.component';
-import { ReadingItemComponent } from './resources2/reading-material/reading-item/reading-item.component';
-import { VideoItemComponent } from './resources2/videos/video-item/video-item.component';
-import { Resources2Service } from '@/main/resources2/resources2.service';
-import { SafeUrlPipe } from './resources2/safe-url.pipe';
-// import { Resources2Routing } from './resources2/resources2-routing.module.ts/resources2-routing.module.ts.component';
+import { ExtraResourcesComponent } from './extra-resources/extra-resources.component';
+import { VideosComponent } from './extra-resources/videos/videos.component';
+import { ReadingMaterialComponent } from './extra-resources/reading-material/reading-material.component';
+import { ReadingItemComponent } from './extra-resources/reading-material/reading-item/reading-item.component';
+import { VideoItemComponent } from './extra-resources/videos/video-item/video-item.component';
+import { ExtraResourcesService } from '@/main/extra-resources/extra-resources.service';
+import { SafeUrlPipe } from './extra-resources/safe-url.pipe';
+// import { Resources2Routing } from './extra-resources/extra-resources-routing.module.ts/extra-resources-routing.module.ts.component';
 
 @NgModule({
   declarations: [
@@ -351,7 +351,7 @@ import { SafeUrlPipe } from './resources2/safe-url.pipe';
     SurveyService,
     ThingsTodoService,
     GamesFeedbackService,
-    Resources2Service,
+    ExtraResourcesService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [

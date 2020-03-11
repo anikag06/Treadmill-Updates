@@ -1,6 +1,6 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { VideoItem } from '@/main/resources2/shared/video.model';
+import { VideoItem } from '@/main/extra-resources/shared/video.model';
 import { environment } from '../../../environments/environment';
 import { READING_LIST, VIDEO, VIDEO_LIST } from '@/app.constants';
 import { switchMap } from 'rxjs/operators';
@@ -12,13 +12,13 @@ import {
   Subject,
 } from 'rxjs';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { VideosComponent } from '@/main/resources2/videos/videos.component';
-import { ReadingItem } from '@/main/resources2/shared/reading.model';
+import { VideosComponent } from '@/main/extra-resources/videos/videos.component';
+import { ReadingItem } from '@/main/extra-resources/shared/reading.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class Resources2Service {
+export class ExtraResourcesService {
   videoClicked = false;
   videoInResource!: VideoItem;
   readingItemInResource!: ReadingItem;

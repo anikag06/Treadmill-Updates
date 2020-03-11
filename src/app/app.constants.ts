@@ -456,7 +456,7 @@ export const EXPLORE_MAP = new Map([
   ],
   [SUPPORT_GROUP, ['/support-groups', 'Visit the SupportGroup']],
   [CHAT_BOT, ['Open chat window', 'Chat with Willbot']],
-  [MINDFULNESS_VIDEO, ['/resources2', 'Practice mindfulness']],
+  [MINDFULNESS_VIDEO, ['/extra-resources', 'Practice mindfulness']],
 ]);
 
 export const EXPLORE_JSON = {
@@ -504,5 +504,5 @@ export const EXPLORE_JSON = {
   // ],
   // SUPPORT_GROUP: ['/support-groups', 'Visit the SupportGroup'],
   // CHAT_BOT: ['Open chat window', 'Chat with Willbot'],
-  // MINDFULNESS_VIDEO: ['/resources2', 'Practice mindfulness'],
+  // MINDFULNESS_VIDEO: ['/extra-resources', 'Practice mindfulness'],
 };
