@@ -176,6 +176,17 @@ import { SlidesVideoComponent } from './resources/slides/slides-video/slides-vid
 import { GamesFeedbackComponent } from './games/games-list/common-game/games-feedback/games-feedback.component';
 import { GamesFeedbackService } from './games/games-list/common-game/games-feedback/games-feedback.service';
 import { ThingsTodoService } from '@/main/dashboard/things-todo/things-todo.service';
+import { Resources2Component } from './resources2/resources2.component';
+import { VideosComponent } from './resources2/videos/videos.component';
+import { ReadingMaterialComponent } from './resources2/reading-material/reading-material.component';
+import { ReadingItemComponent } from './resources2/reading-material/reading-item/reading-item.component';
+import { VideoItemComponent } from './resources2/videos/video-item/video-item.component';
+import {Resources2Service} from '@/main/resources2/resources2.service';
+import { SafeUrlPipe } from './resources2/safe-url.pipe';
+// import { Resources2Routing } from './resources2/resources2-routing.module.ts/resources2-routing.module.ts.component';
+
+
+
 
 @NgModule({
   declarations: [
@@ -279,6 +290,13 @@ import { ThingsTodoService } from '@/main/dashboard/things-todo/things-todo.serv
     SurveyComponent,
     DisableClickDirective,
     GamesFeedbackComponent,
+   // Resources2Component,
+   //  VideosComponent,
+   //  ReadingMaterialComponent,
+   //  ReadingItemComponent,
+   //  VideoItemComponent,
+   //  SafeUrlPipe,
+
   ],
   imports: [
     CommonModule,
@@ -337,6 +355,7 @@ import { ThingsTodoService } from '@/main/dashboard/things-todo/things-todo.serv
     SurveyService,
     ThingsTodoService,
     GamesFeedbackService,
+    Resources2Service
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [

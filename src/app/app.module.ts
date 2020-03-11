@@ -29,6 +29,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { TimerService } from './shared/timer.service';
 import { SignUpService } from '@/pre-login/signup/sign-up.service';
+import {VideoItem} from '@/main/resources2/shared/video.model';
 declare let $: any;
 
 @NgModule({
@@ -72,6 +73,7 @@ declare let $: any;
     FcmService,
     TimerService,
     SignUpService,
+    //VideoItem
   ],
   bootstrap: [AppComponent],
   entryComponents: [
