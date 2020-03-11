@@ -8,9 +8,8 @@ describe('Resources2Component', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ Resources2Component ]
-    })
-    .compileComponents();
+      declarations: [Resources2Component],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

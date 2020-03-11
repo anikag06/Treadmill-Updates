@@ -181,12 +181,9 @@ import { VideosComponent } from './resources2/videos/videos.component';
 import { ReadingMaterialComponent } from './resources2/reading-material/reading-material.component';
 import { ReadingItemComponent } from './resources2/reading-material/reading-item/reading-item.component';
 import { VideoItemComponent } from './resources2/videos/video-item/video-item.component';
-import {Resources2Service} from '@/main/resources2/resources2.service';
+import { Resources2Service } from '@/main/resources2/resources2.service';
 import { SafeUrlPipe } from './resources2/safe-url.pipe';
 // import { Resources2Routing } from './resources2/resources2-routing.module.ts/resources2-routing.module.ts.component';
-
-
-
 
 @NgModule({
   declarations: [
@@ -290,13 +287,12 @@ import { SafeUrlPipe } from './resources2/safe-url.pipe';
     SurveyComponent,
     DisableClickDirective,
     GamesFeedbackComponent,
-   // Resources2Component,
-   //  VideosComponent,
-   //  ReadingMaterialComponent,
-   //  ReadingItemComponent,
-   //  VideoItemComponent,
-   //  SafeUrlPipe,
-
+    // Resources2Component,
+    //  VideosComponent,
+    //  ReadingMaterialComponent,
+    //  ReadingItemComponent,
+    //  VideoItemComponent,
+    //  SafeUrlPipe,
   ],
   imports: [
     CommonModule,
@@ -355,7 +351,7 @@ import { SafeUrlPipe } from './resources2/safe-url.pipe';
     SurveyService,
     ThingsTodoService,
     GamesFeedbackService,
-    Resources2Service
+    Resources2Service,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [

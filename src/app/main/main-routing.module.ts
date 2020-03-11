@@ -79,8 +79,10 @@ export const mainRoutes: Routes = [
         //   { path: 'videoItem/:id', component: VideoItemComponent },
         //   {path: 'readingItem/:id', component: ReadingItemComponent}
         // ],
-        loadChildren: () => import('./resources2/resources2.module').then(m =>
-        m.Resources2Module)
+        loadChildren: () =>
+          import('./resources2/resources2.module').then(
+            m => m.Resources2Module,
+          ),
       },
     ],
   },
@@ -92,4 +94,3 @@ export const mainRoutes: Routes = [
   exports: [RouterModule],
 })
 export class MainRoutingModule {}
-

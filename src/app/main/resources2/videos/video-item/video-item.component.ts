@@ -3,10 +3,14 @@ import { VideoItem } from '@/main/resources2/shared/video.model';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Resources2Service } from '@/main/resources2/resources2.service';
 import { VideosComponent } from '@/main/resources2/videos/videos.component';
-import {DomSanitizer, SafeResourceUrl, SafeUrl} from '@angular/platform-browser';
-import {HttpClient} from '@angular/common/http';
-import {environment} from '../../../../../environments/environment';
-import {LoadFilesService} from '@/main/games/shared/load-files.service';
+import {
+  DomSanitizer,
+  SafeResourceUrl,
+  SafeUrl,
+} from '@angular/platform-browser';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../../environments/environment';
+import { LoadFilesService } from '@/main/games/shared/load-files.service';
 
 @Component({
   selector: 'app-video-item',
@@ -23,36 +27,31 @@ export class VideoItemComponent implements OnInit {
   videoIdToSend!: number;
   isLoaded = false;
 
-
   constructor(
     private activatedRoute: ActivatedRoute,
     private resources2Service: Resources2Service,
     private sanitizer: DomSanitizer,
-    private http: HttpClient,
-
-  ) //  private videos: VideosComponent
-  {}
+    private http: HttpClient, //  private videos: VideosComponent
+  ) {}
 
   ngOnInit() {
-     if( this.video == null){
-       this.activatedRoute.params
-         .subscribe((data) => {
-           this.videoIdToSend = data.id;
-           console.log('reload id:', data.id);
-         });
-       this.resources2Service.getAVideo(this.videoIdToSend)
-         .subscribe((data) => {
-           this.video = <VideoItem>data;
-           this.isLoaded = true;
-         });
-       // this.isLoaded = true;
-    // }
-    //   this.resources2Service.getVideoItem()
-    //     .subscribe((data: any) => {
-    //       this.video = <VideoItem>data.id;
-    //     });
-     } else {
-      this.resources2Service.videoClickedEvent.subscribe((data) => {
+    if (this.video == null) {
+      this.activatedRoute.params.subscribe(data => {
+        this.videoIdToSend = data.id;
+        console.log('reload id:', data.id);
+      });
+      this.resources2Service.getAVideo(this.videoIdToSend).subscribe(data => {
+        this.video = <VideoItem>data;
+        this.isLoaded = true;
+      });
+      // this.isLoaded = true;
+      // }
+      //   this.resources2Service.getVideoItem()
+      //     .subscribe((data: any) => {
+      //       this.video = <VideoItem>data.id;
+      //     });
+    } else {
+      this.resources2Service.videoClickedEvent.subscribe(data => {
         console.log('data: ', data);
         this.video = <VideoItem>data;
         this.isLoaded = true;
@@ -60,16 +59,7 @@ export class VideoItemComponent implements OnInit {
         //this.safeVideoUrl = this.sanitizer.bypassSecurityTrustUrl(this.video.url);
       });
       // this.isLoaded = true;
-     }
-
-
-
-
-
-
-
-
-
+    }
 
     // this.resources2Service.getVideoDetail(this.video);
     // this.video = this.resources2Service.getVideo();

@@ -132,7 +132,7 @@ export class ControlContentComponent implements OnInit {
     //  window.scrollTo(0);
     //} else {
     setTimeout(() => {
-      this.target.nativeElement.scrollIntoView({behavior: 'smooth'});
+      this.target.nativeElement.scrollIntoView({ behavior: 'smooth' });
       //window.scrollTo(0, 0);
     }, 10);
     //  $('another-step-next').click(function{

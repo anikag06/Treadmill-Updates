@@ -1,9 +1,9 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {VideoItem} from '@/main/resources2/shared/video.model';
-import {HttpClient} from '@angular/common/http';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Resources2Service} from '@/main/resources2/resources2.service';
-import {LoadFilesService} from '@/main/games/shared/load-files.service';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { VideoItem } from '@/main/resources2/shared/video.model';
+import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Resources2Service } from '@/main/resources2/resources2.service';
+import { LoadFilesService } from '@/main/games/shared/load-files.service';
 
 @Component({
   selector: 'app-videos',
@@ -18,35 +18,29 @@ export class VideosComponent implements OnInit {
   showState = false;
 
   notOn = true;
-//  @Output() onVideoEvent=  new EventEmitter();
+  //  @Output() onVideoEvent=  new EventEmitter();
   constructor(
     private http: HttpClient,
     private router: Router,
     private route: ActivatedRoute,
     private resources2Service: Resources2Service,
-  ) { }
+  ) {}
 
   ngOnInit() {
-
-
     // this.http.get<VideoItem>('').subscribe((data) => {
     //   this.getVideo(data);
     //   this.videoClick(data.url);
     //
     // });
-
-
   }
 
-
-
-//   getVideo(video: VideoItem) {
-//     this.videoLink = video.url;
-//     this.videoFooter = video.title;
-// }
-//   videoClick(videoLink: string) {
-//     this.router.navigateByUrl('string');
-//   }
+  //   getVideo(video: VideoItem) {
+  //     this.videoLink = video.url;
+  //     this.videoFooter = video.title;
+  // }
+  //   videoClick(videoLink: string) {
+  //     this.router.navigateByUrl('string');
+  //   }
   // videoItems: any;
   // videoClick() {
   //   this.router.navigate(['videoItem/', this.videoItem.id], {relativeTo: this.route});
@@ -56,16 +50,14 @@ export class VideosComponent implements OnInit {
   //
   // }
 
-    // giveVideoDetail(x: VideoItem){
-    //   x = <VideoItem>this.videoItem;
-    // }
+  // giveVideoDetail(x: VideoItem){
+  //   x = <VideoItem>this.videoItem;
+  // }
 
   //redirect(){
-   // this.resources2Service.videoGo();
+  // this.resources2Service.videoGo();
   //}
-  expandLine(){
+  expandLine() {
     this.showState = true;
   }
-
-
 }

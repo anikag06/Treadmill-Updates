@@ -5,7 +5,7 @@ import { ReadingItem } from '@/main/resources2/shared/reading.model';
 import { Resources2Service } from '@/main/resources2/resources2.service';
 import { element } from 'protractor';
 import { ActivatedRoute, Router } from '@angular/router';
-import {LoadFilesService} from '@/main/games/shared/load-files.service';
+import { LoadFilesService } from '@/main/games/shared/load-files.service';
 
 @Component({
   selector: 'app-resources2',
@@ -27,18 +27,18 @@ export class Resources2Component implements OnInit {
   isOpen = false;
   //value: string |undefined;
   countReadingItem = 0;
-  countVideoItem  = 0;
-
+  countVideoItem = 0;
 
   constructor(
     private resources2Service: Resources2Service,
     private router: Router,
     private route: ActivatedRoute,
-    private loadFilesService: LoadFilesService
+    private loadFilesService: LoadFilesService,
   ) {}
 
   ngOnInit() {
-    this.loadFilesService.loadExternalStyles('/resources2-styles.css')
+    this.loadFilesService
+      .loadExternalStyles('/resources2-styles.css')
       .then(() => {})
       .catch(() => {});
 
@@ -53,12 +53,11 @@ export class Resources2Component implements OnInit {
       });
     });
 
-    this.resources2Service.getReadingItem().subscribe((reading_data:any) =>{
+    this.resources2Service.getReadingItem().subscribe((reading_data: any) => {
       // tslint:disable-next-line:no-shadowed-variable
-      reading_data.results.forEach((element: any) =>{
+      reading_data.results.forEach((element: any) => {
         this.readingItems.push(<ReadingItem>element);
         this.countReadingItem = this.countReadingItem + 1;
-
       });
     });
   }
@@ -72,24 +71,24 @@ export class Resources2Component implements OnInit {
     this.resources2Service.videoClickBehavior.next(videoBeingClicked);
   }
 
-  readingItemClick(readingItemBeingClicked: ReadingItem){
-    this.router.navigate(['readingItem/', readingItemBeingClicked.id], {relativeTo: this.route,
+  readingItemClick(readingItemBeingClicked: ReadingItem) {
+    this.router.navigate(['readingItem/', readingItemBeingClicked.id], {
+      relativeTo: this.route,
     });
-    this.resources2Service.readingItemClickBehavior.next(readingItemBeingClicked);
-
+    this.resources2Service.readingItemClickBehavior.next(
+      readingItemBeingClicked,
+    );
   }
 
-   changeVideoState() {
-     this.showVideoState = !this.showVideoState;
-     //this.value = "See all";
-     console.log('state to true', this.showVideoState);
-   }
+  changeVideoState() {
+    this.showVideoState = !this.showVideoState;
+    //this.value = "See all";
+    console.log('state to true', this.showVideoState);
+  }
 
   changeReadingMaterialState() {
     this.showReadingMaterialState = !this.showReadingMaterialState;
 
     console.log('state to true');
   }
-
-
 }

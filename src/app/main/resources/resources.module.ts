@@ -287,4 +287,4 @@ import { ScrollToTopDirective } from '@/main/shared/scrollToTop/scroll-to-top.di
     ScrollToTopDirective,
   ],
 })
-export class ResourcesModule { }
+export class ResourcesModule {}
