@@ -28,7 +28,7 @@ import {
   ATTRIBUTE_STYLE_GAME,
   MENTAL_IMAGERY_GAME,
   FRIENDLY_FACE_GAME,
-  IDENTIFY_COGNITIVE_DISTORTION,
+  IDENTIFY_COGNITIVE_DISTORTION_GAME,
 } from '@/app.constants';
 import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
 import { IbGameInstructionsComponent } from './interpretation-bias-game/ib-game-instructions/ib-game-instructions.component';
@@ -139,7 +139,7 @@ export class CommonGameComponent implements OnInit {
           } else if (this.gameName === MENTAL_IMAGERY_GAME) {
             this.isMentalImagery = true;
             this.portraitGame = true;
-          } else if (this.gameName === IDENTIFY_COGNITIVE_DISTORTION) {
+          } else if (this.gameName === IDENTIFY_COGNITIVE_DISTORTION_GAME) {
             console.log('cognitive distortion');
             this.isIdentifyCognitiveDistortion = true;
             this.portraitGame = true;
@@ -208,7 +208,7 @@ export class CommonGameComponent implements OnInit {
     } else if (this.gameName === MENTAL_IMAGERY_GAME) {
       // this.miGameComponent.startPlayingMIGame();
       this.gamePlayService.playMentalImageryGame(this.gameDivElement);
-    } else if (this.gameName === IDENTIFY_COGNITIVE_DISTORTION) {
+    } else if (this.gameName === IDENTIFY_COGNITIVE_DISTORTION_GAME) {
       // this.idcComponent.startPlaying();
       this.gamePlayService.playIdentifyCognitiveDistortionGame(
         this.gameDivElement,
@@ -236,7 +236,7 @@ export class CommonGameComponent implements OnInit {
     if (this.gameName === MENTAL_IMAGERY_GAME) {
       this.gamePlayService.helpMIGame();
     }
-    if (this.gameName === IDENTIFY_COGNITIVE_DISTORTION) {
+    if (this.gameName === IDENTIFY_COGNITIVE_DISTORTION_GAME) {
       this.gamePlayService.helpIDCGame();
     }
     if (this.gameName === LEARNED_HELPLESSNESS_GAME) {
@@ -283,7 +283,7 @@ export class CommonGameComponent implements OnInit {
     if (this.gameName === MENTAL_IMAGERY_GAME) {
       this.miGameComponent.pauseMIGame();
     }
-    if (this.gameName === IDENTIFY_COGNITIVE_DISTORTION) {
+    if (this.gameName === IDENTIFY_COGNITIVE_DISTORTION_GAME) {
       this.idcComponent.pauseIDCGame();
     }
   }
@@ -310,7 +310,7 @@ export class CommonGameComponent implements OnInit {
     if (this.gameName === MENTAL_IMAGERY_GAME) {
       this.miGameComponent.resumeMIGame();
     }
-    if (this.gameName === IDENTIFY_COGNITIVE_DISTORTION) {
+    if (this.gameName === IDENTIFY_COGNITIVE_DISTORTION_GAME) {
       this.idcComponent.resumeIDCGame();
     }
   }
@@ -341,7 +341,7 @@ export class CommonGameComponent implements OnInit {
     if (this.gameName === MENTAL_IMAGERY_GAME) {
       this.miGameComponent.replayMIGame();
     }
-    if (this.gameName === IDENTIFY_COGNITIVE_DISTORTION) {
+    if (this.gameName === IDENTIFY_COGNITIVE_DISTORTION_GAME) {
       this.idcComponent.replayIDCGame();
     }
   }

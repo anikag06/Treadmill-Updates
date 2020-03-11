@@ -49,13 +49,13 @@ export const POSITIVE_EMOTIONS = [
 ];
 
 // Game names
-export const INTERPRETATION_BIAS_GAME = 'Interpretation Bias Game';
-export const EXECUTIVE_CONTROL_GAME = 'Executive Control Game';
-export const FRIENDLY_FACE_GAME = 'Friendly Face Game';
-export const LEARNED_HELPLESSNESS_GAME = 'Learned Helplessness Game';
-export const ATTRIBUTE_STYLE_GAME = 'Attribute Style Game';
-export const MENTAL_IMAGERY_GAME = 'Mental Imagery Game';
-export const IDENTIFY_COGNITIVE_DISTORTION = 'Identify Cognitive Distortion';
+export const INTERPRETATION_BIAS_GAME = 'Word search';
+export const EXECUTIVE_CONTROL_GAME = 'Sprint';
+export const FRIENDLY_FACE_GAME = 'Find a smile';
+export const LEARNED_HELPLESSNESS_GAME = 'Solve it';
+export const ATTRIBUTE_STYLE_GAME = 'Balloon burst';
+export const MENTAL_IMAGERY_GAME = 'Daydream';
+export const IDENTIFY_COGNITIVE_DISTORTION_GAME = 'Think positive';
 
 // ibGame time
 export const IBG_LESS_TIME = 120;
@@ -190,14 +190,14 @@ export const INTRODUCTION_DATA =
 export const CONCLUSION_DATA =
   '/api/v1/introduction-conclusion/user-conclusion/';
 
-export const GAME_ATTRIBUTION_STYLE = 'GAME-ATTRIBUTION-STYLE';
-export const GAME_INTERPRETATION_BIAS = 'GAME-INTERPRETATION-BIAS';
-export const GAME_LEARNED_HELPLESSNESS = 'GAME-LEARNED-HELPLESSNESS';
-export const GAME_FRIENDLY_FACE = 'GAME-FRIENDLY-FACE';
-export const GAME_EXECUTIVE_CONTROL = 'GAME-EXECUTIVE-CONTROL';
-export const GAME_IDENTIFY_COGNITIVE_DISTORTION =
+export const GAME_ATTRIBUTION_STYLE_CONSTANT = 'GAME-ATTRIBUTION-STYLE';
+export const GAME_INTERPRETATION_BIAS_CONSTANT = 'GAME-INTERPRETATION-BIAS';
+export const GAME_LEARNED_HELPLESSNESS_CONSTANT = 'GAME-LEARNED-HELPLESSNESS';
+export const GAME_FRIENDLY_FACE_CONSTANT = 'GAME-FRIENDLY-FACE';
+export const GAME_EXECUTIVE_CONTROL_CONSTANT = 'GAME-EXECUTIVE-CONTROL';
+export const GAME_IDENTIFY_COGNITIVE_DISTORTION_CONSTANT =
   'GAME-IDENTIFY-COGNITIVE-DISTORTION';
-export const GAME_MENTAL_IMAGERY = 'GAME-MENTAL-IMAGERY';
+export const GAME_MENTAL_IMAGERY_CONSTANT = 'GAME-MENTAL-IMAGERY';
 export const FORM_TASK = 'FORM-TASK';
 export const FORM_PROBLEM_SOLVING = 'FORM-PROBLEM-SOLVING';
 export const FORM_THOUGHT_RECORD = 'FORM-THOUGHT-RECORD';
@@ -424,85 +424,47 @@ export const EXPLORE_MAP = new Map([
     ['/resources/forms/' + TEST_BELIEF, 'Test a belief'],
   ],
   [
-    GAME_ATTRIBUTION_STYLE,
-    ['/games/' + GAME_ATTRIBUTION_STYLE, 'Learn about your attribution style'],
-  ],
-  [
-    GAME_INTERPRETATION_BIAS,
-    ['/games/' + GAME_INTERPRETATION_BIAS, 'Be more positive'],
-  ],
-  [
-    GAME_LEARNED_HELPLESSNESS,
-    ['/games/' + GAME_LEARNED_HELPLESSNESS, 'Learn about learned helplessness'],
-  ],
-  [
-    GAME_FRIENDLY_FACE,
-    ['/games/' + GAME_FRIENDLY_FACE, 'Look at the positive things in life'],
-  ],
-  [
-    GAME_EXECUTIVE_CONTROL,
-    ['/games/' + GAME_EXECUTIVE_CONTROL, 'Stop ruminating'],
-  ],
-  [
-    GAME_IDENTIFY_COGNITIVE_DISTORTION,
+    GAME_ATTRIBUTION_STYLE_CONSTANT,
     [
-      '/games/' + GAME_IDENTIFY_COGNITIVE_DISTORTION,
+      '/games/' + GAME_ATTRIBUTION_STYLE_CONSTANT,
+      'Learn about your attribution style',
+    ],
+  ],
+  [
+    GAME_INTERPRETATION_BIAS_CONSTANT,
+    ['/games/' + GAME_INTERPRETATION_BIAS_CONSTANT, 'Be more positive'],
+  ],
+  [
+    GAME_LEARNED_HELPLESSNESS_CONSTANT,
+    [
+      '/games/' + GAME_LEARNED_HELPLESSNESS_CONSTANT,
+      'Learn about learned helplessness',
+    ],
+  ],
+  [
+    GAME_FRIENDLY_FACE_CONSTANT,
+    [
+      '/games/' + GAME_FRIENDLY_FACE_CONSTANT,
+      'Look at the positive things in life',
+    ],
+  ],
+  [
+    GAME_EXECUTIVE_CONTROL_CONSTANT,
+    ['/games/' + GAME_EXECUTIVE_CONTROL_CONSTANT, 'Stop ruminating'],
+  ],
+  [
+    GAME_IDENTIFY_COGNITIVE_DISTORTION_CONSTANT,
+    [
+      '/games/' + GAME_IDENTIFY_COGNITIVE_DISTORTION_CONSTANT,
       'Identify negative thoughts',
     ],
   ],
   [
-    GAME_MENTAL_IMAGERY,
-    ['/games/' + GAME_MENTAL_IMAGERY, 'Think positively about the future'],
+    GAME_MENTAL_IMAGERY_CONSTANT,
+    [
+      '/games/' + GAME_MENTAL_IMAGERY_CONSTANT,
+      'Think positively about the future',
+    ],
   ],
-  [SUPPORT_GROUP, ['/support-groups', 'Visit the SupportGroup']],
-  [CHAT_BOT, ['Open chat window', 'Chat with Willbot']],
   [MINDFULNESS_VIDEO, ['/extra-resources', 'Practice mindfulness']],
 ]);
-
-export const EXPLORE_JSON = {
-  // FORM_TASK: ['/resources/forms/' + TASK, 'Set a task'],
-  // FORM_PROBLEM_SOLVING_WORKSHEET: [
-  //   '/resources/forms/' + PROBLEM_SOLVING,
-  //   'Solve a problem',
-  // ],
-  // FORM_BELIEF_CHANGE: ['/resources/forms/' + BELIEF_CHANGE, 'Change a belief'],
-  // FORM_WORRY_PRODUCTIVELY: [
-  //   '/resources/forms/' + WORRY_PRODUCTIVELY,
-  //   'Worry productively',
-  // ],
-  // FORM_THOUGHT_RECORD: [
-  //   '/resources/forms/' + THOUGHT_RECORD,
-  //   'Record a thought',
-  // ],
-  // FORM_EXPERIMENT_TO_TEST_BELIEF: [
-  //   '/resources/forms/' + TEST_BELIEF,
-  //   'Test a belief',
-  // ],
-  // GAME_ATTRIBUTION_STYLE: [
-  //   '/games/' + GAME_ATTRIBUTION_STYLE,
-  //   'Learn about your attribution style',
-  // ],
-  // GAME_INTERPRETATION_BIAS: [
-  //   '/games/' + GAME_INTERPRETATION_BIAS,
-  //   'Be more positive',
-  // ],
-  // GAME_LEARNED_HELPLESSNESS: [
-  //   '/games/' + GAME_LEARNED_HELPLESSNESS,
-  //   'Learn about learned helplessness',
-  // ],
-  // GAME_FRIENDLY_FACE: [
-  //   '/games/' + GAME_FRIENDLY_FACE,
-  //   'Look at the positive things in life',
-  // ],
-  // GAME_EXECUTIVE_CONTROL: [
-  //   '/games/' + GAME_EXECUTIVE_CONTROL,
-  //   'Stop ruminating',
-  // ],
-  // GAME_IDENTIFY_COGNITIVE_DISTORTION: [
-  //   '/games/' + GAME_IDENTIFY_COGNITIVE_DISTORTION,
-  //   'Identify negative thoughts',
-  // ],
-  // SUPPORT_GROUP: ['/support-groups', 'Visit the SupportGroup'],
-  // CHAT_BOT: ['Open chat window', 'Chat with Willbot'],
-  // MINDFULNESS_VIDEO: ['/extra-resources', 'Practice mindfulness'],
-};

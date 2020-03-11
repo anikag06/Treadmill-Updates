@@ -4,13 +4,20 @@ import { of, Observable, Observer } from 'rxjs';
 import { LocalStorageService } from '@/shared/localstorage.service';
 import {
   GAMES,
-  GAME_INTERPRETATION_BIAS,
-  GAME_EXECUTIVE_CONTROL,
-  GAME_ATTRIBUTION_STYLE,
-  GAME_FRIENDLY_FACE,
-  GAME_MENTAL_IMAGERY,
-  GAME_IDENTIFY_COGNITIVE_DISTORTION,
-  GAME_LEARNED_HELPLESSNESS,
+  GAME_INTERPRETATION_BIAS_CONSTANT,
+  GAME_EXECUTIVE_CONTROL_CONSTANT,
+  GAME_ATTRIBUTION_STYLE_CONSTANT,
+  GAME_FRIENDLY_FACE_CONSTANT,
+  GAME_MENTAL_IMAGERY_CONSTANT,
+  GAME_IDENTIFY_COGNITIVE_DISTORTION_CONSTANT,
+  GAME_LEARNED_HELPLESSNESS_CONSTANT,
+  INTERPRETATION_BIAS_GAME,
+  EXECUTIVE_CONTROL_GAME,
+  FRIENDLY_FACE_GAME,
+  LEARNED_HELPLESSNESS_GAME,
+  ATTRIBUTE_STYLE_GAME,
+  MENTAL_IMAGERY_GAME,
+  IDENTIFY_COGNITIVE_DISTORTION_GAME,
 } from '@/app.constants';
 
 @Injectable({
@@ -19,46 +26,46 @@ import {
 export class GamesService {
   games = [
     new Game(
-      'Interpretation Bias Game',
+      INTERPRETATION_BIAS_GAME,
       'https://via.placeholder.com/360x200?text=Mario',
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.',
-      GAME_INTERPRETATION_BIAS,
+      GAME_INTERPRETATION_BIAS_CONSTANT,
     ),
     new Game(
-      'Executive Control Game',
+      EXECUTIVE_CONTROL_GAME,
       'https://via.placeholder.com/360x200?text=Mario',
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.',
-      GAME_EXECUTIVE_CONTROL,
+      GAME_EXECUTIVE_CONTROL_CONSTANT,
     ),
     new Game(
-      'Learned Helplessness Game',
+      LEARNED_HELPLESSNESS_GAME,
       'https://via.placeholder.com/360x200?text=Mario',
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.',
-      GAME_LEARNED_HELPLESSNESS,
+      GAME_LEARNED_HELPLESSNESS_CONSTANT,
     ),
     new Game(
-      'Identify Cognitive Distortion',
+      IDENTIFY_COGNITIVE_DISTORTION_GAME,
       'https://via.placeholder.com/360x200?text=Mario',
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.',
-      GAME_IDENTIFY_COGNITIVE_DISTORTION,
+      GAME_IDENTIFY_COGNITIVE_DISTORTION_CONSTANT,
     ),
     new Game(
-      'Attribute Style Game',
+      ATTRIBUTE_STYLE_GAME,
       'https://via.placeholder.com/360x200?text=Mario',
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.',
-      GAME_ATTRIBUTION_STYLE,
+      GAME_ATTRIBUTION_STYLE_CONSTANT,
     ),
     new Game(
-      'Friendly Face Game',
+      FRIENDLY_FACE_GAME,
       'https://via.placeholder.com/360x200?text=Mario',
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.',
-      GAME_FRIENDLY_FACE,
+      GAME_FRIENDLY_FACE_CONSTANT,
     ),
     new Game(
-      'Mental Imagery Game',
+      MENTAL_IMAGERY_GAME,
       'https://via.placeholder.com/360x200?text=Mario',
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.',
-      GAME_MENTAL_IMAGERY,
+      GAME_MENTAL_IMAGERY_CONSTANT,
     ),
   ];
 
@@ -74,7 +81,6 @@ export class GamesService {
       setTimeout(() => {
         observer.next(games);
         observer.complete();
-        // }, 5000);
       }, 50);
     });
   }
