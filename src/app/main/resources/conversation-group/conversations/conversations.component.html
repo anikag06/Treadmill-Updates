@@ -136,26 +136,24 @@
             </button>
           </div>
         </div>
-
-
-
-
-
       </div>
 
     </div>
 
-
-    <div class=" my-5 h-100 px-0 mx-0  in-mobile" *ngIf="isvisible === false">
-      <button class="rotate-rev ml-n3" id="conv-btn" mat-raised-button color="primary" (click)="onShowConv()">
+    <div class="col in-mobile border-right extra-form-div" *ngIf="!isvisible">
+    </div>
+    <div class="col-1 my-5 h-100 px-0 mx-0  in-mobile" *ngIf="isvisible === false">
+      <button class="rotate-rev" id="conv-btn" mat-raised-button color="primary" (click)="onShowConv()">
         Conversation
       </button>
     </div>
 
-    <div class="my-5 h-100 px-0 mx-0 in-mobile" *ngIf="isvisible === true">
+    <div class="col-1 my-5 h-100 px-0 mx-0 in-mobile" *ngIf="isvisible === true">
       <button class="rotate-rev mr-n3" id="form-btn" mat-raised-button color="primary" (click)="onShowForm()">
         Form
       </button>
+    </div>
+    <div class="col in-mobile border-left extra-slide-div" *ngIf="isvisible">
     </div>
 
 
