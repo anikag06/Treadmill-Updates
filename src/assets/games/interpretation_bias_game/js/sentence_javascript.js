@@ -21,7 +21,8 @@ var sentence_trick = [];
 var sentence_word_valence = [];
 var sentence_order_array = [];
 // var after_sentence_number = last_sentence_order+Math.floor(sentences_sent/2);	//request to send next set of sentences after a certain sentence number
- 
+
+var ibGame_ask_feedback;
 var ibCountdown;
 var ibGamePause;
 var ibGameResume;
@@ -259,7 +260,6 @@ function getUpdatedVariables() {
 	gameStreak = ibGameStreak;
 	gameResponseTime=0;
 	gameUserSentenceId = sentence_ids[sentence_number];
-
 	gameResponseTime = (end_time - start_time) ; 
 	return [
 		gameOrder,
@@ -560,6 +560,7 @@ $(document).ready(function(){
 	});
 	
 	$(document).on("click",".btn-other-sentence", function(ev){
+		console.log('ROW CLICKED');
 		if (ibg_score< ibg_btn_other_sentence_score) {
 			showTooltip();
 		} else {
@@ -593,17 +594,24 @@ $(document).ready(function(){
 }); // document.ready ends here 
 
 function playNextSentence(){
-	clearInterval(inactivity_check_interval);
-	initializeVariables();
-	setTimeout(() => {
-		removeAddClassFun();
-	});
-	
-	$(".tip-text").text("");
-	$("#hint-img-tip").addClass("d-none");
-	ibCountdown();
-	sentence_number++;
-	foundWord(sentence_array[sentence_number],sentence_word_array[sentence_number]);
+	if( gameOrder === 3 && ibGame_ask_feedback) {
+		iBGFeedbackEvent = document.createEvent('CustomEvent');
+		iBGFeedbackEvent.initCustomEvent('iBGFeedback');
+		window.dispatchEvent(iBGFeedbackEvent);
+		ibGame_ask_feedback = false;
+	} else {
+		clearInterval(inactivity_check_interval);
+		initializeVariables();
+		setTimeout(() => {
+			removeAddClassFun();
+		});
+		
+		$(".tip-text").text("");
+		$("#hint-img-tip").addClass("d-none");
+		ibCountdown();
+		sentence_number++;
+		foundWord(sentence_array[sentence_number],sentence_word_array[sentence_number]);
+	}
 }
 
 function hideCanvas(){

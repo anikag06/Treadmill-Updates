@@ -1,6 +1,6 @@
-.dislike-btn {
-  transform: rotate(180deg);
-}
+// .dislike-btn {
+//   transform: rotate(180deg);
+// }
 
 .row,
 .col {
@@ -33,7 +33,15 @@
   color: white;
   background-color: #2a3b3d;
   outline: none;
+  box-shadow: none;
+}
+
+.submit-btn {
+  font-size: 14px;
+  // width: 100px;
   color: white;
+  background-color: #2a3b3d;
+  outline: none;
   box-shadow: none;
 }
 

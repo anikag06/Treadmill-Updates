@@ -3,14 +3,19 @@
 
 @import "../../../../shared/games-common.scss";
 
+
+.info-div {
+  font-family: Roboto;
+}
+
 .heading {
-    color :#0C8C95;
+  color: #0C8C95;
 }
 
 .mat-new {
-    background-color: #0C8C95 !important;
-    border-color: #0C8C95 !important;
-    color: #FFF;
-    min-width: 260px;
-    align-items: center;
-  }
+  background-color: #0C8C95 !important;
+  border-color: #0C8C95 !important;
+  color: #FFF;
+  min-width: 260px;
+  align-items: center;
+}

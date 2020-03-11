@@ -21,6 +21,8 @@ import { FfgNolifeComponent } from './ffg-nolife/ffg-nolife.component';
 import { BadgesInfo } from '@/main/games/shared/game-badges.model';
 import { GamesBadgesService } from '@/main/games/shared/games-badges.service';
 import { FfgHelpService } from './ffg-help.service';
+import { GamesFeedbackComponent } from '../games-feedback/games-feedback.component';
+import { GamesFeedbackService } from '../games-feedback/games-feedback.service';
 
 declare var ffGamePreloadImages: any;
 declare var ffGame_hostile_images: any;
@@ -61,7 +63,8 @@ export class FriendlyFaceGameComponent implements OnInit {
     private badgesService: GamesBadgesService,
     public viewContainerRef: ViewContainerRef,
     private ffgHelpService: FfgHelpService,
-  ) {}
+    private gamesFeedbackService: GamesFeedbackService,
+  ) { }
   NO_IMAGES_IN_PAGE = 20;
   NO_SONGS_IN_PAGE = 2;
   ffGameMusicOrder!: number;
@@ -83,8 +86,9 @@ export class FriendlyFaceGameComponent implements OnInit {
   no_correct_responses!: number;
   allBadgesInfo: BadgesInfo = new BadgesInfo(0, 0, 0, 0, 0, 0);
   last_completed_order: any;
-  show_tutorial: any;
+  show_tutorial!: boolean;
   time_per_note: any;
+  ask_feedback!: boolean;
 
   @ViewChild('newElement', { static: false }) element!: ElementRef;
 
@@ -118,6 +122,14 @@ export class FriendlyFaceGameComponent implements OnInit {
     const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
     this.element.nativeElement.dispatchEvent(domEvent);
   }
+  @HostListener('window:Feedback')
+  openFeedbackPopup() {
+    if (this.ask_feedback) {
+      this.dialogBoxService.setDialogChild(GamesFeedbackComponent);
+      const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
+      this.element.nativeElement.dispatchEvent(domEvent);
+    }
+  }
 
   @HostListener('window:diffBarUpdate')
   diffBarUpdate() {
@@ -133,13 +145,16 @@ export class FriendlyFaceGameComponent implements OnInit {
       .then(() => {
         this.loadImages();
       })
-      .catch(() => {});
+      .catch(() => { });
     this.loadFileService
       .loadExternalScript('./assets/games/friendly-face-game/js/tone.min.js')
-      .then(() => {})
-      .catch(() => {});
+      .then(() => { })
+      .catch(() => { });
     this.ffgHelpService.updateBadges.subscribe(() => {
       this.updateBadgesValue();
+    });
+    this.gamesFeedbackService.feedback.subscribe(() => {
+      this.openPlayNextPopup();
     });
   }
 
@@ -208,6 +223,7 @@ export class FriendlyFaceGameComponent implements OnInit {
       this.GOLD_CONSTANT = user_data.GOLD_CONSTANT;
       this.last_completed_order = user_data.last_completed_order;
       this.show_tutorial = user_data.show_tutorial;
+      this.ask_feedback = user_data.ask_for_feedback;
       ffg_time_per_note = user_data.time_per_note; // timeAlloted in miliseconds
       ffg_total_positive_images = user_data.total_positive_images;
       this.ffGameMusicData(); // start calling the data of music from page no. 1 as data received is according to user order

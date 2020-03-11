@@ -7,7 +7,7 @@
   </div>
 
 
-  <div class="row small-font mx-2" (click)=continuePlay()>
+  <div class="row small-font mx-2" (click)=continuePlay() matRipple [matRippleColor]="'#00000020'">
     <img style="width:32px;height:32px;" class="replayImg mr-3"
       src="../../../../../../../assets/games/cognitive-distortion-game/replay.png">
     <p class="mt-1">Replay</p>
@@ -15,7 +15,7 @@
   </div>
   <br>
   <div class="row small-font mx-2" (click)=addTimePlay() #tooltip="matTooltip" matTooltipDisabled
-    matTooltip={{tooltipData}}>
+    matTooltip={{tooltipData}} matRipple [matRippleColor]="'#00000020'">
     <img style="width:32px;height:32px;" class="timerImg mr-3"
       src="../../../../../../../assets/games/cognitive-distortion-game/time.png">
     <p class="mt-1">Add 20s to the clock for {{idcExtraScore}} points.</p>

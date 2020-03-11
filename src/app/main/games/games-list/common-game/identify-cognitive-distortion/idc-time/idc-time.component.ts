@@ -12,7 +12,7 @@ export class IdcTimeComponent implements OnInit {
   constructor(
     private elementRef: ElementRef,
     private gameService: IdcGameService,
-  ) {}
+  ) { }
 
   tooltipData!: any;
   idcExtraScore = 20;
@@ -23,27 +23,32 @@ export class IdcTimeComponent implements OnInit {
   }
 
   continuePlay() {
-    const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });
-    this.elementRef.nativeElement.dispatchEvent(domEvent);
-    this.gameService.optionStatusCount = 0;
-    this.gameService.optionStatus = '';
-    this.gameService.selectedCorrectOptionsSet.clear();
-    // this.gameService.getUserData();
-    this.gameService.resumeGame.emit();
+    setTimeout(() => {
+      const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });
+      this.elementRef.nativeElement.dispatchEvent(domEvent);
+      this.gameService.optionStatusCount = 0;
+      this.gameService.optionStatus = '';
+      this.gameService.selectedCorrectOptionsSet.clear();
+      // this.gameService.getUserData();
+      this.gameService.replay = true;
+      this.gameService.resumeGame.emit();
+    }, 600);
   }
 
   addTimePlay() {
-    if (this.gameService.score < this.idcExtraScore) {
-      this.tooltipShow();
-    } else {
-      const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });
-      this.elementRef.nativeElement.dispatchEvent(domEvent);
-      this.gameService.timeLeft = 20;
-      this.gameService.score -= this.idcExtraScore;
-      // this.gameService.levelInitialise.next();
-      this.gameService.resumeGame.emit();
-      this.gameService.extraTimeTaken = true;
-    }
+    setTimeout(() => {
+      if (this.gameService.score < this.idcExtraScore) {
+        this.tooltipShow();
+      } else {
+        const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });
+        this.elementRef.nativeElement.dispatchEvent(domEvent);
+        this.gameService.timeLeft = 20;
+        this.gameService.score -= this.idcExtraScore;
+        // this.gameService.levelInitialise.next();
+        this.gameService.resumeGame.emit();
+        this.gameService.extraTimeTaken = true;
+      }
+    }, 600);
   }
 
   tooltipShow() {

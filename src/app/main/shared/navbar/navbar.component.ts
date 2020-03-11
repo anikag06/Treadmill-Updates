@@ -24,6 +24,7 @@ import {
 import { AuthService } from '@/shared/auth/auth.service';
 import { GamePlayService } from '@/main/games/shared/game-play.service';
 import { FlowService } from '@/main/flow/flow.service';
+import { ConversationsService } from '@/main/resources/conversation-group/conversations.service';
 
 @Component({
   selector: 'app-navbar',
@@ -45,6 +46,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   can!: any;
   isDashboard = false;
   isConversation = false;
+  convMode = false;
   @Input() user!: User;
 
   constructor(
@@ -55,6 +57,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private auth: AuthService,
     private gamePlayService: GamePlayService,
     private flowService: FlowService,
+    private conversationservice: ConversationsService,
   ) {
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationStart) {
@@ -84,6 +87,12 @@ export class NavbarComponent implements OnInit, OnDestroy {
             ' ' +
             this.flowService.stepName;
         });
+        this.notificationService.showFullConvIcon.subscribe(() => {
+          this.convMode = true;
+        });
+        this.notificationService.removeFullConvIcon.subscribe(() => {
+          this.convMode = false;
+        });
       }
 
       if (event instanceof NavigationError) {
@@ -105,6 +114,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.intervalSubscription = interval(60000).subscribe(() => {
       this.getNotificationsCount();
     });
+
   }
 
   notificationClick() {
@@ -149,6 +159,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
     notificationCountPromise
       .then((data: any) => (this.unreadCount = data.data))
       .catch(error => console.log(error));
+  }
+
+  onshowFullConversation() {
+    this.notificationService.showFullConv.emit();
   }
   // getRouteInfo(data: string) {
   //   console.log(data);

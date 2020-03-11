@@ -1,5 +1,6 @@
 .app-navbar {
-  height: 100px;
+  // height: 100px;
+  height: 12vh;
   width: 100%;
 
   h1 {
@@ -122,6 +123,10 @@
 
       .icon-items {
         margin: 10px 20px;
+      }
+
+      #showFullConversation {
+        color: white !important;
       }
 
       .unread-count {

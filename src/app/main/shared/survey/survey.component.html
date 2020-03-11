@@ -11,7 +11,7 @@
           Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
           laborum.
         </div>
-        <button type="button" class="active-button" mat-stroked-button (click)="loadQuestions()"> Start
+        <button type="button" class="disabled-button" mat-stroked-button (click)="loadQuestions($event)"> Start
           Survey</button>
       </div>
     </div>
@@ -58,8 +58,8 @@
                 Thank you for your feedback.
               </div>
               <div class="row justify-content-center">
-                <button type="button" class="disabled-button" style="margin-top:60px; min-width: 140px !important;"
-                  mat-stroked-button *ngIf="submit" (click)="onSubmit()">Submit
+                <button type="button" class="disabled-button" style="margin-top:60px;min-width: 140px !important;"
+                  mat-stroked-button *ngIf="submit" (click)="onSubmit($event)">Submit
                 </button>
               </div>
             </div>

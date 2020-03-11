@@ -15,6 +15,8 @@ import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service
 import { MIGameUserData } from '@/main/games/shared/game-play.model';
 import { BadgesInfo } from '@/main/games/shared/game-badges.model';
 import { GamesBadgesService } from '@/main/games/shared/games-badges.service';
+import { GamesFeedbackComponent } from '../../games-feedback/games-feedback.component';
+import { GamesFeedbackService } from '../../games-feedback/games-feedback.service';
 
 declare function require(name: string): any;
 
@@ -102,7 +104,9 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
     private miPlayService: MIPlayService,
     private dialogBoxService: DialogBoxService,
     private badgesService: GamesBadgesService,
-  ) {}
+    private el: ElementRef,
+    private gamesFeedbackService: GamesFeedbackService,
+  ) { }
 
   ngOnInit() {
     this.getCurrentStateService.setInitialOrder();
@@ -124,6 +128,7 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
         this.user = this.getCurrentStateService.user;
         this.currentPoints = this.user.currentPoints();
         // this.situationHandler();
+
       });
     });
     this.miPlayService.levelUpdate.subscribe(() => {
@@ -131,8 +136,14 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
       this.getCurrentStateService.continuePlaying = true;
       this.situationHandler();
     });
+    this.gamesFeedbackService.feedback.subscribe(() => {
+      this.nextLevelPopup();
+    });
   }
 
+  ngAfterViewInit(): void {
+
+  }
   ngAfterContentInit() {
     // this.currentLevel = this.getCurrentStateService.getCurrentLevel();
     // this.getCurrentStateService.getScenario();
@@ -382,6 +393,22 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
   }
 
   onClickDone() {
+    if (this.currentLevel.order === 3 && this.getCurrentStateService.ask_feedback) {
+      const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
+      this.el.nativeElement.dispatchEvent(domEvent);
+      this.dialogBoxService.setDialogChild(GamesFeedbackComponent);
+      console.log('give feedback');
+    } else {
+      // this.levelChanged = false;
+      // const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
+      // this.doneBtn.nativeElement.dispatchEvent(domEvent);
+      // this.dialogBoxService.setDialogChild(MiWinComponent);
+      // this.nextLevel = this.getCurrentStateService.getNextLevel();
+      this.nextLevelPopup();
+    }
+  }
+
+  nextLevelPopup() {
     this.levelChanged = false;
     const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
     this.doneBtn.nativeElement.dispatchEvent(domEvent);

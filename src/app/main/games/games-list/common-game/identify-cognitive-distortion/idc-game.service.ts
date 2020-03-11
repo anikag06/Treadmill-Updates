@@ -24,7 +24,7 @@ export class IdcGameService {
   levelInitialise = new Subject();
   stopTimer = new Subject();
   startTimer = new EventEmitter();
-
+  replay = false;
   playing = false;
   selectedCorrectOptionsSet = new Set();
   game!: any;
@@ -75,6 +75,7 @@ export class IdcGameService {
     message: 'message',
   });
 
+  ask_feedback!: boolean;
   time!: any;
   situation_displayed_at!: any;
   BRONZE_CONSTANT!: any;
@@ -109,7 +110,7 @@ export class IdcGameService {
     // this.difficultyValue = 0.1 * 100;
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   serviceCall() {
     console.log('question id', this.questionId);
@@ -191,6 +192,7 @@ export class IdcGameService {
       this.SILVER_CONSTANT = data.SILVER_CONSTANT;
       this.GOLD_CONSTANT = data.GOLD_CONSTANT;
       this.showTutorial = data.show_tutorial;
+      this.ask_feedback = data.ask_for_feedback;
       this.timeLeft = data.time;
       this.timeAlloted = data.time;
       if (data.last_completed_order === 6) {

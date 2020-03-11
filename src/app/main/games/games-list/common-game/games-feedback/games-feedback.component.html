@@ -1,0 +1,57 @@
+<div class="game-feedback">
+  <div class="text-center">
+    <h4>Like the game?</h4>
+    <div class="like-dislike-btns my-4">
+      <img src="../../../../../../assets/games/feedback/Like_disabled_feedback.png" width="48" height="48"
+        *ngIf="!liked" style="margin-right:16px;" (click)="onLikeBtnClick()">
+      <img src="../../../../../../assets/games/feedback/Like_enabled_feedback.png" width="48" height="48" *ngIf="liked"
+        style="margin-right:16px;">
+      <img src="../../../../../../assets/games/feedback/dislike_disabled_feedback.png" width="48" height="48"
+        *ngIf="!disliked" (click)="onDislikeBtnClick()">
+      <img src="../../../../../../assets/games/feedback/dislike_enabled_feedback.png" width="48" height="48"
+        *ngIf="disliked" (click)="onDislikeBtnClick()">
+    </div>
+    <p class="text-center" *ngIf="thank_text">
+      Thanks for your feedback
+    </p>
+  </div>
+
+  <div class="feedback-div" *ngIf="giveFeedback">
+    <p class="text-center" *ngIf="liked">
+      We're glad that you liked the game
+    </p>
+    <p class="text-center" *ngIf="disliked">
+      Sorry about that
+    </p>
+    <div class="d-flex flex-column feedback-text justify-content-start">
+
+      <div *ngIf="liked"> Let us know what you liked </div>
+      <div *ngIf="disliked"> How can we improve?</div>
+
+      <textarea class="w-100 my-2" rows="3" #feedbackText placeholder="Your message goes here ..."> </textarea>
+      <div class="d-flex flex-row">
+        <button class="submit-btn" mat-raised-button (click)="onSubmitCommentClicked(feedbackText.value)"
+          color="primary">
+          Submit
+        </button>
+        &nbsp;
+        <button class="cancel-btn" mat-raised-button (click)="onCancel()" color="primary">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center
+   align-items-end  mt-4" *ngIf="!giveFeedback">
+    <button class="btn btn-sm close-btn align-self-end text-muted " (click)="onClose()"
+      *ngIf="!lhGamePlayAgain && !lhGameHome">Continue to game</button>
+    <button class="btn btn-sm close-btn align-self-end text-muted " (click)="onClose()" *ngIf="lhGamePlayAgain">Play
+      again</button>
+    <button class="btn btn-sm close-btn align-self-end text-muted " (click)="onClose()" *ngIf="lhGameHome">Go to
+      dashboard</button>
+
+
+  </div>
+
+
+</div>

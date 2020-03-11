@@ -29,6 +29,19 @@ import { AngularEditorModule } from '@arkaghosh024/angular-editor';
 import { SanitizationService } from './shared/sanitization.service';
 import { SafeHtmlPipe } from './support-groups/safe-html.pipe';
 import { LayoutModule } from '@angular/cdk/layout';
+import {
+  MatToolbarModule,
+  MatButtonModule,
+  MatSidenavModule,
+  MatIconModule,
+  MatListModule,
+  MatDatepickerModule,
+  MatDialogModule,
+  MatNativeDateModule,
+  MatSlideToggleModule,
+  MatExpansionModule,
+  MatRippleModule,
+} from '@angular/material';
 import { MatProgressBarModule } from '@angular/material';
 import { ScrollingDirective } from './shared/scrolling.directive';
 import { ScrollingService } from './shared/scrolling.service';
@@ -160,6 +173,8 @@ import { SurveyComponent } from './shared/survey/survey.component';
 import { SurveyService } from './shared/survey.service';
 import { DisableClickDirective } from '@/shared/disable-click.directive';
 import { SlidesVideoComponent } from './resources/slides/slides-video/slides-video.component';
+import { GamesFeedbackComponent } from './games/games-list/common-game/games-feedback/games-feedback.component';
+import { GamesFeedbackService } from './games/games-list/common-game/games-feedback/games-feedback.service';
 import { ThingsTodoService } from '@/main/dashboard/things-todo/things-todo.service';
 
 @NgModule({
@@ -263,6 +278,7 @@ import { ThingsTodoService } from '@/main/dashboard/things-todo/things-todo.serv
     ToastNotificationDirective,
     SurveyComponent,
     DisableClickDirective,
+    GamesFeedbackComponent,
   ],
   imports: [
     CommonModule,
@@ -284,6 +300,7 @@ import { ThingsTodoService } from '@/main/dashboard/things-todo/things-todo.serv
     MatTooltipModule,
     QuestionnaireModule,
     ResourcesModule,
+    MatRippleModule,
   ],
   providers: [
     LocalStorageService,
@@ -319,6 +336,7 @@ import { ThingsTodoService } from '@/main/dashboard/things-todo/things-todo.serv
     WorryProductivelyService,
     SurveyService,
     ThingsTodoService,
+    GamesFeedbackService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [
@@ -354,6 +372,7 @@ import { ThingsTodoService } from '@/main/dashboard/things-todo/things-todo.serv
     LoadingBarComponent,
     ToastNotificationComponent,
     SlidesVideoComponent,
+    GamesFeedbackComponent,
   ],
 })
-export class MainModule {}
+export class MainModule { }

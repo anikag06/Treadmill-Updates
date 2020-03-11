@@ -13,7 +13,7 @@
         <div *ngIf="user.is_exp">
           <div class="icon-items" (menuClosed)="notificationClick()" (menuOpened)="notificationClick()"
             [matMenuTriggerFor]="appNavBarNotify">
-            <img src="assets/shared/Notification.png" height=" 40px" width="40px" alt="Flow">
+            <img src="assets/shared/Notification.png" height=" 36px" width="36px" alt="Flow">
           </div>
           <div class="unread-count" *ngIf="unreadCount > 0">
             <span *ngIf="unreadCount < 100; else manyMore">{{
@@ -27,11 +27,14 @@
                 </div> -->
         <div class="icon-items" (menuClosed)="flowClick($event)" (menuOpened)="flowClick($event)"
           [matMenuTriggerFor]="appNavBarFlow">
-          <img src="assets/shared/Flow.png" height=" 40px" width="40px" alt="Flow">
+          <img src="assets/shared/Flow.png" height=" 36px" width="36px" alt="Flow">
         </div>
       </div>
       <div class="all-icons-mobile">
         <div class="d-flex flex-row-reverse">
+          <button mat-icon-button id="showFullConversation" [matMenuTriggerFor]="showFullConversation" *ngIf="convMode">
+            <mat-icon>more_vert</mat-icon>
+          </button>
           <div *ngIf="user.is_exp">
             <div class="icon-items" (menuClosed)="notificationClick()" (menuOpened)="notificationClick()"
               [matMenuTriggerFor]="appNavBarNotify">
@@ -51,6 +54,12 @@
       </div>
     </div>
   </div>
+
+  <mat-menu #showFullConversation="matMenu" xPosition="before">
+    <button mat-menu-item (click)="onshowFullConversation()" class="">
+      <span>Show full conversation</span>
+    </button>
+  </mat-menu>
 
   <mat-menu #appNavBarFlow="matMenu" xPosition="before" yPosition="below" class="navBarPanelClass">
     <div class="row w-100 h-100 px-0 mx-0 " (click)="$event.stopPropagation()">

@@ -45,7 +45,7 @@ export class IdcOptionsComponent implements OnInit {
   constructor(
     private gameService: IdcGameService,
     private dialogBoxService: DialogBoxService,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.optionsCall();
@@ -66,6 +66,15 @@ export class IdcOptionsComponent implements OnInit {
     this.gameService.resumeGame.subscribe(() => {
       this.optionStatus = this.gameService.optionStatus;
       this.optionStatusCount = this.gameService.optionStatusCount;
+      if (this.gameService.replay === true) {
+        this.gameService.replay = false;
+        const button = this.element.nativeElement.querySelectorAll('button');
+        console.log('BUTTON', button);
+        for (let i = button.length - 1; i >= 0; i--) {
+          button[i].classList.remove('correctOption');
+          button[i].classList.remove('incorrectOption');
+        }
+      }
     });
   }
 

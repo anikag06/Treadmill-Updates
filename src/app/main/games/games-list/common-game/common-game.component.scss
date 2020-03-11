@@ -1,110 +1,141 @@
 @import "styles.scss";
 @import "../../shared/games-common.scss";
 
-#game_div{
-    max-width: 900px;
-    height: 78vh;
-    max-height: 540px;
-    margin-left: auto;
-    margin-right: auto;
-    position: relative;
+#game_div {
+  max-width: 900px;
+  height: 524px;
+  // max-height: 524px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
 }
-.common-div{
-    max-height: 100%;
-    height: 100%;
-    margin-bottom: 2%;
+
+.common-div {
+  max-height: 100%;
+  height: 100%;
+  margin-bottom: 2%;
 }
-.row{
-    margin-left: 0%;
-    margin-right: 0%;
-    padding: 0%;
+
+.row {
+  margin-left: 0%;
+  margin-right: 0%;
+  padding: 0%;
 }
-#common-pause-clicked-div{
-    max-width: 15%;
-    max-height: 100%;
-    height: 100%;
-    position: absolute;
-    margin-left: 0%;
-    background-color: rgba($color: #ffffff, $alpha: 0.7);
-    z-index: 5;
+
+#common-pause-clicked-div {
+  max-width: 15%;
+  max-height: 100%;
+  height: 100%;
+  position: absolute;
+  margin-left: 0%;
+  background-color: rgba($color: #ffffff, $alpha: 0.7);
+  z-index: 5;
 }
-.common-pause-clicked{
-    margin-top: 40%;
-    // margin-bottom: auto; 
+
+.common-pause-clicked {
+  margin-top: 40%;
+  // margin-bottom: auto; 
 }
-.firstpage-btns{
-    z-index: 1;
+
+.firstpage-btns {
+  z-index: 1;
 }
-#pause-common-div{
-    z-index: 1;
+
+#pause-common-div {
+  z-index: 1;
 }
-.center-postion{
-    margin-top: -3.3rem !important;
-    max-width: 360px;
-    margin-left: auto;
-    margin-right: auto;
+
+.center-postion {
+  margin-top: -3.3rem !important;
+  max-width: 360px;
+  margin-left: auto;
+  margin-right: auto;
 }
-.end-position{
-    margin-top: -3.7rem !important;
-    max-width: 100%;
+
+.end-position {
+  margin-top: -3.7rem !important;
+  max-width: 100%;
 }
-.play-game-btn{
-    margin-top: -10rem !important;
+
+.play-game-btn {
+  margin-top: -10rem !important;
 }
-#common-start-btn{
-    z-index: 2;
-    max-width: 60px;
+
+#common-start-btn {
+  z-index: 2;
+  max-width: 60px;
 }
+
 // #common-pause,.common-sound, #common-hint {
 //     z-index: 1;
 // }
-.paused-game-btns{
+.paused-game-btns {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media screen and (max-width: 991px) and (max-width:767px) {
+  #common-pause-clicked-div {
+    max-width: 25%;
+  }
+
+  .common-pause-clicked {
     margin-left: auto;
-    margin-right:auto;
+    margin-right: auto;
+    margin-top: 10%;
+    padding: 0%;
+  }
+
+  .paused-game-btns {
+    padding: 0%;
+
+  }
+
+  #game_div,
+  .common-div {
+    max-width: 100%;
+    // min-height: 90vh !important;
+    // max-height: 100%;
+    padding: 0%;
+  }
+
+  #pause-common-div {
+    margin-top: -3rem !important;
+    z-index: 1;
+  }
+
+  .play-game-btn {
+    margin-top: -12rem !important;
+  }
 }
-@media screen and (max-width: 991px)  and (max-width:767px){
-    #common-pause-clicked-div{
-        max-width: 25%;
-    }
-    .common-pause-clicked{
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 10%;
-        padding: 0%;
-    }
-    .paused-game-btns{
-        padding: 0%;
-    
-    }
-    #game_div,.common-div{
-        max-width: 100%;
-        min-height: 85vh !important;
-        // max-height: 100%;
-        padding: 0%;
-    }
-    #pause-common-div{
-        margin-top: -3rem !important;
-        z-index: 1;
-    }
-    .play-game-btn{
-        margin-top: -12rem !important;
-    }
-}
+
 #game_div:focus {
-    outline: 0px solid transparent;
+  outline: 0px solid transparent;
 }
+
 @media screen and (max-width: 767px) and (orientation:landscape) {
-    #game_div,.common-div{
-       max-height: 95vh;
-       min-height: 290px;
-    }
-    #pause-common-div{
-        margin-top: -3.5rem !important;
-    }
-    .play-game-btn{
-        margin-top: -10rem !important;
-    }
-    #common-pause-clicked-div{
-        max-width: 20%;
-    }
+
+  #game_div,
+  .common-div {
+    max-height: 95vh;
+    min-height: 290px;
+  }
+
+  #pause-common-div {
+    margin-top: -3.5rem !important;
+  }
+
+  .play-game-btn {
+    margin-top: -10rem !important;
+  }
+
+  #common-pause-clicked-div {
+    max-width: 20%;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  #game_div {
+    // height: 85vh;
+  }
 }

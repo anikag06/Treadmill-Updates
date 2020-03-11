@@ -96,6 +96,7 @@ import { FormMessageComponent } from './forms/shared/form-message/form-message.c
 import { FormQuoteComponent } from './forms/shared/form-quote/form-quote.component';
 import { SlidesBottomsheetComponent } from './slides/slides-bottomsheet/slides-bottomsheet.component';
 import { SlidesVideoComponent } from './slides/slides-video/slides-video.component';
+import { ConversationsService } from './conversation-group/conversations.service';
 
 import { FormFinalRatingComponent } from './forms/shared/form-final-rating/form-final-rating.component';
 import {
@@ -228,6 +229,7 @@ import { ScrollToTopDirective } from '@/main/shared/scrollToTop/scroll-to-top.di
     ThoughtHelpService,
     BeliefChangeService,
     ActAsIfService,
+    ConversationsService,
     {
       provide: 'IFinalRatingServices',
       useClass: NegativeBeliefFinalService,
@@ -285,4 +287,4 @@ import { ScrollToTopDirective } from '@/main/shared/scrollToTop/scroll-to-top.di
     ScrollToTopDirective,
   ],
 })
-export class ResourcesModule {}
+export class ResourcesModule { }
