@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {
   SLIDES_FEEDBACK,
@@ -14,7 +14,9 @@ import { environment } from 'environments/environment';
   providedIn: 'root',
 })
 export class SlideService {
-  constructor(private http: HttpClient) {}
+  highlightBtn = new EventEmitter();
+
+  constructor(private http: HttpClient) { }
 
   getFeedBackInfo(slideId: number): Observable<any> {
     console.log(slideId);

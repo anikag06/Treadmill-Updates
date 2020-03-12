@@ -8,6 +8,7 @@ import {
 import { MatDialogRef } from '@angular/material';
 import { SafeUrl, DomSanitizer } from '@angular/platform-browser';
 import { LoadFilesService } from '@/main/games/shared/load-files.service';
+import { SlideService } from '../slide.service';
 
 @Component({
   selector: 'app-slides-video',
@@ -19,7 +20,7 @@ export class SlidesVideoComponent implements OnInit, AfterViewInit {
   videoUrl =
     'https://www.youtube.com/embed/k5E2AVpwsko?autoplay=1&enablejsapi=1&mute=1';
   player!: any;
-  videoTimeLeft = 10;
+  videoTimeLeft = 30;
 
   @ViewChild('slideVideo', { static: false }) slideVideo!: ElementRef;
   @ViewChild('backBtn', { static: false }) backBtn!: ElementRef;
@@ -28,7 +29,9 @@ export class SlidesVideoComponent implements OnInit, AfterViewInit {
     public dialogRef: MatDialogRef<SlidesVideoComponent>,
     private sanitizer: DomSanitizer,
     private loadFileService: LoadFilesService,
-  ) {}
+    private slideService: SlideService,
+  ) { }
+
 
   ngAfterViewInit() {
     this.loadFileService.loadExternalScript(
@@ -55,7 +58,10 @@ export class SlidesVideoComponent implements OnInit, AfterViewInit {
         });
       }, 1000);
     };
-
+    this.slideService.highlightBtn.subscribe(() => {
+      this.backBtn.nativeElement.setAttribute('mat-flat-button', '');
+      this.backBtn.nativeElement.classList.add('back-btn');
+    });
     this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
       this.videoUrl,
     );
@@ -67,14 +73,17 @@ export class SlidesVideoComponent implements OnInit, AfterViewInit {
 
     const videoInt = setInterval(() => {
       console.log('current time', this.player.getCurrentTime());
+      console.log('duration left', this.player.getDuration() - this.videoTimeLeft);
       if (
         this.player.getCurrentTime() >=
         this.player.getDuration() - this.videoTimeLeft
       ) {
+        this.slideService.highlightBtn.emit();
         clearInterval(videoInt);
-        this.enableBackBtn();
       }
     }, 1000);
+    console.log('back btn', this.backBtn.nativeElement);
+
   }
 
   onPlayerStateChange(event: any) {
@@ -83,9 +92,5 @@ export class SlidesVideoComponent implements OnInit, AfterViewInit {
 
   onBack() {
     this.dialogRef.close();
-  }
-
-  enableBackBtn() {
-    this.backBtn.nativeElement.classList.add('back-higlight-text');
   }
 }

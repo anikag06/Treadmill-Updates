@@ -86,7 +86,7 @@ export class SlidesComponent implements OnInit {
     private flowStepService: FlowStepNavigationService,
     private stepDataService: StepsDataService,
     private _bottomSheet: MatBottomSheet,
-  ) {}
+  ) { }
 
   slide!: Slide;
   sanitizedUrl!: SafeUrl;
@@ -190,8 +190,8 @@ export class SlidesComponent implements OnInit {
   }
 
   ngAfterContentInit(): void {
-    this.screenHeight = window.screen.height;
-    this.screenWidth = window.screen.width;
+    this.screenHeight = window.innerHeight;
+    this.screenWidth = window.innerWidth;
     setTimeout(() => this.openBottomSheet(), 2000);
   }
 
@@ -246,7 +246,7 @@ export class SlidesComponent implements OnInit {
     this.completionData.step_id = this.current_step_id;
     this.stepDataService
       .storeCompletionData(this.completionData)
-      .subscribe(data => {});
+      .subscribe(data => { });
     this.commonDialogService.openCongratsDialog(
       this.current_step_id,
       this.next_step_id,
@@ -272,7 +272,7 @@ export class SlidesComponent implements OnInit {
     this.feedbackText.feedback_text = this.userFeedback.feedback_text;
     this.slideService
       .updateFeedBackInfo(this.feedbackText, this.feedbackDataId)
-      .subscribe(data => {});
+      .subscribe(data => { });
     this.scrollTop = 0;
   }
   openBottomSheet() {
