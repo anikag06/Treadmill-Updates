@@ -49,7 +49,7 @@ export const POSITIVE_EMOTIONS = [
 ];
 
 // Game names
-export const INTERPRETATION_BIAS_GAME = 'Word search';
+export const INTERPRETATION_BIAS_GAME = 'Word jumble';
 export const EXECUTIVE_CONTROL_GAME = 'Sprint';
 export const FRIENDLY_FACE_GAME = 'Find a smile';
 export const LEARNED_HELPLESSNESS_GAME = 'Solve it';
@@ -413,11 +413,11 @@ export const EXPLORE_MAP = new Map([
   ],
   [
     FORM_WORRY_PRODUCTIVELY,
-    ['/resources/forms/' + WORRY_PRODUCTIVELY, 'Worry productively'],
+    ['/resources/forms/' + WORRY_PRODUCTIVELY, 'Control a worry'],
   ],
   [
     FORM_THOUGHT_RECORD,
-    ['/resources/forms/' + THOUGHT_RECORD, 'Record a thought'],
+    ['/resources/forms/' + THOUGHT_RECORD, 'Evaluate a thought'],
   ],
   [
     FORM_EXPERIMENT_TO_TEST_BELIEF,
@@ -427,44 +427,44 @@ export const EXPLORE_MAP = new Map([
     GAME_ATTRIBUTION_STYLE_CONSTANT,
     [
       '/games/' + GAME_ATTRIBUTION_STYLE_CONSTANT,
-      'Learn about your attribution style',
+      'Play: ' + ATTRIBUTE_STYLE_GAME,
     ],
   ],
   [
     GAME_INTERPRETATION_BIAS_CONSTANT,
-    ['/games/' + GAME_INTERPRETATION_BIAS_CONSTANT, 'Be more positive'],
+    [
+      '/games/' + GAME_INTERPRETATION_BIAS_CONSTANT,
+      'Play: ' + INTERPRETATION_BIAS_GAME,
+    ],
   ],
   [
     GAME_LEARNED_HELPLESSNESS_CONSTANT,
     [
       '/games/' + GAME_LEARNED_HELPLESSNESS_CONSTANT,
-      'Learn about learned helplessness',
+      'Play: ' + LEARNED_HELPLESSNESS_GAME,
     ],
   ],
   [
     GAME_FRIENDLY_FACE_CONSTANT,
-    [
-      '/games/' + GAME_FRIENDLY_FACE_CONSTANT,
-      'Look at the positive things in life',
-    ],
+    ['/games/' + GAME_FRIENDLY_FACE_CONSTANT, 'Play: ' + FRIENDLY_FACE_GAME],
   ],
   [
     GAME_EXECUTIVE_CONTROL_CONSTANT,
-    ['/games/' + GAME_EXECUTIVE_CONTROL_CONSTANT, 'Stop ruminating'],
+    [
+      '/games/' + GAME_EXECUTIVE_CONTROL_CONSTANT,
+      'Play: ' + EXECUTIVE_CONTROL_GAME,
+    ],
   ],
   [
     GAME_IDENTIFY_COGNITIVE_DISTORTION_CONSTANT,
     [
       '/games/' + GAME_IDENTIFY_COGNITIVE_DISTORTION_CONSTANT,
-      'Identify negative thoughts',
+      'Play: ' + IDENTIFY_COGNITIVE_DISTORTION_GAME,
     ],
   ],
   [
     GAME_MENTAL_IMAGERY_CONSTANT,
-    [
-      '/games/' + GAME_MENTAL_IMAGERY_CONSTANT,
-      'Think positively about the future',
-    ],
+    ['/games/' + GAME_MENTAL_IMAGERY_CONSTANT, 'Play: ' + MENTAL_IMAGERY_GAME],
   ],
-  [MINDFULNESS_VIDEO, ['/extra-resources', 'Practice mindfulness']],
+  [MINDFULNESS_VIDEO, ['extra-resources/videoItem/', 'Watch: ']],
 ]);

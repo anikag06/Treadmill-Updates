@@ -3,7 +3,12 @@
     <h3>Explore</h3>
     <ul class="things-todo-main-list">
       <li *ngFor="let todo of todoList; let i = index" class="things-todo-item">
-        <a (click)="onThingsTodoClicked(todo[0])" class="things-todo-text"><img class="icon-item" [src]="iconList[i]" alt="icon"/>{{todo[1]}}</a>
+        <a (click)="onThingsTodoClicked(todo[0])" class="things-todo-text">
+          <div class="d-flex flex-row">
+            <div class="align-self-center"><img class="icon-item" [src]="iconList[i]" alt="icon"/></div>
+            <div class="align-self-center">{{todo[1]}}</div>
+          </div>
+        </a>
         <br>
       </li>
     </ul>

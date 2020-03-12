@@ -14,29 +14,39 @@ export class ThingsTodoComponent implements OnInit {
     private thingsTodoService: ThingsTodoService,
     private router: Router,
   ) {}
-  todoList = [];
+  todoList: any[] = [];
   iconList: String[] = [];
 
   ngOnInit() {
     this.thingsTodoService.getThingsTodo().subscribe((data: any) => {
       console.log('data: ', data.data);
-      data.data.forEach((element: any) => {
+      data.data.final_list.forEach((element: any) => {
         console.log('element: ', element);
         if (element[0].indexOf('FORM') !== -1) {
           this.iconList.push('../../../../assets/modules/icon-form-wb.png');
+          // @ts-ignore
+          this.todoList.push(EXPLORE_MAP.get(element[0]));
         } else if (element[0].indexOf('GAME') !== -1) {
           this.iconList.push('../../../../assets/modules/icon-game-wb.png');
+          // @ts-ignore
+          this.todoList.push(EXPLORE_MAP.get(element[0]));
         } else {
           this.iconList.push('../../../../assets/modules/icon-video-wb.png');
+          const obj = EXPLORE_MAP.get(element[0]);
+          // @ts-ignore
+          const link = obj[0];
+          // @ts-ignore
+          const title = obj[1];
+          this.todoList.push([
+            link + data.data.video_id,
+            title + data.data.video_title,
+          ]);
         }
-        // @ts-ignore
-        this.todoList.push(EXPLORE_MAP.get(element[0]));
       });
     });
   }
 
   onThingsTodoClicked(element: any) {
-    console.log('ELEMENT: ', element);
     this.router.navigate([element]);
   }
 }

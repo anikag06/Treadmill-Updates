@@ -44,7 +44,6 @@
 }
 
 .things-todo-item {
-  margin-bottom: 20px !important;
   margin-left: -17px !important;
 }
 
@@ -76,9 +75,6 @@
 
     .things-todo-main {
       border-top: 50px solid #2DAA84;
-
-      // height: 253px;
-
       .mat-checkbox-label {
         font-size: 14px !important;
       }
@@ -88,12 +84,8 @@
 
 @media screen and (max-width: 991px) {
   .things-todo {
-    // width: 280px;
-
     .things-todo-main {
       border-top: 50px solid #2DAA84;
-
-
     }
   }
 }
@@ -108,14 +100,12 @@
 
 @media screen and (max-width: 767px) {
   .things-todo {
-    // width: 330px;
     width: 100%;
     max-width: 400px;
     margin: auto;
     margin-bottom: 20px;
 
     .things-todo-main {
-      height: 205px;
       border-top: 40px solid #2DAA84;
 
       h3 {
