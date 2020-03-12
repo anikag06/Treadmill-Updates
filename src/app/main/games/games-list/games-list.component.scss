@@ -1,21 +1,24 @@
 @import "styles.scss";
 
 .games-section {
-    padding-left: 80px;
-    min-height: 80vh;
+  padding-left: 80px;
+  padding-right: 80px;
+  min-height: 80vh;
 }
+
 .loader {
-    padding-top: 12%;
-    width: 100%;
+  padding-top: 12%;
+  width: 100%;
 }
+
 @media screen and (max-width: 991px) {
-    .games-section {
-        padding-left: 0px;
-    }
+  .games-section {
+    // padding-left: 0px;
+  }
 }
 
 @media screen and (max-width: 767px) {
-    .games-section {
-        padding-left: 0px;
-    }
+  .games-section {
+    padding-left: 0px;
+  }
 }

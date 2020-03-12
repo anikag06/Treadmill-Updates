@@ -20,49 +20,49 @@ export class GamesService {
   games = [
     new Game(
       'Interpretation Bias Game',
-      'https://via.placeholder.com/360x200?text=Mario',
+      '../../../assets/games/games-list/Word Jumble.png',
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.',
       GAME_INTERPRETATION_BIAS,
     ),
     new Game(
       'Executive Control Game',
-      'https://via.placeholder.com/360x200?text=Mario',
+      '../../../assets/games/games-list/Executive control game.png',
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.',
       GAME_EXECUTIVE_CONTROL,
     ),
     new Game(
       'Learned Helplessness Game',
-      'https://via.placeholder.com/360x200?text=Mario',
+      '../../../assets/games/games-list/Puzzle.png',
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.',
       GAME_LEARNED_HELPLESSNESS,
     ),
     new Game(
       'Identify Cognitive Distortion',
-      'https://via.placeholder.com/360x200?text=Mario',
+      '../../../assets/games/games-list/.png',
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.',
       GAME_IDENTIFY_COGNITIVE_DISTORTION,
     ),
     new Game(
       'Attribute Style Game',
-      'https://via.placeholder.com/360x200?text=Mario',
+      '../../../assets/games/games-list/Shoot the balloon.png',
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.',
       GAME_ATTRIBUTION_STYLE,
     ),
     new Game(
       'Friendly Face Game',
-      'https://via.placeholder.com/360x200?text=Mario',
+      '../../../assets/games/games-list/Find a smile.png',
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.',
       GAME_FRIENDLY_FACE,
     ),
     new Game(
       'Mental Imagery Game',
-      'https://via.placeholder.com/360x200?text=Mario',
+      '../../../assets/games/games-list/.png',
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.',
       GAME_MENTAL_IMAGERY,
     ),
   ];
 
-  constructor(private localStorageService: LocalStorageService) {}
+  constructor(private localStorageService: LocalStorageService) { }
 
   getGames() {
     let games = <Game[]>this.localStorageService.getItemWithDate(GAMES);
