@@ -26,13 +26,13 @@ export class GamesService {
     ),
     new Game(
       'Executive Control Game',
-      '../../../assets/games/games-list/Executive control game.png',
+      '../../../assets/games/games-list/Executive Control Game@2x.png',
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.',
       GAME_EXECUTIVE_CONTROL,
     ),
     new Game(
       'Learned Helplessness Game',
-      '../../../assets/games/games-list/Puzzle.png',
+      '../../../assets/games/games-list/Puzzle@2x.png',
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.',
       GAME_LEARNED_HELPLESSNESS,
     ),

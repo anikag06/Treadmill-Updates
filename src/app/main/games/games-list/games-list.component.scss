@@ -1,8 +1,8 @@
 @import "styles.scss";
 
 .games-section {
-  padding-left: 80px;
-  padding-right: 80px;
+  padding-left: 120px;
+  padding-right: 120px;
   min-height: 80vh;
 }
 
@@ -11,14 +11,24 @@
   width: 100%;
 }
 
-@media screen and (max-width: 991px) {
+
+@media screen and (max-width:1400px) {
   .games-section {
-    // padding-left: 0px;
+    padding-left: 80px;
+    padding-right: 80px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .games-section {
+    padding-left: 30px;
+    padding-right: 30px;
   }
 }
 
 @media screen and (max-width: 767px) {
   .games-section {
-    padding-left: 0px;
+    padding-left: 80px;
+    padding-right: 80px;
   }
 }
