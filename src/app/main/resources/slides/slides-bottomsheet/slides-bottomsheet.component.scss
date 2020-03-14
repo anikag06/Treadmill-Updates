@@ -18,6 +18,14 @@
 
   .relax-img {}
 
+  .no-clicked-area {
+    font-size: 16px;
+  }
+
+  input[type=checkbox] {
+    transform: scale(1.5);
+    background-color: #2A3B3D !important;
+  }
 
   .no-btn {
     width: 64px;

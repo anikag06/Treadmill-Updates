@@ -29,6 +29,7 @@ import {
   FORM_TASK,
   COMPLETED,
   ACTIVE,
+  SHOW_MINDFULNESS_VIDEO,
 } from '@/app.constants';
 import { CommonDialogsService } from '../shared/common-dialogs.service';
 import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.service';
@@ -115,6 +116,7 @@ export class SlidesComponent implements OnInit {
   step_type: any;
   screenHeight: any;
   screenWidth: any;
+  showVideo = false;
 
   ngOnInit() {
     this.activateRoute.params
@@ -192,7 +194,11 @@ export class SlidesComponent implements OnInit {
   ngAfterContentInit(): void {
     this.screenHeight = window.innerHeight;
     this.screenWidth = window.innerWidth;
-    setTimeout(() => this.openBottomSheet(), 2000);
+    this.slideService.getVideo().subscribe((data: any) => {
+      if (data.data.hook[0] === SHOW_MINDFULNESS_VIDEO) {
+        setTimeout(() => this.openBottomSheet(), 2000);
+      }
+    });
   }
 
   loadForm(component: any) {

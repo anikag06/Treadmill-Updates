@@ -7,6 +7,8 @@ import {
 } from '@angular/core';
 import { MatBottomSheetRef, MatDialog } from '@angular/material';
 import { SlidesVideoComponent } from '../slides-video/slides-video.component';
+import { SlideService } from '../slide.service';
+import { SlidesVideoOpted, SlidesVideoShowStatus } from '../slides-video.model';
 
 @Component({
   selector: 'app-slides-bottomsheet',
@@ -15,11 +17,17 @@ import { SlidesVideoComponent } from '../slides-video/slides-video.component';
 })
 export class SlidesBottomsheetComponent implements OnInit {
   srcWidth!: number;
+  noClicked = false;
+  opted!: boolean;
+  videoOpted!: SlidesVideoOpted;
+  videoShowAgain!: SlidesVideoShowStatus;
+
   @ViewChild('yesbtn', { static: false }) yesbtn!: ElementRef;
   constructor(
     private _bottomSheetRef: MatBottomSheetRef<SlidesBottomsheetComponent>,
     public dialog: MatDialog,
     private element: ElementRef,
+    private slideService: SlideService
   ) {
     this.getScreenSize();
   }
@@ -29,9 +37,11 @@ export class SlidesBottomsheetComponent implements OnInit {
     this.srcWidth = window.innerWidth;
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   onClickYes() {
+    this.videoOpted = { opted: true };
+    this.slideService.storeVideoOption(this.videoOpted).subscribe();
     this._bottomSheetRef.dismiss();
     this.openDialog();
   }
@@ -52,7 +62,23 @@ export class SlidesBottomsheetComponent implements OnInit {
       });
     }
   }
+
   onClickNo() {
+    this.videoOpted = { opted: false };
+    this.noClicked = true;
+    this.slideService.storeVideoOption(this.videoOpted).subscribe();
+  }
+
+  onClickClose() {
     this._bottomSheetRef.dismiss();
   }
+
+  onCheckboxChange(event: any) {
+    console.log('event', event);
+    this.videoShowAgain = {
+      dont_ask_again: true
+    };
+    this.slideService.storeVideoShowStatus(this.videoShowAgain).subscribe();
+  }
+
 }

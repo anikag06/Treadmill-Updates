@@ -17,8 +17,8 @@ import { SlideService } from '../slide.service';
 })
 export class SlidesVideoComponent implements OnInit, AfterViewInit {
   sanitizedUrl!: SafeUrl;
-  videoUrl =
-    'https://www.youtube.com/embed/k5E2AVpwsko?autoplay=1&enablejsapi=1&mute=1';
+  videoUrl!: string;
+  // 'https://www.youtube.com/embed/k5E2AVpwsko?autoplay=1&enablejsapi=1&mute=1';
   player!: any;
   videoTimeLeft = 30;
 
@@ -58,13 +58,14 @@ export class SlidesVideoComponent implements OnInit, AfterViewInit {
         });
       }, 1000);
     };
+    this.slideService.getVideo().subscribe((data: any) => {
+      this.getVideoUrl(0, data);
+    });
     this.slideService.highlightBtn.subscribe(() => {
       this.backBtn.nativeElement.setAttribute('mat-flat-button', '');
       this.backBtn.nativeElement.classList.add('back-btn');
     });
-    this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-      this.videoUrl,
-    );
+
   }
 
   onPlayerReady(event: any) {
@@ -93,4 +94,25 @@ export class SlidesVideoComponent implements OnInit, AfterViewInit {
   onBack() {
     this.dialogRef.close();
   }
+
+
+  showThreeMinVideo() {
+    this.slideService.getVideo().subscribe((data: any) => {
+      this.getVideoUrl(1, data);
+    });
+  }
+
+  showFiveMinVideo() {
+    this.slideService.getVideo().subscribe((data: any) => {
+      this.getVideoUrl(2, data);
+    });
+  }
+
+  getVideoUrl(id: number, data: any) {
+    this.videoUrl = data.data.mindfulness_videos[id].resource_video.url;
+    this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+      this.videoUrl,
+    );
+  }
+
 }

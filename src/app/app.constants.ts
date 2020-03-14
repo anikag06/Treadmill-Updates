@@ -184,6 +184,13 @@ export const SLIDES_FEEDBACK = '/api/v1/learn/feedback/';
 export const STORE_FEEDBACK = '/api/v1/learn/slides-feedback/';
 export const SLIDE_COMPLETE_DATA = FLOW_STEP_MARK_DONE;
 
+// slides video
+export const VIDEO_OPTED = '/api/v1/resources/mindful-video-opt/';
+export const VIDEO_DONT_ASK_AGAIN = '/api/v1/resources/mindful-video-dont-ask-again/';
+export const SHOW_VIDEO = '/api/v1/flow/steps/1/';
+export const SHOW_MINDFULNESS_VIDEO = 'SHOW-MINDFULNESS-VIDEO';
+
+
 // introduction and conclusion step related paths
 export const INTRODUCTION_DATA =
   '/api/v1/introduction-conclusion/user-introduction/';
