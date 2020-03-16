@@ -19,6 +19,9 @@ import { SlidesVideoOpted, SlidesVideoShowStatus } from './slides-video.model';
 })
 export class SlideService {
   highlightBtn = new EventEmitter();
+  videoUrl_1!: string;
+  videoUrl_3!: string;
+  videoUrl_5!: string;
 
   constructor(private http: HttpClient) { }
 

@@ -195,8 +195,12 @@ export class SlidesComponent implements OnInit {
     this.screenHeight = window.innerHeight;
     this.screenWidth = window.innerWidth;
     this.slideService.getVideo().subscribe((data: any) => {
+      console.log('data from slides component', data);
       if (data.data.hook[0] === SHOW_MINDFULNESS_VIDEO) {
         setTimeout(() => this.openBottomSheet(), 2000);
+        this.slideService.videoUrl_1 = data.data.mindfulness_videos[0].resource_video.url;
+        this.slideService.videoUrl_3 = data.data.mindfulness_videos[1].resource_video.url;
+        this.slideService.videoUrl_5 = data.data.mindfulness_videos[2].resource_video.url;
       }
     });
   }

@@ -45,6 +45,7 @@ export class SlidesVideoComponent implements OnInit, AfterViewInit {
         this.player = new (<any>window).YT.Player('player', {
           events: {
             onReady: (event: any) => {
+              console.log('player is ready event');
               this.onPlayerReady(event);
             },
             onStateChange: (event: any) => {
@@ -54,13 +55,16 @@ export class SlidesVideoComponent implements OnInit, AfterViewInit {
           playerVars: {
             autoplay: 1,
             origin: window.location.href,
+            enablejsapi: 1,
           },
         });
       }, 1000);
     };
-    this.slideService.getVideo().subscribe((data: any) => {
-      this.getVideoUrl(0, data);
-    });
+    this.videoUrl = this.slideService.videoUrl_1 + '?enablejsapi=1';
+    console.log('video url', this.videoUrl);
+    this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+      this.slideService.videoUrl_1 + '?enablejsapi=1',
+    );
     this.slideService.highlightBtn.subscribe(() => {
       this.backBtn.nativeElement.setAttribute('mat-flat-button', '');
       this.backBtn.nativeElement.classList.add('back-btn');
@@ -70,8 +74,6 @@ export class SlidesVideoComponent implements OnInit, AfterViewInit {
 
   onPlayerReady(event: any) {
     console.log('player ready');
-    console.log('video time', this.player.getDuration());
-
     const videoInt = setInterval(() => {
       console.log('current time', this.player.getCurrentTime());
       console.log('duration left', this.player.getDuration() - this.videoTimeLeft);
@@ -97,22 +99,14 @@ export class SlidesVideoComponent implements OnInit, AfterViewInit {
 
 
   showThreeMinVideo() {
-    this.slideService.getVideo().subscribe((data: any) => {
-      this.getVideoUrl(1, data);
-    });
-  }
-
-  showFiveMinVideo() {
-    this.slideService.getVideo().subscribe((data: any) => {
-      this.getVideoUrl(2, data);
-    });
-  }
-
-  getVideoUrl(id: number, data: any) {
-    this.videoUrl = data.data.mindfulness_videos[id].resource_video.url;
     this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-      this.videoUrl,
+      this.slideService.videoUrl_3 + '?enablejsapi=1',
     );
   }
 
+  showFiveMinVideo() {
+    this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+      this.slideService.videoUrl_5 + '?enablejsapi=1',
+    );
+  }
 }
