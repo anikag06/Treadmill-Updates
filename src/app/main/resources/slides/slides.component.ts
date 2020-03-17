@@ -77,6 +77,7 @@ export class SlidesComponent implements OnInit {
   userFeedback!: UserFeedbackComponent;
   scrollTop = 0;
 
+
   constructor(
     private slideService: SlideService,
     private sanitizer: DomSanitizer,
@@ -285,7 +286,9 @@ export class SlidesComponent implements OnInit {
       .subscribe(data => { });
     this.scrollTop = 0;
   }
+
   openBottomSheet() {
     this._bottomSheet.open(SlidesBottomsheetComponent);
   }
+
 }
