@@ -52,7 +52,7 @@
     //max-height: 540px;
   }
   .form-div {
-    position: relative;
+    position: absolute;
     width: 100%;
     display: inline-block;
     //height: 50px;
@@ -396,9 +396,11 @@ $x3: -$leftPos + $dotSpacing;
   background: #ffffff 0% 0% no-repeat padding-box;
   box-shadow: 0px -1px 3px #00000029;
   position: absolute;
-  bottom: 7%;
+  bottom: 1%;
   text-align: center;
   width: inherit;
+  z-index: 200;
+
 }
 
 #more_button {
@@ -415,4 +417,8 @@ $x3: -$leftPos + $dotSpacing;
   padding-top: 13px;
   top: -80px;
   right: 120px;
+}
+
+.mat-form-field{
+  background: #ffffff 0% 0% no-repeat padding-box;
 }

@@ -178,7 +178,9 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
 
   closeModal() {
     this.onClose.emit();
-    this.dialogRef.close({ event: 'close' });
+    if (this.dialogRef) {
+      this.dialogRef.close({ event: 'close' });
+    }
   }
 
   updateEmotionCount(change: boolean) {

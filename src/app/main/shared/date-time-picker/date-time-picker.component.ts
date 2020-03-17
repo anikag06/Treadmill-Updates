@@ -141,7 +141,20 @@ export class DateTimePickerComponent
     const repeat = this.getRepeatedDays(this.daysCircle);
     const chatDateTimeMessage = date + '<br/>' + hourMinute + '<br/>' + repeat;
     this.closeModal();
-    this.dateTimeMessage.emit(chatDateTimeMessage);
+    const dateTimeValues = [
+      {
+        start_date: this.dateToString(this.startEndDate[this.START_DATE]),
+        time: utcTime,
+        end_date: this.dateToString(this.startEndDate[this.END_DATE]),
+        days: this.formDataDays,
+      },
+    ];
+    const dateTimeSelected = {
+      dateTimeMessage: chatDateTimeMessage,
+      dateTimeValues: dateTimeValues,
+    };
+    console.log(dateTimeSelected);
+    this.dateTimeMessage.emit(dateTimeSelected);
     this.dateTimeSubmit.emit();
 
     if (this.dialogRef) {

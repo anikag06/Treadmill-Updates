@@ -102,6 +102,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   widgetValues: any[] = [];
   showMoodWidget = true;
   showDateTimeWidget = true;
+  showMaintenance = false;
   showSpinner = true;
   ngOnChanges(): void {
     if (this.chatWindowClosed === false) {
@@ -184,29 +185,25 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       );
       this.scrollToBottom();
       const message = this.message;
-      const widgetValues = this.widgetValues;
+      const widgetValues = {
+        payload: message,
+        value: this.widgetValues,
+      };
       console.log(message);
       this.message = '';
       this.widgetValues = [];
-      console.log(
-        JSON.stringify({
-          message: {
-            text: message,
-            buttons: [],
-            values: widgetValues.length > 0 ? widgetValues : [],
-          },
-        }),
-      );
+      setTimeout(() => {}, 4000);
       this.webSocket.send(
         JSON.stringify({
           action: REPLY_CURRENT,
           message: {
             text: message,
             buttons: [],
-            values: widgetValues.length > 0 ? widgetValues : [],
+            widget_value: widgetValues.value.length > 0 ? widgetValues : [],
           },
         }),
       );
+      // this.showTextInput = false;
       if (screen.availWidth > 576) {
         this.ti.nativeElement.disabled = true;
       }
@@ -259,9 +256,12 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       environment.CHAT_HOST + '/ws/chat/?token=' + this.authService.getToken(),
     );
     this.webSocket.onopen = event => {
-      this.webSocket.send(JSON.stringify({ action: type, module_name: '' }));
+      this.webSocket.send(
+        JSON.stringify({ action: type, module_name: 'decide_activity' }),
+      );
     };
     this.webSocket.onmessage = (message: any) => {
+      this.showMaintenance = false;
       const data = JSON.parse(message.data);
       if (data.error === true) {
         const item = new Chat(
@@ -299,6 +299,9 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     };
 
     this.webSocket.onerror = () => {
+      if (this.isOnline) {
+        this.showMaintenance = true;
+      }
       this.webSocket.close();
     };
     this.scrollToBottom();
@@ -313,13 +316,16 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     });
 
     console.log(m.buttons);
-    if (m.buttons && m.buttons.length < 4) {
+    if (m.buttons && m.buttons.length < 5) {
       this.showButtons = m.buttons;
     } else {
       this.buttonsBuffer = m.buttons;
       this.showButtons = m.buttons.slice(0, 4);
-      this.showMore = m.buttons.length > 4;
+      this.counter = 4;
+      this.showMore = true;
     }
+
+    // this.showMoodWidget = !!m.widgets;
 
     const item = new Chat(
       twemoji.parse(m.text || ''),
@@ -340,27 +346,30 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     // this.showButtons = [];
     this.scrollToBottom();
     if (this.ti) {
-      if (m.buttons && m.buttons.length > 1) {
+      if (
+        (m.buttons && m.buttons.length > 0) ||
+        (m.widgets && m.widgets.length > 0)
+      ) {
         this.ti.nativeElement.disabled = true;
-        // this.scrollToBottom();
+        this.scrollToBottom();
       } else {
-        this.ti.nativeElement.disabled = false;
-        this.ti.nativeElement.focus();
+        // this.ti.nativeElement.disabled = false;
+        // this.ti.nativeElement.focus();
       }
     }
   }
 
   showWritingAndPushChat(m: any) {
     const item = new Chat('', false, [], '', '', new Date(), true, [], []);
-    this.ti.nativeElement.disabled = true;
+    // this.ti.nativeElement.disabled = true;
     this.messages.push(item);
-    setTimeout(this.scrollToBottom);
+    // setTimeout(this.scrollToBottom);
     setTimeout(() => {
       this.messages.pop();
       this.pushChat(m);
-      // this.showButtons = [];
       setTimeout(this.scrollToBottom);
     }, this.halfwayDelay + Math.floor(Math.random() * 800 + 1));
+    // this.halfwayDelay + Math.floor(Math.random() * 800 + 1)
   }
 
   closeChat() {
@@ -391,19 +400,33 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     this.showMoodWidget = false;
   }
 
-  getDateTimeMessage($event: string) {
-    this.message = $event;
+  getDateTimeMessage($event: any) {
+    this.message = $event.dateTimeMessage;
+    this.widgetValues = $event.dateTimeValues;
+    this.showDateTimeWidget = false;
   }
 
-  async start(messages: any) {
-    await this.loadEachMessage(messages);
+  start(messages: any) {
+    this.ti.nativeElement.disabled = true;
+    setTimeout(() => {
+      this.loadEachMessage(messages);
+    });
+
+    setTimeout(() => {
+      if (messages[messages.length - 1].buttons.length === 0) {
+        this.ti.nativeElement.disabled = false;
+      }
+    }, this.totalDelayMessages);
   }
+
+  totalDelayMessages!: number;
 
   loadEachMessage(m: any) {
+    this.totalDelayMessages = 0;
     for (let index = 0; index < m.length; index++) {
       const delayPerMessage =
         (this.totalDelay + this.getSentenceDelay(m.text || '')) * index;
-
+      this.totalDelayMessages += delayPerMessage;
       if (
         (m[index].text && m[index].text.length > 0) ||
         (m[index].buttons && m[index].buttons.length > 0)
@@ -412,9 +435,11 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
           this.showWritingAndPushChat(m[index]);
         }, delayPerMessage);
 
-        //  setTimeout(() => {
-        //     this.scrollToBottom();
-        //   });
+        setTimeout(() => {
+          this.scrollToBottom();
+        });
+        // this.showWritingAndPushChat(m[index]);
+        // this.scrollToBottom();
       }
     }
   }
@@ -501,23 +526,36 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       console.log('Moving down');
     }
   }
-  getButtons(m: any) {
+
+  // getButtons() {
+  //   for (let i = 0; i < 4; i++) {
+  //     if (this.counter === this.buttonsBuffer.length) {
+  //       this.showMore = false;
+  //       this.scrollToBottom();
+  //       break;
+  //     } else {
+  //       // console.log(this.counter)
+  //       // @ts-ignore
+  //       this.showButtons.push(this.buttonsBuffer[this.counter]);
+  //       this.counter += 1;
+  //       if (this.counter === this.buttonsBuffer.length) {
+  //         this.showMore = false;
+  //         this.buttonsBuffer = [];
+  //         this.showButtons = [];
+  //       }
+  //     }
+  //   }
+  //   this.scrollToBottom();
+  // }
+
+  getButtons() {
     for (let i = 0; i < 4; i++) {
-      if (this.counter === this.buttonsBuffer.length) {
+      this.showButtons.push(this.buttonsBuffer[this.counter]);
+      if (this.counter === this.buttonsBuffer.length - 1) {
         this.showMore = false;
-        this.scrollToBottom();
         break;
-      } else {
-        // console.log(this.counter)
-        // @ts-ignore
-        this.showButtons.push(this.buttonsBuffer[this.counter]);
-        this.counter += 1;
-        if (this.counter === this.buttonsBuffer.length) {
-          this.showMore = false;
-          this.buttonsBuffer = [];
-          this.showButtons = [];
-        }
       }
+      this.counter += 1;
     }
     this.scrollToBottom();
   }
