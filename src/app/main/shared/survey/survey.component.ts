@@ -231,7 +231,7 @@ export class SurveyComponent implements OnInit {
       .storeUserResponse({
         survey_responses: this.userResponseArray,
       })
-      .subscribe();
+      .subscribe(data => { console.log('survey response', data); });
     this.surveyService.enableLinks.emit();
     // next step
   }

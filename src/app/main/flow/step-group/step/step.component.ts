@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { FlowService } from '../../flow.service';
 import { MatTooltip } from '@angular/material';
 import { DatePipe } from '@angular/common';
+import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifications.service';
 
 @Component({
   selector: 'app-step',
@@ -32,7 +33,8 @@ export class StepComponent implements OnInit {
     private flowService: FlowService,
     private datePipe: DatePipe,
     private element: ElementRef,
-  ) {}
+    private navbarService: NavbarNotificationsService,
+  ) { }
 
   ngOnInit() {
     this.tooltipData = 'Complete the previous steps first';
@@ -112,7 +114,9 @@ export class StepComponent implements OnInit {
 
   navigate(event: Event) {
     event.preventDefault();
+    this.closeNavFlow();
     this.showTooltipFun();
+
     this.markDone();
     if (this.step.data_type === INTRODUCTORY_ANIMATION) {
       this.flowService.triggerIntroduction();
@@ -171,4 +175,10 @@ export class StepComponent implements OnInit {
     this.showToolTip.hideDelay = 100;
     this.showToolTip.toggle();
   }
+
+  closeNavFlow() {
+    console.log('close navflow');
+    this.navbarService.closeNavFlow.emit();
+  }
+
 }

@@ -7,25 +7,26 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class NavbarNotificationsService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   closeSubject = new BehaviorSubject(false);
   showFullConv = new EventEmitter<any>();
   showFullConvIcon = new EventEmitter<any>();
   removeFullConvIcon = new EventEmitter<any>();
+  closeNavFlow = new EventEmitter<any>();
 
   getNotifications(page = 1) {
     return this.http.get(
       environment.API_ENDPOINT +
-        '/api/v1/notifications/ui-notification/?page=' +
-        page,
+      '/api/v1/notifications/ui-notification/?page=' +
+      page,
     );
   }
 
   markNotificationDone(notificationId: number) {
     return this.http.patch(
       environment.API_ENDPOINT +
-        `/api/v1/notifications/ui-notification/${notificationId}/`,
+      `/api/v1/notifications/ui-notification/${notificationId}/`,
       { user_read: true },
     );
   }

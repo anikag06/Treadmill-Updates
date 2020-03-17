@@ -25,6 +25,7 @@ import { AuthService } from '@/shared/auth/auth.service';
 import { GamePlayService } from '@/main/games/shared/game-play.service';
 import { FlowService } from '@/main/flow/flow.service';
 import { ConversationsService } from '@/main/resources/conversation-group/conversations.service';
+import { MatMenuTrigger } from '@angular/material';
 
 @Component({
   selector: 'app-navbar',
@@ -36,6 +37,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
   flowHost!: NavbarFlowDirective;
   @ViewChild(NavbarNotificationDirective, { static: false })
   notificationHost!: NavbarNotificationDirective;
+  @ViewChild(MatMenuTrigger, { static: false }) flowTrigger!: MatMenuTrigger;
+
+
 
   intervalSubscription!: Subscription;
   showFlow = false;
@@ -114,6 +118,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.intervalSubscription = interval(60000).subscribe(() => {
       this.getNotificationsCount();
     });
+    this.notificationService.closeNavFlow.subscribe(() => {
+      console.log('close menu');
+      this.flowTrigger.closeMenu();
+    });
   }
 
   notificationClick() {
@@ -167,4 +175,5 @@ export class NavbarComponent implements OnInit, OnDestroy {
   //   console.log(data);
   //   this.navbarTitle = this.navbarTitleInfo[data];
   // }
+
 }

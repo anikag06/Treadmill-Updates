@@ -1,39 +1,45 @@
-
 .step-content {
   margin: 12px 0;
-  height: 48px;
+  // height: 48px;
   width: 100%;
   box-shadow: 0px 2px 5px #dadada;
   border-radius: 0px 8px 8px 8px;
   padding: 14px 10px;
+
   a {
     color: #171717;
     height: 100%;
     width: 100%;
     // display: block;
     text-decoration: none;
+
     &:hover {
       color: #171717;
       text-decoration: none;
     }
+
     &:active {
       color: #171717;
       text-decoration: none;
     }
   }
-  .step-name{
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-height: 30px;
+
+  .step-name {
+    // white-space: nowrap;
+    // overflow: hidden;
+    // text-overflow: ellipsis;
+    // max-height: 30px;
   }
 }
+
 .step-content.locked {
   a {
     color: #696969;
+
     &:hover {
       color: #696969;
     }
+
     &:active {
       color: #696969;
     }

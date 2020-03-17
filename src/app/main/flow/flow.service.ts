@@ -19,10 +19,11 @@ export class FlowService {
   stepGroupSequence = 0;
   stepName = '';
 
+
   constructor(
     private http: HttpClient,
     private flowNavService: FlowStepNavigationService,
-  ) {}
+  ) { }
 
   getFlow() {
     return this.http.get(environment.API_ENDPOINT + FLOW_STEPS_DATA);
