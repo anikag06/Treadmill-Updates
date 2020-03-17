@@ -470,7 +470,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       // console.log(resp);
       // url = resp.body.urls.small;
       const image = {
-        url: resp.body.urls.raw,
+        url: resp.body.urls.small,
         link: resp.body.links.html,
         color: resp.body.color,
         name: resp.body.user.name,
@@ -484,7 +484,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   getImageByID(pid: string) {
     this.chatbotService.getPhoto(pid).subscribe((resp: any) => {
       const image = {
-        url: resp.body.urls.raw,
+        url: resp.body.urls.small,
         link: resp.body.links.html,
         color: resp.body.color,
         name: resp.body.user.name,
@@ -507,9 +507,9 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     this.chatbotService.getGIF(gid).subscribe((resp: any) => {
       // console.log(resp);
       const image = {
-        url: resp.body.data.images.original_still.url,
-        dynamic_url: resp.body.data.images.original.url,
-        static_url: resp.body.data.images.original_still.url,
+        url: resp.body.data.images.fixed_width_still.url,
+        dynamic_url: resp.body.data.images.fixed_width_downsampled.url,
+        static_url: resp.body.data.images.fixed_width_still.url,
         showSpinner: true,
         creditsGIF: true,
       };
