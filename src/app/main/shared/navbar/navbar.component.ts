@@ -37,7 +37,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   flowHost!: NavbarFlowDirective;
   @ViewChild(NavbarNotificationDirective, { static: false })
   notificationHost!: NavbarNotificationDirective;
-  @ViewChild(MatMenuTrigger, { static: false }) flowTrigger!: MatMenuTrigger;
+  @ViewChild('flowTrigger', { static: false }) flowTrigger!: MatMenuTrigger;
 
 
 

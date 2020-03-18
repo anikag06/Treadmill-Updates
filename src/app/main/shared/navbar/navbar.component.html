@@ -1,7 +1,7 @@
 <div class="app-navbar">
   <div class="row">
     <div class="col-6 d-flex navbar-title align-items-center">
-      <h1 [ngClass]="{'conv-title': isConversation===true, 
+      <h1 [ngClass]="{'conv-title': isConversation===true,
       'navbar-title': isConversation===false }">{{navbarTitle}}<span class="navbar-title"
           *ngIf="isDashboard || isConversation">{{user.username}}</span></h1>
     </div>
@@ -26,7 +26,7 @@
                     <img src="assets/shared/flow.svg" alt="Flow">
                 </div> -->
         <div class="icon-items" (menuClosed)="flowClick($event)" (menuOpened)="flowClick($event)"
-          [matMenuTriggerFor]="appNavBarFlow">
+          [matMenuTriggerFor]="appNavBarFlow"  #flowTrigger="matMenuTrigger">
           <img src="assets/shared/Flow.png" height=" 36px" width="36px" alt="Flow">
         </div>
       </div>
@@ -47,7 +47,7 @@
             </div>
           </div>
           <div class="icon-items" (menuClosed)="flowClick($event)" (menuOpened)="flowClick($event)"
-            [matMenuTriggerFor]="appNavBarFlow">
+            [matMenuTriggerFor]="appNavBarFlow" #flowTrigger="matMenuTrigger">
             <img src="assets/shared/Flow mobile.png" height=" 24px" width="24px" alt="Flow" />
           </div>
         </div>

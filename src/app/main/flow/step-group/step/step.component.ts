@@ -114,7 +114,7 @@ export class StepComponent implements OnInit {
 
   navigate(event: Event) {
     event.preventDefault();
-    this.closeNavFlow();
+
     this.showTooltipFun();
 
     this.markDone();
@@ -125,18 +125,22 @@ export class StepComponent implements OnInit {
       setTimeout(() => this.flowService.triggerLoad(), 1);
       setTimeout(() => this.flowService.triggerLoad(), 10);
     }
-    console.log(
-      'navigate',
-      this.stepGroup.sequence + 1,
-      this.stepGroup.name,
-      this.step.sequence + 1,
-      this.step.name,
-    );
+    // console.log(
+    //   'navigate',
+    //   this.stepGroup.sequence + 1,
+    //   this.stepGroup.name,
+    //   this.step.sequence + 1,
+    //   this.step.name,
+    // );
+
+    if (this.step.status !== LOCKED && !this.step.virtual_step) {
     this.flowService.stepGroupSequence = this.stepGroup.sequence + 1;
     this.flowService.stepSequence = this.step.sequence + 1;
     this.flowService.stepName = this.step.name;
     this.flowService.stepDetail.emit();
+    this.closeNavFlow();
     return this.router.navigate([this.nextLink()]);
+    }
   }
 
   locked() {
