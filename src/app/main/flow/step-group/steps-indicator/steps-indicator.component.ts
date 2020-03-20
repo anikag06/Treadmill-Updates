@@ -16,6 +16,8 @@ export class StepsIndicatorComponent implements OnInit {
     ['completed', 'assets/flow/completed.svg'],
   ]);
 
+  @Input() step!: Step;
+  @Input() stepGroup!: StepGroup;
   // @Input() stepGroup!: StepGroup;
   @Input() stepGroupSteps!: any;
   @Input() showLessSteps!: any;

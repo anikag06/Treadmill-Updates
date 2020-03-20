@@ -1,10 +1,9 @@
 <div class="step-status-indicator row mx-0
-  justify-content-center" 
-  *ngFor="let step of stepGroupSteps; let last=last; let first=first">
-  
-  <div 
-    class="row justify-content-center
-      status-img align-items-center mx-auto"
+  justify-content-center">
+<!--  *ngFor="let step of stepGroupSteps; let last=last; let first=first">-->
+
+  <div
+    class=" status-img align-items-center mx-auto"
       [ngClass]="{
         'disabled':step.status ==='ACTIVE' || step.status === 'LOCKED'|| step.status=== 'UNLOCKED',
         'active': step.status ==='COMPLETED',
