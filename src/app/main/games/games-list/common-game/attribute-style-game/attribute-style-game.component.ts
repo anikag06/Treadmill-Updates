@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {LoadFilesService} from '@/main/games/shared/load-files.service';
 
 @Component({
   selector: 'app-attribute-style-game',
@@ -7,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AttributeStyleGameComponent implements OnInit {
 
-  constructor() { }
+  constructor(private loadFileService: LoadFilesService) { }
 
   ngOnInit() {
+    this.loadFileService.loadExternalScript('./assets/games/Attribution-style-game/src/app.js')
+      .then(() => {}).catch(() => {});
   }
 
 }

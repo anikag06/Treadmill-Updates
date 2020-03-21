@@ -42,6 +42,7 @@ declare var playAllObject: any;
 declare var pauseAllObject: any;
 declare var startGame: any;
 declare var check: any;
+
 // for executive control game
 declare var startExecControlGame: any;
 declare var pauseECGame: any;
@@ -186,6 +187,11 @@ export class GamePlayService {
   playAttributionStyleGame() {
     // tslint:disable-next-line:no-unused-expression
     this.game = new AttributeGame();
+    if (this.game.scene.isActive('QuestionAndAnswer')) {
+      console.log(this.game.scene.isActive('QuestionAndAnswer'));
+        console.log(this.gamesAuthService.atGetAnswers());
+    }
+    console.log((this.game));
   }
 
   restartAttributionStyleGame() {
@@ -199,6 +205,11 @@ export class GamePlayService {
   pauseAttributionStyleGame() {
     // tslint:disable-next-line:no-unused-expression
     this.game.scene.scenes[5].pauseAllObject();
+    // if (this.game.scene.isActive('ScoreDisplay')) {
+    //   this.game.scene.scenes[5].pause();
+    // } else if (this.game.scene.isActive('QuestionAndAnswer')) {
+    //   this.game.scene.scenes[5].pause();
+    // }
   }
 
   // functions for executive control game

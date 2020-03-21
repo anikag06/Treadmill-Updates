@@ -194,7 +194,6 @@ export class CommonGameComponent implements OnInit {
       this.gamePlayService.playLearnedHelplessnessGame();
     } else if (this.gameName === ATTRIBUTE_STYLE_GAME) {
       this.gamePlayService.playAttributionStyleGame();
-      // console.log('play button');
     } else if (this.gameName === FRIENDLY_FACE_GAME) {
       this.gamePlayService.playFriendlyFaceGame(
         this.device_type,

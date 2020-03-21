@@ -82,6 +82,11 @@ export class GamesAuthService {
       saveResponseData,
     );
   }
+  // for Attribute style game
+  atGetAnswers(): Observable<any> {
+    console.log('running');
+    return this.http.get(environment.API_ENDPOINT + '/api/v1/games/attribution-style/asgame-answers-list/');
+  }
 
   // for executive control game
 

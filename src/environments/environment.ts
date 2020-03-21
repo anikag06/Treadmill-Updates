@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  HOST: '172.26.90.50:9000',
+  HOST: '172.26.90.49:8000',
   CHAT_HOST: 'ws://172.26.90.49:8000',
   API_ENDPOINT: 'http://172.26.90.50:9000',
   firebase: {
