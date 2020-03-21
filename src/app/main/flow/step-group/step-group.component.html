@@ -42,9 +42,11 @@
   <ng-template matExpansionPanelContent>
     <div class="row w-100 mx-0">
       <div  class="row w-100 mx-0" *ngIf = "showLessSteps; else showAllIndicators">
-      <div class="row w-100 mx-0"  *ngFor="let stepInitial of defaultSteps.steps">
+      <div class="row w-100 mx-0"  *ngFor="let stepInitial of defaultSteps.steps ;let last=last; let first=first">
         <div class="col-3 justify-content-center mx-0 px-0 step-circle-div">
           <app-steps-indicator
+            [first] = first
+            [last] = last
             [showLessSteps] = showLessSteps
             [lastStepOfModule] = lastStepOfModule
             [firstStepOfModule] = firstStepOfModule
@@ -52,25 +54,28 @@
             [step]="stepInitial" [stepGroup]="defaultSteps"></app-steps-indicator>
         </div>
 
-        <div class="col-9 ">
+        <div class="col-9 px-0">
           <div>
             <app-step
               [step]="stepInitial" [stepGroup]="defaultSteps"></app-step>
           </div>
         </div>
       </div>
+      </div>
         <ng-template #showAllIndicators>
 
-      <div class="row"  *ngFor="let step of stepGroup.steps">
-        <div class="col-3 px-0 step-circle-div">
+      <div class="row w-100 mx-0"  *ngFor="let step of stepGroup.steps ;let last=last; let first=first">
+        <div class="col-3 justify-content-center mx-0 px-0 step-circle-div">
             <app-steps-indicator
+              [first] = first
+              [last] = last
               [showLessSteps] = showLessSteps
               [lastStepOfModule] = lastStepOfModule
               [firstStepOfModule] = firstStepOfModule
               [stepGroupSteps]="defaultSteps.steps"
               [step]="step" [stepGroup]="stepGroup"></app-steps-indicator>
         </div>
-        <div class="col-9 ">
+        <div class="col-9 px-0 ">
             <app-step
               [step]="step" [stepGroup]="stepGroup"></app-step>
         </div>
@@ -119,7 +124,6 @@
 
 
       </div>
-    </div>
     </div>
   </ng-template>
     <!-- </mat-action-row> -->

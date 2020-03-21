@@ -1,7 +1,16 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { Step } from './step.model';
 import { StepGroup } from '../step-group.model';
-import { COMPLETED, SLIDE, CONVERSATION_GROUP } from '@/app.constants';
+import {
+  COMPLETED,
+  SLIDE,
+  CONVERSATION_GROUP,
+  GAME,
+  FORM,
+  FORM_URL_MAP,
+  SUPPORT_GROUP,
+  QUESTIONNAIRE, INTRODUCTION_PAGE, CONCLUSION_PAGE, CONTROL_PAGE, SURVEY, VIDEO
+} from '@/app.constants';
 import { LOCKED, ACTIVE, INTRODUCTORY_ANIMATION } from '@/app.constants';
 import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.service';
 import { Router } from '@angular/router';
@@ -149,6 +158,32 @@ export class StepComponent implements OnInit {
 
   active() {
     return this.step.status === ACTIVE;
+  }
+
+  getStepIcon(step: Step) {
+      if (step.data_type === SLIDE) {
+        return 'assets/flow/icon-slide-wb.png';
+      } else if (step.data_type === CONVERSATION_GROUP) {
+        return  'assets/flow/icon-conversation-wb.png';
+      } else if (step.data_type === GAME) {
+        return  'assets/flow/icon-game-wb.png';
+      } else if (step.data_type === FORM) {
+        return  'assets/flow/icon-form-wb.png';
+      } else if (step.data_type === SUPPORT_GROUP) {
+        return  'assets/flow/icon-slide-wb.png';
+      } else if (step.data_type === QUESTIONNAIRE) {
+        return  'assets/flow/icon-slide-wb.png';
+      } else if (step.data_type === INTRODUCTION_PAGE) {
+        return  'assets/flow/icon-slide-wb.png';
+      } else if (step.data_type === CONCLUSION_PAGE) {
+        return  'assets/flow/icon-slide-wb.png';
+      } else if (step.data_type === CONTROL_PAGE) {
+        return  'assets/flow/icon-slide-wb.png';
+      } else if (step.data_type === SURVEY) {
+        return  'assets/flow/icon-survey-wb.png';
+     }  else if (step.data_type === VIDEO) {
+        return  'assets/flow/icon-video-wb.png';
+}
   }
 
   unlocked() {

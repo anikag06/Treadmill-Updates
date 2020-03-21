@@ -11,14 +11,16 @@ import { UNLOCKED } from '@/app.constants';
 export class StepsIndicatorComponent implements OnInit {
 
   imageMap = new Map([
-    ['locked', 'assets/flow/locked.svg'],
+    ['locked', 'assets/flow/not completed.png'],
     ['active', 'assets/flow/unlocked.gif'],
-    ['completed', 'assets/flow/completed.svg'],
+    ['completed', 'assets/flow/Completed.png'],
   ]);
 
   @Input() step!: Step;
   @Input() stepGroup!: StepGroup;
   // @Input() stepGroup!: StepGroup;
+  @Input() first!: boolean;
+  @Input() last!: boolean;
   @Input() stepGroupSteps!: any;
   @Input() showLessSteps!: any;
   @Input() firstStepOfModule!: any;
@@ -34,6 +36,7 @@ export class StepsIndicatorComponent implements OnInit {
     if (step.virtual_step && step.status === UNLOCKED) {
       return this.imageMap.get('locked');
     }
+    console.log('step', step.sequence, step.name, step.status);
     return this.imageMap.get(step.status.toLowerCase());
   }
 
