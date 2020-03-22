@@ -36,7 +36,6 @@ export class StepsIndicatorComponent implements OnInit {
     if (step.virtual_step && step.status === UNLOCKED) {
       return this.imageMap.get('locked');
     }
-    console.log('step', step.sequence, step.name, step.status);
     return this.imageMap.get(step.status.toLowerCase());
   }
 

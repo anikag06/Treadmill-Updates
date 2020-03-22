@@ -17,13 +17,13 @@
   //width: 24px;
   padding-top:12px;
 }
-.status-img.active:before {
+.status-img.completed:before {
   position: absolute;
   border-left: 3px solid #f5bb56;
   width: 0;
   margin-left:10px;
-  top:34px;
-  height: 73%;
+  top:36px;
+  height: calc(100% - 24px);
   content: '';
 }
 .status-img.disabled:before {
@@ -31,32 +31,42 @@
   border-left: 3px solid #FFEDD5;
   width: 0;
   margin-left:10px;
-  top:34px;
-  height: 73%;
+  top:36px;
+  height: calc(100% - 24px);
   content: '';
 
 }
+.status-img.active:before {
+  position: absolute;
+  border-left: 3px solid #FFEDD5;
+  width: 0;
+  margin-left:12px;
+  top:36px;
+  height: calc(100% - 24px);
+  content: '';
+}
+
 .status-img.isFirstDashed:after{
   position: absolute;
   border-left: 3px dashed #f5bb56;
   width: 0;
-  margin-left: -13px;
-  top:-23px;
-  height: 50%;
+  margin-left: -14px;
+  top:-25px;
+  height: 39px;
   content: '';
 }
 .status-img.isFirstStep:after{
   position: absolute;
   border-left: 3px solid #f5bb56;
   width: 0;
-  margin-left:-13px;
-  top:-23px;
-  height: 50%;
+  margin-left:-14px;
+  top:-25px;
+  height: 39px;
   content: '';
 }
 .status-img.isLastDashed:before {
   border-left: 3px dashed #FFEDD5;
-  height: 50%;
+  height: 39px;
 }
 .status-img.isLastStep:before {
   border: 0px;

@@ -41,6 +41,7 @@ export class FlowComponent implements OnInit, OnDestroy {
     this.flowSubscription = this.flowService
       .getFlow()
       .subscribe((data: any) => {
+        console.log('response', data);
         this.stepGroups = data.step_groups;
         this.dataloaded = true;
       });
