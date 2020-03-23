@@ -2,7 +2,7 @@ import { EventEmitter, Injectable, Output } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { VideoItem } from '@/main/extra-resources/shared/video.model';
 import { environment } from '../../../environments/environment';
-import { READING_LIST, VIDEO, VIDEO_LIST } from '@/app.constants';
+import {READING_LIST, VIDEO, VIDEO_LIST, WATCHED_VIDEO} from '@/app.constants';
 import { switchMap } from 'rxjs/operators';
 import {
   AsyncSubject,
@@ -22,9 +22,7 @@ export class ExtraResourcesService {
   videoClicked = false;
   videoInResource!: VideoItem;
   readingItemInResource!: ReadingItem;
-  //= new VideoItem(1, 'hi', 'hi');
-  notOn = true;
-  // @Output() event1 = new EventEmitter(); : BehaviorSubject<VideoItem>
+
   videoClickBehavior: BehaviorSubject<VideoItem> = new BehaviorSubject<
     VideoItem
   >(this.videoInResource);
@@ -42,6 +40,7 @@ export class ExtraResourcesService {
   ) {}
   getVideoItem() {
     return this.http.get<VideoItem[]>(environment.API_ENDPOINT + VIDEO_LIST);
+    console.log('getting a video');
   }
 
   getReadingItem() {
@@ -62,14 +61,13 @@ export class ExtraResourcesService {
     );
   }
 
-  // getParticularVideo(videoId: Params){
-  //   return this.http.get<VideoItem>(environment.API_ENDPOINT  + VIDEO_LIST + videoId + '/')
-  // }
+  markVideoWatched(videoId: number, watched: boolean){
+    return this.http.post(environment.API_ENDPOINT + WATCHED_VIDEO, {
+      resource_video_id: videoId,
+      watched: watched,
 
-  // getEvent1(): Observable<VideoItem> {
-  //   return this.videoClickBehavior.asObservable();
-  // }
-  // callBehavior(x: VideoItem) {
-  //   this.videoClickBehavior.next(x);
-  // }
+    });
+    console.log('marking', videoId, watched);
+  }
+
 }

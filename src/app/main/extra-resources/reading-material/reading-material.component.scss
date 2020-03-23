@@ -4,6 +4,13 @@
   padding-right: 0px;
 
 }
+.for-ellipsis{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
 
 
 .footer-font{  //for resource page // for video page
@@ -23,10 +30,10 @@
   margin-left: 14px;
   margin-right: 7px;
   margin-top: 7px;
-  padding-bottom: 7px;
+  padding-bottom: 6px;
   text-align: left;
-  overflow: visible;
-  height: auto;
+  //overflow: visible;
+  //height: auto;
   //color: #1a77e2;
 }
 

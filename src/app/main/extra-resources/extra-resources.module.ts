@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { MaterialModule } from '@/material.module';
 import { ExtraResourcesService } from '@/main/extra-resources/extra-resources.service';
 import { MatCard, MatCardModule } from '@angular/material';
+//import { TrimStringPipe} from '@/main/shared/trim-string.pipe';
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import { MatCard, MatCardModule } from '@angular/material';
     ReadingItemComponent,
     VideoItemComponent,
     SafeUrlPipe,
+   // TrimStringPipe
   ],
   providers: [ExtraResourcesService],
 })

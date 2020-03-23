@@ -5,7 +5,7 @@
 
 
           <div class="video-container">
-          <iframe class = "video-specs" [src]="video.url | safeUrl"></iframe><br/>
+          <iframe class = "video-specs" [src]="video.url + enableId | safeUrl" id = 'player' #Video></iframe><br/>
           </div>
           <mat-card-footer class= "footer-text" [innerHTML]="video.title"></mat-card-footer>
              <!-- </mat-card>-->

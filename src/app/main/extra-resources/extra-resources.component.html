@@ -1,4 +1,4 @@
-<!--*ngIf="!notOn; else elseblock"-->
+
 <div class="container resources-container"  *ngIf="outlet.isActivated == false">
 
   <div class="row">
@@ -64,12 +64,12 @@
   </div>
 
 </div>
-<!--<ng-template #elseblock>-->
+
 <div class="container resources-container">
 <router-outlet  #outlet="outlet"></router-outlet>
 
 </div>
-<!--</ng-template>-->
+
 <ng-template #videoSeeLess>
   <a (click)="changeVideoState()" class = "see-all"><i class = "arrow up" ></i>&nbsp;See less</a>
 </ng-template>

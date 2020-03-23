@@ -62,14 +62,14 @@ export const mainRoutes: Routes = [
       },
       { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
       { path: 'logout', component: LogoutComponent },
-      {
-        path: 'resources',
-        loadChildren: () =>
-          import('./resources/resources.module').then(
-            mod => mod.ResourcesModule,
-          ),
-        canActivateChild: [AuthGuard],
-      },
+      // {
+      //   path: 'resources',
+      //   loadChildren: () =>
+      //     import('./resources/resources.module').then(
+      //       mod => mod.ResourcesModule,
+      //     ),
+        // canActivateChild: [AuthGuard],
+      // },
       {
         path: 'extra-resources',
         // component: Resources2Component,

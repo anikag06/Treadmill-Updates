@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { VideoItem } from '@/main/extra-resources/shared/video.model';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ExtraResourcesService } from '@/main/extra-resources/extra-resources.service';
@@ -17,24 +17,71 @@ import { LoadFilesService } from '@/main/games/shared/load-files.service';
   templateUrl: './video-item.component.html',
   styleUrls: ['./video-item.component.scss'],
 })
-export class VideoItemComponent implements OnInit {
+export class VideoItemComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() video!: VideoItem;
   // private subject: any;
   videoId!: number;
   videoTitle!: string;
   videoUrl!: string;
-  //safeVideoUrl!: SafeUrl;
+  // safeVideoUrl!: SafeUrl;
   videoIdToSend!: number;
   isLoaded = false;
+  timeStarted = -1;
+  timePlayed = 0;
+  duration = 0;
+  playedFor: number | undefined;
+  watched = false;
+  player!: any;
+  videoTimeLeft = 10;
+  enableId = '?enablejsapi=1';
+  listOfVideos: VideoItem[] = [];
+  lengthOfVideoList = this.listOfVideos.length;
+
+
+  @ViewChild('Video', { static: false }) Video!: ElementRef;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private extraResourcesService: ExtraResourcesService,
     private sanitizer: DomSanitizer,
     private http: HttpClient, //  private videos: VideosComponent
+    private loadFileService: LoadFilesService,
   ) {}
 
+  ngAfterViewInit() {
+      this.loadFileService.loadExternalScript(
+        'https://www.youtube.com/iframe_api',
+      );
+  }
+
+
+  init() {
+    if ((<any>window).YT) {
+      this.createPlayer();
+      return;
+    }
+    (<any>window).onYouTubeIframeAPIReady = () => this.createPlayer();
+    }
+
+
+
   ngOnInit() {
+    this.init();
+
+
+
+    // this.extraResourcesService.getVideoItem().subscribe((video_data: any) => {
+    //   video_data.results.forEach((element: any) => {
+    //     this.listOfVideos.push(<VideoItem>element);
+    //     this.lengthOfVideoList = this.lengthOfVideoList + 1;
+    //     //console.log('list of videos', this.listOfVideos);
+    //   });
+    //   console.log('list of videos', this.listOfVideos);
+    //   // this.lengthOfVideoList = this.listOfVideos.length;
+    //   console.log('length', this.lengthOfVideoList);
+    // });
+
+
     if (this.video == null) {
       this.activatedRoute.params.subscribe(data => {
         this.videoIdToSend = data.id;
@@ -43,6 +90,7 @@ export class VideoItemComponent implements OnInit {
       this.extraResourcesService
         .getAVideo(this.videoIdToSend)
         .subscribe(data => {
+          console.log('data', data);
           this.video = <VideoItem>data;
           this.isLoaded = true;
         });
@@ -57,81 +105,147 @@ export class VideoItemComponent implements OnInit {
         console.log('data: ', data);
         this.video = <VideoItem>data;
         this.isLoaded = true;
-        //this.video.url = data.url;
-        //this.safeVideoUrl = this.sanitizer.bypassSecurityTrustUrl(this.video.url);
+        // this.video.url = data.url;
+        // this.safeVideoUrl = this.sanitizer.bypassSecurityTrustUrl(this.video.url);
       });
       // this.isLoaded = true;
     }
 
-    // this.extraResourcesService.getVideoDetail(this.video);
-    // this.video = this.extraResourcesService.getVideo();
-    // this.extraResourcesService.event1.next([1, 'welcome', 'world']);
-    //  this.activatedRoute.params // to execute******
-    //    .subscribe((data) => {
-    //      console.log('through route', data);
-    //      this.videoId = data.id;
-    //      this.videoTitle = data.title;
-    //      this.videoUrl = data.url;
-    //    });
+    // this.extraResourcesService.getVideoItem().subscribe((video_data: any) => {
+    //          video_data.results.forEach((element: any) => {
+    //            this.listOfVideos.push(<VideoItem>element);
+    //            //console.log('list of videos', this.listOfVideos);
+    //          });
+    //   console.log('list of videos', this.listOfVideos);
+    //   this.lengthOfVideoList = this.listOfVideos.length;
+    //   console.log('length', this.lengthOfVideoList);
+    //        });
+  }
+      createPlayer(){
+     // (<any>window).onYouTubeIframeAPIReady = () => {
+        console.log('you tube iframe');
+       // setTimeout(() => {
+          //for (let j = 1; j  this.lengthOfVideoList; j++) {
+          this.player = new (<any>window).YT.Player('player', {
+            events: {
+              onReady: (event: any) => {
+                this.onPlayerReady(event);
+              },
+              onStateChange: (event: any) => {
+                this.onPlayerStateChange(event);
+              },
+            },
+            playerVars: {
+              autoplay: 1,
+              origin: window.location.href,
+            },
+          });//}
+       // }, 1000);
+     // };
+    }
 
-    // this.extraResourcesService.getEvent1() // to check its execution******
-    //   .subscribe((data) => {
-    //     console.log('clicked video', <VideoItem>data); });
+  //}
 
-    // this.route.params            // to execute*****
-    //   .subscribe((params) => {
-    //     console.log('routing for the id', params);
-    //     this.videoId = params;
-    //     this.videoTitle = params;
-    //   });
-    // });
 
-    //   this.extraResourcesService.getParticularVideo(1)
-    //     .subscribe((data) =>{
-    //     this.video}
-    // })
+  //   (<any>window).onYouTubeIframeAPIReady = () => {
+  //     this.extraResourcesService.getVideoItem().subscribe((video_data: any) => {
+  //       video_data.results.forEach((element: any) => {
+  //         this.listOfVideos.push(<VideoItem>element);
+  //         //console.log('list of videos', this.listOfVideos);
+  //       });
+  //     });
+  //     // for (let i = 0; i < this.listOfVideos.length; i++) {
+  //     //
+  //     // console.log('you tube iframe');
+  //     // }
+  //     setTimeout(() => {
+  //
+  //       this.player = new (<any>window).YT.Player('player', {
+  //         events: {
+  //           onReady: (event: any) => {
+  //             console.log('ready fired');
+  //             this.onPlayerReady(event);
+  //           },
+  //           onStateChange: (event: any) => {
+  //             console.log('state change fired');
+  //             this.onPlayerStateChange(event);
+  //           },
+  //         },
+  //         playerVars: {
+  //           autoplay: 1,
+  //           origin: window.location.href,
+  //           // controls: 1,
+  //         },
+  //       });
+  //
+  //
+  //     }, 1000);
+  //     //}
+  //     };
+  // }
 
-    //   this.extraResourcesService.event1
-    //     .subscribe((data) => {
-    //       console.log('clicked video', data);
-    //       this.video = <VideoItem>data;
-    //      // this.subject.next(this.video);
-    //
-    //     });
-    // this.extraResourcesService.event1.next(['2', 'hello', 'world']);
 
-    // this.extraResourcesService.getEvent1().subscribe((data) => {
-    //      console.log('clicked video', data);
+  onPlayerReady(event: any) {
+    console.log('player ready');
+    console.log('video time', this.player.getDuration());
 
-    //  this.extraResourcesService.getEvent1()
-    //    .subscribe((data) => {
-    //      console.log('clicked video', data);
-    // //     this.video = <VideoItem>data;
-    //     // this.subject.next(this.video);
-    //
-    //   });
+    const videoInt = setInterval(() => {
+      console.log('current time', this.player.getCurrentTime());
+      if (
+        this.player.getCurrentTime() >=
+        this.player.getDuration() - this.videoTimeLeft
+      ) {
+        clearInterval(videoInt);
+        this.watched = true;
+        console.log('watched');
+        this.extraResourcesService.markVideoWatched(this.videoIdToSend, this.watched);
 
-    // this.video =
-    //   this.route.params
-    //     .subscribe((data) => {
-    //       console.log('each video data is', data);
-    //       });
-    //      this.video = <VideoItem>data;
-    //      this.videoId = this.video.id;
-    //      console.log('id of video is', this.video.id);
+        // console.log('marking', this.videoIdToSend, this.watched);
+       // this.enableBackBtn();
+      }
+    }, 1000);
 
-    // this.video.title = data['title'];
-    // console.log('video title', this.video.title);
-    // });
-    // this.video = {
-    // id: this.route.snapshot.params['id'];
-    // }
-    // console.log('id is', this.video.id);
+  }
+  onPlayerStateChange(event: any) {
+    console.log('player state');
   }
 
-  //  this.extraResourcesService.getVideoDetail
-  // onVideoItem(videoItem: VideoItem){
-  //   this.video = <VideoItem>videoItem;
+
+  ngOnDestroy() {
+    (<any>window).onYouTubeIframeAPIReady = null;
+    if (this.player) {
+      this.player.destroy();
+      console.log('destroyed');
+      //this.createPlayer().destroy();
+
+    }
+  }
+
+  // onVideoClick() {
   //
+  //   if (this.duration === this.timePlayed){
+  //     this.watched = true;
+  //   }
   // }
+  //
+  // videoStartedPlaying() {
+  //   this.timeStarted = (new Date().getTime()) / 1000;
+  // }
+  //
+  // videoStoppedPlaying() {
+  //   // Start time less then zero means stop event was fired vidout start event
+  //   if (this.timeStarted > 0) {
+  //     this.playedFor = new Date().getTime() / 1000 - this.timeStarted;
+  //     this.timeStarted = -1;
+  //     // add the new ammount of seconds played
+  //     this.timePlayed += this.playedFor;
+  //     this.timePlayed = Math.round(this.timePlayed);
+  //   }
+  // }
+  //
+  //   getDuration(video: VideoItem['url']) {
+  //     this.duration = video.duration;
+  //     //document.getElementById("duration").appendChild(new Text(Math.round(duration)+""));
+  //     console.log("Duration: ", this.duration);
+  //   }
 }

@@ -183,6 +183,7 @@ import { ReadingItemComponent } from './extra-resources/reading-material/reading
 import { VideoItemComponent } from './extra-resources/videos/video-item/video-item.component';
 import { ExtraResourcesService } from '@/main/extra-resources/extra-resources.service';
 import { SafeUrlPipe } from './extra-resources/safe-url.pipe';
+import {ExtraResourcesModule} from '@/main/extra-resources/extra-resources.module';
 // import { Resources2Routing } from './extra-resources/extra-resources-routing.module.ts/extra-resources-routing.module.ts.component';
 
 @NgModule({
@@ -315,6 +316,7 @@ import { SafeUrlPipe } from './extra-resources/safe-url.pipe';
     QuestionnaireModule,
     ResourcesModule,
     MatRippleModule,
+    ExtraResourcesModule,
   ],
   providers: [
     LocalStorageService,
@@ -389,5 +391,8 @@ import { SafeUrlPipe } from './extra-resources/safe-url.pipe';
     SlidesVideoComponent,
     GamesFeedbackComponent,
   ],
+  exports: [
+    TrimStringPipe
+  ]
 })
 export class MainModule {}

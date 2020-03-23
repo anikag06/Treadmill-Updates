@@ -388,6 +388,7 @@ export const COMMON_EDITOR_CONFIG = {
 export const VIDEO_LIST = '/api/v1/resources/videos/';
 export const READING_LIST = '/api/v1/resources/reading-materials/';
 export const EACH_VIDEO = '/api/v1/resources/videos/';
+export const WATCHED_VIDEO = '/api/v1/resources/mark-video-watched/';
 
 // toast
 export const SHOW_TOAST_DURATION = 10000;
