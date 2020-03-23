@@ -124,7 +124,7 @@ export class VideoItemComponent implements OnInit, AfterViewInit, OnDestroy {
       createPlayer(){
      // (<any>window).onYouTubeIframeAPIReady = () => {
         console.log('you tube iframe');
-       // setTimeout(() => {
+        setTimeout(() => {
           //for (let j = 1; j  this.lengthOfVideoList; j++) {
           this.player = new (<any>window).YT.Player('player', {
             events: {
@@ -140,7 +140,7 @@ export class VideoItemComponent implements OnInit, AfterViewInit, OnDestroy {
               origin: window.location.href,
             },
           });//}
-       // }, 1000);
+        }, 1000);
      // };
     }
 
