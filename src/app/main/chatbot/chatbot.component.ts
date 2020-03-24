@@ -23,10 +23,27 @@ export class ChatbotComponent implements OnInit {
 
   toggleChat() {
     this.chatwindowClosed = !this.chatwindowClosed;
+    this.preventScrolling();
   }
 
   updateChatWindow(event: boolean) {
     this.chatwindowClosed = event;
+    this.preventScrolling();
+  }
+
+  //
+  //   window.addEventListener('scroll', () => {
+  //   document.documentElement.style.setProperty('--scroll-y', `${window.scrollY}px`);
+  // });
+  preventScrolling() {
+    if (!this.chatwindowClosed) {
+      const scrollY = document.documentElement.style.getPropertyValue(
+        '--scroll-y',
+      );
+      const body = document.body;
+      body.style.position = 'fixed';
+      body.style.top = `-${scrollY}`;
+    }
   }
 
   removingChat() {

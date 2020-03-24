@@ -183,6 +183,8 @@ import { ReadingItemComponent } from './extra-resources/reading-material/reading
 import { VideoItemComponent } from './extra-resources/videos/video-item/video-item.component';
 import { ExtraResourcesService } from '@/main/extra-resources/extra-resources.service';
 import { SafeUrlPipe } from './extra-resources/safe-url.pipe';
+import { ChatImageComponent } from './chatbot/chat-window/chat-image/chat-image.component';
+import { ChatImageDirective } from './chatbot/chat-window/chat-image/chat-image.directive';
 // import { Resources2Routing } from './extra-resources/extra-resources-routing.module.ts/extra-resources-routing.module.ts.component';
 
 @NgModule({
@@ -287,6 +289,8 @@ import { SafeUrlPipe } from './extra-resources/safe-url.pipe';
     SurveyComponent,
     DisableClickDirective,
     GamesFeedbackComponent,
+    ChatImageComponent,
+    ChatImageDirective,
     // Resources2Component,
     //  VideosComponent,
     //  ReadingMaterialComponent,
@@ -388,6 +392,7 @@ import { SafeUrlPipe } from './extra-resources/safe-url.pipe';
     ToastNotificationComponent,
     SlidesVideoComponent,
     GamesFeedbackComponent,
+    ChatImageComponent,
   ],
 })
 export class MainModule {}

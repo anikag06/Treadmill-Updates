@@ -40,15 +40,18 @@
         *ngFor="let image of m.images; let i = index"
         [ngStyle]="{ width: 'fit-content' }"
       >
-        <img
-          appLazyLoad
-          loading="lazy"
-          class="msg-img"
-          src="{{ image.url }}"
-          (click)="changeUrl(image, i)"
-          (load)="hideSpinner(i)"
-          alt="image"
-        />
+        <!--      <ng-template #dynamicComponent></ng-template>-->
+        <div class="">
+          <img
+            appLazyLoad
+            loading="lazy"
+            class="msg-img"
+            src="{{ image.url }}"
+            (click)="changeUrl(image, i)"
+            (load)="hideSpinner(i)"
+            alt="image"
+          />
+        </div>
 
         <div class="credits" *ngIf="image.credits">
           <div class="creditDiv">
@@ -82,73 +85,13 @@
           </div>
         </div>
       </div>
-      <!--      <div-->
-      <!--        class="buttons"-->
-      <!--        [ngStyle]="{-->
-      <!--          display: buttonType === clickAble ? 'table-cell' : 'block'-->
-      <!--        }"-->
-      <!--      >-->
-      <!--        <button-->
-      <!--          *ngFor="let button of m.buttons"-->
-      <!--          [ngClass]="{-->
-      <!--            'btn radio_button': button.type === radio,-->
-      <!--            'btn module_button': button.type === clickAble-->
-      <!--          }"-->
-      <!--          (click)="chatButtonPressed(button, m)"-->
-      <!--        >-->
-      <!--          <img-->
-      <!--            src="assets/chatbot/tracker.png"-->
-      <!--            [alt]="button.payload"-->
-      <!--            width="136px"-->
-      <!--            height="72px"-->
-      <!--            *ngIf="button.type === clickAble; else btnText"-->
-      <!--          />-->
-      <!--          <ng-template #btnText>-->
-      <!--            <span class="btn-text" [innerHTML]="button.payload"></span-->
-      <!--          ></ng-template>-->
-      <!--        </button>-->
-      <!--        <div>-->
-      <!--          <button-->
-      <!--            id="more_button"-->
-      <!--            *ngIf="showMore"-->
-      <!--            class="btn btn-link"-->
-      <!--            (click)="getButtons(m.buttons, m)"-->
-      <!--          >-->
-      <!--            + more...-->
-      <!--          </button>-->
-      <!--        </div>-->
-      <!--      </div>-->
-      <!--      <button-->
-      <!--        (click)="onMoodSelect()"-->
 
-      <!--      >-->
-      <!--        <span class="btn-text">Select your mood</span>-->
-      <!--      </button>-->
-      <!--      <div *ngIf="showMoodTracker">-->
-      <!--        <app-mood-tracker-->
-      <!--                class="chatbot"-->
-      <!--          (onClose)="onMoodSelect()"-->
-      <!--          (moodSubmit)="onChatSubmit($event)"-->
-      <!--          (moodMessage)="getMoodMessage($event)"-->
-      <!--        ></app-mood-tracker>-->
-      <!--      </div>-->
-      <!--      <button (click)="onDateTimeSelect()">-->
-      <!--        Date Time-->
-      <!--      </button>-->
-      <!--      <div *ngIf="showDateTime">-->
-      <!--        <app-date-time-picker-->
-      <!--          class="chatbot"-->
-      <!--          (onClose)="onDateTimeSelect()"-->
-      <!--          (dateTimeSubmit)="onChatSubmit($event)"-->
-      <!--          (dateTimeMessage)="getDateTimeMessage($event)"-->
-      <!--        ></app-date-time-picker>-->
-      <!--      </div>-->
       <div *ngFor="let widget of m.widgets">
         <!--        {{widget}}-->
         <div class="buttons">
           <button
             (click)="onMoodSelect()"
-            *ngIf="widget === moodWidget && showMoodWidget"
+            *ngIf="widget === moodWidget && showMoodWidgetBtn"
           >
             <span class="btn-text">Select your mood</span>
           </button>
@@ -162,7 +105,7 @@
           </div>
           <button
             (click)="onDateTimeSelect()"
-            *ngIf="widget === dateTimeWidget && showDateTimeWidget"
+            *ngIf="widget === dateTimeWidget && showDateTimeWidgetBtn"
           >
             Date Time
           </button>
@@ -245,30 +188,33 @@
       </div>
     </div>
   </div>
-  <!--  <div class="form-div">-->
- <form (ngSubmit)="onChatSubmit()">  <!--  *ngIf="showTextInput"-->
-    <div class="textarea">
-      <mat-form-field class="full-width">
+  <div class="form-div" *ngIf="showTextInput">
+    <!--  *ngIf="showTextInput"{{showButtons.length < 1}}{{!isWaiting}}-->
+    <form (ngSubmit)="onChatSubmit()">
+      <div class="textarea">
+        <!--                <mat-form-field class="full-width">-->
         <textarea
           matInput
           cdkTextareaAutosize
           cdkAutosizeMinRows="1"
+          cdkAutosizeMaxRows="5"
           placeholder="Enter your message"
           [(ngModel)]="message"
           name="message"
-          (keyup.enter)="onKey($event)"
+          (keyup)="sendReply($event)"
           (focusin)="scrollToBottom()"
           #ti
           autocomplete="off"
         >
         </textarea>
-      </mat-form-field>
-    </div>
-    <div class="btn-div">
-      <button type="submit">
-        <mat-icon [ngStyle]="{ color: 'grey' }">send</mat-icon>
-      </button>
-    </div>
-  </form>
-  <!--  </div>-->
+        <!--          (keyup.enter)="onKey($event)"-->
+        <!--        </mat-form-field>-->
+      </div>
+      <div class="btn-div">
+        <button type="submit">
+          <mat-icon [ngStyle]="{ color: 'grey' }">send</mat-icon>
+        </button>
+      </div>
+    </form>
+  </div>
 </div>

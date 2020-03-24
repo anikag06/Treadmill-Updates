@@ -206,7 +206,7 @@
   }
 }
 
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 500px) {
   .chat-window {
     width: -moz-available;
     width: -webkit-fill-available;
@@ -215,6 +215,7 @@
     height: 100%;
     top: 0;
     left: 0;
+    min-height: 100%;
     // margin: 0;
     margin: 4% 2% 0 2%;
     background: #ffffff 0% 0% no-repeat padding-box;
@@ -222,15 +223,15 @@
     background-size: cover;
     box-shadow: 0px -3px 8px #00000029;
     .chat-frame {
-      flex-grow: 1;
-      display: block;
-      max-height: 84.3%;
+      //flex-grow: 1;
+      //display: block;
+      height: 84%;
       .chat-header {
         height: 7%;
       }
     }
     .form-div {
-      //height: 7%;
+      //height: 8%;
       bottom: 5px;
       margin-top: 10px;
     }
@@ -246,14 +247,14 @@
 // }
 @media screen and (min-width: 768px) {
   .chat-frame {
-    height: 60vh;
+    //height: 60vh;
     max-height: 540px;
   }
 }
 
 @media screen and (min-width: 768px) and (max-height: 900px) {
   .chat-frame {
-    height: 75vh;
+    //height: 75vh;
     max-height: 540px;
   }
 }
@@ -383,7 +384,9 @@ $x3: -$leftPos + $dotSpacing;
 .msg-img {
   max-height: 400px;
   max-width: 280px;
+  min-width: 280px;
   height: auto;
+  background: white;
   width: auto;
   margin-top: 10px;
   box-shadow: 0px 1px 3px #00000029;
@@ -400,7 +403,6 @@ $x3: -$leftPos + $dotSpacing;
   text-align: center;
   width: inherit;
   z-index: 200;
-
 }
 
 #more_button {
@@ -419,6 +421,6 @@ $x3: -$leftPos + $dotSpacing;
   right: 120px;
 }
 
-.mat-form-field{
+.mat-form-field {
   background: #ffffff 0% 0% no-repeat padding-box;
 }
