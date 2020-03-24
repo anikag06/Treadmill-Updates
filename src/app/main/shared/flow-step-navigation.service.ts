@@ -14,6 +14,8 @@ import {
   CONTROL_PAGE,
   SURVEY,
   FORM_URL_MAP,
+  RESOURCES_PAGE,
+  TESTIMONIALS_PAGE,
 } from '@/app.constants';
 import { Observable } from 'rxjs';
 import { environment } from 'environments/environment';
@@ -53,6 +55,10 @@ export class FlowStepNavigationService {
         return `resources/control-content/${step.id}/`;
       } else if (step.data_type === SURVEY) {
         return `/survey/`;
+      } else if (step.data_type === RESOURCES_PAGE) {
+        return `/extra-resources/`;
+      } else if (step.data_type === TESTIMONIALS_PAGE) {
+        return `/extra-resources/`;
       }
     }
     return '/';
