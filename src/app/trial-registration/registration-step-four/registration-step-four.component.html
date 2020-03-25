@@ -16,7 +16,7 @@
                     received satisfactory response to my concerns.
                 </label>
                 <br>
-                <mat-radio-group formControlName="readInfo" color="primary" required>
+                <mat-radio-group (change)="activateSubmitButton()" formControlName="readInfo" color="primary" required>
                     <mat-radio-button [value]="1" class="mr-5"
                         #btn1 [ngClass]="{ 'checkedBtn': btn1.checked , 'unChecked': !btn1.checked}">
                         Accept</mat-radio-button>
@@ -32,7 +32,7 @@
                     any current or future medical care or legal rights being affected.
                 </label>
                 <br>
-                <mat-radio-group formControlName="voluntaryInfo" color="primary" required>
+                <mat-radio-group (change)="activateSubmitButton()" formControlName="voluntaryInfo" color="primary" required>
                     <mat-radio-button [value]="1" class="mr-5"
                         #btn3 [ngClass]="{ 'checkedBtn': btn3.checked , 'unChecked': !btn3.checked}">
                         Accept</mat-radio-button>
@@ -51,7 +51,7 @@
                     that might occur during the course of my participation in the study.
                 </label>
                 <br>
-                <mat-radio-group formControlName="confidentialInfo" color="primary" required>
+                <mat-radio-group (change)="activateSubmitButton()" formControlName="confidentialInfo" color="primary" required>
                     <mat-radio-button [value]="1" class="mr-5"
                         #btn5 [ngClass]="{ 'checkedBtn': btn5.checked , 'unChecked': !btn5.checked}">
                         Accept</mat-radio-button>
@@ -69,7 +69,7 @@
                     will be removed from the data.
                 </label>
                 <br>
-                <mat-radio-group formControlName="dataPublicationInfo" color="primary" required>
+                <mat-radio-group (change)="activateSubmitButton()" formControlName="dataPublicationInfo" color="primary" required>
                     <mat-radio-button [value]="1" class="mr-5"
                         #btn7 [ngClass]="{ 'checkedBtn': btn7.checked , 'unChecked': !btn7.checked}">
                         Accept</mat-radio-button>
@@ -86,7 +86,7 @@
                     be held responsible for any breach.
                 </label>
                 <br>
-                <mat-radio-group formControlName="informationLeakage" color="primary" required>
+                <mat-radio-group (change)="activateSubmitButton()" formControlName="informationLeakage" color="primary" required>
                     <mat-radio-button [value]="1" class="mr-5"
                         #btn9 [ngClass]="{ 'checkedBtn': btn9.checked , 'unChecked': !btn9.checked}">
                         Accept</mat-radio-button>
@@ -99,7 +99,7 @@
             <div class="col-12 my-1">
                 <label class="my-3 lesser-opacity">I agree to participate in the study.</label>
                 <br>
-                <mat-radio-group formControlName="agreementInfo" color="primary" required>
+                <mat-radio-group (change)="activateSubmitButton()" formControlName="agreementInfo" color="primary" required>
                     <mat-radio-button [value]="1" class="mr-5"
                         #btn11 [ngClass]="{ 'checkedBtn': btn11.checked , 'unChecked': !btn11.checked}">
                         Accept</mat-radio-button>
@@ -148,8 +148,16 @@
             </div>
 
             <div class="col-12 my-3 ">
-                <button type="button" class="w-100 form-elements" mat-raised-button
-                    color="primary" (click)="step4DataSubmit()"> Submit
+                <button
+                  type="button"
+                  class="w-100 form-elements"
+                  mat-raised-button
+                  [disabled]="!allowSubmit"
+                  matTooltip="Accept all the conditions to activate"
+                  [matTooltipDisabled]="allowSubmit"
+                  color="primary"
+                  (click)="step4DataSubmit()"
+                > Submit
                 </button>
             </div>
         </div>

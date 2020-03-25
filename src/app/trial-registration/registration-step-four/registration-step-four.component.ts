@@ -16,6 +16,7 @@ import { A2HSService } from '@/shared/a2hs.service';
 export class RegistrationStepFourComponent implements OnInit {
   stepNo = 4;
   userEligible = false;
+  allowSubmit = false;
 
   consentForm = new FormGroup({
     readInfo: new FormControl(),
@@ -30,7 +31,7 @@ export class RegistrationStepFourComponent implements OnInit {
 
   stepFourFormData = new RegistrationStepFourForm(
     0,
-    0,
+    null,
     null,
     null,
     null,
@@ -61,6 +62,10 @@ export class RegistrationStepFourComponent implements OnInit {
     console.log(this.starting_time);
     this.participationID = this.registrationDataService.participationID;
     this.a2hsService.setDeferredPrompt();
+    this.fcmService.permit.subscribe(permit => {
+      this.consentForm.value.notificationsInfo = permit ? 1 : 0;
+      this.activateSubmitButton();
+    });
   }
 
   step4DataSubmit() {
@@ -80,14 +85,9 @@ export class RegistrationStepFourComponent implements OnInit {
       this.stepFourFormData.information_leakage_consent = this.consentForm.value.informationLeakage;
       this.stepFourFormData.agreement_consent = this.consentForm.value.agreementInfo;
       this.stepFourFormData.add_to_home_screen_consent = this.consentForm.value.homeScreenInfo;
+      this.stepFourFormData.notifications_consent = this.consentForm.value.notificationsInfo;
       this.stepFourFormData.started_at = this.starting_time;
       this.stepFourFormData.completed_at = this.completion_time;
-
-      if (!this.fcmService.permit) {
-        this.consentForm.value.notificationsInfo = 0;
-        console.log(this.fcmService.permit);
-      }
-      this.stepFourFormData.notifications_consent = this.consentForm.value.notificationsInfo;
 
       this.registrationDataService
         .saveConsentData(this.stepFourFormData)
@@ -112,21 +112,32 @@ export class RegistrationStepFourComponent implements OnInit {
 
   notificationsPermission() {
     if (this.consentForm.value.notificationsInfo) {
-      console.log('participant ID: ', this.participationID);
       this.fcmService.participantRequestPermission(this.participationID);
-      if (!this.fcmService.permit) {
-        this.consentForm.value.notificationsInfo = 0;
-        console.log(this.fcmService.permit);
-      }
     }
   }
 
   homeScreenPermission() {
     if (this.consentForm.value.homeScreenInfo) {
       console.log('accepted');
+      this.activateSubmitButton();
       // this.a2hsService.getDeferredPrompt().subscribe((deferredPrompt) => {
       //     deferredPrompt.prompt();
       //   });
+    }
+  }
+
+  activateSubmitButton() {
+    if (
+      this.consentForm.value.readInfo &&
+      this.consentForm.value.voluntaryInfo &&
+      this.consentForm.value.confidentialInfo &&
+      this.consentForm.value.dataPublicationInfo &&
+      this.consentForm.value.informationLeakage &&
+      this.consentForm.value.agreementInfo &&
+      this.consentForm.value.homeScreenInfo &&
+      this.consentForm.value.notificationsInfo
+    ) {
+      this.allowSubmit = true;
     }
   }
 }

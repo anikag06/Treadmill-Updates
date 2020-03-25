@@ -5,13 +5,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { GeneralErrorService } from '../main/shared/general-error.service';
 import { TOKEN } from '@/app.constants';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FcmService {
-  permit = false;
+  permit = new Subject<boolean>();
   newNotification = new Subject<any>();
 
   constructor(
@@ -68,13 +68,13 @@ export class FcmService {
             console.log('participant id: ', part_id);
             this.participantUpdateToken(part_id, token).subscribe(data => {
               console.log('Token Updated');
-              this.permit = true;
+              this.permit.next(true);
             });
           }
         },
         error => {
           this.errorService.openErrorDialog(error);
-          this.permit = false;
+          this.permit.next(false);
         },
       );
   }
