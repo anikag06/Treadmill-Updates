@@ -170,20 +170,20 @@ export class StepComponent implements OnInit {
       } else if (step.data_type === FORM) {
         return  'assets/flow/icon-form-wb.png';
       } else if (step.data_type === SUPPORT_GROUP) {
-        return  'assets/flow/icon-slide-wb.png';
-      } else if (step.data_type === QUESTIONNAIRE) {
-        return  'assets/flow/icon-slide-wb.png';
+        return  'assets/flow/icon-Support Group-wb.png';
       } else if (step.data_type === INTRODUCTION_PAGE) {
-        return  'assets/flow/icon-slide-wb.png';
+        return  'assets/flow/icon-htmlpage-wb.png';
       } else if (step.data_type === CONCLUSION_PAGE) {
-        return  'assets/flow/icon-slide-wb.png';
+        return  'assets/flow/icon-htmlpage-wb.png';
       } else if (step.data_type === CONTROL_PAGE) {
         return  'assets/flow/icon-slide-wb.png';
       } else if (step.data_type === SURVEY) {
         return  'assets/flow/icon-survey-wb.png';
-     }  else if (step.data_type === VIDEO) {
+      }  else if (step.data_type === VIDEO) {
         return  'assets/flow/icon-video-wb.png';
-}
+      } else if (step.data_type === INTRODUCTORY_ANIMATION ) {
+        return  'assets/flow/Animation-onboarding.png';
+      }
   }
 
   unlocked() {
