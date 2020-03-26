@@ -69,7 +69,7 @@ export class GamesService {
     ),
   ];
 
-  constructor(private localStorageService: LocalStorageService) { }
+  constructor(private localStorageService: LocalStorageService) {}
 
   getGames() {
     let games = <Game[]>this.localStorageService.getItemWithDate(GAMES);
