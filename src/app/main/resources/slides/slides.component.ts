@@ -77,7 +77,6 @@ export class SlidesComponent implements OnInit {
   userFeedback!: UserFeedbackComponent;
   scrollTop = 0;
 
-
   constructor(
     private slideService: SlideService,
     private sanitizer: DomSanitizer,
@@ -88,7 +87,7 @@ export class SlidesComponent implements OnInit {
     private flowStepService: FlowStepNavigationService,
     private stepDataService: StepsDataService,
     private _bottomSheet: MatBottomSheet,
-  ) { }
+  ) {}
 
   slide!: Slide;
   sanitizedUrl!: SafeUrl;
@@ -199,9 +198,12 @@ export class SlidesComponent implements OnInit {
       console.log('data from slides component', data);
       if (data.data.hook[0] === SHOW_MINDFULNESS_VIDEO) {
         setTimeout(() => this.openBottomSheet(), 2000);
-        this.slideService.videoUrl_1 = data.data.mindfulness_videos[0].resource_video.url;
-        this.slideService.videoUrl_3 = data.data.mindfulness_videos[1].resource_video.url;
-        this.slideService.videoUrl_5 = data.data.mindfulness_videos[2].resource_video.url;
+        this.slideService.videoUrl_1 =
+          data.data.mindfulness_videos[0].resource_video.url;
+        this.slideService.videoUrl_3 =
+          data.data.mindfulness_videos[1].resource_video.url;
+        this.slideService.videoUrl_5 =
+          data.data.mindfulness_videos[2].resource_video.url;
       }
     });
   }
@@ -257,7 +259,7 @@ export class SlidesComponent implements OnInit {
     this.completionData.step_id = this.current_step_id;
     this.stepDataService
       .storeCompletionData(this.completionData)
-      .subscribe(data => { });
+      .subscribe(data => {});
     this.commonDialogService.openCongratsDialog(
       this.current_step_id,
       this.next_step_id,
@@ -283,12 +285,11 @@ export class SlidesComponent implements OnInit {
     this.feedbackText.feedback_text = this.userFeedback.feedback_text;
     this.slideService
       .updateFeedBackInfo(this.feedbackText, this.feedbackDataId)
-      .subscribe(data => { });
+      .subscribe(data => {});
     this.scrollTop = 0;
   }
 
   openBottomSheet() {
     this._bottomSheet.open(SlidesBottomsheetComponent);
   }
-
 }

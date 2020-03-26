@@ -39,8 +39,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
   notificationHost!: NavbarNotificationDirective;
   @ViewChild('flowTrigger', { static: false }) flowTrigger!: MatMenuTrigger;
 
-
-
   intervalSubscription!: Subscription;
   showFlow = false;
   showNotifications = false;
@@ -175,5 +173,4 @@ export class NavbarComponent implements OnInit, OnDestroy {
   //   console.log(data);
   //   this.navbarTitle = this.navbarTitleInfo[data];
   // }
-
 }

@@ -23,7 +23,7 @@ export class SlideService {
   videoUrl_3!: string;
   videoUrl_5!: string;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getFeedBackInfo(slideId: number): Observable<any> {
     console.log(slideId);
@@ -44,21 +44,17 @@ export class SlideService {
   }
 
   storeVideoOption(opted: SlidesVideoOpted) {
-    return this.http.post(
-      environment.API_ENDPOINT + VIDEO_OPTED, opted,
-    );
+    return this.http.post(environment.API_ENDPOINT + VIDEO_OPTED, opted);
   }
 
   storeVideoShowStatus(status: SlidesVideoShowStatus) {
     return this.http.post(
-      environment.API_ENDPOINT + VIDEO_DONT_ASK_AGAIN, status,
+      environment.API_ENDPOINT + VIDEO_DONT_ASK_AGAIN,
+      status,
     );
   }
 
   getVideo() {
-    return this.http.get(
-      environment.API_ENDPOINT + SHOW_VIDEO,
-    );
+    return this.http.get(environment.API_ENDPOINT + SHOW_VIDEO);
   }
-
 }

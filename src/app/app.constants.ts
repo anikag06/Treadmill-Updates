@@ -188,10 +188,10 @@ export const SLIDE_COMPLETE_DATA = FLOW_STEP_MARK_DONE;
 
 // slides video
 export const VIDEO_OPTED = '/api/v1/resources/mindful-video-opt/';
-export const VIDEO_DONT_ASK_AGAIN = '/api/v1/resources/mindful-video-dont-ask-again/';
+export const VIDEO_DONT_ASK_AGAIN =
+  '/api/v1/resources/mindful-video-dont-ask-again/';
 export const SHOW_VIDEO = '/api/v1/flow/steps/1/';
 export const SHOW_MINDFULNESS_VIDEO = 'SHOW-MINDFULNESS-VIDEO';
-
 
 // introduction and conclusion step related paths
 export const INTRODUCTION_DATA =

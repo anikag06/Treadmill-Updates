@@ -1,7 +1,15 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Game } from '@/main/shared/game.model';
 import { Router, ActivatedRoute } from '@angular/router';
-import { GAME_INTERPRETATION_BIAS, GAME_MENTAL_IMAGERY, GAME_FRIENDLY_FACE, GAME_ATTRIBUTION_STYLE, GAME_LEARNED_HELPLESSNESS, GAME_IDENTIFY_COGNITIVE_DISTORTION, GAME_EXECUTIVE_CONTROL } from '@/app.constants';
+import {
+  GAME_INTERPRETATION_BIAS,
+  GAME_MENTAL_IMAGERY,
+  GAME_FRIENDLY_FACE,
+  GAME_ATTRIBUTION_STYLE,
+  GAME_LEARNED_HELPLESSNESS,
+  GAME_IDENTIFY_COGNITIVE_DISTORTION,
+  GAME_EXECUTIVE_CONTROL,
+} from '@/app.constants';
 
 @Component({
   selector: 'app-game-item',
@@ -12,9 +20,9 @@ export class GameItemComponent implements OnInit {
   gameStarted = false;
   @Input() game!: Game;
 
-  constructor(private router: Router, private route: ActivatedRoute) { }
+  constructor(private router: Router, private route: ActivatedRoute) {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   onGameClick(game: Game) {
     this.gameStarted = true;
@@ -56,6 +64,4 @@ export class GameItemComponent implements OnInit {
       return '#F17878';
     }
   }
-
-
 }

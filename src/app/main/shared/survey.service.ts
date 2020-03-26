@@ -10,7 +10,7 @@ export class SurveyService {
   disableLinks = new EventEmitter();
   enableLinks = new EventEmitter();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getSurveyData(): Observable<any> {
     return this.http.get(

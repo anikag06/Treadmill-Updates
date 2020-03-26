@@ -28,7 +28,7 @@ export class SlidesBottomsheetComponent implements OnInit {
     private _bottomSheetRef: MatBottomSheetRef<SlidesBottomsheetComponent>,
     public dialog: MatDialog,
     private element: ElementRef,
-    private slideService: SlideService
+    private slideService: SlideService,
   ) {
     this.getScreenSize();
   }
@@ -81,7 +81,7 @@ export class SlidesBottomsheetComponent implements OnInit {
   onClickClose() {
     this._bottomSheetRef.dismiss();
     this.videoShowAgain = {
-      dont_ask_again: this.dont_ask_again
+      dont_ask_again: this.dont_ask_again,
     };
     console.log('event', this.dont_ask_again);
     this.slideService.storeVideoShowStatus(this.videoShowAgain).subscribe();
@@ -90,5 +90,4 @@ export class SlidesBottomsheetComponent implements OnInit {
   onCheckboxChange(event: any) {
     this.dont_ask_again = event.checked;
   }
-
 }

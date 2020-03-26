@@ -80,7 +80,7 @@ export class SurveyComponent implements OnInit {
   constructor(
     private surveyService: SurveyService,
     private timerService: TimerService,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.surveyService.disableLinks.emit(this.data);
@@ -231,7 +231,9 @@ export class SurveyComponent implements OnInit {
       .storeUserResponse({
         survey_responses: this.userResponseArray,
       })
-      .subscribe(data => { console.log('survey response', data); });
+      .subscribe(data => {
+        console.log('survey response', data);
+      });
     this.surveyService.enableLinks.emit();
     // next step
   }

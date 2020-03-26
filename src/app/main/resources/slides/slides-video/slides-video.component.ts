@@ -30,8 +30,7 @@ export class SlidesVideoComponent implements OnInit, AfterViewInit {
     private sanitizer: DomSanitizer,
     private loadFileService: LoadFilesService,
     private slideService: SlideService,
-  ) { }
-
+  ) {}
 
   ngAfterViewInit() {
     this.loadFileService.loadExternalScript(
@@ -69,14 +68,16 @@ export class SlidesVideoComponent implements OnInit, AfterViewInit {
       this.backBtn.nativeElement.setAttribute('mat-flat-button', '');
       this.backBtn.nativeElement.classList.add('back-btn');
     });
-
   }
 
   onPlayerReady(event: any) {
     console.log('player ready');
     const videoInt = setInterval(() => {
       console.log('current time', this.player.getCurrentTime());
-      console.log('duration left', this.player.getDuration() - this.videoTimeLeft);
+      console.log(
+        'duration left',
+        this.player.getDuration() - this.videoTimeLeft,
+      );
       if (
         this.player.getCurrentTime() >=
         this.player.getDuration() - this.videoTimeLeft
@@ -86,7 +87,6 @@ export class SlidesVideoComponent implements OnInit, AfterViewInit {
       }
     }, 1000);
     console.log('back btn', this.backBtn.nativeElement);
-
   }
 
   onPlayerStateChange(event: any) {
@@ -96,7 +96,6 @@ export class SlidesVideoComponent implements OnInit, AfterViewInit {
   onBack() {
     this.dialogRef.close();
   }
-
 
   showThreeMinVideo() {
     this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(

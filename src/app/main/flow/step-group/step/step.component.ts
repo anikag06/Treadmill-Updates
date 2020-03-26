@@ -9,7 +9,12 @@ import {
   FORM,
   FORM_URL_MAP,
   SUPPORT_GROUP,
-  QUESTIONNAIRE, INTRODUCTION_PAGE, CONCLUSION_PAGE, CONTROL_PAGE, SURVEY, VIDEO
+  QUESTIONNAIRE,
+  INTRODUCTION_PAGE,
+  CONCLUSION_PAGE,
+  CONTROL_PAGE,
+  SURVEY,
+  VIDEO,
 } from '@/app.constants';
 import { LOCKED, ACTIVE, INTRODUCTORY_ANIMATION } from '@/app.constants';
 import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.service';
@@ -43,7 +48,7 @@ export class StepComponent implements OnInit {
     private datePipe: DatePipe,
     private element: ElementRef,
     private navbarService: NavbarNotificationsService,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.tooltipData = 'Complete the previous steps first';
@@ -143,12 +148,12 @@ export class StepComponent implements OnInit {
     // );
 
     if (this.step.status !== LOCKED && !this.step.virtual_step) {
-    this.flowService.stepGroupSequence = this.stepGroup.sequence + 1;
-    this.flowService.stepSequence = this.step.sequence + 1;
-    this.flowService.stepName = this.step.name;
-    this.flowService.stepDetail.emit();
-    this.closeNavFlow();
-    return this.router.navigate([this.nextLink()]);
+      this.flowService.stepGroupSequence = this.stepGroup.sequence + 1;
+      this.flowService.stepSequence = this.step.sequence + 1;
+      this.flowService.stepName = this.step.name;
+      this.flowService.stepDetail.emit();
+      this.closeNavFlow();
+      return this.router.navigate([this.nextLink()]);
     }
   }
 
@@ -161,29 +166,29 @@ export class StepComponent implements OnInit {
   }
 
   getStepIcon(step: Step) {
-      if (step.data_type === SLIDE) {
-        return 'assets/flow/icon-slide-wb.png';
-      } else if (step.data_type === CONVERSATION_GROUP) {
-        return  'assets/flow/icon-conversation-wb.png';
-      } else if (step.data_type === GAME) {
-        return  'assets/flow/icon-game-wb.png';
-      } else if (step.data_type === FORM) {
-        return  'assets/flow/icon-form-wb.png';
-      } else if (step.data_type === SUPPORT_GROUP) {
-        return  'assets/flow/icon-Support Group-wb.png';
-      } else if (step.data_type === INTRODUCTION_PAGE) {
-        return  'assets/flow/icon-htmlpage-wb.png';
-      } else if (step.data_type === CONCLUSION_PAGE) {
-        return  'assets/flow/icon-htmlpage-wb.png';
-      } else if (step.data_type === CONTROL_PAGE) {
-        return  'assets/flow/icon-slide-wb.png';
-      } else if (step.data_type === SURVEY) {
-        return  'assets/flow/icon-survey-wb.png';
-      }  else if (step.data_type === VIDEO) {
-        return  'assets/flow/icon-video-wb.png';
-      } else if (step.data_type === INTRODUCTORY_ANIMATION ) {
-        return  'assets/flow/Animation-onboarding.png';
-      }
+    if (step.data_type === SLIDE) {
+      return 'assets/flow/icon-slide-wb.png';
+    } else if (step.data_type === CONVERSATION_GROUP) {
+      return 'assets/flow/icon-conversation-wb.png';
+    } else if (step.data_type === GAME) {
+      return 'assets/flow/icon-game-wb.png';
+    } else if (step.data_type === FORM) {
+      return 'assets/flow/icon-form-wb.png';
+    } else if (step.data_type === SUPPORT_GROUP) {
+      return 'assets/flow/icon-Support Group-wb.png';
+    } else if (step.data_type === INTRODUCTION_PAGE) {
+      return 'assets/flow/icon-htmlpage-wb.png';
+    } else if (step.data_type === CONCLUSION_PAGE) {
+      return 'assets/flow/icon-htmlpage-wb.png';
+    } else if (step.data_type === CONTROL_PAGE) {
+      return 'assets/flow/icon-slide-wb.png';
+    } else if (step.data_type === SURVEY) {
+      return 'assets/flow/icon-survey-wb.png';
+    } else if (step.data_type === VIDEO) {
+      return 'assets/flow/icon-video-wb.png';
+    } else if (step.data_type === INTRODUCTORY_ANIMATION) {
+      return 'assets/flow/Animation-onboarding.png';
+    }
   }
 
   unlocked() {
@@ -219,5 +224,4 @@ export class StepComponent implements OnInit {
     console.log('close navflow');
     this.navbarService.closeNavFlow.emit();
   }
-
 }

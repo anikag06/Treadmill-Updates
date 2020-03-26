@@ -6,10 +6,9 @@ import { UNLOCKED } from '@/app.constants';
 @Component({
   selector: 'app-steps-indicator',
   templateUrl: './steps-indicator.component.html',
-  styleUrls: ['./steps-indicator.component.scss']
+  styleUrls: ['./steps-indicator.component.scss'],
 })
 export class StepsIndicatorComponent implements OnInit {
-
   imageMap = new Map([
     ['locked', 'assets/flow/not completed.png'],
     ['active', 'assets/flow/unlocked.gif'],
@@ -26,7 +25,7 @@ export class StepsIndicatorComponent implements OnInit {
   @Input() firstStepOfModule!: any;
   @Input() lastStepOfModule!: any;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
     console.log(this.lastStepOfModule);
@@ -38,5 +37,4 @@ export class StepsIndicatorComponent implements OnInit {
     }
     return this.imageMap.get(step.status.toLowerCase());
   }
-
 }
