@@ -1,7 +1,7 @@
 @import 'styles.scss';
 @import 'color.palette.scss';
 .step-status-indicator {
-  height: 72px;
+  height: 100%;
   max-width: 100%;
   // padding-left: 10px;
   padding-bottom: 14px;
@@ -14,45 +14,60 @@
   // width: 36px;
 }
 .circle-img{
-  width: 34px;
+  //width: 24px;
+  padding-top:12px;
 }
-.status-img.active:before {
-  position: absolute; 
-  border-left: 3px solid #f5bb56; 
-  width: 0; 
-  top:34px;
-  height: 38px; 
-  content: ''; 
+.status-img.completed:before {
+  position: absolute;
+  border-left: 3px solid #f5bb56;
+  width: 0;
+  margin-left:10px;
+  top:36px;
+  height: calc(100% - 24px);
+  content: '';
 }
 .status-img.disabled:before {
-  position: absolute; 
-  border-left: 3px solid #FFEDD5; 
-  width: 0; 
-  top:34px;
-  height: 38px; 
-  content: ''; 
-  
+  position: absolute;
+  border-left: 3px solid #FFEDD5;
+  width: 0;
+  margin-left:10px;
+  top:36px;
+  height: calc(100% - 24px);
+  content: '';
+
 }
+.status-img.active:before {
+  position: absolute;
+  border-left: 3px solid #FFEDD5;
+  width: 0;
+  margin-left:12px;
+  top:36px;
+  height: calc(100% - 24px);
+  content: '';
+}
+
 .status-img.isFirstDashed:after{
-  position: absolute; 
-  border-left: 3px dashed #f5bb56; 
-  width: 0; 
-  top:-23px;
-  height: 23px; 
+  position: absolute;
+  border-left: 3px dashed #f5bb56;
+  width: 0;
+  margin-left: -14px;
+  top:-25px;
+  height: 39px;
   content: '';
 }
 .status-img.isFirstStep:after{
-  position: absolute; 
-  border-left: 3px solid #f5bb56; 
-  width: 0; 
-  top:-23px;
-  height: 23px; 
+  position: absolute;
+  border-left: 3px solid #f5bb56;
+  width: 0;
+  margin-left:-14px;
+  top:-25px;
+  height: 39px;
   content: '';
 }
 .status-img.isLastDashed:before {
-  border-left: 3px dashed #FFEDD5; 
-  height: 29px; 
+  border-left: 3px dashed #FFEDD5;
+  height: 39px;
 }
 .status-img.isLastStep:before {
-  border: 0px; 
+  border: 0px;
 }

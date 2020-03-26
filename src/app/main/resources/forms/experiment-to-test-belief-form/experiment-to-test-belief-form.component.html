@@ -1,5 +1,5 @@
 <mat-card class="container-fluid px-0 pt-0 pb-2 mb-2">
-  <div class="class row no-gutters mb-2 card card-full-width">
+  <div class="class row mb-2 card card-full-width">
     <mat-card-header class="col-12 w-100 px-0 py-0 card-header main-heading">
       <mat-card-title class="class ml-4 py-2 my-auto d-inline-block">
         {{ formName }}
@@ -7,32 +7,18 @@
 
       <div class="class h-100 d-inline-block ml-auto">
         <div *ngIf="showFollowUp && !t.menuOpen" class="red-circle"></div>
-        <button
-          class="h-100 saved-forms-btn"
-          mat-button
-          [matMenuTriggerFor]="experimentToTestBeliefForms"
-          #t="matMenuTrigger"
-        >
+        <button class="h-100 saved-forms-btn" mat-button [matMenuTriggerFor]="experimentToTestBeliefForms"
+          #t="matMenuTrigger">
           <mat-icon>
             more_horiz
           </mat-icon>
         </button>
       </div>
 
-      <mat-menu
-        xPosition="before"
-        yPosition="below"
-        #experimentToTestBeliefForms="matMenu"
-        [overlapTrigger]="false"
-      >
+      <mat-menu xPosition="before" yPosition="below" #experimentToTestBeliefForms="matMenu" [overlapTrigger]="false">
         <div [ngStyle]="{ 'max-height': '350px' }">
-          <app-forms-sidebar
-            [type]="type"
-            (objectEmitter)="beliefSelected($event)"
-            (newForm)="onAddNewForm()"
-            (showDot)="onShowFollowUp($event)"
-            [object]="belief"
-          >
+          <app-forms-sidebar [type]="type" (objectEmitter)="beliefSelected($event)" (newForm)="onAddNewForm()"
+            (showDot)="onShowFollowUp($event)" [object]="belief">
           </app-forms-sidebar>
         </div>
       </mat-menu>
@@ -49,10 +35,7 @@
                 Write the negative belief that you would like to test.
               </div>
 
-              <div
-                class="float-right d-inline-block position-absolute"
-                [ngStyle]="{ right: '20px' }"
-              >
+              <div class="float-right d-inline-block position-absolute" [ngStyle]="{ right: '20px' }">
                 <mat-icon class="edit_icon" (click)="onEditBeliefClick()">
                   edit
                 </mat-icon>
@@ -64,15 +47,10 @@
               </div>
             </div> -->
             <div class="card-body" *ngIf="belief" (click)="onBeliefClick()">
-              <app-ettbf-belief
-                [belief]="belief"
-                (beliefClicked)="LoadTasks($event)"
-              ></app-ettbf-belief>
+              <app-ettbf-belief [belief]="belief" (beliefClicked)="LoadTasks($event)"></app-ettbf-belief>
             </div>
             <div class="card-body" *ngIf="!belief" (click)="onBeliefClick()">
-              <app-ettbf-belief
-                (beliefClicked)="LoadTasks($event)"
-              ></app-ettbf-belief>
+              <app-ettbf-belief (beliefClicked)="LoadTasks($event)"></app-ettbf-belief>
             </div>
           </div>
         </div>
@@ -86,12 +64,8 @@
                 How can you test if this belief is true?
               </div> -->
               <div class="card-body">
-                <app-tasks
-                  (taskLoaded)="taskLoaded($event)"
-                  [object]="taskObject"
-                  [task]="task"
-                  [taskHeading]="taskHeading"
-                ></app-tasks>
+                <app-tasks (taskLoaded)="taskLoaded($event)" [object]="taskObject" [task]="task"
+                  [taskHeading]="taskHeading"></app-tasks>
               </div>
             </div>
           </div>
@@ -103,20 +77,12 @@
           <div class="col-12">
             <div class="card-full-width">
               <div *ngIf="outcome">
-                <app-ettbf-outcome
-                  [outcome]="outcome"
-                  [task]="task"
-                  [belief]="belief"
-                  (finalSliderRating)="finalSliderEmit($event)"
-                ></app-ettbf-outcome>
+                <app-ettbf-outcome [outcome]="outcome" [task]="task" [belief]="belief"
+                  (finalSliderRating)="finalSliderEmit($event)"></app-ettbf-outcome>
               </div>
               <div *ngIf="!outcome">
-                <app-ettbf-outcome
-                  [belief]="belief"
-                  [task]="task"
-                  [getNotification]="notification"
-                  (finalSliderRating)="finalSliderEmit($event)"
-                ></app-ettbf-outcome>
+                <app-ettbf-outcome [belief]="belief" [task]="task" [getNotification]="notification"
+                  (finalSliderRating)="finalSliderEmit($event)"></app-ettbf-outcome>
               </div>
             </div>
           </div>
@@ -126,9 +92,5 @@
   </div>
   <app-form-message *ngIf="showMessage" [formMessage]="message">
   </app-form-message>
-  <app-form-quote
-    *ngIf="showMessage"
-    [quote]="quote"
-    [quotedBy]="quotedBy"
-  ></app-form-quote>
+  <app-form-quote *ngIf="showMessage" [quote]="quote" [quotedBy]="quotedBy"></app-form-quote>
 </mat-card>

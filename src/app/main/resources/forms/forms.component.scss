@@ -30,6 +30,10 @@ $form-secondary-color: #2a3b3d;
   min-height: 70vh;
 }
 
+.mat-card {
+  box-shadow: none !important;
+}
+
 @media screen and (max-width: 992px) {
   #form-container {
     width: 70%;
@@ -53,6 +57,7 @@ $form-secondary-color: #2a3b3d;
   max-width: 85%;
   margin: auto;
 }
+
 strong {
   word-wrap: break-word;
 }
@@ -238,6 +243,7 @@ strong {
 .statement {
   margin-bottom: 10px;
 }
+
 .technique {
   margin-top: 12px;
   margin-bottom: 16px;

@@ -130,7 +130,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     private flowStepService: FlowStepNavigationService,
     private stepDataService: StepsDataService,
     private notificationService: NavbarNotificationsService,
-  ) {}
+  ) { }
   currenthistory!: CurrentHistory;
   dialog_history!: DialogInHistory;
   conversation_id!: number;
@@ -240,8 +240,8 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     this.conversationsService
       .get(
         environment.API_ENDPOINT +
-          '/api/v1/conversation/conversation/?conversation_id=' +
-          this.conversation_id,
+        '/api/v1/conversation/conversation/?conversation_id=' +
+        this.conversation_id,
       )
       .subscribe((res: any) => {
         this.conversation = new Conversation(
@@ -311,8 +311,8 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     this.conversationsService
       .get(
         environment.API_ENDPOINT +
-          '/api/v1/conversation/history/current/?conversation_id=' +
-          this.conversation_id,
+        '/api/v1/conversation/history/current/?conversation_id=' +
+        this.conversation_id,
       )
       .subscribe((res: any) => {
         this.conversationsService
@@ -331,7 +331,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
               this.initial_feedback = 0; // if it the first response
             }
           });
-        if (window.matchMedia('(max-width: 770px)').matches) {
+        if (window.matchMedia('(max-width: 767px)').matches) {
           this.isvisible = true;
         } else {
           setTimeout(
@@ -401,7 +401,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     const viewContainerRef = this.formHost.viewContainerRef;
     viewContainerRef.clear();
     viewContainerRef.createComponent(componentFactory);
-    if (window.matchMedia('(max-width: 770px)').matches) {
+    if (window.matchMedia('(max-width: 767px)').matches) {
       this.isFormVisible = false;
     } else {
       this.isFormVisible = true;

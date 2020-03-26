@@ -11,6 +11,8 @@ import { COMPLETED, ACTIVE, UNLOCKED } from '@/app.constants';
 export class StepGroupComponent implements OnInit {
   @Input() stepGroup!: StepGroup;
 
+  first!: boolean;
+  last!: boolean;
   isExpanded = false;
   showLessSteps = true;
   defaultSteps: StepGroup = {

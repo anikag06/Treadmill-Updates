@@ -1,4 +1,10 @@
-<div class="mat-card" (click)="onGameClick(game)">
-  <img [src]="game.thumbnail" [alt]="game.name">
-  <h3>{{game.name}}</h3>
-</div>
+<mat-card class="mat-card" (click)="onGameClick(game)">
+  <div class="cover-img" [style.background-color]="getBackgroundColor(game.slug)">
+    <img class="mx-auto" [src]="game.thumbnail" [alt]="game.name" style="height:130px">
+  </div>
+
+  <mat-card-footer [style.background-color]="getFooterColor(game.slug)">
+    <h6 class="my-auto" style="height:57px;color:white;">{{game.name}}</h6>
+
+  </mat-card-footer>
+</mat-card>

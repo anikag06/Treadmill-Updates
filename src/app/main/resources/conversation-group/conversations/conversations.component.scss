@@ -132,6 +132,7 @@
 #conversation-container {
   background-color: white;
   margin-bottom: 1vh;
+  @include box-shadow-common() // @include box-shadow-1-1-10-d6();
   // height: 83vh;
   // max-height: 900px;
 }
@@ -139,8 +140,8 @@
 .form-div {
   float: right;
   background-color: white;
-  margin-bottom: 1vh;
-  height: 91vh;
+  margin-bottom: 1vh !important;
+  height: 92vh;
   max-height: 900px;
   overflow-y: auto;
   overflow-x: hidden;
@@ -217,6 +218,7 @@
   font-size: 16px;
   border-radius: 12px 12px 2px 2px;
   z-index: 1;
+
 }
 
 #flow-img {
@@ -241,9 +243,17 @@
   line-height: 0%;
 }
 
-@media screen and (max-width: 992px) {}
+@media screen and (max-width: 1440px) {
+  .form-div {
+    height: 90vh;
+  }
+}
 
-@media screen and (max-width: 770px) {
+@media screen and (max-width: 767px) {
+
+  #conv-page {
+    background-color: white;
+  }
 
   #conversation-container {
     min-height: 500px;
@@ -260,11 +270,14 @@
   .form-div {
     min-height: 500px;
     max-width: 640px;
-    overflow: auto;
+    // overflow: auto;
   }
 
   .in-mobile {
     display: block;
+    position: sticky !important;
+    top: 50px;
+    z-index: 1;
   }
 
   .in-desktop {
@@ -280,18 +293,18 @@
   .extra-form-div {
     background-color: white;
     max-width: 2%;
-    height: 85vh;
+    // height: 85vh;
     border-color: #BFBFBF;
     float: right;
-    max-height: 900px;
+    // max-height: 900px;
   }
 
   .extra-slide-div {
     background-color: white;
     max-width: 2%;
-    height: 85vh;
+    // height: 85vh;
     border-color: #BFBFBF;
     float: left;
-    max-height: 900px;
+    // max-height: 900px;
   }
 }

@@ -80,7 +80,7 @@ export class SurveyComponent implements OnInit {
   constructor(
     private surveyService: SurveyService,
     private timerService: TimerService,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.surveyService.disableLinks.emit(this.data);
@@ -105,9 +105,6 @@ export class SurveyComponent implements OnInit {
       this.display_survey = true;
       this.ques = this.quesArray[this.quesCount].ques;
       this.startTime = new Date();
-    });
-    this.surveyService.getSurveyTerm().subscribe(data => {
-      this.surveyId = data.id;
     });
   }
 
@@ -232,12 +229,9 @@ export class SurveyComponent implements OnInit {
     this.front = false;
     this.surveyService
       .storeUserResponse({
-        survey_id: this.surveyId,
         survey_responses: this.userResponseArray,
       })
-      .subscribe(data => {
-        console.log(data);
-      });
+      .subscribe(data => { console.log('survey response', data); });
     this.surveyService.enableLinks.emit();
     // next step
   }

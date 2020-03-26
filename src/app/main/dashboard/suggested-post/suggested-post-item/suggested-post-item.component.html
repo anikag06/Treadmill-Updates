@@ -18,8 +18,8 @@
     <div class="main-header">
       <h2 [style.max-width]="container.offsetWidth - 100 + 'px'">{{suggestedPost.title }}</h2>
     </div>
-    <div class="post-body">
-      {{suggestedPost.body | trimString:bodyLength }}
+    <div class="post-body giveMeEllipsis">
+      {{suggestedPost.body }}
     </div>
   </div>
 

@@ -8,6 +8,7 @@ import {
 import { MatDialogRef } from '@angular/material';
 import { SafeUrl, DomSanitizer } from '@angular/platform-browser';
 import { LoadFilesService } from '@/main/games/shared/load-files.service';
+import { SlideService } from '../slide.service';
 
 @Component({
   selector: 'app-slides-video',
@@ -16,10 +17,10 @@ import { LoadFilesService } from '@/main/games/shared/load-files.service';
 })
 export class SlidesVideoComponent implements OnInit, AfterViewInit {
   sanitizedUrl!: SafeUrl;
-  videoUrl =
-    'https://www.youtube.com/embed/k5E2AVpwsko?autoplay=1&enablejsapi=1&mute=1';
+  videoUrl!: string;
+  // 'https://www.youtube.com/embed/k5E2AVpwsko?autoplay=1&enablejsapi=1&mute=1';
   player!: any;
-  videoTimeLeft = 10;
+  videoTimeLeft = 30;
 
   @ViewChild('slideVideo', { static: false }) slideVideo!: ElementRef;
   @ViewChild('backBtn', { static: false }) backBtn!: ElementRef;
@@ -28,7 +29,9 @@ export class SlidesVideoComponent implements OnInit, AfterViewInit {
     public dialogRef: MatDialogRef<SlidesVideoComponent>,
     private sanitizer: DomSanitizer,
     private loadFileService: LoadFilesService,
-  ) {}
+    private slideService: SlideService,
+  ) { }
+
 
   ngAfterViewInit() {
     this.loadFileService.loadExternalScript(
@@ -42,6 +45,7 @@ export class SlidesVideoComponent implements OnInit, AfterViewInit {
         this.player = new (<any>window).YT.Player('player', {
           events: {
             onReady: (event: any) => {
+              console.log('player is ready event');
               this.onPlayerReady(event);
             },
             onStateChange: (event: any) => {
@@ -51,30 +55,38 @@ export class SlidesVideoComponent implements OnInit, AfterViewInit {
           playerVars: {
             autoplay: 1,
             origin: window.location.href,
+            enablejsapi: 1,
           },
         });
       }, 1000);
     };
-
+    this.videoUrl = this.slideService.videoUrl_1 + '?enablejsapi=1';
+    console.log('video url', this.videoUrl);
     this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-      this.videoUrl,
+      this.slideService.videoUrl_1 + '?enablejsapi=1',
     );
+    this.slideService.highlightBtn.subscribe(() => {
+      this.backBtn.nativeElement.setAttribute('mat-flat-button', '');
+      this.backBtn.nativeElement.classList.add('back-btn');
+    });
+
   }
 
   onPlayerReady(event: any) {
     console.log('player ready');
-    console.log('video time', this.player.getDuration());
-
     const videoInt = setInterval(() => {
       console.log('current time', this.player.getCurrentTime());
+      console.log('duration left', this.player.getDuration() - this.videoTimeLeft);
       if (
         this.player.getCurrentTime() >=
         this.player.getDuration() - this.videoTimeLeft
       ) {
+        this.slideService.highlightBtn.emit();
         clearInterval(videoInt);
-        this.enableBackBtn();
       }
     }, 1000);
+    console.log('back btn', this.backBtn.nativeElement);
+
   }
 
   onPlayerStateChange(event: any) {
@@ -85,7 +97,16 @@ export class SlidesVideoComponent implements OnInit, AfterViewInit {
     this.dialogRef.close();
   }
 
-  enableBackBtn() {
-    this.backBtn.nativeElement.classList.add('back-higlight-text');
+
+  showThreeMinVideo() {
+    this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+      this.slideService.videoUrl_3 + '?enablejsapi=1',
+    );
+  }
+
+  showFiveMinVideo() {
+    this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+      this.slideService.videoUrl_5 + '?enablejsapi=1',
+    );
   }
 }

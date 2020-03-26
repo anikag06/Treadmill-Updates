@@ -1,58 +1,70 @@
 @import "styles.scss";
 
 .mat-card {
-    @include font-montserrat($font-weight: 300);
-    margin: 40px 70px 40px 0;
-    width: 320px;
-    border-radius: 5px;
-    overflow: hidden;
-    box-shadow: 1px 1px 10px #dadada;
-    padding: 0;
-    img {
-        width: 100%;
-    }
-    h3 {
-        text-align: center;
-        padding: 10px;
-        font-size: 1.8rem;
-    }
+  @include font-roboto($font-weight: 300);
+  margin: 40px 40px 40px 0;
+  width: 320px;
+  height: 237px;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 1px 1px 10px #dadada;
+  padding: 0;
+
+  .cover-img {
+    height: 180px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  img {
+    // width: 100%;
+  }
+
+  h6 {
+    line-height: 57px;
+    text-align: center;
+    // padding: 10px;
+    font-size: 1.15rem;
+  }
 }
 
 @media screen and (max-width: 1500px) {
-    .mat-card {
-        width: 290px;
-        margin: 20px 0;
-    }
+  .mat-card {
+    // width: 290px;
+    margin: 20px 0;
+  }
 }
 
 @media screen and (max-width: 1280px) {
-    .mat-card {
-        width: 300px;
-        margin: 20px 0;
-    }
+  .mat-card {
+    // width: 300px;
+    margin: 20px 0;
+  }
 }
 
 
 @media screen and (max-width: 991px) {
-    .mat-card {
-        width: 280px;
-        margin: 20px;
-    }
-    
+  .mat-card {
+    // width: 280px;
+    margin: 20px;
+  }
+
 }
 
 @media screen and (max-width: 767px) {
-    .mat-card {
-        width: 60%;
-        margin: 20px auto;
-    }
-    
+  .mat-card {
+    // width: 60%;
+    margin: 20px auto;
+  }
+
 }
 
 @media screen and (max-width: 568px) {
-    .mat-card {
-        width: 90%;
-        margin: 20px auto;
-    }
-    
+  .mat-card {
+    // width: 90%;
+    margin: 20px auto;
+  }
+
 }

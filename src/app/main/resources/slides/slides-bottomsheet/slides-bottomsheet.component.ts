@@ -7,6 +7,8 @@ import {
 } from '@angular/core';
 import { MatBottomSheetRef, MatDialog } from '@angular/material';
 import { SlidesVideoComponent } from '../slides-video/slides-video.component';
+import { SlideService } from '../slide.service';
+import { SlidesVideoOpted, SlidesVideoShowStatus } from '../slides-video.model';
 
 @Component({
   selector: 'app-slides-bottomsheet',
@@ -15,11 +17,18 @@ import { SlidesVideoComponent } from '../slides-video/slides-video.component';
 })
 export class SlidesBottomsheetComponent implements OnInit {
   srcWidth!: number;
+  noClicked = false;
+  opted!: boolean;
+  videoOpted!: SlidesVideoOpted;
+  videoShowAgain!: SlidesVideoShowStatus;
+  dont_ask_again!: boolean;
+
   @ViewChild('yesbtn', { static: false }) yesbtn!: ElementRef;
   constructor(
     private _bottomSheetRef: MatBottomSheetRef<SlidesBottomsheetComponent>,
     public dialog: MatDialog,
     private element: ElementRef,
+    private slideService: SlideService
   ) {
     this.getScreenSize();
   }
@@ -29,9 +38,18 @@ export class SlidesBottomsheetComponent implements OnInit {
     this.srcWidth = window.innerWidth;
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this._bottomSheetRef.afterDismissed().subscribe(() => {
+      console.log('Bottom sheet has been dismissed.');
+      if (!this.noClicked) {
+        this.onClickNo();
+      }
+    });
+  }
 
   onClickYes() {
+    this.videoOpted = { opted: true };
+    this.slideService.storeVideoOption(this.videoOpted).subscribe();
     this._bottomSheetRef.dismiss();
     this.openDialog();
   }
@@ -52,7 +70,25 @@ export class SlidesBottomsheetComponent implements OnInit {
       });
     }
   }
+
   onClickNo() {
-    this._bottomSheetRef.dismiss();
+    this.videoOpted = { opted: false };
+    this.noClicked = true;
+    console.log('no clicked');
+    this.slideService.storeVideoOption(this.videoOpted).subscribe();
   }
+
+  onClickClose() {
+    this._bottomSheetRef.dismiss();
+    this.videoShowAgain = {
+      dont_ask_again: this.dont_ask_again
+    };
+    console.log('event', this.dont_ask_again);
+    this.slideService.storeVideoShowStatus(this.videoShowAgain).subscribe();
+  }
+
+  onCheckboxChange(event: any) {
+    this.dont_ask_again = event.checked;
+  }
+
 }

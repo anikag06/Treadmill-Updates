@@ -28,9 +28,9 @@ export class FlowStepNavigationService {
   constructor(private http: HttpClient) {}
 
   goToFlowNextStep(step: any): string {
-    console.log('step outside: ', step);
+    // console.log('step outside: ', step);
     if (step.status !== LOCKED) {
-      console.log('step inside: ', step);
+      // console.log('step inside: ', step);
       if (step.data_type === SLIDE) {
         return `/resources/slides/${step.id}/`;
       } else if (step.data_type === CONVERSATION_GROUP) {

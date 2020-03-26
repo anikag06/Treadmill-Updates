@@ -1,13 +1,23 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { Step } from './step.model';
 import { StepGroup } from '../step-group.model';
-import { COMPLETED, SLIDE, CONVERSATION_GROUP } from '@/app.constants';
+import {
+  COMPLETED,
+  SLIDE,
+  CONVERSATION_GROUP,
+  GAME,
+  FORM,
+  FORM_URL_MAP,
+  SUPPORT_GROUP,
+  QUESTIONNAIRE, INTRODUCTION_PAGE, CONCLUSION_PAGE, CONTROL_PAGE, SURVEY, VIDEO
+} from '@/app.constants';
 import { LOCKED, ACTIVE, INTRODUCTORY_ANIMATION } from '@/app.constants';
 import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.service';
 import { Router } from '@angular/router';
 import { FlowService } from '../../flow.service';
 import { MatTooltip } from '@angular/material';
 import { DatePipe } from '@angular/common';
+import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifications.service';
 
 @Component({
   selector: 'app-step',
@@ -32,7 +42,8 @@ export class StepComponent implements OnInit {
     private flowService: FlowService,
     private datePipe: DatePipe,
     private element: ElementRef,
-  ) {}
+    private navbarService: NavbarNotificationsService,
+  ) { }
 
   ngOnInit() {
     this.tooltipData = 'Complete the previous steps first';
@@ -112,7 +123,9 @@ export class StepComponent implements OnInit {
 
   navigate(event: Event) {
     event.preventDefault();
+
     this.showTooltipFun();
+
     this.markDone();
     if (this.step.data_type === INTRODUCTORY_ANIMATION) {
       this.flowService.triggerIntroduction();
@@ -121,18 +134,22 @@ export class StepComponent implements OnInit {
       setTimeout(() => this.flowService.triggerLoad(), 1);
       setTimeout(() => this.flowService.triggerLoad(), 10);
     }
-    console.log(
-      'navigate',
-      this.stepGroup.sequence + 1,
-      this.stepGroup.name,
-      this.step.sequence + 1,
-      this.step.name,
-    );
+    // console.log(
+    //   'navigate',
+    //   this.stepGroup.sequence + 1,
+    //   this.stepGroup.name,
+    //   this.step.sequence + 1,
+    //   this.step.name,
+    // );
+
+    if (this.step.status !== LOCKED && !this.step.virtual_step) {
     this.flowService.stepGroupSequence = this.stepGroup.sequence + 1;
     this.flowService.stepSequence = this.step.sequence + 1;
     this.flowService.stepName = this.step.name;
     this.flowService.stepDetail.emit();
+    this.closeNavFlow();
     return this.router.navigate([this.nextLink()]);
+    }
   }
 
   locked() {
@@ -141,6 +158,32 @@ export class StepComponent implements OnInit {
 
   active() {
     return this.step.status === ACTIVE;
+  }
+
+  getStepIcon(step: Step) {
+      if (step.data_type === SLIDE) {
+        return 'assets/flow/icon-slide-wb.png';
+      } else if (step.data_type === CONVERSATION_GROUP) {
+        return  'assets/flow/icon-conversation-wb.png';
+      } else if (step.data_type === GAME) {
+        return  'assets/flow/icon-game-wb.png';
+      } else if (step.data_type === FORM) {
+        return  'assets/flow/icon-form-wb.png';
+      } else if (step.data_type === SUPPORT_GROUP) {
+        return  'assets/flow/icon-Support Group-wb.png';
+      } else if (step.data_type === INTRODUCTION_PAGE) {
+        return  'assets/flow/icon-htmlpage-wb.png';
+      } else if (step.data_type === CONCLUSION_PAGE) {
+        return  'assets/flow/icon-htmlpage-wb.png';
+      } else if (step.data_type === CONTROL_PAGE) {
+        return  'assets/flow/icon-slide-wb.png';
+      } else if (step.data_type === SURVEY) {
+        return  'assets/flow/icon-survey-wb.png';
+      }  else if (step.data_type === VIDEO) {
+        return  'assets/flow/icon-video-wb.png';
+      } else if (step.data_type === INTRODUCTORY_ANIMATION ) {
+        return  'assets/flow/Animation-onboarding.png';
+      }
   }
 
   unlocked() {
@@ -171,4 +214,10 @@ export class StepComponent implements OnInit {
     this.showToolTip.hideDelay = 100;
     this.showToolTip.toggle();
   }
+
+  closeNavFlow() {
+    console.log('close navflow');
+    this.navbarService.closeNavFlow.emit();
+  }
+
 }

@@ -1,5 +1,5 @@
 <mat-card class="container-fluid px-0 pt-0 pb-2 mb-2">
-  <div class="row mb-2 no-gutters">
+  <div class="row mb-2">
     <mat-card-header class="col-12 w-100 px-0 py-0 card-header main-heading">
       <mat-card-title class="ml-4 my-auto py-2 d-inline-block">
         <!-- <div class="ml-4 my-auto d-inline-block ">
@@ -9,11 +9,7 @@
       </mat-card-title>
 
       <div class="d-inline-block ml-auto">
-        <button
-          class="h-100 saved-forms-btn"
-          mat-button
-          [matMenuTriggerFor]="beforeMenu"
-        >
+        <button class="h-100 saved-forms-btn" mat-button [matMenuTriggerFor]="beforeMenu">
           <mat-icon>
             more_horiz
           </mat-icon>
@@ -22,12 +18,8 @@
 
       <mat-menu #beforeMenu="matMenu" xPosition="before" yPosition="below">
         <div [ngStyle]="{ 'max-height': '350px' }">
-          <app-forms-sidebar
-            (objectEmitter)="taskSelected($event)"
-            (newForm)="onAddNewForm()"
-            [object]="task"
-            [type]="type"
-          >
+          <app-forms-sidebar (objectEmitter)="taskSelected($event)" (newForm)="onAddNewForm()" [object]="task"
+            [type]="type">
           </app-forms-sidebar>
         </div>
       </mat-menu>
@@ -36,17 +28,9 @@
 
   <div class="row no-gutters form-div mx-auto">
     <div class="col-12 col-lg-12 ">
-      <app-tasks
-        [task]="task"
-        [reset]="reset"
-        [taskHeading]="taskHeading"
-        (showMessage)="setShowMessage($event)"
-      ></app-tasks>
-      <app-form-quote
-        *ngIf="showMessage"
-        [quote]="quote"
-        [quotedBy]="quotedBy"
-      ></app-form-quote>
+      <app-tasks [task]="task" [reset]="reset" [taskHeading]="taskHeading" (showMessage)="setShowMessage($event)">
+      </app-tasks>
+      <app-form-quote *ngIf="showMessage" [quote]="quote" [quotedBy]="quotedBy"></app-form-quote>
     </div>
   </div>
 </mat-card>

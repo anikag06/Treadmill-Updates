@@ -1,35 +1,22 @@
 <mat-card class="container-fluid px-0 pt-0 pb-2 mb-2">
-  <div class="row no-gutters mb-2 card card-full-width">
+  <div class="row mb-2 card card-full-width">
     <mat-card-header class="col-12 w-100 px-0  py-0 card-header main-heading">
       <mat-card-title class="ml-4 my-auto py-2 d-inline-block">
         {{ formName }}
       </mat-card-title>
 
       <div class="d-inline-block ml-auto">
-        <button
-          class="h-100 saved-forms-btn"
-          mat-button
-          [matMenuTriggerFor]="beforeMenu"
-        >
+        <button class="h-100 saved-forms-btn" mat-button [matMenuTriggerFor]="beforeMenu">
           <mat-icon>
             more_horiz
           </mat-icon>
         </button>
       </div>
 
-      <mat-menu
-        xPosition="before"
-        yPosition="below"
-        #beforeMenu="matMenu"
-        [overlapTrigger]="false"
-      >
+      <mat-menu xPosition="before" yPosition="below" #beforeMenu="matMenu" [overlapTrigger]="false">
         <div [ngStyle]="{ 'max-height': '350px' }">
-          <app-forms-sidebar
-            [type]="type"
-            (objectEmitter)="beliefSelected($event)"
-            (newForm)="onAddNewForm()"
-            [object]="belief"
-          >
+          <app-forms-sidebar [type]="type" (objectEmitter)="beliefSelected($event)" (newForm)="onAddNewForm()"
+            [object]="belief">
           </app-forms-sidebar>
         </div>
       </mat-menu>
@@ -39,37 +26,18 @@
     <div class="col-12 col-lg">
       <div class="row mb-2">
         <div class="col-12">
-          <app-negative-belief
-            [belief]="belief"
-            (onShowTechniques)="onShowTechniques()"
-            (initialRatingChange)="onInitialRatingChange($event)"
-            (updateBelief)="updateBelief($event)"
-          ></app-negative-belief>
-          <app-belief-change-techniques
-            [resetTechnique]="reset"
-            *ngIf="showTechniques"
-            [belief]="belief"
-            (showFinalBelief)="onShowFinalBelief()"
-          ></app-belief-change-techniques>
-          <app-form-final-rating
-            [reset]="reset"
-            *ngIf="showFinalBelief"
-            [header]="finalRatignHeader"
-            [object]="beliefObject"
-            [initialRating]="belief.belief_rating_initial"
-            [service]="0"
-            [realisticQuestion]="realisticQues"
-            (formComplete)="finalFormComplete($event)"
-            (finalRatingChange)="onFinalRatingChange($event)"
-            [original_title]="reviewTitle"
-          ></app-form-final-rating>
+          <app-negative-belief [belief]="belief" (onShowTechniques)="onShowTechniques()"
+            (initialRatingChange)="onInitialRatingChange($event)" (updateBelief)="updateBelief($event)">
+          </app-negative-belief>
+          <app-belief-change-techniques [resetTechnique]="reset" *ngIf="showTechniques" [belief]="belief"
+            (showFinalBelief)="onShowFinalBelief()"></app-belief-change-techniques>
+          <app-form-final-rating [reset]="reset" *ngIf="showFinalBelief" [header]="finalRatignHeader"
+            [object]="beliefObject" [initialRating]="belief.belief_rating_initial" [service]="0"
+            [realisticQuestion]="realisticQues" (formComplete)="finalFormComplete($event)"
+            (finalRatingChange)="onFinalRatingChange($event)" [original_title]="reviewTitle"></app-form-final-rating>
           <app-form-message *ngIf="showMessage" [formMessage]="message">
           </app-form-message>
-          <app-form-quote
-            *ngIf="showMessage"
-            [quote]="quote"
-            [quotedBy]="quotedBy"
-          ></app-form-quote>
+          <app-form-quote *ngIf="showMessage" [quote]="quote" [quotedBy]="quotedBy"></app-form-quote>
         </div>
       </div>
     </div>

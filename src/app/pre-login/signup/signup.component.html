@@ -1,16 +1,16 @@
 <div class="row signup-page w-100 no-gutters">
-  <div class="row col-md-5 cover-page text-center justify-content-center no-gutters">
+  <div class="d-flex flex-column col-sm-12 col-md-5 cover-page text-center justify-content-center no-gutters">
     <div class="d-flex align-items-center logo-img mx-auto justify-content-center">
       <img src="https://www.treadwill.org/static/cbt2/images/logo/treadwill_logo.png" class="img-responsive center"
         alt="treadwill_logo" />
     </div>
-    <div class="d-flex flex-row footer-1 align-items-end text-center ">
+    <div class="d-flex mx-auto mt-auto footer-1 align-items-end text-center ">
       All Rights Reserved &copy; Treadwill
     </div>
   </div>
 
-  <div class="row col-md-7 text-center  no-gutters">
-    <div class="flex-column mx-auto align-self-center">
+  <div class="d-flex flex-column col-sm-12 col-md-7 text-center  no-gutters">
+    <div class="flex-column mx-auto my-auto align-self-center">
       <h4> SIGN UP</h4>
       <div *ngIf="!showSignUpForm" class="d-flex flex-row align-items-center justify-content-start"
         style="height: 450px; width: 100%;">
@@ -51,7 +51,7 @@
             </div>
             <div class="row no-gutters justify-content-start terms-text">
               <mat-checkbox ngModel required name="terms_conditions">
-                I agree to the <a class="anchorify-default" (click)="onTermsConClick()">Terms and
+                I agree to the <a routerLink="/trial/terms-and-conditions" target="_blank" class="anchorify-default" (click)="onTermsConClick()">Terms and
                   Conditions</a>
                 <mat-error *ngIf="!termsConditionChecked"> Accept the terms and condtions.</mat-error>
               </mat-checkbox>
