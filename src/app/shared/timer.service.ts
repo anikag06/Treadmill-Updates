@@ -64,13 +64,19 @@ export class TimerService {
     });
   }
 
-  showTime(question_no: number, startTime: Date) {
+  showTime(question_no: number, startTime: Date, first_click: boolean) {
     const now = new Date();
     const timeDiff = now.getTime() - startTime.getTime();
-    question_no >= 0
-      ? (this.seconds = timeDiff - this.timeSum)
-      : (this.seconds = timeDiff);
-    this.seconds = this.seconds;
+    if (first_click && question_no === 0) {
+      this.seconds = timeDiff;
+    } else {
+      this.seconds = timeDiff - this.timeSum;
+    }
+    console.log('now time =', now.getTime(), 'start time = ', startTime.getTime(), 'time sum =', this.timeSum, 'first click= ', first_click);
+    // question_no >= 0
+    //   ? (this.seconds = timeDiff - this.timeSum)
+    //   : (this.seconds = timeDiff);
+    // this.seconds = this.seconds;
     this.timeSum = timeDiff;
     console.log('Question no, Time', question_no + 1, this.seconds);
     return this.seconds;
