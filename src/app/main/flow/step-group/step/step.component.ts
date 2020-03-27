@@ -14,7 +14,7 @@ import {
   CONCLUSION_PAGE,
   CONTROL_PAGE,
   SURVEY,
-  VIDEO,
+  VIDEO, RESOURCES_PAGE,
 } from '@/app.constants';
 import { LOCKED, ACTIVE, INTRODUCTORY_ANIMATION } from '@/app.constants';
 import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.service';
@@ -180,8 +180,8 @@ export class StepComponent implements OnInit {
       return 'assets/flow/icon-htmlpage-wb.png';
     } else if (step.data_type === CONCLUSION_PAGE) {
       return 'assets/flow/icon-htmlpage-wb.png';
-    } else if (step.data_type === CONTROL_PAGE) {
-      return 'assets/flow/icon-slide-wb.png';
+    } else if (step.data_type === RESOURCES_PAGE) {
+      return 'assets/flow/icon-resource.png';
     } else if (step.data_type === SURVEY) {
       return 'assets/flow/icon-survey-wb.png';
     } else if (step.data_type === VIDEO) {
