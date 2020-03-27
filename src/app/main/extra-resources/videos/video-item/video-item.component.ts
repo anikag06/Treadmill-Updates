@@ -60,13 +60,17 @@ export class VideoItemComponent implements OnInit, AfterViewInit, OnDestroy {
       this.createPlayer();
       return;
     }
+
+
     (<any>window).onYouTubeIframeAPIReady = () => this.createPlayer();
     }
 
 
 
   ngOnInit() {
-    this.init();
+      this.init();
+
+
 
 
 
@@ -124,8 +128,10 @@ export class VideoItemComponent implements OnInit, AfterViewInit, OnDestroy {
       createPlayer(){
      // (<any>window).onYouTubeIframeAPIReady = () => {
         console.log('you tube iframe');
+        console.log('player is:', this.player);
         setTimeout(() => {
           //for (let j = 1; j  this.lengthOfVideoList; j++) {
+
           this.player = new (<any>window).YT.Player('player', {
             events: {
               onReady: (event: any) => {
@@ -211,15 +217,29 @@ export class VideoItemComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
 
-  ngOnDestroy() {
-    (<any>window).onYouTubeIframeAPIReady = null;
-    if (this.player) {
-      this.player.destroy();
-      console.log('destroyed');
-      //this.createPlayer().destroy();
+   ngOnDestroy() {
+     (<any>window).onYouTubeIframeAPIReady = null;
+     if (this.player) {
+       //this.player.destroy();
+       this.player = null;
+       console.log('destroyed');
+       //this.createPlayer().destroy();
 
-    }
-  }
+     }
+   }
+
+  // ngOnDestroy() {
+  //   (<any>window).onYouTubeIframeAPIReady = null;
+  //   if (!this.player) {
+  //     console.log('Player could not be found.');
+  //   } else {
+  //     console.log(this.player);
+  //     // this.player.pauseVideo();
+  //     // this.player.destroy();
+  //     this.player = null;
+  //     console.log('destroyed');
+  //   }
+  // }
 
   // onVideoClick() {
   //
