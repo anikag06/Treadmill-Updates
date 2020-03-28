@@ -347,12 +347,12 @@ export const BELIEF_TELL_FRIEND_API =
   '/api/v1/worksheets/belief-change/tell-a-friend/';
 
 // form names
-export const PROBLEM_SOLVING_FORM_NAME = 'Cope with a problem';
-export const SET_TASK_FORM_NAME = 'Set an acitvity';
-export const THOUGHT_RECORD_FORM_NAME = 'Thought Record Form';
+export const PROBLEM_SOLVING_FORM_NAME = 'Solve a problem';
+export const SET_TASK_FORM_NAME = 'Set a task';
+export const THOUGHT_RECORD_FORM_NAME = 'Evaluate a thought';
 export const EXPERIMENT_TO_TEST_BELIEF_FORM_NAME = 'Test a belief';
-export const WORRY_PRODUCTIVELY_FORM_NAME = 'Worry productively';
-export const BELIEF_CHANGE_FORM_NAME = 'Belief Change Form';
+export const WORRY_PRODUCTIVELY_FORM_NAME = 'Control a worry';
+export const BELIEF_CHANGE_FORM_NAME = 'Change a belief';
 
 // trial registration pages
 export const INELIGIBLE_FOR_TRIAL = '/trial/thankyou';
@@ -411,26 +411,26 @@ export const FORM_URL_MAP = new Map([
 ]);
 
 export const EXPLORE_MAP = new Map([
-  [FORM_TASK, ['/resources/forms/' + TASK, 'Set a task']],
+  [FORM_TASK, ['/resources/forms/' + TASK, SET_TASK_FORM_NAME]],
   [
     FORM_PROBLEM_SOLVING,
-    ['/resources/forms/' + PROBLEM_SOLVING, 'Solve a problem'],
+    ['/resources/forms/' + PROBLEM_SOLVING, PROBLEM_SOLVING_FORM_NAME],
   ],
   [
     FORM_BELIEF_CHANGE,
-    ['/resources/forms/' + BELIEF_CHANGE, 'Change a belief'],
+    ['/resources/forms/' + BELIEF_CHANGE, BELIEF_CHANGE_FORM_NAME],
   ],
   [
     FORM_WORRY_PRODUCTIVELY,
-    ['/resources/forms/' + WORRY_PRODUCTIVELY, 'Control a worry'],
+    ['/resources/forms/' + WORRY_PRODUCTIVELY, WORRY_PRODUCTIVELY_FORM_NAME],
   ],
   [
     FORM_THOUGHT_RECORD,
-    ['/resources/forms/' + THOUGHT_RECORD, 'Evaluate a thought'],
+    ['/resources/forms/' + THOUGHT_RECORD, THOUGHT_RECORD_FORM_NAME],
   ],
   [
     FORM_EXPERIMENT_TO_TEST_BELIEF,
-    ['/resources/forms/' + TEST_BELIEF, 'Test a belief'],
+    ['/resources/forms/' + TEST_BELIEF, EXPERIMENT_TO_TEST_BELIEF_FORM_NAME],
   ],
   [
     GAME_ATTRIBUTION_STYLE_CONSTANT,
