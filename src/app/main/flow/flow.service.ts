@@ -56,19 +56,24 @@ export class FlowService {
             this.unlockModuleTime.next(
               unlockTimeData.data.next_step_group_unlock_time,
             );
-            console.log(this.unlockModuleTime);
+            console.log('unlock module time: ', this.unlockModuleTime);
             return this.unlockModuleTime;
           }
         });
     });
   }
-  // this function returns last step id of previous step
+  // this function returns last step id of previous step group
   previousStepGroupLastStep(allStepGroups: any, stepGroupId: any) {
     const initStepGroup = allStepGroups.find(
       (stepGroup: any) => stepGroup.id === stepGroupId,
     );
     const index = allStepGroups.indexOf(initStepGroup, 1);
     const prevStepGroup = allStepGroups[index - 1];
+    console.log('prev stepgroup status: ', prevStepGroup);
+    console.log(
+      'prev stepgroup last step: ',
+      prevStepGroup.steps[prevStepGroup.steps.length - 1],
+    );
     return prevStepGroup.steps[prevStepGroup.steps.length - 1].id;
   }
 }

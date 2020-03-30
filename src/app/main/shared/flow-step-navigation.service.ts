@@ -20,6 +20,7 @@ import {
 import { Observable } from 'rxjs';
 import { environment } from 'environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { StepGroup } from '@/main/flow/step-group/step-group.model';
 
 @Injectable({
   providedIn: 'root',
@@ -78,6 +79,7 @@ export class FlowStepNavigationService {
         '/',
     );
   }
+
   virtualStepMarkDone(step: any, timeSpent: number) {
     if (step.virtual_step) {
       this.markDone(step.id, timeSpent).subscribe((data: any) =>

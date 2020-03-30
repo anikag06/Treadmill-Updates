@@ -4,7 +4,7 @@ import {
   ViewChild,
   ComponentFactoryResolver,
   ElementRef,
-  ChangeDetectorRef,
+  AfterContentInit,
 } from '@angular/core';
 import { SlideService } from './slide.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
@@ -67,7 +67,7 @@ import { SlidesBottomsheetComponent } from './slides-bottomsheet/slides-bottomsh
     ]),
   ],
 })
-export class SlidesComponent implements OnInit {
+export class SlidesComponent implements OnInit, AfterContentInit {
   @ViewChild(FormDirective, { static: false }) formHost!: FormDirective;
   @ViewChild('form_div', { static: false }) formDiv!: ElementRef;
   @ViewChild('slideDiv', { static: false }) slideDiv!: ElementRef;

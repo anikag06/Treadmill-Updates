@@ -1,4 +1,11 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  ViewChild,
+  ElementRef,
+  AfterViewInit,
+} from '@angular/core';
 import { Step } from './step.model';
 import { StepGroup } from '../step-group.model';
 import {
@@ -30,7 +37,7 @@ import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifica
   styleUrls: ['./step.component.scss'],
   providers: [DatePipe],
 })
-export class StepComponent implements OnInit {
+export class StepComponent implements OnInit, AfterViewInit {
   @Input() step!: Step;
   @Input() stepGroup!: StepGroup;
   @ViewChild('tooltip', { static: false }) showToolTip!: MatTooltip;
@@ -63,7 +70,6 @@ export class StepComponent implements OnInit {
         this.isShowConversationBar = true;
       }
     }
-    // console.log('step', this.step, this.stepGroup);
   }
 
   ngAfterViewInit() {
@@ -139,13 +145,6 @@ export class StepComponent implements OnInit {
       setTimeout(() => this.flowService.triggerLoad(), 1);
       setTimeout(() => this.flowService.triggerLoad(), 10);
     }
-    // console.log(
-    //   'navigate',
-    //   this.stepGroup.sequence + 1,
-    //   this.stepGroup.name,
-    //   this.step.sequence + 1,
-    //   this.step.name,
-    // );
 
     if (this.step.status !== LOCKED && !this.step.virtual_step) {
       this.flowService.stepGroupSequence = this.stepGroup.sequence + 1;
@@ -211,6 +210,7 @@ export class StepComponent implements OnInit {
       this.tooltipShow();
     }
   }
+
   tooltipShow() {
     if (this.showToolTip.disabled) {
       this.showToolTip.disabled = false;
@@ -221,7 +221,6 @@ export class StepComponent implements OnInit {
   }
 
   closeNavFlow() {
-    console.log('close navflow');
     this.navbarService.closeNavFlow.emit();
   }
 }
