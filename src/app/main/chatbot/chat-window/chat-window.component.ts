@@ -135,6 +135,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       (data: any) => {
         if (data.status) {
           // console.log(data);
+          console.log(data.data.messages);
           data.data.messages.forEach((message: any) => {
             // this.pushPreviousChat(message);
             this.pushImages(message);
@@ -266,9 +267,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       environment.CHAT_HOST + '/ws/chat/?token=' + this.authService.getToken(),
     );
     this.webSocket.onopen = event => {
-      this.webSocket.send(
-        JSON.stringify({ action: type, module_name: 'decide_activity' }),
-      );
+      this.webSocket.send(JSON.stringify({ action: type, module_name: '' }));
     };
     this.webSocket.onmessage = (message: any) => {
       this.showMaintenance = false;
@@ -409,13 +408,18 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     this.isMultiLineInput = !!messages[0].multiline_input;
     this.loadEachMessage(messages);
     // });
-
+    console.log(messages[messages.length - 1].widgets);
+    console.log(messages[messages.length - 1].widgets === undefined);
     setTimeout(() => {
       if (
-        messages[messages.length - 1].buttons &&
-        messages[messages.length - 1].buttons.length === 0 &&
-        messages[messages.length - 1].widgets &&
-        messages[messages.length - 1].widgets.length === 0
+        (messages[messages.length - 1].buttons &&
+          messages[messages.length - 1].buttons.length === 0 &&
+          messages[messages.length - 1].widgets &&
+          messages[messages.length - 1].widgets.length === 0) ||
+        (messages[messages.length - 1].buttons &&
+          messages[messages.length - 1].buttons.length === 0 &&
+          messages[messages.length - 1].widgets === undefined) ||
+        messages[messages.length - 1].widgets === null
       ) {
         this.showTextInput = true;
         this.scrollToBottom();
@@ -448,7 +452,8 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
 
       if (
         (m[index].text && m[index].text.length > 0) ||
-        (m[index].buttons && m[index].buttons.length > 0)
+        (m[index].buttons && m[index].buttons.length > 0) ||
+        (m[index].widgets && m[index].widgets.length > 0)
       ) {
         setTimeout(() => {
           this.showWritingAndPushChat(m[index]);
@@ -499,8 +504,8 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
 
   pushImages(m: any) {
     this.images = [];
-    if (m.images && m.images.length > 0) {
-      m.images.forEach((image: any) => {
+    if (m.embed_links && m.embed_links.length > 0) {
+      m.embed_links.forEach((image: any) => {
         // const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
         //   ChatImageComponent,
         // );
@@ -516,49 +521,28 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
         //   url: 'https://unsplash.com/photos/G81f38KPHnA',
         // };
         // imageComponentRef.instance.image = imageObject;
-        if (image.type === 'unsplash_collection') {
-          this.getImageFromCollection(image.cid);
-        } else if (image.type === 'unsplash_photo') {
-          this.getImageByID(image.pid);
+        if (image.type === 'unsplash_image') {
+          this.pushUnsplashImage(image);
         } else if (image.type === 'giphy') {
-          this.getGIFByID(image.gid);
+          this.pushGIF(image);
         } else {
-          this.getImage(image);
+          this.pushImage(image);
         }
       });
     }
   }
 
-  getImageFromCollection(cid: string) {
-    this.chatbotService.getRandomPhoto(cid).subscribe((resp: any) => {
-      // console.log(resp);
-      // url = resp.body.urls.small;
-      const image = {
-        url: resp.body.urls.small,
-        link: resp.body.links.html,
-        color: resp.body.color,
-        name: resp.body.user.name,
-        credits: true,
-      };
-      this.images.push(image);
-    });
+  pushUnsplashImage(image: any) {
+    const unsplashObject = {
+      url: image.static_url,
+      link: image.creator_link,
+      name: image.creator,
+      credits: true,
+    };
+    this.images.push(unsplashObject);
   }
 
-  getImageByID(pid: string) {
-    this.chatbotService.getPhoto(pid).subscribe((resp: any) => {
-      const image = {
-        url: resp.body.urls.small,
-        link: resp.body.links.html,
-        color: resp.body.color,
-        name: resp.body.user.name,
-        credits: true,
-      };
-
-      this.images.push(image);
-    });
-  }
-
-  getImage(photo: any) {
+  pushImage(photo: any) {
     const image = {
       url: photo.url,
       credits: false,
@@ -566,19 +550,15 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     this.images.push(image);
   }
 
-  getGIFByID(gid: string) {
-    this.chatbotService.getGIF(gid).subscribe((resp: any) => {
-      // console.log(resp);
-      const image = {
-        url: resp.body.data.images.fixed_width_still.url,
-        dynamic_url: resp.body.data.images.fixed_width_downsampled.url,
-        static_url: resp.body.data.images.fixed_width_still.url,
-        showSpinner: true,
-        creditsGIF: true,
-      };
-
-      this.images.push(image);
-    });
+  pushGIF(image: any) {
+    const gifObject = {
+      url: image.static_url,
+      dynamic_url: image.dynamic_url,
+      static_url: image.static_url,
+      showSpinner: true,
+      creditsGIF: true,
+    };
+    this.images.push(gifObject);
   }
 
   scrollFrame(value: string) {
@@ -612,17 +592,17 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     }
     // console.log(image.dynamic_url === image.url);
   }
-
-  hideSpinner(index: number) {
-    if (this.images[index].showSpinner) {
-      this.images[index].showSpinner = false;
-      setTimeout(() => {
-        if (this.images[index].url === this.images[index].dynamic_url) {
-          this.images[index].url = this.images[index].static_url;
-        }
-      }, 10000);
-    }
-  }
+  //
+  // hideSpinner(index: number) {
+  //   if (this.images[index].showSpinner) {
+  //     this.images[index].showSpinner = false;
+  //     setTimeout(() => {
+  //       if (this.images[index].url === this.images[index].dynamic_url) {
+  //         this.images[index].url = this.images[index].static_url;
+  //       }
+  //     }, 10000);
+  //   }
+  // }
 
   sendReply(event: any) {
     clearTimeout(this.timeout);

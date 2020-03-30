@@ -10,6 +10,6 @@ export class Chat {
     public datetime: Date,
     public waiting: boolean,
     public widgets: string[],
-    public images: any,
+    public embed_links: any,
   ) {}
 }

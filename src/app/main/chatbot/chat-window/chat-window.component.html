@@ -37,7 +37,7 @@
         </ng-template>
       </div>
       <div
-        *ngFor="let image of m.images; let i = index"
+        *ngFor="let image of m.embed_links; let i = index"
         [ngStyle]="{ width: 'fit-content' }"
       >
         <!--      <ng-template #dynamicComponent></ng-template>-->
@@ -48,7 +48,6 @@
             class="msg-img"
             src="{{ image.url }}"
             (click)="changeUrl(image, i)"
-            (load)="hideSpinner(i)"
             alt="image"
           />
         </div>
@@ -66,19 +65,19 @@
         </div>
         <div class="credits" *ngIf="image.creditsGIF">
           <div
-            class="gifDiv"
+            class="gifMark"
             *ngIf="image.url === image.static_url"
             (click)="changeUrl(image, i)"
           >
             GIF
           </div>
-          <div class="spinnerDiv" *ngIf="image.showSpinner">
-            <mat-progress-spinner
-              mode="indeterminate"
-              diameter="20"
-              color="accent"
-            ></mat-progress-spinner>
-          </div>
+          <!--          <div class="spinnerDiv" *ngIf="image.showSpinner">-->
+          <!--            <mat-progress-spinner-->
+          <!--              mode="indeterminate"-->
+          <!--              diameter="20"-->
+          <!--              color="accent"-->
+          <!--            ></mat-progress-spinner>-->
+          <!--          </div>-->
           <div class="creditDiv">
             <span> Powered By </span>
             <a class="link" href="https://giphy.com" target="_blank">GIPHY</a>
@@ -197,7 +196,6 @@
           matInput
           cdkTextareaAutosize
           cdkAutosizeMinRows="1"
-          cdkAutosizeMaxRows="5"
           placeholder="Enter your message"
           [(ngModel)]="message"
           name="message"

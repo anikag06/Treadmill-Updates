@@ -4,7 +4,7 @@
   position: fixed;
   width: 344px;
   right: 50px;
-  min-height: 640px;
+  min-height: 540px;
   padding-right: 0px;
   display: flex;
   flex-direction: column;
@@ -49,7 +49,7 @@
     overflow-y: scroll;
     overflow-x: hidden;
     width: 100%;
-    //max-height: 540px;
+    max-height: 540px;
   }
   .form-div {
     position: absolute;
@@ -368,7 +368,7 @@ $x3: -$leftPos + $dotSpacing;
   padding: 3px 5px 3px 5px;
   opacity: 0.6;
 }
-.gifDiv {
+.gifMark {
   width: 50px;
   height: 50px;
   background: rgba(0, 0, 0, 0.4);
@@ -377,17 +377,15 @@ $x3: -$leftPos + $dotSpacing;
   font-size: 16px;
   position: absolute;
   padding-top: 13px;
-  top: -80px;
+  top: -120px;
   right: 100px;
 }
 
 .msg-img {
-  max-height: 400px;
-  max-width: 280px;
   min-width: 280px;
+  max-width: 280px;
   height: auto;
   background: white;
-  width: auto;
   margin-top: 10px;
   box-shadow: 0px 1px 3px #00000029;
   border-radius: 0px 10px 10px 0px;

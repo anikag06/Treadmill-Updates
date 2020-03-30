@@ -22,35 +22,6 @@ export class ChatbotService {
     );
   }
 
-  getPhoto(id: string) {
-    return this.http.get<any>(
-      UNSPLASH_URL + '/photos/' + id + '/?client_id=' + environment.CLIENT_KEY,
-      {
-        observe: 'response',
-      },
-    );
-  }
-
-  getRandomPhoto(cid: string) {
-    const p = new HttpParams().set('collections', cid);
-
-    return this.http.get<any>(
-      UNSPLASH_URL + '/photos/random/' + '?client_id=' + environment.CLIENT_KEY,
-      {
-        params: p,
-        observe: 'response',
-      },
-    );
-  }
-  getGIF(gid: string) {
-    const p = new HttpParams().set('api_key', environment.GIPHY_API_KEY);
-
-    return this.http.get<any>(GIPHY_URL + gid, {
-      params: p,
-      observe: 'response',
-    });
-  }
-
   createOnline$() {
     return merge<boolean>(
       fromEvent(window, 'offline').pipe(map(() => false)),
