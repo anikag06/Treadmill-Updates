@@ -77,6 +77,7 @@ export class SlidesComponent implements OnInit {
   userFeedback!: UserFeedbackComponent;
   scrollTop = 0;
 
+
   constructor(
     private slideService: SlideService,
     private sanitizer: DomSanitizer,
@@ -97,7 +98,7 @@ export class SlidesComponent implements OnInit {
   visible!: boolean;
   isFormVisible = false;
   isSlidesVisible = true;
-
+  showFeedback = false;
   showNextStepBtn = false;
   slideLiked = false;
   slideDisliked = false;
@@ -117,6 +118,8 @@ export class SlidesComponent implements OnInit {
   screenHeight: any;
   screenWidth: any;
   showVideo = false;
+  iframeHeight!: number;
+  slideDivHeight!: number;
 
   ngOnInit() {
     this.activateRoute.params
@@ -129,6 +132,7 @@ export class SlidesComponent implements OnInit {
           [COMPLETED, ACTIVE].includes(slide_data.data.status) &&
           slide_data.data.data_type === SLIDE
         ) {
+          console.log('slide_data', slide_data);
           this.step_type = SLIDE;
           this.slide = <Slide>slide_data.data.step_data.data;
           this.current_step_id = slide_data.data.id;
@@ -140,6 +144,7 @@ export class SlidesComponent implements OnInit {
               this.lastStepCompleted = true;
             }
           }
+          this.initVideoData(slide_data);
           const slideId = slide_data.data.step_data.data.id;
           this.slideService
             .getFeedBackInfo(slideId)
@@ -175,6 +180,7 @@ export class SlidesComponent implements OnInit {
           }
           if (window.matchMedia('(max-width: 767px)').matches) {
             this.visible = true;
+
           } else {
             setTimeout(() => {
               this.slideDiv.nativeElement.classList.add('col-5'),
@@ -191,21 +197,34 @@ export class SlidesComponent implements OnInit {
       });
   }
 
+  ngAfterViewChecked(): void {
+  }
+
+  onLoad() {
+    this.iframeHeight = this.container.nativeElement.offsetHeight;
+    console.log('IFRAME height', this.iframeHeight);
+    if (this.screenWidth < 768 ) {
+      this.slideDivHeight = this.iframeHeight + 68;
+    } else {
+      this.slideDivHeight = this.iframeHeight + 110;
+    }
+    this.showFeedback = true;
+  }
   ngAfterContentInit(): void {
     this.screenHeight = window.innerHeight;
     this.screenWidth = window.innerWidth;
-    this.slideService.getVideo().subscribe((data: any) => {
-      console.log('data from slides component', data);
-      if (data.data.hook[0] === SHOW_MINDFULNESS_VIDEO) {
+  }
+
+  initVideoData(slide_data: any) {
+      if (slide_data.data.hook[0] === SHOW_MINDFULNESS_VIDEO) {
         setTimeout(() => this.openBottomSheet(), 2000);
         this.slideService.videoUrl_1 =
-          data.data.mindfulness_videos[0].resource_video.url;
+          slide_data.data.mindfulness_videos[0].resource_video.url;
         this.slideService.videoUrl_3 =
-          data.data.mindfulness_videos[1].resource_video.url;
+          slide_data.data.mindfulness_videos[1].resource_video.url;
         this.slideService.videoUrl_5 =
-          data.data.mindfulness_videos[2].resource_video.url;
+          slide_data.data.mindfulness_videos[2].resource_video.url;
       }
-    });
   }
 
   loadForm(component: any) {
@@ -213,6 +232,7 @@ export class SlidesComponent implements OnInit {
       component,
     );
     const viewContainerRef = this.formHost.viewContainerRef;
+    console.log('formhost', this.formHost.viewContainerRef);
     viewContainerRef.clear();
     const componentRef = viewContainerRef.createComponent(componentFactory);
     // @ts-ignore

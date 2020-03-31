@@ -6,7 +6,6 @@ import {
   STORE_FEEDBACK,
   VIDEO_OPTED,
   VIDEO_DONT_ASK_AGAIN,
-  SHOW_VIDEO,
 } from '@/app.constants';
 import { Observable } from 'rxjs';
 import { SlidesFeedback, SlidesFeedbackText } from './slide.feedback.model';
@@ -52,9 +51,5 @@ export class SlideService {
       environment.API_ENDPOINT + VIDEO_DONT_ASK_AGAIN,
       status,
     );
-  }
-
-  getVideo() {
-    return this.http.get(environment.API_ENDPOINT + SHOW_VIDEO);
   }
 }

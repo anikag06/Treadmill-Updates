@@ -3,7 +3,7 @@
     <div class="col-1 in-desktop"></div>
     <div class="col px-0 changes-width" #slideDiv id="slide-container"
       [@slideInOut]="isSlidesVisible ? 'show' : 'hidden'"
-      [style.height]="screenWidth < 768 ? container.offsetHeight + 68 + 'px' : container.offsetHeight + 110 + 'px'">
+      [style.height]="slideDivHeight+ 'px'">
       <div class="row h-100 justify-content-center">
         <div class="row mb-1 w-100 in-desktop">
           <mat-card-header class="col-12 w-100 my-auto px-0 card-header in-desktop slideTitle">
@@ -19,16 +19,18 @@
           <!-- <iframe [src]="sanitizedUrl" frameborder="0" class="slide_iframe"
             allowfullscreen="true"
             mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>   -->
+
           <iframe
             src="https://docs.google.com/presentation/d/e/2PACX-1vRU6npufMXFoVNLH3YJHuKpfsHaCeRkLEkPi6Q0hjG7WdS3JgSHccnqSeCylTYdm1Ex-jDCu1LI9XKc/embed?start=false&loop=false&delayms=6000000"
-            frameborder="0" class="slide_iframe" allowfullscreen="true" mozallowfullscreen="true"
+            frameborder="0" class="slide_iframe" allowfullscreen="true" mozallowfullscreen="true" (load) = "onLoad()"
             webkitallowfullscreen="true" #container></iframe>
+
 
           <app-user-feedback class="w-100 feedback-div" [disliked]='slideDisliked' [liked]='slideLiked'
             [isLastStep]='isLastStep' [lastStepCompleted]='lastStepCompleted' [showNextStepBtn]='showNextStepBtn'
-            (scrollEvent)='scrollPageToBottom($event)' (nextStepEvent)='onNextStepClick($event)'
-            (completedEvent)='onCompleted($event)' (storeFeedbackEvent)='storeSlideFeedBackData()'
-            (submitCommentEvent)='onSubmitComment()'>
+            (scrollEvent)='scrollPageToBottom()' (nextStepEvent)='onNextStepClick()'
+            (completedEvent)='onCompleted()' (storeFeedbackEvent)='storeSlideFeedBackData()'
+            (submitCommentEvent)='onSubmitComment()' *ngIf="showFeedback">
           </app-user-feedback>
         </div>
       </div>
