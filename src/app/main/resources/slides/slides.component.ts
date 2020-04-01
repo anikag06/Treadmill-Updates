@@ -30,6 +30,10 @@ import {
   COMPLETED,
   ACTIVE,
   SHOW_MINDFULNESS_VIDEO,
+  FORM_BELIEF_CHANGE,
+  FORM_EXPERIMENT_TO_TEST_BELIEF,
+  FORM_THOUGHT_RECORD,
+  FORM_WORRY_PRODUCTIVELY,
 } from '@/app.constants';
 import { CommonDialogsService } from '../shared/common-dialogs.service';
 import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.service';
@@ -37,6 +41,10 @@ import { StepsDataService } from '../shared/steps-data.service';
 import { UserFeedbackComponent } from '../shared/user-feedback/user-feedback.component';
 import { MatBottomSheet } from '@angular/material';
 import { SlidesBottomsheetComponent } from './slides-bottomsheet/slides-bottomsheet.component';
+import { BeliefChangeComponent } from '@/main/resources/forms/belief-change/belief-change.component';
+import { EttbfBeliefComponent } from '@/main/resources/forms/experiment-to-test-belief-form/ettbf-belief/ettbf-belief.component';
+import { ThoughtRecordFormComponent } from '@/main/resources/forms/thought-record-form/thought-record-form.component';
+import { WorryProductivelyComponent } from '@/main/resources/forms/worry-productively-form/worry-productively.component';
 
 @Component({
   selector: 'app-slides',
@@ -172,6 +180,14 @@ export class SlidesComponent implements OnInit, AfterContentInit {
             );
           } else if (formName === FORM_TASK) {
             setTimeout(() => this.loadForm(TaskFormsComponent), 1000);
+          } else if (formName === FORM_BELIEF_CHANGE) {
+            setTimeout(() => this.loadForm(BeliefChangeComponent), 1000);
+          } else if (formName === FORM_EXPERIMENT_TO_TEST_BELIEF) {
+            setTimeout(() => this.loadForm(EttbfBeliefComponent), 1000);
+          } else if (formName === FORM_THOUGHT_RECORD) {
+            setTimeout(() => this.loadForm(ThoughtRecordFormComponent), 1000);
+          } else if (formName === FORM_WORRY_PRODUCTIVELY) {
+            setTimeout(() => this.loadForm(WorryProductivelyComponent), 1000);
           }
           if (window.matchMedia('(max-width: 767px)').matches) {
             this.visible = true;

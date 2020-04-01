@@ -1,7 +1,7 @@
 import {
   THINKING_IMG,
   THOUGHT_RECORD,
-  THOUGHT_RECROD_FORM_NAME,
+  THOUGHT_RECORD_FORM_NAME,
   WELL_DONE_IMG,
 } from '@/app.constants';
 import { Component, OnInit } from '@angular/core';
@@ -23,7 +23,7 @@ import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecor
 export class ThoughtRecordFormComponent implements OnInit {
   type = THOUGHT_RECORD;
   situation!: string;
-  formName = THOUGHT_RECROD_FORM_NAME;
+  formName = THOUGHT_RECORD_FORM_NAME;
   situationHeader = 'What is the situation?';
   negativeThoughtHeader = 'What is the negative thought?';
   moodSelect = 'How did this negative thought make you feel?';

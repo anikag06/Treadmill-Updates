@@ -324,7 +324,6 @@ export const ALTERNATE_EXPLANATION_API =
   '/api/v1/worksheets/thought-record/alternative-explanation/';
 export const SHOW_FULL_FORM_API =
   '/api/v1/worksheets/thought-record/show-full-form/';
-export const THOUGHT_RECROD_FORM_NAME = 'Thought Record Form';
 
 // Belief Change Form
 export const BELIEF_CHANGE = 'belief-change';
@@ -341,7 +340,7 @@ export const FINAL_RATING_BELIEF_API =
   '/api/v1/worksheets/belief-change/final-rating/';
 export const REALISTIC_BELIEF_API =
   '/api/v1/worksheets/belief-change/realistic-belief/';
-export const BELIEF_PROOF_EVIDNECES_API =
+export const BELIEF_PROOF_EVIDENCES_API =
   '/api/v1/worksheets/belief-change/evidences/';
 export const BELIEF_TELL_FRIEND_API =
   '/api/v1/worksheets/belief-change/tell-a-friend/';
