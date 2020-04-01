@@ -5,7 +5,6 @@
     class="msg-img"
     src="{{ image.url }}"
     (click)="changeUrl()"
-    (load)="hideSpinner()"
     alt="image"
   />
   <div class="credits" *ngIf="image.credits">
@@ -17,19 +16,19 @@
   </div>
   <div class="credits" *ngIf="image.creditsGIF">
     <div
-      class="gifDiv"
+      class="gifMark"
       *ngIf="image.url === image.static_url"
       (click)="changeUrl()"
     >
       GIF
     </div>
-    <div class="spinnerDiv" *ngIf="image.showSpinner">
-      <mat-progress-spinner
-        mode="indeterminate"
-        diameter="20"
-        color="accent"
-      ></mat-progress-spinner>
-    </div>
+<!--    <div class="spinnerDiv" *ngIf="image.showSpinner">-->
+<!--      <mat-progress-spinner-->
+<!--        mode="indeterminate"-->
+<!--        diameter="20"-->
+<!--        color="accent"-->
+<!--      ></mat-progress-spinner>-->
+<!--    </div>-->
     <div class="creditDiv">
       <span> Powered By </span>
       <a class="link" href="https://giphy.com" target="_blank">GIPHY</a>

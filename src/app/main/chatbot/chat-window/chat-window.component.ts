@@ -4,7 +4,6 @@ import {
   NEW_CHAT,
   REPLY_CURRENT,
   RESUME_CHAT,
-  SHOW_TOAST_DURATION,
 } from '@/app.constants';
 import { Chat } from '@/main/chatbot/chat.model';
 import { ChatbotService } from '@/main/chatbot/chatbot.service';
@@ -33,11 +32,8 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { environment } from '../../../../environments/environment';
-import { rejects } from 'assert';
-import { ToastNotificationComponent } from '@/shared/toast-notification/toast-notification.component';
-import { ToastNotificationDirective } from '@/shared/toast-notification/toast-notification.directive';
-import { ChatImageDirective } from '@/main/chatbot/chat-window/chat-image/chat-image.directive';
 import { ChatImageComponent } from '@/main/chatbot/chat-window/chat-image/chat-image.component';
+import { ChatImageDirective } from '@/main/chatbot/chat-window/chat-image/chat-image.directive';
 
 declare var twemoji: any;
 
@@ -137,7 +133,6 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
           // console.log(data);
           console.log(data.data.messages);
           data.data.messages.forEach((message: any) => {
-            // this.pushPreviousChat(message);
             this.pushImages(message);
             this.messages.push(
               new Chat(
@@ -152,6 +147,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
                 this.images,
               ),
             );
+
             this.scrollToBottom();
             // console.log(message);
           });
@@ -162,24 +158,6 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       },
     );
   }
-
-  //  pushPreviousChat(message: any) {
-  //   console.log(message);
-  //   this.pushImage(message);
-  //    this.messages.push(
-  //     new Chat(
-  //       twemoji.parse(message.text),
-  //       message.is_sender_user,
-  //       [],
-  //       message.mid,
-  //       message.sid,
-  //       message.datetime,
-  //       false,
-  //       [],
-  //       this.images,
-  //     ),
-  //   );
-  // }
 
   onChatSubmit() {
     if (this.message.length > 0 && this.message.trim().length > 0) {
@@ -219,10 +197,6 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       );
       this.showTextInput = false;
     }
-    // setTimeout(() => {
-    //   // this.ti.nativeElement.focus();
-    //   this.scrollToBottom();
-    // });
   }
 
   close() {
@@ -429,22 +403,6 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     }, messages.length * 4000);
   }
 
-  // onShowTextInput(messages: any) {
-  //   // setTimeout(() => {
-  //   if (
-  //     (messages[messages.length - 1].buttons &&
-  //       messages[messages.length - 1].buttons.length === 0) ||
-  //     (messages[messages.length - 1].widgets &&
-  //       messages[messages.length - 1].widgets.length > 0)
-  //   ) {
-  //     this.showTextInput =  true;
-
-  //   } else {
-  //     this.showTextInput =  false;
-  //   }
-  //   // }, messages.length * 4000);
-  // }
-
   loadEachMessage(m: any) {
     for (let index = 0; index < m.length; index++) {
       const delayPerMessage =
@@ -463,44 +421,11 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
         }, delayPerMessage);
       }
     }
-    // cb(m);
   }
-
-  // loadEachMessagePromise = (m: any) => {
-  //   return new Promise((resolve, reject) => {
-  //     this.loadEachMessage(m)
-  // };
-
-  // let promise = new Promise(function(resolve, reject) {
-  //   const x = "geeksforgeeks";
-  //   const y = "geeksforgeeks"
-  //   if(x === y) {
-  //     resolve();
-  //   } else {
-  //     reject();
-  //   }
-  // });
 
   onDateTimeSelect() {
     this.showDateTime = !this.showDateTime;
   }
-
-  // pushImage(m: any) {
-  //   this.images = [];
-  //   if (m.images && m.images.length > 0) {
-  //     m.images.forEach((image: any) => {
-  //       if (image.type === 'unsplash_collection') {
-  //         this.getImageFromCollection(image.cid);
-  //       } else if (image.type === 'unsplash_photo') {
-  //         this.getImageByID(image.pid);
-  //       } else if (image.type === 'giphy') {
-  //         this.getGIFByID(image.gid);
-  //       } else {
-  //         this.getImage(image);
-  //       }
-  //     });
-  //   }
-  // }
 
   pushImages(m: any) {
     this.images = [];
@@ -509,22 +434,33 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
         // const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
         //   ChatImageComponent,
         // );
-        //
+        // this.changRef.detectChanges();
         // const imageComponentRef = this.chatImage.createComponent(
         //   componentFactory,
         // );
-        // const imageObject = {
-        //   dynamic_url: 'https://media.giphy.com/media/VFKCdekzhXVCg/giphy.gif',
-        //   link: 'https://bharatsati.in/minimal4u/',
-        //   credits: true,
-        //   name: 'Bharat Sati',
-        //   url: 'https://unsplash.com/photos/G81f38KPHnA',
-        // };
-        // imageComponentRef.instance.image = imageObject;
+        // /  console.log(imageComponentRef);
+
         if (image.type === 'unsplash_image') {
           this.pushUnsplashImage(image);
+          // const unsplashObject = {
+          //   url: image.static_url,
+          //   link: image.creator_link,
+          //   name: image.creator,
+          //   credits: true,
+          // };
+          // this.images.push(unsplashObject);
+          // imageComponentRef.instance.image = unsplashObject;
         } else if (image.type === 'giphy') {
           this.pushGIF(image);
+          // const gifObject = {
+          //   url: image.static_url,
+          //   dynamic_url: image.dynamic_url,
+          //   static_url: image.static_url,
+          //   showSpinner: true,
+          //   creditsGIF: true,
+          // };
+          // this.images.push(gifObject);
+          // imageComponentRef.instance.image = gifObject;
         } else {
           this.pushImage(image);
         }
@@ -583,6 +519,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   changeUrl(image: any, index: number) {
+
     if (this.images[index] && this.images[index].dynamic_url) {
       this.images[index].showSpinner = true;
       this.images[index].url =

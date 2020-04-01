@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-chat-image',
@@ -6,7 +6,7 @@ import { Component, ElementRef, OnInit } from '@angular/core';
   styleUrls: ['./chat-image.component.scss'],
 })
 export class ChatImageComponent implements OnInit {
-  image!: any;
+  @Input() image!: any;
   ngOnInit() {}
 
   changeUrl() {
@@ -16,18 +16,24 @@ export class ChatImageComponent implements OnInit {
         this.image.url === this.image.static_url
           ? this.image.dynamic_url
           : this.image.static_url;
+      if (this.image.url === this.image.dynamic_url) {
+        setTimeout(() => {
+          this.image.url = this.image.static_url;
+        }, 10000);
+      }
     }
+
     // console.log(image.dynamic_url === image.url);
   }
 
-  hideSpinner() {
-    if (this.image.showSpinner) {
-      this.image.showSpinner = false;
-      setTimeout(() => {
-        if (this.image.url === this.image.dynamic_url) {
-          this.image.url = this.image.static_url;
-        }
-      }, 10000);
-    }
-  }
+  // hideSpinner() {
+  //   if (this.image.showSpinner) {
+  //     this.image.showSpinner = false;
+  //     setTimeout(() => {
+  //       if (this.image.url === this.image.dynamic_url) {
+  //         this.image.url = this.image.static_url;
+  //       }
+  //     }, 10000);
+  //   }
+  // }
 }
