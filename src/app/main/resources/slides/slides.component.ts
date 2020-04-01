@@ -73,6 +73,7 @@ export class SlidesComponent implements OnInit {
   @ViewChild('slideDiv', { static: false }) slideDiv!: ElementRef;
   @ViewChild('slidePage', { static: false }) slidePage!: ElementRef;
   @ViewChild('container', { static: false }) container!: ElementRef;
+  @ViewChild('loader', { static: false }) loader!: ElementRef;
   @ViewChild(UserFeedbackComponent, { static: false })
   userFeedback!: UserFeedbackComponent;
   scrollTop = 0;
@@ -201,6 +202,11 @@ export class SlidesComponent implements OnInit {
   }
 
   onLoad() {
+    this.showFeedback = true;
+    this.loader.nativeElement.classList.remove('show-loader');
+    this.loader.nativeElement.classList.add('hide-loader');
+    this.slidePage.nativeElement.classList.remove('hide-loader');
+    this.slidePage.nativeElement.classList.add('show-loader');
     this.iframeHeight = this.container.nativeElement.offsetHeight;
     console.log('IFRAME height', this.iframeHeight);
     if (this.screenWidth < 768 ) {
@@ -208,7 +214,6 @@ export class SlidesComponent implements OnInit {
     } else {
       this.slideDivHeight = this.iframeHeight + 110;
     }
-    this.showFeedback = true;
   }
   ngAfterContentInit(): void {
     this.screenHeight = window.innerHeight;

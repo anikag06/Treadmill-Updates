@@ -1,5 +1,6 @@
-<div class="row w-100 no-gutters" id="slide-page" #slidePage>
-  <ng-container *ngIf="slide else loader">
+<div class="hide-loader" #slidePage>
+<div class="row w-100 no-gutters " id="slide-page">
+<!--  <ng-container *ngIf="slide else loader2">-->
     <div class="col-1 in-desktop"></div>
     <div class="col px-0 changes-width" #slideDiv id="slide-container"
       [@slideInOut]="isSlidesVisible ? 'show' : 'hidden'"
@@ -61,17 +62,24 @@
       <div class="mx-0 px-0" form-host></div>
     </div>
     <div class="col-1 in-desktop"></div>
-  </ng-container>
-
-  <ng-container *ngIf="notAvailable">
-    <h1>The content is not available</h1>
-  </ng-container>
+<!--  </ng-container>-->
 </div>
-
-<ng-template #loader>
+</div>
+<ng-container *ngIf="notAvailable">
+  <h1>The content is not available</h1>
+</ng-container>
+<div class="show-loader" #loader>
   <div class="col-6">
     <div class="text-center loader">
       <img src="assets/shared/dna-loader.svg" alt="loader" width="200">
     </div>
   </div>
-</ng-template>
+</div>
+
+<!--<ng-template #loader2>-->
+<!--  <div class="col-6">-->
+<!--    <div class="text-center loader">-->
+<!--      <img src="assets/shared/dna-loader.svg" alt="loader" width="200">-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</ng-template>-->
