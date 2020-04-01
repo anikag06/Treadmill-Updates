@@ -81,9 +81,11 @@ export class SlidesComponent implements OnInit, AfterContentInit {
   @ViewChild('slideDiv', { static: false }) slideDiv!: ElementRef;
   @ViewChild('slidePage', { static: false }) slidePage!: ElementRef;
   @ViewChild('container', { static: false }) container!: ElementRef;
+  @ViewChild('loader', { static: false }) loader!: ElementRef;
   @ViewChild(UserFeedbackComponent, { static: false })
   userFeedback!: UserFeedbackComponent;
   scrollTop = 0;
+
 
   constructor(
     private slideService: SlideService,
@@ -105,7 +107,7 @@ export class SlidesComponent implements OnInit, AfterContentInit {
   visible!: boolean;
   isFormVisible = false;
   isSlidesVisible = true;
-
+  showFeedback = false;
   showNextStepBtn = false;
   slideLiked = false;
   slideDisliked = false;
@@ -125,6 +127,8 @@ export class SlidesComponent implements OnInit, AfterContentInit {
   screenHeight: any;
   screenWidth: any;
   showVideo = false;
+  iframeHeight!: number;
+  slideDivHeight!: number;
 
   ngOnInit() {
     this.activateRoute.params
@@ -137,6 +141,7 @@ export class SlidesComponent implements OnInit, AfterContentInit {
           [COMPLETED, ACTIVE].includes(slide_data.data.status) &&
           slide_data.data.data_type === SLIDE
         ) {
+          console.log('slide_data', slide_data);
           this.step_type = SLIDE;
           this.slide = <Slide>slide_data.data.step_data.data;
           this.current_step_id = slide_data.data.id;
@@ -148,6 +153,7 @@ export class SlidesComponent implements OnInit, AfterContentInit {
               this.lastStepCompleted = true;
             }
           }
+          this.initVideoData(slide_data);
           const slideId = slide_data.data.step_data.data.id;
           this.slideService
             .getFeedBackInfo(slideId)
@@ -191,6 +197,7 @@ export class SlidesComponent implements OnInit, AfterContentInit {
           }
           if (window.matchMedia('(max-width: 767px)').matches) {
             this.visible = true;
+
           } else {
             setTimeout(() => {
               this.slideDiv.nativeElement.classList.add('col-5'),
@@ -207,21 +214,38 @@ export class SlidesComponent implements OnInit, AfterContentInit {
       });
   }
 
+  ngAfterViewChecked(): void {
+  }
+
+  onLoad() {
+    this.showFeedback = true;
+    this.loader.nativeElement.classList.remove('show-loader');
+    this.loader.nativeElement.classList.add('hide-loader');
+    this.slidePage.nativeElement.classList.remove('hide-loader');
+    this.slidePage.nativeElement.classList.add('show-loader');
+    this.iframeHeight = this.container.nativeElement.offsetHeight;
+    console.log('IFRAME height', this.iframeHeight);
+    if (this.screenWidth < 768 ) {
+      this.slideDivHeight = this.iframeHeight + 68;
+    } else {
+      this.slideDivHeight = this.iframeHeight + 110;
+    }
+  }
   ngAfterContentInit(): void {
     this.screenHeight = window.innerHeight;
     this.screenWidth = window.innerWidth;
-    this.slideService.getVideo().subscribe((data: any) => {
-      console.log('data from slides component', data);
-      if (data.data.hook[0] === SHOW_MINDFULNESS_VIDEO) {
+  }
+
+  initVideoData(slide_data: any) {
+      if (slide_data.data.hook[0] === SHOW_MINDFULNESS_VIDEO) {
         setTimeout(() => this.openBottomSheet(), 2000);
         this.slideService.videoUrl_1 =
-          data.data.mindfulness_videos[0].resource_video.url;
+          slide_data.data.mindfulness_videos[0].resource_video.url;
         this.slideService.videoUrl_3 =
-          data.data.mindfulness_videos[1].resource_video.url;
+          slide_data.data.mindfulness_videos[1].resource_video.url;
         this.slideService.videoUrl_5 =
-          data.data.mindfulness_videos[2].resource_video.url;
+          slide_data.data.mindfulness_videos[2].resource_video.url;
       }
-    });
   }
 
   loadForm(component: any) {
@@ -229,6 +253,7 @@ export class SlidesComponent implements OnInit, AfterContentInit {
       component,
     );
     const viewContainerRef = this.formHost.viewContainerRef;
+    console.log('formhost', this.formHost.viewContainerRef);
     viewContainerRef.clear();
     const componentRef = viewContainerRef.createComponent(componentFactory);
     // @ts-ignore

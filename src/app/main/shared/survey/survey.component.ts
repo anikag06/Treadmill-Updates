@@ -75,6 +75,7 @@ export class SurveyComponent implements OnInit {
   surveyId!: number;
   timeTaken!: number;
   startTime!: Date;
+  first_click!: boolean;
   data = 'Please complete the survey before leaving the page.';
 
   constructor(
@@ -87,6 +88,7 @@ export class SurveyComponent implements OnInit {
   }
 
   loadQuestions(event: any) {
+    this.first_click = true;
     if (event.target.nodeName === 'BUTTON') {
       console.log('Button');
       event.target.classList.remove('disabled-button');
@@ -163,6 +165,7 @@ export class SurveyComponent implements OnInit {
     }
     console.log('event', event);
     this.updateTimeTaken();
+    this.first_click = false;
     this.currQues = {
       index: this.quesArray[this.quesCount].index,
       ques: this.quesArray[this.quesCount].ques,
@@ -257,6 +260,7 @@ export class SurveyComponent implements OnInit {
       this.timeTaken = this.timerService.showTime(
         this.quesCount,
         this.startTime,
+        this.first_click,
       );
       this.userResponseArray[this.quesCount].time_taken_to_complete =
         this.userResponseArray[this.quesCount].time_taken_to_complete +
@@ -265,6 +269,7 @@ export class SurveyComponent implements OnInit {
       this.timeTaken = this.timerService.showTime(
         this.quesCount,
         this.startTime,
+        this.first_click,
       );
     }
   }

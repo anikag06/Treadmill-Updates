@@ -125,6 +125,7 @@ export class QuestionnaireComponent implements OnInit {
   endyear!: any;
   startTime!: Date;
   sum = 0;
+  first_click!: boolean;
   answered = [false, false, false, false, false, false, false, false, false];
   back!: boolean;
   check!: any;
@@ -225,6 +226,7 @@ export class QuestionnaireComponent implements OnInit {
 
   display() {
     console.log('click on display');
+    this.first_click = true;
     if (this.display_phq_start === true) {
       this.display_phq_start = false;
       this.is_siq_ques = false;
@@ -296,11 +298,13 @@ export class QuestionnaireComponent implements OnInit {
     this.time[this.question_no] > 0
       ? (this.time[this.question_no] =
           this.time[this.question_no] +
-          this.timerService.showTime(this.question_no, this.startTime))
+          this.timerService.showTime(this.question_no, this.startTime, this.first_click))
       : (this.time[this.question_no] = this.timerService.showTime(
           this.question_no,
           this.startTime,
+      this.first_click,
         ));
+    this.first_click = false;
     setTimeout(() => {
       this.IsDisabled();
       this.answered[this.question_no] = true;
@@ -340,11 +344,13 @@ export class QuestionnaireComponent implements OnInit {
     this.time[this.question_no] > 0
       ? (this.time[this.question_no] =
           this.time[this.question_no] +
-          this.timerService.showTime(this.question_no, this.startTime))
+          this.timerService.showTime(this.question_no, this.startTime, this.first_click))
       : (this.time[this.question_no] = this.timerService.showTime(
           this.question_no,
           this.startTime,
+          this.first_click,
         ));
+    this.first_click = false;
     setTimeout(() => {
       this.IsDisabled();
       this.answered[this.question_no] = true;
@@ -384,11 +390,13 @@ export class QuestionnaireComponent implements OnInit {
     this.time[this.question_no] > 0
       ? (this.time[this.question_no] =
           this.time[this.question_no] +
-          this.timerService.showTime(this.question_no, this.startTime))
+          this.timerService.showTime(this.question_no, this.startTime, this.first_click))
       : (this.time[this.question_no] = this.timerService.showTime(
           this.question_no,
           this.startTime,
+      this.first_click
         ));
+    this.first_click = false;
     setTimeout(() => {
       this.IsDisabled();
       this.answered[this.question_no] = true;
@@ -428,11 +436,13 @@ export class QuestionnaireComponent implements OnInit {
     this.time[this.question_no] > 0
       ? (this.time[this.question_no] =
           this.time[this.question_no] +
-          this.timerService.showTime(this.question_no, this.startTime))
+          this.timerService.showTime(this.question_no, this.startTime, this.first_click))
       : (this.time[this.question_no] = this.timerService.showTime(
           this.question_no,
           this.startTime,
+      this.first_click
         ));
+    this.first_click = false;
     setTimeout(() => {
       this.IsDisabled();
       this.answered[this.question_no] = true;
@@ -469,10 +479,11 @@ export class QuestionnaireComponent implements OnInit {
       this.time[this.question_no] > 0
         ? (this.time[this.question_no] =
             this.time[this.question_no] +
-            this.timerService.showTime(this.question_no, this.startTime))
+            this.timerService.showTime(this.question_no, this.startTime, this.first_click))
         : (this.time[this.question_no] = this.timerService.showTime(
             this.question_no,
             this.startTime,
+        this.first_click,
           ));
       this.question_no > 0
         ? (this.question_no = this.question_no - 1)
@@ -498,10 +509,11 @@ export class QuestionnaireComponent implements OnInit {
     this.time[this.question_no] > 0
       ? (this.time[this.question_no] =
           this.time[this.question_no] +
-          this.timerService.showTime(this.question_no, this.startTime))
+          this.timerService.showTime(this.question_no, this.startTime, this.first_click))
       : (this.time[this.question_no] = this.timerService.showTime(
           this.question_no,
           this.startTime,
+      this.first_click,
         ));
     this.question_no === this.total_question
       ? (this.submit = true)
@@ -519,10 +531,11 @@ export class QuestionnaireComponent implements OnInit {
     this.time[this.question_no] > 0
       ? (this.time[this.question_no] =
           this.time[this.question_no] +
-          this.timerService.showTime(this.question_no, this.startTime))
+          this.timerService.showTime(this.question_no, this.startTime, this.first_click))
       : (this.time[this.question_no] = this.timerService.showTime(
           this.question_no,
           this.startTime,
+      this.first_click
         ));
     this.see0 = this.disabled.option_0[this.question_no];
     this.see1 = this.disabled.option_1[this.question_no];
@@ -548,6 +561,7 @@ export class QuestionnaireComponent implements OnInit {
 
     if (this.index === 0) {
       // index =0 is for phq-9
+      console.log('phq_response', phq_response);
       this.savePHQNineData(phq_response);
     }
     if (this.index === 1) {
