@@ -3,18 +3,15 @@
 .step-status-indicator {
   height: 100%;
   max-width: 100%;
-  // padding-left: 10px;
   padding-bottom: 14px;
   padding-top: 14px;
 }
 .status-img{
   position: absolute;
   width: 70%;
-  // height: 36px;
-  // width: 36px;
+  height: 100%;
 }
 .circle-img{
-  //width: 24px;
   padding-top:12px;
 }
 .status-img.completed:before {
