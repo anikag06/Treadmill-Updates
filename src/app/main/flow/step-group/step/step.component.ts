@@ -109,7 +109,7 @@ export class StepComponent implements OnInit, AfterViewInit {
     }
   }
 
-  nextLink(): string {
+  nextLink() {
     return this.flowStepNavService.goToFlowNextStep(this.step);
   }
 
@@ -145,8 +145,9 @@ export class StepComponent implements OnInit, AfterViewInit {
       setTimeout(() => this.flowService.triggerLoad(), 1);
       setTimeout(() => this.flowService.triggerLoad(), 10);
     }
-
-    if (this.step.status !== LOCKED && !this.step.virtual_step) {
+    if (this.step.status !== LOCKED) {
+      // console.log('step inside: ', step);
+    // if (this.step.status !== LOCKED && !this.step.virtual_step) {
       this.flowService.stepGroupSequence = this.stepGroup.sequence + 1;
       this.flowService.stepSequence = this.step.sequence + 1;
       this.flowService.stepName = this.step.name;

@@ -28,10 +28,8 @@ import { StepGroup } from '@/main/flow/step-group/step-group.model';
 export class FlowStepNavigationService {
   constructor(private http: HttpClient) {}
 
-  goToFlowNextStep(step: any): string {
+  goToFlowNextStep(step: any) {
     // console.log('step outside: ', step);
-    if (step.status !== LOCKED) {
-      // console.log('step inside: ', step);
       if (step.data_type === SLIDE) {
         return `/resources/slides/${step.id}/`;
       } else if (step.data_type === CONVERSATION_GROUP) {
@@ -61,8 +59,6 @@ export class FlowStepNavigationService {
       } else if (step.data_type === TESTIMONIALS_PAGE) {
         return `/extra-resources/`;
       }
-    }
-    return '/';
   }
 
   getNextStepData(stepId: number): Observable<any> {
