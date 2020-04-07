@@ -3,7 +3,7 @@ import { browser, logging } from 'protractor';
 import { FlowPage } from './flow/flow.po';
 
 
-describe('treadwill Flow', () => {
+xdescribe('treadwill Flow', () => {
   let page: AppPage;
   let fp: FlowPage;
 
@@ -40,35 +40,35 @@ describe('treadwill Flow', () => {
     expect(fp.getProgress()).toEqual('Progress');
   });
 
-  it('Should show questionnaire', () => {
-    fp.findQuestionnaireComponent();
-    browser.sleep(2000);
-    expect(fp.findQuestionnaireText()).toMatch('Before moving further');
-    fp.clickOnButton('Start');
-    for (let i = 0; i < 9; i++) {
-      browser.sleep(1000);
-      fp.clickOnButton('Most of the days');
-    }
-    browser.sleep(1000);
-    fp.clickOnButton('Submit');
-    browser.sleep(2000);
-    fp.clickOnButton('Start');
-    for (let i = 0; i < 7; i++) {
-      browser.sleep(1000);
-      fp.clickOnButton('Most of the days');
-    }
-    browser.sleep(1000);
-    fp.clickOnButton('Submit');
-    browser.sleep(2000);
-    expect(fp.getProgress()).toEqual('Progress');
-  });
+  // it('Should show questionnaire', () => {
+  //   fp.findQuestionnaireComponent();
+  //   browser.sleep(2000);
+  //   expect(fp.findQuestionnaireText()).toMatch('Before moving further');
+  //   fp.clickOnButton('Start');
+  //   for (let i = 0; i < 9; i++) {
+  //     browser.sleep(1000);
+  //     fp.clickOnButton('Most of the days');
+  //   }
+  //   browser.sleep(1000);
+  //   fp.clickOnButton('Submit');
+  //   browser.sleep(2000);
+  //   fp.clickOnButton('Start');
+  //   for (let i = 0; i < 7; i++) {
+  //     browser.sleep(1000);
+  //     fp.clickOnButton('Most of the days');
+  //   }
+  //   browser.sleep(1000);
+  //   fp.clickOnButton('Submit');
+  //   browser.sleep(2000);
+  //   expect(fp.getProgress()).toEqual('Progress');
+  // });
 
 
-  it('Should say not available when we revist the item', () => {
-    fp.findQuestionnaireComponent();
-    browser.sleep(2000);
-    expect(fp.getQuestionnaireNotavailable()).toContain('This is not available');
-  });
+  // it('Should say not available when we revist the item', () => {
+  //   fp.findQuestionnaireComponent();
+  //   browser.sleep(2000);
+  //   expect(fp.getQuestionnaireNotavailable()).toContain('This is not available');
+  // });
 
   it('Should mark virtual step as done', () => {
     fp.navigateToDashboard();

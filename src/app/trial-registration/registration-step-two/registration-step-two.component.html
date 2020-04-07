@@ -104,11 +104,11 @@
                         <!-- for true using 1 and for false 0 -->
                         <mat-radio-group formControlName="knowEnglish"
                             required color="primary">
-                            <mat-radio-button [value]="1" class="mr-5"
+                            <mat-radio-button [value]="1" class="mr-5" id="btn1"
                                 #btn1 [ngClass]="{ 'checkedBtn': btn1.checked , 'unChecked': !btn1.checked}">
                                 Yes
                             </mat-radio-button>
-                            <mat-radio-button [value]="0" class="ml-4"
+                            <mat-radio-button [value]="0" class="ml-4" id="btn2"
                                 #btn2 [ngClass]="{ 'checkedBtn': btn2.checked , 'unChecked': !btn2.checked}">
                                 No
                             </mat-radio-button>
@@ -122,11 +122,11 @@
                         </label>
                         <mat-radio-group formControlName="internetEnabled"
                             required color="primary">
-                            <mat-radio-button [value]="1" class="mr-5"
+                            <mat-radio-button [value]="1" class="mr-5" id="btn3"
                                 #btn3 [ngClass]="{ 'checkedBtn': btn3.checked , 'unChecked': !btn3.checked}">
                                 Yes
                             </mat-radio-button>
-                            <mat-radio-button [value]="0" class="ml-4"
+                            <mat-radio-button [value]="0" class="ml-4" id="btn4"
                                 #btn4 [ngClass]="{ 'checkedBtn': btn4.checked , 'unChecked': !btn4.checked}">
                                 No
                             </mat-radio-button>
@@ -140,22 +140,22 @@
                         </label>
                         <mat-radio-group required
                             formControlName="psychiatricHelp" color="primary">
-                            <mat-radio-button value="counselling"
+                            <mat-radio-button value="counselling" id="btn5"
                                 #btn5 [ngClass]="{ 'checkedBtn': btn5.checked , 'unChecked': !btn5.checked}">
                                 Counselling
                             </mat-radio-button>
                             <br>
-                            <mat-radio-button value="medication"
+                            <mat-radio-button value="medication" id="btn"
                                 #btn6 [ngClass]="{ 'checkedBtn': btn6.checked , 'unChecked': !btn6.checked}">
                                 Medicines
                             </mat-radio-button>
                             <br>
-                            <mat-radio-button value="both"
+                            <mat-radio-button value="both" id="btn6"
                                 #btn6 [ngClass]="{ 'checkedBtn': btn6.checked , 'unChecked': !btn6.checked}">
                                 Both
                             </mat-radio-button>
                             <br>
-                            <mat-radio-button value="none"
+                            <mat-radio-button value="none" id="btn7"
                                 #btn7 [ngClass]="{ 'checkedBtn': btn7.checked , 'unChecked': !btn7.checked}"    >
                                 None
                             </mat-radio-button>
@@ -168,11 +168,11 @@
                     </label>
                     <mat-radio-group required
                                      formControlName="haveUsedEarlier" color="primary">
-                      <mat-radio-button [value]="1" class="mr-5"
+                      <mat-radio-button [value]="1" class="mr-5" id="btn17"
                                         #btn17 [ngClass]="{ 'checkedBtn': btn17.checked , 'unChecked': !btn17.checked}">
                         Yes
                       </mat-radio-button>
-                      <mat-radio-button [value]="0" class="ml-4"
+                      <mat-radio-button [value]="0" class="ml-4" id="btn18"
                                         #btn18 [ngClass]="{ 'checkedBtn': btn18.checked , 'unChecked': !btn18.checked}">
                         No
                       </mat-radio-button>
@@ -186,11 +186,11 @@
                         </label>
                         <mat-radio-group required
                             formControlName="haveDisorder" color="primary">
-                            <mat-radio-button [value]="1" class="mr-5"
+                            <mat-radio-button [value]="1" class="mr-5" id="btn8"
                                 #btn8 [ngClass]="{ 'checkedBtn': btn8.checked , 'unChecked': !btn8.checked}">
                                 Yes
                             </mat-radio-button>
-                            <mat-radio-button [value]="0" class="ml-4"
+                            <mat-radio-button [value]="0" class="ml-4" id="btn9"
                                 #btn9 [ngClass]="{ 'checkedBtn': btn9.checked , 'unChecked': !btn9.checked}">
                                 No
                             </mat-radio-button>
@@ -205,11 +205,11 @@
                         </label>
                         <mat-radio-group formControlName="traumaticEvent"
                             required color="primary">
-                            <mat-radio-button [value]="1" class="mr-5"
+                            <mat-radio-button [value]="1" class="mr-5" id="btn10"
                                 #btn10 [ngClass]="{ 'checkedBtn': btn10.checked , 'unChecked': !btn10.checked}">
                                 Yes
                             </mat-radio-button>
-                            <mat-radio-button [value]="0" class="ml-4"
+                            <mat-radio-button [value]="0" class="ml-4" id="btn11"
                                 #btn11 [ngClass]="{ 'checkedBtn': btn11.checked , 'unChecked': !btn11.checked}">
                                 No
                             </mat-radio-button>
@@ -250,11 +250,11 @@
                         </label>
                         <mat-radio-group formControlName="helpReason"
                             required color="primary">
-                            <mat-radio-button [value]="1"
+                            <mat-radio-button [value]="1" id="btn12"
                                 #btn12 [ngClass]="{ 'checkedBtn': btn12.checked , 'unChecked': !btn12.checked}">
                                 I need help for myself
                             </mat-radio-button>
-                            <mat-radio-button [value]="0"
+                            <mat-radio-button [value]="0" id="btn13"
                                 #btn13 [ngClass]="{ 'checkedBtn': btn13.checked , 'unChecked': !btn13.checked}">
                                 I don't need any help for myself
                             </mat-radio-button>
@@ -267,15 +267,15 @@
                         </label>
                         <mat-radio-group formControlName="programPlan"
                             required color="primary">
-                            <mat-radio-button [value]="0"
+                            <mat-radio-button [value]="0" id="btn14"
                                 #btn14 [ngClass]="{ 'checkedBtn': btn14.checked , 'unChecked': !btn14.checked}">
                                 I plan to complete the program
                             </mat-radio-button>
-                            <mat-radio-button [value]="1"
+                            <mat-radio-button [value]="1" id="btn15"
                                 #btn15 [ngClass]="{ 'checkedBtn': btn15.checked , 'unChecked': !btn15.checked}">
                                 I may complete the program if I like it
                             </mat-radio-button>
-                            <mat-radio-button [value]="2"
+                            <mat-radio-button [value]="2" id="btn16"
                                 #btn16 [ngClass]="{ 'checkedBtn': btn16.checked , 'unChecked': !btn16.checked}">
                                 <span class="wrap-mat-radio-label">
                                     I want to check out the program and do not plan to complete it

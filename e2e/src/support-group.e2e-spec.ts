@@ -2,7 +2,7 @@ import { AppPage } from './app.po';
 import { browser, logging } from 'protractor';
 import { SupportGroupPage } from './support-groups/support-group.po';
 
-describe('treadwill SupportGroup', () => {
+xdescribe('treadwill SupportGroup', () => {
   let page: AppPage;
   let sg: SupportGroupPage;
   let comment = '';

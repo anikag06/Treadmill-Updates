@@ -7,26 +7,26 @@
           <div class="col-xl-4 col-md-6 col-sm-12 mx-auto text-center"
             *ngIf="display_gad_start || display_phq_start || display_siq_start">
             <div class="card-body">
-              <div class="" *ngIf="display_phq_start" >
-                <div id=bold> Before moving further, we need you to carefully answer 9 quick 
-                  questions. This is a standard set of questions, called PHQ-9, used in 
+              <div class="" *ngIf="display_phq_start" id="phq-9">
+                <div class="bold"> Before moving further, we need you to carefully answer 9 quick
+                  questions. This is a standard set of questions, called PHQ-9, used in
                   healthcare to assess depressive symptoms (everyone has some!).
                 </div>
               </div>
-              <div class="" *ngIf="display_gad_start">
-                <span id=bold> Before moving further, we need ou to carefully answer 7 quick 
-                  questions. This is a standard set of questions, called GAD-7, used in 
-                  healthcare to assess anxiety symptoms (everyone has some!). 
+              <div class="" *ngIf="display_gad_start" id="gad-7">
+                <span class="bold"> Before moving further, we need ou to carefully answer 7 quick
+                  questions. This is a standard set of questions, called GAD-7, used in
+                  healthcare to assess anxiety symptoms (everyone has some!).
                 </span>
-                
+
               </div>
-              <div *ngIf="display_siq_start" id="bold">
+              <div *ngIf="display_siq_start" class="bold" id="siq">
                 Show the siq. Answer carefully.
               </div>
               <br><br>
-              <span id=bold>
+              <span class="bold">
                 Carefully answering these questions is important for you to track your
-                progress, for ensuring your participation, and for the development of 
+                progress, for ensuring your participation, and for the development of
                 TreadWill as a useful resource.
               </span>
               <br><br><br>
@@ -56,7 +56,7 @@
                   <div class="card-subtitle mb-2 text-muted" *ngIf="!submit">Question {{pager.index }}
                     of
                     {{pager.count}}</div>
-                  <span id=const *ngIf="!submit">Over the last two weeks, how often have you 
+                  <span id=const *ngIf="!submit">Over the last two weeks, how often have you
                     been bothered by this problem?
                   </span>
                   <br>
@@ -105,7 +105,7 @@
                         <div id=submit>
                           Thank you for your response!
                         </div>
-                        <button id=btn type="button" class="btn btn-outline-dark" 
+                        <button id=btn type="button" class="btn btn-outline-dark"
                           *ngIf="submit"
                           (click)="onsubmit()">Submit
                         </button>
@@ -115,7 +115,7 @@
                 </div>
               </div>
               <div class="col-2 my-auto ">
-                <button type="button" class="btn btn-default" aria-label="Right Align" 
+                <button type="button" class="btn btn-default" aria-label="Right Align"
                   (click)="onfront()"
                   *ngIf="display_front()">
                   <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>

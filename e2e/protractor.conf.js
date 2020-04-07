@@ -8,9 +8,15 @@ exports.config = {
   specs: [
     './src/**/*.e2e-spec.ts'
   ],
-  capabilities: {
-    'browserName': 'chrome'
-  },
+  multiCapabilities: [
+    {
+    'browserName': 'chrome',
+      'chromeOptions': {
+        'prefs': {
+          'profile.managed_default_content_settings.notifications': 1}
+      }
+  }
+  ],
   directConnect: true,
   baseUrl: 'http://localhost:4200/',
   framework: 'jasmine',

@@ -13,9 +13,9 @@ export class FlowPage {
       return element(by.css('.flow-scroll-inner')).getText();
     }
 
-    findQuestionnaireComponent() {
-        return element(by.partialLinkText('Questionnaire 1')).click();
-    }
+    // findQuestionnaireComponent() {
+    //     return element(by.partialLinkText('Questionnaire 1')).click();
+    // }
 
     findQuestionnaireText() {
         return element(by.css('.card-body')).getText();
