@@ -1,6 +1,5 @@
-import { Component, OnInit, ElementRef, Inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { DOCUMENT } from '@angular/common';
+import {Component, ElementRef, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-chatbot',
@@ -11,7 +10,7 @@ export class ChatbotComponent implements OnInit {
   chatwindowClosed = true;
   removeChat = false;
   blacklisted = ['/games', '/resources'];
-
+  currentDateTime!: any;
   constructor(private router: Router, private elementRef: ElementRef) {}
 
   ngOnInit() {
@@ -23,28 +22,27 @@ export class ChatbotComponent implements OnInit {
 
   toggleChat() {
     this.chatwindowClosed = !this.chatwindowClosed;
-    this.preventScrolling();
+    this.currentDateTime = Date.now();
   }
 
   updateChatWindow(event: boolean) {
     this.chatwindowClosed = event;
-    this.preventScrolling();
   }
 
   //
   //   window.addEventListener('scroll', () => {
   //   document.documentElement.style.setProperty('--scroll-y', `${window.scrollY}px`);
   // });
-  preventScrolling() {
-    if (!this.chatwindowClosed) {
-      const scrollY = document.documentElement.style.getPropertyValue(
-        '--scroll-y',
-      );
-      const body = document.body;
-      body.style.position = 'fixed';
-      body.style.top = `-${scrollY}`;
-    }
-  }
+  // preventScrolling() {
+  //   if (!this.chatwindowClosed) {
+  //     const scrollY = document.documentElement.style.getPropertyValue(
+  //       '--scroll-y',
+  //     );
+  //     const body = document.body;
+  //     body.style.position = 'fixed';
+  //     body.style.top = `-${scrollY}`;
+  //   }
+  // }
 
   removingChat() {
     let match = false;

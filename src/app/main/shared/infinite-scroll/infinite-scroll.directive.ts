@@ -1,13 +1,6 @@
-import {
-  Directive,
-  ElementRef,
-  EventEmitter,
-  HostListener,
-  OnDestroy,
-  Output,
-} from '@angular/core';
-import { debounceTime } from 'rxjs/operators';
-import { BehaviorSubject, Subject } from 'rxjs';
+import {Directive, ElementRef, EventEmitter, HostListener, OnDestroy, Output,} from '@angular/core';
+import {debounceTime} from 'rxjs/operators';
+import {Subject} from 'rxjs';
 
 @Directive({
   selector: '[appInfiniteScroll]',
@@ -32,7 +25,7 @@ export class InfiniteScrollDirective implements OnDestroy {
     if (st > this.lastScrollTop) {
       // downscroll code
       this.debouncer.next('down');
-    } else if (st < this.lastScrollTop) {
+    } else if (st < this.lastScrollTop && st === 0) {
       // upscroll code
       this.debouncer.next('up');
     } else {

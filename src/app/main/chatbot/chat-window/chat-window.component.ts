@@ -1,21 +1,9 @@
-import {
-  CHATBOT_RETRY_TIMEOUT,
-  MAX_RETRIES,
-  NEW_CHAT,
-  REPLY_CURRENT,
-  RESUME_CHAT,
-} from '@/app.constants';
-import { Chat } from '@/main/chatbot/chat.model';
-import { ChatbotService } from '@/main/chatbot/chatbot.service';
-import { AuthService } from '@/shared/auth/auth.service';
-import {
-  animate,
-  state,
-  style,
-  transition,
-  trigger,
-} from '@angular/animations';
-import { HttpErrorResponse } from '@angular/common/http';
+import {CHATBOT_RETRY_TIMEOUT, MAX_RETRIES, NEW_CHAT, REPLY_CURRENT, RESUME_CHAT,} from '@/app.constants';
+import {Chat} from '@/main/chatbot/chat.model';
+import {ChatbotService} from '@/main/chatbot/chatbot.service';
+import {AuthService} from '@/shared/auth/auth.service';
+import {animate, state, style, transition, trigger,} from '@angular/animations';
+import {HttpErrorResponse} from '@angular/common/http';
 import {
   ChangeDetectorRef,
   Component,
@@ -30,10 +18,8 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import { MatDialog } from '@angular/material';
-import { environment } from '../../../../environments/environment';
-import { ChatImageComponent } from '@/main/chatbot/chat-window/chat-image/chat-image.component';
-import { ChatImageDirective } from '@/main/chatbot/chat-window/chat-image/chat-image.directive';
+import {MatDialog} from '@angular/material';
+import {environment} from '../../../../environments/environment';
 
 declare var twemoji: any;
 
@@ -109,10 +95,13 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   showMoodWidgetBtn = true;
   showDateTimeWidgetBtn = true;
   showMaintenance = false;
-  showSpinner = true;
+  showSpinner = false;
   isMultiLineInput = false;
   showTextInput!: boolean;
   timeout: any = null;
+  page!: number;
+  allMessagesLoaded = false;
+  @Input() currentDateTime!: any;
   ngOnChanges(): void {
     if (this.chatWindowClosed === false) {
       if (
@@ -127,7 +116,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnInit() {
-    this.chatbotService.postPreviousChat().subscribe(
+    this.chatbotService.postPreviousChat(this.currentDateTime).subscribe(
       (data: any) => {
         if (data.status) {
           // console.log(data);
@@ -241,7 +230,9 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       environment.CHAT_HOST + '/ws/chat/?token=' + this.authService.getToken(),
     );
     this.webSocket.onopen = event => {
-      this.webSocket.send(JSON.stringify({ action: type, module_name: '' }));
+      this.webSocket.send(
+        JSON.stringify({ action: type, module_name: 'patient_listening' }),
+      );
     };
     this.webSocket.onmessage = (message: any) => {
       this.showMaintenance = false;
@@ -263,6 +254,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       } else if (data.action === 'ws_close') {
         this.closeChat();
       } else {
+        this.page = 1;
         this.start(data.message);
       }
     };
@@ -346,6 +338,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     if (this.webSocket) {
       this.chatClosed = true;
       this.webSocket.close();
+      this.page = 1;
     }
     this.retries = 0;
     this.chatWindowClosedEmitter.emit(true);
@@ -431,36 +424,10 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     this.images = [];
     if (m.embed_links && m.embed_links.length > 0) {
       m.embed_links.forEach((image: any) => {
-        // const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
-        //   ChatImageComponent,
-        // );
-        // this.changRef.detectChanges();
-        // const imageComponentRef = this.chatImage.createComponent(
-        //   componentFactory,
-        // );
-        // /  console.log(imageComponentRef);
-
         if (image.type === 'unsplash_image') {
           this.pushUnsplashImage(image);
-          // const unsplashObject = {
-          //   url: image.static_url,
-          //   link: image.creator_link,
-          //   name: image.creator,
-          //   credits: true,
-          // };
-          // this.images.push(unsplashObject);
-          // imageComponentRef.instance.image = unsplashObject;
         } else if (image.type === 'giphy') {
           this.pushGIF(image);
-          // const gifObject = {
-          //   url: image.static_url,
-          //   dynamic_url: image.dynamic_url,
-          //   static_url: image.static_url,
-          //   showSpinner: true,
-          //   creditsGIF: true,
-          // };
-          // this.images.push(gifObject);
-          // imageComponentRef.instance.image = gifObject;
         } else {
           this.pushImage(image);
         }
@@ -491,19 +458,47 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       url: image.static_url,
       dynamic_url: image.dynamic_url,
       static_url: image.static_url,
-      showSpinner: true,
       creditsGIF: true,
     };
     this.images.push(gifObject);
   }
-
   scrollFrame(value: string) {
-    if (value === 'up') {
-      console.log('Moving up');
+    if (value === 'up' && !this.allMessagesLoaded) {
+      this.showSpinner = true;
+      this.page += 1;
+      this.chatbotService
+        .loadPreviouChat(this.page, this.currentDateTime)
+        .subscribe((data: any) => {
+          this.showSpinner = true;
+          if (data.status) {
+            if (data.data.messages.length === 0) {
+              this.allMessagesLoaded = true;
+              this.showSpinner = false;
+            }
+            data.data.messages.reverse().forEach((message: any) => {
+              this.pushImages(message);
+              this.messages.unshift(
+                new Chat(
+                  twemoji.parse(message.text),
+                  message.is_sender_user,
+                  [],
+                  message.mid,
+                  message.sid,
+                  message.datetime,
+                  false,
+                  [],
+                  this.images,
+                ),
+              );
+
+              this.showSpinner = false;
+            });
+          }
+        });
     }
-    if (value === 'down') {
-      console.log('Moving down');
-    }
+    // if (value === 'down') {
+    //   console.log('Moving down');
+    // }
   }
 
   getButtons() {
@@ -517,30 +512,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     }
     this.scrollToBottom();
   }
-
-  changeUrl(image: any, index: number) {
-
-    if (this.images[index] && this.images[index].dynamic_url) {
-      this.images[index].showSpinner = true;
-      this.images[index].url =
-        this.images[index].url === this.images[index].static_url
-          ? this.images[index].dynamic_url
-          : this.images[index].static_url;
-    }
-    // console.log(image.dynamic_url === image.url);
-  }
   //
-  // hideSpinner(index: number) {
-  //   if (this.images[index].showSpinner) {
-  //     this.images[index].showSpinner = false;
-  //     setTimeout(() => {
-  //       if (this.images[index].url === this.images[index].dynamic_url) {
-  //         this.images[index].url = this.images[index].static_url;
-  //       }
-  //     }, 10000);
-  //   }
-  // }
-
   sendReply(event: any) {
     clearTimeout(this.timeout);
     const $this = this;

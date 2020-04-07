@@ -20,7 +20,11 @@
     appInfiniteScroll
     (scroll)="scrollFrame($event)"
   >
-    <!--    <ng-template appChatImage></ng-template>-->
+    <div class="spinnerDiv" *ngIf="showSpinner">
+      <mat-progress-spinner mode="indeterminate" diameter="15" color="accent">
+      </mat-progress-spinner>
+      <div [ngStyle]="{ fontSize: '12px' }">Loading Messages...</div>
+    </div>
     <div class="clearfix messages" *ngFor="let m of messages">
       <div>
         <ng-container *ngIf="!m.waiting; else waiting">
@@ -63,7 +67,7 @@
           </div>
           <button
             (click)="onDateTimeSelect()"
-            *ngIf="widget === dateTimeWidget && showDateTimeWidgetBtn"
+            *ngIf="widget === dateTimeWidget"
           >
             Date Time
           </button>

@@ -362,3 +362,8 @@ $x3: -$leftPos + $dotSpacing;
 .mat-form-field {
   background: #ffffff 0% 0% no-repeat padding-box;
 }
+.spinnerDiv {
+  position: absolute;
+  left: 30%;
+  display: inline-flex;
+}

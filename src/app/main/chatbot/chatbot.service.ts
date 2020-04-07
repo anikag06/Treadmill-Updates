@@ -1,23 +1,40 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
-import { GIPHY_URL, UNSPLASH_URL } from '@/app.constants';
-import { fromEvent, merge, Observable, Observer } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {environment} from '../../../environments/environment';
+import {fromEvent, merge, Observable, Observer} from 'rxjs';
+import {map} from 'rxjs/operators';
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ChatbotService {
-  // private url = 'https://api.unsplash.com'; // URL to web API
-  // private applicationId =
-  //   '9bd2732a096202a8c7f9b6f95ef06838580ddd34e7c73fb8234546019379c041';
-
   constructor(private http: HttpClient) {}
+  nowdateTime = Date.now();
 
-  postPreviousChat() {
+  postPreviousChat(currentDateTime: any) {
+    const dateTime = moment.utc(currentDateTime).format('DD/MM/YY+HH:mm:ss');
+    console.log(dateTime);
     return this.http.post(
-      environment.API_ENDPOINT + '/api/v1/chat/resume-chat/',
+      environment.API_ENDPOINT +
+        '/api/v1/chat/resume-chat/' +
+        '?page=1&' +
+        'date_time=' +
+        dateTime,
+      {},
+    );
+  }
+
+  loadPreviouChat(page: number, currentDateTime: any) {
+    const dateTime = moment.utc(currentDateTime).format('DD/MM/YY+HH:mm:ss');
+    console.log('page no ' + page);
+    return this.http.post(
+      environment.API_ENDPOINT +
+        '/api/v1/chat/resume-chat/' +
+        '?page=' +
+        page +
+        '&date_time=' +
+        dateTime,
       {},
     );
   }

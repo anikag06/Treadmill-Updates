@@ -1,5 +1,16 @@
 <div class="chat-btn" *ngIf="!removeChat">
- <input type="image" *ngIf="chatwindowClosed" class="chat-btn" src="assets/chatbot/chatbot_home_screen.png" alt="icon" (click)="toggleChat()">
-  <app-chat-window *ngIf="!chatwindowClosed" [chatWindowClosed]="chatwindowClosed" (chatWindowClosedEmitter)="updateChatWindow($event)" ></app-chat-window>
+  <input
+    type="image"
+    *ngIf="chatwindowClosed"
+    class="chat-btn"
+    src="assets/chatbot/chatbot_home_screen.png"
+    alt="icon"
+    (click)="toggleChat()"
+  />
+  <app-chat-window
+    *ngIf="!chatwindowClosed"
+    [chatWindowClosed]="chatwindowClosed"
+    [currentDateTime]="currentDateTime"
+    (chatWindowClosedEmitter)="updateChatWindow($event)"
+  ></app-chat-window>
 </div>
-
