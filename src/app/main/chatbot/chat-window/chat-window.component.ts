@@ -199,7 +199,17 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   chatButtonPressed(button: any) {
     // chat.buttons = [];
     this.messages.push(
-      new Chat(button['payload'], true, [], '', '', new Date(), false, [], []),
+      new Chat(
+        button['emojified_payload'],
+        true,
+        [],
+        '',
+        '',
+        new Date(),
+        false,
+        [],
+        [],
+      ),
     );
     this.webSocket.send(
       JSON.stringify({
@@ -287,7 +297,9 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     console.log(m);
     this.pushImages(m);
     m.buttons.forEach((button: any) => {
-      button.payload = twemoji.parse(button.payload);
+      if (!button.hasOwnProperty('emojified_payload')) {
+        button.emojified_payload = twemoji.parse(button.payload);
+      }
     });
 
     if (m.buttons && m.buttons.length < 5) {
@@ -492,6 +504,15 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
               );
 
               this.showSpinner = false;
+              console.log(
+                this.messagesDiv.nativeElement.scrollHeight,
+                this.messagesDiv.nativeElement.offsetHeight,
+                this.page,
+              );
+
+              this.scrollTop = 540 + 5 * (this.page - 1);
+
+              console.log(this.scrollTop);
             });
           }
         });

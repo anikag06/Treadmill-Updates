@@ -98,13 +98,13 @@
       >
         <img
           src="assets/chatbot/tracker.png"
-          [alt]="button.payload"
+          [alt]="button.emojified_payload"
           width="136px"
           height="72px"
           *ngIf="button.type === clickAble; else btnText"
         />
         <ng-template #btnText>
-          <span class="btn-text" [innerHTML]="button.payload"></span
+          <span class="btn-text" [innerHTML]="button.emojified_payload"></span
         ></ng-template>
       </button>
       <div>

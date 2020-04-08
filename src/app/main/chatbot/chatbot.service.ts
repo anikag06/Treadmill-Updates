@@ -14,7 +14,6 @@ export class ChatbotService {
 
   postPreviousChat(currentDateTime: any) {
     const dateTime = moment.utc(currentDateTime).format('DD/MM/YY+HH:mm:ss');
-    console.log(dateTime);
     return this.http.post(
       environment.API_ENDPOINT +
         '/api/v1/chat/resume-chat/' +
