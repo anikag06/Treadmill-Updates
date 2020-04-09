@@ -62,12 +62,13 @@ export class ExtraResourcesService {
   }
 
   markVideoWatched(videoId: number, watched: boolean){
+    console.log('marking', videoId, watched);
     return this.http.post(environment.API_ENDPOINT + WATCHED_VIDEO, {
       resource_video_id: videoId,
       watched: watched,
 
     });
-    console.log('marking', videoId, watched);
+    //console.log('marking', videoId, watched);
   }
 
 }

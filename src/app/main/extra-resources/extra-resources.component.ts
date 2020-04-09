@@ -21,6 +21,8 @@ export class ExtraResourcesComponent implements OnInit {
   countReadingItem = 0;
   countVideoItem = 0;
 
+
+
   constructor(
     private extraResourcesService: ExtraResourcesService,
     private router: Router,
@@ -29,6 +31,13 @@ export class ExtraResourcesComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    // const tag = document.createElement('script');
+    //
+    // tag.src = 'https://www.youtube.com/iframe_api';
+    // document.body.appendChild(tag);
+
+
+
     this.loadFilesService
       .loadExternalStyles('/extra-resources-styles.css')
       .then(() => {})
@@ -122,3 +131,12 @@ export class ExtraResourcesComponent implements OnInit {
 //   }, 1000);
 // };
 //}
+
+// if (event.data === 0){
+//   console.log('event data', event.data);
+//   this.watched = true;
+//   console.log('watched');
+//   this.extraResourcesService.markVideoWatched(this.videoIdToSend, this.watched).subscribe((data: any) => {
+//     console.log('marked video data', data);
+//   }
+// });

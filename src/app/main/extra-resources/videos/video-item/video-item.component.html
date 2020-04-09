@@ -1,12 +1,14 @@
 
   <div class = "row " >
-    <div class="col col-margin" *ngIf = "isLoaded; else loader">
+    <div class="col col-margin" *ngIf = "isLoaded; else loader" >
       <!--<mat-card class = "card">-->
 
 
-          <div class="video-container">
-          <iframe class = "video-specs" [src]="video.url + enableId | safeUrl" id = 'player' #Video></iframe><br/>
+          <div class="video-container" >
+         <iframe class = "video-specs" [src]="video.url + enableId | safeUrl" id = 'player' #Video ></iframe><br/>
+
           </div>
+
           <mat-card-footer class= "footer-text" [innerHTML]="video.title"></mat-card-footer>
              <!-- </mat-card>-->
     </div>

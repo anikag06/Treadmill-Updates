@@ -22,6 +22,7 @@ import { ReadingItemComponent } from '@/main/extra-resources/reading-material/re
 import { VideoItemComponent } from '@/main/extra-resources/videos/video-item/video-item.component';
 import { VideosComponent } from '@/main/extra-resources/videos/videos.component';
 import { ReadingMaterialComponent } from '@/main/extra-resources/reading-material/reading-material.component';
+import {NeedToTalkComponent} from '@/main/need-to-talk/need-to-talk.component';
 
 export const mainRoutes: Routes = [
   {
@@ -40,6 +41,10 @@ export const mainRoutes: Routes = [
         path: 'support-groups',
         component: SupportGroupsComponent,
         data: { title: 'Support Group' },
+      },
+      {
+        path: 'need-to-talk',
+        component: NeedToTalkComponent
       },
       {
         path: 'games',
@@ -62,23 +67,8 @@ export const mainRoutes: Routes = [
       },
       { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
       { path: 'logout', component: LogoutComponent },
-      // {
-      //   path: 'resources',
-      //   loadChildren: () =>
-      //     import('./resources/resources.module').then(
-      //       mod => mod.ResourcesModule,
-      //     ),
-        // canActivateChild: [AuthGuard],
-      // },
       {
         path: 'extra-resources',
-        // component: Resources2Component,
-        // children: [
-        //   { path: 'videos', component: VideosComponent },
-        //   // {path: 'readingItem', component: ReadingMaterialComponent}
-        //   { path: 'videoItem/:id', component: VideoItemComponent },
-        //   {path: 'readingItem/:id', component: ReadingItemComponent}
-        // ],
         loadChildren: () =>
           import('./extra-resources/extra-resources.module').then(
             m => m.ExtraResourcesModule,

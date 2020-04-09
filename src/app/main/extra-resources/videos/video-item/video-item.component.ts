@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import { VideoItem } from '@/main/extra-resources/shared/video.model';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ExtraResourcesService } from '@/main/extra-resources/extra-resources.service';
@@ -36,9 +36,16 @@ export class VideoItemComponent implements OnInit, AfterViewInit, OnDestroy {
   enableId = '?enablejsapi=1';
   listOfVideos: VideoItem[] = [];
   lengthOfVideoList = this.listOfVideos.length;
+  playOn = false;
+  activeUrl: string | undefined;
+  id: number | undefined;
+  videoInt: any;
+  eventDataForPlayPause: number | undefined;
+
 
 
   @ViewChild('Video', { static: false }) Video!: ElementRef;
+  @ViewChild('playPause', { static: false}) playPause!: ElementRef
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -46,6 +53,7 @@ export class VideoItemComponent implements OnInit, AfterViewInit, OnDestroy {
     private sanitizer: DomSanitizer,
     private http: HttpClient, //  private videos: VideosComponent
     private loadFileService: LoadFilesService,
+    private elementRef: ElementRef,
   ) {}
 
   ngAfterViewInit() {
@@ -69,6 +77,7 @@ export class VideoItemComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit() {
       this.init();
+      //this.elementRef.nativeElement.querySelector('Video').addEventListener('click', console.log('clicked on the video'));
 
 
 
@@ -136,9 +145,13 @@ export class VideoItemComponent implements OnInit, AfterViewInit, OnDestroy {
             events: {
               onReady: (event: any) => {
                 this.onPlayerReady(event);
+               // this.player.addEventListener('click', this.playPauseToggle(event));
               },
               onStateChange: (event: any) => {
                 this.onPlayerStateChange(event);
+                this.eventDataForPlayPause = event.data;
+
+              //  this.playPauseToggle(event);
               },
             },
             playerVars: {
@@ -192,41 +205,102 @@ export class VideoItemComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   onPlayerReady(event: any) {
+    //this.eventDataForPlayPause = event.data;
     console.log('player ready');
     console.log('video time', this.player.getDuration());
 
-    const videoInt = setInterval(() => {
-      console.log('current time', this.player.getCurrentTime());
-      if (
+    //document.addEventListener('click', console.log('play pause'));
+
+     this.videoInt = setInterval(() => {
+       console.log('current time', this.player.getCurrentTime());
+      if ((
         this.player.getCurrentTime() >=
-        this.player.getDuration() - this.videoTimeLeft
+        this.player.getDuration() - this.videoTimeLeft) //|| (this.id !==  this.videoIdToSend)
       ) {
-        clearInterval(videoInt);
+        clearInterval(this.videoInt);
+        console.log('new url', '/extra-resources/videoItem/' + this.videoIdToSend);
         this.watched = true;
         console.log('watched');
-        this.extraResourcesService.markVideoWatched(this.videoIdToSend, this.watched);
+        this.extraResourcesService.markVideoWatched(this.videoIdToSend, this.watched).subscribe((data: any) => {
+          console.log('marked video data', data);
+        });
+
 
         // console.log('marking', this.videoIdToSend, this.watched);
        // this.enableBackBtn();
-      }
+         }
+      //else {
+       //  //console.log('timer is still going on');
+       //  if (this.activeUrl !== '/extra-resources/videoItem/' + this.videoIdToSend){
+       //    console.log('extra-resources/videoItem/',this.videoIdToSend);
+       //    console.log('clear interval due to change link');
+       //    //clearInterval(videoInt);
+       //
+       //
+       //  }
+      //}
+      // if (this.activeUrl !== '/extra-resources/videoItem/' + this.videoIdToSend){
+      //   console.log('new url', '/extra-resources/videoItem/' + this.videoIdToSend);
+      //   clearInterval(videoInt);
+      // }
+
+      // else {
+       //  this.activatedRoute.url.subscribe(activeUrl => {
+       //    this.activeUrl = window.location.pathname;})
+       //    console.log('activeUrl ', this.activeUrl);
+       //   if (this.activeUrl === '/extra-resources') {
+       //     (<any>window).onYouTubeIframeAPIReady = null;
+       //     this.player = null;
+       //     console.log('exit');
+       //
+       //   }}// else {
+      //   this.player = null;
+      // }
     }, 1000);
 
   }
   onPlayerStateChange(event: any) {
     console.log('player state');
+    if (event.data === 0){
+      console.log('event data', event.data);}
   }
 
+  playPauseToggle(event: any){
+    console.log('play pause toggle');
+    console.log('event', this.eventDataForPlayPause);
+     if (this.eventDataForPlayPause === 1) {
+       this.player.pauseVideo();
+       console.log('paused');
+    // }
+    //  // event.data = 2;
+    //   console.log('player data data', event);
+    //   //this.player.PlayerState = 2;
+    //   console.log('click to pause', event.data);
+     } else {
+       if (this.eventDataForPlayPause === 2) {
+         this.player.playVideo();
+         console.log('played');
+       }
+    //     event.data = 1;
+    //     console.log('click to play');
+       }
+    // }
+  }
 
    ngOnDestroy() {
      (<any>window).onYouTubeIframeAPIReady = null;
      if (this.player) {
+       clearInterval(this.videoInt);
        //this.player.destroy();
-       this.player = null;
+      // this.player = null;
+       //clearInterval(this.videoInt)
        console.log('destroyed');
+       console.log('player after destroying', this.player);
        //this.createPlayer().destroy();
 
      }
    }
+
 
   // ngOnDestroy() {
   //   (<any>window).onYouTubeIframeAPIReady = null;

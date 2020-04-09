@@ -9,7 +9,8 @@ import { SafeUrlPipe } from '@/main/extra-resources/safe-url.pipe';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '@/material.module';
 import { ExtraResourcesService } from '@/main/extra-resources/extra-resources.service';
-import { MatCard, MatCardModule } from '@angular/material';
+import {MatCard, MatCardModule, MatDialogModule, MatDialogRef} from '@angular/material';
+//import {YouTubePlayerModule} from '@angular/youtube-player';
 //import { TrimStringPipe} from '@/main/shared/trim-string.pipe';
 
 @NgModule({
@@ -18,6 +19,10 @@ import { MatCard, MatCardModule } from '@angular/material';
     CommonModule,
     // MaterialModule,
     MatCardModule,
+    MaterialModule,
+    MatDialogModule,
+  //  YouTubePlayerModule
+
   ],
   declarations: [
     ExtraResourcesComponent,

@@ -184,6 +184,7 @@ import { VideoItemComponent } from './extra-resources/videos/video-item/video-it
 import { ExtraResourcesService } from '@/main/extra-resources/extra-resources.service';
 import { SafeUrlPipe } from './extra-resources/safe-url.pipe';
 import {ExtraResourcesModule} from '@/main/extra-resources/extra-resources.module';
+import { NeedToTalkComponent } from './need-to-talk/need-to-talk.component';
 // import { Resources2Routing } from './extra-resources/extra-resources-routing.module.ts/extra-resources-routing.module.ts.component';
 
 @NgModule({
@@ -288,6 +289,7 @@ import {ExtraResourcesModule} from '@/main/extra-resources/extra-resources.modul
     SurveyComponent,
     DisableClickDirective,
     GamesFeedbackComponent,
+    NeedToTalkComponent,
     // Resources2Component,
     //  VideosComponent,
     //  ReadingMaterialComponent,

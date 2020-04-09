@@ -2,6 +2,7 @@
   padding-top: 0px;
   padding-left: 0px;
   padding-right: 0px;
+  margin: 0px 0px 16px;
 }
 
 .for-ellipsis{
@@ -12,40 +13,18 @@
   -webkit-line-clamp: 2;
 }
 
-
 .preview-img{
   width: 100%;
   height: 100%;
-  //height: 63.3%;
- // background-size: cover;
-}
-
-.footer-font{  //for resource page // for video page
-  //font-size: 14px;
-  margin: 0px;
-  margin-left: 14px;
-  margin-top: 7px;
-  text-align: left;
-  height: 32px;
-  overflow: hidden;
-  //padding-right: 2px;
-  //padding-left: 2px;
 }
 
 .show-footer-style{
-  //font-size: 14px;
-  //margin: 0px;
   margin-left: 14px;
   margin-right: 7px;
   margin-top: 7px;
-  padding-bottom: 6px;
+  padding-bottom: 2px;
   text-align: left;
-  //overflow: visible;
-  //height: auto;
-}
-
-.size{
-  font-size: 28px;
+  font-size: 16px;
 }
 
 .preview-img-div {
@@ -55,30 +34,14 @@
 .youtube-button{
   position: absolute;
   display: block;
-  //background: url(url_to_play_button_image.png);
   height: 18%;
   width: 18%;
-  ////top: 20px;
-  ////left: 20px;
   top: 41%;
   left: 41%;
-  //padding-bottom: 4px;
-  //margin-left: auto;
-  //margin-right: auto;
-  //display: flex;
-  //align-content: center;
-
 }
 @media screen and (min-width: 1501px) {
-  .footer-font-size{      //for resource page  // for video page
-    font-size: 20px;
-  }
-
-
-  .card {
-    //width: 292px;  // calculate the size of side nav alo which is 205
+   .card {
     width: 348px;
-    margin: 0px 0px 16px;
     flex-grow: 1;
   }
   .show-footer-style{
@@ -88,88 +51,36 @@
 }
 
 @media screen and (max-width: 1500px) {
-  .footer-font-size{      //for resource page  // for video page
-    font-size: 16px;
-  }
-
-
-  .card {
-    //width: 292px;  // calculate the size of side nav alo which is 205
-   // width: 328px;
+    .card {
     width: 250px;
-    //height: 184px;
-    margin: 0px 0px 16px;
   }
-  .show-footer-style{
-    font-size: 16px;
-  }
-  //.preview-img{
-  //  height: 140px;
-  //}
 }
 
 @media screen and (max-width: 1280px) {
-  .footer-font-size{      //for resource page  // for video page
-    font-size: 16px;
-  }
-
-
   .card {
-   // width: 292px;  // calculate the size of side nav alo which is 205
-    //width: 328px; // excluding the padding of 84px at right in resources css
     width: 224px; //for 3 pics
     margin: 0px 0px 16px;
-  }
-  .show-footer-style{
-    font-size: 16px;
   }
 }
 
 
 @media screen and (max-width: 991px) {
-  .footer-font-size{      //for resource page  // for video page
-    font-size: 16px;
-  }
-
-
   .card {
-    //width: 348px;
     width: 268px;
-    margin: 0px 0px 16px;
   }
-  .show-footer-style{
-    font-size: 16px;
-  }
-
-}
+ }
 
 @media screen and (max-width: 768px) {
-  .footer-font-size{      //for resource page  // for video page
-    font-size: 16px;
-  }
-
-
-  .card {
-    //width: 324px;
-    //width: 238px;//for 2
+   .card {
    width: 159px;
-   // width: 25vw;
-    margin: 0px 0px 16px;
   }
-  .show-footer-style{
-    font-size: 16px;
-  }
+
 
 }
 
 @media screen and (max-width: 525px) {
   .card {
-   // width: 50%;
-   // width: 157px;
-    //width: 186px;// to use
-   ////// width: 165px;
     width: 42vw;
-    //margin: 20px auto;
     margin: 0px 0px 14px;  // top right-left bottom
   }
   .show-footer-style{
@@ -179,11 +90,7 @@
 }
 @media screen and (max-width: 375px) {
   .card {
-    // width: 50%;
-    // width: 157px;
-    ////width: 156px;
     width: 42vw;
-    //margin: 20px auto;
     margin: 0px 0px 14px;  // top right-left bottom
   }
   .show-footer-style{
