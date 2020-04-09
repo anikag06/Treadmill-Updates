@@ -298,11 +298,15 @@ export class QuestionnaireComponent implements OnInit {
     this.time[this.question_no] > 0
       ? (this.time[this.question_no] =
           this.time[this.question_no] +
-          this.timerService.showTime(this.question_no, this.startTime, this.first_click))
+          this.timerService.showTime(
+            this.question_no,
+            this.startTime,
+            this.first_click,
+          ))
       : (this.time[this.question_no] = this.timerService.showTime(
           this.question_no,
           this.startTime,
-      this.first_click,
+          this.first_click,
         ));
     this.first_click = false;
     setTimeout(() => {
@@ -344,7 +348,11 @@ export class QuestionnaireComponent implements OnInit {
     this.time[this.question_no] > 0
       ? (this.time[this.question_no] =
           this.time[this.question_no] +
-          this.timerService.showTime(this.question_no, this.startTime, this.first_click))
+          this.timerService.showTime(
+            this.question_no,
+            this.startTime,
+            this.first_click,
+          ))
       : (this.time[this.question_no] = this.timerService.showTime(
           this.question_no,
           this.startTime,
@@ -390,11 +398,15 @@ export class QuestionnaireComponent implements OnInit {
     this.time[this.question_no] > 0
       ? (this.time[this.question_no] =
           this.time[this.question_no] +
-          this.timerService.showTime(this.question_no, this.startTime, this.first_click))
+          this.timerService.showTime(
+            this.question_no,
+            this.startTime,
+            this.first_click,
+          ))
       : (this.time[this.question_no] = this.timerService.showTime(
           this.question_no,
           this.startTime,
-      this.first_click
+          this.first_click,
         ));
     this.first_click = false;
     setTimeout(() => {
@@ -436,11 +448,15 @@ export class QuestionnaireComponent implements OnInit {
     this.time[this.question_no] > 0
       ? (this.time[this.question_no] =
           this.time[this.question_no] +
-          this.timerService.showTime(this.question_no, this.startTime, this.first_click))
+          this.timerService.showTime(
+            this.question_no,
+            this.startTime,
+            this.first_click,
+          ))
       : (this.time[this.question_no] = this.timerService.showTime(
           this.question_no,
           this.startTime,
-      this.first_click
+          this.first_click,
         ));
     this.first_click = false;
     setTimeout(() => {
@@ -479,11 +495,15 @@ export class QuestionnaireComponent implements OnInit {
       this.time[this.question_no] > 0
         ? (this.time[this.question_no] =
             this.time[this.question_no] +
-            this.timerService.showTime(this.question_no, this.startTime, this.first_click))
+            this.timerService.showTime(
+              this.question_no,
+              this.startTime,
+              this.first_click,
+            ))
         : (this.time[this.question_no] = this.timerService.showTime(
             this.question_no,
             this.startTime,
-        this.first_click,
+            this.first_click,
           ));
       this.question_no > 0
         ? (this.question_no = this.question_no - 1)
@@ -509,11 +529,15 @@ export class QuestionnaireComponent implements OnInit {
     this.time[this.question_no] > 0
       ? (this.time[this.question_no] =
           this.time[this.question_no] +
-          this.timerService.showTime(this.question_no, this.startTime, this.first_click))
+          this.timerService.showTime(
+            this.question_no,
+            this.startTime,
+            this.first_click,
+          ))
       : (this.time[this.question_no] = this.timerService.showTime(
           this.question_no,
           this.startTime,
-      this.first_click,
+          this.first_click,
         ));
     this.question_no === this.total_question
       ? (this.submit = true)
@@ -531,11 +555,15 @@ export class QuestionnaireComponent implements OnInit {
     this.time[this.question_no] > 0
       ? (this.time[this.question_no] =
           this.time[this.question_no] +
-          this.timerService.showTime(this.question_no, this.startTime, this.first_click))
+          this.timerService.showTime(
+            this.question_no,
+            this.startTime,
+            this.first_click,
+          ))
       : (this.time[this.question_no] = this.timerService.showTime(
           this.question_no,
           this.startTime,
-      this.first_click
+          this.first_click,
         ));
     this.see0 = this.disabled.option_0[this.question_no];
     this.see1 = this.disabled.option_1[this.question_no];

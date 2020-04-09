@@ -21,7 +21,9 @@ import {
   CONCLUSION_PAGE,
   CONTROL_PAGE,
   SURVEY,
-  VIDEO, RESOURCES_PAGE, TESTIMONIALS_PAGE,
+  VIDEO,
+  RESOURCES_PAGE,
+  TESTIMONIALS_PAGE,
 } from '@/app.constants';
 import { LOCKED, ACTIVE, INTRODUCTORY_ANIMATION } from '@/app.constants';
 import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.service';
@@ -147,7 +149,7 @@ export class StepComponent implements OnInit, AfterViewInit {
     }
     if (this.step.status !== LOCKED) {
       // console.log('step inside: ', step);
-    // if (this.step.status !== LOCKED && !this.step.virtual_step) {
+      // if (this.step.status !== LOCKED && !this.step.virtual_step) {
       this.flowService.stepGroupSequence = this.stepGroup.sequence + 1;
       this.flowService.stepSequence = this.step.sequence + 1;
       this.flowService.stepName = this.step.name;
@@ -183,7 +185,7 @@ export class StepComponent implements OnInit, AfterViewInit {
     } else if (step.data_type === RESOURCES_PAGE) {
       return 'assets/flow/Resource.png';
     } else if (step.data_type === TESTIMONIALS_PAGE) {
-        return 'assets/flow/Resource.png';
+      return 'assets/flow/Resource.png';
     } else if (step.data_type === SURVEY) {
       return 'assets/flow/icon-survey-wb.png';
     } else if (step.data_type === VIDEO) {

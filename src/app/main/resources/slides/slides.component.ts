@@ -86,7 +86,6 @@ export class SlidesComponent implements OnInit, AfterContentInit {
   userFeedback!: UserFeedbackComponent;
   scrollTop = 0;
 
-
   constructor(
     private slideService: SlideService,
     private sanitizer: DomSanitizer,
@@ -197,7 +196,6 @@ export class SlidesComponent implements OnInit, AfterContentInit {
           }
           if (window.matchMedia('(max-width: 767px)').matches) {
             this.visible = true;
-
           } else {
             setTimeout(() => {
               this.slideDiv.nativeElement.classList.add('col-5'),
@@ -214,8 +212,7 @@ export class SlidesComponent implements OnInit, AfterContentInit {
       });
   }
 
-  ngAfterViewChecked(): void {
-  }
+  ngAfterViewChecked(): void {}
 
   onLoad() {
     this.showFeedback = true;
@@ -225,7 +222,7 @@ export class SlidesComponent implements OnInit, AfterContentInit {
     this.slidePage.nativeElement.classList.add('show-loader');
     this.iframeHeight = this.container.nativeElement.offsetHeight;
     console.log('IFRAME height', this.iframeHeight);
-    if (this.screenWidth < 768 ) {
+    if (this.screenWidth < 768) {
       this.slideDivHeight = this.iframeHeight + 68;
     } else {
       this.slideDivHeight = this.iframeHeight + 110;
@@ -237,15 +234,15 @@ export class SlidesComponent implements OnInit, AfterContentInit {
   }
 
   initVideoData(slide_data: any) {
-      if (slide_data.data.hook[0] === SHOW_MINDFULNESS_VIDEO) {
-        setTimeout(() => this.openBottomSheet(), 2000);
-        this.slideService.videoUrl_1 =
-          slide_data.data.mindfulness_videos[0].resource_video.url;
-        this.slideService.videoUrl_3 =
-          slide_data.data.mindfulness_videos[1].resource_video.url;
-        this.slideService.videoUrl_5 =
-          slide_data.data.mindfulness_videos[2].resource_video.url;
-      }
+    if (slide_data.data.hook[0] === SHOW_MINDFULNESS_VIDEO) {
+      setTimeout(() => this.openBottomSheet(), 2000);
+      this.slideService.videoUrl_1 =
+        slide_data.data.mindfulness_videos[0].resource_video.url;
+      this.slideService.videoUrl_3 =
+        slide_data.data.mindfulness_videos[1].resource_video.url;
+      this.slideService.videoUrl_5 =
+        slide_data.data.mindfulness_videos[2].resource_video.url;
+    }
   }
 
   loadForm(component: any) {

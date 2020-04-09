@@ -33,14 +33,20 @@ xdescribe('treadwill SupportGroup', () => {
 
   it('should try to delete comment', () => {
     sg.deleteComment();
-    browser.switchTo().alert().dismiss();
+    browser
+      .switchTo()
+      .alert()
+      .dismiss();
     browser.sleep(2000);
     expect(sg.getFirstCommentText()).toEqual(comment);
   });
 
   it('should delete comment', () => {
     sg.deleteComment();
-    browser.switchTo().alert().accept();
+    browser
+      .switchTo()
+      .alert()
+      .accept();
     browser.sleep(2000);
     expect(sg.commentPresent()).toBeFalsy();
   });
@@ -67,14 +73,20 @@ xdescribe('treadwill SupportGroup', () => {
 
   it('should cancel edit reply', () => {
     sg.cancelReplyEdit();
-    browser.switchTo().alert().accept();
+    browser
+      .switchTo()
+      .alert()
+      .accept();
     browser.sleep(2000);
     expect(sg.getNestedCommentText()).toBeTruthy();
   });
 
   it('should delete reply', () => {
     sg.deleteNestedComment();
-    browser.switchTo().alert().accept();
+    browser
+      .switchTo()
+      .alert()
+      .accept();
     browser.sleep(2000);
     expect(sg.getNestedComment()).toBeFalsy();
   });
@@ -102,16 +114,24 @@ xdescribe('treadwill SupportGroup', () => {
   it('should delete the post', () => {
     const post = sg.getFirstText();
     sg.deletePost();
-    browser.switchTo().alert().accept();
+    browser
+      .switchTo()
+      .alert()
+      .accept();
     browser.sleep(2000);
     expect(post).not.toEqual(sg.getFirstText());
   });
 
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser
-    const logs = await browser.manage().logs().get(logging.Type.BROWSER);
-    expect(logs).not.toContain(jasmine.objectContaining({
-      level: logging.Level.SEVERE,
-    } as logging.Entry));
+    const logs = await browser
+      .manage()
+      .logs()
+      .get(logging.Type.BROWSER);
+    expect(logs).not.toContain(
+      jasmine.objectContaining({
+        level: logging.Level.SEVERE,
+      } as logging.Entry),
+    );
   });
 });

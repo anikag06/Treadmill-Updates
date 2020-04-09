@@ -16,7 +16,9 @@ describe('workspace-project App', () => {
     browser.sleep(3500);
     page.clickLoginLink();
     browser.sleep(2500);
-    expect(page.getTextOnLoginDialog()).toEqual('Not a member yet? Join the study');
+    expect(page.getTextOnLoginDialog()).toEqual(
+      'Not a member yet? Join the study',
+    );
   });
 
   it('should click on study and fill trial registraion form', () => {
@@ -33,10 +35,9 @@ describe('workspace-project App', () => {
   xit('should redirect to dashboard when on root', () => {
     browser.get('/');
     expect(
-      browser.wait(
-        protractor.ExpectedConditions.urlContains('dashboard'), 2000
-      )
-        .catch(() => false )
+      browser
+        .wait(protractor.ExpectedConditions.urlContains('dashboard'), 2000)
+        .catch(() => false),
     ).toBeTruthy('Url match could not succced');
   });
 
@@ -103,12 +104,16 @@ describe('workspace-project App', () => {
     browser.sleep(2000);
   });
 
-
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser
-    const logs = await browser.manage().logs().get(logging.Type.BROWSER);
-    expect(logs).not.toContain(jasmine.objectContaining({
-      level: logging.Level.SEVERE,
-    } as logging.Entry));
+    const logs = await browser
+      .manage()
+      .logs()
+      .get(logging.Type.BROWSER);
+    expect(logs).not.toContain(
+      jasmine.objectContaining({
+        level: logging.Level.SEVERE,
+      } as logging.Entry),
+    );
   });
 });

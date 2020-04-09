@@ -2,7 +2,6 @@ import { AppPage } from './app.po';
 import { browser, logging } from 'protractor';
 import { FlowPage } from './flow/flow.po';
 
-
 xdescribe('treadwill Flow', () => {
   let page: AppPage;
   let fp: FlowPage;
@@ -22,7 +21,7 @@ xdescribe('treadwill Flow', () => {
     expect(fp.findText()).toContain('Introduction to Treadwill');
     expect(fp.findText()).toContain('Know Yourself');
     expect(fp.findText()).toContain('Making good things happen');
-    expect(fp.findText()).toContain('Don\'t believe everything you think');
+    expect(fp.findText()).toContain("Don't believe everything you think");
     expect(fp.findText()).toContain('Modifying Beliefs');
     expect(fp.findText()).toContain('Worrying Productively');
     expect(fp.findText()).toContain('Staying Happy');
@@ -62,7 +61,6 @@ xdescribe('treadwill Flow', () => {
   //   browser.sleep(2000);
   //   expect(fp.getProgress()).toEqual('Progress');
   // });
-
 
   // it('Should say not available when we revist the item', () => {
   //   fp.findQuestionnaireComponent();
@@ -106,9 +104,14 @@ xdescribe('treadwill Flow', () => {
 
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser
-    const logs = await browser.manage().logs().get(logging.Type.BROWSER);
-    expect(logs).not.toContain(jasmine.objectContaining({
-      level: logging.Level.SEVERE,
-    } as logging.Entry));
+    const logs = await browser
+      .manage()
+      .logs()
+      .get(logging.Type.BROWSER);
+    expect(logs).not.toContain(
+      jasmine.objectContaining({
+        level: logging.Level.SEVERE,
+      } as logging.Entry),
+    );
   });
 });

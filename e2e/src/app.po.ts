@@ -1,5 +1,5 @@
-import {browser, by, element, protractor} from 'protractor';
-import {config} from "rxjs";
+import { browser, by, element, protractor } from 'protractor';
+import { config } from 'rxjs';
 
 export class AppPage {
   EC = protractor.ExpectedConditions;
@@ -25,7 +25,9 @@ export class AppPage {
     return element(by.css('message')).getText() as Promise<string>;
   }
   getTextOnLoginDialog() {
-    return element(by.css('p.login-dialog-text-color')).getText() as Promise<string>;
+    return element(by.css('p.login-dialog-text-color')).getText() as Promise<
+      string
+    >;
   }
 
   // fillLoginForm() {
@@ -47,23 +49,29 @@ export class AppPage {
 
   fillTrialRegForm() {
     element(by.css('input[formControlName=age]')).sendKeys('22');
-    element(by.css('mat-select[formControlName=gender]')).click()
-      .then( () => {
+    element(by.css('mat-select[formControlName=gender]'))
+      .click()
+      .then(() => {
         element(by.cssContainingText('mat-option', 'Female')).click();
       });
     browser.sleep(1000);
-    element(by.css('mat-select[formControlName=education]')).click()
+    element(by.css('mat-select[formControlName=education]'))
+      .click()
       .then(() => {
-        element(by.cssContainingText('mat-option' , 'Completed school')).click();
+        element(by.cssContainingText('mat-option', 'Completed school')).click();
       });
     browser.sleep(1000);
-    element(by.css('mat-select[formControlName=profession]')).click()
-      .then( () => {
-        element(by.cssContainingText('mat-option' , 'College or university student')).click();
+    element(by.css('mat-select[formControlName=profession]'))
+      .click()
+      .then(() => {
+        element(
+          by.cssContainingText('mat-option', 'College or university student'),
+        ).click();
       });
     browser.sleep(1000);
-    element(by.css('mat-select[formControlName=country]')).click()
-      .then( () => {
+    element(by.css('mat-select[formControlName=country]'))
+      .click()
+      .then(() => {
         element(by.cssContainingText('mat-option', 'India')).click();
       });
     // browser.sleep(4000);
@@ -76,8 +84,9 @@ export class AppPage {
     element(by.id('btn18')).click();
     element(by.id('btn9')).click();
     element(by.id('btn11')).click();
-    element(by.css('mat-select[formControlName=infoSource]')).click()
-      .then( () => {
+    element(by.css('mat-select[formControlName=infoSource]'))
+      .click()
+      .then(() => {
         element(by.cssContainingText('mat-option', 'Friend')).click();
       });
     element(by.id('btn12')).click();
@@ -118,23 +127,39 @@ export class AppPage {
     return element(by.css('form[formGroup=consentForm]'));
   }
   fillConsentPage() {
-    element(by.css('mat-radio-group[formControlName=readInfo]')).element(by.cssContainingText('mat-radio-button', 'Accept')).click();
+    element(by.css('mat-radio-group[formControlName=readInfo]'))
+      .element(by.cssContainingText('mat-radio-button', 'Accept'))
+      .click();
     browser.sleep(2000);
-    element(by.css('mat-radio-group[formControlName=voluntaryInfo]')).element(by.cssContainingText('mat-radio-button', 'Accept')).click();
+    element(by.css('mat-radio-group[formControlName=voluntaryInfo]'))
+      .element(by.cssContainingText('mat-radio-button', 'Accept'))
+      .click();
     browser.sleep(2000);
-    element(by.css('mat-radio-group[formControlName=confidentialInfo]')).element(by.cssContainingText('mat-radio-button', 'Accept')).click();
+    element(by.css('mat-radio-group[formControlName=confidentialInfo]'))
+      .element(by.cssContainingText('mat-radio-button', 'Accept'))
+      .click();
     browser.sleep(2000);
-    element(by.css('mat-radio-group[formControlName=dataPublicationInfo]')).element(by.cssContainingText('mat-radio-button', 'Accept')).click();
+    element(by.css('mat-radio-group[formControlName=dataPublicationInfo]'))
+      .element(by.cssContainingText('mat-radio-button', 'Accept'))
+      .click();
     browser.sleep(2000);
-    element(by.css('mat-radio-group[formControlName=informationLeakage]')).element(by.cssContainingText('mat-radio-button', 'Accept')).click();
+    element(by.css('mat-radio-group[formControlName=informationLeakage]'))
+      .element(by.cssContainingText('mat-radio-button', 'Accept'))
+      .click();
     browser.sleep(2000);
     browser.sleep(2000);
-    element(by.css('mat-radio-group[formControlName=agreementInfo]')).element(by.cssContainingText('mat-radio-button', 'Accept')).click();
+    element(by.css('mat-radio-group[formControlName=agreementInfo]'))
+      .element(by.cssContainingText('mat-radio-button', 'Accept'))
+      .click();
     browser.sleep(2000);
     browser.sleep(2000);
-    element(by.css('mat-radio-group[formControlName=homeScreenInfo]')).element(by.cssContainingText('mat-radio-button', 'Accept')).click();
+    element(by.css('mat-radio-group[formControlName=homeScreenInfo]'))
+      .element(by.cssContainingText('mat-radio-button', 'Accept'))
+      .click();
     browser.sleep(2000);
-    element(by.css('mat-radio-group[formControlName=notificationsInfo]')).element(by.cssContainingText('mat-radio-button', 'Decline')).click();
+    element(by.css('mat-radio-group[formControlName=notificationsInfo]'))
+      .element(by.cssContainingText('mat-radio-button', 'Decline'))
+      .click();
   }
   acceptAllConsentPage() {
     element.all(by.cssContainingText('mat-radio-button', 'Accept')).click();

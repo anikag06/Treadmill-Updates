@@ -72,7 +72,16 @@ export class TimerService {
     } else {
       this.seconds = timeDiff - this.timeSum;
     }
-    console.log('now time =', now.getTime(), 'start time = ', startTime.getTime(), 'time sum =', this.timeSum, 'first click= ', first_click);
+    console.log(
+      'now time =',
+      now.getTime(),
+      'start time = ',
+      startTime.getTime(),
+      'time sum =',
+      this.timeSum,
+      'first click= ',
+      first_click,
+    );
     // question_no >= 0
     //   ? (this.seconds = timeDiff - this.timeSum)
     //   : (this.seconds = timeDiff);
