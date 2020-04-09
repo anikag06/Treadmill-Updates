@@ -85,13 +85,22 @@ describe('workspace-project App', () => {
     // expect(fp.getProgress()).toEqual('Progress');
   });
 
-  it('should fill consent form and submit', () => {
+  it('should fill consent form and decline notifications', () => {
     expect(page.findConsentPage()).toBeTruthy();
     browser.sleep(3000);
     page.fillConsentPage();
     browser.sleep(4000);
     page.clickSubmitButton();
-    browser.sleep(6000);
+    browser.sleep(2000);
+  });
+
+  it('should fill consent form and accept notifications and submit', () => {
+    expect(page.findConsentPage()).toBeTruthy();
+    browser.sleep(3000);
+    page.acceptAllConsentPage();
+    browser.sleep(4000);
+    page.clickSubmitButton();
+    browser.sleep(2000);
   });
 
 

@@ -135,16 +135,14 @@ export class AppPage {
     element(by.css('mat-radio-group[formControlName=homeScreenInfo]')).element(by.cssContainingText('mat-radio-button', 'Accept')).click();
     browser.sleep(2000);
     element(by.css('mat-radio-group[formControlName=notificationsInfo]')).element(by.cssContainingText('mat-radio-button', 'Decline')).click();
-    browser.restart();
   }
-
-
-
+  acceptAllConsentPage() {
+    element.all(by.cssContainingText('mat-radio-button', 'Accept')).click();
+  }
   clickSubmitButton() {
     const submitBtn = element(by.cssContainingText('button', 'Submit'));
-    browser.wait(protractor.ExpectedConditions.elementToBeClickable(submitBtn), 5000);
+    browser.wait(this.EC.elementToBeClickable(submitBtn), 5000);
     submitBtn.click();
-    // browser.switchTo().alert().accept();
     browser.sleep(3000);
   }
 }
