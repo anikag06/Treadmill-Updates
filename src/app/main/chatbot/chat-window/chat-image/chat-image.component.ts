@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-chat-image',
@@ -23,17 +23,8 @@ export class ChatImageComponent implements OnInit {
       }
     }
 
-    // console.log(image.dynamic_url === image.url);
+
   }
 
-  // hideSpinner() {
-  //   if (this.image.showSpinner) {
-  //     this.image.showSpinner = false;
-  //     setTimeout(() => {
-  //       if (this.image.url === this.image.dynamic_url) {
-  //         this.image.url = this.image.static_url;
-  //       }
-  //     }, 10000);
-  //   }
-  // }
+
 }

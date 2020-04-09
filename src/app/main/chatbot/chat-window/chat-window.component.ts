@@ -240,9 +240,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       environment.CHAT_HOST + '/ws/chat/?token=' + this.authService.getToken(),
     );
     this.webSocket.onopen = event => {
-      this.webSocket.send(
-        JSON.stringify({ action: type, module_name: 'patient_listening' }),
-      );
+      this.webSocket.send(JSON.stringify({ action: type, module_name: '' }));
     };
     this.webSocket.onmessage = (message: any) => {
       this.showMaintenance = false;
@@ -440,6 +438,8 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
           this.pushUnsplashImage(image);
         } else if (image.type === 'giphy') {
           this.pushGIF(image);
+        } else if (image.type === 'video') {
+          this.pushVideo(image);
         } else {
           this.pushImage(image);
         }
@@ -449,6 +449,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
 
   pushUnsplashImage(image: any) {
     const unsplashObject = {
+      type: 'image',
       url: image.static_url,
       link: image.creator_link,
       name: image.creator,
@@ -459,6 +460,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
 
   pushImage(photo: any) {
     const image = {
+      type: 'image',
       url: photo.url,
       credits: false,
     };
@@ -467,6 +469,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
 
   pushGIF(image: any) {
     const gifObject = {
+      type: 'image',
       url: image.static_url,
       dynamic_url: image.dynamic_url,
       static_url: image.static_url,
@@ -474,12 +477,20 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     };
     this.images.push(gifObject);
   }
+  pushVideo(image: any) {
+    const videoObject = {
+      url: image.url,
+      type: 'video',
+    };
+    this.images.push(videoObject);
+  }
+
   scrollFrame(value: string) {
     if (value === 'up' && !this.allMessagesLoaded) {
       this.showSpinner = true;
       this.page += 1;
       this.chatbotService
-        .loadPreviouChat(this.page, this.currentDateTime)
+        .loadPreviousChat(this.page, this.currentDateTime)
         .subscribe((data: any) => {
           this.showSpinner = true;
           if (data.status) {
@@ -504,13 +515,10 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
               );
 
               this.showSpinner = false;
-              console.log(
-                this.messagesDiv.nativeElement.scrollHeight,
-                this.messagesDiv.nativeElement.offsetHeight,
-                this.page,
-              );
 
-              this.scrollTop = 540 + 5 * (this.page - 1);
+              this.scrollTop =
+                this.messagesDiv.nativeElement.offsetHeight +
+                15 * (this.page - 1);
 
               console.log(this.scrollTop);
             });

@@ -24,7 +24,7 @@ export class ChatbotService {
     );
   }
 
-  loadPreviouChat(page: number, currentDateTime: any) {
+  loadPreviousChat(page: number, currentDateTime: any) {
     const dateTime = moment.utc(currentDateTime).format('DD/MM/YY+HH:mm:ss');
     console.log('page no ' + page);
     return this.http.post(

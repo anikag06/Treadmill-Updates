@@ -42,10 +42,16 @@
         </ng-template>
       </div>
       <div
-        *ngFor="let image of m.embed_links; let i = index"
+        *ngFor="let embed_link of m.embed_links; let i = index"
         [ngStyle]="{ width: 'fit-content' }"
       >
-        <app-chat-image [image]="image"></app-chat-image>
+        <ng-container *ngIf="embed_link.type === 'video'; else image">
+          <app-chat-video [videoUrl]="embed_link.url"></app-chat-video>
+        </ng-container>
+        <ng-template #image>
+          <app-chat-image [image]="embed_link"></app-chat-image>
+          {{ embed_link.type }}
+        </ng-template>
       </div>
 
       <div *ngFor="let widget of m.widgets">

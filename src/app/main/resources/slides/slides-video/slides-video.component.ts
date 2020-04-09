@@ -1,13 +1,7 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  AfterViewInit,
-  ElementRef,
-} from '@angular/core';
-import { MatDialogRef } from '@angular/material';
-import { SafeUrl, DomSanitizer } from '@angular/platform-browser';
-import { LoadFilesService } from '@/main/games/shared/load-files.service';
+import {AfterViewInit, Component, ElementRef, Inject, OnInit, Optional, ViewChild,} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
+import {LoadFilesService} from '@/main/games/shared/load-files.service';
 
 @Component({
   selector: 'app-slides-video',
@@ -16,8 +10,8 @@ import { LoadFilesService } from '@/main/games/shared/load-files.service';
 })
 export class SlidesVideoComponent implements OnInit, AfterViewInit {
   sanitizedUrl!: SafeUrl;
-  videoUrl =
-    'https://www.youtube.com/embed/k5E2AVpwsko?autoplay=1&enablejsapi=1&mute=1';
+  videoUrl!: String;
+
   player!: any;
   videoTimeLeft = 10;
 
@@ -28,7 +22,13 @@ export class SlidesVideoComponent implements OnInit, AfterViewInit {
     public dialogRef: MatDialogRef<SlidesVideoComponent>,
     private sanitizer: DomSanitizer,
     private loadFileService: LoadFilesService,
-  ) {}
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
+  ) {
+    if (data) {
+      this.videoUrl = data.videoUrl;
+      console.log(this.videoUrl);
+    }
+  }
 
   ngAfterViewInit() {
     this.loadFileService.loadExternalScript(
@@ -56,9 +56,9 @@ export class SlidesVideoComponent implements OnInit, AfterViewInit {
       }, 1000);
     };
 
-    this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-      this.videoUrl,
-    );
+    // this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+    //   this.videoUrl,
+    // );
   }
 
   onPlayerReady(event: any) {

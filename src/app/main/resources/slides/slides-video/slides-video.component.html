@@ -1,11 +1,21 @@
 <div class="slide-video justify-content-center text-center">
-  <iframe class="slide-video-iframe" [src]="sanitizedUrl" id='player' #slideVideo></iframe>
-
-
+  <iframe
+    class="slide-video-iframe"
+    [src]="videoUrl | safeUrl"
+    id="player"
+    #slideVideo
+  ></iframe>
 
   <div class=" justify-content-center text-center ">
-    <p class=" play-text"> Click play to start</p>
+    <p class=" play-text">Click play to start</p>
 
-    <button type="button" class="btn btn-small back-text" (click)="onBack()" #backBtn>Back to slide</button>
+    <button
+      type="button"
+      class="btn btn-small back-text"
+      (click)="onBack()"
+      #backBtn
+    >
+      Back to slide
+    </button>
   </div>
 </div>
