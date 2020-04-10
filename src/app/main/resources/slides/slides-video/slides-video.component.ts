@@ -14,6 +14,7 @@ export class SlidesVideoComponent implements OnInit, AfterViewInit {
 
   player!: any;
   videoTimeLeft = 10;
+  backBtnTxt!: string;
 
   @ViewChild('slideVideo', { static: false }) slideVideo!: ElementRef;
   @ViewChild('backBtn', { static: false }) backBtn!: ElementRef;
@@ -26,6 +27,7 @@ export class SlidesVideoComponent implements OnInit, AfterViewInit {
   ) {
     if (data) {
       this.videoUrl = data.videoUrl;
+      this.backBtnTxt = data.btnText;
       console.log(this.videoUrl);
     }
   }

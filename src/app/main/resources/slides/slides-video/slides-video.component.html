@@ -4,6 +4,7 @@
     [src]="videoUrl | safeUrl"
     id="player"
     #slideVideo
+    allow="autoplay"
   ></iframe>
 
   <div class=" justify-content-center text-center ">
@@ -15,7 +16,7 @@
       (click)="onBack()"
       #backBtn
     >
-      Back to slide
+      {{ backBtnTxt }}
     </button>
   </div>
 </div>

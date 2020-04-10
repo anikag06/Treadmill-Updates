@@ -519,8 +519,6 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
               this.scrollTop =
                 this.messagesDiv.nativeElement.offsetHeight +
                 15 * (this.page - 1);
-
-              console.log(this.scrollTop);
             });
           }
         });

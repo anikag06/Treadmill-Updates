@@ -1,12 +1,6 @@
-import {
-  Component,
-  OnInit,
-  HostListener,
-  ElementRef,
-  ViewChild,
-} from '@angular/core';
-import { MatBottomSheetRef, MatDialog } from '@angular/material';
-import { SlidesVideoComponent } from '../slides-video/slides-video.component';
+import {Component, ElementRef, HostListener, OnInit, ViewChild,} from '@angular/core';
+import {MatBottomSheetRef, MatDialog} from '@angular/material';
+import {SlidesVideoComponent} from '../slides-video/slides-video.component';
 
 @Component({
   selector: 'app-slides-bottomsheet',
@@ -43,12 +37,20 @@ export class SlidesBottomsheetComponent implements OnInit {
         width: '99vw',
         maxWidth: '99vw',
         panelClass: 'slide-video',
+        data: {
+          videoUrl: 'https://www.youtube.com/embed/O1oQqpw_8bA?autoplay=1',
+          btnText: 'Back to Slides',
+        },
       });
     } else {
       this.dialog.open(SlidesVideoComponent, {
         height: '80vh',
         width: '70vw',
         panelClass: 'slide-video',
+        data: {
+          videoUrl: 'https://www.youtube.com/embed/O1oQqpw_8bA',
+          btnText: 'Back to Slides',
+        },
       });
     }
   }

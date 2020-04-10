@@ -15,7 +15,9 @@ export class ChatVideoComponent implements OnInit {
 
   videoPlayer!: any;
   srcWidth!: any;
-  ngOnInit() {}
+  ngOnInit() {
+    this.getScreenSize();
+  }
 
   ngAfterViewInit() {
     this.videoPlayer = this.element.nativeElement.querySelectorAll('.video');
@@ -36,8 +38,10 @@ export class ChatVideoComponent implements OnInit {
         width: '99vw',
         maxWidth: '99vw',
         panelClass: 'slide-video',
+        autoFocus: false,
         data: {
-          videoUrl: this.videoUrl,
+          videoUrl: this.videoUrl + '?autoplay=1&enablejsapi=1',
+          btnText: 'Back to Chatbot',
         },
       });
     } else {
@@ -45,8 +49,10 @@ export class ChatVideoComponent implements OnInit {
         height: '80vh',
         width: '70vw',
         panelClass: 'slide-video',
+        autoFocus: false,
         data: {
-          videoUrl: this.videoUrl,
+          videoUrl: this.videoUrl + '?autoplay=1&enablejsapi=1',
+          btnText: 'Back to Chatbot',
         },
       });
     }
