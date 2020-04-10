@@ -42,6 +42,7 @@ export class ChatVideoComponent implements OnInit {
         data: {
           videoUrl: this.videoUrl + '?autoplay=1&enablejsapi=1',
           btnText: 'Back to Chatbot',
+          instruction: '',
         },
       });
     } else {
@@ -53,6 +54,7 @@ export class ChatVideoComponent implements OnInit {
         data: {
           videoUrl: this.videoUrl + '?autoplay=1&enablejsapi=1',
           btnText: 'Back to Chatbot',
+          instruction: '',
         },
       });
     }
