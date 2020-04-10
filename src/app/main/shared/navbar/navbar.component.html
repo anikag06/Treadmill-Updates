@@ -22,11 +22,11 @@
           </div>
         </div>
 
-        <!-- <div class='icon-items' (click)="flowClick()">
-                    <img src="assets/shared/flow.svg" alt="Flow">
-                </div> -->
-        <div class="icon-items" (menuClosed)="flowClick($event)" (menuOpened)="flowClick($event)"
-          [matMenuTriggerFor]="appNavBarFlow"  #flowTrigger="matMenuTrigger">
+
+
+<!--        <div class="icon-items" (menuClosed)="flowClick($event)" (menuOpened)="flowClick($event)"-->
+<!--          [matMenuTriggerFor]="appNavBarFlow"  #flowTrigger="matMenuTrigger">-->
+          <div class="icon-items" (click)="flowClick($event)" #newElement>
           <img src="assets/shared/Flow.png" height=" 36px" width="36px" alt="Flow">
         </div>
       </div>

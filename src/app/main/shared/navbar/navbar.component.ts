@@ -4,7 +4,7 @@ import {
   ViewChild,
   ComponentFactoryResolver,
   OnDestroy,
-  Input,
+  Input, ElementRef,
 } from '@angular/core';
 import { NavbarFlowDirective } from './navbar-flow.directive';
 import { interval, Subscription } from 'rxjs';
@@ -26,6 +26,10 @@ import { GamePlayService } from '@/main/games/shared/game-play.service';
 import { FlowService } from '@/main/flow/flow.service';
 import { ConversationsService } from '@/main/resources/conversation-group/conversations.service';
 import { MatMenuTrigger } from '@angular/material';
+import {FlowComponent} from '@/main/flow/flow.component';
+import {DialogBoxService} from '@/main/shared/custom-dialog/dialog-box.service';
+import {SlidesVideoComponent} from '@/main/resources/slides/slides-video/slides-video.component';
+import {DialogPosition, MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-navbar',
@@ -60,7 +64,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private gamePlayService: GamePlayService,
     private flowService: FlowService,
     private conversationservice: ConversationsService,
-  ) {
+    public dialog: MatDialog,
+    ) {
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationStart) {
         // Show loading indicator
@@ -139,16 +144,32 @@ export class NavbarComponent implements OnInit, OnDestroy {
     notifications.then(data => console.log(data));
   }
 
-  flowClick(event: Event) {
-    this.showFlow = !this.showFlow;
-    const viewContainerRef = this.flowHost.viewContainerRef;
-    viewContainerRef.clear();
-    if (this.showFlow) {
-      const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
-        NavbarFlowComponent,
-      );
-      viewContainerRef.createComponent(componentFactory);
-    }
+  flowClick(event: any) {
+    // const dialogPosition: DialogPosition = {
+    //   top: event.y + 'px',
+    //   left: event.x + 'px'
+    // };
+
+    const dialogRef = this.dialog.open(NavbarFlowComponent, {
+      height: '100vh',
+      width: '360px',
+      position: {right: '0', top: '0'},
+    });
+        // this.dialog.open(NavbarFlowComponent , {
+        //   height: '80vh',
+        //   width: '70vw',
+        //   panelClass: 'slide-video',
+        // });
+      // }
+    // this.showFlow = !this.showFlow;
+    // const viewContainerRef = this.flowHost.viewContainerRef;
+    // viewContainerRef.clear();
+    // if (this.showFlow) {
+    //   const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
+    //     NavbarFlowComponent,
+    //   );
+    //   viewContainerRef.createComponent(componentFactory);
+    // }
   }
 
   ngOnDestroy(): void {
