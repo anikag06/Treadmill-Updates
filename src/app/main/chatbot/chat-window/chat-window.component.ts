@@ -78,7 +78,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   // buttonsModule: string[] = ['', '', '', '', '', '', '', '', '', ''];
   radio = 'radio';
   clickAble = 'clickable_image';
-  buttonType = 'radio';
+  buttonType = '';
   images: any[] = [];
   isOnline = true;
   @ViewChild('messagesDiv', { static: false }) messagesDiv!: ElementRef;
@@ -240,7 +240,9 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       environment.CHAT_HOST + '/ws/chat/?token=' + this.authService.getToken(),
     );
     this.webSocket.onopen = event => {
-      this.webSocket.send(JSON.stringify({ action: type, module_name: '' }));
+      this.webSocket.send(
+        JSON.stringify({ action: type, module_name: 'decide_activity' }),
+      );
     };
     this.webSocket.onmessage = (message: any) => {
       this.showMaintenance = false;

@@ -103,7 +103,7 @@
         (click)="chatButtonPressed(button)"
       >
         <img
-          src="assets/chatbot/tracker.png"
+          [src]="button.image_url"
           [alt]="button.emojified_payload"
           width="136px"
           height="72px"
