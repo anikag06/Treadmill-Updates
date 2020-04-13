@@ -67,7 +67,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   buttons: any = [];
   scrollTop = 0;
   totalDelay = 3000;
-  halfwayDelay = 200;
+  halfwayDelay = 0;
   delayPerWord = 50;
   chatClosed = false;
   retries = 0;
@@ -178,7 +178,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
         JSON.stringify({
           action: REPLY_CURRENT,
           message: {
-            text: '',
+            text: widgetValues.value.length > 0 ? '' : message,
             buttons: [],
             widget_value: widgetValues.value.length > 0 ? widgetValues : [],
           },
@@ -223,6 +223,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
 
   scrollToBottom() {
     if (this.messagesDiv) {
+      console.log(this.scrollTop, this.messagesDiv.nativeElement.scrollHeight);
       this.scrollTop = this.messagesDiv.nativeElement.scrollHeight;
       this.changRef.detectChanges();
     }
@@ -343,7 +344,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       this.messages.pop();
       this.pushChat(m);
       this.scrollToBottom();
-    }, this.halfwayDelay);
+    });
     // this.halfwayDelay + Math.floor(Math.random() * 800 + 1)
   }
 
