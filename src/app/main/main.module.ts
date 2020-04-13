@@ -183,6 +183,7 @@ import { ReadingItemComponent } from './extra-resources/reading-material/reading
 import { VideoItemComponent } from './extra-resources/videos/video-item/video-item.component';
 import { ExtraResourcesService } from '@/main/extra-resources/extra-resources.service';
 import { SafeUrlPipe } from './extra-resources/safe-url.pipe';
+import { CustomOverlayComponent } from './shared/custom-overlay/custom-overlay.component';
 // import { Resources2Routing } from './extra-resources/extra-resources-routing.module.ts/extra-resources-routing.module.ts.component';
 
 @NgModule({
@@ -287,6 +288,7 @@ import { SafeUrlPipe } from './extra-resources/safe-url.pipe';
     SurveyComponent,
     DisableClickDirective,
     GamesFeedbackComponent,
+    CustomOverlayComponent,
     // Resources2Component,
     //  VideosComponent,
     //  ReadingMaterialComponent,
@@ -388,6 +390,7 @@ import { SafeUrlPipe } from './extra-resources/safe-url.pipe';
     ToastNotificationComponent,
     SlidesVideoComponent,
     GamesFeedbackComponent,
+    CustomOverlayComponent,
   ],
 })
 export class MainModule {}

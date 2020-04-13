@@ -30,6 +30,7 @@ import {FlowComponent} from '@/main/flow/flow.component';
 import {DialogBoxService} from '@/main/shared/custom-dialog/dialog-box.service';
 import {SlidesVideoComponent} from '@/main/resources/slides/slides-video/slides-video.component';
 import {DialogPosition, MatDialog} from '@angular/material/dialog';
+import {CustomOverlayComponent} from "@/main/shared/custom-overlay/custom-overlay.component";
 
 @Component({
   selector: 'app-navbar',
@@ -145,31 +146,15 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   flowClick(event: any) {
-    // const dialogPosition: DialogPosition = {
-    //   top: event.y + 'px',
-    //   left: event.x + 'px'
-    // };
-
-    const dialogRef = this.dialog.open(NavbarFlowComponent, {
-      height: '100vh',
-      width: '360px',
-      position: {right: '0', top: '0'},
+    this.notificationService.openNavFlow.emit();
+    console.log('flow host', this.flowHost);
+    const navbarFLowComponentFactory = this.componentFactoryResolver.resolveComponentFactory(CustomOverlayComponent);
+    const hostViewContainerRef = this.flowHost.viewContainerRef;
+    hostViewContainerRef.clear();
+    hostViewContainerRef.createComponent(navbarFLowComponentFactory);
+    this.notificationService.closeNavFlow.subscribe( () => {
+      hostViewContainerRef.clear();
     });
-        // this.dialog.open(NavbarFlowComponent , {
-        //   height: '80vh',
-        //   width: '70vw',
-        //   panelClass: 'slide-video',
-        // });
-      // }
-    // this.showFlow = !this.showFlow;
-    // const viewContainerRef = this.flowHost.viewContainerRef;
-    // viewContainerRef.clear();
-    // if (this.showFlow) {
-    //   const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
-    //     NavbarFlowComponent,
-    //   );
-    //   viewContainerRef.createComponent(componentFactory);
-    // }
   }
 
   ngOnDestroy(): void {

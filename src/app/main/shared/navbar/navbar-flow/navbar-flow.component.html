@@ -1,10 +1,13 @@
-<div class="navbar-flow">
-    <h2>
-        <img src="assets/shared/flow.svg" alt="Flow">&nbsp;&nbsp;
-        Flow
-    </h2>
+
+<div class="navbar-flow" [@flowInOut]="showFlow ? 'show' : 'hidden'" >
+  <div class="close-div"  >
+    <button mat-flat-button class="close-icon" (click)="onClose()">
+      <img src="assets/shared/close.png" width="24" alt="Flow">&nbsp;
+    </button>
+
+    </div>
 
     <app-flow [navBar]="navBar"></app-flow>
 
-    
 </div>
+

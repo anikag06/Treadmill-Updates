@@ -14,6 +14,7 @@ export class NavbarNotificationsService {
   showFullConvIcon = new EventEmitter<any>();
   removeFullConvIcon = new EventEmitter<any>();
   closeNavFlow = new EventEmitter<any>();
+  openNavFlow = new EventEmitter<any>();
 
   getNotifications(page = 1) {
     return this.http.get(

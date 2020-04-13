@@ -1,3 +1,4 @@
+<ng-template appNavbarFlow></ng-template>
 <div class="app-navbar">
   <div class="row">
     <div class="col-6 d-flex navbar-title align-items-center">
@@ -26,9 +27,10 @@
 
 <!--        <div class="icon-items" (menuClosed)="flowClick($event)" (menuOpened)="flowClick($event)"-->
 <!--          [matMenuTriggerFor]="appNavBarFlow"  #flowTrigger="matMenuTrigger">-->
-          <div class="icon-items" (click)="flowClick($event)" #newElement>
+          <div class="icon-items" (click)="flowClick($event)"  >
           <img src="assets/shared/Flow.png" height=" 36px" width="36px" alt="Flow">
         </div>
+
       </div>
       <div class="all-icons-mobile">
         <div class="d-flex flex-row-reverse">
@@ -46,10 +48,10 @@
             }}</span>
             </div>
           </div>
-          <div class="icon-items" (menuClosed)="flowClick($event)" (menuOpened)="flowClick($event)"
-            [matMenuTriggerFor]="appNavBarFlow" #flowTrigger="matMenuTrigger">
-            <img src="assets/shared/Flow mobile.png" height=" 24px" width="24px" alt="Flow" />
-          </div>
+<!--          <div class="icon-items" (menuClosed)="flowClick($event)" (menuOpened)="flowClick($event)"-->
+<!--            [matMenuTriggerFor]="appNavBarFlow" #flowTrigger="matMenuTrigger">-->
+<!--            <img src="assets/shared/Flow mobile.png" height=" 24px" width="24px" alt="Flow" />-->
+<!--          </div>-->
         </div>
       </div>
     </div>
@@ -61,11 +63,12 @@
     </button>
   </mat-menu>
 
-  <mat-menu #appNavBarFlow="matMenu" xPosition="before" yPosition="below" class="navBarPanelClass">
-    <div class="row w-100 h-100 px-0 mx-0 " (click)="$event.stopPropagation()">
-      <div appNavbarFlow></div>
-    </div>
-  </mat-menu>
+<!--  <mat-menu #appNavBarFlow="matMenu" xPosition="before" yPosition="below" class="navBarPanelClass">-->
+<!--    <div class="row w-100 h-100 px-0 mx-0 " (click)="$event.stopPropagation()">-->
+<!--      <div appNavbarFlow></div>-->
+<!--    </div>-->
+<!--  </mat-menu>-->
+
 
   <mat-menu #appNavBarNotify="matMenu" class="navBarPanelClass" xPosition="before" yPosition="below">
     <div class="row w-100 h-100 px-0 mx-0" (click)="$event.stopPropagation()">
