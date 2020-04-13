@@ -1,4 +1,4 @@
-import {CHATBOT_RETRY_TIMEOUT, MAX_RETRIES, NEW_CHAT, REPLY_CURRENT, RESUME_CHAT,} from '@/app.constants';
+import {CHATBOT_RETRY_TIMEOUT, MAX_RETRIES, MOBILE_WIDTH, NEW_CHAT, REPLY_CURRENT, RESUME_CHAT,} from '@/app.constants';
 import {Chat} from '@/main/chatbot/chat.model';
 import {ChatbotService} from '@/main/chatbot/chatbot.service';
 import {AuthService} from '@/shared/auth/auth.service';
@@ -101,6 +101,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   timeout: any = null;
   page!: number;
   allMessagesLoaded = false;
+  mobileView!: boolean;
   @Input() currentDateTime!: any;
   ngOnChanges(): void {
     if (this.chatWindowClosed === false) {
@@ -116,6 +117,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnInit() {
+    this.mobileView = window.innerWidth < MOBILE_WIDTH;
     this.chatbotService.postPreviousChat(this.currentDateTime).subscribe(
       (data: any) => {
         if (data.status) {
@@ -174,16 +176,30 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       this.message = '';
       this.widgetValues = [];
       // setTimeout(() => {}, 4000);
-      this.webSocket.send(
-        JSON.stringify({
-          action: REPLY_CURRENT,
-          message: {
-            text: widgetValues.value.length > 0 ? '' : message,
-            buttons: [],
-            widget_value: widgetValues.value.length > 0 ? widgetValues : [],
-          },
-        }),
-      );
+      if (widgetValues.value.length > 0) {
+        this.webSocket.send(
+          JSON.stringify({
+            action: REPLY_CURRENT,
+            message: {
+              text: '',
+              buttons: [],
+              widget_value: widgetValues,
+            },
+          }),
+        );
+      } else {
+        this.webSocket.send(
+          JSON.stringify({
+            action: REPLY_CURRENT,
+            message: {
+              text: message,
+              buttons: [],
+              widget_value: [],
+            },
+          }),
+        );
+      }
+
       this.showTextInput = false;
     }
   }
@@ -224,7 +240,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   scrollToBottom() {
     if (this.messagesDiv) {
       console.log(this.scrollTop, this.messagesDiv.nativeElement.scrollHeight);
-      this.scrollTop = this.messagesDiv.nativeElement.scrollHeight;
+      this.scrollTop = this.messagesDiv.nativeElement.scrollHeight + 50;
       this.changRef.detectChanges();
     }
   }
@@ -290,7 +306,6 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       }
       this.webSocket.close();
     };
-    this.scrollToBottom();
   }
 
   pushChat(m: any) {
@@ -305,13 +320,11 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
 
     if (m.buttons && m.buttons.length < 5) {
       this.showButtons = m.buttons;
-      this.scrollToBottom();
     } else {
       this.buttonsBuffer = m.buttons;
       this.showButtons = m.buttons.slice(0, 4);
       this.counter = 4;
       this.showMore = true;
-      this.scrollToBottom();
     }
 
     // this.showMoodWidget = !!m.widgets;
@@ -333,7 +346,6 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     }
     this.messages.push(item);
     // this.showButtons = [];
-    this.scrollToBottom();
   }
 
   showWritingAndPushChat(m: any) {
@@ -343,7 +355,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     setTimeout(() => {
       this.messages.pop();
       this.pushChat(m);
-      this.scrollToBottom();
+      // this.scrollToBottom();
     });
     // this.halfwayDelay + Math.floor(Math.random() * 800 + 1)
   }
@@ -384,11 +396,8 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   start(messages: any) {
-    // this.ti.nativeElement.disabled = true;
-    // setTimeout(() => {
     this.isMultiLineInput = !!messages[0].multiline_input;
     this.loadEachMessage(messages);
-    // });
     console.log(messages[messages.length - 1].widgets);
     console.log(messages[messages.length - 1].widgets === undefined);
     setTimeout(() => {
@@ -422,9 +431,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       ) {
         setTimeout(() => {
           this.showWritingAndPushChat(m[index]);
-          setTimeout(() => {
-            this.scrollToBottom();
-          });
+          this.scrollToBottom();
         }, delayPerMessage);
       }
     }

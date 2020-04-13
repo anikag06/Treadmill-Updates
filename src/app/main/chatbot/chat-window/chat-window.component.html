@@ -14,174 +14,180 @@
     </button>
   </div>
   <div
-    class="chat-frame"
-    #messagesDiv
-    [scrollTop]="scrollTop"
-    appInfiniteScroll
-    (scroll)="scrollFrame($event)"
+    class="footer"
+    [ngStyle]="{ height: mobileView ? 'calc(98% - 46px)' : '490px' }"
   >
-    <div class="spinnerDiv" *ngIf="showSpinner">
-      <mat-progress-spinner mode="indeterminate" diameter="15" color="accent">
-      </mat-progress-spinner>
-      <div [ngStyle]="{ fontSize: '12px' }">Loading Messages...</div>
-    </div>
-    <div class="clearfix messages" *ngFor="let m of messages">
-      <div>
-        <ng-container *ngIf="!m.waiting; else waiting">
-          <div class="message" [ngClass]="{ bot: !m.user }" *ngIf="m.message">
-            <div class="message-text" [innerHTML]="m.message"></div>
-            <!-- <span class="date-time">{{m.datetime | date: 'short' }}</span> -->
-          </div>
-        </ng-container>
-        <ng-template #waiting>
-          <div class="message bot">
-            <div class="message-text waiting">
-              <div class="dot-typing"></div>
+    <div
+      class="chat-frame"
+      [ngStyle]="{ height: showTextInput ? 'calc(100% - 50px)' : '100%' }"
+      #messagesDiv
+      [scrollTop]="scrollTop"
+      appInfiniteScroll
+      (scroll)="scrollFrame($event)"
+    >
+      <div class="spinnerDiv" *ngIf="showSpinner">
+        <mat-progress-spinner mode="indeterminate" diameter="15" color="accent">
+        </mat-progress-spinner>
+        <div [ngStyle]="{ fontSize: '12px' }">Loading Messages...</div>
+      </div>
+      <div class="clearfix messages" *ngFor="let m of messages">
+        <div>
+          <ng-container *ngIf="!m.waiting; else waiting">
+            <div class="message" [ngClass]="{ bot: !m.user }" *ngIf="m.message">
+              <div class="message-text" [innerHTML]="m.message"></div>
+              <!-- <span class="date-time">{{m.datetime | date: 'short' }}</span> -->
             </div>
-          </div>
-        </ng-template>
-      </div>
-      <div
-        *ngFor="let embed_link of m.embed_links; let i = index"
-        [ngStyle]="{ width: 'fit-content' }"
-      >
-        <ng-container *ngIf="embed_link.type === 'video'; else image">
-          <app-chat-video [videoUrl]="embed_link.url"></app-chat-video>
-        </ng-container>
-        <ng-template #image>
-          <app-chat-image [image]="embed_link"></app-chat-image>
-          {{ embed_link.type }}
-        </ng-template>
-      </div>
+          </ng-container>
+          <ng-template #waiting>
+            <div class="message bot">
+              <div class="message-text waiting">
+                <div class="dot-typing"></div>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+        <div
+          *ngFor="let embed_link of m.embed_links; let i = index"
+          [ngStyle]="{ width: 'fit-content' }"
+        >
+          <ng-container *ngIf="embed_link.type === 'video'; else image">
+            <app-chat-video [videoUrl]="embed_link.url"></app-chat-video>
+          </ng-container>
+          <ng-template #image>
+            <app-chat-image [image]="embed_link"></app-chat-image>
+            {{ embed_link.type }}
+          </ng-template>
+        </div>
 
-      <div *ngFor="let widget of m.widgets">
-        <!--        {{widget}}-->
-        <div class="buttons">
-          <button
-            (click)="onMoodSelect()"
-            *ngIf="widget === moodWidget && showMoodWidgetBtn"
-          >
-            <span class="btn-text">Select your mood</span>
-          </button>
-          <div *ngIf="showMoodTracker">
-            <app-mood-tracker
-              class="chatbot"
-              (onClose)="onMoodSelect()"
-              (moodSubmit)="onChatSubmit($event)"
-              (moodMessage)="getMoodMessage($event)"
-            ></app-mood-tracker>
-          </div>
-          <button
-            (click)="onDateTimeSelect()"
-            *ngIf="widget === dateTimeWidget"
-          >
-            Date Time
-          </button>
-          <div *ngIf="showDateTime">
-            <app-date-time-picker
-              class="chatbot"
-              (onClose)="onDateTimeSelect()"
-              (dateTimeSubmit)="onChatSubmit($event)"
-              (dateTimeMessage)="getDateTimeMessage($event)"
-            ></app-date-time-picker>
+        <div *ngFor="let widget of m.widgets">
+          <!--        {{widget}}-->
+          <div class="buttons">
+            <button
+              (click)="onMoodSelect()"
+              *ngIf="widget === moodWidget && showMoodWidgetBtn"
+            >
+              <span class="btn-text">Select your mood</span>
+            </button>
+            <div *ngIf="showMoodTracker">
+              <app-mood-tracker
+                class="chatbot"
+                (onClose)="onMoodSelect()"
+                (moodSubmit)="onChatSubmit($event)"
+                (moodMessage)="getMoodMessage($event)"
+              ></app-mood-tracker>
+            </div>
+            <button
+              (click)="onDateTimeSelect()"
+              *ngIf="widget === dateTimeWidget"
+            >
+              Date Time
+            </button>
+            <div *ngIf="showDateTime">
+              <app-date-time-picker
+                class="chatbot"
+                (onClose)="onDateTimeSelect()"
+                (dateTimeSubmit)="onChatSubmit($event)"
+                (dateTimeMessage)="getDateTimeMessage($event)"
+              ></app-date-time-picker>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div
-      class="buttons"
-      [ngStyle]="{
-        display: buttonType === clickAble ? 'table-cell' : 'block'
-      }"
-    >
-      <button
-        *ngFor="let button of showButtons"
-        [ngClass]="{
-          'btn radio_button': button.type === radio,
-          'btn module_button': button.type === clickAble
+      <div
+        class="buttons"
+        [ngStyle]="{
+          display: buttonType === clickAble ? 'table-cell' : 'block'
         }"
-        (click)="chatButtonPressed(button)"
       >
-        <img
-          [src]="button.image_url"
-          [alt]="button.emojified_payload"
-          width="136px"
-          height="72px"
-          *ngIf="button.type === clickAble; else btnText"
-        />
-        <ng-template #btnText>
-          <span class="btn-text" [innerHTML]="button.emojified_payload"></span
-        ></ng-template>
-      </button>
-      <div>
         <button
-          id="more_button"
-          *ngIf="showMore"
-          class="btn btn-link"
-          (click)="getButtons()"
+          *ngFor="let button of showButtons"
+          [ngClass]="{
+            'btn radio_button': button.type === radio,
+            'btn module_button': button.type === clickAble
+          }"
+          (click)="chatButtonPressed(button)"
         >
-          + more...
+          <img
+            [src]="button.image_url"
+            [alt]="button.emojified_payload"
+            width="136px"
+            height="72px"
+            *ngIf="button.type === clickAble; else btnText"
+          />
+          <ng-template #btnText>
+            <span class="btn-text" [innerHTML]="button.emojified_payload"></span
+          ></ng-template>
         </button>
+        <div>
+          <button
+            id="more_button"
+            *ngIf="showMore"
+            class="btn btn-link"
+            (click)="getButtons()"
+          >
+            + more...
+          </button>
+        </div>
       </div>
-    </div>
-    <div class="clearfix chatbot-error-card" *ngIf="!isOnline">
-      <!--        {{ isOnline }}-->
-      <img
-        src="assets/chatbot/Internet_disconnected.png"
-        width="135px"
-        [ngStyle]="{ marginLeft: '10%' }"
-      />
-      <div
-        [ngStyle]="{
-          marginTop: '30px',
-          marginBottom: '20px'
-        }"
-      >
-        Internet disconnected
-      </div>
-    </div>
-    <div class="clearfix chatbot-error-card" *ngIf="showMaintenance">
-      <img
-        src="assets/chatbot/chatbot_maintenance.png"
-        width="135px"
-        [ngStyle]="{ marginLeft: '10%' }"
-      />
-      <div
-        [ngStyle]="{
-          marginTop: '30px',
-          marginBottom: '20px'
-        }"
-      >
-        I am being maintained!
-      </div>
-    </div>
-  </div>
-  <div class="form-div" *ngIf="showTextInput">
-    <!--  *ngIf="showTextInput"{{showButtons.length < 1}}{{!isWaiting}}-->
-    <form (ngSubmit)="onChatSubmit()">
-      <div class="textarea">
-        <!--                <mat-form-field class="full-width">-->
-        <textarea
-          matInput
-          cdkTextareaAutosize
-          cdkAutosizeMinRows="1"
-          placeholder="Enter your message"
-          [(ngModel)]="message"
-          name="message"
-          (keyup)="sendReply($event)"
-          (focusin)="scrollToBottom()"
-          #ti
-          autocomplete="off"
+      <div class="clearfix chatbot-error-card" *ngIf="!isOnline">
+        <!--        {{ isOnline }}-->
+        <img
+          src="assets/chatbot/Internet_disconnected.png"
+          width="135px"
+          [ngStyle]="{ marginLeft: '10%' }"
+        />
+        <div
+          [ngStyle]="{
+            marginTop: '30px',
+            marginBottom: '20px'
+          }"
         >
-        </textarea>
-        <!--          (keyup.enter)="onKey($event)"-->
-        <!--        </mat-form-field>-->
+          Internet disconnected
+        </div>
       </div>
-      <div class="btn-div">
-        <button type="submit">
-          <mat-icon [ngStyle]="{ color: 'grey' }">send</mat-icon>
-        </button>
+      <div class="clearfix chatbot-error-card" *ngIf="showMaintenance">
+        <img
+          src="assets/chatbot/chatbot_maintenance.png"
+          width="135px"
+          [ngStyle]="{ marginLeft: '10%' }"
+        />
+        <div
+          [ngStyle]="{
+            marginTop: '30px',
+            marginBottom: '20px'
+          }"
+        >
+          I am being maintained!
+        </div>
       </div>
-    </form>
+    </div>
+    <div class="form-div" *ngIf="showTextInput">
+      <!--  *ngIf="showTextInput"{{showButtons.length < 1}}{{!isWaiting}}-->
+      <form (ngSubmit)="onChatSubmit()">
+        <div class="textarea">
+          <!--                <mat-form-field class="full-width">-->
+          <textarea
+            matInput
+            cdkTextareaAutosize
+            cdkAutosizeMinRows="1"
+            placeholder="Enter your message"
+            [(ngModel)]="message"
+            name="message"
+            (keyup)="sendReply($event)"
+            (focusin)="scrollToBottom()"
+            #ti
+            autocomplete="off"
+          >
+          </textarea>
+          <!--          (keyup.enter)="onKey($event)"-->
+          <!--        </mat-form-field>-->
+        </div>
+        <div class="btn-div">
+          <button type="submit">
+            <mat-icon [ngStyle]="{ color: 'grey' }">send</mat-icon>
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
