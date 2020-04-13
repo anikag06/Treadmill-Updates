@@ -173,12 +173,12 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       console.log(message);
       this.message = '';
       this.widgetValues = [];
-      setTimeout(() => {}, 4000);
+      // setTimeout(() => {}, 4000);
       this.webSocket.send(
         JSON.stringify({
           action: REPLY_CURRENT,
           message: {
-            text: message,
+            text: '',
             buttons: [],
             widget_value: widgetValues.value.length > 0 ? widgetValues : [],
           },
@@ -341,8 +341,8 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     setTimeout(() => {
       this.messages.pop();
       this.pushChat(m);
-      setTimeout(this.scrollToBottom);
-    }, this.halfwayDelay + Math.floor(Math.random() * 800 + 1));
+      this.scrollToBottom();
+    });
     // this.halfwayDelay + Math.floor(Math.random() * 800 + 1)
   }
 
