@@ -67,7 +67,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   buttons: any = [];
   scrollTop = 0;
   totalDelay = 3000;
-  halfwayDelay = 1500;
+  halfwayDelay = 200;
   delayPerWord = 50;
   chatClosed = false;
   retries = 0;
@@ -310,6 +310,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       this.showButtons = m.buttons.slice(0, 4);
       this.counter = 4;
       this.showMore = true;
+      this.scrollToBottom();
     }
 
     // this.showMoodWidget = !!m.widgets;
@@ -342,7 +343,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       this.messages.pop();
       this.pushChat(m);
       this.scrollToBottom();
-    });
+    }, this.halfwayDelay);
     // this.halfwayDelay + Math.floor(Math.random() * 800 + 1)
   }
 
