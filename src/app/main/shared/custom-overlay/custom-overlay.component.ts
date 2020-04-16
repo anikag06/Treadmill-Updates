@@ -1,7 +1,7 @@
 import {Component, ComponentFactoryResolver, OnInit, ViewChild} from '@angular/core';
-import {NavbarFlowDirective} from "@/main/shared/navbar/navbar-flow.directive";
-import {NavbarFlowComponent} from "@/main/shared/navbar/navbar-flow/navbar-flow.component";
-import {NavbarNotificationsService} from "@/main/shared/navbar/navbar-notifications.service";
+import {NavbarFlowDirective} from '@/main/shared/navbar/navbar-flow.directive';
+import {NavbarFlowComponent} from '@/main/shared/navbar/navbar-flow/navbar-flow.component';
+import {NavbarNotificationsService} from '@/main/shared/navbar/navbar-notifications.service';
 
 @Component({
   selector: 'app-custom-overlay',
@@ -11,21 +11,22 @@ import {NavbarNotificationsService} from "@/main/shared/navbar/navbar-notificati
 export class CustomOverlayComponent implements OnInit {
   @ViewChild(NavbarFlowDirective, { static: false })
   flowHost!: NavbarFlowDirective;
+  showFlow!: boolean;
   constructor(private componentFactoryResolver: ComponentFactoryResolver,
               private notificationService: NavbarNotificationsService,
   ) { }
 
   ngOnInit() {
-
   }
   ngAfterViewInit() {
+    if (this.notificationService.showFlow) {
       const navbarFLowComponentFactory = this.componentFactoryResolver.resolveComponentFactory(NavbarFlowComponent);
       const hostViewContainerRef = this.flowHost.viewContainerRef;
       hostViewContainerRef.clear();
       const componentRef = hostViewContainerRef.createComponent(navbarFLowComponentFactory);
-      this.notificationService.closeNavFlow.subscribe( () => {
+      this.notificationService.closeNavFlow.subscribe(() => {
         hostViewContainerRef.clear();
       });
+    }
    }
-
 }

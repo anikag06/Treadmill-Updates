@@ -1,7 +1,6 @@
 <div
   class="container chat-window"
-  [@openClose]="chatWindowClosed ? 'closed' : 'open'"
->
+  [@openClose]="chatWindowClosed ? 'closed' : openingStyle() ">
   <div class="chat-header">
     <img
       class="chatbot-screen-img"

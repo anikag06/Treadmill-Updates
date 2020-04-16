@@ -6,6 +6,7 @@ import {
   OnDestroy,
   Input, ElementRef,
 } from '@angular/core';
+import { Location } from '@angular/common';
 import { NavbarFlowDirective } from './navbar-flow.directive';
 import { interval, Subscription } from 'rxjs';
 import { NavbarFlowComponent } from './navbar-flow/navbar-flow.component';
@@ -66,6 +67,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private flowService: FlowService,
     private conversationservice: ConversationsService,
     public dialog: MatDialog,
+    private location: Location,
     ) {
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationStart) {
@@ -147,6 +149,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   flowClick(event: any) {
     this.notificationService.openNavFlow.emit();
+    this.notificationService.showFlow = true;
     console.log('flow host', this.flowHost);
     const navbarFLowComponentFactory = this.componentFactoryResolver.resolveComponentFactory(CustomOverlayComponent);
     const hostViewContainerRef = this.flowHost.viewContainerRef;
@@ -155,6 +158,13 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.notificationService.closeNavFlow.subscribe( () => {
       hostViewContainerRef.clear();
     });
+  }
+
+  homeClick() {
+    this.router.navigate(['/dashboard']);
+  }
+  backClick() {
+    this.location.back();
   }
 
   ngOnDestroy(): void {

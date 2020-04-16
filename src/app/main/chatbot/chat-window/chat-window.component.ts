@@ -30,6 +30,7 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { environment } from '../../../../environments/environment';
+import {NavbarNotificationsService} from '@/main/shared/navbar/navbar-notifications.service';
 
 declare var twemoji: any;
 
@@ -53,8 +54,19 @@ declare var twemoji: any;
           transform: 'translateY(0%)',
         }),
       ),
+      state(
+        'animateOpen',
+        style({
+          transform: 'translateY(0%)',
+        }),
+      ),
       transition('open => closed', [animate('0.5s linear')]),
       transition('closed => open', [animate('0.5s linear')]),
+      transition('void => animateOpen', [
+        style({ transform: ' translateY(100%)' }),
+        animate('1.0s ease-in')
+      ]),
+
     ]),
   ],
 })
@@ -64,6 +76,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     private authService: AuthService,
     private changRef: ChangeDetectorRef,
     public dialog: MatDialog,
+    private notificationService: NavbarNotificationsService,
     private elementRef: ElementRef,
   ) {
     this.chatbotService.createOnline$().subscribe(isOnline => {
@@ -93,6 +106,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   isOnline = true;
   @ViewChild('messagesDiv', { static: false }) messagesDiv!: ElementRef;
   @ViewChild('ti', { static: false }) ti!: ElementRef;
+  @Input()  openStyle!: boolean;
   @Input() chatWindowClosed = false;
   @Output() chatWindowClosedEmitter = new EventEmitter<Boolean>();
   counter = 4;
@@ -103,6 +117,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   showMoodWidget = true;
   showDateTimeWidget = true;
   showSpinner = true;
+
   ngOnChanges(): void {
     if (this.chatWindowClosed === false) {
       if (
@@ -146,6 +161,14 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
         console.log(error);
       },
     );
+  }
+
+  openingStyle() {
+    if (this.openStyle) {
+      return 'open';
+    } else {
+      return 'animateOpen';
+    }
   }
 
   //  pushPreviousChat(message: any) {
@@ -219,6 +242,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
 
   close() {
     this.closeChat();
+    this.notificationService.closeChatbotOverlay.emit();
   }
 
   ngOnDestroy(): void {

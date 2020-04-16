@@ -4,19 +4,23 @@
   width: 100%;
 
   h1 {
+
+  }
+
+  .back-button{
+    background-color: inherit;
+    outline: none;
+}
+
+  .navbar-title {
     padding-left: 50px;
     text-transform: capitalize;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
-
-  .navbar-title {
-    // height: 100px;
-
+    color: #343434;
+    font-size: 24px;
     font-style: roboto;
-    // font-size: 36px;
-    // color: black;
     opacity: 1;
   }
 
@@ -38,7 +42,7 @@
     padding-right: 10%;
 
     .icon-items {
-      margin: 10px 30px;
+      margin: 20px;
       background: transparent;
 
       &:hover,
@@ -85,7 +89,7 @@
 //         .unread-count {
 //             left: 64px;
 //         }
-//     }   
+//     }
 // }
 // }
 @media screen and (max-width: 767px) {
@@ -109,6 +113,11 @@
       left: 40px;
     }
 
+    .homeText {
+      font-color: white;
+      font-size: 16px;
+    }
+
     h1 {
       font-size: 1.2rem;
       color: white;
@@ -122,7 +131,7 @@
       right: 10px;
 
       .icon-items {
-        margin: 10px 20px;
+        margin-left: 16px;
       }
 
       #showFullConversation {

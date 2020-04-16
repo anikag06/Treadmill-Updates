@@ -1,6 +1,9 @@
-import { Component, OnInit, ElementRef, Inject } from '@angular/core';
+import {Component, OnInit, ElementRef, Inject, ViewChild, ComponentFactoryResolver} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
+import {CustomOverlayComponent} from "@/main/shared/custom-overlay/custom-overlay.component";
+import {NavbarFlowDirective} from "@/main/shared/navbar/navbar-flow.directive";
+import {NavbarNotificationsService} from "@/main/shared/navbar/navbar-notifications.service";
 
 @Component({
   selector: 'app-chatbot',
@@ -11,8 +14,14 @@ export class ChatbotComponent implements OnInit {
   chatwindowClosed = true;
   removeChat = false;
   blacklisted = ['/games', '/resources'];
+  @ViewChild(NavbarFlowDirective, { static: false })
+  flowHost!: NavbarFlowDirective;
+  openStyle = true;
 
-  constructor(private router: Router, private elementRef: ElementRef) {}
+  constructor(private router: Router, private elementRef: ElementRef,
+              private notificationService: NavbarNotificationsService,
+              private componentFactoryResolver: ComponentFactoryResolver,
+  ) {}
 
   ngOnInit() {
     this.router.events.subscribe(() => {
@@ -23,6 +32,18 @@ export class ChatbotComponent implements OnInit {
 
   toggleChat() {
     this.chatwindowClosed = !this.chatwindowClosed;
+    if (this.notificationService.showFlow) {
+      this.openStyle = false;
+      this.notificationService.showFlow = false;
+      const navbarFLowComponentFactory = this.componentFactoryResolver.resolveComponentFactory(CustomOverlayComponent);
+      const hostViewContainerRef = this.flowHost.viewContainerRef;
+      hostViewContainerRef.clear();
+      hostViewContainerRef.createComponent(navbarFLowComponentFactory);
+      this.notificationService.closeChatbotOverlay.subscribe(() => {
+        hostViewContainerRef.clear();
+        this.openStyle = true;
+      });
+    }
   }
 
   updateChatWindow(event: boolean) {
