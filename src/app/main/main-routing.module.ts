@@ -32,7 +32,7 @@ export const mainRoutes: Routes = [
       {
         path: 'dashboard',
         component: DashboardComponent,
-        data: { title: 'Hello ' },
+        data: { title: 'Home' },
       },
       { path: 'questionnaire', component: GetQuestionnaireComponent },
       { path: 'survey', component: SurveyComponent }, // :id here is step_id

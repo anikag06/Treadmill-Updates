@@ -9,6 +9,7 @@ export const extraResourcesRoutes: Routes = [
   {
     path: '',
     component: ExtraResourcesComponent,
+    data: { title: 'Resources' },
     children: [
       { path: 'videos', component: VideosComponent },
       // {path: 'readingItem', component: ReadingMaterialComponent}
