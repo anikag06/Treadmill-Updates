@@ -30,6 +30,7 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { environment } from '../../../../environments/environment';
+import { CommonService } from '@/shared/common.service';
 
 declare var twemoji: any;
 
@@ -65,8 +66,9 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     private changRef: ChangeDetectorRef,
     public dialog: MatDialog,
     private elementRef: ElementRef,
+    private commonService: CommonService,
   ) {
-    this.chatbotService.createOnline$().subscribe(isOnline => {
+    this.commonService.createOnline$().subscribe(isOnline => {
       this.isOnline = isOnline;
     });
   }

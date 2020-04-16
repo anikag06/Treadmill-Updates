@@ -1,32 +1,33 @@
 import {
   Component,
   ComponentFactoryResolver,
-  ComponentRef,
   DoCheck,
   OnChanges,
   OnInit,
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-import { AuthService } from '@/shared/auth/auth.service';
-import { User } from '@/shared/user.model';
-import { NavigationStart, Router } from '@angular/router';
-import { DEFAULT_PATH, SHOW_TOAST_DURATION } from '@/app.constants';
-import { MatDrawer, MatTooltip } from '@angular/material';
-import { DataService } from '@/shared/questionnaire/data.service';
-import { FcmService } from '@/shared/fcm.service';
-import { QuizService } from '@/shared/questionnaire/questionnaire.service';
-import { FlowService } from './flow/flow.service';
-import { Overlay, OverlayRef } from '@angular/cdk/overlay';
-import { ComponentPortal } from '@angular/cdk/portal';
-import { IntroduceComponent } from './shared/introduce/introduce.component';
-import { IntroduceService } from './shared/introduce/introduce.service';
-import { SurveyService } from './shared/survey.service';
-import { ToastNotificationDirective } from '@/shared/toast-notification/toast-notification.directive';
-import { ToastNotificationComponent } from '@/shared/toast-notification/toast-notification.component';
+import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
+import {Observable} from 'rxjs';
+import {filter, map} from 'rxjs/operators';
+import {AuthService} from '@/shared/auth/auth.service';
+import {User} from '@/shared/user.model';
+import {NavigationStart, Router} from '@angular/router';
+import {DEFAULT_PATH, SHOW_TOAST_DURATION} from '@/app.constants';
+import {MatDrawer, MatTooltip} from '@angular/material';
+import {DataService} from '@/shared/questionnaire/data.service';
+import {FcmService} from '@/shared/fcm.service';
+import {QuizService} from '@/shared/questionnaire/questionnaire.service';
+import {FlowService} from './flow/flow.service';
+import {Overlay, OverlayRef} from '@angular/cdk/overlay';
+import {ComponentPortal} from '@angular/cdk/portal';
+import {IntroduceComponent} from './shared/introduce/introduce.component';
+import {IntroduceService} from './shared/introduce/introduce.service';
+import {SurveyService} from './shared/survey.service';
+import {ToastNotificationDirective} from '@/shared/toast-notification/toast-notification.directive';
+import {ToastNotificationComponent} from '@/shared/toast-notification/toast-notification.component';
+import {CommonService} from '@/shared/common.service';
+import {InternetConnectionComponent} from '@/shared/internet-connection/internet-connection.component';
 
 // tslint:disable-next-line:max-line-length
 
@@ -42,6 +43,7 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
   tooltipData!: any;
   isDisabled = false;
   showChatbot = true;
+  firstLoad = true;
 
   @ViewChild('drawer', { static: true }) drawer!: MatDrawer;
   @ViewChild('tooltip', { static: false }) showToolTip!: MatTooltip;
@@ -52,6 +54,8 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
   isExpanded = true;
   @ViewChild(ToastNotificationDirective, { static: true })
   toastNotification!: ToastNotificationDirective;
+  @ViewChild('connection', { static: true, read: ViewContainerRef })
+  connectionNotification!: ViewContainerRef;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -65,6 +69,7 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
     private introduceService: IntroduceService,
     private componentFactoryResolver: ComponentFactoryResolver,
     private surveyService: SurveyService,
+    private commonService: CommonService,
   ) {}
 
   ngOnChanges() {}
@@ -103,6 +108,30 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
       setTimeout(() => {
         toastComponentRef.destroy();
       }, SHOW_TOAST_DURATION);
+    });
+
+    this.commonService.createOnline$().subscribe(isOnline => {
+      this.connectionNotification.clear();
+      const statusMessage = isOnline
+        ? 'Internet Connected'
+        : 'Internet Disconnected';
+      const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
+        InternetConnectionComponent,
+      );
+      const connectionComponentRef = this.connectionNotification.createComponent(
+        componentFactory,
+      );
+      connectionComponentRef.instance.onlineStatus = isOnline;
+      connectionComponentRef.instance.statusMessage = statusMessage;
+      if (isOnline) {
+        setTimeout(
+          () => {
+            connectionComponentRef.destroy();
+            this.firstLoad = false;
+          },
+          this.firstLoad ? 0 : 3000,
+        );
+      }
     });
   }
 

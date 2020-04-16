@@ -29,20 +29,7 @@ import { AngularEditorModule } from '@arkaghosh024/angular-editor';
 import { SanitizationService } from './shared/sanitization.service';
 import { SafeHtmlPipe } from './support-groups/safe-html.pipe';
 import { LayoutModule } from '@angular/cdk/layout';
-import {
-  MatToolbarModule,
-  MatButtonModule,
-  MatSidenavModule,
-  MatIconModule,
-  MatListModule,
-  MatDatepickerModule,
-  MatDialogModule,
-  MatNativeDateModule,
-  MatSlideToggleModule,
-  MatExpansionModule,
-  MatRippleModule,
-} from '@angular/material';
-import { MatProgressBarModule } from '@angular/material';
+import { MatProgressBarModule, MatRippleModule } from '@angular/material';
 import { ScrollingDirective } from './shared/scrolling.directive';
 import { ScrollingService } from './shared/scrolling.service';
 import { NavbarComponent } from './shared/navbar/navbar.component';
@@ -176,13 +163,9 @@ import { SlidesVideoComponent } from './resources/slides/slides-video/slides-vid
 import { GamesFeedbackComponent } from './games/games-list/common-game/games-feedback/games-feedback.component';
 import { GamesFeedbackService } from './games/games-list/common-game/games-feedback/games-feedback.service';
 import { ThingsTodoService } from '@/main/dashboard/things-todo/things-todo.service';
-import { ExtraResourcesComponent } from './extra-resources/extra-resources.component';
-import { VideosComponent } from './extra-resources/videos/videos.component';
-import { ReadingMaterialComponent } from './extra-resources/reading-material/reading-material.component';
-import { ReadingItemComponent } from './extra-resources/reading-material/reading-item/reading-item.component';
-import { VideoItemComponent } from './extra-resources/videos/video-item/video-item.component';
 import { ExtraResourcesService } from '@/main/extra-resources/extra-resources.service';
-import { SafeUrlPipe } from './extra-resources/safe-url.pipe';
+import { InternetConnectionComponent } from '@/shared/internet-connection/internet-connection.component';
+
 // import { Resources2Routing } from './extra-resources/extra-resources-routing.module.ts/extra-resources-routing.module.ts.component';
 
 @NgModule({
@@ -293,6 +276,7 @@ import { SafeUrlPipe } from './extra-resources/safe-url.pipe';
     //  ReadingItemComponent,
     //  VideoItemComponent,
     //  SafeUrlPipe,
+    InternetConnectionComponent,
   ],
   imports: [
     CommonModule,
@@ -388,6 +372,7 @@ import { SafeUrlPipe } from './extra-resources/safe-url.pipe';
     ToastNotificationComponent,
     SlidesVideoComponent,
     GamesFeedbackComponent,
+    InternetConnectionComponent,
   ],
 })
 export class MainModule {}

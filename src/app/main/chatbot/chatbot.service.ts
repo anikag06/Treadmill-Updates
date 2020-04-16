@@ -1,9 +1,7 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
-import { GIPHY_URL, UNSPLASH_URL } from '@/app.constants';
-import { fromEvent, merge, Observable, Observer } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {environment} from '../../../environments/environment';
+import {GIPHY_URL, UNSPLASH_URL} from '@/app.constants';
 
 @Injectable({
   providedIn: 'root',
@@ -49,16 +47,5 @@ export class ChatbotService {
       params: p,
       observe: 'response',
     });
-  }
-
-  createOnline$() {
-    return merge<boolean>(
-      fromEvent(window, 'offline').pipe(map(() => false)),
-      fromEvent(window, 'online').pipe(map(() => true)),
-      new Observable((sub: Observer<boolean>) => {
-        sub.next(navigator.onLine);
-        sub.complete();
-      }),
-    );
   }
 }
