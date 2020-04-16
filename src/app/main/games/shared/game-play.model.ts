@@ -134,3 +134,34 @@ export class ICDGameUserAnswerData {
     public answered_at: any,
   ) {}
 }
+
+// for storing data of ASG
+class ASGanswer {
+  id!: number;
+  question_id!: number;
+  answer_text!: string;
+
+  constructor(q: any){
+    this.id = q.id;
+    this.question_id = q.question_id;
+    this.answer_text = q.answer_text;
+  }
+}
+
+export class ASGAnswerData {
+  count!: number;
+  next!: any;
+  previous!: any;
+  results!: ASGanswer[];
+
+  constructor(data: any) {
+    this.count = data.count;
+    this.next = data.next;
+    this.previous = data.previous;
+    this.results = [];
+    data.results.forEach((q: any) => {
+      this.results.push( new ASGanswer(q));
+    });
+  }
+}
+

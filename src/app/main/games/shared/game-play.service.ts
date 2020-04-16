@@ -1,4 +1,4 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import {EventEmitter, HostListener, Injectable} from '@angular/core';
 import { map } from 'rxjs/operators';
 import { GamesService } from '@/main/shared/games.service';
 import { GamesAuthService } from '@/main/games/shared/games-auth.service';
@@ -11,6 +11,7 @@ import {
   LHGameUserLevel,
   LHGamePerformance,
   LHGameOverallData,
+  ASGAnswerData,
 } from './game-play.model';
 import { GamesBadgesService } from './games-badges.service';
 import { BadgesConstants } from './game-badges.model';
@@ -101,6 +102,11 @@ declare var ffg_music: any;
 // for mental imagery game
 declare var miGameShowTutorial: boolean;
 
+// for ASG
+declare var ASGAnswer: ASGAnswerData;
+
+
+
 @Injectable({
   providedIn: 'root',
 })
@@ -140,6 +146,8 @@ export class GamePlayService {
 
   // for friendly face game
   ffg_show_tutorial!: any;
+
+  // for ASG
 
   constructor(
     private gamesService: GamesService,
@@ -184,9 +192,19 @@ export class GamePlayService {
 
   // for attribution game
 
+
+
   playAttributionStyleGame() {
     // tslint:disable-next-line:no-unused-expression
+    this.gamesAuthService.atGetAnswers().subscribe(
+      e => {
+        ASGAnswer = e;
+        console.log(ASGAnswer);
+      }
+    );
     this.game = new AttributeGame();
+
+
     if (this.game.scene.isActive('QuestionAndAnswer')) {
       console.log(this.game.scene.isActive('QuestionAndAnswer'));
         console.log(this.gamesAuthService.atGetAnswers());

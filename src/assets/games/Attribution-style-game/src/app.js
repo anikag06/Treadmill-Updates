@@ -149,6 +149,16 @@ class HomeScene extends Phaser.Scene {
         this.scene.start('LevelOne');
         this.registry.set('currentScene', 'LevelOne');
 
+
+       let event = document.createEvent('Event');
+       event.initEvent('build');
+       window.dispatchEvent(event);
+       console.log(event);
+
+
+
+
+
    }
 
    update() {
@@ -1293,6 +1303,10 @@ class LevelThree extends Phaser.Scene {
         this.questionNumber = "que1";
 
         let Title = "Based on your experience in the previous game, answer the questions that follow.";
+          console.log(ASGAnswer);
+
+
+
 
         this.Answers = {
             "ans1": "Good",
@@ -2012,6 +2026,8 @@ function conf(DEFAULT_WIDTH, DEFAULT_HEIGHT){
         this.scene = [PreloadScene, HomeScene, LevelOne, LevelTwo, LevelThree, UIScene, ScoreDisplay, QuestionAndAnswer,Personalisation,Permanence,Pervasiveness,UserResult];
 
 };
+
+ var ASGAnswer;
 
 var AttributeGame = function () {
   const DEFAULT_WIDTH = 1320;

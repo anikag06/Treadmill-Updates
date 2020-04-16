@@ -19,7 +19,7 @@ export class GamesComponent implements OnInit {
   ngOnInit() {
     this.loadFileService.loadExternalStyles('/games-styles.css').then(() => {}).catch(() => {});
     this.loadFileService.loadExternalScript('assets/games/executive-control-game/js/lib/watch.js').then(() => {}).catch(() => {});
-    // this.loadFileService.loadExternalScript('./assets/games/Attribution-style-game/src/lib/phaser.js').then(() => {}).catch(() => {});
+    this.loadFileService.loadExternalScript('./assets/games/Attribution-style-game/src/lib/phaser.js').then(() => {}).catch(() => {});
 
     this.loadFileService.loadExternalScript('assets/games/executive-control-game/js/lib/jquery.min.js').then(() => {}).catch(() => {});
 
