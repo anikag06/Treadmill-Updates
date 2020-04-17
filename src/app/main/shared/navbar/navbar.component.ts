@@ -31,7 +31,7 @@ import {FlowComponent} from '@/main/flow/flow.component';
 import {DialogBoxService} from '@/main/shared/custom-dialog/dialog-box.service';
 import {SlidesVideoComponent} from '@/main/resources/slides/slides-video/slides-video.component';
 import {DialogPosition, MatDialog} from '@angular/material/dialog';
-import {CustomOverlayComponent} from "@/main/shared/custom-overlay/custom-overlay.component";
+import {CustomOverlayComponent} from '@/main/shared/custom-overlay/custom-overlay.component';
 
 @Component({
   selector: 'app-navbar',
@@ -103,6 +103,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
         this.notificationService.removeFullConvIcon.subscribe(() => {
           this.convMode = false;
         });
+        this.notificationService.isDashboard = this.isDashboard;
       }
 
       if (event instanceof NavigationError) {

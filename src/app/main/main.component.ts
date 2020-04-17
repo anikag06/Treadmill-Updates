@@ -27,6 +27,7 @@ import { IntroduceService } from './shared/introduce/introduce.service';
 import { SurveyService } from './shared/survey.service';
 import { ToastNotificationDirective } from '@/shared/toast-notification/toast-notification.directive';
 import { ToastNotificationComponent } from '@/shared/toast-notification/toast-notification.component';
+import {NavbarNotificationsService} from "@/main/shared/navbar/navbar-notifications.service";
 
 // tslint:disable-next-line:max-line-length
 
@@ -42,6 +43,7 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
   tooltipData!: any;
   isDisabled = false;
   showChatbot = true;
+  isDashboard!: boolean;
 
   @ViewChild('drawer', { static: true }) drawer!: MatDrawer;
   @ViewChild('tooltip', { static: false }) showToolTip!: MatTooltip;
@@ -65,9 +67,11 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
     private introduceService: IntroduceService,
     private componentFactoryResolver: ComponentFactoryResolver,
     private surveyService: SurveyService,
+    private notificationService: NavbarNotificationsService,
   ) {}
 
-  ngOnChanges() {}
+  ngOnChanges() {
+  }
 
   ngOnInit() {
     const user = this.authService.isLoggedIn();
@@ -124,6 +128,8 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
   ngOnDestroy(): void {}
 
   ngDoCheck() {
+    this.isDashboard = this.notificationService.isDashboard;
+
     this.routing = this.dataService.getOption();
     const user = this.authService.isLoggedIn();
     if (user && user.is_active) {

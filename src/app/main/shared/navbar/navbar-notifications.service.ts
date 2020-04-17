@@ -18,6 +18,7 @@ export class NavbarNotificationsService {
   closeChatbotOverlay = new EventEmitter<any>();
 
   showFlow!: boolean;
+  isDashboard!: boolean;
 
 
   getNotifications(page = 1) {

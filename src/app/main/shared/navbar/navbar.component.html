@@ -1,21 +1,35 @@
 <ng-template appNavbarFlow></ng-template>
 <div class="app-navbar">
   <div class="row">
-    <div class="col-6 d-flex navbar-title align-items-center">
-      <button mat-flat-button class="back-button" *ngIf="!isDashboard" (click)="backClick()">
-        <img src="assets/shared/back web.png" width="32px" height="32px" alt="back" /></button>
-      <div [ngClass]="{'conv-title': isConversation===true,
-      'navbar-title': isConversation===false }">{{navbarTitle}}<span class="navbar-title"
-          *ngIf="isDashboard || isConversation"></span></div>
-<!--      <div class="icon-items homeText" (click)="homeClick($event)"  >-->
-<!--       -->
-<!--      </div>-->
-    </div>
     <div class="col-6">
 
-      <div class="all-icons">
-        <div class="icon-items" (click)="flowClick($event)" style="margin-left:20px;"  >
-          <img src="assets/shared/goto web.png" height=" 36px" alt="GoTo">
+      <div class="all-icons" >
+      <button mat-flat-button class="back-button" *ngIf="!isDashboard" (click)="backClick()">
+        <img src="assets/shared/back web.png" width="32px" height="32px" alt="back" /></button>
+        <div [ngClass]="{'conv-title': isConversation===true,
+      'navbar-title': isConversation===false }">{{navbarTitle}}
+<!--          <span class="navbar-title" *ngIf="isDashboard || isConversation"></span>-->
+        </div>
+      </div>
+
+      <div class="all-icons-mobile ">
+      <div class="row icon-items"   >
+        <button mat-flat-button class="back-button" *ngIf="!isDashboard" (click)="backClick()">
+          <img src="assets/shared/Back%20mobile.png" width="24px" height="24px" alt="back" /></button>
+        <div [ngClass]="{'conv-title': isConversation===true,
+      'navbar-title': isConversation===false }" [ngStyle]="{'padding-left.px' : isDashboard ? '60' : '0'}">{{navbarTitle}}<span class="navbar-title"
+                                                                     *ngIf="isDashboard || isConversation"></span></div>
+      </div>
+      </div>
+
+
+    </div>
+
+    <div class="col-6">
+
+      <div class="all-icons" style="float:right;">
+        <div class="icon-items" *ngIf="!isDashboard" (click)="homeClick()">
+          <img src="assets/shared/home web.png" height=" 32px" alt="Home" />
         </div>
         <div *ngIf="user.is_exp">
           <div class="icon-items" style="margin-left:20px;" (menuClosed)="notificationClick()" (menuOpened)="notificationClick()"
@@ -28,15 +42,16 @@
             }}</span>
           </div>
         </div>
-        <div class="icon-items" *ngIf="!isDashboard" (click)="homeClick()">
-          <img src="assets/shared/home web.png" height=" 32px" alt="Home" />
+
+        <div class="icon-items" (click)="flowClick($event)" style="margin-left:20px;"  >
+          <img src="assets/shared/goto web.png" height=" 36px" alt="GoTo">
         </div>
       </div>
 
-      <div class="all-icons-mobile">
-        <div class="d-flex flex-row">
+      <div class="all-icons-mobile" >
+        <div class="d-flex flex-row" style="float:right;">
           <div class="icon-items" *ngIf="!isDashboard" (click)="homeClick()">
-            <img src="assets/shared/home web.png" height=" 24px" alt="Home" />
+            <img src="assets/shared/Home mobile.png" height=" 24px" alt="Home" />
           </div>
           <div *ngIf="user.is_exp">
             <div class="icon-items" (menuClosed)="notificationClick()" (menuOpened)="notificationClick()"

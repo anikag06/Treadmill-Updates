@@ -36,7 +36,7 @@
 
   .all-icons {
     display: flex;
-    flex-direction: row-reverse;
+    //flex-direction: row-reverse;
     align-items: center;
     height: 100px;
     padding-right: 10%;
@@ -109,26 +109,29 @@
   .app-navbar {
     .navbar-title {
       // position: absolute;
-      top: -40px;
-      left: 40px;
-    }
-
-    .homeText {
-      font-color: white;
-      font-size: 16px;
-    }
-
-    h1 {
-      font-size: 1.2rem;
+      padding-left: 0px;
+      top: 3px;
       color: white;
-
+      font-size: 20px;
+      //left: 40px;
     }
+    .back-button{
+      background-color: inherit;
+      outline: none;
+      line-height: 0;
+    }
+    //h1 {
+    //  font-size: 1.2rem;
+    //  color: white;
+    //
+    //}
 
     .all-icons-mobile {
       display: block;
       position: absolute;
-      top: -50px;
-      right: 10px;
+      top: -40px;
+      right: 20px;
+      width:100%;
 
       .icon-items {
         margin-left: 16px;
