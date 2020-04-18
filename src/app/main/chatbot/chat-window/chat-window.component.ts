@@ -60,11 +60,20 @@ declare var twemoji: any;
           transform: 'translateY(0%)',
         }),
       ),
+      // state(
+      //   'animateClosed',
+      //   style({
+      //     transform: 'translateY(100%)',
+      //   }),
+      // ),
       transition('open => closed', [animate('0.5s linear')]),
       transition('closed => open', [animate('0.5s linear')]),
       transition('void => animateOpen', [
-        style({ transform: ' translateY(100%)' }),
-        animate('1.0s ease-in')
+        style({ transform: 'translateY(100%)' }),
+        animate('500ms', style({ transform: 'translateY(0%)' })),
+      ]),
+      transition('animateOpen => *', [
+        animate('500ms', style({ transform: 'translateY(100%)' })),
       ]),
 
     ]),
@@ -106,7 +115,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   isOnline = true;
   @ViewChild('messagesDiv', { static: false }) messagesDiv!: ElementRef;
   @ViewChild('ti', { static: false }) ti!: ElementRef;
-  @Input()  openStyle!: boolean;
+  @Input()  overlayOpen!: boolean;
   @Input() chatWindowClosed = false;
   @Output() chatWindowClosedEmitter = new EventEmitter<Boolean>();
   counter = 4;
@@ -164,7 +173,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   openingStyle() {
-    if (this.openStyle) {
+    if (!this.overlayOpen) {
       return 'open';
     } else {
       return 'animateOpen';
@@ -241,7 +250,12 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   close() {
-    this.closeChat();
+    if (!this.overlayOpen) {
+      this.closeChat();
+    } else {
+      setTimeout( () => {
+        this.closeChat();
+      }, 500); }
     this.notificationService.closeChatbotOverlay.emit();
   }
 

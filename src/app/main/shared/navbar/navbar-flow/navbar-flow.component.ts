@@ -7,29 +7,38 @@ import {NavbarNotificationsService} from '@/main/shared/navbar/navbar-notificati
   templateUrl: './navbar-flow.component.html',
   styleUrls: ['./navbar-flow.component.scss'],
   animations: [
-    trigger('flowIn', [
-      state('show', style({transform: 'translateX(0%)', opacity: 1})),
-      transition('void => *', [
-        style({ transform: ' translateX(100%)', opacity: 0 }),
-        animate(1000)
+    trigger('flowInOut', [
+      state('hidden', style({ transform: 'translateX(100%)' })),
+      state('show', style({ transform: 'translateX(0%)' })),
+      transition('hidden => show', [
+        style({ transform: 'translateX(100%)' }),
+        animate('500ms', style({ transform: 'translateX(0%)' })),
       ]),
-    ])
+      transition('show => hidden', [
+        animate('500ms', style({ transform: 'translateX(100%)' })),
+      ]),
+    ]),
     ]
 })
 export class NavbarFlowComponent implements OnInit {
+  isFlowVisible!: boolean;
   constructor(
     private notificationService: NavbarNotificationsService,
     ) {}
   navBar = true;
 
   ngOnInit() {
+    // this.isFlowVisible = true;
 
   }
   ngAfterViewInit() {
+    this.isFlowVisible = true;
     console.log('navbar-flow');
   }
 
   onClose() {
+    this.isFlowVisible = false;
+    this.notificationService.showFlow = false;
     this.notificationService.closeNavFlow.emit();
   }
 }

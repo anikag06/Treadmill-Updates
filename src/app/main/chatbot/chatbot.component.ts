@@ -16,7 +16,7 @@ export class ChatbotComponent implements OnInit {
   blacklisted = ['/games', '/resources'];
   @ViewChild(NavbarFlowDirective, { static: false })
   flowHost!: NavbarFlowDirective;
-  openStyle = true;
+  overlayOpen = false;
 
   constructor(private router: Router, private elementRef: ElementRef,
               private notificationService: NavbarNotificationsService,
@@ -33,7 +33,7 @@ export class ChatbotComponent implements OnInit {
   toggleChat() {
     this.chatwindowClosed = !this.chatwindowClosed;
     if (this.notificationService.showFlow) {
-      this.openStyle = false;
+      this.overlayOpen = true;
       this.notificationService.showFlow = false;
       const navbarFLowComponentFactory = this.componentFactoryResolver.resolveComponentFactory(CustomOverlayComponent);
       const hostViewContainerRef = this.flowHost.viewContainerRef;
@@ -41,7 +41,7 @@ export class ChatbotComponent implements OnInit {
       hostViewContainerRef.createComponent(navbarFLowComponentFactory);
       this.notificationService.closeChatbotOverlay.subscribe(() => {
         hostViewContainerRef.clear();
-        this.openStyle = true;
+        this.overlayOpen = false;
       });
     }
   }

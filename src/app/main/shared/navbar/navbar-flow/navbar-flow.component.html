@@ -1,5 +1,5 @@
 
-<div class="navbar-flow" [@flowIn] >
+<div class="navbar-flow" [@flowInOut]="isFlowVisible ? 'show' : 'hidden' " >
   <div class="close-div"  >
     <button mat-flat-button class="close-icon" (click)="onClose()">
       <img src="assets/shared/close.png" width="24" alt="Flow">&nbsp;
@@ -8,6 +8,7 @@
     </div>
 
     <app-flow [navBar]="navBar"></app-flow>
+    <app-chatbot ></app-chatbot>
 
 </div>
 

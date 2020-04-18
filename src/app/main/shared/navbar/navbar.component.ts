@@ -157,7 +157,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
     hostViewContainerRef.clear();
     hostViewContainerRef.createComponent(navbarFLowComponentFactory);
     this.notificationService.closeNavFlow.subscribe( () => {
-      hostViewContainerRef.clear();
+      setTimeout( () => {
+        hostViewContainerRef.clear();
+      }, 500);
     });
   }
 

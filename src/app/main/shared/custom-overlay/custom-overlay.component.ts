@@ -25,7 +25,9 @@ export class CustomOverlayComponent implements OnInit {
       hostViewContainerRef.clear();
       const componentRef = hostViewContainerRef.createComponent(navbarFLowComponentFactory);
       this.notificationService.closeNavFlow.subscribe(() => {
-        hostViewContainerRef.clear();
+        setTimeout( () => {
+          hostViewContainerRef.clear();
+        }, 500);
       });
     }
    }
