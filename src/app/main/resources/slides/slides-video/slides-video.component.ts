@@ -66,7 +66,7 @@ export class SlidesVideoComponent implements OnInit, AfterViewInit {
   }
 
   onPlayerReady(event: any) {
-    console.log('player ready');
+    event.target.playVideo();
     console.log('video time', this.player.getDuration());
 
     const videoInt = setInterval(() => {

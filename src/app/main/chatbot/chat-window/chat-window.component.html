@@ -32,19 +32,19 @@
       </div>
       <div class="clearfix messages" *ngFor="let m of messages">
         <div>
-          <ng-container *ngIf="!m.waiting; else waiting">
+          <ng-container *ngIf="!m.waiting">
             <div class="message" [ngClass]="{ bot: !m.user }" *ngIf="m.message">
               <div class="message-text" [innerHTML]="m.message"></div>
               <!-- <span class="date-time">{{m.datetime | date: 'short' }}</span> -->
             </div>
           </ng-container>
-          <ng-template #waiting>
-            <div class="message bot">
-              <div class="message-text waiting">
-                <div class="dot-typing"></div>
-              </div>
-            </div>
-          </ng-template>
+          <!--          <ng-template #waiting>-->
+          <!--            <div class="message bot">-->
+          <!--              <div class="message-text waiting">-->
+          <!--                <div class="dot-typing"></div>-->
+          <!--              </div>-->
+          <!--            </div>-->
+          <!--          </ng-template>-->
         </div>
         <div
           *ngFor="let embed_link of m.embed_links; let i = index"
@@ -158,6 +158,13 @@
           }"
         >
           I am being maintained!
+        </div>
+      </div>
+      <div *ngIf="isLoading">
+        <div class="message bot">
+          <div class="message-text waiting">
+            <div class="dot-typing"></div>
+          </div>
         </div>
       </div>
     </div>
