@@ -32,6 +32,7 @@ export class NavbarFlowComponent implements OnInit {
 
   }
   ngAfterViewInit() {
+    this.notificationService.navFlowOpened.emit();
     this.isFlowVisible = true;
     console.log('navbar-flow');
   }

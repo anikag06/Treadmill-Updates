@@ -44,6 +44,9 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
   isDisabled = false;
   showChatbot = true;
   isDashboard!: boolean;
+  flowLoaded = true;
+  flowOpen = false;
+
 
   @ViewChild('drawer', { static: true }) drawer!: MatDrawer;
   @ViewChild('tooltip', { static: false }) showToolTip!: MatTooltip;
@@ -107,6 +110,23 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
       setTimeout(() => {
         toastComponentRef.destroy();
       }, SHOW_TOAST_DURATION);
+    });
+    this.notificationService.openNavFlow.subscribe( () => {
+      this.flowLoaded = false;
+      this.flowOpen = true;
+
+    });
+    this.notificationService.navFlowOpened.subscribe( () => {
+      setTimeout( () => {
+        this.flowLoaded = true;
+      }, 500);
+    });
+    this.notificationService.closeNavFlow.subscribe( () => {
+        this.flowLoaded = false;
+      setTimeout( () => {
+      this.flowOpen = false;
+        this.flowLoaded = true;
+      }, 500);
     });
   }
 

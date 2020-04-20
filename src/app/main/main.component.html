@@ -1,7 +1,8 @@
 <mat-drawer-container class="sidenav-container" autosize>
   <mat-drawer #drawer class="sidenav" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false" #tooltip="matTooltip"
-    matTooltipDisabled matTooltip={{tooltipData}} [matTooltipPosition]="'right'" (click)="tooltipShow()">
+    matTooltipDisabled matTooltip={{tooltipData}} [matTooltipPosition]="'right'" (click)="tooltipShow()"
+              [ngStyle]="{'z-index': flowOpen? '1' : '2' }">
     <mat-toolbar [appDisableClick]="{'apply': isDisabled}">
       <div>
         <a class="main-logo" routerLink="/dashboard">
@@ -130,7 +131,8 @@
       <app-navbar [user]="user" [appDisableClick]="{'apply': isDisabled}" #tooltip="matTooltip" matTooltipDisabled
         matTooltip={{tooltipData}} [matTooltipPosition]="'below'" (click)="tooltipShow()"></app-navbar>
       <router-outlet></router-outlet>
-      <app-chatbot *ngIf="user.is_exp && showChatbot"></app-chatbot>
+      <app-chatbot *ngIf="user.is_exp && showChatbot"
+                   [ngStyle]="{'opacity': flowLoaded ? '1' : '0' }"></app-chatbot>
       <div class="notification-div">
        <ng-template toastNotification></ng-template>
       </div>

@@ -15,6 +15,7 @@ export class NavbarNotificationsService {
   removeFullConvIcon = new EventEmitter<any>();
   closeNavFlow = new EventEmitter<any>();
   openNavFlow = new EventEmitter<any>();
+  navFlowOpened = new EventEmitter<any>();
   closeChatbotOverlay = new EventEmitter<any>();
 
   showFlow!: boolean;
