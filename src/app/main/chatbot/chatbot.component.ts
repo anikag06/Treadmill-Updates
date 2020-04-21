@@ -1,9 +1,9 @@
 import {Component, OnInit, ElementRef, Inject, ViewChild, ComponentFactoryResolver} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
-import {CustomOverlayComponent} from "@/main/shared/custom-overlay/custom-overlay.component";
-import {NavbarFlowDirective} from "@/main/shared/navbar/navbar-flow.directive";
-import {NavbarNotificationsService} from "@/main/shared/navbar/navbar-notifications.service";
+import {CustomOverlayComponent} from '@/main/shared/custom-overlay/custom-overlay.component';
+import {NavbarFlowDirective} from '@/main/shared/navbar/navbar-flow.directive';
+import {NavbarNotificationsService} from '@/main/shared/navbar/navbar-notifications.service';
 
 @Component({
   selector: 'app-chatbot',
@@ -28,6 +28,12 @@ export class ChatbotComponent implements OnInit {
       this.removingChat();
     });
     this.removingChat();
+    this.notificationService.navFlowOpened.subscribe(() => {
+      this.removingChat();
+    });
+    this.notificationService.closeNavFlow.subscribe(() => {
+      this.removingChat();
+    });
   }
 
   toggleChat() {
@@ -56,12 +62,11 @@ export class ChatbotComponent implements OnInit {
       if (location.pathname.match(data)) {
         match = true;
       }
-
-      if (match) {
-        this.removeChat = true;
+      if (match && !this.notificationService.showFlow) {
+          this.removeChat = true;
       } else {
-        this.removeChat = false;
-      }
-    });
+          this.removeChat = false;
+        }
+  });
   }
 }
