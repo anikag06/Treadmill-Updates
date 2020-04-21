@@ -130,7 +130,9 @@
     <div class="app-main">
       <app-navbar [user]="user" [appDisableClick]="{'apply': isDisabled}" #tooltip="matTooltip" matTooltipDisabled
         matTooltip={{tooltipData}} [matTooltipPosition]="'below'" (click)="tooltipShow()"></app-navbar>
-      <router-outlet></router-outlet>
+      <div class="page-div">
+        <router-outlet></router-outlet>
+      </div>
       <app-chatbot *ngIf="user.is_exp && showChatbot"
                    [ngStyle]="{'opacity': flowLoaded ? '1' : '0' }"></app-chatbot>
       <div class="notification-div">

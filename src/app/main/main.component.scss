@@ -63,6 +63,10 @@
   background: #FAF4EA !important;
 
 }
+.page-div {
+  margin-left: 6vw;
+  margin-right: 6vw;
+}
 
 .list-wrapper {
   display: flex;
@@ -132,6 +136,10 @@ button:focus {
 @media screen and (max-width: 960px) {
   .mat-icon-button {
     color: white !important;
+  }
+  .page-div {
+    margin-left: 0;
+    margin-right: 0;
   }
 
 }

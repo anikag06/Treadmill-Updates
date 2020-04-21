@@ -108,12 +108,11 @@
   // putting this 960 as otherwise no nav bar is shown
   .app-navbar {
     .navbar-title {
-      // position: absolute;
       padding-left: 0px;
       top: 3px;
       color: white;
       font-size: 20px;
-      //left: 40px;
+      width: 120px;
     }
     .back-button{
       background-color: inherit;
