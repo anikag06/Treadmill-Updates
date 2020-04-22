@@ -1,6 +1,6 @@
 <ng-template appNavbarFlow></ng-template>
 <div class="app-navbar">
-  <div class="row">
+  <div class="row mx-0">
     <div class="col-6">
 
       <div class="all-icons" >
@@ -13,11 +13,15 @@
       </div>
 
       <div class="all-icons-mobile ">
-      <div class="row icon-items"   >
-        <button mat-flat-button class="back-button" *ngIf="!isDashboard" (click)="backClick()">
+      <div class="row mx-0"   >
+        <button mat-flat-button class="back-button icon-items" *ngIf="!isDashboard" (click)="backClick()">
           <img src="assets/shared/Back%20mobile.png" width="24px" height="24px" alt="back" /></button>
+        <button class="hamburger-button icon-items"  *ngIf="isDashboard && isHandset$ " type="button" aria-label="Toggle sidenav" mat-flat-button (click)="hamburgerClicked()">
+          <img width="24px" height="24px" src="assets/shared/Hamburger mobile.png" />
+
+        </button>
         <div [ngClass]="{'conv-title': isConversation===true,
-      'navbar-title': isConversation===false }" [ngStyle]="{'padding-left.px' : isDashboard ? '60' : '0'}">{{navbarTitle}}<span class="navbar-title"
+      'navbar-title': isConversation===false }" >{{navbarTitle}}<span class="navbar-title"
                                                                      *ngIf="isDashboard || isConversation"></span></div>
       </div>
       </div>
@@ -49,9 +53,12 @@
       </div>
 
       <div class="all-icons-mobile" >
-        <div class="d-flex flex-row" style="float:right;">
-          <div class="icon-items" *ngIf="!isDashboard" (click)="homeClick()">
-            <img src="assets/shared/Home mobile.png" height=" 24px" alt="Home" />
+        <div class="d-flex flex-row-reverse">
+          <button mat-icon-button id="showFullConversation" [matMenuTriggerFor]="showFullConversation" *ngIf="convMode">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <div class="icon-items" (click)="flowClick($event)">
+            <img src="assets/shared/Goto mobile.png" height=" 32px" alt="GoTO" />
           </div>
           <div *ngIf="user.is_exp">
             <div class="icon-items" (menuClosed)="notificationClick()" (menuOpened)="notificationClick()"
@@ -64,13 +71,9 @@
             }}</span>
             </div>
           </div>
-
-          <div class="icon-items" (click)="flowClick($event)">
-            <img src="assets/shared/Goto mobile.png" height=" 32px" alt="GoTO" />
+          <div class="icon-items" *ngIf="!isDashboard" (click)="homeClick()">
+            <img src="assets/shared/Home mobile.png" height=" 24px" alt="Home" />
           </div>
-          <button mat-icon-button id="showFullConversation" [matMenuTriggerFor]="showFullConversation" *ngIf="convMode">
-            <mat-icon>more_vert</mat-icon>
-          </button>
         </div>
       </div>
     </div>

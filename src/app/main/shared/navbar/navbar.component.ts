@@ -4,7 +4,7 @@ import {
   ViewChild,
   ComponentFactoryResolver,
   OnDestroy,
-  Input, ElementRef,
+  Input, ElementRef, Output, EventEmitter,
 } from '@angular/core';
 import { Location } from '@angular/common';
 import { NavbarFlowDirective } from './navbar-flow.directive';
@@ -56,7 +56,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
   isConversation = false;
   convMode = false;
   @Input() user!: User;
-
+  @Output() hamburgerClick = new EventEmitter<any>();
+  @Input() isHandset$!: boolean;
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
     private notificationService: NavbarNotificationsService,
@@ -129,6 +130,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       console.log('close menu');
       this.flowTrigger.closeMenu();
     });
+    console.log('is HANDSET', this.isHandset$);
   }
 
   notificationClick() {
@@ -161,6 +163,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
         hostViewContainerRef.clear();
       }, 500);
     });
+  }
+
+  hamburgerClicked() {
+    this.hamburgerClick.emit();
   }
 
   homeClick() {

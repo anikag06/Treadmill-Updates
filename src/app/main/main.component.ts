@@ -27,7 +27,7 @@ import { IntroduceService } from './shared/introduce/introduce.service';
 import { SurveyService } from './shared/survey.service';
 import { ToastNotificationDirective } from '@/shared/toast-notification/toast-notification.directive';
 import { ToastNotificationComponent } from '@/shared/toast-notification/toast-notification.component';
-import {NavbarNotificationsService} from "@/main/shared/navbar/navbar-notifications.service";
+import {NavbarNotificationsService} from '@/main/shared/navbar/navbar-notifications.service';
 
 // tslint:disable-next-line:max-line-length
 
