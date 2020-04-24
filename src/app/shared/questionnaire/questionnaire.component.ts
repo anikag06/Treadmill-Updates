@@ -43,6 +43,7 @@ import {
   enterSubmitAnimation,
 } from '../animations';
 import { TimerService } from '../timer.service';
+import {Location} from "@angular/common";
 
 @Component({
   animations: [
@@ -178,6 +179,7 @@ export class QuestionnaireComponent implements OnInit {
     private registrationDataService: RegistrationDataService,
     private authService: AuthService,
     private timerService: TimerService,
+    private location: Location,
   ) {}
 
   ngOnInit() {
@@ -690,7 +692,8 @@ export class QuestionnaireComponent implements OnInit {
             },
             error => console.log(error),
           );
-          this.router.navigate(['/']);
+          // this.router.navigate(['/']);
+          this.location.back();
         }
       });
     } else if (this.fromFlow === false && this.fromTrialRegistration === true) {

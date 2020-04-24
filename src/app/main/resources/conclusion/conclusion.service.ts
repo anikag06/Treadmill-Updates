@@ -9,6 +9,7 @@ import { CONCLUSION_DATA } from '@/app.constants';
   providedIn: 'root',
 })
 export class ConclusionService {
+  moodEvaluate = true;
   constructor(private http: HttpClient) {}
 
   getConclusionData(stepGroupSequence: number): Observable<any> {

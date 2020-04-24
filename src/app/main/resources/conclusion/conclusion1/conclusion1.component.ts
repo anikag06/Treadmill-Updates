@@ -2,11 +2,15 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { LOCKED, COMPLETED, COMMITMENT_OPTIONS } from '@/app.constants';
+import {LOCKED, COMPLETED, COMMITMENT_OPTIONS, ACTIVE, QUESTIONNAIRE, CONCLUSION_PAGE} from '@/app.constants';
 import { ConclusionService } from '../conclusion.service';
 import { StepsDataService } from '../../shared/steps-data.service';
 import { StepCompleteData } from '../../shared/completion-data.model';
 import { CommonDialogsService } from '../../shared/common-dialogs.service';
+import {Step} from "@/main/flow/step-group/step/step.model";
+import {QuizService} from "@/shared/questionnaire/questionnaire.service";
+import {StepGroup} from "@/main/flow/step-group/step-group.model";
+import {FlowService} from "@/main/flow/flow.service";
 
 @Component({
   selector: 'app-conclusion1',
@@ -31,15 +35,26 @@ export class Conclusion1Component implements OnInit, OnDestroy {
   completionData: StepCompleteData = new StepCompleteData(0, 0);
   timeSpent!: number;
 
+  step!: Step;
+  active = false;
+  loading = true;
+  stepID!: number;
+  showQuestionnaire!: boolean;
+
   constructor(
     private conclusionService: ConclusionService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private stepDataService: StepsDataService,
     private commonDialogService: CommonDialogsService,
+    private quizService: QuizService,
+    private stepsService: StepsDataService,
+    private flowService: FlowService,
   ) {}
 
   ngOnInit() {
+    console.log('ME', this.conclusionService.moodEvaluate);
+    this.showQuestionnaire =  this.conclusionService.moodEvaluate;
     this.activatedRoute.url.subscribe(data => {
       this.stepGroupSequence = +data[0].path;
       this.stepDataService
@@ -68,6 +83,39 @@ export class Conclusion1Component implements OnInit, OnDestroy {
         }
         this.dataLoaded = true;
       });
+
+    // this.flowService.getFlow().subscribe((data: any) => {
+    //   console.log('DATA', data);
+    //   this.loading = false;
+    //   const step_group = data.step_groups.find(
+    //     (sg: StepGroup) => sg.status === ACTIVE,
+    //   );
+    //   if (step_group) {
+    //     this.step = step_group.steps.find((step: Step) => {
+    //       return (
+    //         step.virtual_step === false &&
+    //         step.status === ACTIVE &&
+    //         step.data_type === CONCLUSION_PAGE
+    //       );
+    //     });
+    //     if (this.step && this.step.status === ACTIVE) {
+    //       console.log(this.step);
+    //       this.stepID = this.step.id;
+    //       console.log('current step id', this.stepID);
+    //       console.log('get step data');
+    //       this.stepsService
+    //         .getStepData(this.stepID)
+    //         .subscribe((step_data: any) => {
+    //           console.log('step data is:', step_data);
+    //           this.quizService.questinnaire_name =
+    //             step_data.data.next_questionnaire;
+    //           // this.quizService.questionnaireActive = true;
+    //           // this.active = true;
+    //         });
+    //     }
+    //   }
+    // });
+    console.log('enable links', this.showQuestionnaire);
   }
 
   saveData() {
@@ -106,5 +154,10 @@ export class Conclusion1Component implements OnInit, OnDestroy {
 
   onDashboard() {
     this.router.navigate(['/dashboard']);
+  }
+
+  onEvaluateMood() {
+    this.conclusionService.moodEvaluate = false;
+    return this.router.navigate(['/questionnaire/']);
   }
 }

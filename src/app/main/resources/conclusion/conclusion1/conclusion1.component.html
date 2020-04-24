@@ -31,7 +31,21 @@
     </div>
   </div>
   <br><br>
-  <div>
+  <div class="row" *ngIf="showQuestionnaire">
+    <h5>PHQ9</h5>
+    <p>
+      Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs.
+      Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs.
+      Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs.
+
+    </p>
+    <button class="mood-btn" type="button"  mat-raised-button
+            (click)="onEvaluateMood()">
+      Evaluate your mood
+    </button>
+  </div>
+<div *ngIf="!showQuestionnaire">
+  <div >
     In the next module, <span class="emphasis">{{nextModuleName}}</span>, you will learn how to improve your daily
     routine to improve your mood. See you there.
   </div>
@@ -46,6 +60,7 @@
       </button>
     </ng-template>
   </div>
+</div>
 </ng-template>
 <ng-template [ngIf]="dataLoaded && locked">
   <div class="row">
