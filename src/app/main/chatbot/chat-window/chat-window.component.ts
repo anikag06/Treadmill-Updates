@@ -180,7 +180,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
             message: {
               text: '',
               buttons: [],
-              widgets: widgetValues,
+              widgets: [widgetValues],
             },
           }),
         );
