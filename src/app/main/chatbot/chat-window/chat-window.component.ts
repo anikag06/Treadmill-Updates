@@ -53,7 +53,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     private changRef: ChangeDetectorRef,
     public dialog: MatDialog,
   ) {
-    this.chatbotService.createOnline$().subscribe(isOnline => {
+    this.chatbotService.createOnline$().subscribe((isOnline) => {
       this.isOnline = isOnline;
     });
   }
@@ -169,10 +169,10 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
         payload: message,
         value: this.widgetValues,
       };
-      console.log(message);
       this.message = '';
       this.widgetValues = [];
       // setTimeout(() => {}, 4000);
+      //   widgets": [{"widget_value":[],"widget_payload":"",}]
       if (widgetValues.value.length > 0) {
         this.webSocket.send(
           JSON.stringify({
@@ -180,7 +180,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
             message: {
               text: '',
               buttons: [],
-              widget_value: widgetValues,
+              widgets: widgetValues,
             },
           }),
         );
@@ -191,7 +191,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
             message: {
               text: message,
               buttons: [],
-              widget_value: [],
+              widgets: [],
             },
           }),
         );
@@ -253,7 +253,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     this.webSocket = new WebSocket(
       environment.CHAT_HOST + '/ws/chat/?token=' + this.authService.getToken(),
     );
-    this.webSocket.onopen = event => {
+    this.webSocket.onopen = (event) => {
       this.webSocket.send(
         JSON.stringify({ action: type, module_name: 'decide_activity' }),
       );
@@ -524,10 +524,9 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
               );
 
               this.showSpinner = false;
-
               this.scrollTop =
                 this.messagesDiv.nativeElement.offsetHeight +
-                15 * (this.page - 1);
+                5 * (this.page - 1);
             });
           }
         });
@@ -554,7 +553,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     const $this = this;
     if (event.keyCode === 13) {
       this.timeout = setTimeout(
-        function() {
+        function () {
           $this.onChatSubmit();
           $this.isMultiLineInput = false;
         },
