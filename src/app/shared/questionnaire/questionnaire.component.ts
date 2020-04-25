@@ -44,6 +44,7 @@ import {
 } from '../animations';
 import { TimerService } from '../timer.service';
 import {Location} from "@angular/common";
+import {ConclusionService} from "@/main/resources/conclusion/conclusion.service";
 
 @Component({
   animations: [
@@ -180,6 +181,7 @@ export class QuestionnaireComponent implements OnInit {
     private authService: AuthService,
     private timerService: TimerService,
     private location: Location,
+    private conclusionService: ConclusionService,
   ) {}
 
   ngOnInit() {
@@ -693,7 +695,7 @@ export class QuestionnaireComponent implements OnInit {
             error => console.log(error),
           );
           // this.router.navigate(['/']);
-          this.location.back();
+          // this.location.back();
         }
       });
     } else if (this.fromFlow === false && this.fromTrialRegistration === true) {

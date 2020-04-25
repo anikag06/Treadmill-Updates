@@ -29,6 +29,7 @@ export class Conclusion2Component implements OnInit {
   tasks!: string[];
   completionData: StepCompleteData = new StepCompleteData(0, 0);
   timeSpent!: number;
+  showQuestionnaire!: boolean;
 
   constructor(
     private conclusionService: ConclusionService,
@@ -53,7 +54,7 @@ export class Conclusion2Component implements OnInit {
       .getConclusionData(this.stepGroupSequence)
       .subscribe(data => {
         console.log(data);
-        if (data.user_step_status != LOCKED) {
+        if (data.user_step_status !== LOCKED) {
           this.moduleName = data.module_name;
           this.nextModuleName = data.next_module_name;
           this.currentStepId = data.current_step_id;
@@ -68,6 +69,7 @@ export class Conclusion2Component implements OnInit {
         }
         this.dataLoaded = true;
       });
+    this.showQuestionnaire =  this.conclusionService.moodEvaluate;
   }
 
   ngOnDestroy() {

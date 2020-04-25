@@ -1,11 +1,11 @@
 <router-outlet></router-outlet>
 <div class="q">
-  <div class="container" [@simpleFadeAnimation]="'in'">
+  <div class="container" [@simpleFadeAnimation]="'in'" *ngIf="display_gad_start || display_phq_start || display_siq_start">
     <div class="row">
       <div class="col-md-12 dashboard">
-        <div class="row card mx-0">
+        <div class="row card">
           <div class="col-xl-4 col-md-6 col-sm-12 mx-auto text-center"
-            *ngIf="display_gad_start || display_phq_start || display_siq_start">
+            >
             <div class="card-body">
               <div class="" *ngIf="display_phq_start" id="phq-9">
                 <div class="bold"> Before moving further, we need you to carefully answer 9 quick

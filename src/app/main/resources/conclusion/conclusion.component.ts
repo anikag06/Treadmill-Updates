@@ -26,7 +26,7 @@ export class ConclusionComponent implements OnInit {
 
   ngOnInit() {
     console.log('ME', this.conclusionService.moodEvaluate);
-    if (this.conclusionService.moodEvaluate) {
+    // if (this.conclusionService.moodEvaluate) {
       this.flowService.getFlow().subscribe((data: any) => {
         console.log('DATA', data);
         this.loading = false;
@@ -58,6 +58,6 @@ export class ConclusionComponent implements OnInit {
           }
         }
       });
-    }
+    // }
   }
 }

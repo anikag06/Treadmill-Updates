@@ -43,7 +43,10 @@
     If you are facing a problem that can't be solved by changing your thinking style, you can use the <a
       routerLink="{{problemSolvingFormLink}}">Problem solving form</a>
   </div>
-  <div>
+  <app-evaluate-mood *ngIf="showQuestionnaire"></app-evaluate-mood>
+  <br><br>
+  <div *ngIf="!showQuestionnaire">
+    <div>
     Do you ever wonder why different people have different thoughts following the same situation? You’ll learn that in
     the next module <span class="emphasis">{{nextModuleName}}</span>.
   </div>
@@ -57,6 +60,7 @@
         Go to dashboard
       </button>
     </ng-template>
+  </div>
   </div>
 </ng-template>
 <ng-template [ngIf]="dataLoaded && locked">

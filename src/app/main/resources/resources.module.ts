@@ -121,6 +121,7 @@ import { TrfSituationCardComponent } from '@/main/resources/forms/thought-record
 import { FormRecommendComponent } from './forms/shared/form-recommend/form-recommend.component';
 import { DeleteDialogComponent } from '@/main/shared/delete-dialog/delete-dialog.component';
 import { ScrollToTopDirective } from '@/main/shared/scrollToTop/scroll-to-top.directive';
+import { EvaluateMoodComponent } from './shared/evaluate-mood/evaluate-mood.component';
 
 @NgModule({
   declarations: [
@@ -198,6 +199,7 @@ import { ScrollToTopDirective } from '@/main/shared/scrollToTop/scroll-to-top.di
     DeleteDialogComponent,
     ClickOutsideDirective,
     ScrollToTopDirective,
+    EvaluateMoodComponent,
   ],
   imports: [
     ResourcesRoutingModule,

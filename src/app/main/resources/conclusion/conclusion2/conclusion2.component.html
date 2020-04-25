@@ -31,9 +31,16 @@
     load of 50 KGs. So, doing even the simplest tasks require a lot of effort and willpower. If you are doing anything
     other than lying on your bed having the same negative thoughts again and again, give yourself credit.
     <br>
+  </div>
+
+  <app-evaluate-mood *ngIf="showQuestionnaire"></app-evaluate-mood>
+  <br><br>
+  <div *ngIf="!showQuestionnaire">
     In the next module, <span class="emphasis">{{nextModuleName}}</span>, you will learn how to change your thinking
     style.
   </div>
+
+
 </ng-template>
 <ng-template [ngIf]="dataLoaded && locked">
   <div class="row">

@@ -44,6 +44,10 @@
     </div>
   </div>
   <br><br>
+
+  <app-evaluate-mood *ngIf="showQuestionnaire"></app-evaluate-mood>
+  <br><br>
+  <div *ngIf="!showQuestionnaire">
   <div>
     In the next module, <span class="emphasis">{{nextModuleName}}</span>, you will learn how to control excessive
     worrying. See you there.
@@ -58,6 +62,7 @@
         Go to dashboard
       </button>
     </ng-template>
+  </div>
   </div>
 </ng-template>
 <ng-template [ngIf]="dataLoaded && locked">

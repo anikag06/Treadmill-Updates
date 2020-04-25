@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -9,7 +9,7 @@ import { CONCLUSION_DATA } from '@/app.constants';
   providedIn: 'root',
 })
 export class ConclusionService {
-  moodEvaluate = true;
+  moodEvaluate!: boolean;
   constructor(private http: HttpClient) {}
 
   getConclusionData(stepGroupSequence: number): Observable<any> {

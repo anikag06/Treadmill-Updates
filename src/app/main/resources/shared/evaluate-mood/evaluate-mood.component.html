@@ -1,0 +1,14 @@
+<div class="row mx-0" >
+  <h5>PHQ9</h5>
+  <p>
+    Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs.
+    Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs.
+    Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs.
+
+  </p>
+  <button class="mood-btn" type="button"  mat-raised-button
+          (click)="onEvaluateMood()" *ngIf="moodEvaluate">
+    Evaluate your mood
+  </button>
+  <b *ngIf="!moodEvaluate"> Great! You have evaluated your mood.</b>
+</div>

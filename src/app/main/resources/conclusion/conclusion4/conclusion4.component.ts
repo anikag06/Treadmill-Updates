@@ -34,6 +34,7 @@ export class Conclusion4Component implements OnInit {
   nextStepId!: number;
   completionData: StepCompleteData = new StepCompleteData(0, 0);
   timeSpent!: number;
+  showQuestionnaire!: boolean;
 
   constructor(
     private conclusionService: ConclusionService,
@@ -75,6 +76,7 @@ export class Conclusion4Component implements OnInit {
         }
         this.dataLoaded = true;
       });
+    this.showQuestionnaire =  this.conclusionService.moodEvaluate;
   }
 
   saveData() {
