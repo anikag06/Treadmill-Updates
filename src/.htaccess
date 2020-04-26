@@ -1,41 +1,56 @@
-PassengerNodejs /home/arkaghosh024/.nvm/versions/node/v12.16.2/bin/node
+
 RewriteEngine On
 RewriteCond %{HTTPS} !on
 RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
-# If an existing asset or directory is requested go to it as it is
-# RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -f [OR]
-# RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
-# RewriteRule ^ - [L]
-
-# If the requested resource doesn't exist, use index.html
-RewriteRule ^ ./index.html.br
-
-# Brotli compression
-RewriteCond %{HTTP:Accept-Encoding} br
-RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI}.br -f [OR]
-RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI}.br -d
-RewriteRule ^(.*)$ $1.br [L]
-
-<Files *.js.br>
-    AddType "text/javascript" .br
-    AddEncoding br .br
-</Files>
-<Files *.css.br>
-    AddType "text/css" .br
-    AddEncoding br .br
-</Files>
-<Files *.svg.br>
-    AddType "image/svg+xml" .br
-    AddEncoding br .br
-</Files>
-<Files *.html.br>
-    AddType "text/html" .br
-    AddEncoding br .br
-</Files>
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !index
+RewriteRule ^(.*)$ /index.html [NC,L,QSA]
 
 
+<IfModule mod_headers.c>
+  # Serve brotli compressed CSS files if they exist and the client accepts gzip.
+  RewriteCond %{HTTP:Accept-encoding} br
+  RewriteCond %{REQUEST_FILENAME}\.br -s
+  RewriteRule ^(.*)\.css $1\.css\.br [QSA]
 
-# Enable Compression
+  # Serve gzip compressed CSS files if they exist and the client accepts gzip.
+  RewriteCond %{HTTP:Accept-encoding} gzip
+  RewriteCond %{REQUEST_FILENAME}\.gz -s
+  RewriteRule ^(.*)\.css $1\.css\.gz [QSA]
+
+  # Serve brotli compressed JS files if they exist and the client accepts gzip.
+  RewriteCond %{HTTP:Accept-encoding} br
+  RewriteCond %{REQUEST_FILENAME}\.br -s
+  RewriteRule ^(.*)\.js $1\.js\.br [QSA]
+
+  # Serve gzip compressed JS files if they exist and the client accepts gzip.
+  RewriteCond %{HTTP:Accept-encoding} gzip
+  RewriteCond %{REQUEST_FILENAME}\.gz -s
+  RewriteRule ^(.*)\.js $1\.js\.gz [QSA]
+
+  # Serve correct content types, and prevent mod_deflate double gzip.
+  RewriteRule \.css\.gz$ - [T=text/css,E=no-gzip:1]
+  RewriteRule \.js\.gz$ - [T=text/javascript,E=no-gzip:1]
+  RewriteRule \.css\.br$ - [T=text/css,E=no-gzip:1]
+  RewriteRule \.js\.br$ - [T=text/javascript,E=no-gzip:1]
+
+  <FilesMatch "(\.js\.gz|\.css\.gz)$">
+    # Serve correct encoding type.
+    Header set Content-Encoding gzip
+    # Force proxies to cache gzipped & non-gzipped css/js files separately.
+    Header append Vary Accept-Encoding
+  </FilesMatch>
+  <FilesMatch "(\.js\.br|\.css\.br)$">
+    # Serve correct encoding type.
+    Header set Content-Encoding br
+    # Force proxies to cache gzipped & non-gzipped css/js files separately.
+    Header append Vary Accept-Encoding
+  </FilesMatch>
+</IfModule>
+
+
 <IfModule mod_deflate.c>
   AddOutputFilterByType DEFLATE application/javascript
   AddOutputFilterByType DEFLATE application/rss+xml
@@ -98,3 +113,10 @@ RewriteRule ^(.*)$ $1.br [L]
   Header set Cache-Control "max-age=2678400, private"
   </filesmatch>
 </IfModule>
+
+
+
+
+
+
+
