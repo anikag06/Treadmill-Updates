@@ -1,7 +1,5 @@
-@import '~@angular/material/theming';
-@import 'treadwill.theme.scss';
-@import 'styles.scss';
-@import '../../landing-page/landing-page.component.scss';
+@import 'common-styles.scss';
+
 @import '../../pre-login.component.scss';
 
 .footer {
@@ -12,12 +10,13 @@
   @extend .anchorify-pre-login-toolbar-button;
 }
 
-.footer-iitk-logo, .footer-links-div {
+.footer-iitk-logo,
+.footer-links-div {
   margin: 10px;
 }
 
 .footer-text {
-  color: $mat-white;
+  color: white;
 
   @media (max-width: $screen-size-xs-sm) {
     font-size: 12px;

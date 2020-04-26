@@ -165,6 +165,7 @@ import { GamesFeedbackService } from './games/games-list/common-game/games-feedb
 import { ThingsTodoService } from '@/main/dashboard/things-todo/things-todo.service';
 import { ExtraResourcesService } from '@/main/extra-resources/extra-resources.service';
 import { InternetConnectionComponent } from '@/shared/internet-connection/internet-connection.component';
+import { SharedModule } from '@/shared/shared.module';
 
 // import { Resources2Routing } from './extra-resources/extra-resources-routing.module.ts/extra-resources-routing.module.ts.component';
 
@@ -297,8 +298,8 @@ import { InternetConnectionComponent } from '@/shared/internet-connection/intern
     OverlayModule,
     MatTooltipModule,
     QuestionnaireModule,
-    ResourcesModule,
     MatRippleModule,
+    SharedModule,
   ],
   providers: [
     LocalStorageService,

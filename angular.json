@@ -15,8 +15,15 @@
       },
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-builders/custom-webpack:browser",
           "options": {
+            "customWebpackConfig": {
+              "path": "extra-webpack.config.js",
+              "replaceDuplicatePlugins": true,
+              "mergeStrategies": {
+                "externals": "prepend"
+              }
+            },
             "outputPath": "dist/treadwill-v2-fe",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -39,6 +46,7 @@
               "src/styles.scss",
               "src/treadwill.theme.scss",
               "src/color.palette.scss",
+              "src/common-styles.scss",
               "node_modules/normalize.css/normalize.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               {

@@ -3,12 +3,36 @@ RewriteEngine On
 RewriteCond %{HTTPS} !on
 RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
 # If an existing asset or directory is requested go to it as it is
-RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -f [OR]
-RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
-RewriteRule ^ - [L]
+# RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -f [OR]
+# RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
+# RewriteRule ^ - [L]
 
 # If the requested resource doesn't exist, use index.html
-RewriteRule ^ ./index.html
+RewriteRule ^ ./index.html.br
+
+# Brotli compression
+RewriteCond %{HTTP:Accept-Encoding} br
+RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI}.br -f [OR]
+RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI}.br -d
+RewriteRule ^(.*)$ $1.br [L]
+
+<Files *.js.br>
+    AddType "text/javascript" .br
+    AddEncoding br .br
+</Files>
+<Files *.css.br>
+    AddType "text/css" .br
+    AddEncoding br .br
+</Files>
+<Files *.svg.br>
+    AddType "image/svg+xml" .br
+    AddEncoding br .br
+</Files>
+<Files *.html.br>
+    AddType "text/html" .br
+    AddEncoding br .br
+</Files>
+
 
 
 # Enable Compression
