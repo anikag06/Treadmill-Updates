@@ -695,7 +695,7 @@ export class QuestionnaireComponent implements OnInit {
             error => console.log(error),
           );
           // this.router.navigate(['/']);
-          // this.location.back();
+          this.location.back();
         }
       });
     } else if (this.fromFlow === false && this.fromTrialRegistration === true) {

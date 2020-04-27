@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {StepGroup} from "@/main/flow/step-group/step-group.model";
-import {ACTIVE, CONCLUSION_PAGE} from "@/app.constants";
-import {Step} from "@/main/flow/step-group/step/step.model";
-import {QuizService} from "@/shared/questionnaire/questionnaire.service";
-import {StepsDataService} from "@/main/resources/shared/steps-data.service";
-import {FlowService} from "@/main/flow/flow.service";
-import {ConclusionService} from "@/main/resources/conclusion/conclusion.service";
+import {StepGroup} from '@/main/flow/step-group/step-group.model';
+import {ACTIVE, CONCLUSION_PAGE} from '@/app.constants';
+import {Step} from '@/main/flow/step-group/step/step.model';
+import {QuizService} from '@/shared/questionnaire/questionnaire.service';
+import {StepsDataService} from '@/main/resources/shared/steps-data.service';
+import {FlowService} from '@/main/flow/flow.service';
+import {ConclusionService} from '@/main/resources/conclusion/conclusion.service';
 
 @Component({
   selector: 'app-conclusion',
@@ -25,10 +25,7 @@ export class ConclusionComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log('ME', this.conclusionService.moodEvaluate);
-    // if (this.conclusionService.moodEvaluate) {
       this.flowService.getFlow().subscribe((data: any) => {
-        console.log('DATA', data);
         this.loading = false;
         const step_group = data.step_groups.find(
           (sg: StepGroup) => sg.status === ACTIVE,
@@ -42,7 +39,7 @@ export class ConclusionComponent implements OnInit {
             );
           });
           if (this.step && this.step.status === ACTIVE) {
-            console.log(this.step);
+            this.conclusionService.moodEvaluate = true;
             this.stepID = this.step.id;
             console.log('current step id', this.stepID);
             console.log('get step data');
@@ -52,12 +49,11 @@ export class ConclusionComponent implements OnInit {
                 console.log('step data is:', step_data);
                 this.quizService.questinnaire_name =
                   step_data.data.next_questionnaire;
-                // this.quizService.questionnaireActive = true;
-                // this.active = true;
               });
+          } else {
+            this.conclusionService.moodEvaluate = false;
           }
         }
       });
-    // }
   }
 }
