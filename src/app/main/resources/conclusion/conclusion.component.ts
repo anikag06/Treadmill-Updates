@@ -47,11 +47,13 @@ export class ConclusionComponent implements OnInit {
               .getStepData(this.stepID)
               .subscribe((step_data: any) => {
                 console.log('step data is:', step_data);
-                this.quizService.questinnaire_name =
-                  step_data.data.next_questionnaire;
+                if (step_data.data.next_questionnaire) {
+                  this.quizService.questinnaire_name =
+                    step_data.data.next_questionnaire;
+                } else {
+                  this.conclusionService.moodEvaluate = false;
+                }
               });
-          } else {
-            this.conclusionService.moodEvaluate = false;
           }
         }
       });

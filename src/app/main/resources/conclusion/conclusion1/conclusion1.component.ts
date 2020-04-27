@@ -53,7 +53,9 @@ export class Conclusion1Component implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.showQuestionnaire =  this.conclusionService.moodEvaluate;
+    if (this.conclusionService.step_group_sequence === 1) {
+      this.showQuestionnaire = this.conclusionService.moodEvaluate;
+    }
     this.activatedRoute.url.subscribe(data => {
       this.stepGroupSequence = +data[0].path;
       this.stepDataService
