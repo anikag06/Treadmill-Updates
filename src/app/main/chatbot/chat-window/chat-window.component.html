@@ -19,7 +19,9 @@
   >
     <div
       class="chat-frame"
-      [ngStyle]="{ height: showTextInput ? 'calc(100% - 50px)' : '100%' }"
+      [ngStyle]="{
+        height: showTextInput ? 'calc(100% - ' + offsetHeight() + 'px)' : '100%'
+      }"
       #messagesDiv
       [scrollTop]="scrollTop"
       appInfiniteScroll
@@ -38,13 +40,6 @@
               <!-- <span class="date-time">{{m.datetime | date: 'short' }}</span> -->
             </div>
           </ng-container>
-          <!--          <ng-template #waiting>-->
-          <!--            <div class="message bot">-->
-          <!--              <div class="message-text waiting">-->
-          <!--                <div class="dot-typing"></div>-->
-          <!--              </div>-->
-          <!--            </div>-->
-          <!--          </ng-template>-->
         </div>
         <div
           *ngFor="let embed_link of m.embed_links; let i = index"
@@ -55,16 +50,15 @@
           </ng-container>
           <ng-template #image>
             <app-chat-image [image]="embed_link"></app-chat-image>
-            {{ embed_link.type }}
           </ng-template>
         </div>
 
         <div *ngFor="let widget of m.widgets">
-          <!--        {{widget}}-->
           <div class="buttons">
             <button
               (click)="onMoodSelect()"
               *ngIf="widget === moodWidget && showMoodWidgetBtn"
+              class="btn radio_button"
             >
               <span class="btn-text">Select your mood</span>
             </button>
@@ -77,8 +71,9 @@
               ></app-mood-tracker>
             </div>
             <button
+              class="btn radio_button"
               (click)="onDateTimeSelect()"
-              *ngIf="widget === dateTimeWidget"
+              *ngIf="widget === dateTimeWidget && showDateTimeWidgetBtn"
             >
               Date Time
             </button>
@@ -171,7 +166,7 @@
     <div class="form-div" *ngIf="showTextInput">
       <!--  *ngIf="showTextInput"{{showButtons.length < 1}}{{!isWaiting}}-->
       <form (ngSubmit)="onChatSubmit()">
-        <div class="textarea">
+        <div #textArea class="textarea">
           <!--                <mat-form-field class="full-width">-->
           <textarea
             matInput

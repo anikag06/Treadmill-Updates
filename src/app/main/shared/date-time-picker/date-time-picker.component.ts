@@ -34,7 +34,7 @@ export class DateTimePickerComponent
     private dateTimePickerService: DateTimePickerService,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
-    WEEK.forEach(day => {
+    WEEK.forEach((day) => {
       const newDay = new Day(day, true);
       this.daysCircle.push(newDay);
     });
@@ -129,7 +129,9 @@ export class DateTimePickerComponent
     );
 
     const repeat = this.getRepeatedDays(this.daysCircle);
-    const chatDateTimeMessage = date + '<br/>' + hourMinute + '<br/>' + repeat;
+    // const chatDateTimeMessage = date + '<br/>' + hourMinute + '<br/>' + repeat;
+    const chatDateTimeMessage =
+      "I'll do this task at " + hourMinute + ' on ' + repeat + ' from ' + date;
     this.closeModal();
     const dateTimeValues = [
       {
@@ -176,8 +178,8 @@ export class DateTimePickerComponent
         this.formDataDays.push(WEEK[i]);
       }
     }
-    let repeat = 'Repeat:';
-    repeat += repeatedDays.join(',');
+
+    const repeat: string  = repeatedDays.join(',');
     return repeat;
   }
 

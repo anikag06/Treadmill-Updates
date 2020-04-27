@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import * as moment from 'moment';
 
 @Injectable({
@@ -8,17 +8,13 @@ export class DateTimePickerService {
   constructor() {}
   getTimeAmPm(endDate: Date): string {
     const time = moment(endDate).format('hh:mm A');
-    return 'Time:' + time.toString();
+    return time.toString();
   }
 
   getDateRange(startDate: Date, endDate: Date): string {
-    const fromDate = moment(startDate)
-      .format('DD-MM-YY')
-      .toString();
-    const toDate = moment(endDate)
-      .format('DD-MM-YY')
-      .toString();
-    return 'Date:' + fromDate + ' to ' + toDate;
+    const fromDate = moment(startDate).format('Do MMM\'YY').toString();
+    const toDate = moment(endDate).format('Do MMM\'YY').toString();
+    return fromDate + ' to ' + toDate;
   }
 
   getUTCTime(date: Date): string {

@@ -79,13 +79,14 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   isOnline = true;
   @ViewChild('messagesDiv', { static: false }) messagesDiv!: ElementRef;
   @ViewChild('ti', { static: false }) ti!: ElementRef;
+  @ViewChild('textArea', { static: false }) textArea!: ElementRef;
   @Input() chatWindowClosed = false;
   @Output() chatWindowClosedEmitter = new EventEmitter<Boolean>();
   counter = 4;
   showMore = false;
   showButtons = [];
   buttonsBuffer = [];
-  widgetValues: any[] = [];
+  widgetValues!: any;
   showMoodWidgetBtn = true;
   showDateTimeWidgetBtn = true;
   showMaintenance = false;
@@ -98,6 +99,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   mobileView!: boolean;
   @Input() currentDateTime!: any;
   isLoading = false;
+  multiLineChat: string[] = [];
   ngOnChanges(): void {
     if (this.chatWindowClosed === false) {
       if (
@@ -173,7 +175,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       this.widgetValues = [];
       // setTimeout(() => {}, 4000);
       //   widgets": [{"widget_value":[],"widget_payload":"",}]
-      if (widgetValues.value.length > 0) {
+      if (widgetValues.value) {
         this.webSocket.send(
           JSON.stringify({
             action: REPLY_CURRENT,
@@ -255,7 +257,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     );
     this.webSocket.onopen = (event) => {
       this.webSocket.send(
-        JSON.stringify({ action: type, module_name: 'decide_activity' }),
+        JSON.stringify({ action: type, module_name: 'set_activity' }),
       );
     };
     this.webSocket.onmessage = (message: any) => {
@@ -507,6 +509,9 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
               this.allMessagesLoaded = true;
               this.showSpinner = false;
             }
+            const firstMessageBox = this.messagesDiv.nativeElement.querySelectorAll(
+              '.message-text',
+            );
             data.data.messages.reverse().forEach((message: any) => {
               this.pushImages(message);
               this.messages.unshift(
@@ -524,9 +529,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
               );
 
               this.showSpinner = false;
-              this.scrollTop =
-                this.messagesDiv.nativeElement.offsetHeight +
-                5 * (this.page - 1);
+              firstMessageBox[0].scrollIntoView();
             });
           }
         });
@@ -547,18 +550,60 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     }
     this.scrollToBottom();
   }
+
+  offsetHeight() {
+    if (this.textArea) {
+      return this.textArea.nativeElement.offsetHeight;
+    } else {
+      return 0;
+    }
+  }
   //
   sendReply(event: any) {
-    clearTimeout(this.timeout);
-    const $this = this;
+    window.clearTimeout(this.timeout);
     if (event.keyCode === 13) {
+      this.message = this.message.replace(/[\n\t\r]/g, '');
+      this.messages.push(
+        new Chat(
+          twemoji.parse(this.message),
+          true,
+          [],
+          '',
+          '',
+          new Date(),
+          false,
+          [],
+          [],
+        ),
+      );
+      this.multiLineChat.push(this.message);
+      this.scrollToBottom();
+      this.message = '';
+      console.log(this.isMultiLineInput);
       this.timeout = setTimeout(
-        function () {
-          $this.onChatSubmit();
-          $this.isMultiLineInput = false;
+        () => {
+          // $this.onChatSubmit();
+          this.submitMultiLineChat(this.multiLineChat);
+          this.isMultiLineInput = false;
         },
         this.isMultiLineInput ? 4000 : 0,
       );
     }
+  }
+
+  submitMultiLineChat(multiLineChat: string[]) {
+    console.log(multiLineChat);
+    this.webSocket.send(
+      JSON.stringify({
+        action: REPLY_CURRENT,
+        message: {
+          text: multiLineChat,
+          buttons: [],
+          widgets: [],
+        },
+      }),
+    );
+    this.showTextInput = false;
+    this.multiLineChat = [];
   }
 }
