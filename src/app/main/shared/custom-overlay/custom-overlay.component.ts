@@ -2,6 +2,7 @@ import {Component, ComponentFactoryResolver, OnInit, ViewChild} from '@angular/c
 import {NavbarFlowDirective} from '@/main/shared/navbar/navbar-flow.directive';
 import {NavbarFlowComponent} from '@/main/shared/navbar/navbar-flow/navbar-flow.component';
 import {NavbarNotificationsService} from '@/main/shared/navbar/navbar-notifications.service';
+import {CustomOverlayService} from "@/main/shared/custom-overlay/custom-overlay.service";
 
 @Component({
   selector: 'app-custom-overlay',
@@ -14,12 +15,13 @@ export class CustomOverlayComponent implements OnInit {
   showFlow!: boolean;
   constructor(private componentFactoryResolver: ComponentFactoryResolver,
               private notificationService: NavbarNotificationsService,
+              private overlayService: CustomOverlayService,
   ) { }
 
   ngOnInit() {
   }
   ngAfterViewInit() {
-    if (this.notificationService.showFlow) {
+    if (this.overlayService.showFlow) {
       const navbarFLowComponentFactory = this.componentFactoryResolver.resolveComponentFactory(NavbarFlowComponent);
       const hostViewContainerRef = this.flowHost.viewContainerRef;
       hostViewContainerRef.clear();
@@ -30,5 +32,10 @@ export class CustomOverlayComponent implements OnInit {
         }, 500);
       });
     }
+   }
+   onClick() {
+     if (!this.overlayService.showChatbot) {
+       this.notificationService.closeNavFlow.emit();
+     }
    }
 }

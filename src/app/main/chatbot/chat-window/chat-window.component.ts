@@ -31,6 +31,7 @@ import {
 import { MatDialog } from '@angular/material';
 import { environment } from '../../../../environments/environment';
 import {NavbarNotificationsService} from '@/main/shared/navbar/navbar-notifications.service';
+import {CustomOverlayService} from "@/main/shared/custom-overlay/custom-overlay.service";
 
 declare var twemoji: any;
 
@@ -85,6 +86,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     private authService: AuthService,
     private changRef: ChangeDetectorRef,
     public dialog: MatDialog,
+    private overlayService: CustomOverlayService,
     private notificationService: NavbarNotificationsService,
     private elementRef: ElementRef,
   ) {
@@ -253,10 +255,11 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     if (!this.overlayOpen) {
       this.closeChat();
     } else {
-      setTimeout( () => {
+      setTimeout(() => {
         this.closeChat();
-      }, 500); }
-    this.notificationService.closeChatbotOverlay.emit();
+      }, 500);
+      this.overlayService.closeChatbotOverlay.emit();
+    }
   }
 
   ngOnDestroy(): void {

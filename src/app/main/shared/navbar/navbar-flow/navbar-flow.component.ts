@@ -1,6 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {animate, keyframes, state, style, transition, trigger} from '@angular/animations';
 import {NavbarNotificationsService} from '@/main/shared/navbar/navbar-notifications.service';
+import {CustomOverlayService} from "@/main/shared/custom-overlay/custom-overlay.service";
 
 @Component({
   selector: 'app-navbar-flow',
@@ -24,11 +25,17 @@ export class NavbarFlowComponent implements OnInit {
   isFlowVisible!: boolean;
   constructor(
     private notificationService: NavbarNotificationsService,
+    private overlayService: CustomOverlayService,
     ) {}
   navBar = true;
 
   ngOnInit() {
-    // this.isFlowVisible = true;
+    this.notificationService.closeNavFlow.subscribe( () => {
+      if (!this.overlayService.showChatbot) {
+      this.isFlowVisible = false;
+      this.overlayService.showFlow = false;
+    }
+    });
 
   }
   ngAfterViewInit() {
@@ -38,8 +45,6 @@ export class NavbarFlowComponent implements OnInit {
   }
 
   onClose() {
-    this.isFlowVisible = false;
-    this.notificationService.showFlow = false;
     this.notificationService.closeNavFlow.emit();
   }
 }

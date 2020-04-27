@@ -32,6 +32,7 @@ import {DialogBoxService} from '@/main/shared/custom-dialog/dialog-box.service';
 import {SlidesVideoComponent} from '@/main/resources/slides/slides-video/slides-video.component';
 import {DialogPosition, MatDialog} from '@angular/material/dialog';
 import {CustomOverlayComponent} from '@/main/shared/custom-overlay/custom-overlay.component';
+import {CustomOverlayService} from "@/main/shared/custom-overlay/custom-overlay.service";
 
 @Component({
   selector: 'app-navbar',
@@ -43,7 +44,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   flowHost!: NavbarFlowDirective;
   @ViewChild(NavbarNotificationDirective, { static: false })
   notificationHost!: NavbarNotificationDirective;
-  @ViewChild('flowTrigger', { static: false }) flowTrigger!: MatMenuTrigger;
+  // @ViewChild('flowTrigger', { static: false }) flowTrigger!: MatMenuTrigger;
 
   intervalSubscription!: Subscription;
   showFlow = false;
@@ -69,6 +70,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private conversationservice: ConversationsService,
     public dialog: MatDialog,
     private location: Location,
+    private overlayService: CustomOverlayService,
     ) {
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationStart) {
@@ -128,10 +130,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
     });
     this.notificationService.closeNavFlow.subscribe(() => {
       console.log('close menu');
-      this.flowTrigger.closeMenu();
+      // this.flowTrigger.closeMenu();
     });
     console.log('is HANDSET', this.isHandset$);
   }
+
 
   notificationClick() {
     this.showNotifications = !this.showNotifications;
@@ -152,7 +155,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   flowClick(event: any) {
     this.notificationService.openNavFlow.emit();
-    this.notificationService.showFlow = true;
+    this.overlayService.showFlow = true;
     console.log('flow host', this.flowHost);
     const navbarFLowComponentFactory = this.componentFactoryResolver.resolveComponentFactory(CustomOverlayComponent);
     const hostViewContainerRef = this.flowHost.viewContainerRef;
@@ -160,7 +163,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
     hostViewContainerRef.createComponent(navbarFLowComponentFactory);
     this.notificationService.closeNavFlow.subscribe( () => {
       setTimeout( () => {
-        hostViewContainerRef.clear();
+        if (!this.overlayService.showChatbot) {
+          hostViewContainerRef.clear();
+        }
       }, 500);
     });
   }
