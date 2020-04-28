@@ -7,10 +7,8 @@ import { ConclusionService } from '../conclusion.service';
 import { StepsDataService } from '../../shared/steps-data.service';
 import { StepCompleteData } from '../../shared/completion-data.model';
 import { CommonDialogsService } from '../../shared/common-dialogs.service';
-import {Step} from "@/main/flow/step-group/step/step.model";
-import {QuizService} from "@/shared/questionnaire/questionnaire.service";
-import {StepGroup} from "@/main/flow/step-group/step-group.model";
-import {FlowService} from "@/main/flow/flow.service";
+import {Step} from '@/main/flow/step-group/step/step.model';
+import {QuizService} from '@/shared/questionnaire/questionnaire.service';
 
 @Component({
   selector: 'app-conclusion1',
@@ -48,14 +46,9 @@ export class Conclusion1Component implements OnInit, OnDestroy {
     private stepDataService: StepsDataService,
     private commonDialogService: CommonDialogsService,
     private quizService: QuizService,
-    private stepsService: StepsDataService,
-    private flowService: FlowService,
   ) {}
 
   ngOnInit() {
-    if (this.conclusionService.step_group_sequence === 1) {
-      this.showQuestionnaire = this.conclusionService.moodEvaluate;
-    }
     this.activatedRoute.url.subscribe(data => {
       this.stepGroupSequence = +data[0].path;
       this.stepDataService
@@ -70,6 +63,7 @@ export class Conclusion1Component implements OnInit, OnDestroy {
       .getConclusionData(this.stepGroupSequence)
       .subscribe(data => {
         if (data.user_step_status != LOCKED) {
+          console.log('data', data);
           this.moduleName = data.module_name;
           this.nextModuleName = data.next_module_name;
           this.currentStepId = data.current_step_id;
@@ -83,6 +77,20 @@ export class Conclusion1Component implements OnInit, OnDestroy {
           this.locked = true;
         }
         this.dataLoaded = true;
+        this.stepDataService
+          .getStepData(this.currentStepId)
+          .subscribe((step_data: any) => {
+            console.log('step data is:', step_data);
+            if (step_data.data.next_questionnaire) {
+            this.quizService.questinnaire_name =
+            step_data.data.next_questionnaire;
+            this.conclusionService.moodEvaluate = true;
+            } else {
+            this.conclusionService.moodEvaluate = false;
+            }
+            this.conclusionService.evaluateMood.emit();
+            this.showQuestionnaire = this.conclusionService.moodEvaluate;
+          });
       });
   }
 

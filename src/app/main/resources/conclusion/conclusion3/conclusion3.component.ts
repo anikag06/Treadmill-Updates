@@ -7,6 +7,7 @@ import { ConclusionService } from '../conclusion.service';
 import { StepsDataService } from '../../shared/steps-data.service';
 import { StepCompleteData } from '../../shared/completion-data.model';
 import { CommonDialogsService } from '../../shared/common-dialogs.service';
+import {QuizService} from '@/shared/questionnaire/questionnaire.service';
 
 @Component({
   selector: 'app-conclusion3',
@@ -42,6 +43,8 @@ export class Conclusion3Component implements OnInit {
     private router: Router,
     private stepDataService: StepsDataService,
     private commonDialogService: CommonDialogsService,
+    private quizService: QuizService,
+    private stepsService: StepsDataService,
   ) {}
 
   ngOnInit() {
@@ -75,8 +78,20 @@ export class Conclusion3Component implements OnInit {
           this.locked = true;
         }
         this.dataLoaded = true;
+        this.stepDataService
+          .getStepData(this.currentStepId)
+          .subscribe((step_data: any) => {
+            console.log('step data is:', step_data);
+            if (step_data.data.next_questionnaire) {
+              this.quizService.questinnaire_name =
+                step_data.data.next_questionnaire;
+              this.conclusionService.moodEvaluate = true;
+            } else {
+              this.conclusionService.moodEvaluate = false;
+            }
+            this.showQuestionnaire =  this.conclusionService.moodEvaluate;
+          });
       });
-    this.showQuestionnaire =  this.conclusionService.moodEvaluate;
   }
 
   saveData() {

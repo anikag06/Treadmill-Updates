@@ -7,6 +7,7 @@ import { ConclusionService } from '../conclusion.service';
 import { StepsDataService } from '../../shared/steps-data.service';
 import { StepCompleteData } from '../../shared/completion-data.model';
 import { CommonDialogsService } from '../../shared/common-dialogs.service';
+import {QuizService} from '@/shared/questionnaire/questionnaire.service';
 
 @Component({
   selector: 'app-conclusion2',
@@ -37,6 +38,7 @@ export class Conclusion2Component implements OnInit {
     private router: Router,
     private stepDataService: StepsDataService,
     private commonDialogService: CommonDialogsService,
+    private quizService: QuizService,
   ) {}
 
   ngOnInit() {
@@ -45,7 +47,7 @@ export class Conclusion2Component implements OnInit {
       this.stepDataService
         .getBadgeInfo(this.stepGroupSequence)
         .subscribe((badge_data: any) => {
-          console.log(badge_data);
+          console.log('badge_data', badge_data);
           this.commonDialogService.updateBadgeInfo(badge_data.results);
         });
     });
@@ -68,8 +70,21 @@ export class Conclusion2Component implements OnInit {
           this.locked = true;
         }
         this.dataLoaded = true;
+        this.stepDataService
+          .getStepData(this.currentStepId)
+          .subscribe((step_data: any) => {
+            console.log('step data is:', step_data);
+            if (step_data.data.next_questionnaire) {
+              console.log('QUESTION:', step_data);
+              this.quizService.questinnaire_name =
+                step_data.data.next_questionnaire;
+              this.conclusionService.moodEvaluate = true;
+            } else {
+              this.conclusionService.moodEvaluate = false;
+            }
+            this.showQuestionnaire =  this.conclusionService.moodEvaluate;
+          });
       });
-    this.showQuestionnaire =  this.conclusionService.moodEvaluate;
   }
 
   ngOnDestroy() {

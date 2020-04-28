@@ -11,6 +11,7 @@ import { CONCLUSION_DATA } from '@/app.constants';
 export class ConclusionService {
   moodEvaluate!: boolean;
   step_group_sequence!: number;
+  evaluateMood = new EventEmitter<any>();
 
   constructor(private http: HttpClient) {}
 
