@@ -173,6 +173,8 @@ class LevelOne extends Phaser.Scene {
 
     create() {
 
+      ASGLevelId = 1;
+
         this.lastFired = 0;
 
         // Total Time given to player
@@ -181,6 +183,7 @@ class LevelOne extends Phaser.Scene {
         this.totalBalloon = 0;
         this.totalBalloonBlown = 0;
         this.totalBalloonMissed = 0;
+        this.totalArrowsFired = 1;
 
         this.arrowInAir=false;
 
@@ -313,17 +316,33 @@ class LevelOne extends Phaser.Scene {
                     this.gameOverTxt.setVisible(true);
                     this.scene.stop();
                     this.registry.set('questionNumber', '1');
+                    ASGBalloonsBurst = this.totalBalloonBlown;
+                    ASGTotalBaloons = 30;
+                    ASGArrowsFired = this.totalArrowsFired - this.totalBalloonBlown;
                     this.registry.set('totalBalloonMissed', 30 - this.totalBalloonBlown);
                     this.registry.set('totalBalloon', 30);
                     this.registry.set('ParallelScene', 'ScoreDisplay');
                     this.scene.start('ScoreDisplay');
                     this.registry.set('currentScene', 'LevelTwo');
+                  this.updateBadges();
                 }
             },
             callbackScope: this.scene,
             loop: true
         });
-    }
+
+
+    };
+
+  ASGPostIndividualLevelPerformanceEvent;
+
+  updateBadges() {
+    this.ASGPostIndividualLevelPerformanceEvent = document.createEvent('CustomEvent');
+    this.ASGPostIndividualLevelPerformanceEvent.initCustomEvent('ASGPostIndividualLevelPerformance');
+    window.dispatchEvent(this.ASGPostIndividualLevelPerformanceEvent);
+  }
+
+
 
 
 
@@ -417,6 +436,7 @@ class LevelOne extends Phaser.Scene {
     }
 
     resetArrow() {
+        this.totalArrowsFired++;
         this.arrow.setOrigin(0, 0.5);
         this.arrowPoint.enableBody(true, 100, 650, true, true);
         this.arrow.enableBody(true, 100, 650, true, true);
@@ -431,6 +451,7 @@ class LevelOne extends Phaser.Scene {
     }
 
     reset() {
+      this.totalArrowsFired++;
         this.arrowInAir = false;
         this.isArrowReady = true;
         this.arrow.setVisible(true);
@@ -507,10 +528,13 @@ class LevelTwo extends Phaser.Scene {
     }
 
     create() {
+      ASGLevelId = 2;
 
         this.lastFired = 0;
+      this.totalArrowsFired = 1;
 
-        // Total Time given to player
+
+      // Total Time given to player
         this.totalTime = 5;
 
         this.totalBalloon = 0;
@@ -668,6 +692,11 @@ class LevelTwo extends Phaser.Scene {
                 if (this.totalTime === 0) {
                     this.isGameOver = true;
                     this.gameOverTimer.remove();
+
+                  ASGBalloonsBurst = this.totalBalloonBlown;
+                  ASGTotalBaloons = this.totalBalloon;
+                  ASGArrowsFired = this.totalArrowsFired - this.totalBalloonBlown;
+
                     this.gameOverTxt.setVisible(true);
                     this.registry.set('questionNumber', '2');
                     this.registry.set('totalBalloonMissed', this.totalBalloon - this.totalBalloonBlown);
@@ -675,12 +704,20 @@ class LevelTwo extends Phaser.Scene {
                     this.scene.stop();
                     this.scene.start('ScoreDisplay');
                     this.registry.set('currentScene', 'LevelThree');
+                  this.updateBadges();
                 }
             },
             callbackScope: this.scene,
             loop: true
         });
     }
+
+  ASGPostLevelTwoPerformanceEvent;
+
+  updateBadges() {
+    this.ASGPostLevelTwoPerformanceEvent = document.createEvent('CustomEvent');
+    this.ASGPostLevelTwoPerformanceEvent.initCustomEvent('ASGPostLevelTwoPerformance');
+    window.dispatchEvent(this.ASGPostLevelTwoPerformanceEvent);}
 
     bowMovement(pointer) {
         if (!this.isGameStart) return;
@@ -769,6 +806,7 @@ class LevelTwo extends Phaser.Scene {
     }
 
     resetArrow() {
+        this.totalArrowsFired++;
         this.arrow.setOrigin(0, 0.5);
         this.arrowPoint.enableBody(true, 100, 650, true, true);
         this.arrow.enableBody(true, 100, 650, true, true);
@@ -783,6 +821,7 @@ class LevelTwo extends Phaser.Scene {
     }
 
     reset() {
+      this.totalArrowsFired++;
         this.arrowInAir = false;
         this.isArrowReady = true;
         this.arrow.setVisible(true);
@@ -875,8 +914,10 @@ class LevelThree extends Phaser.Scene {
     }
 
     create() {
+      ASGLevelId = 3;
 
         this.lastFired = 0;
+      this.totalArrowsFired = 1;
 
         // Total Time given to player
         this.totalTime = 5;
@@ -1053,12 +1094,18 @@ class LevelThree extends Phaser.Scene {
                 if (this.totalTime === 0) {
                     this.isGameOver = true;
                     this.gameOverTimer.remove();
+
+                  ASGBalloonsBurst = this.totalBalloonBlown;
+                  ASGTotalBaloons = this.totalBalloon;
+                  ASGArrowsFired = this.totalArrowsFired - this.totalBalloonBlown;
+
                     this.gameOverTxt.setVisible(true);
                     this.registry.set('questionNumber', '3');
                     this.registry.set('totalBalloonMissed', this.totalBalloon - this.totalBalloonBlown);
                     this.registry.set('totalBalloon', this.totalBalloon);
                     this.scene.start('ScoreDisplay');
                     this.registry.set('currentScene', 'LevelThree');
+                  this.updateBadges();
                 }
             },
             callbackScope: this.scene,
@@ -1072,6 +1119,13 @@ class LevelThree extends Phaser.Scene {
             loop: true
         });
     }
+
+  ASGPostIndividualLevelPerformanceEvent;
+
+  updateBadges() {
+    this.ASGPostIndividualLevelPerformanceEvent = document.createEvent('CustomEvent');
+    this.ASGPostIndividualLevelPerformanceEvent.initCustomEvent('ASGPostIndividualLevelPerformance');
+    window.dispatchEvent(this.ASGPostIndividualLevelPerformanceEvent);}
 
     createFreezeBalloon() {
         if (this.isGameOver) return;
@@ -1199,6 +1253,7 @@ class LevelThree extends Phaser.Scene {
     }
 
     resetArrow() {
+      this.totalArrowsFired++;
         this.arrow.setOrigin(0, 0.5);
         this.arrowPoint.enableBody(true, 100, 650, true, true);
         this.arrow.enableBody(true, 100, 650, true, true);
@@ -1213,6 +1268,7 @@ class LevelThree extends Phaser.Scene {
     }
 
     reset() {
+      this.totalArrowsFired++;
         this.arrowInAir = false;
         this.isArrowReady = true;
         this.arrow.setVisible(true);
@@ -1284,6 +1340,7 @@ class LevelThree extends Phaser.Scene {
 
             }
         });
+
     }
 }
 
@@ -1303,75 +1360,126 @@ class LevelThree extends Phaser.Scene {
         this.questionNumber = "que1";
 
         let Title = "Based on your experience in the previous game, answer the questions that follow.";
-          console.log(ASGAnswer);
+          // console.log(ASGUserPerformance);
+          // console.log(ASGAnswer.results[2]);
+          // console.log(ASGQuestions.results[0].question_text);
+          this.q1 = ASGQuestions.results[0].question_text;
+      this.q2 = ASGQuestions.results[1].question_text;
+      this.q3 = ASGQuestions.results[2].question_text;
+      this.q4 = ASGQuestions.results[3].question_text;
+      this.q5 = ASGQuestions.results[4].question_text;
+      this.q6 = ASGQuestions.results[5].question_text;
+      this.q7 = ASGQuestions.results[6].question_text;
+      this.q8 = ASGQuestions.results[7].question_text;
+      this.q9 = ASGQuestions.results[8].question_text;
+      this.q10 = ASGQuestions.results[9].question_text;
+
+
+      this.Answers1 = {
+        "ans1": ASGAnswer.results[1].answer_text,
+        "ans2": ASGAnswer.results[0].answer_text,
+        "ans3": ASGAnswer.results[2].answer_text,
+        "ans4": ASGAnswer.results[3].answer_text,
+        "ans5": ASGAnswer.results[4].answer_text,
+        "ans6": ASGAnswer.results[5].answer_text,
+        "ans7": ASGAnswer.results[6].answer_text,
+        "ans8": ASGAnswer.results[7].answer_text,
+        "ans9": ASGAnswer.results[8].answer_text,
+        "ans10": ASGAnswer.results[9].answer_text,
+        "ans11": ASGAnswer.results[10].answer_text,
+        "ans12": ASGAnswer.results[11].answer_text,
+        "ans13": ASGAnswer.results[12].answer_text,
+        "ans14": ASGAnswer.results[13].answer_text,
+        "ans15": ASGAnswer.results[14].answer_text,
+        "ans16": ASGAnswer.results[15].answer_text,
+        "ans17": ASGAnswer.results[16].answer_text,
+        "ans18": ASGAnswer.results[17].answer_text,
+        "ans19": ASGAnswer.results[18].answer_text,
+        "ans20": ASGAnswer.results[19].answer_text
+      };
+
+
+
+
+
+
+
+
 
 
 
 
         this.Answers = {
-            "ans1": "Good",
-            "ans2": "Bad",
-            "ans3": "I am good at playing games like these.",
-            "ans4": "This game was easy to play.",
-            "ans5": "I am bad at playing games like these.",
-            "ans6": "This game was difficult to play.",
-            "ans7": "Yes",
-            "ans8": "No",
-            "ans9": "No, I somehow played well this time. I am not usually good at games.",
-            "ans10": "Yes, I did not play well just one time.",
-            "ans11": "No, I cannot be good at it.",
-            "ans12": "No, I don't think so."
+            "ans1": ASGAnswer.results[1].answer_text,
+            "ans2": ASGAnswer.results[0].answer_text,
+            "ans3": ASGAnswer.results[2].answer_text,
+            "ans4": ASGAnswer.results[3].answer_text,
+            "ans5": ASGAnswer.results[4].answer_text,
+            "ans6": ASGAnswer.results[5].answer_text,
+            "ans7": ASGAnswer.results[6].answer_text,
+            "ans8": ASGAnswer.results[7].answer_text,
+            "ans9": ASGAnswer.results[9].answer_text,
+            "ans10": ASGAnswer.results[18].answer_text,
+            "ans11": ASGAnswer.results[19].answer_text,
+            "ans12": ASGAnswer.results[11].answer_text
         };
 
         this.Questions = {
             "que1": {
-                question: "How do you think you have performed in this game?",
+                question: this.q1,
                 ans1: {
                     ans: this.Answers.ans1,
-                    question: "Why do you think you have performed good in this game?",
-                    ans1: { ans: this.Answers.ans3, question: "0", result: "1" },
-                    ans2: { ans: this.Answers.ans4, question: "0", result: "3" }
+                    id: 2,
+                    question: this.q2,
+                    ans1: { ans: this.Answers.ans3, id: 3,  question: "0", result: "1", explanationId: 1, a1: 2, a2: 3 },
+                    ans2: { ans: this.Answers.ans4, id: 4,  question: "0", result: "3", explanationId: 3, a1: 2, a2: 4 }
                 },
                 ans2: {
                     ans: this.Answers.ans2,
-                    question: "Why do you think you have performed bad in this game?",
-                    ans1: { ans: this.Answers.ans5, question: "0", result: "2" },
-                    ans2: { ans: this.Answers.ans6, question: "0", result: "4" }
+                    id: 1,
+                    question: this.q3,
+                    ans1: { ans: this.Answers.ans5, id: 5, question: "0", result: "2", explanationId: 2, a1: 1, a2: 5 },
+                    ans2: { ans: this.Answers.ans6, id: 6, question: "0", result: "4", explanationId: 4, a1: 1, a2: 6 }
                 }
             },
             "que2": {
-                question: "Do you think you played well?",
+                question: this.q4,
                 ans1: {
                     ans: this.Answers.ans7,
-                    question: "Do you think your performance will change with time?",
+                    id: 7,
+                    question: this.q5,
                     ans1: {
                         ans: this.Answers.ans7,
-                        question: "Will it improve?",
-                        ans1: { ans: this.Answers.ans7, question: "0", result: "1" },
-                        ans2: { ans: this.Answers.ans12, question: "0", result: "3" }
+                        id: 9,
+                        question: this.q6,
+                        ans1: { ans: this.Answers.ans7, id:11, question: "0", result: "1", explanationId: 5, a1: 9, a2: 11 },
+                        ans2: { ans: this.Answers.ans12, id:12, question: "0", result: "3", explanationId: 7, a1: 9, a2: 12 }
                     },
-                    ans2: { ans: this.Answers.ans9, question: "0", result: "3" }
+                    ans2: { ans: this.Answers.ans9, id:10, question: "0", result: "3", explanationId: 7, a1: 7, a2: 10 }
                 },
                 ans2: {
                     ans: this.Answers.ans8,
-                    question: "Do you think your performance will change with time?",
-                    ans1: { ans: this.Answers.ans10, question: "0", result: "2" },
-                    ans2: { ans: this.Answers.ans11, question: "0", result: "4" }
+                    id: 8,
+                    question: this.q7,
+                    ans1: { ans: this.Answers.ans10, id:19, question: "0", result: "2", explanationId: 6, a1: 8, a2: 19 },
+                    ans2: { ans: this.Answers.ans11, id:20, question: "0", result: "4", explanationId: 8 , a1: 8, a2: 20}
                 }
             },
             "que3": {
-                question: "How do you think you have performed in this game?",
+                question: this.q8,
                 ans1: {
                     ans: this.Answers.ans1,
-                    question: "Will you be able to perform well at any other game?",
-                    ans1: { ans: this.Answers.ans7, question: "0", result: "1" },
-                    ans2: { ans: this.Answers.ans8, question: "0", result: "3" }
+                    id: 13,
+                    question: this.q9,
+                    ans1: { ans: this.Answers.ans7, id: 15, question: "0", result: "1", explanationId: 9, a1: 13, a2: 15 },
+                    ans2: { ans: this.Answers.ans8, id: 16, question: "0", result: "3", explanationId: 11, a1: 13, a2: 16 }
                 },
                 ans2: {
                     ans: this.Answers.ans2,
-                    question: "Will you perform bad at any other game as well?",
-                    ans1: { ans: this.Answers.ans7, question: "0", result: "2" },
-                    ans2: { ans: this.Answers.ans8, question: "0", result: "4" }
+                    id: 14,
+                    question: this.q10,
+                    ans1: { ans: this.Answers.ans7, id:17, question: "0", result: "2", explanationId: 10, a1: 14, a2: 17 },
+                    ans2: { ans: this.Answers.ans8, id:18, question: "0", result: "4", explanationId: 12, a1: 14, a2: 18 }
                 }
             }
         };
@@ -1461,6 +1569,10 @@ class LevelThree extends Phaser.Scene {
         this.Question1Ans2Txt.setText(queAndAns.ans2.ans, { fontFamily: '"Roboto"' });
 
         this.Question1Ans1Txt.once('pointerdown', function () {
+          AnswerId = queAndAns.ans1.id;
+          console.log(AnswerId);
+          TimeTakenToAnswer = 5;
+          this.updateBadges();
 
             // console.log(this.currentQuestion.ans1.question);
             if (this.currentQuestion.ans1.question !== "0") {
@@ -1471,6 +1583,10 @@ class LevelThree extends Phaser.Scene {
                     child.setVisible(false);
                 });
                 this.registry.set(this.questionNumber, this.currentQuestion.ans1.result);
+                ExplanationId = this.currentQuestion.ans1.explanationId;
+                Answer1Id = this.currentQuestion.ans1.a1;
+                Answer2Id = this.currentQuestion.ans1.a2;
+              this.updateExplanation();
                 this.next_btn.setVisible(true);
               this.nexttext.setVisible(true);
               this.L1text.setVisible(true);
@@ -1481,6 +1597,9 @@ class LevelThree extends Phaser.Scene {
         }, this);
 
         this.Question1Ans2Txt.once('pointerdown', function () {
+          AnswerId = queAndAns.ans2.id;
+          TimeTakenToAnswer = 5;
+          this.updateBadges();
 
             // console.log(this.currentQuestion.ans2.question);
             if (this.currentQuestion.ans2.question !== "0") {
@@ -1491,6 +1610,10 @@ class LevelThree extends Phaser.Scene {
                     child.setVisible(false);
                 });
                 this.registry.set(this.questionNumber, this.currentQuestion.ans2.result);
+              ExplanationId = this.currentQuestion.ans2.explanationId;
+              Answer1Id = this.currentQuestion.ans2.a1;
+              Answer2Id = this.currentQuestion.ans2.a2;
+              this.updateExplanation();
                 this.next_btn.setVisible(true);
                 this.nextRect.setVisible(true);
               this.nexttext.setVisible(true);
@@ -1500,6 +1623,17 @@ class LevelThree extends Phaser.Scene {
             }
         }, this);
     }
+
+    updateBadges() {
+      this.ASGpostUserAnswerEvent = document.createEvent('CustomEvent');
+      this.ASGpostUserAnswerEvent.initCustomEvent('ASGpostUserAnswer');
+      window.dispatchEvent(this.ASGpostUserAnswerEvent);}
+
+    updateExplanation() {
+      this.ASGpostUserExplanationEvent = document.createEvent('CustomEvent');
+      this.ASGpostUserExplanationEvent.initCustomEvent('ASGpostUserExplanation');
+      window.dispatchEvent(this.ASGpostUserExplanationEvent);}
+
 
     disableInput() {
         this.Question1Ans1Txt.disableInteractive();
@@ -1700,33 +1834,15 @@ class Personalisation extends Phaser.Scene {
 
     this.result = {
       "que1": {
-        "1": "When you believed that you played well in the first part of the game, you owed your success\nto your good gaming skills.\nNow, imagine that you have won a competition.Why do YOU think you won?\nIs it because you practiced hard? You had prepared for it for a long time?\nYou deserved to win the competition? Yes?\nYou tend to believe that the cause of a good event happening to you is ‘you’.\nYou have an optimistic explanation in the ‘ME’ aspect.",
+        1 :  ASGExplanations.results[0].explanation_text,
 
-        "2": "When you believed that you did not perform well in the first version of the game, you\nattributed your bad performance to the difficulty of the game.\nNow, imagine that you have lost a competition. Why do YOU think you lost?\nIs it because the competition was tough? Your opponents were better?\nYour luck was not in your favour? Yes?\nYou tend to believe that a bad event happening to you is because of some external factor.\nYou have an optimistic explanation in the ‘ME’ aspect.",
+        2 :  ASGExplanations.results[1].explanation_text,
 
-        "3": "When you believed that you played well in the first part of the game, you owed your success\nto the easy gameplay.\nNow, imagine that you have won a competition. Why do YOU think you won?\nIs it because the competition was easy? Your opponents did not perform well?\nYour luck was in your favour? Yes?\nYou tend to believe that the cause of a good event happening to you is an external factor.\nYou have a pessimistic explanation in the ‘ME’ aspect.\nHere’s a secret: The game is not as easy as it seemed to be. So, if you think you \nplayed well, you’re pretty good at it!",
+        3 :  ASGExplanations.results[2].explanation_text,
 
-        "4": "When you believed that you did not perform well in the first version of the game, you also \n you are not good at any such game.\nNow, imagine that you have lost a competition.\nWhy do YOU think you lost?\nIs it because you aren’t good enough?\nYou aren’t good at anything? You keep failing at anything you do? Yes?\nYou tend to believe that the cause of a bad event happening to you is ‘you’.\nYou have a pessimistic explanation in the ‘ME’ aspect.\nBut hey, maybe the odds were just not in your favour!"
-      },
-      "que2": {
-        "1": "After the second game you thought you performed well in the game and that your performance\nwill get better every time you play.\nNow, imagine that you have performed well in an interview that you applied for.\nDo you always interview well? Are you always confident during interviews?\nYou tend to believe that the cause of a good event is permanent and will always happen.\nYou have an ‘optimistic’ explanation in ‘Time’ aspect.",
-
-        "2": "After the second game when you believed that your performance was not good, you also said\nthat it will improve with time.\nNow, imagine that you have not performed well in an interview that you applied for.\nDo you think it will get better next time? Did you mess up just one time?\nYou tend to believe that the cause of a bad event is temporary and will improve with time.\nYou have an ‘optimistic’ explanation in ‘Time’ aspect.",
-
-        "3": "After the second game you thought you performed well in the game, but you also thought it\nwas just a one-time thing and might not happen again.\nNow, imagine that you have performed well in an interview that you applied for.\nWas it because you somehow felt confident this one-time?\nOr it was your lucky day? Other interviews will not go well?\nYou tend to believe that the cause of a good event is temporary and will not happen again.\nYou have an ‘pessimistic’ explanation in ‘Time’ aspect.",
-
-        "4": "After the second game when you believed that your performance was not good, you also said\nthat it will not improve and can never be good.\nNow, imagine that you have not performed well in an interview that you applied for.\nAre you convinced that they’ll always go bad?\nYou cannot interview well? You will always mess up?\nYou tend to believe that the cause of a bad event is permanent and will always happen.\nYou have an ‘pessimistic’ explanation in ‘Time’ aspect"
-      },
-      "que3": {
-        "1": "After the third game you believed you have performed well in this game and that you’ll be able\nto perform well in any other game that is given to you.\nNow, imagine that your friend asks you for an advice and you were able to help.\nYour friend is thankful to you.\nDo you think you always give useful advices? Are you good at that?\nYou tend to believe that you can be good at anything that you do.\nYou have an ‘optimistic’ style in ‘Space’ aspect.",
-
-        "2": "After the third game you believed you have performed bad in this game but also that you’ll be\nable to perform well in any other game that is given to you.\nNow, imagine that your friend asks you for an advice and you were not able to help.\nDo you think it was because you did not know much about the topic, he asked advice in?\nYou could have helped if you had some knowledge about it?\nYou tend to believe that if not one, you can do better at any other activity.\nYou have an ‘optimistic’ style in ‘Space’ aspect.",
-
-        "3": "After the third game you believed you have performed well in this game but also that you’ll not\nbe able to perform well in any other game that is given to you.\n\nNow, imagine that your friend asks you for an advice and you were able to help. Your friend is thankful to you.\nDo you think you were able to help because you’re an expert in that field? Had it been something else you wouldn’t have been to help?\n\nYou tend to believe that you can be good at only a few things you do. You have an ‘pessimistic’ style in ‘Space’ aspect.",
-
-        "4": "After the third game you believed you have performed bad in this game and will perform bad in\nany other game that is given to you.\nNow, imagine that your friend asks you for an advice and you were not able to help.\nDo you think you’re not good at giving any sort of advice?\nYou tend to believe that you cannot be good at anything you do.\nYou have an ‘pessimistic’ style in ‘Space’ aspect."
+        4 :  ASGExplanations.results[3].explanation_text,
       }
-    };;
+    };
 
     this.bg = this.add.sprite(0, 0, "bg").setOrigin(0, 0);
     this.titleRect = this.add.rectangle(150, 150, 1050, 460, 0xffffff, 0.70).setOrigin(0, 0);
@@ -1774,35 +1890,19 @@ class Permanence extends Phaser.Scene {
     var fontWrapWidth = 1250;
     var space = 15;
 
+
+
     this.result = {
-      "que1": {
-        "1": "When you believed that you played well in the first part of the game, you owed your success\nto your good gaming skills.\nNow, imagine that you have won a competition.Why do YOU think you won?\nIs it because you practiced hard? You had prepared for it for a long time?\nYou deserved to win the competition? Yes?\nYou tend to believe that the cause of a good event happening to you is ‘you’.\nYou have an optimistic explanation in the ‘ME’ aspect.",
-
-        "2": "When you believed that you did not perform well in the first version of the game, you\nattributed your bad performance to the difficulty of the game.\nNow, imagine that you have lost a competition. Why do YOU think you lost?\nIs it because the competition was tough? Your opponents were better?\nYour luck was not in your favour? Yes?\nYou tend to believe that a bad event happening to you is because of some external factor.\nYou have an optimistic explanation in the ‘ME’ aspect.",
-
-        "3": "When you believed that you played well in the first part of the game, you owed your success\nto the easy gameplay.\nNow, imagine that you have won a competition. Why do YOU think you won?\nIs it because the competition was easy? Your opponents did not perform well?\nYour luck was in your favour? Yes?\nYou tend to believe that the cause of a good event happening to you is an external factor.\nYou have a pessimistic explanation in the ‘ME’ aspect.\nHere’s a secret: The game is not as easy as it seemed to be. So, if you think you \nplayed well, you’re pretty good at it!",
-
-        "4": "When you believed that you did not perform well in the first version of the game, you also \n you are not good at any such game.\nNow, imagine that you have lost a competition.\nWhy do YOU think you lost?\nIs it because you aren’t good enough?\nYou aren’t good at anything? You keep failing at anything you do? Yes?\nYou tend to believe that the cause of a bad event happening to you is ‘you’.\nYou have a pessimistic explanation in the ‘ME’ aspect.\nBut hey, maybe the odds were just not in your favour!"
-      },
       "que2": {
-        "1": "After the second game you thought you performed well in the game and that your\nperformance will get better every time you play.\nNow, imagine that you have performed well in an interview that you applied for.\nDo you always interview well? Are you always confident during interviews?\nYou tend to believe that the cause of a good event is permanent and will always happen.\nYou have an ‘optimistic’ explanation in ‘Time’ aspect.",
+        1 :  ASGExplanations.results[4].explanation_text,
 
-        "2": "After the second game when you believed that your performance was not good, you\n also said that it will improve with time.\nNow, imagine that you have not performed well in an interview that you applied for.\nDo you think it will get better next time? Did you mess up just one time?\nYou tend to believe that the cause of a bad event is temporary and will improve with time.\nYou have an ‘optimistic’ explanation in ‘Time’ aspect.",
+        2 :  ASGExplanations.results[5].explanation_text,
 
-        "3": "After the second game you thought you performed well in the game, but you also\n thought it was just a one-time thing and might not happen again.\nNow, imagine that you have performed well in an interview that you applied for.\nWas it because you somehow felt confident this one-time?\nOr it was your lucky day? Other interviews will not go well?\nYou tend to believe that the cause of a good event is temporary and will not happen again.\nYou have an ‘pessimistic’ explanation in ‘Time’ aspect.",
+        3 :  ASGExplanations.results[6].explanation_text,
 
-        "4": "After the second game when you believed that your performance was not good, you\n also said that it will not improve and can never be good.\nNow, imagine that you have not performed well in an interview that you applied for.\nAre you convinced that they’ll always go bad?\nYou cannot interview well? You will always mess up?\nYou tend to believe that the cause of a bad event is permanent and will always happen.\nYou have an ‘pessimistic’ explanation in ‘Time’ aspect"
-      },
-      "que3": {
-        "1": "After the third game you believed you have performed well in this game and that you’ll\n be able to perform well in any other game that is given to you.\nNow, imagine that your friend asks you for an advice and you were able to help.\nYour friend is thankful to you.\nDo you think you always give useful advices? Are you good at that?\nYou tend to believe that you can be good at anything that you do.\nYou have an ‘optimistic’ style in ‘Space’ aspect.",
-
-        "2": "After the third game you believed you have performed bad in this game but also that\n you’ll be able to perform well in any other game that is given to you.\nNow, imagine that your friend asks you for an advice and you were not able to help.\nDo you think it was because you did not know much about the topic, he asked advice in?\nYou could have helped if you had some knowledge about it?\nYou tend to believe that if not one, you can do better at any other activity.\nYou have an ‘optimistic’ style in ‘Space’ aspect.",
-
-        "3": "After the third game you believed you have performed well in this game but also that\n you’ll not be able to perform well in any other game that is given to you.\n\nNow, imagine that your friend asks you for an advice and you were able to help. Your friend is thankful to you.\nDo you think you were able to help because you’re an expert in that field? Had it been something else you wouldn’t have been to help?\n\nYou tend to believe that you can be good at only a few things you do. You have an ‘pessimistic’ style in ‘Space’ aspect.",
-
-        "4": "After the third game you believed you have performed bad in this game and will perform\n bad in any other game that is given to you.\nNow, imagine that your friend asks you for an advice and you were not able to help.\nDo you think you’re not good at giving any sort of advice?\nYou tend to believe that you cannot be good at anything you do.\nYou have an ‘pessimistic’ style in ‘Space’ aspect."
+        4 :  ASGExplanations.results[7].explanation_text,
       }
-    };;
+    };
 
     this.bg = this.add.sprite(0, 0, "bg").setOrigin(0, 0);
     this.titleRect = this.add.rectangle(150, 150, 1050, 460, 0xffffff, 0.70).setOrigin(0, 0);
@@ -1855,34 +1955,16 @@ class Pervasiveness extends Phaser.Scene {
     var space = 15;
 
     this.result = {
-      "que1": {
-        "1": "When you believed that you played well in the first part of the game, you owed your success\nto your good gaming skills.\nNow, imagine that you have won a competition.Why do YOU think you won?\nIs it because you practiced hard? You had prepared for it for a long time?\nYou deserved to win the competition? Yes?\nYou tend to believe that the cause of a good event happening to you is ‘you’.\nYou have an optimistic explanation in the ‘ME’ aspect.",
-
-        "2": "When you believed that you did not perform well in the first version of the game, you\nattributed your bad performance to the difficulty of the game.\nNow, imagine that you have lost a competition. Why do YOU think you lost?\nIs it because the competition was tough? Your opponents were better?\nYour luck was not in your favour? Yes?\nYou tend to believe that a bad event happening to you is because of some external factor.\nYou have an optimistic explanation in the ‘ME’ aspect.",
-
-        "3": "When you believed that you played well in the first part of the game, you owed your success\nto the easy gameplay.\nNow, imagine that you have won a competition. Why do YOU think you won?\nIs it because the competition was easy? Your opponents did not perform well?\nYour luck was in your favour? Yes?\nYou tend to believe that the cause of a good event happening to you is an external factor.\nYou have a pessimistic explanation in the ‘ME’ aspect.\nHere’s a secret: The game is not as easy as it seemed to be. So, if you think you \nplayed well, you’re pretty good at it!",
-
-        "4": "When you believed that you did not perform well in the first version of the game, you also \n you are not good at any such game.\nNow, imagine that you have lost a competition.\nWhy do YOU think you lost?\nIs it because you aren’t good enough?\nYou aren’t good at anything? You keep failing at anything you do? Yes?\nYou tend to believe that the cause of a bad event happening to you is ‘you’.\nYou have a pessimistic explanation in the ‘ME’ aspect.\nBut hey, maybe the odds were just not in your favour!"
-      },
-      "que2": {
-        "1": "After the second game you thought you performed well in the game and that your\nperformance will get better every time you play.\nNow, imagine that you have performed well in an interview that you applied for.\nDo you always interview well? Are you always confident during interviews?\nYou tend to believe that the cause of a good event is permanent and will always happen.\nYou have an ‘optimistic’ explanation in ‘Time’ aspect.",
-
-        "2": "After the second game when you believed that your performance was not good, you\n also said that it will improve with time.\nNow, imagine that you have not performed well in an interview that you applied for.\nDo you think it will get better next time? Did you mess up just one time?\nYou tend to believe that the cause of a bad event is temporary and will improve with time.\nYou have an ‘optimistic’ explanation in ‘Time’ aspect.",
-
-        "3": "After the second game you thought you performed well in the game, but you also\n thought it was just a one-time thing and might not happen again.\nNow, imagine that you have performed well in an interview that you applied for.\nWas it because you somehow felt confident this one-time?\nOr it was your lucky day? Other interviews will not go well?\nYou tend to believe that the cause of a good event is temporary and will not happen again.\nYou have an ‘pessimistic’ explanation in ‘Time’ aspect.",
-
-        "4": "After the second game when you believed that your performance was not good, you\n also said that it will not improve and can never be good.\nNow, imagine that you have not performed well in an interview that you applied for.\nAre you convinced that they’ll always go bad?\nYou cannot interview well? You will always mess up?\nYou tend to believe that the cause of a bad event is permanent and will always happen.\nYou have an ‘pessimistic’ explanation in ‘Time’ aspect"
-      },
       "que3": {
-        "1": "After the third game you believed you have performed well in this game and that you’ll\n be able to perform well in any other game that is given to you.\nNow, imagine that your friend asks you for an advice and you were able to help.\nYour friend is thankful to you.\nDo you think you always give useful advices? Are you good at that?\nYou tend to believe that you can be good at anything that you do.\nYou have an ‘optimistic’ style in ‘Space’ aspect.",
+        1 :  ASGExplanations.results[8].explanation_text,
 
-        "2": "After the third game you believed you have performed bad in this game but also that\n you’ll be able to perform well in any other game that is given to you.\nNow, imagine that your friend asks you for an advice and you were not able to help.\nDo you think it was because you did not know much about the topic, he asked advice in?\nYou could have helped if you had some knowledge about it?\nYou tend to believe that if not one, you can do better at any other activity.\nYou have an ‘optimistic’ style in ‘Space’ aspect.",
+        2 :  ASGExplanations.results[9].explanation_text,
 
-        "3": "After the third game you believed you have performed well in this game but also that\n you’ll not be able to perform well in any other game that is given to you.\nNow, imagine that your friend asks you for an advice and you were able to help.\nYour friend is thankful to you.\nDo you think you were able to help because you’re an expert in that field?\nHad it been something else you wouldn’t have been to help?\nYou tend to believe that you can be good at only a few things you do.\nYou have an ‘pessimistic’ style in ‘Space’ aspect.",
+        3 :  ASGExplanations.results[10].explanation_text,
 
-        "4": "After the third game you believed you have performed bad in this game and will perform\n bad in any other game that is given to you.\nNow, imagine that your friend asks you for an advice and you were not able to help.\nDo you think you’re not good at giving any sort of advice?\nYou tend to believe that you cannot be good at anything you do.\nYou have an ‘pessimistic’ style in ‘Space’ aspect."
+        4 :  ASGExplanations.results[11].explanation_text,
       }
-    };;
+    };
 
     this.bg = this.add.sprite(0, 0, "bg").setOrigin(0, 0);
     this.titleRect = this.add.rectangle(150, 150, 1050, 460, 0xffffff, 0.70).setOrigin(0, 0);
@@ -2028,6 +2110,26 @@ function conf(DEFAULT_WIDTH, DEFAULT_HEIGHT){
 };
 
  var ASGAnswer;
+ var ASGQuestions;
+ var ASGExplanations;
+ var ASquestions = [];
+ var ASGUserPerformance;
+ var ASGPostIndividualAnswer;
+ var ASGPostExplanation;
+
+ var ASGLevelId;
+ var ASGTotalBaloons;
+ var ASGBalloonsBurst;
+ var ASGArrowsFired;
+  var AnswerId;
+ var TimeTakenToAnswer;
+  var Answer1Id;
+  var Answer2Id;
+  var ExplanationId;
+
+
+
+
 
 var AttributeGame = function () {
   const DEFAULT_WIDTH = 1320;
