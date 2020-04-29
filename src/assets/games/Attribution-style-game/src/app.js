@@ -1777,11 +1777,11 @@ class UIScene extends Phaser.Scene {
 
     }
 
-    restart = function() {
+    rstart = function() {
         this.scene.stop(this.registry.get('currentScene'));
         this.scene.start('HomeScene');
         this.registry.set('currentScene','HomeScene');
-    }
+    };
 
     pauseAllObject = function () {
         this.scene.pause(this.registry.get('currentScene'));
@@ -1793,7 +1793,7 @@ class UIScene extends Phaser.Scene {
             element.setVisible(true);
             console.log(element);
         });
-    }
+    };
 
     playAllObject = function() {
         this.pauseScreen.getChildren().forEach(element => {
@@ -1803,8 +1803,8 @@ class UIScene extends Phaser.Scene {
       this.scene.resume(this.registry.get('ParallelScene'));
       this.scene.resume(this.registry.get('QuestionScene'));
 
-
-    }
+;
+    };
 
     // pause = function() {
     //   this.scene.pause('ScoreDisplay');

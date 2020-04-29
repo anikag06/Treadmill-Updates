@@ -259,7 +259,7 @@ export class GamePlayService {
   }
 
   restartAttributionStyleGame() {
-    this.game.scene.scenes[5].restart();
+    this.game.scene.scenes[5].rstart();
   }
 
   resumeAttributionStyleGame() {
