@@ -83,6 +83,7 @@ export class Conclusion5Component implements OnInit {
             } else {
               this.conclusionService.moodEvaluate = false;
             }
+            this.conclusionService.evaluateMood.emit();
             this.showQuestionnaire =  this.conclusionService.moodEvaluate;
           });
       });

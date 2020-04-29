@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ConclusionService} from '@/main/resources/conclusion/conclusion.service';
 import {Router} from '@angular/router';
-import {Subscription} from "rxjs";
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-evaluate-mood',
