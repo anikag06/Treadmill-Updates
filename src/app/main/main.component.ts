@@ -27,7 +27,7 @@ import { IntroduceService } from './shared/introduce/introduce.service';
 import { SurveyService } from './shared/survey.service';
 import { ToastNotificationDirective } from '@/shared/toast-notification/toast-notification.directive';
 import { ToastNotificationComponent } from '@/shared/toast-notification/toast-notification.component';
-import {NavbarNotificationsService} from '@/main/shared/navbar/navbar-notifications.service';
+import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifications.service';
 
 // tslint:disable-next-line:max-line-length
 
@@ -46,7 +46,6 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
   isDashboard!: boolean;
   flowLoaded = true;
   flowOpen = false;
-
 
   @ViewChild('drawer', { static: true }) drawer!: MatDrawer;
   @ViewChild('tooltip', { static: false }) showToolTip!: MatTooltip;
@@ -73,8 +72,7 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
     private notificationService: NavbarNotificationsService,
   ) {}
 
-  ngOnChanges() {
-  }
+  ngOnChanges() {}
 
   ngOnInit() {
     const user = this.authService.isLoggedIn();
@@ -111,20 +109,19 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
         toastComponentRef.destroy();
       }, SHOW_TOAST_DURATION);
     });
-    this.notificationService.openNavFlow.subscribe( () => {
+    this.notificationService.openNavFlow.subscribe(() => {
       this.flowLoaded = false;
       this.flowOpen = true;
-
     });
-    this.notificationService.navFlowOpened.subscribe( () => {
-      setTimeout( () => {
+    this.notificationService.navFlowOpened.subscribe(() => {
+      setTimeout(() => {
         this.flowLoaded = true;
       }, 500);
     });
-    this.notificationService.closeNavFlow.subscribe( () => {
-        this.flowLoaded = false;
-      setTimeout( () => {
-      this.flowOpen = false;
+    this.notificationService.closeNavFlow.subscribe(() => {
+      this.flowLoaded = false;
+      setTimeout(() => {
+        this.flowOpen = false;
         this.flowLoaded = true;
       }, 500);
     });

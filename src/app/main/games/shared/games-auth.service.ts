@@ -88,53 +88,82 @@ export class GamesAuthService {
   }
   // for Attribute style game
   atGetAnswers(): Observable<any> {
-    return this.http.get(environment.API_ENDPOINT + '/api/v1/games/attribution-style/asgame-answers-list/');
+    return this.http.get(
+      environment.API_ENDPOINT +
+        '/api/v1/games/attribution-style/asgame-answers-list/',
+    );
   }
   atGetQuestions(): Observable<any> {
-    return this.http.get(environment.API_ENDPOINT + '/api/v1/games/attribution-style/asgame-questions-list/');
+    return this.http.get(
+      environment.API_ENDPOINT +
+        '/api/v1/games/attribution-style/asgame-questions-list/',
+    );
   }
   atGetExplanations(): Observable<any> {
-    return this.http.get(environment.API_ENDPOINT + '/api/v1/games/attribution-style/asgame-explanations-list/');
+    return this.http.get(
+      environment.API_ENDPOINT +
+        '/api/v1/games/attribution-style/asgame-explanations-list/',
+    );
   }
   atGetUserPerformance(): Observable<any> {
-    return this.http.get(environment.API_ENDPOINT + '/api/v1/games/attribution-style/user-performance-asgame/');
+    return this.http.get(
+      environment.API_ENDPOINT +
+        '/api/v1/games/attribution-style/user-performance-asgame/',
+    );
   }
   // tslint:disable-next-line:max-line-length
-  atPostIndividualLevelPerformance(game_instance_id: number, level_id: number, total_balloons: number, balloons_burst: number,  total_arrows_fired: number) {
+  atPostIndividualLevelPerformance(
+    game_instance_id: number,
+    level_id: number,
+    total_balloons: number,
+    balloons_burst: number,
+    total_arrows_fired: number,
+  ) {
     const f = {
       balloons_burst,
       game_instance_id,
       level_id,
       total_arrows_fired,
       total_balloons,
-
     };
-    return this.http.post(
-      environment.API_ENDPOINT + '/api/v1/games/attribution-style/user-level-performance-asgame/',
-      f,
-    )
+    return this.http
+      .post(
+        environment.API_ENDPOINT +
+          '/api/v1/games/attribution-style/user-level-performance-asgame/',
+        f,
+      )
       .subscribe(resp => console.log(resp));
   }
 
-  atPostuserAnswer(game_instance_id: number, answer_id: number, time_taken_to_answer: number) {
+  atPostuserAnswer(
+    game_instance_id: number,
+    answer_id: number,
+    time_taken_to_answer: number,
+  ) {
     const f = {
       game_instance_id,
       answer_id,
       time_taken_to_answer,
     };
-    return this.http.post(
-      environment.API_ENDPOINT + '/api/v1/games/attribution-style/user-answer-asgame/',
-      f,
-    )
+    return this.http
+      .post(
+        environment.API_ENDPOINT +
+          '/api/v1/games/attribution-style/user-answer-asgame/',
+        f,
+      )
       .subscribe(resp => {
-          this.ASGAnswerID = resp;
-          console.log(this.ASGAnswerID.id);
-          // @ts-ignore
+        this.ASGAnswerID = resp;
+        console.log(this.ASGAnswerID.id);
+        // @ts-ignore
         this.ASGAnswerIdPost.push(this.ASGAnswerID.id);
-        });
+      });
   }
 
-  atPostuserExplanation(explanation_id: number, answer_1_id: number, answer_2_id: number) {
+  atPostuserExplanation(
+    explanation_id: number,
+    answer_1_id: number,
+    answer_2_id: number,
+  ) {
     // @ts-ignore
     answer_2_id = this.ASGAnswerIdPost.pop();
     // @ts-ignore
@@ -147,10 +176,12 @@ export class GamesAuthService {
     };
     console.log(f);
 
-    return this.http.post(
-      environment.API_ENDPOINT + '/api/v1/games/attribution-style/user-explanation-asgame/',
-      f,
-    )
+    return this.http
+      .post(
+        environment.API_ENDPOINT +
+          '/api/v1/games/attribution-style/user-explanation-asgame/',
+        f,
+      )
       .subscribe(resp => console.log(resp));
     this.ASGi = this.ASGi + 2;
   }

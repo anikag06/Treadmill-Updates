@@ -8,9 +8,8 @@ describe('EvaluateMoodComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EvaluateMoodComponent ]
-    })
-    .compileComponents();
+      declarations: [EvaluateMoodComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

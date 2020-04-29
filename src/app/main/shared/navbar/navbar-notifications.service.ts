@@ -19,7 +19,6 @@ export class NavbarNotificationsService {
 
   isDashboard!: boolean;
 
-
   getNotifications(page = 1) {
     return this.http.get(
       environment.API_ENDPOINT +

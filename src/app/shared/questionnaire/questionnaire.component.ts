@@ -43,8 +43,8 @@ import {
   enterSubmitAnimation,
 } from '../animations';
 import { TimerService } from '../timer.service';
-import {Location} from "@angular/common";
-import {ConclusionService} from "@/main/resources/conclusion/conclusion.service";
+import { Location } from '@angular/common';
+import { ConclusionService } from '@/main/resources/conclusion/conclusion.service';
 
 @Component({
   animations: [

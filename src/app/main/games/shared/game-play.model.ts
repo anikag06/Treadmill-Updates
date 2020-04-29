@@ -1,5 +1,5 @@
 // for storing interpretation bias game
-import * as moment from "moment";
+import * as moment from 'moment';
 import _date = moment.unitOfTime._date;
 
 export class IBGameUserScore {
@@ -144,7 +144,7 @@ class ASGanswer {
   question_id!: number;
   answer_text!: string;
 
-  constructor(q: any){
+  constructor(q: any) {
     this.id = q.id;
     this.question_id = q.question_id;
     this.answer_text = q.answer_text;
@@ -157,7 +157,7 @@ class ASGQuestions {
   question_text!: string;
   order!: number;
 
-  constructor(q: any){
+  constructor(q: any) {
     this.id = q.id;
     this.level = q.level;
     this.question_text = q.question_text;
@@ -177,7 +177,7 @@ export class ASGQuestionData {
     this.previous = data.previous;
     this.results = [];
     data.results.forEach((q: any) => {
-      this.results.push( new ASGQuestions(q));
+      this.results.push(new ASGQuestions(q));
     });
   }
 }
@@ -194,7 +194,7 @@ export class ASGAnswerData {
     this.previous = data.previous;
     this.results = [];
     data.results.forEach((q: any) => {
-      this.results.push( new ASGanswer(q));
+      this.results.push(new ASGanswer(q));
     });
   }
 }
@@ -211,7 +211,7 @@ export class ASGExplanation {
     this.previous = data.previous;
     this.results = [];
     data.results.forEach((q: any) => {
-      this.results.push( new ASGexplanationdata(q));
+      this.results.push(new ASGexplanationdata(q));
     });
   }
 }
@@ -233,36 +233,33 @@ export class ASGGetUserPerformance {
   end_time!: Date;
 
   constructor(q: any) {
-    this.id =  q.id;
+    this.id = q.id;
     this.completed = q.completed;
     this.show_summary_button = q.show_summary_button;
     this.end_time = q.end_time;
   }
-
 }
 
 export class ASGLevelPerformance {
-  constructor (
+  constructor(
     public game_instance_id: number,
     public level_id: number,
     public total_balloons: number,
     public balloons_burst: number,
     public total_arrows_fired: number,
-
   ) {}
 }
 
 export class ASGIndividualAnswer {
-  constructor (
+  constructor(
     public game_instance_id: number,
     public answer_id: number,
     public time_taken_to_answer: number,
-
   ) {}
 }
 
 export class ASGSaveExplanation {
-  constructor (
+  constructor(
     public answer_1_id: number,
     public answer_2_id: number,
     public explanation_id: number,

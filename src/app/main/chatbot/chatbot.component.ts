@@ -1,10 +1,18 @@
-import {Component, OnInit, ElementRef, Inject, ViewChild, ComponentFactoryResolver, Input} from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ElementRef,
+  Inject,
+  ViewChild,
+  ComponentFactoryResolver,
+  Input,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
-import {CustomOverlayComponent} from '@/main/shared/custom-overlay/custom-overlay.component';
-import {NavbarFlowDirective} from '@/main/shared/navbar/navbar-flow.directive';
-import {NavbarNotificationsService} from '@/main/shared/navbar/navbar-notifications.service';
-import {CustomOverlayService} from "@/main/shared/custom-overlay/custom-overlay.service";
+import { CustomOverlayComponent } from '@/main/shared/custom-overlay/custom-overlay.component';
+import { NavbarFlowDirective } from '@/main/shared/navbar/navbar-flow.directive';
+import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifications.service';
+import { CustomOverlayService } from '@/main/shared/custom-overlay/custom-overlay.service';
 
 @Component({
   selector: 'app-chatbot',
@@ -20,10 +28,12 @@ export class ChatbotComponent implements OnInit {
   overlayOpen = false;
   @Input() flowOpen = false;
 
-  constructor(private router: Router, private elementRef: ElementRef,
-              private notificationService: NavbarNotificationsService,
-              private overlayService: CustomOverlayService,
-              private componentFactoryResolver: ComponentFactoryResolver,
+  constructor(
+    private router: Router,
+    private elementRef: ElementRef,
+    private notificationService: NavbarNotificationsService,
+    private overlayService: CustomOverlayService,
+    private componentFactoryResolver: ComponentFactoryResolver,
   ) {}
 
   ngOnInit() {
@@ -46,7 +56,9 @@ export class ChatbotComponent implements OnInit {
       this.overlayOpen = true;
       this.overlayService.showFlow = false;
       this.overlayService.showChatbot = true;
-      const navbarFLowComponentFactory = this.componentFactoryResolver.resolveComponentFactory(CustomOverlayComponent);
+      const navbarFLowComponentFactory = this.componentFactoryResolver.resolveComponentFactory(
+        CustomOverlayComponent,
+      );
       const hostViewContainerRef = this.flowHost.viewContainerRef;
       hostViewContainerRef.clear();
       hostViewContainerRef.createComponent(navbarFLowComponentFactory);
@@ -69,10 +81,10 @@ export class ChatbotComponent implements OnInit {
         match = true;
       }
       if (match && !this.overlayService.showFlow) {
-          this.removeChat = true;
+        this.removeChat = true;
       } else {
-          this.removeChat = false;
-        }
-  });
+        this.removeChat = false;
+      }
+    });
   }
 }

@@ -4,7 +4,10 @@ import {
   ViewChild,
   ComponentFactoryResolver,
   OnDestroy,
-  Input, ElementRef, Output, EventEmitter,
+  Input,
+  ElementRef,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 import { Location } from '@angular/common';
 import { NavbarFlowDirective } from './navbar-flow.directive';
@@ -27,12 +30,12 @@ import { GamePlayService } from '@/main/games/shared/game-play.service';
 import { FlowService } from '@/main/flow/flow.service';
 import { ConversationsService } from '@/main/resources/conversation-group/conversations.service';
 import { MatMenuTrigger } from '@angular/material';
-import {FlowComponent} from '@/main/flow/flow.component';
-import {DialogBoxService} from '@/main/shared/custom-dialog/dialog-box.service';
-import {SlidesVideoComponent} from '@/main/resources/slides/slides-video/slides-video.component';
-import {DialogPosition, MatDialog} from '@angular/material/dialog';
-import {CustomOverlayComponent} from '@/main/shared/custom-overlay/custom-overlay.component';
-import {CustomOverlayService} from "@/main/shared/custom-overlay/custom-overlay.service";
+import { FlowComponent } from '@/main/flow/flow.component';
+import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
+import { SlidesVideoComponent } from '@/main/resources/slides/slides-video/slides-video.component';
+import { DialogPosition, MatDialog } from '@angular/material/dialog';
+import { CustomOverlayComponent } from '@/main/shared/custom-overlay/custom-overlay.component';
+import { CustomOverlayService } from '@/main/shared/custom-overlay/custom-overlay.service';
 
 @Component({
   selector: 'app-navbar',
@@ -71,7 +74,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private location: Location,
     private overlayService: CustomOverlayService,
-    ) {
+  ) {
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationStart) {
         // Show loading indicator
@@ -135,7 +138,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
     console.log('is HANDSET', this.isHandset$);
   }
 
-
   notificationClick() {
     this.showNotifications = !this.showNotifications;
     const viewContainerRef = this.notificationHost.viewContainerRef;
@@ -157,12 +159,14 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.notificationService.openNavFlow.emit();
     this.overlayService.showFlow = true;
     console.log('flow host', this.flowHost);
-    const navbarFLowComponentFactory = this.componentFactoryResolver.resolveComponentFactory(CustomOverlayComponent);
+    const navbarFLowComponentFactory = this.componentFactoryResolver.resolveComponentFactory(
+      CustomOverlayComponent,
+    );
     const hostViewContainerRef = this.flowHost.viewContainerRef;
     hostViewContainerRef.clear();
     hostViewContainerRef.createComponent(navbarFLowComponentFactory);
-    this.notificationService.closeNavFlow.subscribe( () => {
-      setTimeout( () => {
+    this.notificationService.closeNavFlow.subscribe(() => {
+      setTimeout(() => {
         if (!this.overlayService.showChatbot) {
           hostViewContainerRef.clear();
         }

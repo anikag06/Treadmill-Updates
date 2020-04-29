@@ -8,9 +8,8 @@ describe('CustomOverlayComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CustomOverlayComponent ]
-    })
-    .compileComponents();
+      declarations: [CustomOverlayComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

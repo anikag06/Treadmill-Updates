@@ -1,7 +1,14 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {animate, keyframes, state, style, transition, trigger} from '@angular/animations';
-import {NavbarNotificationsService} from '@/main/shared/navbar/navbar-notifications.service';
-import {CustomOverlayService} from "@/main/shared/custom-overlay/custom-overlay.service";
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  animate,
+  keyframes,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
+import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifications.service';
+import { CustomOverlayService } from '@/main/shared/custom-overlay/custom-overlay.service';
 
 @Component({
   selector: 'app-navbar-flow',
@@ -19,24 +26,23 @@ import {CustomOverlayService} from "@/main/shared/custom-overlay/custom-overlay.
         animate('500ms', style({ transform: 'translateX(100%)' })),
       ]),
     ]),
-    ]
+  ],
 })
 export class NavbarFlowComponent implements OnInit {
   isFlowVisible!: boolean;
   constructor(
     private notificationService: NavbarNotificationsService,
     private overlayService: CustomOverlayService,
-    ) {}
+  ) {}
   navBar = true;
 
   ngOnInit() {
-    this.notificationService.closeNavFlow.subscribe( () => {
+    this.notificationService.closeNavFlow.subscribe(() => {
       if (!this.overlayService.showChatbot) {
-      this.isFlowVisible = false;
-      this.overlayService.showFlow = false;
-    }
+        this.isFlowVisible = false;
+        this.overlayService.showFlow = false;
+      }
     });
-
   }
   ngAfterViewInit() {
     this.notificationService.navFlowOpened.emit();

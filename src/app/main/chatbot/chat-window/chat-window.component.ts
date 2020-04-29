@@ -30,8 +30,8 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { environment } from '../../../../environments/environment';
-import {NavbarNotificationsService} from '@/main/shared/navbar/navbar-notifications.service';
-import {CustomOverlayService} from "@/main/shared/custom-overlay/custom-overlay.service";
+import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifications.service';
+import { CustomOverlayService } from '@/main/shared/custom-overlay/custom-overlay.service';
 
 declare var twemoji: any;
 
@@ -76,7 +76,6 @@ declare var twemoji: any;
       transition('animateOpen => *', [
         animate('500ms', style({ transform: 'translateY(100%)' })),
       ]),
-
     ]),
   ],
 })
@@ -117,7 +116,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   isOnline = true;
   @ViewChild('messagesDiv', { static: false }) messagesDiv!: ElementRef;
   @ViewChild('ti', { static: false }) ti!: ElementRef;
-  @Input()  overlayOpen!: boolean;
+  @Input() overlayOpen!: boolean;
   @Input() chatWindowClosed = false;
   @Output() chatWindowClosedEmitter = new EventEmitter<Boolean>();
   counter = 4;

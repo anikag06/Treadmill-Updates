@@ -7,7 +7,7 @@ import { ConclusionService } from '../conclusion.service';
 import { StepsDataService } from '../../shared/steps-data.service';
 import { StepCompleteData } from '../../shared/completion-data.model';
 import { CommonDialogsService } from '../../shared/common-dialogs.service';
-import {QuizService} from '@/shared/questionnaire/questionnaire.service';
+import { QuizService } from '@/shared/questionnaire/questionnaire.service';
 
 @Component({
   selector: 'app-conclusion4',
@@ -89,7 +89,7 @@ export class Conclusion4Component implements OnInit {
               this.conclusionService.moodEvaluate = false;
             }
             this.conclusionService.evaluateMood.emit();
-            this.showQuestionnaire =  this.conclusionService.moodEvaluate;
+            this.showQuestionnaire = this.conclusionService.moodEvaluate;
           });
       });
   }

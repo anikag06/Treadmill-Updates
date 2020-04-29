@@ -1,4 +1,4 @@
-import {EventEmitter, HostListener, Injectable} from '@angular/core';
+import { EventEmitter, HostListener, Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { GamesService } from '@/main/shared/games.service';
 import { GamesAuthService } from '@/main/games/shared/games-auth.service';
@@ -45,7 +45,6 @@ declare var ibGameShowTutorial: boolean;
 
 // for attribution game
 declare var AttributeGame: any;
-
 
 // for executive control game
 declare var startExecControlGame: any;
@@ -118,15 +117,14 @@ declare var ASGPostIndividualAnswer: ASGIndividualAnswer;
 declare var ASGPostExplnation: ASGSaveExplanation;
 
 declare var ASGLevelId: number;
- declare var ASGTotalBaloons: number;
- declare var ASGBalloonsBurst: number;
- declare var ASGArrowsFired: number;
- declare var AnswerId: number;
- declare var TimeTakenToAnswer: number;
- declare var Answer1Id: number;
- declare var Answer2Id: number;
- declare var ExplanationId: number;
-
+declare var ASGTotalBaloons: number;
+declare var ASGBalloonsBurst: number;
+declare var ASGArrowsFired: number;
+declare var AnswerId: number;
+declare var TimeTakenToAnswer: number;
+declare var Answer1Id: number;
+declare var Answer2Id: number;
+declare var ExplanationId: number;
 
 @Injectable({
   providedIn: 'root',
@@ -173,7 +171,7 @@ export class GamePlayService {
   ffg_show_tutorial!: boolean;
 
   // for ASG
-  ASGPostLevelPerformance = new ASGLevelPerformance(1,1,1,1,1);
+  ASGPostLevelPerformance = new ASGLevelPerformance(1, 1, 1, 1, 1);
   ASGGameInstanceId!: number;
 
   constructor(
@@ -219,49 +217,35 @@ export class GamePlayService {
 
   // for attribution game
 
-
-
   playAttributionStyleGame() {
     // tslint:disable-next-line:no-unused-expression
-    this.gamesAuthService.atGetUserPerformance().subscribe(
-      e => {
-        ASGUserPerformance = e;
-        console.log(e);
-        this.ASGGameInstanceId = e.id;
-      }
-    );
-    this.gamesAuthService.atGetAnswers().subscribe(
-      e => {
-        ASGAnswer = e;
-       // console.log(ASGAnswer);
-      }
-    );
-    this.gamesAuthService.atGetQuestions().subscribe(
-      e => {
-        ASGQuestions = e;
-        /*for (const i of ASGQuestions.results) {
+    this.gamesAuthService.atGetUserPerformance().subscribe(e => {
+      ASGUserPerformance = e;
+      console.log(e);
+      this.ASGGameInstanceId = e.id;
+    });
+    this.gamesAuthService.atGetAnswers().subscribe(e => {
+      ASGAnswer = e;
+      // console.log(ASGAnswer);
+    });
+    this.gamesAuthService.atGetQuestions().subscribe(e => {
+      ASGQuestions = e;
+      /*for (const i of ASGQuestions.results) {
           ASquestions.push(i.question_text);
         }*/
-       // ASquestions = ASGQuestions.results[0].question_text;
-        console.log(ASGQuestions.results);
-      }
-    );
-    this.gamesAuthService.atGetExplanations().subscribe(
-      e => {
-        ASGExplanations = e;
-      }
-    )
+      // ASquestions = ASGQuestions.results[0].question_text;
+      console.log(ASGQuestions.results);
+    });
+    this.gamesAuthService.atGetExplanations().subscribe(e => {
+      ASGExplanations = e;
+    });
     this.game = new AttributeGame();
-
 
     if (this.game.scene.isActive('QuestionAndAnswer')) {
       console.log(this.game.scene.isActive('QuestionAndAnswer'));
-        console.log(this.gamesAuthService.atGetAnswers());
+      console.log(this.gamesAuthService.atGetAnswers());
     }
-    console.log((this.game));
-
-
-
+    console.log(this.game);
   }
 
   restartAttributionStyleGame() {
@@ -282,7 +266,6 @@ export class GamePlayService {
     // }
   }
 
-
   postIndividualLevelASG() {
     this.ASGPostLevelPerformance.level_id = 1;
     this.ASGPostLevelPerformance.balloons_burst = 1;
@@ -291,17 +274,29 @@ export class GamePlayService {
     this.ASGPostLevelPerformance.total_arrows_fired = 1;
 
     // tslint:disable-next-line:max-line-length
-    this.gamesAuthService.atPostIndividualLevelPerformance(this.ASGGameInstanceId, ASGLevelId , ASGTotalBaloons , ASGBalloonsBurst , ASGArrowsFired);
+    this.gamesAuthService.atPostIndividualLevelPerformance(
+      this.ASGGameInstanceId,
+      ASGLevelId,
+      ASGTotalBaloons,
+      ASGBalloonsBurst,
+      ASGArrowsFired,
+    );
   }
 
   postUserAnswer() {
-    const d = this.gamesAuthService.atPostuserAnswer(this.ASGGameInstanceId, AnswerId, TimeTakenToAnswer);
+    const d = this.gamesAuthService.atPostuserAnswer(
+      this.ASGGameInstanceId,
+      AnswerId,
+      TimeTakenToAnswer,
+    );
     console.log(d);
-
   }
   postUserExplanation() {
-    this.gamesAuthService.atPostuserExplanation(ExplanationId, Answer1Id, Answer2Id);
-
+    this.gamesAuthService.atPostuserExplanation(
+      ExplanationId,
+      Answer1Id,
+      Answer2Id,
+    );
   }
 
   // functions for executive control game

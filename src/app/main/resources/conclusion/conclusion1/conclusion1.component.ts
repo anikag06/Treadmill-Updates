@@ -2,13 +2,20 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import {LOCKED, COMPLETED, COMMITMENT_OPTIONS, ACTIVE, QUESTIONNAIRE, CONCLUSION_PAGE} from '@/app.constants';
+import {
+  LOCKED,
+  COMPLETED,
+  COMMITMENT_OPTIONS,
+  ACTIVE,
+  QUESTIONNAIRE,
+  CONCLUSION_PAGE,
+} from '@/app.constants';
 import { ConclusionService } from '../conclusion.service';
 import { StepsDataService } from '../../shared/steps-data.service';
 import { StepCompleteData } from '../../shared/completion-data.model';
 import { CommonDialogsService } from '../../shared/common-dialogs.service';
-import {Step} from '@/main/flow/step-group/step/step.model';
-import {QuizService} from '@/shared/questionnaire/questionnaire.service';
+import { Step } from '@/main/flow/step-group/step/step.model';
+import { QuizService } from '@/shared/questionnaire/questionnaire.service';
 
 @Component({
   selector: 'app-conclusion1',
@@ -82,11 +89,11 @@ export class Conclusion1Component implements OnInit, OnDestroy {
           .subscribe((step_data: any) => {
             console.log('step data is:', step_data);
             if (step_data.data.next_questionnaire) {
-            this.quizService.questinnaire_name =
-            step_data.data.next_questionnaire;
-            this.conclusionService.moodEvaluate = true;
+              this.quizService.questinnaire_name =
+                step_data.data.next_questionnaire;
+              this.conclusionService.moodEvaluate = true;
             } else {
-            this.conclusionService.moodEvaluate = false;
+              this.conclusionService.moodEvaluate = false;
             }
             this.conclusionService.evaluateMood.emit();
             this.showQuestionnaire = this.conclusionService.moodEvaluate;
