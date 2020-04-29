@@ -1,6 +1,6 @@
 import {
   Component,
-  ComponentFactoryResolver,
+  ComponentFactoryResolver, ElementRef,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -17,34 +17,34 @@ import { CustomOverlayService } from '@/main/shared/custom-overlay/custom-overla
 export class CustomOverlayComponent implements OnInit {
   @ViewChild(NavbarFlowDirective, { static: false })
   flowHost!: NavbarFlowDirective;
+  @ViewChild('navFlow', { static: false }) element!: ElementRef;
   showFlow!: boolean;
-  constructor(
-    private componentFactoryResolver: ComponentFactoryResolver,
-    private notificationService: NavbarNotificationsService,
-    private overlayService: CustomOverlayService,
-  ) {}
+  navClick!: boolean;
+  constructor(private componentFactoryResolver: ComponentFactoryResolver,
+              private notificationService: NavbarNotificationsService,
+              private overlayService: CustomOverlayService,
+  ) { }
 
   ngOnInit() {}
   ngAfterViewInit() {
     if (this.overlayService.showFlow) {
-      const navbarFLowComponentFactory = this.componentFactoryResolver.resolveComponentFactory(
-        NavbarFlowComponent,
-      );
+      const navbarFLowComponentFactory = this.componentFactoryResolver.resolveComponentFactory(NavbarFlowComponent);
       const hostViewContainerRef = this.flowHost.viewContainerRef;
       hostViewContainerRef.clear();
-      const componentRef = hostViewContainerRef.createComponent(
-        navbarFLowComponentFactory,
-      );
+      const componentRef = hostViewContainerRef.createComponent(navbarFLowComponentFactory);
       this.notificationService.closeNavFlow.subscribe(() => {
-        setTimeout(() => {
+        setTimeout( () => {
           hostViewContainerRef.clear();
         }, 500);
       });
     }
-  }
-  onClick() {
-    if (!this.overlayService.showChatbot) {
-      this.notificationService.closeNavFlow.emit();
-    }
-  }
+   }
+   onClick($event: any) {
+    $event.stopPropagation();
+    if ($event.target.classList.contains('backdrop') && !this.overlayService.showChatbot ) {
+      console.log('nav not click', $event);
+    // $event.bubbles = false;
+       this.notificationService.closeNavFlow.emit();
+     }
+   }
 }
