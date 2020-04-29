@@ -1,162 +1,112 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>TreadWill</title>
-  <base href="/">
+  <head>
+    <meta charset="utf-8" />
+    <title>TreadWill</title>
+    <base href="/" />
 
-  <!-- description for SEO -->
-  <meta name="description" content="Created by TreadWill organization, IIT Kanpur,
+    <!-- description for SEO -->
+    <meta
+      name="description"
+      content="Created by TreadWill organization, IIT Kanpur,
   Useful for people to depressive symptoms,
   Best feature: personalized,
-  Supportgroup: available"></meta>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <!-- angular material icons -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <!-- Font families from Google -->
-  <link href="https://fonts.googleapis.com/css?family=Lato:400,500,700,700i|Montserrat:400,500,700,800" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet">
+  Supportgroup: available"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
 
-  <!-- Add to home screen for Safari on iOS -->
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="TreadWill">
-  <link rel="apple-touch-icon" href="images/icons/icon-152x152.png">
+    <!-- angular material icons -->
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <!-- Font families from Google -->
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css?family=Lato:400,500,700,700i|Montserrat:400,500,700,800&display=swap"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
 
-  <!-- for windows -->
-  <meta name="msapplication-TileImage" content="images/icons/icon-144x144.png">
-  <meta name="msapplication-TileColor" content="#2F3BA2">
+    <!-- Add to home screen for Safari on iOS -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-title" content="TreadWill" />
+    <link rel="apple-touch-icon" href="images/icons/icon-152x152.png" />
 
-  <!-- manifest -->
-  <link rel="manifest" href="manifest.webmanifest">
-  <meta name="theme-color" content="#2a3b3d">
+    <!-- for windows -->
+    <meta
+      name="msapplication-TileImage"
+      content="images/icons/icon-144x144.png"
+    />
+    <meta name="msapplication-TileColor" content="#2F3BA2" />
 
-  <!-- for executive control game lib -->
-  <!-- <script type="text/javascript"
-    src="./assets/games/executive-control-game/js/lib/watch.js"></script>
-  <script type="text/javascript"
-    src="./assets/games/executive-control-game/js/lib/phaser.min.js"></script>
-  <script type="text/javascript"
-    src="assets/games/executive-control-game/js/lib/jquery.min.js"></script> -->
+    <!-- manifest -->
+    <link rel="manifest" href="manifest.webmanifest" />
+    <meta name="theme-color" content="#2a3b3d" />
 
+    <script
+      async
+      type="text/javascript"
+      src="./assets/games/Attribution-style-game/src/start.js"
+    ></script>
 
-  <!-- for attribute style game lib -->
-  <!-- <script type="text/javascript"
-    src="./assets/games/Attribution-style-game/src/lib/phaser.js"></script> -->
-    <script async type="text/javascript"
-    src="./assets/games/Attribution-style-game/src/start.js"></script>
-    <!-- <script type="text/javascript"
-    src="./assets/games/Attribution-style-game/src/app.js"></script> -->
-    <script async type="text/javascript"
-    src="./assets/games/Attribution-style-game/src/app.js"></script>
-
-   <!-- for attribute style game lib -->
-    <!-- <script type="text/javascript"
-     src="./assets/games/Attribution-style-game/src/scenes/homeScene.js"></script>
-     <script type="text/javascript"
-     src="./assets/games/Attribution-style-game/src/scenes/levelOne.js"></script>
-     <script type="text/javascript"
-     src="./assets/games/Attribution-style-game/src/scenes/levelTwo.js"></script>
-     <script type="text/javascript"
-     src="./assets/games/Attribution-style-game/src/scenes/levelThree.js"></script>
-     <script type="text/javascript"
-     src="./assets/games/Attribution-style-game/src/scenes/preloadScene.js"></script>
-     <script type="text/javascript"
-     src="./assets/games/Attribution-style-game/src/scenes/questionAndAnswer.js"></script>
-     <script type="text/javascript"
-     src="./assets/games/Attribution-style-game/src/scenes/scoreDisplay.js"></script>
-     <script type="text/javascript"
-     src="./assets/games/Attribution-style-game/src/scenes/UIScene.js"></script>
-     <script type="text/javascript"
-     src="./assets/games/Attribution-style-game/src/scenes/userResult.js"></script> -->
+    <script
+      async
+      type="text/javascript"
+      src="./assets/games/Attribution-style-game/src/app.js"
+    ></script>
 
 
-
-
-  <!-- for interpretation bias game -->
-  <!-- <script type="text/javascript"
-    src="./assets/games/interpretation_bias_game/lib/wordList.min.js"></script> -->
-  <!-- <script type="text/javascript"
-    src="./assets/games/interpretation_bias_game/lib/wordBank.min.js"></script> -->
-  <!-- <script type="text/javascript"
-    src="./assets/games/interpretation_bias_game/lib/hammer.min.js"></script> -->
-  <!-- <script type="text/javascript"
-    src="./assets/games/interpretation_bias_game/lib/jquery-3.3.1.js"></script>  -->
-  <!-- <script type="text/javascript"
-    src="./assets/games/interpretation_bias_game/js/sentence_javascript.js"></script> -->
-  <!-- <script type="text/javascript"
-    src="./assets/games/interpretation_bias_game/lib/jquery.cookie.js"></script>  -->
-
-  <!-- for executive control game -->
-    <!--Required JS library-->
-    <!-- <script type="text/javascript"
-      src="./assets/games/executive-control-game/js/lib/jquery.cookie.js"></script> -->
-
-    <script async type="text/javascript"
-      src="./assets/games/executive-control-game/js/start_exec_game.js"></script>
-      <script async type="text/javascript" charset="utf-8">
-        var jpg_location = "./assets/games/executive-control-game/jpg_phaser";
-        var svg_location = "./assets/games/executive-control-game/svg_phaser";
-        var png = "./assets/games/executive-control-game/png";
-        var new_location = "./assets/games/executive-control-game/new_phaser";
-        var sound_location="./assets/games/executive-control-game/sounds";
-        var assets_img_location = "./assets/games";
-      </script>
-
+    <script
+      async
+      type="text/javascript"
+      src="./assets/games/executive-control-game/js/start_exec_game.js"
+    ></script>
     <script async type="text/javascript" charset="utf-8">
-      var att_location = "/assets/games/Attribution-style-game/src/assets/";
+      var jpg_location = './assets/games/executive-control-game/jpg_phaser';
+      var svg_location = './assets/games/executive-control-game/svg_phaser';
+      var png = './assets/games/executive-control-game/png';
+      var new_location = './assets/games/executive-control-game/new_phaser';
+      var sound_location = './assets/games/executive-control-game/sounds';
+      var assets_img_location = './assets/games';
     </script>
 
-      <!--Action files-->
-      <!-- <script type="text/javascript" src="./assets/games/executive-control-game/js/Game_Components/Actions/jump.js"></script>
-      <script type="text/javascript" src="./assets/games/executive-control-game/js/Game_Components/Actions/shooting.js"></script>
-      <script type="text/javascript" src="./assets/games/executive-control-game/js/Game_Components/Actions/scene_changer.js"></script> -->
+    <script async type="text/javascript" charset="utf-8">
+      var att_location = '/assets/games/Attribution-style-game/src/assets/';
+    </script>
 
-      <!--game elements-->
-      <!-- <script type="text/javascript" src="./assets/games/executive-control-game/js/Game_Components/Elements/coin_generator.js"></script>
-      <script type="text/javascript" src="./assets/games/executive-control-game/js/Game_Components/Elements/obstacle_generator.js"></script>
-      <script type="text/javascript" src="./assets/games/executive-control-game/js/Game_Components/Elements/pit_generator.js"></script>
-      <script type="text/javascript" src="./assets/games/executive-control-game/js/Game_Components/Elements/dropping_platform.js"></script>
-      <script type="text/javascript" src="./assets/games/executive-control-game/js/Game_Components/Elements/extra_life.js"></script>
-      <script type="text/javascript" src="./assets/games/executive-control-game/js/Game_Components/Elements/coin_generator_with_obstacle.js"></script> -->
 
-      <!--Executive control tasks-->
-      <!-- <script type="text/javascript" src="./assets/games/executive-control-game/js/Game_Components/Tasks/task_generator.js"></script>
-      <script type="text/javascript" src="./assets/games/executive-control-game/js/Game_Components/Tasks/flanker_task.js"></script>
-      <script type="text/javascript" src="./assets/games/executive-control-game/js/Game_Components/Tasks/discrimination_task.js"></script>
-      <script type="text/javascript" src="./assets/games/executive-control-game/js/Game_Components/Tasks/game_restorer.js"></script> -->
-      <!--init of game variables-->
-      <!-- <script type="text/javascript" src="./assets/games/executive-control-game/js/init.js"></script>   -->
-      <!-- <script type="text/javascript" src="./assets/games/executive-control-game/js/exec_game_javascript.js"></script> -->
-
-    <!-- Executive control game end -->
-
-    <!-- for learning helplessnes game -->
-    <!-- <script type="text/javascript" src="./assets/games/learning-helplessness/js/unsolvable_puzzle_1.js"></script>
-    <script type="text/javascript" src="./assets/games/learning-helplessness/js/unsolvable_puzzle_2.js"></script>
-    <script type="text/javascript" src="./assets/games/learning-helplessness/js/unsolvable_puzzle_3.js"></script>
-    <script type="text/javascript" src="./assets/games/learning-helplessness/js/color_reverse_game.js"></script> -->
-    <!--css of this game are called here as squares in this game are created when game is already running  -->
-    <!-- <link rel="stylesheet" type="text/css" href="./assets/games/learning-helplessness/css/color_reverse_game.css">
-    <link rel="stylesheet" type="text/css" href="./assets/games/learning-helplessness/css/unsolvable_puzzle_1.css">
-    <link rel="stylesheet" type="text/css" href="./assets/games/learning-helplessness/css/unsolvable_puzzle_1.css">
-    <link rel="stylesheet" type="text/css" href="./assets/games/learning-helplessness/css/unsolvable_puzzle_2.css">
-    <link rel="stylesheet" type="text/css" href="./assets/games/learning-helplessness/css/unsolvable_puzzle_3.css">
-   -->
-    <!-- for friendly face game -->
-    <!-- <script type="text/javascript" src="./assets/games/friendly-face-game/js/facegame_javascript.js"></script> -->
-    <!-- <script type="text/javascript" src="./assets/games/friendly-face-game/js/tone.min.js"></script> -->
-    <!-- <meta http-equiv="Content-Security-Policy" content="img-src 'self' data:; default-src 'none' http://localhost:4200/"> -->
-
-  </head>
-  <body style="margin:0;padding:0;">
+  <body style="margin: 0; padding: 0;">
     <app-root>
-      <div style="width: 100%; height: 100vh; background-color: #2a3b3d; text-align: center; padding-top: 150px;">
-        <img src="assets/shared/dna-loader.svg" alt="loading..." width="200">
+      <div
+        style="
+          width: 100%;
+          height: 100vh;
+          background-color: #2a3b3d;
+          text-align: center;
+          padding-top: 150px;
+        "
+      >
+        <img src="assets/shared/dna-loader.svg" alt="loading..." width="200" />
       </div>
     </app-root>
-    <script  async type="module" src="./assets/games/Attribution-style-game/src/app.js"></script>
-    <noscript>Please enable JavaScript to continue using this application.</noscript>
+    <script
+      async
+      type="module"
+      src="./assets/games/Attribution-style-game/src/app.js"
+    ></script>
+    <noscript
+      >Please enable JavaScript to continue using this application.</noscript
+    >
   </body>
 </html>
