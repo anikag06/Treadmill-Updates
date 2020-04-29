@@ -1,8 +1,4 @@
 
-var startGame;
-var pauseAllObject;
-var playAllObject;
-var check;
 // var startAttributeGame = function () {
 //     const DEFAULT_WIDTH = 1320;
 //     const DEFAULT_HEIGHT = 740;
@@ -34,37 +30,37 @@ var check;
 //   let game = new Phaser.Game(con);
 // });
 
+
+
+/*
 var AttributeGame = function () {
   const DEFAULT_WIDTH = 1320;
   const DEFAULT_HEIGHT = 740;
-  var con = new conf(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+  var con = {
+         backgroundColor: "#000000",
+         scale: {
+         mode: Phaser.Scale.FIT,
+         autoCenter: Phaser.Scale.CENTER_BOTH,
+         width: DEFAULT_WIDTH,
+         height: DEFAULT_HEIGHT
+         },
+         scene: [PreloadScene, HomeScene, LevelOne, LevelTwo, LevelThree, UIScene, ScoreDisplay, QuestionAndAnswer,UserResult],
+         physics: {
+         default: "arcade",
+         arcade: {
+             debug: false,
+             gravity: { y: 400 }
+         }
+         }};
 
   return new Phaser.Game(con);
-  
-  
-
-}
 
 
-function conf(DEFAULT_WIDTH, DEFAULT_HEIGHT){
-  backgroundColor: "#000000"
-	this.scale = {
-        mode: Phaser.Scale.FIT,
-        parent: "attGame",
-        autoCenter: Phaser.Scale.CENTER_BOTH,
-        width: DEFAULT_WIDTH,
-        height: DEFAULT_HEIGHT
-	};
-	this.physics= {
-		default: "arcade",
-        arcade: {
-            debug: false,
-            gravity: { y: 400 }
-        }
-		};
-		
-	this.scene=[PreloadScene, HomeScene, LevelOne, LevelTwo, LevelThree, UIScene, ScoreDisplay, QuestionAndAnswer,UserResult];
+
 };
+*/
+
+
 
 // function conf() {
 // 	const DEFAULT_WIDTH = 132;
@@ -89,25 +85,85 @@ function conf(DEFAULT_WIDTH, DEFAULT_HEIGHT){
 //     console.log('running');
 // };
 
-    class HomeScene extends Phaser.Scene {
-    constructor() {
-        super({ key: 'HomeScene' })
-    }
-
-    create() {
-        console.log('homescene class');
-        this.bg = this.add.sprite(0, 0, "bg").setOrigin(0, 0);
-        this.play_btn = this.add.sprite(650, 370, "play_btn").setInteractive();
 
 
-            this.scene.stop();
-            this.scene.start('LevelOne');
-            this.registry.set('currentScene', 'LevelOne');
-    }
+ class PreloadScene extends Phaser.Scene {
+  constructor() {
+    super({ key: "PreloadScene" });
+  }
 
-    update() {
+  preload() {
+    this.load.image("bg", "./assets/games/Attribution-style-game/src/assets/background.png");
+    this.load.image("play_btn", "./assets/games/Attribution-style-game/src/assets/play_btn.png");
+    this.load.image("pause_btn", "./assets/games/Attribution-style-game/src/assets/pause_btn.png");
+    this.load.image("home_btn", "./assets/games/Attribution-style-game/src/assets/home_btn.png");
+    this.load.image("restart_btn", "./assets/games/Attribution-style-game/src/assets/restart_btn.png");
+    this.load.image("next_btn", "./assets/games/Attribution-style-game/src/assets/Copy of Button_small.svg");
+    this.load.image("arrow", "./assets/games/Attribution-style-game/src/assets/arrow.png");
+    this.load.image("bow", "./assets/games/Attribution-style-game/src/assets/bow.png");
+    this.load.image("bow_bend", "./assets/games/Attribution-style-game/src/assets/bow_bend.png");
+    this.load.image(
+      "blue_balloon",
+      "./assets/games/Attribution-style-game/src/assets/small_blue_balloon.png"
+    );
+    this.load.image(
+      "green_balloon",
+      "./assets/games/Attribution-style-game/src/assets/small_green_balloon.png"
+    );
+    this.load.image(
+      "purple_balloon",
+      "./assets/games/Attribution-style-game/src/assets/small_purple_balloon.png"
+    );
+    this.load.image("red_balloon", "./assets/games/Attribution-style-game/src/assets/small_red_balloon.png");
+    this.load.image(
+      "yellow_balloon",
+      "./assets/games/Attribution-style-game/src/assets/small_yellow_balloon.png"
+    );
+    this.load.image(
+      "danger_balloon",
+      "./assets/games/Attribution-style-game/src/assets/danger_balloon.png"
+    );
+  }
 
-    }
+  create() {
+    this.bg = this.add.sprite(0, 0, "bg").setOrigin(0, 0);
+    $('#attGame').removeClass('d-none');
+    $("#start_page").addClass("d-none");
+    this.scene.start('HomeScene');
+  }
+}
+
+
+
+class HomeScene extends Phaser.Scene {
+   constructor() {
+     super({ key: 'HomeScene' })
+   }
+
+   create() {
+     console.log('homescene class');
+     this.bg = this.add.sprite(0, 0, "bg").setOrigin(0, 0);
+
+
+        this.scene.stop();
+        this.scene.start('LevelOne');
+        this.registry.set('currentScene', 'LevelOne');
+
+
+       let event = document.createEvent('Event');
+       event.initEvent('build');
+       window.dispatchEvent(event);
+       console.log(event);
+
+
+
+
+
+   }
+
+   update() {
+
+   }
 }
 
 class LevelOne extends Phaser.Scene {
@@ -117,14 +173,17 @@ class LevelOne extends Phaser.Scene {
 
     create() {
 
+      ASGLevelId = 1;
+
         this.lastFired = 0;
 
         // Total Time given to player
-        this.totalTime = 30;
+        this.totalTime = 5;
 
         this.totalBalloon = 0;
         this.totalBalloonBlown = 0;
         this.totalBalloonMissed = 0;
+        this.totalArrowsFired = 1;
 
         this.arrowInAir=false;
 
@@ -189,27 +248,29 @@ class LevelOne extends Phaser.Scene {
             element.setTexture(Phaser.Utils.Array.GetRandom(this.BallonsFrame));
         });
 
-        this.ScoreTxt = this.add.text(30, 30, '0')
+        this.ScoreTxt = this.add.text(30, 30, '0',{ fontFamily: '"Roboto"' })
             .setFontSize(fontSize)
             .setColor(fontColor);
 
-        this.timeTxt = this.add.text(30, this.ScoreTxt.getBottomRight().y + 10, this.totalTime)
-            .setFontSize(fontSize)
-            .setColor(fontColor);
+                
+            this.redBalloonTime = this.add.sprite(this.ScoreTxt.getTopRight().x + 20, (this.ScoreTxt.getTopRight().y + this.ScoreTxt.getBottomRight().y) / 2, 'red_balloon').setScale(0.07);
 
-        this.timeTxtSec = this.add.text(this.timeTxt.getBottomRight().x + 5, this.ScoreTxt.getBottomRight().y + 10, 's')
-            .setFontSize(fontSize)
-            .setColor(fontColor);
 
-        this.redBalloonTime = this.add.sprite(this.ScoreTxt.getTopRight().x + 30, (this.ScoreTxt.getTopRight().y + this.ScoreTxt.getBottomRight().y) / 2, 'red_balloon').setScale(0.07);
-
-        this.gameOverTxt = this.add.text(660, 370, "Game Over!")
+            this.timeTxt = this.add.text(this.redBalloonTime.getBottomRight().x +  30, 30, this.totalTime, { fontFamily: '"Roboto"' })
+                .setFontSize(fontSize)
+                .setColor(fontColor);
+    
+            this.timeTxtSec = this.add.text(this.timeTxt.getBottomRight().x + 5,30, 's', { fontFamily: '"Roboto"' })
+                .setFontSize(fontSize)
+                .setColor(fontColor);
+    
+        this.gameOverTxt = this.add.text(660, 370, "Game Over!", { fontFamily: '"Roboto"' })
             .setFontSize(50)
             .setColor('black')
             .setVisible(false)
             .setOrigin(0.5);
 
-        this.LevelOneTxt = this.add.text(660, 370, "Level One")
+        this.LevelOneTxt = this.add.text(660, 370, "Level One", { fontFamily: '"Roboto"' })
             .setFontSize(100)
             .setColor('black')
             .setOrigin(0.5);
@@ -225,7 +286,7 @@ class LevelOne extends Phaser.Scene {
             duration: 1000,
             alpha: 0,
             onComplete: () => {
-                this.LevelOneTxt.setText("Level One");
+                this.LevelOneTxt.setText("Level One", { fontFamily: '"Roboto"' });
                 this.doCountDown(3);
             }
         });
@@ -248,23 +309,40 @@ class LevelOne extends Phaser.Scene {
             delay: 1000,
             callback: () => {
                 this.totalTime--;
-                this.timeTxt.setText(this.totalTime);
+                this.timeTxt.setText(this.totalTime, { fontFamily: '"Roboto"' });
                 if (this.totalTime === 0) {
                     this.isGameOver = true;
                     this.gameOverTimer.remove();
                     this.gameOverTxt.setVisible(true);
                     this.scene.stop();
                     this.registry.set('questionNumber', '1');
+                    ASGBalloonsBurst = this.totalBalloonBlown;
+                    ASGTotalBaloons = 30;
+                    ASGArrowsFired = this.totalArrowsFired - this.totalBalloonBlown;
                     this.registry.set('totalBalloonMissed', 30 - this.totalBalloonBlown);
                     this.registry.set('totalBalloon', 30);
+                    this.registry.set('ParallelScene', 'ScoreDisplay');
                     this.scene.start('ScoreDisplay');
                     this.registry.set('currentScene', 'LevelTwo');
+                  this.updateBadges();
                 }
             },
             callbackScope: this.scene,
             loop: true
         });
-    }
+
+
+    };
+
+  ASGPostIndividualLevelPerformanceEvent;
+
+  updateBadges() {
+    this.ASGPostIndividualLevelPerformanceEvent = document.createEvent('CustomEvent');
+    this.ASGPostIndividualLevelPerformanceEvent.initCustomEvent('ASGPostIndividualLevelPerformance');
+    window.dispatchEvent(this.ASGPostIndividualLevelPerformanceEvent);
+  }
+
+
 
 
 
@@ -349,7 +427,7 @@ class LevelOne extends Phaser.Scene {
         balloon.disableBody(true, true);
 
         this.totalBalloonBlown++;
-        this.ScoreTxt.setText(this.totalBalloonBlown);
+        this.ScoreTxt.setText(this.totalBalloonBlown, { fontFamily: '"Roboto"' });
 
         arrow.destroy();
         arrow.arrowProperty.destroy();
@@ -358,6 +436,7 @@ class LevelOne extends Phaser.Scene {
     }
 
     resetArrow() {
+        this.totalArrowsFired++;
         this.arrow.setOrigin(0, 0.5);
         this.arrowPoint.enableBody(true, 100, 650, true, true);
         this.arrow.enableBody(true, 100, 650, true, true);
@@ -372,6 +451,7 @@ class LevelOne extends Phaser.Scene {
     }
 
     reset() {
+      this.totalArrowsFired++;
         this.arrowInAir = false;
         this.isArrowReady = true;
         this.arrow.setVisible(true);
@@ -404,7 +484,7 @@ class LevelOne extends Phaser.Scene {
 
         if (!obj) {
             obj = this.add.text(1320 / 2, 740 / 2, count.toString(), {
-                fontFamily: 'Anton-Regular',
+                fontFamily: 'ROBOTO',
                 fontSize: 190,
                 fill: '#000000',
                 align: 'center'
@@ -448,11 +528,14 @@ class LevelTwo extends Phaser.Scene {
     }
 
     create() {
+      ASGLevelId = 2;
 
         this.lastFired = 0;
+      this.totalArrowsFired = 1;
 
-        // Total Time given to player
-        this.totalTime = 30;
+
+      // Total Time given to player
+        this.totalTime = 5;
 
         this.totalBalloon = 0;
         this.totalBalloonBlown = 0;
@@ -546,27 +629,29 @@ class LevelTwo extends Phaser.Scene {
             runChildUpdate: true
         });
 
-        this.ScoreTxt = this.add.text(30, 30, '0')
+        this.ScoreTxt = this.add.text(30, 30, '0',{ fontFamily: '"Roboto"' })
+            .setFontSize(fontSize)
+            .setColor(fontColor);
+        
+        this.redBalloonTime = this.add.sprite(this.ScoreTxt.getTopRight().x + 20, (this.ScoreTxt.getTopRight().y + this.ScoreTxt.getBottomRight().y) / 2, 'red_balloon').setScale(0.07);
+
+
+        this.timeTxt = this.add.text(this.redBalloonTime.getBottomRight().x +  30, 30, this.totalTime, { fontFamily: '"Roboto"' })
             .setFontSize(fontSize)
             .setColor(fontColor);
 
-        this.timeTxt = this.add.text(30, this.ScoreTxt.getBottomRight().y + 10, this.totalTime)
+        this.timeTxtSec = this.add.text(this.timeTxt.getBottomRight().x + 5,30, 's', { fontFamily: '"Roboto"' })
             .setFontSize(fontSize)
             .setColor(fontColor);
 
-        this.timeTxtSec = this.add.text(this.timeTxt.getBottomRight().x + 5, this.ScoreTxt.getBottomRight().y + 10, 's')
-            .setFontSize(fontSize)
-            .setColor(fontColor);
 
-        this.redBalloonTime = this.add.sprite(this.ScoreTxt.getTopRight().x + 30, (this.ScoreTxt.getTopRight().y + this.ScoreTxt.getBottomRight().y) / 2, 'red_balloon').setScale(0.07);
-
-        this.gameOverTxt = this.add.text(660, 370, "Game Over!")
+        this.gameOverTxt = this.add.text(660, 370, "Game Over!", { fontFamily: '"Roboto"' })
             .setFontSize(50)
             .setColor('black')
             .setVisible(false)
             .setOrigin(0.5);
 
-        this.LevelTwoTxt = this.add.text(660, 370, "Level Two")
+        this.LevelTwoTxt = this.add.text(660, 370, "Level Two", { fontFamily: '"Roboto"' })
             .setFontSize(100)
             .setColor('black')
             .setOrigin(0.5);
@@ -582,7 +667,7 @@ class LevelTwo extends Phaser.Scene {
             duration: 1000,
             alpha: 0,
             onComplete: () => {
-                this.LevelTwoTxt.setText("Level Two");
+                this.LevelTwoTxt.setText("Level Two", { fontFamily: '"Roboto"' });
                 this.doCountDown(3);
             }
         });
@@ -603,10 +688,15 @@ class LevelTwo extends Phaser.Scene {
             delay: 1000,
             callback: () => {
                 this.totalTime--;
-                this.timeTxt.setText(this.totalTime);
+                this.timeTxt.setText(this.totalTime, { fontFamily: '"Roboto"' });
                 if (this.totalTime === 0) {
                     this.isGameOver = true;
                     this.gameOverTimer.remove();
+
+                  ASGBalloonsBurst = this.totalBalloonBlown;
+                  ASGTotalBaloons = this.totalBalloon;
+                  ASGArrowsFired = this.totalArrowsFired - this.totalBalloonBlown;
+
                     this.gameOverTxt.setVisible(true);
                     this.registry.set('questionNumber', '2');
                     this.registry.set('totalBalloonMissed', this.totalBalloon - this.totalBalloonBlown);
@@ -614,12 +704,20 @@ class LevelTwo extends Phaser.Scene {
                     this.scene.stop();
                     this.scene.start('ScoreDisplay');
                     this.registry.set('currentScene', 'LevelThree');
+                  this.updateBadges();
                 }
             },
             callbackScope: this.scene,
             loop: true
         });
     }
+
+  ASGPostLevelTwoPerformanceEvent;
+
+  updateBadges() {
+    this.ASGPostLevelTwoPerformanceEvent = document.createEvent('CustomEvent');
+    this.ASGPostLevelTwoPerformanceEvent.initCustomEvent('ASGPostLevelTwoPerformance');
+    window.dispatchEvent(this.ASGPostLevelTwoPerformanceEvent);}
 
     bowMovement(pointer) {
         if (!this.isGameStart) return;
@@ -699,7 +797,7 @@ class LevelTwo extends Phaser.Scene {
         balloon.disableBody(true, true);
 
         this.totalBalloonBlown++;
-        this.ScoreTxt.setText(this.totalBalloonBlown);
+        this.ScoreTxt.setText(this.totalBalloonBlown, { fontFamily: '"Roboto"' });
 
         arrow.destroy();
         arrow.arrowProperty.destroy();
@@ -708,6 +806,7 @@ class LevelTwo extends Phaser.Scene {
     }
 
     resetArrow() {
+        this.totalArrowsFired++;
         this.arrow.setOrigin(0, 0.5);
         this.arrowPoint.enableBody(true, 100, 650, true, true);
         this.arrow.enableBody(true, 100, 650, true, true);
@@ -722,6 +821,7 @@ class LevelTwo extends Phaser.Scene {
     }
 
     reset() {
+      this.totalArrowsFired++;
         this.arrowInAir = false;
         this.isArrowReady = true;
         this.arrow.setVisible(true);
@@ -770,7 +870,7 @@ class LevelTwo extends Phaser.Scene {
 
         if (!obj) {
             obj = this.add.text(1320 / 2, 740 / 2, count.toString(), {
-                fontFamily: 'Anton-Regular',
+                fontFamily: '"Roboto"',
                 fontSize: 190,
                 fill: '#000000',
                 align: 'center'
@@ -814,11 +914,13 @@ class LevelThree extends Phaser.Scene {
     }
 
     create() {
+      ASGLevelId = 3;
 
         this.lastFired = 0;
+      this.totalArrowsFired = 1;
 
         // Total Time given to player
-        this.totalTime = 30;
+        this.totalTime = 5;
 
         this.totalBalloon = 0;
         this.totalBalloonBlown = 0;
@@ -921,34 +1023,36 @@ class LevelThree extends Phaser.Scene {
             gravityY: -450
         });
 
-        this.freezeTxt = this.add.text(660, 370, "Freezed!")
+        this.freezeTxt = this.add.text(660, 370, "Freezed!",{ fontFamily: '"Roboto"' })
             .setFontSize(60)
             .setColor('black')
             .setVisible(false)
             .setOrigin(0.5);
 
 
-        this.ScoreTxt = this.add.text(30, 30, '0')
+        this.ScoreTxt = this.add.text(30, 30, '0',{ fontFamily: '"Roboto"' })
             .setFontSize(fontSize)
             .setColor(fontColor);
 
-        this.timeTxt = this.add.text(30, this.ScoreTxt.getBottomRight().y + 10, this.totalTime)
-            .setFontSize(fontSize)
-            .setColor(fontColor);
+               
+            this.redBalloonTime = this.add.sprite(this.ScoreTxt.getTopRight().x + 20, (this.ScoreTxt.getTopRight().y + this.ScoreTxt.getBottomRight().y) / 2, 'red_balloon').setScale(0.07);
 
-        this.timeTxtSec = this.add.text(this.timeTxt.getBottomRight().x + 5, this.ScoreTxt.getBottomRight().y + 10, 's')
-            .setFontSize(fontSize)
-            .setColor(fontColor);
 
-        this.redBalloonTime = this.add.sprite(this.ScoreTxt.getTopRight().x + 30, (this.ScoreTxt.getTopRight().y + this.ScoreTxt.getBottomRight().y) / 2, 'red_balloon').setScale(0.07);
-
-        this.gameOverTxt = this.add.text(660, 370, "Game Over!")
+            this.timeTxt = this.add.text(this.redBalloonTime.getBottomRight().x +  30, 30, this.totalTime, { fontFamily: '"Roboto"' })
+                .setFontSize(fontSize)
+                .setColor(fontColor);
+    
+            this.timeTxtSec = this.add.text(this.timeTxt.getBottomRight().x + 5,30, 's', { fontFamily: '"Roboto"' })
+                .setFontSize(fontSize)
+                .setColor(fontColor);
+    
+        this.gameOverTxt = this.add.text(660, 370, "Game Over!", { fontFamily: '"Roboto"' })
             .setFontSize(50)
             .setColor('black')
             .setVisible(false)
             .setOrigin(0.5);
 
-        this.LevelThreeTxt = this.add.text(660, 370, "Level Three")
+        this.LevelThreeTxt = this.add.text(660, 370, "Level Three", { fontFamily: '"Roboto"' })
             .setFontSize(100)
             .setColor('black')
             .setOrigin(0.5);
@@ -964,7 +1068,7 @@ class LevelThree extends Phaser.Scene {
             duration: 1000,
             alpha: 0,
             onComplete: () => {
-                this.LevelThreeTxt.setText("Level Three");
+                this.LevelThreeTxt.setText("Level Three", { fontFamily: '"Roboto"' });
                 this.doCountDown(3);
             }
         });
@@ -986,16 +1090,22 @@ class LevelThree extends Phaser.Scene {
             delay: 1000,
             callback: () => {
                 this.totalTime--;
-                this.timeTxt.setText(this.totalTime);
+                this.timeTxt.setText(this.totalTime, { fontFamily: '"Roboto"' });
                 if (this.totalTime === 0) {
                     this.isGameOver = true;
                     this.gameOverTimer.remove();
+
+                  ASGBalloonsBurst = this.totalBalloonBlown;
+                  ASGTotalBaloons = this.totalBalloon;
+                  ASGArrowsFired = this.totalArrowsFired - this.totalBalloonBlown;
+
                     this.gameOverTxt.setVisible(true);
                     this.registry.set('questionNumber', '3');
                     this.registry.set('totalBalloonMissed', this.totalBalloon - this.totalBalloonBlown);
                     this.registry.set('totalBalloon', this.totalBalloon);
                     this.scene.start('ScoreDisplay');
                     this.registry.set('currentScene', 'LevelThree');
+                  this.updateBadges();
                 }
             },
             callbackScope: this.scene,
@@ -1009,6 +1119,13 @@ class LevelThree extends Phaser.Scene {
             loop: true
         });
     }
+
+  ASGPostIndividualLevelPerformanceEvent;
+
+  updateBadges() {
+    this.ASGPostIndividualLevelPerformanceEvent = document.createEvent('CustomEvent');
+    this.ASGPostIndividualLevelPerformanceEvent.initCustomEvent('ASGPostIndividualLevelPerformance');
+    window.dispatchEvent(this.ASGPostIndividualLevelPerformanceEvent);}
 
     createFreezeBalloon() {
         if (this.isGameOver) return;
@@ -1103,7 +1220,7 @@ class LevelThree extends Phaser.Scene {
         balloon.disableBody(true, true);
 
         this.totalBalloonBlown++;
-        this.ScoreTxt.setText(this.totalBalloonBlown);
+        this.ScoreTxt.setText(this.totalBalloonBlown, { fontFamily: '"Roboto"' });
 
         arrow.destroy();
         arrow.arrowProperty.destroy();
@@ -1136,6 +1253,7 @@ class LevelThree extends Phaser.Scene {
     }
 
     resetArrow() {
+      this.totalArrowsFired++;
         this.arrow.setOrigin(0, 0.5);
         this.arrowPoint.enableBody(true, 100, 650, true, true);
         this.arrow.enableBody(true, 100, 650, true, true);
@@ -1150,6 +1268,7 @@ class LevelThree extends Phaser.Scene {
     }
 
     reset() {
+      this.totalArrowsFired++;
         this.arrowInAir = false;
         this.isArrowReady = true;
         this.arrow.setVisible(true);
@@ -1187,7 +1306,7 @@ class LevelThree extends Phaser.Scene {
 
         if (!obj) {
             obj = this.add.text(1320 / 2, 740 / 2, count.toString(), {
-                fontFamily: 'Anton-Regular',
+                fontFamily: 'Roboto',
                 fontSize: 190,
                 fill: '#000000',
                 align: 'center'
@@ -1221,130 +1340,13 @@ class LevelThree extends Phaser.Scene {
 
             }
         });
-    }
-}
-
-class PERMANENCE extends Phaser.Scene {
-    constructor() {
-        super({ key: "PERMANENCE" })
-    }
-
-    create() {
-
-        var fontSize = 19;
-        var fontColor = 'black';
-        var fontWrapWidth = 1250;
-        var space = 15;
-
-        this.result = {
-            "que1": {
-                "1": "When you believed that you played well in the first part of the game, you owed your success to your good gaming skills.\n\nNow, imagine that you have won a competition. Why do YOU think you won? \nIs it because you practiced hard? You had prepared for it for a long time? You deserved to win the competition?  Yes?\n\nYou tend to believe that the cause of a good event happening to you is ‘you’. You have an optimistic explanation in the ‘ME’ aspect.",
-
-                "2": "When you believed that you did not perform well in the first version of the game, you attributed your bad performance to the difficulty of the game.\n\nNow, imagine that you have lost a competition. Why do YOU think you lost? \nIs it because the competition was tough? Your opponents were better? Your luck was not in your favour? Yes?\nYou tend to believe that a bad event happening to you is because of some external factor. You have an optimistic explanation in the ‘ME’ aspect.",
-
-                "3": "When you believed that you played well in the first part of the game, you owed your success to the easy gameplay.\n\nNow, imagine that you have won a competition. Why do YOU think you won?\nIs it because the competition was easy? Your opponents did not perform well? Your luck was in your favour? Yes?\n\nYou tend to believe that the cause of a good event happening to you is an external factor. You have a pessimistic explanation in the ‘ME’ aspect. \n\nHere’s a secret: The game is not as easy as it seemed to be. So, if you think you played well, you’re pretty good at it!",
-
-                "4": "When you believed that you did not perform well in the first version of the game, you also believed you are not good at any such game.\n\nNow, imagine that you have lost a competition. Why do YOU think you lost?\nIs it because you aren’t good enough? You aren’t good at anything? You keep failing at anything you do? Yes?\n\nYou tend to believe that the cause of a bad event happening to you is ‘you’. You have a pessimistic explanation in the ‘ME’ aspect.\nBut hey, maybe the odds were just not in your favour!"
-            },
-            "que2": {
-                "1": "After the second game you thought you performed well in the game and that your performance will get better every time you play.\n\nNow, imagine that you have performed well in an interview that you applied for.\nDo you always interview well? Are you always confident during interviews? \n\nYou tend to believe that the cause of a good event is permanent and will always happen. You have an ‘optimistic’ explanation in ‘Time’ aspect.",
-
-                "2": "After the second game when you believed that your performance was not good, you also said that it will improve with time.\n\nNow, imagine that you have not performed well in an interview that you applied for.\nDo you think it will get better next time? Did you mess up just one time?\n\nYou tend to believe that the cause of a bad event is temporary and will improve with time. You have an ‘optimistic’ explanation in ‘Time’ aspect.",
-
-                "3": "After the second game you thought you performed well in the game, but you also thought it was just a one-time thing and might not happen again.\n\nNow, imagine that you have performed well in an interview that you applied for.\nWas it because you somehow felt confident this one-time? Or it was your lucky day? Other interviews will not go well?\n\nYou tend to believe that the cause of a good event is temporary and will not happen again. You have an ‘pessimistic’ explanation in ‘Time’ aspect.",
-
-                "4": "After the second game when you believed that your performance was not good, you also said that it will not improve and can never be good.\n\nNow, imagine that you have not performed well in an interview that you applied for.\nAre you convinced that they’ll always go bad? You cannot interview well? You will always mess up?\n\nYou tend to believe that the cause of a bad event is permanent and will always happen. You have an ‘pessimistic’ explanation in ‘Time’ aspect"
-            },
-            "que3": {
-                "1": "After the third game you believed you have performed well in this game and that you’ll be able to perform well in any other game that is given to you.\n\nNow, imagine that your friend asks you for an advice and you were able to help. Your friend is thankful to you. \nDo you think you always give useful advices? Are you good at that?\n\nYou tend to believe that you can be good at anything that you do. You have an ‘optimistic’ style in ‘Space’ aspect.",
-
-                "2": "After the third game you believed you have performed bad in this game but also that you’ll be able to perform well in any other game that is given to you.\n\nNow, imagine that your friend asks you for an advice and you were not able to help.\nDo you think it was because you did not know much about the topic, he asked advice in? You could have helped if you had some knowledge about it?\n\nYou tend to believe that if not one, you can do better at any other activity. You have an ‘optimistic’ style in ‘Space’ aspect.",
-
-                "3": "After the third game you believed you have performed well in this game but also that you’ll not be able to perform well in any other game that is given to you.\n\nNow, imagine that your friend asks you for an advice and you were able to help. Your friend is thankful to you.\nDo you think you were able to help because you’re an expert in that field? Had it been something else you wouldn’t have been to help?\n\nYou tend to believe that you can be good at only a few things you do. You have an ‘pessimistic’ style in ‘Space’ aspect.",
-
-                "4": "After the third game you believed you have performed bad in this game and will perform bad in any other game that is given to you.\n\nNow, imagine that your friend asks you for an advice and you were not able to help.\nDo you think you’re not good at giving any sort of advice?\n\nYou tend to believe that you cannot be good at anything you do. You have an ‘pessimistic’ style in ‘Space’ aspect."
-            }
-        };;
-
-        this.bg = this.add.sprite(0, 0, "bg").setOrigin(0, 0);
-        this.titleRect = this.add.rectangle(0, 0, 1330, 740, 0xffffff, 0.50).setOrigin(0, 0);
-
-        this.openLink = this.add.text(10, 700, "Click here")
-            .setFontSize(fontSize)
-            .setColor(fontColor)
-            .setWordWrapWidth(fontWrapWidth)
-            .setInteractive();
-
-        this.permanenceTitleTxt = this.add.text(10, 10, "PERMANENCE")
-            .setFontSize(fontSize)
-            .setColor(fontColor)
-            .setWordWrapWidth(fontWrapWidth);
-
-        this.permanenceDescriptionTxt = this.add.text(50, this.permanenceTitleTxt.getBottomRight().y + space, this.result.que2[this.registry.get('que2')])
-            .setFontSize(fontSize)
-            .setColor(fontColor)
-            .setWordWrapWidth(fontWrapWidth);
-
-
-            this.openLink.once("pointerdown",function(){
-                this.openWindow();
-            },this);
-
-    }
-
-    openWindow() {
-        console.log('opening')
-        var result = window.open('./assets/EXPLANATORY%20STYLE.pdf', "_self")
-        console.log('result', result);
-    }
-
-    update() {
 
     }
 }
 
-class PreloadScene extends Phaser.Scene {
-    constructor() {
-      super({ key: "PreloadScene" });
-    }
-  
-    preload() {
-      this.load.image("bg", "./assets/games/Attribution-style-game/src/assets/background.png");
-      this.load.image("play_btn", "./assets/games/Attribution-style-game/src/assets/play_btn.png");
-      this.load.image("pause_btn", "./assets/games/Attribution-style-game/src/assets/pause_btn.png");
-      this.load.image("home_btn", "./assets/games/Attribution-style-game/src/assets/home_btn.png");
-      this.load.image("restart_btn", "./assets/games/Attribution-style-game/src/assets/restart_btn.png");
-      this.load.image("next_btn", "./assets/games/Attribution-style-game/src/assets/next_btn.png");
-      this.load.image("arrow", "./assets/games/Attribution-style-game/src/assets/arrow.png");
-      this.load.image("bow", "./assets/games/Attribution-style-game/src/assets/bow.png");
-      this.load.image("bow_bend", "./assets/games/Attribution-style-game/src/assets/bow_bend.png");
-      this.load.image(
-        "blue_balloon",
-        "./assets/games/Attribution-style-game/src/assets/small_blue_balloon.png"
-      );
-      this.load.image(
-        "green_balloon",
-        "./assets/games/Attribution-style-game/src/assets/small_green_balloon.png"
-      );
-      this.load.image(
-        "purple_balloon",
-        "./assets/games/Attribution-style-game/src/assets/small_purple_balloon.png"
-      );
-      this.load.image("red_balloon", "./assets/games/Attribution-style-game/src/assets/small_red_balloon.png");
-      this.load.image(
-        "yellow_balloon",
-        "./assets/games/Attribution-style-game/src/assets/small_yellow_balloon.png"
-      );
-      this.load.image(
-        "danger_balloon",
-        "./assets/games/Attribution-style-game/src/assets/danger_balloon.png"
-      );
-    }
-  
-    create() {
-      this.scene.start('HomeScene');
-    }
-  }
+
+
+
 
   class QuestionAndAnswer extends Phaser.Scene {
     constructor() {
@@ -1352,112 +1354,179 @@ class PreloadScene extends Phaser.Scene {
     }
 
     create() {
-        let fontSize = 25;
+        let fontSize = 30;
         let fontColor = 'black';
         this.currentQuestion;
         this.questionNumber = "que1";
 
-        let Title = "Based on your experience in the previous game, answer\nthe questions that follow.";
+        let Title = "Based on your experience in the previous game, answer the questions that follow.";
+          // console.log(ASGUserPerformance);
+          // console.log(ASGAnswer.results[2]);
+          // console.log(ASGQuestions.results[0].question_text);
+          this.q1 = ASGQuestions.results[0].question_text;
+      this.q2 = ASGQuestions.results[1].question_text;
+      this.q3 = ASGQuestions.results[2].question_text;
+      this.q4 = ASGQuestions.results[3].question_text;
+      this.q5 = ASGQuestions.results[4].question_text;
+      this.q6 = ASGQuestions.results[5].question_text;
+      this.q7 = ASGQuestions.results[6].question_text;
+      this.q8 = ASGQuestions.results[7].question_text;
+      this.q9 = ASGQuestions.results[8].question_text;
+      this.q10 = ASGQuestions.results[9].question_text;
+
+
+      this.Answers1 = {
+        "ans1": ASGAnswer.results[1].answer_text,
+        "ans2": ASGAnswer.results[0].answer_text,
+        "ans3": ASGAnswer.results[2].answer_text,
+        "ans4": ASGAnswer.results[3].answer_text,
+        "ans5": ASGAnswer.results[4].answer_text,
+        "ans6": ASGAnswer.results[5].answer_text,
+        "ans7": ASGAnswer.results[6].answer_text,
+        "ans8": ASGAnswer.results[7].answer_text,
+        "ans9": ASGAnswer.results[8].answer_text,
+        "ans10": ASGAnswer.results[9].answer_text,
+        "ans11": ASGAnswer.results[10].answer_text,
+        "ans12": ASGAnswer.results[11].answer_text,
+        "ans13": ASGAnswer.results[12].answer_text,
+        "ans14": ASGAnswer.results[13].answer_text,
+        "ans15": ASGAnswer.results[14].answer_text,
+        "ans16": ASGAnswer.results[15].answer_text,
+        "ans17": ASGAnswer.results[16].answer_text,
+        "ans18": ASGAnswer.results[17].answer_text,
+        "ans19": ASGAnswer.results[18].answer_text,
+        "ans20": ASGAnswer.results[19].answer_text
+      };
+
+
+
+
+
+
+
+
+
+
+
 
         this.Answers = {
-            "ans1": "Good",
-            "ans2": "Bad",
-            "ans3": "I am good at playing games like these.",
-            "ans4": "This game was easy to play.",
-            "ans5": "I am bad at playing games like these.",
-            "ans6": "This game was difficult to play.",
-            "ans7": "Yes",
-            "ans8": "No",
-            "ans9": "No, I somehow played well this time. I am not usually good at games.",
-            "ans10": "Yes, I did not play well just one time.",
-            "ans11": "No, I cannot be good at it.",
-            "ans12": "No, I don't think so."
+            "ans1": ASGAnswer.results[1].answer_text,
+            "ans2": ASGAnswer.results[0].answer_text,
+            "ans3": ASGAnswer.results[2].answer_text,
+            "ans4": ASGAnswer.results[3].answer_text,
+            "ans5": ASGAnswer.results[4].answer_text,
+            "ans6": ASGAnswer.results[5].answer_text,
+            "ans7": ASGAnswer.results[6].answer_text,
+            "ans8": ASGAnswer.results[7].answer_text,
+            "ans9": ASGAnswer.results[9].answer_text,
+            "ans10": ASGAnswer.results[18].answer_text,
+            "ans11": ASGAnswer.results[19].answer_text,
+            "ans12": ASGAnswer.results[11].answer_text
         };
 
         this.Questions = {
             "que1": {
-                question: "How do you think you have performed in this game?",
+                question: this.q1,
                 ans1: {
                     ans: this.Answers.ans1,
-                    question: "Why do you think you have performed good in this game?",
-                    ans1: { ans: this.Answers.ans3, question: "0", result: "1" },
-                    ans2: { ans: this.Answers.ans4, question: "0", result: "3" }
+                    id: 2,
+                    question: this.q2,
+                    ans1: { ans: this.Answers.ans3, id: 3,  question: "0", result: "1", explanationId: 1, a1: 2, a2: 3 },
+                    ans2: { ans: this.Answers.ans4, id: 4,  question: "0", result: "3", explanationId: 3, a1: 2, a2: 4 }
                 },
                 ans2: {
                     ans: this.Answers.ans2,
-                    question: "Why do you think you have performed bad in this game?",
-                    ans1: { ans: this.Answers.ans5, question: "0", result: "2" },
-                    ans2: { ans: this.Answers.ans6, question: "0", result: "4" }
+                    id: 1,
+                    question: this.q3,
+                    ans1: { ans: this.Answers.ans5, id: 5, question: "0", result: "2", explanationId: 2, a1: 1, a2: 5 },
+                    ans2: { ans: this.Answers.ans6, id: 6, question: "0", result: "4", explanationId: 4, a1: 1, a2: 6 }
                 }
             },
             "que2": {
-                question: "Do you think you played well?",
+                question: this.q4,
                 ans1: {
                     ans: this.Answers.ans7,
-                    question: "Do you think your performance will change with time?",
+                    id: 7,
+                    question: this.q5,
                     ans1: {
                         ans: this.Answers.ans7,
-                        question: "Will it improve?",
-                        ans1: { ans: this.Answers.ans7, question: "0", result: "1" },
-                        ans2: { ans: this.Answers.ans12, question: "0", result: "3" }
+                        id: 9,
+                        question: this.q6,
+                        ans1: { ans: this.Answers.ans7, id:11, question: "0", result: "1", explanationId: 5, a1: 9, a2: 11 },
+                        ans2: { ans: this.Answers.ans12, id:12, question: "0", result: "3", explanationId: 7, a1: 9, a2: 12 }
                     },
-                    ans2: { ans: this.Answers.ans9, question: "0", result: "3" }
+                    ans2: { ans: this.Answers.ans9, id:10, question: "0", result: "3", explanationId: 7, a1: 7, a2: 10 }
                 },
                 ans2: {
                     ans: this.Answers.ans8,
-                    question: "Do you think your performance will change with time?",
-                    ans1: { ans: this.Answers.ans10, question: "0", result: "2" },
-                    ans2: { ans: this.Answers.ans11, question: "0", result: "4" }
+                    id: 8,
+                    question: this.q7,
+                    ans1: { ans: this.Answers.ans10, id:19, question: "0", result: "2", explanationId: 6, a1: 8, a2: 19 },
+                    ans2: { ans: this.Answers.ans11, id:20, question: "0", result: "4", explanationId: 8 , a1: 8, a2: 20}
                 }
             },
             "que3": {
-                question: "How do you think you have performed in this game?",
+                question: this.q8,
                 ans1: {
                     ans: this.Answers.ans1,
-                    question: "Will you be able to perform well at any other game?",
-                    ans1: { ans: this.Answers.ans7, question: "0", result: "1" },
-                    ans2: { ans: this.Answers.ans8, question: "0", result: "3" }
+                    id: 13,
+                    question: this.q9,
+                    ans1: { ans: this.Answers.ans7, id: 15, question: "0", result: "1", explanationId: 9, a1: 13, a2: 15 },
+                    ans2: { ans: this.Answers.ans8, id: 16, question: "0", result: "3", explanationId: 11, a1: 13, a2: 16 }
                 },
                 ans2: {
                     ans: this.Answers.ans2,
-                    question: "Will you perform bad at any other game as well?",
-                    ans1: { ans: this.Answers.ans7, question: "0", result: "2" },
-                    ans2: { ans: this.Answers.ans8, question: "0", result: "4" }
+                    id: 14,
+                    question: this.q10,
+                    ans1: { ans: this.Answers.ans7, id:17, question: "0", result: "2", explanationId: 10, a1: 14, a2: 17 },
+                    ans2: { ans: this.Answers.ans8, id:18, question: "0", result: "4", explanationId: 12, a1: 14, a2: 18 }
                 }
             }
         };
 
         this.bg = this.add.sprite(0, 0, "bg").setOrigin(0, 0);
-        this.titleRect = this.add.rectangle(200, 200, 950, 70, 0xffffff, 0.50).setOrigin(0, 0);
-        this.descRect = this.add.rectangle(200, 200, 950, 330, 0xffffff, 0.50).setOrigin(0, 0);
-
-        this.next_btn = this.add.sprite(1260, 680, "next_btn").setInteractive();
+        this.titleRect = this.add.rectangle(150, 180, 1050, 90, 0xffffff, 0.50).setOrigin(0, 0);
+        this.descRect = this.add.rectangle(150, 180, 1050, 430, 0xffffff, 0.50).setOrigin(0, 0);
+        this.nextRect = this.add.rectangle(150, 180, 1050, 430, 0xffffff, 0.50).setOrigin(0, 0);
+        this.next_btn = this.add.sprite(670, 500, "next_btn")
+          .setInteractive()
+          .setScale(1.5);
         this.next_btn.setVisible(false);
+        this.nextRect.setVisible(false);
 
-        this.titleTxt = this.add.text(260, 210, Title)
+        this.L1text = this.add.text(430, 300,'Great! you have completed level 1', { fontFamily: '"Roboto"' }).setFontSize(35).setColor('black').setFontStyle('bold');;
+      this.L1text.setVisible(false);
+
+      this.L1_2text = this.add.text(470, 350,'Click on the next button to continue to Level 2', { fontFamily: '"Roboto"' }).setFontSize(20).setColor('black');
+      this.L1_2text.setVisible(false);
+
+        this.nexttext = this.add.text(645, 485,'Next', { fontFamily: '"Roboto"' }).setFontSize(25).setColor('black');
+      this.nexttext.setVisible(false);
+
+        this.titleTxt = this.add.text(170, 210, Title, { fontFamily: '"Roboto"' })
             .setFontSize(25)
-            .setColor('black')
-            .setFontStyle('bold');
+            .setColor('black');
 
-        this.Question1Txt = this.add.text(280, 320, this.Questions.que1.question)
+        this.Question1Txt = this.add.text(190, 310, this.Questions.que1.question, { fontFamily: '"Roboto"' })
             .setFontSize(fontSize)
             .setColor(fontColor)
             .setFontStyle('bold');
 
-        this.green_balloon = this.add.sprite(320, this.Question1Txt.getBottomRight().y + 45, "green_balloon");
-        this.green_balloon.setScale(0.07);
+        this.green_balloon = this.add.sprite(220, this.Question1Txt.getBottomRight().y + 55, "green_balloon");
+        this.green_balloon.setScale(0.1);
 
         let ansConfig = {
             fontSize: fontSize,
+            fontFamily: '"Roboto"',
             color: fontColor,
             align: 'left',
-            fontStyle: 'bold',
+            // fontStyle: 'bold',
             wordWrap: { width: 800 }
         }
 
-        this.Question1Ans1Txt = this.add.text(this.green_balloon.getBottomRight().x + 20, this.Question1Txt.getBottomRight().y + 30, this.Questions.que1.ans1, ansConfig).setOrigin(0, 0).setInteractive();
+        this.Question1Ans1Txt = this.add.text(this.green_balloon.getBottomRight().x + 20, this.Question1Txt.getBottomRight().y + 40, this.Questions.que1.ans1, ansConfig).setOrigin(0, 0).setInteractive();
 
-        this.red_balloon = this.add.sprite(320, this.green_balloon.getBottomRight().y + 40, "red_balloon").setScale(0.07);
+        this.red_balloon = this.add.sprite(220, this.green_balloon.getBottomRight().y + 50, "red_balloon").setScale(0.1);
 
         this.Question1Ans2Txt = this.add.text(this.red_balloon.getBottomRight().x + 20, this.green_balloon.getBottomRight().y + 30, this.Questions.que1.ans2, ansConfig).setOrigin(0, 0).setInteractive();
 
@@ -1465,8 +1534,9 @@ class PreloadScene extends Phaser.Scene {
 
         this.next_btn.on('pointerdown', function () {
             this.scene.stop();
-            if (this.questionNumber === "que3") {
-                this.scene.start('UserResult');
+          this.updateExplanation();
+          if (this.questionNumber === "que3") {
+                this.scene.start('PERSONALISATION');
             } else {
                 this.scene.start(this.registry.get('currentScene'));
             }
@@ -1495,11 +1565,15 @@ class PreloadScene extends Phaser.Scene {
         this.time.delayedCall(1000, this.enableInput, null, this);
 
         this.currentQuestion = queAndAns;
-        this.Question1Txt.setText(queAndAns.question);
-        this.Question1Ans1Txt.setText(queAndAns.ans1.ans);
-        this.Question1Ans2Txt.setText(queAndAns.ans2.ans);
+        this.Question1Txt.setText(queAndAns.question, { fontFamily: '"Roboto"' });
+        this.Question1Ans1Txt.setText(queAndAns.ans1.ans, { fontFamily: '"Roboto"' });
+        this.Question1Ans2Txt.setText(queAndAns.ans2.ans, { fontFamily: '"Roboto"' });
 
         this.Question1Ans1Txt.once('pointerdown', function () {
+          AnswerId = queAndAns.ans1.id;
+          console.log(AnswerId);
+          TimeTakenToAnswer = 5;
+          this.updateBadges();
 
             // console.log(this.currentQuestion.ans1.question);
             if (this.currentQuestion.ans1.question !== "0") {
@@ -1510,11 +1584,23 @@ class PreloadScene extends Phaser.Scene {
                     child.setVisible(false);
                 });
                 this.registry.set(this.questionNumber, this.currentQuestion.ans1.result);
+
                 this.next_btn.setVisible(true);
+              this.nexttext.setVisible(true);
+              this.L1text.setVisible(true);
+              this.L1_2text.setVisible(true);
+
+              this.nextRect.setVisible(true);
+              ExplanationId = this.currentQuestion.ans1.explanationId;
+              Answer1Id = this.currentQuestion.ans1.a1;
+              Answer2Id = this.currentQuestion.ans1.a2;
             }
         }, this);
 
         this.Question1Ans2Txt.once('pointerdown', function () {
+          AnswerId = queAndAns.ans2.id;
+          TimeTakenToAnswer = 5;
+          this.updateBadges();
 
             // console.log(this.currentQuestion.ans2.question);
             if (this.currentQuestion.ans2.question !== "0") {
@@ -1525,10 +1611,30 @@ class PreloadScene extends Phaser.Scene {
                     child.setVisible(false);
                 });
                 this.registry.set(this.questionNumber, this.currentQuestion.ans2.result);
+
                 this.next_btn.setVisible(true);
+                this.nextRect.setVisible(true);
+              this.nexttext.setVisible(true);
+              this.L1_2text.setVisible(true);
+
+              this.L1text.setVisible(true);
+              ExplanationId = this.currentQuestion.ans2.explanationId;
+              Answer1Id = this.currentQuestion.ans2.a1;
+              Answer2Id = this.currentQuestion.ans2.a2;
             }
         }, this);
     }
+
+    updateBadges() {
+      this.ASGpostUserAnswerEvent = document.createEvent('CustomEvent');
+      this.ASGpostUserAnswerEvent.initCustomEvent('ASGpostUserAnswer');
+      window.dispatchEvent(this.ASGpostUserAnswerEvent);}
+
+    updateExplanation() {
+      this.ASGpostUserExplanationEvent = document.createEvent('CustomEvent');
+      this.ASGpostUserExplanationEvent.initCustomEvent('ASGpostUserExplanation');
+      window.dispatchEvent(this.ASGpostUserExplanationEvent);}
+
 
     disableInput() {
         this.Question1Ans1Txt.disableInteractive();
@@ -1553,30 +1659,36 @@ class ScoreDisplay extends Phaser.Scene {
         var totalBalloonText = 'Total Balloons: ';
         var totalBalloonMissedText = 'Balloons Missed: ';
         var SuccessRateText = 'Success Rate: ';
+        this.scene.run("UIScene");
 
-        this.bg = this.add.sprite(0, 0, "bg").setOrigin(0, 0);
-        this.titleRect = this.add.rectangle(350, 200, 650, 80, 0xffffff, 0.50).setOrigin(0, 0);
-        this.descRect = this.add.rectangle(350, 200, 650, 330, 0xffffff, 0.50).setOrigin(0, 0);
 
-        this.next_btn = this.add.sprite(1260, 680, "next_btn").setInteractive();
+      this.bg = this.add.sprite(0, 0, "bg").setOrigin(0, 0);
+        this.titleRect = this.add.rectangle(150, 180, 1050, 90, 0xffffff, 0.50).setOrigin(0, 0);
+        this.descRect = this.add.rectangle(150, 180, 1050, 430, 0xffffff, 0.50).setOrigin(0, 0);
 
-        this.timesUpTxt = this.add.text(570, 220, "TIME'S UP!")
+
+        this.timesUpTxt = this.add.text(580, 200, "TIME'S UP!", { fontFamily: '"Roboto"' })
             .setFontSize(40)
             .setColor('black');
 
-        this.TotalBalloonTxt = this.add.text(380, 330, 'Total Balloons: 00')
+        this.TotalBalloonTxt = this.add.text(350, 300, 'Total Balloons', { fontFamily: '"Roboto"' })
             .setFontSize(fontSize)
             .setColor(fontColor);
 
-        this.balloonMissedTxt = this.add.text(380, this.TotalBalloonTxt.getBottomRight().y + 30, "Balloons Missed: 00")
+        this.balloonMissedTxt = this.add.text(350, this.TotalBalloonTxt.getBottomRight().y + 30, "Balloons Missed", { fontFamily: '"Roboto"' })
             .setFontSize(fontSize)
             .setColor(fontColor);
 
-        this.SuccessRateTxt = this.add.text(380, this.balloonMissedTxt.getBottomRight().y + 30, "Success Rate: 00%")
+        this.SuccessRateTxt = this.add.text(350, this.balloonMissedTxt.getBottomRight().y + 30, "Success Rate", { fontFamily: '"Roboto"' })
             .setFontSize(fontSize)
             .setColor(fontColor);
 
-        this.next_btn.on('pointerdown', function () {
+        this.next_btn = this.add.sprite(680, this.SuccessRateTxt.getBottomRight().y + 90, "next_btn").setInteractive().setScale(1.5);
+        this.nexttext = this.add.text(653, this.SuccessRateTxt.getBottomRight().y + 75,'Next', { fontFamily: '"Roboto"' }).setFontSize(25).setColor('black');
+
+
+      this.next_btn.on('pointerdown', function () {
+            this.registry.set('QuestionScene', 'QuestionAndAnswer')
             this.scene.start('QuestionAndAnswer');
         }, this);
 
@@ -1586,9 +1698,24 @@ class ScoreDisplay extends Phaser.Scene {
 
         this.successRate = parseFloat((this.successRate).toFixed(2));
 
-        this.TotalBalloonTxt.setText(totalBalloonText + this.totalBalloon);
-        this.balloonMissedTxt.setText(totalBalloonMissedText + this.totalBalloonMissed);
-        this.SuccessRateTxt.setText(SuccessRateText + this.successRate + "%");
+        this.TotalBallon = this.add.text(850, 300, this.totalBalloon,{ fontFamily: '"Roboto"' } ).setFontSize(fontSize)
+          .setColor(fontColor);
+
+      this.BallonMissed = this.add.text(850, this.TotalBalloonTxt.getBottomRight().y + 30, this.totalBalloonMissed,{ fontFamily: '"Roboto"' } ).setFontSize(fontSize)
+        .setColor(fontColor);
+
+      this.success = this.add.text(850, this.balloonMissedTxt.getBottomRight().y + 30, this.successRate,{ fontFamily: '"Roboto"' } ).setFontSize(fontSize)
+        .setColor(fontColor);
+
+
+      this.semi1 = this.add.text(670, 300, ':',{ fontFamily: '"Roboto"' } ).setFontSize(fontSize)
+        .setColor(fontColor);
+      this.semi2 =  this.add.text(670, this.TotalBalloonTxt.getBottomRight().y + 30, ':',{ fontFamily: '"Roboto"' } ).setFontSize(fontSize)
+        .setColor(fontColor);
+      this.semi3 = this.add.text(670, this.balloonMissedTxt.getBottomRight().y + 30, ':',{ fontFamily: '"Roboto"' } ).setFontSize(fontSize)
+        .setColor(fontColor);
+
+
 
     }
 
@@ -1632,8 +1759,8 @@ class UIScene extends Phaser.Scene {
         // this.pause_btn.on('pointerdown', function () {
         //     this.pauseAllObject();
         // }, this);
-
-
+        //
+        //
         // this.play_btn.on('pointerdown', function () {
         //     this.playAllObject();
         // }, this);
@@ -1643,7 +1770,7 @@ class UIScene extends Phaser.Scene {
         //     this.scene.start('HomeScene');
         //     this.registry.set('currentScene','HomeScene');
         // }, this);
-        
+        //
         // this.restart_btn.on('pointerdown', function () {
         //     this.scene.stop(this.registry.get('currentScene'));
         //     this.scene.start(this.registry.get('currentScene'));
@@ -1651,33 +1778,254 @@ class UIScene extends Phaser.Scene {
 
     }
 
-    restart = function() {
+    rstart = function() {
         this.scene.stop(this.registry.get('currentScene'));
         this.scene.start('HomeScene');
         this.registry.set('currentScene','HomeScene');
-    }
+    };
 
     pauseAllObject = function () {
         this.scene.pause(this.registry.get('currentScene'));
+        this.scene.pause(this.registry.get('ParallelScene'));
+      this.scene.pause(this.registry.get('QuestionScene'));
+
+      console.log(this.registry.get('QuestionScene'));
         this.pauseScreen.getChildren().forEach(element => {
             element.setVisible(true);
+            console.log(element);
         });
-        
-        console.log('pause');
-    }
+    };
 
     playAllObject = function() {
         this.pauseScreen.getChildren().forEach(element => {
             element.setVisible(false);
         });
         this.scene.resume(this.registry.get('currentScene'));
-    }
-    
+      this.scene.resume(this.registry.get('ParallelScene'));
+      this.scene.resume(this.registry.get('QuestionScene'));
+
+;
+    };
+
+    // pause = function() {
+    //   this.scene.pause('ScoreDisplay');
+    //   console.log('hua h');
+    //
+    //   this.add.rectangle(0, 0, 1320 * 2, 740 * 2, 0xffffff, 0.5);
+    // }
+    //
 
     update() {
 
     }
 }
+
+
+
+class Personalisation extends Phaser.Scene {
+  constructor() {
+    super({ key: "PERSONALISATION" })
+  }
+
+  create() {
+    var fontSize = 25;
+    var fontColor = 'black';
+    var fontWrapWidth = 1250;
+    var space = 15;
+
+    this.result = {
+      "que1": {
+        1 :  ASGExplanations.results[0].explanation_text,
+
+        2 :  ASGExplanations.results[1].explanation_text,
+
+        3 :  ASGExplanations.results[2].explanation_text,
+
+        4 :  ASGExplanations.results[3].explanation_text,
+      }
+    };
+
+    this.bg = this.add.sprite(0, 0, "bg").setOrigin(0, 0);
+    this.titleRect = this.add.rectangle(150, 150, 1050, 460, 0xffffff, 0.70).setOrigin(0, 0);
+
+
+    this.personalisationTitleTxt = this.add.text(170, 170, "Personalisation", { fontFamily: '"Roboto"' })
+      .setFontSize(30)
+      .setColor(fontColor)
+      .setWordWrapWidth(fontWrapWidth)
+      .setFontStyle('bold');
+
+    this.personalisationDescriptionTxt = this.add.text(170, this.personalisationTitleTxt.getBottomRight().y + space, this.result.que1[this.registry.get('que1')], { fontFamily: '"Roboto"' })
+      .setFontSize(fontSize)
+      .setColor(fontColor)
+      .setWordWrapWidth(fontWrapWidth);
+
+
+    this.next_btn = this.add.sprite(1080, 530, "next_btn").setInteractive().setScale(1.5);
+    this.nexttext = this.add.text(1053, 515,'Next', { fontFamily: '"Roboto"' }).setFontSize(25).setColor('black');
+
+
+
+    this.next_btn.on('pointerdown', function () {
+      this.scene.stop();
+
+        this.scene.start('PERMANENCE');
+
+    }, this);
+
+  }
+}
+
+
+
+
+
+class Permanence extends Phaser.Scene {
+  constructor() {
+    super({ key: "PERMANENCE" })
+  }
+
+  create() {
+    var fontSize = 25;
+    var fontColor = 'black';
+    var fontWrapWidth = 1250;
+    var space = 15;
+
+
+
+    this.result = {
+      "que2": {
+        1 :  ASGExplanations.results[4].explanation_text,
+
+        2 :  ASGExplanations.results[5].explanation_text,
+
+        3 :  ASGExplanations.results[6].explanation_text,
+
+        4 :  ASGExplanations.results[7].explanation_text,
+      }
+    };
+
+    this.bg = this.add.sprite(0, 0, "bg").setOrigin(0, 0);
+    this.titleRect = this.add.rectangle(150, 150, 1050, 460, 0xffffff, 0.70).setOrigin(0, 0);
+
+
+    this.permanenceTitleTxt = this.add.text(170, 170, 'Permanence', { fontFamily: '"Roboto"' })
+      .setFontSize(30)
+      .setColor(fontColor)
+      .setWordWrapWidth(fontWrapWidth)
+      .setFontStyle('bold');
+
+    this.permanenceDescriptionTxt = this.add.text(170, this.permanenceTitleTxt.getBottomRight().y + space, this.result.que2[this.registry.get('que2')], { fontFamily: '"Roboto"' })
+      .setFontSize(fontSize)
+      .setColor(fontColor)
+      .setWordWrapWidth(fontWrapWidth);
+
+
+    this.next_btn = this.add.sprite(1080, 530, "next_btn").setInteractive().setScale(1.5);
+    this.nexttext = this.add.text(1053, 515,'Next', { fontFamily: '"Roboto"' }).setFontSize(25).setColor('black');
+    this.backtext = this.add.text(900, 515,'Back', { fontFamily: '"Roboto"' }).setFontSize(25).setColor('black').setInteractive();
+
+    this.backtext.on('pointerdown', function () {
+      this.scene.stop();
+
+      this.scene.start('PERSONALISATION');
+
+    }, this);
+
+
+    this.next_btn.on('pointerdown', function () {
+      this.scene.stop();
+
+      this.scene.start('pervasiveness');
+
+    }, this);
+
+  }
+}
+
+
+class Pervasiveness extends Phaser.Scene {
+  constructor() {
+    super({ key: "pervasiveness" })
+  }
+
+  create() {
+    var fontSize = 25;
+    var fontColor = 'black';
+    var fontWrapWidth = 1250;
+    var space = 15;
+
+    this.result = {
+      "que3": {
+        1 :  ASGExplanations.results[8].explanation_text,
+
+        2 :  ASGExplanations.results[9].explanation_text,
+
+        3 :  ASGExplanations.results[10].explanation_text,
+
+        4 :  ASGExplanations.results[11].explanation_text,
+      }
+    };
+
+    this.bg = this.add.sprite(0, 0, "bg").setOrigin(0, 0);
+    this.titleRect = this.add.rectangle(150, 150, 1050, 460, 0xffffff, 0.70).setOrigin(0, 0);
+
+
+    this.pervasivenessTitleTxt = this.add.text(170, 170, "Pervasiveness", { fontFamily: '"Roboto"' })
+      .setFontSize(30)
+      .setColor(fontColor)
+      .setWordWrapWidth(fontWrapWidth)
+      .setFontStyle('bold');
+
+    this.pervasivenessDescriptionTxt = this.add.text(170, this.pervasivenessTitleTxt.getBottomRight().y + space, this.result.que3[this.registry.get('que3')], { fontFamily: '"Roboto"' })
+      .setFontSize(fontSize)
+      .setColor(fontColor)
+      .setWordWrapWidth(fontWrapWidth);
+
+
+    this.next_btn = this.add.sprite(1080, 530, "next_btn").setInteractive().setScale(1.5);
+    this.nexttext = this.add.text(1053, 515,'Next', { fontFamily: '"Roboto"' }).setFontSize(25).setColor('black');
+    this.backtext = this.add.text(900, 515,'Back', { fontFamily: '"Roboto"' }).setFontSize(25).setColor('black').setInteractive();
+
+    this.backtext.on('pointerdown', function () {
+      this.scene.stop();
+
+      this.scene.start('PERMANENCE');
+
+    }, this);
+
+
+    this.next_btn.on('pointerdown', function () {
+      this.scene.stop();
+
+      this.scene.start('UserResult');
+
+    }, this);
+
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1688,91 +2036,48 @@ class UserResult extends Phaser.Scene {
     }
 
     create() {
+      var fontSize = 19;
+      var fontColor = 'black';
+      var fontWrapWidth = 1250;
+      var space = 15;
 
-        var fontSize = 19;
-        var fontColor = 'black';
-        var fontWrapWidth = 1250;
-        var space = 15;
-
-        this.result = {
-            "que1": {
-                "1": "When you believed that you played well in the first part of the game, you owed your success to your good gaming skills.\n\nNow, imagine that you have won a competition. Why do YOU think you won? \nIs it because you practiced hard? You had prepared for it for a long time? You deserved to win the competition?  Yes?\n\nYou tend to believe that the cause of a good event happening to you is ‘you’. You have an optimistic explanation in the ‘ME’ aspect.",
-
-                "2": "When you believed that you did not perform well in the first version of the game, you attributed your bad performance to the difficulty of the game.\n\nNow, imagine that you have lost a competition. Why do YOU think you lost? \nIs it because the competition was tough? Your opponents were better? Your luck was not in your favour? Yes?\nYou tend to believe that a bad event happening to you is because of some external factor. You have an optimistic explanation in the ‘ME’ aspect.",
-
-                "3": "When you believed that you played well in the first part of the game, you owed your success to the easy gameplay.\n\nNow, imagine that you have won a competition. Why do YOU think you won?\nIs it because the competition was easy? Your opponents did not perform well? Your luck was in your favour? Yes?\n\nYou tend to believe that the cause of a good event happening to you is an external factor. You have a pessimistic explanation in the ‘ME’ aspect. \n\nHere’s a secret: The game is not as easy as it seemed to be. So, if you think you played well, you’re pretty good at it!",
-
-                "4": "When you believed that you did not perform well in the first version of the game, you also believed you are not good at any such game.\n\nNow, imagine that you have lost a competition. Why do YOU think you lost?\nIs it because you aren’t good enough? You aren’t good at anything? You keep failing at anything you do? Yes?\n\nYou tend to believe that the cause of a bad event happening to you is ‘you’. You have a pessimistic explanation in the ‘ME’ aspect.\nBut hey, maybe the odds were just not in your favour!"
-            },
-            "que2": {
-                "1": "After the second game you thought you performed well in the game and that your performance will get better every time you play.\n\nNow, imagine that you have performed well in an interview that you applied for.\nDo you always interview well? Are you always confident during interviews? \n\nYou tend to believe that the cause of a good event is permanent and will always happen. You have an ‘optimistic’ explanation in ‘Time’ aspect.",
-
-                "2": "After the second game when you believed that your performance was not good, you also said that it will improve with time.\n\nNow, imagine that you have not performed well in an interview that you applied for.\nDo you think it will get better next time? Did you mess up just one time?\n\nYou tend to believe that the cause of a bad event is temporary and will improve with time. You have an ‘optimistic’ explanation in ‘Time’ aspect.",
-
-                "3": "After the second game you thought you performed well in the game, but you also thought it was just a one-time thing and might not happen again.\n\nNow, imagine that you have performed well in an interview that you applied for.\nWas it because you somehow felt confident this one-time? Or it was your lucky day? Other interviews will not go well?\n\nYou tend to believe that the cause of a good event is temporary and will not happen again. You have an ‘pessimistic’ explanation in ‘Time’ aspect.",
-
-                "4": "After the second game when you believed that your performance was not good, you also said that it will not improve and can never be good.\n\nNow, imagine that you have not performed well in an interview that you applied for.\nAre you convinced that they’ll always go bad? You cannot interview well? You will always mess up?\n\nYou tend to believe that the cause of a bad event is permanent and will always happen. You have an ‘pessimistic’ explanation in ‘Time’ aspect"
-            },
-            "que3": {
-                "1": "After the third game you believed you have performed well in this game and that you’ll be able to perform well in any other game that is given to you.\n\nNow, imagine that your friend asks you for an advice and you were able to help. Your friend is thankful to you. \nDo you think you always give useful advices? Are you good at that?\n\nYou tend to believe that you can be good at anything that you do. You have an ‘optimistic’ style in ‘Space’ aspect.",
-
-                "2": "After the third game you believed you have performed bad in this game but also that you’ll be able to perform well in any other game that is given to you.\n\nNow, imagine that your friend asks you for an advice and you were not able to help.\nDo you think it was because you did not know much about the topic, he asked advice in? You could have helped if you had some knowledge about it?\n\nYou tend to believe that if not one, you can do better at any other activity. You have an ‘optimistic’ style in ‘Space’ aspect.",
-
-                "3": "After the third game you believed you have performed well in this game but also that you’ll not be able to perform well in any other game that is given to you.\n\nNow, imagine that your friend asks you for an advice and you were able to help. Your friend is thankful to you.\nDo you think you were able to help because you’re an expert in that field? Had it been something else you wouldn’t have been to help?\n\nYou tend to believe that you can be good at only a few things you do. You have an ‘pessimistic’ style in ‘Space’ aspect.",
-
-                "4": "After the third game you believed you have performed bad in this game and will perform bad in any other game that is given to you.\n\nNow, imagine that your friend asks you for an advice and you were not able to help.\nDo you think you’re not good at giving any sort of advice?\n\nYou tend to believe that you cannot be good at anything you do. You have an ‘pessimistic’ style in ‘Space’ aspect."
-            }
-        };;
 
         this.bg = this.add.sprite(0, 0, "bg").setOrigin(0, 0);
-        this.titleRect = this.add.rectangle(0, 0, 1330, 740, 0xffffff, 0.50).setOrigin(0, 0);
+        this.titleRect = this.add.rectangle(0, 0, 1330, 740, 0xffffff, 0.70).setOrigin(0, 0);
 
-        this.openLink = this.add.text(10, 700, "Click here")
-            .setFontSize(fontSize)
-            .setColor(fontColor)
-            .setWordWrapWidth(fontWrapWidth)
-            .setInteractive();
+         this.openLink = this.add.text(10, 700, "Click here")
+        .setFontSize(fontSize)
+        .setColor(fontColor)
+        .setWordWrapWidth(fontWrapWidth)
+        .setInteractive();
 
-        this.personalisationTitleTxt = this.add.text(10, 10, "PERSONALISATION")
-            .setFontSize(fontSize)
-            .setColor(fontColor)
-            .setWordWrapWidth(fontWrapWidth);
+         this.textheading = this.add.text(50, 40, 'How does your explanatory style affect you?',{ fontFamily: '"Roboto"' } ).setFontSize(35).setColor('black').setFontStyle('bold');
+         this.textfinal = this.add.text(50, 100, 'The way you explain your successes and failures affect how vulnerable you are to depression. People who\nare most vulnerable to depression \n' +
+           '\n' +
+           ' - blame themselves for their failures\n' +
+           ' - thinks that if they fail in one area of their life, then it means that they will fail in other areas of their life as well\n' +
+           ' - thinks that if they fail once, then they will never be able to succeed.\n' +
+           '\n' +
+           'To become less vulnerable to depression remember that - \n' +
+           '\n' +
+           ' - our successes and failures often depend on many factors that are not in our control.\n   So, before blaming yourself for your failure, think about what else could have affected the outcome.\n' +
+           ' - if you fail once that does not mean that you are going to be a life long failure. Most things in life depend on\n   skills that you can learn and improve upon.\n' +
+           ' - if you fail in one area of your life that does not mean that you are doomed to fail in other areas as well.\n' +
+           '\n' +
+           'So, the next time you feel upset about a failure, think about how you are explaining your failure.\n' +
+           '\n' +
+           'To learn in more details about explanatory style go to this link - ',{ fontFamily: '"Roboto"' } ).setFontSize(25).setColor('black');
 
-        this.personalisationDescriptionTxt = this.add.text(50, this.personalisationTitleTxt.getBottomRight().y + space, this.result.que1[this.registry.get('que1')])
-            .setFontSize(fontSize)
-            .setColor(fontColor)
-            .setWordWrapWidth(fontWrapWidth);
 
-        this.permanenceTitleTxt = this.add.text(10, this.personalisationDescriptionTxt.getBottomRight().y + space, 'PERMANENCE')
-            .setFontSize(fontSize)
-            .setColor(fontColor)
-            .setWordWrapWidth(fontWrapWidth);
-
-        this.permanenceDescriptionTxt = this.add.text(50, this.permanenceTitleTxt.getBottomRight().y + space, this.result.que2[this.registry.get('que2')])
-            .setFontSize(fontSize)
-            .setColor(fontColor)
-            .setWordWrapWidth(fontWrapWidth);
-
-        this.pervasivenessTitleTxt = this.add.text(10, this.permanenceDescriptionTxt.getBottomRight().y + space, "PERVASIVENESS")
-            .setFontSize(fontSize)
-            .setColor(fontColor)
-            .setWordWrapWidth(fontWrapWidth);
-
-        this.pervasivenessDescriptionTxt = this.add.text(50, this.pervasivenessTitleTxt.getBottomRight().y + space, this.result.que3[this.registry.get('que3')])
-            .setFontSize(fontSize)
-            .setColor(fontColor)
-            .setWordWrapWidth(fontWrapWidth);
-
-            this.openLink.once("pointerdown",function(){
-                this.scene.stop();
-                this.scene.start('PERMANENCE');
-            },this);
+        this.openLink.once("pointerdown",function(){
+            this.openWindow();
+        },this);
 
     }
 
     openWindow() {
         console.log('opening')
-        var result = window.open('./assets/EXPLANATORY%20STYLE.pdf', "_self")
+        var result = window.open('./assets/games/Attribution-style-game/src/assets/EXPLANATORY%20STYLE.pdf', "_self")
         console.log('result', result);
     }
 
@@ -1780,6 +2085,61 @@ class UserResult extends Phaser.Scene {
 
     }
 }
+
+
+function conf(DEFAULT_WIDTH, DEFAULT_HEIGHT){
+  backgroundImage: "#000000"
+  this.scale = {
+    mode: Phaser.Scale.FIT,
+    parent: "attGame",
+    autoCenter: Phaser.Scale.CENTER_BOTH,
+    width: DEFAULT_WIDTH,
+    height: DEFAULT_HEIGHT
+  };
+  this.physics= {
+    default: "arcade",
+    arcade: {
+      debug: false,
+      gravity: { y: 400 }
+    }
+  };
+/*
+  this.scene = [UserResult, QuestionAndAnswer, ScoreDisplay, UIScene, LevelThree, LevelTwo, LevelOne, HomeScene, PreloadScene];
+*/
+        this.scene = [PreloadScene, HomeScene, LevelOne, LevelTwo, LevelThree, UIScene, ScoreDisplay, QuestionAndAnswer,Personalisation,Permanence,Pervasiveness,UserResult];
+
+};
+
+ var ASGAnswer;
+ var ASGQuestions;
+ var ASGExplanations;
+ var ASquestions = [];
+ var ASGUserPerformance;
+ var ASGPostIndividualAnswer;
+ var ASGPostExplanation;
+
+ var ASGLevelId;
+ var ASGTotalBaloons;
+ var ASGBalloonsBurst;
+ var ASGArrowsFired;
+  var AnswerId;
+ var TimeTakenToAnswer;
+  var Answer1Id;
+  var Answer2Id;
+  var ExplanationId;
+
+
+
+
+
+var AttributeGame = function () {
+  const DEFAULT_WIDTH = 1320;
+  const DEFAULT_HEIGHT = 740;
+  var con = new conf(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+
+  return new Phaser.Game(con);
+
+};
 
 
 

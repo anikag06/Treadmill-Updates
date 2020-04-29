@@ -1,4 +1,7 @@
 // for storing interpretation bias game
+import * as moment from "moment";
+import _date = moment.unitOfTime._date;
+
 export class IBGameUserScore {
   constructor(
     public order: number,
@@ -132,5 +135,136 @@ export class ICDGameUserAnswerData {
     public situation_distortion_map_id: number,
     public situation_displayed_at: any,
     public answered_at: any,
+  ) {}
+}
+
+// for storing data of ASG
+class ASGanswer {
+  id!: number;
+  question_id!: number;
+  answer_text!: string;
+
+  constructor(q: any){
+    this.id = q.id;
+    this.question_id = q.question_id;
+    this.answer_text = q.answer_text;
+  }
+}
+
+class ASGQuestions {
+  id!: number;
+  level!: number;
+  question_text!: string;
+  order!: number;
+
+  constructor(q: any){
+    this.id = q.id;
+    this.level = q.level;
+    this.question_text = q.question_text;
+    this.order = q.order;
+  }
+}
+
+export class ASGQuestionData {
+  count!: number;
+  next!: any;
+  previous!: any;
+  results!: ASGQuestions[];
+
+  constructor(data: any) {
+    this.count = data.count;
+    this.next = data.next;
+    this.previous = data.previous;
+    this.results = [];
+    data.results.forEach((q: any) => {
+      this.results.push( new ASGQuestions(q));
+    });
+  }
+}
+
+export class ASGAnswerData {
+  count!: number;
+  next!: any;
+  previous!: any;
+  results!: ASGanswer[];
+
+  constructor(data: any) {
+    this.count = data.count;
+    this.next = data.next;
+    this.previous = data.previous;
+    this.results = [];
+    data.results.forEach((q: any) => {
+      this.results.push( new ASGanswer(q));
+    });
+  }
+}
+
+export class ASGExplanation {
+  count!: number;
+  next!: any;
+  previous!: any;
+  results!: ASGexplanationdata[];
+
+  constructor(data: any) {
+    this.count = data.count;
+    this.next = data.next;
+    this.previous = data.previous;
+    this.results = [];
+    data.results.forEach((q: any) => {
+      this.results.push( new ASGexplanationdata(q));
+    });
+  }
+}
+
+class ASGexplanationdata {
+  id!: number;
+  explanation_text!: string;
+
+  constructor(q: any) {
+    this.id = q.id;
+    this.explanation_text = q.level;
+  }
+}
+
+export class ASGGetUserPerformance {
+  id!: number;
+  completed!: boolean;
+  show_summary_button!: boolean;
+  end_time!: Date;
+
+  constructor(q: any) {
+    this.id =  q.id;
+    this.completed = q.completed;
+    this.show_summary_button = q.show_summary_button;
+    this.end_time = q.end_time;
+  }
+
+}
+
+export class ASGLevelPerformance {
+  constructor (
+    public game_instance_id: number,
+    public level_id: number,
+    public total_balloons: number,
+    public balloons_burst: number,
+    public total_arrows_fired: number,
+
+  ) {}
+}
+
+export class ASGIndividualAnswer {
+  constructor (
+    public game_instance_id: number,
+    public answer_id: number,
+    public time_taken_to_answer: number,
+
+  ) {}
+}
+
+export class ASGSaveExplanation {
+  constructor (
+    public answer_1_id: number,
+    public answer_2_id: number,
+    public explanation_id: number,
   ) {}
 }
