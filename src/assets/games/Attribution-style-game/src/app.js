@@ -1534,7 +1534,8 @@ class LevelThree extends Phaser.Scene {
 
         this.next_btn.on('pointerdown', function () {
             this.scene.stop();
-            if (this.questionNumber === "que3") {
+          this.updateExplanation();
+          if (this.questionNumber === "que3") {
                 this.scene.start('PERSONALISATION');
             } else {
                 this.scene.start(this.registry.get('currentScene'));
@@ -1583,16 +1584,16 @@ class LevelThree extends Phaser.Scene {
                     child.setVisible(false);
                 });
                 this.registry.set(this.questionNumber, this.currentQuestion.ans1.result);
-                ExplanationId = this.currentQuestion.ans1.explanationId;
-                Answer1Id = this.currentQuestion.ans1.a1;
-                Answer2Id = this.currentQuestion.ans1.a2;
-              this.updateExplanation();
+
                 this.next_btn.setVisible(true);
               this.nexttext.setVisible(true);
               this.L1text.setVisible(true);
               this.L1_2text.setVisible(true);
 
               this.nextRect.setVisible(true);
+              ExplanationId = this.currentQuestion.ans1.explanationId;
+              Answer1Id = this.currentQuestion.ans1.a1;
+              Answer2Id = this.currentQuestion.ans1.a2;
             }
         }, this);
 
@@ -1610,16 +1611,16 @@ class LevelThree extends Phaser.Scene {
                     child.setVisible(false);
                 });
                 this.registry.set(this.questionNumber, this.currentQuestion.ans2.result);
-              ExplanationId = this.currentQuestion.ans2.explanationId;
-              Answer1Id = this.currentQuestion.ans2.a1;
-              Answer2Id = this.currentQuestion.ans2.a2;
-              this.updateExplanation();
+
                 this.next_btn.setVisible(true);
                 this.nextRect.setVisible(true);
               this.nexttext.setVisible(true);
               this.L1_2text.setVisible(true);
 
               this.L1text.setVisible(true);
+              ExplanationId = this.currentQuestion.ans2.explanationId;
+              Answer1Id = this.currentQuestion.ans2.a1;
+              Answer2Id = this.currentQuestion.ans2.a2;
             }
         }, this);
     }

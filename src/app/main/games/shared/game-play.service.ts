@@ -289,7 +289,8 @@ export class GamePlayService {
   }
 
   postUserAnswer() {
-    this.gamesAuthService.atPostuserAnswer(this.ASGGameInstanceId, AnswerId, TimeTakenToAnswer);
+    const d = this.gamesAuthService.atPostuserAnswer(this.ASGGameInstanceId, AnswerId, TimeTakenToAnswer);
+    console.log(d);
 
   }
   postUserExplanation() {

@@ -53,6 +53,9 @@ export class GamesAuthService {
   ECG_DAYS = '?days=7';
   FFG_GRID_ROW = '?grid_row=';
   FFG_DEVICE = '&device_type=';
+  ASGAnswerID!: any;
+  ASGAnswerIdPost = [];
+  ASGi = 0;
 
   constructor(private http: HttpClient) {}
 
@@ -106,9 +109,6 @@ export class GamesAuthService {
       total_balloons,
 
     };
-    const options = {
-      headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
-    };
     return this.http.post(
       environment.API_ENDPOINT + '/api/v1/games/attribution-style/user-level-performance-asgame/',
       f,
@@ -126,20 +126,33 @@ export class GamesAuthService {
       environment.API_ENDPOINT + '/api/v1/games/attribution-style/user-answer-asgame/',
       f,
     )
-      .subscribe(resp => console.log(resp));
+      .subscribe(resp => {
+          this.ASGAnswerID = resp;
+          console.log(this.ASGAnswerID.id);
+          // @ts-ignore
+        this.ASGAnswerIdPost.push(this.ASGAnswerID.id);
+        });
   }
 
   atPostuserExplanation(explanation_id: number, answer_1_id: number, answer_2_id: number) {
+    // @ts-ignore
+    answer_2_id = this.ASGAnswerIdPost.pop();
+    // @ts-ignore
+    answer_1_id = this.ASGAnswerIdPost.pop();
+    console.log(this.ASGAnswerIdPost);
     const f = {
       answer_1_id,
       answer_2_id,
       explanation_id,
     };
+    console.log(f);
+
     return this.http.post(
       environment.API_ENDPOINT + '/api/v1/games/attribution-style/user-explanation-asgame/',
       f,
     )
       .subscribe(resp => console.log(resp));
+    this.ASGi = this.ASGi + 2;
   }
 
   // for executive control game
