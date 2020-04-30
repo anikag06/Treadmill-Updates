@@ -11,11 +11,11 @@ import {
   QueryList,
   ViewChildren,
 } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { Mood } from './mood.model';
-import { Feelings } from '@/main/shared/mood-tracker/feelings.model';
-import { MoodTrackerService } from '@/main/shared/mood-tracker/mood-tracker.service';
-import { UserFeeling } from '@/main/resources/forms/thought-record-form/mood-widget-card/userfeeling.model';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {Mood} from './mood.model';
+import {Feelings} from '@/main/shared/mood-tracker/feelings.model';
+import {MoodTrackerService} from '@/main/shared/mood-tracker/mood-tracker.service';
+import {UserFeeling} from '@/main/resources/forms/thought-record-form/mood-widget-card/userfeeling.model';
 
 @Component({
   selector: 'app-mood-tracker',
@@ -58,13 +58,13 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
     this.moodTrackerService.getFeelingsList().then((feelings: any) => {
       this.feelings = feelings;
 
-      this.feelings.group_feelings_1.forEach(emotion => {
+      this.feelings.group_feelings_1.forEach((emotion) => {
         this.negativeEmotions.push(new Mood(emotion));
       });
-      this.feelings.group_feelings_2.forEach(emotion => {
+      this.feelings.group_feelings_2.forEach((emotion) => {
         this.positiveEmotions.push(new Mood(emotion));
       });
-      this.feelings.group_feelings_3.forEach(emotion => {
+      this.feelings.group_feelings_3.forEach((emotion) => {
         this.neutralEmotions.push(new Mood(emotion));
       });
       // this.positiveEmotions = this.feelings.group_feelings_2;
@@ -223,6 +223,7 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
           const moodObject = {
             mood: option_label_str.trim().toLowerCase(),
             strength: rangeValue_str.trim().toLowerCase(),
+            mood_type: i < 11 ? 'negative' : 'positive',
           };
           this.moodArray.push(moodObject);
           chatMoodMessage +=
@@ -239,6 +240,7 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
           const moodObject = {
             mood: option_label_str.trim().toLowerCase(),
             strength: null,
+            mood_type: 'neutral',
           };
           chatMoodMessage += option_label_str.trim().toLowerCase() + ' ';
           this.moodArray.push(moodObject);
