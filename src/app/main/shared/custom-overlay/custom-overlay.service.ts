@@ -5,8 +5,9 @@ import { EventEmitter, Injectable } from '@angular/core';
 })
 export class CustomOverlayService {
   closeChatbotOverlay = new EventEmitter<any>();
-
+  overlayOpen = new EventEmitter<any>();
+  overlayClose = new EventEmitter<any>();
   showChatbot!: boolean;
-  showFlow!: boolean;
+  showFlow =  false;
   constructor() {}
 }

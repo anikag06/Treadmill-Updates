@@ -28,6 +28,7 @@ import { SurveyService } from './shared/survey.service';
 import { ToastNotificationDirective } from '@/shared/toast-notification/toast-notification.directive';
 import { ToastNotificationComponent } from '@/shared/toast-notification/toast-notification.component';
 import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifications.service';
+import {CustomOverlayService} from '@/main/shared/custom-overlay/custom-overlay.service';
 
 // tslint:disable-next-line:max-line-length
 
@@ -46,6 +47,7 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
   isDashboard!: boolean;
   flowLoaded = true;
   flowOpen = false;
+  overlayOpen = false;
 
   @ViewChild('drawer', { static: true }) drawer!: MatDrawer;
   @ViewChild('tooltip', { static: false }) showToolTip!: MatTooltip;
@@ -70,6 +72,7 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
     private componentFactoryResolver: ComponentFactoryResolver,
     private surveyService: SurveyService,
     private notificationService: NavbarNotificationsService,
+    private overlayService: CustomOverlayService,
   ) {}
 
   ngOnChanges() {}
@@ -111,7 +114,7 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
     });
     this.notificationService.openNavFlow.subscribe(() => {
       this.flowLoaded = false;
-      this.flowOpen = true;
+      // this.flowOpen = true;
     });
     this.notificationService.navFlowOpened.subscribe(() => {
       setTimeout(() => {
@@ -121,9 +124,17 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
     this.notificationService.closeNavFlow.subscribe(() => {
       this.flowLoaded = false;
       setTimeout(() => {
-        this.flowOpen = false;
+        // this.flowOpen = false;
         this.flowLoaded = true;
       }, 500);
+    });
+    this.overlayService.overlayOpen.subscribe(() => {
+      //   this.flowLoaded = false;
+        this.overlayOpen = true;
+      });
+    this.overlayService.overlayClose.subscribe(() => {
+      //   this.flowLoaded = false;
+      this.overlayOpen = false;
     });
   }
 

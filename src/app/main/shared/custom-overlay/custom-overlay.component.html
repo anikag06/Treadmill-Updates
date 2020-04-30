@@ -1,7 +1,7 @@
 <div class="backdrop" (click)="onClick($event)">
 
-  <div class="navbar-flow"  appNavbarFlow >
-<!--    <app-navbar-flow ></app-navbar-flow>-->
+  <div class="navbar-flow"  appNavbarFlow *ngIf="showFlow" >
+    <app-navbar-flow ></app-navbar-flow>
 
   </div>
 </div>

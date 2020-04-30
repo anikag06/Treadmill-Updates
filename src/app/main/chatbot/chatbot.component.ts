@@ -26,7 +26,6 @@ export class ChatbotComponent implements OnInit {
   @ViewChild(NavbarFlowDirective, { static: false })
   flowHost!: NavbarFlowDirective;
   overlayOpen = false;
-  @Input() flowOpen = false;
 
   constructor(
     private router: Router,
@@ -45,14 +44,14 @@ export class ChatbotComponent implements OnInit {
       this.removingChat();
     });
     this.notificationService.closeNavFlow.subscribe(() => {
+      this.overlayService.showFlow = false;
+      console.log('show flow1', this.overlayService.showFlow);
       this.removingChat();
     });
   }
 
   toggleChat() {
     this.chatwindowClosed = !this.chatwindowClosed;
-    console.log('FLOW OPEN', this.flowOpen);
-    if (this.flowOpen) {
       this.overlayOpen = true;
       this.overlayService.showFlow = false;
       this.overlayService.showChatbot = true;
@@ -67,7 +66,6 @@ export class ChatbotComponent implements OnInit {
         this.overlayService.showChatbot = false;
         this.overlayOpen = false;
       });
-    }
   }
 
   updateChatWindow(event: boolean) {
@@ -75,6 +73,7 @@ export class ChatbotComponent implements OnInit {
   }
 
   removingChat() {
+    console.log('show flow', this.overlayService.showFlow);
     let match = false;
     this.blacklisted.forEach(data => {
       if (location.pathname.match(data)) {

@@ -168,6 +168,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.notificationService.closeNavFlow.subscribe(() => {
       setTimeout(() => {
         if (!this.overlayService.showChatbot) {
+          this.overlayService.showFlow = false;
           hostViewContainerRef.clear();
         }
       }, 500);

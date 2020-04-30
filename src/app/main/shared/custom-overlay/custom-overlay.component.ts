@@ -25,19 +25,24 @@ export class CustomOverlayComponent implements OnInit {
               private overlayService: CustomOverlayService,
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.showFlow = this.overlayService.showFlow;
+    this.overlayService.overlayOpen.emit();
+  }
   ngAfterViewInit() {
-    if (this.overlayService.showFlow) {
-      const navbarFLowComponentFactory = this.componentFactoryResolver.resolveComponentFactory(NavbarFlowComponent);
-      const hostViewContainerRef = this.flowHost.viewContainerRef;
-      hostViewContainerRef.clear();
-      const componentRef = hostViewContainerRef.createComponent(navbarFLowComponentFactory);
-      this.notificationService.closeNavFlow.subscribe(() => {
-        setTimeout( () => {
-          hostViewContainerRef.clear();
-        }, 500);
-      });
-    }
+    // if (this.overlayService.showFlow) {
+    //   this.overlayService.overlayOpen.emit();
+    //   const navbarFLowComponentFactory = this.componentFactoryResolver.resolveComponentFactory(NavbarFlowComponent);
+    //   const hostViewContainerRef = this.flowHost.viewContainerRef;
+    //   hostViewContainerRef.clear();
+    //   const componentRef = hostViewContainerRef.createComponent(navbarFLowComponentFactory);
+    //   this.notificationService.closeNavFlow.subscribe(() => {
+    //     setTimeout( () => {
+    //       this.overlayService.overlayClose.emit();
+    //       hostViewContainerRef.clear();
+    //     }, 500);
+    //   });
+    // }
    }
    onClick($event: any) {
     $event.stopPropagation();
