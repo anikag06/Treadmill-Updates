@@ -26,6 +26,7 @@ export class ChatbotComponent implements OnInit {
   @ViewChild(NavbarFlowDirective, { static: false })
   flowHost!: NavbarFlowDirective;
   overlayOpen = false;
+  @Input() flowOpen!: boolean;
 
   constructor(
     private router: Router,
@@ -63,6 +64,9 @@ export class ChatbotComponent implements OnInit {
       hostViewContainerRef.createComponent(navbarFLowComponentFactory);
       this.overlayService.closeChatbotOverlay.subscribe(() => {
         hostViewContainerRef.clear();
+        if (!this.flowOpen) {
+          this.overlayService.overlayClose.emit();
+        }
         this.overlayService.showChatbot = false;
         this.overlayOpen = false;
       });

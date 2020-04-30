@@ -129,7 +129,8 @@
         <router-outlet></router-outlet>
       </div>
       <app-chatbot *ngIf="user.is_exp && showChatbot"
-                   [ngStyle]="{'opacity': flowLoaded ? '1' : '0' }"></app-chatbot>
+                   [ngStyle]="{'opacity': flowLoaded ? '1' : '0' }"
+      [flowOpen]="flowOpen"></app-chatbot>
       <div class="notification-div">
        <ng-template toastNotification></ng-template>
       </div>

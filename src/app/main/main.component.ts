@@ -114,7 +114,7 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
     });
     this.notificationService.openNavFlow.subscribe(() => {
       this.flowLoaded = false;
-      // this.flowOpen = true;
+      this.flowOpen = true;
     });
     this.notificationService.navFlowOpened.subscribe(() => {
       setTimeout(() => {
@@ -124,7 +124,7 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
     this.notificationService.closeNavFlow.subscribe(() => {
       this.flowLoaded = false;
       setTimeout(() => {
-        // this.flowOpen = false;
+        this.flowOpen = false;
         this.flowLoaded = true;
       }, 500);
     });
@@ -135,6 +135,7 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
     this.overlayService.overlayClose.subscribe(() => {
       //   this.flowLoaded = false;
       this.overlayOpen = false;
+      console.log('OVERLAY OPEN', this.overlayService.overlayOpen);
     });
   }
 
