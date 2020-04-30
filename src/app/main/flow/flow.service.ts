@@ -18,6 +18,7 @@ export class FlowService {
   stepSequence = 0;
   stepGroupSequence = 0;
   stepName = '';
+  navbarTitle = '';
 
   constructor(
     private http: HttpClient,

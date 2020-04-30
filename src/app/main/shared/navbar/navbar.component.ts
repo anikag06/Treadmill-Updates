@@ -53,7 +53,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   showFlow = false;
   showNotifications = false;
   unreadCount = 0;
-  navbarTitle!: string;
+  navbarTitle!: any;
   userNotificationSubscription!: Subscription;
   can!: any;
   isDashboard = false;
@@ -96,13 +96,19 @@ export class NavbarComponent implements OnInit, OnDestroy {
           this.navbarTitle = this.gamePlayService.gameName;
         });
         this.flowService.stepDetail.subscribe(() => {
-          this.navbarTitle =
-            this.flowService.stepGroupSequence.toString() +
-            '.' +
-            this.flowService.stepSequence.toString() +
-            ' ' +
-            this.flowService.stepName;
+          // this.navbarTitle =
+          //   this.flowService.stepGroupSequence.toString() +
+          //   '.' +
+          //   this.flowService.stepSequence.toString() +
+          //   ' ' +
+          //   this.flowService.stepName;
+          console.log('FROM NAVBAR', this.flowService.navbarTitle);
+          this.navbarTitle = this.flowService.navbarTitle;
+          localStorage.setItem('navbarTitle', this.flowService.navbarTitle);
         });
+        if (event.url.includes('resources') && !this.auth.navbarTitle) {
+          this.navbarTitle = localStorage.getItem('navbarTitle');
+        }
         this.notificationService.showFullConvIcon.subscribe(() => {
           this.convMode = true;
         });
@@ -168,6 +174,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.notificationService.closeNavFlow.subscribe(() => {
       setTimeout(() => {
         if (!this.overlayService.showChatbot) {
+          this.overlayService.overlayClose.emit();
           this.overlayService.showFlow = false;
           hostViewContainerRef.clear();
         }

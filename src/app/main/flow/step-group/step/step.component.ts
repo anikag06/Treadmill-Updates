@@ -153,6 +153,12 @@ export class StepComponent implements OnInit, AfterViewInit {
       this.flowService.stepGroupSequence = this.stepGroup.sequence + 1;
       this.flowService.stepSequence = this.step.sequence + 1;
       this.flowService.stepName = this.step.name;
+      this.flowService.navbarTitle =
+        this.flowService.stepGroupSequence.toString() +
+        '.' +
+        this.flowService.stepSequence.toString() +
+        ' ' +
+        this.flowService.stepName;
       this.flowService.stepDetail.emit();
       this.closeNavFlow();
       return this.router.navigate([this.nextLink()]);
