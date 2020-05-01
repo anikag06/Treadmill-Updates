@@ -23,13 +23,13 @@
             </p>
         </div>
     </div>
-    
+
     <div class="row w-100 align-self-end next-step-div justify-content-end">
         <button class="next-step-locked h-100" type="button"
             *ngIf='data.isLocked || data.isLastStep; else nextStepBtn'
             (click) = 'goToDashboard()'
             mat-raised-button color="primary">
-            <img id="flow-img" src="../../../../../assets/shared/Flow_white.svg">
+            <img id="flow-img" src="../../../../../assets/shared/Go to icon.png">
             Dashboard
         </button>
 
@@ -38,11 +38,11 @@
                 (click) = 'onNextClicked()'
                 id="next-step-btn"
                 mat-raised-button color="primary">
-                <img id="flow-img" src="../../../../../assets/shared/Flow_white.svg">
+                <img id="flow-img" src="../../../../../assets/shared/Go to icon.png">
                 Next Step
             </button>
         </ng-template>
     </div>
-    
+
 </div>
 
