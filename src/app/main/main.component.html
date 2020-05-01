@@ -53,7 +53,7 @@
         </div>
 
         <div class="list-wrapper-items">
-          <a mat-list-item routerLink="/dashboard">
+          <a mat-list-item routerLink="/main/dashboard">
             <span class="list-wrapper-items-icon">
               <img
                 class="icons-width"
@@ -68,7 +68,7 @@
         </div>
 
         <div *ngIf="user.is_exp" class="list-wrapper-items">
-          <a mat-list-item routerLink="/games">
+          <a mat-list-item routerLink="/main/games">
             <span class="list-wrapper-items-icon">
               <img class="icons-width" src="assets/modules/games.png" />
             </span>
@@ -79,7 +79,7 @@
         </div>
 
         <div *ngIf="user.is_exp" class="list-wrapper-items">
-          <a mat-list-item routerLink="/support-groups">
+          <a mat-list-item routerLink="/main/support-groups">
             <span class="list-wrapper-items-icon">
               <img class="icons-width" src="assets/modules/groups.png" />
             </span>
@@ -90,7 +90,7 @@
         </div>
 
         <div class="list-wrapper-items">
-          <a mat-list-item routerLink="/resources/forms">
+          <a mat-list-item routerLink="/main/resources/forms">
             <span class="list-wrapper-items-icon">
               <img class="icons-width" src="assets/modules/Form.png" />
             </span>
@@ -101,7 +101,7 @@
         </div>
 
         <div class="list-wrapper-items">
-          <a mat-list-item routerLink="/scores">
+          <a mat-list-item routerLink="/main/scores">
             <span class="list-wrapper-items-icon">
               <img class="icons-width" src="assets/modules/scores.png" />
             </span>
@@ -112,7 +112,7 @@
         </div>
 
         <div class="list-wrapper-items">
-          <a mat-list-item routerLink="/extra-resources">
+          <a mat-list-item routerLink="/main/extra-resources">
             <span class="list-wrapper-items-icon">
               <img class="icons-width" src="assets/modules/resources.png" />
             </span>
@@ -128,12 +128,12 @@
               <img
                 style="margin-left: 4px;"
                 width="25px"
-                src="assets/modules/need to talk.png"
+                src="assets/modules/need_to_talk.png"
               />
               <img
                 *ngIf="!isExpanded"
                 width="25px"
-                src="assets/modules/need to talk.png"
+                src="assets/modules/need_to_talk.png"
               />
             </span>
             <span class="list-wrapper-items-name"> Need to <br />talk? </span>
@@ -141,7 +141,7 @@
         </div>
 
         <div class="list-wrapper-items">
-          <a mat-list-item routerLink="/logout">
+          <a mat-list-item routerLink="/main/logout">
             <span class="list-wrapper-items-icon">
               <img
                 class="icons-width"

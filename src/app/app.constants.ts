@@ -65,7 +65,7 @@ export const LS_TIME = 120;
 
 // PATHS
 export const DEFAULT_PATH = '/landing';
-export const LOGGED_IN_PATH = '/dashboard';
+export const LOGGED_IN_PATH = '/main/dashboard';
 export const TOKEN_REFRESH_PATH = '/api/v1/user/api-token-refresh/';
 export const LOGIN_PATH = '/api/v1/user/login/';
 export const SIGN_UP_PATH = '/api/v1/user/registration/';
