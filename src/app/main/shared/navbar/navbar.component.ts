@@ -36,6 +36,7 @@ import { SlidesVideoComponent } from '@/main/resources/slides/slides-video/slide
 import { DialogPosition, MatDialog } from '@angular/material/dialog';
 import { CustomOverlayComponent } from '@/main/shared/custom-overlay/custom-overlay.component';
 import { CustomOverlayService } from '@/main/shared/custom-overlay/custom-overlay.service';
+import {FormService} from "@/main/resources/forms/form.service";
 
 @Component({
   selector: 'app-navbar',
@@ -59,9 +60,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
   isDashboard = false;
   isConversation = false;
   convMode = false;
+  fromLeftNav!: boolean;
   @Input() user!: User;
   @Output() hamburgerClick = new EventEmitter<any>();
   @Input() isHandset$!: boolean;
+
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
     private notificationService: NavbarNotificationsService,
@@ -69,6 +72,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private router: Router,
     private auth: AuthService,
     private gamePlayService: GamePlayService,
+    private formService: FormService,
+
     private flowService: FlowService,
     private conversationservice: ConversationsService,
     public dialog: MatDialog,
@@ -83,25 +88,26 @@ export class NavbarComponent implements OnInit, OnDestroy {
       if (event instanceof NavigationEnd) {
         this.isDashboard = false;
         this.isConversation = false;
-
-        if (this.auth.navbarTitle) {
-          this.navbarTitle = this.auth.navbarTitle;
-          console.log(event);
-          if (event.url === '/dashboard') {
-            this.isDashboard = true;
+        if (this.fromLeftNav) {
+          if (this.auth.navbarTitle) {
+            this.navbarTitle = this.auth.navbarTitle;
+            console.log(event);
+            if (event.url === '/dashboard') {
+              this.isDashboard = true;
+            }
           }
+          this.gamePlayService.gameTitle.subscribe(() => {
+            console.log('FROM NAVBAR', this.gamePlayService.gameName);
+            this.navbarTitle = this.gamePlayService.gameName;
+          });
+          this.formService.formTitle.subscribe(() => {
+            console.log('FROM NAVBAR', this.formService.formName);
+            this.navbarTitle = this.formService.formName;
+          });
         }
-        this.gamePlayService.gameTitle.subscribe(() => {
-          console.log('FROM NAVBAR', this.gamePlayService.gameName);
-          this.navbarTitle = this.gamePlayService.gameName;
-        });
+
         this.flowService.stepDetail.subscribe(() => {
-          // this.navbarTitle =
-          //   this.flowService.stepGroupSequence.toString() +
-          //   '.' +
-          //   this.flowService.stepSequence.toString() +
-          //   ' ' +
-          //   this.flowService.stepName;
+          this.fromLeftNav = false;
           console.log('FROM NAVBAR', this.flowService.navbarTitle);
           this.navbarTitle = this.flowService.navbarTitle;
           localStorage.setItem('navbarTitle', this.flowService.navbarTitle);
@@ -128,6 +134,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.notificationService.fromLeftNav.subscribe( () => {
+      this.fromLeftNav = true;
+    });
     this.notificationService.closeSubject.subscribe(data => {
       if (data) {
         this.notificationClick();
@@ -142,6 +151,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       // this.flowTrigger.closeMenu();
     });
     console.log('is HANDSET', this.isHandset$);
+    console.log('from left nav', this.fromLeftNav);
   }
 
   notificationClick() {

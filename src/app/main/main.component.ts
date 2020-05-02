@@ -177,6 +177,7 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
   }
 
   onLinkClick(event: Event) {
+    this.notificationService.fromLeftNav.emit();
     if (window.innerWidth < 960) {
       this.drawer.toggle();
     }

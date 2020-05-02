@@ -38,32 +38,32 @@ export const resourcesRoutes: Routes = [
       {
         path: 'forms/problem-solving',
         component: ProblemSolvingWorksheetsComponent,
-        data: { title: 'Form' },
+        // data: { title: 'Form' },
       },
       {
         path: 'forms/task',
         component: TaskFormsComponent,
-        data: { title: 'Form' },
+        // data: { title: 'Form' },
       },
       {
         path: 'forms/thought-record',
         component: ThoughtRecordFormComponent,
-        data: { title: 'Form' },
+        // data: { title: 'Form' },
       },
       {
         path: 'forms/test-belief',
         component: ExperimentToTestBeliefFormComponent,
-        data: { title: 'Form' },
+        // data: { title: 'Form' },
       },
       {
         path: 'forms/worry-productively',
         component: WorryProductivelyComponent,
-        data: { title: 'Form' },
+        // data: { title: 'Form' },
       },
       {
         path: 'forms/belief-change',
         component: BeliefChangeComponent,
-        data: { title: 'Form' },
+        // data: { title: 'Form' },
       },
     ],
   },
