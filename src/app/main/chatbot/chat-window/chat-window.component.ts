@@ -241,7 +241,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   scrollToBottom() {
     if (this.messagesDiv) {
       // console.log(this.scrollTop, this.messagesDiv.nativeElement.scrollHeight);
-      this.scrollTop = this.messagesDiv.nativeElement.scrollHeight + 50;
+      this.scrollTop = this.messagesDiv.nativeElement.scrollHeight + 100;
       this.changRef.detectChanges();
     }
   }
@@ -258,9 +258,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       environment.CHAT_HOST + '/ws/chat/?token=' + this.authService.getToken(),
     );
     this.webSocket.onopen = (event) => {
-      this.webSocket.send(
-        JSON.stringify({ action: type, module_name: 'set_activity' }),
-      );
+      this.webSocket.send(JSON.stringify({ action: type, module_name: '' }));
     };
     this.webSocket.onmessage = (message: any) => {
       this.showMaintenance = false;
@@ -565,6 +563,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     window.clearTimeout(this.timeout);
     if (event.keyCode === 13) {
       this.message = this.message.replace(/[\n\t\r]/g, '');
+
       this.messages.push(
         new Chat(
           twemoji.parse(this.message),
@@ -579,8 +578,10 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
         ),
       );
       this.multiLineChat.push(this.message);
-      this.scrollToBottom();
       this.message = '';
+      setTimeout(() => {
+        this.scrollToBottom();
+      }, 300);
       this.timeout = setTimeout(
         () => {
           // $this.onChatSubmit();
@@ -606,5 +607,6 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     );
     this.showTextInput = false;
     this.multiLineChat = [];
+    this.scrollToBottom();
   }
 }
