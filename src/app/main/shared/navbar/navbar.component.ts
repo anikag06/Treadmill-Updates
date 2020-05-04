@@ -61,6 +61,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   isConversation = false;
   convMode = false;
   fromLeftNav!: boolean;
+  backClicked = false;
   @Input() user!: User;
   @Output() hamburgerClick = new EventEmitter<any>();
   @Input() isHandset$!: boolean;
@@ -87,42 +88,46 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
       if (event instanceof NavigationEnd) {
         this.isDashboard = false;
-        this.isConversation = false;
+        this.notificationService.fromLeftNav.subscribe(() => {
+          this.fromLeftNav = true;
+          console.log('from left nav', this.fromLeftNav);
+        });
+        if (event.url === '/dashboard') {
+          this.isDashboard = true;
+        }
         if (this.fromLeftNav) {
-          if (this.auth.navbarTitle) {
-            this.navbarTitle = this.auth.navbarTitle;
-            console.log(event);
-            if (event.url === '/dashboard') {
-              this.isDashboard = true;
+            if (this.auth.navbarTitle) {
+              this.navbarTitle = this.auth.navbarTitle;
+              console.log(event);
             }
-          }
-          this.gamePlayService.gameTitle.subscribe(() => {
-            console.log('FROM NAVBAR', this.gamePlayService.gameName);
-            this.navbarTitle = this.gamePlayService.gameName;
-          });
-          this.formService.formTitle.subscribe(() => {
-            console.log('FROM NAVBAR', this.formService.formName);
-            this.navbarTitle = this.formService.formName;
-          });
-        }
+            this.gamePlayService.gameTitle.subscribe(() => {
+              console.log('FROM NAVBAR', this.gamePlayService.gameName);
+              this.navbarTitle = this.gamePlayService.gameName;
+            });
+            this.formService.formTitle.subscribe(() => {
+              console.log('FROM NAVBAR', this.formService.formName);
+              this.navbarTitle = this.formService.formName;
+            });
+            localStorage.setItem('navbarTitle', this.navbarTitle);
+          } else {
+            this.flowService.stepDetail.subscribe(() => {
+              this.fromLeftNav = false;
+              console.log('FROM NAVBAR', this.flowService.navbarTitle);
+              this.navbarTitle = this.flowService.navbarTitle;
+              localStorage.setItem('navbarTitle', this.flowService.navbarTitle);
+            });
+            this.fromLeftNav = true;
 
-        this.flowService.stepDetail.subscribe(() => {
-          this.fromLeftNav = false;
-          console.log('FROM NAVBAR', this.flowService.navbarTitle);
-          this.navbarTitle = this.flowService.navbarTitle;
-          localStorage.setItem('navbarTitle', this.flowService.navbarTitle);
-        });
-        if (event.url.includes('resources') && !this.auth.navbarTitle) {
-          this.navbarTitle = localStorage.getItem('navbarTitle');
+            this.navbarTitle = localStorage.getItem('navbarTitle');
+          }
+          this.notificationService.showFullConvIcon.subscribe(() => {
+            this.convMode = true;
+          });
+          this.notificationService.removeFullConvIcon.subscribe(() => {
+            this.convMode = false;
+          });
+          this.notificationService.isDashboard = this.isDashboard;
         }
-        this.notificationService.showFullConvIcon.subscribe(() => {
-          this.convMode = true;
-        });
-        this.notificationService.removeFullConvIcon.subscribe(() => {
-          this.convMode = false;
-        });
-        this.notificationService.isDashboard = this.isDashboard;
-      }
 
       if (event instanceof NavigationError) {
         // Hide loading indicator
@@ -134,9 +139,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.notificationService.fromLeftNav.subscribe( () => {
-      this.fromLeftNav = true;
-    });
     this.notificationService.closeSubject.subscribe(data => {
       if (data) {
         this.notificationClick();
@@ -200,6 +202,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.router.navigate(['/dashboard']);
   }
   backClick() {
+    this.backClicked = true;
     this.location.back();
   }
 
