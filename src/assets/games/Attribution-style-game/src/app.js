@@ -94,6 +94,9 @@ var AttributeGame = function () {
 
   preload() {
     this.load.image("bg", "./assets/games/Attribution-style-game/src/assets/background.png");
+    this.load.image("GoToHome", "./assets/games/Attribution-style-game/src/assets/GoToHome.png");
+    this.load.image("PlayAgain", "./assets/games/Attribution-style-game/src/assets/PlayAgain.png");
+
     this.load.image("play_btn", "./assets/games/Attribution-style-game/src/assets/play_btn.png");
     this.load.image("pause_btn", "./assets/games/Attribution-style-game/src/assets/pause_btn.png");
     this.load.image("home_btn", "./assets/games/Attribution-style-game/src/assets/home_btn.png");
@@ -341,6 +344,8 @@ class LevelOne extends Phaser.Scene {
     this.ASGPostIndividualLevelPerformanceEvent.initCustomEvent('ASGPostIndividualLevelPerformance');
     window.dispatchEvent(this.ASGPostIndividualLevelPerformanceEvent);
   }
+
+
 
 
 
@@ -705,6 +710,7 @@ class LevelTwo extends Phaser.Scene {
                     this.scene.start('ScoreDisplay');
                     this.registry.set('currentScene', 'LevelThree');
                   this.updateBadges();
+                  this.updateExplanation();
                 }
             },
             callbackScope: this.scene,
@@ -718,6 +724,11 @@ class LevelTwo extends Phaser.Scene {
     this.ASGPostLevelTwoPerformanceEvent = document.createEvent('CustomEvent');
     this.ASGPostLevelTwoPerformanceEvent.initCustomEvent('ASGPostLevelTwoPerformance');
     window.dispatchEvent(this.ASGPostLevelTwoPerformanceEvent);}
+
+  updateExplanation() {
+    this.ASGpostUserExplanationEvent = document.createEvent('CustomEvent');
+    this.ASGpostUserExplanationEvent.initCustomEvent('ASGpostUserExplanation');
+    window.dispatchEvent(this.ASGpostUserExplanationEvent);}
 
     bowMovement(pointer) {
         if (!this.isGameStart) return;
@@ -1106,6 +1117,7 @@ class LevelThree extends Phaser.Scene {
                     this.scene.start('ScoreDisplay');
                     this.registry.set('currentScene', 'LevelThree');
                   this.updateBadges();
+                  this.updateExplanation();
                 }
             },
             callbackScope: this.scene,
@@ -1126,6 +1138,11 @@ class LevelThree extends Phaser.Scene {
     this.ASGPostIndividualLevelPerformanceEvent = document.createEvent('CustomEvent');
     this.ASGPostIndividualLevelPerformanceEvent.initCustomEvent('ASGPostIndividualLevelPerformance');
     window.dispatchEvent(this.ASGPostIndividualLevelPerformanceEvent);}
+
+  updateExplanation() {
+    this.ASGpostUserExplanationEvent = document.createEvent('CustomEvent');
+    this.ASGpostUserExplanationEvent.initCustomEvent('ASGpostUserExplanation');
+    window.dispatchEvent(this.ASGpostUserExplanationEvent);}
 
     createFreezeBalloon() {
         if (this.isGameOver) return;
@@ -1489,7 +1506,7 @@ class LevelThree extends Phaser.Scene {
         this.descRect = this.add.rectangle(150, 180, 1050, 430, 0xffffff, 0.50).setOrigin(0, 0);
         this.nextRect = this.add.rectangle(150, 180, 1050, 430, 0xffffff, 0.50).setOrigin(0, 0);
         this.next_btn = this.add.sprite(670, 500, "next_btn")
-          .setInteractive()
+          .setInteractive({ useHandCursor: true })
           .setScale(1.5);
         this.next_btn.setVisible(false);
         this.nextRect.setVisible(false);
@@ -1524,42 +1541,117 @@ class LevelThree extends Phaser.Scene {
             wordWrap: { width: 800 }
         }
 
-        this.Question1Ans1Txt = this.add.text(this.green_balloon.getBottomRight().x + 20, this.Question1Txt.getBottomRight().y + 40, this.Questions.que1.ans1, ansConfig).setOrigin(0, 0).setInteractive();
+        this.Question1Ans1Txt = this.add.text(this.green_balloon.getBottomRight().x + 20, this.Question1Txt.getBottomRight().y + 40, this.Questions.que1.ans1, ansConfig).setOrigin(0, 0).setInteractive({ useHandCursor: true });
 
         this.red_balloon = this.add.sprite(220, this.green_balloon.getBottomRight().y + 50, "red_balloon").setScale(0.1);
 
-        this.Question1Ans2Txt = this.add.text(this.red_balloon.getBottomRight().x + 20, this.green_balloon.getBottomRight().y + 30, this.Questions.que1.ans2, ansConfig).setOrigin(0, 0).setInteractive();
+        this.Question1Ans2Txt = this.add.text(this.red_balloon.getBottomRight().x + 20, this.green_balloon.getBottomRight().y + 30, this.Questions.que1.ans2, ansConfig).setOrigin(0, 0).setInteractive({ useHandCursor: true });
 
         this.queGrp = this.add.group([this.titleTxt, this.titleRect, this.descRect, this.green_balloon, this.red_balloon, this.Question1Txt, this.Question1Ans1Txt, this.Question1Ans2Txt]);
 
         this.next_btn.on('pointerdown', function () {
             this.scene.stop();
-          this.updateExplanation();
+            console.log(level);
+          if(level === 1 ){
+            if (timeToAnswer.length === 3) {
+              console.log('run');
+              AnswerId = Answer1Id;
+              TimeTakenToAnswer = timeToAnswer.shift();
+              this.updateBadges();
+              AnswerId = Answer2Id;
+              timeToAnswer.shift();
+              TimeTakenToAnswer = timeToAnswer.shift();
+              this.updateBadges();
+            } else {
+              AnswerId = Answer1Id;
+              TimeTakenToAnswer = timeToAnswer.shift();
+              this.updateBadges();
+              AnswerId = Answer2Id;
+              TimeTakenToAnswer = timeToAnswer.shift();
+              this.updateBadges();
+            }
+          } else if (level === 2) {
+            if (timeToAnswer.length === 3) {
+              if ((timeToAnswer[0] + timeToAnswer[2]) === timeToAnswer[1] || timeToAnswer[1]+1 || timeToAnswer[1]-1) {
+                AnswerId = Answer1Id;
+                TimeTakenToAnswer = timeToAnswer.shift();
+                this.updateBadges();
+                timeToAnswer.shift();
+                AnswerId = Answer2Id;
+                TimeTakenToAnswer = timeToAnswer.shift();
+                this.updateBadges();
+              } else if((timeToAnswer[0] + timeToAnswer[2]) !== timeToAnswer[1]) {
+                timeToAnswer.shift();
+                AnswerId = Answer1Id;
+                TimeTakenToAnswer = timeToAnswer.shift();
+                this.updateBadges();
+                AnswerId = Answer2Id;
+                TimeTakenToAnswer = timeToAnswer.shift();
+                this.updateBadges();
+              }
+            } else if(timeToAnswer.length === 5) {
+              timeToAnswer.shift();
+              AnswerId = Answer1Id;
+              TimeTakenToAnswer = timeToAnswer.shift();
+              this.updateBadges();
+              timeToAnswer.shift();
+              timeToAnswer.shift();
+              AnswerId = Answer2Id;
+              TimeTakenToAnswer = timeToAnswer.shift();
+              this.updateBadges();
+            }
+          } else if(level === 3 ){
+            if (timeToAnswer.length === 3) {
+              console.log('run');
+              AnswerId = Answer1Id;
+              TimeTakenToAnswer = timeToAnswer.shift();
+              this.updateBadges();
+              AnswerId = Answer2Id;
+              timeToAnswer.shift();
+              TimeTakenToAnswer = timeToAnswer.shift();
+              this.updateBadges();
+            } else {
+              AnswerId = Answer1Id;
+              TimeTakenToAnswer = timeToAnswer.shift();
+              this.updateBadges();
+              AnswerId = Answer2Id;
+              TimeTakenToAnswer = timeToAnswer.shift();
+              this.updateBadges();
+            }
+          }
+
           if (this.questionNumber === "que3") {
                 this.scene.start('PERSONALISATION');
             } else {
                 this.scene.start(this.registry.get('currentScene'));
             }
+
         }, this);
 
         if (this.registry.get('questionNumber') === '1') {
+            level = 1;
             this.questionNumber = "que1";
             this.currentQuestion = this.Questions.que1;
         } else if (this.registry.get('questionNumber') === '2') {
+            level = 2;
             this.questionNumber = "que2";
             this.currentQuestion = this.Questions.que2;
         } else if (this.registry.get('questionNumber') === '3') {
+            level = 3;
             this.questionNumber = "que3";
             this.currentQuestion = this.Questions.que3;
         } else {
+            level = 1;
             this.questionNumber = "que1";
             this.currentQuestion = this.Questions.que1;
         }
-        this.setQuestionAnswer(this.currentQuestion);
+      this.i = 1;
+      this.setQuestionAnswer(this.currentQuestion, this.i);
     }
 
-    setQuestionAnswer(queAndAns) {
-        // Disable Input
+    setQuestionAnswer(queAndAns, i) {
+      let now1 = Date.now();
+      // Disable Input
         this.disableInput();
         // Enable after some time to stop instant click on next question
         this.time.delayedCall(1000, this.enableInput, null, this);
@@ -1570,16 +1662,27 @@ class LevelThree extends Phaser.Scene {
         this.Question1Ans2Txt.setText(queAndAns.ans2.ans, { fontFamily: '"Roboto"' });
 
         this.Question1Ans1Txt.once('pointerdown', function () {
-          AnswerId = queAndAns.ans1.id;
+          let now2 = Date.now();
+        //  AnswerId = queAndAns.ans1.id;
           console.log(AnswerId);
-          TimeTakenToAnswer = 5;
-          this.updateBadges();
+          timeToAnswer.push(now2 - now1);
+          console.log(timeToAnswer);
+
 
             // console.log(this.currentQuestion.ans1.question);
             if (this.currentQuestion.ans1.question !== "0") {
-                this.setQuestionAnswer(this.currentQuestion.ans1);
+
+              console.log('ans1 1');
+             // this.updateBadges();
+              this.setQuestionAnswer(this.currentQuestion.ans1, i=i+1);
             }
             else {
+              if (this.currentQuestion.ans2.question == "0") {
+             //   this.updateBadges();
+              }
+
+
+              console.log('ans1 outside');
                 this.queGrp.getChildren().forEach(child => {
                     child.setVisible(false);
                 });
@@ -1598,15 +1701,26 @@ class LevelThree extends Phaser.Scene {
         }, this);
 
         this.Question1Ans2Txt.once('pointerdown', function () {
-          AnswerId = queAndAns.ans2.id;
-          TimeTakenToAnswer = 5;
-          this.updateBadges();
+          let now2 = Date.now();
+
+          // AnswerId = queAndAns.ans2.id;
+          timeToAnswer.push(now2 - now1);
+          console.log(timeToAnswer);
+
 
             // console.log(this.currentQuestion.ans2.question);
             if (this.currentQuestion.ans2.question !== "0") {
-                this.setQuestionAnswer(this.currentQuestion.ans2);
+
+              console.log('ans2 2');
+            //  this.updateBadges();
+              this.setQuestionAnswer(this.currentQuestion.ans2, i=i+1 );
+
             }
             else {
+              if (this.currentQuestion.ans2.question == "0") {
+             //   this.updateBadges();
+              }
+              console.log('ans2 outside');
                 this.queGrp.getChildren().forEach(child => {
                     child.setVisible(false);
                 });
@@ -1630,10 +1744,7 @@ class LevelThree extends Phaser.Scene {
       this.ASGpostUserAnswerEvent.initCustomEvent('ASGpostUserAnswer');
       window.dispatchEvent(this.ASGpostUserAnswerEvent);}
 
-    updateExplanation() {
-      this.ASGpostUserExplanationEvent = document.createEvent('CustomEvent');
-      this.ASGpostUserExplanationEvent.initCustomEvent('ASGpostUserExplanation');
-      window.dispatchEvent(this.ASGpostUserExplanationEvent);}
+
 
 
     disableInput() {
@@ -1688,7 +1799,7 @@ class ScoreDisplay extends Phaser.Scene {
 
 
       this.next_btn.on('pointerdown', function () {
-            this.registry.set('QuestionScene', 'QuestionAndAnswer')
+            this.registry.set('QuestionScene', 'QuestionAndAnswer');
             this.scene.start('QuestionAndAnswer');
         }, this);
 
@@ -1779,8 +1890,18 @@ class UIScene extends Phaser.Scene {
     }
 
     rstart = function() {
-        this.scene.stop(this.registry.get('currentScene'));
-        this.scene.start('HomeScene');
+      timeToAnswer = [];
+      console.log(timeToAnswer);
+       this.scene.stop(this.registry.get('currentScene'));
+      this.scene.stop(this.registry.get('QuestionScene'));
+      this.scene.stop(this.registry.get('ParallelScene'));
+      this.scene.stop('PERSONALISATION');
+      this.scene.stop('PERMANENCE');
+      this.scene.stop('pervasiveness');
+      this.scene.stop('UserResult');
+
+
+      this.scene.start('HomeScene');
         this.registry.set('currentScene','HomeScene');
     };
 
@@ -1823,6 +1944,7 @@ class UIScene extends Phaser.Scene {
 
 
 class Personalisation extends Phaser.Scene {
+  updateExplanation;
   constructor() {
     super({ key: "PERSONALISATION" })
   }
@@ -1861,17 +1983,30 @@ class Personalisation extends Phaser.Scene {
       .setWordWrapWidth(fontWrapWidth);
 
 
-    this.next_btn = this.add.sprite(1080, 530, "next_btn").setInteractive().setScale(1.5);
+    this.next_btn = this.add.sprite(1080, 530, "next_btn").setInteractive({ useHandCursor: true }).setScale(1.5);
     this.nexttext = this.add.text(1053, 515,'Next', { fontFamily: '"Roboto"' }).setFontSize(25).setColor('black');
 
 
 
     this.next_btn.on('pointerdown', function () {
       this.scene.stop();
+      this.updateExplanation();
+
 
         this.scene.start('PERMANENCE');
 
     }, this);
+
+    this.updateExplanation = function () {
+
+
+      this.ASGpostUserExplanationEvent = document.createEvent('CustomEvent');
+      this.ASGpostUserExplanationEvent.initCustomEvent('ASGpostUserExplanation');
+      window.dispatchEvent(this.ASGpostUserExplanationEvent);}
+
+
+
+
 
   }
 }
@@ -1921,7 +2056,7 @@ class Permanence extends Phaser.Scene {
       .setWordWrapWidth(fontWrapWidth);
 
 
-    this.next_btn = this.add.sprite(1080, 530, "next_btn").setInteractive().setScale(1.5);
+    this.next_btn = this.add.sprite(1080, 530, "next_btn").setInteractive({ useHandCursor: true }).setScale(1.5);
     this.nexttext = this.add.text(1053, 515,'Next', { fontFamily: '"Roboto"' }).setFontSize(25).setColor('black');
     this.backtext = this.add.text(900, 515,'Back', { fontFamily: '"Roboto"' }).setFontSize(25).setColor('black').setInteractive();
 
@@ -1983,7 +2118,7 @@ class Pervasiveness extends Phaser.Scene {
       .setWordWrapWidth(fontWrapWidth);
 
 
-    this.next_btn = this.add.sprite(1080, 530, "next_btn").setInteractive().setScale(1.5);
+    this.next_btn = this.add.sprite(1080, 530, "next_btn").setInteractive({ useHandCursor: true }).setScale(1.5);
     this.nexttext = this.add.text(1053, 515,'Next', { fontFamily: '"Roboto"' }).setFontSize(25).setColor('black');
     this.backtext = this.add.text(900, 515,'Back', { fontFamily: '"Roboto"' }).setFontSize(25).setColor('black').setInteractive();
 
@@ -2040,44 +2175,132 @@ class UserResult extends Phaser.Scene {
       var fontColor = 'black';
       var fontWrapWidth = 1250;
       var space = 15;
+      //this.ASGPutRequest();
 
 
         this.bg = this.add.sprite(0, 0, "bg").setOrigin(0, 0);
-        this.titleRect = this.add.rectangle(0, 0, 1330, 740, 0xffffff, 0.70).setOrigin(0, 0);
 
-         this.openLink = this.add.text(10, 700, "Click here")
+      this.titleRect = this.add.rectangle(0, 0, 1330, 530, 0xffffff, 0.70).setOrigin(0, 0);
+      this.Rect = this.add.rectangle(0, 530, 1330, 240, 0xffffff, 0.90).setOrigin(0, 0);
+
+      this.openLink = this.add.text(400, 540, "Click here")
         .setFontSize(fontSize)
         .setColor(fontColor)
         .setWordWrapWidth(fontWrapWidth)
-        .setInteractive();
+        .setInteractive({ useHandCursor: true });
 
-         this.textheading = this.add.text(50, 40, 'How does your explanatory style affect you?',{ fontFamily: '"Roboto"' } ).setFontSize(35).setColor('black').setFontStyle('bold');
-         this.textfinal = this.add.text(50, 100, 'The way you explain your successes and failures affect how vulnerable you are to depression. People who\nare most vulnerable to depression \n' +
+      // let graphics = this.make.graphics() ;
+      //
+      // // graphics.fillStyle(0xffffff);
+      // graphics.fillRect(0, 0, 1330, 740);
+      //
+      // const mask = new Phaser.Display.Masks.GeometryMask(this, graphics);
+
+      this.textheading = this.add.text(50, 40, 'How does your explanatory style affect you?',{ fontFamily: '"Roboto"' } ).setFontSize(35).setColor('black').setFontStyle('bold');
+         this.textfinal = [ 'The way you explain your successes and failures affect how vulnerable you are to depression. People who are most vulnerable to depression' +
            '\n' +
            ' - blame themselves for their failures\n' +
            ' - thinks that if they fail in one area of their life, then it means that they will fail in other areas of their life as well\n' +
            ' - thinks that if they fail once, then they will never be able to succeed.\n' +
            '\n' +
-           'To become less vulnerable to depression remember that - \n' +
+           'To become less vulnerable to depression remember that -' +
            '\n' +
-           ' - our successes and failures often depend on many factors that are not in our control.\n   So, before blaming yourself for your failure, think about what else could have affected the outcome.\n' +
-           ' - if you fail once that does not mean that you are going to be a life long failure. Most things in life depend on\n   skills that you can learn and improve upon.\n' +
+           ' - our successes and failures often depend on many factors that are not in our control. So, before blaming yourself for your failure, think about what else could have affected the outcome.\n' +
+           ' - if you fail once that does not mean that you are going to be a life long failure. Most things in life depend on skills that you can learn and improve upon.\n' +
            ' - if you fail in one area of your life that does not mean that you are doomed to fail in other areas as well.\n' +
            '\n' +
-           'So, the next time you feel upset about a failure, think about how you are explaining your failure.\n' +
-           '\n' +
-           'To learn in more details about explanatory style go to this link - ',{ fontFamily: '"Roboto"' } ).setFontSize(25).setColor('black');
+           'So, the next time you feel upset about a failure, think about how you are explaining your failure.' ];
+
+
+         let text = this.add.text(50, 100, this.textfinal, {  fontFamily: '"Roboto"' , wordWrap: { width: 1250 } }).setFontSize(25).setColor('black');
+      //text.setMask(mask);
+
+      //this.play = this.add.rectangle(200, 100, 60, 30, 0x0000ff );
+      //this.play.backgroundColor(255,255,100);
+
+      //let zone = this.add.zone(0, 0, 1330, 740).setOrigin(0).setInteractive();
+
+     // zone.on('pointermove', function (pointer) {
+     //
+     //    if (pointer.isDown)
+     //    {
+     //      text.y += (pointer.velocity.y / 10);
+     //
+     //      text.y = Phaser.Math.Clamp(text.y, -600, 100);
+     //    }
+     //
+     //  });
+
+      this.addtext = this.add.text(50,540,'To learn more about explanatory style',{fontFamily: '"Roboto"' }).setFontSize(19).setColor('black');
+
 
 
         this.openLink.once("pointerdown",function(){
             this.openWindow();
         },this);
+        this.gameFeedbackPopup();
+
+      this.GoToHome = this.add.sprite(400, 640, "GoToHome").setInteractive({ useHandCursor: true }).setScale(0.6);
+      this.PlayAgain = this.add.sprite(900, 640, "PlayAgain").setInteractive({ useHandCursor: true }).setScale(0.6);
+
+      this.GoToHome.on('pointerdown', function () {
+        this.scene.stop();
+        this.ASGPutRequest();
+        this.ASGGoHome();
+
+      }, this);
+
+      this.PlayAgain.on('pointerdown', function () {
+        this.scene.stop();
+        this.ASGPutRequest();
+        timeToAnswer = [];
+        console.log(timeToAnswer);
+        this.scene.stop(this.registry.get('currentScene'));
+        this.scene.stop(this.registry.get('QuestionScene'));
+        this.scene.stop(this.registry.get('ParallelScene'));
+        this.scene.stop('PERSONALISATION');
+        this.scene.stop('PERMANENCE');
+        this.scene.stop('pervasiveness');
+        this.scene.stop('UserResult');
+
+
+        this.scene.start('HomeScene');
+        this.registry.set('currentScene','HomeScene');
+
+      }, this);
 
     }
 
-    openWindow() {
+
+  feedbackEvent;
+
+  gameFeedbackPopup() {
+    this.feedbackEvent = document.createEvent("CustomEvent");
+    this.feedbackEvent.initCustomEvent("Feedback");
+    window.dispatchEvent(this.feedbackEvent);
+  }
+
+  ASGPutEvent;
+
+  ASGPutRequest() {
+    this.ASGPutEvent = document.createEvent("CustomEvent");
+    this.ASGPutEvent.initCustomEvent("ASGPut");
+    window.dispatchEvent(this.ASGPutEvent);
+  }
+
+  ASGGoHomeEvent;
+
+  ASGGoHome() {
+    this.ASGGoHomeEvent = document.createEvent("CustomEvent");
+    this.ASGGoHomeEvent.initCustomEvent("GoHome");
+    window.dispatchEvent(this.ASGGoHomeEvent);
+  }
+
+
+
+  openWindow() {
         console.log('opening')
-        var result = window.open('./assets/games/Attribution-style-game/src/assets/EXPLANATORY%20STYLE.pdf', "_self")
+        var result = window.open('./assets/games/Attribution-style-game/src/assets/EXPLANATORY%20STYLE.pdf');
         console.log('result', result);
     }
 
@@ -2117,7 +2340,8 @@ function conf(DEFAULT_WIDTH, DEFAULT_HEIGHT){
  var ASGUserPerformance;
  var ASGPostIndividualAnswer;
  var ASGPostExplanation;
-
+ var timeToAnswer = [];
+ var level;
  var ASGLevelId;
  var ASGTotalBaloons;
  var ASGBalloonsBurst;

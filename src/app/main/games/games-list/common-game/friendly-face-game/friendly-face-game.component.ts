@@ -130,7 +130,6 @@ export class FriendlyFaceGameComponent implements OnInit {
       this.element.nativeElement.dispatchEvent(domEvent);
     }
   }
-
   @HostListener('window:diffBarUpdate')
   diffBarUpdate() {
     this.difficultyBarValue = ffgDifficultyValue;

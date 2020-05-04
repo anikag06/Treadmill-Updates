@@ -142,6 +142,7 @@ export class GamePlayService {
   ecGameTaskData!: any;
   ecGameUserData!: any;
   ecGameID!: number;
+  AnswerId = [];
 
   // initialising the variables
   ecGameDataObject = new ECGameData(1, null, 1, 0, false, 0);
@@ -249,7 +250,9 @@ export class GamePlayService {
   }
 
   restartAttributionStyleGame() {
-    this.game.scene.scenes[5].rstart();
+   // this.game.destroy();
+     this.game.scene.scenes[5].rstart();
+    // this.playAttributionStyleGame();
   }
 
   resumeAttributionStyleGame() {
@@ -296,6 +299,13 @@ export class GamePlayService {
       ExplanationId,
       Answer1Id,
       Answer2Id,
+    );
+  }
+
+  putUserPerformance() {
+    let date: Date;
+    date = new Date();
+    this.gamesAuthService.atPutUserPerformance(this.ASGGameInstanceId, date.toISOString()
     );
   }
 
