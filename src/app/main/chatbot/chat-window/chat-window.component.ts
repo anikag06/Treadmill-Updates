@@ -148,7 +148,9 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       },
     );
   }
-
+  ngAfterViewChecked() {
+    this.changRef.detectChanges();
+  }
   onChatSubmit() {
     if (this.message.length > 0 && this.message.trim().length > 0) {
       this.message = this.message.replace(/[\n\t\r]/g, '');
@@ -579,7 +581,6 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       this.multiLineChat.push(this.message);
       this.scrollToBottom();
       this.message = '';
-      console.log(this.isMultiLineInput);
       this.timeout = setTimeout(
         () => {
           // $this.onChatSubmit();
@@ -592,7 +593,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   submitMultiLineChat(multiLineChat: string[]) {
-    console.log(multiLineChat);
+    // console.log(multiLineChat);
     this.webSocket.send(
       JSON.stringify({
         action: REPLY_CURRENT,
