@@ -187,17 +187,16 @@ export class GamesAuthService {
     this.ASGi = this.ASGi + 2;
   }
 
-  atPutUserPerformance(gameInstance: number, endTime: string) {
+  atPutUserPerformance(gameInstance: number, end_time: string) {
     const completed = true;
     const f = {
       completed,
-      endTime
-      //gameInstance
+      end_time,
     };
     return this.http
       .put(
         environment.API_ENDPOINT +
-        'api/v1/games/attribution-style/user-performance-asgame/',
+          '/api/v1/games/attribution-style/user-performance-asgame/',
         f,
       )
       .subscribe(resp => console.log(resp));
