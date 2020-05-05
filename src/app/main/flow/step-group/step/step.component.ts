@@ -112,7 +112,8 @@ export class StepComponent implements OnInit, AfterViewInit {
   }
 
   nextLink() {
-    return this.flowStepNavService.goToFlowNextStep(this.step);
+    return this.flowStepNavService.
+    goToFlowNextStep(this.step);
   }
 
   previousStep(stepGroup: StepGroup, step: Step) {
@@ -159,7 +160,7 @@ export class StepComponent implements OnInit, AfterViewInit {
         this.flowService.stepSequence.toString() +
         ' ' +
         this.flowService.stepName;
-      this.flowService.stepDetail.emit();
+      // this.flowService.stepDetail.emit();
       this.closeNavFlow();
       return this.router.navigate([this.nextLink()]);
     }

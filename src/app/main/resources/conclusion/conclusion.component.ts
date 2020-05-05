@@ -15,5 +15,5 @@ import { ConclusionService } from '@/main/resources/conclusion/conclusion.servic
 export class ConclusionComponent implements OnInit {
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() { }
 }

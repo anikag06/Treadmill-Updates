@@ -16,6 +16,8 @@ import { StepCompleteData } from '../../shared/completion-data.model';
 import { CommonDialogsService } from '../../shared/common-dialogs.service';
 import { Step } from '@/main/flow/step-group/step/step.model';
 import { QuizService } from '@/shared/questionnaire/questionnaire.service';
+import {FlowService} from "@/main/flow/flow.service";
+import {NavbarNotificationsService} from "@/main/shared/navbar/navbar-notifications.service";
 
 @Component({
   selector: 'app-conclusion1',
@@ -45,6 +47,9 @@ export class Conclusion1Component implements OnInit, OnDestroy {
   loading = true;
   stepID!: number;
   showQuestionnaire!: boolean;
+  navbarTitle!: string;
+  stepSequence!: number;
+  stepName!: string;
 
   constructor(
     private conclusionService: ConclusionService,
@@ -53,6 +58,7 @@ export class Conclusion1Component implements OnInit, OnDestroy {
     private stepDataService: StepsDataService,
     private commonDialogService: CommonDialogsService,
     private quizService: QuizService,
+    private flowService: FlowService,
   ) {}
 
   ngOnInit() {
@@ -88,6 +94,18 @@ export class Conclusion1Component implements OnInit, OnDestroy {
           .getStepData(this.currentStepId)
           .subscribe((step_data: any) => {
             console.log('step data is:', step_data);
+            // for navbar title
+            this.stepGroupSequence = step_data.data.step_group_sequence + 1;
+            this.stepSequence = step_data.data.sequence + 1;
+            this.stepName = step_data.data.name;
+            this.navbarTitle =
+              this.stepGroupSequence.toString() +
+              '.' +
+              this.stepSequence.toString() +
+              ' ' +
+              this.stepName;
+            console.log('STEP DETAIL:', this.navbarTitle );
+            this.flowService.stepDetail.emit(this.navbarTitle);
             if (step_data.data.next_questionnaire) {
               this.quizService.questinnaire_name =
                 step_data.data.next_questionnaire;

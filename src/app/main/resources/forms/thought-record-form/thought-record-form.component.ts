@@ -14,6 +14,7 @@ import {
 import { FormService } from '@/main/resources/forms/form.service';
 import { ThoughtRecordService } from '@/main/resources/forms/thought-record-form/thought-record.service';
 import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
+import {FlowService} from "@/main/flow/flow.service";
 
 @Component({
   selector: 'app-thought-record-form',
@@ -55,12 +56,18 @@ export class ThoughtRecordFormComponent implements OnInit {
     'I recommend that you fill the rest of the form after you reach "Evaluating Thoughts" module.';
   showRecommend!: boolean;
   imgSrc = 'assets/forms/therapist.png';
+  navbarTitle!: string;
   constructor(
     private formService: FormService,
     private thoughtRecordService: ThoughtRecordService,
+    private flowService: FlowService,
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.navbarTitle = this.flowService.navbarTitle;
+    this.flowService.stepDetail.emit(this.navbarTitle);
+    // localStorage.setItem('navbarTitle', this.navbarTitle);
+  }
 
   thoughtSelected(thought: Thought) {
     this.thought = thought;

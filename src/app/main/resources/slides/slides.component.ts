@@ -45,6 +45,7 @@ import { BeliefChangeComponent } from '@/main/resources/forms/belief-change/beli
 import { EttbfBeliefComponent } from '@/main/resources/forms/experiment-to-test-belief-form/ettbf-belief/ettbf-belief.component';
 import { ThoughtRecordFormComponent } from '@/main/resources/forms/thought-record-form/thought-record-form.component';
 import { WorryProductivelyComponent } from '@/main/resources/forms/worry-productively-form/worry-productively.component';
+import {FlowService} from "@/main/flow/flow.service";
 
 @Component({
   selector: 'app-slides',
@@ -96,6 +97,7 @@ export class SlidesComponent implements OnInit, AfterContentInit {
     private flowStepService: FlowStepNavigationService,
     private stepDataService: StepsDataService,
     private _bottomSheet: MatBottomSheet,
+    private flowService: FlowService,
   ) {}
 
   slide!: Slide;
@@ -128,6 +130,10 @@ export class SlidesComponent implements OnInit, AfterContentInit {
   showVideo = false;
   iframeHeight!: number;
   slideDivHeight!: number;
+  navbarTitle!: string;
+  stepSequence!: number;
+  stepName!: string;
+  stepGroupSequence!: number;
 
   ngOnInit() {
     this.activateRoute.params
@@ -152,6 +158,18 @@ export class SlidesComponent implements OnInit, AfterContentInit {
               this.lastStepCompleted = true;
             }
           }
+          // for navbar title
+          this.stepGroupSequence = slide_data.data.step_group_sequence + 1;
+          this.stepSequence = slide_data.data.sequence + 1;
+          this.stepName = slide_data.data.name;
+          this.navbarTitle =
+            this.stepGroupSequence.toString() +
+            '.' +
+            this.stepSequence.toString() +
+            ' ' +
+            this.stepName;
+          console.log('STEP DETAIL:', this.navbarTitle );
+          this.flowService.stepDetail.emit(this.navbarTitle);
           this.initVideoData(slide_data);
           const slideId = slide_data.data.step_data.data.id;
           this.slideService

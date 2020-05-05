@@ -95,7 +95,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
         if (event.url === '/dashboard') {
           this.isDashboard = true;
         }
-        if (this.fromLeftNav) {
+        // if (this.backClicked) {
+        //   console.log('FORMS', localStorage.getItem('navbarTitle'));
+        // }
+        // if (this.fromLeftNav) {
             if (this.auth.navbarTitle) {
               this.navbarTitle = this.auth.navbarTitle;
               console.log(event);
@@ -109,17 +112,21 @@ export class NavbarComponent implements OnInit, OnDestroy {
               this.navbarTitle = this.formService.formName;
             });
             localStorage.setItem('navbarTitle', this.navbarTitle);
-          } else {
-            this.flowService.stepDetail.subscribe(() => {
-              this.fromLeftNav = false;
-              console.log('FROM NAVBAR', this.flowService.navbarTitle);
-              this.navbarTitle = this.flowService.navbarTitle;
-              localStorage.setItem('navbarTitle', this.flowService.navbarTitle);
-            });
-            this.fromLeftNav = true;
-
-            this.navbarTitle = localStorage.getItem('navbarTitle');
-          }
+          // } else {
+        this.flowService.stepDetail.subscribe((value: any) => {
+          this.navbarTitle = value;
+          console.log('FROM NAVBAR', value);
+        });
+            // this.flowService.stepDetail.subscribe(() => {
+            //   this.fromLeftNav = false;
+            //   console.log('FROM NAVBAR', this.flowService.navbarTitle);
+            //   this.navbarTitle = this.flowService.navbarTitle;
+            //   localStorage.setItem('navbarTitle', this.flowService.navbarTitle);
+            // });
+            // this.fromLeftNav = true;
+            //
+            // this.navbarTitle = localStorage.getItem('navbarTitle');
+          // }
           this.notificationService.showFullConvIcon.subscribe(() => {
             this.convMode = true;
           });

@@ -17,6 +17,7 @@ export class NavbarNotificationsService {
   openNavFlow = new EventEmitter<any>();
   navFlowOpened = new EventEmitter<any>();
   fromLeftNav = new EventEmitter<any>();
+  // navbarTitle = new EventEmitter<any>();
 
   isDashboard!: boolean;
 
