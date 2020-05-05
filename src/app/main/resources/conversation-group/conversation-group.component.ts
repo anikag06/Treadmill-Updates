@@ -8,6 +8,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
 import { COMPLETED, ACTIVE, UNLOCKED } from '@/app.constants';
 import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifications.service';
+import {FlowService} from "@/main/flow/flow.service";
 
 @Component({
   selector: 'app-conversation-group',
@@ -26,6 +27,10 @@ export class ConversationGroupComponent implements OnInit {
   current_id!: number;
   islast!: boolean;
   nextstep!: number;
+  navbarTitle!: string;
+  stepGroupSequence!: number;
+  stepSequence!: number;
+  stepName!: string;
 
   // tslint:disable-next-line:max-line-length
   constructor(
@@ -35,6 +40,7 @@ export class ConversationGroupComponent implements OnInit {
     private router: Router,
     private activeroute: ActivatedRoute,
     private notificationService: NavbarNotificationsService,
+    private flowService: FlowService,
   ) {}
 
   ngOnInit() {
@@ -50,7 +56,19 @@ export class ConversationGroupComponent implements OnInit {
       .subscribe(
         (res: any) => {
           const step = res.data;
-          console.log(step.status);
+          console.log('RESPONSE', res.data, step.status);
+          // for navbar title
+          this.stepGroupSequence = step.step_group_sequence + 1;
+          this.stepSequence = step.sequence + 1;
+          this.stepName = step.name;
+          this.navbarTitle =
+            this.stepGroupSequence.toString() +
+            '.' +
+            this.stepSequence.toString() +
+            ' ' +
+            this.stepName;
+          console.log('STEP DETAIL:', this.navbarTitle );
+          this.flowService.stepDetail.emit(this.navbarTitle);
           if ([COMPLETED, ACTIVE, UNLOCKED].includes(step.status)) {
             this.step = step;
             this.current_id = res.data.id;

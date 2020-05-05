@@ -15,6 +15,7 @@ import { FormService } from '@/main/resources/forms/form.service';
 import { ThoughtRecordService } from '@/main/resources/forms/thought-record-form/thought-record.service';
 import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
 import {FlowService} from "@/main/flow/flow.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-thought-record-form',
@@ -61,11 +62,12 @@ export class ThoughtRecordFormComponent implements OnInit {
     private formService: FormService,
     private thoughtRecordService: ThoughtRecordService,
     private flowService: FlowService,
+    private activatedRoute: ActivatedRoute,
   ) {}
 
   ngOnInit() {
-    this.navbarTitle = this.flowService.navbarTitle;
-    this.flowService.stepDetail.emit(this.navbarTitle);
+    //   this.navbarTitle = this.flowService.navbarTitle;
+    // this.flowService.stepDetail.emit(this.navbarTitle);
     // localStorage.setItem('navbarTitle', this.navbarTitle);
   }
 

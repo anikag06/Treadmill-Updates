@@ -4,6 +4,8 @@ import { Subscription } from 'rxjs';
 
 import { IntroductionService } from '../introduction.service';
 import { LOCKED } from '@/app.constants';
+import {StepsDataService} from "@/main/resources/shared/steps-data.service";
+import {FlowService} from "@/main/flow/flow.service";
 
 export interface ThoughtSet {
   negativeThought: string;
@@ -17,9 +19,13 @@ export interface ThoughtSet {
 })
 export class Introduction3Component implements OnInit, OnDestroy {
   stepGroupSequence!: number;
-  dataLoaded: boolean = false;
-  locked: boolean = true;
+  dataLoaded = false;
+  locked = true;
   introductionDataSubscription!: Subscription;
+  currentStepId!: number;
+  navbarTitle!: string;
+  stepSequence!: number;
+  stepName!: string;
   negativeThoughts = [
     'Negative thought 1',
     'Negative thought 2',
@@ -40,6 +46,8 @@ export class Introduction3Component implements OnInit, OnDestroy {
   constructor(
     private introductionService: IntroductionService,
     private activatedRoute: ActivatedRoute,
+    private stepDataService: StepsDataService,
+    private flowService: FlowService,
   ) {}
 
   ngOnInit() {
@@ -50,7 +58,7 @@ export class Introduction3Component implements OnInit, OnDestroy {
     this.introductionDataSubscription = this.introductionService
       .getIntroductionData(this.stepGroupSequence)
       .subscribe(data => {
-        if (data.user_step_status != LOCKED) {
+        if (data.user_step_status !== LOCKED) {
           this.locked = false;
           this.selectedThought = data.data.selectedThought;
           this.onThoughtChanged();
@@ -58,6 +66,24 @@ export class Introduction3Component implements OnInit, OnDestroy {
           this.locked = true;
         }
         this.dataLoaded = true;
+        this.currentStepId = data.data.id;
+        this.stepDataService
+          .getStepData(this.currentStepId)
+          .subscribe((step_data: any) => {
+            console.log('step data is:', step_data);
+            // for navbar title
+            this.stepGroupSequence = step_data.data.step_group_sequence + 1;
+            this.stepSequence = step_data.data.sequence + 1;
+            this.stepName = step_data.data.name;
+            this.navbarTitle =
+              this.stepGroupSequence.toString() +
+              '.' +
+              this.stepSequence.toString() +
+              ' ' +
+              this.stepName;
+            console.log('STEP DETAIL:', this.navbarTitle);
+            this.flowService.stepDetail.emit(this.navbarTitle);
+          });
       });
   }
 

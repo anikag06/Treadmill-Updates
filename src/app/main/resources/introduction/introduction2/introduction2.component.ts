@@ -4,6 +4,8 @@ import { Subscription } from 'rxjs';
 
 import { IntroductionService } from '../introduction.service';
 import { LOCKED } from '@/app.constants';
+import {StepsDataService} from "@/main/resources/shared/steps-data.service";
+import {FlowService} from "@/main/flow/flow.service";
 
 @Component({
   selector: 'app-introduction2',
@@ -18,10 +20,16 @@ export class Introduction2Component implements OnInit, OnDestroy {
   dataLoaded: boolean = false;
   locked: boolean = true;
   introductionDataSubscription!: Subscription;
+  currentStepId!: number;
+  navbarTitle!: string;
+  stepSequence!: number;
+  stepName!: string;
 
   constructor(
     private introductionService: IntroductionService,
     private activatedRoute: ActivatedRoute,
+    private stepDataService: StepsDataService,
+    private flowService: FlowService,
   ) {}
 
   ngOnInit() {
@@ -41,6 +49,24 @@ export class Introduction2Component implements OnInit, OnDestroy {
           this.locked = true;
         }
         this.dataLoaded = true;
+        this.currentStepId = data.data.id;
+        this.stepDataService
+          .getStepData(this.currentStepId)
+          .subscribe((step_data: any) => {
+            console.log('step data is:', step_data);
+            // for navbar title
+            this.stepGroupSequence = step_data.data.step_group_sequence + 1;
+            this.stepSequence = step_data.data.sequence + 1;
+            this.stepName = step_data.data.name;
+            this.navbarTitle =
+              this.stepGroupSequence.toString() +
+              '.' +
+              this.stepSequence.toString() +
+              ' ' +
+              this.stepName;
+            console.log('STEP DETAIL:', this.navbarTitle);
+            this.flowService.stepDetail.emit(this.navbarTitle);
+          });
       });
   }
 

@@ -80,6 +80,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private location: Location,
     private overlayService: CustomOverlayService,
+
   ) {
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationStart) {
