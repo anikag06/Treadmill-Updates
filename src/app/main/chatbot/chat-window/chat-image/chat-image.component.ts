@@ -11,7 +11,8 @@ export class ChatImageComponent implements OnInit {
 
   changeUrl() {
     if (this.image && this.image.dynamic_url) {
-      this.image.showSpinner = true;
+      this.image.showSpinner =
+        this.image.url === this.image.dynamic_url ? false : true;
       this.image.url =
         this.image.url === this.image.static_url
           ? this.image.dynamic_url
@@ -22,9 +23,9 @@ export class ChatImageComponent implements OnInit {
         }, 10000);
       }
     }
-
-
   }
 
-
+  changeLoading() {
+    this.image.showSpinner = false;
+  }
 }

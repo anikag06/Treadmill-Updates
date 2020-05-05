@@ -1,10 +1,11 @@
-<div [ngStyle]="{ width: 'fit-content' }">
+<div [ngStyle]="{ width: 'fit-content' }"  (click)="changeUrl()">
   <img
     appLazyLoad
     loading="lazy"
     class="msg-img"
+    (load)="changeLoading()"
     src="{{ image.url }}"
-    (click)="changeUrl()"
+
     alt="image"
   />
   <div class="credits" *ngIf="image.credits">
@@ -18,17 +19,16 @@
     <div
       class="gifMark"
       *ngIf="image.url === image.static_url"
-      (click)="changeUrl()"
     >
       GIF
     </div>
-<!--    <div class="spinnerDiv" *ngIf="image.showSpinner">-->
-<!--      <mat-progress-spinner-->
-<!--        mode="indeterminate"-->
-<!--        diameter="20"-->
-<!--        color="accent"-->
-<!--      ></mat-progress-spinner>-->
-<!--    </div>-->
+    <div class="spinnerDiv" *ngIf="image.showSpinner">
+      <mat-progress-spinner
+        mode="indeterminate"
+        diameter="20"
+        color="accent"
+      ></mat-progress-spinner>
+    </div>
     <div class="creditDiv">
       <span> Powered By </span>
       <a class="link" href="https://giphy.com" target="_blank">GIPHY</a>

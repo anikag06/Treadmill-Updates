@@ -18,7 +18,7 @@
     [ngStyle]="{ height: mobileView ? 'calc(98% - 46px)' : '490px' }"
   >
     <div
-      class="chat-frame mb-5"
+      class="chat-frame"
       [ngStyle]="{
         height: showTextInput ? 'calc(100% - ' + offsetHeight() + 'px)' : '100%'
       }"
@@ -56,7 +56,6 @@
         <div *ngFor="let widget of m.widgets">
           <div class="buttons">
             <button
-              mat-stroked-button
               (click)="onMoodSelect()"
               *ngIf="widget === moodWidget && showMoodWidgetBtn"
               class="btn radio_button"
@@ -72,7 +71,6 @@
               ></app-mood-tracker>
             </div>
             <button
-              mat-stroked-button
               class="btn radio_button"
               (click)="onDateTimeSelect()"
               *ngIf="widget === dateTimeWidget && showDateTimeWidgetBtn"
@@ -97,11 +95,10 @@
         }"
       >
         <button
-          mat-stroked-button
           *ngFor="let button of showButtons"
           [ngClass]="{
             'btn radio_button': button.type === radio,
-            'module_button': button.type === clickAble
+            'btn module_button': button.type === clickAble
           }"
           (click)="chatButtonPressed(button)"
         >
@@ -118,7 +115,6 @@
         </button>
         <div>
           <button
-            mat-stroked-button
             id="more_button"
             *ngIf="showMore"
             class="btn btn-link"
