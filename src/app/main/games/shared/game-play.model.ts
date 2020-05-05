@@ -230,6 +230,7 @@ export class ASGGetUserPerformance {
   id!: number;
   completed!: boolean;
   show_summary_button!: boolean;
+  ask_for_feedback!: boolean;
   end_time!: Date;
 
   constructor(q: any) {
@@ -237,6 +238,7 @@ export class ASGGetUserPerformance {
     this.completed = q.completed;
     this.show_summary_button = q.show_summary_button;
     this.end_time = q.end_time;
+    this.show_summary_button = q.show_summary_button;
   }
 }
 

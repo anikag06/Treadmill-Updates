@@ -255,18 +255,18 @@ class LevelOne extends Phaser.Scene {
             .setFontSize(fontSize)
             .setColor(fontColor);
 
-                
+
             this.redBalloonTime = this.add.sprite(this.ScoreTxt.getTopRight().x + 20, (this.ScoreTxt.getTopRight().y + this.ScoreTxt.getBottomRight().y) / 2, 'red_balloon').setScale(0.07);
 
 
             this.timeTxt = this.add.text(this.redBalloonTime.getBottomRight().x +  30, 30, this.totalTime, { fontFamily: '"Roboto"' })
                 .setFontSize(fontSize)
                 .setColor(fontColor);
-    
+
             this.timeTxtSec = this.add.text(this.timeTxt.getBottomRight().x + 5,30, 's', { fontFamily: '"Roboto"' })
                 .setFontSize(fontSize)
                 .setColor(fontColor);
-    
+
         this.gameOverTxt = this.add.text(660, 370, "Game Over!", { fontFamily: '"Roboto"' })
             .setFontSize(50)
             .setColor('black')
@@ -637,7 +637,7 @@ class LevelTwo extends Phaser.Scene {
         this.ScoreTxt = this.add.text(30, 30, '0',{ fontFamily: '"Roboto"' })
             .setFontSize(fontSize)
             .setColor(fontColor);
-        
+
         this.redBalloonTime = this.add.sprite(this.ScoreTxt.getTopRight().x + 20, (this.ScoreTxt.getTopRight().y + this.ScoreTxt.getBottomRight().y) / 2, 'red_balloon').setScale(0.07);
 
 
@@ -1045,18 +1045,18 @@ class LevelThree extends Phaser.Scene {
             .setFontSize(fontSize)
             .setColor(fontColor);
 
-               
+
             this.redBalloonTime = this.add.sprite(this.ScoreTxt.getTopRight().x + 20, (this.ScoreTxt.getTopRight().y + this.ScoreTxt.getBottomRight().y) / 2, 'red_balloon').setScale(0.07);
 
 
             this.timeTxt = this.add.text(this.redBalloonTime.getBottomRight().x +  30, 30, this.totalTime, { fontFamily: '"Roboto"' })
                 .setFontSize(fontSize)
                 .setColor(fontColor);
-    
+
             this.timeTxtSec = this.add.text(this.timeTxt.getBottomRight().x + 5,30, 's', { fontFamily: '"Roboto"' })
                 .setFontSize(fontSize)
                 .setColor(fontColor);
-    
+
         this.gameOverTxt = this.add.text(660, 370, "Game Over!", { fontFamily: '"Roboto"' })
             .setFontSize(50)
             .setColor('black')
@@ -2238,7 +2238,12 @@ class UserResult extends Phaser.Scene {
         this.openLink.once("pointerdown",function(){
             this.openWindow();
         },this);
+      console.log(ASGFeedback);
+      if (ASGFeedback) {
+
         this.gameFeedbackPopup();
+      }
+
 
       this.GoToHome = this.add.sprite(400, 640, "GoToHome").setInteractive({ useHandCursor: true }).setScale(0.6);
       this.PlayAgain = this.add.sprite(900, 640, "PlayAgain").setInteractive({ useHandCursor: true }).setScale(0.6);
@@ -2336,7 +2341,7 @@ function conf(DEFAULT_WIDTH, DEFAULT_HEIGHT){
  var ASGAnswer;
  var ASGQuestions;
  var ASGExplanations;
- var ASquestions = [];
+ var ASGFeedback;
  var ASGUserPerformance;
  var ASGPostIndividualAnswer;
  var ASGPostExplanation;

@@ -110,6 +110,7 @@ declare var miGameShowTutorial: boolean;
 declare var ASGAnswer: ASGAnswerData;
 declare var ASGQuestions: ASGQuestionData;
 declare var ASGExplanations: ASGExplanation;
+declare var ASGFeedback: boolean;
 declare var ASanswer: any[];
 declare var ASquestions: string[];
 declare var ASGUserPerformance: ASGGetUserPerformance;
@@ -224,6 +225,8 @@ export class GamePlayService {
       ASGUserPerformance = e;
       console.log(e);
       this.ASGGameInstanceId = e.id;
+      ASGFeedback = e.ask_for_feedback;
+      console.log(e.ask_for_feedback);
     });
     this.gamesAuthService.atGetAnswers().subscribe(e => {
       ASGAnswer = e;
@@ -305,6 +308,7 @@ export class GamePlayService {
   putUserPerformance() {
     let date: Date;
     date = new Date();
+    let d = date.getUTCDate();
     this.gamesAuthService.atPutUserPerformance(this.ASGGameInstanceId, date.toISOString()
     );
   }
