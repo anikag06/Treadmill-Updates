@@ -187,7 +187,7 @@ export class GamesAuthService {
     this.ASGi = this.ASGi + 2;
   }
 
-  atPutUserPerformance(gameInstance: number, endTime: string) {
+  atPutUserPerformance(gameInstance: number, end_time: string) {
     const completed = true;
     const f = {
       completed,
