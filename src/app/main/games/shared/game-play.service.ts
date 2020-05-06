@@ -52,6 +52,7 @@ declare var pauseECGame: any;
 declare var resumeECGame: any;
 declare var closeECGame: any;
 declare var musicECGame: any;
+declare var ECGFeedBack: boolean;
 
 declare var getECScoreData: any;
 declare var getECGameTaskData: any;
@@ -333,6 +334,7 @@ export class GamePlayService {
       this.gamesAuthService.ecGameGetUserData().subscribe(user_data => {
         this.ecGameUserData = user_data;
         this.ecGameShowTutorial = user_data.data.show_tutorial;
+        ECGFeedBack = user_data.data.ask_for_feedback;
 
         if (this.ecGameShowTutorial) {
           this.ecGameSoundOn = isSoundOn;

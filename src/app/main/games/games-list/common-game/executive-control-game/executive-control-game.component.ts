@@ -5,10 +5,12 @@ import {
   OnChanges,
   SimpleChanges,
   SimpleChange,
-  HostListener,
+  HostListener, ViewChild, ElementRef,
 } from '@angular/core';
 import { GamePlayService } from '@/main/games/shared/game-play.service';
 import { LoadFilesService } from '@/main/games/shared/load-files.service';
+import {GamesFeedbackComponent} from "@/main/games/games-list/common-game/games-feedback/games-feedback.component";
+import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
 
 declare var flankerTaskECGame: any;
 
@@ -23,7 +25,10 @@ export class ExecutiveControlGameComponent implements OnInit, OnDestroy {
   constructor(
     private playGameService: GamePlayService,
     private loadFileService: LoadFilesService,
+    private dialogBoxService: DialogBoxService,
   ) {}
+  @ViewChild('newElement', { static: false }) element!: ElementRef;
+
 
   ngOnInit() {
     // Action files
@@ -134,6 +139,12 @@ export class ExecutiveControlGameComponent implements OnInit, OnDestroy {
   @HostListener('window:beforeunload')
   onCloseStoreScoreDataECGame() {
     this.playGameService.storeDataExecControlGame();
+  }
+  @HostListener('window:Feedback')
+  openFeedbackPopup() {
+    this.dialogBoxService.setDialogChild(GamesFeedbackComponent);
+    const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
+    this.element.nativeElement.dispatchEvent(domEvent);
   }
 
   ngOnDestroy() {
