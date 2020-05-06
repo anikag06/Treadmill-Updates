@@ -177,6 +177,7 @@ class LevelOne extends Phaser.Scene {
     create() {
 
       ASGLevelId = 1;
+      level = 1;
 
         this.lastFired = 0;
 
@@ -534,6 +535,7 @@ class LevelTwo extends Phaser.Scene {
 
     create() {
       ASGLevelId = 2;
+
 
         this.lastFired = 0;
       this.totalArrowsFired = 1;
@@ -1511,11 +1513,25 @@ class LevelThree extends Phaser.Scene {
         this.next_btn.setVisible(false);
         this.nextRect.setVisible(false);
 
-        this.L1text = this.add.text(430, 300,'Great! you have completed level 1', { fontFamily: '"Roboto"' }).setFontSize(35).setColor('black').setFontStyle('bold');;
-      this.L1text.setVisible(false);
+        if (ASGLevelId === 1) {
+          this.L1text = this.add.text(430, 300,'Great! you have completed level 1', { fontFamily: '"Roboto"' }).setFontSize(35).setColor('black').setFontStyle('bold');;
+          this.L1text.setVisible(false);
 
-      this.L1_2text = this.add.text(470, 350,'Click on the next button to continue to Level 2', { fontFamily: '"Roboto"' }).setFontSize(20).setColor('black');
-      this.L1_2text.setVisible(false);
+          this.L1_2text = this.add.text(470, 350,'Click on the next button to continue to Level 2', { fontFamily: '"Roboto"' }).setFontSize(20).setColor('black');
+         this.L1_2text.setVisible(false);
+        } else if (ASGLevelId === 2) {
+          this.L1text = this.add.text(430, 300,'Great! you have completed level 2', { fontFamily: '"Roboto"' }).setFontSize(35).setColor('black').setFontStyle('bold');;
+          this.L1text.setVisible(false);
+
+          this.L1_2text = this.add.text(470, 350,'Click on the next button to continue to Level 3', { fontFamily: '"Roboto"' }).setFontSize(20).setColor('black');
+          this.L1_2text.setVisible(false);
+        } else if (ASGLevelId === 3){
+          this.L1text = this.add.text(430, 300,'Great! you have completed level 3', { fontFamily: '"Roboto"' }).setFontSize(35).setColor('black').setFontStyle('bold');;
+          this.L1text.setVisible(false);
+
+          this.L1_2text = this.add.text(470, 350,'Click on the next button to continue', { fontFamily: '"Roboto"' }).setFontSize(20).setColor('black');
+          this.L1_2text.setVisible(false);
+        }
 
         this.nexttext = this.add.text(645, 485,'Next', { fontFamily: '"Roboto"' }).setFontSize(25).setColor('black');
       this.nexttext.setVisible(false);
@@ -1529,7 +1545,7 @@ class LevelThree extends Phaser.Scene {
             .setColor(fontColor)
             .setFontStyle('bold');
 
-        this.green_balloon = this.add.sprite(220, this.Question1Txt.getBottomRight().y + 55, "green_balloon");
+        this.green_balloon = this.add.sprite(220, this.Question1Txt.getBottomRight().y + 55, "green_balloon").setInteractive({ useHandCursor: true });
         this.green_balloon.setScale(0.1);
 
         let ansConfig = {
@@ -1543,7 +1559,7 @@ class LevelThree extends Phaser.Scene {
 
         this.Question1Ans1Txt = this.add.text(this.green_balloon.getBottomRight().x + 20, this.Question1Txt.getBottomRight().y + 40, this.Questions.que1.ans1, ansConfig).setOrigin(0, 0).setInteractive({ useHandCursor: true });
 
-        this.red_balloon = this.add.sprite(220, this.green_balloon.getBottomRight().y + 50, "red_balloon").setScale(0.1);
+        this.red_balloon = this.add.sprite(220, this.green_balloon.getBottomRight().y + 50, "red_balloon").setScale(0.1).setInteractive({ useHandCursor: true });
 
         this.Question1Ans2Txt = this.add.text(this.red_balloon.getBottomRight().x + 20, this.green_balloon.getBottomRight().y + 30, this.Questions.que1.ans2, ansConfig).setOrigin(0, 0).setInteractive({ useHandCursor: true });
 
@@ -1552,7 +1568,9 @@ class LevelThree extends Phaser.Scene {
         this.next_btn.on('pointerdown', function () {
             this.scene.stop();
             console.log(level);
-          if(level === 1 ){
+          this.L1_2text.setVisible(false);
+          this.L1text.setVisible(false);
+          if(ASGLevelId === 1 ){
             if (timeToAnswer.length === 3) {
               console.log('run');
               AnswerId = Answer1Id;
@@ -1570,7 +1588,7 @@ class LevelThree extends Phaser.Scene {
               TimeTakenToAnswer = timeToAnswer.shift();
               this.updateBadges();
             }
-          } else if (level === 2) {
+          } else if (ASGLevelId === 2) {
             if (timeToAnswer.length === 3) {
               if ((timeToAnswer[0] + timeToAnswer[2]) === timeToAnswer[1] || timeToAnswer[1]+1 || timeToAnswer[1]-1) {
                 AnswerId = Answer1Id;
@@ -1600,7 +1618,7 @@ class LevelThree extends Phaser.Scene {
               TimeTakenToAnswer = timeToAnswer.shift();
               this.updateBadges();
             }
-          } else if(level === 3 ){
+          } else if(ASGLevelId === 3 ){
             if (timeToAnswer.length === 3) {
               console.log('run');
               AnswerId = Answer1Id;
@@ -1629,7 +1647,7 @@ class LevelThree extends Phaser.Scene {
         }, this);
 
         if (this.registry.get('questionNumber') === '1') {
-            level = 1;
+
             this.questionNumber = "que1";
             this.currentQuestion = this.Questions.que1;
         } else if (this.registry.get('questionNumber') === '2') {
@@ -1660,6 +1678,89 @@ class LevelThree extends Phaser.Scene {
         this.Question1Txt.setText(queAndAns.question, { fontFamily: '"Roboto"' });
         this.Question1Ans1Txt.setText(queAndAns.ans1.ans, { fontFamily: '"Roboto"' });
         this.Question1Ans2Txt.setText(queAndAns.ans2.ans, { fontFamily: '"Roboto"' });
+
+        this.green_balloon.once('pointerdown', function () {
+          let now2 = Date.now();
+          //  AnswerId = queAndAns.ans1.id;
+          console.log(AnswerId);
+          timeToAnswer.push(now2 - now1);
+          console.log(timeToAnswer);
+
+
+          // console.log(this.currentQuestion.ans1.question);
+          if (this.currentQuestion.ans1.question !== "0") {
+
+            console.log('ans1 1');
+            // this.updateBadges();
+            this.setQuestionAnswer(this.currentQuestion.ans1, i=i+1);
+          }
+          else {
+            if (this.currentQuestion.ans2.question == "0") {
+              //   this.updateBadges();
+            }
+
+
+            console.log('ans1 outside');
+            this.queGrp.getChildren().forEach(child => {
+              child.setVisible(false);
+            });
+            this.registry.set(this.questionNumber, this.currentQuestion.ans1.result);
+
+            this.next_btn.setVisible(true);
+            this.nexttext.setVisible(true);
+            this.L1text.setVisible(true);
+            this.L1_2text.setVisible(true);
+            //this.L1_2text = this.add.text(470, 350,'Click on the next button to continue to Level 2', { fontFamily: '"Roboto"' }).setFontSize(20).setColor('black');
+            //this.L1text = this.add.text(430, 300,'Great! you have completed level 1', { fontFamily: '"Roboto"' }).setFontSize(35).setColor('black').setFontStyle('bold');;
+
+
+            this.nextRect.setVisible(true);
+            ExplanationId = this.currentQuestion.ans1.explanationId;
+            Answer1Id = this.currentQuestion.ans1.a1;
+            Answer2Id = this.currentQuestion.ans1.a2;
+          }
+        }, this);
+
+        // noinspection DuplicatedCode
+      this.red_balloon.once('pointerdown', function () {
+          let now2 = Date.now();
+
+          // AnswerId = queAndAns.ans2.id;
+          timeToAnswer.push(now2 - now1);
+          console.log(timeToAnswer);
+
+
+          // console.log(this.currentQuestion.ans2.question);
+          if (this.currentQuestion.ans2.question !== "0") {
+
+            console.log('ans2 2');
+            //  this.updateBadges();
+            this.setQuestionAnswer(this.currentQuestion.ans2, i=i+1 );
+
+          }
+          else {
+            if (this.currentQuestion.ans2.question == "0") {
+              //   this.updateBadges();
+            }
+            console.log('ans2 outside');
+            this.queGrp.getChildren().forEach(child => {
+              child.setVisible(false);
+            });
+            this.registry.set(this.questionNumber, this.currentQuestion.ans2.result);
+
+            this.next_btn.setVisible(true);
+            this.nextRect.setVisible(true);
+            this.nexttext.setVisible(true);
+            this.L1_2text.setVisible(true);
+           // this.L1_2text = this.add.text(470, 350,'Click on the next button to continue to Level 2', { fontFamily: '"Roboto"' }).setFontSize(20).setColor('black');
+            //this.L1text = this.add.text(430, 300,'Great! you have completed level 1', { fontFamily: '"Roboto"' }).setFontSize(35).setColor('black').setFontStyle('bold');;
+
+           this.L1text.setVisible(true);
+            ExplanationId = this.currentQuestion.ans2.explanationId;
+            Answer1Id = this.currentQuestion.ans2.a1;
+            Answer2Id = this.currentQuestion.ans2.a2;
+          }
+        }, this);
 
         this.Question1Ans1Txt.once('pointerdown', function () {
           let now2 = Date.now();

@@ -111,11 +111,11 @@ declare var ASGAnswer: ASGAnswerData;
 declare var ASGQuestions: ASGQuestionData;
 declare var ASGExplanations: ASGExplanation;
 declare var ASGFeedback: boolean;
-declare var ASanswer: any[];
-declare var ASquestions: string[];
-declare var ASGUserPerformance: ASGGetUserPerformance;
-declare var ASGPostIndividualAnswer: ASGIndividualAnswer;
-declare var ASGPostExplnation: ASGSaveExplanation;
+// declare var ASanswer: any[];
+// declare var ASquestions: string[];
+// declare var ASGUserPerformance: ASGGetUserPerformance;
+// declare var ASGPostIndividualAnswer: ASGIndividualAnswer;
+// declare var ASGPostExplnation: ASGSaveExplanation;
 
 declare var ASGLevelId: number;
 declare var ASGTotalBaloons: number;
@@ -175,6 +175,7 @@ export class GamePlayService {
   // for ASG
   ASGPostLevelPerformance = new ASGLevelPerformance(1, 1, 1, 1, 1);
   ASGGameInstanceId!: number;
+  ASGUserPerformance!: ASGGetUserPerformance;
 
   constructor(
     private gamesService: GamesService,
@@ -218,16 +219,28 @@ export class GamePlayService {
   }
 
   // for attribution game
+  ASGUserData() {
+    this.gamesAuthService.atGetUserPerformance().subscribe(e => {
+      console.log(e);
+      this.ASGUserPerformance = e;
+
+      this.ASGGameInstanceId = e.id;
+      // ASGFeedback = e.ask_for_feedback;
+      // console.log(e.ask_for_feedback);
+    });
+  }
 
   playAttributionStyleGame() {
-    // tslint:disable-next-line:no-unused-expression
+    //tslint:disable-next-line:no-unused-expression
     this.gamesAuthService.atGetUserPerformance().subscribe(e => {
-      ASGUserPerformance = e;
-      console.log(e);
-      this.ASGGameInstanceId = e.id;
+      // console.log(e);
+      // ASGUserPerformance = e;
+
+      //this.ASGGameInstanceId = e.id;
       ASGFeedback = e.ask_for_feedback;
-      console.log(e.ask_for_feedback);
+     // console.log(e.ask_for_feedback);
     });
+
     this.gamesAuthService.atGetAnswers().subscribe(e => {
       ASGAnswer = e;
       // console.log(ASGAnswer);

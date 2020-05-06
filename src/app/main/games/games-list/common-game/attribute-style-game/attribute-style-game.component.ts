@@ -30,6 +30,7 @@ export class AttributeStyleGameComponent implements OnInit {
       .loadExternalScript('./assets/games/Attribution-style-game/src/app.js')
       .then(() => {})
       .catch(() => {});
+    this.gamePlayService.ASGUserData();
 
     /* this.gamesAuthService.atGetAnswers().subscribe(
       e => {
@@ -38,6 +39,9 @@ export class AttributeStyleGameComponent implements OnInit {
       }
     );*/
   }
+
+
+
 
   @HostListener('window:ASGPostIndividualLevelPerformance')
   postIndividualLevelPerformance() {

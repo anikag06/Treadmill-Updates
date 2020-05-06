@@ -191,13 +191,13 @@ export class GamesAuthService {
     const completed = true;
     const f = {
       completed,
-      endTime
-      //gameInstance
+      endTime,
+      gameInstance
     };
     return this.http
       .put(
         environment.API_ENDPOINT +
-        'api/v1/games/attribution-style/user-performance-asgame/',
+        '/api/v1/games/attribution-style/user-performance-asgame/',
         f,
       )
       .subscribe(resp => console.log(resp));
