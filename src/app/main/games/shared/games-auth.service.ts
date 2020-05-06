@@ -191,7 +191,7 @@ export class GamesAuthService {
     const completed = true;
     const f = {
       completed,
-      endTime,
+      end_time,
       gameInstance
     };
     return this.http
