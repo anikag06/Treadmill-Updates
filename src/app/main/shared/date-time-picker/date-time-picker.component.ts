@@ -131,7 +131,17 @@ export class DateTimePickerComponent
     const repeat = this.getRepeatedDays(this.daysCircle);
     // const chatDateTimeMessage = date + '<br/>' + hourMinute + '<br/>' + repeat;
     const chatDateTimeMessage =
-      "I'll do this task at " + hourMinute + ' on ' + repeat + ' from ' + date;
+      "I'll do this task " +
+      '<br/>' +
+      '⏰ ' +
+      hourMinute +
+      '<br/>' +
+      ' on ' +
+      repeat +
+      '<br/>' +
+      ' from ' +
+      '📅 ' +
+      date;
     this.closeModal();
     const dateTimeValues = [
       {
@@ -179,7 +189,7 @@ export class DateTimePickerComponent
       }
     }
 
-    const repeat: string  = repeatedDays.join(',');
+    const repeat: string = repeatedDays.join(',');
     return repeat;
   }
 

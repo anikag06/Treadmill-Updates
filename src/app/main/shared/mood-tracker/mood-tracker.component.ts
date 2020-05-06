@@ -226,7 +226,9 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
             mood_type: i < 11 ? 'negative' : 'positive',
           };
           this.moodArray.push(moodObject);
+          const emoji = i < 11 ? '😞 ' : '😄 ';
           chatMoodMessage +=
+            emoji +
             rangeValue_str.trim().toLowerCase() +
             ' ' +
             option_label_str.trim().toLowerCase() +
@@ -242,7 +244,9 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
             strength: null,
             mood_type: 'neutral',
           };
-          chatMoodMessage += option_label_str.trim().toLowerCase() + ' ';
+          const emoji = '😐 ';
+          chatMoodMessage +=
+            emoji + option_label_str.trim().toLowerCase() + ' ';
           this.moodArray.push(moodObject);
           if (this.dialogRef) {
             this.feelingData.push(option_label_str.trim());
@@ -257,7 +261,7 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
           chatMoodMessage += ' and ';
         }
         if (count === this.emotionCount) {
-          chatMoodMessage += ' today.';
+          chatMoodMessage += ' today';
         }
       }
     }

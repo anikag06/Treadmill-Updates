@@ -56,9 +56,10 @@
         <div *ngFor="let widget of m.widgets">
           <div class="buttons">
             <button
+              mat-stroked-button
               (click)="onMoodSelect()"
               *ngIf="widget === moodWidget && showMoodWidgetBtn"
-              class="btn radio_button"
+              class="btn radio_button ripple"
             >
               <span class="btn-text">Select your mood</span>
             </button>
@@ -71,7 +72,8 @@
               ></app-mood-tracker>
             </div>
             <button
-              class="btn radio_button"
+              mat-stroked-button
+              class="btn radio_button ripple"
               (click)="onDateTimeSelect()"
               *ngIf="widget === dateTimeWidget && showDateTimeWidgetBtn"
             >
@@ -95,9 +97,11 @@
         }"
       >
         <button
+          mat-stroked-button
+          color="primary"
           *ngFor="let button of showButtons"
           [ngClass]="{
-            'btn radio_button': button.type === radio,
+            'btn radio_button ripple': button.type === radio,
             'btn module_button': button.type === clickAble
           }"
           (click)="chatButtonPressed(button)"
@@ -176,7 +180,6 @@
             [(ngModel)]="message"
             name="message"
             (keyup)="sendReply($event)"
-
             #ti
             autocomplete="off"
           >

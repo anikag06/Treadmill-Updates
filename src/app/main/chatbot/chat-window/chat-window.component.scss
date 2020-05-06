@@ -139,7 +139,7 @@
     text-align: left;
     box-shadow: 0px 1px 3px #00000029;
     background: #ffffff 0% 0% no-repeat padding-box;
-    word-break: break-word;
+    word-break: break-all;
   }
   // .meta {
   //   text-align: center;
@@ -226,12 +226,10 @@
     margin-bottom: 5px;
     margin-top: 10px;
     margin-left: 5px;
-    padding: 5px 16px 5px 16px;
+    //padding: 8px 16px;
     font-weight: 500;
     font-size: 14px;
     box-shadow: none;
-    background-position: center;
-    transition: background 0.3s;
   }
 
   .module_button {
@@ -253,17 +251,39 @@
   }
 }
 
-.radio_button:active {
-  background-color: #e6f9ff;
-  background-size: 100%;
-  transition: background 0s;
-}
 .radio_button:hover {
-  background: #f1f1f1 radial-gradient(circle, transparent 1%, #f1f1f1 1%)
-  center/15000%;
+  background: #e9faff;
+}
+.ripple {
+  position: relative;
+  overflow: hidden;
+  transform: translate3d(0, 0, 0);
 }
 
-button{
+.ripple:after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, #c2ecfa 10%, transparent 10.01%);
+  background-repeat: no-repeat;
+  background-position: 50%;
+  transform: scale(10, 10);
+  opacity: 0;
+  transition: transform 0.1s, opacity 1s;
+}
+
+.ripple:active:after {
+  transform: scale(0, 0);
+  opacity: 0.3;
+  transition: 0s;
+}
+
+button {
   background: #ffffff 0% 0% no-repeat padding-box;
 }
 

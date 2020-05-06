@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 
 @Component({
@@ -11,7 +11,7 @@ export class ChatbotComponent implements OnInit {
   removeChat = false;
   blacklisted = ['/games', '/resources'];
   currentDateTime!: any;
-  constructor(private router: Router, private elementRef: ElementRef) {}
+  constructor(private router: Router) {}
 
   ngOnInit() {
     this.router.events.subscribe(() => {
@@ -29,24 +29,9 @@ export class ChatbotComponent implements OnInit {
     this.chatwindowClosed = event;
   }
 
-  //
-  //   window.addEventListener('scroll', () => {
-  //   document.documentElement.style.setProperty('--scroll-y', `${window.scrollY}px`);
-  // });
-  // preventScrolling() {
-  //   if (!this.chatwindowClosed) {
-  //     const scrollY = document.documentElement.style.getPropertyValue(
-  //       '--scroll-y',
-  //     );
-  //     const body = document.body;
-  //     body.style.position = 'fixed';
-  //     body.style.top = `-${scrollY}`;
-  //   }
-  // }
-
   removingChat() {
     let match = false;
-    this.blacklisted.forEach(data => {
+    this.blacklisted.forEach((data) => {
       if (location.pathname.match(data)) {
         match = true;
       }

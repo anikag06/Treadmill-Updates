@@ -1,14 +1,16 @@
 <div class="" *ngIf="!removeChat">
   <button
-   mat-stroked-button
+    mat-stroked-button
     aria-label="Chatbot icon button"
     *ngIf="chatwindowClosed"
     class="chat-btn"
-   height="90px"
     (click)="toggleChat()"
   >
-    <img class="chat-btn-img" src="assets/chatbot/chatbot_home_screen.png"
-          alt="icon">
+    <img
+      class="chat-btn-img"
+      src="assets/chatbot/chatbot_home_screen.png"
+      alt="icon"
+    />
   </button>
   <app-chat-window
     *ngIf="!chatwindowClosed"
