@@ -36,10 +36,15 @@ export const mainRoutes: Routes = [
       },
       { path: 'questionnaire', component: GetQuestionnaireComponent },
       { path: 'survey', component: SurveyComponent }, // :id here is step_id
+      { path: 'survey/:id', component: SurveyComponent }, // :id here is step_id
       {
         path: 'support-groups',
         component: SupportGroupsComponent,
         data: { title: 'Support Group' },
+      },
+      {
+        path: 'support-groups/:id',
+        component: SupportGroupsComponent,
       },
       {
         path: 'games',
@@ -49,6 +54,7 @@ export const mainRoutes: Routes = [
           { path: '', component: GamesListComponent },
           // { path: 'interpretationbias', component: InterpretationBiasGameComponent},
           { path: ':name', component: CommonGameComponent },
+          { path: ':name/:id', component: CommonGameComponent },
         ],
       },
       {
@@ -79,6 +85,13 @@ export const mainRoutes: Routes = [
         //   { path: 'videoItem/:id', component: VideoItemComponent },
         //   {path: 'readingItem/:id', component: ReadingItemComponent}
         // ],
+        loadChildren: () =>
+          import('./extra-resources/extra-resources.module').then(
+            m => m.ExtraResourcesModule,
+          ),
+      },
+      {
+        path: 'extra-resources/:id',
         loadChildren: () =>
           import('./extra-resources/extra-resources.module').then(
             m => m.ExtraResourcesModule,

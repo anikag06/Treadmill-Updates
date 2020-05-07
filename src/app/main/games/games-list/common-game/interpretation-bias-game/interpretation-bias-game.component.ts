@@ -12,7 +12,7 @@ import {
   IBGameUserScore,
   IBGameUserResponse,
 } from '@/main/games/shared/game-play.model';
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { IBG_SENTENCE, IBG_LESS_TIME, IBG_MORE_TIME } from '@/app.constants';
 import { environment } from 'environments/environment';
 import { GamePlayService } from '@/main/games/shared/game-play.service';
@@ -27,6 +27,9 @@ import { LoadFilesService } from '@/main/games/shared/load-files.service';
 import { MatTooltip } from '@angular/material';
 import { GamesFeedbackComponent } from '../games-feedback/games-feedback.component';
 import { GamesFeedbackService } from '../games-feedback/games-feedback.service';
+import {map, switchMap} from "rxjs/operators";
+import {FlowService} from "@/main/flow/flow.service";
+import {StepsDataService} from "@/main/resources/shared/steps-data.service";
 
 declare var IBG_MAX_WORDS_HIDDEN: number;
 declare var sentence_number: any;
@@ -124,6 +127,10 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
 
   difficultyValue = 5;
   tooltipData = "You don't have sufficient points.";
+  navbarTitle!: string;
+  stepGroupSequence!: number;
+  stepSequence!: number;
+  stepName!: string;
 
   constructor(
     private gameAuthService: GamesAuthService,
@@ -135,6 +142,9 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
     private matPropertyService: GameMatPropertyService,
     private loadFileService: LoadFilesService,
     private gamesFeedbackService: GamesFeedbackService,
+    private flowService: FlowService,
+    private activatedRoute: ActivatedRoute,
+    private stepDataService: StepsDataService,
   ) {}
 
   @HostListener('window:iBGameSentenceDialogFun')
@@ -157,6 +167,29 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.activatedRoute.params
+      .pipe(
+        map(v => v.id),
+        switchMap(id =>  this.stepDataService
+          .getStepData(id)),
+      )
+      .subscribe(
+        (res: any) => {
+          const step = res.data;
+          console.log('RESPONSE', res.data, step.status);
+          // for navbar title
+          this.stepGroupSequence = step.step_group_sequence + 1;
+          this.stepSequence = step.sequence + 1;
+          this.stepName = step.name;
+          this.navbarTitle =
+            this.stepGroupSequence.toString() +
+            '.' +
+            this.stepSequence.toString() +
+            ' ' +
+            this.stepName;
+          console.log('STEP DETAIL:', this.navbarTitle);
+          this.flowService.stepDetail.emit(this.navbarTitle);
+        } );
     this.loadFileService
       .loadExternalScript(
         'assets/games/interpretation_bias_game/js/sentence_javascript.js',

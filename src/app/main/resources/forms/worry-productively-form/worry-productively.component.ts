@@ -18,7 +18,7 @@ import { AuthService } from '@/shared/auth/auth.service';
 import { User } from '@/shared/user.model';
 import { GeneralErrorService } from '@/main/shared/general-error.service';
 import { FormBuilder, FormControl, FormArray } from '@angular/forms';
-import { map } from 'rxjs/operators';
+import {map, switchMap} from 'rxjs/operators';
 import { WorryProductivelyService } from '@/main/resources/forms/worry-productively-form/worry-productively.service';
 import {
   WORRY_PRODUCTIVELY,
@@ -33,6 +33,9 @@ import {
 } from './worry-productively-message';
 import { FormService } from '../form.service';
 import { FormMessage } from '../shared/form-message/form-message.model';
+import {FlowService} from "@/main/flow/flow.service";
+import {ActivatedRoute} from "@angular/router";
+import {StepsDataService} from "@/main/resources/shared/steps-data.service";
 
 @Component({
   selector: 'app-worry-productively-form',
@@ -77,6 +80,10 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
   showMessage!: boolean;
   formComplete!: boolean;
   showFollowUp = false;
+  navbarTitle!: string;
+  stepGroupSequence!: number;
+  stepSequence!: number;
+  stepName!: string;
   // message!: FormMessage;
   uselessCharacteristicsForm = this.fb.group({
     characteristics: this.fb.array([]),
@@ -89,9 +96,35 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private formService: FormService,
     private element: ElementRef,
+    private flowService: FlowService,
+    private activatedRoute: ActivatedRoute,
+    private stepDataService: StepsDataService,
   ) {}
 
   ngOnInit() {
+    this.activatedRoute.params
+      .pipe(
+        map(v => v.id),
+        switchMap(id =>  this.stepDataService
+          .getStepData(id)),
+      )
+      .subscribe(
+        (res: any) => {
+          const step = res.data;
+          console.log('RESPONSE', res.data, step.status);
+          // for navbar title
+          this.stepGroupSequence = step.step_group_sequence + 1;
+          this.stepSequence = step.sequence + 1;
+          this.stepName = step.name;
+          this.navbarTitle =
+            this.stepGroupSequence.toString() +
+            '.' +
+            this.stepSequence.toString() +
+            ' ' +
+            this.stepName;
+          console.log('STEP DETAIL:', this.navbarTitle);
+          this.flowService.stepDetail.emit(this.navbarTitle);
+        } );
     // this.subscriptions[
     //   this.subscriptions.length
     // ] = this.worryService.worryBehaviour.subscribe((worry: any) => {

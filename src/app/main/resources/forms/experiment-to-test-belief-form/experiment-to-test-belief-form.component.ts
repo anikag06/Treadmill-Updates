@@ -34,6 +34,10 @@ import {
 import { WORRY_PRODUCTIVELY_QUOTES } from '../worry-productively-form/worry-productively-message';
 import * as moment from 'moment';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import {map, switchMap} from "rxjs/operators";
+import {FlowService} from "@/main/flow/flow.service";
+import {ActivatedRoute} from "@angular/router";
+import {StepsDataService} from "@/main/resources/shared/steps-data.service";
 
 @Component({
   selector: 'app-experiment-to-test-belief-form',
@@ -64,6 +68,10 @@ export class ExperimentToTestBeliefFormComponent implements OnInit {
   notification = false;
   taskHeading = 'How can you test if this belief is true?';
   showFollowUp = false;
+  navbarTitle!: string;
+  stepGroupSequence!: number;
+  stepSequence!: number;
+  stepName!: string;
   @ViewChild(EttbfBeliefComponent, { static: false })
   beliefStatementForm!: EttbfBeliefComponent;
   @ViewChild(EttbfOutcomeComponent, { static: false })
@@ -78,9 +86,35 @@ export class ExperimentToTestBeliefFormComponent implements OnInit {
     private errorService: GeneralErrorService,
     private formService: FormService,
     private formBuilder: FormBuilder,
+    private flowService: FlowService,
+    private activatedRoute: ActivatedRoute,
+    private stepDataService: StepsDataService,
   ) {}
 
   ngOnInit() {
+    this.activatedRoute.params
+      .pipe(
+        map(v => v.id),
+        switchMap(id =>  this.stepDataService
+          .getStepData(id)),
+      )
+      .subscribe(
+        (res: any) => {
+          const step = res.data;
+          console.log('RESPONSE', res.data, step.status);
+          // for navbar title
+          this.stepGroupSequence = step.step_group_sequence + 1;
+          this.stepSequence = step.sequence + 1;
+          this.stepName = step.name;
+          this.navbarTitle =
+            this.stepGroupSequence.toString() +
+            '.' +
+            this.stepSequence.toString() +
+            ' ' +
+            this.stepName;
+          console.log('STEP DETAIL:', this.navbarTitle);
+          this.flowService.stepDetail.emit(this.navbarTitle);
+        } );
     this.subscriptions[
       this.subscriptions.length
     ] = this.ettbfBeliefService.beliefObservable$.subscribe((belief: any) => {

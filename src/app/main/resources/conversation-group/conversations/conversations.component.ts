@@ -182,6 +182,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   final_feedback!: number;
   feedbackDataId!: number;
   unsend = true;
+  current_id!: number;
 
   @ViewChild('form_div', { static: false }) formDiv!: ElementRef;
   @ViewChild('convDiv', { static: false }) convDiv!: ElementRef;
@@ -190,6 +191,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
 
   ngOnInit() {
     this.conversation_id = this.passdata.getid();
+    console.log('CONV ID', this.current_id, this.conversation_id);
     this.run();
     this.timerservice.visibility();
     this.timerservice.unload();

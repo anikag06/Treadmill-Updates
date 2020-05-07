@@ -36,14 +36,14 @@ export class FlowStepNavigationService {
       return `/resources/conversations-group/${step.id}/`;
     } else if (step.data_type === GAME) {
       const game_name = step.action[0];
-      return `/games/${game_name}/`;
+      return `/games/${game_name}/${step.id}`;
     } else if (step.data_type === FORM) {
       const form_name = FORM_URL_MAP.get(step.action[0]);
-      return `/resources/forms/${form_name}/`;
+      return `/resources/forms/${form_name}/${step.id}`;
     } else if (step.data_type === SUPPORT_GROUP) {
-      return `/support-groups/`;
-    } else if (step.data_type === QUESTIONNAIRE) {
-      return `/questionnaire/`;
+      return `/support-groups/${step.id}`;
+    // } else if (step.data_type === QUESTIONNAIRE) {
+    //   return `/questionnaire/`;
     } else if (step.data_type === INTRODUCTION_PAGE) {
       return `/resources/introduction/${step.step_group_sequence}/`;
     } else if (step.data_type === CONCLUSION_PAGE) {
@@ -53,11 +53,11 @@ export class FlowStepNavigationService {
     } else if (step.data_type === CONTROL_PAGE) {
       return `resources/control-content/${step.id}/`;
     } else if (step.data_type === SURVEY) {
-      return `/survey/`;
+      return `/survey/${step.id}`;
     } else if (step.data_type === RESOURCES_PAGE) {
-      return `/extra-resources/`;
+      return `/extra-resources/${step.id}`;
     } else if (step.data_type === TESTIMONIALS_PAGE) {
-      return `/extra-resources/`;
+      return `/extra-resources/${step.id}`;
     }
   }
 

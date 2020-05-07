@@ -41,12 +41,27 @@ export const resourcesRoutes: Routes = [
         // data: { title: 'Form' },
       },
       {
+        path: 'forms/problem-solving/:id',
+        component: ProblemSolvingWorksheetsComponent,
+        // data: { title: 'Form' },
+      },
+      {
         path: 'forms/task',
         component: TaskFormsComponent,
         // data: { title: 'Form' },
       },
       {
-        path: 'forms/thought-record',
+        path: 'forms/task/:id',
+        component: TaskFormsComponent,
+        // data: { title: 'Form' },
+      },
+      {
+        path: 'forms/thought-record/',
+        component: ThoughtRecordFormComponent,
+        // data: { title: 'Form' },
+      },
+      {
+        path: 'forms/thought-record/:id',
         component: ThoughtRecordFormComponent,
         // data: { title: 'Form' },
       },
@@ -56,12 +71,27 @@ export const resourcesRoutes: Routes = [
         // data: { title: 'Form' },
       },
       {
+        path: 'forms/test-belief/:id',
+        component: ExperimentToTestBeliefFormComponent,
+        // data: { title: 'Form' },
+      },
+      {
         path: 'forms/worry-productively',
         component: WorryProductivelyComponent,
         // data: { title: 'Form' },
       },
       {
+        path: 'forms/worry-productively/:id',
+        component: WorryProductivelyComponent,
+        // data: { title: 'Form' },
+      },
+      {
         path: 'forms/belief-change',
+        component: BeliefChangeComponent,
+        // data: { title: 'Form' },
+      },
+      {
+        path: 'forms/belief-change/:id',
         component: BeliefChangeComponent,
         // data: { title: 'Form' },
       },

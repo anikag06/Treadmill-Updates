@@ -9,6 +9,10 @@ import { User } from '@/shared/user.model';
 import { UserProfile } from '../shared/user-profile/UserProfile.model';
 import { AuthService } from '@/shared/auth/auth.service';
 import { SupportGroupsService } from './support-groups.service';
+import {map, switchMap} from "rxjs/operators";
+import {FlowService} from "@/main/flow/flow.service";
+import {ActivatedRoute} from "@angular/router";
+import {StepsDataService} from "@/main/resources/shared/steps-data.service";
 
 @Component({
   selector: 'app-support-groups',
@@ -24,6 +28,9 @@ export class SupportGroupsComponent implements OnInit {
     private authService: AuthService,
     private sgService: SupportGroupsService,
     private elem: ElementRef,
+    private flowService: FlowService,
+    private activatedRoute: ActivatedRoute,
+    private stepDataService: StepsDataService,
   ) {
     this.titleService.setTitle('Support Group | ' + TREADWILL);
     this.getScreenSize();
@@ -32,6 +39,10 @@ export class SupportGroupsComponent implements OnInit {
   user!: User; // Current User
   userProfileData = new UserProfile('Name', '', 0, 0, 0, 0);
   srcWidth!: any;
+  navbarTitle!: string;
+  stepGroupSequence!: number;
+  stepSequence!: number;
+  stepName!: string;
 
   @HostListener('window:resize', ['$event'])
   getScreenSize(event?: any) {
@@ -39,6 +50,29 @@ export class SupportGroupsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.activatedRoute.params
+      .pipe(
+        map(v => v.id),
+        switchMap(id =>  this.stepDataService
+          .getStepData(id)),
+      )
+      .subscribe(
+        (res: any) => {
+          const step = res.data;
+          console.log('RESPONSE', res.data, step.status);
+          // for navbar title
+          this.stepGroupSequence = step.step_group_sequence + 1;
+          this.stepSequence = step.sequence + 1;
+          this.stepName = step.name;
+          this.navbarTitle =
+            this.stepGroupSequence.toString() +
+            '.' +
+            this.stepSequence.toString() +
+            ' ' +
+            this.stepName;
+          console.log('STEP DETAIL:', this.navbarTitle);
+          this.flowService.stepDetail.emit(this.navbarTitle);
+        } );
     this.tagService.getTags();
     this.user = <User>this.authService.isLoggedIn();
     this.userProfileService

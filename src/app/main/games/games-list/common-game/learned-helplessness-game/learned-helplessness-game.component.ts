@@ -12,12 +12,15 @@ import { LoadFilesService } from '@/main/games/shared/load-files.service';
 import { LhgInstructionsComponent } from './lhg-instructions/lhg-instructions.component';
 import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
 import { LhgPlaynextgameComponent } from './lhg-playnextgame/lhg-playnextgame.component';
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { GamesAuthService } from '@/main/games/shared/games-auth.service';
 import { LhgGreatComponent } from './lhg-great/lhg-great.component';
 import { GamesFeedbackComponent } from '../games-feedback/games-feedback.component';
 import { GameFeedback } from '../games-feedback/game-feedback.model';
 import { GamesFeedbackService } from '../games-feedback/games-feedback.service';
+import {map, switchMap} from "rxjs/operators";
+import {FlowService} from "@/main/flow/flow.service";
+import {StepsDataService} from "@/main/resources/shared/steps-data.service";
 
 @Component({
   selector: 'app-learned-helplessness-game',
@@ -28,6 +31,10 @@ export class LearnedHelplessnessGameComponent implements OnInit, OnDestroy {
   ask_feedback: any;
   playAgain!: boolean;
   goHome!: boolean;
+  navbarTitle!: string;
+  stepGroupSequence!: number;
+  stepSequence!: number;
+  stepName!: string;
   constructor(
     private gamePlayService: GamePlayService,
     private loadFileService: LoadFilesService,
@@ -35,6 +42,9 @@ export class LearnedHelplessnessGameComponent implements OnInit, OnDestroy {
     private router: Router,
     private gamesAuthService: GamesAuthService,
     private gamesFeedbackService: GamesFeedbackService,
+    private flowService: FlowService,
+    private activatedRoute: ActivatedRoute,
+    private stepDataService: StepsDataService,
   ) {}
 
   @ViewChild('infoElement', { static: false }) element!: ElementRef;
@@ -64,6 +74,29 @@ export class LearnedHelplessnessGameComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.activatedRoute.params
+      .pipe(
+        map(v => v.id),
+        switchMap(id =>  this.stepDataService
+          .getStepData(id)),
+      )
+      .subscribe(
+        (res: any) => {
+          const step = res.data;
+          console.log('RESPONSE', res.data, step.status);
+          // for navbar title
+          this.stepGroupSequence = step.step_group_sequence + 1;
+          this.stepSequence = step.sequence + 1;
+          this.stepName = step.name;
+          this.navbarTitle =
+            this.stepGroupSequence.toString() +
+            '.' +
+            this.stepSequence.toString() +
+            ' ' +
+            this.stepName;
+          console.log('STEP DETAIL:', this.navbarTitle);
+          this.flowService.stepDetail.emit(this.navbarTitle);
+        } );
     this.loadFileService
       .loadExternalScript(
         './assets/games/learning-helplessness/js/unsolvable_puzzle_1.js',

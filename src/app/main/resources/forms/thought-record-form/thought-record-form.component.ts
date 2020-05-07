@@ -16,6 +16,8 @@ import { ThoughtRecordService } from '@/main/resources/forms/thought-record-form
 import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
 import {FlowService} from "@/main/flow/flow.service";
 import {ActivatedRoute} from "@angular/router";
+import {map, switchMap} from "rxjs/operators";
+import {StepsDataService} from "@/main/resources/shared/steps-data.service";
 
 @Component({
   selector: 'app-thought-record-form',
@@ -58,17 +60,41 @@ export class ThoughtRecordFormComponent implements OnInit {
   showRecommend!: boolean;
   imgSrc = 'assets/forms/therapist.png';
   navbarTitle!: string;
+  stepGroupSequence!: number;
+  stepSequence!: number;
+  stepName!: string;
   constructor(
     private formService: FormService,
     private thoughtRecordService: ThoughtRecordService,
     private flowService: FlowService,
     private activatedRoute: ActivatedRoute,
+    private stepDataService: StepsDataService,
   ) {}
 
   ngOnInit() {
-    //   this.navbarTitle = this.flowService.navbarTitle;
-    // this.flowService.stepDetail.emit(this.navbarTitle);
-    // localStorage.setItem('navbarTitle', this.navbarTitle);
+    this.activatedRoute.params
+      .pipe(
+        map(v => v.id),
+        switchMap(id =>  this.stepDataService
+          .getStepData(id)),
+      )
+      .subscribe(
+        (res: any) => {
+          const step = res.data;
+          console.log('RESPONSE', res.data, step.status);
+          // for navbar title
+          this.stepGroupSequence = step.step_group_sequence + 1;
+          this.stepSequence = step.sequence + 1;
+          this.stepName = step.name;
+          this.navbarTitle =
+            this.stepGroupSequence.toString() +
+            '.' +
+            this.stepSequence.toString() +
+            ' ' +
+            this.stepName;
+          console.log('STEP DETAIL:', this.navbarTitle);
+          this.flowService.stepDetail.emit(this.navbarTitle);
+        } );
   }
 
   thoughtSelected(thought: Thought) {

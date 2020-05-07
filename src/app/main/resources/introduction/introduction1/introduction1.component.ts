@@ -52,7 +52,7 @@ export class Introduction1Component implements OnInit, OnDestroy {
           this.locked = true;
         }
         this.dataLoaded = true;
-        this.currentStepId = data.data.id;
+        this.currentStepId = data.current_step_id;
         this.stepDataService
           .getStepData(this.currentStepId)
           .subscribe((step_data: any) => {

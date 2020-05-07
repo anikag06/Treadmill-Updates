@@ -37,6 +37,8 @@ import { DialogPosition, MatDialog } from '@angular/material/dialog';
 import { CustomOverlayComponent } from '@/main/shared/custom-overlay/custom-overlay.component';
 import { CustomOverlayService } from '@/main/shared/custom-overlay/custom-overlay.service';
 import {FormService} from "@/main/resources/forms/form.service";
+import {StepsDataService} from "@/main/resources/shared/steps-data.service";
+import {map, switchMap} from "rxjs/operators";
 
 @Component({
   selector: 'app-navbar',
@@ -62,6 +64,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
   convMode = false;
   fromLeftNav!: boolean;
   backClicked = false;
+  currentStepId!: number;
+  stepSequence!: number;
+  stepName!: string;
+  stepGroupSequence!: number;
   @Input() user!: User;
   @Output() hamburgerClick = new EventEmitter<any>();
   @Input() isHandset$!: boolean;
@@ -80,6 +86,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private location: Location,
     private overlayService: CustomOverlayService,
+    private stepDataService: StepsDataService,
 
   ) {
     this.router.events.subscribe((event: Event) => {
@@ -88,46 +95,30 @@ export class NavbarComponent implements OnInit, OnDestroy {
       }
 
       if (event instanceof NavigationEnd) {
-        this.isDashboard = false;
-        this.notificationService.fromLeftNav.subscribe(() => {
-          this.fromLeftNav = true;
-          console.log('from left nav', this.fromLeftNav);
-        });
-        if (event.url === '/dashboard') {
-          this.isDashboard = true;
-        }
-        // if (this.backClicked) {
-        //   console.log('FORMS', localStorage.getItem('navbarTitle'));
-        // }
-        // if (this.fromLeftNav) {
-            if (this.auth.navbarTitle) {
-              this.navbarTitle = this.auth.navbarTitle;
-              console.log(event);
-            }
-            this.gamePlayService.gameTitle.subscribe(() => {
-              console.log('FROM NAVBAR', this.gamePlayService.gameName);
-              this.navbarTitle = this.gamePlayService.gameName;
-            });
-            this.formService.formTitle.subscribe(() => {
-              console.log('FROM NAVBAR', this.formService.formName);
-              this.navbarTitle = this.formService.formName;
-            });
-            localStorage.setItem('navbarTitle', this.navbarTitle);
-          // } else {
-        this.flowService.stepDetail.subscribe((value: any) => {
-          this.navbarTitle = value;
-          console.log('FROM NAVBAR', value);
-        });
-            // this.flowService.stepDetail.subscribe(() => {
-            //   this.fromLeftNav = false;
-            //   console.log('FROM NAVBAR', this.flowService.navbarTitle);
-            //   this.navbarTitle = this.flowService.navbarTitle;
-            //   localStorage.setItem('navbarTitle', this.flowService.navbarTitle);
-            // });
-            // this.fromLeftNav = true;
-            //
-            // this.navbarTitle = localStorage.getItem('navbarTitle');
-          // }
+          this.isDashboard = false;
+          this.notificationService.fromLeftNav.subscribe(() => {
+            this.fromLeftNav = true;
+            console.log('from left nav', this.fromLeftNav);
+          });
+          if (event.url === '/dashboard') {
+            this.isDashboard = true;
+          }
+          if (this.auth.navbarTitle) {
+            this.navbarTitle = this.auth.navbarTitle;
+            console.log(event);
+          }
+          this.gamePlayService.gameTitle.subscribe(() => {
+            console.log('FROM NAVBAR', this.gamePlayService.gameName);
+            this.navbarTitle = this.gamePlayService.gameName;
+          });
+          this.formService.formTitle.subscribe(() => {
+            console.log('FROM NAVBAR', this.formService.formName);
+            this.navbarTitle = this.formService.formName;
+          });
+          this.flowService.stepDetail.subscribe((value: any) => {
+            this.navbarTitle = value;
+            console.log('FROM NAVBAR', value);
+          });
           this.notificationService.showFullConvIcon.subscribe(() => {
             this.convMode = true;
           });
@@ -143,7 +134,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
         // Present error to user
         console.log(event.error);
       }
-    });
+  });
   }
 
   ngOnInit() {

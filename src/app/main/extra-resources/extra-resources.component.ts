@@ -6,6 +6,9 @@ import { ExtraResourcesService } from '@/main/extra-resources/extra-resources.se
 import { element } from 'protractor';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoadFilesService } from '@/main/games/shared/load-files.service';
+import {map, switchMap} from "rxjs/operators";
+import {FlowService} from "@/main/flow/flow.service";
+import {StepsDataService} from "@/main/resources/shared/steps-data.service";
 
 @Component({
   selector: 'app-extra-resources',
@@ -28,12 +31,19 @@ export class ExtraResourcesComponent implements OnInit {
   //value: string |undefined;
   countReadingItem = 0;
   countVideoItem = 0;
+  navbarTitle!: string;
+  stepGroupSequence!: number;
+  stepSequence!: number;
+  stepName!: string;
 
   constructor(
     private extraResourcesService: ExtraResourcesService,
     private router: Router,
     private route: ActivatedRoute,
     private loadFilesService: LoadFilesService,
+    private flowService: FlowService,
+    private activatedRoute: ActivatedRoute,
+    private stepDataService: StepsDataService,
   ) {}
 
   ngOnInit() {
@@ -41,6 +51,29 @@ export class ExtraResourcesComponent implements OnInit {
       .loadExternalStyles('/extra-resources-styles.css')
       .then(() => {})
       .catch(() => {});
+    this.activatedRoute.params
+      .pipe(
+        map(v => v.id),
+        switchMap(id =>  this.stepDataService
+          .getStepData(id)),
+      )
+      .subscribe(
+        (res: any) => {
+          const step = res.data;
+          console.log('RESPONSE', res.data, step.status);
+          // for navbar title
+          this.stepGroupSequence = step.step_group_sequence + 1;
+          this.stepSequence = step.sequence + 1;
+          this.stepName = step.name;
+          this.navbarTitle =
+            this.stepGroupSequence.toString() +
+            '.' +
+            this.stepSequence.toString() +
+            ' ' +
+            this.stepName;
+          console.log('STEP DETAIL:', this.navbarTitle);
+          this.flowService.stepDetail.emit(this.navbarTitle);
+        } );
 
     this.extraResourcesService.getVideoItem().subscribe((video_data: any) => {
       console.log('video url', video_data);

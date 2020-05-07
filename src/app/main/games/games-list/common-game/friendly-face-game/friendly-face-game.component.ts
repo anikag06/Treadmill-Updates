@@ -23,6 +23,10 @@ import { GamesBadgesService } from '@/main/games/shared/games-badges.service';
 import { FfgHelpService } from './ffg-help.service';
 import { GamesFeedbackComponent } from '../games-feedback/games-feedback.component';
 import { GamesFeedbackService } from '../games-feedback/games-feedback.service';
+import {FlowService} from "@/main/flow/flow.service";
+import {ActivatedRoute} from "@angular/router";
+import {StepsDataService} from "@/main/resources/shared/steps-data.service";
+import {map, switchMap} from "rxjs/operators";
 
 declare var ffGamePreloadImages: any;
 declare var ffGame_hostile_images: any;
@@ -64,6 +68,9 @@ export class FriendlyFaceGameComponent implements OnInit {
     public viewContainerRef: ViewContainerRef,
     private ffgHelpService: FfgHelpService,
     private gamesFeedbackService: GamesFeedbackService,
+    private flowService: FlowService,
+    private activatedRoute: ActivatedRoute,
+    private stepDataService: StepsDataService,
   ) {}
   NO_IMAGES_IN_PAGE = 20;
   NO_SONGS_IN_PAGE = 2;
@@ -89,6 +96,10 @@ export class FriendlyFaceGameComponent implements OnInit {
   show_tutorial!: boolean;
   time_per_note: any;
   ask_feedback!: boolean;
+  navbarTitle!: string;
+  stepGroupSequence!: number;
+  stepSequence!: number;
+  stepName!: string;
 
   @ViewChild('newElement', { static: false }) element!: ElementRef;
 
@@ -138,6 +149,30 @@ export class FriendlyFaceGameComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.activatedRoute.params
+      .pipe(
+        map(v => v.id),
+        switchMap(id =>  this.stepDataService
+          .getStepData(id)),
+      )
+      .subscribe(
+        (res: any) => {
+          const step = res.data;
+          console.log('RESPONSE', res.data, step.status);
+          // for navbar title
+          this.stepGroupSequence = step.step_group_sequence + 1;
+          this.stepSequence = step.sequence + 1;
+          this.stepName = step.name;
+          this.navbarTitle =
+            this.stepGroupSequence.toString() +
+            '.' +
+            this.stepSequence.toString() +
+            ' ' +
+            this.stepName;
+          console.log('STEP DETAIL:', this.navbarTitle);
+          this.flowService.stepDetail.emit(this.navbarTitle);
+        } );
+
     this.loadFileService
       .loadExternalScript(
         './assets/games/friendly-face-game/js/facegame_javascript.js',
