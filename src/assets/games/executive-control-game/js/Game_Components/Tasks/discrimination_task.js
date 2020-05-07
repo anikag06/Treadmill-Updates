@@ -15,8 +15,8 @@ function discrimination_task_generator()
 		if(isTouchDevice==true&&discrimination_choice%TYPE_CHANGE_INTERVAL!=0)
 		{
 				task_button_blinking_animation=setInterval(green_button_blinker,200);
-				
-				
+
+
 			}
 		else if(isTouchDevice==true&&discrimination_choice%TYPE_CHANGE_INTERVAL==0)
 		{
@@ -37,13 +37,13 @@ function discrimination_task_generator()
 			if(isTouchDevice==true)
 			{
 				task_tutorial_text=curr_game.add.text(screen_width*0.28,discrimination_task_image.y-discrimination_task_image.height-10 ,
-					"Press the red button if the central circle is red, press green button if the central circle is green.", 
+					"Press the red button if the central circle is red, press green button if the central circle is green.",
 					{ fontFamily: 'Roboto', fontSize: '18px', fill: '#FFFFFF', wordWrap: {width: 2*discrimination_task_image.width+85}});
 			}
 			else
 			{
 				task_tutorial_text=curr_game.add.text(screen_width*0.33,discrimination_task_image.y-discrimination_task_image.height-30,
-					"Press          if the central circle is red,\n\npress          if the central circle is green.", 
+					"Press          if the central circle is red,\n\npress          if the central circle is green.",
 					{ fontFamily: 'Roboto', fontSize: '16px', fill: '#FFFFFF',});
 					red_key_button=curr_game.add.image(task_tutorial_text.x+59,task_tutorial_text.y+8,'down_key').setScale(0.6);
 					green_key_button=curr_game.add.image(red_key_button.x,red_key_button.y+37,'up_key').setScale(0.6);
@@ -51,23 +51,23 @@ function discrimination_task_generator()
 				green_key_button.depth=14;
 			}
 			task_tutorial_text.depth=14;
-			
+
 			// task_tutorial_text.setBackgroundColor('rgba(255,255,255,0.6)')
 			// task_tutorial_text.setPadding(24,3,24,3);
 		}
-		
+
 		//Record discrimination task start time
-	
+
 		date=new Date();
 		discrimination_task_start_time=date.getTime();
 		discrimination_task_timestamp = date.toJSON();
-		
+
 		//if tutorial not shown,wait only the required time for response
 		if(SHOW_TUTORIAL==false||task_tutorial_shown==true)
 		{
 		tasks_done=setTimeout(discrimination_task_complete,TIME_FOR_DISCRIMINATION);
 		}
-		
+
 	}
 }
 
@@ -76,7 +76,7 @@ function discrimination_task_complete()
 	//Discrimination task flags
 	discrimination_task_ended=true;
 	discrimination_task_started=false;
-	
+
 	if(discrimination_task_end_time!=0)
 	{
         discrimination_task_response_time=discrimination_task_end_time-discrimination_task_start_time;
@@ -86,26 +86,28 @@ function discrimination_task_complete()
 		allowLifeReward=false;
 	}
 
+
+
 	discrimination_task_image.destroy();
 	discrimination_task_image=null;
 	flankerTaskECGame = true;
-	
+
 	storeTaskDataEvent = document.createEvent('CustomEvent');
 	storeTaskDataEvent.initCustomEvent('CallAngularStoreTaskDataFun');
 
 	window.dispatchEvent(storeTaskDataEvent);
-	
+
 	//Next set
 	if(current_number_of_tasks>=1)
 	{
 		continue_to_next_set_timeout = setTimeout(continue_to_next_set,1000);
-		
+
 	}
 
 	//Countdown (delay generator)
 	else if(current_number_of_tasks==0&&countdown!=0&&resume_countdown_done==false)
 	{
-		
+
 		if(countdown_handler==null)
 		{
 			if(task_tutorial_shown==false&&SHOW_TUTORIAL==true){
@@ -114,13 +116,13 @@ function discrimination_task_complete()
 				countdown_handler=setInterval(resume_countdown,INTERVAL);
 			}
 		}
-		
+
 		task_completed=true;
 		restore_game=true;
-		
+
 		if(game_paused==true)
 	    {
-	        
+
 	        return;
 	    }
 	}
@@ -143,14 +145,14 @@ getECGameTaskData = function (){
 }
 
 function resume_countdown()
-{	
+{
 	if(game_paused==true)
     {
         return;
     }
-	
+
 	var Initial_Text=RESUMING_TEXT;
-	
+
     for(var i=0;i<countdown_dot_length;i++)
     {
         Initial_Text+=". "
@@ -163,7 +165,7 @@ function resume_countdown()
 		tutorial_box.alpha = 0.6;
 		tutorial_box.depth = 12;
 		task_tutorial_text=curr_game.add.text(tutorial_box.x-(tutorial_box.width/2)+15,tutorial_box.y-(tutorial_box.height/2)+30,
-				"Attention!!From the next time, tasks will appear only for some time. Perform well in the tasks and get rewarded", 
+				"Attention!!From the next time, tasks will appear only for some time. Perform well in the tasks and get rewarded",
 				{ fontFamily: 'Roboto', fontSize: '16px', fill: '#FFFFFF', wordWrap: {width: tutorial_box.width-20}});
 
 		task_tutorial_shown=true;
@@ -173,7 +175,7 @@ function resume_countdown()
 	}
     countdown_text.depth=100;
 	countdown--;
-	
+
 }
 
 //Reinitialize everything for next set
@@ -185,20 +187,20 @@ function continue_to_next_set()
 	flanker_task_response_type=NO_REPSONSE;
 	flanker_task_start_time=0;
 	flanker_task_end_time=0;
-	
+
 	discrimination_task_response_type=NO_REPSONSE;
 	discrimination_task_response_time=0;
 	discrimination_task_start_time=0;
 	discrimination_task_end_time=0;
-	
+
 	task_image_type=-1;
-	current_number_of_tasks--;	
+	current_number_of_tasks--;
 }
 
 //Tutorial animation
 function red_button_blinker()
 {
-  
+
   red_button.alpha=touch_alpha[alpha_choice%2];
   red_button.setScale(touch_size_task[alpha_choice%2]);
   alpha_choice++;
@@ -208,7 +210,7 @@ function red_button_blinker()
 //Tutorial animation
 function green_button_blinker()
 {
-  
+
   green_button.alpha=touch_alpha[alpha_choice%2];
   green_button.setScale(touch_size_task[alpha_choice%2]);
   alpha_choice++;

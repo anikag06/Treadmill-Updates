@@ -69,6 +69,7 @@ function setCenter(){
 }
 
 var ECGFeedBack;
+var showFeedBack = 1;
 var screen_width;
 var screen_height;
 var scaleRatio;
@@ -1172,9 +1173,7 @@ function update(){
 		{
 			//Stop music
 			clearInterval(respawn_animator);
-			if (ECGFeedBack) {
-        gameFeedbackPopup();
-      }
+
 
 			bgm_sound.stop();
 
@@ -1623,8 +1622,21 @@ function update(){
 			//Restore game after tasks
 			if(restore_game==true)
 			{
+       // if(current_number_of_tasks === 2) {
+       // console.log('true treu trei')
+       //   if (ECGFeedBack) {
+       //     gameFeedbackPop();
+       //   }
+       // }
 				game_restore();
 				if (task_background_removed) {
+          if(showFeedBack === 2) {
+            console.log('true treu trei')
+            if (ECGFeedBack) {
+              gameFeedbackPop();
+            }
+          }
+          showFeedBack = showFeedBack + 1;
 					task_background.destroy();
 					task_background_removed = false;
 					task_background_added = false;
@@ -1901,7 +1913,7 @@ function jump()
 }
 
 
-function gameFeedbackPopup() {
+function gameFeedbackPop() {
   this.feedbackEvent = document.createEvent("CustomEvent");
   this.feedbackEvent.initCustomEvent("Feedback");
   window.dispatchEvent(this.feedbackEvent);

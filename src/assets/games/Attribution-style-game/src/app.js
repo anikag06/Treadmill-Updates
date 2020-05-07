@@ -2340,7 +2340,7 @@ class UserResult extends Phaser.Scene {
             this.openWindow();
         },this);
       console.log(ASGFeedback);
-      if (ASGFeedback) {
+     if (ASGFeedback) {
 
         this.gameFeedbackPopup();
       }
