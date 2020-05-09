@@ -30,7 +30,7 @@ export class CongratsDialogComponent implements OnInit {
   ngOnInit() {
     this.navigate_to = 'Go to dashboard';
     if (window.matchMedia('(max-width: 770px)').matches) {
-      this.dialogRef.updateSize('80%', '65%');
+      this.dialogRef.updateSize('90%', '75%');
     }
     this.nextStepData = this.data.nextStepData;
     if (this.data.isLastStep) {

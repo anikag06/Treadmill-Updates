@@ -39,7 +39,6 @@ button {
 }
 .sparkled-img {
   width:174px;
-
 }
 @media screen and (max-width: 767px) {
 
@@ -53,4 +52,7 @@ button {
         margin-left: auto  !important;
         margin-right: auto !important;
     }
+  .sparkled-img {
+    width: 148px;
+  }
 }

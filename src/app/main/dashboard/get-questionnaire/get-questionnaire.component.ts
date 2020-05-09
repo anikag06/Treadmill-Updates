@@ -16,6 +16,7 @@ export class GetQuestionnaireComponent implements OnInit {
   active = false;
   loading = true;
   stepID!: number;
+  navbarTitle!: string;
 
   constructor(
     private quizService: QuizService,
@@ -58,5 +59,7 @@ export class GetQuestionnaireComponent implements OnInit {
 
     this.quizService.questionnaireActive = true;
     this.active = true;
+    this.navbarTitle = 'Mood test';
+    this.flowService.stepDetail.emit(this.navbarTitle);
   }
 }
