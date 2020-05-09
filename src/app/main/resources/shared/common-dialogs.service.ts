@@ -15,6 +15,7 @@ export class CommonDialogsService {
   nextStepData!: Step;
   badgeData!: any;
 
+
   constructor(
     private dialog: MatDialog,
     private http: HttpClient,
@@ -24,12 +25,14 @@ export class CommonDialogsService {
     this.isLocked = false;
     if (isLastStep) {
       this.flowNavService.isNextModuleLocked(curr_id).subscribe(data => {
+        console.log('Next module locked', data , curr_id);
         this.nextStepData = data.data;
         this.isLocked = !data.data.next_step_group_unlocked;
         this.openDialog(true);
       });
     } else {
       this.flowNavService.getNextStepData(step_id).subscribe(next_step_data => {
+        console.log('next step data,' , next_step_data, step_id);
         if (next_step_data.data.status === LOCKED) {
           this.isLocked = true;
         }

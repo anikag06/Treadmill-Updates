@@ -38,7 +38,20 @@
   <div *ngIf="!showQuestionnaire">
     In the next module, <span class="emphasis">{{nextModuleName}}</span>, you will learn how to change your thinking
     style.
+
+    <div class="row align-self-end px-0 mx-0">
+      <button class="completed-btn float-right" type="button" *ngIf='!stepCompleted; else isCompleted ' mat-raised-button
+              color="primary" (click)="onCompleted()">
+        Completed
+      </button>
+      <ng-template #isCompleted>
+        <button class="completed-btn float-right" type="button" mat-raised-button color="primary" (click)="onDashboard()">
+          Go to dashboard
+        </button>
+      </ng-template>
+    </div>
   </div>
+
 
 
 </ng-template>

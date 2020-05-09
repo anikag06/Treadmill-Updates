@@ -1,17 +1,22 @@
 
 .congrats-div {
-    max-height: 733px; 
+    max-height: 733px;
     max-width: 1158px;
     height: 100%;
     width: 100%;
-    text-align: center
+    text-align: center;
+  font-family: Roboto;
 }
 .congrats-text {
     color: #4E4E4E;
-    font-size: 32px;    
+    font-size: 32px;
 }
 .text {
-    color: #8D8D8D;
+    color: #00000099;
+}
+.next-text {
+  color: #00000066;
+  margin-top: 56px;
 }
 #flow-img{
     height: 80%;
@@ -24,13 +29,22 @@
     padding: 0%;
     margin: 0%;
 }
+button {
+  background-color: #2a3b3d;
+  color: white;
+}
 .badge-img{
     max-height: 80px;
+
+}
+.sparkled-img {
+  width:174px;
+
 }
 @media screen and (max-width: 767px) {
-    
+
     .congrats-text {
-        font-size: 24px;    
+        font-size: 24px;
     }
     .next-step-div{
         max-height: 36px;

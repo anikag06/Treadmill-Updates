@@ -144,7 +144,7 @@ export class Conclusion1Component implements OnInit, OnDestroy {
     this.stepDataService
       .storeCompletionData(this.completionData)
       .subscribe(data => {
-        console.log(data);
+        console.log('data', data, this.currentStepId, this.nextStepId);
       });
     this.commonDialogService.openCongratsDialog(
       this.currentStepId,

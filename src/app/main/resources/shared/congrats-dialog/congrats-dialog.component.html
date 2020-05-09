@@ -1,36 +1,40 @@
 <div class="congrats-div d-flex row mx-0 px-1 py-1 ">
 
     <div class="row w-100">
-        <div class="col justify-content-center">
-            <img class="badge-img" [src]='img_src'>
+        <div class="col justify-content-center" style="position:relative; display: inline-block;">
+            <div  style="position:relative; display: block; top:40px;right:40px;">
+             <img class="badge-img" style="position:absolute;"  [src]='badge_img_src'>
+            </div>
+
+          <img class="sparkled-img" [src]='img_src' >
         </div>
     </div>
     <div class="row w-100 align-self-center">
         <div class="col justify-content-center" >
-            <p class="congrats-text"> Congratulations </p>
-            <p class="congrats-text" *ngIf='showBadge'>
-                You are a {{badgeName}} </p>
-            <p class="text" *ngIf='showBadge'>
-                {{badgeInfo}}
-            </p>
-            <p class=" text" *ngIf='!data.isLastStep'> You have completed this step. Try next step </p>
 
-            <p class=" text" *ngIf='data.isLastStep && data.isLocked'>
-                Next step is locked. Try previous steps, go to dashboard.
+            <p class="congrats-text" *ngIf='showBadge'>
+               {{badgeName}} </p>
+          <p class="text"> Congratulation! You have earned gold badge for completing "<span class="text" *ngIf='showBadge'>
+          {{badgeInfo}}
+        </span>" module.</p>
+
+<!--            <p class=" text" *ngIf='!data.isLastStep'> You have completed this step. Try next step </p>-->
+
+            <p class="next-text" *ngIf='data.isLastStep && data.isLocked'>
+<!--                Next step is locked. Try previous steps, go to dashboard.-->
                 Next module will unlock on {{unLockTime | date:"medium"}}</p>
-            <p class="text" *ngIf='data.isLastStep && !data.isLocked '>
-                Go to dashboard and try next module.
-            </p>
+<!--            <p class="text" *ngIf='data.isLastStep && !data.isLocked '>-->
+<!--                Go to dashboard and try next module.-->
+<!--            </p>-->
         </div>
     </div>
 
-    <div class="row w-100 align-self-end next-step-div justify-content-end">
+    <div class="row w-100 align-self-end next-step-div justify-content-center" >
         <button class="next-step-locked h-100" type="button"
             *ngIf='data.isLocked || data.isLastStep; else nextStepBtn'
             (click) = 'goToDashboard()'
-            mat-raised-button color="primary">
-            <img id="flow-img" src="../../../../../assets/shared/Go to icon.png">
-            Dashboard
+            mat-raised-button>
+           {{navigate_to}}
         </button>
 
         <ng-template #nextStepBtn>

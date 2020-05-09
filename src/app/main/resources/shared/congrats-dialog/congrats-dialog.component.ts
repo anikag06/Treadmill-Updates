@@ -13,10 +13,12 @@ export class CongratsDialogComponent implements OnInit {
 
   nextStepData!: any;
   unLockTime!: any;
-  img_src = '../../../../../assets/shared/thumb.svg';
+  badge_img_src = '../../../../../assets/shared/thumb.svg';
+  img_src = '../../../../../assets/modules/sparkle_background.png';
   showBadge = false;
   badgeName!: string;
   badgeInfo!: string;
+  navigate_to!: any;
 
   constructor(
     public dialogRef: MatDialogRef<CongratsDialogComponent>,
@@ -26,12 +28,14 @@ export class CongratsDialogComponent implements OnInit {
   ) {  dialogRef.disableClose = true; }
 
   ngOnInit() {
+    this.navigate_to = 'Go to dashboard';
     if (window.matchMedia('(max-width: 770px)').matches) {
       this.dialogRef.updateSize('80%', '65%');
     }
     this.nextStepData = this.data.nextStepData;
     if (this.data.isLastStep) {
-      this.img_src = this.data.badgeData.image;
+      this.badge_img_src = this.data.badgeData.image;
+      console.log('badge details', this.data);
       this.showBadge = true;
       this.badgeName = this.data.badgeData.name;
       this.badgeInfo = this.data.badgeData.description;
@@ -39,6 +43,7 @@ export class CongratsDialogComponent implements OnInit {
         this.unLockTime = this.nextStepData.next_step_group_unlock_time;
         const convertedDateString = this.unLockTime.toLocaleString();
         this.unLockTime = new Date(convertedDateString);
+        console.log('UNLOCK TIME', this.nextStepData);
       }
     }
   }
