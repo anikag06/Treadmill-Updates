@@ -1,7 +1,6 @@
 import {
   Component,
   ComponentFactoryResolver,
-  ComponentRef,
   DoCheck,
   OnChanges,
   OnInit,
@@ -29,7 +28,9 @@ import { ToastNotificationDirective } from '@/shared/toast-notification/toast-no
 import { ToastNotificationComponent } from '@/shared/toast-notification/toast-notification.component';
 import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifications.service';
 import {CustomOverlayService} from '@/main/shared/custom-overlay/custom-overlay.service';
-
+import { CommonService } from '@/shared/common.service';
+import { InternetConnectionComponent } from '@/shared/internet-connection/internet-connection.component';
+declare var twemoji: any;
 // tslint:disable-next-line:max-line-length
 
 @Component({
@@ -48,6 +49,14 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
   flowLoaded = true;
   flowOpen = false;
   overlayOpen = false;
+  firstLoad = true;
+
+  onlineStatusMessages = [
+    "You're online. Life's good again.",
+    "Internet's back. Phew...",
+    "You're online. Apocalypse averted.",
+    "Internet's back. Woohoo ...",
+  ];
 
   @ViewChild('drawer', { static: true }) drawer!: MatDrawer;
   @ViewChild('tooltip', { static: false }) showToolTip!: MatTooltip;
@@ -58,6 +67,8 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
   isExpanded = true;
   @ViewChild(ToastNotificationDirective, { static: true })
   toastNotification!: ToastNotificationDirective;
+  @ViewChild('connection', { static: true, read: ViewContainerRef })
+  connectionNotification!: ViewContainerRef;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -73,6 +84,7 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
     private surveyService: SurveyService,
     private notificationService: NavbarNotificationsService,
     private overlayService: CustomOverlayService,
+    private commonService: CommonService,
   ) {}
 
   ngOnChanges() {}
@@ -136,6 +148,34 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
       //   this.flowLoaded = false;
       this.overlayOpen = false;
       console.log('OVERLAY OPEN', this.overlayService.overlayOpen);
+    });
+
+    this.commonService.createOnline$().subscribe(isOnline => {
+      this.connectionNotification.clear();
+      const statusMessage = isOnline
+        ? this.onlineStatusMessages[
+            Math.floor(
+              Math.random() * Math.floor(this.onlineStatusMessages.length),
+            )
+          ]
+        : "You're offline. Changes won't be saved &#128577;";
+      const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
+        InternetConnectionComponent,
+      );
+      const connectionComponentRef = this.connectionNotification.createComponent(
+        componentFactory,
+      );
+      connectionComponentRef.instance.onlineStatus = isOnline;
+      connectionComponentRef.instance.statusMessage = statusMessage;
+      if (isOnline) {
+        setTimeout(
+          () => {
+            connectionComponentRef.destroy();
+            this.firstLoad = false;
+          },
+          this.firstLoad ? 0 : 3000,
+        );
+      }
     });
   }
 

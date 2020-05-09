@@ -1,42 +1,44 @@
-@import 'styles.scss';
-@import '../../../../treadwill.theme.scss';
-@import '../../pre-login.component.scss';
 
-.ng-valid, .ng-untouched, .mat-focused, .ng-pristine {
-  color: $mat-white;
+@import '../../../../common-styles.scss';
 
-  .mat-form-field-wrapper{
+.ng-valid,
+.ng-untouched,
+.mat-focused,
+.ng-pristine {
+  color: white;
+
+  .mat-form-field-wrapper {
     .mat-form-field-underline {
-      background-color: $mat-white;
-      
+      background-color: white;
+
       .mat-form-field-ripple {
-        background-color: $mat-white;
+        background-color: white;
       }
     }
 
     .mat-form-field-subscript-wrapper {
       display: none;
     }
-    
-    .mat-form-field-flex>
-    .mat-form-field-infix>
-    .mat-form-field-label-wrapper>
-    .mat-form-field-label {
-      color: $mat-white;
+
+    .mat-form-field-flex
+    > .mat-form-field-infix
+    > .mat-form-field-label-wrapper
+    > .mat-form-field-label {
+      color: white;
       @include font-lato();
       font-size: 100%;
 
       .mat-form-field-required-marker {
-        color: $mat-white;
+        color: white;
       }
     }
   }
 }
 
 .login-form {
-  color: $mat-white !important;
+  color: white !important;
   a {
-    color: $mat-white !important;
+    color: white !important;
   }
 }
 
@@ -44,7 +46,7 @@
   @extend .anchorify-with-underline-on-hover;
   @include font-lato($font-weight: 700, $font-style: italic);
   font-size: 75%;
-  color: $treadwill-pre-login-primary !important;
+  color: #2a3b3d !important;
   margin-left: 10%;
 }
 
@@ -52,11 +54,11 @@
   @extend .anchorify-default;
   @include font-lato();
   font-size: 100%;
-  color: $treadwill-pre-login-primary !important;
+  color: #2a3b3d !important;
 }
 
 // .login-dialog-text-color {
-//   color: $treadwill-pre-login-primary;
+//   color: #2a3b3d;
 // }
 
 .input-container {

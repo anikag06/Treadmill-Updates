@@ -15,8 +15,15 @@
       },
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-builders/custom-webpack:browser",
           "options": {
+            "customWebpackConfig": {
+              "path": "extra-webpack.config.js",
+              "replaceDuplicatePlugins": true,
+              "mergeStrategies": {
+                "externals": "prepend"
+              }
+            },
             "outputPath": "dist/treadwill-v2-fe",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -28,6 +35,7 @@
               "src/manifest.webmanifest",
               "src/sw-master.js",
               "src/firebase-messaging-sw.js",
+              "src/.htaccess",
               {
                 "glob": "localforage.min.js",
                 "input": "node_modules/localforage/dist/",
@@ -38,23 +46,33 @@
               "src/styles.scss",
               "src/treadwill.theme.scss",
               "src/color.palette.scss",
+              "src/common-styles.scss",
               "node_modules/normalize.css/normalize.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              { "input": "src/games-styles.scss","lazy":true, "bundleName": "games-styles" },
-              { "input": "src/control-content-styles.scss", "lazy": true, "bundleName":  "control-content-styles"},
-              { "input":  "src/extra-resources-styles.scss", "lazy": true, "bundleName":  "resources2-styles"}
-
+              {
+                "input": "src/games-styles.scss",
+                "lazy": true,
+                "bundleName": "games-styles"
+              },
+              {
+                "input": "src/control-content-styles.scss",
+                "lazy": true,
+                "bundleName": "control-content-styles"
+              },
+              {
+                "input": "src/extra-resources-styles.scss",
+                "lazy": true,
+                "bundleName": "resources2-styles"
+              }
             ],
             "stylePreprocessorOptions": {
-              "includePaths": [
-                "src"
-              ]
+              "includePaths": ["src"]
             },
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
               "node_modules/twemoji/dist/twemoji.js",
-              "node_modules/phaser/dist/phaser.js"
+              "src/assets/games/executive-control-game/js/start_exec_game.js"
             ]
           },
           "configurations": {
@@ -132,13 +150,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "src/tsconfig.app.json",
-              "src/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["src/tsconfig.app.json", "src/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -164,9 +177,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "e2e/tsconfig.e2e.json",
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }

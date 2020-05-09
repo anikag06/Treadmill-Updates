@@ -6,8 +6,12 @@
     <mat-toolbar [appDisableClick]="{'apply': isDisabled}">
       <div>
         <a class="main-logo" routerLink="/dashboard">
-          <img src="https://www.treadwill.org/static/cbt2/images/logo/treadwill_logo.png"
-            style="margin-top: 10px; width: 75%;" class="center" alt="treadwill_logo" />
+          <img
+            src="https://www.treadwill.org/static/cbt2/images/logo/treadwill_logo.png"
+            style="margin-top: 10px; width: 75%;"
+            class="center"
+            alt="treadwill_logo"
+          />
         </a>
       </div>
       <div>
@@ -16,10 +20,19 @@
       </div>
     </mat-toolbar>
 
-    <mat-nav-list role="navigation" (click)="onLinkClick($event)" [appDisableClick]="{'apply': isDisabled}">
+    <mat-nav-list
+      role="navigation"
+      (click)="onLinkClick($event)"
+      [appDisableClick]="{ apply: isDisabled }"
+    >
       <div class="list-wrapper">
         <div class="list-user">
-          <img [src]="user.avatar" [alt]="user.username" width="80" height="80" />
+          <img
+            [src]="user.avatar"
+            [alt]="user.username"
+            width="80"
+            height="80"
+          />
         </div>
         <br />
         <div class="list-user-name">
@@ -27,7 +40,7 @@
         </div>
 
         <div class="list-wrapper-items">
-          <a mat-list-item routerLink='/dashboard'>
+          <a mat-list-item routerLink="/main/dashboard">
             <span class="list-wrapper-items-icon">
               <img class="icons-width" src="assets/modules/icon-dashboard.png" alt="dashboard-icon" />
             </span>
@@ -38,7 +51,7 @@
         </div>
 
         <div *ngIf="user.is_exp" class="list-wrapper-items">
-          <a mat-list-item routerLink="/games">
+          <a mat-list-item routerLink="/main/games">
             <span class="list-wrapper-items-icon">
               <img class="icons-width" src="assets/modules/icon-game.png" />
             </span>
@@ -49,7 +62,7 @@
         </div>
 
         <div *ngIf="user.is_exp" class="list-wrapper-items">
-          <a mat-list-item routerLink="/support-groups">
+          <a mat-list-item routerLink="/main/support-groups">
             <span class="list-wrapper-items-icon">
               <img class="icons-width" src="assets/modules/icon-support-group.png" />
             </span>
@@ -60,7 +73,7 @@
         </div>
 
         <div class="list-wrapper-items">
-          <a mat-list-item routerLink="/resources/forms">
+          <a mat-list-item routerLink="/main/resources/forms">
             <span class="list-wrapper-items-icon">
               <img class="icons-width" src="assets/modules/icon-form.png" />
             </span>
@@ -71,7 +84,7 @@
         </div>
 
         <div class="list-wrapper-items">
-          <a mat-list-item routerLink="/scores">
+          <a mat-list-item routerLink="/main/scores">
             <span class="list-wrapper-items-icon">
               <img class="icons-width" src="assets/modules/icon-score.png" />
             </span>
@@ -82,7 +95,7 @@
         </div>
 
         <div class="list-wrapper-items">
-          <a mat-list-item routerLink="/extra-resources">
+          <a mat-list-item routerLink="/main/extra-resources">
             <span class="list-wrapper-items-icon">
               <img class="icons-width" src="assets/modules/icon-resource.png" />
             </span>
@@ -103,7 +116,7 @@
         </div>
 
         <div class="list-wrapper-items">
-          <a mat-list-item routerLink="/logout">
+          <a mat-list-item routerLink="/main/logout">
             <span class="list-wrapper-items-icon">
               <img class="icons-width" style="margin-left: 2px;" src="assets/modules/icon-log-out.png" />
             </span>
@@ -132,9 +145,11 @@
                    [ngStyle]="{'opacity': flowLoaded ? '1' : '0' }"
       [flowOpen]="flowOpen"></app-chatbot>
       <div class="notification-div">
-       <ng-template toastNotification></ng-template>
+        <ng-template toastNotification></ng-template>
       </div>
+    </div>
+    <div>
+      <ng-template #connection></ng-template>
     </div>
   </mat-drawer-content>
 </mat-drawer-container>
-

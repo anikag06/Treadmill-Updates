@@ -1,19 +1,17 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule, ExtraOptions } from '@angular/router';
-import { LandingPageComponent } from './pre-login/landing-page/landing-page.component';
-import { PreLoginComponent } from './pre-login/pre-login.component';
-import { NotFoundComponent } from './shared/not-found/not-found.component';
-import { AuthGuard } from './shared/auth/auth.guard';
-import { TrialRegistrationAuthGuard } from './shared/auth/trial-registration-auth.guard';
-import { SignUpComponent } from '@/pre-login/signup/signup.component';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {LandingPageComponent} from './pre-login/landing-page/landing-page.component';
+import {PreLoginComponent} from './pre-login/pre-login.component';
+import {NotFoundComponent} from './shared/not-found/not-found.component';
+import {AuthGuard} from './shared/auth/auth.guard';
+import {SignUpComponent} from '@/pre-login/signup/signup.component';
 
-const routes: Routes = [
+export const routes: Routes = [
   {
-    path: 'landing',
+    path: '',
     component: PreLoginComponent,
-    pathMatch: 'full',
     children: [
-      { path: '', component: LandingPageComponent, pathMatch: 'full' },
+      { path: 'landing', component: LandingPageComponent, pathMatch: 'full' },
     ],
   },
   {
@@ -22,15 +20,18 @@ const routes: Routes = [
     pathMatch: 'prefix',
   },
   {
-    path: '',
-    loadChildren: './main/main.module#MainModule',
+    path: 'main',
+    loadChildren: () => import('./main/main.module').then((m) => m.MainModule),
     canActivateChild: [AuthGuard],
   },
   {
     path: 'trial',
-    loadChildren:
-      './trial-registration/trial-registration.module#TrialRegistrationModule',
+    loadChildren: () =>
+      import('./trial-registration/trial-registration.module').then(
+        (m) => m.TrialRegistrationModule,
+      ),
   },
+
   { path: '**', component: NotFoundComponent },
 ];
 

@@ -1,42 +1,40 @@
-@import '~@angular/material/theming';
-@import 'treadwill.theme.scss';
-@import 'styles.scss';
+@import 'common-styles.scss';
 
-html, body {
-    background-color: $treadwill-pre-login-primary !important;
-    color: $treadwill-pre-login-app-foreground !important;
+html,
+body {
+  background-color: #2a3b3d !important;
+  color: #f4bb56 !important;
 }
 
 .pre-login-side-nav-drawer-container {
-  background-color: $treadwill-pre-login-primary !important;
-  color: $treadwill-pre-login-app-foreground !important;
+  background-color: #2a3b3d !important;
+  color: #f4bb56 !important;
   height: 100%;
 }
 
 .pre-login-side-nav-drawer {
-  background-color: $treadwill-pre-login-app-foreground !important;
+  background-color: #f4bb56 !important;
 }
 
 .mat-pre-login-toolbar-color {
-  background-color: $treadwill-pre-login-primary;
+  background-color: #2a3b3d;
 }
 
 .anchorify-pre-login-toolbar-button {
   @extend .anchorify-with-highlight-on-hover !optional;
   @include font-lato();
   font-size: 100%;
-  color: $mat-white;
+  color: white;
   text-decoration: none;
 }
 
 .pre-login-toolbar-burger {
   @extend .cursor-hand;
-  color: $mat-white;
+  color: white;
 }
 
 .pre-login-side-nav-anchor {
-  color: $mat-white !important;
+  color: white !important;
   @include font-lato($font-weight: 700);
   font-size: 100% !important;
 }
-

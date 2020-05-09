@@ -3,27 +3,32 @@
   <!-- showing the TreadWill logo for mobile screens -->
   <div class="row d-block d-sm-none">
     <div class="col-12 d-flex justify-content-center">
-      <img alt="TreadWill logo" src="assets/shared/logo_full.png" class="logo-landscape">
+      <img
+        alt="TreadWill logo"
+        src="assets/shared/logo_full.png"
+        class="logo-landscape"
+      />
     </div>
   </div>
   <div class="row flex-row d-flex center-banner">
     <div class="col-12 col-sm-5 order-sm-last align-self-center">
-      <h1 
+      <h1
         class="text-center text-sm-left font-montserrat-normal"
-        [@fadeInOut]="isVisible ? 'visible' : 'inVisible'">{{ nat }}</h1>
-      <br><br>
-      <h2 class="text-center text-sm-left font-montserrat-bold sounds-familiar">Sounds familiar?</h2>
+        [@fadeInOut]="isVisible ? 'visible' : 'inVisible'"
+      >
+        {{ nat }}
+      </h1>
+      <br /><br />
+      <h2 class="text-center text-sm-left font-montserrat-bold sounds-familiar">
+        Sounds familiar?
+      </h2>
     </div>
     <div class="col-12 col-sm-7 align-self-center">
-      <img  src="assets/login/screen_1/screen_1_small.png" 
-            alt="relatable image 1"
-            srcset="assets/login/screen_1/screen_1_small.png 1110w,
-                    assets/login/screen_1/screen_1_medium.png 2220w,
-                    assets/login/screen_1/screen_1_large.png 4440w"
-            sizes="(max-width: 576px) 100vw,
-                   (max-width: 992px) 70vw,
-                    40vw" 
-            class="img-fluid float-right">
+      <img
+        src="assets/login/screen_1/screen_1.svg"
+        alt="relatable image 1"
+        class="img-fluid float-right"
+      />
     </div>
   </div>
 </div>
@@ -33,22 +38,23 @@
     <div class="col-12">
       <div class="row flex-row d-flex justify-content-center">
         <div class="col-xs-12 col-sm-10">
-          <img  src="assets/login/screen_2/screen_2_small.png" 
-                alt="relatable image 2" 
-                srcset="assets/login/screen_2/screen_2_small.png 1110w,
-                        assets/login/screen_2/screen_2_medium.png 2220w,
-                        assets/login/screen_2/screen_2_large.png 4440w"
-                sizes="100vw" 
-                class="img-fluid">
+          <img
+            src="assets/login/screen_2/screen_2.svg"
+            alt="relatable image 2"
+            class="img-fluid"
+          />
         </div>
       </div>
       <div class="row flex-row d-flex justify-content-center">
         <div class="col-xs-12 col-sm-10">
           <h1 class="font-montserrat-bold">TreadWill can help you</h1>
-          <br>
+          <br />
           <h5
-            class="font-montserrat-normal" 
-            [@fadeInOut]="isVisible ? 'visible' : 'inVisible'">{{ helpReason }}</h5>
+            class="font-montserrat-normal"
+            [@fadeInOut]="isVisible ? 'visible' : 'inVisible'"
+          >
+            {{ helpReason }}
+          </h5>
         </div>
       </div>
     </div>
@@ -60,22 +66,31 @@
     <div class="col-12">
       <div class="row flex-row d-flex justify-content-center">
         <div class="col-xs-12 col-sm-10">
-          <h5 class="font-montserrat-normal">We are currently conducting trials to see if TreadWill 
-            is effective in helping people with depressive symptoms.</h5>
+          <h5 class="font-montserrat-normal">
+            We are currently conducting trials to see if TreadWill is effective
+            in helping people with depressive symptoms.
+          </h5>
         </div>
       </div>
-      
+
       <!-- for desktop -->
       <div class="row flex-row d-flex">
         <div class="col-12 screen-3-container">
-          <img  src="assets/login/screen_3/screen_3_small.png" 
-              alt="relatable image 3"
-              srcset="assets/login/screen_3/screen_3_small.png 768w,
-                      assets/login/screen_3/screen_3_medium.png 2220w,
-                      assets/login/screen_3/screen_3_large.png 4440w"
-              sizes="100vw" 
-              class="img-fluid">
-          <button mat-button class="btn-join-the-study d-none d-md-block mx-auto align-middle" (click)="onJoinTheStudyClicked()">
+          <img
+            src="assets/login/screen_3/screen_3_large.svg"
+            alt="relatable image 3"
+            srcset="
+              assets/login/screen_3/screen_3_mobile.svg 800w,
+              assets/login/screen_3/screen_3_large.svg  1982w,
+            "
+            sizes="100vw"
+            class="img-fluid"
+          />
+          <button
+            mat-button
+            class="btn-join-the-study d-none d-md-block mx-auto align-middle"
+            (click)="onJoinTheStudyClicked()"
+          >
             <h3>Join the TreadWill study</h3>
           </button>
         </div>
@@ -84,16 +99,25 @@
       <!-- for mobile -->
       <div class="row flex-row d-block d-md-none">
         <div class="col-12 d-flex justify-content-center">
-            <button mat-button class="btn-join-the-study" (click)="onJoinTheStudyClicked()">
-              <h4>Join the TreadWill study</h4>
-            </button>
+          <button
+            mat-button
+            class="btn-join-the-study"
+            (click)="onJoinTheStudyClicked()"
+          >
+            <h4>Join the TreadWill study</h4>
+          </button>
         </div>
       </div>
-    
+
       <div class="row flex-row d-flex justify-content-center">
         <div class="col-xs-12 col-sm-10">
-          <h5 class="font-montserrat-normal">If you have any queries or are interested in collaborating with us,
-            <a class="anchorify-default" (click)="onLandingPageContactUsClicked()">contact us.</a>
+          <h5 class="font-montserrat-normal">
+            If you have any queries or are interested in collaborating with us,
+            <a
+              class="anchorify-default"
+              (click)="onLandingPageContactUsClicked()"
+              >contact us.</a
+            >
           </h5>
         </div>
       </div>

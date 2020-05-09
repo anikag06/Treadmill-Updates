@@ -1,0 +1,15 @@
+.connection {
+  text-align: center;
+  color: white;
+  position: fixed;
+  bottom: 0;
+  z-index: 50;
+  font-size: 14px;
+  height: 24px;
+}
+
+@media screen and (max-width: 500px) {
+  .connection {
+    height: 20px;
+  }
+}
