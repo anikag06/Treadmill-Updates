@@ -1370,6 +1370,7 @@ function update(){
 		}
 
 
+
 	}
 
 	//If all the lives are over,show game over dialog

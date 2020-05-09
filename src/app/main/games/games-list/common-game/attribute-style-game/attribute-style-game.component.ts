@@ -83,6 +83,13 @@ export class AttributeStyleGameComponent implements OnInit {
   ASGgoHome() {
     console.log('gohome');
     this.router.navigate(['/']);
+
+
+  }
+
+  ngOnDestroy() {
+    console.log('exec- ng on destroy');
+    this.gamePlayService.closeASGame();
   }
 
 }

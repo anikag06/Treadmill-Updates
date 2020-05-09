@@ -112,6 +112,8 @@ declare var ASGAnswer: ASGAnswerData;
 declare var ASGQuestions: ASGQuestionData;
 declare var ASGExplanations: ASGExplanation;
 declare var ASGFeedback: boolean;
+declare var musicASGame: any;
+// declare var ASGstop: any;
 // declare var ASanswer: any[];
 // declare var ASquestions: string[];
 // declare var ASGUserPerformance: ASGGetUserPerformance;
@@ -266,9 +268,15 @@ export class GamePlayService {
     console.log(this.game);
   }
 
+  soundASGGame(isSoundOn: any) {
+    //if (this.ecGameStarted) {
+      musicASGame(!isSoundOn);
+  }
+
   restartAttributionStyleGame() {
    // this.game.destroy();
      this.game.scene.scenes[5].rstart();
+
     // this.playAttributionStyleGame();
   }
 
@@ -284,6 +292,19 @@ export class GamePlayService {
     // } else if (this.game.scene.isActive('QuestionAndAnswer')) {
     //   this.game.scene.scenes[5].pause();
     // }
+  }
+  closeASGame() {
+   // if (this.ecGameStarted) {
+     // this.storeDataExecControlGame();
+    //ASGstop();
+    this.game.destroy(true);
+
+    let date: Date;
+    date = new Date();
+    let d = date.getUTCDate();
+    this.gamesAuthService.atPutUserPerformance(false,this.ASGGameInstanceId, date.toISOString()
+    );
+    //}
   }
 
   postIndividualLevelASG() {
@@ -323,7 +344,7 @@ export class GamePlayService {
     let date: Date;
     date = new Date();
     let d = date.getUTCDate();
-    this.gamesAuthService.atPutUserPerformance(this.ASGGameInstanceId, date.toISOString()
+    this.gamesAuthService.atPutUserPerformance(true,this.ASGGameInstanceId, date.toISOString()
     );
   }
 
