@@ -148,7 +148,7 @@ export class Conclusion1Component implements OnInit, OnDestroy {
       });
     this.commonDialogService.openCongratsDialog(
       this.currentStepId,
-      this.nextStepId,
+      // this.nextStepId,
       true,
     );
   }

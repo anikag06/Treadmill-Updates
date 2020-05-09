@@ -144,7 +144,7 @@ export class Conclusion3Component implements OnInit {
       });
     this.commonDialogService.openCongratsDialog(
       this.currentStepId,
-      this.nextStepId,
+      // this.nextStepId,
       true,
     );
   }

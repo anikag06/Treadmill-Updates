@@ -659,10 +659,10 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         console.log('bhdhbhdid');
       });
 
-    this.commonDialogService.openCongratsDialog(
-      current_step_id,
-      next_step_id,
-      isLastStep,
-    );
+    // this.commonDialogService.openCongratsDialog(
+    //   current_step_id,
+    //   next_step_id,
+    //   isLastStep,
+    // );
   }
 }
