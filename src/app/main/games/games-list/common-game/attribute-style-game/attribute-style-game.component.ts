@@ -1,11 +1,15 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
 import { LoadFilesService } from '@/main/games/shared/load-files.service';
 import { GamesAuthService } from '@/main/games/shared/games-auth.service';
 import { GamePlayService } from '@/main/games/shared/game-play.service';
+import {GamesFeedbackComponent} from '@/main/games/games-list/common-game/games-feedback/games-feedback.component';
+import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import {map, switchMap} from "rxjs/operators";
 import {FlowService} from "@/main/flow/flow.service";
 import {ActivatedRoute} from "@angular/router";
 import {StepsDataService} from "@/main/resources/shared/steps-data.service";
+
 
 declare var ASGAnswer: any;
 
@@ -24,10 +28,14 @@ export class AttributeStyleGameComponent implements OnInit {
     private loadFileService: LoadFilesService,
     private gamesAuthService: GamesAuthService,
     private gamePlayService: GamePlayService,
+    private dialogBoxService: DialogBoxService,
+    private router: Router,
     private flowService: FlowService,
     private activatedRoute: ActivatedRoute,
     private stepDataService: StepsDataService,
   ) {}
+  @ViewChild('newElement', { static: false }) element!: ElementRef;
+
 
   ngOnInit() {
     this.loadFileService
@@ -57,6 +65,7 @@ export class AttributeStyleGameComponent implements OnInit {
           console.log('STEP DETAIL:', this.navbarTitle);
           this.flowService.stepDetail.emit(this.navbarTitle);
         } );
+    this.gamePlayService.ASGUserData();
 
     /* this.gamesAuthService.atGetAnswers().subscribe(
       e => {
@@ -65,6 +74,9 @@ export class AttributeStyleGameComponent implements OnInit {
       }
     );*/
   }
+
+
+
 
   @HostListener('window:ASGPostIndividualLevelPerformance')
   postIndividualLevelPerformance() {
@@ -89,4 +101,30 @@ export class AttributeStyleGameComponent implements OnInit {
     console.log('works2');
     this.gamePlayService.postUserExplanation();
   }
+
+  @HostListener('window:Feedback')
+  openFeedbackPopup() {
+      this.dialogBoxService.setDialogChild(GamesFeedbackComponent);
+      const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
+      this.element.nativeElement.dispatchEvent(domEvent);
+  }
+
+  @HostListener('window:ASGPut')
+  ASGPutRequest() {
+    this.gamePlayService.putUserPerformance();
+  }
+
+  @HostListener('window:GoHome')
+  ASGgoHome() {
+    console.log('gohome');
+    this.router.navigate(['/']);
+
+
+  }
+
+  ngOnDestroy() {
+    console.log('exec- ng on destroy');
+    this.gamePlayService.closeASGame();
+  }
+
 }

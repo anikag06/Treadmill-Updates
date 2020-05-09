@@ -13,10 +13,10 @@ function config(render_type,swidth,sheight,modeType,center){
 		arcade: {
 			gravity: { y: 3000 },
 			debug: false
-				
+
 			}
 		};
-		
+
 	this.scene={
 		preload: preload,
 		create: create,
@@ -27,7 +27,7 @@ function config(render_type,swidth,sheight,modeType,center){
 
 //Find out browser version
 function browser_version_finder(){
-	var ua= navigator.userAgent,tem, 
+	var ua= navigator.userAgent,tem,
 	M= ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
 	if(/trident/i.test(M[1])){
 		tem=  /\brv[ :]+(\d+)/g.exec(ua) || [];
@@ -46,7 +46,7 @@ function browser_version_finder(){
 //Set game type accordingly(for now only done and tested for chrome)
 function setType()
 {
-   
+
    var browser_version=browser_version_finder().match(/([a-zA-Z]+)\s*(\d+)/);
 	if(browser_version[1] == 'Firefox'){
 		return Phaser.CANVAS;
@@ -57,7 +57,7 @@ function setType()
 	}
 	else
 	{
-		return Phaser.CANVAS;	
+		return Phaser.CANVAS;
 	}
 
 }
@@ -68,7 +68,8 @@ function setCenter(){
 	return Phaser.Scale.CENTER_BOTH;
 }
 
-
+var ECGFeedBack;
+var showFeedBack = 1;
 var screen_width;
 var screen_height;
 var scaleRatio;
@@ -78,16 +79,16 @@ var resumeECGame;
 var closeECGame;
 var musicECGame;
 
-var getECScoreData; 
+var getECScoreData;
 var getECGameTaskData;
 
 var storeTaskDataEvent;
 var storeECScoreDataEvent;
-// if game closed once ... then restarted 
-var game_closed; 
+// if game closed once ... then restarted
+var game_closed;
 var ec_play_clicked;
 
-//timeout var 
+//timeout var
 var generate_tasks_timeout;
 
 // badges information
@@ -480,7 +481,7 @@ var SINGLE_JUMP;
 var DOUBLE_JUMP;
 
 
-//Store the current instance of the game 
+//Store the current instance of the game
 var curr_game;
 
 
@@ -698,7 +699,7 @@ function preload(){
 		}
 	});
 	loadingText.setOrigin(0.5, 0.5);
-	
+
 	var percentText = this.make.text({
 		x: screen_width*0.5,
 		y: screen_height*0.47,
@@ -709,7 +710,7 @@ function preload(){
 		}
 	});
 	percentText.setOrigin(0.5, 0.5);
-            
+
 	this.load.on('progress', function (value) {
 		percentText.setText(parseInt(value * 100) + '%');
 		progressBar.clear();
@@ -731,7 +732,7 @@ function preload(){
 	this.load.image('skyline2',png+'/background_images/trees.png');
 	this.load.image('skyline3',png+'/background_images/mountains_snow.png');
 	this.load.image('skyline4',png+'/background_images/city.png');
-	
+
 	this.load.image('mountain_sky',jpg_location+'/blue_filler.jpg');
 	this.load.image('desert_sky',svg_location+'/sky.svg');
 	this.load.image('evening_sky',jpg_location+'/evening_sky.png');
@@ -739,7 +740,7 @@ function preload(){
 	this.load.image('brick',jpg_location+'/platform.png');
 	this.load.image('jump_platform_0',jpg_location+'/platform.png');
 	this.load.image('jump_platform_1',jpg_location+'/unstable-platform.jpg');
-	
+
 
 
 	this.load.image('river',svg_location+'/river.svg');
@@ -749,7 +750,7 @@ function preload(){
 	this.load.image('coin_obstacle',svg_location+'/stone_single.svg');
 	this.load.image('coin',svg_location+'/GOLD_COIN.svg');
 
-	
+
 	//Obstacle
 	this.load.image('obstacle',svg_location+'/stone_single.svg');
 	this.load.image('flying_obstacle',svg_location+'/Frog.svg');
@@ -790,7 +791,7 @@ function preload(){
 	this.load.image('green_button',svg_location+"/green_buttonN.svg");
 
 	// this.load.image('music_off', assets_img_location + "/mute.png");
-	
+
 	//Flanker Task Images
 	this.load.image('flanker_0',svg_location+"/flanker_task/0.svg");
 	this.load.image('flanker_1',svg_location+"/flanker_task/1.svg");
@@ -804,7 +805,7 @@ function preload(){
 
 	for(var i=0; i<TOTAL_NUMBER_OF_IMAGES; i+=2){
 		this.load.image('image_'+i,jpg_location+"/pictures/neutral/"+i+".jpg");
-	}	
+	}
 
 	//Discrimination Task Images
 	this.load.image('discrimination_0',svg_location+"/discrimination_task/red_symbol.svg");
@@ -844,7 +845,7 @@ function preload(){
 	this.load.image("right_flanker_tutorial", png+"/middle_arrow_right.png");
 	this.load.image("left_flanker_tutorial", png+"/middle_arrow_left.png");
 
-	//tutorial box 
+	//tutorial box
 	this.load.image("tutorial_box",svg_location+"/transparent_background.svg");
 
 	//Tunnel background
@@ -861,9 +862,9 @@ function preload(){
 	//Discrimination task controls
 	discriminationGreenKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
 	discriminationRedKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
-	
 
-	isTouchDevice = 'ontouchstart' in document.documentElement;  
+
+	isTouchDevice = 'ontouchstart' in document.documentElement;
 	this.input.keyboard.createCursorKeys();
 	this.input.keyboard.on('keydown', e => {
 		e.preventDefault();
@@ -899,14 +900,14 @@ function create(){
 	shooting_bomb_group=this.physics.add.group();
 	reward_group=this.physics.add.group();
 
-	// this.input.enabled = true; 
+	// this.input.enabled = true;
 	// this.input.addPointer(2);
 	// this.renderer.resize(200, 500, 1.0);
 	//Backgrond Elements
 	blue_filler=this.add.tileSprite(screen_width/2,screen_height*0.35,screen_width,screen_height*0.7,"mountain_sky");
 	cityline_title=this.add.tileSprite(screen_width/2,screen_height*(0.7-Cityline_height/(screen_height*2)),screen_width,Cityline_height,'skyline');
 	tunnel_entry=this.add.tileSprite(screen_width*0.5,screen_height*1.7,screen_width,screen_height*2,'tunnel');
-	
+
 	river=this.add.tileSprite(screen_width/2,screen_height*0.75,screen_width,screen_height*0.1,'river');
 	river_filler=this.add.tileSprite(screen_width/2,screen_height*0.9,screen_width,screen_height*0.2,'river_filler');
 
@@ -914,7 +915,7 @@ function create(){
 	platforms.add(brick);
 	brick.depth=1;
 	brick.body.allowGravity=false;
-	brick.body.immovable=true; 
+	brick.body.immovable=true;
 
 	//Adjust the brick position if the screen is bigger
 	if(screen_height*0.2>brick_height)
@@ -951,7 +952,7 @@ function create(){
 	coin_score_icon=coins_group.create(screen_width-40, stat_icon_display_y, 'coin').setScale(0.15);
 	coin_score_icon.body.allowGravity=false;
 
-	
+
 	//Detect touch on the screen for shooting action
 	this.input.on('pointerdown', function (pointer) {
 		if(gameOver==false&&no_player==false)
@@ -965,10 +966,10 @@ function create(){
 	player = this.physics.add.sprite(PLAYER_X,PLAYER_INITIAL_Y,'dude');
 	// this.add.image(250,340,'avatar').setScale(0.5);
 	this.physics.add.collider(player,brick);
-	
+
 	//Keyboard controls
 	cursors = this.input.keyboard.createCursorKeys();
-	
+
 	//For Tasks Generation
 	generate_tasks_variable=setTimeout(generate_tasks,TASK_INTERVAL);
 
@@ -1003,7 +1004,7 @@ function create(){
 	livesText = this.add.text(heart_x-41, stat_text_display_y, number_of_lives, { fontFamily: 'Roboto', fontSize: '27px', fill: '#fff',align:'left',
 											shadow: {offsetX: 1, offsetY: 1, color: '#0000003D',
 											blur: 2.2, stroke: true, fill: true }, });
-	coinsCollectedText=this.add.text(screen_width-85-COIN_SCORE_LENGTH_ADJUSTMENT*(coins_collected.toString().length-1), stat_text_display_y,coins_collected, 
+	coinsCollectedText=this.add.text(screen_width-85-COIN_SCORE_LENGTH_ADJUSTMENT*(coins_collected.toString().length-1), stat_text_display_y,coins_collected,
 											{ fontFamily: 'Roboto', fontSize: '27px', fill: '#fff',align:'left',wordWrap: true,
 											shadow: {offsetX: 1, offsetY: 1, color: '#0000003D',
 											blur: 2.2, stroke: true, fill: true }, });
@@ -1061,17 +1062,17 @@ function create(){
 	bronzeBar.width = (ecg_bronze_percent/100) * bronzeBarBack.width;
 
 	//Tutorial text
-	tutorial_text=this.add.text(screen_width*0.33,screen_height*0.29,"", 
+	tutorial_text=this.add.text(screen_width*0.33,screen_height*0.29,"",
 				{ fontFamily: 'Roboto', lineSpacing: 7,
 					fontSize: '16px', fill: '#FFFFFF',
 					align:'left', wordWrap: { width: screen_width*0.36} });
 	tutorial_text.depth = 14;
-	
+
 	//If touch add jump button
 	if(isTouchDevice==true)
 	{
 	//Jump Button
-	
+
 		jump_button=this.add.image(screen_width*0.06,screen_height*0.97, 'single_jump').setInteractive().setScale(0.35);
 		// jump_button.setScrollFactor(1,1,true);
 		jump_button.depth=10;
@@ -1085,8 +1086,8 @@ function create(){
 			jump();
 			this.alpha = 1;
 		}, this);
-	} 
-	
+	}
+
 	//Double jump button
 	if(isTouchDevice){
 		double_jump_button=this.add.sprite(screen_width*0.08+(jump_button.width*0.4),screen_height*0.97, 'double_jump').setInteractive().setScale(0.35);
@@ -1128,9 +1129,9 @@ function create(){
 	game_over_sound=this.sound.add('game_over_sound');
 
 	//Start scene change every 120 seconds
-	
+
 	scene_change_timeout =  setTimeout(scene_change_start, 5000);
-	
+
 }
 
 
@@ -1151,7 +1152,7 @@ function update(){
 
 	//Store the fcurrent instance of the game (to be used in other files)
 	curr_game=this;
-	
+
 	// to check if the game just started
 	if(ec_play_clicked){
 		if(music_muted){
@@ -1172,14 +1173,16 @@ function update(){
 		{
 			//Stop music
 			clearInterval(respawn_animator);
+
+
 			bgm_sound.stop();
-			
+
 			//Update data in the database
 			if(game_over_update==false)
 			{
 				scoreUpdate();
 			}
-			
+
 		}
 		player.anims.play('run',false);
 		player.anims.play('stand', true);
@@ -1198,14 +1201,16 @@ function update(){
 		}
 		return;
 	}
-   
+
+
+
 
 	//Show double coin power buy dialog if the user has unlocked that power and has enough coins to buy it
 	if(DOUBLE_COIN_POWER==true&&double_coin_option_shown==false&&coins_collected>=double_coin_cost)
 	{
 		game_paused=true;
 		bgm_sound.pause();
-	  
+
 		double_coin_dialog=this.add.tileSprite(screen_width*0.5,screen_height*0.5,screen_width*0.35,screen_height*0.4,"game_over_dialog");
 		double_coin_dialog.alpha =0.6;
 		double_coin_dialog.depth=4;
@@ -1217,14 +1222,14 @@ function update(){
 		double_coin_cost_text.depth=5;
 
 		player.anims.play('stand', true);
-	
+
 
 		clearInterval(score_update_handler);
 
 		double_coin_yes_button=this.add.image(double_coin_dialog.x,double_coin_dialog.y+double_coin_dialog.height/3,'yes_button').setScale(0.6).setInteractive();
 		double_coin_yes_button.depth=5;
 		double_coin_yes_button.x-=double_coin_yes_button.width*0.5;
-	   
+
 		double_coin_no_button=this.add.image(double_coin_dialog.x,double_coin_dialog.y+double_coin_dialog.height/3,'no_button').setScale(0.6).setInteractive();
 		double_coin_no_button.depth=5;
 		double_coin_no_button.x+=double_coin_yes_button.width*0.5;
@@ -1235,8 +1240,8 @@ function update(){
 			coins_collected-=double_coin_cost;
 			coinsCollectedText.setText(coins_collected);
 			coinsCollectedText.x=screen_width-90-COIN_SCORE_LENGTH_ADJUSTMENT*(coins_collected.toString().length-1);
-			
-			
+
+
 			destroy_double_coin_dialog_box();
 		});
 
@@ -1247,7 +1252,7 @@ function update(){
 
 		function destroy_double_coin_dialog_box()
 		{
-			
+
 			double_coin_dialog.destroy();
 			double_coin_text.destroy();
 			double_coin_icon.destroy();
@@ -1261,7 +1266,7 @@ function update(){
 		}
 
 		return;
-		
+
 	}
 
 
@@ -1272,7 +1277,7 @@ function update(){
 		game_paused=true;
 		bgm_sound.pause();
 
-	  
+
 		double_coin_dialog=this.add.tileSprite(screen_width*0.5,screen_height*0.5,screen_width*0.35,screen_height*0.4,"game_over_dialog");
 		double_coin_dialog.alpha = 0.6;
 		double_coin_dialog.depth=4;
@@ -1304,7 +1309,7 @@ function update(){
 			coinsCollectedText.x=screen_width-90-COIN_SCORE_LENGTH_ADJUSTMENT*(coins_collected.toString().length-1);
 
 			destroy_double_coin_dialog_box();
-			
+
 		});
 
 		double_coin_no_button.on('pointerdown',function(){
@@ -1314,7 +1319,7 @@ function update(){
 
 		function destroy_double_coin_dialog_box()
 		{
-			
+
 			double_coin_dialog.destroy();
 			double_coin_text.destroy();
 			double_coin_icon.destroy();
@@ -1339,10 +1344,10 @@ function update(){
 		current_checkpoint++;
 		level_changer();
 	}
-   
+
 	//If player is out of the screen and it is detected for the first time
 	if(player.y>screen_height+player.height&&no_player==false)
-	{   
+	{
 
 
 		falling_down_sound=curr_game.sound.add('falling_down_sound');
@@ -1354,7 +1359,7 @@ function update(){
 		//Reduce the number of lives and adjust the lives display accordingly;
 		if(number_of_lives>0)number_of_lives--;
 		livesText.setText(number_of_lives);
-		
+
 		//If life is still available continue ,otherwise GameOver
 		if(number_of_lives!=0)
 		{
@@ -1363,23 +1368,24 @@ function update(){
 			respawn_animator=setInterval(respawn_animation,RESPAWN_ANIMATION_INTERVAL);
 			respawn_dot_length=0;
 		}
-		
+
+
 
 	}
 
 	//If all the lives are over,show game over dialog
 	if(number_of_lives<=0)
 	{
-		
+
 		gameOver=true;
 		clearInterval(respawn_animator);
 		clearInterval(double_coin_blinker);
 		clearInterval(scene_change_timeout);
 		game_over_sound.play();
-			
+
 		game_over_dialog=this.add.tileSprite(screen_width*0.5,screen_height*0.5,screen_width*0.60,screen_height*0.55,"game_over_dialog").setTileScale(1.145,1.25);
 		game_over_dialog.depth=4;
-		
+
 		game_over_text=this.add.text(game_over_dialog.x-(game_over_dialog.width*0.20)+5,game_over_dialog.y-(game_over_dialog.height*0.4),"All lives finished. Buy lives!", { fontFamily: 'Roboto', fontSize: '18px', fill: '#FFFFFF',align:'center' });
 		game_over_text.depth=5;
 
@@ -1387,12 +1393,12 @@ function update(){
 		buy_live_img1.depth=5;
 		buy_live_img1_text=this.add.text(screen_width*0.28,screen_height*0.55, "1 life",{ fontFamily: 'Roboto', fontSize: '12px', fill: '#FFFFFF',align:'center' })
 		buy_live_img1_text.depth=5;
-		buy_one_live=this.add.image(screen_width*0.30,screen_height*0.66,'buy_button').setScale(1.1).setInteractive(); 
+		buy_one_live=this.add.image(screen_width*0.30,screen_height*0.66,'buy_button').setScale(1.1).setInteractive();
 		buy_one_live.depth = 7;
 		buy_one_live_text=this.add.text(screen_width*0.27,screen_height*0.625,"Buy for "+"\n" + retry_cost+ " coins", { fontFamily: 'Roboto', fontSize: '12px', fill: '#000000',align:'center' });
 		buy_one_live_text.setInteractive();
 		buy_one_live_text.depth=8;
-		
+
 		buy_one_live.on('pointerdown', ()=>{
 			no_lives_add = 1;
 			resume_after_game_over(no_lives_add);
@@ -1408,7 +1414,7 @@ function update(){
 		buy_live_img22.depth=5;
 		buy_live_img2_text=this.add.text(screen_width*0.469,screen_height*0.55, "2 lives",{ fontFamily: 'Roboto', fontSize: '12px', fill: '#FFFFFF',align:'center' })
 		buy_live_img2_text.depth=5;
-		buy_two_lives=this.add.image(screen_width*0.50,screen_height*0.66,'buy_button').setScale(1.1).setInteractive(); 
+		buy_two_lives=this.add.image(screen_width*0.50,screen_height*0.66,'buy_button').setScale(1.1).setInteractive();
 		buy_two_lives.depth = 7;
 		buy_two_lives_text=this.add.text(screen_width*0.47,screen_height*0.625,"Buy for "+"\n" + (2*retry_cost)+ " coins", { fontFamily: 'Roboto', fontSize: '12px', fill: '#000000',align:'center' });
 		buy_two_lives_text.setInteractive();
@@ -1431,7 +1437,7 @@ function update(){
 		buy_live_img33.depth=5;
 		buy_live_img3_text=this.add.text(screen_width*0.674,screen_height*0.55, "3 lives",{ fontFamily: 'Roboto', fontSize: '12px', fill: '#FFFFFF',align:'center' })
 		buy_live_img3_text.depth=5;
-		buy_three_lives=this.add.image(screen_width*0.70,screen_height*0.66,'buy_button').setScale(1.1).setInteractive(); 
+		buy_three_lives=this.add.image(screen_width*0.70,screen_height*0.66,'buy_button').setScale(1.1).setInteractive();
 		buy_three_lives.depth = 7;
 		buy_three_lives_text=this.add.text(screen_width*0.67,screen_height*0.625,"Buy for "+"\n" + (3*retry_cost)+ " coins", { fontFamily: 'Roboto', fontSize: '12px', fill: '#000000',align:'center' });
 		buy_three_lives_text.setInteractive();
@@ -1445,7 +1451,7 @@ function update(){
 			no_lives_add = 3;
 			resume_after_game_over(no_lives_add);
 		}, curr_game);
-	}        
+	}
 	//No player is currently active on the game,wait for the platforms to reach the required position
 	if(no_player==true&&falling_down_sound==null&&((brick1.x>=-screen_width/2+PLAYER_X+JUMP_RANGE/4&&brick1.x<=screen_width/2+PLAYER_X+JUMP_RANGE/4)||(brick.x>=-screen_width/2+PLAYER_X+JUMP_RANGE/4&&brick.x<=screen_width/2+PLAYER_X+JUMP_RANGE/4)))
 	{
@@ -1455,7 +1461,7 @@ function update(){
 		player.height = (screen_height/8);
 		this.physics.add.collider(player,brick);
 		this.physics.add.collider(player,brick1);
-		
+
 		//Reset no_player flag
 		no_player=false;
 
@@ -1463,7 +1469,7 @@ function update(){
 		clearInterval(respawn_animator);
 		RESPAWNING_TEXT.setText("");
 		respawn_dot_length=0;
-	  
+
 	}
 
 	//Keyboard
@@ -1500,13 +1506,13 @@ function update(){
 
 		//Generate game elements if not reached crossing or restoration of game has been started
 		if((reachedCrossing==false||task_completed==false||restore_game==true))
-		{ 
+		{
 			//Make the first choice(between air and on platform)
 			if(free_to_start_choose==true&&start_tasks==false&&isChangingScene==false&&startTunnelMovement==false&&stopTunnelMovement==false)
 			{
 				first_choice=Math.floor(Math.random()*FIRST_CHOICE_RANGE);
-				
-				//Change the random choice to show tutorial    
+
+				//Change the random choice to show tutorial
 				if(SHOW_TUTORIAL==true&&jump_tutorial_shown==false)
 				{
 						first_choice=FIRST_CHOICE_SPLITTER;
@@ -1539,19 +1545,19 @@ function update(){
 
 
 			}
-			
+
 			//dont use this for generating coins in the tunnel(see scene change code)
 			if(stopTunnelMovement==false&&startTunnelMovement==false)
 			{
 				//For Coin
 				if(second_choice%COIN_SELECTOR==0&&second_choice!=-1||coinGenerating==true)
-				{ 
+				{
 					//If this condition is selected because of the latter condition(coin already exists),dont generate new coin
 					if(second_choice%COIN_SELECTOR!=0)
-					{     
+					{
 						add_new_coin=false;
 					}
-					
+
 					//Else generate new coin if flags allow it
 					else if(coinGeneratingInit==true||coinGenerating==false)
 					{
@@ -1560,14 +1566,14 @@ function update(){
 
 					coins_placer();
 				}
-			}      
-			
+			}
+
 			//For Coin with obstacle
 			if(second_choice%COIN_WITH_OBSTACLE_SELECTOR==0&&second_choice%COIN_SELECTOR!=0&&second_choice!=-1||coinGeneratingWithObstacle==true)
 			{
 				 //If this condition is selected because of the latter condition(coin already exists),dont generate new coin
 				if(second_choice%COIN_WITH_OBSTACLE_SELECTOR!=0||second_choice%2==0)
-				{     
+				{
 					add_new_coin_with_obstacle=false;
 				}
 
@@ -1576,14 +1582,14 @@ function update(){
 				{
 					add_new_coin_with_obstacle=true;
 				}
-					 
+
 				coins_with_obstacle_placer();
-					
+
 			}
 
 			//For extra life
 			if(second_choice%COIN_WITH_OBSTACLE_SELECTOR!=0&&second_choice%COIN_SELECTOR!=0&&second_choice%LIFE_SELECTOR==0&&second_choice!=-1||lifeGenerating==true)
-			{   
+			{
 				//Generate new life if it is required
 				if(number_of_lives==MAX_NUMBER_OF_LIVES||lifeGenerating==true)
 				{
@@ -1592,11 +1598,11 @@ function update(){
 				}
 			}
 
-			
+
 			//Start Tasks if no other elements are begin generated
 			if(start_tasks==true&&task_init==true&&clear_to_start==0&&no_player==false&&startTunnelMovement==false&&stopTunnelMovement==false)
-			{	
-				
+			{
+
 				task_generator();
 				free_to_choose_high=false;
 				free_to_choose=false;
@@ -1617,11 +1623,24 @@ function update(){
 			//Restore game after tasks
 			if(restore_game==true)
 			{
+       // if(current_number_of_tasks === 2) {
+       // console.log('true treu trei')
+       //   if (ECGFeedBack) {
+       //     gameFeedbackPop();
+       //   }
+       // }
 				game_restore();
 				if (task_background_removed) {
-					task_background.destroy();  
+          if(showFeedBack === 2) {
+            console.log('true treu trei')
+            if (ECGFeedBack) {
+              gameFeedbackPop();
+            }
+          }
+          showFeedBack = showFeedBack + 1;
+					task_background.destroy();
 					task_background_removed = false;
-					task_background_added = false; 
+					task_background_added = false;
 				}
 			}
 
@@ -1652,14 +1671,14 @@ function update(){
 			//For Dropping Platform Generation
 			if(second_choice_high%DROPPING_PLATFORM_SELECTOR==0&&second_choice_high!=-1||dropping_platform!=null&&dropping_platform_first==false)
 			{
-				
+
 				dropping_platform_placer();
 			}
 		}
 
 
-		
-		//Disable jumping if the user falls down    
+
+		//Disable jumping if the user falls down
 		if(player.body.touching.down==false&&isJumping==false)
 		{
 			jump_disabled=true;
@@ -1671,11 +1690,11 @@ function update(){
 
 		//If reached crossing is true
 		if(reachedCrossing==true)
-		{   
+		{
 			//Change Player animation
 			player.anims.play('run',false);
 			player.anims.play('stand', true);
-		
+
 			//Change River speed to still water speed
 			river.tilePositionX+=STILL_WATER_SPEED;
 			river.titlePositionY=1-river.titlePositionY;
@@ -1683,7 +1702,7 @@ function update(){
 			river_filler.titlePositionY=1-river_filler.titlePositionY;
 
 			isJumping=false;
-			
+
 		}
 
 		//If reached crossing is false
@@ -1703,14 +1722,14 @@ function update(){
 
 			//Move the tiles
 			brick.tilePositionX+=brick_speed;
-			
+
 			// scene_change_platform.x-=brick_speed;
 			// scene_change_platform.y-=scene_change_platform_velocity_y;
 			player.y-=player_y_speed;
 			river.tilePositionX+=RIVER_SPEED;
 			river.titlePositionY=1-river.titlePositionY;
 			river_filler.tilePositionX+=BIG_RIVER_SPEED;
-			
+
 
 			blue_filler.tilePositionX+=CLOUDS_SPEED;
 			cityline_title.tilePositionX+=CITYLINE_SPEED;
@@ -1728,7 +1747,7 @@ function update(){
 				if(horizontalMovement==false)
 				{
 					 player.anims.play('stand', true);
-					
+
 				}
 				else
 				{
@@ -1736,7 +1755,7 @@ function update(){
 					player.anims.play('run', true);
 
 				}
-			   
+
 			}
 
 			//else set animation to be jump
@@ -1750,24 +1769,24 @@ function update(){
 		//Start Jumping actions if up arrow pressed and already not jumping
 		if(jumpKey.isDown&&doubleJumpKey.isDown==false&&isJumping==false)
 		{
-			
+
 			jump();
-		
+
 		}
 
 		//Double jump
 		else if(doubleJumpKey.isDown&&jumpKey.isDown&&isJumping==false&&jump_disabled==false&&reachedCrossing==false)
 		{
 			double_jump();
-		   
-		}    
-			
+
+		}
+
 		//For already jumping case
 		else if(isJumping==true&&jump_disabled==false&&reachedCrossing==false)
 		{
 			jump_action(jump_height/type,jump_velocity*type);
 
-			
+
 		}
 
 		//For shooting action
@@ -1775,7 +1794,7 @@ function update(){
 		{
 			shoot_action();
 		}
-	
+
 	}
 }
 function resume_after_game_over(no_lives_add) {
@@ -1803,7 +1822,7 @@ function resume_after_game_over(no_lives_add) {
 	number_of_lives=no_lives_add;
 	livesText.setText(number_of_lives);
 	life.body.allowGravity=false;
-	
+
 	game_over_dialog.destroy();
 	game_over_text.setText("");
 
@@ -1826,7 +1845,7 @@ function resume_after_game_over(no_lives_add) {
 
 	setTimeout(score_updator, 500);
 	scene_change_timeout =  setTimeout(scene_change_start, 5000);
-	
+
 	isJumping=false;
 	if(player.y>screen_height+player.height)
 	{
@@ -1845,7 +1864,7 @@ function jump()
 	{
 		jump_tutorial_shown=true;
 		game_paused=false;
-		
+
 		if(isTouchDevice==false)
 		{
 		tutorial_text.setText("");
@@ -1862,7 +1881,7 @@ function jump()
 		}
 	}
 
-	
+
 	//Tutorial for obstacle (stop animation and restore game)
 	else if(SHOW_TUTORIAL==true&&obstacle_tutorial_shown==false&&obstacle!=null&&(control_button_1!=null||animation_active==true))
 	{
@@ -1881,17 +1900,24 @@ function jump()
 			jump_button.alpha=1;
 			jump_button.setScale(0.35);
 			animation_active=false;
-		   
+
 		}
 	}
 	if(isJumping==false&&jump_disabled==false&&reachedCrossing==false&&game_paused==false&&gameOver==false)
-	{   
+	{
 		jumpingInit=true;
 		type=SINGLE_JUMP;
 		jump_action(jump_height/type,jump_velocity*type);
 		curr_game.sound.add('jumping_sound').play();
-	
+
 	}
+}
+
+
+function gameFeedbackPop() {
+  this.feedbackEvent = document.createEvent("CustomEvent");
+  this.feedbackEvent.initCustomEvent("Feedback");
+  window.dispatchEvent(this.feedbackEvent);
 }
 
 
@@ -1976,7 +2002,7 @@ function double_jump(){
 		}
 		else
 		{
-		   
+
 			var old_count=coins_collected
 			coins_collected-=DOUBLE_JUMP_COST;
 			//curr_game.sound.add('coin_sound');
@@ -1985,7 +2011,7 @@ function double_jump(){
 			if(old_count.toString().length!=coins_collected.toString().length)
 			{
 				 coinsCollectedText.x+=COIN_SCORE_LENGTH_ADJUSTMENT;
-				
+
 			}
 
 			coinsCollectedText.setText(coins_collected);
@@ -1994,7 +2020,7 @@ function double_jump(){
 	}
 
 
-} 
+}
 
 // TO BE REMOVED
 // //Coin blinker(For double jump cost)
@@ -2025,12 +2051,12 @@ function shoot(){
 		shooting_bomb[shooting_bomb.length-1].body.allowGravity=false;
 		curr_game.sound.add('shooting_sound').play();
 
-		
+
 
 		for(var i=0;i<obstacle_for_coin.length;i++)
 		{
 			curr_game.physics.add.overlap(obstacle_for_coin[i],shooting_bomb[shooting_bomb.length-1],function(obj1,obj2){shoot_coin_obstacle(obj1,obj2);}, null, curr_game);
-		   
+
 		}
 		if(obstacle!=null)
 		{
@@ -2053,14 +2079,14 @@ function shoot(){
 		shoot_x.pop();
 		shoot_y.pop();
 
-	}    
-		
-	no_of_clicks=0;    
+	}
+
+	no_of_clicks=0;
 	clicked_detected=false;
-	
+
 }
 
-//For pausing the game    
+//For pausing the game
 
 pauseECGame = function() {
 	if (game_paused === true) {
@@ -2074,7 +2100,7 @@ pauseECGame = function() {
 	}
 }
 resumeECGame = function() {
-	
+
 	if (game_paused === false) {
 		return;
 	} else {
@@ -2103,11 +2129,11 @@ musicECGame =  function(music_muted)
 
 	}
 }
-closeECGame = function(){ 
+closeECGame = function(){
 	game_paused=true;
 	// gameOver=true;
 	game_closed = true;
-	
+
 	clearInterval(blinking_animation);
 
 	clearInterval(respawn_animator);
@@ -2130,7 +2156,7 @@ closeECGame = function(){
 	clearInterval(start_countdown);
 	clearInterval(task_button_blinking_animation);
 	clearInterval(touch_button_animation);
-	
+
 	//when scene change
 	clearTimeout(scene_change_timeout);
 	clearTimeout(moveSidewardsTimeout);
@@ -2141,11 +2167,11 @@ closeECGame = function(){
 		curr_game.sys.game.destroy(true);
 	}
 	return;
-	// $('#start_page').removeClass('d-none');    
+	// $('#start_page').removeClass('d-none');
 }
 
-function score_updator(){   
-	
+function score_updator(){
+
 	if(reachedCrossing==false&&gameOver==false&&reachedCrossing==false&&game_paused==false)
 	{
 		score+=1;
@@ -2155,22 +2181,22 @@ function score_updator(){
 	{
 		score_update_handler=setTimeout(score_updator, 500);
 	}
-		
+
 	if(score%LEVEL_SPEED_INCREMENT_GAP==0&&reachedCrossing==false&&game_paused==false)
 	{
 		if(LEVEL_SPEED < MAX_LEVEL_SPEED){
 			LEVEL_SPEED+=SPEED_INCREMENT;
 			change_speed(true);
 		}
-		
+
 	}
 
 }
 
-//Set flags for tasks generation  
+//Set flags for tasks generation
 function generate_tasks()
 {
-   
+
 	//If game is paused or scene is changing delay the tasks
 	if(game_paused==true||isChangingScene==true)
 	{
@@ -2204,7 +2230,7 @@ function blinking_animation()
 		{
 			player.alpha=0.25;
 			//player.setTint(0x440000);
-		   
+
 		}
 		else
 		{
@@ -2233,10 +2259,10 @@ function jumps_remaining_changer()
 		double_jump_text.setText("x"+jumps.remaining);
 	}
 }
-	
-//Watch for change in level.number 
+
+//Watch for change in level.number
 function level_changer(){
-	
+
 	if(level.number==2)
 	{
 		stop_obstacle_generation=false;
@@ -2259,8 +2285,8 @@ function level_changer(){
 		DROPPING_PLATFORM_SIZE_RANGE=100;
 		PIT_SELECTOR=2;
 		DROPPING_PLATFORM_SELECTOR=3;
-	
-	
+
+
 	}
 
 	//Don't allow coin with obstacles
@@ -2302,7 +2328,7 @@ function change_speed(speed_increased)
 	DROPPING_PLATFORM_SPEED=LEVEL_SPEED;
 	OBSTACLE_SPEED=LEVEL_SPEED;
 	JUMP_PLATFORM_SPEED=LEVEL_SPEED;
-	
+
 	CROSSING_RANGE+=CROSSING_RANGE_INCREMENT;
 	if(OBSTACLE_Y_SPEED>0)
 	{
@@ -2335,7 +2361,7 @@ function change_speed(speed_increased)
 	}
 }
 
-//For tasks timing modify the timestamp as per django(python) requirement        
+//For tasks timing modify the timestamp as per django(python) requirement
 function generateTS()
 {
 	date=new Date();
@@ -2366,7 +2392,7 @@ function generateTS()
 	{
 	  seconds="0"+seconds;
 	}
-  
+
 
 	//format-YYYY-MM-DD HH-MM-SS
 	var ts=year+"-"+month+"-"+day+" "+hour+":"+minute+":"+seconds;
@@ -2380,7 +2406,7 @@ function scoreUpdate(){
 	window.dispatchEvent(storeECScoreDataEvent);
 
 	game_over_update=true;
-	
+
 }
 getECScoreData = function(){
 	if(score > max_score){

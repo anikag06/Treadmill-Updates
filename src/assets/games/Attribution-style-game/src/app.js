@@ -85,15 +85,66 @@ var AttributeGame = function () {
 //     console.log('running');
 // };
 
+// ASGstop = function() {
+//   // this.scene = [PreloadScene, HomeScene, LevelOne, LevelTwo, LevelThree, UIScene, ScoreDisplay, QuestionAndAnswer,Personalisation,Permanence,Pervasiveness,UserResult];
+// bgm_sound.stop();
+//   // this.scene.stop(this.registry.get('currentScene'));
+//   // this.scene.stop(this.registry.get('QuestionScene'));
+//   // this.scene.stop(this.registry.get('ParallelScene'));
+//   // this.scene.stop('PERSONALISATION');
+//   // this.scene.stop('PERMANENCE');
+//   // this.scene.stop('pervasiveness');
+//   // this.scene.stop('UserResult');
+//   this.scene.stop('PreloadScene');
+//   // this.scene.stop('HomeScene');
+//   // this.scene.stop('LevelOne');
+//   // this.scene.stop('LevelTwo');
+//   // this.scene.stop('LevelThree');
+//   // this.scene.stop('UIScene');
+//   // this.scene.stop('ScoreDisplay');
+//   // this.scene.stop('UserResult');
+//   // this.scene.stop('QuestionAndAnswer');
+//
+//
+// }
+
+musicASGame =  function(s)
+{
+
+  // music_muted=!music_muted;
+
+  if(s==true)
+  {
+    bgm_sound.pause();
+    ASGsound = false;
+   // curr_game.sound.mute=true;
+  }
+  else
+  {
+    if(ASGrestartSound == true){
+      bgm_sound.play();
+      ASGrestartSound = false;
+    } else {
+      bgm_sound.resume();
+    }
+    ASGsound = true;
+    //curr_game.sound.mute=false;
+
+  }
+}
 
 
- class PreloadScene extends Phaser.Scene {
+
+ var a = class PreloadScene extends Phaser.Scene {
   constructor() {
     super({ key: "PreloadScene" });
   }
 
   preload() {
     this.load.image("bg", "./assets/games/Attribution-style-game/src/assets/background.png");
+    this.load.image("GoToHome", "./assets/games/Attribution-style-game/src/assets/GoToHome.png");
+    this.load.image("PlayAgain", "./assets/games/Attribution-style-game/src/assets/PlayAgain.png");
+
     this.load.image("play_btn", "./assets/games/Attribution-style-game/src/assets/play_btn.png");
     this.load.image("pause_btn", "./assets/games/Attribution-style-game/src/assets/pause_btn.png");
     this.load.image("home_btn", "./assets/games/Attribution-style-game/src/assets/home_btn.png");
@@ -123,6 +174,11 @@ var AttributeGame = function () {
       "danger_balloon",
       "./assets/games/Attribution-style-game/src/assets/danger_balloon.png"
     );
+    this.load.audio('arrow_sound',"./assets/games/Attribution-style-game/src/assets/arrow.mp3");
+    this.load.audio('background_sound',"./assets/games/Attribution-style-game/src/assets/background.mp3");
+    this.load.audio('click_sound',"./assets/games/Attribution-style-game/src/assets/click.mp3");
+    this.load.audio('popup_sound',"./assets/games/Attribution-style-game/src/assets/popup.mp3");
+
   }
 
   create() {
@@ -135,7 +191,7 @@ var AttributeGame = function () {
 
 
 
-class HomeScene extends Phaser.Scene {
+var b = class HomeScene extends Phaser.Scene {
    constructor() {
      super({ key: 'HomeScene' })
    }
@@ -148,12 +204,17 @@ class HomeScene extends Phaser.Scene {
         this.scene.stop();
         this.scene.start('LevelOne');
         this.registry.set('currentScene', 'LevelOne');
+       if(ASGsound){
+     bgm_sound=this.sound.add('background_sound').setVolume(0.3);
+     bgm_sound.loop=true;
+         // musicASGame(sound);
+    bgm_sound.play();}
 
 
-       let event = document.createEvent('Event');
-       event.initEvent('build');
-       window.dispatchEvent(event);
-       console.log(event);
+       // let event = document.createEvent('Event');
+       // event.initEvent('build');
+       // window.dispatchEvent(event);
+       // console.log(event);
 
 
 
@@ -166,14 +227,18 @@ class HomeScene extends Phaser.Scene {
    }
 }
 
-class LevelOne extends Phaser.Scene {
+
+
+var c = class LevelOne extends Phaser.Scene {
     constructor() {
         super({ key: 'LevelOne' })
     }
 
     create() {
 
+
       ASGLevelId = 1;
+      level = 1;
 
         this.lastFired = 0;
 
@@ -220,6 +285,7 @@ class LevelOne extends Phaser.Scene {
             .setScale(0.1)
             .setOrigin(0, 0.5)
             .setGravityY(-400);
+        this.arrow_sound = this.sound.add('arrow_sound').setVolume(0.5);
 
         this.arrowPoint = this.physics.add
             .sprite(100, 650, null)
@@ -242,6 +308,8 @@ class LevelOne extends Phaser.Scene {
         this.balloons.createMultiple({ key: 'yellow_balloon', repeat: 5, setXY: { x: SetX, y: SetY + 300, stepX: 100 } });
         this.balloons.createMultiple({ key: 'red_balloon', repeat: 5, setXY: { x: SetX, y: SetY + 450, stepX: 100 } });
         this.balloons.createMultiple({ key: 'purple_balloon', repeat: 5, setXY: { x: SetX, y: SetY + 600, stepX: 100 } });
+        this.popup_sound = this.sound.add('popup_sound').setVolume(0.5);
+
 
         this.balloons.getChildren().forEach(element => {
             element.setScale(0.2);
@@ -252,18 +320,18 @@ class LevelOne extends Phaser.Scene {
             .setFontSize(fontSize)
             .setColor(fontColor);
 
-                
+
             this.redBalloonTime = this.add.sprite(this.ScoreTxt.getTopRight().x + 20, (this.ScoreTxt.getTopRight().y + this.ScoreTxt.getBottomRight().y) / 2, 'red_balloon').setScale(0.07);
 
 
             this.timeTxt = this.add.text(this.redBalloonTime.getBottomRight().x +  30, 30, this.totalTime, { fontFamily: '"Roboto"' })
                 .setFontSize(fontSize)
                 .setColor(fontColor);
-    
+
             this.timeTxtSec = this.add.text(this.timeTxt.getBottomRight().x + 5,30, 's', { fontFamily: '"Roboto"' })
                 .setFontSize(fontSize)
                 .setColor(fontColor);
-    
+
         this.gameOverTxt = this.add.text(660, 370, "Game Over!", { fontFamily: '"Roboto"' })
             .setFontSize(50)
             .setColor('black')
@@ -346,6 +414,8 @@ class LevelOne extends Phaser.Scene {
 
 
 
+
+
     bowMovement(pointer) {
         if (!this.isGameStart) return;
         if (this.isGameOver) return;
@@ -382,6 +452,7 @@ class LevelOne extends Phaser.Scene {
         this.arrowInAir = true;
         this.isArrowReady = false;
 
+
         // Arrow deviates at angle between -5 to 5 (angle is in degree)
         this.arrow.angle += Phaser.Math.Between(-5, 5);
 
@@ -410,6 +481,8 @@ class LevelOne extends Phaser.Scene {
 
         arrowSecond.setVelocity(this.velocityArrow.x, this.velocityArrow.y);
         arrowPointTemp.setVelocity(this.velocityArrow.x, this.velocityArrow.y);
+      if(ASGsound){
+        this.arrow_sound.play();}
 
         this.bowBend.setVisible(false);
         this.bow.setVisible(true);
@@ -425,6 +498,8 @@ class LevelOne extends Phaser.Scene {
         balloon.setVelocity(0, 0);
         balloon.alpha = 0;
         balloon.disableBody(true, true);
+      if(ASGsound){
+        this.popup_sound.play();}
 
         this.totalBalloonBlown++;
         this.ScoreTxt.setText(this.totalBalloonBlown, { fontFamily: '"Roboto"' });
@@ -521,7 +596,7 @@ class LevelOne extends Phaser.Scene {
     }
 }
 
-class LevelTwo extends Phaser.Scene {
+var d = class LevelTwo extends Phaser.Scene {
     constructor() {
         super({ key: 'LevelTwo' })
 
@@ -574,8 +649,10 @@ class LevelTwo extends Phaser.Scene {
             .setScale(0.1)
             .setOrigin(0, 0.5)
             .setGravityY(-400);
+      this.arrow_sound = this.sound.add('arrow_sound').setVolume(0.5);
 
-        this.arrowPoint = this.physics.add
+
+      this.arrowPoint = this.physics.add
             .sprite(100, 650, null)
             .setScale(0.1)
             .setGravityY(-400);
@@ -587,8 +664,10 @@ class LevelTwo extends Phaser.Scene {
         this.balloons = this.physics.add.group({
             allowGravity: false
         });
+      this.popup_sound = this.sound.add('popup_sound').setVolume(0.5);
 
-        let balloon = new Phaser.Class({
+
+      let balloon = new Phaser.Class({
             Extends: Phaser.Physics.Arcade.Image,
 
             initialize: function Balloon(scene) {
@@ -632,7 +711,7 @@ class LevelTwo extends Phaser.Scene {
         this.ScoreTxt = this.add.text(30, 30, '0',{ fontFamily: '"Roboto"' })
             .setFontSize(fontSize)
             .setColor(fontColor);
-        
+
         this.redBalloonTime = this.add.sprite(this.ScoreTxt.getTopRight().x + 20, (this.ScoreTxt.getTopRight().y + this.ScoreTxt.getBottomRight().y) / 2, 'red_balloon').setScale(0.07);
 
 
@@ -705,6 +784,7 @@ class LevelTwo extends Phaser.Scene {
                     this.scene.start('ScoreDisplay');
                     this.registry.set('currentScene', 'LevelThree');
                   this.updateBadges();
+                  this.updateExplanation();
                 }
             },
             callbackScope: this.scene,
@@ -718,6 +798,11 @@ class LevelTwo extends Phaser.Scene {
     this.ASGPostLevelTwoPerformanceEvent = document.createEvent('CustomEvent');
     this.ASGPostLevelTwoPerformanceEvent.initCustomEvent('ASGPostLevelTwoPerformance');
     window.dispatchEvent(this.ASGPostLevelTwoPerformanceEvent);}
+
+  updateExplanation() {
+    this.ASGpostUserExplanationEvent = document.createEvent('CustomEvent');
+    this.ASGpostUserExplanationEvent.initCustomEvent('ASGpostUserExplanation');
+    window.dispatchEvent(this.ASGpostUserExplanationEvent);}
 
     bowMovement(pointer) {
         if (!this.isGameStart) return;
@@ -748,6 +833,9 @@ class LevelTwo extends Phaser.Scene {
         if (this.isGameOver) return;
         if (this.arrowInAir) return;
         if (!this.isArrowReady) return;
+        if(ASGsound){
+          this.arrow_sound.play();
+        }
 
         this.arrowInAir = true;
         this.isArrowReady = false;
@@ -794,7 +882,11 @@ class LevelTwo extends Phaser.Scene {
     balloonBlowUp(arrow, balloon) {
         balloon.setVelocity(0, 0);
         balloon.alpha = 0;
+        if(ASGsound){
+          this.popup_sound.play();
+        }
         balloon.disableBody(true, true);
+
 
         this.totalBalloonBlown++;
         this.ScoreTxt.setText(this.totalBalloonBlown, { fontFamily: '"Roboto"' });
@@ -907,7 +999,7 @@ class LevelTwo extends Phaser.Scene {
     }
 }
 
-class LevelThree extends Phaser.Scene {
+var e = class LevelThree extends Phaser.Scene {
     constructor() {
         super({ key: 'LevelThree' })
 
@@ -963,8 +1055,10 @@ class LevelThree extends Phaser.Scene {
             .setScale(0.1)
             .setOrigin(0, 0.5)
             .setGravityY(-400);
+      this.arrow_sound = this.sound.add('arrow_sound').setVolume(0.5);
 
-        this.arrowPoint = this.physics.add
+
+      this.arrowPoint = this.physics.add
             .sprite(100, 650, null)
             .setScale(0.1)
             .setGravityY(-400);
@@ -976,8 +1070,10 @@ class LevelThree extends Phaser.Scene {
         this.balloons = this.physics.add.group({
             allowGravity: false
         });
+      this.popup_sound = this.sound.add('popup_sound').setVolume(0.5);
 
-        let balloon = new Phaser.Class({
+
+      let balloon = new Phaser.Class({
             Extends: Phaser.Physics.Arcade.Image,
 
             initialize: function Balloon(scene) {
@@ -1034,18 +1130,18 @@ class LevelThree extends Phaser.Scene {
             .setFontSize(fontSize)
             .setColor(fontColor);
 
-               
+
             this.redBalloonTime = this.add.sprite(this.ScoreTxt.getTopRight().x + 20, (this.ScoreTxt.getTopRight().y + this.ScoreTxt.getBottomRight().y) / 2, 'red_balloon').setScale(0.07);
 
 
             this.timeTxt = this.add.text(this.redBalloonTime.getBottomRight().x +  30, 30, this.totalTime, { fontFamily: '"Roboto"' })
                 .setFontSize(fontSize)
                 .setColor(fontColor);
-    
+
             this.timeTxtSec = this.add.text(this.timeTxt.getBottomRight().x + 5,30, 's', { fontFamily: '"Roboto"' })
                 .setFontSize(fontSize)
                 .setColor(fontColor);
-    
+
         this.gameOverTxt = this.add.text(660, 370, "Game Over!", { fontFamily: '"Roboto"' })
             .setFontSize(50)
             .setColor('black')
@@ -1106,6 +1202,7 @@ class LevelThree extends Phaser.Scene {
                     this.scene.start('ScoreDisplay');
                     this.registry.set('currentScene', 'LevelThree');
                   this.updateBadges();
+                  this.updateExplanation();
                 }
             },
             callbackScope: this.scene,
@@ -1126,6 +1223,11 @@ class LevelThree extends Phaser.Scene {
     this.ASGPostIndividualLevelPerformanceEvent = document.createEvent('CustomEvent');
     this.ASGPostIndividualLevelPerformanceEvent.initCustomEvent('ASGPostIndividualLevelPerformance');
     window.dispatchEvent(this.ASGPostIndividualLevelPerformanceEvent);}
+
+  updateExplanation() {
+    this.ASGpostUserExplanationEvent = document.createEvent('CustomEvent');
+    this.ASGpostUserExplanationEvent.initCustomEvent('ASGpostUserExplanation');
+    window.dispatchEvent(this.ASGpostUserExplanationEvent);}
 
     createFreezeBalloon() {
         if (this.isGameOver) return;
@@ -1169,6 +1271,9 @@ class LevelThree extends Phaser.Scene {
         if (this.arrowInAir) return;
         if (!this.isArrowReady) return;
         if (this.isFreezed) return;
+        if(ASGsound){
+          this.arrow_sound.play();
+        }
 
         this.arrowInAir = true;
         this.isArrowReady = false;
@@ -1217,6 +1322,9 @@ class LevelThree extends Phaser.Scene {
     balloonBlowUp(arrow, balloon) {
         balloon.setVelocity(0, 0);
         balloon.alpha = 0;
+      if(ASGsound){
+        this.popup_sound.play();
+      }
         balloon.disableBody(true, true);
 
         this.totalBalloonBlown++;
@@ -1348,7 +1456,7 @@ class LevelThree extends Phaser.Scene {
 
 
 
-  class QuestionAndAnswer extends Phaser.Scene {
+ var q =  class QuestionAndAnswer extends Phaser.Scene {
     constructor() {
         super({ key: "QuestionAndAnswer" })
     }
@@ -1358,8 +1466,11 @@ class LevelThree extends Phaser.Scene {
         let fontColor = 'black';
         this.currentQuestion;
         this.questionNumber = "que1";
+      this.click_sound = this.sound.add('click_sound').setVolume(0.5);
 
-        let Title = "Based on your experience in the previous game, answer the questions that follow.";
+
+      let Title = "Based on your experience in the previous game, answer the questions that follow.";
+
           // console.log(ASGUserPerformance);
           // console.log(ASGAnswer.results[2]);
           // console.log(ASGQuestions.results[0].question_text);
@@ -1489,30 +1600,61 @@ class LevelThree extends Phaser.Scene {
         this.descRect = this.add.rectangle(150, 180, 1050, 430, 0xffffff, 0.50).setOrigin(0, 0);
         this.nextRect = this.add.rectangle(150, 180, 1050, 430, 0xffffff, 0.50).setOrigin(0, 0);
         this.next_btn = this.add.sprite(670, 500, "next_btn")
-          .setInteractive()
+          .setInteractive({ useHandCursor: true })
           .setScale(1.5);
         this.next_btn.setVisible(false);
         this.nextRect.setVisible(false);
 
-        this.L1text = this.add.text(430, 300,'Great! you have completed level 1', { fontFamily: '"Roboto"' }).setFontSize(35).setColor('black').setFontStyle('bold');;
-      this.L1text.setVisible(false);
+        if (ASGLevelId === 1) {
+          this.L1text = this.add.text(430, 300,'Great! you have completed level 1', { fontFamily: '"Roboto"' }).setFontSize(35).setColor('black');
+          this.L1text.setVisible(false);
+          this.L1text.alpha = 0.87;
 
-      this.L1_2text = this.add.text(470, 350,'Click on the next button to continue to Level 2', { fontFamily: '"Roboto"' }).setFontSize(20).setColor('black');
-      this.L1_2text.setVisible(false);
+
+          this.L1_2text = this.add.text(470, 350,'Click on the next button to continue to Level 2', { fontFamily: '"Roboto"' }).setFontSize(20).setColor('black');
+         this.L1_2text.setVisible(false);
+          this.L1_2text.alpha = 0.60;
+
+        } else if (ASGLevelId === 2) {
+          this.L1text = this.add.text(430, 300,'Great! you have completed level 2', { fontFamily: '"Roboto"' }).setFontSize(35).setColor('black');
+          this.L1text.setVisible(false);
+          this.L1text.alpha = 0.87;
+
+          this.L1_2text = this.add.text(470, 350,'Click on the next button to continue to Level 3', { fontFamily: '"Roboto"' }).setFontSize(20).setColor('black');
+          this.L1_2text.setVisible(false);
+          this.L1_2text.alpha = 0.60;
+
+        } else if (ASGLevelId === 3){
+          this.L1text = this.add.text(430, 300,'Great! you have completed level 3', { fontFamily: '"Roboto"' }).setFontSize(35).setColor('black');
+          this.L1text.setVisible(false);
+          this.L1text.alpha = 0.87;
+
+
+          this.L1_2text = this.add.text(470, 350,'Click on the next button to continue', { fontFamily: '"Roboto"' }).setFontSize(20).setColor('black');
+          this.L1_2text.setVisible(false);
+          this.L1_2text.alpha = 0.60;
+
+        }
 
         this.nexttext = this.add.text(645, 485,'Next', { fontFamily: '"Roboto"' }).setFontSize(25).setColor('black');
       this.nexttext.setVisible(false);
+      this.nexttext.alpha = 0.60;
 
-        this.titleTxt = this.add.text(170, 210, Title, { fontFamily: '"Roboto"' })
+
+      this.titleTxt = this.add.text(170, 210, Title, { fontFamily: '"Roboto"' })
             .setFontSize(25)
             .setColor('black');
+      this.titleTxt.alpha = 0.87;
 
-        this.Question1Txt = this.add.text(190, 310, this.Questions.que1.question, { fontFamily: '"Roboto"' })
+
+      this.Question1Txt = this.add.text(190, 310, this.Questions.que1.question, { fontFamily: '"Roboto"' })
             .setFontSize(fontSize)
             .setColor(fontColor)
-            .setFontStyle('bold');
+           // .setFontStyle('bold');
+      this.Question1Txt.alpha = 0.87;
 
-        this.green_balloon = this.add.sprite(220, this.Question1Txt.getBottomRight().y + 55, "green_balloon");
+
+      this.green_balloon = this.add.sprite(220, this.Question1Txt.getBottomRight().y + 55, "green_balloon").setInteractive({ useHandCursor: true });
         this.green_balloon.setScale(0.1);
 
         let ansConfig = {
@@ -1524,17 +1666,92 @@ class LevelThree extends Phaser.Scene {
             wordWrap: { width: 800 }
         }
 
-        this.Question1Ans1Txt = this.add.text(this.green_balloon.getBottomRight().x + 20, this.Question1Txt.getBottomRight().y + 40, this.Questions.que1.ans1, ansConfig).setOrigin(0, 0).setInteractive();
+        this.Question1Ans1Txt = this.add.text(this.green_balloon.getBottomRight().x + 20, this.Question1Txt.getBottomRight().y + 40, this.Questions.que1.ans1, ansConfig).setOrigin(0, 0).setInteractive({ useHandCursor: true });
+      this.Question1Ans1Txt.alpha = 0.60;
 
-        this.red_balloon = this.add.sprite(220, this.green_balloon.getBottomRight().y + 50, "red_balloon").setScale(0.1);
+        this.red_balloon = this.add.sprite(220, this.green_balloon.getBottomRight().y + 50, "red_balloon").setScale(0.1).setInteractive({ useHandCursor: true });
 
-        this.Question1Ans2Txt = this.add.text(this.red_balloon.getBottomRight().x + 20, this.green_balloon.getBottomRight().y + 30, this.Questions.que1.ans2, ansConfig).setOrigin(0, 0).setInteractive();
+        this.Question1Ans2Txt = this.add.text(this.red_balloon.getBottomRight().x + 20, this.green_balloon.getBottomRight().y + 30, this.Questions.que1.ans2, ansConfig).setOrigin(0, 0).setInteractive({ useHandCursor: true });
+      this.Question1Ans2Txt.alpha = 0.60;
 
         this.queGrp = this.add.group([this.titleTxt, this.titleRect, this.descRect, this.green_balloon, this.red_balloon, this.Question1Txt, this.Question1Ans1Txt, this.Question1Ans2Txt]);
 
         this.next_btn.on('pointerdown', function () {
-            this.scene.stop();
-          this.updateExplanation();
+          if(ASGsound){
+            this.click_sound.play();
+          }
+          this.scene.stop();
+            console.log(level);
+          this.L1_2text.setVisible(false);
+          this.L1text.setVisible(false);
+          if(ASGLevelId === 1 ){
+            if (timeToAnswer.length === 3) {
+              console.log('run');
+              AnswerId = Answer1Id;
+              TimeTakenToAnswer = timeToAnswer.shift();
+              this.updateBadges();
+              AnswerId = Answer2Id;
+              timeToAnswer.shift();
+              TimeTakenToAnswer = timeToAnswer.shift();
+              this.updateBadges();
+            } else {
+              AnswerId = Answer1Id;
+              TimeTakenToAnswer = timeToAnswer.shift();
+              this.updateBadges();
+              AnswerId = Answer2Id;
+              TimeTakenToAnswer = timeToAnswer.shift();
+              this.updateBadges();
+            }
+          } else if (ASGLevelId === 2) {
+            if (timeToAnswer.length === 3) {
+              if ((timeToAnswer[0] + timeToAnswer[2]) === timeToAnswer[1] || timeToAnswer[1]+1 || timeToAnswer[1]-1) {
+                AnswerId = Answer1Id;
+                TimeTakenToAnswer = timeToAnswer.shift();
+                this.updateBadges();
+                timeToAnswer.shift();
+                AnswerId = Answer2Id;
+                TimeTakenToAnswer = timeToAnswer.shift();
+                this.updateBadges();
+              } else if((timeToAnswer[0] + timeToAnswer[2]) !== timeToAnswer[1]) {
+                timeToAnswer.shift();
+                AnswerId = Answer1Id;
+                TimeTakenToAnswer = timeToAnswer.shift();
+                this.updateBadges();
+                AnswerId = Answer2Id;
+                TimeTakenToAnswer = timeToAnswer.shift();
+                this.updateBadges();
+              }
+            } else if(timeToAnswer.length === 5) {
+              timeToAnswer.shift();
+              AnswerId = Answer1Id;
+              TimeTakenToAnswer = timeToAnswer.shift();
+              this.updateBadges();
+              timeToAnswer.shift();
+              timeToAnswer.shift();
+              AnswerId = Answer2Id;
+              TimeTakenToAnswer = timeToAnswer.shift();
+              this.updateBadges();
+            }
+          } else if(ASGLevelId === 3 ){
+            if (timeToAnswer.length === 3) {
+              console.log('run');
+              AnswerId = Answer1Id;
+              TimeTakenToAnswer = timeToAnswer.shift();
+              this.updateBadges();
+              AnswerId = Answer2Id;
+              timeToAnswer.shift();
+              TimeTakenToAnswer = timeToAnswer.shift();
+              this.updateBadges();
+            } else {
+              AnswerId = Answer1Id;
+              TimeTakenToAnswer = timeToAnswer.shift();
+              this.updateBadges();
+              AnswerId = Answer2Id;
+              TimeTakenToAnswer = timeToAnswer.shift();
+              this.updateBadges();
+            }
+          }
+
           if (this.questionNumber === "que3") {
                 this.scene.start('PERSONALISATION');
             } else {
@@ -1543,23 +1760,78 @@ class LevelThree extends Phaser.Scene {
         }, this);
 
         if (this.registry.get('questionNumber') === '1') {
+
             this.questionNumber = "que1";
             this.currentQuestion = this.Questions.que1;
         } else if (this.registry.get('questionNumber') === '2') {
+            level = 2;
             this.questionNumber = "que2";
             this.currentQuestion = this.Questions.que2;
         } else if (this.registry.get('questionNumber') === '3') {
+            level = 3;
             this.questionNumber = "que3";
             this.currentQuestion = this.Questions.que3;
         } else {
+            level = 1;
             this.questionNumber = "que1";
             this.currentQuestion = this.Questions.que1;
         }
-        this.setQuestionAnswer(this.currentQuestion);
+      this.i = 1;
+      this.setQuestionAnswer(this.currentQuestion, this.i);
+     // this.setq(this.currentQuestion);
     }
 
-    setQuestionAnswer(queAndAns) {
-        // Disable Input
+    // setq (queAndAns) {
+    //   this.currentQuestion = queAndAns;
+    //   this.Question1Txt.setText(queAndAns.question, { fontFamily: '"Roboto"' });
+    //   this.Question1Ans1Txt.setText(queAndAns.ans1.ans, { fontFamily: '"Roboto"' });
+    //   this.Question1Ans2Txt.setText(queAndAns.ans2.ans, { fontFamily: '"Roboto"' });
+    //
+    //   (this.Question1Ans1Txt.once) || (this.green_balloon.once)('pointerdown', function () {
+    //     if(this.currentQuestion.ans1.question !== 0){
+    //       this.setq(this.currentQuestion.ans1);
+    //     } else {
+    //       this.queGrp.getChildren().forEach(child => {
+    //         child.setVisible(false);
+    //       });
+    //       this.registry.set(this.questionNumber, this.currentQuestion.ans1.result);
+    //
+    //       this.next_btn.setVisible(true);
+    //       this.nexttext.setVisible(true);
+    //       this.L1text.setVisible(true);
+    //       this.L1_2text.setVisible(true);
+    //       //this.L1_2text = this.add.text(470, 350,'Click on the next button to continue to Level 2', { fontFamily: '"Roboto"' }).setFontSize(20).setColor('black');
+    //       //this.L1text = this.add.text(430, 300,'Great! you have completed level 1', { fontFamily: '"Roboto"' }).setFontSize(35).setColor('black').setFontStyle('bold');;
+    //
+    //
+    //       this.nextRect.setVisible(true);
+    //     }
+    //   },this);
+      // this.Question1Ans2Txt.on('pointerdown', function () {
+      //   if(this.currentQuestion.ans2.question !== 0){
+      //     this.setq(this.currentQuestion.ans2);
+      //   } else {
+      //     this.queGrp.getChildren().forEach(child => {
+      //       child.setVisible(false);
+      //     });
+      //     this.registry.set(this.questionNumber, this.currentQuestion.ans1.result);
+      //
+      //     this.next_btn.setVisible(true);
+      //     this.nexttext.setVisible(true);
+      //     this.L1text.setVisible(true);
+      //     this.L1_2text.setVisible(true);
+      //     //this.L1_2text = this.add.text(470, 350,'Click on the next button to continue to Level 2', { fontFamily: '"Roboto"' }).setFontSize(20).setColor('black');
+      //     //this.L1text = this.add.text(430, 300,'Great! you have completed level 1', { fontFamily: '"Roboto"' }).setFontSize(35).setColor('black').setFontStyle('bold');;
+      //
+      //
+      //     this.nextRect.setVisible(true);
+      //   }
+      // },this);
+    // }
+
+    setQuestionAnswer(queAndAns, i) {
+      let now1 = Date.now();
+      // Disable Input
         this.disableInput();
         // Enable after some time to stop instant click on next question
         this.time.delayedCall(1000, this.enableInput, null, this);
@@ -1569,17 +1841,121 @@ class LevelThree extends Phaser.Scene {
         this.Question1Ans1Txt.setText(queAndAns.ans1.ans, { fontFamily: '"Roboto"' });
         this.Question1Ans2Txt.setText(queAndAns.ans2.ans, { fontFamily: '"Roboto"' });
 
-        this.Question1Ans1Txt.once('pointerdown', function () {
-          AnswerId = queAndAns.ans1.id;
+        this.green_balloon.once('pointerdown', function () {
+          if(ASGsound){
+            this.click_sound.play();
+          }
+          let now2 = Date.now();
+          //  AnswerId = queAndAns.ans1.id;
           console.log(AnswerId);
-          TimeTakenToAnswer = 5;
-          this.updateBadges();
+          timeToAnswer.push(now2 - now1);
+          console.log(timeToAnswer);
+
+
+          // console.log(this.currentQuestion.ans1.question);
+          if (this.currentQuestion.ans1.question !== "0") {
+
+            console.log('ans1 1');
+            // this.updateBadges();
+            this.setQuestionAnswer(this.currentQuestion.ans1, i=i+1);
+           // return;
+          }
+          else {
+            // if (this.currentQuestion.ans2.question == "0") {
+            //   //   this.updateBadges();
+            // }
+
+
+            console.log('ans1 outside');
+            this.queGrp.getChildren().forEach(child => {
+              child.setVisible(false);
+            });
+            this.registry.set(this.questionNumber, this.currentQuestion.ans1.result);
+
+            this.next_btn.setVisible(true);
+            this.nexttext.setVisible(true);
+            this.L1text.setVisible(true);
+            this.L1_2text.setVisible(true);
+            //this.L1_2text = this.add.text(470, 350,'Click on the next button to continue to Level 2', { fontFamily: '"Roboto"' }).setFontSize(20).setColor('black');
+            //this.L1text = this.add.text(430, 300,'Great! you have completed level 1', { fontFamily: '"Roboto"' }).setFontSize(35).setColor('black').setFontStyle('bold');;
+
+
+            this.nextRect.setVisible(true);
+            ExplanationId = this.currentQuestion.ans1.explanationId;
+            Answer1Id = this.currentQuestion.ans1.a1;
+            Answer2Id = this.currentQuestion.ans1.a2;
+          }
+        }, this);
+
+        // noinspection DuplicatedCode
+      this.red_balloon.once('pointerdown', function () {
+        if(ASGsound){
+          this.click_sound.play();
+        }
+          let now2 = Date.now();
+
+          // AnswerId = queAndAns.ans2.id;
+          timeToAnswer.push(now2 - now1);
+          console.log(timeToAnswer);
+
+
+          // console.log(this.currentQuestion.ans2.question);
+          if (this.currentQuestion.ans2.question !== "0") {
+
+            console.log('ans2 2');
+            //  this.updateBadges();
+            this.setQuestionAnswer(this.currentQuestion.ans2, i=i+1 );
+
+          }
+          else {
+            if (this.currentQuestion.ans2.question == "0") {
+              //   this.updateBadges();
+            }
+            console.log('ans2 outside');
+            this.queGrp.getChildren().forEach(child => {
+              child.setVisible(false);
+            });
+            this.registry.set(this.questionNumber, this.currentQuestion.ans2.result);
+
+            this.next_btn.setVisible(true);
+            this.nextRect.setVisible(true);
+            this.nexttext.setVisible(true);
+            this.L1_2text.setVisible(true);
+           // this.L1_2text = this.add.text(470, 350,'Click on the next button to continue to Level 2', { fontFamily: '"Roboto"' }).setFontSize(20).setColor('black');
+            //this.L1text = this.add.text(430, 300,'Great! you have completed level 1', { fontFamily: '"Roboto"' }).setFontSize(35).setColor('black').setFontStyle('bold');;
+
+           this.L1text.setVisible(true);
+            ExplanationId = this.currentQuestion.ans2.explanationId;
+            Answer1Id = this.currentQuestion.ans2.a1;
+            Answer2Id = this.currentQuestion.ans2.a2;
+          }
+        }, this);
+
+        this.Question1Ans1Txt.once('pointerdown', function () {
+          if(ASGsound){
+            this.click_sound.play();
+          }
+          let now2 = Date.now();
+        //  AnswerId = queAndAns.ans1.id;
+          console.log(AnswerId);
+          timeToAnswer.push(now2 - now1);
+          console.log(timeToAnswer);
+
 
             // console.log(this.currentQuestion.ans1.question);
             if (this.currentQuestion.ans1.question !== "0") {
-                this.setQuestionAnswer(this.currentQuestion.ans1);
+
+              console.log('ans1 1');
+             // this.updateBadges();
+              this.setQuestionAnswer(this.currentQuestion.ans1, i=i+1);
             }
             else {
+              if (this.currentQuestion.ans2.question == "0") {
+             //   this.updateBadges();
+              }
+
+
+              console.log('ans1 outside');
                 this.queGrp.getChildren().forEach(child => {
                     child.setVisible(false);
                 });
@@ -1598,15 +1974,29 @@ class LevelThree extends Phaser.Scene {
         }, this);
 
         this.Question1Ans2Txt.once('pointerdown', function () {
-          AnswerId = queAndAns.ans2.id;
-          TimeTakenToAnswer = 5;
-          this.updateBadges();
+          if(ASGsound){
+            this.click_sound.play();
+          }
+          let now2 = Date.now();
+
+          // AnswerId = queAndAns.ans2.id;
+          timeToAnswer.push(now2 - now1);
+          console.log(timeToAnswer);
+
 
             // console.log(this.currentQuestion.ans2.question);
             if (this.currentQuestion.ans2.question !== "0") {
-                this.setQuestionAnswer(this.currentQuestion.ans2);
+
+              console.log('ans2 2');
+            //  this.updateBadges();
+              this.setQuestionAnswer(this.currentQuestion.ans2, i=i+1 );
+
             }
             else {
+              if (this.currentQuestion.ans2.question == "0") {
+             //   this.updateBadges();
+              }
+              console.log('ans2 outside');
                 this.queGrp.getChildren().forEach(child => {
                     child.setVisible(false);
                 });
@@ -1630,10 +2020,7 @@ class LevelThree extends Phaser.Scene {
       this.ASGpostUserAnswerEvent.initCustomEvent('ASGpostUserAnswer');
       window.dispatchEvent(this.ASGpostUserAnswerEvent);}
 
-    updateExplanation() {
-      this.ASGpostUserExplanationEvent = document.createEvent('CustomEvent');
-      this.ASGpostUserExplanationEvent.initCustomEvent('ASGpostUserExplanation');
-      window.dispatchEvent(this.ASGpostUserExplanationEvent);}
+
 
 
     disableInput() {
@@ -1647,7 +2034,7 @@ class LevelThree extends Phaser.Scene {
     }
 }
 
-class ScoreDisplay extends Phaser.Scene {
+var s = class ScoreDisplay extends Phaser.Scene {
     constructor() {
         super({ key: "ScoreDisplay" })
     }
@@ -1660,6 +2047,7 @@ class ScoreDisplay extends Phaser.Scene {
         var totalBalloonMissedText = 'Balloons Missed: ';
         var SuccessRateText = 'Success Rate: ';
         this.scene.run("UIScene");
+      this.click_sound = this.sound.add('click_sound').setVolume(0.5);
 
 
       this.bg = this.add.sprite(0, 0, "bg").setOrigin(0, 0);
@@ -1670,27 +2058,33 @@ class ScoreDisplay extends Phaser.Scene {
         this.timesUpTxt = this.add.text(580, 200, "TIME'S UP!", { fontFamily: '"Roboto"' })
             .setFontSize(40)
             .setColor('black');
+        this.timesUpTxt.alpha = 0.87;
 
         this.TotalBalloonTxt = this.add.text(350, 300, 'Total Balloons', { fontFamily: '"Roboto"' })
             .setFontSize(fontSize)
             .setColor(fontColor);
-
+      this.TotalBalloonTxt.alpha = 0.87;
         this.balloonMissedTxt = this.add.text(350, this.TotalBalloonTxt.getBottomRight().y + 30, "Balloons Missed", { fontFamily: '"Roboto"' })
             .setFontSize(fontSize)
             .setColor(fontColor);
+      this.balloonMissedTxt.alpha = 0.87;
 
         this.SuccessRateTxt = this.add.text(350, this.balloonMissedTxt.getBottomRight().y + 30, "Success Rate", { fontFamily: '"Roboto"' })
             .setFontSize(fontSize)
             .setColor(fontColor);
-
-        this.next_btn = this.add.sprite(680, this.SuccessRateTxt.getBottomRight().y + 90, "next_btn").setInteractive().setScale(1.5);
+      this.SuccessRateTxt.alpha = 0.87;
+        this.next_btn = this.add.sprite(680, this.SuccessRateTxt.getBottomRight().y + 90, "next_btn").setInteractive({ useHandCursor: true }).setScale(1.5);
         this.nexttext = this.add.text(653, this.SuccessRateTxt.getBottomRight().y + 75,'Next', { fontFamily: '"Roboto"' }).setFontSize(25).setColor('black');
-
+      this.nexttext.alpha = 0.87;
 
       this.next_btn.on('pointerdown', function () {
-            this.registry.set('QuestionScene', 'QuestionAndAnswer')
+        if(ASGsound){
+          this.click_sound.play();
+        }
+            this.registry.set('QuestionScene', 'QuestionAndAnswer');
             this.scene.start('QuestionAndAnswer');
         }, this);
+
 
         this.totalBalloonMissed = this.registry.get('totalBalloonMissed');
         this.totalBalloon = this.registry.get('totalBalloon');
@@ -1700,20 +2094,26 @@ class ScoreDisplay extends Phaser.Scene {
 
         this.TotalBallon = this.add.text(850, 300, this.totalBalloon,{ fontFamily: '"Roboto"' } ).setFontSize(fontSize)
           .setColor(fontColor);
-
+      this.TotalBallon.alpha = 0.60;
       this.BallonMissed = this.add.text(850, this.TotalBalloonTxt.getBottomRight().y + 30, this.totalBalloonMissed,{ fontFamily: '"Roboto"' } ).setFontSize(fontSize)
         .setColor(fontColor);
-
+      this.BallonMissed.alpha = 0.60;
       this.success = this.add.text(850, this.balloonMissedTxt.getBottomRight().y + 30, this.successRate,{ fontFamily: '"Roboto"' } ).setFontSize(fontSize)
         .setColor(fontColor);
-
+      this.success.alpha = 0.60;
 
       this.semi1 = this.add.text(670, 300, ':',{ fontFamily: '"Roboto"' } ).setFontSize(fontSize)
         .setColor(fontColor);
+      this.semi1.alpha = 0.60;
+
       this.semi2 =  this.add.text(670, this.TotalBalloonTxt.getBottomRight().y + 30, ':',{ fontFamily: '"Roboto"' } ).setFontSize(fontSize)
         .setColor(fontColor);
+      this.semi2.alpha = 0.60;
+
       this.semi3 = this.add.text(670, this.balloonMissedTxt.getBottomRight().y + 30, ':',{ fontFamily: '"Roboto"' } ).setFontSize(fontSize)
         .setColor(fontColor);
+      this.semi3.alpha = 0.60;
+
 
 
 
@@ -1724,7 +2124,7 @@ class ScoreDisplay extends Phaser.Scene {
     }
 }
 
-class UIScene extends Phaser.Scene {
+var u = class UIScene extends Phaser.Scene {
     constructor() {
         super({ key: 'UIScene' })
     }
@@ -1779,15 +2179,32 @@ class UIScene extends Phaser.Scene {
     }
 
     rstart = function() {
-        this.scene.stop(this.registry.get('currentScene'));
-        this.scene.start('HomeScene');
+      timeToAnswer = [];
+     // console.log(timeToAnswer);
+      bgm_sound.stop();
+       this.scene.stop(this.registry.get('currentScene'));
+      this.scene.stop(this.registry.get('QuestionScene'));
+      this.scene.stop(this.registry.get('ParallelScene'));
+      this.scene.stop('PERSONALISATION');
+      this.scene.stop('PERMANENCE');
+      this.scene.stop('pervasiveness');
+      this.scene.stop('UserResult');
+
+
+      this.scene.start('HomeScene');
         this.registry.set('currentScene','HomeScene');
+        if(ASGsound == false){
+          bgm_sound.stop();
+          ASGrestartSound = true;
+        }
     };
 
     pauseAllObject = function () {
         this.scene.pause(this.registry.get('currentScene'));
         this.scene.pause(this.registry.get('ParallelScene'));
       this.scene.pause(this.registry.get('QuestionScene'));
+      bgm_sound.pause();
+
 
       console.log(this.registry.get('QuestionScene'));
         this.pauseScreen.getChildren().forEach(element => {
@@ -1803,8 +2220,11 @@ class UIScene extends Phaser.Scene {
         this.scene.resume(this.registry.get('currentScene'));
       this.scene.resume(this.registry.get('ParallelScene'));
       this.scene.resume(this.registry.get('QuestionScene'));
-
-;
+      bgm_sound.play();
+      if(ASGsound == false){
+        bgm_sound.pause();
+        ASGrestartSound = true;
+      }
     };
 
     // pause = function() {
@@ -1822,7 +2242,8 @@ class UIScene extends Phaser.Scene {
 
 
 
-class Personalisation extends Phaser.Scene {
+var per = class Personalisation extends Phaser.Scene {
+  updateExplanation;
   constructor() {
     super({ key: "PERSONALISATION" })
   }
@@ -1832,6 +2253,7 @@ class Personalisation extends Phaser.Scene {
     var fontColor = 'black';
     var fontWrapWidth = 1250;
     var space = 15;
+    this.click_sound = this.sound.add('click_sound').setVolume(0.5);
 
     this.result = {
       "que1": {
@@ -1854,24 +2276,44 @@ class Personalisation extends Phaser.Scene {
       .setColor(fontColor)
       .setWordWrapWidth(fontWrapWidth)
       .setFontStyle('bold');
+    this.personalisationTitleTxt.alpha = 0.87;
+
 
     this.personalisationDescriptionTxt = this.add.text(170, this.personalisationTitleTxt.getBottomRight().y + space, this.result.que1[this.registry.get('que1')], { fontFamily: '"Roboto"' })
       .setFontSize(fontSize)
       .setColor(fontColor)
       .setWordWrapWidth(fontWrapWidth);
+    this.personalisationDescriptionTxt.alpha = 0.60;
 
 
-    this.next_btn = this.add.sprite(1080, 530, "next_btn").setInteractive().setScale(1.5);
+    this.next_btn = this.add.sprite(1080, 530, "next_btn").setInteractive({ useHandCursor: true }).setScale(1.5);
     this.nexttext = this.add.text(1053, 515,'Next', { fontFamily: '"Roboto"' }).setFontSize(25).setColor('black');
+    this.nexttext.alpha = 0.60;
 
 
 
     this.next_btn.on('pointerdown', function () {
       this.scene.stop();
+      this.updateExplanation();
+      if(ASGsound){
+        this.click_sound.play();
+      }
+
 
         this.scene.start('PERMANENCE');
 
     }, this);
+
+    this.updateExplanation = function () {
+
+
+      this.ASGpostUserExplanationEvent = document.createEvent('CustomEvent');
+      this.ASGpostUserExplanationEvent.initCustomEvent('ASGpostUserExplanation');
+      window.dispatchEvent(this.ASGpostUserExplanationEvent);}
+
+
+
+
 
   }
 }
@@ -1880,7 +2322,7 @@ class Personalisation extends Phaser.Scene {
 
 
 
-class Permanence extends Phaser.Scene {
+var perm = class Permanence extends Phaser.Scene {
   constructor() {
     super({ key: "PERMANENCE" })
   }
@@ -1890,6 +2332,7 @@ class Permanence extends Phaser.Scene {
     var fontColor = 'black';
     var fontWrapWidth = 1250;
     var space = 15;
+    this.click_sound = this.sound.add('click_sound').setVolume(0.5);
 
 
 
@@ -1914,19 +2357,31 @@ class Permanence extends Phaser.Scene {
       .setColor(fontColor)
       .setWordWrapWidth(fontWrapWidth)
       .setFontStyle('bold');
+    this.permanenceTitleTxt.alpha = 0.87;
+
 
     this.permanenceDescriptionTxt = this.add.text(170, this.permanenceTitleTxt.getBottomRight().y + space, this.result.que2[this.registry.get('que2')], { fontFamily: '"Roboto"' })
       .setFontSize(fontSize)
       .setColor(fontColor)
       .setWordWrapWidth(fontWrapWidth);
+    this.permanenceDescriptionTxt.alpha = 0.60;
 
 
-    this.next_btn = this.add.sprite(1080, 530, "next_btn").setInteractive().setScale(1.5);
+
+    this.next_btn = this.add.sprite(1080, 530, "next_btn").setInteractive({ useHandCursor: true }).setScale(1.5);
     this.nexttext = this.add.text(1053, 515,'Next', { fontFamily: '"Roboto"' }).setFontSize(25).setColor('black');
-    this.backtext = this.add.text(900, 515,'Back', { fontFamily: '"Roboto"' }).setFontSize(25).setColor('black').setInteractive();
+    this.backtext = this.add.text(900, 515,'Back', { fontFamily: '"Roboto"' }).setFontSize(25).setColor('black').setInteractive({ useHandCursor: true });
+    this.nexttext.alpha = 0.60;
+    this.backtext.alpha = 0.60;
+    // if(ASGsound){
+    //   this.click_sound.play();
+    // }
 
     this.backtext.on('pointerdown', function () {
       this.scene.stop();
+      if(ASGsound){
+        this.click_sound.play();
+      }
 
       this.scene.start('PERSONALISATION');
 
@@ -1935,6 +2390,9 @@ class Permanence extends Phaser.Scene {
 
     this.next_btn.on('pointerdown', function () {
       this.scene.stop();
+      if(ASGsound){
+        this.click_sound.play();
+      }
 
       this.scene.start('pervasiveness');
 
@@ -1944,7 +2402,7 @@ class Permanence extends Phaser.Scene {
 }
 
 
-class Pervasiveness extends Phaser.Scene {
+var perv = class Pervasiveness extends Phaser.Scene {
   constructor() {
     super({ key: "pervasiveness" })
   }
@@ -1954,6 +2412,7 @@ class Pervasiveness extends Phaser.Scene {
     var fontColor = 'black';
     var fontWrapWidth = 1250;
     var space = 15;
+    this.click_sound = this.sound.add('click_sound').setVolume(0.5);
 
     this.result = {
       "que3": {
@@ -1976,19 +2435,28 @@ class Pervasiveness extends Phaser.Scene {
       .setColor(fontColor)
       .setWordWrapWidth(fontWrapWidth)
       .setFontStyle('bold');
+    this.pervasivenessTitleTxt.alpha = 0.87;
+
 
     this.pervasivenessDescriptionTxt = this.add.text(170, this.pervasivenessTitleTxt.getBottomRight().y + space, this.result.que3[this.registry.get('que3')], { fontFamily: '"Roboto"' })
       .setFontSize(fontSize)
       .setColor(fontColor)
       .setWordWrapWidth(fontWrapWidth);
+    this.pervasivenessDescriptionTxt.alpha = 0.60;
 
 
-    this.next_btn = this.add.sprite(1080, 530, "next_btn").setInteractive().setScale(1.5);
+
+    this.next_btn = this.add.sprite(1080, 530, "next_btn").setInteractive({ useHandCursor: true }).setScale(1.5);
     this.nexttext = this.add.text(1053, 515,'Next', { fontFamily: '"Roboto"' }).setFontSize(25).setColor('black');
-    this.backtext = this.add.text(900, 515,'Back', { fontFamily: '"Roboto"' }).setFontSize(25).setColor('black').setInteractive();
+    this.backtext = this.add.text(900, 515,'Back', { fontFamily: '"Roboto"' }).setFontSize(25).setColor('black').setInteractive({ useHandCursor: true });
+    this.nexttext.alpha = 0.60;
+    this.backtext.alpha = 0.60;
 
     this.backtext.on('pointerdown', function () {
       this.scene.stop();
+      if(ASGsound){
+        this.click_sound.play();
+      }
 
       this.scene.start('PERMANENCE');
 
@@ -1997,6 +2465,9 @@ class Pervasiveness extends Phaser.Scene {
 
     this.next_btn.on('pointerdown', function () {
       this.scene.stop();
+      if(ASGsound){
+        this.click_sound.play();
+      }
 
       this.scene.start('UserResult');
 
@@ -2030,7 +2501,7 @@ class Pervasiveness extends Phaser.Scene {
 
 
 
-class UserResult extends Phaser.Scene {
+var ur = class UserResult extends Phaser.Scene {
     constructor() {
         super({ key: "UserResult" })
     }
@@ -2040,44 +2511,159 @@ class UserResult extends Phaser.Scene {
       var fontColor = 'black';
       var fontWrapWidth = 1250;
       var space = 15;
+      //this.ASGPutRequest();
 
 
         this.bg = this.add.sprite(0, 0, "bg").setOrigin(0, 0);
-        this.titleRect = this.add.rectangle(0, 0, 1330, 740, 0xffffff, 0.70).setOrigin(0, 0);
 
-         this.openLink = this.add.text(10, 700, "Click here")
+      this.titleRect = this.add.rectangle(0, 0, 1330, 530, 0xffffff, 0.70).setOrigin(0, 0);
+      this.Rect = this.add.rectangle(0, 530, 1330, 240, 0xffffff, 0.90).setOrigin(0, 0);
+
+      this.openLink = this.add.text(400, 540, "Click here",{ fontFamily: '"Roboto"' })
         .setFontSize(fontSize)
-        .setColor(fontColor)
+        .setColor('blue')
         .setWordWrapWidth(fontWrapWidth)
-        .setInteractive();
+        .setInteractive({ useHandCursor: true });
+      this.openLink.alpha = 0.60;
+      this.click_sound = this.sound.add('click_sound').setVolume(0.5);
 
-         this.textheading = this.add.text(50, 40, 'How does your explanatory style affect you?',{ fontFamily: '"Roboto"' } ).setFontSize(35).setColor('black').setFontStyle('bold');
-         this.textfinal = this.add.text(50, 100, 'The way you explain your successes and failures affect how vulnerable you are to depression. People who\nare most vulnerable to depression \n' +
+
+      // let graphics = this.make.graphics() ;
+      //
+      // // graphics.fillStyle(0xffffff);
+      // graphics.fillRect(0, 0, 1330, 740);
+      //
+      // const mask = new Phaser.Display.Masks.GeometryMask(this, graphics);
+
+      this.textheading = this.add.text(50, 40, 'How does your explanatory style affect you?',{ fontFamily: '"Roboto"' } ).setFontSize(35).setColor('black').setFontStyle('bold');
+      this.textheading.alpha = 0.87;
+         this.textfinal = [ 'The way you explain your successes and failures affect how vulnerable you are to depression. People who are most vulnerable to depression' +
            '\n' +
            ' - blame themselves for their failures\n' +
            ' - thinks that if they fail in one area of their life, then it means that they will fail in other areas of their life as well\n' +
            ' - thinks that if they fail once, then they will never be able to succeed.\n' +
            '\n' +
-           'To become less vulnerable to depression remember that - \n' +
+           'To become less vulnerable to depression remember that -' +
            '\n' +
-           ' - our successes and failures often depend on many factors that are not in our control.\n   So, before blaming yourself for your failure, think about what else could have affected the outcome.\n' +
-           ' - if you fail once that does not mean that you are going to be a life long failure. Most things in life depend on\n   skills that you can learn and improve upon.\n' +
+           ' - our successes and failures often depend on many factors that are not in our control. So, before blaming yourself for your failure, think about what else could have affected the outcome.\n' +
+           ' - if you fail once that does not mean that you are going to be a life long failure. Most things in life depend on skills that you can learn and improve upon.\n' +
            ' - if you fail in one area of your life that does not mean that you are doomed to fail in other areas as well.\n' +
            '\n' +
-           'So, the next time you feel upset about a failure, think about how you are explaining your failure.\n' +
-           '\n' +
-           'To learn in more details about explanatory style go to this link - ',{ fontFamily: '"Roboto"' } ).setFontSize(25).setColor('black');
+           'So, the next time you feel upset about a failure, think about how you are explaining your failure.' ];
+
+
+         this.text = this.add.text(50, 100, this.textfinal, {  fontFamily: '"Roboto"' , wordWrap: { width: 1250 } }).setFontSize(25).setColor('black');
+      this.text.alpha = 0.60;
+
+      //text.setMask(mask);
+
+      //this.play = this.add.rectangle(200, 100, 60, 30, 0x0000ff );
+      //this.play.backgroundColor(255,255,100);
+
+      //let zone = this.add.zone(0, 0, 1330, 740).setOrigin(0).setInteractive();
+
+     // zone.on('pointermove', function (pointer) {
+     //
+     //    if (pointer.isDown)
+     //    {
+     //      text.y += (pointer.velocity.y / 10);
+     //
+     //      text.y = Phaser.Math.Clamp(text.y, -600, 100);
+     //    }
+     //
+     //  });
+
+      this.addtext = this.add.text(50,540,'To learn more about explanatory style',{fontFamily: '"Roboto"' }).setFontSize(19).setColor('black');
+      this.addtext.alpha = 0.60;
+
 
 
         this.openLink.once("pointerdown",function(){
+          if(ASGsound){
+            this.click_sound.play();
+          }
             this.openWindow();
         },this);
+      console.log(ASGFeedback);
+     if (ASGFeedback) {
+        this.gameFeedbackPopup();
+      }
+
+
+      this.GoToHome = this.add.sprite(400, 640, "GoToHome",{ fontFamily: '"Roboto"' }).setInteractive({ useHandCursor: true }).setScale(0.6);
+      this.PlayAgain = this.add.sprite(900, 640, "PlayAgain",{ fontFamily: '"Roboto"' }).setInteractive({ useHandCursor: true }).setScale(0.6);
+      // this.GoToHome.alpha = 0.87;
+      // this.PlayAgain.alpha = 0.87;
+
+      this.GoToHome.on('pointerdown', function () {
+        if(ASGsound){
+          this.click_sound.play();
+        }
+        this.scene.stop();
+        this.ASGPutRequest();
+        this.ASGGoHome();
+
+      }, this);
+
+      this.PlayAgain.on('pointerdown', function () {
+        if(ASGsound){
+          this.click_sound.play();
+        }
+        this.scene.stop();
+        bgm_sound.stop();
+        this.ASGPutRequest();
+        timeToAnswer = [];
+        console.log(timeToAnswer);
+        this.scene.stop(this.registry.get('currentScene'));
+        this.scene.stop(this.registry.get('QuestionScene'));
+        this.scene.stop(this.registry.get('ParallelScene'));
+        this.scene.stop('PERSONALISATION');
+        this.scene.stop('PERMANENCE');
+        this.scene.stop('pervasiveness');
+        this.scene.stop('UserResult');
+
+
+        this.scene.start('HomeScene');
+        this.registry.set('currentScene','HomeScene');
+        if(ASGsound == false){
+          bgm_sound.stop();
+          ASGrestartSound = true;
+        }
+
+      }, this);
 
     }
 
-    openWindow() {
+
+  feedbackEvent;
+
+  gameFeedbackPopup() {
+    this.feedbackEvent = document.createEvent("CustomEvent");
+    this.feedbackEvent.initCustomEvent("Feedback");
+    window.dispatchEvent(this.feedbackEvent);
+  }
+
+  ASGPutEvent;
+
+  ASGPutRequest() {
+    this.ASGPutEvent = document.createEvent("CustomEvent");
+    this.ASGPutEvent.initCustomEvent("ASGPut");
+    window.dispatchEvent(this.ASGPutEvent);
+  }
+
+  ASGGoHomeEvent;
+
+  ASGGoHome() {
+    this.ASGGoHomeEvent = document.createEvent("CustomEvent");
+    this.ASGGoHomeEvent.initCustomEvent("GoHome");
+    window.dispatchEvent(this.ASGGoHomeEvent);
+  }
+
+
+
+  openWindow() {
         console.log('opening')
-        var result = window.open('./assets/games/Attribution-style-game/src/assets/EXPLANATORY%20STYLE.pdf', "_self")
+        var result = window.open('./assets/games/Attribution-style-game/src/assets/EXPLANATORY%20STYLE.pdf');
         console.log('result', result);
     }
 
@@ -2106,18 +2692,20 @@ function conf(DEFAULT_WIDTH, DEFAULT_HEIGHT){
 /*
   this.scene = [UserResult, QuestionAndAnswer, ScoreDisplay, UIScene, LevelThree, LevelTwo, LevelOne, HomeScene, PreloadScene];
 */
-        this.scene = [PreloadScene, HomeScene, LevelOne, LevelTwo, LevelThree, UIScene, ScoreDisplay, QuestionAndAnswer,Personalisation,Permanence,Pervasiveness,UserResult];
+        this.scene = [a, b, c, d, e, u, s, q,per,perm,perv,ur];
 
 };
 
  var ASGAnswer;
  var ASGQuestions;
  var ASGExplanations;
- var ASquestions = [];
- var ASGUserPerformance;
+ var ASGFeedback;
+ var ASGsound = true;
+ var ASGrestartSound = false;
  var ASGPostIndividualAnswer;
  var ASGPostExplanation;
-
+ var timeToAnswer = [];
+ var level;
  var ASGLevelId;
  var ASGTotalBaloons;
  var ASGBalloonsBurst;
@@ -2127,6 +2715,10 @@ function conf(DEFAULT_WIDTH, DEFAULT_HEIGHT){
   var Answer1Id;
   var Answer2Id;
   var ExplanationId;
+  var bgm_sound;
+  var musicASGame;
+  var ASGstop;
+
 
 
 

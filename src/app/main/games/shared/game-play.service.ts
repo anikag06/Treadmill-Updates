@@ -52,6 +52,7 @@ declare var pauseECGame: any;
 declare var resumeECGame: any;
 declare var closeECGame: any;
 declare var musicECGame: any;
+declare var ECGFeedBack: boolean;
 
 declare var getECScoreData: any;
 declare var getECGameTaskData: any;
@@ -110,11 +111,14 @@ declare var miGameShowTutorial: boolean;
 declare var ASGAnswer: ASGAnswerData;
 declare var ASGQuestions: ASGQuestionData;
 declare var ASGExplanations: ASGExplanation;
-declare var ASanswer: any[];
-declare var ASquestions: string[];
-declare var ASGUserPerformance: ASGGetUserPerformance;
-declare var ASGPostIndividualAnswer: ASGIndividualAnswer;
-declare var ASGPostExplnation: ASGSaveExplanation;
+declare var ASGFeedback: boolean;
+declare var musicASGame: any;
+// declare var ASGstop: any;
+// declare var ASanswer: any[];
+// declare var ASquestions: string[];
+// declare var ASGUserPerformance: ASGGetUserPerformance;
+// declare var ASGPostIndividualAnswer: ASGIndividualAnswer;
+// declare var ASGPostExplnation: ASGSaveExplanation;
 
 declare var ASGLevelId: number;
 declare var ASGTotalBaloons: number;
@@ -142,6 +146,7 @@ export class GamePlayService {
   ecGameTaskData!: any;
   ecGameUserData!: any;
   ecGameID!: number;
+  AnswerId = [];
 
   // initialising the variables
   ecGameDataObject = new ECGameData(1, null, 1, 0, false, 0);
@@ -173,6 +178,7 @@ export class GamePlayService {
   // for ASG
   ASGPostLevelPerformance = new ASGLevelPerformance(1, 1, 1, 1, 1);
   ASGGameInstanceId!: number;
+  ASGUserPerformance!: ASGGetUserPerformance;
 
   constructor(
     private gamesService: GamesService,
@@ -216,14 +222,28 @@ export class GamePlayService {
   }
 
   // for attribution game
+  ASGUserData() {
+    this.gamesAuthService.atGetUserPerformance().subscribe(e => {
+      console.log(e);
+      this.ASGUserPerformance = e;
+
+      this.ASGGameInstanceId = e.id;
+      // ASGFeedback = e.ask_for_feedback;
+      // console.log(e.ask_for_feedback);
+    });
+  }
 
   playAttributionStyleGame() {
-    // tslint:disable-next-line:no-unused-expression
+    //tslint:disable-next-line:no-unused-expression
     this.gamesAuthService.atGetUserPerformance().subscribe(e => {
-      ASGUserPerformance = e;
-      console.log(e);
-      this.ASGGameInstanceId = e.id;
+      // console.log(e);
+      // ASGUserPerformance = e;
+
+      //this.ASGGameInstanceId = e.id;
+      ASGFeedback = e.ask_for_feedback;
+     // console.log(e.ask_for_feedback);
     });
+
     this.gamesAuthService.atGetAnswers().subscribe(e => {
       ASGAnswer = e;
       // console.log(ASGAnswer);
@@ -248,8 +268,16 @@ export class GamePlayService {
     console.log(this.game);
   }
 
+  soundASGGame(isSoundOn: any) {
+    //if (this.ecGameStarted) {
+      musicASGame(!isSoundOn);
+  }
+
   restartAttributionStyleGame() {
-    this.game.scene.scenes[5].rstart();
+   // this.game.destroy();
+     this.game.scene.scenes[5].rstart();
+
+    // this.playAttributionStyleGame();
   }
 
   resumeAttributionStyleGame() {
@@ -264,6 +292,19 @@ export class GamePlayService {
     // } else if (this.game.scene.isActive('QuestionAndAnswer')) {
     //   this.game.scene.scenes[5].pause();
     // }
+  }
+  closeASGame() {
+   // if (this.ecGameStarted) {
+     // this.storeDataExecControlGame();
+    //ASGstop();
+    this.game.destroy(true);
+
+    let date: Date;
+    date = new Date();
+    let d = date.getUTCDate();
+    this.gamesAuthService.atPutUserPerformance(false,this.ASGGameInstanceId, date.toISOString()
+    );
+    //}
   }
 
   postIndividualLevelASG() {
@@ -299,6 +340,14 @@ export class GamePlayService {
     );
   }
 
+  putUserPerformance() {
+    let date: Date;
+    date = new Date();
+    let d = date.getUTCDate();
+    this.gamesAuthService.atPutUserPerformance(true,this.ASGGameInstanceId, date.toISOString()
+    );
+  }
+
   // functions for executive control game
   playExecControlGame(isSoundOn: any, gamePauseDiv: any, helpClicked: boolean) {
     this.gamesAuthService.ecGameGetGameInfo().subscribe(game_data => {
@@ -306,6 +355,7 @@ export class GamePlayService {
       this.gamesAuthService.ecGameGetUserData().subscribe(user_data => {
         this.ecGameUserData = user_data;
         this.ecGameShowTutorial = user_data.data.show_tutorial;
+        ECGFeedBack = user_data.data.ask_for_feedback;
 
         if (this.ecGameShowTutorial) {
           this.ecGameSoundOn = isSoundOn;

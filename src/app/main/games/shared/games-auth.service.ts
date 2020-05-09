@@ -152,6 +152,7 @@ export class GamesAuthService {
         f,
       )
       .subscribe(resp => {
+        console.log(resp);
         this.ASGAnswerID = resp;
         console.log(this.ASGAnswerID.id);
         // @ts-ignore
@@ -184,6 +185,21 @@ export class GamesAuthService {
       )
       .subscribe(resp => console.log(resp));
     this.ASGi = this.ASGi + 2;
+  }
+
+  atPutUserPerformance(completed: boolean,gameInstance: number, end_time: string) {
+    const f = {
+      completed,
+      end_time,
+      gameInstance
+    };
+    return this.http
+      .put(
+        environment.API_ENDPOINT +
+        '/api/v1/games/attribution-style/user-performance-asgame/',
+        f,
+      )
+      .subscribe(resp => console.log(resp));
   }
 
   // for executive control game
