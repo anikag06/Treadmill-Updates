@@ -31,33 +31,33 @@ export class FlowStepNavigationService {
   goToFlowNextStep(step: any) {
     // console.log('step outside: ', step);
     if (step.data_type === SLIDE) {
-      return `/resources/slides/${step.id}/`;
+      return `main/resources/slides/${step.id}/`;
     } else if (step.data_type === CONVERSATION_GROUP) {
-      return `/resources/conversations-group/${step.id}/`;
+      return `main/resources/conversations-group/${step.id}/`;
     } else if (step.data_type === GAME) {
       const game_name = step.action[0];
-      return `/games/${game_name}/${step.id}`;
+      return `main/games/${game_name}/${step.id}`;
     } else if (step.data_type === FORM) {
       const form_name = FORM_URL_MAP.get(step.action[0]);
-      return `/resources/forms/${form_name}/${step.id}`;
+      return `main/resources/forms/${form_name}/${step.id}`;
     } else if (step.data_type === SUPPORT_GROUP) {
-      return `/support-groups/${step.id}`;
+      return `main/support-groups/${step.id}`;
     // } else if (step.data_type === QUESTIONNAIRE) {
     //   return `/questionnaire/`;
     } else if (step.data_type === INTRODUCTION_PAGE) {
-      return `/resources/introduction/${step.step_group_sequence}/`;
+      return `main/resources/introduction/${step.step_group_sequence}/`;
     } else if (step.data_type === CONCLUSION_PAGE) {
-      return `/resources/conclusion/${step.step_group_sequence}/`;
+      return `main/resources/conclusion/${step.step_group_sequence}/`;
     } else if (step.data_type === INTRODUCTORY_ANIMATION) {
-      return `/dashboard`;
+      return `main/dashboard`;
     } else if (step.data_type === CONTROL_PAGE) {
-      return `resources/control-content/${step.id}/`;
+      return `main/resources/control-content/${step.id}/`;
     } else if (step.data_type === SURVEY) {
       return `/survey/${step.id}`;
     } else if (step.data_type === RESOURCES_PAGE) {
-      return `/extra-resources/${step.id}`;
+      return `main/extra-resources/${step.id}`;
     } else if (step.data_type === TESTIMONIALS_PAGE) {
-      return `/extra-resources/${step.id}`;
+      return `main/extra-resources/${step.id}`;
     }
   }
 
