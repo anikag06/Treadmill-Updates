@@ -40,6 +40,7 @@ export class Conclusion4Component implements OnInit {
   navbarTitle!: string;
   stepSequence!: number;
   stepName!: string;
+  moodEvaluated!: boolean;
 
   constructor(
     private conclusionService: ConclusionService,
@@ -98,6 +99,7 @@ export class Conclusion4Component implements OnInit {
               this.stepName;
             console.log('STEP DETAIL:', this.navbarTitle );
             this.flowService.stepDetail.emit(this.navbarTitle);
+            this.flowService.navbarTitle = this.navbarTitle;
             if (step_data.data.next_questionnaire) {
               this.quizService.questinnaire_name =
                 step_data.data.next_questionnaire;
@@ -106,9 +108,22 @@ export class Conclusion4Component implements OnInit {
               this.conclusionService.moodEvaluate = false;
             }
             this.conclusionService.evaluateMood.emit();
-            this.showQuestionnaire = this.conclusionService.moodEvaluate;
+            // this.showQuestionnaire = this.conclusionService.moodEvaluate;
           });
       });
+    this.quizService.questionnaire_active.subscribe( (value: boolean) => {
+      console.log('EVENT EMITTED', value);
+      if (!value) {
+        this.moodEvaluated = true;
+        this.showQuestionnaire = false;
+        this.navbarTitle = this.flowService.navbarTitle;
+        this.flowService.stepDetail.emit(this.navbarTitle);
+      } else {
+        this.showQuestionnaire = true;
+        this.navbarTitle = 'Mood test';
+        this.flowService.stepDetail.emit(this.navbarTitle);
+      }
+    });
   }
 
   saveData() {

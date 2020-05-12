@@ -8,6 +8,7 @@ import { USER_PHQ_DATA, USER_GAD_DATA, USER_SIQ_DATA } from '@/app.constants';
 export class QuizService {
   questionnaireActive = false;
   questinnaire_name!: string;
+  questionnaire_active = new EventEmitter();
   disableLinks = new EventEmitter();
   enableLinks = new EventEmitter();
 

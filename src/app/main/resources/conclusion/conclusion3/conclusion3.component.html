@@ -1,4 +1,4 @@
-<ng-template [ngIf]="dataLoaded && !locked">
+<ng-template [ngIf]="dataLoaded && !locked && !showQuestionnaire">
   <div>
     In this module you learned:
     <ul>
@@ -45,7 +45,7 @@
   </div>
   <app-evaluate-mood></app-evaluate-mood>
   <br><br>
-  <div *ngIf="!showQuestionnaire">
+  <div *ngIf="moodEvaluated">
     <div>
     Do you ever wonder why different people have different thoughts following the same situation? You’ll learn that in
     the next module <span class="emphasis">{{nextModuleName}}</span>.
@@ -63,6 +63,13 @@
   </div>
   </div>
 </ng-template>
+
+<ng-template [ngIf]="showQuestionnaire">
+  <div class="row mt-5" >
+    <app-questionnaire class="w-100" [fromFlow]="true" [stepId]="null" [fromTrialRegistration]="false"></app-questionnaire>
+  </div>
+</ng-template>
+
 <ng-template [ngIf]="dataLoaded && locked">
   <div class="row">
     <div class="col">
@@ -72,6 +79,7 @@
     </div>
   </div>
 </ng-template>
+
 <ng-template [ngIf]="!dataLoaded">
   <div class="row">
     <div class="col">

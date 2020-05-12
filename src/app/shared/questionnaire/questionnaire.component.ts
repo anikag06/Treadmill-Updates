@@ -199,7 +199,7 @@ export class QuestionnaireComponent implements OnInit {
       this.display_siq_start = true;
       this.loadQuiz();
     } else {
-      this.router.navigate([DEFAULT_PATH]);
+      // this.router.navigate([DEFAULT_PATH]);
     }
   }
 
@@ -680,6 +680,7 @@ export class QuestionnaireComponent implements OnInit {
     console.log('after updating gad', gad_response);
     this.quizService.questionnaireActive = false;
     if (this.fromFlow === true) {
+      this.quizService.questionnaire_active.emit(false);
       this.quizService.post_gad(gad_response).subscribe((data: any) => {
         console.log(data);
         // TODO: Darshit needs to add timer service here
@@ -695,7 +696,7 @@ export class QuestionnaireComponent implements OnInit {
             error => console.log(error),
           );
           // this.router.navigate(['/']);
-          this.location.back();
+          // this.location.back();
         }
       });
     } else if (this.fromFlow === false && this.fromTrialRegistration === true) {

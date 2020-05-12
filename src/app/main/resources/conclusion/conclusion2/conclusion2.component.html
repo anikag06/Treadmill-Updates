@@ -1,4 +1,4 @@
-<ng-template [ngIf]="dataLoaded && !locked">
+<ng-template [ngIf]="dataLoaded && !locked && !showQuestionnaire">
   <div>
     Congratulations! You have completed the <span class="emphasis">{{moduleName}}</span> module.
     <br>
@@ -35,7 +35,7 @@
 
   <app-evaluate-mood></app-evaluate-mood>
   <br><br>
-  <div *ngIf="!showQuestionnaire">
+  <div *ngIf="moodEvaluated">
     In the next module, <span class="emphasis">{{nextModuleName}}</span>, you will learn how to change your thinking
     style.
 
@@ -51,10 +51,14 @@
       </ng-template>
     </div>
   </div>
-
-
-
 </ng-template>
+
+<ng-template [ngIf]="showQuestionnaire">
+  <div class="row mt-5" >
+    <app-questionnaire class="w-100" [fromFlow]="true" [stepId]="null" [fromTrialRegistration]="false"></app-questionnaire>
+  </div>
+</ng-template>
+
 <ng-template [ngIf]="dataLoaded && locked">
   <div class="row">
     <div class="col">
