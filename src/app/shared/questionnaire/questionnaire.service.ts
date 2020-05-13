@@ -4,7 +4,10 @@ import { QuesUserResponseArray } from './input/response';
 import { environment } from 'environments/environment';
 import { USER_PHQ_DATA, USER_GAD_DATA, USER_SIQ_DATA } from '@/app.constants';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
+
 export class QuizService {
   questionnaireActive = false;
   questinnaire_name!: string;

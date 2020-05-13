@@ -187,6 +187,7 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
       this.enableLinks();
     });
     this.quizService.disableLinks.subscribe((data: string) => {
+      console.log('LINKS DISABLED');
       this.disableLinks(data);
     });
     this.quizService.enableLinks.subscribe(() => {
