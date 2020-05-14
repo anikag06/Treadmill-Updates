@@ -6,10 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./need-to-talk.component.scss']
 })
 export class NeedToTalkComponent implements OnInit {
-
+  showHelplineNumbers = false;
   constructor() { }
 
   ngOnInit() {
   }
-
+  changeNumberVisibilty() {
+    this.showHelplineNumbers = !this.showHelplineNumbers;
+    console.log('clicked');
+  }
 }

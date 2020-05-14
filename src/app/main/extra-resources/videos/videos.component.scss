@@ -42,7 +42,9 @@
 @media screen and (min-width: 1501px) {
    .card {
     width: 348px;
-    flex-grow: 1;
+    //flex-grow: 1;
+     min-height: 347px;
+     max-height: 347px;
   }
   .show-footer-style{
     font-size: 20px;
@@ -53,6 +55,7 @@
 @media screen and (max-width: 1500px) {
     .card {
     width: 250px;
+      height: 245px;
   }
 }
 
@@ -60,6 +63,7 @@
   .card {
     width: 224px; //for 3 pics
     margin: 0px 0px 16px;
+    height: 226px;
   }
 }
 
@@ -67,12 +71,14 @@
 @media screen and (max-width: 991px) {
   .card {
     width: 268px;
+    height: 226px;
   }
  }
 
 @media screen and (max-width: 768px) {
    .card {
    width: 159px;
+   height: 177px;
   }
 
 
@@ -82,6 +88,8 @@
   .card {
     width: 42vw;
     margin: 0px 0px 14px;  // top right-left bottom
+    height: 186px;
+    //max-height: 186px;
   }
   .show-footer-style{
     font-size: 14px;
@@ -91,6 +99,9 @@
 @media screen and (max-width: 375px) {
   .card {
     width: 42vw;
+    height: 169px;
+    //height:183.7px;
+    //max-height: 183.7px;
     margin: 0px 0px 14px;  // top right-left bottom
   }
   .show-footer-style{
