@@ -4,15 +4,15 @@ import { Subscription } from 'rxjs';
 
 import { IntroductionService } from '../introduction.service';
 import { LOCKED } from '@/app.constants';
-import {StepsDataService} from '@/main/resources/shared/steps-data.service';
-import {FlowService} from '@/main/flow/flow.service';
+import { StepsDataService } from '@/main/resources/shared/steps-data.service';
+import { FlowService } from '@/main/flow/flow.service';
 
 @Component({
   selector: 'app-introduction5',
   templateUrl: './introduction5.component.html',
   styleUrls: ['./introduction5.component.scss'],
 })
-export class Introduction5Component implements OnInit {
+export class Introduction5Component implements OnInit, OnDestroy {
   stepGroupSequence!: number;
   dataLoaded = false;
   locked = true;
@@ -104,7 +104,7 @@ export class Introduction5Component implements OnInit {
     };
     this.introductionService
       .storeIntroductionData(this.stepGroupSequence, data)
-      .subscribe(data => {
+      .subscribe(() => {
         console.log('success');
       });
   }

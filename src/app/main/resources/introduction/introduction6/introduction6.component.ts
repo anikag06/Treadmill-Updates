@@ -1,24 +1,20 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { IntroductionService } from '@/main/resources/introduction/introduction.service';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
-
-import { IntroductionService } from '../introduction.service';
-import { LOCKED } from '@/app.constants';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 import { FlowService } from '@/main/flow/flow.service';
+import { LOCKED } from '@/app.constants';
+import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-introduction2',
-  templateUrl: './introduction2.component.html',
-  styleUrls: ['./introduction2.component.scss'],
+  selector: 'app-introduction6',
+  templateUrl: './introduction6.component.html',
+  styleUrls: ['./introduction6.component.scss'],
 })
-export class Introduction2Component implements OnInit, OnDestroy {
+export class Introduction6Component implements OnInit {
   stepGroupSequence!: number;
-  enjoyable!: string;
-  mastery!: string;
-  miserable!: string;
-  dataLoaded: boolean = false;
-  locked: boolean = true;
+  dataLoaded = false;
+  locked = true;
   introductionDataSubscription!: Subscription;
   currentStepId!: number;
   navbarTitle!: string;
@@ -41,9 +37,6 @@ export class Introduction2Component implements OnInit, OnDestroy {
       .getIntroductionData(this.stepGroupSequence)
       .subscribe(data => {
         if (data.user_step_status !== LOCKED) {
-          this.enjoyable = data.enjoyable;
-          this.mastery = data.mastery;
-          this.miserable = data.miserable;
           this.locked = false;
         } else {
           this.locked = true;
@@ -53,7 +46,6 @@ export class Introduction2Component implements OnInit, OnDestroy {
         this.stepDataService
           .getStepData(this.currentStepId)
           .subscribe((step_data: any) => {
-            console.log('step data is:', step_data);
             // for navbar title
             this.stepGroupSequence = step_data.data.step_group_sequence + 1;
             this.stepSequence = step_data.data.sequence + 1;
@@ -64,26 +56,8 @@ export class Introduction2Component implements OnInit, OnDestroy {
               this.stepSequence.toString() +
               ' ' +
               this.stepName;
-            console.log('STEP DETAIL:', this.navbarTitle);
             this.flowService.stepDetail.emit(this.navbarTitle);
           });
-      });
-  }
-
-  ngOnDestroy() {
-    this.introductionDataSubscription.unsubscribe();
-  }
-
-  saveData() {
-    let data = {
-      enjoyable: this.enjoyable,
-      mastery: this.mastery,
-      miserable: this.miserable,
-    };
-    this.introductionService
-      .storeIntroductionData(this.stepGroupSequence, data)
-      .subscribe(data => {
-        console.log('success');
       });
   }
 }

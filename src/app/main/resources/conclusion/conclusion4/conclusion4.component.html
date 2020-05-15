@@ -3,10 +3,6 @@
     Congratulations! You have completed the <span class="emphasis">{{moduleName}}</span> module.
   </div>
   <div *ngIf="balancedBelief">
-    <span *ngIf="negativeThought">
-      Based on the negative thought: {{ negativeThought }}
-    </span>
-    <br>
     You identified this belief that made you vulnerable to negative thinking: {{ negativeBelief }}
     <br>
     After evaluating the belief using the <a routerLink="{{beliefChangeFormLink}}">Belief change form</a>, you came up

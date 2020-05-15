@@ -4,15 +4,15 @@ import { Subscription } from 'rxjs';
 
 import { IntroductionService } from '../introduction.service';
 import { LOCKED } from '@/app.constants';
-import {StepsDataService} from '@/main/resources/shared/steps-data.service';
-import {FlowService} from '@/main/flow/flow.service';
+import { StepsDataService } from '@/main/resources/shared/steps-data.service';
+import { FlowService } from '@/main/flow/flow.service';
 
 @Component({
   selector: 'app-introduction4',
   templateUrl: './introduction4.component.html',
   styleUrls: ['./introduction4.component.scss'],
 })
-export class Introduction4Component implements OnInit {
+export class Introduction4Component implements OnInit, OnDestroy {
   stepGroupSequence!: number;
   dataLoaded = false;
   locked = true;
@@ -23,9 +23,9 @@ export class Introduction4Component implements OnInit {
   stepName!: string;
   negativeBeliefs = ['I am incompetent', 'I am unlovable', 'I am worthless'];
   balancedBeliefs = [
-    'balanced belief 1',
-    'balanced belief 2',
-    'balanced belief 3',
+    'I am reasonably competent. Of course, I am not excellent at everything I do. But, I can manage most things reasonably well.',
+    'I am reasonably lovable. Of course, not everyone loves me. Not everyone even likes me. But there are some people who do like me and a few who actually love me.',
+    'I am not worthless. I am valuable to my family.',
   ];
   selectedBelief!: string;
   balancedBelief!: string;

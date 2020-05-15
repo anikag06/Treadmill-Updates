@@ -1,34 +1,25 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { COMMITMENT_OPTIONS, COMPLETED, LOCKED } from '@/app.constants';
 import { Subscription } from 'rxjs';
-
-import { LOCKED, COMPLETED, COMMITMENT_OPTIONS } from '@/app.constants';
-import { ConclusionService } from '../conclusion.service';
-import { StepsDataService } from '../../shared/steps-data.service';
-import { StepCompleteData } from '../../shared/completion-data.model';
-import { CommonDialogsService } from '../../shared/common-dialogs.service';
+import { StepCompleteData } from '@/main/resources/shared/completion-data.model';
+import { ConclusionService } from '@/main/resources/conclusion/conclusion.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { StepsDataService } from '@/main/resources/shared/steps-data.service';
+import { CommonDialogsService } from '@/main/resources/shared/common-dialogs.service';
 import { QuizService } from '@/shared/questionnaire/questionnaire.service';
 import { FlowService } from '@/main/flow/flow.service';
 
 @Component({
-  selector: 'app-conclusion3',
-  templateUrl: './conclusion3.component.html',
-  styleUrls: ['./conclusion3.component.scss'],
+  selector: 'app-conclusion6',
+  templateUrl: './conclusion6.component.html',
+  styleUrls: ['./conclusion6.component.scss'],
 })
-export class Conclusion3Component implements OnInit, OnDestroy {
+export class Conclusion6Component implements OnInit, OnDestroy {
   stepGroupSequence!: number;
-  options = COMMITMENT_OPTIONS;
-  commitment!: string;
-  upsettingSituation!: string;
-  negativeThought!: string;
-  balancedThought!: string;
-  conclusionDataSubscription!: Subscription;
-  // TODO: provide link for thought record form and problem solving form
-  thoughtRecordFormLink = '';
-  problemSolvingFormLink = '';
   dataLoaded = true;
   locked = false;
   stepCompleted = false;
+  conclusionDataSubscription!: Subscription;
 
   moduleName!: string;
   nextModuleName!: string;
@@ -48,7 +39,6 @@ export class Conclusion3Component implements OnInit, OnDestroy {
     private stepDataService: StepsDataService,
     private commonDialogService: CommonDialogsService,
     private quizService: QuizService,
-    private stepsService: StepsDataService,
     private flowService: FlowService,
   ) {}
 
@@ -71,10 +61,6 @@ export class Conclusion3Component implements OnInit, OnDestroy {
           this.nextModuleName = data.next_module_name;
           this.currentStepId = data.current_step_id;
           this.nextStepId = data.next_step_id;
-          this.commitment = data.data.commitment;
-          this.upsettingSituation = data.data.upsettingSituation;
-          this.negativeThought = data.data.negativeThought;
-          this.balancedThought = data.data.balancedThought;
           this.locked = false;
           if (data.user_step_status === COMPLETED) {
             this.stepCompleted = true;
@@ -112,27 +98,11 @@ export class Conclusion3Component implements OnInit, OnDestroy {
       });
   }
 
-  saveData() {
-    const data = {
-      commitment: this.commitment,
-      upsettingSituation: this.upsettingSituation,
-      negativeThought: this.negativeThought,
-      balancedThought: this.balancedThought,
-    };
-    this.conclusionService
-      .storeConclusionData(this.stepGroupSequence, data)
-      .subscribe(_data => {
-        console.log('data saved');
-      });
-  }
-
   ngOnDestroy() {
-    this.saveData();
     this.conclusionDataSubscription.unsubscribe();
   }
 
   onCompleted() {
-    this.saveData();
     this.stepCompleted = true;
     this.timeSpent = 200;
     this.completionData.time_spent = this.timeSpent;

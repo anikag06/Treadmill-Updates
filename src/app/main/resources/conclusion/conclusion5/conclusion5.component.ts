@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -8,14 +8,14 @@ import { StepsDataService } from '../../shared/steps-data.service';
 import { StepCompleteData } from '../../shared/completion-data.model';
 import { CommonDialogsService } from '../../shared/common-dialogs.service';
 import { QuizService } from '@/shared/questionnaire/questionnaire.service';
-import {FlowService} from "@/main/flow/flow.service";
+import { FlowService } from '@/main/flow/flow.service';
 
 @Component({
   selector: 'app-conclusion5',
   templateUrl: './conclusion5.component.html',
   styleUrls: ['./conclusion5.component.scss'],
 })
-export class Conclusion5Component implements OnInit {
+export class Conclusion5Component implements OnInit, OnDestroy {
   stepGroupSequence!: number;
   options = COMMITMENT_OPTIONS;
   commitment!: string;
@@ -23,9 +23,9 @@ export class Conclusion5Component implements OnInit {
   conclusionDataSubscription!: Subscription;
   // TODO: provide link for thought record form and problem solving form
   controlWorryingFormLink = '';
-  dataLoaded: boolean = true;
-  locked: boolean = false;
-  stepCompleted: boolean = false;
+  dataLoaded = true;
+  locked = false;
+  stepCompleted = false;
 
   moduleName!: string;
   nextModuleName!: string;
@@ -62,7 +62,7 @@ export class Conclusion5Component implements OnInit {
     this.conclusionDataSubscription = this.conclusionService
       .getConclusionData(this.stepGroupSequence)
       .subscribe(data => {
-        if (data.user_step_status != LOCKED) {
+        if (data.user_step_status !== LOCKED) {
           this.moduleName = data.module_name;
           this.nextModuleName = data.next_module_name;
           this.currentStepId = data.current_step_id;
@@ -91,7 +91,7 @@ export class Conclusion5Component implements OnInit {
               this.stepSequence.toString() +
               ' ' +
               this.stepName;
-            console.log('STEP DETAIL:', this.navbarTitle );
+            console.log('STEP DETAIL:', this.navbarTitle);
             this.flowService.stepDetail.emit(this.navbarTitle);
             if (step_data.data.next_questionnaire) {
               this.quizService.questinnaire_name =
@@ -107,13 +107,13 @@ export class Conclusion5Component implements OnInit {
   }
 
   saveData() {
-    let data = {
+    const data = {
       commitment: this.commitment,
       worry: this.worry,
     };
     this.conclusionService
       .storeConclusionData(this.stepGroupSequence, data)
-      .subscribe(data => {
+      .subscribe(_data => {
         console.log('data saved');
       });
   }

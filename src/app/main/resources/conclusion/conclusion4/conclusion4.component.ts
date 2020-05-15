@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -8,27 +8,26 @@ import { StepsDataService } from '../../shared/steps-data.service';
 import { StepCompleteData } from '../../shared/completion-data.model';
 import { CommonDialogsService } from '../../shared/common-dialogs.service';
 import { QuizService } from '@/shared/questionnaire/questionnaire.service';
-import {FlowService} from "@/main/flow/flow.service";
+import { FlowService } from '@/main/flow/flow.service';
 
 @Component({
   selector: 'app-conclusion4',
   templateUrl: './conclusion4.component.html',
   styleUrls: ['./conclusion4.component.scss'],
 })
-export class Conclusion4Component implements OnInit {
+export class Conclusion4Component implements OnInit, OnDestroy {
   stepGroupSequence!: number;
   options = COMMITMENT_OPTIONS;
   commitment!: string;
-  negativeThought!: string;
   negativeBelief!: string;
   balancedBelief!: string;
   conclusionDataSubscription!: Subscription;
   // TODO: provide link for thought record form and problem solving form
   beliefChangeFormLink = '';
   experimentToTestBeliefFormLink = '';
-  dataLoaded: boolean = true;
-  locked: boolean = false;
-  stepCompleted: boolean = false;
+  dataLoaded = true;
+  locked = false;
+  stepCompleted = false;
 
   moduleName!: string;
   nextModuleName!: string;
@@ -65,13 +64,12 @@ export class Conclusion4Component implements OnInit {
     this.conclusionDataSubscription = this.conclusionService
       .getConclusionData(this.stepGroupSequence)
       .subscribe(data => {
-        if (data.user_step_status != LOCKED) {
+        if (data.user_step_status !== LOCKED) {
           this.moduleName = data.module_name;
           this.nextModuleName = data.next_module_name;
           this.currentStepId = data.current_step_id;
           this.nextStepId = data.next_step_id;
           this.commitment = data.data.commitment;
-          this.negativeThought = data.data.negativeThought;
           this.negativeBelief = data.data.negativeBelief;
           this.balancedBelief = data.data.balancedBelief;
           this.locked = false;
@@ -96,7 +94,7 @@ export class Conclusion4Component implements OnInit {
               this.stepSequence.toString() +
               ' ' +
               this.stepName;
-            console.log('STEP DETAIL:', this.navbarTitle );
+            console.log('STEP DETAIL:', this.navbarTitle);
             this.flowService.stepDetail.emit(this.navbarTitle);
             if (step_data.data.next_questionnaire) {
               this.quizService.questinnaire_name =
@@ -112,15 +110,14 @@ export class Conclusion4Component implements OnInit {
   }
 
   saveData() {
-    let data = {
+    const data = {
       commitment: this.commitment,
-      negativeThought: this.negativeThought,
       negativeBelief: this.negativeBelief,
       balancedBelief: this.balancedBelief,
     };
     this.conclusionService
       .storeConclusionData(this.stepGroupSequence, data)
-      .subscribe(data => {
+      .subscribe(_data => {
         console.log('data saved');
       });
   }

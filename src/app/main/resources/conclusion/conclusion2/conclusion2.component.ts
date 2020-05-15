@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -8,21 +8,21 @@ import { StepsDataService } from '../../shared/steps-data.service';
 import { StepCompleteData } from '../../shared/completion-data.model';
 import { CommonDialogsService } from '../../shared/common-dialogs.service';
 import { QuizService } from '@/shared/questionnaire/questionnaire.service';
-import {FlowService} from "@/main/flow/flow.service";
+import { FlowService } from '@/main/flow/flow.service';
 
 @Component({
   selector: 'app-conclusion2',
   templateUrl: './conclusion2.component.html',
   styleUrls: ['./conclusion2.component.scss'],
 })
-export class Conclusion2Component implements OnInit {
+export class Conclusion2Component implements OnInit, OnDestroy {
   stepGroupSequence!: number;
   conclusionDataSubscription!: Subscription;
   // TODO: provide link for task form
   taskFormLink = '';
-  dataLoaded: boolean = true;
-  locked: boolean = false;
-  stepCompleted: boolean = false;
+  dataLoaded = true;
+  locked = false;
+  stepCompleted = false;
 
   moduleName!: string;
   nextModuleName!: string;
@@ -67,6 +67,7 @@ export class Conclusion2Component implements OnInit {
           this.currentStepId = data.current_step_id;
           this.nextStepId = data.next_step_id;
           this.tasks = data.data.tasks;
+          console.log('data: ', data.data.tasks);
           this.locked = false;
           if (data.user_step_status === COMPLETED) {
             this.stepCompleted = true;
@@ -89,7 +90,7 @@ export class Conclusion2Component implements OnInit {
               this.stepSequence.toString() +
               ' ' +
               this.stepName;
-            console.log('STEP DETAIL:', this.navbarTitle );
+            console.log('STEP DETAIL:', this.navbarTitle);
             this.flowService.stepDetail.emit(this.navbarTitle);
             if (step_data.data.next_questionnaire) {
               console.log('QUESTION:', step_data);

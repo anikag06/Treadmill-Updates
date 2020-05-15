@@ -1,0 +1,29 @@
+<ng-template [ngIf]="dataLoaded && !locked">
+  <!-- Add IMAGES here -->
+  <h4 class="mt-3">Dummy Introduction Title</h4>
+  <div>
+    Congratulations on making it to the last module of TreadWill.
+    <br><br>
+    Hopefully, you are feeling better now.
+    <br><br>
+    But, the problem is that life is full of ups and downs. You are going to face setbacks, failures, and rejections. We all do - that’s just life.
+    <br><br>
+    How to prevent yourself from getting stuck in another negative thinking trap? You’ll learn in this module.
+  </div>
+</ng-template>
+<ng-template [ngIf]="dataLoaded && locked">
+  <div class="row">
+    <div class="col">
+      <div class="text-center loader">
+        This content is not yet unlocked for you.
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template [ngIf]="!dataLoaded">
+  <div class="col">
+    <div class="text-center loader">
+      <img src="assets/shared/dna-loader.svg" alt="loader" width="200">
+    </div>
+  </div>
+</ng-template>

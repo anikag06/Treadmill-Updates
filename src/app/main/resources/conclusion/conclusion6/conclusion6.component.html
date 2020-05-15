@@ -1,0 +1,66 @@
+<ng-template [ngIf]="dataLoaded && !locked">
+  <div>
+    Congratulations! You have completed the <span class="emphasis">{{moduleName}}</span> module and TreadWill.
+  </div>
+  <div>
+    In TreadWill, you have learned all the skills to feel better. But, just knowing how to feel better wouldn’t make you feel better. You need to keep practicing the skills.
+    <br><br>
+    <ul>
+      <li>
+        Keep revisiting the modules from time to time.
+      </li>
+      <li>
+        Keep using the forms to get all the techniques in one place.
+      </li>
+      <li>
+        Keep playing the games to modify your thinking biases.
+      </li>
+      <li>
+        Keep chatting with Willbot if you need to talk about your feelings.
+      </li>
+      <li>
+        Keep using the SupportGroup to interact with other TreadWill users.
+      </li>
+    </ul>
+    <br><br>
+    Bye for now!
+  </div>
+  <br><br>
+  <app-evaluate-mood></app-evaluate-mood>
+  <br><br>
+  <div *ngIf="!showQuestionnaire">
+    <div>
+      In the next module, <span class="emphasis">{{nextModuleName}}</span>, you'll learn how to keep using the techniques
+      you have learned over the previous modules to maintain a state of positive mood.
+    </div>
+    <div class="row align-self-end px-0">
+      <button class="completed-btn float-right" type="button" *ngIf='!stepCompleted; else isCompleted ' mat-raised-button
+              color="primary" (click)="onCompleted()">
+        Completed
+      </button>
+      <ng-template #isCompleted>
+        <button class="completed-btn float-right" type="button" mat-raised-button color="primary" (click)="onDashboard()">
+          Go to dashboard
+        </button>
+      </ng-template>
+    </div>
+  </div>
+</ng-template>
+<ng-template [ngIf]="dataLoaded && locked">
+  <div class="row">
+    <div class="col">
+      <div class="text-center loader">
+        This content is not yet unlocked for you.
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template [ngIf]="!dataLoaded">
+  <div class="row">
+    <div class="col">
+      <div class="text-center loader">
+        <img src="assets/shared/dna-loader.svg" alt="loader" width="200">
+      </div>
+    </div>
+  </div>
+</ng-template>
