@@ -8,7 +8,7 @@ import {
   COMMITMENT_OPTIONS,
   ACTIVE,
   QUESTIONNAIRE,
-  CONCLUSION_PAGE,
+  CONCLUSION_PAGE, LOGGED_IN_PATH,
 } from '@/app.constants';
 import { ConclusionService } from '../conclusion.service';
 import { StepsDataService } from '../../shared/steps-data.service';
@@ -115,6 +115,7 @@ export class Conclusion1Component implements OnInit, OnDestroy {
               this.conclusionService.moodEvaluate = true;
             } else {
               this.conclusionService.moodEvaluate = false;
+              this.moodEvaluated = true;
             }
             this.conclusionService.evaluateMood.emit();
             // this.showQuestionnaire = this.conclusionService.moodEvaluate;
@@ -123,6 +124,7 @@ export class Conclusion1Component implements OnInit, OnDestroy {
     this.quizService.questionnaire_active.subscribe( (value: boolean) => {
       console.log('EVENT EMITTED', value);
       if (!value) {
+        // this.quizService.questionnaireActive = false;
         this.moodEvaluated = true;
         this.showQuestionnaire = false;
         this.navbarTitle = this.flowService.navbarTitle;
@@ -170,6 +172,6 @@ export class Conclusion1Component implements OnInit, OnDestroy {
   }
 
   onDashboard() {
-    this.router.navigate(['/dashboard']);
+    this.router.navigate([LOGGED_IN_PATH]);
   }
 }

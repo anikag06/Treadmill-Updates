@@ -14,7 +14,7 @@
                 </div>
               </div>
               <div class="" *ngIf="display_gad_start" id="gad-7">
-                <span class="bold"> Before moving further, we need ou to carefully answer 7 quick
+                <span class="bold"> Before moving further, we need you to carefully answer 7 quick
                   questions. This is a standard set of questions, called GAD-7, used in
                   healthcare to assess anxiety symptoms (everyone has some!).
                 </span>
@@ -47,8 +47,12 @@
           <div class="col-xl-4 col-md-6 col-sm-12" class="card text-center">
             <div class="row h-100 ">
               <div class="col-2 my-auto ">
-                <button type="button" class="btn btn-default" aria-label="Left Align" (click)="onback()" *ngIf="back">
-                  <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+<!--                <button type="button" class="btn btn-default" aria-label="Left Align" (click)="onback()" *ngIf="back">-->
+<!--                  <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>-->
+<!--                </button>-->
+                <button type="button" class="btn btn-default btn-left" aria-label="Left Align" (click)="onback()"
+                        *ngIf="back">
+<!--                  <mat-icon>arrow_back_ios</mat-icon>-->
                 </button>
               </div>
               <div class="col-8 my-auto" [@in]="question_no">
@@ -103,7 +107,7 @@
                     <div class="row">
                       <div class="col">
                         <div id=submit>
-                          Thank you for your response!
+                          Thanks. Click on Submit to save your response.
                         </div>
                         <button id=btn type="button" class="btn btn-outline-dark"
                           *ngIf="submit"
@@ -115,10 +119,15 @@
                 </div>
               </div>
               <div class="col-2 my-auto ">
-                <button type="button" class="btn btn-default" aria-label="Right Align"
-                  (click)="onfront()"
-                  *ngIf="display_front()">
-                  <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+<!--                <button type="button" class="btn btn-default" aria-label="Right Align"-->
+<!--                  (click)="onfront()"-->
+<!--                  *ngIf="display_front()">-->
+<!--                  <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>-->
+<!--                </button>-->
+                <button type="button" class="btn btn-default btn-right" aria-label="Right Align" (click)="onfront()"
+                        *ngIf="display_front()">
+
+<!--                  <mat-icon>arrow_forward_ios</mat-icon>-->
                 </button>
               </div>
             </div>

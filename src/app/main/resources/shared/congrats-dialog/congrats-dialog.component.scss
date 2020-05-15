@@ -1,21 +1,36 @@
 
 .congrats-div {
-    max-height: 733px;
-    max-width: 1158px;
+    max-height: 446px;
+    max-width: 620px;
     height: 100%;
     width: 100%;
     text-align: center;
   font-family: Roboto;
 }
+.badge-div{
+  height: 180px;
+  width: 620px;
+  background-color: #2A3B3D;
+}
+.badge-text{
+  color:#FFFFFFDE;
+  font-size: 16px;
+  margin-top:55px;
+}
 .congrats-text {
+  margin-top: 24px;
+  margin-bottom: 12px;
     color: #4E4E4E;
-    font-size: 32px;
+    font-size: 30px;
+  font-weight: 500;
 }
 .text {
     color: #00000099;
+  font-size: 16px;
 }
 .next-text {
   color: #00000066;
+  font-size: 14px;
   margin-top: 56px;
 }
 #flow-img{
@@ -34,17 +49,36 @@ button {
   color: white;
 }
 .badge-img{
-    max-height: 80px;
+    height: 108px;
 
 }
 .sparkled-img {
-  width:174px;
+  margin-top:16px;
+  width:222px;
 }
 @media screen and (max-width: 767px) {
+  .congrats-div {
+    max-height: 620px;
+    max-width: 446px;
+  }
 
-    .congrats-text {
+  .congrats-text {
         font-size: 24px;
     }
+  .badge-div{
+    height: 180px;
+    width: 320px;
+    background-color: #2A3B3D;
+  }
+
+  .text {
+    color: #00000099;
+    font-size: 14px;
+  }
+  .next-text {
+    margin-top: 48px;
+  }
+
     .next-step-div{
         max-height: 36px;
     }
@@ -52,7 +86,4 @@ button {
         margin-left: auto  !important;
         margin-right: auto !important;
     }
-  .sparkled-img {
-    width: 148px;
-  }
 }

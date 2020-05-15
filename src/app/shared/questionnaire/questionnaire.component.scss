@@ -8,7 +8,7 @@
 #const{
     font-size: 14px;
     font-style: italic;
-    
+
 }
 #bold{
     line-height:35px;
@@ -16,13 +16,13 @@
     font-size:17px;
 }
 
-.glyphicon {
-    font-size: 30px;
-}
-.glyphicon:focus,.glyphicon:active {
-    outline: none !important;
-    box-shadow: none !important;
-}
+//.glyphicon {
+//    font-size: 30px;
+//}
+//.glyphicon:focus,.glyphicon:active {
+//    outline: none !important;
+//    box-shadow: none !important;
+//}
 .example-sidenav {
     display: flex;
     align-items: center;
@@ -39,7 +39,7 @@
 }
 
 #text{
-    font-size: 10px; 
+    font-size: 10px;
 }
 #btn{
 
@@ -49,7 +49,7 @@
     height: 60px;
     margin: 5px;
 
-    
+
 
 }
 #btn:focus, #btn:active {
@@ -80,17 +80,17 @@
     border: none;
     // z-index: 1;
     // box-shadow:  -5px 0 5px -5px #333, 5px 0 5px -5px #333;
-    
+
 }
 
 
 
 
-@import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css");
+//@import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css");
 
 @media screen and (max-width: 1040px) {
     .card{
-        
+
         width: 600px;
 
         background-color: white;
@@ -107,7 +107,7 @@
         #question{
             height: 150px;
         }
-        
+
         #btn{
             width: 140px;
             padding:10px;
@@ -121,7 +121,7 @@
             line-height:35px;
             font-style: bold;
             font-size:17px;
-    
+
         }
         #btn:focus{
             background:white;
@@ -134,7 +134,7 @@
 
 @media screen and (max-width: 700px) {
     .card{
-        
+
         width: 600px;
 
         background-color: white;
@@ -151,7 +151,7 @@
         #question{
             height: 250px;
         }
-        
+
         #btn{
 
             width: 130px;
@@ -160,15 +160,15 @@
             font-size: 15px;
             border-radius: 5px;
             height: 50px;
-            
-                    
+
+
         }
         #submit{
             height: 100px;
             line-height:35px;
             font-style: bold;
             font-size:17px;
-    
+
         }
         #btn:focus{
             background:white;
@@ -190,9 +190,9 @@
         border: none;
         // z-index: 1;
         // box-shadow:  -5px 0 5px -5px #333, 5px 0 5px -5px #333;
-        
+
     }
-    
+
         #question{
             height: 250px;
         }
@@ -205,8 +205,8 @@
             font-size: 12px;
             border-radius: 5px;
             height: 50px;
-            
-                    
+
+
         }
         #btn:focus{
             background:white;
@@ -219,7 +219,7 @@
   }
 
   @media screen and (max-width: 360px) {
-    
+
 
         .card{
             width: 100%;
@@ -228,9 +228,9 @@
             padding-bottom: 0px;
             text-align: center;
             float: none;
-            
+
         }
-        
+
         #question{
             height: 250px;
         }
@@ -239,10 +239,10 @@
             line-height:25px;
             font-style: bold;
             font-size:17px;
-            
-        
+
+
         }
-        
+
         #btn{
 
             width: 100px;
@@ -251,8 +251,8 @@
             font-size: 12px;
             border-radius: 5px;
             height: 50px;
-            
-                    
+
+
         }
         .btn{
             margin:2px;
@@ -262,7 +262,7 @@
             line-height:35px;
             font-style: bold;
             font-size:17px;
-    
+
         }
         #btn:focus{
             background:white;
@@ -273,5 +273,5 @@
         }
   }
 
-  
-  
+
+

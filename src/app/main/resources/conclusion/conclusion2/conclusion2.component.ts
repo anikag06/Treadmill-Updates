@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { LOCKED, COMPLETED } from '@/app.constants';
+import {LOCKED, COMPLETED, LOGGED_IN_PATH} from '@/app.constants';
 import { ConclusionService } from '../conclusion.service';
 import { StepsDataService } from '../../shared/steps-data.service';
 import { StepCompleteData } from '../../shared/completion-data.model';
@@ -100,6 +100,7 @@ export class Conclusion2Component implements OnInit {
               this.conclusionService.moodEvaluate = true;
             } else {
               this.conclusionService.moodEvaluate = false;
+              this.moodEvaluated = true;
             }
             this.conclusionService.evaluateMood.emit();
           });
@@ -141,6 +142,6 @@ export class Conclusion2Component implements OnInit {
   }
 
   onDashboard() {
-    this.router.navigate(['/dashboard']);
+    this.router.navigate([LOGGED_IN_PATH]);
   }
 }

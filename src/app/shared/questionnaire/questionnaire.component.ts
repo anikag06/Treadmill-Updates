@@ -199,11 +199,12 @@ export class QuestionnaireComponent implements OnInit {
       this.display_siq_start = true;
       this.loadQuiz();
     } else {
-      // this.router.navigate([DEFAULT_PATH]);
+      this.router.navigate([DEFAULT_PATH]);
     }
   }
 
   loadQuiz() {
+    // this.quizService.questionnaireActive = true;
     this.quizService.disableLinks.emit(this.data);
     console.log('load quiz', this.api[this.index]);
     this.quizService.get(this.api[this.index]).subscribe((res: any) => {

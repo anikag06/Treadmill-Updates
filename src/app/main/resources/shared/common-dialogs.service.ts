@@ -35,8 +35,10 @@ export class CommonDialogsService {
 
   openDialog(isLastStep: boolean) {
     const dialogRef = this.dialog.open(CongratsDialogComponent, {
-      width: '50%',
-      height: '65%',
+      maxWidth: '90vw',
+      // width: '44%',
+      height: '48%',
+      panelClass: 'slide-video',
       data: {
         isLocked: this.isLocked,
         isLastStep: isLastStep,

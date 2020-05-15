@@ -117,7 +117,7 @@ import { UserProfileComponent } from './shared/user-profile/user-profile.compone
 import { UserProfileService } from './shared/user-profile/userProfile.service';
 import { BadgesComponent } from './shared/user-profile/badges/badges.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
-// import { QuestionnaireModule } from '@/questionnaire.module';
+import { QuestionnaireModule } from '@/questionnaire.module';
 import { GetQuestionnaireComponent } from './dashboard/get-questionnaire/get-questionnaire.component';
 import { IdcHeadingComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-heading/idc-heading.component';
 import { IdcMainComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-main/idc-main.component';
