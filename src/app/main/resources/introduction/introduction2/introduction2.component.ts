@@ -17,8 +17,8 @@ export class Introduction2Component implements OnInit, OnDestroy {
   enjoyable!: string;
   mastery!: string;
   miserable!: string;
-  dataLoaded: boolean = false;
-  locked: boolean = true;
+  dataLoaded = false;
+  locked = true;
   introductionDataSubscription!: Subscription;
   currentStepId!: number;
   navbarTitle!: string;
@@ -75,14 +75,14 @@ export class Introduction2Component implements OnInit, OnDestroy {
   }
 
   saveData() {
-    let data = {
+    const data = {
       enjoyable: this.enjoyable,
       mastery: this.mastery,
       miserable: this.miserable,
     };
     this.introductionService
       .storeIntroductionData(this.stepGroupSequence, data)
-      .subscribe(data => {
+      .subscribe(_data => {
         console.log('success');
       });
   }

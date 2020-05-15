@@ -16,8 +16,8 @@ import { StepCompleteData } from '../../shared/completion-data.model';
 import { CommonDialogsService } from '../../shared/common-dialogs.service';
 import { Step } from '@/main/flow/step-group/step/step.model';
 import { QuizService } from '@/shared/questionnaire/questionnaire.service';
-import {FlowService} from "@/main/flow/flow.service";
-import {NavbarNotificationsService} from "@/main/shared/navbar/navbar-notifications.service";
+import { FlowService } from '@/main/flow/flow.service';
+import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifications.service';
 
 @Component({
   selector: 'app-conclusion1',
@@ -31,9 +31,9 @@ export class Conclusion1Component implements OnInit, OnDestroy {
   conclusionDataSubscription!: Subscription;
   // TODO: provide link for thought record form
   thoughtRecordFormLink = '';
-  dataLoaded: boolean = true;
-  locked: boolean = false;
-  stepCompleted: boolean = false;
+  dataLoaded = true;
+  locked = false;
+  stepCompleted = false;
 
   moduleName!: string;
   nextModuleName!: string;
@@ -75,7 +75,7 @@ export class Conclusion1Component implements OnInit, OnDestroy {
     this.conclusionDataSubscription = this.conclusionService
       .getConclusionData(this.stepGroupSequence)
       .subscribe(data => {
-        if (data.user_step_status != LOCKED) {
+        if (data.user_step_status !== LOCKED) {
           console.log('data', data);
           this.moduleName = data.module_name;
           this.nextModuleName = data.next_module_name;
@@ -104,7 +104,7 @@ export class Conclusion1Component implements OnInit, OnDestroy {
               this.stepSequence.toString() +
               ' ' +
               this.stepName;
-            console.log('STEP DETAIL:', this.navbarTitle );
+            console.log('STEP DETAIL:', this.navbarTitle);
             this.flowService.stepDetail.emit(this.navbarTitle);
             if (step_data.data.next_questionnaire) {
               this.quizService.questinnaire_name =
@@ -120,12 +120,12 @@ export class Conclusion1Component implements OnInit, OnDestroy {
   }
 
   saveData() {
-    let data = {
+    const data = {
       commitment: this.commitment,
     };
     this.conclusionService
       .storeConclusionData(this.stepGroupSequence, data)
-      .subscribe(data => {
+      .subscribe(_data => {
         console.log('data saved');
       });
   }

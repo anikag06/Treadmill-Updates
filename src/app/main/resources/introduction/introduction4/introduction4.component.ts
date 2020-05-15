@@ -45,7 +45,7 @@ export class Introduction4Component implements OnInit, OnDestroy {
     this.introductionDataSubscription = this.introductionService
       .getIntroductionData(this.stepGroupSequence)
       .subscribe(data => {
-        if (data.user_step_status != LOCKED) {
+        if (data.user_step_status !== LOCKED) {
           this.locked = false;
           this.selectedBelief = data.data.selectedBelief;
           this.onBeliefChanged();
@@ -90,7 +90,7 @@ export class Introduction4Component implements OnInit, OnDestroy {
     };
     this.introductionService
       .storeIntroductionData(this.stepGroupSequence, data)
-      .subscribe(data => {
+      .subscribe(_data => {
         console.log('success');
       });
   }

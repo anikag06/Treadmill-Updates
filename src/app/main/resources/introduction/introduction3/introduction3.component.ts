@@ -4,8 +4,8 @@ import { Subscription } from 'rxjs';
 
 import { IntroductionService } from '../introduction.service';
 import { LOCKED } from '@/app.constants';
-import {StepsDataService} from "@/main/resources/shared/steps-data.service";
-import {FlowService} from "@/main/flow/flow.service";
+import { StepsDataService } from '@/main/resources/shared/steps-data.service';
+import { FlowService } from '@/main/flow/flow.service';
 
 export interface ThoughtSet {
   negativeThought: string;
@@ -98,12 +98,12 @@ export class Introduction3Component implements OnInit, OnDestroy {
   }
 
   saveData() {
-    let data = {
+    const data = {
       selectedThought: this.selectedThought,
     };
     this.introductionService
       .storeIntroductionData(this.stepGroupSequence, data)
-      .subscribe(data => {
+      .subscribe(_data => {
         console.log('success');
       });
   }

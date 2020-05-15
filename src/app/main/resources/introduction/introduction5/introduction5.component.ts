@@ -58,7 +58,7 @@ export class Introduction5Component implements OnInit, OnDestroy {
     this.introductionDataSubscription = this.introductionService
       .getIntroductionData(this.stepGroupSequence)
       .subscribe(data => {
-        if (data.user_step_status != LOCKED) {
+        if (data.user_step_status !== LOCKED) {
           this.locked = false;
           this.worryThought = data.data.worryThought;
           this.hours = data.data.hours;
