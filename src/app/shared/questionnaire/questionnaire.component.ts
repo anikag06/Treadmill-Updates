@@ -204,6 +204,7 @@ export class QuestionnaireComponent implements OnInit {
   }
 
   loadQuiz() {
+    // this.quizService.questionnaireActive = true;
     this.quizService.disableLinks.emit(this.data);
     console.log('load quiz', this.api[this.index]);
     this.quizService.get(this.api[this.index]).subscribe((res: any) => {
@@ -680,6 +681,7 @@ export class QuestionnaireComponent implements OnInit {
     console.log('after updating gad', gad_response);
     this.quizService.questionnaireActive = false;
     if (this.fromFlow === true) {
+      this.quizService.questionnaire_active.emit(false);
       this.quizService.post_gad(gad_response).subscribe((data: any) => {
         console.log(data);
         // TODO: Darshit needs to add timer service here
@@ -695,7 +697,7 @@ export class QuestionnaireComponent implements OnInit {
             error => console.log(error),
           );
           // this.router.navigate(['/']);
-          this.location.back();
+          // this.location.back();
         }
       });
     } else if (this.fromFlow === false && this.fromTrialRegistration === true) {

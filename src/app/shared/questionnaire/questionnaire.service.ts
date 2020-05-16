@@ -4,10 +4,14 @@ import { QuesUserResponseArray } from './input/response';
 import { environment } from 'environments/environment';
 import { USER_PHQ_DATA, USER_GAD_DATA, USER_SIQ_DATA } from '@/app.constants';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
+
 export class QuizService {
   questionnaireActive = false;
   questionnaire_name!: string;
+  questionnaire_active = new EventEmitter();
   disableLinks = new EventEmitter();
   enableLinks = new EventEmitter();
 

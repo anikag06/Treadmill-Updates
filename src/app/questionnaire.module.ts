@@ -10,8 +10,7 @@ const appRoutes: Routes = [];
 @NgModule({
   declarations: [QuestionnaireComponent],
   imports: [CommonModule, RouterModule.forChild(appRoutes)],
-
-  providers: [DataService, QuizService],
+  // providers: [DataService, QuizService],
   exports: [QuestionnaireComponent],
 })
 export class QuestionnaireModule {}

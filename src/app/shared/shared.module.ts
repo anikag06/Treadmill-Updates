@@ -8,6 +8,8 @@ import { MaterialModule } from '@/material.module';
   declarations: [SlidesVideoComponent],
   imports: [CommonModule, QuestionnaireModule, MaterialModule],
   exports: [SlidesVideoComponent, QuestionnaireModule, MaterialModule],
+  // imports: [CommonModule,  MaterialModule],
+  // exports: [SlidesVideoComponent, MaterialModule],
   entryComponents: [SlidesVideoComponent],
 })
 export class SharedModule {}

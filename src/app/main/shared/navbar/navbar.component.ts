@@ -39,6 +39,7 @@ import { CustomOverlayService } from '@/main/shared/custom-overlay/custom-overla
 import {FormService} from "@/main/resources/forms/form.service";
 import {StepsDataService} from "@/main/resources/shared/steps-data.service";
 import {map, switchMap} from "rxjs/operators";
+import {LOGGED_IN_PATH} from "@/app.constants";
 
 @Component({
   selector: 'app-navbar',
@@ -100,7 +101,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
             this.fromLeftNav = true;
             console.log('from left nav', this.fromLeftNav);
           });
-          if (event.url === '/dashboard') {
+          if (event.url === LOGGED_IN_PATH) {
             this.isDashboard = true;
           }
           if (this.auth.navbarTitle) {
@@ -198,7 +199,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   homeClick() {
-    this.router.navigate(['/dashboard']);
+    this.router.navigate([LOGGED_IN_PATH]);
   }
   backClick() {
     this.backClicked = true;

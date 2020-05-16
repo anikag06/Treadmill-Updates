@@ -8,7 +8,7 @@ import {
   COMMITMENT_OPTIONS,
   ACTIVE,
   QUESTIONNAIRE,
-  CONCLUSION_PAGE,
+  CONCLUSION_PAGE, LOGGED_IN_PATH,
 } from '@/app.constants';
 import { ConclusionService } from '../conclusion.service';
 import { StepsDataService } from '../../shared/steps-data.service';
@@ -50,6 +50,8 @@ export class Conclusion1Component implements OnInit, OnDestroy {
   navbarTitle!: string;
   stepSequence!: number;
   stepName!: string;
+  moodEvaluated!: boolean;
+  // questionaire_active = false;
 
   constructor(
     private conclusionService: ConclusionService,
@@ -106,17 +108,33 @@ export class Conclusion1Component implements OnInit, OnDestroy {
               this.stepName;
             console.log('STEP DETAIL:', this.navbarTitle);
             this.flowService.stepDetail.emit(this.navbarTitle);
+            this.flowService.navbarTitle = this.navbarTitle;
             if (step_data.data.next_questionnaire) {
               this.quizService.questionnaire_name =
                 step_data.data.next_questionnaire;
               this.conclusionService.moodEvaluate = true;
             } else {
               this.conclusionService.moodEvaluate = false;
+              this.moodEvaluated = true;
             }
             this.conclusionService.evaluateMood.emit();
-            this.showQuestionnaire = this.conclusionService.moodEvaluate;
+            // this.showQuestionnaire = this.conclusionService.moodEvaluate;
           });
       });
+    this.quizService.questionnaire_active.subscribe( (value: boolean) => {
+      console.log('EVENT EMITTED', value);
+      if (!value) {
+        // this.quizService.questionnaireActive = false;
+        this.moodEvaluated = true;
+        this.showQuestionnaire = false;
+        this.navbarTitle = this.flowService.navbarTitle;
+        this.flowService.stepDetail.emit(this.navbarTitle);
+      } else {
+        this.showQuestionnaire = true;
+        this.navbarTitle = 'Mood test';
+        this.flowService.stepDetail.emit(this.navbarTitle);
+      }
+    });
   }
 
   saveData() {
@@ -154,6 +172,6 @@ export class Conclusion1Component implements OnInit, OnDestroy {
   }
 
   onDashboard() {
-    this.router.navigate(['/dashboard']);
+    this.router.navigate([LOGGED_IN_PATH]);
   }
 }

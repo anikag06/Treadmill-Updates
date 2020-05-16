@@ -21,37 +21,37 @@ export class FormsService {
     {
       name: PROBLEM_SOLVING_FORM_NAME,
       slug: PROBLEM_SOLVING,
-      path: '/resources/forms/problem-solving',
+      path: 'main/resources/forms/problem-solving',
       banner: 'assets/forms/form.svg',
     },
     {
       name: SET_TASK_FORM_NAME,
       slug: TASK,
-      path: '/resources/forms/task',
+      path: 'main/resources/forms/task',
       banner: 'assets/forms/form.svg',
     },
     {
       name: THOUGHT_RECORD_FORM_NAME,
       slug: THOUGHT_RECORD,
-      path: '/resources/forms/thought-record',
+      path: 'main/resources/forms/thought-record',
       banner: 'assets/forms/form.svg',
     },
     {
       name: EXPERIMENT_TO_TEST_BELIEF_FORM_NAME,
       slug: TEST_BELIEF,
-      path: '/resources/forms/test-belief',
+      path: 'main/resources/forms/test-belief',
       banner: 'assets/forms/form.svg',
     },
     {
       name: 'Worry Productively form',
       slug: WORRY_PRODUCTIVELY,
-      path: '/resources/forms/worry-productively',
+      path: 'main/resources/forms/worry-productively',
       banner: 'assets/forms/form.svg',
     },
     {
       name: BELIEF_CHANGE_FORM_NAME,
       slug: BELIEF_CHANGE,
-      path: '/resources/forms/belief-change',
+      path: 'main/resources/forms/belief-change',
       banner: 'assets/forms/form.svg',
     },
   ];

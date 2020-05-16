@@ -38,6 +38,7 @@ declare var twemoji: any;
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
+  providers: [DataService, QuizService],
   styleUrls: ['./main.component.scss'],
 })
 export class MainComponent
@@ -190,6 +191,7 @@ export class MainComponent
       this.enableLinks();
     });
     this.quizService.disableLinks.subscribe((data: string) => {
+      console.log('LINKS DISABLED');
       this.disableLinks(data);
     });
     this.quizService.enableLinks.subscribe(() => {

@@ -299,7 +299,7 @@ import { CustomOverlayComponent } from './shared/custom-overlay/custom-overlay.c
     AngularFireMessagingModule,
     OverlayModule,
     MatTooltipModule,
-    QuestionnaireModule,
+    // QuestionnaireModule,
     MatRippleModule,
     SharedModule,
   ],
@@ -339,6 +339,7 @@ import { CustomOverlayComponent } from './shared/custom-overlay/custom-overlay.c
     ThingsTodoService,
     GamesFeedbackService,
     ExtraResourcesService,
+    // QuizService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [

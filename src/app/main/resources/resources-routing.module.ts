@@ -56,7 +56,7 @@ export const resourcesRoutes: Routes = [
         // data: { title: 'Form' },
       },
       {
-        path: 'forms/thought-record/',
+        path: 'forms/thought-record',
         component: ThoughtRecordFormComponent,
         // data: { title: 'Form' },
       },
