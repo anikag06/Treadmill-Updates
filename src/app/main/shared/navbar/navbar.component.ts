@@ -36,10 +36,10 @@ import { SlidesVideoComponent } from '@/main/resources/slides/slides-video/slide
 import { DialogPosition, MatDialog } from '@angular/material/dialog';
 import { CustomOverlayComponent } from '@/main/shared/custom-overlay/custom-overlay.component';
 import { CustomOverlayService } from '@/main/shared/custom-overlay/custom-overlay.service';
-import {FormService} from "@/main/resources/forms/form.service";
-import {StepsDataService} from "@/main/resources/shared/steps-data.service";
-import {map, switchMap} from "rxjs/operators";
-import {LOGGED_IN_PATH} from "@/app.constants";
+import { FormService } from '@/main/resources/forms/form.service';
+import { StepsDataService } from '@/main/resources/shared/steps-data.service';
+import { map, switchMap } from 'rxjs/operators';
+import { LOGGED_IN_PATH } from '@/app.constants';
 
 @Component({
   selector: 'app-navbar',
@@ -88,7 +88,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private location: Location,
     private overlayService: CustomOverlayService,
     private stepDataService: StepsDataService,
-
   ) {
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationStart) {
@@ -96,38 +95,38 @@ export class NavbarComponent implements OnInit, OnDestroy {
       }
 
       if (event instanceof NavigationEnd) {
-          this.isDashboard = false;
-          this.notificationService.fromLeftNav.subscribe(() => {
-            this.fromLeftNav = true;
-            console.log('from left nav', this.fromLeftNav);
-          });
-          if (event.url === LOGGED_IN_PATH) {
-            this.isDashboard = true;
-          }
-          if (this.auth.navbarTitle) {
-            this.navbarTitle = this.auth.navbarTitle;
-            console.log(event);
-          }
-          this.gamePlayService.gameTitle.subscribe(() => {
-            console.log('FROM NAVBAR', this.gamePlayService.gameName);
-            this.navbarTitle = this.gamePlayService.gameName;
-          });
-          this.formService.formTitle.subscribe(() => {
-            console.log('FROM NAVBAR', this.formService.formName);
-            this.navbarTitle = this.formService.formName;
-          });
-          this.flowService.stepDetail.subscribe((value: any) => {
-            this.navbarTitle = value;
-            console.log('FROM NAVBAR', value);
-          });
-          this.notificationService.showFullConvIcon.subscribe(() => {
-            this.convMode = true;
-          });
-          this.notificationService.removeFullConvIcon.subscribe(() => {
-            this.convMode = false;
-          });
-          this.notificationService.isDashboard = this.isDashboard;
+        this.isDashboard = false;
+        this.notificationService.fromLeftNav.subscribe(() => {
+          this.fromLeftNav = true;
+          console.log('from left nav', this.fromLeftNav);
+        });
+        if (event.url === LOGGED_IN_PATH) {
+          this.isDashboard = true;
         }
+        if (this.auth.navbarTitle) {
+          this.navbarTitle = this.auth.navbarTitle;
+          console.log(event);
+        }
+        this.gamePlayService.gameTitle.subscribe(() => {
+          console.log('FROM NAVBAR', this.gamePlayService.gameName);
+          this.navbarTitle = this.gamePlayService.gameName;
+        });
+        this.formService.formTitle.subscribe(() => {
+          console.log('FROM NAVBAR', this.formService.formName);
+          this.navbarTitle = this.formService.formName;
+        });
+        this.flowService.stepDetail.subscribe((value: any) => {
+          this.navbarTitle = value;
+          console.log('FROM NAVBAR', value);
+        });
+        this.notificationService.showFullConvIcon.subscribe(() => {
+          this.convMode = true;
+        });
+        this.notificationService.removeFullConvIcon.subscribe(() => {
+          this.convMode = false;
+        });
+        this.notificationService.isDashboard = this.isDashboard;
+      }
 
       if (event instanceof NavigationError) {
         // Hide loading indicator
@@ -135,7 +134,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
         // Present error to user
         console.log(event.error);
       }
-  });
+    });
   }
 
   ngOnInit() {

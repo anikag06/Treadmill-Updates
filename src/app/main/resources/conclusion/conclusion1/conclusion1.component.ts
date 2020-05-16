@@ -8,7 +8,8 @@ import {
   COMMITMENT_OPTIONS,
   ACTIVE,
   QUESTIONNAIRE,
-  CONCLUSION_PAGE, LOGGED_IN_PATH,
+  CONCLUSION_PAGE,
+  LOGGED_IN_PATH,
 } from '@/app.constants';
 import { ConclusionService } from '../conclusion.service';
 import { StepsDataService } from '../../shared/steps-data.service';
@@ -121,7 +122,7 @@ export class Conclusion1Component implements OnInit, OnDestroy {
             // this.showQuestionnaire = this.conclusionService.moodEvaluate;
           });
       });
-    this.quizService.questionnaire_active.subscribe( (value: boolean) => {
+    this.quizService.questionnaire_active.subscribe((value: boolean) => {
       console.log('EVENT EMITTED', value);
       if (!value) {
         // this.quizService.questionnaireActive = false;

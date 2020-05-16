@@ -5,9 +5,8 @@ import { environment } from 'environments/environment';
 import { USER_PHQ_DATA, USER_GAD_DATA, USER_SIQ_DATA } from '@/app.constants';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class QuizService {
   questionnaireActive = false;
   questionnaire_name!: string;

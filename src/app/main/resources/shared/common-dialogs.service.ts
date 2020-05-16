@@ -15,7 +15,6 @@ export class CommonDialogsService {
   nextStepData!: Step;
   badgeData!: any;
 
-
   constructor(
     private dialog: MatDialog,
     private http: HttpClient,

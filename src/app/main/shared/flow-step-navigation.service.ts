@@ -42,8 +42,8 @@ export class FlowStepNavigationService {
       return `main/resources/forms/${form_name}/${step.id}`;
     } else if (step.data_type === SUPPORT_GROUP) {
       return `main/support-groups/${step.id}`;
-    // } else if (step.data_type === QUESTIONNAIRE) {
-    //   return `/questionnaire/`;
+      // } else if (step.data_type === QUESTIONNAIRE) {
+      //   return `/questionnaire/`;
     } else if (step.data_type === INTRODUCTION_PAGE) {
       return `main/resources/introduction/${step.step_group_sequence}/`;
     } else if (step.data_type === CONCLUSION_PAGE) {
@@ -78,7 +78,8 @@ export class FlowStepNavigationService {
 
   virtualStepMarkDone(step: any, timeSpent: number) {
     if (step.virtual_step) {
-      this.markDone(step.id, timeSpent).subscribe((data: any) =>{}
+      this.markDone(step.id, timeSpent).subscribe(
+        (data: any) => {},
         // console.log('Done'),
       );
     }
