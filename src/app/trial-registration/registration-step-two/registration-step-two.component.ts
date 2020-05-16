@@ -125,7 +125,7 @@ export class RegistrationStepTwoComponent implements OnInit {
             const stepNumber = res_data.next_step;
             const navigation_step = REGISTRATION_PATH + '/step-' + stepNumber;
             if (stepNumber === 3) {
-              this.questionnaireService.questinnaire_name =
+              this.questionnaireService.questionnaire_name =
                 res_data.next_questionnaire;
               this.router.navigate([navigation_step]);
             } else {

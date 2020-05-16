@@ -94,7 +94,7 @@ export class Conclusion5Component implements OnInit, OnDestroy {
             console.log('STEP DETAIL:', this.navbarTitle);
             this.flowService.stepDetail.emit(this.navbarTitle);
             if (step_data.data.next_questionnaire) {
-              this.quizService.questinnaire_name =
+              this.quizService.questionnaire_name =
                 step_data.data.next_questionnaire;
               this.conclusionService.moodEvaluate = true;
             } else {

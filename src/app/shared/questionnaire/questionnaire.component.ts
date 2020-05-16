@@ -185,16 +185,16 @@ export class QuestionnaireComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log(this.quizService.questinnaire_name);
-    if (this.quizService.questinnaire_name === PHQ9) {
+    console.log(this.quizService.questionnaire_name);
+    if (this.quizService.questionnaire_name === PHQ9) {
       this.index = 0;
       this.display_phq_start = true;
       this.loadQuiz();
-    } else if (this.quizService.questinnaire_name === GAD7) {
+    } else if (this.quizService.questionnaire_name === GAD7) {
       this.index = 1;
       this.display_gad_start = true;
       this.loadQuiz();
-    } else if (this.quizService.questinnaire_name === SIQ) {
+    } else if (this.quizService.questionnaire_name === SIQ) {
       this.index = 2;
       this.display_siq_start = true;
       this.loadQuiz();

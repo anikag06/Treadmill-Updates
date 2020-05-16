@@ -1,8 +1,10 @@
 import {
+  AfterContentInit,
   Component,
   ComponentFactoryResolver,
   DoCheck,
   OnChanges,
+  OnDestroy,
   OnInit,
   ViewChild,
   ViewContainerRef,
@@ -27,7 +29,7 @@ import { SurveyService } from './shared/survey.service';
 import { ToastNotificationDirective } from '@/shared/toast-notification/toast-notification.directive';
 import { ToastNotificationComponent } from '@/shared/toast-notification/toast-notification.component';
 import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifications.service';
-import {CustomOverlayService} from '@/main/shared/custom-overlay/custom-overlay.service';
+import { CustomOverlayService } from '@/main/shared/custom-overlay/custom-overlay.service';
 import { CommonService } from '@/shared/common.service';
 import { InternetConnectionComponent } from '@/shared/internet-connection/internet-connection.component';
 declare var twemoji: any;
@@ -38,7 +40,8 @@ declare var twemoji: any;
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss'],
 })
-export class MainComponent implements OnInit, OnChanges, DoCheck {
+export class MainComponent
+  implements OnInit, OnChanges, DoCheck, OnDestroy, AfterContentInit {
   user!: User;
   routing!: boolean;
   overlayRef!: OverlayRef;
@@ -142,8 +145,8 @@ export class MainComponent implements OnInit, OnChanges, DoCheck {
     });
     this.overlayService.overlayOpen.subscribe(() => {
       //   this.flowLoaded = false;
-        this.overlayOpen = true;
-      });
+      this.overlayOpen = true;
+    });
     this.overlayService.overlayClose.subscribe(() => {
       //   this.flowLoaded = false;
       this.overlayOpen = false;
