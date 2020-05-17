@@ -37,7 +37,7 @@
             </div>
           </div>
         </div>
-          <div *ngFor="let i of item.dialog" class="d-flex justify-content-end mb-3 ">
+          <div *ngFor="let i of item.dialog" [@sendMsg]="!nsend ? 'unsend' : 'send'" class="d-flex justify-content-end mb-3 ">
             <div  class="msg_cotainer_send ml-3 ml-md-0 mr-3">
               <p [innerHtml]="i"></p>
             </div>
@@ -52,7 +52,7 @@
               <img [src]="show_avatar_image" class="rounded-circle user_img_msg">
             </div>
             <div  class="msg_cotainer">
-              <p [innerHtml]="i"></p>
+              <p  [innerHtml]="i"></p>
             </div>
           </div>
           </div>
@@ -64,7 +64,7 @@
             <div class="d-flex justify-content-end  mb-3" *ngIf="!speedrun">
               <div class="msg_cotainer_send ml-3 ml-md-0 mr-3">
                 <p [innerHtml]="item"></p>
-                <button class="btn"  (click)="count_multiple != (show_multiple - 1) ? on_multiple_options() :  on_click(i)">Send</button>
+                <button  class="btn"  (click)="count_multiple != (show_multiple - 1) ? on_multiple_options() :  on_click(i)">Send</button>
               </div>
             </div>
           </div>

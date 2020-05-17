@@ -74,12 +74,12 @@ import { PROBLEM_SOLVING, TASK } from '@/app.constants';
       state(
         'unsend',
         style({
-          maxWidth: '85%',
-          borderRadius: '20px 20px 0px 20px',
+          // maxWidth: '85%',
+          // borderRadius: '20px 20px 0px 20px',
           backgroundColor: '#FFEFD4',
-          paddingTop: '15px',
-          paddingLeft: '10px',
-          paddingRight: '10px',
+          // paddingTop: '15px',
+          // paddingLeft: '10px',
+          // paddingRight: '10px',
           position: 'relative',
           textAlign: 'center',
           fontSize: '18px',
@@ -88,19 +88,19 @@ import { PROBLEM_SOLVING, TASK } from '@/app.constants';
       state(
         'send',
         style({
-          maxWidth: '75%',
-          borderRadius: '25px 25px 0px 25px',
+          // maxWidth: '75%',
+          // borderRadius: '25px 25px 0px 25px',
           backgroundColor: '#FFEF12',
-          paddingTop: '15px',
-          paddingLeft: '10px',
-          paddingRight: '10px',
+          // paddingTop: '15px',
+          // paddingLeft: '10px',
+          // paddingRight: '10px',
           position: 'relative',
           textAlign: 'center',
           fontSize: '14px',
         }),
       ),
       transition('unsend => send', [
-        style({ transform: 'translateX(100%)' }),
+        style({ transform: 'translateX(50%)' }),
         animate('200ms ease-in', style({ transform: 'translateX(0%)' })),
       ]),
     ]),
@@ -194,7 +194,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   initial_feedback!: number;
   final_feedback!: number;
   feedbackDataId!: number;
-  unsend = true;
+  nsend = true;
   current_id!: number;
 
   @ViewChild('form_div', { static: false }) formDiv!: ElementRef;
@@ -533,7 +533,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     this.options = [];
     if (this.no_of_options > 1) {
       this.dialog.dialog_has_options.forEach((q: any) => {
-        this.newOptions_model.message_show_options.push(q.option.message);
+        this.options.push(q.option.message);
       });
     } else {
       //let e = document.createElement('html');
@@ -555,6 +555,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
    // if(this.count_multiple != this.show_multiple) {
       //this.text.dialog.push(this.dialog.dialog_has_options[this.count_multiple].option.message);
     this.options = [];
+    this.nsend = false;
       this.text.dialog.push(this.mupltiple_line[this.count_multiple]);
 
 
@@ -563,6 +564,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     this.count_multiple++;
     this.options.push(this.mupltiple_line[this.count_multiple]);
     this.current_message = [];
+    this.nsend = true;
 
 
 
@@ -570,6 +572,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   }
 
   on_click(i: number) {
+    this.nsend = false;
     if((this.count_multiple === this.show_multiple-1) && this.show_multiple > 1){
       this.text.message = [];
       console.log(this.text.message.length);
@@ -598,7 +601,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       this.index = this.index + 1;
     }
     // tslint:disable-next-line:max-line-length
-    if (this.loopback === true) {
+    if (this.loopback) {
       this.loopback = false;
       this.wrong = true;
     } else {
@@ -632,6 +635,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
 
     // console.log(this.loopback);
     // console.log(this.index);
+    this.nsend = true;
 
     this.progress_bar();
     if (this.dialog.is_last === true) {
@@ -749,6 +753,17 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
           this.text.dialog.push(this.dialog.dialog_has_options[y].option.message);
           break;
         }
+      }
+      for(let t=0; t<this.dialog.dialog_images.length; t++){
+        if(this.dialog.dialog_images[t].type === "AVATAR" && this.dialog.dialog_images.length!=0) {
+          this.text.show_avatar_image = this.dialog.dialog_images[t].image;
+          break;
+        } else {
+          this.text.show_avatar_image = this.show_avatar_image;
+        }
+      }
+      if(this.dialog.dialog_images.length == 0){
+        this.text.show_avatar_image = this.show_avatar_image;
       }
       this.show.push(this.text);
     }
