@@ -1,28 +1,19 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {DashboardComponent} from './dashboard/dashboard.component';
-import {AuthGuard} from '@/shared/auth/auth.guard';
-import {SupportGroupsComponent} from './support-groups/support-groups.component';
-import {GamesComponent} from './games/games.component';
-import {GamesListComponent} from './games/games-list/games-list.component';
-import {LogoutComponent} from '@/shared/auth/logout/logout.component';
-import {MainComponent} from './main.component';
-// import { FormsComponent } from './forms/forms.component';
-import {ScoreComponent} from './score/score.component';
-import {PhqNineComponent} from './score/phq-nine/phq-nine.component';
-import {GadSevenComponent} from './score/gad-seven/gad-seven.component';
-import {CommonGameComponent} from './games/games-list/common-game/common-game.component';
-import {GetQuestionnaireComponent} from './dashboard/get-questionnaire/get-questionnaire.component';
-import {SurveyComponent} from './shared/survey/survey.component';
-
-import { ConversationsComponent } from './resources/conversation-group/conversations/conversations.component';
-import { ConversationGroupComponent } from './resources/conversation-group/conversation-group.component';
-import { ExtraResourcesComponent } from '@/main/extra-resources/extra-resources.component';
-import { ReadingItemComponent } from '@/main/extra-resources/reading-material/reading-item/reading-item.component';
-import { VideoItemComponent } from '@/main/extra-resources/videos/video-item/video-item.component';
-import { VideosComponent } from '@/main/extra-resources/videos/videos.component';
-import { ReadingMaterialComponent } from '@/main/extra-resources/reading-material/reading-material.component';
-import {NeedToTalkComponent} from '@/main/need-to-talk/need-to-talk.component';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { AuthGuard } from '@/shared/auth/auth.guard';
+import { SupportGroupsComponent } from './support-groups/support-groups.component';
+import { GamesComponent } from './games/games.component';
+import { GamesListComponent } from './games/games-list/games-list.component';
+import { LogoutComponent } from '@/shared/auth/logout/logout.component';
+import { MainComponent } from './main.component';
+import { ScoreComponent } from './score/score.component';
+import { PhqNineComponent } from './score/phq-nine/phq-nine.component';
+import { GadSevenComponent } from './score/gad-seven/gad-seven.component';
+import { CommonGameComponent } from './games/games-list/common-game/common-game.component';
+import { GetQuestionnaireComponent } from './dashboard/get-questionnaire/get-questionnaire.component';
+import { SurveyComponent } from './shared/survey/survey.component';
+import { NeedToTalkComponent } from '@/main/need-to-talk/need-to-talk.component';
 
 export const mainRoutes: Routes = [
   {
@@ -45,7 +36,7 @@ export const mainRoutes: Routes = [
       },
       {
         path: 'need-to-talk',
-        component: NeedToTalkComponent
+        component: NeedToTalkComponent,
       },
       {
         path: 'support-groups/:id',
@@ -57,7 +48,6 @@ export const mainRoutes: Routes = [
         data: { title: 'Games' },
         children: [
           { path: '', component: GamesListComponent },
-          // { path: 'interpretationbias', component: InterpretationBiasGameComponent},
           { path: ':name', component: CommonGameComponent },
           { path: ':name/:id', component: CommonGameComponent },
         ],
@@ -93,7 +83,6 @@ export const mainRoutes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(mainRoutes)],
-  //imports: [RouterModule.forRoot(mainRoutes, {onSameUrlNavigation: 'reload'})],
   exports: [RouterModule],
 })
 export class MainRoutingModule {}

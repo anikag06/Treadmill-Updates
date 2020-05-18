@@ -14,12 +14,10 @@ import { ConclusionService } from '@/main/resources/conclusion/conclusion.servic
 })
 export class ConclusionComponent implements OnInit {
   quiz_active!: boolean;
-  constructor(
-    private quizService: QuizService,
-  ) {}
+  constructor(private quizService: QuizService) {}
 
   ngOnInit() {
-    this.quizService.questionnaire_active.subscribe( (value: boolean) => {
+    this.quizService.questionnaire_active.subscribe((value: boolean) => {
       console.log('EVENT EMITTED', value);
       if (!value) {
         this.quiz_active = false;

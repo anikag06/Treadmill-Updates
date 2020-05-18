@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
-import {RegistrationStepFourForm} from './step-four-consent.model';
-import {RegistrationDataService} from '../shared/registration-data.service';
-import {TrialAuthService} from '../shared/trial-auth.service';
-import {Router} from '@angular/router';
-import {INELIGIBLE_FOR_TRIAL, REGISTRATION_PATH} from '@/app.constants';
-import {FcmService} from '@/shared/fcm.service';
-import {A2HSService} from '@/shared/a2hs.service';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { RegistrationStepFourForm } from './step-four-consent.model';
+import { RegistrationDataService } from '../shared/registration-data.service';
+import { TrialAuthService } from '../shared/trial-auth.service';
+import { Router } from '@angular/router';
+import { INELIGIBLE_FOR_TRIAL, REGISTRATION_PATH } from '@/app.constants';
+import { FcmService } from '@/shared/fcm.service';
+import { A2HSService } from '@/shared/a2hs.service';
 
 @Component({
   selector: 'app-registration-step-four',
@@ -118,7 +118,7 @@ export class RegistrationStepFourComponent implements OnInit {
 
   homeScreenPermission() {
     if (this.consentForm.value.homeScreenInfo) {
-      this.a2hsService.getDeferredPrompt().subscribe((deferredPrompt) => {
+      this.a2hsService.getDeferredPrompt().subscribe(deferredPrompt => {
         if (!deferredPrompt) {
           console.log('deferredPrompt null');
           return;

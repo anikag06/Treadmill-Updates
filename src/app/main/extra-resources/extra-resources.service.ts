@@ -2,7 +2,12 @@ import { EventEmitter, Injectable, Output } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { VideoItem } from '@/main/extra-resources/shared/video.model';
 import { environment } from '../../../environments/environment';
-import {READING_LIST, VIDEO, VIDEO_LIST, WATCHED_VIDEO} from '@/app.constants';
+import {
+  READING_LIST,
+  VIDEO,
+  VIDEO_LIST,
+  WATCHED_VIDEO,
+} from '@/app.constants';
 import { switchMap } from 'rxjs/operators';
 import {
   AsyncSubject,
@@ -61,14 +66,12 @@ export class ExtraResourcesService {
     );
   }
 
-  markVideoWatched(videoId: number, watched: boolean){
+  markVideoWatched(videoId: number, watched: boolean) {
     console.log('marking', videoId, watched);
     return this.http.post(environment.API_ENDPOINT + WATCHED_VIDEO, {
       resource_video_id: videoId,
       watched: watched,
-
     });
     //console.log('marking', videoId, watched);
   }
-
 }

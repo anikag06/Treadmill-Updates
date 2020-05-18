@@ -6,12 +6,10 @@ export class OptionsModel {
   //   this.n2 = data2;
   // }
   message_show_options!: string[];
- // dialog_show_options!: string[];
+  // dialog_show_options!: string[];
 
   constructor() {
     this.message_show_options = [];
-   // this.dialog_show_options = [];
+    // this.dialog_show_options = [];
   }
-
-
 }

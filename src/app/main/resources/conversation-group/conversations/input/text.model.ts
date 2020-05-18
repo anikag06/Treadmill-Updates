@@ -10,9 +10,8 @@ export class Texting {
   show_avatar_image!: string;
 
   constructor() {
-     this.message = [];
-     this.dialog = [];
-     //this.show_avatar_image = [];
-
+    this.message = [];
+    this.dialog = [];
+    //this.show_avatar_image = [];
   }
 }

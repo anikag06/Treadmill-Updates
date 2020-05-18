@@ -8,7 +8,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
 import { COMPLETED, ACTIVE, UNLOCKED } from '@/app.constants';
 import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifications.service';
-import {FlowService} from '@/main/flow/flow.service';
+import { FlowService } from '@/main/flow/flow.service';
 
 @Component({
   selector: 'app-conversation-group',
@@ -67,12 +67,12 @@ export class ConversationGroupComponent implements OnInit {
             this.stepSequence.toString() +
             ' ' +
             this.stepName;
-          console.log('STEP DETAIL:', this.navbarTitle );
+          console.log('STEP DETAIL:', this.navbarTitle);
           this.flowService.stepDetail.emit(this.navbarTitle);
           if ([COMPLETED, ACTIVE, UNLOCKED].includes(step.status)) {
             this.step = step;
             this.current_id = res.data.id;
-            console.log('CONV GROUP ID', this.current_id );
+            console.log('CONV GROUP ID', this.current_id);
             this.islast = res.is_last_step;
             this.nextstep = res.next_step_id;
             this.passdata.setid(this.current_id, this.islast, this.nextstep);
@@ -102,7 +102,7 @@ export class ConversationGroupComponent implements OnInit {
     this.router.navigate(['main/resources/conversations']);
     // this.router.navigate([this.nextLink()]);
   }
-// TO DO : for adding step id in url
+  // TO DO : for adding step id in url
   // nextLink() {
   //   return `resources/conversations/${this.current_id}/`;
   // }
