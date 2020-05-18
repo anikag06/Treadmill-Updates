@@ -1,6 +1,6 @@
 <ng-template [ngIf]="dataLoaded && !locked && !showQuestionnaire">
 
-  <div class="px-2 pt-4 main-div">
+  <div class="px-4 pt-4 main-div">
   <div>
     Congratulations! You have completed the <span class="emphasis">{{moduleName}}</span> module.
     <br>
@@ -32,17 +32,14 @@
       Great 👍!
     </div>
   </div>
-  <br><br>
       <app-evaluate-mood ></app-evaluate-mood>
-      <br><br>
-
 
 <div *ngIf="moodEvaluated">
   <div >
     In the next module, <span class="emphasis">{{nextModuleName}}</span>, you will learn how to improve your daily
     routine to improve your mood. See you there.
   </div>
-  <div class="row align-self-end px-0 mx-0">
+  <div class="row align-self-end px-0 mx-0 pt-2">
     <button class="completed-btn float-right" type="button" *ngIf='!stepCompleted; else isCompleted ' mat-raised-button
       color="primary" (click)="onCompleted()">
       Completed
@@ -55,8 +52,8 @@
   </div>
 </div>
   </div>
-
 </ng-template>
+
 <ng-template [ngIf]="dataLoaded && locked">
   <div class="row">
     <div class="col">

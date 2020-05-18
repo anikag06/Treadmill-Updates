@@ -13,7 +13,19 @@ import { ConclusionService } from '@/main/resources/conclusion/conclusion.servic
   styleUrls: ['./conclusion.component.scss'],
 })
 export class ConclusionComponent implements OnInit {
-  constructor() {}
+  quiz_active!: boolean;
+  constructor(
+    private quizService: QuizService,
+  ) {}
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.quizService.questionnaire_active.subscribe( (value: boolean) => {
+      console.log('EVENT EMITTED', value);
+      if (!value) {
+        this.quiz_active = false;
+      } else {
+        this.quiz_active = true;
+      }
+    });
+  }
 }
