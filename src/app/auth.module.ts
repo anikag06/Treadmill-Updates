@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
-import { JwtModule } from '@auth0/angular-jwt';
-import { TOKEN } from './app.constants';
+import {NgModule} from '@angular/core';
+import {JwtModule} from '@auth0/angular-jwt';
+import {TOKEN} from './app.constants';
 
 export function tokenGetter() {
   return (
@@ -16,7 +16,7 @@ export function tokenGetter() {
         whitelistedDomains: [
           'localhost:8000',
           '127.0.0.1:8000',
-          'botv2.treadwill.org',
+          'www.botv2.treadwill.org:8002',
           'www.api2.treadwill.org',
           '172.26.90.49:8000',
           '172.26.90.49:9000',

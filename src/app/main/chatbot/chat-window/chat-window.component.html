@@ -1,6 +1,7 @@
 <div
   class="container chat-window"
-  [@openClose]="chatWindowClosed ? 'closed' : openingStyle() ">
+  [@openClose]="chatWindowClosed ? 'closed' : openingStyle()"
+>
   <div class="chat-header">
     <img
       class="chatbot-screen-img"
@@ -55,12 +56,15 @@
         <div *ngFor="let widget of m.widgets">
           <div class="buttons">
             <button
-              mat-stroked-button
               (click)="onMoodSelect()"
               *ngIf="widget === moodWidget && showMoodWidgetBtn"
-              class="btn radio_button ripple"
+              class="btn px-0 py-0 btn-outline-light"
             >
-              <span class="btn-text">Select your mood</span>
+              <img
+                [ngStyle]="{ width: '184px', height: '50px' }"
+                src="assets/chatbot/mood_tracker.svg"
+                alt="mood tracker image"
+              />
             </button>
             <div *ngIf="showMoodTracker">
               <app-mood-tracker
@@ -71,12 +75,15 @@
               ></app-mood-tracker>
             </div>
             <button
-              mat-stroked-button
-              class="btn radio_button ripple"
+              class="btn px-0 py-0 btn-outline-light"
               (click)="onDateTimeSelect()"
               *ngIf="widget === dateTimeWidget && showDateTimeWidgetBtn"
             >
-              Date Time
+              <img
+                [ngStyle]="{ width: '184px', height: '50px' }"
+                src="assets/chatbot/date-time.svg"
+                alt="date time widget image"
+              />
             </button>
             <div *ngIf="showDateTime">
               <app-date-time-picker

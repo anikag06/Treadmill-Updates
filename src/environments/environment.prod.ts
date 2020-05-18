@@ -1,7 +1,8 @@
 export const environment = {
   production: true,
   HOST: '172.26.90.50',
-  CHAT_HOST: 'ws://127.0.0.1:8080',
+  CHAT_HOST: 'wss://botv2.treadwill.org:8002',
+  CHATBOT_API : 'https://www.botv2.treadwill.org:8002',
   API_ENDPOINT: 'https://www.api2.treadwill.org',
   firebase: {
     apiKey: 'AIzaSyA2uLe3D1HIF3STgFuP7Spp0-UVwL-kK-c',
