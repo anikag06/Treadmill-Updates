@@ -66,9 +66,7 @@ export const mainRoutes: Routes = [
       {
         path: 'resources',
         loadChildren: () =>
-          import('./resources/resources.module').then(
-            m => m.ResourcesModule,
-          ),
+          import('./resources/resources.module').then(m => m.ResourcesModule),
       },
       {
         path: 'extra-resources',
