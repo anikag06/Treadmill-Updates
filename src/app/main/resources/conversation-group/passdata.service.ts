@@ -26,6 +26,7 @@ export class PassDataService {
 
  setOption(value: number, reset: boolean, continu: boolean, speedrun: boolean)  {
      this.conversation_id = value;
+     console.log(this.conversation_id);
      this.iscontinue = continu;
      this.isreset = reset;
      this.isspeedrun = speedrun;

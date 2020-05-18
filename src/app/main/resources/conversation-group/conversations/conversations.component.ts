@@ -10,7 +10,7 @@ import {
 import { ConversationsService } from '../conversations.service';
 import { Conversation } from './input/conversation.model';
 import { Dialog } from './input/dialogs.model';
-import { DialogOptions } from './input/dialog_options.model';
+import { OptionsModel } from './input/options.model';
 import { Texting } from './input/text.model';
 import { DialogInHistory } from './history/dialog.model';
 import { CurrentHistory } from './history/history.model';
@@ -74,12 +74,12 @@ import { PROBLEM_SOLVING, TASK } from '@/app.constants';
       state(
         'unsend',
         style({
-          maxWidth: '85%',
-          borderRadius: '20px 20px 0px 20px',
+          // maxWidth: '85%',
+          // borderRadius: '20px 20px 0px 20px',
           backgroundColor: '#FFEFD4',
-          paddingTop: '15px',
-          paddingLeft: '10px',
-          paddingRight: '10px',
+          // paddingTop: '15px',
+          // paddingLeft: '10px',
+          // paddingRight: '10px',
           position: 'relative',
           textAlign: 'center',
           fontSize: '18px',
@@ -88,19 +88,19 @@ import { PROBLEM_SOLVING, TASK } from '@/app.constants';
       state(
         'send',
         style({
-          maxWidth: '75%',
-          borderRadius: '25px 25px 0px 25px',
+          // maxWidth: '75%',
+          // borderRadius: '25px 25px 0px 25px',
           backgroundColor: '#FFEF12',
-          paddingTop: '15px',
-          paddingLeft: '10px',
-          paddingRight: '10px',
+          // paddingTop: '15px',
+          // paddingLeft: '10px',
+          // paddingRight: '10px',
           position: 'relative',
           textAlign: 'center',
           fontSize: '14px',
         }),
       ),
       transition('unsend => send', [
-        style({ transform: 'translateX(100%)' }),
+        style({ transform: 'translateX(50%)' }),
         animate('200ms ease-in', style({ transform: 'translateX(0%)' })),
       ]),
     ]),
@@ -120,6 +120,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
 
   next_step_id!: number;
 
+
   constructor(
     private conversationsService: ConversationsService,
     private timerservice: TimerService,
@@ -131,6 +132,18 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     private stepDataService: StepsDataService,
     private notificationService: NavbarNotificationsService,
   ) {}
+  //avatar_image!: any[];
+  show_avatar_image!: any;
+  newLine_message!: any;
+  newLine_dialog!: any;
+  mupltiple_line!: any;
+  show_multiple!: any;
+  count_multiple!: any;
+  newOptions_model!: OptionsModel;
+  item_message!: any;
+  item_dialog!: any;
+  message_show!: any;
+  Image!: any;
   currenthistory!: CurrentHistory;
   dialog_history!: DialogInHistory;
   conversation_id!: number;
@@ -141,7 +154,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   final_conclusion_message!: string;
   i!: any;
   index!: number;
-  current_message!: string;
+  current_message!: string[];
   length_conversation!: number;
   show!: Texting[];
   text!: Texting;
@@ -181,7 +194,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   initial_feedback!: number;
   final_feedback!: number;
   feedbackDataId!: number;
-  unsend = true;
+  nsend = true;
   current_id!: number;
 
   @ViewChild('form_div', { static: false }) formDiv!: ElementRef;
@@ -193,6 +206,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     this.conversation_id = this.passdata.getid();
     console.log('CONV ID', this.current_id, this.conversation_id);
     this.run();
+    this.show_avatar_image = "https://www.api2.treadwill.org/media/conversations/avataaars.png";
     this.timerservice.visibility();
     this.timerservice.unload();
     this.timerservice.internet_check();
@@ -204,7 +218,9 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   run() {
     const start = this.passdata.iswhat();
     if (start[0] === true) {
+      this.finished = false;
       this.reset();
+      console.log('its reset');
     } else if (start[1] === true) {
       this.current_history();
       console.log('its continue');
@@ -293,7 +309,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
                   break;
                 }
               }
-              if (found === true) {
+              if (found) {
                 break;
               }
             }
@@ -301,8 +317,42 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
           }
         }
         this.dialog = this.b.get(this.id);
-        this.text.message = this.dialog.message;
-        this.current_message = this.dialog.message;
+        //this.text.message = this.dialog.message;
+        // let e = document.createElement('html');
+        // e.innerHTML = this.dialog.message;
+        // this.newLine_message = e.getElementsByTagName('new_line');
+        // //this.Image = e.getElementsByTagName('image');
+        // console.log(this.newLine_message);
+        this.newLine_message = this.dialog.message.split('<new_line>');
+        this.current_message = [];
+        if(this.newLine_message.length!=1){
+          // for(let n = 0; n < this.newLine_message; n++){
+          //   this.text.message[n] = e.getElementsByTagName('new_line')[n].innerHTML;
+          // }
+          this.newLine_message.forEach((q:any) => {
+            this.text.message.push(q);
+            this.current_message.push(q);
+          })
+        } else {
+          this.text.message.push(this.dialog.message);
+          this.current_message.push(this.dialog.message);
+        }
+        for(let t=0; t<this.dialog.dialog_images.length; t++){
+          if(this.dialog.dialog_images[t].type === "AVATAR" && this.dialog.dialog_images.length!=0) {
+            this.text.show_avatar_image = this.dialog.dialog_images[t].image;
+            break;
+          } else {
+            this.text.show_avatar_image = this.show_avatar_image;
+          }
+        }
+        if (this.dialog.dialog_images.length == 0){
+          this.text.show_avatar_image = this.show_avatar_image;
+        }
+
+
+
+
+        //this.current_message = this.dialog.message;
         if (!this.speedrun) {
           this.dialog_options();
         }
@@ -317,6 +367,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
           this.conversation_id,
       )
       .subscribe((res: any) => {
+        console.log(res);
         this.conversationsService
           .getFeedBackInfo(this.conversation_id)
           .subscribe(feedback_data => {
@@ -368,6 +419,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
           this.currenthistory.user_response.length === 0 &&
           this.currenthistory.is_completed === false
         ) {
+          this.finished = false;
           this.loadConversation(true);
         } else {
           if (this.currenthistory.time_taken_to_complete_in_seconds !== null) {
@@ -377,13 +429,78 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
           const length = this.currenthistory.user_response.length;
           for (let y = 0; y < length; y++) {
             this.text = new Texting();
-            this.text.message = this.currenthistory.user_response[
-              y
-            ].dialog_in_history.message;
-            this.text.dialog = this.currenthistory.user_response[
-              y
-            ].option_in_history.message;
+            for(let t=0; t<this.currenthistory.user_response[y].dialog_in_history.dialog_images.length; t++){
+              if(this.currenthistory.user_response[y].dialog_in_history.dialog_images[t].type === "AVATAR" && this.currenthistory.user_response[y].dialog_in_history.dialog_images.length!=0) {
+                this.text.show_avatar_image = this.currenthistory.user_response[y].dialog_in_history.dialog_images[t].image;
+                break;
+              }else {
+                this.text.show_avatar_image = this.show_avatar_image;
+              }
+            }
+            if (this.currenthistory.user_response[y].dialog_in_history.dialog_images.length == 0){
+              this.text.show_avatar_image = this.show_avatar_image;
+            }
+
+           // let e = document.createElement('html');
+           //  e.innerHTML = this.currenthistory.user_response[
+           //    y
+           //    ].dialog_in_history.message;
+           // this.newLine_message = e.getElementsByTagName('new_line');
+            //this.Image = e.getElementsByTagName('image');
+           // console.log(this.newLine_message);
+            this.newLine_message =  this.currenthistory.user_response[
+                y
+                ].dialog_in_history.message.split('<new_line>');
+
+
+
+
+            if(this.newLine_message.length>1){
+              // for(let n = 0; n < this.newLine_message; n++){
+              //     this.text.message[n] = e.getElementsByTagName('new_line')[n].innerHTML;
+              // }
+              this.newLine_message.forEach((q:any) => {
+                this.text.message.push(q);
+              });
+            } else {
+              this.text.message.push(this.currenthistory.user_response[
+                y
+                ].dialog_in_history.message);
+            }
+
+
+
+            // this.text.dialog = this.currenthistory.user_response[
+            //   y
+            // ].option_in_history.message;
+            // e.innerHTML = this.currenthistory.user_response[
+            //   y
+            //   ].option_in_history.message;
+            // this.newLine_dialog = e.getElementsByTagName('new_line');
+            // //this.Image = e.getElementsByTagName('image');
+            // console.log(this.newLine_dialog);
+
+            this.newLine_dialog = this.currenthistory.user_response[
+               y
+               ].option_in_history.message.split('<new_line>');
+
+
+            if(this.newLine_dialog.length>1){
+              // for(let n = 0; n < this.newLine_dialog; n++){
+              //   this.text.dialog[n] = e.getElementsByTagName('new_line')[n].innerHTML;
+              // }
+              this.newLine_dialog.forEach((q:any) => {
+                this.text.dialog.push(q);
+              });
+            } else {
+              this.text.dialog.push(this.currenthistory.user_response[
+                y
+                ].option_in_history.message);
+            }
+
             this.show.push(this.text);
+            this.item_message = this.show
+            console.log(this.show);
           }
           this.loadConversation(false);
         }
@@ -414,19 +531,63 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   dialog_options() {
     this.no_of_options = this.dialog.dialog_has_options.length;
     this.options = [];
-    if (this.no_of_options > 0) {
+    if (this.no_of_options > 1) {
       this.dialog.dialog_has_options.forEach((q: any) => {
         this.options.push(q.option.message);
       });
+    } else {
+      //let e = document.createElement('html');
+      // e.innerHTML = this.dialog.dialog_has_options[0].option.message;
+      // this.mupltiple_line = e.getElementsByTagName('new_line');
+      this.mupltiple_line = this.dialog.dialog_has_options[0].option.message.split('<new_line>');
+      this.show_multiple = this.mupltiple_line.length;
+      this.count_multiple = 0;
+      if(this.show_multiple > 1){
+        this.options.push(this.mupltiple_line[0]);
+        console.log(this.show_multiple, this.count_multiple, this.mupltiple_line[0], this.mupltiple_line[0]);
+      } else {
+        this.options.push(this.dialog.dialog_has_options[0].option.message);
+      }
     }
   }
 
+  on_multiple_options() {
+   // if(this.count_multiple != this.show_multiple) {
+      //this.text.dialog.push(this.dialog.dialog_has_options[this.count_multiple].option.message);
+    this.options = [];
+    this.nsend = false;
+      this.text.dialog.push(this.mupltiple_line[this.count_multiple]);
+
+
+    this.show.push(this.text);
+    this.text = new Texting();
+    this.count_multiple++;
+    this.options.push(this.mupltiple_line[this.count_multiple]);
+    this.current_message = [];
+    this.nsend = true;
+
+
+
+    //  }
+  }
+
   on_click(i: number) {
-    this.text.dialog = this.dialog.dialog_has_options[i].option.message;
+    this.nsend = false;
+    if((this.count_multiple === this.show_multiple-1) && this.show_multiple > 1){
+      this.text.message = [];
+      console.log(this.text.message.length);
+      this.text.dialog.push(this.mupltiple_line[this.count_multiple]);
+    } else {
+      this.text.dialog.push(this.dialog.dialog_has_options[i].option.message);
+    }
     console.log(this.text);
+    // @ts-ignore
     this.show.push(this.text);
     if (this.dialog.dialog_has_options[i].loopback) {
       this.loopback = true;
+      console.log(this.dialog.dialog_has_options[
+        i
+        ]);
       this.wrong_message = this.dialog.dialog_has_options[
         i
       ].wrong_option_message.message;
@@ -440,19 +601,43 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       this.index = this.index + 1;
     }
     // tslint:disable-next-line:max-line-length
-    if (this.loopback === true) {
+    if (this.loopback) {
       this.loopback = false;
       this.wrong = true;
     } else {
       this.wrong = false;
     }
-    this.current_message = this.dialog.message;
+
+    //this.current_message = this.dialog.message;
+    for(let t=0; t<this.dialog.dialog_images.length; t++){
+      if(this.dialog.dialog_images[t].type === "AVATAR" && this.dialog.dialog_images.length!=0) {
+        this.text.show_avatar_image = this.dialog.dialog_images[t].image;
+        break;
+      } else {
+        this.text.show_avatar_image = this.show_avatar_image;
+      }
+    }
+    if(this.dialog.dialog_images.length == 0){
+      this.text.show_avatar_image = this.show_avatar_image;
+    }
+    this.newLine_dialog = this.dialog.message.split('<new_line>');
+    this.text = new Texting();
+    this.current_message = [];
+    if(this.newLine_dialog.length > 1){
+      this.newLine_dialog.forEach((q:any) => {
+        this.current_message.push(q);
+        this.text.message.push(q);
+      })
+    } else {
+      this.current_message.push(this.dialog.message);
+      this.text.message.push(this.dialog.message);
+    }
+
     // console.log(this.loopback);
     // console.log(this.index);
-    this.text = new Texting();
-    this.text.message = this.dialog.message;
+    this.nsend = true;
+
     this.progress_bar();
-    this.dialog_options();
     if (this.dialog.is_last === true) {
       this.finished = true;
       this.time = this.timerservice.removeVisibility() + this.time;
@@ -462,6 +647,8 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         false,
         this.finished,
       );
+    } else {
+      this.dialog_options();
     }
     this.scrollPageToBottom();
   }
@@ -499,14 +686,27 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
 
   speed_run() {
     this.speedrun = true;
+    this.finished = false;
     this.dialog = this.b.get(this.id);
     // console.log(this.dialog);
+  //  this.text = new Texting();
+    this.newLine_dialog = this.dialog.message.split('<new_line>');
     this.text = new Texting();
-    this.text.message = this.dialog.message;
+   // this.current_message = [];
+    if(this.newLine_dialog.length > 1){
+      this.newLine_dialog.forEach((q:any) => {
+      //  this.current_message.push(q);
+        this.text.message.push(q);
+      })
+    } else {
+     // this.current_message.push(this.dialog.message);
+      this.text.message.push(this.dialog.message);
+    }
+  //  this.text.message.push(this.dialog.message);
     // console.log(this.dialog.dialog_has_options.length);
     for (let y = 0; y < this.dialog.dialog_has_options.length; y++) {
-      if (this.dialog.dialog_has_options[y].loopback === false) {
-        this.text.dialog = this.dialog.dialog_has_options[y].option.message;
+      if (!this.dialog.dialog_has_options[y].loopback) {
+        this.text.dialog.push(this.dialog.dialog_has_options[y].option.message);
         break;
       }
     }
@@ -521,17 +721,49 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
           break;
         }
       }
+      // this.text = new Texting();
+      // this.text.message.push(this.dialog.message);
+      this.newLine_dialog = this.dialog.message.split('<new_line>');
       this.text = new Texting();
-      this.text.message = this.dialog.message;
+      // this.current_message = [];
+      if(this.newLine_dialog.length > 1){
+        this.newLine_dialog.forEach((q:any) => {
+          //  this.current_message.push(q);
+          this.text.message.push(q);
+        })
+      } else {
+        // this.current_message.push(this.dialog.message);
+        this.text.message.push(this.dialog.message);
+      }
       if (this.dialog.is_last === true) {
-        this.current_message = this.dialog.message;
+       // this.current_message = this.dialog.message;
+        this.current_message = [];
+        this.newLine_dialog = this.dialog.message.split('<new_line>');
+        if(this.newLine_dialog.length > 1){
+          this.newLine_dialog.forEach((q:any) => {
+            this.current_message.push(q);
+          })
+        } else {
+          this.current_message.push(this.dialog.message);
+        }
         break;
       }
       for (let y = 0; y < this.dialog.dialog_has_options.length; y++) {
-        if (this.dialog.dialog_has_options[y].loopback === false) {
-          this.text.dialog = this.dialog.dialog_has_options[y].option.message;
+        if (!this.dialog.dialog_has_options[y].loopback) {
+          this.text.dialog.push(this.dialog.dialog_has_options[y].option.message);
           break;
         }
+      }
+      for(let t=0; t<this.dialog.dialog_images.length; t++){
+        if(this.dialog.dialog_images[t].type === "AVATAR" && this.dialog.dialog_images.length!=0) {
+          this.text.show_avatar_image = this.dialog.dialog_images[t].image;
+          break;
+        } else {
+          this.text.show_avatar_image = this.show_avatar_image;
+        }
+      }
+      if(this.dialog.dialog_images.length == 0){
+        this.text.show_avatar_image = this.show_avatar_image;
       }
       this.show.push(this.text);
     }

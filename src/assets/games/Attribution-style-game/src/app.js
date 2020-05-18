@@ -243,7 +243,7 @@ var c = class LevelOne extends Phaser.Scene {
         this.lastFired = 0;
 
         // Total Time given to player
-        this.totalTime = 5;
+        this.totalTime = 30;
 
         this.totalBalloon = 0;
         this.totalBalloonBlown = 0;
@@ -610,7 +610,7 @@ var d = class LevelTwo extends Phaser.Scene {
 
 
       // Total Time given to player
-        this.totalTime = 5;
+        this.totalTime = 30;
 
         this.totalBalloon = 0;
         this.totalBalloonBlown = 0;
@@ -1012,7 +1012,7 @@ var e = class LevelThree extends Phaser.Scene {
       this.totalArrowsFired = 1;
 
         // Total Time given to player
-        this.totalTime = 5;
+        this.totalTime = 30;
 
         this.totalBalloon = 0;
         this.totalBalloonBlown = 0;
