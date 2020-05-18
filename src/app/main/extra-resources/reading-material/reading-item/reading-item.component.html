@@ -5,7 +5,7 @@
       <mat-card-header class="fix-reading-header d-flex justify-content-center" >
 
 
-        <mat-card-title class="fix-reading-header-title " [innerHTML]="readingItem.title"   ></mat-card-title>
+        <mat-card-title class="fix-reading-header-title " [innerHTML]="readingItem.title" *ngIf="isLoaded"  ></mat-card-title>
       </mat-card-header>
 
       <mat-card class="card" >

@@ -15,6 +15,15 @@ import {CommonGameComponent} from './games/games-list/common-game/common-game.co
 import {GetQuestionnaireComponent} from './dashboard/get-questionnaire/get-questionnaire.component';
 import {SurveyComponent} from './shared/survey/survey.component';
 
+import { ConversationsComponent } from './resources/conversation-group/conversations/conversations.component';
+import { ConversationGroupComponent } from './resources/conversation-group/conversation-group.component';
+import { ExtraResourcesComponent } from '@/main/extra-resources/extra-resources.component';
+import { ReadingItemComponent } from '@/main/extra-resources/reading-material/reading-item/reading-item.component';
+import { VideoItemComponent } from '@/main/extra-resources/videos/video-item/video-item.component';
+import { VideosComponent } from '@/main/extra-resources/videos/videos.component';
+import { ReadingMaterialComponent } from '@/main/extra-resources/reading-material/reading-material.component';
+import {NeedToTalkComponent} from '@/main/need-to-talk/need-to-talk.component';
+
 export const mainRoutes: Routes = [
   {
     path: '',
@@ -33,6 +42,10 @@ export const mainRoutes: Routes = [
         path: 'support-groups',
         component: SupportGroupsComponent,
         data: { title: 'Support Group' },
+      },
+      {
+        path: 'need-to-talk',
+        component: NeedToTalkComponent
       },
       {
         path: 'support-groups/:id',
@@ -61,22 +74,7 @@ export const mainRoutes: Routes = [
       { path: '', redirectTo: '/main/dashboard', pathMatch: 'full' },
       { path: 'logout', component: LogoutComponent },
       {
-        path: 'resources',
-        loadChildren: () =>
-          import('./resources/resources.module').then(
-            mod => mod.ResourcesModule,
-          ),
-        canActivateChild: [AuthGuard],
-      },
-      {
         path: 'extra-resources',
-        // component: Resources2Component,
-        // children: [
-        //   { path: 'videos', component: VideosComponent },
-        //   // {path: 'readingItem', component: ReadingMaterialComponent}
-        //   { path: 'videoItem/:id', component: VideoItemComponent },
-        //   {path: 'readingItem/:id', component: ReadingItemComponent}
-        // ],
         loadChildren: () =>
           import('./extra-resources/extra-resources.module').then(
             m => m.ExtraResourcesModule,

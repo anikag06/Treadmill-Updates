@@ -168,6 +168,8 @@ import { InternetConnectionComponent } from '@/shared/internet-connection/intern
 import { SharedModule } from '@/shared/shared.module';
 import { SafeUrlPipe } from './extra-resources/safe-url.pipe';
 import { CustomOverlayComponent } from './shared/custom-overlay/custom-overlay.component';
+import {ExtraResourcesModule} from '@/main/extra-resources/extra-resources.module';
+import { NeedToTalkComponent } from './need-to-talk/need-to-talk.component';
 // import { Resources2Routing } from './extra-resources/extra-resources-routing.module.ts/extra-resources-routing.module.ts.component';
 
 @NgModule({
@@ -273,6 +275,7 @@ import { CustomOverlayComponent } from './shared/custom-overlay/custom-overlay.c
     DisableClickDirective,
     GamesFeedbackComponent,
     CustomOverlayComponent,
+    NeedToTalkComponent,
     // Resources2Component,
     //  VideosComponent,
     //  ReadingMaterialComponent,
@@ -302,6 +305,7 @@ import { CustomOverlayComponent } from './shared/custom-overlay/custom-overlay.c
     // QuestionnaireModule,
     MatRippleModule,
     SharedModule,
+    ExtraResourcesModule,
   ],
   providers: [
     LocalStorageService,
@@ -379,5 +383,8 @@ import { CustomOverlayComponent } from './shared/custom-overlay/custom-overlay.c
     InternetConnectionComponent,
     CustomOverlayComponent,
   ],
+  exports: [
+    TrimStringPipe
+  ]
 })
 export class MainModule {}

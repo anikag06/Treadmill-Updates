@@ -12,7 +12,6 @@ export const extraResourcesRoutes: Routes = [
     data: { title: 'Resources' },
     children: [
       { path: 'videos', component: VideosComponent },
-      // {path: 'readingItem', component: ReadingMaterialComponent}
       { path: 'videoItem/:id', component: VideoItemComponent },
       { path: 'readingItem/:id', component: ReadingItemComponent },
     ],

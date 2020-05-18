@@ -27,11 +27,13 @@ export class ReadingItemComponent implements OnInit {
     if (this.readingItem == null) {
       this.activateRoutes.params.subscribe(data => {
         this.readingIdToSend = data.id;
+        console.log('reading data:', data);
       });
       this.extraResourcesService
         .getAReadingItem(this.readingIdToSend)
         .subscribe(data => {
           this.readingItem = <ReadingItem>data;
+          console.log('each reading item data:', data);
           this.isLoaded = true;
         });
     } else {

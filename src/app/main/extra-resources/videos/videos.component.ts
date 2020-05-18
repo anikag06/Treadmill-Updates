@@ -14,8 +14,9 @@ export class VideosComponent implements OnInit {
   @Input() videoItem!: VideoItem;
   videoLink: string | undefined;
   videoFooter: string | undefined;
-  //@Output() event1 = new EventEmitter();
+  // @Output() event1 = new EventEmitter();
   showState = false;
+  bodyLength = 60;
 
   notOn = true;
   //  @Output() onVideoEvent=  new EventEmitter();
@@ -54,9 +55,9 @@ export class VideosComponent implements OnInit {
   //   x = <VideoItem>this.videoItem;
   // }
 
-  //redirect(){
+  // redirect(){
   // this.extraResourcesService.videoGo();
-  //}
+  // }
   expandLine() {
     this.showState = true;
   }
