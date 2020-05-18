@@ -313,7 +313,7 @@ import { IframeTrackerDirective } from './chatbot/chat-window/chat-video/iframe-
     MatRippleModule,
     SharedModule,
     ExtraResourcesModule,
-    ExtraResourcesModule,
+    ResourcesModule,
   ],
   providers: [
     LocalStorageService,

@@ -64,10 +64,10 @@ export const mainRoutes: Routes = [
       { path: '', redirectTo: '/main/dashboard', pathMatch: 'full' },
       { path: 'logout', component: LogoutComponent },
       {
-        path: 'extra-resources',
+        path: 'resources',
         loadChildren: () =>
-          import('./extra-resources/extra-resources.module').then(
-            m => m.ExtraResourcesModule,
+          import('./resources/resources.module').then(
+            m => m.ResourcesModule,
           ),
       },
       {
