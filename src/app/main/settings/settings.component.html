@@ -1,0 +1,63 @@
+
+<div class = "row settings-row">
+  <div class = "col background-col">
+    <div class = "below-col-container">
+    <div class = "each-div">
+    <p class = "heading">Change username</p>
+    <mat-form-field>
+      <mat-label class = "placeholder">
+        username
+      </mat-label>
+      <input matInput #username>
+    </mat-form-field>
+      <!--username button-->
+    <button mat-button [disabled] = "username.value.length === 0" (click) = "usernameSaveClicked()" class = "save-btn" color = "warn"> Save</button>
+      <!--<p [ngClass] = "usernameSaveClicked() === false">username changed</p>
+      <p [ngClass] = "usernameSaveClicked() === true">already taken</p>-->
+      </div>
+
+
+      <div class = "each-div">
+      <p class = "heading"> Change password</p>
+      <mat-form-field>
+        <mat-label class = "placeholder">
+          New password
+        </mat-label>
+        <input matInput #newPassword>
+      </mat-form-field>&nbsp;&nbsp;&nbsp;&nbsp;
+
+      <mat-form-field>
+        <mat-label class = "placeholder">
+          Confirm password
+        </mat-label>
+        <input matInput #confirmPassword>
+      </mat-form-field>
+
+      <button mat-button [disabled] = "newPassword.value.length === 0 || confirmPassword.value.length === 0"> Save</button>
+      </div>
+
+      <div class = "each-div" *ngIf = "this.user.is_exp">
+      <p class = "heading">Notification Settings</p>
+
+      <p class = "notification-subheading">Support Group</p>
+        <p class = "push-email-notification"><span [ngClass] = "toggleOn === true ? 'push-email-right-space-with-save':'push-email-right-space'">Push Notification <span *ngIf = "toggleOn === true" class = "save-push-email" [ngClass] = "fadeOutSave()">Saved</span></span> <mat-slide-toggle  (click) = "supportPush()" [color] = 'color'></mat-slide-toggle></p>
+        <p class = "push-email-notification"><span class = "push-email-right-space">Email Notification</span> <mat-slide-toggle [color] = 'color'></mat-slide-toggle></p>
+
+      <p class = "notification-subheading">Task form</p>
+        <p class = "push-email-notification"><span class = "push-email-right-space">Push Notification</span> <mat-slide-toggle [color] = 'color'></mat-slide-toggle></p>
+        <p class = "push-email-notification"><span class = "push-email-right-space">Email Notification</span> <mat-slide-toggle [color] = 'color'></mat-slide-toggle></p>
+
+      <p class = "notification-subheading">Forms</p>
+        <p class = "push-email-notification"><span class = "push-email-right-space">Push Notification</span> <mat-slide-toggle [color] = 'color'></mat-slide-toggle></p>
+        <p class = "push-email-notification"><span class = "push-email-right-space">Email Notification</span> <mat-slide-toggle [color] = 'color'></mat-slide-toggle></p>
+
+      <p class = "notification-subheading">Weekly update</p>
+        <p class = "push-email-notification"><span class = "push-email-right-space">Email Notification</span> <mat-slide-toggle [color] = 'color'></mat-slide-toggle></p>
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #elseBlock>
+    <span>     </span>
+  </ng-template>

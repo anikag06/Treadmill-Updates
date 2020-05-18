@@ -174,6 +174,7 @@ import { ChatImageComponent } from './chatbot/chat-window/chat-image/chat-image.
 import { ChatImageDirective } from './chatbot/chat-window/chat-image/chat-image.directive';
 import { ChatVideoComponent } from './chatbot/chat-window/chat-video/chat-video.component';
 import { IframeTrackerDirective } from './chatbot/chat-window/chat-video/iframe-tracker.directive';
+import { SettingsComponent } from './settings/settings.component';
 // import { Resources2Routing } from './extra-resources/extra-resources-routing.module.ts/extra-resources-routing.module.ts.component';
 
 @NgModule({
@@ -280,6 +281,7 @@ import { IframeTrackerDirective } from './chatbot/chat-window/chat-video/iframe-
     GamesFeedbackComponent,
     CustomOverlayComponent,
     NeedToTalkComponent,
+    SettingsComponent,
     ChatImageComponent,
     ChatImageDirective,
     ChatVideoComponent,

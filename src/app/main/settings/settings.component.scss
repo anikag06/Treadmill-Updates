@@ -1,0 +1,80 @@
+.background-col{
+  background-color: white;
+}
+.heading{
+  font-size: 20px;
+  font-weight:bold;
+  font-family: Roboto;
+  padding-bottom: 10px;
+}
+.placeholder{
+  font-size: 16px;
+  font-family: Roboto;
+}
+
+.save-btn{
+  font-size: 14px;
+  font-family: Roboto;
+}
+
+.push-email-notification{
+  font-size: 16px;
+  font-family: Roboto;
+  padding-bottom: 24px;
+
+}
+.push-email-right-space{
+  padding-right: 182px;
+}
+.push-email-right-space-with-save{
+  //padding-right: 150px;
+  padding-right: 30px;
+}
+//[ngClass] = "toggleOn === true ? 'push-email-right-space-with-save':'push-email-right-space'"
+.notification-subheading{
+  font-size: 16px;
+  font-weight: bold;
+  font-family: Roboto;
+  padding-top: 24px;
+}
+.below-col-container{
+  padding-left: 16px;
+  padding-top: 36px;
+}
+.each-div{
+  padding-bottom: 72px;
+}
+
+.save-push-email{
+  font-size: 14px;
+  padding-left: 130px;
+}
+.grey-col{
+  color: grey;
+}
+.black-col{
+  color: black;
+}
+
+@media only screen and (min-width: 781px){
+  .heading{
+    padding-bottom: 12px;
+  }
+  .settings-row{
+    padding-left: 60px;
+  }
+  .below-col-container{
+    padding-left: 24px;
+    padding-top: 24px;
+  }
+  .push-email-right-space{
+    padding-right: 196px;
+  }
+  .push-email-right-space-with-save{
+    padding-right: 30px;
+  }
+  .save-push-email{
+    padding-left: 130px;
+  }
+
+}
