@@ -1,14 +1,14 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col">
-<!--      <div class="title">-->
-<!--        <mat-card-header class="col-12 w-100 my-auto px-0 card-header">-->
-<!--          <mat-card-title class="my-auto d-inline-block justify-content-center ">-->
-<!--            Conclusion-->
-<!--          </mat-card-title>-->
-<!--        </mat-card-header>-->
+      <div [ngStyle]="{'opacity': quiz_active? '0' : '1' }">
+        <mat-card-header class="title col-12 w-100 my-auto px-0">
+          <mat-card-title class="my-auto d-inline-block justify-content-center ">
+            Conclusion
+          </mat-card-title>
+        </mat-card-header>
 
-<!--      </div>-->
+      </div>
 
       <router-outlet></router-outlet>
     </div>
