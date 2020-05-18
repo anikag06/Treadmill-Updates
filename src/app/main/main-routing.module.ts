@@ -71,6 +71,13 @@ export const mainRoutes: Routes = [
           ),
       },
       {
+        path: 'extra-resources',
+        loadChildren: () =>
+          import('./extra-resources/extra-resources.module').then(
+            m => m.ExtraResourcesModule,
+          ),
+      },
+      {
         path: 'extra-resources/:id',
         loadChildren: () =>
           import('./extra-resources/extra-resources.module').then(
