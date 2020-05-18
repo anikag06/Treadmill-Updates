@@ -28,6 +28,10 @@ body {
   text-decoration: none;
 }
 
+.anchorify-pre-login-toolbar-button:hover {
+  color: #f5bb56 !important;
+}
+
 .pre-login-toolbar-burger {
   @extend .cursor-hand;
   color: white;

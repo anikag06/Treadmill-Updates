@@ -12,7 +12,7 @@
 }
 
 .ng-untouched  {
-    border: 0px; 
+    border: 0px;
 }
 .ng-touched .ng-invalid:not(form)  {
     border: 1px solid red; /* red */
@@ -34,4 +34,13 @@
 }
 #img-4 {
     width: 40%;
+}
+.s-medium {
+  font-size: 14px;
+  letter-spacing: 0.29px;
+  font-weight: bold;
+  font-family: "Roboto";
+}
+.opacity-80 {
+  opacity: 0.80;
 }

@@ -1,9 +1,9 @@
 @import '../../../common-styles.scss';
 
 .center-banner {
-  height: 105vh;
-  padding-top: 14%;
-  padding-bottom: 40%;
+  height: 90vh;
+ // padding-top: 14%;
+ margin-bottom: 5%;
 }
 
 .third-section {
@@ -45,7 +45,7 @@
   .btn-join-the-study {
     position: absolute;
     top: 50%;
-    left: 53%;
+    left: 50%;
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
   }
@@ -53,4 +53,15 @@
 
 .anchorify-default {
   @extend .anchorify-default;
+}
+
+.img-resp{
+  max-width: 100%;
+  height: auto;
+}
+
+@media only screen and (min-width:  768px) {
+  .img-resp{
+    max-width: 80%;
+  }
 }
