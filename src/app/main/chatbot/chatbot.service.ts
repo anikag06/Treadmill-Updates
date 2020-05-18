@@ -1,51 +1,40 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
-import {environment} from '../../../environments/environment';
-import {GIPHY_URL, UNSPLASH_URL} from '@/app.constants';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
+import { fromEvent, merge, Observable, Observer } from 'rxjs';
+import { map } from 'rxjs/operators';
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ChatbotService {
-  // private url = 'https://api.unsplash.com'; // URL to web API
-  // private applicationId =
-  //   '9bd2732a096202a8c7f9b6f95ef06838580ddd34e7c73fb8234546019379c041';
-
   constructor(private http: HttpClient) {}
+  nowdateTime = Date.now();
 
-  postPreviousChat() {
+  postPreviousChat(currentDateTime: any) {
+    const dateTime = moment.utc(currentDateTime).format('DD/MM/YY+HH:mm:ss');
     return this.http.post(
-      environment.API_ENDPOINT + '/api/v1/chat/resume-chat/',
+      environment.API_ENDPOINT +
+        '/api/v1/chat/resume-chat/' +
+        '?page=1&' +
+        'date_time=' +
+        dateTime,
       {},
     );
   }
 
-  getPhoto(id: string) {
-    return this.http.get<any>(
-      UNSPLASH_URL + '/photos/' + id + '/?client_id=' + environment.CLIENT_KEY,
-      {
-        observe: 'response',
-      },
+  loadPreviousChat(page: number, currentDateTime: any) {
+    const dateTime = moment.utc(currentDateTime).format('DD/MM/YY+HH:mm:ss');
+    console.log('page no ' + page);
+    return this.http.post(
+      environment.API_ENDPOINT +
+        '/api/v1/chat/resume-chat/' +
+        '?page=' +
+        page +
+        '&date_time=' +
+        dateTime,
+      {},
     );
-  }
-
-  getRandomPhoto(cid: string) {
-    const p = new HttpParams().set('collections', cid);
-
-    return this.http.get<any>(
-      UNSPLASH_URL + '/photos/random/' + '?client_id=' + environment.CLIENT_KEY,
-      {
-        params: p,
-        observe: 'response',
-      },
-    );
-  }
-  getGIF(gid: string) {
-    const p = new HttpParams().set('api_key', environment.GIPHY_API_KEY);
-
-    return this.http.get<any>(GIPHY_URL + gid, {
-      params: p,
-      observe: 'response',
-    });
   }
 }

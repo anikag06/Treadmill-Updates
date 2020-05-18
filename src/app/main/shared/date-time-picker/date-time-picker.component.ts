@@ -139,9 +139,33 @@ export class DateTimePickerComponent
     );
 
     const repeat = this.getRepeatedDays(this.daysCircle);
-    const chatDateTimeMessage = date + '<br/>' + hourMinute + '<br/>' + repeat;
+    // const chatDateTimeMessage = date + '<br/>' + hourMinute + '<br/>' + repeat;
+    const chatDateTimeMessage =
+      "I'll do this task " +
+      '<br/>' +
+      '⏰ ' +
+      hourMinute +
+      '<br/>' +
+      ' on ' +
+      repeat +
+      '<br/>' +
+      ' from ' +
+      '📅 ' +
+      date;
     this.closeModal();
-    this.dateTimeMessage.emit(chatDateTimeMessage);
+    const dateTimeValues = [
+      {
+        start_date: this.dateToString(this.startEndDate[this.START_DATE]),
+        time: utcTime,
+        end_date: this.dateToString(this.startEndDate[this.END_DATE]),
+        days: this.formDataDays,
+      },
+    ];
+    const dateTimeSelected = {
+      dateTimeMessage: chatDateTimeMessage,
+      dateTimeValues: dateTimeValues,
+    };
+    this.dateTimeMessage.emit(dateTimeSelected);
     this.dateTimeSubmit.emit();
 
     if (this.dialogRef) {
@@ -174,8 +198,8 @@ export class DateTimePickerComponent
         this.formDataDays.push(WEEK[i]);
       }
     }
-    let repeat = 'Repeat:';
-    repeat += repeatedDays.join(',');
+
+    const repeat: string = repeatedDays.join(',');
     return repeat;
   }
 

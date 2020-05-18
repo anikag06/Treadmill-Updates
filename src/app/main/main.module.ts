@@ -170,6 +170,10 @@ import { SafeUrlPipe } from './extra-resources/safe-url.pipe';
 import { CustomOverlayComponent } from './shared/custom-overlay/custom-overlay.component';
 import { ExtraResourcesModule } from '@/main/extra-resources/extra-resources.module';
 import { NeedToTalkComponent } from './need-to-talk/need-to-talk.component';
+import { ChatImageComponent } from './chatbot/chat-window/chat-image/chat-image.component';
+import { ChatImageDirective } from './chatbot/chat-window/chat-image/chat-image.directive';
+import { ChatVideoComponent } from './chatbot/chat-window/chat-video/chat-video.component';
+import { IframeTrackerDirective } from './chatbot/chat-window/chat-video/iframe-tracker.directive';
 // import { Resources2Routing } from './extra-resources/extra-resources-routing.module.ts/extra-resources-routing.module.ts.component';
 
 @NgModule({
@@ -276,13 +280,16 @@ import { NeedToTalkComponent } from './need-to-talk/need-to-talk.component';
     GamesFeedbackComponent,
     CustomOverlayComponent,
     NeedToTalkComponent,
+    ChatImageComponent,
+    ChatImageDirective,
+    ChatVideoComponent,
     // Resources2Component,
     //  VideosComponent,
     //  ReadingMaterialComponent,
     //  ReadingItemComponent,
     //  VideoItemComponent,
-    //  SafeUrlPipe,
     InternetConnectionComponent,
+    IframeTrackerDirective,
   ],
   imports: [
     CommonModule,
@@ -305,6 +312,7 @@ import { NeedToTalkComponent } from './need-to-talk/need-to-talk.component';
     // QuestionnaireModule,
     MatRippleModule,
     SharedModule,
+    ExtraResourcesModule,
     ExtraResourcesModule,
   ],
   providers: [
@@ -382,6 +390,7 @@ import { NeedToTalkComponent } from './need-to-talk/need-to-talk.component';
     GamesFeedbackComponent,
     InternetConnectionComponent,
     CustomOverlayComponent,
+    ChatImageComponent,
   ],
   exports: [TrimStringPipe],
 })

@@ -10,13 +10,13 @@ export const ISADMIN = 'is_admin';
 export const ISACTIVE = 'is_active';
 export const IS_EXP = 'is_exp';
 export const TREADWILL = 'TreadWill';
-export const SUNDAY = 'SUNDAY';
-export const MONDAY = 'MONDAY';
-export const WEDNESDAY = 'WEDNESDAY';
-export const TUESDAY = 'TUESDAY';
-export const THURSDAY = 'THURSDAY';
-export const FRIDAY = 'FRIDAY';
-export const SATURDAY = 'SATURDAY';
+export const SUNDAY = 'Sunday';
+export const MONDAY = 'Monday';
+export const WEDNESDAY = 'Wednesday';
+export const TUESDAY = 'Tuesday';
+export const THURSDAY = 'Thursday';
+export const FRIDAY = 'Friday';
+export const SATURDAY = 'Saturday';
 export const WEEK = [
   SUNDAY,
   MONDAY,

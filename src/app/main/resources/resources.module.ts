@@ -96,6 +96,7 @@ import { FormMessageComponent } from './forms/shared/form-message/form-message.c
 import { FormQuoteComponent } from './forms/shared/form-quote/form-quote.component';
 import { SlidesBottomsheetComponent } from './slides/slides-bottomsheet/slides-bottomsheet.component';
 import { ConversationsService } from './conversation-group/conversations.service';
+import { SlidesVideoComponent } from './slides/slides-video/slides-video.component';
 
 import { FormFinalRatingComponent } from './forms/shared/form-final-rating/form-final-rating.component';
 import {
@@ -123,6 +124,7 @@ import { ScrollToTopDirective } from '@/main/shared/scrollToTop/scroll-to-top.di
 import { SharedModule } from '@/shared/shared.module';
 import { EvaluateMoodComponent } from './shared/evaluate-mood/evaluate-mood.component';
 import { Conclusion6Component } from './conclusion/conclusion6/conclusion6.component';
+import { ExtraResourcesModule } from '@/main/extra-resources/extra-resources.module';
 
 @NgModule({
   declarations: [
@@ -221,6 +223,7 @@ import { Conclusion6Component } from './conclusion/conclusion6/conclusion6.compo
     MatSnackBarModule,
     MatBottomSheetModule,
     SharedModule,
+    ExtraResourcesModule,
   ],
   providers: [
     SlideService,

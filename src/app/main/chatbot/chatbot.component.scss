@@ -1,20 +1,46 @@
 .chat-btn {
   position: fixed;
+  bottom: 5vh;
+  right: 4%;
+  z-index: 100;
+  width: 55px;
+  height: 80px;
+  outline: none;
+  border-radius: 50%;
+  background: transparent;
+  border-color: transparent;
+}
+
+.chat-btn-img {
+  position: fixed;
   bottom: 4vh;
   right: 3%;
   z-index: 100;
   width: 80px;
   outline: none;
 
+  border-color: white;
+  border-radius: 50%;
 }
+
+.chat-btn-img:hover {
+  opacity: 0.8;
+}
+
+
 @media screen and (max-width: 576px) {
   .chat-btn {
+    bottom: 1vh;
+    height: 60px;
+    min-width: 40px;
+    width: 48px;
+    right: 4.6%;
+
+  }
+  .chat-btn-img {
     bottom: 0;
-    z-index: 100;
     width: 60px;
   }
-
-
 }
 @media screen and (max-height: 500px) {
   .chat-btn {

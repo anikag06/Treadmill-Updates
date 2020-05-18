@@ -1,5 +1,22 @@
-<div class="chat-btn" *ngIf="!removeChat" appNavbarFlow>
- <input type="image" *ngIf="chatwindowClosed" class="chat-btn" src="assets/chatbot/chatbot_home_screen.png" alt="icon" (click)="toggleChat()">
-  <app-chat-window *ngIf="!chatwindowClosed" [chatWindowClosed]="chatwindowClosed" [overlayOpen]="overlayOpen" (chatWindowClosedEmitter)="updateChatWindow($event)" ></app-chat-window>
+<div *ngIf="!removeChat" appNavbarFlow>
+  <button
+    mat-stroked-button
+    aria-label="Chatbot icon button"
+    *ngIf="chatwindowClosed"
+    class="chat-btn"
+    (click)="toggleChat()"
+  >
+    <img
+      class="chat-btn-img"
+      src="assets/chatbot/chatbot_home_screen.png"
+      alt="icon"
+    />
+  </button>
+  <app-chat-window
+    *ngIf="!chatwindowClosed"
+    [chatWindowClosed]="chatwindowClosed"
+    [overlayOpen]="overlayOpen"
+    [currentDateTime]="currentDateTime"
+    (chatWindowClosedEmitter)="updateChatWindow($event)"
+  ></app-chat-window>
 </div>
-

@@ -1,12 +1,14 @@
 import {
-  Component,
-  OnInit,
-  ViewChild,
   AfterViewInit,
+  Component,
   ElementRef,
+  Inject,
+  OnInit,
+  Optional,
+  ViewChild,
 } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
-import { SafeUrl, DomSanitizer } from '@angular/platform-browser';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { LoadFilesService } from '@/main/games/shared/load-files.service';
 import { SlideService } from '../slide.service';
 
@@ -17,10 +19,12 @@ import { SlideService } from '../slide.service';
 })
 export class SlidesVideoComponent implements OnInit, AfterViewInit {
   sanitizedUrl!: SafeUrl;
-  videoUrl!: string;
-  // 'https://www.youtube.com/embed/k5E2AVpwsko?autoplay=1&enablejsapi=1&mute=1';
+  videoUrl!: String;
+
   player!: any;
-  videoTimeLeft = 30;
+  videoTimeLeft = 10;
+  backBtnTxt!: string;
+  instruction!: string;
 
   @ViewChild('slideVideo', { static: false }) slideVideo!: ElementRef;
   @ViewChild('backBtn', { static: false }) backBtn!: ElementRef;
@@ -30,7 +34,14 @@ export class SlidesVideoComponent implements OnInit, AfterViewInit {
     private sanitizer: DomSanitizer,
     private loadFileService: LoadFilesService,
     private slideService: SlideService,
-  ) {}
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
+  ) {
+    if (data) {
+      this.videoUrl = data.videoUrl;
+      this.backBtnTxt = data.btnText;
+      this.instruction = data.instruction;
+    }
+  }
 
   ngAfterViewInit() {
     this.loadFileService.loadExternalScript(
@@ -60,7 +71,6 @@ export class SlidesVideoComponent implements OnInit, AfterViewInit {
       }, 1000);
     };
     this.videoUrl = this.slideService.videoUrl_1 + '?enablejsapi=1';
-    console.log('video url', this.videoUrl);
     this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
       this.slideService.videoUrl_1 + '?enablejsapi=1',
     );
@@ -71,7 +81,8 @@ export class SlidesVideoComponent implements OnInit, AfterViewInit {
   }
 
   onPlayerReady(event: any) {
-    console.log('player ready');
+    event.target.playVideo();
+
     const videoInt = setInterval(() => {
       console.log('current time', this.player.getCurrentTime());
       console.log(

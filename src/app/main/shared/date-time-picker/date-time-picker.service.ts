@@ -8,17 +8,17 @@ export class DateTimePickerService {
   constructor() {}
   getTimeAmPm(endDate: Date): string {
     const time = moment(endDate).format('hh:mm A');
-    return 'Time:' + time.toString();
+    return time.toString();
   }
 
   getDateRange(startDate: Date, endDate: Date): string {
     const fromDate = moment(startDate)
-      .format('DD-MM-YY')
+      .format("Do MMM'YY")
       .toString();
     const toDate = moment(endDate)
-      .format('DD-MM-YY')
+      .format("Do MMM'YY")
       .toString();
-    return 'Date:' + fromDate + ' to ' + toDate;
+    return fromDate + ' to ' + toDate;
   }
 
   getUTCTime(date: Date): string {

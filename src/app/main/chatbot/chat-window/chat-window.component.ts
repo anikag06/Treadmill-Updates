@@ -1,6 +1,7 @@
 import {
   CHATBOT_RETRY_TIMEOUT,
   MAX_RETRIES,
+  MOBILE_WIDTH,
   NEW_CHAT,
   REPLY_CURRENT,
   RESUME_CHAT,
@@ -102,7 +103,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   buttons: any = [];
   scrollTop = 0;
   totalDelay = 3000;
-  halfwayDelay = 1500;
+  halfwayDelay = 0;
   delayPerWord = 50;
   chatClosed = false;
   retries = 0;
@@ -110,26 +111,35 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   showDateTime = false;
   moodWidget = 'mood_widget';
   dateTimeWidget = 'date_time_widget';
-  // buttonsModule: string[] = ['', '', '', '', '', '', '', '', '', ''];
   radio = 'radio';
   clickAble = 'clickable_image';
-  buttonType = 'radio';
+  buttonType = '';
   images: any[] = [];
   isOnline = true;
   @ViewChild('messagesDiv', { static: false }) messagesDiv!: ElementRef;
   @ViewChild('ti', { static: false }) ti!: ElementRef;
   @Input() overlayOpen!: boolean;
+  @ViewChild('textArea', { static: false }) textArea!: ElementRef;
   @Input() chatWindowClosed = false;
   @Output() chatWindowClosedEmitter = new EventEmitter<Boolean>();
   counter = 4;
   showMore = false;
   showButtons = [];
   buttonsBuffer = [];
-  widgetValues: any[] = [];
-  showMoodWidget = true;
-  showDateTimeWidget = true;
-  showSpinner = true;
-
+  widgetValues!: any;
+  showMoodWidgetBtn = true;
+  showDateTimeWidgetBtn = true;
+  showMaintenance = false;
+  showSpinner = false;
+  isMultiLineInput = false;
+  showTextInput!: boolean;
+  timeout: any = null;
+  page!: number;
+  allMessagesLoaded = false;
+  mobileView!: boolean;
+  @Input() currentDateTime!: any;
+  isLoading = false;
+  multiLineChat: string[] = [];
   ngOnChanges(): void {
     if (this.chatWindowClosed === false) {
       if (
@@ -144,28 +154,32 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnInit() {
-    this.chatbotService.postPreviousChat().subscribe(
+    this.mobileView = window.innerWidth < MOBILE_WIDTH;
+    this.chatbotService.postPreviousChat(this.currentDateTime).subscribe(
       (data: any) => {
         if (data.status) {
           // console.log(data);
-          data.data.messages.forEach((message: any) => {
-            // this.pushPreviousChat(message);
-            this.pushImage(message);
-            this.messages.push(
-              new Chat(
-                twemoji.parse(message.text),
-                message.is_sender_user,
-                [],
-                message.mid,
-                message.sid,
-                message.datetime,
-                false,
-                [],
-                this.images,
-              ),
-            );
-            this.scrollToBottom();
-            // console.log(message);
+          console.log(data.data.messages);
+          setTimeout(() => {
+            data.data.messages.forEach((message: any) => {
+              this.pushImages(message);
+              this.messages.push(
+                new Chat(
+                  twemoji.parse(message.text),
+                  message.is_sender_user,
+                  [],
+                  message.mid,
+                  message.sid,
+                  message.datetime,
+                  false,
+                  [],
+                  this.images,
+                ),
+              );
+
+              this.scrollToBottom();
+              // console.log(message);
+            });
           });
         }
       },
@@ -201,6 +215,9 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   //   );
   // }
 
+  ngAfterViewChecked() {
+    this.changRef.detectChanges();
+  }
   onChatSubmit() {
     if (this.message.length > 0 && this.message.trim().length > 0) {
       this.message = this.message.replace(/[\n\t\r]/g, '');
@@ -219,37 +236,40 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       );
       this.scrollToBottom();
       const message = this.message;
-      const widgetValues = this.widgetValues;
-      console.log(message);
+      const widgetValues = {
+        payload: message,
+        value: this.widgetValues,
+      };
       this.message = '';
       this.widgetValues = [];
-      console.log(
-        JSON.stringify({
-          message: {
-            text: message,
-            buttons: [],
-            values: widgetValues.length > 0 ? widgetValues : [],
-          },
-        }),
-      );
-      this.webSocket.send(
-        JSON.stringify({
-          action: REPLY_CURRENT,
-          message: {
-            text: message,
-            buttons: [],
-            values: widgetValues.length > 0 ? widgetValues : [],
-          },
-        }),
-      );
-      if (screen.availWidth > 576) {
-        this.ti.nativeElement.disabled = true;
+      // setTimeout(() => {}, 4000);
+      //   widgets": [{"widget_value":[],"widget_payload":"",}]
+      if (widgetValues.value) {
+        this.webSocket.send(
+          JSON.stringify({
+            action: REPLY_CURRENT,
+            message: {
+              text: '',
+              buttons: [],
+              widgets: [widgetValues],
+            },
+          }),
+        );
+      } else {
+        this.webSocket.send(
+          JSON.stringify({
+            action: REPLY_CURRENT,
+            message: {
+              text: message,
+              buttons: [],
+              widgets: [],
+            },
+          }),
+        );
       }
+
+      this.showTextInput = false;
     }
-    setTimeout(() => {
-      // this.ti.nativeElement.focus();
-      this.scrollToBottom();
-    });
   }
 
   close() {
@@ -270,7 +290,17 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   chatButtonPressed(button: any) {
     // chat.buttons = [];
     this.messages.push(
-      new Chat(button['payload'], true, [], '', '', new Date(), false, [], []),
+      new Chat(
+        button['emojified_payload'],
+        true,
+        [],
+        '',
+        '',
+        new Date(),
+        false,
+        [],
+        [],
+      ),
     );
     this.webSocket.send(
       JSON.stringify({
@@ -284,7 +314,8 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
 
   scrollToBottom() {
     if (this.messagesDiv) {
-      this.scrollTop = this.messagesDiv.nativeElement.scrollHeight;
+      // console.log(this.scrollTop, this.messagesDiv.nativeElement.scrollHeight);
+      this.scrollTop = this.messagesDiv.nativeElement.scrollHeight + 100;
       this.changRef.detectChanges();
     }
   }
@@ -304,6 +335,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       this.webSocket.send(JSON.stringify({ action: type, module_name: '' }));
     };
     this.webSocket.onmessage = (message: any) => {
+      this.showMaintenance = false;
       const data = JSON.parse(message.data);
       if (data.error === true) {
         const item = new Chat(
@@ -322,6 +354,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       } else if (data.action === 'ws_close') {
         this.closeChat();
       } else {
+        this.page = 1;
         this.start(data.message);
       }
     };
@@ -341,28 +374,34 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     };
 
     this.webSocket.onerror = () => {
+      if (this.isOnline) {
+        this.showMaintenance = true;
+      }
       this.webSocket.close();
     };
-    this.scrollToBottom();
   }
 
   pushChat(m: any) {
     this.buttonsBuffer = [];
     console.log(m);
-    this.pushImage(m);
+    this.pushImages(m);
     m.buttons.forEach((button: any) => {
-      button.payload = twemoji.parse(button.payload);
+      if (!button.hasOwnProperty('emojified_payload')) {
+        button.emojified_payload = twemoji.parse(button.payload);
+      }
     });
 
-    console.log(m.buttons);
-    if (m.buttons && m.buttons.length < 4) {
+    if (m.buttons && m.buttons.length < 5) {
       this.showButtons = m.buttons;
     } else {
       this.buttonsBuffer = m.buttons;
       this.showButtons = m.buttons.slice(0, 4);
-      this.showMore = m.buttons.length > 4;
+      this.counter = 4;
+      this.showMore = true;
     }
 
+    // this.showMoodWidget = !!m.widgets;
+    this.isLoading = false;
     const item = new Chat(
       twemoji.parse(m.text || ''),
       false,
@@ -379,36 +418,28 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       this.buttonType = m.buttons[0].type;
     }
     this.messages.push(item);
-    // this.showButtons = [];
     this.scrollToBottom();
-    if (this.ti) {
-      if (m.buttons && m.buttons.length > 1) {
-        this.ti.nativeElement.disabled = true;
-        // this.scrollToBottom();
-      } else {
-        this.ti.nativeElement.disabled = false;
-        this.ti.nativeElement.focus();
-      }
-    }
+    // this.showButtons = [];
   }
 
   showWritingAndPushChat(m: any) {
-    const item = new Chat('', false, [], '', '', new Date(), true, [], []);
-    this.ti.nativeElement.disabled = true;
-    this.messages.push(item);
-    setTimeout(this.scrollToBottom);
+    this.isLoading = true;
+    // const item = new Chat('', false, [], '', '', new Date(), true, [], []);
+    // this.messages.push(item);
+    // setTimeout(this.scrollToBottom);
     setTimeout(() => {
-      this.messages.pop();
+      // this.messages.pop();
       this.pushChat(m);
-      // this.showButtons = [];
-      setTimeout(this.scrollToBottom);
-    }, this.halfwayDelay + Math.floor(Math.random() * 800 + 1));
+      // this.scrollToBottom();
+    }, 1500);
+    // this.halfwayDelay + Math.floor(Math.random() * 800 + 1)
   }
 
   closeChat() {
     if (this.webSocket) {
       this.chatClosed = true;
       this.webSocket.close();
+      this.page = 1;
     }
     this.retries = 0;
     this.chatWindowClosedEmitter.emit(true);
@@ -430,15 +461,36 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   getMoodMessage($event: any) {
     this.message = $event.moodMessage;
     this.widgetValues = $event.moodValues;
-    this.showMoodWidget = false;
+    this.showMoodWidgetBtn = false;
   }
 
-  getDateTimeMessage($event: string) {
-    this.message = $event;
+  getDateTimeMessage($event: any) {
+    this.message = $event.dateTimeMessage;
+    this.widgetValues = $event.dateTimeValues;
+    this.showDateTimeWidgetBtn = false;
   }
 
-  async start(messages: any) {
-    await this.loadEachMessage(messages);
+  start(messages: any) {
+    this.isMultiLineInput = !!messages[0].multiline_input;
+    this.loadEachMessage(messages);
+
+    setTimeout(() => {
+      if (
+        (messages[messages.length - 1].buttons &&
+          messages[messages.length - 1].buttons.length === 0 &&
+          messages[messages.length - 1].widgets &&
+          messages[messages.length - 1].widgets.length === 0) ||
+        (messages[messages.length - 1].buttons &&
+          messages[messages.length - 1].buttons.length === 0 &&
+          messages[messages.length - 1].widgets === undefined) ||
+        messages[messages.length - 1].widgets === null
+      ) {
+        this.showTextInput = true;
+        this.scrollToBottom();
+      } else {
+        this.showTextInput = false;
+      }
+    }, messages.length * 2500);
   }
 
   loadEachMessage(m: any) {
@@ -448,15 +500,13 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
 
       if (
         (m[index].text && m[index].text.length > 0) ||
-        (m[index].buttons && m[index].buttons.length > 0)
+        (m[index].buttons && m[index].buttons.length > 0) ||
+        (m[index].widgets && m[index].widgets.length > 0)
       ) {
         setTimeout(() => {
           this.showWritingAndPushChat(m[index]);
+          this.scrollToBottom();
         }, delayPerMessage);
-
-        //  setTimeout(() => {
-        //     this.scrollToBottom();
-        //   });
       }
     }
   }
@@ -465,125 +515,172 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     this.showDateTime = !this.showDateTime;
   }
 
-  pushImage(m: any) {
+  pushImages(m: any) {
     this.images = [];
-    if (m.images && m.images.length > 0) {
-      m.images.forEach((image: any) => {
-        if (image.type === 'unsplash_collection') {
-          this.getImageFromCollection(image.cid);
-        } else if (image.type === 'unsplash_photo') {
-          this.getImageByID(image.pid);
+    if (m.embed_links && m.embed_links.length > 0) {
+      m.embed_links.forEach((image: any) => {
+        if (image.type === 'unsplash_image') {
+          this.pushUnsplashImage(image);
         } else if (image.type === 'giphy') {
-          this.getGIFByID(image.gid);
+          this.pushGIF(image);
+        } else if (image.type === 'video') {
+          this.pushVideo(image);
         } else {
-          this.getImage(image);
+          this.pushImage(image);
         }
       });
     }
   }
 
-  getImageFromCollection(cid: string) {
-    this.chatbotService.getRandomPhoto(cid).subscribe((resp: any) => {
-      // console.log(resp);
-      // url = resp.body.urls.small;
-      const image = {
-        url: resp.body.urls.raw,
-        link: resp.body.links.html,
-        color: resp.body.color,
-        name: resp.body.user.name,
-        credits: true,
-      };
-
-      this.images.push(image);
-    });
+  pushUnsplashImage(image: any) {
+    const unsplashObject = {
+      type: 'image',
+      url: image.static_url,
+      link: image.creator_link,
+      name: image.creator,
+      credits: true,
+    };
+    this.images.push(unsplashObject);
   }
 
-  getImageByID(pid: string) {
-    this.chatbotService.getPhoto(pid).subscribe((resp: any) => {
-      const image = {
-        url: resp.body.urls.raw,
-        link: resp.body.links.html,
-        color: resp.body.color,
-        name: resp.body.user.name,
-        credits: true,
-      };
-
-      this.images.push(image);
-    });
-  }
-
-  getImage(photo: any) {
+  pushImage(photo: any) {
     const image = {
+      type: 'image',
       url: photo.url,
       credits: false,
     };
     this.images.push(image);
   }
 
-  getGIFByID(gid: string) {
-    this.chatbotService.getGIF(gid).subscribe((resp: any) => {
-      // console.log(resp);
-      const image = {
-        url: resp.body.data.images.original_still.url,
-        dynamic_url: resp.body.data.images.original.url,
-        static_url: resp.body.data.images.original_still.url,
-        showSpinner: true,
-        creditsGIF: true,
-      };
-
-      this.images.push(image);
-    });
+  pushGIF(image: any) {
+    const gifObject = {
+      type: 'image',
+      url: image.static_url,
+      dynamic_url: image.dynamic_url,
+      static_url: image.static_url,
+      creditsGIF: true,
+    };
+    this.images.push(gifObject);
+  }
+  pushVideo(image: any) {
+    const videoObject = {
+      url: image.url,
+      type: 'video',
+    };
+    this.images.push(videoObject);
   }
 
   scrollFrame(value: string) {
-    if (value === 'up') {
-      console.log('Moving up');
+    if (value === 'up' && !this.allMessagesLoaded) {
+      this.showSpinner = true;
+      this.page += 1;
+      this.chatbotService
+        .loadPreviousChat(this.page, this.currentDateTime)
+        .subscribe((data: any) => {
+          this.showSpinner = true;
+          if (data.status) {
+            if (data.data.messages.length === 0) {
+              this.allMessagesLoaded = true;
+              this.showSpinner = false;
+            }
+            const firstMessageBox = this.messagesDiv.nativeElement.querySelectorAll(
+              '.message-text',
+            );
+            data.data.messages.reverse().forEach((message: any) => {
+              this.pushImages(message);
+              this.messages.unshift(
+                new Chat(
+                  twemoji.parse(message.text),
+                  message.is_sender_user,
+                  [],
+                  message.mid,
+                  message.sid,
+                  message.datetime,
+                  false,
+                  [],
+                  this.images,
+                ),
+              );
+
+              this.showSpinner = false;
+              firstMessageBox[0].scrollIntoView();
+            });
+          }
+        });
     }
-    if (value === 'down') {
-      console.log('Moving down');
-    }
+    // if (value === 'down') {
+    //   console.log('Moving down');
+    // }
   }
-  getButtons(m: any) {
+
+  getButtons() {
     for (let i = 0; i < 4; i++) {
-      if (this.counter === this.buttonsBuffer.length) {
+      this.showButtons.push(this.buttonsBuffer[this.counter]);
+      if (this.counter === this.buttonsBuffer.length - 1) {
         this.showMore = false;
-        this.scrollToBottom();
         break;
-      } else {
-        // console.log(this.counter)
-        // @ts-ignore
-        this.showButtons.push(this.buttonsBuffer[this.counter]);
-        this.counter += 1;
-        if (this.counter === this.buttonsBuffer.length) {
-          this.showMore = false;
-          this.buttonsBuffer = [];
-          this.showButtons = [];
-        }
       }
+      this.counter += 1;
     }
     this.scrollToBottom();
   }
 
-  changeUrl(image: any, index: number) {
-    if (this.images[index] && this.images[index].dynamic_url) {
-      this.images[index].showSpinner = true;
-      this.images[index].url =
-        this.images[index].url === this.images[index].static_url
-          ? this.images[index].dynamic_url
-          : this.images[index].static_url;
+  offsetHeight() {
+    if (this.textArea) {
+      return this.textArea.nativeElement.offsetHeight;
+    } else {
+      return 0;
     }
-    // console.log(image.dynamic_url === image.url);
+  }
+  //
+  sendReply(event: any) {
+    window.clearTimeout(this.timeout);
+    if (event.keyCode === 13) {
+      this.message = this.message.replace(/[\n\t\r]/g, '');
+
+      this.messages.push(
+        new Chat(
+          twemoji.parse(this.message),
+          true,
+          [],
+          '',
+          '',
+          new Date(),
+          false,
+          [],
+          [],
+        ),
+      );
+      this.multiLineChat.push(this.message);
+      this.message = '';
+      setTimeout(() => {
+        this.scrollToBottom();
+      }, 300);
+      this.timeout = setTimeout(
+        () => {
+          // $this.onChatSubmit();
+          this.submitMultiLineChat(this.multiLineChat);
+          this.isMultiLineInput = false;
+        },
+        this.isMultiLineInput ? 4000 : 0,
+      );
+    }
   }
 
-  hideSpinner(index: number) {
-    if (this.images[index].showSpinner) {
-      this.images[index].showSpinner = false;
-      setTimeout(() => {
-        if (this.images[index].url === this.images[index].dynamic_url) {
-          this.images[index].url = this.images[index].static_url;
-        }
-      }, 10000);
-      console.log('hide spinner');
-    }
+  submitMultiLineChat(multiLineChat: string[]) {
+    // console.log(multiLineChat);
+    this.webSocket.send(
+      JSON.stringify({
+        action: REPLY_CURRENT,
+        message: {
+          text: multiLineChat,
+          buttons: [],
+          widgets: [],
+        },
+      }),
+    );
+    this.showTextInput = false;
+    this.multiLineChat = [];
+    this.scrollToBottom();
   }
 }

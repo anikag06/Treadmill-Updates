@@ -27,6 +27,7 @@ export class ChatbotComponent implements OnInit {
   flowHost!: NavbarFlowDirective;
   overlayOpen = false;
   @Input() flowOpen!: boolean;
+  currentDateTime!: any;
 
   constructor(
     private router: Router,
@@ -53,23 +54,24 @@ export class ChatbotComponent implements OnInit {
 
   toggleChat() {
     this.chatwindowClosed = !this.chatwindowClosed;
-      this.overlayOpen = true;
-      this.overlayService.showFlow = false;
-      this.overlayService.showChatbot = true;
-      const navbarFLowComponentFactory = this.componentFactoryResolver.resolveComponentFactory(
-        CustomOverlayComponent,
-      );
-      const hostViewContainerRef = this.flowHost.viewContainerRef;
+    this.currentDateTime = Date.now();
+    this.overlayOpen = true;
+    this.overlayService.showFlow = false;
+    this.overlayService.showChatbot = true;
+    const navbarFLowComponentFactory = this.componentFactoryResolver.resolveComponentFactory(
+      CustomOverlayComponent,
+    );
+    const hostViewContainerRef = this.flowHost.viewContainerRef;
+    hostViewContainerRef.clear();
+    hostViewContainerRef.createComponent(navbarFLowComponentFactory);
+    this.overlayService.closeChatbotOverlay.subscribe(() => {
       hostViewContainerRef.clear();
-      hostViewContainerRef.createComponent(navbarFLowComponentFactory);
-      this.overlayService.closeChatbotOverlay.subscribe(() => {
-        hostViewContainerRef.clear();
-        if (!this.flowOpen) {
-          this.overlayService.overlayClose.emit();
-        }
-        this.overlayService.showChatbot = false;
-        this.overlayOpen = false;
-      });
+      if (!this.flowOpen) {
+        this.overlayService.overlayClose.emit();
+      }
+      this.overlayService.showChatbot = false;
+      this.overlayOpen = false;
+    });
   }
 
   updateChatWindow(event: boolean) {

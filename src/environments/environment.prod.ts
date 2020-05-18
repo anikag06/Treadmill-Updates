@@ -1,11 +1,8 @@
 export const environment = {
   production: true,
   HOST: '172.26.90.50',
-  CHAT_HOST: 'ws://172.26.90.49:8000',
+  CHAT_HOST: 'ws://127.0.0.1:8080',
   API_ENDPOINT: 'https://www.api2.treadwill.org',
-  CLIENT_KEY:
-    '9bd2732a096202a8c7f9b6f95ef06838580ddd34e7c73fb8234546019379c041',
-  GIPHY_API_KEY: 'SXbT73pZk67FtNmIVIvqnAKZMOlLmstt',
   firebase: {
     apiKey: 'AIzaSyA2uLe3D1HIF3STgFuP7Spp0-UVwL-kK-c',
     authDomain: 'treadwill-81e2f.firebaseapp.com',

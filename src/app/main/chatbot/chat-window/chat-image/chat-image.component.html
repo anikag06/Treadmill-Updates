@@ -1,0 +1,37 @@
+<div [ngStyle]="{ width: 'fit-content' }"  (click)="changeUrl()">
+  <img
+    appLazyLoad
+    loading="lazy"
+    class="msg-img"
+    (load)="changeLoading()"
+    src="{{ image.url }}"
+
+    alt="image"
+  />
+  <div class="credits" *ngIf="image.credits">
+    <div class="creditDiv">
+      <a [href]="image.link" target="_blank">{{ image.name }}</a>
+      <span> / </span>
+      <a class="link" href="https://unsplash.com" target="_blank">Unsplash</a>
+    </div>
+  </div>
+  <div class="credits" *ngIf="image.creditsGIF">
+    <div
+      class="gifMark"
+      *ngIf="image.url === image.static_url"
+    >
+      GIF
+    </div>
+    <div class="spinnerDiv" *ngIf="image.showSpinner">
+      <mat-progress-spinner
+        mode="indeterminate"
+        diameter="20"
+        color="accent"
+      ></mat-progress-spinner>
+    </div>
+    <div class="creditDiv">
+      <span> Powered By </span>
+      <a class="link" href="https://giphy.com" target="_blank">GIPHY</a>
+    </div>
+  </div>
+</div>

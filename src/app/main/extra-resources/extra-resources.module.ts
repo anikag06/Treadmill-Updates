@@ -38,5 +38,6 @@ import {
     // TrimStringPipe
   ],
   providers: [ExtraResourcesService],
+  exports: [SafeUrlPipe],
 })
 export class ExtraResourcesModule {}

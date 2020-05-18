@@ -61,12 +61,24 @@ export class SlidesBottomsheetComponent implements OnInit {
         width: '99vw',
         maxWidth: '99vw',
         panelClass: 'slide-video',
+        autoFocus: false,
+        data: {
+          videoUrl: 'https://www.youtube.com/embed/O1oQqpw_8bA?autoplay=1',
+          btnText: 'Back to Slides',
+          instruction: 'Click play to start',
+        },
       });
     } else {
       this.dialog.open(SlidesVideoComponent, {
         height: '80vh',
         width: '70vw',
         panelClass: 'slide-video',
+        autoFocus: false,
+        data: {
+          videoUrl: 'https://www.youtube.com/embed/O1oQqpw_8bA',
+          btnText: 'Back to Slides',
+          instruction: 'Click play to start',
+        },
       });
     }
   }
