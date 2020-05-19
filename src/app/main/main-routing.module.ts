@@ -14,6 +14,7 @@ import { CommonGameComponent } from './games/games-list/common-game/common-game.
 import { GetQuestionnaireComponent } from './dashboard/get-questionnaire/get-questionnaire.component';
 import { SurveyComponent } from './shared/survey/survey.component';
 import { NeedToTalkComponent } from '@/main/need-to-talk/need-to-talk.component';
+import {SettingsComponent} from '@/main/settings/settings.component';
 
 export const mainRoutes: Routes = [
   {
@@ -41,6 +42,10 @@ export const mainRoutes: Routes = [
       {
         path: 'support-groups/:id',
         component: SupportGroupsComponent,
+      },
+      {
+        path: 'settings',
+        component: SettingsComponent
       },
       {
         path: 'games',
