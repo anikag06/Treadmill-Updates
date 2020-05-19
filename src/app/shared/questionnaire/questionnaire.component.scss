@@ -16,13 +16,6 @@
     font-size:17px;
 }
 
-//.glyphicon {
-//    font-size: 30px;
-//}
-//.glyphicon:focus,.glyphicon:active {
-//    outline: none !important;
-//    box-shadow: none !important;
-//}
 .example-sidenav {
     display: flex;
     align-items: center;
@@ -68,10 +61,11 @@
     border-left: 6px solid black;
   }
 .card{
-    width: 1000px;
+    width: 74vw;
+  height:74vh;
     background-color: white;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    //padding-top: 40px;
+    //padding-bottom: 20px;
     text-align: center;
     float: none;
     border: none;
@@ -87,7 +81,6 @@
   }
 }
 
-//@import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css");
 
 @media screen and (max-width: 1040px) {
     .card{
@@ -127,9 +120,6 @@
         #btn:focus{
             background:white;
             color: black;
-        }
-        .glyphicon {
-            font-size: 15px;
         }
   }
 
@@ -210,29 +200,10 @@
 
 
         }
-        #btn:focus{
-            background:white;
-            color: black;
-        }
-
   }
 
   @media screen and (max-width: 360px) {
 
-
-        .card{
-            width: 100%;
-            background-color: white;
-            padding-top: 0px;
-            padding-bottom: 0px;
-            text-align: center;
-            float: none;
-
-        }
-
-        #question{
-            height: 250px;
-        }
 
         #bold{
             line-height:25px;
@@ -263,11 +234,6 @@
             font-size:17px;
 
         }
-        #btn:focus{
-            background:white;
-            color: black;
-        }
-
   }
 
 

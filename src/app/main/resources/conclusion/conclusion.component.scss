@@ -2,7 +2,7 @@
 .main {
   max-width: 40vw;
   font-family: Roboto;
-
+}
   .emphasis {
     font-weight: bold;
     font-style: italic;
@@ -18,7 +18,7 @@
         font-size: 16px ;
     }
   }
-}
+
 .completed-btn {
   font-size: 14px;
   width: 132px;
@@ -32,7 +32,7 @@
 
   .main {
     max-width: 100vw;
-
+  }
     .title {
       background-color: white;
       color: black;
@@ -42,7 +42,7 @@
       .mat-card-title {
         font-size: 24px;
       }
-    }
+
   }
       .main-div {
         font-size: 14px !important;

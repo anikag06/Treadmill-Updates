@@ -1,4 +1,13 @@
 <ng-template [ngIf]="dataLoaded && !locked && !showQuestionnaire">
+  <mat-card  class="container-fluid px-0 pt-0 pb-2 mb-2" >
+    <div class="row">
+      <div class="col mt-4 mt-lg-0">
+        <div >
+          <mat-card-header class="title col-12 w-100 my-auto px-0">
+            <mat-card-title class="my-auto d-inline-block justify-content-center py-2 ">
+              Conclusion
+            </mat-card-title>
+          </mat-card-header>
   <div class="px-3 px-lg-4 pt-3 main-div">
 
   <div>
@@ -64,10 +73,14 @@
   </div>
   </div>
   </div>
+        </div>
+      </div>
+    </div>
+  </mat-card>
 </ng-template>
 
 <ng-template [ngIf]="showQuestionnaire">
-  <div class="row mt-5" >
+  <div class="row" >
     <app-questionnaire class="w-100" [fromFlow]="true" [stepId]="null" [fromTrialRegistration]="false"></app-questionnaire>
   </div>
 </ng-template>

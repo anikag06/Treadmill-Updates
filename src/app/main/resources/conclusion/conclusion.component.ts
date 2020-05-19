@@ -14,9 +14,15 @@ import { ConclusionService } from '@/main/resources/conclusion/conclusion.servic
 })
 export class ConclusionComponent implements OnInit {
   quiz_active!: boolean;
+  mobileView = false;
   constructor(private quizService: QuizService) {}
 
   ngOnInit() {
+    const smallDevice = window.matchMedia('(max-width: 767px)').matches;
+    console.log(smallDevice);
+    if (smallDevice) {
+      this.mobileView = true;
+    }
     this.quizService.questionnaire_active.subscribe((value: boolean) => {
       console.log('EVENT EMITTED', value);
       if (!value) {
