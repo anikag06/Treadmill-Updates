@@ -1,31 +1,52 @@
-.emphasis {
+
+.main {
+  max-width: 40vw;
+  font-family: Roboto;
+
+  .emphasis {
     font-weight: bold;
     font-style: italic;
-}
+  }
 
-.title {
-  background-color: black;
-  color: white;
-  //text-align: center;
-  //justify-content: center;
-  max-width:40vw;
-  //height:36px;
-}
-.mat-card-header {
-  text-align: center;
-  justify-content: center;
-  //max-width: 40vw;
-  height:40px;
-  .mat-card-title {
-    font-size: 16px;
+  .title {
+    background-color: black;
+    color: white;
+    text-align: center;
+    justify-content: center;
+    height: 40px;
+      .mat-card-title {
+        font-size: 16px ;
+    }
   }
 }
-.main-div{
-  font-family: Roboto;
-  background-color: white;
-  //height: 100%;
-  max-width:40vw;
-  padding: 24px 16px;
+.completed-btn {
+  font-size: 14px;
+  width: 132px;
+  color: white;
+  background-color: #2a3b3d;
+  text-align: center;
+  justify-content: center;
+  margin: 16px 0;
+}
+@media screen and (max-width: 767px) {
+
+  .main {
+    max-width: 100vw;
+
+    .title {
+      background-color: white;
+      color: black;
+      text-align: left;
+      justify-content: left;
+
+      .mat-card-title {
+        font-size: 24px;
+      }
+    }
+  }
+      .main-div {
+        font-size: 14px !important;
+      }
 }
 
 

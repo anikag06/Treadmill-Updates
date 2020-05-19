@@ -52,7 +52,6 @@ export class Conclusion1Component implements OnInit, OnDestroy {
   stepSequence!: number;
   stepName!: string;
   moodEvaluated!: boolean;
-  // questionaire_active = false;
 
   constructor(
     private conclusionService: ConclusionService,
@@ -119,7 +118,6 @@ export class Conclusion1Component implements OnInit, OnDestroy {
               this.moodEvaluated = true;
             }
             this.conclusionService.evaluateMood.emit();
-            // this.showQuestionnaire = this.conclusionService.moodEvaluate;
           });
       });
     this.quizService.questionnaire_active.subscribe((value: boolean) => {

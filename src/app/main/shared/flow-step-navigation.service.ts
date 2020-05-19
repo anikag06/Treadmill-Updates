@@ -53,7 +53,7 @@ export class FlowStepNavigationService {
     } else if (step.data_type === CONTROL_PAGE) {
       return `main/resources/control-content/${step.id}/`;
     } else if (step.data_type === SURVEY) {
-      return `/survey/${step.id}`;
+      return `main/survey/${step.id}`;
     } else if (step.data_type === RESOURCES_PAGE) {
       return `main/extra-resources/${step.id}`;
     } else if (step.data_type === TESTIMONIALS_PAGE) {

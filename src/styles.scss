@@ -137,7 +137,7 @@ $small_logo_height: 40px;
 .slide-video .mat-dialog-container {
   padding: 0px;
   overflow: hidden;
-  width:auto;
+  //width:auto;
 }
 
 // to make the login dialog scrollable in mobile landscape mode
@@ -211,7 +211,7 @@ $small_logo_height: 40px;
 
 .app-main {
   // min-height: 100vh;
-  // background-color: #FAF4EA;
+   background-color: #FAF4EA;
   // height: 100%;
 }
 
@@ -391,7 +391,7 @@ img.emoji {
 @media screen and (max-width: 400px) {
   .app-main {
     background-color: white;
-    height: 90%;
+    //height: 90%;
   }
 }
 

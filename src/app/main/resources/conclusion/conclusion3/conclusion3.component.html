@@ -1,5 +1,5 @@
 <ng-template [ngIf]="dataLoaded && !locked && !showQuestionnaire">
-  <div class="px-4 pt-4 main-div">
+  <div class="px-3 px-lg-4 pt-3 main-div">
 
   <div>
     In this module you learned:
@@ -51,7 +51,7 @@
     Do you ever wonder why different people have different thoughts following the same situation? You’ll learn that in
     the next module <span class="emphasis">{{nextModuleName}}</span>.
   </div>
-  <div class="row align-self-end px-0 pt-2">
+  <div class="row align-self-end px-0 pt-2 justify-content-center">
     <button class="completed-btn float-right" type="button" *ngIf='!stepCompleted; else isCompleted ' mat-raised-button
       color="primary" (click)="onCompleted()">
       Completed

@@ -24,6 +24,9 @@
     font-size: 30px;
   font-weight: 500;
 }
+.congrats-msg {
+  padding: 0 60px !important;
+}
 .text {
     color: #00000099;
   font-size: 16px;
@@ -62,8 +65,13 @@ button {
     max-width: 446px;
   }
 
+  .congrats-msg {
+    padding: 0 20px !important;
+  }
   .congrats-text {
-        font-size: 24px;
+    margin:0;
+    padding: 0 60px;
+    font-size: 24px;
     }
   .badge-div{
     height: 180px;

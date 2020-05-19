@@ -11,7 +11,7 @@
             {{badgeName}} </p>
         </div>
     </div>
-    <div class="row w-100 align-self-center px-2">
+    <div class="row w-100 congrats-msg">
         <div class="col justify-content-center" >
           <p class="congrats-text"> Congratulations!</p>
           <p class="text"> You have earned a gold badge for completing the "<span class="text" *ngIf='showBadge'>
@@ -23,7 +23,7 @@
         </div>
     </div>
 
-    <div class="row w-100 align-self-end next-step-div justify-content-center" >
+    <div class="row w-100 mb-3 align-self-end next-step-div justify-content-center" >
         <button class="next-step-locked h-100 mb-4" type="button"
             *ngIf='data.isLocked || data.isLastStep'
             (click) = 'goToDashboard()'

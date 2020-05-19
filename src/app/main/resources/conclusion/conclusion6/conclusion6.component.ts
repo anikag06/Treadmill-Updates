@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { COMMITMENT_OPTIONS, COMPLETED, LOCKED } from '@/app.constants';
+import {COMMITMENT_OPTIONS, COMPLETED, LOCKED, LOGGED_IN_PATH} from '@/app.constants';
 import { Subscription } from 'rxjs';
 import { StepCompleteData } from '@/main/resources/shared/completion-data.model';
 import { ConclusionService } from '@/main/resources/conclusion/conclusion.service';
@@ -31,6 +31,7 @@ export class Conclusion6Component implements OnInit, OnDestroy {
   navbarTitle!: string;
   stepSequence!: number;
   stepName!: string;
+  moodEvaluated!: boolean;
 
   constructor(
     private conclusionService: ConclusionService,
@@ -90,12 +91,26 @@ export class Conclusion6Component implements OnInit, OnDestroy {
                 step_data.data.next_questionnaire;
               this.conclusionService.moodEvaluate = true;
             } else {
+              this.moodEvaluated = true;
               this.conclusionService.moodEvaluate = false;
             }
             this.conclusionService.evaluateMood.emit();
-            this.showQuestionnaire = this.conclusionService.moodEvaluate;
           });
       });
+    this.quizService.questionnaire_active.subscribe((value: boolean) => {
+      console.log('EVENT EMITTED', value);
+      if (!value) {
+        // this.quizService.questionnaireActive = false;
+        this.moodEvaluated = true;
+        this.showQuestionnaire = false;
+        this.navbarTitle = this.flowService.navbarTitle;
+        this.flowService.stepDetail.emit(this.navbarTitle);
+      } else {
+        this.showQuestionnaire = true;
+        this.navbarTitle = 'Mood test';
+        this.flowService.stepDetail.emit(this.navbarTitle);
+      }
+    });
   }
 
   ngOnDestroy() {
@@ -120,6 +135,6 @@ export class Conclusion6Component implements OnInit, OnDestroy {
   }
 
   onDashboard() {
-    this.router.navigate(['/dashboard']);
+    this.router.navigate([LOGGED_IN_PATH]);
   }
 }

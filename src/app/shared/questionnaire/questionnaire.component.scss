@@ -48,9 +48,6 @@
     border-radius: 5px;
     height: 60px;
     margin: 5px;
-
-
-
 }
 #btn:focus, #btn:active {
     outline: none !important;
@@ -84,7 +81,11 @@
 }
 
 
-
+.btn-right, .btn-left {
+  img {
+    height: 30px;
+  }
+}
 
 //@import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css");
 
@@ -174,9 +175,10 @@
             background:white;
             color: black;
         }
-        .glyphicon {
-            font-size: 15px;
-        }
+
+  .btn-right {
+    padding-left: 0;
+  }
   }
 
   @media screen and (max-width: 400px) {
@@ -211,9 +213,6 @@
         #btn:focus{
             background:white;
             color: black;
-        }
-        .glyphicon {
-            font-size: 15px;
         }
 
   }
@@ -268,9 +267,7 @@
             background:white;
             color: black;
         }
-        .glyphicon {
-            font-size: 15px;
-        }
+
   }
 
 
