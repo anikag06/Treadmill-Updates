@@ -40,6 +40,7 @@ import { FormService } from '@/main/resources/forms/form.service';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 import { map, switchMap } from 'rxjs/operators';
 import { LOGGED_IN_PATH } from '@/app.constants';
+import {NavbarGoToService} from "@/main/shared/navbar/navbar-go-to.service";
 
 @Component({
   selector: 'app-navbar',
@@ -88,6 +89,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private location: Location,
     private overlayService: CustomOverlayService,
     private stepDataService: StepsDataService,
+    private goToService: NavbarGoToService,
   ) {
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationStart) {
@@ -153,6 +155,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
     });
     console.log('is HANDSET', this.isHandset$);
     console.log('from left nav', this.fromLeftNav);
+    this.goToService.clickFlow.subscribe(() => {
+      this.flowClick();
+    });
   }
 
   notificationClick() {
@@ -172,7 +177,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     notifications.then(data => console.log(data));
   }
 
-  flowClick(event: any) {
+  flowClick() {
     this.notificationService.openNavFlow.emit();
     this.overlayService.showFlow = true;
     console.log('flow host', this.flowHost);

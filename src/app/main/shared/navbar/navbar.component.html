@@ -47,7 +47,7 @@
           </div>
         </div>
 
-        <div class="icon-items" (click)="flowClick($event)" style="margin-left:20px;"  >
+        <div class="icon-items" (click)="flowClick()" style="margin-left:20px;"  >
           <img src="assets/shared/go to web.png" height=" 36px" alt="GoTo">
         </div>
       </div>
@@ -57,7 +57,7 @@
           <button mat-icon-button id="showFullConversation" [matMenuTriggerFor]="showFullConversation" *ngIf="convMode">
             <mat-icon>more_vert</mat-icon>
           </button>
-          <div class="icon-items" (click)="flowClick($event)">
+          <div class="icon-items" (click)="flowClick()">
             <img src="assets/shared/Go to mobile.png" height=" 32px" alt="GoTO" />
           </div>
           <div *ngIf="user.is_exp">

@@ -1,4 +1,4 @@
-<div class="container-fluid main ">
+<div class=" main ">
   <div class="row">
     <div class="col">
       <router-outlet></router-outlet>
@@ -6,7 +6,7 @@
   </div>
   <div class="row">
     <div class="col">
-      <button class="completed-btn float-right" type="button" mat-raised-button color="primary">
+      <button class="completed-btn float-right" type="button" mat-raised-button color="primary" (click)="onCompleted()">
         Completed
       </button>
     </div>
