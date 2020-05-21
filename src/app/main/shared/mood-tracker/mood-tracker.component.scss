@@ -13,10 +13,10 @@
 }
 
 .modal {
-  width: 340px;
+  width: 344px;
   height: 620px;
-  //top: auto;
-  //left: auto;
+  top: auto;
+  left: auto;
   display: inline-block;
   background: #ffffff 0% 0% no-repeat padding-box;
   border-radius: 5px;
@@ -201,7 +201,7 @@ label {
   top: 0;
 }
 
-@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+@media only screen and (min-device-width: 768px) {
   :host-context(.chatbot) .modal {
     bottom: 0vh;
     top: -15%;
