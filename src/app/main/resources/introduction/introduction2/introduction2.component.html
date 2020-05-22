@@ -1,5 +1,16 @@
 <ng-template [ngIf]="dataLoaded && !locked">
-  <!-- Add IMAGES here -->
+  <mat-card  class="container-fluid px-0 pt-0 pb-2 " >
+    <div class="row introduction">
+      <div class="col mt-4 mt-lg-0">
+        <div >
+          <mat-card-header class="title col-12 w-100 my-auto px-0">
+            <mat-card-title class="my-auto d-inline-block justify-content-center py-2 ">
+              Introduction
+            </mat-card-title>
+          </mat-card-header>
+          <div class="px-3 px-lg-4 pt-4 main-div">
+
+          <!-- Add IMAGES here -->
   <h4 class="mt-3">Dummy Introduction Title</h4>
   <div>
     In other words, when someone is depressed, they:
@@ -18,22 +29,28 @@
   <div>
     <br><br>
     What have you stopped doing that you used to <span class="emphasis">enjoy</span>?
-    <mat-form-field style="width:100% !important">
-      <input type="text" matInput placeholder="Example- I used to enjoy catching up with old friends. I have stopped doing that." [(ngModel)]="enjoyable">
+    <mat-form-field>
+      <input type="text" matInput placeholder="Example- I used to enjoy catching up with old friends. I have stopped doing that." [(ngModel)]="enjoyable"
+             (focus)="onenjoyableSave()" (focusout)="onenjoyableFocusOut()">
+      <mat-hint *ngIf="enjoyableSave ">Saving...</mat-hint>
     </mat-form-field>
   </div>
   <br><br>
   <div>
       What have you stopped doing that used to give you a sense of <span class="emphasis">purpose</span> in your life?
     <mat-form-field style="width:100% !important">
-      <input type="text" matInput placeholder="Example- I have stopped attending lectures." [(ngModel)]="mastery">
+      <input type="text" matInput placeholder="Example- I have stopped attending lectures." [(ngModel)]="mastery"
+             (focus)="onmasterySave()" (focusout)="onmasteryFocusOut()">
+      <mat-hint *ngIf="masterySave ">Saving...</mat-hint>
     </mat-form-field>
     <br><br>
   </div>
   <div>
     What do you keep doing that makes you <span class="emphasis">feel miserable</span>?
     <mat-form-field style="width:100% !important">
-      <input type="text" matInput placeholder="Example- I lie in my bed watching the same YouTube videos again and again and again and again and ......" [(ngModel)]="miserable">
+      <input type="text" matInput placeholder="Example- I lie in my bed watching the same YouTube videos again and again and again and again and ......" [(ngModel)]="miserable"
+             (focus)="onenjoyableSave()" (focusout)="onmiserableFocusOut()">
+      <mat-hint *ngIf="miserableSave ">Saving...</mat-hint>
     </mat-form-field>
     <br><br>
   </div>
@@ -44,11 +61,24 @@
     <br><br>
     In this module, you'll learn how to get back to your normal routine.
   </div>
-  <div>
-    <button class="completed-btn float-right" type="button" mat-raised-button color="primary" (click)="saveData()">
-      Save data
-    </button>
-  </div>
+<!--  <div>-->
+<!--    <button class="completed-btn float-right" type="button" mat-raised-button color="primary" (click)="saveData()">-->
+<!--      Save data-->
+<!--    </button>-->
+<!--  </div>-->
+            <button class="completed-btn float-right" type="button" mat-raised-button *ngIf="!showNextStep" (click)="onCompleted()">
+              Completed
+            </button>
+            <button class="completed-btn float-right" type="button" mat-raised-button *ngIf="showNextStep" (click)="onNextStep()">
+              <img id="flow-img" src="../../../../assets/shared/Go to icon.png">
+              Next Step
+            </button>
+
+            </div>
+        </div>
+      </div>
+    </div>
+  </mat-card>
 </ng-template>
 <ng-template [ngIf]="dataLoaded && locked">
   <div class="row">

@@ -13,8 +13,4 @@ export class IntroductionComponent implements OnInit {
 
   ngOnInit() {}
 
-  onCompleted() {
-    console.log('CLICKED');
-this.goToService.clickFlow.emit();
-  }
 }

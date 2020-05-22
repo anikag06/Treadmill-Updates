@@ -46,6 +46,7 @@ import { EttbfBeliefComponent } from '@/main/resources/forms/experiment-to-test-
 import { ThoughtRecordFormComponent } from '@/main/resources/forms/thought-record-form/thought-record-form.component';
 import { WorryProductivelyComponent } from '@/main/resources/forms/worry-productively-form/worry-productively.component';
 import {FlowService} from "@/main/flow/flow.service";
+import {NavbarGoToService} from "@/main/shared/navbar/navbar-go-to.service";
 
 @Component({
   selector: 'app-slides',
@@ -98,6 +99,7 @@ export class SlidesComponent implements OnInit, AfterContentInit {
     private stepDataService: StepsDataService,
     private _bottomSheet: MatBottomSheet,
     private flowService: FlowService,
+    private goToService: NavbarGoToService,
   ) {}
 
   slide!: Slide;
@@ -316,14 +318,8 @@ export class SlidesComponent implements OnInit, AfterContentInit {
     this.stepDataService
       .storeCompletionData(this.completionData)
       .subscribe(data => {});
-    // this.commonDialogService.openCongratsDialog(
-    //   this.current_step_id,
-    //   this.next_step_id,
-    //   this.isLastStep,
-    // );
     this.showNextStepBtn = true;
-  }
-  onNextStepClick() {
+    // TO CHECK MARKDONE REQUEST IS FAILING
     this.flowStepService
       .getNextStepData(this.next_step_id)
       .subscribe(next_step => {
@@ -334,8 +330,11 @@ export class SlidesComponent implements OnInit, AfterContentInit {
         const next_step_url = this.flowStepService.goToFlowNextStep(
           next_step.data,
         );
-        this.router.navigate([next_step_url]);
       });
+  }
+  onNextStepClick() {
+    console.log('Next step clicked');
+    this.goToService.clickFlow.emit();
   }
   onSubmitComment() {
     this.feedbackText.feedback_text = this.userFeedback.feedback_text;

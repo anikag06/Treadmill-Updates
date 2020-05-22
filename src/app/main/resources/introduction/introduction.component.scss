@@ -28,7 +28,7 @@
 
 .completed-btn {
   font-size: 14px;
-  width: 132px;
+  width: 140px;
   color: white;
   background-color: #2a3b3d;
   text-align: center;
@@ -37,7 +37,19 @@
 }
 
 mat-form-field {
-width:100% !important;
+  width:100% !important;
+  textarea {
+  overflow: hidden !important;
+  }
+  .mat-form-field-label{
+    color: white !important;
+    white-space: pre-wrap;
+  }
+}
+
+
+#flow-img {
+  height: 36px;
 }
 @media screen and (max-width: 767px) {
 
