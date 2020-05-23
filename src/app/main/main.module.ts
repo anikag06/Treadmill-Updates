@@ -166,7 +166,6 @@ import { ThingsTodoService } from '@/main/dashboard/things-todo/things-todo.serv
 import { ExtraResourcesService } from '@/main/extra-resources/extra-resources.service';
 import { InternetConnectionComponent } from '@/shared/internet-connection/internet-connection.component';
 import { SharedModule } from '@/shared/shared.module';
-import { SafeUrlPipe } from './extra-resources/safe-url.pipe';
 import { CustomOverlayComponent } from './shared/custom-overlay/custom-overlay.component';
 import { ExtraResourcesModule } from '@/main/extra-resources/extra-resources.module';
 import { NeedToTalkComponent } from './need-to-talk/need-to-talk.component';
@@ -312,8 +311,8 @@ import { IframeTrackerDirective } from './chatbot/chat-window/chat-video/iframe-
     // QuestionnaireModule,
     MatRippleModule,
     SharedModule,
-    ExtraResourcesModule,
-    ResourcesModule,
+    // ExtraResourcesModule,
+    // ResourcesModule,
   ],
   providers: [
     LocalStorageService,
