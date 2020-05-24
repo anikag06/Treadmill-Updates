@@ -32,13 +32,13 @@
             <div class="img_cont_msg ml-3">
               <img [src]="item.show_avatar_image" class="rounded-circle user_img_msg">
             </div>
-            <div  class="msg_cotainer">
+            <div  class="msg_cotainer" [style.border-bottom-color]="item.wrong ? '#FF6A6A' : null" >
               <p [innerHtml]="i"></p>
             </div>
           </div>
         </div>
-          <div *ngFor="let i of item.dialog" [@sendMsg]="!nsend ? 'unsend' : 'send'" class="d-flex justify-content-end mb-3 ">
-            <div  class="msg_cotainer_send ml-3 ml-md-0 mr-3">
+          <div *ngFor="let i of item.dialog"  class='d-flex justify-content-end mb-3'>
+            <div  class="msg_cotainer_send ml-3 ml-md-0 mr-3" [@fadeInOut]  [ngStyle]="{'border-bottom-color':item.wrong ? '#FF6A6A' : null}">
               <p [innerHtml]="i"></p>
             </div>
           </div>

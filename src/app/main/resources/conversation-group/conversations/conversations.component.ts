@@ -104,6 +104,12 @@ import { PROBLEM_SOLVING, TASK } from '@/app.constants';
         animate('200ms ease-in', style({ transform: 'translateX(0%)' })),
       ]),
     ]),
+    trigger('fadeInOut', [
+      state('void', style({
+        opacity: 0
+      })),
+      transition('void <=> *', animate(1000)),
+    ]),
   ],
 })
 
@@ -597,9 +603,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     } else {
       this.text.dialog.push(this.dialog.dialog_has_options[i].option.message);
     }
-    console.log(this.text);
     // @ts-ignore
-    this.show.push(this.text);
     if (this.dialog.dialog_has_options[i].loopback) {
       this.loopback = true;
       console.log(this.dialog.dialog_has_options[i]);
@@ -607,7 +611,10 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         i
       ].wrong_option_message.message;
       this.wrong_option_selected();
+      this.text.wrong = true;
     }
+    this.show.push(this.text);
+    console.log(this.text);
     this.post(i);
     this.last_id = this.id;
     this.id = this.dialog.dialog_has_options[i].upcoming_dialog;
