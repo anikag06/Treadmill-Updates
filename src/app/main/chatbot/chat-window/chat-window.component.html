@@ -94,6 +94,24 @@
               ></app-date-time-picker>
             </div>
           </div>
+          <div
+            class="chatbot-card rating"
+            *ngIf="widget === ratingWidget && showSlider"
+          >
+            <app-form-slider
+              class="chatbot"
+              [minRatingText]="1"
+              [maxRatingText]="10"
+              (getRating)="getRating($event)"
+            ></app-form-slider>
+            <button
+              mat-raised-button
+              class="btn done-btn"
+              (click)="onRatingSubmit()"
+            >
+              Done
+            </button>
+          </div>
         </div>
       </div>
       <div

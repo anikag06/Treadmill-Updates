@@ -231,6 +231,9 @@
     font-weight: 500;
     font-size: 14px;
     box-shadow: none;
+    word-break: break-word;
+    white-space: normal;
+    line-height: 30px;
   }
 
   .module_button {
@@ -426,7 +429,7 @@ $x3: -$leftPos + $dotSpacing;
   margin-bottom: 7px;
 }
 
-.chatbot-error-card {
+.chatbot-card {
   background: #ffffff 0% 0% no-repeat padding-box;
   box-shadow: 0px -1px 3px #00000029;
   position: absolute;
@@ -434,6 +437,17 @@ $x3: -$leftPos + $dotSpacing;
   text-align: center;
   width: inherit;
   z-index: 200;
+}
+
+.rating{
+  height: 180px;
+  width: 100%;
+}
+
+.done-btn{
+  background-color: #2A3B3D;
+  color: #FFFFFF;
+  margin-top: 20px;
 }
 
 #more_button {

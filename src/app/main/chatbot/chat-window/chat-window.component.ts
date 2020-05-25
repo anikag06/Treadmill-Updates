@@ -1,22 +1,9 @@
-import {
-  CHATBOT_RETRY_TIMEOUT,
-  MAX_RETRIES,
-  MOBILE_WIDTH,
-  NEW_CHAT,
-  REPLY_CURRENT,
-  RESUME_CHAT,
-} from '@/app.constants';
-import { Chat } from '@/main/chatbot/chat.model';
-import { ChatbotService } from '@/main/chatbot/chatbot.service';
-import { AuthService } from '@/shared/auth/auth.service';
-import {
-  animate,
-  state,
-  style,
-  transition,
-  trigger,
-} from '@angular/animations';
-import { HttpErrorResponse } from '@angular/common/http';
+import {CHATBOT_RETRY_TIMEOUT, MAX_RETRIES, MOBILE_WIDTH, NEW_CHAT, REPLY_CURRENT, RESUME_CHAT,} from '@/app.constants';
+import {Chat} from '@/main/chatbot/chat.model';
+import {ChatbotService} from '@/main/chatbot/chatbot.service';
+import {AuthService} from '@/shared/auth/auth.service';
+import {animate, state, style, transition, trigger,} from '@angular/animations';
+import {HttpErrorResponse} from '@angular/common/http';
 import {
   ChangeDetectorRef,
   Component,
@@ -29,11 +16,11 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { MatDialog } from '@angular/material';
-import { environment } from '../../../../environments/environment';
-import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifications.service';
-import { CustomOverlayService } from '@/main/shared/custom-overlay/custom-overlay.service';
-import { CommonService } from '@/shared/common.service';
+import {MatDialog} from '@angular/material';
+import {environment} from '../../../../environments/environment';
+import {NavbarNotificationsService} from '@/main/shared/navbar/navbar-notifications.service';
+import {CustomOverlayService} from '@/main/shared/custom-overlay/custom-overlay.service';
+import {CommonService} from '@/shared/common.service';
 
 declare var twemoji: any;
 
@@ -92,7 +79,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     private elementRef: ElementRef,
     private commonService: CommonService,
   ) {
-    this.commonService.createOnline$().subscribe(isOnline => {
+    this.commonService.createOnline$().subscribe((isOnline) => {
       this.isOnline = isOnline;
     });
   }
@@ -111,6 +98,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   showDateTime = false;
   moodWidget = 'mood_widget';
   dateTimeWidget = 'date_time_widget';
+  ratingWidget = 'rating_widget';
   radio = 'radio';
   clickAble = 'clickable_image';
   buttonType = '';
@@ -140,6 +128,8 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   @Input() currentDateTime!: any;
   isLoading = false;
   multiLineChat: string[] = [];
+  showSlider = true;
+  widgetRating!: number;
   ngOnChanges(): void {
     if (this.chatWindowClosed === false) {
       if (
@@ -159,7 +149,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       (data: any) => {
         if (data.status) {
           // console.log(data);
-          console.log(data.data.messages);
+          //console.log(data.data.messages);
           setTimeout(() => {
             data.data.messages.forEach((message: any) => {
               this.pushImages(message);
@@ -214,6 +204,17 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   //     ),
   //   );
   // }
+
+  getRating(value: number) {
+    this.widgetRating = value;
+  }
+
+  onRatingSubmit() {
+    this.message = 'You rated it ' + this.widgetRating + ' out of 10';
+    this.widgetValues = this.widgetRating;
+    this.onChatSubmit();
+    this.showSlider = false;
+  }
 
   ngAfterViewChecked() {
     this.changRef.detectChanges();
@@ -331,7 +332,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     this.webSocket = new WebSocket(
       environment.CHAT_HOST + '/ws/chat/?token=' + this.authService.getToken(),
     );
-    this.webSocket.onopen = event => {
+    this.webSocket.onopen = (event) => {
       this.webSocket.send(JSON.stringify({ action: type, module_name: '' }));
     };
     this.webSocket.onmessage = (message: any) => {
@@ -424,15 +425,10 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
 
   showWritingAndPushChat(m: any) {
     this.isLoading = true;
-    // const item = new Chat('', false, [], '', '', new Date(), true, [], []);
-    // this.messages.push(item);
-    // setTimeout(this.scrollToBottom);
     setTimeout(() => {
-      // this.messages.pop();
       this.pushChat(m);
-      // this.scrollToBottom();
+      this.scrollToBottom();
     }, 1500);
-    // this.halfwayDelay + Math.floor(Math.random() * 800 + 1)
   }
 
   closeChat() {
