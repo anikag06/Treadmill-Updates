@@ -12,6 +12,7 @@ import { Conversation } from './input/conversation.model';
 import { Dialog } from './input/dialogs.model';
 import { OptionsModel } from './input/options.model';
 import { Texting } from './input/text.model';
+import { CurrentMessageModel } from './input/CurrentMessage.model';
 import { DialogInHistory } from './history/dialog.model';
 import { CurrentHistory } from './history/history.model';
 import { Response } from './response/response.model';
@@ -22,7 +23,7 @@ import { ProblemSolvingWorksheetsComponent } from '@/main/resources/forms/proble
 import { TaskFormsComponent } from '@/main/resources/forms/task-forms/task-forms.component';
 
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router,NavigationStart } from '@angular/router';
 import {
   trigger,
   transition,
@@ -41,6 +42,7 @@ import { StepsDataService } from '../../shared/steps-data.service';
 import { environment } from 'environments/environment';
 import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifications.service';
 import { PROBLEM_SOLVING, TASK } from '@/app.constants';
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-conversations',
@@ -125,6 +127,8 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   completionData: StepCompleteData = new StepCompleteData(0, 0);
 
   next_step_id!: number;
+  private browserRefresh = false;
+  private subscription!: Subscription;
 
   constructor(
     private conversationsService: ConversationsService,
@@ -138,6 +142,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     private notificationService: NavbarNotificationsService,
   ) {}
   //avatar_image!: any[];
+  send_image!: any;
   show_avatar_image!: any;
   newLine_message!: any;
   newLine_dialog!: any;
@@ -159,7 +164,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   final_conclusion_message!: string;
   i!: any;
   index!: number;
-  current_message!: string[];
+  current_message!: CurrentMessageModel[];
   length_conversation!: number;
   show!: Texting[];
   text!: Texting;
@@ -180,6 +185,8 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   time!: any;
   unload!: any;
   onunload = false;
+  ShowTyping!: boolean;
+  ShowTypingTime!: any;
 
   sanitizedUrl!: SafeUrl;
   status!: string;
@@ -210,7 +217,10 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   ngOnInit() {
     this.conversation_id = this.passdata.getid();
     console.log('CONV ID', this.current_id, this.conversation_id);
-    this.run();
+
+      this.run();
+
+    this.send_image = './Send.png';
     this.show_avatar_image =
       'https://www.api2.treadwill.org/media/conversations/avataaars.png';
     this.timerservice.visibility();
@@ -220,6 +230,8 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       this.speed_run();
     });
   }
+
+
 
   run() {
     const start = this.passdata.iswhat();
@@ -337,11 +349,17 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
           // }
           this.newLine_message.forEach((q: any) => {
             this.text.message.push(q);
-            this.current_message.push(q);
+            this.current_message.push({
+              message: q,
+              ShowTyping: false,
+            });
           });
         } else {
           this.text.message.push(this.dialog.message);
-          this.current_message.push(this.dialog.message);
+          this.current_message.push({
+            message: this.dialog.message,
+            ShowTyping: false,
+          });
         }
         for (let t = 0; t < this.dialog.dialog_images.length; t++) {
           if (
@@ -625,7 +643,9 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     // tslint:disable-next-line:max-line-length
     if (this.loopback) {
       this.loopback = false;
-      this.wrong = true;
+      setTimeout(() => {
+        this.wrong = true;
+      },1000);
     } else {
       this.wrong = false;
     }
@@ -646,21 +666,89 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       this.text.show_avatar_image = this.show_avatar_image;
     }
     this.newLine_dialog = this.dialog.message.split('<new_line>');
+    //console.log(this.show.length);
     this.text = new Texting();
+    this.options = [];
     this.current_message = [];
-    if (this.newLine_dialog.length > 1) {
-      this.newLine_dialog.forEach((q: any) => {
-        this.current_message.push(q);
-        this.text.message.push(q);
-      });
-    } else {
-      this.current_message.push(this.dialog.message);
-      this.text.message.push(this.dialog.message);
-    }
 
-    // console.log(this.loopback);
-    // console.log(this.index);
-    this.nsend = true;
+    setTimeout(()=>{
+
+      if (this.newLine_dialog.length > 1) {
+        this.current_message.push({
+          message: this.newLine_dialog[0],
+          ShowTyping: false,
+        });
+        this.text.message.push(this.newLine_dialog[0]);
+        this.ShowTypingTime = this.newLine_dialog[0].split(' ');
+        this.current_message[0].ShowTyping = true;
+        let t;
+        if (this.ShowTypingTime.length/35 < 1){
+          t = 1000;
+        } else {
+          t = (this.ShowTypingTime.length/35)*1000
+        }
+        setTimeout(() => {
+          this.current_message[0].ShowTyping = false;
+          for(let l = 1; l < this.newLine_dialog.length; l++){
+            this.current_message.push({
+              message: this.newLine_dialog[l],
+              ShowTyping: false,
+            });
+            this.text.message.push(this.newLine_dialog[l]);
+            this.ShowTypingTime = this.newLine_dialog[l].split(' ');
+            this.current_message[l].ShowTyping = true;
+            let t;
+            if (this.ShowTypingTime.length/35 < 1){
+              t = 1000;
+            } else {
+              t = (this.ShowTypingTime.length/35)*1000
+            }
+            setTimeout(() => {
+              this.current_message[l].ShowTyping = false;
+            },t);
+          }
+        },t);
+
+        // this.newLine_dialog.forEach((q: any) => {
+        //   this.current_message.push(q);
+        //   this.text.message.push(q);
+        //   this.ShowTypingTime = q.split(' ');
+        //   console.log(this.ShowTypingTime,q);
+        //   this.ShowTyping = true;
+        //   setTimeout(() => {
+        //     this.ShowTyping = false;
+        //   },(this.ShowTypingTime.length/35)*1000);
+        // });
+      } else {
+        this.current_message.push({
+          message: this.dialog.message,
+          ShowTyping: false,
+        });
+        this.text.message.push(this.dialog.message);
+        this.ShowTypingTime = this.dialog.message.split(' ');
+        console.log(this.ShowTypingTime);
+        let t;
+        if (this.ShowTypingTime.length/35 < 1){
+          t = 1000;
+        } else {
+          t = (this.ShowTypingTime.length/35)*1000
+        }
+        console.log(t);
+        this.current_message[0].ShowTyping = true;
+        setTimeout(() => {
+          this.current_message[0].ShowTyping = false;
+        },t)
+      }
+
+      // console.log(this.loopback);
+      // console.log(this.index);
+      this.nsend = true;
+    }, 1000);
+
+
+
+
+
 
     this.progress_bar();
     if (this.dialog.is_last === true) {
@@ -673,8 +761,21 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         this.finished,
       );
     } else {
-      this.dialog_options();
+       this.ShowTypingTime = this.dialog.message.split(' ');
+      // console.log(this.ShowTypingTime);
+      // this.ShowTyping = true;
+      let t;
+      if (this.ShowTypingTime.length/35 < 1){
+        t = 1000;
+      } else {
+        t = (this.ShowTypingTime.length/35)*1000
+      }
+       setTimeout(() => {
+        this.dialog_options();
+       },t + 1500);
     }
+
+
     this.scrollPageToBottom();
   }
 
@@ -696,9 +797,6 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     console.log(this.progress);
   }
 
-  let_me_try() {
-    this.wrong = false;
-  }
 
   post(i: number) {
     this.response = new Response();
@@ -766,10 +864,16 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         this.newLine_dialog = this.dialog.message.split('<new_line>');
         if (this.newLine_dialog.length > 1) {
           this.newLine_dialog.forEach((q: any) => {
-            this.current_message.push(q);
+            this.current_message.push({
+              message: q,
+              ShowTyping: false,
+            });
           });
         } else {
-          this.current_message.push(this.dialog.message);
+          this.current_message.push({
+            message: this.dialog.message,
+            ShowTyping: false,
+          });
         }
         break;
       }

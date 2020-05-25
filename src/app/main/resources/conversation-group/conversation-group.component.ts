@@ -9,6 +9,7 @@ import { map, switchMap } from 'rxjs/operators';
 import { COMPLETED, ACTIVE, UNLOCKED } from '@/app.constants';
 import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifications.service';
 import { FlowService } from '@/main/flow/flow.service';
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'app-conversation-group',
@@ -31,6 +32,10 @@ export class ConversationGroupComponent implements OnInit {
   stepGroupSequence!: number;
   stepSequence!: number;
   stepName!: string;
+  description_model!: {
+    message: string[],
+    image: string[]
+  }
 
   // tslint:disable-next-line:max-line-length
   constructor(
@@ -77,6 +82,16 @@ export class ConversationGroupComponent implements OnInit {
             this.nextstep = res.next_step_id;
             this.passdata.setid(this.current_id, this.islast, this.nextstep);
             this.group = this.step.step_data.data.conversations;
+            // this.description_model.message = [];
+            // this.description_model.image = [];
+            // for(let o = 0; o < this.group.length; o++){
+            //   this.conversationservice.get(environment.API_ENDPOINT +
+            //     '/api/v1/conversation/conversation/?conversation_id='+ this.group[o].id)
+            //     .subscribe((res: any) => {
+            //       this.description_model.message.push(this.group[o].description);
+            //       this.description_model.image.push('https://www.api2.treadwill.org/media/conversations/avataaars.png');
+            //     })
+            // }
             const formName = step.action[0];
             this.passdata.setFormName(formName);
           } else {
@@ -93,8 +108,8 @@ export class ConversationGroupComponent implements OnInit {
     this.router.navigate(['/main/resources/conversations']);
   }
 
-  current_history(i: number, currentId: number) {
-    currentId = this.current_id;
+  current_history(i: number) {
+    //currentId = this.current_id;
     this.conversation_id = this.group[i].id;
     this.passdata.setOption(this.conversation_id, false, true, false);
     console.log('event emitted');

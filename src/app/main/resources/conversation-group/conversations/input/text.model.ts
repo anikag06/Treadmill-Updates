@@ -13,6 +13,7 @@ export class Texting {
   constructor() {
     this.message = [];
     this.dialog = [];
+    this.wrong = false;
     //this.show_avatar_image = [];
   }
 }

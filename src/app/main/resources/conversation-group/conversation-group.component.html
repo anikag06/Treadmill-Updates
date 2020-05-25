@@ -1,15 +1,15 @@
 <!-- <div class="q">
     <div class="container">
         <div class="row">
-            
-                    
+
+
         </div>
 
         <div class="btn-group">
             <button type="button" class="reset-button" class="btn btn-primary" (click)="reset(i)">reset</button>
             <button type="button" class="continue-button" class="btn btn-primary" (click)="current_history(i)"><a routerLink="/resources/conversations">continue</a></button>
           </div>
-        
+
         <div class="row">
             <div class="col" *ngIf="notallowed">
                 <p>not allowed</p>
@@ -27,7 +27,7 @@
               <div class="heading">
                 <b>{{item.title}} </b>, {{item.occupation}}
                 <div class="mx-2 float-right">
-                  <img src="assets/shared/logo_small.png" class="imgg text-right" />
+                  <img src="https://www.api2.treadwill.org/media/conversations/avataaars.png" class="imgg text-right" />
                 </div>
 
               </div>
@@ -39,9 +39,7 @@
           <div class="row" class="text">
             <div class="col-12">
 
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
-              been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
-              galley of type and scrambled it to make a type specimen book.
+              {{item.description}}
 
 
             </div>
