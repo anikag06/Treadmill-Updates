@@ -1,4 +1,4 @@
-export class CurrentMessageModel{
+export class CurrentMessageModel {
   message!: string;
   ShowTyping!: boolean;
 

@@ -3,11 +3,11 @@ import { IntroductionService } from '@/main/resources/introduction/introduction.
 import { ActivatedRoute } from '@angular/router';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 import { FlowService } from '@/main/flow/flow.service';
-import {COMPLETED, LOCKED} from '@/app.constants';
+import { COMPLETED, LOCKED } from '@/app.constants';
 import { Subscription } from 'rxjs';
-import {NavbarGoToService} from "@/main/shared/navbar/navbar-go-to.service";
-import {StepCompleteData} from "@/main/resources/shared/completion-data.model";
-import {FlowStepNavigationService} from "@/main/shared/flow-step-navigation.service";
+import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
+import { StepCompleteData } from '@/main/resources/shared/completion-data.model';
+import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.service';
 
 @Component({
   selector: 'app-introduction6',

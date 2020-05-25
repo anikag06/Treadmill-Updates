@@ -9,7 +9,7 @@ import { map, switchMap } from 'rxjs/operators';
 import { COMPLETED, ACTIVE, UNLOCKED } from '@/app.constants';
 import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifications.service';
 import { FlowService } from '@/main/flow/flow.service';
-import {environment} from "../../../../environments/environment";
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-conversation-group',
@@ -33,9 +33,9 @@ export class ConversationGroupComponent implements OnInit {
   stepSequence!: number;
   stepName!: string;
   description_model!: {
-    message: string[],
-    image: string[]
-  }
+    message: string[];
+    image: string[];
+  };
 
   // tslint:disable-next-line:max-line-length
   constructor(

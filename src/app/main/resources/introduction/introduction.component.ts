@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {NavbarGoToService} from "@/main/shared/navbar/navbar-go-to.service";
+import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
 
 @Component({
   selector: 'app-introduction',
@@ -7,10 +7,7 @@ import {NavbarGoToService} from "@/main/shared/navbar/navbar-go-to.service";
   styleUrls: ['./introduction.component.scss'],
 })
 export class IntroductionComponent implements OnInit {
-  constructor(
-    private goToService: NavbarGoToService,
-  ) {}
+  constructor(private goToService: NavbarGoToService) {}
 
   ngOnInit() {}
-
 }

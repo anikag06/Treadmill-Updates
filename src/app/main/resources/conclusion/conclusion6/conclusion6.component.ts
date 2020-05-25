@@ -1,5 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import {COMMITMENT_OPTIONS, COMPLETED, LOCKED, LOGGED_IN_PATH} from '@/app.constants';
+import {
+  COMMITMENT_OPTIONS,
+  COMPLETED,
+  LOCKED,
+  LOGGED_IN_PATH,
+} from '@/app.constants';
 import { Subscription } from 'rxjs';
 import { StepCompleteData } from '@/main/resources/shared/completion-data.model';
 import { ConclusionService } from '@/main/resources/conclusion/conclusion.service';

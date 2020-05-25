@@ -40,7 +40,7 @@ import { FormService } from '@/main/resources/forms/form.service';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 import { map, switchMap } from 'rxjs/operators';
 import { LOGGED_IN_PATH } from '@/app.constants';
-import {NavbarGoToService} from "@/main/shared/navbar/navbar-go-to.service";
+import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
 
 @Component({
   selector: 'app-navbar',

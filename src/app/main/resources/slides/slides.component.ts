@@ -45,8 +45,8 @@ import { BeliefChangeComponent } from '@/main/resources/forms/belief-change/beli
 import { EttbfBeliefComponent } from '@/main/resources/forms/experiment-to-test-belief-form/ettbf-belief/ettbf-belief.component';
 import { ThoughtRecordFormComponent } from '@/main/resources/forms/thought-record-form/thought-record-form.component';
 import { WorryProductivelyComponent } from '@/main/resources/forms/worry-productively-form/worry-productively.component';
-import {FlowService} from "@/main/flow/flow.service";
-import {NavbarGoToService} from "@/main/shared/navbar/navbar-go-to.service";
+import { FlowService } from '@/main/flow/flow.service';
+import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
 
 @Component({
   selector: 'app-slides',
@@ -170,7 +170,7 @@ export class SlidesComponent implements OnInit, AfterContentInit {
             this.stepSequence.toString() +
             ' ' +
             this.stepName;
-          console.log('STEP DETAIL:', this.navbarTitle );
+          console.log('STEP DETAIL:', this.navbarTitle);
           this.flowService.stepDetail.emit(this.navbarTitle);
           this.initVideoData(slide_data);
           const slideId = slide_data.data.step_data.data.id;

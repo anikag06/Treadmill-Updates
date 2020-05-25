@@ -14,7 +14,7 @@ import {
   MatDialogModule,
   MatDialogRef,
 } from '@angular/material';
-import {SharedModule} from "@/shared/shared.module";
+import { SharedModule } from '@/shared/shared.module';
 //import {YouTubePlayerModule} from '@angular/youtube-player';
 //import { TrimStringPipe} from '@/main/shared/trim-string.pipe';
 

@@ -3,12 +3,12 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { IntroductionService } from '../introduction.service';
-import {COMPLETED, LOCKED} from '@/app.constants';
+import { COMPLETED, LOCKED } from '@/app.constants';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 import { FlowService } from '@/main/flow/flow.service';
-import {NavbarGoToService} from "@/main/shared/navbar/navbar-go-to.service";
-import {StepCompleteData} from "@/main/resources/shared/completion-data.model";
-import {FlowStepNavigationService} from "@/main/shared/flow-step-navigation.service";
+import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
+import { StepCompleteData } from '@/main/resources/shared/completion-data.model';
+import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.service';
 
 @Component({
   selector: 'app-introduction2',
@@ -79,11 +79,12 @@ export class Introduction2Component implements OnInit, OnDestroy {
             this.next_step_id = step_data.data.next_step_id;
             console.log('next step', this.next_step_id);
             // for navbar title
-            this. step_stepGroupSequence = step_data.data.step_group_sequence + 1;
+            this.step_stepGroupSequence =
+              step_data.data.step_group_sequence + 1;
             this.stepSequence = step_data.data.sequence + 1;
             this.stepName = step_data.data.name;
             this.navbarTitle =
-              this. step_stepGroupSequence.toString() +
+              this.step_stepGroupSequence.toString() +
               '.' +
               this.stepSequence.toString() +
               ' ' +
@@ -147,26 +148,26 @@ export class Introduction2Component implements OnInit, OnDestroy {
     this.introductionService
       .storeIntroductionData(this.stepGroupSequence, this.data)
       .subscribe(data => {
-        console.log( data, this.data, 'success');
+        console.log(data, this.data, 'success');
         this.enjoyableSave = false;
       });
   }
   onmiserableFocusOut() {
-    this.data.mastery = this.mastery,
-    this.introductionService
-      .storeIntroductionData(this.stepGroupSequence, this.data)
-      .subscribe(data => {
-        console.log( data, this.data, 'success');
-        this.miserableSave = false;
-      });
+    (this.data.mastery = this.mastery),
+      this.introductionService
+        .storeIntroductionData(this.stepGroupSequence, this.data)
+        .subscribe(data => {
+          console.log(data, this.data, 'success');
+          this.miserableSave = false;
+        });
   }
   onmasteryFocusOut() {
-    this.miserable = this.miserable,
-    this.introductionService
-      .storeIntroductionData(this.stepGroupSequence, this.data)
-      .subscribe(data => {
-        console.log( data, this.data, 'success');
-        this.masterySave  = false;
-      });
+    (this.miserable = this.miserable),
+      this.introductionService
+        .storeIntroductionData(this.stepGroupSequence, this.data)
+        .subscribe(data => {
+          console.log(data, this.data, 'success');
+          this.masterySave = false;
+        });
   }
 }

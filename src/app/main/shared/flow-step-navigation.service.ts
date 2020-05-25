@@ -79,10 +79,9 @@ export class FlowStepNavigationService {
   virtualStepMarkDone(step: any, timeSpent: number) {
     console.log('VIRTUAL STEP MARK DONE', step);
     if (step.virtual_step) {
-      this.markDone(step.id, timeSpent).subscribe(
-        (data: any) => {
-          console.log('Done');
-        } );
+      this.markDone(step.id, timeSpent).subscribe((data: any) => {
+        console.log('Done');
+      });
     }
   }
 

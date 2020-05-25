@@ -3,12 +3,12 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { IntroductionService } from '../introduction.service';
-import {COMPLETED, LOCKED} from '@/app.constants';
+import { COMPLETED, LOCKED } from '@/app.constants';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 import { FlowService } from '@/main/flow/flow.service';
-import {NavbarGoToService} from "@/main/shared/navbar/navbar-go-to.service";
-import {FlowStepNavigationService} from "@/main/shared/flow-step-navigation.service";
-import {StepCompleteData} from "@/main/resources/shared/completion-data.model";
+import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
+import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.service';
+import { StepCompleteData } from '@/main/resources/shared/completion-data.model';
 
 export interface ThoughtSet {
   negativeThought: string;
@@ -60,7 +60,6 @@ export class Introduction3Component implements OnInit, OnDestroy {
     private flowService: FlowService,
     private flowStepService: FlowStepNavigationService,
     private goToService: NavbarGoToService,
-
   ) {}
 
   ngOnInit() {
@@ -89,12 +88,13 @@ export class Introduction3Component implements OnInit, OnDestroy {
           .subscribe((step_data: any) => {
             console.log('step data is:', step_data);
             this.next_step_id = step_data.data.next_step_id;
-            console.log('next step', this.next_step_id);            // for navbar title
-            this. step_stepGroupSequence = step_data.data.step_group_sequence + 1;
+            console.log('next step', this.next_step_id); // for navbar title
+            this.step_stepGroupSequence =
+              step_data.data.step_group_sequence + 1;
             this.stepSequence = step_data.data.sequence + 1;
             this.stepName = step_data.data.name;
             this.navbarTitle =
-              this. step_stepGroupSequence.toString() +
+              this.step_stepGroupSequence.toString() +
               '.' +
               this.stepSequence.toString() +
               ' ' +
@@ -110,12 +110,12 @@ export class Introduction3Component implements OnInit, OnDestroy {
   }
 
   onThoughtChanged() {
-    console.log('thought save', this .thoughtSave);
+    console.log('thought save', this.thoughtSave);
 
     this.balancedThought = this.balancedThoughts[
       this.negativeThoughts.indexOf(this.selectedThought)
     ];
-      this.thoughtSave = true;
+    this.thoughtSave = true;
   }
 
   saveData() {
