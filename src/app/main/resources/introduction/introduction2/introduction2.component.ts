@@ -60,9 +60,9 @@ export class Introduction2Component implements OnInit, OnDestroy {
       .subscribe(data => {
         console.log('Data is:', data);
         if (data.user_step_status !== LOCKED) {
-          this.enjoyable = data.enjoyable;
-          this.mastery = data.mastery;
-          this.miserable = data.miserable;
+          this.enjoyable = data.data.enjoyable;
+          this.mastery = data.data.mastery;
+          this.miserable = data.data.miserable;
           this.locked = false;
         } else {
           this.locked = true;
@@ -153,7 +153,7 @@ export class Introduction2Component implements OnInit, OnDestroy {
       });
   }
   onmiserableFocusOut() {
-    (this.data.mastery = this.mastery),
+    this.data.miserable = this.miserable;
       this.introductionService
         .storeIntroductionData(this.stepGroupSequence, this.data)
         .subscribe(data => {
@@ -162,7 +162,7 @@ export class Introduction2Component implements OnInit, OnDestroy {
         });
   }
   onmasteryFocusOut() {
-    (this.miserable = this.miserable),
+    this.data.mastery = this.mastery;
       this.introductionService
         .storeIntroductionData(this.stepGroupSequence, this.data)
         .subscribe(data => {

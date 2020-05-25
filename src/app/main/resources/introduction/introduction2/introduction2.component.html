@@ -49,7 +49,7 @@
     What do you keep doing that makes you <span class="emphasis">feel miserable</span>?
     <mat-form-field style="width:100% !important">
       <input type="text" matInput placeholder="Example- I lie in my bed watching the same YouTube videos again and again and again and again and ......" [(ngModel)]="miserable"
-             (focus)="onenjoyableSave()" (focusout)="onmiserableFocusOut()">
+             (focus)="onmiserableSave()" (focusout)="onmiserableFocusOut()">
       <mat-hint *ngIf="miserableSave ">Saving...</mat-hint>
     </mat-form-field>
     <br><br>

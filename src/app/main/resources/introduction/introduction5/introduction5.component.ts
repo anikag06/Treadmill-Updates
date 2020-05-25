@@ -102,7 +102,7 @@ export class Introduction5Component implements OnInit, OnDestroy {
             this.next_step_id = step_data.data.next_step_id;
             console.log('next step', this.next_step_id);
             // for navbar title
-            this.step_stepGroupSequence = step_data.data.step_group_sequence;
+            this.step_stepGroupSequence = step_data.data.step_group_sequence + 1;
             this.stepSequence = step_data.data.sequence + 1;
             this.stepName = step_data.data.name;
             this.navbarTitle =
