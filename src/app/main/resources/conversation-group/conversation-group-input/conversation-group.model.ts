@@ -1,7 +1,7 @@
 export class ConversationGroup {
   id!: number;
   title!: string;
-  discription!: string;
+  description!: string;
   gender!: string;
   expected_time!: number;
   avatar_name!: string;
@@ -10,7 +10,7 @@ export class ConversationGroup {
   constructor(
     id: number,
     title: string,
-    discription: string,
+    description: string,
     gender: string,
     expected_time: number,
     avatar_name: string,
@@ -18,7 +18,7 @@ export class ConversationGroup {
   ) {
     this.id = id;
     this.title = title;
-    this.discription = discription;
+    this.description = description;
     this.gender = gender;
     this.expected_time = expected_time;
     this.avatar_name = avatar_name;

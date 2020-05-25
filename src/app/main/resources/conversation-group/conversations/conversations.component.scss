@@ -5,8 +5,16 @@
   border-top-color: black;
   border-radius: 0px 0px 25px 25px;
   width: 100%;
+  position: relative;
 }
-
+.SendImage{
+  display: inline-block;
+  position: absolute;
+  width:20px;
+  height:20px;
+  left:70px;
+  top:47px
+}
 
 // body,html{
 //   height: 100%;
@@ -23,8 +31,8 @@
 }
 
 .user_img_msg {
-  height: 32px;
-  width: 32px;
+  height: 40px;
+  width: 40px;
   border: 1.5px solid #f5f6fa;
 
 }
@@ -176,6 +184,85 @@
   // transform: rotate(180deg);
 }
 
+$dotWidth: 6px;
+$dotHeight: 6px;
+$dotRadius: $dotWidth/2;
+
+$dotColor: #909090;
+$dotBgColor: $dotColor;
+$dotBeforeColor: #adadad;
+$dotAfterColor: #808080;
+
+$dotSpacing: $dotWidth + $dotWidth/2;
+
+$leftPos: -9999px;
+$x1: -$leftPos - $dotSpacing;
+$x2: -$leftPos;
+$x3: -$leftPos + $dotSpacing;
+
+@mixin dot(
+  $width: $dotWidth,
+  $height: $dotHeight,
+  $radius: $dotRadius,
+  $bgColor: $dotBgColor,
+  $color: $dotColor
+) {
+  width: $width;
+  height: $height;
+  border-radius: $radius;
+  background-color: $bgColor;
+  color: $color;
+}
+
+.dot-typing {
+  position: relative;
+  left: $leftPos;
+
+  @include dot;
+
+  box-shadow: $x1 0 0 0 $dotBeforeColor, $x2 0 0 0 $dotColor,
+  $x3 0 0 0 $dotAfterColor;
+  animation: dotTyping 1.2s infinite linear;
+}
+
+@keyframes dotTyping {
+  0% {
+    box-shadow: $x1 0 0 0 $dotBeforeColor, $x2 0 0 0 $dotColor,
+    $x3 0 0 0 $dotAfterColor;
+  }
+
+  16.667% {
+    box-shadow: $x1 -10px 0 0 $dotBeforeColor, $x2 0 0 0 $dotColor,
+    $x3 0 0 0 $dotAfterColor;
+  }
+
+  33.333% {
+    box-shadow: $x1 0 0 0 $dotBeforeColor, $x2 0 0 0 $dotColor,
+    $x3 0 0 0 $dotAfterColor;
+  }
+
+  50% {
+    box-shadow: $x1 0 0 0 $dotBeforeColor, $x2 -10px 0 0 $dotColor,
+    $x3 0 0 0 $dotAfterColor;
+  }
+
+  66.667% {
+    box-shadow: $x1 0 0 0 $dotBeforeColor, $x2 0 0 0 $dotColor,
+    $x3 0 0 0 $dotAfterColor;
+  }
+
+  83.333% {
+    box-shadow: $x1 0 0 0 $dotBeforeColor, $x2 0 0 0 $dotColor,
+    $x3 -10px 0 0 $dotAfterColor;
+  }
+
+  100% {
+    box-shadow: $x1 0 0 0 $dotBeforeColor, $x2 0 0 0 $dotColor,
+    $x3 0 0 0 $dotAfterColor;
+  }
+}
+
+
 .row,
 .col {
   margin: 0%;
@@ -241,6 +328,11 @@
 .completed-btn,
 .next-step-btn {
   line-height: 0%;
+}
+
+.msg_cotainer_send .resize-img{
+  width: 18px;
+  height: 9px;
 }
 
 @media screen and (max-width: 1440px) {

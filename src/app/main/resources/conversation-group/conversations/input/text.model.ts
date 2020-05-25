@@ -8,10 +8,12 @@ export class Texting {
   message!: string[];
   dialog!: string[];
   show_avatar_image!: string;
+  wrong!: boolean;
 
   constructor() {
     this.message = [];
     this.dialog = [];
+    this.wrong = false;
     //this.show_avatar_image = [];
   }
 }
