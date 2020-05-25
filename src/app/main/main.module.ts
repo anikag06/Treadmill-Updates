@@ -173,7 +173,6 @@ import { ChatImageComponent } from './chatbot/chat-window/chat-image/chat-image.
 import { ChatImageDirective } from './chatbot/chat-window/chat-image/chat-image.directive';
 import { ChatVideoComponent } from './chatbot/chat-window/chat-video/chat-video.component';
 import { IframeTrackerDirective } from './chatbot/chat-window/chat-video/iframe-tracker.directive';
-// import { Resources2Routing } from './extra-resources/extra-resources-routing.module.ts/extra-resources-routing.module.ts.component';
 
 @NgModule({
   declarations: [
@@ -282,11 +281,6 @@ import { IframeTrackerDirective } from './chatbot/chat-window/chat-video/iframe-
     ChatImageComponent,
     ChatImageDirective,
     ChatVideoComponent,
-    // Resources2Component,
-    //  VideosComponent,
-    //  ReadingMaterialComponent,
-    //  ReadingItemComponent,
-    //  VideoItemComponent,
     InternetConnectionComponent,
     IframeTrackerDirective,
   ],
@@ -308,11 +302,8 @@ import { IframeTrackerDirective } from './chatbot/chat-window/chat-video/iframe-
     AngularFireMessagingModule,
     OverlayModule,
     MatTooltipModule,
-    // QuestionnaireModule,
     MatRippleModule,
     SharedModule,
-    // ExtraResourcesModule,
-    // ResourcesModule,
   ],
   providers: [
     LocalStorageService,
@@ -350,7 +341,6 @@ import { IframeTrackerDirective } from './chatbot/chat-window/chat-video/iframe-
     ThingsTodoService,
     GamesFeedbackService,
     ExtraResourcesService,
-    // QuizService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [

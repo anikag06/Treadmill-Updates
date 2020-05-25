@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
-import {JwtModule} from '@auth0/angular-jwt';
-import {TOKEN} from './app.constants';
+import { NgModule } from '@angular/core';
+import { JwtModule } from '@auth0/angular-jwt';
+import { TOKEN } from './app.constants';
 
 export function tokenGetter() {
   return (
