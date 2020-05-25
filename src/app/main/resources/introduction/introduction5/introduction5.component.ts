@@ -31,6 +31,7 @@ export class Introduction5Component implements OnInit, OnDestroy {
   showNextStep = false;
   next_step_id!: number;
   navbarTitle!: string;
+  step_stepGroupSequence!: number;
   stepSequence!: number;
   stepName!: string;
   wastedHours = [
@@ -49,6 +50,18 @@ export class Introduction5Component implements OnInit, OnDestroy {
     'I criticize myself for worrying and promise myself that I try to force myself to not worry',
     'I try to suppress the feeling of distress and anxiety associated to my worry',
   ];
+  data = {
+    worryThought: this.worryThought,
+    hours: this.hours,
+    difficult: this.difficult,
+    selectedTechniques: this.selectedTechniques,
+    help: this.help,
+  };
+  worrySave!: boolean;
+  hourSave!: boolean;
+  difficultSave!: boolean;
+  techniqueSave!: boolean;
+  helpSave!: boolean;
 
   constructor(
     private introductionService: IntroductionService,
@@ -90,11 +103,11 @@ export class Introduction5Component implements OnInit, OnDestroy {
             this.next_step_id = step_data.data.next_step_id;
             console.log('next step', this.next_step_id);
             // for navbar title
-            this.stepGroupSequence = step_data.data.step_group_sequence + 1;
+            this.step_stepGroupSequence = step_data.data.step_group_sequence ;
             this.stepSequence = step_data.data.sequence + 1;
             this.stepName = step_data.data.name;
             this.navbarTitle =
-              this.stepGroupSequence.toString() +
+              this.step_stepGroupSequence.toString() +
               '.' +
               this.stepSequence.toString() +
               ' ' +
@@ -144,5 +157,50 @@ export class Introduction5Component implements OnInit, OnDestroy {
   onNextStep() {
     console.log('Next step clicked');
     this.goToService.clickFlow.emit();
+  }
+  worrySaveFocusOut() {
+    this.data.worryThought = this.worryThought;
+    this.introductionService
+      .storeIntroductionData(this.stepGroupSequence, this.data)
+      .subscribe(_data => {
+        console.log('success');
+        this.worrySave = false;
+      });
+  }
+  hourSaveFocusOut() {
+    this.data.hours = this.hours;
+    this.introductionService
+      .storeIntroductionData(this.stepGroupSequence, this.data)
+      .subscribe(_data => {
+        console.log('success');
+        this.hourSave = false;
+      });
+  }
+  difficultSaveFocusOut() {
+    this.data.difficult = this.difficult;
+    this.introductionService
+      .storeIntroductionData(this.stepGroupSequence, this.data)
+      .subscribe(_data => {
+        console.log('success');
+        this.difficultSave = false;
+      });
+  }
+  techniqueSaveFocusOut() {
+    this.data.selectedTechniques = this.selectedTechniques;
+    this.introductionService
+      .storeIntroductionData(this.stepGroupSequence, this.data)
+      .subscribe(_data => {
+        console.log('success');
+        this.techniqueSave = false;
+      });
+  }
+  helpSaveFocusOut() {
+    this.data.help = this.help;
+    this.introductionService
+      .storeIntroductionData(this.stepGroupSequence, this.data)
+      .subscribe(_data => {
+        console.log('success');
+        this.helpSave = false;
+      });
   }
 }

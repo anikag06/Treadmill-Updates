@@ -14,18 +14,20 @@
   <div>
     Are you currently worried about anything?
     <mat-form-field>
-      <input matInput placeholder="Example:- I am worried about losing my job." [(ngModel)]="worryThought">
+      <input matInput placeholder="Example:- I am worried about losing my job." [(ngModel)]="worryThought" (focusin)="worrySave = true" (focusout)= "worrySaveFocusOut()">
+      <mat-hint *ngIf="worrySave ">Saving...</mat-hint>
     </mat-form-field>
   </div>
   <br><br>
   <div>
     Approximately, how many hours do you worry per day?
     <mat-form-field>
-      <mat-select [(value)]="hours">
+      <mat-select [(value)]="hours" (focusin)="hourSave = true"  (focusout)= "hourSaveFocusOut()">
         <mat-option *ngFor="let hour of wastedHours" [value]="hour">
           {{hour}}
         </mat-option>
       </mat-select>
+      <mat-hint *ngIf="hourSave ">Saving...</mat-hint>
       <br><br>
     </mat-form-field>
   </div>
@@ -34,10 +36,11 @@
     Do you think that your habit of worrying interferes with your daily life? For example- does it make it difficult for
     you to concentrate on your work or your studies?
     <mat-form-field>
-      <mat-select [(value)]="difficult">
+      <mat-select [(value)]="difficult" (focusin)="difficultSave = true" (focusout)="difficultSaveFocusOut()">
         <mat-option value="Yes">Yes</mat-option>
         <mat-option value="No">No</mat-option>
       </mat-select>
+      <mat-hint *ngIf="difficultSave ">Saving...</mat-hint>
       <br><br>
     </mat-form-field>
   </div>
@@ -45,22 +48,24 @@
   <div>
     Which of the following techniques do you use to try to stop worrying?
     <mat-label>Technique used</mat-label>
-    <mat-selection-list [(ngModel)]="selectedTechniques" [ngStyle]="{'max-width': '850px'}">
+    <mat-selection-list [(ngModel)]="selectedTechniques" [ngStyle]="{'max-width': '850px'}" (focusin)="techniqueSave = true" (focusout)="techniqueSaveFocusOut()" >
       <mat-list-option *ngFor="let technique of techniques" [value]="technique"
         [ngStyle]="{'margin-bottom': '20px', 'height': 'unset'}">
         {{technique}}
       </mat-list-option>
     </mat-selection-list>
+    <mat-hint *ngIf="techniqueSave ">Saving...</mat-hint>
     <br><br>
   </div>
   <br><br>
   <div>
     Does it actually help you stop worrying?
     <mat-form-field>
-      <mat-select [(value)]="help">
+      <mat-select [(value)]="help" (focusin)="helpSave = true" (focusout)="helpSaveFocusOut()">
         <mat-option value="Yes">Yes</mat-option>
         <mat-option value="No">No</mat-option>
       </mat-select>
+      <mat-hint *ngIf="helpSave ">Saving...</mat-hint>
       <br><br>
     </mat-form-field>
   </div>

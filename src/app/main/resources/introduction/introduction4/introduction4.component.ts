@@ -25,6 +25,7 @@ export class Introduction4Component implements OnInit, OnDestroy {
   time_spent: any;
   next_step_id!: number;
   navbarTitle!: string;
+  step_stepGroupSequence!: number;
   stepSequence!: number;
   stepName!: string;
   showNextStep = false;
@@ -75,11 +76,11 @@ export class Introduction4Component implements OnInit, OnDestroy {
             console.log('step data is:', step_data);
             this.next_step_id = step_data.data.next_step_id;
             console.log('next step', this.next_step_id);            // for navbar title
-            this.stepGroupSequence = step_data.data.step_group_sequence + 1;
+            this. step_stepGroupSequence = step_data.data.step_group_sequence + 1;
             this.stepSequence = step_data.data.sequence + 1;
             this.stepName = step_data.data.name;
             this.navbarTitle =
-              this.stepGroupSequence.toString() +
+              this. step_stepGroupSequence.toString() +
               '.' +
               this.stepSequence.toString() +
               ' ' +
