@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="184" height="50" viewBox="0 0 184 50">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.53" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#ffe519"/>
+      <stop offset="0.511" stop-color="#ffc40f"/>
+      <stop offset="0.69" stop-color="#ffb30a"/>
+      <stop offset="1" stop-color="#ff9b02"/>
+    </linearGradient>
+    <filter id="Ellipse_4305" x="27" y="8" width="27" height="27" filterUnits="userSpaceOnUse">
+      <feOffset dy="1" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="1" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Ellipse_4304" x="15" y="16" width="27" height="27" filterUnits="userSpaceOnUse">
+      <feOffset dy="1" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="1" result="blur-2"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur-2"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Enter_mood" data-name="Enter mood" transform="translate(-85 -397)">
+    <rect id="Rectangle_3947" data-name="Rectangle 3947" width="184" height="48" rx="24" transform="translate(85 399)" fill="#958c47"/>
+    <g id="Group_12184" data-name="Group 12184">
+      <rect id="Rectangle_3948" data-name="Rectangle 3948" width="184" height="48" rx="24" transform="translate(85 397)" fill="#fff5aa"/>
+      <g id="Group_12183" data-name="Group 12183" transform="translate(-8 -45)">
+        <text id="Enter_mood-2" data-name="Enter mood" transform="translate(157 473)" fill="#68633d" font-size="18" font-family="Roboto-Medium, Roboto" font-weight="500"><tspan x="0" y="0">Enter mood</tspan></text>
+        <g id="Group_12198" data-name="Group 12198" transform="translate(12943 24123)">
+          <g id="Group_12195" data-name="Group 12195">
+            <g transform="matrix(1, 0, 0, 1, -12850, -23681)" filter="url(#Ellipse_4305)">
+              <circle id="Ellipse_4305-2" data-name="Ellipse 4305" cx="10.5" cy="10.5" r="10.5" transform="translate(30 10)" fill="url(#linear-gradient)"/>
+            </g>
+            <path id="Path_11192" data-name="Path 11192" d="M-12822.963-23676.447c0,.252-.229.32-.531.07-2.091-2.48-3-1.008-4.047.123.084-.039-.316.254-.463,0C-12828.26-23677.291-12825.166-23682.479-12822.963-23676.447Z" transform="translate(12.557 14.962)" fill="#1a1626"/>
+            <path id="Path_11193" data-name="Path 11193" d="M-12828.165-23676.434c0,.252.229.32.531.07,2.091-2.48,3-1.008,4.047.123-.084-.039.316.254.463,0C-12822.868-23677.277-12825.962-23682.465-12828.165-23676.434Z" transform="translate(19.556 14.962)" fill="#1a1626"/>
+            <path id="Path_11194" data-name="Path 11194" d="M-12817.105-23683.342c.4-1.8,12.188-1.67,12.938-.371s-.323,4.5-2.313,5.188a23.4,23.4,0,0,1-7.617,0C-12815.66-23678.836-12817.105-23680.562-12817.105-23683.342Z" transform="translate(1 25)" fill="#1a1626"/>
+            <path id="Path_11195" data-name="Path 11195" d="M-12815.656-23683.3a1.62,1.62,0,0,0,.422,1.734c1,0,7.483.063,9.578.063.606-1.051.406-1.8.2-1.953C-12806.392-23683.994-12815.464-23684.012-12815.656-23683.3Z" transform="translate(1 25)" fill="#fff"/>
+            <path id="Path_11196" data-name="Path 11196" d="M-12815.062-23680.937c-.7,2.607,9.156,2.891,9.156,0Z" transform="translate(1 25)" fill="#fff"/>
+          </g>
+          <g id="Group_12197" data-name="Group 12197">
+            <g transform="matrix(1, 0, 0, 1, -12850, -23681)" filter="url(#Ellipse_4304)">
+              <circle id="Ellipse_4304-2" data-name="Ellipse 4304" cx="10.5" cy="10.5" r="10.5" transform="translate(18 18)" fill="url(#linear-gradient)"/>
+            </g>
+            <g id="Group_12196" data-name="Group 12196">
+              <path id="Path_11184" data-name="Path 11184" d="M-12823.344-23678.748a5.4,5.4,0,0,1-5.078,1.375C-12828.125-23676.186-12824.047-23674.418-12823.344-23678.748Z" transform="translate(0.557 23.998)" fill="#1a1626"/>
+              <path id="Path_11185" data-name="Path 11185" d="M5.077,0A5.4,5.4,0,0,1,0,1.375C.3,2.563,4.375,4.33,5.077,0Z" transform="translate(-12818.596 -23655.879) rotate(31)" fill="#1a1626"/>
+              <path id="Path_11186" data-name="Path 11186" d="M6.864,3.744A6.954,6.954,0,0,0,.811,2.122C1.037.193,6.546-.385,6.864,3.744Z" transform="matrix(0.966, -0.259, 0.259, 0.966, -12825.383, -23648.064)" fill="#1a1626"/>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

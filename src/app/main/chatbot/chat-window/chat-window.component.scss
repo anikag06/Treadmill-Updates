@@ -105,6 +105,7 @@
       //height: calc(100% - 55px);
       //max-height: 490px;
       overflow-y: scroll;
+      overscroll-behavior: contain;
       //max-height: 540px;
     }
     .form-div {

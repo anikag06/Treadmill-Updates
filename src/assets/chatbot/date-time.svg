@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="184" height="50" viewBox="0 0 184 50">
+  <g id="Set_Schedule" data-name="Set Schedule" transform="translate(-85 -397)">
+    <rect id="Rectangle_3947" data-name="Rectangle 3947" width="184" height="48" rx="24" transform="translate(85 399)" fill="#325c7b"/>
+    <g id="Group_12184" data-name="Group 12184">
+      <rect id="Rectangle_3948" data-name="Rectangle 3948" width="184" height="48" rx="24" transform="translate(85 397)" fill="#c4e6ff"/>
+      <g id="Group_12183" data-name="Group 12183" transform="translate(-8 -45)">
+        <g id="Group_12183-2" data-name="Group 12183" transform="translate(14501 24299)">
+          <g id="iconfinder_calendar_285670" transform="translate(-14389 -24874.4)">
+            <path id="Path_11161" data-name="Path 11161" d="M5.3,1032.4a2.3,2.3,0,0,0-2.3,2.3v16.086a2.3,2.3,0,0,0,2.3,2.3H21.384a2.3,2.3,0,0,0,2.3-2.3V1034.7a2.3,2.3,0,0,0-2.3-2.3H5.3Z" transform="translate(0 0.447)" fill="#325c7b"/>
+            <path id="Path_11162" data-name="Path 11162" d="M5.3,3A2.3,2.3,0,0,0,3,5.3V21.384a2.3,2.3,0,0,0,2.3,2.3H21.384a2.3,2.3,0,0,0,2.3-2.3V5.3a2.3,2.3,0,0,0-2.3-2.3H5.3Z" transform="translate(0 1028.698)" fill="#ecf0f1"/>
+            <path id="Path_11163" data-name="Path 11163" d="M5.3,1031.4a2.3,2.3,0,0,0-2.3,2.3v3.447H23.682V1033.7a2.3,2.3,0,0,0-2.3-2.3H5.3Z" transform="translate(0 0.298)" fill="#325c7b"/>
+            <path id="Path_11164" data-name="Path 11164" d="M7.447,5.724A1.724,1.724,0,1,1,5.724,4,1.724,1.724,0,0,1,7.447,5.724Z" transform="translate(0.724 1028.847)" fill="#2f6f9f"/>
+            <path id="Path_11165" data-name="Path 11165" d="M6.149,1A1.149,1.149,0,0,0,5,2.149V5.6a1.149,1.149,0,0,0,2.3,0V2.149A1.149,1.149,0,0,0,6.149,1Z" transform="translate(0.298 1028.4)" fill="#ecf0f1"/>
+            <path id="Path_11166" data-name="Path 11166" d="M7.447,5.724A1.724,1.724,0,1,1,5.724,4,1.724,1.724,0,0,1,7.447,5.724Z" transform="translate(14.512 1028.847)" fill="#2f6f9f"/>
+            <g id="Group_12183-3" data-name="Group 12183" transform="translate(5.298 1029.4)">
+              <path id="Path_11167" data-name="Path 11167" d="M18.149,1029.4A1.116,1.116,0,0,0,17,1030.549V1034a1.149,1.149,0,0,0,2.3,0v-3.447A1.116,1.116,0,0,0,18.149,1029.4Z" transform="translate(-3.212 -1029.4)" fill="#ecf0f1"/>
+              <path id="Path_11168" data-name="Path 11168" d="M5,1039.4v2.3H7.3v-2.3Zm3.447,0v2.3h2.3v-2.3Zm3.447,0v2.3h2.3v-2.3Zm3.447,0v2.3h2.3v-2.3Zm3.447,0v2.3h2.3v-2.3Z" transform="translate(-5 -1027.91)" fill="#839cac"/>
+              <path id="Path_11169" data-name="Path 11169" d="M5,1042.4v2.3H7.3v-2.3Zm3.447,0v2.3h2.3v-2.3Zm3.447,0v2.3h2.3v-2.3Zm3.447,0v2.3h2.3v-2.3Zm3.447,0v2.3h2.3v-2.3Z" transform="translate(-5 -1027.463)" fill="#839cac"/>
+              <path id="Path_11170" data-name="Path 11170" d="M5,1045.4v2.3H7.3v-2.3Zm3.447,0v2.3h2.3v-2.3Zm3.447,0v2.3h2.3v-2.3Zm3.447,0v2.3h2.3v-2.3Zm3.447,0v2.3h2.3v-2.3Z" transform="translate(-5 -1027.016)" fill="#839cac"/>
+            </g>
+            <path id="Path_11171" data-name="Path 11171" d="M0,.006,20.7-.016V1.36L0,1.381Z" transform="translate(3 1037.019)" fill="#325c7b"/>
+          </g>
+          <rect id="Rectangle_3950" data-name="Rectangle 3950" width="32" height="32" transform="translate(-14391 -23849)" fill="none"/>
+        </g>
+        <text id="Set_Schedule-2" data-name="Set Schedule" transform="translate(153 473)" fill="#325c7b" font-size="18" font-family="Roboto-Medium, Roboto" font-weight="500"><tspan x="0" y="0">Set Schedule</tspan></text>
+      </g>
+    </g>
+  </g>
+</svg>

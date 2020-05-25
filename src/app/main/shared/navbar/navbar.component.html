@@ -39,11 +39,11 @@
           <div class="icon-items" style="margin-left:20px;" (menuClosed)="notificationClick()" (menuOpened)="notificationClick()"
             [matMenuTriggerFor]="appNavBarNotify">
             <img src="assets/shared/notification web.png" height=" 32px" width="32px" alt="Flow">
-          </div>
-          <div class="unread-count" *ngIf="unreadCount > 0">
+            <div class="unread-count" *ngIf="unreadCount > 0">
             <span *ngIf="unreadCount < 100; else manyMore">{{
               unreadCount
-            }}</span>
+              }}</span>
+            </div>
           </div>
         </div>
 
