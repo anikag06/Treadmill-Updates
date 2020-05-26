@@ -37,7 +37,8 @@ export class Introduction4Component implements OnInit, OnDestroy {
   ];
   selectedBelief!: string;
   balancedBelief!: string;
-  private beliefSave: any;
+  beliefSave!: boolean;
+  showSave!: boolean;
 
   constructor(
     private introductionService: IntroductionService,
@@ -60,7 +61,10 @@ export class Introduction4Component implements OnInit, OnDestroy {
           this.locked = false;
           this.selectedBelief = data.data.selectedBelief;
           if (data.data.selectedBelief) {
+            this.showSave = false;
             this.onBeliefChanged();
+          } else {
+            this.showSave = true;
           }
         } else {
           this.locked = true;
@@ -100,7 +104,11 @@ export class Introduction4Component implements OnInit, OnDestroy {
     this.balancedBelief = this.balancedBeliefs[
       this.negativeBeliefs.indexOf(this.selectedBelief)
     ];
-    this.beliefSave = true;
+    console.log(' belief save success', this.showSave);
+    if (this.showSave) {
+      console.log(' belief save success');
+      this.beliefSave = true;
+    }
   }
 
   saveData() {

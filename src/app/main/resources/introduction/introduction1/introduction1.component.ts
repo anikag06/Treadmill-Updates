@@ -44,6 +44,8 @@ export class Introduction1Component implements OnInit, OnDestroy {
   thoughtSave = false;
   feelingSave = false;
   next_step_id!: number;
+  showloading = false;
+
 
   constructor(
     private introductionService: IntroductionService,
@@ -52,6 +54,8 @@ export class Introduction1Component implements OnInit, OnDestroy {
     private flowService: FlowService,
     private flowStepService: FlowStepNavigationService,
     private goToService: NavbarGoToService,
+    private changeDetector: ChangeDetectorRef,
+
   ) {}
 
   @ViewChild('autosize', { static: false }) autosize!: CdkTextareaAutosize;
@@ -128,21 +132,25 @@ export class Introduction1Component implements OnInit, OnDestroy {
   }
 
   onCompleted() {
-    this.showNextStep = true;
+    this.showloading = true;
     this.time_spent = 100;
     this.completionData.time_spent = this.time_spent;
     this.completionData.step_id = this.currentStepId;
     this.stepDataService
       .storeCompletionData(this.completionData)
       .subscribe(data => {});
-    // TO CHECK MARKDONE REQUEST IS FAILING
     this.flowStepService
       .getNextStepData(this.next_step_id)
       .subscribe(next_step => {
+        console.log('next step details', next_step);
         this.flowStepService.virtualStepMarkDone(
           next_step.data,
           this.time_spent,
         );
+        this.flowStepService.mark_done.subscribe( () => {
+          this.showloading = false;
+          this.showNextStep = true;
+        });
       });
   }
   onNextStep() {

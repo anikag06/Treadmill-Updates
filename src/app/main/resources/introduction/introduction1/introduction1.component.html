@@ -72,9 +72,13 @@
 <!--  </div>-->
 
 
-      <button class="completed-btn float-right" type="button" mat-raised-button *ngIf="!showNextStep" (click)="onCompleted()">
+      <button class="completed-btn float-right" type="button" mat-raised-button *ngIf="!showNextStep && !showloading" (click)="onCompleted()">
         Completed
       </button>
+            <button class="completed-btn float-right" *ngIf="showloading" type="button" mat-raised-button >
+              <span class="spinner-border spinner-border-sm"></span>
+              &nbsp; Loading..
+            </button>
       <button class="completed-btn float-right" type="button" mat-raised-button *ngIf="showNextStep" (click)="onNextStep()">
         <img id="flow-img" src="../../../../assets/shared/Go to icon.png">
         Next Step
