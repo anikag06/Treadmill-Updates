@@ -54,7 +54,6 @@ export class Introduction1Component implements OnInit, OnDestroy {
     private flowService: FlowService,
     private flowStepService: FlowStepNavigationService,
     private goToService: NavbarGoToService,
-    private changeDetector: ChangeDetectorRef,
 
   ) {}
 

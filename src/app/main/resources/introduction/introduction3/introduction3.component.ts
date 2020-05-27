@@ -117,17 +117,6 @@ export class Introduction3Component implements OnInit, OnDestroy {
     ];
     this.thoughtSave = true;
   }
-
-  saveData() {
-    const data = {
-      selectedThought: this.selectedThought,
-    };
-    this.introductionService
-      .storeIntroductionData(this.stepGroupSequence, data)
-      .subscribe(_data => {
-        console.log('success');
-      });
-  }
   thoughtSaveFocusOut() {
     const data = {
       selectedThought: this.selectedThought,
@@ -147,15 +136,6 @@ export class Introduction3Component implements OnInit, OnDestroy {
     this.stepDataService
       .storeCompletionData(this.completionData)
       .subscribe(data => {});
-    // TO CHECK MARKDONE REQUEST IS FAILING
-    this.flowStepService
-      .getNextStepData(this.next_step_id)
-      .subscribe(next_step => {
-        this.flowStepService.virtualStepMarkDone(
-          next_step.data,
-          this.time_spent,
-        );
-      });
   }
   onNextStep() {
     console.log('Next step clicked');

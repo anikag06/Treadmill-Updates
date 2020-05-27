@@ -110,18 +110,6 @@ export class Introduction4Component implements OnInit, OnDestroy {
       this.beliefSave = true;
     }
   }
-
-  saveData() {
-    const data = {
-      selectedBelief: this.selectedBelief,
-    };
-    this.introductionService
-      .storeIntroductionData(this.stepGroupSequence, data)
-      .subscribe(_data => {
-        console.log('success');
-      });
-  }
-
   beliefSaveFocusOut() {
     const data = {
       selectedBelief: this.selectedBelief,
@@ -141,15 +129,6 @@ export class Introduction4Component implements OnInit, OnDestroy {
     this.stepDataService
       .storeCompletionData(this.completionData)
       .subscribe(data => {});
-    // TO CHECK MARKDONE REQUEST IS FAILING
-    this.flowStepService
-      .getNextStepData(this.next_step_id)
-      .subscribe(next_step => {
-        this.flowStepService.virtualStepMarkDone(
-          next_step.data,
-          this.time_spent,
-        );
-      });
   }
   onNextStep() {
     console.log('Next step clicked');

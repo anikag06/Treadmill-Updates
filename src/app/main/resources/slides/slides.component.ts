@@ -319,18 +319,17 @@ export class SlidesComponent implements OnInit, AfterContentInit {
       .storeCompletionData(this.completionData)
       .subscribe(data => {});
     this.showNextStepBtn = true;
-    // TO CHECK MARKDONE REQUEST IS FAILING
-    this.flowStepService
-      .getNextStepData(this.next_step_id)
-      .subscribe(next_step => {
-        this.flowStepService.virtualStepMarkDone(
-          next_step.data,
-          this.time_spent,
-        );
-        const next_step_url = this.flowStepService.goToFlowNextStep(
-          next_step.data,
-        );
-      });
+    // this.flowStepService
+    //   .getNextStepData(this.next_step_id)
+    //   .subscribe(next_step => {
+    //     this.flowStepService.virtualStepMarkDone(
+    //       next_step.data,
+    //       this.time_spent,
+    //     );
+    //     const next_step_url = this.flowStepService.goToFlowNextStep(
+    //       next_step.data,
+    //     );
+    //   });
   }
   onNextStepClick() {
     console.log('Next step clicked');

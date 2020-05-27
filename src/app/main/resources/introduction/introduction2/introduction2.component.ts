@@ -98,19 +98,6 @@ export class Introduction2Component implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.introductionDataSubscription.unsubscribe();
   }
-
-  saveData() {
-    const data = {
-      enjoyable: this.enjoyable,
-      mastery: this.mastery,
-      miserable: this.miserable,
-    };
-    this.introductionService
-      .storeIntroductionData(this.stepGroupSequence, data)
-      .subscribe(_data => {
-        console.log('success');
-      });
-  }
   onCompleted() {
     this.showNextStep = true;
     this.time_spent = 100;
@@ -119,15 +106,6 @@ export class Introduction2Component implements OnInit, OnDestroy {
     this.stepDataService
       .storeCompletionData(this.completionData)
       .subscribe(data => {});
-    // TO CHECK MARKDONE REQUEST IS FAILING
-    this.flowStepService
-      .getNextStepData(this.next_step_id)
-      .subscribe(next_step => {
-        this.flowStepService.virtualStepMarkDone(
-          next_step.data,
-          this.time_spent,
-        );
-      });
   }
   onNextStep() {
     console.log('Next step clicked');

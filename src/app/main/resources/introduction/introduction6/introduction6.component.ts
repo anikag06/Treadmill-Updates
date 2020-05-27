@@ -83,15 +83,6 @@ export class Introduction6Component implements OnInit {
     this.stepDataService
       .storeCompletionData(this.completionData)
       .subscribe(data => {});
-    // TO CHECK MARKDONE REQUEST IS FAILING
-    this.flowStepService
-      .getNextStepData(this.next_step_id)
-      .subscribe(next_step => {
-        this.flowStepService.virtualStepMarkDone(
-          next_step.data,
-          this.time_spent,
-        );
-      });
   }
   onNextStep() {
     console.log('Next step clicked');
