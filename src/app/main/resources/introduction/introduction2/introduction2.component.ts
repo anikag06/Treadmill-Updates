@@ -35,6 +35,8 @@ export class Introduction2Component implements OnInit, OnDestroy {
   enjoyableSave!: boolean;
   miserableSave!: boolean;
   masterySave!: boolean;
+  showloading = false;
+
   data = {
     enjoyable: this.enjoyable,
     mastery: this.mastery,
@@ -99,13 +101,16 @@ export class Introduction2Component implements OnInit, OnDestroy {
     this.introductionDataSubscription.unsubscribe();
   }
   onCompleted() {
-    this.showNextStep = true;
+    this.showloading = true;
     this.time_spent = 100;
     this.completionData.time_spent = this.time_spent;
     this.completionData.step_id = this.currentStepId;
     this.stepDataService
       .storeCompletionData(this.completionData)
-      .subscribe(data => {});
+      .subscribe(data => {
+        this.showloading = false;
+        this.showNextStep = true;
+      });
   }
   onNextStep() {
     console.log('Next step clicked');

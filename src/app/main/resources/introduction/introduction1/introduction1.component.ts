@@ -113,21 +113,6 @@ export class Introduction1Component implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.introductionDataSubscription.unsubscribe();
-    this.saveData();
-  }
-
-  saveData() {
-    const data = {
-      situation: this.situation,
-      feeling: this.feeling,
-      behavior: this.behavior,
-      thought: this.thought,
-    };
-    this.introductionService
-      .storeIntroductionData(this.stepGroupSequence, data)
-      .subscribe(_data => {
-        console.log('success');
-      });
   }
 
   onCompleted() {
@@ -137,19 +122,9 @@ export class Introduction1Component implements OnInit, OnDestroy {
     this.completionData.step_id = this.currentStepId;
     this.stepDataService
       .storeCompletionData(this.completionData)
-      .subscribe(data => {});
-    this.flowStepService
-      .getNextStepData(this.next_step_id)
-      .subscribe(next_step => {
-        console.log('next step details', next_step);
-        this.flowStepService.virtualStepMarkDone(
-          next_step.data,
-          this.time_spent,
-        );
-        this.flowStepService.mark_done.subscribe( () => {
-          this.showloading = false;
-          this.showNextStep = true;
-        });
+      .subscribe(data => {
+        this.showloading = false;
+        this.showNextStep = true;
       });
   }
   onNextStep() {

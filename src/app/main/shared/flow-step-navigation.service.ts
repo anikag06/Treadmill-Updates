@@ -80,7 +80,6 @@ export class FlowStepNavigationService {
   virtualStepMarkDone(step: any, timeSpent: number) {
     if (step.virtual_step) {
       this.markDone(step.id, timeSpent).subscribe((data: any) => {
-        this.mark_done.emit();
         console.log(' MarkDone', step);
       });
     }

@@ -20,13 +20,15 @@
     <br><br>
     How to prevent yourself from getting stuck in another negative thinking trap? You’ll learn in this module.
   </div>
-            <button class="completed-btn float-right" type="button" mat-raised-button *ngIf="!showNextStep" (click)="onCompleted()">
-              Completed
-            </button>
-            <button class="completed-btn float-right" type="button" mat-raised-button *ngIf="showNextStep" (click)="onNextStep()">
-              <img id="flow-img" src="../../../../assets/shared/Go to icon.png">
-              Next Step
-            </button>
+<!--            <button class="completed-btn float-right" type="button" mat-raised-button *ngIf="!showNextStep" (click)="onCompleted()">-->
+<!--              Completed-->
+<!--            </button>-->
+<!--            <button class="completed-btn float-right" type="button" mat-raised-button *ngIf="showNextStep" (click)="onNextStep()">-->
+<!--              <img id="flow-img" src="../../../../assets/shared/Go to icon.png">-->
+<!--              Next Step-->
+<!--            </button>-->
+            <app-step-completed [showNextStep]="showNextStep" [showloading]="showloading" (completedEvent)="onCompleted()" (nextStepEvent)="onNextStep()"></app-step-completed>
+
           </div>
         </div>
       </div>

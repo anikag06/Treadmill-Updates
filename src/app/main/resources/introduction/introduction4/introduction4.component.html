@@ -35,7 +35,7 @@
     <p>{{balancedBelief}}</p>
     <p>This is a more realistic and healthy belief.</p>
     <p>Unfortunately, when someone is going through an episode of depression, they abandon this healthy belief system
-      and think in absolute terms like - {{negativeBelief}}.</p>
+      and think in absolute terms like - {{selectedBelief}}.</p>
     <p>These absolute and rigid negative beliefs make them vulnerable to negative thinking and depression.</p>
     <p>In this module, you will learn how your beliefs make you vulnerable to negative thinking and how to change your
       beliefs from absolute and negative to realistic and healthy.</p>
@@ -46,13 +46,15 @@
 <!--      Save data-->
 <!--    </button>-->
 <!--  </div>-->
-            <button class="completed-btn float-right" type="button" mat-raised-button *ngIf="!showNextStep" (click)="onCompleted()">
-              Completed
-            </button>
-            <button class="completed-btn float-right" type="button" mat-raised-button *ngIf="showNextStep" (click)="onNextStep()">
-              <img id="flow-img" src="../../../../assets/shared/Go to icon.png">
-              Next Step
-            </button>
+<!--            <button class="completed-btn float-right" type="button" mat-raised-button *ngIf="!showNextStep" (click)="onCompleted()">-->
+<!--              Completed-->
+<!--            </button>-->
+<!--            <button class="completed-btn float-right" type="button" mat-raised-button *ngIf="showNextStep" (click)="onNextStep()">-->
+<!--              <img id="flow-img" src="../../../../assets/shared/Go to icon.png">-->
+<!--              Next Step-->
+<!--            </button>-->
+            <app-step-completed [showNextStep]="showNextStep" [showloading]="showloading" (completedEvent)="onCompleted()" (nextStepEvent)="onNextStep()"></app-step-completed>
+
           </div>
         </div>
       </div>

@@ -62,6 +62,8 @@ export class Introduction5Component implements OnInit, OnDestroy {
   difficultSave!: boolean;
   techniqueSave!: boolean;
   helpSave!: boolean;
+  showloading = false;
+
 
   constructor(
     private introductionService: IntroductionService,
@@ -123,13 +125,16 @@ export class Introduction5Component implements OnInit, OnDestroy {
 
 
   onCompleted() {
-    this.showNextStep = true;
+    this.showloading = true;
     this.time_spent = 100;
     this.completionData.time_spent = this.time_spent;
     this.completionData.step_id = this.currentStepId;
     this.stepDataService
       .storeCompletionData(this.completionData)
-      .subscribe(data => {});
+      .subscribe(data => {
+        this.showloading = false;
+        this.showNextStep = true;
+      });
   }
   onNextStep() {
     console.log('Next step clicked');
