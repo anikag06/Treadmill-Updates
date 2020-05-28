@@ -1,7 +1,7 @@
 <ng-template [ngIf]="dataLoaded && !locked">
   <mat-card  class="container-fluid px-0 pt-0 pb-2" >
     <div class="row introduction">
-      <div class="col mt-4 mt-lg-0">
+      <div class="col my-3 mt-lg-0">
         <div >
           <mat-card-header class="title col-12 w-100 my-auto px-0">
             <mat-card-title class="my-auto d-inline-block justify-content-center py-2 ">
@@ -16,7 +16,7 @@
     Which one of these negative thoughts do you have?
     <mat-form-field >
       <mat-label>Negative thoughts</mat-label>
-      <mat-select [(value)]="selectedThought" (selectionChange)="onThoughtChanged()" (focusout)= "thoughtSaveFocusOut()">
+      <mat-select [(value)]="selectedThought" (selectionChange)="onThoughtChange()" (focusout)= "thoughtSaveFocusOut()">
         <mat-option *ngFor="let negativeThought of negativeThoughts" [value]="negativeThought">
           {{negativeThought}}
         </mat-option>
@@ -34,20 +34,7 @@
       balanced way.
     </p>
   </div>
-  <br><br>
-<!--  <div>-->
-<!--    <button class="completed-btn float-right" type="button" mat-raised-button color="primary" (click)="saveData()">-->
-<!--      Save data-->
-<!--    </button>-->
-<!--  </div>-->
-<!--            <button class="completed-btn float-right" type="button" mat-raised-button *ngIf="!showNextStep" (click)="onCompleted()">-->
-<!--              Completed-->
-<!--            </button>-->
-<!--            <button class="completed-btn float-right" type="button" mat-raised-button *ngIf="showNextStep" (click)="onNextStep()">-->
-<!--              <img id="flow-img" src="../../../../assets/shared/Go to icon.png">-->
-<!--              Next Step-->
-<!--            </button>-->
-
+  <br>
             <app-step-completed [showNextStep]="showNextStep" [showloading]="showloading" (completedEvent)="onCompleted()" (nextStepEvent)="onNextStep()"></app-step-completed>
 
           </div>

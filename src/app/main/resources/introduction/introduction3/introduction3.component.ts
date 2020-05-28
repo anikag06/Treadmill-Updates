@@ -52,6 +52,8 @@ export class Introduction3Component implements OnInit, OnDestroy {
   balancedThought!: string;
   thoughtSave!: boolean;
   showloading = false;
+  showSave!: boolean;
+
 
 
   constructor(
@@ -74,6 +76,7 @@ export class Introduction3Component implements OnInit, OnDestroy {
           this.locked = false;
           this.selectedThought = data.data.selectedThought;
           if (data.data.selectedThought) {
+            this.showSave = false;
             this.onThoughtChanged();
           }
         } else {
@@ -110,13 +113,17 @@ export class Introduction3Component implements OnInit, OnDestroy {
     this.introductionDataSubscription.unsubscribe();
   }
 
+  onThoughtChange() {
+    this.showSave = true;
+    this.onThoughtChanged();
+  }
   onThoughtChanged() {
-    console.log('thought save', this.thoughtSave);
-
     this.balancedThought = this.balancedThoughts[
       this.negativeThoughts.indexOf(this.selectedThought)
     ];
-    this.thoughtSave = true;
+    if (this.showSave) {
+      this.thoughtSave = true;
+    }
   }
   thoughtSaveFocusOut() {
     const data = {

@@ -17,21 +17,30 @@
     </div> -->
 
   <div class="col-7 h-100 px-0">
-    <div class="row h-100 w-100 ">
-      <button class="completed-btn h-100 ml-auto" type="button" *ngIf='!showNextStepBtn && !lastStepCompleted'
-        mat-raised-button color="primary" (click)="onCompleteClicked()">
-        Mark as complete
-      </button>
-      <button class="next-step-btn h-100 ml-auto" type="button" *ngIf='showNextStepBtn && !isLastStep' mat-raised-button
-        (click)="onNextStepClicked()">
-        <img id="flow-img" src="../../../../assets/shared/Go to icon.png">
-        Next Step
-      </button>
-      <button class="completed-btn h-100 ml-auto" type="button" *ngIf='lastStepCompleted' mat-raised-button
-        color="primary" (click)="onDashboardClicked()">
-        Go to dashboard
-      </button>
-    </div>
+<!--    <div class="row h-100 w-100 ">-->
+
+    <app-step-completed [lastStepCompleted]='lastStepCompleted' [showNextStep]="showNextStepBtn"
+                         [showloading]="showloading"
+                           (nextStepEvent)='onNextStepClicked()'
+                           (completedEvent)='onCompleteClicked()'
+    (gotodashboard)="onDashboardClicked()"></app-step-completed>
+
+
+<!--      <button class="completed-btn h-100 ml-auto" type="button" *ngIf='!showNextStepBtn && !lastStepCompleted'-->
+<!--        mat-raised-button color="primary" (click)="onCompleteClicked()">-->
+<!--        Mark as complete-->
+<!--      </button>-->
+<!--      <button class="next-step-btn h-100 ml-auto" type="button" *ngIf='showNextStepBtn && !isLastStep' mat-raised-button-->
+<!--        (click)="onNextStepClicked()">-->
+<!--        <img id="flow-img" src="../../../../assets/shared/Go to icon.png">-->
+<!--        Next Step-->
+<!--      </button>-->
+<!--      <button class="completed-btn h-100 ml-auto" type="button" *ngIf='lastStepCompleted' mat-raised-button-->
+<!--        color="primary" (click)="onDashboardClicked()">-->
+<!--        Go to dashboard-->
+<!--      </button>-->
+
+<!--    </div>-->
 
   </div>
 </div>

@@ -9,11 +9,16 @@ export class StepCompletedComponent implements OnInit {
 
   @Input() showNextStep!: boolean;
   @Input() showloading!: boolean;
+  @Input() lastStepCompleted!: boolean;
+
   @Output() completedEvent: EventEmitter<any> = new EventEmitter();
   @Output() nextStepEvent: EventEmitter<any> = new EventEmitter();
+  @Output() gotodashboard: EventEmitter<any> = new EventEmitter();
+
   constructor() { }
 
   ngOnInit() {
+    console.log('last step', this.lastStepCompleted);
   }
 
   onCompleted() {
@@ -21,5 +26,9 @@ export class StepCompletedComponent implements OnInit {
   }
   onNextStep() {
     this.nextStepEvent.emit();
+  }
+
+  onDashboardClicked() {
+    this.gotodashboard.emit();
   }
 }

@@ -65,8 +65,6 @@ export class Introduction4Component implements OnInit, OnDestroy {
           if (data.data.selectedBelief) {
             this.showSave = false;
             this.onBeliefChanged();
-          } else {
-            this.showSave = true;
           }
         } else {
           this.locked = true;
@@ -102,13 +100,16 @@ export class Introduction4Component implements OnInit, OnDestroy {
     this.introductionDataSubscription.unsubscribe();
   }
 
+  onBeliefChange() {
+    this.showSave = true;
+    this.onBeliefChanged();
+  }
+
   onBeliefChanged() {
     this.balancedBelief = this.balancedBeliefs[
       this.negativeBeliefs.indexOf(this.selectedBelief)
     ];
-    console.log(' belief save success', this.showSave);
     if (this.showSave) {
-      console.log(' belief save success');
       this.beliefSave = true;
     }
   }

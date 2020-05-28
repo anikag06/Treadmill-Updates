@@ -136,6 +136,7 @@ export class SlidesComponent implements OnInit, AfterContentInit {
   stepSequence!: number;
   stepName!: string;
   stepGroupSequence!: number;
+  showloading = false;
 
   ngOnInit() {
     this.activateRoute.params
@@ -313,23 +314,15 @@ export class SlidesComponent implements OnInit, AfterContentInit {
 
   onCompleted() {
     this.time_spent = 100;
+    this.showloading = true;
     this.completionData.time_spent = this.time_spent;
     this.completionData.step_id = this.current_step_id;
     this.stepDataService
       .storeCompletionData(this.completionData)
-      .subscribe(data => {});
-    this.showNextStepBtn = true;
-    // this.flowStepService
-    //   .getNextStepData(this.next_step_id)
-    //   .subscribe(next_step => {
-    //     this.flowStepService.virtualStepMarkDone(
-    //       next_step.data,
-    //       this.time_spent,
-    //     );
-    //     const next_step_url = this.flowStepService.goToFlowNextStep(
-    //       next_step.data,
-    //     );
-    //   });
+      .subscribe(data => {
+        this.showNextStepBtn = true;
+        this.showloading = false;
+      });
   }
   onNextStepClick() {
     console.log('Next step clicked');
