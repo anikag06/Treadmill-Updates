@@ -220,10 +220,9 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   ngOnInit() {
     this.conversation_id = this.passdata.getid();
     console.log('CONV ID', this.current_id, this.conversation_id);
-
+    this.passdata.IsConversationOn(true);
     this.run();
-
-    this.send_image = './Send.png';
+    this.send_image = '../../../../assets/conversations/Send.png';
     this.show_avatar_image =
       'https://www.api2.treadwill.org/media/conversations/avataaars.png';
     this.timerservice.visibility();
@@ -234,21 +233,24 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     });
   }
 
+
+
   run() {
     const start = this.passdata.iswhat();
-    if (start[0] === true) {
+    if (start[0]) {
       this.finished = false;
       this.reset();
       console.log('its reset');
-    } else if (start[1] === true) {
+    } else if (start[1]) {
       this.current_history();
       console.log('its continue');
-    } else if (start[2] === true) {
+    } else if (start[2]) {
       this.speed_run();
     }
   }
 
   ngDoCheck() {
+
     this.unload = this.timerservice.get_onunload();
     if (this.unload === 1 && this.onunload === false) {
       this.time = this.time + this.timerservice.removeVisibility();
@@ -270,6 +272,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       false,
       false,
     );
+    this.passdata.IsConversationOn(false);
     this.notificationService.removeFullConvIcon.emit();
   }
 
@@ -388,7 +391,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     this.conversationsService
       .get(
         environment.API_ENDPOINT +
-          '/api/v1/conversation/history/current/?conversation_id=' +
+          '/api/v1/conversation/history/?conversation_id=' +
           this.conversation_id,
       )
       .subscribe((res: any) => {
@@ -430,13 +433,13 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         }
         // tslint:disable-next-line:max-line-length
         this.currenthistory = new CurrentHistory(
-          res.data.id,
-          res.data.conversation_id,
-          res.data.is_completed,
-          res.data.created_at,
-          res.data.completion_datetime,
-          res.data.time_taken_to_complete_in_seconds,
-          res.data.user_response,
+          res.results[0].id,
+          res.results[0].conversation_id,
+          res.results[0].is_completed,
+          res.results[0].created_at,
+          res.results[0].completion_datetime,
+          res.results[0].time_taken_to_complete_in_seconds,
+          res.results[0].user_response,
         );
         this.history_id = this.currenthistory.id;
         this.show = [];
@@ -731,7 +734,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         if (this.ShowTypingTime.length / 35 < 1) {
           t = 1000;
         } else {
-          t = (this.ShowTypingTime.length / 35) * 1000;
+          t = 2000;
         }
         console.log(t);
         this.current_message[0].ShowTyping = true;

@@ -6,6 +6,8 @@ export class ConversationGroup {
   expected_time!: number;
   avatar_name!: string;
   occupation!: string;
+  avatar_image!: string;
+
 
   constructor(
     id: number,
@@ -15,6 +17,7 @@ export class ConversationGroup {
     expected_time: number,
     avatar_name: string,
     occupation: string,
+    avatar_image: string,
   ) {
     this.id = id;
     this.title = title;
@@ -23,5 +26,6 @@ export class ConversationGroup {
     this.expected_time = expected_time;
     this.avatar_name = avatar_name;
     this.occupation = occupation;
+    this.avatar_image = avatar_image;
   }
 }
