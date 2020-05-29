@@ -26,10 +26,9 @@
             frameborder="0" class="slide_iframe" allowfullscreen="true" mozallowfullscreen="true" (load) = "onLoad()"
             webkitallowfullscreen="true" #container></iframe>
 
-
           <app-user-feedback class="w-100 feedback-div" [disliked]='slideDisliked' [liked]='slideLiked'
             [isLastStep]='isLastStep' [lastStepCompleted]='lastStepCompleted' [showNextStepBtn]='showNextStepBtn'
-            (scrollEvent)='scrollPageToBottom()' (nextStepEvent)='onNextStepClick()'
+           [showloading]="showloading" (scrollEvent)='scrollPageToBottom()' (nextStepEvent)='onNextStepClick()'
             (completedEvent)='onCompleted()' (storeFeedbackEvent)='storeSlideFeedBackData()'
             (submitCommentEvent)='onSubmitComment()' *ngIf="showFeedback">
           </app-user-feedback>

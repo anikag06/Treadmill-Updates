@@ -62,6 +62,8 @@ export class Introduction5Component implements OnInit, OnDestroy {
   difficultSave!: boolean;
   techniqueSave!: boolean;
   helpSave!: boolean;
+  showloading = false;
+
 
   constructor(
     private introductionService: IntroductionService,
@@ -102,7 +104,7 @@ export class Introduction5Component implements OnInit, OnDestroy {
             this.next_step_id = step_data.data.next_step_id;
             console.log('next step', this.next_step_id);
             // for navbar title
-            this.step_stepGroupSequence = step_data.data.step_group_sequence;
+            this.step_stepGroupSequence = step_data.data.step_group_sequence + 1;
             this.stepSequence = step_data.data.sequence + 1;
             this.stepName = step_data.data.name;
             this.navbarTitle =
@@ -121,36 +123,17 @@ export class Introduction5Component implements OnInit, OnDestroy {
     this.introductionDataSubscription.unsubscribe();
   }
 
-  saveData() {
-    const data = {
-      worryThought: this.worryThought,
-      hours: this.hours,
-      difficult: this.difficult,
-      selectedTechniques: this.selectedTechniques,
-      help: this.help,
-    };
-    this.introductionService
-      .storeIntroductionData(this.stepGroupSequence, data)
-      .subscribe(() => {
-        console.log('success');
-      });
-  }
+
   onCompleted() {
-    this.showNextStep = true;
+    this.showloading = true;
     this.time_spent = 100;
     this.completionData.time_spent = this.time_spent;
     this.completionData.step_id = this.currentStepId;
     this.stepDataService
       .storeCompletionData(this.completionData)
-      .subscribe(data => {});
-    // TO CHECK MARKDONE REQUEST IS FAILING
-    this.flowStepService
-      .getNextStepData(this.next_step_id)
-      .subscribe(next_step => {
-        this.flowStepService.virtualStepMarkDone(
-          next_step.data,
-          this.time_spent,
-        );
+      .subscribe(data => {
+        this.showloading = false;
+        this.showNextStep = true;
       });
   }
   onNextStep() {

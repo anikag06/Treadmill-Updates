@@ -27,6 +27,8 @@ export class Introduction6Component implements OnInit {
   stepSequence!: number;
   stepName!: string;
   showNextStep = false;
+  showloading = false;
+
 
   constructor(
     private introductionService: IntroductionService,
@@ -76,21 +78,15 @@ export class Introduction6Component implements OnInit {
       });
   }
   onCompleted() {
-    this.showNextStep = true;
+    this.showloading = true;
     this.time_spent = 100;
     this.completionData.time_spent = this.time_spent;
     this.completionData.step_id = this.currentStepId;
     this.stepDataService
       .storeCompletionData(this.completionData)
-      .subscribe(data => {});
-    // TO CHECK MARKDONE REQUEST IS FAILING
-    this.flowStepService
-      .getNextStepData(this.next_step_id)
-      .subscribe(next_step => {
-        this.flowStepService.virtualStepMarkDone(
-          next_step.data,
-          this.time_spent,
-        );
+      .subscribe(data => {
+        this.showloading = false;
+        this.showNextStep = true;
       });
   }
   onNextStep() {

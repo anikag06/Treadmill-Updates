@@ -37,7 +37,10 @@ export class Introduction4Component implements OnInit, OnDestroy {
   ];
   selectedBelief!: string;
   balancedBelief!: string;
-  private beliefSave: any;
+  beliefSave!: boolean;
+  showSave!: boolean;
+  showloading = false;
+
 
   constructor(
     private introductionService: IntroductionService,
@@ -60,6 +63,7 @@ export class Introduction4Component implements OnInit, OnDestroy {
           this.locked = false;
           this.selectedBelief = data.data.selectedBelief;
           if (data.data.selectedBelief) {
+            this.showSave = false;
             this.onBeliefChanged();
           }
         } else {
@@ -96,24 +100,19 @@ export class Introduction4Component implements OnInit, OnDestroy {
     this.introductionDataSubscription.unsubscribe();
   }
 
+  onBeliefChange() {
+    this.showSave = true;
+    this.onBeliefChanged();
+  }
+
   onBeliefChanged() {
     this.balancedBelief = this.balancedBeliefs[
       this.negativeBeliefs.indexOf(this.selectedBelief)
     ];
-    this.beliefSave = true;
+    if (this.showSave) {
+      this.beliefSave = true;
+    }
   }
-
-  saveData() {
-    const data = {
-      selectedBelief: this.selectedBelief,
-    };
-    this.introductionService
-      .storeIntroductionData(this.stepGroupSequence, data)
-      .subscribe(_data => {
-        console.log('success');
-      });
-  }
-
   beliefSaveFocusOut() {
     const data = {
       selectedBelief: this.selectedBelief,
@@ -126,21 +125,15 @@ export class Introduction4Component implements OnInit, OnDestroy {
       });
   }
   onCompleted() {
-    this.showNextStep = true;
+    this.showloading = true;
     this.time_spent = 100;
     this.completionData.time_spent = this.time_spent;
     this.completionData.step_id = this.currentStepId;
     this.stepDataService
       .storeCompletionData(this.completionData)
-      .subscribe(data => {});
-    // TO CHECK MARKDONE REQUEST IS FAILING
-    this.flowStepService
-      .getNextStepData(this.next_step_id)
-      .subscribe(next_step => {
-        this.flowStepService.virtualStepMarkDone(
-          next_step.data,
-          this.time_spent,
-        );
+      .subscribe(data => {
+        this.showloading = false;
+        this.showNextStep = true;
       });
   }
   onNextStep() {

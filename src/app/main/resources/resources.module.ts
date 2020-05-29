@@ -125,6 +125,7 @@ import { SharedModule } from '@/shared/shared.module';
 import { EvaluateMoodComponent } from './shared/evaluate-mood/evaluate-mood.component';
 import { Conclusion6Component } from './conclusion/conclusion6/conclusion6.component';
 import { ExtraResourcesModule } from '@/main/extra-resources/extra-resources.module';
+import { StepCompletedComponent } from './shared/step-completed/step-completed.component';
 
 @NgModule({
   declarations: [
@@ -205,6 +206,7 @@ import { ExtraResourcesModule } from '@/main/extra-resources/extra-resources.mod
     EvaluateMoodComponent,
     Introduction6Component,
     Conclusion6Component,
+    StepCompletedComponent,
   ],
   imports: [
     ResourcesRoutingModule,

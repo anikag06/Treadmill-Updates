@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {
   LOCKED,
   SLIDE,
@@ -26,6 +26,7 @@ import { StepGroup } from '@/main/flow/step-group/step-group.model';
   providedIn: 'root',
 })
 export class FlowStepNavigationService {
+  mark_done = new EventEmitter<any>();
   constructor(private http: HttpClient) {}
 
   goToFlowNextStep(step: any) {
@@ -77,10 +78,9 @@ export class FlowStepNavigationService {
   }
 
   virtualStepMarkDone(step: any, timeSpent: number) {
-    console.log('VIRTUAL STEP MARK DONE', step);
     if (step.virtual_step) {
       this.markDone(step.id, timeSpent).subscribe((data: any) => {
-        console.log('Done');
+        console.log(' MarkDone', step);
       });
     }
   }

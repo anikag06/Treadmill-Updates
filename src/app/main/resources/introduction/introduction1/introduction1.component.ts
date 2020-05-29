@@ -44,6 +44,8 @@ export class Introduction1Component implements OnInit, OnDestroy {
   thoughtSave = false;
   feelingSave = false;
   next_step_id!: number;
+  showloading = false;
+
 
   constructor(
     private introductionService: IntroductionService,
@@ -52,6 +54,7 @@ export class Introduction1Component implements OnInit, OnDestroy {
     private flowService: FlowService,
     private flowStepService: FlowStepNavigationService,
     private goToService: NavbarGoToService,
+
   ) {}
 
   @ViewChild('autosize', { static: false }) autosize!: CdkTextareaAutosize;
@@ -110,39 +113,18 @@ export class Introduction1Component implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.introductionDataSubscription.unsubscribe();
-    this.saveData();
-  }
-
-  saveData() {
-    const data = {
-      situation: this.situation,
-      feeling: this.feeling,
-      behavior: this.behavior,
-      thought: this.thought,
-    };
-    this.introductionService
-      .storeIntroductionData(this.stepGroupSequence, data)
-      .subscribe(_data => {
-        console.log('success');
-      });
   }
 
   onCompleted() {
-    this.showNextStep = true;
+    this.showloading = true;
     this.time_spent = 100;
     this.completionData.time_spent = this.time_spent;
     this.completionData.step_id = this.currentStepId;
     this.stepDataService
       .storeCompletionData(this.completionData)
-      .subscribe(data => {});
-    // TO CHECK MARKDONE REQUEST IS FAILING
-    this.flowStepService
-      .getNextStepData(this.next_step_id)
-      .subscribe(next_step => {
-        this.flowStepService.virtualStepMarkDone(
-          next_step.data,
-          this.time_spent,
-        );
+      .subscribe(data => {
+        this.showloading = false;
+        this.showNextStep = true;
       });
   }
   onNextStep() {

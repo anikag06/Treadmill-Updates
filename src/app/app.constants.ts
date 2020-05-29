@@ -410,69 +410,69 @@ export const FORM_URL_MAP = new Map([
 ]);
 
 export const EXPLORE_MAP = new Map([
-  [FORM_TASK, ['/resources/forms/' + TASK, SET_TASK_FORM_NAME]],
+  [FORM_TASK, ['/main/resources/forms/' + TASK, SET_TASK_FORM_NAME]],
   [
     FORM_PROBLEM_SOLVING,
-    ['/resources/forms/' + PROBLEM_SOLVING, PROBLEM_SOLVING_FORM_NAME],
+    ['/main/resources/forms/' + PROBLEM_SOLVING, PROBLEM_SOLVING_FORM_NAME],
   ],
   [
     FORM_BELIEF_CHANGE,
-    ['/resources/forms/' + BELIEF_CHANGE, BELIEF_CHANGE_FORM_NAME],
+    ['/main/resources/forms/' + BELIEF_CHANGE, BELIEF_CHANGE_FORM_NAME],
   ],
   [
     FORM_WORRY_PRODUCTIVELY,
-    ['/resources/forms/' + WORRY_PRODUCTIVELY, WORRY_PRODUCTIVELY_FORM_NAME],
+    ['/main/resources/forms/' + WORRY_PRODUCTIVELY, WORRY_PRODUCTIVELY_FORM_NAME],
   ],
   [
     FORM_THOUGHT_RECORD,
-    ['/resources/forms/' + THOUGHT_RECORD, THOUGHT_RECORD_FORM_NAME],
+    ['/main/resources/forms/' + THOUGHT_RECORD, THOUGHT_RECORD_FORM_NAME],
   ],
   [
     FORM_EXPERIMENT_TO_TEST_BELIEF,
-    ['/resources/forms/' + TEST_BELIEF, EXPERIMENT_TO_TEST_BELIEF_FORM_NAME],
+    ['/main/resources/forms/' + TEST_BELIEF, EXPERIMENT_TO_TEST_BELIEF_FORM_NAME],
   ],
   [
     GAME_ATTRIBUTION_STYLE_CONSTANT,
     [
-      '/games/' + GAME_ATTRIBUTION_STYLE_CONSTANT,
+      '/main/games/' + GAME_ATTRIBUTION_STYLE_CONSTANT,
       'Play: ' + ATTRIBUTE_STYLE_GAME,
     ],
   ],
   [
     GAME_INTERPRETATION_BIAS_CONSTANT,
     [
-      '/games/' + GAME_INTERPRETATION_BIAS_CONSTANT,
+      '/main/games/' + GAME_INTERPRETATION_BIAS_CONSTANT,
       'Play: ' + INTERPRETATION_BIAS_GAME,
     ],
   ],
   [
     GAME_LEARNED_HELPLESSNESS_CONSTANT,
     [
-      '/games/' + GAME_LEARNED_HELPLESSNESS_CONSTANT,
+      '/main/games/' + GAME_LEARNED_HELPLESSNESS_CONSTANT,
       'Play: ' + LEARNED_HELPLESSNESS_GAME,
     ],
   ],
   [
     GAME_FRIENDLY_FACE_CONSTANT,
-    ['/games/' + GAME_FRIENDLY_FACE_CONSTANT, 'Play: ' + FRIENDLY_FACE_GAME],
+    ['/main/games/' + GAME_FRIENDLY_FACE_CONSTANT, 'Play: ' + FRIENDLY_FACE_GAME],
   ],
   [
     GAME_EXECUTIVE_CONTROL_CONSTANT,
     [
-      '/games/' + GAME_EXECUTIVE_CONTROL_CONSTANT,
+      '/main/games/' + GAME_EXECUTIVE_CONTROL_CONSTANT,
       'Play: ' + EXECUTIVE_CONTROL_GAME,
     ],
   ],
   [
     GAME_IDENTIFY_COGNITIVE_DISTORTION_CONSTANT,
     [
-      '/games/' + GAME_IDENTIFY_COGNITIVE_DISTORTION_CONSTANT,
+      '/main/games/' + GAME_IDENTIFY_COGNITIVE_DISTORTION_CONSTANT,
       'Play: ' + IDENTIFY_COGNITIVE_DISTORTION_GAME,
     ],
   ],
   [
     GAME_MENTAL_IMAGERY_CONSTANT,
-    ['/games/' + GAME_MENTAL_IMAGERY_CONSTANT, 'Play: ' + MENTAL_IMAGERY_GAME],
+    ['/main/games/' + GAME_MENTAL_IMAGERY_CONSTANT, 'Play: ' + MENTAL_IMAGERY_GAME],
   ],
-  [MINDFULNESS_VIDEO, ['extra-resources/videoItem/', 'Watch: ']],
+  [MINDFULNESS_VIDEO, ['/main/extra-resources/videoItem/', 'Watch: ']],
 ]);

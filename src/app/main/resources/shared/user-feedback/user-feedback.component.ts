@@ -12,6 +12,8 @@ export class UserFeedbackComponent implements OnInit {
   @Input() lastStepCompleted!: boolean;
   @Input() isLastStep!: boolean;
   @Input() showNextStepBtn!: boolean;
+  @Input() showloading!: boolean;
+
 
   @Output() completedEvent: EventEmitter<any> = new EventEmitter();
   @Output() nextStepEvent: EventEmitter<any> = new EventEmitter();
