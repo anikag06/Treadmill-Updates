@@ -13,6 +13,7 @@ export class PassDataService {
   private current_id!: number;
   private islast!: boolean;
   private nextstep!: number;
+  route = false;
 
   setid(current: number, islast: boolean, nextstep: number) {
     this.current_id = current;
@@ -65,5 +66,9 @@ export class PassDataService {
 
   getFormName() {
     return this.formname;
+  }
+
+  IsConversationOn(value: boolean) {
+    this.route = value;
   }
 }

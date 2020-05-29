@@ -56,7 +56,7 @@
             <div *ngIf="i.ShowTyping"  class="msg_cotainer" >
               <div class="dot-typing  mt-1 ml-2 mr-2"></div>
             </div>
-            <div *ngIf="!i.ShowTyping" class="msg_cotainer conv-elements-div">
+            <div *ngIf="!i.ShowTyping" class="msg_cotainer1 ">
               <p  [innerHtml]="i.message"></p>
             </div>
           </div>
@@ -67,10 +67,12 @@
         <div *ngIf="!finished" >
           <div class="row justify-content-end conv-elements-div" *ngFor=" let item of options; let i = index">
             <div class="d-flex justify-content-end  mb-3" *ngIf="!speedrun">
-              <div class="msg_cotainer_send ml-3 ml-md-0 mr-3">
+              <div class="msg_cotainer_send1 ml-3 ml-md-0 mr-3">
                 <p [innerHtml]="item"></p>
-                <button  class="btn"  (click)="count_multiple != (show_multiple - 1) ? on_multiple_options() :  on_click(i)">Send</button>
-                <img class ="SendImage" [src]="send_image" (click)="count_multiple != (show_multiple - 1) ? on_multiple_options() :  on_click(i)"/>
+                <div >
+                  <button  class="btn"  (click)="count_multiple != (show_multiple - 1) ? on_multiple_options() :  on_click(i)">Send</button>
+                  <img class ="SendImage" [src]="send_image" (click)="count_multiple != (show_multiple - 1) ? on_multiple_options() :  on_click(i)"/>
+                </div>
               </div>
             </div>
           </div>

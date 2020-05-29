@@ -1,19 +1,22 @@
 @import 'styles.scss';
 
 .btn {
-  background-color: #FFEFD4;
+  background-color: #FFE2AF;
   border-top-color: black;
   border-radius: 0px 0px 25px 25px;
   width: 100%;
   position: relative;
 }
+
+
 .SendImage{
   display: inline-block;
   position: absolute;
-  width:20px;
-  height:20px;
-  left:70px;
-  top:47px
+  width:25px;
+  height:25px;
+  left: 30%;
+ // top:47px;
+  bottom: 8px;
 }
 
 // body,html{
@@ -68,8 +71,24 @@
 
 .msg_cotainer {
   border-radius: 0px 12px 12px 12px;
-  width: 70%;
-  max-width: 70%;
+  //width: 70%;
+  max-width: 65%;
+  background-color: #F1F1F1;
+  padding-top: 8px;
+  padding-left: 10px;
+  padding-right: 10px;
+  position: relative;
+  text-align: start;
+
+  p {
+    margin-bottom: .5rem;
+  }
+}
+
+.msg_cotainer1 {
+  border-radius: 0px 12px 12px 12px;
+  //width: 70%;
+  max-width: max(65%,50%);
   background-color: #F1F1F1;
   padding-top: 8px;
   padding-left: 10px;
@@ -87,7 +106,7 @@
 }
 
 .msg_cotainer_send {
-  width: 65%;
+ // width: 65%;
   max-width: 65%;
   border-radius: 12px 12px 0px 12px;
   background-color: #FFEFD4;
@@ -95,8 +114,25 @@
   padding-left: 10px;
   padding-right: 10px;
   position: relative;
-  text-align: start;
+  text-align: left;
 
+  p {
+    margin-bottom: .5rem;
+  }
+}
+
+.msg_cotainer_send1 {
+  //width: 75%;
+  max-width: 75%;
+  min-width: 50%;
+  border-radius: 12px 12px 0px 12px;
+  background-color: #FFE2AF;
+  padding-top: 8px;
+  padding-left: 10px;
+  padding-right: 10px;
+  position: relative;
+  text-align: center;
+  box-shadow: 0px 2px 6px #00000029;
   p {
     margin-bottom: .5rem;
   }
