@@ -43,6 +43,7 @@ import { environment } from 'environments/environment';
 import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifications.service';
 import { PROBLEM_SOLVING, TASK } from '@/app.constants';
 import { Subscription } from 'rxjs';
+import {UserFeedbackComponent} from "@/main/resources/shared/user-feedback/user-feedback.component";
 
 @Component({
   selector: 'app-conversations',
@@ -121,6 +122,9 @@ import { Subscription } from 'rxjs';
 // tslint:disable-next-line:component-class-suffix
 export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   @ViewChild(FormDirective, { static: false }) formHost!: FormDirective;
+  @ViewChild(UserFeedbackComponent, { static: false })
+  userFeedback!: UserFeedbackComponent;
+
   invisible!: boolean;
   scrollTop = 0;
   isConversation = true;
@@ -199,6 +203,8 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   isSlidesVisible = true;
 
   showNextStepBtn = false;
+  showloading = false;
+
 
   isDislikeBox = false;
   isLikeBox = false;
@@ -951,8 +957,9 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   }
 
   storeFeedBackData() {
+    console.log('FEEDBACK', this.userFeedback);
     this.feedbackData.initial_feedback_state = this.initial_feedback;
-    this.feedbackData.final_feedback_state = this.final_feedback;
+    this.feedbackData.final_feedback_state = this.userFeedback.final_feedback;
     this.feedbackData.conversation_id = this.conversation_id;
 
     this.conversationsService
@@ -960,7 +967,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       .subscribe(data => {
         console.log(data);
         this.feedbackDataId = data.data.id;
-        this.initial_feedback = this.final_feedback;
+        this.initial_feedback = this.userFeedback.final_feedback;
       });
   }
 
@@ -990,8 +997,8 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     this.isConversation = true;
     this.isFormVisible = false;
   }
-  onSubmitComment(feedback_text: string) {
-    this.feedbackText.feedback_text = feedback_text;
+  onSubmitComment() {
+    this.feedbackText.feedback_text = this.userFeedback.feedback_text;
     this.conversationsService
       .updateFeedBackInfo(this.feedbackText, this.feedbackDataId)
       .subscribe(data => {
@@ -1004,24 +1011,21 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   }
 
   onCompleted() {
+    this.showloading = true;
     const current_step_id = this.passdata.get_current_id();
     const next_step_id = this.passdata.get_nextstep();
     const isLastStep = this.passdata.get_islast();
-    this.showNextStepBtn = true;
-
+    this.time = 100;
     this.completionData.time_spent = this.time;
     this.completionData.step_id = current_step_id;
+    console.log('data', this.time, current_step_id);
+    //REQUEST FAILED
     this.stepDataService
       .storeCompletionData(this.completionData)
       .subscribe(data => {
         console.log(data);
-        console.log('bhdhbhdid');
+        this.showNextStepBtn = true;
+        this.showloading = false;
       });
-
-    // this.commonDialogService.openCongratsDialog(
-    //   current_step_id,
-    //   next_step_id,
-    //   isLastStep,
-    // );
   }
 }
