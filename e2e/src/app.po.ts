@@ -6,6 +6,7 @@ export class AppPage {
   newUsername!: string;
   newEmaiId!: any;
   numberInUsername!: number;
+  signuplink!: string;
   navigateTo() {
     return browser.get(browser.baseUrl) as Promise<any>;
   }
@@ -36,11 +37,11 @@ export class AppPage {
   //   element(by.css('.dialog-btn')).click();
   // }
 
-  clickSignupLink() {
+  clickJoinStudy() {
     element(by.css('a.anchorify-join-the-study')).click();
   }
   // get a random username for testing signup
-  getSignupUserName() {
+  getTrialUserName() {
     this.numberInUsername = Math.floor(Math.random() * (200 - 1)) + 1;
     // this.newUsername = 'root' + this.numberInUsername +
     //                    Math.random().toString(36).substring(2, 5) + Math.random().toString(36).substring(2, 5);
@@ -95,8 +96,8 @@ export class AppPage {
     element(by.css('button.mat-raised-button')).click();
     browser.sleep(2000);
   }
-  fillSignupForm() {
-    this.getSignupUserName();
+  fillTrialStudyForm() {
+    this.getTrialUserName();
     // element(by.name('username')).sendKeys(this.newUsername);
     // element(by.name('password')).sendKeys('NewUser1234');
     // element(by.name('passwordConfirm')).sendKeys('NewUser1234');
@@ -157,9 +158,13 @@ export class AppPage {
       .element(by.cssContainingText('mat-radio-button', 'Accept'))
       .click();
     browser.sleep(2000);
+    // element(by.css('mat-radio-group[formControlName=notificationsInfo]'))
+    //   .element(by.cssContainingText('mat-radio-button', 'Decline'))
+    //   .click();
     element(by.css('mat-radio-group[formControlName=notificationsInfo]'))
-      .element(by.cssContainingText('mat-radio-button', 'Decline'))
+      .element(by.cssContainingText('mat-radio-button', 'Accept'))
       .click();
+    browser.sleep(2000);
   }
   acceptAllConsentPage() {
     element.all(by.cssContainingText('mat-radio-button', 'Accept')).click();
@@ -170,4 +175,7 @@ export class AppPage {
     submitBtn.click();
     browser.sleep(3000);
   }
+  // navigatetoSignupPage() {
+  //   return browser.get(this.signuplink) as Promise<any>;
+  // }
 }

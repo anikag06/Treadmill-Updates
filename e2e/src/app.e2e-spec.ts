@@ -1,9 +1,14 @@
 import { AppPage } from './app.po';
 import { browser, logging } from 'protractor';
 import { protractor } from 'protractor/built/ptor';
+// import {HttpClient} from 'protractor-http-client';
+
+
 
 describe('workspace-project App', () => {
   let page: AppPage;
+  const https = require('http');
+  let email!: string;
   beforeEach(() => {
     page = new AppPage();
   });
@@ -21,10 +26,11 @@ describe('workspace-project App', () => {
     );
   });
 
-  it('should click on study and fill trial registraion form', () => {
-    page.clickSignupLink();
+  it('should click on study and fill trial registration form', () => {
+    page.clickJoinStudy();
     browser.sleep(1500);
-    page.fillSignupForm();
+    page.fillTrialStudyForm();
+    email = page.newEmaiId;
     browser.sleep(6000);
     page.fillTrialRegForm();
     // browser.sleep(6000);
@@ -86,7 +92,7 @@ describe('workspace-project App', () => {
     // expect(fp.getProgress()).toEqual('Progress');
   });
 
-  it('should fill consent form and decline notifications', () => {
+  xit('should fill consent form and decline notifications', () => {
     expect(page.findConsentPage()).toBeTruthy();
     browser.sleep(3000);
     page.fillConsentPage();
@@ -98,11 +104,51 @@ describe('workspace-project App', () => {
   it('should fill consent form and accept notifications and submit', () => {
     expect(page.findConsentPage()).toBeTruthy();
     browser.sleep(3000);
-    page.acceptAllConsentPage();
+    page.fillConsentPage();
+    // page.acceptAllConsentPage();
     browser.sleep(4000);
     page.clickSubmitButton();
-    browser.sleep(2000);
+    browser.sleep(4000);
   });
+
+
+// get link for sign up from mail
+
+  it('Should get sign up link', done => {
+    // const http = new request('https://www.api2.treadwill.org/');
+    // const userGetResponse: Response = http.get('api/v1/trial-iitk/get-unique-link-e2e/' + email + '/');
+    https.get('http://www.api2.treadwill.org/api/v1/trial-iitk/get-unique-link-e2e/' + email , ( response: any ) => {
+      let data = '';
+      // called when a data chunk is received.
+      response.on('data', (chunk: any) => {
+        data += chunk;
+      });
+      // called when the complete response is received.
+      response.on('end', () => {
+        console.log('DATA', data);
+
+      });
+
+    }).on('error', (error: any) => {
+      console.log('Error: ' + error.message);
+    });
+    });
+
+    // request('https://www.api2.treadwill.org/api/v1/trial-iitk/get-unique-link-e2e/' + email + '/' ,
+    //   function (error: any, response: any, body: any) {
+    //   console.log('error:', error, email); // Print the error if one occurred
+    //   console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+    //   console.log('body:', body); // Print the HTML for the Google homepage.
+    //   done(); //informs runner that the asynchronous code has finished
+    // });
+  });
+
+//   it('should redirect to signup page', () => {
+//     // page.navigatetoSignupPage();
+//     browser.sleep(1500);
+//     // page.fillLoginForm();
+//     // browser.sleep(3000);
+//   });
 
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser
@@ -116,4 +162,4 @@ describe('workspace-project App', () => {
       } as logging.Entry),
     );
   });
-});
+
