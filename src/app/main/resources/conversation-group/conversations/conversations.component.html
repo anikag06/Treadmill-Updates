@@ -44,6 +44,16 @@
               <p [innerHtml]="i"></p>
             </div>
           </div>
+          <div
+            [ngStyle]="{ width: 'fit-content' }"
+          >x
+            <ng-container *ngIf="type === 'video'; else image">
+              <app-chat-video [videoUrl]="imageURL"></app-chat-video>
+            </ng-container>
+            <ng-template #image>
+              <app-chat-image [image]="imageURL"></app-chat-image>
+            </ng-template>
+          </div>
         </div>
         <!-- </div> -->
         <!-- <div class="card-body"> -->
