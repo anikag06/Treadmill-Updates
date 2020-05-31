@@ -125,6 +125,7 @@ import { EvaluateMoodComponent } from './shared/evaluate-mood/evaluate-mood.comp
 import { Conclusion6Component } from './conclusion/conclusion6/conclusion6.component';
 import { ExtraResourcesModule } from '@/main/extra-resources/extra-resources.module';
 import { StepCompletedComponent } from './shared/step-completed/step-completed.component';
+import {MainModule} from "@/main/main.module";
 
 @NgModule({
   declarations: [
@@ -206,25 +207,26 @@ import { StepCompletedComponent } from './shared/step-completed/step-completed.c
     Conclusion6Component,
     StepCompletedComponent,
   ],
-  imports: [
-    ResourcesRoutingModule,
-    CommonModule,
-    MaterialModule,
-    FormsModule,
-    AngularEditorModule,
-    LayoutModule,
-    ReactiveFormsModule,
-    MatMomentDateModule,
-    OwlDateTimeModule,
-    OwlNativeDateTimeModule,
-    MatSlideToggleModule,
-    MatExpansionModule,
-    MatRadioModule,
-    MatSnackBarModule,
-    MatBottomSheetModule,
-    SharedModule,
-    ExtraResourcesModule,
-  ],
+    imports: [
+        ResourcesRoutingModule,
+        CommonModule,
+        MaterialModule,
+        FormsModule,
+        AngularEditorModule,
+        LayoutModule,
+        ReactiveFormsModule,
+        MatMomentDateModule,
+        OwlDateTimeModule,
+        OwlNativeDateTimeModule,
+        MatSlideToggleModule,
+        MatExpansionModule,
+        MatRadioModule,
+        MatSnackBarModule,
+        MatBottomSheetModule,
+        SharedModule,
+        ExtraResourcesModule,
+        MainModule,
+    ],
   providers: [
     SlideService,
     CommonDialogsService,

@@ -21,6 +21,7 @@ import { PassDataService } from '../passdata.service';
 import { FormDirective } from '../../slides/form.directive';
 import { ProblemSolvingWorksheetsComponent } from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.component';
 import { TaskFormsComponent } from '@/main/resources/forms/task-forms/task-forms.component';
+import { ThoughtRecordFormComponent } from '@/main/resources/forms/thought-record-form/thought-record-form.component';
 
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
@@ -41,7 +42,7 @@ import { StepCompleteData } from '../../shared/completion-data.model';
 import { StepsDataService } from '../../shared/steps-data.service';
 import { environment } from 'environments/environment';
 import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifications.service';
-import { PROBLEM_SOLVING, TASK } from '@/app.constants';
+import { PROBLEM_SOLVING, TASK, THOUGHT_RECORD } from '@/app.constants';
 import { Subscription } from 'rxjs';
 import { UserFeedbackComponent } from '@/main/resources/shared/user-feedback/user-feedback.component';
 
@@ -221,6 +222,8 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   @ViewChild('convDiv', { static: false }) convDiv!: ElementRef;
 
   b = new Map<number, Dialog>();
+  type = 'image';
+  imageURL = "https://www.api2.treadwill.org/media/conversations/GIF_1_kQiubsD.gif"
 
   ngOnInit() {
     this.conversation_id = this.passdata.getid();
@@ -426,13 +429,18 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
           );
         }
         // const formName = this.passdata.getFormName();
-        const formName = TASK;
+        const formName = THOUGHT_RECORD;
         console.log(this.passdata.getFormName());
-        if (formName === TASK) {
+        if (this.passdata.getFormName() === TASK) {
           setTimeout(() => this.loadForm(TaskFormsComponent), 1000);
-        } else if (formName === PROBLEM_SOLVING) {
+        } else if (this.passdata.getFormName() === PROBLEM_SOLVING) {
           setTimeout(
             () => this.loadForm(ProblemSolvingWorksheetsComponent),
+            1000,
+          );
+        } else if (formName === THOUGHT_RECORD){
+          setTimeout(
+            () => this.loadForm(ThoughtRecordFormComponent),
             1000,
           );
         }
