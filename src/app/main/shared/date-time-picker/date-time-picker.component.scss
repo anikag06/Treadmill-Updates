@@ -88,7 +88,7 @@
   top: 2px;
 }
 .startEndDate {
-  margin-top: 2em;
+  margin-top: 1em;
   height: 35px;
 }
 @media screen and (min-width: 576px) {
@@ -159,6 +159,11 @@
 }
 :host-context(.chatbot) .modal {
   top: 0;
+}
+@media only screen and (max-device-width: 576px)  {
+  :host-context(.chatbot) .modal {
+   height: 100%;
+  }
 }
 
 @media only screen and (min-device-width: 768px)  {
