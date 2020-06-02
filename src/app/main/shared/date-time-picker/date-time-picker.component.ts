@@ -1,19 +1,9 @@
-import { WEEK } from '@/app.constants';
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  EventEmitter,
-  Inject,
-  OnChanges,
-  OnInit,
-  Optional,
-  Output,
-} from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import {WEEK} from '@/app.constants';
+import {AfterViewInit, Component, ElementRef, EventEmitter, Inject, OnChanges, OnInit, Optional, Output,} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import * as moment from 'moment';
-import { Day } from './day.model';
-import { DateTimePickerService } from './date-time-picker.service';
+import {Day} from './day.model';
+import {DateTimePickerService} from './date-time-picker.service';
 
 @Component({
   selector: 'app-date-time-picker',
@@ -60,8 +50,8 @@ export class DateTimePickerComponent
       if (data.days) {
         const indexArray: number[] = [];
         data.days.forEach((day: string) => {
-          if (WEEK.indexOf(day) > -1) {
-            indexArray.push(WEEK.indexOf(day));
+          if (WEEK.indexOf(this.capitalizeFirstLetter(day)) > -1) {
+            indexArray.push(WEEK.indexOf(this.capitalizeFirstLetter(day)));
           }
         });
         this.daysCircle.forEach((dayCircle: Day, index) => {
@@ -195,7 +185,7 @@ export class DateTimePickerComponent
     for (let i = 0; i < days.length; i++) {
       if (days[i].selected) {
         repeatedDays.push(WEEK[i]);
-        this.formDataDays.push(WEEK[i]);
+        this.formDataDays.push(WEEK[i].toUpperCase());
       }
     }
 
@@ -219,5 +209,9 @@ export class DateTimePickerComponent
       this.startEndDate[this.START_DATE] !== null &&
       this.startEndDate.length === 2
     );
+  }
+
+  capitalizeFirstLetter(day: string) {
+    return day.charAt(0).toUpperCase() + day.slice(1).toLowerCase();
   }
 }
