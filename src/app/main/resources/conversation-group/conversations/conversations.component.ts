@@ -22,7 +22,7 @@ import { FormDirective } from '../../slides/form.directive';
 import { ProblemSolvingWorksheetsComponent } from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.component';
 import { TaskFormsComponent } from '@/main/resources/forms/task-forms/task-forms.component';
 import { ThoughtRecordFormComponent } from '@/main/resources/forms/thought-record-form/thought-record-form.component';
-
+import {ChatImageComponent} from '@/main/chatbot/chat-window/chat-image/chat-image.component';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
 import {
@@ -45,6 +45,7 @@ import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifica
 import { PROBLEM_SOLVING, TASK, THOUGHT_RECORD } from '@/app.constants';
 import { Subscription } from 'rxjs';
 import { UserFeedbackComponent } from '@/main/resources/shared/user-feedback/user-feedback.component';
+import {map, switchMap} from "rxjs/operators";
 
 @Component({
   selector: 'app-conversations',
@@ -148,7 +149,18 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     private flowStepService: FlowStepNavigationService,
     private stepDataService: StepsDataService,
     private notificationService: NavbarNotificationsService,
-  ) {}
+    private activeroute: ActivatedRoute,
+  ) {
+   this.activeroute.params.pipe(
+     map(v => v.id),
+   ).subscribe(
+     params => {
+       this.conversation_id = params;
+       this.passdata.IsConversationOn(true);
+       this.run();
+     }
+   )
+  }
   //avatar_image!: any[];
   send_image!: any;
   show_avatar_image!: any;
@@ -970,7 +982,6 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   }
 
   storeFeedBackData() {
-    console.log('FEEDBACK', this.userFeedback);
     this.feedbackData.initial_feedback_state = this.initial_feedback;
     this.feedbackData.final_feedback_state = this.userFeedback.final_feedback;
     this.feedbackData.conversation_id = this.conversation_id;
@@ -1010,8 +1021,8 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     this.isConversation = true;
     this.isFormVisible = false;
   }
-  onSubmitComment() {
-    this.feedbackText.feedback_text = this.userFeedback.feedback_text;
+  onSubmitComment(feedback_text: string) {
+    this.feedbackText.feedback_text = feedback_text;
     this.conversationsService
       .updateFeedBackInfo(this.feedbackText, this.feedbackDataId)
       .subscribe(data => {
@@ -1028,6 +1039,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     const current_step_id = this.passdata.get_current_id();
     const next_step_id = this.passdata.get_nextstep();
     const isLastStep = this.passdata.get_islast();
+    this.showNextStepBtn = true;
     this.time = 100;
     this.completionData.time_spent = this.time;
     this.completionData.step_id = current_step_id;

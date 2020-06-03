@@ -368,6 +368,7 @@ import { AuthHeaderInterceptor } from '@/main/auth-header.interceptor';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [
     CreatePostComponent,
+    IntroduceComponent,
     NavbarFlowComponent,
     NavbarNotificationsComponent,
     IbGameInstructionsComponent,

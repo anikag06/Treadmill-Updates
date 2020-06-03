@@ -7,7 +7,7 @@ export class PassDataService {
   private iscontinue!: boolean;
   private isspeedrun!: boolean;
   private conversation_id!: number;
-  private array = [false, false, false];
+  private array = [false, true, false];
   private id = [0, false, 0];
   private formname!: string;
   private current_id!: number;
