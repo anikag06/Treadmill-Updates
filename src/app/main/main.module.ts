@@ -175,6 +175,7 @@ import { ChatImageDirective } from './chatbot/chat-window/chat-image/chat-image.
 import { ChatVideoComponent } from './chatbot/chat-window/chat-video/chat-video.component';
 import { IframeTrackerDirective } from './chatbot/chat-window/chat-video/iframe-tracker.directive';
 import { SettingsComponent } from './settings/settings.component';
+import {SettingsService} from '@/main/settings/settings.service';
 // import { Resources2Routing } from './extra-resources/extra-resources-routing.module.ts/extra-resources-routing.module.ts.component';
 
 @NgModule({
@@ -353,6 +354,7 @@ import { SettingsComponent } from './settings/settings.component';
     ThingsTodoService,
     GamesFeedbackService,
     ExtraResourcesService,
+    SettingsService,
     // QuizService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

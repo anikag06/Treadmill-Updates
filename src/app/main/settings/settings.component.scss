@@ -10,12 +10,52 @@
 .placeholder{
   font-size: 16px;
   font-family: Roboto;
+ // padding-bottom: 0px;
+  //color: #2a3b3d;
+}
+.password-change-input{
+  width: 60%;
+}
+.confirm-password-change-input{
+  width: 95%;
+}
+.username-change-input{
+  width: 60%;
+}
+.toggle-style{
+  background-color: #2a3b3d;
+  width: 10px;
 }
 
+
+.mat-form-field-underline{
+  color: #2a3b3d;
+}
 .save-btn{
   font-size: 14px;
   font-family: Roboto;
+  width: 78px;
+  color: white;
+  background-color: #2a3b3d;
+  text-align: center;
+  justify-content: center;
+  margin: 16px 0;
+  //color: white;
+  //background-color: black;
 }
+.loading-btn{
+  font-size: 14px;
+  font-family: Roboto;
+  //width: 78px;
+  color: white;
+  background-color: #2a3b3d;
+  text-align: center;
+  justify-content: center;
+  margin: 16px 0;
+  //color: white;
+  //background-color: black;
+}
+
 
 .push-email-notification{
   font-size: 16px;
@@ -24,11 +64,11 @@
 
 }
 .push-email-right-space{
-  padding-right: 182px;
+  padding-left: 182px;
 }
 .push-email-right-space-with-save{
   //padding-right: 150px;
-  padding-right: 30px;
+  padding-left: 15px;
 }
 //[ngClass] = "toggleOn === true ? 'push-email-right-space-with-save':'push-email-right-space'"
 .notification-subheading{
@@ -42,19 +82,26 @@
   padding-top: 36px;
 }
 .each-div{
-  padding-bottom: 72px;
+  padding-top: 72px;
 }
 
 .save-push-email{
   font-size: 14px;
   padding-left: 130px;
 }
-.grey-col{
-  color: grey;
+.success-msg{
+  color: green;
+  font-size: 12px;
+  //padding-top: 0px;
 }
-.black-col{
-  color: black;
+
+.not-success-msg{
+  color: red;
+  font-size: 12px;
+  //padding-top: 0px;
 }
+
+
 
 @media only screen and (min-width: 781px){
   .heading{
@@ -68,13 +115,19 @@
     padding-top: 24px;
   }
   .push-email-right-space{
-    padding-right: 196px;
+    padding-left: 196px;
   }
   .push-email-right-space-with-save{
-    padding-right: 30px;
+    padding-left: 15px;
   }
   .save-push-email{
     padding-left: 130px;
+  }
+  .save-btn{
+    width: 90px;
+  }
+  .password-change-input{
+    width: 100%;
   }
 
 }
