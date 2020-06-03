@@ -29,10 +29,9 @@ $form-secondary-color: #2a3b3d;
   padding-left: 20px;
   min-height: 70vh;
 }
-
-.mat-card {
-  box-shadow: none !important;
-}
+.for-slide {
+    box-shadow: none !important;
+  }
 
 @media screen and (max-width: 992px) {
   #form-container {

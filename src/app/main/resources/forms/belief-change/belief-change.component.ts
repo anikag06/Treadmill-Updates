@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {
   BELIEF_CHANGE,
   BELIEF_CHANGE_FORM_NAME,
@@ -24,6 +24,8 @@ import {ActivatedRoute} from "@angular/router";
   styleUrls: ['./belief-change.component.scss'],
 })
 export class BeliefChangeComponent implements OnInit {
+  @Input() fromSlide!: boolean;
+  @Input() fromConv!: boolean;
   constructor(private formService: FormService,
               private activatedRoute: ActivatedRoute,
               private stepDataService: StepsDataService,

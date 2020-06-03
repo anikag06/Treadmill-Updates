@@ -44,6 +44,8 @@ import {StepsDataService} from "@/main/resources/shared/steps-data.service";
   //   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WorryProductivelyComponent implements OnInit, OnDestroy {
+  @Input() fromSlide!: boolean;
+  @Input() fromConv!: boolean;
   user!: User;
   worry!: Worry | undefined;
   type = WORRY_PRODUCTIVELY;

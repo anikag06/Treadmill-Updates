@@ -4,7 +4,7 @@ import {
   THOUGHT_RECORD_FORM_NAME,
   WELL_DONE_IMG,
 } from '@/app.constants';
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { FormMessage } from '@/main/resources/forms/shared/form-message/form-message.model';
 import {
   TRF_NEGATIVE_MSG,
@@ -25,6 +25,9 @@ import {StepsDataService} from "@/main/resources/shared/steps-data.service";
   styleUrls: ['./thought-record-form.component.scss'],
 })
 export class ThoughtRecordFormComponent implements OnInit {
+  @Input() fromSlide!: boolean;
+  @Input() fromConv!: boolean;
+
   type = THOUGHT_RECORD;
   situation!: string;
   formName = THOUGHT_RECORD_FORM_NAME;
