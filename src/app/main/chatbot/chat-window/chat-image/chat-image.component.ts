@@ -7,7 +7,9 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ChatImageComponent implements OnInit {
   @Input() image!: any;
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.image);
+  }
 
   changeUrl() {
     if (this.image && this.image.dynamic_url) {

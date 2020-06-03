@@ -22,7 +22,7 @@ import { FormDirective } from '../../slides/form.directive';
 import { ProblemSolvingWorksheetsComponent } from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.component';
 import { TaskFormsComponent } from '@/main/resources/forms/task-forms/task-forms.component';
 import { ThoughtRecordFormComponent } from '@/main/resources/forms/thought-record-form/thought-record-form.component';
-
+import {ChatImageComponent} from '@/main/chatbot/chat-window/chat-image/chat-image.component';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
 import {
@@ -44,6 +44,7 @@ import { environment } from 'environments/environment';
 import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifications.service';
 import { PROBLEM_SOLVING, TASK, THOUGHT_RECORD } from '@/app.constants';
 import { Subscription } from 'rxjs';
+import {map, switchMap} from "rxjs/operators";
 
 @Component({
   selector: 'app-conversations',
@@ -144,7 +145,18 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     private flowStepService: FlowStepNavigationService,
     private stepDataService: StepsDataService,
     private notificationService: NavbarNotificationsService,
-  ) {}
+    private activeroute: ActivatedRoute,
+  ) {
+   this.activeroute.params.pipe(
+     map(v => v.id),
+   ).subscribe(
+     params => {
+       this.conversation_id = params;
+       this.passdata.IsConversationOn(true);
+       this.run();
+     }
+   )
+  }
   //avatar_image!: any[];
   send_image!: any;
   show_avatar_image!: any;
@@ -221,10 +233,19 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   imageURL = "https://www.api2.treadwill.org/media/conversations/GIF_1_kQiubsD.gif"
 
   ngOnInit() {
-    this.conversation_id = this.passdata.getid();
+    // this.activeroute.params
+    //   .pipe(
+    //     map(v => v.id),
+    //     //switchMap(id => this.conversationservice.getConversationGroup(id)),
+    //   ).subscribe(
+    //   params => {
+    //     console.log(params) //log the entire params object
+    //     this.conversation_id = params;
+    //   }
+    // );
+    //this.conversation_id = this.passdata.getid();
     console.log('CONV ID', this.current_id, this.conversation_id);
-    this.passdata.IsConversationOn(true);
-    this.run();
+
     this.send_image = '../../../../assets/conversations/Send.png';
     this.show_avatar_image =
       'https://www.api2.treadwill.org/media/conversations/avataaars.png';
@@ -235,6 +256,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       this.speed_run();
     });
   }
+
 
 
 

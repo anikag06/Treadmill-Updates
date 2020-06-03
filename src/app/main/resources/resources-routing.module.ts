@@ -98,7 +98,7 @@ export const resourcesRoutes: Routes = [
       },
     ],
   },
-  { path: 'conversations', component: ConversationsComponent },
+  { path: 'conversations/:id', component: ConversationsComponent },
   { path: 'conversations-group/:id', component: ConversationGroupComponent },
   { path: 'slides/:id', component: SlidesComponent }, // :id here is step_id
   {
