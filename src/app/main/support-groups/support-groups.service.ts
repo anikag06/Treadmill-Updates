@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { environment } from 'environments/environment';
-import { SupportGroupItem } from './support-group-item.model';
-import { BehaviorSubject } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {environment} from 'environments/environment';
+import {SupportGroupItem} from './support-group-item.model';
+import {BehaviorSubject} from 'rxjs';
 import * as localforage from 'localforage';
-import { TOKEN } from '@/app.constants';
-import { UserProfile } from '../shared/user-profile/UserProfile.model';
+import {PERSONLISE_POST, TOKEN} from '@/app.constants';
+import {UserProfile} from '../shared/user-profile/UserProfile.model';
 
 @Injectable({
   providedIn: 'root',
@@ -84,4 +84,12 @@ export class SupportGroupsService {
       environment.API_ENDPOINT + '/api/v1/support-group/suggested-posts/',
     );
   }
+
+  personalizePost(tagsId: number[]) {
+    const tags = {
+      tags: tagsId,
+    };
+    return this.http.post(environment.API_ENDPOINT + PERSONLISE_POST, tags);
+  }
+
 }

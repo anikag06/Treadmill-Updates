@@ -1,20 +1,30 @@
-<div class="step-status-indicator row mx-0
-  justify-content-center text-center" #stepindicator>
-<!--  *ngFor="let step of stepGroupSteps; let last=last; let first=first">-->
+<div class="step-status-indicator row mx-0 justify-content-center text-center">
+  <!--  *ngFor="let step of stepGroupSteps; let last=last; let first=first">-->
 
   <div
-    class=" status-img align-items-center mx-auto"
-      [ngClass]="{
-        'disabled': step.status === 'LOCKED'|| step.status=== 'UNLOCKED',
-        'active': step.status ==='ACTIVE',
-        'completed': step.status === 'COMPLETED',
-        'isFirstDashed': first===true && firstStepOfModule === false && showLessSteps ===true,
-        'isFirstStep': first===true && (firstStepOfModule === true || showLessSteps ===false),
-        'isLastDashed': last===true && lastStepOfModule ===false && showLessSteps===true,
-        'isLastStep': last===true && (lastStepOfModule === true || showLessSteps === false)}">
-    <img [src]="getStatusImage(step)" style="z-index: 1" [style.width]="step.status==='ACTIVE' ? 28 +'px' : 24 + 'px' "
-         [style.padding-top]="step.status==='ACTIVE' ? 10 +'px' : 12 + 'px' "
-        [alt]="step.status"/>
+    class="status-img align-items-center mx-auto"
+    [attr.id]="step.status === 'ACTIVE' ? 'active_gif' : null"
+    [ngClass]="{
+      disabled: step.status === 'LOCKED' || step.status === 'UNLOCKED',
+      active: step.status === 'ACTIVE',
+      completed: step.status === 'COMPLETED',
+      isFirstDashed:
+        first === true && firstStepOfModule === false && showLessSteps === true,
+      isFirstStep:
+        first === true &&
+        (firstStepOfModule === true || showLessSteps === false),
+      isLastDashed:
+        last === true && lastStepOfModule === false && showLessSteps === true,
+      isLastStep:
+        last === true && (lastStepOfModule === true || showLessSteps === false)
+    }"
+  >
+    <img
+      [src]="getStatusImage(step)"
+      style="z-index: 1;"
+      [style.width]="step.status === 'ACTIVE' ? 28 + 'px' : 24 + 'px'"
+      [style.padding-top]="step.status === 'ACTIVE' ? 10 + 'px' : 12 + 'px'"
+      [alt]="step.status"
+    />
   </div>
-
 </div>

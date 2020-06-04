@@ -1,5 +1,5 @@
 <mat-drawer-container class="sidenav-container" autosize>
-  <mat-drawer #drawer class="sidenav" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+  <mat-drawer id="drawer" #drawer class="sidenav" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false" #tooltip="matTooltip"
     matTooltipDisabled matTooltip={{tooltipData}} [matTooltipPosition]="'right'" (click)="tooltipShow()"
               [ngStyle]="{'z-index': overlayOpen? '1' : '3' }">
@@ -50,8 +50,8 @@
           </a>
         </div>
 
-        <div *ngIf="user.is_exp" class="list-wrapper-items">
-          <a mat-list-item routerLink="/main/games">
+        <div *ngIf="user.is_exp" class="list-wrapper-items" id="games">
+          <a mat-list-item [ngStyle]="{backgroundColor : '#F4BB56'}" routerLink="/main/games">
             <span class="list-wrapper-items-icon">
               <img class="icons-width" src="assets/modules/icon-game.png" />
             </span>
@@ -61,8 +61,8 @@
           </a>
         </div>
 
-        <div *ngIf="user.is_exp" class="list-wrapper-items">
-          <a mat-list-item routerLink="/main/support-groups">
+        <div *ngIf="user.is_exp" class="list-wrapper-items" id="support-group">
+          <a mat-list-item [ngStyle]="{backgroundColor : '#F4BB56'}"  routerLink="/main/support-groups">
             <span class="list-wrapper-items-icon">
               <img class="icons-width" src="assets/modules/icon-support-group.png" />
             </span>
@@ -72,8 +72,8 @@
           </a>
         </div>
 
-        <div class="list-wrapper-items">
-          <a mat-list-item routerLink="/main/resources/forms">
+        <div class="list-wrapper-items" id="forms">
+          <a mat-list-item [ngStyle]="{backgroundColor : '#F4BB56'}" routerLink="/main/resources/forms">
             <span class="list-wrapper-items-icon">
               <img class="icons-width" src="assets/modules/icon-form.png" />
             </span>

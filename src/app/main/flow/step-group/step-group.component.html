@@ -1,17 +1,32 @@
-<mat-expansion-panel class="step-group py-2 mat-elevation-z0 flow-expansion-panel"
-                     [expanded]='isExpanded'
-                     (opened)="panelOpened()"
-                     (closed)="isExpanded = false; showLessSteps = true;">
-  <mat-expansion-panel-header class="row mx-0"
-                              [ngStyle]="{'padding': '0 15px','padding-left': '2px'}">
+<mat-expansion-panel
+  [attr.id]="identifier"
+  class="step-group py-2 mat-elevation-z0 flow-expansion-panel"
+  [expanded]="isExpanded"
+  (opened)="panelOpened()"
+  (closed)="isExpanded = false; showLessSteps = true"
+>
+  <mat-expansion-panel-header
+    class="row mx-0"
+    [ngStyle]="{ padding: '0 15px', 'padding-left': '2px' }"
+  >
     <mat-panel-title class="mx-0">
       <div class="col-3 justify-content-center px-0">
         <div class="module-circle justify-content-center">
-          <svg viewport="0 0 50 50" height="50" width="50"
-               class="d-block mx-auto my-auto"
-               xmlns="http://www.w3.org/2000/svg">
-            <circle cx="25" cy="25" r="20" stroke="#ccc"
-                    stroke-width="3" fill="transparent"/>
+          <svg
+            viewport="0 0 50 50"
+            height="50"
+            width="50"
+            class="d-block mx-auto my-auto"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="25"
+              cy="25"
+              r="20"
+              stroke="#ccc"
+              stroke-width="3"
+              fill="transparent"
+            />
             <circle
               cx="25"
               cy="25"
@@ -22,98 +37,127 @@
               [attr.stroke-dashoffset]="dashOffset()"
               stroke-dasharray="126"
               stroke-linecap="round"
-              transform="rotate(270 25 25)"/>
+              transform="rotate(270 25 25)"
+            />
             <text stroke="#666" x="21" y="30">
-              {{stepGroup.sequence + 1}}
+              {{ stepGroup.sequence + 1 }}
             </text>
           </svg>
         </div>
-
       </div>
-      <div class="col px-0 step-group-name align-self-center justify-content-start">
-        {{stepGroup.name}}
-        <img class="active-gif"
-             src="../../../../assets/flow/unlocked.gif"
-             *ngIf='stepGroup.status === "ACTIVE" && isExpanded === false'>
+      <div
+        class="col px-0 step-group-name align-self-center justify-content-start"
+      >
+        {{ stepGroup.name }}
+        <img
+          class="active-gif"
+          src="../../../../assets/flow/unlocked.gif"
+          *ngIf="stepGroup.status === 'ACTIVE' && isExpanded === false"
+        />
       </div>
-
     </mat-panel-title>
   </mat-expansion-panel-header>
   <ng-template matExpansionPanelContent>
     <div class="row w-100 mx-0">
-      <div  class="row w-100 mx-0" *ngIf = "showLessSteps; else showAllIndicators">
-        <div class="row w-100 mx-0"  *ngFor="let stepInitial of defaultSteps.steps ;let last=last; let first=first">
+      <div class="row w-100 mx-0" *ngIf="showLessSteps; else showAllIndicators">
+        <div
+          class="row w-100 mx-0"
+          *ngFor="
+            let stepInitial of defaultSteps.steps;
+            let last = last;
+            let first = first
+          "
+          [attr.id]="stepInitial.status === 'ACTIVE' ? 'active_step': null "
+        >
           <div class="col-3 justify-content-center mx-0 px-0 step-circle-div">
             <app-steps-indicator
-              [first] = first
-              [last] = last
-              [showLessSteps] = showLessSteps
-              [lastStepOfModule] = lastStepOfModule
-              [firstStepOfModule] = firstStepOfModule
+              [first]="first"
+              [last]="last"
+              [showLessSteps]="showLessSteps"
+              [lastStepOfModule]="lastStepOfModule"
+              [firstStepOfModule]="firstStepOfModule"
               [stepGroupSteps]="defaultSteps.steps"
-              [step]="stepInitial" [stepGroup]="defaultSteps"></app-steps-indicator>
+              [step]="stepInitial"
+              [stepGroup]="defaultSteps"
+            ></app-steps-indicator>
           </div>
 
           <div class="col-9 px-0">
             <div>
               <app-step
-                [step]="stepInitial" [stepGroup]="defaultSteps"></app-step>
+                [step]="stepInitial"
+                [stepGroup]="defaultSteps"
+              ></app-step>
             </div>
           </div>
         </div>
       </div>
       <ng-template #showAllIndicators>
-
-        <div class="row w-100 mx-0"  *ngFor="let step of stepGroup.steps ;let last=last; let first=first">
+        <div
+          class="row w-100 mx-0"
+          *ngFor="
+            let step of stepGroup.steps;
+            let last = last;
+            let first = first
+          "
+        >
           <div class="col-3 justify-content-center mx-0 px-0 step-circle-div">
             <app-steps-indicator
-              [first] = first
-              [last] = last
-              [showLessSteps] = showLessSteps
-              [lastStepOfModule] = lastStepOfModule
-              [firstStepOfModule] = firstStepOfModule
+              [first]="first"
+              [last]="last"
+              [showLessSteps]="showLessSteps"
+              [lastStepOfModule]="lastStepOfModule"
+              [firstStepOfModule]="firstStepOfModule"
               [stepGroupSteps]="stepGroup.steps"
-              [step]="step" [stepGroup]="stepGroup"></app-steps-indicator>
+              [step]="step"
+              [stepGroup]="stepGroup"
+            ></app-steps-indicator>
           </div>
-          <div class="col-9 px-0 ">
-            <app-step
-              [step]="step" [stepGroup]="stepGroup"></app-step>
+          <div class="col-9 px-0">
+            <app-step [step]="step" [stepGroup]="stepGroup"></app-step>
           </div>
         </div>
       </ng-template>
       <div class="row w-100 mx-0">
-        <div class="col-3">
-        </div>
+        <div class="col-3"></div>
         <div class="col-9">
-          <div class="row justify-content-center" *ngIf = "isShowAllBtn">
+          <div class="row justify-content-center" *ngIf="isShowAllBtn">
             <div class="col">
-              <div class="row w-100 justify-content-center" *ngIf = "!showLessSteps">
-                <i class="material-icons arrow-icon"
-                   (click)="collapseClick()">
+              <div
+                class="row w-100 justify-content-center"
+                *ngIf="!showLessSteps"
+              >
+                <i class="material-icons arrow-icon" (click)="collapseClick()">
                   keyboard_arrow_up
                 </i>
               </div>
               <div class="row w-100">
                 <div class="col px-0">
-                  <hr>
+                  <hr />
                 </div>
-                <div class="col px-0 text-center collapse-text"
-                     *ngIf = "!showLessSteps"
-                     (click)="collapseClick()">
+                <div
+                  class="col px-0 text-center collapse-text"
+                  *ngIf="!showLessSteps"
+                  (click)="collapseClick()"
+                >
                   collapse
                 </div>
-                <div class="col px-0 text-center collapse-text"
-                     *ngIf = "showLessSteps"
-                     (click)="showAllClick()">
+                <div
+                  class="col px-0 text-center collapse-text"
+                  *ngIf="showLessSteps"
+                  (click)="showAllClick()"
+                >
                   show all
                 </div>
                 <div class="col px-0">
-                  <hr>
+                  <hr />
                 </div>
               </div>
-              <div class="row w-100 justify-content-center" *ngIf = "showLessSteps">
-                <i class="material-icons arrow-icon"
-                   (click)="showAllClick()">
+              <div
+                class="row w-100 justify-content-center"
+                *ngIf="showLessSteps"
+              >
+                <i class="material-icons arrow-icon" (click)="showAllClick()">
                   keyboard_arrow_down
                 </i>
               </div>
@@ -124,4 +168,3 @@
     </div>
   </ng-template>
 </mat-expansion-panel>
-

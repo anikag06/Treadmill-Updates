@@ -49,6 +49,7 @@
               "src/common-styles.scss",
               "node_modules/normalize.css/normalize.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/intro.js/introjs.css",
               {
                 "input": "src/games-styles.scss",
                 "lazy": true,
@@ -72,7 +73,8 @@
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
               "node_modules/twemoji/dist/twemoji.js",
-              "src/assets/games/executive-control-game/js/start_exec_game.js"
+              "src/assets/games/executive-control-game/js/start_exec_game.js",
+              "node_modules/intro.js/intro.js"
             ]
           },
           "configurations": {

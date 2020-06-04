@@ -1,7 +1,7 @@
-import { Component, OnInit, Input, ElementRef } from '@angular/core';
-import { StepGroup } from './step-group.model';
-import { Step } from './step/step.model';
-import { COMPLETED, ACTIVE, UNLOCKED } from '@/app.constants';
+import {Component, ElementRef, Input, OnInit} from '@angular/core';
+import {StepGroup} from './step-group.model';
+import {Step} from './step/step.model';
+import {ACTIVE, COMPLETED, UNLOCKED} from '@/app.constants';
 
 @Component({
   selector: 'app-step-group',
@@ -10,7 +10,7 @@ import { COMPLETED, ACTIVE, UNLOCKED } from '@/app.constants';
 })
 export class StepGroupComponent implements OnInit {
   @Input() stepGroup!: StepGroup;
-
+  @Input() identifier!: string;
   first!: boolean;
   last!: boolean;
   isExpanded = false;

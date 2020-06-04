@@ -1,0 +1,26 @@
+
+<div class="intro-img-div">
+  <img [ngStyle]="{width: '80px',borderRadius : '50%'}" src="../../../../assets/flow/therapist.svg" alt="intro_bot" />
+</div>
+<div class="title" mat-dialog-title>Hi... I am Treadwill Therapist</div>
+
+<mat-dialog-content>
+  <div [ngStyle]="{fontSize : '16px',opacity : '0.8'}" >
+    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+    Lorem Ipsum has been the industry's standard dummy text ever since the
+    1500s, when an unknown printer took a galley of type and scrambled it to
+    make a type  specimen book.
+  </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button
+    mat-raised-button
+    class="btn start-btn"
+    (click)="startIntro()"
+    matDialogClose
+  >
+    Get Started
+  </button>
+</mat-dialog-actions>

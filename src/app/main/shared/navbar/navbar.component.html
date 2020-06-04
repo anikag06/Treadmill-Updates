@@ -2,77 +2,159 @@
 <div class="app-navbar">
   <div class="row mx-0">
     <div class="col-6">
-
-      <div class="all-icons" >
-      <button mat-flat-button class="back-button" *ngIf="!isDashboard" (click)="backClick()">
-        <img src="assets/shared/back web.png" width="32px" height="32px" alt="back" /></button>
-        <div [ngClass]="{'conv-title': isConversation===true,
-      'navbar-title': isConversation===false }">{{navbarTitle}}
-<!--          <span class="navbar-title" *ngIf="isDashboard || isConversation"></span>-->
+      <div class="all-icons">
+        <button
+          mat-flat-button
+          class="back-button"
+          *ngIf="!isDashboard"
+          (click)="backClick()"
+        >
+          <img
+            src="assets/shared/back web.png"
+            width="32px"
+            height="32px"
+            alt="back"
+          />
+        </button>
+        <div
+          [ngClass]="{
+            'conv-title': isConversation === true,
+            'navbar-title': isConversation === false
+          }"
+        >
+          {{ navbarTitle }}
+          <!--          <span class="navbar-title" *ngIf="isDashboard || isConversation"></span>-->
         </div>
       </div>
 
-      <div class="all-icons-mobile ">
-      <div class="row mx-0"   >
-        <button mat-flat-button class="back-button icon-items" *ngIf="!isDashboard" (click)="backClick()">
-          <img src="assets/shared/Back%20mobile.png" width="24px" height="24px" alt="back" /></button>
-        <button class="hamburger-button icon-items"  *ngIf="isDashboard && isHandset$ " type="button" aria-label="Toggle sidenav" mat-flat-button (click)="hamburgerClicked()">
-          <img width="24px" height="24px" src="assets/shared/Hamburger mobile.png" />
-
-        </button>
-        <div [ngClass]="{'conv-title': isConversation===true,
-      'navbar-title': isConversation===false }" >{{navbarTitle}}<span class="navbar-title"
-                                                                     *ngIf="isDashboard || isConversation"></span></div>
+      <div class="all-icons-mobile">
+        <div class="row mx-0">
+          <button
+            mat-flat-button
+            class="back-button icon-items"
+            *ngIf="!isDashboard"
+            (click)="backClick()"
+          >
+            <img
+              src="assets/shared/Back%20mobile.png"
+              width="24px"
+              height="24px"
+              alt="back"
+            />
+          </button>
+          <button
+            id="hamburger"
+            class="hamburger-button icon-items"
+            *ngIf="isDashboard && isHandset$"
+            type="button"
+            aria-label="Toggle sidenav"
+            mat-flat-button
+            (click)="hamburgerClicked()"
+          >
+            <img
+              width="24px"
+              height="24px"
+              src="assets/shared/Hamburger mobile.png"
+            />
+          </button>
+          <div
+            [ngClass]="{
+              'conv-title': isConversation === true,
+              'navbar-title': isConversation === false
+            }"
+          >
+            {{ navbarTitle
+            }}<span
+              class="navbar-title"
+              *ngIf="isDashboard || isConversation"
+            ></span>
+          </div>
+        </div>
       </div>
-      </div>
-
-
     </div>
 
     <div class="col-6">
-
-      <div class="all-icons" style="float:right;">
+      <div class="all-icons" style="float: right;">
         <div class="icon-items" *ngIf="!isDashboard" (click)="homeClick()">
           <img src="assets/shared/home web.png" height=" 32px" alt="Home" />
         </div>
         <div *ngIf="user.is_exp">
-          <div class="icon-items" style="margin-left:20px;" (menuClosed)="notificationClick()" (menuOpened)="notificationClick()"
-            [matMenuTriggerFor]="appNavBarNotify">
-            <img src="assets/shared/notification web.png" height=" 32px" width="32px" alt="Flow">
-            <div class="unread-count" *ngIf="unreadCount > 0">
+          <div
+            class="icon-items"
+            style="margin-left: 20px;"
+            (menuClosed)="notificationClick()"
+            (menuOpened)="notificationClick()"
+            [matMenuTriggerFor]="appNavBarNotify"
+          >
+            <img
+              src="assets/shared/notification web.png"
+              height=" 32px"
+              width="32px"
+              alt="Flow"
+            />
+          </div>
+          <div class="unread-count" *ngIf="unreadCount > 0">
             <span *ngIf="unreadCount < 100; else manyMore">{{
               unreadCount
-              }}</span>
-            </div>
+            }}</span>
           </div>
         </div>
 
-        <div class="icon-items" (click)="flowClick()" style="margin-left:20px;"  >
-          <img src="assets/shared/go to web.png" height=" 36px" alt="GoTo">
+        <div
+          id="goto_desktop"
+          class="icon-items"
+          (click)="flowClick($event)"
+          style="margin-left: 20px;"
+        >
+          <img src="assets/shared/go to web.png" height=" 36px" alt="GoTo" />
         </div>
       </div>
 
-      <div class="all-icons-mobile" >
+      <div class="all-icons-mobile">
         <div class="d-flex flex-row-reverse">
-          <button mat-icon-button id="showFullConversation" [matMenuTriggerFor]="showFullConversation" *ngIf="convMode">
+          <button
+            mat-icon-button
+            id="showFullConversation"
+            [matMenuTriggerFor]="showFullConversation"
+            *ngIf="convMode"
+          >
             <mat-icon>more_vert</mat-icon>
           </button>
-          <div class="icon-items" (click)="flowClick()">
-            <img src="assets/shared/Go to mobile.png" height=" 32px" alt="GoTO" />
+          <div
+            id="goto_mobile"
+            class="icon-items" (click)="flowClick($event)">
+            <img
+              src="assets/shared/Go to mobile.png"
+              height=" 32px"
+              alt="GoTO"
+            />
           </div>
           <div *ngIf="user.is_exp">
-            <div class="icon-items" (menuClosed)="notificationClick()" (menuOpened)="notificationClick()"
-              [matMenuTriggerFor]="appNavBarNotify">
-              <img src="assets/shared/Notification mobile.png" height=" 24px" width="24px" alt="Flow" />
+            <div
+              class="icon-items"
+              (menuClosed)="notificationClick()"
+              (menuOpened)="notificationClick()"
+              [matMenuTriggerFor]="appNavBarNotify"
+            >
+              <img
+                src="assets/shared/Notification mobile.png"
+                height=" 24px"
+                width="24px"
+                alt="Flow"
+              />
             </div>
             <div class="unread-count" *ngIf="unreadCount > 0">
               <span *ngIf="unreadCount < 100; else manyMore">{{
-              unreadCount
-            }}</span>
+                unreadCount
+              }}</span>
             </div>
           </div>
           <div class="icon-items" *ngIf="!isDashboard" (click)="homeClick()">
-            <img src="assets/shared/Home mobile.png" height=" 24px" alt="Home" />
+            <img
+              src="assets/shared/Home mobile.png"
+              height=" 24px"
+              alt="Home"
+            />
           </div>
         </div>
       </div>
@@ -85,14 +167,18 @@
     </button>
   </mat-menu>
 
-<!--  <mat-menu #appNavBarFlow="matMenu" xPosition="before" yPosition="below" class="navBarPanelClass">-->
-<!--    <div class="row w-100 h-100 px-0 mx-0 " (click)="$event.stopPropagation()">-->
-<!--      <div appNavbarFlow></div>-->
-<!--    </div>-->
-<!--  </mat-menu>-->
+  <!--  <mat-menu #appNavBarFlow="matMenu" xPosition="before" yPosition="below" class="navBarPanelClass">-->
+  <!--    <div class="row w-100 h-100 px-0 mx-0 " (click)="$event.stopPropagation()">-->
+  <!--      <div appNavbarFlow></div>-->
+  <!--    </div>-->
+  <!--  </mat-menu>-->
 
-
-  <mat-menu #appNavBarNotify="matMenu" class="navBarPanelClass" xPosition="before" yPosition="below">
+  <mat-menu
+    #appNavBarNotify="matMenu"
+    class="navBarPanelClass"
+    xPosition="before"
+    yPosition="below"
+  >
     <div class="row w-100 h-100 px-0 mx-0" (click)="$event.stopPropagation()">
       <div appNavbarNotification></div>
     </div>
