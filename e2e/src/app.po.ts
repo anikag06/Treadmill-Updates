@@ -6,7 +6,6 @@ export class AppPage {
   newUsername!: string;
   newEmaiId!: any;
   numberInUsername!: number;
-  signuplink!: string;
   navigateTo() {
     return browser.get(browser.baseUrl) as Promise<any>;
   }
@@ -30,22 +29,19 @@ export class AppPage {
       string
     >;
   }
-
-  // fillLoginForm() {
-  //   element(by.name('username')).sendKeys(this.newUsername);
-  //   element(by.name('password')).sendKeys('NewUser1234');
-  //   element(by.css('.dialog-btn')).click();
-  // }
-
   clickJoinStudy() {
     element(by.css('a.anchorify-join-the-study')).click();
   }
   // get a random username for testing signup
-  getTrialUserName() {
+  getTrialEmailId() {
     this.numberInUsername = Math.floor(Math.random() * (200 - 1)) + 1;
     // this.newUsername = 'root' + this.numberInUsername +
     //                    Math.random().toString(36).substring(2, 5) + Math.random().toString(36).substring(2, 5);
-    this.newEmaiId = 'l.goyal18' + '+' + this.numberInUsername + '@gmail.com';
+    this.newEmaiId = 'l.agarwal1984' + '+' + this.numberInUsername + '@gmail.com';
+  }
+  getTrialUserName() {
+    this.newUsername = 'root' + Math.random().toString(36).substring(2, 5) +
+      Math.random().toString(36).substring(2, 5);
   }
 
   fillTrialRegForm() {
@@ -97,13 +93,7 @@ export class AppPage {
     browser.sleep(2000);
   }
   fillTrialStudyForm() {
-    this.getTrialUserName();
-    // element(by.name('username')).sendKeys(this.newUsername);
-    // element(by.name('password')).sendKeys('NewUser1234');
-    // element(by.name('passwordConfirm')).sendKeys('NewUser1234');
-    // element(by.name('terms_conditions')).click();
-    // element(by.css('.dialog-btn')).click();
-    // return this.newUsername;
+    this.getTrialEmailId();
     element(by.css('.input-box')).sendKeys(this.newEmaiId);
     element(by.css('button.mat-raised-button')).click();
     console.log('JOINED THE STUDY');
@@ -122,7 +112,11 @@ export class AppPage {
     return element(by.id('gad-7'));
   }
   clickOnButton(btn: string) {
-    return element(by.buttonText(btn)).click();
+    const btnClick = element(by.cssContainingText('button', btn));
+    browser.wait(this.EC.elementToBeClickable(btnClick)).then( () => {
+      btnClick.click();
+    });
+    // return element(by.buttonText(btn)).click();
   }
   findConsentPage() {
     return element(by.css('form[formGroup=consentForm]'));
@@ -171,11 +165,40 @@ export class AppPage {
   }
   clickSubmitButton() {
     const submitBtn = element(by.cssContainingText('button', 'Submit'));
-    browser.wait(this.EC.elementToBeClickable(submitBtn), 5000);
-    submitBtn.click();
-    browser.sleep(3000);
+    browser.wait(this.EC.elementToBeClickable(submitBtn)).then( () => {
+        submitBtn.click();
+      });
   }
-  // navigatetoSignupPage() {
-  //   return browser.get(this.signuplink) as Promise<any>;
-  // }
+  getSignUpLink() {
+    browser.sleep(3000);
+    const el =  element(by.id('signup_link'));
+    el.getAttribute('value').then(function(value) {
+      console.log('LINK', value);
+      browser.get(value);
+    });
+    browser.sleep(5000);
+  }
+  fillSignupForm() {
+    this.getTrialUserName();
+    console.log('USERNAME', this.newUsername);
+    element(by.name('username')).sendKeys(this.newUsername);
+    element(by.name('password')).sendKeys('test123');
+    element(by.name('passwordConfirm')).sendKeys('test123');
+    element(by.css('.mat-checkbox-inner-container')).click();
+    browser.sleep(5000);
+    element(by.css('.signup-btn')).click();
+    browser.sleep(5000);
+    return this.newUsername;
+  }
+  fillLoginForm(username: string, password: string) {
+    console.log('USERNAME', username);
+    element(by.css('.login-form')).element(by.name('username')).sendKeys(username);
+    browser.sleep(1000);
+    element(by.css('.login-form')).element(by.name('password')).sendKeys(password);
+    browser.sleep(1000);
+    element(by.css('.dialog-btn')).click();
+    browser.sleep(3000);
+
+  }
+
 }

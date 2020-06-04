@@ -1,14 +1,13 @@
 import { AppPage } from './app.po';
-import { browser, logging } from 'protractor';
+import {browser, by, element, logging} from 'protractor';
 import { protractor } from 'protractor/built/ptor';
-// import {HttpClient} from 'protractor-http-client';
 
 
 
 describe('workspace-project App', () => {
   let page: AppPage;
-  const https = require('http');
   let email!: string;
+  let username!: string;
   beforeEach(() => {
     page = new AppPage();
   });
@@ -26,7 +25,7 @@ describe('workspace-project App', () => {
     );
   });
 
-  it('should click on study and fill trial registration form', () => {
+  xit('should click on study and fill trial registration form', () => {
     page.clickJoinStudy();
     browser.sleep(1500);
     page.fillTrialStudyForm();
@@ -38,16 +37,8 @@ describe('workspace-project App', () => {
     // browser.sleep(3000);
   });
 
-  xit('should redirect to dashboard when on root', () => {
-    browser.get('/');
-    expect(
-      browser
-        .wait(protractor.ExpectedConditions.urlContains('dashboard'), 2000)
-        .catch(() => false),
-    ).toBeTruthy('Url match could not succced');
-  });
 
-  it('Should show PHQ-9 questionnaire', () => {
+  xit('Should show PHQ-9 questionnaire', () => {
     expect(page.findPhq()).toBeTruthy();
     browser.sleep(5000);
     // expect(page.findQuestionnaireText()).toMatch('Before moving further');
@@ -61,7 +52,7 @@ describe('workspace-project App', () => {
     browser.sleep(1000);
   });
 
-  it('Should show SIQ questionnaire', () => {
+  xit('Should show SIQ questionnaire', () => {
     expect(page.findSiq()).toBeTruthy();
     browser.sleep(2000);
     page.clickOnButton('Start');
@@ -77,7 +68,7 @@ describe('workspace-project App', () => {
     page.clickOnButton('Submit');
   });
 
-  it('Should show GAD-7 questionnaire', () => {
+  xit('Should show GAD-7 questionnaire', () => {
     expect(page.findGad()).toBeTruthy();
     browser.sleep(3000);
     // expect(page.findQuestionnaireText()).toMatch('Before moving further');
@@ -101,54 +92,56 @@ describe('workspace-project App', () => {
     browser.sleep(2000);
   });
 
-  it('should fill consent form and accept notifications and submit', () => {
+  xit('should fill consent form and accept notifications and submit', () => {
     expect(page.findConsentPage()).toBeTruthy();
     browser.sleep(3000);
     page.fillConsentPage();
     // page.acceptAllConsentPage();
-    browser.sleep(4000);
+    browser.sleep(5000);
     page.clickSubmitButton();
-    browser.sleep(4000);
+    browser.sleep(3500);
   });
 
 
 // get link for sign up from mail
 
-  it('Should get sign up link', done => {
-    // const http = new request('https://www.api2.treadwill.org/');
-    // const userGetResponse: Response = http.get('api/v1/trial-iitk/get-unique-link-e2e/' + email + '/');
-    https.get('http://www.api2.treadwill.org/api/v1/trial-iitk/get-unique-link-e2e/' + email , ( response: any ) => {
-      let data = '';
-      // called when a data chunk is received.
-      response.on('data', (chunk: any) => {
-        data += chunk;
-      });
-      // called when the complete response is received.
-      response.on('end', () => {
-        console.log('DATA', data);
-
-      });
-
-    }).on('error', (error: any) => {
-      console.log('Error: ' + error.message);
-    });
-    });
-
-    // request('https://www.api2.treadwill.org/api/v1/trial-iitk/get-unique-link-e2e/' + email + '/' ,
-    //   function (error: any, response: any, body: any) {
-    //   console.log('error:', error, email); // Print the error if one occurred
-    //   console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-    //   console.log('body:', body); // Print the HTML for the Google homepage.
-    //   done(); //informs runner that the asynchronous code has finished
-    // });
+  xit('Should get sign up link and redirect to signup page', () => {
+    page.getSignUpLink();
+    browser.sleep(3500);
+    expect(
+      browser//
+        .wait(protractor.ExpectedConditions.urlContains('sign-up'), 2000)
+        .catch(() => false),
+    ).toBeTruthy('Url match could not succced');
   });
 
-//   it('should redirect to signup page', () => {
-//     // page.navigatetoSignupPage();
-//     browser.sleep(1500);
-//     // page.fillLoginForm();
-//     // browser.sleep(3000);
-//   });
+  xit('should fill signup page', () => {
+    page.fillSignupForm();
+    browser.sleep(3000);
+    username = page.newUsername;
+  });
+
+  it('should login and redirect to dashboard', () => {
+    // username is hardcoded here
+      page.fillLoginForm('rootdpyaul', 'test123');
+    expect(
+      browser//
+        .wait(protractor.ExpectedConditions.urlContains('dashboard'))
+        .catch(() => false),
+    ).toBeTruthy('Url match could not succced');
+    browser.sleep(6000);
+  });
+
+  it('should redirect to dashboard when on root', () => {
+    browser.get('/');
+    expect(
+      browser//
+        .wait(protractor.ExpectedConditions.urlContains('dashboard'), 2000)
+        .catch(() => false),
+    ).toBeTruthy('Url match could not succced');
+  });
+
+
 
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser
@@ -162,4 +155,4 @@ describe('workspace-project App', () => {
       } as logging.Entry),
     );
   });
-
+});
