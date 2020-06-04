@@ -2,7 +2,7 @@ import { browser, by, element } from 'protractor';
 
 export class FlowPage {
   navigateToDashboard() {
-    return browser.get('/') as Promise<any>;
+    return browser.get('/main/dashboard') as Promise<any>;
   }
 
   getProgress() {
@@ -28,8 +28,14 @@ export class FlowPage {
     return element(by.buttonText(btn)).click();
   }
 
+  findProgressGroupElement(text: string) {
+    // expect(element(by.css('.flow-scroll-inner')).element(by.css('.step-group-name')).getText()).toEqual(text);
+
+    return element(by.css('.flow-scroll-inner')).element(by.cssContainingText('.step-group-name', text)).click();
+  }
+
   findProgressElement(txt: string) {
-    return element(by.partialLinkText(txt)).click();
+   element(by.css('.flow-scroll-inner')).element(by.cssContainingText('.step-content', txt)).click();
   }
 
   getQuestionnaireNotavailable() {

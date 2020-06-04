@@ -1,8 +1,8 @@
 import { AppPage } from './app.po';
-import { browser, logging } from 'protractor';
+import {browser, by, logging} from 'protractor';
 import { FlowPage } from './flow/flow.po';
 
-xdescribe('treadwill Flow', () => {
+describe('treadwill Flow', () => {
   let page: AppPage;
   let fp: FlowPage;
 
@@ -11,13 +11,14 @@ xdescribe('treadwill Flow', () => {
     fp = new FlowPage();
   });
 
-  it('Should find the Progress flow', () => {
-    fp.navigateToDashboard();
+  xit('Should find the Progress flow', () => {
+    // fp.navigateToDashboard();
     browser.sleep(1000);
     expect(fp.getProgress()).toEqual('Progress');
   });
 
-  it('Should find Module text', () => {
+  xit('Should find Module text', () => {
+    browser.sleep(4000);
     expect(fp.findText()).toContain('Introduction to Treadwill');
     expect(fp.findText()).toContain('Know Yourself');
     expect(fp.findText()).toContain('Making good things happen');
@@ -26,8 +27,28 @@ xdescribe('treadwill Flow', () => {
     expect(fp.findText()).toContain('Worrying Productively');
     expect(fp.findText()).toContain('Staying Happy');
   });
+  it('Should click first Module and run its step', () => {
+    browser.sleep(4000);
+    fp.findProgressGroupElement('Introduction to TreadWill');
+    browser.sleep(2000);
+    fp.findProgressElement('  Navigating TreadWill ');
+    browser.sleep(2500);
+    expect(fp.findTextbyCss('.mat-card-title')).toContain('Primary Navigation');
+    browser.sleep(2000);
+    fp.clickOnButton('SKIP');
+    fp.navigateToDashboard();
+    browser.sleep(1000);
+  });
+  it('Should click second Module and run its step', () => {
+    browser.sleep(4000);
+    fp.findProgressGroupElement(' Being self-aware ');
+    browser.sleep(2000);
+    fp.findProgressElement(' Getting started ');
+    browser.sleep(2500);
+    browser.sleep(2000);
+  });
 
-  it('should start introductory animation', () => {
+  xit('should start introductory animation', () => {
     browser.sleep(2000);
     fp.findProgressElement('Navigating Treadwill');
     browser.sleep(500);
@@ -68,7 +89,7 @@ xdescribe('treadwill Flow', () => {
   //   expect(fp.getQuestionnaireNotavailable()).toContain('This is not available');
   // });
 
-  it('Should mark virtual step as done', () => {
+  xit('Should mark virtual step as done', () => {
     fp.navigateToDashboard();
     browser.sleep(2000);
     fp.findProgressElement('Cope with a problem');
@@ -78,7 +99,7 @@ xdescribe('treadwill Flow', () => {
     expect(fp.getProgress()).toEqual('Progress');
   });
 
-  it('Should be able to check Slide', () => {
+  xit('Should be able to check Slide', () => {
     browser.sleep(2000);
     fp.findProgressElement('Slide 1');
     browser.sleep(3000);
@@ -90,7 +111,7 @@ xdescribe('treadwill Flow', () => {
     browser.sleep(2000);
   });
 
-  it('Should be able to check conversation', () => {
+  xit('Should be able to check conversation', () => {
     browser.sleep(2000);
     fp.findProgressElement('Conversation');
     browser.sleep(3000);
