@@ -17,6 +17,7 @@ export class RegistrationStepFourComponent implements OnInit {
   stepNo = 4;
   userEligible = false;
   allowSubmit = false;
+  signup_link!: string;
 
   consentForm = new FormGroup({
     readInfo: new FormControl(),
@@ -28,6 +29,7 @@ export class RegistrationStepFourComponent implements OnInit {
     homeScreenInfo: new FormControl(),
     notificationsInfo: new FormControl(),
   });
+
 
   stepFourFormData = new RegistrationStepFourForm(
     0,
@@ -70,6 +72,12 @@ export class RegistrationStepFourComponent implements OnInit {
 
   step4DataSubmit() {
     console.log(this.consentForm.value);
+    // used for e2e testing
+      this.registrationDataService.getSignupLinkForTesting(this.registrationDataService.trial_email).subscribe((data: any) => {
+        console.log('SIGN UP LINK', data);
+        this.registrationDataService.signup_link = data.unique_link;
+      });
+    // till here
     if (this.consentForm.valid) {
       console.log('form is valid');
       const dateNow = new Date();
@@ -93,7 +101,6 @@ export class RegistrationStepFourComponent implements OnInit {
         .saveConsentData(this.stepFourFormData)
         .subscribe((res_data: any) => {
           console.log(res_data);
-
           this.userEligible = !res_data.excluded;
           this.registrationDataService.participationID =
             res_data.participant_id;
