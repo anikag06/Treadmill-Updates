@@ -430,3 +430,10 @@ body {
   /* Disables pull-to-refresh but allows overscroll glow effects. */
   overscroll-behavior-y: contain;
 }
+
+.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb.mat-slide-toggle-bar  {
+  background-color:  #2a3b3d !important;
+}
+.mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+  background-color:  #2a3b3d !important;
+}

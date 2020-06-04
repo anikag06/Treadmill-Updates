@@ -397,6 +397,11 @@ export const READING_LIST = '/api/v1/resources/reading-materials/';
 export const EACH_VIDEO = '/api/v1/resources/videos/';
 export const WATCHED_VIDEO = '/api/v1/resources/mark-video-watched/';
 
+export const USERNAME_AVAILABLE = '/api/v1/user/check-username-availability/';
+export const UPDATE_USERNAME = '/api/v1/user/update-username/';
+export const UPDATE_NOTIFICATIONS = '/api/v1/notifications/update-notification-settings/';
+export const UPDATE_PASSWORD =  '/api/v1/user/change-password/';
+
 // toast
 export const SHOW_TOAST_DURATION = 10000;
 

@@ -1,0 +1,144 @@
+.background-col{
+  background-color: white;
+}
+.heading{
+  font-size: 20px;
+  font-weight:bold;
+  font-family: Roboto;
+  padding-bottom: 10px;
+}
+.placeholder{
+  font-size: 16px;
+  font-family: Roboto;
+ // padding-bottom: 0px;
+  //color: #2a3b3d;
+}
+.password-change-input{
+  width: 60%;
+}
+.confirm-password-change-input{
+  width: 95%;
+}
+.username-change-input{
+  width: 60%;
+}
+.toggle-style{
+  background-color: #2a3b3d;
+  width: 10px;
+}
+
+
+.mat-form-field-underline{
+  color: #2a3b3d;
+}
+.save-btn{
+  font-size: 14px;
+  font-family: Roboto;
+  width: 78px;
+  color: white;
+  background-color: #2a3b3d;
+  text-align: center;
+  justify-content: center;
+  margin: 16px 0;
+  //color: white;
+  //background-color: black;
+}
+.loading-btn{
+  font-size: 14px;
+  font-family: Roboto;
+  //width: 78px;
+  color: white;
+  background-color: #2a3b3d;
+  text-align: center;
+  justify-content: center;
+  margin: 16px 0;
+  //color: white;
+  //background-color: black;
+}
+
+
+.push-email-notification{
+  font-size: 16px;
+  font-family: Roboto;
+  padding-bottom: 24px;
+
+}
+.push-email-right-space{
+  padding-left: 182px;
+}
+.push-email-right-space-with-save{
+  //padding-right: 150px;
+  padding-left: 15px;
+}
+//[ngClass] = "toggleOn === true ? 'push-email-right-space-with-save':'push-email-right-space'"
+.notification-subheading{
+  font-size: 16px;
+  font-weight: bold;
+  font-family: Roboto;
+  padding-top: 24px;
+}
+.below-col-container{
+  padding-left: 16px;
+  padding-top: 36px;
+}
+.each-div{
+  padding-top: 72px;
+}
+
+.save-push-email{
+  font-size: 14px;
+  padding-left: 130px;
+}
+.success-msg{
+  color: green;
+  font-size: 12px;
+  //padding-top: 0px;
+}
+
+.not-success-msg{
+  color: red;
+  font-size: 12px;
+  //padding-top: 0px;
+}
+
+
+
+@media only screen and (min-width: 781px){
+  .heading{
+    padding-bottom: 12px;
+  }
+  .settings-row{
+    padding-left: 60px;
+  }
+  .below-col-container{
+    padding-left: 24px;
+    padding-top: 24px;
+  }
+  .push-email-right-space{
+    padding-left: 196px;
+  }
+  .push-email-right-space-with-save{
+    padding-left: 15px;
+  }
+  .save-push-email{
+    padding-left: 130px;
+  }
+  .save-btn{
+    width: 90px;
+  }
+  .password-change-input{
+    width: 100%;
+  }
+
+}
+@media only screen and (max-width: 370px){
+  .push-email-right-space {
+    padding-left: 82px;
+  }
+  .push-email-right-space-with-save {
+    padding-left: 5px;
+  }
+  .save-push-email{
+    padding-left: 30px;
+  }
+}
