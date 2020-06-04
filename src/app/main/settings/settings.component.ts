@@ -42,12 +42,12 @@ export class SettingsComponent implements OnInit {
   usernameMessage!: string;
   notificationError!: string;
   supportGroupEmailToggle!: boolean;
-  supportGroupFcmToggle = false;
-  taskFormFcmToggle = false;
-  taskFormEmailToggle = false;
-  formsFcmToggle = false;
-  formsEmailToggle = false;
-  weeklyEmailToggle = false;
+  supportGroupFcmToggle!: boolean;
+  taskFormFcmToggle!: boolean;
+  taskFormEmailToggle!: boolean;
+  formsFcmToggle!: boolean;
+  formsEmailToggle!: boolean;
+  weeklyEmailToggle!: boolean;
 
 
 
@@ -68,6 +68,19 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit() {
     this.user = <User>this.authService.isLoggedIn();
+
+    this.settingsService.updatedNotificationsState()
+        .subscribe((data: any) => {
+          console.log('notification state', data);
+          this.supportGroupEmailToggle = data.data.support_group_email;
+          this.supportGroupFcmToggle = data.data.support_group_fcm;
+          this.taskFormEmailToggle = data.data.task_form_email;
+          this.taskFormFcmToggle = data.data.task_form_fcm;
+          this.formsEmailToggle = data.data.forms_email;
+          this.formsFcmToggle = data.data.forms_fcm;
+          this.weeklyEmailToggle = data.data.weekly_email;
+
+        });
   }
 
   //
@@ -89,14 +102,14 @@ export class SettingsComponent implements OnInit {
   //   console.log('save of others push and email left');
   // }
 
-  fadeOutSave(){
+  fadeOutSave() {
     setTimeout(() => {
-      //this.toggleOnToShowSave = false;
+      // this.toggleOnToShowSave = false;
       this.notificationStatus = false;
     }, 1000);
     }
 
-  usernameAvailability(){
+  usernameAvailability() {
     this.showLoadingUsernameChange = true;
     this.settingsService.usernameAvailabilityCheck(this.username.nativeElement.value)
       .subscribe((data: any) => {
@@ -104,9 +117,15 @@ export class SettingsComponent implements OnInit {
         console.log(data.message);
         this.usernameAvailableStatus = data.data;
         this.usernameAvailableMessage = data.message;
+        setTimeout(() => {
+          this.usernameAvailableMessage = '';
+        }, 5000);
+
+
+
         this.showLoadingUsernameChange = false;
 
-      })
+      });
     console.log('available');
     this.usernameAvailable = true;
     this.usernamePasswordCorrectMessage = '';
@@ -114,7 +133,7 @@ export class SettingsComponent implements OnInit {
     this.usernamePasswordSubmitShow = false;
   }
 
-  continueClicked(){
+  continueClicked() {
     this.usernamePasswordSubmitShow = true;
     this.usernameInput = false;
     this.usernameAvailable = false;
@@ -124,19 +143,22 @@ export class SettingsComponent implements OnInit {
   submitClick() {
     this.usernamePasswordSubmitShow = false;
     this.LoadingUsernamePasswordChange = true;
-    //this.username = " ";
+    // this.username = " ";
     this.settingsService.sendingUsername(this.username.nativeElement.value, this.real_password.nativeElement.value).subscribe((data: any) => {
       console.log(data);
         this.LoadingUsernamePasswordChange = false;
       this.usernamePasswordStatus = data.status; // password correct or not
       this.usernamePasswordCorrectMessage = data.message; // message telling whether passowrd is correct or not
-      if (this.usernamePasswordStatus === true){
+          setTimeout(() => {
+            this.usernamePasswordCorrectMessage = '';
+          }, 5000);
+      if (this.usernamePasswordStatus === true) {
         this.user.username = this.username.nativeElement.value;
         this.authService.setLoginData(data);
 
-        //this.fcmService.updateToken(data.status.token);
+        // this.fcmService.updateToken(data.status.token);
       }
-      //console.log(data.data);
+      // console.log(data.data);
 
 
       // data.status((element: any) => {
@@ -147,32 +169,39 @@ export class SettingsComponent implements OnInit {
 
 
     },
-      error =>{
+      error => {
         this.LoadingUsernamePasswordChange = false;
-      this.usernamePasswordCorrectMessage = error.error.message;
+        this.usernamePasswordCorrectMessage = error.error.message;
+        setTimeout(() => {
+          this.usernamePasswordCorrectMessage = '';
+        }, 5000);
+     // this.usernamePasswordCorrectMessage = error.error.message;
       });
     // console.log(this.username.nativeElement.value);
    // console.log(this.real_password.nativeElement.value);
 
   }
 
-  confirmNewMatch(){
-    if(this.new_password.nativeElement.value === this.confirm_password.nativeElement.value){
+  confirmNewMatch() {
+    if (this.new_password.nativeElement.value === this.confirm_password.nativeElement.value) {
       this.newConfirmMatch = true;
-    } else{
+    } else {
       this.newConfirmMatch = false;
     }
   }
 
   savePasswordChange() {
     this.showLoadingPasswordChange = true;
-    //if (this.new_password.nativeElement.value === this.confirm_password.nativeElement.value) {
-      this.settingsService.sendingPasswordsForChange(this.current_password.nativeElement.value, this.new_password.nativeElement.value).subscribe((error: any) =>{
-          //console.log('password data', data.message);
+    // if (this.new_password.nativeElement.value === this.confirm_password.nativeElement.value) {
+      this.settingsService.sendingPasswordsForChange(this.current_password.nativeElement.value, this.new_password.nativeElement.value).subscribe((error: any) => {
+          // console.log('password data', data.message);
           this.passwordState = error.body.status;
           console.log('error', error);
           console.log(error.body.message);
-          this.oldPasswordMessage = error.body.message; //successful
+          this.oldPasswordMessage = error.body.message; // successful
+          setTimeout(() => {
+            this.oldPasswordMessage = '';
+          }, 5000);
           this.newPasswordMessage = '';
           this.showLoadingPasswordChange = false;
           this.passwordMsgShow = true;
@@ -189,13 +218,22 @@ export class SettingsComponent implements OnInit {
           this.passwordState = error.status;
 
           this.currentPasswordMessage = error.error.message; // wrong password
+          setTimeout(() => {
+            this.currentPasswordMessage = '';
+          }, 5000);
           this.newPasswordMessage = error.error.message.new_password; // too short
+          setTimeout(() => {
+            this.newPasswordMessage = '';
+          }, 5000);
           this.oldPasswordMessage = error.error.message.old_password; // too short
+          setTimeout(() => {
+            this.oldPasswordMessage = '';
+          }, 5000);
 
         });
    // } else {
      // this.confirmPasswordMessage = 'New and Confirm password does not match';
-    //}
+    // }
 
 
     console.log('changed');
@@ -208,18 +246,18 @@ export class SettingsComponent implements OnInit {
   passWordMessageRemove() {
     this.passwordMsgShow = false;
   }
-  newPasswordTouch(){
+  newPasswordTouch() {
     this.newConfirmMatch = false;
   }
 
-  saveNotificationChange(field: string, toggle_on: boolean){
+  saveNotificationChange(field: string, toggle_on: boolean) {
     console.log('field', field);
     console.log( toggle_on);
 
 
     this.toggleOnToShowSave = true;
    // console.log('toggle', toggle_on);
-    //console.log('toggle:', this.supportGroupEmailToggle);
+    // console.log('toggle:', this.supportGroupEmailToggle);
     this.settingsService.updatingNotifications(field, toggle_on).subscribe((data: any) => {
       this.savedNotificationMessage = data.message;
       this.notificationMessage = field;
@@ -231,7 +269,7 @@ export class SettingsComponent implements OnInit {
     });
 
 
-    //this.settingsService.updatingNotifications(true);
+    // this.settingsService.updatingNotifications(true);
   }
 
 

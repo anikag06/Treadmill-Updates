@@ -141,7 +141,7 @@
           #confirmPassword
           type = "password"
           (input) = "confirmNewMatch()">
-          <mat-hint class = "not-success-msg" *ngIf =  "this.newConfirmMatch === false|| this.passwordMsgShow">New and Confirm password does not match</mat-hint>
+          <mat-hint class = "not-success-msg" *ngIf =  "this.newConfirmMatch === false">New and Confirm password does not match</mat-hint>
         </mat-form-field>&nbsp;&nbsp;&nbsp;&nbsp;<br>
          <!-- <span class = "not-success-msg" *ngIf =  "this.newConfirmMatch === false">New and Confirm password does not match</span>-->
         </div>
@@ -276,7 +276,8 @@
           </span>
           <mat-slide-toggle
             (click) = "saveNotificationChange('weekly_email_update', weeklyEmailToggle = !weeklyEmailToggle)"
-            [ngClass] = "this.notificationMessage === 'weekly_email_update' && this.notificationStatus === true ? 'push-email-right-space-with-save':'push-email-right-space'">
+            [ngClass] = "this.notificationMessage === 'weekly_email_update' && this.notificationStatus === true ? 'push-email-right-space-with-save':'push-email-right-space'"
+              value = "on">
           </mat-slide-toggle>
         </p>
       </div>

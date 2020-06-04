@@ -45,14 +45,20 @@ export class SettingsService {
       this.notification_number = 0;
 
     }
+    const data: any = {};
+    data[field] = this.notification_number;
     console.log("field, ", field);
     console.log("notification number ", this.notification_number);
    // console.log(field,  notification);
     return this.http.patch(environment.API_ENDPOINT + '/api/v1/notifications/update-notification-settings/', {
-      field: this.notification_number,
+      data,
     });
 
 
+  }
+
+  updatedNotificationsState(){
+    return this.http.get (environment.API_ENDPOINT + '/api/v1/notifications/update-notification-settings/');
   }
 
 
