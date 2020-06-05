@@ -199,6 +199,8 @@ export class StepComponent implements OnInit, AfterViewInit {
       return 'assets/flow/icon-video-wb.png';
     } else if (step.data_type === INTRODUCTORY_ANIMATION) {
       return 'assets/flow/Animation-onboarding.png';
+    } else if (step.data_type === CONTROL_PAGE) {
+      return 'assets/flow/icon-htmlpage-wb.png';
     }
   }
 

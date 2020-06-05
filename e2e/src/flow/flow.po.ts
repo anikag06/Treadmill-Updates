@@ -7,9 +7,16 @@ export class FlowPage {
 
   getProgress() {
     return element
-      .all(by.css('h2.progress-heading'))
+      .all(by.css('h6.progress-heading-mobile'))
       .first()
       .getText();
+  }
+
+  checkUserGroup() {
+   return element(by.id('user-group')).getAttribute('value');
+  }
+  hideSideNav () {
+    return element(by.partialLinkText('Dashboard')).click();
   }
 
   findText() {
@@ -29,13 +36,15 @@ export class FlowPage {
   }
 
   findProgressGroupElement(text: string) {
-    // expect(element(by.css('.flow-scroll-inner')).element(by.css('.step-group-name')).getText()).toEqual(text);
-
     return element(by.css('.flow-scroll-inner')).element(by.cssContainingText('.step-group-name', text)).click();
+
+    // return element(by.css('.flow-scroll-inner')).element(by.cssContainingText('.step-group-name', text));
   }
 
   findProgressElement(txt: string) {
-   element(by.css('.flow-scroll-inner')).element(by.cssContainingText('.step-content', txt)).click();
+   element(by.css('.flow-scroll-inner')).element(by.cssContainingText('.step-content', txt)).getText().then( value => {
+     console.log('step', value);
+   });
   }
 
   getQuestionnaireNotavailable() {

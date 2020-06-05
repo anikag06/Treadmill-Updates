@@ -1,51 +1,92 @@
 import { AppPage } from './app.po';
-import {browser, by, logging} from 'protractor';
+import {browser, by, ElementFinder, logging} from 'protractor';
 import { FlowPage } from './flow/flow.po';
 
 describe('treadwill Flow', () => {
   let page: AppPage;
   let fp: FlowPage;
+  let expUser!: any;
 
   beforeEach(() => {
     page = new AppPage();
     fp = new FlowPage();
   });
 
-  xit('Should find the Progress flow', () => {
-    // fp.navigateToDashboard();
-    browser.sleep(1000);
-    expect(fp.getProgress()).toEqual('Progress');
+  it( 'should detect whether exp or control', () =>{
+    page.clickBurgerBtn('button.hamburger-button');
+    fp.checkUserGroup().then( (value ) => {
+        expUser = value;
+      console.log('USER GROUP', expUser);
+
+    });
+    browser.sleep(2000);
+    fp.hideSideNav();
+    browser.sleep(2000);
   });
 
-  xit('Should find Module text', () => {
-    browser.sleep(4000);
-    expect(fp.findText()).toContain('Introduction to Treadwill');
-    expect(fp.findText()).toContain('Know Yourself');
-    expect(fp.findText()).toContain('Making good things happen');
-    expect(fp.findText()).toContain("Don't believe everything you think");
-    expect(fp.findText()).toContain('Modifying Beliefs');
-    expect(fp.findText()).toContain('Worrying Productively');
-    expect(fp.findText()).toContain('Staying Happy');
-  });
-  it('Should click first Module and run its step', () => {
-    browser.sleep(4000);
-    fp.findProgressGroupElement('Introduction to TreadWill');
-    browser.sleep(2000);
-    fp.findProgressElement('  Navigating TreadWill ');
-    browser.sleep(2500);
-    expect(fp.findTextbyCss('.mat-card-title')).toContain('Primary Navigation');
-    browser.sleep(2000);
-    fp.clickOnButton('SKIP');
-    fp.navigateToDashboard();
+  xit('Should find the Progress flow click first Module and run its step', () => {
+    // page.clickBurgerBtn('button.hamburger-button');
     browser.sleep(1000);
+    if (expUser === 'true') {
+      console.log('EXPERIMENTAL GROUP', expUser);
+      browser.sleep(1000);
+      expect(fp.getProgress()).toEqual('Progress');
+      browser.sleep(4000);
+      fp.findProgressGroupElement('Introduction to TreadWill');
+      browser.sleep(2000);
+      fp.findProgressElement('Navigating TreadWill ');
+      browser.sleep(2500);
+      expect(fp.findTextbyCss('.mat-card-title')).toContain('Primary Navigation');
+      browser.sleep(2000);
+      fp.clickOnButton('SKIP');
+      fp.navigateToDashboard();
+      browser.sleep(1000);
+    } else {
+      console.log('CONTROL GROUP', expUser);
+        browser.sleep(4000);
+        fp.findProgressGroupElement('Introduction to TreadWill');
+        browser.sleep(2000);
+        fp.findProgressElement('  Navigating TreadWill ');
+        browser.sleep(2500);
+        expect(fp.findTextbyCss('.mat-card-title')).toContain('Primary Navigation');
+        browser.sleep(2000);
+        fp.clickOnButton('SKIP');
+        fp.navigateToDashboard();
+        browser.sleep(1000);
+    }
   });
+
   it('Should click second Module and run its step', () => {
-    browser.sleep(4000);
-    fp.findProgressGroupElement(' Being self-aware ');
-    browser.sleep(2000);
-    fp.findProgressElement(' Getting started ');
-    browser.sleep(2500);
-    browser.sleep(2000);
+    if (expUser === 'true') {
+      console.log('EXPERIMENTAL GROUP', expUser);
+      browser.sleep(1000);
+      // expect(fp.findProgressGroupElement('Being self-aware')).toBeTruthy();
+      fp.findProgressGroupElement('Being self-aware');
+      browser.sleep(2000);
+      fp.findProgressElement('Introduction ');
+      browser.sleep(2500);
+      fp.clickOnButton('Completed');
+      browser.sleep(2000);
+      fp.clickOnButton('Next Step');
+      browser.sleep(1000);
+      expect(fp.getProgress()).toEqual('Progress');
+      fp.findProgressElement('Evaluate my thought form');
+      browser.sleep(2500);
+      fp.clickOnButton('Completed ');
+    } else {
+      console.log('CONTROL GROUP', expUser);
+      browser.sleep(4000);
+      // expect(fp.findProgressGroupElement('Being self-aware')).toBeTruthy();
+      fp.findProgressGroupElement('Being self-aware');
+      browser.sleep(2000);
+      fp.findProgressElement('Getting started');
+      browser.sleep(2500);
+      fp.clickOnButton('Completed ');
+      browser.sleep(2000);
+      fp.findProgressElement('Depression ');
+      browser.sleep(2500);
+      fp.clickOnButton('Completed ');
+    }
   });
 
   xit('should start introductory animation', () => {
@@ -60,6 +101,17 @@ describe('treadwill Flow', () => {
     expect(fp.getProgress()).toEqual('Progress');
   });
 
+
+  // it('Should find Module text', () => {
+  //   browser.sleep(4000);
+  //   expect(fp.findText()).toContain('Introduction to Treadwill');
+  //   expect(fp.findText()).toContain('Know Yourself');
+  //   expect(fp.findText()).toContain('Making good things happen');
+  //   expect(fp.findText()).toContain("Don't believe everything you think");
+  //   expect(fp.findText()).toContain('Modifying Beliefs');
+  //   expect(fp.findText()).toContain('Worrying Productively');
+  //   expect(fp.findText()).toContain('Staying Happy');
+  // });
   // it('Should show questionnaire', () => {
   //   fp.findQuestionnaireComponent();
   //   browser.sleep(2000);
@@ -89,39 +141,39 @@ describe('treadwill Flow', () => {
   //   expect(fp.getQuestionnaireNotavailable()).toContain('This is not available');
   // });
 
-  xit('Should mark virtual step as done', () => {
-    fp.navigateToDashboard();
-    browser.sleep(2000);
-    fp.findProgressElement('Cope with a problem');
-    browser.sleep(2000);
-    browser.navigate().back();
-    browser.sleep(3000);
-    expect(fp.getProgress()).toEqual('Progress');
-  });
-
-  xit('Should be able to check Slide', () => {
-    browser.sleep(2000);
-    fp.findProgressElement('Slide 1');
-    browser.sleep(3000);
-    fp.clickOnButton('Mark as complete');
-    browser.sleep(2000);
-    fp.clickOnText('#next-step-btn');
-    browser.sleep(2000);
-    fp.navigateToDashboard();
-    browser.sleep(2000);
-  });
-
-  xit('Should be able to check conversation', () => {
-    browser.sleep(2000);
-    fp.findProgressElement('Conversation');
-    browser.sleep(3000);
-    fp.clickOnButton('reset');
-    // browser.sleep(2000);
-    // fp.clickOnButton('Completed');
-    // browser.sleep(2000);
-    fp.navigateToDashboard();
-    browser.sleep(2000);
-  });
+  // xit('Should mark virtual step as done', () => {
+  //   fp.navigateToDashboard();
+  //   browser.sleep(2000);
+  //   fp.findProgressElement('Cope with a problem');
+  //   browser.sleep(2000);
+  //   browser.navigate().back();
+  //   browser.sleep(3000);
+  //   expect(fp.getProgress()).toEqual('Progress');
+  // });
+  //
+  // xit('Should be able to check Slide', () => {
+  //   browser.sleep(2000);
+  //   fp.findProgressElement('Slide 1');
+  //   browser.sleep(3000);
+  //   fp.clickOnButton('Mark as complete');
+  //   browser.sleep(2000);
+  //   fp.clickOnText('#next-step-btn');
+  //   browser.sleep(2000);
+  //   fp.navigateToDashboard();
+  //   browser.sleep(2000);
+  // });
+  //
+  // xit('Should be able to check conversation', () => {
+  //   browser.sleep(2000);
+  //   fp.findProgressElement('Conversation');
+  //   browser.sleep(3000);
+  //   fp.clickOnButton('reset');
+  //   // browser.sleep(2000);
+  //   // fp.clickOnButton('Completed');
+  //   // browser.sleep(2000);
+  //   fp.navigateToDashboard();
+  //   browser.sleep(2000);
+  // });
 
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser
@@ -136,3 +188,4 @@ describe('treadwill Flow', () => {
     );
   });
 });
+

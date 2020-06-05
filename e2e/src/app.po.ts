@@ -14,9 +14,10 @@ export class AppPage {
     return element(by.css('h2')).getText() as Promise<string>;
   }
 
-  clickBurgerBtn() {
-    element(by.css('mat-icon.pre-login-toolbar-burger')).click();
+  clickBurgerBtn(text: any) {
+    element(by.css(text)).click();
   }
+
   clickLoginLink() {
     // element(by.css('a.login-btn')).click();
     element(by.css('a.pre-login-side-nav-anchor')).click();
