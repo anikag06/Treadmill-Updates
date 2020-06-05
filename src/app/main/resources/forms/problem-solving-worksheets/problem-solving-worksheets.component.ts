@@ -77,6 +77,7 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   stepName!: string;
   // menuOpen = false;
   @Input() fromSlide!: boolean;
+  @Input() fromConv!: boolean;
   bestSolution!: any;
   constructor(
     private problemService: ProblemSolvingWorksheetsService,

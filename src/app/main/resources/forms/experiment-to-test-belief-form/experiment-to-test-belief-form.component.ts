@@ -45,6 +45,9 @@ import {StepsDataService} from "@/main/resources/shared/steps-data.service";
   styleUrls: ['./experiment-to-test-belief-form.component.scss'],
 })
 export class ExperimentToTestBeliefFormComponent implements OnInit {
+  @Input() fromSlide!: boolean;
+  @Input() fromConv!: boolean;
+
   formName = EXPERIMENT_TO_TEST_BELIEF_FORM_NAME;
   user!: User;
   belief!: Belief;

@@ -360,7 +360,8 @@ export const REGISTRATION_PATH = '/trial/trial-registration';
 export const GET_COUNTRY_LIST = '/api/v1/user/get-country-list/';
 // time zone
 export const GET_TIMEZONE = '/api/v1/trial-iitk/get-timezone-list/';
-
+// signup link required for e2e testing
+export const GET_SIGNUP_LINK = '/api/v1/trial-iitk/get-unique-link-e2e/';
 // trial registration steps
 export const EMAIL_REGISTRATION = '/api/v1/trial-iitk/register-participant/';
 export const REGISTRATION_STEP_TWO =

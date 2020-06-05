@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { UserTask } from '@/main/resources/forms/shared/tasks/user-task.model';
 import { SET_ACTIVITY } from '@/app.constants';
 
@@ -15,6 +15,9 @@ import {StepsDataService} from "@/main/resources/shared/steps-data.service";
   styleUrls: ['./task-forms.component.scss'],
 })
 export class TaskFormsComponent implements OnInit {
+  @Input() fromSlide!: boolean;
+  @Input() fromConv!: boolean;
+
   task!: UserTask | undefined;
   reset = false;
   taskHeading = 'Task Description';

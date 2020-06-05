@@ -1,9 +1,13 @@
 import { AppPage } from './app.po';
-import { browser, logging } from 'protractor';
+import {browser, by, element, logging} from 'protractor';
 import { protractor } from 'protractor/built/ptor';
+
+
 
 describe('workspace-project App', () => {
   let page: AppPage;
+  let email!: string;
+  let username!: string;
   beforeEach(() => {
     page = new AppPage();
   });
@@ -12,7 +16,7 @@ describe('workspace-project App', () => {
     page.navigateTo();
     browser.waitForAngularEnabled(false);
     browser.sleep(1000);
-    page.clickBurgerBtn();
+    page.clickBurgerBtn('mat-icon.pre-login-toolbar-burger');
     browser.sleep(3500);
     page.clickLoginLink();
     browser.sleep(2500);
@@ -21,10 +25,11 @@ describe('workspace-project App', () => {
     );
   });
 
-  it('should click on study and fill trial registraion form', () => {
-    page.clickSignupLink();
+  it('should click on study and fill trial registration form', () => {
+    page.clickJoinStudy();
     browser.sleep(1500);
-    page.fillSignupForm();
+    page.fillTrialStudyForm();
+    email = page.newEmaiId;
     browser.sleep(6000);
     page.fillTrialRegForm();
     // browser.sleep(6000);
@@ -32,14 +37,6 @@ describe('workspace-project App', () => {
     // browser.sleep(3000);
   });
 
-  xit('should redirect to dashboard when on root', () => {
-    browser.get('/');
-    expect(
-      browser
-        .wait(protractor.ExpectedConditions.urlContains('dashboard'), 2000)
-        .catch(() => false),
-    ).toBeTruthy('Url match could not succced');
-  });
 
   it('Should show PHQ-9 questionnaire', () => {
     expect(page.findPhq()).toBeTruthy();
@@ -86,7 +83,8 @@ describe('workspace-project App', () => {
     // expect(fp.getProgress()).toEqual('Progress');
   });
 
-  it('should fill consent form and decline notifications', () => {
+  xit('should fill consent form and decline notifications', () => {
+    // yet to be done
     expect(page.findConsentPage()).toBeTruthy();
     browser.sleep(3000);
     page.fillConsentPage();
@@ -98,11 +96,53 @@ describe('workspace-project App', () => {
   it('should fill consent form and accept notifications and submit', () => {
     expect(page.findConsentPage()).toBeTruthy();
     browser.sleep(3000);
-    page.acceptAllConsentPage();
-    browser.sleep(4000);
+    page.fillConsentPage();
+    // page.acceptAllConsentPage();
+    browser.sleep(5000);
     page.clickSubmitButton();
-    browser.sleep(2000);
+    browser.sleep(3500);
   });
+
+
+// get link for sign up from mail
+
+  it('Should get sign up link and redirect to signup page', () => {
+    page.getSignUpLink();
+    browser.sleep(3500);
+    expect(
+      browser//
+        .wait(protractor.ExpectedConditions.urlContains('sign-up'), 2000)
+        .catch(() => false),
+    ).toBeTruthy('Url match could not succced');
+  });
+
+  it('should fill signup page', () => {
+    page.fillSignupForm();
+    browser.sleep(3000);
+    username = page.newUsername;
+  });
+
+  it('should login and redirect to dashboard', () => {
+    // username is hardcoded here
+      page.fillLoginForm(username, 'test123');
+    expect(
+      browser//
+        .wait(protractor.ExpectedConditions.urlContains('dashboard'))
+        .catch(() => false),
+    ).toBeTruthy('Url match could not succced');
+    browser.sleep(6000);
+  });
+
+  xit('should redirect to dashboard when on root', () => {
+    browser.get('/');
+    expect(
+      browser//
+        .wait(protractor.ExpectedConditions.urlContains('dashboard'), 2000)
+        .catch(() => false),
+    ).toBeTruthy('Url match could not succced');
+  });
+
+
 
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser

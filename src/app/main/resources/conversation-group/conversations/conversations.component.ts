@@ -561,6 +561,9 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     const viewContainerRef = this.formHost.viewContainerRef;
     viewContainerRef.clear();
     viewContainerRef.createComponent(componentFactory);
+    const componentRef = viewContainerRef.createComponent(componentFactory);
+    // @ts-ignore
+    componentRef.instance.fromConv = true;
     if (window.matchMedia('(max-width: 767px)').matches) {
       this.isFormVisible = false;
     } else {

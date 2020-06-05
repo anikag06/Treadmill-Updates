@@ -59,6 +59,9 @@
 .in-desktop {
   display: block;
 }
+.in-mobile {
+  display: none;
+}
 
 @media screen and (max-width: 992px) {
   .navBar-flow-container {
@@ -81,5 +84,8 @@
 
   .in-desktop {
     display: none;
+  }
+  .in-mobile {
+    display: block;
   }
 }
