@@ -51,7 +51,6 @@ import { Introduction4Component } from './introduction/introduction4/introductio
 import { Introduction5Component } from './introduction/introduction5/introduction5.component';
 import { Introduction6Component } from './introduction/introduction6/introduction6.component';
 import { CommonDialogsService } from './shared/common-dialogs.service';
-import { CongratsDialogComponent } from './shared/congrats-dialog/congrats-dialog.component';
 import { StepsDataService } from './shared/steps-data.service';
 import { FormDirective } from './slides/form.directive';
 import { UserFeedbackComponent } from './shared/user-feedback/user-feedback.component';
@@ -144,7 +143,6 @@ import { ExtraResourcesModule } from '@/main/extra-resources/extra-resources.mod
     FormDirective,
     ConversationGroupComponent,
     ConversationsComponent,
-    CongratsDialogComponent,
     UserFeedbackComponent,
     IntroductionComponent,
     Introduction1Component,
@@ -278,7 +276,6 @@ import { ExtraResourcesModule } from '@/main/extra-resources/extra-resources.mod
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [
-    CongratsDialogComponent,
     ProblemFormComponent,
     ProblemSolvingWorksheetsComponent,
     MoodTrackerComponent,

@@ -9,32 +9,33 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
-import {Observable} from 'rxjs';
-import {filter, map} from 'rxjs/operators';
-import {AuthService} from '@/shared/auth/auth.service';
-import {User} from '@/shared/user.model';
-import {NavigationStart, Router} from '@angular/router';
-import {DEFAULT_PATH, SHOW_TOAST_DURATION} from '@/app.constants';
-import {MatDrawer, MatTooltip} from '@angular/material';
-import {DataService} from '@/shared/questionnaire/data.service';
-import {FcmService} from '@/shared/fcm.service';
-import {QuizService} from '@/shared/questionnaire/questionnaire.service';
-import {FlowService} from './flow/flow.service';
-import {Overlay, OverlayRef} from '@angular/cdk/overlay';
-import {ComponentPortal} from '@angular/cdk/portal';
-import {IntroduceComponent} from './shared/introduce/introduce.component';
-import {IntroduceService} from './shared/introduce/introduce.service';
-import {SurveyService} from './shared/survey.service';
-import {ToastNotificationDirective} from '@/shared/toast-notification/toast-notification.directive';
-import {ToastNotificationComponent} from '@/shared/toast-notification/toast-notification.component';
-import {NavbarNotificationsService} from '@/main/shared/navbar/navbar-notifications.service';
-import {CustomOverlayService} from '@/main/shared/custom-overlay/custom-overlay.service';
-import {CommonService} from '@/shared/common.service';
-import {InternetConnectionComponent} from '@/shared/internet-connection/internet-connection.component';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
+import { AuthService } from '@/shared/auth/auth.service';
+import { User } from '@/shared/user.model';
+import { NavigationStart, Router } from '@angular/router';
+import { DEFAULT_PATH, SHOW_TOAST_DURATION } from '@/app.constants';
+import { MatDrawer, MatTooltip } from '@angular/material';
+import { DataService } from '@/shared/questionnaire/data.service';
+import { FcmService } from '@/shared/fcm.service';
+import { QuizService } from '@/shared/questionnaire/questionnaire.service';
+import { FlowService } from './flow/flow.service';
+import { Overlay, OverlayRef } from '@angular/cdk/overlay';
+import { ComponentPortal } from '@angular/cdk/portal';
+import { IntroduceComponent } from './shared/introduce/introduce.component';
+import { IntroduceService } from './shared/introduce/introduce.service';
+import { SurveyService } from './shared/survey.service';
+import { ToastNotificationDirective } from '@/shared/toast-notification/toast-notification.directive';
+import { ToastNotificationComponent } from '@/shared/toast-notification/toast-notification.component';
+import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifications.service';
+import { CustomOverlayService } from '@/main/shared/custom-overlay/custom-overlay.service';
+import { CommonService } from '@/shared/common.service';
+import { InternetConnectionComponent } from '@/shared/internet-connection/internet-connection.component';
 // @ts-ignore
 import * as introJs from 'intro.js/intro';
-import {IntroService} from "@/main/walk-through /intro.service";
+import { IntroService } from '@/main/walk-through /intro.service';
+import { PointsComponent } from '@/main/shared/points/points.component';
 
 declare var twemoji: any;
 // tslint:disable-next-line:max-line-length
@@ -73,10 +74,16 @@ export class MainComponent
     .observe([Breakpoints.Handset, Breakpoints.Small])
     .pipe(map((result) => result.matches));
   isExpanded = true;
+
   @ViewChild(ToastNotificationDirective, { static: true })
   toastNotification!: ToastNotificationDirective;
+
   @ViewChild('connection', { static: true, read: ViewContainerRef })
   connectionNotification!: ViewContainerRef;
+
+  @ViewChild('pointsNotification', { static: true, read: ViewContainerRef })
+  pointsNotification!: ViewContainerRef;
+
   introJS = introJs();
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -93,7 +100,7 @@ export class MainComponent
     private notificationService: NavbarNotificationsService,
     private overlayService: CustomOverlayService,
     private commonService: CommonService,
-    private introService:IntroService
+    private introService: IntroService,
   ) {}
 
   ngOnChanges() {}
@@ -113,30 +120,18 @@ export class MainComponent
     this.flowService.introduceBehaviour.subscribe((data: any) => {
       if (data) {
         // this.startIntroduction();
-        this.introJS.setOptions({
-          steps: [
-            {
-              element: '#profile',
-              intro:
-                '<div class="intro-heading"> Profile </div> ' +
-                '<div class="intro-text">Text about Profile</div>',
-              position: 'bottom',
-            },
-            {
-              element: '#points',
-              intro:
-                '<div class="intro-heading">Points & Badges </div>' +
-                '<div class="intro-text">Text about Points & Badges</div>',
-              position: 'bottom',
-            },
-          ],
-          tooltipPosition: 'auto',
-          showStepNumbers: false,
-          showProgress: false,
-          showBullets: false,
-        });
-        this.introJS.start();
-      }
+        //   this.introService.startBadgesIntro(this.pointsNotification);
+        const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
+          PointsComponent,
+        );
+        const pointsComponent = this.pointsNotification.createComponent(
+          componentFactory,
+        );
+        pointsComponent.instance.points = 20;
+        setTimeout(() => {
+          pointsComponent.destroy();
+        }, SHOW_TOAST_DURATION);
+       }
     });
 
     this.introduceService.closeBehaviour.subscribe((data: any) => {
@@ -149,15 +144,18 @@ export class MainComponent
       const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
         ToastNotificationComponent,
       );
+
       const toastComponentRef = this.toastNotification.viewContainerRef.createComponent(
         componentFactory,
       );
+
       toastComponentRef.instance.title = message.notification.title;
       toastComponentRef.instance.body = message.notification.body;
       setTimeout(() => {
         toastComponentRef.destroy();
       }, SHOW_TOAST_DURATION);
     });
+
     this.notificationService.openNavFlow.subscribe(() => {
       this.flowLoaded = false;
       this.flowOpen = true;
@@ -201,6 +199,7 @@ export class MainComponent
       );
       connectionComponentRef.instance.onlineStatus = isOnline;
       connectionComponentRef.instance.statusMessage = statusMessage;
+
       if (isOnline) {
         setTimeout(
           () => {

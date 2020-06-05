@@ -48,8 +48,7 @@ export class CongratsDialogComponent implements OnInit {
     }
   }
 
-  onNextClicked() {
-    const next_step_url = this.flowStepService.goToFlowNextStep(this.nextStepData);
+  onNextClicked() {    const next_step_url = this.flowStepService.goToFlowNextStep(this.nextStepData);
     this.flowStepService.virtualStepMarkDone(this.nextStepData, this.data.time_spent);
     this.closeDialog();
     this.router.navigate([next_step_url]);
@@ -57,7 +56,7 @@ export class CongratsDialogComponent implements OnInit {
 
   goToDashboard() {
     this.closeDialog();
-    this.router.navigate(['/']);
+    // this.router.navigate(['/']);
   }
   closeDialog() {
     this.dialogRef.close();
