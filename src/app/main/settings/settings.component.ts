@@ -14,6 +14,7 @@ import {FcmService} from '@/shared/fcm.service';
 })
 export class SettingsComponent implements OnInit {
   user!: User;
+  checked = true;
   showLoadingPasswordChange = false;
   showLoadingUsernameChange = false;
   LoadingUsernamePasswordChange = false;
@@ -47,7 +48,7 @@ export class SettingsComponent implements OnInit {
   taskFormEmailToggle!: boolean;
   formsFcmToggle!: boolean;
   formsEmailToggle!: boolean;
-  weeklyEmailToggle!: boolean;
+  weeklyEmailToggle = true;
 
 
 
@@ -68,6 +69,7 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit() {
     this.user = <User>this.authService.isLoggedIn();
+    console.log('initial weekly', this.weeklyEmailToggle);
 
     this.settingsService.updatedNotificationsState()
         .subscribe((data: any) => {
@@ -78,7 +80,9 @@ export class SettingsComponent implements OnInit {
           this.taskFormFcmToggle = data.data.task_form_fcm;
           this.formsEmailToggle = data.data.forms_email;
           this.formsFcmToggle = data.data.forms_fcm;
-          this.weeklyEmailToggle = data.data.weekly_email;
+          this.weeklyEmailToggle = data.data.weekly_email_update;
+          console.log('weekly', this.weeklyEmailToggle);
+          console.log('weekly', data.data.weekly_email_update);
 
         });
   }
@@ -267,6 +271,10 @@ export class SettingsComponent implements OnInit {
       console.log(data);
 
     });
+    this.settingsService.updatedNotificationsState()
+      .subscribe((data) => {
+        console.log(data);
+      })
 
 
     // this.settingsService.updatingNotifications(true);

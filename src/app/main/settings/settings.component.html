@@ -212,6 +212,7 @@
             </span>
           </span>
           <mat-slide-toggle
+            [checked] = "taskFormFcmToggle"
             (click) = "saveNotificationChange('task_form_fcm', taskFormFcmToggle = !taskFormFcmToggle)"
             [ngClass] = "this.notificationMessage === 'task_form_fcm' && this.notificationStatus === true ? 'push-email-right-space-with-save':'push-email-right-space'">
           </mat-slide-toggle>
@@ -275,9 +276,10 @@
             </span>
           </span>
           <mat-slide-toggle
+
             (click) = "saveNotificationChange('weekly_email_update', weeklyEmailToggle = !weeklyEmailToggle)"
             [ngClass] = "this.notificationMessage === 'weekly_email_update' && this.notificationStatus === true ? 'push-email-right-space-with-save':'push-email-right-space'"
-              value = "on">
+            [checked] = "weeklyEmailToggle">
           </mat-slide-toggle>
         </p>
       </div>
