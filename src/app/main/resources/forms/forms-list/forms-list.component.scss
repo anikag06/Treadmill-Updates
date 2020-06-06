@@ -8,19 +8,28 @@
 .form-card {
   width: 80%;
   margin: auto;
-  min-width: 250px;
+  min-width: 328px;
   max-width: 350px;
+  min-height:228px;
+  background-color: #F6FCFC;
 }
 .form-name {
   //height: 73px;
   min-height: 50px;
   font-size: 1.5rem;
-  background: #ffefd4 0% 0% no-repeat padding-box;
+  color:white;
+  background: #2A3B3D 0% 0% no-repeat padding-box;
   box-shadow: 0px 2px 5px #00000029;
   padding-top: 8px;
   .form-div {
     margin-bottom: 30px;
   }
+}
+.img-div {
+  height: 180px;
+  width:328px;
+  display: flex;
+  align-items: center;
 }
 
 //@media screen and (max-width: 1250px) {
