@@ -1,6 +1,7 @@
-import { browser, by, element } from 'protractor';
+import {browser, by, element, protractor} from 'protractor';
 
 export class FlowPage {
+  EC = protractor.ExpectedConditions;
   navigateToDashboard() {
     return browser.get('/main/dashboard') as Promise<any>;
   }
@@ -36,16 +37,29 @@ export class FlowPage {
   }
 
   findProgressGroupElement(text: string) {
-    return element(by.css('.flow-scroll-inner')).element(by.cssContainingText('.step-group-name', text)).click();
-
-    // return element(by.css('.flow-scroll-inner')).element(by.cssContainingText('.step-group-name', text));
+    return element(by.css('.flow-scroll-inner')).element(by.cssContainingText('.step-group-name', text));
   }
 
   findProgressElement(txt: string) {
-   element(by.css('.flow-scroll-inner')).element(by.cssContainingText('.step-content', txt)).getText().then( value => {
-     console.log('step', value);
-   });
+    element(by.css('.flow-scroll-inner')).element(by.cssContainingText('.step-content', txt))
+      .click()
+      .then( () => {
+          console.log('STEP :', txt, 'clicked');
+      });
   }
+
+  goToNextStep() {
+    browser.sleep(2000);
+    this.clickOnButton('Completed').then( () => {
+      // browser.sleep(2000);
+      // this.clickOnButton('Next Step');
+      const nextStepBtn = element(by.cssContainingText('button', 'Next Step'));
+      browser.wait(this.EC.visibilityOf(nextStepBtn)).then( () => {
+        nextStepBtn.click();
+      });
+      });
+    browser.sleep(1000);
+}
 
   getQuestionnaireNotavailable() {
     return element

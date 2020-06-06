@@ -1,5 +1,5 @@
 import { AppPage } from './app.po';
-import {browser, by, ElementFinder, logging} from 'protractor';
+import {browser, logging} from 'protractor';
 import { FlowPage } from './flow/flow.po';
 
 describe('treadwill Flow', () => {
@@ -17,7 +17,6 @@ describe('treadwill Flow', () => {
     fp.checkUserGroup().then( (value ) => {
         expUser = value;
       console.log('USER GROUP', expUser);
-
     });
     browser.sleep(2000);
     fp.hideSideNav();
@@ -25,14 +24,12 @@ describe('treadwill Flow', () => {
   });
 
   xit('Should find the Progress flow click first Module and run its step', () => {
-    // page.clickBurgerBtn('button.hamburger-button');
+    expect(fp.getProgress()).toEqual('Progress');
     browser.sleep(1000);
+    expect(fp.findProgressGroupElement('Introduction to TreadWill')).toBeTruthy();
+    // fp.findProgressGroupElement('Introduction to TreadWill').click();
     if (expUser === 'true') {
       console.log('EXPERIMENTAL GROUP', expUser);
-      browser.sleep(1000);
-      expect(fp.getProgress()).toEqual('Progress');
-      browser.sleep(4000);
-      fp.findProgressGroupElement('Introduction to TreadWill');
       browser.sleep(2000);
       fp.findProgressElement('Navigating TreadWill ');
       browser.sleep(2500);
@@ -43,10 +40,7 @@ describe('treadwill Flow', () => {
       browser.sleep(1000);
     } else {
       console.log('CONTROL GROUP', expUser);
-        browser.sleep(4000);
-        fp.findProgressGroupElement('Introduction to TreadWill');
-        browser.sleep(2000);
-        fp.findProgressElement('  Navigating TreadWill ');
+        fp.findProgressElement('Navigating TreadWill');
         browser.sleep(2500);
         expect(fp.findTextbyCss('.mat-card-title')).toContain('Primary Navigation');
         browser.sleep(2000);
@@ -57,35 +51,26 @@ describe('treadwill Flow', () => {
   });
 
   it('Should click second Module and run its step', () => {
+    expect(fp.findProgressGroupElement('Being self-aware')).toBeTruthy();
+    browser.sleep(2000);
+    // fp.findProgressGroupElement('Being self-aware').click();
     if (expUser === 'true') {
       console.log('EXPERIMENTAL GROUP', expUser);
-      browser.sleep(1000);
-      // expect(fp.findProgressGroupElement('Being self-aware')).toBeTruthy();
-      fp.findProgressGroupElement('Being self-aware');
-      browser.sleep(2000);
       fp.findProgressElement('Introduction ');
-      browser.sleep(2500);
-      fp.clickOnButton('Completed');
       browser.sleep(2000);
-      fp.clickOnButton('Next Step');
-      browser.sleep(1000);
+      fp.goToNextStep();
       expect(fp.getProgress()).toEqual('Progress');
       fp.findProgressElement('Evaluate my thought form');
-      browser.sleep(2500);
-      fp.clickOnButton('Completed ');
+      fp.goToNextStep();
     } else {
       console.log('CONTROL GROUP', expUser);
-      browser.sleep(4000);
-      // expect(fp.findProgressGroupElement('Being self-aware')).toBeTruthy();
-      fp.findProgressGroupElement('Being self-aware');
       browser.sleep(2000);
-      fp.findProgressElement('Getting started');
-      browser.sleep(2500);
-      fp.clickOnButton('Completed ');
-      browser.sleep(2000);
+      // fp.findProgressElement('Getting started');
+      // browser.sleep(2000);
+      // fp.goToNextStep();
       fp.findProgressElement('Depression ');
-      browser.sleep(2500);
-      fp.clickOnButton('Completed ');
+      browser.sleep(2000);
+      fp.goToNextStep();
     }
   });
 

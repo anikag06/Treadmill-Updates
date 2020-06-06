@@ -104,14 +104,15 @@ export class ControlContentComponent implements OnInit {
     this.showLoading = true;
     this.completionData.step_id = this.current_step_id;
     this.completionData.time_spent = 100;
-
+    console.log('step id', this.completionData.step_id, this.completionData.time_spent);
     this.stepDataService
       .storeCompletionData(this.completionData)
       .subscribe(() => {
         this.showLoading = false;
+        this.nextBtnShow = true;
       });
 
-    this.nextBtnShow = true;
+    // this.nextBtnShow = true;
     this.dataloaded = true;
     // this.onHtmlNext();
     // this.nextButton(this.current_step_id);
