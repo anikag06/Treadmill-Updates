@@ -124,7 +124,7 @@ describe('workspace-project App', () => {
 
   it('should login and redirect to dashboard', () => {
     // username is hardcoded here
-      page.fillLoginForm('rootbcfvph', 'test123');
+      page.fillLoginForm('root7ushxh', 'test123');
     expect(
       browser//
         .wait(protractor.ExpectedConditions.urlContains('dashboard'))

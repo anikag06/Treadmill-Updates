@@ -41,11 +41,14 @@ export class FlowPage {
   }
 
   findProgressElement(txt: string) {
-    element(by.css('.flow-scroll-inner')).element(by.cssContainingText('.step-content', txt))
-      .click()
-      .then( () => {
+    browser.wait(this.EC.presenceOf(element(by.css('h6.progress-heading-mobile')))).then( () => {
+      element(by.css('.flow-scroll-inner')).element(by.cssContainingText('.step-content', txt))
+        .click()
+        .then(() => {
           console.log('STEP :', txt, 'clicked');
-      });
+          browser.sleep(1000);
+        });
+    });
   }
 
   goToNextStep() {
