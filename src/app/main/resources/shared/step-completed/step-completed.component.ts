@@ -9,6 +9,7 @@ export class StepCompletedComponent implements OnInit {
 
   @Input() showNextStep!: boolean;
   @Input() showloading!: boolean;
+  @Input() isLastStep!: boolean;
   @Input() lastStepCompleted!: boolean;
 
   @Output() completedEvent: EventEmitter<any> = new EventEmitter();

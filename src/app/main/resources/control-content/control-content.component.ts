@@ -36,6 +36,7 @@ export class ControlContentComponent implements OnInit {
   isLastStep = false;
   dataloaded = true;
   showLoading = false;
+  lastStepCompleted = false;
   // elem = document.getElementById('hi');
 
   constructor(
@@ -75,6 +76,9 @@ export class ControlContentComponent implements OnInit {
         // this.nextLoaded = true;
         if (control_data.data.status === 'COMPLETED') {
           this.nextBtnShow = true;
+          if (this.isLastStep) {
+            this.lastStepCompleted = true;
+          }
         } else if (control_data.data.status === 'ACTIVE') {
           this.nextBtnShow = false;
         }
@@ -109,7 +113,11 @@ export class ControlContentComponent implements OnInit {
       .storeCompletionData(this.completionData)
       .subscribe(() => {
         this.showLoading = false;
-        this.nextBtnShow = true;
+        if (!this.isLastStep) {
+          this.nextBtnShow = true;
+        } else {
+          this.lastStepCompleted = true;
+        }
       });
 
     // this.nextBtnShow = true;
