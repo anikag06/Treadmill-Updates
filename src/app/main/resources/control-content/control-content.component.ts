@@ -22,7 +22,7 @@ import {NavbarGoToService} from '@/main/shared/navbar/navbar-go-to.service';
   selector: 'app-control-content',
   templateUrl: './control-content.component.html',
   styleUrls: ['./control-content.component.scss'],
-  providers: [FlowService],
+  // providers: [FlowService],
 })
 export class ControlContentComponent implements OnInit {
   @ViewChild('target', { static: false }) target!: ElementRef;
@@ -37,6 +37,10 @@ export class ControlContentComponent implements OnInit {
   dataloaded = true;
   showLoading = false;
   lastStepCompleted = false;
+  navbarTitle!: string;
+  stepSequence!: number;
+  stepName!: string;
+  stepGroupSequence!: number;
   // elem = document.getElementById('hi');
 
   constructor(
@@ -82,26 +86,38 @@ export class ControlContentComponent implements OnInit {
         } else if (control_data.data.status === 'ACTIVE') {
           this.nextBtnShow = false;
         }
+        // for navbar title
+        this.stepGroupSequence = control_data.data.step_group_sequence + 1;
+        this.stepSequence = control_data.data.sequence + 1;
+        this.stepName = control_data.data.name;
+        this.navbarTitle =
+          this.stepGroupSequence.toString() +
+          '.' +
+          this.stepSequence.toString() +
+          ' ' +
+          this.stepName;
+        console.log('STEP DETAIL:', this.navbarTitle);
+        this.flowService.stepDetail.emit(this.navbarTitle);
       });
   }
 
-  onHtmlNext() {
-    this.flowStepService
-      .getNextStepData(this.next_step_id)
-      .subscribe(next_step => {
-        console.log('next_step_detail is', next_step);
-        console.log('next_step_data is', next_step.data);
-        const next_step_url = this.flowStepService.goToFlowNextStep(
-          next_step.data,
-        );
-        console.log('url is', next_step_url);
-        this.router.navigate([next_step_url]);
-        this.onScrollToTop();
-        // this.nextButton(next_step);
-      });
-    this.dataloaded = false;
-    // this.nextLoaded = false;
-  }
+  // onHtmlNext() {
+  //   this.flowStepService
+  //     .getNextStepData(this.next_step_id)
+  //     .subscribe(next_step => {
+  //       console.log('next_step_detail is', next_step);
+  //       console.log('next_step_data is', next_step.data);
+  //       const next_step_url = this.flowStepService.goToFlowNextStep(
+  //         next_step.data,
+  //       );
+  //       console.log('url is', next_step_url);
+  //       this.router.navigate([next_step_url]);
+  //       this.onScrollToTop();
+  //       // this.nextButton(next_step);
+  //     });
+  //   this.dataloaded = false;
+  //   // this.nextLoaded = false;
+  // }
 
 
   onHtmlComplete() {

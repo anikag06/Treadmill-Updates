@@ -38,6 +38,7 @@ export const mainRoutes: Routes = [
       {
         path: 'need-to-talk',
         component: NeedToTalkComponent,
+        data: { title: 'Need to talk' },
       },
       {
         path: 'support-groups/:id',
