@@ -1,12 +1,16 @@
-import {ComponentFactoryResolver, Injectable, ViewContainerRef} from '@angular/core';
+import {ComponentFactoryResolver, HostListener, Injectable, ViewContainerRef} from '@angular/core';
 import {MOBILE_WIDTH, SHOW_TOAST_DURATION} from "@/app.constants";
 // @ts-ignore
 import * as introJs from 'intro.js/intro';
 import {MatDrawer} from "@angular/material/sidenav";
 import {CongratsDialogComponent} from "@/main/resources/shared/congrats-dialog/congrats-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
-import {ToastNotificationComponent} from "@/shared/toast-notification/toast-notification.component";
 import {PointsComponent} from "@/main/shared/points/points.component";
+import {IntroDialogComponent} from "@/main/walk-through /intro-dialog/intro-dialog.component";
+import {BehaviorSubject} from "rxjs";
+import {NavbarNotificationsService} from "@/main/shared/navbar/navbar-notifications.service";
+import {FlowComponent} from "@/main/flow/flow.component";
+import {FlowService} from "@/main/flow/flow.service";
 
 @Injectable({
   providedIn: 'root'
@@ -14,55 +18,121 @@ import {PointsComponent} from "@/main/shared/points/points.component";
 export class IntroService {
 
   private drawer!: MatDrawer
-  constructor(private dialog : MatDialog,private componentFactoryResolver: ComponentFactoryResolver,) { }
+  introduceBehaviour = new BehaviorSubject(false);
+
+  constructor(private dialog: MatDialog, private componentFactoryResolver: ComponentFactoryResolver,
+              private notificationService: NavbarNotificationsService,
+              private flowService : FlowService,
+
+  ) {
+  }
+
   introJS = introJs();
   badgeData = {
-    name : 'Brave Beginner',
-    description : 'Introduction to TreadWill',
-    image : 'https://www.api2.treadwill.org/media/badges/worry_free_warrior_m.png'
+    name: 'Brave Beginner',
+    description: 'Introduction to TreadWill',
+    image: 'https://www.api2.treadwill.org/media/badges/worry_free_warrior_m.png'
   }
+
+  startDashBoardIntro() {
+    this.introJS.setOptions({
+      steps: [
+        // {
+        //   element: '#active_step',
+        //   intro: '<div class="intro-heading">Click here to start </div>',
+        //   position: 'bottom',
+        // },
+        // {
+        //   element: '#step0',
+        //   intro:
+        //     '<div  class="intro-heading">Module Name</div>' +
+        //     ' <div class="intro-text">Text about module name .</div>',
+        //   position: 'bottom',
+        // },
+        // {
+        //   element: '#active_step',
+        //   intro:
+        //     '<div class="intro-heading">Current Step </div>' +
+        //     '<div class="intro-text">Text about Step.</div>',
+        //   // '<div> <button class="btn introjs-button" onClick="introJs().exit()" >Done</button></div>',
+        //   position: 'bottom',
+        // },
+        // {
+        //   element: '#active_gif',
+        //   intro:
+        //     '<div class="intro-heading">Current Step GIF </div> <div></div>' +
+        //     '<div class="intro-text">Text about</div>',
+        //   position: 'bottom',
+        // },
+        {
+          element: '#dashboard',
+          intro:
+            '<div class="intro-heading">Progress </div> <div></div>' +
+            '<div class="intro-text">Text about</div>',
+          position: 'bottom',
+        },
+        {
+          element:
+            window.innerWidth < MOBILE_WIDTH ? '#goto_mobile' : '#goto_desktop',
+          intro:
+            '<div class="intro-heading">Goto </div> <div></div>' +
+            '<div class="intro-text">Text about Goto</div>',
+          position: 'auto',
+        },
+
+      ],
+      tooltipPosition: 'auto',
+      showStepNumbers: false,
+      showProgress: false,
+      showBullets: false,
+      // exitOnOverlayClick: false,
+      hidePrev: true,
+      disableInteraction: false,
+      hideNext: true,
+    });
+    this.introJS.start();
+  }
+
   startSupportGroupIntro() {
-    this.openDrawer();
-      this.introJS.setOptions({
-        steps: [
-          {
-            element:
-              window.innerWidth < MOBILE_WIDTH ? '#new_post_mobile' : '#new-post',
-            intro:
-              '<div class="intro-heading">New Post </div> ' +
-              '<div class="intro-text">Text about New Post </div>',
-            // '<button onClick="toggle()">Next</button>',
-            position: 'bottom',
-          },
-          {
-            element: '#support-group',
-            intro:
-              '<div class="intro-heading">Access from left navigation bar</div> ' +
-              '<div>Text about Support Group</div>',
-
-            position: 'right',
-          },
-          {
-            element:
-              window.innerWidth < MOBILE_WIDTH ? '#goto_mobile' : '#goto_desktop',
-            intro:
-              '<div class="intro-heading">Goto </div> <div></div>' +
-              '<div class="intro-text">Text about Goto</div>' +
-              '<div> <button class="btn introjs-button float-right" onClick="introJs().exit()" >Done</button></div>',
-            position: 'bottom',
-          },
-        ],
-        tooltipPosition: 'auto',
-        showStepNumbers: false,
-        showProgress: false,
-        showBullets: false,
-        exitOnOverlayClick: false,
-        hidePrev: true,
-        disableInteraction: true,
-        hideNext: true,
-      });
-      this.introJS.start();
-
+    // this.openDrawer();
+    this.introJS.setOptions({
+      steps: [
+        {
+          element:
+            window.innerWidth < MOBILE_WIDTH ? '#new_post_mobile' : '#new-post',
+          intro:
+            '<div class="intro-heading">New Post </div> ' +
+            '<div class="intro-text">Text about New Post </div>',
+          // '<button onClick="toggle()">Next</button>',
+          position: 'bottom',
+        },
+        {
+          element: '#support-group',
+          intro:
+            '<div class="intro-heading">Access from left navigation bar</div> ' +
+            '<div>Text about Support Group</div>',
+          position: 'right',
+        },
+        {
+          element:
+            window.innerWidth < MOBILE_WIDTH ? '#goto_mobile' : '#goto_desktop',
+          intro:
+            '<div class="intro-heading">Goto </div> <div></div>' +
+            '<div class="intro-text">Text about Goto</div>' +
+            '<div> <button class="btn introjs-button float-right" onClick="introJs().exit()" >Done</button></div>',
+          position: 'bottom',
+        },
+      ],
+      tooltipPosition: 'auto',
+      showStepNumbers: false,
+      showProgress: false,
+      showBullets: false,
+      exitOnOverlayClick: false,
+      hidePrev: true,
+      disableInteraction: true,
+      hideNext: true,
+    });
+    // this.introJS.start();
   }
 
 
@@ -75,10 +145,10 @@ export class IntroService {
   }
 
   closeDrawer(): void {
-    this.drawer.close();
+    this.drawer.toggle();
   }
 
-  startGamesIntro(){
+  startGamesIntro() {
     this.introJS.setOptions({
       steps: [
         {
@@ -110,7 +180,7 @@ export class IntroService {
     this.introJS.start();
   }
 
-  startFormsIntro(){
+  startFormsIntro() {
     this.introJS.setOptions({
       steps: [
         {
@@ -142,8 +212,9 @@ export class IntroService {
     this.introJS.start();
   }
 
-  startBadgesIntro(pointsNotification:ViewContainerRef){
-    this.introJS.setOptions({
+  startBadgesIntro() {
+    let intro = introJs.introJs();
+    intro.setOptions({
       steps: [
         {
           element: '#profile',
@@ -169,12 +240,16 @@ export class IntroService {
       disableInteraction: true,
       hideNext: true,
     });
-    // this.introJS.start();
-   // this.showPointsNotification(pointsNotification);
+    intro.start();
+    intro.onexit(()=> {
+      console.log("inside exit");
+      this.showCongratsDialog();
+    });
+
 
   }
 
-  showCongratsDialog(){
+  showCongratsDialog() {
     const dialogRef = this.dialog.open(CongratsDialogComponent, {
       maxWidth: '90vw',
       // width: '44%',
@@ -189,7 +264,7 @@ export class IntroService {
     });
   }
 
-  showPointsNotification(pointsNotification:ViewContainerRef){
+  showPointsNotification(pointsNotification: ViewContainerRef) {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
       PointsComponent,
     );
@@ -201,6 +276,56 @@ export class IntroService {
     setTimeout(() => {
       pointsComponent.destroy();
     }, SHOW_TOAST_DURATION);
+  }
+
+  openIntroDialog() {
+    const dialogRef = this.dialog.open(IntroDialogComponent, {
+      panelClass: 'intro-dialog',
+      autoFocus: false,
+      maxWidth: '340px',
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+      this.startBadgesIntro();
+    });
+  }
+
+  stopIntro() {
+    this.introJS.exit();
+  }
+
+  startFlowIntro() {
+    let intro = introJs.introJs();
+    intro.setOptions({
+      steps: [
+        {
+          element: '#flow',
+          intro:
+            '<div class="intro-heading">Flow </div>' +
+            '<div class="intro-text">Text About Flow</div>',
+          position: 'bottom',
+        },
+      ],
+      tooltipPosition: 'auto',
+      showStepNumbers: false,
+      showProgress: false,
+      showBullets: false,
+      exitOnOverlayClick: false,
+      hidePrev: true,
+      disableInteraction: true,
+      hideNext: true,
+    });
+    setTimeout(()=>{
+      intro.start();
+    },1000)
+
+
+    intro.onexit(()=> {
+      this.notificationService.closeNavFlow.emit();
+      this.flowService.introduceBehaviour.next(true);
+    });
+
+
   }
 
 }

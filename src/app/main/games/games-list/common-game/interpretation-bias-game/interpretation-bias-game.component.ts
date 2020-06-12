@@ -30,6 +30,7 @@ import { GamesFeedbackService } from '../games-feedback/games-feedback.service';
 import {map, switchMap} from "rxjs/operators";
 import {FlowService} from "@/main/flow/flow.service";
 import {StepsDataService} from "@/main/resources/shared/steps-data.service";
+import {IntroService} from "@/main/walk-through /intro.service";
 
 declare var IBG_MAX_WORDS_HIDDEN: number;
 declare var sentence_number: any;
@@ -147,6 +148,8 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
     private stepDataService: StepsDataService,
   ) {}
 
+
+
   @HostListener('window:iBGameSentenceDialogFun')
   showSentence() {
     const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
@@ -224,6 +227,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
       'background-color',
       'black',
     );
+
   }
 
   initSentencesData() {

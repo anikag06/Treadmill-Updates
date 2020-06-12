@@ -1,37 +1,31 @@
+import {AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild,} from '@angular/core';
+import {Step} from './step.model';
+import {StepGroup} from '../step-group.model';
 import {
-  Component,
-  OnInit,
-  Input,
-  ViewChild,
-  ElementRef,
-  AfterViewInit,
-} from '@angular/core';
-import { Step } from './step.model';
-import { StepGroup } from '../step-group.model';
-import {
+  ACTIVE,
   COMPLETED,
-  SLIDE,
-  CONVERSATION_GROUP,
-  GAME,
-  FORM,
-  FORM_URL_MAP,
-  SUPPORT_GROUP,
-  QUESTIONNAIRE,
-  INTRODUCTION_PAGE,
   CONCLUSION_PAGE,
-  CONTROL_PAGE,
-  SURVEY,
-  VIDEO,
+  CONVERSATION_GROUP,
+  FORM,
+  GAME,
+  INTRODUCTION_PAGE,
+  INTRODUCTORY_ANIMATION,
+  LOCKED,
   RESOURCES_PAGE,
+  SLIDE,
+  SUPPORT_GROUP,
+  SURVEY,
   TESTIMONIALS_PAGE,
+  VIDEO,
 } from '@/app.constants';
-import { LOCKED, ACTIVE, INTRODUCTORY_ANIMATION } from '@/app.constants';
-import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.service';
-import { Router } from '@angular/router';
-import { FlowService } from '../../flow.service';
-import { MatTooltip } from '@angular/material';
-import { DatePipe } from '@angular/common';
-import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifications.service';
+import {FlowStepNavigationService} from '@/main/shared/flow-step-navigation.service';
+import {Router} from '@angular/router';
+import {FlowService} from '../../flow.service';
+import {MatTooltip} from '@angular/material';
+import {DatePipe} from '@angular/common';
+import {NavbarNotificationsService} from '@/main/shared/navbar/navbar-notifications.service';
+import {IntroService} from "@/main/walk-through /intro.service";
+
 
 @Component({
   selector: 'app-step',
@@ -57,6 +51,7 @@ export class StepComponent implements OnInit, AfterViewInit {
     private datePipe: DatePipe,
     private element: ElementRef,
     private navbarService: NavbarNotificationsService,
+    private introService : IntroService,
   ) {}
 
   ngOnInit() {
@@ -142,11 +137,18 @@ export class StepComponent implements OnInit, AfterViewInit {
 
     this.markDone();
     if (this.step.data_type === INTRODUCTORY_ANIMATION) {
-      this.flowService.triggerIntroduction();
+      if(this.step.id===75){
+            this.introService.startDashBoardIntro()
+      }
+      else{
+         this.introService.startBadgesIntro();
+        // this.flowService.triggerIntroduction();
+      }
+
       this.step.status = COMPLETED;
-      this.flowService.triggerLoad();
-      setTimeout(() => this.flowService.triggerLoad(), 1);
-      setTimeout(() => this.flowService.triggerLoad(), 10);
+      // this.flowService.triggerLoad();
+      // setTimeout(() => this.flowService.triggerLoad(), 1);
+      // setTimeout(() => this.flowService.triggerLoad(), 10);
     }
     if (this.step.status !== LOCKED) {
       // console.log('step inside: ', step);

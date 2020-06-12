@@ -103,7 +103,7 @@
         <div
           id="goto_desktop"
           class="icon-items"
-          (click)="flowClick($event)"
+          (click)="flowClick()"
           style="margin-left: 20px;"
         >
           <img src="assets/shared/go to web.png" height=" 36px" alt="GoTo" />
@@ -122,7 +122,9 @@
           </button>
           <div
             id="goto_mobile"
-            class="icon-items" (click)="flowClick($event)">
+            class="icon-items"
+            (click)="flowClick()"
+          >
             <img
               src="assets/shared/Go to mobile.png"
               height=" 32px"

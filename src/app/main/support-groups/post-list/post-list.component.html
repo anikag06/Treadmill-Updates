@@ -1,34 +1,63 @@
 <div class="container-fluid no-gutters">
   <div class="post-list">
-    <div class=" sticky-top row search-row">
+    <div class="sticky-top row search-row">
       <!-- <div class="col-12 col-md-8 offset-md-2"> -->
       <div class="col-12 no-gutters">
-
         <form (ngSubmit)="onSearchSubmit()">
           <!-- <div class="form-row align-items-center search-form justify-content-center"> -->
-          <div class="form-row  search-form ">
-            <input type="search" name="search" placeholder="Search" class="form-control mx-2" [(ngModel)]="search">
-            <span id="searchclear" class="glyphicon glyphicon-remove-circle"></span>
+          <div class="form-row search-form">
+            <input
+              type="search"
+              name="search"
+              placeholder="Search"
+              class="form-control mx-2"
+              [(ngModel)]="search"
+            />
+            <span
+              id="searchclear"
+              class="glyphicon glyphicon-remove-circle"
+            ></span>
 
-            <button mat-raised-button type="submit" class="mr-1" *ngIf="!clearSearch">
+            <button
+              mat-raised-button
+              type="submit"
+              class="mr-1"
+              *ngIf="!clearSearch"
+            >
               <mat-icon>search</mat-icon>
             </button>
-            <button mat-raised-button type="button" class="mr-1 px-1" *ngIf="clearSearch" (click)="onReset()">
+            <button
+              mat-raised-button
+              type="button"
+              class="mr-1 px-1"
+              *ngIf="clearSearch"
+              (click)="onReset()"
+            >
               Clear
             </button>
             <!-- <button mat-raised-button type="button" (click)="onReset()"><mat-icon>settings_backup_restore</mat-icon></button> -->
 
             <!-- <button mat-raised-button class="new-post ml-2" type="button" color="primary" (click)="onClear()"> -->
-            <button mat-raised-button class="new-post ml-1" type="button" color="primary" (click)="onNewPostClick()" id="new_post_mobile">
-              <img src="assets/support-group/edit (1).png" alt="new post" height="22" width="22"></button>
+            <button
+              mat-raised-button
+              class="new-post ml-1"
+              type="button"
+              color="primary"
+              (click)="onNewPostClick()"
+              id="new_post_mobile"
+            >
+              <img
+                src="assets/support-group/edit (1).png"
+                alt="new post"
+                height="22"
+                width="22"
+              />
+            </button>
           </div>
         </form>
-
-
-
       </div>
     </div>
-    <div class=" post-content">
+    <div class="post-content">
       <div class="row no-gutters" *ngIf="getSearchResultMessage()">
         <div class="col-12">
           <p class="message" [innerHTML]="getSearchResultMessage()"></p>
@@ -37,18 +66,29 @@
       <div class="row no-gutters">
         <div class="col-12">
           <ng-container *ngIf="newPosts.length > 0">
-            <app-post-item *ngFor="let post of newPosts" class="animate" [newPost]="true"
-              (deleteEvent)="onItemDeletion($event)" (editEvent)="onItemEdit($event)" [supportGroupItem]="post"
-              (tagClick)="onTagClick($event)">
+            <app-post-item
+              *ngFor="let post of newPosts"
+              class="animate"
+              [newPost]="true"
+              (deleteEvent)="onItemDeletion($event)"
+              (editEvent)="onItemEdit($event)"
+              [supportGroupItem]="post"
+              (tagClick)="onTagClick($event)"
+            >
             </app-post-item>
           </ng-container>
           <ng-container *ngIf="posts.length > 0">
-            <app-post-item *ngFor="let post of posts" (deleteEvent)="onItemDeletion($event)"
-              (editEvent)="onItemEdit($event)" [supportGroupItem]="post" (tagClick)="onTagClick($event)">
+            <app-post-item
+              *ngFor="let post of posts"
+              (deleteEvent)="onItemDeletion($event)"
+              (editEvent)="onItemEdit($event)"
+              [supportGroupItem]="post"
+              (tagClick)="onTagClick($event)"
+            >
             </app-post-item>
           </ng-container>
           <div *ngIf="fetching" class="text-center">
-            <img src="assets/shared/dna-loader.svg" alt="dna">
+            <img src="assets/shared/dna-loader.svg" alt="dna" />
           </div>
           <div *ngIf="!fetching">
             <!-- <p>You have reached the end of the world</p> -->

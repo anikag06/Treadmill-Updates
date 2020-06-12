@@ -43,6 +43,7 @@ import { LhgScienceComponent } from './learned-helplessness-game/lhg-science/lhg
 import { IdentifyCognitiveDistortionComponent } from './identify-cognitive-distortion/identify-cognitive-distortion.component';
 import { LhgHowtoplayComponent } from './learned-helplessness-game/lhg-howtoplay/lhg-howtoplay.component';
 import { IdcGameService } from './identify-cognitive-distortion/idc-game.service';
+import {IntroService} from "@/main/walk-through /intro.service";
 
 declare let $: any;
 
@@ -101,6 +102,7 @@ export class CommonGameComponent implements OnInit {
     private miPlayService: MIPlayService,
     private ref: ChangeDetectorRef,
     private idcGameService: IdcGameService,
+    private introService : IntroService,
   ) {}
 
   ngOnInit() {
@@ -380,5 +382,9 @@ export class CommonGameComponent implements OnInit {
   @HostListener('touchstart')
   onTouchEvent() {
     this.device_type = 'touch';
+  }
+
+  ngAfterViewInit(){
+    this.introService.startGamesIntro();
   }
 }

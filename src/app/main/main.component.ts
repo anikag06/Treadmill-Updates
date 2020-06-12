@@ -119,8 +119,6 @@ export class MainComponent
 
     this.flowService.introduceBehaviour.subscribe((data: any) => {
       if (data) {
-        // this.startIntroduction();
-        //   this.introService.startBadgesIntro(this.pointsNotification);
         const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
           PointsComponent,
         );
@@ -131,7 +129,7 @@ export class MainComponent
         setTimeout(() => {
           pointsComponent.destroy();
         }, SHOW_TOAST_DURATION);
-       }
+      }
     });
 
     this.introduceService.closeBehaviour.subscribe((data: any) => {
@@ -296,5 +294,12 @@ export class MainComponent
       this.showToolTip.disabled = true;
       this.showChatbot = true;
     }, 10);
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      // this.introService.openIntroDialog();
+      // this.introOverlayService.showOverlay(1);
+    }, 4000);
   }
 }

@@ -1,4 +1,4 @@
-
+<div #card>
 <mat-card class="profile-card" id="profile">
   <div class="profile-header">
     <mat-card-header>
@@ -7,7 +7,7 @@
       </div>
       <mat-card-title>{{ userProfile.username }}</mat-card-title>
       <mat-card-subtitle>
-        <div id="points" class="row points">
+        <div id="points" class="row points" #points>
           <div class="col-4 scores">
             <div class="box-blue"></div>
             <div class="value">{{ userProfile.score }}</div>
@@ -25,6 +25,7 @@
             <div class="value">{{ userProfile.no_of_bronze_badges }}</div>
           </div>
         </div>
+        <app-overlay [connectedTo]="points" text="This is card" id="2"></app-overlay>
       </mat-card-subtitle>
     </mat-card-header>
   </div>
@@ -67,4 +68,5 @@
   </mat-card-content>
   <mat-card-actions> </mat-card-actions>
 </mat-card>
-
+</div>
+<app-overlay [connectedTo]="card" text="This is card" id="1"></app-overlay>
