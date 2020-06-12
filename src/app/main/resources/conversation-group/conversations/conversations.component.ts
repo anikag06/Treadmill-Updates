@@ -235,7 +235,11 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
 
   b = new Map<number, Dialog>();
   type = 'image';
-  imageURL = "https://www.api2.treadwill.org/media/conversations/GIF_1_kQiubsD.gif"
+  //imageURL = "https://www.api2.treadwill.org/media/conversations/GIF_1_kQiubsD.gif"
+  imageURL = {
+    url: 'https://www.api2.treadwill.org/media/conversations/GIF_1_kQiubsD.gif',
+    creditsGIF: false,
+  };
 
   ngOnInit() {
     this.conversation_id = this.passdata.getid();

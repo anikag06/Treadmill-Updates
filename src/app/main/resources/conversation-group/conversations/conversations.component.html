@@ -42,18 +42,20 @@
 
             <div  class="msg_cotainer_send ml-3 ml-md-0 mr-3" [@fadeInOut]  [ngStyle]="{'border-bottom-color':item.wrong ? '#FF6A6A' : null}">
               <p [innerHtml]="i"></p>
+              <div
+                [ngStyle]="{ width: '50%' }"
+                class="chat_image"
+              >
+                <ng-container *ngIf="type === 'video'; else image">
+                  <app-chat-video [videoUrl]="imageURL"></app-chat-video>
+                </ng-container>
+                <ng-template #image>
+                  <app-chat-image [image]="imageURL"></app-chat-image>
+                </ng-template>
+              </div>
             </div>
           </div>
-          <div
-            [ngStyle]="{ width: '68%' }"
-          >
-            <ng-container *ngIf="type === 'video'; else image">
-              <app-chat-video [videoUrl]="imageURL"></app-chat-video>
-            </ng-container>
-            <ng-template #image>
-              <app-chat-image [image]="imageURL"></app-chat-image>
-            </ng-template>
-          </div>
+
         </div>
         <!-- </div> -->
         <!-- <div class="card-body"> -->
