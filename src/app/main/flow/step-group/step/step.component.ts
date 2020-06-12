@@ -141,7 +141,10 @@ export class StepComponent implements OnInit, AfterViewInit {
             this.introService.startDashBoardIntro()
       }
       else{
-         this.introService.startBadgesIntro();
+        this.introService.setFlowFalse();
+        setTimeout(()=>{
+          this.introService.startBadgesIntro()
+        },500)
         // this.flowService.triggerIntroduction();
       }
 

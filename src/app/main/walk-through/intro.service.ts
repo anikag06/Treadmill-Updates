@@ -1,4 +1,4 @@
-import {ComponentFactoryResolver, HostListener, Injectable, ViewContainerRef} from '@angular/core';
+import {ComponentFactoryResolver, ElementRef, HostListener, Injectable, ViewContainerRef} from '@angular/core';
 import {MOBILE_WIDTH, SHOW_TOAST_DURATION} from "@/app.constants";
 // @ts-ignore
 import * as introJs from 'intro.js/intro';
@@ -18,7 +18,8 @@ import {FlowService} from "@/main/flow/flow.service";
 export class IntroService {
 
   private drawer!: MatDrawer
-  introduceBehaviour = new BehaviorSubject(false);
+  introduceBehaviour = new BehaviorSubject(true);
+  private card!:any;
 
   constructor(private dialog: MatDialog, private componentFactoryResolver: ComponentFactoryResolver,
               private notificationService: NavbarNotificationsService,
@@ -212,7 +213,7 @@ export class IntroService {
     this.introJS.start();
   }
 
-  startBadgesIntro() {
+    startBadgesIntro() {
     let intro = introJs.introJs();
     intro.setOptions({
       steps: [
@@ -221,7 +222,7 @@ export class IntroService {
           intro:
             '<div class="intro-heading"> Profile </div> ' +
             '<div class="intro-text">Text about Profile</div>',
-          position: 'bottom',
+          position: 'top',
         },
         {
           element: '#points',
@@ -236,13 +237,18 @@ export class IntroService {
       showProgress: false,
       showBullets: false,
       exitOnOverlayClick: false,
+      scrollToElement : true,
       hidePrev: true,
-      disableInteraction: true,
       hideNext: true,
     });
-    intro.start();
+
+
+      intro.start();
+
+
     intro.onexit(()=> {
       console.log("inside exit");
+      this.setFlowTrue();
       this.showCongratsDialog();
     });
 
@@ -324,8 +330,17 @@ export class IntroService {
       this.notificationService.closeNavFlow.emit();
       this.flowService.introduceBehaviour.next(true);
     });
-
-
   }
+
+
+  setFlowFalse(){
+    this.introduceBehaviour.next(false);
+  }
+
+  setFlowTrue(){
+    this.introduceBehaviour.next(true);
+  }
+
+
 
 }

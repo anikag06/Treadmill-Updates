@@ -5,6 +5,8 @@ import { MOBILE_WIDTH, TREADWILL } from '@/app.constants';
 import { Title } from '@angular/platform-browser';
 import { UserProfile } from '../shared/user-profile/UserProfile.model';
 import { UserProfileService } from '../shared/user-profile/userProfile.service';
+import { IntroService } from '@/main/walk-through/intro.service';
+import { Observable, Subscription, timer } from 'rxjs';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -12,24 +14,26 @@ import { UserProfileService } from '../shared/user-profile/userProfile.service';
 })
 export class DashboardComponent implements OnInit {
   mobileView = false;
+  subscription!: Subscription;
   user!: User;
   constructor(
     private authService: AuthService,
     private titleService: Title,
     private userProfileService: UserProfileService,
+    private introService: IntroService,
   ) {
     this.titleService.setTitle('Dashboard | ' + TREADWILL);
   }
 
   userProfile = new UserProfile('Name', '', 0, 0, 0, 0, [], [], []);
-
+  showFlow = true;
   ngOnInit() {
     this.user = <User>this.authService.isLoggedIn();
     this.mobileView = window.innerWidth < MOBILE_WIDTH;
 
     this.userProfileService
       .getUserProfile(this.user.username)
-      .subscribe(profile => {
+      .subscribe((profile) => {
         this.userProfile = new UserProfile(
           profile.username,
           profile.user_avatar,
@@ -42,5 +46,22 @@ export class DashboardComponent implements OnInit {
           profile.badge_list_gold,
         );
       });
+    if (window.innerWidth < MOBILE_WIDTH) {
+      this.subscription = this.introService.introduceBehaviour.subscribe(
+        (showFlow) => {
+          //let temp = this.showFlow;
+          this.showFlow = showFlow;
+          // if (showFlow && !temp) {
+          //   subScription.unsubscribe();
+          // }
+        },
+      );
+    }
+  }
+
+  ngDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 }
