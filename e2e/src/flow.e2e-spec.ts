@@ -1,5 +1,5 @@
 import { AppPage } from './app.po';
-import {browser, logging} from 'protractor';
+import {browser, by, element, logging} from 'protractor';
 import { FlowPage } from './flow/flow.po';
 import {protractor} from "protractor/built/ptor";
 
@@ -24,7 +24,7 @@ describe('treadwill Flow', () => {
     browser.sleep(2000);
   });
 
-  xit('Should find the Progress flow click first Module and run its step', () => {
+  it('Should find the Progress flow click first Module and run its step', () => {
     expect(fp.getProgress()).toEqual('Progress');
     browser.sleep(1000);
     expect(fp.findProgressGroupElement('Introduction to TreadWill')).toBeTruthy();
@@ -51,67 +51,74 @@ describe('treadwill Flow', () => {
         expect(fp.findTextbyCss('.mat-card-title')).toContain('Primary Navigation');
         browser.sleep(2000);
         fp.clickOnButton('SKIP');
-        fp.navigateToDashboard();
+        // fp.navigateToDashboard();
         browser.sleep(1000);
     }
   });
 
-  xit('Should click second Module and run its step', () => {
+  it('Should click second Module and run its step', () => {
+    fp.navigateToDashboard();
     expect(fp.findProgressGroupElement('Being self-aware')).toBeTruthy();
     browser.sleep(2000);
     // fp.findProgressGroupElement('Being self-aware').click();
     if (expUser === 'true') {
       console.log('EXPERIMENTAL GROUP', expUser);
-      fp.findProgressElement('Introduction');
-      fp.goToNextStep();
-      fp.findProgressElement('Evaluate my thought form');
-      fp.goToNextStep();
-      fp.findProgressElement('How you think is how you feel');
-      fp.goToNextStep();
-      fp.findProgressElement('SupportGroup');
-      fp.goToNextStep();
-      fp.findProgressElement('Meet WillBot');
-      fp.goToNextStep();
-      fp.findProgressElement('The negative thinking trap');
-      fp.goToNextStep();
-      fp.findProgressElement('Sprint');
-      fp.goToNextStep();
-      fp.findProgressElement('Depression');
-      fp.goToNextStep();
-      fp.findProgressElement('Happy face');
-      fp.goToNextStep();
-      fp.findProgressElement('Being self-aware');
-      fp.goToNextStep();
-      fp.findProgressElement('You are not alone');
-      fp.goToNextStep();
-      fp.findProgressElement('Finish module');
-      fp.goToNextStep();
+      // fp.findProgressElement('Introduction'); // introduction
+      // fp.goToNextStep();
+      fp.findProgressElement('Evaluate my thought form'); // form - virtual step
+      fp.clickBackButton();
+      fp.findProgressElement('Evaluate my thought form'); // form - virtual step
+      fp.clickGoto();
+      fp.findProgressElement('How you think is how you feel'); // slide
+      fp.goToNextStep('Next step');
+      fp.findProgressElement('SupportGroup'); // support group - virtual step
+      fp.clickBackButton();
+      fp.findProgressElement('SupportGroup'); // support group - virtual step
+      fp.clickGoto();
+      fp.findProgressElement('Meet WillBot'); // introductory animation
+      // check steps to come here
+      fp.findProgressElement('The negative thinking trap'); // slide
+      fp.goToNextStep('Next step');
+      fp.findProgressElement('Sprint'); // game  - virtual step
+      fp.clickBackButton();
+      fp.findProgressElement('Sprint'); // game  - virtual step
+      fp.clickGoto();
+      fp.findProgressElement('Depression'); // slide
+      fp.goToNextStep('Next step');
+      fp.findProgressElement('Happy face'); // game -virtual step
+      fp.clickBackButton();
+      fp.findProgressElement('Happy face'); // game -virtual step
+      fp.clickGoto();
+      fp.findProgressElement('Being self-aware'); // slide
+      fp.goToNextStep('Next step');
+      fp.findProgressElement('You are not alone'); // conversation //CHECK SEQUENCE
+      fp.goToNextStep('Next step');
+      fp.findProgressElement('Finish module'); // conclusion- go to dashboard step
+      fp.goToNextStep('Next step');
     } else {
       console.log('CONTROL GROUP', expUser);
       browser.sleep(2000);
       fp.findProgressElement('Getting started');
       browser.sleep(2000);
-      fp.goToNextStep();
+      fp.goToNextStep('Next step');
       fp.findProgressElement('Depression');
       browser.sleep(2000);
-      fp.goToNextStep();
+      fp.goToNextStep('Next step');
       fp.findProgressElement('Anxiety');
       browser.sleep(2000);
-      fp.goToNextStep();
+      fp.goToNextStep('Next step');
       fp.findProgressElement('Cognitive Behavioral Therapy (CBT)');
       browser.sleep(2000);
-      fp.goToNextStep();
+      fp.goToNextStep('Next step');
       fp.findProgressElement('What\'s wrong with me?');
       browser.sleep(2000);
-      fp.goToNextStep();
+      fp.goToNextStep('Next step');
       fp.findProgressElement('What if .....?');
       browser.sleep(2000);
-      fp.goToNextStep();
+      fp.goToNextStep('Next step');
       fp.findProgressElement('Can I get help?');
       browser.sleep(2000);
-      fp.clickOnButton('Completed');
-      browser.sleep(2000);
-      fp.clickOnButton('Go to dashboard');
+      fp.goToNextStep('Go to dashboard');
       browser.sleep(2000);
       expect(
         browser//
@@ -122,7 +129,7 @@ describe('treadwill Flow', () => {
     }
   });
 
-  xit('Should click third Module and run its step', () => {
+  it('Should click third Module and run its step', () => {
     expect(fp.findProgressGroupElement('Making good things happen ')).toBeTruthy();
     browser.sleep(2000);
     // fp.findProgressGroupElement('Being self-aware').click();
@@ -130,49 +137,71 @@ describe('treadwill Flow', () => {
       console.log('EXPERIMENTAL GROUP', expUser);
       fp.findProgressElement('Introduction ');
       browser.sleep(2000);
-      fp.goToNextStep();
+      fp.goToNextStep('Next step');
       expect(fp.getProgress()).toEqual('Progress');
       fp.findProgressElement('Evaluate my thought form');
-      fp.goToNextStep();
+      fp.goToNextStep('Next step');
     } else {
       console.log('CONTROL GROUP', expUser);
       browser.sleep(2000);
+      const nextStep = element(by.css('.flow-scroll-inner')).element(by.cssContainingText('.step-content', 'Making good things happen'))
+
+      browser.wait(protractor.ExpectedConditions.visibilityOf(nextStep), 5 * 60 * 1000).then(() => {
+        fp.findProgressElement('Making good things happen');
+        console.log('ELEMENT VISIBLE 1');
+      }).catch( () => {
+          fp.navigateToDashboard();
+        browser.wait(protractor.ExpectedConditions.visibilityOf(nextStep), 5 * 60 * 1000).then(() => {
+          fp.findProgressElement('Making good things happen');
+          console.log('ELEMENT VISIBLE 2');
+        }).catch( () => {
+            fp.navigateToDashboard();
+          browser.wait(protractor.ExpectedConditions.visibilityOf(nextStep), 5 * 60 * 1000).then(() => {
+            fp.findProgressElement('Making good things happen');
+            console.log('ELEMENT VISIBLE 3');
+          }).catch( () => {
+              fp.navigateToDashboard();
+            }
+          );
+          }
+        );
+        }
+      );
+
+
       // fp.findProgressElement('Making good things happen');
-      // browser.sleep(2000);
-      // fp.goToNextStep();
-      // fp.findProgressElement('Introduction to Behavioral Activation');
-      // browser.sleep(2000);
-      // fp.goToNextStep();
-      // fp.findProgressElement('Sleep problems');
-      // browser.sleep(2000);
-      // fp.goToNextStep();
-      // fp.findProgressElement('Rumination');
-      // browser.sleep(2000);
-      // fp.goToNextStep();
-      // fp.findProgressElement('Avoidance');
-      // browser.sleep(2000);
-      // fp.goToNextStep();
-      // fp.findProgressElement('Sleeping too much or too little');
-      // browser.sleep(2000);
-      // fp.goToNextStep();
-      // fp.findProgressElement('Mastery activities');
-      // browser.sleep(2000);
-      // fp.goToNextStep();
-      // fp.findProgressElement('Am I over-thinking? ');
-      // browser.sleep(2000);
-      // fp.goToNextStep();
+      browser.sleep(2000);
+      fp.goToNextStep('Next step');
+      fp.findProgressElement('Introduction to Behavioral Activation');
+      browser.sleep(2000);
+      fp.goToNextStep('Next step');
+      fp.findProgressElement('Sleep problems');
+      browser.sleep(2000);
+      fp.goToNextStep('Next step');
+      fp.findProgressElement('Rumination');
+      browser.sleep(2000);
+      fp.goToNextStep('Next step');
+      fp.findProgressElement('Avoidance');
+      browser.sleep(2000);
+      fp.goToNextStep('Next step');
+      fp.findProgressElement('Sleeping too much or too little');
+      browser.sleep(2000);
+      fp.goToNextStep('Next step');
+      fp.findProgressElement('Mastery activities');
+      browser.sleep(2000);
+      fp.goToNextStep('Next step');
+      fp.findProgressElement('Am I over-thinking? ');
+      browser.sleep(2000);
+      fp.goToNextStep('Next step');
       fp.findProgressElement('Do I have to talk to people? ');
       browser.sleep(2000);
-      fp.goToNextStep();
+      fp.goToNextStep('Next step');
       fp.findProgressElement('Maybe I will do it tomorrow ');
       browser.sleep(2000);
-      fp.goToNextStep();
-      fp.clickOnButton('Completed');
-      browser.sleep(2000);
-      fp.clickOnButton('Go to dashboard');
+      fp.goToNextStep('Go to dashboard');
       browser.sleep(2000);
     }
-  }, 5 * 60 * 1000);
+  }, 15 * 60 * 1000);
 
   it('Should click fourth Module and run its step', () => {
     fp.navigateToDashboard();
@@ -188,30 +217,51 @@ describe('treadwill Flow', () => {
       console.log('EXPERIMENTAL GROUP', expUser);
       fp.findProgressElement('Introduction ');
       browser.sleep(2000);
-      fp.goToNextStep();
+      fp.goToNextStep('Next step');
       expect(fp.getProgress()).toEqual('Progress');
       fp.findProgressElement('Evaluate my thought form');
-      fp.goToNextStep();
+      fp.goToNextStep('Next step');
     } else {
       console.log('CONTROL GROUP', expUser);
       browser.sleep(2000);
-      fp.findProgressElement(' Evaluating Thoughts ');
+
+      const nextStep = element(by.css('.flow-scroll-inner')).element(by.cssContainingText('.step-content', 'GIVE A NAME'))
+
+      browser.wait(protractor.ExpectedConditions.visibilityOf(nextStep), 5 * 60 * 1000).then(() => {
+        fp.findProgressElement('GIVE A NAME');
+        console.log('ELEMENT VISIBLE 1');
+      }).catch( () => {
+          fp.navigateToDashboard();
+        browser.wait(protractor.ExpectedConditions.visibilityOf(nextStep), 5 * 60 * 1000).then(() => {
+          fp.findProgressElement('GIVE A NAME');
+          console.log('ELEMENT VISIBLE 2');
+        }).catch( () => {
+            fp.navigateToDashboard();
+          browser.wait(protractor.ExpectedConditions.visibilityOf(nextStep), 5 * 60 * 1000).then(() => {
+            fp.findProgressElement('GIVE A NAME');
+            console.log('ELEMENT VISIBLE 3');
+          }).catch( () => {
+              fp.navigateToDashboard();
+            }
+          );
+          }
+        );
+        }
+      );
       browser.sleep(2000);
-      fp.goToNextStep();
-      fp.findProgressElement(' Thinking errors ');
+      fp.goToNextStep('Next step');
+      fp.findProgressElement('Thinking errors ');
       browser.sleep(2000);
-      fp.goToNextStep();
-      fp.findProgressElement(' Introduction to Evaluating Thoughts ');
+      fp.goToNextStep('Next step');
+      fp.findProgressElement('Introduction to Evaluating Thoughts ');
       browser.sleep(2000);
-      fp.goToNextStep();
-      fp.findProgressElement(' Evaluating Thoughts ');
+      fp.goToNextStep('Next step');
+      fp.findProgressElement('Evaluating Thoughts ');
       browser.sleep(2000);
-      fp.goToNextStep();
+      fp.goToNextStep('Next step');
       fp.findProgressElement('What is going through my mind?');
       browser.sleep(2000);
-      fp.clickOnButton('Completed');
-      browser.sleep(2000);
-      fp.clickOnButton('Go to dashboard');
+      fp.goToNextStep('Go to dashboard');
       browser.sleep(2000);
     }
   }, 15 * 60 * 1000);
@@ -230,34 +280,194 @@ describe('treadwill Flow', () => {
       console.log('EXPERIMENTAL GROUP', expUser);
       fp.findProgressElement('Introduction ');
       browser.sleep(2000);
-      fp.goToNextStep();
+      fp.goToNextStep('Next step');
       expect(fp.getProgress()).toEqual('Progress');
       fp.findProgressElement('Evaluate my thought form');
-      fp.goToNextStep();
+      fp.goToNextStep('Next step');
     } else {
       console.log('CONTROL GROUP', expUser);
       browser.sleep(2000);
-      fp.findProgressElement('Taking a deeper look');
+      const nextStep = element(by.css('.flow-scroll-inner')).element(by.cssContainingText('.step-content', 'Taking a deeper look'))
+
+      browser.wait(protractor.ExpectedConditions.visibilityOf(nextStep), 5 * 60 * 1000).then(() => {
+        fp.findProgressElement('Taking a deeper look');
+        console.log('ELEMENT VISIBLE 1');
+      }).catch( () => {
+          fp.navigateToDashboard();
+          browser.wait(protractor.ExpectedConditions.visibilityOf(nextStep), 5 * 60 * 1000).then(() => {
+            fp.findProgressElement('Taking a deeper look');
+            console.log('ELEMENT VISIBLE 2');
+          }).catch( () => {
+              fp.navigateToDashboard();
+              browser.wait(protractor.ExpectedConditions.visibilityOf(nextStep), 5 * 60 * 1000).then(() => {
+                fp.findProgressElement('Taking a deeper look');
+                console.log('ELEMENT VISIBLE 3');
+              }).catch( () => {
+                  fp.navigateToDashboard();
+                }
+              );
+            }
+          );
+        }
+      );
+      // fp.findProgressElement('Taking a deeper look');
       browser.sleep(2000);
+      fp.goToNextStep('Next step');
+      fp.findProgressElement('Introduction to modifying beliefs');
+      browser.sleep(2000);
+      fp.goToNextStep('Next step');
+      fp.findProgressElement('Modifying beliefs');
+      browser.sleep(2000);
+      fp.goToNextStep('Next step');
+      fp.findProgressElement('Critical look at my belief');
+      browser.sleep(2000);
+      fp.goToNextStep('Next step');
+      fp.findProgressElement('Am I better than someone? ');
+      browser.sleep(2000);
+      fp.goToNextStep('Next step');
+      fp.findProgressElement('What would I tell my friend?');
+      browser.sleep(2000);
+      fp.goToNextStep('Next step');
+      fp.findProgressElement('Does the belief really help me?');
+      browser.sleep(2000);
+      fp.goToNextStep('Next step');
+      fp.findProgressElement('Will my belief come true if I try it out?');
+      browser.sleep(2000);
+      fp.goToNextStep('Next step');
+      fp.findProgressElement('How would I act if I didn\'t have the belief?');
+      browser.sleep(2000);
+      fp.goToNextStep('Next step');
+      fp.findProgressElement('Role play');
+      browser.sleep(2000);
+      fp.goToNextStep('Go to dashboard');
+    }
+  }, 15 * 60 * 1000);
+
+  it('Should click sixth Module and run its step', () => {
+    fp.navigateToDashboard();
+    expect(
+      browser//
+        .wait(protractor.ExpectedConditions.urlContains('dashboard'))
+        .catch(() => false),
+    ).toBeTruthy('Url match could not succced');
+    expect(fp.findProgressGroupElement('Worrying Productively')).toBeTruthy();
+    browser.sleep(2000);
+    // fp.findProgressGroupElement('Being self-aware').click();
+    if (expUser === 'true') {
+      console.log('EXPERIMENTAL GROUP', expUser);
+      fp.findProgressElement('Introduction ');
+      browser.sleep(2000);
+      fp.goToNextStep('Next step');
+    } else {
+      console.log('CONTROL GROUP', expUser);
+      const nextStep = element(by.css('.flow-scroll-inner')).element(by.cssContainingText('.step-content', 'Worrying Productively'))
+
+      browser.wait(protractor.ExpectedConditions.visibilityOf(nextStep), 5 * 60 * 1000).then(() => {
+        fp.findProgressElement('Worrying Productively');
+        console.log('ELEMENT VISIBLE 1');
+      }).catch( () => {
+          fp.navigateToDashboard();
+          browser.wait(protractor.ExpectedConditions.visibilityOf(nextStep), 5 * 60 * 1000).then(() => {
+            fp.findProgressElement('Worrying Productively');
+            console.log('ELEMENT VISIBLE 2');
+          }).catch( () => {
+              fp.navigateToDashboard();
+              browser.wait(protractor.ExpectedConditions.visibilityOf(nextStep), 5 * 60 * 1000).then(() => {
+                fp.findProgressElement('Worrying Productively');
+                console.log('ELEMENT VISIBLE 3');
+              }).catch( () => {
+                  fp.navigateToDashboard();
+                }
+              );
+            }
+          );
+        }
+      );
+      fp.findProgressElement('Worrying Productively');
+      browser.sleep(2000);
+      fp.goToNextStep('Next step');
+      fp.findProgressElement('Worrywart');
+      browser.sleep(2000);
+      fp.clickOnButton('Go to dashboard');
+      fp.clickOnButton('Completed');
       browser.sleep(2000);
       fp.clickOnButton('Go to dashboard');
       browser.sleep(2000);
     }
-  });
+  }, 15 * 60 * 1000);
 
 
-  xit('should start introductory animation', () => {
-    browser.sleep(2000);
-    fp.findProgressElement('Navigating Treadwill');
-    browser.sleep(500);
-    expect(fp.findTextbyCss('.mat-card-title')).toContain('Primary Navigation');
-    browser.sleep(1000);
-    fp.clickOnButton('SKIP');
+  it('Should click seventh Module and run its step', () => {
     fp.navigateToDashboard();
-    browser.sleep(1000);
-    expect(fp.getProgress()).toEqual('Progress');
-  });
+    expect(
+      browser//
+        .wait(protractor.ExpectedConditions.urlContains('dashboard'))
+        .catch(() => false),
+    ).toBeTruthy('Url match could not succced');
+    expect(fp.findProgressGroupElement(' Modifying beliefs ')).toBeTruthy();
+    browser.sleep(2000);
+    // fp.findProgressGroupElement('Being self-aware').click();
+    if (expUser === 'true') {
+      console.log('EXPERIMENTAL GROUP', expUser);
+      fp.findProgressElement('Introduction ');
+      browser.sleep(2000);
+      fp.goToNextStep('Next step');
+      expect(fp.getProgress()).toEqual('Progress');
+      fp.findProgressElement('Evaluate my thought form');
+      fp.goToNextStep('Next step');
+    } else {
+      console.log('CONTROL GROUP', expUser);
+      browser.sleep(2000);
+      const nextStep = element(by.css('.flow-scroll-inner')).element(by.cssContainingText('.step-content', 'Be prepared'))
 
+      browser.wait(protractor.ExpectedConditions.visibilityOf(nextStep), 5 * 60 * 1000).then(() => {
+        fp.findProgressElement('Be prepared');
+        console.log('ELEMENT VISIBLE 1');
+      }).catch( () => {
+          fp.navigateToDashboard();
+          browser.wait(protractor.ExpectedConditions.visibilityOf(nextStep), 5 * 60 * 1000).then(() => {
+            fp.findProgressElement('Be prepared');
+            console.log('ELEMENT VISIBLE 2');
+          }).catch( () => {
+              fp.navigateToDashboard();
+              browser.wait(protractor.ExpectedConditions.visibilityOf(nextStep), 5 * 60 * 1000).then(() => {
+                fp.findProgressElement('Be prepared');
+                console.log('ELEMENT VISIBLE 3');
+              }).catch( () => {
+                  fp.navigateToDashboard();
+                }
+              );
+            }
+          );
+        }
+      );
+      fp.goToNextStep('Next step');
+      fp.findProgressElement('What if I get depressed again?');
+      fp.goToNextStep('Next step');
+      fp.findProgressElement('Keep practicing the techniques');
+      fp.goToNextStep('Next step');
+      fp.findProgressElement('Why am I feeling sad again?');
+      browser.sleep(2000);
+      fp.goToNextStep('Go to dashboard');
+      fp.clickOnButton('Completed');
+      browser.sleep(2000);
+      fp.clickOnButton('Go to dashboard');
+      browser.sleep(2000);
+    }
+  }, 15 * 60 * 1000);
+
+  // xit('should start introductory animation', () => {
+  //   browser.sleep(2000);
+  //   fp.findProgressElement('Navigating Treadwill');
+  //   browser.sleep(500);
+  //   expect(fp.findTextbyCss('.mat-card-title')).toContain('Primary Navigation');
+  //   browser.sleep(1000);
+  //   fp.clickOnButton('SKIP');
+  //   fp.navigateToDashboard();
+  //   browser.sleep(1000);
+  //   expect(fp.getProgress()).toEqual('Progress');
+  // });
+  //
 
   // it('Should find Module text', () => {
   //   browser.sleep(4000);
@@ -281,7 +491,7 @@ describe('treadwill Flow', () => {
   //   browser.sleep(1000);
   //   fp.clickOnButton('Submit');
   //   browser.sleep(2000);
-  //   fp.clickOnButton('Start');
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          //   fp.clickOnButton('Start');
   //   for (let i = 0; i < 7; i++) {
   //     browser.sleep(1000);
   //     fp.clickOnButton('Most of the days');

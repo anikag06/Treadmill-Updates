@@ -40,8 +40,20 @@ export class FlowPage {
     return element(by.css('.flow-scroll-inner')).element(by.cssContainingText('.step-group-name', text));
   }
 
+  // findProgressElement(txt: string) {
+  //   browser.wait(this.EC.presenceOf(element(by.css('h6.progress-heading-mobile')))).then( () => {
+  //     element(by.xpath('.//*[.= txt and class="step-content"]'))
+  //       .click()
+  //       .then(() => {
+  //         console.log('STEP :', txt, 'clicked');
+  //         browser.sleep(1000);
+  //       });
+  //   });
+  // }
+
+
   findProgressElement(txt: string) {
-    browser.wait(this.EC.presenceOf(element(by.css('h6.progress-heading-mobile')))).then( () => {
+       browser.wait(this.EC.presenceOf(element(by.css('h6.progress-heading-mobile')))).then( () => {
       element(by.css('.flow-scroll-inner')).element(by.cssContainingText('.step-content', txt))
         .click()
         .then(() => {
@@ -51,16 +63,24 @@ export class FlowPage {
     });
   }
 
-  goToNextStep() {
-    browser.sleep(2000);
+  goToNextStep(btn: string) {
+    const content = element(by.css('.content-body'));
+    browser.wait(this.EC.visibilityOf(content)).then( () => {
     this.clickOnButton('Completed').then( () => {
-      // browser.sleep(2000);
-      // this.clickOnButton('Next Step');
-      const nextStepBtn = element(by.cssContainingText('button', 'Next Step'));
-      browser.wait(this.EC.visibilityOf(nextStepBtn)).then( () => {
-        nextStepBtn.click();
+      if (btn === 'Next step') {
+        const nextStepBtn = element(by.cssContainingText('button', 'Next step'));
+        browser.wait(this.EC.visibilityOf(nextStepBtn)).then(() => {
+          nextStepBtn.click();
+        });
+      }
+      if (btn === 'Go to dashboard') {
+        const dashboardBtn = element(by.cssContainingText('button', 'Go to dashboard'));
+        browser.wait(this.EC.visibilityOf(dashboardBtn )).then( () => {
+          dashboardBtn .click();
+        });
+      }
       });
-      });
+    });
     browser.sleep(1000);
 }
 
@@ -86,5 +106,12 @@ export class FlowPage {
       .mouseMove(elm)
       .click()
       .perform();
+  }
+  clickBackButton() {
+    browser.sleep(2000);
+    return element.all(by.css('.back-button')).click();
+  }
+  clickGoto() {
+    return element.all(by.css('.goto-button')).click();
   }
 }

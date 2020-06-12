@@ -25,7 +25,7 @@ describe('workspace-project App', () => {
     );
   });
 
-  xit('should click on study and fill trial registration form', () => {
+  it('should click on study and fill trial registration form', () => {
     page.clickJoinStudy();
     browser.sleep(1500);
     page.fillTrialStudyForm();
@@ -38,7 +38,7 @@ describe('workspace-project App', () => {
   });
 
 
-  xit('Should show PHQ-9 questionnaire', () => {
+ it('Should show PHQ-9 questionnaire', () => {
     expect(page.findPhq()).toBeTruthy();
     browser.sleep(5000);
     // expect(page.findQuestionnaireText()).toMatch('Before moving further');
@@ -52,7 +52,7 @@ describe('workspace-project App', () => {
     browser.sleep(1000);
   });
 
-  xit('Should show SIQ questionnaire', () => {
+  it('Should show SIQ questionnaire', () => {
     expect(page.findSiq()).toBeTruthy();
     browser.sleep(2000);
     page.clickOnButton('Start');
@@ -68,7 +68,7 @@ describe('workspace-project App', () => {
     page.clickOnButton('Submit');
   });
 
-  xit('Should show GAD-7 questionnaire', () => {
+  it('Should show GAD-7 questionnaire', () => {
     expect(page.findGad()).toBeTruthy();
     browser.sleep(3000);
     // expect(page.findQuestionnaireText()).toMatch('Before moving further');
@@ -93,7 +93,7 @@ describe('workspace-project App', () => {
     browser.sleep(2000);
   });
 
-  xit('should fill consent form and accept notifications and submit', () => {
+  it('should fill consent form and accept notifications and submit', () => {
     expect(page.findConsentPage()).toBeTruthy();
     browser.sleep(3000);
     page.fillConsentPage();
@@ -101,12 +101,11 @@ describe('workspace-project App', () => {
     browser.sleep(5000);
     page.clickSubmitButton();
     browser.sleep(3500);
-  });
-
+  }, 5 * 60 * 1000);
 
 // get link for sign up from mail
 
-  xit('Should get sign up link and redirect to signup page', () => {
+  it('Should get sign up link and redirect to signup page', () => {
     page.getSignUpLink();
     browser.sleep(3500);
     expect(
@@ -116,7 +115,7 @@ describe('workspace-project App', () => {
     ).toBeTruthy('Url match could not succced');
   });
 
-  xit('should fill signup page', () => {
+  it('should fill signup page', () => {
     page.fillSignupForm();
     browser.sleep(3000);
     username = page.newUsername;
@@ -124,7 +123,7 @@ describe('workspace-project App', () => {
 
   it('should login and redirect to dashboard', () => {
     // username is hardcoded here
-      page.fillLoginForm('root7ushxh', 'test123');
+      page.fillLoginForm(username, 'test123');
     expect(
       browser//
         .wait(protractor.ExpectedConditions.urlContains('dashboard'))
@@ -132,16 +131,6 @@ describe('workspace-project App', () => {
     ).toBeTruthy('Url match could not succced');
     browser.sleep(6000);
   });
-
-  // xit('should redirect to dashboard when on root', () => {
-  //   browser.get('/');
-  //   expect(
-  //     browser//
-  //       .wait(protractor.ExpectedConditions.urlContains('dashboard'), 2000)
-  //       .catch(() => false),
-  //   ).toBeTruthy('Url match could not succced');
-  // });
-  //
 
 
   afterEach(async () => {
