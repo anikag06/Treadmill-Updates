@@ -5,8 +5,6 @@ import {Subscription} from 'rxjs';
 import {MOBILE_WIDTH} from '@/app.constants';
 import {MatDialog} from '@angular/material/dialog';
 
-import {IntroDialogComponent} from '@/main/walk-through /intro-dialog/intro-dialog.component';
-
 @Component({
   selector: 'app-flow',
   templateUrl: './flow.component.html',

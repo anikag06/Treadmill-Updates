@@ -13,9 +13,9 @@ import {map, switchMap} from 'rxjs/operators';
 import {FlowService} from '@/main/flow/flow.service';
 import {ActivatedRoute} from '@angular/router';
 import {StepsDataService} from '@/main/resources/shared/steps-data.service';
-import {SupportGroupIntroComponent} from '@/main/walk-through /support-group-intro/support-group-intro.component';
+import {SupportGroupIntroComponent} from '@/main/walk-through/support-group-intro/support-group-intro.component';
 
-import {IntroSelectTagsComponent} from '@/main/walk-through /intro-select-tags/intro-select-tags.component';
+import {IntroSelectTagsComponent} from '@/main/walk-through/intro-select-tags/intro-select-tags.component';
 
 @Component({
   selector: 'app-support-groups',

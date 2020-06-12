@@ -6,7 +6,7 @@ import {MatDrawer} from "@angular/material/sidenav";
 import {CongratsDialogComponent} from "@/main/resources/shared/congrats-dialog/congrats-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {PointsComponent} from "@/main/shared/points/points.component";
-import {IntroDialogComponent} from "@/main/walk-through /intro-dialog/intro-dialog.component";
+import {IntroDialogComponent} from "@/main/walk-through/intro-dialog/intro-dialog.component";
 import {BehaviorSubject} from "rxjs";
 import {NavbarNotificationsService} from "@/main/shared/navbar/navbar-notifications.service";
 import {FlowComponent} from "@/main/flow/flow.component";

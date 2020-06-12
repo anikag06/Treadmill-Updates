@@ -34,7 +34,7 @@ import { CommonService } from '@/shared/common.service';
 import { InternetConnectionComponent } from '@/shared/internet-connection/internet-connection.component';
 // @ts-ignore
 import * as introJs from 'intro.js/intro';
-import { IntroService } from '@/main/walk-through /intro.service';
+import { IntroService } from '@/main/walk-through/intro.service';
 import { PointsComponent } from '@/main/shared/points/points.component';
 
 declare var twemoji: any;

@@ -8,7 +8,7 @@ import {map, switchMap} from "rxjs/operators";
 import {FlowService} from "@/main/flow/flow.service";
 import {ActivatedRoute} from "@angular/router";
 import {StepsDataService} from "@/main/resources/shared/steps-data.service";
-import {IntroService} from "@/main/walk-through /intro.service";
+import {IntroService} from "@/main/walk-through/intro.service";
 
 @Component({
   selector: 'app-task-forms',

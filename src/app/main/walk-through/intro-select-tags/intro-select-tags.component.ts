@@ -4,7 +4,7 @@ import {TagService} from '@/main/shared/tag.service';
 import {Tag} from '@/main/shared/tag.model';
 import {MatDialogRef} from '@angular/material/dialog';
 import {SupportGroupsService} from '@/main/support-groups/support-groups.service';
-import {IntroService} from "@/main/walk-through /intro.service";
+import {IntroService} from "@/main/walk-through/intro.service";
 
 @Component({
   selector: 'app-intro-select-tags',

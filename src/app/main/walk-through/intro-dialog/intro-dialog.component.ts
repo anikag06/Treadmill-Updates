@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material/dialog';
-import {IntroService} from "@/main/walk-through /intro.service";
+import {IntroService} from "@/main/walk-through/intro.service";
 
 
 @Component({

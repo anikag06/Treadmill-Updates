@@ -24,7 +24,7 @@ import {FlowService} from '../../flow.service';
 import {MatTooltip} from '@angular/material';
 import {DatePipe} from '@angular/common';
 import {NavbarNotificationsService} from '@/main/shared/navbar/navbar-notifications.service';
-import {IntroService} from "@/main/walk-through /intro.service";
+import {IntroService} from "@/main/walk-through/intro.service";
 
 
 @Component({

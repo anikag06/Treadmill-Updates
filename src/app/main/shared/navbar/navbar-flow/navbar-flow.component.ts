@@ -9,7 +9,7 @@ import {
 } from '@angular/animations';
 import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifications.service';
 import { CustomOverlayService } from '@/main/shared/custom-overlay/custom-overlay.service';
-import {IntroService} from "@/main/walk-through /intro.service";
+import {IntroService} from "@/main/walk-through/intro.service";
 
 @Component({
   selector: 'app-navbar-flow',
