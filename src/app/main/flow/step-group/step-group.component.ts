@@ -64,7 +64,30 @@ export class StepGroupComponent implements OnInit {
       this.isShowAllBtn = false;
       this.lastStepOfModule = true;
     }
-    if (this.stepGroup.status === ACTIVE) {
+    if (no_steps === 2 && this.stepGroup.status === ACTIVE) {
+      this.isExpanded = true;
+      for (let i = 0; i < no_steps; i++) {
+        let j = 0;
+        if (this.stepGroup.steps[i].status === ACTIVE) {
+          if (i === 0) {
+            // if first element
+            j = i;
+            this.firstStepOfModule = true;
+          } else if (i === 1) {
+            // if last element
+            j = i - 1;
+            this.firstStepOfModule = false;
+          }
+          for (let k = 0; k < no_steps; k++) {
+            this.defaultSteps.steps.push(this.stepGroup.steps[j]);
+            j++;
+          }
+          if (j === no_steps) {
+            this.lastStepOfModule = true;
+          }
+        }
+      }
+    } else if (this.stepGroup.status === ACTIVE) {
       this.isExpanded = true;
       for (let i = 0; i < no_steps; i++) {
         let j = 0;
