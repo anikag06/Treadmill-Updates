@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="220" height="148" viewBox="0 0 220 148">
+  <defs>
+    <filter id="Ellipse_2780" x="108.569" y="52.722" width="82.031" height="82.031" filterUnits="userSpaceOnUse">
+      <feOffset dx="-1" dy="2" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+      <feFlood flood-opacity="0.2"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Ellipse_2783" x="39.443" y="8.063" width="93.902" height="93.902" filterUnits="userSpaceOnUse">
+      <feOffset dx="-1" dy="2" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="1.5" result="blur-2"/>
+      <feFlood flood-opacity="0.2"/>
+      <feComposite operator="in" in2="blur-2"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Find_A_Smile" data-name="Find A Smile" transform="translate(-54 -20)">
+    <g id="Find_a_smile-2" data-name="Find a smile" transform="translate(98.943 30.563)">
+      <g id="Group_2970" data-name="Group 2970" transform="translate(69.126 44.66)">
+        <g transform="matrix(1, 0, 0, 1, -114.07, -55.22)" filter="url(#Ellipse_2780)">
+          <ellipse id="Ellipse_2780-2" data-name="Ellipse 2780" cx="36.516" cy="36.516" rx="36.516" ry="36.516" transform="translate(114.07 55.22)" fill="#fcee21"/>
+        </g>
+        <ellipse id="Ellipse_3805" data-name="Ellipse 3805" cx="4.176" cy="4.176" rx="4.176" ry="4.176" transform="matrix(0.899, 0.438, -0.438, 0.899, 28.299, 14.744)"/>
+        <ellipse id="Ellipse_3806" data-name="Ellipse 3806" cx="4.176" cy="4.176" rx="4.176" ry="4.176" transform="matrix(0.899, 0.438, -0.438, 0.899, 51.519, 26.07)"/>
+        <path id="Path_7060" data-name="Path 7060" d="M15.864,0a19.129,19.129,0,0,1,15.98,8.672L29.077,10.46a15.653,15.653,0,0,0-26.31,0L0,8.672A19.132,19.132,0,0,1,13.73.122,18.628,18.628,0,0,1,15.864,0Z" transform="matrix(0.899, 0.438, -0.438, 0.899, 19.288, 35.192)"/>
+      </g>
+      <g id="Group_2971" data-name="Group 2971">
+        <g transform="matrix(1, 0, 0, 1, -44.94, -10.56)" filter="url(#Ellipse_2783)">
+          <ellipse id="Ellipse_2783-2" data-name="Ellipse 2783" cx="42.451" cy="42.451" rx="42.451" ry="42.451" transform="translate(44.94 10.56)" fill="#fcee21"/>
+        </g>
+        <ellipse id="Ellipse_4013" data-name="Ellipse 4013" cx="4.176" cy="5.12" rx="4.176" ry="5.12" transform="matrix(0.899, 0.438, -0.438, 0.899, 97.84, 58.555)"/>
+        <ellipse id="Ellipse_4015" data-name="Ellipse 4015" cx="4.68" cy="4.681" rx="4.68" ry="4.681" transform="translate(17.312 34.162) rotate(-25)"/>
+        <ellipse id="Ellipse_4014" data-name="Ellipse 4014" cx="4.176" cy="5.12" rx="4.176" ry="5.12" transform="matrix(0.899, 0.438, -0.438, 0.899, 121.06, 69.881)"/>
+        <ellipse id="Ellipse_4016" data-name="Ellipse 4016" cx="4.68" cy="4.681" rx="4.68" ry="4.681" transform="translate(43.556 21.924) rotate(-25)"/>
+        <path id="Path_7514" data-name="Path 7514" d="M15.864,0a19.129,19.129,0,0,1,15.98,8.672L29.077,10.46a15.653,15.653,0,0,0-26.31,0L0,8.672A19.132,19.132,0,0,1,13.73.122,18.628,18.628,0,0,1,15.864,0Z" transform="matrix(0.899, 0.438, -0.438, 0.899, 88.415, 79.852)"/>
+        <path id="Path_7515" data-name="Path 7515" d="M18.609,0A22.439,22.439,0,0,1,37.355,10.173l-3.246,2.1a18.362,18.362,0,0,0-30.863,0L0,10.172A22.443,22.443,0,0,1,16.106.144,21.852,21.852,0,0,1,18.609,0Z" transform="translate(68.829 55.65) rotate(155)"/>
+      </g>
+    </g>
+    <rect id="Rectangle_4069" data-name="Rectangle 4069" width="220" height="148" transform="translate(54 20)" fill="none"/>
+  </g>
+</svg>

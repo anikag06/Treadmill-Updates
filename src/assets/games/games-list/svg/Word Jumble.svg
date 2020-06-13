@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="220" height="148" viewBox="0 0 220 148">
+  <defs>
+    <filter id="Rectangle_2526" x="41.487" y="3.999" width="137" height="138" filterUnits="userSpaceOnUse">
+      <feOffset dy="1" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="1" result="blur"/>
+      <feFlood flood-opacity="0.22"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Word_Jumble" data-name="Word Jumble" transform="translate(-54 -20)">
+    <g id="Word_Jumble-2" data-name="Word Jumble" transform="translate(98.487 25.999)">
+      <g id="Group_3318" data-name="Group 3318" transform="translate(0 0)">
+        <g transform="matrix(1, 0, 0, 1, -44.49, -6)" filter="url(#Rectangle_2526)">
+          <rect id="Rectangle_2526-2" data-name="Rectangle 2526" width="131" height="132" rx="6" transform="translate(44.49 6)" fill="#fff"/>
+        </g>
+        <g id="Group_3317" data-name="Group 3317" transform="translate(4.437 8.944)">
+          <g id="Group_3315" data-name="Group 3315" transform="translate(0 31.283)">
+            <text id="W" transform="translate(20.715 10)" font-size="10" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="0" y="0">W</tspan></text>
+            <text id="O" transform="translate(44.856 10)" font-size="10" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="0" y="0">O</tspan></text>
+            <text id="R" transform="translate(68.156 10)" font-size="10" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="0" y="0">R</tspan></text>
+            <text id="D" transform="translate(90.531 10)" font-size="10" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="0" y="0">D</tspan></text>
+            <text id="J" transform="translate(0 29.877)" font-size="10" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="0" y="0">J</tspan></text>
+            <text id="U" transform="translate(21.83 29.877)" font-size="10" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="0" y="0">U</tspan></text>
+            <text id="M" transform="translate(44.645 29.877)" font-size="10" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="0" y="0">M</tspan></text>
+            <text id="B" transform="translate(68.471 29.877)" font-size="10" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="0" y="0">B</tspan></text>
+            <text id="L" transform="translate(91.3 29.877)" font-size="10" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="0" y="0">L</tspan></text>
+            <text id="E" transform="translate(113.125 29.877)" font-size="10" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="0" y="0">E</tspan></text>
+          </g>
+          <g id="Group_3316" data-name="Group 3316" transform="translate(0.262)">
+            <text id="d-2" data-name="d" transform="translate(96.152 1)" fill="#7d7f7f" font-size="1" font-family="Roboto-Regular, Roboto"><tspan x="0" y="0">d</tspan></text>
+            <text id="e-2" data-name="e" transform="translate(38.701 1)" fill="#7d7f7f" font-size="1" font-family="Roboto-Regular, Roboto"><tspan x="0" y="0">e</tspan></text>
+            <text id="l-2" data-name="l" transform="translate(78.311 1)" fill="#7d7f7f" font-size="1" font-family="Roboto-Regular, Roboto"><tspan x="0" y="0">l</tspan></text>
+            <text id="m-2" data-name="m" transform="translate(17.976 1)" fill="#7d7f7f" font-size="1" font-family="Roboto-Regular, Roboto"><tspan x="0" y="0">m</tspan></text>
+            <text id="o-2" data-name="o" transform="translate(57.847 1)" fill="#7d7f7f" font-size="1" font-family="Roboto-Regular, Roboto"><tspan x="0" y="0">o</tspan></text>
+            <text id="u-2" data-name="u" transform="translate(0.045 1)" fill="#7d7f7f" font-size="1" font-family="Roboto-Regular, Roboto"><tspan x="0" y="0">u</tspan></text>
+            <text id="v" transform="translate(115.098 1)" fill="#7d7f7f" font-size="1" font-family="Roboto-Regular, Roboto"><tspan x="0" y="0">v</tspan></text>
+            <text id="n" transform="translate(114.722 116.091)" fill="#7d7f7f" font-size="1" font-family="Roboto-Regular, Roboto"><tspan x="0" y="0">n</tspan></text>
+            <text id="a" transform="translate(96.43 116.091)" fill="#7d7f7f" font-size="1" font-family="Roboto-Regular, Roboto"><tspan x="0" y="0">a</tspan></text>
+            <text id="o-3" data-name="o" transform="translate(77.072 116.091)" fill="#7d7f7f" font-size="1" font-family="Roboto-Regular, Roboto"><tspan x="0" y="0">o</tspan></text>
+            <text id="p" transform="translate(19.253 116.091)" fill="#7d7f7f" font-size="1" font-family="Roboto-Regular, Roboto"><tspan x="0" y="0">p</tspan></text>
+            <text id="g" transform="translate(0 116.091)" fill="#7d7f7f" font-size="1" font-family="Roboto-Regular, Roboto"><tspan x="0" y="0">g</tspan></text>
+            <text id="v-2" data-name="v" transform="translate(38.858 116.588)" fill="#7d7f7f" font-size="1" font-family="Roboto-Regular, Roboto"><tspan x="0" y="0">v</tspan></text>
+            <text id="x" transform="translate(58.098 116.588)" fill="#7d7f7f" font-size="1" font-family="Roboto-Regular, Roboto"><tspan x="0" y="0">x</tspan></text>
+            <text id="q" transform="translate(0.027 38.94)" fill="#7d7f7f" font-size="1" font-family="Roboto-Regular, Roboto"><tspan x="0" y="0">q</tspan></text>
+            <text id="x-2" data-name="x" transform="translate(115.112 39.461)" fill="#7d7f7f" font-size="1" font-family="Roboto-Regular, Roboto"><tspan x="0" y="0">x</tspan></text>
+            <text id="n-2" data-name="n" transform="translate(114.722 76.535)" fill="#7d7f7f" font-size="1" font-family="Roboto-Regular, Roboto"><tspan x="0" y="0">n</tspan></text>
+            <text id="f" transform="translate(77.915 76.535)" fill="#7d7f7f" font-size="1" font-family="Roboto-Regular, Roboto"><tspan x="0" y="0">f</tspan></text>
+            <text id="i" transform="translate(1.409 76.535)" fill="#7d7f7f" font-size="1" font-family="Roboto-Regular, Roboto"><tspan x="0" y="0">i</tspan></text>
+            <text id="p-2" data-name="p" transform="translate(57.704 76.535)" fill="#7d7f7f" font-size="1" font-family="Roboto-Regular, Roboto"><tspan x="0" y="0">p</tspan></text>
+            <text id="v-3" data-name="v" transform="translate(96.535 76.535)" fill="#7d7f7f" font-size="1" font-family="Roboto-Regular, Roboto"><tspan x="0" y="0">v</tspan></text>
+            <text id="x-3" data-name="x" transform="translate(19.646 76.535)" fill="#7d7f7f" font-size="1" font-family="Roboto-Regular, Roboto"><tspan x="0" y="0">x</tspan></text>
+            <text id="y" transform="translate(38.9 76.535)" fill="#7d7f7f" font-size="1" font-family="Roboto-Regular, Roboto"><tspan x="0" y="0">y</tspan></text>
+            <text id="a-2" data-name="a" transform="translate(0.302 19.884)" fill="#7d7f7f" font-size="1" font-family="Roboto-Regular, Roboto"><tspan x="0" y="0">a</tspan></text>
+            <text id="g-2" data-name="g" transform="translate(19.225 19.884)" fill="#7d7f7f" font-size="1" font-family="Roboto-Regular, Roboto"><tspan x="0" y="0">g</tspan></text>
+            <text id="n-3" data-name="n" transform="translate(57.708 19.884)" fill="#7d7f7f" font-size="1" font-family="Roboto-Regular, Roboto"><tspan x="0" y="0">n</tspan></text>
+            <text id="s" transform="translate(77.525 19.884)" fill="#7d7f7f" font-size="1" font-family="Roboto-Regular, Roboto"><tspan x="0" y="0">s</tspan></text>
+            <text id="t" transform="translate(97.067 19.884)" fill="#7d7f7f" font-size="1" font-family="Roboto-Regular, Roboto"><tspan x="0" y="0">t</tspan></text>
+            <text id="v-4" data-name="v" transform="translate(38.858 19.884)" fill="#7d7f7f" font-size="1" font-family="Roboto-Regular, Roboto"><tspan x="0" y="0">v</tspan></text>
+            <text id="g-3" data-name="g" transform="translate(114.691 19.884)" fill="#7d7f7f" font-size="1" font-family="Roboto-Regular, Roboto"><tspan x="0" y="0">g</tspan></text>
+            <text id="q-2" data-name="q" transform="translate(114.719 95.915)" fill="#7d7f7f" font-size="1" font-family="Roboto-Regular, Roboto"><tspan x="0" y="0">q</tspan></text>
+            <text id="c" transform="translate(38.844 95.915)" fill="#7d7f7f" font-size="1" font-family="Roboto-Regular, Roboto"><tspan x="0" y="0">c</tspan></text>
+            <text id="f-2" data-name="f" transform="translate(77.915 95.915)" fill="#7d7f7f" font-size="1" font-family="Roboto-Regular, Roboto"><tspan x="0" y="0">f</tspan></text>
+            <text id="g-4" data-name="g" transform="translate(96.127 95.915)" fill="#7d7f7f" font-size="1" font-family="Roboto-Regular, Roboto"><tspan x="0" y="0">g</tspan></text>
+            <text id="k" transform="translate(19.424 95.915)" fill="#7d7f7f" font-size="1" font-family="Roboto-Regular, Roboto"><tspan x="0" y="0">k</tspan></text>
+            <text id="w-2" data-name="w" transform="translate(56.893 95.915)" fill="#7d7f7f" font-size="1" font-family="Roboto-Regular, Roboto"><tspan x="0" y="0">w</tspan></text>
+            <text id="z" transform="translate(0.563 95.915)" fill="#7d7f7f" font-size="1" font-family="Roboto-Regular, Roboto"><tspan x="0" y="0">z</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+    <rect id="Rectangle_4065" data-name="Rectangle 4065" width="220" height="148" transform="translate(54 20)" fill="none"/>
+  </g>
+</svg>
