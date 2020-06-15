@@ -41,7 +41,6 @@ export class Introduction4Component implements OnInit, OnDestroy {
   showSave!: boolean;
   showloading = false;
 
-
   constructor(
     private introductionService: IntroductionService,
     private activatedRoute: ActivatedRoute,

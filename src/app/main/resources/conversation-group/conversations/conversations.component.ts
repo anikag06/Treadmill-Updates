@@ -43,7 +43,7 @@ import { environment } from 'environments/environment';
 import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifications.service';
 import { PROBLEM_SOLVING, TASK } from '@/app.constants';
 import { Subscription } from 'rxjs';
-import {UserFeedbackComponent} from "@/main/resources/shared/user-feedback/user-feedback.component";
+import { UserFeedbackComponent } from '@/main/resources/shared/user-feedback/user-feedback.component';
 
 @Component({
   selector: 'app-conversations',
@@ -204,7 +204,6 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
 
   showNextStepBtn = false;
   showloading = false;
-
 
   isDislikeBox = false;
   isLikeBox = false;

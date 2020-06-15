@@ -16,7 +16,7 @@ import { ControlContentService } from '@/main/resources/control-content/control-
 import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.service';
 import { PassDataService } from '@/main/resources/conversation-group/passdata.service';
 import { StepCompleteData } from '@/main/resources/shared/completion-data.model';
-import {NavbarGoToService} from '@/main/shared/navbar/navbar-go-to.service';
+import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
 
 @Component({
   selector: 'app-control-content',
@@ -119,12 +119,15 @@ export class ControlContentComponent implements OnInit {
   //   // this.nextLoaded = false;
   // }
 
-
   onHtmlComplete() {
     this.showLoading = true;
     this.completionData.step_id = this.current_step_id;
     this.completionData.time_spent = 100;
-    console.log('step id', this.completionData.step_id, this.completionData.time_spent);
+    console.log(
+      'step id',
+      this.completionData.step_id,
+      this.completionData.time_spent,
+    );
     this.stepDataService
       .storeCompletionData(this.completionData)
       .subscribe(() => {
@@ -141,7 +144,6 @@ export class ControlContentComponent implements OnInit {
     // this.onHtmlNext();
     // this.nextButton(this.current_step_id);
     //this.showLoading = false;
-
   }
 
   onHtmlDashboard() {
@@ -149,7 +151,7 @@ export class ControlContentComponent implements OnInit {
   }
 
   onHtmlNextClick() {
-   // this.router.navigate([this.onHtmlNext()]);
+    // this.router.navigate([this.onHtmlNext()]);
     this.goToService.clickFlow.emit();
   }
 
@@ -158,6 +160,5 @@ export class ControlContentComponent implements OnInit {
       this.target.nativeElement.scrollIntoView({ behavior: 'smooth' });
       //window.scrollTo(0, 0);
     }, 10);
-
   }
 }

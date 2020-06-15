@@ -46,7 +46,6 @@ export class Introduction1Component implements OnInit, OnDestroy {
   next_step_id!: number;
   showloading = false;
 
-
   constructor(
     private introductionService: IntroductionService,
     private activatedRoute: ActivatedRoute,
@@ -54,7 +53,6 @@ export class Introduction1Component implements OnInit, OnDestroy {
     private flowService: FlowService,
     private flowStepService: FlowStepNavigationService,
     private goToService: NavbarGoToService,
-
   ) {}
 
   @ViewChild('autosize', { static: false }) autosize!: CdkTextareaAutosize;

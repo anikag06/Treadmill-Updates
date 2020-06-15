@@ -1,5 +1,5 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { FLOW_STEP_MARK_DONE, FLOW_STEPS_DATA } from '@/app.constants';
 import { BehaviorSubject } from 'rxjs';
@@ -28,11 +28,15 @@ export class FlowService {
   // Http Options
   httpOptions = {
     headers: new HttpHeaders({
-      'Cache-Control':  'no-cache, no-store, must-revalidate, post-check=0, pre-check=0'
-    })
+      'Cache-Control':
+        'no-cache, no-store, must-revalidate, post-check=0, pre-check=0',
+    }),
   };
   getFlow() {
-    return this.http.get(environment.API_ENDPOINT + FLOW_STEPS_DATA, this.httpOptions);
+    return this.http.get(
+      environment.API_ENDPOINT + FLOW_STEPS_DATA,
+      this.httpOptions,
+    );
   }
 
   markDone(stepId: number, timeSpent: number) {

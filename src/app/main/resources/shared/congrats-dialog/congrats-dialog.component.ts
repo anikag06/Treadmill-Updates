@@ -3,14 +3,12 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Router } from '@angular/router';
 import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.service';
 
-
 @Component({
   selector: 'app-congrats-dialog',
   templateUrl: './congrats-dialog.component.html',
-  styleUrls: ['./congrats-dialog.component.scss']
+  styleUrls: ['./congrats-dialog.component.scss'],
 })
 export class CongratsDialogComponent implements OnInit {
-
   nextStepData!: any;
   unLockTime!: any;
   badge_img_src = '../../../../../assets/shared/thumb.svg';
@@ -24,8 +22,10 @@ export class CongratsDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<CongratsDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private router: Router,
-    private flowStepService: FlowStepNavigationService
-  ) {  dialogRef.disableClose = true; }
+    private flowStepService: FlowStepNavigationService,
+  ) {
+    dialogRef.disableClose = true;
+  }
 
   ngOnInit() {
     this.navigate_to = 'Go to dashboard';
@@ -49,8 +49,13 @@ export class CongratsDialogComponent implements OnInit {
   }
 
   onNextClicked() {
-    const next_step_url = this.flowStepService.goToFlowNextStep(this.nextStepData);
-    this.flowStepService.virtualStepMarkDone(this.nextStepData, this.data.time_spent);
+    const next_step_url = this.flowStepService.goToFlowNextStep(
+      this.nextStepData,
+    );
+    this.flowStepService.virtualStepMarkDone(
+      this.nextStepData,
+      this.data.time_spent,
+    );
     this.closeDialog();
     this.router.navigate([next_step_url]);
   }

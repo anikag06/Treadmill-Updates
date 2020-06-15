@@ -4,7 +4,7 @@ import {
   THOUGHT_RECORD_FORM_NAME,
   WELL_DONE_IMG,
 } from '@/app.constants';
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormMessage } from '@/main/resources/forms/shared/form-message/form-message.model';
 import {
   TRF_NEGATIVE_MSG,
@@ -14,11 +14,11 @@ import {
 import { FormService } from '@/main/resources/forms/form.service';
 import { ThoughtRecordService } from '@/main/resources/forms/thought-record-form/thought-record.service';
 import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
-import {FlowService} from "@/main/flow/flow.service";
-import {ActivatedRoute} from "@angular/router";
-import {map, switchMap} from "rxjs/operators";
-import {StepsDataService} from "@/main/resources/shared/steps-data.service";
-import {FormsService} from "@/main/forms.service";
+import { FlowService } from '@/main/flow/flow.service';
+import { ActivatedRoute } from '@angular/router';
+import { map, switchMap } from 'rxjs/operators';
+import { StepsDataService } from '@/main/resources/shared/steps-data.service';
+import { FormsService } from '@/main/forms.service';
 
 @Component({
   selector: 'app-thought-record-form',
@@ -78,32 +78,27 @@ export class ThoughtRecordFormComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.activatedRoute.params
-      .subscribe(
-        (v ) => {
-         this.step_id =  v.step_id;
-         console.log('step id', this.step_id);
-        });
+    this.activatedRoute.params.subscribe(v => {
+      this.step_id = v.step_id;
+      console.log('step id', this.step_id);
+    });
     if (this.step_id) {
-      this.stepDataService
-        .getStepData(this.step_id)
-        .subscribe(
-          (res: any) => {
-            const step = res.data;
-            console.log('RESPONSE', res.data, step.status);
-            // for navbar title
-            this.stepGroupSequence = step.step_group_sequence + 1;
-            this.stepSequence = step.sequence + 1;
-            this.stepName = step.name;
-            this.navbarTitle =
-              this.stepGroupSequence.toString() +
-              '.' +
-              this.stepSequence.toString() +
-              ' ' +
-              this.stepName;
-            console.log('STEP DETAIL:', this.navbarTitle);
-            this.flowService.stepDetail.emit(this.navbarTitle);
-          });
+      this.stepDataService.getStepData(this.step_id).subscribe((res: any) => {
+        const step = res.data;
+        console.log('RESPONSE', res.data, step.status);
+        // for navbar title
+        this.stepGroupSequence = step.step_group_sequence + 1;
+        this.stepSequence = step.sequence + 1;
+        this.stepName = step.name;
+        this.navbarTitle =
+          this.stepGroupSequence.toString() +
+          '.' +
+          this.stepSequence.toString() +
+          ' ' +
+          this.stepName;
+        console.log('STEP DETAIL:', this.navbarTitle);
+        this.flowService.stepDetail.emit(this.navbarTitle);
+      });
     }
     if (!this.fromSlide && !this.fromConv) {
       this.formService.formName = this.formName;

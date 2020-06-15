@@ -1,4 +1,4 @@
-import {browser, by, element, protractor} from 'protractor';
+import { browser, by, element, protractor } from 'protractor';
 
 export class FlowPage {
   EC = protractor.ExpectedConditions;
@@ -14,9 +14,9 @@ export class FlowPage {
   }
 
   checkUserGroup() {
-   return element(by.id('user-group')).getAttribute('value');
+    return element(by.id('user-group')).getAttribute('value');
   }
-  hideSideNav () {
+  hideSideNav() {
     return element(by.partialLinkText('Dashboard')).click();
   }
 
@@ -37,7 +37,9 @@ export class FlowPage {
   }
 
   findProgressGroupElement(text: string) {
-    return element(by.css('.flow-scroll-inner')).element(by.cssContainingText('.step-group-name', text));
+    return element(by.css('.flow-scroll-inner')).element(
+      by.cssContainingText('.step-group-name', text),
+    );
   }
 
   // findProgressElement(txt: string) {
@@ -51,38 +53,44 @@ export class FlowPage {
   //   });
   // }
 
-
   findProgressElement(txt: string) {
-       browser.wait(this.EC.presenceOf(element(by.css('h6.progress-heading-mobile')))).then( () => {
-      element(by.css('.flow-scroll-inner')).element(by.cssContainingText('.step-content', txt))
-        .click()
-        .then(() => {
-          console.log('STEP :', txt, 'clicked');
-          browser.sleep(1000);
-        });
-    });
+    browser
+      .wait(this.EC.presenceOf(element(by.css('h6.progress-heading-mobile'))))
+      .then(() => {
+        element(by.css('.flow-scroll-inner'))
+          .element(by.cssContainingText('.step-content', txt))
+          .click()
+          .then(() => {
+            console.log('STEP :', txt, 'clicked');
+            browser.sleep(1000);
+          });
+      });
   }
 
   goToNextStep(btn: string) {
     const content = element(by.css('.content-body'));
-    browser.wait(this.EC.visibilityOf(content)).then( () => {
-    this.clickOnButton('Completed').then( () => {
-      if (btn === 'Next step') {
-        const nextStepBtn = element(by.cssContainingText('button', 'Next step'));
-        browser.wait(this.EC.visibilityOf(nextStepBtn)).then(() => {
-          nextStepBtn.click();
-        });
-      }
-      if (btn === 'Go to dashboard') {
-        const dashboardBtn = element(by.cssContainingText('button', 'Go to dashboard'));
-        browser.wait(this.EC.visibilityOf(dashboardBtn )).then( () => {
-          dashboardBtn .click();
-        });
-      }
+    browser.wait(this.EC.visibilityOf(content)).then(() => {
+      this.clickOnButton('Completed').then(() => {
+        if (btn === 'Next step') {
+          const nextStepBtn = element(
+            by.cssContainingText('button', 'Next step'),
+          );
+          browser.wait(this.EC.visibilityOf(nextStepBtn)).then(() => {
+            nextStepBtn.click();
+          });
+        }
+        if (btn === 'Go to dashboard') {
+          const dashboardBtn = element(
+            by.cssContainingText('button', 'Go to dashboard'),
+          );
+          browser.wait(this.EC.visibilityOf(dashboardBtn)).then(() => {
+            dashboardBtn.click();
+          });
+        }
       });
     });
     browser.sleep(1000);
-}
+  }
 
   getQuestionnaireNotavailable() {
     return element

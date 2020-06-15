@@ -14,7 +14,7 @@ import { CommonGameComponent } from './games/games-list/common-game/common-game.
 import { GetQuestionnaireComponent } from './dashboard/get-questionnaire/get-questionnaire.component';
 import { SurveyComponent } from './shared/survey/survey.component';
 import { NeedToTalkComponent } from '@/main/need-to-talk/need-to-talk.component';
-import {SettingsComponent} from '@/main/settings/settings.component';
+import { SettingsComponent } from '@/main/settings/settings.component';
 
 export const mainRoutes: Routes = [
   {
@@ -46,7 +46,7 @@ export const mainRoutes: Routes = [
       },
       {
         path: 'settings',
-        component: SettingsComponent
+        component: SettingsComponent,
       },
       {
         path: 'games',

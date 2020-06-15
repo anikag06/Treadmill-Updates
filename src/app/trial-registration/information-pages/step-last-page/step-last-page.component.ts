@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { A2HSService } from '@/shared/a2hs.service';
 import { FcmService } from '@/shared/fcm.service';
-import {RegistrationDataService} from "@/trial-registration/shared/registration-data.service";
+import { RegistrationDataService } from '@/trial-registration/shared/registration-data.service';
 
 @Component({
   selector: 'app-step-last-page',
@@ -10,7 +10,7 @@ import {RegistrationDataService} from "@/trial-registration/shared/registration-
 })
 export class StepLastPageComponent implements OnInit {
   signup_link!: string;
-  constructor( private registrationDataService: RegistrationDataService,) {}
+  constructor(private registrationDataService: RegistrationDataService) {}
 
   ngOnInit() {
     this.signup_link = this.registrationDataService.signup_link;

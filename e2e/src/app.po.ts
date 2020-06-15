@@ -38,11 +38,18 @@ export class AppPage {
     this.numberInUsername = Math.floor(Math.random() * (200 - 1)) + 1;
     // this.newUsername = 'root' + this.numberInUsername +
     //                    Math.random().toString(36).substring(2, 5) + Math.random().toString(36).substring(2, 5);
-    this.newEmaiId = 'l.agarwal1984' + '+' + this.numberInUsername + '@gmail.com';
+    this.newEmaiId =
+      'l.agarwal1984' + '+' + this.numberInUsername + '@gmail.com';
   }
   getTrialUserName() {
-    this.newUsername = 'root' + Math.random().toString(36).substring(2, 5) +
-      Math.random().toString(36).substring(2, 5);
+    this.newUsername =
+      'root' +
+      Math.random()
+        .toString(36)
+        .substring(2, 5) +
+      Math.random()
+        .toString(36)
+        .substring(2, 5);
   }
 
   fillTrialRegForm() {
@@ -114,7 +121,7 @@ export class AppPage {
   }
   clickOnButton(btn: string) {
     const btnClick = element(by.cssContainingText('button', btn));
-    browser.wait(this.EC.elementToBeClickable(btnClick)).then( () => {
+    browser.wait(this.EC.elementToBeClickable(btnClick)).then(() => {
       btnClick.click();
     });
     // return element(by.buttonText(btn)).click();
@@ -166,13 +173,13 @@ export class AppPage {
   }
   clickSubmitButton() {
     const submitBtn = element(by.cssContainingText('button', 'Submit'));
-    browser.wait(this.EC.elementToBeClickable(submitBtn)).then( () => {
-        submitBtn.click();
-      });
+    browser.wait(this.EC.elementToBeClickable(submitBtn)).then(() => {
+      submitBtn.click();
+    });
   }
   getSignUpLink() {
     browser.sleep(3000);
-    const el =  element(by.id('signup_link'));
+    const el = element(by.id('signup_link'));
     el.getAttribute('value').then(function(value) {
       console.log('LINK', value);
       browser.get(value);
@@ -193,13 +200,15 @@ export class AppPage {
   }
   fillLoginForm(username: string, password: string) {
     console.log('USERNAME', username);
-    element(by.css('.login-form')).element(by.name('username')).sendKeys(username);
+    element(by.css('.login-form'))
+      .element(by.name('username'))
+      .sendKeys(username);
     browser.sleep(1000);
-    element(by.css('.login-form')).element(by.name('password')).sendKeys(password);
+    element(by.css('.login-form'))
+      .element(by.name('password'))
+      .sendKeys(password);
     browser.sleep(1000);
     element(by.css('.dialog-btn')).click();
     browser.sleep(3000);
-
   }
-
 }

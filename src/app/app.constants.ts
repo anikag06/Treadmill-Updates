@@ -400,8 +400,9 @@ export const WATCHED_VIDEO = '/api/v1/resources/mark-video-watched/';
 
 export const USERNAME_AVAILABLE = '/api/v1/user/check-username-availability/';
 export const UPDATE_USERNAME = '/api/v1/user/update-username/';
-export const UPDATE_NOTIFICATIONS = '/api/v1/notifications/update-notification-settings/';
-export const UPDATE_PASSWORD =  '/api/v1/user/change-password/';
+export const UPDATE_NOTIFICATIONS =
+  '/api/v1/notifications/update-notification-settings/';
+export const UPDATE_PASSWORD = '/api/v1/user/change-password/';
 
 // toast
 export const SHOW_TOAST_DURATION = 10000;
@@ -427,7 +428,10 @@ export const EXPLORE_MAP = new Map([
   ],
   [
     FORM_WORRY_PRODUCTIVELY,
-    ['/main/resources/forms/' + WORRY_PRODUCTIVELY, WORRY_PRODUCTIVELY_FORM_NAME],
+    [
+      '/main/resources/forms/' + WORRY_PRODUCTIVELY,
+      WORRY_PRODUCTIVELY_FORM_NAME,
+    ],
   ],
   [
     FORM_THOUGHT_RECORD,
@@ -435,7 +439,10 @@ export const EXPLORE_MAP = new Map([
   ],
   [
     FORM_EXPERIMENT_TO_TEST_BELIEF,
-    ['/main/resources/forms/' + TEST_BELIEF, EXPERIMENT_TO_TEST_BELIEF_FORM_NAME],
+    [
+      '/main/resources/forms/' + TEST_BELIEF,
+      EXPERIMENT_TO_TEST_BELIEF_FORM_NAME,
+    ],
   ],
   [
     GAME_ATTRIBUTION_STYLE_CONSTANT,
@@ -460,7 +467,10 @@ export const EXPLORE_MAP = new Map([
   ],
   [
     GAME_FRIENDLY_FACE_CONSTANT,
-    ['/main/games/' + GAME_FRIENDLY_FACE_CONSTANT, 'Play: ' + FRIENDLY_FACE_GAME],
+    [
+      '/main/games/' + GAME_FRIENDLY_FACE_CONSTANT,
+      'Play: ' + FRIENDLY_FACE_GAME,
+    ],
   ],
   [
     GAME_EXECUTIVE_CONTROL_CONSTANT,
@@ -478,7 +488,10 @@ export const EXPLORE_MAP = new Map([
   ],
   [
     GAME_MENTAL_IMAGERY_CONSTANT,
-    ['/main/games/' + GAME_MENTAL_IMAGERY_CONSTANT, 'Play: ' + MENTAL_IMAGERY_GAME],
+    [
+      '/main/games/' + GAME_MENTAL_IMAGERY_CONSTANT,
+      'Play: ' + MENTAL_IMAGERY_GAME,
+    ],
   ],
   [MINDFULNESS_VIDEO, ['/main/extra-resources/videoItem/', 'Watch: ']],
 ]);

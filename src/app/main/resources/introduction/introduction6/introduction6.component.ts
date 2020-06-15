@@ -29,7 +29,6 @@ export class Introduction6Component implements OnInit {
   showNextStep = false;
   showloading = false;
 
-
   constructor(
     private introductionService: IntroductionService,
     private activatedRoute: ActivatedRoute,

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   BELIEF_CHANGE,
   BELIEF_CHANGE_FORM_NAME,
@@ -13,10 +13,10 @@ import {
   BELIEF_CHANGE_NEGATIVE_MSG,
   BELIEF_CHANGE_POSITIVE_MSG,
 } from '@/main/resources/forms/belief-change/belief-change-message';
-import {map, switchMap} from "rxjs/operators";
-import {StepsDataService} from "@/main/resources/shared/steps-data.service";
-import {FlowService} from "@/main/flow/flow.service";
-import {ActivatedRoute} from "@angular/router";
+import { map, switchMap } from 'rxjs/operators';
+import { StepsDataService } from '@/main/resources/shared/steps-data.service';
+import { FlowService } from '@/main/flow/flow.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-belief-change',
@@ -26,10 +26,12 @@ import {ActivatedRoute} from "@angular/router";
 export class BeliefChangeComponent implements OnInit {
   @Input() fromSlide!: boolean;
   @Input() fromConv!: boolean;
-  constructor(private formService: FormService,
-              private activatedRoute: ActivatedRoute,
-              private stepDataService: StepsDataService,
-              private flowService: FlowService, ) {}
+  constructor(
+    private formService: FormService,
+    private activatedRoute: ActivatedRoute,
+    private stepDataService: StepsDataService,
+    private flowService: FlowService,
+  ) {}
 
   formName = BELIEF_CHANGE_FORM_NAME;
   belief!: Belief | undefined;
@@ -60,32 +62,27 @@ export class BeliefChangeComponent implements OnInit {
   stepName!: string;
   step_id!: number;
   ngOnInit() {
-    this.activatedRoute.params
-      .subscribe(
-        (v ) => {
-          this.step_id =  v.step_id;
-          console.log('step id', this.step_id);
-        });
+    this.activatedRoute.params.subscribe(v => {
+      this.step_id = v.step_id;
+      console.log('step id', this.step_id);
+    });
     if (this.step_id) {
-      this.stepDataService
-        .getStepData(this.step_id)
-        .subscribe(
-          (res: any) => {
-            const step = res.data;
-            console.log('RESPONSE', res.data, step.status);
-            // for navbar title
-            this.stepGroupSequence = step.step_group_sequence + 1;
-            this.stepSequence = step.sequence + 1;
-            this.stepName = step.name;
-            this.navbarTitle =
-              this.stepGroupSequence.toString() +
-              '.' +
-              this.stepSequence.toString() +
-              ' ' +
-              this.stepName;
-            console.log('STEP DETAIL:', this.navbarTitle);
-            this.flowService.stepDetail.emit(this.navbarTitle);
-          });
+      this.stepDataService.getStepData(this.step_id).subscribe((res: any) => {
+        const step = res.data;
+        console.log('RESPONSE', res.data, step.status);
+        // for navbar title
+        this.stepGroupSequence = step.step_group_sequence + 1;
+        this.stepSequence = step.sequence + 1;
+        this.stepName = step.name;
+        this.navbarTitle =
+          this.stepGroupSequence.toString() +
+          '.' +
+          this.stepSequence.toString() +
+          ' ' +
+          this.stepName;
+        console.log('STEP DETAIL:', this.navbarTitle);
+        this.flowService.stepDetail.emit(this.navbarTitle);
+      });
     }
     if (!this.fromSlide && !this.fromConv) {
       this.formService.formName = this.formName;

@@ -137,20 +137,20 @@ export class Introduction2Component implements OnInit, OnDestroy {
   }
   onmiserableFocusOut() {
     this.data.miserable = this.miserable;
-      this.introductionService
-        .storeIntroductionData(this.stepGroupSequence, this.data)
-        .subscribe(data => {
-          console.log(data, this.data, 'success');
-          this.miserableSave = false;
-        });
+    this.introductionService
+      .storeIntroductionData(this.stepGroupSequence, this.data)
+      .subscribe(data => {
+        console.log(data, this.data, 'success');
+        this.miserableSave = false;
+      });
   }
   onmasteryFocusOut() {
     this.data.mastery = this.mastery;
-      this.introductionService
-        .storeIntroductionData(this.stepGroupSequence, this.data)
-        .subscribe(data => {
-          console.log(data, this.data, 'success');
-          this.masterySave = false;
-        });
+    this.introductionService
+      .storeIntroductionData(this.stepGroupSequence, this.data)
+      .subscribe(data => {
+        console.log(data, this.data, 'success');
+        this.masterySave = false;
+      });
   }
 }

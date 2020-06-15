@@ -174,7 +174,7 @@ import { ChatImageDirective } from './chatbot/chat-window/chat-image/chat-image.
 import { ChatVideoComponent } from './chatbot/chat-window/chat-video/chat-video.component';
 import { IframeTrackerDirective } from './chatbot/chat-window/chat-video/iframe-tracker.directive';
 import { SettingsComponent } from './settings/settings.component';
-import {SettingsService} from '@/main/settings/settings.service';
+import { SettingsService } from '@/main/settings/settings.service';
 
 @NgModule({
   declarations: [

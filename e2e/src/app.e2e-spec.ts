@@ -1,8 +1,6 @@
 import { AppPage } from './app.po';
-import {browser, by, element, logging} from 'protractor';
+import { browser, by, element, logging } from 'protractor';
 import { protractor } from 'protractor/built/ptor';
-
-
 
 describe('workspace-project App', () => {
   let page: AppPage;
@@ -37,8 +35,7 @@ describe('workspace-project App', () => {
     // browser.sleep(3000);
   });
 
-
- it('Should show PHQ-9 questionnaire', () => {
+  it('Should show PHQ-9 questionnaire', () => {
     expect(page.findPhq()).toBeTruthy();
     browser.sleep(5000);
     // expect(page.findQuestionnaireText()).toMatch('Before moving further');
@@ -93,23 +90,27 @@ describe('workspace-project App', () => {
     browser.sleep(2000);
   });
 
-  it('should fill consent form and accept notifications and submit', () => {
-    expect(page.findConsentPage()).toBeTruthy();
-    browser.sleep(3000);
-    page.fillConsentPage();
-    // page.acceptAllConsentPage();
-    browser.sleep(5000);
-    page.clickSubmitButton();
-    browser.sleep(3500);
-  }, 5 * 60 * 1000);
+  it(
+    'should fill consent form and accept notifications and submit',
+    () => {
+      expect(page.findConsentPage()).toBeTruthy();
+      browser.sleep(3000);
+      page.fillConsentPage();
+      // page.acceptAllConsentPage();
+      browser.sleep(5000);
+      page.clickSubmitButton();
+      browser.sleep(3500);
+    },
+    5 * 60 * 1000,
+  );
 
-// get link for sign up from mail
+  // get link for sign up from mail
 
   it('Should get sign up link and redirect to signup page', () => {
     page.getSignUpLink();
     browser.sleep(3500);
     expect(
-      browser//
+      browser //
         .wait(protractor.ExpectedConditions.urlContains('sign-up'), 2000)
         .catch(() => false),
     ).toBeTruthy('Url match could not succced');
@@ -123,15 +124,14 @@ describe('workspace-project App', () => {
 
   it('should login and redirect to dashboard', () => {
     // username is hardcoded here
-      page.fillLoginForm(username, 'test123');
+    page.fillLoginForm(username, 'test123');
     expect(
-      browser//
+      browser //
         .wait(protractor.ExpectedConditions.urlContains('dashboard'))
         .catch(() => false),
     ).toBeTruthy('Url match could not succced');
     browser.sleep(6000);
   });
-
 
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser

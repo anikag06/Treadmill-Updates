@@ -30,7 +30,6 @@ export class RegistrationStepFourComponent implements OnInit {
     notificationsInfo: new FormControl(),
   });
 
-
   stepFourFormData = new RegistrationStepFourForm(
     0,
     null,
@@ -73,7 +72,9 @@ export class RegistrationStepFourComponent implements OnInit {
   step4DataSubmit() {
     console.log(this.consentForm.value);
     // used for e2e testing
-      this.registrationDataService.getSignupLinkForTesting(this.registrationDataService.trial_email).subscribe((data: any) => {
+    this.registrationDataService
+      .getSignupLinkForTesting(this.registrationDataService.trial_email)
+      .subscribe((data: any) => {
         console.log('SIGN UP LINK', data);
         this.registrationDataService.signup_link = data.unique_link;
       });
