@@ -18,8 +18,6 @@ export class FormsListComponent implements OnInit {
     this.forms = this.formsService.forms;
   }
   navigate(form: any) {
-    this.formService.formName = form.name;
-    this.formService.formTitle.emit();
     this.router.navigateByUrl(form.path);
   }
 }

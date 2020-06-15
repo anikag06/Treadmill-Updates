@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { UserTask } from '@/main/resources/forms/shared/tasks/user-task.model';
-import { SET_ACTIVITY } from '@/app.constants';
+import {SET_ACTIVITY, SET_TASK_FORM_NAME} from '@/app.constants';
 
 import { FormService } from '@/main/resources/forms/form.service';
 import { TASK_QUOTES } from '@/main/resources/forms/task-forms/task-form-message';
@@ -25,7 +25,9 @@ export class TaskFormsComponent implements OnInit {
   quote!: string;
   quotedBy!: string;
   showMessage = false;
+  formName = SET_TASK_FORM_NAME;
   navbarTitle!: string;
+  step_id!: number;
   stepGroupSequence!: number;
   stepSequence!: number;
   stepName!: string;
@@ -36,28 +38,35 @@ export class TaskFormsComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.params
-      .pipe(
-        map(v => v.id),
-        switchMap(id =>  this.stepDataService
-          .getStepData(id)),
-      )
       .subscribe(
-        (res: any) => {
-          const step = res.data;
-          console.log('RESPONSE', res.data, step.status);
-          // for navbar title
-          this.stepGroupSequence = step.step_group_sequence + 1;
-          this.stepSequence = step.sequence + 1;
-          this.stepName = step.name;
-          this.navbarTitle =
-            this.stepGroupSequence.toString() +
-            '.' +
-            this.stepSequence.toString() +
-            ' ' +
-            this.stepName;
-          console.log('STEP DETAIL:', this.navbarTitle);
-          this.flowService.stepDetail.emit(this.navbarTitle);
-        } );
+        (v ) => {
+          this.step_id =  v.step_id;
+          console.log('step id', this.step_id);
+        });
+    if (this.step_id) {
+      this.stepDataService
+        .getStepData(this.step_id)
+        .subscribe(
+          (res: any) => {
+            const step = res.data;
+            console.log('RESPONSE', res.data, step.status);
+            // for navbar title
+            this.stepGroupSequence = step.step_group_sequence + 1;
+            this.stepSequence = step.sequence + 1;
+            this.stepName = step.name;
+            this.navbarTitle =
+              this.stepGroupSequence.toString() +
+              '.' +
+              this.stepSequence.toString() +
+              ' ' +
+              this.stepName;
+            console.log('STEP DETAIL:', this.navbarTitle);
+            this.flowService.stepDetail.emit(this.navbarTitle);
+          });
+    } else {
+      this.formService.formName = this.formName;
+      this.formService.formTitle.emit();
+    }
   }
 
   taskSelected(task: UserTask) {

@@ -40,7 +40,7 @@ export class FlowStepNavigationService {
       return `main/games/${game_name}/${step.id}`;
     } else if (step.data_type === FORM) {
       const form_name = FORM_URL_MAP.get(step.action[0]);
-      return `main/resources/forms/${form_name}/${step.id}`;
+      return `main/resources/forms/${form_name}/step/${step.id}`;
     } else if (step.data_type === SUPPORT_GROUP) {
       return `main/support-groups/${step.id}`;
       // } else if (step.data_type === QUESTIONNAIRE) {

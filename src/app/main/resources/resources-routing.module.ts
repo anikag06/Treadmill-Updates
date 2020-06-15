@@ -39,62 +39,74 @@ export const resourcesRoutes: Routes = [
       {
         path: 'forms/problem-solving',
         component: ProblemSolvingWorksheetsComponent,
-        // data: { title: 'Form' },
       },
       {
         path: 'forms/problem-solving/:id',
         component: ProblemSolvingWorksheetsComponent,
-        // data: { title: 'Form' },
+      },
+      {
+        path: 'forms/problem-solving/step/:step_id',
+        component: ProblemSolvingWorksheetsComponent,
       },
       {
         path: 'forms/task',
         component: TaskFormsComponent,
-        // data: { title: 'Form' },
       },
       {
         path: 'forms/task/:id',
         component: TaskFormsComponent,
-        // data: { title: 'Form' },
+      },
+      {
+        path: 'forms/task/step/:step_id',
+        component: TaskFormsComponent,
       },
       {
         path: 'forms/thought-record',
         component: ThoughtRecordFormComponent,
-        // data: { title: 'Form' },
       },
       {
         path: 'forms/thought-record/:id',
         component: ThoughtRecordFormComponent,
-        // data: { title: 'Form' },
+      },
+      {
+        path: 'forms/thought-record/step/:step_id',
+        component: ThoughtRecordFormComponent,
       },
       {
         path: 'forms/test-belief',
         component: ExperimentToTestBeliefFormComponent,
-        // data: { title: 'Form' },
       },
       {
         path: 'forms/test-belief/:id',
         component: ExperimentToTestBeliefFormComponent,
-        // data: { title: 'Form' },
+      },
+      {
+        path: 'forms/test-belief/step/:step_id',
+        component: ExperimentToTestBeliefFormComponent,
       },
       {
         path: 'forms/worry-productively',
         component: WorryProductivelyComponent,
-        // data: { title: 'Form' },
       },
       {
         path: 'forms/worry-productively/:id',
         component: WorryProductivelyComponent,
-        // data: { title: 'Form' },
+      },
+      {
+        path: 'forms/worry-productively/step/:step_id',
+        component: WorryProductivelyComponent,
       },
       {
         path: 'forms/belief-change',
         component: BeliefChangeComponent,
-        // data: { title: 'Form' },
       },
       {
         path: 'forms/belief-change/:id',
         component: BeliefChangeComponent,
-        // data: { title: 'Form' },
+      },
+      {
+        path: 'forms/belief-change/step/:step_id',
+        component: BeliefChangeComponent,
       },
     ],
   },

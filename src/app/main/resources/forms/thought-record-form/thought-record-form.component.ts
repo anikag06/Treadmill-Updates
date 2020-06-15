@@ -18,6 +18,7 @@ import {FlowService} from "@/main/flow/flow.service";
 import {ActivatedRoute} from "@angular/router";
 import {map, switchMap} from "rxjs/operators";
 import {StepsDataService} from "@/main/resources/shared/steps-data.service";
+import {FormsService} from "@/main/forms.service";
 
 @Component({
   selector: 'app-thought-record-form',
@@ -66,8 +67,10 @@ export class ThoughtRecordFormComponent implements OnInit {
   stepGroupSequence!: number;
   stepSequence!: number;
   stepName!: string;
+  step_id!: number;
   constructor(
     private formService: FormService,
+    private formsService: FormsService,
     private thoughtRecordService: ThoughtRecordService,
     private flowService: FlowService,
     private activatedRoute: ActivatedRoute,
@@ -76,28 +79,35 @@ export class ThoughtRecordFormComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.params
-      .pipe(
-        map(v => v.id),
-        switchMap(id =>  this.stepDataService
-          .getStepData(id)),
-      )
       .subscribe(
-        (res: any) => {
-          const step = res.data;
-          console.log('RESPONSE', res.data, step.status);
-          // for navbar title
-          this.stepGroupSequence = step.step_group_sequence + 1;
-          this.stepSequence = step.sequence + 1;
-          this.stepName = step.name;
-          this.navbarTitle =
-            this.stepGroupSequence.toString() +
-            '.' +
-            this.stepSequence.toString() +
-            ' ' +
-            this.stepName;
-          console.log('STEP DETAIL:', this.navbarTitle);
-          this.flowService.stepDetail.emit(this.navbarTitle);
-        } );
+        (v ) => {
+         this.step_id =  v.step_id;
+         console.log('step id', this.step_id);
+        });
+    if (this.step_id) {
+      this.stepDataService
+        .getStepData(this.step_id)
+        .subscribe(
+          (res: any) => {
+            const step = res.data;
+            console.log('RESPONSE', res.data, step.status);
+            // for navbar title
+            this.stepGroupSequence = step.step_group_sequence + 1;
+            this.stepSequence = step.sequence + 1;
+            this.stepName = step.name;
+            this.navbarTitle =
+              this.stepGroupSequence.toString() +
+              '.' +
+              this.stepSequence.toString() +
+              ' ' +
+              this.stepName;
+            console.log('STEP DETAIL:', this.navbarTitle);
+            this.flowService.stepDetail.emit(this.navbarTitle);
+          });
+    } else {
+      this.formService.formName = this.formName;
+      this.formService.formTitle.emit();
+    }
   }
 
   thoughtSelected(thought: Thought) {
