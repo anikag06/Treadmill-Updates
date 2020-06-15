@@ -159,10 +159,12 @@
 }
 :host-context(.chatbot) .modal {
   top: 0;
+  left: 0;
 }
 @media only screen and (max-device-width: 576px)  {
   :host-context(.chatbot) .modal {
    height: 100%;
+
   }
 }
 
