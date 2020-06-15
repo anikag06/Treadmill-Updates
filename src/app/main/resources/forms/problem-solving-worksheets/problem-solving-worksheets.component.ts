@@ -119,7 +119,8 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
             console.log('STEP DETAIL:', this.navbarTitle);
             this.flowService.stepDetail.emit(this.navbarTitle);
           });
-    } else {
+    }
+    if (!this.fromSlide && !this.fromConv) {
       this.formService.formName = this.formName;
       this.formService.formTitle.emit();
     }

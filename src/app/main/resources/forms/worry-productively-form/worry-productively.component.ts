@@ -110,7 +110,7 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
       .subscribe(
         (v ) => {
           this.step_id =  v.step_id;
-          console.log('step id', this.step_id);
+          console.log('step id', this.step_id, this.fromSlide);
         });
     if (this.step_id) {
       this.stepDataService
@@ -132,7 +132,8 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
             console.log('STEP DETAIL:', this.navbarTitle);
             this.flowService.stepDetail.emit(this.navbarTitle);
           });
-    } else {
+    }
+    if (!this.fromSlide && !this.fromConv) {
       this.formService.formName = this.formName;
       this.formService.formTitle.emit();
     }
