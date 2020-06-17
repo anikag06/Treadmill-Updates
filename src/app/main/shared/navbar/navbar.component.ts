@@ -41,6 +41,7 @@ import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 import { map, switchMap } from 'rxjs/operators';
 import { LOGGED_IN_PATH } from '@/app.constants';
 import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
+import { IntroService } from '@/main/walk-through/intro.service';
 
 @Component({
   selector: 'app-navbar',
@@ -73,7 +74,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
   @Input() user!: User;
   @Output() hamburgerClick = new EventEmitter<any>();
   @Input() isHandset$!: boolean;
-
+  hideSubscription!: Subscription;
+  hideCards = false;
+  sideBarSubsciprtion! :Subscription;
+  fromIntro = false;
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
     private notificationService: NavbarNotificationsService,
@@ -90,6 +94,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private overlayService: CustomOverlayService,
     private stepDataService: StepsDataService,
     private goToService: NavbarGoToService,
+    private introService: IntroService,
   ) {
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationStart) {
@@ -137,10 +142,15 @@ export class NavbarComponent implements OnInit, OnDestroy {
         console.log(event.error);
       }
     });
+    this.hideSubscription = this.introService.hideBehaviour.subscribe(
+      (hideCards) => {
+        this.hideCards = hideCards;
+      },
+    );
   }
 
   ngOnInit() {
-    this.notificationService.closeSubject.subscribe(data => {
+    this.notificationService.closeSubject.subscribe((data) => {
       if (data) {
         this.notificationClick();
       }
@@ -158,6 +168,12 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.goToService.clickFlow.subscribe(() => {
       this.flowClick();
     });
+    this.sideBarSubsciprtion = this.introService.sideBarBehaviour.subscribe(
+      (fromIntro) => {
+        this.fromIntro = fromIntro;
+      },
+    );
+
   }
 
   notificationClick() {
@@ -174,10 +190,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
     const notifications = this.notificationService
       .putUserNotifications()
       .toPromise();
-    notifications.then(data => console.log(data));
+    notifications.then((data) => console.log(data));
   }
 
   flowClick() {
+    this.introService.exitIntro();
     this.notificationService.openNavFlow.emit();
     this.overlayService.showFlow = true;
     console.log('flow host', this.flowHost);
@@ -199,6 +216,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   hamburgerClicked() {
+    if(this.fromIntro){
+      this.introService.exitNavIntro();
+    }
     this.hamburgerClick.emit();
   }
 
@@ -222,7 +242,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       .toPromise();
     notificationCountPromise
       .then((data: any) => (this.unreadCount = data.data))
-      .catch(error => console.log(error));
+      .catch((error) => console.log(error));
   }
 
   onshowFullConversation() {

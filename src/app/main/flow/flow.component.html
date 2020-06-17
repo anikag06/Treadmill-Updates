@@ -28,13 +28,21 @@
         <mat-accordion [hideToggle]="true" displayMode="flat" class="my-2">
           <app-step-group
             [identifier]="'step' + i"
-            *ngFor="let stepGroup of stepGroups;index as i"
+            *ngFor="let stepGroup of stepGroups; index as i"
             [stepGroup]="stepGroup"
           >
           </app-step-group>
         </mat-accordion>
       </div>
     </div>
+    <div
+      *ngIf="showOverlay"
+      class="col-12 px-0 intro-overlay"
+      [ngClass]="{
+        'd-block': showOverlay,
+        'd-none': !showOverlay
+      }"
+    ></div>
   </div>
 </div>
 

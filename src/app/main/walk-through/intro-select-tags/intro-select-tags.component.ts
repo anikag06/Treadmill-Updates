@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {TagGroup} from '@/main/shared/tag-group.model';
-import {TagService} from '@/main/shared/tag.service';
-import {Tag} from '@/main/shared/tag.model';
-import {MatDialogRef} from '@angular/material/dialog';
-import {SupportGroupsService} from '@/main/support-groups/support-groups.service';
-import {IntroService} from "@/main/walk-through/intro.service";
+import { Component, OnInit } from '@angular/core';
+import { TagGroup } from '@/main/shared/tag-group.model';
+import { TagService } from '@/main/shared/tag.service';
+import { Tag } from '@/main/shared/tag.model';
+import { MatDialogRef } from '@angular/material/dialog';
+import { SupportGroupsService } from '@/main/support-groups/support-groups.service';
+import { IntroService } from '@/main/walk-through/intro.service';
 
 @Component({
   selector: 'app-intro-select-tags',
@@ -19,7 +19,7 @@ export class IntroSelectTagsComponent implements OnInit {
     private tagService: TagService,
     private dialogRef: MatDialogRef<IntroSelectTagsComponent>,
     private sgService: SupportGroupsService,
-    private introService: IntroService
+    private introService: IntroService,
   ) {}
 
   ngOnInit() {
@@ -65,24 +65,22 @@ export class IntroSelectTagsComponent implements OnInit {
     }
   }
 
-  closeTagDialog() {
-
-  }
+  closeTagDialog() {}
 
   onTagsSubmit() {
-  //   this.sgService.personalizePost(this.formTags).subscribe(
-  //     (res) => {
-  //       this.dialogRef.close();
-  //       this.introService.startSupportGroupIntro();
-  //       this.introService.toggle();
-  //     },
-  //     (error) => {},
-  //   );
-  //   this.introService.openDrawer();
+    //   this.sgService.personalizePost(this.formTags).subscribe(
+    //     (res) => {
+    //       this.dialogRef.close();
+    //       this.introService.startSupportGroupIntro();
+    //       this.introService.toggle();
+    //     },
+    //     (error) => {},
+    //   );
+    //   this.introService.openDrawer();
     this.dialogRef.close();
 
-    // @ts-ignore
-    this.introService.startSupportGroupIntro()
-  // this.introService.closeDrawer()
-   }
+    this.introService.startSupportGroupIntro();
+
+    // this.introService.closeDrawer()
+  }
 }

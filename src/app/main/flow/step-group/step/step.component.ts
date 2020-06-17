@@ -135,13 +135,33 @@ export class StepComponent implements OnInit, AfterViewInit {
 
     this.showTooltipFun();
 
+
+    // @ts-ignore
+    if (this.step.data_type === GAME) {
+      setTimeout(()=>{
+        this.introService.openGameIntroDialog();
+      },2000)
+    }
+
+    // @ts-ignore
+    if (this.step.data_type === FORM) {
+      setTimeout(()=>{
+        this.introService.openFormIntroDialog();
+      },1000)
+    }
+
     this.markDone();
     if (this.step.data_type === INTRODUCTORY_ANIMATION) {
       if(this.step.id===75){
-            this.introService.startDashBoardIntro()
+        if(this.step.status===COMPLETED){
+          this.introService.startDashBoardIntro();
+        }else{
+          this.introService.exitStartIntro();
+        }
+
       }
       else{
-        this.introService.setFlowFalse();
+        this.introService.setIntroduceFalse();
         setTimeout(()=>{
           this.introService.startBadgesIntro()
         },500)
@@ -153,6 +173,7 @@ export class StepComponent implements OnInit, AfterViewInit {
       // setTimeout(() => this.flowService.triggerLoad(), 1);
       // setTimeout(() => this.flowService.triggerLoad(), 10);
     }
+
     if (this.step.status !== LOCKED) {
       // console.log('step inside: ', step);
       // if (this.step.status !== LOCKED && !this.step.virtual_step) {

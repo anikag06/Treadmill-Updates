@@ -1,5 +1,4 @@
 <mat-expansion-panel
-  [attr.id]="identifier"
   class="step-group py-2 mat-elevation-z0 flow-expansion-panel"
   [expanded]="isExpanded"
   (opened)="panelOpened()"
@@ -9,7 +8,7 @@
     class="row mx-0"
     [ngStyle]="{ padding: '0 15px', 'padding-left': '2px' }"
   >
-    <mat-panel-title class="mx-0">
+    <mat-panel-title class="mx-0"  [attr.id]="identifier">
       <div class="col-3 justify-content-center px-0">
         <div class="module-circle justify-content-center">
           <svg

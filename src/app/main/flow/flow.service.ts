@@ -1,7 +1,11 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
-import { FLOW_STEP_MARK_DONE, FLOW_STEPS_DATA } from '@/app.constants';
+import {
+  COMPLETED,
+  FLOW_STEP_MARK_DONE,
+  FLOW_STEPS_DATA,
+} from '@/app.constants';
 import { BehaviorSubject } from 'rxjs';
 import { StepGroup } from './step-group/step-group.model';
 import { Step } from './step-group/step/step.model';
@@ -19,6 +23,7 @@ export class FlowService {
   stepGroupSequence = 0;
   stepName = '';
   navbarTitle = '';
+  stepCompleted = false;
 
   constructor(
     private http: HttpClient,
@@ -52,7 +57,7 @@ export class FlowService {
       );
       this.flowNavService
         .isNextModuleLocked(prevLastStepId)
-        .subscribe(unlockTimeData => {
+        .subscribe((unlockTimeData) => {
           if (unlockTimeData.data.next_step_group_unlocked === false) {
             this.unlockModuleTime.next(
               unlockTimeData.data.next_step_group_unlock_time,
@@ -76,5 +81,13 @@ export class FlowService {
       prevStepGroup.steps[prevStepGroup.steps.length - 1],
     );
     return prevStepGroup.steps[prevStepGroup.steps.length - 1].id;
+  }
+
+  setFirstStepCompleted(status: string) {
+    this.stepCompleted = status === COMPLETED ? true : false;
+  }
+
+  getFirstStepCompleted() {
+    return this.stepCompleted;
   }
 }

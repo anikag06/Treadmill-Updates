@@ -175,6 +175,8 @@ import {SupportGroupIntroComponent} from './walk-through/support-group-intro/sup
 import {IntroSelectTagsComponent} from './walk-through/intro-select-tags/intro-select-tags.component';
 import {IntroService} from '@/main/walk-through/intro.service';
 import {PointsComponent} from './shared/points/points.component';
+import { GameIntroComponent } from './walk-through/game-intro/game-intro.component';
+import { FormIntroComponent } from './walk-through/form-intro/form-intro.component';
 
 // import { Resources2Routing } from './extra-resources/extra-resources-routing.module.ts/extra-resources-routing.module.ts.component';
 
@@ -291,6 +293,8 @@ import {PointsComponent} from './shared/points/points.component';
     SupportGroupIntroComponent,
     IntroSelectTagsComponent,
     PointsComponent,
+    GameIntroComponent,
+    FormIntroComponent,
 
   ],
   imports: [
@@ -397,7 +401,9 @@ import {PointsComponent} from './shared/points/points.component';
     IntroDialogComponent,
     SupportGroupIntroComponent,
     IntroSelectTagsComponent,
-    PointsComponent
+    PointsComponent,
+    GameIntroComponent,
+    FormIntroComponent
   ],
   exports: [TrimStringPipe],
 })

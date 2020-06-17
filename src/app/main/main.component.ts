@@ -10,12 +10,16 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { AuthService } from '@/shared/auth/auth.service';
 import { User } from '@/shared/user.model';
 import { NavigationStart, Router } from '@angular/router';
-import { DEFAULT_PATH, SHOW_TOAST_DURATION } from '@/app.constants';
+import {
+  DEFAULT_PATH,
+  MOBILE_WIDTH,
+  SHOW_TOAST_DURATION,
+} from '@/app.constants';
 import { MatDrawer, MatTooltip } from '@angular/material';
 import { DataService } from '@/shared/questionnaire/data.service';
 import { FcmService } from '@/shared/fcm.service';
@@ -59,6 +63,7 @@ export class MainComponent
   flowOpen = false;
   overlayOpen = false;
   firstLoad = true;
+  showOverlay = false;
 
   onlineStatusMessages = [
     "You're online. Life's good again.",
@@ -85,6 +90,7 @@ export class MainComponent
   pointsNotification!: ViewContainerRef;
 
   introJS = introJs();
+  introSubscription!: Subscription;
   constructor(
     private breakpointObserver: BreakpointObserver,
     private authService: AuthService,
@@ -119,16 +125,7 @@ export class MainComponent
 
     this.flowService.introduceBehaviour.subscribe((data: any) => {
       if (data) {
-        const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
-          PointsComponent,
-        );
-        const pointsComponent = this.pointsNotification.createComponent(
-          componentFactory,
-        );
-        pointsComponent.instance.points = 20;
-        setTimeout(() => {
-          pointsComponent.destroy();
-        }, SHOW_TOAST_DURATION);
+        this.introService.showPointsNotification(this.pointsNotification);
       }
     });
 
@@ -208,6 +205,14 @@ export class MainComponent
         );
       }
     });
+
+    if (window.innerWidth < MOBILE_WIDTH) {
+      this.introSubscription = this.introService.overlayBehaviour.subscribe(
+        (showOverlay) => {
+          this.showOverlay = showOverlay;
+        },
+      );
+    }
   }
 
   ngAfterContentInit(): void {
@@ -298,8 +303,15 @@ export class MainComponent
 
   ngAfterViewInit() {
     setTimeout(() => {
-      // this.introService.openIntroDialog();
-      // this.introOverlayService.showOverlay(1);
-    }, 4000);
+      if(!this.flowService.getFirstStepCompleted()){
+        // this.introService.openIntroDialog();
+      }
+    }, 4500);
+  }
+
+  ngDestroy() {
+    if (this.introSubscription) {
+      this.introSubscription.unsubscribe();
+    }
   }
 }

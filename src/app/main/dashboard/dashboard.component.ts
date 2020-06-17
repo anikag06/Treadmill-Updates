@@ -14,7 +14,8 @@ import { Observable, Subscription, timer } from 'rxjs';
 })
 export class DashboardComponent implements OnInit {
   mobileView = false;
-  subscription!: Subscription;
+  introduceSubscription!: Subscription;
+  hideSubscription! : Subscription;
   user!: User;
   constructor(
     private authService: AuthService,
@@ -27,6 +28,7 @@ export class DashboardComponent implements OnInit {
 
   userProfile = new UserProfile('Name', '', 0, 0, 0, 0, [], [], []);
   showFlow = true;
+  hideCards = false;
   ngOnInit() {
     this.user = <User>this.authService.isLoggedIn();
     this.mobileView = window.innerWidth < MOBILE_WIDTH;
@@ -47,21 +49,25 @@ export class DashboardComponent implements OnInit {
         );
       });
     if (window.innerWidth < MOBILE_WIDTH) {
-      this.subscription = this.introService.introduceBehaviour.subscribe(
+      this.introduceSubscription = this.introService.introduceBehaviour.subscribe(
         (showFlow) => {
-          //let temp = this.showFlow;
           this.showFlow = showFlow;
-          // if (showFlow && !temp) {
-          //   subScription.unsubscribe();
-          // }
         },
       );
     }
+    this.hideSubscription = this.introService.hideBehaviour.subscribe(
+      (showFlow) => {
+        this.hideCards = showFlow;
+      },
+    );
   }
 
   ngDestroy(): void {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
+    if (this.introduceSubscription) {
+      this.introduceSubscription.unsubscribe();
+    }
+    if(this.hideSubscription){
+      this.introduceSubscription.unsubscribe();
     }
   }
 }

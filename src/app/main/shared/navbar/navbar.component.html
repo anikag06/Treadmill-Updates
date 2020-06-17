@@ -74,7 +74,13 @@
     </div>
 
     <div class="col-6">
-      <div class="all-icons" style="float: right;">
+      <div
+        class="all-icons"
+        style="float: right;"
+        [ngClass]="{
+          'd-none': hideCards
+        }"
+      >
         <div class="icon-items" *ngIf="!isDashboard" (click)="homeClick()">
           <img src="assets/shared/home web.png" height=" 32px" alt="Home" />
         </div>
@@ -93,7 +99,7 @@
               alt="Flow"
             />
           </div>
-          <div class="unread-count" *ngIf="unreadCount > 0">
+          <div  class="unread-count" *ngIf="unreadCount > 0">
             <span *ngIf="unreadCount < 100; else manyMore">{{
               unreadCount
             }}</span>
@@ -121,11 +127,15 @@
             <mat-icon>more_vert</mat-icon>
           </button>
           <div
-            id="goto_mobile"
+
+            [ngClass]="{
+              'd-none': hideCards
+            }"
             class="icon-items"
             (click)="flowClick()"
           >
             <img
+              id="goto_mobile"
               src="assets/shared/Go to mobile.png"
               height=" 32px"
               alt="GoTO"
@@ -145,7 +155,9 @@
                 alt="Flow"
               />
             </div>
-            <div class="unread-count" *ngIf="unreadCount > 0">
+            <div [ngClass]="{
+              'd-none': hideCards
+            }" class="unread-count" *ngIf="unreadCount > 0">
               <span *ngIf="unreadCount < 100; else manyMore">{{
                 unreadCount
               }}</span>

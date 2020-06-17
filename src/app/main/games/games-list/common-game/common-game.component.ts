@@ -384,7 +384,4 @@ export class CommonGameComponent implements OnInit {
     this.device_type = 'touch';
   }
 
-  ngAfterViewInit(){
-    this.introService.startGamesIntro();
-  }
 }

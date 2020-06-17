@@ -474,19 +474,18 @@ img.emoji {
 .introjs-prevbutton {
   display: none !important;
 }
-//.introjs-skipbutton {
-//  display: none !important;
-//}
+
 body {
   /* Disables pull-to-refresh but allows overscroll glow effects. */
   overscroll-behavior-y: contain;
 }
 .introjs-helperLayer {
-  background: transparent;
+  background: transparent !important;
 }
 
 .introjs-overlay {
   opacity: 0.6 !important;
+  position: inherit !important;
 }
 
 .introjs-helperLayer:before {
@@ -528,17 +527,34 @@ body {
   margin-bottom: 10px;
 }
 
+.hide-skip{
+  .introjs-skipbutton {
+   display: none !important;
+  }
+}
+
+.hide-skip-next{
+  .introjs-skipbutton {
+    display: none !important;
+  }
+  .introjs-nextbutton.introjs-fullbutton{
+    display: none !important;
+  }
+}
+
+.intro-tooltip{
+  top: 65% !important;
+}
+.intro-tooltip-no-margin{
+  top: 65% !important;
+  margin-left: 0 !important;
+}
+
+.hide-background{
+    background-color: transparent !important;
+}
 
 
-//.introjs-disabled {
-//  display: none !important;
-//}
-
-
-//.introjs-fixParent {
-//  contain: layout size style !important;
-//}
-.introjs-helperLayer { background: transparent !important; box-shadow: 0 0 0 9999px rgba(1, 1, 1, 0.8); }
-
-.introjs-helperLayer { background: transparent !important; box-shadow: 0 0 0 9999px rgba(1, 1, 1, 0.8); }
-
+.introjs-fixParent:after {
+    z-index: 4 !important;
+  }

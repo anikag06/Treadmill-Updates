@@ -36,7 +36,7 @@ export class NavbarFlowComponent implements OnInit {
     private overlayService: CustomOverlayService,
     private introService : IntroService,
   ) {
-    this.introService.stopIntro();
+    // this.introService.stopIntro();
   }
   navBar = true;
 
@@ -48,12 +48,12 @@ export class NavbarFlowComponent implements OnInit {
         this.overlayService.showFlow = false;
       }
     });
+
   }
   ngAfterViewInit() {
     this.notificationService.navFlowOpened.emit();
     this.isFlowVisible = true;
     console.log('navbar-flow');
-    this.introService.startFlowIntro();
   }
 
   onClose() {

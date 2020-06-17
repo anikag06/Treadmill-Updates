@@ -59,12 +59,6 @@ export class TaskFormsComponent implements OnInit {
         } );
   }
 
-  ngAfterViewInit(){
-    setTimeout(()=>{
-      this.introService.startFormsIntro();
-    },2000)
-
-  }
 
   taskSelected(task: UserTask) {
     this.task = task;
