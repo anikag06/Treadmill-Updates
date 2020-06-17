@@ -20,7 +20,7 @@
   width: 0;
   margin-left:10px;
   top:36px;
-  height: calc(100% - 24px);
+  height: calc(100% - 23px);
   content: '';
 }
 .status-img.disabled:before {
@@ -29,7 +29,7 @@
   width: 0;
   margin-left:10px;
   top:36px;
-  height: calc(100% - 24px);
+  height: calc(100% - 23px);
   content: '';
 
 }
@@ -38,8 +38,8 @@
   border-left: 3px solid #FFEDD5;
   width: 0;
   margin-left:12px;
-  top:36px;
-  height: calc(100% - 24px);
+  top:35px;
+  height: calc(100% - 22px);
   content: '';
 }
 
@@ -58,7 +58,16 @@
   width: 0;
   margin-left:-14px;
   top:-25px;
-  height: 39px;
+  height: 38px;
+  content: '';
+}
+.status-img.isFirstStepActive:after{
+  position: absolute;
+  border-left: 3px solid #f5bb56;
+  width: 0;
+  margin-left:-16px;
+  top:-25px;
+  height: 38px;
   content: '';
 }
 .status-img.isLastDashed:before {

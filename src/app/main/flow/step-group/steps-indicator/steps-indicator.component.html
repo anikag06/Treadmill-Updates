@@ -9,6 +9,7 @@
         'active': step.status ==='ACTIVE',
         'completed': step.status === 'COMPLETED',
         'isFirstDashed': first===true && firstStepOfModule === false && showLessSteps ===true,
+        'isFirstStepActive': first===true && step.status ==='ACTIVE' && (firstStepOfModule === true || showLessSteps ===false),
         'isFirstStep': first===true && (firstStepOfModule === true || showLessSteps ===false),
         'isLastDashed': last===true && lastStepOfModule ===false && showLessSteps===true,
         'isLastStep': last===true && (lastStepOfModule === true || showLessSteps === false)}">
