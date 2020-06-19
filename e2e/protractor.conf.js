@@ -5,9 +5,13 @@ const { SpecReporter } = require('jasmine-spec-reporter');
 
 exports.config = {
   allScriptsTimeout: 11000,
-  specs: [
-    './src/**/*.e2e-spec.ts'
-  ],
+  // specs: [
+  //   './src/**/*.e2e-spec.ts'
+  // ],
+  suites: { signup : './src/**/app.e2e-spec.ts',
+    test1: ['./src/**/app.e2e-spec.ts','./src/**/flow.e2e-spec.ts','./src/**/flow-control.e2e-spec.ts'],
+    test2: [ './src/**/flow-control.e2e-spec.ts'],
+  },
   multiCapabilities: [
     {
     'browserName': 'chrome',
@@ -30,5 +34,7 @@ exports.config = {
       project: require('path').join(__dirname, './tsconfig.e2e.json')
     });
     jasmine.getEnv().addReporter(new SpecReporter({ spec: { displayStacktrace: true } }));
+    global.testType = 'dropout';
+    global.moduleNumber = 1;
   }
 };

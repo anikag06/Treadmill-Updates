@@ -1,4 +1,5 @@
-import { browser, by, element, protractor } from 'protractor';
+/* tslint:disable:no-trailing-whitespace */
+import {browser, by, element, protractor} from 'protractor';
 
 export class FlowPage {
   EC = protractor.ExpectedConditions;
@@ -12,9 +13,20 @@ export class FlowPage {
       .first()
       .getText();
   }
+  getModuleNumber() {
+
+  }
 
   checkUserGroup() {
-    return element(by.id('user-group')).getAttribute('value');
+    // const elm = element(by.cssContainingText('.list-wrapper-items-name', 'GAMES'));
+    //   elm.isPresent().then( (result) => {
+    //     if (result) {
+    //       console.log('display');
+    //     } else {
+    //       console.log('not display');
+    //     }
+    //   });
+    return element(by.cssContainingText('.list-wrapper-items-name', 'Games'));
   }
   hideSideNav() {
     return element(by.partialLinkText('Dashboard')).click();
@@ -37,21 +49,30 @@ export class FlowPage {
   }
 
   findProgressGroupElement(text: string) {
-    return element(by.css('.flow-scroll-inner')).element(
-      by.cssContainingText('.step-group-name', text),
-    );
+    browser.wait(this.EC.presenceOf(element(by.css('h6.progress-heading-mobile')))).then( () => {
+    return element(by.css('.flow-scroll-inner')).element(by.cssContainingText('.step-group-name', text));
+    });
   }
 
   // findProgressElement(txt: string) {
   //   browser.wait(this.EC.presenceOf(element(by.css('h6.progress-heading-mobile')))).then( () => {
-  //     element(by.xpath('.//*[.= txt and class="step-content"]'))
-  //       .click()
-  //       .then(() => {
-  //         console.log('STEP :', txt, 'clicked');
-  //         browser.sleep(1000);
-  //       });
+  //
+  //     this.getElementsByText(txt).click();
+  //     // element(by.xpath('.//*[.= " Mastery activities " and class="step-content"]'))
+  //     //   .click()
+  //     //   .then(() => {
+  //     //     console.log('STEP :', txt, 'clicked');
+  //     //     browser.sleep(1000);
+  //     //   });
   //   });
   // }
+
+
+  getElementsByText (text: any) {
+    // parentXpathSelector = parentXpathSelector || '//';
+    console.log('STEP :', text, 'clicked');
+    return element(by.xpath('//*[normalize-space(text())="' + text + '"]'));
+  }
 
   findProgressElement(txt: string) {
     browser

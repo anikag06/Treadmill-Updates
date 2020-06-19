@@ -20,7 +20,8 @@ export class AppPage {
 
   clickLoginLink() {
     // element(by.css('a.login-btn')).click();
-    element(by.css('a.pre-login-side-nav-anchor')).click();
+    // element(by.css('a.pre-login-side-nav-anchor')).click();
+    element(by.partialLinkText('Login')).click();
   }
   getSignupMessage() {
     return element(by.css('message')).getText() as Promise<string>;
@@ -40,6 +41,7 @@ export class AppPage {
     //                    Math.random().toString(36).substring(2, 5) + Math.random().toString(36).substring(2, 5);
     this.newEmaiId =
       'l.agarwal1984' + '+' + this.numberInUsername + '@gmail.com';
+    console.log('email id', this.newEmaiId);
   }
   getTrialUserName() {
     this.newUsername =
