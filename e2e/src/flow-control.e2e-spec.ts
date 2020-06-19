@@ -14,7 +14,6 @@ describe('treadwill Flow', () => {
   let expUser = false;
   const testfor = testType;
   const moduleNum = moduleNumber;
-  let firstLoginTime: number;
   const timeUp =  15 * 60 * 1000;
 
   beforeEach(() => {
@@ -22,7 +21,7 @@ describe('treadwill Flow', () => {
     fp = new FlowPage();
   });
 
-  it('should show login dialog', () => {
+  xit('should show login dialog', () => {
     page.navigateTo();
     browser.waitForAngularEnabled(false);
     browser.sleep(1000);
@@ -33,7 +32,6 @@ describe('treadwill Flow', () => {
       expect(
         browser //
           .wait(protractor.ExpectedConditions.urlContains('dashboard')).then( () => {
-          firstLoginTime = new Date().getTime();
         })
           .catch(() => false),
       ).toBeTruthy('Url match could not succced');
@@ -41,7 +39,7 @@ describe('treadwill Flow', () => {
   });
 
   it('should detect whether exp or control', () => {
-    console.log('login time', firstLoginTime);
+    console.log('login time', page.firstLoginTime);
     page.clickBurgerBtn('button.hamburger-button');
     fp.checkUserGroup().isPresent().
     then((value) => {
@@ -53,7 +51,7 @@ describe('treadwill Flow', () => {
     browser.sleep(2000);
   });
 
-  xit('Should find the Progress flow click zero Module and run its step', () => {
+  it('Should find the Progress flow click zero Module and run its step', () => {
     expect(fp.getProgress()).toEqual('Progress');
     browser.sleep(1000);
     expect(
@@ -86,49 +84,53 @@ describe('treadwill Flow', () => {
     } else {
       console.log('CONTROL GROUP', expUser);
       browser.sleep(2000);
-      // fp.findProgressElement('Getting started');
-      // browser.sleep(2000);
-      // fp.goToNextStep('Next step');
-      // fp.findProgressElement('Depression');
-      // browser.sleep(2000);
-      // fp.goToNextStep('Next step');
-      // fp.findProgressElement('Anxiety');
-      // browser.sleep(2000);
-      // fp.goToNextStep('Next step');
-      // fp.findProgressElement('Cognitive Behavioral Therapy (CBT)');
-      // browser.sleep(2000);
-      // fp.goToNextStep('Next step');
-      // fp.findProgressElement('What\'s wrong with me?');
-      //       fp.goToNextStep('Next step');
-      //       fp.findProgressElement('What if .....?');
-      //       browser.sleep(2000);
-      //       fp.goToNextStep('Next step');
+      fp.findProgressElement('Getting started');
+      browser.sleep(2000);
+      fp.goToNextStep('Next step');
+      fp.findProgressElement('Depression');
+      browser.sleep(2000);
+      fp.goToNextStep('Next step');
+      fp.findProgressElement('Anxiety');
+      browser.sleep(2000);
+      fp.goToNextStep('Next step');
+      fp.findProgressElement('Cognitive Behavioral Therapy (CBT)');
+      browser.sleep(2000);
+      fp.goToNextStep('Next step');
+      fp.findProgressElement('What\'s wrong with me?');
+            fp.goToNextStep('Next step');
+            fp.findProgressElement('What if .....?');
+            browser.sleep(2000);
+            fp.goToNextStep('Next step');
             fp.findProgressElement('Can I get help?');
       if (testfor === 'dropout' && moduleNum === 1) {
         console.log('WORKS');
         // expect(page.findPhq()).toBeTruthy();
         const waitStep = element(by.id('phq-9'));
-        browser
-          .wait(
-            protractor.ExpectedConditions.visibilityOf(waitStep),
-            90 * 60 * 1000,
-          )
-          .then(() => {
-            const userTimeUp = new Date().getTime();
-            if ( userTimeUp - firstLoginTime >= timeUp) {
-              console.log('RESTART BROWSER');
-              browser.sleep(2000);
-              browser.sleep(2000);
-              fp.goToNextStep('Go to dashboard');
-              browser.sleep(2000);
-              expect(
-                browser //
-                  .wait(protractor.ExpectedConditions.urlContains('dashboard'))
-                  .catch(() => false),
-              ).toBeTruthy('Url match could not succced');
-              browser.sleep(6000);
-            }
-          });
+        for ( let i = 1 ; i >= 9; i++ ) {
+          browser
+            .wait(
+              protractor.ExpectedConditions.visibilityOf(waitStep),
+              10 * 60 * 1000,
+            )
+            .then(() => {
+              // see follow up
+            })
+            .catch(() => {
+              const userTimeUp = new Date().getTime();
+              if (userTimeUp - page.firstLoginTime >= timeUp) {
+                console.log('SER TIME UP', userTimeUp);
+                browser.sleep(2000);
+                fp.goToNextStep('Go to dashboard');
+                browser.sleep(2000);
+                expect(
+                  browser //
+                    .wait(protractor.ExpectedConditions.urlContains('dashboard'))
+                    .catch(() => false),
+                ).toBeTruthy('Url match could not succced');
+                browser.sleep(6000);
+              }
+            });
+        }
       }
     }
 }, 90 * 60 * 1000);

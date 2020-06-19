@@ -3,7 +3,6 @@ import { browser, by, element, logging } from 'protractor';
 import { protractor } from 'protractor/built/ptor';
 declare var testType: any ;
 declare var moduleNumber: number;
-declare var firstLoginTime: any;
 
 describe('workspace-project App', () => {
   let page: AppPage;
@@ -133,8 +132,8 @@ describe('workspace-project App', () => {
         .wait(protractor.ExpectedConditions.urlContains('dashboard'))
         .catch(() => false),
     ).toBeTruthy('Url match could not succced');
-    firstLoginTime = new Date();
-    console.log('login time', firstLoginTime);
+    page.getTime();
+    console.log('login time', page.firstLoginTime);
     browser.sleep(6000);
   });
 

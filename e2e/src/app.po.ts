@@ -6,6 +6,9 @@ export class AppPage {
   newUsername!: string;
   newEmaiId!: any;
   numberInUsername!: number;
+  firstLoginTime!: number;
+  userTimeUp!: number;
+
   navigateTo() {
     return browser.get(browser.baseUrl) as Promise<any>;
   }
@@ -212,5 +215,9 @@ export class AppPage {
     browser.sleep(1000);
     element(by.css('.dialog-btn')).click();
     browser.sleep(3000);
+  }
+  getTime() {
+    this.firstLoginTime = new Date().getTime();
+    return this.firstLoginTime;
   }
 }
