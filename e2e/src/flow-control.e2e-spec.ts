@@ -114,17 +114,15 @@ describe('treadwill Flow control group', () => {
           // expect(page.findPhq()).toBeTruthy();
           fp.checkForDropout(loginTime);
           // afterDropout = true;
-          fp.goToNextStep('Go to dashboard');
-          browser.sleep(2000);
-          expect(
-            browser //
-            .wait(
-             protractor.ExpectedConditions.urlContains('dashboard'),
-              )
-              .catch(() => false),
-          ).toBeTruthy('Url match could not succced');
-          browser.sleep(6000);
         }
+        fp.goToNextStep('Go to dashboard');
+        browser.sleep(2000);
+        expect(
+          browser //
+            .wait(protractor.ExpectedConditions.urlContains('dashboard'))
+            .catch(() => false),
+        ).toBeTruthy('Url match could not succced');
+        browser.sleep(6000);
       }
     },
     100 * 60 * 1000,
@@ -200,40 +198,31 @@ describe('treadwill Flow control group', () => {
       } else {
         console.log('CONTROL GROUP third module', expUser);
         browser.sleep(2000);
-        fp.waitForStepUnlock('GIVE A NAME');
+        fp.waitForStepUnlock('Introduction to evaluating thoughts');
+        browser.sleep(2000);
+        if (testfor === 'dropout' && moduleNum === 3) {
+          // expect(page.findPhq()).toBeTruthy();
+          fp.checkForDropout(loginTime);
+          // afterDropout = true;
+        }
+        fp.goToNextStep('Next step');
+        fp.findProgressElement('What is going through my mind?');
         browser.sleep(2000);
         fp.goToNextStep('Next step');
-
         fp.findProgressElement('Thinking errors');
         browser.sleep(2000);
         fp.goToNextStep('Next step');
-        fp.findProgressElement('Introduction to evaluating thoughts');
+        fp.findProgressElement('GIVE A NAME 1');
+        browser.sleep(2000);
+        fp.goToNextStep('Next step');
+        fp.findProgressElement('GIVE A NAME 2');
         browser.sleep(2000);
         fp.goToNextStep('Next step');
         fp.findProgressElement('Evaluating thoughts');
         browser.sleep(2000);
-        // fp.goToNextStep('Next step');
-        fp.findProgressElement('What is going through my mind?');
-        if (testType === 'dropout' && moduleNumber === 3) {
-          console.log('WORKS');
-          const waitStep = element(by.css('.flow-scroll-inner')).element(
-            by.cssContainingText('.step-content', 'Taking a deeper look'),
-          );
-          browser
-            .wait(
-              protractor.ExpectedConditions.visibilityOf(waitStep),
-              5 * 60 * 1000,
-            )
-            .then(() => {
-              console.log('RESTART BROWSER');
-              browser.restart();
-            });
-
-          browser.sleep(2000);
           fp.goToNextStep('Go to dashboard');
           browser.sleep(2000);
         }
-      }
     },
     20 * 60 * 1000,
   );
@@ -290,7 +279,7 @@ describe('treadwill Flow control group', () => {
         fp.findProgressElement('Will my belief come true if I try it out?');
         browser.sleep(2000);
         fp.goToNextStep('Next step');
-        fp.findProgressElement('How would I act if I didn\'t have the belief?');
+        fp.findProgressElement("How would I act if I didn't have the belief?");
         browser.sleep(2000);
         fp.goToNextStep('Next step');
         fp.findProgressElement('Role play');

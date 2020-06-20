@@ -4,7 +4,7 @@ import { browser, by, element, protractor } from 'protractor';
 export class FlowPage {
   EC = protractor.ExpectedConditions;
   afterDropout = false;
-  timeUp = 540000;
+  timeUp = 5400000;
 
   navigateToDashboard() {
     return browser.get('/main/dashboard') as Promise<any>;
@@ -151,9 +151,12 @@ export class FlowPage {
     const nextStep = element(by.css('.flow-scroll-inner')).element(
       by.cssContainingText('.step-content', txt),
     );
-    for ( let i = 0; i < 3 ; i++ ) {
+    for (let i = 0; i < 3; i++) {
       browser
-        .wait(protractor.ExpectedConditions.visibilityOf(nextStep), 5 * 60 * 1000)
+        .wait(
+          protractor.ExpectedConditions.visibilityOf(nextStep),
+          5 * 60 * 1000,
+        )
         .then(() => {
           this.findProgressElement(txt);
           console.log('ELEMENT VISIBLE at i ');
@@ -166,9 +169,18 @@ export class FlowPage {
   }
   checkForDropout(loginTime: number) {
     this.afterDropout = true;
+    const userTimeUp = new Date().getTime();
+    console.log(
+      'ON Fail check user timeup',
+      userTimeUp,
+      userTimeUp - loginTime,
+    );
     const waitStep = element(by.id('phq-9'));
-    for (let i = 1; i <= 9; i++) {
-      console.log('FOR LOOP CALLED', new Date());
+    const self = this;
+    if (userTimeUp - loginTime < this.timeUp) {
+      console.log('Time up');
+    // for (let i = 1; i <= 9; i++) {
+      console.log('FOR LOOP CALLED', i, new Date());
       browser
         .wait(
           protractor.ExpectedConditions.visibilityOf(waitStep),
@@ -178,17 +190,10 @@ export class FlowPage {
           // see follow up
           console.log('START FOLLOWUP');
         })
-        .catch(() => {
-          const userTimeUp = new Date().getTime();
-          console.log(
-            'ON Fail check user timeup',
-            userTimeUp,
-            userTimeUp - loginTime,
-          );
-          if (userTimeUp - loginTime >= this.timeUp) {
-            return;
-          }
-        });
+        .catch(() => { });
+  } else {
+      return self.checkForDropout(loginTime);
     }
   }
 }
+
