@@ -241,7 +241,7 @@ export class GamePlayService {
 
       //this.ASGGameInstanceId = e.id;
       ASGFeedback = e.ask_for_feedback;
-     // console.log(e.ask_for_feedback);
+      // console.log(e.ask_for_feedback);
     });
 
     this.gamesAuthService.atGetAnswers().subscribe(e => {
@@ -270,12 +270,12 @@ export class GamePlayService {
 
   soundASGGame(isSoundOn: any) {
     //if (this.ecGameStarted) {
-      musicASGame(!isSoundOn);
+    musicASGame(!isSoundOn);
   }
 
   restartAttributionStyleGame() {
-   // this.game.destroy();
-     this.game.scene.scenes[5].rstart();
+    // this.game.destroy();
+    this.game.scene.scenes[5].rstart();
 
     // this.playAttributionStyleGame();
   }
@@ -294,15 +294,18 @@ export class GamePlayService {
     // }
   }
   closeASGame() {
-   // if (this.ecGameStarted) {
-     // this.storeDataExecControlGame();
+    // if (this.ecGameStarted) {
+    // this.storeDataExecControlGame();
     //ASGstop();
     this.game.destroy(true);
 
     let date: Date;
     date = new Date();
     let d = date.getUTCDate();
-    this.gamesAuthService.atPutUserPerformance(false,this.ASGGameInstanceId, date.toISOString()
+    this.gamesAuthService.atPutUserPerformance(
+      false,
+      this.ASGGameInstanceId,
+      date.toISOString(),
     );
     //}
   }
@@ -344,7 +347,10 @@ export class GamePlayService {
     let date: Date;
     date = new Date();
     let d = date.getUTCDate();
-    this.gamesAuthService.atPutUserPerformance(true,this.ASGGameInstanceId, date.toISOString()
+    this.gamesAuthService.atPutUserPerformance(
+      true,
+      this.ASGGameInstanceId,
+      date.toISOString(),
     );
   }
 

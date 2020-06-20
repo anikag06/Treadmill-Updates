@@ -1,6 +1,7 @@
 import {
   Component,
-  ComponentFactoryResolver, ElementRef,
+  ComponentFactoryResolver,
+  ElementRef,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -20,10 +21,11 @@ export class CustomOverlayComponent implements OnInit {
   @ViewChild('navFlow', { static: false }) element!: ElementRef;
   showFlow!: boolean;
   navClick!: boolean;
-  constructor(private componentFactoryResolver: ComponentFactoryResolver,
-              private notificationService: NavbarNotificationsService,
-              private overlayService: CustomOverlayService,
-  ) { }
+  constructor(
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private notificationService: NavbarNotificationsService,
+    private overlayService: CustomOverlayService,
+  ) {}
 
   ngOnInit() {
     this.showFlow = this.overlayService.showFlow;
@@ -43,13 +45,16 @@ export class CustomOverlayComponent implements OnInit {
     //     }, 500);
     //   });
     // }
-   }
-   onClick($event: any) {
+  }
+  onClick($event: any) {
     $event.stopPropagation();
-    if ($event.target.classList.contains('backdrop') && !this.overlayService.showChatbot ) {
+    if (
+      $event.target.classList.contains('backdrop') &&
+      !this.overlayService.showChatbot
+    ) {
       console.log('nav not click', $event);
-    // $event.bubbles = false;
-       this.notificationService.closeNavFlow.emit();
-     }
-   }
+      // $event.bubbles = false;
+      this.notificationService.closeNavFlow.emit();
+    }
+  }
 }

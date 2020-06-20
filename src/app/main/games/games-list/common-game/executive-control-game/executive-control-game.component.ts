@@ -5,16 +5,18 @@ import {
   OnChanges,
   SimpleChanges,
   SimpleChange,
-  HostListener, ViewChild, ElementRef,
+  HostListener,
+  ViewChild,
+  ElementRef,
 } from '@angular/core';
 import { GamePlayService } from '@/main/games/shared/game-play.service';
 import { LoadFilesService } from '@/main/games/shared/load-files.service';
-import {GamesFeedbackComponent} from "@/main/games/games-list/common-game/games-feedback/games-feedback.component";
+import { GamesFeedbackComponent } from '@/main/games/games-list/common-game/games-feedback/games-feedback.component';
 import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
-import {map, switchMap} from "rxjs/operators";
-import {FlowService} from "@/main/flow/flow.service";
-import {ActivatedRoute} from "@angular/router";
-import {StepsDataService} from "@/main/resources/shared/steps-data.service";
+import { map, switchMap } from 'rxjs/operators';
+import { FlowService } from '@/main/flow/flow.service';
+import { ActivatedRoute } from '@angular/router';
+import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 
 declare var flankerTaskECGame: any;
 
@@ -40,31 +42,28 @@ export class ExecutiveControlGameComponent implements OnInit, OnDestroy {
   ) {}
   @ViewChild('newElement', { static: false }) element!: ElementRef;
 
-
   ngOnInit() {
     this.activatedRoute.params
       .pipe(
         map(v => v.id),
-        switchMap(id =>  this.stepDataService
-          .getStepData(id)),
+        switchMap(id => this.stepDataService.getStepData(id)),
       )
-      .subscribe(
-        (res: any) => {
-          const step = res.data;
-          console.log('RESPONSE', res.data, step.status);
-          // for navbar title
-          this.stepGroupSequence = step.step_group_sequence + 1;
-          this.stepSequence = step.sequence + 1;
-          this.stepName = step.name;
-          this.navbarTitle =
-            this.stepGroupSequence.toString() +
-            '.' +
-            this.stepSequence.toString() +
-            ' ' +
-            this.stepName;
-          console.log('STEP DETAIL:', this.navbarTitle);
-          this.flowService.stepDetail.emit(this.navbarTitle);
-        } );
+      .subscribe((res: any) => {
+        const step = res.data;
+        console.log('RESPONSE', res.data, step.status);
+        // for navbar title
+        this.stepGroupSequence = step.step_group_sequence + 1;
+        this.stepSequence = step.sequence + 1;
+        this.stepName = step.name;
+        this.navbarTitle =
+          this.stepGroupSequence.toString() +
+          '.' +
+          this.stepSequence.toString() +
+          ' ' +
+          this.stepName;
+        console.log('STEP DETAIL:', this.navbarTitle);
+        this.flowService.stepDetail.emit(this.navbarTitle);
+      });
     // Action files
     this.loadFileService
       .loadExternalScript(

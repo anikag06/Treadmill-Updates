@@ -2,7 +2,10 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { GamesFeedbackService } from './games-feedback.service';
 import { GameFeedback } from './game-feedback.model';
 import { GamePlayService } from '@/main/games/shared/game-play.service';
-import {EXECUTIVE_CONTROL_GAME, LEARNED_HELPLESSNESS_GAME} from '@/app.constants';
+import {
+  EXECUTIVE_CONTROL_GAME,
+  LEARNED_HELPLESSNESS_GAME,
+} from '@/app.constants';
 
 @Component({
   selector: 'app-games-feedback',
@@ -33,7 +36,7 @@ export class GamesFeedbackComponent implements OnInit {
     this.gameName = this.gamePlayService.gameName;
     console.log(this.gameName);
     if (this.gameName === LEARNED_HELPLESSNESS_GAME) {
-     // console.log('TRUE');
+      // console.log('TRUE');
       this.lhGameHome = this.gamePlayService.lhGameHome;
       this.lhGamePlayAgain = this.gamePlayService.lhGamePlayAgain;
     }
@@ -91,7 +94,6 @@ export class GamesFeedbackComponent implements OnInit {
   }
 
   onClose() {
-
     const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });
     this.el.nativeElement.dispatchEvent(domEvent);
     this.gamesFeedbackService.feedback.emit();
@@ -100,7 +102,6 @@ export class GamesFeedbackComponent implements OnInit {
         console.log('EXG');
         this.gamePlayService.resumeExecControlGame();
       }
-      }, 2000);
-
+    }, 2000);
   }
 }

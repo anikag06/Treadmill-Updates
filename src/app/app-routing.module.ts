@@ -1,10 +1,10 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {LandingPageComponent} from './pre-login/landing-page/landing-page.component';
-import {PreLoginComponent} from './pre-login/pre-login.component';
-import {NotFoundComponent} from './shared/not-found/not-found.component';
-import {AuthGuard} from './shared/auth/auth.guard';
-import {SignUpComponent} from '@/pre-login/signup/signup.component';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { LandingPageComponent } from './pre-login/landing-page/landing-page.component';
+import { PreLoginComponent } from './pre-login/pre-login.component';
+import { NotFoundComponent } from './shared/not-found/not-found.component';
+import { AuthGuard } from './shared/auth/auth.guard';
+import { SignUpComponent } from '@/pre-login/signup/signup.component';
 
 export const routes: Routes = [
   {
@@ -21,14 +21,14 @@ export const routes: Routes = [
   },
   {
     path: 'main',
-    loadChildren: () => import('./main/main.module').then((m) => m.MainModule),
+    loadChildren: () => import('./main/main.module').then(m => m.MainModule),
     canActivateChild: [AuthGuard],
   },
   {
     path: 'trial',
     loadChildren: () =>
       import('./trial-registration/trial-registration.module').then(
-        (m) => m.TrialRegistrationModule,
+        m => m.TrialRegistrationModule,
       ),
   },
 
