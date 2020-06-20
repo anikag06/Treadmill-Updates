@@ -3,6 +3,9 @@ import { browser, by, element, protractor } from 'protractor';
 
 export class FlowPage {
   EC = protractor.ExpectedConditions;
+  afterDropout = false;
+  timeUp = 540000;
+
   navigateToDashboard() {
     return browser.get('/main/dashboard') as Promise<any>;
   }
@@ -144,39 +147,48 @@ export class FlowPage {
   clickGoto() {
     return element.all(by.css('.goto-button')).click();
   }
-  waitForStepUnlock(nextStep: any) {
-    browser
-      .wait(protractor.ExpectedConditions.visibilityOf(nextStep), 5 * 60 * 1000)
-      .then(() => {
-        this.findProgressElement('Making good things happen');
-        console.log('ELEMENT VISIBLE 1');
-      })
-      .catch(() => {
-        this.navigateToDashboard();
-        browser
-          .wait(
-            protractor.ExpectedConditions.visibilityOf(nextStep),
-            5 * 60 * 1000,
-          )
-          .then(() => {
-            this.findProgressElement('Making good things happen');
-            console.log('ELEMENT VISIBLE 2');
-          })
-          .catch(() => {
-            this.navigateToDashboard();
-            browser
-              .wait(
-                protractor.ExpectedConditions.visibilityOf(nextStep),
-                5 * 60 * 1000,
-              )
-              .then(() => {
-                this.findProgressElement('Making good things happen');
-                console.log('ELEMENT VISIBLE 3');
-              })
-              .catch(() => {
-                this.navigateToDashboard();
-              });
-          });
-      });
+  waitForStepUnlock(txt: string) {
+    const nextStep = element(by.css('.flow-scroll-inner')).element(
+      by.cssContainingText('.step-content', txt),
+    );
+    for ( let i = 0; i < 3 ; i++ ) {
+      browser
+        .wait(protractor.ExpectedConditions.visibilityOf(nextStep), 5 * 60 * 1000)
+        .then(() => {
+          this.findProgressElement(txt);
+          console.log('ELEMENT VISIBLE at i ');
+          return;
+        })
+        .catch(() => {
+          this.navigateToDashboard();
+        });
+    }
+  }
+  checkForDropout(loginTime: number) {
+    this.afterDropout = true;
+    const waitStep = element(by.id('phq-9'));
+    for (let i = 1; i <= 9; i++) {
+      console.log('FOR LOOP CALLED', new Date());
+      browser
+        .wait(
+          protractor.ExpectedConditions.visibilityOf(waitStep),
+          10 * 60 * 1000,
+        )
+        .then(() => {
+          // see follow up
+          console.log('START FOLLOWUP');
+        })
+        .catch(() => {
+          const userTimeUp = new Date().getTime();
+          console.log(
+            'ON Fail check user timeup',
+            userTimeUp,
+            userTimeUp - loginTime,
+          );
+          if (userTimeUp - loginTime >= this.timeUp) {
+            return;
+          }
+        });
+    }
   }
 }

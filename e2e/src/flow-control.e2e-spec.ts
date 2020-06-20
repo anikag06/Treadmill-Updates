@@ -14,7 +14,8 @@ describe('treadwill Flow control group', () => {
   const testfor = testType;
   const moduleNum = moduleNumber;
   let loginTime!: number;
-  const timeUp = 540000;
+  // const timeUp = 540000;
+  // let afterDropout = false;
 
   beforeEach(() => {
     page = new AppPage();
@@ -103,51 +104,26 @@ describe('treadwill Flow control group', () => {
         // fp.findProgressElement('Cognitive Behavioral Therapy (CBT)');
         // browser.sleep(2000);
         // fp.goToNextStep('Next step');
-        // fp.findProgressElement("What's wrong with me?");
+        // fp.findProgressElement('What\'s wrong with me?');
         // fp.goToNextStep('Next step');
         // fp.findProgressElement('What if .....?');
         // browser.sleep(2000);
         // fp.goToNextStep('Next step');
         fp.findProgressElement('Can I get help?');
         if (testfor === 'dropout' && moduleNum === 1) {
-          console.log('WORKS');
           // expect(page.findPhq()).toBeTruthy();
-          const waitStep = element(by.id('phq-9'));
-          for (let i = 1; i <= 9; i++) {
-            console.log('FOR LOOP CALLED', new Date());
-            browser
-              .wait(
-                protractor.ExpectedConditions.visibilityOf(waitStep),
-                10 * 60 * 1000,
+          fp.checkForDropout(loginTime);
+          // afterDropout = true;
+          fp.goToNextStep('Go to dashboard');
+          browser.sleep(2000);
+          expect(
+            browser //
+            .wait(
+             protractor.ExpectedConditions.urlContains('dashboard'),
               )
-              .then(() => {
-                // see follow up
-                console.log('START FOLLOWUP');
-              })
-              .catch(() => {
-                const userTimeUp = new Date().getTime();
-                console.log(
-                  'ON Fail check user timeup',
-                  userTimeUp,
-                  userTimeUp - loginTime,
-                );
-                if (userTimeUp - loginTime >= timeUp) {
-                  console.log('USER TIME UP', userTimeUp);
-                  browser.sleep(2000);
-                  fp.goToNextStep('Go to dashboard');
-                  browser.sleep(2000);
-                  expect(
-                    browser //
-                      .wait(
-                        protractor.ExpectedConditions.urlContains('dashboard'),
-                      )
-                      .catch(() => false),
-                  ).toBeTruthy('Url match could not succced');
-                  browser.sleep(6000);
-                  return;
-                }
-              });
-          }
+              .catch(() => false),
+          ).toBeTruthy('Url match could not succced');
+          browser.sleep(6000);
         }
       }
     },
@@ -158,7 +134,7 @@ describe('treadwill Flow control group', () => {
     'Should click second Module and run its step',
     () => {
       expect(
-        fp.findProgressGroupElement('Making good things happen '),
+        fp.findProgressGroupElement('Making good things happen'),
       ).toBeTruthy();
       browser.sleep(2000);
       // fp.findProgressGroupElement('Being self-aware').click();
@@ -166,12 +142,12 @@ describe('treadwill Flow control group', () => {
         console.log('EXPERIMENTAL GROUP', expUser);
       } else {
         console.log('CONTROL GROUP second module', expUser);
-        browser.sleep(2000);
-        const nextStep = element(by.css('.flow-scroll-inner')).element(
-          by.cssContainingText('.step-content', 'Making good things happen'),
-        );
-        fp.waitForStepUnlock(nextStep);
-        fp.findProgressElement('Making good things happen');
+        // CHECK FOR STEP UNLOCK
+        if (!fp.afterDropout) {
+          fp.waitForStepUnlock('Making good things happen');
+        } else {
+          fp.findProgressElement('Making good things happen');
+        }
         browser.sleep(2000);
         fp.goToNextStep('Next step');
         fp.findProgressElement('Introduction to behavioral activation');
@@ -224,10 +200,7 @@ describe('treadwill Flow control group', () => {
       } else {
         console.log('CONTROL GROUP third module', expUser);
         browser.sleep(2000);
-        const nextStep = element(by.css('.flow-scroll-inner')).element(
-          by.cssContainingText('.step-content', 'GIVE A NAME'),
-        );
-        fp.waitForStepUnlock(nextStep);
+        fp.waitForStepUnlock('GIVE A NAME');
         browser.sleep(2000);
         fp.goToNextStep('Next step');
 
@@ -291,43 +264,7 @@ describe('treadwill Flow control group', () => {
         const nextStep = element(by.css('.flow-scroll-inner')).element(
           by.cssContainingText('.step-content', 'Taking a deeper look'),
         );
-        browser
-          .wait(
-            protractor.ExpectedConditions.visibilityOf(nextStep),
-            5 * 60 * 1000,
-          )
-          .then(() => {
-            fp.findProgressElement('Taking a deeper look');
-            console.log('ELEMENT VISIBLE 1');
-          })
-          .catch(() => {
-            fp.navigateToDashboard();
-            browser
-              .wait(
-                protractor.ExpectedConditions.visibilityOf(nextStep),
-                5 * 60 * 1000,
-              )
-              .then(() => {
-                fp.findProgressElement('Taking a deeper look');
-                console.log('ELEMENT VISIBLE 2');
-              })
-              .catch(() => {
-                fp.navigateToDashboard();
-                browser
-                  .wait(
-                    protractor.ExpectedConditions.visibilityOf(nextStep),
-                    5 * 60 * 1000,
-                  )
-                  .then(() => {
-                    fp.findProgressElement('Taking a deeper look');
-                    console.log('ELEMENT VISIBLE 3');
-                  })
-                  .catch(() => {
-                    fp.navigateToDashboard();
-                    fp.findProgressElement('Taking a deeper look');
-                  });
-              });
-          });
+        fp.waitForStepUnlock('Taking a deeper look');
         browser.sleep(2000);
         fp.goToNextStep('Next step');
         fp.findProgressElement('Introduction to modifying beliefs');
@@ -353,7 +290,7 @@ describe('treadwill Flow control group', () => {
         fp.findProgressElement('Will my belief come true if I try it out?');
         browser.sleep(2000);
         fp.goToNextStep('Next step');
-        fp.findProgressElement("How would I act if I didn't have the belief?");
+        fp.findProgressElement('How would I act if I didn\'t have the belief?');
         browser.sleep(2000);
         fp.goToNextStep('Next step');
         fp.findProgressElement('Role play');
@@ -383,48 +320,7 @@ describe('treadwill Flow control group', () => {
         fp.goToNextStep('Next step');
       } else {
         console.log('CONTROL GROUP', expUser);
-        const nextStep = element(by.css('.flow-scroll-inner')).element(
-          by.cssContainingText('.step-content', 'Worrying productively'),
-        );
-
-        browser
-          .wait(
-            protractor.ExpectedConditions.visibilityOf(nextStep),
-            5 * 60 * 1000,
-          )
-          .then(() => {
-            fp.findProgressElement('Worrying productively');
-            console.log('ELEMENT VISIBLE 1');
-          })
-          .catch(() => {
-            fp.navigateToDashboard();
-            browser
-              .wait(
-                protractor.ExpectedConditions.visibilityOf(nextStep),
-                5 * 60 * 1000,
-              )
-              .then(() => {
-                fp.findProgressElement('Worrying productively');
-                console.log('ELEMENT VISIBLE 2');
-              })
-              .catch(() => {
-                fp.navigateToDashboard();
-                browser
-                  .wait(
-                    protractor.ExpectedConditions.visibilityOf(nextStep),
-                    5 * 60 * 1000,
-                  )
-                  .then(() => {
-                    fp.findProgressElement('Worrying productively');
-                    console.log('ELEMENT VISIBLE 3');
-                  })
-                  .catch(() => {
-                    fp.navigateToDashboard();
-                  });
-              });
-          });
-        fp.findProgressElement('Worrying Productively');
-        browser.sleep(2000);
+        fp.waitForStepUnlock('Worrying productively');
         fp.goToNextStep('Next step');
         fp.findProgressElement('Worrywart');
         browser.sleep(2000);
@@ -461,34 +357,7 @@ describe('treadwill Flow control group', () => {
       } else {
         console.log('CONTROL GROUP', expUser);
         browser.sleep(2000);
-        const nextStep = element(by.css('.flow-scroll-inner')).element(
-          by.cssContainingText('.step-content', 'Be prepared'),
-        );
-
-        browser
-          .wait(
-            protractor.ExpectedConditions.visibilityOf(nextStep),
-            5 * 60 * 1000,
-          )
-          .then(() => {
-            fp.findProgressElement('Be prepared');
-            console.log('ELEMENT VISIBLE 1');
-          })
-          .catch(() => {
-            fp.navigateToDashboard();
-            browser
-              .wait(
-                protractor.ExpectedConditions.visibilityOf(nextStep),
-                5 * 60 * 1000,
-              )
-              .then(() => {
-                fp.findProgressElement('Be prepared');
-                console.log('ELEMENT VISIBLE 3');
-              })
-              .catch(() => {
-                fp.navigateToDashboard();
-              });
-          });
+        fp.waitForStepUnlock('Be prepared');
         fp.goToNextStep('Next step');
         fp.findProgressElement('What if I get depressed again?');
         fp.goToNextStep('Next step');
