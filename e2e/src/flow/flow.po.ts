@@ -1,5 +1,5 @@
 /* tslint:disable:no-trailing-whitespace */
-import {browser, by, element, protractor} from 'protractor';
+import { browser, by, element, protractor } from 'protractor';
 
 export class FlowPage {
   EC = protractor.ExpectedConditions;
@@ -13,9 +13,7 @@ export class FlowPage {
       .first()
       .getText();
   }
-  getModuleNumber() {
-
-  }
+  getModuleNumber() {}
 
   checkUserGroup() {
     // const elm = element(by.cssContainingText('.list-wrapper-items-name', 'GAMES'));
@@ -49,9 +47,13 @@ export class FlowPage {
   }
 
   findProgressGroupElement(text: string) {
-    browser.wait(this.EC.presenceOf(element(by.css('h6.progress-heading-mobile')))).then( () => {
-    return element(by.css('.flow-scroll-inner')).element(by.cssContainingText('.step-group-name', text));
-    });
+    browser
+      .wait(this.EC.presenceOf(element(by.css('h6.progress-heading-mobile'))))
+      .then(() => {
+        return element(by.css('.flow-scroll-inner')).element(
+          by.cssContainingText('.step-group-name', text),
+        );
+      });
   }
 
   // findProgressElement(txt: string) {
@@ -67,8 +69,7 @@ export class FlowPage {
   //   });
   // }
 
-
-  getElementsByText (text: any) {
+  getElementsByText(text: any) {
     // parentXpathSelector = parentXpathSelector || '//';
     console.log('STEP :', text, 'clicked');
     return element(by.xpath('//*[normalize-space(text())="' + text + '"]'));
@@ -142,5 +143,40 @@ export class FlowPage {
   }
   clickGoto() {
     return element.all(by.css('.goto-button')).click();
+  }
+  waitForStepUnlock(nextStep: any) {
+    browser
+      .wait(protractor.ExpectedConditions.visibilityOf(nextStep), 5 * 60 * 1000)
+      .then(() => {
+        this.findProgressElement('Making good things happen');
+        console.log('ELEMENT VISIBLE 1');
+      })
+      .catch(() => {
+        this.navigateToDashboard();
+        browser
+          .wait(
+            protractor.ExpectedConditions.visibilityOf(nextStep),
+            5 * 60 * 1000,
+          )
+          .then(() => {
+            this.findProgressElement('Making good things happen');
+            console.log('ELEMENT VISIBLE 2');
+          })
+          .catch(() => {
+            this.navigateToDashboard();
+            browser
+              .wait(
+                protractor.ExpectedConditions.visibilityOf(nextStep),
+                5 * 60 * 1000,
+              )
+              .then(() => {
+                this.findProgressElement('Making good things happen');
+                console.log('ELEMENT VISIBLE 3');
+              })
+              .catch(() => {
+                this.navigateToDashboard();
+              });
+          });
+      });
   }
 }

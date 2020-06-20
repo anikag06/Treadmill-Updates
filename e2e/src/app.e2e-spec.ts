@@ -1,8 +1,7 @@
 import { AppPage } from './app.po';
 import { browser, by, element, logging } from 'protractor';
 import { protractor } from 'protractor/built/ptor';
-declare var testType: any ;
-declare var moduleNumber: number;
+declare var loginTime: number;
 
 describe('workspace-project App', () => {
   let page: AppPage;
@@ -67,7 +66,7 @@ describe('workspace-project App', () => {
     page.clickOnButton('Submit');
   });
 
- it('Should show GAD-7 questionnaire', () => {
+  it('Should show GAD-7 questionnaire', () => {
     expect(page.findGad()).toBeTruthy();
     browser.sleep(3000);
     // expect(page.findQuestionnaireText()).toMatch('Before moving further');
@@ -132,7 +131,7 @@ describe('workspace-project App', () => {
         .wait(protractor.ExpectedConditions.urlContains('dashboard'))
         .catch(() => false),
     ).toBeTruthy('Url match could not succced');
-    page.getTime();
+    loginTime = page.getTime();
     console.log('login time', page.firstLoginTime);
     browser.sleep(6000);
   });

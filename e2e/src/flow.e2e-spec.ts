@@ -15,11 +15,12 @@ describe('treadwill Flow', () => {
 
   it('should detect whether exp or control', () => {
     page.clickBurgerBtn('button.hamburger-button');
-    fp.checkUserGroup().isPresent().
-    then((value) => {
-      expUser = value;
-      console.log('USER GROUP', expUser, value,  typeof value);
-    });
+    fp.checkUserGroup()
+      .isPresent()
+      .then(value => {
+        expUser = value;
+        console.log('USER GROUP', expUser, value, typeof value);
+      });
     browser.sleep(2000);
     fp.hideSideNav();
     browser.sleep(2000);
@@ -123,31 +124,35 @@ describe('treadwill Flow', () => {
     15 * 60 * 1000,
   );
 
-
-  it('Should click third Module and run its step', () => {
-    fp.navigateToDashboard();
-    expect(
-      browser//
-        .wait(protractor.ExpectedConditions.urlContains('dashboard'))
-        .catch(() => false),
-    ).toBeTruthy('Url match could not succced');
-    expect(fp.findProgressGroupElement('Evaluating thoughts')).toBeTruthy();
-    browser.sleep(2000);
-    // fp.findProgressGroupElement('Evaluating thoughts');
-    if (expUser === 'true') {
-      console.log('EXPERIMENTAL GROUP', expUser);
-      fp.findProgressElement('Introduction ');
+  it(
+    'Should click third Module and run its step',
+    () => {
+      fp.navigateToDashboard();
+      expect(
+        browser //
+          .wait(protractor.ExpectedConditions.urlContains('dashboard'))
+          .catch(() => false),
+      ).toBeTruthy('Url match could not succced');
+      expect(fp.findProgressGroupElement('Evaluating thoughts')).toBeTruthy();
       browser.sleep(2000);
-      fp.goToNextStep('Next step');
-      expect(fp.getProgress()).toEqual('Progress');
-      fp.findProgressElement('Evaluate my thought form');
-      fp.goToNextStep('Next step');
-    } else {
-      console.log('CONTROL GROUP', !expUser);
-    }
-  }, 20 * 60 * 1000);
+      // fp.findProgressGroupElement('Evaluating thoughts');
+      if (expUser === 'true') {
+        console.log('EXPERIMENTAL GROUP', expUser);
+        fp.findProgressElement('Introduction ');
+        browser.sleep(2000);
+        fp.goToNextStep('Next step');
+        expect(fp.getProgress()).toEqual('Progress');
+        fp.findProgressElement('Evaluate my thought form');
+        fp.goToNextStep('Next step');
+      } else {
+        console.log('CONTROL GROUP', !expUser);
+      }
+    },
+    20 * 60 * 1000,
+  );
 
-  it('Should click fourth Module and run its step',
+  it(
+    'Should click fourth Module and run its step',
     () => {
       fp.navigateToDashboard();
       expect(
@@ -167,10 +172,13 @@ describe('treadwill Flow', () => {
         fp.findProgressElement('Evaluate my thought form');
         fp.goToNextStep('Next step');
       } else {
-    }
-  }, 20 * 60 * 1000);
+      }
+    },
+    20 * 60 * 1000,
+  );
 
-  it('Should click fifth Module and run its step',
+  it(
+    'Should click fifth Module and run its step',
     () => {
       fp.navigateToDashboard();
       expect(
@@ -188,10 +196,13 @@ describe('treadwill Flow', () => {
         fp.goToNextStep('Next step');
       } else {
         console.log('CONTROL GROUP', !expUser);
-    }
-  }, 20 * 60 * 1000);
+      }
+    },
+    20 * 60 * 1000,
+  );
 
-  it('Should click sixth Module and run its step',
+  it(
+    'Should click sixth Module and run its step',
     () => {
       fp.navigateToDashboard();
       expect(
@@ -212,8 +223,10 @@ describe('treadwill Flow', () => {
         fp.goToNextStep('Next step');
       } else {
         console.log('CONTROL GROUP', !expUser);
-    }
-  }, 20 * 60 * 1000);
+      }
+    },
+    20 * 60 * 1000,
+  );
 
   // xit('should start introductory animation', () => {
   //   browser.sleep(2000);
