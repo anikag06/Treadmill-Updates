@@ -169,31 +169,36 @@ export class FlowPage {
   }
   checkForDropout(loginTime: number) {
     this.afterDropout = true;
-    const userTimeUp = new Date().getTime();
+    const userTimeUp = loginTime + this.timeUp;
+    const currentTime = new Date().getTime();
     console.log(
-      'ON Fail check user timeup',
-      userTimeUp,
-      userTimeUp - loginTime,
+      'userTimeUp', userTimeUp, 'currentTime', currentTime, 'loginTime', loginTime,
     );
-    const waitStep = element(by.id('phq-9'));
-    const self = this;
-    if (userTimeUp - loginTime < this.timeUp) {
-      console.log('Time up');
-    // for (let i = 1; i <= 9; i++) {
-      console.log('FOR LOOP CALLED', i, new Date());
-      browser
-        .wait(
-          protractor.ExpectedConditions.visibilityOf(waitStep),
-          10 * 60 * 1000,
-        )
-        .then(() => {
-          // see follow up
-          console.log('START FOLLOWUP');
-        })
-        .catch(() => { });
-  } else {
-      return self.checkForDropout(loginTime);
+    // const waitStep = element(by.id('phq-9'));
+    if (currentTime < userTimeUp) {
+      // wait browser
+      this.callWaitBrowser();
+      this.checkForDropout(loginTime);
+    } else {
+      return;
     }
+  }
+
+  callWaitBrowser() {
+    console.log('Time up');
+    // for (let i = 1; i <= 9; i++) {
+    console.log('FOR LOOP CALLED', new Date());
+    const waitStep = element(by.id('phq-9'));
+    browser
+      .wait(
+        protractor.ExpectedConditions.visibilityOf(waitStep),
+        10 * 60 * 1000,
+      )
+      .then(() => {
+        // see follow up
+        console.log('START FOLLOWUP');
+      })
+      .catch(() => { });
   }
 }
 

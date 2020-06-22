@@ -22,7 +22,7 @@ describe('treadwill Flow control group', () => {
     fp = new FlowPage();
   });
 
-  it('should show login dialog', () => {
+  xit('should show login dialog', () => {
     page.navigateTo();
     browser.waitForAngularEnabled(false);
     browser.sleep(1000);
@@ -57,7 +57,7 @@ describe('treadwill Flow control group', () => {
     browser.sleep(2000);
   });
 
-  xit('Should find the Progress flow click zero Module and run its step', () => {
+  it('Should find the Progress flow click zero Module and run its step', () => {
     expect(fp.getProgress()).toEqual('Progress');
     browser.sleep(1000);
     expect(
@@ -91,29 +91,28 @@ describe('treadwill Flow control group', () => {
         console.log('EXPERIMENTAL GROUP', expUser);
       } else {
         console.log('CONTROL GROUP first module', expUser);
-        // browser.sleep(2000);
-        // fp.findProgressElement('Getting started');
-        // browser.sleep(2000);
-        // fp.goToNextStep('Next step');
-        // fp.findProgressElement('Depression');
-        // browser.sleep(2000);
-        // fp.goToNextStep('Next step');
-        // fp.findProgressElement('Anxiety');
-        // browser.sleep(2000);
-        // fp.goToNextStep('Next step');
-        // fp.findProgressElement('Cognitive Behavioral Therapy (CBT)');
-        // browser.sleep(2000);
-        // fp.goToNextStep('Next step');
-        // fp.findProgressElement('What\'s wrong with me?');
-        // fp.goToNextStep('Next step');
-        // fp.findProgressElement('What if .....?');
-        // browser.sleep(2000);
-        // fp.goToNextStep('Next step');
+        browser.sleep(2000);
+        fp.findProgressElement('Getting started');
+        browser.sleep(2000);
+        fp.goToNextStep('Next step');
+        fp.findProgressElement('Depression');
+        browser.sleep(2000);
+        fp.goToNextStep('Next step');
+        fp.findProgressElement('Anxiety');
+        browser.sleep(2000);
+        fp.goToNextStep('Next step');
+        fp.findProgressElement('Cognitive Behavioral Therapy (CBT)');
+        browser.sleep(2000);
+        fp.goToNextStep('Next step');
+        fp.findProgressElement('What\'s wrong with me?');
+        fp.goToNextStep('Next step');
+        fp.findProgressElement('What if .....?');
+        browser.sleep(2000);
+        fp.goToNextStep('Next step');
         fp.findProgressElement('Can I get help?');
         if (testfor === 'dropout' && moduleNum === 1) {
-          // expect(page.findPhq()).toBeTruthy();
+          console.log('CHECK FOR DROPOUT');
           fp.checkForDropout(loginTime);
-          // afterDropout = true;
         }
         fp.goToNextStep('Go to dashboard');
         browser.sleep(2000);
@@ -201,9 +200,8 @@ describe('treadwill Flow control group', () => {
         fp.waitForStepUnlock('Introduction to evaluating thoughts');
         browser.sleep(2000);
         if (testfor === 'dropout' && moduleNum === 3) {
-          // expect(page.findPhq()).toBeTruthy();
+          console.log('CHECK FOR DROPOUT');
           fp.checkForDropout(loginTime);
-          // afterDropout = true;
         }
         fp.goToNextStep('Next step');
         fp.findProgressElement('What is going through my mind?');
@@ -212,13 +210,13 @@ describe('treadwill Flow control group', () => {
         fp.findProgressElement('Thinking errors');
         browser.sleep(2000);
         fp.goToNextStep('Next step');
-        fp.findProgressElement('GIVE A NAME 1');
-        browser.sleep(2000);
-        fp.goToNextStep('Next step');
-        fp.findProgressElement('GIVE A NAME 2');
+        fp.findProgressElement('Identifying thinking errors');
         browser.sleep(2000);
         fp.goToNextStep('Next step');
         fp.findProgressElement('Evaluating thoughts');
+        browser.sleep(2000);
+        fp.goToNextStep('Next step');
+        fp.findProgressElement('SOLVED');
         browser.sleep(2000);
           fp.goToNextStep('Go to dashboard');
           browser.sleep(2000);
@@ -241,19 +239,19 @@ describe('treadwill Flow control group', () => {
       // fp.findProgressGroupElement('Being self-aware').click();
       if (expUser) {
         console.log('EXPERIMENTAL GROUP', expUser);
-        fp.findProgressElement('Introduction ');
-        browser.sleep(2000);
-        fp.goToNextStep('Next step');
-        expect(fp.getProgress()).toEqual('Progress');
-        fp.findProgressElement('Evaluate my thought form');
-        fp.goToNextStep('Next step');
       } else {
         console.log('CONTROL GROUP', expUser);
         browser.sleep(2000);
-        const nextStep = element(by.css('.flow-scroll-inner')).element(
-          by.cssContainingText('.step-content', 'Taking a deeper look'),
-        );
-        fp.waitForStepUnlock('Taking a deeper look');
+        // const nextStep = element(by.css('.flow-scroll-inner')).element(
+        //   by.cssContainingText('.step-content', 'Taking a deeper look'),
+        // );
+        if (!fp.afterDropout) {
+          fp.waitForStepUnlock('Taking a deeper look');
+        } else {
+          console.log('not waiting after dropout');
+          fp.findProgressElement('Taking a deeper look');
+        }
+        // fp.waitForStepUnlock('Taking a deeper look');
         browser.sleep(2000);
         fp.goToNextStep('Next step');
         fp.findProgressElement('Introduction to modifying beliefs');
