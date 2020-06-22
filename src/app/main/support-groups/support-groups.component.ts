@@ -1,22 +1,20 @@
-import {Component, ElementRef, HostListener, OnInit} from '@angular/core';
-import {TagService} from '../shared/tag.service';
-import {CreatePostComponent} from './create-post/create-post.component';
-import {MatDialog} from '@angular/material';
-import {Title} from '@angular/platform-browser';
-import {MOBILE_WIDTH, TREADWILL} from '@/app.constants';
-import {UserProfileService} from '../shared/user-profile/userProfile.service';
-import {User} from '@/shared/user.model';
-import {UserProfile} from '../shared/user-profile/UserProfile.model';
-import {AuthService} from '@/shared/auth/auth.service';
-import {SupportGroupsService} from './support-groups.service';
-import {map, switchMap} from 'rxjs/operators';
-import {FlowService} from '@/main/flow/flow.service';
-import {ActivatedRoute} from '@angular/router';
-import {StepsDataService} from '@/main/resources/shared/steps-data.service';
-import {SupportGroupIntroComponent} from '@/main/walk-through/support-group-intro/support-group-intro.component';
-
-import {IntroSelectTagsComponent} from '@/main/walk-through/intro-select-tags/intro-select-tags.component';
-import {IntroService} from "@/main/walk-through/intro.service";
+import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
+import { TagService } from '../shared/tag.service';
+import { CreatePostComponent } from './create-post/create-post.component';
+import { MatDialog } from '@angular/material';
+import { Title } from '@angular/platform-browser';
+import { TREADWILL } from '@/app.constants';
+import { UserProfileService } from '../shared/user-profile/userProfile.service';
+import { User } from '@/shared/user.model';
+import { UserProfile } from '../shared/user-profile/UserProfile.model';
+import { AuthService } from '@/shared/auth/auth.service';
+import { SupportGroupsService } from './support-groups.service';
+import { map, switchMap } from 'rxjs/operators';
+import { FlowService } from '@/main/flow/flow.service';
+import { ActivatedRoute } from '@angular/router';
+import { StepsDataService } from '@/main/resources/shared/steps-data.service';
+import { Subscription } from 'rxjs';
+import { IntroService } from '@/main/walk-through/intro.service';
 
 @Component({
   selector: 'app-support-groups',
@@ -35,7 +33,7 @@ export class SupportGroupsComponent implements OnInit {
     private flowService: FlowService,
     private activatedRoute: ActivatedRoute,
     private stepDataService: StepsDataService,
-    private introService : IntroService,
+    private introService: IntroService,
   ) {
     this.titleService.setTitle('Support Group | ' + TREADWILL);
     this.getScreenSize();
@@ -48,8 +46,9 @@ export class SupportGroupsComponent implements OnInit {
   stepGroupSequence!: number;
   stepSequence!: number;
   stepName!: string;
-  supportIntroCompleted = false;
-
+  loadingSubscription!: Subscription;
+  // fromFlow =false;
+  loading = false;
   @HostListener('window:resize', ['$event'])
   getScreenSize(event?: any) {
     this.srcWidth = window.innerWidth;
@@ -93,11 +92,12 @@ export class SupportGroupsComponent implements OnInit {
         console.log('user profila data', this.userProfileData);
         this.sgService.userProfileData = this.userProfileData;
       });
-    if(!this.supportIntroCompleted)
-    setTimeout(()=>{
-      this.openSupportGroupIntroDialog();
-    },2000)
 
+    this.loadingSubscription = this.introService.loadingBehaviour.subscribe(
+      (loading: boolean) => {
+        this.loading = loading;
+      },
+    );
   }
 
   onCreatePostClick() {
@@ -124,21 +124,9 @@ export class SupportGroupsComponent implements OnInit {
     }
   }
 
-  openSupportGroupIntroDialog() {
-    const dialogRef = this.dialog.open(SupportGroupIntroComponent, {
-      panelClass: 'intro-dialog',
-      autoFocus: false,
-      maxWidth: '340px',
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
-      const dialogRef = this.dialog.open(IntroSelectTagsComponent, {
-        panelClass: 'intro-tag-dialog',
-        autoFocus: false,
-        maxWidth: window.innerWidth < MOBILE_WIDTH ? '340px' : '70%',
-        maxHeight: '600px',
-      });
-    });
+  ngOnDestroy(): void {
+    if (this.loadingSubscription) {
+      this.loadingSubscription.unsubscribe();
+    }
   }
-
 }

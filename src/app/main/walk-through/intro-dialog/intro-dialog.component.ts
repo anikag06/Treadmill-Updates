@@ -15,9 +15,7 @@ export class IntroDialogComponent implements OnInit {
 
   ngOnInit() {}
 
-  startIntro() {
+  closeDialog() {
     this.dialogRef.close();
-    // this.introService.startDashBoardIntro();
-
   }
 }

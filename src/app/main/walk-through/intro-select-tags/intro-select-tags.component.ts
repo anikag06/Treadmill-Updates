@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, Optional } from '@angular/core';
 import { TagGroup } from '@/main/shared/tag-group.model';
 import { TagService } from '@/main/shared/tag.service';
 import { Tag } from '@/main/shared/tag.model';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { SupportGroupsService } from '@/main/support-groups/support-groups.service';
 import { IntroService } from '@/main/walk-through/intro.service';
 
@@ -15,16 +15,22 @@ export class IntroSelectTagsComponent implements OnInit {
   tagsGroup!: TagGroup[];
   tags!: Tag[];
   formTags: number[] = [];
+  fromFlow!: boolean;
+  loading = false;
   constructor(
     private tagService: TagService,
     private dialogRef: MatDialogRef<IntroSelectTagsComponent>,
     private sgService: SupportGroupsService,
     private introService: IntroService,
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
   ) {}
 
   ngOnInit() {
     this.tagsGroup = this.tagService.tagsGroup;
     this.tags = this.tagService.tags;
+    if (this.data) {
+      this.fromFlow = this.fromFlow;
+    }
   }
 
   onTagButtonClick(tagId: number, event: any) {
@@ -68,19 +74,18 @@ export class IntroSelectTagsComponent implements OnInit {
   closeTagDialog() {}
 
   onTagsSubmit() {
-    //   this.sgService.personalizePost(this.formTags).subscribe(
-    //     (res) => {
-    //       this.dialogRef.close();
-    //       this.introService.startSupportGroupIntro();
-    //       this.introService.toggle();
-    //     },
-    //     (error) => {},
-    //   );
-    //   this.introService.openDrawer();
     this.dialogRef.close();
-
-    this.introService.startSupportGroupIntro();
-
-    // this.introService.closeDrawer()
+    this.introService.setLoadingTrue();
+    this.sgService.personalizePost(this.formTags).subscribe(
+      (res) => {
+        this.introService.setLoadingFalse();
+        if (this.fromFlow) {
+          setTimeout(() => {
+            this.introService.startSupportGroupIntro();
+          }, 1000);
+        }
+      },
+      (error) => {},
+    );
   }
 }

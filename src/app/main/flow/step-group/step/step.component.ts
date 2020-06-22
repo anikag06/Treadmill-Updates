@@ -1,6 +1,13 @@
-import {AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild,} from '@angular/core';
-import {Step} from './step.model';
-import {StepGroup} from '../step-group.model';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import { Step } from './step.model';
+import { StepGroup } from '../step-group.model';
 import {
   ACTIVE,
   COMPLETED,
@@ -18,14 +25,15 @@ import {
   TESTIMONIALS_PAGE,
   VIDEO,
 } from '@/app.constants';
-import {FlowStepNavigationService} from '@/main/shared/flow-step-navigation.service';
-import {Router} from '@angular/router';
-import {FlowService} from '../../flow.service';
-import {MatTooltip} from '@angular/material';
-import {DatePipe} from '@angular/common';
-import {NavbarNotificationsService} from '@/main/shared/navbar/navbar-notifications.service';
-import {IntroService} from "@/main/walk-through/intro.service";
-
+import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.service';
+import { Router } from '@angular/router';
+import { FlowService } from '../../flow.service';
+import { MatTooltip } from '@angular/material';
+import { DatePipe } from '@angular/common';
+import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifications.service';
+import { IntroService } from '@/main/walk-through/intro.service';
+import { isNotNullOrUndefined } from 'codelyzer/util/isNotNullOrUndefined';
+import { IntroDialogService } from '@/main/walk-through/intro-dialog.service';
 
 @Component({
   selector: 'app-step',
@@ -51,7 +59,8 @@ export class StepComponent implements OnInit, AfterViewInit {
     private datePipe: DatePipe,
     private element: ElementRef,
     private navbarService: NavbarNotificationsService,
-    private introService : IntroService,
+    private introService: IntroService,
+    private introDialogService: IntroDialogService,
   ) {}
 
   ngOnInit() {
@@ -107,8 +116,7 @@ export class StepComponent implements OnInit, AfterViewInit {
   }
 
   nextLink() {
-    return this.flowStepNavService.
-    goToFlowNextStep(this.step);
+    return this.flowStepNavService.goToFlowNextStep(this.step);
   }
 
   previousStep(stepGroup: StepGroup, step: Step) {
@@ -132,43 +140,84 @@ export class StepComponent implements OnInit, AfterViewInit {
 
   navigate(event: Event) {
     event.preventDefault();
+    //
+     this.showTooltipFun();
 
-    this.showTooltipFun();
 
-
-    // @ts-ignore
-    if (this.step.data_type === GAME) {
-      setTimeout(()=>{
-        this.introService.openGameIntroDialog();
-      },2000)
+    if (this.step.data_type === GAME && this.step.status !== COMPLETED) {
+      // add this.step.status === COMPLETED condition
+      this.introService
+        .showAnimation(this.step.action[0])
+        .subscribe((data: any) => {
+          if (data.show_animation) {
+            setTimeout(() => {
+              this.introDialogService.openGameIntroDialog(true);
+            }, 500);
+          } else {
+            setTimeout(() => {
+              this.introService.callNavBarGameIntro();
+            }, 500);
+          }
+        });
     }
 
-    // @ts-ignore
-    if (this.step.data_type === FORM) {
-      setTimeout(()=>{
-        this.introService.openFormIntroDialog();
-      },1000)
+
+    if (this.step.data_type === FORM && this.step.status !== COMPLETED) {
+      // add this.step.status === COMPLETED condition
+      this.introService
+        .showAnimation(this.step.action[0])
+        .subscribe((data: any) => {
+          if (data.show_animation) {
+            setTimeout(() => {
+              this.introDialogService.openFormIntroDialog(true);
+            }, 500);
+          } else {
+            setTimeout(() => {
+              this.introService.callNavbarFormIntro();
+            }, 500);
+          }
+        });
+      // setTimeout(() => {
+      //   this.introDialogService.openFormIntroDialog(true);
+      // }, 1000);
     }
 
-    this.markDone();
+
+    if (
+      this.step.data_type === SUPPORT_GROUP &&
+      this.step.status !== COMPLETED
+    ) {
+      this.introService.showAnimation(SUPPORT_GROUP).subscribe((data: any) => {
+        // add this.step.status === COMPLETED condition
+        if (data.show_animation) {
+          setTimeout(() => {
+            this.introDialogService.openSupportGroupIntroDialog(true);
+          }, 2000);
+        } else {
+          setTimeout(() => {
+            this.introService.startSupportGroupIntro();
+          }, 2000);
+        }
+      });
+    }
+
+     this.markDone();
     if (this.step.data_type === INTRODUCTORY_ANIMATION) {
-      if(this.step.id===75){
-        if(this.step.status===COMPLETED){
+      if (this.step.id === 75) {
+        if (this.step.status === COMPLETED) {
           this.introService.startDashBoardIntro();
-        }else{
+        } else {
           this.introService.exitStartIntro();
         }
-
-      }
-      else{
+      } else {
         this.introService.setIntroduceFalse();
-        setTimeout(()=>{
-          this.introService.startBadgesIntro()
-        },500)
+        setTimeout(() => {
+          this.introService.startBadgesIntro();
+        }, 500);
         // this.flowService.triggerIntroduction();
       }
 
-      this.step.status = COMPLETED;
+      // this.step.status = COMPLETED;
       // this.flowService.triggerLoad();
       // setTimeout(() => this.flowService.triggerLoad(), 1);
       // setTimeout(() => this.flowService.triggerLoad(), 10);
@@ -237,7 +286,7 @@ export class StepComponent implements OnInit, AfterViewInit {
       const prev = this.previousStep(this.stepGroup, this.step);
       if (!prev) {
         this.flowService.getModuleUnlockTime(this.stepGroup);
-        this.flowService.unlockModuleTime.subscribe(data => {
+        this.flowService.unlockModuleTime.subscribe((data) => {
           const time = this.datePipe.transform(data, 'hh:mm a');
           const date = this.datePipe.transform(data, 'dd-MM-yyy');
           this.tooltipData = 'unlocks at: ' + time + ' on ' + date;

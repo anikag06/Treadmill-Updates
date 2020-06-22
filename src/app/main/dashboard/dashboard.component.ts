@@ -7,6 +7,7 @@ import { UserProfile } from '../shared/user-profile/UserProfile.model';
 import { UserProfileService } from '../shared/user-profile/userProfile.service';
 import { IntroService } from '@/main/walk-through/intro.service';
 import { Observable, Subscription, timer } from 'rxjs';
+import {isNotNullOrUndefined} from "codelyzer/util/isNotNullOrUndefined";
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -62,12 +63,12 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  ngDestroy(): void {
-    if (this.introduceSubscription) {
+  ngOnDestroy(): void {
+    if (isNotNullOrUndefined(this.introduceSubscription)) {
       this.introduceSubscription.unsubscribe();
     }
-    if(this.hideSubscription){
-      this.introduceSubscription.unsubscribe();
+    if(isNotNullOrUndefined(this.hideSubscription)){
+      this.hideSubscription.unsubscribe();
     }
   }
 }

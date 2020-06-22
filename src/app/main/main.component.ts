@@ -19,6 +19,7 @@ import {
   DEFAULT_PATH,
   MOBILE_WIDTH,
   SHOW_TOAST_DURATION,
+  SUPPORT_GROUP,
 } from '@/app.constants';
 import { MatDrawer, MatTooltip } from '@angular/material';
 import { DataService } from '@/shared/questionnaire/data.service';
@@ -26,9 +27,6 @@ import { FcmService } from '@/shared/fcm.service';
 import { QuizService } from '@/shared/questionnaire/questionnaire.service';
 import { FlowService } from './flow/flow.service';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
-import { ComponentPortal } from '@angular/cdk/portal';
-import { IntroduceComponent } from './shared/introduce/introduce.component';
-import { IntroduceService } from './shared/introduce/introduce.service';
 import { SurveyService } from './shared/survey.service';
 import { ToastNotificationDirective } from '@/shared/toast-notification/toast-notification.directive';
 import { ToastNotificationComponent } from '@/shared/toast-notification/toast-notification.component';
@@ -36,12 +34,13 @@ import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifica
 import { CustomOverlayService } from '@/main/shared/custom-overlay/custom-overlay.service';
 import { CommonService } from '@/shared/common.service';
 import { InternetConnectionComponent } from '@/shared/internet-connection/internet-connection.component';
-// @ts-ignore
-import * as introJs from 'intro.js/intro';
+
 import { IntroService } from '@/main/walk-through/intro.service';
-import { PointsComponent } from '@/main/shared/points/points.component';
+import { IntroDialogService } from '@/main/walk-through/intro-dialog.service';
+import { isNotNullOrUndefined } from 'codelyzer/util/isNotNullOrUndefined';
 
 declare var twemoji: any;
+
 // tslint:disable-next-line:max-line-length
 
 @Component({
@@ -89,8 +88,9 @@ export class MainComponent
   @ViewChild('pointsNotification', { static: true, read: ViewContainerRef })
   pointsNotification!: ViewContainerRef;
 
-  introJS = introJs();
   introSubscription!: Subscription;
+  loadSubscription!: Subscription;
+
   constructor(
     private breakpointObserver: BreakpointObserver,
     private authService: AuthService,
@@ -100,13 +100,13 @@ export class MainComponent
     private quizService: QuizService,
     private flowService: FlowService,
     private overlay: Overlay,
-    private introduceService: IntroduceService,
     private componentFactoryResolver: ComponentFactoryResolver,
     private surveyService: SurveyService,
     private notificationService: NavbarNotificationsService,
     private overlayService: CustomOverlayService,
     private commonService: CommonService,
     private introService: IntroService,
+    private introDialogService: IntroDialogService,
   ) {}
 
   ngOnChanges() {}
@@ -126,12 +126,6 @@ export class MainComponent
     this.flowService.introduceBehaviour.subscribe((data: any) => {
       if (data) {
         this.introService.showPointsNotification(this.pointsNotification);
-      }
-    });
-
-    this.introduceService.closeBehaviour.subscribe((data: any) => {
-      if (data) {
-        this.overlayRef.detach();
       }
     });
 
@@ -213,6 +207,14 @@ export class MainComponent
         },
       );
     }
+
+    this.loadSubscription = this.flowService.loadBehaviour.subscribe(
+      (data: boolean) => {
+        if (data && !this.flowService.getFirstStepCompleted()) {
+          this.introDialogService.openIntroDialog();
+        }
+      },
+    );
   }
 
   ngAfterContentInit(): void {
@@ -230,8 +232,6 @@ export class MainComponent
       this.enableLinks();
     });
   }
-
-  ngOnDestroy(): void {}
 
   ngDoCheck() {
     this.isDashboard = this.notificationService.isDashboard;
@@ -270,15 +270,6 @@ export class MainComponent
     }
   }
 
-  startIntroduction() {
-    this.overlayRef = this.overlay.create({
-      height: '100vh',
-      width: '100vw',
-    });
-    const portal = new ComponentPortal(IntroduceComponent);
-    this.overlayRef.attach(portal);
-  }
-
   tooltipShow() {
     console.log('tooltip');
     this.showToolTip.toggle();
@@ -301,17 +292,22 @@ export class MainComponent
     }, 10);
   }
 
-  ngAfterViewInit() {
-    setTimeout(() => {
-      if(!this.flowService.getFirstStepCompleted()){
-        // this.introService.openIntroDialog();
-      }
-    }, 4500);
-  }
-
-  ngDestroy() {
-    if (this.introSubscription) {
+  ngOnDestroy() {
+    if (isNotNullOrUndefined(this.introSubscription)) {
       this.introSubscription.unsubscribe();
     }
+    if (isNotNullOrUndefined(this.loadSubscription)) {
+      this.loadSubscription.unsubscribe();
+    }
+  }
+
+  showSupportGroupIntro() {
+    this.introService.showAnimation(SUPPORT_GROUP).subscribe((data: any) => {
+      if (data.show_animation) {
+        setTimeout(() => {
+          this.introDialogService.openSupportGroupIntroDialog(false);
+        }, 1000);
+      }
+    });
   }
 }

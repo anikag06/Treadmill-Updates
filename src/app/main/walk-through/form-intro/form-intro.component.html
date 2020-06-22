@@ -19,10 +19,11 @@
 <mat-dialog-actions class="float-right">
   <button
     mat-raised-button
+    [ngStyle]="{textAlign : 'inherit'}"
     class="btn start-btn float-right"
     (click)="startIntro()"
     matDialogClose
+    [innerHTML]="btnTxt"
   >
-    Next <span [ngStyle]="{fontSize: '40px',verticalAlign:'sub'}"> &#8594;</span>
   </button>
 </mat-dialog-actions>

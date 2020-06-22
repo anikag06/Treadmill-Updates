@@ -65,9 +65,9 @@
           >
             {{ navbarTitle
             }}<span
-              class="navbar-title"
-              *ngIf="isDashboard || isConversation"
-            ></span>
+            class="navbar-title"
+            *ngIf="isDashboard || isConversation"
+          ></span>
           </div>
         </div>
       </div>
@@ -99,10 +99,10 @@
               alt="Flow"
             />
           </div>
-          <div  class="unread-count" *ngIf="unreadCount > 0">
+          <div class="unread-count" *ngIf="unreadCount > 0">
             <span *ngIf="unreadCount < 100; else manyMore">{{
               unreadCount
-            }}</span>
+              }}</span>
           </div>
         </div>
 
@@ -127,7 +127,7 @@
             <mat-icon>more_vert</mat-icon>
           </button>
           <div
-
+            id="goto_mobile"
             [ngClass]="{
               'd-none': hideCards
             }"
@@ -135,7 +135,6 @@
             (click)="flowClick()"
           >
             <img
-              id="goto_mobile"
               src="assets/shared/Go to mobile.png"
               height=" 32px"
               alt="GoTO"
@@ -155,12 +154,16 @@
                 alt="Flow"
               />
             </div>
-            <div [ngClass]="{
-              'd-none': hideCards
-            }" class="unread-count" *ngIf="unreadCount > 0">
+            <div
+              [ngClass]="{
+                'd-none': hideCards
+              }"
+              class="unread-count"
+              *ngIf="unreadCount > 0"
+            >
               <span *ngIf="unreadCount < 100; else manyMore">{{
                 unreadCount
-              }}</span>
+                }}</span>
             </div>
           </div>
           <div class="icon-items" *ngIf="!isDashboard" (click)="homeClick()">

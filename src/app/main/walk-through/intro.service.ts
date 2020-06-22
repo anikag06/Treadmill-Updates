@@ -1,38 +1,36 @@
 import {
   ComponentFactoryResolver,
-  ElementRef,
-  HostListener,
   Injectable,
   ViewContainerRef,
 } from '@angular/core';
-import { MOBILE_WIDTH, SHOW_TOAST_DURATION } from '@/app.constants';
+import { MOBILE_WIDTH } from '@/app.constants';
 // @ts-ignore
 import * as introJs from 'intro.js/intro';
 import { MatDrawer } from '@angular/material/sidenav';
 import { CongratsDialogComponent } from '@/main/resources/shared/congrats-dialog/congrats-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { PointsComponent } from '@/main/shared/points/points.component';
-import { IntroDialogComponent } from '@/main/walk-through/intro-dialog/intro-dialog.component';
 import { BehaviorSubject } from 'rxjs';
 import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifications.service';
-import { FlowComponent } from '@/main/flow/flow.component';
 import { FlowService } from '@/main/flow/flow.service';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 import { StepCompleteData } from '@/main/resources/shared/completion-data.model';
-import { GameIntroComponent } from '@/main/walk-through/game-intro/game-intro.component';
-import { FormIntroComponent } from '@/main/walk-through/form-intro/form-intro.component';
-import { SupportGroupIntroComponent } from '@/main/walk-through/support-group-intro/support-group-intro.component';
-import { IntroSelectTagsComponent } from '@/main/walk-through/intro-select-tags/intro-select-tags.component';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
+import {MatExpansionPanel} from "@angular/material/expansion";
 
 @Injectable({
   providedIn: 'root',
 })
 export class IntroService {
   private drawer!: MatDrawer;
+  private expansionPanel! : MatExpansionPanel;
   introduceBehaviour = new BehaviorSubject(true);
   overlayBehaviour = new BehaviorSubject(false);
   hideBehaviour = new BehaviorSubject(false);
   sideBarBehaviour = new BehaviorSubject(true);
+  loadingBehaviour = new BehaviorSubject(false);
+  gotoBehaviour = new BehaviorSubject(false);
   private card!: any;
   introJS = introJs();
   introJSMenu = introJs();
@@ -44,6 +42,7 @@ export class IntroService {
     private notificationService: NavbarNotificationsService,
     private flowService: FlowService,
     private stepsDataService: StepsDataService,
+    private http: HttpClient,
   ) {}
   completionData: StepCompleteData = new StepCompleteData(0, 0);
   badgeData = {
@@ -69,9 +68,8 @@ export class IntroService {
       showBullets: false,
       exitOnOverlayClick: false,
       hidePrev: true,
-      disableInteraction: false,
       hideNext: true,
-      // exitOnEsc: false,
+      exitOnEsc: false,
     });
     this.introJSStart.start();
     this.introJSStart.onexit((event: Event) => {
@@ -90,33 +88,58 @@ export class IntroService {
             ' <div class="intro-text">Text about module name .</div>',
           position: 'bottom',
         },
-        // {
-        //   element: '#active_step',
-        //   intro:
-        //     '<div class="intro-heading">Current Step </div>' +
-        //     '<div class="intro-text">Text about Step.</div>',
-        //   // '<div> <button class="btn introjs-button" onClick="introJs().exit()" >Done</button></div>',
-        //   position: 'bottom',
-        // tooltipClass : 'hide-skip'
-        // },
-        // {
-        //   element: '#active_gif',
-        //   intro:
-        //     '<div class="intro-heading">Current Step GIF </div> <div></div>' +
-        //     '<div class="intro-text">Text about</div>',
-        //   position: 'bottom',
-        // tooltipClass : 'hide-skip'
-        // },
       ],
       tooltipPosition: 'auto',
+      doneLabel:
+        '<span style="font-size: 16px;vertical-align: sub">Next &#8594;</span>',
       showStepNumbers: false,
       showProgress: false,
       showBullets: false,
-      // exitOnOverlayClick: false,
+      exitOnOverlayClick: false,
       hidePrev: true,
       disableInteraction: false,
       hideNext: true,
-      doneLabel: 'Next',
+      exitOnEsc: false,
+    });
+    intro.start();
+    intro.onexit((event: Event) => {
+     this.togglePanel();
+     setTimeout(()=>{
+       this.startActiveStepIntro();
+     },500)
+    });
+  }
+
+  startActiveStepIntro(){
+    let intro = introJs.introJs();
+    intro.setOptions({
+      steps: [
+        {
+          element: '#active_step',
+          intro:
+            '<div class="intro-heading">Current Step </div>' +
+            '<div class="intro-text">Text about Step.</div>',
+          position: 'bottom',
+          tooltipClass: 'hide-skip',
+        },
+        {
+          element: '#active_gif',
+          intro:
+            '<div class="intro-heading">Current Step GIF </div> <div></div>' +
+            '<div class="intro-text">Text about</div>',
+          position: 'bottom',
+        },
+      ],
+      tooltipPosition: 'auto',
+      doneLabel:
+        '<span style="font-size: 16px;vertical-align: sub">Next &#8594;</span>',
+      showStepNumbers: false,
+      showProgress: false,
+      showBullets: false,
+      exitOnOverlayClick: false,
+      hidePrev: true,
+      disableInteraction: false,
+      hideNext: true,
       exitOnEsc: false,
     });
     intro.start();
@@ -139,20 +162,22 @@ export class IntroService {
           tooltipClass: window.innerWidth < MOBILE_WIDTH ? 'intro-tooltip' : '',
         },
       ],
+      doneLabel:
+        '<span style="font-size: 16px;vertical-align: sub">Next &#8594;</span>',
       tooltipPosition: 'auto',
       showStepNumbers: false,
       showProgress: false,
       showBullets: false,
       exitOnOverlayClick: false,
+      disableInteraction: false,
       hidePrev: true,
-      disableInteraction: true,
       hideNext: true,
-      doneLabel: 'Next',
       exitOnEsc: false,
     });
     intro.start();
     intro.onexit((event: Event) => {
       this.setOverlayFalse();
+      this.setGotoTrue();
       this.startGotoIntroInteractive();
     });
   }
@@ -177,7 +202,6 @@ export class IntroService {
       exitOnOverlayClick: false,
       hidePrev: true,
       hideNext: true,
-      doneLabel: 'Next',
       exitOnEsc: false,
     });
     this.introJS.start();
@@ -199,7 +223,6 @@ export class IntroService {
             '<div class="intro-heading">Goto </div> <div></div>' +
             '<div class="intro-text">Text about Goto</div>',
           position: 'auto',
-
         },
       ],
       tooltipPosition: 'auto',
@@ -211,11 +234,10 @@ export class IntroService {
       hideNext: true,
       exitOnEsc: false,
     });
-   intro.start();
+    intro.start();
   }
 
   startSupportGroupIntro() {
-    // this.openDrawer();
     let intro = introJs.introJs();
     intro.setOptions({
       steps: [
@@ -226,19 +248,11 @@ export class IntroService {
             '<div class="intro-heading">New Post </div> ' +
             '<div class="intro-text">Text about New Post </div>',
           position: 'bottom',
-          tooltipClass: 'hide-skip',
-        },
-        {
-          element:
-            window.innerWidth < MOBILE_WIDTH ? '#goto_mobile' : '#goto_desktop',
-          intro:
-            '<div class="intro-heading">Goto </div> <div></div>' +
-            '<div class="intro-text">Text about Goto</div>',
-          position: 'bottom',
         },
       ],
       tooltipPosition: 'auto',
-      doneLabel:  '<span style="font-size: 16px;vertical-align: sub">Next &#8594;</span>',
+      doneLabel:
+        '<span style="font-size: 16px;vertical-align: sub">Next &#8594;</span>',
       showStepNumbers: false,
       showProgress: false,
       showBullets: false,
@@ -251,22 +265,20 @@ export class IntroService {
 
     intro.start();
 
-    intro.onexit(()=>{
-      let text_support_group = '<div>Text about Support Group</div>'
-      if(window.innerWidth  < MOBILE_WIDTH){
+    intro.onexit(() => {
+      let text_support_group = '<div>Text about Support Group</div>';
+      if (window.innerWidth < MOBILE_WIDTH) {
         this.drawer.toggle();
-        setTimeout(()=>{
-          this.startNavbarElementIntro('#support-group',text_support_group);
-        },2000)
+        setTimeout(() => {
+          this.startNavbarElementIntro('#support-group', text_support_group);
+        }, 2000);
+      } else {
+        this.startNavbarElementIntro('#support-group', text_support_group);
       }
-      else{
-        this.startNavbarElementIntro('#support-group',text_support_group);
-      }
-    })
+    });
   }
 
-
-  startNavbarElementIntro(element : string,text_element: string) {
+  startNavbarElementIntro(element: string, text_element: string) {
     let intro = introJs.introJs();
     intro.setOptions({
       steps: [
@@ -275,11 +287,12 @@ export class IntroService {
           intro:
             '<div class="intro-heading">Access from left navigation bar</div> ' +
             text_element,
-          position : 'right',
+          position: 'right',
         },
       ],
       tooltipPosition: 'auto',
-      doneLabel:  '<span style="font-size: 16px;vertical-align: sub">Next &#8594;</span>',
+      doneLabel:
+        '<span style="font-size: 16px;vertical-align: sub">Next &#8594;</span>',
       showStepNumbers: false,
       showProgress: false,
       showBullets: false,
@@ -290,82 +303,13 @@ export class IntroService {
       exitOnEsc: false,
     });
     intro.start();
-    intro.onexit(()=>{
+    intro.onexit(() => {
       this.startGotoIntro();
-      if(window.innerWidth < MOBILE_WIDTH){
+      if (window.innerWidth < MOBILE_WIDTH) {
         this.drawer.toggle();
       }
-    })
+    });
   }
-
-  // startGamesIntro() {
-  //   let intro = introJs.introJs();
-  //   intro.setOptions({
-  //     steps: [
-  //       {
-  //         element: '#games',
-  //         intro:
-  //           '<div class="intro-heading">Access from left navigation bar</div> ' +
-  //           '<div>Text about Games</div>',
-  //         position: 'right',
-  //         tooltipClass: 'hide-skip',
-  //       },
-  //       {
-  //         element:
-  //           window.innerWidth < MOBILE_WIDTH ? '#goto_mobile' : '#goto_desktop',
-  //         intro:
-  //           '<div class="intro-heading">Goto </div> <div></div>' +
-  //           '<div class="intro-text">Text about Goto</div>',
-  //         position: 'bottom',
-  //       },
-  //     ],
-  //     tooltipPosition: 'auto',
-  //     showStepNumbers: false,
-  //     showProgress: false,
-  //     showBullets: false,
-  //     exitOnOverlayClick: false,
-  //     hidePrev: true,
-  //     disableInteraction: true,
-  //     hideNext: true,
-  //     exitOnEsc: false,
-  //   });
-  //   intro.start();
-  // }
-
-  // startFormsIntro() {
-  //   let intro = introJs.introJs();
-  //   intro.setOptions({
-  //     steps: [
-  //       {
-  //         element: '#forms',
-  //         intro:
-  //           '<div class="intro-heading">Access from left navigation bar</div> ' +
-  //           '<div>Text about Forms</div>',
-  //         position: 'right',
-  //         tooltipClass: 'hide-skip',
-  //       },
-  //       {
-  //         element:
-  //           window.innerWidth < MOBILE_WIDTH ? '#goto_mobile' : '#goto_desktop',
-  //         intro:
-  //           '<div class="intro-heading">Goto </div> <div></div>' +
-  //           '<div class="intro-text">Text about Goto</div>' +
-  //           '<div> <button class="btn introjs-button float-right" onClick="introJs().exit()" >Done</button></div>',
-  //         position: 'bottom',
-  //       },
-  //     ],
-  //     tooltipPosition: 'auto',
-  //     showStepNumbers: false,
-  //     showProgress: false,
-  //     showBullets: false,
-  //     exitOnOverlayClick: false,
-  //     hidePrev: true,
-  //     disableInteraction: true,
-  //     hideNext: true,
-  //     exitOnEsc: false,
-  //   });
-  //   intro.start();
-  // }
 
   startBadgesIntro() {
     let intro = introJs.introJs();
@@ -402,12 +346,11 @@ export class IntroService {
       this.completionData.step_id = 75;
       this.completionData.time_spent = 100;
       this.setIntroduceTrue();
-      this.showCongratsDialog();
-      // this.stepsDataService
-      //   .storeCompletionData(this.completionData)
-      //   .subscribe(() => {
-      //     this.showCongratsDialog();
-      //   });
+      this.stepsDataService
+        .storeCompletionData(this.completionData)
+        .subscribe(() => {
+          this.showCongratsDialog();
+        });
     });
   }
 
@@ -435,64 +378,6 @@ export class IntroService {
     );
     pointsComponent.instance.points = 20;
     this.component = pointsComponent;
-
-  }
-
-  openIntroDialog() {
-    const dialogRef = this.dialog.open(IntroDialogComponent, {
-      panelClass: 'intro-dialog',
-      autoFocus: false,
-      maxWidth: '340px',
-      disableClose: true,
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
-      this.startIntro();
-    });
-  }
-
-  openGameIntroDialog() {
-      const dialogRef = this.dialog.open(GameIntroComponent, {
-      panelClass: 'intro-dialog',
-      autoFocus: false,
-      maxWidth: '340px',
-      disableClose: true,
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
-      let text_games = '<div>Text about Games</div>'
-      if(window.innerWidth  < MOBILE_WIDTH){
-        this.drawer.toggle();
-        setTimeout(()=>{
-          this.startNavbarElementIntro('#games',text_games);
-        },2000)
-      }
-      else{
-        this.startNavbarElementIntro('#games',text_games);
-      }
-    });
-
-  }
-
-  openFormIntroDialog() {
-    const dialogRef = this.dialog.open(FormIntroComponent, {
-      panelClass: 'intro-dialog',
-      autoFocus: false,
-      maxWidth: '340px',
-      disableClose: true,
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      let text_forms = '<div>Text about Forms</div>'
-      if(window.innerWidth  < MOBILE_WIDTH){
-        this.drawer.toggle();
-        setTimeout(()=>{
-          this.startNavbarElementIntro('#forms',text_forms);
-        },1000)
-      }
-      else{
-        this.startNavbarElementIntro('#forms',text_forms);
-      }
-    });
   }
 
   startFlowIntro() {
@@ -649,15 +534,51 @@ export class IntroService {
     });
   }
 
+  callNavbarFormIntro() {
+    let text_forms = '<div>Text about Forms</div>';
+    if (window.innerWidth < MOBILE_WIDTH) {
+      this.toggleDrawer();
+      setTimeout(() => {
+        this.startNavbarElementIntro('#forms', text_forms);
+      }, 500);
+    } else {
+      this.startNavbarElementIntro('#forms', text_forms);
+    }
+  }
+
+  callNavBarGameIntro() {
+    let text_games = '<div>Text about Games</div>';
+    if (window.innerWidth < MOBILE_WIDTH) {
+      this.toggleDrawer();
+      setTimeout(() => {
+        this.startNavbarElementIntro('#games', text_games);
+      }, 500);
+    } else {
+      this.startNavbarElementIntro('#games', text_games);
+    }
+  }
+
+  showAnimation(element: string) {
+    return this.http.get(
+      environment.API_ENDPOINT +
+        '/api/v1/flow/show-introductory-animation/' +
+        element,
+    );
+  }
+
   setDrawer(drawer: MatDrawer) {
     this.drawer = drawer;
   }
 
-  openDrawer(): void {
-    this.drawer.open();
+  setPanel(panel: MatExpansionPanel){
+    this.expansionPanel = panel;
   }
 
-  closeDrawer(): void {
+  togglePanel(){
+    this.expansionPanel.open();
+  }
+
+  toggleDrawer(): void {
     this.drawer.toggle();
   }
 
@@ -685,12 +606,28 @@ export class IntroService {
     this.overlayBehaviour.next(true);
   }
 
+  setLoadingFalse() {
+    this.loadingBehaviour.next(false);
+  }
+
+  setLoadingTrue() {
+    this.loadingBehaviour.next(true);
+  }
+
   setHideTrue() {
     this.hideBehaviour.next(true);
   }
 
   setHideFalse() {
     this.hideBehaviour.next(false);
+  }
+
+  setGotoTrue() {
+    this.gotoBehaviour.next(true);
+  }
+
+  setGotoFalse() {
+    this.gotoBehaviour.next(false);
   }
   exitIntro() {
     this.introJS.exit();

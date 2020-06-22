@@ -84,7 +84,6 @@ import { StepComponent } from './flow/step-group/step/step.component';
 import { StepsIndicatorComponent } from './flow/step-group/steps-indicator/steps-indicator.component';
 // import { QuizService } from '@/shared/questionnaire/questionnaire.service';
 import { FlowStepNavigationService } from './shared/flow-step-navigation.service';
-import { IntroduceComponent } from './shared/introduce/introduce.component';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { NavbarFlowComponent } from './shared/navbar/navbar-flow/navbar-flow.component';
 import { NavbarFlowDirective } from './shared/navbar/navbar-flow.directive';
@@ -177,6 +176,7 @@ import { IntroService } from '@/main/walk-through/intro.service';
 import { PointsComponent } from './shared/points/points.component';
 import { GameIntroComponent } from './walk-through/game-intro/game-intro.component';
 import { FormIntroComponent } from './walk-through/form-intro/form-intro.component';
+import { IntroDialogService } from '@/main/walk-through/intro-dialog.service';
 
 // import { Resources2Routing } from './extra-resources/extra-resources-routing.module.ts/extra-resources-routing.module.ts.component';
 
@@ -225,7 +225,6 @@ import { FormIntroComponent } from './walk-through/form-intro/form-intro.compone
     StepGroupComponent,
     StepComponent,
     StepsIndicatorComponent,
-    IntroduceComponent,
     NavbarFlowComponent,
     NavbarFlowDirective,
     NavbarNotificationDirective,
@@ -355,11 +354,11 @@ import { FormIntroComponent } from './walk-through/form-intro/form-intro.compone
     ExtraResourcesService,
     // QuizService
     IntroService,
+    IntroDialogService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [
     CreatePostComponent,
-    IntroduceComponent,
     NavbarFlowComponent,
     NavbarNotificationsComponent,
     IbGameInstructionsComponent,

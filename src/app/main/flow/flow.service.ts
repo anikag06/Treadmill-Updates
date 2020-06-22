@@ -16,7 +16,7 @@ import { FlowStepNavigationService } from '../shared/flow-step-navigation.servic
 })
 export class FlowService {
   introduceBehaviour = new BehaviorSubject(false);
-  loadBehaviour = new BehaviorSubject(true);
+  loadBehaviour = new BehaviorSubject(false);
   unlockModuleTime = new BehaviorSubject(0);
   stepDetail = new EventEmitter<any>();
   stepSequence = 0;
@@ -83,8 +83,9 @@ export class FlowService {
     return prevStepGroup.steps[prevStepGroup.steps.length - 1].id;
   }
 
-  setFirstStepCompleted(status: string) {
-    this.stepCompleted = status === COMPLETED ? true : false;
+  setFirstStepCompleted(status: string): boolean {
+    this.stepCompleted = status === COMPLETED;
+    return this.stepCompleted;
   }
 
   getFirstStepCompleted() {

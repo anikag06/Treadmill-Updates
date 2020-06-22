@@ -1,10 +1,11 @@
-import {Component, Input, OnDestroy, OnInit,} from '@angular/core';
-import {FlowService} from './flow.service';
-import {StepGroup} from './step-group/step-group.model';
-import {Subscription} from 'rxjs';
-import {MOBILE_WIDTH} from '@/app.constants';
-import {MatDialog} from '@angular/material/dialog';
-import {IntroService} from "@/main/walk-through/intro.service";
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { FlowService } from './flow.service';
+import { StepGroup } from './step-group/step-group.model';
+import { Subscription } from 'rxjs';
+import { MOBILE_WIDTH } from '@/app.constants';
+import { MatDialog } from '@angular/material/dialog';
+import { IntroService } from '@/main/walk-through/intro.service';
+import { isNotNullOrUndefined } from 'codelyzer/util/isNotNullOrUndefined';
 
 @Component({
   selector: 'app-flow',
@@ -15,16 +16,24 @@ export class FlowComponent implements OnInit, OnDestroy {
   @Input() navBar!: any;
   stepGroups: StepGroup[] = [];
   flowSubscription!: Subscription;
-  introSubscription! : Subscription
+  introSubscription!: Subscription;
   dataloaded = false;
   showOverlay = false;
+  gotoSubscription!: Subscription;
+  introExit = false;
+  @Input() fromGoto!:boolean;
 
-  constructor(private flowService: FlowService, private dialog: MatDialog,private introService : IntroService) {}
+  constructor(
+    private flowService: FlowService,
+    private dialog: MatDialog,
+    private introService: IntroService,
+  ) {}
 
   ngOnInit() {
     console.log(this.navBar);
     this.dataloaded = false;
-    this.flowService.loadBehaviour.subscribe((data) => this.loadData());
+    // this.flowService.loadBehaviour.subscribe((data) => this.loadData());
+    this.loadData();
     if (window.innerWidth < MOBILE_WIDTH) {
       this.introSubscription = this.introService.overlayBehaviour.subscribe(
         (showOverlay) => {
@@ -32,16 +41,22 @@ export class FlowComponent implements OnInit, OnDestroy {
         },
       );
     }
-    console.log(this.showOverlay);
+    this.gotoSubscription = this.introService.gotoBehaviour.subscribe(
+      (value: boolean) => {
+        this.introExit = value;
+      },
+    );
   }
-
 
   ngOnDestroy(): void {
     if (this.flowSubscription) {
       this.flowSubscription.unsubscribe();
     }
-    if(this.introSubscription){
+    if (this.introSubscription) {
       this.introSubscription.unsubscribe();
+    }
+    if (isNotNullOrUndefined(this.gotoSubscription)) {
+      this.gotoSubscription.unsubscribe();
     }
   }
 
@@ -54,10 +69,15 @@ export class FlowComponent implements OnInit, OnDestroy {
       .subscribe((data: any) => {
         console.log('response', data);
         this.stepGroups = data.step_groups;
-        this.flowService.setFirstStepCompleted(this.stepGroups[0].steps[0].status);
+        this.flowService.setFirstStepCompleted(
+          this.stepGroups[0].steps[0].status,
+        );
         this.dataloaded = true;
+         setTimeout(() => {
+          if (!this.fromGoto ) {
+            this.flowService.triggerLoad();
+          }
+        }, 2000);
       });
   }
-
-
 }

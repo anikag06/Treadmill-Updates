@@ -9,7 +9,10 @@ import {
   GAME_LEARNED_HELPLESSNESS_CONSTANT,
   GAME_IDENTIFY_COGNITIVE_DISTORTION_CONSTANT,
   GAME_EXECUTIVE_CONTROL_CONSTANT,
+  FORM_TASK,
 } from '@/app.constants';
+import { IntroService } from '@/main/walk-through/intro.service';
+import { IntroDialogService } from '@/main/walk-through/intro-dialog.service';
 
 @Component({
   selector: 'app-game-item',
@@ -20,12 +23,24 @@ export class GameItemComponent implements OnInit {
   gameStarted = false;
   @Input() game!: Game;
 
-  constructor(private router: Router, private route: ActivatedRoute) {}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private introService: IntroService,
+    private introDialogService: IntroDialogService,
+  ) {}
 
   ngOnInit() {}
 
   onGameClick(game: Game) {
     this.gameStarted = true;
+    this.introService.showAnimation(game.slug).subscribe((data: any) => {
+      if (data.show_animation) {
+        setTimeout(() => {
+          this.introDialogService.openGameIntroDialog(false);
+        }, 1000);
+      }
+    });
     this.router.navigate([game.slug], { relativeTo: this.route });
   }
 

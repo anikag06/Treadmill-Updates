@@ -161,8 +161,8 @@ h3 {
 
 .scroll-div {
   background: transparent
-    linear-gradient(180deg, #faf4ea00 0%, #faf4ea 48%, #faf4ea 100%) 0% 0%
-    no-repeat padding-box;
+  linear-gradient(180deg, #faf4ea00 0%, #faf4ea 48%, #faf4ea 100%) 0% 0%
+  no-repeat padding-box;
   border-radius: 0px 0px 4px 4px;
   opacity: 1;
   position: sticky;
@@ -177,3 +177,8 @@ h3 {
     font-weight: bolder;
   }
 }
+.done-btn{
+  background: #2A3B3D;
+  color : white;
+}
+

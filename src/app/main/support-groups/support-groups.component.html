@@ -1,4 +1,10 @@
-<div class="container-fluid no-gutters-sm body-bg">
+<div
+  class="container-fluid no-gutters-sm body-bg"
+  [ngClass]="{
+    'd-block': !loading,
+    'd-none': loading
+  }"
+>
   <div class="row no-gutters">
     <div class="col-md-12">
       <div class="row no-gutters">
@@ -54,4 +60,8 @@
       </div>
     </div>
   </div>
+</div>
+<div *ngIf="loading" class="ml-5 loading-feeds">
+  <img src="assets/shared/dna-loader.svg" alt="loading..." width="200" />
+  <div>Personalizing feed</div>
 </div>

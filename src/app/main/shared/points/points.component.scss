@@ -37,12 +37,12 @@
   right: 50%;
   position: fixed;
   padding-top: 14px;
-//  @include fadeAnimation();
+
 }
 
 @media screen and (max-width: 500px) {
   .points {
     bottom: 15vh;
-    //right: 50%;
+    right: 30%;
   }
 }

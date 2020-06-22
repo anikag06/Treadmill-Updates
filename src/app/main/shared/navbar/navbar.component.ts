@@ -42,6 +42,7 @@ import { map, switchMap } from 'rxjs/operators';
 import { LOGGED_IN_PATH } from '@/app.constants';
 import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
 import { IntroService } from '@/main/walk-through/intro.service';
+import { isNotNullOrUndefined } from 'codelyzer/util/isNotNullOrUndefined';
 
 @Component({
   selector: 'app-navbar',
@@ -76,8 +77,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
   @Input() isHandset$!: boolean;
   hideSubscription!: Subscription;
   hideCards = false;
-  sideBarSubsciprtion! :Subscription;
+  sideBarSubsciprtion!: Subscription;
   fromIntro = false;
+  gotoSubscription!: Subscription;
+  introExit = false;
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
     private notificationService: NavbarNotificationsService,
@@ -147,6 +150,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
         this.hideCards = hideCards;
       },
     );
+    this.gotoSubscription = this.introService.gotoBehaviour.subscribe(
+      (value: boolean) => {
+        this.introExit = value;
+      },
+    );
   }
 
   ngOnInit() {
@@ -173,7 +181,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
         this.fromIntro = fromIntro;
       },
     );
-
   }
 
   notificationClick() {
@@ -194,7 +201,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   flowClick() {
-    this.introService.exitIntro();
+    if (this.introExit) {
+      this.introService.exitIntro();
+      this.introService.setGotoFalse();
+    }
     this.notificationService.openNavFlow.emit();
     this.overlayService.showFlow = true;
     console.log('flow host', this.flowHost);
@@ -216,7 +226,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   hamburgerClicked() {
-    if(this.fromIntro){
+    if (this.fromIntro) {
       this.introService.exitNavIntro();
     }
     this.hamburgerClick.emit();
@@ -233,6 +243,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.userNotificationSubscription) {
       this.userNotificationSubscription.unsubscribe();
+    }
+    if (isNotNullOrUndefined(this.gotoSubscription)) {
+      this.gotoSubscription.unsubscribe();
     }
   }
 
