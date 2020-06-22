@@ -5,6 +5,7 @@ import { PreLoginComponent } from './pre-login/pre-login.component';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { AuthGuard } from './shared/auth/auth.guard';
 import { SignUpComponent } from '@/pre-login/signup/signup.component';
+import {TempLandingPageComponent} from "@/temp-landing-page/temp-landing-page.component";
 
 export const routes: Routes = [
   {
@@ -31,8 +32,9 @@ export const routes: Routes = [
         m => m.TrialRegistrationModule,
       ),
   },
-
+  { path: 'iitk', component: TempLandingPageComponent },
   { path: '**', component: NotFoundComponent },
+
 ];
 
 @NgModule({

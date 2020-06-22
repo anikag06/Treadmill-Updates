@@ -40,6 +40,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { QuizService } from '@/shared/questionnaire/questionnaire.service';
+import {TempLandingPageComponent} from "@/temp-landing-page/temp-landing-page.component";
 
 declare let $: any;
 
@@ -55,6 +56,7 @@ declare let $: any;
     ErrorDialogComponent,
     NotFoundComponent,
     SignUpComponent,
+    TempLandingPageComponent,
   ],
   imports: [
     BrowserModule,

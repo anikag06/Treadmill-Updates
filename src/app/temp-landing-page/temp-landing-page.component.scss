@@ -1,0 +1,75 @@
+@import '../../common-styles';
+
+
+.first-section {
+  background-color: #2A3B3D;
+  color: white;
+  height: 120vh;
+
+}
+.logo {
+  margin-bottom: 10%;
+}
+.center-banner {
+  height: 45vh;
+
+}
+.second-section {
+  background-color: #f7f7f7;
+}
+.third-section {
+  height: 15vh;
+  background-color: #f4bb56;
+  color: white;
+}
+
+@mixin btn-join-the-study-common {
+  @include btn-roundify(36px);
+  @include font-montserrat($font-weight: 700);
+  font-size: 100%;
+  padding: 0px !important;
+  z-index: 1;
+  border: 4px solid white !important;
+}
+
+//.screen-3-container {
+//  position: relative;
+//
+//  img {
+//    height: auto;
+//  }
+//}
+input{
+  height: 45px;
+  width: 100%;
+  border-radius: 20px;
+  border: none;
+}
+.btn-subscribe{
+  position: absolute;
+  color: white;
+  height: 45px;
+  left: 64%;
+  width: 43%;
+  background-color: #f4bb56;
+  border-radius: 20px;
+}
+
+.anchorify-default {
+  @extend .anchorify-default;
+}
+
+.img-resp{
+  max-width: 100%;
+  height: auto;
+}
+
+@media only screen and (min-width:  768px) {
+  .img-resp{
+    max-width: 80%;
+  }
+  .first-section {
+    height: 80vh;
+
+  }
+}
