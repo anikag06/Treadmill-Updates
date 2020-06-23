@@ -140,7 +140,7 @@
     text-align: left;
     box-shadow: 0px 1px 3px #00000029;
     background: #ffffff 0% 0% no-repeat padding-box;
-    word-break: break-all;
+    word-break: break-word;
   }
   // .meta {
   //   text-align: center;
@@ -429,7 +429,7 @@ $x3: -$leftPos + $dotSpacing;
   margin-bottom: 7px;
 }
 
-.chatbot-card {
+.chatbot-error-card {
   background: #ffffff 0% 0% no-repeat padding-box;
   box-shadow: 0px -1px 3px #00000029;
   position: absolute;
