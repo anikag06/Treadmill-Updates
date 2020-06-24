@@ -1,6 +1,6 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {IntroDialogComponent} from './intro-dialog.component';
+import { IntroDialogComponent } from './intro-dialog.component';
 
 describe('IntroDialogComponent', () => {
   let component: IntroDialogComponent;
@@ -8,9 +8,8 @@ describe('IntroDialogComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ IntroDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [IntroDialogComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

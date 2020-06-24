@@ -7,7 +7,7 @@ import { UserProfile } from '../shared/user-profile/UserProfile.model';
 import { UserProfileService } from '../shared/user-profile/userProfile.service';
 import { IntroService } from '@/main/walk-through/intro.service';
 import { Observable, Subscription, timer } from 'rxjs';
-import {isNotNullOrUndefined} from "codelyzer/util/isNotNullOrUndefined";
+import { isNotNullOrUndefined } from 'codelyzer/util/isNotNullOrUndefined';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -16,7 +16,7 @@ import {isNotNullOrUndefined} from "codelyzer/util/isNotNullOrUndefined";
 export class DashboardComponent implements OnInit {
   mobileView = false;
   introduceSubscription!: Subscription;
-  hideSubscription! : Subscription;
+  hideSubscription!: Subscription;
   user!: User;
   constructor(
     private authService: AuthService,
@@ -36,7 +36,7 @@ export class DashboardComponent implements OnInit {
 
     this.userProfileService
       .getUserProfile(this.user.username)
-      .subscribe((profile) => {
+      .subscribe(profile => {
         this.userProfile = new UserProfile(
           profile.username,
           profile.user_avatar,
@@ -51,13 +51,13 @@ export class DashboardComponent implements OnInit {
       });
     if (window.innerWidth < MOBILE_WIDTH) {
       this.introduceSubscription = this.introService.introduceBehaviour.subscribe(
-        (showFlow) => {
+        showFlow => {
           this.showFlow = showFlow;
         },
       );
     }
     this.hideSubscription = this.introService.hideBehaviour.subscribe(
-      (showFlow) => {
+      showFlow => {
         this.hideCards = showFlow;
       },
     );
@@ -67,7 +67,7 @@ export class DashboardComponent implements OnInit {
     if (isNotNullOrUndefined(this.introduceSubscription)) {
       this.introduceSubscription.unsubscribe();
     }
-    if(isNotNullOrUndefined(this.hideSubscription)){
+    if (isNotNullOrUndefined(this.hideSubscription)) {
       this.hideSubscription.unsubscribe();
     }
   }

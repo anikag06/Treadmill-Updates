@@ -21,7 +21,7 @@ export class FlowComponent implements OnInit, OnDestroy {
   showOverlay = false;
   gotoSubscription!: Subscription;
   introExit = false;
-  @Input() fromGoto!:boolean;
+  @Input() fromGoto!: boolean;
 
   constructor(
     private flowService: FlowService,
@@ -36,7 +36,7 @@ export class FlowComponent implements OnInit, OnDestroy {
     this.loadData();
     if (window.innerWidth < MOBILE_WIDTH) {
       this.introSubscription = this.introService.overlayBehaviour.subscribe(
-        (showOverlay) => {
+        showOverlay => {
           this.showOverlay = showOverlay;
         },
       );
@@ -73,8 +73,8 @@ export class FlowComponent implements OnInit, OnDestroy {
           this.stepGroups[0].steps[0].status,
         );
         this.dataloaded = true;
-         setTimeout(() => {
-          if (!this.fromGoto ) {
+        setTimeout(() => {
+          if (!this.fromGoto) {
             this.flowService.triggerLoad();
           }
         }, 2000);

@@ -17,14 +17,14 @@ import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 import { StepCompleteData } from '@/main/resources/shared/completion-data.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import {MatExpansionPanel} from "@angular/material/expansion";
+import { MatExpansionPanel } from '@angular/material/expansion';
 
 @Injectable({
   providedIn: 'root',
 })
 export class IntroService {
   private drawer!: MatDrawer;
-  private expansionPanel! : MatExpansionPanel;
+  private expansionPanel!: MatExpansionPanel;
   introduceBehaviour = new BehaviorSubject(true);
   overlayBehaviour = new BehaviorSubject(false);
   hideBehaviour = new BehaviorSubject(false);
@@ -57,7 +57,8 @@ export class IntroService {
       steps: [
         {
           element: '#active_step',
-          intro: '<div class="intro-heading">Click here to start </div>',
+          intro:
+            '<div class="intro-heading">Click on the yellow card to get started.</div>',
           position: 'bottom',
           tooltipClass: 'hide-skip-next',
         },
@@ -84,8 +85,8 @@ export class IntroService {
         {
           element: '#step0',
           intro:
-            '<div  class="intro-heading">Module Name</div>' +
-            ' <div class="intro-text">Text about module name .</div>',
+            '<div  class="intro-heading">This is the Module name</div>' +
+            ' <div class="intro-text">In each module, you will learn a different skill to improve your mental health.</div>',
           position: 'bottom',
         },
       ],
@@ -103,30 +104,30 @@ export class IntroService {
     });
     intro.start();
     intro.onexit((event: Event) => {
-     this.togglePanel();
-     setTimeout(()=>{
-       this.startActiveStepIntro();
-     },500)
+      this.togglePanel();
+      setTimeout(() => {
+        this.startActiveStepIntro();
+      }, 500);
     });
   }
 
-  startActiveStepIntro(){
+  startActiveStepIntro() {
     let intro = introJs.introJs();
     intro.setOptions({
       steps: [
         {
           element: '#active_step',
           intro:
-            '<div class="intro-heading">Current Step </div>' +
-            '<div class="intro-text">Text about Step.</div>',
+            '<div class="intro-heading">Current Step</div>' +
+            '<div class="intro-text">This is a Step card. Each module has multiple steps. The current step will be highlighted in yellow.</div>',
           position: 'bottom',
           tooltipClass: 'hide-skip',
         },
         {
           element: '#active_gif',
           intro:
-            '<div class="intro-heading">Current Step GIF </div> <div></div>' +
-            '<div class="intro-text">Text about</div>',
+            '<div class="intro-heading">Current Step GIF</div> <div></div>' +
+            '<div class="intro-text">This icon shows the current step and the current module. Use this icon to find your current step if you are lost.</div>',
           position: 'bottom',
         },
       ],
@@ -156,8 +157,8 @@ export class IntroService {
         {
           element: '#dashboard',
           intro:
-            '<div class="intro-heading">Progress </div> <div></div>' +
-            '<div class="intro-text">Text about</div>',
+            '<div class="intro-heading">Progress card</div> <div></div>' +
+            '<div class="intro-text">You can find all the modules and steps in this card. This will help you keep track of how much is completed.</div>',
           position: 'top',
           tooltipClass: window.innerWidth < MOBILE_WIDTH ? 'intro-tooltip' : '',
         },
@@ -189,8 +190,8 @@ export class IntroService {
           element:
             window.innerWidth < MOBILE_WIDTH ? '#goto_mobile' : '#goto_desktop',
           intro:
-            '<div class="intro-heading">Goto </div> <div></div>' +
-            '<div class="intro-text">Text about Goto</div>',
+            '<div class="intro-heading">Go To</div> <div></div>' +
+            '<div class="intro-text">Click on "Go To" to access the Progress card from anywhere in TreadWill.</div>',
           position: 'auto',
           tooltipClass: 'hide-skip-next',
         },
@@ -220,8 +221,8 @@ export class IntroService {
           element:
             window.innerWidth < MOBILE_WIDTH ? '#goto_mobile' : '#goto_desktop',
           intro:
-            '<div class="intro-heading">Goto </div> <div></div>' +
-            '<div class="intro-text">Text about Goto</div>',
+            '<div class="intro-heading">Go To</div> <div></div>' +
+            '<div class="intro-text">Once you are done here, click on "Go To" to access the Progress card and go to the next step.</div>',
           position: 'auto',
         },
       ],
@@ -245,8 +246,8 @@ export class IntroService {
           element:
             window.innerWidth < MOBILE_WIDTH ? '#new_post_mobile' : '#new-post',
           intro:
-            '<div class="intro-heading">New Post </div> ' +
-            '<div class="intro-text">Text about New Post </div>',
+            '<div class="intro-heading">Create post </div> ' +
+            '<div class="intro-text">Click on this button to write a post in the SupportGroup. We would love to hear from you.</div>',
           position: 'bottom',
         },
       ],
@@ -266,7 +267,8 @@ export class IntroService {
     intro.start();
 
     intro.onexit(() => {
-      let text_support_group = '<div>Text about Support Group</div>';
+      let text_support_group =
+        '<div>You can quickly access the SupportGroup from the Navigation menu.</div>';
       if (window.innerWidth < MOBILE_WIDTH) {
         this.drawer.toggle();
         setTimeout(() => {
@@ -285,7 +287,7 @@ export class IntroService {
         {
           element: element,
           intro:
-            '<div class="intro-heading">Access from left navigation bar</div> ' +
+            '<div class="intro-heading">Access from the Navigation menu</div> ' +
             text_element,
           position: 'right',
         },
@@ -318,8 +320,8 @@ export class IntroService {
         {
           element: '#profile',
           intro:
-            '<div class="intro-heading"> Profile </div> ' +
-            '<div class="intro-text">Text about Profile</div>',
+            '<div class="intro-heading"> Your Profile </div> ' +
+            '<div class="intro-text">You can see all the badges and your total score here. The badges you have earned will be highlighted.</div>',
           position: 'top',
           tooltipClass: 'hide-skip',
         },
@@ -327,7 +329,7 @@ export class IntroService {
           element: '#points',
           intro:
             '<div class="intro-heading">Points & Badges </div>' +
-            '<div class="intro-text">Text about Points & Badges</div>',
+            '<div class="intro-text"><div class="box-blue"></div>Total points.<br/><div class="gold"></div>No. of gold badges.<br/><div class="silver"></div>No. of silver badges.<br/><div class="bronze"></div>No. of bronze badges.</div>',
           position: 'bottom',
         },
       ],
@@ -387,8 +389,8 @@ export class IntroService {
         {
           element: '#flow',
           intro:
-            '<div class="intro-heading">Flow </div>' +
-            '<div class="intro-text">Text About Flow</div>',
+            '<div class="intro-heading">Progress card</div>' +
+            '<div class="intro-text">This is the same Progress card that you saw earlier. A shortcut via "Go To" so that you can access the next step quickly.</div>',
           position: 'bottom',
           highlightClass: 'hide-background',
           tooltipClass: window.innerWidth < MOBILE_WIDTH ? 'intro-tooltip' : '',
@@ -436,8 +438,8 @@ export class IntroService {
         {
           element: '#point',
           intro:
-            '<div class="intro-heading">Point </div>' +
-            '<div class="intro-text">Text About Point</div>',
+            '<div class="intro-heading">Points </div>' +
+            '<div class="intro-text">You can earn points by completing steps and for other activities in TreadWill.</div>',
           position: 'bottom',
           // highlightClass: 'hide-background',
           // tooltipClass: window.innerWidth < MOBILE_WIDTH ? 'intro-tooltip' : '',
@@ -470,8 +472,8 @@ export class IntroService {
         {
           element: '#hamburger',
           intro:
-            '<div class="intro-heading">Menu </div>' +
-            '<div class="intro-text">Text About Menu</div>',
+            '<div class="intro-heading">Hamburger icon </div>' +
+            '<div class="intro-text">Click on the hamburger icon to access the Navigation menu.</div>',
           position: 'bottom',
           tooltipClass: 'hide-skip-next',
         },
@@ -503,8 +505,8 @@ export class IntroService {
         {
           element: '#drawer',
           intro:
-            '<div class="intro-heading">Navigation </div>' +
-            '<div class="intro-text">Text About Text</div>',
+            '<div class="intro-heading">Navigation menu</div>' +
+            '<div class="intro-text"> This menu gives you a shortcut to the features of TreadWill.</div>',
           position: 'right',
           tooltipClass:
             window.innerWidth < MOBILE_WIDTH ? 'intro-tooltip-no-margin' : '',
@@ -535,7 +537,8 @@ export class IntroService {
   }
 
   callNavbarFormIntro() {
-    let text_forms = '<div>Text about Forms</div>';
+    let text_forms =
+      '<div>You can quickly access this form from the Navigation menu.</div>';
     if (window.innerWidth < MOBILE_WIDTH) {
       this.toggleDrawer();
       setTimeout(() => {
@@ -547,7 +550,8 @@ export class IntroService {
   }
 
   callNavBarGameIntro() {
-    let text_games = '<div>Text about Games</div>';
+    let text_games =
+      '<div>You can quickly access this game from the Navigation menu.</div>';
     if (window.innerWidth < MOBILE_WIDTH) {
       this.toggleDrawer();
       setTimeout(() => {
@@ -570,11 +574,11 @@ export class IntroService {
     this.drawer = drawer;
   }
 
-  setPanel(panel: MatExpansionPanel){
+  setPanel(panel: MatExpansionPanel) {
     this.expansionPanel = panel;
   }
 
-  togglePanel(){
+  togglePanel() {
     this.expansionPanel.open();
   }
 

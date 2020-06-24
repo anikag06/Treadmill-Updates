@@ -23,7 +23,7 @@ export class IntroDialogService {
       maxWidth: '340px',
       disableClose: true,
     });
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       this.introService.startIntro();
     });
@@ -39,7 +39,7 @@ export class IntroDialogService {
         buttonText: fromFlow ? this.buttonHTML : 'Done',
       },
     });
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.afterClosed().subscribe(result => {
       if (fromFlow) {
         this.introService.callNavBarGameIntro();
       }
@@ -56,7 +56,7 @@ export class IntroDialogService {
         buttonText: fromFlow ? this.buttonHTML : 'Done',
       },
     });
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.afterClosed().subscribe(result => {
       if (fromFlow) {
         this.introService.callNavbarFormIntro();
       }
@@ -69,7 +69,7 @@ export class IntroDialogService {
       autoFocus: false,
       maxWidth: '340px',
     });
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       const dialogRef = this.dialog.open(IntroSelectTagsComponent, {
         panelClass: 'intro-tag-dialog',

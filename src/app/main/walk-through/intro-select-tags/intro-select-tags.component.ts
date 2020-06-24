@@ -52,7 +52,7 @@ export class IntroSelectTagsComponent implements OnInit {
           event.target.classList.add('d-none');
         }
         console.log(' event.target.innerHTML', event);
-        this.formTags = this.formTags.filter((i) => tagId !== i);
+        this.formTags = this.formTags.filter(i => tagId !== i);
       } else {
         this.formTags.push(tagId);
         if (event.target.nodeName === 'BUTTON') {
@@ -77,7 +77,7 @@ export class IntroSelectTagsComponent implements OnInit {
     this.dialogRef.close();
     this.introService.setLoadingTrue();
     this.sgService.personalizePost(this.formTags).subscribe(
-      (res) => {
+      res => {
         this.introService.setLoadingFalse();
         if (this.fromFlow) {
           setTimeout(() => {
@@ -85,7 +85,7 @@ export class IntroSelectTagsComponent implements OnInit {
           }, 1000);
         }
       },
-      (error) => {},
+      error => {},
     );
   }
 }

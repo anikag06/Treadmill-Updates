@@ -29,10 +29,10 @@ import { TasksService } from '@/main/resources/forms/shared/tasks/tasks.service'
 import { TechniquesInfoComponent } from '@/main/resources/forms/shared/techniques-info/techniques-info.component';
 import { THINIKING_ERROR_DATA } from '@/main/resources/forms/shared/techniques-info/thinking-error-technique.data';
 import { MatDialog } from '@angular/material';
-import {map, switchMap} from "rxjs/operators";
-import {FlowService} from "@/main/flow/flow.service";
-import {ActivatedRoute} from "@angular/router";
-import {StepsDataService} from "@/main/resources/shared/steps-data.service";
+import { map, switchMap } from 'rxjs/operators';
+import { FlowService } from '@/main/flow/flow.service';
+import { ActivatedRoute } from '@angular/router';
+import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 
 @Component({
   selector: 'app-problem-solving-worksheets',
@@ -94,26 +94,24 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
     this.activatedRoute.params
       .pipe(
         map(v => v.id),
-        switchMap(id =>  this.stepDataService
-          .getStepData(id)),
+        switchMap(id => this.stepDataService.getStepData(id)),
       )
-      .subscribe(
-        (res: any) => {
-          const step = res.data;
-          console.log('RESPONSE', res.data, step.status);
-          // for navbar title
-          this.stepGroupSequence = step.step_group_sequence + 1;
-          this.stepSequence = step.sequence + 1;
-          this.stepName = step.name;
-          this.navbarTitle =
-            this.stepGroupSequence.toString() +
-            '.' +
-            this.stepSequence.toString() +
-            ' ' +
-            this.stepName;
-          console.log('STEP DETAIL:', this.navbarTitle);
-          this.flowService.stepDetail.emit(this.navbarTitle);
-        } );
+      .subscribe((res: any) => {
+        const step = res.data;
+        console.log('RESPONSE', res.data, step.status);
+        // for navbar title
+        this.stepGroupSequence = step.step_group_sequence + 1;
+        this.stepSequence = step.sequence + 1;
+        this.stepName = step.name;
+        this.navbarTitle =
+          this.stepGroupSequence.toString() +
+          '.' +
+          this.stepSequence.toString() +
+          ' ' +
+          this.stepName;
+        console.log('STEP DETAIL:', this.navbarTitle);
+        this.flowService.stepDetail.emit(this.navbarTitle);
+      });
     // this.subscriptions[
     //   this.subscriptions.length
     // ] = this.problemService.problemBehaviour.subscribe((problem: any) => {

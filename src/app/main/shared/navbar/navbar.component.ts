@@ -146,7 +146,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       }
     });
     this.hideSubscription = this.introService.hideBehaviour.subscribe(
-      (hideCards) => {
+      hideCards => {
         this.hideCards = hideCards;
       },
     );
@@ -158,7 +158,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.notificationService.closeSubject.subscribe((data) => {
+    this.notificationService.closeSubject.subscribe(data => {
       if (data) {
         this.notificationClick();
       }
@@ -177,7 +177,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       this.flowClick();
     });
     this.sideBarSubsciprtion = this.introService.sideBarBehaviour.subscribe(
-      (fromIntro) => {
+      fromIntro => {
         this.fromIntro = fromIntro;
       },
     );
@@ -197,7 +197,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     const notifications = this.notificationService
       .putUserNotifications()
       .toPromise();
-    notifications.then((data) => console.log(data));
+    notifications.then(data => console.log(data));
   }
 
   flowClick() {
@@ -255,7 +255,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       .toPromise();
     notificationCountPromise
       .then((data: any) => (this.unreadCount = data.data))
-      .catch((error) => console.log(error));
+      .catch(error => console.log(error));
   }
 
   onshowFullConversation() {

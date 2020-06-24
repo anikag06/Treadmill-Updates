@@ -1,6 +1,6 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {IntroSelectTagsComponent} from './intro-select-tags.component';
+import { IntroSelectTagsComponent } from './intro-select-tags.component';
 
 describe('IntroSelectTagsComponent', () => {
   let component: IntroSelectTagsComponent;
@@ -8,9 +8,8 @@ describe('IntroSelectTagsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ IntroSelectTagsComponent ]
-    })
-    .compileComponents();
+      declarations: [IntroSelectTagsComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

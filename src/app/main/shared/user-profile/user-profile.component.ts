@@ -1,7 +1,12 @@
-import {AfterViewInit, Component, ElementRef, Input, OnInit,} from '@angular/core';
-import {MOBILE_WIDTH} from '@/app.constants';
-import {UserProfile} from './UserProfile.model';
-
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+} from '@angular/core';
+import { MOBILE_WIDTH } from '@/app.constants';
+import { UserProfile } from './UserProfile.model';
 
 @Component({
   selector: 'app-user-profile',

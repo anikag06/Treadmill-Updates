@@ -8,9 +8,8 @@ describe('GameIntroComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GameIntroComponent ]
-    })
-    .compileComponents();
+      declarations: [GameIntroComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

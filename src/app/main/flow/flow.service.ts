@@ -57,7 +57,7 @@ export class FlowService {
       );
       this.flowNavService
         .isNextModuleLocked(prevLastStepId)
-        .subscribe((unlockTimeData) => {
+        .subscribe(unlockTimeData => {
           if (unlockTimeData.data.next_step_group_unlocked === false) {
             this.unlockModuleTime.next(
               unlockTimeData.data.next_step_group_unlock_time,

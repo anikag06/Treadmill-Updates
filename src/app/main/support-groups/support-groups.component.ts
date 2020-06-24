@@ -57,8 +57,8 @@ export class SupportGroupsComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.params
       .pipe(
-        map((v) => v.id),
-        switchMap((id) => this.stepDataService.getStepData(id)),
+        map(v => v.id),
+        switchMap(id => this.stepDataService.getStepData(id)),
       )
       .subscribe((res: any) => {
         const step = res.data;
@@ -80,7 +80,7 @@ export class SupportGroupsComponent implements OnInit {
     this.user = <User>this.authService.isLoggedIn();
     this.userProfileService
       .getUserProfile(this.user.username)
-      .subscribe((profile) => {
+      .subscribe(profile => {
         this.userProfileData = new UserProfile(
           profile.username,
           profile.user_avatar,

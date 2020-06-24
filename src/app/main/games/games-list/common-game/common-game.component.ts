@@ -43,7 +43,7 @@ import { LhgScienceComponent } from './learned-helplessness-game/lhg-science/lhg
 import { IdentifyCognitiveDistortionComponent } from './identify-cognitive-distortion/identify-cognitive-distortion.component';
 import { LhgHowtoplayComponent } from './learned-helplessness-game/lhg-howtoplay/lhg-howtoplay.component';
 import { IdcGameService } from './identify-cognitive-distortion/idc-game.service';
-import {IntroService} from "@/main/walk-through/intro.service";
+import { IntroService } from '@/main/walk-through/intro.service';
 
 declare let $: any;
 
@@ -102,7 +102,7 @@ export class CommonGameComponent implements OnInit {
     private miPlayService: MIPlayService,
     private ref: ChangeDetectorRef,
     private idcGameService: IdcGameService,
-    private introService : IntroService,
+    private introService: IntroService,
   ) {}
 
   ngOnInit() {
@@ -353,7 +353,7 @@ export class CommonGameComponent implements OnInit {
       console.log('sound', this.isSoundOn);
       this.gamePlayService.soundExecControlGame(this.isSoundOn);
     }
-    if(this.gameName === ATTRIBUTE_STYLE_GAME) {
+    if (this.gameName === ATTRIBUTE_STYLE_GAME) {
       this.gamePlayService.soundASGGame(this.isSoundOn);
     }
     // else if (this.gameName === FRIENDLY_FACE_GAME) {
@@ -383,5 +383,4 @@ export class CommonGameComponent implements OnInit {
   onTouchEvent() {
     this.device_type = 'touch';
   }
-
 }

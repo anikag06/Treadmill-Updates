@@ -1,10 +1,10 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
-import {StepGroup} from './step-group.model';
-import {Step} from './step/step.model';
-import {ACTIVE, COMPLETED, UNLOCKED} from '@/app.constants';
-import {MatDrawer} from "@angular/material/sidenav";
-import {MatExpansionPanel} from "@angular/material/expansion";
-import {IntroService} from "@/main/walk-through/intro.service";
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { StepGroup } from './step-group.model';
+import { Step } from './step/step.model';
+import { ACTIVE, COMPLETED, UNLOCKED } from '@/app.constants';
+import { MatDrawer } from '@angular/material/sidenav';
+import { MatExpansionPanel } from '@angular/material/expansion';
+import { IntroService } from '@/main/walk-through/intro.service';
 
 @Component({
   selector: 'app-step-group',
@@ -31,12 +31,11 @@ export class StepGroupComponent implements OnInit {
   lastStepOfModule = false;
   @ViewChild('panel', { static: true }) panel!: MatExpansionPanel;
 
-  constructor(private elem: ElementRef,private introService : IntroService) {}
+  constructor(private elem: ElementRef, private introService: IntroService) {}
 
   ngOnInit() {
     this.initialiseDefaultSteps();
     this.getDefaultStepsShown();
-
   }
   ngAfterViewInit() {
     // this is done to update the property of material expansion panel as ng-deep can't be used.

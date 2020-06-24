@@ -141,8 +141,7 @@ export class StepComponent implements OnInit, AfterViewInit {
   navigate(event: Event) {
     event.preventDefault();
     //
-     this.showTooltipFun();
-
+    this.showTooltipFun();
 
     if (this.step.data_type === GAME && this.step.status !== COMPLETED) {
       // add this.step.status === COMPLETED condition
@@ -160,7 +159,6 @@ export class StepComponent implements OnInit, AfterViewInit {
           }
         });
     }
-
 
     if (this.step.data_type === FORM && this.step.status !== COMPLETED) {
       // add this.step.status === COMPLETED condition
@@ -182,7 +180,6 @@ export class StepComponent implements OnInit, AfterViewInit {
       // }, 1000);
     }
 
-
     if (
       this.step.data_type === SUPPORT_GROUP &&
       this.step.status !== COMPLETED
@@ -201,7 +198,7 @@ export class StepComponent implements OnInit, AfterViewInit {
       });
     }
 
-     this.markDone();
+    this.markDone();
     if (this.step.data_type === INTRODUCTORY_ANIMATION) {
       if (this.step.id === 75) {
         if (this.step.status === COMPLETED) {
@@ -286,7 +283,7 @@ export class StepComponent implements OnInit, AfterViewInit {
       const prev = this.previousStep(this.stepGroup, this.step);
       if (!prev) {
         this.flowService.getModuleUnlockTime(this.stepGroup);
-        this.flowService.unlockModuleTime.subscribe((data) => {
+        this.flowService.unlockModuleTime.subscribe(data => {
           const time = this.datePipe.transform(data, 'hh:mm a');
           const date = this.datePipe.transform(data, 'dd-MM-yyy');
           this.tooltipData = 'unlocks at: ' + time + ' on ' + date;

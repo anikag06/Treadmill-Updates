@@ -1,6 +1,6 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {SupportGroupIntroComponent} from './support-group-intro.component';
+import { SupportGroupIntroComponent } from './support-group-intro.component';
 
 describe('SupportGroupIntroComponent', () => {
   let component: SupportGroupIntroComponent;
@@ -8,9 +8,8 @@ describe('SupportGroupIntroComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SupportGroupIntroComponent ]
-    })
-    .compileComponents();
+      declarations: [SupportGroupIntroComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

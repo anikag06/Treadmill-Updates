@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {FormsService} from '@/main/forms.service';
-import {Router} from '@angular/router';
-import {FormService} from '@/main/resources/forms/form.service';
-import {IntroService} from '@/main/walk-through/intro.service';
-import {IntroDialogService} from '@/main/walk-through/intro-dialog.service';
+import { Component, OnInit } from '@angular/core';
+import { FormsService } from '@/main/forms.service';
+import { Router } from '@angular/router';
+import { FormService } from '@/main/resources/forms/form.service';
+import { IntroService } from '@/main/walk-through/intro.service';
+import { IntroDialogService } from '@/main/walk-through/intro-dialog.service';
 
 @Component({
   selector: 'app-forms',
