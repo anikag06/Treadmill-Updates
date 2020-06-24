@@ -15,11 +15,11 @@ export class AboutUsPageComponent implements OnInit {
   constructor(private showContactUsService: MatContactUsDialogService) {}
 
   ngOnInit() {
-    const smallDevice = window.matchMedia('(max-width: 767px)').matches;
-    console.log(smallDevice);
-    if (smallDevice) {
+    // const smallDevice = window.matchMedia('(max-width: 767px)').matches;
+    // console.log(smallDevice);
+    // if (smallDevice) {
       this.showRegistrationContent = true;
-    }
+    // }
   }
 
   contactUsClicked() {

@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import {FormControl, FormGroup} from '@angular/forms';
 import {INELIGIBLE_FOR_TRIAL, REGISTRATION_PATH} from "@/app.constants";
 import {TempLandingPageDataService} from "@/temp-landing-page/temp-landing-page-data.service";
+import {MatContactUsDialogService} from "@/shared/mat-contact-us-dialog/mat-contact-us-dialog.service";
 
 @Component({
   selector: 'app-temp-landing-page',
@@ -18,11 +19,12 @@ export class TempLandingPageComponent implements OnInit {
   showSucessMessage = false;
   btnColor = false;
   errorMessage = 'Please give us your valid email id. We won\'t spam you. Promise!';
-  successMessage1 = 'Thank you for subscribing! ' ;
-  successMessage2 = 'We\'re so happi that you joined that we forgot how to spell happy. '
+  successMessage1 = 'Thank you for subscribing :grinning:!';
+  successMessage2 = 'We\'ll be in touch.';
   constructor(
     private router: Router,
     private tempDataService: TempLandingPageDataService,
+    private showContactUsService: MatContactUsDialogService,
   ) { }
 
   ngOnInit() {
@@ -57,7 +59,7 @@ export class TempLandingPageComponent implements OnInit {
   }
 
   onContactUsClick() {
-    // this.showContactUsService.contactUsClicked();
+    this.showContactUsService.contactUsClicked();
   }
 
   onPrivacyPolicyClick() {

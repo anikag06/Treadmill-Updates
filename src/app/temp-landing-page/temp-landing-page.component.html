@@ -4,7 +4,7 @@
   <div class="row h-100 justify-content-center">
     <div class="col-12 col-sm-10" >
   <div class="row">
-    <div class="col-12 logo d-flex justify-content-left" style="padding: 20px;">
+    <div class="col-12 logo d-flex justify-content-left" >
       <img
         alt="TreadWill logo"
         src="../../assets/shared/logo_full.png"
@@ -43,29 +43,31 @@
       </div>
 
       <div class="form-div" *ngIf="!showSucessMessage">
-        <div class="font-montserrat-bold mt-5 mb-2 text-center text-subheading">
+        <div class="font-montserrat-bold mb-3 text-center text-subheading">
           Subscribe to receive early access!
         </div>
 
         <form [formGroup]="emailForm" class="d-flex flex-row w-100 no-gutters justify-content-center" >
           <!--              <div class="row"> </div>-->
-
+<div style="position:relative">
           <input formControlName="email"
                  type="email" class="input-box"
                  required
                  email
                  placeholder="Email ID" >
 
-          <button type="submit" class="btn-subscribe " mat-flat-button
+          <button type="submit" class="btn-subscribe font-montserrat-bold " mat-flat-button
                   [ngStyle]="{'background-color': btnColor? '#2A3B3D' : '#f4bb56'}" (click)="emailSubmit()" > SUBSCRIBE </button>
 
+  <p class="text-footer mt-2 error-text" *ngIf="!showErrorMessage">
+    Please enter a valid email address!
+  </p>
+  <p class="text-footer mt-2 error-text" *ngIf="showErrorMessage">
+    {{errorMessage}}
+  </p>
+</div>
         </form>
-        <p class="text-footer mt-2" *ngIf="!showErrorMessage" style="position: absolute;left: 10%;">
-          Please enter a valid email address!
-        </p>
-        <p class="text-footer mt-2" *ngIf="showErrorMessage" style="position: absolute;left: 10%;">
-          {{errorMessage}}
-        </p>
+
       </div>
       <div *ngIf="showSucessMessage" class="font-montserrat-bold text-center" style="color:#f4bb56; font-size: 24px">
         {{successMessage1}}
@@ -77,16 +79,16 @@
 
 
   </div>
-
-      <div class="d-flex w-md-100 flex-row footer-1 no-gutters justify-content-center">
+<div class="row">
+      <div class="d-flex footer-1 justify-content-center">
         <div  class=" font-roboto-normal text-footer">
-          <div class="col-12" >
+<!--          <div class="col-12" >-->
           <p>We will soon be releasing a significantly improved version of Treadwill.
           If you would like to receive early access to this version, please subscribe!
           </p>
-          </div>
+<!--          </div>-->
         </div>
-
+      </div>
       </div>
     </div>
 </div>
@@ -137,7 +139,7 @@
           <div class="col-6 col-sm-2 my-2 my-sm-3">
               <span (click)="onPrivacyPolicyClick()"> Privacy Policy </span>
             </div>
-          <div class="col-6 col-sm-2 my-1 my-sm-3">
+          <div class="col-6 col-sm-3 my-1 my-sm-3">
               <span (click)="onTermsConditions()"> Terms & Conditions </span>
             </div>
         </div>
