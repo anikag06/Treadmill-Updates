@@ -100,10 +100,22 @@ export class ThoughtRecordFormComponent implements OnInit {
         this.flowService.stepDetail.emit(this.navbarTitle);
       });
     }
-    if (!this.fromSlide && !this.fromConv) {
-      this.formService.formName = this.formName;
-      this.formService.formTitle.emit();
+    const id = this.activatedRoute.snapshot.paramMap.get('id');
+    if (id !== null) {
+      this.loadThoughtByID(parseInt(id));
     }
+  }
+
+  loadThoughtByID(id: any) {
+    this.thoughtRecordService.getThoughts();
+    this.thoughtRecordService.thoughtsBehaviour.subscribe((data: any) => {
+      if (data.length > 0) {
+        const thought = data.find((x: any) => x.id === id);
+        if (thought !== undefined) {
+         this.thought =thought;
+        }
+      }
+    });
   }
 
   thoughtSelected(thought: Thought) {

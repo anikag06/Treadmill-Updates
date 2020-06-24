@@ -19,6 +19,8 @@ import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { UserSubTask } from './user-sub-task.model';
 import { UserTask } from './user-task.model';
+import {ActivatedRoute} from "@angular/router";
+import {isNotNullOrUndefined} from "codelyzer/util/isNotNullOrUndefined";
 
 @Component({
   selector: 'app-tasks',
@@ -70,12 +72,18 @@ export class TasksComponent implements OnInit, OnChanges {
     private element: ElementRef,
     public dialog: MatDialog,
     private dateTimePickerService: DateTimePickerService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
     // if (this.object && this.object.taskorigin) {
     //   this.loadTasks();
     // }
+    const id = this.route.snapshot.paramMap.get('id');
+      if (id !== null) {
+        this.loadTaskByID(parseInt(id));
+      }
+
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (
@@ -320,6 +328,28 @@ export class TasksComponent implements OnInit, OnChanges {
       (error: HttpErrorResponse) => {},
     );
   }
+
+  loadTaskByID(id:any){
+    this.taskService.getTasks();
+    this.taskService.taskBehaviour.subscribe(
+      (data: any) => {
+        if (data.length > 0) {
+          this.task = data.find((t: UserTask) => {
+            if (id === t.id) {
+              return t;
+            }
+          });
+          if (this.task) {
+            this.initializeTask();
+            // this.taskLoaded.emit(this.task);
+          }
+        }
+      },
+      (error: HttpErrorResponse) => {},
+    );
+  }
+
+
 
   initializeTask() {
     this.start_date = this.task.start_at;

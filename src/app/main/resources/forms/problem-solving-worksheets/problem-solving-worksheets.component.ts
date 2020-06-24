@@ -130,6 +130,24 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
     // if (user && user.is_active) {
     //   this.user = <User>user;
     // }
+    const id = this.activatedRoute.snapshot.paramMap.get('id');
+    if (id !== null) {
+      this.loadProblemByID(parseInt(id));
+    }
+  }
+
+
+  loadProblemByID(id: any) {
+    this.problemService.getProblems();
+    this.problemService.problemsBehaviour.subscribe((data: any) => {
+      if (data.length > 0) {
+        const problem = data.find((x: any) => x.id === id);
+        if (problem !== undefined) {
+          this.problem = problem;
+          this.problemSelected(problem);
+        }
+      }
+    });
   }
 
   ngOnDestroy() {
