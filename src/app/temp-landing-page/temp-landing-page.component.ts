@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
+import {FormControl, FormGroup} from '@angular/forms';
+import {INELIGIBLE_FOR_TRIAL, REGISTRATION_PATH} from "@/app.constants";
+import {TempLandingPageDataService} from "@/temp-landing-page/temp-landing-page-data.service";
 
 @Component({
   selector: 'app-temp-landing-page',
@@ -8,11 +11,41 @@ import {Router} from "@angular/router";
 })
 export class TempLandingPageComponent implements OnInit {
 
+  emailForm = new FormGroup({
+    email: new FormControl(''),
+  });
+  showErrorMessage = false;
+  showSucessMessage = false;
+  btnColor = false;
+  errorMessage = 'Please give us your valid email id. We won\'t spam you. Promise!';
+  successMessage1 = 'Thank you for subscribing! ' ;
+  successMessage2 = 'We\'re so happi that you joined that we forgot how to spell happy. '
   constructor(
     private router: Router,
+    private tempDataService: TempLandingPageDataService,
   ) { }
 
   ngOnInit() {
+  }
+
+  emailSubmit() {
+    if (this.emailForm.valid) {
+      this.btnColor = true;
+      this.tempDataService
+        .storeEmailID(this.emailForm.value.email)
+        .subscribe(
+          (res_data: any) => {
+            console.log('RESPONSE', res_data);
+            if (res_data.id >= 0) {
+             this.showSucessMessage = true;
+            }
+          },
+          err => {
+            console.log(err);
+            this.showErrorMessage = true;
+          },
+        );
+    }
   }
 
   onAboutUsClick() {
