@@ -1,74 +1,99 @@
 <!-- screen 1 content -->
-
+<div class="landing-page">
 <div class="container-fluid first-section">
+  <div class="row h-100 justify-content-center">
+    <div class="col-12 col-sm-10" >
   <div class="row">
-    <div class="col-sm-2"> </div>
-    <div class="col-12 col-sm-8" >
-  <div class="row">
-    <div class="col-12 logo d-flex justify-content-left" style="padding: 20px;">
+    <div class="col-12 logo d-flex justify-content-left" >
       <img
         alt="TreadWill logo"
         src="../../assets/shared/logo_full.png"
-        class="logo-landscape"
+        class="logo"
       />
     </div>
   </div>
-  <div class="row flex-row d-flex">
-    <div class="col-12 col-sm-6 order-sm-last">
+
+  <div class="row flex-row d-flex no-gutters justify-content-center">
+
+    <div class="version-div-2">
       <h1
-        class="text-center text-sm-left font-montserrat-bold">
-TreadWill 2.0      </h1>
-      <br /><br />
-      <h6 class="text-center text-sm-left font-montserrat-bold sounds-familiar">
-       Launching soon...
+        class="text-center font-montserrat-normal heading-main">
+        TreadWill 2.0      </h1>
+      <h6 class="text-center font-montserrat-normal text-subheading text-colored">
+        Launching soon...
       </h6>
     </div>
-    <div class="col-12 col-sm-6 align-self-center" [ngStyle]="{textAlign : 'end'}" >
+
+
+    <div class="d-flex col-12 col-md-6 align-self-center justify-content-center" >
       <img
         src="../../assets/login/screen_1/screen_1.svg"
         alt="relatable image 1"
         class="img-resp"
       />
     </div>
+    <div class="col-12 col-md-6">
+      <div class="version-div-1">
+        <h1
+          class="text-center font-montserrat-normal heading-main">
+          TreadWill 2.0      </h1>
+        <h6 class="text-center font-montserrat-normal text-subheading  text-colored">
+          Launching soon...
+        </h6>
+      </div>
 
-  </div>
-      <div class="d-flex flex-row-reverse">
-
-        <div class="col-12 col-sm-6" >
-          Subscribe to recieve early access!
-          <div class="col-12 my-2">
-
-
-            <form [formGroup]="emailForm" class="w-100" >
-              <input formControlName="email"
-                     type="email" class="input-box form-elements"
-                     required
-                     email
-                     placeholder=" Email ID" >
-
-                <button type="submit" class="btn-subscribe form-elements" mat-flat-button
-                        color="primary" (click)="emailSubmit()" > SUBSCRIBE </button>
-
-            </form>
-            Please enter a valid email address!
-          </div>
-
+      <div class="form-div" *ngIf="!showSucessMessage">
+        <div class="font-montserrat-normal mb-3 text-center text-subheading">
+          Subscribe to receive early access!
         </div>
 
+        <form [formGroup]="emailForm" class="d-flex flex-row w-100 no-gutters justify-content-center" >
+          <!--              <div class="row"> </div>-->
+<div style="position:relative">
+          <input formControlName="email"
+                 type="email" class="input-box"
+                 required
+                 email
+                 placeholder="Email ID" >
+
+          <button type="submit" class="btn-subscribe font-montserrat-normal " mat-flat-button
+                  [ngStyle]="{'background-color': btnColor? '#2A3B3D' : '#f4bb56'}" (click)="emailSubmit()" > SUBSCRIBE </button>
+
+  <p class="text-footer mt-2 error-text" *ngIf="!showErrorMessage">
+    Please enter a valid email address!
+  </p>
+  <p class="text-footer mt-2 error-text" *ngIf="showErrorMessage">
+    {{errorMessage}}
+  </p>
+</div>
+        </form>
+
       </div>
-      <div class="row">
-        <div style="font-size: 14px">
+      <div *ngIf="showSucessMessage" class="font-montserrat-normal text-center" style="color:#f4bb56; font-size: 24px">
+        {{successMessage1}}
+      </div>
+      <div *ngIf="showSucessMessage" class="font-roboto-normal text-center" style="color:white; font-size: 21px">
+        {{successMessage2}}
+      </div>
+    </div>
+
+
+  </div>
+      <div class="row flex-row d-flex justify-content-center">
+        <div class="col-12 footer-1 text-md-center">
+        <div  class=" font-roboto-normal text-footer">
+<!--          <div class="col-12" >-->
           <p>We will soon be releasing a significantly improved version of Treadwill.
-          If you would like to recieve early access to this version, please subscribe!
+          If you would like to receive early access to this version, please subscribe!
           </p>
+<!--          </div>-->
         </div>
-
       </div>
-
+      </div>
+    </div>
 </div>
-    <div class="col-sm-2"> </div>
   </div>
-</div>
+<!--</div>-->
 <!-- screen 2 content -->
 <div class="container-fluid d-flex align-items-center center-banner second-section">
   <div class="row flex-row d-flex">
@@ -77,10 +102,16 @@ TreadWill 2.0      </h1>
         <div class="col-xs-12 col-sm-10">
 
 
-          <h3>About Treadwill</h3>
-          <p>Treadwill is a website designed to help individuals deal with stress, low mood, lethargy and other depressive symptoms. Treadwill uses the evidence-based therapeutic technique called Cognitive Behavior Therapy (CBT). </p>
-          <p>For more information, please visit the <a>information page </a></p>
-          <p>In case you hav any specific query, please <a> ask us </a>  </p>
+          <h2 class="font-montserrat-normal">About Treadwill</h2>
+          <br/>
+          <div class="text font-roboto-thin">
+            <p>Treadwill is a website designed to help individuals deal with stress, low mood, lethargy and other depressive symptoms.
+              Treadwill uses the evidence-based therapeutic technique called <b>Cognitive Behavior Therapy</b> (CBT). </p>
+            <br/>
+            <p>For more information, please visit the <span (click)="onAboutUsClick()"> <a class="anchorify-default text-colored">information page </a> </span></p>
+            <p>In case you hav any specific query, please <span (click)="onFAQClick()" ><a class="anchorify-default text-colored"> ask us </a> </span> </p>
+          </div>
+
         </div>
       </div>
       <div class="row flex-row d-flex justify-content-center">
@@ -92,55 +123,35 @@ TreadWill 2.0      </h1>
   </div>
 </div>
 <!-- screen 3 content -->
-<div class="container-fluid d-flex align-items-center third-section">
-  <div class="row">
+<div class="container-fluid d-flex align-items-center third-section text">
+  <div class="row w-100">
     <div class="col-12">
       <div class="row flex-row d-flex justify-content-center">
         <div class="col-xs-12 col-sm-10">
-        <div class="row">
-          <div class="col">
-            <div class="col-12 col-sm-3 my-3">
+        <div class="row justify-content-left font-montserrat-normal">
+            <div class="col-6 col-sm-2 mt-2 my-sm-3">
               <span (click)="onAboutUsClick()"> Information </span>
             </div>
 
-            <div class="col-12 col-sm-3 my-3">
+          <div class="col-6 col-sm-2 mt-2 my-sm-3">
               <span (click)="onContactUsClick()"> Get In Touch </span>
             </div>
-          </div>
-          <div class="col">
-            <div class="col-12  col-sm-3my-3">
+          <div class="col-6 col-sm-2 my-2 my-sm-3">
               <span (click)="onPrivacyPolicyClick()"> Privacy Policy </span>
             </div>
-            <div class="col-12 col-sm-3 my-3">
+          <div class="col-6 col-sm-3 my-1 my-sm-3">
               <span (click)="onTermsConditions()"> Terms & Conditions </span>
             </div>
-          </div>
-          <div class="col-12 my-3">
-            <div class="col">
-              &copy; TreadWill. All rights reserved.
-            </div>
-          </div>
         </div>
+          <div class="row justify-content-left">
+          <div class="col-12 my-sm-3 font-roboto-normal text-copyright">
+              &copy; TreadWill. All rights reserved.
+          </div>
+          </div>
       </div>
 
-      <!-- for desktop -->
-<!--      <div class="row flex-row d-flex">-->
-<!--        <div class="col-12 screen-3-container">-->
-
-<!--        </div>-->
-<!--      </div>-->
-
-<!--      &lt;!&ndash; for mobile &ndash;&gt;-->
-<!--      <div class="row flex-row d-block d-md-none">-->
-<!--        <div class="col-12 d-flex justify-content-center">-->
-<!--        </div>-->
-<!--      </div>-->
-
-<!--      <div class="row flex-row d-flex justify-content-center">-->
-<!--        <div class="col-xs-12 col-sm-10">-->
-
-<!--        </div>-->
-<!--      </div>-->
     </div>
   </div>
+</div>
+</div>
 </div>
