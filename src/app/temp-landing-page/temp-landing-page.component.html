@@ -17,9 +17,9 @@
 
     <div class="version-div-2">
       <h1
-        class="text-center font-montserrat-bold heading-main">
+        class="text-center font-montserrat-normal heading-main">
         TreadWill 2.0      </h1>
-      <h6 class="text-center font-montserrat-bold text-subheading text-colored">
+      <h6 class="text-center font-montserrat-normal text-subheading text-colored">
         Launching soon...
       </h6>
     </div>
@@ -35,15 +35,15 @@
     <div class="col-12 col-md-6">
       <div class="version-div-1">
         <h1
-          class="text-center font-montserrat-bold heading-main">
+          class="text-center font-montserrat-normal heading-main">
           TreadWill 2.0      </h1>
-        <h6 class="text-center font-montserrat-bold text-subheading  text-colored">
+        <h6 class="text-center font-montserrat-normal text-subheading  text-colored">
           Launching soon...
         </h6>
       </div>
 
       <div class="form-div" *ngIf="!showSucessMessage">
-        <div class="font-montserrat-bold mb-3 text-center text-subheading">
+        <div class="font-montserrat-normal mb-3 text-center text-subheading">
           Subscribe to receive early access!
         </div>
 
@@ -56,7 +56,7 @@
                  email
                  placeholder="Email ID" >
 
-          <button type="submit" class="btn-subscribe font-montserrat-bold " mat-flat-button
+          <button type="submit" class="btn-subscribe font-montserrat-normal " mat-flat-button
                   [ngStyle]="{'background-color': btnColor? '#2A3B3D' : '#f4bb56'}" (click)="emailSubmit()" > SUBSCRIBE </button>
 
   <p class="text-footer mt-2 error-text" *ngIf="!showErrorMessage">
@@ -69,7 +69,7 @@
         </form>
 
       </div>
-      <div *ngIf="showSucessMessage" class="font-montserrat-bold text-center" style="color:#f4bb56; font-size: 24px">
+      <div *ngIf="showSucessMessage" class="font-montserrat-normal text-center" style="color:#f4bb56; font-size: 24px">
         {{successMessage1}}
       </div>
       <div *ngIf="showSucessMessage" class="font-roboto-normal text-center" style="color:white; font-size: 21px">
@@ -79,8 +79,8 @@
 
 
   </div>
-<div class="row">
-      <div class="d-flex footer-1 justify-content-center">
+      <div class="row flex-row d-flex justify-content-center">
+        <div class="col-12 footer-1 text-md-center">
         <div  class=" font-roboto-normal text-footer">
 <!--          <div class="col-12" >-->
           <p>We will soon be releasing a significantly improved version of Treadwill.
@@ -102,9 +102,9 @@
         <div class="col-xs-12 col-sm-10">
 
 
-          <h3>About Treadwill</h3>
+          <h2 class="font-montserrat-normal">About Treadwill</h2>
           <br/>
-          <div class="text font-roboto-normal">
+          <div class="text font-roboto-thin">
             <p>Treadwill is a website designed to help individuals deal with stress, low mood, lethargy and other depressive symptoms.
               Treadwill uses the evidence-based therapeutic technique called <b>Cognitive Behavior Therapy</b> (CBT). </p>
             <br/>
@@ -128,7 +128,7 @@
     <div class="col-12">
       <div class="row flex-row d-flex justify-content-center">
         <div class="col-xs-12 col-sm-10">
-        <div class="row justify-content-left font-montserrat-bold">
+        <div class="row justify-content-left font-montserrat-normal">
             <div class="col-6 col-sm-2 mt-2 my-sm-3">
               <span (click)="onAboutUsClick()"> Information </span>
             </div>
