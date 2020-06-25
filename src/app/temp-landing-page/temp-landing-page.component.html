@@ -2,7 +2,7 @@
 <div class="landing-page">
 <div class="container-fluid first-section">
   <div class="row h-100 justify-content-center">
-    <div class="col-12 col-sm-10" >
+    <div class="col-12 col-lg-10" >
   <div class="row">
     <div class="col-12 logo d-flex justify-content-left" >
       <img
@@ -25,14 +25,14 @@
     </div>
 
 
-    <div class="d-flex col-12 col-md-6 align-self-center justify-content-center" >
+    <div class="d-flex col-12 col-lg-6 align-self-center justify-content-center" >
       <img
         src="../../assets/login/screen_1/screen_1.svg"
         alt="relatable image 1"
         class="img-resp"
       />
     </div>
-    <div class="col-12 col-md-6">
+    <div class="col-12 col-lg-6">
       <div class="version-div-1">
         <h1
           class="text-center font-montserrat-normal heading-main">
@@ -43,7 +43,7 @@
       </div>
 
       <div class="form-div" *ngIf="!showSucessMessage">
-        <div class="font-montserrat-normal mb-3 text-center text-subheading">
+        <div class="font-montserrat-normal mb-4 text-center text-subheading">
           Subscribe to receive early access!
         </div>
 
@@ -59,9 +59,7 @@
           <button type="submit" class="btn-subscribe font-montserrat-normal " mat-flat-button
                   [ngStyle]="{'background-color': btnColor? '#2A3B3D' : '#f4bb56'}" (click)="emailSubmit()" > SUBSCRIBE </button>
 
-  <p class="text-footer mt-2 error-text" *ngIf="!showErrorMessage">
-    Please enter a valid email address!
-  </p>
+
   <p class="text-footer mt-2 error-text" *ngIf="showErrorMessage">
     {{errorMessage}}
   </p>
@@ -70,7 +68,7 @@
 
       </div>
       <div *ngIf="showSucessMessage" class="font-montserrat-normal text-center" style="color:#f4bb56; font-size: 24px">
-        {{successMessage1}}
+        <p>Thank you for subscribing 😃 !</p>
       </div>
       <div *ngIf="showSucessMessage" class="font-roboto-normal text-center" style="color:white; font-size: 21px">
         {{successMessage2}}
@@ -80,7 +78,7 @@
 
   </div>
       <div class="row flex-row d-flex justify-content-center">
-        <div class="col-12 footer-1 text-md-center">
+        <div class="col-12 footer-1 text-lg-center">
         <div  class=" font-roboto-normal text-footer">
 <!--          <div class="col-12" >-->
           <p>We will soon be releasing a significantly improved version of Treadwill.
@@ -99,7 +97,7 @@
   <div class="row flex-row d-flex">
     <div class="col-12">
       <div class="row flex-row d-flex justify-content-center">
-        <div class="col-xs-12 col-sm-10">
+        <div class="col-xs-12 col-lg-10">
 
 
           <h2 class="font-montserrat-normal">About Treadwill</h2>
@@ -115,7 +113,7 @@
         </div>
       </div>
       <div class="row flex-row d-flex justify-content-center">
-        <div class="col-xs-12 col-sm-10">
+        <div class="col-xs-12 col-lg-10">
 
         </div>
       </div>
@@ -127,24 +125,24 @@
   <div class="row w-100">
     <div class="col-12">
       <div class="row flex-row d-flex justify-content-center">
-        <div class="col-xs-12 col-sm-10">
+        <div class="col-xs-12 col-lg-10">
         <div class="row justify-content-left font-montserrat-normal">
-            <div class="col-6 col-sm-2 mt-2 my-sm-3">
+            <div class="col-6 col-lg-2 col-xl-2 mt-2 my-lg-3"  style="cursor: pointer;">
               <span (click)="onAboutUsClick()"> Information </span>
             </div>
 
-          <div class="col-6 col-sm-2 mt-2 my-sm-3">
+          <div class="col-6 col-lg-3 col-xl-2 mt-2 my-lg-3"  style="cursor: pointer;">
               <span (click)="onContactUsClick()"> Get In Touch </span>
             </div>
-          <div class="col-6 col-sm-2 my-2 my-sm-3">
+          <div class="col-6 col-lg-3 col-xl-2 my-2 my-lg-3"  style="cursor: pointer;">
               <span (click)="onPrivacyPolicyClick()"> Privacy Policy </span>
             </div>
-          <div class="col-6 col-sm-3 my-1 my-sm-3">
+          <div class="col-6 col-lg-4 col-xl-3 my-1 my-lg-3"  style="cursor: pointer;">
               <span (click)="onTermsConditions()"> Terms & Conditions </span>
             </div>
         </div>
           <div class="row justify-content-left">
-          <div class="col-12 my-sm-3 font-roboto-normal text-copyright">
+          <div class="col-12 mt-lg-3 font-roboto-normal text-copyright">
               &copy; TreadWill. All rights reserved.
           </div>
           </div>

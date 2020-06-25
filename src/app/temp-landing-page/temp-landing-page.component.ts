@@ -19,7 +19,6 @@ export class TempLandingPageComponent implements OnInit {
   showSucessMessage = false;
   btnColor = false;
   errorMessage = 'Please give us your valid email id. We won\'t spam you. Promise!';
-  successMessage1 = 'Thank you for subscribing :grinning:!';
   successMessage2 = 'We\'ll be in touch.';
   constructor(
     private router: Router,
