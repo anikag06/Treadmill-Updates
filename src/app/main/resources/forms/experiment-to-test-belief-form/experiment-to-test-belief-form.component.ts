@@ -96,7 +96,7 @@ export class ExperimentToTestBeliefFormComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.activatedRoute.params.subscribe(v => {
+    this.activatedRoute.params.subscribe((v) => {
       this.step_id = v.step_id;
       console.log('step id', this.step_id);
     });
@@ -133,6 +133,10 @@ export class ExperimentToTestBeliefFormComponent implements OnInit {
     if (user && user.is_active) {
       this.user = <User>user;
     }
+    const id = this.activatedRoute.snapshot.paramMap.get('id');
+    if (id !== null && id !== undefined) {
+      this.loadTestBeliefByID(parseInt(id));
+    }
   }
   // ngAfterViewInit(){
   //   console.log(this.outcomeStatementForm);
@@ -140,7 +144,7 @@ export class ExperimentToTestBeliefFormComponent implements OnInit {
 
   // }
   ngOnDestroy() {
-    this.subscriptions.forEach(sub => {
+    this.subscriptions.forEach((sub) => {
       sub.unsubscribe();
     });
   }
@@ -214,7 +218,7 @@ export class ExperimentToTestBeliefFormComponent implements OnInit {
       this.outcomeStatementForm.editOutcomeText();
     }
   }
-  LoadTasks(data: any) {
+  loadTasks(data: any) {
     this.taskContinue = data;
   }
   // outcomeSelected(outcome: Outcome) {
@@ -242,10 +246,7 @@ export class ExperimentToTestBeliefFormComponent implements OnInit {
     const date = this.task.end_at + ' ' + this.task.time;
     this.disableEmergency =
       moment().format('YYYY-MM-DD HH:mm') <
-      moment
-        .utc(date)
-        .local()
-        .format('YYYY-MM-DD HH:mm');
+      moment.utc(date).local().format('YYYY-MM-DD HH:mm');
   }
   onOutcomeClick() {
     if (this.outcome) {
@@ -294,5 +295,20 @@ export class ExperimentToTestBeliefFormComponent implements OnInit {
 
   onShowFollowUp(value: boolean) {
     this.showFollowUp = value;
+  }
+
+  loadTestBeliefByID(id: any) {
+    this.ettbfBeliefService.getBelief();
+    this.ettbfBeliefService.beliefbehaviours.subscribe((data: any) => {
+      if (data.length > 0) {
+        const belief = data.find((x: any) => x.id === id);
+        if (belief !== undefined) {
+          this.beliefSelected(belief);
+          if (belief.belief_rating_before) {
+            this.taskContinue = true;
+          }
+        }
+      }
+    });
   }
 }

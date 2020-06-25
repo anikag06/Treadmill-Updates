@@ -17,6 +17,7 @@ import { map, switchMap } from 'rxjs/operators';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 import { FlowService } from '@/main/flow/flow.service';
 import { ActivatedRoute } from '@angular/router';
+import {BeliefChangeService} from "@/main/resources/forms/belief-change/belief-change.service";
 
 @Component({
   selector: 'app-belief-change',
@@ -31,7 +32,9 @@ export class BeliefChangeComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private stepDataService: StepsDataService,
     private flowService: FlowService,
+    private beliefService : BeliefChangeService
   ) {}
+
 
   formName = BELIEF_CHANGE_FORM_NAME;
   belief!: Belief | undefined;
@@ -88,9 +91,27 @@ export class BeliefChangeComponent implements OnInit {
       this.formService.formName = this.formName;
       this.formService.formTitle.emit();
     }
+    const id = this.activatedRoute.snapshot.paramMap.get('id');
+    if (id !== null) {
+      this.loadBeliefByID(parseInt(id));
+    }
+
   }
 
-  onAddNewForm() {
+loadBeliefByID(id: any) {
+  this.beliefService.getBeliefs();
+  this.beliefService.beliefsBehaviour.subscribe((data: any) => {
+    if (data.length > 0) {
+      const belief = data.find((x: any) => x.id === id);
+      if (belief !== undefined) {
+       this.belief = belief;
+      }
+    }
+  });
+}
+
+
+onAddNewForm() {
     this.belief = undefined;
     // this.reset = true;
     this.resetForm();

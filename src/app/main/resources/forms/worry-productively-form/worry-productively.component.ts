@@ -1,13 +1,10 @@
 import {
   Component,
-  OnInit,
-  OnDestroy,
-  Input,
-  EventEmitter,
-  Output,
-  ChangeDetectionStrategy,
-  ViewChild,
   ElementRef,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild,
 } from '@angular/core';
 import { Worry } from './worry.model';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
@@ -17,20 +14,19 @@ import { Subscription } from 'rxjs';
 import { AuthService } from '@/shared/auth/auth.service';
 import { User } from '@/shared/user.model';
 import { GeneralErrorService } from '@/main/shared/general-error.service';
-import { FormBuilder, FormControl, FormArray } from '@angular/forms';
-import { map, switchMap } from 'rxjs/operators';
+import { FormArray, FormBuilder, FormControl } from '@angular/forms';
 import { WorryProductivelyService } from '@/main/resources/forms/worry-productively-form/worry-productively.service';
 import {
-  WORRY_PRODUCTIVELY,
-  WELL_DONE_IMG,
   THINKING_IMG,
+  WELL_DONE_IMG,
+  WORRY_PRODUCTIVELY,
   WORRY_PRODUCTIVELY_FORM_NAME,
 } from '@/app.constants';
 import { TechniquesComponent } from './techniques/techniques.component';
 import {
-  WORRY_PRODUCTIVELY_QUOTES,
   WORRY_PRODUCTIVELY_MESSAGE,
   WORRY_PRODUCTIVELY_NGT_MESSAGE,
+  WORRY_PRODUCTIVELY_QUOTES,
 } from './worry-productively-message';
 import { FormService } from '../form.service';
 import { FormMessage } from '../shared/form-message/form-message.model';
@@ -107,7 +103,7 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.activatedRoute.params.subscribe(v => {
+    this.activatedRoute.params.subscribe((v) => {
       this.step_id = v.step_id;
       console.log('step id', this.step_id, this.fromSlide);
     });
@@ -152,11 +148,27 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
       });
     });
     this.data.shift();
+
+    const id = this.activatedRoute.snapshot.paramMap.get('id');
+    if (id !== null) {
+      this.loadWorryByID(parseInt(id));
+    }
   }
-  ngOnChanges() {}
+
+  loadWorryByID(id: any) {
+    this.worryService.getWorries();
+    this.worryService.worrysBehaviour.subscribe((data: any) => {
+      if (data.length > 0) {
+        const worry = data.find((x: any) => x.id === id);
+        if (worry !== undefined) {
+          this.worrySelected(worry);
+        }
+      }
+    });
+  }
 
   ngOnDestroy() {
-    this.subscriptions.forEach(sub => {
+    this.subscriptions.forEach((sub) => {
       sub.unsubscribe();
     });
   }
@@ -266,7 +278,7 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
       this.characteristicCount += 1;
     } else {
       const i = characteristics.controls.findIndex(
-        x => x.value === event.source.value,
+        (x) => x.value === event.source.value,
       );
       characteristics.removeAt(i);
       this.characteristicCount -= 1;
