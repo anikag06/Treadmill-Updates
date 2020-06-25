@@ -17,7 +17,7 @@ export class TempLandingPageComponent implements OnInit {
   });
   showErrorMessage = false;
   showSucessMessage = false;
-  btnColor = false;
+  showLoading = false;
   errorMessage = 'Please give us your valid email id. We won\'t spam you. Promise!';
   successMessage2 = 'We\'ll be in touch.';
   constructor(
@@ -31,7 +31,7 @@ export class TempLandingPageComponent implements OnInit {
 
   emailSubmit() {
     if (this.emailForm.valid) {
-      this.btnColor = true;
+      this.showLoading = true;
       this.tempDataService
         .storeEmailID(this.emailForm.value.email)
         .subscribe(
@@ -39,18 +39,16 @@ export class TempLandingPageComponent implements OnInit {
             console.log('RESPONSE', res_data);
             if (res_data.id >= 0) {
              this.showSucessMessage = true;
+             this.showLoading = false;
             }
           },
           err => {
             console.log(err);
             this.showErrorMessage = true;
+            this.showLoading = false;
           },
         );
     }
-  }
-
-  onAboutUsClick() {
-    this.router.navigate(['trial/about-us']);
   }
 
   onFAQClick() {
@@ -59,15 +57,6 @@ export class TempLandingPageComponent implements OnInit {
 
   onContactUsClick() {
     this.showContactUsService.contactUsClicked();
-  }
-
-  onPrivacyPolicyClick() {
-    this.router.navigate(['trial/privacy-policy']);
-  }
-
-
-  onTermsConditions() {
-    this.router.navigate(['trial/terms-and-conditions']);
   }
 
 }

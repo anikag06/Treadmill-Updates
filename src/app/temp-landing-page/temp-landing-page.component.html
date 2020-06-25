@@ -56,12 +56,15 @@
                  email
                  placeholder="Email ID" >
 
-          <button type="submit" class="btn-subscribe font-montserrat-normal " mat-flat-button
-                  [ngStyle]="{'background-color': btnColor? '#2A3B3D' : '#f4bb56'}" (click)="emailSubmit()" > SUBSCRIBE </button>
+          <button type="submit" class="btn-subscribe font-montserrat-normal " *ngIf="!showLoading" mat-flat-button
+                  (click)="emailSubmit()" > SUBSCRIBE </button>
+  <button class="btn-subscribe " *ngIf="showLoading"  mat-flat-button>
+    <span class="spinner-border spinner-border-sm"></span>
+  </button>
 
 
   <p class="text-footer mt-2 error-text" *ngIf="showErrorMessage">
-    {{errorMessage}}
+    Please give us your valid email id. We won't spam you. Promise 🤞!
   </p>
 </div>
         </form>
@@ -106,8 +109,8 @@
             <p>Treadwill is a website designed to help individuals deal with stress, low mood, lethargy and other depressive symptoms.
               Treadwill uses the evidence-based therapeutic technique called <b>Cognitive Behavior Therapy</b> (CBT). </p>
             <br/>
-            <p>For more information, please visit the <span (click)="onAboutUsClick()"> <a class="anchorify-default text-colored">information page </a> </span></p>
-            <p>In case you hav any specific query, please <span (click)="onFAQClick()" ><a class="anchorify-default text-colored"> ask us </a> </span> </p>
+            <p>For more information, please visit the <span (click)="onFAQClick()"> <a class="anchorify-default text-colored">information page </a> </span></p>
+            <p>In case you hav any specific query, please <span (click)="onContactUsClick()" ><a class="anchorify-default text-colored"> ask us </a> </span> </p>
           </div>
 
         </div>
@@ -126,21 +129,21 @@
     <div class="col-12">
       <div class="row flex-row d-flex justify-content-center">
         <div class="col-xs-12 col-lg-10">
-        <div class="row justify-content-left font-montserrat-normal">
-            <div class="col-6 col-lg-2 col-xl-2 mt-2 my-lg-3"  style="cursor: pointer;">
-              <span (click)="onAboutUsClick()"> Information </span>
-            </div>
+<!--        <div class="row justify-content-left font-montserrat-normal">-->
+<!--            <div class="col-6 col-lg-2 col-xl-2 mt-2 my-lg-3"  style="cursor: pointer;">-->
+<!--              <span (click)="onFAQClick()"> Information </span>-->
+<!--            </div>-->
 
-          <div class="col-6 col-lg-3 col-xl-2 mt-2 my-lg-3"  style="cursor: pointer;">
-              <span (click)="onContactUsClick()"> Get In Touch </span>
-            </div>
-          <div class="col-6 col-lg-3 col-xl-2 my-2 my-lg-3"  style="cursor: pointer;">
-              <span (click)="onPrivacyPolicyClick()"> Privacy Policy </span>
-            </div>
-          <div class="col-6 col-lg-4 col-xl-3 my-1 my-lg-3"  style="cursor: pointer;">
-              <span (click)="onTermsConditions()"> Terms & Conditions </span>
-            </div>
-        </div>
+<!--          <div class="col-6 col-lg-3 col-xl-2 mt-2 my-lg-3"  style="cursor: pointer;">-->
+<!--              <span (click)="onContactUsClick()"> Get In Touch </span>-->
+<!--            </div>-->
+<!--          <div class="col-6 col-lg-3 col-xl-2 my-2 my-lg-3"  style="cursor: pointer;">-->
+<!--              <span (click)="onPrivacyPolicyClick()"> Privacy Policy </span>-->
+<!--            </div>-->
+<!--          <div class="col-6 col-lg-4 col-xl-3 my-1 my-lg-3"  style="cursor: pointer;">-->
+<!--              <span (click)="onTermsConditions()"> Terms & Conditions </span>-->
+<!--            </div>-->
+<!--        </div>-->
           <div class="row justify-content-left">
           <div class="col-12 mt-lg-3 font-roboto-normal text-copyright">
               &copy; TreadWill. All rights reserved.
