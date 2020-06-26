@@ -84,7 +84,6 @@ import { StepComponent } from './flow/step-group/step/step.component';
 import { StepsIndicatorComponent } from './flow/step-group/steps-indicator/steps-indicator.component';
 // import { QuizService } from '@/shared/questionnaire/questionnaire.service';
 import { FlowStepNavigationService } from './shared/flow-step-navigation.service';
-import { IntroduceComponent } from './shared/introduce/introduce.component';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { NavbarFlowComponent } from './shared/navbar/navbar-flow/navbar-flow.component';
 import { NavbarFlowDirective } from './shared/navbar/navbar-flow.directive';
@@ -117,7 +116,6 @@ import { UserProfileComponent } from './shared/user-profile/user-profile.compone
 import { UserProfileService } from './shared/user-profile/userProfile.service';
 import { BadgesComponent } from './shared/user-profile/badges/badges.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { QuestionnaireModule } from '@/questionnaire.module';
 import { GetQuestionnaireComponent } from './dashboard/get-questionnaire/get-questionnaire.component';
 import { IdcHeadingComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-heading/idc-heading.component';
 import { IdcMainComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-main/idc-main.component';
@@ -148,7 +146,6 @@ import { LoadingBarDirective } from './games/shared/loading-bar.directive';
 import { LoadingBarService } from './games/shared/loading-bar.service';
 import { LhgGreatComponent } from './games/games-list/common-game/learned-helplessness-game/lhg-great/lhg-great.component';
 import { StepsDataService } from './resources/shared/steps-data.service';
-import { ResourcesModule } from './resources/resources.module';
 import { SuggestedPostComponent } from './dashboard/suggested-post/suggested-post.component';
 import { SuggestedPostItemComponent } from './dashboard/suggested-post/suggested-post-item/suggested-post-item.component';
 import { WorryProductivelyService } from '@/main/resources/forms/worry-productively-form/worry-productively.service';
@@ -167,14 +164,23 @@ import { ExtraResourcesService } from '@/main/extra-resources/extra-resources.se
 import { InternetConnectionComponent } from '@/shared/internet-connection/internet-connection.component';
 import { SharedModule } from '@/shared/shared.module';
 import { CustomOverlayComponent } from './shared/custom-overlay/custom-overlay.component';
-import { ExtraResourcesModule } from '@/main/extra-resources/extra-resources.module';
 import { NeedToTalkComponent } from './need-to-talk/need-to-talk.component';
 import { ChatImageComponent } from './chatbot/chat-window/chat-image/chat-image.component';
 import { ChatImageDirective } from './chatbot/chat-window/chat-image/chat-image.directive';
 import { ChatVideoComponent } from './chatbot/chat-window/chat-video/chat-video.component';
 import { IframeTrackerDirective } from './chatbot/chat-window/chat-video/iframe-tracker.directive';
+import { IntroDialogComponent } from './walk-through/intro-dialog/intro-dialog.component';
+import { SupportGroupIntroComponent } from './walk-through/support-group-intro/support-group-intro.component';
+import { IntroSelectTagsComponent } from './walk-through/intro-select-tags/intro-select-tags.component';
+import { IntroService } from '@/main/walk-through/intro.service';
+import { PointsComponent } from './shared/points/points.component';
+import { GameIntroComponent } from './walk-through/game-intro/game-intro.component';
+import { FormIntroComponent } from './walk-through/form-intro/form-intro.component';
+import { IntroDialogService } from '@/main/walk-through/intro-dialog.service';
 import { SettingsComponent } from './settings/settings.component';
 import { SettingsService } from '@/main/settings/settings.service';
+
+// import { Resources2Routing } from './extra-resources/extra-resources-routing.module.ts/extra-resources-routing.module.ts.component';
 
 @NgModule({
   declarations: [
@@ -221,7 +227,6 @@ import { SettingsService } from '@/main/settings/settings.service';
     StepGroupComponent,
     StepComponent,
     StepsIndicatorComponent,
-    IntroduceComponent,
     NavbarFlowComponent,
     NavbarFlowDirective,
     NavbarNotificationDirective,
@@ -286,6 +291,12 @@ import { SettingsService } from '@/main/settings/settings.service';
     ChatVideoComponent,
     InternetConnectionComponent,
     IframeTrackerDirective,
+    IntroDialogComponent,
+    SupportGroupIntroComponent,
+    IntroSelectTagsComponent,
+    PointsComponent,
+    GameIntroComponent,
+    FormIntroComponent,
   ],
   imports: [
     CommonModule,
@@ -344,12 +355,13 @@ import { SettingsService } from '@/main/settings/settings.service';
     ThingsTodoService,
     GamesFeedbackService,
     ExtraResourcesService,
+    IntroService,
+    IntroDialogService,
     SettingsService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [
     CreatePostComponent,
-    IntroduceComponent,
     NavbarFlowComponent,
     NavbarNotificationsComponent,
     IbGameInstructionsComponent,
@@ -384,6 +396,12 @@ import { SettingsService } from '@/main/settings/settings.service';
     InternetConnectionComponent,
     CustomOverlayComponent,
     ChatImageComponent,
+    IntroDialogComponent,
+    SupportGroupIntroComponent,
+    IntroSelectTagsComponent,
+    PointsComponent,
+    GameIntroComponent,
+    FormIntroComponent,
   ],
   exports: [TrimStringPipe],
 })

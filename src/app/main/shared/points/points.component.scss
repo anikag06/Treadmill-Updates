@@ -1,0 +1,48 @@
+@mixin fadeAnimation() {
+  -webkit-animation: fadeinout 6s linear forwards;
+  animation: fadeinout 6s linear forwards;
+}
+
+@keyframes fadeinout {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.points {
+  width: 116px;
+  height: 48px;
+  background: #272727 0% 0% no-repeat padding-box;
+  box-shadow: 0px 6px 10px #00000029;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 14px;
+  letter-spacing: 0.25px;
+  color: #ffffff;
+  bottom: 23vh;
+  z-index: 50;
+  right: 50%;
+  position: fixed;
+  padding-top: 14px;
+
+}
+
+@media screen and (max-width: 500px) {
+  .points {
+    bottom: 15vh;
+    right: 30%;
+  }
+}

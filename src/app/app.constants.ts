@@ -349,7 +349,7 @@ export const PROBLEM_SOLVING_FORM_NAME = 'Solve a problem';
 export const SET_TASK_FORM_NAME = 'Set a task';
 export const THOUGHT_RECORD_FORM_NAME = 'Evaluate a thought';
 export const EXPERIMENT_TO_TEST_BELIEF_FORM_NAME = 'Test a belief';
-export const WORRY_PRODUCTIVELY_FORM_NAME = 'Control a worry';
+export const WORRY_PRODUCTIVELY_FORM_NAME = 'Worry Productively form';
 export const BELIEF_CHANGE_FORM_NAME = 'Change a belief';
 
 // trial registration pages
@@ -397,6 +397,7 @@ export const VIDEO_LIST = '/api/v1/resources/videos/';
 export const READING_LIST = '/api/v1/resources/reading-materials/';
 export const EACH_VIDEO = '/api/v1/resources/videos/';
 export const WATCHED_VIDEO = '/api/v1/resources/mark-video-watched/';
+export const PERSONLISE_POST = '/api/v1/support-group/save-user-tags/';
 
 export const USERNAME_AVAILABLE = '/api/v1/user/check-username-availability/';
 export const UPDATE_USERNAME = '/api/v1/user/update-username/';

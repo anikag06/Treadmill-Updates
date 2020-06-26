@@ -1,0 +1,195 @@
+<div class="flex-column tagDiv">
+  <label for="tagsGroup" class="heading">Select tag to personalize feed</label>
+
+  <!-- <div class="d-flex flex-row flex-lg-column justify-content-between "> -->
+
+  <!-- <div class="d-inline-flex flex-lg-row flex-column tagDiv"> -->
+
+  <br />
+  <label for="tagsGroup" class="sub-heading">
+    {{ tagsGroup[5].group_name }}</label
+  >
+  <div class="d-flex flex-row flex-wrap">
+    <div
+      class="d-flex no-gutters"
+      *ngFor="let tag of tagsGroup[5].tags_list; let i = index"
+    >
+      <label class="mb-3 mr-1 mr-md-3">
+        <button
+          type="button"
+          class="tagButton"
+          mat-stroked-button
+          (click)="onTagButtonClick(tag.id, $event)"
+        >
+          {{ tag.name }}
+          <img
+            class="d-none crossIcon"
+            src="../../../../assets/support-group/Close.png"
+          />
+        </button>
+      </label>
+    </div>
+  </div>
+  <label for="tagsGroup" class="sub-heading">
+    {{ tagsGroup[3].group_name }}</label
+  >
+  <div class="d-flex flex-row flex-wrap">
+    <div
+      class="d-flex no-gutters"
+      *ngFor="let tag of tagsGroup[3].tags_list; let i = index"
+    >
+      <label class="mb-3 mr-1 mr-md-3">
+        <button
+          type="button"
+          class="tagButton"
+          mat-stroked-button
+          (click)="onTagButtonClick(tag.id, $event)"
+        >
+          {{ tag.name }}
+          <img
+            class="d-none crossIcon"
+            src="../../../../assets/support-group/Close.png"
+          />
+        </button>
+      </label>
+    </div>
+  </div>
+
+  <label for="tagsGroup" class="sub-heading">
+    {{ tagsGroup[0].group_name }}</label
+  >
+  <div class="d-flex flex-row flex-wrap">
+    <div
+      class="d-flex no-gutters"
+      *ngFor="let tag of tagsGroup[0].tags_list; let i = index"
+    >
+      <label class="mb-3 mr-1 mr-md-3">
+        <button
+          type="button"
+          class="tagButton"
+          mat-stroked-button
+          (click)="onTagButtonClick(tag.id, $event)"
+        >
+          {{ tag.name }}
+          <img
+            class="d-none crossIcon"
+            src="../../../../assets/support-group/Close.png"
+          />
+        </button>
+      </label>
+    </div>
+  </div>
+
+  <label for="tagsGroup" class="sub-heading">
+    {{ tagsGroup[2].group_name }}</label
+  >
+  <div class="d-flex flex-row flex-wrap">
+    <div
+      class="d-flex no-gutters"
+      *ngFor="let tag of tagsGroup[2].tags_list; let i = index"
+    >
+      <label class="mb-3 mr-1 mr-md-3">
+        <button
+          type="button"
+          class="tagButton"
+          mat-stroked-button
+          (click)="onTagButtonClick(tag.id, $event)"
+        >
+          {{ tag.name }}
+          <img
+            class="d-none crossIcon"
+            src="../../../../assets/support-group/Close.png"
+          />
+        </button>
+      </label>
+    </div>
+  </div>
+
+  <label for="tagsGroup" class="sub-heading">
+    {{ tagsGroup[1].group_name }}</label
+  >
+  <div class="d-flex flex-row flex-wrap">
+    <div
+      class="d-flex no-gutters"
+      *ngFor="let tag of tagsGroup[1].tags_list; let i = index"
+    >
+      <label class="mb-3 mr-1 mr-md-3">
+        <button
+          type="button"
+          class="tagButton"
+          mat-stroked-button
+          (click)="onTagButtonClick(tag.id, $event)"
+        >
+          {{ tag.name }}
+          <img
+            class="d-none crossIcon"
+            src="../../../../assets/support-group/Close.png"
+          />
+        </button>
+      </label>
+    </div>
+  </div>
+  <label for="tagsGroup" class="sub-heading">
+    {{ tagsGroup[4].group_name }}</label
+  >
+  <div class="d-flex flex-row flex-wrap">
+    <div
+      class="d-flex no-gutters"
+      *ngFor="let tag of tagsGroup[4].tags_list; let i = index"
+    >
+      <label class="mb-3 mr-1 mr-md-3">
+        <button
+          type="button"
+          class="tagButton"
+          mat-stroked-button
+          (click)="onTagButtonClick(tag.id, $event)"
+        >
+          {{ tag.name }}
+          <img
+            class="d-none crossIcon"
+            src="../../../../assets/support-group/Close.png"
+          />
+        </button>
+      </label>
+    </div>
+  </div>
+  <label for="tagsGroup" class="sub-heading">
+    {{ tagsGroup[6].group_name }}</label
+  >
+  <div class="d-flex flex-row flex-wrap">
+    <div
+      class="d-flex no-gutters"
+      *ngFor="let tag of tagsGroup[6].tags_list; let i = index"
+    >
+      <label class="mb-3 mr-1 mr-md-3">
+        <button
+          type="button"
+          class="tagButton"
+          mat-stroked-button
+          (click)="onTagButtonClick(tag.id, $event)"
+        >
+          {{ tag.name }}
+          <img
+            class="d-none crossIcon"
+            src="../../../../assets/support-group/Close.png"
+          />
+        </button>
+      </label>
+    </div>
+  </div>
+  <div class="mx-3" [ngStyle]="{ textAlign: 'end' }">
+    <!--    <button mat-raised-button (click)="closeTagDialog()">Cancel</button>-->
+    <button
+      mat-raised-button
+      [disabled]="formTags.length === 0"
+      class="btn ml-2 done-btn"
+      (click)="onTagsSubmit()"
+      #btn
+    >
+      Done
+    </button>
+  </div>
+</div>
+<div class="scroll-div">
+  Scroll Down to see all tags
+</div>

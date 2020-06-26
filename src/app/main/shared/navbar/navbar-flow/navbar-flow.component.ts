@@ -9,6 +9,7 @@ import {
 } from '@angular/animations';
 import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifications.service';
 import { CustomOverlayService } from '@/main/shared/custom-overlay/custom-overlay.service';
+import { IntroService } from '@/main/walk-through/intro.service';
 
 @Component({
   selector: 'app-navbar-flow',
@@ -33,7 +34,10 @@ export class NavbarFlowComponent implements OnInit {
   constructor(
     private notificationService: NavbarNotificationsService,
     private overlayService: CustomOverlayService,
-  ) {}
+    private introService: IntroService,
+  ) {
+    // this.introService.stopIntro();
+  }
   navBar = true;
 
   ngOnInit() {

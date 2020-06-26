@@ -1,36 +1,57 @@
-<div class="container-fluid flow-container "
-    [ngClass]="{'dashboard-flow-container': navBar===false,
-                'navBar-flow-container': navBar === true}">
-    <div class="row in-desktop ">
-        <div class="col">
-          <h2 class="progress-heading"
-            [ngClass]="{'dashboard-title': navBar===false,
-                        'navBar-title': navBar===true }">Progress</h2>
-        </div>
+<div
+  id="dashboard"
+  class="container-fluid flow-container"
+  [ngClass]="{
+    'dashboard-flow-container': navBar === false,
+    'navBar-flow-container': navBar === true
+  }"
+>
+  <div class="row in-desktop">
+    <div class="col">
+      <h2
+        class="progress-heading"
+        [ngClass]="{
+          'dashboard-title': navBar === false,
+          'navBar-title': navBar === true
+        }"
+      >
+        Progress
+      </h2>
     </div>
-    <div class="row w-100 justify-content-center mx-0 px-0"
-      *ngIf="dataloaded; else loader">
-      <div class="col-12 px-0 flow-scroll">
+  </div>
+  <div
+    class="row w-100 justify-content-center mx-0 px-0"
+    *ngIf="dataloaded; else loader"
+  >
+    <div class="col-12 px-0 flow-scroll">
         <h6 class="progress-heading-mobile in-mobile mt-3 ml-3" style="opacity:0.6; font-weight:400"
             >Progress</h6>
-        <div class="flow-scroll-inner py-2">
-          <mat-accordion [hideToggle] = 'true'
-            displayMode = "flat"
-            class="my-2">
-            <app-step-group
-              *ngFor="let stepGroup of stepGroups"
-              [stepGroup]="stepGroup">
-            </app-step-group>
-          </mat-accordion>
-        </div>
+      <div class="flow-scroll-inner py-2">
+        <mat-accordion [hideToggle]="true" displayMode="flat" class="my-2">
+          <app-step-group
+            [identifier]="'step' + i"
+            *ngFor="let stepGroup of stepGroups; index as i"
+            [stepGroup]="stepGroup"
+          >
+          </app-step-group>
+        </mat-accordion>
       </div>
     </div>
+    <div
+      *ngIf="showOverlay"
+      class="col-12 px-0 intro-overlay"
+      [ngClass]="{
+        'd-block': showOverlay,
+        'd-none': !showOverlay
+      }"
+    ></div>
+  </div>
 </div>
 
 <ng-template #loader>
-    <div class="col">
-      <div class="text-center loader">
-        <img src="assets/shared/dna-loader.svg" alt="loader" width="200">
-      </div>
+  <div class="col">
+    <div class="text-center loader">
+      <img src="assets/shared/dna-loader.svg" alt="loader" width="200" />
     </div>
+  </div>
 </ng-template>

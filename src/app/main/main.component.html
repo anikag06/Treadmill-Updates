@@ -1,9 +1,19 @@
 <mat-drawer-container class="sidenav-container" autosize>
-  <mat-drawer #drawer class="sidenav" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false" #tooltip="matTooltip"
-    matTooltipDisabled matTooltip={{tooltipData}} [matTooltipPosition]="'right'" (click)="tooltipShow()"
-              [ngStyle]="{'z-index': overlayOpen? '1' : '3' }">
-    <mat-toolbar [appDisableClick]="{'apply': isDisabled}">
+  <mat-drawer
+    id="drawer"
+    #drawer
+    class="sidenav"
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false"
+    #tooltip="matTooltip"
+    matTooltipDisabled
+    matTooltip="{{ tooltipData }}"
+    [matTooltipPosition]="'right'"
+    (click)="tooltipShow()"
+    [ngStyle]="{ 'z-index': overlayOpen ? '1' : '999999' }"
+  >
+    <mat-toolbar [appDisableClick]="{ apply: isDisabled }">
       <div>
         <a class="main-logo" routerLink="/main/dashboard">
           <img
@@ -42,7 +52,11 @@
         <div class="list-wrapper-items">
           <a mat-list-item routerLink="/main/dashboard">
             <span class="list-wrapper-items-icon">
-              <img class="icons-width" src="assets/modules/icon-dashboard.png" alt="dashboard-icon" />
+              <img
+                class="icons-width"
+                src="assets/modules/icon-dashboard.png"
+                alt="dashboard-icon"
+              />
             </span>
             <span class="list-wrapper-items-name">
               Dashboard
@@ -50,8 +64,12 @@
           </a>
         </div>
 
-        <div *ngIf="user.is_exp" class="list-wrapper-items">
-          <a mat-list-item routerLink="/main/games">
+        <div *ngIf="user.is_exp" class="list-wrapper-items" id="games">
+          <a
+            mat-list-item
+            [ngStyle]="{ backgroundColor: '#F4BB56' }"
+            routerLink="/main/games"
+          >
             <span class="list-wrapper-items-icon">
               <img class="icons-width" src="assets/modules/icon-game.png" />
             </span>
@@ -61,10 +79,22 @@
           </a>
         </div>
 
-        <div *ngIf="user.is_exp" class="list-wrapper-items">
-          <a mat-list-item routerLink="/main/support-groups">
+        <div
+          *ngIf="user.is_exp"
+          class="list-wrapper-items"
+          id="support-group"
+          (click)="showSupportGroupIntro()"
+        >
+          <a
+            mat-list-item
+            [ngStyle]="{ backgroundColor: '#F4BB56' }"
+            routerLink="/main/support-groups"
+          >
             <span class="list-wrapper-items-icon">
-              <img class="icons-width" src="assets/modules/icon-support-group.png" />
+              <img
+                class="icons-width"
+                src="assets/modules/icon-support-group.png"
+              />
             </span>
             <span class="list-wrapper-items-name">
               SupportGroup
@@ -72,8 +102,12 @@
           </a>
         </div>
 
-        <div class="list-wrapper-items">
-          <a mat-list-item routerLink="/main/resources/forms">
+        <div class="list-wrapper-items" id="forms">
+          <a
+            mat-list-item
+            [ngStyle]="{ backgroundColor: '#F4BB56' }"
+            routerLink="/main/resources/forms"
+          >
             <span class="list-wrapper-items-icon">
               <img class="icons-width" src="assets/modules/icon-form.png" />
             </span>
@@ -106,10 +140,18 @@
         </div>
 
         <div class="list-wrapper-items">
-          <a mat-list-item routerLink = "/main/need-to-talk">
+          <a mat-list-item routerLink="/main/need-to-talk">
             <span class="list-wrapper-items-icon">
-              <img style="margin-left: 4px;" width="25px" src="assets/modules/icon-need-to-talk.png" />
-              <img *ngIf="!isExpanded" width="25px" src="assets/modules/icon-need-to-talk.png" />
+              <img
+                style="margin-left: 4px;"
+                width="25px"
+                src="assets/modules/icon-need-to-talk.png"
+              />
+              <img
+                *ngIf="!isExpanded"
+                width="25px"
+                src="assets/modules/icon-need-to-talk.png"
+              />
             </span>
             <span class="list-wrapper-items-name"> Need to <br />talk? </span>
           </a>
@@ -127,7 +169,11 @@
         <div class="list-wrapper-items">
           <a mat-list-item routerLink="/main/logout">
             <span class="list-wrapper-items-icon">
-              <img class="icons-width" style="margin-left: 2px;" src="assets/modules/icon-log-out.png" />
+              <img
+                class="icons-width"
+                style="margin-left: 2px;"
+                src="assets/modules/icon-log-out.png"
+              />
             </span>
             <span class="list-wrapper-items-name">
               Logout
@@ -136,29 +182,56 @@
         </div>
       </div>
     </mat-nav-list>
+    <div
+      *ngIf="showOverlay"
+      class="col-12 px-0 intro-overlay"
+      [ngClass]="{
+        'd-block': showOverlay,
+        'd-none': !showOverlay
+      }"
+    ></div>
   </mat-drawer>
 
   <mat-drawer-content class="dashboard-mat-drawer-content" appScrolling>
-    <mat-toolbar *ngIf="isHandset$ | async" #tooltip="matTooltip" matTooltipDisabled matTooltip={{tooltipData}}
-      [matTooltipPosition]="'below'" (click)="tooltipShow()">
+    <mat-toolbar
+      *ngIf="isHandset$ | async"
+      #tooltip="matTooltip"
+      matTooltipDisabled
+      matTooltip="{{ tooltipData }}"
+      [matTooltipPosition]="'below'"
+      (click)="tooltipShow()"
+    >
       <span></span>
     </mat-toolbar>
     <div class="app-main">
-      <app-navbar [user]="user" [appDisableClick]="{'apply': isDisabled}" #tooltip="matTooltip" matTooltipDisabled
-        matTooltip={{tooltipData}} [matTooltipPosition]="'below'" (click)="tooltipShow()"
-      (hamburgerClick)="drawer.toggle()" [isHandset$]="isHandset$"></app-navbar>
+      <app-navbar
+        [user]="user"
+        [appDisableClick]="{ apply: isDisabled }"
+        #tooltip="matTooltip"
+        matTooltipDisabled
+        matTooltip="{{ tooltipData }}"
+        [matTooltipPosition]="'below'"
+        (click)="tooltipShow()"
+        (hamburgerClick)="drawer.toggle()"
+        [isHandset$]="isHandset$"
+      ></app-navbar>
       <div class="page-div">
         <router-outlet></router-outlet>
       </div>
-      <app-chatbot *ngIf="user.is_exp && showChatbot"
-                   [ngStyle]="{'opacity': flowLoaded ? '1' : '0' }"
-      [flowOpen]="flowOpen"></app-chatbot>
+      <app-chatbot
+        *ngIf="user.is_exp && showChatbot"
+        [ngStyle]="{ opacity: flowLoaded ? '1' : '0' }"
+        [flowOpen]="flowOpen"
+      ></app-chatbot>
       <div class="notification-div">
         <ng-template toastNotification></ng-template>
       </div>
     </div>
     <div>
       <ng-template #connection></ng-template>
+    </div>
+    <div>
+      <ng-template #pointsNotification></ng-template>
     </div>
   </mat-drawer-content>
 </mat-drawer-container>

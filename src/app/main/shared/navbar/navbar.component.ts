@@ -41,6 +41,8 @@ import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 import { map, switchMap } from 'rxjs/operators';
 import { LOGGED_IN_PATH } from '@/app.constants';
 import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
+import { IntroService } from '@/main/walk-through/intro.service';
+import { isNotNullOrUndefined } from 'codelyzer/util/isNotNullOrUndefined';
 
 @Component({
   selector: 'app-navbar',
@@ -73,7 +75,12 @@ export class NavbarComponent implements OnInit, OnDestroy {
   @Input() user!: User;
   @Output() hamburgerClick = new EventEmitter<any>();
   @Input() isHandset$!: boolean;
-
+  hideSubscription!: Subscription;
+  hideCards = false;
+  sideBarSubsciprtion!: Subscription;
+  fromIntro = false;
+  gotoSubscription!: Subscription;
+  introExit = false;
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
     private notificationService: NavbarNotificationsService,
@@ -90,6 +97,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private overlayService: CustomOverlayService,
     private stepDataService: StepsDataService,
     private goToService: NavbarGoToService,
+    private introService: IntroService,
   ) {
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationStart) {
@@ -137,6 +145,16 @@ export class NavbarComponent implements OnInit, OnDestroy {
         console.log(event.error);
       }
     });
+    this.hideSubscription = this.introService.hideBehaviour.subscribe(
+      hideCards => {
+        this.hideCards = hideCards;
+      },
+    );
+    this.gotoSubscription = this.introService.gotoBehaviour.subscribe(
+      (value: boolean) => {
+        this.introExit = value;
+      },
+    );
   }
 
   ngOnInit() {
@@ -158,6 +176,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.goToService.clickFlow.subscribe(() => {
       this.flowClick();
     });
+    this.sideBarSubsciprtion = this.introService.sideBarBehaviour.subscribe(
+      fromIntro => {
+        this.fromIntro = fromIntro;
+      },
+    );
   }
 
   notificationClick() {
@@ -178,6 +201,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   flowClick() {
+    if (this.introExit) {
+      this.introService.exitIntro();
+      this.introService.setGotoFalse();
+    }
     this.notificationService.openNavFlow.emit();
     this.overlayService.showFlow = true;
     console.log('flow host', this.flowHost);
@@ -199,6 +226,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   hamburgerClicked() {
+    if (this.fromIntro) {
+      this.introService.exitNavIntro();
+    }
     this.hamburgerClick.emit();
   }
 
@@ -213,6 +243,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.userNotificationSubscription) {
       this.userNotificationSubscription.unsubscribe();
+    }
+    if (isNotNullOrUndefined(this.gotoSubscription)) {
+      this.gotoSubscription.unsubscribe();
     }
   }
 

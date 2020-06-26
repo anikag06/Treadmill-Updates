@@ -6,7 +6,6 @@ import {
   OnInit,
 } from '@angular/core';
 import { MOBILE_WIDTH } from '@/app.constants';
-import { Badge } from './badges/badge.model';
 import { UserProfile } from './UserProfile.model';
 
 @Component({

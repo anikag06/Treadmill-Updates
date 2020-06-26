@@ -89,3 +89,11 @@
     display: block;
   }
 }
+.intro-overlay{
+  background: #000;
+  height: 80vh;
+  position: fixed;
+  top: 50vh;
+  opacity: 0.7;
+  z-index: 99999;
+}

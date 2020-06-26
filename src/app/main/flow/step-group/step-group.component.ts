@@ -1,7 +1,10 @@
-import { Component, OnInit, Input, ElementRef } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { StepGroup } from './step-group.model';
 import { Step } from './step/step.model';
-import { COMPLETED, ACTIVE, UNLOCKED } from '@/app.constants';
+import { ACTIVE, COMPLETED, UNLOCKED } from '@/app.constants';
+import { MatDrawer } from '@angular/material/sidenav';
+import { MatExpansionPanel } from '@angular/material/expansion';
+import { IntroService } from '@/main/walk-through/intro.service';
 
 @Component({
   selector: 'app-step-group',
@@ -10,7 +13,7 @@ import { COMPLETED, ACTIVE, UNLOCKED } from '@/app.constants';
 })
 export class StepGroupComponent implements OnInit {
   @Input() stepGroup!: StepGroup;
-
+  @Input() identifier!: string;
   first!: boolean;
   last!: boolean;
   isExpanded = false;
@@ -26,8 +29,9 @@ export class StepGroupComponent implements OnInit {
   isShowAllBtn = true;
   firstStepOfModule!: boolean;
   lastStepOfModule = false;
+  @ViewChild('panel', { static: true }) panel!: MatExpansionPanel;
 
-  constructor(private elem: ElementRef) {}
+  constructor(private elem: ElementRef, private introService: IntroService) {}
 
   ngOnInit() {
     this.initialiseDefaultSteps();
@@ -89,6 +93,7 @@ export class StepGroupComponent implements OnInit {
       }
     } else if (this.stepGroup.status === ACTIVE) {
       this.isExpanded = true;
+      this.introService.setPanel(this.panel);
       for (let i = 0; i < no_steps; i++) {
         let j = 0;
         if (this.stepGroup.steps[i].status === ACTIVE) {

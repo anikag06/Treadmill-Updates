@@ -1,7 +1,11 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'environments/environment';
-import { FLOW_STEP_MARK_DONE, FLOW_STEPS_DATA } from '@/app.constants';
+import {
+  COMPLETED,
+  FLOW_STEP_MARK_DONE,
+  FLOW_STEPS_DATA,
+} from '@/app.constants';
 import { BehaviorSubject } from 'rxjs';
 import { StepGroup } from './step-group/step-group.model';
 import { Step } from './step-group/step/step.model';
@@ -12,13 +16,14 @@ import { FlowStepNavigationService } from '../shared/flow-step-navigation.servic
 })
 export class FlowService {
   introduceBehaviour = new BehaviorSubject(false);
-  loadBehaviour = new BehaviorSubject(true);
+  loadBehaviour = new BehaviorSubject(false);
   unlockModuleTime = new BehaviorSubject(0);
   stepDetail = new EventEmitter<any>();
   stepSequence = 0;
   stepGroupSequence = 0;
   stepName = '';
   navbarTitle = '';
+  stepCompleted = false;
 
   constructor(
     private http: HttpClient,
@@ -86,5 +91,14 @@ export class FlowService {
       prevStepGroup.steps[prevStepGroup.steps.length - 1],
     );
     return prevStepGroup.steps[prevStepGroup.steps.length - 1].id;
+  }
+
+  setFirstStepCompleted(status: string): boolean {
+    this.stepCompleted = status === COMPLETED;
+    return this.stepCompleted;
+  }
+
+  getFirstStepCompleted() {
+    return this.stepCompleted;
   }
 }

@@ -1,0 +1,29 @@
+
+<div class="intro-img-div">
+  <img [ngStyle]="{width: '80px',borderRadius : '50%'}" src="assets/walk-through/support_group.svg" alt="intro_bot" />
+</div>
+<div class="title" mat-dialog-title>Welcome to SupportGroup</div>
+
+<mat-dialog-content>
+  <div class="mb-2" [ngStyle]="{fontSize : '16px',opacity : '0.8'}" >
+    This is a place where you can talk to other TreadWill users. You can talk about your day (or night), your struggles (or triumphs). We'd love to know what's going on with you .
+    Just a quick note, while responding to others:
+    <ul>
+      <li class="mb-2">be supportive 🤝</li>
+      <li class="mb-2">be respectful 🙏</li>
+      <li class="mb-2">don't judge 😇</li>
+    </ul>
+  </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions class="float-right">
+  <button
+    mat-raised-button
+    class="btn start-btn float-right"
+    (click)="startIntro()"
+    matDialogClose
+  >
+    Next <span [ngStyle]="{fontSize: '40px',verticalAlign:'sub'}"> &#8594;</span>
+  </button>
+</mat-dialog-actions>

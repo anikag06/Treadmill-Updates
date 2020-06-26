@@ -14,7 +14,8 @@ import { Subscription } from 'rxjs';
 import { AuthService } from '@/shared/auth/auth.service';
 import { User } from '@/shared/user.model';
 import { GeneralErrorService } from '@/main/shared/general-error.service';
-import { FormArray, FormBuilder, FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, FormArray } from '@angular/forms';
+import { map, switchMap } from 'rxjs/operators';
 import { WorryProductivelyService } from '@/main/resources/forms/worry-productively-form/worry-productively.service';
 import {
   THINKING_IMG,

@@ -4,16 +4,18 @@ import { SlidesVideoComponent } from '@/main/resources/slides/slides-video/slide
 import { QuestionnaireModule } from '@/questionnaire.module';
 import { MaterialModule } from '@/material.module';
 import { SafeUrlPipe } from '@/shared/safe-url.pipe';
+import { CongratsDialogComponent } from '@/main/resources/shared/congrats-dialog/congrats-dialog.component';
 
 @NgModule({
-  declarations: [SlidesVideoComponent, SafeUrlPipe],
+  declarations: [SlidesVideoComponent, SafeUrlPipe, CongratsDialogComponent],
   imports: [CommonModule, QuestionnaireModule, MaterialModule],
   exports: [
     SlidesVideoComponent,
     QuestionnaireModule,
     MaterialModule,
     SafeUrlPipe,
+    CongratsDialogComponent,
   ],
-  entryComponents: [SlidesVideoComponent],
+  entryComponents: [SlidesVideoComponent, CongratsDialogComponent],
 })
 export class SharedModule {}

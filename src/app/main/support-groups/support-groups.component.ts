@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, HostListener } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
 import { TagService } from '../shared/tag.service';
 import { CreatePostComponent } from './create-post/create-post.component';
 import { MatDialog } from '@angular/material';
@@ -13,6 +13,8 @@ import { map, switchMap } from 'rxjs/operators';
 import { FlowService } from '@/main/flow/flow.service';
 import { ActivatedRoute } from '@angular/router';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
+import { Subscription } from 'rxjs';
+import { IntroService } from '@/main/walk-through/intro.service';
 
 @Component({
   selector: 'app-support-groups',
@@ -31,6 +33,7 @@ export class SupportGroupsComponent implements OnInit {
     private flowService: FlowService,
     private activatedRoute: ActivatedRoute,
     private stepDataService: StepsDataService,
+    private introService: IntroService,
   ) {
     this.titleService.setTitle('Support Group | ' + TREADWILL);
     this.getScreenSize();
@@ -43,7 +46,9 @@ export class SupportGroupsComponent implements OnInit {
   stepGroupSequence!: number;
   stepSequence!: number;
   stepName!: string;
-
+  loadingSubscription!: Subscription;
+  // fromFlow =false;
+  loading = false;
   @HostListener('window:resize', ['$event'])
   getScreenSize(event?: any) {
     this.srcWidth = window.innerWidth;
@@ -87,6 +92,12 @@ export class SupportGroupsComponent implements OnInit {
         console.log('user profila data', this.userProfileData);
         this.sgService.userProfileData = this.userProfileData;
       });
+
+    this.loadingSubscription = this.introService.loadingBehaviour.subscribe(
+      (loading: boolean) => {
+        this.loading = loading;
+      },
+    );
   }
 
   onCreatePostClick() {
@@ -110,6 +121,12 @@ export class SupportGroupsComponent implements OnInit {
         data: null,
         panelClass: 'create-new-post',
       });
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.loadingSubscription) {
+      this.loadingSubscription.unsubscribe();
     }
   }
 }

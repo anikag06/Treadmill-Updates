@@ -1,4 +1,10 @@
-<div class="container-fluid no-gutters-sm body-bg">
+<div
+  class="container-fluid no-gutters-sm body-bg"
+  [ngClass]="{
+    'd-block': !loading,
+    'd-none': loading
+  }"
+>
   <div class="row no-gutters">
     <div class="col-md-12">
       <div class="row no-gutters">
@@ -18,18 +24,35 @@
           <aside class="aside">
             <div class="content">
               <div class="text-center">
-                <button mat-raised-button type="submit" class="mr-2 newPostBtn" color="primary"
-                  (click)="onCreatePostClick()">
-                  <img src="assets/support-group/edit (1).png" alt="new post" height="36" width="36" class="mr-3"> New
-                  Post</button>
+                <button
+                  mat-raised-button
+                  type="submit"
+                  class="mr-2 newPostBtn"
+                  [ngStyle]="{ backgroundColor: '#f4bb56' }"
+                  id="new-post"
+                  (click)="onCreatePostClick()"
+                >
+                  <img
+                    src="assets/support-group/edit (1).png"
+                    alt="new post"
+                    height="36"
+                    width="36"
+                    class="mr-3"
+                  />
+                  New Post
+                </button>
               </div>
               <!-- </div>
             </aside>
             <aside class="aside">
                 <div class="content"> -->
               <div class="text-center">
-                <img class="create-img" src="assets/support-group/undraw_wall_post_83ul (2).png" alt="new post"
-                  width="305px">
+                <img
+                  class="create-img"
+                  src="assets/support-group/undraw_wall_post_83ul (2).png"
+                  alt="new post"
+                  width="305px"
+                />
               </div>
             </div>
           </aside>
@@ -37,4 +60,8 @@
       </div>
     </div>
   </div>
+</div>
+<div *ngIf="loading" class="ml-5 loading-feeds">
+  <img src="assets/shared/dna-loader.svg" alt="loading..." width="200" />
+  <div>Personalizing feed</div>
 </div>

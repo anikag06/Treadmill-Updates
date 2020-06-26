@@ -1,0 +1,184 @@
+label {
+  color: black !important;
+}
+
+.ng-valid {
+  color: black !important;
+}
+
+.no-gutters {
+  margin: 0;
+  padding: 0;
+}
+
+h3 {
+  color: #9e3737;
+  font-size: 18px;
+}
+
+.ng-invalid {
+  .angular-editor {
+    border: 1px solid #9e3737;
+  }
+}
+
+.create-post {
+  max-width: 600px;
+}
+
+.tagDiv {
+  max-width: 600px;
+}
+
+.post-form {
+  // max-width: 60%;
+  font-family: Roboto, sans-serif;
+
+  .mat-stroked-button {
+    line-height: 24px !important;
+  }
+}
+
+.submit-btn {
+  width: 100px;
+  color: white;
+  background-color: #2a3b3d;
+}
+
+.close-btn {
+  width: 100px;
+  color: #2a3b3d;
+  background-color: white;
+  border: #2a3b3d;
+}
+
+.crossIcon {
+  top: -14px;
+  right: 0;
+  position: absolute;
+  height: 24px;
+  width: 24px;
+  background: #ffffff00 0% 0% no-repeat padding-box;
+  // box-shadow: 0px 1px 2px #00000029;
+  opacity: 1;
+}
+
+.submitDiv1 {
+  display: block;
+}
+
+.submitDiv2 {
+  display: none;
+}
+
+.error-div {
+  background-color: #feb7b7;
+  padding: 10px;
+  border: 2px dashed #9e3737;
+  border-radius: 5px;
+
+  ul {
+    color: #9e3737;
+    font-size: 14px;
+    text-transform: capitalize;
+    padding: 0;
+
+    li {
+      list-style-type: none;
+    }
+  }
+}
+
+.toggleButton {
+  background-color: white !important;
+  border-color: #000000d9;
+}
+
+.tagButton {
+  font-size: 12px;
+  border-radius: 12px;
+  background-color: #f2f2f2;
+  min-width: 94px;
+  height: 24px;
+  font-weight: 400;
+  opacity: 0.6;
+  line-height: 10px;
+  outline: none;
+}
+
+.sub-heading {
+  opacity: 0.4;
+  display: flex;
+}
+
+@media screen and (max-width: 991px) {
+  .text-md-center {
+    text-align: center;
+  }
+
+  .tagButton {
+    margin-bottom: 4px;
+    margin-right: 6px;
+  }
+
+  .form-row {
+    max-width: 600px;
+    margin: auto;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .form-row {
+    // max-width: 600px;
+    margin-left: -20px;
+    margin-right: -20px;
+  }
+
+  .text-lg-right {
+    text-align: right;
+  }
+
+  .tagDiv {
+    // min-width: 400px;
+  }
+
+  .submitDiv1 {
+    display: none;
+  }
+
+  .submitDiv2 {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .form-row {
+    max-width: 600px;
+    margin-left: -15px;
+    margin-right: -15px;
+  }
+}
+
+.scroll-div {
+  background: transparent
+  linear-gradient(180deg, #faf4ea00 0%, #faf4ea 48%, #faf4ea 100%) 0% 0%
+  no-repeat padding-box;
+  border-radius: 0px 0px 4px 4px;
+  opacity: 1;
+  position: sticky;
+  bottom: 0;
+  height: 51px;
+  padding-top: 0.5rem;
+}
+@media screen and (min-width: 576px) {
+  .heading {
+    font-size: 23px;
+    margin-bottom: 1.5rem;
+    font-weight: bolder;
+  }
+}
+.done-btn{
+  background: #2A3B3D;
+  color : white;
+}
+

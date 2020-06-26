@@ -73,7 +73,7 @@
   </div>
 
   <div class="row no-gutters mt-2">
-    <div class='d-flex align-content-between flex-wrap' *ngIf="supportGroupItem.tags.length > 0">
+    <div class='d-flex align-content-between flex-wrap' *ngIf="supportGroupItem.tags.length > 0" id="tags_id">
       <div class="tags" *ngFor="let tag of supportGroupItem.tags">
         <span>
           <a (click)="onTagClick(tag)">{{tag.name}}</a>

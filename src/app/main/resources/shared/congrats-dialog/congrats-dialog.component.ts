@@ -62,7 +62,7 @@ export class CongratsDialogComponent implements OnInit {
 
   goToDashboard() {
     this.closeDialog();
-    this.router.navigate(['/']);
+    // this.router.navigate(['/']);
   }
   closeDialog() {
     this.dialogRef.close();

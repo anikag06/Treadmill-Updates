@@ -32,18 +32,19 @@
   margin-left: -15px;
 
   .profile-header {
-    background: #343434 0% 0% no-repeat padding-box;
+    background: #343434 0 0 no-repeat padding-box;
     height: 35%;
 
     .profile-image {
       height: 100%;
       width: 100%;
       border-radius: 50%;
-      background: transparent 0% 0% cover padding-box;
+      background: transparent 0 0  padding-box;
     }
 
     .points {
-      flex-wrap: inherit;
+      flex-wrap: wrap;
+      background: #343434;
     }
   }
 
@@ -227,7 +228,7 @@
       }
 
       .mat-card-header-text {
-        margin: 0 px;
+        margin: 0;
       }
 
       .mat-card-header {
