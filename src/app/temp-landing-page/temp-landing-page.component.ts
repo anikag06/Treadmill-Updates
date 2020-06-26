@@ -50,7 +50,6 @@ export class TempLandingPageComponent implements OnInit {
         );
     } else {
       this.showErrorMessage = true;
-      // this.showLoading = true;
     }
   }
 
