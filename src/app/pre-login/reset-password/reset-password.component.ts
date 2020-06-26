@@ -1,16 +1,15 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {ResetPasswordService} from '@/pre-login/reset-password/reset-password.service';
-import {ActivatedRoute, Route, Router} from '@angular/router';
-import {NgForm} from '@angular/forms';
-import {AuthService} from '@/shared/auth/auth.service';
-import {LOGGED_IN_PATH} from '@/app.constants';
-
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { ResetPasswordService } from '@/pre-login/reset-password/reset-password.service';
+import { ActivatedRoute, Route, Router } from '@angular/router';
+import { NgForm } from '@angular/forms';
+import { AuthService } from '@/shared/auth/auth.service';
+import { LOGGED_IN_PATH } from '@/app.constants';
 
 @Component({
   selector: 'app-reset-password',
   templateUrl: './reset-password.component.html',
-  styleUrls: ['./reset-password.component.scss']
+  styleUrls: ['./reset-password.component.scss'],
 })
 export class ResetPasswordComponent implements OnInit {
   passwordChangedPageShow = false;
@@ -34,9 +33,8 @@ export class ResetPasswordComponent implements OnInit {
   confirm_password: any; // name
   uniqueLink!: string;
 
-
-  @ViewChild('resetForm', {static: true}) resetForm!: NgForm;
- // @ViewChild('newpassword', {static: true}) newpassword!: ElementRef;
+  @ViewChild('resetForm', { static: true }) resetForm!: NgForm;
+  // @ViewChild('newpassword', {static: true}) newpassword!: ElementRef;
 
   constructor(
     private http: HttpClient,
@@ -44,7 +42,7 @@ export class ResetPasswordComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private authService: AuthService,
     private router: Router,
-  ) { }
+  ) {}
 
   ngOnInit() {
     const user = this.authService.isLoggedIn();
@@ -53,8 +51,10 @@ export class ResetPasswordComponent implements OnInit {
     } else {
       this.errorPage = false;
       // this.showResetPasswordForm = true;
-      this.resetPasswordService.linkValidityCheck(this.activatedRoute.snapshot.params['unique-code'])
-        .subscribe(() => {
+      this.resetPasswordService
+        .linkValidityCheck(this.activatedRoute.snapshot.params['unique-code'])
+        .subscribe(
+          () => {
             // console.log('reset page');
             // this.uniqueLink = this.activatedRoute.snapshot.params['unique-code'];
             this.showResetPasswordForm = true;
@@ -64,11 +64,9 @@ export class ResetPasswordComponent implements OnInit {
             this.linkExpiredMsg = error.error.message;
             this.errorPage = true;
             this.showResetPasswordForm = true;
-          });
-
+          },
+        );
     }
-
-
   }
   resetSubmitClicked() {
     this.uniqueLink = this.activatedRoute.snapshot.params['unique-code'];
@@ -76,30 +74,31 @@ export class ResetPasswordComponent implements OnInit {
     this.matchPasswords();
     if (this.passwordMatch) {
       this.loading = true;
-      this.resetPasswordService.resetPasswordSubmitted(this.newPassword, this.uniqueLink)
-        .subscribe((data: any) => {
+      this.resetPasswordService
+        .resetPasswordSubmitted(this.newPassword, this.uniqueLink)
+        .subscribe(
+          (data: any) => {
             this.passwordChangedPageShow = true;
             this.loading = false;
           },
           error => {
             // console.log('password submit error', error);
-           // console.log('new password', this.newPassword);
+            // console.log('new password', this.newPassword);
             this.errorMessage = error.error.error.new_password;
             this.errorMsgShow = true;
             console.log(this.errorMessage);
             this.loading = false;
-          });
+          },
+        );
     }
 
     // .subscribe(() => {
     //   if(data.status === true) {
     //     this.passwordChangedPageShow = true;
     //   } error => {
-      //  this.errorMessage = error.errormessage;
+    //  this.errorMessage = error.errormessage;
     // })
-
   }
-
 
   newPasswordInput() {
     this.newPasswordTyped = true;
@@ -128,5 +127,4 @@ export class ResetPasswordComponent implements OnInit {
   passwordMatchToFalse() {
     this.passwordMatch = false;
   }
-
 }

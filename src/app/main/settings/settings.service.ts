@@ -52,7 +52,9 @@ export class SettingsService {
     }
     const data: any = {};
     data[field] = this.notification_number;
-    return this.http.patch(environment.API_ENDPOINT + '/api/v1/notifications/update-notification-settings/',
+    return this.http.patch(
+      environment.API_ENDPOINT +
+        '/api/v1/notifications/update-notification-settings/',
       data,
     );
   }

@@ -76,7 +76,8 @@ export const MOBILE_WIDTH = 768;
 export const USER_PROFILE = '/api/v1/user/user-profile/';
 
 export const FORGOT_USERNAME_PATH = '/api/v1/user/forgot-username/';
-export const RESET_LINK_VALIDITY_SET_NEW_PASSWORD = '/api/v1/user/reset-password/';
+export const RESET_LINK_VALIDITY_SET_NEW_PASSWORD =
+  '/api/v1/user/reset-password/';
 export const FORGOT_PASSWORD_PATH = '/api/v1/user/get-reset-password-link/';
 export const LANDING_RESET_PASSWORD_PATH = '/landing/reset-password';
 export const LOGIN_AFTER_RESET = '/landing/login';

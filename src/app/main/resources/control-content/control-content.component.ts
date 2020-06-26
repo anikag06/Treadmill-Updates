@@ -22,7 +22,6 @@ import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
   selector: 'app-control-content',
   templateUrl: './control-content.component.html',
   styleUrls: ['./control-content.component.scss'],
-  //providers: [FlowService],
 })
 export class ControlContentComponent implements OnInit {
   @ViewChild('target', { static: false }) target!: ElementRef;
@@ -44,7 +43,7 @@ export class ControlContentComponent implements OnInit {
   // elem = document.getElementById('hi');
 
   constructor(
-   // private flowService: FlowService,
+    // private flowService: FlowService,
     private activateRoute: ActivatedRoute,
     private stepDataService: StepsDataService,
     private loadFilesService: LoadFilesService,
@@ -76,8 +75,6 @@ export class ControlContentComponent implements OnInit {
         this.isLastStep = control_data.data.is_last_step;
 
         this.dataloaded = true;
-        //this.showLoading = true;
-        // this.nextLoaded = true;
         if (control_data.data.status === 'COMPLETED') {
           this.nextBtnShow = true;
           if (this.isLastStep) {
@@ -97,7 +94,7 @@ export class ControlContentComponent implements OnInit {
           ' ' +
           this.stepName;
         console.log('STEP DETAIL:', this.navbarTitle);
-        this.flowService.stepDetail.emit(this.navbarTitle);
+        // this.flowService.stepDetail.emit(this.navbarTitle);
       });
   }
   //
@@ -119,7 +116,6 @@ export class ControlContentComponent implements OnInit {
   //   // this.nextLoaded = false;
   // }
 
-
   onHtmlComplete() {
     this.showLoading = true;
     this.completionData.step_id = this.current_step_id;
@@ -140,11 +136,9 @@ export class ControlContentComponent implements OnInit {
         }
       });
 
-
     this.dataloaded = true;
     // this.onHtmlNext();
     // this.nextButton(this.current_step_id);
-    //this.showLoading = false;
   }
 
   onHtmlDashboard() {
@@ -159,7 +153,6 @@ export class ControlContentComponent implements OnInit {
   onScrollToTop() {
     setTimeout(() => {
       this.target.nativeElement.scrollIntoView({ behavior: 'smooth' });
-      //window.scrollTo(0, 0);
     }, 10);
   }
 }

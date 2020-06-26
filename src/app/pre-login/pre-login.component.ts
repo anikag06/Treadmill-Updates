@@ -1,14 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { ShowLoginSignupDialogService } from '@/pre-login/shared/show-login-signup-dialog.service';
 import { A2HSService } from '@/shared/a2hs.service';
 import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-contact-us-dialog.service';
 import { AuthService } from '@/shared/auth/auth.service';
-import {LOGGED_IN_PATH, DEFAULT_PATH, LANDING_RESET_PASSWORD_PATH, LOGIN_AFTER_RESET} from '@/app.constants';
+import {
+  LOGGED_IN_PATH,
+  DEFAULT_PATH,
+  LANDING_RESET_PASSWORD_PATH,
+  LOGIN_AFTER_RESET,
+} from '@/app.constants';
 
 import { MatLoginDialogComponent } from '@/pre-login/login/mat-login-dialog/mat-login-dialog.component';
-
 
 @Component({
   selector: 'app-pre-login',
@@ -46,7 +50,6 @@ export class PreLoginComponent implements OnInit {
     if (this.router.url === LOGIN_AFTER_RESET) {
       this.onLoginClicked();
     }
-
   }
 
   onLoginClicked() {

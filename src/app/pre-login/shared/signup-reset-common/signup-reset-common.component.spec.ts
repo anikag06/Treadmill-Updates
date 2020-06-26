@@ -8,9 +8,8 @@ describe('SignupResetCommonComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SignupResetCommonComponent ]
-    })
-    .compileComponents();
+      declarations: [SignupResetCommonComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

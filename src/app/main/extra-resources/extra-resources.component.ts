@@ -36,7 +36,6 @@ export class ExtraResourcesComponent implements OnInit {
     private flowService: FlowService,
     private activatedRoute: ActivatedRoute,
     private stepDataService: StepsDataService,
-
   ) {}
 
   ngOnInit() {
