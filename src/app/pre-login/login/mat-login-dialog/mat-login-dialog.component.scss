@@ -5,7 +5,8 @@
 .ng-untouched,
 .mat-focused,
 .ng-pristine {
-  color: white;
+  color: #000000DE;
+
 
   .mat-form-field-wrapper {
     .mat-form-field-underline {
@@ -36,24 +37,34 @@
 }
 
 .login-form {
-  color: white !important;
+ // color: white !important;
+  color: #00000099 !important;
   a {
-    color: white !important;
+    //color: white !important;
+    color: #00000099 !important;
   }
+}
+.login-btn{
+  background-color: #2A3B3D;
+  color: white;
 }
 
 .anchorify-forgot-username-password {
   @extend .anchorify-with-underline-on-hover;
-  @include font-lato($font-weight: 700, $font-style: italic);
-  font-size: 75%;
-  color: #2a3b3d !important;
-  margin-left: 10%;
+  //@include font-lato($font-weight: 700, $font-style: italic);
+  font-size: 14px;
+  font-family: Roboto;
+  //color: #2a3b3d !important;
+  color: #00000099 !important;
+  //margin-left: 10%;
+  //text-align: center;
 }
 
 .anchorify-join-the-study {
   @extend .anchorify-default;
-  @include font-lato();
-  font-size: 100%;
+ // @include font-lato();
+  font-size: 14px;
+  font-family: Roboto;
   color: #2a3b3d !important;
 }
 
@@ -64,9 +75,13 @@
 .input-container {
   .forgot-password {
     margin-bottom: 10px;
+    font-size: 14px;
+    justify-content: center;
+    //color: #00000099;
   }
   .join-study {
     margin-top: 25px;
+    font-size: 14px;
   }
   .message {
     color: green;
@@ -80,3 +95,51 @@
     font-weight: 500;
   }
 }
+.recover{
+  text-align: center;
+}
+.recover-btn{
+  justify-content: end;
+}
+.recover-msg{
+  padding-top: 36px;
+  padding-bottom: 46px;
+  font-family: Roboto;
+  font-weight: normal;
+ // overflow-wrap: break-word;
+}
+
+//.heading {
+//  color: #00000099 !important;
+//}
+.error-msg {
+  color: red;
+}
+.loading-btn{
+  font-size: 14px;
+  font-family: Roboto;
+  color: white;
+  background-color: #2a3b3d;
+  text-align: center;
+  justify-content: center;
+  margin: 16px 0;
+}
+
+.heading{
+  font-size: 24px;
+  font-family: Roboto;
+  font-weight: bold;
+  padding-bottom: 10px;
+}
+
+@media only screen and (max-width: 767px){
+  .heading{
+    font-size: 20px;
+  }
+  .input-container {
+    .forgot-password {
+      justify-content: start;
+    }
+  }
+}
+

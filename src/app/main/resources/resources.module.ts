@@ -290,12 +290,13 @@ import { StepCompletedComponent } from './shared/step-completed/step-completed.c
     SlidesBottomsheetComponent,
     DeleteDialogComponent,
   ],
-  exports: [
-    DateTimePickerComponent,
-    ClickOutsideDirective,
-    MoodTrackerComponent,
-    DeleteDialogComponent,
-    ScrollToTopDirective,
-  ],
+    exports: [
+        DateTimePickerComponent,
+        ClickOutsideDirective,
+        MoodTrackerComponent,
+        DeleteDialogComponent,
+        ScrollToTopDirective,
+        ControlContentComponent,
+    ],
 })
 export class ResourcesModule {}

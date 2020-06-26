@@ -42,14 +42,22 @@ export class SettingsComponent implements OnInit {
   usernamePasswordSubmitShow = false;
   usernameMessage!: string;
   notificationError!: string;
+  // toggle state that changes when clicking on toggle
   supportGroupEmailToggle!: boolean;
   supportGroupFcmToggle!: boolean;
-  taskFormFcmToggle!: boolean;
+  taskFormFcmToggle = true;
   taskFormEmailToggle!: boolean;
   formsFcmToggle!: boolean;
   formsEmailToggle!: boolean;
-  weeklyEmailToggle = true;
-
+  weeklyEmailToggle!: boolean;
+  // toggle state coming from backend
+  // supportGroupEmailUpdate!: boolean;
+  // supportGroupFcmUpdate!: boolean;
+  // taskFormEmailUpdate!: boolean;
+  // taskFormFcmUpdate!: boolean;
+  // formsEmailUpdate!: boolean;
+  // formsFcmUpdate!: boolean;
+  // weeklyUpdate!: boolean;
 
 
 
@@ -73,6 +81,7 @@ export class SettingsComponent implements OnInit {
 
     this.settingsService.updatedNotificationsState()
         .subscribe((data: any) => {
+          console.log('weekly', this.weeklyEmailToggle);
           console.log('notification state', data);
           this.supportGroupEmailToggle = data.data.support_group_email;
           this.supportGroupFcmToggle = data.data.support_group_fcm;
@@ -81,7 +90,6 @@ export class SettingsComponent implements OnInit {
           this.formsEmailToggle = data.data.forms_email;
           this.formsFcmToggle = data.data.forms_fcm;
           this.weeklyEmailToggle = data.data.weekly_email_update;
-          console.log('weekly', this.weeklyEmailToggle);
           console.log('weekly', data.data.weekly_email_update);
 
         });
@@ -255,6 +263,7 @@ export class SettingsComponent implements OnInit {
   }
 
   saveNotificationChange(field: string, toggle_on: boolean) {
+    //this.checked = !this.checked;
     console.log('field', field);
     console.log( toggle_on);
 

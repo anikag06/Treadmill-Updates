@@ -22,7 +22,7 @@ import {NavbarGoToService} from '@/main/shared/navbar/navbar-go-to.service';
   selector: 'app-control-content',
   templateUrl: './control-content.component.html',
   styleUrls: ['./control-content.component.scss'],
-  providers: [FlowService],
+  //providers: [FlowService],
 })
 export class ControlContentComponent implements OnInit {
   @ViewChild('target', { static: false }) target!: ElementRef;
@@ -39,7 +39,7 @@ export class ControlContentComponent implements OnInit {
   // elem = document.getElementById('hi');
 
   constructor(
-    private flowService: FlowService,
+   // private flowService: FlowService,
     private activateRoute: ActivatedRoute,
     private stepDataService: StepsDataService,
     private loadFilesService: LoadFilesService,
@@ -80,24 +80,24 @@ export class ControlContentComponent implements OnInit {
         }
       });
   }
-
-  onHtmlNext() {
-    this.flowStepService
-      .getNextStepData(this.next_step_id)
-      .subscribe(next_step => {
-        console.log('next_step_detail is', next_step);
-        console.log('next_step_data is', next_step.data);
-        const next_step_url = this.flowStepService.goToFlowNextStep(
-          next_step.data,
-        );
-        console.log('url is', next_step_url);
-        this.router.navigate([next_step_url]);
-        this.onScrollToTop();
-        // this.nextButton(next_step);
-      });
-    this.dataloaded = false;
-    // this.nextLoaded = false;
-  }
+  //
+  // onHtmlNext() {
+  //   this.flowStepService
+  //     .getNextStepData(this.next_step_id)
+  //     .subscribe(next_step => {
+  //       console.log('next_step_detail is', next_step);
+  //       console.log('next_step_data is', next_step.data);
+  //       const next_step_url = this.flowStepService.goToFlowNextStep(
+  //         next_step.data,
+  //       );
+  //       console.log('url is', next_step_url);
+  //       this.router.navigate([next_step_url]);
+  //       this.onScrollToTop();
+  //       // this.nextButton(next_step);
+  //     });
+  //   this.dataloaded = false;
+  //   // this.nextLoaded = false;
+  // }
 
 
   onHtmlComplete() {
@@ -109,9 +109,10 @@ export class ControlContentComponent implements OnInit {
       .storeCompletionData(this.completionData)
       .subscribe(() => {
         this.showLoading = false;
+        this.nextBtnShow = true;
       });
 
-    this.nextBtnShow = true;
+
     this.dataloaded = true;
     // this.onHtmlNext();
     // this.nextButton(this.current_step_id);

@@ -1,4 +1,4 @@
-.card{
+.reading-card{
   padding-top: 0px;
   padding-left: 0px;
   padding-right: 0px;
@@ -29,7 +29,7 @@
 }
 
 @media screen and (min-width: 1501px) {
-  .card {
+  .reading-card {
     width: 348px;
     flex-grow: 1;
     max-height: 306px;
@@ -41,7 +41,7 @@
 }
 
 @media screen and (max-width: 1500px) {
-  .card {
+  .reading-card {
     width: 250px;
     max-height: 231px;
     min-height: 231px;
@@ -49,7 +49,7 @@
 }
 
 @media screen and (max-width: 1280px) {
-  .card {
+  .reading-card {
     width: 224px;
     max-height: 210px;
     min-height: 210px;
@@ -58,7 +58,7 @@
 
 
 @media screen and (max-width: 991px) {
-  .card {
+  .reading-card {
     width: 268px;
     max-height: 185px;
     min-height: 185px;
@@ -66,7 +66,7 @@
 }
 
 @media screen and (max-width: 768px) {
-  .card {
+  .reading-card {
     width: 159px;
     max-height: 185px;
     min-height: 185px;
@@ -75,7 +75,7 @@
 }
 
 @media screen and (max-width: 525px) {
-  .card {
+  .reading-card {
     width: 42vw;
     margin: 0px 0px 14px;
     max-height: 172px;
@@ -87,7 +87,7 @@
 }
 
 @media screen and (max-width: 375px) {
-  .card {
+  .reading-card {
     width: 42vw;
     margin: 0px 0px 14px;
     max-height: 161px;

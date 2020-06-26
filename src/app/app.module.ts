@@ -40,6 +40,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { QuizService } from '@/shared/questionnaire/questionnaire.service';
+import {ResetPasswordComponent} from '@/pre-login/reset-password/reset-password.component';
+import {SignupResetCommonComponent} from '@/pre-login/shared/signup-reset-common/signup-reset-common.component';
+import {MatLoginDialogService} from '@/pre-login/login/mat-login-dialog/mat-login-dialog.service';
+import {ResetPasswordService} from '@/pre-login/reset-password/reset-password.service';
 
 declare let $: any;
 
@@ -55,6 +59,8 @@ declare let $: any;
     ErrorDialogComponent,
     NotFoundComponent,
     SignUpComponent,
+    ResetPasswordComponent,
+    SignupResetCommonComponent,
   ],
   imports: [
     BrowserModule,
@@ -95,6 +101,8 @@ declare let $: any;
     SignUpService,
     CommonService,
     QuizService,
+    MatLoginDialogService,
+    ResetPasswordService,
     //VideoItem
   ],
   bootstrap: [AppComponent],

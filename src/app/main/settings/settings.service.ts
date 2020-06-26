@@ -50,9 +50,10 @@ export class SettingsService {
     console.log("field, ", field);
     console.log("notification number ", this.notification_number);
    // console.log(field,  notification);
-    return this.http.patch(environment.API_ENDPOINT + '/api/v1/notifications/update-notification-settings/', {
+    return this.http.patch(environment.API_ENDPOINT + '/api/v1/notifications/update-notification-settings/',
       data,
-    });
+      
+    );
 
 
   }

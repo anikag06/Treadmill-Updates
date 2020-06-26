@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 import { ShowLoginSignupDialogService } from '@/pre-login/shared/show-login-signup-dialog.service';
 import { A2HSService } from '@/shared/a2hs.service';
 import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-contact-us-dialog.service';
 import { AuthService } from '@/shared/auth/auth.service';
-import { LOGGED_IN_PATH, DEFAULT_PATH } from '@/app.constants';
+import {LOGGED_IN_PATH, DEFAULT_PATH, LANDING_RESET_PASSWORD_PATH, LOGIN_AFTER_RESET} from '@/app.constants';
 
 import { MatLoginDialogComponent } from '@/pre-login/login/mat-login-dialog/mat-login-dialog.component';
+
 
 @Component({
   selector: 'app-pre-login',
@@ -17,6 +18,7 @@ import { MatLoginDialogComponent } from '@/pre-login/login/mat-login-dialog/mat-
 })
 export class PreLoginComponent implements OnInit {
   loggedIn = false;
+  url!: string;
 
   constructor(
     private showLoginSignupDialogService: ShowLoginSignupDialogService,
@@ -24,6 +26,7 @@ export class PreLoginComponent implements OnInit {
     private a2hsService: A2HSService,
     private authService: AuthService,
     private router: Router,
+    private activatedRoute: ActivatedRoute,
   ) {}
 
   ngOnInit() {
@@ -34,6 +37,16 @@ export class PreLoginComponent implements OnInit {
     } else {
       this.router.navigate([DEFAULT_PATH]);
     }
+
+    // console.log('url data', this.router.url);
+    if (this.router.url === LANDING_RESET_PASSWORD_PATH) {
+      this.onLoginClicked();
+    }
+
+    if (this.router.url === LOGIN_AFTER_RESET) {
+      this.onLoginClicked();
+    }
+
   }
 
   onLoginClicked() {

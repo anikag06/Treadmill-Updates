@@ -15,6 +15,7 @@ import { GetQuestionnaireComponent } from './dashboard/get-questionnaire/get-que
 import { SurveyComponent } from './shared/survey/survey.component';
 import { NeedToTalkComponent } from '@/main/need-to-talk/need-to-talk.component';
 import {SettingsComponent} from '@/main/settings/settings.component';
+import {ResetPasswordComponent} from '@/pre-login/reset-password/reset-password.component';
 
 export const mainRoutes: Routes = [
   {
