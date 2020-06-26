@@ -48,6 +48,9 @@ export class TempLandingPageComponent implements OnInit {
             this.showLoading = false;
           },
         );
+    } else {
+      this.showErrorMessage = true;
+      // this.showLoading = true;
     }
   }
 
