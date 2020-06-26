@@ -7,6 +7,13 @@
   //font-size: 24px; //this value is for desktop, phone value will be different and needs to be changed
   font-size: 24px;
 }
+.fix-content-header{
+  background-color: white;
+  height: 48px;
+  min-height: 42px;
+  justify-content: initial;
+  padding-left: 24px;
+}
 
 .fix-content-body {
   margin-top: 45px;
@@ -45,6 +52,7 @@
     height: 48px;
     min-height: 42px;
     background-color: black;
+    justify-content: center;
 
   }
 

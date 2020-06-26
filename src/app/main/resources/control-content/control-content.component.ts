@@ -22,7 +22,7 @@ import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
   selector: 'app-control-content',
   templateUrl: './control-content.component.html',
   styleUrls: ['./control-content.component.scss'],
-  // providers: [FlowService],
+  //providers: [FlowService],
 })
 export class ControlContentComponent implements OnInit {
   @ViewChild('target', { static: false }) target!: ElementRef;
@@ -44,7 +44,7 @@ export class ControlContentComponent implements OnInit {
   // elem = document.getElementById('hi');
 
   constructor(
-    private flowService: FlowService,
+   // private flowService: FlowService,
     private activateRoute: ActivatedRoute,
     private stepDataService: StepsDataService,
     private loadFilesService: LoadFilesService,
@@ -100,7 +100,7 @@ export class ControlContentComponent implements OnInit {
         this.flowService.stepDetail.emit(this.navbarTitle);
       });
   }
-
+  //
   // onHtmlNext() {
   //   this.flowStepService
   //     .getNextStepData(this.next_step_id)
@@ -118,6 +118,7 @@ export class ControlContentComponent implements OnInit {
   //   this.dataloaded = false;
   //   // this.nextLoaded = false;
   // }
+
 
   onHtmlComplete() {
     this.showLoading = true;
@@ -139,7 +140,7 @@ export class ControlContentComponent implements OnInit {
         }
       });
 
-    // this.nextBtnShow = true;
+
     this.dataloaded = true;
     // this.onHtmlNext();
     // this.nextButton(this.current_step_id);

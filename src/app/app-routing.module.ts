@@ -6,13 +6,15 @@ import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { AuthGuard } from './shared/auth/auth.guard';
 import { SignUpComponent } from '@/pre-login/signup/signup.component';
 import { TempLandingPageComponent } from '@/temp-landing-page/temp-landing-page.component';
+import {ResetPasswordComponent} from '@/pre-login/reset-password/reset-password.component';
 
 export const routes: Routes = [
   {
     path: '',
     component: PreLoginComponent,
     children: [
-      { path: 'landing', component: LandingPageComponent, pathMatch: 'full' },
+      { path: 'landing/:term', component: LandingPageComponent, pathMatch: 'full' },
+      { path: 'landing', component: LandingPageComponent, pathMatch: 'full' }
     ],
   },
   {
@@ -20,6 +22,13 @@ export const routes: Routes = [
     component: SignUpComponent,
     pathMatch: 'prefix',
   },
+
+  {
+    path: 'reset/password/:unique-code',
+    component: ResetPasswordComponent,
+    pathMatch: 'prefix',
+  },
+
   {
     path: 'main',
     loadChildren: () => import('./main/main.module').then(m => m.MainModule),

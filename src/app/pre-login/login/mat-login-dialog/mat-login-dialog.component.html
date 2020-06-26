@@ -1,8 +1,10 @@
+
 <form
   (submit)="onSubmit()"
   #loginForm="ngForm"
   *ngIf="showForm else loader"
   class="login-form">
+
   <div
     class="flex-row-reverse"
     mat-dialog-actions>
@@ -13,7 +15,8 @@
     </mat-icon>
   </div>
 
-  <div class="input-container text-center">
+  <div *ngIf = "!recoverUsernameShow && !recoverPasswordShow" class="input-container text-center">
+    <div class = "heading d-flex justify-content-center" ><div class = "heading">Login</div></div>
     <mat-error > {{ errorMessage }}</mat-error>
     <div class="message" *ngIf = "loginAfterSignup">
       Registration successful. Login!
@@ -39,27 +42,33 @@
         name="password">
       <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
       <mat-error>Password is required</mat-error>
-    </mat-form-field>
-    <!-- <div class="error" *ngIf="formInvalid">
-      Username or Password is incorrect!
-    </div> -->
-    <div
-      mat-dialog-actions
-      class="forgot-password">
-      <a class="anchorify-forgot-username-password">
-        Forgot Username/Password?
-      </a>
-    </div>
+    </mat-form-field><br>
     <div
       mat-dialog-actions
       class="d-flex justify-content-center">
       <button
         mat-raised-button
-        class="dialog-btn"
+        class = "login-btn"
+        color = "#2A3B3D"
         type="submit">
-          Login
+        Login
       </button>
+    </div><br><br>
+    <!-- <div class="error" *ngIf="formInvalid">
+      Username or Password is incorrect!
+    </div> -->
+    <div
+      mat-dialog-actions
+      class=" d-flex   forgot-password">
+      <a class="anchorify-forgot-username-password" (click) = "forgotUsernameClicked()">
+        Forgot Username?
+      </a>
+      &nbsp;&nbsp;|&nbsp;&nbsp;
+      <a class="anchorify-forgot-username-password " (click) = "forgotPasswordClicked()">
+         Forgot Password?
+      </a>
     </div>
+
     <div
       mat-dialog-actions
       class="d-flex justify-content-center join-study">
@@ -72,6 +81,111 @@
     </div>
   </div>
 </form>
+
+
+  <!-- for other dialogs -->
+
+<form
+  [formGroup]="emailForm" class = "login-form">
+  <div *ngIf = "recoverUsernameShow && !recoverUsernameMsgShow" class = "text-center">
+
+    <div class = "heading">Recover Username</div>
+    <div class = "row  justify-content-center">
+
+    <mat-form-field style = "width:100%">
+      <mat-label class = "placeholder">Enter your email id</mat-label>
+    <input
+      matInput
+      formControlName = "email"
+      type = "email"
+      #email
+      email
+      (input) = "usernameInput()">
+      <mat-hint  *ngIf = "usernameErrorMsgShow" class = "error-msg">{{usernameErrorMsg}}</mat-hint>
+    </mat-form-field>
+
+    </div>
+
+    <div mat-dialog-actions class="d-flex justify-content-end">
+    <button
+      mat-raised-button
+      *ngIf="!showUsernameLoading"
+      class = "login-btn"
+      color = "#2A3B3D"
+      type="submit"
+      (click) = "recoverUsernameEmailSubmit()"
+      [disabled] = "!emailForm.valid || email.value.length === 0 || !recoverUsernameStatus"
+      >
+      Submit
+    </button>
+      <button
+        color="primary"
+        class = "loading-btn"
+        *ngIf="showUsernameLoading"
+        type="button" mat-raised-button >
+        <span class="spinner-border spinner-border-sm"></span>
+        &nbsp; Loading..
+      </button>
+    </div>
+
+
+  <div *ngIf = "recoverUsernameMsgShow" class = "recover">
+    <div class = "heading">Recover Username</div>
+    <p class = "recover-msg">Your username has been sent to your email id</p>
+  </div>
+  </div>
+</form>
+
+
+<form
+  [formGroup]="emailForm"
+  class = "login-form"
+   >
+  <div *ngIf="recoverPasswordShow && !recoverPasswordMsgShow" class="recover">
+    <div class = "heading">Recover Password</div>
+    <div class = "row  justify-content-center">
+    <mat-form-field style = "width:100%">
+      <mat-label class = "placeholder">Enter your email id</mat-label>
+      <input
+        formControlName = "email"
+        matInput
+        type="email"
+        #passwordEmail
+        required
+        email
+        (input) = "passwordInput()">
+      <mat-hint *ngIf = "passwordErrorMsgShow" class = "error-msg">{{passwordErrorMsg}}</mat-hint>
+
+    </mat-form-field>
+    </div>
+    <div class="d-flex justify-content-end">
+      <button
+        *ngIf = "!showPasswordLoading"
+        mat-raised-button
+        class="login-btn"
+        color="#2A3B3D"
+        type="button"
+        (click) = "recoverPasswordEmailSubmit()"
+        [disabled] = "!emailForm.valid || passwordEmail.value.length === 0 || !this.recoverPasswordStatus"
+      >
+        Submit
+      </button>
+      <button
+        color="primary"
+        class = "loading-btn"
+        *ngIf="showPasswordLoading"
+        type="button" mat-raised-button >
+        <span class="spinner-border spinner-border-sm"></span>
+        &nbsp; Loading..
+      </button>
+    </div>
+  </div>
+  <div *ngIf = "recoverPasswordMsgShow" class = "recover">
+    <div class = "heading">Recover Password</div>
+    <p class = "recover-msg">An email with reset password has been sent to your email id. Please check and click the link.</p>
+  </div>
+</form>
+
 <ng-template #loader>
   <div class="d-flex align-items-center justify-content-center" style="height: 450px; width: 100%;">
     <img src="assets/shared/dna-loader.svg" alt="loader">

@@ -1,12 +1,13 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { MatDialogRef } from '@angular/material';
-import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import {FormGroup, NgForm, FormControl} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
 
 import { AuthService } from '@/shared/auth/auth.service';
-import { LOGGED_IN_PATH, INELIGIBLE_FOR_TRIAL } from '@/app.constants';
+import {LOGGED_IN_PATH, INELIGIBLE_FOR_TRIAL, LANDING_RESET_PASSWORD_PATH} from '@/app.constants';
 import { LocalStorageService } from '@/shared/localstorage.service';
 import { ShowLoginSignupDialogService } from '@/pre-login/shared/show-login-signup-dialog.service';
+import {MatLoginDialogService} from '@/pre-login/login/mat-login-dialog/mat-login-dialog.service';
 
 @Component({
   selector: 'app-mat-login-dialog',
@@ -20,17 +21,44 @@ export class MatLoginDialogComponent implements OnInit {
   errorStatus = false;
   loginAfterSignup = false;
   errorMessage!: string;
+  recoverUsernameShow = false;
+  recoverPasswordShow = false;
+  recoverUsernameMsgShow = false; // can show next dialog box or not
+  recoverPasswordMsgShow = false; // next dialog message
+  usernameErrorMsg = '';
+  showUsernameLoading = false; // submit of recover username load
+  recoverUsernameStatus = true;
+  usernameErrorMsgShow!: boolean;
+  passwordErrorMsg = '';
+  showPasswordLoading = false;
+  passwordErrorMsgShow!: boolean;
+  recoverPasswordStatus = true;
+
+  emailForm = new FormGroup({
+    email: new FormControl(''),
+  });
+
   @ViewChild('loginForm', { static: false }) loginForm!: NgForm;
+  @ViewChild('recoverPassword', { static: false }) recoverPassword!: NgForm;
+  @ViewChild('email' , { static: false}) email!: ElementRef;
+  @ViewChild('passwordEmail' , { static: false}) passwordEmail!: ElementRef;
 
   constructor(
     public dialogRef: MatDialogRef<MatLoginDialogComponent>,
     private authService: AuthService,
     private router: Router,
     private showLoginSignupService: ShowLoginSignupDialogService,
+    private matLoginDialogService: MatLoginDialogService,
+    private activatedRoute: ActivatedRoute,
   ) {}
 
   ngOnInit() {
     this.loginAfterSignup = this.showLoginSignupService.loginAfterSignup();
+    if (this.router.url === LANDING_RESET_PASSWORD_PATH) {
+      this.recoverPasswordShow = true;
+    }
+
+    //console.log('url on mat', this.router.url);
   }
 
   onSubmit() {
@@ -79,5 +107,65 @@ export class MatLoginDialogComponent implements OnInit {
   onJoinTheStudyClicked() {
     this.dialogRef.close();
     this.showLoginSignupService.joinStudyClicked();
+  }
+
+  forgotUsernameClicked() {
+    this.recoverUsernameShow = true;
+  }
+
+  forgotPasswordClicked(){
+    this.recoverPasswordShow = true;
+  }
+
+  recoverUsernameEmailSubmit() {
+    this.showUsernameLoading = true;
+    console.log(this.email.nativeElement.value);
+    this.matLoginDialogService.forgotUsernameRequest(this.email.nativeElement.value)
+      .subscribe((data: any) => {
+        console.log(data);
+        this.recoverUsernameMsgShow = true;
+        this.showUsernameLoading = false;
+    },
+        error => {
+          this.usernameErrorMsg = error.error.message;
+          console.log(this.usernameErrorMsg);
+          this.showUsernameLoading = false;
+          this.recoverUsernameStatus = false;
+          this.usernameErrorMsgShow = true;
+
+
+    }
+    );
+
+  }
+
+  usernameInput() {
+    this.recoverUsernameStatus =  true;
+    this.usernameErrorMsgShow = false;
+  }
+
+  recoverPasswordEmailSubmit() {
+    this.showPasswordLoading = true;
+    this.matLoginDialogService.forgotPasswordRequest(this.passwordEmail.nativeElement.value)
+      .subscribe((data: any) => {
+        this.recoverPasswordMsgShow = true;
+        this.showPasswordLoading = false;
+      },
+        error => {
+        this.passwordErrorMsg = error.error.email;
+        console.log(this.passwordErrorMsg);
+        console.log(this.passwordErrorMsg);
+        this.showPasswordLoading = false;
+        this.passwordErrorMsgShow = true;
+        this.recoverPasswordStatus = false;
+        });
+    //console.log(this.recoverPassword);
+
+  }
+
+  passwordInput() {
+    this.passwordErrorMsgShow = false;
+    this.recoverPasswordStatus = true;
+
   }
 }

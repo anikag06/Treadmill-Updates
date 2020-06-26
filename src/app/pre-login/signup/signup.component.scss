@@ -1,122 +1,124 @@
-.signup-page {
-  height: 100vh;
+@import "src/app/pre-login/shared/signup-reset-common/signup-reset-common.component";
 
-  h4 {
-    color: #000000DE;
-    opacity: 0.8;
-  }
-
-  .cover-page {
-    background-color: #2A3B3D;
-    border-right: 10px solid #F5BB56;
-
-    img {
-      width: 75%;
-      max-width: 445px;
-      max-height: 164px;
-    }
-  }
-
-  .logo-img {
-    height: 90vh;
-  }
-
-  .footer-1 {
-    display: block;
-    color: white;
-    opacity: 0.6;
-    font-size: 12px;
-    margin-bottom: 1vh;
-
-  }
-
-  .footer-2 {
-    display: none;
-  }
-
-  .signup-form {
-    margin-top: 10vh;
-  }
-
-  .row {
-    .no-gutters {
-      margin-left: 0;
-      margin-right: 0;
-    }
-  }
-
-  .terms-text {
-    color: #000000DE;
-    opacity: 0.6;
-  }
-
-  .signup-btn {
-    width: 84px;
-    color: white;
-    background-color: #2A3B3D;
-    margin-top: 36px;
-    margin-bottom: 36px;
-  }
-}
-
-@media screen and (max-width: 767px) {
-
-  .signup-page {
-    h4 {
-      margin-top: 16px;
-    }
-
-    .cover-page {
-      background-color: #2A3B3D;
-      border-right: none;
-      border-bottom: 10px solid #F5BB56;
-
-      img {
-        width: 45%;
-      }
-    }
-
-    .logo-img {
-      height: 30vh;
-    }
-
-    .signup-form {
-      margin-top: 48px;
-    }
-  }
-
-  .signup-btn {
-    margin-top: 36px;
-    margin-bottom: 36px;
-  }
-
-  .row {
-    .no-gutters {
-      margin-left: 0;
-      margin-right: 0;
-    }
-  }
-
-  .footer-2 {
-    display: block !important;
-    background-color: #2A3B3D;
-    color: white;
-    height: 100px;
-    width: 100%;
-
-    p {
-      opacity: 0.6;
-      font-size: 12px;
-      margin-top: 2%;
-      text-align: center;
-    }
-  }
-
-  .footer-1 {
-    display: none !important;
-  }
-
-  .dialog-btn {
-    margin-bottom: 36px;
-  }
-}
+//.signup-page {
+//  height: 100vh;
+//}
+//  h4 {
+//    color: #000000DE;
+//    opacity: 0.8;
+//  }
+//  //
+//  //.cover-page {
+//  //  background-color: #2A3B3D;
+//  //  border-right: 10px solid #F5BB56;
+//  //
+//  //  img {
+//  //    width: 75%;
+//  //    max-width: 445px;
+//  //    max-height: 164px;
+//  //  }
+// // }
+//
+//  .logo-img {
+//    height: 90vh;
+//  }
+//
+//  .footer-1 {
+//    display: block;
+//    color: white;
+//    opacity: 0.6;
+//    font-size: 12px;
+//    margin-bottom: 1vh;
+//
+//  }
+//
+//  .footer-2 {
+//    display: none;
+//  }
+//
+//  .signup-form {
+//    margin-top: 10vh;
+//  }
+//
+//  .row {
+//    .no-gutters {
+//      margin-left: 0;
+//      margin-right: 0;
+//    }
+//  }
+//
+//  .terms-text {
+//    color: #000000DE;
+//    opacity: 0.6;
+//  }
+//
+//  .signup-btn {
+//    width: 84px;
+//    color: white;
+//    background-color: #2A3B3D;
+//    margin-top: 36px;
+//    margin-bottom: 36px;
+//  }
+////}
+//
+//@media screen and (max-width: 767px) {
+//
+// // .signup-page {
+//    h4 {
+//      margin-top: 16px;
+//    }
+//
+//    //.cover-page {
+//    //  background-color: #2A3B3D;
+//    //  border-right: none;
+//    //  border-bottom: 10px solid #F5BB56;
+//    //
+//    //  img {
+//    //    width: 45%;
+//    //  }
+//    //}
+//
+//    //.logo-img {
+//    //  height: 30vh;
+//    //}
+//
+//    .signup-form {
+//      margin-top: 48px;
+//    }
+//  //}
+//
+//  .signup-btn {
+//    margin-top: 36px;
+//    margin-bottom: 36px;
+//  }
+//
+//  .row {
+//    .no-gutters {
+//      margin-left: 0;
+//      margin-right: 0;
+//    }
+//  }
+//
+//  .footer-2 {
+//    display: block !important;
+//    background-color: #2A3B3D;
+//    color: white;
+//    height: 100px;
+//    width: 100%;
+//
+//    p {
+//      opacity: 0.6;
+//      font-size: 12px;
+//      margin-top: 2%;
+//      text-align: center;
+//    }
+//  }
+//
+//  .footer-1 {
+//    display: none !important;
+//  }
+//
+//  .dialog-btn {
+//    margin-bottom: 36px;
+//  }
+//}

@@ -1,21 +1,21 @@
-<div class="container reading-container">
+
   <div class="row">
   <div class = "col-lg-7 col-md-9 col-sm-12 fix-reading-box ">
 
-      <mat-card-header class="fix-reading-header d-flex justify-content-center" >
+      <mat-card-header class="fix-reading-header d-flex" >
 
 
         <mat-card-title class="fix-reading-header-title " [innerHTML]="readingItem.title" *ngIf="isLoaded"  ></mat-card-title>
       </mat-card-header>
 
-      <mat-card class="card" >
+      <mat-card  >
         <mat-card-content class="fix-reading-body "
                           [innerHTML]="readingItem.html_content" *ngIf="isLoaded; else loader"></mat-card-content>
       </mat-card>
 
     </div>
   </div>
-</div>
+
 <ng-template #loader>
   <div class = "col">
     <div class="text-center loader">

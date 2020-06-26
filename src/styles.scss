@@ -62,7 +62,7 @@ $small_logo_height: 40px;
 }
 
 @mixin common-dialog-style() {
-  background-color: #f4bb56;
+  //background-color: #f4bb56;// commented here and changed individually in the login-dialog
   color: $mat-white;
   opacity: 0.85;
 
@@ -79,6 +79,9 @@ $small_logo_height: 40px;
 
 .login-dialog .mat-dialog-container {
   @include common-dialog-style();
+  background-color: #FAF4EA !important;//added here
+  min-height: auto;
+  //min-height: inherit;
 
   .mat-input-element {
     @include font-lato();

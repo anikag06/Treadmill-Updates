@@ -179,9 +179,10 @@
             </span>
           </span>
           <mat-slide-toggle
-            (click) =
+            (change) =
               "saveNotificationChange('support_group_fcm', supportGroupFcmToggle = !supportGroupFcmToggle)"
-            [ngClass] = "this.notificationMessage === 'support_group_fcm' && this.notificationStatus === true ? 'push-email-right-space-with-save':'push-email-right-space'">
+            [ngClass] = "this.notificationMessage === 'support_group_fcm' && this.notificationStatus === true ? 'push-email-right-space-with-save':'push-email-right-space'"
+            [checked] = "supportGroupFcmToggle">
           </mat-slide-toggle>
         </p>
         <p class = "push-email-notification">
@@ -195,8 +196,9 @@
             </span>
           </span>
           <mat-slide-toggle
-          (click) = "saveNotificationChange('support_group_email', supportGroupEmailToggle = !supportGroupEmailToggle)"
-          [ngClass] = "this.notificationMessage === 'support_group_email' && this.notificationStatus === true ? 'push-email-right-space-with-save':'push-email-right-space'">
+          (change) = "saveNotificationChange('support_group_email', supportGroupEmailToggle = !supportGroupEmailToggle)"
+          [ngClass] = "this.notificationMessage === 'support_group_email' && this.notificationStatus === true ? 'push-email-right-space-with-save':'push-email-right-space'"
+          [checked] = "supportGroupEmailToggle">
         </mat-slide-toggle>
         </p>
 
@@ -212,9 +214,9 @@
             </span>
           </span>
           <mat-slide-toggle
-            [checked] = "taskFormFcmToggle"
-            (click) = "saveNotificationChange('task_form_fcm', taskFormFcmToggle = !taskFormFcmToggle)"
-            [ngClass] = "this.notificationMessage === 'task_form_fcm' && this.notificationStatus === true ? 'push-email-right-space-with-save':'push-email-right-space'">
+            (change) = "saveNotificationChange('task_form_fcm', taskFormFcmToggle = !taskFormFcmToggle)"
+            [ngClass] = "this.notificationMessage === 'task_form_fcm' && this.notificationStatus === true ? 'push-email-right-space-with-save':'push-email-right-space'"
+            [checked] = "taskFormFcmToggle">
           </mat-slide-toggle>
         </p>
         <p class = "push-email-notification">
@@ -228,8 +230,9 @@
             </span>
           </span>
           <mat-slide-toggle
-            (click) = "saveNotificationChange('task_form_email', taskFormEmailToggle = !taskFormEmailToggle)"
-            [ngClass] = "this.notificationMessage === 'task_form_email' && this.notificationStatus === true ? 'push-email-right-space-with-save':'push-email-right-space'">
+            (change) = "saveNotificationChange('task_form_email', taskFormEmailToggle = !taskFormEmailToggle)"
+            [ngClass] = "this.notificationMessage === 'task_form_email' && this.notificationStatus === true ? 'push-email-right-space-with-save':'push-email-right-space'"
+            [checked] = "taskFormEmailToggle">
           </mat-slide-toggle>
         </p>
 
@@ -244,8 +247,9 @@
             </span>
           </span>
           <mat-slide-toggle
-            (click) = "saveNotificationChange('forms_fcm', formsFcmToggle = !formsFcmToggle)"
-            [ngClass] = "this.notificationMessage === 'forms_fcm' && this.notificationStatus === true ? 'push-email-right-space-with-save':'push-email-right-space'">
+            (change) = "saveNotificationChange('forms_fcm', formsFcmToggle = !formsFcmToggle)"
+            [ngClass] = "this.notificationMessage === 'forms_fcm' && this.notificationStatus === true ? 'push-email-right-space-with-save':'push-email-right-space'"
+            [checked] = "formsFcmToggle">
           </mat-slide-toggle>
         </p>
         <p class = "push-email-notification">
@@ -259,8 +263,9 @@
             </span>
           </span>
           <mat-slide-toggle
-            (click) = "saveNotificationChange('forms_email', formsEmailToggle = !formsEmailToggle)"
-            [ngClass] = "this.notificationMessage === 'forms_email' && this.notificationStatus === true ? 'push-email-right-space-with-save':'push-email-right-space'">
+            (change) = "saveNotificationChange('forms_email', formsEmailToggle = !formsEmailToggle)"
+            [ngClass] = "this.notificationMessage === 'forms_email' && this.notificationStatus === true ? 'push-email-right-space-with-save':'push-email-right-space'"
+            [checked] = "formsEmailToggle">
           </mat-slide-toggle>
         </p>
 
@@ -277,14 +282,15 @@
           </span>
           <mat-slide-toggle
 
-            (click) = "saveNotificationChange('weekly_email_update', weeklyEmailToggle = !weeklyEmailToggle)"
+            (change) = "saveNotificationChange('weekly_email_update', weeklyEmailToggle = !weeklyEmailToggle)"
             [ngClass] = "this.notificationMessage === 'weekly_email_update' && this.notificationStatus === true ? 'push-email-right-space-with-save':'push-email-right-space'"
-            [checked] = "weeklyEmailToggle">
+            [checked] = "weeklyEmailToggle"  ngModel>
           </mat-slide-toggle>
         </p>
       </div>
       </div>
     </div>
   </div>
+
 
 

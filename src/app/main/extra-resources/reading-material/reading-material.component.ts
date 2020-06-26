@@ -17,7 +17,11 @@ export class ReadingMaterialComponent implements OnInit {
   textWidth: number | undefined;
   text: string | undefined;
   @Output() readingClick = new EventEmitter();
-  constructor(private http: HttpClient, public router: Router) {}
+  constructor(
+    private http: HttpClient,
+    public router: Router,
+    public loadFilesService: LoadFilesService,
+  ) {}
 
   ngOnInit() {
     //this.text = this.readingItem.title;
