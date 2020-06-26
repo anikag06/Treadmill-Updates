@@ -8,18 +8,18 @@
     <mat-form-field class="form-field">
       <mat-hint> This email id will be visible to us </mat-hint>
       <input matInput name="emailid"
-        formControlName="emailid" required>
-      <mat-error>Please enter a valid email id</mat-error>
+        [formControl]="contactUsForm.controls.emailid" required>
+      <mat-error *ngIf="contactUsForm.controls.emailid.invalid">Please enter a valid email id</mat-error>
     </mat-form-field>
     <br>
     <label for="message">Message</label>
     <mat-form-field>
       <textarea maxlength="1024"
         [(ngModel)]="messageText"
-        formControlName="message"
-        matInput 
+        [formControl]="contactUsForm.controls.message"
+        matInput
         name="message"
-        matTextareaAutosize 
+        matTextareaAutosize
         matAutosizeMinRows=10
         matAutosizeMaxRows=500
         required>
@@ -28,7 +28,6 @@
       <mat-error>Please write something here.</mat-error>
     </mat-form-field>
   </form>
-  
 </div>
 <br>
 <div mat-dialog-actions align="center">

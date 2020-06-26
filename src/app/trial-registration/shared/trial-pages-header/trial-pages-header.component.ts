@@ -36,6 +36,7 @@ export class TrialPagesHeaderComponent implements OnInit {
   }
 
   onLogoClick() {
-    this.router.navigate(['trial/trial-registration']);
+    // this.router.navigate(['trial/trial-registration']);
+    this.router.navigate(['iitk']);
   }
 }

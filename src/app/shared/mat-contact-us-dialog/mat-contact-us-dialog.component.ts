@@ -19,6 +19,7 @@ export class MatContactUsDialogComponent implements OnInit {
   msgReceived = 'We have received your message';
   action = 'Received';
   messageText = '';
+  showError = false;
   // emailid = this.contactUsForm.value.emailid;
   // message = this.contactUsForm.value.message;
 
@@ -47,7 +48,7 @@ export class MatContactUsDialogComponent implements OnInit {
   }
 
   submitData() {
-    console.log(this.data);
+    console.log(this.data, 'form group', this.contactUsForm);
     if (this.contactUsForm.valid) {
       this.data.email = this.contactUsForm.value.emailid;
       this.data.message = this.contactUsForm.value.message;
@@ -60,8 +61,15 @@ export class MatContactUsDialogComponent implements OnInit {
           this.snackBar.open(this.msgReceived, this.action, {
             duration: 4000,
           });
-        });
+        },
+      err => {
+        console.log('error', err);
+        this.contactUsForm.controls.emailid.setErrors({ invalid: true });
+        this.showError = true;
+      },
+        );
     } else {
+      this.showError = true;
     }
   }
 }

@@ -1,0 +1,158 @@
+<!-- screen 1 content -->
+<div class="landing-page">
+<div class="container-fluid first-section">
+  <div class="row h-100 justify-content-center">
+    <div class="col-12 col-lg-10" >
+  <div class="row">
+    <div class="col-12 logo d-flex justify-content-left" >
+      <img
+        alt="TreadWill logo"
+        src="../../assets/shared/logo_full.png"
+        class="logo"
+      />
+    </div>
+  </div>
+
+  <div class="row flex-row d-flex no-gutters justify-content-center">
+
+    <div class="version-div-2">
+      <h1
+        class="text-center font-montserrat-normal heading-main">
+        TreadWill 2.0      </h1>
+      <h6 class="text-center font-montserrat-normal text-subheading text-colored">
+        Launching soon...
+      </h6>
+    </div>
+
+
+    <div class="d-flex col-12 col-lg-6 align-self-center justify-content-center" >
+      <img
+        src="../../assets/login/screen_1/screen_1.svg"
+        alt="relatable image 1"
+        class="img-resp"
+      />
+    </div>
+    <div class="col-12 col-lg-6">
+      <div class="version-div-1">
+        <h1
+          class="text-center font-montserrat-normal heading-main">
+          TreadWill 2.0      </h1>
+        <h6 class="text-center font-montserrat-normal text-subheading  text-colored">
+          Launching soon...
+        </h6>
+      </div>
+
+      <div class="form-div" *ngIf="!showSucessMessage">
+        <div class="font-montserrat-normal mb-4 text-center text-subheading">
+          Subscribe to receive early access!
+        </div>
+
+        <form [formGroup]="emailForm" class="d-flex flex-row w-100 no-gutters justify-content-center" >
+          <!--              <div class="row"> </div>-->
+<div style="position:relative">
+          <input formControlName="email"
+                 type="email" class="input-box"
+                 required
+                 email
+                 placeholder="Email ID" >
+
+          <button type="submit" class="btn-subscribe font-montserrat-normal " *ngIf="!showLoading" mat-flat-button
+                  (click)="emailSubmit()" > SUBSCRIBE </button>
+  <button class="btn-subscribe " *ngIf="showLoading"  mat-flat-button>
+    <span class="spinner-border spinner-border-sm"></span>
+  </button>
+
+
+  <p class="text-footer mt-2 error-text" *ngIf="showErrorMessage">
+    Please give us your valid email id. We won't spam you. Promise 🤞!
+  </p>
+</div>
+        </form>
+
+      </div>
+      <div *ngIf="showSucessMessage" class="font-montserrat-normal text-center" style="color:#f4bb56; font-size: 24px">
+        <p>Thank you for subscribing 😃 !</p>
+      </div>
+      <div *ngIf="showSucessMessage" class="font-roboto-normal text-center" style="color:white; font-size: 21px">
+        {{successMessage2}}
+      </div>
+    </div>
+
+
+  </div>
+      <div class="row flex-row d-flex justify-content-center">
+        <div class="col-12 footer-1 text-lg-center">
+        <div  class=" font-roboto-normal text-footer">
+<!--          <div class="col-12" >-->
+          <p>We will soon be releasing a significantly improved version of Treadwill.
+          If you would like to receive early access to this version, please subscribe!
+          </p>
+<!--          </div>-->
+        </div>
+      </div>
+      </div>
+    </div>
+</div>
+  </div>
+<!--</div>-->
+<!-- screen 2 content -->
+<div class="container-fluid d-flex align-items-center center-banner second-section">
+  <div class="row flex-row d-flex">
+    <div class="col-12">
+      <div class="row flex-row d-flex justify-content-center">
+        <div class="col-xs-12 col-lg-10">
+
+
+          <h2 class="font-montserrat-normal">About Treadwill</h2>
+          <br/>
+          <div class="text font-roboto-thin">
+            <p>Treadwill is a website designed to help individuals deal with stress, low mood, lethargy and other depressive symptoms.
+              Treadwill uses the evidence-based therapeutic technique called <b>Cognitive Behavior Therapy</b> (CBT). </p>
+            <br/>
+            <p>For more information, please visit the <span (click)="onFAQClick()"> <a class="anchorify-default text-colored">information page </a> </span></p>
+            <p>In case you hav any specific query, please <span (click)="onContactUsClick()" ><a class="anchorify-default text-colored"> ask us </a> </span> </p>
+          </div>
+
+        </div>
+      </div>
+      <div class="row flex-row d-flex justify-content-center">
+        <div class="col-xs-12 col-lg-10">
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- screen 3 content -->
+<div class="container-fluid d-flex align-items-center third-section text">
+  <div class="row w-100">
+    <div class="col-12">
+      <div class="row flex-row d-flex justify-content-center">
+        <div class="col-xs-12 col-lg-10">
+<!--        <div class="row justify-content-left font-montserrat-normal">-->
+<!--            <div class="col-6 col-lg-2 col-xl-2 mt-2 my-lg-3"  style="cursor: pointer;">-->
+<!--              <span (click)="onFAQClick()"> Information </span>-->
+<!--            </div>-->
+
+<!--          <div class="col-6 col-lg-3 col-xl-2 mt-2 my-lg-3"  style="cursor: pointer;">-->
+<!--              <span (click)="onContactUsClick()"> Get In Touch </span>-->
+<!--            </div>-->
+<!--          <div class="col-6 col-lg-3 col-xl-2 my-2 my-lg-3"  style="cursor: pointer;">-->
+<!--              <span (click)="onPrivacyPolicyClick()"> Privacy Policy </span>-->
+<!--            </div>-->
+<!--          <div class="col-6 col-lg-4 col-xl-3 my-1 my-lg-3"  style="cursor: pointer;">-->
+<!--              <span (click)="onTermsConditions()"> Terms & Conditions </span>-->
+<!--            </div>-->
+<!--        </div>-->
+          <div class="row justify-content-left">
+          <div class="col-12 mt-lg-3 font-roboto-normal text-copyright">
+              &copy; TreadWill. All rights reserved.
+          </div>
+          </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
+</div>
