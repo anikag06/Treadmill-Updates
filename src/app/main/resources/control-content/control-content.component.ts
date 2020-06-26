@@ -43,7 +43,7 @@ export class ControlContentComponent implements OnInit {
   // elem = document.getElementById('hi');
 
   constructor(
-    // private flowService: FlowService,
+    private flowService: FlowService,
     private activateRoute: ActivatedRoute,
     private stepDataService: StepsDataService,
     private loadFilesService: LoadFilesService,
@@ -94,7 +94,7 @@ export class ControlContentComponent implements OnInit {
           ' ' +
           this.stepName;
         console.log('STEP DETAIL:', this.navbarTitle);
-        // this.flowService.stepDetail.emit(this.navbarTitle);
+        this.flowService.stepDetail.emit(this.navbarTitle);
       });
   }
   //

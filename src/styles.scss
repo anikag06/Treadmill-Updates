@@ -62,7 +62,7 @@ $small_logo_height: 40px;
 }
 
 @mixin common-dialog-style() {
-  //background-color: #f4bb56;// commented here and changed individually in the login-dialog
+  background-color: #f4bb56;// changed individually in the login-dialog
   color: $mat-white;
   opacity: 0.85;
 
