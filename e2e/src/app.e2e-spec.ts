@@ -1,7 +1,7 @@
 import { AppPage } from './app.po';
 import { browser, by, element, logging } from 'protractor';
 import { protractor } from 'protractor/built/ptor';
-declare var loginTime: number;
+// declare var loginTime: number;
 
 describe('workspace-project App', () => {
   let page: AppPage;
@@ -131,8 +131,6 @@ describe('workspace-project App', () => {
         .wait(protractor.ExpectedConditions.urlContains('dashboard'))
         .catch(() => false),
     ).toBeTruthy('Url match could not succced');
-    loginTime = page.getTime();
-    console.log('login time', page.firstLoginTime);
     browser.sleep(6000);
   });
 

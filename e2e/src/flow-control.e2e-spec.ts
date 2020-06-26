@@ -22,14 +22,14 @@ describe('treadwill Flow control group', () => {
     fp = new FlowPage();
   });
 
-  xit('should show login dialog', () => {
+  it('should show login dialog', () => {
     page.navigateTo();
     browser.waitForAngularEnabled(false);
     browser.sleep(1000);
     page.clickLoginLink();
     browser.sleep(2500);
     // username is hardcoded here
-    page.fillLoginForm('rootk7328p', 'test123');
+    page.fillLoginForm('root1fkh5i', 'test123');
     expect(
       browser //
         .wait(protractor.ExpectedConditions.urlContains('dashboard'))
@@ -43,7 +43,8 @@ describe('treadwill Flow control group', () => {
     browser.sleep(6000);
   });
 
-  it('should detect whether exp or control', () => {
+  xit('should detect whether exp or control', () => {
+    loginTime = page.getTime();
     console.log('login time', loginTime);
     page.clickBurgerBtn('button.hamburger-button');
     fp.checkUserGroup()
@@ -104,14 +105,14 @@ describe('treadwill Flow control group', () => {
         fp.findProgressElement('Cognitive Behavioral Therapy (CBT)');
         browser.sleep(2000);
         fp.goToNextStep('Next step');
-        fp.findProgressElement('What\'s wrong with me?');
+        fp.findProgressElement("What's wrong with me?");
         fp.goToNextStep('Next step');
         fp.findProgressElement('What if .....?');
         browser.sleep(2000);
         fp.goToNextStep('Next step');
         fp.findProgressElement('Can I get help?');
         if (testfor === 'dropout' && moduleNum === 1) {
-          console.log('CHECK FOR DROPOUT');
+          console.log('CHECK FOR DROPOUT  AT MODULE 1');
           fp.checkForDropout(loginTime);
         }
         fp.goToNextStep('Go to dashboard');
@@ -134,7 +135,6 @@ describe('treadwill Flow control group', () => {
         fp.findProgressGroupElement('Making good things happen'),
       ).toBeTruthy();
       browser.sleep(2000);
-      // fp.findProgressGroupElement('Being self-aware').click();
       if (expUser) {
         console.log('EXPERIMENTAL GROUP', expUser);
       } else {
@@ -177,7 +177,7 @@ describe('treadwill Flow control group', () => {
         browser.sleep(2000);
       }
     },
-    15 * 60 * 1000,
+    90 * 60 * 1000,
   );
 
   it(
@@ -200,7 +200,7 @@ describe('treadwill Flow control group', () => {
         fp.waitForStepUnlock('Introduction to evaluating thoughts');
         browser.sleep(2000);
         if (testfor === 'dropout' && moduleNum === 3) {
-          console.log('CHECK FOR DROPOUT');
+          console.log('CHECK FOR DROPOUT AT MODULE 3');
           fp.checkForDropout(loginTime);
         }
         fp.goToNextStep('Next step');
@@ -218,11 +218,11 @@ describe('treadwill Flow control group', () => {
         fp.goToNextStep('Next step');
         fp.findProgressElement('SOLVED');
         browser.sleep(2000);
-          fp.goToNextStep('Go to dashboard');
-          browser.sleep(2000);
-        }
+        fp.goToNextStep('Go to dashboard');
+        browser.sleep(2000);
+      }
     },
-    20 * 60 * 1000,
+    90 * 60 * 1000,
   );
 
   it(
@@ -285,7 +285,7 @@ describe('treadwill Flow control group', () => {
         fp.goToNextStep('Go to dashboard');
       }
     },
-    20 * 60 * 1000,
+    90 * 60 * 1000,
   );
 
   it(
@@ -318,7 +318,7 @@ describe('treadwill Flow control group', () => {
         browser.sleep(2000);
       }
     },
-    20 * 60 * 1000,
+    90 * 60 * 1000,
   );
 
   it(

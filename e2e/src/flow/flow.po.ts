@@ -5,6 +5,7 @@ export class FlowPage {
   EC = protractor.ExpectedConditions;
   afterDropout = false;
   timeUp = 5400000;
+  firstLoginTime!: number;
 
   navigateToDashboard() {
     return browser.get('/main/dashboard') as Promise<any>;
@@ -151,43 +152,45 @@ export class FlowPage {
     const nextStep = element(by.css('.flow-scroll-inner')).element(
       by.cssContainingText('.step-content', txt),
     );
-    for (let i = 0; i < 3; i++) {
-      browser
-        .wait(
-          protractor.ExpectedConditions.visibilityOf(nextStep),
-          5 * 60 * 1000,
-        )
-        .then(() => {
-          this.findProgressElement(txt);
-          console.log('ELEMENT VISIBLE at i ');
-          return;
-        })
-        .catch(() => {
-          this.navigateToDashboard();
-        });
-    }
+    browser
+      .wait(
+        protractor.ExpectedConditions.visibilityOf(nextStep),
+        10 * 60 * 1000,
+      )
+      .then(() => {
+        this.findProgressElement(txt);
+        console.log('ELEMENT VISIBLE');
+        return true;
+      })
+      .catch(() => {
+        this.navigateToDashboard();
+        console.log('ELEMENT NOT FOUND CHECK AGAIN');
+        this.waitForStepUnlock(txt);
+      });
   }
   checkForDropout(loginTime: number) {
     this.afterDropout = true;
+    this.firstLoginTime = loginTime;
     const userTimeUp = loginTime + this.timeUp;
     const currentTime = new Date().getTime();
     console.log(
-      'userTimeUp', userTimeUp, 'currentTime', currentTime, 'loginTime', loginTime,
+      'userTimeUp',
+      userTimeUp,
+      'currentTime',
+      currentTime,
+      'loginTime',
+      loginTime,
     );
     // const waitStep = element(by.id('phq-9'));
     if (currentTime < userTimeUp) {
       // wait browser
       this.callWaitBrowser();
-      this.checkForDropout(loginTime);
     } else {
       return;
     }
   }
 
   callWaitBrowser() {
-    console.log('Time up');
-    // for (let i = 1; i <= 9; i++) {
-    console.log('FOR LOOP CALLED', new Date());
     const waitStep = element(by.id('phq-9'));
     browser
       .wait(
@@ -198,7 +201,9 @@ export class FlowPage {
         // see follow up
         console.log('START FOLLOWUP');
       })
-      .catch(() => { });
+      .catch(() => {
+        console.log('browser wait');
+        this.checkForDropout(this.firstLoginTime);
+      });
   }
 }
-
