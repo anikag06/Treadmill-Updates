@@ -14,7 +14,7 @@ export class FaqPageComponent implements OnInit {
     // const smallDevice = window.matchMedia('(max-width: 767px)').matches;
     // console.log(smallDevice);
     // if (smallDevice) {
-      this.showRegistrationContent = true;
+    this.showRegistrationContent = true;
     // }
   }
 }

@@ -8,9 +8,9 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import {Worry} from '../worry.model';
-import {WorryProductivelyService} from '../worry-productively.service';
-import {FormSliderComponent} from '../../shared/form-slider/form-slider.component';
+import { Worry } from '../worry.model';
+import { WorryProductivelyService } from '../worry-productively.service';
+import { FormSliderComponent } from '../../shared/form-slider/form-slider.component';
 
 @Component({
   selector: 'app-worry-form',
@@ -94,7 +94,13 @@ export class WorryFormComponent implements OnInit {
       this.worryService.postWorry(this.worryStatement).subscribe(
         (data: any) => {
           console.log(data);
-          let worry = new Worry(data.id,data.worry,data.worry_rating_initial,data.taskorigin,data.show_follow_up_dot);
+          let worry = new Worry(
+            data.id,
+            data.worry,
+            data.worry_rating_initial,
+            data.taskorigin,
+            data.show_follow_up_dot,
+          );
           this.worry = worry;
           this.worryResponse = data;
         },

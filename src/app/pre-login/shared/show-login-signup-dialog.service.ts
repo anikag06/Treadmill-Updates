@@ -47,7 +47,6 @@ export class ShowLoginSignupDialogService {
   joinStudyClicked() {
     // this.router.navigate(['trial/trial-registration']);
     this.router.navigate(['iitk']);
-
   }
 
   signupDone() {

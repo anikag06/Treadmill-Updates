@@ -53,21 +53,20 @@ export class MatContactUsDialogComponent implements OnInit {
       this.data.email = this.contactUsForm.value.emailid;
       this.data.message = this.contactUsForm.value.message;
       console.log(this.data);
-      this.contactUsService
-        .saveContactUsData(this.data)
-        .subscribe((data: any) => {
+      this.contactUsService.saveContactUsData(this.data).subscribe(
+        (data: any) => {
           console.log(data);
           this.onCloseClick();
           this.snackBar.open(this.msgReceived, this.action, {
             duration: 4000,
           });
         },
-      err => {
-        console.log('error', err);
-        this.contactUsForm.controls.emailid.setErrors({ invalid: true });
-        this.showError = true;
-      },
-        );
+        err => {
+          console.log('error', err);
+          this.contactUsForm.controls.emailid.setErrors({ invalid: true });
+          this.showError = true;
+        },
+      );
     } else {
       this.showError = true;
     }

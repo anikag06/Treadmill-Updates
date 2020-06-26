@@ -104,7 +104,7 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.activatedRoute.params.subscribe((v) => {
+    this.activatedRoute.params.subscribe(v => {
       this.step_id = v.step_id;
       console.log('step id', this.step_id, this.fromSlide);
     });
@@ -169,7 +169,7 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscriptions.forEach((sub) => {
+    this.subscriptions.forEach(sub => {
       sub.unsubscribe();
     });
   }
@@ -279,7 +279,7 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
       this.characteristicCount += 1;
     } else {
       const i = characteristics.controls.findIndex(
-        (x) => x.value === event.source.value,
+        x => x.value === event.source.value,
       );
       characteristics.removeAt(i);
       this.characteristicCount -= 1;

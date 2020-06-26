@@ -112,7 +112,7 @@ export class ThoughtRecordFormComponent implements OnInit {
       if (data.length > 0) {
         const thought = data.find((x: any) => x.id === id);
         if (thought !== undefined) {
-         this.thought =thought;
+          this.thought = thought;
         }
       }
     });

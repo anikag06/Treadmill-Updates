@@ -136,7 +136,6 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
     }
   }
 
-
   loadProblemByID(id: any) {
     this.problemService.getProblems();
     this.problemService.problemsBehaviour.subscribe((data: any) => {

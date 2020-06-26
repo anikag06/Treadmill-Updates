@@ -96,7 +96,7 @@ export class ExperimentToTestBeliefFormComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.activatedRoute.params.subscribe((v) => {
+    this.activatedRoute.params.subscribe(v => {
       this.step_id = v.step_id;
       console.log('step id', this.step_id);
     });
@@ -144,7 +144,7 @@ export class ExperimentToTestBeliefFormComponent implements OnInit {
 
   // }
   ngOnDestroy() {
-    this.subscriptions.forEach((sub) => {
+    this.subscriptions.forEach(sub => {
       sub.unsubscribe();
     });
   }
@@ -246,7 +246,10 @@ export class ExperimentToTestBeliefFormComponent implements OnInit {
     const date = this.task.end_at + ' ' + this.task.time;
     this.disableEmergency =
       moment().format('YYYY-MM-DD HH:mm') <
-      moment.utc(date).local().format('YYYY-MM-DD HH:mm');
+      moment
+        .utc(date)
+        .local()
+        .format('YYYY-MM-DD HH:mm');
   }
   onOutcomeClick() {
     if (this.outcome) {

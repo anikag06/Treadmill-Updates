@@ -19,8 +19,8 @@ import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { UserSubTask } from './user-sub-task.model';
 import { UserTask } from './user-task.model';
-import {ActivatedRoute} from "@angular/router";
-import {isNotNullOrUndefined} from "codelyzer/util/isNotNullOrUndefined";
+import { ActivatedRoute } from '@angular/router';
+import { isNotNullOrUndefined } from 'codelyzer/util/isNotNullOrUndefined';
 
 @Component({
   selector: 'app-tasks',
@@ -72,7 +72,7 @@ export class TasksComponent implements OnInit, OnChanges {
     private element: ElementRef,
     public dialog: MatDialog,
     private dateTimePickerService: DateTimePickerService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit() {
@@ -80,10 +80,9 @@ export class TasksComponent implements OnInit, OnChanges {
     //   this.loadTasks();
     // }
     const id = this.route.snapshot.paramMap.get('id');
-      if (id !== null) {
-        this.loadTaskByID(parseInt(id));
-      }
-
+    if (id !== null) {
+      this.loadTaskByID(parseInt(id));
+    }
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (
@@ -329,7 +328,7 @@ export class TasksComponent implements OnInit, OnChanges {
     );
   }
 
-  loadTaskByID(id:any){
+  loadTaskByID(id: any) {
     this.taskService.getTasks();
     this.taskService.taskBehaviour.subscribe(
       (data: any) => {
@@ -348,8 +347,6 @@ export class TasksComponent implements OnInit, OnChanges {
       (error: HttpErrorResponse) => {},
     );
   }
-
-
 
   initializeTask() {
     this.start_date = this.task.start_at;
