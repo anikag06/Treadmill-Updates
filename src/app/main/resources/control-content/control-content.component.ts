@@ -17,6 +17,9 @@ import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.se
 import { PassDataService } from '@/main/resources/conversation-group/passdata.service';
 import { StepCompleteData } from '@/main/resources/shared/completion-data.model';
 import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
+import {EvaluateMoodService} from "@/main/resources/shared/evaluate-mood.service";
+import {QuizService} from "@/shared/questionnaire/questionnaire.service";
+import {PHQ9} from "@/app.constants";
 
 @Component({
   selector: 'app-control-content',
@@ -39,7 +42,9 @@ export class ControlContentComponent implements OnInit {
   navbarTitle!: string;
   stepSequence!: number;
   stepName!: string;
+  moodEvaluate = false;
   stepGroupSequence!: number;
+  showQuestionnaire = false;
   // elem = document.getElementById('hi');
 
   constructor(
@@ -52,6 +57,8 @@ export class ControlContentComponent implements OnInit {
     private router: Router,
     private passData: PassDataService,
     private goToService: NavbarGoToService,
+    private moodService: EvaluateMoodService,
+    private quizService: QuizService,
   ) {}
   nextBtnShow = false;
 
@@ -82,6 +89,10 @@ export class ControlContentComponent implements OnInit {
           }
         } else if (control_data.data.status === 'ACTIVE') {
           this.nextBtnShow = false;
+          if (this.isLastStep) {
+            this.moodEvaluate = true;
+            console.log('check mood');
+          }
         }
         // for navbar title
         this.stepGroupSequence = control_data.data.step_group_sequence + 1;
@@ -96,6 +107,23 @@ export class ControlContentComponent implements OnInit {
         console.log('STEP DETAIL:', this.navbarTitle);
         this.flowService.stepDetail.emit(this.navbarTitle);
       });
+    this.quizService.questionnaire_active.subscribe((value: boolean) => {
+      console.log('EVENT EMITTED', value);
+      if (!value) {
+        // this.quizService.questionnaireActive = false;
+        // this.moodEvaluated = true;
+        this.showQuestionnaire = false;
+        this.moodEvaluate = false;
+        this.navbarTitle = this.flowService.navbarTitle;
+        this.flowService.stepDetail.emit(this.navbarTitle);
+      } else {
+        console.log('EVENT EMITTED', 'show questionnaire', value);
+        this.quizService.questionnaire_name = PHQ9;
+        this.showQuestionnaire = true;
+        this.navbarTitle = 'Mood test';
+        this.flowService.stepDetail.emit(this.navbarTitle);
+      }
+    });
   }
   //
   // onHtmlNext() {

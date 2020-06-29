@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
 import { ConclusionService } from '@/main/resources/conclusion/conclusion.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { QuizService } from '@/shared/questionnaire/questionnaire.service';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-evaluate-mood',
@@ -10,9 +10,10 @@ import { QuizService } from '@/shared/questionnaire/questionnaire.service';
   styleUrls: ['./evaluate-mood.component.scss'],
 })
 export class EvaluateMoodComponent implements OnInit {
-  moodEvaluate = false;
   conclusionServiceSub!: Subscription;
   showQuestionnaire!: boolean;
+  @Input() moodEvaluate!: boolean;
+
   constructor(
     private conclusionService: ConclusionService,
     private router: Router,
@@ -22,10 +23,14 @@ export class EvaluateMoodComponent implements OnInit {
   ngOnInit() {
     this.quizService.questionnaire_active.subscribe((value: boolean) => {
       if (!value) {
+        console.log('QUIZ SERVICE');
         this.moodEvaluate = false;
         this.showQuestionnaire = false;
       }
     });
+  }
+  ngOnChanges() {
+
   }
   ngAfterViewInit() {
     this.conclusionServiceSub = this.conclusionService.evaluateMood.subscribe(
@@ -41,6 +46,8 @@ export class EvaluateMoodComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.conclusionServiceSub.unsubscribe();
+    if (this.conclusionServiceSub) {
+      this.conclusionServiceSub.unsubscribe();
+    }
   }
 }

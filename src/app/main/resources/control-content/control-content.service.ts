@@ -1,12 +1,11 @@
-import { ElementRef, Injectable, ViewChild } from '@angular/core';
+import {ElementRef, EventEmitter, Injectable, ViewChild} from '@angular/core';
 import { NavbarComponent } from '@/main/shared/navbar/navbar.component';
 
-@Injectable({
-  providedIn: 'root',
-})
+// @Injectable({
+//   providedIn: 'root',
+// })
 export class ControlContentService {
   @ViewChild('targetOnNavbar', { static: false }) targetOnNavbar!: ElementRef;
-
   constructor() {}
 
   getHtml() {

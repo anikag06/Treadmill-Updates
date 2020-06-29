@@ -591,7 +591,6 @@ export class QuestionnaireComponent implements OnInit {
     // this.index < 1 ? this.display_gad_start = true : this.display_gad_start = false;
     this.index === 1 ? (this.routing = true) : (this.routing = false);
     this.dataService.setOption(this.routing);
-
     if (this.index === 0) {
       // index =0 is for phq-9
       console.log('phq_response', phq_response);
