@@ -33,12 +33,12 @@ export class EvaluateMoodComponent implements OnInit {
 
   }
   ngAfterViewInit() {
-    this.conclusionServiceSub = this.conclusionService.evaluateMood.subscribe(
-      () => {
-        this.moodEvaluate = this.conclusionService.moodEvaluate;
-        console.log('mood evaluate', this.conclusionService.moodEvaluate);
-      },
-    );
+    // this.conclusionServiceSub = this.conclusionService.evaluateMood.subscribe(
+    //   () => {
+    //     this.moodEvaluate = this.conclusionService.moodEvaluate;
+    //     console.log('mood evaluate', this.conclusionService.moodEvaluate);
+    //   },
+    // );
   }
   onEvaluateMood() {
     this.showQuestionnaire = true;
@@ -46,8 +46,8 @@ export class EvaluateMoodComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    if (this.conclusionServiceSub) {
-      this.conclusionServiceSub.unsubscribe();
-    }
+    // if (this.conclusionServiceSub) {
+    //   this.conclusionServiceSub.unsubscribe();
+    // }
   }
 }

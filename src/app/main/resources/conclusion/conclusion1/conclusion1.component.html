@@ -40,9 +40,9 @@
       Great 👍!
     </div>
   </div>
-      <app-evaluate-mood ></app-evaluate-mood>
+      <app-evaluate-mood [moodEvaluate]="moodEvaluate"></app-evaluate-mood>
 
-<div *ngIf="moodEvaluated">
+<div *ngIf="!moodEvaluate">
   <div >
     In the next module, <span class="emphasis">{{nextModuleName}}</span>, you will learn how to improve your daily
     routine to improve your mood. See you there.

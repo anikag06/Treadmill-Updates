@@ -36,9 +36,9 @@
     Bye for now!
   </div>
 
-  <app-evaluate-mood></app-evaluate-mood>
+  <app-evaluate-mood [moodEvaluate]="moodEvaluate"></app-evaluate-mood>
 
-  <div *ngIf="moodEvaluated">
+  <div *ngIf="!moodEvaluate">
     <div>
       In the next module, <span class="emphasis">{{nextModuleName}}</span>, you'll learn how to keep using the techniques
       you have learned over the previous modules to maintain a state of positive mood.

@@ -43,8 +43,8 @@
     <br>
   </div>
 
-  <app-evaluate-mood></app-evaluate-mood>
-  <div *ngIf="moodEvaluated">
+  <app-evaluate-mood [moodEvaluate]="moodEvaluate"></app-evaluate-mood>
+  <div *ngIf="!moodEvaluate">
     In the next module, <span class="emphasis">{{nextModuleName}}</span>, you will learn how to change your thinking
     style.
 

@@ -51,7 +51,7 @@ export class Conclusion1Component implements OnInit, OnDestroy {
   navbarTitle!: string;
   stepSequence!: number;
   stepName!: string;
-  moodEvaluated!: boolean;
+  moodEvaluate!: boolean;
 
   constructor(
     private conclusionService: ConclusionService,
@@ -112,19 +112,20 @@ export class Conclusion1Component implements OnInit, OnDestroy {
             if (step_data.data.next_questionnaire) {
               this.quizService.questionnaire_name =
                 step_data.data.next_questionnaire;
-              this.conclusionService.moodEvaluate = true;
+              this.moodEvaluate = true;
+              // this.conclusionService.moodEvaluate = true;
             } else {
-              this.conclusionService.moodEvaluate = false;
-              this.moodEvaluated = true;
+              // this.conclusionService.moodEvaluate = false;
+              this.moodEvaluate = false;
             }
-            this.conclusionService.evaluateMood.emit();
+            // this.conclusionService.evaluateMood.emit();
           });
       });
     this.quizService.questionnaire_active.subscribe((value: boolean) => {
       console.log('EVENT EMITTED', value);
       if (!value) {
         // this.quizService.questionnaireActive = false;
-        this.moodEvaluated = true;
+        this.moodEvaluate = false;
         this.showQuestionnaire = false;
         this.navbarTitle = this.flowService.navbarTitle;
         this.flowService.stepDetail.emit(this.navbarTitle);

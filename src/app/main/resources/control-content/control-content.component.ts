@@ -17,9 +17,8 @@ import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.se
 import { PassDataService } from '@/main/resources/conversation-group/passdata.service';
 import { StepCompleteData } from '@/main/resources/shared/completion-data.model';
 import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
-import {EvaluateMoodService} from "@/main/resources/shared/evaluate-mood.service";
-import {QuizService} from "@/shared/questionnaire/questionnaire.service";
-import {PHQ9} from "@/app.constants";
+import {QuizService} from '@/shared/questionnaire/questionnaire.service';
+import {PHQ9} from '@/app.constants';
 
 @Component({
   selector: 'app-control-content',
@@ -57,7 +56,6 @@ export class ControlContentComponent implements OnInit {
     private router: Router,
     private passData: PassDataService,
     private goToService: NavbarGoToService,
-    private moodService: EvaluateMoodService,
     private quizService: QuizService,
   ) {}
   nextBtnShow = false;
