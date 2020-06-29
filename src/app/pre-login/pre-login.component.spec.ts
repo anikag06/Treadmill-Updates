@@ -20,13 +20,9 @@ describe('PreLoginComponent', () => {
         HttpClientTestingModule,
         BrowserAnimationsModule,
       ],
-      declarations: [
-        PreLoginComponent,
-        PreLoginFooterComponent,
-      ],
-      providers: [ DialogSize ]
-    })
-    .compileComponents();
+      declarations: [PreLoginComponent, PreLoginFooterComponent],
+      providers: [DialogSize],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

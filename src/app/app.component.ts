@@ -5,7 +5,7 @@ import { AuthService } from './shared/auth/auth.service';
 import { RouterOutlet } from '@angular/router';
 import { slideInAnimation } from './shared/main.animations';
 import { Title } from '@angular/platform-browser';
-import {A2HSService} from "@/shared/a2hs.service";
+import { A2HSService } from '@/shared/a2hs.service';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +16,11 @@ import {A2HSService} from "@/shared/a2hs.service";
 export class AppComponent implements OnInit, OnDestroy {
   subscription!: Subscription;
 
-  constructor(private auth: AuthService, private titleService: Title,private a2HSService : A2HSService) {
+  constructor(
+    private auth: AuthService,
+    private titleService: Title,
+    private a2HSService: A2HSService,
+  ) {
     this.titleService.setTitle('Treadwill');
     this.a2HSService.setDeferredPrompt();
   }

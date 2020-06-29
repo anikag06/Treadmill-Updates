@@ -33,8 +33,6 @@ export class MatContactUsDialogService {
       scrollStrategy,
     });
 
-    contactUsDialogRef.afterClosed().subscribe((result: string) => {
-      
-    });
+    contactUsDialogRef.afterClosed().subscribe((result: string) => {});
   }
 }

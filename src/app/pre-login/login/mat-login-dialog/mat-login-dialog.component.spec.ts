@@ -24,19 +24,18 @@ describe('MatLoginDialogComponent', () => {
         RouterTestingModule,
         BrowserAnimationsModule,
       ],
-      declarations: [ MatLoginDialogComponent ],
+      declarations: [MatLoginDialogComponent],
       providers: [
         {
           provide: MatDialogRef,
-          useValue: {}
+          useValue: {},
         },
         { provide: MAT_DIALOG_DATA, useValue: {} },
         MatContactUsDialogService,
         DialogSize,
         LocalStorageService,
-      ]
-    })
-    .compileComponents();
+      ],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
