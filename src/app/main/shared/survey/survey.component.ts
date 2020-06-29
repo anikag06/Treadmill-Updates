@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {
   trigger,
   transition,
@@ -17,6 +17,8 @@ import { SurveyOption } from './survey-options.model';
 import { SurveyService } from '../survey.service';
 import { TimerService } from '@/shared/timer.service';
 import { SurveyResponse } from './survey-response.model';
+import {NavbarGoToService} from '@/main/shared/navbar/navbar-go-to.service';
+import {FlowService} from "@/main/flow/flow.service";
 
 @Component({
   animations: [
@@ -77,29 +79,41 @@ export class SurveyComponent implements OnInit {
   startTime!: Date;
   first_click!: boolean;
   data = 'Please complete the survey before leaving the page.';
+  navbarTitle!: string;
+  @ViewChild('submitBtn', { static: false }) submitBtn!: ElementRef;
+  @ViewChild('startBtn', { static: false }) startBtn!: ElementRef;
+
 
   constructor(
     private surveyService: SurveyService,
     private timerService: TimerService,
+    private goToService: NavbarGoToService,
+    private flowService: FlowService,
   ) {}
 
   ngOnInit() {
     this.surveyService.disableLinks.emit(this.data);
+    this.navbarTitle = 'Help us improve';
+    this.flowService.stepDetail.emit(this.navbarTitle);
   }
 
   loadQuestions(event: any) {
     this.first_click = true;
-    if (event.target.nodeName === 'BUTTON') {
-      console.log('Button');
-      event.target.classList.remove('disabled-button');
-      event.target.classList.add('active-button');
-    } else if (event.target.nodeName === 'SPAN') {
-      console.log('Span');
-      event.target.parentElement.parentElement.classList.remove(
-        'disabled-button',
-      );
-      event.target.parentElement.parentElement.classList.add('active-button');
-    }
+    // if (event.target.nodeName === 'BUTTON') {
+    //   console.log('Button');
+    //   event.target.classList.remove('disabled-button');
+    //   event.target.classList.add('active-button');
+    // } else if (event.target.nodeName === 'SPAN') {
+    //   console.log('Span');
+    //   event.target.parentElement.parentElement.classList.remove(
+    //     'disabled-button',
+    //   );
+    //   event.target.parentElement.parentElement.classList.add('active-button');
+    // }
+    console.log('start btn', this.startBtn);
+    this.startBtn.nativeElement.childNodes[0].classList.remove('disabled-button');
+    this.startBtn.nativeElement.childNodes[0].classList.add('active-button');
+
     this.surveyService.getSurveyData().subscribe(data => {
       this.quesArray = data.questions;
       this.options = data.options;
@@ -217,17 +231,21 @@ export class SurveyComponent implements OnInit {
   }
 
   onSubmit(event: any) {
-    if (event.target.nodeName === 'BUTTON') {
-      console.log('Button');
-      event.target.classList.remove('disabled-button');
-      event.target.classList.add('active-button');
-    } else if (event.target.nodeName === 'SPAN') {
-      console.log('Span');
-      event.target.parentElement.parentElement.classList.remove(
-        'disabled-button',
-      );
-      event.target.parentElement.parentElement.classList.add('active-button');
-    }
+    // if (event.target.nodeName === 'BUTTON') {
+    //   console.log('Button');
+    //   event.target.classList.remove('disabled-button');
+    //   event.target.classList.add('active-button');
+    // } else if (event.target.nodeName === 'SPAN') {
+    //   console.log('Span');
+    //   event.target.parentElement.parentElement.classList.remove(
+    //     'disabled-button',
+    //   );
+    //   event.target.parentElement.parentElement.classList.add('active-button');
+    // }
+    console.log('submit btn', this.submitBtn);
+    this.submitBtn.nativeElement.childNodes[1].classList.remove('disabled-button');
+    this.submitBtn.nativeElement.childNodes[1].classList.add('active-button');
+
     this.back = false;
     this.front = false;
     this.surveyService
@@ -236,6 +254,7 @@ export class SurveyComponent implements OnInit {
       })
       .subscribe(data => {
         console.log('survey response', data);
+        this.goToService.clickFlow.emit();
       });
     this.surveyService.enableLinks.emit();
     // next step
