@@ -62,7 +62,6 @@ export class RegistrationStepFourComponent implements OnInit {
     this.starting_time = dateTime.replace('Z', '').replace('T', ' ');
     console.log(this.starting_time);
     this.participationID = this.registrationDataService.participationID;
-    this.a2hsService.setDeferredPrompt();
     this.fcmService.permit.subscribe(permit => {
       this.consentForm.value.notificationsInfo = permit ? 1 : 0;
       this.activateSubmitButton();

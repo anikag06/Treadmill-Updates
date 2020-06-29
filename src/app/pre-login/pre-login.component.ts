@@ -34,7 +34,6 @@ export class PreLoginComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.a2hsService.setDeferredPrompt();
     const user = this.authService.isLoggedIn();
     if (user && user.is_active) {
       this.router.navigate([LOGGED_IN_PATH]);
@@ -64,5 +63,11 @@ export class PreLoginComponent implements OnInit {
 
   onJoinTheStudyClicked() {
     this.showLoginSignupDialogService.joinStudyClicked();
+  }
+
+  onWorkWithUsClicked() {
+    const url =
+      'https://docs.google.com/forms/d/e/1FAIpQLSfVDBSuxgghsD2SX4VWkOA2AHCotfhkOx0Qbhrci9PRLh-IPg/viewform?usp=send_form';
+    window.open(url, '_blank');
   }
 }

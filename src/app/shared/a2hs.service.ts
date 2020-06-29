@@ -9,21 +9,12 @@ export class A2HSService {
 
   setDeferredPrompt() {
     console.log('set prompt');
-    window.addEventListener('beforeinstallprompt', e => {
+    window.addEventListener('beforeinstallprompt',(e : Event) => {
       // Prevent Chrome 67 and earlier from automatically showing the prompt
       e.preventDefault();
       // Stash the event so it can be triggered later.
       this.deferredPrompt = e;
       console.log('Intercepting the app install banner prompt');
-
-      // Wait for the user to respond to the prompt
-      this.deferredPrompt.userChoice.then((choiceResult: any) => {
-        if (choiceResult.outcome === 'accepted') {
-          console.log('User accepted the A2HS prompt');
-        } else {
-          console.log('User dismissed the A2HS prompt');
-        }
-      });
     });
   }
 

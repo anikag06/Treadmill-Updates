@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { MatDialog } from '@angular/material';
-import { LoggerService } from '@/shared/logger.service';
 import { Overlay } from '@angular/cdk/overlay';
 import { DialogSize } from '@/shared/dialog-size.service';
 import { MatLoginDialogComponent } from '../login/mat-login-dialog/mat-login-dialog.component';
@@ -15,7 +14,6 @@ export class ShowLoginDialogService {
 
   constructor(
     private dialog: MatDialog,
-    private logger: LoggerService,
     private overlay: Overlay,
     private dialogSize: DialogSize,
   ) { }

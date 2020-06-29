@@ -5,7 +5,7 @@ import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-co
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Overlay } from '@angular/cdk/overlay';
 import { MaterialModule } from '@/material.module';
-import { LoggerService } from '@/shared/logger.service';
+
 import { DialogSize } from '@/shared/dialog-size.service';
 
 describe('PreLoginFooterComponent', () => {
@@ -25,7 +25,6 @@ describe('PreLoginFooterComponent', () => {
           useValue: {}
         },
         { provide: MAT_DIALOG_DATA, useValue: {} },
-        LoggerService,
         DialogSize,
       ]
     })

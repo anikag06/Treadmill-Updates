@@ -7,7 +7,12 @@
         (click)="onJoinTheStudyClicked()"
         >Join the study</a
       >
-      <a mat-list-item class="pre-login-side-nav-anchor">Work with us</a>
+      <a
+        mat-list-item
+        class="pre-login-side-nav-anchor"
+        (click)="onWorkWithUsClicked()"
+        >Work with us</a
+      >
       <a mat-list-item class="pre-login-side-nav-anchor">About us</a>
       <a
         mat-list-item
@@ -43,7 +48,10 @@
         />
       </div>
       <div class="d-none d-sm-block flex-fill">
-        <a mat-button class="anchorify-pre-login-toolbar-button float-right"
+        <a
+          mat-button
+          class="anchorify-pre-login-toolbar-button float-right"
+          (click)="onWorkWithUsClicked()"
           >Work with us</a
         >
         <a
@@ -72,7 +80,6 @@
           Login
         </a>
       </div>
-
     </mat-toolbar>
   </mat-drawer-content>
   <mat-drawer-content>

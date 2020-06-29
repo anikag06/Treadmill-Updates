@@ -17,4 +17,10 @@ export class PreLoginFooterComponent implements OnInit {
   onFooterContactUsClicked() {
     this.onContactUsService.contactUsClicked()
   }
+
+  onWorkWithUsClicked() {
+    const url =
+      'https://docs.google.com/forms/d/e/1FAIpQLSfVDBSuxgghsD2SX4VWkOA2AHCotfhkOx0Qbhrci9PRLh-IPg/viewform?usp=send_form';
+    window.open(url, '_blank');
+  }
 }
