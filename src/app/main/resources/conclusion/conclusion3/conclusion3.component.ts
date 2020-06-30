@@ -109,7 +109,7 @@ export class Conclusion3Component implements OnInit, OnDestroy {
             if (step_data.data.next_questionnaire) {
               this.quizService.questionnaire_name =
                 step_data.data.next_questionnaire;
-                this.moodEvaluate = true;
+              this.moodEvaluate = true;
               // this.conclusionService.moodEvaluate = true;
             } else {
               // this.conclusionService.moodEvaluate = false;

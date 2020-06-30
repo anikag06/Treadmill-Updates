@@ -1,4 +1,4 @@
-import {ElementRef, EventEmitter, Injectable, ViewChild} from '@angular/core';
+import { ElementRef, EventEmitter, Injectable, ViewChild } from '@angular/core';
 import { NavbarComponent } from '@/main/shared/navbar/navbar.component';
 
 @Injectable({

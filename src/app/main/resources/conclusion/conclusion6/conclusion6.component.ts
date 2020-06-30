@@ -96,7 +96,6 @@ export class Conclusion6Component implements OnInit, OnDestroy {
                 step_data.data.next_questionnaire;
               // this.conclusionService.moodEvaluate = true;
               this.moodEvaluate = true;
-
             } else {
               this.moodEvaluate = false;
               // this.conclusionService.moodEvaluate = false;

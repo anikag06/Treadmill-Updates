@@ -14,6 +14,7 @@ describe('treadwill Flow control group', () => {
   const testfor = testType;
   const moduleNum = moduleNumber;
   let loginTime!: number;
+  let afterDropout = false;
   // const timeUp = 540000;
   // let afterDropout = false;
 
@@ -97,7 +98,7 @@ describe('treadwill Flow control group', () => {
         fp.findProgressElement('Cognitive Behavioral Therapy (CBT)');
         browser.sleep(2000);
         fp.goToNextStep('Next step');
-        fp.findProgressElement('What\'s wrong with me?');
+        fp.findProgressElement("What's wrong with me?");
         if (testfor === 'dropout' && moduleNum === 1) {
           console.log('CHECK FOR DROPOUT  AT MODULE 1');
           fp.checkForDropout(loginTime);
@@ -140,48 +141,48 @@ describe('treadwill Flow control group', () => {
       } else {
         console.log('CONTROL GROUP second module', expUser);
         // CHECK FOR STEP UNLOCK
-        if (!fp.afterDropout) {
-          fp.waitForStepUnlock('Introduction to making good things happen');
-        } else {
-          fp.findProgressElement('Introduction to making good things happen');
-        }
-        browser.sleep(2000);
-        fp.goToNextStep('Next step');
-        fp.findProgressElement('Making good things happen');
-        browser.sleep(2000);
-        fp.goToNextStep('Next step');
-        fp.findProgressElement('Sleep problems');
-        browser.sleep(2000);
-        fp.goToNextStep('Next step');
-        fp.findProgressElement('Rumination');
-        browser.sleep(1800);
-        fp.goToNextStep('Next step');
-        fp.findProgressElement('Avoidance');
-        browser.sleep(2000);
-        fp.goToNextStep('Next step');
-        fp.findProgressElement('Sleeping too much or too little');
-        browser.sleep(2000);
-        fp.goToNextStep('Next step');
-        fp.findProgressElement('Mastery activities');
-        browser.sleep(2000);
-        fp.goToNextStep('Next step');
-        fp.findProgressElement('Am I over-thinking? ');
-        if (testfor === 'dropout' && moduleNum === 2) {
-          console.log('CHECK FOR DROPOUT AT MODULE 2');
-          fp.checkForDropout(loginTime);
-        }
-        browser.sleep(2000);
-        fp.goToNextStep('Next step');
-        fp.findProgressElement('Do I have to talk to people? ');
-        browser.sleep(2000);
-        fp.goToNextStep('Next step');
+        // if (!fp.afterDropout) {
+        //   fp.waitForStepUnlock('Introduction to making good things happen');
+        // } else {
+        //   fp.findProgressElement('Introduction to making good things happen');
+        // }
+        // browser.sleep(2000);
+        // fp.goToNextStep('Next step');
+        // fp.findProgressElement('Making good things happen');
+        // browser.sleep(2000);
+        // fp.goToNextStep('Next step');
+        // fp.findProgressElement('Sleep problems');
+        // browser.sleep(2000);
+        // fp.goToNextStep('Next step');
+        // fp.findProgressElement('Rumination');
+        // browser.sleep(1800);
+        // fp.goToNextStep('Next step');
+        // fp.findProgressElement('Avoidance');
+        // browser.sleep(2000);
+        // fp.goToNextStep('Next step');
+        // fp.findProgressElement('Sleeping too much or too little');
+        // browser.sleep(2000);
+        // fp.goToNextStep('Next step');
+        // fp.findProgressElement('Mastery activities');
+        // browser.sleep(2000);
+        // fp.goToNextStep('Next step');
+        // fp.findProgressElement('Am I over-thinking? ');
+        // if (testfor === 'dropout' && moduleNum === 2) {
+        //   console.log('CHECK FOR DROPOUT AT MODULE 2');
+        //   fp.checkForDropout(loginTime);
+        // }
+        // browser.sleep(2000);
+        // fp.goToNextStep('Next step');
+        // fp.findProgressElement('Do I have to talk to people? ');
+        // browser.sleep(2000);
+        // fp.goToNextStep('Next step');
         fp.findProgressElement('Maybe I will do it tomorrow ');
         browser.sleep(2000);
         fp.goToNextStep('Go to dashboard');
         browser.sleep(2000);
       }
     },
-    90 * 60 * 1000,
+    100 * 60 * 1000,
   );
 
   it(
@@ -223,7 +224,7 @@ describe('treadwill Flow control group', () => {
         browser.sleep(2000);
       }
     },
-    90 * 60 * 1000,
+    100 * 60 * 1000,
   );
 
   it(
@@ -261,6 +262,11 @@ describe('treadwill Flow control group', () => {
 
         fp.findProgressElement('Modifying beliefs');
         browser.sleep(2000);
+        if (testfor === 'dropout' && moduleNum === 4) {
+          console.log('CHECK FOR DROPOUT  AT MODULE 4');
+          fp.checkForDropout(loginTime);
+          afterDropout = true;
+        }
         fp.goToNextStep('Next step');
         fp.findProgressElement('Critical look at my belief');
         browser.sleep(2000);
@@ -279,7 +285,7 @@ describe('treadwill Flow control group', () => {
         fp.findProgressElement('Will my belief come true if I try it out?');
         browser.sleep(2000);
         fp.goToNextStep('Next step');
-        fp.findProgressElement('How would I act if I didn\'t have the belief?');
+        fp.findProgressElement("How would I act if I didn't have the belief?");
         browser.sleep(2000);
         fp.goToNextStep('Next step');
         fp.findProgressElement('Role play');
@@ -287,7 +293,7 @@ describe('treadwill Flow control group', () => {
         fp.goToNextStep('Go to dashboard');
       }
     },
-    90 * 60 * 1000,
+    100 * 60 * 1000,
   );
 
   it(
@@ -316,7 +322,7 @@ describe('treadwill Flow control group', () => {
         browser.sleep(2000);
       }
     },
-    90 * 60 * 1000,
+    100 * 60 * 1000,
   );
 
   it(
@@ -350,7 +356,7 @@ describe('treadwill Flow control group', () => {
         browser.sleep(2000);
       }
     },
-    20 * 60 * 1000,
+    100 * 60 * 1000,
   );
 
   afterEach(async () => {

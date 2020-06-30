@@ -2,7 +2,7 @@ import { ConclusionService } from '@/main/resources/conclusion/conclusion.servic
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { QuizService } from '@/shared/questionnaire/questionnaire.service';
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-evaluate-mood',
@@ -29,9 +29,7 @@ export class EvaluateMoodComponent implements OnInit {
       }
     });
   }
-  ngOnChanges() {
-
-  }
+  ngOnChanges() {}
   ngAfterViewInit() {
     // this.conclusionServiceSub = this.conclusionService.evaluateMood.subscribe(
     //   () => {

@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {
   trigger,
   transition,
@@ -17,8 +17,8 @@ import { SurveyOption } from './survey-options.model';
 import { SurveyService } from '../survey.service';
 import { TimerService } from '@/shared/timer.service';
 import { SurveyResponse } from './survey-response.model';
-import {NavbarGoToService} from '@/main/shared/navbar/navbar-go-to.service';
-import {FlowService} from "@/main/flow/flow.service";
+import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
+import { FlowService } from '@/main/flow/flow.service';
 
 @Component({
   animations: [
@@ -83,7 +83,6 @@ export class SurveyComponent implements OnInit {
   @ViewChild('submitBtn', { static: false }) submitBtn!: ElementRef;
   @ViewChild('startBtn', { static: false }) startBtn!: ElementRef;
 
-
   constructor(
     private surveyService: SurveyService,
     private timerService: TimerService,
@@ -111,7 +110,9 @@ export class SurveyComponent implements OnInit {
     //   event.target.parentElement.parentElement.classList.add('active-button');
     // }
     console.log('start btn', this.startBtn);
-    this.startBtn.nativeElement.childNodes[0].classList.remove('disabled-button');
+    this.startBtn.nativeElement.childNodes[0].classList.remove(
+      'disabled-button',
+    );
     this.startBtn.nativeElement.childNodes[0].classList.add('active-button');
 
     this.surveyService.getSurveyData().subscribe(data => {
@@ -243,7 +244,9 @@ export class SurveyComponent implements OnInit {
     //   event.target.parentElement.parentElement.classList.add('active-button');
     // }
     console.log('submit btn', this.submitBtn);
-    this.submitBtn.nativeElement.childNodes[1].classList.remove('disabled-button');
+    this.submitBtn.nativeElement.childNodes[1].classList.remove(
+      'disabled-button',
+    );
     this.submitBtn.nativeElement.childNodes[1].classList.add('active-button');
 
     this.back = false;

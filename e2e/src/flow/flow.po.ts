@@ -1,6 +1,6 @@
 /* tslint:disable:no-trailing-whitespace */
 import { browser, by, element, protractor } from 'protractor';
-import {AppPage} from '../app.po';
+import { AppPage } from '../app.po';
 
 export class FlowPage {
   EC = protractor.ExpectedConditions;
@@ -211,8 +211,10 @@ export class FlowPage {
   }
   onDashboard() {
     browser
-      .wait(this.EC.presenceOf(element(by.css('h6.progress-heading-mobile'))), 5 * 60 * 1000,
-        )
+      .wait(
+        this.EC.presenceOf(element(by.css('h6.progress-heading-mobile'))),
+        5 * 60 * 1000,
+      )
       .then(() => {
         console.log(' URL DASHBOARD');
       });
@@ -220,7 +222,7 @@ export class FlowPage {
   evaluateMood() {
     const moodBtn = element(by.css('button.mood-btn'));
     browser.wait(this.EC.visibilityOf(moodBtn)).then(() => {
-     moodBtn.click();
+      moodBtn.click();
     });
   }
 }

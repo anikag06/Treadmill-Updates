@@ -17,8 +17,8 @@ import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.se
 import { PassDataService } from '@/main/resources/conversation-group/passdata.service';
 import { StepCompleteData } from '@/main/resources/shared/completion-data.model';
 import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
-import {QuizService} from '@/shared/questionnaire/questionnaire.service';
-import {PHQ9} from '@/app.constants';
+import { QuizService } from '@/shared/questionnaire/questionnaire.service';
+import { PHQ9 } from '@/app.constants';
 
 @Component({
   selector: 'app-control-content',
