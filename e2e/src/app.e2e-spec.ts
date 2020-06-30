@@ -40,44 +40,47 @@ describe('workspace-project App', () => {
     expect(page.findPhq()).toBeTruthy();
     browser.sleep(5000);
     // expect(page.findQuestionnaireText()).toMatch('Before moving further');
-    page.clickOnButton('Start');
-    for (let i = 0; i < 9; i++) {
-      browser.sleep(1000);
-      page.clickOnButton('Most of the days');
-    }
-    browser.sleep(1000);
-    page.clickOnButton('Submit');
-    browser.sleep(1000);
+    page.fillPhq();
+    // page.clickOnButton('Start');
+    // for (let i = 0; i < 9; i++) {
+    //   browser.sleep(1000);
+    //   page.clickOnButton('Most of the days');
+    // }
+    // browser.sleep(1000);
+    // page.clickOnButton('Submit');
+    // browser.sleep(1000);
   });
 
   it('Should show SIQ questionnaire', () => {
     expect(page.findSiq()).toBeTruthy();
     browser.sleep(2000);
-    page.clickOnButton('Start');
-    for (let i = 0; i < 10; i++) {
-      browser.sleep(1000);
-      if (i < 4) {
-        page.clickOnButton('Sometimes');
-      } else {
-        page.clickOnButton('Never');
-      }
-    }
-    browser.sleep(1000);
-    page.clickOnButton('Submit');
+    page.fillSiq();
+    // page.clickOnButton('Start');
+    // for (let i = 0; i < 10; i++) {
+    //   browser.sleep(1000);
+    //   if (i < 4) {
+    //     page.clickOnButton('Sometimes');
+    //   } else {
+    //     page.clickOnButton('Never');
+    //   }
+    // }
+    // browser.sleep(1000);
+    // page.clickOnButton('Submit');
   });
 
   it('Should show GAD-7 questionnaire', () => {
     expect(page.findGad()).toBeTruthy();
     browser.sleep(3000);
     // expect(page.findQuestionnaireText()).toMatch('Before moving further');
-    page.clickOnButton('Start');
-    for (let i = 0; i < 7; i++) {
-      browser.sleep(1000);
-      page.clickOnButton('Most of the days');
-    }
-    browser.sleep(3000);
-    page.clickOnButton('Submit');
-    browser.sleep(3000);
+    page.fillGad();
+    // page.clickOnButton('Start');
+    // for (let i = 0; i < 7; i++) {
+    //   browser.sleep(1000);
+    //   page.clickOnButton('Most of the days');
+    // }
+    // browser.sleep(3000);
+    // page.clickOnButton('Submit');
+    // browser.sleep(3000);
     // expect(fp.getProgress()).toEqual('Progress');
   });
 

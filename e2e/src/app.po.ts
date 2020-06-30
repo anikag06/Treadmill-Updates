@@ -118,11 +118,44 @@ export class AppPage {
   findPhq() {
     return element(by.id('phq-9'));
   }
+  fillPhq() {
+    this.clickOnButton('Start');
+    for (let i = 0; i < 9; i++) {
+      browser.sleep(1000);
+      this.clickOnButton('Most of the days');
+    }
+    browser.sleep(1000);
+    this.clickOnButton('Submit');
+    browser.sleep(1000);
+  }
   findSiq() {
     return element(by.id('siq'));
   }
+  fillSiq() {
+    this.clickOnButton('Start');
+    for (let i = 0; i < 10; i++) {
+      browser.sleep(1000);
+      if (i < 4) {
+        this.clickOnButton('Sometimes');
+      } else {
+        this.clickOnButton('Never');
+      }
+    }
+    browser.sleep(1000);
+    this.clickOnButton('Submit');
+  }
   findGad() {
     return element(by.id('gad-7'));
+  }
+  fillGad() {
+    this.clickOnButton('Start');
+    for (let i = 0; i < 7; i++) {
+      browser.sleep(1000);
+      this.clickOnButton('Most of the days');
+    }
+    browser.sleep(3000);
+    this.clickOnButton('Submit');
+    browser.sleep(3000);
   }
   clickOnButton(btn: string) {
     const btnClick = element(by.cssContainingText('button', btn));
@@ -213,7 +246,7 @@ export class AppPage {
       .element(by.name('password'))
       .sendKeys(password);
     browser.sleep(1000);
-    element(by.css('.dialog-btn')).click();
+    element(by.css('button.login-btn')).click();
     browser.sleep(3000);
   }
   getTime() {

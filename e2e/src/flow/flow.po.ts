@@ -1,11 +1,13 @@
 /* tslint:disable:no-trailing-whitespace */
 import { browser, by, element, protractor } from 'protractor';
+import {AppPage} from '../app.po';
 
 export class FlowPage {
   EC = protractor.ExpectedConditions;
   afterDropout = false;
   timeUp = 5400000;
-  firstLoginTime!: number;
+  firstLoginTime = 1593517706756;
+  page = AppPage;
 
   navigateToDashboard() {
     return browser.get('/main/dashboard') as Promise<any>;
@@ -186,6 +188,7 @@ export class FlowPage {
       // wait browser
       this.callWaitBrowser();
     } else {
+      console.log('check further steps');
       return;
     }
   }
@@ -199,11 +202,25 @@ export class FlowPage {
       )
       .then(() => {
         // see follow up
-        console.log('START FOLLOWUP');
+        console.log('START Questionnaire');
       })
       .catch(() => {
         console.log('browser wait');
         this.checkForDropout(this.firstLoginTime);
       });
+  }
+  onDashboard() {
+    browser
+      .wait(this.EC.presenceOf(element(by.css('h6.progress-heading-mobile'))), 5 * 60 * 1000,
+        )
+      .then(() => {
+        console.log(' URL DASHBOARD');
+      });
+  }
+  evaluateMood() {
+    const moodBtn = element(by.css('button.mood-btn'));
+    browser.wait(this.EC.visibilityOf(moodBtn)).then(() => {
+     moodBtn.click();
+    });
   }
 }
