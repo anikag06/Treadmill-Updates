@@ -225,4 +225,14 @@ export class FlowPage {
       moodBtn.click();
     });
   }
+  fillSurveyForm() {
+    this.clickOnButton('Start survey');
+    for (let i = 0; i < 9; i++) {
+      browser.sleep(1000);
+      this.clickOnButton('Strongly agree');
+    }
+    browser.sleep(1000);
+    this.clickOnButton('Submit');
+    browser.sleep(1000);
+  }
 }

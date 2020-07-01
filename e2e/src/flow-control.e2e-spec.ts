@@ -16,7 +16,6 @@ describe('treadwill Flow control group', () => {
   let loginTime!: number;
   let afterDropout = false;
   // const timeUp = 540000;
-  // let afterDropout = false;
 
   beforeEach(() => {
     page = new AppPage();
@@ -115,7 +114,6 @@ describe('treadwill Flow control group', () => {
         page.fillSiq();
         page.fillGad();
         page.fillGad();
-
         fp.goToNextStep('Go to dashboard');
         browser.sleep(2000);
         expect(
@@ -129,7 +127,7 @@ describe('treadwill Flow control group', () => {
     100 * 60 * 1000,
   );
 
-  it(
+  xit(
     'Should click second Module and run its step',
     () => {
       expect(
@@ -141,43 +139,50 @@ describe('treadwill Flow control group', () => {
       } else {
         console.log('CONTROL GROUP second module', expUser);
         // CHECK FOR STEP UNLOCK
-        // if (!fp.afterDropout) {
-        //   fp.waitForStepUnlock('Introduction to making good things happen');
-        // } else {
-        //   fp.findProgressElement('Introduction to making good things happen');
-        // }
-        // browser.sleep(2000);
-        // fp.goToNextStep('Next step');
-        // fp.findProgressElement('Making good things happen');
-        // browser.sleep(2000);
-        // fp.goToNextStep('Next step');
-        // fp.findProgressElement('Sleep problems');
-        // browser.sleep(2000);
-        // fp.goToNextStep('Next step');
-        // fp.findProgressElement('Rumination');
-        // browser.sleep(1800);
-        // fp.goToNextStep('Next step');
-        // fp.findProgressElement('Avoidance');
-        // browser.sleep(2000);
-        // fp.goToNextStep('Next step');
-        // fp.findProgressElement('Sleeping too much or too little');
-        // browser.sleep(2000);
-        // fp.goToNextStep('Next step');
-        // fp.findProgressElement('Mastery activities');
-        // browser.sleep(2000);
-        // fp.goToNextStep('Next step');
-        // fp.findProgressElement('Am I over-thinking? ');
-        // if (testfor === 'dropout' && moduleNum === 2) {
-        //   console.log('CHECK FOR DROPOUT AT MODULE 2');
-        //   fp.checkForDropout(loginTime);
-        // }
-        // browser.sleep(2000);
-        // fp.goToNextStep('Next step');
-        // fp.findProgressElement('Do I have to talk to people? ');
-        // browser.sleep(2000);
-        // fp.goToNextStep('Next step');
+        if (!fp.afterDropout) {
+          fp.waitForStepUnlock('Introduction to making good things happen');
+        } else {
+          fp.findProgressElement('Introduction to making good things happen');
+        }
+        browser.sleep(2000);
+        fp.goToNextStep('Next step');
+        fp.findProgressElement('Making good things happen');
+        browser.sleep(2000);
+        fp.goToNextStep('Next step');
+        fp.findProgressElement('Sleep problems');
+        browser.sleep(2000);
+        fp.goToNextStep('Next step');
+        fp.findProgressElement('Rumination');
+        browser.sleep(1800);
+        fp.goToNextStep('Next step');
+        fp.findProgressElement('Avoidance');
+        browser.sleep(2000);
+        fp.goToNextStep('Next step');
+        fp.findProgressElement('Sleeping too much or too little');
+        browser.sleep(2000);
+        fp.goToNextStep('Next step');
+        fp.findProgressElement('Mastery activities');
+        browser.sleep(2000);
+        fp.goToNextStep('Next step');
+        fp.findProgressElement('Am I over-thinking? ');
+        if (testfor === 'dropout' && moduleNum === 2) {
+          console.log('CHECK FOR DROPOUT AT MODULE 2');
+          fp.checkForDropout(loginTime);
+        }
+        browser.sleep(2000);
+        fp.goToNextStep('Next step');
+        fp.findProgressElement('Do I have to talk to people? ');
+        browser.sleep(2000);
+        fp.goToNextStep('Next step');
         fp.findProgressElement('Maybe I will do it tomorrow ');
         browser.sleep(2000);
+        fp.evaluateMood();
+        page.findPhq();
+        page.fillPhq();
+        page.findSiq();
+        page.fillSiq();
+        page.fillGad();
+        page.fillGad();
         fp.goToNextStep('Go to dashboard');
         browser.sleep(2000);
       }
@@ -216,10 +221,18 @@ describe('treadwill Flow control group', () => {
         fp.findProgressElement('Evaluating thoughts');
         browser.sleep(2000);
         fp.findProgressElement('Help us improve');
+        fp.fillSurveyForm();
         browser.sleep(2000);
         // fp.goToNextStep('Next step');
         fp.findProgressElement('SOLVED');
         browser.sleep(2000);
+        fp.evaluateMood();
+        page.findPhq();
+        page.fillPhq();
+        page.findSiq();
+        page.fillSiq();
+        page.fillGad();
+        page.fillGad();
         fp.goToNextStep('Go to dashboard');
         browser.sleep(2000);
       }
@@ -290,6 +303,13 @@ describe('treadwill Flow control group', () => {
         fp.goToNextStep('Next step');
         fp.findProgressElement('Role play');
         browser.sleep(2000);
+        fp.evaluateMood();
+        page.findPhq();
+        page.fillPhq();
+        page.findSiq();
+        page.fillSiq();
+        page.fillGad();
+        page.fillGad();
         fp.goToNextStep('Go to dashboard');
       }
     },
@@ -318,6 +338,13 @@ describe('treadwill Flow control group', () => {
         browser.sleep(2000);
         fp.findProgressElement('Worried Sick');
         browser.sleep(2000);
+        fp.evaluateMood();
+        page.findPhq();
+        page.fillPhq();
+        page.findSiq();
+        page.fillSiq();
+        page.fillGad();
+        page.fillGad();
         fp.clickOnButton('Go to dashboard');
         browser.sleep(2000);
       }
@@ -350,8 +377,16 @@ describe('treadwill Flow control group', () => {
         browser.sleep(2000);
         fp.goToNextStep('Next step');
         fp.findProgressElement('Help us improve');
+        fp.fillSurveyForm();
         browser.sleep(2000);
         fp.findProgressElement('Keep practicing the techniques');
+        fp.evaluateMood();
+        page.findPhq();
+        page.fillPhq();
+        page.findSiq();
+        page.fillSiq();
+        page.fillGad();
+        page.fillGad();
         fp.clickOnButton('Go to dashboard');
         browser.sleep(2000);
       }
