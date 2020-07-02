@@ -71,7 +71,7 @@ export class FlowComponent implements OnInit, OnDestroy {
       .getFlow()
       .subscribe((data: any) => {
         console.log('response', data);
-        if (!data.data.questionnaire_to_show) {
+        if (data.step_groups) {
         this.stepGroups = data.step_groups;
         this.flowService.setFirstStepCompleted(
           this.stepGroups[0].steps[0].status,

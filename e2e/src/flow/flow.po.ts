@@ -98,8 +98,8 @@ export class FlowPage {
   goToNextStep(btn: string) {
     browser.sleep(3000);
     const button = element(by.css('button.completed-btn'));
-    browser.wait(this.EC.visibilityOf(button)).then(() => {
-      // this.clickOnButton('Completed').then(() => {
+    browser.wait(this.EC.visibilityOf(button), 2 * 60 * 1000).then(() => {
+      console.log('clickOnButton  Completed');
         button.click().then(() => {
 
           if (btn === 'Next step') {
