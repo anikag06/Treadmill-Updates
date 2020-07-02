@@ -96,10 +96,13 @@ export class FlowPage {
   }
 
   goToNextStep(btn: string) {
-    const content = element(by.css('.content-body'));
-    browser.wait(this.EC.visibilityOf(content)).then(() => {
-      this.clickOnButton('Completed').then(() => {
-        if (btn === 'Next step') {
+    browser.sleep(3000);
+    const button = element(by.css('button.completed-btn'));
+    browser.wait(this.EC.visibilityOf(button)).then(() => {
+      // this.clickOnButton('Completed').then(() => {
+        button.click().then(() => {
+
+          if (btn === 'Next step') {
           const nextStepBtn = element(
             by.cssContainingText('button', 'Next step'),
           );
@@ -116,6 +119,8 @@ export class FlowPage {
           });
         }
       });
+    }).catch( () => {
+      console.log('waiting to click Completed button ');
     });
     browser.sleep(1000);
   }
@@ -227,11 +232,13 @@ export class FlowPage {
   }
   fillSurveyForm() {
     this.clickOnButton('Start survey');
-    for (let i = 0; i < 9; i++) {
-      browser.sleep(1000);
+    browser.sleep(2000);
+
+    for (let i = 0; i < 14; i++) {
+      browser.sleep(2000);
       this.clickOnButton('Strongly agree');
     }
-    browser.sleep(1000);
+    browser.sleep(2000);
     this.clickOnButton('Submit');
     browser.sleep(1000);
   }

@@ -88,9 +88,17 @@ export class ControlContentComponent implements OnInit {
         } else if (control_data.data.status === 'ACTIVE') {
           this.nextBtnShow = false;
           if (this.isLastStep) {
-            this.moodEvaluate = true;
-            console.log('check mood');
+            // this.moodEvaluate = true;
+            // console.log('check mood');
           }
+        }
+        if (control_data.data.next_questionnaire) {
+          this.quizService.questionnaire_name =
+            control_data.data.next_questionnaire;
+          this.moodEvaluate = true;
+          console.log('check mood');
+        } else {
+          this.moodEvaluate = false;
         }
         // for navbar title
         this.stepGroupSequence = control_data.data.step_group_sequence + 1;

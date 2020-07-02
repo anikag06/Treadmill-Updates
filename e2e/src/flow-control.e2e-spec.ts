@@ -29,7 +29,7 @@ describe('treadwill Flow control group', () => {
     page.clickLoginLink();
     browser.sleep(2500);
     // username is hardcoded here
-    page.fillLoginForm('root0bei9r', 'test123');
+    page.fillLoginForm('rootj0rbi0', 'test123');
     expect(fp.onDashboard()).toBeTruthy('url does not contains dashboard');
     loginTime = page.getTime();
     console.log('login time', loginTime);
@@ -190,7 +190,7 @@ describe('treadwill Flow control group', () => {
     100 * 60 * 1000,
   );
 
-  it(
+  xit(
     'Should click third Module and run its step',
     () => {
       fp.navigateToDashboard();
@@ -220,25 +220,32 @@ describe('treadwill Flow control group', () => {
         fp.goToNextStep('Next step');
         fp.findProgressElement('Evaluating thoughts');
         browser.sleep(2000);
+        fp.goToNextStep('Next step');
         fp.findProgressElement('Help us improve');
         fp.fillSurveyForm();
         browser.sleep(2000);
-        // fp.goToNextStep('Next step');
         fp.findProgressElement('SOLVED');
         browser.sleep(2000);
         fp.evaluateMood();
+        browser.sleep(2000);
         page.findPhq();
         page.fillPhq();
         page.findSiq();
         page.fillSiq();
         page.fillGad();
         page.fillGad();
-        fp.goToNextStep('Go to dashboard');
-        browser.sleep(2000);
+        // fp.goToNextStep('Go to dashboard');
+        // browser.sleep(2000);
       }
     },
     100 * 60 * 1000,
   );
+  //
+  // it( 'should finish third module and go to dashboard',
+  //   () => {
+  //     fp.goToNextStep('Go to dashboard');
+  //     browser.sleep(2000);
+  //   });
 
   it(
     'Should click fourth Module and run its step',
@@ -257,22 +264,17 @@ describe('treadwill Flow control group', () => {
       } else {
         console.log('CONTROL GROUP', expUser);
         browser.sleep(2000);
-        // const nextStep = element(by.css('.flow-scroll-inner')).element(
-        //   by.cssContainingText('.step-content', 'Taking a deeper look'),
-        // );
-        fp.findProgressElement('Introduction to modifying beliefs');
-        browser.sleep(2000);
-        fp.goToNextStep('Next step');
-        if (!fp.afterDropout) {
-          fp.waitForStepUnlock('Taking a deeper look');
-        } else {
-          console.log('not waiting after dropout');
-          fp.findProgressElement('Taking a deeper look');
-        }
-        // fp.waitForStepUnlock('Taking a deeper look');
-        browser.sleep(2000);
-        fp.goToNextStep('Next step');
-
+        // fp.findProgressElement('Introduction to modifying beliefs');
+        // browser.sleep(2000);
+        // fp.goToNextStep('Next step');
+        // if (!fp.afterDropout) {
+        //   fp.waitForStepUnlock('Taking a deeper look');
+        // } else {
+        //   console.log('not waiting after dropout');
+        //   fp.findProgressElement('Taking a deeper look');
+        // }
+        // browser.sleep(2000);
+        // fp.goToNextStep('Next step');
         fp.findProgressElement('Modifying beliefs');
         browser.sleep(2000);
         if (testfor === 'dropout' && moduleNum === 4) {

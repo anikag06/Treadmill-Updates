@@ -8,6 +8,7 @@ import { UserProfileService } from '../shared/user-profile/userProfile.service';
 import { IntroService } from '@/main/walk-through/intro.service';
 import { Observable, Subscription, timer } from 'rxjs';
 import { isNotNullOrUndefined } from 'codelyzer/util/isNotNullOrUndefined';
+import {FlowService} from "@/main/flow/flow.service";
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -15,6 +16,7 @@ import { isNotNullOrUndefined } from 'codelyzer/util/isNotNullOrUndefined';
 })
 export class DashboardComponent implements OnInit {
   mobileView = false;
+  showQuestionnaire = false;
   introduceSubscription!: Subscription;
   hideSubscription!: Subscription;
   user!: User;
@@ -23,6 +25,7 @@ export class DashboardComponent implements OnInit {
     private titleService: Title,
     private userProfileService: UserProfileService,
     private introService: IntroService,
+    private flowService: FlowService,
   ) {
     this.titleService.setTitle('Dashboard | ' + TREADWILL);
   }
@@ -60,6 +63,11 @@ export class DashboardComponent implements OnInit {
       showFlow => {
         this.hideCards = showFlow;
       },
+    );
+    this.flowService.showFollowUp.subscribe(
+      () => {
+        this.showQuestionnaire = true;
+      }
     );
   }
 

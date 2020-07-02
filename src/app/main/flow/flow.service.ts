@@ -24,6 +24,7 @@ export class FlowService {
   stepName = '';
   navbarTitle = '';
   stepCompleted = false;
+  showFollowUp = new EventEmitter<any>();
 
   constructor(
     private http: HttpClient,

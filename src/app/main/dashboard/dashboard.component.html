@@ -1,3 +1,4 @@
+<ng-template  [ngIf]="!showQuestionnaire">
 <div class="container-fluid body-bg">
   <div class="row">
     <div
@@ -39,3 +40,9 @@
     </div>
   </div>
 </div>
+</ng-template>
+<ng-template  [ngIf]="showQuestionnaire">
+  <div class="row" >
+    <app-questionnaire class="w-100" [fromFlow]="true" [stepId]="null" [fromTrialRegistration]="false"></app-questionnaire>
+  </div>
+</ng-template>
