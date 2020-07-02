@@ -6,7 +6,7 @@ import { MOBILE_WIDTH } from '@/app.constants';
 import { MatDialog } from '@angular/material/dialog';
 import { IntroService } from '@/main/walk-through/intro.service';
 import { isNotNullOrUndefined } from 'codelyzer/util/isNotNullOrUndefined';
-import {QuizService} from "@/shared/questionnaire/questionnaire.service";
+import { QuizService } from '@/shared/questionnaire/questionnaire.service';
 
 @Component({
   selector: 'app-flow',
@@ -72,16 +72,16 @@ export class FlowComponent implements OnInit, OnDestroy {
       .subscribe((data: any) => {
         console.log('response', data);
         if (data.step_groups) {
-        this.stepGroups = data.step_groups;
-        this.flowService.setFirstStepCompleted(
-          this.stepGroups[0].steps[0].status,
-        );
-        this.dataloaded = true;
-        setTimeout(() => {
-          if (!this.fromGoto) {
-            this.flowService.triggerLoad();
-          }
-        }, 2000);
+          this.stepGroups = data.step_groups;
+          this.flowService.setFirstStepCompleted(
+            this.stepGroups[0].steps[0].status,
+          );
+          this.dataloaded = true;
+          setTimeout(() => {
+            if (!this.fromGoto) {
+              this.flowService.triggerLoad();
+            }
+          }, 2000);
         } else {
           //show follow up questionnaire
           this.showQuestionnaire = true;

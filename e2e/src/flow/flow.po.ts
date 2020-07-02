@@ -96,32 +96,34 @@ export class FlowPage {
   }
 
   goToNextStep(btn: string) {
-    browser.sleep(3000);
+    const content = element(by.css('div.content-body'));
     const button = element(by.css('button.completed-btn'));
-    browser.wait(this.EC.visibilityOf(button), 2 * 60 * 1000).then(() => {
-      console.log('clickOnButton  Completed');
+    browser
+      .wait(this.EC.visibilityOf(content), 2 * 60 * 1000)
+      .then(() => {
+        console.log('clickOnButton  Completed');
         button.click().then(() => {
-
           if (btn === 'Next step') {
-          const nextStepBtn = element(
-            by.cssContainingText('button', 'Next step'),
-          );
-          browser.wait(this.EC.visibilityOf(nextStepBtn)).then(() => {
-            nextStepBtn.click();
-          });
-        }
-        if (btn === 'Go to dashboard') {
-          const dashboardBtn = element(
-            by.cssContainingText('button', 'Go to dashboard'),
-          );
-          browser.wait(this.EC.visibilityOf(dashboardBtn)).then(() => {
-            dashboardBtn.click();
-          });
-        }
+            const nextStepBtn = element(
+              by.cssContainingText('button', 'Next step'),
+            );
+            browser.wait(this.EC.visibilityOf(nextStepBtn)).then(() => {
+              nextStepBtn.click();
+            });
+          }
+          if (btn === 'Go to dashboard') {
+            const dashboardBtn = element(
+              by.cssContainingText('button', 'Go to dashboard'),
+            );
+            browser.wait(this.EC.visibilityOf(dashboardBtn)).then(() => {
+              dashboardBtn.click();
+            });
+          }
+        });
+      })
+      .catch(() => {
+        console.log('waiting to click Completed button ');
       });
-    }).catch( () => {
-      console.log('waiting to click Completed button ');
-    });
     browser.sleep(1000);
   }
 

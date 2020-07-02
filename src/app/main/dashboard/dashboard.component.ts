@@ -8,7 +8,7 @@ import { UserProfileService } from '../shared/user-profile/userProfile.service';
 import { IntroService } from '@/main/walk-through/intro.service';
 import { Observable, Subscription, timer } from 'rxjs';
 import { isNotNullOrUndefined } from 'codelyzer/util/isNotNullOrUndefined';
-import {FlowService} from "@/main/flow/flow.service";
+import { FlowService } from '@/main/flow/flow.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -64,11 +64,9 @@ export class DashboardComponent implements OnInit {
         this.hideCards = showFlow;
       },
     );
-    this.flowService.showFollowUp.subscribe(
-      () => {
-        this.showQuestionnaire = true;
-      }
-    );
+    this.flowService.showFollowUp.subscribe(() => {
+      this.showQuestionnaire = true;
+    });
   }
 
   ngOnDestroy(): void {

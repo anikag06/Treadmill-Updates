@@ -241,7 +241,6 @@ describe('treadwill Flow control group', () => {
     100 * 60 * 1000,
   );
 
-
   xit(
     'Should click fourth Module and run its step',
     () => {
@@ -313,7 +312,7 @@ describe('treadwill Flow control group', () => {
     100 * 60 * 1000,
   );
 
-  it(
+  xit(
     'Should click fifth Module and run its step',
     () => {
       fp.navigateToDashboard();
@@ -366,13 +365,13 @@ describe('treadwill Flow control group', () => {
       } else {
         console.log('CONTROL GROUP', expUser);
         browser.sleep(2000);
-        fp.waitForStepUnlock('Be prepared');
-        fp.goToNextStep('Next step');
-        fp.findProgressElement('What if I get depressed again?');
-        fp.goToNextStep('Next step');
-        fp.findProgressElement('Why am I feeling sad again?');
-        browser.sleep(2000);
-        fp.goToNextStep('Next step');
+        // fp.waitForStepUnlock('Be prepared');
+        // fp.goToNextStep('Next step');
+        // fp.findProgressElement('What if I get depressed again?');
+        // fp.goToNextStep('Next step');
+        // fp.findProgressElement('Why am I feeling sad again?');
+        // browser.sleep(2000);
+        // fp.goToNextStep('Next step');
         fp.findProgressElement('Help us improve');
         fp.fillSurveyForm();
         browser.sleep(2000);
@@ -384,12 +383,16 @@ describe('treadwill Flow control group', () => {
         page.fillSiq();
         page.fillGad();
         page.fillGad();
-        fp.goToNextStep('Go to dashboard');
-        browser.sleep(2000);
       }
     },
     100 * 60 * 1000,
   );
+  it('Should finish Module', () => {
+    browser.sleep(2000);
+
+    fp.goToNextStep('Go to dashboard');
+    browser.sleep(2000);
+  });
 
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser
