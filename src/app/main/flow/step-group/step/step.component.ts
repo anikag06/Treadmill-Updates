@@ -14,7 +14,7 @@ import {
   CONCLUSION_PAGE,
   CONVERSATION_GROUP,
   FORM,
-  GAME,
+  GAME, GAME_ATTRIBUTION_STYLE_CONSTANT,
   INTRODUCTION_PAGE,
   INTRODUCTORY_ANIMATION,
   LOCKED,
@@ -34,6 +34,7 @@ import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifica
 import { IntroService } from '@/main/walk-through/intro.service';
 import { isNotNullOrUndefined } from 'codelyzer/util/isNotNullOrUndefined';
 import { IntroDialogService } from '@/main/walk-through/intro-dialog.service';
+import {GAME_ATTRIBUTION_STYLE} from "@/main/walk-through/intro.constant";
 
 @Component({
   selector: 'app-step',
@@ -150,7 +151,7 @@ export class StepComponent implements OnInit, AfterViewInit {
         .subscribe((data: any) => {
           if (data.show_animation) {
             setTimeout(() => {
-              this.introDialogService.openGameIntroDialog(true);
+              this.introDialogService.openGameIntroDialog(true,this.step.action[0]);
             }, 500);
           } else {
             setTimeout(() => {
@@ -161,13 +162,12 @@ export class StepComponent implements OnInit, AfterViewInit {
     }
 
     if (this.step.data_type === FORM && this.step.status !== COMPLETED) {
-      // add this.step.status === COMPLETED condition
       this.introService
         .showAnimation(this.step.action[0])
         .subscribe((data: any) => {
           if (data.show_animation) {
             setTimeout(() => {
-              this.introDialogService.openFormIntroDialog(true);
+              this.introDialogService.openFormIntroDialog(true,this.step.action[0]);
             }, 500);
           } else {
             setTimeout(() => {
@@ -175,9 +175,6 @@ export class StepComponent implements OnInit, AfterViewInit {
             }, 500);
           }
         });
-      // setTimeout(() => {
-      //   this.introDialogService.openFormIntroDialog(true);
-      // }, 1000);
     }
 
     if (
@@ -189,11 +186,11 @@ export class StepComponent implements OnInit, AfterViewInit {
         if (data.show_animation) {
           setTimeout(() => {
             this.introDialogService.openSupportGroupIntroDialog(true);
-          }, 2000);
+          }, 1000);
         } else {
           setTimeout(() => {
             this.introService.startSupportGroupIntro();
-          }, 2000);
+          }, 500);
         }
       });
     }
@@ -209,15 +206,15 @@ export class StepComponent implements OnInit, AfterViewInit {
       } else {
         this.introService.setIntroduceFalse();
         setTimeout(() => {
-          this.introService.startBadgesIntro();
-        }, 500);
-        // this.flowService.triggerIntroduction();
+          this.introService.startBadgesIntro(this.step.status);
+        }, 1500);
+
       }
 
-      // this.step.status = COMPLETED;
-      // this.flowService.triggerLoad();
-      // setTimeout(() => this.flowService.triggerLoad(), 1);
-      // setTimeout(() => this.flowService.triggerLoad(), 10);
+      this.step.status = COMPLETED;
+      this.flowService.triggerLoad();
+      setTimeout(() => this.flowService.triggerLoad(), 1);
+      setTimeout(() => this.flowService.triggerLoad(), 10);
     }
 
     if (this.step.status !== LOCKED) {

@@ -3,7 +3,7 @@ import {
   Injectable,
   ViewContainerRef,
 } from '@angular/core';
-import { MOBILE_WIDTH } from '@/app.constants';
+import {COMPLETED, MOBILE_WIDTH, TABLET_WIDTH} from '@/app.constants';
 // @ts-ignore
 import * as introJs from 'intro.js/intro';
 import { MatDrawer } from '@angular/material/sidenav';
@@ -18,6 +18,8 @@ import { StepCompleteData } from '@/main/resources/shared/completion-data.model'
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { MatExpansionPanel } from '@angular/material/expansion';
+import { AuthService } from '@/shared/auth/auth.service';
+import { User } from '@/shared/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -31,11 +33,14 @@ export class IntroService {
   sideBarBehaviour = new BehaviorSubject(true);
   loadingBehaviour = new BehaviorSubject(false);
   gotoBehaviour = new BehaviorSubject(false);
+  fixParentBehaviour = new BehaviorSubject(false);
   private card!: any;
   introJS = introJs();
   introJSMenu = introJs();
   introJSStart = introJs();
   component: any;
+  user!: User;
+  showActiveStepIntro = false;
   constructor(
     private dialog: MatDialog,
     private componentFactoryResolver: ComponentFactoryResolver,
@@ -43,7 +48,10 @@ export class IntroService {
     private flowService: FlowService,
     private stepsDataService: StepsDataService,
     private http: HttpClient,
-  ) {}
+    private authService: AuthService,
+  ) {
+    this.user = this.authService.isLoggedIn()!;
+  }
   completionData: StepCompleteData = new StepCompleteData(0, 0);
   badgeData = {
     name: 'Brave Beginner',
@@ -91,8 +99,7 @@ export class IntroService {
         },
       ],
       tooltipPosition: 'auto',
-      doneLabel:
-        '<span style="font-size: 16px;vertical-align: sub">Next &#8594;</span>',
+      doneLabel: '<span style="font-size: 16px;">Next &#8594;</span>',
       showStepNumbers: false,
       showProgress: false,
       showBullets: false,
@@ -104,10 +111,15 @@ export class IntroService {
     });
     intro.start();
     intro.onexit((event: Event) => {
-      this.togglePanel();
-      setTimeout(() => {
-        this.startActiveStepIntro();
-      }, 500);
+      if(this.showActiveStepIntro){
+        this.togglePanel();
+        setTimeout(() => {
+          this.startActiveStepIntro();
+        }, 500);
+      }else{
+        this.setOverlayTrue();
+        this.startProgressIntro();
+      }
     });
   }
 
@@ -132,8 +144,7 @@ export class IntroService {
         },
       ],
       tooltipPosition: 'auto',
-      doneLabel:
-        '<span style="font-size: 16px;vertical-align: sub">Next &#8594;</span>',
+      doneLabel: '<span style="font-size: 16px">Next &#8594;</span>',
       showStepNumbers: false,
       showProgress: false,
       showBullets: false,
@@ -157,14 +168,12 @@ export class IntroService {
         {
           element: '#dashboard',
           intro:
-            '<div class="intro-heading">Progress card</div> <div></div>' +
+            '<div class="intro-heading">Progress card</div>' +
             '<div class="intro-text">You can find all the modules and steps in this card. This will help you keep track of how much is completed.</div>',
-          position: 'top',
-          tooltipClass: window.innerWidth < MOBILE_WIDTH ? 'intro-tooltip' : '',
+          position: 'right',
         },
       ],
-      doneLabel:
-        '<span style="font-size: 16px;vertical-align: sub">Next &#8594;</span>',
+      doneLabel: '<span style="font-size: 16px">Next &#8594;</span>',
       tooltipPosition: 'auto',
       showStepNumbers: false,
       showProgress: false,
@@ -188,7 +197,7 @@ export class IntroService {
       steps: [
         {
           element:
-            window.innerWidth < MOBILE_WIDTH ? '#goto_mobile' : '#goto_desktop',
+            window.innerWidth < TABLET_WIDTH ? '#goto_mobile' : '#goto_desktop',
           intro:
             '<div class="intro-heading">Go To</div> <div></div>' +
             '<div class="intro-text">Click on "Go To" to access the Progress card from anywhere in TreadWill.</div>',
@@ -219,7 +228,7 @@ export class IntroService {
       steps: [
         {
           element:
-            window.innerWidth < MOBILE_WIDTH ? '#goto_mobile' : '#goto_desktop',
+            window.innerWidth < TABLET_WIDTH ? '#goto_mobile' : '#goto_desktop',
           intro:
             '<div class="intro-heading">Go To</div> <div></div>' +
             '<div class="intro-text">Once you are done here, click on "Go To" to access the Progress card and go to the next step.</div>',
@@ -234,6 +243,7 @@ export class IntroService {
       hidePrev: true,
       hideNext: true,
       exitOnEsc: false,
+      disableInteraction: true,
     });
     intro.start();
   }
@@ -244,7 +254,7 @@ export class IntroService {
       steps: [
         {
           element:
-            window.innerWidth < MOBILE_WIDTH ? '#new_post_mobile' : '#new-post',
+            window.innerWidth <= 990 ? '#new_post_mobile' : '#new-post',
           intro:
             '<div class="intro-heading">Create post </div> ' +
             '<div class="intro-text">Click on this button to write a post in the SupportGroup. We would love to hear from you.</div>',
@@ -252,8 +262,7 @@ export class IntroService {
         },
       ],
       tooltipPosition: 'auto',
-      doneLabel:
-        '<span style="font-size: 16px;vertical-align: sub">Next &#8594;</span>',
+      doneLabel: '<span style="font-size: 16px">Next &#8594;</span>',
       showStepNumbers: false,
       showProgress: false,
       showBullets: false,
@@ -269,11 +278,12 @@ export class IntroService {
     intro.onexit(() => {
       let text_support_group =
         '<div>You can quickly access the SupportGroup from the Navigation menu.</div>';
-      if (window.innerWidth < MOBILE_WIDTH) {
+      if (window.innerWidth < TABLET_WIDTH) {
         this.drawer.toggle();
+        this.setParentTrue();
         setTimeout(() => {
           this.startNavbarElementIntro('#support-group', text_support_group);
-        }, 2000);
+        }, 500);
       } else {
         this.startNavbarElementIntro('#support-group', text_support_group);
       }
@@ -290,11 +300,11 @@ export class IntroService {
             '<div class="intro-heading">Access from the Navigation menu</div> ' +
             text_element,
           position: 'right',
+          tooltipPosition: 'bottom',
         },
       ],
-      tooltipPosition: 'auto',
-      doneLabel:
-        '<span style="font-size: 16px;vertical-align: sub">Next &#8594;</span>',
+
+      doneLabel: '<span style="font-size: 16px;">Next &#8594;</span>',
       showStepNumbers: false,
       showProgress: false,
       showBullets: false,
@@ -307,13 +317,14 @@ export class IntroService {
     intro.start();
     intro.onexit(() => {
       this.startGotoIntro();
-      if (window.innerWidth < MOBILE_WIDTH) {
+      if (window.innerWidth < TABLET_WIDTH) {
         this.drawer.toggle();
+        this.setParentFalse();
       }
     });
   }
 
-  startBadgesIntro() {
+  startBadgesIntro(status: string) {
     let intro = introJs.introJs();
     intro.setOptions({
       steps: [
@@ -323,17 +334,18 @@ export class IntroService {
             '<div class="intro-heading"> Your Profile </div> ' +
             '<div class="intro-text">You can see all the badges and your total score here. The badges you have earned will be highlighted.</div>',
           position: 'top',
-          tooltipClass: 'hide-skip',
+          tooltipClass:
+            window.innerWidth <= 360 ? 'bottom-centre' : 'hide-skip',
         },
         {
           element: '#points',
           intro:
             '<div class="intro-heading">Points & Badges </div>' +
-            '<div class="intro-text"><div class="box-blue"></div>Total points.<br/><div class="gold"></div>No. of gold badges.<br/><div class="silver"></div>No. of silver badges.<br/><div class="bronze"></div>No. of bronze badges.</div>',
+            '<div class="intro-text"><div class="box-blue-intro"></div>Total points.<br/><div class="circle-intro gold"></div>No. of gold badges.<br/><div class="circle-intro silver"></div>No. of silver badges.<br/><div class="circle-intro bronze"></div>No. of bronze badges.</div>',
           position: 'bottom',
         },
       ],
-      tooltipPosition: 'auto',
+
       showStepNumbers: false,
       showProgress: false,
       showBullets: false,
@@ -348,11 +360,13 @@ export class IntroService {
       this.completionData.step_id = 75;
       this.completionData.time_spent = 100;
       this.setIntroduceTrue();
-      this.stepsDataService
-        .storeCompletionData(this.completionData)
-        .subscribe(() => {
-          this.showCongratsDialog();
-        });
+      if (status !== COMPLETED) {
+        this.stepsDataService
+          .storeCompletionData(this.completionData)
+          .subscribe(() => {
+            this.showCongratsDialog();
+          });
+      }
     });
   }
 
@@ -397,7 +411,7 @@ export class IntroService {
         },
       ],
       tooltipPosition: 'auto',
-      doneLabel: window.innerWidth < MOBILE_WIDTH ? 'Next' : 'Done',
+      doneLabel: window.innerWidth <=TABLET_WIDTH ? '<span style="font-size: 16px;">Next &#8594;</span>' : 'Done',
       showStepNumbers: false,
       showProgress: false,
       showBullets: false,
@@ -417,6 +431,9 @@ export class IntroService {
       this.setOverlayFalse();
       this.notificationService.closeNavFlow.emit();
       if (window.innerWidth > MOBILE_WIDTH) {
+        if (!this.flowService.stepCompleted) {
+          this.postScore(20);
+        }
         setTimeout(() => {
           this.flowService.introduceBehaviour.next(true);
         }, 1000);
@@ -494,7 +511,7 @@ export class IntroService {
       setTimeout(() => {
         this.setOverlayTrue();
         this.startNavigationIntro();
-      }, 2000);
+      }, 500);
     });
   }
 
@@ -509,7 +526,7 @@ export class IntroService {
             '<div class="intro-text"> This menu gives you a shortcut to the features of TreadWill.</div>',
           position: 'right',
           tooltipClass:
-            window.innerWidth < MOBILE_WIDTH ? 'intro-tooltip-no-margin' : '',
+            window.innerWidth < MOBILE_WIDTH ? 'intro-tooltip-custom-margin' : '',
         },
       ],
       showStepNumbers: false,
@@ -531,6 +548,9 @@ export class IntroService {
       }, 1000);
       setTimeout(() => {
         this.setSideBarFalse();
+        if (!this.flowService.stepCompleted) {
+          this.postScore(20);
+        }
         this.startPointsIntro();
       }, 1500);
     });
@@ -538,9 +558,10 @@ export class IntroService {
 
   callNavbarFormIntro() {
     let text_forms =
-      '<div>You can quickly access this form from the Navigation menu.</div>';
-    if (window.innerWidth < MOBILE_WIDTH) {
+      '<div class="intro-text">You can quickly access this form from the Navigation menu.</div>';
+    if (window.innerWidth < TABLET_WIDTH) {
       this.toggleDrawer();
+      this.setParentTrue();
       setTimeout(() => {
         this.startNavbarElementIntro('#forms', text_forms);
       }, 500);
@@ -550,10 +571,11 @@ export class IntroService {
   }
 
   callNavBarGameIntro() {
-    let text_games =
-      '<div>You can quickly access this game from the Navigation menu.</div>';
-    if (window.innerWidth < MOBILE_WIDTH) {
+      let text_games =
+      '<div class="intro-text">You can quickly access this game from the Navigation menu.</div>';
+    if (window.innerWidth < TABLET_WIDTH) {
       this.toggleDrawer();
+      this.setParentTrue();
       setTimeout(() => {
         this.startNavbarElementIntro('#games', text_games);
       }, 500);
@@ -565,8 +587,20 @@ export class IntroService {
   showAnimation(element: string) {
     return this.http.get(
       environment.API_ENDPOINT +
-        '/api/v1/flow/show-introductory-animation/' +
-        element,
+      '/api/v1/flow/show-introductory-animation/' +
+      element,
+    );
+  }
+
+  postScore(score: number) {
+    const body = {
+      score: score,
+    };
+    return this.http.post(
+      environment.API_ENDPOINT +
+      '/api/v1/user/user-profile/' +
+      this.user.username,
+      body,
     );
   }
 
@@ -633,6 +667,16 @@ export class IntroService {
   setGotoFalse() {
     this.gotoBehaviour.next(false);
   }
+
+  setParentTrue() {
+    this.fixParentBehaviour.next(true);
+  }
+
+  setParentFalse() {
+    this.fixParentBehaviour.next(false);
+  }
+
+
   exitIntro() {
     this.introJS.exit();
   }
@@ -647,5 +691,9 @@ export class IntroService {
 
   destroyComponent() {
     this.component.destroy();
+  }
+
+  setActiveStepIntro(value:boolean){
+    this.showActiveStepIntro = true;
   }
 }

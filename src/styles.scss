@@ -429,22 +429,22 @@ img.emoji {
 .intro-dialog .mat-dialog-container {
   //width: 340px;
 }
-.intro-tag-dialog .mat-dialog-container{
-  position: sticky!important;
+.intro-tag-dialog .mat-dialog-container {
+  position: sticky !important;
   padding-bottom: 0;
   text-align: center;
   z-index: 100;
   width: 100%;
-  background: #FAF4EA 0 0 no-repeat padding-box;
-  box-shadow: 0 8px 16px #0000003D;
+  background: #faf4ea 0 0 no-repeat padding-box;
+  box-shadow: 0 8px 16px #0000003d;
   border-radius: 4px;
   padding-left: 12px;
   padding-right: 12px;
 
   .scrollbar {
-    width: 0px;  /* Remove scrollbar space */
+    width: 0px; /* Remove scrollbar space */
     display: none;
-    background: transparent;  /* Optional: just make scrollbar invisible */
+    background: transparent; /* Optional: just make scrollbar invisible */
   }
 }
 
@@ -470,6 +470,7 @@ img.emoji {
   text-align: center !important;
   box-sizing: inherit !important;
   background: white !important;
+  padding-top: 8px !important;
 }
 .introjs-prevbutton {
   display: none !important;
@@ -495,7 +496,7 @@ body {
   width: inherit;
   height: inherit;
   border-radius: 0.5em;
-  box-shadow: 0 0 0 1000em rgba(0,0,0, .7);
+  box-shadow: 0 0 0 1000em rgba(0, 0, 0, 0.7);
   opacity: 1;
 }
 
@@ -509,52 +510,96 @@ body {
   z-index: 1000;
 }
 ::-webkit-scrollbar {
-  width: 0px;  /* Remove scrollbar space */
+  width: 0px; /* Remove scrollbar space */
   display: none;
-  background: transparent;  /* Optional: just make scrollbar invisible */
+  background: transparent; /* Optional: just make scrollbar invisible */
 }
-.intro-heading{
+.intro-heading {
   text-align: center;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 18px;
   margin-bottom: 10px;
 }
-.intro-text{
+.intro-text {
   text-align: center;
-  font: Regular 16px/22px Roboto;
+  //font: Regular 16px/22px Roboto;
   letter-spacing: 0;
   color: #00000099;
   margin-bottom: 10px;
 }
 
-.hide-skip{
-  .introjs-skipbutton {
-   display: none !important;
-  }
-}
-
-.hide-skip-next{
+.hide-skip {
   .introjs-skipbutton {
     display: none !important;
   }
-  .introjs-nextbutton.introjs-fullbutton{
+}
+
+.hide-skip-next {
+  .introjs-skipbutton {
+    display: none !important;
+  }
+  .introjs-nextbutton.introjs-fullbutton {
     display: none !important;
   }
 }
 
-.intro-tooltip{
-  top: 65% !important;
-}
-.intro-tooltip-no-margin{
-  top: 65% !important;
-  margin-left: 0 !important;
+.intro-tooltip {
+  //top: 65% !important;
+  margin-top: 20px !important;
 }
 
-.hide-background{
-    background-color: transparent !important;
+.intro-tooltip-custom-margin {
+  top: 55% !important;
+  margin-left: -25px !important;
 }
 
-
-.introjs-fixParent:after {
-    z-index: 4 !important;
+.hide-background {
+  background-color: transparent !important;
+}
+.bottom-centre {
+  .introjs-skipbutton {
+    display: none !important;
   }
+  margin-top: 150px !important;
+  .introjs-floating {
+    margin-top: 50px !important;
+    //margin-left: 0 !important;
+  }
+}
+
+.box-blue-intro {
+  height: 11px;
+  width: 11px;
+  position: absolute;
+  background-color: blue;
+  text-align: right;
+  top: 55px;
+  left: 45px;
+}
+
+.circle-intro {
+  height: 11px;
+  width: 11px;
+  border-radius: 50%;
+  position: relative;
+  left: -10px;
+  display: inline-block;
+}
+
+.gold {
+  background: transparent linear-gradient(137deg, #ffd76a 0%, #dfad21 100%) 0%
+    0% no-repeat padding-box;
+}
+
+.silver {
+  background: transparent linear-gradient(137deg, #d4d4d4 0%, #c4c4c4 100%) 0%
+    0% no-repeat padding-box;
+}
+
+.bronze {
+  background: transparent linear-gradient(141deg, #efb05e 0%, #b27725 100%) 0%
+    0% no-repeat padding-box;
+}
+
+
+

@@ -12,6 +12,7 @@ import {
 import { MainComponent } from './main.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { RouterTestingModule } from '@angular/router/testing';
+// @ts-ignore
 import { ModulesService } from './modules/modules.service';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AuthService } from '@/shared/auth/auth.service';
@@ -46,7 +47,7 @@ describe('MainComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(MainComponent);
     component = fixture.componentInstance;
-    component.user = new User(1, 'tester', 'test@test.com', '', false, false);
+    component.user = new User(1, 'tester', 'test@test.com', '', false, false,false);
     fixture.detectChanges();
   });
 

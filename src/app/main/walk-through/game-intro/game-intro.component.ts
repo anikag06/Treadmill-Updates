@@ -8,6 +8,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 })
 export class GameIntroComponent implements OnInit {
   btnTxt!: string;
+  game!:any
   constructor(
     private dialogRef: MatDialogRef<GameIntroComponent>,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
@@ -16,6 +17,7 @@ export class GameIntroComponent implements OnInit {
   ngOnInit() {
     if (this.data) {
       this.btnTxt = this.data.buttonText;
+      this.game = this.data.game;
     }
   }
 

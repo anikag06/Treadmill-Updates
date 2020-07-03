@@ -63,6 +63,7 @@ export class MainComponent
   overlayOpen = false;
   firstLoad = true;
   showOverlay = false;
+  fixParent = false;
 
   onlineStatusMessages = [
     "You're online. Life's good again.",
@@ -76,7 +77,7 @@ export class MainComponent
 
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe([Breakpoints.Handset, Breakpoints.Small])
-    .pipe(map(result => result.matches));
+    .pipe(map((result) => result.matches));
   isExpanded = true;
 
   @ViewChild(ToastNotificationDirective, { static: true })
@@ -90,6 +91,7 @@ export class MainComponent
 
   introSubscription!: Subscription;
   loadSubscription!: Subscription;
+  fixParentSubscription!: Subscription;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -129,7 +131,7 @@ export class MainComponent
       }
     });
 
-    this.fcmService.newNotification.subscribe(message => {
+    this.fcmService.newNotification.subscribe((message) => {
       const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
         ToastNotificationComponent,
       );
@@ -171,7 +173,7 @@ export class MainComponent
       console.log('OVERLAY OPEN', this.overlayService.overlayOpen);
     });
 
-    this.commonService.createOnline$().subscribe(isOnline => {
+    this.commonService.createOnline$().subscribe((isOnline) => {
       this.connectionNotification.clear();
       const statusMessage = isOnline
         ? this.onlineStatusMessages[
@@ -202,7 +204,7 @@ export class MainComponent
 
     if (window.innerWidth < MOBILE_WIDTH) {
       this.introSubscription = this.introService.overlayBehaviour.subscribe(
-        showOverlay => {
+        (showOverlay) => {
           this.showOverlay = showOverlay;
         },
       );
@@ -211,8 +213,14 @@ export class MainComponent
     this.loadSubscription = this.flowService.loadBehaviour.subscribe(
       (data: boolean) => {
         if (data && !this.flowService.getFirstStepCompleted()) {
-          this.introDialogService.openIntroDialog();
+          // this.introDialogService.openIntroDialog();
         }
+      },
+    );
+
+    this.fixParentSubscription = this.introService.fixParentBehaviour.subscribe(
+      (data: boolean) => {
+        this.fixParent = data;
       },
     );
   }
@@ -246,7 +254,7 @@ export class MainComponent
     }
     if (!this.routing) {
       this.router.events
-        .pipe(filter(e => e instanceof NavigationStart))
+        .pipe(filter((e) => e instanceof NavigationStart))
         .subscribe((e: any) => {
           this.goToQuestionnaire(e);
         });
@@ -299,6 +307,9 @@ export class MainComponent
     if (isNotNullOrUndefined(this.loadSubscription)) {
       this.loadSubscription.unsubscribe();
     }
+    if (isNotNullOrUndefined(this.fixParentSubscription)) {
+      this.fixParentSubscription.unsubscribe();
+    }
   }
 
   showSupportGroupIntro() {
@@ -306,7 +317,7 @@ export class MainComponent
       if (data.show_animation) {
         setTimeout(() => {
           this.introDialogService.openSupportGroupIntroDialog(false);
-        }, 1000);
+        }, 1500);
       }
     });
   }

@@ -149,6 +149,7 @@ export const SUPPORT_GROUP = 'SUPPORT_GROUP';
 export const SURVEY = 'SURVEY';
 export const INTRODUCTORY_ANIMATION = 'INTRODUCTORY_ANIMATION';
 export const INTRODUCTION_PAGE = 'INTRODUCTION_PAGE';
+export const TABLET_WIDTH = 960;
 export const CONCLUSION_PAGE = 'CONCLUSION_PAGE';
 export const CONTROL_PAGE = 'CONTROL_PAGE';
 export const RESOURCES_PAGE = 'RESOURCES_PAGE';
@@ -349,7 +350,7 @@ export const PROBLEM_SOLVING_FORM_NAME = 'Solve a problem';
 export const SET_TASK_FORM_NAME = 'Set a task';
 export const THOUGHT_RECORD_FORM_NAME = 'Evaluate a thought';
 export const EXPERIMENT_TO_TEST_BELIEF_FORM_NAME = 'Test a belief';
-export const WORRY_PRODUCTIVELY_FORM_NAME = 'Worry Productively form';
+export const WORRY_PRODUCTIVELY_FORM_NAME = 'Control a worry';
 export const BELIEF_CHANGE_FORM_NAME = 'Change a belief';
 
 // trial registration pages

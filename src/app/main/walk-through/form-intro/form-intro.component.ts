@@ -8,6 +8,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 })
 export class FormIntroComponent implements OnInit {
   btnTxt!: string;
+  form!:any;
   constructor(
     private dialogRef: MatDialogRef<FormIntroComponent>,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
@@ -16,6 +17,7 @@ export class FormIntroComponent implements OnInit {
   ngOnInit() {
     if (this.data) {
       this.btnTxt = this.data.buttonText;
+      this.form = this.data.form;
     }
   }
   startIntro() {
