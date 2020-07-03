@@ -28,6 +28,7 @@ export class RegistrationStepOneComponent implements OnInit {
   touchDevice = false;
   showRegistrationContent = false;
   userEligible = false;
+  showErrorMessage = false;
 
   emailForm = new FormGroup({
     email: new FormControl(''),
@@ -59,6 +60,7 @@ export class RegistrationStepOneComponent implements OnInit {
     if (this.emailForm.valid) {
       //required for e2e testing
       this.registrationDataService.trial_email = this.emailForm.value.email;
+      // till here
       this.registrationDataService
         .storeEmailID(this.emailForm.value.email)
         .subscribe(
@@ -88,6 +90,8 @@ export class RegistrationStepOneComponent implements OnInit {
             console.log(err);
           },
         );
+    } else {
+      this.showErrorMessage = true;
     }
   }
 

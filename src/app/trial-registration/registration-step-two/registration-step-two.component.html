@@ -73,7 +73,7 @@
                         <mat-form-field class="w-100">
                             <mat-label>Country</mat-label>
                             <mat-select #Country required
-                                formControlName = "country">
+                                        formControlName = "country">
                                 <mat-option *ngFor="let count of country_data"
                                     [value]="count.id">
                                     {{count.name}}

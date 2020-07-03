@@ -6,23 +6,23 @@
                 <div class="card-title largest-font px-2">
                     <b> Are you feeling low, down, or depressed? </b>
                 </div>
-                <img src="../../../assets/trial-registration/men_women_sad.png" 
+                <img src="../../../assets/trial-registration/men_women_sad.png"
                     class="mx-auto" id="sad-img">
             </div>
-            <p class="less-opacity"> 
-                TreadWill is a website designed to help individuals deal with stress, low mood, 
-                lethargy, and other depressive symptoms. We are conducting a study to see if 
+            <p class="less-opacity">
+                TreadWill is a website designed to help individuals deal with stress, low mood,
+                lethargy, and other depressive symptoms. We are conducting a study to see if
                 TreadWill is effective in helping people deal with these symptoms.
             </p>
-            
+
         </div>
-        
+
         <div class="row mx-1 align-items-center">
             <p class="l-medium"> Why you might want to join  </p>
             <div class="row my-2">
                 <div class="col-6">
                     <div class="card w-100 h-100 img-cards">
-                        <img src="../../../assets/trial-registration/learnSkills.png" 
+                        <img src="../../../assets/trial-registration/learnSkills.png"
                             class="mx-auto my-auto " id="img-1">
                     </div>
                 </div>
@@ -40,7 +40,7 @@
                 </div>
                 <div class="col-6">
                     <div class="card w-100 h-100 img-cards">
-                        <img src="../../../assets/trial-registration/Contribute.png" 
+                        <img src="../../../assets/trial-registration/Contribute.png"
                             class="mx-auto my-auto" id="img-2">
                     </div>
                 </div>
@@ -48,7 +48,7 @@
             <div class="row my-2">
                 <div class="col-6">
                     <div class="card w-100 h-100 img-cards">
-                        <img src="../../../assets/trial-registration/Paticipatation.png" 
+                        <img src="../../../assets/trial-registration/Paticipatation.png"
                             class="my-auto mx-auto" id="img-3">
                     </div>
                 </div>
@@ -67,47 +67,50 @@
                 </div>
                 <div class="col-6">
                     <div class="card w-100 h-100 img-cards">
-                        <img src="../../../assets/trial-registration/Time.png" 
+                        <img src="../../../assets/trial-registration/Time.png"
                             class="my-auto mx-auto" id="img-4">
                     </div>
                 </div>
             </div>
         </div>
-    
+
         <div class="row my-5">
             <div class="col-12 my-2">
                 <span class="l-medium"> Fill details</span>
                 <span class="float-right s-medium opacity-80"> Step 1 of 4</span>
             </div>
-    
+
             <div class="col-12 my-2">
                 <form [formGroup]="emailForm" class="w-100" >
-                    <input formControlName="email" 
-                        type="email" class="input-box w-100 px-2 form-elements" 
-                        required 
+                    <input formControlName="email"
+                        type="email" class="input-box w-100 px-2 form-elements"
+                        required
                         email
                         placeholder=" Enter your email ID" >
                     <div class="w-100 my-3">
-                        <button type="submit" class="w-100 form-elements" mat-raised-button 
+                        <button type="submit" class="w-100 form-elements" mat-raised-button
                             color="primary" (click)="emailSubmit()" > Join the Study </button>
                     </div>
+                  <p class="text-footer mt-2 error-text" *ngIf="showErrorMessage">
+                    Please give us your valid email id. We won't spam you. Promise 🤞!
+                  </p>
                 </form>
             </div>
         </div>
-    
+
         <div class="row mt-4 mb-2">
             <div class="col-12 text-center less-opacity">
-                <span> For any question check 
-                    <a routerLink="{{faqLink}}"> FAQ </a>  or 
-                    <span (click)= "contactUsClicked()" class="contactUsLink"> Contact Us </span>  
+                <span> For any question check
+                    <a routerLink="{{faqLink}}"> FAQ </a>  or
+                    <span (click)= "contactUsClicked()" class="contactUsLink"> Contact Us </span>
                 </span>
             </div>
         </div>
     </div>
-    
+
     <div class="row mt-3 mx-0">
         <app-trial-pages-footer class="w-100"></app-trial-pages-footer>
-    </div>    
+    </div>
 </div>
 
 <ng-template #desktopMessage>

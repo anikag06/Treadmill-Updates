@@ -79,7 +79,7 @@ export class RegistrationStepTwoComponent implements OnInit {
     this.starting_time = dateTime.replace('Z', '').replace('T', ' ');
     this.placeholder_tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
     this.registrationDataService.getCountryList().subscribe((data: any) => {
-      this.country_data = data.results;
+      this.country_data = data;
     });
     this.registrationDataService.getTimeZoneData().subscribe((data: any) => {
       this.timezone_data = data;
