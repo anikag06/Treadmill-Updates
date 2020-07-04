@@ -10,6 +10,7 @@ export class TrialPagesHeaderComponent implements OnInit {
   @Output() joinStudyClicked: EventEmitter<any> = new EventEmitter();
 
   @Input() stepNumber!: number;
+  @Input() reregister!: boolean;
 
   stepOne = false;
   stepTwo = false;
@@ -36,7 +37,9 @@ export class TrialPagesHeaderComponent implements OnInit {
   }
 
   onLogoClick() {
-    // this.router.navigate(['trial/trial-registration']);
-    this.router.navigate(['iitk']);
+    if (!this.reregister) {
+      // this.router.navigate(['trial/trial-registration']);
+      this.router.navigate(['iitk']);
+    }
   }
 }

@@ -35,6 +35,15 @@ export class RegistrationDataService {
     );
   }
 
+  storeEncryptedEmailID(encrypted_email: any) {
+    console.log('sending email', encrypted_email);
+    const sendData = { encrypted_email: encrypted_email };
+    return this.http.post(
+      environment.API_ENDPOINT + EMAIL_REGISTRATION,
+      sendData,
+    );
+  }
+
   saveStepTwoForm(stepTwoData: RegistrationStepTwoForm) {
     console.log('store 2', stepTwoData);
     return this.http.put(

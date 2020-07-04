@@ -12,6 +12,7 @@ import { AboutUsPageComponent } from './information-pages/about-us-page/about-us
 import { TrialRegistrationAuthGuard } from '@/shared/auth/trial-registration-auth.guard';
 import { IneligibleTrialPageComponent } from './information-pages/ineligible-trial-page/ineligible-trial-page.component';
 import { StepLastPageComponent } from './information-pages/step-last-page/step-last-page.component';
+import {ReregistrationComponent} from '@/trial-registration/reregistration/reregistration.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,7 @@ const routes: Routes = [
     component: RegistrationStepOneComponent,
     canActivate: [TrialRegistrationAuthGuard],
   },
+
   {
     path: 'trial-registration/step-2',
     component: RegistrationStepTwoComponent,
@@ -38,6 +40,12 @@ const routes: Routes = [
     path: 'trial-registration/step-5',
     component: StepLastPageComponent,
     canActivate: [TrialActivateGuard],
+  },
+  {
+    path: 'trial-registration/:unique_code',
+    component: ReregistrationComponent,
+    pathMatch: 'prefix',
+    // canActivate: [TrialActivateGuard],
   },
   {
     path: 'faqs',
