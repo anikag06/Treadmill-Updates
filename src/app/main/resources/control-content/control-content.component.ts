@@ -96,7 +96,7 @@ export class ControlContentComponent implements OnInit {
           this.quizService.questionnaire_name =
             control_data.data.next_questionnaire;
           this.moodEvaluate = true;
-          console.log('check mood');
+          console.log('check mood', this.quizService.questionnaire_name);
         } else {
           this.moodEvaluate = false;
         }

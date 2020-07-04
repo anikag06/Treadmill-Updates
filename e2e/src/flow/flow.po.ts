@@ -96,7 +96,7 @@ export class FlowPage {
   }
 
   goToNextStep(btn: string) {
-    const content = element(by.css('div.content-body'));
+    const content = element(by.css('.fix-content-body'));
     const button = element(by.css('button.completed-btn'));
     browser
       .wait(this.EC.visibilityOf(content), 2 * 60 * 1000)

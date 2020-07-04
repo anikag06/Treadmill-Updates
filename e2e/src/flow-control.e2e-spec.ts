@@ -15,29 +15,28 @@ describe('treadwill Flow control group', () => {
   const moduleNum = moduleNumber;
   let loginTime!: number;
   let afterDropout = false;
-  // const timeUp = 540000;
 
   beforeEach(() => {
     page = new AppPage();
     fp = new FlowPage();
   });
 
-  it('should show login dialog', () => {
+  xit('should show login dialog', () => {
     page.navigateTo();
     browser.waitForAngularEnabled(false);
     browser.sleep(1000);
     page.clickLoginLink();
     browser.sleep(2500);
     // username is hardcoded here
-    page.fillLoginForm('rootj0rbi0', 'test123');
+    page.fillLoginForm('rootf6mb1c', 'test123');
     expect(fp.onDashboard()).toBeTruthy('url does not contains dashboard');
     loginTime = page.getTime();
     console.log('login time', loginTime);
     browser.sleep(1000);
   });
 
-  xit('should detect whether exp or control', () => {
-    // loginTime = page.getTime();
+  it('should detect whether exp or control', () => {
+    loginTime = page.getTime();
     console.log('login time', loginTime);
     page.clickBurgerBtn('button.hamburger-button');
     fp.checkUserGroup()
@@ -51,22 +50,19 @@ describe('treadwill Flow control group', () => {
     browser.sleep(2000);
   });
 
-  xit('Should find the Progress flow click zero Module and run its step', () => {
+  it('Should find the Progress flow click zero Module and run its step', () => {
     expect(fp.getProgress()).toEqual('Progress');
     browser.sleep(1000);
     expect(
       fp.findProgressGroupElement('Introduction to TreadWill'),
     ).toBeTruthy();
-    // fp.findProgressGroupElement('Introduction to TreadWill').click();
     if (expUser) {
       console.log('EXPERIMENTAL GROUP', expUser);
     } else {
       console.log('CONTROL GROUP zero module', expUser);
       fp.findProgressElement('Navigating TreadWill');
       browser.sleep(2500);
-      // expect(fp.findTextbyCss('.mat-card-title')).toContain(
-      //   'Primary Navigation',
-      // );
+      fp.clickOnButton('Get Started');
       browser.sleep(2000);
       // fp.clickOnButton('SKIP');
       fp.navigateToDashboard();
@@ -74,7 +70,7 @@ describe('treadwill Flow control group', () => {
     }
   });
 
-  xit(
+  it(
     'Should click first Module and run its step',
     () => {
       fp.navigateToDashboard();
@@ -112,22 +108,18 @@ describe('treadwill Flow control group', () => {
         page.fillPhq();
         page.findSiq();
         page.fillSiq();
+        page.findGad();
         page.fillGad();
-        page.fillGad();
+        browser.refresh();
+        browser.sleep(2000);
         fp.goToNextStep('Go to dashboard');
         browser.sleep(2000);
-        expect(
-          browser //
-            .wait(protractor.ExpectedConditions.urlContains('dashboard'))
-            .catch(() => false),
-        ).toBeTruthy('Url match could not succced');
-        browser.sleep(6000);
       }
     },
     100 * 60 * 1000,
   );
 
-  xit(
+  it(
     'Should click second Module and run its step',
     () => {
       expect(
@@ -181,8 +173,10 @@ describe('treadwill Flow control group', () => {
         page.fillPhq();
         page.findSiq();
         page.fillSiq();
+        page.findGad();
         page.fillGad();
-        page.fillGad();
+        browser.refresh();
+        browser.sleep(2000);
         fp.goToNextStep('Go to dashboard');
         browser.sleep(2000);
       }
@@ -190,7 +184,7 @@ describe('treadwill Flow control group', () => {
     100 * 60 * 1000,
   );
 
-  xit(
+  it(
     'Should click third Module and run its step',
     () => {
       fp.navigateToDashboard();
@@ -232,7 +226,7 @@ describe('treadwill Flow control group', () => {
         page.fillPhq();
         page.findSiq();
         page.fillSiq();
-        page.fillGad();
+        page.findGad();
         page.fillGad();
         fp.goToNextStep('Go to dashboard');
         browser.sleep(2000);
@@ -241,7 +235,7 @@ describe('treadwill Flow control group', () => {
     100 * 60 * 1000,
   );
 
-  xit(
+  it(
     'Should click fourth Module and run its step',
     () => {
       fp.navigateToDashboard();
@@ -252,27 +246,27 @@ describe('treadwill Flow control group', () => {
       ).toBeTruthy('Url match could not succced');
       expect(fp.findProgressGroupElement(' Modifying beliefs ')).toBeTruthy();
       browser.sleep(2000);
-      // fp.findProgressGroupElement('Being self-aware').click();
       if (expUser) {
         console.log('EXPERIMENTAL GROUP', expUser);
       } else {
         console.log('CONTROL GROUP', expUser);
         browser.sleep(2000);
-        fp.findProgressElement('Introduction to modifying beliefs');
-        browser.sleep(2000);
-        fp.goToNextStep('Next step');
         if (!fp.afterDropout) {
-          fp.waitForStepUnlock('Taking a deeper look');
+          fp.waitForStepUnlock('Introduction to modifying beliefs');
         } else {
           console.log('not waiting after dropout');
-          fp.findProgressElement('Taking a deeper look');
+          fp.findProgressElement('Introduction to modifying beliefs');
         }
+        browser.sleep(2000);
+        fp.goToNextStep('Next step');
+        fp.findProgressElement('Taking a deeper look');
         browser.sleep(2000);
         fp.goToNextStep('Next step');
         fp.findProgressElement('Modifying beliefs');
         browser.sleep(2000);
         if (testfor === 'dropout' && moduleNum === 4) {
           console.log('CHECK FOR DROPOUT  AT MODULE 4');
+          console.log('test for module number', testfor, moduleNum);
           fp.checkForDropout(loginTime);
           afterDropout = true;
         }
@@ -285,8 +279,6 @@ describe('treadwill Flow control group', () => {
         fp.goToNextStep('Next step');
         fp.findProgressElement('What would I tell my friend?');
         browser.sleep(2000);
-        console.log('test for module number', testfor, moduleNum);
-
         fp.goToNextStep('Next step');
         fp.findProgressElement('Does the belief really help me?');
         browser.sleep(2000);
@@ -304,7 +296,7 @@ describe('treadwill Flow control group', () => {
         page.fillPhq();
         page.findSiq();
         page.fillSiq();
-        page.fillGad();
+        page.findGad();
         page.fillGad();
         fp.goToNextStep('Go to dashboard');
       }
@@ -312,7 +304,7 @@ describe('treadwill Flow control group', () => {
     100 * 60 * 1000,
   );
 
-  xit(
+  it(
     'Should click fifth Module and run its step',
     () => {
       fp.navigateToDashboard();
@@ -323,16 +315,15 @@ describe('treadwill Flow control group', () => {
       ).toBeTruthy('Url match could not succced');
       expect(fp.findProgressGroupElement('Worrying productively')).toBeTruthy();
       browser.sleep(2000);
-      // fp.findProgressGroupElement('Being self-aware').click();
       if (expUser) {
         console.log('EXPERIMENTAL GROUP', expUser);
       } else {
         console.log('CONTROL GROUP', expUser);
-        // fp.waitForStepUnlock('Worrywart');
-        // fp.goToNextStep('Next step');
-        // fp.findProgressElement('Worrying productively');
-        // browser.sleep(2000);
-        // fp.goToNextStep('Next step');
+        fp.waitForStepUnlock('Worrywart');
+        fp.goToNextStep('Next step');
+        fp.findProgressElement('Worrying productively');
+        browser.sleep(2000);
+        fp.goToNextStep('Next step');
         fp.findProgressElement('Worried sick');
         browser.sleep(2000);
         fp.evaluateMood();
@@ -340,7 +331,7 @@ describe('treadwill Flow control group', () => {
         page.fillPhq();
         page.findSiq();
         page.fillSiq();
-        page.fillGad();
+        page.findGad();
         page.fillGad();
         fp.goToNextStep('Go to dashboard');
         browser.sleep(2000);
@@ -365,13 +356,13 @@ describe('treadwill Flow control group', () => {
       } else {
         console.log('CONTROL GROUP', expUser);
         browser.sleep(2000);
-        // fp.waitForStepUnlock('Be prepared');
-        // fp.goToNextStep('Next step');
-        // fp.findProgressElement('What if I get depressed again?');
-        // fp.goToNextStep('Next step');
-        // fp.findProgressElement('Why am I feeling sad again?');
-        // browser.sleep(2000);
-        // fp.goToNextStep('Next step');
+        fp.waitForStepUnlock('Be prepared');
+        fp.goToNextStep('Next step');
+        fp.findProgressElement('What if I get depressed again?');
+        fp.goToNextStep('Next step');
+        fp.findProgressElement('Why am I feeling sad again?');
+        browser.sleep(2000);
+        fp.goToNextStep('Next step');
         fp.findProgressElement('Help us improve');
         fp.fillSurveyForm();
         browser.sleep(2000);
@@ -381,18 +372,16 @@ describe('treadwill Flow control group', () => {
         page.fillPhq();
         page.findSiq();
         page.fillSiq();
+        page.findGad();
         page.fillGad();
-        page.fillGad();
+        browser.sleep(2000);
+        fp.goToNextStep('Go to dashboard');
+        browser.sleep(2000);
       }
     },
     100 * 60 * 1000,
   );
-  it('Should finish Module', () => {
-    browser.sleep(2000);
 
-    fp.goToNextStep('Go to dashboard');
-    browser.sleep(2000);
-  });
 
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser
