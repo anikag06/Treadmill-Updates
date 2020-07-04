@@ -88,6 +88,9 @@ export class RegistrationStepOneComponent implements OnInit {
           },
           err => {
             console.log(err);
+            if (err.error.message === 'Invalid email-id') {
+              this.showErrorMessage = true;
+            }
           },
         );
     } else {
