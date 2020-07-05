@@ -42,7 +42,8 @@ export class AppPage {
     this.numberInUsername = Math.floor(Math.random() * (200 - 1)) + 1;
     // this.newUsername = 'root' + this.numberInUsername +
     //                    Math.random().toString(36).substring(2, 5) + Math.random().toString(36).substring(2, 5);
-    this.newEmaiId = 'l.goyal18' + '+' + this.numberInUsername + '@gmail.com';
+    this.newEmaiId =
+      'l.goyal18' + '+' + this.numberInUsername + '@gmail.com';
     console.log('email id', this.newEmaiId);
   }
   getTrialUserName() {
