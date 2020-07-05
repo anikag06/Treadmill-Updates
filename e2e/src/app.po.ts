@@ -42,8 +42,7 @@ export class AppPage {
     this.numberInUsername = Math.floor(Math.random() * (200 - 1)) + 1;
     // this.newUsername = 'root' + this.numberInUsername +
     //                    Math.random().toString(36).substring(2, 5) + Math.random().toString(36).substring(2, 5);
-    this.newEmaiId =
-      'l.agarwal1984' + '+' + this.numberInUsername + '@gmail.com';
+    this.newEmaiId = 'l.goyal18' + '+' + this.numberInUsername + '@gmail.com';
     console.log('email id', this.newEmaiId);
   }
   getTrialUserName() {
@@ -82,7 +81,9 @@ export class AppPage {
     element(by.css('mat-select[formControlName=country]'))
       .click()
       .then(() => {
+        browser.sleep(1000);
         element(by.cssContainingText('mat-option', 'India')).click();
+        browser.sleep(1000);
       });
     // browser.sleep(4000);
     // element(by.css('mat-select[formControlName=timezone]')).sendKeys('Asia/Kolkata');

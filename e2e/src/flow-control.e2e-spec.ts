@@ -21,14 +21,14 @@ describe('treadwill Flow control group', () => {
     fp = new FlowPage();
   });
 
-  xit('should show login dialog', () => {
+  it('should show login dialog', () => {
     page.navigateTo();
     browser.waitForAngularEnabled(false);
     browser.sleep(1000);
     page.clickLoginLink();
     browser.sleep(2500);
     // username is hardcoded here
-    page.fillLoginForm('rootf6mb1c', 'test123');
+    page.fillLoginForm('root_new', 'test123');
     expect(fp.onDashboard()).toBeTruthy('url does not contains dashboard');
     loginTime = page.getTime();
     console.log('login time', loginTime);
@@ -381,7 +381,6 @@ describe('treadwill Flow control group', () => {
     },
     100 * 60 * 1000,
   );
-
 
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser

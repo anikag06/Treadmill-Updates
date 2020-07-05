@@ -8,9 +8,8 @@ describe('ReregistrationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ReregistrationComponent ]
-    })
-    .compileComponents();
+      declarations: [ReregistrationComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

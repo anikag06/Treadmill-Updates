@@ -24,7 +24,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommentComponent } from './support-groups/post-list/post-item/comment/comment.component';
 import { CreatePostComponent } from './support-groups/create-post/create-post.component';
 import { NestedCommentComponent } from './support-groups/post-list/post-item/nested-comment/nested-comment.component';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AngularEditorModule } from '@arkaghosh024/angular-editor';
 import { SanitizationService } from './shared/sanitization.service';
 import { SafeHtmlPipe } from './support-groups/safe-html.pipe';
@@ -179,7 +179,7 @@ import { FormIntroComponent } from './walk-through/form-intro/form-intro.compone
 import { IntroDialogService } from '@/main/walk-through/intro-dialog.service';
 import { SettingsComponent } from './settings/settings.component';
 import { SettingsService } from '@/main/settings/settings.service';
-import {AuthHeaderInterceptor} from "@/main/auth-header.interceptor";
+import { AuthHeaderInterceptor } from '@/main/auth-header.interceptor';
 
 // import { Resources2Routing } from './extra-resources/extra-resources-routing.module.ts/extra-resources-routing.module.ts.component';
 
@@ -363,7 +363,7 @@ import {AuthHeaderInterceptor} from "@/main/auth-header.interceptor";
       provide: HTTP_INTERCEPTORS,
       useClass: AuthHeaderInterceptor,
       multi: true,
-    }
+    },
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [

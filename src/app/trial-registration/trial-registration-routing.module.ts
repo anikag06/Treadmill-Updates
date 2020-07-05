@@ -12,7 +12,7 @@ import { AboutUsPageComponent } from './information-pages/about-us-page/about-us
 import { TrialRegistrationAuthGuard } from '@/shared/auth/trial-registration-auth.guard';
 import { IneligibleTrialPageComponent } from './information-pages/ineligible-trial-page/ineligible-trial-page.component';
 import { StepLastPageComponent } from './information-pages/step-last-page/step-last-page.component';
-import {ReregistrationComponent} from '@/trial-registration/reregistration/reregistration.component';
+import { ReregistrationComponent } from '@/trial-registration/reregistration/reregistration.component';
 
 const routes: Routes = [
   {
