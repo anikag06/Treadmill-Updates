@@ -6,7 +6,7 @@ export class FlowPage {
   EC = protractor.ExpectedConditions;
   afterDropout = false;
   timeUp = 5400000;
-  firstLoginTime = 1593517706756;
+  firstLoginTime!: number;
   page = AppPage;
 
   navigateToDashboard() {
@@ -182,6 +182,8 @@ export class FlowPage {
     this.firstLoginTime = loginTime;
     const userTimeUp = loginTime + this.timeUp;
     const currentTime = new Date().getTime();
+    const today = new Date();
+    console.log('current time', today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds());
     console.log(
       'userTimeUp',
       userTimeUp,

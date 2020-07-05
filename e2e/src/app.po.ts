@@ -252,7 +252,9 @@ export class AppPage {
     browser.sleep(3000);
   }
   getTime() {
+    const today = new Date();
     this.firstLoginTime = new Date().getTime();
+    console.log('login time', today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds());
     return this.firstLoginTime;
   }
 }

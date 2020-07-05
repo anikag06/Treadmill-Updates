@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { IntroService } from '@/main/walk-through/intro.service';
 import { isNotNullOrUndefined } from 'codelyzer/util/isNotNullOrUndefined';
 import { QuizService } from '@/shared/questionnaire/questionnaire.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-flow',
@@ -30,6 +31,7 @@ export class FlowComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     private introService: IntroService,
     private quizService: QuizService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -83,10 +85,18 @@ export class FlowComponent implements OnInit, OnDestroy {
             }
           }, 2000);
         } else {
-          //show follow up questionnaire
-          this.showQuestionnaire = true;
-          this.flowService.showFollowUp.emit();
-          this.quizService.questionnaire_name = data.data.questionnaire_to_show;
+          if (data.data.to_follow_up === 'SHOW-FOLLOWUP-QUESTIONNAIRE') {
+            // show follow up questionnaire
+            this.showQuestionnaire = true;
+            this.flowService.showFollowUp.emit();
+            this.quizService.questionnaire_name = data.data.questionnaire_to_show;
+          } else if ( data.data.to_follow_up === 'SHOW-FOLLOWUP-SURVEY') {
+            // show survey
+            this.quizService.questionnaire_name = data.data.questionnaire_to_show;
+            this.router.navigate(['main/survey']);
+          } else {
+            this.router.navigate(['main/dashboard']);
+          }
         }
       });
   }
