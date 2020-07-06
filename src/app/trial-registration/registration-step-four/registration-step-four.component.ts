@@ -20,7 +20,6 @@ export class RegistrationStepFourComponent implements OnInit {
   signup_link!: string;
   showLoading = false;
 
-
   consentForm = new FormGroup({
     readInfo: new FormControl(),
     voluntaryInfo: new FormControl(),

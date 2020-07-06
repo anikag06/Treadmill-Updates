@@ -65,7 +65,7 @@ export class RegistrationStepTwoComponent implements OnInit {
   otherOptionSelected = false;
   showErrorMsg = false;
   placeholder_tz!: any;
-  private showLoading = false;
+  showLoading = false;
 
   constructor(
     private authService: TrialAuthService,

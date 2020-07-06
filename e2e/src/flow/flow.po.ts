@@ -184,7 +184,10 @@ export class FlowPage {
     const userTimeUp = loginTime + this.timeUp;
     const currentTime = new Date().getTime();
     const today = new Date();
-    console.log('current time', today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds());
+    console.log(
+      'current time',
+      today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds(),
+    );
     console.log(
       'userTimeUp',
       userTimeUp,

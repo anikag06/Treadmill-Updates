@@ -27,7 +27,6 @@ export class FlowService {
   showFollowUp = new EventEmitter<any>();
   showFollowUpSurvey = new EventEmitter<any>();
 
-
   constructor(
     private http: HttpClient,
     private flowNavService: FlowStepNavigationService,

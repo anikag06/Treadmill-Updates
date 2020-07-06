@@ -19,7 +19,7 @@ import { TimerService } from '@/shared/timer.service';
 import { SurveyResponse } from './survey-response.model';
 import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
 import { FlowService } from '@/main/flow/flow.service';
-import {Router} from "@angular/router";
+import { Router } from '@angular/router';
 
 @Component({
   animations: [
@@ -90,14 +90,14 @@ export class SurveyComponent implements OnInit {
     private timerService: TimerService,
     private goToService: NavbarGoToService,
     private flowService: FlowService,
-    private router: Router
+    private router: Router,
   ) {}
 
   ngOnInit() {
     this.surveyService.disableLinks.emit(this.data);
     this.navbarTitle = 'Help us improve';
     this.flowService.stepDetail.emit(this.navbarTitle);
-    this.flowService.showFollowUpSurvey.subscribe( () => {
+    this.flowService.showFollowUpSurvey.subscribe(() => {
       this.followUp = true;
     });
   }
@@ -266,7 +266,6 @@ export class SurveyComponent implements OnInit {
         if (this.followUp) {
           this.router.navigate(['main/dashboard']);
         } else {
-
         }
         this.goToService.clickFlow.emit();
       });
