@@ -4,7 +4,6 @@ import { MatLoginDialogComponent } from './mat-login-dialog.component';
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '@/material.module';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { LoggerService } from '@/shared/logger.service';
 import { DialogSize } from '@/shared/dialog-size.service';
 import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-contact-us-dialog.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -32,7 +31,6 @@ describe('MatLoginDialogComponent', () => {
           useValue: {},
         },
         { provide: MAT_DIALOG_DATA, useValue: {} },
-        LoggerService,
         MatContactUsDialogService,
         DialogSize,
         LocalStorageService,

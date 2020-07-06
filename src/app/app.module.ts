@@ -5,9 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { AppRoutingModule } from '@/app-routing.module';
 import { AppComponent } from '@/app.component';
-import { LoginComponent } from '@/pre-login/login/login.component';
 import { MatLoginDialogComponent } from '@/pre-login/login/mat-login-dialog/mat-login-dialog.component';
-import { LoggerService } from '@/shared/logger.service';
 import { PreLoginFooterComponent } from '@/pre-login/shared/pre-login-footer/pre-login-footer.component';
 import { MatContactUsDialogComponent } from '@/shared/mat-contact-us-dialog/mat-contact-us-dialog.component';
 import { DialogSize } from '@/shared/dialog-size.service';
@@ -51,7 +49,6 @@ declare let $: any;
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
     MatLoginDialogComponent,
     PreLoginFooterComponent,
     PreLoginComponent,
@@ -90,12 +87,9 @@ declare let $: any;
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'en-US' },
-    LoginComponent,
-    LoggerService,
     DialogSize,
     MatContactUsDialogService,
     AuthService,
-    LoggerService,
     LocalStorageService,
     ContactUsDataService,
     FcmService,

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Overlay } from '@angular/cdk/overlay';
-import { LoggerService } from '@/shared/logger.service';
+
 import { DialogSize } from '@/shared/dialog-size.service';
 import { MatContactUsDialogComponent } from '@/shared/mat-contact-us-dialog/mat-contact-us-dialog.component';
 import { environment } from 'environments/environment';
@@ -17,7 +17,6 @@ export class MatContactUsDialogService {
   constructor(
     private dialog: MatDialog,
     private overlay: Overlay,
-    private logger: LoggerService,
     private dialogSize: DialogSize,
   ) {}
 
@@ -34,8 +33,6 @@ export class MatContactUsDialogService {
       scrollStrategy,
     });
 
-    contactUsDialogRef.afterClosed().subscribe((result: string) => {
-      this.logger.log('Contact Us data: ', result);
-    });
+    contactUsDialogRef.afterClosed().subscribe((result: string) => {});
   }
 }

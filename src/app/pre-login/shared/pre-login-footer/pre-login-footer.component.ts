@@ -7,14 +7,17 @@ import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-co
   styleUrls: ['./pre-login-footer.component.scss'],
 })
 export class PreLoginFooterComponent implements OnInit {
-  constructor(
-    private onContactUsService: MatContactUsDialogService,
-  ) { }
+  constructor(private onContactUsService: MatContactUsDialogService) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   onFooterContactUsClicked() {
-    this.onContactUsService.contactUsClicked()
+    this.onContactUsService.contactUsClicked();
+  }
+
+  onWorkWithUsClicked() {
+    const url =
+      'https://docs.google.com/forms/d/e/1FAIpQLSfVDBSuxgghsD2SX4VWkOA2AHCotfhkOx0Qbhrci9PRLh-IPg/viewform?usp=send_form';
+    window.open(url, '_blank');
   }
 }
