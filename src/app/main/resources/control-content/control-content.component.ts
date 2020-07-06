@@ -87,10 +87,6 @@ export class ControlContentComponent implements OnInit {
           }
         } else if (control_data.data.status === 'ACTIVE') {
           this.nextBtnShow = false;
-          if (this.isLastStep) {
-            // this.moodEvaluate = true;
-            // console.log('check mood');
-          }
         }
         if (control_data.data.next_questionnaire) {
           this.quizService.questionnaire_name =
@@ -116,15 +112,12 @@ export class ControlContentComponent implements OnInit {
     this.quizService.questionnaire_active.subscribe((value: boolean) => {
       console.log('EVENT EMITTED', value);
       if (!value) {
-        // this.quizService.questionnaireActive = false;
-        // this.moodEvaluated = true;
         this.showQuestionnaire = false;
         this.moodEvaluate = false;
         this.navbarTitle = this.flowService.navbarTitle;
         this.flowService.stepDetail.emit(this.navbarTitle);
       } else {
         console.log('EVENT EMITTED', 'show questionnaire', value);
-        this.quizService.questionnaire_name = PHQ9;
         this.showQuestionnaire = true;
         this.navbarTitle = 'Mood test';
         this.flowService.stepDetail.emit(this.navbarTitle);

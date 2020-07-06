@@ -28,6 +28,7 @@ export class RegistrationStepOneComponent implements OnInit {
   touchDevice = false;
   showRegistrationContent = false;
   userEligible = false;
+  showLoading = false;
   showErrorMessage = false;
 
   emailForm = new FormGroup({
@@ -58,6 +59,7 @@ export class RegistrationStepOneComponent implements OnInit {
 
   emailSubmit() {
     if (this.emailForm.valid) {
+      this.showLoading = true;
       //required for e2e testing
       this.registrationDataService.trial_email = this.emailForm.value.email;
       // till here
@@ -65,6 +67,7 @@ export class RegistrationStepOneComponent implements OnInit {
         .storeEmailID(this.emailForm.value.email)
         .subscribe(
           (res_data: any) => {
+            this.showLoading = false;
             console.log(res_data);
             this.registrationDataService.participationID =
               res_data.data.participant_id;
@@ -88,6 +91,7 @@ export class RegistrationStepOneComponent implements OnInit {
           },
           err => {
             console.log(err);
+            this.showLoading = false;
             if (err.error.message === 'Invalid email-id') {
               this.showErrorMessage = true;
             }

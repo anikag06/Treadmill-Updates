@@ -157,8 +157,13 @@
                   [matTooltipDisabled]="allowSubmit"
                   color="primary"
                   (click)="step4DataSubmit()"
+                  *ngIf="!showLoading"
                 > Submit
                 </button>
+              <button class="w-100 form-elements" color="primary" *ngIf="showLoading" type="button" mat-raised-button >
+                <span class="spinner-border spinner-border-sm"></span>
+                &nbsp; Loading..
+              </button>
             </div>
         </div>
     </form>

@@ -288,7 +288,11 @@
                 <div class="col-12 my-3 px-0">
                     <mat-error *ngIf="showErrorMsg"> Select all the fields. </mat-error>
                     <button type="button" class="w-100 form-elements" mat-raised-button
-                        color="primary" (click)="stepDataSubmit()"> Submit </button>
+                        color="primary" (click)="stepDataSubmit()" *ngIf="!showLoading"> Submit </button>
+                  <button class="w-100 form-elements" color="primary" *ngIf="showLoading" type="button" mat-raised-button >
+                    <span class="spinner-border spinner-border-sm"></span>
+                    &nbsp; Loading..
+                  </button>
                 </div>
             </form>
         </div>

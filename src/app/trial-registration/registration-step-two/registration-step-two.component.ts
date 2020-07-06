@@ -65,6 +65,7 @@ export class RegistrationStepTwoComponent implements OnInit {
   otherOptionSelected = false;
   showErrorMsg = false;
   placeholder_tz!: any;
+  private showLoading = false;
 
   constructor(
     private authService: TrialAuthService,
@@ -89,6 +90,7 @@ export class RegistrationStepTwoComponent implements OnInit {
 
   stepDataSubmit() {
     if (this.stepTwoForm.valid) {
+      this.showLoading = true;
       this.showErrorMsg = false;
       const dateNow = new Date();
       const dateTime = dateNow.toJSON();
@@ -117,6 +119,7 @@ export class RegistrationStepTwoComponent implements OnInit {
       this.registrationDataService
         .saveStepTwoForm(this.stepTwoFormData)
         .subscribe((res_data: any) => {
+          this.showLoading = false;
           this.userEligible = !res_data.excluded;
           this.registrationDataService.participationID =
             res_data.participant_id;
@@ -136,6 +139,7 @@ export class RegistrationStepTwoComponent implements OnInit {
           }
         });
     } else {
+      this.showLoading = false;
       this.showErrorMsg = true;
     }
   }

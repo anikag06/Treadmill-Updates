@@ -18,6 +18,8 @@ export class RegistrationStepFourComponent implements OnInit {
   userEligible = false;
   allowSubmit = false;
   signup_link!: string;
+  showLoading = false;
+
 
   consentForm = new FormGroup({
     readInfo: new FormControl(),
@@ -79,6 +81,7 @@ export class RegistrationStepFourComponent implements OnInit {
       });
     // till here
     if (this.consentForm.valid) {
+      this.showLoading = true;
       console.log('form is valid');
       const dateNow = new Date();
       const dateTime = dateNow.toJSON();
@@ -100,6 +103,7 @@ export class RegistrationStepFourComponent implements OnInit {
       this.registrationDataService
         .saveConsentData(this.stepFourFormData)
         .subscribe((res_data: any) => {
+          this.showLoading = false;
           console.log(res_data);
           this.userEligible = !res_data.excluded;
           this.registrationDataService.participationID =

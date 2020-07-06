@@ -88,8 +88,12 @@
                         email
                         placeholder=" Enter your email ID" >
                     <div class="w-100 my-3">
-                        <button type="submit" class="w-100 form-elements" mat-raised-button
+                        <button type="submit" class="w-100 form-elements" *ngIf="!showLoading" mat-raised-button
                             color="primary" (click)="emailSubmit()" > Join the Study </button>
+                      <button class="w-100 form-elements" color="primary" *ngIf="showLoading" type="button" mat-raised-button >
+                        <span class="spinner-border spinner-border-sm"></span>
+                        &nbsp; Loading..
+                      </button>
                     </div>
                   <p class="text-footer mt-2 error-text" *ngIf="showErrorMessage">
                     Please give us your valid email id. We won't spam you. Promise 🤞!
