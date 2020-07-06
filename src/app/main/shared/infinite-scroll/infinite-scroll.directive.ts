@@ -19,10 +19,15 @@ export class InfiniteScrollDirective implements OnDestroy {
         this.scroll.emit(value);
       }
     });
+    this.debouncerForBottom.subscribe(value => {
+        this.atBottom.emit(value);
+    });
   }
   lastScrollTop = this._elRef.nativeElement.pageYOffset;
   debouncer = new Subject<String>();
+  debouncerForBottom = new Subject<Boolean>();
   @Output() scroll = new EventEmitter();
+  @Output() atBottom = new EventEmitter();
 
   @HostListener('scroll', ['$event.target']) onScrollEvent($event: any) {
     const st =
@@ -38,21 +43,19 @@ export class InfiniteScrollDirective implements OnDestroy {
     } else {
       this.debouncer.next('');
     }
+
+    if(this._elRef.nativeElement.scrollTop === (this._elRef.nativeElement.scrollHeight - this._elRef.nativeElement.offsetHeight)){
+      this.debouncerForBottom.next(false);
+    }else{
+      this.debouncerForBottom.next(true);
+    }
     this.lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
   }
 
   ngOnDestroy(): void {
     this.debouncer.unsubscribe();
+    this.debouncerForBottom.unsubscribe();
   }
 
-  debouncerScrollUp() {
-    this.debouncer.pipe(debounceTime(1000)).subscribe(value => {
-      this.scroll.emit(value);
-      // this.scroll.();
-    });
-  }
-  // debouncerScrollDown() {
-  //   this.debouncer.pipe(debounceTime(1000)).subscribe(value => {
-  //     console.log(value);
-  //   });
+
 }

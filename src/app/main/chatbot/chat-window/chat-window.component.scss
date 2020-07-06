@@ -319,6 +319,11 @@ button {
       bottom: 5px;
       margin-top: 10px;
     }
+    .scroll-bottom{
+      position: absolute;
+      bottom: 5vh;
+      right: 5vw;
+    }
   }
 }
 
@@ -463,4 +468,28 @@ $x3: -$leftPos + $dotSpacing;
   position: absolute;
   left: 30%;
   display: inline-flex;
+}
+
+
+.double-arrow{
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+.mat-fab .mat-button-wrapper {
+  padding: 0 !important;
+}
+.arrow-icon{
+  position: relative;
+  left: -5px;
+  bottom: 10px;
+  margin-right: -10px;
+  font-size: 18px;
+}
+.scroll-bottom{
+  position: relative;
+  bottom: 60px;
+  right: -280px;
 }

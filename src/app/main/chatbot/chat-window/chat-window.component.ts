@@ -355,7 +355,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       } else if (data.action === 'ws_close') {
         this.closeChat();
       } else {
-        this.page = 1;
+        this.page = 2;
         this.start(data.message);
       }
     };
@@ -435,7 +435,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     if (this.webSocket) {
       this.chatClosed = true;
       this.webSocket.close();
-      this.page = 1;
+      this.page = 2;
     }
     this.retries = 0;
     this.chatWindowClosedEmitter.emit(true);
@@ -678,5 +678,18 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     this.showTextInput = false;
     this.multiLineChat = [];
     this.scrollToBottom();
+  }
+
+  onScrollToBottom(){
+    if (this.messagesDiv) {
+      // console.log(this.scrollTop, this.messagesDiv.nativeElement.scrollHeight);
+      this.messagesDiv.nativeElement.scrollTop = this.messagesDiv.nativeElement.scrollHeight;
+      this.changRef.detectChanges();
+    }
+  }
+  showScrollToBottom  = false;
+
+  atBottom(value:boolean){
+      this.showScrollToBottom = value
   }
 }

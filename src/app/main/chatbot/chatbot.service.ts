@@ -8,14 +8,13 @@ import * as moment from 'moment';
 })
 export class ChatbotService {
   constructor(private http: HttpClient) {}
-  nowdateTime = Date.now();
 
   postPreviousChat(currentDateTime: any) {
     const dateTime = moment.utc(currentDateTime).format('DD/MM/YY+HH:mm:ss');
     return this.http.post(
       environment.CHATBOT_API +
         '/api/v1/chat/resume-chat/' +
-        '?page=1&' +
+        '?page=[1,2]&' +
         'date_time=' +
         dateTime,
       {},

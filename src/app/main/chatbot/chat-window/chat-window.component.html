@@ -26,6 +26,7 @@
       [scrollTop]="scrollTop"
       appInfiniteScroll
       (scroll)="scrollFrame($event)"
+      (atBottom)="atBottom($event)"
     >
       <div class="spinnerDiv" *ngIf="showSpinner">
         <mat-progress-spinner mode="indeterminate" diameter="15" color="accent">
@@ -191,6 +192,19 @@
         </div>
       </div>
     </div>
+
+    <div *ngIf="showScrollToBottom" class="scroll-bottom" (click)="onScrollToBottom()">
+      <button
+        mat-fab
+        class="double-arrow"
+        [ngStyle]="{outline : 'none',height : '35px',width : '35px'}"
+        color="black"
+        aria-label="scroll to bottom button with a double arrow icon"
+      >
+        <mat-icon class="arrow-icon">double_arrow</mat-icon>
+      </button>
+    </div>
+
     <div class="form-div" *ngIf="showTextInput">
       <!--  *ngIf="showTextInput"{{showButtons.length < 1}}{{!isWaiting}}-->
       <form (ngSubmit)="onChatSubmit()">
