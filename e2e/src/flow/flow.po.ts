@@ -158,6 +158,7 @@ export class FlowPage {
     return element.all(by.css('.goto-button')).click();
   }
   waitForStepUnlock(txt: string) {
+    console.log('waiting for step unlock');
     const nextStep = element(by.css('.flow-scroll-inner')).element(
       by.cssContainingText('.step-content', txt),
     );

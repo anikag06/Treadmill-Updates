@@ -111,7 +111,7 @@ describe('treadwill Flow control group', () => {
         page.fillSiq();
         page.findGad();
         page.fillGad();
-        browser.refresh();
+        // browser.refresh();
         browser.sleep(2000);
         fp.goToNextStep('Go to dashboard');
         browser.sleep(2000);
@@ -176,7 +176,7 @@ describe('treadwill Flow control group', () => {
         page.fillSiq();
         page.findGad();
         page.fillGad();
-        browser.refresh();
+        // browser.refresh();
         browser.sleep(2000);
         fp.goToNextStep('Go to dashboard');
         browser.sleep(2000);
