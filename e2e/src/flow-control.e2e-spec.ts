@@ -28,7 +28,7 @@ describe('treadwill Flow control group', () => {
     page.clickLoginLink();
     browser.sleep(2500);
     // username is hardcoded here
-    page.fillLoginForm('root_new', 'test123');
+    page.fillLoginForm('root_new_2', 'test123');
     expect(fp.onDashboard()).toBeTruthy('url does not contains dashboard');
     loginTime = page.getTime();
     console.log('login time', loginTime);
@@ -94,6 +94,7 @@ describe('treadwill Flow control group', () => {
         browser.sleep(2000);
         fp.goToNextStep('Next step');
         fp.findProgressElement("What's wrong with me?");
+        // Checking for dropout
         if (testfor === 'dropout' && moduleNum === 1) {
           console.log('CHECK FOR DROPOUT  AT MODULE 1');
           fp.checkForDropout(loginTime);
@@ -218,6 +219,11 @@ describe('treadwill Flow control group', () => {
         fp.findProgressElement('Help us improve');
         fp.fillSurveyForm();
         browser.sleep(2000);
+        // Checking for dropout
+        if (testfor === 'dropout' && moduleNum === 3) {
+          console.log('CHECK FOR DROPOUT  AT MODULE 3');
+          fp.checkForDropout(loginTime);
+        }
         fp.findProgressElement('SOLVED');
         browser.sleep(2000);
         fp.evaluateMood();
@@ -329,6 +335,11 @@ describe('treadwill Flow control group', () => {
         fp.evaluateMood();
         page.findPhq();
         page.fillPhq();
+        // Checking for dropout
+        if (testfor === 'dropout' && moduleNum === 5) {
+          console.log('CHECK FOR DROPOUT  AT MODULE 5');
+          fp.checkForDropout(loginTime);
+        }
         page.findSiq();
         page.fillSiq();
         page.findGad();
@@ -367,6 +378,11 @@ describe('treadwill Flow control group', () => {
         fp.fillSurveyForm();
         browser.sleep(2000);
         fp.findProgressElement('Keep practicing the techniques');
+        // Checking for dropout
+        if (testfor === 'dropout' && moduleNum === 6) {
+          console.log('CHECK FOR DROPOUT  AT MODULE 6');
+          fp.checkForDropout(loginTime);
+        }
         fp.evaluateMood();
         page.findPhq();
         page.fillPhq();

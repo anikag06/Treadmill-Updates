@@ -19,6 +19,7 @@ import { TimerService } from '@/shared/timer.service';
 import { SurveyResponse } from './survey-response.model';
 import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
 import { FlowService } from '@/main/flow/flow.service';
+import {Router} from "@angular/router";
 
 @Component({
   animations: [
@@ -80,6 +81,7 @@ export class SurveyComponent implements OnInit {
   first_click!: boolean;
   data = 'Please complete the survey before leaving the page.';
   navbarTitle!: string;
+  followUp = false;
   @ViewChild('submitBtn', { static: false }) submitBtn!: ElementRef;
   @ViewChild('startBtn', { static: false }) startBtn!: ElementRef;
 
@@ -88,12 +90,16 @@ export class SurveyComponent implements OnInit {
     private timerService: TimerService,
     private goToService: NavbarGoToService,
     private flowService: FlowService,
+    private router: Router
   ) {}
 
   ngOnInit() {
     this.surveyService.disableLinks.emit(this.data);
     this.navbarTitle = 'Help us improve';
     this.flowService.stepDetail.emit(this.navbarTitle);
+    this.flowService.showFollowUpSurvey.subscribe( () => {
+      this.followUp = true;
+    });
   }
 
   loadQuestions(event: any) {
@@ -257,6 +263,11 @@ export class SurveyComponent implements OnInit {
       })
       .subscribe(data => {
         console.log('survey response', data);
+        if (this.followUp) {
+          this.router.navigate(['main/dashboard']);
+        } else {
+
+        }
         this.goToService.clickFlow.emit();
       });
     this.surveyService.enableLinks.emit();

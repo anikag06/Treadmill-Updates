@@ -51,6 +51,12 @@ export class FlowComponent implements OnInit, OnDestroy {
         this.introExit = value;
       },
     );
+    this.quizService.questionnaire_active.subscribe((value: boolean) => {
+      console.log('EVENT EMITTED', value);
+      if (!value) {
+        this.router.navigate(['main/dashboard']);
+      }
+    });
   }
 
   ngOnDestroy(): void {
@@ -92,6 +98,7 @@ export class FlowComponent implements OnInit, OnDestroy {
             this.quizService.questionnaire_name = data.data.questionnaire_to_show;
           } else if ( data.data.to_follow_up === 'SHOW-FOLLOWUP-SURVEY') {
             // show survey
+            this.flowService.showFollowUpSurvey.emit();
             this.quizService.questionnaire_name = data.data.questionnaire_to_show;
             this.router.navigate(['main/survey']);
           } else {
