@@ -1,16 +1,4 @@
 <div class="row signup-page w-100 no-gutters">
-  <!--<div class="d-flex flex-column col-sm-12 col-md-5 cover-page text-center justify-content-center no-gutters">
-    <div class="d-flex align-items-center logo-img mx-auto justify-content-center">
-      <img src="https://www.treadwill.org/static/cbt2/images/logo/treadwill_logo.png" class="img-responsive center"
-           alt="treadwill_logo" />
-    </div>
-    <div class="d-flex mx-auto mt-auto footer-1 align-items-end text-center ">
-      All Rights Reserved &copy; Treadwill
-    </div>
-  </div>-->
-
-
-<!--<div class = "row">-->
  <div class = "col-sm-12 col-md-5">
     <app-signup-reset-common></app-signup-reset-common>
   </div>
@@ -55,16 +43,50 @@
                 <mat-error> Password is required </mat-error>
               </mat-form-field>
             </div>
+
+            <div class="col-12 mb-1">
+              <label class="my-3  lesser-opacity">For the purpose of this study, it is required that you add
+                TreadWill to your home screen.
+                Please click accept to add TreadWill to your home screen.</label>
+              <br>
+              <mat-radio-group (change) = "homeScreenPermission()"
+                               formControlName="homeScreenInfo" color="primary" required>
+                <mat-radio-button [value]="1" class="mr-5"
+                                  #btn13 [ngClass]="{ 'checkedBtn': btn13.checked , 'unChecked': !btn13.checked}">
+                  Accept</mat-radio-button>
+                <mat-radio-button [value]="0" class="ml-4"
+                                  #btn14 [ngClass]="{ 'checkedBtn': btn14.checked , 'unChecked': !btn14.checked}">
+                  Decline</mat-radio-button>
+              </mat-radio-group>
+            </div>
+
+            <div class="col-12 my-1 ">
+              <label class="my-3 lesser-opacity"> Notifications are an essential part of this program.
+                Please click accept to allow notifications.
+              </label>
+              <br>
+              <mat-radio-group (change) = "notificationsPermission()"
+                               formControlName="notificationsInfo" color="primary" required>
+                <mat-radio-button [value]="1" class="mr-5"
+                                  #btn15 [ngClass]="{ 'checkedBtn': btn15.checked , 'unChecked': !btn15.checked}">
+                  Accept</mat-radio-button>
+                <mat-radio-button [value]="0" class="ml-4"
+                                  #btn16 [ngClass]="{ 'checkedBtn': btn16.checked , 'unChecked': !btn16.checked}">
+                  Decline</mat-radio-button>
+              </mat-radio-group>
+            </div>
             <div class="row no-gutters justify-content-start terms-text">
               <mat-checkbox ngModel required name="terms_conditions">
                 I agree to the <a routerLink="/trial/terms-and-conditions" target="_blank" class="anchorify-default" (click)="onTermsConClick()">Terms and
                   Conditions</a>
-                <mat-error *ngIf="!termsConditionChecked"> Accept the terms and condtions.</mat-error>
+                <mat-error *ngIf="!termsConditionChecked"> Accept the terms and conditions.</mat-error>
               </mat-checkbox>
             </div>
 
             <div mat-dialog-actions class="d-flex justify-content-end">
-              <button mat-raised-button class="signup-btn" type="submit" (click)="onSignUpSubmit()">
+              <button mat-raised-button class="signup-btn" [disabled]="!allowSubmit"
+                      [matTooltip]="Accept all the conditions to activate"
+                      [matTooltipDisabled]="allowSubmit" type="submit" (click)="onSignUpSubmit()">
                 Sign Up
               </button>
             </div>
@@ -87,12 +109,6 @@
     <p>
       All Rights Reserved &copy; Treadwill
     </p>
+  </div>
 
-
-
-  <!--</div>-->
 </div>
-
-<!--<ng-template #loader>-->
-<!--  -->
-<!--</ng-template>-->

@@ -6,6 +6,9 @@ import { SignUpData } from '@/pre-login/signup/signup-data.interface';
 import { ShowLoginSignupDialogService } from '@/pre-login/shared/show-login-signup-dialog.service';
 import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-contact-us-dialog.service';
 import { MatLoginDialogComponent } from '@/pre-login/login/mat-login-dialog/mat-login-dialog.component';
+import { MatRadioGroup } from '@angular/material';
+import { FcmService } from '@/shared/fcm.service';
+import { A2HSService } from '@/shared/a2hs.service';
 
 @Component({
   selector: 'app-signup',
@@ -20,12 +23,16 @@ export class SignUpComponent implements OnInit {
   hide = true;
   formInvalid = false;
   participantValid = false;
+  participantId!: number;
   showSignUpForm = false;
   userExists = false;
   username!: string;
   encrypted_email!: string;
   passwordMatch = false;
   termsConditionChecked = true;
+  allowed_to_home_screen = 1;
+  notifications_allowed = 1;
+  allowSubmit = false;
   password!: any;
   passwordConfirm!: any;
   usernameError!: string;
@@ -41,6 +48,8 @@ export class SignUpComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private signUpService: SignUpService,
     private showLoginSignupDialogService: ShowLoginSignupDialogService,
+    private fcmService: FcmService,
+    private a2hsService: A2HSService,
   ) {}
 
   ngOnInit() {
@@ -49,10 +58,15 @@ export class SignUpComponent implements OnInit {
       .subscribe(data => {
         this.showSignUpForm = true;
         this.participantValid = data.data.valid;
+        this.participantId = data.data.participant_id;
         this.userExists = data.data.user_exists;
         this.username = data.data.username;
         this.encrypted_email = data.data.email_id;
       });
+    this.fcmService.permit.subscribe(permit => {
+      this.notifications_allowed = permit ? 1 : 0;
+      this.activateSubmitButton();
+    });
   }
 
   onSignUpSubmit() {
@@ -124,5 +138,41 @@ export class SignUpComponent implements OnInit {
     this.showLoginSignupDialogService.broadcastLoginClicked(
       MatLoginDialogComponent,
     );
+  }
+
+  notificationsPermission() {
+    if (this.notifications_allowed) {
+      this.fcmService.participantRequestPermission(this.participantId);
+    }
+  }
+
+  homeScreenPermission() {
+    if (this.allowed_to_home_screen) {
+      this.a2hsService.getDeferredPrompt().subscribe(deferredPrompt => {
+        if (!deferredPrompt) {
+          console.log('deferredPrompt null');
+          return;
+        }
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult: any) => {
+          if (choiceResult.outcome === 'accepted') {
+            // no matter the outcome, the prompt cannot be reused ON MOBILE
+            // for 3 months or until browser cache is cleared?
+          } else {
+            const deferredPromptRejected = true;
+          }
+        });
+      });
+    }
+  }
+
+  activateSubmitButton() {
+    if (
+      this.termsConditionChecked &&
+      this.allowed_to_home_screen &&
+      this.notifications_allowed
+    ) {
+      this.allowSubmit = true;
+    }
   }
 }

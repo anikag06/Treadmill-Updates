@@ -1,11 +1,11 @@
-import { Injectable, Self } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { AngularFireMessaging } from '@angular/fire/messaging';
 import { mergeMapTo } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'environments/environment';
-import { GeneralErrorService } from '../main/shared/general-error.service';
+import { GeneralErrorService } from '@/main/shared/general-error.service';
 import { TOKEN } from '@/app.constants';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',

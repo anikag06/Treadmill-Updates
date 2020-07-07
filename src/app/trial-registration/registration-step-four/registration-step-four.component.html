@@ -111,42 +111,6 @@
         </div>
 
         <div class="row mt-2">
-            <div class="col-12 mt-3">
-                <p class="mb-0 medium-font"> Notifications and app. </p>
-            </div>
-
-            <div class="col-12 mb-1">
-                <label class="my-3  lesser-opacity">For the purpose of this study, it is required that you add
-                    TreadWill to your home screen.
-                    Please click accept to add TreadWill to your home screen.</label>
-                <br>
-                <mat-radio-group (change) = "homeScreenPermission()"
-                    formControlName="homeScreenInfo" color="primary" required>
-                    <mat-radio-button [value]="1" class="mr-5"
-                        #btn13 [ngClass]="{ 'checkedBtn': btn13.checked , 'unChecked': !btn13.checked}">
-                        Accept</mat-radio-button>
-                    <mat-radio-button [value]="0" class="ml-4"
-                        #btn14 [ngClass]="{ 'checkedBtn': btn14.checked , 'unChecked': !btn14.checked}">
-                        Decline</mat-radio-button>
-                </mat-radio-group>
-            </div>
-
-            <div class="col-12 my-1 ">
-                <label class="my-3 lesser-opacity"> Notifications are an essential part of this program.
-                    Please click accept to allow notifications.
-                </label>
-                <br>
-                <mat-radio-group (change) = "notificationsPermission()"
-                    formControlName="notificationsInfo" color="primary" required>
-                    <mat-radio-button [value]="1" class="mr-5"
-                        #btn15 [ngClass]="{ 'checkedBtn': btn15.checked , 'unChecked': !btn15.checked}">
-                        Accept</mat-radio-button>
-                    <mat-radio-button [value]="0" class="ml-4"
-                        #btn16 [ngClass]="{ 'checkedBtn': btn16.checked , 'unChecked': !btn16.checked}">
-                        Decline</mat-radio-button>
-                </mat-radio-group>
-            </div>
-
             <div class="col-12 my-3 ">
                 <button
                   type="button"
