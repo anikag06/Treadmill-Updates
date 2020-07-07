@@ -13,6 +13,21 @@ describe('treadwill Flow Experimental Group', () => {
     fp = new FlowPage();
   });
 
+  it('should show login dialog', () => {
+    page.navigateTo();
+    browser.waitForAngularEnabled(false);
+    browser.sleep(1000);
+    page.clickLoginLink();
+    browser.sleep(2500);
+    // username is hardcoded here
+    page.fillLoginForm('root_3', 'test123');
+    expect(fp.onDashboard()).toBeTruthy('url does not contains dashboard');
+    // loginTime = page.getTime();
+    // console.log('login time', loginTime);
+    browser.sleep(1000);
+  });
+
+
   it('should detect whether exp or control', () => {
     page.clickBurgerBtn('button.hamburger-button');
     fp.checkUserGroup()
@@ -110,10 +125,12 @@ describe('treadwill Flow Experimental Group', () => {
       fp.clickGoto();
       fp.findProgressElement('Being self-aware'); // slide
       fp.goToNextStep('Next step');
-      fp.findProgressElement('You are not alone'); // conversation //CHECK SEQUENCE
+      fp.findProgressElement('You are not alone'); // show full conversation //CHECK SEQUENCE
+      fp.showFullConv();
       fp.goToNextStep('Next step');
       fp.findProgressElement('Finish module'); // conclusion- go to dashboard step
-      fp.goToNextStep('Next step');
+      fp.evaluateMood();
+      fp.goToNextStep('Go to dashboard');
     } else {
       console.log('CONTROL GROUP', !expUser);
     }

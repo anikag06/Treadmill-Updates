@@ -53,7 +53,7 @@ export class FlowComponent implements OnInit, OnDestroy {
       },
     );
     this.quizService.questionnaire_active.subscribe((value: boolean) => {
-      console.log('EVENT EMITTED', value);
+      console.log('EVENT EMITTED', value, 'Follow up',  this.followUp);
       if (!value && this.followUp) {
         this.router.navigate(['main/dashboard']);
       }

@@ -60,11 +60,10 @@ describe('treadwill Flow control group', () => {
       console.log('EXPERIMENTAL GROUP', expUser);
     } else {
       console.log('CONTROL GROUP zero module', expUser);
-      fp.findProgressElement('Navigating TreadWill');
-      browser.sleep(2500);
       fp.clickOnButton('Get Started');
       browser.sleep(2000);
-      // fp.clickOnButton('SKIP');
+      fp.findProgressElement('Navigating TreadWill');
+      browser.sleep(2500);
       fp.navigateToDashboard();
       browser.sleep(1000);
     }

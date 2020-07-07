@@ -128,11 +128,15 @@ export class FlowPage {
     browser.sleep(1000);
   }
 
-  getQuestionnaireNotavailable() {
-    return element
-      .all(by.css('h2'))
-      .first()
-      .getText();
+  // getQuestionnaireNotavailable() {
+  //   return element
+  //     .all(by.css('h2'))
+  //     .first()
+  //     .getText();
+  // }
+
+  showFullConv() {
+    //
   }
 
   goHome() {
