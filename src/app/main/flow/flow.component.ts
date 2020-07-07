@@ -25,6 +25,7 @@ export class FlowComponent implements OnInit, OnDestroy {
   introExit = false;
   @Input() fromGoto!: boolean;
   showQuestionnaire = false;
+  followUp = false;
 
   constructor(
     private flowService: FlowService,
@@ -53,7 +54,7 @@ export class FlowComponent implements OnInit, OnDestroy {
     );
     this.quizService.questionnaire_active.subscribe((value: boolean) => {
       console.log('EVENT EMITTED', value);
-      if (!value) {
+      if (!value && this.followUp) {
         this.router.navigate(['main/dashboard']);
       }
     });
@@ -94,6 +95,7 @@ export class FlowComponent implements OnInit, OnDestroy {
           if (data.data.to_follow_up === 'SHOW-FOLLOWUP-QUESTIONNAIRE') {
             // show follow up questionnaire
             this.showQuestionnaire = true;
+            this.followUp = true;
             this.flowService.showFollowUp.emit();
             this.quizService.questionnaire_name =
               data.data.questionnaire_to_show;

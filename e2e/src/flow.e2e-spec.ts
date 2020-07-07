@@ -3,7 +3,7 @@ import { browser, by, element, logging } from 'protractor';
 import { FlowPage } from './flow/flow.po';
 import { protractor } from 'protractor/built/ptor';
 
-describe('treadwill Flow', () => {
+describe('treadwill Flow Experimental Group', () => {
   let page: AppPage;
   let fp: FlowPage;
   let expUser!: any;
@@ -26,36 +26,54 @@ describe('treadwill Flow', () => {
     browser.sleep(2000);
   });
 
-  it('Should find the Progress flow click zero Module and run its step', () => {
-    expect(fp.getProgress()).toEqual('Progress');
-    browser.sleep(1000);
-    expect(
-      fp.findProgressGroupElement('Introduction to TreadWill'),
-    ).toBeTruthy();
-    // fp.findProgressGroupElement('Introduction to TreadWill').click();
-    if (expUser) {
-      console.log('EXPERIMENTAL GROUP', expUser);
-      browser.sleep(2000);
-      fp.findProgressElement('Navigating TreadWill ');
-      browser.sleep(2500);
-      expect(fp.findTextbyCss('.mat-card-title')).toContain(
-        'Primary Navigation',
-      );
-      browser.sleep(2000);
-      fp.clickOnButton('SKIP');
-      // fp.navigateToDashboard();
-      fp.findProgressElement('Points, badges, and profile ');
-      browser.sleep(2500);
-      expect(fp.findTextbyCss('.mat-card-title')).toContain(
-        'Primary Navigation',
-      );
-      browser.sleep(2000);
-      fp.clickOnButton('SKIP');
-      browser.sleep(1000);
-    } else {
-      console.log('CONTROL GROUP USER', !expUser);
-    }
+
+  it('should click on Introductory navigation on zero Module and run its step', () => {
+    fp.checkIntroDialog();
+      // .isPresent()
+      // .then( () => {
+      //   fp.clickOnButton('Get Started');
+      // });
+    browser.sleep(2000);
+    fp.findProgressElement('Navigating TreadWill ');
+    browser.sleep(500);
+    fp.navigateToDashboard();
+    fp.findProgressElement('Points, badges, and profile ');
+    browser.sleep(500);
+    fp.navigateToDashboard();
+
+
   });
+
+  // it('Should find the Progress flow click zero Module and run its step', () => {
+  //   expect(fp.getProgress()).toEqual('Progress');
+  //   browser.sleep(1000);
+  //   expect(
+  //     fp.findProgressGroupElement('Introduction to TreadWill'),
+  //   ).toBeTruthy();
+  //   // fp.findProgressGroupElement('Introduction to TreadWill').click();
+  //   if (expUser) {
+  //     console.log('EXPERIMENTAL GROUP', expUser);
+  //     browser.sleep(2000);
+  //     // fp.findProgressElement('Navigating TreadWill ');
+  //     // browser.sleep(2500);
+  //     // expect(fp.findTextbyCss('.mat-card-title')).toContain(
+  //     //   'Primary Navigation',
+  //     // );
+  //     // browser.sleep(2000);
+  //     // fp.clickOnButton('SKIP');
+  //     // fp.navigateToDashboard();
+  //     // fp.findProgressElement('Points, badges, and profile ');
+  //     // browser.sleep(2500);
+  //     // expect(fp.findTextbyCss('.mat-card-title')).toContain(
+  //     //   'Primary Navigation',
+  //     // );
+  //     // browser.sleep(2000);
+  //     // fp.clickOnButton('SKIP');
+  //     // browser.sleep(1000);
+  //   } else {
+  //     console.log('CONTROL GROUP USER', !expUser);
+  //   }
+  // });
 
   it('Should click first Module and run its step', () => {
     fp.navigateToDashboard();

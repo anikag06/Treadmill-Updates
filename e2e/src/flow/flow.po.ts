@@ -21,15 +21,16 @@ export class FlowPage {
   }
   getModuleNumber() {}
 
+  checkIntroDialog() {
+    browser
+      .wait(this.EC.presenceOf(element(by.css('.mat-dialog-container'))))
+      .then(() => {
+          this.clickOnButton('Get Started');
+        }
+        );
+      }
+
   checkUserGroup() {
-    // const elm = element(by.cssContainingText('.list-wrapper-items-name', 'GAMES'));
-    //   elm.isPresent().then( (result) => {
-    //     if (result) {
-    //       console.log('display');
-    //     } else {
-    //       console.log('not display');
-    //     }
-    //   });
     return element(by.cssContainingText('.list-wrapper-items-name', 'Games'));
   }
   hideSideNav() {
