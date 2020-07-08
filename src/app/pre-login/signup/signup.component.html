@@ -74,8 +74,8 @@
                   Decline</mat-radio-button>
               </mat-radio-group>
             </div>
-            <div class="col-12 my-1 terms-text">
-              <mat-checkbox ngModel required name="terms_conditions" (change) = "termsConditionClicked()">
+            <div class="col-12 my-1 terms-text checkbox-common">
+              <mat-checkbox ngModel required name="terms_conditions" (change) = "termsConditionClicked()" >
                 I agree to the <a routerLink="/trial/terms-and-conditions" target="_blank" class="anchorify-default" (click)="onTermsConClick()">Terms and
                   Conditions</a>
                 <mat-error *ngIf="!termsConditionChecked"> Accept the terms and conditions.</mat-error>

@@ -9,7 +9,7 @@
     &nbsp;
     <button type="button" mat-raised-button class="yes-btn" (click)="onClickYes()">Yes</button>
   </div>
-  <div class="no-clicked-area justify-content-center" *ngIf="noClicked">
+  <div class="no-clicked-area justify-content-center checkbox-common" *ngIf="noClicked">
     <mat-checkbox type="checkbox" (change)="onCheckboxChange($event)">Don't ask me again.
     </mat-checkbox>
     <br>

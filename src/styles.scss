@@ -336,11 +336,15 @@ img.emoji {
     width: inherit;
   }
 
+  //.mat-checkbox-checked.mat-accent .mat-checkbox-background {
+  //  background-color: #2a3b3d !important;
+  //}
+}
+.checkbox-common {
   .mat-checkbox-checked.mat-accent .mat-checkbox-background {
     background-color: #2a3b3d !important;
   }
 }
-
 .mat-checkbox-layout {
   width: 100%;
   white-space: normal !important;
