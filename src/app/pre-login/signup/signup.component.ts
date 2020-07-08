@@ -29,7 +29,7 @@ export class SignUpComponent implements OnInit {
   username!: string;
   encrypted_email!: string;
   passwordMatch = false;
-  termsConditionChecked = true;
+  termsConditionChecked = false;
   allowedToHomeScreen = 0;
   notificationsAllowed = 0;
   allowSubmit = false;
@@ -119,12 +119,17 @@ export class SignUpComponent implements OnInit {
       this.password === this.passwordConfirm
     ) {
       this.passwordMatch = true;
-      this.activateSubmitButton();
     } else {
       this.passwordMatchError = 'Enter same passwords!';
+      // this.passwordMatch = false;
     }
+    this.activateSubmitButton();
   }
 
+  termsConditionClicked() {
+    this.termsConditionChecked = this.signupForm.value.terms_conditions;
+    this.activateSubmitButton();
+  }
   onTermsConClick() {
     console.log(
       `Open terms and conditions in a new tab but don't take the user there.`,
@@ -144,13 +149,18 @@ export class SignUpComponent implements OnInit {
   }
 
   notificationsPermission() {
-    if (this.notificationsAllowed) {
+    this.notificationsAllowed = 0;
+    this.activateSubmitButton();
+    if (this.signupForm.value.notificationsInfo) {
       this.fcmService.participantRequestPermission(this.participantId);
     }
   }
 
   homeScreenPermission() {
-    if (this.allowedToHomeScreen) {
+    this.activateSubmitButton();
+    if (this.signupForm.value.homeScreenInfo) {
+      this.allowedToHomeScreen = 1;
+      this.activateSubmitButton();
       this.a2hsService.getDeferredPrompt().subscribe(deferredPrompt => {
         if (!deferredPrompt) {
           console.log('deferredPrompt null');
@@ -171,12 +181,15 @@ export class SignUpComponent implements OnInit {
 
   activateSubmitButton() {
     if (
+      this.signupForm.value.username &&
       this.passwordMatch &&
-      this.termsConditionChecked &&
-      this.allowedToHomeScreen &&
-      this.notificationsAllowed
-    ) {
+      this.signupForm.value.terms_conditions &&
+      this.signupForm.value.homeScreenInfo &&
+      this.notificationsAllowed)
+    {
       this.allowSubmit = true;
+    } else {
+      this.allowSubmit = false;
     }
   }
 }

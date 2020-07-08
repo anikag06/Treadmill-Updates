@@ -23,6 +23,7 @@
             <div class="row no-gutters justify-content-center">
               <mat-form-field style="width:90%">
                 <input matInput placeholder="Username" type="text" ngModel required name="username"
+                       (change)="activateSubmitButton()"
                   class="example-right-align">
                 <mat-error>Username is required</mat-error>
               </mat-form-field>
@@ -39,7 +40,7 @@
             <div class="row no-gutters justify-content-center">
               <mat-form-field style="width:90%">
                 <input matInput placeholder="Confirm password" [type]="hide ? 'password' : 'text'" ngModel required
-                  name="passwordConfirm">
+                  name="passwordConfirm" (change)="matchPasswords()">
                 <mat-error> Password is required </mat-error>
               </mat-form-field>
             </div>
@@ -74,7 +75,7 @@
               </mat-radio-group>
             </div>
             <div class="col-12 my-1 terms-text">
-              <mat-checkbox ngModel required name="terms_conditions">
+              <mat-checkbox ngModel required name="terms_conditions" (change) = "termsConditionClicked()">
                 I agree to the <a routerLink="/trial/terms-and-conditions" target="_blank" class="anchorify-default" (click)="onTermsConClick()">Terms and
                   Conditions</a>
                 <mat-error *ngIf="!termsConditionChecked"> Accept the terms and conditions.</mat-error>
