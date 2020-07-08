@@ -1,11 +1,11 @@
-<div class="row signup-page w-100 no-gutters">
+<div class="row signup-page w-100 no-gutters" *ngIf="showSignUpPage else desktopMessage">
  <div class = "col-sm-12 col-md-5">
     <app-signup-reset-common></app-signup-reset-common>
   </div>
 
-  <div class="d-flex flex-column col-sm-12 col-md-7 text-center  no-gutters">
+  <div class="d-flex flex-column col-sm-10 col-md-7 no-gutters">
+    <h4 class="d-flex align-self-center"> SIGN UP</h4>
     <div class="flex-column mx-auto my-auto align-self-center">
-      <h4> SIGN UP</h4>
       <div *ngIf="!showSignUpForm" class="d-flex flex-row align-items-center justify-content-start"
         style="height: 450px; width: 100%;">
         <img src="../../../assets/shared/dna-loader.svg" alt="loader">
@@ -13,44 +13,43 @@
 
       <div *ngIf="showSignUpForm && participantValid && !userExists">
         <form #signupForm="ngForm" class="signup-form">
-          <div class="input-container text-center">
+          <div>
             <mat-error *ngIf="errorStatus"> {{usernameError}} </mat-error>
             <mat-error *ngIf="errorStatus"> {{passwordError}} </mat-error>
             <mat-error *ngIf="!passwordMatch"> {{passwordMatchError}} </mat-error>
-            <div class="tips">
-              Tips: Use a nickname to maintain anonymity
+            <div class="row no-gutters justify-content-center">
+                Tips: Use a nickname to maintain anonymity
             </div>
-            <div class="row no-gutters justify-content-start">
-              <mat-form-field style="width:100%">
+            <div class="row no-gutters justify-content-center">
+              <mat-form-field style="width:90%">
                 <input matInput placeholder="Username" type="text" ngModel required name="username"
                   class="example-right-align">
                 <mat-error>Username is required</mat-error>
               </mat-form-field>
             </div>
 
-            <div class="row no-gutters justify-content-start">
-              <mat-form-field style="width:100%">
-                <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'" ngModel required
-                  name="password">
-                <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                <mat-error>Password is required</mat-error>
-              </mat-form-field>
+            <div class="row no-gutters justify-content-center">
+                <mat-form-field style="width:90%">
+                  <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'" ngModel required
+                         name="password">
+                  <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                  <mat-error>Password is required</mat-error>
+                </mat-form-field>
             </div>
-            <div class="row no-gutters justify-content-start">
-              <mat-form-field style="width:100%">
+            <div class="row no-gutters justify-content-center">
+              <mat-form-field style="width:90%">
                 <input matInput placeholder="Confirm password" [type]="hide ? 'password' : 'text'" ngModel required
                   name="passwordConfirm">
                 <mat-error> Password is required </mat-error>
               </mat-form-field>
             </div>
 
-            <div class="col-12 mb-1">
-              <label class="my-3  lesser-opacity">For the purpose of this study, it is required that you add
+            <div class="col-12 mb-1 terms-text">
+              <label class="my-3">For the purpose of this study, it is required that you add
                 TreadWill to your home screen.
                 Please click accept to add TreadWill to your home screen.</label>
               <br>
-              <mat-radio-group (change) = "homeScreenPermission()"
-                               formControlName="homeScreenInfo" color="primary" required>
+              <mat-radio-group (change) = "homeScreenPermission()" ngModel required name="homeScreenInfo" color="primary">
                 <mat-radio-button [value]="1" class="mr-5"
                                   #btn13 [ngClass]="{ 'checkedBtn': btn13.checked , 'unChecked': !btn13.checked}">
                   Accept</mat-radio-button>
@@ -60,13 +59,12 @@
               </mat-radio-group>
             </div>
 
-            <div class="col-12 my-1 ">
-              <label class="my-3 lesser-opacity"> Notifications are an essential part of this program.
+            <div class="col-12 my-1 terms-text">
+              <label class="my-3"> Notifications are an essential part of this program.
                 Please click accept to allow notifications.
               </label>
               <br>
-              <mat-radio-group (change) = "notificationsPermission()"
-                               formControlName="notificationsInfo" color="primary" required>
+              <mat-radio-group (change) = "notificationsPermission()" ngModel required name="notificationsInfo" color="primary">
                 <mat-radio-button [value]="1" class="mr-5"
                                   #btn15 [ngClass]="{ 'checkedBtn': btn15.checked , 'unChecked': !btn15.checked}">
                   Accept</mat-radio-button>
@@ -75,7 +73,7 @@
                   Decline</mat-radio-button>
               </mat-radio-group>
             </div>
-            <div class="row no-gutters justify-content-start terms-text">
+            <div class="col-12 my-1 terms-text">
               <mat-checkbox ngModel required name="terms_conditions">
                 I agree to the <a routerLink="/trial/terms-and-conditions" target="_blank" class="anchorify-default" (click)="onTermsConClick()">Terms and
                   Conditions</a>
@@ -83,9 +81,9 @@
               </mat-checkbox>
             </div>
 
-            <div mat-dialog-actions class="d-flex justify-content-end">
+            <div mat-dialog-actions class="d-flex col-12 my-1 justify-content-end">
               <button mat-raised-button class="signup-btn" [disabled]="!allowSubmit"
-                      [matTooltip]="Accept all the conditions to activate"
+                      matTooltip="Accept all the conditions to activate"
                       [matTooltipDisabled]="allowSubmit" type="submit" (click)="onSignUpSubmit()">
                 Sign Up
               </button>
@@ -112,3 +110,9 @@
   </div>
 
 </div>
+
+<ng-template #desktopMessage>
+  <div>
+    Open this link on your mobile.
+  </div>
+</ng-template>

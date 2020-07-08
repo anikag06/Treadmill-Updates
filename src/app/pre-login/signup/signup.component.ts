@@ -6,7 +6,6 @@ import { SignUpData } from '@/pre-login/signup/signup-data.interface';
 import { ShowLoginSignupDialogService } from '@/pre-login/shared/show-login-signup-dialog.service';
 import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-contact-us-dialog.service';
 import { MatLoginDialogComponent } from '@/pre-login/login/mat-login-dialog/mat-login-dialog.component';
-import { MatRadioGroup } from '@angular/material';
 import { FcmService } from '@/shared/fcm.service';
 import { A2HSService } from '@/shared/a2hs.service';
 
@@ -18,6 +17,7 @@ import { A2HSService } from '@/shared/a2hs.service';
 })
 export class SignUpComponent implements OnInit {
   isVisible = true;
+  showSignUpPage = false;
 
   @Output() signupDone = false;
   hide = true;
@@ -30,8 +30,8 @@ export class SignUpComponent implements OnInit {
   encrypted_email!: string;
   passwordMatch = false;
   termsConditionChecked = true;
-  allowed_to_home_screen = 1;
-  notifications_allowed = 1;
+  allowedToHomeScreen = 0;
+  notificationsAllowed = 0;
   allowSubmit = false;
   password!: any;
   passwordConfirm!: any;
@@ -53,6 +53,10 @@ export class SignUpComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    const smallDevice = window.matchMedia('(max-width: 767px)').matches;
+    if (smallDevice) {
+      this.showSignUpPage = true;
+    }
     this.signUpService
       .isParticipantValid(this.activatedRoute.snapshot.params['unique-code'])
       .subscribe(data => {
@@ -64,7 +68,7 @@ export class SignUpComponent implements OnInit {
         this.encrypted_email = data.data.email_id;
       });
     this.fcmService.permit.subscribe(permit => {
-      this.notifications_allowed = permit ? 1 : 0;
+      this.notificationsAllowed = permit ? 1 : 0;
       this.activateSubmitButton();
     });
   }
@@ -72,20 +76,18 @@ export class SignUpComponent implements OnInit {
   onSignUpSubmit() {
     this.getVariablesUsed();
     this.matchPasswords();
-    if (this.passwordMatch && this.termsConditionChecked) {
-      this.signUpService.signUpData(this.data).subscribe(
-        res => this.onSignUpDone(),
-        err => {
-          this.errorStatus = true;
-          if (err.error.message.username) {
-            this.usernameError = err.error.message.username;
-          }
-          if (err.error.message.password) {
-            this.passwordError = err.error.message.password;
-          }
-        },
-      );
-    }
+    this.signUpService.signUpData(this.data).subscribe(
+      res => this.onSignUpDone(),
+      err => {
+        this.errorStatus = true;
+        if (err.error.message.username) {
+          this.usernameError = err.error.message.username;
+        }
+        if (err.error.message.password) {
+          this.passwordError = err.error.message.password;
+        }
+      },
+    );
   }
 
   getVariablesUsed() {
@@ -117,6 +119,7 @@ export class SignUpComponent implements OnInit {
       this.password === this.passwordConfirm
     ) {
       this.passwordMatch = true;
+      this.activateSubmitButton();
     } else {
       this.passwordMatchError = 'Enter same passwords!';
     }
@@ -141,13 +144,13 @@ export class SignUpComponent implements OnInit {
   }
 
   notificationsPermission() {
-    if (this.notifications_allowed) {
+    if (this.notificationsAllowed) {
       this.fcmService.participantRequestPermission(this.participantId);
     }
   }
 
   homeScreenPermission() {
-    if (this.allowed_to_home_screen) {
+    if (this.allowedToHomeScreen) {
       this.a2hsService.getDeferredPrompt().subscribe(deferredPrompt => {
         if (!deferredPrompt) {
           console.log('deferredPrompt null');
@@ -168,9 +171,10 @@ export class SignUpComponent implements OnInit {
 
   activateSubmitButton() {
     if (
+      this.passwordMatch &&
       this.termsConditionChecked &&
-      this.allowed_to_home_screen &&
-      this.notifications_allowed
+      this.allowedToHomeScreen &&
+      this.notificationsAllowed
     ) {
       this.allowSubmit = true;
     }

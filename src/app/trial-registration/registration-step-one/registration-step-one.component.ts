@@ -60,7 +60,7 @@ export class RegistrationStepOneComponent implements OnInit {
   emailSubmit() {
     if (this.emailForm.valid) {
       this.showLoading = true;
-      //required for e2e testing
+      // required for e2e testing
       this.registrationDataService.trial_email = this.emailForm.value.email;
       // till here
       this.registrationDataService

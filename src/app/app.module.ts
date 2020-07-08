@@ -43,6 +43,8 @@ import { ResetPasswordComponent } from '@/pre-login/reset-password/reset-passwor
 import { SignupResetCommonComponent } from '@/pre-login/shared/signup-reset-common/signup-reset-common.component';
 import { MatLoginDialogService } from '@/pre-login/login/mat-login-dialog/mat-login-dialog.service';
 import { ResetPasswordService } from '@/pre-login/reset-password/reset-password.service';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 declare let $: any;
 
@@ -84,6 +86,8 @@ declare let $: any;
     MatInputModule,
     MatButtonModule,
     MatSnackBarModule,
+    MatRadioModule,
+    MatTooltipModule,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'en-US' },
@@ -99,7 +103,6 @@ declare let $: any;
     QuizService,
     MatLoginDialogService,
     ResetPasswordService,
-    //VideoItem
   ],
   bootstrap: [AppComponent],
   entryComponents: [
