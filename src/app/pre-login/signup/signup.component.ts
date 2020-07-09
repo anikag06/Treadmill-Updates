@@ -101,11 +101,15 @@ export class SignUpComponent implements OnInit {
       password: 'test',
       email: 'test',
       terms_and_conditions: 'test',
+      add_to_home_screen_consent: 'test',
+      notifications_consent: 'test',
     };
     this.data.username = this.signupForm.value.username;
     this.data.password = this.signupForm.value.password;
     this.data.email = this.encrypted_email;
     this.data.terms_and_conditions = '1';
+    this.data.add_to_home_screen_consent = '1';
+    this.data.notifications_consent = '1';
     this.termsConditionChecked = this.signupForm.value.terms_conditions;
   }
 
@@ -150,16 +154,15 @@ export class SignUpComponent implements OnInit {
 
   notificationsPermission() {
     this.notificationsAllowed = 0;
-    this.activateSubmitButton();
     if (this.signupForm.value.notificationsInfo) {
       this.fcmService.participantRequestPermission(this.participantId);
     }
   }
 
   homeScreenPermission() {
-    this.activateSubmitButton();
     if (this.signupForm.value.homeScreenInfo) {
       this.allowedToHomeScreen = 1;
+      // ToDo: remove this line in production
       this.activateSubmitButton();
       this.a2hsService.getDeferredPrompt().subscribe(deferredPrompt => {
         if (!deferredPrompt) {
@@ -171,6 +174,7 @@ export class SignUpComponent implements OnInit {
           if (choiceResult.outcome === 'accepted') {
             // no matter the outcome, the prompt cannot be reused ON MOBILE
             // for 3 months or until browser cache is cleared?
+            this.activateSubmitButton();
           } else {
             const deferredPromptRejected = true;
           }
@@ -185,8 +189,8 @@ export class SignUpComponent implements OnInit {
       this.passwordMatch &&
       this.signupForm.value.terms_conditions &&
       this.signupForm.value.homeScreenInfo &&
-      this.notificationsAllowed)
-    {
+      this.notificationsAllowed
+    ) {
       this.allowSubmit = true;
     } else {
       this.allowSubmit = false;

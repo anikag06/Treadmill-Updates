@@ -21,7 +21,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private titleService: Title,
     private a2HSService: A2HSService,
   ) {
-    this.titleService.setTitle('Treadwill');
+    this.titleService.setTitle('TreadWill');
     this.a2HSService.setDeferredPrompt();
   }
 
