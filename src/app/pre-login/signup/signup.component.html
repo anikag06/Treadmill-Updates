@@ -13,7 +13,7 @@
 
       <div *ngIf="showSignUpForm && participantValid && !userExists">
         <form #signupForm="ngForm" class="signup-form">
-          <div>
+          <div >
             <mat-error *ngIf="errorStatus"> {{usernameError}} </mat-error>
             <mat-error *ngIf="errorStatus"> {{passwordError}} </mat-error>
             <mat-error *ngIf="!passwordMatch"> {{passwordMatchError}} </mat-error>
@@ -32,7 +32,7 @@
             <div class="row no-gutters justify-content-center">
                 <mat-form-field style="width:90%">
                   <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'" ngModel required
-                         name="password">
+                         name="password" (change)="matchPasswords()">
                   <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                   <mat-error>Password is required</mat-error>
                 </mat-form-field>
@@ -74,20 +74,29 @@
                   Decline</mat-radio-button>
               </mat-radio-group>
             </div>
-            <div class="col-12 my-1 terms-text checkbox-common">
+            <div class="col-12 mt-4 checkbox-common">
               <mat-checkbox ngModel required name="terms_conditions" (change) = "termsConditionClicked()" >
+                <span class="terms-text">
                 I agree to the <a routerLink="/trial/terms-and-conditions" target="_blank" class="anchorify-default" (click)="onTermsConClick()">Terms and
-                  Conditions</a>
-                <mat-error *ngIf="!termsConditionChecked"> Accept the terms and conditions.</mat-error>
+                  Conditions</a> </span>
               </mat-checkbox>
+<!--              <mat-error *ngIf="termsConditionChecked"> Accept the terms and conditions.</mat-error>-->
             </div>
 
-            <div mat-dialog-actions class="d-flex col-12 my-1 justify-content-end">
-              <button mat-raised-button class="signup-btn" [disabled]="!allowSubmit"
-                      matTooltip="Accept all the conditions to activate"
-                      [matTooltipDisabled]="allowSubmit" type="submit" (click)="onSignUpSubmit()">
-                Sign Up
+            <div class="d-flex col-12 my-1 justify-content-end">
+              <div matTooltip="Accept all the conditions to activate"  [matTooltipDisabled]="allowSubmit">
+                <button mat-raised-button class="signup-btn" [disabled]="!allowSubmit"
+                        *ngIf="!showLoading"
+                        type="submit" (click)="onSignUpSubmit()">
+                  <span >  Sign Up </span>
               </button>
+              </div>
+              <div>
+                <button class="signup-btn" *ngIf="showLoading" type="button" mat-raised-button >
+                  <span class="spinner-border spinner-border-sm"></span>
+                  &nbsp; Loading..
+                </button>
+              </div>
             </div>
           </div>
         </form>

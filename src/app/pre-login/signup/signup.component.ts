@@ -41,6 +41,7 @@ export class SignUpComponent implements OnInit {
   passwordMatchError!: string;
   errorStatus = false;
   data!: SignUpData;
+  showLoading = false;
   @ViewChild('signupForm', { static: false }) signupForm!: NgForm;
 
   constructor(
@@ -74,11 +75,16 @@ export class SignUpComponent implements OnInit {
   }
 
   onSignUpSubmit() {
+    this.showLoading = true;
     this.getVariablesUsed();
     this.matchPasswords();
     this.signUpService.signUpData(this.data).subscribe(
-      res => this.onSignUpDone(),
+      (res) => {
+        this.onSignUpDone(),
+        this.showLoading = false;
+      },
       err => {
+        this.showLoading = false;
         this.errorStatus = true;
         if (err.error.message.username) {
           this.usernameError = err.error.message.username;
@@ -114,18 +120,21 @@ export class SignUpComponent implements OnInit {
   }
 
   matchPasswords() {
-    this.passwordMatch = false;
-    this.password = this.signupForm.value.password;
-    this.passwordConfirm = this.signupForm.value.passwordConfirm;
-    if (
-      this.password &&
-      this.passwordConfirm &&
-      this.password === this.passwordConfirm
-    ) {
-      this.passwordMatch = true;
-    } else {
-      this.passwordMatchError = 'Enter same passwords!';
-      // this.passwordMatch = false;
+      this.passwordMatch = false;
+      this.password = this.signupForm.value.password;
+      this.passwordConfirm = this.signupForm.value.passwordConfirm;
+    if (this.password &&
+      this.passwordConfirm) {
+      if (
+        this.password &&
+        this.passwordConfirm &&
+        this.password === this.passwordConfirm
+      ) {
+        this.passwordMatch = true;
+      } else {
+        this.passwordMatchError = 'Enter same passwords!';
+        // this.passwordMatch = false;
+      }
     }
     this.activateSubmitButton();
   }
@@ -157,13 +166,12 @@ export class SignUpComponent implements OnInit {
     if (this.signupForm.value.notificationsInfo) {
       this.fcmService.participantRequestPermission(this.participantId);
     }
+    this.activateSubmitButton();
   }
 
   homeScreenPermission() {
     if (this.signupForm.value.homeScreenInfo) {
-      this.allowedToHomeScreen = 1;
       // ToDo: remove this line in production
-      this.activateSubmitButton();
       this.a2hsService.getDeferredPrompt().subscribe(deferredPrompt => {
         if (!deferredPrompt) {
           console.log('deferredPrompt null');
@@ -172,6 +180,7 @@ export class SignUpComponent implements OnInit {
         deferredPrompt.prompt();
         deferredPrompt.userChoice.then((choiceResult: any) => {
           if (choiceResult.outcome === 'accepted') {
+            this.allowedToHomeScreen = 1;
             // no matter the outcome, the prompt cannot be reused ON MOBILE
             // for 3 months or until browser cache is cleared?
             this.activateSubmitButton();
@@ -181,6 +190,7 @@ export class SignUpComponent implements OnInit {
         });
       });
     }
+    this.activateSubmitButton();
   }
 
   activateSubmitButton() {
