@@ -1,29 +1,25 @@
-
 <div class="intro-img-div">
-  <img [ngStyle]="{width: '80px',borderRadius : '50%'}" src="assets/walk-through/forms.svg" alt="intro_bot" />
+  <img
+    [ngStyle]="{ width: '80px', borderRadius: '50%' }"
+    src="assets/flow/therapist.svg"
+    alt="intro_bot"
+  />
 </div>
-<div class="title" mat-dialog-title>Welcome to Forms</div>
+<div class="title" mat-dialog-title>{{ form.heading }}</div>
 
 <mat-dialog-content>
-  <div class="mb-2" [ngStyle]="{fontSize : '16px',opacity : '0.8'}" >
-    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-    <ul>
-      <li class="mb-2">Lorem ipsum dolor sit amet, consetetur sadipscing.</li>
-      <li class="mb-2">Lorem ipsum dolor sit amet, consetetur sadipscing.</li>
-      <li class="mb-2">Lorem ipsum dolor sit amet, consetetur sadipscing.</li>
-    </ul>
+  <div class="mb-2" [ngStyle]="{ fontSize: '16px', opacity: '0.8' }">
+    {{ form.description }}
   </div>
-
 </mat-dialog-content>
 
 <mat-dialog-actions class="float-right">
   <button
     mat-raised-button
-    [ngStyle]="{textAlign : 'inherit'}"
+    [ngStyle]="{ textAlign: 'inherit' }"
     class="btn start-btn float-right"
     (click)="startIntro()"
     matDialogClose
     [innerHTML]="btnTxt"
-  >
-  </button>
+  ></button>
 </mat-dialog-actions>

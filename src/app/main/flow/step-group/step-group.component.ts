@@ -93,7 +93,11 @@ export class StepGroupComponent implements OnInit {
       }
     } else if (this.stepGroup.status === ACTIVE) {
       this.isExpanded = true;
-      this.introService.setPanel(this.panel);
+      let showActiveStep = this.findActiveStep(this.stepGroup);
+      if (showActiveStep) {
+        this.introService.setPanel(this.panel);
+        this.introService.setActiveStepIntro(true);
+      }
       for (let i = 0; i < no_steps; i++) {
         let j = 0;
         if (this.stepGroup.steps[i].status === ACTIVE) {
@@ -147,5 +151,12 @@ export class StepGroupComponent implements OnInit {
 
   showAllClick() {
     this.showLessSteps = false;
+  }
+
+   findActiveStep(stepGroup : StepGroup) {
+    const element = stepGroup.steps.find((step) => {
+      return step.status === ACTIVE;
+    });
+    return typeof element === "undefined" ? false : true;
   }
 }

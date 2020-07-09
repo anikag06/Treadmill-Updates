@@ -54,7 +54,6 @@
   .mat-toolbar {
     background: #F5BB56 !important;
   }
-
   background: #FAF4EA !important;
 
 }
@@ -171,4 +170,12 @@ button:focus {
   top: 50vh;
   opacity: 0.7;
   z-index: 99999;
+}
+
+
+
+.fix-parent{
+  .introjs-fixParent {
+    z-index: 4 !important;
+  }
 }

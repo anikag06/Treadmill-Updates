@@ -2,55 +2,42 @@ label {
   color: black !important;
 }
 
-.ng-valid {
-  color: black !important;
-}
+//.ng-valid {
+//  color: black !important;
+//}
 
-.no-gutters {
-  margin: 0;
-  padding: 0;
-}
-
-h3 {
-  color: #9e3737;
-  font-size: 18px;
-}
-
-.ng-invalid {
-  .angular-editor {
-    border: 1px solid #9e3737;
-  }
-}
-
-.create-post {
-  max-width: 600px;
-}
+//.no-gutters {
+//  margin: 0;
+//  padding: 0;
+//}
 
 .tagDiv {
   max-width: 600px;
+  overflow: auto;
+  max-height: 600px;
 }
 
-.post-form {
-  // max-width: 60%;
-  font-family: Roboto, sans-serif;
+//.post-form {
+//  // max-width: 60%;
+//  font-family: Roboto, sans-serif;
+//
+//  .mat-stroked-button {
+//    line-height: 24px !important;
+//  }
+//}
 
-  .mat-stroked-button {
-    line-height: 24px !important;
-  }
-}
+//.submit-btn {
+//  width: 100px;
+//  color: white;
+//  background-color: #2a3b3d;
+//}
 
-.submit-btn {
-  width: 100px;
-  color: white;
-  background-color: #2a3b3d;
-}
-
-.close-btn {
-  width: 100px;
-  color: #2a3b3d;
-  background-color: white;
-  border: #2a3b3d;
-}
+//.close-btn {
+//  width: 100px;
+//  color: #2a3b3d;
+//  background-color: white;
+//  border: #2a3b3d;
+//}
 
 .crossIcon {
   top: -14px;
@@ -61,32 +48,6 @@ h3 {
   background: #ffffff00 0% 0% no-repeat padding-box;
   // box-shadow: 0px 1px 2px #00000029;
   opacity: 1;
-}
-
-.submitDiv1 {
-  display: block;
-}
-
-.submitDiv2 {
-  display: none;
-}
-
-.error-div {
-  background-color: #feb7b7;
-  padding: 10px;
-  border: 2px dashed #9e3737;
-  border-radius: 5px;
-
-  ul {
-    color: #9e3737;
-    font-size: 14px;
-    text-transform: capitalize;
-    padding: 0;
-
-    li {
-      list-style-type: none;
-    }
-  }
 }
 
 .toggleButton {
@@ -142,13 +103,6 @@ h3 {
     // min-width: 400px;
   }
 
-  .submitDiv1 {
-    display: none;
-  }
-
-  .submitDiv2 {
-    display: block;
-  }
 }
 
 @media screen and (max-width: 576px) {
@@ -167,8 +121,7 @@ h3 {
   opacity: 1;
   position: sticky;
   bottom: 0;
-  height: 51px;
-  padding-top: 0.5rem;
+  height: 30px;
 }
 @media screen and (min-width: 576px) {
   .heading {
@@ -176,6 +129,10 @@ h3 {
     margin-bottom: 1.5rem;
     font-weight: bolder;
   }
+  .tagDiv {
+    max-height: 490px;
+  }
+
 }
 .done-btn{
   background: #2A3B3D;

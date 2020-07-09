@@ -32,9 +32,10 @@
   font-size: 14px;
   letter-spacing: 0.25px;
   color: #ffffff;
-  bottom: 23vh;
+  bottom: 5vh;
   z-index: 50;
   right: 50%;
+  left: 50%;
   position: fixed;
   padding-top: 14px;
 
@@ -42,7 +43,7 @@
 
 @media screen and (max-width: 500px) {
   .points {
-    bottom: 15vh;
-    right: 30%;
+    bottom: 5vh;
+   left : 40vw;
   }
 }
