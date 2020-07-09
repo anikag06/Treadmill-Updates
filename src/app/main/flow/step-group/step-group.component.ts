@@ -153,10 +153,10 @@ export class StepGroupComponent implements OnInit {
     this.showLessSteps = false;
   }
 
-   findActiveStep(stepGroup : StepGroup) {
-    const element = stepGroup.steps.find((step) => {
+  findActiveStep(stepGroup: StepGroup) {
+    const element = stepGroup.steps.find(step => {
       return step.status === ACTIVE;
     });
-    return typeof element === "undefined" ? false : true;
+    return typeof element === 'undefined' ? false : true;
   }
 }

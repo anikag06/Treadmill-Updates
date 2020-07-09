@@ -1,4 +1,10 @@
-import {Component, HostListener, Inject, OnInit, Optional} from '@angular/core';
+import {
+  Component,
+  HostListener,
+  Inject,
+  OnInit,
+  Optional,
+} from '@angular/core';
 import { TagGroup } from '@/main/shared/tag-group.model';
 import { TagService } from '@/main/shared/tag.service';
 import { Tag } from '@/main/shared/tag.model';
@@ -73,16 +79,13 @@ export class IntroSelectTagsComponent implements OnInit {
   }
   //
   scrollFrame(value: string) {
-
     if (value === 'down') {
-    this.showScrollNote = false;
+      this.showScrollNote = false;
     }
-    if(value ==='top'){
+    if (value === 'top') {
       this.showScrollNote = true;
     }
   }
-
-
 
   onTagsSubmit() {
     this.dialogRef.close();
@@ -99,5 +102,4 @@ export class IntroSelectTagsComponent implements OnInit {
       error => {},
     );
   }
-
 }

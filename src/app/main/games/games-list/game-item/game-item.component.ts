@@ -37,7 +37,7 @@ export class GameItemComponent implements OnInit {
     this.introService.showAnimation(game.slug).subscribe((data: any) => {
       if (data.show_animation) {
         setTimeout(() => {
-          this.introDialogService.openGameIntroDialog(false,game.slug);
+          this.introDialogService.openGameIntroDialog(false, game.slug);
         }, 500);
       }
     });

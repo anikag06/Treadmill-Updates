@@ -3,7 +3,7 @@ import {
   Injectable,
   ViewContainerRef,
 } from '@angular/core';
-import {COMPLETED, MOBILE_WIDTH, TABLET_WIDTH} from '@/app.constants';
+import { COMPLETED, MOBILE_WIDTH, TABLET_WIDTH } from '@/app.constants';
 // @ts-ignore
 import * as introJs from 'intro.js/intro';
 import { MatDrawer } from '@angular/material/sidenav';
@@ -111,12 +111,12 @@ export class IntroService {
     });
     intro.start();
     intro.onexit((event: Event) => {
-      if(this.showActiveStepIntro){
+      if (this.showActiveStepIntro) {
         this.togglePanel();
         setTimeout(() => {
           this.startActiveStepIntro();
         }, 500);
-      }else{
+      } else {
         this.setOverlayTrue();
         this.startProgressIntro();
       }
@@ -253,8 +253,7 @@ export class IntroService {
     intro.setOptions({
       steps: [
         {
-          element:
-            window.innerWidth <= 990 ? '#new_post_mobile' : '#new-post',
+          element: window.innerWidth <= 990 ? '#new_post_mobile' : '#new-post',
           intro:
             '<div class="intro-heading">Create post </div> ' +
             '<div class="intro-text">Click on this button to write a post in the SupportGroup. We would love to hear from you.</div>',
@@ -411,7 +410,10 @@ export class IntroService {
         },
       ],
       tooltipPosition: 'auto',
-      doneLabel: window.innerWidth <=TABLET_WIDTH ? '<span style="font-size: 16px;">Next &#8594;</span>' : 'Done',
+      doneLabel:
+        window.innerWidth <= TABLET_WIDTH
+          ? '<span style="font-size: 16px;">Next &#8594;</span>'
+          : 'Done',
       showStepNumbers: false,
       showProgress: false,
       showBullets: false,
@@ -526,7 +528,9 @@ export class IntroService {
             '<div class="intro-text"> This menu gives you a shortcut to the features of TreadWill.</div>',
           position: 'right',
           tooltipClass:
-            window.innerWidth < MOBILE_WIDTH ? 'intro-tooltip-custom-margin' : '',
+            window.innerWidth < MOBILE_WIDTH
+              ? 'intro-tooltip-custom-margin'
+              : '',
         },
       ],
       showStepNumbers: false,
@@ -571,7 +575,7 @@ export class IntroService {
   }
 
   callNavBarGameIntro() {
-      let text_games =
+    let text_games =
       '<div class="intro-text">You can quickly access this game from the Navigation menu.</div>';
     if (window.innerWidth < TABLET_WIDTH) {
       this.toggleDrawer();
@@ -587,8 +591,8 @@ export class IntroService {
   showAnimation(element: string) {
     return this.http.get(
       environment.API_ENDPOINT +
-      '/api/v1/flow/show-introductory-animation/' +
-      element,
+        '/api/v1/flow/show-introductory-animation/' +
+        element,
     );
   }
 
@@ -598,8 +602,8 @@ export class IntroService {
     };
     return this.http.post(
       environment.API_ENDPOINT +
-      '/api/v1/user/user-profile/' +
-      this.user.username,
+        '/api/v1/user/user-profile/' +
+        this.user.username,
       body,
     );
   }
@@ -676,7 +680,6 @@ export class IntroService {
     this.fixParentBehaviour.next(false);
   }
 
-
   exitIntro() {
     this.introJS.exit();
   }
@@ -693,7 +696,7 @@ export class IntroService {
     this.component.destroy();
   }
 
-  setActiveStepIntro(value:boolean){
+  setActiveStepIntro(value: boolean) {
     this.showActiveStepIntro = true;
   }
 }

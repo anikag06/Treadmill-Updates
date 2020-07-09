@@ -8,7 +8,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 })
 export class FormIntroComponent implements OnInit {
   btnTxt!: string;
-  form!:any;
+  form!: any;
   constructor(
     private dialogRef: MatDialogRef<FormIntroComponent>,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any,

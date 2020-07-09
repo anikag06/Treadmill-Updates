@@ -15,7 +15,8 @@ import {
   CONTROL_PAGE,
   CONVERSATION_GROUP,
   FORM,
-  GAME, GAME_ATTRIBUTION_STYLE_CONSTANT,
+  GAME,
+  GAME_ATTRIBUTION_STYLE_CONSTANT,
   INTRODUCTION_PAGE,
   INTRODUCTORY_ANIMATION,
   LOCKED,
@@ -35,7 +36,7 @@ import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifica
 import { IntroService } from '@/main/walk-through/intro.service';
 import { isNotNullOrUndefined } from 'codelyzer/util/isNotNullOrUndefined';
 import { IntroDialogService } from '@/main/walk-through/intro-dialog.service';
-import {GAME_ATTRIBUTION_STYLE} from "@/main/walk-through/intro.constant";
+import { GAME_ATTRIBUTION_STYLE } from '@/main/walk-through/intro.constant';
 
 @Component({
   selector: 'app-step',
@@ -152,7 +153,10 @@ export class StepComponent implements OnInit, AfterViewInit {
         .subscribe((data: any) => {
           if (data.show_animation) {
             setTimeout(() => {
-              this.introDialogService.openGameIntroDialog(true,this.step.action[0]);
+              this.introDialogService.openGameIntroDialog(
+                true,
+                this.step.action[0],
+              );
             }, 500);
           } else {
             setTimeout(() => {
@@ -168,7 +172,10 @@ export class StepComponent implements OnInit, AfterViewInit {
         .subscribe((data: any) => {
           if (data.show_animation) {
             setTimeout(() => {
-              this.introDialogService.openFormIntroDialog(true,this.step.action[0]);
+              this.introDialogService.openFormIntroDialog(
+                true,
+                this.step.action[0],
+              );
             }, 500);
           } else {
             setTimeout(() => {
@@ -209,7 +216,6 @@ export class StepComponent implements OnInit, AfterViewInit {
         setTimeout(() => {
           this.introService.startBadgesIntro(this.step.status);
         }, 1500);
-
       }
 
       this.step.status = COMPLETED;

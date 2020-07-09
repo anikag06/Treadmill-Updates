@@ -77,7 +77,7 @@ export class MainComponent
 
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe([Breakpoints.Handset, Breakpoints.Small])
-    .pipe(map((result) => result.matches));
+    .pipe(map(result => result.matches));
   isExpanded = true;
 
   @ViewChild(ToastNotificationDirective, { static: true })
@@ -131,7 +131,7 @@ export class MainComponent
       }
     });
 
-    this.fcmService.newNotification.subscribe((message) => {
+    this.fcmService.newNotification.subscribe(message => {
       const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
         ToastNotificationComponent,
       );
@@ -173,7 +173,7 @@ export class MainComponent
       console.log('OVERLAY OPEN', this.overlayService.overlayOpen);
     });
 
-    this.commonService.createOnline$().subscribe((isOnline) => {
+    this.commonService.createOnline$().subscribe(isOnline => {
       this.connectionNotification.clear();
       const statusMessage = isOnline
         ? this.onlineStatusMessages[
@@ -204,7 +204,7 @@ export class MainComponent
 
     if (window.innerWidth < MOBILE_WIDTH) {
       this.introSubscription = this.introService.overlayBehaviour.subscribe(
-        (showOverlay) => {
+        showOverlay => {
           this.showOverlay = showOverlay;
         },
       );
@@ -254,7 +254,7 @@ export class MainComponent
     }
     if (!this.routing) {
       this.router.events
-        .pipe(filter((e) => e instanceof NavigationStart))
+        .pipe(filter(e => e instanceof NavigationStart))
         .subscribe((e: any) => {
           this.goToQuestionnaire(e);
         });

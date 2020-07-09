@@ -31,7 +31,7 @@ export class FormsListComponent implements OnInit {
     this.introService.showAnimation(form.slug).subscribe((data: any) => {
       if (data.show_animation) {
         setTimeout(() => {
-          this.introDialogService.openFormIntroDialog(false,form.slug);
+          this.introDialogService.openFormIntroDialog(false, form.slug);
         }, 1000);
       }
     });

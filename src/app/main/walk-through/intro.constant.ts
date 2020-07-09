@@ -47,33 +47,39 @@ export const GAME_MENTAL_IMAGERY = {
 };
 
 export const PROBLEM_SOLVING_FORM = {
-  heading : 'Problem solving',
-  description : 'This form presents the techniques to solve a real-life problem. It\'s time to take control 😎.'
-}
+  heading: 'Problem solving',
+  description:
+    "This form presents the techniques to solve a real-life problem. It's time to take control 😎.",
+};
 
 export const TASK_FORM = {
-  heading : 'Task form',
-  description : 'This form is there to help you form a routine.' +
-    ' Shall we order those running shoes for you? Just kidding, we respect your privacy, we\'ll never ask for your feet-size 😜.'
-}
+  heading: 'Task form',
+  description:
+    'This form is there to help you form a routine.' +
+    " Shall we order those running shoes for you? Just kidding, we respect your privacy, we'll never ask for your feet-size 😜.",
+};
 
 export const THOUGHT_RECORD_FORM = {
-  heading : 'Evaluate a thought',
-  description : 'This form presents all the techniques to evaluate a negative thought. ' +
-    'Your days of thinking that you are not good enough are numbered 🙌.'
-}
+  heading: 'Evaluate a thought',
+  description:
+    'This form presents all the techniques to evaluate a negative thought. ' +
+    'Your days of thinking that you are not good enough are numbered 🙌.',
+};
 
 export const EXPERIMENT_TO_TEST_BELIEF_FORM = {
-  heading : 'Test a belief',
-  description : 'This form presents the technique to test whether a belief is true or false. Your days of believing that you are unlovable are numbered 🥰️.'
-}
+  heading: 'Test a belief',
+  description:
+    'This form presents the technique to test whether a belief is true or false. Your days of believing that you are unlovable are numbered 🥰️.',
+};
 
 export const WORRY_PRODUCTIVELY_FORM = {
-  heading : 'Worrying productively',
-  description : 'This form presents the techniques to control your worrying. Finally, peace 😌.'
-}
+  heading: 'Worrying productively',
+  description:
+    'This form presents the techniques to control your worrying. Finally, peace 😌.',
+};
 
 export const FORM_BELIEF_CHANGE = {
-  heading : 'Change a belief',
-  description : 'This form presents the techniques to change a negative belief. Your days of believing that you are stupid are numbered ✌️.'
-}
+  heading: 'Change a belief',
+  description:
+    'This form presents the techniques to change a negative belief. Your days of believing that you are stupid are numbered ✌️.',
+};

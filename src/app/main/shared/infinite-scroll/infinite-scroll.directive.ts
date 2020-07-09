@@ -2,7 +2,8 @@ import {
   Directive,
   ElementRef,
   EventEmitter,
-  HostListener, Input,
+  HostListener,
+  Input,
   OnDestroy,
   Output,
 } from '@angular/core';
@@ -14,7 +15,7 @@ import { Subject } from 'rxjs';
 })
 export class InfiniteScrollDirective implements OnDestroy {
   constructor(private _elRef: ElementRef) {
-    this.debouncer.pipe(debounceTime(this.delay)).subscribe((value) => {
+    this.debouncer.pipe(debounceTime(this.delay)).subscribe(value => {
       if (value !== '') {
         this.scroll.emit(value);
       }
@@ -23,7 +24,7 @@ export class InfiniteScrollDirective implements OnDestroy {
   lastScrollTop = this._elRef.nativeElement.pageYOffset;
   debouncer = new Subject<String>();
   @Output() scroll = new EventEmitter();
-  @Input() delay!:number;
+  @Input() delay!: number;
 
   @HostListener('scroll', ['$event.target']) onScrollEvent($event: any) {
     const st =
@@ -49,7 +50,7 @@ export class InfiniteScrollDirective implements OnDestroy {
   }
 
   debouncerScrollUp() {
-    this.debouncer.pipe(debounceTime(1000)).subscribe((value) => {
+    this.debouncer.pipe(debounceTime(1000)).subscribe(value => {
       this.scroll.emit(value);
       // this.scroll.();
     });

@@ -25,7 +25,7 @@ describe('MainComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MainComponent, NavbarComponent],
+      declarations: [MainComponent, NavbarComponent],
       imports: [
         RouterTestingModule,
         NoopAnimationsModule,
@@ -37,17 +37,22 @@ describe('MainComponent', () => {
         MatToolbarModule,
         HttpClientModule,
       ],
-      providers: [
-        ModulesService,
-        HttpClient
-      ]
+      providers: [ModulesService, HttpClient],
     }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(MainComponent);
     component = fixture.componentInstance;
-    component.user = new User(1, 'tester', 'test@test.com', '', false, false,false);
+    component.user = new User(
+      1,
+      'tester',
+      'test@test.com',
+      '',
+      false,
+      false,
+      false,
+    );
     fixture.detectChanges();
   });
 
