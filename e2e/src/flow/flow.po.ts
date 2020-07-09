@@ -25,10 +25,9 @@ export class FlowPage {
     browser
       .wait(this.EC.presenceOf(element(by.css('.mat-dialog-container'))))
       .then(() => {
-          this.clickOnButton('Get Started');
-        }
-        );
-      }
+        this.clickOnButton('Get Started');
+      });
+  }
 
   checkUserGroup() {
     return element(by.cssContainingText('.list-wrapper-items-name', 'Games'));
@@ -76,11 +75,11 @@ export class FlowPage {
   //   });
   // }
 
-  getElementsByText(text: any) {
-    // parentXpathSelector = parentXpathSelector || '//';
-    console.log('STEP :', text, 'clicked');
-    return element(by.xpath('//*[normalize-space(text())="' + text + '"]'));
-  }
+  // getElementsByText(text: any) {
+  //   // parentXpathSelector = parentXpathSelector || '//';
+  //   console.log('STEP :', text, 'clicked');
+  //   return element(by.xpath('//*[normalize-space(text())="' + text + '"]'));
+  // }
 
   findProgressElement(txt: string) {
     browser
@@ -168,18 +167,15 @@ export class FlowPage {
       by.cssContainingText('.step-content', txt),
     );
     browser
-      .wait(
-        protractor.ExpectedConditions.visibilityOf(nextStep),
-        10 * 60 * 1000,
-      )
+      .wait(protractor.ExpectedConditions.visibilityOf(nextStep), 5 * 60 * 1000)
       .then(() => {
         this.findProgressElement(txt);
-        console.log('ELEMENT VISIBLE');
+        console.log(txt, 'VISIBLE');
         return true;
       })
       .catch(() => {
         this.navigateToDashboard();
-        console.log('ELEMENT NOT FOUND CHECK AGAIN');
+        console.log(txt, 'NOT FOUND CHECK AGAIN');
         this.waitForStepUnlock(txt);
       });
   }
@@ -253,6 +249,7 @@ export class FlowPage {
     }
     browser.sleep(2000);
     this.clickOnButton('Submit');
+    console.log('SURVEY COMPLETE');
     browser.sleep(1000);
   }
 }

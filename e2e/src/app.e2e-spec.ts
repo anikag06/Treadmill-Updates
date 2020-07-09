@@ -103,22 +103,26 @@ describe('workspace-project App', () => {
       // page.acceptAllConsentPage();
       browser.sleep(5000);
       page.clickSubmitButton();
-      browser.sleep(3500);
+      browser.sleep(6000);
     },
     5 * 60 * 1000,
   );
 
   // get link for sign up from mail
 
-  it('Should get sign up link and redirect to signup page', () => {
-    page.getSignUpLink();
-    browser.sleep(3500);
-    expect(
-      browser //
-        .wait(protractor.ExpectedConditions.urlContains('sign-up'), 2000)
-        .catch(() => false),
-    ).toBeTruthy('Url match could not succced');
-  });
+  it(
+    'Should get sign up link and redirect to signup page',
+    () => {
+      page.getSignUpLink();
+      browser.sleep(3500);
+      expect(
+        browser //
+          .wait(protractor.ExpectedConditions.urlContains('sign-up'), 2000)
+          .catch(() => false),
+      ).toBeTruthy('Url match could not succced');
+    },
+    5 * 60 * 1000,
+  );
 
   it('should fill signup page', () => {
     page.fillSignupForm();

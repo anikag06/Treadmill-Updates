@@ -3,7 +3,7 @@ import { browser, by, element, logging } from 'protractor';
 import { FlowPage } from './flow/flow.po';
 import { protractor } from 'protractor/built/ptor';
 
-describe('treadwill Flow Experimental Group', () => {
+xdescribe('treadwill Flow Experimental Group', () => {
   let page: AppPage;
   let fp: FlowPage;
   let expUser!: any;
@@ -27,7 +27,6 @@ describe('treadwill Flow Experimental Group', () => {
     browser.sleep(1000);
   });
 
-
   it('should detect whether exp or control', () => {
     page.clickBurgerBtn('button.hamburger-button');
     fp.checkUserGroup()
@@ -41,13 +40,12 @@ describe('treadwill Flow Experimental Group', () => {
     browser.sleep(2000);
   });
 
-
   it('should click on Introductory navigation on zero Module and run its step', () => {
     fp.checkIntroDialog();
-      // .isPresent()
-      // .then( () => {
-      //   fp.clickOnButton('Get Started');
-      // });
+    // .isPresent()
+    // .then( () => {
+    //   fp.clickOnButton('Get Started');
+    // });
     browser.sleep(2000);
     fp.findProgressElement('Navigating TreadWill ');
     browser.sleep(500);
@@ -55,8 +53,6 @@ describe('treadwill Flow Experimental Group', () => {
     fp.findProgressElement('Points, badges, and profile ');
     browser.sleep(500);
     fp.navigateToDashboard();
-
-
   });
 
   // it('Should find the Progress flow click zero Module and run its step', () => {
