@@ -10,7 +10,8 @@ exports.config = {
   // ],
   suites: { signup : './src/**/app.e2e-spec.ts',
     test1: ['./src/**/app.e2e-spec.ts','./src/**/flow.e2e-spec.ts','./src/**/flow-control.e2e-spec.ts'],
-    test2: [ './src/**/flow-control.e2e-spec.ts'],
+    test2: [ './src/**/flow.e2e-spec.ts'], // only experimental with username hardcoded
+    test3: [ './src/**/flow-control.e2e-spec.ts'], // only control with username hardcoded
   },
   multiCapabilities: [
     {
@@ -35,6 +36,6 @@ exports.config = {
     });
     jasmine.getEnv().addReporter(new SpecReporter({ spec: { displayStacktrace: true } }));
     global.testType = 'dropout';
-    global.moduleNumber = 3;
+    global.moduleNumber = 6;
   }
 };

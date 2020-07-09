@@ -3,7 +3,7 @@ import { browser, by, element, logging } from 'protractor';
 import { FlowPage } from './flow/flow.po';
 import { protractor } from 'protractor/built/ptor';
 
-describe('treadwill Flow', () => {
+xdescribe('treadwill Flow Experimental Group', () => {
   let page: AppPage;
   let fp: FlowPage;
   let expUser!: any;
@@ -11,6 +11,20 @@ describe('treadwill Flow', () => {
   beforeEach(() => {
     page = new AppPage();
     fp = new FlowPage();
+  });
+
+  it('should show login dialog', () => {
+    page.navigateTo();
+    browser.waitForAngularEnabled(false);
+    browser.sleep(1000);
+    page.clickLoginLink();
+    browser.sleep(2500);
+    // username is hardcoded here
+    page.fillLoginForm('root_3', 'test123');
+    expect(fp.onDashboard()).toBeTruthy('url does not contains dashboard');
+    // loginTime = page.getTime();
+    // console.log('login time', loginTime);
+    browser.sleep(1000);
   });
 
   it('should detect whether exp or control', () => {
@@ -26,36 +40,51 @@ describe('treadwill Flow', () => {
     browser.sleep(2000);
   });
 
-  it('Should find the Progress flow click zero Module and run its step', () => {
-    expect(fp.getProgress()).toEqual('Progress');
-    browser.sleep(1000);
-    expect(
-      fp.findProgressGroupElement('Introduction to TreadWill'),
-    ).toBeTruthy();
-    // fp.findProgressGroupElement('Introduction to TreadWill').click();
-    if (expUser) {
-      console.log('EXPERIMENTAL GROUP', expUser);
-      browser.sleep(2000);
-      fp.findProgressElement('Navigating TreadWill ');
-      browser.sleep(2500);
-      expect(fp.findTextbyCss('.mat-card-title')).toContain(
-        'Primary Navigation',
-      );
-      browser.sleep(2000);
-      fp.clickOnButton('SKIP');
-      // fp.navigateToDashboard();
-      fp.findProgressElement('Points, badges, and profile ');
-      browser.sleep(2500);
-      expect(fp.findTextbyCss('.mat-card-title')).toContain(
-        'Primary Navigation',
-      );
-      browser.sleep(2000);
-      fp.clickOnButton('SKIP');
-      browser.sleep(1000);
-    } else {
-      console.log('CONTROL GROUP USER', !expUser);
-    }
+  it('should click on Introductory navigation on zero Module and run its step', () => {
+    fp.checkIntroDialog();
+    // .isPresent()
+    // .then( () => {
+    //   fp.clickOnButton('Get Started');
+    // });
+    browser.sleep(2000);
+    fp.findProgressElement('Navigating TreadWill ');
+    browser.sleep(500);
+    fp.navigateToDashboard();
+    fp.findProgressElement('Points, badges, and profile ');
+    browser.sleep(500);
+    fp.navigateToDashboard();
   });
+
+  // it('Should find the Progress flow click zero Module and run its step', () => {
+  //   expect(fp.getProgress()).toEqual('Progress');
+  //   browser.sleep(1000);
+  //   expect(
+  //     fp.findProgressGroupElement('Introduction to TreadWill'),
+  //   ).toBeTruthy();
+  //   // fp.findProgressGroupElement('Introduction to TreadWill').click();
+  //   if (expUser) {
+  //     console.log('EXPERIMENTAL GROUP', expUser);
+  //     browser.sleep(2000);
+  //     // fp.findProgressElement('Navigating TreadWill ');
+  //     // browser.sleep(2500);
+  //     // expect(fp.findTextbyCss('.mat-card-title')).toContain(
+  //     //   'Primary Navigation',
+  //     // );
+  //     // browser.sleep(2000);
+  //     // fp.clickOnButton('SKIP');
+  //     // fp.navigateToDashboard();
+  //     // fp.findProgressElement('Points, badges, and profile ');
+  //     // browser.sleep(2500);
+  //     // expect(fp.findTextbyCss('.mat-card-title')).toContain(
+  //     //   'Primary Navigation',
+  //     // );
+  //     // browser.sleep(2000);
+  //     // fp.clickOnButton('SKIP');
+  //     // browser.sleep(1000);
+  //   } else {
+  //     console.log('CONTROL GROUP USER', !expUser);
+  //   }
+  // });
 
   it('Should click first Module and run its step', () => {
     fp.navigateToDashboard();
@@ -92,10 +121,12 @@ describe('treadwill Flow', () => {
       fp.clickGoto();
       fp.findProgressElement('Being self-aware'); // slide
       fp.goToNextStep('Next step');
-      fp.findProgressElement('You are not alone'); // conversation //CHECK SEQUENCE
+      fp.findProgressElement('You are not alone'); // show full conversation //CHECK SEQUENCE
+      fp.showFullConv();
       fp.goToNextStep('Next step');
       fp.findProgressElement('Finish module'); // conclusion- go to dashboard step
-      fp.goToNextStep('Next step');
+      fp.evaluateMood();
+      fp.goToNextStep('Go to dashboard');
     } else {
       console.log('CONTROL GROUP', !expUser);
     }

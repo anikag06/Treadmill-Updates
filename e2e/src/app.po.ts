@@ -42,8 +42,7 @@ export class AppPage {
     this.numberInUsername = Math.floor(Math.random() * (200 - 1)) + 1;
     // this.newUsername = 'root' + this.numberInUsername +
     //                    Math.random().toString(36).substring(2, 5) + Math.random().toString(36).substring(2, 5);
-    this.newEmaiId =
-      'l.goyal18' + '+' + this.numberInUsername + '@gmail.com';
+    this.newEmaiId = 'l.goyal18' + '+' + this.numberInUsername + '@gmail.com';
     console.log('email id', this.newEmaiId);
   }
   getTrialUserName() {
@@ -220,9 +219,11 @@ export class AppPage {
   getSignUpLink() {
     browser.sleep(3000);
     const el = element(by.id('signup_link'));
-    el.getAttribute('value').then(function(value) {
-      console.log('LINK', value);
-      browser.get(value);
+    browser.wait(this.EC.presenceOf(el)).then(() => {
+      el.getAttribute('value').then(function(value) {
+        console.log('LINK', value);
+        browser.get(value);
+      });
     });
     browser.sleep(5000);
   }
@@ -254,7 +255,10 @@ export class AppPage {
   getTime() {
     const today = new Date();
     this.firstLoginTime = new Date().getTime();
-    console.log('login time', today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds());
+    console.log(
+      'login time',
+      today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds(),
+    );
     return this.firstLoginTime;
   }
 }

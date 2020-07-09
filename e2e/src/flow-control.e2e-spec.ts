@@ -28,7 +28,7 @@ describe('treadwill Flow control group', () => {
     page.clickLoginLink();
     browser.sleep(2500);
     // username is hardcoded here
-    page.fillLoginForm('root_new_2', 'test123');
+    page.fillLoginForm('rootlbxcco', 'test123');
     expect(fp.onDashboard()).toBeTruthy('url does not contains dashboard');
     loginTime = page.getTime();
     console.log('login time', loginTime);
@@ -60,11 +60,10 @@ describe('treadwill Flow control group', () => {
       console.log('EXPERIMENTAL GROUP', expUser);
     } else {
       console.log('CONTROL GROUP zero module', expUser);
-      fp.findProgressElement('Navigating TreadWill');
-      browser.sleep(2500);
       fp.clickOnButton('Get Started');
       browser.sleep(2000);
-      // fp.clickOnButton('SKIP');
+      fp.findProgressElement('Navigating TreadWill');
+      browser.sleep(2500);
       fp.navigateToDashboard();
       browser.sleep(1000);
     }
@@ -368,6 +367,11 @@ describe('treadwill Flow control group', () => {
         console.log('CONTROL GROUP', expUser);
         browser.sleep(2000);
         fp.waitForStepUnlock('Be prepared');
+        // Checking for dropout
+        if (testfor === 'dropout' && moduleNum === 6) {
+          console.log('CHECK FOR DROPOUT  AT MODULE 6');
+          fp.checkForDropout(loginTime);
+        }
         fp.goToNextStep('Next step');
         fp.findProgressElement('What if I get depressed again?');
         fp.goToNextStep('Next step');
@@ -378,11 +382,6 @@ describe('treadwill Flow control group', () => {
         fp.fillSurveyForm();
         browser.sleep(2000);
         fp.findProgressElement('Keep practicing the techniques');
-        // Checking for dropout
-        if (testfor === 'dropout' && moduleNum === 6) {
-          console.log('CHECK FOR DROPOUT  AT MODULE 6');
-          fp.checkForDropout(loginTime);
-        }
         fp.evaluateMood();
         page.findPhq();
         page.fillPhq();
