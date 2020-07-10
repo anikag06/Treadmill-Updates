@@ -274,17 +274,17 @@ export class StepComponent implements OnInit, AfterViewInit {
 
   showTooltipFun() {
     if (this.step.status === LOCKED && !this.step.virtual_step) {
-      const prev = this.previousStep(this.stepGroup, this.step);
-      if (!prev) {
-        this.flowService.getModuleUnlockTime(this.stepGroup);
-        this.flowService.unlockModuleTime.subscribe(data => {
-          const time = this.datePipe.transform(data, 'hh:mm a');
-          const date = this.datePipe.transform(data, 'dd-MM-yyy');
-          this.tooltipData = 'unlocks at: ' + time + ' on ' + date;
+      this.flowService
+        .getStepUnlockStatus(this.step.id)
+        .subscribe((data: any) => {
+          if (data.data.type !== 'str') {
+            const time = this.datePipe.transform(data.data.data, 'hh:mm a');
+            const date = this.datePipe.transform(data.data.data, 'dd-MM-yyy');
+            this.tooltipData = 'unlocks at: ' + time + ' on ' + date;
+          } else {
+            this.tooltipData = data.data.data;
+          }
         });
-      } else {
-        this.tooltipData = 'Complete the previous steps first';
-      }
       this.tooltipShow();
     }
   }

@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import {
   COMPLETED,
+  CURERNT_STEP_UNLOCK_STATUS,
   FLOW_STEP_MARK_DONE,
   FLOW_STEPS_DATA,
 } from '@/app.constants';
@@ -59,6 +60,16 @@ export class FlowService {
 
   triggerLoad() {
     this.loadBehaviour.next(true);
+  }
+
+  getStepUnlockStatus(currentStepId: number) {
+    return this.http.get(
+      environment.API_ENDPOINT +
+        CURERNT_STEP_UNLOCK_STATUS +
+        currentStepId +
+        '/',
+      this.httpOptions,
+    );
   }
 
   getModuleUnlockTime(currStepGroup: StepGroup) {

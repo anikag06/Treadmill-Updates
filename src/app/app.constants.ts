@@ -188,6 +188,8 @@ export const IDC_USER_ANSWER_DATA =
 export const FLOW_STEPS_DATA = '/api/v1/flow/flow/';
 export const FLOW_STEP_MARK_DONE = '/api/v1/flow/step/';
 export const GET_STEP_DATA = '/api/v1/flow/steps/';
+export const CURERNT_STEP_UNLOCK_STATUS =
+  '/api/v1/flow/current-step-unlock-status/';
 
 // slides path
 export const SLIDES_FEEDBACK = '/api/v1/learn/feedback/';
