@@ -17,14 +17,14 @@
 
 
         <div class="row justify-content-center slides-elements-div">
-          <!-- <iframe [src]="sanitizedUrl" frameborder="0" class="slide_iframe"
+           <iframe [src]="sanitizedUrl" frameborder="0" class="slide_iframe"
             allowfullscreen="true"
-            mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>   -->
+            mozallowfullscreen="true" webkitallowfullscreen="true"  (load) = "onLoad()" #container></iframe>
 
-          <iframe
-            src="https://docs.google.com/presentation/d/e/2PACX-1vRU6npufMXFoVNLH3YJHuKpfsHaCeRkLEkPi6Q0hjG7WdS3JgSHccnqSeCylTYdm1Ex-jDCu1LI9XKc/embed?start=false&loop=false&delayms=6000000"
-            frameborder="0" class="slide_iframe" allowfullscreen="true" mozallowfullscreen="true" (load) = "onLoad()"
-            webkitallowfullscreen="true" #container></iframe>
+<!--          <iframe-->
+<!--            src="https://docs.google.com/presentation/d/e/2PACX-1vRU6npufMXFoVNLH3YJHuKpfsHaCeRkLEkPi6Q0hjG7WdS3JgSHccnqSeCylTYdm1Ex-jDCu1LI9XKc/embed?start=false&loop=false&delayms=6000000"-->
+<!--            frameborder="0" class="slide_iframe" allowfullscreen="true" mozallowfullscreen="true" (load) = "onLoad()"-->
+<!--            webkitallowfullscreen="true" #container></iframe>-->
 
           <app-user-feedback class="w-100 feedback-div" [disliked]='slideDisliked' [liked]='slideLiked'
             [isLastStep]='isLastStep' [lastStepCompleted]='lastStepCompleted' [showNextStepBtn]='showNextStepBtn'
