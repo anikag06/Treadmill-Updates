@@ -7,27 +7,31 @@ xdescribe('treadwill Flow Experimental Group', () => {
   let page: AppPage;
   let fp: FlowPage;
   let expUser!: any;
+  let loginTime!: number;
 
   beforeEach(() => {
     page = new AppPage();
     fp = new FlowPage();
   });
 
-  it('should show login dialog', () => {
+
+  xit('should show login dialog', () => {
     page.navigateTo();
     browser.waitForAngularEnabled(false);
     browser.sleep(1000);
     page.clickLoginLink();
     browser.sleep(2500);
     // username is hardcoded here
-    page.fillLoginForm('root_3', 'test123');
+    page.fillLoginForm('rootlbxcco', 'test123');
     expect(fp.onDashboard()).toBeTruthy('url does not contains dashboard');
-    // loginTime = page.getTime();
-    // console.log('login time', loginTime);
+    loginTime = page.getTime();
+    console.log('login time', loginTime);
     browser.sleep(1000);
   });
 
-  it('should detect whether exp or control', () => {
+  xit('should detect whether exp or control', () => {
+    loginTime = page.getTime();
+    console.log('login time', loginTime);
     page.clickBurgerBtn('button.hamburger-button');
     fp.checkUserGroup()
       .isPresent()
@@ -40,19 +44,19 @@ xdescribe('treadwill Flow Experimental Group', () => {
     browser.sleep(2000);
   });
 
-  it('should click on Introductory navigation on zero Module and run its step', () => {
+  it('Should find Introductory navigation on zero Module and run its step', () => {
     fp.checkIntroDialog();
-    // .isPresent()
-    // .then( () => {
-    //   fp.clickOnButton('Get Started');
-    // });
-    browser.sleep(2000);
-    fp.findProgressElement('Navigating TreadWill ');
-    browser.sleep(500);
-    fp.navigateToDashboard();
-    fp.findProgressElement('Points, badges, and profile ');
-    browser.sleep(500);
-    fp.navigateToDashboard();
+      console.log('CONTROL GROUP zero module', expUser);
+      fp.clickOnButton('Get Started');
+      browser.sleep(2000);
+      fp.findProgressElement('Navigating TreadWill');
+      browser.sleep(2500);
+      // fp.navigateToDashboard();
+    browser.refresh();
+      fp.findProgressElement('Points, badges, and profile ');
+      browser.sleep(500);
+      // fp.navigateToDashboard();
+    browser.refresh();
   });
 
   // it('Should find the Progress flow click zero Module and run its step', () => {
@@ -90,23 +94,25 @@ xdescribe('treadwill Flow Experimental Group', () => {
     fp.navigateToDashboard();
     expect(fp.findProgressGroupElement('Being self-aware')).toBeTruthy();
     browser.sleep(2000);
-    // fp.findProgressGroupElement('Being self-aware').click();
-    if (expUser === 'true') {
-      console.log('EXPERIMENTAL GROUP', expUser);
-      // fp.findProgressElement('Introduction'); // introduction
+      fp.findProgressElement('Introduction'); // introduction
       // fp.goToNextStep();
       fp.findProgressElement('Evaluate my thought form'); // form - virtual step
-      fp.clickBackButton();
+      // fp.clickBackButton();
+      fp.navigateToDashboard();
       fp.findProgressElement('Evaluate my thought form'); // form - virtual step
       fp.clickGoto();
       fp.findProgressElement('How you think is how you feel'); // slide
-      fp.goToNextStep('Next step');
+    fp.navigateToDashboard();
+    fp.findProgressElement('How you think is how you feel'); // slide
+    fp.goToNextStep('Next step');
       fp.findProgressElement('SupportGroup'); // support group - virtual step
-      fp.clickBackButton();
+    fp.navigateToDashboard();
       fp.findProgressElement('SupportGroup'); // support group - virtual step
       fp.clickGoto();
       fp.findProgressElement('Meet WillBot'); // introductory animation
-      // check steps to come here
+    fp.navigateToDashboard();
+
+    // check steps to come here
       fp.findProgressElement('The negative thinking trap'); // slide
       fp.goToNextStep('Next step');
       fp.findProgressElement('Sprint'); // game  - virtual step
@@ -127,9 +133,6 @@ xdescribe('treadwill Flow Experimental Group', () => {
       fp.findProgressElement('Finish module'); // conclusion- go to dashboard step
       fp.evaluateMood();
       fp.goToNextStep('Go to dashboard');
-    } else {
-      console.log('CONTROL GROUP', !expUser);
-    }
   });
 
   it(
