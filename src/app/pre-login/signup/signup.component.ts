@@ -79,9 +79,8 @@ export class SignUpComponent implements OnInit {
     this.getVariablesUsed();
     this.matchPasswords();
     this.signUpService.signUpData(this.data).subscribe(
-      (res) => {
-        this.onSignUpDone(),
-        this.showLoading = false;
+      res => {
+        this.onSignUpDone(), (this.showLoading = false);
       },
       err => {
         this.showLoading = false;
@@ -120,11 +119,10 @@ export class SignUpComponent implements OnInit {
   }
 
   matchPasswords() {
-      this.passwordMatch = false;
-      this.password = this.signupForm.value.password;
-      this.passwordConfirm = this.signupForm.value.passwordConfirm;
-    if (this.password &&
-      this.passwordConfirm) {
+    this.passwordMatch = false;
+    this.password = this.signupForm.value.password;
+    this.passwordConfirm = this.signupForm.value.passwordConfirm;
+    if (this.password && this.passwordConfirm) {
       if (
         this.password &&
         this.passwordConfirm &&
