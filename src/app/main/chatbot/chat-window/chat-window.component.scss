@@ -489,7 +489,7 @@ $x3: -$leftPos + $dotSpacing;
   font-size: 18px;
 }
 .scroll-bottom{
-  position: relative;
-  bottom: 60px;
-  right: -280px;
+  position: absolute;
+  bottom: 12px;
+  right: 8%;
 }

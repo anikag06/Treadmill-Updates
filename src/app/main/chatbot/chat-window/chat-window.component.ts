@@ -130,6 +130,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   multiLineChat: string[] = [];
   showSlider = true;
   widgetRating!: number;
+  showScrollToBottom  = false;
   ngOnChanges(): void {
     if (this.chatWindowClosed === false) {
       if (
@@ -482,7 +483,9 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
         messages[messages.length - 1].widgets === null
       ) {
         this.showTextInput = true;
-        this.scrollToBottom();
+        setTimeout(()=>{
+        this.onScrollToBottomClick();
+        },500)
       } else {
         this.showTextInput = false;
       }
@@ -650,11 +653,10 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       this.multiLineChat.push(this.message);
       this.message = '';
       setTimeout(() => {
-        this.scrollToBottom();
-      }, 300);
+        this.onScrollToBottomClick();
+      }, 500);
       this.timeout = setTimeout(
         () => {
-          // $this.onChatSubmit();
           this.submitMultiLineChat(this.multiLineChat);
           this.isMultiLineInput = false;
         },
@@ -664,7 +666,6 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   submitMultiLineChat(multiLineChat: string[]) {
-    // console.log(multiLineChat);
     this.webSocket.send(
       JSON.stringify({
         action: REPLY_CURRENT,
@@ -677,17 +678,15 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     );
     this.showTextInput = false;
     this.multiLineChat = [];
-    this.scrollToBottom();
+    this.onScrollToBottomClick();
   }
 
-  onScrollToBottom(){
+  onScrollToBottomClick(){
     if (this.messagesDiv) {
-      // console.log(this.scrollTop, this.messagesDiv.nativeElement.scrollHeight);
       this.messagesDiv.nativeElement.scrollTop = this.messagesDiv.nativeElement.scrollHeight;
       this.changRef.detectChanges();
     }
   }
-  showScrollToBottom  = false;
 
   atBottom(value:boolean){
       this.showScrollToBottom = value
