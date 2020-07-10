@@ -82,7 +82,7 @@ export class FcmService {
     console.log('participant id: ', part_id);
     return this.http.post(
       environment.API_ENDPOINT +
-        'api/v1/notifications/store-device-registration/',
+        '/api/v1/notifications/store-device-registration/',
       { participant_id: part_id, registration_id: token },
     );
   }
