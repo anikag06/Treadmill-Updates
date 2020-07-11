@@ -16,7 +16,6 @@ import {
   CONVERSATION_GROUP,
   FORM,
   GAME,
-  GAME_ATTRIBUTION_STYLE_CONSTANT,
   INTRODUCTION_PAGE,
   INTRODUCTORY_ANIMATION,
   LOCKED,
@@ -34,9 +33,8 @@ import { MatTooltip } from '@angular/material';
 import { DatePipe } from '@angular/common';
 import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifications.service';
 import { IntroService } from '@/main/walk-through/intro.service';
-import { isNotNullOrUndefined } from 'codelyzer/util/isNotNullOrUndefined';
 import { IntroDialogService } from '@/main/walk-through/intro-dialog.service';
-import { GAME_ATTRIBUTION_STYLE } from '@/main/walk-through/intro.constant';
+import { type } from 'os';
 
 @Component({
   selector: 'app-step',
@@ -273,18 +271,22 @@ export class StepComponent implements OnInit, AfterViewInit {
   }
 
   showTooltipFun() {
-    if (this.step.status === LOCKED && !this.step.virtual_step) {
-      this.flowService
-        .getStepUnlockStatus(this.step.id)
-        .subscribe((data: any) => {
-          if (data.data.type !== 'str') {
-            const time = this.datePipe.transform(data.data.data, 'hh:mm a');
-            const date = this.datePipe.transform(data.data.data, 'dd-MM-yyy');
-            this.tooltipData = 'unlocks at: ' + time + ' on ' + date;
-          } else {
-            this.tooltipData = data.data.data;
-          }
-        });
+    if (this.step.status === LOCKED && this.step.sequence === 0) {
+      this.flowService.getModuleUnlockTime(this.stepGroup.id);
+      this.flowService.unlockModuleTime.subscribe(data => {
+        if (data === false) {
+          this.tooltipShow();
+        } else if (typeof data === 'string' && !Date.parse(data)) {
+          this.tooltipData = data;
+          this.tooltipShow();
+        } else {
+          const time = this.datePipe.transform(data, 'hh:mm a');
+          const date = this.datePipe.transform(data, 'dd-MM-yyy');
+          this.tooltipData = 'Unlocks at: ' + time + ' on ' + date;
+          this.tooltipShow();
+        }
+      });
+    } else if (this.step.status === LOCKED && !this.step.virtual_step) {
       this.tooltipShow();
     }
   }
@@ -293,7 +295,7 @@ export class StepComponent implements OnInit, AfterViewInit {
     if (this.showToolTip.disabled) {
       this.showToolTip.disabled = false;
     }
-    this.showToolTip.showDelay = 300;
+    this.showToolTip.showDelay = 100;
     this.showToolTip.hideDelay = 100;
     this.showToolTip.toggle();
   }
