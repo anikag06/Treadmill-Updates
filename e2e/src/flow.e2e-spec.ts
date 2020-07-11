@@ -3,7 +3,7 @@ import { browser, by, element, logging } from 'protractor';
 import { FlowPage } from './flow/flow.po';
 import { protractor } from 'protractor/built/ptor';
 
-xdescribe('treadwill Flow Experimental Group', () => {
+describe('treadwill Flow Experimental Group', () => {
   let page: AppPage;
   let fp: FlowPage;
   let expUser!: any;

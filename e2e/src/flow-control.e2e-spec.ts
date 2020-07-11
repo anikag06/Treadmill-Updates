@@ -21,7 +21,7 @@ describe('treadwill Flow control group', () => {
     fp = new FlowPage();
   });
 
-  it('should show login dialog', () => {
+  xit('should show login dialog', () => {
     page.navigateTo();
     browser.waitForAngularEnabled(false);
     browser.sleep(1000);
@@ -35,7 +35,7 @@ describe('treadwill Flow control group', () => {
     browser.sleep(1000);
   });
 
-  it('should detect whether exp or control', () => {
+  xit('should detect whether exp or control', () => {
     loginTime = page.getTime();
     console.log('login time', loginTime);
     page.clickBurgerBtn('button.hamburger-button');
