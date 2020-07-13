@@ -49,6 +49,7 @@ export class FlowPage {
   }
 
   clickOnButton(btn: string) {
+    console.log(btn, 'clicked');
     return element(by.buttonText(btn)).click();
   }
 
@@ -96,10 +97,11 @@ export class FlowPage {
   }
 
   goToNextStep(btn: string) {
+    // content is used to identify in control group
     const content = element(by.css('.fix-content-body'));
     const button = element(by.css('button.completed-btn'));
     browser
-      .wait(this.EC.visibilityOf(content), 2 * 60 * 1000)
+      .wait(this.EC.visibilityOf(button), 2 * 60 * 1000)
       .then(() => {
         console.log('clickOnButton  Completed');
         button.click().then(() => {
@@ -159,7 +161,11 @@ export class FlowPage {
     return element.all(by.css('.back-button')).click();
   }
   clickGoto() {
-    return element.all(by.css('.goto-button')).click();
+    const gotoBtn = element(by.css('#goto_mobile'));
+    browser.wait(this.EC.visibilityOf(gotoBtn)).then(() => {
+      gotoBtn.click();
+      console.log('goto clicked');
+    });
   }
   waitForStepUnlock(txt: string) {
     console.log('waiting for step unlock');
@@ -251,5 +257,13 @@ export class FlowPage {
     this.clickOnButton('Submit');
     console.log('SURVEY COMPLETE');
     browser.sleep(1000);
+  }
+  selectVideo() {
+    const videoBtn = element(by.css('button.yes-btn'));
+    browser.wait(this.EC.visibilityOf(videoBtn)).then(() => {
+      videoBtn.click();
+      browser.sleep(2000);
+      this.clickOnButton('Back to Slides');
+    });
   }
 }
