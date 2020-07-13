@@ -169,6 +169,7 @@ export class QuestionnaireComponent implements OnInit {
   // step!: Step;
   // If questionnaire is loading
   loading = true;
+  submitting = false;
 
   // tslint:disable-next-line:max-line-length
   constructor(
@@ -218,6 +219,7 @@ export class QuestionnaireComponent implements OnInit {
       this.routing = false;
       this.dataService.setOption(this.routing);
       this.loading = false;
+      this.submitting = false;
     });
   }
 
@@ -608,6 +610,7 @@ export class QuestionnaireComponent implements OnInit {
   }
 
   savePHQNineData(phq_response: QuesUserResponseArray) {
+    this.submitting = true;
     for (let i = 0; i < 9; i++) {
       const ques_response = new QuestionnaireResponse(
         this.score[i],
@@ -669,6 +672,7 @@ export class QuestionnaireComponent implements OnInit {
   }
 
   saveGADData(gad_response: QuesUserResponseArray) {
+    this.submitting = true;
     for (let i = 0; i < 7; i++) {
       const ques_response = new QuestionnaireResponse(
         this.score[i],
@@ -683,6 +687,7 @@ export class QuestionnaireComponent implements OnInit {
       this.quizService.questionnaire_active.emit(false);
       this.quizService.post_gad(gad_response).subscribe((data: any) => {
         console.log(data);
+        this.submitting = false;
         // TODO: Darshit needs to add timer service here
         if (data.data.excluded) {
           this.trialAuthService.activateChild(true);
@@ -709,6 +714,7 @@ export class QuestionnaireComponent implements OnInit {
       this.registrationDataService
         .saveGADData(registration_gad)
         .subscribe((res_data: any) => {
+          this.submitting = false;
           console.log('gad response data', res_data);
           const userEligible = !res_data.data.excluded;
           this.registrationDataService.participationID =
@@ -726,6 +732,7 @@ export class QuestionnaireComponent implements OnInit {
   }
 
   saveSIQData(siq_response: QuesUserResponseArray) {
+    this.submitting = true;
     for (let i = 0; i < 10; i++) {
       const ques_response = new QuestionnaireResponse(
         this.score[i],

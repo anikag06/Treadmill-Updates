@@ -135,11 +135,11 @@
     </div>
   </div>
 </div>
-<ng-container *ngIf="loading">
+<ng-template *ngIf="loading || submitting">
   <div class="col-md-2 module-nav">
     <img src="assets/shared/dna-loader.svg" alt="loader" class="loader">
   </div>
-</ng-container>
+</ng-template>
 <!-- <ng-container *ngIf="!active && !loading">
   <h2>This is not available</h2>
 </ng-container> -->
