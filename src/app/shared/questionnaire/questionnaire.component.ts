@@ -170,7 +170,7 @@ export class QuestionnaireComponent implements OnInit {
   // If questionnaire is loading
   loading = true;
   submitting = false;
-
+  followup = true;
   // tslint:disable-next-line:max-line-length
   constructor(
     private quizService: QuizService,
@@ -202,6 +202,9 @@ export class QuestionnaireComponent implements OnInit {
     } else {
       this.router.navigate([DEFAULT_PATH]);
     }
+    this.flowService.showFollowUp.subscribe(() => {
+      this.followup = true;
+    });
   }
 
   loadQuiz() {
@@ -693,6 +696,8 @@ export class QuestionnaireComponent implements OnInit {
           this.trialAuthService.activateChild(true);
           this.authService.logout(false);
           this.authService.isUserExcluded = true;
+        } else if (this.followup) {
+          this.router.navigate(['/']);
         } else {
           this.flowService.markDone(this.stepId, 1003).subscribe(
             (resp: any) => {
