@@ -153,23 +153,23 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
           //console.log(data.data.messages);
           setTimeout(() => {
             data.data.messages.forEach((message: any) => {
-              this.pushImages(message);
-              this.messages.push(
-                new Chat(
-                  twemoji.parse(message.text),
-                  message.is_sender_user,
-                  [],
-                  message.mid,
-                  message.sid,
-                  message.datetime,
-                  false,
-                  [],
-                  this.images,
-                ),
-              );
-
-              this.scrollToBottom();
-              // console.log(message);
+              if(!this.isErrorMessage(message)){
+                this.pushImages(message);
+                this.messages.push(
+                  new Chat(
+                    twemoji.parse(message.text),
+                    message.is_sender_user,
+                    [],
+                    message.mid,
+                    message.sid,
+                    message.datetime,
+                    false,
+                    [],
+                    this.images,
+                  ),
+                );
+                this.scrollToBottom();
+              }
             });
           });
         }
@@ -356,7 +356,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       } else if (data.action === 'ws_close') {
         this.closeChat();
       } else {
-        this.page = 2;
+        this.page = 1;
         this.start(data.message);
       }
     };
@@ -436,7 +436,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     if (this.webSocket) {
       this.chatClosed = true;
       this.webSocket.close();
-      this.page = 2;
+      this.page = 1;
     }
     this.retries = 0;
     this.chatWindowClosedEmitter.emit(true);
@@ -586,23 +586,27 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
               '.message-text',
             );
             data.data.messages.reverse().forEach((message: any) => {
-              this.pushImages(message);
-              this.messages.unshift(
-                new Chat(
-                  twemoji.parse(message.text),
-                  message.is_sender_user,
-                  [],
-                  message.mid,
-                  message.sid,
-                  message.datetime,
-                  false,
-                  [],
-                  this.images,
-                ),
-              );
+              if(!this.isErrorMessage(message))
+              {
+                this.pushImages(message);
+                this.messages.unshift(
+                  new Chat(
+                    twemoji.parse(message.text),
+                    message.is_sender_user,
+                    [],
+                    message.mid,
+                    message.sid,
+                    message.datetime,
+                    false,
+                    [],
+                    this.images,
+                  ),
+                );
 
-              this.showSpinner = false;
-              firstMessageBox[0].scrollIntoView();
+                this.showSpinner = false;
+                firstMessageBox[0].scrollIntoView();
+              }
+
             });
           }
         });
@@ -690,5 +694,11 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
 
   atBottom(value:boolean){
       this.showScrollToBottom = value
+  }
+
+  isErrorMessage(message:any):boolean{
+    const errorMessage = "ERRORINTHEBACKEND.CHECKANDRELOAD";
+    const stripMessageText = message.text.replace(/\s+/g, '');
+    return errorMessage===stripMessageText;
   }
 }
