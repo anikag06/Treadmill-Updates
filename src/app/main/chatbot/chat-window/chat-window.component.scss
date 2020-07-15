@@ -321,7 +321,7 @@ button {
     }
     .scroll-bottom{
       position: absolute;
-      bottom: 5vh;
+      bottom: 15vh;
       right: 5vw;
     }
   }
@@ -490,6 +490,6 @@ $x3: -$leftPos + $dotSpacing;
 }
 .scroll-bottom{
   position: absolute;
-  bottom: 12px;
+  bottom: 30px;
   right: 8%;
 }
