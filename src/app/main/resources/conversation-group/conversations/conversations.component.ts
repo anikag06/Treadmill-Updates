@@ -22,7 +22,7 @@ import { FormDirective } from '../../slides/form.directive';
 import { ProblemSolvingWorksheetsComponent } from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.component';
 import { TaskFormsComponent } from '@/main/resources/forms/task-forms/task-forms.component';
 import { ThoughtRecordFormComponent } from '@/main/resources/forms/thought-record-form/thought-record-form.component';
-import {ChatImageComponent} from '@/main/chatbot/chat-window/chat-image/chat-image.component';
+import { ChatImageComponent } from '@/main/chatbot/chat-window/chat-image/chat-image.component';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
 import {
@@ -45,7 +45,7 @@ import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifica
 import { PROBLEM_SOLVING, TASK, THOUGHT_RECORD } from '@/app.constants';
 import { Subscription } from 'rxjs';
 import { UserFeedbackComponent } from '@/main/resources/shared/user-feedback/user-feedback.component';
-import {map, switchMap} from "rxjs/operators";
+import { map, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-conversations',
@@ -151,15 +151,11 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     private notificationService: NavbarNotificationsService,
     private activeroute: ActivatedRoute,
   ) {
-   this.activeroute.params.pipe(
-     map(v => v.id),
-   ).subscribe(
-     params => {
-       this.conversation_id = params;
-       this.passdata.IsConversationOn(true);
-       this.run();
-     }
-   )
+    this.activeroute.params.pipe(map(v => v.id)).subscribe(params => {
+      this.conversation_id = params;
+      this.passdata.IsConversationOn(true);
+      this.run();
+    });
   }
   //avatar_image!: any[];
   send_image!: any;
@@ -258,8 +254,6 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     });
   }
 
-
-
   run() {
     const start = this.passdata.iswhat();
     if (start[0]) {
@@ -275,7 +269,6 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   }
 
   ngDoCheck() {
-
     this.unload = this.timerservice.get_onunload();
     if (this.unload === 1 && this.onunload === false) {
       this.time = this.time + this.timerservice.removeVisibility();
@@ -335,7 +328,8 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         }
         if (current_id === true) {
           this.id = this.conversation.dialogs[0].id;
-        } else {        //For finding the id of current option if continuing the conversation
+        } else {
+          //For finding the id of current option if continuing the conversation
           {
             // tslint:disable-next-line:no-shadowed-variable
             const _id = this.currenthistory.user_response.length - 1;
@@ -365,7 +359,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         }
         this.dialog = this.dialogMap.get(this.id);
 
-        this.newLine_message = this.dialog.message.split("\n");
+        this.newLine_message = this.dialog.message.split('\n');
         this.current_message = [];
         if (this.newLine_message.length !== 1) {
           this.newLine_message.forEach((q: any) => {
@@ -447,11 +441,9 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
             () => this.loadForm(ProblemSolvingWorksheetsComponent),
             1000,
           );
-        } else if (formName === THOUGHT_RECORD){ //TODO Always true no need to add the condition
-          setTimeout(
-            () => this.loadForm(ThoughtRecordFormComponent),
-            1000,
-          );
+        } else if (formName === THOUGHT_RECORD) {
+          //TODO Always true no need to add the condition
+          setTimeout(() => this.loadForm(ThoughtRecordFormComponent), 1000);
         }
         // tslint:disable-next-line:max-line-length
         this.currenthistory = new CurrentHistory(
@@ -512,7 +504,6 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
             ].dialog_in_history.message.split('<new_line>');
 
             if (this.newLine_message.length > 1) {
-
               this.newLine_message.forEach((q: any) => {
                 this.text.message.push(q);
               });
@@ -527,7 +518,6 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
             ].option_in_history.message.split('<new_line>');
 
             if (this.newLine_dialog.length > 1) {
-
               this.newLine_dialog.forEach((q: any) => {
                 this.text.dialog.push(q);
               });
@@ -577,9 +567,8 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         this.options.push(q.option.message);
       });
     } else {
-
       this.mupltiple_line = this.dialog.dialog_has_options[0].option.message.split(
-        "\n",
+        '\n',
       );
       this.show_multiple = this.mupltiple_line.length;
       this.count_multiple = 0;
@@ -648,9 +637,9 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     // tslint:disable-next-line:max-line-length
     if (this.loopback) {
       this.loopback = false;
-       setTimeout(() => {
+      setTimeout(() => {
         this.wrong = true;
-       }, 1000);
+      }, 1000);
     } else {
       this.wrong = false;
     }
@@ -712,7 +701,6 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
             }, t);
           }
         }, t);
-
       } else {
         this.current_message.push({
           message: this.dialog.message,
@@ -761,8 +749,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       }
       setTimeout(() => {
         this.dialog_options();
-
-      }, t*5 + 1500);
+      }, t * 5 + 1500);
     }
 
     this.scrollPageToBottom();

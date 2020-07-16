@@ -5,12 +5,18 @@ import { QuestionnaireModule } from '@/questionnaire.module';
 import { MaterialModule } from '@/material.module';
 import { SafeUrlPipe } from '@/shared/safe-url.pipe';
 import { CongratsDialogComponent } from '@/main/resources/shared/congrats-dialog/congrats-dialog.component';
-import {TrimStringPipe} from "@/main/shared/trim-string.pipe";
-import {ChatVideoComponent} from "@/main/chatbot/chat-window/chat-video/chat-video.component";
-import {ChatImageComponent} from "@/main/chatbot/chat-window/chat-image/chat-image.component";
+import { TrimStringPipe } from '@/main/shared/trim-string.pipe';
+import { ChatVideoComponent } from '@/main/chatbot/chat-window/chat-video/chat-video.component';
+import { ChatImageComponent } from '@/main/chatbot/chat-window/chat-image/chat-image.component';
 
 @NgModule({
-  declarations: [SlidesVideoComponent, SafeUrlPipe, CongratsDialogComponent,ChatVideoComponent, ChatImageComponent],
+  declarations: [
+    SlidesVideoComponent,
+    SafeUrlPipe,
+    CongratsDialogComponent,
+    ChatVideoComponent,
+    ChatImageComponent,
+  ],
   imports: [CommonModule, QuestionnaireModule, MaterialModule],
   exports: [
     SlidesVideoComponent,

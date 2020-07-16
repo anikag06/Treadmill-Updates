@@ -8,7 +8,6 @@ export class ConversationGroup {
   occupation!: string;
   avatar_image!: string;
 
-
   constructor(
     id: number,
     title: string,
