@@ -195,17 +195,6 @@ export class AppPage {
       .click();
     browser.sleep(2000);
     browser.sleep(2000);
-    element(by.css('mat-radio-group[formControlName=homeScreenInfo]'))
-      .element(by.cssContainingText('mat-radio-button', 'Accept'))
-      .click();
-    browser.sleep(2000);
-    // element(by.css('mat-radio-group[formControlName=notificationsInfo]'))
-    //   .element(by.cssContainingText('mat-radio-button', 'Decline'))
-    //   .click();
-    element(by.css('mat-radio-group[formControlName=notificationsInfo]'))
-      .element(by.cssContainingText('mat-radio-button', 'Accept'))
-      .click();
-    browser.sleep(2000);
   }
   acceptAllConsentPage() {
     element.all(by.cssContainingText('mat-radio-button', 'Accept')).click();
@@ -231,10 +220,26 @@ export class AppPage {
     this.getTrialUserName();
     console.log('USERNAME', this.newUsername);
     element(by.name('username')).sendKeys(this.newUsername);
+    browser.sleep(1000);
     element(by.name('password')).sendKeys('test123');
+    browser.sleep(1000);
     element(by.name('passwordConfirm')).sendKeys('test123');
+    browser.sleep(1000);
+    element(by.css('mat-radio-group[name=homeScreenInfo]'))
+      .element(by.cssContainingText('mat-radio-button', 'Accept'))
+      .click();
+    browser.sleep(2000);
+    element(by.css('mat-radio-group[name=notificationsInfo]'))
+      .element(by.cssContainingText('mat-radio-button', 'Accept'))
+      .click();
+    browser.sleep(2000);
     element(by.css('.mat-checkbox-inner-container')).click();
     browser.sleep(5000);
+    const signupbtn = element(by.css('.signup-btn'));
+    browser.wait(this.EC.elementToBeClickable(signupbtn)).then(() => {
+      console.log('clickOnButton Signup');
+      signupbtn.click();
+    });
     element(by.css('.signup-btn')).click();
     browser.sleep(5000);
     return this.newUsername;

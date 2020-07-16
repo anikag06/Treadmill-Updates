@@ -63,6 +63,7 @@
 .card{
     width: 74vw;
   height:74vh;
+  min-height: 640px;
     background-color: white;
     //padding-top: 40px;
     //padding-bottom: 20px;
@@ -123,10 +124,10 @@
         }
   }
 
-@media screen and (max-width: 700px) {
+@media screen and (min-width: 578px) and (max-width: 700px) {
     .card{
 
-        width: 600px;
+        width: 576px;
 
         background-color: white;
         // padding: 30px;
@@ -171,9 +172,10 @@
   }
   }
 
-  @media screen and (max-width: 400px) {
+  @media screen and (max-width: 576px) {
     .card{
         width: 100%;
+        max-width: 400px;
         background-color: white;
         padding-top: 20px;
         padding-bottom: 20px;
@@ -200,27 +202,10 @@
 
 
         }
-  }
-
-  @media screen and (max-width: 360px) {
-
-
-        #bold{
+         #bold{
             line-height:25px;
             font-style: bold;
             font-size:17px;
-
-
-        }
-
-        #btn{
-
-            width: 100px;
-            margin: 5px;
-            padding: 5px;
-            font-size: 12px;
-            border-radius: 5px;
-            height: 50px;
 
 
         }

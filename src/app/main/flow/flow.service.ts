@@ -31,16 +31,16 @@ export class FlowService {
   ) {}
 
   // Http Options
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Cache-Control':
-        'no-cache, no-store, must-revalidate, post-check=0, pre-check=0',
-    }),
-  };
+  // httpOptions = {
+  //   headers: new HttpHeaders({
+  //     'Cache-Control':
+  //       'no-cache, no-store, must-revalidate, post-check=0, pre-check=0',
+  //   }),
+  // };
   getFlow() {
     return this.http.get(
       environment.API_ENDPOINT + FLOW_STEPS_DATA,
-      this.httpOptions,
+      // this.httpOptions,
     );
   }
 

@@ -49,6 +49,7 @@ export class FlowPage {
   }
 
   clickOnButton(btn: string) {
+    console.log(btn, 'clicked');
     return element(by.buttonText(btn)).click();
   }
 
@@ -96,10 +97,11 @@ export class FlowPage {
   }
 
   goToNextStep(btn: string) {
+    // content is used to identify in control group
     const content = element(by.css('.fix-content-body'));
     const button = element(by.css('button.completed-btn'));
     browser
-      .wait(this.EC.visibilityOf(content), 2 * 60 * 1000)
+      .wait(this.EC.visibilityOf(button))
       .then(() => {
         console.log('clickOnButton  Completed');
         button.click().then(() => {
@@ -135,7 +137,34 @@ export class FlowPage {
   // }
 
   showFullConv() {
-    //
+    const resetBtn = element.all(by.css('#reset')).first();
+    browser.wait(this.EC.visibilityOf(resetBtn)).then(() => {
+      resetBtn.click();
+      console.log('reset Btn');
+      // browser.sleep(2000);
+      // const backBtn = element.all(by.css('.back-button'));
+      // backBtn.click().then(() => {
+      //   console.log('back Btn clicked');
+      //   browser.sleep(2000);
+      //   const continueBtn = element.all(by.css('#continue')).first();
+      //   browser.wait(this.EC.visibilityOf(continueBtn)).then(() => {
+      //     browser.sleep(2000);
+      //     continueBtn.click();
+      //     console.log('continueBtn clicked');
+      const showConvBtn = element(by.css('#showFullConversation'));
+      browser.wait(this.EC.visibilityOf(showConvBtn)).then(() => {
+        browser.sleep(2000);
+        showConvBtn.click();
+        console.log('showConvBtn clicked');
+        const menuBtn = element(by.css('.mat-menu-item'));
+        browser.wait(this.EC.visibilityOf(menuBtn)).then(() => {
+          menuBtn.click();
+          console.log('menuBtn clicked');
+        });
+      });
+    });
+    // });
+    // });
   }
 
   goHome() {
@@ -159,7 +188,11 @@ export class FlowPage {
     return element.all(by.css('.back-button')).click();
   }
   clickGoto() {
-    return element.all(by.css('.goto-button')).click();
+    const gotoBtn = element(by.css('#goto_mobile'));
+    browser.wait(this.EC.visibilityOf(gotoBtn)).then(() => {
+      gotoBtn.click();
+      console.log('goto clicked');
+    });
   }
   waitForStepUnlock(txt: string) {
     console.log('waiting for step unlock');
@@ -251,5 +284,18 @@ export class FlowPage {
     this.clickOnButton('Submit');
     console.log('SURVEY COMPLETE');
     browser.sleep(1000);
+  }
+  selectVideo() {
+    const videoBtn = element(by.css('button.yes-btn'));
+    browser.wait(this.EC.visibilityOf(videoBtn)).then(() => {
+      videoBtn.click();
+      browser.sleep(2000);
+      this.clickOnButton('Back to Slides');
+    });
+  }
+  reload() {
+    browser.sleep(2000);
+    browser.refresh();
+    browser.sleep(2000);
   }
 }

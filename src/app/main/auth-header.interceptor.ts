@@ -20,6 +20,8 @@ export class AuthHeaderInterceptor implements HttpInterceptor {
       setHeaders: {
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + this.authService.getToken(),
+        'Cache-Control':
+          'no-cache, no-store, must-revalidate, post-check=0, pre-check=0',
       },
     });
 

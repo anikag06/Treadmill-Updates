@@ -264,10 +264,10 @@ export class SurveyComponent implements OnInit {
       .subscribe(data => {
         console.log('survey response', data);
         if (this.followUp) {
-          this.router.navigate(['main/dashboard']);
+          this.router.navigate(['/']);
         } else {
+          this.goToService.clickFlow.emit();
         }
-        this.goToService.clickFlow.emit();
       });
     this.surveyService.enableLinks.emit();
     // next step

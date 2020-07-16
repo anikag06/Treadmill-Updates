@@ -1,12 +1,14 @@
+/* tslint:disable:no-trailing-whitespace */
 import { AppPage } from './app.po';
 import { browser, by, element, logging } from 'protractor';
 import { FlowPage } from './flow/flow.po';
 import { protractor } from 'protractor/built/ptor';
 
-xdescribe('treadwill Flow Experimental Group', () => {
+describe('treadwill Flow Experimental Group', () => {
   let page: AppPage;
   let fp: FlowPage;
   let expUser!: any;
+  let loginTime!: number;
 
   beforeEach(() => {
     page = new AppPage();
@@ -20,14 +22,16 @@ xdescribe('treadwill Flow Experimental Group', () => {
     page.clickLoginLink();
     browser.sleep(2500);
     // username is hardcoded here
-    page.fillLoginForm('root_3', 'test123');
+    page.fillLoginForm('root1', 'test123');
     expect(fp.onDashboard()).toBeTruthy('url does not contains dashboard');
-    // loginTime = page.getTime();
-    // console.log('login time', loginTime);
+    loginTime = page.getTime();
+    console.log('login time', loginTime);
     browser.sleep(1000);
   });
 
-  it('should detect whether exp or control', () => {
+  xit('should detect whether exp or control', () => {
+    loginTime = page.getTime();
+    console.log('login time', loginTime);
     page.clickBurgerBtn('button.hamburger-button');
     fp.checkUserGroup()
       .isPresent()
@@ -40,96 +44,66 @@ xdescribe('treadwill Flow Experimental Group', () => {
     browser.sleep(2000);
   });
 
-  it('should click on Introductory navigation on zero Module and run its step', () => {
+  xit('Should find Introductory navigation on zero Module and run its step', () => {
     fp.checkIntroDialog();
-    // .isPresent()
-    // .then( () => {
-    //   fp.clickOnButton('Get Started');
-    // });
+    console.log('CONTROL GROUP zero module', expUser);
+    fp.clickOnButton('Get Started');
     browser.sleep(2000);
-    fp.findProgressElement('Navigating TreadWill ');
-    browser.sleep(500);
-    fp.navigateToDashboard();
+    fp.findProgressElement('Navigating TreadWill');
+    browser.sleep(2500);
+    // fp.navigateToDashboard();
+    browser.refresh();
     fp.findProgressElement('Points, badges, and profile ');
     browser.sleep(500);
-    fp.navigateToDashboard();
+    // fp.navigateToDashboard();
+    browser.refresh();
   });
-
-  // it('Should find the Progress flow click zero Module and run its step', () => {
-  //   expect(fp.getProgress()).toEqual('Progress');
-  //   browser.sleep(1000);
-  //   expect(
-  //     fp.findProgressGroupElement('Introduction to TreadWill'),
-  //   ).toBeTruthy();
-  //   // fp.findProgressGroupElement('Introduction to TreadWill').click();
-  //   if (expUser) {
-  //     console.log('EXPERIMENTAL GROUP', expUser);
-  //     browser.sleep(2000);
-  //     // fp.findProgressElement('Navigating TreadWill ');
-  //     // browser.sleep(2500);
-  //     // expect(fp.findTextbyCss('.mat-card-title')).toContain(
-  //     //   'Primary Navigation',
-  //     // );
-  //     // browser.sleep(2000);
-  //     // fp.clickOnButton('SKIP');
-  //     // fp.navigateToDashboard();
-  //     // fp.findProgressElement('Points, badges, and profile ');
-  //     // browser.sleep(2500);
-  //     // expect(fp.findTextbyCss('.mat-card-title')).toContain(
-  //     //   'Primary Navigation',
-  //     // );
-  //     // browser.sleep(2000);
-  //     // fp.clickOnButton('SKIP');
-  //     // browser.sleep(1000);
-  //   } else {
-  //     console.log('CONTROL GROUP USER', !expUser);
-  //   }
-  // });
 
   it('Should click first Module and run its step', () => {
     fp.navigateToDashboard();
     expect(fp.findProgressGroupElement('Being self-aware')).toBeTruthy();
     browser.sleep(2000);
-    // fp.findProgressGroupElement('Being self-aware').click();
-    if (expUser === 'true') {
-      console.log('EXPERIMENTAL GROUP', expUser);
-      // fp.findProgressElement('Introduction'); // introduction
-      // fp.goToNextStep();
-      fp.findProgressElement('Evaluate my thought form'); // form - virtual step
-      fp.clickBackButton();
-      fp.findProgressElement('Evaluate my thought form'); // form - virtual step
-      fp.clickGoto();
-      fp.findProgressElement('How you think is how you feel'); // slide
-      fp.goToNextStep('Next step');
-      fp.findProgressElement('SupportGroup'); // support group - virtual step
-      fp.clickBackButton();
-      fp.findProgressElement('SupportGroup'); // support group - virtual step
-      fp.clickGoto();
-      fp.findProgressElement('Meet WillBot'); // introductory animation
-      // check steps to come here
-      fp.findProgressElement('The negative thinking trap'); // slide
-      fp.goToNextStep('Next step');
-      fp.findProgressElement('Sprint'); // game  - virtual step
-      fp.clickBackButton();
-      fp.findProgressElement('Sprint'); // game  - virtual step
-      fp.clickGoto();
-      fp.findProgressElement('Depression'); // slide
-      fp.goToNextStep('Next step');
-      fp.findProgressElement('Happy face'); // game -virtual step
-      fp.clickBackButton();
-      fp.findProgressElement('Happy face'); // game -virtual step
-      fp.clickGoto();
-      fp.findProgressElement('Being self-aware'); // slide
-      fp.goToNextStep('Next step');
-      fp.findProgressElement('You are not alone'); // show full conversation //CHECK SEQUENCE
-      fp.showFullConv();
-      fp.goToNextStep('Next step');
-      fp.findProgressElement('Finish module'); // conclusion- go to dashboard step
-      fp.evaluateMood();
-      fp.goToNextStep('Go to dashboard');
-    } else {
-      console.log('CONTROL GROUP', !expUser);
-    }
+    fp.findProgressElement('Introduction'); // introduction
+    fp.goToNextStep('Next step');
+    fp.findProgressElement('Evaluate my thought form'); // form - virtual step
+    browser.refresh();
+    fp.clickGoto();
+    fp.findProgressElement('How you think is how you feel'); // slide
+    fp.selectVideo();
+    fp.goToNextStep('Next step');
+    fp.findProgressElement('SupportGroup'); // support group - virtual step
+    browser.sleep(2000);
+    browser.refresh();
+    fp.clickGoto();
+    fp.findProgressElement('Meet WillBot'); // introductory animation
+    browser.sleep(2000);
+    browser.refresh();
+    fp.clickGoto();
+    // check steps to come here
+    fp.findProgressElement('The negative thinking trap'); // slide
+    fp.goToNextStep('Next step');
+    fp.findProgressElement('Sprint'); // game  - virtual step
+    fp.reload();
+    fp.clickGoto();
+    fp.findProgressElement('Depression'); // slide
+    fp.goToNextStep('Next step');
+    fp.findProgressElement('Happy face'); // game -virtual step
+    fp.reload();
+    fp.clickGoto();
+    fp.findProgressElement('Being self-aware'); // slide
+    fp.goToNextStep('Next step');
+    fp.findProgressElement('You are not alone'); // show full conversation //CHECK SEQUENCE
+    fp.showFullConv();
+    fp.goToNextStep('Next step');
+    fp.findProgressElement('Finish module'); // conclusion- go to dashboard step
+    fp.evaluateMood();
+    page.findPhq();
+    page.fillPhq();
+    page.findSiq();
+    page.fillSiq();
+    page.findGad();
+    page.fillGad();
+    fp.goToNextStep('Go to dashboard');
   });
 
   it(
@@ -347,14 +321,14 @@ xdescribe('treadwill Flow Experimental Group', () => {
 
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser
-    const logs = await browser
-      .manage()
-      .logs()
-      .get(logging.Type.BROWSER);
-    expect(logs).not.toContain(
-      jasmine.objectContaining({
-        level: logging.Level.SEVERE,
-      } as logging.Entry),
-    );
+    // const logs = await browser
+    //   .manage()
+    //   .logs()
+    //   .get(logging.Type.BROWSER);
+    // expect(logs).not.toContain(
+    //   jasmine.objectContaining({
+    //     level: logging.Level.SEVERE,
+    //   } as logging.Entry),
+    // );
   });
 });
