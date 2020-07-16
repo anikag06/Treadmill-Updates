@@ -1,3 +1,4 @@
+/* tslint:disable:no-trailing-whitespace */
 import { AppPage } from './app.po';
 import { browser, by, element, logging } from 'protractor';
 import { FlowPage } from './flow/flow.po';
@@ -21,7 +22,7 @@ describe('treadwill Flow Experimental Group', () => {
     page.clickLoginLink();
     browser.sleep(2500);
     // username is hardcoded here
-    page.fillLoginForm('root_12', 'test123');
+    page.fillLoginForm('root1', 'test123');
     expect(fp.onDashboard()).toBeTruthy('url does not contains dashboard');
     loginTime = page.getTime();
     console.log('login time', loginTime);
@@ -58,64 +59,36 @@ describe('treadwill Flow Experimental Group', () => {
     browser.refresh();
   });
 
-  // it('Should find the Progress flow click zero Module and run its step', () => {
-  //   expect(fp.getProgress()).toEqual('Progress');
-  //   browser.sleep(1000);
-  //   expect(
-  //     fp.findProgressGroupElement('Introduction to TreadWill'),
-  //   ).toBeTruthy();
-  //   // fp.findProgressGroupElement('Introduction to TreadWill').click();
-  //   if (expUser) {
-  //     console.log('EXPERIMENTAL GROUP', expUser);
-  //     browser.sleep(2000);
-  //     // fp.findProgressElement('Navigating TreadWill ');
-  //     // browser.sleep(2500);
-  //     // expect(fp.findTextbyCss('.mat-card-title')).toContain(
-  //     //   'Primary Navigation',
-  //     // );
-  //     // browser.sleep(2000);
-  //     // fp.clickOnButton('SKIP');
-  //     // fp.navigateToDashboard();
-  //     // fp.findProgressElement('Points, badges, and profile ');
-  //     // browser.sleep(2500);
-  //     // expect(fp.findTextbyCss('.mat-card-title')).toContain(
-  //     //   'Primary Navigation',
-  //     // );
-  //     // browser.sleep(2000);
-  //     // fp.clickOnButton('SKIP');
-  //     // browser.sleep(1000);
-  //   } else {
-  //     console.log('CONTROL GROUP USER', !expUser);
-  //   }
-  // });
-
   it('Should click first Module and run its step', () => {
     fp.navigateToDashboard();
     expect(fp.findProgressGroupElement('Being self-aware')).toBeTruthy();
     browser.sleep(2000);
-    // fp.findProgressElement('Introduction'); // introduction
-    // fp.goToNextStep('Next step');
-    // fp.findProgressElement('Evaluate my thought form'); // form - virtual step
-    // fp.clickGoto();
-    // fp.findProgressElement('How you think is how you feel'); // slide
-    // fp.selectVideo();
-    // fp.goToNextStep('Next step');
-    // fp.findProgressElement('SupportGroup'); // support group - virtual step
-    // browser.refresh();
-    // fp.clickGoto();
-    // fp.findProgressElement('Meet WillBot'); // introductory animation
-    // browser.refresh();
-    // fp.clickGoto();
+    fp.findProgressElement('Introduction'); // introduction
+    fp.goToNextStep('Next step');
+    fp.findProgressElement('Evaluate my thought form'); // form - virtual step
+    browser.refresh();
+    fp.clickGoto();
+    fp.findProgressElement('How you think is how you feel'); // slide
+    fp.selectVideo();
+    fp.goToNextStep('Next step');
+    fp.findProgressElement('SupportGroup'); // support group - virtual step
+    browser.sleep(2000);
+    browser.refresh();
+    fp.clickGoto();
+    fp.findProgressElement('Meet WillBot'); // introductory animation
+    browser.sleep(2000);
+    browser.refresh();
+    fp.clickGoto();
     // check steps to come here
-    // fp.findProgressElement('The negative thinking trap'); // slide
-    // fp.goToNextStep('Next step');
-    // fp.findProgressElement('Sprint'); // game  - virtual step
-    // browser.refresh();
-    // fp.clickGoto();
+    fp.findProgressElement('The negative thinking trap'); // slide
+    fp.goToNextStep('Next step');
+    fp.findProgressElement('Sprint'); // game  - virtual step
+    fp.reload();
+    fp.clickGoto();
     fp.findProgressElement('Depression'); // slide
     fp.goToNextStep('Next step');
     fp.findProgressElement('Happy face'); // game -virtual step
-    browser.refresh();
+    fp.reload();
     fp.clickGoto();
     fp.findProgressElement('Being self-aware'); // slide
     fp.goToNextStep('Next step');
