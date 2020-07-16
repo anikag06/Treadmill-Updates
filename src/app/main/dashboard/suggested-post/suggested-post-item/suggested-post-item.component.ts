@@ -37,7 +37,7 @@ export class SuggestedPostItemComponent implements OnInit {
     let queryParams = {};
     if (this.id) {
       queryParams = { id: this.id };
-      this.router.navigate(['/support-groups'], {
+      this.router.navigate(['/main/support-groups'], {
         relativeTo: this.route,
         queryParams: queryParams,
         queryParamsHandling: 'merge',

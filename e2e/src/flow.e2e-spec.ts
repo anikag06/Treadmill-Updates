@@ -62,26 +62,26 @@ describe('treadwill Flow Experimental Group', () => {
   xit(
     'Should click first Module and run its step',
     () => {
-      // fp.navigateToDashboard();
-      // expect(fp.findProgressGroupElement('Being self-aware')).toBeTruthy();
-      // browser.sleep(2000);
-      // fp.findProgressElement('Introduction'); // introduction
-      // fp.goToNextStep('Next step');
-      // fp.findProgressElement('Evaluate my thought form'); // form - virtual step
-      // fp.reload();
-      // fp.clickGoto();
-      // fp.findProgressElement('How you think is how you feel'); // slide
-      // fp.selectVideo();
-      // fp.goToNextStep('Next step');
-      // fp.findProgressElement('SupportGroup'); // support group - virtual step
-      // browser.sleep(2000);
-      // fp.reload();
-      // fp.clickGoto();
-      // fp.findProgressElement('Meet WillBot'); // introductory animation
-      // browser.sleep(2000);
-      // fp.reload();
-      // fp.clickGoto();
-      // // check steps to come here
+      fp.navigateToDashboard();
+      expect(fp.findProgressGroupElement('Being self-aware')).toBeTruthy();
+      browser.sleep(2000);
+      fp.findProgressElement('Introduction'); // introduction
+      fp.goToNextStep('Next step');
+      fp.findProgressElement('Evaluate my thought form'); // form - virtual step
+      fp.reload();
+      fp.clickGoto();
+      fp.findProgressElement('How you think is how you feel'); // slide
+      fp.selectVideo();
+      fp.goToNextStep('Next step');
+      fp.findProgressElement('SupportGroup'); // support group - virtual step
+      browser.sleep(2000);
+      fp.reload();
+      fp.clickGoto();
+      fp.findProgressElement('Meet WillBot'); // introductory animation
+      browser.sleep(2000);
+      fp.reload();
+      fp.clickGoto();
+      // check steps to come here
       fp.findProgressElement('The negative thinking trap'); // slide
       fp.goToNextStep('Next step');
       fp.findProgressElement('Sprint'); // game  - virtual step
@@ -160,20 +160,48 @@ describe('treadwill Flow Experimental Group', () => {
     'Should click third Module and run its step',
     () => {
       fp.navigateToDashboard();
-      expect(
-        browser //
-          .wait(protractor.ExpectedConditions.urlContains('dashboard'))
-          .catch(() => false),
-      ).toBeTruthy('Url match could not succced');
       expect(fp.findProgressGroupElement('Evaluating thoughts')).toBeTruthy();
       browser.sleep(2000);
       fp.findProgressElement('Introduction');
       browser.sleep(2000);
       fp.goToNextStep('Next step');
-      fp.findProgressElement('Evaluate my thought form');
+      fp.findProgressElement('What is going through your mind?');
       fp.goToNextStep('Next step');
+      fp.findProgressElement('Imagery');
+      fp.reload();
+      fp.clickGoto();
+      fp.findProgressElement('Common Thinking errors');
+      fp.goToNextStep('Next step');
+      fp.findProgressElement('GIVE A NAME 4.5 ');
+      fp.showFullConv();
+      fp.goToNextStep('Next step');
+      fp.findProgressElement('Thinking errors');
+      fp.reload();
+      fp.clickGoto();
+      fp.findProgressElement('Evaluating thoughts');
+      fp.reload();
+      fp.clickGoto();
+      fp.findProgressElement('GIVE A NAME 4.8');
+      fp.showFullConv();
+      fp.goToNextStep('Next step');
+      fp.findProgressElement('Solve my problem form');
+      fp.reload();
+      fp.clickGoto();
+      fp.findProgressElement('Help us improve');
+      fp.fillSurveyForm();
+      browser.sleep(2000);
+      fp.goToNextStep('Next step');
+      fp.findProgressElement('Finish module');
+      fp.evaluateMood();
+      page.findPhq();
+      page.fillPhq();
+      page.findSiq();
+      page.fillSiq();
+      page.findGad();
+      page.fillGad();
+      fp.goToNextStep('Go to dashboard');
     },
-    20 * 60 * 1000,
+    100 * 60 * 1000,
   );
 
   it(
@@ -185,19 +213,36 @@ describe('treadwill Flow Experimental Group', () => {
           .wait(protractor.ExpectedConditions.urlContains('dashboard'))
           .catch(() => false),
       ).toBeTruthy('Url match could not succced');
-      expect(fp.findProgressGroupElement(' Modifying beliefs ')).toBeTruthy();
+      expect(fp.findProgressGroupElement('Modifying beliefs ')).toBeTruthy();
       browser.sleep(2000);
-      // fp.findProgressGroupElement('Being self-aware').click();
-      if (expUser === 'true') {
         console.log('EXPERIMENTAL GROUP', expUser);
-        fp.findProgressElement('Introduction ');
+        fp.findProgressElement('Introduction');
         browser.sleep(2000);
         fp.goToNextStep('Next step');
-        expect(fp.getProgress()).toEqual('Progress');
-        fp.findProgressElement('Evaluate my thought form');
+        fp.findProgressElement('You are what you believe');
         fp.goToNextStep('Next step');
-      } else {
-      }
+        fp.findProgressElement('Be mindful ');
+        fp.reload();
+        fp.clickGoto();
+        fp.goToNextStep('Next step');
+        fp.findProgressElement('Modifying beliefs');
+        fp.goToNextStep('Next step');
+        fp.findProgressElement('GIVE A NAME 5.5');
+        fp.showFullConv();
+        fp.goToNextStep('Next step');
+        fp.findProgressElement('Test my belief form');
+        fp.reload();
+        fp.clickGoto();
+        fp.findProgressElement('Finish module');
+        fp.evaluateMood();
+        page.findPhq();
+        page.fillPhq();
+        page.findSiq();
+        page.fillSiq();
+        page.findGad();
+        page.fillGad();
+        fp.goToNextStep('Go to dashboard');
+
     },
     20 * 60 * 1000,
   );
@@ -206,22 +251,28 @@ describe('treadwill Flow Experimental Group', () => {
     'Should click fifth Module and run its step',
     () => {
       fp.navigateToDashboard();
-      expect(
-        browser //
-          .wait(protractor.ExpectedConditions.urlContains('dashboard'))
-          .catch(() => false),
-      ).toBeTruthy('Url match could not succced');
       expect(fp.findProgressGroupElement('Worrying Productively')).toBeTruthy();
-      browser.sleep(2000);
-      // fp.findProgressGroupElement('Being self-aware').click();
-      if (expUser === 'true') {
-        console.log('EXPERIMENTAL GROUP', expUser);
-        fp.findProgressElement('Introduction ');
-        browser.sleep(2000);
+        fp.findProgressElement('Introduction');
         fp.goToNextStep('Next step');
-      } else {
-        console.log('CONTROL GROUP', !expUser);
-      }
+        fp.findProgressElement('Worrywart');
+        fp.goToNextStep('Next step');
+        fp.findProgressElement('Testimonials');
+        fp.reload();
+        fp.clickGoto();
+        fp.findProgressElement('Worrying productively ');
+        fp.goToNextStep('Next step');
+        fp.findProgressElement('GIVE A NAME 6.5 ');
+        fp.showFullConv();
+        fp.goToNextStep('Next step');
+        fp.findProgressElement('Finish module');
+        fp.evaluateMood();
+        page.findPhq();
+        page.fillPhq();
+        page.findSiq();
+        page.fillSiq();
+        page.findGad();
+        page.fillGad();
+        fp.goToNextStep('Go to dashboard');
     },
     20 * 60 * 1000,
   );
@@ -230,25 +281,29 @@ describe('treadwill Flow Experimental Group', () => {
     'Should click sixth Module and run its step',
     () => {
       fp.navigateToDashboard();
-      expect(
-        browser //
-          .wait(protractor.ExpectedConditions.urlContains('dashboard'))
-          .catch(() => false),
-      ).toBeTruthy('Url match could not succced');
-      expect(fp.findProgressGroupElement(' Modifying beliefs ')).toBeTruthy();
+      expect(fp.findProgressGroupElement('Staying happy')).toBeTruthy();
       browser.sleep(2000);
-      // fp.findProgressGroupElement('Being self-aware').click();
-      if (expUser === 'true') {
-        console.log('EXPERIMENTAL GROUP', expUser);
-        fp.findProgressElement('Introduction ');
+
+        fp.findProgressElement('Going forward');
         browser.sleep(2000);
         fp.goToNextStep('Next step');
-        expect(fp.getProgress()).toEqual('Progress');
-        fp.findProgressElement('Evaluate my thought form');
+        fp.findProgressElement('Happily ever after(?)');
         fp.goToNextStep('Next step');
-      } else {
-        console.log('CONTROL GROUP', !expUser);
-      }
+      fp.findProgressElement('GIVE A NAME 7.3');
+      fp.reload();
+      fp.clickGoto();
+      fp.findProgressElement('Help us improve');
+      fp.fillSurveyForm();
+      browser.sleep(2000);
+        fp.findProgressElement('Finish module');
+        fp.evaluateMood();
+        page.findPhq();
+        page.fillPhq();
+        page.findSiq();
+        page.fillSiq();
+        page.findGad();
+        page.fillGad();
+        fp.goToNextStep('Go to dashboard');
     },
     20 * 60 * 1000,
   );
