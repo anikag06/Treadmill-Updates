@@ -35,6 +35,5 @@ export class ChatImageComponent implements OnInit {
 
   changeLoading() {
     this.image.showSpinner = false;
-    // this.dataLoaded = true;
   }
 }
