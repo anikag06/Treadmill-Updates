@@ -22,7 +22,7 @@ describe('treadwill Flow Experimental Group', () => {
     page.clickLoginLink();
     browser.sleep(2500);
     // username is hardcoded here
-    page.fillLoginForm('root1', 'test123');
+    page.fillLoginForm('root_exp', 'test123');
     expect(fp.onDashboard()).toBeTruthy('url does not contains dashboard');
     loginTime = page.getTime();
     console.log('login time', loginTime);
@@ -52,81 +52,108 @@ describe('treadwill Flow Experimental Group', () => {
     fp.findProgressElement('Navigating TreadWill');
     browser.sleep(2500);
     // fp.navigateToDashboard();
-    browser.refresh();
+    fp.reload();
     fp.findProgressElement('Points, badges, and profile ');
     browser.sleep(500);
     // fp.navigateToDashboard();
-    browser.refresh();
+    fp.reload();
   });
 
-  it('Should click first Module and run its step', () => {
-    fp.navigateToDashboard();
-    expect(fp.findProgressGroupElement('Being self-aware')).toBeTruthy();
-    browser.sleep(2000);
-    fp.findProgressElement('Introduction'); // introduction
-    fp.goToNextStep('Next step');
-    fp.findProgressElement('Evaluate my thought form'); // form - virtual step
-    browser.refresh();
-    fp.clickGoto();
-    fp.findProgressElement('How you think is how you feel'); // slide
-    fp.selectVideo();
-    fp.goToNextStep('Next step');
-    fp.findProgressElement('SupportGroup'); // support group - virtual step
-    browser.sleep(2000);
-    browser.refresh();
-    fp.clickGoto();
-    fp.findProgressElement('Meet WillBot'); // introductory animation
-    browser.sleep(2000);
-    browser.refresh();
-    fp.clickGoto();
-    // check steps to come here
-    fp.findProgressElement('The negative thinking trap'); // slide
-    fp.goToNextStep('Next step');
-    fp.findProgressElement('Sprint'); // game  - virtual step
-    fp.reload();
-    fp.clickGoto();
-    fp.findProgressElement('Depression'); // slide
-    fp.goToNextStep('Next step');
-    fp.findProgressElement('Happy face'); // game -virtual step
-    fp.reload();
-    fp.clickGoto();
-    fp.findProgressElement('Being self-aware'); // slide
-    fp.goToNextStep('Next step');
-    fp.findProgressElement('You are not alone'); // show full conversation //CHECK SEQUENCE
-    fp.showFullConv();
-    fp.goToNextStep('Next step');
-    fp.findProgressElement('Finish module'); // conclusion- go to dashboard step
-    fp.evaluateMood();
-    page.findPhq();
-    page.fillPhq();
-    page.findSiq();
-    page.fillSiq();
-    page.findGad();
-    page.fillGad();
-    fp.goToNextStep('Go to dashboard');
-  });
+  xit(
+    'Should click first Module and run its step',
+    () => {
+      // fp.navigateToDashboard();
+      // expect(fp.findProgressGroupElement('Being self-aware')).toBeTruthy();
+      // browser.sleep(2000);
+      // fp.findProgressElement('Introduction'); // introduction
+      // fp.goToNextStep('Next step');
+      // fp.findProgressElement('Evaluate my thought form'); // form - virtual step
+      // fp.reload();
+      // fp.clickGoto();
+      // fp.findProgressElement('How you think is how you feel'); // slide
+      // fp.selectVideo();
+      // fp.goToNextStep('Next step');
+      // fp.findProgressElement('SupportGroup'); // support group - virtual step
+      // browser.sleep(2000);
+      // fp.reload();
+      // fp.clickGoto();
+      // fp.findProgressElement('Meet WillBot'); // introductory animation
+      // browser.sleep(2000);
+      // fp.reload();
+      // fp.clickGoto();
+      // // check steps to come here
+      fp.findProgressElement('The negative thinking trap'); // slide
+      fp.goToNextStep('Next step');
+      fp.findProgressElement('Sprint'); // game  - virtual step
+      fp.reload();
+      fp.clickGoto();
+      fp.findProgressElement('Depression'); // slide
+      fp.goToNextStep('Next step');
+      fp.findProgressElement('Happy face'); // game -virtual step
+      fp.reload();
+      fp.clickGoto();
+      fp.findProgressElement('Being self-aware'); // slide
+      fp.goToNextStep('Next step');
+      fp.findProgressElement('You are not alone'); // show full conversation //CHECK SEQUENCE
+      fp.showFullConv();
+      fp.goToNextStep('Next step');
+      fp.findProgressElement('Finish module'); // conclusion- go to dashboard step
+      fp.evaluateMood();
+      page.findPhq();
+      page.fillPhq();
+      page.findSiq();
+      page.fillSiq();
+      page.findGad();
+      page.fillGad();
+      fp.goToNextStep('Go to dashboard');
+    },
+    100 * 60 * 1000,
+  );
 
-  it(
+  xit(
     'Should click second Module and run its step',
     () => {
       expect(
         fp.findProgressGroupElement('Making good things happen '),
       ).toBeTruthy();
       browser.sleep(2000);
-      // fp.findProgressGroupElement('Being self-aware').click();
-      if (expUser === 'true') {
-        console.log('EXPERIMENTAL GROUP', expUser);
-        fp.findProgressElement('Introduction ');
-        browser.sleep(2000);
-        fp.goToNextStep('Next step');
-        expect(fp.getProgress()).toEqual('Progress');
-        fp.findProgressElement('Evaluate my thought form');
-        fp.goToNextStep('Next step');
-      } else {
-        console.log('CONTROL GROUP', !expUser);
-      }
+      console.log('EXPERIMENTAL GROUP', expUser);
+      fp.findProgressElement('Introduction');
+      fp.goToNextStep('Next step');
+      fp.findProgressElement("It's a trap");
+      fp.goToNextStep('Next step');
+      fp.findProgressElement('Word jumble ');
+      fp.reload();
+      fp.clickGoto();
+      fp.findProgressElement('Making good things happen');
+      fp.goToNextStep('Next step');
+      fp.findProgressElement('Make time for yourself');
+      fp.showFullConv();
+      fp.goToNextStep('Next step');
+      fp.findProgressElement('Balloon burst');
+      fp.reload();
+      fp.clickGoto();
+      fp.findProgressElement('Work SMART, not hard');
+      fp.goToNextStep('Next step');
+      fp.findProgressElement('Solve it');
+      fp.reload();
+      fp.clickGoto();
+      fp.findProgressElement('Give credit to yourself');
+      fp.goToNextStep('Next step');
+      fp.findProgressElement('One step at a time');
+      fp.showFullConv();
+      fp.goToNextStep('Next step');
+      fp.findProgressElement('Finish module');
+      fp.evaluateMood();
+      page.findPhq();
+      page.fillPhq();
+      page.findSiq();
+      page.fillSiq();
+      page.findGad();
+      page.fillGad();
+      fp.goToNextStep('Go to dashboard');
     },
-    15 * 60 * 1000,
+    100 * 60 * 1000,
   );
 
   it(
@@ -140,18 +167,11 @@ describe('treadwill Flow Experimental Group', () => {
       ).toBeTruthy('Url match could not succced');
       expect(fp.findProgressGroupElement('Evaluating thoughts')).toBeTruthy();
       browser.sleep(2000);
-      // fp.findProgressGroupElement('Evaluating thoughts');
-      if (expUser === 'true') {
-        console.log('EXPERIMENTAL GROUP', expUser);
-        fp.findProgressElement('Introduction ');
-        browser.sleep(2000);
-        fp.goToNextStep('Next step');
-        expect(fp.getProgress()).toEqual('Progress');
-        fp.findProgressElement('Evaluate my thought form');
-        fp.goToNextStep('Next step');
-      } else {
-        console.log('CONTROL GROUP', !expUser);
-      }
+      fp.findProgressElement('Introduction');
+      browser.sleep(2000);
+      fp.goToNextStep('Next step');
+      fp.findProgressElement('Evaluate my thought form');
+      fp.goToNextStep('Next step');
     },
     20 * 60 * 1000,
   );
@@ -295,29 +315,6 @@ describe('treadwill Flow Experimental Group', () => {
   //   expect(fp.getProgress()).toEqual('Progress');
   // });
   //
-  // xit('Should be able to check Slide', () => {
-  //   browser.sleep(2000);
-  //   fp.findProgressElement('Slide 1');
-  //   browser.sleep(3000);
-  //   fp.clickOnButton('Mark as complete');
-  //   browser.sleep(2000);
-  //   fp.clickOnText('#next-step-btn');
-  //   browser.sleep(2000);
-  //   fp.navigateToDashboard();
-  //   browser.sleep(2000);
-  // });
-  //
-  // xit('Should be able to check conversation', () => {
-  //   browser.sleep(2000);
-  //   fp.findProgressElement('Conversation');
-  //   browser.sleep(3000);
-  //   fp.clickOnButton('reset');
-  //   // browser.sleep(2000);
-  //   // fp.clickOnButton('Completed');
-  //   // browser.sleep(2000);
-  //   fp.navigateToDashboard();
-  //   browser.sleep(2000);
-  // });
 
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser

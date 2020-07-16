@@ -87,16 +87,17 @@ export class FlowPage {
       .wait(this.EC.presenceOf(element(by.css('h6.progress-heading-mobile'))))
       .then(() => {
         element(by.css('.flow-scroll-inner'))
-          .element(by.cssContainingText('.step-content', txt))
+          .element(by.cssContainingText('.step-content.active', txt))
           .click()
           .then(() => {
             console.log('STEP :', txt, 'clicked');
-            browser.sleep(1000);
+            browser.sleep(2000);
           });
       });
   }
 
   goToNextStep(btn: string) {
+    browser.sleep(2000);
     // content is used to identify in control group
     const content = element(by.css('.fix-content-body'));
     const button = element(by.css('button.completed-btn'));
@@ -106,6 +107,7 @@ export class FlowPage {
         console.log('clickOnButton  Completed');
         button.click().then(() => {
           if (btn === 'Next step') {
+            browser.sleep(2000);
             const nextStepBtn = element(
               by.cssContainingText('button', 'Next step'),
             );
@@ -114,6 +116,7 @@ export class FlowPage {
             });
           }
           if (btn === 'Go to dashboard') {
+            browser.sleep(6000);
             const dashboardBtn = element(
               by.cssContainingText('button', 'Go to dashboard'),
             );
