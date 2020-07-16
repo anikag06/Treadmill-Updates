@@ -7,7 +7,15 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ChatImageComponent implements OnInit {
   @Input() image!: any;
-  ngOnInit() {}
+  @Input() fromConversation! : boolean;
+  dataLoaded = false;
+  skeletonText!: string;
+  ngOnInit() {
+    setTimeout(()=>{
+       this.dataLoaded = true;
+    },2000)
+    this.skeletonText = this.image.creditsGIF ? "GIF" : "IMG";
+  }
 
   changeUrl() {
     if (this.image && this.image.dynamic_url) {

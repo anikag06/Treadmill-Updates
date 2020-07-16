@@ -105,7 +105,7 @@ export class ConversationGroupComponent implements OnInit {
   reset(i: number) {
     this.conversation_id = this.group[i].id;
     this.passdata.setOption(this.conversation_id, true, false, false);
-    this.router.navigate(['/main/resources/conversations']);
+    this.router.navigate(['/main/resources/conversations/' + this.conversation_id]);
   }
 
   current_history(i: number) {
@@ -114,7 +114,7 @@ export class ConversationGroupComponent implements OnInit {
     this.passdata.setOption(this.conversation_id, false, true, false);
     console.log('event emitted');
     this.notificationService.showFullConvIcon.emit();
-    this.router.navigate(['main/resources/conversations']);
+    this.router.navigate(['main/resources/conversations/'+ this.conversation_id]);
     // this.router.navigate([this.nextLink()]);
   }
   // TO DO : for adding step id in url

@@ -7,12 +7,13 @@ export class PassDataService {
   private iscontinue!: boolean;
   private isspeedrun!: boolean;
   private conversation_id!: number;
-  private array = [false, false, false];
+  private array = [false, true, false];
   private id = [0, false, 0];
   private formname!: string;
   private current_id!: number;
   private islast!: boolean;
   private nextstep!: number;
+  route = false;
 
   setid(current: number, islast: boolean, nextstep: number) {
     this.current_id = current;
@@ -45,7 +46,7 @@ export class PassDataService {
   }
 
   get_current_id() {
-    this.current_id = 24;
+    this.current_id = 86;
     return this.current_id;
   }
 
@@ -65,5 +66,9 @@ export class PassDataService {
 
   getFormName() {
     return this.formname;
+  }
+
+  IsConversationOn(value: boolean) {
+    this.route = value;
   }
 }

@@ -21,7 +21,8 @@ import { PassDataService } from '../passdata.service';
 import { FormDirective } from '../../slides/form.directive';
 import { ProblemSolvingWorksheetsComponent } from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.component';
 import { TaskFormsComponent } from '@/main/resources/forms/task-forms/task-forms.component';
-
+import { ThoughtRecordFormComponent } from '@/main/resources/forms/thought-record-form/thought-record-form.component';
+import {ChatImageComponent} from '@/main/chatbot/chat-window/chat-image/chat-image.component';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
 import {
@@ -41,9 +42,10 @@ import { StepCompleteData } from '../../shared/completion-data.model';
 import { StepsDataService } from '../../shared/steps-data.service';
 import { environment } from 'environments/environment';
 import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifications.service';
-import { PROBLEM_SOLVING, TASK } from '@/app.constants';
+import { PROBLEM_SOLVING, TASK, THOUGHT_RECORD } from '@/app.constants';
 import { Subscription } from 'rxjs';
 import { UserFeedbackComponent } from '@/main/resources/shared/user-feedback/user-feedback.component';
+import {map, switchMap} from "rxjs/operators";
 
 @Component({
   selector: 'app-conversations',
@@ -147,7 +149,18 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     private flowStepService: FlowStepNavigationService,
     private stepDataService: StepsDataService,
     private notificationService: NavbarNotificationsService,
-  ) {}
+    private activeroute: ActivatedRoute,
+  ) {
+   this.activeroute.params.pipe(
+     map(v => v.id),
+   ).subscribe(
+     params => {
+       this.conversation_id = params;
+       this.passdata.IsConversationOn(true);
+       this.run();
+     }
+   )
+  }
   //avatar_image!: any[];
   send_image!: any;
   show_avatar_image!: any;
@@ -220,15 +233,21 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   @ViewChild('form_div', { static: false }) formDiv!: ElementRef;
   @ViewChild('convDiv', { static: false }) convDiv!: ElementRef;
 
-  b = new Map<number, Dialog>();
+  dialogMap = new Map<number, Dialog>();
+  type = 'image';
+  //imageURL = "https://www.api2.treadwill.org/media/conversations/GIF_1_kQiubsD.gif"
+  imageURL = {
+    url: 'https://www.api2.treadwill.org/media/conversations/GIF_1_kQiubsD.gif',
+    creditsGIF: false,
+  };
 
   ngOnInit() {
-    this.conversation_id = this.passdata.getid();
-    console.log('CONV ID', this.current_id, this.conversation_id);
-
-    this.run();
-
-    this.send_image = './Send.png';
+    // this.conversation_id = this.passdata.getid();
+    //
+    // console.log('CONV ID', this.current_id, this.conversation_id);
+    // this.passdata.IsConversationOn(true);
+    // this.run();
+    this.send_image = '../../../../assets/conversations/Send.png';
     this.show_avatar_image =
       'https://www.api2.treadwill.org/media/conversations/avataaars.png';
     this.timerservice.visibility();
@@ -239,21 +258,24 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     });
   }
 
+
+
   run() {
     const start = this.passdata.iswhat();
-    if (start[0] === true) {
+    if (start[0]) {
       this.finished = false;
       this.reset();
       console.log('its reset');
-    } else if (start[1] === true) {
+    } else if (start[1]) {
       this.current_history();
       console.log('its continue');
-    } else if (start[2] === true) {
+    } else if (start[2]) {
       this.speed_run();
     }
   }
 
   ngDoCheck() {
+
     this.unload = this.timerservice.get_onunload();
     if (this.unload === 1 && this.onunload === false) {
       this.time = this.time + this.timerservice.removeVisibility();
@@ -275,6 +297,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       false,
       false,
     );
+    this.passdata.IsConversationOn(false);
     this.notificationService.removeFullConvIcon.emit();
   }
 
@@ -292,12 +315,12 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
           res.gender,
           res.dialog_options,
         );
-        console.log(this.conversation);
+        // console.log(this.conversation);
         this.title = this.conversation.title;
         this.gender = this.conversation.gender;
         this.final_conclusion_message = this.conversation.final_conclusion_message;
         this.length_conversation = this.conversation.dialogs.length;
-        console.log(this.length_conversation);
+        // console.log(this.length_conversation);
         this.wrong = false;
         this.index = 1;
         this.speedrun = false;
@@ -305,14 +328,14 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         this.text = new Texting();
 
         for (let j = 0; j < this.conversation.dialogs.length; j++) {
-          this.b.set(
+          this.dialogMap.set(
             this.conversation.dialogs[j].id,
             this.conversation.dialogs[j],
           );
         }
         if (current_id === true) {
           this.id = this.conversation.dialogs[0].id;
-        } else {
+        } else {        //For finding the id of current option if continuing the conversation
           {
             // tslint:disable-next-line:no-shadowed-variable
             const _id = this.currenthistory.user_response.length - 1;
@@ -340,19 +363,11 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
             this.id = current;
           }
         }
-        this.dialog = this.b.get(this.id);
-        //this.text.message = this.dialog.message;
-        // let e = document.createElement('html');
-        // e.innerHTML = this.dialog.message;
-        // this.newLine_message = e.getElementsByTagName('new_line');
-        // //this.Image = e.getElementsByTagName('image');
-        // console.log(this.newLine_message);
-        this.newLine_message = this.dialog.message.split('<new_line>');
+        this.dialog = this.dialogMap.get(this.id);
+
+        this.newLine_message = this.dialog.message.split("\n");
         this.current_message = [];
-        if (this.newLine_message.length != 1) {
-          // for(let n = 0; n < this.newLine_message; n++){
-          //   this.text.message[n] = e.getElementsByTagName('new_line')[n].innerHTML;
-          // }
+        if (this.newLine_message.length !== 1) {
           this.newLine_message.forEach((q: any) => {
             this.text.message.push(q);
             this.current_message.push({
@@ -393,11 +408,11 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     this.conversationsService
       .get(
         environment.API_ENDPOINT +
-          '/api/v1/conversation/history/current/?conversation_id=' +
+          '/api/v1/conversation/history/?conversation_id=' +
           this.conversation_id,
       )
       .subscribe((res: any) => {
-        console.log(res);
+        // console.log(res);
         this.conversationsService
           .getFeedBackInfo(this.conversation_id)
           .subscribe(feedback_data => {
@@ -423,25 +438,30 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
           );
         }
         // const formName = this.passdata.getFormName();
-        const formName = TASK;
+        const formName = THOUGHT_RECORD;
         console.log(this.passdata.getFormName());
-        if (formName === TASK) {
+        if (this.passdata.getFormName() === TASK) {
           setTimeout(() => this.loadForm(TaskFormsComponent), 1000);
-        } else if (formName === PROBLEM_SOLVING) {
+        } else if (this.passdata.getFormName() === PROBLEM_SOLVING) {
           setTimeout(
             () => this.loadForm(ProblemSolvingWorksheetsComponent),
+            1000,
+          );
+        } else if (formName === THOUGHT_RECORD){ //TODO Always true no need to add the condition
+          setTimeout(
+            () => this.loadForm(ThoughtRecordFormComponent),
             1000,
           );
         }
         // tslint:disable-next-line:max-line-length
         this.currenthistory = new CurrentHistory(
-          res.data.id,
-          res.data.conversation_id,
-          res.data.is_completed,
-          res.data.created_at,
-          res.data.completion_datetime,
-          res.data.time_taken_to_complete_in_seconds,
-          res.data.user_response,
+          res.results[0].id,
+          res.results[0].conversation_id,
+          res.results[0].is_completed,
+          res.results[0].created_at,
+          res.results[0].completion_datetime,
+          res.results[0].time_taken_to_complete_in_seconds,
+          res.results[0].user_response,
         );
         this.history_id = this.currenthistory.id;
         this.show = [];
@@ -454,7 +474,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         } else {
           if (this.currenthistory.time_taken_to_complete_in_seconds !== null) {
             this.time = this.currenthistory.time_taken_to_complete_in_seconds;
-            console.log(this.time);
+            // console.log(this.time);
           }
           const length = this.currenthistory.user_response.length;
           for (let y = 0; y < length; y++) {
@@ -470,7 +490,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
                 this.currenthistory.user_response[y].dialog_in_history
                   .dialog_images[t].type === 'AVATAR' &&
                 this.currenthistory.user_response[y].dialog_in_history
-                  .dialog_images.length != 0
+                  .dialog_images.length !== 0
               ) {
                 this.text.show_avatar_image = this.currenthistory.user_response[
                   y
@@ -482,26 +502,17 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
             }
             if (
               this.currenthistory.user_response[y].dialog_in_history
-                .dialog_images.length == 0
+                .dialog_images.length === 0
             ) {
               this.text.show_avatar_image = this.show_avatar_image;
             }
 
-            // let e = document.createElement('html');
-            //  e.innerHTML = this.currenthistory.user_response[
-            //    y
-            //    ].dialog_in_history.message;
-            // this.newLine_message = e.getElementsByTagName('new_line');
-            //this.Image = e.getElementsByTagName('image');
-            // console.log(this.newLine_message);
             this.newLine_message = this.currenthistory.user_response[
               y
             ].dialog_in_history.message.split('<new_line>');
 
             if (this.newLine_message.length > 1) {
-              // for(let n = 0; n < this.newLine_message; n++){
-              //     this.text.message[n] = e.getElementsByTagName('new_line')[n].innerHTML;
-              // }
+
               this.newLine_message.forEach((q: any) => {
                 this.text.message.push(q);
               });
@@ -511,24 +522,12 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
               );
             }
 
-            // this.text.dialog = this.currenthistory.user_response[
-            //   y
-            // ].option_in_history.message;
-            // e.innerHTML = this.currenthistory.user_response[
-            //   y
-            //   ].option_in_history.message;
-            // this.newLine_dialog = e.getElementsByTagName('new_line');
-            // //this.Image = e.getElementsByTagName('image');
-            // console.log(this.newLine_dialog);
-
             this.newLine_dialog = this.currenthistory.user_response[
               y
             ].option_in_history.message.split('<new_line>');
 
             if (this.newLine_dialog.length > 1) {
-              // for(let n = 0; n < this.newLine_dialog; n++){
-              //   this.text.dialog[n] = e.getElementsByTagName('new_line')[n].innerHTML;
-              // }
+
               this.newLine_dialog.forEach((q: any) => {
                 this.text.dialog.push(q);
               });
@@ -540,7 +539,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
 
             this.show.push(this.text);
             this.item_message = this.show;
-            console.log(this.show);
+            // console.log(this.show);
           }
           this.loadConversation(false);
         }
@@ -559,7 +558,6 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     );
     const viewContainerRef = this.formHost.viewContainerRef;
     viewContainerRef.clear();
-    viewContainerRef.createComponent(componentFactory);
     const componentRef = viewContainerRef.createComponent(componentFactory);
     // @ts-ignore
     componentRef.instance.fromConv = true;
@@ -579,22 +577,20 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         this.options.push(q.option.message);
       });
     } else {
-      //let e = document.createElement('html');
-      // e.innerHTML = this.dialog.dialog_has_options[0].option.message;
-      // this.mupltiple_line = e.getElementsByTagName('new_line');
+
       this.mupltiple_line = this.dialog.dialog_has_options[0].option.message.split(
-        '<new_line>',
+        "\n",
       );
       this.show_multiple = this.mupltiple_line.length;
       this.count_multiple = 0;
       if (this.show_multiple > 1) {
         this.options.push(this.mupltiple_line[0]);
-        console.log(
-          this.show_multiple,
-          this.count_multiple,
-          this.mupltiple_line[0],
-          this.mupltiple_line[0],
-        );
+        // console.log(
+        //   this.show_multiple,
+        //   this.count_multiple,
+        //   this.mupltiple_line[0],
+        //   this.mupltiple_line[0],
+        // );
       } else {
         this.options.push(this.dialog.dialog_has_options[0].option.message);
       }
@@ -625,12 +621,12 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       this.show_multiple > 1
     ) {
       this.text.message = [];
-      console.log(this.text.message.length);
+      // console.log(this.text.message.length);
       this.text.dialog.push(this.mupltiple_line[this.count_multiple]);
     } else {
       this.text.dialog.push(this.dialog.dialog_has_options[i].option.message);
     }
-    // @ts-ignore
+
     if (this.dialog.dialog_has_options[i].loopback) {
       this.loopback = true;
       console.log(this.dialog.dialog_has_options[i]);
@@ -645,16 +641,16 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     this.post(i);
     this.last_id = this.id;
     this.id = this.dialog.dialog_has_options[i].upcoming_dialog;
-    this.dialog = this.b.get(this.id);
+    this.dialog = this.dialogMap.get(this.id);
     if (!this.loopback) {
       this.index = this.index + 1;
     }
     // tslint:disable-next-line:max-line-length
     if (this.loopback) {
       this.loopback = false;
-      setTimeout(() => {
+       setTimeout(() => {
         this.wrong = true;
-      }, 1000);
+       }, 1000);
     } else {
       this.wrong = false;
     }
@@ -717,16 +713,6 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
           }
         }, t);
 
-        // this.newLine_dialog.forEach((q: any) => {
-        //   this.current_message.push(q);
-        //   this.text.message.push(q);
-        //   this.ShowTypingTime = q.split(' ');
-        //   console.log(this.ShowTypingTime,q);
-        //   this.ShowTyping = true;
-        //   setTimeout(() => {
-        //     this.ShowTyping = false;
-        //   },(this.ShowTypingTime.length/35)*1000);
-        // });
       } else {
         this.current_message.push({
           message: this.dialog.message,
@@ -739,7 +725,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         if (this.ShowTypingTime.length / 35 < 1) {
           t = 1000;
         } else {
-          t = (this.ShowTypingTime.length / 35) * 1000;
+          t = 2000;
         }
         console.log(t);
         this.current_message[0].ShowTyping = true;
@@ -775,7 +761,8 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       }
       setTimeout(() => {
         this.dialog_options();
-      }, t + 1500);
+
+      }, t*5 + 1500);
     }
 
     this.scrollPageToBottom();
@@ -791,7 +778,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         ((this.show.length + this.no_of_options - 1) /
           this.length_conversation) *
         100;
-      console.log(this.show.length + this.no_of_options - 1);
+      // console.log(this.show.length + this.no_of_options - 1);
     } else {
       this.progress = (this.show.length / this.length_conversation) * 100;
     }
@@ -811,7 +798,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   speed_run() {
     this.speedrun = true;
     this.finished = false;
-    this.dialog = this.b.get(this.id);
+    this.dialog = this.dialogMap.get(this.id);
     // console.log(this.dialog);
     //  this.text = new Texting();
     this.newLine_dialog = this.dialog.message.split('<new_line>');
@@ -839,7 +826,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     while (this.dialog.is_last === false) {
       for (let y = 0; y < this.dialog.dialog_has_options.length; y++) {
         if (this.dialog.dialog_has_options[y].loopback === false) {
-          this.dialog = this.b.get(
+          this.dialog = this.dialogMap.get(
             this.dialog.dialog_has_options[y].upcoming_dialog,
           );
           break;
@@ -959,7 +946,6 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   }
 
   storeFeedBackData() {
-    console.log('FEEDBACK', this.userFeedback);
     this.feedbackData.initial_feedback_state = this.initial_feedback;
     this.feedbackData.final_feedback_state = this.userFeedback.final_feedback;
     this.feedbackData.conversation_id = this.conversation_id;
@@ -999,8 +985,8 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     this.isConversation = true;
     this.isFormVisible = false;
   }
-  onSubmitComment() {
-    this.feedbackText.feedback_text = this.userFeedback.feedback_text;
+  onSubmitComment(feedback_text: string) {
+    this.feedbackText.feedback_text = feedback_text;
     this.conversationsService
       .updateFeedBackInfo(this.feedbackText, this.feedbackDataId)
       .subscribe(data => {
@@ -1017,6 +1003,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     const current_step_id = this.passdata.get_current_id();
     const next_step_id = this.passdata.get_nextstep();
     const isLastStep = this.passdata.get_islast();
+    this.showNextStepBtn = true;
     this.time = 100;
     this.completionData.time_spent = this.time;
     this.completionData.step_id = current_step_id;

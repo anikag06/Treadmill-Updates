@@ -165,9 +165,7 @@ import { InternetConnectionComponent } from '@/shared/internet-connection/intern
 import { SharedModule } from '@/shared/shared.module';
 import { CustomOverlayComponent } from './shared/custom-overlay/custom-overlay.component';
 import { NeedToTalkComponent } from './need-to-talk/need-to-talk.component';
-import { ChatImageComponent } from './chatbot/chat-window/chat-image/chat-image.component';
 import { ChatImageDirective } from './chatbot/chat-window/chat-image/chat-image.directive';
-import { ChatVideoComponent } from './chatbot/chat-window/chat-video/chat-video.component';
 import { IframeTrackerDirective } from './chatbot/chat-window/chat-video/iframe-tracker.directive';
 import { IntroDialogComponent } from './walk-through/intro-dialog/intro-dialog.component';
 import { SupportGroupIntroComponent } from './walk-through/support-group-intro/support-group-intro.component';
@@ -287,9 +285,7 @@ import { AuthHeaderInterceptor } from '@/main/auth-header.interceptor';
     CustomOverlayComponent,
     NeedToTalkComponent,
     SettingsComponent,
-    ChatImageComponent,
     ChatImageDirective,
-    ChatVideoComponent,
     InternetConnectionComponent,
     IframeTrackerDirective,
     IntroDialogComponent,
@@ -401,7 +397,6 @@ import { AuthHeaderInterceptor } from '@/main/auth-header.interceptor';
     GamesFeedbackComponent,
     InternetConnectionComponent,
     CustomOverlayComponent,
-    ChatImageComponent,
     IntroDialogComponent,
     SupportGroupIntroComponent,
     IntroSelectTagsComponent,
