@@ -1,11 +1,19 @@
-<div [ngStyle]="{ width: 'fit-content' }"  (click)="changeUrl()">
+<div
+  [ngStyle]="{ width: fromConversation ? 'auto' : 'fit-content' }"
+  (click)="changeUrl()"
+  *ngIf="dataLoaded; else skeleton"
+>
   <img
     appLazyLoad
     loading="lazy"
-    class="msg-img"
+    class="msg-img img-responsive"
     (load)="changeLoading()"
+    onload
     src="{{ image.url }}"
-
+    [ngStyle]="{
+      maxWidth: fromConversation ? '250px' : '280px',
+      minWidth: fromConversation ? '250px' : '280px'
+    }"
     alt="image"
   />
   <div class="credits" *ngIf="image.credits">
@@ -16,10 +24,7 @@
     </div>
   </div>
   <div class="credits" *ngIf="image.creditsGIF">
-    <div
-      class="gifMark"
-      *ngIf="image.url === image.static_url"
-    >
+    <div class="gifMark" *ngIf="image.url === image.static_url">
       GIF
     </div>
     <div class="spinnerDiv" *ngIf="image.showSpinner">
@@ -35,3 +40,16 @@
     </div>
   </div>
 </div>
+
+<ng-template #skeleton>
+  <div
+    class="card msg-img"
+  >
+    <div class="card-body text-center m-auto">
+      <div class="skeleton-text">{{skeletonText}}</div>
+<!--      <div class="form-inline">-->
+<!--        <a href="#" class="btn btn-outline-secondary mr-auto ml-auto"></a>-->
+<!--      </div>-->
+    </div>
+  </div>
+</ng-template>

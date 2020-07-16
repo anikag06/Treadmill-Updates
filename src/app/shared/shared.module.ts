@@ -10,8 +10,7 @@ import {ChatVideoComponent} from "@/main/chatbot/chat-window/chat-video/chat-vid
 import {ChatImageComponent} from "@/main/chatbot/chat-window/chat-image/chat-image.component";
 
 @NgModule({
-  declarations: [SlidesVideoComponent, SafeUrlPipe, ChatVideoComponent, ChatImageComponent],
-  declarations: [SlidesVideoComponent, SafeUrlPipe, CongratsDialogComponent],
+  declarations: [SlidesVideoComponent, SafeUrlPipe, CongratsDialogComponent,ChatVideoComponent, ChatImageComponent],
   imports: [CommonModule, QuestionnaireModule, MaterialModule],
   exports: [
     SlidesVideoComponent,
@@ -19,7 +18,7 @@ import {ChatImageComponent} from "@/main/chatbot/chat-window/chat-image/chat-ima
     MaterialModule,
     SafeUrlPipe,
     ChatVideoComponent,
-    ChatImageComponent
+    ChatImageComponent,
     CongratsDialogComponent,
   ],
   entryComponents: [SlidesVideoComponent, CongratsDialogComponent],
