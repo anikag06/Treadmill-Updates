@@ -14,22 +14,19 @@ describe('PreLoginFooterComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        MaterialModule,
-      ],
-      declarations: [ PreLoginFooterComponent ],
+      imports: [MaterialModule],
+      declarations: [PreLoginFooterComponent],
       providers: [
         MatContactUsDialogService,
         {
           provide: MatDialogRef,
-          useValue: {}
+          useValue: {},
         },
         { provide: MAT_DIALOG_DATA, useValue: {} },
         LoggerService,
         DialogSize,
-      ]
-    })
-    .compileComponents();
+      ],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

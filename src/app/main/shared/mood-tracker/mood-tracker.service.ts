@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FEELING_LIST_API } from '@/app.constants';
-import {AuthService} from '@/shared/auth/auth.service';
+import { AuthService } from '@/shared/auth/auth.service';
 
 @Injectable({
   providedIn: 'root',

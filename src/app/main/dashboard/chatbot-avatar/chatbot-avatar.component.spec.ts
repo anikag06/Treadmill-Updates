@@ -9,9 +9,8 @@ describe('ChatbotAvatarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ChatbotAvatarComponent ],
-    })
-    .compileComponents();
+      declarations: [ChatbotAvatarComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -25,9 +24,13 @@ describe('ChatbotAvatarComponent', () => {
     expect(component).toBeTruthy();
   });
 
-
   it('should show username', () => {
-    expect(fixture.nativeElement.querySelector('div.chatbot-text').innerText)
-      .toEqual('Hello ' + component.user.username + '! Do you have any Questions? Click on me and we can chat.');
-});
+    expect(
+      fixture.nativeElement.querySelector('div.chatbot-text').innerText,
+    ).toEqual(
+      'Hello ' +
+        component.user.username +
+        '! Do you have any Questions? Click on me and we can chat.',
+    );
+  });
 });

@@ -1,9 +1,19 @@
-import {WEEK} from '@/app.constants';
-import {AfterViewInit, Component, ElementRef, EventEmitter, Inject, OnChanges, OnInit, Optional, Output,} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import { WEEK } from '@/app.constants';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Inject,
+  OnChanges,
+  OnInit,
+  Optional,
+  Output,
+} from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import * as moment from 'moment';
-import {Day} from './day.model';
-import {DateTimePickerService} from './date-time-picker.service';
+import { Day } from './day.model';
+import { DateTimePickerService } from './date-time-picker.service';
 
 @Component({
   selector: 'app-date-time-picker',

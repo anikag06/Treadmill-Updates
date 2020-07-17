@@ -8,9 +8,8 @@ describe('InternetConnectionComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InternetConnectionComponent ]
-    })
-    .compileComponents();
+      declarations: [InternetConnectionComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -351,7 +351,7 @@ export class CommonGameComponent implements OnInit {
       console.log('sound', this.isSoundOn);
       this.gamePlayService.soundExecControlGame(this.isSoundOn);
     }
-    if(this.gameName === ATTRIBUTE_STYLE_GAME) {
+    if (this.gameName === ATTRIBUTE_STYLE_GAME) {
       this.gamePlayService.soundASGGame(this.isSoundOn);
     }
     // else if (this.gameName === FRIENDLY_FACE_GAME) {

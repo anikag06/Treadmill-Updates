@@ -24,7 +24,7 @@ describe('MainComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MainComponent, NavbarComponent],
+      declarations: [MainComponent, NavbarComponent],
       imports: [
         RouterTestingModule,
         NoopAnimationsModule,
@@ -36,10 +36,7 @@ describe('MainComponent', () => {
         MatToolbarModule,
         HttpClientModule,
       ],
-      providers: [
-        ModulesService,
-        HttpClient
-      ]
+      providers: [ModulesService, HttpClient],
     }).compileComponents();
   }));
 

@@ -20,7 +20,7 @@ export class InfiniteScrollDirective implements OnDestroy {
       }
     });
     this.debouncerForBottom.subscribe(value => {
-        this.atBottom.emit(value);
+      this.atBottom.emit(value);
     });
   }
   lastScrollTop = this._elRef.nativeElement.pageYOffset;
@@ -44,9 +44,13 @@ export class InfiniteScrollDirective implements OnDestroy {
       this.debouncer.next('');
     }
 
-    if(this._elRef.nativeElement.scrollTop === (this._elRef.nativeElement.scrollHeight - this._elRef.nativeElement.offsetHeight)){
+    if (
+      this._elRef.nativeElement.scrollTop ===
+      this._elRef.nativeElement.scrollHeight -
+        this._elRef.nativeElement.offsetHeight
+    ) {
       this.debouncerForBottom.next(false);
-    }else{
+    } else {
       this.debouncerForBottom.next(true);
     }
     this.lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
@@ -56,6 +60,4 @@ export class InfiniteScrollDirective implements OnDestroy {
     this.debouncer.unsubscribe();
     this.debouncerForBottom.unsubscribe();
   }
-
-
 }

@@ -112,8 +112,7 @@ export class StepComponent implements OnInit, AfterViewInit {
   }
 
   nextLink() {
-    return this.flowStepNavService.
-    goToFlowNextStep(this.step);
+    return this.flowStepNavService.goToFlowNextStep(this.step);
   }
 
   previousStep(stepGroup: StepGroup, step: Step) {

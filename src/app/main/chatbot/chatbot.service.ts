@@ -14,7 +14,7 @@ export class ChatbotService {
     return this.http.post(
       environment.CHATBOT_API +
         '/api/v1/chat/resume-chat/' +
-        '?page=1&'+
+        '?page=1&' +
         'date_time=' +
         dateTime,
       {},

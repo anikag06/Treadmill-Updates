@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsService } from '@/main/forms.service';
 import { Router } from '@angular/router';
-import {FormService} from '@/main/resources/forms/form.service';
+import { FormService } from '@/main/resources/forms/form.service';
 
 @Component({
   selector: 'app-forms',
@@ -9,8 +9,11 @@ import {FormService} from '@/main/resources/forms/form.service';
   styleUrls: ['./forms-list.component.scss'],
 })
 export class FormsListComponent implements OnInit {
-  constructor(private formsService: FormsService, private formService: FormService,
-              private router: Router) {}
+  constructor(
+    private formsService: FormsService,
+    private formService: FormService,
+    private router: Router,
+  ) {}
 
   forms: any = [];
 

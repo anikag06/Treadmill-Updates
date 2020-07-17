@@ -3,10 +3,10 @@ import { IdcGameService } from './idc-game.service';
 import { IdcScoreComponent } from './idc-score/idc-score.component';
 import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
 import { IdcInfoComponent } from './idc-info/idc-info.component';
-import {map, switchMap} from "rxjs/operators";
-import {FlowService} from "@/main/flow/flow.service";
-import {ActivatedRoute} from "@angular/router";
-import {StepsDataService} from "@/main/resources/shared/steps-data.service";
+import { map, switchMap } from 'rxjs/operators';
+import { FlowService } from '@/main/flow/flow.service';
+import { ActivatedRoute } from '@angular/router';
+import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 
 @Component({
   selector: 'app-identify-cognitive-distortion',
@@ -34,26 +34,24 @@ export class IdentifyCognitiveDistortionComponent implements OnInit {
     this.activatedRoute.params
       .pipe(
         map(v => v.id),
-        switchMap(id =>  this.stepDataService
-          .getStepData(id)),
+        switchMap(id => this.stepDataService.getStepData(id)),
       )
-      .subscribe(
-        (res: any) => {
-          const step = res.data;
-          console.log('RESPONSE', res.data, step.status);
-          // for navbar title
-          this.stepGroupSequence = step.step_group_sequence + 1;
-          this.stepSequence = step.sequence + 1;
-          this.stepName = step.name;
-          this.navbarTitle =
-            this.stepGroupSequence.toString() +
-            '.' +
-            this.stepSequence.toString() +
-            ' ' +
-            this.stepName;
-          console.log('STEP DETAIL:', this.navbarTitle);
-          this.flowService.stepDetail.emit(this.navbarTitle);
-        } );
+      .subscribe((res: any) => {
+        const step = res.data;
+        console.log('RESPONSE', res.data, step.status);
+        // for navbar title
+        this.stepGroupSequence = step.step_group_sequence + 1;
+        this.stepSequence = step.sequence + 1;
+        this.stepName = step.name;
+        this.navbarTitle =
+          this.stepGroupSequence.toString() +
+          '.' +
+          this.stepSequence.toString() +
+          ' ' +
+          this.stepName;
+        console.log('STEP DETAIL:', this.navbarTitle);
+        this.flowService.stepDetail.emit(this.navbarTitle);
+      });
 
     this.gameService.initUserData();
     this.gameService.startPlayingIdc.subscribe(() => {

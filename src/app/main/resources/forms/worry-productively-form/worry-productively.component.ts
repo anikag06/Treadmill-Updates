@@ -18,7 +18,7 @@ import { AuthService } from '@/shared/auth/auth.service';
 import { User } from '@/shared/user.model';
 import { GeneralErrorService } from '@/main/shared/general-error.service';
 import { FormBuilder, FormControl, FormArray } from '@angular/forms';
-import {map, switchMap} from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { WorryProductivelyService } from '@/main/resources/forms/worry-productively-form/worry-productively.service';
 import {
   WORRY_PRODUCTIVELY,
@@ -33,9 +33,9 @@ import {
 } from './worry-productively-message';
 import { FormService } from '../form.service';
 import { FormMessage } from '../shared/form-message/form-message.model';
-import {FlowService} from "@/main/flow/flow.service";
-import {ActivatedRoute} from "@angular/router";
-import {StepsDataService} from "@/main/resources/shared/steps-data.service";
+import { FlowService } from '@/main/flow/flow.service';
+import { ActivatedRoute } from '@angular/router';
+import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 
 @Component({
   selector: 'app-worry-productively-form',
@@ -105,26 +105,24 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
     this.activatedRoute.params
       .pipe(
         map(v => v.id),
-        switchMap(id =>  this.stepDataService
-          .getStepData(id)),
+        switchMap(id => this.stepDataService.getStepData(id)),
       )
-      .subscribe(
-        (res: any) => {
-          const step = res.data;
-          console.log('RESPONSE', res.data, step.status);
-          // for navbar title
-          this.stepGroupSequence = step.step_group_sequence + 1;
-          this.stepSequence = step.sequence + 1;
-          this.stepName = step.name;
-          this.navbarTitle =
-            this.stepGroupSequence.toString() +
-            '.' +
-            this.stepSequence.toString() +
-            ' ' +
-            this.stepName;
-          console.log('STEP DETAIL:', this.navbarTitle);
-          this.flowService.stepDetail.emit(this.navbarTitle);
-        } );
+      .subscribe((res: any) => {
+        const step = res.data;
+        console.log('RESPONSE', res.data, step.status);
+        // for navbar title
+        this.stepGroupSequence = step.step_group_sequence + 1;
+        this.stepSequence = step.sequence + 1;
+        this.stepName = step.name;
+        this.navbarTitle =
+          this.stepGroupSequence.toString() +
+          '.' +
+          this.stepSequence.toString() +
+          ' ' +
+          this.stepName;
+        console.log('STEP DETAIL:', this.navbarTitle);
+        this.flowService.stepDetail.emit(this.navbarTitle);
+      });
     // this.subscriptions[
     //   this.subscriptions.length
     // ] = this.worryService.worryBehaviour.subscribe((worry: any) => {

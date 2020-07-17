@@ -8,6 +8,6 @@ export class CustomOverlayService {
   overlayOpen = new EventEmitter<any>();
   overlayClose = new EventEmitter<any>();
   showChatbot!: boolean;
-  showFlow =  false;
+  showFlow = false;
   constructor() {}
 }

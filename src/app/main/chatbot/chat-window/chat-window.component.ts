@@ -1,9 +1,22 @@
-import {CHATBOT_RETRY_TIMEOUT, MAX_RETRIES, MOBILE_WIDTH, NEW_CHAT, REPLY_CURRENT, RESUME_CHAT,} from '@/app.constants';
-import {Chat} from '@/main/chatbot/chat.model';
-import {ChatbotService} from '@/main/chatbot/chatbot.service';
-import {AuthService} from '@/shared/auth/auth.service';
-import {animate, state, style, transition, trigger,} from '@angular/animations';
-import {HttpErrorResponse} from '@angular/common/http';
+import {
+  CHATBOT_RETRY_TIMEOUT,
+  MAX_RETRIES,
+  MOBILE_WIDTH,
+  NEW_CHAT,
+  REPLY_CURRENT,
+  RESUME_CHAT,
+} from '@/app.constants';
+import { Chat } from '@/main/chatbot/chat.model';
+import { ChatbotService } from '@/main/chatbot/chatbot.service';
+import { AuthService } from '@/shared/auth/auth.service';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
+import { HttpErrorResponse } from '@angular/common/http';
 import {
   ChangeDetectorRef,
   Component,
@@ -16,11 +29,11 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import {MatDialog} from '@angular/material';
-import {environment} from '../../../../environments/environment';
-import {NavbarNotificationsService} from '@/main/shared/navbar/navbar-notifications.service';
-import {CustomOverlayService} from '@/main/shared/custom-overlay/custom-overlay.service';
-import {CommonService} from '@/shared/common.service';
+import { MatDialog } from '@angular/material';
+import { environment } from '../../../../environments/environment';
+import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifications.service';
+import { CustomOverlayService } from '@/main/shared/custom-overlay/custom-overlay.service';
+import { CommonService } from '@/shared/common.service';
 
 declare var twemoji: any;
 
@@ -79,7 +92,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     private elementRef: ElementRef,
     private commonService: CommonService,
   ) {
-    this.commonService.createOnline$().subscribe((isOnline) => {
+    this.commonService.createOnline$().subscribe(isOnline => {
       this.isOnline = isOnline;
     });
   }
@@ -130,7 +143,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   multiLineChat: string[] = [];
   showSlider = true;
   widgetRating!: number;
-  showScrollToBottom  = false;
+  showScrollToBottom = false;
   ngOnChanges(): void {
     if (this.chatWindowClosed === false) {
       if (
@@ -153,7 +166,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
           //console.log(data.data.messages);
           setTimeout(() => {
             data.data.messages.forEach((message: any) => {
-              if(!this.isErrorMessage(message)){
+              if (!this.isErrorMessage(message)) {
                 this.pushImages(message);
                 this.messages.push(
                   new Chat(
@@ -333,7 +346,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     this.webSocket = new WebSocket(
       environment.CHAT_HOST + '/ws/chat/?token=' + this.authService.getToken(),
     );
-    this.webSocket.onopen = (event) => {
+    this.webSocket.onopen = event => {
       this.webSocket.send(JSON.stringify({ action: type, module_name: '' }));
     };
     this.webSocket.onmessage = (message: any) => {
@@ -483,9 +496,9 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
         messages[messages.length - 1].widgets === null
       ) {
         this.showTextInput = true;
-        setTimeout(()=>{
-        this.onScrollToBottomClick();
-        },500)
+        setTimeout(() => {
+          this.onScrollToBottomClick();
+        }, 500);
       } else {
         this.showTextInput = false;
       }
@@ -586,8 +599,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
               '.message-text',
             );
             data.data.messages.reverse().forEach((message: any) => {
-              if(!this.isErrorMessage(message))
-              {
+              if (!this.isErrorMessage(message)) {
                 this.pushImages(message);
                 this.messages.unshift(
                   new Chat(
@@ -606,7 +618,6 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
                 this.showSpinner = false;
                 firstMessageBox[0].scrollIntoView();
               }
-
             });
           }
         });
@@ -685,20 +696,20 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     this.onScrollToBottomClick();
   }
 
-  onScrollToBottomClick(){
+  onScrollToBottomClick() {
     if (this.messagesDiv) {
       this.messagesDiv.nativeElement.scrollTop = this.messagesDiv.nativeElement.scrollHeight;
       this.changRef.detectChanges();
     }
   }
 
-  atBottom(value:boolean){
-      this.showScrollToBottom = value
+  atBottom(value: boolean) {
+    this.showScrollToBottom = value;
   }
 
-  isErrorMessage(message:any):boolean{
-    const errorMessage = "ERRORINTHEBACKEND.CHECKANDRELOAD";
+  isErrorMessage(message: any): boolean {
+    const errorMessage = 'ERRORINTHEBACKEND.CHECKANDRELOAD';
     const stripMessageText = message.text.replace(/\s+/g, '');
-    return errorMessage===stripMessageText;
+    return errorMessage === stripMessageText;
   }
 }

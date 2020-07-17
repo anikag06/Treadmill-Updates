@@ -14,25 +14,19 @@ describe('LandingPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        MaterialModule,
-        BrowserAnimationsModule,
-      ],
-      declarations: [
-        LandingPageComponent,
-      ],
+      imports: [MaterialModule, BrowserAnimationsModule],
+      declarations: [LandingPageComponent],
       providers: [
         {
           provide: MatDialogRef,
-          useValue: {}
+          useValue: {},
         },
         { provide: MAT_DIALOG_DATA, useValue: {} },
         LoggerService,
         MatContactUsDialogService,
         DialogSize,
-      ]
-    })
-    .compileComponents();
+      ],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -4,19 +4,14 @@ import { IntroduceService } from './introduce.service';
 @Component({
   selector: 'app-introduce',
   templateUrl: './introduce.component.html',
-  styleUrls: ['./introduce.component.scss']
+  styleUrls: ['./introduce.component.scss'],
 })
 export class IntroduceComponent implements OnInit {
+  constructor(private introduceservice: IntroduceService) {}
 
-  constructor(
-    private introduceservice: IntroduceService,
-  ) { }
-
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   close() {
     this.introduceservice.closeIntroduction();
   }
-
 }
