@@ -10,7 +10,6 @@ import { MoodTrackerComponent } from '@/main/shared/mood-tracker/mood-tracker.co
 import { FormsModule } from '@angular/forms';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { CongratsDialogComponent } from '@/main/resources/shared/congrats-dialog/congrats-dialog.component';
-import { TrimStringPipe } from '@/main/shared/trim-string.pipe';
 import { ChatVideoComponent } from '@/main/chatbot/chat-window/chat-video/chat-video.component';
 import { ChatImageComponent } from '@/main/chatbot/chat-window/chat-image/chat-image.component';
 
@@ -49,6 +48,7 @@ import { ChatImageComponent } from '@/main/chatbot/chat-window/chat-image/chat-i
     SlidesVideoComponent,
     DateTimePickerComponent,
     MoodTrackerComponent,
+    CongratsDialogComponent,
   ],
 })
 export class SharedModule {}

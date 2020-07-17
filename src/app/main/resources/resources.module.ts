@@ -276,9 +276,7 @@ import { StepCompletedComponent } from './shared/step-completed/step-completed.c
     DeleteDialogComponent,
   ],
   exports: [
-    DateTimePickerComponent,
     ClickOutsideDirective,
-    MoodTrackerComponent,
     DeleteDialogComponent,
     ScrollToTopDirective,
     ControlContentComponent,
