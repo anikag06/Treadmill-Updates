@@ -140,7 +140,7 @@
     text-align: left;
     box-shadow: 0px 1px 3px #00000029;
     background: #ffffff 0% 0% no-repeat padding-box;
-    word-break: break-all;
+    word-break: break-word;
   }
   // .meta {
   //   text-align: center;
@@ -231,6 +231,9 @@
     font-weight: 500;
     font-size: 14px;
     box-shadow: none;
+    word-break: break-word;
+    white-space: normal;
+    line-height: 30px;
   }
 
   .module_button {
@@ -315,6 +318,11 @@ button {
       //height: 8%;
       bottom: 5px;
       margin-top: 10px;
+    }
+    .scroll-bottom{
+      position: absolute;
+      bottom: 15vh;
+      right: 5vw;
     }
   }
 }
@@ -436,6 +444,17 @@ $x3: -$leftPos + $dotSpacing;
   z-index: 200;
 }
 
+.rating{
+  height: 180px;
+  width: 100%;
+}
+
+.done-btn{
+  background-color: #2A3B3D;
+  color: #FFFFFF;
+  margin-top: 20px;
+}
+
 #more_button {
   color: #4071f9;
   border: 1px solid #4071f9;
@@ -449,4 +468,28 @@ $x3: -$leftPos + $dotSpacing;
   position: absolute;
   left: 30%;
   display: inline-flex;
+}
+
+
+.double-arrow{
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+.mat-fab .mat-button-wrapper {
+  padding: 0 !important;
+}
+.arrow-icon{
+  position: relative;
+  left: -5px;
+  bottom: 10px;
+  margin-right: -10px;
+  font-size: 18px;
+}
+.scroll-bottom{
+  position: absolute;
+  bottom: 30px;
+  right: 8%;
 }

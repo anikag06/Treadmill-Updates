@@ -45,8 +45,7 @@ import { PhqNineComponent } from './score/phq-nine/phq-nine.component';
 import { GadSevenComponent } from './score/gad-seven/gad-seven.component';
 // tslint:disable-next-line:max-line-length
 import { InterpretationBiasGameComponent } from './games/games-list/common-game/interpretation-bias-game/interpretation-bias-game.component';
-
-import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+// import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { FormsService } from '@/main/forms.service';
 import { ExecutiveControlGameComponent } from './games/games-list/common-game/executive-control-game/executive-control-game.component';
 import { CommonGameComponent } from './games/games-list/common-game/common-game.component';
@@ -307,8 +306,6 @@ import { AuthHeaderInterceptor } from '@/main/auth-header.interceptor';
     MatProgressBarModule,
     ReactiveFormsModule,
     MainRoutingModule,
-    OwlDateTimeModule,
-    OwlNativeDateTimeModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireMessagingModule,
     OverlayModule,

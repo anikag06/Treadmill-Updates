@@ -8,7 +8,6 @@ import * as moment from 'moment';
 })
 export class ChatbotService {
   constructor(private http: HttpClient) {}
-  nowdateTime = Date.now();
 
   postPreviousChat(currentDateTime: any) {
     const dateTime = moment.utc(currentDateTime).format('DD/MM/YY+HH:mm:ss');

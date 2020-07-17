@@ -24,8 +24,6 @@ import {
   MatSnackBarModule,
 } from '@angular/material';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
-import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
-import { DateTimePickerComponent } from '../shared/date-time-picker/date-time-picker.component';
 import { ConclusionComponent } from './conclusion/conclusion.component';
 import { ConclusionService } from './conclusion/conclusion.service';
 import { Conclusion1Component } from './conclusion/conclusion1/conclusion1.component';
@@ -38,7 +36,6 @@ import { ConversationsComponent } from './conversation-group/conversations/conve
 import { EttbfBeliefComponent } from './forms/experiment-to-test-belief-form/ettbf-belief/ettbf-belief.component';
 import { EttbfOutcomeComponent } from './forms/experiment-to-test-belief-form/ettbf-outcome/ettbf-outcome.component';
 import { ExperimentToTestBeliefFormComponent } from './forms/experiment-to-test-belief-form/experiment-to-test-belief-form.component';
-import { FormSliderComponent } from './forms/shared/form-slider/form-slider.component';
 import { FormsSidebarComponent } from './forms/shared/forms-sidebar/forms-sidebar.component';
 import { TaskFormsComponent } from './forms/task-forms/task-forms.component';
 import { ThoughtRecordFormComponent } from './forms/thought-record-form/thought-record-form.component';
@@ -62,7 +59,6 @@ import { WorryFormComponent } from '@/main/resources/forms/worry-productively-fo
 import { TechniquesComponent } from './forms/worry-productively-form/techniques/techniques.component';
 import { EvaluateWorryComponent } from './forms/worry-productively-form/techniques/evaluate-worry/evaluate-worry.component';
 import { MoodWidgetCardComponent } from './forms/thought-record-form/mood-widget-card/mood-widget-card.component';
-import { MoodTrackerComponent } from '../shared/mood-tracker/mood-tracker.component';
 import { FaceMyWorstFearComponent } from './forms/worry-productively-form/techniques/face-my-worst-fear/face-my-worst-fear.component';
 import { WpfDealWithWorryComponent } from './forms/worry-productively-form/techniques/wpf-deal-with-worry/wpf-deal-with-worry.component';
 import { WpfProblemSolvingComponent } from './forms/worry-productively-form/techniques/wpf-problem-solving/wpf-problem-solving.component';
@@ -95,7 +91,6 @@ import { FormMessageComponent } from './forms/shared/form-message/form-message.c
 import { FormQuoteComponent } from './forms/shared/form-quote/form-quote.component';
 import { SlidesBottomsheetComponent } from './slides/slides-bottomsheet/slides-bottomsheet.component';
 import { ConversationsService } from './conversation-group/conversations.service';
-import { SlidesVideoComponent } from './slides/slides-video/slides-video.component';
 
 import { FormFinalRatingComponent } from './forms/shared/form-final-rating/form-final-rating.component';
 import {
@@ -162,7 +157,6 @@ import { StepCompletedComponent } from './shared/step-completed/step-completed.c
     ExperimentToTestBeliefFormComponent,
     EttbfBeliefComponent,
     EttbfOutcomeComponent,
-    FormSliderComponent,
     WorryProductivelyComponent,
     WorryFormComponent,
     TechniquesComponent,
@@ -171,7 +165,6 @@ import { StepCompletedComponent } from './shared/step-completed/step-completed.c
     WpfProblemSolvingComponent,
     WpfDealWithWorryComponent,
     TrfSituationCardComponent,
-    MoodTrackerComponent,
     MoodWidgetCardComponent,
     ThoughtRecordTechniquesComponent,
     TechniquesInfoComponent,
@@ -179,7 +172,6 @@ import { StepCompletedComponent } from './shared/step-completed/step-completed.c
     RecordOutcomeComponent,
     FormTextareaComponent,
     ThoughtHelpComponent,
-    DateTimePickerComponent,
     ModifyBeliefsComponent,
     BeliefChangeComponent,
     NegativeBeliefComponent,
@@ -215,8 +207,6 @@ import { StepCompletedComponent } from './shared/step-completed/step-completed.c
     LayoutModule,
     ReactiveFormsModule,
     MatMomentDateModule,
-    OwlDateTimeModule,
-    OwlNativeDateTimeModule,
     MatSlideToggleModule,
     MatExpansionModule,
     MatRadioModule,
@@ -280,9 +270,7 @@ import { StepCompletedComponent } from './shared/step-completed/step-completed.c
   entryComponents: [
     ProblemFormComponent,
     ProblemSolvingWorksheetsComponent,
-    MoodTrackerComponent,
     TechniquesInfoComponent,
-    DateTimePickerComponent,
     CommonBeliefComponent,
     SlidesBottomsheetComponent,
     DeleteDialogComponent,

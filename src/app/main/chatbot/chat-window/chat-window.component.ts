@@ -111,6 +111,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   showDateTime = false;
   moodWidget = 'mood_widget';
   dateTimeWidget = 'date_time_widget';
+  ratingWidget = 'rating_widget';
   radio = 'radio';
   clickAble = 'clickable_image';
   buttonType = '';
@@ -140,6 +141,9 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   @Input() currentDateTime!: any;
   isLoading = false;
   multiLineChat: string[] = [];
+  showSlider = true;
+  widgetRating!: number;
+  showScrollToBottom = false;
   ngOnChanges(): void {
     if (this.chatWindowClosed === false) {
       if (
@@ -159,26 +163,26 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       (data: any) => {
         if (data.status) {
           // console.log(data);
-          console.log(data.data.messages);
+          //console.log(data.data.messages);
           setTimeout(() => {
             data.data.messages.forEach((message: any) => {
-              this.pushImages(message);
-              this.messages.push(
-                new Chat(
-                  twemoji.parse(message.text),
-                  message.is_sender_user,
-                  [],
-                  message.mid,
-                  message.sid,
-                  message.datetime,
-                  false,
-                  [],
-                  this.images,
-                ),
-              );
-
-              this.scrollToBottom();
-              // console.log(message);
+              if (!this.isErrorMessage(message)) {
+                this.pushImages(message);
+                this.messages.push(
+                  new Chat(
+                    twemoji.parse(message.text),
+                    message.is_sender_user,
+                    [],
+                    message.mid,
+                    message.sid,
+                    message.datetime,
+                    false,
+                    [],
+                    this.images,
+                  ),
+                );
+                this.scrollToBottom();
+              }
             });
           });
         }
@@ -214,6 +218,17 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   //     ),
   //   );
   // }
+
+  getRating(value: number) {
+    this.widgetRating = value;
+  }
+
+  onRatingSubmit() {
+    this.message = 'You rated it ' + this.widgetRating + ' out of 10';
+    this.widgetValues = this.widgetRating;
+    this.onChatSubmit();
+    this.showSlider = false;
+  }
 
   ngAfterViewChecked() {
     this.changRef.detectChanges();
@@ -424,15 +439,10 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
 
   showWritingAndPushChat(m: any) {
     this.isLoading = true;
-    // const item = new Chat('', false, [], '', '', new Date(), true, [], []);
-    // this.messages.push(item);
-    // setTimeout(this.scrollToBottom);
     setTimeout(() => {
-      // this.messages.pop();
       this.pushChat(m);
-      // this.scrollToBottom();
+      this.scrollToBottom();
     }, 1500);
-    // this.halfwayDelay + Math.floor(Math.random() * 800 + 1)
   }
 
   closeChat() {
@@ -486,7 +496,9 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
         messages[messages.length - 1].widgets === null
       ) {
         this.showTextInput = true;
-        this.scrollToBottom();
+        setTimeout(() => {
+          this.onScrollToBottomClick();
+        }, 500);
       } else {
         this.showTextInput = false;
       }
@@ -587,23 +599,25 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
               '.message-text',
             );
             data.data.messages.reverse().forEach((message: any) => {
-              this.pushImages(message);
-              this.messages.unshift(
-                new Chat(
-                  twemoji.parse(message.text),
-                  message.is_sender_user,
-                  [],
-                  message.mid,
-                  message.sid,
-                  message.datetime,
-                  false,
-                  [],
-                  this.images,
-                ),
-              );
+              if (!this.isErrorMessage(message)) {
+                this.pushImages(message);
+                this.messages.unshift(
+                  new Chat(
+                    twemoji.parse(message.text),
+                    message.is_sender_user,
+                    [],
+                    message.mid,
+                    message.sid,
+                    message.datetime,
+                    false,
+                    [],
+                    this.images,
+                  ),
+                );
 
-              this.showSpinner = false;
-              firstMessageBox[0].scrollIntoView();
+                this.showSpinner = false;
+                firstMessageBox[0].scrollIntoView();
+              }
             });
           }
         });
@@ -654,11 +668,10 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       this.multiLineChat.push(this.message);
       this.message = '';
       setTimeout(() => {
-        this.scrollToBottom();
-      }, 300);
+        this.onScrollToBottomClick();
+      }, 500);
       this.timeout = setTimeout(
         () => {
-          // $this.onChatSubmit();
           this.submitMultiLineChat(this.multiLineChat);
           this.isMultiLineInput = false;
         },
@@ -668,7 +681,6 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   submitMultiLineChat(multiLineChat: string[]) {
-    // console.log(multiLineChat);
     this.webSocket.send(
       JSON.stringify({
         action: REPLY_CURRENT,
@@ -681,6 +693,23 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     );
     this.showTextInput = false;
     this.multiLineChat = [];
-    this.scrollToBottom();
+    this.onScrollToBottomClick();
+  }
+
+  onScrollToBottomClick() {
+    if (this.messagesDiv) {
+      this.messagesDiv.nativeElement.scrollTop = this.messagesDiv.nativeElement.scrollHeight;
+      this.changRef.detectChanges();
+    }
+  }
+
+  atBottom(value: boolean) {
+    this.showScrollToBottom = value;
+  }
+
+  isErrorMessage(message: any): boolean {
+    const errorMessage = 'ERRORINTHEBACKEND.CHECKANDRELOAD';
+    const stripMessageText = message.text.replace(/\s+/g, '');
+    return errorMessage === stripMessageText;
   }
 }
