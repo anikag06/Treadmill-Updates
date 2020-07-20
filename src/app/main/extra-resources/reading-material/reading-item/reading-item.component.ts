@@ -48,6 +48,5 @@ export class ReadingItemComponent implements OnInit {
         this.isLoaded = true;
       });
     }
-
   }
 }

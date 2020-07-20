@@ -20,7 +20,7 @@ import {
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { VideosComponent } from '@/main/extra-resources/videos/videos.component';
 import { ReadingItem } from '@/main/extra-resources/shared/reading.model';
-import {MindfulnessVideoItem} from '@/main/extra-resources/shared/mindfulnessVideo.model';
+import { MindfulnessVideoItem } from '@/main/extra-resources/shared/mindfulnessVideo.model';
 
 @Injectable({
   providedIn: 'root',
@@ -41,9 +41,11 @@ export class ExtraResourcesService {
   >(this.readingItemInResource);
   readingItemClickedEvent = this.readingItemClickBehavior.asObservable();
 
-  mindfulnessVideoClickBehavior: BehaviorSubject<MindfulnessVideoItem> = new BehaviorSubject<
+  mindfulnessVideoClickBehavior: BehaviorSubject<
     MindfulnessVideoItem
-    >(this.mindfulnessVideoInResource);
+  > = new BehaviorSubject<MindfulnessVideoItem>(
+    this.mindfulnessVideoInResource,
+  );
   mindfulnessVideoClickedEvent = this.mindfulnessVideoClickBehavior.asObservable();
 
   constructor(
@@ -63,7 +65,9 @@ export class ExtraResourcesService {
   }
 
   getMindfulnessVideoItem() {
-    return this.http.get<MindfulnessVideoItem[]>(environment.API_ENDPOINT + '/api/v1/resources/mindfulness-videos/');
+    return this.http.get<MindfulnessVideoItem[]>(
+      environment.API_ENDPOINT + '/api/v1/resources/mindfulness-videos/',
+    );
   }
 
   getAVideo(videoId: number) {
@@ -80,7 +84,10 @@ export class ExtraResourcesService {
 
   getAMindfulnessVideo(mindfulnessVideoId: number) {
     return this.http.get<MindfulnessVideoItem>(
-      environment.API_ENDPOINT + '/api/v1/resources/mindfulness-videos/' + mindfulnessVideoId + '/',
+      environment.API_ENDPOINT +
+        '/api/v1/resources/mindfulness-videos/' +
+        mindfulnessVideoId +
+        '/',
     );
   }
 

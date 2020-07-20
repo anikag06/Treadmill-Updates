@@ -66,7 +66,7 @@ export class ControlContentComponent implements OnInit {
     this.goToService.nextControlContentLoad.subscribe(() => {
       this.nextDataLoaded = false;
     });
-   // this.showNextContentLoading = false;
+    // this.showNextContentLoading = false;
     this.loadFilesService
       .loadExternalStyles('/control-content-styles.css')
       .then(() => {})
@@ -85,7 +85,7 @@ export class ControlContentComponent implements OnInit {
         this.current_step_id = control_data.data.id;
         this.isLastStep = control_data.data.is_last_step;
         this.completedStatus = control_data.data.status;
-       // this.showNextContentLoading = false;
+        // this.showNextContentLoading = false;
         this.onScrollToTop();
         console.log('data status', this.completedStatus);
 
@@ -156,8 +156,8 @@ export class ControlContentComponent implements OnInit {
   // }
 
   onHtmlComplete() {
-   // this.nextBtnShow = true;
-  //  console.log('after clicking on  complete', this.completedStatus);
+    // this.nextBtnShow = true;
+    //  console.log('after clicking on  complete', this.completedStatus);
     this.showLoading = true;
     this.completionData.step_id = this.current_step_id;
     this.completionData.time_spent = 100;
@@ -190,7 +190,7 @@ export class ControlContentComponent implements OnInit {
   onHtmlNextClick() {
     this.goToService.clickFlow.emit();
     // console.log('after clicking on next', this.completedStatus);
-   // this.showNextContentLoading = true;
+    // this.showNextContentLoading = true;
   }
 
   onScrollToTop() {

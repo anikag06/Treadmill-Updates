@@ -9,7 +9,7 @@ import { LoadFilesService } from '@/main/games/shared/load-files.service';
 import { map, switchMap } from 'rxjs/operators';
 import { FlowService } from '@/main/flow/flow.service';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
-import {MindfulnessVideoItem} from '@/main/extra-resources/shared/mindfulnessVideo.model';
+import { MindfulnessVideoItem } from '@/main/extra-resources/shared/mindfulnessVideo.model';
 
 @Component({
   selector: 'app-extra-resources',
@@ -80,14 +80,17 @@ export class ExtraResourcesComponent implements OnInit {
       });
     });
 
-    this.extraResourcesService.getMindfulnessVideoItem().subscribe((video_data: any) => {
-      video_data.results.forEach((element: any) => {
-        console.log('mindful', element.resource_video);
-        this.mindfulnessVideoItems.push(<MindfulnessVideoItem>element.resource_video);
-        this.countMindfulVideoItem = this.countMindfulVideoItem + 1;
-
-      })
-    })
+    this.extraResourcesService
+      .getMindfulnessVideoItem()
+      .subscribe((video_data: any) => {
+        video_data.results.forEach((element: any) => {
+          console.log('mindful', element.resource_video);
+          this.mindfulnessVideoItems.push(
+            <MindfulnessVideoItem>element.resource_video,
+          );
+          this.countMindfulVideoItem = this.countMindfulVideoItem + 1;
+        });
+      });
 
     this.extraResourcesService
       .getReadingItem()
@@ -109,10 +112,15 @@ export class ExtraResourcesComponent implements OnInit {
   }
 
   mindfulnessVideoClick(mindfulnessVideoBeingClicked: MindfulnessVideoItem) {
-    this.router.navigate(['mindfulnessVideo/', mindfulnessVideoBeingClicked.id], {
-      relativeTo: this.route,
-    });
-    this.extraResourcesService.mindfulnessVideoClickBehavior.next(mindfulnessVideoBeingClicked);
+    this.router.navigate(
+      ['mindfulnessVideo/', mindfulnessVideoBeingClicked.id],
+      {
+        relativeTo: this.route,
+      },
+    );
+    this.extraResourcesService.mindfulnessVideoClickBehavior.next(
+      mindfulnessVideoBeingClicked,
+    );
   }
 
   readingItemClick(readingItemBeingClicked: ReadingItem) {
@@ -140,4 +148,3 @@ export class ExtraResourcesComponent implements OnInit {
     console.log('state to true');
   }
 }
-

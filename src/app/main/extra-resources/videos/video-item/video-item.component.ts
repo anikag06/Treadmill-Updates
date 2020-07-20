@@ -10,7 +10,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { VideoItem } from '@/main/extra-resources/shared/video.model';
-import {ActivatedRoute, Params, Router} from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ExtraResourcesService } from '@/main/extra-resources/extra-resources.service';
 import { VideosComponent } from '@/main/extra-resources/videos/videos.component';
 import {
@@ -21,7 +21,7 @@ import {
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
 import { LoadFilesService } from '@/main/games/shared/load-files.service';
-import {MindfulnessVideoItem} from '@/main/extra-resources/shared/mindfulnessVideo.model';
+import { MindfulnessVideoItem } from '@/main/extra-resources/shared/mindfulnessVideo.model';
 
 @Component({
   selector: 'app-video-item',
@@ -99,34 +99,33 @@ export class VideoItemComponent implements OnInit, AfterViewInit, OnDestroy {
 
     // this.eachVideoType = '';
 
-     // if (this.video == null) {
-     //   this.activatedRoute.params.subscribe(data => {
-     //     this.videoIdToSend = data.id;
-     //     console.log('reload id:', data.id);
-     //   });
-     //   this.extraResourcesService
-     //     .getAVideo(this.videoIdToSend)
-     //     .subscribe(data => {
-     //       console.log('data', data);
-     //       this.video = <VideoItem>data;
+    // if (this.video == null) {
+    //   this.activatedRoute.params.subscribe(data => {
+    //     this.videoIdToSend = data.id;
+    //     console.log('reload id:', data.id);
+    //   });
+    //   this.extraResourcesService
+    //     .getAVideo(this.videoIdToSend)
+    //     .subscribe(data => {
+    //       console.log('data', data);
+    //       this.video = <VideoItem>data;
     //       this.isLoaded = true;
     //     });
     // } else {
-      this.extraResourcesService.videoClickedEvent.subscribe(data => {
-        this.video = <VideoItem>data;
-        this.isLoaded = true;
-      });
+    this.extraResourcesService.videoClickedEvent.subscribe(data => {
+      this.video = <VideoItem>data;
+      this.isLoaded = true;
+    });
 
-      this.extraResourcesService.mindfulnessVideoClickedEvent.subscribe(data => {
-       this.mindfulnessVideo = <MindfulnessVideoItem>data;
-       this.isLoaded = true;
-     });
+    this.extraResourcesService.mindfulnessVideoClickedEvent.subscribe(data => {
+      this.mindfulnessVideo = <MindfulnessVideoItem>data;
+      this.isLoaded = true;
+    });
   }
   createPlayer() {
     console.log('you tube iframe');
     console.log('player is:', this.player);
     setTimeout(() => {
-
       this.player = new (<any>window).YT.Player('player', {
         events: {
           onReady: (event: any) => {
@@ -200,5 +199,4 @@ export class VideoItemComponent implements OnInit, AfterViewInit, OnDestroy {
       console.log('player after destroying', this.player);
     }
   }
-
 }

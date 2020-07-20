@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ExtraResourcesService } from '@/main/extra-resources/extra-resources.service';
 import { LoadFilesService } from '@/main/games/shared/load-files.service';
-import {MindfulnessVideoItem} from '@/main/extra-resources/shared/mindfulnessVideo.model';
+import { MindfulnessVideoItem } from '@/main/extra-resources/shared/mindfulnessVideo.model';
 
 @Component({
   selector: 'app-videos',

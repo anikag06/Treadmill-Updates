@@ -5,7 +5,6 @@ import { ReadingItemComponent } from '@/main/extra-resources/reading-material/re
 import { NgModule } from '@angular/core';
 import { ExtraResourcesComponent } from '@/main/extra-resources/extra-resources.component';
 
-
 export const extraResourcesRoutes: Routes = [
   {
     path: '',
@@ -15,7 +14,7 @@ export const extraResourcesRoutes: Routes = [
       { path: 'videos', component: VideosComponent },
       { path: 'videoItem/:id', component: VideoItemComponent },
       { path: 'readingItem/:id', component: ReadingItemComponent },
-      { path: 'mindfulnessVideo/:id', component: VideoItemComponent},
+      { path: 'mindfulnessVideo/:id', component: VideoItemComponent },
     ],
   },
 ];
