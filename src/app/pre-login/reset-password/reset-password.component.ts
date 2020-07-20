@@ -32,6 +32,7 @@ export class ResetPasswordComponent implements OnInit {
   confirmPassword: any; // ngModel
   confirm_password: any; // name
   uniqueLink!: string;
+  dashboardLinkShow = false;
 
   @ViewChild('resetForm', { static: true }) resetForm!: NgForm;
   // @ViewChild('newpassword', {static: true}) newpassword!: ElementRef;
@@ -47,7 +48,8 @@ export class ResetPasswordComponent implements OnInit {
   ngOnInit() {
     const user = this.authService.isLoggedIn();
     if (user && user.is_active) {
-      this.router.navigate([LOGGED_IN_PATH]);
+      this.dashboardLinkShow = true;
+      // this.router.navigate([LOGGED_IN_PATH]);
     } else {
       this.errorPage = false;
       // this.showResetPasswordForm = true;

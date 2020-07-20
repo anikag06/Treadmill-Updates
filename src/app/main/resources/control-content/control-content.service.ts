@@ -1,5 +1,6 @@
 import { ElementRef, Injectable, ViewChild } from '@angular/core';
 import { NavbarComponent } from '@/main/shared/navbar/navbar.component';
+import {HttpHeaders} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',

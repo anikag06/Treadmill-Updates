@@ -402,6 +402,7 @@ export const COMMON_EDITOR_CONFIG = {
 };
 export const VIDEO_LIST = '/api/v1/resources/videos/';
 export const READING_LIST = '/api/v1/resources/reading-materials/';
+export const MINDFULNESS_VIDEO_LIST = '/api/v1/resources/mindfulness-videos/';
 export const EACH_VIDEO = '/api/v1/resources/videos/';
 export const WATCHED_VIDEO = '/api/v1/resources/mark-video-watched/';
 export const PERSONLISE_POST = '/api/v1/support-group/save-user-tags/';

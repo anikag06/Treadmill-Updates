@@ -35,6 +35,7 @@ import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifica
 import { IntroService } from '@/main/walk-through/intro.service';
 import { isNotNullOrUndefined } from 'codelyzer/util/isNotNullOrUndefined';
 import { IntroDialogService } from '@/main/walk-through/intro-dialog.service';
+import {NavbarGoToService} from '@/main/shared/navbar/navbar-go-to.service';
 
 @Component({
   selector: 'app-step',
@@ -62,6 +63,7 @@ export class StepComponent implements OnInit, AfterViewInit {
     private navbarService: NavbarNotificationsService,
     private introService: IntroService,
     private introDialogService: IntroDialogService,
+    private goToService: NavbarGoToService,
   ) {}
 
   ngOnInit() {
@@ -140,6 +142,7 @@ export class StepComponent implements OnInit, AfterViewInit {
   }
 
   navigate(event: Event) {
+    this.goToService.nextControlContentLoad.emit();
     event.preventDefault();
     //
     this.showTooltipFun();

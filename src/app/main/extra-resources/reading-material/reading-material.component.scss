@@ -30,10 +30,10 @@
 
 @media screen and (min-width: 1501px) {
   .reading-card {
-    width: 348px;
+  //  width: 348px;
     flex-grow: 1;
-    max-height: 306px;
-    min-height: 306px;
+    max-height: 95%;
+    min-height: 95%;
   }
   .show-footer-style{
     font-size: 20px;
@@ -42,44 +42,44 @@
 
 @media screen and (max-width: 1500px) {
   .reading-card {
-    width: 250px;
-    max-height: 231px;
-    min-height: 231px;
+   // width: 250px;
+    max-height: 95%;
+    min-height: 95%;
   }
 }
 
 @media screen and (max-width: 1280px) {
   .reading-card {
-    width: 224px;
-    max-height: 210px;
-    min-height: 210px;
+   // width: 224px;
+    max-height: 95%;
+    min-height: 95%;
   }
 }
 
 
 @media screen and (max-width: 991px) {
   .reading-card {
-    width: 268px;
-    max-height: 185px;
-    min-height: 185px;
+  //  width: 268px;
+    max-height: 95%;
+    min-height: 95%;
   }
 }
 
 @media screen and (max-width: 768px) {
   .reading-card {
-    width: 159px;
-    max-height: 185px;
-    min-height: 185px;
+   // width: 159px;
+    max-height: 95%;
+    min-height: 95%;
   }
 
 }
 
 @media screen and (max-width: 525px) {
   .reading-card {
-    width: 42vw;
+   // width: 42vw;
     margin: 0px 0px 14px;
-    max-height: 172px;
-    min-height: 172px;
+    max-height: 95%;
+    min-height: 95%;
   }
   .show-footer-style{
     font-size: 14px;
@@ -90,8 +90,8 @@
   .reading-card {
     width: 42vw;
     margin: 0px 0px 14px;
-    max-height: 161px;
-    min-height: 161px;
+    max-height: 95%;
+    min-height: 95%;
   }
   .show-footer-style{
     font-size: 14px;

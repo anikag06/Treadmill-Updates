@@ -21,6 +21,7 @@ import { IntroDialogService } from '@/main/walk-through/intro-dialog.service';
 })
 export class GameItemComponent implements OnInit {
   gameStarted = false;
+  gameConst = false;
   @Input() game!: Game;
 
   constructor(

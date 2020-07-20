@@ -8,6 +8,7 @@ import { SignUpComponent } from '@/pre-login/signup/signup.component';
 import { TempLandingPageComponent } from '@/temp-landing-page/temp-landing-page.component';
 import { ResetPasswordComponent } from '@/pre-login/reset-password/reset-password.component';
 
+
 export const routes: Routes = [
   {
     path: '',
@@ -31,6 +32,7 @@ export const routes: Routes = [
     path: 'reset/password/:unique-code',
     component: ResetPasswordComponent,
     pathMatch: 'prefix',
+   // canActivate: [ResetPasswordAuth],
   },
 
   {

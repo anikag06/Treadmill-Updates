@@ -3,8 +3,31 @@
     <img class="mx-auto" [src]="game.thumbnail" [alt]="game.name" style="height:130px">
   </div>
 
-  <mat-card-footer [style.background-color]="getFooterColor(game.slug)">
-    <h6 class="my-auto" style="height:57px;color:white;">{{game.name}}</h6>
+  <mat-card-footer class = "footer-style">
+<!--    [style.background-color]="getFooterColor(game.slug)" style="height:57px;"-->
+    <p class="name-style" >{{game.name}}</p>
+    <div class = "d-flex justify-content-center progress-bar-div">
+     <p class = "this-week-text">This week</p>
+     <p class = "time-left-text">Time left</p>
+<!--     <div class = "row d-flex justify-content-start"><p>This week</p></div>-->
+
+    <mat-progress-bar
+      border border-dark rounded
+      class = "progress-bar-style"
+      mode = "determinate"
+      value="40"
+      [class.ib-progress-bar-style] = "game.slug === 'GAME-INTERPRETATION-BIAS'"
+      [class.ec-progress-bar-style] = "game.slug === 'GAME-EXECUTIVE-CONTROL'"
+
+      [class.icd-progress-bar-style] = "game.slug === 'GAME-IDENTIFY-COGNITIVE-DISTORTION'"
+
+      [class.ff-progress-bar-style] = "game.slug === 'GAME-FRIENDLY-FACE'"
+      [class.mi-progress-bar-style] = "game.slug ===  'GAME-MENTAL-IMAGERY'" >
+    </mat-progress-bar>
+
+      <!--  [class.lh-progress-bar-style] = "game.slug ===  'GAME-LEARNED-HELPLESSNESS'"-->
+      <!--[class.asg-progress-bar-style] = "game.slug === 'GAME-ATTRIBUTION-STYLE'"-->
+    </div>
 
   </mat-card-footer>
 </mat-card>

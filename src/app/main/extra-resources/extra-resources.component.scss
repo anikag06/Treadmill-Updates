@@ -1,7 +1,8 @@
 .heading{
   font-size: 20px;
   margin-bottom: 12px;
-  font-weight: bold;
+  font-family: Roboto ;
+  font-weight: initial;
   margin-top: 24px;
 }
 
@@ -11,7 +12,9 @@
   cursor: pointer;
   white-space: nowrap;
 }
-
+.see-all-icon {
+  transform: rotate(180deg);
+}
 .show-all-cards{
   overflow: visible;
   height: auto;
@@ -62,13 +65,16 @@ i {
   }
   .videos-card-hidden{
    // height: 335px;//for 1 row
-    height: 347px;
+    //height: 347px;
+    height: 15vh;
   }
   .reading-card-hidden{
-    height: 449px;// for 1 row
+   // height: 449px;// for 1 row
+    height: 17vh;
   }
   .each-item{
      padding: 0px 16px;
+     width: 25%;
   }
 
   .heading{
@@ -76,7 +82,7 @@ i {
     padding-left: 18px;
   }
   .see-all{
-    padding-left: 88% ;
+    padding-left: 94% ;
   }
 }
 
@@ -87,13 +93,16 @@ i {
 
   }
   .videos-card-hidden{
-    height: 250px;
+    //height: 250px;
+    height: 19vh;
   }
   .reading-card-hidden{
-    height: 419px;// for 1 row
+   // height: 419px;// for 1 row
+    height: 22vh;
   }
   .each-item{
     padding: 0px 7px;
+    width: 25%;
   }
 
   .heading{
@@ -105,20 +114,33 @@ i {
     padding-left: 92% ;
   }
 }
-
+@media screen and (width: 1366px) {
+  .videos-card-hidden{
+    //height: 230px;//for 1 row
+    height: 30vh;
+  }
+  .reading-card-hidden{
+    // height: 419px;// for 1 row
+    height: 34vh;
+  }
+}
 @media screen and (max-width: 1280px){
   .resources-container{
     padding: 0px 0px 0px 84px;
     margin: 0px;
   }
   .videos-card-hidden{
-    height: 230px;//for 1 row
+    //height: 230px;//for 1 row
+    height: 22vh;
   }
   .reading-card-hidden{
-    height: 419px;// for 1 row
+   // height: 419px;// for 1 row
+    height: 24vh;
   }
   .each-item{
     padding: 0px 7px;
+    width: 25%;
+    //height: 5%;
   }
 
   .heading{
@@ -126,7 +148,7 @@ i {
     padding-left: 9px;
   }
   .see-all{
-    padding-left: 86% ;
+    padding-left: 88% ;
   }
 
 }
@@ -138,13 +160,16 @@ i {
 
   }
   .videos-card-hidden{
-    height: 247px;//for 1 row
+    //height: 247px;//for 1 row
+    height: 30vh;
   }
   .reading-card-hidden{
-    height: 342px;// for 1 row
+   // height: 342px;// for 1 row
+    height: 34vh;
   }
   .each-item{
     padding: 0px 7px;
+    width: 25%;
   }
 
   .heading{
@@ -152,7 +177,7 @@ i {
     padding-left: 9px;
   }
   .see-all{
-    padding-left: 88% ;
+    padding-left: 90% ;
   }
 }
 
@@ -163,15 +188,18 @@ i {
 
   }
   .videos-card-hidden{
-    height: 178px; //for 1 row
+   // height: 178px; //for 1 row
+    height: 30vh;
   }
   .reading-card-hidden{
-    height: 429px;// for 1 row
+   // height: 429px;// for 1 row
+    height: 34vh;
   }
 
 
   .each-item{
     padding: 0px 7px;
+    width: 25%;
   }
 
   .heading{
@@ -179,7 +207,7 @@ i {
     padding-left: 9px;
   }
   .see-all{
-    padding-left: 88% ;
+    padding-left: 90% ;
   }
 }
 
@@ -193,15 +221,18 @@ i {
   }
   .each-item{
     padding: 0px 7px;
+    width: 50%;
   }
   .videos-card-hidden{
-    height: 394px;//for2 rows
+    //height: 394px;//for2 rows
+    height: 60vh;
   }
   .reading-card-hidden{
-    height: 394px;
+    //height: 394px;
+    height: 64vh;
   }
   .see-all{
-    padding-left: 77% ;
+    padding-left: 82% ;
   }
 }
 
@@ -215,19 +246,33 @@ i {
   }
 
   .videos-card-hidden{
-    height: 354px;//to set
+   // height: 382px;//to set
+    height: 54vh;
 
   }
   .reading-card-hidden{
-    height: 354px;
+  // height: 400px;
+    height: 64vh;
   }
 
   .each-item{
     padding: 0px 7px;
+    width: 50%;
   }
 
   .see-all{
-    padding-left: 75% ;
+    padding-left: 80% ;
+  }
+}
+@media screen and (max-width: 320px) {
+  .videos-card-hidden{
+    // height: 382px;//to set
+    height: 54vh;
+
+  }
+  .reading-card-hidden{
+    // height: 400px;
+    height: 58vh;
   }
 }
 

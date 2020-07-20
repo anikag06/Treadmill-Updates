@@ -34,6 +34,7 @@ import { SharedModule } from '@/shared/shared.module';
     ReadingMaterialComponent,
     ReadingItemComponent,
     VideoItemComponent,
+
     // SafeUrlPipe,
     // TrimStringPipe
   ],

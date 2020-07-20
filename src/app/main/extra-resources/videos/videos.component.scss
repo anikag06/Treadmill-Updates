@@ -16,6 +16,9 @@
 .preview-img{
   width: 100%;
   height: 100%;
+  margin-bottom: -10%;
+  margin-top: -10%;
+ // overflow: hidden;
 }
 
 .show-footer-style{
@@ -29,6 +32,7 @@
 
 .preview-img-div {
   position: relative;
+  overflow: hidden;
 }
 
 .youtube-button{
@@ -41,10 +45,10 @@
 }
 @media screen and (min-width: 1501px) {
    .card {
-    width: 348px;
+   // width: 348px;
     //flex-grow: 1;
-     min-height: 347px;
-     max-height: 347px;
+     max-height: 15vh;
+     min-height: 15vh;
   }
   .show-footer-style{
     font-size: 20px;
@@ -54,31 +58,48 @@
 
 @media screen and (max-width: 1500px) {
     .card {
-    width: 250px;
-      height: 245px;
+   // width: 25%;
+     // height: 245px;
+      max-height: 18vh;
+      min-height: 18vh;
+  }
+}
+
+@media screen and (width: 1366px) {
+  .card {
+    // width: 25%;
+    // height: 245px;
+    max-height: 28vh;
+    min-height: 28vh;
   }
 }
 
 @media screen and (max-width: 1280px) {
   .card {
-    width: 224px; //for 3 pics
+   // width: 224px; //for 3 pics
     margin: 0px 0px 16px;
-    height: 226px;
+   // height: 226px;
+    max-height: 20vh;
+    min-height: 20vh;
   }
 }
 
 
 @media screen and (max-width: 991px) {
   .card {
-    width: 268px;
-    height: 226px;
+  //  width: 268px;
+    //height: 226px;
+    max-height: 28vh;
+    min-height: 28vh;
   }
  }
 
 @media screen and (max-width: 768px) {
    .card {
-   width: 159px;
-   height: 177px;
+   // width: 159px;
+   //height: 177px;
+     max-height: 28vh;
+     min-height: 28vh;
   }
 
 
@@ -86,10 +107,12 @@
 
 @media screen and (max-width: 525px) {
   .card {
-    width: 42vw;
+  //  width: 42vw;
     margin: 0px 0px 14px;  // top right-left bottom
-    height: 186px;
+   // height: 186px;
     //max-height: 186px;
+    max-height: 28vh;
+    min-height: 28vh;
   }
   .show-footer-style{
     font-size: 14px;
@@ -98,10 +121,12 @@
 }
 @media screen and (max-width: 375px) {
   .card {
-    width: 42vw;
-    height: 169px;
+  //  width: 42vw;
+   // height: 169px;
     //height:183.7px;
     //max-height: 183.7px;
+    max-height: 25vh;
+    min-height: 25vh;
     margin: 0px 0px 14px;  // top right-left bottom
   }
   .show-footer-style{
