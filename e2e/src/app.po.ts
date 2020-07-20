@@ -257,6 +257,7 @@ export class AppPage {
     element(by.css('button.login-btn')).click();
     browser.sleep(3000);
   }
+  logout() {}
   getTime() {
     const today = new Date();
     this.firstLoginTime = new Date().getTime();
