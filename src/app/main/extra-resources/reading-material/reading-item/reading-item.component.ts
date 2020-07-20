@@ -24,6 +24,11 @@ export class ReadingItemComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.loadFilesService
+      .loadExternalStyles('/extra-resources-styles.css')
+      .then(() => {})
+      .catch(() => {});
+
     if (this.readingItem == null) {
       this.activateRoutes.params.subscribe(data => {
         this.readingIdToSend = data.id;
@@ -43,9 +48,6 @@ export class ReadingItemComponent implements OnInit {
         this.isLoaded = true;
       });
     }
-    this.loadFilesService
-      .loadExternalStyles('/extra-resources-styles.css')
-      .then(() => {})
-      .catch(() => {});
+
   }
 }

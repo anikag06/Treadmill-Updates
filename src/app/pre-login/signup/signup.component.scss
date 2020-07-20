@@ -1,1 +1,22 @@
 @import "src/app/pre-login/shared/signup-reset-common/signup-reset-common.component";
+
+.footer-small-device {
+  display: none;
+}
+@media screen and (max-width: 767px) {
+  .footer-small-device {
+    display: block !important;
+    background-color: #2A3B3D;
+    color: white;
+    width: 100%;
+
+    p {
+      opacity: 0.6;
+      font-size: 12px;
+      margin-top: 2%;
+      text-align: center;
+    }
+  }
+}
+
+    height: 100px;

@@ -35,7 +35,7 @@ export class ControlContentComponent implements OnInit {
   completionData: StepCompleteData = new StepCompleteData(0, 0);
   current_step_id!: number;
   isLastStep = false;
-  dataloaded = true;
+  dataloaded = false;
   showLoading = false;
   lastStepCompleted = false;
   navbarTitle!: string;
@@ -44,6 +44,8 @@ export class ControlContentComponent implements OnInit {
   moodEvaluate = false;
   stepGroupSequence!: number;
   showQuestionnaire = false;
+  completedStatus!: string;
+  nextDataLoaded = false;
   // elem = document.getElementById('hi');
 
   constructor(
@@ -61,6 +63,10 @@ export class ControlContentComponent implements OnInit {
   nextBtnShow = false;
 
   ngOnInit() {
+    this.goToService.nextControlContentLoad.subscribe(() => {
+      this.nextDataLoaded = false;
+    });
+   // this.showNextContentLoading = false;
     this.loadFilesService
       .loadExternalStyles('/control-content-styles.css')
       .then(() => {})
@@ -78,10 +84,16 @@ export class ControlContentComponent implements OnInit {
         this.next_step_id = control_data.data.next_step_id;
         this.current_step_id = control_data.data.id;
         this.isLastStep = control_data.data.is_last_step;
+        this.completedStatus = control_data.data.status;
+       // this.showNextContentLoading = false;
+        this.onScrollToTop();
+        console.log('data status', this.completedStatus);
 
         this.dataloaded = true;
+        this.nextDataLoaded = true;
         if (control_data.data.status === 'COMPLETED') {
           this.nextBtnShow = true;
+
           if (this.isLastStep) {
             this.lastStepCompleted = true;
           }
@@ -144,6 +156,8 @@ export class ControlContentComponent implements OnInit {
   // }
 
   onHtmlComplete() {
+   // this.nextBtnShow = true;
+  //  console.log('after clicking on  complete', this.completedStatus);
     this.showLoading = true;
     this.completionData.step_id = this.current_step_id;
     this.completionData.time_spent = 100;
@@ -154,7 +168,8 @@ export class ControlContentComponent implements OnInit {
     );
     this.stepDataService
       .storeCompletionData(this.completionData)
-      .subscribe(() => {
+      .subscribe((data: any) => {
+        console.log('completion data after complete click', data);
         this.showLoading = false;
         if (!this.isLastStep) {
           this.nextBtnShow = true;
@@ -173,8 +188,9 @@ export class ControlContentComponent implements OnInit {
   }
 
   onHtmlNextClick() {
-    // this.router.navigate([this.onHtmlNext()]);
     this.goToService.clickFlow.emit();
+    // console.log('after clicking on next', this.completedStatus);
+   // this.showNextContentLoading = true;
   }
 
   onScrollToTop() {

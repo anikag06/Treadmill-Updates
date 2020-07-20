@@ -1,20 +1,31 @@
-
-  <div class = "row " >
+<div *ngIf = "eachVideoType === 'video'">
+  <div class = "row row-margin" >
     <div class="col col-margin" *ngIf = "isLoaded; else loader" >
-      <!--<mat-card class = "card">-->
-
-
           <div class="video-container" >
          <iframe class = "video-specs" [src]="video.url + enableId | safeUrl" id = 'player' #Video ></iframe><br/>
 
           </div>
 
           <mat-card-footer class= "footer-text" [innerHTML]="video.title"></mat-card-footer>
-             <!-- </mat-card>-->
     </div>
   </div>
+</div>
 
-  <ng-template #loader>
+<div *ngIf = "eachVideoType === 'mindfulnessVideo'">
+  <div class = "row row-margin" >
+    <div class="col col-margin" *ngIf = "isLoaded; else loader" >
+      <div class="video-container" >
+        <iframe class = "video-specs" [src]="mindfulnessVideo.url + enableId | safeUrl" id = 'player' #Video ></iframe><br/>
+
+      </div>
+
+     <mat-card-footer class= "footer-text" [innerHTML]="mindfulnessVideo.title"></mat-card-footer>
+    </div>
+  </div>
+</div>
+
+
+<ng-template #loader>
     <div class="col-sm-9 col-lg-12">
       <img src="assets/shared/dna-loader.svg" alt="dna" >
     </div>

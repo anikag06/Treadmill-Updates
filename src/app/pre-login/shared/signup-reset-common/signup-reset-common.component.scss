@@ -21,18 +21,31 @@ h4 {
   height: 90vh;
 }
 
+//.footer-1 {
+//  display: block;
+//  color: white;
+//  opacity: 0.6;
+//  font-size: 12px;
+//  margin-bottom: 1vh;
+//
+//}
+
 .footer-1 {
-  display: block;
+ // display: block;
+  background-color: #2A3B3D;
   color: white;
-  opacity: 0.6;
-  font-size: 12px;
-  margin-bottom: 1vh;
+  height: 100px;
+  width: 100%;
 
+  p {
+    opacity: 0.6;
+    font-size: 12px;
+    margin-top: 2%;
+    text-align: center;
+  }
 }
 
-.footer-2 {
-  display: none;
-}
+
 
 .signup-form {
   margin-top: 10vh;
@@ -58,9 +71,9 @@ h4 {
   margin-bottom: 36px;
 }
 
+
 @media screen and (max-width: 767px) {
 
-  // .signup-page {
   h4 {
     margin-top: 16px;
   }
@@ -96,25 +109,15 @@ h4 {
     }
   }
 
-  .footer-2 {
-    display: block !important;
-    background-color: #2A3B3D;
-    color: white;
-    height: 100px;
-    width: 100%;
+.footer-1 {
+ // display: none;
+}
 
-    p {
-      opacity: 0.6;
-      font-size: 12px;
-      margin-top: 2%;
-      text-align: center;
-    }
-  }
-
-  .footer-1 {
-    display: none !important;
-  }
+  //.footer-1 {
+  //  display: none !important;
+  //}
 
   .dialog-btn {
     margin-bottom: 36px;
   }
+

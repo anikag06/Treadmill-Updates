@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ExtraResourcesService } from '@/main/extra-resources/extra-resources.service';
 import { LoadFilesService } from '@/main/games/shared/load-files.service';
+import {MindfulnessVideoItem} from '@/main/extra-resources/shared/mindfulnessVideo.model';
 
 @Component({
   selector: 'app-videos',
@@ -12,6 +13,8 @@ import { LoadFilesService } from '@/main/games/shared/load-files.service';
 })
 export class VideosComponent implements OnInit {
   @Input() videoItem!: VideoItem;
+  @Input() mindfulnessVideoItem!: MindfulnessVideoItem;
+  @Input() videoType!: string;
   videoLink: string | undefined;
   videoFooter: string | undefined;
   // @Output() event1 = new EventEmitter();

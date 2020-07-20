@@ -1,18 +1,23 @@
 
-    <!--<a routerLink = "/videoItem" -12 col-sm-6 col-md-6 col-lg-4>
-
-    -->
-
-      <mat-card class="card">
+<div *ngIf = "videoType === 'mindfulnessVideo'">
+<mat-card class="card">
         <div class = "preview-img-div">
-        <img class = "preview-img" [src]="videoItem.preview_img" >
+        <img class = "preview-img" [src]="mindfulnessVideoItem.preview_img" >
         <img class = "youtube-button" src = "assets/icons/youtube.png">
         </div>
-        <!--no image from backend but make the preview of the video visible-->
+        <mat-card-footer class = "show-footer-style for-ellipsis "[innerHTML]="mindfulnessVideoItem.title "> </mat-card-footer>
+ </mat-card>
+</div>
 
-        <!--<mat-card-footer [ngClass] = "showState == true ? 'footer-font' :'show'" [innerHTML]="videoItem.title" ><a (click) = "expandLine()">...</a></mat-card-footer>-->
-        <mat-card-footer class = "show-footer-style for-ellipsis "[innerHTML]="videoItem.title "> </mat-card-footer>
-      </mat-card>
+<div *ngIf = "videoType === 'video'" >
+  <mat-card class="card">
+            <div class = "preview-img-div">
+            <img class = "preview-img" [src]="videoItem.preview_img" >
+            <img class = "youtube-button" src = "assets/icons/youtube.png">
+            </div>
+            <mat-card-footer class = "show-footer-style for-ellipsis "[innerHTML]="videoItem.title "> </mat-card-footer>
+  </mat-card>
+</div>
 
 
-    <!--</a>-->
+

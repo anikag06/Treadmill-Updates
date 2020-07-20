@@ -2,19 +2,19 @@
   <div id="no-use-div" #target ></div>
 <div class="container" >
   <div class="row"  >
-    <div class="col-lg-7 col-md-9 col-sm-12 fix-content-box " >
+    <div class="col-lg-7 col-md-9 col-sm-12 fix-content-box "  >
 
 
-        <mat-card-header class="fix-content-header d-flex" >
+        <mat-card-header class="fix-content-header d-flex"  >
 
 
-          <mat-card-title class="fix-content-header-title "  [innerHTML]="displayHtmlHeader"  ></mat-card-title>
+          <mat-card-title class="fix-content-header-title "  [innerHTML]="displayHtmlHeader" *ngIf = "this.nextDataLoaded" ></mat-card-title>
         </mat-card-header>
       <mat-card >
         <mat-card-content class="fix-content-body "
-                          [innerHTML]="displayHtml" *ngIf = "dataloaded; else loader "
+                          [innerHTML]="displayHtml" *ngIf = "this.dataloaded && this.nextDataLoaded; else loader "
         ></mat-card-content>
-        <div class = "d-flex flex-row justify-content-end">
+        <div class = "d-flex flex-row justify-content-end" *ngIf = "this.nextDataLoaded">
           <div *ngIf="isLastStep" class="content-body">
             <app-evaluate-mood [moodEvaluate]="moodEvaluate" ></app-evaluate-mood>
           </div>
@@ -42,8 +42,10 @@
   </div>
 </ng-template>
 <ng-template #nextLoad>
-  <div class="col">
-    <span class="spinner-border spinner-border-sm  " role="status" aria-hidden="true"></span>
+  <div class = "col">
+    <div class="text-center loader">
+      <img src = "assets/shared/dna-loader.svg" alt="loader" width="200">
+    </div>
   </div>
 </ng-template>
 <ng-template [ngIf]="showQuestionnaire">

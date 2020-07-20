@@ -34,6 +34,7 @@ import { DatePipe } from '@angular/common';
 import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifications.service';
 import { IntroService } from '@/main/walk-through/intro.service';
 import { IntroDialogService } from '@/main/walk-through/intro-dialog.service';
+import {NavbarGoToService} from '@/main/shared/navbar/navbar-go-to.service';
 import { type } from 'os';
 
 @Component({
@@ -62,6 +63,7 @@ export class StepComponent implements OnInit, AfterViewInit {
     private navbarService: NavbarNotificationsService,
     private introService: IntroService,
     private introDialogService: IntroDialogService,
+    private goToService: NavbarGoToService,
   ) {}
 
   ngOnInit() {
@@ -140,6 +142,7 @@ export class StepComponent implements OnInit, AfterViewInit {
   }
 
   navigate(event: Event) {
+    this.goToService.nextControlContentLoad.emit();
     event.preventDefault();
     //
     this.showTooltipFun();

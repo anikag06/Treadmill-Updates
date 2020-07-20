@@ -9,6 +9,7 @@ import { LoadFilesService } from '@/main/games/shared/load-files.service';
 import { map, switchMap } from 'rxjs/operators';
 import { FlowService } from '@/main/flow/flow.service';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
+import {MindfulnessVideoItem} from '@/main/extra-resources/shared/mindfulnessVideo.model';
 
 @Component({
   selector: 'app-extra-resources',
@@ -18,11 +19,14 @@ import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 export class ExtraResourcesComponent implements OnInit {
   videoItems: VideoItem[] = [];
   readingItems: ReadingItem[] = [];
+  mindfulnessVideoItems: MindfulnessVideoItem[] = [];
   videoClicked!: VideoItem;
   showVideoState = false;
+  showMindfulnessVideoState = false;
   showReadingMaterialState = false;
   countReadingItem = 0;
   countVideoItem = 0;
+  countMindfulVideoItem = 0;
   navbarTitle!: string;
   stepGroupSequence!: number;
   stepSequence!: number;
@@ -39,11 +43,6 @@ export class ExtraResourcesComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // const tag = document.createElement('script');
-    //
-    // tag.src = 'https://www.youtube.com/iframe_api';
-    // document.body.appendChild(tag);
-
     this.loadFilesService
       .loadExternalStyles('/extra-resources-styles.css')
       .then(() => {})
@@ -81,6 +80,15 @@ export class ExtraResourcesComponent implements OnInit {
       });
     });
 
+    this.extraResourcesService.getMindfulnessVideoItem().subscribe((video_data: any) => {
+      video_data.results.forEach((element: any) => {
+        console.log('mindful', element.resource_video);
+        this.mindfulnessVideoItems.push(<MindfulnessVideoItem>element.resource_video);
+        this.countMindfulVideoItem = this.countMindfulVideoItem + 1;
+
+      })
+    })
+
     this.extraResourcesService
       .getReadingItem()
       .subscribe((reading_data: any) => {
@@ -100,6 +108,13 @@ export class ExtraResourcesComponent implements OnInit {
     this.extraResourcesService.videoClickBehavior.next(videoBeingClicked);
   }
 
+  mindfulnessVideoClick(mindfulnessVideoBeingClicked: MindfulnessVideoItem) {
+    this.router.navigate(['mindfulnessVideo/', mindfulnessVideoBeingClicked.id], {
+      relativeTo: this.route,
+    });
+    this.extraResourcesService.mindfulnessVideoClickBehavior.next(mindfulnessVideoBeingClicked);
+  }
+
   readingItemClick(readingItemBeingClicked: ReadingItem) {
     this.router.navigate(['readingItem/', readingItemBeingClicked.id], {
       relativeTo: this.route,
@@ -107,6 +122,11 @@ export class ExtraResourcesComponent implements OnInit {
     this.extraResourcesService.readingItemClickBehavior.next(
       readingItemBeingClicked,
     );
+  }
+
+  changeMindfulnessVideoState() {
+    this.showMindfulnessVideoState = !this.showMindfulnessVideoState;
+    console.log('state to true', this.showMindfulnessVideoState);
   }
 
   changeVideoState() {
@@ -121,49 +141,3 @@ export class ExtraResourcesComponent implements OnInit {
   }
 }
 
-// ///
-// (<any>window).onYouTubeIframeAPIReady = () => {
-//   this.extraResourcesService.getVideoItem().subscribe((video_data: any) => {
-//     video_data.results.forEach((element: any) => {
-//       this.listOfVideos.push(<VideoItem>element);
-//     });
-//   });
-//   console.log('you tube iframe');
-//   setTimeout(() => {
-//     if (this.listOfVideos.length === 0) {
-//       return;
-//     }
-//
-//     for (let i = 0; i < this.listOfVideos.length; i++) {
-//       //const currentPlayer = this.createPlayer(this.listOfVideos[i]);
-//       this.player = new (<any>window).YT.Player('player', {
-//         events: {
-//           onReady: (event: any) => {
-//             console.log('ready fired');
-//             this.onPlayerReady(event);
-//           },
-//           onStateChange: (event: any) => {
-//             console.log('state change fired');
-//             this.onPlayerStateChange(event);
-//           },
-//         },
-//         playerVars: {
-//           autoplay: 1,
-//           origin: window.location.href,
-//           // controls: 1,
-//         },
-//       });
-//     }
-//
-//   }, 1000);
-// };
-//}
-
-// if (event.data === 0){
-//   console.log('event data', event.data);
-//   this.watched = true;
-//   console.log('watched');
-//   this.extraResourcesService.markVideoWatched(this.videoIdToSend, this.watched).subscribe((data: any) => {
-//     console.log('marked video data', data);
-//   }
-// });
