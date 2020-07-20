@@ -34,7 +34,7 @@
 #text{
     font-size: 10px;
 }
-#btn{
+.option-btn{
 
     padding: 10px 20px;
     font-size: 14px;
@@ -42,7 +42,7 @@
     height: 60px;
     margin: 5px;
 }
-#btn:focus, #btn:active {
+.option-btn:focus, .option-btn:active {
     outline: none !important;
     box-shadow: none !important;
   }
@@ -103,7 +103,7 @@
             height: 150px;
         }
 
-        #btn{
+  .option-btn{
             width: 140px;
             padding:10px;
             font-size: 15px;
@@ -118,7 +118,7 @@
             font-size:17px;
 
         }
-        #btn:focus{
+  .option-btn:focus{
             background:white;
             color: black;
         }
@@ -138,13 +138,14 @@
         text-align: center;
         padding-top: 10px;
         padding-bottom: 10px;
+
         }
 
         #question{
             height: 250px;
         }
 
-        #btn{
+  .option-btn{
 
             width: 130px;
             margin: 5px;
@@ -162,7 +163,7 @@
             font-size:17px;
 
         }
-        #btn:focus{
+        .option-btn:focus{
             background:white;
             color: black;
         }
@@ -182,6 +183,7 @@
         text-align: center;
         float: none;
         border: none;
+      min-height: 600px;
         // z-index: 1;
         // box-shadow:  -5px 0 5px -5px #333, 5px 0 5px -5px #333;
 
@@ -191,7 +193,7 @@
             height: 250px;
         }
 
-        #btn{
+        .option-btn{
 
             width: 100px;
             margin: 5px;

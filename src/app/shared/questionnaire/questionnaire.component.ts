@@ -170,7 +170,7 @@ export class QuestionnaireComponent implements OnInit {
   // If questionnaire is loading
   loading = true;
   submitting = false;
-  followup = true;
+  followup = false;
   // tslint:disable-next-line:max-line-length
   constructor(
     private quizService: QuizService,
@@ -665,6 +665,7 @@ export class QuestionnaireComponent implements OnInit {
         this.moveToThankYouPage();
       }
     } else {
+      this.submitting = false;
       if (questionnaireName === SIQ) {
         console.log('show the siq ');
         this.display_siq_start = true;
@@ -790,6 +791,7 @@ export class QuestionnaireComponent implements OnInit {
         this.moveToThankYouPage();
       }
     } else {
+      this.submitting = false;
       if (questionnaireName === GAD7) {
         this.display_gad_start = true;
       }
