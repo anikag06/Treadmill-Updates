@@ -6,8 +6,12 @@
           Please fill out this survey to let us know what you think about TreadWill. It will take 3-4 minutes.
         </div>
         <div #startBtn>
-        <button type="button" class="disabled-button" mat-stroked-button (click)="loadQuestions($event)"> Start
+        <button type="button" class="disabled-button" mat-stroked-button (click)="loadQuestions($event)"  *ngIf="!showLoading"> Start
           survey</button>
+          <button class="active-button" *ngIf="showLoading" type="button" mat-raised-button >
+            <span class="spinner-border spinner-border-sm"></span>
+            &nbsp; Loading..
+          </button>
         </div>
       </div>
     </div>
@@ -57,7 +61,12 @@
               </div>
               <div class="row justify-content-center" #submitBtn>
                 <button type="button" class="disabled-button" style="margin-top:60px;min-width: 140px !important;"
-                  mat-stroked-button *ngIf="submit" (click)="onSubmit($event)" >Submit
+                  mat-stroked-button *ngIf="submit && !submitting" (click)="onSubmit($event)" >Submit
+                </button>
+                <button class="active-button" *ngIf="submitting" style="margin-top:60px;min-width: 140px !important;"
+                        type="button"mat-stroked-button >
+                  <span class="spinner-border spinner-border-sm"></span>
+                  &nbsp; Loading..
                 </button>
               </div>
             </div>
@@ -75,3 +84,4 @@
 
     </div>
   </div>
+</div>
