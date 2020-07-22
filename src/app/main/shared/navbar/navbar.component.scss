@@ -14,16 +14,10 @@
 
   .navbar-title {
     padding-left: 50px;
-    //text-transform: capitalize;
-    //white-space: nowrap;
-    //overflow: hidden;
-    //text-overflow: ellipsis;
     color: #343434;
     font-size: 24px;
     font-style: roboto;
     opacity: 1;
-    //cursor: pointer;
-    // checking
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -118,7 +112,6 @@
       top: 3px;
       color: white;
       font-size: 20px;
-      //width: 125px;
     }
     .back-button{
       background-color: inherit;
