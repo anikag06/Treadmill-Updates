@@ -1,7 +1,10 @@
 <ng-template appNavbarFlow></ng-template>
 <div class="app-navbar">
   <div class="row mx-0">
-    <div class="col-6">
+    <div [ngClass]="{
+              'col-8': user.is_exp === false,
+              'col-7': user.is_exp === true
+            }">
       <div class="all-icons">
         <button
           mat-flat-button
@@ -21,6 +24,8 @@
             'conv-title': isConversation === true,
             'navbar-title': isConversation === false
           }"
+          [matTooltip]="navbarTitle"
+          matTooltipPosition="above"
         >
           {{ navbarTitle }}
           <!--          <span class="navbar-title" *ngIf="isDashboard || isConversation"></span>-->
@@ -28,11 +33,12 @@
       </div>
 
       <div class="all-icons-mobile">
-        <div class="row mx-0">
+        <div class=" d-flex flex-row mx-0">
+          <div
+            class="icon-items" *ngIf="!isDashboard">
           <button
             mat-flat-button
-            class="back-button icon-items"
-            *ngIf="!isDashboard"
+            class="back-button"
             (click)="backClick()"
           >
             <img
@@ -42,10 +48,12 @@
               alt="back"
             />
           </button>
+          </div>
+          <div
+            class="icon-items" *ngIf="isDashboard && isHandset$">
           <button
             id="hamburger"
             class="hamburger-button icon-items"
-            *ngIf="isDashboard && isHandset$"
             type="button"
             aria-label="Toggle sidenav"
             mat-flat-button
@@ -57,11 +65,17 @@
               src="assets/shared/Hamburger mobile.png"
             />
           </button>
+          </div>
+          <div
+          class="icon-items">
           <div
             [ngClass]="{
               'conv-title': isConversation === true,
               'navbar-title': isConversation === false
             }"
+            [style.width]="convMode ? '75%' : '100%'"
+            [matTooltip]="navbarTitle"
+            matTooltipPosition="above"
           >
             {{ navbarTitle
             }}<span
@@ -70,10 +84,14 @@
           ></span>
           </div>
         </div>
+        </div>
       </div>
     </div>
 
-    <div class="col-6">
+      <div [ngClass]="{
+              'col-4': user.is_exp === false,
+              'col-5': user.is_exp === true
+            }">
       <div
         class="all-icons"
         style="float: right;"
@@ -118,14 +136,17 @@
 
       <div class="all-icons-mobile">
         <div class="d-flex flex-row-reverse">
-          <button
-            mat-icon-button
-            id="showFullConversation"
-            [matMenuTriggerFor]="showFullConversation"
-            *ngIf="convMode"
-          >
-            <mat-icon>more_vert</mat-icon>
-          </button>
+          <div class="" >
+            <button
+              mat-icon-button
+              id="showFullConversation"
+              [matMenuTriggerFor]="showFullConversation"
+              *ngIf="convMode"
+            >
+              <mat-icon>more_vert</mat-icon>
+            </button>
+          </div>
+
           <div
             id="goto_mobile"
             [ngClass]="{
@@ -176,7 +197,6 @@
         </div>
       </div>
     </div>
-  </div>
 
   <mat-menu #showFullConversation="matMenu" xPosition="before">
     <button mat-menu-item (click)="onshowFullConversation()" class="">
