@@ -64,26 +64,26 @@
 <!--              </mat-radio-group>-->
                 </span>
                 </mat-checkbox>
-                <div class=" d-flex flex-row mb-1 mx-0" *ngIf="addingToHomescreen" >
+                <div class=" d-flex flex-row mx-0" *ngIf="addingToHomescreen" >
                   <div style="width: 16px; margin-right: 12px;">
                     <span class="spinner-border spinner-border-sm"></span>
                   </div>
-                  <div  class="terms-text">
+                  <span class="terms-text mb-2" style="line-height: 24px;">
                     For the purpose of this study, it is required that you add
                     TreadWill to your home screen.
                     Please accept to add TreadWill to your home screen.
-                  </div>
+                  </span>
                 </div>
               </div>
 
             <div class="col-12 my-1 checkbox-common">
-<!--            <div class="row mx-0">-->
+              <div class=" d-flex flex-row mx-0">
                 <mat-checkbox *ngIf="!updatingPermissions" [(ngModel)]="notificationsAllowed" required name="notificationsInfo" (change) = "notificationsPermission()" >
               <div class="terms-text">Notifications are an essential part of this program.
                 Please accept to allow notifications.
               </div>
                 </mat-checkbox>
-
+            </div>
 <!--              <br>-->
 <!--              <mat-radio-group (change) = "notificationsPermission()" ngModel required name="notificationsInfo" color="primary">-->
 <!--                <mat-radio-button [value]="1" class="mr-5"-->
@@ -94,14 +94,14 @@
 <!--                  Decline</mat-radio-button>-->
 <!--              </mat-radio-group>-->
 <!--                </span>-->
-              <div class=" d-flex flex-row mb-1 mx-0" *ngIf="updatingPermissions" >
-                <div style="width: 16px; margin-top:6px; margin-right: 12px;">
+              <div class=" d-flex flex-row mx-0 " *ngIf="updatingPermissions" >
+                <div style="width: 16px; margin-right: 12px;">
                   <span class="spinner-border spinner-border-sm"></span>
                 </div>
-               <div  class="terms-text" >
+                <span class="terms-text mb-2" style="line-height: 24px;">
              Notifications are an essential part of this  program.
                   Please accept to allow notifications.
-               </div>
+                </span>
             </div>
             </div>
             <div class="col-12 my-1 checkbox-common">

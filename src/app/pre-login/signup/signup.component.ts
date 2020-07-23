@@ -181,6 +181,7 @@ export class SignUpComponent implements OnInit {
     if (this.signupForm.value.homeScreenInfo) {
       // ToDo: remove this line in production
       this.a2hsService.getDeferredPrompt().subscribe(deferredPrompt => {
+        this.addingToHomescreen = false;
         if (!deferredPrompt) {
           console.log('deferredPrompt null');
           return;
@@ -189,7 +190,6 @@ export class SignUpComponent implements OnInit {
         deferredPrompt.userChoice.then((choiceResult: any) => {
           if (choiceResult.outcome === 'accepted') {
             this.allowedToHomeScreen = 1;
-            // this.addingToHomescreen = false;
             // no matter the outcome, the prompt cannot be reused ON MOBILE
             // for 3 months or until browser cache is cleared?
             this.activateSubmitButton();
