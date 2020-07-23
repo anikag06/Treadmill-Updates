@@ -64,7 +64,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
   userNotificationSubscription!: Subscription;
   can!: any;
   isDashboard = false;
-  isConversation = false;
   convMode = false;
   fromLeftNav!: boolean;
   backClicked = false;

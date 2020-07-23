@@ -25,11 +25,11 @@
     -webkit-line-clamp: 1;
   }
 
-  .conv-title {
-    color: #343434;
-    opacity: 0.56;
-    font-size: 20px;
-  }
+  //.conv-title {
+  //  color: #343434;
+  //  opacity: 0.56;
+  //  font-size: 20px;
+  //}
 
   .all-icons-mobile {
     display: none;
@@ -120,11 +120,6 @@
       min-width:24px;
       padding-right: 0;
     }
-    //h1 {
-    //  font-size: 1.2rem;
-    //  color: white;
-    //
-    //}
 
     .all-icons-mobile {
       display: block;
@@ -134,7 +129,7 @@
       width:100%;
 
       .icon-items {
-        margin-left: 16px;
+        margin-left: 12px;
       }
       .hamburger-button{
         background-color: inherit;

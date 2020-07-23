@@ -19,16 +19,13 @@
             alt="back"
           />
         </button>
+
         <div
-          [ngClass]="{
-            'conv-title': isConversation === true,
-            'navbar-title': isConversation === false
-          }"
+          class="navbar-title"
           [matTooltip]="navbarTitle"
           matTooltipPosition="above"
         >
           {{ navbarTitle }}
-          <!--          <span class="navbar-title" *ngIf="isDashboard || isConversation"></span>-->
         </div>
       </div>
 
@@ -68,20 +65,13 @@
           </div>
           <div
           class="icon-items">
-          <div
-            [ngClass]="{
-              'conv-title': isConversation === true,
-              'navbar-title': isConversation === false
-            }"
-            [style.width]="convMode ? '75%' : '100%'"
-            [matTooltip]="navbarTitle"
-            matTooltipPosition="above"
-          >
-            {{ navbarTitle
-            }}<span
-            class="navbar-title"
-            *ngIf="isDashboard || isConversation"
-          ></span>
+            <div
+              class="navbar-title"
+              [style.width]="convMode ? '80%' : '100%'"
+              [matTooltip]="navbarTitle"
+              matTooltipPosition="above"
+            >
+            {{ navbarTitle }}
           </div>
         </div>
         </div>

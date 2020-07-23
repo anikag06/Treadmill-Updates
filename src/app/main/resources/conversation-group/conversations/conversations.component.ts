@@ -47,6 +47,7 @@ import { Subscription } from 'rxjs';
 import { UserFeedbackComponent } from '@/main/resources/shared/user-feedback/user-feedback.component';
 import { map, switchMap } from 'rxjs/operators';
 import {NavbarGoToService} from "@/main/shared/navbar/navbar-go-to.service";
+import {FlowService} from "@/main/flow/flow.service";
 
 @Component({
   selector: 'app-conversations',
@@ -152,12 +153,15 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     private notificationService: NavbarNotificationsService,
     private activeroute: ActivatedRoute,
     private goToService: NavbarGoToService,
+    private flowService: FlowService,
+
 
   ) {
     this.activeroute.params.pipe(map(v => v.id)).subscribe(params => {
       this.conversation_id = params;
       this.passdata.IsConversationOn(true);
       this.run();
+      console.log('step id', this.passdata.get_current_id());
     });
   }
   //avatar_image!: any[];
@@ -313,6 +317,8 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         );
         // console.log(this.conversation);
         this.title = this.conversation.title;
+        console.log('STEP DETAIL:', this.title);
+        this.flowService.stepDetail.emit(this.title);
         this.gender = this.conversation.gender;
         this.final_conclusion_message = this.conversation.final_conclusion_message;
         this.length_conversation = this.conversation.dialogs.length;
