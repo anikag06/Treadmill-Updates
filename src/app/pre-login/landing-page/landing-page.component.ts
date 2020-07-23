@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
 import {
   trigger,
   state,
@@ -63,14 +63,13 @@ export class LandingPageComponent implements OnInit {
   helpReason: string = this.helpReasonsArray[0];
   private helpReasonChangeCounter = 0;
   isVisible = true;
-  showScrollAnimation = true;
+  showScrollAnimation = false;
   constructor(
     private showContactUsService: MatContactUsDialogService,
     private showLoginSignupService: ShowLoginSignupDialogService,
     private router: Router,
-  ) {
-    this.showScrollAnimation = window.innerWidth > MOBILE_WIDTH;
-  }
+  ) {}
+
 
   ngOnInit() {
     setTimeout(() => {
@@ -79,6 +78,10 @@ export class LandingPageComponent implements OnInit {
     setTimeout(() => {
       this.togglePulseTwo();
     }, this.pulseDuration - this.downTime);
+
+    setTimeout(()=>{
+      this.showScrollAnimation = true;
+    },2000)
   }
 
   updateThoughtCounter() {
@@ -136,5 +139,15 @@ export class LandingPageComponent implements OnInit {
 
   onJoinTheStudyClicked() {
     this.showLoginSignupService.joinStudyClicked();
+  }
+
+  @HostListener("window:scroll", [])
+  onScroll(): void {
+    if(document.documentElement.scrollTop > 0){
+      this.showScrollAnimation = false;
+    }
+    else if (document.documentElement.scrollTop === 0 ){
+      this.showScrollAnimation = true;
+    }
   }
 }
