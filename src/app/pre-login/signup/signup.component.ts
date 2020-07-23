@@ -40,6 +40,8 @@ export class SignUpComponent implements OnInit {
   registered = false;
   passwordMatchError!: string;
   errorStatus = false;
+  updatingPermissions = false;
+  addingToHomescreen = false;
   data!: SignUpData;
   showLoading = false;
   @ViewChild('signupForm', { static: false }) signupForm!: NgForm;
@@ -70,6 +72,9 @@ export class SignUpComponent implements OnInit {
       });
     this.fcmService.permit.subscribe(permit => {
       this.notificationsAllowed = permit ? 1 : 0;
+      if (this.notificationsAllowed) {
+        this.updatingPermissions = false;
+      }
       this.activateSubmitButton();
     });
   }
@@ -160,14 +165,19 @@ export class SignUpComponent implements OnInit {
   }
 
   notificationsPermission() {
+    this.updatingPermissions = true;
+
     this.notificationsAllowed = 0;
     if (this.signupForm.value.notificationsInfo) {
       this.fcmService.participantRequestPermission(this.participantId);
+    } else {
+      this.updatingPermissions = false;
     }
     this.activateSubmitButton();
   }
 
   homeScreenPermission() {
+    this.addingToHomescreen = true;
     if (this.signupForm.value.homeScreenInfo) {
       // ToDo: remove this line in production
       this.a2hsService.getDeferredPrompt().subscribe(deferredPrompt => {
@@ -179,6 +189,7 @@ export class SignUpComponent implements OnInit {
         deferredPrompt.userChoice.then((choiceResult: any) => {
           if (choiceResult.outcome === 'accepted') {
             this.allowedToHomeScreen = 1;
+            // this.addingToHomescreen = false;
             // no matter the outcome, the prompt cannot be reused ON MOBILE
             // for 3 months or until browser cache is cleared?
             this.activateSubmitButton();
@@ -187,6 +198,9 @@ export class SignUpComponent implements OnInit {
           }
         });
       });
+    } else {
+      this.addingToHomescreen = false;
+
     }
     this.activateSubmitButton();
   }
