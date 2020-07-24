@@ -14,9 +14,7 @@
       <div *ngIf="showSignUpForm && participantValid && !userExists">
         <form #signupForm="ngForm" class="signup-form">
           <div >
-            <mat-error *ngIf="errorStatus"> {{usernameError}} </mat-error>
             <mat-error *ngIf="errorStatus"> {{passwordError}} </mat-error>
-            <mat-error *ngIf="!passwordMatch"> {{passwordMatchError}} </mat-error>
             <div class="row no-gutters justify-content-center">
                 Tips: Use a nickname to maintain anonymity
             </div>
@@ -25,23 +23,29 @@
                 <input matInput placeholder="Username" type="text" ngModel required name="username"
                        (change)="activateSubmitButton()"
                   class="example-right-align">
-                <mat-error>Username is required</mat-error>
+                <mat-error *ngIf="signupForm.controls.username.hasError('required')">Username is required</mat-error>
+                <mat-error *ngIf="signupForm.controls.username.hasError('invalid')"> {{usernameError}} </mat-error>
               </mat-form-field>
             </div>
 
             <div class="row no-gutters justify-content-center">
                 <mat-form-field style="width:90%">
                   <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'" ngModel required
-                         name="password" (change)="matchPasswords()">
+                         minlength="6"
+                         name="password" (change)="matchPasswords()" >
                   <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                  <mat-error>Password is required</mat-error>
+                  <mat-error *ngIf="signupForm.controls.password.hasError('required')">Password is required</mat-error>
+                  <mat-error *ngIf="signupForm.controls.password.hasError('invalid') || signupForm.controls.password.hasError('minlength')">
+                    {{passwordError}}
+                  </mat-error>
                 </mat-form-field>
             </div>
             <div class="row no-gutters justify-content-center">
               <mat-form-field style="width:90%">
                 <input matInput placeholder="Confirm password" [type]="hide ? 'password' : 'text'" ngModel required
-                  name="passwordConfirm" (change)="matchPasswords()">
-                <mat-error> Password is required </mat-error>
+                       name="passwordConfirm" (change)="matchPasswords()">
+                <mat-error *ngIf="signupForm.controls.password.hasError('required')"> Password is required </mat-error>
+                <mat-error *ngIf="signupForm.controls.passwordConfirm.hasError('invalid')"> {{passwordMatchError}} </mat-error>
               </mat-form-field>
             </div>
 

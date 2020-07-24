@@ -36,7 +36,7 @@ export class SignUpComponent implements OnInit {
   password!: any;
   passwordConfirm!: any;
   usernameError!: string;
-  passwordError!: string;
+  passwordError = 'Password must be at least 6 characters long';
   registered = false;
   passwordMatchError!: string;
   errorStatus = false;
@@ -91,10 +91,12 @@ export class SignUpComponent implements OnInit {
         this.showLoading = false;
         this.errorStatus = true;
         if (err.error.message.username) {
+          this.signupForm.controls.username.setErrors({ invalid: true });
           this.usernameError = err.error.message.username;
         }
         if (err.error.message.password) {
-          this.passwordError = err.error.message.password;
+          this.signupForm.controls.password.setErrors({ invalid: true });
+          // this.passwordError = err.error.message.password;
         }
       },
     );
@@ -135,6 +137,7 @@ export class SignUpComponent implements OnInit {
       ) {
         this.passwordMatch = true;
       } else {
+        this.signupForm.controls.passwordConfirm.setErrors({ invalid: true });
         this.passwordMatchError = 'Enter same passwords!';
         // this.passwordMatch = false;
       }
@@ -206,6 +209,7 @@ export class SignUpComponent implements OnInit {
   }
 
   activateSubmitButton() {
+    console.log('sign up form', this.signupForm);
     if (
       this.signupForm.value.username &&
       this.passwordMatch &&
