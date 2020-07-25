@@ -80,16 +80,11 @@
 }
 
 .slide_iframe {
-  //   margin: 4%;
   margin-bottom: 0%;
-  // height: 85%;
-  // width: 100%;
   height: 54vh;
   width: 40vw;
   min-width: 320px;
   min-height: 598px;
-  //height: 120%;
-  //max-height: 645px;
 }
 
 .slides-elements-div {
@@ -98,7 +93,6 @@
   height: 92%;
   max-height: 715px;
   margin-top: -20px;
-  // height: 4.44vh;
 }
 
 .text-property {
@@ -106,12 +100,14 @@
 }
 
 .slideTitle {
-  // font-size: 16px;
+  .mat-card-title {
+    font-size: 18px;
+    font-family: Roboto;
+  }
   text-align: center;
   color: white;
   background-color: #343434;
-  // height: 5.1vh;
-  max-height: 36px;
+  height: 36px;
 }
 
 // .row,
