@@ -13,6 +13,7 @@ import { TrialRegistrationAuthGuard } from '@/shared/auth/trial-registration-aut
 import { IneligibleTrialPageComponent } from './information-pages/ineligible-trial-page/ineligible-trial-page.component';
 import { StepLastPageComponent } from './information-pages/step-last-page/step-last-page.component';
 import { ReregistrationComponent } from '@/trial-registration/reregistration/reregistration.component';
+import {WaitlistComponent} from "@/trial-registration/waitlist/waitlist.component";
 
 const routes: Routes = [
   {
@@ -46,6 +47,11 @@ const routes: Routes = [
     component: ReregistrationComponent,
     pathMatch: 'prefix',
     // canActivate: [TrialActivateGuard],
+  },
+  {
+    path: 'listwait/:unique-code',
+    component: WaitlistComponent,
+    pathMatch: 'prefix',
   },
   {
     path: 'faqs',

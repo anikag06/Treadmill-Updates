@@ -1,0 +1,30 @@
+<div class="container-fluid" *ngIf="showContent else desktopMessage">
+
+  <app-trial-pages-header [stepNumber]=""></app-trial-pages-header>
+
+  <div class="row mt-0" *ngIf="showQuestionnaire">
+    <app-questionnaire class="w-100" [fromFlow]="false" [stepId]="null" [fromTrialRegistration]="true"></app-questionnaire>
+  </div>
+  <div class="row my-auto justify-content-center align-self-center" *ngIf="!showQuestionnaire">
+  <div *ngIf="userExists">
+    <p>You have already Signed up for TreadWill.</p>
+    <p>Your username is: {{username}}. <a routerLink="/landing">Log
+      in</a></p>
+  </div>
+  <div *ngIf="already_submitted || date_over">
+    <p>You have already submitted the questionnaire.</p>
+    <p>Please <a [routerLink]="sign_up_link"> click here for signup</a>
+    </p>
+  </div>
+</div>
+</div>
+
+
+<div class="row mt-0" *ngIf="quizSubmitted">
+We will send you further instructions to sign up within a day.
+</div>
+<ng-template #desktopMessage>
+  <div>
+    Open this link on your mobile.
+  </div>
+</ng-template>

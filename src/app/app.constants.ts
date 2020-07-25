@@ -382,6 +382,8 @@ export const REGISTRATION_SIQ_RESPONSE =
   '/api/v1/questionnaire/trial-siq-user-response/';
 export const REGISTRATION_CONSENT = '/api/v1/trial-iitk/participant-consent/';
 
+// wait-list followup questionaire
+export const GET_LINK_DATA = '/api/v1/trial-iitk/verify-wait-list-link/';
 // contact us dialog data api
 export const CONTACT_US_DATA = '/api/v1/trial-iitk/save-contact-us/';
 
