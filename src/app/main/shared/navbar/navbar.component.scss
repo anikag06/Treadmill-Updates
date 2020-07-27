@@ -53,12 +53,12 @@
     }
   }
   .unread-count {
-    position: relative;
+    position: absolute;
     height: 25px;
     width: 25px;
-    left: 32px;
-    bottom: 8px;
-    top: -45px;
+    left: 15px;
+    //bottom: 8px;
+    top: 15px;
     background-color: #fa3e3e;
     border-radius: 50%;
     color: #ffffff;
@@ -147,11 +147,11 @@
       }
     }
     .unread-count {
-      left: 25px;
+      left: 12px;
       line-height: 20px;
       height: 20px;
       width: 20px;
-      top: -25px;
+      top: 12px;
     }
 
     // height: 20px;
