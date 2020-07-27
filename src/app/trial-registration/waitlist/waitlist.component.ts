@@ -53,7 +53,8 @@ export class WaitlistComponent implements OnInit {
             console.log('success', res_data);
             this.registrationDataService.participationID =
               res_data.participant_id;
-            if (res_data.participant_excluded) {
+            this.userEligible = !res_data.participant_excluded;
+            if (!this.userEligible) {
               this.router.navigate([INELIGIBLE_FOR_TRIAL]);
             } else if (!res_data.show_questionnaire) {
               this.showQuestionnaire = false;
