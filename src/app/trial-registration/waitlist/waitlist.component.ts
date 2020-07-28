@@ -36,6 +36,7 @@ export class WaitlistComponent implements OnInit {
   date_over = false;
   showContent = false;
   quizSubmitted = false;
+  loading = true;
 
   ngOnInit() {
     const smallDevice = window.matchMedia('(max-width: 767px)').matches;
@@ -51,6 +52,7 @@ export class WaitlistComponent implements OnInit {
         .subscribe(
           (res_data: any) => {
             console.log('success', res_data);
+            this.loading = false;
             this.registrationDataService.participationID =
               res_data.participant_id;
             this.userEligible = !res_data.participant_excluded;
@@ -75,6 +77,7 @@ export class WaitlistComponent implements OnInit {
           },
           err  => {
             console.log('error', err);
+            this.loading = false;
             this.router.navigate(['/']);
           }
         );

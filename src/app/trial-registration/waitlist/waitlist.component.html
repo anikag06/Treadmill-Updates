@@ -30,3 +30,10 @@
     Open this link on your mobile.
   </div>
 </ng-template>
+<ng-template [ngIf]="loading">
+  <div class="col">
+    <div class="text-center loader">
+      <img src="assets/shared/dna-loader.svg" alt="loader" width="200" />
+    </div>
+  </div>
+</ng-template>
