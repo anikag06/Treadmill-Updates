@@ -1,9 +1,22 @@
-import {CHATBOT_RETRY_TIMEOUT, MAX_RETRIES, MOBILE_WIDTH, NEW_CHAT, REPLY_CURRENT, RESUME_CHAT,} from '@/app.constants';
-import {Chat} from '@/main/chatbot/chat.model';
-import {ChatbotService} from '@/main/chatbot/chatbot.service';
-import {AuthService} from '@/shared/auth/auth.service';
-import {animate, state, style, transition, trigger,} from '@angular/animations';
-import {HttpErrorResponse} from '@angular/common/http';
+import {
+  CHATBOT_RETRY_TIMEOUT,
+  MAX_RETRIES,
+  MOBILE_WIDTH,
+  NEW_CHAT,
+  REPLY_CURRENT,
+  RESUME_CHAT,
+} from '@/app.constants';
+import { Chat } from '@/main/chatbot/chat.model';
+import { ChatbotService } from '@/main/chatbot/chatbot.service';
+import { AuthService } from '@/shared/auth/auth.service';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
+import { HttpErrorResponse } from '@angular/common/http';
 import {
   ChangeDetectorRef,
   Component,
@@ -14,13 +27,14 @@ import {
   OnDestroy,
   OnInit,
   Output,
+  Renderer2,
   ViewChild,
 } from '@angular/core';
-import {MatDialog} from '@angular/material';
-import {environment} from '../../../../environments/environment';
-import {NavbarNotificationsService} from '@/main/shared/navbar/navbar-notifications.service';
-import {CustomOverlayService} from '@/main/shared/custom-overlay/custom-overlay.service';
-import {CommonService} from '@/shared/common.service';
+import { MatDialog } from '@angular/material';
+import { environment } from '../../../../environments/environment';
+import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifications.service';
+import { CustomOverlayService } from '@/main/shared/custom-overlay/custom-overlay.service';
+import { CommonService } from '@/shared/common.service';
 
 declare var twemoji: any;
 
@@ -78,9 +92,15 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     private notificationService: NavbarNotificationsService,
     private elementRef: ElementRef,
     private commonService: CommonService,
+    private renderer: Renderer2,
   ) {
     this.commonService.createOnline$().subscribe((isOnline) => {
       this.isOnline = isOnline;
+      if (!this.isOnline) {
+        this.showButtons = [];
+        this.showDateTimeWidgetBtn = false;
+        this.showMoodWidgetBtn = false;
+      }
     });
   }
 
@@ -115,8 +135,8 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   showButtons = [];
   buttonsBuffer = [];
   widgetValues!: any;
-  showMoodWidgetBtn = true;
-  showDateTimeWidgetBtn = true;
+  showMoodWidgetBtn = false;
+  showDateTimeWidgetBtn = false;
   showMaintenance = false;
   showSpinner = false;
   isMultiLineInput = false;
@@ -128,9 +148,11 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   @Input() currentDateTime!: any;
   isLoading = false;
   multiLineChat: string[] = [];
-  showSlider = true;
+  showSlider = false;
   widgetRating!: number;
-  showScrollToBottom  = false;
+  showScrollToBottom = false;
+  @ViewChild('frameContainer', { static: false }) frameRef!: ElementRef;
+
   ngOnChanges(): void {
     if (this.chatWindowClosed === false) {
       if (
@@ -149,11 +171,9 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     this.chatbotService.postPreviousChat(this.currentDateTime).subscribe(
       (data: any) => {
         if (data.status) {
-          // console.log(data);
-          //console.log(data.data.messages);
           setTimeout(() => {
             data.data.messages.forEach((message: any) => {
-              if(!this.isErrorMessage(message)){
+              if (!this.isErrorMessage(message)) {
                 this.pushImages(message);
                 this.messages.push(
                   new Chat(
@@ -188,24 +208,6 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     }
   }
 
-  //  pushPreviousChat(message: any) {
-  //   console.log(message);
-  //   this.pushImage(message);
-  //    this.messages.push(
-  //     new Chat(
-  //       twemoji.parse(message.text),
-  //       message.is_sender_user,
-  //       [],
-  //       message.mid,
-  //       message.sid,
-  //       message.datetime,
-  //       false,
-  //       [],
-  //       this.images,
-  //     ),
-  //   );
-  // }
-
   getRating(value: number) {
     this.widgetRating = value;
   }
@@ -215,6 +217,12 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     this.widgetValues = this.widgetRating;
     this.onChatSubmit();
     this.showSlider = false;
+    const height = this.frameRef.nativeElement.offsetHeight + 180;
+    this.renderer.setStyle(
+      this.frameRef.nativeElement,
+      'height',
+      `${height}px`,
+    );
   }
 
   ngAfterViewChecked() {
@@ -244,8 +252,6 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       };
       this.message = '';
       this.widgetValues = [];
-      // setTimeout(() => {}, 4000);
-      //   widgets": [{"widget_value":[],"widget_payload":"",}]
       if (widgetValues.value) {
         this.webSocket.send(
           JSON.stringify({
@@ -378,6 +384,9 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     this.webSocket.onerror = () => {
       if (this.isOnline) {
         this.showMaintenance = true;
+        this.showButtons = [];
+        this.showDateTimeWidgetBtn = false;
+        this.showMoodWidgetBtn = false;
       }
       this.webSocket.close();
     };
@@ -400,6 +409,24 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       this.showButtons = m.buttons.slice(0, 4);
       this.counter = 4;
       this.showMore = true;
+    }
+    if (Array.isArray(m.widgets) && m.widgets.length) {
+      if (m.widgets[0] === this.ratingWidget) {
+        this.showSlider = true;
+        const height = this.frameRef.nativeElement.offsetHeight - 180;
+        this.renderer.setStyle(
+          this.frameRef.nativeElement,
+          'height',
+          `${height}px`,
+        );
+      }
+    else  if (m.widgets[0] === this.moodWidget) {
+      this.showMoodWidgetBtn = true;
+      }
+    else {
+      this.showDateTimeWidgetBtn = true;
+      }
+
     }
 
     // this.showMoodWidget = !!m.widgets;
@@ -483,9 +510,9 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
         messages[messages.length - 1].widgets === null
       ) {
         this.showTextInput = true;
-        setTimeout(()=>{
-        this.onScrollToBottomClick();
-        },500)
+        setTimeout(() => {
+          this.onScrollToBottomClick();
+        }, 500);
       } else {
         this.showTextInput = false;
       }
@@ -586,8 +613,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
               '.message-text',
             );
             data.data.messages.reverse().forEach((message: any) => {
-              if(!this.isErrorMessage(message))
-              {
+              if (!this.isErrorMessage(message)) {
                 this.pushImages(message);
                 this.messages.unshift(
                   new Chat(
@@ -606,14 +632,10 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
                 this.showSpinner = false;
                 firstMessageBox[0].scrollIntoView();
               }
-
             });
           }
         });
     }
-    // if (value === 'down') {
-    //   console.log('Moving down');
-    // }
   }
 
   getButtons() {
@@ -685,20 +707,20 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     this.onScrollToBottomClick();
   }
 
-  onScrollToBottomClick(){
+  onScrollToBottomClick() {
     if (this.messagesDiv) {
       this.messagesDiv.nativeElement.scrollTop = this.messagesDiv.nativeElement.scrollHeight;
       this.changRef.detectChanges();
     }
   }
 
-  atBottom(value:boolean){
-      this.showScrollToBottom = value
+  atBottom(value: boolean) {
+    this.showScrollToBottom = value;
   }
 
-  isErrorMessage(message:any):boolean{
-    const errorMessage = "ERRORINTHEBACKEND.CHECKANDRELOAD";
+  isErrorMessage(message: any): boolean {
+    const errorMessage = 'ERRORINTHEBACKEND.CHECKANDRELOAD';
     const stripMessageText = message.text.replace(/\s+/g, '');
-    return errorMessage===stripMessageText;
+    return errorMessage === stripMessageText;
   }
 }

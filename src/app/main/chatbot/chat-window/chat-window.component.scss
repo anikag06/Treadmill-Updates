@@ -92,7 +92,7 @@
       float: right;
     }
   }
-  .footer {
+  .chat-frame-container {
     width: 100%;
     //position: absolute;
     bottom: 0;
@@ -490,6 +490,6 @@ $x3: -$leftPos + $dotSpacing;
 }
 .scroll-bottom{
   position: absolute;
-  bottom: 30px;
+  bottom: 60px;
   right: 8%;
 }
