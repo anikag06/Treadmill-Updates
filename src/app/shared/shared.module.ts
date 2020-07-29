@@ -8,6 +8,7 @@ import { CongratsDialogComponent } from '@/main/resources/shared/congrats-dialog
 import { TrimStringPipe } from '@/main/shared/trim-string.pipe';
 import { ChatVideoComponent } from '@/main/chatbot/chat-window/chat-video/chat-video.component';
 import { ChatImageComponent } from '@/main/chatbot/chat-window/chat-image/chat-image.component';
+import {ClickOutsideDirective} from '@/main/shared/click-outside/click-outside.directive';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { ChatImageComponent } from '@/main/chatbot/chat-window/chat-image/chat-i
     CongratsDialogComponent,
     ChatVideoComponent,
     ChatImageComponent,
+    ClickOutsideDirective,
   ],
   imports: [CommonModule, QuestionnaireModule, MaterialModule],
   exports: [
@@ -26,6 +28,7 @@ import { ChatImageComponent } from '@/main/chatbot/chat-window/chat-image/chat-i
     ChatVideoComponent,
     ChatImageComponent,
     CongratsDialogComponent,
+    ClickOutsideDirective,
   ],
   entryComponents: [SlidesVideoComponent, CongratsDialogComponent],
 })

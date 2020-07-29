@@ -178,7 +178,6 @@ import { IntroDialogService } from '@/main/walk-through/intro-dialog.service';
 import { SettingsComponent } from './settings/settings.component';
 import { SettingsService } from '@/main/settings/settings.service';
 import { AuthHeaderInterceptor } from '@/main/auth-header.interceptor';
-
 // import { Resources2Routing } from './extra-resources/extra-resources-routing.module.ts/extra-resources-routing.module.ts.component';
 
 @NgModule({

@@ -199,7 +199,6 @@ import { StepCompletedComponent } from './shared/step-completed/step-completed.c
     SummaryCardComponent,
     FormRecommendComponent,
     DeleteDialogComponent,
-    ClickOutsideDirective,
     ScrollToTopDirective,
     EvaluateMoodComponent,
     Introduction6Component,
@@ -289,7 +288,6 @@ import { StepCompletedComponent } from './shared/step-completed/step-completed.c
   ],
   exports: [
     DateTimePickerComponent,
-    ClickOutsideDirective,
     MoodTrackerComponent,
     DeleteDialogComponent,
     ScrollToTopDirective,
