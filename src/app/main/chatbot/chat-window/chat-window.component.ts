@@ -422,9 +422,31 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       }
     else  if (m.widgets[0] === this.moodWidget) {
       this.showMoodWidgetBtn = true;
+      setTimeout(()=>{
+        const moodBtn = this.elementRef.nativeElement.querySelectorAll(
+          '.mood-btn',
+        );
+        moodBtn.forEach((btn:any,index:number)=>{
+          if(index!==moodBtn.length-1){
+            btn.remove();
+          }
+        })
+      },100)
+
+
       }
     else {
       this.showDateTimeWidgetBtn = true;
+        setTimeout(()=>{
+        const dateTimeBtn = this.elementRef.nativeElement.querySelectorAll(
+          '.date-time-btn',
+        );
+        dateTimeBtn.forEach((btn:any,index:number)=>{
+          if(index!==dateTimeBtn.length-1){
+            btn.remove();
+          }
+        })
+        },100)
       }
 
     }
