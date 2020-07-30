@@ -41,6 +41,7 @@ export class RegistrationStepFourComponent implements OnInit {
   participationID!: number;
   starting_time!: any;
   completion_time!: any;
+  showPage = false;
 
   constructor(
     private registrationDataService: RegistrationDataService,
@@ -49,6 +50,10 @@ export class RegistrationStepFourComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    const smallDevice = window.matchMedia('(max-width: 767px)').matches;
+    if (smallDevice) {
+      this.showPage = true;
+    }
     const dateNow = new Date();
     const dateTime = dateNow.toJSON();
     this.starting_time = dateTime.replace('Z', '').replace('T', ' ');

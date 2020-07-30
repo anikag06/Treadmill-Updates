@@ -24,8 +24,14 @@ export class ReregistrationComponent implements OnInit {
   encrypted_email!: string;
   userEligible = false;
   reregister = true;
+  showContent!: boolean;
+
 
   ngOnInit() {
+    const smallDevice = window.matchMedia('(max-width: 767px)').matches;
+    if (smallDevice) {
+      this.showContent = true;
+    }
     this.activatedRoute.params.subscribe(params => {
       this.encrypted_email = params.unique_code;
       this.registrationDataService

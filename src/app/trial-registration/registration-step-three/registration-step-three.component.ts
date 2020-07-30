@@ -7,8 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegistrationStepThreeComponent implements OnInit {
   stepNo = 3;
-
+  showPage = false;
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    const smallDevice = window.matchMedia('(max-width: 767px)').matches;
+    if (smallDevice) {
+      this.showPage = true;
+    }
+  }
 }
