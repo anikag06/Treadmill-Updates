@@ -70,6 +70,8 @@ export const TOKEN_REFRESH_PATH = '/api/v1/user/api-token-refresh/';
 export const LOGIN_PATH = '/api/v1/user/login/';
 export const SIGN_UP_PATH = '/api/v1/user/registration/';
 export const VERIFY_PARTICIPANT = '/api/v1/trial-iitk/verify-sign-up-link/';
+export const GET_SIGNUP_MAIL = '/api/v1/trial-iitk/get-sign-up-mail/';
+
 export const PHQ_NINE_SCORE = '/api/v1/questionnaire/phq-user-scores/';
 export const GAD_SEVEN_SCORE = '/api/v1/questionnaire/gad-user-scores/';
 export const MOBILE_WIDTH = 768;

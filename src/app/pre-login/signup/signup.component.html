@@ -3,7 +3,7 @@
     <app-signup-reset-common></app-signup-reset-common>
   </div>
 
-  <div class="d-flex flex-column col-sm-10 col-md-7 no-gutters">
+  <div class="d-flex flex-column col-sm-12">
     <h4 class="d-flex align-self-center"> SIGN UP</h4>
     <div class="flex-column mx-auto my-auto align-self-center">
       <div *ngIf="!showSignUpForm" class="d-flex flex-row align-items-center justify-content-start"
@@ -57,15 +57,6 @@
               For the purpose of this study, it is required that you add
                 TreadWill to your home screen.
                 Please accept to add TreadWill to your home screen.
-<!--              <br>-->
-<!--              <mat-radio-group (change) = "homeScreenPermission()" ngModel required name="homeScreenInfo" color="primary">-->
-<!--                <mat-radio-button [value]="1" class="mr-5"-->
-<!--                                  #btn13 [ngClass]="{ 'checkedBtn': btn13.checked , 'unChecked': !btn13.checked}">-->
-<!--                  Accept</mat-radio-button>-->
-<!--                <mat-radio-button [value]="0" class="ml-4"-->
-<!--                                  #btn14 [ngClass]="{ 'checkedBtn': btn14.checked , 'unChecked': !btn14.checked}">-->
-<!--                  Decline</mat-radio-button>-->
-<!--              </mat-radio-group>-->
                 </span>
                 </mat-checkbox>
                 <div class=" d-flex flex-row mx-0" *ngIf="addingToHomescreen" >
@@ -88,16 +79,7 @@
               </div>
                 </mat-checkbox>
             </div>
-<!--              <br>-->
-<!--              <mat-radio-group (change) = "notificationsPermission()" ngModel required name="notificationsInfo" color="primary">-->
-<!--                <mat-radio-button [value]="1" class="mr-5"-->
-<!--                                  #btn15 [ngClass]="{ 'checkedBtn': btn15.checked , 'unChecked': !btn15.checked}">-->
-<!--                  Accept</mat-radio-button>-->
-<!--                <mat-radio-button [value]="0" class="ml-4"-->
-<!--                                  #btn16 [ngClass]="{ 'checkedBtn': btn16.checked , 'unChecked': !btn16.checked}">-->
-<!--                  Decline</mat-radio-button>-->
-<!--              </mat-radio-group>-->
-<!--                </span>-->
+
               <div class=" d-flex flex-row mx-0 " *ngIf="updatingPermissions" >
                 <div style="width: 16px; margin-right: 12px;">
                   <span class="spinner-border spinner-border-sm"></span>
@@ -114,7 +96,6 @@
                 Please agree to the <a routerLink="/trial/terms-and-conditions" target="_blank" class="anchorify-default" (click)="onTermsConClick()">Terms and
                   Conditions</a> </span>
               </mat-checkbox>
-<!--              <mat-error *ngIf="termsConditionChecked"> Accept the terms and conditions.</mat-error>-->
             </div>
 
             <div class="d-flex col-12 my-1 justify-content-end">
@@ -135,18 +116,41 @@
         </form>
       </div>
 
-      <div *ngIf="showSignUpForm && !participantValid">
+      <div *ngIf="showSignUpForm && !participantValid && !userExists" class="mx-4">
+        <div  *ngIf="!showEmailMessage && !showEmailError" >
         <p>The link is invalid. Please enter your email id here to receive the proper link: </p>
+        <form [formGroup]="emailForm" class="w-100" >
+          <input formControlName="email"
+                 type="email" class="input-box w-100 px-2 form-elements"
+                 required
+                 email
+                 placeholder=" Enter your email ID" >
+          <div class="w-100 my-3 float-right">
+            <button type="submit" class="signup-btn float-right" *ngIf="!showLoading" mat-raised-button
+                    (click)="emailSubmit()" > Submit </button>
+            <button class="float-right signup-btn" *ngIf="showLoading" type="button" mat-raised-button >
+              <span class="spinner-border spinner-border-sm"></span>
+            </button>
+          </div>
+        </form>
+        </div>
+      </div>
+      <div *ngIf="showEmailError" class="mx-4">
+        <p> {{emailError}}</p>
+      </div>
+      <div *ngIf="showEmailMessage" class="mx-4">
+<!--         show message as per condition-->
+        <p  *ngIf="emailExistMessage" > Looks like you haven't joined the study yet. Go <a routerLink="/trial/trial-registration">here</a> to join the study.</p>
+      <p  *ngIf="emailSentMessage" > Email has been sent to the email id provided by you.</p>
       </div>
 
-      <div *ngIf="userExists">
-        <p>You have already Signed up for TreadWill. Your username is: {{username}}. <a routerLink="/landing">Log
-            in</a>
+      <div *ngIf="userExists" class="mx-4" >
+        <p>You have already signed up for TreadWill. Your username is {{username}}. Please go to <a routerLink="/landing">Login</a> page.
         </p>
       </div>
     </div>
   </div>
-  <div class="row w-100 no-gutters  footer-2">
+  <div class="row w-100 no-gutters mt-auto footer-2">
     <p>
       All Rights Reserved &copy; TreadWill
     </p>
