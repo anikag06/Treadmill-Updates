@@ -263,7 +263,7 @@ export class PostListComponent implements OnInit, OnDestroy {
    */
   onReset() {
     this.resetParams();
-    this.router.navigate(['/support-groups']);
+    this.router.navigate(['/main/support-groups']);
     setTimeout(() => {
       this.getPosts();
     }, 200);

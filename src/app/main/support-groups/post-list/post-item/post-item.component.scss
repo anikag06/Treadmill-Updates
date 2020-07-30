@@ -86,6 +86,11 @@ a.toggler:hover {
   button.btn {
     cursor: pointer;
     box-shadow: none;
+    //outline: none;
+  }
+
+  button {
+    //outline: none;
   }
 
   .comment-btn {

@@ -46,7 +46,7 @@ export class PassDataService {
   }
 
   get_current_id() {
-    this.current_id = 86;
+    // this.current_id = 86;
     return this.current_id;
   }
 

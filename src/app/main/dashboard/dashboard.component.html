@@ -1,12 +1,11 @@
 <ng-template  [ngIf]="!showQuestionnaire">
-<div class="container-fluid body-bg">
-  <div class="row">
+<div class="container-fluid body-bg px-0">
+  <div class="d-flex flex-row justify-content-around">
     <div
       [ngClass]="{
         'd-block': showFlow,
         'd-none': !showFlow
       }"
-      class="col-md-6 px-0"
     >
       <app-flow [navBar]="false"></app-flow>
     </div>
@@ -19,7 +18,6 @@
         'd-block': !hideCards,
         'd-none': hideCards
       }"
-      class="col-md-6 px-0"
       *ngIf="user.is_exp"
     >
       <!-- <div class="row"> -->
@@ -29,11 +27,11 @@
       ></app-user-profile>
       <!-- </div> -->
 
-      <div class="row sugg-post-things-todo-row mr-2">
-        <div class="col-xl-6 suggPostDiv ml-4 ml-xl-0 no-gutters">
+      <div class="d-flex row justify-content-between sugg-post-things-todo-row mx-0">
+        <div class="suggPostDiv ml-xl-0 no-gutters">
           <app-suggested-post></app-suggested-post>
         </div>
-        <div class="col-xl-5 todoDiv mt-3 ml-4 ml-xl-0 mt-xl-0 no-gutters">
+        <div class="todoDiv mt-3 ml-xl-0 mt-xl-0 no-gutters">
           <app-things-todo></app-things-todo>
         </div>
       </div>

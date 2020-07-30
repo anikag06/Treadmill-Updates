@@ -27,9 +27,10 @@
 }
 
 .profile-card {
+  width: 38.067vw;
   // max-width: 86%;
-  max-width: 93%;
-  margin-left: -15px;
+  //max-width: 93%;
+  //margin-left: -15px;
 
   .profile-header {
     background: #343434 0 0 no-repeat padding-box;
@@ -125,7 +126,7 @@
 
 @media screen and (min-width: 1576px) {
   .profile-card {
-    max-width: 86%;
+    //max-width: 86%;
   }
 }
 
@@ -138,16 +139,20 @@
 @media screen and (min-width: 1200px) and (max-width:1368px) {
   :host-context(.dashboard-profile-card) .profile-card {
     margin: 0;
-    min-width: 490px;
-    max-width: 93%;
-    margin-left: -15px;
+    //min-width: 490px;
+    //width: 38.067vw;
+    //max-width: 93%;
+    max-width: 100%;
+
+    //margin-left: -15px;
   }
 }
 
-@media screen and (min-width: 768px) and (max-width: 1368px) {
+@media screen and (min-width: 768px) and (max-width: 1199px) {
   .profile-card {
-    max-width: 85%;
+    //max-width: 85%;
     margin: auto;
+    width:360px;
 
     .profile-header {
       max-height: 100px;

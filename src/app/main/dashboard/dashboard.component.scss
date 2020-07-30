@@ -30,18 +30,18 @@
 
 @media screen and (min-width: 1576px) {
   .sugg-post-things-todo-row {
-    max-width: 94%;
+    max-width: 100%;
   }
 }
 
 @media screen and (min-width: 1200px) {
   .suggPostDiv {
-    min-width: 270px;
+    //min-width: 270px;
 
   }
 
   .todoDiv {
-    min-width: 200px;
+    //min-width: 200px;
 
   }
 }
