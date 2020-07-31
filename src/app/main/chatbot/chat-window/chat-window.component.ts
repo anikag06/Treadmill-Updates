@@ -27,6 +27,7 @@ import {
   OnDestroy,
   OnInit,
   Output,
+  Renderer2,
   ViewChild,
 } from '@angular/core';
 import { MatDialog } from '@angular/material';
@@ -91,9 +92,15 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     private notificationService: NavbarNotificationsService,
     private elementRef: ElementRef,
     private commonService: CommonService,
+    private renderer: Renderer2,
   ) {
     this.commonService.createOnline$().subscribe(isOnline => {
       this.isOnline = isOnline;
+      if (!this.isOnline) {
+        this.showButtons = [];
+        this.showDateTimeWidgetBtn = false;
+        this.showMoodWidgetBtn = false;
+      }
     });
   }
 
@@ -128,8 +135,8 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   showButtons = [];
   buttonsBuffer = [];
   widgetValues!: any;
-  showMoodWidgetBtn = true;
-  showDateTimeWidgetBtn = true;
+  showMoodWidgetBtn = false;
+  showDateTimeWidgetBtn = false;
   showMaintenance = false;
   showSpinner = false;
   isMultiLineInput = false;
@@ -141,9 +148,11 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   @Input() currentDateTime!: any;
   isLoading = false;
   multiLineChat: string[] = [];
-  showSlider = true;
+  showSlider = false;
   widgetRating!: number;
   showScrollToBottom = false;
+  @ViewChild('frameContainer', { static: false }) frameRef!: ElementRef;
+
   ngOnChanges(): void {
     if (this.chatWindowClosed === false) {
       if (
@@ -162,8 +171,6 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     this.chatbotService.postPreviousChat(this.currentDateTime).subscribe(
       (data: any) => {
         if (data.status) {
-          // console.log(data);
-          //console.log(data.data.messages);
           setTimeout(() => {
             data.data.messages.forEach((message: any) => {
               if (!this.isErrorMessage(message)) {
@@ -201,24 +208,6 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     }
   }
 
-  //  pushPreviousChat(message: any) {
-  //   console.log(message);
-  //   this.pushImage(message);
-  //    this.messages.push(
-  //     new Chat(
-  //       twemoji.parse(message.text),
-  //       message.is_sender_user,
-  //       [],
-  //       message.mid,
-  //       message.sid,
-  //       message.datetime,
-  //       false,
-  //       [],
-  //       this.images,
-  //     ),
-  //   );
-  // }
-
   getRating(value: number) {
     this.widgetRating = value;
   }
@@ -228,6 +217,12 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     this.widgetValues = this.widgetRating;
     this.onChatSubmit();
     this.showSlider = false;
+    const height = this.frameRef.nativeElement.offsetHeight + 180;
+    this.renderer.setStyle(
+      this.frameRef.nativeElement,
+      'height',
+      `${height}px`,
+    );
   }
 
   ngAfterViewChecked() {
@@ -257,8 +252,6 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       };
       this.message = '';
       this.widgetValues = [];
-      // setTimeout(() => {}, 4000);
-      //   widgets": [{"widget_value":[],"widget_payload":"",}]
       if (widgetValues.value) {
         this.webSocket.send(
           JSON.stringify({
@@ -391,6 +384,9 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     this.webSocket.onerror = () => {
       if (this.isOnline) {
         this.showMaintenance = true;
+        this.showButtons = [];
+        this.showDateTimeWidgetBtn = false;
+        this.showMoodWidgetBtn = false;
       }
       this.webSocket.close();
     };
@@ -413,6 +409,46 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       this.showButtons = m.buttons.slice(0, 4);
       this.counter = 4;
       this.showMore = true;
+    }
+    if (Array.isArray(m.widgets) && m.widgets.length) {
+      if (m.widgets[0] === this.ratingWidget) {
+        this.showSlider = true;
+        const height = this.frameRef.nativeElement.offsetHeight - 180;
+        this.renderer.setStyle(
+          this.frameRef.nativeElement,
+          'height',
+          `${height}px`,
+        );
+      }
+    else  if (m.widgets[0] === this.moodWidget) {
+      this.showMoodWidgetBtn = true;
+      setTimeout(()=>{
+        const moodBtn = this.elementRef.nativeElement.querySelectorAll(
+          '.mood-btn',
+        );
+        moodBtn.forEach((btn:any,index:number)=>{
+          if(index!==moodBtn.length-1){
+            btn.remove();
+          }
+        })
+      },100)
+
+
+      }
+    else {
+      this.showDateTimeWidgetBtn = true;
+        setTimeout(()=>{
+        const dateTimeBtn = this.elementRef.nativeElement.querySelectorAll(
+          '.date-time-btn',
+        );
+        dateTimeBtn.forEach((btn:any,index:number)=>{
+          if(index!==dateTimeBtn.length-1){
+            btn.remove();
+          }
+        })
+        },100)
+      }
+
     }
 
     // this.showMoodWidget = !!m.widgets;
@@ -622,9 +658,6 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
           }
         });
     }
-    // if (value === 'down') {
-    //   console.log('Moving down');
-    // }
   }
 
   getButtons() {

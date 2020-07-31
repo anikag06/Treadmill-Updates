@@ -14,8 +14,9 @@
     </button>
   </div>
   <div
-    class="footer"
+    class="chat-frame-container"
     [ngStyle]="{ height: mobileView ? 'calc(98% - 46px)' : '490px' }"
+    #frameContainer
   >
     <div
       class="chat-frame"
@@ -59,7 +60,7 @@
             <button
               (click)="onMoodSelect()"
               *ngIf="widget === moodWidget && showMoodWidgetBtn"
-              class="btn px-0 py-0 btn-outline-light"
+              class="mood-btn btn px-0 py-0 btn-outline-light"
             >
               <img
                 [ngStyle]="{ width: '184px', height: '50px' }"
@@ -76,7 +77,7 @@
               ></app-mood-tracker>
             </div>
             <button
-              class="btn px-0 py-0 btn-outline-light"
+              class="btn px-0 py-0 btn-outline-light date-time-btn"
               (click)="onDateTimeSelect()"
               *ngIf="widget === dateTimeWidget && showDateTimeWidgetBtn"
             >
@@ -96,7 +97,7 @@
             </div>
           </div>
           <div
-            class="chatbot-card rating"
+            class="clearfix chatbot-error-card rating"
             *ngIf="widget === ratingWidget && showSlider"
           >
             <app-form-slider
@@ -139,8 +140,8 @@
             *ngIf="button.type === clickAble; else btnText"
           />
           <ng-template #btnText>
-            <span class="btn-text" [innerHTML]="button.emojified_payload"></span
-          ></ng-template>
+            <span class="btn-text" [innerHTML]="button.emojified_payload"></span>
+          </ng-template>
         </button>
         <div>
           <button
@@ -220,6 +221,7 @@
             (keyup)="sendReply($event)"
             #ti
             autocomplete="off"
+            autofocus
           >
           </textarea>
           <!--          (keyup.enter)="onKey($event)"-->
