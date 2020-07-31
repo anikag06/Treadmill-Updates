@@ -25,6 +25,7 @@ import { Conclusion5Component } from './conclusion/conclusion5/conclusion5.compo
 import { BeliefChangeComponent } from '@/main/resources/forms/belief-change/belief-change.component';
 import { ControlContentComponent } from '@/main/resources/control-content/control-content.component';
 import { Introduction6Component } from '@/main/resources/introduction/introduction6/introduction6.component';
+import {Conclusion6Component} from "@/main/resources/conclusion/conclusion6/conclusion6.component";
 
 export const resourcesRoutes: Routes = [
   {
@@ -134,6 +135,7 @@ export const resourcesRoutes: Routes = [
       { path: '3', component: Conclusion3Component },
       { path: '4', component: Conclusion4Component },
       { path: '5', component: Conclusion5Component },
+      { path: '6', component: Conclusion6Component },
     ],
   },
   { path: 'control-content/:id', component: ControlContentComponent },

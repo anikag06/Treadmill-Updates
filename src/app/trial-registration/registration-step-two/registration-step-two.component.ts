@@ -66,6 +66,7 @@ export class RegistrationStepTwoComponent implements OnInit {
   showErrorMsg = false;
   placeholder_tz!: any;
   showLoading = false;
+  showPage = false;
 
   constructor(
     private authService: TrialAuthService,
@@ -75,6 +76,10 @@ export class RegistrationStepTwoComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    const smallDevice = window.matchMedia('(max-width: 767px)').matches;
+    if (smallDevice) {
+      this.showPage = true;
+    }
     const dateNow = new Date();
     const dateTime = dateNow.toJSON();
     this.starting_time = dateTime.replace('Z', '').replace('T', ' ');

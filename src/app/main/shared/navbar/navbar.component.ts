@@ -50,9 +50,9 @@ import { isNotNullOrUndefined } from 'codelyzer/util/isNotNullOrUndefined';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit, OnDestroy {
-  @ViewChild(NavbarFlowDirective, { static: false })
+  @ViewChild(NavbarFlowDirective, {static: false})
   flowHost!: NavbarFlowDirective;
-  @ViewChild(NavbarNotificationDirective, { static: false })
+  @ViewChild(NavbarNotificationDirective, {static: false})
   notificationHost!: NavbarNotificationDirective;
   // @ViewChild('flowTrigger', { static: false }) flowTrigger!: MatMenuTrigger;
 
@@ -64,7 +64,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
   userNotificationSubscription!: Subscription;
   can!: any;
   isDashboard = false;
-  isConversation = false;
   convMode = false;
   fromLeftNav!: boolean;
   backClicked = false;
@@ -81,6 +80,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   fromIntro = false;
   gotoSubscription!: Subscription;
   introExit = false;
+
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
     private notificationService: NavbarNotificationsService,
@@ -89,7 +89,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private auth: AuthService,
     private gamePlayService: GamePlayService,
     private formService: FormService,
-
     private flowService: FlowService,
     private conversationservice: ConversationsService,
     public dialog: MatDialog,
@@ -235,6 +234,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   homeClick() {
     this.router.navigate([LOGGED_IN_PATH]);
   }
+
   backClick() {
     this.backClicked = true;
     this.location.back();
@@ -261,6 +261,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   onshowFullConversation() {
     this.notificationService.showFullConv.emit();
   }
+
   // getRouteInfo(data: string) {
   //   console.log(data);
   //   this.navbarTitle = this.navbarTitleInfo[data];

@@ -347,8 +347,10 @@ img.emoji {
 }
 .signup-page {
   .mat-checkbox-inner-container {
-    height: 20px !important;
-    width: 20px !important;
+//    height: 20px !important;
+//    width: 20px !important;
+    margin-right: 12px;
+    margin-top: 5px;
   }
 }
 .mat-checkbox-layout {

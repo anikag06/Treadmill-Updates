@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SignUpService } from './sign-up.service';
-import { NgForm } from '@angular/forms';
+import {FormControl, FormGroup, NgForm} from '@angular/forms';
 import { SignUpData } from '@/pre-login/signup/signup-data.interface';
 import { ShowLoginSignupDialogService } from '@/pre-login/shared/show-login-signup-dialog.service';
 import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-contact-us-dialog.service';
@@ -36,13 +36,24 @@ export class SignUpComponent implements OnInit {
   password!: any;
   passwordConfirm!: any;
   usernameError!: string;
-  passwordError!: string;
+  passwordError = 'Password must be at least 6 characters long';
   registered = false;
   passwordMatchError!: string;
   errorStatus = false;
+  updatingPermissions = false;
+  addingToHomescreen = false;
   data!: SignUpData;
   showLoading = false;
+  emailExistMessage = false;
+  emailError!: string;
+  emailSentMessage = false;
+  showEmailError = false;
+  showEmailMessage = false;
   @ViewChild('signupForm', { static: false }) signupForm!: NgForm;
+
+  emailForm = new FormGroup({
+    email: new FormControl(''),
+  });
 
   constructor(
     private router: Router,
@@ -61,6 +72,7 @@ export class SignUpComponent implements OnInit {
     this.signUpService
       .isParticipantValid(this.activatedRoute.snapshot.params['unique-code'])
       .subscribe(data => {
+        console.log('signup data', data);
         this.showSignUpForm = true;
         this.participantValid = data.data.valid;
         this.participantId = data.data.participant_id;
@@ -70,6 +82,9 @@ export class SignUpComponent implements OnInit {
       });
     this.fcmService.permit.subscribe(permit => {
       this.notificationsAllowed = permit ? 1 : 0;
+      if (this.notificationsAllowed) {
+        this.updatingPermissions = false;
+      }
       this.activateSubmitButton();
     });
   }
@@ -86,12 +101,39 @@ export class SignUpComponent implements OnInit {
         this.showLoading = false;
         this.errorStatus = true;
         if (err.error.message.username) {
+          this.signupForm.controls.username.setErrors({ invalid: true });
           this.usernameError = err.error.message.username;
         }
         if (err.error.message.password) {
-          this.passwordError = err.error.message.password;
+          this.signupForm.controls.password.setErrors({ invalid: true });
+          // this.passwordError = err.error.message.password;
         }
       },
+    );
+  }
+
+  emailSubmit() {
+    this.showLoading = true;
+    console.log(this.emailForm);
+    this.signUpService.getSignupMail(this.emailForm.value.email).subscribe( (response) => {
+        this.showLoading = false;
+      console.log('response', response);
+      if (response.user_exists) {
+        this.userExists = true;
+        this.username = response.username;
+      } else if (response.email_sent) {
+        this.showEmailMessage = true;
+        this.emailSentMessage = true;
+      } else if (!response.email_exist) {
+        this.showEmailMessage = true;
+        this.emailExistMessage = true;
+    }
+    }, error => {
+      console.log(error);
+      this.showLoading = false;
+      this.showEmailError = true;
+      this.emailError = error;
+      }
     );
   }
 
@@ -130,6 +172,7 @@ export class SignUpComponent implements OnInit {
       ) {
         this.passwordMatch = true;
       } else {
+        this.signupForm.controls.passwordConfirm.setErrors({ invalid: true });
         this.passwordMatchError = 'Enter same passwords!';
         // this.passwordMatch = false;
       }
@@ -160,17 +203,23 @@ export class SignUpComponent implements OnInit {
   }
 
   notificationsPermission() {
+    this.updatingPermissions = true;
+
     this.notificationsAllowed = 0;
     if (this.signupForm.value.notificationsInfo) {
       this.fcmService.participantRequestPermission(this.participantId);
+    } else {
+      this.updatingPermissions = false;
     }
     this.activateSubmitButton();
   }
 
   homeScreenPermission() {
+    this.addingToHomescreen = true;
     if (this.signupForm.value.homeScreenInfo) {
       // ToDo: remove this line in production
       this.a2hsService.getDeferredPrompt().subscribe(deferredPrompt => {
+        this.addingToHomescreen = false;
         if (!deferredPrompt) {
           console.log('deferredPrompt null');
           return;
@@ -187,11 +236,15 @@ export class SignUpComponent implements OnInit {
           }
         });
       });
+    } else {
+      this.addingToHomescreen = false;
+
     }
     this.activateSubmitButton();
   }
 
   activateSubmitButton() {
+    console.log('sign up form', this.signupForm);
     if (
       this.signupForm.value.username &&
       this.passwordMatch &&

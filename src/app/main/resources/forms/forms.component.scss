@@ -31,6 +31,8 @@ $form-secondary-color: #2a3b3d;
 }
 .for-slide {
     box-shadow: none !important;
+  width: 100% !important;
+  margin-left: 0 !important;
   }
 
 @media screen and (max-width: 992px) {
@@ -152,7 +154,9 @@ strong {
 .main-heading {
   background-color: #343434;
   color: white;
-  max-height: 45px;
+  //max-height: 45px;
+  max-height: 36px;
+
 }
 
 .saved-forms-btn {

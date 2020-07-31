@@ -1,3 +1,5 @@
+<div *ngIf="showContent else desktopMessage">
+
 <div class="container-fluid">
 
   <app-trial-pages-header [reregister] = "reregister" ></app-trial-pages-header>
@@ -10,4 +12,10 @@
         </div>
   </div>
 </div>
+</div>
+<ng-template #desktopMessage>
+  <div>
+    Open this link on your mobile.
+  </div>
+</ng-template>
 

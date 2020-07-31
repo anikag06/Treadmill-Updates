@@ -1,3 +1,5 @@
+<div *ngIf="showPage else desktopMessage">
+
 <div class="container-fluid w-100 small-font">
     <app-trial-pages-header [stepNumber]="stepNo"></app-trial-pages-header>
 
@@ -302,3 +304,9 @@
 <div class="row mt-5 mx-0">
     <app-trial-pages-footer class="w-100"></app-trial-pages-footer>
 </div>
+</div>
+<ng-template #desktopMessage>
+  <div>
+    Open this link on your mobile.
+  </div>
+</ng-template>

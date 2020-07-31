@@ -49,8 +49,10 @@ export class FlowPage {
   }
 
   clickOnButton(btn: string) {
-    console.log(btn, 'clicked');
-    return element(by.buttonText(btn)).click();
+    browser.wait(this.EC.presenceOf(element(by.buttonText(btn)))).then(() => {
+      console.log(btn, 'clicked');
+      return element(by.buttonText(btn)).click();
+    });
   }
 
   findProgressGroupElement(text: string) {
@@ -86,17 +88,18 @@ export class FlowPage {
     browser
       .wait(this.EC.presenceOf(element(by.css('h6.progress-heading-mobile'))))
       .then(() => {
-        element(by.css('.flow-scroll-inner'))
-          .element(by.cssContainingText('.step-content', txt))
+        element(by.css('.step-content.active'))
+          .element(by.cssContainingText('.step-name', txt))
           .click()
           .then(() => {
             console.log('STEP :', txt, 'clicked');
-            browser.sleep(1000);
+            browser.sleep(2000);
           });
       });
   }
 
   goToNextStep(btn: string) {
+    browser.sleep(2000);
     // content is used to identify in control group
     const content = element(by.css('.fix-content-body'));
     const button = element(by.css('button.completed-btn'));
@@ -106,19 +109,23 @@ export class FlowPage {
         console.log('clickOnButton  Completed');
         button.click().then(() => {
           if (btn === 'Next step') {
+            browser.sleep(2000);
             const nextStepBtn = element(
               by.cssContainingText('button', 'Next step'),
             );
             browser.wait(this.EC.visibilityOf(nextStepBtn)).then(() => {
               nextStepBtn.click();
+              console.log(btn, 'click');
             });
           }
           if (btn === 'Go to dashboard') {
+            browser.sleep(6000);
             const dashboardBtn = element(
               by.cssContainingText('button', 'Go to dashboard'),
             );
             browser.wait(this.EC.visibilityOf(dashboardBtn)).then(() => {
               dashboardBtn.click();
+              console.log(btn, 'click');
             });
           }
         });
@@ -195,7 +202,7 @@ export class FlowPage {
     });
   }
   waitForStepUnlock(txt: string) {
-    console.log('waiting for step unlock');
+    console.log('waiting for step', txt, 'unlock');
     const nextStep = element(by.css('.flow-scroll-inner')).element(
       by.cssContainingText('.step-content', txt),
     );
@@ -218,26 +225,41 @@ export class FlowPage {
     const userTimeUp = loginTime + this.timeUp;
     const currentTime = new Date().getTime();
     const today = new Date();
-    console.log(
-      'current time',
-      today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds(),
-    );
-    console.log(
-      'userTimeUp',
-      userTimeUp,
-      'currentTime',
-      currentTime,
-      'loginTime',
-      loginTime,
-    );
+
     // const waitStep = element(by.id('phq-9'));
     if (currentTime < userTimeUp) {
       // wait browser
-      this.callWaitBrowser();
+      // this.callWaitBrowser();
+      console.log(
+        'current time',
+        today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds(),
+      );
+      console.log(
+        'userTimeUp',
+        userTimeUp,
+        'currentTime',
+        currentTime,
+        'loginTime',
+        loginTime,
+      );
+      this.logout();
     } else {
       console.log('check further steps');
       return;
     }
+  }
+
+  logout() {
+    this.clickBurgerBtn('button.hamburger-button');
+    browser.sleep(2000);
+    const logout = element(
+      by.cssContainingText('.list-wrapper-items-name', 'Logout'),
+    );
+    logout.click();
+    browser.sleep(4000);
+  }
+  clickBurgerBtn(text: any) {
+    element(by.css(text)).click();
   }
 
   callWaitBrowser() {
@@ -282,7 +304,7 @@ export class FlowPage {
     }
     browser.sleep(2000);
     this.clickOnButton('Submit');
-    console.log('SURVEY COMPLETE');
+    // console.log('SURVEY COMPLETE');
     browser.sleep(1000);
   }
   selectVideo() {

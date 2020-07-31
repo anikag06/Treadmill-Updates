@@ -66,6 +66,7 @@ export class SurveyComponent implements OnInit {
   front = false;
   selected = false;
   submit = false;
+  submitting = false;
   quesCount = 0;
   ques!: string;
   quesArray!: SurveyQuestion[];
@@ -82,6 +83,7 @@ export class SurveyComponent implements OnInit {
   data = 'Please complete the survey before leaving the page.';
   navbarTitle!: string;
   followUp = false;
+  showLoading = false;
   @ViewChild('submitBtn', { static: false }) submitBtn!: ElementRef;
   @ViewChild('startBtn', { static: false }) startBtn!: ElementRef;
 
@@ -104,22 +106,12 @@ export class SurveyComponent implements OnInit {
 
   loadQuestions(event: any) {
     this.first_click = true;
-    // if (event.target.nodeName === 'BUTTON') {
-    //   console.log('Button');
-    //   event.target.classList.remove('disabled-button');
-    //   event.target.classList.add('active-button');
-    // } else if (event.target.nodeName === 'SPAN') {
-    //   console.log('Span');
-    //   event.target.parentElement.parentElement.classList.remove(
-    //     'disabled-button',
-    //   );
-    //   event.target.parentElement.parentElement.classList.add('active-button');
-    // }
+    this.showLoading = true
     console.log('start btn', this.startBtn);
-    this.startBtn.nativeElement.childNodes[0].classList.remove(
-      'disabled-button',
-    );
-    this.startBtn.nativeElement.childNodes[0].classList.add('active-button');
+    // this.startBtn.nativeElement.childNodes[0].classList.remove(
+    //   'disabled-button',
+    // );
+    // this.startBtn.nativeElement.childNodes[0].classList.add('active-button');
 
     this.surveyService.getSurveyData().subscribe(data => {
       this.quesArray = data.questions;
@@ -128,6 +120,7 @@ export class SurveyComponent implements OnInit {
       this.display_survey = true;
       this.ques = this.quesArray[this.quesCount].ques;
       this.startTime = new Date();
+      this.showLoading = false;
     });
   }
 
@@ -238,6 +231,7 @@ export class SurveyComponent implements OnInit {
   }
 
   onSubmit(event: any) {
+    this.submitting = true;
     // if (event.target.nodeName === 'BUTTON') {
     //   console.log('Button');
     //   event.target.classList.remove('disabled-button');
@@ -250,10 +244,10 @@ export class SurveyComponent implements OnInit {
     //   event.target.parentElement.parentElement.classList.add('active-button');
     // }
     console.log('submit btn', this.submitBtn);
-    this.submitBtn.nativeElement.childNodes[1].classList.remove(
-      'disabled-button',
-    );
-    this.submitBtn.nativeElement.childNodes[1].classList.add('active-button');
+    // this.submitBtn.nativeElement.childNodes[1].classList.remove(
+    //   'disabled-button',
+    // );
+    // this.submitBtn.nativeElement.childNodes[1].classList.add('active-button');
 
     this.back = false;
     this.front = false;
@@ -263,6 +257,7 @@ export class SurveyComponent implements OnInit {
       })
       .subscribe(data => {
         console.log('survey response', data);
+        this.submitting = false;
         if (this.followUp) {
           this.router.navigate(['/']);
         } else {

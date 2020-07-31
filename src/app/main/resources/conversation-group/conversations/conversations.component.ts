@@ -46,6 +46,8 @@ import { PROBLEM_SOLVING, TASK, THOUGHT_RECORD } from '@/app.constants';
 import { Subscription } from 'rxjs';
 import { UserFeedbackComponent } from '@/main/resources/shared/user-feedback/user-feedback.component';
 import { map, switchMap } from 'rxjs/operators';
+import {NavbarGoToService} from "@/main/shared/navbar/navbar-go-to.service";
+import {FlowService} from "@/main/flow/flow.service";
 
 @Component({
   selector: 'app-conversations',
@@ -150,11 +152,16 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     private stepDataService: StepsDataService,
     private notificationService: NavbarNotificationsService,
     private activeroute: ActivatedRoute,
+    private goToService: NavbarGoToService,
+    private flowService: FlowService,
+
+
   ) {
     this.activeroute.params.pipe(map((v) => v.id)).subscribe((params) => {
       this.conversation_id = params;
       this.passdata.IsConversationOn(true);
       this.run();
+      console.log('step id', this.passdata.get_current_id());
     });
   }
   //avatar_image!: any[];
@@ -304,6 +311,8 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         );
         // console.log(this.conversation);
         this.title = this.conversation.title;
+        console.log('STEP DETAIL:', this.title);
+        this.flowService.stepDetail.emit(this.title);
         this.gender = this.conversation.gender;
         this.final_conclusion_message = this.conversation.final_conclusion_message;
         this.length_conversation = this.conversation.dialogs.length;
@@ -954,17 +963,21 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       });
   }
 
+  // onNextStepClick() {
+  //   this.flowStepService
+  //     .getNextStepData(this.next_step_id)
+  //     .subscribe(next_step => {
+  //       console.log(next_step);
+  //       const next_step_url = this.flowStepService.goToFlowNextStep(
+  //         next_step.data,
+  //       );
+  //       console.log(next_step_url);
+  //       this.router.navigate([next_step_url]);
+  //     });
+  // }
+
   onNextStepClick() {
-    this.flowStepService
-      .getNextStepData(this.next_step_id)
-      .subscribe((next_step) => {
-        console.log(next_step);
-        const next_step_url = this.flowStepService.goToFlowNextStep(
-          next_step.data,
-        );
-        console.log(next_step_url);
-        this.router.navigate([next_step_url]);
-      });
+    this.goToService.clickFlow.emit();
   }
   onDashboard() {
     this.router.navigate(['/']);
@@ -998,7 +1011,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     const current_step_id = this.passdata.get_current_id();
     const next_step_id = this.passdata.get_nextstep();
     const isLastStep = this.passdata.get_islast();
-    this.showNextStepBtn = true;
+    // this.showNextStepBtn = true;
     this.time = 100;
     this.completionData.time_spent = this.time;
     this.completionData.step_id = current_step_id;
@@ -1008,8 +1021,8 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       .storeCompletionData(this.completionData)
       .subscribe((data) => {
         console.log(data);
-        this.showNextStepBtn = true;
         this.showloading = false;
+        this.showNextStepBtn = true;
       });
   }
 }

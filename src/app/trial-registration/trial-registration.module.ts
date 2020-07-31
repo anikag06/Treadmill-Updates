@@ -21,6 +21,8 @@ import { IneligibleTrialPageComponent } from './information-pages/ineligible-tri
 import { RegistrationDataService } from './shared/registration-data.service';
 import { StepLastPageComponent } from './information-pages/step-last-page/step-last-page.component';
 import { ReregistrationComponent } from './reregistration/reregistration.component';
+import { WaitlistComponent } from './waitlist/waitlist.component';
+import {WaitlistService} from './waitlist/waitlist.service';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,7 @@ import { ReregistrationComponent } from './reregistration/reregistration.compone
     IneligibleTrialPageComponent,
     StepLastPageComponent,
     ReregistrationComponent,
+    WaitlistComponent,
   ],
   imports: [
     FormsModule,
@@ -48,6 +51,6 @@ import { ReregistrationComponent } from './reregistration/reregistration.compone
     TrialRegistrationRoutingModule,
     QuestionnaireModule,
   ],
-  providers: [RegistrationDataService],
+  providers: [RegistrationDataService, WaitlistService],
 })
 export class TrialRegistrationModule {}
