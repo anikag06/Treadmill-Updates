@@ -475,7 +475,7 @@ export class IntroService {
     });
     intro.start();
     intro.onexit(() => {
-      this.completionData.step_id = 77;
+      this.completionData.step_id = this.flowService.getFirstStepID();
       this.completionData.time_spent = 100;
       this.stepsDataService
         .storeCompletionData(this.completionData)
@@ -697,6 +697,6 @@ export class IntroService {
   }
 
   setActiveStepIntro(value: boolean) {
-    this.showActiveStepIntro = true;
+    this.showActiveStepIntro = value;
   }
 }

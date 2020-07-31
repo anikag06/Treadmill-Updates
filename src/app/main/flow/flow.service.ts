@@ -24,6 +24,7 @@ export class FlowService {
   stepCompleted = false;
   showFollowUp = new EventEmitter<any>();
   showFollowUpSurvey = new EventEmitter<any>();
+  firstStepID!:number;
 
   constructor(
     private http: HttpClient,
@@ -91,4 +92,12 @@ export class FlowService {
   getFirstStepCompleted() {
     return this.stepCompleted;
   }
+
+  setFirstStepID(step_id:number){
+    this.firstStepID = step_id;
+  }
+
+  getFirstStepID():number{
+    return this.firstStepID;
+}
 }
