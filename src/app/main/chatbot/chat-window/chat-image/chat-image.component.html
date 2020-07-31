@@ -1,55 +1,89 @@
-<div
-  [ngStyle]="{ width: fromConversation ? 'auto' : 'fit-content' }"
-  (click)="changeUrl()"
-  *ngIf="dataLoaded; else skeleton"
->
-  <img
-    appLazyLoad
-    loading="lazy"
-    class="msg-img img-responsive"
-    (load)="changeLoading()"
-    onload
-    src="{{ image.url }}"
-    [ngStyle]="{
-      maxWidth: fromConversation ? '250px' : '280px',
-      minWidth: fromConversation ? '250px' : '280px'
-    }"
-    alt="image"
-  />
-  <div class="credits" *ngIf="image.credits">
-    <div class="creditDiv">
-      <a [href]="image.link" target="_blank">{{ image.name }}</a>
-      <span> / </span>
-      <a class="link" href="https://unsplash.com" target="_blank">Unsplash</a>
-    </div>
+<img
+  appLazyLoad
+  class="msg-img img-responsive"
+  (load)="changeLoading()"
+  src="{{ image.url }}"
+  [ngStyle]="{
+    maxWidth: fromConversation ? '230px' : '280px',
+    minWidth: fromConversation ? '230px' : '280px'
+  }"
+  alt="image"
+/>
+<div class="credits" *ngIf="image.credits">
+  <div class="creditDiv">
+    <a [href]="image.link" target="_blank">{{ image.name }}</a>
+    <span> / </span>
+    <a class="link" href="https://unsplash.com" target="_blank">Unsplash</a>
   </div>
-  <div class="credits" *ngIf="image.creditsGIF">
-    <div class="gifMark" *ngIf="image.url === image.static_url">
-      GIF
-    </div>
-    <div class="spinnerDiv" *ngIf="image.showSpinner">
-      <mat-progress-spinner
-        mode="indeterminate"
-        diameter="20"
-        color="accent"
-      ></mat-progress-spinner>
-    </div>
-    <div class="creditDiv">
-      <span> Powered By </span>
-      <a class="link" href="https://giphy.com" target="_blank">GIPHY</a>
-    </div>
+</div>
+<div class="credits" *ngIf="image.creditsGIF">
+  <div
+    class="gifMark"
+    (click)="changeUrl()"
+    *ngIf="image.url === image.static_url"
+  >
+    GIF
+  </div>
+  <div class="spinnerDiv" *ngIf="image.showSpinner">
+    <mat-progress-spinner
+      mode="indeterminate"
+      diameter="20"
+      color="accent"
+    ></mat-progress-spinner>
+  </div>
+  <div class="creditDiv">
+    <span> Powered By </span>
+    <a class="link" href="https://giphy.com" target="_blank">GIPHY</a>
   </div>
 </div>
 
-<ng-template #skeleton>
-  <div
-    class="card msg-img"
-  >
-    <div class="card-body text-center m-auto">
-      <div class="skeleton-text">{{skeletonText}}</div>
-<!--      <div class="form-inline">-->
-<!--        <a href="#" class="btn btn-outline-secondary mr-auto ml-auto"></a>-->
-<!--      </div>-->
+<div
+  class="gifMarkConvo"
+  *ngIf="image.url === image.static_url && fromConversation && dataLoaded"
+  (click)="changeUrl()"
+>
+  GIF
+</div>
+<div class="spinnerConvo" *ngIf="image.showSpinner">
+  <mat-progress-spinner
+    mode="indeterminate"
+    diameter="20"
+    color="accent"
+  ></mat-progress-spinner>
+</div>
+<!--</div>-->
+
+<div
+  [ngClass]="{
+    skeletonConvo: fromConversation,
+    skeletonChat: !fromConversation
+  }"
+*ngIf="!dataLoaded"
+>
+  <div class="card msg-img">
+    <div [ngStyle]="{width : !fromConversation ?  '280px': ''}"  class="card-body text-center">
+      <div [ngStyle]="{left : !fromConversation ?  '50%': '30%'}" class="skeleton-text" *ngIf="showGIFIcon; else imageIcon">
+        GIF
+      </div>
+      <ng-template #imageIcon>
+        <div [ngStyle]="{left : !fromConversation ?  '50%': '42%'}" class="img-icon">
+          <svg
+            width="50"
+            height="50"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#D7D7D7"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <rect x="3" y="3" width="18" height="18" rx="2" />
+            <circle cx="8.5" cy="8.5" r="1.5" />
+            <path d="M20.4 14.5L16 10 4 20" />
+          </svg>
+        </div>
+      </ng-template>
+      <div *ngIf="!fromConversation" class="creditSkeleton"></div>
     </div>
   </div>
-</ng-template>
+</div>

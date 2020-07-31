@@ -1,7 +1,7 @@
 .msg-img {
   max-height: 400px;
-  max-width: 280px;
-  min-width: 280px;
+  max-width: 230px;
+  min-width: 230px;
   margin-top: 10px;
   min-height: 300px;
   box-shadow: 0px 1px 3px #00000029;
@@ -46,6 +46,7 @@
   padding-top: 13px;
   top: -120px;
   right: 100px;
+  cursor: pointer;
 }
 .spinnerDiv {
   position: absolute;
@@ -56,92 +57,86 @@
 
 
 
-
-
-//@charset "utf-8";
-//
-//p:empty, a:empty, img:empty,skeleton-text:empty {
-//  animation: loading 1.7s infinite linear;
-//  //background: #dedfe1;
-//  //background-image: -webkit-linear-gradient(to right, #dedfe1 0%, #f2f3f5 20%, #dedfe1 40%, #dedfe1 100%);
-//  //background-image: linear-gradient(to right, #dedfe1 0%, #f2f3f5 20%, #dedfe1 40%, #dedfe1 100%);
-//  //background-repeat: no-repeat;
-//}
-//
-//img:empty.card-img-top{
-//  min-height: 189.75px;
-//}
-//
-//h2:empty{
-//  height: 38px;
-//  width: 200px;
-//}
-//
-//h3:empty {
-//  height: 22px;
-//  width: 200px;
-//}
-//h5:empty{
-//  height: 30px;
-//  width: 200px;
-//}
-//
-//a:empty{
-//  width: 100px;
-//  height: 40px;
-//  border: 0;
-//}
-//h4:empty {
-//  height: 18px;
-//  width: 200px;
-//}
-//
-//p:empty {
-//  height: 18px;
-//  width: 200px;
-//}
-//p:empty.lead {
-//  height: 30px;
-//  width: 200px;
-//}
-//@keyframes loading {
-//  0% {
-//    background-position: -100px;
-//  }
-//
-//  100% {
-//    background-position: 200px;
-//  }
-//}
-//@media (max-width: 576px) {
-//  .sm-text-center {
-//    text-align: center;
-//  }
-//  h5:empty{
-//    width: 400px;
-//  }
-//  p:empty.card-text{
-//    width: 400px;
-//  }
-//  .sm-mr-auto{margin-right:auto!important}
-//  .sm-ml-auto{margin-left:auto!important}
-//}
-//@media (max-width: 420px) {
-//  .col-xxs-12{-webkit-box-flex:0;-ms-flex:0 0 100%;flex:0 0 100%;max-width:100%}
-//  h5:empty{
-//    width: 300px;
-//  }
-//  p:empty.card-text{
-//    width: 300px;
-//  }
-//}
-
 .skeleton-text{
   font-size: 20px;
   border-radius: 10%;
-  color: #dad0d0;
-  margin-top: auto;
+  color: #D7D7D7;
+  width: fit-content;
   padding: 10px;
-  border: 5px solid #eadbdb;
-  margin-top: 90px;
+  border: 5px solid #D7D7D7;
+  top: 40%;
+  position: absolute;
+  margin-top: auto;
+}
+
+.card:empty{
+  background-image:
+    radial-gradient( circle 300px at 50px 50px, lightgray 99%, transparent 0 ),
+linear-gradient( red 300px, transparent 0 );
+  animation: shine 1s infinite;
+}
+@keyframes shine {
+  to {
+    background-position:
+      0 0,
+      100% 0, /* move highlight to right */
+      120px 0,
+      120px 40px,
+      120px 80px,
+      120px 120px;
+  }
+}
+
+.gifMarkConvo{
+  width: 50px;
+  height: 50px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 50%;
+  text-align: center;
+  font-size: 16px;
+  position: absolute;
+  padding-top: 13px;
+  top: 50%;
+  left:40%;
+  cursor: pointer;
+  color: white;
+}
+
+.spinnerConvo {
+  position: absolute;
+  padding-top: 13px;
+  top: 50%;
+  left: 50%;
+}
+.card-body{
+  background: #EEEEEE;
+  background-image: -webkit-linear-gradient(to right, #EEEEEE 0%, #f2f3f5 20%, #EEEEEE 40%, #EEEEEE 100%);
+  background-image: linear-gradient(to right, #EEEEEE 0%, #f2f3f5 20%, #EEEEEE 40%, #EEEEEE 100%);
+  background-repeat: no-repeat;
+}
+
+.img-icon{
+  position: absolute;
+  top: 40%;
+}
+
+.skeletonConvo{
+  top: 40px;
+  position: absolute;
+  z-index: 10;
+}
+
+.skeletonChat{
+  position: absolute;
+  top: 150px;
+  z-index: 10;
+}
+.creditSkeleton{
+  width: 122px;
+  height: 18px;
+  background: #D7D7D7 0% 0% no-repeat padding-box;
+  border-radius: 42px;
+  position: absolute;
+  bottom: 2%;
+  right: -19%;
 }

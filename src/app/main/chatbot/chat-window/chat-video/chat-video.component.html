@@ -1,14 +1,25 @@
-<iframe
-  #video
-  appIframeTracker
-  (iframeClick)="openDialog()"
-  class="video"
-  [src]="videoUrl | safeUrl"
-  width="280"
-  height="300"
-  frameborder="0"
-  webkitallowfullscreen
-  mozallowfullscreen
-  allowfullscreen
->
-</iframe>
+<div *ngIf="dataLoaded;else skeleton">
+  <iframe
+    #video
+    appIframeTracker
+    (iframeClick)="openDialog()"
+    class="video"
+    [src]="videoUrl | safeUrl"
+    width="280"
+    height="300"
+    frameborder="0"
+    webkitallowfullscreen
+    mozallowfullscreen
+    allowfullscreen
+  >
+  </iframe>
+</div>
+
+
+<ng-template #skeleton>
+  <div class="card msg-video">
+    <div class="card-body text-center">
+      <div class="video-icon"></div>
+    </div>
+  </div>
+</ng-template>
