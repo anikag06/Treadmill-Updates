@@ -3,7 +3,7 @@ import {
   ElementRef,
   HostListener,
   Input,
-  OnInit,
+  OnInit, Renderer2, ViewChild,
 } from '@angular/core';
 
 import { MatDialog } from '@angular/material';
@@ -16,8 +16,12 @@ import { SlidesVideoComponent } from '@/main/resources/slides/slides-video/slide
 })
 export class ChatVideoComponent implements OnInit {
   @Input() videoUrl!: string;
-
-  constructor(private dialog: MatDialog, private element: ElementRef) {}
+  @ViewChild('video',{static: false}) iframeRef!: ElementRef;
+  dataLoaded= false;
+  constructor(private dialog: MatDialog, private element: ElementRef,private renderer: Renderer2) {
+    this.renderer.listen(this.iframeRef.nativeElement, 'load', () => {this.dataLoaded =  true;
+    });
+  }
 
   videoPlayer!: any;
   srcWidth!: any;
