@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
 import {
   trigger,
   state,
@@ -10,6 +10,7 @@ import {
 import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-contact-us-dialog.service';
 import { ShowLoginSignupDialogService } from '@/pre-login/shared/show-login-signup-dialog.service';
 import { Router } from '@angular/router';
+import {MOBILE_WIDTH} from "@/app.constants";
 
 @Component({
   selector: 'app-landing-page',
@@ -62,12 +63,13 @@ export class LandingPageComponent implements OnInit {
   helpReason: string = this.helpReasonsArray[0];
   private helpReasonChangeCounter = 0;
   isVisible = true;
-
+  showScrollAnimation = false;
   constructor(
     private showContactUsService: MatContactUsDialogService,
     private showLoginSignupService: ShowLoginSignupDialogService,
     private router: Router,
   ) {}
+
 
   ngOnInit() {
     setTimeout(() => {
@@ -76,6 +78,10 @@ export class LandingPageComponent implements OnInit {
     setTimeout(() => {
       this.togglePulseTwo();
     }, this.pulseDuration - this.downTime);
+
+    setTimeout(()=>{
+      this.showScrollAnimation = true;
+    },2000)
   }
 
   updateThoughtCounter() {
@@ -133,5 +139,15 @@ export class LandingPageComponent implements OnInit {
 
   onJoinTheStudyClicked() {
     this.showLoginSignupService.joinStudyClicked();
+  }
+
+  @HostListener("window:scroll", [])
+  onScroll(): void {
+    if(document.documentElement.scrollTop > 0){
+      this.showScrollAnimation = false;
+    }
+    else if (document.documentElement.scrollTop === 0 ){
+      this.showScrollAnimation = true;
+    }
   }
 }
