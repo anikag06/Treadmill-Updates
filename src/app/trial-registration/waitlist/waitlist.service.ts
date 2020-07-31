@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
-import {environment} from '../../../environments/environment';
-import {EMAIL_REGISTRATION, GET_LINK_DATA} from '@/app.constants';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { environment } from '../../../environments/environment';
+import { EMAIL_REGISTRATION, GET_LINK_DATA } from '@/app.constants';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class WaitlistService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
   participationID!: number;
 
   // Http Options
@@ -20,7 +19,8 @@ export class WaitlistService {
   };
   getLinkData(unique_code: string) {
     return this.http.get(
-      environment.API_ENDPOINT + GET_LINK_DATA + unique_code, this.httpOptions
+      environment.API_ENDPOINT + GET_LINK_DATA + unique_code,
+      this.httpOptions,
     );
   }
 }

@@ -1,8 +1,12 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
-import {GET_SIGNUP_MAIL, SIGN_UP_PATH, VERIFY_PARTICIPANT} from '@/app.constants';
+import {
+  GET_SIGNUP_MAIL,
+  SIGN_UP_PATH,
+  VERIFY_PARTICIPANT,
+} from '@/app.constants';
 import { SignUpData } from '@/pre-login/signup/signup-data.interface';
 
 @Injectable({
@@ -34,9 +38,6 @@ export class SignUpService {
   getSignupMail(email: string): Observable<any> {
     const sendData = { email_id: email };
     console.log('sign up email', sendData);
-    return this.http.post(
-      environment.API_ENDPOINT + GET_SIGNUP_MAIL , sendData ,
-    );
+    return this.http.post(environment.API_ENDPOINT + GET_SIGNUP_MAIL, sendData);
   }
-
 }

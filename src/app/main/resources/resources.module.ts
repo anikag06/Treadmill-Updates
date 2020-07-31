@@ -53,7 +53,6 @@ import { FormDirective } from './slides/form.directive';
 import { UserFeedbackComponent } from './shared/user-feedback/user-feedback.component';
 import { SlideService } from './slides/slide.service';
 import { SlidesComponent } from './slides/slides.component';
-import { ClickOutsideDirective } from '../shared/click-outside/click-outside.directive';
 import { WorryProductivelyComponent } from '@/main/resources/forms/worry-productively-form/worry-productively.component';
 import { WorryFormComponent } from '@/main/resources/forms/worry-productively-form/worry-form/worry-form.component';
 import { TechniquesComponent } from './forms/worry-productively-form/techniques/techniques.component';
@@ -275,9 +274,6 @@ import { StepCompletedComponent } from './shared/step-completed/step-completed.c
     DeleteDialogComponent,
   ],
   exports: [
-    DateTimePickerComponent,
-    ClickOutsideDirective,
-    MoodTrackerComponent,
     DeleteDialogComponent,
     ScrollToTopDirective,
     ControlContentComponent,

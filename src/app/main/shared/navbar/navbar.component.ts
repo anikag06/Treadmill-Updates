@@ -50,9 +50,9 @@ import { isNotNullOrUndefined } from 'codelyzer/util/isNotNullOrUndefined';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit, OnDestroy {
-  @ViewChild(NavbarFlowDirective, {static: false})
+  @ViewChild(NavbarFlowDirective, { static: false })
   flowHost!: NavbarFlowDirective;
-  @ViewChild(NavbarNotificationDirective, {static: false})
+  @ViewChild(NavbarNotificationDirective, { static: false })
   notificationHost!: NavbarNotificationDirective;
   // @ViewChild('flowTrigger', { static: false }) flowTrigger!: MatMenuTrigger;
 

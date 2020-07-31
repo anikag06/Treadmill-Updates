@@ -106,7 +106,7 @@ export class SurveyComponent implements OnInit {
 
   loadQuestions(event: any) {
     this.first_click = true;
-    this.showLoading = true
+    this.showLoading = true;
     console.log('start btn', this.startBtn);
     // this.startBtn.nativeElement.childNodes[0].classList.remove(
     //   'disabled-button',

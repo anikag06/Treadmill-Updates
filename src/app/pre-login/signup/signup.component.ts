@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SignUpService } from './sign-up.service';
-import {FormControl, FormGroup, NgForm} from '@angular/forms';
+import { FormControl, FormGroup, NgForm } from '@angular/forms';
 import { SignUpData } from '@/pre-login/signup/signup-data.interface';
 import { ShowLoginSignupDialogService } from '@/pre-login/shared/show-login-signup-dialog.service';
 import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-contact-us-dialog.service';
@@ -115,25 +115,27 @@ export class SignUpComponent implements OnInit {
   emailSubmit() {
     this.showLoading = true;
     console.log(this.emailForm);
-    this.signUpService.getSignupMail(this.emailForm.value.email).subscribe( (response) => {
+    this.signUpService.getSignupMail(this.emailForm.value.email).subscribe(
+      response => {
         this.showLoading = false;
-      console.log('response', response);
-      if (response.user_exists) {
-        this.userExists = true;
-        this.username = response.username;
-      } else if (response.email_sent) {
-        this.showEmailMessage = true;
-        this.emailSentMessage = true;
-      } else if (!response.email_exist) {
-        this.showEmailMessage = true;
-        this.emailExistMessage = true;
-    }
-    }, error => {
-      console.log(error);
-      this.showLoading = false;
-      this.showEmailError = true;
-      this.emailError = error;
-      }
+        console.log('response', response);
+        if (response.user_exists) {
+          this.userExists = true;
+          this.username = response.username;
+        } else if (response.email_sent) {
+          this.showEmailMessage = true;
+          this.emailSentMessage = true;
+        } else if (!response.email_exist) {
+          this.showEmailMessage = true;
+          this.emailExistMessage = true;
+        }
+      },
+      error => {
+        console.log(error);
+        this.showLoading = false;
+        this.showEmailError = true;
+        this.emailError = error;
+      },
     );
   }
 
@@ -238,7 +240,6 @@ export class SignUpComponent implements OnInit {
       });
     } else {
       this.addingToHomescreen = false;
-
     }
     this.activateSubmitButton();
   }

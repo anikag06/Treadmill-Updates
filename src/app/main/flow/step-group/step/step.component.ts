@@ -206,14 +206,14 @@ export class StepComponent implements OnInit, AfterViewInit {
 
     this.markDone();
     if (this.step.data_type === INTRODUCTORY_ANIMATION) {
-      if (this.step.name === "Navigating TreadWill") {
+      if (this.step.name === 'Navigating TreadWill') {
         this.flowService.setFirstStepID(this.step.id);
         if (this.step.status === COMPLETED) {
           this.introService.startDashBoardIntro();
         } else {
           this.introService.exitStartIntro();
         }
-      } else if (this.step.name==="Points, badges, and profile") {
+      } else if (this.step.name === 'Points, badges, and profile') {
         this.introService.setIntroduceFalse();
         setTimeout(() => {
           this.introService.startBadgesIntro(this.step.status);

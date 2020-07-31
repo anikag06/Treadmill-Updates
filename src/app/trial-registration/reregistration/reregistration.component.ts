@@ -26,7 +26,6 @@ export class ReregistrationComponent implements OnInit {
   reregister = true;
   showContent!: boolean;
 
-
   ngOnInit() {
     const smallDevice = window.matchMedia('(max-width: 767px)').matches;
     if (smallDevice) {

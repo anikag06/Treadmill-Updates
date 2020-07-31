@@ -26,7 +26,9 @@ export class DateTimePickerComponent
   public min = new Date();
   public startDate!: Date;
   public endDate: Date = new Date();
-  public startAt: Date = moment(new Date()).add(10, 'm').toDate();
+  public startAt: Date = moment(new Date())
+    .add(10, 'm')
+    .toDate();
   @Output() dateTimeMessage = new EventEmitter();
   @Output() taskFormDateTime = new EventEmitter();
   public startEndDate: Date[] = [];

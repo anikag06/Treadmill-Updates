@@ -46,8 +46,8 @@ import { PROBLEM_SOLVING, TASK, THOUGHT_RECORD } from '@/app.constants';
 import { Subscription } from 'rxjs';
 import { UserFeedbackComponent } from '@/main/resources/shared/user-feedback/user-feedback.component';
 import { map, switchMap } from 'rxjs/operators';
-import {NavbarGoToService} from "@/main/shared/navbar/navbar-go-to.service";
-import {FlowService} from "@/main/flow/flow.service";
+import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
+import { FlowService } from '@/main/flow/flow.service';
 
 @Component({
   selector: 'app-conversations',
@@ -154,10 +154,8 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     private activeroute: ActivatedRoute,
     private goToService: NavbarGoToService,
     private flowService: FlowService,
-
-
   ) {
-    this.activeroute.params.pipe(map((v) => v.id)).subscribe((params) => {
+    this.activeroute.params.pipe(map(v => v.id)).subscribe(params => {
       this.conversation_id = params;
       this.passdata.IsConversationOn(true);
       this.run();
@@ -333,30 +331,30 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
           this.id = this.conversation.dialogs[0].id;
         } else {
           //For finding the id of current option if continuing the conversation
-            // tslint:disable-next-line:no-shadowed-variable
-            const _id = this.currenthistory.user_response.length - 1;
-            let current = this.currenthistory.user_response[_id]
-              .option_in_history.id;
-            let found = false;
-            for (let j = 0; j < this.conversation.dialogs.length; j++) {
-              const length_of_options = this.conversation.dialogs[j]
-                .dialog_has_options.length;
-              for (let x = 0; x < length_of_options; x++) {
-                if (
-                  current ===
-                  this.conversation.dialogs[j].dialog_has_options[x].option.id
-                ) {
-                  current = this.conversation.dialogs[j].dialog_has_options[x]
-                    .upcoming_dialog;
-                  found = true;
-                  break;
-                }
-              }
-              if (found) {
+          // tslint:disable-next-line:no-shadowed-variable
+          const _id = this.currenthistory.user_response.length - 1;
+          let current = this.currenthistory.user_response[_id].option_in_history
+            .id;
+          let found = false;
+          for (let j = 0; j < this.conversation.dialogs.length; j++) {
+            const length_of_options = this.conversation.dialogs[j]
+              .dialog_has_options.length;
+            for (let x = 0; x < length_of_options; x++) {
+              if (
+                current ===
+                this.conversation.dialogs[j].dialog_has_options[x].option.id
+              ) {
+                current = this.conversation.dialogs[j].dialog_has_options[x]
+                  .upcoming_dialog;
+                found = true;
                 break;
               }
             }
-            this.id = current;
+            if (found) {
+              break;
+            }
+          }
+          this.id = current;
         }
         this.dialog = this.dialogMap.get(this.id);
 
@@ -410,7 +408,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         // console.log(res);
         this.conversationsService
           .getFeedBackInfo(this.conversation_id)
-          .subscribe((feedback_data) => {
+          .subscribe(feedback_data => {
             if (feedback_data.exists) {
               this.initial_feedback = feedback_data.feedback;
               if (this.initial_feedback === 1) {
@@ -607,9 +605,9 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       message: this.mupltiple_line[this.count_multiple],
       option_images: this.dialog.dialog_has_options[0].option.option_images,
     };
-    setTimeout(()=>{
+    setTimeout(() => {
       this.options.push(option);
-    },option.message.length * 25)
+    }, option.message.length * 25);
 
     this.current_message = [];
     this.nsend = true;
@@ -956,7 +954,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
 
     this.conversationsService
       .storeFeedBackInfo(this.feedbackData)
-      .subscribe((data) => {
+      .subscribe(data => {
         console.log(data);
         this.feedbackDataId = data.data.id;
         this.initial_feedback = this.userFeedback.final_feedback;
@@ -997,7 +995,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     this.feedbackText.feedback_text = feedback_text;
     this.conversationsService
       .updateFeedBackInfo(this.feedbackText, this.feedbackDataId)
-      .subscribe((data) => {
+      .subscribe(data => {
         console.log(data);
       });
     this.isDislikeBox = false;
@@ -1019,7 +1017,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     //REQUEST FAILED
     this.stepDataService
       .storeCompletionData(this.completionData)
-      .subscribe((data) => {
+      .subscribe(data => {
         console.log(data);
         this.showloading = false;
         this.showNextStepBtn = true;

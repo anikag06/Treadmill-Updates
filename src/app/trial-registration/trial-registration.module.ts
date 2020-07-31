@@ -22,7 +22,7 @@ import { RegistrationDataService } from './shared/registration-data.service';
 import { StepLastPageComponent } from './information-pages/step-last-page/step-last-page.component';
 import { ReregistrationComponent } from './reregistration/reregistration.component';
 import { WaitlistComponent } from './waitlist/waitlist.component';
-import {WaitlistService} from './waitlist/waitlist.service';
+import { WaitlistService } from './waitlist/waitlist.service';
 
 @NgModule({
   declarations: [

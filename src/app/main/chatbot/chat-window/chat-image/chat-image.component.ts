@@ -9,10 +9,11 @@ export class ChatImageComponent implements OnInit {
   @Input() image!: any;
   @Input() fromConversation!: boolean;
   dataLoaded = false;
-  showGIFIcon!:boolean;
+  showGIFIcon!: boolean;
 
   ngOnInit() {
-    this.showGIFIcon = (this.image.static_url && this.fromConversation) || this.image.creditsGIF;
+    this.showGIFIcon =
+      (this.image.static_url && this.fromConversation) || this.image.creditsGIF;
   }
 
   changeUrl() {
@@ -33,6 +34,6 @@ export class ChatImageComponent implements OnInit {
 
   changeLoading() {
     this.image.showSpinner = false;
-     this.dataLoaded = true;
+    this.dataLoaded = true;
   }
 }
