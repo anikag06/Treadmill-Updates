@@ -2,11 +2,27 @@
   background-color: white;
   //padding-top: 24px;
 }
+
+.settings-icon{
+   padding-right: 6px;
+}
+.right-arrow-icon {
+  float: right;
+  //justify-content: end;
+  //padding-left: 10%;
+  //justify-content: end;
+
+}
 .heading{
-  font-size: 20px;
-  font-weight:bold;
+  cursor: pointer;
+  font-size: 16px;
+  //display: flex;
+  //font-weight:bold;
   font-family: Roboto;
-  padding-bottom: 10px;
+  //padding-bottom: 28px;
+}
+.heading:hover {
+  background-color: #0000000A;
 }
 .placeholder{
   font-size: 16px;
@@ -83,7 +99,8 @@
   padding-top: 36px;
 }
 .each-div{
-  padding-top: 54px;
+  //padding-top: 54px;
+  padding-bottom: 28px;
 }
 
 .save-push-email{
@@ -105,10 +122,12 @@
 
 
 @media only screen and (min-width: 781px){
-  .heading{
-    padding-bottom: 12px;
+  .settings-icon{
+    padding-right: 13px;
   }
   .settings-row{
+    //height: 498px;
+    width: 60%;
     padding-left: 60px;
     padding-top: 24px;
   }

@@ -128,8 +128,11 @@ export class MatLoginDialogComponent implements OnInit {
       .forgotUsernameRequest(this.email.nativeElement.value)
       .subscribe(
         (data: any) => {
-          console.log(data);
           this.recoverUsernameMsgShow = true;
+          console.log('recover username', data);
+
+
+          console.log('message', this.recoverUsernameMsgShow);
           this.showUsernameLoading = false;
         },
         error => {

@@ -13,6 +13,7 @@ import {
 } from '@/app.constants';
 import { IntroService } from '@/main/walk-through/intro.service';
 import { IntroDialogService } from '@/main/walk-through/intro-dialog.service';
+import {GamesService} from '@/main/shared/games.service';
 
 @Component({
   selector: 'app-game-item',
@@ -29,9 +30,16 @@ export class GameItemComponent implements OnInit {
     private route: ActivatedRoute,
     private introService: IntroService,
     private introDialogService: IntroDialogService,
+    private gamesService: GamesService,
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    // this.gamesService.getGamesProgressBar()
+    //   .subscribe((data) => {
+    //     console.log('games progress bar data', data);
+    //   });
+
+  }
 
   onGameClick(game: Game) {
     this.gameStarted = true;

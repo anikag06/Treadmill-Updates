@@ -49,7 +49,6 @@ export class ResetPasswordComponent implements OnInit {
     const user = this.authService.isLoggedIn();
     if (user && user.is_active) {
       this.dashboardLinkShow = true;
-      // this.router.navigate([LOGGED_IN_PATH]);
     } else {
       this.errorPage = false;
       // this.showResetPasswordForm = true;
@@ -57,12 +56,9 @@ export class ResetPasswordComponent implements OnInit {
         .linkValidityCheck(this.activatedRoute.snapshot.params['unique-code'])
         .subscribe(
           () => {
-            // console.log('reset page');
-            // this.uniqueLink = this.activatedRoute.snapshot.params['unique-code'];
             this.showResetPasswordForm = true;
           },
           error => {
-            // console.log('validating error message', error.error.message);
             this.linkExpiredMsg = error.error.message;
             this.errorPage = true;
             this.showResetPasswordForm = true;
@@ -84,8 +80,6 @@ export class ResetPasswordComponent implements OnInit {
             this.loading = false;
           },
           error => {
-            // console.log('password submit error', error);
-            // console.log('new password', this.newPassword);
             this.errorMessage = error.error.error.new_password;
             this.errorMsgShow = true;
             console.log(this.errorMessage);
@@ -93,13 +87,6 @@ export class ResetPasswordComponent implements OnInit {
           },
         );
     }
-
-    // .subscribe(() => {
-    //   if(data.status === true) {
-    //     this.passwordChangedPageShow = true;
-    //   } error => {
-    //  this.errorMessage = error.errormessage;
-    // })
   }
 
   newPasswordInput() {

@@ -38,6 +38,7 @@ import { InternetConnectionComponent } from '@/shared/internet-connection/intern
 import { IntroService } from '@/main/walk-through/intro.service';
 import { IntroDialogService } from '@/main/walk-through/intro-dialog.service';
 import { isNotNullOrUndefined } from 'codelyzer/util/isNotNullOrUndefined';
+import {NavbarGoToService} from '@/main/shared/navbar/navbar-go-to.service';
 
 declare var twemoji: any;
 
@@ -109,6 +110,7 @@ export class MainComponent
     private commonService: CommonService,
     private introService: IntroService,
     private introDialogService: IntroDialogService,
+   // private goToService: NavbarGoToService,
   ) {}
 
   ngOnChanges() {}
@@ -299,6 +301,10 @@ export class MainComponent
       this.showChatbot = true;
     }, 10);
   }
+
+  // settingsPageShow() {
+  //   this.goToService.settingsPageShowEvent.emit();
+  // }
 
   ngOnDestroy() {
     if (isNotNullOrUndefined(this.introSubscription)) {

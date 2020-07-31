@@ -1,30 +1,35 @@
 
+<!--<link rel="stylesheet" href="../main.component.scss">-->
 <div class = "row settings-row">
   <div class = "col background-col">
-    <div class = "below-col-container">
+    <div class = "below-col-container" >
+    <div class = "each-div" *ngIf = "(!this.passwordHeadingClicked && !this.notificationHeadingIsClicked )" >
     <div >
-    <p class = "heading">Change username</p>
-    <div class = "row">
+    <a class = "heading" (click) = "changeUsernameHeadingClicked()" *ngIf = "!this.usernameHeadingClicked"><img src = "assets/shared/change.svg" class = "settings-icon">Change username<img src = "assets/shared/right_arrow.png" class = "right-arrow-icon"></a>
+    </div>
+    <div class = "row" *ngIf = " this.usernameHeadingClicked">
+      <form #usernameForm = "ngForm">
       <div class = "col-12 col-lg-6  mb-2 mb-lg-1">
+
       <mat-form-field class = "username-change-input">
         <mat-label class = "placeholder">
           username
         </mat-label>
         <input
           matInput
-          #username
-          [value] = user.username
+          name = "username"
+          [(ngModel)] = "newUsername"
           (input) = "usernameAvailability()" >
         <mat-error>not</mat-error>
        <mat-hint [ngClass] = "this.usernameAvailableStatus === true? 'success-msg':'not-success-msg'"
-                 *ngIf ="this.usernameAvailable === true || username.value == !user.username">{{usernameAvailableMessage}}</mat-hint>
+                 *ngIf ="this.usernameAvailable === true || this.newUsername == !user.username">{{usernameAvailableMessage}}</mat-hint>
        <mat-hint [ngClass] = "this.usernamePasswordStatus === true? 'success-msg':'not-success-msg'"
                  *ngIf ="this.usernameAvailable === false">{{usernamePasswordCorrectMessage}}</mat-hint>
       </mat-form-field>&nbsp;&nbsp;&nbsp;&nbsp;
 
       <button
         type = "button" mat-raised-button
-              [disabled] = "username.value === user.username || this.usernameAvailableStatus === false"
+              [disabled] = "this.newUsername === user.username || this.usernameAvailableStatus === false"
               (click) = "continueClicked()" class = "save-btn"
               *ngIf ="this.usernamePasswordSubmitShow === false && !this.showLoadingUsernameChange ">Continue</button>
         <button
@@ -35,6 +40,7 @@
           <span class="spinner-border spinner-border-sm"></span>
           &nbsp; Loading..
         </button>
+
       </div>
 
 
@@ -56,6 +62,9 @@
         <input
           matInput
           #real_password
+          name = "realPassword"
+          [(ngModel)] = "realPassword"
+          (input) = "realPasswordInput()"
           type = "password" >
       </mat-form-field>&nbsp;&nbsp;&nbsp;&nbsp;
         <!--<p [ngClass] = "usernameSaveClicked() === false">username changed</p>
@@ -64,7 +73,7 @@
         type = "button"
         mat-raised-button
         color="primary"
-        [disabled] = "(username.value.length === 0 || real_password.value.length === 0)"
+        [disabled] = "(this.usernameTyped === false || this.realPasswordTyped === false)"
         class = "save-btn"
         (click) = "submitClick()"  *ngIf="!LoadingUsernamePasswordChange">Submit</button>
      <button color="primary" class = "loading-btn" *ngIf="LoadingUsernamePasswordChange" type="button" mat-raised-button >
@@ -73,29 +82,20 @@
         </button>
 
 
+
      </span>
+     </form>
 
 
     </div>
 
-      <!--<span [ngClass] = "this.usernameAvailableStatus === true? 'success-msg':'not-success-msg'"
-            *ngIf ="this.usernameAvailable === true || username.value == !user.username">
-        {{usernameAvailableMessage}}
-      </span>
-
-      <span [ngClass] = "this.usernamePasswordStatus === true? 'success-msg':'not-success-msg'"
-            *ngIf ="this.usernameAvailable === false">
-        {{usernamePasswordCorrectMessage}}
-      </span>-->
-
     </div>
 
 
-
-
-      <div class = "each-div">
-      <p class = "heading"> Change password</p>
-        <div class = "row">
+      <div class = "each-div" *ngIf = "!this.usernameHeadingClicked && !this.notificationHeadingIsClicked">
+      <a class = "heading" (click) = "changePasswordHeadingClicked()" *ngIf = "!this.passwordHeadingClicked"><img src = "assets/shared/change.svg" class = "settings-icon">Change password <img src = "assets/shared/right_arrow.png" class = "right-arrow-icon"></a>
+        <div class = "row" *ngIf = "this.passwordHeadingClicked">
+        <form #passwordForm = "ngForm">
         <div class = "col-12 col-lg-3  mb-2 mb-lg-3">
         <mat-form-field class = "password-change-input">
           <mat-label
@@ -105,13 +105,11 @@
           </mat-label>
           <input
             matInput
-            #currentPassword
+            name = "current_password"
+            [(ngModel)] = "currentPassword"
             type = "password" (input) = "passWordMessageRemove()">
          <mat-hint *ngIf = "this.passwordMsgShow" [ngClass] = "this.passwordState === true? 'success-msg':'not-success-msg'">{{oldPasswordMessage}}</mat-hint>
         </mat-form-field>&nbsp;&nbsp;&nbsp;&nbsp;<br>
-        <!--<span [ngClass] = "this.passwordState === true? 'success-msg':'not-success-msg'">
-          {{oldPasswordMessage}}
-        </span>-->
         </div><br>
 
 
@@ -123,7 +121,8 @@
         </mat-label>
         <input
           matInput
-          #newPassword
+          name = "new_password"
+          [(ngModel)] = "newPassword"
           type = "password" (input) = "newPasswordTouch()">
         <mat-hint *ngIf = "this.passwordMsgShow" class = "not-success-msg">{{newPasswordMessage}}</mat-hint>
       </mat-form-field>&nbsp;&nbsp;&nbsp;&nbsp;<br>
@@ -138,7 +137,8 @@
         </mat-label>
         <input
           matInput
-          #confirmPassword
+          name = "confirm_password"
+          [(ngModel)] = "confirmPassword"
           type = "password"
           (input) = "confirmNewMatch()">
           <mat-hint class = "not-success-msg" *ngIf =  "this.newConfirmMatch === false">New and Confirm password does not match</mat-hint>
@@ -151,22 +151,25 @@
         mat-raised-button
         color="primary"
         [disabled] =
-          "(currentPassword.value.length === 0 || newPassword.value.length === 0 || confirmPassword.value.length === 0 || this.newConfirmMatch === false) "
+          "(this.currentPasswordTyped === false|| this.newPasswordTyped === false || this.confirmPasswordTyped === false || this.newConfirmMatch === false) "
         class = "save-btn"
         (click) = "savePasswordChange()">Save</button>
         <button color="primary" class = "loading-btn" *ngIf="showLoadingPasswordChange" type="button" mat-raised-button >
           <span class="spinner-border spinner-border-sm"></span>
           &nbsp; Loading..
         </button>
+
+      </div>
+      </form>
       </div>
       </div>
-      </div>
 
 
 
-      <div class = "each-div" *ngIf = "this.user.is_exp">
-      <p class = "heading">Notification Settings</p>
+      <div class = "each-div" *ngIf = "this.user.is_exp && !this.usernameHeadingClicked && !this.passwordHeadingClicked">
 
+      <a class = "heading" (click) = "notificationHeadingClicked()" *ngIf = "!this.notificationHeadingIsClicked"><img src = "assets/shared/notification%20settings.svg" class = "settings-icon">Notification Settings<img src = "assets/shared/right_arrow.png" class = "right-arrow-icon"></a>
+      <div *ngIf = "this.notificationHeadingIsClicked">
       <p class = "notification-subheading">Support Group</p>
         <p class = "push-email-notification">
           <span >
@@ -289,6 +292,12 @@
         </p>
       </div>
       </div>
+      <div class = "each-div" *ngIf = "!this.usernameHeadingClicked && !this.passwordHeadingClicked && !this.notificationHeadingIsClicked">
+        <img src = "assets/shared/logout.png" class = "settings-icon">
+        <a class = "heading" style="color: #BF494E; font-weight: bold" routerLink="/main/logout" >Log Out</a>
+      </div>
+      </div>
+
     </div>
   </div>
 

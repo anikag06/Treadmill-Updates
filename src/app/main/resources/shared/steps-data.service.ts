@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 import { environment } from 'environments/environment';
 import { GET_STEP_DATA, FLOW_STEP_MARK_DONE } from '@/app.constants';
@@ -10,17 +10,10 @@ import { StepCompleteData } from './completion-data.model';
 })
 export class StepsDataService {
   constructor(private http: HttpClient) {}
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Cache-Control':
-        'no-cache, no-store, must-revalidate, post-check=0, pre-check=0',
-    }),
-  };
 
   getStepData(stepId: number) {
     return this.http.get(
       environment.API_ENDPOINT + GET_STEP_DATA + stepId + '/',
-      this.httpOptions,
     );
   }
 

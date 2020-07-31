@@ -44,6 +44,7 @@ import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
 import { IntroService } from '@/main/walk-through/intro.service';
 import { isNotNullOrUndefined } from 'codelyzer/util/isNotNullOrUndefined';
 
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -75,6 +76,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   @Input() user!: User;
   @Output() hamburgerClick = new EventEmitter<any>();
   @Input() isHandset$!: boolean;
+
   hideSubscription!: Subscription;
   hideCards = false;
   sideBarSubsciprtion!: Subscription;
@@ -129,6 +131,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
           this.navbarTitle = value;
           console.log('FROM NAVBAR', value);
         });
+        this.goToService.settingsPageTitle.subscribe((value: any) => {
+          this.navbarTitle = value;
+        })
+
         this.notificationService.showFullConvIcon.subscribe(() => {
           this.convMode = true;
         });
@@ -237,7 +243,14 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
   backClick() {
     this.backClicked = true;
-    this.location.back();
+    // if (this.router.url.includes(('/settings/change-username') )) {
+    //   this.goToService.settingsPageShowEvent.emit();
+    //   console.log('username');
+    // } else {
+      this.goToService.settingsPageShowEvent.emit();
+      this.location.back();
+    //}
+
   }
 
   ngOnDestroy(): void {
