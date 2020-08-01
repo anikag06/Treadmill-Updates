@@ -15,6 +15,7 @@ import { FlowStepNavigationService } from '../shared/flow-step-navigation.servic
 export class FlowService {
   introduceBehaviour = new BehaviorSubject(false);
   loadBehaviour = new BehaviorSubject(false);
+  introDialogBehaviour = new BehaviorSubject(false);
   unlockModuleTime = new Subject();
   stepDetail = new EventEmitter<any>();
   stepSequence = 0;
@@ -58,6 +59,10 @@ export class FlowService {
 
   triggerLoad() {
     this.loadBehaviour.next(true);
+  }
+
+  triggerIntroDialog(){
+    this.introDialogBehaviour.next(true);
   }
 
   getModuleUnlockTime(stepGroupId: number) {
