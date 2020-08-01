@@ -210,7 +210,7 @@ export class MainComponent
       );
     }
 
-    this.loadSubscription = this.flowService.loadBehaviour.subscribe(
+    this.loadSubscription = this.flowService.introDialogBehaviour.subscribe(
       (data: boolean) => {
         if (data && !this.flowService.getFirstStepCompleted()) {
           this.introDialogService.openIntroDialog();
