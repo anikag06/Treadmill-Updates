@@ -92,27 +92,34 @@
 }
 
 @media screen and (max-width: 1199px) and (min-width: 768px) {
-  .things-todo {
-    max-width: 88%;
-    margin: auto;
-    margin-bottom: 20px;
-  }
-}
+  //@media screen and (min-width: 768px) {
 
-@media screen and (max-width: 767px) {
-  .things-todo {
-    width: 100%;
-    max-width: 400px;
-    margin: auto;
-    margin-bottom: 20px;
-
-    .things-todo-main {
-      border-top: 40px solid #2DAA84;
-
-      h3 {
-        top: -30px;
-      }
-
+    .things-todo {
+      //max-width: 88%;
+      //margin: auto;
+      min-width: 350px;
+      width:35vw;
+      max-width: 400px;
+      margin-bottom: 20px;
     }
   }
-}
+
+@media screen and (max-width: 767px) {
+    .things-todo {
+      width: 95vw;
+      min-width:350px;
+      max-width: 400px;
+      margin: auto;
+      margin-bottom: 20px;
+
+      .things-todo-main {
+        border-top: 40px solid #2DAA84;
+
+        h3 {
+          top: -30px;
+        }
+
+      }
+    }
+  }
+

@@ -151,8 +151,10 @@
 @media screen and (min-width: 768px) and (max-width: 1199px) {
   .profile-card {
     //max-width: 85%;
-    margin: auto;
-    width:360px;
+    //margin: auto;
+    width:35vw;
+    min-width:350px;
+    max-width:400px;
 
     .profile-header {
       max-height: 100px;
@@ -217,14 +219,15 @@
   }
 
   .mat-card-header-text {
-    margin: 0 px;
+    margin: 0px;
   }
-
   .profile-card {
+
     margin: auto;
-    width: 95%;
+    width: 95vw;
     margin-top: 15px;
     max-width: 400px;
+    min-width: 350px!important;
 
     .profile-header {
       .profile-image {

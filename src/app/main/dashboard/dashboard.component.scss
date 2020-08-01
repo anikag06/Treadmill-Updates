@@ -28,10 +28,11 @@
   padding: 0;
 }
 
-@media screen and (min-width: 1576px) {
+//@media screen and (min-width: 1576px) {
   .sugg-post-things-todo-row {
     max-width: 100%;
-  }
+    width:38.067vw;
+  //}
 }
 
 @media screen and (min-width: 1200px) {
@@ -69,6 +70,10 @@
     margin-bottom: 0px;
   }
 
+  .sugg-post-things-todo-row {
+    max-width: 100%;
+    width:100%;
+  }
   .suggPostDiv {
     min-width: 400px;
     margin: auto;
@@ -83,6 +88,7 @@
 }
 
 @media screen and (max-width: 576px) {
+
   .suggPostDiv {
     min-width: 342px;
     margin: auto;
