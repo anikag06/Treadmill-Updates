@@ -177,6 +177,8 @@ import { IntroDialogService } from '@/main/walk-through/intro-dialog.service';
 import { SettingsComponent } from './settings/settings.component';
 import { SettingsService } from '@/main/settings/settings.service';
 import { AuthHeaderInterceptor } from '@/main/auth-header.interceptor';
+import { ReportProblemComponent } from './support-groups/post-list/shared/report-problem/report-problem.component';
+import { ThankComponent } from './support-groups/post-list/shared/thank/thank.component';
 // import { Resources2Routing } from './extra-resources/extra-resources-routing.module.ts/extra-resources-routing.module.ts.component';
 
 @NgModule({
@@ -292,6 +294,8 @@ import { AuthHeaderInterceptor } from '@/main/auth-header.interceptor';
     PointsComponent,
     GameIntroComponent,
     FormIntroComponent,
+    ReportProblemComponent,
+    ThankComponent,
   ],
   imports: [
     CommonModule,
@@ -399,6 +403,8 @@ import { AuthHeaderInterceptor } from '@/main/auth-header.interceptor';
     PointsComponent,
     GameIntroComponent,
     FormIntroComponent,
+    ReportProblemComponent,
+    ThankComponent
   ],
   exports: [TrimStringPipe],
 })

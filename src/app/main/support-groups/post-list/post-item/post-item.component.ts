@@ -31,6 +31,11 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { UserProfile } from '../../../shared/user-profile/UserProfile.model';
 import { UserProfileService } from '../../../shared/user-profile/userProfile.service';
 import { COMMON_EDITOR_CONFIG } from '@/app.constants';
+import {DialogBoxService} from '@/main/shared/custom-dialog/dialog-box.service';
+import {ThankComponent} from '../shared/thank/thank.component';
+import {ReportProblemComponent} from '../shared/report-problem/report-problem.component';
+import {MatDialog} from '@angular/material/dialog';
+import {ReportService} from '@/main/support-groups/post-list/shared/report.service';
 
 @Component({
   selector: 'app-post-item',
@@ -47,6 +52,7 @@ export class PostItemComponent
   @Output() deleteEvent = new EventEmitter<SupportGroupItem>();
   @Output() editEvent = new EventEmitter<SupportGroupItem>();
   @Output() tagClick = new EventEmitter<string>();
+  // @ViewChild('el', { static: true }) el!: ElementRef;
 
   tags: Tag[] = []; // Holds all the tags
   user!: User; // Current User
@@ -65,7 +71,8 @@ export class PostItemComponent
   commentNos = 1;
   showProfile = false;
   userProfile = new UserProfile('Name', '', 0, 0, 0, 0, [], [], []);
-  thankYouIcon = '../../../assets/support-group/Group 11055.png';
+  // thankYouIcon = '../../../assets/support-group/Group 11055.png';
+  thanked = false;
   userProfileData = new UserProfile('Name', '', 0, 0, 0, 0);
 
   editorConfig: AngularEditorConfig = {
@@ -91,6 +98,8 @@ export class PostItemComponent
     private errorService: GeneralErrorService,
     private changeDetector: ChangeDetectorRef,
     private userProfileService: UserProfileService,
+    public dialog: MatDialog,
+    private reportService: ReportService,
   ) {}
 
   /*
@@ -127,6 +136,9 @@ export class PostItemComponent
     //     profile.no_of_silver_badges,
     //     profile.no_of_gold_badges);
     // });
+    this.reportService.thanked.subscribe( (value: number) => {
+    //
+    });
   }
 
   /**
@@ -430,15 +442,15 @@ export class PostItemComponent
   }
 
   onThankYou() {
-    //
+    this.openThankDialog();
   }
 
   onReportSuicide() {
-    //
+    this.reportSuicide();
   }
 
   onReportProblem() {
-    //
+    this.reportProblem();
   }
   onTagClick(tag: Tag) {
     this.tagClick.emit(tag.name);
@@ -465,5 +477,37 @@ export class PostItemComponent
     if (event && (<any>event)['value'] === true) {
       this.showProfile = false;
     }
+  }
+  openThankDialog() {
+    this.dialog.open(ThankComponent, {
+      data: {
+        id: this.supportGroupItem.id,
+        username: this.supportGroupItem.user.username,
+      },
+    });
+  }
+  reportSuicide() {
+    this.dialog.open(ReportProblemComponent, {
+      height: '30vh',
+      width: '30vw',
+      data: {
+        id: this.supportGroupItem.id,
+        problem: false,
+        suicide: true,
+      },
+    });
+  }
+  reportProblem() {
+      this.dialog.open(ReportProblemComponent, {
+        height: '30vh',
+        width: '30vw',
+        data: {
+          id: this.supportGroupItem.id,
+          problem: true,
+          suicide: false,
+      },
+    });
+    // } else {
+    //   this.dialog.open(ReportProblemComponent);
   }
 }

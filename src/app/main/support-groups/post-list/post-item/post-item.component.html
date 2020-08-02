@@ -6,10 +6,10 @@
     <span>Delete</span>
   </button>
   <button mat-menu-item (click)="onReportProblem()" *ngIf="!ownPost() || user.is_admin">
-    <span>Report Problem</span>
+    <span>Report problem</span>
   </button>
   <button mat-menu-item (click)="onReportSuicide()" *ngIf="!ownPost() || user.is_admin">
-    <span>Report Suicide</span>
+    <span>Report suicide</span>
   </button>
 </mat-menu>
 <div class="post-item">
@@ -88,7 +88,9 @@
       <button class="btn btn-sm thumbs-up" (click)="onThumbsUp()"><img [src]="thumbsUp" width="20">
         {{supportGroupItem.up_votes}}</button>
       <button class="btn btn-sm thumbs-down" (click)="onThumbsDown()"><img [src]="thumbsDown" width="20"></button>
-      <button class="btn btn-sm thumbs-down" (click)="onThankYou()">Thank</button>
+      <button class="btn btn-sm thumbs-down" (click)="onThankYou()" *ngIf="!ownPost() && !thanked">Thank</button>
+      <span *ngIf="!ownPost() && thanked"> <img src="">Thanked</span>
+
     </div>
   </div>
   <div class="row no-gutters comments-row">

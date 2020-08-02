@@ -405,6 +405,13 @@ export const COMMON_EDITOR_CONFIG = {
   fonts: [],
   uploadUrl: '',
 };
+export const COMMENT_COMPLAINT = 'api/v1/support-group/comment-complaint/';
+export const POST_COMPLAINT = 'api/v1/support-group/post-complaint/';
+export const NESTED_COMMENT_COMPLAINT = 'api/v1/support-group/nested-comment-complaint/';
+export const COMMENT_THANK = 'api/v1/support-group/comment-thank-you/';
+export const POST_THANK = 'api/v1/support-group/post-thank-you/';
+export const NESTED_COMMENT_THANK = 'api/v1/support-group/nested-comment-thank-you/';
+
 export const VIDEO_LIST = '/api/v1/resources/videos/';
 export const READING_LIST = '/api/v1/resources/reading-materials/';
 export const MINDFULNESS_VIDEO_LIST = '/api/v1/resources/mindfulness-videos/';

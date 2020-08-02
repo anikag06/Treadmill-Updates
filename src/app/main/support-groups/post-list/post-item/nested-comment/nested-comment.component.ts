@@ -19,6 +19,10 @@ import { ThumbsService } from '@/main/support-groups/thumbs.service';
 import { GeneralErrorService } from '@/main/shared/general-error.service';
 import { UserProfile } from '@/main/shared/user-profile/UserProfile.model';
 import { UserProfileService } from '@/main/shared/user-profile/userProfile.service';
+import {ThankComponent} from "@/main/support-groups/post-list/shared/thank/thank.component";
+import {ReportProblemComponent} from "@/main/support-groups/post-list/shared/report-problem/report-problem.component";
+import {MatDialog} from "@angular/material/dialog";
+import {ReportService} from "@/main/support-groups/post-list/shared/report.service";
 
 @Component({
   selector: 'app-nested-comment',
@@ -47,6 +51,8 @@ export class NestedCommentComponent
     private errorService: GeneralErrorService,
     private changeDetector: ChangeDetectorRef,
     private userProfileService: UserProfileService,
+    public dialog: MatDialog,
+    private reportService: ReportService,
   ) {}
 
   /**
@@ -190,5 +196,48 @@ export class NestedCommentComponent
     if (event && (<any>event)['value'] === true) {
       this.showProfile = false;
     }
+  }
+  onThankYou() {
+    this.openThankDialog();
+  }
+
+  onReportSuicide() {
+    this.reportSuicide();
+  }
+
+  onReportProblem() {
+    this.reportProblem();
+  }
+  openThankDialog() {
+    this.dialog.open(ThankComponent, {
+      data: {
+        id: this.userNestedComment.id,
+        username: this.userNestedComment.user.username,
+      },
+    });
+  }
+  reportSuicide() {
+    this.dialog.open(ReportProblemComponent, {
+      height: '30vh',
+      width: '30vw',
+      data: {
+        id: this.userNestedComment.id,
+        problem: false,
+        suicide: true,
+      },
+    });
+  }
+  reportProblem() {
+    this.dialog.open(ReportProblemComponent, {
+      height: '30vh',
+      width: '30vw',
+      data: {
+        id: this.userNestedComment.id,
+        problem: true,
+        suicide: false,
+      },
+    });
+    // } else {
+    //   this.dialog.open(ReportProblemComponent);
   }
 }

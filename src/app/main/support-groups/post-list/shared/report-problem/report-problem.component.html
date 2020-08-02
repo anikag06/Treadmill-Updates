@@ -1,0 +1,47 @@
+    <div class="d-flex justify-content-center" *ngIf="problem">
+    <div>
+      <h3>Report problem</h3>
+    </div>
+      <div class="d-flex flex-column " *ngIf="!problemSubmit">
+
+      <p >What do you think is the problem with the post?</p>
+<!--    <p *ngIf="suicide">From the text, do you think that the person is having suicidal thoughts? Please answer carefully</p>-->
+      <div class="row">
+    <mat-form-field>
+      <textarea matInput [(ngModel)]="reason"
+                cdkTextareaAutosize
+                cdkAutosizeMinRows="1"
+                placeholder="Write here"></textarea>
+      <!--    <mat-hint *ngIf="thoughtSave ">Saving...</mat-hint>-->
+    </mat-form-field>
+      </div>
+      <div class="row mt-auto float-right ">
+        <button class="close-btn align-self-end " mat-raised-button (click)="close()"
+        >Cancel</button>
+
+        <button class="report-btn align-self-end ml-2 " mat-raised-button (click)="report()" >Report</button>
+      </div>
+
+  </div>
+    </div>
+  <div class="d-flex flex-row justify-content-center" *ngIf="suicide">
+    <div >
+      <h3>Report suicide</h3>
+    </div>
+    <div class="d-flex flex-column " *ngIf="!problemSubmit">
+
+    <p>From the text, do you think that the person is having suicidal thoughts? Please answer carefully</p>
+
+    <div class="d-flex flex-row mt-auto float-right ">
+      <button class="close-btn " mat-raised-button (click)="close()"
+      >Cancel</button>
+
+      <button class="report-btn ml-2 " mat-raised-button (click)="report()" >Yes</button>
+    </div>
+  </div>
+</div>
+<div class="d-flex flex-column align-items-center justify-content-center" *ngIf="problemSubmit">
+  <p *ngIf="problem">Thank you! Your problem has been reported.</p>
+  <p *ngIf="suicide">Thank you! Your report about suicide has been reported.</p>
+  <button class="report-btn align-self-center" mat-raised-button (click)="done()" >Done</button>
+</div>

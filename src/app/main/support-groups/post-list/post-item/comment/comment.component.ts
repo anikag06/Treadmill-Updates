@@ -31,6 +31,10 @@ import { UserProfile } from '@/main/shared/user-profile/UserProfile.model';
 import { UserProfileService } from '@/main/shared/user-profile/userProfile.service';
 import { SupportGroupsService } from '@/main/support-groups/support-groups.service';
 import { COMMON_EDITOR_CONFIG } from '@/app.constants';
+import {ThankComponent} from '@/main/support-groups/post-list/shared/thank/thank.component';
+import {ReportProblemComponent} from '@/main/support-groups/post-list/shared/report-problem/report-problem.component';
+import {MatDialog} from '@angular/material/dialog';
+import {ReportService} from '@/main/support-groups/post-list/shared/report.service';
 
 @Component({
   selector: 'app-comment',
@@ -88,6 +92,8 @@ export class CommentComponent
     private changeDetector: ChangeDetectorRef,
     private userProfileService: UserProfileService,
     private sgService: SupportGroupsService,
+    public dialog: MatDialog,
+    private reportService: ReportService,
   ) {}
 
   ngOnInit() {
@@ -338,5 +344,48 @@ export class CommentComponent
     if (event && (<any>event)['value'] === true) {
       this.showProfile = false;
     }
+  }
+  onThankYou() {
+    this.openThankDialog();
+  }
+
+  onReportSuicide() {
+    this.reportSuicide();
+  }
+
+  onReportProblem() {
+    this.reportProblem();
+  }
+  openThankDialog() {
+    this.dialog.open(ThankComponent, {
+      data: {
+        id: this.comment.id,
+        username: this.comment.user.username,
+      },
+    });
+  }
+  reportSuicide() {
+    this.dialog.open(ReportProblemComponent, {
+      height: '30vh',
+      width: '30vw',
+      data: {
+        id: this.comment.id,
+        problem: false,
+        suicide: true,
+      },
+    });
+  }
+  reportProblem() {
+    this.dialog.open(ReportProblemComponent, {
+      height: '30vh',
+      width: '30vw',
+      data: {
+        id: this.comment.id,
+        problem: true,
+        suicide: false,
+      },
+    });
+    // } else {
+    //   this.dialog.open(ReportProblemComponent);
   }
 }
