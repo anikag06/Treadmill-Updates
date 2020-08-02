@@ -480,6 +480,8 @@ export class PostItemComponent
   }
   openThankDialog() {
     this.dialog.open(ThankComponent, {
+      height: '30vh',
+      width: '30vw',
       data: {
         id: this.supportGroupItem.id,
         username: this.supportGroupItem.user.username,

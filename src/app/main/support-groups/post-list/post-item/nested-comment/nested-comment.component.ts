@@ -210,6 +210,8 @@ export class NestedCommentComponent
   }
   openThankDialog() {
     this.dialog.open(ThankComponent, {
+      height: '30vh',
+      width: '30vw',
       data: {
         id: this.userNestedComment.id,
         username: this.userNestedComment.user.username,

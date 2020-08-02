@@ -358,6 +358,8 @@ export class CommentComponent
   }
   openThankDialog() {
     this.dialog.open(ThankComponent, {
+      height: '30vh',
+      width: '30vw',
       data: {
         id: this.comment.id,
         username: this.comment.user.username,

@@ -1,18 +1,16 @@
-    <div class="d-flex justify-content-center" *ngIf="problem">
-    <div>
+    <div class="d-flex flex-column h-100" *ngIf="problem">
+    <div class="d-flex justify-content-center" >
       <h3>Report problem</h3>
     </div>
-      <div class="d-flex flex-column " *ngIf="!problemSubmit">
+      <div class="mt-4"*ngIf="!problemSubmit">
 
       <p >What do you think is the problem with the post?</p>
-<!--    <p *ngIf="suicide">From the text, do you think that the person is having suicidal thoughts? Please answer carefully</p>-->
-      <div class="row">
-    <mat-form-field>
+      <div class="row mx-0 w-100">
+    <mat-form-field class="w-100 ">
       <textarea matInput [(ngModel)]="reason"
                 cdkTextareaAutosize
                 cdkAutosizeMinRows="1"
                 placeholder="Write here"></textarea>
-      <!--    <mat-hint *ngIf="thoughtSave ">Saving...</mat-hint>-->
     </mat-form-field>
       </div>
       <div class="row mt-auto float-right ">
@@ -23,12 +21,17 @@
       </div>
 
   </div>
+      <div class="d-flex flex-column align-items-center justify-content-center" *ngIf="problemSubmit">
+        <p *ngIf="problem">Thank you! Your problem has been reported.</p>
+        <p *ngIf="suicide">Thank you! Your report about suicide has been reported.</p>
+        <button class="report-btn align-self-center" mat-raised-button (click)="done()" >Done</button>
+      </div>
     </div>
-  <div class="d-flex flex-row justify-content-center" *ngIf="suicide">
-    <div >
+  <div class="d-flex flex-column h-100"  *ngIf="suicide">
+    <div  class="d-flex justify-content-center" >
       <h3>Report suicide</h3>
     </div>
-    <div class="d-flex flex-column " *ngIf="!problemSubmit">
+    <div  class="mt-4" *ngIf="!problemSubmit">
 
     <p>From the text, do you think that the person is having suicidal thoughts? Please answer carefully</p>
 
@@ -39,9 +42,9 @@
       <button class="report-btn ml-2 " mat-raised-button (click)="report()" >Yes</button>
     </div>
   </div>
-</div>
 <div class="d-flex flex-column align-items-center justify-content-center" *ngIf="problemSubmit">
   <p *ngIf="problem">Thank you! Your problem has been reported.</p>
   <p *ngIf="suicide">Thank you! Your report about suicide has been reported.</p>
   <button class="report-btn align-self-center" mat-raised-button (click)="done()" >Done</button>
 </div>
+    </div>
