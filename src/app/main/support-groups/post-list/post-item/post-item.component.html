@@ -85,11 +85,11 @@
 
   <div class="row no-gutters mt-1">
     <div class="col-12">
-      <button class="btn btn-sm thumbs-up" (click)="onThumbsUp()"><img [src]="thumbsUp" width="20">
+      <button class="btn btn-sm thumbs-up" (click)="onThumbsUp()" [disabled]="ownPost()"><img [src]="thumbsUp" width="20">
         {{supportGroupItem.up_votes}}</button>
-      <button class="btn btn-sm thumbs-down" (click)="onThumbsDown()"><img [src]="thumbsDown" width="20"></button>
-      <button class="btn btn-sm thumbs-down" (click)="onThankYou()" *ngIf="!ownPost() && !thanked">Thank</button>
-      <span *ngIf="!ownPost() && thanked"> <img src="">Thanked</span>
+      <button class="btn btn-sm thumbs-down" (click)="onThumbsDown()" [disabled]="ownPost()"><img [src]="thumbsDown" width="20"></button>
+      <button class="btn btn-sm thumbs-down" (click)="onThankYou()" *ngIf="!ownPost() && !supportGroupItem.is_thanked">Thank</button>
+      <span *ngIf="!ownPost() && supportGroupItem.is_thanked"> <img src="../../../../../assets/support-group/Thanked icon.svg">Thanked</span>
 
     </div>
   </div>

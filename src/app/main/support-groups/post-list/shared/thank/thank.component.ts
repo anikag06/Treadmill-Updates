@@ -9,7 +9,9 @@ import {ReportService} from '@/main/support-groups/post-list/shared/report.servi
 })
 export class ThankComponent implements OnInit {
  id!: number;
+  thanked!: boolean;
  username!: string;
+ type!: string;
   constructor(
     public dialogRef: MatDialogRef<ThankComponent>,
     private reportService: ReportService,
@@ -18,6 +20,7 @@ export class ThankComponent implements OnInit {
     if (data) {
       this.id = data.id;
       this.username = data.username;
+      this.type = data.type;
     }
   }
   ngOnInit() {
@@ -27,8 +30,11 @@ export class ThankComponent implements OnInit {
     this.dialogRef.close();
   }
   thank() {
-    this.reportService.post_thank_you(this.id);
+    this.thanked = true;
+    this.reportService.post_thank_you(this.id, this.type).subscribe( () => {
+      console.log('sucess sending thank');
+    });
     this.dialogRef.close();
-    this.reportService.thanked.emit(this.id);
+    this.reportService.thanked.emit(this.thanked);
   }
 }

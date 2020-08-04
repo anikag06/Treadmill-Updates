@@ -154,6 +154,7 @@ export class CreatePostComponent implements OnInit {
           sgItem.created_at,
           sgItem.comments_count,
           sgItem.is_voted,
+          sgItem.is_thanked,
         );
         this.sgService.sendPost(updatedsgItem);
         this.postForm.reset();

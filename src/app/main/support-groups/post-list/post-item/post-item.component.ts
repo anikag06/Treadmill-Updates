@@ -11,7 +11,7 @@ import {
   DoCheck,
   ElementRef,
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
+  ChangeDetectorRef, HostListener,
 } from '@angular/core';
 import { Tag } from '@/main/shared/tag.model';
 import { NgForm } from '@angular/forms';
@@ -53,7 +53,7 @@ export class PostItemComponent
   @Output() editEvent = new EventEmitter<SupportGroupItem>();
   @Output() tagClick = new EventEmitter<string>();
   // @ViewChild('el', { static: true }) el!: ElementRef;
-
+  srcWidth!: number;
   tags: Tag[] = []; // Holds all the tags
   user!: User; // Current User
   commentsPage = 1; // Holds the pagination for comments
@@ -86,6 +86,11 @@ export class PostItemComponent
     minWidth: '0',
   };
 
+  @HostListener('window:resize', ['$event'])
+  getScreenSize(event?: any) {
+    this.srcWidth = window.innerWidth;
+    console.log('screen width', this.srcWidth);
+  }
   /*
    * Injects CommnetService, AuthService and SanitizationService
    */
@@ -136,9 +141,7 @@ export class PostItemComponent
     //     profile.no_of_silver_badges,
     //     profile.no_of_gold_badges);
     // });
-    this.reportService.thanked.subscribe( (value: number) => {
-    //
-    });
+    console.log('item', this.supportGroupItem);
   }
 
   /**
@@ -443,6 +446,8 @@ export class PostItemComponent
 
   onThankYou() {
     this.openThankDialog();
+    this.supportGroupItem.is_thanked = 1;
+
   }
 
   onReportSuicide() {
@@ -479,37 +484,70 @@ export class PostItemComponent
     }
   }
   openThankDialog() {
-    this.dialog.open(ThankComponent, {
-      height: '30vh',
-      width: '30vw',
-      data: {
-        id: this.supportGroupItem.id,
-        username: this.supportGroupItem.user.username,
-      },
-    });
+    if (this.srcWidth <= 576) {
+      this.dialog.open(ThankComponent, {
+        height: '50vh',
+        width: '90vw',
+        data: {
+          id: this.supportGroupItem.id,
+          username: this.supportGroupItem.user.username,
+        },
+      });
+    } else {
+      this.dialog.open(ThankComponent, {
+        height: '320px',
+        width: '440px',
+        data: {
+          id: this.supportGroupItem.id,
+          username: this.supportGroupItem.user.username,
+        },
+      });
+    }
   }
   reportSuicide() {
-    this.dialog.open(ReportProblemComponent, {
-      height: '30vh',
-      width: '30vw',
-      data: {
-        id: this.supportGroupItem.id,
-        problem: false,
-        suicide: true,
-      },
-    });
+    if (this.srcWidth <= 576) {
+      this.dialog.open(ReportProblemComponent, {
+        height: '32vh',
+        width: '90vw',
+        data: {
+          id: this.supportGroupItem.id,
+          problem: false,
+          suicide: true,
+        },
+      });
+    } else {
+      this.dialog.open(ReportProblemComponent, {
+        height: '320px',
+        width: '440px',
+        data: {
+          id: this.supportGroupItem.id,
+          problem: false,
+          suicide: true,
+        },
+      });
+    }
   }
   reportProblem() {
+    if (this.srcWidth <= 576) {
       this.dialog.open(ReportProblemComponent, {
-        height: '30vh',
-        width: '30vw',
+        height: '50vh',
+        width: '90vw',
         data: {
           id: this.supportGroupItem.id,
           problem: true,
           suicide: false,
-      },
-    });
-    // } else {
-    //   this.dialog.open(ReportProblemComponent);
+        },
+      });
+    } else {
+      this.dialog.open(ReportProblemComponent, {
+        height: '320px',
+        width: '440px',
+        data: {
+          id: this.supportGroupItem.id,
+          problem: true,
+          suicide: false,
+        },
+      });
+    }
   }
 }

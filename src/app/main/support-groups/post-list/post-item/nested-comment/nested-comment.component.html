@@ -1,18 +1,18 @@
 <mat-menu #menu="matMenu" xPosition="before">
-  <button mat-menu-item (click)="onEdit()" *ngIf="user.username == userNestedComment.user.username || user.is_admin"
+  <button mat-menu-item (click)="onEdit()" *ngIf="ownComment() || user.is_admin"
     class="edit-item">
     <span>Edit</span>
   </button>
-  <button mat-menu-item (click)="onDelete()" *ngIf="user.username == userNestedComment.user.username|| user.is_admin"
+  <button mat-menu-item (click)="onDelete()" *ngIf="ownComment()|| user.is_admin"
     class="delete-item">
     <span>Delete</span>
   </button>
   <button mat-menu-item (click)="onReportProblem()"
-    *ngIf="user.username !== userNestedComment.user.username|| user.is_admin">
+    *ngIf="!ownComment()|| user.is_admin">
     <span>Report Problem</span>
   </button>
   <button mat-menu-item (click)="onReportSuicide()"
-    *ngIf="user.username !== userNestedComment.user.username || user.is_admin">
+    *ngIf="!ownComment() || user.is_admin">
     <span>Report Suicide</span>
   </button>
 </mat-menu>
@@ -75,14 +75,12 @@
 
         <div><span class="date">{{ userNestedComment.created_at |  date: 'medium' | timeAgo }}</span></div>
         <p style="margin-left:-11px;">
-          <button class="btn btn-sm" (click)="onThumbsUp()"><img [src]="thumbsUp" width="18" height="18">
+          <button class="btn btn-sm" (click)="onThumbsUp()" [disabled]="ownComment()"><img [src]="thumbsUp" width="18" height="18">
             {{userNestedComment.up_votes}}</button>
-          <button class="btn btn-sm" (click)="onThumbsDown()"><img [src]="thumbsDown" width="16" height="16"></button>
-          <button class="btn btn-sm thumbs-down" (click)="onThankYou()">Thank</button>
-          <!-- <span *ngIf="user.username == userNestedComment.user.username || user.is_admin">
-            <button class="btn btn-sm nc-edit" (click)="onEdit()">Edit</button>
-            <button class="btn btn-sm nc-delete" (click)="onDelete()">Delete</button>
-          </span> -->
+          <button class="btn btn-sm" (click)="onThumbsDown()" [disabled]="ownComment()"><img [src]="thumbsDown" width="16" height="16"></button>
+          <button class="btn btn-sm thumbs-down" (click)="onThankYou()"  *ngIf="!ownComment() && userNestedComment.is_thanked">Thank</button>
+          <span *ngIf="!ownComment() && userNestedComment.is_thanked"> <img src="../../../../../assets/support-group/Thanked icon.svg">Thanked</span>
+
 
         </p>
       </div>

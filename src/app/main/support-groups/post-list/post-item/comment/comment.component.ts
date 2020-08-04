@@ -98,6 +98,11 @@ export class CommentComponent
 
   ngOnInit() {
     this.user = <User>this.authService.isLoggedIn();
+    this.reportService.thanked.subscribe( (value: boolean) => {
+      if (value) {
+      this.comment.is_thanked = 1;
+      }
+      });
   }
 
   ngDoCheck() {
@@ -205,6 +210,7 @@ export class CommentComponent
           },
           persistedNestedcomment.is_voted,
           persistedNestedcomment.created_at,
+          persistedNestedcomment.is_thanked
         );
         this.nestedComments.push(updatedNestedComment);
         this.toggleReply = false;
@@ -322,6 +328,12 @@ export class CommentComponent
     this.commentBody = this.comment.body;
     this.partialBody = false;
   }
+  /**
+   * If the comment is made by the same user
+   */
+  ownComment() {
+    return this.user.username === this.comment.user.username ;
+  }
 
   onCommentShowProfile(username: string) {
     this.userProfileService.getUserProfile(username).subscribe(profile => {
@@ -347,6 +359,7 @@ export class CommentComponent
   }
   onThankYou() {
     this.openThankDialog();
+    this.comment.is_thanked = 1;
   }
 
   onReportSuicide() {
@@ -363,6 +376,7 @@ export class CommentComponent
       data: {
         id: this.comment.id,
         username: this.comment.user.username,
+        type: 'comment',
       },
     });
   }

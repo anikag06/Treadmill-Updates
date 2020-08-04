@@ -14,5 +14,6 @@ export class UserComment {
     public nested_comment_count: number,
     public created_at: string,
     public is_voted: number,
+    public is_thanked ?: number
   ) {}
 }

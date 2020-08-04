@@ -175,6 +175,8 @@ export class NestedCommentComponent
         },
       );
   }
+
+
   onNestedCommentShowProfile(username: string) {
     this.userProfileService.getUserProfile(username).subscribe(profile => {
       this.userProfile = new UserProfile(
@@ -190,6 +192,13 @@ export class NestedCommentComponent
       );
     });
     this.showProfile = !this.showProfile;
+  }
+
+  /**
+   * If the comment is made by the same user
+   */
+  ownComment() {
+    return this.user.username === this.userNestedComment.user.username ;
   }
 
   onClickOutside(event: Object) {
