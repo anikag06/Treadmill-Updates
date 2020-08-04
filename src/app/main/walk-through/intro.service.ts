@@ -20,6 +20,7 @@ import { environment } from '../../../environments/environment';
 import { MatExpansionPanel } from '@angular/material/expansion';
 import { AuthService } from '@/shared/auth/auth.service';
 import { User } from '@/shared/user.model';
+import { CommonService } from '@/shared/common.service';
 
 @Injectable({
   providedIn: 'root',
@@ -39,7 +40,6 @@ export class IntroService {
   introJSMenu = introJs();
   introJSStart = introJs();
   component: any;
-  user!: User;
   showActiveStepIntro = false;
   constructor(
     private dialog: MatDialog,
@@ -48,10 +48,9 @@ export class IntroService {
     private flowService: FlowService,
     private stepsDataService: StepsDataService,
     private http: HttpClient,
-    private authService: AuthService,
-  ) {
-    this.user = this.authService.isLoggedIn()!;
-  }
+    private commonService: CommonService
+  ) {}
+
   completionData: StepCompleteData = new StepCompleteData(0, 0);
   badgeData = {
     name: 'Brave Beginner',
@@ -386,10 +385,10 @@ export class IntroService {
 
   showPointsNotification(pointsNotification: ViewContainerRef) {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
-      PointsComponent,
+      PointsComponent
     );
     const pointsComponent = pointsNotification.createComponent(
-      componentFactory,
+      componentFactory
     );
     pointsComponent.instance.points = 20;
     this.component = pointsComponent;
@@ -434,7 +433,7 @@ export class IntroService {
       this.notificationService.closeNavFlow.emit();
       if (window.innerWidth > MOBILE_WIDTH) {
         if (!this.flowService.stepCompleted) {
-          this.postScore(20);
+          this.commonService.postScore(20);
         }
         setTimeout(() => {
           this.flowService.introduceBehaviour.next(true);
@@ -553,7 +552,7 @@ export class IntroService {
       setTimeout(() => {
         this.setSideBarFalse();
         if (!this.flowService.stepCompleted) {
-          this.postScore(20);
+          this.commonService.postScore(20);
         }
         this.startPointsIntro();
       }, 1500);
@@ -592,19 +591,7 @@ export class IntroService {
     return this.http.get(
       environment.API_ENDPOINT +
         '/api/v1/flow/show-introductory-animation/' +
-        element,
-    );
-  }
-
-  postScore(score: number) {
-    const body = {
-      score: score,
-    };
-    return this.http.post(
-      environment.API_ENDPOINT +
-        '/api/v1/user/user-profile/' +
-        this.user.username,
-      body,
+        element
     );
   }
 
