@@ -67,6 +67,7 @@ export class CommentComponent
 
   @Output() deleteEmitter = new EventEmitter<UserComment>();
   @Input() comment!: UserComment;
+  @Input() srcWidth!: number;
   @ViewChild('replyForm', { static: false }) replyForm!: NgForm;
   @ViewChild('editForm', { static: false }) editForm!: NgForm;
   @ViewChild('replyText', { static: false }) replyText!: ElementRef;
@@ -98,11 +99,6 @@ export class CommentComponent
 
   ngOnInit() {
     this.user = <User>this.authService.isLoggedIn();
-    this.reportService.thanked.subscribe( (value: boolean) => {
-      if (value) {
-      this.comment.is_thanked = 1;
-      }
-      });
   }
 
   ngDoCheck() {
@@ -370,38 +366,76 @@ export class CommentComponent
     this.reportProblem();
   }
   openThankDialog() {
-    this.dialog.open(ThankComponent, {
-      height: '30vh',
-      width: '30vw',
-      data: {
-        id: this.comment.id,
-        username: this.comment.user.username,
-        type: 'comment',
-      },
-    });
+    if (this.srcWidth <= 576) {
+      this.dialog.open(ThankComponent, {
+        height: '245px',
+        width: '320px',
+        data: {
+          id: this.comment.id,
+          username: this.comment.user.username,
+          type: 'comment',
+        },
+      });
+    } else {
+      this.dialog.open(ThankComponent, {
+        height: '320px',
+        width: '440px',
+        data: {
+          id: this.comment.id,
+          username: this.comment.user.username,
+          type: 'comment',
+        },
+      });
+    }
   }
   reportSuicide() {
-    this.dialog.open(ReportProblemComponent, {
-      height: '30vh',
-      width: '30vw',
-      data: {
-        id: this.comment.id,
-        problem: false,
-        suicide: true,
-      },
-    });
+    if (this.srcWidth <= 576) {
+      this.dialog.open(ReportProblemComponent, {
+        height: '245px',
+        width: '320px',
+        data: {
+          id: this.comment.id,
+          problem: false,
+          suicide: true,
+          type: 'comment',
+        },
+      });
+    } else {
+      this.dialog.open(ReportProblemComponent, {
+        height: '320px',
+        width: '440px',
+        data: {
+          id: this.comment.id,
+          problem: false,
+          suicide: true,
+          type: 'comment',
+        },
+      });
+    }
   }
   reportProblem() {
-    this.dialog.open(ReportProblemComponent, {
-      height: '30vh',
-      width: '30vw',
-      data: {
-        id: this.comment.id,
-        problem: true,
-        suicide: false,
-      },
-    });
-    // } else {
-    //   this.dialog.open(ReportProblemComponent);
+    if (this.srcWidth <= 576) {
+      this.dialog.open(ReportProblemComponent, {
+        height: '245px',
+        width: '320px',
+        data: {
+          id: this.comment.id,
+          problem: true,
+          suicide: false,
+          type: 'comment',
+        },
+      });
+    } else {
+      this.dialog.open(ReportProblemComponent, {
+        height: '320px',
+        width: '440px',
+        data: {
+          id: this.comment.id,
+          problem: true,
+          suicide: false,
+          type: 'comment',
+        },
+      });
+    }
   }
 }

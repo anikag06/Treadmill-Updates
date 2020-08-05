@@ -89,13 +89,13 @@
         {{supportGroupItem.up_votes}}</button>
       <button class="btn btn-sm thumbs-down" (click)="onThumbsDown()" [disabled]="ownPost()"><img [src]="thumbsDown" width="20"></button>
       <button class="btn btn-sm thumbs-down" (click)="onThankYou()" *ngIf="!ownPost() && !supportGroupItem.is_thanked">Thank</button>
-      <span *ngIf="!ownPost() && supportGroupItem.is_thanked"> <img src="../../../../../assets/support-group/Thanked icon.svg">Thanked</span>
+      <span *ngIf="!ownPost() && supportGroupItem.is_thanked"  style="font-size:14px;"> <img src="../../../../../assets/support-group/Thanked icon.svg" style="width:24px!important;height:24px!important;">&nbsp;Thanked</span>
 
     </div>
   </div>
   <div class="row no-gutters comments-row">
     <ng-container>
-      <app-comment class="col-12" *ngFor="let userComment of comments.slice(0, commentNos)" [comment]="userComment"
+      <app-comment class="col-12" *ngFor="let userComment of comments.slice(0, commentNos)" [comment]="userComment" [srcWidth]="srcWidth"
         (deleteEmitter)="onCommentDelete($event)">
       </app-comment>
     </ng-container>

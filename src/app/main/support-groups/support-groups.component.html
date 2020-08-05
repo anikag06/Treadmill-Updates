@@ -9,7 +9,7 @@
     <div class="col-md-12">
       <div class="row no-gutters">
         <div class="col-12 col-lg-8">
-          <app-post-list (createPost)="onCreatePostClick()"></app-post-list>
+          <app-post-list [srcWidth] = "srcWidth" (createPost)="onCreatePostClick()"></app-post-list>
         </div>
         <div class="col-12 col-lg-4 order-first order-lg-last">
           <!-- <aside class="aside">

@@ -32,6 +32,7 @@ import {ReportService} from "@/main/support-groups/post-list/shared/report.servi
 export class NestedCommentComponent
   implements OnInit, AfterContentInit, DoCheck {
   @Input() userNestedComment!: UserNestedComment;
+  @Input() srcWidth!: number;
   @Output() deleteEmitter = new EventEmitter<UserNestedComment>();
   @ViewChild('replyForm', { static: false }) replyForm = NgForm;
   body = '';
@@ -208,6 +209,7 @@ export class NestedCommentComponent
   }
   onThankYou() {
     this.openThankDialog();
+    this.userNestedComment.is_thanked = 1;
   }
 
   onReportSuicide() {
@@ -218,37 +220,76 @@ export class NestedCommentComponent
     this.reportProblem();
   }
   openThankDialog() {
-    this.dialog.open(ThankComponent, {
-      height: '30vh',
-      width: '30vw',
-      data: {
-        id: this.userNestedComment.id,
-        username: this.userNestedComment.user.username,
-      },
-    });
+    if (this.srcWidth <= 576) {
+      this.dialog.open(ThankComponent, {
+        height: '245px',
+        width: '320px',
+        data: {
+          id: this.userNestedComment.id,
+          username: this.userNestedComment.user.username,
+          type: 'nestedcomment',
+        },
+      });
+    } else {
+      this.dialog.open(ThankComponent, {
+        height: '320px',
+        width: '440px',
+        data: {
+          id: this.userNestedComment.id,
+          username: this.userNestedComment.user.username,
+          type: 'nestedcomment',
+        },
+      });
+    }
   }
   reportSuicide() {
-    this.dialog.open(ReportProblemComponent, {
-      height: '30vh',
-      width: '30vw',
-      data: {
-        id: this.userNestedComment.id,
-        problem: false,
-        suicide: true,
-      },
-    });
+    if (this.srcWidth <= 576) {
+      this.dialog.open(ReportProblemComponent, {
+        height: '245px',
+        width: '320px',
+        data: {
+          id: this.userNestedComment.id,
+          problem: false,
+          suicide: true,
+          type: 'nestedcomment',
+        },
+      });
+    } else {
+      this.dialog.open(ReportProblemComponent, {
+        height: '320px',
+        width: '440px',
+        data: {
+          id: this.userNestedComment.id,
+          problem: false,
+          suicide: true,
+          type: 'nestedcomment',
+        },
+      });
+    }
   }
   reportProblem() {
-    this.dialog.open(ReportProblemComponent, {
-      height: '30vh',
-      width: '30vw',
-      data: {
-        id: this.userNestedComment.id,
-        problem: true,
-        suicide: false,
-      },
-    });
-    // } else {
-    //   this.dialog.open(ReportProblemComponent);
+    if (this.srcWidth <= 576) {
+      this.dialog.open(ReportProblemComponent, {
+        height: '245px',
+        width: '320px',
+        data: {
+          id: this.userNestedComment.id,
+          problem: true,
+          suicide: false,
+          type: 'nestedcomment',
+        },
+      });
+    } else {
+      this.dialog.open(ReportProblemComponent, {
+        height: '320px',
+        width: '440px',
+        data: {
+          id: this.userNestedComment.id,
+          problem: true,
+          suicide: false,
+          type: 'nestedcomment',
+        },
+      });
+    }
   }
 }

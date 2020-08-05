@@ -47,13 +47,13 @@ export class PostItemComponent
   implements OnInit, DoCheck, OnDestroy, AfterContentInit, AfterViewInit {
   @Input() supportGroupItem!: SupportGroupItem;
   @Input() newPost!: boolean;
+  @Input() srcWidth!: number;
   @ViewChild('mainComment', { static: true }) commentForm!: NgForm;
   @ViewChild('htmlDiv', { static: true }) htmlDiv!: ElementRef;
   @Output() deleteEvent = new EventEmitter<SupportGroupItem>();
   @Output() editEvent = new EventEmitter<SupportGroupItem>();
   @Output() tagClick = new EventEmitter<string>();
   // @ViewChild('el', { static: true }) el!: ElementRef;
-  srcWidth!: number;
   tags: Tag[] = []; // Holds all the tags
   user!: User; // Current User
   commentsPage = 1; // Holds the pagination for comments
@@ -86,11 +86,6 @@ export class PostItemComponent
     minWidth: '0',
   };
 
-  @HostListener('window:resize', ['$event'])
-  getScreenSize(event?: any) {
-    this.srcWidth = window.innerWidth;
-    console.log('screen width', this.srcWidth);
-  }
   /*
    * Injects CommnetService, AuthService and SanitizationService
    */
@@ -141,7 +136,7 @@ export class PostItemComponent
     //     profile.no_of_silver_badges,
     //     profile.no_of_gold_badges);
     // });
-    console.log('item', this.supportGroupItem);
+
   }
 
   /**
@@ -160,6 +155,7 @@ export class PostItemComponent
         this.changeDetector.detectChanges();
       } catch (ViewDestroyedError) {}
     });
+    console.log('item', this.srcWidth);
   }
 
   /**
@@ -447,7 +443,6 @@ export class PostItemComponent
   onThankYou() {
     this.openThankDialog();
     this.supportGroupItem.is_thanked = 1;
-
   }
 
   onReportSuicide() {
@@ -486,11 +481,12 @@ export class PostItemComponent
   openThankDialog() {
     if (this.srcWidth <= 576) {
       this.dialog.open(ThankComponent, {
-        height: '50vh',
-        width: '90vw',
+        height: '245px',
+        width: '320px',
         data: {
           id: this.supportGroupItem.id,
           username: this.supportGroupItem.user.username,
+          type: 'post',
         },
       });
     } else {
@@ -500,6 +496,7 @@ export class PostItemComponent
         data: {
           id: this.supportGroupItem.id,
           username: this.supportGroupItem.user.username,
+          type: 'post',
         },
       });
     }
@@ -507,12 +504,13 @@ export class PostItemComponent
   reportSuicide() {
     if (this.srcWidth <= 576) {
       this.dialog.open(ReportProblemComponent, {
-        height: '32vh',
-        width: '90vw',
+        height: '245px',
+        width: '320px',
         data: {
           id: this.supportGroupItem.id,
           problem: false,
           suicide: true,
+          type: 'post',
         },
       });
     } else {
@@ -523,6 +521,7 @@ export class PostItemComponent
           id: this.supportGroupItem.id,
           problem: false,
           suicide: true,
+          type: 'post',
         },
       });
     }
@@ -530,12 +529,13 @@ export class PostItemComponent
   reportProblem() {
     if (this.srcWidth <= 576) {
       this.dialog.open(ReportProblemComponent, {
-        height: '50vh',
-        width: '90vw',
+        height: '245px',
+        width: '320px',
         data: {
           id: this.supportGroupItem.id,
           problem: true,
           suicide: false,
+          type: 'post',
         },
       });
     } else {
@@ -546,6 +546,7 @@ export class PostItemComponent
           id: this.supportGroupItem.id,
           problem: true,
           suicide: false,
+          type: 'post',
         },
       });
     }

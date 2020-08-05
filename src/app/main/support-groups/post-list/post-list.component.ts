@@ -3,7 +3,7 @@ import {
   OnInit,
   OnDestroy,
   Output,
-  EventEmitter,
+  EventEmitter, Input,
 } from '@angular/core';
 import { SupportGroupsService } from '../support-groups.service';
 import { Subscription } from 'rxjs';
@@ -22,6 +22,7 @@ import { GeneralErrorService } from '@/main/shared/general-error.service';
 })
 export class PostListComponent implements OnInit, OnDestroy {
   @Output() createPost = new EventEmitter<any>();
+  @Input() srcWidth!: number;
   posts: SupportGroupItem[] = [];
   newPosts: SupportGroupItem[] = [];
   sgServiceSubscription!: Subscription;

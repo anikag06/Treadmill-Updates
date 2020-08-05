@@ -8,67 +8,57 @@ import {
   POST_COMPLAINT,
   POST_THANK
 } from '@/app.constants';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {AuthService} from "@/shared/auth/auth.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReportService {
   thanked = new EventEmitter<any>();
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private authService: AuthService) { }
 
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + this.authService.getToken(),
+    }),
+  };
 
-
-  post_complaint(id: number, reason: string, is_suicidal: boolean) {
-    const complaint_data = { post_id: id, reason: reason, is_suicidal: is_suicidal};
-    console.log('post complaint', complaint_data);
+  post_complaint(data: any) {
     return this.http.post(
-      environment.API_ENDPOINT + POST_COMPLAINT,
-      complaint_data
+      environment.API_ENDPOINT + POST_COMPLAINT, data
     );
   }
-  nested_comment_complaint(id: number, reason: string, is_suicidal: boolean) {
-    const complaint_data = { post_id: id, reason: reason, is_suicidal: is_suicidal};
-    console.log('nested_comment complaint', complaint_data);
+  nested_comment_complaint(data: any) {
     return this.http.post(
-      environment.API_ENDPOINT + NESTED_COMMENT_COMPLAINT,
-      complaint_data
+      environment.API_ENDPOINT + NESTED_COMMENT_COMPLAINT, data
     );
   }
-  comment_complaint(id: number, reason: string, is_suicidal: boolean) {
-    const complaint_data = { post_id: id, reason: reason, is_suicidal: is_suicidal};
-    console.log('comment complaint', complaint_data);
+  comment_complaint(data: any) {
     return this.http.post(
-      environment.API_ENDPOINT + COMMENT_COMPLAINT,
-      complaint_data
+      environment.API_ENDPOINT + COMMENT_COMPLAINT, data
     );
   }
 
-  post_thank_you( id: number, type: string) {
-    const thank_data = { post_id: id };
-    console.log('POST', thank_data);
+  postThankYou(id: number) {
     return this.http.post(
         environment.API_ENDPOINT + POST_THANK,
-        thank_data,
+      {post_id: id},
       );
   }
-  nested_comment_thank_you( id: number ) {
-    const data = { nested_comment_id: id };
-    console.log('nested_comment', data);
+  nestedCommentThankYou( id: number ) {
     return this.http.post(
       environment.API_ENDPOINT + NESTED_COMMENT_THANK,
-      data
+      {nested_comment_id: id},
     );
   }
-  comment_thank_you( id: number, is_thanked: number ) {
-    const data = { comment_id: id , is_thanked: is_thanked};
-    console.log('comment' , data);
-    return this.http.post(
+  commentThankYou( id: number) {
+       return this.http.post(
       environment.API_ENDPOINT + COMMENT_THANK,
-     data
-    );
+         {comment_id: id},
+       );
   }
-
-
 }

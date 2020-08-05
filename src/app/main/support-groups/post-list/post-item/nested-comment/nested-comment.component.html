@@ -79,9 +79,7 @@
             {{userNestedComment.up_votes}}</button>
           <button class="btn btn-sm" (click)="onThumbsDown()" [disabled]="ownComment()"><img [src]="thumbsDown" width="16" height="16"></button>
           <button class="btn btn-sm thumbs-down" (click)="onThankYou()"  *ngIf="!ownComment() && userNestedComment.is_thanked">Thank</button>
-          <span *ngIf="!ownComment() && userNestedComment.is_thanked"> <img src="../../../../../assets/support-group/Thanked icon.svg">Thanked</span>
-
-
+          <span *ngIf="!ownComment() && userNestedComment.is_thanked" style="font-size:13px;"> <img src="../../../../../assets/support-group/Thanked icon.svg" style="width:20px!important;height:20px!important;">&nbsp;Thanked</span>
         </p>
       </div>
     </div>

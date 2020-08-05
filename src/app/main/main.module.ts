@@ -179,6 +179,7 @@ import { SettingsService } from '@/main/settings/settings.service';
 import { AuthHeaderInterceptor } from '@/main/auth-header.interceptor';
 import { ReportProblemComponent } from './support-groups/post-list/shared/report-problem/report-problem.component';
 import { ThankComponent } from './support-groups/post-list/shared/thank/thank.component';
+import {ReportService} from "@/main/support-groups/post-list/shared/report.service";
 // import { Resources2Routing } from './extra-resources/extra-resources-routing.module.ts/extra-resources-routing.module.ts.component';
 
 @NgModule({
@@ -355,6 +356,7 @@ import { ThankComponent } from './support-groups/post-list/shared/thank/thank.co
     IntroService,
     IntroDialogService,
     SettingsService,
+    ReportService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthHeaderInterceptor,

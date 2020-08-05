@@ -80,7 +80,7 @@
           <button class="btn btn-sm thumbs-down" (click)="onThumbsDown()"  [disabled]="ownComment()"><img [src]="thumbsDown" width="18"
               height="18"></button>
           <button class="btn btn-sm thumbs-down" (click)="onThankYou()" *ngIf="!ownComment() && !comment.is_thanked">Thank</button>
-          <span *ngIf="!ownComment() && comment.is_thanked"> <img src="../../../../../assets/support-group/Thanked icon.svg" style="width:24px!important;height:24px!important;">Thanked</span>
+          <span *ngIf="!ownComment() && comment.is_thanked" style="font-size:13px;"> <img src="../../../../../assets/support-group/Thanked icon.svg" style="width:20px!important;height:20px!important;">&nbsp;Thanked</span>
 
           <button class="btn btn-sm comment-reply" (click)="onReplyClick()"  *ngIf="!ownComment()">Reply</button>
 
@@ -102,7 +102,7 @@
   <div class="col-12 pr-0">
     <div class="show-nested-comments" *ngIf="comment.nested_comment_count > 0">
       <ng-container *ngIf="!hide">
-        <app-nested-comment *ngFor="let ncomment of nestedComments" (deleteEmitter)="onNestedCommentDelete($event)"
+        <app-nested-comment *ngFor="let ncomment of nestedComments" (deleteEmitter)="onNestedCommentDelete($event)" [srcWidth]="srcWidth"
           [userNestedComment]="ncomment">
         </app-nested-comment>
       </ng-container>

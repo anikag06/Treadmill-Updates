@@ -30,11 +30,20 @@ export class ThankComponent implements OnInit {
     this.dialogRef.close();
   }
   thank() {
-    this.thanked = true;
-    this.reportService.post_thank_you(this.id, this.type).subscribe( () => {
-      console.log('sucess sending thank');
-    });
-    this.dialogRef.close();
-    this.reportService.thanked.emit(this.thanked);
+    if ( this.type === 'post') {
+      this.reportService.postThankYou(this.id).subscribe( () => {
+        console.log('sucess sending thank');
+      });
+    } else if ( this.type === 'comment') {
+      this.reportService.commentThankYou(this.id).subscribe( () => {
+        console.log('sucess sending thank');
+      });
+    } else if ( this.type === 'nestedcomment') {
+      this.reportService.nestedCommentThankYou(this.id).subscribe( () => {
+        console.log('sucess sending thank');
+      });
+    }
+      this.dialogRef.close();
+    // this.reportService.thanked.emit(this.thanked);
   }
 }
