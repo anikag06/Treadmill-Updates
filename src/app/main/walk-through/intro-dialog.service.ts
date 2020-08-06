@@ -23,6 +23,7 @@ import { GameIntroComponent } from '@/main/walk-through/game-intro/game-intro.co
 import { FormIntroComponent } from '@/main/walk-through/form-intro/form-intro.component';
 import { IntroService } from '@/main/walk-through/intro.service';
 import {
+  BELIEF_CHANGE_FORM,
   EXPERIMENT_TO_TEST_BELIEF_FORM,
   GAME_ATTRIBUTION_STYLE,
   GAME_EXECUTIVE_CONTROL,
@@ -107,7 +108,7 @@ export class IntroDialogService {
     } else if (name === FORM_WORRY_PRODUCTIVELY) {
       form = WORRY_PRODUCTIVELY_FORM;
     } else if (name === FORM_BELIEF_CHANGE) {
-      form = FORM_BELIEF_CHANGE;
+      form = BELIEF_CHANGE_FORM;
     }
     const dialogRef = this.dialog.open(FormIntroComponent, {
       panelClass: 'intro-dialog',

@@ -258,11 +258,15 @@ export class ExperimentToTestBeliefFormComponent implements OnInit {
   }
   finalSliderEmit(data: any) {
     this.finalRating = data;
-    this.showMessage = true;
-    if (data && this.outcome) {
-      this.formComplete = true;
-      this.onShowMessage();
-    }
+    this.ettbfBeliefService
+      .getOutcome(this.belief.id)
+      .subscribe((outcome: any) => {
+        this.outcome = outcome.body;
+        if (data && this.outcome) {
+          this.formComplete = true;
+          this.onShowMessage();
+        }
+      });
   }
   onShowMessage() {
     if (this.initialRating > 0 && this.finalRating > 0 && this.formComplete) {

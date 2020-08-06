@@ -36,6 +36,8 @@ import { IntroService } from '@/main/walk-through/intro.service';
 import { IntroDialogService } from '@/main/walk-through/intro-dialog.service';
 import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
 import { type } from 'os';
+import {AuthService} from '@/shared/auth/auth.service';
+import {User} from '@/shared/user.model';
 
 @Component({
   selector: 'app-step',
@@ -47,7 +49,7 @@ export class StepComponent implements OnInit, AfterViewInit {
   @Input() step!: Step;
   @Input() stepGroup!: StepGroup;
   @ViewChild('tooltip', { static: false }) showToolTip!: MatTooltip;
-
+  user!: User;
   prevModuleLastStep: any;
   tooltipData!: any;
   isConversationStep = false;
@@ -64,7 +66,10 @@ export class StepComponent implements OnInit, AfterViewInit {
     private introService: IntroService,
     private introDialogService: IntroDialogService,
     private goToService: NavbarGoToService,
-  ) {}
+    private authService: AuthService,
+  ) {
+     this.user = <User>this.authService.isLoggedIn();
+  }
 
   ngOnInit() {
     this.tooltipData = 'Complete the previous steps first';
