@@ -80,14 +80,14 @@ export class EttbfBeliefComponent implements OnInit {
             console.log('the put request has been submitted');
             this.beliefClicked.emit(this.showSlider);
           },
-          error => {
+          (error) => {
             console.error(error);
-          },
+          }
         );
     } else {
       if (
         this.beliefStatement.trim().length > 0 &&
-        this.beliefResponse == undefined
+        this.beliefResponse === undefined
       ) {
         this.ettbfBeliefService.postBelief(this.beliefStatement).subscribe(
           (data: any) => {
@@ -96,9 +96,9 @@ export class EttbfBeliefComponent implements OnInit {
             console.log('the post request has been submitted');
             // this.beliefClicked.emit(this.beliefContinue);
           },
-          error => {
+          (error) => {
             console.error(error);
-          },
+          }
         );
       }
     }
