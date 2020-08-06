@@ -5,12 +5,39 @@ import { ACTIVE, COMPLETED, UNLOCKED } from '@/app.constants';
 import { MatDrawer } from '@angular/material/sidenav';
 import { MatExpansionPanel } from '@angular/material/expansion';
 import { IntroService } from '@/main/walk-through/intro.service';
+import {animate, group, keyframes, state, style, transition, trigger} from '@angular/animations';
 
 @Component({
   selector: 'app-step-group',
   templateUrl: './step-group.component.html',
   styleUrls: ['./step-group.component.scss'],
+  animations: [
+    trigger('openClose', [
+    transition(':enter', [
+      style({height: '20%', opacity: 1}),
+      animate('500ms', style({height: '100%' , opacity: 1})),
+    ]),
+    transition(':leave', [
+      animate('500ms', style({height: '0', opacity: 0}))
+    ])
+    //   transition('open => closed', [
+    //     animate('1.5s', keyframes([
+    //       style({ height: '*', offset: 0}),
+    //       style({ height: '100px', offset: 0.8}),
+    //       style({ height: '0px', offset: 1.0})
+    //     ])),
+    //   ]),
+    //   transition('closed => open', [
+    //     animate('25s', keyframes([
+    //       style({ height: '10', offset: 0}),
+    //       style({ height: '100px', offset: 0.5}),
+    //       style({ height: '*', offset: 1.0})
+    //     ])),
+    // ]),
+  ])
+ ]
 })
+
 export class StepGroupComponent implements OnInit {
   @Input() stepGroup!: StepGroup;
   @Input() identifier!: string;

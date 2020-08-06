@@ -93,15 +93,16 @@
           </div>
         </div>
       </div>
-      <ng-template #showAllIndicators>
+      <ng-template #showAllIndicators >
+<!--        <div class="show-all-div row w-100 mx-0"-->
+<!--           >-->
         <div
           class="row w-100 mx-0"
           *ngFor="
             let step of stepGroup.steps;
             let last = last;
             let first = first
-          "
-        >
+          "  @openClose>
           <div class="col-3 justify-content-center mx-0 px-0 step-circle-div">
             <app-steps-indicator
               [first]="first"
@@ -118,6 +119,7 @@
             <app-step [step]="step" [stepGroup]="stepGroup"></app-step>
           </div>
         </div>
+<!--        </div>-->
       </ng-template>
       <div class="row w-100 mx-0">
         <div class="col-3"></div>
