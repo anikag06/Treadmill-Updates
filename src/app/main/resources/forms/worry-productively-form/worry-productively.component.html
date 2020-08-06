@@ -46,7 +46,8 @@
               </app-form-slider>
             </div> -->
             <div class="card-body" (click)="onWorryClick()">
-              <app-worry-form [worry]="worry" (testOut)="continueAfterSlider($event)"></app-worry-form>
+              <app-worry-form [worry]="worry" (testOut)="continueAfterSlider($event)"
+              (updateWorry)="updateWorry($event)"></app-worry-form>
             </div>
             <!-- <div class="card-body" *ngIf="!worry" (click)="onWorryClick()">
               <app-worry-form (testOut)="continueAfterSlider($event)"></app-worry-form>
