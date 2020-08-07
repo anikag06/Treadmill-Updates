@@ -61,6 +61,11 @@ export class NestedCommentComponent
    */
   ngOnInit() {
     this.user = <User>this.authService.isLoggedIn();
+    this.reportService.replythanked.subscribe( (value: number) => {
+      if (this.userNestedComment.id === value) {
+        this.userNestedComment.is_thanked = 1;
+      }
+    });
   }
 
   /**
@@ -77,6 +82,7 @@ export class NestedCommentComponent
         this.userNestedComment,
       );
     }
+    this.changeDetector.detectChanges();
   }
 
   /**
@@ -209,7 +215,6 @@ export class NestedCommentComponent
   }
   onThankYou() {
     this.openThankDialog();
-    this.userNestedComment.is_thanked = 1;
   }
 
   onReportSuicide() {

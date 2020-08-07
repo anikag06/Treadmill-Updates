@@ -136,7 +136,11 @@ export class PostItemComponent
     //     profile.no_of_silver_badges,
     //     profile.no_of_gold_badges);
     // });
-
+      this.reportService.thanked.subscribe( (value: number) => {
+        if (this.supportGroupItem.id === value) {
+       this.supportGroupItem.is_thanked = 1;
+      }
+    });
   }
 
   /**
@@ -442,7 +446,7 @@ export class PostItemComponent
 
   onThankYou() {
     this.openThankDialog();
-    this.supportGroupItem.is_thanked = 1;
+    // this.supportGroupItem.is_thanked = 1;
   }
 
   onReportSuicide() {

@@ -5,12 +5,15 @@
     <h3>Thank {{username}}</h3>
   </div>
   <div class="mt-4">
-<p> s simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. </p>
+<p> Let {{username}} know that you found this {{postType}} useful.</p>
 <div class="" style="position: absolute;bottom: 10px;right: 10px">
   <button class="close-btn " mat-raised-button (click)="close()"
   >Cancel</button>
 
-  <button class="report-btn ml-2" mat-raised-button (click)="thank()" >Thank</button>
+  <button class="report-btn ml-2" mat-raised-button  *ngIf="!showLoading" (click)="thank()" >Thank</button>
+  <button class="report-btn ml-2" *ngIf="showLoading" type="button" mat-raised-button >
+    <span class="spinner-border spinner-border-sm"></span>
+  </button>
 </div>
 
 

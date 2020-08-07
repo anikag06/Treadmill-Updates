@@ -17,6 +17,8 @@ import {AuthService} from "@/shared/auth/auth.service";
 })
 export class ReportService {
   thanked = new EventEmitter<any>();
+  replythanked = new EventEmitter<any>();
+  commentthanked = new EventEmitter<any>();
   constructor(private http: HttpClient,
               private authService: AuthService) { }
 

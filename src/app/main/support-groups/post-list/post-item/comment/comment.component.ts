@@ -99,6 +99,12 @@ export class CommentComponent
 
   ngOnInit() {
     this.user = <User>this.authService.isLoggedIn();
+    this.reportService.commentthanked.subscribe( (value: number) => {
+      if (this.comment.id === value) {
+        console.log('comment id', this.comment.id, value);
+        this.comment.is_thanked = 1;
+      }
+    });
   }
 
   ngDoCheck() {
@@ -107,6 +113,7 @@ export class CommentComponent
     if (this.replyText) {
       this.replyText.nativeElement.focus();
     }
+    this.changeDetector.detectChanges();
   }
 
   ngAfterContentInit() {
@@ -355,7 +362,6 @@ export class CommentComponent
   }
   onThankYou() {
     this.openThankDialog();
-    this.comment.is_thanked = 1;
   }
 
   onReportSuicide() {
