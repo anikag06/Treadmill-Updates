@@ -44,13 +44,9 @@
               <p [innerHtml]="i"></p>
               <div
                 class="chat_image"
+                *ngIf="item.op"
               >
-                <ng-container *ngIf="type === 'video'; else image">
-                  <app-chat-video [videoUrl]="imageURL"></app-chat-video>
-                </ng-container>
-                <ng-template #image>
-                  <app-chat-image fromConversation="true" [image]="imageURL"></app-chat-image>
-                </ng-template>
+                  <app-chat-image fromConversation="true" [image]=""></app-chat-image>
               </div>
             </div>
           </div>
@@ -82,15 +78,24 @@
             <div>
               <p class="my-3 mx-3">{{wrong_message}}</p>
             </div>
+            <div *ngIf="(wrongImageObject | json) != '{}'">
+
+              <app-chat-image fromConversation="true" [image]="wrongImageObject"></app-chat-image>
+            </div>
           </div>
         </div>
 
         <div *ngIf="!finished" >
-          <div class="row justify-content-end conv-elements-div" *ngFor=" let item of options; let i = index">
+          <div class="row justify-content-end conv-elements-div" *ngFor=" let option of options; let i = index">
             <div class="d-flex justify-content-end  mb-3" *ngIf="!speedrun">
               <div class="msg_container_send1 ml-3 ml-md-0 mr-3">
-                <p [innerHtml]="item"></p>
-                <div >
+                <p [innerHtml]="option.message"></p>
+                <div *ngIf="option.option_images && option.option_images.length > 0">
+                  <div *ngFor="let image of option.option_images">
+                    <app-chat-image fromConversation="true" [image]="image"></app-chat-image>
+                  </div>
+                </div>
+                <div>
                   <button  class="btn"  (click)="count_multiple !== (show_multiple - 1) ? on_multiple_options() :  on_click(i)">Send</button>
                   <img class ="SendImage" [src]="send_image" (click)="count_multiple !== (show_multiple - 1) ? on_multiple_options() :  on_click(i)"/>
                 </div>
