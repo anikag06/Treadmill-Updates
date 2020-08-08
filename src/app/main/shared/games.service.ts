@@ -17,8 +17,10 @@ import {
   LEARNED_HELPLESSNESS_GAME,
   ATTRIBUTE_STYLE_GAME,
   MENTAL_IMAGERY_GAME,
-  IDENTIFY_COGNITIVE_DISTORTION_GAME,
+  IDENTIFY_COGNITIVE_DISTORTION_GAME, GAMES_PROGRESS_BAR,
 } from '@/app.constants';
+import {HttpClient} from '@angular/common/http';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -69,7 +71,10 @@ export class GamesService {
     ),
   ];
 
-  constructor(private localStorageService: LocalStorageService) {}
+  constructor(
+    private localStorageService: LocalStorageService,
+    private http: HttpClient
+  ) {}
 
   getGames() {
     let games = <Game[]>this.localStorageService.getItemWithDate(GAMES);
@@ -84,4 +89,8 @@ export class GamesService {
       }, 50);
     });
   }
+
+  // getGamesProgressBar() {
+  //   return this.http.get(environment.API_ENDPOINT + GAMES_PROGRESS_BAR);
+  // }
 }

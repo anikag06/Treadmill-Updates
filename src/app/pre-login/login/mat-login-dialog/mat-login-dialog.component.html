@@ -101,7 +101,7 @@
       #email
       email
       (input) = "usernameInput()">
-      <mat-hint  *ngIf = "usernameErrorMsgShow" class = "error-msg">{{usernameErrorMsg}}</mat-hint>
+      <mat-hint  *ngIf = "usernameErrorMsgShow" class = "error-msg">We can't recognize this email id.<br> Please double-check it.</mat-hint>
     </mat-form-field>
 
     </div>
@@ -127,13 +127,14 @@
         &nbsp; Loading..
       </button>
     </div>
+  </div>
 
 
   <div *ngIf = "recoverUsernameMsgShow" class = "recover">
     <div class = "heading">Recover Username</div>
     <p class = "recover-msg">Your username has been sent to your email id</p>
   </div>
-  </div>
+
 </form>
 
 
@@ -154,7 +155,8 @@
         required
         email
         (input) = "passwordInput()">
-      <mat-hint *ngIf = "passwordErrorMsgShow" class = "error-msg">{{passwordErrorMsg}}</mat-hint>
+      <mat-hint *ngIf = "passwordErrorMsgShow" class = "error-msg">We can't recognize this email id.<br>
+        Please double-check it.</mat-hint>
 
     </mat-form-field>
     </div>
@@ -182,7 +184,7 @@
   </div>
   <div *ngIf = "recoverPasswordMsgShow" class = "recover">
     <div class = "heading">Recover Password</div>
-    <p class = "recover-msg">An email with reset password has been sent to your email id. Please check and click the link.</p>
+    <p class = "recover-msg">An email with reset password link has been sent to your email id.</p>
   </div>
 </form>
 

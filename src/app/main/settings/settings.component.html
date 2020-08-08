@@ -1,30 +1,34 @@
 
+<!--<link rel="stylesheet" href="../main.component.scss">-->
+<div [ngClass] = "this.usernameHeadingClicked === true || this.passwordHeadingClicked === true? 'flex-style-short' : 'flex-style'">
 <div class = "row settings-row">
   <div class = "col background-col">
-    <div class = "below-col-container">
-    <div >
-    <p class = "heading">Change username</p>
-    <div class = "row">
-      <div class = "col-12 col-lg-6  mb-2 mb-lg-1">
+    <div class = "below-col-container" >
+    <div class = "each-div" *ngIf = "(!this.passwordHeadingClicked && !this.notificationHeadingIsClicked )" >
+    <a class = "heading" (click) = "changeUsernameHeadingClicked()" *ngIf = "!this.usernameHeadingClicked"><img src = "assets/shared/change.svg" class = "settings-icon">Change username<img src = "assets/shared/right_arrow.png" class = "right-arrow-icon"></a>
+    <div class = "row" *ngIf = " this.usernameHeadingClicked">
+
+      <div class = "col-12 col-lg-12   ">
+       <form #usernameForm = "ngForm">
       <mat-form-field class = "username-change-input">
         <mat-label class = "placeholder">
           username
         </mat-label>
         <input
           matInput
-          #username
-          [value] = user.username
+          name = "username"
+          [(ngModel)] = "newUsername"
           (input) = "usernameAvailability()" >
         <mat-error>not</mat-error>
        <mat-hint [ngClass] = "this.usernameAvailableStatus === true? 'success-msg':'not-success-msg'"
-                 *ngIf ="this.usernameAvailable === true || username.value == !user.username">{{usernameAvailableMessage}}</mat-hint>
+                 *ngIf ="this.usernameAvailable === true || this.newUsername == !user.username">{{usernameAvailableMessage}}</mat-hint>
        <mat-hint [ngClass] = "this.usernamePasswordStatus === true? 'success-msg':'not-success-msg'"
                  *ngIf ="this.usernameAvailable === false">{{usernamePasswordCorrectMessage}}</mat-hint>
       </mat-form-field>&nbsp;&nbsp;&nbsp;&nbsp;
 
       <button
         type = "button" mat-raised-button
-              [disabled] = "username.value === user.username || this.usernameAvailableStatus === false"
+              [disabled] = "this.newUsername === user.username || this.usernameAvailableStatus === false"
               (click) = "continueClicked()" class = "save-btn"
               *ngIf ="this.usernamePasswordSubmitShow === false && !this.showLoadingUsernameChange ">Continue</button>
         <button
@@ -35,6 +39,8 @@
           <span class="spinner-border spinner-border-sm"></span>
           &nbsp; Loading..
         </button>
+       </form>
+
       </div>
 
 
@@ -46,9 +52,9 @@
 
 
 
-      <span [hidden] ="this.usernamePasswordSubmitShow === !true" class = "col-12 col-lg-6  mb-2 mb-lg-3">
+      <span *ngIf ="this.usernamePasswordSubmitShow === true" class = "col-12 col-lg-12 ">
 
-
+        <form #usernameForm = "ngForm">
         <mat-form-field class = "username-change-input">
         <mat-label class = "placeholder">
           Enter password
@@ -56,6 +62,9 @@
         <input
           matInput
           #real_password
+          name = "realPassword"
+          [(ngModel)] = "realPassword"
+          (input) = "realPasswordInput()"
           type = "password" >
       </mat-form-field>&nbsp;&nbsp;&nbsp;&nbsp;
         <!--<p [ngClass] = "usernameSaveClicked() === false">username changed</p>
@@ -64,7 +73,7 @@
         type = "button"
         mat-raised-button
         color="primary"
-        [disabled] = "(username.value.length === 0 || real_password.value.length === 0)"
+        [disabled] = "(this.usernameTyped === false || this.realPasswordTyped === false)"
         class = "save-btn"
         (click) = "submitClick()"  *ngIf="!LoadingUsernamePasswordChange">Submit</button>
      <button color="primary" class = "loading-btn" *ngIf="LoadingUsernamePasswordChange" type="button" mat-raised-button >
@@ -73,30 +82,22 @@
         </button>
 
 
+      </form>
      </span>
 
 
+
     </div>
-
-      <!--<span [ngClass] = "this.usernameAvailableStatus === true? 'success-msg':'not-success-msg'"
-            *ngIf ="this.usernameAvailable === true || username.value == !user.username">
-        {{usernameAvailableMessage}}
-      </span>
-
-      <span [ngClass] = "this.usernamePasswordStatus === true? 'success-msg':'not-success-msg'"
-            *ngIf ="this.usernameAvailable === false">
-        {{usernamePasswordCorrectMessage}}
-      </span>-->
 
     </div>
 
 
+      <div class = "each-div" *ngIf = "!this.usernameHeadingClicked && !this.notificationHeadingIsClicked">
+      <a class = "heading" (click) = "changePasswordHeadingClicked()" *ngIf = "!this.passwordHeadingClicked"><img src = "assets/shared/change.svg" class = "settings-icon">Change password <img src = "assets/shared/right_arrow.png" class = "right-arrow-icon"></a>
+        <div class = "row" *ngIf = "this.passwordHeadingClicked">
 
-
-      <div class = "each-div">
-      <p class = "heading"> Change password</p>
-        <div class = "row">
-        <div class = "col-12 col-lg-3  mb-2 mb-lg-3">
+        <div class = "col-12 col-lg-4  ">
+        <form #passwordForm = "ngForm">
         <mat-form-field class = "password-change-input">
           <mat-label
             class = "placeholder"
@@ -105,17 +106,17 @@
           </mat-label>
           <input
             matInput
-            #currentPassword
+            name = "current_password"
+            [(ngModel)] = "currentPassword"
             type = "password" (input) = "passWordMessageRemove()">
          <mat-hint *ngIf = "this.passwordMsgShow" [ngClass] = "this.passwordState === true? 'success-msg':'not-success-msg'">{{oldPasswordMessage}}</mat-hint>
         </mat-form-field>&nbsp;&nbsp;&nbsp;&nbsp;<br>
-        <!--<span [ngClass] = "this.passwordState === true? 'success-msg':'not-success-msg'">
-          {{oldPasswordMessage}}
-        </span>-->
+        </form>
         </div><br>
 
 
-      <div class = "col-12 col-lg-3  mb-2 mb-lg-3">
+      <div class = "col-12 col-lg-4">
+      <form #passwordForm = "ngForm">
       <mat-form-field class = "password-change-input">
         <mat-label
           class = "placeholder">
@@ -123,14 +124,17 @@
         </mat-label>
         <input
           matInput
-          #newPassword
+          name = "new_password"
+          [(ngModel)] = "newPassword"
           type = "password" (input) = "newPasswordTouch()">
         <mat-hint *ngIf = "this.passwordMsgShow" class = "not-success-msg">{{newPasswordMessage}}</mat-hint>
       </mat-form-field>&nbsp;&nbsp;&nbsp;&nbsp;<br>
+      </form>
         <!--<span class = "not-success-msg">{{newPasswordMessage}}</span>-->
       </div>
 
-        <div class = "col-8 col-lg-3  mb-2 mb-lg-3">
+        <div class = "col-8 col-lg-4">
+        <form #passwordForm = "ngForm">
         <mat-form-field class = "confirm-password-change-input">
         <mat-label
           class = "placeholder">
@@ -138,35 +142,41 @@
         </mat-label>
         <input
           matInput
-          #confirmPassword
+          name = "confirm_password"
+          [(ngModel)] = "confirmPassword"
           type = "password"
           (input) = "confirmNewMatch()">
           <mat-hint class = "not-success-msg" *ngIf =  "this.newConfirmMatch === false">New and Confirm password does not match</mat-hint>
         </mat-form-field>&nbsp;&nbsp;&nbsp;&nbsp;<br>
+        </form>
          <!-- <span class = "not-success-msg" *ngIf =  "this.newConfirmMatch === false">New and Confirm password does not match</span>-->
         </div>
-      <div class = "col-4 col-lg-3  mb-2 mb-lg-3">
+      <div class = "col-4 col-lg-4">
+      <form #passwordForm = "ngForm">
       <button *ngIf="!showLoadingPasswordChange"
         type = "button"
         mat-raised-button
         color="primary"
         [disabled] =
-          "(currentPassword.value.length === 0 || newPassword.value.length === 0 || confirmPassword.value.length === 0 || this.newConfirmMatch === false) "
+          "(this.currentPasswordTyped === false|| this.newPasswordTyped === false || this.confirmPasswordTyped === false || this.newConfirmMatch === false) "
         class = "save-btn"
         (click) = "savePasswordChange()">Save</button>
         <button color="primary" class = "loading-btn" *ngIf="showLoadingPasswordChange" type="button" mat-raised-button >
           <span class="spinner-border spinner-border-sm"></span>
           &nbsp; Loading..
         </button>
+      </form>
+
       </div>
       </div>
       </div>
 
 
 
-      <div class = "each-div" *ngIf = "this.user.is_exp">
-      <p class = "heading">Notification Settings</p>
+      <div class = "each-div" *ngIf = "this.user.is_exp && !this.usernameHeadingClicked && !this.passwordHeadingClicked">
 
+      <a class = "heading" (click) = "notificationHeadingClicked()" *ngIf = "!this.notificationHeadingIsClicked"><img src = "assets/shared/notification%20settings.svg" class = "settings-icon">Notification Settings<img src = "assets/shared/right_arrow.png" class = "right-arrow-icon"></a>
+      <div *ngIf = "this.notificationHeadingIsClicked">
       <p class = "notification-subheading">Support Group</p>
         <p class = "push-email-notification">
           <span >
@@ -197,7 +207,7 @@
           </span>
           <mat-slide-toggle
           (change) = "saveNotificationChange('support_group_email', supportGroupEmailToggle = !supportGroupEmailToggle)"
-          [ngClass] = "this.notificationMessage === 'support_group_email' && this.notificationStatus === true ? 'push-email-right-space-with-save':'push-email-right-space'"
+          [ngClass] = "this.notificationMessage === 'support_group_email' && this.notificationStatus === true ? 'email-with-save':'push-email-right-space'"
           [checked] = "supportGroupEmailToggle">
         </mat-slide-toggle>
         </p>
@@ -231,7 +241,7 @@
           </span>
           <mat-slide-toggle
             (change) = "saveNotificationChange('task_form_email', taskFormEmailToggle = !taskFormEmailToggle)"
-            [ngClass] = "this.notificationMessage === 'task_form_email' && this.notificationStatus === true ? 'push-email-right-space-with-save':'push-email-right-space'"
+            [ngClass] = "this.notificationMessage === 'task_form_email' && this.notificationStatus === true ? 'email-with-save':'push-email-right-space'"
             [checked] = "taskFormEmailToggle">
           </mat-slide-toggle>
         </p>
@@ -264,7 +274,7 @@
           </span>
           <mat-slide-toggle
             (change) = "saveNotificationChange('forms_email', formsEmailToggle = !formsEmailToggle)"
-            [ngClass] = "this.notificationMessage === 'forms_email' && this.notificationStatus === true ? 'push-email-right-space-with-save':'push-email-right-space'"
+            [ngClass] = "this.notificationMessage === 'forms_email' && this.notificationStatus === true ? 'email-with-save':'push-email-right-space'"
             [checked] = "formsEmailToggle">
           </mat-slide-toggle>
         </p>
@@ -283,14 +293,21 @@
           <mat-slide-toggle
 
             (change) = "saveNotificationChange('weekly_email_update', weeklyEmailToggle = !weeklyEmailToggle)"
-            [ngClass] = "this.notificationMessage === 'weekly_email_update' && this.notificationStatus === true ? 'push-email-right-space-with-save':'push-email-right-space'"
+            [ngClass] = "this.notificationMessage === 'weekly_email_update' && this.notificationStatus === true ? 'email-with-save':'push-email-right-space'"
             [checked] = "weeklyEmailToggle"  ngModel>
           </mat-slide-toggle>
         </p>
       </div>
       </div>
+      <div class = "each-div" *ngIf = "!this.usernameHeadingClicked && !this.passwordHeadingClicked && !this.notificationHeadingIsClicked">
+        <img src = "assets/shared/logout.png" class = "settings-icon">
+        <a class = "heading" style="color: #BF494E; font-weight: bold" routerLink="/main/logout" >Log Out</a>
+      </div>
+      </div>
+
     </div>
   </div>
+</div>
 
 
 

@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { ThemePalette } from '@angular/material';
@@ -6,6 +6,9 @@ import { User } from '@/shared/user.model';
 import { AuthService } from '@/shared/auth/auth.service';
 import { SettingsService } from '@/main/settings/settings.service';
 import { FcmService } from '@/shared/fcm.service';
+import {NavbarGoToService} from '@/main/shared/navbar/navbar-go-to.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-settings',
@@ -15,6 +18,17 @@ import { FcmService } from '@/shared/fcm.service';
 export class SettingsComponent implements OnInit {
   user!: User;
   checked = true;
+  newUsername!: string;
+  realPassword!: string;
+  currentPassword!: string;
+  newPassword!: string;
+  confirmPassword!: string;
+  usernameTyped = false;
+  realPasswordTyped = false;
+  usernameHeadingClicked = false;
+  passwordHeadingClicked = false;
+  notificationHeadingIsClicked = false;
+
   showLoadingPasswordChange = false;
   showLoadingUsernameChange = false;
   LoadingUsernamePasswordChange = false;
@@ -26,6 +40,9 @@ export class SettingsComponent implements OnInit {
   usernameAvailableMessage = '';
   usernamePasswordCorrectMessage = '';
   usernamePasswordStatus!: boolean;
+  currentPasswordTyped = false;
+  newPasswordTyped = false;
+  confirmPasswordTyped = false;
   currentPasswordMessage = '';
   oldPasswordMessage = '';
   newPasswordMessage = '';
@@ -59,22 +76,44 @@ export class SettingsComponent implements OnInit {
   // formsFcmUpdate!: boolean;
   // weeklyUpdate!: boolean;
 
-  @ViewChild('username', { static: true }) username!: ElementRef;
-  @ViewChild('real_password', { static: true }) real_password!: ElementRef;
-  @ViewChild('currentPassword', { static: true }) current_password!: ElementRef;
-  @ViewChild('newPassword', { static: true }) new_password!: ElementRef;
-  @ViewChild('confirmPassword', { static: true }) confirm_password!: ElementRef;
+  @ViewChild('usernameForm', { static: true}) usernameForm!: NgForm;
+  @ViewChild('passwordForm', { static: true}) passwordForm!: NgForm;
+  // @ViewChild('username', { static: true }) username!: ElementRef;
+  // @ViewChild('real_password', { static: true }) real_password!: ElementRef;
+  // @ViewChild('currentPassword', { static: true }) current_password!: ElementRef;
+  // @ViewChild('newPassword', { static: true }) new_password!: ElementRef;
+  // @ViewChild('confirmPassword', { static: true }) confirm_password!: ElementRef;
 
   constructor(
     private http: HttpClient,
     private authService: AuthService,
     private settingsService: SettingsService,
     private fcmService: FcmService,
+    private goToService: NavbarGoToService,
+    private router: Router,
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit() {
     this.user = <User>this.authService.isLoggedIn();
+    this.newUsername = this.user.username;
     console.log('initial weekly', this.weeklyEmailToggle);
+    // this.goToService.settingsPageShowEvent
+    //   .subscribe(() => {
+    //     this.settingsMainPageShow = true;
+    //     console.log('settings page emit', this.settingsMainPageShow);
+    //   });
+    this.goToService.settingsPageShowEvent.subscribe(() => {
+      console.log('username subscribe');
+      this.usernameHeadingClicked = false;
+      this.passwordHeadingClicked = false;
+      this.notificationHeadingIsClicked = false;
+      this.goToService.settingsPageTitle.emit('Settings');
+
+
+
+
+    })
 
     this.settingsService.updatedNotificationsState().subscribe((data: any) => {
       this.supportGroupEmailToggle = data.data.support_group_email;
@@ -84,27 +123,12 @@ export class SettingsComponent implements OnInit {
       this.formsEmailToggle = data.data.forms_email;
       this.formsFcmToggle = data.data.forms_fcm;
       this.weeklyEmailToggle = data.data.weekly_email_update;
-    });
+    },
+      error => {
+      console.log(error);
+      });
   }
 
-  //
-  // usernameSaveClicked(){
-  //   //return this.http.post(environment.API_ENDPOINT, this.username);
-  //   //this.toggleon = !this.toggleon;
-  //   //return this.toggleon;
-  //   console.log('return this.http.post(url,body', 'check if this is true , if true return already taken, else saved');
-  //
-  // }
-  //
-  // supportPush(){
-  //   this.toggleOn = true;
-  //
-  //   //this.supportPushSave = true;
-  //   console.log('toggle');
-  //   console.log('by default the state of the switch can be ' +
-  //     'false, and as the swicth tiggles, that condition also toggles and that data is posted to the api');
-  //   console.log('save of others push and email left');
-  // }
 
   fadeOutSave() {
     setTimeout(() => {
@@ -113,11 +137,32 @@ export class SettingsComponent implements OnInit {
     }, 1000);
   }
 
+  changeUsernameHeadingClicked() {
+    this.router.navigate(['change-username'], {relativeTo: this.route});
+    this.usernameHeadingClicked = !this.usernameHeadingClicked;
+    this.goToService.settingsPageTitle.emit('Change Username');
+  }
+
+  changePasswordHeadingClicked() {
+    this.router.navigate(['change-password'], {relativeTo: this.route});
+    this.passwordHeadingClicked = !this.passwordHeadingClicked;
+    this.goToService.settingsPageTitle.emit('Change Password');
+  }
+
+  notificationHeadingClicked() {
+    this.router.navigate(['notification-settings'], {relativeTo: this.route});
+    this.notificationHeadingIsClicked = !this.notificationHeadingIsClicked;
+    this.goToService.settingsPageTitle.emit('Notification Settings');
+  }
+
   usernameAvailability() {
     this.showLoadingUsernameChange = true;
+    this.usernameTyped = true;
+
     this.settingsService
-      .usernameAvailabilityCheck(this.username.nativeElement.value)
+      .usernameAvailabilityCheck(this.newUsername)
       .subscribe((data: any) => {
+        console.log('username availability', this.newUsername);
         console.log(data);
         console.log(data.message);
         this.usernameAvailableStatus = data.data;
@@ -131,8 +176,11 @@ export class SettingsComponent implements OnInit {
     console.log('available');
     this.usernameAvailable = true;
     this.usernamePasswordCorrectMessage = '';
-    this.real_password.nativeElement.value = '';
     this.usernamePasswordSubmitShow = false;
+  }
+
+  realPasswordInput() {
+    this.realPasswordTyped = true;
   }
 
   continueClicked() {
@@ -147,8 +195,8 @@ export class SettingsComponent implements OnInit {
     // this.username = " ";
     this.settingsService
       .sendingUsername(
-        this.username.nativeElement.value,
-        this.real_password.nativeElement.value,
+        this.newUsername,
+        this.realPassword,
       )
       .subscribe(
         (data: any) => {
@@ -160,7 +208,7 @@ export class SettingsComponent implements OnInit {
             this.usernamePasswordCorrectMessage = '';
           }, 5000);
           if (this.usernamePasswordStatus === true) {
-            this.user.username = this.username.nativeElement.value;
+            this.user.username = this.newUsername;
             this.authService.setLoginData(data);
 
             // this.fcmService.updateToken(data.status.token);
@@ -187,13 +235,14 @@ export class SettingsComponent implements OnInit {
 
   confirmNewMatch() {
     if (
-      this.new_password.nativeElement.value ===
-      this.confirm_password.nativeElement.value
+      this.newPassword ===
+      this.confirmPassword
     ) {
       this.newConfirmMatch = true;
     } else {
       this.newConfirmMatch = false;
     }
+    this.confirmPasswordTyped =  true;
   }
 
   savePasswordChange() {
@@ -201,8 +250,8 @@ export class SettingsComponent implements OnInit {
     // if (this.new_password.nativeElement.value === this.confirm_password.nativeElement.value) {
     this.settingsService
       .sendingPasswordsForChange(
-        this.current_password.nativeElement.value,
-        this.new_password.nativeElement.value,
+        this.currentPassword,
+        this.newPassword,
       )
       .subscribe(
         (error: any) => {
@@ -246,16 +295,21 @@ export class SettingsComponent implements OnInit {
 
     console.log('changed');
     this.passwordClick = false;
-    this.current_password.nativeElement.value = '';
-    this.new_password.nativeElement.value = '';
-    this.confirm_password.nativeElement.value = '';
+    this.currentPassword = '';
+    this.newPassword = '';
+    this.confirmPassword = '';
+    // this.current_password.nativeElement.value = '';
+    // this.new_password.nativeElement.value = '';
+    // this.confirm_password.nativeElement.value = '';
   }
 
   passWordMessageRemove() {
     this.passwordMsgShow = false;
+    this.currentPasswordTyped = true;
   }
   newPasswordTouch() {
     this.newConfirmMatch = false;
+    this.newPasswordTyped = true;
   }
 
   saveNotificationChange(field: string, toggle_on: boolean) {

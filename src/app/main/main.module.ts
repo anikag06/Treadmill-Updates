@@ -180,6 +180,8 @@ import { AuthHeaderInterceptor } from '@/main/auth-header.interceptor';
 import { ReportProblemComponent } from './support-groups/post-list/shared/report-problem/report-problem.component';
 import { ThankComponent } from './support-groups/post-list/shared/thank/thank.component';
 import {ReportService} from "@/main/support-groups/post-list/shared/report.service";
+import {GamesProgressBarService} from '@/main/games/shared/games-progress-bar.service';
+
 // import { Resources2Routing } from './extra-resources/extra-resources-routing.module.ts/extra-resources-routing.module.ts.component';
 
 @NgModule({
@@ -357,6 +359,7 @@ import {ReportService} from "@/main/support-groups/post-list/shared/report.servi
     IntroDialogService,
     SettingsService,
     ReportService,
+    GamesProgressBarService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthHeaderInterceptor,
