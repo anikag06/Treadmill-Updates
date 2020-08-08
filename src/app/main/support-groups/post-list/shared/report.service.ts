@@ -22,12 +22,12 @@ export class ReportService {
   constructor(private http: HttpClient,
               private authService: AuthService) { }
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + this.authService.getToken(),
-    }),
-  };
+  // httpOptions = {
+  //   headers: new HttpHeaders({
+  //     'Content-Type': 'application/json',
+  //     Authorization: 'Bearer ' + this.authService.getToken(),
+  //   }),
+  // };
 
   post_complaint(data: any) {
     return this.http.post(

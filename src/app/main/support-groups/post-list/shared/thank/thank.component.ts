@@ -8,12 +8,15 @@ import {ReportService} from '@/main/support-groups/post-list/shared/report.servi
   styleUrls: ['./thank.component.scss']
 })
 export class ThankComponent implements OnInit {
- id!: number;
+  id!: number;
   thanked!: boolean;
- username!: string;
- type!: string;
- postType!: string;
+  username!: string;
+  type!: string;
+  status = false;
+  postType!: string;
   showLoading!: boolean;
+  message!: string;
+
   constructor(
     public dialogRef: MatDialogRef<ThankComponent>,
     private reportService: ReportService,
@@ -26,6 +29,7 @@ export class ThankComponent implements OnInit {
       this.type = data.type;
     }
   }
+
   ngOnInit() {
     this.postType = this.type;
     if (this.type === 'nestedcomment') {
@@ -40,27 +44,44 @@ export class ThankComponent implements OnInit {
   }
   thank() {
     this.showLoading = true;
-    if ( this.type === 'post') {
-      this.reportService.postThankYou(this.id).subscribe( () => {
-        this.reportService.thanked.emit(this.id);
-        this.showLoading = false;
-        console.log('sucess sending thank');
-        this.dialogRef.close();
-      });
-    } else if ( this.type === 'comment') {
-      this.reportService.commentThankYou(this.id).subscribe( () => {
+    if (this.type === 'post') {
+      this.reportService.postThankYou(this.id).subscribe(() => {
+          this.reportService.thanked.emit(this.id);
+          this.showSucess();
+        },
+        error => {
+          this.showError();
+        });
+    } else if (this.type === 'comment') {
+      this.reportService.commentThankYou(this.id).subscribe(() => {
         this.reportService.commentthanked.emit(this.id);
-        this.showLoading = false;
-        console.log('sucess sending thank');
-        this.dialogRef.close();
+        this.showSucess();
+        },
+        error => {
+          this.showError();
       });
-    } else if ( this.type === 'nestedcomment') {
-      this.reportService.nestedCommentThankYou(this.id).subscribe( () => {
+    } else if (this.type === 'nestedcomment') {
+      this.reportService.nestedCommentThankYou(this.id).subscribe(() => {
         this.reportService.replythanked.emit(this.id);
-        this.showLoading = false;
-        console.log('sucess sending thank');
-        this.dialogRef.close();
+        this.showSucess();
+        },
+        error => {
+          this.showError();
       });
     }
+  }
+
+
+  showSucess() {
+    this.showLoading = false;
+    this.status = true;
+    console.log('sucess sending thank');
+    this.message = 'We\'ve thanked ' + this.username + ' for you. You just made ' + this.username + '\'s day.';
+  }
+
+  showError() {
+    this.showLoading = false;
+    this.status = true;
+    this.message = 'That\'s embarrassing... we couldn\'t send the message. Will you please try again later?';
   }
 }

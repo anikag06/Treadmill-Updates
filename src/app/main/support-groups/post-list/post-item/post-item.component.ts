@@ -36,6 +36,7 @@ import {ThankComponent} from '../shared/thank/thank.component';
 import {ReportProblemComponent} from '../shared/report-problem/report-problem.component';
 import {MatDialog} from '@angular/material/dialog';
 import {ReportService} from '@/main/support-groups/post-list/shared/report.service';
+import {CongratsDialogComponent} from "@/main/resources/shared/congrats-dialog/congrats-dialog.component";
 
 @Component({
   selector: 'app-post-item',
@@ -485,13 +486,15 @@ export class PostItemComponent
   openThankDialog() {
     if (this.srcWidth <= 576) {
       this.dialog.open(ThankComponent, {
-        height: '245px',
+        maxWidth: '90vw',
+        height: '287px',
         width: '320px',
         data: {
           id: this.supportGroupItem.id,
           username: this.supportGroupItem.user.username,
           type: 'post',
         },
+        autoFocus: false,
       });
     } else {
       this.dialog.open(ThankComponent, {
@@ -502,20 +505,23 @@ export class PostItemComponent
           username: this.supportGroupItem.user.username,
           type: 'post',
         },
+        autoFocus: false,
       });
     }
   }
   reportSuicide() {
     if (this.srcWidth <= 576) {
       this.dialog.open(ReportProblemComponent, {
-        height: '245px',
+        height: '287px',
         width: '320px',
+        maxWidth: '90vw',
         data: {
           id: this.supportGroupItem.id,
           problem: false,
           suicide: true,
           type: 'post',
         },
+        autoFocus: false,
       });
     } else {
       this.dialog.open(ReportProblemComponent, {
@@ -527,20 +533,23 @@ export class PostItemComponent
           suicide: true,
           type: 'post',
         },
+        autoFocus: false,
       });
     }
   }
   reportProblem() {
     if (this.srcWidth <= 576) {
       this.dialog.open(ReportProblemComponent, {
-        height: '245px',
+        height: '287px',
         width: '320px',
+        maxWidth: '90vw',
         data: {
           id: this.supportGroupItem.id,
           problem: true,
           suicide: false,
           type: 'post',
         },
+        autoFocus: false,
       });
     } else {
       this.dialog.open(ReportProblemComponent, {
@@ -552,6 +561,7 @@ export class PostItemComponent
           suicide: false,
           type: 'post',
         },
+        autoFocus: false,
       });
     }
   }

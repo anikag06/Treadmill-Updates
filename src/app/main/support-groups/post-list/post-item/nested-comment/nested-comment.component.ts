@@ -227,13 +227,15 @@ export class NestedCommentComponent
   openThankDialog() {
     if (this.srcWidth <= 576) {
       this.dialog.open(ThankComponent, {
-        height: '245px',
+        maxWidth: '90vw',
+        height: '287px',
         width: '320px',
         data: {
           id: this.userNestedComment.id,
           username: this.userNestedComment.user.username,
           type: 'nestedcomment',
         },
+        autoFocus: false,
       });
     } else {
       this.dialog.open(ThankComponent, {
@@ -244,13 +246,15 @@ export class NestedCommentComponent
           username: this.userNestedComment.user.username,
           type: 'nestedcomment',
         },
+        autoFocus: false,
       });
     }
   }
   reportSuicide() {
     if (this.srcWidth <= 576) {
       this.dialog.open(ReportProblemComponent, {
-        height: '245px',
+        maxWidth: '90vw',
+        height: '287px',
         width: '320px',
         data: {
           id: this.userNestedComment.id,
@@ -258,6 +262,7 @@ export class NestedCommentComponent
           suicide: true,
           type: 'nestedcomment',
         },
+        autoFocus: false,
       });
     } else {
       this.dialog.open(ReportProblemComponent, {
@@ -269,13 +274,15 @@ export class NestedCommentComponent
           suicide: true,
           type: 'nestedcomment',
         },
+        autoFocus: false,
       });
     }
   }
   reportProblem() {
     if (this.srcWidth <= 576) {
       this.dialog.open(ReportProblemComponent, {
-        height: '245px',
+        maxWidth: '90vw',
+        height: '287px',
         width: '320px',
         data: {
           id: this.userNestedComment.id,
@@ -283,6 +290,7 @@ export class NestedCommentComponent
           suicide: false,
           type: 'nestedcomment',
         },
+        autoFocus: false,
       });
     } else {
       this.dialog.open(ReportProblemComponent, {
@@ -294,6 +302,7 @@ export class NestedCommentComponent
           suicide: false,
           type: 'nestedcomment',
         },
+        autoFocus: false,
       });
     }
   }

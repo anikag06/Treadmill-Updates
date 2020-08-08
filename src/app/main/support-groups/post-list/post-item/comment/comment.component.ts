@@ -374,13 +374,15 @@ export class CommentComponent
   openThankDialog() {
     if (this.srcWidth <= 576) {
       this.dialog.open(ThankComponent, {
-        height: '245px',
+        maxWidth: '90vw',
+        height: '287px',
         width: '320px',
         data: {
           id: this.comment.id,
           username: this.comment.user.username,
           type: 'comment',
         },
+        autoFocus: false,
       });
     } else {
       this.dialog.open(ThankComponent, {
@@ -391,13 +393,15 @@ export class CommentComponent
           username: this.comment.user.username,
           type: 'comment',
         },
+        autoFocus: false,
       });
     }
   }
   reportSuicide() {
     if (this.srcWidth <= 576) {
       this.dialog.open(ReportProblemComponent, {
-        height: '245px',
+        maxWidth: '90vw',
+        height: '287px',
         width: '320px',
         data: {
           id: this.comment.id,
@@ -405,6 +409,7 @@ export class CommentComponent
           suicide: true,
           type: 'comment',
         },
+        autoFocus: false,
       });
     } else {
       this.dialog.open(ReportProblemComponent, {
@@ -416,13 +421,15 @@ export class CommentComponent
           suicide: true,
           type: 'comment',
         },
+        autoFocus: false,
       });
     }
   }
   reportProblem() {
     if (this.srcWidth <= 576) {
       this.dialog.open(ReportProblemComponent, {
-        height: '245px',
+        maxWidth: '90vw',
+        height: '287px',
         width: '320px',
         data: {
           id: this.comment.id,
@@ -430,6 +437,7 @@ export class CommentComponent
           suicide: false,
           type: 'comment',
         },
+        autoFocus: false,
       });
     } else {
       this.dialog.open(ReportProblemComponent, {
@@ -441,6 +449,7 @@ export class CommentComponent
           suicide: false,
           type: 'comment',
         },
+        autoFocus: false,
       });
     }
   }
