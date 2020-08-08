@@ -1,13 +1,35 @@
+.flex-style {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  flex-direction: row;
+}
+.flex-style-short {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  flex-direction: row;
+}
+.settings-row {
+  flex-grow: 1;
+  width: 100vw;
+}
+
+
 .background-col{
+
   background-color: white;
+  //flex-grow: 1;
   //padding-top: 24px;
 }
+
 
 .settings-icon{
    padding-right: 6px;
 }
 .right-arrow-icon {
   float: right;
+  padding-right: 25px;
   //justify-content: end;
   //padding-left: 10%;
   //justify-content: end;
@@ -81,11 +103,15 @@
 
 }
 .push-email-right-space{
-  padding-left: 182px;
+  padding-left: 44%;
 }
 .push-email-right-space-with-save{
   //padding-right: 150px;
-  padding-left: 15px;
+  padding-left: 6%;
+}
+.save-push-email{
+  font-size: 14px;
+  padding-left: 28%;
 }
 //[ngClass] = "toggleOn === true ? 'push-email-right-space-with-save':'push-email-right-space'"
 .notification-subheading{
@@ -95,17 +121,13 @@
   padding-top: 24px;
 }
 .below-col-container{
+  //width: 80%;
   padding-left: 16px;
   padding-top: 36px;
 }
 .each-div{
   //padding-top: 54px;
   padding-bottom: 28px;
-}
-
-.save-push-email{
-  font-size: 14px;
-  padding-left: 130px;
 }
 .success-msg{
   color: green;
@@ -122,28 +144,49 @@
 
 
 @media only screen and (min-width: 781px){
+  .flex-style {
+    display: flex;
+    height: 80vh;
+    width: 40vw;
+    flex-direction: row;
+  }
+  .flex-style-short {
+    display: flex;
+    height: 35vh;
+    width: 40vw;
+    flex-direction: row;
+  }
+  .right-arrow-icon {
+    padding-right: 15px;
+
+  }
   .settings-icon{
     padding-right: 13px;
   }
   .settings-row{
+     flex-grow: 1;
+    //width: 80%;
     //height: 498px;
+    //height: 100%;
     width: 60%;
     padding-left: 60px;
     padding-top: 24px;
   }
   .below-col-container{
+   // flex-grow: 1;
+    //height: 100%;
     padding-left: 24px;
     padding-top: 24px;
   }
-  .push-email-right-space{
-    padding-left: 196px;
-  }
-  .push-email-right-space-with-save{
-    padding-left: 15px;
-  }
-  .save-push-email{
-    padding-left: 130px;
-  }
+  //.push-email-right-space{
+  //  padding-left: 44%;
+  //}
+  //.push-email-right-space-with-save{
+  //  padding-left: 3.5%;
+  //}
+  //.save-push-email{
+  //  padding-left: 28%;
+  //}
   .save-btn{
     width: 90px;
   }
@@ -154,12 +197,118 @@
 }
 @media only screen and (max-width: 370px){
   .push-email-right-space {
-    padding-left: 82px;
+    padding-left: 34%;
   }
   .push-email-right-space-with-save {
-    padding-left: 5px;
+    padding-left: 2.5%;
+  }
+  .email-with-save{
+    padding-left: 2.7%;
   }
   .save-push-email{
-    padding-left: 30px;
+    padding-left: 18%;
+  }
+}
+@media only screen and (min-width: 371px) and (max-width: 380px) {
+
+  .push-email-right-space {
+    padding-left: 44%;
+  }
+  .push-email-right-space-with-save {
+    padding-left: 4.5%;
+  }
+  .email-with-save {
+    padding-left: 4.5%;
+  }
+  .save-push-email{
+    padding-left: 28%;
+  }
+}
+@media only screen and (min-width: 381px) and (max-width: 425px) {
+  .push-email-right-space {
+    padding-left: 44%;
+  }
+  .push-email-right-space-with-save {
+    padding-left: 4%;
+  }
+  .email-with-save {
+    padding-left: 3.9%;
+  }
+  .save-push-email{
+    padding-left: 30%;
+  }
+}
+
+
+@media only screen and (min-width: 426px) and (max-width: 768px) {
+  .push-email-right-space {
+    padding-left: 44%;
+  }
+  .push-email-right-space-with-save {
+    padding-left: 4.5%;
+  }
+  .email-with-save{
+    padding-left: 4.5%;
+  }
+  .save-push-email{
+    padding-left: 34%;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1279px){
+  .push-email-right-space {
+    padding-left: 40%;
+  }
+  .push-email-right-space-with-save {
+    padding-left: 3.5%;
+  }
+  .email-with-save{
+    padding-left: 3.2%;
+  }
+  .save-push-email{
+    padding-left: 24%;
+  }
+}
+@media only screen and (min-width: 1280px){
+  .push-email-right-space {
+    padding-left: 60%;
+  }
+  .push-email-right-space-with-save {
+    padding-left: 4.5%;
+  }
+  .email-with-save{
+    padding-left: 4.5%;
+  }
+  .save-push-email{
+    padding-left: 47%;
+  }
+}
+@media only screen and (width: 1366px) {
+
+  .push-email-right-space {
+    padding-left: 60%;
+  }
+  .push-email-right-space-with-save {
+    padding-left: 4.1%;
+  }
+  .email-with-save{
+    padding-left: 4.2%;
+  }
+  .save-push-email{
+    padding-left: 47%;
+  }
+}
+
+@media only screen and (min-width: 1500px){
+  .push-email-right-space {
+    padding-left: 69%;
+  }
+  .push-email-right-space-with-save {
+    padding-left: 4.6%;
+  }
+  .email-with-save{
+    padding-left: 4.6%;
+  }
+  .save-push-email{
+    padding-left: 60%;
   }
 }

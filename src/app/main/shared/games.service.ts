@@ -90,7 +90,7 @@ export class GamesService {
     });
   }
 
-  getGamesProgressBar() {
-    return this.http.get(environment.API_ENDPOINT + GAMES_PROGRESS_BAR);
-  }
+  // getGamesProgressBar() {
+  //   return this.http.get(environment.API_ENDPOINT + GAMES_PROGRESS_BAR);
+  // }
 }

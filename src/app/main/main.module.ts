@@ -177,6 +177,7 @@ import { IntroDialogService } from '@/main/walk-through/intro-dialog.service';
 import { SettingsComponent } from './settings/settings.component';
 import { SettingsService } from '@/main/settings/settings.service';
 import { AuthHeaderInterceptor } from '@/main/auth-header.interceptor';
+import {GamesProgressBarService} from '@/main/games/shared/games-progress-bar.service';
 
 // import { Resources2Routing } from './extra-resources/extra-resources-routing.module.ts/extra-resources-routing.module.ts.component';
 
@@ -352,6 +353,7 @@ import { AuthHeaderInterceptor } from '@/main/auth-header.interceptor';
     IntroService,
     IntroDialogService,
     SettingsService,
+    GamesProgressBarService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthHeaderInterceptor,

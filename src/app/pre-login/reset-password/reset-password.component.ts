@@ -12,6 +12,8 @@ import { LOGGED_IN_PATH } from '@/app.constants';
   styleUrls: ['./reset-password.component.scss'],
 })
 export class ResetPasswordComponent implements OnInit {
+  hideNew = true;
+  hideConfirm = true;
   passwordChangedPageShow = false;
   errorMessage = '';
   resetLinkIsValid!: boolean;
@@ -80,9 +82,9 @@ export class ResetPasswordComponent implements OnInit {
             this.loading = false;
           },
           error => {
-            this.errorMessage = error.error.error.new_password;
+           // this.errorMessage = error.error.error.new_password;
             this.errorMsgShow = true;
-            console.log(this.errorMessage);
+           // console.log(this.errorMessage);
             this.loading = false;
           },
         );
