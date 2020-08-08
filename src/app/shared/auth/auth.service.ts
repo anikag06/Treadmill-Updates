@@ -196,6 +196,8 @@ export class AuthService {
           if (token === null || token === undefined) {
             // this.router.navigate(['../landing']);
             window.location.href = '/landing';
+          } else {
+            window.location.href = '/main/dashboard';
           }
         }
       },
