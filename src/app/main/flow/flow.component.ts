@@ -89,7 +89,7 @@ export class FlowComponent implements OnInit, OnDestroy {
           this.dataloaded = true;
           setTimeout(() => {
             if (!this.fromGoto) {
-              this.flowService.triggerLoad();
+              this.flowService.triggerIntroDialog();
             }
           }, 2000);
         } else {

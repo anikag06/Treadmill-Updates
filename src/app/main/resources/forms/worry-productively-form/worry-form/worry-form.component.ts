@@ -21,6 +21,7 @@ import { FormSliderComponent } from '../../shared/form-slider/form-slider.compon
 export class WorryFormComponent implements OnInit {
   @Input() worry!: Worry;
   @Output() testOut = new EventEmitter<boolean>();
+  @Output() updateWorry = new EventEmitter();
   @ViewChild('worryTextArea', { static: false }) worryTextArea!: ElementRef;
   @ViewChild(FormSliderComponent, { static: false })
   sliderRating!: FormSliderComponent;
@@ -82,10 +83,12 @@ export class WorryFormComponent implements OnInit {
           worry_rating_initial: this.worry.worry_rating_initial,
         })
         .subscribe(
-          (data: any) => {},
-          error => {
-            console.error(error);
+          (data: any) => {
+            this.updateWorry.emit(data);
           },
+          (error) => {
+            console.error(error);
+          }
         );
     } else if (
       this.worryStatement.trim().length > 0 &&
@@ -99,14 +102,15 @@ export class WorryFormComponent implements OnInit {
             data.worry,
             data.worry_rating_initial,
             data.taskorigin,
-            data.show_follow_up_dot,
+            data.show_follow_up_dot
           );
           this.worry = worry;
+          this.updateWorry.emit(worry);
           this.worryResponse = data;
         },
-        error => {
+        (error) => {
           console.error(error);
-        },
+        }
       );
     }
     this.continueText = false;

@@ -35,6 +35,13 @@ mat-slider {
   width: 320px;
   margin-bottom: 10px;
 }
+
+@media screen and (max-width: 576px)  {
+  .rating-position {
+    width: auto;
+  }
+}
+
 :host-context(.chatbot) .left {
   color: #1e1e1e;
   opacity: 1;

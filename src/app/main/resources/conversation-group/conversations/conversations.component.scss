@@ -456,3 +456,11 @@ $x3: -$leftPos + $dotSpacing;
   color: #00000066;;
 }
 
+@media screen and (max-width: 576px)  {
+  .SendImage {
+    left: 25%;
+  }
+  .or-div{
+    max-width: 75%;
+  }
+}

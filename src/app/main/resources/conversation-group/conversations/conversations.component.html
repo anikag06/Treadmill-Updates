@@ -78,7 +78,8 @@
             <div>
               <p class="my-3 mx-3">{{wrong_message}}</p>
             </div>
-            <div>
+            <div *ngIf="(wrongImageObject | json) != '{}'">
+
               <app-chat-image fromConversation="true" [image]="wrongImageObject"></app-chat-image>
             </div>
           </div>
