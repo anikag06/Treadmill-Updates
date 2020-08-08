@@ -1,7 +1,9 @@
 .app-navbar {
   // height: 100px;
   height: 12vh;
-  width: 100%;
+  //width: 100%;
+  margin-right:4.4vw;
+  margin-left:4.4vw;
 
   h1 {
 
@@ -10,13 +12,15 @@
   .back-button{
     background-color: inherit;
     outline: none;
+    position: absolute;
+    left: 0;
 }
 
   .navbar-title {
-    padding-left: 50px;
+    //padding-left: 50px;
     color: #343434;
     font-size: 24px;
-    font-style: roboto;
+    font-family: roboto;
     opacity: 1;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -40,10 +44,10 @@
     //flex-direction: row-reverse;
     align-items: center;
     height: 100px;
-    padding-right: 10%;
+    //padding-right: 10%;
 
     .icon-items {
-      margin: 20px;
+      margin-left: 20px;
       background: transparent;
 
       &:hover,
@@ -119,12 +123,14 @@
       line-height: 0;
       min-width:24px;
       padding-right: 0;
+      position: relative;
     }
 
     .all-icons-mobile {
       display: block;
       position: absolute;
-      top: -40px;
+      //top: -40px;
+      top: 15px;
       right: 15px;
       width:100%;
 

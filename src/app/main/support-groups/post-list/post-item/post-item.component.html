@@ -17,7 +17,7 @@
     <div class="support-profile-card" *ngIf="showProfile">
       <app-user-profile class="support-group" [userProfile]="userProfile"></app-user-profile>
     </div>
-    <div class=" d-inline-flex flex-row align-items-start">
+    <div class=" d-inline-flex flex-row align-items-start" style="width:80%">
 
       <img [src]="supportGroupItem.user.avatar" alt="User avatar" width="42" height="42" class='post-user-avatar'
         (click)="onShowProfile(supportGroupItem.user.username)">

@@ -1,11 +1,11 @@
 <ng-template appNavbarFlow></ng-template>
 <div class="app-navbar">
-  <div class="row mx-0">
-    <div [ngClass]="{
-              'col-8': user.is_exp === false,
-              'col-7': user.is_exp === true
-            }">
-      <div class="all-icons">
+  <div class="d-flex flex-row mx-0">
+<!--    <div [ngClass]="{-->
+<!--              'col-8': user.is_exp === false,-->
+<!--              'col-7': user.is_exp === true-->
+<!--            }">-->
+      <div class="all-icons ">
         <button
           mat-flat-button
           class="back-button"
@@ -76,14 +76,14 @@
         </div>
         </div>
       </div>
-    </div>
+<!--    </div>-->
 
-      <div [ngClass]="{
-              'col-4': user.is_exp === false,
-              'col-5': user.is_exp === true
-            }">
+<!--      <div [ngClass]="{-->
+<!--              'col-4': user.is_exp === false,-->
+<!--              'col-5': user.is_exp === true-->
+<!--            }">-->
       <div
-        class="all-icons"
+        class="all-icons ml-auto"
         style="float: right;"
         [ngClass]="{
           'd-none': hideCards
@@ -189,7 +189,7 @@
           </div>
         </div>
       </div>
-    </div>
+<!--    </div>-->
 
   <mat-menu #showFullConversation="matMenu" xPosition="before">
     <button mat-menu-item (click)="onshowFullConversation()" class="">
@@ -215,6 +215,7 @@
   </mat-menu>
   <!-- <div appNavbarFlow></div> -->
   <!-- <div appNavbarNotifications></div> -->
+</div>
 </div>
 <ng-template #manyMore>
   <span>99+</span>

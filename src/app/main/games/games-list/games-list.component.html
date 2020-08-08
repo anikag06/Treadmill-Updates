@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row mx-0">
   <div class="col-12">
     <!-- <h1 class="main-heading-h1">Games</h1> -->
   </div>
@@ -8,7 +8,7 @@
   <div class="row d-flex flex-wrap justify-content-around justify-content-md-between align-content-xl-stretch">
 
     <ng-container *ngIf="games$ | async as games else loader">
-      <div class="flex" *ngFor="let game of games">
+      <div class="flex px-1" *ngFor="let game of games">
         <app-game-item [game]="game">
         </app-game-item>
       </div>

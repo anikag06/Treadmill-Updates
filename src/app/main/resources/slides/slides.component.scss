@@ -56,7 +56,9 @@
   //   height: 83vh;
   //   max-height: 900px;
   //   overflow: scroll;
-  overflow: hidden;
+  //overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
   @include box-shadow-common() //   @include box-shadow-1-1-10-d6();
 }
 

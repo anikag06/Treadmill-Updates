@@ -1,8 +1,8 @@
 @import "styles.scss";
 
 .games-section {
-  padding-left: 20px;
-  padding-right: 20px;
+  //padding-left: 20px;
+  //padding-right: 20px;
   min-height: 80vh;
 }
 
@@ -14,21 +14,21 @@
 
 @media screen and (max-width:1400px) {
   .games-section {
-    padding-left: 20px;
-    padding-right: 20px;
+    //padding-left: 20px;
+    //padding-right: 20px;
   }
 }
 
 @media screen and (max-width: 1024px) {
   .games-section {
-    padding-left: 30px;
-    padding-right: 30px;
+    //padding-left: 30px;
+    //padding-right: 30px;
   }
 }
 
 @media screen and (max-width: 767px) {
   .games-section {
-    padding-left: 80px;
-    padding-right: 80px;
+    //padding-left: 80px;
+    //padding-right: 80px;
   }
 }
