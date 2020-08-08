@@ -48,10 +48,11 @@ export const mainRoutes: Routes = [
       {
         path: 'settings',
         component: SettingsComponent,
-        data: { title: 'Settings'},
+        data: { title: 'Settings' },
         children: [
           {
-            path: ':name', component: SettingsComponent
+            path: ':name',
+            component: SettingsComponent,
           },
         ],
       },

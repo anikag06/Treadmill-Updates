@@ -5,7 +5,15 @@ import { ACTIVE, COMPLETED, UNLOCKED } from '@/app.constants';
 import { MatDrawer } from '@angular/material/sidenav';
 import { MatExpansionPanel } from '@angular/material/expansion';
 import { IntroService } from '@/main/walk-through/intro.service';
-import {animate, group, keyframes, state, style, transition, trigger} from '@angular/animations';
+import {
+  animate,
+  group,
+  keyframes,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 
 @Component({
   selector: 'app-step-group',
@@ -13,30 +21,47 @@ import {animate, group, keyframes, state, style, transition, trigger} from '@ang
   styleUrls: ['./step-group.component.scss'],
   animations: [
     trigger('openClose', [
-    state('open',
-      style({height: '*', opacity: 1,  transform: 'translateY(0%)'}),
-    ),
-      state('closed',
-        style({height: '0', opacity: 0,  transform: 'translateY(0%)'}),
+      state(
+        'open',
+        style({ height: '*', opacity: 1, transform: 'translateY(0%)' }),
+      ),
+      state(
+        'closed',
+        style({ height: '0', opacity: 0, transform: 'translateY(0%)' }),
       ),
       transition('open => closed', [
-        animate('1000ms ease-in-out', keyframes([
-          style({height: '*', opacity: 1, transform: 'translateY(50%)',  offset: 0}),
-          style({height: '100px', opacity: 0.5, transform: 'translateY(100%)', offset: 0.5}),
-          style({height: '0px', opacity: 0, offset: 1.0}),
-        ])),
+        animate(
+          '1000ms ease-in-out',
+          keyframes([
+            style({
+              height: '*',
+              opacity: 1,
+              transform: 'translateY(50%)',
+              offset: 0,
+            }),
+            style({
+              height: '100px',
+              opacity: 0.5,
+              transform: 'translateY(100%)',
+              offset: 0.5,
+            }),
+            style({ height: '0px', opacity: 0, offset: 1.0 }),
+          ]),
+        ),
       ]),
       transition('closed => open', [
-        animate('1000ms ease-in-out', keyframes([
-          style({height: '0', opacity: 0, offset: 0}),
-          style({height: '100px', opacity: 0.5, offset: 0.5}),
-          style({height: '*', opacity: 1, offset: 1.0}),
-        ])),
+        animate(
+          '1000ms ease-in-out',
+          keyframes([
+            style({ height: '0', opacity: 0, offset: 0 }),
+            style({ height: '100px', opacity: 0.5, offset: 0.5 }),
+            style({ height: '*', opacity: 1, offset: 1.0 }),
+          ]),
+        ),
       ]),
-    ])
-    ]
+    ]),
+  ],
 })
-
 export class StepGroupComponent implements OnInit {
   @Input() stepGroup!: StepGroup;
   @Input() identifier!: string;

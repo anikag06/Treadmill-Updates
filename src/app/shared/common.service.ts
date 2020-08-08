@@ -21,7 +21,7 @@ export class CommonService {
       new Observable((sub: Observer<boolean>) => {
         sub.next(navigator.onLine);
         sub.complete();
-      })
+      }),
     );
   }
 
@@ -33,7 +33,7 @@ export class CommonService {
       environment.API_ENDPOINT +
         '/api/v1/user/user-profile/' +
         this.user.username,
-      body
+      body,
     );
   }
 }

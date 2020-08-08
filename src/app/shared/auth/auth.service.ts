@@ -59,7 +59,7 @@ export class AuthService {
       data.data.avatar,
       data.data.is_admin,
       data.data.is_active,
-      data.data.is_exp
+      data.data.is_exp,
     );
   }
 
@@ -104,7 +104,7 @@ export class AuthService {
     avatar: string,
     isAdmin: boolean,
     isActive: boolean,
-    isExp: boolean
+    isExp: boolean,
   ) {
     const helper = new JwtHelperService();
     const isExpired = helper.isTokenExpired(<string>data);
@@ -116,7 +116,7 @@ export class AuthService {
       avatar,
       isAdmin,
       isActive,
-      isExp
+      isExp,
     );
     if (isExpired === false) {
       this.user = user;
@@ -145,7 +145,7 @@ export class AuthService {
           token: token,
         })
         .subscribe(
-          (data) => {
+          data => {
             localStorage.setItem(TOKEN, data.token);
           },
           (error: HttpErrorResponse) => {
@@ -167,7 +167,7 @@ export class AuthService {
             } else {
               this.online.next(true);
             }
-          }
+          },
         );
     }
   }
@@ -190,7 +190,7 @@ export class AuthService {
   private logoutCheck() {
     window.addEventListener(
       'storage',
-      (event) => {
+      event => {
         if (event.storageArea === localStorage) {
           const token = window.localStorage.getItem(TOKEN);
           if (token === null || token === undefined) {
@@ -201,7 +201,7 @@ export class AuthService {
           }
         }
       },
-      false
+      false,
     );
   }
 }

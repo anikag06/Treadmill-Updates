@@ -1,11 +1,11 @@
-import {Component, Inject, OnInit, Optional} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {ReportService} from '@/main/support-groups/post-list/shared/report.service';
+import { Component, Inject, OnInit, Optional } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { ReportService } from '@/main/support-groups/post-list/shared/report.service';
 
 @Component({
   selector: 'app-report-problem',
   templateUrl: './report-problem.component.html',
-  styleUrls: ['./report-problem.component.scss']
+  styleUrls: ['./report-problem.component.scss'],
 })
 export class ReportProblemComponent implements OnInit {
   type!: string;
@@ -27,8 +27,7 @@ export class ReportProblemComponent implements OnInit {
   id!: number;
   problemSubmit = false;
   is_suicidal = false;
-  ngOnInit() {
-  }
+  ngOnInit() {}
   close() {
     this.dialogRef.close();
   }
@@ -37,37 +36,59 @@ export class ReportProblemComponent implements OnInit {
     this.problemSubmit = true;
     if (this.type === 'post') {
       if (this.is_suicidal) {
-        this.reportService.post_complaint({
-          post_id: this.id, is_suicidal: this.is_suicidal}).subscribe( () => {
-          console.log('reported');
-        });
+        this.reportService
+          .post_complaint({
+            post_id: this.id,
+            is_suicidal: this.is_suicidal,
+          })
+          .subscribe(() => {
+            console.log('reported');
+          });
       } else {
-        this.reportService.post_complaint({post_id: this.id, reason: this.reason}).subscribe( () => {
-          console.log('reported');
-        });
+        this.reportService
+          .post_complaint({ post_id: this.id, reason: this.reason })
+          .subscribe(() => {
+            console.log('reported');
+          });
       }
     } else if (this.type === 'comment') {
       if (this.is_suicidal) {
-      this.reportService.comment_complaint({ comment_id: this.id, is_suicidal: this.is_suicidal}).subscribe( () => {
-        console.log('reported');
-      });
+        this.reportService
+          .comment_complaint({
+            comment_id: this.id,
+            is_suicidal: this.is_suicidal,
+          })
+          .subscribe(() => {
+            console.log('reported');
+          });
       } else {
-        this.reportService.comment_complaint({comment_id: this.id, reason: this.reason}).subscribe(() => {
-          console.log('reported');
-        });
+        this.reportService
+          .comment_complaint({ comment_id: this.id, reason: this.reason })
+          .subscribe(() => {
+            console.log('reported');
+          });
       }
-    } else if (this.type === 'nestedcomment')  {
+    } else if (this.type === 'nestedcomment') {
       if (this.is_suicidal) {
-      this.reportService.nested_comment_complaint({ nested_comment_id: this.id, is_suicidal: this.is_suicidal}).subscribe( () => {
-        console.log('reported');
-      });
+        this.reportService
+          .nested_comment_complaint({
+            nested_comment_id: this.id,
+            is_suicidal: this.is_suicidal,
+          })
+          .subscribe(() => {
+            console.log('reported');
+          });
       } else {
-        this.reportService.nested_comment_complaint({ nested_comment_id: this.id, reason: this.reason}).subscribe( () => {
-          console.log('reported');
-        });
+        this.reportService
+          .nested_comment_complaint({
+            nested_comment_id: this.id,
+            reason: this.reason,
+          })
+          .subscribe(() => {
+            console.log('reported');
+          });
       }
     }
-
   }
   done() {
     this.dialogRef.close();

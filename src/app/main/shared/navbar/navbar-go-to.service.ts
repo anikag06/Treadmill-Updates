@@ -6,7 +6,7 @@ import { EventEmitter, Injectable } from '@angular/core';
 export class NavbarGoToService {
   clickFlow = new EventEmitter<any>();
   settingsPageShowEvent = new EventEmitter<any>();
-  settingsPageTitle =  new EventEmitter<any>();
+  settingsPageTitle = new EventEmitter<any>();
   nextControlContentLoad = new EventEmitter<any>();
   constructor() {}
 }

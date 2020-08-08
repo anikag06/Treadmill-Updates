@@ -13,6 +13,6 @@ export class UserNestedComment {
     },
     public is_voted: number,
     public created_at: string,
-    public is_thanked?: number
+    public is_thanked?: number,
   ) {}
 }

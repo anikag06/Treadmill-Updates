@@ -1,11 +1,17 @@
-import {ChangeDetectorRef, Component, Inject, OnInit, Optional} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {ReportService} from '@/main/support-groups/post-list/shared/report.service';
+import {
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnInit,
+  Optional,
+} from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { ReportService } from '@/main/support-groups/post-list/shared/report.service';
 
 @Component({
   selector: 'app-thank',
   templateUrl: './thank.component.html',
-  styleUrls: ['./thank.component.scss']
+  styleUrls: ['./thank.component.scss'],
 })
 export class ThankComponent implements OnInit {
   id!: number;
@@ -45,43 +51,54 @@ export class ThankComponent implements OnInit {
   thank() {
     this.showLoading = true;
     if (this.type === 'post') {
-      this.reportService.postThankYou(this.id).subscribe(() => {
+      this.reportService.postThankYou(this.id).subscribe(
+        () => {
           this.reportService.thanked.emit(this.id);
           this.showSucess();
         },
         error => {
           this.showError();
-        });
+        },
+      );
     } else if (this.type === 'comment') {
-      this.reportService.commentThankYou(this.id).subscribe(() => {
-        this.reportService.commentthanked.emit(this.id);
-        this.showSucess();
+      this.reportService.commentThankYou(this.id).subscribe(
+        () => {
+          this.reportService.commentthanked.emit(this.id);
+          this.showSucess();
         },
         error => {
           this.showError();
-      });
+        },
+      );
     } else if (this.type === 'nestedcomment') {
-      this.reportService.nestedCommentThankYou(this.id).subscribe(() => {
-        this.reportService.replythanked.emit(this.id);
-        this.showSucess();
+      this.reportService.nestedCommentThankYou(this.id).subscribe(
+        () => {
+          this.reportService.replythanked.emit(this.id);
+          this.showSucess();
         },
         error => {
           this.showError();
-      });
+        },
+      );
     }
   }
-
 
   showSucess() {
     this.showLoading = false;
     this.status = true;
     console.log('sucess sending thank');
-    this.message = 'We\'ve thanked ' + this.username + ' for you. You just made ' + this.username + '\'s day.';
+    this.message =
+      "We've thanked " +
+      this.username +
+      ' for you. You just made ' +
+      this.username +
+      "'s day.";
   }
 
   showError() {
     this.showLoading = false;
     this.status = true;
-    this.message = 'That\'s embarrassing... we couldn\'t send the message. Will you please try again later?';
+    this.message =
+      "That's embarrassing... we couldn't send the message. Will you please try again later?";
   }
 }

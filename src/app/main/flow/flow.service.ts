@@ -61,7 +61,7 @@ export class FlowService {
     this.loadBehaviour.next(true);
   }
 
-  triggerIntroDialog(){
+  triggerIntroDialog() {
     this.introDialogBehaviour.next(true);
   }
 

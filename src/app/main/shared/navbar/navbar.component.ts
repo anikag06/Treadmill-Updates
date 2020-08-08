@@ -44,7 +44,6 @@ import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
 import { IntroService } from '@/main/walk-through/intro.service';
 import { isNotNullOrUndefined } from 'codelyzer/util/isNotNullOrUndefined';
 
-
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -132,7 +131,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
         });
         this.goToService.settingsPageTitle.subscribe((value: any) => {
           this.navbarTitle = value;
-        })
+        });
 
         this.notificationService.showFullConvIcon.subscribe(() => {
           this.convMode = true;
@@ -247,10 +246,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
     //   this.goToService.settingsPageShowEvent.emit();
     //   console.log('username');
     // } else {
-      this.goToService.settingsPageShowEvent.emit();
-      this.location.back();
+    this.goToService.settingsPageShowEvent.emit();
+    this.location.back();
     //}
-
   }
 
   ngOnDestroy(): void {

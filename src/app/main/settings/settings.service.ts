@@ -1,4 +1,4 @@
-import {EventEmitter, Injectable} from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import {
@@ -21,7 +21,6 @@ export class SettingsService {
   ) {}
   settingsTitle = new EventEmitter<any>();
   settingsName = '';
-
 
   usernameAvailabilityCheck(username: string) {
     return this.http.get(

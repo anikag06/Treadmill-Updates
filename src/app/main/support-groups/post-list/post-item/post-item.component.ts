@@ -11,7 +11,8 @@ import {
   DoCheck,
   ElementRef,
   ChangeDetectionStrategy,
-  ChangeDetectorRef, HostListener,
+  ChangeDetectorRef,
+  HostListener,
 } from '@angular/core';
 import { Tag } from '@/main/shared/tag.model';
 import { NgForm } from '@angular/forms';
@@ -31,12 +32,12 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { UserProfile } from '../../../shared/user-profile/UserProfile.model';
 import { UserProfileService } from '../../../shared/user-profile/userProfile.service';
 import { COMMON_EDITOR_CONFIG } from '@/app.constants';
-import {DialogBoxService} from '@/main/shared/custom-dialog/dialog-box.service';
-import {ThankComponent} from '../shared/thank/thank.component';
-import {ReportProblemComponent} from '../shared/report-problem/report-problem.component';
-import {MatDialog} from '@angular/material/dialog';
-import {ReportService} from '@/main/support-groups/post-list/shared/report.service';
-import {CongratsDialogComponent} from "@/main/resources/shared/congrats-dialog/congrats-dialog.component";
+import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
+import { ThankComponent } from '../shared/thank/thank.component';
+import { ReportProblemComponent } from '../shared/report-problem/report-problem.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ReportService } from '@/main/support-groups/post-list/shared/report.service';
+import { CongratsDialogComponent } from '@/main/resources/shared/congrats-dialog/congrats-dialog.component';
 
 @Component({
   selector: 'app-post-item',
@@ -137,9 +138,9 @@ export class PostItemComponent
     //     profile.no_of_silver_badges,
     //     profile.no_of_gold_badges);
     // });
-      this.reportService.thanked.subscribe( (value: number) => {
-        if (this.supportGroupItem.id === value) {
-       this.supportGroupItem.is_thanked = 1;
+    this.reportService.thanked.subscribe((value: number) => {
+      if (this.supportGroupItem.id === value) {
+        this.supportGroupItem.is_thanked = 1;
       }
     });
   }

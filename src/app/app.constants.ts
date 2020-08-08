@@ -407,10 +407,12 @@ export const COMMON_EDITOR_CONFIG = {
 };
 export const COMMENT_COMPLAINT = '/api/v1/support-group/comment-complaint/';
 export const POST_COMPLAINT = '/api/v1/support-group/post-complaint/';
-export const NESTED_COMMENT_COMPLAINT = '/api/v1/support-group/nested-comment-complaint/';
+export const NESTED_COMMENT_COMPLAINT =
+  '/api/v1/support-group/nested-comment-complaint/';
 export const COMMENT_THANK = '/api/v1/support-group/comment-thank-you/';
 export const POST_THANK = '/api/v1/support-group/post-thank-you/';
-export const NESTED_COMMENT_THANK = '/api/v1/support-group/nested-comment-thank-you/';
+export const NESTED_COMMENT_THANK =
+  '/api/v1/support-group/nested-comment-thank-you/';
 
 export const VIDEO_LIST = '/api/v1/resources/videos/';
 export const READING_LIST = '/api/v1/resources/reading-materials/';
@@ -426,7 +428,6 @@ export const UPDATE_USERNAME = '/api/v1/user/update-username/';
 export const UPDATE_NOTIFICATIONS =
   '/api/v1/notifications/update-notification-settings/';
 export const UPDATE_PASSWORD = '/api/v1/user/change-password/';
-
 
 // toast
 export const SHOW_TOAST_DURATION = 10000;

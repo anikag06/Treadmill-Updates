@@ -131,7 +131,6 @@ export class MatLoginDialogComponent implements OnInit {
           this.recoverUsernameMsgShow = true;
           console.log('recover username', data);
 
-
           console.log('message', this.recoverUsernameMsgShow);
           this.showUsernameLoading = false;
         },

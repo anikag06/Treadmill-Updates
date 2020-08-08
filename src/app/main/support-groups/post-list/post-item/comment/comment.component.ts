@@ -31,10 +31,10 @@ import { UserProfile } from '@/main/shared/user-profile/UserProfile.model';
 import { UserProfileService } from '@/main/shared/user-profile/userProfile.service';
 import { SupportGroupsService } from '@/main/support-groups/support-groups.service';
 import { COMMON_EDITOR_CONFIG } from '@/app.constants';
-import {ThankComponent} from '@/main/support-groups/post-list/shared/thank/thank.component';
-import {ReportProblemComponent} from '@/main/support-groups/post-list/shared/report-problem/report-problem.component';
-import {MatDialog} from '@angular/material/dialog';
-import {ReportService} from '@/main/support-groups/post-list/shared/report.service';
+import { ThankComponent } from '@/main/support-groups/post-list/shared/thank/thank.component';
+import { ReportProblemComponent } from '@/main/support-groups/post-list/shared/report-problem/report-problem.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ReportService } from '@/main/support-groups/post-list/shared/report.service';
 
 @Component({
   selector: 'app-comment',
@@ -99,7 +99,7 @@ export class CommentComponent
 
   ngOnInit() {
     this.user = <User>this.authService.isLoggedIn();
-    this.reportService.commentthanked.subscribe( (value: number) => {
+    this.reportService.commentthanked.subscribe((value: number) => {
       if (this.comment.id === value) {
         console.log('comment id', this.comment.id, value);
         this.comment.is_thanked = 1;
@@ -213,7 +213,7 @@ export class CommentComponent
           },
           persistedNestedcomment.is_voted,
           persistedNestedcomment.created_at,
-          persistedNestedcomment.is_thanked
+          persistedNestedcomment.is_thanked,
         );
         this.nestedComments.push(updatedNestedComment);
         this.toggleReply = false;
@@ -335,7 +335,7 @@ export class CommentComponent
    * If the comment is made by the same user
    */
   ownComment() {
-    return this.user.username === this.comment.user.username ;
+    return this.user.username === this.comment.user.username;
   }
 
   onCommentShowProfile(username: string) {

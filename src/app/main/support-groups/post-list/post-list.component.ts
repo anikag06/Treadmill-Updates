@@ -3,7 +3,8 @@ import {
   OnInit,
   OnDestroy,
   Output,
-  EventEmitter, Input,
+  EventEmitter,
+  Input,
 } from '@angular/core';
 import { SupportGroupsService } from '../support-groups.service';
 import { Subscription } from 'rxjs';

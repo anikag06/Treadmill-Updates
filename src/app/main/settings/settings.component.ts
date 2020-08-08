@@ -1,4 +1,12 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { ThemePalette } from '@angular/material';
@@ -6,9 +14,9 @@ import { User } from '@/shared/user.model';
 import { AuthService } from '@/shared/auth/auth.service';
 import { SettingsService } from '@/main/settings/settings.service';
 import { FcmService } from '@/shared/fcm.service';
-import {NavbarGoToService} from '@/main/shared/navbar/navbar-go-to.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {NgForm} from '@angular/forms';
+import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-settings',
@@ -76,8 +84,8 @@ export class SettingsComponent implements OnInit {
   // formsFcmUpdate!: boolean;
   // weeklyUpdate!: boolean;
 
-  @ViewChild('usernameForm', { static: true}) usernameForm!: NgForm;
-  @ViewChild('passwordForm', { static: true}) passwordForm!: NgForm;
+  @ViewChild('usernameForm', { static: true }) usernameForm!: NgForm;
+  @ViewChild('passwordForm', { static: true }) passwordForm!: NgForm;
   // @ViewChild('username', { static: true }) username!: ElementRef;
   // @ViewChild('real_password', { static: true }) real_password!: ElementRef;
   // @ViewChild('currentPassword', { static: true }) current_password!: ElementRef;
@@ -109,26 +117,23 @@ export class SettingsComponent implements OnInit {
       this.passwordHeadingClicked = false;
       this.notificationHeadingIsClicked = false;
       this.goToService.settingsPageTitle.emit('Settings');
+    });
 
-
-
-
-    })
-
-    this.settingsService.updatedNotificationsState().subscribe((data: any) => {
-      this.supportGroupEmailToggle = data.data.support_group_email;
-      this.supportGroupFcmToggle = data.data.support_group_fcm;
-      this.taskFormEmailToggle = data.data.task_form_email;
-      this.taskFormFcmToggle = data.data.task_form_fcm;
-      this.formsEmailToggle = data.data.forms_email;
-      this.formsFcmToggle = data.data.forms_fcm;
-      this.weeklyEmailToggle = data.data.weekly_email_update;
-    },
+    this.settingsService.updatedNotificationsState().subscribe(
+      (data: any) => {
+        this.supportGroupEmailToggle = data.data.support_group_email;
+        this.supportGroupFcmToggle = data.data.support_group_fcm;
+        this.taskFormEmailToggle = data.data.task_form_email;
+        this.taskFormFcmToggle = data.data.task_form_fcm;
+        this.formsEmailToggle = data.data.forms_email;
+        this.formsFcmToggle = data.data.forms_fcm;
+        this.weeklyEmailToggle = data.data.weekly_email_update;
+      },
       error => {
-      console.log(error);
-      });
+        console.log(error);
+      },
+    );
   }
-
 
   fadeOutSave() {
     setTimeout(() => {
@@ -138,19 +143,19 @@ export class SettingsComponent implements OnInit {
   }
 
   changeUsernameHeadingClicked() {
-    this.router.navigate(['change-username'], {relativeTo: this.route});
+    this.router.navigate(['change-username'], { relativeTo: this.route });
     this.usernameHeadingClicked = !this.usernameHeadingClicked;
     this.goToService.settingsPageTitle.emit('Change Username');
   }
 
   changePasswordHeadingClicked() {
-    this.router.navigate(['change-password'], {relativeTo: this.route});
+    this.router.navigate(['change-password'], { relativeTo: this.route });
     this.passwordHeadingClicked = !this.passwordHeadingClicked;
     this.goToService.settingsPageTitle.emit('Change Password');
   }
 
   notificationHeadingClicked() {
-    this.router.navigate(['notification-settings'], {relativeTo: this.route});
+    this.router.navigate(['notification-settings'], { relativeTo: this.route });
     this.notificationHeadingIsClicked = !this.notificationHeadingIsClicked;
     this.goToService.settingsPageTitle.emit('Notification Settings');
   }
@@ -194,10 +199,7 @@ export class SettingsComponent implements OnInit {
     this.LoadingUsernamePasswordChange = true;
     // this.username = " ";
     this.settingsService
-      .sendingUsername(
-        this.newUsername,
-        this.realPassword,
-      )
+      .sendingUsername(this.newUsername, this.realPassword)
       .subscribe(
         (data: any) => {
           console.log(data);
@@ -234,25 +236,19 @@ export class SettingsComponent implements OnInit {
   }
 
   confirmNewMatch() {
-    if (
-      this.newPassword ===
-      this.confirmPassword
-    ) {
+    if (this.newPassword === this.confirmPassword) {
       this.newConfirmMatch = true;
     } else {
       this.newConfirmMatch = false;
     }
-    this.confirmPasswordTyped =  true;
+    this.confirmPasswordTyped = true;
   }
 
   savePasswordChange() {
     this.showLoadingPasswordChange = true;
     // if (this.new_password.nativeElement.value === this.confirm_password.nativeElement.value) {
     this.settingsService
-      .sendingPasswordsForChange(
-        this.currentPassword,
-        this.newPassword,
-      )
+      .sendingPasswordsForChange(this.currentPassword, this.newPassword)
       .subscribe(
         (error: any) => {
           // console.log('password data', data.message);

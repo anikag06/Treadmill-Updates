@@ -13,9 +13,9 @@ import {
 } from '@/app.constants';
 import { IntroService } from '@/main/walk-through/intro.service';
 import { IntroDialogService } from '@/main/walk-through/intro-dialog.service';
-import {GamesService} from '@/main/shared/games.service';
-import {GamesProgressBarService} from '@/main/games/shared/games-progress-bar.service';
-import {GamesBar} from '@/main/shared/games-bar.model';
+import { GamesService } from '@/main/shared/games.service';
+import { GamesProgressBarService } from '@/main/games/shared/games-progress-bar.service';
+import { GamesBar } from '@/main/shared/games-bar.model';
 
 @Component({
   selector: 'app-game-item',
@@ -52,54 +52,70 @@ export class GameItemComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-
-    this.gamesProgressBarService.getGamesProgressInfo()
+    this.gamesProgressBarService
+      .getGamesProgressInfo()
       .subscribe((object: any) => {
         // object.forEach{
         //   this.gameBar.push
         // }
 
-
         console.log('progress bar data', object);
-         if (this.game.name === 'Find a smile') {
-           this.gameBar = object.ff_game;
-           this.showPb = true;
-           console.log('ff', this.gameBar);
-           // this.calculateGold(this.gameBar.GOLD_CONSTANT);
-           // this.calculateSilver(this.gameBar.SILVER_CONSTANT, this.gameBar.GOLD_CONSTANT);
-           // this.calculateBronze(this.gameBar.BRONZE_CONSTANT, this.gameBar.GOLD_CONSTANT);
-           this.calculateCoinValues(this.gameBar.GOLD_CONSTANT, this.gameBar.SILVER_CONSTANT, this.gameBar.BRONZE_CONSTANT);
-           this.coinColor = '#E8C70F';
-         }
+        if (this.game.name === 'Find a smile') {
+          this.gameBar = object.ff_game;
+          this.showPb = true;
+          console.log('ff', this.gameBar);
+          // this.calculateGold(this.gameBar.GOLD_CONSTANT);
+          // this.calculateSilver(this.gameBar.SILVER_CONSTANT, this.gameBar.GOLD_CONSTANT);
+          // this.calculateBronze(this.gameBar.BRONZE_CONSTANT, this.gameBar.GOLD_CONSTANT);
+          this.calculateCoinValues(
+            this.gameBar.GOLD_CONSTANT,
+            this.gameBar.SILVER_CONSTANT,
+            this.gameBar.BRONZE_CONSTANT,
+          );
+          this.coinColor = '#E8C70F';
+        }
         if (this.game.name === 'Word jumble') {
           this.showPb = true;
           this.gameBar = object.ib_game;
           console.log('ib', this.gameBar);
-          this.calculateCoinValues(this.gameBar.GOLD_CONSTANT, this.gameBar.SILVER_CONSTANT, this.gameBar.BRONZE_CONSTANT);
+          this.calculateCoinValues(
+            this.gameBar.GOLD_CONSTANT,
+            this.gameBar.SILVER_CONSTANT,
+            this.gameBar.BRONZE_CONSTANT,
+          );
           this.coinColor = '#1977A1';
-
         }
         if (this.game.name === 'Sprint') {
           this.showPb = true;
           this.gameBar = object.ec_game;
           console.log('ec', this.gameBar);
-          this.calculateCoinValues(this.gameBar.GOLD_CONSTANT, this.gameBar.SILVER_CONSTANT, this.gameBar.BRONZE_CONSTANT);
+          this.calculateCoinValues(
+            this.gameBar.GOLD_CONSTANT,
+            this.gameBar.SILVER_CONSTANT,
+            this.gameBar.BRONZE_CONSTANT,
+          );
           this.coinColor = '#853102';
-
         }
         if (this.game.name === 'Think positive') {
           this.showPb = true;
           this.gameBar = object.icd_game;
           console.log('icd', this.gameBar);
-          this.calculateCoinValues(this.gameBar.GOLD_CONSTANT, this.gameBar.SILVER_CONSTANT, this.gameBar.BRONZE_CONSTANT);
+          this.calculateCoinValues(
+            this.gameBar.GOLD_CONSTANT,
+            this.gameBar.SILVER_CONSTANT,
+            this.gameBar.BRONZE_CONSTANT,
+          );
           this.coinColor = '#0C8C95';
-
         }
         if (this.game.name === 'Daydream') {
           this.showPb = true;
           this.gameBar = object.mi_game;
           console.log('mi', this.gameBar);
-          this.calculateCoinValues(this.gameBar.GOLD_CONSTANT, this.gameBar.SILVER_CONSTANT, this.gameBar.BRONZE_CONSTANT);
+          this.calculateCoinValues(
+            this.gameBar.GOLD_CONSTANT,
+            this.gameBar.SILVER_CONSTANT,
+            this.gameBar.BRONZE_CONSTANT,
+          );
           this.coinColor = '#CE7F7F';
         }
         // lh
@@ -122,7 +138,6 @@ export class GameItemComponent implements OnInit {
     //   .subscribe((data) => {
     //     console.log('games progress bar data', data);
     //   });
-
   }
 
   onGameClick(game: Game) {
@@ -195,8 +210,7 @@ export class GameItemComponent implements OnInit {
     } else {
       this.silverCoinShow = true;
     }
-    return  this.silverRatio;
-
+    return this.silverRatio;
   }
 
   calculateBronze(BRONZE: number, GOLD: number) {
@@ -208,7 +222,4 @@ export class GameItemComponent implements OnInit {
     }
     return this.bronzeRatio;
   }
-
 }
-
-

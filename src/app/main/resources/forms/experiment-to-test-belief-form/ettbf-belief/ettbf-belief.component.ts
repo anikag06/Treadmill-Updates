@@ -80,9 +80,9 @@ export class EttbfBeliefComponent implements OnInit {
             console.log('the put request has been submitted');
             this.beliefClicked.emit(this.showSlider);
           },
-          (error) => {
+          error => {
             console.error(error);
-          }
+          },
         );
     } else {
       if (
@@ -96,9 +96,9 @@ export class EttbfBeliefComponent implements OnInit {
             console.log('the post request has been submitted');
             // this.beliefClicked.emit(this.beliefContinue);
           },
-          (error) => {
+          error => {
             console.error(error);
-          }
+          },
         );
       }
     }

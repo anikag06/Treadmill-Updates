@@ -21,7 +21,7 @@ export class FormsListComponent implements OnInit {
     private router: Router,
     private introService: IntroService,
     private introDialogService: IntroDialogService,
-    private authService: AuthService
+    private authService: AuthService,
   ) {
     this.user = <User>this.authService.isLoggedIn();
   }

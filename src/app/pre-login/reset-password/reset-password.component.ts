@@ -82,9 +82,9 @@ export class ResetPasswordComponent implements OnInit {
             this.loading = false;
           },
           error => {
-           // this.errorMessage = error.error.error.new_password;
+            // this.errorMessage = error.error.error.new_password;
             this.errorMsgShow = true;
-           // console.log(this.errorMessage);
+            // console.log(this.errorMessage);
             this.loading = false;
           },
         );

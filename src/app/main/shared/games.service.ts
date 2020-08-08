@@ -17,10 +17,11 @@ import {
   LEARNED_HELPLESSNESS_GAME,
   ATTRIBUTE_STYLE_GAME,
   MENTAL_IMAGERY_GAME,
-  IDENTIFY_COGNITIVE_DISTORTION_GAME, GAMES_PROGRESS_BAR,
+  IDENTIFY_COGNITIVE_DISTORTION_GAME,
+  GAMES_PROGRESS_BAR,
 } from '@/app.constants';
-import {HttpClient} from '@angular/common/http';
-import {environment} from '../../../environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -73,7 +74,7 @@ export class GamesService {
 
   constructor(
     private localStorageService: LocalStorageService,
-    private http: HttpClient
+    private http: HttpClient,
   ) {}
 
   getGames() {
