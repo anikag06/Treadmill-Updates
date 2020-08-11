@@ -1,5 +1,4 @@
-<div *ngIf="dataLoaded;else skeleton">
-  <iframe
+ <iframe
     #video
     appIframeTracker
     (iframeClick)="openDialog()"
@@ -13,13 +12,4 @@
     allowfullscreen
   >
   </iframe>
-</div>
 
-
-<ng-template #skeleton>
-  <div class="card msg-video">
-    <div class="card-body text-center">
-      <div class="video-icon"></div>
-    </div>
-  </div>
-</ng-template>
