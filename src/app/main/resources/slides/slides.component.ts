@@ -155,6 +155,7 @@ export class SlidesComponent implements OnInit, AfterContentInit {
           this.current_step_id = slide_data.data.id;
           this.isLastStep = slide_data.data.is_last_step;
           this.next_step_id = slide_data.data.next_step_id;
+          this.showNextStepBtn = false;
           if (slide_data.data.status === COMPLETED) {
             this.showNextStepBtn = true;
             if (this.isLastStep) {
