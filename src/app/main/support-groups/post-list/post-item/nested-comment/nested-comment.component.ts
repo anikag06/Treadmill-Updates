@@ -140,6 +140,7 @@ export class NestedCommentComponent
    * Upvote
    */
   onThumbsUp() {
+    if (!this.ownComment()) {
     const preVote = this.userNestedComment.is_voted;
     const preUpVote = this.userNestedComment.up_votes;
     if (this.userNestedComment.is_voted === 1) {
@@ -159,12 +160,16 @@ export class NestedCommentComponent
           this.userNestedComment.up_votes = preUpVote;
         },
       );
+    } else {
+      this.thumbsService.openSnackBar('You can\'t vote on your own reply', 'Ok');
+    }
   }
 
   /**
    * DownVote
    */
   onThumbsDown() {
+    if (!this.ownComment()) {
     if (this.userNestedComment.is_voted === 1) {
       this.userNestedComment.up_votes -= 1;
       this.userNestedComment.is_voted = 0;
@@ -181,6 +186,9 @@ export class NestedCommentComponent
           this.errorService.openErrorDialog('Cannot down vote');
         },
       );
+  } else {
+  this.thumbsService.openSnackBar('You can\'t vote on your own reply', 'Ok');
+}
   }
 
   onNestedCommentShowProfile(username: string) {

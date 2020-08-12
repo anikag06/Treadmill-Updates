@@ -283,7 +283,8 @@ export class CommentComponent
    * Upvote
    */
   onThumbsUp() {
-    const preVote = this.comment.is_voted;
+    if (!this.ownComment()) {
+      const preVote = this.comment.is_voted;
     const preUpVote = this.comment.up_votes;
     if (this.comment.is_voted === 1) {
       this.comment.up_votes -= 1;
@@ -302,9 +303,13 @@ export class CommentComponent
           this.comment.up_votes = preUpVote;
         },
       );
+    } else {
+      this.thumbsService.openSnackBar('You can\'t vote on your own comment', 'Ok');
+    }
   }
 
   onThumbsDown() {
+    if (!this.ownComment()) {
     if (this.comment.is_voted === 1) {
       this.comment.up_votes -= 1;
       this.comment.is_voted = 0;
@@ -316,6 +321,9 @@ export class CommentComponent
     this.commentService
       .voteComment({ comment_id: this.comment.id, vote: 0 })
       .subscribe(() => {}, this.errorService.errorResponse('Cannot down vote'));
+    } else {
+      this.thumbsService.openSnackBar('You can\'t vote on your own comment', 'Ok');
+    }
   }
 
   onReplyClick() {
