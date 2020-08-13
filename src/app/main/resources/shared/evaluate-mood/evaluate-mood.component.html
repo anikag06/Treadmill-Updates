@@ -1,14 +1,16 @@
-<div class="row mx-0 py-3" >
+<div class="row mx-0 py-3" *ngIf="moodEvaluate" >
   <h6>Evaluate your mood</h6>
   <p>
     Before finishing this step, please fill the PHQ-9 and GAD-7 questionnaires to let us know how you are doing.
     It'll help us test the effectiveness of TreadWill, and it won't take you more than 4-minutes.
   </p>
-  <div class="row w-100 pt-2 justify-content-center" *ngIf="moodEvaluate">
+  <div class="row w-100 pt-2 justify-content-center" >
     <button class="mood-btn" type="button"  mat-raised-button
             (click)="onEvaluateMood()" >
       Evaluate your mood
     </button>
   </div>
+</div>
+<div class="row mx-0 py-3">
     <b *ngIf="!moodEvaluate"> Great! You have evaluated your mood.</b>
 </div>

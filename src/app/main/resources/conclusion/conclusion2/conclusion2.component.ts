@@ -20,7 +20,7 @@ export class Conclusion2Component implements OnInit, OnDestroy {
   conclusionDataSubscription!: Subscription;
   // TODO: provide link for task form
   taskFormLink = '';
-  dataLoaded = true;
+  dataLoaded = false;
   locked = false;
   stepCompleted = false;
 
@@ -76,7 +76,6 @@ export class Conclusion2Component implements OnInit, OnDestroy {
         } else {
           this.locked = true;
         }
-        this.dataLoaded = true;
         this.stepDataService
           .getStepData(this.currentStepId)
           .subscribe((step_data: any) => {
@@ -94,6 +93,7 @@ export class Conclusion2Component implements OnInit, OnDestroy {
             console.log('STEP DETAIL:', this.navbarTitle);
             this.flowService.stepDetail.emit(this.navbarTitle);
             this.flowService.navbarTitle = this.navbarTitle;
+            this.dataLoaded = true;
             if (step_data.data.next_questionnaire) {
               console.log('QUESTION:', step_data);
               this.quizService.questionnaire_name =

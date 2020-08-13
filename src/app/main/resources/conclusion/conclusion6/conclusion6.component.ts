@@ -21,7 +21,7 @@ import { FlowService } from '@/main/flow/flow.service';
 })
 export class Conclusion6Component implements OnInit, OnDestroy {
   stepGroupSequence!: number;
-  dataLoaded = true;
+  dataLoaded = false;
   locked = false;
   stepCompleted = false;
   conclusionDataSubscription!: Subscription;
@@ -74,7 +74,6 @@ export class Conclusion6Component implements OnInit, OnDestroy {
         } else {
           this.locked = true;
         }
-        this.dataLoaded = true;
         this.stepDataService
           .getStepData(this.currentStepId)
           .subscribe((step_data: any) => {
@@ -91,6 +90,7 @@ export class Conclusion6Component implements OnInit, OnDestroy {
               this.stepName;
             console.log('STEP DETAIL:', this.navbarTitle);
             this.flowService.stepDetail.emit(this.navbarTitle);
+            this.dataLoaded = true;
             if (step_data.data.next_questionnaire) {
               this.quizService.questionnaire_name =
                 step_data.data.next_questionnaire;
