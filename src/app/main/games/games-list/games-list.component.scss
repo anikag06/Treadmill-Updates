@@ -1,8 +1,6 @@
 @import "styles.scss";
 
 .games-section {
-  //padding-left: 20px;
-  //padding-right: 20px;
   min-height: 80vh;
 }
 
@@ -11,24 +9,8 @@
   width: 100%;
 }
 
-
-@media screen and (max-width:1400px) {
+@media screen and (min-width: 1620px) {
   .games-section {
-    //padding-left: 20px;
-    //padding-right: 20px;
-  }
-}
-
-@media screen and (max-width: 1024px) {
-  .games-section {
-    //padding-left: 30px;
-    //padding-right: 30px;
-  }
-}
-
-@media screen and (max-width: 767px) {
-  .games-section {
-    //padding-left: 80px;
-    //padding-right: 80px;
+    max-width:1280px;
   }
 }

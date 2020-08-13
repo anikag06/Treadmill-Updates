@@ -65,7 +65,7 @@ export class SlidesBottomsheetComponent implements OnInit {
         data: {
           videoUrl: 'https://www.youtube.com/embed/O1oQqpw_8bA?autoplay=1',
           btnText: 'Back to Slides',
-          instruction: 'Click play to start',
+          instruction: 'Change duration',
         },
       });
     } else {
@@ -77,7 +77,7 @@ export class SlidesBottomsheetComponent implements OnInit {
         data: {
           videoUrl: 'https://www.youtube.com/embed/O1oQqpw_8bA',
           btnText: 'Back to Slides',
-          instruction: 'Click play to start',
+          instruction: 'Change duration',
         },
       });
     }
