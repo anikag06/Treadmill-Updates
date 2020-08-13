@@ -110,7 +110,7 @@ export class Conclusion4Component implements OnInit, OnDestroy {
               // this.conclusionService.moodEvaluate = true;
             } else {
               // this.conclusionService.moodEvaluate = false;
-              this.moodEvaluate = true;
+              this.moodEvaluate = false;
             }
             // this.conclusionService.evaluateMood.emit();
             // this.showQuestionnaire = this.conclusionService.moodEvaluate;

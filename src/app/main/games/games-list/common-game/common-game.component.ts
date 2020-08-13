@@ -120,6 +120,12 @@ export class CommonGameComponent implements OnInit {
           this.gamePlayService.gameSlug = this.game.slug;
           console.log(this.gamePlayService.gameName);
           this.gamePlayService.gameTitle.emit();
+          this.isExecutiveControl = false;
+          this.isInterpretationBias = false;
+          this.isLearnedHelplessness = false;
+          this.isMentalImagery = false;
+          this.isFriendlyFace = false;
+          this.isIdentifyCognitiveDistortion = false;
 
           if (this.gameName === EXECUTIVE_CONTROL_GAME) {
             this.isExecutiveControl = true;
@@ -155,7 +161,6 @@ export class CommonGameComponent implements OnInit {
       this.onResumeClick();
     });
   }
-
   @HostListener('window:blur', ['$event'])
   onBlur(event: any): void {
     if (this.dialogBoxService.getIsDialogBoxRemoved()) {
