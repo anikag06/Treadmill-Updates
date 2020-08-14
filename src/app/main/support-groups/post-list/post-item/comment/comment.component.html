@@ -44,8 +44,8 @@
         (click)="onCommentShowProfile(comment.user.username)">
       <!-- <p class="text-muted user">{{comment.user.username}}</p> -->
     </div>
-    <div class="d-inline-flex flex-column" *ngIf="!editMode">
-      <div class="d-inline-flex  flex-row user-stats  align-items-start">
+    <div class="d-inline-flex flex-column user-stats" *ngIf="!editMode">
+      <div class="d-inline-flex  flex-row align-items-start">
         <div class="user pt-0">{{comment.user.username}}</div>
         <div class=" d-flex flex-row points profile-card mb-0">
           <div class="col scores mr-2">
@@ -68,11 +68,11 @@
       </div>
 
 
-      <div class='body user-stats' [innerHTML]="commentBody | safeHtml" [ngClass]="{'body-inline': partialBody}"
+      <div class='body' [innerHTML]="commentBody | safeHtml" [ngClass]="{'body-inline': partialBody}"
         [ngStyle]="{'word-break': 'break-word'}"></div>
 
-      <span><a class='toggler user-stats' (click)='toggleToFullBody()' *ngIf="partialBody">show more</a></span>
-      <span class="date user-stats">{{ comment.created_at |  date: 'medium' | timeAgo }}</span>
+      <span><a class='toggler' (click)='toggleToFullBody()' *ngIf="partialBody">show more</a></span>
+      <span class="date">{{ comment.created_at |  date: 'medium' | timeAgo }}</span>
       <div class=" row no-gutters">
         <div class="col-12 ">
           <button class="btn btn-sm thumbs-up pl-0" (click)="onThumbsUp()" ><img [src]="thumbsUp" width="18"

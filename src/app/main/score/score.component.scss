@@ -1,8 +1,8 @@
 @import "styles.scss";
 
 .scores-section {
-    padding-left: 150px;
-    align-content: center;
+    //padding-left: 150px;
+    align-content: flex-start;
     min-height: 80vh;
 }
 .loader {
@@ -60,7 +60,7 @@
         width: 280px;
         margin: 20px;
     }
-    
+
 }
 
 @media screen and (max-width: 767px) {
@@ -68,7 +68,7 @@
         width: 60%;
         margin: 20px auto;
     }
-    
+
 }
 
 @media screen and (max-width: 568px) {
@@ -76,5 +76,5 @@
         width: 90%;
         margin: 20px auto;
     }
-    
+
 }
