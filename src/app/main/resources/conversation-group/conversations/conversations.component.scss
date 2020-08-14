@@ -31,6 +31,11 @@
 //       background: linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
 // }
 
+#conv-page {
+  .sticky-top {
+    z-index: 20;
+  }
+}
 .bar {
   background-color: white;
   height: 40px;

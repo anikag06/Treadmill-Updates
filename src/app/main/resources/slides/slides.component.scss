@@ -22,6 +22,10 @@
   margin: 0;
   padding: 0;
 }
+#slide-page {
+  width: 100%;
+  max-width: 1073px !important;
+}
 
 .card {
   margin: 0 auto;
@@ -272,4 +276,5 @@
 
     }
   }
+
 }
