@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Router } from '@angular/router';
 import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.service';
+import { FlowService } from '@/main/flow/flow.service';
 
 @Component({
   selector: 'app-congrats-dialog',
@@ -23,6 +24,7 @@ export class CongratsDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private router: Router,
     private flowStepService: FlowStepNavigationService,
+    private flowService: FlowService
   ) {
     dialogRef.disableClose = true;
   }
@@ -50,11 +52,11 @@ export class CongratsDialogComponent implements OnInit {
 
   onNextClicked() {
     const next_step_url = this.flowStepService.goToFlowNextStep(
-      this.nextStepData,
+      this.nextStepData
     );
     this.flowStepService.virtualStepMarkDone(
       this.nextStepData,
-      this.data.time_spent,
+      this.data.time_spent
     );
     this.closeDialog();
     this.router.navigate([next_step_url]);
@@ -63,6 +65,9 @@ export class CongratsDialogComponent implements OnInit {
   goToDashboard() {
     this.closeDialog();
     this.router.navigate(['/']);
+    if (this.data.fromIntro) {
+      this.flowService.stepCompleted = true;
+    }
   }
   closeDialog() {
     this.dialogRef.close();

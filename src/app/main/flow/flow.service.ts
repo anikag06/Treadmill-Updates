@@ -22,14 +22,14 @@ export class FlowService {
   stepGroupSequence = 0;
   stepName = '';
   navbarTitle = '';
-  stepCompleted = false;
+  stepCompleted!: boolean;
   showFollowUp = new EventEmitter<any>();
   showFollowUpSurvey = new EventEmitter<any>();
   firstStepID!: number;
 
   constructor(
     private http: HttpClient,
-    private flowNavService: FlowStepNavigationService,
+    private flowNavService: FlowStepNavigationService
   ) {}
 
   // Http Options
@@ -41,7 +41,7 @@ export class FlowService {
   // };
   getFlow() {
     return this.http.get(
-      environment.API_ENDPOINT + FLOW_STEPS_DATA,
+      environment.API_ENDPOINT + FLOW_STEPS_DATA
       // this.httpOptions,
     );
   }
@@ -61,7 +61,7 @@ export class FlowService {
     this.loadBehaviour.next(true);
   }
 
-  triggerIntroDialog(){
+  triggerIntroDialog() {
     this.introDialogBehaviour.next(true);
   }
 
@@ -69,18 +69,18 @@ export class FlowService {
     this.getFlow().subscribe((data: any) => {
       const allStepGroups = data.step_groups;
       const initStepGroup = allStepGroups.find(
-        (stepGroup: any) => stepGroup.id === stepGroupId,
+        (stepGroup: any) => stepGroup.id === stepGroupId
       );
       const index = allStepGroups.indexOf(initStepGroup, 1);
       const prevStepGroup = allStepGroups[index - 1];
       if (prevStepGroup.status === COMPLETED) {
         this.flowNavService
           .isNextModuleLocked(
-            prevStepGroup.steps[prevStepGroup.steps.length - 1].id,
+            prevStepGroup.steps[prevStepGroup.steps.length - 1].id
           )
-          .subscribe(unlockTimeData => {
+          .subscribe((unlockTimeData) => {
             this.unlockModuleTime.next(
-              unlockTimeData.data.next_step_group_unlock_time,
+              unlockTimeData.data.next_step_group_unlock_time
             );
           });
       } else {
@@ -89,12 +89,11 @@ export class FlowService {
     });
   }
 
-  setFirstStepCompleted(status: string): boolean {
+  setFirstStepCompleted(status: string) {
     this.stepCompleted = status === COMPLETED;
-    return this.stepCompleted;
   }
 
-  getFirstStepCompleted() {
+  getFirstStepCompleted(): boolean {
     return this.stepCompleted;
   }
 

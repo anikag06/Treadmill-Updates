@@ -36,8 +36,8 @@ import { IntroService } from '@/main/walk-through/intro.service';
 import { IntroDialogService } from '@/main/walk-through/intro-dialog.service';
 import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
 import { type } from 'os';
-import {AuthService} from '@/shared/auth/auth.service';
-import {User} from '@/shared/user.model';
+import { AuthService } from '@/shared/auth/auth.service';
+import { User } from '@/shared/user.model';
 
 @Component({
   selector: 'app-step',
@@ -66,9 +66,9 @@ export class StepComponent implements OnInit, AfterViewInit {
     private introService: IntroService,
     private introDialogService: IntroDialogService,
     private goToService: NavbarGoToService,
-    private authService: AuthService,
+    private authService: AuthService
   ) {
-     this.user = <User>this.authService.isLoggedIn();
+    this.user = <User>this.authService.isLoggedIn();
   }
 
   ngOnInit() {
@@ -89,23 +89,23 @@ export class StepComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     // this is done to change the properties of progress bar in conversation in flow
     const stepProgressBar = this.element.nativeElement.querySelectorAll(
-      '.step-progress-bar .mat-progress-bar',
+      '.step-progress-bar .mat-progress-bar'
     );
     // tslint:disable-next-line: max-line-length
     const stepProgressBarBuffer = this.element.nativeElement.querySelectorAll(
-      '.step-progress-bar .mat-progress-bar .mat-progress-bar-buffer',
+      '.step-progress-bar .mat-progress-bar .mat-progress-bar-buffer'
     );
     const stepProgressBarFill = this.element.nativeElement.querySelectorAll(
-      '.step-progress-bar .mat-progress-bar .mat-progress-bar-fill',
+      '.step-progress-bar .mat-progress-bar .mat-progress-bar-fill'
     );
     if (stepProgressBar.length > 0) {
       stepProgressBar[0].setAttribute(
         'style',
-        'border-radius: 2px; !important',
+        'border-radius: 2px; !important'
       );
       stepProgressBarBuffer[0].setAttribute(
         'style',
-        'background-color: #E4E8EB; !important',
+        'background-color: #E4E8EB; !important'
       );
 
       const afterElement = document.createElement('style');
@@ -161,7 +161,7 @@ export class StepComponent implements OnInit, AfterViewInit {
             setTimeout(() => {
               this.introDialogService.openGameIntroDialog(
                 true,
-                this.step.action[0],
+                this.step.action[0]
               );
             }, 500);
           } else {
@@ -180,7 +180,7 @@ export class StepComponent implements OnInit, AfterViewInit {
             setTimeout(() => {
               this.introDialogService.openFormIntroDialog(
                 true,
-                this.step.action[0],
+                this.step.action[0]
               );
             }, 500);
           } else {
@@ -209,7 +209,7 @@ export class StepComponent implements OnInit, AfterViewInit {
       });
     }
 
-    this.markDone();
+    // this.markDone();
     if (this.step.data_type === INTRODUCTORY_ANIMATION) {
       if (this.step.name === 'Navigating TreadWill') {
         this.flowService.setFirstStepID(this.step.id);
@@ -222,13 +222,20 @@ export class StepComponent implements OnInit, AfterViewInit {
         this.introService.setIntroduceFalse();
         setTimeout(() => {
           this.introService.startBadgesIntro(this.step.status);
-        }, 1500);
+        }, 500);
+      } else if (this.step.name === 'Meet WillBot') {
+        setTimeout(() => {
+          this.introService.setChatbotIntro(true);
+          this.introService.startChatbotIntro(this.step.status, this.step.id);
+        }, 500);
       }
+      setTimeout(() => {
+        this.step.status = COMPLETED;
+      }, 1200);
 
-      this.step.status = COMPLETED;
-      this.flowService.triggerLoad();
-      setTimeout(() => this.flowService.triggerLoad(), 1);
-      setTimeout(() => this.flowService.triggerLoad(), 10);
+      // this.flowService.triggerLoad();
+      // setTimeout(() => this.flowService.triggerLoad(), 1);
+      // setTimeout(() => this.flowService.triggerLoad(), 10);
     }
 
     if (this.step.status !== LOCKED) {
@@ -282,7 +289,7 @@ export class StepComponent implements OnInit, AfterViewInit {
   showTooltipFun() {
     if (this.step.status === LOCKED && this.step.sequence === 0) {
       this.flowService.getModuleUnlockTime(this.stepGroup.id);
-      this.flowService.unlockModuleTime.subscribe(data => {
+      this.flowService.unlockModuleTime.subscribe((data) => {
         if (data === false) {
           this.tooltipShow();
         } else if (typeof data === 'string' && !Date.parse(data)) {
