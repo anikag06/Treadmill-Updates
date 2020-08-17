@@ -2,14 +2,22 @@
 .main {
   max-width: 40vw;
   font-family: Roboto;
+
+  .main-div {
+    font-size: 14px !important;
+  }
+}
+.congrats-text {
+  font-weight: 500;
+  font-size: 1rem;
 }
   .emphasis {
-    font-weight: bold;
-    font-style: italic;
+    //font-weight: bold;
+    //font-style: italic;
   }
 
   .title {
-    background-color: black;
+    background-color:  #343434;
     color: white;
     text-align: center;
     justify-content: center;
@@ -19,6 +27,16 @@
     }
   }
 
+a {
+  color: #de981f;
+  &:hover {
+    color: #de9820;
+  }
+}
+.text-para {
+  //opacity: 0.6;
+  color: rgba(0,0,0,0.6);
+}
 .completed-btn {
   font-size: 14px;
   width: 132px;

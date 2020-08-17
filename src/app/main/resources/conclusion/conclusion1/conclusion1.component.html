@@ -9,25 +9,25 @@
             </mat-card-title>
           </mat-card-header>
   <div class="px-3 px-lg-4 pt-4 main-div">
-  <div>
+    <div class="congrats-text">
     Congratulations! You have completed the <span class="emphasis">{{moduleName}}</span> module.
+    </div>
     <br>
+    <div class="text-para">
+    <p>
     In this module, you have learned how your <span class="emphasis">thoughts</span>, <span
-      class="emphasis">feelings</span>, and <span class="emphasis">behaviors</span> influence each other.
-    <br>
-    You have also learned how to identify your <span class="emphasis">thoughts</span>, <span
+      class="emphasis">feelings</span>, and <span class="emphasis">behaviors</span> influence each other.</p>
+    <p>You have also learned how to identify your <span class="emphasis">thoughts</span>, <span
       class="emphasis">feelings</span>, and <span class="emphasis">behaviors</span> following an upsetting situation. In
-    other words, you have learned to be more self-aware.
-    <br>
-    You can see the situations, thoughts, feelings, and behaviors you have identified at this link <a
-      routerLink="{{thoughtRecordFormLink}}">Thought record form</a>.
-    <br>
+      other words, you have learned to be more self-aware.</p>
+    <p>You can see the situations, thoughts, feelings, and behaviors you have identified at this link <a
+      routerLink="{{thoughtRecordFormLink}}">Thought record form</a>.</p>
+    <p>
     For the next week, whenever you face an upsetting situation or whenever you notice that your mood is getting worse
     (sad, angry etc.), write down the situation, thought, feeling, and behavior in the <a
-      routerLink="{{thoughtRecordFormLink}}">Thought record form</a>.
-    <br>
-  </div>
-  <div>
+      routerLink="{{thoughtRecordFormLink}}">Thought record form</a>.</p>
+    </div>
+  <div class="text-para">
     Make a commitment now. How many times would you like to identify a thought?
     <br>
     <mat-form-field>
@@ -43,7 +43,7 @@
       <app-evaluate-mood [moodEvaluate]="moodEvaluate"></app-evaluate-mood>
 
 <div *ngIf="!moodEvaluate">
-  <div >
+  <div class="text-para" >
     In the next module, <span class="emphasis">{{nextModuleName}}</span>, you will learn how to improve your daily
     routine to improve your mood. See you there.
   </div>
@@ -61,7 +61,7 @@
 </div>
   </div>
         </div>
-      </div>
+    </div>
       </div>
   </mat-card>
 </ng-template>
@@ -86,7 +86,7 @@
   <div class="row">
     <div class="col">
       <div class="text-center loader">
-        <img src="assets/shared/dna-loader.svg" alt="loader" width="200">
+        <img src="assets/shared/ripple.gif" alt="loader" width="200">
       </div>
     </div>
   </div>
