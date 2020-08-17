@@ -295,7 +295,7 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
       const object = {
         useless_characteristics: this.uselessCharacteristicsForm.value[
           'characteristics'
-        ],
+          ],
       };
       this.worryService
         .postUselessCharacteristics(object, this.worry.id)
@@ -363,7 +363,7 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
           'Well Done',
           WORRY_PRODUCTIVELY_MESSAGE[
             this.formService.getRandomInt(WORRY_PRODUCTIVELY_MESSAGE.length)
-          ]
+            ]
         );
       } else {
         this.message = new FormMessage(
@@ -371,7 +371,7 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
           '',
           WORRY_PRODUCTIVELY_NGT_MESSAGE[
             this.formService.getRandomInt(WORRY_PRODUCTIVELY_NGT_MESSAGE.length)
-          ]
+            ]
         );
       }
     }
