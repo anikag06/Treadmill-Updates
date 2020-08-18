@@ -483,6 +483,7 @@ export class IntroService {
         .storeCompletionData(this.completionData)
         .subscribe(() => {
           this.destroyComponent();
+          this.flowService.triggerLoad();
         });
     });
   }
@@ -615,6 +616,7 @@ export class IntroService {
         this.completionData.step_id = this.chatbotStepID;
         this.completionData.time_spent = 100;
         this.stepsDataService.storeCompletionData(this.completionData);
+        this.flowService.triggerLoad();
       }
     });
   }

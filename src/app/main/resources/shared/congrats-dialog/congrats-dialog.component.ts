@@ -67,6 +67,7 @@ export class CongratsDialogComponent implements OnInit {
     this.router.navigate(['/']);
     if (this.data.fromIntro) {
       this.flowService.stepCompleted = true;
+      this.flowService.introduceBehaviour.next(false);
     }
   }
   closeDialog() {
