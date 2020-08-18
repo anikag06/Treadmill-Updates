@@ -208,7 +208,7 @@ export class StepComponent implements OnInit, AfterViewInit {
         }
       });
     }
-
+    // TODO : this method is setting status of step to complete even before the step is complete
     // this.markDone();
     if (this.step.data_type === INTRODUCTORY_ANIMATION) {
       if (this.step.name === 'Navigating TreadWill') {
@@ -229,9 +229,9 @@ export class StepComponent implements OnInit, AfterViewInit {
           this.introService.startChatbotIntro(this.step.status, this.step.id);
         }, 500);
       }
-      setTimeout(() => {
-        this.step.status = COMPLETED;
-      }, 1200);
+      // setTimeout(() => {
+      //   this.step.status = COMPLETED;
+      // }, 1200);
 
       // this.flowService.triggerLoad();
       // setTimeout(() => this.flowService.triggerLoad(), 1);
