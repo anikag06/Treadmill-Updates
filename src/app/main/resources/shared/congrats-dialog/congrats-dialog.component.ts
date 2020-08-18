@@ -24,7 +24,7 @@ export class CongratsDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private router: Router,
     private flowStepService: FlowStepNavigationService,
-    private flowService: FlowService
+    private flowService: FlowService,
   ) {
     dialogRef.disableClose = true;
   }
@@ -52,11 +52,11 @@ export class CongratsDialogComponent implements OnInit {
 
   onNextClicked() {
     const next_step_url = this.flowStepService.goToFlowNextStep(
-      this.nextStepData
+      this.nextStepData,
     );
     this.flowStepService.virtualStepMarkDone(
       this.nextStepData,
-      this.data.time_spent
+      this.data.time_spent,
     );
     this.closeDialog();
     this.router.navigate([next_step_url]);

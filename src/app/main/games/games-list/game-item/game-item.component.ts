@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, ViewChild} from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Game } from '@/main/shared/game.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import {
@@ -16,7 +16,7 @@ import { IntroDialogService } from '@/main/walk-through/intro-dialog.service';
 import { GamesService } from '@/main/shared/games.service';
 import { GamesProgressBarService } from '@/main/games/shared/games-progress-bar.service';
 import { GamesBar } from '@/main/shared/games-bar.model';
-import {MatTooltip} from '@angular/material';
+import { MatTooltip } from '@angular/material';
 
 @Component({
   selector: 'app-game-item',
@@ -181,7 +181,7 @@ export class GameItemComponent implements OnInit {
   }
 
   calculateProgress(correctAnswers: number, GOLD: number) {
-    this.progressInGame = ((correctAnswers / GOLD) * 90);
+    this.progressInGame = (correctAnswers / GOLD) * 90;
     return this.progressInGame;
   }
 
@@ -189,7 +189,10 @@ export class GameItemComponent implements OnInit {
     this.started = false;
     this.showPb = true;
     this.gameBar = objectData;
-    this.calculateProgress(this.gameBar.no_of_correct_answers, this.gameBar.GOLD_CONSTANT );
+    this.calculateProgress(
+      this.gameBar.no_of_correct_answers,
+      this.gameBar.GOLD_CONSTANT,
+    );
     this.calculateCoinValues(
       this.gameBar.GOLD_CONSTANT,
       this.gameBar.SILVER_CONSTANT,
@@ -197,10 +200,9 @@ export class GameItemComponent implements OnInit {
     );
     this.started = objectData.started;
   }
-   // goldIndicator() {
-   //   this.goldIndicatorShow = !this.goldIndicatorShow;
-   //   console.log('gold indicator', this.goldIndicatorShow);
-   //
-   // }
-
+  // goldIndicator() {
+  //   this.goldIndicatorShow = !this.goldIndicatorShow;
+  //   console.log('gold indicator', this.goldIndicatorShow);
+  //
+  // }
 }

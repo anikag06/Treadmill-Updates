@@ -1,14 +1,11 @@
 import { Injectable } from '@angular/core';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ThumbsService {
-
-  constructor(
-    public snackBar: MatSnackBar,
-  ) { }
+  constructor(public snackBar: MatSnackBar) {}
 
   /**
    * Thumbs Up images
@@ -29,7 +26,6 @@ export class ThumbsService {
     }
     return 'assets/support-group/thumbs-down-white.svg';
   }
-
 
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {

@@ -19,7 +19,7 @@ import { Step } from '@/main/flow/step-group/step/step.model';
 import { QuizService } from '@/shared/questionnaire/questionnaire.service';
 import { FlowService } from '@/main/flow/flow.service';
 import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifications.service';
-import {CommonService} from '@/shared/common.service';
+import { CommonService } from '@/shared/common.service';
 
 @Component({
   selector: 'app-conclusion1',
@@ -165,10 +165,9 @@ export class Conclusion1Component implements OnInit, OnDestroy {
       .storeCompletionData(this.completionData)
       .subscribe(data => {
         console.log('data', data, this.currentStepId, this.nextStepId);
-        this.commonService.postScore(20)
-          .subscribe(() => {
-            console.log('score');
-          });
+        this.commonService.postScore(20).subscribe(() => {
+          console.log('score');
+        });
       });
     this.commonDialogService.openCongratsDialog(
       this.currentStepId,

@@ -429,7 +429,7 @@ export class PostItemComponent
           },
         );
     } else {
-      this.thumbsService.openSnackBar('You can\'t vote on your own post', 'Ok');
+      this.thumbsService.openSnackBar("You can't vote on your own post", 'Ok');
     }
   }
 
@@ -438,19 +438,20 @@ export class PostItemComponent
    */
   onThumbsDown() {
     if (!this.ownPost()) {
-    if (this.supportGroupItem.is_voted === 1) {
-      this.supportGroupItem.up_votes -= 1;
-      this.supportGroupItem.is_voted = 0;
-    } else if (this.supportGroupItem.is_voted === 0) {
-      this.supportGroupItem.is_voted = -1;
+      if (this.supportGroupItem.is_voted === 1) {
+        this.supportGroupItem.up_votes -= 1;
+        this.supportGroupItem.is_voted = 0;
+      } else if (this.supportGroupItem.is_voted === 0) {
+        this.supportGroupItem.is_voted = -1;
+      } else {
+        this.supportGroupItem.is_voted = 0;
+      }
+      this.sgService
+        .postUpVote({ post_id: this.supportGroupItem.id, vote: 0 })
+        .subscribe(() => {},
+        this.errorService.errorResponse('Cannot downvote'));
     } else {
-      this.supportGroupItem.is_voted = 0;
-    }
-    this.sgService
-      .postUpVote({ post_id: this.supportGroupItem.id, vote: 0 })
-      .subscribe(() => {}, this.errorService.errorResponse('Cannot downvote'));
-    } else {
-      this.thumbsService.openSnackBar('You can\'t vote on your own post', 'Ok');
+      this.thumbsService.openSnackBar("You can't vote on your own post", 'Ok');
     }
   }
 

@@ -285,44 +285,51 @@ export class CommentComponent
   onThumbsUp() {
     if (!this.ownComment()) {
       const preVote = this.comment.is_voted;
-    const preUpVote = this.comment.up_votes;
-    if (this.comment.is_voted === 1) {
-      this.comment.up_votes -= 1;
-      this.comment.is_voted = -1;
+      const preUpVote = this.comment.up_votes;
+      if (this.comment.is_voted === 1) {
+        this.comment.up_votes -= 1;
+        this.comment.is_voted = -1;
+      } else {
+        this.comment.up_votes += 1;
+        this.comment.is_voted = 1;
+      }
+      this.commentService
+        .voteComment({ comment_id: this.comment.id, vote: 1 })
+        .subscribe(
+          () => {},
+          () => {
+            this.errorService.openErrorDialog('Cannot Upvote');
+            this.comment.is_voted = preVote;
+            this.comment.up_votes = preUpVote;
+          },
+        );
     } else {
-      this.comment.up_votes += 1;
-      this.comment.is_voted = 1;
-    }
-    this.commentService
-      .voteComment({ comment_id: this.comment.id, vote: 1 })
-      .subscribe(
-        () => {},
-        () => {
-          this.errorService.openErrorDialog('Cannot Upvote');
-          this.comment.is_voted = preVote;
-          this.comment.up_votes = preUpVote;
-        },
+      this.thumbsService.openSnackBar(
+        "You can't vote on your own comment",
+        'Ok',
       );
-    } else {
-      this.thumbsService.openSnackBar('You can\'t vote on your own comment', 'Ok');
     }
   }
 
   onThumbsDown() {
     if (!this.ownComment()) {
-    if (this.comment.is_voted === 1) {
-      this.comment.up_votes -= 1;
-      this.comment.is_voted = 0;
-    } else if (this.comment.is_voted === 0) {
-      this.comment.is_voted = -1;
+      if (this.comment.is_voted === 1) {
+        this.comment.up_votes -= 1;
+        this.comment.is_voted = 0;
+      } else if (this.comment.is_voted === 0) {
+        this.comment.is_voted = -1;
+      } else {
+        this.comment.is_voted = 0;
+      }
+      this.commentService
+        .voteComment({ comment_id: this.comment.id, vote: 0 })
+        .subscribe(() => {},
+        this.errorService.errorResponse('Cannot down vote'));
     } else {
-      this.comment.is_voted = 0;
-    }
-    this.commentService
-      .voteComment({ comment_id: this.comment.id, vote: 0 })
-      .subscribe(() => {}, this.errorService.errorResponse('Cannot down vote'));
-    } else {
-      this.thumbsService.openSnackBar('You can\'t vote on your own comment', 'Ok');
+      this.thumbsService.openSnackBar(
+        "You can't vote on your own comment",
+        'Ok',
+      );
     }
   }
 

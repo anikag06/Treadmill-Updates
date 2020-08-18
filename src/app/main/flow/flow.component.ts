@@ -38,7 +38,7 @@ export class FlowComponent implements OnInit, OnDestroy {
   ngOnInit() {
     console.log(this.navBar);
     this.dataloaded = false;
-    this.flowService.loadBehaviour.subscribe((data) => this.loadData());
+    this.flowService.loadBehaviour.subscribe(data => this.loadData());
     this.loadData();
     if (window.innerWidth < MOBILE_WIDTH) {
       this.introSubscription = this.introService.overlayBehaviour.subscribe(

@@ -92,11 +92,11 @@ export class StepGroupComponent implements OnInit {
     // this is done to update the property of material expansion panel as ng-deep can't be used.
     // tslint:disable-next-line: max-line-length
     const flowPanel = this.elem.nativeElement.querySelectorAll(
-      '.flow-expansion-panel .mat-expansion-panel-content .mat-expansion-panel-body'
+      '.flow-expansion-panel .mat-expansion-panel-content .mat-expansion-panel-body',
     );
     flowPanel[0].setAttribute(
       'style',
-      ' padding: 0 15px 12px !important;padding-left: 2px !important;'
+      ' padding: 0 15px 12px !important;padding-left: 2px !important;',
     );
   }
 
@@ -210,7 +210,7 @@ export class StepGroupComponent implements OnInit {
   }
 
   findActiveStep(stepGroup: StepGroup) {
-    const element = stepGroup.steps.find((step) => {
+    const element = stepGroup.steps.find(step => {
       return step.status === ACTIVE;
     });
     return typeof element === 'undefined' ? false : true;

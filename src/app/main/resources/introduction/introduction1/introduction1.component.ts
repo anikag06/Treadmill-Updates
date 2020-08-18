@@ -16,7 +16,7 @@ import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { StepCompleteData } from '@/main/resources/shared/completion-data.model';
 import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.service';
-import {CommonService} from '@/shared/common.service';
+import { CommonService } from '@/shared/common.service';
 
 @Component({
   selector: 'app-introduction1',
@@ -125,10 +125,9 @@ export class Introduction1Component implements OnInit, OnDestroy {
       .subscribe(data => {
         this.showloading = false;
         this.showNextStep = true;
-        this.commonService.postScore(20)
-          .subscribe(() => {
-            console.log('score');
-          });
+        this.commonService.postScore(20).subscribe(() => {
+          console.log('score');
+        });
       });
   }
   onNextStep() {

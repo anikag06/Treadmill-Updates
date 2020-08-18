@@ -141,27 +141,27 @@ export class NestedCommentComponent
    */
   onThumbsUp() {
     if (!this.ownComment()) {
-    const preVote = this.userNestedComment.is_voted;
-    const preUpVote = this.userNestedComment.up_votes;
-    if (this.userNestedComment.is_voted === 1) {
-      this.userNestedComment.up_votes -= 1;
-      this.userNestedComment.is_voted = -1;
+      const preVote = this.userNestedComment.is_voted;
+      const preUpVote = this.userNestedComment.up_votes;
+      if (this.userNestedComment.is_voted === 1) {
+        this.userNestedComment.up_votes -= 1;
+        this.userNestedComment.is_voted = -1;
+      } else {
+        this.userNestedComment.up_votes += 1;
+        this.userNestedComment.is_voted = 1;
+      }
+      this.ncService
+        .voteComment({ nested_comment_id: this.userNestedComment.id, vote: 1 })
+        .subscribe(
+          () => {},
+          () => {
+            this.errorService.openErrorDialog('Cannot Upvote');
+            this.userNestedComment.is_voted = preVote;
+            this.userNestedComment.up_votes = preUpVote;
+          },
+        );
     } else {
-      this.userNestedComment.up_votes += 1;
-      this.userNestedComment.is_voted = 1;
-    }
-    this.ncService
-      .voteComment({ nested_comment_id: this.userNestedComment.id, vote: 1 })
-      .subscribe(
-        () => {},
-        () => {
-          this.errorService.openErrorDialog('Cannot Upvote');
-          this.userNestedComment.is_voted = preVote;
-          this.userNestedComment.up_votes = preUpVote;
-        },
-      );
-    } else {
-      this.thumbsService.openSnackBar('You can\'t vote on your own reply', 'Ok');
+      this.thumbsService.openSnackBar("You can't vote on your own reply", 'Ok');
     }
   }
 
@@ -170,25 +170,25 @@ export class NestedCommentComponent
    */
   onThumbsDown() {
     if (!this.ownComment()) {
-    if (this.userNestedComment.is_voted === 1) {
-      this.userNestedComment.up_votes -= 1;
-      this.userNestedComment.is_voted = 0;
-    } else if (this.userNestedComment.is_voted === 0) {
-      this.userNestedComment.is_voted = -1;
+      if (this.userNestedComment.is_voted === 1) {
+        this.userNestedComment.up_votes -= 1;
+        this.userNestedComment.is_voted = 0;
+      } else if (this.userNestedComment.is_voted === 0) {
+        this.userNestedComment.is_voted = -1;
+      } else {
+        this.userNestedComment.is_voted = 0;
+      }
+      this.ncService
+        .voteComment({ nested_comment_id: this.userNestedComment.id, vote: 0 })
+        .subscribe(
+          () => {},
+          () => {
+            this.errorService.openErrorDialog('Cannot down vote');
+          },
+        );
     } else {
-      this.userNestedComment.is_voted = 0;
+      this.thumbsService.openSnackBar("You can't vote on your own reply", 'Ok');
     }
-    this.ncService
-      .voteComment({ nested_comment_id: this.userNestedComment.id, vote: 0 })
-      .subscribe(
-        () => {},
-        () => {
-          this.errorService.openErrorDialog('Cannot down vote');
-        },
-      );
-  } else {
-  this.thumbsService.openSnackBar('You can\'t vote on your own reply', 'Ok');
-}
   }
 
   onNestedCommentShowProfile(username: string) {
