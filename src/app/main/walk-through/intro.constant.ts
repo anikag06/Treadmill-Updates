@@ -78,7 +78,7 @@ export const WORRY_PRODUCTIVELY_FORM = {
     'This form presents the techniques to control your worrying. Finally, peace 😌.',
 };
 
-export const FORM_BELIEF_CHANGE = {
+export const BELIEF_CHANGE_FORM = {
   heading: 'Change a belief',
   description:
     'This form presents the techniques to change a negative belief. Your days of believing that you are stupid are numbered ✌️.',

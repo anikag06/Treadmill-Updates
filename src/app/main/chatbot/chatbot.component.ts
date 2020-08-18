@@ -13,6 +13,7 @@ import { CustomOverlayComponent } from '@/main/shared/custom-overlay/custom-over
 import { NavbarFlowDirective } from '@/main/shared/navbar/navbar-flow.directive';
 import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifications.service';
 import { CustomOverlayService } from '@/main/shared/custom-overlay/custom-overlay.service';
+import { IntroService } from '@/main/walk-through/intro.service';
 
 @Component({
   selector: 'app-chatbot',
@@ -35,6 +36,7 @@ export class ChatbotComponent implements OnInit {
     private notificationService: NavbarNotificationsService,
     private overlayService: CustomOverlayService,
     private componentFactoryResolver: ComponentFactoryResolver,
+    private introService: IntroService
   ) {}
 
   ngOnInit() {
@@ -59,7 +61,7 @@ export class ChatbotComponent implements OnInit {
     this.overlayService.showFlow = false;
     this.overlayService.showChatbot = true;
     const navbarFLowComponentFactory = this.componentFactoryResolver.resolveComponentFactory(
-      CustomOverlayComponent,
+      CustomOverlayComponent
     );
     const hostViewContainerRef = this.flowHost.viewContainerRef;
     hostViewContainerRef.clear();
@@ -72,6 +74,9 @@ export class ChatbotComponent implements OnInit {
       this.overlayService.showChatbot = false;
       this.overlayOpen = false;
     });
+    if (this.introService.getChatbotIntro()) {
+      this.introService.exitChatbotIntro();
+    }
   }
 
   updateChatWindow(event: boolean) {
@@ -81,7 +86,7 @@ export class ChatbotComponent implements OnInit {
   removingChat() {
     console.log('show flow', this.overlayService.showFlow);
     let match = false;
-    this.blacklisted.forEach(data => {
+    this.blacklisted.forEach((data) => {
       if (location.pathname.match(data)) {
         match = true;
       }

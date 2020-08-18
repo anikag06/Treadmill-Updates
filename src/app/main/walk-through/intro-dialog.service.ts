@@ -23,6 +23,7 @@ import { GameIntroComponent } from '@/main/walk-through/game-intro/game-intro.co
 import { FormIntroComponent } from '@/main/walk-through/form-intro/form-intro.component';
 import { IntroService } from '@/main/walk-through/intro.service';
 import {
+  BELIEF_CHANGE_FORM,
   EXPERIMENT_TO_TEST_BELIEF_FORM,
   GAME_ATTRIBUTION_STYLE,
   GAME_EXECUTIVE_CONTROL,
@@ -53,7 +54,7 @@ export class IntroDialogService {
       maxWidth: '340px',
       disableClose: true,
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
       this.introService.startIntro();
     });
@@ -87,7 +88,7 @@ export class IntroDialogService {
         game: game,
       },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (fromFlow) {
         this.introService.callNavBarGameIntro();
       }
@@ -107,7 +108,7 @@ export class IntroDialogService {
     } else if (name === FORM_WORRY_PRODUCTIVELY) {
       form = WORRY_PRODUCTIVELY_FORM;
     } else if (name === FORM_BELIEF_CHANGE) {
-      form = FORM_BELIEF_CHANGE;
+      form = BELIEF_CHANGE_FORM;
     }
     const dialogRef = this.dialog.open(FormIntroComponent, {
       panelClass: 'intro-dialog',
@@ -119,7 +120,7 @@ export class IntroDialogService {
         form: form,
       },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (fromFlow) {
         this.introService.callNavbarFormIntro();
       }
@@ -132,7 +133,7 @@ export class IntroDialogService {
       autoFocus: false,
       maxWidth: '340px',
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
       const dialogRef = this.dialog.open(IntroSelectTagsComponent, {
         panelClass: 'intro-tag-dialog',

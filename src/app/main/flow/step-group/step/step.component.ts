@@ -172,11 +172,7 @@ export class StepComponent implements OnInit, AfterViewInit {
         });
     }
 
-    if (
-      this.step.data_type === FORM &&
-      this.step.status !== COMPLETED &&
-      this.user.is_exp
-    ) {
+    if (this.step.data_type === FORM && this.step.status !== COMPLETED) {
       this.introService
         .showAnimation(this.step.action[0])
         .subscribe((data: any) => {
@@ -213,7 +209,7 @@ export class StepComponent implements OnInit, AfterViewInit {
       });
     }
 
-    this.markDone();
+    // this.markDone();
     if (this.step.data_type === INTRODUCTORY_ANIMATION) {
       if (this.step.name === 'Navigating TreadWill') {
         this.flowService.setFirstStepID(this.step.id);
@@ -226,10 +222,17 @@ export class StepComponent implements OnInit, AfterViewInit {
         this.introService.setIntroduceFalse();
         setTimeout(() => {
           this.introService.startBadgesIntro(this.step.status);
-        }, 1500);
+        }, 500);
+      } else if (this.step.name === 'Meet WillBot') {
+        setTimeout(() => {
+          this.introService.setChatbotIntro(true);
+          this.introService.startChatbotIntro(this.step.status, this.step.id);
+        }, 500);
       }
+      setTimeout(() => {
+        this.step.status = COMPLETED;
+      }, 1200);
 
-      this.step.status = COMPLETED;
       // this.flowService.triggerLoad();
       // setTimeout(() => this.flowService.triggerLoad(), 1);
       // setTimeout(() => this.flowService.triggerLoad(), 10);

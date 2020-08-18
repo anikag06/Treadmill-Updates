@@ -623,3 +623,15 @@ textarea{
   background-color:  #2a3b3d !important;
 }
 
+.chatbot-intro-tooltip{
+  .introjs-skipbutton {
+    display: none !important;
+  }
+  background: #FAF4EA !important;
+}
+.chatbot-intro-exit-tooltip{
+  background: #FAF4EA !important;
+  .introjs-button{
+    background: #FAF4EA !important;
+  }
+}

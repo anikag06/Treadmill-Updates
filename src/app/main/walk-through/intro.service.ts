@@ -18,8 +18,6 @@ import { StepCompleteData } from '@/main/resources/shared/completion-data.model'
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { MatExpansionPanel } from '@angular/material/expansion';
-import { AuthService } from '@/shared/auth/auth.service';
-import { User } from '@/shared/user.model';
 import { CommonService } from '@/shared/common.service';
 
 @Injectable({
@@ -39,8 +37,12 @@ export class IntroService {
   introJS = introJs();
   introJSMenu = introJs();
   introJSStart = introJs();
+  introJSChatbot = introJs();
   component: any;
   showActiveStepIntro = false;
+  showChatbotIntro = false;
+  chatbotStepID!: number;
+  chatbotStepStatus!: string;
   constructor(
     private dialog: MatDialog,
     private componentFactoryResolver: ComponentFactoryResolver,
@@ -86,7 +88,7 @@ export class IntroService {
   }
 
   startDashBoardIntro() {
-    let intro = introJs.introJs();
+    const intro = introJs.introJs();
     intro.setOptions({
       steps: [
         {
@@ -123,7 +125,7 @@ export class IntroService {
   }
 
   startActiveStepIntro() {
-    let intro = introJs.introJs();
+    const intro = introJs.introJs();
     intro.setOptions({
       steps: [
         {
@@ -161,7 +163,7 @@ export class IntroService {
   }
 
   startProgressIntro() {
-    let intro = introJs.introJs();
+    const intro = introJs.introJs();
     intro.setOptions({
       steps: [
         {
@@ -222,7 +224,7 @@ export class IntroService {
   }
 
   startGotoIntro() {
-    let intro = introJs.introJs();
+    const intro = introJs.introJs();
     intro.setOptions({
       steps: [
         {
@@ -248,7 +250,7 @@ export class IntroService {
   }
 
   startSupportGroupIntro() {
-    let intro = introJs.introJs();
+    const intro = introJs.introJs();
     intro.setOptions({
       steps: [
         {
@@ -274,7 +276,7 @@ export class IntroService {
     intro.start();
 
     intro.onexit(() => {
-      let text_support_group =
+      const text_support_group =
         '<div>You can quickly access the SupportGroup from the Navigation menu.</div>';
       if (window.innerWidth < TABLET_WIDTH) {
         this.drawer.toggle();
@@ -289,7 +291,7 @@ export class IntroService {
   }
 
   startNavbarElementIntro(element: string, text_element: string) {
-    let intro = introJs.introJs();
+    const intro = introJs.introJs();
     intro.setOptions({
       steps: [
         {
@@ -323,7 +325,7 @@ export class IntroService {
   }
 
   startBadgesIntro(status: string) {
-    let intro = introJs.introJs();
+    const intro = introJs.introJs();
     intro.setOptions({
       steps: [
         {
@@ -355,20 +357,20 @@ export class IntroService {
     });
     intro.start();
     intro.onexit((event: Event) => {
-      this.completionData.step_id = 75;
+      this.completionData.step_id = 77;
       this.completionData.time_spent = 100;
       this.setIntroduceTrue();
       if (status !== COMPLETED) {
         this.stepsDataService
           .storeCompletionData(this.completionData)
           .subscribe(() => {
-            this.showCongratsDialog();
+            this.showCongratsDialog(true);
           });
       }
     });
   }
 
-  showCongratsDialog() {
+  showCongratsDialog(fromIntro: boolean) {
     const dialogRef = this.dialog.open(CongratsDialogComponent, {
       maxWidth: '90vw',
       // width: '44%',
@@ -378,6 +380,7 @@ export class IntroService {
         isLocked: false,
         isLastStep: true,
         badgeData: this.badgeData,
+        fromIntro: fromIntro,
       },
       autoFocus: false,
     });
@@ -395,7 +398,7 @@ export class IntroService {
   }
 
   startFlowIntro() {
-    let intro = introJs.introJs();
+    const intro = introJs.introJs();
     intro.setOptions({
       steps: [
         {
@@ -450,7 +453,7 @@ export class IntroService {
   }
 
   startPointsIntro() {
-    let intro = introJs.introJs();
+    const intro = introJs.introJs();
     intro.setOptions({
       steps: [
         {
@@ -517,7 +520,7 @@ export class IntroService {
   }
 
   startNavigationIntro() {
-    let intro = introJs.introJs();
+    const intro = introJs.introJs();
     intro.setOptions({
       steps: [
         {
@@ -559,8 +562,65 @@ export class IntroService {
     });
   }
 
+  startChatbotIntro(status: string, step_id: number) {
+    this.chatbotStepID = step_id;
+    this.chatbotStepStatus = status;
+    this.introJSChatbot.setOptions({
+      steps: [
+        {
+          element: '#chatbot',
+          intro:
+            '<div class="intro-text"> Click here to find someone to talk to.</div>',
+          tooltipClass: 'chatbot-intro-tooltip',
+        },
+      ],
+      showStepNumbers: false,
+      showProgress: false,
+      showBullets: false,
+      exitOnOverlayClick: false,
+      hidePrev: true,
+      hideNext: true,
+      exitOnEsc: false,
+    });
+    this.introJSChatbot.start();
+    this.introJSChatbot.onexit(() => {
+      this.startChatbotCloseIntro();
+    });
+  }
+
+  startChatbotCloseIntro() {
+    const intro = introJs.introJs();
+    intro.setOptions({
+      steps: [
+        {
+          element: '#close_chatbot',
+          intro:
+            '<div class="intro-text"> click on \'arrow down\' when you are done chatting. </div>',
+          tooltipClass: 'chatbot-intro-exit-tooltip',
+        },
+      ],
+      showStepNumbers: false,
+      showProgress: false,
+      showBullets: false,
+      exitOnOverlayClick: false,
+      hidePrev: true,
+      disableInteraction: false,
+      hideNext: true,
+      exitOnEsc: false,
+    });
+    intro.start();
+    intro.onexit(() => {
+      this.setChatbotIntro(false);
+      if (this.chatbotStepStatus !== COMPLETED) {
+        this.completionData.step_id = this.chatbotStepID;
+        this.completionData.time_spent = 100;
+        this.stepsDataService.storeCompletionData(this.completionData);
+      }
+    });
+  }
+
   callNavbarFormIntro() {
-    let text_forms =
+    const text_forms =
       '<div class="intro-text">You can quickly access this form from the Navigation menu.</div>';
     if (window.innerWidth < TABLET_WIDTH) {
       this.toggleDrawer();
@@ -574,7 +634,7 @@ export class IntroService {
   }
 
   callNavBarGameIntro() {
-    let text_games =
+    const text_games =
       '<div class="intro-text">You can quickly access this game from the Navigation menu.</div>';
     if (window.innerWidth < TABLET_WIDTH) {
       this.toggleDrawer();
@@ -679,11 +739,23 @@ export class IntroService {
     this.introJSStart.exit();
   }
 
+  exitChatbotIntro() {
+    this.introJSChatbot.exit();
+  }
+
   destroyComponent() {
     this.component.destroy();
   }
 
   setActiveStepIntro(value: boolean) {
     this.showActiveStepIntro = value;
+  }
+
+  setChatbotIntro(value: boolean) {
+    this.showChatbotIntro = value;
+  }
+
+  getChatbotIntro() {
+    return this.showChatbotIntro;
   }
 }
