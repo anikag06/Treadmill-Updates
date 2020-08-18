@@ -47,8 +47,8 @@
    .card {
    // width: 348px;
     //flex-grow: 1;
-     max-height: 15vh;
-     min-height: 15vh;
+     height: 280px;
+     // min-height: 280px;
   }
   .show-footer-style{
     font-size: 20px;
@@ -60,8 +60,8 @@
     .card {
    // width: 25%;
      // height: 245px;
-      max-height: 18vh;
-      min-height: 18vh;
+      height: 184px;
+      // min-height: 184px;
   }
 }
 
@@ -69,8 +69,8 @@
   .card {
     // width: 25%;
     // height: 245px;
-    max-height: 28vh;
-    min-height: 28vh;
+    height: 182px;
+    // min-height: 182px;
   }
 }
 
@@ -79,8 +79,8 @@
    // width: 224px; //for 3 pics
     margin: 0px 0px 16px;
    // height: 226px;
-    max-height: 20vh;
-    min-height: 20vh;
+    height: 150px;
+    // min-height: 150px;
   }
 }
 
@@ -89,8 +89,8 @@
   .card {
   //  width: 268px;
     //height: 226px;
-    max-height: 28vh;
-    min-height: 28vh;
+    height: 150px;
+    // min-height: 150px;
   }
  }
 
@@ -98,8 +98,8 @@
    .card {
    // width: 159px;
    //height: 177px;
-     max-height: 28vh;
-     min-height: 28vh;
+     height: 150px;
+     // min-height: 150px;
   }
 
 
@@ -111,8 +111,8 @@
     margin: 0px 0px 14px;  // top right-left bottom
    // height: 186px;
     //max-height: 186px;
-    max-height: 28vh;
-    min-height: 28vh;
+    height: 160px;
+    // min-height: 160px;
   }
   .show-footer-style{
     font-size: 14px;
@@ -121,16 +121,15 @@
 }
 @media screen and (max-width: 375px) {
   .card {
-  //  width: 42vw;
-   // height: 169px;
-    //height:183.7px;
-    //max-height: 183.7px;
-    max-height: 25vh;
-    min-height: 25vh;
+    height: 150px;
     margin: 0px 0px 14px;  // top right-left bottom
   }
   .show-footer-style{
     font-size: 14px;
   }
-
+}
+@media screen and (max-width: 320px) {
+  .card {
+    height: 130px;
+  }
 }

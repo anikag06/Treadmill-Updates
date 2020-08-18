@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input, ViewChild} from '@angular/core';
 import { Game } from '@/main/shared/game.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import {
@@ -16,6 +16,7 @@ import { IntroDialogService } from '@/main/walk-through/intro-dialog.service';
 import { GamesService } from '@/main/shared/games.service';
 import { GamesProgressBarService } from '@/main/games/shared/games-progress-bar.service';
 import { GamesBar } from '@/main/shared/games-bar.model';
+import {MatTooltip} from '@angular/material';
 
 @Component({
   selector: 'app-game-item',
@@ -23,13 +24,15 @@ import { GamesBar } from '@/main/shared/games-bar.model';
   styleUrls: ['./game-item.component.scss'],
 })
 export class GameItemComponent implements OnInit {
+  started = false;
   gameStarted = false;
   gameConst = false;
   coinColor!: any;
   goldCoinShow = true;
   silverCoinShow = true;
   bronzeCoinShow = true;
-  progressInGame = 100;
+  goldIndicatorShow = false; //
+  progressInGame = 0;
   goldRatio!: number;
   silverRatio!: number;
   bronzeRatio!: number;
@@ -39,8 +42,10 @@ export class GameItemComponent implements OnInit {
   week!: string;
   completedMsg = 'Congrats! You have completed your weekly session!';
   incompleteMsg = 'We recommend you to play this once a week. Play now!';
+  gameNotStartedMsg = 'Start playing the game today!';
   @Input() game!: Game;
   @Input() gameBar!: GamesBar;
+  // @ViewChild('tooltip', {static: false}) showToolTip!: MatTooltip;
 
   constructor(
     private router: Router,
@@ -55,89 +60,41 @@ export class GameItemComponent implements OnInit {
     this.gamesProgressBarService
       .getGamesProgressInfo()
       .subscribe((object: any) => {
-        // object.forEach{
-        //   this.gameBar.push
-        // }
-
         console.log('progress bar data', object);
         if (this.game.name === 'Find a smile') {
-          this.gameBar = object.ff_game;
-          this.showPb = true;
-          console.log('ff', this.gameBar);
-          // this.calculateGold(this.gameBar.GOLD_CONSTANT);
-          // this.calculateSilver(this.gameBar.SILVER_CONSTANT, this.gameBar.GOLD_CONSTANT);
-          // this.calculateBronze(this.gameBar.BRONZE_CONSTANT, this.gameBar.GOLD_CONSTANT);
-          this.calculateCoinValues(
-            this.gameBar.GOLD_CONSTANT,
-            this.gameBar.SILVER_CONSTANT,
-            this.gameBar.BRONZE_CONSTANT,
-          );
+          this.allCalculations(object.ff_game);
           this.coinColor = '#E8C70F';
         }
+
         if (this.game.name === 'Word jumble') {
-          this.showPb = true;
-          this.gameBar = object.ib_game;
-          console.log('ib', this.gameBar);
-          this.calculateCoinValues(
-            this.gameBar.GOLD_CONSTANT,
-            this.gameBar.SILVER_CONSTANT,
-            this.gameBar.BRONZE_CONSTANT,
-          );
+          this.allCalculations(object.ib_game);
           this.coinColor = '#1977A1';
         }
         if (this.game.name === 'Sprint') {
-          this.showPb = true;
-          this.gameBar = object.ec_game;
-          console.log('ec', this.gameBar);
-          this.calculateCoinValues(
-            this.gameBar.GOLD_CONSTANT,
-            this.gameBar.SILVER_CONSTANT,
-            this.gameBar.BRONZE_CONSTANT,
-          );
+          this.allCalculations(object.ec_game);
           this.coinColor = '#853102';
         }
         if (this.game.name === 'Think positive') {
-          this.showPb = true;
-          this.gameBar = object.icd_game;
-          console.log('icd', this.gameBar);
-          this.calculateCoinValues(
-            this.gameBar.GOLD_CONSTANT,
-            this.gameBar.SILVER_CONSTANT,
-            this.gameBar.BRONZE_CONSTANT,
-          );
+          this.allCalculations(object.icd_game);
           this.coinColor = '#0C8C95';
         }
         if (this.game.name === 'Daydream') {
-          this.showPb = true;
-          this.gameBar = object.mi_game;
-          console.log('mi', this.gameBar);
-          this.calculateCoinValues(
-            this.gameBar.GOLD_CONSTANT,
-            this.gameBar.SILVER_CONSTANT,
-            this.gameBar.BRONZE_CONSTANT,
-          );
+          this.allCalculations(object.mi_game);
           this.coinColor = '#CE7F7F';
         }
         // lh
         if (this.game.name === 'Solve it') {
+          this.started = true;
           this.showPb = false;
           this.solveItStatus = object.lh_game.completed;
-          // this.gameBar = object.ff_game;
-          // console.log('ff', this.gameBar);
         }
         // asg
         if (this.game.name === 'Balloon burst') {
+          this.started = true;
           this.showPb = false;
           this.balloonBurstStatus = object.as_game.completed;
-          // this.gameBar = object.ff_game;
-          // console.log('ff', this.gameBar);
         }
-        // }
       });
-    // this.gamesService.getGamesProgressBar()
-    //   .subscribe((data) => {
-    //     console.log('games progress bar data', data);
-    //   });
   }
 
   onGameClick(game: Game) {
@@ -194,7 +151,7 @@ export class GameItemComponent implements OnInit {
     this.calculateBronze(BRONZE, GOLD);
   }
   calculateGold(GOLD: number) {
-    this.goldRatio = 89.5;
+    this.goldRatio = 89;
     if (this.progressInGame === 100) {
       this.goldCoinShow = false;
     } else {
@@ -222,4 +179,28 @@ export class GameItemComponent implements OnInit {
     }
     return this.bronzeRatio;
   }
+
+  calculateProgress(correctAnswers: number, GOLD: number) {
+    this.progressInGame = ((correctAnswers / GOLD) * 90);
+    return this.progressInGame;
+  }
+
+  allCalculations(objectData: GamesBar) {
+    this.started = false;
+    this.showPb = true;
+    this.gameBar = objectData;
+    this.calculateProgress(this.gameBar.no_of_correct_answers, this.gameBar.GOLD_CONSTANT );
+    this.calculateCoinValues(
+      this.gameBar.GOLD_CONSTANT,
+      this.gameBar.SILVER_CONSTANT,
+      this.gameBar.BRONZE_CONSTANT,
+    );
+    this.started = objectData.started;
+  }
+   // goldIndicator() {
+   //   this.goldIndicatorShow = !this.goldIndicatorShow;
+   //   console.log('gold indicator', this.goldIndicatorShow);
+   //
+   // }
+
 }

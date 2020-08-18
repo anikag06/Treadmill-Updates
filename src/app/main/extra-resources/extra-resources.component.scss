@@ -7,6 +7,8 @@
 }
 
 .see-all{
+ // float: right;
+  float: none;
   text-decoration-color: #1a77e2;
   color: #1a77e2;
   cursor: pointer;
@@ -66,15 +68,15 @@ i {
   .videos-card-hidden{
    // height: 335px;//for 1 row
     //height: 347px;
-    height: 15vh;
+    height: 296px;
   }
   .reading-card-hidden{
    // height: 449px;// for 1 row
-    height: 17vh;
+    height: 296px;
   }
   .each-item{
-     padding: 0px 16px;
-     width: 25%;
+    padding: 0px 16px 32px;
+    width: 25%;
   }
 
   .heading{
@@ -82,7 +84,12 @@ i {
     padding-left: 18px;
   }
   .see-all{
-    padding-left: 94% ;
+   // padding-left: 94% ;
+    padding-right: 1%;
+    float: right;
+  }
+  .space-below-section{
+    padding-bottom: 86px;
   }
 }
 
@@ -94,14 +101,14 @@ i {
   }
   .videos-card-hidden{
     //height: 250px;
-    height: 19vh;
+    height: 200px;
   }
   .reading-card-hidden{
    // height: 419px;// for 1 row
-    height: 22vh;
+    height: 200px;
   }
   .each-item{
-    padding: 0px 7px;
+    padding: 0px 16px 32px;
     width: 25%;
   }
 
@@ -111,17 +118,25 @@ i {
     //margin-left: 10%;
   }
   .see-all{
-    padding-left: 92% ;
+   // padding-left: 92% ;
+    padding-right: 1.5%;
+    float: right;
+  }
+  .space-below-section{
+    padding-bottom: 47px;
   }
 }
 @media screen and (width: 1366px) {
   .videos-card-hidden{
     //height: 230px;//for 1 row
-    height: 30vh;
+    height: 198px;
   }
   .reading-card-hidden{
     // height: 419px;// for 1 row
-    height: 34vh;
+    height: 198px;
+  }
+  .space-below-section{
+    padding-bottom: 47px;
   }
 }
 @media screen and (max-width: 1280px){
@@ -131,14 +146,14 @@ i {
   }
   .videos-card-hidden{
     //height: 230px;//for 1 row
-    height: 22vh;
+    height: 166px;
   }
   .reading-card-hidden{
    // height: 419px;// for 1 row
-    height: 24vh;
+    height: 166px;
   }
   .each-item{
-    padding: 0px 7px;
+    padding: 0px 10px 32px;
     width: 25%;
     //height: 5%;
   }
@@ -148,7 +163,12 @@ i {
     padding-left: 9px;
   }
   .see-all{
-    padding-left: 88% ;
+   // padding-left: 88% ;
+    padding-right: 1.5%;
+    float: right;
+  }
+  .space-below-section{
+    padding-bottom: 47px;
   }
 
 }
@@ -161,14 +181,14 @@ i {
   }
   .videos-card-hidden{
     //height: 247px;//for 1 row
-    height: 30vh;
+    height: 166px;
   }
   .reading-card-hidden{
    // height: 342px;// for 1 row
-    height: 34vh;
+    height: 166px;
   }
   .each-item{
-    padding: 0px 7px;
+    padding: 0px 7px 14px;
     width: 25%;
   }
 
@@ -178,6 +198,10 @@ i {
   }
   .see-all{
     padding-left: 90% ;
+    //padding-right: 2%;
+  }
+  .space-below-section{
+    padding-bottom: 27px;
   }
 }
 
@@ -189,16 +213,16 @@ i {
   }
   .videos-card-hidden{
    // height: 178px; //for 1 row
-    height: 30vh;
+    height: 166px;
   }
   .reading-card-hidden{
    // height: 429px;// for 1 row
-    height: 34vh;
+    height: 166px;
   }
 
 
   .each-item{
-    padding: 0px 7px;
+    padding: 0px 7px 14px;
     width: 25%;
   }
 
@@ -208,31 +232,39 @@ i {
   }
   .see-all{
     padding-left: 90% ;
+    //padding-right: 1%;
+  }
+  .space-below-section{
+    padding-bottom: 27px;
   }
 }
 
 @media screen and (max-width: 525px) {
   .resources-container{
-    padding: 0px 9px;
+    padding: 0px 9px 21px;
     margin:0px;
   }
   .heading{
     padding-left: 9px;
   }
   .each-item{
-    padding: 0px 7px;
+    padding: 0px 7px 14px;
     width: 50%;
   }
   .videos-card-hidden{
     //height: 394px;//for2 rows
-    height: 60vh;
+    height: 362px;
   }
   .reading-card-hidden{
     //height: 394px;
-    height: 64vh;
+    height: 362px;
   }
   .see-all{
     padding-left: 82% ;
+    //padding-right: 2.5%;
+  }
+  .space-below-section{
+    padding-bottom: 27px;
   }
 }
 
@@ -247,32 +279,43 @@ i {
 
   .videos-card-hidden{
    // height: 382px;//to set
-    height: 54vh;
+    height: 342px;
 
   }
   .reading-card-hidden{
   // height: 400px;
-    height: 64vh;
+    height: 322px;
   }
 
   .each-item{
-    padding: 0px 7px;
+    padding: 0px 7px 14px;
     width: 50%;
   }
 
   .see-all{
     padding-left: 80% ;
+   // padding-right: 2.5%;
+  }
+  .space-below-section{
+    padding-bottom: 27px;
   }
 }
 @media screen and (max-width: 320px) {
   .videos-card-hidden{
     // height: 382px;//to set
-    height: 54vh;
+    height: 302px;
 
   }
   .reading-card-hidden{
     // height: 400px;
-    height: 58vh;
+    height: 302px;
+  }
+  .see-all {
+    padding-left: 80% ;
+    //padding-right: 2.5%;
+  }
+  .space-below-section{
+    padding-bottom: 27px;
   }
 }
 

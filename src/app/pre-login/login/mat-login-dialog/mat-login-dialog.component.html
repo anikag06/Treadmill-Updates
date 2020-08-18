@@ -5,15 +5,14 @@
   *ngIf="showForm else loader"
   class="login-form">
 
-  <div
-    class="flex-row-reverse"
-    mat-dialog-actions>
+
     <mat-icon
       (click)="onCloseClick()"
+      style = "float: right"
       class="cursor-hand">
         close
     </mat-icon>
-  </div>
+
 
   <div *ngIf = "!recoverUsernameShow && !recoverPasswordShow" class="input-container text-center">
     <div class = "heading d-flex justify-content-center" ><div class = "heading">Login</div></div>

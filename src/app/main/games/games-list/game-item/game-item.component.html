@@ -6,7 +6,7 @@
   <mat-card-footer class = "footer-style">
 <!--    [style.background-color]="getFooterColor(game.slug)" style="height:57px;"-->
     <p class="name-style" >{{game.name}}<img src = "assets/games/green_tick.svg" alt = "tick" style="padding-left: 200px;" *ngIf = "(game.name === 'Solve it' && solveItStatus)"><img src = "assets/games/green_tick.svg" alt = "tick" style="padding-left: 150px;" *ngIf = "(game.name === 'Balloon burst' && balloonBurstStatus)"> </p>
-    <div class = "d-flex justify-content-center progress-bar-div" *ngIf = "showPb === true; else noPbGame" >
+    <div class = "d-flex justify-content-center progress-bar-div" *ngIf = "showPb === true && this.started === true; else noPbGame" >
      <p class = "this-week-text">{{this.gameBar.week_start | date : 'd MMM'}} - {{this.gameBar.week_end | date : 'd MMM'}}</p>
 
     <mat-progress-bar
@@ -23,22 +23,17 @@
       [class.ff-progress-bar-style] = "game.slug === 'GAME-FRIENDLY-FACE'"
       [class.mi-progress-bar-style] = "game.slug ===  'GAME-MENTAL-IMAGERY'" >
     </mat-progress-bar>
-    <img *ngIf = "this.goldCoinShow" src = "assets/games/Gold%20badge%20symbol.svg" alt = "gold" class = "gold-coin" [style.left.%] =  this.goldRatio >
-    <img *ngIf = "this.silverCoinShow" src = "assets/games/Silver%20badge%20symbol.svg" alt = "silver" class = "silver-coin" [style.left.%] = this.silverRatio >
-    <img *ngIf = "this.bronzeCoinShow" src = "assets/games/Bronze%20badge%20symbol.svg" alt = "bronze" class = "bronze-coin" [style.left.%] = this.bronzeRatio >
-    <span class = "dot" *ngIf = !this.goldCoinShow [style.left.%] =  this.goldRatio [style.background-color] = "this.coinColor"></span>
-    <span class = "dot" *ngIf = !this.silverCoinShow [style.left.%] = this.silverRatio [style.background-color] = "this.coinColor"></span>
-    <span class = "dot" *ngIf = !this.bronzeCoinShow [style.left.%] = this.bronzeRatio [style.background-color] = "this.coinColor"></span>
+    <img *ngIf = "this.goldCoinShow" src = "assets/games/Gold%20badge%20symbol.svg" alt = "gold" class = "gold-coin" [style.left.%] =  this.goldRatio  matTooltip="Gold Badge"  >
+    <img *ngIf = "this.silverCoinShow" src = "assets/games/Silver%20badge%20symbol.svg" alt = "silver" class = "silver-coin" [style.left.%] = this.silverRatio matTooltip="Silver Badge">
+    <img *ngIf = "this.bronzeCoinShow" src = "assets/games/Bronze%20badge%20symbol.svg" alt = "bronze" class = "bronze-coin" [style.left.%] = this.bronzeRatio matTooltip="Bronze Badge">
+    <span class = "dot" *ngIf = !this.goldCoinShow [style.left.%] =  this.goldRatio [style.background-color] = "this.coinColor" matTooltip="Gold Badge"></span>
+    <span class = "dot" *ngIf = !this.silverCoinShow [style.left.%] = this.silverRatio [style.background-color] = "this.coinColor" matTooltip="Silver Badge"></span>
+    <span class = "dot" *ngIf = !this.bronzeCoinShow [style.left.%] = this.bronzeRatio [style.background-color] = "this.coinColor" matTooltip="Bronze Badge"></span>
     </div>
-
-
-
-      <!--  [class.lh-progress-bar-style] = "game.slug ===  'GAME-LEARNED-HELPLESSNESS'"-->
-      <!--[class.asg-progress-bar-style] = "game.slug === 'GAME-ATTRIBUTION-STYLE'"-->
-
-
   </mat-card-footer>
 </mat-card>
+
+
 <ng-template #noPbGame>
   <div class = "d-flex no-pb-game-div" *ngIf = "game.name === 'Balloon burst'">
   <p *ngIf = balloonBurstStatus>{{completedMsg}}</p>
@@ -48,7 +43,11 @@
     <p *ngIf = solveItStatus>{{completedMsg}}</p>
     <p *ngIf = !solveItStatus>{{incompleteMsg}}</p>
   </div>
+  <div class = "d-flex not-started-msg" *ngIf ="this.started === false">
+    <p>{{gameNotStartedMsg}}</p>
+  </div>
 
 </ng-template>
+
 
 

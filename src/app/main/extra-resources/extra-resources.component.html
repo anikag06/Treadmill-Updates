@@ -1,50 +1,30 @@
 
 <div class="container resources-container"  *ngIf="outlet.isActivated == false">
-
-
-<!--  <div *ngIf = "countMindfulVideoItem > 4">-->
-<!--    <a  (click) = "changeMindfulnessVideoState()"  class = "see-all " *ngIf = "showMindfulnessVideoState == false; else mindfulVideoSeeLess"><i class = "arrow down" ></i><img src = "src/assets/icons/arrow.svg">&nbsp; See all </a>-->
-<!--  </div>-->
-
-
   <div class="row">
     <div class="col">
-
-
-
       <p class="heading">Mindfulness Videos</p>
-
     </div>
   </div>
-  <div class = "videos-section">
+  <div class = "space-below-section">
     <div [ngClass] = "showMindfulnessVideoState == true? 'show-all-cards': 'videos-card-hidden'">
       <div class="row no-gutters ">
-
-
         <div class="each-item" *ngFor = "let mindfulnessVideoItem of mindfulnessVideoItems" >
-
-
           <app-videos [mindfulnessVideoItem]="mindfulnessVideoItem"  videoType= 'mindfulnessVideo' (click) = "mindfulnessVideoClick(mindfulnessVideoItem)"></app-videos>
-
         </div>
-
       </div>
     </div>
-  </div>
+
   <div *ngIf = "countMindfulVideoItem > 4">
     <a  (click) = "changeMindfulnessVideoState()"  class = "see-all " *ngIf = "showMindfulnessVideoState == false; else mindfulVideoSeeLess"><img src = "assets/icons/arrow.svg">&nbsp; See all </a>
   </div>
+  </div>
 
   <div class="row">
     <div class="col">
-
-
-
      <p class="heading">Videos</p>
-
     </div>
   </div>
-  <div class = "videos-section">
+  <div class = "space-below-section">
   <div [ngClass] = "showVideoState == true? 'show-all-cards': 'videos-card-hidden'">
   <div class="row no-gutters ">
 
@@ -58,24 +38,19 @@
 
   </div>
   </div>
-  </div>
   <div *ngIf = "countVideoItem > 4">
-<!--  <div class = "row">-->
-<!--    <div class = "col">-->
-<!--      <div class = "d-flex  ">-->
       <a  (click) = "changeVideoState()"  class = "see-all " *ngIf = "showVideoState == false; else videoSeeLess"><img src = "assets/icons/arrow.svg">&nbsp; See all </a>
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
+  </div>
   </div>
 
 
 
   <div class="row">
-    <div class="col reading-heading-col">
+    <div class="col">
       <p class="heading">Reading Material</p>
     </div>
   </div>
+  <div class = "space-below-section">
   <div [ngClass] = "showReadingMaterialState==true? 'show-all-cards': 'reading-card-hidden'">
   <div class="row no-gutters">
     <div class="each-item" *ngFor = "let readingItem of readingItems" >
@@ -91,13 +66,7 @@
 
 
   <div *ngIf = "countReadingItem > 2">
-  <div class = "row">
-    <div class = "col">
-     <div class = "d-flex">
-       <a  (click) = "changeReadingMaterialState()" class = "see-all" *ngIf = "showReadingMaterialState == false; else readingMaterialSeeLess"><img src = "assets/icons/arrow.svg"><img src = "src/assets/icons/arrow.svg">&nbsp;See all</a>
-     </div>
-
-    </div>
+       <a  (click) = "changeReadingMaterialState()" class = "see-all" *ngIf = "showReadingMaterialState == false; else readingMaterialSeeLess"><img src = "assets/icons/arrow.svg">&nbsp;See all</a>
   </div>
   </div>
 
