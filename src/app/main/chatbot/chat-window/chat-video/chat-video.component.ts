@@ -20,15 +20,7 @@ export class ChatVideoComponent implements OnInit {
   @Input() videoUrl!: string;
   @ViewChild('video', { static: false }) iframeRef!: ElementRef;
   dataLoaded = false;
-  constructor(
-    private dialog: MatDialog,
-    private element: ElementRef,
-    private renderer: Renderer2,
-  ) {
-    this.renderer.listen(this.iframeRef.nativeElement, 'load', () => {
-      this.dataLoaded = true;
-    });
-  }
+  constructor(private dialog: MatDialog, private element: ElementRef) {}
 
   videoPlayer!: any;
   srcWidth!: any;
