@@ -47,6 +47,7 @@ import { ThoughtRecordFormComponent } from '@/main/resources/forms/thought-recor
 import { WorryProductivelyComponent } from '@/main/resources/forms/worry-productively-form/worry-productively.component';
 import { FlowService } from '@/main/flow/flow.service';
 import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
+import {CommonService} from '@/shared/common.service';
 
 @Component({
   selector: 'app-slides',
@@ -100,6 +101,7 @@ export class SlidesComponent implements OnInit, AfterContentInit {
     private _bottomSheet: MatBottomSheet,
     private flowService: FlowService,
     private goToService: NavbarGoToService,
+    private commonService: CommonService,
   ) {}
 
   slide!: Slide;
@@ -323,6 +325,10 @@ export class SlidesComponent implements OnInit, AfterContentInit {
       .subscribe(data => {
         this.showNextStepBtn = true;
         this.showloading = false;
+        this.commonService.postScore(50)
+          .subscribe(() => {
+            console.log('score');
+          });
       });
   }
   onNextStepClick() {
