@@ -8,12 +8,14 @@
               Conclusion
             </mat-card-title>
           </mat-card-header>
-  <div class="px-3 px-lg-4 pt-3 main-div">
-  <div>
+  <div class="px-3 px-lg-4 pt-4 main-div">
+  <div class="congrats-text">
     Congratulations! You have completed the <span class="emphasis">{{moduleName}}</span> module.
+  </div>
     <br>
+    <div class="text-para">
     In this module:
-    <ul>
+    <ul >
       <li>
         you have learned how to change your behavior to change how you feel.
       </li>
@@ -22,7 +24,7 @@
       </li>
     </ul>
   </div>
-  <div *ngIf="tasks?.length > 0">
+  <div class="text-para" *ngIf="tasks?.length > 0">
     You have committed to do the following tasks:
     <ul>
       <li *ngFor="let task of tasks">
@@ -30,21 +32,22 @@
       </li>
     </ul>
   </div>
-  <div>
-    You can set new tasks for yourself and see all your created tasks at: <a routerLink="{{taskFormLink}}">Task
-      form</a>
-  </div>
-  <div>
-    Doing these tasks will give you a sense of joy and control in your life.
     <br>
+  <div class="text-para">
+   <p> You can set new tasks for yourself and see all your created tasks at: <a routerLink="{{taskFormLink}}">Task
+      form</a> </p>
+  </div>
+  <div class="text-para">
+    <p>Doing these tasks will give you a sense of joy and control in your life.</p>
+    <p>
     Give yourself credit for even trying to do something. Remember that being in depression is like carrying an extra
     load of 50 KGs. So, doing even the simplest tasks require a lot of effort and willpower. If you are doing anything
     other than lying on your bed having the same negative thoughts again and again, give yourself credit.
-    <br>
+    </p>
   </div>
 
   <app-evaluate-mood [moodEvaluate]="moodEvaluate"></app-evaluate-mood>
-  <div *ngIf="!moodEvaluate">
+  <div class="text-para" *ngIf="!moodEvaluate">
     In the next module, <span class="emphasis">{{nextModuleName}}</span>, you will learn how to change your thinking
     style.
 
