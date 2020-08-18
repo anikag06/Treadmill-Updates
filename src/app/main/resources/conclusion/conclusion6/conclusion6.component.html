@@ -9,12 +9,12 @@
             </mat-card-title>
           </mat-card-header>
   <div class="px-3 px-lg-4 pt-4 main-div">
-  <div>
+  <div  class="congrats-text">
     Congratulations! You have completed the <span class="emphasis">{{moduleName}}</span> module and TreadWill.
   </div>
-  <div>
+  <div  class="text-para">
     In TreadWill, you have learned all the skills to feel better. But, just knowing how to feel better wouldn’t make you feel better. You need to keep practicing the skills.
-    <br><br>
+    <\br>
     <ul>
       <li>
         Keep revisiting the modules from time to time.
@@ -32,14 +32,13 @@
         Keep using the SupportGroup to interact with other TreadWill users.
       </li>
     </ul>
-    <br><br>
     Bye for now!
   </div>
 
   <app-evaluate-mood [moodEvaluate]="moodEvaluate"></app-evaluate-mood>
 
   <div *ngIf="!moodEvaluate">
-    <div>
+    <div  class="text-para">
       In the next module, <span class="emphasis">{{nextModuleName}}</span>, you'll learn how to keep using the techniques
       you have learned over the previous modules to maintain a state of positive mood.
     </div>

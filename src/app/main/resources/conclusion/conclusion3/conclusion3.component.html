@@ -12,6 +12,7 @@
     <div class="congrats-text">
       Congratulations! You have completed the <span class="emphasis">{{moduleName}}</span> module.
     </div>
+    <br>
   <div class="text-para">
     In this module you learned:
     <ul>
@@ -20,7 +21,7 @@
       <li>how to evaluate your negative thought for their validity and how to come up with more balanced thoughts</li>
     </ul>
   </div>
-  <div *ngIf="balancedThought">
+  <div class="text-para" *ngIf="balancedThought">
     Following the upsetting situation: {{ upsettingSituation }}
     <br>
     You had the negative thought: {{ negativeThought }}
@@ -31,18 +32,17 @@
     You can find all the evaluations of your negative thoughts here: <a routerLink="{{thoughtRecordFormLink}}">Thought
       record form</a>
   </div>
-  <div>
-    From now on, whenever you face an upsetting situation or you notice your mood is going down, identify the negative
-    thought and evaluate it using the <a routerLink="{{thoughtRecordFormLink}}">Thought record form</a>
+  <div class="text-para">
+    <p>From now on, whenever you face an upsetting situation or you notice your mood is going down, identify the negative
+      thought and evaluate it using the <a routerLink="{{thoughtRecordFormLink}}">Thought record form</a></p>
+
+    <p>Initially, you’ll need to be vigilant of your negative thoughts and evaluate them. After you do this for a while,
+      your thinking habit will change and you’ll start evaluating your thought automatically.</p>
   </div>
-  <div>
-    Initially, you’ll need to be vigilant of your negative thoughts and evaluate them. After you do this for a while,
-    your thinking habit will change and you’ll start evaluating your thought automatically.
-  </div>
-  <div>
+  <div class="text-para">
     Make a commitment now. How many thoughts would you like to evaluate the next week?
     <br>
-    <mat-form-field>
+    <mat-form-field class="py-3">
       <mat-select [(value)]="commitment">
         <mat-option *ngFor="let option of options" [value]="option">{{option}}</mat-option>
       </mat-select>
@@ -51,14 +51,16 @@
     <div *ngIf="commitment">
       Great 👍!
     </div>
+    <br>
   </div>
-  <div>
+  <div class="text-para">
+    <p>
     If you are facing a problem that can't be solved by changing your thinking style, you can use the <a
-      routerLink="{{problemSolvingFormLink}}">Problem solving form</a>
+      routerLink="{{problemSolvingFormLink}}">Problem solving form</a> </p>
   </div>
   <app-evaluate-mood [moodEvaluate]="moodEvaluate"></app-evaluate-mood>
   <div *ngIf="!moodEvaluate">
-    <div>
+    <div class="text-para">
     Do you ever wonder why different people have different thoughts following the same situation? You’ll learn that in
     the next module <span class="emphasis">{{nextModuleName}}</span>.
   </div>
