@@ -34,7 +34,6 @@ a {
   }
 }
 .text-para {
-  //opacity: 0.6;
   color: rgba(0,0,0,0.6);
 }
 .completed-btn {
@@ -45,6 +44,13 @@ a {
   text-align: center;
   justify-content: center;
   margin: 16px 0;
+}
+.mat-form-field {
+  .mat-form-field-flex {
+    .mat-form-field-infix {
+      border-top: 0px !important;
+    }
+  }
 }
 @media screen and (max-width: 767px) {
 

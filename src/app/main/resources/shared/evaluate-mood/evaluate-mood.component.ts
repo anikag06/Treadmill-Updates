@@ -13,6 +13,7 @@ export class EvaluateMoodComponent implements OnInit {
   conclusionServiceSub!: Subscription;
   showQuestionnaire!: boolean;
   @Input() moodEvaluate!: boolean;
+  @Input() fromConclusion!: boolean;
 
   constructor(
     private conclusionService: ConclusionService,

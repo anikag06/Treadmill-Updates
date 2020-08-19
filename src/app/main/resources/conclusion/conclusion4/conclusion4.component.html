@@ -8,35 +8,39 @@
               Conclusion
             </mat-card-title>
           </mat-card-header>
-  <div class="px-3 px-lg-4 pt-3 main-div">
-  <div>
+  <div class="px-3 px-lg-4 pt-4 main-div">
+  <div class="congrats-text">
     Congratulations! You have completed the <span class="emphasis">{{moduleName}}</span> module.
   </div>
-  <div *ngIf="balancedBelief">
-    You identified this belief that made you vulnerable to negative thinking: {{ negativeBelief }}
-    <br>
-    After evaluating the belief using the <a routerLink="{{beliefChangeFormLink}}">Belief change form</a>, you came up
+  <br>
+  <div *ngIf="balancedBelief" class="text-para">
+    <p>You identified this belief that made you vulnerable to negative thinking: {{ negativeBelief }}
+    </p>
+    <p>After evaluating the belief using the <a routerLink="{{beliefChangeFormLink}}">Belief change form</a>, you came up
     with the balanced belief: {{ balancedBelief }}
-    <br>
+    </p>
     This balanced belief makes you less vulnerable to negative thinking in the long term.
-    <br>
+    <p>
     You can find all your work on your beliefs here: <a routerLink="{{beliefChangeFormLink}}">Belief change form</a>
+    </p>
   </div>
-  <div>
-    From now on, whenever you identify a negative thought, use the downward arrow technique in the <a
+  <div class="text-para">
+    <p>From now on, whenever you identify a negative thought, use the downward arrow technique in the <a
       routerLink="{{beliefChangeFormLink}}">Belief change form</a> to identify the negative belief. You'll realize that
     many of your negative thought arise from a set of few beliefs and mantras. Identify these beliefs and modify them
-    using the techniques you have learned in this module.
-    <br>
+      using the techniques you have learned in this module.</p>
+    <p>
     To test the validity of your beliefs, you can use the <a routerLink="{{experimentToTestBeliefFormLink}}">Experiment
       to test belief form</a>
+    </p>
   </div>
-  <div>
-    As you have held these beliefs for a long time, it will take time for you to modify the beliefs. You'll have to use
+  <div class="text-para">
+   <p>As you have held these beliefs for a long time, it will take time for you to modify the beliefs. You'll have to use
     different techniques to modify the same belief. It will help you look at the same belief from different points of
     view. Eventually, you'll develop a more realistic and healthy belief system.
+   </p>
   </div>
-  <div>
+  <div class="text-para">
     Make a commitment now. How many times would you like to work on a belief over the next week?
     <br>
     <mat-form-field>
@@ -51,10 +55,10 @@
   </div>
 
 
-  <app-evaluate-mood [moodEvaluate]="moodEvaluate"></app-evaluate-mood>
+  <app-evaluate-mood [moodEvaluate]="moodEvaluate" [fromConclusion] ="true"></app-evaluate-mood>
 
   <div *ngIf="!moodEvaluate">
-  <div>
+  <div class="text-para">
     In the next module, <span class="emphasis">{{nextModuleName}}</span>, you will learn how to control excessive
     worrying. See you there.
   </div>

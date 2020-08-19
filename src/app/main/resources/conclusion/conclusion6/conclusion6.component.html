@@ -12,9 +12,10 @@
   <div  class="congrats-text">
     Congratulations! You have completed the <span class="emphasis">{{moduleName}}</span> module and TreadWill.
   </div>
+    <br>
   <div  class="text-para">
     In TreadWill, you have learned all the skills to feel better. But, just knowing how to feel better wouldn’t make you feel better. You need to keep practicing the skills.
-    <\br>
+    <br>
     <ul>
       <li>
         Keep revisiting the modules from time to time.
@@ -35,7 +36,7 @@
     Bye for now!
   </div>
 
-  <app-evaluate-mood [moodEvaluate]="moodEvaluate"></app-evaluate-mood>
+  <app-evaluate-mood [moodEvaluate]="moodEvaluate" [fromConclusion] ="true"></app-evaluate-mood>
 
   <div *ngIf="!moodEvaluate">
     <div  class="text-para">

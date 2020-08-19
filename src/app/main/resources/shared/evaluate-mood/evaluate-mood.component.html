@@ -1,6 +1,6 @@
 <div class="row mx-0 py-3" *ngIf="moodEvaluate" >
   <h6>Evaluate your mood</h6>
-  <p>
+  <p [ngStyle]="{color:fromConclusion? 'rgba(0,0,0,0.6)': ''}">
     Before finishing this step, please fill the PHQ-9 and GAD-7 questionnaires to let us know how you are doing.
     It'll help us test the effectiveness of TreadWill, and it won't take you more than 4-minutes.
   </p>

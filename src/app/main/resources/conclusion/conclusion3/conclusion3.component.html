@@ -42,7 +42,7 @@
   <div class="text-para">
     Make a commitment now. How many thoughts would you like to evaluate the next week?
     <br>
-    <mat-form-field class="py-3">
+    <mat-form-field>
       <mat-select [(value)]="commitment">
         <mat-option *ngFor="let option of options" [value]="option">{{option}}</mat-option>
       </mat-select>
@@ -51,14 +51,14 @@
     <div *ngIf="commitment">
       Great 👍!
     </div>
-    <br>
   </div>
+    <br>
   <div class="text-para">
     <p>
     If you are facing a problem that can't be solved by changing your thinking style, you can use the <a
       routerLink="{{problemSolvingFormLink}}">Problem solving form</a> </p>
   </div>
-  <app-evaluate-mood [moodEvaluate]="moodEvaluate"></app-evaluate-mood>
+  <app-evaluate-mood [moodEvaluate]="moodEvaluate" [fromConclusion] ="true"></app-evaluate-mood>
   <div *ngIf="!moodEvaluate">
     <div class="text-para">
     Do you ever wonder why different people have different thoughts following the same situation? You’ll learn that in
