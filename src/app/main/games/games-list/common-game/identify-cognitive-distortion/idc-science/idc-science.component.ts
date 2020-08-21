@@ -1,11 +1,11 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 
 @Component({
-  selector: 'app-ibg-science',
-  templateUrl: './ibg-science.component.html',
-  styleUrls: ['./ibg-science.component.scss'],
+  selector: 'app-idc-science',
+  templateUrl: './idc-science.component.html',
+  styleUrls: ['./idc-science.component.scss'],
 })
-export class IbgScienceComponent implements OnInit {
+export class IdcScienceComponent implements OnInit {
   constructor(private elementRef: ElementRef) {}
 
   ngOnInit() {}

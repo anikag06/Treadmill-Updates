@@ -10,7 +10,7 @@ export class FfgScienceComponent implements OnInit {
 
   ngOnInit() {}
 
-  onclose() {
+  onClose() {
     const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });
     this.elementRef.nativeElement.dispatchEvent(domEvent);
   }

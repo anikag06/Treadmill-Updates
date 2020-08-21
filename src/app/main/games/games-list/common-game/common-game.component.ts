@@ -8,19 +8,12 @@ import {
 } from '@angular/core';
 import { GamePlayService } from '../../shared/game-play.service';
 import { GamesService } from '@/main/shared/games.service';
-import {
-  Router,
-  ActivatedRoute,
-  RouterEvent,
-  NavigationStart,
-} from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Game } from '@/main/shared/game.model';
-import { map, switchMap, filter } from 'rxjs/operators';
-import { Subscription, Observable } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 import { Location } from '@angular/common';
-import { GamesAuthService } from '../../shared/games-auth.service';
 import { MentalImageryComponent } from './mental-imagery/mental-imagery.component';
-import { Overlay } from '@angular/cdk/overlay';
 import {
   EXECUTIVE_CONTROL_GAME,
   INTERPRETATION_BIAS_GAME,
@@ -31,7 +24,6 @@ import {
   IDENTIFY_COGNITIVE_DISTORTION_GAME,
 } from '@/app.constants';
 import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
-import { IbGameInstructionsComponent } from './interpretation-bias-game/ib-game-instructions/ib-game-instructions.component';
 import { ExecControlInstructionsComponent } from './executive-control-game/exec-control-instructions/exec-control-instructions.component';
 import { MIPlayService } from './mental-imagery/mi-play.service';
 import { EcgScienceComponent } from './executive-control-game/ecg-science/ecg-science.component';
@@ -40,6 +32,7 @@ import { AsgScienceComponent } from './attribute-style-game/asg-science/asg-scie
 import { MigScienceComponent } from './mental-imagery/mig-science/mig-science.component';
 import { FfgScienceComponent } from './friendly-face-game/ffg-science/ffg-science.component';
 import { LhgScienceComponent } from './learned-helplessness-game/lhg-science/lhg-science.component';
+import { IdcScienceComponent } from './identify-cognitive-distortion/idc-science/idc-science.component';
 import { IdentifyCognitiveDistortionComponent } from './identify-cognitive-distortion/identify-cognitive-distortion.component';
 import { LhgHowtoplayComponent } from './learned-helplessness-game/lhg-howtoplay/lhg-howtoplay.component';
 import { IdcGameService } from './identify-cognitive-distortion/idc-game.service';
@@ -379,6 +372,8 @@ export class CommonGameComponent implements OnInit {
       this.dialogBoxService.setDialogChild(FfgScienceComponent);
     } else if (this.gameName === MENTAL_IMAGERY_GAME) {
       this.dialogBoxService.setDialogChild(MigScienceComponent);
+    } else if (this.gameName === IDENTIFY_COGNITIVE_DISTORTION_GAME) {
+      this.dialogBoxService.setDialogChild(IdcScienceComponent);
     }
     const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
     this.pauseBtnElement.nativeElement.dispatchEvent(domEvent);
