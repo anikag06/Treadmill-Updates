@@ -9,14 +9,18 @@ import {
   GAME_LEARNED_HELPLESSNESS_CONSTANT,
   GAME_IDENTIFY_COGNITIVE_DISTORTION_CONSTANT,
   GAME_EXECUTIVE_CONTROL_CONSTANT,
-  FORM_TASK,
+  INTERPRETATION_BIAS_GAME,
+  EXECUTIVE_CONTROL_GAME,
+  FRIENDLY_FACE_GAME,
+  LEARNED_HELPLESSNESS_GAME,
+  ATTRIBUTE_STYLE_GAME,
+  MENTAL_IMAGERY_GAME,
+  IDENTIFY_COGNITIVE_DISTORTION_GAME,
 } from '@/app.constants';
 import { IntroService } from '@/main/walk-through/intro.service';
 import { IntroDialogService } from '@/main/walk-through/intro-dialog.service';
-import { GamesService } from '@/main/shared/games.service';
 import { GamesProgressBarService } from '@/main/games/shared/games-progress-bar.service';
 import { GamesBar } from '@/main/shared/games-bar.model';
-import { MatTooltip } from '@angular/material';
 
 @Component({
   selector: 'app-game-item',
@@ -26,12 +30,10 @@ import { MatTooltip } from '@angular/material';
 export class GameItemComponent implements OnInit {
   started = false;
   gameStarted = false;
-  gameConst = false;
   coinColor!: any;
   goldCoinShow = true;
   silverCoinShow = true;
   bronzeCoinShow = true;
-  goldIndicatorShow = false; //
   progressInGame = 0;
   goldRatio!: number;
   silverRatio!: number;
@@ -40,19 +42,17 @@ export class GameItemComponent implements OnInit {
   solveItStatus!: boolean;
   balloonBurstStatus!: boolean;
   week!: string;
-  completedMsg = 'Congrats! You have completed your weekly session!';
-  incompleteMsg = 'We recommend you to play this once a week. Play now!';
-  gameNotStartedMsg = 'Start playing the game today!';
+  gameNotStartedMsg = 'Start playing this game today!';
+  completedMsg = 'Congrats! You have completed this game!';
+  incompleteMsg = 'Start playing this game today!';
   @Input() game!: Game;
   @Input() gameBar!: GamesBar;
-  // @ViewChild('tooltip', {static: false}) showToolTip!: MatTooltip;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private introService: IntroService,
     private introDialogService: IntroDialogService,
-    private gamesService: GamesService,
     private gamesProgressBarService: GamesProgressBarService,
   ) {}
 
@@ -61,35 +61,35 @@ export class GameItemComponent implements OnInit {
       .getGamesProgressInfo()
       .subscribe((object: any) => {
         console.log('progress bar data', object);
-        if (this.game.name === 'Find a smile') {
+        if (this.game.name === FRIENDLY_FACE_GAME) {
           this.allCalculations(object.ff_game);
           this.coinColor = '#E8C70F';
         }
 
-        if (this.game.name === 'Word jumble') {
+        if (this.game.name === INTERPRETATION_BIAS_GAME) {
           this.allCalculations(object.ib_game);
           this.coinColor = '#1977A1';
         }
-        if (this.game.name === 'Sprint') {
+        if (this.game.name === EXECUTIVE_CONTROL_GAME) {
           this.allCalculations(object.ec_game);
           this.coinColor = '#853102';
         }
-        if (this.game.name === 'Think positive') {
+        if (this.game.name === IDENTIFY_COGNITIVE_DISTORTION_GAME) {
           this.allCalculations(object.icd_game);
           this.coinColor = '#0C8C95';
         }
-        if (this.game.name === 'Daydream') {
+        if (this.game.name === MENTAL_IMAGERY_GAME) {
           this.allCalculations(object.mi_game);
           this.coinColor = '#CE7F7F';
         }
         // lh
-        if (this.game.name === 'Solve it') {
+        if (this.game.name === LEARNED_HELPLESSNESS_GAME) {
           this.started = true;
           this.showPb = false;
           this.solveItStatus = object.lh_game.completed;
         }
         // asg
-        if (this.game.name === 'Balloon burst') {
+        if (this.game.name === ATTRIBUTE_STYLE_GAME) {
           this.started = true;
           this.showPb = false;
           this.balloonBurstStatus = object.as_game.completed;
@@ -200,9 +200,12 @@ export class GameItemComponent implements OnInit {
     );
     this.started = objectData.started;
   }
-  // goldIndicator() {
-  //   this.goldIndicatorShow = !this.goldIndicatorShow;
-  //   console.log('gold indicator', this.goldIndicatorShow);
-  //
-  // }
+
+  isLHGame() {
+    return this.game.name === LEARNED_HELPLESSNESS_GAME;
+  }
+
+  isASGame() {
+    return this.game.name === ATTRIBUTE_STYLE_GAME;
+  }
 }

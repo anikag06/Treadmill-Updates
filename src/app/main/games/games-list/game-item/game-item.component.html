@@ -5,7 +5,7 @@
 
   <mat-card-footer class = "footer-style">
 <!--    [style.background-color]="getFooterColor(game.slug)" style="height:57px;"-->
-    <p class="name-style" >{{game.name}}<img src = "assets/games/green_tick.svg" alt = "tick" style="padding-left: 200px;" *ngIf = "(game.name === 'Solve it' && solveItStatus)"><img src = "assets/games/green_tick.svg" alt = "tick" style="padding-left: 150px;" *ngIf = "(game.name === 'Balloon burst' && balloonBurstStatus)"> </p>
+    <p class="name-style" >{{game.name}}<img src = "assets/games/green_tick.svg" alt = "tick" style="padding-left: 200px;" *ngIf = "solveItStatus"><img src = "assets/games/green_tick.svg" alt = "tick" style="padding-left: 150px;" *ngIf = "balloonBurstStatus"> </p>
     <div class = "d-flex justify-content-center progress-bar-div" *ngIf = "showPb === true && this.started === true; else noPbGame" >
      <p class = "this-week-text">{{this.gameBar.week_start | date : 'd MMM'}} - {{this.gameBar.week_end | date : 'd MMM'}}</p>
 
@@ -35,11 +35,11 @@
 
 
 <ng-template #noPbGame>
-  <div class = "d-flex no-pb-game-div" *ngIf = "game.name === 'Balloon burst'">
+  <div class = "d-flex no-pb-game-div" *ngIf = isASGame()>
   <p *ngIf = balloonBurstStatus>{{completedMsg}}</p>
   <p *ngIf = !balloonBurstStatus>{{incompleteMsg}}</p>
   </div>
-  <div class = "d-flex no-pb-game-div" *ngIf = "game.name === 'Solve it'">
+  <div class = "d-flex no-pb-game-div" *ngIf = isLHGame()>
     <p *ngIf = solveItStatus>{{completedMsg}}</p>
     <p *ngIf = !solveItStatus>{{incompleteMsg}}</p>
   </div>
