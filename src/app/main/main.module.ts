@@ -181,6 +181,7 @@ import { ReportProblemComponent } from './support-groups/post-list/shared/report
 import { ThankComponent } from './support-groups/post-list/shared/thank/thank.component';
 import { ReportService } from '@/main/support-groups/post-list/shared/report.service';
 import { GamesProgressBarService } from '@/main/games/shared/games-progress-bar.service';
+import { IdcScienceComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-science/idc-science.component';
 
 // import { Resources2Routing } from './extra-resources/extra-resources-routing.module.ts/extra-resources-routing.module.ts.component';
 
@@ -299,6 +300,7 @@ import { GamesProgressBarService } from '@/main/games/shared/games-progress-bar.
     FormIntroComponent,
     ReportProblemComponent,
     ThankComponent,
+    IdcScienceComponent,
   ],
   imports: [
     CommonModule,
