@@ -1,38 +1,32 @@
 export const TECHNIQUE_DATA = [
   {
     color: '#85E5C1',
-    name: 'Identify thinking',
+    name: 'Evaluate worry',
     description:
-      'Lorem ipsum dolor sit amet, consetetur teg sadipscing elitr, sed',
+      'Find the Thinking Errors in your worry thought, and search for evidence that suggest that your worry is unlikely to happen. That might help you realistically evaluate the probability of your worry actually occurring.',
   },
   {
     color: '#E3D87A',
-    name: 'What is the proof?',
+    name: 'Face my worst fear',
     description:
-      'Lorem ipsum dolor sit amet, consetetur teg sadipscing elitr, sed',
+      'In some cases, it might help to worry intensely for a fixed duration.',
   },
   {
     color: '#E38383',
-    name: 'Is this the only explanation?',
+    name: 'Modify beliefs',
     description:
-      'Lorem ipsum dolor sit amet, consetetur teg sadipscing elitr, sed',
+      'Sometimes, we worry due to our negative beliefs. It might be possible to modify your belief to control your worrying.',
   },
   {
     color: '#8089D9',
-    name: 'What is the worst that can happen?',
+    name: 'Can I do anything about it?',
     description:
-      'Lorem ipsum dolor sit amet, consetetur teg sadipscing elitr, sed',
+      'Can you do anything about what you are worried about? If yes, use the Solve a problem form. If no, accept it.',
   },
   {
     color: '#C788C9',
-    name: 'Does this thought help me?',
+    name: 'Deal with intense worry',
     description:
-      'Lorem ipsum dolor sit amet, consetetur teg sadipscing elitr, sed',
-  },
-  {
-    color: '#E1B998',
-    name: 'What would I tell a friend?',
-    description:
-      'Lorem ipsum dolor sit amet, consetetur teg sadipscing elitr, sed',
+      'If your worry gets very intense, it might help in the short-term to distract yourself.',
   },
 ];
