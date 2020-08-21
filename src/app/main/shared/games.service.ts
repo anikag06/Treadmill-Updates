@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Game } from './game.model';
-import { of, Observable, Observer } from 'rxjs';
+import { Observable, Observer } from 'rxjs';
 import { LocalStorageService } from '@/shared/localstorage.service';
 import {
   GAMES,
@@ -18,10 +18,8 @@ import {
   ATTRIBUTE_STYLE_GAME,
   MENTAL_IMAGERY_GAME,
   IDENTIFY_COGNITIVE_DISTORTION_GAME,
-  GAMES_PROGRESS_BAR,
 } from '@/app.constants';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -31,43 +29,36 @@ export class GamesService {
     new Game(
       INTERPRETATION_BIAS_GAME,
       '../../../assets/games/games-list/svg/Word Jumble.svg',
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.',
       GAME_INTERPRETATION_BIAS_CONSTANT,
     ),
     new Game(
       EXECUTIVE_CONTROL_GAME,
       '../../../assets/games/games-list/Executive Control Game@2x.png',
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.',
       GAME_EXECUTIVE_CONTROL_CONSTANT,
     ),
     new Game(
       LEARNED_HELPLESSNESS_GAME,
       '../../../assets/games/games-list/svg/Solve It.svg',
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.',
       GAME_LEARNED_HELPLESSNESS_CONSTANT,
     ),
     new Game(
       IDENTIFY_COGNITIVE_DISTORTION_GAME,
       '../../../assets/games/games-list/svg/Thinking errors.svg',
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.',
       GAME_IDENTIFY_COGNITIVE_DISTORTION_CONSTANT,
     ),
     new Game(
       ATTRIBUTE_STYLE_GAME,
       '../../../assets/games/games-list/svg/Balloon Burst.svg',
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.',
       GAME_ATTRIBUTION_STYLE_CONSTANT,
     ),
     new Game(
       FRIENDLY_FACE_GAME,
       '../../../assets/games/games-list/svg/Find A Smile.svg',
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.',
       GAME_FRIENDLY_FACE_CONSTANT,
     ),
     new Game(
       MENTAL_IMAGERY_GAME,
       '../../../assets/games/games-list/svg/Imagery.svg',
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel velit sed mauris rutrum laoreet quis non velit.',
       GAME_MENTAL_IMAGERY_CONSTANT,
     ),
   ];
@@ -90,8 +81,4 @@ export class GamesService {
       }, 50);
     });
   }
-
-  // getGamesProgressBar() {
-  //   return this.http.get(environment.API_ENDPOINT + GAMES_PROGRESS_BAR);
-  // }
 }
