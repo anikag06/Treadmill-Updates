@@ -2,7 +2,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GamesListComponent } from './games-list.component';
 import { GameItemComponent } from './game-item/game-item.component';
-import { ModulesService } from '@/main/modules/modules.service';
 import { LocalStorageService } from '@/shared/localstorage.service';
 import { GamesService } from '@/main/shared/games.service';
 import { CommonGameComponent } from './common-game/common-game.component';
@@ -13,14 +12,13 @@ describe('GamesListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GamesListComponent, GameItemComponent, CommonGameComponent ],
-      providers: [
-        ModulesService,
-        LocalStorageService,
-        GamesService,
-      ]
-    })
-    .compileComponents();
+      declarations: [
+        GamesListComponent,
+        GameItemComponent,
+        CommonGameComponent,
+      ],
+      providers: [LocalStorageService, GamesService],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

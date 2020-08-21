@@ -13,7 +13,6 @@ import { MainComponent } from './main.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { RouterTestingModule } from '@angular/router/testing';
 // @ts-ignore
-import { ModulesService } from './modules/modules.service';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AuthService } from '@/shared/auth/auth.service';
 import { User } from '@/shared/user.model';
@@ -37,7 +36,7 @@ describe('MainComponent', () => {
         MatToolbarModule,
         HttpClientModule,
       ],
-      providers: [ModulesService, HttpClient],
+      providers: [HttpClient],
     }).compileComponents();
   }));
 
