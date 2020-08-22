@@ -11,7 +11,7 @@
           <div class="px-3 px-lg-4 pt-4 main-div">
   <!-- Add IMAGES here -->
 
-  <h4 class="mt-3">Dummy Introduction Title</h4>
+  <h4 class="mt-3"></h4>
   <div>
     Which one of these negative thoughts do you have?
     <mat-form-field >
@@ -26,7 +26,7 @@
     </mat-form-field>
   </div>
   <br><br>
-  <div *ngIf="selectedThought">
+  <div *ngIf="selectedThought" class="text-para">
     <p>Wouldn’t it be great if you rather thought this?</p>
     <p>{{balancedThought}}</p>
     <p>

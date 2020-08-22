@@ -10,7 +10,7 @@
           </mat-card-header>
           <div class="px-3 px-lg-4 pt-4 main-div">
   <!-- Add IMAGES here -->
-  <h4 class="mt-3">Dummy Introduction Title</h4>
+  <h4 class="mt-3"></h4>
   <div>
     Are you currently worried about anything?
     <mat-form-field>
@@ -50,7 +50,7 @@
     <mat-label>Technique used</mat-label>
     <mat-selection-list [(ngModel)]="selectedTechniques" [ngStyle]="{'max-width': '850px'}" (focusin)="techniqueSave = true" (focusout)="techniqueSaveFocusOut()" >
       <mat-list-option *ngFor="let technique of techniques" [value]="technique"
-        [ngStyle]="{'margin-bottom': '20px', 'height': 'unset'}">
+        [ngStyle]="{'margin-bottom': '20px', 'height': 'unset', 'opacity': '60%'}">
         {{technique}}
       </mat-list-option>
     </mat-selection-list>
@@ -71,7 +71,7 @@
   </div>
   <br><br>
   <div>
-    Don’t <i>worry</i> if you are unable to control your worrying. In this module, you will develop skills to worry
+    Don’t worry if you are unable to control your worrying. In this module, you will develop skills to worry
     just the normal amount.
   </div>
   <br><br>

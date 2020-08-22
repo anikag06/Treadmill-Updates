@@ -13,7 +13,7 @@
     Congratulations! You have completed the <span class="emphasis">{{moduleName}}</span> module.
   </div>
     <br>
-  <div>
+  <div class="text-para">
     In this module
     <ul>
       <li>you have learned how to identify if your worrying is useful or useless</li>
@@ -22,22 +22,23 @@
     </ul>
   </div>
     <br>
-  <div *ngIf="worry">
+  <div *ngIf="worry" class="text-para">
     You have used the techniques, via the <a routerLink="{{controlWorryingFormLink}}">Control worrying form</a>, to
     control your worrying about: {{worry}}
     <br>
     You can find all your work on your worries here: <a routerLink="{{controlWorryingFormLink}}">Control worrying
       form</a>
-  </div>
     <br>
-  <div>
+  </div>
+  <div class="text-para">
     Now onwards, whenever you catch yourself worrying unproductively, use the <a
       routerLink="{{controlWorryingFormLink}}">Control worrying
       form</a> to control worrying. Our worrying habits develop after years of worrying in the same way. So, it is
     unrealistic to expect yourself to be able to stop worrying completely only after a day or two. You need to practice
     these techniques for at least a month before you can observe a significant change in yourself.
   </div>
-  <div>
+    <br>
+  <div class="text-para">
     Make a commitment now. How many times would you like to work on your worries over the next week?
     <br>
     <mat-form-field>
@@ -52,7 +53,7 @@
   </div>
   <app-evaluate-mood [moodEvaluate]="moodEvaluate" [fromConclusion] ="true"></app-evaluate-mood>
   <div *ngIf="!moodEvaluate">
-  <div>
+  <div class="text-para">
     In the next module, <span class="emphasis">{{nextModuleName}}</span>, you'll learn how to keep using the techniques
     you have learned over the previous modules to maintain a state of positive mood.
   </div>
