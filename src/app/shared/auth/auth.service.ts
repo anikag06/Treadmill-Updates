@@ -139,14 +139,14 @@ export class AuthService {
 
   refresh() {
     const token = this.getToken();
-    if (token != null) {
+    if (token !== null) {
       this.http
         .post<Token>(environment.API_ENDPOINT + TOKEN_REFRESH_PATH, {
           token: token,
         })
         .subscribe(
           (data) => {
-            localStorage.setItem(TOKEN, data.token);
+            // localStorage.setItem(TOKEN, data.token);
           },
           (error: HttpErrorResponse) => {
             if (error.status >= 400 && error.status < 500) {

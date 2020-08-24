@@ -141,7 +141,7 @@ export class StepComponent implements OnInit, AfterViewInit {
 
   markDone() {
     const prev = this.previousStep(this.stepGroup, this.step);
-    if (!prev || (prev && prev.status === COMPLETED)) {
+    if (prev && prev.status === COMPLETED) {
       this.flowStepNavService.virtualStepMarkDone(this.step, 1); // here 1 is the time spent
     }
   }
@@ -208,8 +208,8 @@ export class StepComponent implements OnInit, AfterViewInit {
         }
       });
     }
-    // TODO : this method is setting status of step to complete even before the step is complete
-    // this.markDone();
+
+    this.markDone();
     if (this.step.data_type === INTRODUCTORY_ANIMATION) {
       if (this.step.name === 'Navigating TreadWill') {
         this.flowService.setFirstStepID(this.step.id);
@@ -236,6 +236,8 @@ export class StepComponent implements OnInit, AfterViewInit {
       // this.flowService.triggerLoad();
       // setTimeout(() => this.flowService.triggerLoad(), 1);
       // setTimeout(() => this.flowService.triggerLoad(), 10);
+    } else {
+      setTimeout(() => this.flowService.triggerLoad(), 2000);
     }
 
     if (this.step.status !== LOCKED) {

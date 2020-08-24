@@ -172,6 +172,8 @@ export class IntroService {
             '<div class="intro-heading">Progress card</div>' +
             '<div class="intro-text">You can find all the modules and steps in this card. This will help you keep track of how much is completed.</div>',
           position: 'right',
+          tooltipClass:
+            window.innerWidth < MOBILE_WIDTH ? 'intro-tooltip-custom' : '',
         },
       ],
       doneLabel: '<span style="font-size: 16px">Next &#8594;</span>',
