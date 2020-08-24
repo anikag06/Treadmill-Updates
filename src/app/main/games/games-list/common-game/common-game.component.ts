@@ -44,6 +44,7 @@ import { IdentifyCognitiveDistortionComponent } from './identify-cognitive-disto
 import { LhgHowtoplayComponent } from './learned-helplessness-game/lhg-howtoplay/lhg-howtoplay.component';
 import { IdcGameService } from './identify-cognitive-distortion/idc-game.service';
 import { IntroService } from '@/main/walk-through/intro.service';
+import {IdcScienceComponent} from "@/main/games/games-list/common-game/identify-cognitive-distortion/idc-science/idc-science.component";
 
 declare let $: any;
 
@@ -379,6 +380,8 @@ export class CommonGameComponent implements OnInit {
       this.dialogBoxService.setDialogChild(FfgScienceComponent);
     } else if (this.gameName === MENTAL_IMAGERY_GAME) {
       this.dialogBoxService.setDialogChild(MigScienceComponent);
+    }  else if (this.gameName === IDENTIFY_COGNITIVE_DISTORTION_GAME) {
+      this.dialogBoxService.setDialogChild(IdcScienceComponent);
     }
     const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
     this.pauseBtnElement.nativeElement.dispatchEvent(domEvent);
