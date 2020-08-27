@@ -71,6 +71,7 @@ declare var ibg_borrow_time_again_score: any;
 declare var ibg_btn_give_up_score: any;
 declare var ibg_btn_other_sentence_score: any;
 
+
 @Component({
   selector: 'app-interpretation-bias-game',
   templateUrl: './interpretation-bias-game.component.html',
@@ -264,6 +265,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
             sentence_word_valence.push(data.results[i].word.valence);
             sentence_trick.push(data.results[i].trick_sentence);
             sentence_order_array.push(data.results[i].order);
+            console.log('sentence array', sentence_array);
             if (this.firstSentence) {
               this.currentSentencesWordsNumber(0);
             }

@@ -34,6 +34,7 @@ import { IdcInstructionsComponent } from '../games-list/common-game/identify-cog
 import { FfgInstructionsComponent } from '../games-list/common-game/friendly-face-game/ffg-instructions/ffg-instructions.component';
 import { FfgHelpService } from '../games-list/common-game/friendly-face-game/ffg-help.service';
 import { IdcGameService } from '../games-list/common-game/identify-cognitive-distortion/idc-game.service';
+import {IbgameHelpService} from "@/main/games/games-list/common-game/interpretation-bias-game/ibgame-help.service";
 
 // for interpretation bias game
 declare var startIBGame: any;
@@ -42,6 +43,7 @@ declare var ibGameResume: any;
 declare var ibUsehints: any;
 declare var ibGameHelp: any;
 declare var ibGameShowTutorial: boolean;
+declare var sentence_array: any;
 
 // for attribution game
 declare var AttributeGame: any;
@@ -189,7 +191,8 @@ export class GamePlayService {
     private miCurrentStateService: MICurrentStateService,
     private ffghelpService: FfgHelpService,
     private idcGameService: IdcGameService,
-  ) {}
+    private ibgameHelpService: IbgameHelpService,
+) {}
 
   getGameInfo(slug: string) {
     return this.gamesService
@@ -204,8 +207,22 @@ export class GamePlayService {
       gameDivElement.nativeElement.dispatchEvent(domEvent);
       this.helpIBGame();
     } else {
-      startIBGame();
+      // startIBGame();
+      this.ibgameHelpService.showLoadingBar();
     }
+    const tid = setInterval(() => {
+      if (
+        document.readyState !== 'complete' ||
+        sentence_array.length === 0
+      ) {
+        console.log('checking if statement', sentence_array.length);
+        return;
+      }
+      clearInterval(tid);
+      // function to be called when document is ready
+      console.log('calling IB game');
+      startIBGame();
+    }, 1000);
   }
   pauseIBGame() {
     ibGamePause();

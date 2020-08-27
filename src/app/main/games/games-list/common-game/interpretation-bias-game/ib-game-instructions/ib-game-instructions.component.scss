@@ -1,13 +1,14 @@
 .card-img-top{
 	max-width: 95%;
-	opacity: 0.2;
+	//opacity: 0.2;
 	position:relative;
-	z-index: 1;
+	//z-index: 1;
+  //background-color: black !important;
 }
 .card-gif-top{
 	max-width: 95%;
 	position:relative;
-	z-index: 1;	
+	z-index: 1;
 }
 .play-heading{
     color: #2FBFD7;
@@ -21,7 +22,12 @@
 	margin: auto;
 	align-items: center;
 }
-
+.instruction-img{
+background-color: black;
+  opacity: 0.2;
+  height: 100%;
+  width: 95%;
+}
 .mat-ibg-start{
 	background-color: #0C8C95;
     color: white;
