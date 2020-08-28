@@ -169,6 +169,7 @@ export class GamePlayService {
   lhGameSub!: any;
   lhGameHome!: boolean;
   lhGamePlayAgain!: boolean;
+  lhgameScriptLoaded = false;
 
   game!: any;
 
@@ -176,6 +177,8 @@ export class GamePlayService {
 
   // for friendly face game
   ffg_show_tutorial!: boolean;
+  ffGameSongCounter = 0;
+
 
   // for ASG
   ASGPostLevelPerformance = new ASGLevelPerformance(1, 1, 1, 1, 1);
@@ -758,7 +761,8 @@ export class GamePlayService {
         document.readyState !== 'complete' ||
         ffg_music_notes_array.length === 0 ||
         ffg_loaded_friendly_images.length === 0 ||
-        ffg_loaded_hostile_images.length === 0
+        ffg_loaded_hostile_images.length === 0 ||
+        ffGameSongCounter !== 0
       ) {
         console.log('checking if statement', ffg_music_notes_array.length);
         return;

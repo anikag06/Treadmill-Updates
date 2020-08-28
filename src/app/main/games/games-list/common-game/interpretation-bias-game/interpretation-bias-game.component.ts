@@ -480,7 +480,9 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    clearInterval(inactivity_check_interval);
+    if (inactivity_check_interval) {
+      clearInterval(inactivity_check_interval);
+    }
   }
 
   forTooltip($event: any) {

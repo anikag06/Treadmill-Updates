@@ -4,7 +4,7 @@ var lhGameLengths;
 var lhGameHeights;
 
 var lhGameArrayIndex;
-var lhGameLevelCounter;   // get from user level 
+var lhGameLevelCounter;   // get from user level
 
 // functions called from typescript
 var lhGameGetColorReverseData;
@@ -63,7 +63,7 @@ $(document).ready(function(){
 
 	lhGameStart = function(ev){
 		$('#lg-game-container').unbind('click');
-		
+
 		$('#infoElement').removeClass("d-none");
 
 		$("#color-reverse-game").removeClass("d-none");
@@ -85,7 +85,7 @@ $(document).ready(function(){
 		ev.stopImmediatePropagation();
 
 		ev.preventDefault();
-		
+
 		$(".color-reverse-game-square").off();
 		no_of_moves++;
 		squareClicked($(this), grid.grid_array);
@@ -122,33 +122,33 @@ $(document).ready(function(){
 			lhg_game_completed = true;
 			console.log('GAME COMPLETED');
 			gameCompleted();
-			
+
 		}else if(unsolvable_game_counter == 3){
 			// show play next pop up
 			playNextGamePopup();
-						
+
 			lhg_second_time = true;
 
 			$("#color-reverse-game").addClass("d-none");
 			boxUpGameInit();
 			$("#box-up-game-row").removeClass("d-none");
-			
+
 			if(lhGameLevelCounter > 0){
 				lhGameLevelCounter = previously_solved_level;
 				lhGameArrayIndex = previous_index;
 			}
 		}else if(unsolvable_game_counter == 2){
 			// show play next pop up
-			
+
 			playNextGamePopup();
-			
+
 			lhUnsolvableGame2Called = false;
 			resetFrogGame();
 			frogGameInit();
 			$("#color-reverse-game").addClass("d-none");
 			$("#frog-game-row").removeClass("d-none");
-			
-			
+
+
 			if(lhGameLevelCounter > 0){
 				lhGameLevelCounter = previously_solved_level;
 				lhGameArrayIndex = previous_index;
@@ -156,12 +156,12 @@ $(document).ready(function(){
 		}else if(unsolvable_game_counter == 1){
 			// show play next pop up
 			playNextGamePopup();
-			
+
 			lhUnsolvableGame1Called = false;
 			$("#color-reverse-game").addClass("d-none");
 			$("#grid-puzzle-row").removeClass("d-none");
-			
-			
+
+
 			if(lhGameLevelCounter > 0){
 				lhGameLevelCounter = previously_solved_level;
 				lhGameArrayIndex = previous_index;
@@ -214,7 +214,7 @@ function showBlocks(grid_array){
 				$("#row-"+(i+1)).append("<div class=\"color-reverse-game-square-blank\" id=\""+i+"-"+j+"\"></div>");
 			}
 		}
-		
+
 	}
 	setColorReverseGameWidthAndHeight();
 }
@@ -244,7 +244,7 @@ function squareClicked($square, grid_array){
 			grid_array[rowNumber-1][columnNumber] = 2;
 		}
 	}
-	
+
 	// bottom
 	var bottom_element = $("#"+(rowNumber+1)+"-"+columnNumber);
 	if(bottom_element.length && bottom_element.hasClass("color-reverse-game-square")){ // if element exists and is not blank
@@ -301,7 +301,7 @@ function detectSuccess(grid_array){
 			storeLHScoreColorReverse.initCustomEvent('CallLevelChangeStoreFun');
 
 			window.dispatchEvent(storeLHScoreColorReverse);
-			
+
 			previously_solved_level = lhGameLevelCounter;
 			previous_index = lhGameArrayIndex;
 			if (lhGameArrayIndex == lhGameLevelStrings.length - 1){
@@ -335,7 +335,7 @@ function colorReverseInit(){
 	no_of_moves = 0;
 	success = false;
 	lhcolorReverseGame = true;
-	
+
 	showBlocks(grid.grid_array);
 
 	different_game_timeout = setTimeout(function(){
@@ -344,7 +344,7 @@ function colorReverseInit(){
 		}
 	}, different_game_wait);
 	setColorReverseGameWidthAndHeight();
-	
+
 }
 
 function setColorReverseGameWidthAndHeight() {
@@ -402,14 +402,14 @@ function onRestartGame() {
 }
 
 lhgOverallData = function() {
-	
+
 	return[lhg_end_time,lhg_game_completed,lhg_all_levels_completed]
 }
 
 function gameCompleted() {
 	lhg_end_time = new Date().toJSON();
 	console.log(lhg_end_time);
-	
+
 	lhgOverallData();
 	gameCompleteEvent = document.createEvent('CustomEvent');
 	gameCompleteEvent.initCustomEvent('CallGameComplete');
