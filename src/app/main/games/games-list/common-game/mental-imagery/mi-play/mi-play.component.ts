@@ -52,6 +52,7 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
     'have to',
     'could',
     'would',
+    'can',
   ];
   negativeInputs = [
     'will not',
@@ -66,6 +67,7 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
     "couldn't",
     'would not',
     "wouldn't",
+    "won't",
   ];
   previousText = '';
   invalidInput = false;
@@ -74,8 +76,6 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
   notificationBody = '';
   disabled!: boolean;
   retry = false;
-  sentiment = require('../../../../../../../../node_modules/wink-sentiment/src/wink-sentiment.js');
-  nlp = require('../../../../../../../../node_modules/compromise/builds/compromise.min.js');
   openNavBar = false;
 
   gameValue = 0;
@@ -127,11 +127,9 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
         this.blank = this.getCurrentStateService.blank;
         this.user = this.getCurrentStateService.user;
         this.currentPoints = this.user.currentPoints();
-        // this.situationHandler();
       });
     });
     this.miPlayService.levelUpdate.subscribe(() => {
-      console.log('level update event emitted,', this.currentLevel);
       this.getCurrentStateService.continuePlaying = true;
       this.situationHandler();
     });
@@ -140,19 +138,7 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
     });
   }
 
-  ngAfterViewInit(): void {}
   ngAfterContentInit() {
-    // this.currentLevel = this.getCurrentStateService.getCurrentLevel();
-    // this.getCurrentStateService.getScenario();
-    // this.currentScenario = this.getCurrentStateService.currentScenario;
-    // this.previousText = this.getCurrentStateService.previousText;
-    // this.extraContent = this.getCurrentStateService.extraContent;
-    // this.notificationHeader = this.getCurrentStateService.notificationHeader;
-    // this.notificationBody = this.getCurrentStateService.notificationBody;
-    // this.disabled = this.getCurrentStateService.disabled;
-    // this.blank = this.getCurrentStateService.blank;
-    // this.user = this.getCurrentStateService.user;
-
     if (this.inputEl) {
       this.inputEl.nativeElement.focus();
     }
@@ -193,16 +179,6 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
       this.getCurrentStateService.continuePlaying = false;
       this.getCurrentStateService.count += 1;
       return;
-      // TO DO : remove this code if not used
-      // } else if (this.getCurrentStateService.retry) {
-      //   this.getCurrentStateService.retry = false;
-      //   if (this.findMatching(this.YES, this.blank)) {
-      //     this.resetCurrent();
-      //     // tslint:disable-next-line:max-line-length
-      //     this.getCurrentStateService.user.points.push(-Math.abs(this.getCurrentStateService.user.currentPoints() - 1000 * this.getCurrentStateService.user.level));
-      //     this.getCurrentStateService.resetScenario();
-      //     this.currentScenario = this.getCurrentStateService.currentScenario;
-      //   }
     } else if (this.getCurrentStateService.continuePlaying) {
       this.gameValue = 0;
       this.levelPoints = 0;
@@ -250,7 +226,6 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
       );
       this.addTryAgnBtn();
       this.getCurrentStateService.retry = true;
-      // this.retry = this.getCurrentStateService.retry;
       this.setUserData();
       delete this.getCurrentStateService.currentScenario;
       delete this.currentScenario;
@@ -276,34 +251,15 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
   ifPositive(input: string) {
     input = input.replace(/[^\w\s]/gi, '');
     input = input.toLocaleLowerCase();
-    let ifNeg;
-    console.log(input);
-    console.log(1, this.sentiment(input)['score']);
-    // console.log(2, this.nlp(input).verbs().data()['0']['interpret']['negative']);
-    if (this.sentiment(input)['score'] > 0) {
+
+    if (this.currentScenario.possibleCorrectAnswerList.indexOf(input) > -1) {
       return 1;
-    } else if (this.sentiment(input)['score'] < 0) {
+    } else if (
+      this.currentScenario.possibleIncorrectAnswerList.indexOf(input) > -1
+    ) {
       return -1;
     } else {
-      try {
-        ifNeg = this.nlp(input)
-          .verbs()
-          .data()['0']['interpret']['negative'];
-        console.log(
-          2,
-          this.nlp(input)
-            .verbs()
-            .data(),
-        );
-      } catch (e) {
-        return 0;
-      }
-
-      if (ifNeg) {
-        return -1;
-      } else {
-        return 1;
-      }
+      return 0;
     }
   }
 
@@ -397,13 +353,7 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
       const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
       this.el.nativeElement.dispatchEvent(domEvent);
       this.dialogBoxService.setDialogChild(GamesFeedbackComponent);
-      console.log('give feedback');
     } else {
-      // this.levelChanged = false;
-      // const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
-      // this.doneBtn.nativeElement.dispatchEvent(domEvent);
-      // this.dialogBoxService.setDialogChild(MiWinComponent);
-      // this.nextLevel = this.getCurrentStateService.getNextLevel();
       this.nextLevelPopup();
     }
   }
@@ -432,7 +382,6 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
     this.userData.game_sentence_id = this.currentScenario.id;
     this.userData.start_time = this.getCurrentStateService.startTime;
     this.userData.end_time = this.endTime;
-    console.log(this.userData);
   }
 
   storeUserData() {

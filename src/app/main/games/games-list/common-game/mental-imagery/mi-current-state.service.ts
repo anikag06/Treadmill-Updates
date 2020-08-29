@@ -135,12 +135,18 @@ export class MICurrentStateService {
   convertScenario(scenario1: any, scenario2: any) {
     this.time = new Date();
     this.startTime = this.time.toJSON();
+    console.log(
+      'possible_incorrect_answers: ',
+      scenario1.possible_incorrect_answers,
+    );
     return new Scenario(
       scenario1.text_before_dash,
       scenario1.text_after_dash,
       scenario2,
       scenario1.wrong_text,
       scenario1.correct_text,
+      scenario1.possible_correct_answers,
+      scenario1.possible_incorrect_answers,
       scenario1.id,
     );
   }
@@ -183,7 +189,6 @@ export class MICurrentStateService {
       this.currentLevel.scenario[0],
       1,
     );
-    //return this.currentScenario;
   }
 
   numOfScenarios() {

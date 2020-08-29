@@ -5,6 +5,8 @@ export class Scenario {
     public scenarioNextIndex: number | null,
     public wrongText: string,
     public correctText: string | null,
+    public possibleCorrectAnswerList: string[],
+    public possibleIncorrectAnswerList: string[],
     public id: number,
   ) {}
 }
