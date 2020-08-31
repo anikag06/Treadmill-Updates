@@ -1,19 +1,8 @@
 export class Texting {
-  // n1!:number;
-  // n2!:number;
-  // constructor(data1: number, data2: number) {
-  //   this.n1 = data1;
-  //   this.n2 = data2;
-  // }
-  message!: string[];
-  dialog!: string[];
-  show_avatar_image!: string;
-  wrong!: boolean;
-
-  constructor() {
-    this.message = [];
-    this.dialog = [];
-    this.wrong = false;
-    //this.show_avatar_image = [];
-  }
+  constructor(
+    public message?: any,
+    public dialog?: string[],
+    public show_avatar_image?: string,
+    public wrong?: boolean,
+  ) {}
 }

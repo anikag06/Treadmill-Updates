@@ -58,10 +58,10 @@
     skeletonConvo: fromConversation,
     skeletonChat: !fromConversation
   }"
-*ngIf="!dataLoaded"
+  *ngIf="!dataLoaded"
 >
-  <div class="card msg-img">
-    <div [ngStyle]="{width : !fromConversation ?  '280px': ''}"  class="card-body text-center">
+  <div class="card">
+    <div [ngStyle]="{width : !fromConversation ?  '280px': '230px'}"  class="card-body text-center">
       <div [ngStyle]="{left : !fromConversation ?  '50%': '30%'}" class="skeleton-text" *ngIf="showGIFIcon; else imageIcon">
         GIF
       </div>
