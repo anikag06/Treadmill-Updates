@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="120" viewBox="0 0 180 120">
+  <g id="Group_12441" data-name="Group 12441" transform="translate(-74 -26)">
+    <g id="Group_12431" data-name="Group 12431" transform="translate(-636 -341.652)">
+      <path id="Path_12150" data-name="Path 12150" d="M17645.949-22778.937v101.623h149.105" transform="translate(-16921 23155.59)" fill="none" stroke="#3a4642" stroke-linecap="round" stroke-width="1.5" opacity="0.6"/>
+      <path id="Path_12151" data-name="Path 12151" d="M17679.352-22718.439l26.682-26.682,23.662,15.738,40.709-40.709,24.959,11.432" transform="translate(-16936 23161)" fill="none" stroke="#41535b" stroke-width="2"/>
+      <g id="Ellipse_4414" data-name="Ellipse 4414" transform="translate(739 439)" fill="#e8fbfb" stroke="#41535b" stroke-width="2">
+        <circle cx="4" cy="4" r="4" stroke="none"/>
+        <circle cx="4" cy="4" r="3" fill="none"/>
+      </g>
+      <g id="Ellipse_4415" data-name="Ellipse 4415" transform="translate(766 413)" fill="#e8fbfb" stroke="#41535b" stroke-width="2">
+        <circle cx="4" cy="4" r="4" stroke="none"/>
+        <circle cx="4" cy="4" r="3" fill="none"/>
+      </g>
+      <g id="Ellipse_4416" data-name="Ellipse 4416" transform="translate(790 427)" fill="#e8fbfb" stroke="#41535b" stroke-width="2">
+        <circle cx="4" cy="4" r="4" stroke="none"/>
+        <circle cx="4" cy="4" r="3" fill="none"/>
+      </g>
+      <g id="Ellipse_4417" data-name="Ellipse 4417" transform="translate(830 387)" fill="#e8fbfb" stroke="#41535b" stroke-width="2">
+        <circle cx="4" cy="4" r="4" stroke="none"/>
+        <circle cx="4" cy="4" r="3" fill="none"/>
+      </g>
+      <g id="Ellipse_4418" data-name="Ellipse 4418" transform="translate(855 398)" fill="#e8fbfb" stroke="#41535b" stroke-width="2">
+        <circle cx="4" cy="4" r="4" stroke="none"/>
+        <circle cx="4" cy="4" r="3" fill="none"/>
+      </g>
+    </g>
+    <rect id="Rectangle_4147" data-name="Rectangle 4147" width="180" height="120" rx="8" transform="translate(74 26)" fill="none" opacity="0"/>
+  </g>
+</svg>

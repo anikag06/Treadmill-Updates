@@ -390,6 +390,7 @@ import { IdcScienceComponent } from './games/games-list/common-game/identify-cog
     IdcInfoComponent,
     IdcWinComponent,
     IdcTimeComponent,
+    IdcScienceComponent,
     LhgHowtoplayComponent,
     LhgInstructionsComponent,
     LhgPlaynextgameComponent,

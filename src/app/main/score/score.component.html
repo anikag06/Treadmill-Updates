@@ -2,17 +2,53 @@
 
   <div class="row mx-0">
   <div class="scores-section">
-    <div class="row mx-0 d-flex justify-content-around justify-content-sm-between justify-content-md-between">
+    <div class="row mx-0 d-flex justify-content-center justify-content-lg-between">
       <ng-container>
-        <div class="flex-fill">
-          <div class="mat-card phq-nine" (click)="onPhqNineClicked()">
-            <!-- <img [src]="" [alt]="phq-9"> -->
-            <h3> PHQ-9 </h3>
-          </div> <br>
-          <div class="mat-card gad-seven" (click)="onGadSevenClicked()">
-            <!-- <img [src]="" [alt]="gad-7"> -->
-            <h3> GAD-7 </h3>
+        <div class="d-flex flex-column flex-lg-row">
+          <div class="d-block">
+            <mat-card
+              class="mr-0 form-card"
+              (click)="onPhqNineClicked()"
+              [ngStyle]="{ cursor: 'pointer' }"
+            >
+              <div class=" img-div" >
+                <mat-card-content> </mat-card-content>
+                <img mat-card-image src="assets/score/graph.svg" width="125" height="100">
+              </div>
+              <mat-card-footer>
+                <div class="form-name text-center">
+                  PHQ-9
+                </div>
+              </mat-card-footer>
+            </mat-card>
           </div>
+
+          <div class="d-block">
+            <mat-card
+              class="mt-5 mt-lg-0 ml-0 ml-md-4 form-card"
+              (click)="onGadSevenClicked()"
+              [ngStyle]="{ cursor: 'pointer' }"
+            >
+              <div class=" img-div" >
+                <mat-card-content> </mat-card-content>
+                <img mat-card-image src="assets/score/graph.svg" width="125" height="100">
+              </div>
+              <mat-card-footer>
+                <div class="form-name text-center">
+                  GAD-7
+                </div>
+              </mat-card-footer>
+            </mat-card>
+          </div>
+
+<!--          <div class="mat-card phq-nine" (click)="onPhqNineClicked()">-->
+<!--            &lt;!&ndash; <img [src]="" [alt]="phq-9"> &ndash;&gt;-->
+<!--            <h3> PHQ-9 </h3>-->
+<!--          </div> <br>-->
+<!--          <div class="mat-card gad-seven" (click)="onGadSevenClicked()">-->
+<!--            &lt;!&ndash; <img [src]="" [alt]="gad-7"> &ndash;&gt;-->
+<!--            <h3> GAD-7 </h3>-->
+<!--          </div>-->
         </div>
 
       </ng-container>

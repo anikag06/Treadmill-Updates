@@ -2,46 +2,46 @@
   <h1>Instructions</h1>
   <div class="instructions smallest-font">
     <div *ngIf='colorReverseGame'>
-      <ol>
-        <li>Clicking on a triangle changes it and the adjacent squares to a circle.</li>
+      <ul >
+        <li  class="instructions-list ">Clicking on a triangle changes it and the adjacent squares to a circle.</li>
         <br>
-        <li>Your goal is to change all the triangles into circles.</li>
-      </ol>
+        <li  class="instructions-list ">Your goal is to change all the triangles into circles.</li>
+      </ul>
     </div>
 
     <div *ngIf='game1' smallest-font>
       <ol>
-        <li>Click on a square adjacent to the blank square to swap its position with the blank square. </li>
+        <li class="instructions-list">Click on a square adjacent to the blank square to swap its position with the blank square. </li>
         <br>
-        <li>Arrange the tiles in increasing order to win. </li>
+        <li class="instructions-list">Arrange the tiles in increasing order to win. </li>
       </ol>
     </div>
 
     <div *ngIf='game2'>
 
       <ol>
-        <li>The butterfly can move from one flower to another. The butterfly can move forwards, to its left, and to its
+        <li class="instructions-list">The butterfly can move from one flower to another. The butterfly can move forwards, to its left, and to its
           right, but can't move backwards.</li>
         <br>
-        <li>When the butterfly sits on a flower, it withers away. The butterfly can only sit on a full flowers but can
+        <li class="instructions-list">When the butterfly sits on a flower, it withers away. The butterfly can only sit on a full flowers but can
           fly over withered flowers.</li>
         <br>
-        <li>Your goal is to make the butterfly sit on all flowers.</li>
+        <li class="instructions-list ">Your goal is to make the butterfly sit on all flowers.</li>
       </ol>
     </div>
 
     <div *ngIf='game3'>
 
       <ol>
-        <li>Get the ball inside an arc to move it.</li>
+        <li class="instructions-list ">Get the ball inside an arc to move it.</li>
         <br>
-        <li>Small arcs can get inside big arcs.</li>
+        <li class="instructions-list ">Small arcs can get inside big arcs.</li>
         <br>
-        <li>Small arcs cannot get inside other small arcs.</li>
+        <li class="instructions-list ">Small arcs cannot get inside other small arcs.</li>
         <br>
-        <li>Big arcs cannot get inside other big arcs.</li>
+        <li class="instructions-list ">Big arcs cannot get inside other big arcs.</li>
         <br>
-        <li>Your goal is to get the red arc inside the blue arc.</li>
+        <li class="instructions-list ">Your goal is to get the red arc inside the blue arc.</li>
       </ol>
     </div>
   </div>

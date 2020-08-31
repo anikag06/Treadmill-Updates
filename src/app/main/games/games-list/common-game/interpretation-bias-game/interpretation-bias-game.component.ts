@@ -264,6 +264,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
             sentence_word_valence.push(data.results[i].word.valence);
             sentence_trick.push(data.results[i].trick_sentence);
             sentence_order_array.push(data.results[i].order);
+            console.log('sentence array', sentence_array);
             if (this.firstSentence) {
               this.currentSentencesWordsNumber(0);
             }
@@ -478,7 +479,9 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    clearInterval(inactivity_check_interval);
+    if (inactivity_check_interval) {
+      clearInterval(inactivity_check_interval);
+    }
   }
 
   forTooltip($event: any) {

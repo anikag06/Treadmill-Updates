@@ -20,6 +20,7 @@ export class LhgInstructionsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    console.log('game counter', lhcolorReverseGame, unsolvable_game_counter);
     if (lhcolorReverseGame) {
       this.colorReverseGame = true;
     } else if (unsolvable_game_counter === 1) {
@@ -32,7 +33,6 @@ export class LhgInstructionsComponent implements OnInit {
   }
 
   onPlay() {
-    console.log(unsolvable_game_counter);
     const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });
     this.elementRef.nativeElement.dispatchEvent(domEvent);
     const game2_start = document.getElementById('frog-game-row');

@@ -21,6 +21,8 @@ import { GamesFeedbackService } from '../games-feedback/games-feedback.service';
 import { map, switchMap } from 'rxjs/operators';
 import { FlowService } from '@/main/flow/flow.service';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
+import { LocalStorageService } from '@/shared/localstorage.service';
+declare var lhcolorReverseGame: any;
 
 @Component({
   selector: 'app-learned-helplessness-game',
@@ -35,6 +37,8 @@ export class LearnedHelplessnessGameComponent implements OnInit, OnDestroy {
   stepGroupSequence!: number;
   stepSequence!: number;
   stepName!: string;
+  lhcolorReverseGame = true;
+
   constructor(
     private gamePlayService: GamePlayService,
     private loadFileService: LoadFilesService,
@@ -45,6 +49,7 @@ export class LearnedHelplessnessGameComponent implements OnInit, OnDestroy {
     private flowService: FlowService,
     private activatedRoute: ActivatedRoute,
     private stepDataService: StepsDataService,
+    private local: LocalStorageService,
   ) {}
 
   @ViewChild('infoElement', { static: false }) element!: ElementRef;
@@ -95,60 +100,63 @@ export class LearnedHelplessnessGameComponent implements OnInit, OnDestroy {
         console.log('STEP DETAIL:', this.navbarTitle);
         this.flowService.stepDetail.emit(this.navbarTitle);
       });
-    this.loadFileService
-      .loadExternalScript(
-        './assets/games/learning-helplessness/js/unsolvable_puzzle_1.js',
-      )
-      .then(() => {})
-      .catch(() => {});
-    this.loadFileService
-      .loadExternalScript(
-        './assets/games/learning-helplessness/js/unsolvable_puzzle_2.js',
-      )
-      .then(() => {})
-      .catch(() => {});
-    this.loadFileService
-      .loadExternalScript(
-        './assets/games/learning-helplessness/js/unsolvable_puzzle_3.js',
-      )
-      .then(() => {})
-      .catch(() => {});
-    this.loadFileService
-      .loadExternalScript(
-        './assets/games/learning-helplessness/js/color_reverse_game.js',
-      )
-      .then(() => {})
-      .catch(() => {});
-    this.loadFileService
-      .loadExternalStyles(
-        './assets/games/learning-helplessness/css/color_reverse_game.css',
-      )
-      .then(() => {})
-      .catch(() => {});
-    this.loadFileService
-      .loadExternalStyles(
-        './assets/games/learning-helplessness/css/unsolvable_puzzle_1.css',
-      )
-      .then(() => {})
-      .catch(() => {});
-    this.loadFileService
-      .loadExternalStyles(
-        './assets/games/learning-helplessness/css/unsolvable_puzzle_1.css',
-      )
-      .then(() => {})
-      .catch(() => {});
-    this.loadFileService
-      .loadExternalStyles(
-        './assets/games/learning-helplessness/css/unsolvable_puzzle_2.css',
-      )
-      .then(() => {})
-      .catch(() => {});
-    this.loadFileService
-      .loadExternalStyles(
-        './assets/games/learning-helplessness/css/unsolvable_puzzle_3.css',
-      )
-      .then(() => {})
-      .catch(() => {});
+    if (!this.gamePlayService.lhgameScriptLoaded) {
+      this.loadFileService
+        .loadExternalScript(
+          './assets/games/learning-helplessness/js/unsolvable_puzzle_1.js',
+        )
+        .then(() => {})
+        .catch(() => {});
+      this.loadFileService
+        .loadExternalScript(
+          './assets/games/learning-helplessness/js/unsolvable_puzzle_2.js',
+        )
+        .then(() => {})
+        .catch(() => {});
+      this.loadFileService
+        .loadExternalScript(
+          './assets/games/learning-helplessness/js/unsolvable_puzzle_3.js',
+        )
+        .then(() => {})
+        .catch(() => {});
+      this.loadFileService
+        .loadExternalScript(
+          './assets/games/learning-helplessness/js/color_reverse_game.js',
+        )
+        .then(() => {})
+        .catch(() => {});
+      this.loadFileService
+        .loadExternalStyles(
+          './assets/games/learning-helplessness/css/color_reverse_game.css',
+        )
+        .then(() => {})
+        .catch(() => {});
+      this.loadFileService
+        .loadExternalStyles(
+          './assets/games/learning-helplessness/css/unsolvable_puzzle_1.css',
+        )
+        .then(() => {})
+        .catch(() => {});
+      this.loadFileService
+        .loadExternalStyles(
+          './assets/games/learning-helplessness/css/unsolvable_puzzle_1.css',
+        )
+        .then(() => {})
+        .catch(() => {});
+      this.loadFileService
+        .loadExternalStyles(
+          './assets/games/learning-helplessness/css/unsolvable_puzzle_2.css',
+        )
+        .then(() => {})
+        .catch(() => {});
+      this.loadFileService
+        .loadExternalStyles(
+          './assets/games/learning-helplessness/css/unsolvable_puzzle_3.css',
+        )
+        .then(() => {})
+        .catch(() => {});
+      this.gamePlayService.lhgameScriptLoaded = true;
+    }
     this.gamesAuthService.lhGameGetOverallData().subscribe(overall_data => {
       console.log('overall data', overall_data);
       this.gamePlayService.lhgShowSummary = overall_data.show_summary_button;
@@ -163,6 +171,7 @@ export class LearnedHelplessnessGameComponent implements OnInit, OnDestroy {
       }
       console.log('STATUS', this.playAgain, this.goHome);
     });
+    lhcolorReverseGame = true;
   }
 
   ngOnDestroy(): void {}
