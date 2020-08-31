@@ -7,6 +7,7 @@ export class ConversationGroup {
   avatar_name!: string;
   occupation!: string;
   avatar_image!: string;
+  is_show_continue_button!: boolean;
 
   constructor(
     id: number,
@@ -16,7 +17,7 @@ export class ConversationGroup {
     expected_time: number,
     avatar_name: string,
     occupation: string,
-    avatar_image: string,
+    avatar_image: string
   ) {
     this.id = id;
     this.title = title;

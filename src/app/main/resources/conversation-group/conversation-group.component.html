@@ -1,41 +1,56 @@
-
 <div class="q">
   <div class="container">
     <div class="row">
-      <div class="col-lg-6 col-sm-12 col-md-12" *ngFor="let item of group; let i = index">
+      <div
+        class="col-lg-6 col-sm-12 col-md-12"
+        *ngFor="let item of group; let i = index"
+      >
         <div class="card text-left">
-
           <div class="row">
             <div class="col-12">
               <div class="heading">
-                <b>{{item.title}} </b>, {{item.occupation}}
+                <b>{{ item.title }} </b>, {{ item.occupation }}
                 <div class="mx-2 float-right">
                   <img [src]="item.avatar_image" class="imgg text-right" />
                 </div>
-
               </div>
             </div>
-
-
-
           </div>
           <div class="row" class="text">
             <div class="col-12">
-
-              {{item.description}}
-
-
+              {{ item.description }}
             </div>
           </div>
           <div class="row">
-
             <div class="col-12 text-center">
               <div class="btn-group" role="group">
-                <button class="one-edge-shadow" id="continue" class="button"
-                  (click)="current_history(i)">continue</button>
-                <button class="one-edge-shadow" id="reset" class="button" (click)="reset(i)">reset</button>
-
-
+                <div *ngIf="item.is_show_continue_button; else start">
+                  <button
+                    class="one-edge-shadow"
+                    id="continue"
+                    class="button"
+                    (click)="current_history(i)"
+                  >
+                    Continue
+                  </button>
+                  <button
+                    class="one-edge-shadow"
+                    id="reset"
+                    class="button"
+                    (click)="reset(i)"
+                  >
+                    Reset
+                  </button>
+                </div>
+                <ng-template #start>
+                  <button
+                    class="one-edge-shadow"
+                    class="button"
+                    (click)="reset(i)"
+                  >
+                    Start
+                  </button>
+                </ng-template>
               </div>
             </div>
           </div>
@@ -43,5 +58,4 @@
       </div>
     </div>
   </div>
-
 </div>

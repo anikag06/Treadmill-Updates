@@ -35,14 +35,15 @@ export const routes: Routes = [
 
   {
     path: 'main',
-    loadChildren: () => import('./main/main.module').then(m => m.MainModule),
+    loadChildren: () => import('./main/main.module').then((m) => m.MainModule),
+    data: { preload: true },
     canActivateChild: [AuthGuard],
   },
   {
     path: 'trial',
     loadChildren: () =>
       import('./trial-registration/trial-registration.module').then(
-        m => m.TrialRegistrationModule,
+        (m) => m.TrialRegistrationModule
       ),
   },
   { path: 'iitk', component: TempLandingPageComponent },
