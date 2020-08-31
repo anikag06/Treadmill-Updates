@@ -1,9 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpHeaders,
-} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
 import { environment } from 'environments/environment';
@@ -13,7 +9,6 @@ import {
   DEFAULT_PATH,
   TOKEN_REFRESH_PATH,
   LOGIN_PATH,
-  SIGN_UP_PATH,
   USERAVATAR,
   ISADMIN,
   ISACTIVE,
@@ -21,7 +16,7 @@ import {
   IS_EXP,
 } from '@/app.constants';
 import { User } from '@/shared/user.model';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 export interface Token {
   token: string;
 }
@@ -139,15 +134,13 @@ export class AuthService {
 
   refresh() {
     const token = this.getToken();
-    if (token != null) {
+    if (token !== null) {
       this.http
         .post<Token>(environment.API_ENDPOINT + TOKEN_REFRESH_PATH, {
           token: token,
         })
         .subscribe(
-          data => {
-            localStorage.setItem(TOKEN, data.token);
-          },
+          data => {},
           (error: HttpErrorResponse) => {
             if (error.status >= 400 && error.status < 500) {
               this.router.navigate([DEFAULT_PATH]);

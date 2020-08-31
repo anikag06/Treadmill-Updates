@@ -32,7 +32,6 @@ import { AsgScienceComponent } from './attribute-style-game/asg-science/asg-scie
 import { MigScienceComponent } from './mental-imagery/mig-science/mig-science.component';
 import { FfgScienceComponent } from './friendly-face-game/ffg-science/ffg-science.component';
 import { LhgScienceComponent } from './learned-helplessness-game/lhg-science/lhg-science.component';
-import { IdcScienceComponent } from './identify-cognitive-distortion/idc-science/idc-science.component';
 import { IdentifyCognitiveDistortionComponent } from './identify-cognitive-distortion/identify-cognitive-distortion.component';
 import { LhgHowtoplayComponent } from './learned-helplessness-game/lhg-howtoplay/lhg-howtoplay.component';
 import { IdcGameService } from './identify-cognitive-distortion/idc-game.service';
