@@ -313,8 +313,9 @@ export class GamePlayService {
     // if (this.ecGameStarted) {
     // this.storeDataExecControlGame();
     //ASGstop();
-    this.game.destroy(true);
-
+    if (this.game) {
+      this.game.destroy(true);
+    }
     let date: Date;
     date = new Date();
     let d = date.getUTCDate();

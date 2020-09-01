@@ -92,6 +92,7 @@ export class ControlContentComponent implements OnInit {
         this.dataloaded = true;
         this.nextDataLoaded = true;
         this.onScrollToTop();
+        this.lastStepCompleted = false;
         if (control_data.data.status === 'COMPLETED') {
           this.nextBtnShow = true;
 

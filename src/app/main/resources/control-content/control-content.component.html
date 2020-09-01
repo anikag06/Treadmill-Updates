@@ -14,12 +14,12 @@
         <mat-card-content class="fix-content-body "
                           [innerHTML]="displayHtml" *ngIf = "this.dataloaded && this.nextDataLoaded; else loader "
         ></mat-card-content>
-        <div class = "d-flex flex-row justify-content-end" *ngIf = "this.dataloaded && this.nextDataLoaded">
+        <div class = "d-flex flex-row" *ngIf = "this.dataloaded && this.nextDataLoaded">
           <div *ngIf="isLastStep" class="content-body">
             <app-evaluate-mood [moodEvaluate]="moodEvaluate" ></app-evaluate-mood>
           </div>
         </div>
-        <div class = "d-flex flex-row justify-content-end">
+        <div class = "d-flex flex-row" [ngStyle]="{ 'justify-content' : this.lastStepCompleted ? 'start' : 'end'} ">
 
         <div *ngIf="!moodEvaluate && this.nextDataLoaded" >
             <app-step-completed [showNextStep]="nextBtnShow"  [showloading]="showLoading"  [isLastStep]='isLastStep' [lastStepCompleted]='lastStepCompleted'
