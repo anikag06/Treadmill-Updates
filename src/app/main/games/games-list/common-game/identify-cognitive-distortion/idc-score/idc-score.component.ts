@@ -57,7 +57,12 @@ export class IdcScoreComponent implements OnInit, OnDestroy {
     });
     this.gameService.resumeGame.subscribe(() => {
       this.score = this.gameService.score;
-      this.timeLeft = this.gameService.timeLeft;
+      console.log( 'replay, timeAlloted' , this.gameService.replay, this.gameService.timeAlloted);
+      if (this.gameService.replay === true) {
+        this.timeLeft = this.gameService.timeAlloted;
+      } else {
+        this.timeLeft = this.gameService.timeLeft;
+      }
       console.log('resume game');
     });
   }
