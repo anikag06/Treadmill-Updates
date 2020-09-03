@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {Component, OnInit, ViewChild, ElementRef, Input} from '@angular/core';
 import { IdcGameService } from '../idc-game.service';
 import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
 import { IdcPopupComponent } from '../idc-popup/idc-popup.component';
@@ -41,6 +41,8 @@ export class IdcOptionsComponent implements OnInit {
   errorBarWidth!: number;
 
   @ViewChild('checkElement', { static: false }) element!: ElementRef;
+  @Input() blurred!: boolean;
+
 
   constructor(
     private gameService: IdcGameService,
@@ -48,6 +50,7 @@ export class IdcOptionsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    console.log('blurred status', this.blurred);
     this.optionsCall();
 
     this.gameService.levelInitialise.subscribe(() => {

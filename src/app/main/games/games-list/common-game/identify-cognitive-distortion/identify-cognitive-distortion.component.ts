@@ -24,6 +24,7 @@ export class IdentifyCognitiveDistortionComponent implements OnInit {
   stepName!: string;
   playing = false;
   gameName!: string;
+  blurred = false;
 
 
   constructor(
@@ -100,6 +101,7 @@ export class IdentifyCognitiveDistortionComponent implements OnInit {
     if (custom_container) {
       custom_container.classList.add('blurrContainer');
     }
+    this.blurred = true;
   }
 
   removeBlurrBackground() {
@@ -107,6 +109,7 @@ export class IdentifyCognitiveDistortionComponent implements OnInit {
     if (custom_container) {
       custom_container.classList.remove('blurrContainer');
     }
+    this.blurred = false;
   }
   openInfoPopup() {
     this.dialogBoxService.setDialogChild(IdcInfoComponent);

@@ -16,11 +16,11 @@ export class IdcOptionsPopupProceedComponent implements OnInit {
     private dialogBoxService: DialogBoxService,
     private element: ElementRef,
   ) {
-    if (this.gameService.optionStatus == 'correct') {
+    if (this.gameService.optionStatus === 'correct') {
       this.displayButton = 'Find Remaining Error';
-    } else if (this.gameService.optionStatus == 'incorrect') {
+    } else if (this.gameService.optionStatus === 'incorrect') {
       this.displayButton = 'Try again';
-    } else if (this.gameService.optionStatus == 'allcorrect') {
+    } else if (this.gameService.optionStatus === 'allcorrect') {
       this.displayButton = 'Done';
     }
   }
@@ -35,13 +35,14 @@ export class IdcOptionsPopupProceedComponent implements OnInit {
       this.gameService.extraTimeTaken = false;
       this.gameService.updateUserData();
       // check level order manually set here
-      if (this.gameService.levelOrder === 6) {
+      if (this.gameService.levelOrder === this.gameService.totalSituations) {
         this.gameService.questionId = 0;
         this.gameService.getGameData();
         this.gameService.nextCall = true;
       } else {
         this.gameService.questionId++;
       }
+      console.log('question id', this.gameService.questionId, this.gameService.levelOrder);
       this.openWinPopup();
     } else {
       this.gameService.resumeGame.emit();

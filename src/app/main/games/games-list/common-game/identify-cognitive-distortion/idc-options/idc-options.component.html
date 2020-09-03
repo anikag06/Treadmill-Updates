@@ -11,7 +11,7 @@
   </div>
 
 </div>
-<div class="options-content" #checkElement>
+<div class="options-content" #checkElement [ngStyle]=" {'pointer-events' : blurred ? 'none' : 'auto' }" >
   <div class="group-1 mr-1">
     <button (click)="onOptionClick(optionOne, $event)">
       {{optionOneDistortion}}</button>
