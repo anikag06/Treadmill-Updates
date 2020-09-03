@@ -1,113 +1,3 @@
-
-// var startAttributeGame = function () {
-//     const DEFAULT_WIDTH = 1320;
-//     const DEFAULT_HEIGHT = 740;
-//     const con = {
-//         backgroundColor: "#000000",
-//         scale: {
-//         mode: Phaser.Scale.FIT,
-//         autoCenter: Phaser.Scale.CENTER_BOTH,
-//         width: DEFAULT_WIDTH,
-//         height: DEFAULT_HEIGHT
-//         },
-//         scene: [PreloadScene, HomeScene, LevelOne, LevelTwo, LevelThree, UIScene, ScoreDisplay, QuestionAndAnswer,UserResult],
-//         physics: {
-//         default: "arcade",
-//         arcade: {
-//             debug: false,
-//             gravity: { y: 400 }
-//         }
-//         }
-//     };
-
-//     window.addEventListener("load", () => {
-//     let game = new Phaser.Game(con);
-//     });
-
-// }
-
-// window.addEventListener("load", () => {
-//   let game = new Phaser.Game(con);
-// });
-
-
-
-/*
-var AttributeGame = function () {
-  const DEFAULT_WIDTH = 1320;
-  const DEFAULT_HEIGHT = 740;
-  var con = {
-         backgroundColor: "#000000",
-         scale: {
-         mode: Phaser.Scale.FIT,
-         autoCenter: Phaser.Scale.CENTER_BOTH,
-         width: DEFAULT_WIDTH,
-         height: DEFAULT_HEIGHT
-         },
-         scene: [PreloadScene, HomeScene, LevelOne, LevelTwo, LevelThree, UIScene, ScoreDisplay, QuestionAndAnswer,UserResult],
-         physics: {
-         default: "arcade",
-         arcade: {
-             debug: false,
-             gravity: { y: 400 }
-         }
-         }};
-
-  return new Phaser.Game(con);
-
-
-
-};
-*/
-
-
-
-// function conf() {
-// 	const DEFAULT_WIDTH = 132;
-//     const DEFAULT_HEIGHT = 74;
-//     return con = {
-//         backgroundColor: "#000000",
-//         scale: {
-//         mode: Phaser.Scale.FIT,
-//         autoCenter: Phaser.Scale.CENTER_BOTH,
-//         width: DEFAULT_WIDTH,
-//         height: DEFAULT_HEIGHT
-//         },
-//         scene: [PreloadScene, HomeScene, LevelOne, LevelTwo, LevelThree, UIScene, ScoreDisplay, QuestionAndAnswer,UserResult],
-//         physics: {
-//         default: "arcade",
-//         arcade: {
-//             debug: false,
-//             gravity: { y: 400 }
-//         }
-//         }
-//     };
-//     console.log('running');
-// };
-
-// ASGstop = function() {
-//   // this.scene = [PreloadScene, HomeScene, LevelOne, LevelTwo, LevelThree, UIScene, ScoreDisplay, QuestionAndAnswer,Personalisation,Permanence,Pervasiveness,UserResult];
-// bgm_sound.stop();
-//   // this.scene.stop(this.registry.get('currentScene'));
-//   // this.scene.stop(this.registry.get('QuestionScene'));
-//   // this.scene.stop(this.registry.get('ParallelScene'));
-//   // this.scene.stop('PERSONALISATION');
-//   // this.scene.stop('PERMANENCE');
-//   // this.scene.stop('pervasiveness');
-//   // this.scene.stop('UserResult');
-//   this.scene.stop('PreloadScene');
-//   // this.scene.stop('HomeScene');
-//   // this.scene.stop('LevelOne');
-//   // this.scene.stop('LevelTwo');
-//   // this.scene.stop('LevelThree');
-//   // this.scene.stop('UIScene');
-//   // this.scene.stop('ScoreDisplay');
-//   // this.scene.stop('UserResult');
-//   // this.scene.stop('QuestionAndAnswer');
-//
-//
-// }
-
 musicASGame =  function(s)
 {
 
@@ -132,7 +22,6 @@ musicASGame =  function(s)
 
   }
 }
-
 
 
  var a = class PreloadScene extends Phaser.Scene {
@@ -293,7 +182,7 @@ var c = class LevelOne extends Phaser.Scene {
             .setGravityY(-400);
         this.arrowPoint.alpha = 0;
 
-        let fontSize = 25;
+        let fontSize = 30;
         let fontColor = 'black';
 
         this.balloons = this.physics.add.group({
@@ -321,7 +210,7 @@ var c = class LevelOne extends Phaser.Scene {
             .setColor(fontColor);
 
 
-            this.redBalloonTime = this.add.sprite(this.ScoreTxt.getTopRight().x + 20, (this.ScoreTxt.getTopRight().y + this.ScoreTxt.getBottomRight().y) / 2, 'red_balloon').setScale(0.07);
+            this.redBalloonTime = this.add.sprite(this.ScoreTxt.getTopRight().x + 28, (this.ScoreTxt.getTopRight().y + this.ScoreTxt.getBottomRight().y) / 2, 'red_balloon').setScale(0.07);
 
 
             this.timeTxt = this.add.text(this.redBalloonTime.getBottomRight().x +  30, 30, this.totalTime, { fontFamily: '"Roboto"' })
@@ -658,7 +547,7 @@ var d = class LevelTwo extends Phaser.Scene {
             .setGravityY(-400);
         this.arrowPoint.alpha = 0;
 
-        let fontSize = 25;
+        let fontSize = 30;
         let fontColor = 'black';
 
         this.balloons = this.physics.add.group({
@@ -712,7 +601,7 @@ var d = class LevelTwo extends Phaser.Scene {
             .setFontSize(fontSize)
             .setColor(fontColor);
 
-        this.redBalloonTime = this.add.sprite(this.ScoreTxt.getTopRight().x + 20, (this.ScoreTxt.getTopRight().y + this.ScoreTxt.getBottomRight().y) / 2, 'red_balloon').setScale(0.07);
+        this.redBalloonTime = this.add.sprite(this.ScoreTxt.getTopRight().x + 28, (this.ScoreTxt.getTopRight().y + this.ScoreTxt.getBottomRight().y) / 2, 'red_balloon').setScale(0.07);
 
 
         this.timeTxt = this.add.text(this.redBalloonTime.getBottomRight().x +  30, 30, this.totalTime, { fontFamily: '"Roboto"' })
@@ -1064,7 +953,7 @@ var e = class LevelThree extends Phaser.Scene {
             .setGravityY(-400);
         this.arrowPoint.alpha = 0;
 
-        let fontSize = 25;
+        let fontSize = 30;
         let fontColor = 'black';
 
         this.balloons = this.physics.add.group({
@@ -1131,7 +1020,7 @@ var e = class LevelThree extends Phaser.Scene {
             .setColor(fontColor);
 
 
-            this.redBalloonTime = this.add.sprite(this.ScoreTxt.getTopRight().x + 20, (this.ScoreTxt.getTopRight().y + this.ScoreTxt.getBottomRight().y) / 2, 'red_balloon').setScale(0.07);
+            this.redBalloonTime = this.add.sprite(this.ScoreTxt.getTopRight().x + 28, (this.ScoreTxt.getTopRight().y + this.ScoreTxt.getBottomRight().y) / 2, 'red_balloon').setScale(0.07);
 
 
             this.timeTxt = this.add.text(this.redBalloonTime.getBottomRight().x +  30, 30, this.totalTime, { fontFamily: '"Roboto"' })
@@ -1611,7 +1500,7 @@ var e = class LevelThree extends Phaser.Scene {
           this.L1text.alpha = 0.87;
 
 
-          this.L1_2text = this.add.text(470, 350,'Click on the next button to continue to Level 2', { fontFamily: '"Roboto"' }).setFontSize(20).setColor('black');
+          this.L1_2text = this.add.text(470, 350,'Click Next for Level 2', { fontFamily: '"Roboto"' }).setFontSize(25).setColor('black');
          this.L1_2text.setVisible(false);
           this.L1_2text.alpha = 0.60;
 
@@ -1620,7 +1509,7 @@ var e = class LevelThree extends Phaser.Scene {
           this.L1text.setVisible(false);
           this.L1text.alpha = 0.87;
 
-          this.L1_2text = this.add.text(470, 350,'Click on the next button to continue to Level 3', { fontFamily: '"Roboto"' }).setFontSize(20).setColor('black');
+          this.L1_2text = this.add.text(470, 350,'Click Next for Level 3', { fontFamily: '"Roboto"' }).setFontSize(25).setColor('black');
           this.L1_2text.setVisible(false);
           this.L1_2text.alpha = 0.60;
 
@@ -1630,7 +1519,7 @@ var e = class LevelThree extends Phaser.Scene {
           this.L1text.alpha = 0.87;
 
 
-          this.L1_2text = this.add.text(470, 350,'Click on the next button to continue', { fontFamily: '"Roboto"' }).setFontSize(20).setColor('black');
+          this.L1_2text = this.add.text(470, 350,'Click Next to continue', { fontFamily: '"Roboto"' }).setFontSize(25).setColor('black');
           this.L1_2text.setVisible(false);
           this.L1_2text.alpha = 0.60;
 
@@ -2041,7 +1930,7 @@ var s = class ScoreDisplay extends Phaser.Scene {
 
     create() {
 
-        var fontSize = 28;
+        var fontSize = 33;
         var fontColor = 'black';
         var totalBalloonText = 'Total Balloons: ';
         var totalBalloonMissedText = 'Balloons Missed: ';
@@ -2249,7 +2138,7 @@ var per = class Personalisation extends Phaser.Scene {
   }
 
   create() {
-    var fontSize = 25;
+    var fontSize = 30;
     var fontColor = 'black';
     var fontWrapWidth = 1250;
     var space = 15;
@@ -2318,17 +2207,13 @@ var per = class Personalisation extends Phaser.Scene {
   }
 }
 
-
-
-
-
 var perm = class Permanence extends Phaser.Scene {
   constructor() {
     super({ key: "PERMANENCE" })
   }
 
   create() {
-    var fontSize = 25;
+    var fontSize = 30;
     var fontColor = 'black';
     var fontWrapWidth = 1250;
     var space = 15;
@@ -2370,23 +2255,7 @@ var perm = class Permanence extends Phaser.Scene {
 
     this.next_btn = this.add.sprite(1080, 530, "next_btn").setInteractive({ useHandCursor: true }).setScale(1.5);
     this.nexttext = this.add.text(1053, 515,'Next', { fontFamily: '"Roboto"' }).setFontSize(25).setColor('black');
-    this.backtext = this.add.text(900, 515,'Back', { fontFamily: '"Roboto"' }).setFontSize(25).setColor('black').setInteractive({ useHandCursor: true });
     this.nexttext.alpha = 0.60;
-    this.backtext.alpha = 0.60;
-    // if(ASGsound){
-    //   this.click_sound.play();
-    // }
-
-    this.backtext.on('pointerdown', function () {
-      this.scene.stop();
-      if(ASGsound){
-        this.click_sound.play();
-      }
-
-      this.scene.start('PERSONALISATION');
-
-    }, this);
-
 
     this.next_btn.on('pointerdown', function () {
       this.scene.stop();
@@ -2408,7 +2277,7 @@ var perv = class Pervasiveness extends Phaser.Scene {
   }
 
   create() {
-    var fontSize = 25;
+    var fontSize = 30;
     var fontColor = 'black';
     var fontWrapWidth = 1250;
     var space = 15;
@@ -2448,20 +2317,7 @@ var perv = class Pervasiveness extends Phaser.Scene {
 
     this.next_btn = this.add.sprite(1080, 530, "next_btn").setInteractive({ useHandCursor: true }).setScale(1.5);
     this.nexttext = this.add.text(1053, 515,'Next', { fontFamily: '"Roboto"' }).setFontSize(25).setColor('black');
-    this.backtext = this.add.text(900, 515,'Back', { fontFamily: '"Roboto"' }).setFontSize(25).setColor('black').setInteractive({ useHandCursor: true });
     this.nexttext.alpha = 0.60;
-    this.backtext.alpha = 0.60;
-
-    this.backtext.on('pointerdown', function () {
-      this.scene.stop();
-      if(ASGsound){
-        this.click_sound.play();
-      }
-
-      this.scene.start('PERMANENCE');
-
-    }, this);
-
 
     this.next_btn.on('pointerdown', function () {
       this.scene.stop();
@@ -2476,42 +2332,16 @@ var perv = class Pervasiveness extends Phaser.Scene {
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 var ur = class UserResult extends Phaser.Scene {
     constructor() {
         super({ key: "UserResult" })
     }
 
     create() {
-      var fontSize = 19;
+      var fontSize = 25;
       var fontColor = 'black';
       var fontWrapWidth = 1250;
       var space = 15;
-      //this.ASGPutRequest();
 
 
         this.bg = this.add.sprite(0, 0, "bg").setOrigin(0, 0);
@@ -2519,7 +2349,7 @@ var ur = class UserResult extends Phaser.Scene {
       this.titleRect = this.add.rectangle(0, 0, 1330, 530, 0xffffff, 0.70).setOrigin(0, 0);
       this.Rect = this.add.rectangle(0, 530, 1330, 240, 0xffffff, 0.90).setOrigin(0, 0);
 
-      this.openLink = this.add.text(400, 540, "Click here",{ fontFamily: '"Roboto"' })
+      this.openLink = this.add.text(475, 540, "Watch this video",{ fontFamily: '"Roboto"' })
         .setFontSize(fontSize)
         .setColor('blue')
         .setWordWrapWidth(fontWrapWidth)
@@ -2546,7 +2376,7 @@ var ur = class UserResult extends Phaser.Scene {
            'To become less vulnerable to depression remember that -' +
            '\n' +
            ' - our successes and failures often depend on many factors that are not in our control. So, before blaming yourself for your failure, think about what else could have affected the outcome.\n' +
-           ' - if you fail once that does not mean that you are going to be a life long failure. Most things in life depend on skills that you can learn and improve upon.\n' +
+           ' - if you fail once, that does not mean that you will be a life long failure. Most things in life depend on skills that you can learn and improve upon.\n' +
            ' - if you fail in one area of your life that does not mean that you are doomed to fail in other areas as well.\n' +
            '\n' +
            'So, the next time you feel upset about a failure, think about how you are explaining your failure.' ];
@@ -2573,7 +2403,7 @@ var ur = class UserResult extends Phaser.Scene {
      //
      //  });
 
-      this.addtext = this.add.text(50,540,'To learn more about explanatory style',{fontFamily: '"Roboto"' }).setFontSize(19).setColor('black');
+      this.addtext = this.add.text(50,540,'To learn more about explanatory style',{fontFamily: '"Roboto"' }).setFontSize(25).setColor('black');
       this.addtext.alpha = 0.60;
 
 
@@ -2663,7 +2493,7 @@ var ur = class UserResult extends Phaser.Scene {
 
   openWindow() {
         console.log('opening')
-        var result = window.open('./assets/games/Attribution-style-game/src/assets/EXPLANATORY%20STYLE.pdf');
+        var result = window.open('https://www.treadwill.org/main/extra-resources/videoItem/10');
         console.log('result', result);
     }
 

@@ -165,7 +165,7 @@ function resume_countdown()
 		tutorial_box.alpha = 0.6;
 		tutorial_box.depth = 12;
 		task_tutorial_text=curr_game.add.text(tutorial_box.x-(tutorial_box.width/2)+15,tutorial_box.y-(tutorial_box.height/2)+30,
-				"Attention!!From the next time, tasks will appear only for some time. Perform well in the tasks and get rewarded",
+				"Attention!! From the next time, tasks will appear only for some time. Perform the tasks well to win rewards.",
 				{ fontFamily: 'Roboto', fontSize: '16px', fill: '#FFFFFF', wordWrap: {width: tutorial_box.width-20}});
 
 		task_tutorial_shown=true;

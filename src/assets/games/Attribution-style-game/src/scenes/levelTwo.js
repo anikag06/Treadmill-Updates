@@ -55,7 +55,7 @@ export default class LevelTwo extends Phaser.Scene {
             .setGravityY(-400);
         this.arrowPoint.alpha = 0;
 
-        let fontSize = 25;
+        let fontSize = 30;
         let fontColor = 'black';
 
         this.balloons = this.physics.add.group({

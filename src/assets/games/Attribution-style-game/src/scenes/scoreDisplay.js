@@ -5,7 +5,7 @@ export default class ScoreDisplay extends Phaser.Scene {
 
     create() {
 
-        var fontSize = 28;
+        var fontSize = 34;
         var fontColor = 'black';
         var totalBalloonText = 'Total Balloons: ';
         var totalBalloonMissedText = 'Balloons Missed: ';

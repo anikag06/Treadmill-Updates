@@ -4,7 +4,7 @@ export default class QuestionAndAnswer extends Phaser.Scene {
     }
 
     create() {
-        let fontSize = 25;
+        let fontSize = 30;
         let fontColor = 'black';
         this.currentQuestion;
         this.questionNumber = "que1";
