@@ -50,7 +50,6 @@ export class IdcScoreComponent implements OnInit, OnDestroy {
       this.score = this.gameService.score;
       this.timeLeft = this.gameService.timeLeft;
       this.difficultyValue = this.gameService.difficultyValue;
-      // this.startTimer();
       this.gameService.resumeGame.emit();
       this.updateBadges();
       console.log('ngoninit called');

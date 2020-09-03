@@ -1,4 +1,4 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable, EventEmitter, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { environment } from 'environments/environment';
@@ -17,7 +17,7 @@ import {
 @Injectable({
   providedIn: 'root',
 })
-export class IdcGameService {
+export class IdcGameService implements OnInit {
   startPlayingIdc = new EventEmitter();
   resumeGame = new EventEmitter();
   // levelInitialise = new EventEmitter();
