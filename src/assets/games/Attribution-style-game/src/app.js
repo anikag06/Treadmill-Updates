@@ -1360,10 +1360,7 @@ var e = class LevelThree extends Phaser.Scene {
 
       let Title = "Based on your experience in the previous game, answer the questions that follow.";
 
-          // console.log(ASGUserPerformance);
-          // console.log(ASGAnswer.results[2]);
-          // console.log(ASGQuestions.results[0].question_text);
-          this.q1 = ASGQuestions.results[0].question_text;
+      this.q1 = ASGQuestions.results[0].question_text;
       this.q2 = ASGQuestions.results[1].question_text;
       this.q3 = ASGQuestions.results[2].question_text;
       this.q4 = ASGQuestions.results[3].question_text;
@@ -1372,116 +1369,87 @@ var e = class LevelThree extends Phaser.Scene {
       this.q7 = ASGQuestions.results[6].question_text;
       this.q8 = ASGQuestions.results[7].question_text;
       this.q9 = ASGQuestions.results[8].question_text;
-      this.q10 = ASGQuestions.results[9].question_text;
 
-
-      this.Answers1 = {
-        "ans1": ASGAnswer.results[1].answer_text,
-        "ans2": ASGAnswer.results[0].answer_text,
-        "ans3": ASGAnswer.results[2].answer_text,
-        "ans4": ASGAnswer.results[3].answer_text,
-        "ans5": ASGAnswer.results[4].answer_text,
-        "ans6": ASGAnswer.results[5].answer_text,
-        "ans7": ASGAnswer.results[6].answer_text,
-        "ans8": ASGAnswer.results[7].answer_text,
-        "ans9": ASGAnswer.results[8].answer_text,
-        "ans10": ASGAnswer.results[9].answer_text,
-        "ans11": ASGAnswer.results[10].answer_text,
-        "ans12": ASGAnswer.results[11].answer_text,
-        "ans13": ASGAnswer.results[12].answer_text,
-        "ans14": ASGAnswer.results[13].answer_text,
-        "ans15": ASGAnswer.results[14].answer_text,
-        "ans16": ASGAnswer.results[15].answer_text,
-        "ans17": ASGAnswer.results[16].answer_text,
-        "ans18": ASGAnswer.results[17].answer_text,
-        "ans19": ASGAnswer.results[18].answer_text,
-        "ans20": ASGAnswer.results[19].answer_text
+      this.Answers = {
+        // first game start
+        "ans1": ASGAnswer.results[0],
+        "ans2": ASGAnswer.results[1],
+        "ans3": ASGAnswer.results[2],
+        "ans4": ASGAnswer.results[3],
+        "ans5": ASGAnswer.results[4],
+        "ans6": ASGAnswer.results[5],
+        // first game end
+        // second game start
+        "ans7": ASGAnswer.results[6],
+        "ans8": ASGAnswer.results[7],
+        "ans9": ASGAnswer.results[8],
+        "ans10": ASGAnswer.results[9],
+        "ans11": ASGAnswer.results[16],
+        "ans12": ASGAnswer.results[17],
+        // second game end
+        // third game start
+        "ans13": ASGAnswer.results[10],
+        "ans14": ASGAnswer.results[11],
+        "ans15": ASGAnswer.results[12],
+        "ans16": ASGAnswer.results[13],
+        "ans17": ASGAnswer.results[14],
+        "ans18": ASGAnswer.results[15],
+        // third game end
       };
+      console.log('answers: ', this.Answers);
 
-
-
-
-
-
-
-
-
-
-
-
-        this.Answers = {
-            "ans1": ASGAnswer.results[1].answer_text,
-            "ans2": ASGAnswer.results[0].answer_text,
-            "ans3": ASGAnswer.results[2].answer_text,
-            "ans4": ASGAnswer.results[3].answer_text,
-            "ans5": ASGAnswer.results[4].answer_text,
-            "ans6": ASGAnswer.results[5].answer_text,
-            "ans7": ASGAnswer.results[6].answer_text,
-            "ans8": ASGAnswer.results[7].answer_text,
-            "ans9": ASGAnswer.results[9].answer_text,
-            "ans10": ASGAnswer.results[18].answer_text,
-            "ans11": ASGAnswer.results[19].answer_text,
-            "ans12": ASGAnswer.results[11].answer_text
-        };
-
-        this.Questions = {
-            "que1": {
-                question: this.q1,
-                ans1: {
-                    ans: this.Answers.ans1,
-                    id: 2,
-                    question: this.q2,
-                    ans1: { ans: this.Answers.ans3, id: 3,  question: "0", result: "1", explanationId: 1, a1: 2, a2: 3 },
-                    ans2: { ans: this.Answers.ans4, id: 4,  question: "0", result: "3", explanationId: 3, a1: 2, a2: 4 }
-                },
-                ans2: {
-                    ans: this.Answers.ans2,
-                    id: 1,
-                    question: this.q3,
-                    ans1: { ans: this.Answers.ans5, id: 5, question: "0", result: "2", explanationId: 2, a1: 1, a2: 5 },
-                    ans2: { ans: this.Answers.ans6, id: 6, question: "0", result: "4", explanationId: 4, a1: 1, a2: 6 }
-                }
-            },
-            "que2": {
-                question: this.q4,
-                ans1: {
-                    ans: this.Answers.ans7,
-                    id: 7,
-                    question: this.q5,
-                    ans1: {
-                        ans: this.Answers.ans7,
-                        id: 9,
-                        question: this.q6,
-                        ans1: { ans: this.Answers.ans7, id:11, question: "0", result: "1", explanationId: 5, a1: 9, a2: 11 },
-                        ans2: { ans: this.Answers.ans12, id:12, question: "0", result: "3", explanationId: 7, a1: 9, a2: 12 }
-                    },
-                    ans2: { ans: this.Answers.ans9, id:10, question: "0", result: "3", explanationId: 7, a1: 7, a2: 10 }
-                },
-                ans2: {
-                    ans: this.Answers.ans8,
-                    id: 8,
-                    question: this.q7,
-                    ans1: { ans: this.Answers.ans10, id:19, question: "0", result: "2", explanationId: 6, a1: 8, a2: 19 },
-                    ans2: { ans: this.Answers.ans11, id:20, question: "0", result: "4", explanationId: 8 , a1: 8, a2: 20}
-                }
-            },
-            "que3": {
-                question: this.q8,
-                ans1: {
-                    ans: this.Answers.ans1,
-                    id: 13,
-                    question: this.q9,
-                    ans1: { ans: this.Answers.ans7, id: 15, question: "0", result: "1", explanationId: 9, a1: 13, a2: 15 },
-                    ans2: { ans: this.Answers.ans8, id: 16, question: "0", result: "3", explanationId: 11, a1: 13, a2: 16 }
-                },
-                ans2: {
-                    ans: this.Answers.ans2,
-                    id: 14,
-                    question: this.q10,
-                    ans1: { ans: this.Answers.ans7, id:17, question: "0", result: "2", explanationId: 10, a1: 14, a2: 17 },
-                    ans2: { ans: this.Answers.ans8, id:18, question: "0", result: "4", explanationId: 12, a1: 14, a2: 18 }
-                }
+      this.Questions = {
+        "que1": {
+            question: this.q1,
+            ans1: {
+              ans: this.Answers.ans1.answer_text,
+              id: this.Answers.ans1.id,
+              question: this.q2,
+              ans1: { ans: this.Answers.ans3.answer_text, id: this.Answers.ans3.id,  question: "0", result: "1", explanationId: 1, a1: this.Answers.ans1.id, a2: this.Answers.ans3.id },
+              ans2: { ans: this.Answers.ans4.answer_text, id: this.Answers.ans4.id,  question: "0", result: "3", explanationId: 3, a1: this.Answers.ans1.id, a2: this.Answers.ans4.id }
+              },
+            ans2: {
+              ans: this.Answers.ans2.answer_text,
+              id: this.Answers.ans2.id,
+              question: this.q3,
+              ans1: { ans: this.Answers.ans5.answer_text, id: this.Answers.ans5.id, question: "0", result: "2", explanationId: 2, a1: this.Answers.ans2.id, a2: this.Answers.ans5.id },
+              ans2: { ans: this.Answers.ans6.answer_text, id: this.Answers.ans6.id, question: "0", result: "4", explanationId: 4, a1: this.Answers.ans2.id, a2: this.Answers.ans6.id }
             }
+          },
+        "que2": {
+          question: this.q4,
+          ans1: {
+            ans: this.Answers.ans7.answer_text,
+            id: this.Answers.ans7.id,
+            question: this.q5,
+            ans1: { ans: this.Answers.ans9.answer_text, id: this.Answers.ans9.id, question: "0", result: "1", explanationId: 5, a1: this.Answers.ans7.id, a2: this.Answers.ans9.id },
+            ans2: { ans: this.Answers.ans10.answer_text, id: this.Answers.ans10.id, question: "0", result: "3", explanationId: 7, a1: this.Answers.ans7.id, a2: this.Answers.ans10.id }
+          },
+          ans2: {
+            ans: this.Answers.ans8.answer_text,
+            id: this.Answers.ans8.id,
+            question: this.q6,
+            ans1: { ans: this.Answers.ans11.answer_text, id:this.Answers.ans11.id, question: "0", result: "2", explanationId: 6, a1: this.Answers.ans8.id, a2: this.Answers.ans11.id },
+            ans2: { ans: this.Answers.ans12.answer_text, id:this.Answers.ans12.id, question: "0", result: "4", explanationId: 8, a1: this.Answers.ans8.id, a2: this.Answers.ans12.id }
+          }
+        },
+        "que3": {
+          question: this.q7,
+            ans1: {
+              ans: this.Answers.ans13.answer_text,
+              id: this.Answers.ans13.id,
+              question: this.q8,
+              ans1: { ans: this.Answers.ans15.answer_text, id: this.Answers.ans15.id, question: "0", result: "1", explanationId: 9, a1: this.Answers.ans13.id, a2: this.Answers.ans15.id },
+              ans2: { ans: this.Answers.ans16.answer_text, id: this.Answers.ans16.id, question: "0", result: "3", explanationId: 11, a1: this.Answers.ans13.id, a2: this.Answers.ans16.id }
+            },
+            ans2: {
+              ans: this.Answers.ans14.answer_text,
+              id: this.Answers.ans14.id,
+              question: this.q9,
+              ans1: { ans: this.Answers.ans17.answer_text, id:this.Answers.ans17.id, question: "0", result: "2", explanationId: 10, a1: this.Answers.ans14.id, a2: this.Answers.ans17.id },
+              ans2: { ans: this.Answers.ans18.answer_text, id:this.Answers.ans18.id, question: "0", result: "4", explanationId: 12, a1: this.Answers.ans14.id, a2: this.Answers.ans18.id }
+            }
+          }
         };
 
         this.bg = this.add.sprite(0, 0, "bg").setOrigin(0, 0);
@@ -1538,8 +1506,7 @@ var e = class LevelThree extends Phaser.Scene {
 
       this.Question1Txt = this.add.text(190, 310, this.Questions.que1.question, { fontFamily: '"Roboto"' })
             .setFontSize(fontSize)
-            .setColor(fontColor)
-           // .setFontStyle('bold');
+            .setColor(fontColor);
       this.Question1Txt.alpha = 0.87;
 
 
@@ -1593,30 +1560,18 @@ var e = class LevelThree extends Phaser.Scene {
             }
           } else if (ASGLevelId === 2) {
             if (timeToAnswer.length === 3) {
-              if ((timeToAnswer[0] + timeToAnswer[2]) === timeToAnswer[1] || timeToAnswer[1]+1 || timeToAnswer[1]-1) {
-                AnswerId = Answer1Id;
-                TimeTakenToAnswer = timeToAnswer.shift();
-                this.updateBadges();
-                timeToAnswer.shift();
-                AnswerId = Answer2Id;
-                TimeTakenToAnswer = timeToAnswer.shift();
-                this.updateBadges();
-              } else if((timeToAnswer[0] + timeToAnswer[2]) !== timeToAnswer[1]) {
-                timeToAnswer.shift();
-                AnswerId = Answer1Id;
-                TimeTakenToAnswer = timeToAnswer.shift();
-                this.updateBadges();
-                AnswerId = Answer2Id;
-                TimeTakenToAnswer = timeToAnswer.shift();
-                this.updateBadges();
-              }
-            } else if(timeToAnswer.length === 5) {
-              timeToAnswer.shift();
+              console.log('run');
               AnswerId = Answer1Id;
               TimeTakenToAnswer = timeToAnswer.shift();
               this.updateBadges();
+              AnswerId = Answer2Id;
               timeToAnswer.shift();
-              timeToAnswer.shift();
+              TimeTakenToAnswer = timeToAnswer.shift();
+              this.updateBadges();
+            } else {
+              AnswerId = Answer1Id;
+              TimeTakenToAnswer = timeToAnswer.shift();
+              this.updateBadges();
               AnswerId = Answer2Id;
               TimeTakenToAnswer = timeToAnswer.shift();
               this.updateBadges();
