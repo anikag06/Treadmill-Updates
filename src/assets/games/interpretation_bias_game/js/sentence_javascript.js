@@ -4,11 +4,11 @@ var sentence_ids = [];
 var last_sentence_order = 0;
 var STREAK_THRESHOLD = 2;
 var ibGamelevel, ibGameStreak;
-var ibGameScore; 
+var ibGameScore;
 var ibGameUserOrder;
 var ibGameTime =20;
 var ibGameWordsHidden;
-var ibGameCorrectResponse;				// check whether user answers correctly or not 
+var ibGameCorrectResponse;				// check whether user answers correctly or not
 var ibGameShowTutorial;
 var ibGDifficultyValue;
 var success = false;				// to keep track of the user's performance in the game
@@ -35,7 +35,7 @@ var iBGSentenceDialogEvent;
 
 var ibgWordsNeeded = 0;
 
-var words = []                 //words of the sentence 
+var words = []                 //words of the sentence
 var NO_OF_WORDS;
 var no_words_hidden;
 var hidden_words_array = [];
@@ -45,11 +45,11 @@ var SECOND_HINTS_TIME = 30;
 // var initial_time = 12000;
 var game_timer = "150";
 var before_sentence_time = 1500;					//time after the user finds the required number of words
-var sentence_time = 1000;							//in milli seconds, time for showing the sentence before asking about the word relations
+var sentence_time = 1000;							//in milli seconds
 var borrowed_time = 20;								// time (in seconds) increase after borrowing time after time's up
 var increased_time = 30;								// time(in seconds) increase after using  hint increase time
 var delay_show_sentence = 1000;						// delay for showing the sentence after showing the cross
-var average_reading_speed = (50);					// considering average reading speed 50 characters per sec
+var average_reading_speed = (50);					// considering average reading speed 40 characters per sec
 var INITIAL_VALUE = ' ';
 var no_of_parameters = 4;
 var ALPHABETS = 'abcdefghijklmnopqrstuvwxyz';
@@ -62,8 +62,8 @@ var alpha_most_common = 'etai';
 var answer = false;
 
 var isFirstAttempt = true;
-var countTrue = 0;									//counts how many words are already found by the user 
-var word_already_found = [];						//array to store the words found 
+var countTrue = 0;									//counts how many words are already found by the user
+var word_already_found = [];						//array to store the words found
 var extra_word_already_found = [];					//array to store the words found not in the array.
 
 var extra_word = false;								//flag for keeping track if the word is in sentence or not
@@ -76,10 +76,10 @@ var ibg_btn_give_up_score = 35;
 var ibg_btn_other_sentence_score = 100;
 var min_score_increaseTime = 20;					//minimum score to unlock the 'increase the time' power
 var ibg_word_cost = 30; 							// if user uses show word hint
-var guess_word_score = 20;							// if user uses guess the word hint 
+var guess_word_score = 20;							// if user uses guess the word hint
 var ibg_coordinate_cost = 20;
 var score_each_letter = [10, 7, 5];					//for each letter of the word of the sentence
-// var try_again_score = 40; 
+// var try_again_score = 40;
 
 var percent_full_sen = 0.5;						// to show the complete sentence
 var percent_partial_sen = 0.15;						// give an extra chance and some other benefits to find the 90% of the sentence
@@ -87,10 +87,10 @@ var no_shuffle_words = 0;							// number of times hint guess the word called
 var startBlink = null;								//for start blinking the first letter to give hints
 var hideText = null;
 var min_bonus_word_length = 2;						//minimum length of word for giving bonus coins
-var words_pos_row=[], words_pos_column=[];			//row, columns words in sentence occupy 
+var words_pos_row=[], words_pos_column=[];			//row, columns words in sentence occupy
 var sentence_splitter = " ";
 var sorted_words_list = [];		//array of sorted words, use when time up to get percentage of words found
-var coins =0;					//coins for answer in relation questions 
+var coins =0;					//coins for answer in relation questions
 var coins_rem = null;
 var final_coins = 120;			//maximum coins displayed for answering relation question
 var unlock = false;				//whether the powers can be unlocked to use or not
@@ -104,18 +104,18 @@ var isValidWord = false;		//for saving lines in existing lines if the word is va
 var columnWidth = 0;				// for width of column for grid
 var rowHeight = 0;					//for height of row for grid
 var canvas = null;				//variables for drawing on canvas
-var bounds = null;          
+var bounds = null;
 var ctx = null;
 var hasLoaded = false;
 var letter_swiped_row, letter_swiped_column;
 
-var startX=0 ;					//co-ordinates of starting and ending of swipe 
+var startX=0 ;					//co-ordinates of starting and ending of swipe
 var startY=0 ;
 var mouseX ;
 var mouseY ;
 var lineColor;
 var isDrawing = false;
-var existingLines = [];						//to stores properties of lines drawn on canvas 
+var existingLines = [];						//to stores properties of lines drawn on canvas
 var existing_lines_length = -1;
 var imageData;								//for storing stages of the canvas
 
@@ -174,7 +174,7 @@ var canvas_height;
 
 var inactivity_threshold = 10000;		// show tips after 10 seconds of inactivity
 var inactivity_check;
-var inactivity_check_interval; 
+var inactivity_check_interval;
 
 var inactivity_time = 0;
 
@@ -200,35 +200,35 @@ function initializeVariables(){
 	no_words_hidden = ibGameWordsHidden;
 	FIRST_HINTS_TIME = 60;
   SECOND_HINTS_TIME = 30;
-	before_sentence_time = 1500;					
-	sentence_time = 1000;							
- 	borrowed_time = 20;								
- 	increased_time = 20;								
+	before_sentence_time = 1500;
+	sentence_time = 1000;
+ 	borrowed_time = 20;
+ 	increased_time = 20;
 	delay_show_sentence = 1000;
 	inactivity_time = 0;
-	inactivity_threshold = 10000;		// show tips after 10 seconds of inactivity					
+	inactivity_threshold = 10000;		// show tips after 10 seconds of inactivity
 	columnWidth = 0;
 	rowHeight = 0;
 	final_coins = 120;
 	count1 =0;
 	tip_number = 0;
-	INITIAL_VALUE = ' ';									 
+	INITIAL_VALUE = ' ';
 	star_sentence = " ";
 	canvas = null;				//variables for drawing on canvas
-	bounds = null;          
+	bounds = null;
 	ctx = null;
 	hasLoaded = false;
 	word_set = false;
 	game_paused = false;
 	words = [];
-	word_already_found = [];	
-	hidden_words_array = [];				
- 	extra_word_already_found = [];				
+	word_already_found = [];
+	hidden_words_array = [];
+ 	extra_word_already_found = [];
 	word_tip_shown = [];
 	word_tip_count = 0;
-	words_pos_row=[]; 
+	words_pos_row=[];
 	words_pos_column=[];
-	sorted_words_list = [];	
+	sorted_words_list = [];
 	initial_letters = [];
 	coordinates = [];
 	store_swiped_letter = [];
@@ -244,9 +244,9 @@ function initializeVariables(){
 			document.getElementById('ibg-pBar'+i).style.backgroundColor = 'rgba(100, 216, 216, 0.5)';
 		}
 	}
-	
-	countTrue = 0; 	
-}	
+
+	countTrue = 0;
+}
 function getUpdatedVariables() {
 	levelChange(success);
 	if(start_time!=0){
@@ -260,12 +260,12 @@ function getUpdatedVariables() {
 	gameStreak = ibGameStreak;
 	gameResponseTime=0;
 	gameUserSentenceId = sentence_ids[sentence_number];
-	gameResponseTime = (end_time - start_time) ; 
+	gameResponseTime = (end_time - start_time) ;
 	return [
 		gameOrder,
-		gameLevel, 
-		ibGameScore, 
-		gameStreak, 
+		gameLevel,
+		ibGameScore,
+		gameStreak,
 		ibGameTime,
 		ibGameWordsHidden,
 
@@ -298,17 +298,17 @@ function removeAddClassFun(){
 	$('#timeup1').addClass("d-none");
 	$("#lastPage").addClass("d-none");
 	$(".sentence-word-row").addClass("d-none");
-	$('#hint-div').addClass("d-none");	
+	$('#hint-div').addClass("d-none");
 	$('#showWordResult').addClass("d-none");
 	$('#showCoordResult').addClass("d-none");
 	$("#levelup").addClass("d-none");
 	inactivity_time = 0;
-	$(".tip-text").text(" ");	
+	$(".tip-text").text(" ");
 	$("#sincerity-message").text("");
 	$("#hint-img-tip").addClass("d-none");
 	inactivity_check();
 }
-var startIBGame; 
+var startIBGame;
 $(document).ready(function(){
 
 	showImages();
@@ -403,7 +403,7 @@ $(document).ready(function(){
 				$('#showWordResult').addClass("d-none");
 			}
 		}
-		
+
 	});
 
 	$(document).on("click", "#showCoordinates", function(ev){
@@ -436,12 +436,12 @@ $(document).ready(function(){
 			$('#showWord').removeClass("d-none");
 			$('#increase_time').removeClass("d-none");
 		}
-		
+
 	});
-	
+
 	$(document).on("click","#increase_time", function(ev){
 		if(ibg_score < ibg_time_cost){
-			showTooltip();		
+			showTooltip();
 		} else {
 
 		$('#ibgame-clock-gif').removeClass("d-none");
@@ -509,7 +509,7 @@ $(document).ready(function(){
 		// ibCountdown();
 	}
 	});
-	
+
 	$(document).on("click","#ibg-yes", function(ev){  //if the user clicks yes when asked whether the word and sentence are related or not
 		checkResponseYes(sentence_response_array[sentence_number]);
 		$(".btn-sentence-word-rel").attr("disabled", "disabled");
@@ -517,7 +517,7 @@ $(document).ready(function(){
 		if(answer == false){
 			coins = 0;
 		}
-		
+
 		$("#word").addClass("d-none");
 		ibg_score+=coins;
 		document.getElementById("bonusScore").innerHTML = "Bonus:"+coins;
@@ -527,7 +527,7 @@ $(document).ready(function(){
 		$(".main-training").addClass('d-none');
 		delay_sentence_word_message = 1500;
 	});
-	
+
 	$(document).on("click","#ibg-no", function(ev){   //if the user clicks yes when asked whether the word and sentence are related or not
 		checkResponseNo(sentence_response_array[sentence_number]);
 		$(".btn-sentence-word-rel").attr("disabled", "disabled");
@@ -535,7 +535,7 @@ $(document).ready(function(){
 		if(answer == false){
 			coins = 0;
 		}
-	
+
 		$("#word").addClass("d-none");
 		ibg_score+=coins;
 		document.getElementById("bonusScore").innerHTML = "Bonus:"+coins;
@@ -558,7 +558,7 @@ $(document).ready(function(){
 		showSentence();
 	}
 	});
-	
+
 	$(document).on("click",".btn-other-sentence", function(ev){
 		console.log('ROW CLICKED');
 		if (ibg_score< ibg_btn_other_sentence_score) {
@@ -571,17 +571,17 @@ $(document).ready(function(){
 			playNextSentence();
 			isFirstAttempt = true;
 		}
-	});	
+	});
 
 	$(document).on("click","#btn-next-sentence",function(ev){
-		
+
 			answer=false;
 			ibGameScore = ibg_score;
 			playNextSentence();
 			isFirstAttempt = true;
-		
-	});	
-	
+
+	});
+
 	$(document).on("click","#exit", function(e){
 		e.preventDefault();
 		showCanvas();
@@ -591,7 +591,7 @@ $(document).ready(function(){
 		$("#hint-img-tip").addClass("d-none");
 	});
 
-}); // document.ready ends here 
+}); // document.ready ends here
 
 function playNextSentence(){
 	if( gameOrder === 3 && ibGame_ask_feedback) {
@@ -605,7 +605,7 @@ function playNextSentence(){
 		setTimeout(() => {
 			removeAddClassFun();
 		});
-		
+
 		$(".tip-text").text("");
 		$("#hint-img-tip").addClass("d-none");
 		ibCountdown();
@@ -619,7 +619,7 @@ function hideCanvas(){
 		imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 	}
-	
+
 }
 
 function showCanvas(){
@@ -628,7 +628,7 @@ function showCanvas(){
 
 function countdownDisplay() {
 	document.getElementById('countdown').innerHTML= game_timer +'s';
-	
+
 }
 
 ibCountdown = function() {
@@ -675,7 +675,7 @@ ibCountdown = function() {
 function highlightFirstLetters(){
 
 	star_sentence = "";			//sentence with words in ascending order of length
-	
+
 	for(var i=0; i<initial_letters.length; i++){
 		var senWord = initial_letters[i].word;
 
@@ -759,10 +759,10 @@ function starify(word){
 
 // it is getting hard to highlight the first letters properly
 // function highlightFirstLetters(){
-	
+
 // 	for(var i=0; i<initial_letters.length; i++){
 // 		var _word = initial_letters[i].word;
-		
+
 // 		// only for words that haven't been found
 // 		if(word_already_found.indexOf(_word) == -1 && word_already_found.indexOf(reverseWord(_word)) == -1){
 // 			ctx.font = "bold "+canvas_font_width_highlight+"px serif";
@@ -774,7 +774,7 @@ function starify(word){
 // 		}
 // 	}
 
-// 	imageData = ctx.getImageData(0,0,canvas.width,canvas.height);       
+// 	imageData = ctx.getImageData(0,0,canvas.width,canvas.height);
 // }
 
 // function highlightSecondLetters(){
@@ -790,8 +790,8 @@ function starify(word){
 // 			ctx.fillText(initial_letters[i]["second_letter"], x, y);
 // 		}
 // 	}
-	
-// 	imageData = ctx.getImageData(0,0,canvas.width,canvas.height);       
+
+// 	imageData = ctx.getImageData(0,0,canvas.width,canvas.height);
 // }
 
 function countdownPause() {
@@ -841,7 +841,7 @@ ibGameMakeGridArray = function(sentence){
 			final_words[i] = sorted_words[i];
 		}
 	}
-	
+
 	// gridArray = generateGrid(NO_OF_WORDS,reverse_indices, final_words, GRID_LENGTH, gridArray);
 	try {
 		grid_done = generateGrid(NO_OF_WORDS,reverse_indices, final_words, GRID_LENGTH);
@@ -851,7 +851,7 @@ ibGameMakeGridArray = function(sentence){
 		alert(error +" " + " for the----  " +sentence +" --- grid not formed ");
 		return false;
 	}
-	
+
 }
 
 
@@ -913,7 +913,7 @@ function generateGrid(NO_OF_WORDS,reverse_indices,final_words,GRID_LENGTH){
 			words_pos_column.push(temp_column);
 		}else{
 			words_pos_row.push(word_parameters[0][1]);      //get the row and col at which words of sentence are placed
-			words_pos_column.push(word_parameters[0][0]); 
+			words_pos_column.push(word_parameters[0][0]);
 		}
 		if(i>= NO_OF_WORDS){
 			break;
@@ -994,7 +994,7 @@ function wordParameters(word,GRID_LENGTH){
 		}
 		count++;
 	}
-	
+
 }
 
 // randomly decide which words are to be reversed
@@ -1083,7 +1083,7 @@ function setWord(word,word_parameters){
 					second_row = row;
 					second_col = column;
 					second_letter = word.charAt(1);
-				}	
+				}
 			}
 			temp_gridArray[row][column] = word.charAt(i);
 		}else{
@@ -1103,7 +1103,7 @@ function setWord(word,word_parameters){
 			column++;
 		}
 	}
-	
+
 	var new_word = new wordInitialsPosition(word, first_letter, second_letter, first_row, first_col, second_row, second_col);
 	gridArray = temp_gridArray;
 	return [true,new_word];
@@ -1144,8 +1144,8 @@ function ibGameFillGrid(gridArray,GRID_LENGTH){
 					gridArray[i][j] = alpha_very_common.charAt(getRandomInt(alpha_very_common.length));
 				}else{
 					gridArray[i][j] = alpha_most_common.charAt(getRandomInt(alpha_most_common.length));
-				} 
-			} 
+				}
+			}
 		}
 	}
 	return gridArray;
@@ -1163,7 +1163,7 @@ function hideWords(sorted_words, ind){
 			hidden_words_array[ind]	= true;
 		}else if(sorted_words[ind].length == 1 || hidden_words_array[ind]){
 			hideWords(sorted_words, ind-1);
-		}	
+		}
 	}
 	return sorted_words;
 }
@@ -1201,7 +1201,7 @@ function starSentence(sentence){
 	// 	}
 	// }	else if(ibGamelevel == 2){	// hard level
 	// 	for(var i=0; i<sorted_words.length; i++){
-	// 		if(sorted_words[i].length>=4){							
+	// 		if(sorted_words[i].length>=4){
 	// 		// show first and last letter of larger words and hide smaller words
 	// 			var wordLength = sorted_words[i].length - 1;
 	// 			starSen+=sorted_words[i].charAt(0)+starify(sorted_words[i]).substring(1, wordLength)+ sorted_words[i].charAt(wordLength) +" ";
@@ -1220,7 +1220,7 @@ function starSentence(sentence){
 	// 		}
 	// 	}
 	// }
-	
+
 	return starSen;
 }
 
@@ -1237,7 +1237,7 @@ function replaceStars(word,strArray,pos, star_sentence){
 		}
 	}
 	for(let i=0; i<word.length; i++){								//replace the * with the letters of word found
-		starWords[wordPos]=starWords[wordPos].replace(starWords[wordPos].charAt(i),word.charAt(i)); 
+		starWords[wordPos]=starWords[wordPos].replace(starWords[wordPos].charAt(i),word.charAt(i));
 		var replacement = "<span style='color:#45b9bc'>" + starWords[wordPos] +"</span>";
 		strikeWord = starWords[wordPos].replace(starWords[wordPos], replacement);
 	}
@@ -1270,7 +1270,7 @@ function wordAlreadyFound(word){
 // check whether the word is already found by the user or not
 function extraWordAlreadyFound(word){
 	for(var i=0; i<extra_word_already_found.length; i++){                //if the word was found before or not
-		if(extra_word_already_found[i].search(word) != -1 && word.length == extra_word_already_found[i].length){ 
+		if(extra_word_already_found[i].search(word) != -1 && word.length == extra_word_already_found[i].length){
 			return true;
 		}
 	}
@@ -1278,7 +1278,7 @@ function extraWordAlreadyFound(word){
 }
 
 // for checking if the word selected by user by swiping is in sentence or not and also if the user found a word before or not
-function searchWordInArray(str, sorted_words, star_sentence, sentence) {    
+function searchWordInArray(str, sorted_words, star_sentence, sentence) {
 	var found= false; var present = false;        //for the words in sentence whether it is found before or not
 	var extra_present = false;                   //to check if the word (not in sentence) has been found before or not
 	var strArray = getSortedWordList(sentence);
@@ -1286,14 +1286,14 @@ function searchWordInArray(str, sorted_words, star_sentence, sentence) {
 
 	present = wordAlreadyFound(str);
 	if(present === false){    //search word in the array of words of sentence
-		for (var j=0; j<strArray.length; j++){               
+		for (var j=0; j<strArray.length; j++){
 			if(strArray[j].search(str) !=-1 && str.length== strArray[j].length){
 				isValidWord = true;
 				found = true;
 
 				word_already_found.push(str);
 				words_pos_row.splice(j,1,'_');           //replace positions of the words already found with '*'
-				words_pos_column.splice(j,1,'_');    
+				words_pos_column.splice(j,1,'_');
 				star_sentence = replaceStars(str,strArray,j, star_sentence);      //if correct word found replace stars with the word
 				countTrue++;
 				const word_ind = ibgWordsNeeded - countTrue + 1;
@@ -1303,7 +1303,7 @@ function searchWordInArray(str, sorted_words, star_sentence, sentence) {
 			}
 		}
 
-		if(found == false){            //if word found is incorrect 
+		if(found == false){            //if word found is incorrect
 			extra_present = extraWordAlreadyFound(str);
 			if(extra_present === true){         //if the word not present in sentence is already found
 
@@ -1316,7 +1316,7 @@ function searchWordInArray(str, sorted_words, star_sentence, sentence) {
 					extra_word_already_found.push(str);
 					ctx.strokeStyle = "black";
 					ibg_score = ibg_score+bonus_word_score;
-				
+
 				}
 			}
 		}
@@ -1337,7 +1337,7 @@ function searchWordInArray(str, sorted_words, star_sentence, sentence) {
 //shows full sentence for some time and then ask about relation with a word
 function showSentence(){
 	countTrue=0;
-	delay_show_sentence = 100;
+	delay_show_sentence = 1500;
 	// showing the congrats msg, it has 45 char
 	before_sentence_time = (Math.ceil((45)/average_reading_speed))*1000;
 	var total_characters = 0;
@@ -1349,7 +1349,7 @@ function showSentence(){
 	if (sentence_time < 2000){
 		sentence_time = 2000;
 	}
-	
+
 	countdownReset();
 	clearInterval(inactivity_check_interval);
 
@@ -1390,15 +1390,15 @@ function showSentence(){
 // 		document.getElementById("sentence_word").innerHTML = sentence_word_array[sentence_number];
 // 		$("#word").delay(delay_show_sentence).removeClass("d-none");
 // 		start_time = Date.now();
-// 	}, delay_show_sentence+before_sentence_time+sentence_time + eventTime);				
- 
-// 	coins = final_coins+20;         // /100 to adjust for the time showing the sentence   
-// 	coins_rem = setInterval(function(){ 
+// 	}, delay_show_sentence+before_sentence_time+sentence_time + eventTime);
+
+// 	coins = final_coins+20;         // /100 to adjust for the time showing the sentence
+// 	coins_rem = setInterval(function(){
 // 		if(coins>0){
-// 			coins-=10 ; 
+// 			coins-=10 ;
 // 			if(document.getElementById("ibg-coins")!=null){
 // 				document.getElementById("ibg-coins").innerHTML = coins;
-// 			}		
+// 			}
 // 		}
 // 		else{
 // 			coins=0;
@@ -1418,15 +1418,15 @@ ibGameTrainingSen = function() {
 		document.getElementById("sentence_word").innerHTML = sentence_word_array[sentence_number];
 		$("#word").delay(delay_show_sentence).removeClass("d-none");
 		start_time = Date.now();
-	}, delay_show_sentence+before_sentence_time+sentence_time);				
- 
-	coins = final_coins+20;         // /100 to adjust for the time showing the sentence   
-	coins_rem = setInterval(function(){ 
+	}, delay_show_sentence+before_sentence_time+sentence_time);
+
+	coins = final_coins+20;         // /100 to adjust for the time showing the sentence
+	coins_rem = setInterval(function(){
 		if(coins>0){
-			coins-=10 ; 
+			coins-=10 ;
 			if(document.getElementById("ibg-coins")!=null){
 				document.getElementById("ibg-coins").innerHTML = coins;
-			}		
+			}
 		}
 		else{
 			coins=0;
@@ -1437,7 +1437,7 @@ ibGameTrainingSen = function() {
 
 // Making canvas and finding the word swiped by the user
 function foundWord(sentence,sentence_word){
-	word_already_found.splice(0,word_already_found.length);			//make arrays empty before the next sentence is shown 
+	word_already_found.splice(0,word_already_found.length);			//make arrays empty before the next sentence is shown
 	extra_word_already_found.splice(0,extra_word_already_found.length);
 	words_pos_row.splice(0,words_pos_row.length);
 	words_pos_column.splice(0,words_pos_column.length);
@@ -1452,7 +1452,7 @@ function foundWord(sentence,sentence_word){
 	document.getElementById('stars').innerHTML = star_sentence;
 	var sorted_words = getSortedWordList(sentence);
 	makeCanvasGrid(playGrid,sorted_words,sentence,GRID_LENGTH);
-	
+
 	// var storeWord;
 	document.getElementById('score').innerHTML = ibg_score;
 }
@@ -1465,9 +1465,9 @@ function detectSwipe(playGrid,canvas,rect,sorted_words,sentence){
 							[Hammer.Swipe,{ direction: Hammer.DIRECTION_ALL }],
 						]
 					});
-		
+
 	canSwipe.get("swipe").set({pointer:0, velocity: 0.001, threshold: 0, direction: Hammer.DIRECTION_ALL });
-	canSwipe.on("swipe", function(eventObject) {         
+	canSwipe.on("swipe", function(eventObject) {
 		var pointer_x=startX;
 		var pointer_y=startY;
 		var angle=eventObject.angle;															//angle of swiping
@@ -1481,7 +1481,7 @@ function detectSwipe(playGrid,canvas,rect,sorted_words,sentence){
 		var no_of_cols = Math.ceil((Math.abs(distance_swiped_x))/(columnWidth));
 		var row_for_diag = Math.ceil((distance_swiped/(Math.sqrt((rowHeight*rowHeight)+(columnWidth*columnWidth)))));
 		//checking swipes according to angles
-		if(angle<-125&&angle>-145){ //UP-LEFT SWIPE...  
+		if(angle<-125&&angle>-145){ //UP-LEFT SWIPE...
 			swipe_direction = 0;
 			for(var rDiag= 0; rDiag < row_for_diag; rDiag ++){
 				if(row_num <playGrid.length && column_num <playGrid.length  && row_num>=0 && column_num>=0){
@@ -1553,7 +1553,7 @@ function detectSwipe(playGrid,canvas,rect,sorted_words,sentence){
 					last_row = letters_y_coordinate[(row_num)];
 					last_column = letters_x_coordinate[(playGrid.length)*(column_num)];
 					column_num++;
-					
+
 				}
 			}
 		}else if((angle <=-170 && angle >= -180) || (angle>=170 && angle <=180)){ //left swipe
@@ -1562,18 +1562,18 @@ function detectSwipe(playGrid,canvas,rect,sorted_words,sentence){
 				if(row_num <playGrid.length && column_num <playGrid.length  && row_num>=0 && column_num>=0){
 					storeLetter[cHor] = playGrid[row_num][column_num];
 					last_row = letters_y_coordinate[(row_num)];
-					
+
 					last_column = letters_x_coordinate[(playGrid.length)*(column_num)];
 					column_num--;
 				}
-			}  
+			}
 		}else{
 			storeLetter = sentence_splitter;
 		}
-	
+
 		if(storeLetter==sentence_splitter){
 			var storeWord;
-			storeLetter = [];  
+			storeLetter = [];
 		}else{
 		  var storeWord = storeLetter.join("");    //the word swiped by user
 			var sendWord = storeWord;
@@ -1589,7 +1589,7 @@ function detectSwipe(playGrid,canvas,rect,sorted_words,sentence){
 				document.getElementById('stars').innerHTML = star_sentence;
 				document.getElementById('score').innerHTML = ibg_score;
 				storeLetter = [];    //clear storeLetter to store another set of letters
-			
+
 		}
 	});
 	$(document).on("click","#exit", "#btn-next-sentence, .btn-other-sentence", function(ev){
@@ -1642,12 +1642,12 @@ function showFirstLetterCoordinates() {
 	}else{
 		showFirstLetterCoordinates();
 	}
-	
+
 }
 
 //On asking whether the sentence is related a given word or not
 function checkResponseYes(response){
-	if(response == true){          //'Yes' option for a word with positive valence  
+	if(response == true){          //'Yes' option for a word with positive valence
 		$('#correct').removeClass("d-none");
 		$('#wrong').addClass("d-none");
 		answer = true;
@@ -1707,7 +1707,7 @@ function showSincerityMessage(){
 // 				present = wordAlreadyFound(word_to_guess);
 // 				if(present == false){
 // 					shuffled_word = word_to_guess.shuffle();
-// 					document.getElementById('unscrambleWord').innerHTML = "Unjumble the Word: " + shuffled_word;        
+// 					document.getElementById('unscrambleWord').innerHTML = "Unjumble the Word: " + shuffled_word;
 // 					return true;
 // 				}
 // 			}
@@ -1721,7 +1721,7 @@ function showSincerityMessage(){
 // 		present = wordAlreadyFound(word_to_guess);
 // 		if(present == false){
 // 			shuffled_word = word_to_guess.shuffle();
-// 			document.getElementById('unscrambleWord').innerHTML = "Unjumble the Word: " + shuffled_word;        
+// 			document.getElementById('unscrambleWord').innerHTML = "Unjumble the Word: " + shuffled_word;
 // 			return true;
 // 		}else if(present == true){
 // 			// guessWord(sentence);
@@ -1746,7 +1746,7 @@ String.prototype.shuffle = function () {        //function to shuffle a string
 function drawBoard(playGrid,context,bw,bh){                           //making grid on canvas
 	var row = 0;
 	var column=0;
-	
+
 	for(var x=0; x<bw; x+=columnWidth) {
 		row=0;
 		for(var y=0; y<bh; y+=rowHeight) {
@@ -1756,13 +1756,13 @@ function drawBoard(playGrid,context,bw,bh){                           //making g
 			context.fillText(number,x+(rowHeight/2),y+(columnWidth/2));
 			letters_x_coordinate.push(x+(rowHeight/2));
 			letters_y_coordinate.push(y+(columnWidth/2));
-			
+
 			row++;
 		}
 		column++;
 	}
 	context.strokeStyle = "black";
-	document.getElementById("canvas").innerHTML = context.stroke();   
+	document.getElementById("canvas").innerHTML = context.stroke();
 	imageData = context.getImageData(0,0,canvas.width,canvas.height);             // save the current stage of the canvas every time as an image
 }
 
@@ -1774,14 +1774,14 @@ function makeCanvasGrid(playGrid,sorted_words,sentence,GRID_LENGTH){
 	canvas_width = document.getElementById("canvas").width;
 	canvas_height = canvas_width;
 	var number;
-	
+
 	// set rowHeight and columnWidth for each canvas grid
 	columnWidth = Math.floor(canvas_width/GRID_LENGTH);	//Math.floor((window.innerWidth-20)/GRID_LENGTH);
 	rowHeight = Math.floor(canvas_height/GRID_LENGTH);
 
 	var bw = GRID_LENGTH*columnWidth;					//box width
 	var bh = GRID_LENGTH*rowHeight;						//box height
-	
+
 
 	document.getElementById("canvas").height = canvas_height;				//dimensions for canvas
 	document.getElementById("canvas").width = canvas_width;
@@ -1803,14 +1803,14 @@ function makeCanvasGrid(playGrid,sorted_words,sentence,GRID_LENGTH){
 			h : letters_y_coordinate[i] + (rowHeight/SQUARE_DIM)
 		});
 	}
-	
+
 	ctx = canvas.getContext("2d");
 	bounds = canvas.getBoundingClientRect();
 	canvas.onmousedown = onmousedown;			//mouse events
 	canvas.onmouseup = onmouseup;
 	canvas.onmousemove = onmousemove;
 	canvas.onmouseout = onmouseout;				//when mouse pointer leaves the canvas
-	
+
 	// Set up touch events for mobile, etc
 	canvas.addEventListener("touchstart", function (e) {
 		e.preventDefault();
@@ -1833,7 +1833,7 @@ function makeCanvasGrid(playGrid,sorted_words,sentence,GRID_LENGTH){
 		canvas.dispatchEvent(mouseEvent);
 	}, false);
 
-	canvas.addEventListener("touchmove", function (e) {      
+	canvas.addEventListener("touchmove", function (e) {
 		e.preventDefault();
 		var touch = e.touches[0];
 		var touchPos = getTouchPos(canvas,e);
@@ -1860,11 +1860,11 @@ function getMousePos(canvas, evt) {
     };
 }
 function draw(){
-	getStartPointOfLine();       
+	getStartPointOfLine();
 	ctx.lineWidth = line_width;         //properties of line drawn
 	ctx.globalAlpha = 0.50;
 	ctx.lineCap = "round";
-			
+
 	//lines made previously are stored in an array and then drawn again
 	if(existing_lines_length >=0 && lineDrawn ===false){
 		line = existingLines[existing_lines_length];				//drawing only newly made lines again not all the lines
@@ -1873,13 +1873,13 @@ function draw(){
 		ctx.beginPath();
 		ctx.moveTo(line.startX+4,line.startY-4);
 		ctx.lineTo(line.endX+4,line.endY-4);
-		ctx.strokeStyle = line.lineColor; 
+		ctx.strokeStyle = line.lineColor;
 		ctx.stroke();
 		countLine++;
 		lineDrawn = true;
 	}
 	imageData = ctx.getImageData(0,0,canvas.width,canvas.height);
-	
+
 	//while user is swiping, draw lines
 	if(isDrawing) {
 		ctx.strokeStyle = line_color_set_sentence_words[color_number];
@@ -1925,12 +1925,12 @@ function getStartPointOfLine(){
 	var initialX = startX;
 	var initialY = startY;
 	for(var i=0; i<letters_x_coordinate.length ; i++){
-		if(initialX < letters_x_coordinate[i] + (columnWidth/2)){			//check which is the nearest alphabest to the starting point of the swipe      
+		if(initialX < letters_x_coordinate[i] + (columnWidth/2)){			//check which is the nearest alphabest to the starting point of the swipe
 			startX = letters_x_coordinate[i];								//beginning of line changed to the co-ordinates of the nearest alphabet
 			if(initialY < letters_y_coordinate[i] + (rowHeight/2)){
 				startY = letters_y_coordinate[i] ;
 				return;
-			}     
+			}
 		}
 	}
 	startX = initialX;
@@ -1969,8 +1969,8 @@ function onmouseup(e) {
 			ctx.putImageData(imageData,0,0);
 			var mousePos = getMousePos(canvas,e);
 			mouseX = mousePos.x;
-			mouseY = mousePos.y;    
-	
+			mouseY = mousePos.y;
+
 			if(hasLoaded && e.button === 0){
 				if(isValidWord){						//if swiped word is a valid word, either part of sentence or any other word
 					if(isDrawing){
@@ -1984,8 +1984,8 @@ function onmouseup(e) {
 						extra_word = false;
 						lineDrawn = false;
 					}
-					existing_lines_length++;       
-					imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);       
+					existing_lines_length++;
+					imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 					isValidWord = false;
 				}
 				// make the letter swiped array and its position arrays empty so that letters that became bold become normal again
@@ -2004,7 +2004,7 @@ function onmouseout(e){   //if swipe ends outside the canvas
 		if(hasLoaded){
 			var mousePos = getMousePos(canvas,e);
 			mouseX = mousePos.x;
-			mouseY = mousePos.y;   
+			mouseY = mousePos.y;
 			if(isValidWord){            //if swiped word is a valid word, either part of sentence or any other word
 				if(isDrawing){
 					existingLines.push({
@@ -2018,7 +2018,7 @@ function onmouseout(e){   //if swipe ends outside the canvas
 					lineDrawn = false;
 				}
 				existing_lines_length++;
-				imageData = ctx.getImageData(0,0,canvas.width,canvas.height);     
+				imageData = ctx.getImageData(0,0,canvas.width,canvas.height);
 				isValidWord = false;
 			}
 			isDrawing = false;
@@ -2059,7 +2059,7 @@ function getTouchPos(canvasDom, e) {
 
 function levelChange(success){
 	if(ibGameStreak>0 && !success){
-		ibGameStreak=0;	
+		ibGameStreak=0;
 	}else if(ibGameStreak>=0 && success){
 		ibGameStreak++;
 	}
@@ -2159,11 +2159,11 @@ inactivity_check = function(){
 			}
 		}
 	}, 50);
-} 
+}
 
 
 function showTip(){
-	
+
 	var words_left = [];
 	var no_hidden_words = hiddenWordsInfo();
 	var tip_word;
@@ -2202,7 +2202,7 @@ function showTip(){
 			word_tip_count++;
 			inactivity_time=0;
 		}
-	}	
+	}
 }
 
 function unstarFirstLetter(word){
