@@ -18,8 +18,7 @@ import { FlowService } from '@/main/flow/flow.service';
 export class Conclusion2Component implements OnInit, OnDestroy {
   stepGroupSequence!: number;
   conclusionDataSubscription!: Subscription;
-  // TODO: provide link for task form
-  taskFormLink = '';
+  taskFormLink = 'https://www.treadwill.org/main/resources/forms/task';
   dataLoaded = false;
   locked = false;
   stepCompleted = false;

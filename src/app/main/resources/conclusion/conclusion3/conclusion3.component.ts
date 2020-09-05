@@ -28,9 +28,10 @@ export class Conclusion3Component implements OnInit, OnDestroy {
   negativeThought!: string;
   balancedThought!: string;
   conclusionDataSubscription!: Subscription;
-  // TODO: provide link for thought record form and problem solving form
-  thoughtRecordFormLink = '';
-  problemSolvingFormLink = '';
+  thoughtRecordFormLink =
+    'https://www.treadwill.org/main/resources/forms/thought-record';
+  problemSolvingFormLink =
+    'https://www.treadwill.org/main/resources/forms/problem-solving';
   dataLoaded = false;
   locked = false;
   stepCompleted = false;

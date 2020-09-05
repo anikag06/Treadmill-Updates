@@ -26,8 +26,8 @@ export class Conclusion5Component implements OnInit, OnDestroy {
   commitment!: string;
   worry!: string;
   conclusionDataSubscription!: Subscription;
-  // TODO: provide link for thought record form and problem solving form
-  controlWorryingFormLink = '';
+  controlWorryingFormLink =
+    'https://www.treadwill.org/main/resources/forms/worry-productively';
   dataLoaded = false;
   locked = false;
   stepCompleted = false;

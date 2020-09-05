@@ -31,8 +31,8 @@ export class Conclusion1Component implements OnInit, OnDestroy {
   options = COMMITMENT_OPTIONS;
   commitment!: string;
   conclusionDataSubscription!: Subscription;
-  // TODO: provide link for thought record form
-  thoughtRecordFormLink = '';
+  thoughtRecordFormLink =
+    'https://www.treadwill.org/main/resources/forms/thought-record';
   dataLoaded = false;
   locked = false;
   stepCompleted = false;

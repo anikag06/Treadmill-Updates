@@ -27,9 +27,10 @@ export class Conclusion4Component implements OnInit, OnDestroy {
   negativeBelief!: string;
   balancedBelief!: string;
   conclusionDataSubscription!: Subscription;
-  // TODO: provide link for thought record form and problem solving form
-  beliefChangeFormLink = '';
-  experimentToTestBeliefFormLink = '';
+  beliefChangeFormLink =
+    'https://www.treadwill.org/main/resources/forms/belief-change';
+  experimentToTestBeliefFormLink =
+    'https://www.treadwill.org/main/resources/forms/test-belief';
   dataLoaded = false;
   locked = false;
   stepCompleted = false;
