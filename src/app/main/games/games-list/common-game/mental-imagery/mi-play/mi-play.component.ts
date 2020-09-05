@@ -249,9 +249,8 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
   }
 
   ifPositive(input: string) {
-    input = input.replace(/[^\w\s]/gi, '');
     input = input.toLocaleLowerCase();
-
+    console.log('input: ', input);
     if (this.currentScenario.possibleCorrectAnswerList.indexOf(input) > -1) {
       return 1;
     } else if (
