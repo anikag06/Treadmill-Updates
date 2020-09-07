@@ -4,7 +4,7 @@ function init_game_variables(){
 
 	scaleRatio = 2/3;
 
-	// if game closed once 
+	// if game closed once
 	game_closed =false;
 	ec_play_clicked;
 	flankerTaskECGame = false;
@@ -96,7 +96,7 @@ function init_game_variables(){
 	MAX_LEVEL_SPEED = 10;
 	MIN_LEVEL_SPEED = 6;
 	LEVEL_SPEED=MIN_LEVEL_SPEED;
-	
+
 	LEVEL_SPEED_INCREMENT_GAP=50;
 	SPEED_INCREMENT=0.5;
 
@@ -324,7 +324,7 @@ function init_game_variables(){
 	INCORRECT_RESPONSE=-1;
 	NO_REPSONSE=0;
 	NEGATIVE_IMAGE=-1;
-	NEUTRAL_IMAGE=-1;
+	NEUTRAL_IMAGE=0;
 	TYPE_CHANGE_INTERVAL=2;
 	number_of_correct_response=0;
 
@@ -375,7 +375,7 @@ function init_game_variables(){
 	DISCRIMINATION_TASK_IMAGE_SMALL_SCALE = 0.7;
 	DISCRIMINATION_TASK_IMAGE_SPEED=15;
 	TIME_FOR_DISCRIMINATION=2000;
-	
+
 	//Game Scoring Elements
 	GAME_ELEMENTS_SPEED=12;
 	life;
@@ -426,7 +426,7 @@ function init_game_variables(){
 	DOUBLE_JUMP=1.5;
 
 
-	//Store the current instance of the game 
+	//Store the current instance of the game
 	curr_game;
 
 

@@ -1,23 +1,23 @@
 function task_generator()
 {
-	
+
     //Add jump platform
 	if(jump_platform.length==0)
 	{
-	
+
 		var crossing_length=Math.floor(Math.random() * CROSSING_RANGE)+CROSSING_MINIMUM_LENGTH;
 		stop_length=Math.floor(Math.random() * STOP_LENGTH_RANGE)+MINIMUM_STOP_LENGTH;
 
-	   
+
 	    var covered=JUMP_RANGE;
 	    var length =Math.floor(Math.random() * JUMP_PLATFORM_LENGTH_RANGE)+JUMP_PLATFORM_MINIMUM_LENGTH;
-		
+
 		//Add platforms till the jump range is covered
 		while(covered<crossing_length-(screen_width+JUMP_PLATFORM_SPEED)/2-JUMP_RANGE-screen_width)
 		{
-		
+
 			var height=Math.floor(Math.random()*JUMP_PLATFORM_HEIGHT_RANGE)+JUMP_PLATFORM_MINIMUM_HEIGHT;
-		    
+
 		    //Normal or dropping jump platforms
 		    var choice=Math.floor(Math.random()*JUMP_PLATFORM_CHOICE_RANGE);
 			choice=choice%JUMP_PLATFORM_CHOICE;
@@ -63,7 +63,7 @@ function task_generator()
 	}
 
 
-    
+
     //Move the bricks till reaching the stop length
 	else if(brick.x>=-stop_length)
 	{
@@ -81,7 +81,7 @@ function task_generator()
 	{
 		task_completed=true;
 		restore_game=true;
-	    
+
 	}
 
 	//Else generate delay before starting
@@ -96,11 +96,11 @@ function task_generator()
 			addInstructionTasks();
 			// countdown_handler=setInterval(start_countdown,INTERVAL);
 		}
-		
+
 	}
 
 
-	else 
+	else
 	{
 		clearInterval(countdown_handler);
 		countdown_handler=null;
@@ -111,46 +111,10 @@ function task_generator()
 		countdown=7;
 		countdown_text.setText();
 
-
-	    //Move the score panel upwards till out of site
-	    // if(scoreText.y>=-screen_height-scoreText.height/2||coinsCollectedText.y>=-screen_height-coinsCollectedText.height/2||coin_score_icon.y>=-screen_height/2-coin_score_icon.height/2||life.y>=-screen_height/2-life.height/2)
-	    // {
-	    	// scoreText.y-=GAME_ELEMENTS_SPEED;
-	    	// coinsCollectedText.y-=GAME_ELEMENTS_SPEED;
-	    	// coin_score_icon.y-=GAME_ELEMENTS_SPEED;
-	    	// life.y-=GAME_ELEMENTS_SPEED;
-	    	// livesText.y-=GAME_ELEMENTS_SPEED;
-	    	// if(isTouchDevice==true)
-	    	// {
-	    	// jump_button.y+=GAME_ELEMENTS_SPEED;
-	    	// }
-	    	// double_jump_button.y+=GAME_ELEMENTS_SPEED;
-	    	// double_jump_text.y+=GAME_ELEMENTS_SPEED;
-	    	// if(double_jump_coin!=null)
-	    	// {
-	    	// 	double_jump_coin.y+=GAME_ELEMENTS_SPEED;
-	    	// }
-	    	// if(mystery_egg_icon!=null)
-	    	// {
-	    	// 	mystery_egg_icon.y-=GAME_ELEMENTS_SPEED;
-	    	// }
-			// mystery_egg_collected_text.y-=GAME_ELEMENTS_SPEED
-			
-	    	// pause_button.y-=GAME_ELEMENTS_SPEED;
-	    	// resume_button.y-=GAME_ELEMENTS_SPEED;
-	    	// music_button_on.y-=GAME_ELEMENTS_SPEED;
-	    	// music_button_off.y-=GAME_ELEMENTS_SPEED;
-	    // }
-	   
-	    
-	    // if (isTouchDevice==false)
-	    // {
-
-    
 	      //Add the task buttons
 	      if(left_button==null&&isTouchDevice==true)
 	      {
-	      
+
 	      left_button=curr_game.add.sprite(LEFT_X-distance,TOP_Y, 'left_button').setInteractive();
 		  left_button.setScale(1.2);
 		  left_button.depth = 12;
@@ -164,7 +128,7 @@ function task_generator()
 
 
 	      right_button=curr_game.add.sprite(RIGHT_X+distance,TOP_Y, 'right_button').setInteractive();
-		  right_button.setScale(1.2); 
+		  right_button.setScale(1.2);
 		  right_button.depth = 12;
 	      if(right_button.y-right_button.height<0)
 	      {
@@ -173,23 +137,23 @@ function task_generator()
 	      right_button.on('pointerdown', right_pressed);
 	      right_button.on('pointerup',function(){this.alpha=1});
 
-	      
+
 	      red_button=curr_game.add.sprite(LEFT_X-distance,BOTTOM_Y, 'red_button').setInteractive();
-		  red_button.setScale(1.2); 
+		  red_button.setScale(1.2);
 		  red_button.depth = 12;
 		  red_button.on('pointerdown', red_pressed);
 	      red_button.on('pointerup',function(){this.alpha=1});
 
 	      green_button=curr_game.add.sprite(RIGHT_X+distance,BOTTOM_Y, 'green_button').setInteractive();
 		  green_button.setScale(1.2);
-		  green_button.depth = 12; 
+		  green_button.depth = 12;
 		  green_button.on('pointerdown', green_pressed);
 	      green_button.on('pointerup',function(){this.alpha=1});
 
 	     }
 
 
-         
+
          //Move task buttons to the required posiiton
 	    if(isTouchDevice==true)
 	     {
@@ -205,11 +169,11 @@ function task_generator()
 				red_button.x = LEFT_X;
 				green_button.x = RIGHT_X;
 		    }
-		    
+
 		    //Start the flanker task
 		    else
 		    {
-	     	
+
 	     		flanker_task_init=true;
 	     		task_init=false;
 		    }
@@ -218,21 +182,21 @@ function task_generator()
 	     //Start the flanker task
 	    else
 	    {
-	     	
+
 	     	flanker_task_init=true;
 	     	task_init=false;
 	    }
 
 	    // }
 	}
-	
+
 }
 
 //The following four functions is to detect the task button inputs--one is explained
 function left_pressed()
 {
 
-	//Detect input only durind task time	
+	//Detect input only durind task time
 	if(flanker_task_started==true&&flanker_task_ended==false)
 	{
 		date=new Date();
@@ -246,23 +210,24 @@ function left_pressed()
 		flanker_task_end_time=date.getTime();
 
 		//Record response type
-		if(flanker_choice%TYPE_CHANGE_INTERVAL==0)
+    // 0.svg and 3.svg are the images where the middle points to the right
+		if(flanker_choice==0 || flanker_choice==3)
 		{
-			
+
 			flanker_task_response_type=CORRECT_RESPONSE;
-		}	
+		}
 		else
 		{
-			
+
 			flanker_task_response_type=INCORRECT_RESPONSE;
-			allowLifeReward==false;
+			allowLifeReward=false;
 		}
 		if(SHOW_TUTORIAL==true&&task_tutorial_shown==false)
 		{
 				if(flanker_task_response_type!=CORRECT_RESPONSE)
 				{
 					return;
-				}	
+				}
 				flanker_task_image.destroy();
 				flanker_task_ended=true;
 				flanker_task_complete();
@@ -270,29 +235,29 @@ function left_pressed()
 				{
 					left_button.setScale(1.2);
 					animation_active=false;
-				
+
 					clearInterval(task_button_blinking_animation);
 				}
 				task_tutorial_text.setText("");
 				left_key_button.destroy();
 				right_key_button.destroy();
-				
+
 		}
 		else
 		{
 			flanker_task_image.destroy();
 			flanker_task_ended=true;
 		}
-		
-		
-		
+
+
+
 	}
 }
 
 function right_pressed()
 {
 
-	
+
 	if(flanker_task_started==true&&flanker_task_ended==false)
     {
     	date=new Date();
@@ -301,18 +266,18 @@ function right_pressed()
     	right_button.alpha=0.8;
     	}
 		flanker_task_end_time=date.getTime();
-		if(flanker_choice%TYPE_CHANGE_INTERVAL==0)
+    	// 1.svg and 2.svg are the images where the middle points to the right
+		if(flanker_choice==1 || flanker_choice==2)
 		{
-			flanker_task_response_type=INCORRECT_RESPONSE;
-			allowLifeReward=false;
+      flanker_task_response_type=CORRECT_RESPONSE;
 		}
 		else
 		{
-		
-			flanker_task_response_type=CORRECT_RESPONSE;
+      flanker_task_response_type=INCORRECT_RESPONSE;
+      allowLifeReward=false;
 		}
-		
-		
+
+
 		if(SHOW_TUTORIAL==true&&task_tutorial_shown==false)
 		{
 
@@ -327,7 +292,7 @@ function right_pressed()
 				{
 					right_button.setScale(1.2);
 					animation_active=false;
-					
+
 					clearInterval(task_button_blinking_animation);
 				}
 				task_tutorial_text.setText("");
@@ -340,11 +305,11 @@ function right_pressed()
 			flanker_task_ended=true;
 		}
 	}
-}	
+}
 
 function red_pressed()
 {
-	
+
 	if(discrimination_task_started==true&&discrimination_task_ended==false)
 	{
 		if(isTouchDevice)
@@ -355,7 +320,7 @@ function red_pressed()
 		discrimination_task_end_time=date.getTime();
 		if(discrimination_choice%TYPE_CHANGE_INTERVAL==0)
 		{
-			
+
 			discrimination_task_response_type=CORRECT_RESPONSE;
 			if(flanker_task_response_type==CORRECT_RESPONSE)
 			{
@@ -365,11 +330,11 @@ function red_pressed()
 		}
 		else
 		{
-			
+
 
 			discrimination_task_response_type=INCORRECT_RESPONSE;
 			allowLifeReward=false;
-			
+
 		}
 
 		if(SHOW_TUTORIAL==true&&task_tutorial_shown==false)
@@ -386,15 +351,15 @@ function red_pressed()
 				{
 					red_button.setScale(1.2);
 					animation_active=false;
-					
+
 					clearInterval(task_button_blinking_animation);
 				}
 				task_tutorial_text.setText("");
 				red_key_button.destroy();
 				green_key_button.destroy();
 		}
-		
-		
+
+
 
 		else
 		{
@@ -419,13 +384,13 @@ function green_pressed()
 		discrimination_task_end_time=date.getTime();
 		if(discrimination_choice%TYPE_CHANGE_INTERVAL==0)
 		{
-			
+
 			discrimination_task_response_type=INCORRECT_RESPONSE;
 			allowLifeReward=false;
 		}
 		else
 		{
-			
+
 
 			discrimination_task_response_type=CORRECT_RESPONSE;
 			if(flanker_task_response_type==CORRECT_RESPONSE)
@@ -434,7 +399,7 @@ function green_pressed()
 			}
 			console.log('in ec game green pressed', number_of_correct_response);
 		}
-		
+
 		if(SHOW_TUTORIAL==true&&task_tutorial_shown==false)
 		{
 
@@ -449,7 +414,7 @@ function green_pressed()
 				{
 					green_button.setScale(1.2);
 					animation_active=false;
-					
+
 					clearInterval(task_button_blinking_animation);
 				}
 				task_tutorial_text.setText("");
@@ -457,8 +422,8 @@ function green_pressed()
 				green_key_button.destroy();
 				// task_tutorial_text.setBackgroundColor('rgba(255,255,255,0)');
 		}
-		
-		
+
+
 
 		else
 		{
@@ -521,15 +486,15 @@ function addInstructionTasks() {
 			"", task_tutorial_text_style);
 		task_start_dialog_text4 =curr_game.add.text(task_start_dialog_text1.x,screen_height*0.635,
 			"", task_tutorial_text_style);
-	
-		
+
+
 		task_dialog_heading=curr_game.add.text(screen_width*0.42, screen_height*0.10,
 					"Instructions", {strokeThicknes: '2.5px',fontFamily: 'Roboto', fontSize:'21px', fill: '#FFFFFF',align:'center'});
 		task_dialog_heading.depth = 13;
 		task_start_dialog_text1.setText("Press           if the middle arrow is pointing left");
 		task_start_dialog_text2.setText("Press           if the middle arrow is pointing right");
 		task_start_dialog_text3.setText("Press           if the central circle is");		//red circle
-		task_start_dialog_text4.setText("Press           if the central circle is");					//green circle
+		task_start_dialog_text4.setText("Press           if the central circle is");		//green circle
 		if(isTouchDevice==true)
 		{
 			left_key_button= curr_game.add.image(screen_width*0.27,screen_height*0.275,'left_button').setScale(0.45);
@@ -588,7 +553,7 @@ function onClickStartTask() {
 	task_start_dialog_text4.destroy();
 	task1_text.destroy();
 	task2_text.destroy();
-	
+
 	left_key_button.destroy();
 	right_key_button.destroy();
 	red_key_button.destroy();

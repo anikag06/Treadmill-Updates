@@ -10,7 +10,7 @@ export default class QuestionAndAnswer extends Phaser.Scene {
         this.questionNumber = "que1";
 
         let Title = "Based on your experience in the previous game, answer\nthe questions that follow.";
-
+        // THIS IS NOT BEING USED
         this.Answers = {
             "ans1": "Good",
             "ans2": "Bad",
@@ -25,7 +25,7 @@ export default class QuestionAndAnswer extends Phaser.Scene {
             "ans11": "No, I cannot be good at it.",
             "ans12": "No, I don't think so."
         };
-
+      // THIS IS NOT BEING USED
         this.Questions = {
             "que1": {
                 question: "How do you think you have performed in this game?",
