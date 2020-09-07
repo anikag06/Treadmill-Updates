@@ -11,6 +11,7 @@ export class FfgHelpService {
   bronzeValue!: any;
   silverValue!: any;
   goldValue!: any;
+  show_tutorial = false;
 
   constructor() {}
 

@@ -52,7 +52,7 @@ declare var ffg_perf_update: boolean;
 declare var ffg_current_song_order: number;
 declare var ffg_timers: any;
 declare var ffg_timer: any;
-
+declare var ffg_show_tutorial: boolean;
 @Component({
   selector: 'app-friendly-face-game',
   templateUrl: './friendly-face-game.component.html',
@@ -94,6 +94,8 @@ export class FriendlyFaceGameComponent implements OnInit {
   allBadgesInfo: BadgesInfo = new BadgesInfo(0, 0, 0, 0, 0, 0);
   last_completed_order: any;
   show_tutorial!: boolean;
+  ffg_show_tutorial = false;
+
   time_per_note: any;
   ask_feedback!: boolean;
   navbarTitle!: string;
@@ -254,7 +256,7 @@ export class FriendlyFaceGameComponent implements OnInit {
       this.SILVER_CONSTANT = user_data.SILVER_CONSTANT;
       this.GOLD_CONSTANT = user_data.GOLD_CONSTANT;
       this.last_completed_order = user_data.last_completed_order;
-      this.show_tutorial = user_data.show_tutorial;
+      this.ffgHelpService.show_tutorial = user_data.show_tutorial;
       this.ask_feedback = user_data.ask_for_feedback;
       ffg_time_per_note = user_data.time_per_note; // timeAlloted in miliseconds
       ffg_total_positive_images = user_data.total_positive_images;

@@ -38,6 +38,7 @@ export class LearnedHelplessnessGameComponent implements OnInit, OnDestroy {
   stepSequence!: number;
   stepName!: string;
   lhcolorReverseGame = true;
+  gameName!: string;
 
   constructor(
     private gamePlayService: GamePlayService,
@@ -79,6 +80,7 @@ export class LearnedHelplessnessGameComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.gameName = this.gamePlayService.gameName;
     this.activatedRoute.params
       .pipe(
         map(v => v.id),

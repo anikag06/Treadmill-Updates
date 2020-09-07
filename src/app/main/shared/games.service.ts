@@ -33,7 +33,7 @@ export class GamesService {
     ),
     new Game(
       EXECUTIVE_CONTROL_GAME,
-      '../../../assets/games/games-list/Executive Control Game@2x.png',
+      '../../../assets/games/games-list/svg/sprint_.svg',
       GAME_EXECUTIVE_CONTROL_CONSTANT,
     ),
     new Game(
