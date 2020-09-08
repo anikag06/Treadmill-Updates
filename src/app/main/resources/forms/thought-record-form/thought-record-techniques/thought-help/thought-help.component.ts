@@ -25,8 +25,8 @@ export class ThoughtHelpComponent implements OnInit {
   changeThoughtQues = 'What could happen if you changed this thought?';
   canSolveQues = 'Would it help me to change the thought?';
   yes =
-    '<img src="assets/forms/well_done.png" height="16px" >Great ! Think of a more balanced thought.';
-  no = 'Okay';
+    '<img src="assets/forms/well_done.png" height="16px" > Great! Think of a more balanced thought.';
+  no = 'Okay.';
   summaryHeading = SUMMARY;
   @ViewChild('panel', { static: false }) panel!: any;
   @Input() thought!: Thought;

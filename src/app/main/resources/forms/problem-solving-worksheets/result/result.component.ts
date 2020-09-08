@@ -34,7 +34,7 @@ export class ResultComponent implements OnInit, OnChanges {
   showMessage!: boolean;
   yes = 'Great!';
   no =
-    "Okay.You can try another solution to the problem. If you think that the problem just won't go away, work on accepting it.";
+    "Okay. You can try another solution to the problem. If you think that the problem just won't go away, work on accepting it.";
 
   ngOnInit() {
     if (this.task) {

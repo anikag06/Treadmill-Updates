@@ -20,7 +20,7 @@ export const WORRY_PRODUCTIVELY_QUOTES = [
 export const WORRY_PRODUCTIVELY_MESSAGE = [
   {
     message:
-      'Great ! I am glad that your worry intensity has reduced. But, to get a long-term benefit, you might need to keep practicing the techniques. If you start worrying about this again, revisit the techniques in this form. The techniques of Face my worst fear and Deal with intense worry are especially helpful for repetitive worries.',
+      'Great! I am glad that your worry intensity has reduced. But, to get a long-term benefit, you might need to keep practicing the techniques. If you start worrying about this again, revisit the techniques in this form. The techniques of Face my worst fear and Deal with intense worry are especially helpful for repetitive worries.',
     suggestions: [],
   },
 ];

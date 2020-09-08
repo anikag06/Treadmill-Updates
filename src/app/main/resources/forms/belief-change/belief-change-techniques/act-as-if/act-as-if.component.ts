@@ -39,13 +39,13 @@ export class ActAsIfComponent implements OnInit {
   @Output() techniqueCollapsed = new EventEmitter();
   @Input() summaryIndex!: number;
   @Input() reset!: boolean;
-  advantageQues = 'What are the advantage having this belief?';
+  advantageQues = 'What would be the advantages of acting this way?';
   acting_help = 'Would acting this way help me?';
   showAdvantages = false;
 
   editMode = false;
   yes = 'Great! Then act "As if" you don\'t have the negative belief.';
-  no = 'Okay';
+  no = 'Okay.';
   summaryHeading = SUMMARY;
 
   constructor(
