@@ -13,6 +13,8 @@ import { CongratsDialogComponent } from '@/main/resources/shared/congrats-dialog
 import { ChatVideoComponent } from '@/main/chatbot/chat-window/chat-video/chat-video.component';
 import { ChatImageComponent } from '@/main/chatbot/chat-window/chat-image/chat-image.component';
 import { ClickOutsideDirective } from '@/main/shared/click-outside/click-outside.directive';
+import { IframeTrackerDirective } from '@/main/chatbot/chat-window/chat-video/iframe-tracker.directive';
+import { LazyLoadingImageDirective } from '@/main/shared/lazy-loading-image/lazy-loading-image.directive';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { ClickOutsideDirective } from '@/main/shared/click-outside/click-outside
     FormSliderComponent,
     DateTimePickerComponent,
     MoodTrackerComponent,
+    IframeTrackerDirective,
+    LazyLoadingImageDirective,
   ],
   imports: [
     CommonModule,
@@ -46,6 +50,8 @@ import { ClickOutsideDirective } from '@/main/shared/click-outside/click-outside
     FormSliderComponent,
     DateTimePickerComponent,
     MoodTrackerComponent,
+    IframeTrackerDirective,
+    LazyLoadingImageDirective,
   ],
   entryComponents: [
     SlidesVideoComponent,

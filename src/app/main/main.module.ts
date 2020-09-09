@@ -149,7 +149,6 @@ import { SuggestedPostComponent } from './dashboard/suggested-post/suggested-pos
 import { SuggestedPostItemComponent } from './dashboard/suggested-post/suggested-post-item/suggested-post-item.component';
 import { WorryProductivelyService } from '@/main/resources/forms/worry-productively-form/worry-productively.service';
 import { InfiniteScrollDirective } from './shared/infinite-scroll/infinite-scroll.directive';
-import { LazyLoadingImageDirective } from './shared/lazy-loading-image/lazy-loading-image.directive';
 import { ToastNotificationComponent } from '@/shared/toast-notification/toast-notification.component';
 import { ToastNotificationDirective } from '@/shared/toast-notification/toast-notification.directive';
 import { SurveyComponent } from './shared/survey/survey.component';
@@ -165,7 +164,6 @@ import { SharedModule } from '@/shared/shared.module';
 import { CustomOverlayComponent } from './shared/custom-overlay/custom-overlay.component';
 import { NeedToTalkComponent } from './need-to-talk/need-to-talk.component';
 import { ChatImageDirective } from './chatbot/chat-window/chat-image/chat-image.directive';
-import { IframeTrackerDirective } from './chatbot/chat-window/chat-video/iframe-tracker.directive';
 import { IntroDialogComponent } from './walk-through/intro-dialog/intro-dialog.component';
 import { SupportGroupIntroComponent } from './walk-through/support-group-intro/support-group-intro.component';
 import { IntroSelectTagsComponent } from './walk-through/intro-select-tags/intro-select-tags.component';
@@ -279,7 +277,6 @@ import { IdcScienceComponent } from './games/games-list/common-game/identify-cog
     LhgGreatComponent,
     SuggestedPostComponent,
     SuggestedPostItemComponent,
-    LazyLoadingImageDirective,
     InfiniteScrollDirective,
     ToastNotificationComponent,
     ToastNotificationDirective,
@@ -291,7 +288,6 @@ import { IdcScienceComponent } from './games/games-list/common-game/identify-cog
     SettingsComponent,
     ChatImageDirective,
     InternetConnectionComponent,
-    IframeTrackerDirective,
     IntroDialogComponent,
     SupportGroupIntroComponent,
     IntroSelectTagsComponent,

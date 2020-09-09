@@ -488,11 +488,7 @@ textarea{
   position: fixed;
   z-index: 1000;
 }
-::-webkit-scrollbar {
-  width: 0px; /* Remove scrollbar space */
-  display: none;
-  background: transparent; /* Optional: just make scrollbar invisible */
-}
+
 .intro-heading {
   text-align: center;
   font-weight: bold;
