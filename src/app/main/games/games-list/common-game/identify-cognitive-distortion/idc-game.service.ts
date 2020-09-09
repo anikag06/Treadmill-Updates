@@ -102,7 +102,8 @@ export class IdcGameService implements OnInit {
   extraTimeTaken = false;
   interval!: any;
   levelOrder: any;
-
+  totalSituations!: number;
+  last_completed_order!: number;
   constructor(
     private http: HttpClient,
     private badgesService: GamesBadgesService,
@@ -155,7 +156,12 @@ export class IdcGameService implements OnInit {
       .subscribe(data => {
         this.game = data;
         console.log('Game Data', this.game);
-
+        this.totalSituations = this.game.results.length;
+        if (this.last_completed_order === this.totalSituations) {
+          this.questionId = 0;
+        } else {
+          this.questionId = this.last_completed_order;
+        }
         this.serviceCall();
       });
   }
@@ -185,7 +191,7 @@ export class IdcGameService implements OnInit {
 
   initUserData() {
     this.fetchUserData().subscribe((data: any) => {
-      console.log('user data', data);
+      console.log('user data, last_completed_order', data, data.last_completed_order);
       this.score = data.points;
       this.numCorrectAnswers = data.no_of_correct_answers;
       this.BRONZE_CONSTANT = data.BRONZE_CONSTANT;
@@ -195,11 +201,12 @@ export class IdcGameService implements OnInit {
       this.ask_feedback = data.ask_for_feedback;
       this.timeLeft = data.time;
       this.timeAlloted = data.time;
-      if (data.last_completed_order === 6) {
-        this.questionId = 0;
-      } else {
-        this.questionId = data.last_completed_order;
-      }
+      this.last_completed_order = data.last_completed_order;
+      // if (data.last_completed_order === this.totalSituations) {
+      //   this.questionId = 0;
+      // } else {
+      //   this.questionId = data.last_completed_order;
+      // }
       // this.levelInitialise.emit();
       // this.getGameData();
     });

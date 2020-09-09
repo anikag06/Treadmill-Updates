@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import {Component, OnInit, ElementRef, ViewChild, Input} from '@angular/core';
 import { IdcGameService } from '../idc-game.service';
 import { IdcInfoComponent } from '../idc-info/idc-info.component';
 import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
@@ -16,6 +16,7 @@ export class IdcMainComponent implements OnInit {
     private gamesFeedbackService: GamesFeedbackService,
   ) {}
 
+  @Input() blurred!: boolean;
   ngOnInit() {
     this.gameService.getGameData();
     // this.gameService.initUserData();

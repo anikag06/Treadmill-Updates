@@ -60,7 +60,7 @@
     </div>
     <div class="row">
       <div class="col-10 offset-1 text-center" *ngIf="notificationHeader && notificationHeader.length > 0 &&  !retry ">
-        <div *ngIf="levelChanged" #doneBtn>
+        <div class="mt-3" *ngIf="levelChanged" #doneBtn>
           <button mat-raised-button [color]="'new'" (click)="onClickDone()">DONE</button>
         </div>
 

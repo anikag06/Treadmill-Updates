@@ -19,11 +19,11 @@ export class IdcTimeComponent implements OnInit {
 
   ngOnInit() {
     this.tooltipData =
-      "You don't have sufficient points to buy extra time. Instead, click on replay.";
+      'You don\'t have sufficient points to buy extra time. Instead, click on replay.';
   }
 
   continuePlay() {
-    setTimeout(() => {
+    // setTimeout(() => {
       const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });
       this.elementRef.nativeElement.dispatchEvent(domEvent);
       this.gameService.optionStatusCount = 0;
@@ -32,11 +32,11 @@ export class IdcTimeComponent implements OnInit {
       // this.gameService.getUserData();
       this.gameService.replay = true;
       this.gameService.resumeGame.emit();
-    }, 600);
+    // }, 600);
   }
 
   addTimePlay() {
-    setTimeout(() => {
+    // setTimeout(() => {
       if (this.gameService.score < this.idcExtraScore) {
         this.tooltipShow();
       } else {
@@ -50,7 +50,7 @@ export class IdcTimeComponent implements OnInit {
         this.gameService.resumeGame.emit();
         this.gameService.extraTimeTaken = true;
       }
-    }, 600);
+    // }, 600);
   }
 
   tooltipShow() {

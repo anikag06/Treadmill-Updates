@@ -105,7 +105,6 @@ declare var ffGamePlay: any;
 declare var ffg_music_notes_array: any;
 declare var ffg_loaded_friendly_images: any;
 declare var ffg_loaded_hostile_images: any;
-
 // for mental imagery game
 declare var miGameShowTutorial: boolean;
 
@@ -176,7 +175,7 @@ export class GamePlayService {
   // for mental imagery games
 
   // for friendly face game
-  ffg_show_tutorial!: boolean;
+  ffg_show_tutorial = false;
   ffGameSongCounter = 0;
 
   // for ASG
@@ -209,19 +208,19 @@ export class GamePlayService {
       gameDivElement.nativeElement.dispatchEvent(domEvent);
       this.helpIBGame();
     } else {
-      // startIBGame();
       this.ibgameHelpService.showLoadingBar();
+
+      const tid = setInterval(() => {
+        if (document.readyState !== 'complete' || sentence_array.length === 0) {
+          console.log('checking if statement', sentence_array.length);
+          return;
+        }
+        clearInterval(tid);
+        // function to be called when document is ready
+        console.log('calling IB game');
+        startIBGame();
+      }, 1000);
     }
-    const tid = setInterval(() => {
-      if (document.readyState !== 'complete' || sentence_array.length === 0) {
-        console.log('checking if statement', sentence_array.length);
-        return;
-      }
-      clearInterval(tid);
-      // function to be called when document is ready
-      console.log('calling IB game');
-      startIBGame();
-    }, 1000);
   }
   pauseIBGame() {
     ibGamePause();
@@ -313,8 +312,9 @@ export class GamePlayService {
     // if (this.ecGameStarted) {
     // this.storeDataExecControlGame();
     //ASGstop();
-    this.game.destroy(true);
-
+    if (this.game) {
+      this.game.destroy(true);
+    }
     let date: Date;
     date = new Date();
     let d = date.getUTCDate();
@@ -744,7 +744,7 @@ export class GamePlayService {
 
   ffGamePlay(device_type: string, gameDivElement: any) {
     console.log('Show Tutorial', this.ffg_show_tutorial);
-    if (this.ffg_show_tutorial) {
+    if (this.ffghelpService.show_tutorial) {
       const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
       gameDivElement.nativeElement.dispatchEvent(domEvent);
       this.dialogBoxService.setDialogChild(FfgInstructionsComponent);
@@ -781,7 +781,7 @@ export class GamePlayService {
   musicFaceGame() {}
   helpFFGGame() {
     this.dialogBoxService.setDialogChild(FfgInstructionsComponent);
-    this.resumeFaceGame();
+    // this.resumeFaceGame();
   }
 
   // for mental imagery game

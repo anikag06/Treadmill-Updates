@@ -1,7 +1,8 @@
 .correctOption {
   border-radius: 20px 20px 20px 20px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  height: 32px;
+  padding: 4px 0;
+
   font-size: 14px;
   min-width: 198px;
   background-color: #fff;
@@ -14,8 +15,8 @@
 
 .incorrectOption {
   border-radius: 20px 20px 20px 20px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  height: 32px;
+  padding: 4px 0;
   font-size: 14px;
   min-width: 198px;
   background-color: #fff;

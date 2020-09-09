@@ -4,11 +4,12 @@
 .nat-background{
     display: flex;
     align-items: flex-start;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    //padding-top: 10px;
+    //padding-bottom: 10px;
     border-radius: 0 0 5px 5px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0);
     background-color: #DFFDFF;
+  min-height: 46px;
 }
 
 .nat-content-heading{
@@ -17,6 +18,8 @@
     font-family: Roboto, sans-serif;
     text-align: center;
     color: #2D3333;
+  align-self: center;
+
 }
 
 .nat-content{
@@ -24,4 +27,6 @@
     font-size: 14px;
     font-family:  Roboto, sans-serif;
     color: #2D3333;
+  align-self: center;
+
 }

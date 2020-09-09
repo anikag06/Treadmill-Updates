@@ -26,7 +26,7 @@ declare var flankerTaskECGame: any;
   styleUrls: ['./executive-control-game.component.scss'],
 })
 export class ExecutiveControlGameComponent implements OnInit, OnDestroy {
-  thisGame = 'Executive Control Game';
+  gameName!: string;
   navbarTitle!: string;
   stepGroupSequence!: number;
   stepSequence!: number;
@@ -43,6 +43,8 @@ export class ExecutiveControlGameComponent implements OnInit, OnDestroy {
   @ViewChild('newElement', { static: false }) element!: ElementRef;
 
   ngOnInit() {
+    console.log('game name' , this.playGameService.gameName);
+    this.gameName = this.playGameService.gameName;
     this.activatedRoute.params
       .pipe(
         map(v => v.id),

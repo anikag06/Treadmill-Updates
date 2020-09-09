@@ -6,17 +6,17 @@
 
     <div class="home-page" *ngIf="!playing">
       <img style=" height:200px" src="../../../../../../../assets/games/cognitive-distortion-game/Thinking errors.svg">
-      <h2>Cognitive Distortion</h2>
+      <h2>{{gameName}}</h2>
     </div>
     <div>
       <app-idc-score *ngIf="playing"></app-idc-score>
 
     </div>
     <div id="blurrContainer">
-      <app-idc-main *ngIf="playing"></app-idc-main>
+      <app-idc-main *ngIf="playing" [blurred] = "blurred"></app-idc-main>
 
     </div>
-    <div class="info mb-2 justify-content-end float-left" *ngIf="playing" #infoElement>
+    <div class="info mb-3 justify-content-end float-left" *ngIf="playing" #infoElement>
       <img style="width:36px;height:36px; "
         src="../../../../../../../assets/games/cognitive-distortion-game/Info Icon.png" (click)="openInfoPopup()">
     </div>

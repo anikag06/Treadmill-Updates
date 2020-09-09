@@ -3,6 +3,9 @@ import { FfgHelpService } from '../ffg-help.service';
 declare var ffg_music_notes_array: any;
 declare var ffg_loaded_friendly_images: any;
 declare var ffg_loaded_hostile_images: any;
+declare var ffGResumeGame: any;
+declare var ffGameSongCounter: any;
+declare var ffGameStart: any;
 
 @Component({
   selector: 'app-ffg-instructions',
@@ -17,15 +20,29 @@ export class FfgInstructionsComponent implements OnInit {
 
   ngOnInit() {}
   onStart() {
-    const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });
+    const domEvent = new CustomEvent('removeOverlayEvent', {bubbles: true});
     this.elementRef.nativeElement.dispatchEvent(domEvent);
-    if (
-      document.readyState !== 'complete' ||
-      ffg_music_notes_array.length === 0 ||
-      ffg_loaded_friendly_images.length === 0 ||
-      ffg_loaded_hostile_images.length === 0
-    ) {
-      this.ffghelpService.showLoadingBar();
+    if (this.ffghelpService.show_tutorial) {
+      const tid = setInterval(() => {
+        if (
+          document.readyState !== 'complete' ||
+          ffg_music_notes_array.length === 0 ||
+          ffg_loaded_friendly_images.length === 0 ||
+          ffg_loaded_hostile_images.length === 0 ||
+          ffGameSongCounter !== 0
+        ) {
+          console.log('checking if statement', ffg_music_notes_array.length);
+          return;
+        }
+        clearInterval(tid);
+        // function to be called when document is ready
+        console.log('calling ffgame start');
+        ffGameStart();
+      }, 1000);
+        this.ffghelpService.showLoadingBar();
+        this.ffghelpService.show_tutorial = false;
+    } else {
+      ffGResumeGame();
     }
   }
 }

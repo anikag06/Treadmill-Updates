@@ -3,6 +3,13 @@
 
 @import "../../../shared/games-common.scss";
 
+
+.mi-container{
+background-color: white;
+font-family: Roboto;
+background-image: url("../../../../../../assets/games/mental-imagery-game/daydream background.png");
+}
+
 #mi-game-div {
   height: 100%;
   max-width: 360px;
