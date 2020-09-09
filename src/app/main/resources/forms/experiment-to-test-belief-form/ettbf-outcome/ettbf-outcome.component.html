@@ -152,11 +152,12 @@
           (getRating)="getRating($event)"
           [rating]="value"
         ></app-form-slider>
-        <div *ngIf="showSliderContinue" (click)="onBeliefRatingAfterSubmit()">
+        <div *ngIf="showSliderContinue">
           <button
             type="button"
             mat-raised-button
             class="float-right continue-btn"
+            (click)="onBeliefRatingAfterSubmit()"
           >
             Continue
           </button>
@@ -164,6 +165,7 @@
         </div>
       </div>
     </form>
+
     <div class="card-body" *ngIf="bothRatingsExist">
       <div *ngIf="beliefDecreased">
         <p>

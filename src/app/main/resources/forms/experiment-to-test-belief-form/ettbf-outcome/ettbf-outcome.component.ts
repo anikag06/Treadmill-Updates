@@ -69,7 +69,7 @@ export class EttbfOutcomeComponent implements OnInit {
   });
   constructor(
     private ettbfBeliefService: ExperimentToTestBeliefService,
-    private formBuilder: FormBuilder,
+    private formBuilder: FormBuilder
   ) {}
 
   ngOnInit() {
@@ -96,7 +96,7 @@ export class EttbfOutcomeComponent implements OnInit {
         .subscribe((resp: any) => {
           if (resp.ok && resp.body.expected_outcome) {
             this.expectedOutComeForm.controls['expected_outcome'].setValue(
-              resp.body.expected_outcome,
+              resp.body.expected_outcome
             );
             this.showOutcome = true;
           }
@@ -117,6 +117,7 @@ export class EttbfOutcomeComponent implements OnInit {
       if (this.outcome.realistic_belief !== '') {
         this.realisticBeliefStatement = this.outcome.realistic_belief;
         this.beliefDecreased = true;
+        this.bothRatingsExist = true;
       }
     }
     if (changes.task) {
@@ -180,9 +181,9 @@ export class EttbfOutcomeComponent implements OnInit {
             this.outcomeResponse = data.body;
             console.log('The put request has been submitted');
           },
-          error => {
+          (error) => {
             console.error(error);
-          },
+          }
         );
     } else {
       if (
@@ -197,9 +198,9 @@ export class EttbfOutcomeComponent implements OnInit {
               this.outcomeResponse = data.outcome;
               console.log('The post request has been submitted');
             },
-            error => {
+            (error) => {
               console.error(error);
-            },
+            }
           );
       }
     }
@@ -250,10 +251,7 @@ export class EttbfOutcomeComponent implements OnInit {
     const date = this.task.end_at + ' ' + this.task.time;
     this.disableEmergency =
       moment().format('YYYY-MM-DD HH:mm') <
-      moment
-        .utc(date)
-        .local()
-        .format('YYYY-MM-DD HH:mm');
+      moment.utc(date).local().format('YYYY-MM-DD HH:mm');
   }
   taskLoaded(data: any) {
     this.task = data;

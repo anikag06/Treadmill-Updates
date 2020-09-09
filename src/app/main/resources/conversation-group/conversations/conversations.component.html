@@ -2,7 +2,7 @@
   <ng-container *ngIf="conversation; else loader">
     <div class="col-1 in-desktop"></div>
     <div
-      class="col changes-width h-auto"
+      class="col changes-width h-100"
       #convDiv
       [scrollTop]="scrollTop"
       id="conversation-container"
@@ -36,9 +36,9 @@
 
       <div class="row h-100 justify-content-center conv-elements-div">
         <div *ngFor="let conversation of show">
-          <div *ngFor="let i of conversation.message">
+          <div *ngFor="let msg of conversation.dialog">
             <div
-              *ngIf="conversation.message.length !== 0"
+              *ngIf="conversation.dialog.length !== 0"
               class="d-flex justify-content-start mb-3"
             >
               <div class="img_cont_msg ml-3">
@@ -52,12 +52,12 @@
                 class="msg_container"
                 [style.border-bottom-color]="conversation.wrong ? '#FF6A6A' : null"
               >
-                <p [innerHtml]="i.selected_option"></p>
+                <p [innerHtml]="msg.message"></p>
               </div>
             </div>
           </div>
           <div
-            *ngFor="let i of conversation.dialog"
+            *ngFor="let msg of conversation.option"
             class="d-flex justify-content-end mb-3"
           >
             <div
@@ -67,13 +67,16 @@
                 'border-bottom-color': conversation.wrong ? '#FF6A6A' : null
               }"
             >
-              <p [innerHtml]="i"></p>
-<!--              <div class="chat_image" *ngIf="item">-->
-<!--                <app-chat-image-->
-<!--                  fromConversation="true"-->
-<!--                  [image]=""-->
-<!--                ></app-chat-image>-->
-<!--              </div>-->
+              <p [innerHtml]="msg.message"></p>
+              <div class="chat_image" *ngIf="msg.option_images">
+                <div *ngFor="let image of msg.option_images">
+                  <app-chat-image
+                    fromConversation="true"
+                    [image]="image"
+                  ></app-chat-image>
+                </div>
+
+              </div>
             </div>
           </div>
         </div>
@@ -145,7 +148,7 @@
                     class="btn"
                     (click)="
                       count_multiple !== show_multiple - 1
-                        ? on_multiple_options()
+                        ? on_multiple_options(i)
                         : on_click(i)
                     "
                   >
@@ -154,11 +157,6 @@
                   <img
                     class="SendImage"
                     [src]="send_image"
-                    (click)="
-                      count_multiple !== show_multiple - 1
-                        ? on_multiple_options()
-                        : on_click(i)
-                    "
                   />
                 </div>
               </div>
