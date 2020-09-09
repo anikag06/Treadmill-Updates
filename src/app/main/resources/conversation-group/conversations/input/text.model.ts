@@ -1,8 +1,8 @@
 export class Texting {
   constructor(
-    public message?: any,
-    public dialog?: string[],
+    public dialog?: any,
+    public option?: any,
     public show_avatar_image?: string,
-    public wrong?: boolean,
+    public wrong?: boolean
   ) {}
 }

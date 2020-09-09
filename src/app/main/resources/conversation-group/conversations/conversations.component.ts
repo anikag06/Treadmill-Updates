@@ -90,7 +90,7 @@ import { FlowService } from '@/main/flow/flow.service';
           position: 'relative',
           textAlign: 'center',
           fontSize: '18px',
-        }),
+        })
       ),
       state(
         'send',
@@ -104,7 +104,7 @@ import { FlowService } from '@/main/flow/flow.service';
           position: 'relative',
           textAlign: 'center',
           fontSize: '14px',
-        }),
+        })
       ),
       transition('unsend => send', [
         style({ transform: 'translateX(50%)' }),
@@ -116,7 +116,7 @@ import { FlowService } from '@/main/flow/flow.service';
         'void',
         style({
           opacity: 0,
-        }),
+        })
       ),
       transition('void <=> *', animate(1000)),
     ]),
@@ -153,13 +153,12 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     private notificationService: NavbarNotificationsService,
     private activeroute: ActivatedRoute,
     private goToService: NavbarGoToService,
-    private flowService: FlowService,
+    private flowService: FlowService
   ) {
-    this.activeroute.params.pipe(map(v => v.id)).subscribe(params => {
+    this.activeroute.params.pipe(map((v) => v.id)).subscribe((params) => {
       this.conversation_id = params;
       this.passdata.IsConversationOn(true);
       this.run();
-      console.log('step id', this.passdata.get_current_id());
     });
   }
 
@@ -233,6 +232,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   feedbackDataId!: number;
   nsend = true;
   current_id!: number;
+  mupltiple_line_images = [];
 
   @ViewChild('form_div', { static: false }) formDiv!: ElementRef;
   @ViewChild('convDiv', { static: false }) convDiv!: ElementRef;
@@ -241,11 +241,6 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   type = 'image';
 
   ngOnInit() {
-    // this.conversation_id = this.passdata.getid();
-    //
-    // console.log('CONV ID', this.current_id, this.conversation_id);
-    // this.passdata.IsConversationOn(true);
-    // this.run();
     this.send_image = '../../../../assets/conversations/Send.png';
     this.timerservice.visibility();
     this.timerservice.unload();
@@ -275,7 +270,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         this.time,
         this.history_id,
         false,
-        false,
+        false
       );
       this.onunload = true;
     }
@@ -287,7 +282,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       this.time,
       this.history_id,
       false,
-      false,
+      false
     );
     this.passdata.IsConversationOn(false);
     this.notificationService.removeFullConvIcon.emit();
@@ -298,23 +293,20 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       .get(
         environment.API_ENDPOINT +
           '/api/v1/conversation/conversation/?conversation_id=' +
-          this.conversation_id,
+          this.conversation_id
       )
       .subscribe((res: any) => {
         this.conversation = new Conversation(
           res.title,
           res.final_conclusion_message,
           res.gender,
-          res.dialog_options,
+          res.dialog_options
         );
-        // console.log(this.conversation);
         this.title = this.conversation.title;
-        console.log('STEP DETAIL:', this.title);
         this.flowService.stepDetail.emit(this.title);
         this.gender = this.conversation.gender;
         this.final_conclusion_message = this.conversation.final_conclusion_message;
         this.length_conversation = this.conversation.dialogs.length;
-        // console.log(this.length_conversation);
         this.wrong = false;
         this.index = 1;
         this.speedrun = false;
@@ -324,13 +316,13 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         for (let j = 0; j < this.conversation.dialogs.length; j++) {
           this.dialogMap.set(
             this.conversation.dialogs[j].id,
-            this.conversation.dialogs[j],
+            this.conversation.dialogs[j]
           );
         }
         if (current_id === true) {
           this.id = this.conversation.dialogs[0].id;
         } else {
-          //For finding the id of current option if continuing the conversation
+          // For finding the id of current option if continuing the conversation
           // tslint:disable-next-line:no-shadowed-variable
           const _id = this.currenthistory.user_response.length - 1;
           let current = this.currenthistory.user_response[_id].option_in_history
@@ -362,14 +354,20 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         this.current_message = [];
         if (this.newLine_message.length !== 1) {
           this.newLine_message.forEach((q: any) => {
-            this.text.message.push(q);
+            this.text.dialog.push({
+              message: q,
+              option_images: [],
+            });
             this.current_message.push({
               message: q,
               ShowTyping: false,
             });
           });
         } else {
-          this.text.message.push(this.dialog.message);
+          this.text.dialog.push({
+            message: this.dialog.message,
+            option_images: [],
+          });
           this.current_message.push({
             message: this.dialog.message,
             ShowTyping: false,
@@ -402,13 +400,12 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       .get(
         environment.API_ENDPOINT +
           '/api/v1/conversation/history/?conversation_id=' +
-          this.conversation_id,
+          this.conversation_id
       )
       .subscribe((res: any) => {
-        // console.log(res);
         this.conversationsService
           .getFeedBackInfo(this.conversation_id)
-          .subscribe(feedback_data => {
+          .subscribe((feedback_data) => {
             if (feedback_data.exists) {
               this.initial_feedback = feedback_data.feedback;
               if (this.initial_feedback === 1) {
@@ -427,18 +424,17 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         } else {
           setTimeout(
             () => this.convDiv.nativeElement.classList.add('col-5'),
-            1000,
+            1000
           );
         }
         // const formName = this.passdata.getFormName();
         const formName = THOUGHT_RECORD;
-        console.log(this.passdata.getFormName());
         if (this.passdata.getFormName() === TASK) {
           setTimeout(() => this.loadForm(TaskFormsComponent), 1000);
         } else if (this.passdata.getFormName() === PROBLEM_SOLVING) {
           setTimeout(
             () => this.loadForm(ProblemSolvingWorksheetsComponent),
-            1000,
+            1000
           );
         } else if (formName === THOUGHT_RECORD) {
           // TODO: Always true no need to add the condition
@@ -452,7 +448,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
           res.results[0].created_at,
           res.results[0].completion_datetime,
           res.results[0].time_taken_to_complete_in_seconds,
-          res.results[0].user_response,
+          res.results[0].user_response
         );
         this.history_id = this.currenthistory.id;
         this.show = [];
@@ -465,7 +461,6 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         } else {
           if (this.currenthistory.time_taken_to_complete_in_seconds !== null) {
             this.time = this.currenthistory.time_taken_to_complete_in_seconds;
-            // console.log(this.time);
           }
           const length = this.currenthistory.user_response.length;
           for (let y = 0; y < length; y++) {
@@ -503,17 +498,24 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
             ].dialog_in_history.message.split('<new_line>');
 
             if (this.newLine_message.length > 1) {
-              this.newLine_message.forEach((q: any) => {
-                this.text.message.push({
-                  selected_option: q,
-                  option_images: [],
+              this.newLine_message.forEach((q: any, index: number) => {
+                // if (q !== '') {
+                this.text.dialog.push({
+                  message: q,
+                  dialog_images:
+                    index === this.newLine_message.length - 1
+                      ? this.currenthistory.user_response[y].dialog_in_history
+                          .dialog_images
+                      : [],
                 });
+                // }
               });
             } else {
-              this.text.message.push({
-                selected_option: this.currenthistory.user_response[y]
-                  .dialog_in_history.message,
-                option_images: [],
+              this.text.dialog.push({
+                message: this.currenthistory.user_response[y].dialog_in_history
+                  .message,
+                dialog_images: this.currenthistory.user_response[y]
+                  .dialog_in_history.dialog_images,
               });
             }
 
@@ -522,22 +524,34 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
             ].option_in_history.message.split('<new_line>');
 
             if (this.newLine_dialog.length > 1) {
-              this.newLine_dialog.forEach((q: any) => {
+              this.newLine_dialog.forEach((q: any, index: number) => {
                 // @ts-ignore
-                this.text.dialog.push(q);
+                // if (q !== '') {
+                this.text.option.push({
+                  message: q,
+                  option_images:
+                    index === this.newLine_dialog.length - 1
+                      ? this.currenthistory.user_response[y].option_in_history
+                          .option_images
+                      : [],
+                });
+                // }
               });
             } else {
               // @ts-ignore
-              this.text.dialog.push(
-                this.currenthistory.user_response[y].option_in_history.message,
-              );
+              this.text.option.push({
+                message: this.currenthistory.user_response[y].option_in_history
+                  .message,
+                option_images: this.currenthistory.user_response[y]
+                  .option_in_history.option_images,
+              });
             }
 
             this.show.push(this.text);
             this.item_message = this.show;
-            console.log(this.show);
           }
           this.loadConversation(false);
+          console.log(this.show);
         }
       });
   }
@@ -550,7 +564,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
 
   loadForm(component: any) {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
-      component,
+      component
     );
     const viewContainerRef = this.formHost.viewContainerRef;
     viewContainerRef.clear();
@@ -578,14 +592,15 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       });
     } else {
       this.mupltiple_line = this.dialog.dialog_has_options[0].option.message.split(
-        '<new_line>',
+        '<new_line>'
       );
+      this.mupltiple_line_images = this.dialog.dialog_has_options[0].option.option_images;
       this.show_multiple = this.mupltiple_line.length;
       this.count_multiple = 0;
       if (this.show_multiple > 1) {
         const option = {
-          message: this.mupltiple_line[0],
-          option_images: this.dialog.dialog_has_options[0].option.option_images,
+          message: this.mupltiple_line[this.count_multiple],
+          option_images: [],
         };
         this.options.push(option);
       } else {
@@ -598,49 +613,54 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     }
   }
 
-  on_multiple_options() {
-    // if(this.count_multiple != this.show_multiple) {
-    // this.text.dialog.push(this.dialog.dialog_has_options[this.count_multiple].option.message);
+  on_multiple_options(index: number) {
     this.options = [];
     this.nsend = false;
-    // @ts-ignore
-    this.text.dialog.push(this.mupltiple_line[this.count_multiple]);
+    // this.text.dialog.push(this.mupltiple_line[this.count_multiple]);
+    // if (this.mupltiple_line[this.count_multiple] !== '') {
+    this.text.option.push({
+      message: this.mupltiple_line[this.count_multiple],
+      option_images: [],
+    });
 
     this.show.push(this.text);
-    this.text = new Texting();
+    this.text = new Texting([], [], '', false);
     this.count_multiple++;
     const option = {
       message: this.mupltiple_line[this.count_multiple],
-      option_images: this.dialog.dialog_has_options[0].option.option_images,
+      option_images: this.mupltiple_line_images,
     };
     setTimeout(() => {
       this.options.push(option);
     }, option.message.length * 25);
-
+    // }
     this.current_message = [];
     this.nsend = true;
-
-    //  }
   }
 
   on_click(i: number) {
     this.nsend = false;
+    // this.text = new Texting([], [], '', false);
     if (
       this.count_multiple === this.show_multiple - 1 &&
       this.show_multiple > 1
     ) {
-      this.text.message = [];
-      // console.log(this.text.message.length);
+      this.text.dialog = [];
       // @ts-ignore
-      this.text.dialog.push(this.mupltiple_line[this.count_multiple]);
+      this.text.option.push({
+        message: this.mupltiple_line[this.count_multiple],
+        option_images: this.mupltiple_line_images,
+      });
     } else {
       // @ts-ignore
-      this.text.dialog.push(this.dialog.dialog_has_options[i].option.message);
+      this.text.option.push({
+        message: this.dialog.dialog_has_options[i].option.message,
+        option_images: this.dialog.dialog_has_options[i].option.option_images,
+      });
     }
 
     if (this.dialog.dialog_has_options[i].loopback) {
       this.loopback = true;
-      console.log(this.dialog.dialog_has_options[i]);
       this.wrong_message = this.dialog.dialog_has_options[
         i
       ].wrong_option_message.message;
@@ -653,8 +673,8 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       this.wrong_option_selected();
       this.text.wrong = true;
     }
+    // console.log(this.text);
     this.show.push(this.text);
-    console.log(this.text);
     this.post(i);
     this.last_id = this.id;
     this.id = this.dialog.dialog_has_options[i].upcoming_dialog;
@@ -688,8 +708,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       this.text.show_avatar_image = this.show_avatar_image;
     }
     this.newLine_dialog = this.dialog.message.split('<new_line>');
-    // console.log(this.show.length);
-    this.text = new Texting();
+    this.text = new Texting([], [], '', false);
     this.options = [];
     this.current_message = [];
 
@@ -699,7 +718,11 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
           message: this.newLine_dialog[0],
           ShowTyping: false,
         });
-        this.text.message.push(this.newLine_dialog[0]);
+        this.text.dialog.push({
+          message: this.newLine_dialog[0],
+          option_images: [],
+        });
+
         this.ShowTypingTime = this.newLine_dialog[0].split(' ');
         this.current_message[0].ShowTyping = true;
         let t;
@@ -715,7 +738,11 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
               message: this.newLine_dialog[l],
               ShowTyping: false,
             });
-            this.text.message.push(this.newLine_dialog[l]);
+            // this.text.dialog.push(this.newLine_dialog[l]);
+            this.text.dialog.push({
+              message: this.newLine_dialog[l],
+              option_images: [],
+            });
             this.ShowTypingTime = this.newLine_dialog[l].split(' ');
             this.current_message[l].ShowTyping = true;
             let t;
@@ -734,16 +761,18 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
           message: this.dialog.message,
           ShowTyping: false,
         });
-        this.text.message.push(this.dialog.message);
+        this.text.dialog.push({
+          message: this.dialog.message,
+          option_images: [],
+        });
+
         this.ShowTypingTime = this.dialog.message.split(' ');
-        console.log(this.ShowTypingTime);
         let t;
         if (this.ShowTypingTime.length / 35 < 1) {
           t = 1000;
         } else {
           t = 2000;
         }
-        console.log(t);
         this.current_message[0].ShowTyping = true;
         setTimeout(() => {
           this.current_message[0].ShowTyping = false;
@@ -760,12 +789,10 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         this.time,
         this.history_id,
         false,
-        this.finished,
+        this.finished
       );
     } else {
       this.ShowTypingTime = this.dialog.message.split(' ');
-      // console.log(this.ShowTypingTime);
-      // this.ShowTyping = true;
       let t;
       if (this.ShowTypingTime.length / 35 < 1) {
         t = 1000;
@@ -790,12 +817,9 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         ((this.show.length + this.no_of_options - 1) /
           this.length_conversation) *
         100;
-      // console.log(this.show.length + this.no_of_options - 1);
     } else {
       this.progress = (this.show.length / this.length_conversation) * 100;
     }
-
-    console.log(this.progress);
   }
 
   post(i: number) {
@@ -811,7 +835,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     this.speedrun = true;
     this.finished = false;
     this.dialog = this.dialogMap.get(this.id);
-    // console.log(this.dialog);
+
     //  this.text = new Texting();
     this.newLine_dialog = this.dialog.message.split('<new_line>');
     this.text = new Texting();
@@ -819,45 +843,56 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     if (this.newLine_dialog.length > 1) {
       this.newLine_dialog.forEach((q: any) => {
         //  this.current_message.push(q);
-        this.text.message.push(q);
+        this.text.dialog.push({
+          message: q,
+          option_images: [],
+        });
       });
     } else {
       // this.current_message.push(this.dialog.message);
-      this.text.message.push(this.dialog.message);
+      this.text.dialog.push({
+        message: this.dialog.message,
+        option_images: [],
+      });
     }
-    //  this.text.message.push(this.dialog.message);
-    // console.log(this.dialog.dialog_has_options.length);
+
     for (let y = 0; y < this.dialog.dialog_has_options.length; y++) {
       if (!this.dialog.dialog_has_options[y].loopback) {
         // @ts-ignore
-        this.text.dialog.push(this.dialog.dialog_has_options[y].option.message);
+        this.text.option.push(this.dialog.dialog_has_options[y].option.message);
         break;
       }
     }
     this.show.push(this.text);
-
+    console.log(this.text);
     while (this.dialog.is_last === false) {
       for (let y = 0; y < this.dialog.dialog_has_options.length; y++) {
         if (this.dialog.dialog_has_options[y].loopback === false) {
           this.dialog = this.dialogMap.get(
-            this.dialog.dialog_has_options[y].upcoming_dialog,
+            this.dialog.dialog_has_options[y].upcoming_dialog
           );
           break;
         }
       }
-      // this.text = new Texting();
-      // this.text.message.push(this.dialog.message);
+
       this.newLine_dialog = this.dialog.message.split('<new_line>');
       this.text = new Texting();
       // this.current_message = [];
       if (this.newLine_dialog.length > 1) {
         this.newLine_dialog.forEach((q: any) => {
           //  this.current_message.push(q);
-          this.text.message.push(q);
+          this.text.dialog.push({
+            message: q,
+            option_images: [],
+          });
         });
       } else {
         // this.current_message.push(this.dialog.message);
-        this.text.message.push(this.dialog.message);
+        // this.text.dialog.push(this.dialog.message);
+        this.text.dialog.push({
+          message: this.dialog.message,
+          option_images: [],
+        });
       }
       if (this.dialog.is_last === true) {
         // this.current_message = this.dialog.message;
@@ -881,8 +916,8 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       for (let y = 0; y < this.dialog.dialog_has_options.length; y++) {
         if (!this.dialog.dialog_has_options[y].loopback) {
           // @ts-ignore
-          this.text.dialog.push(
-            this.dialog.dialog_has_options[y].option.message,
+          this.text.option.push(
+            this.dialog.dialog_has_options[y].option.message
           );
           break;
         }
@@ -910,10 +945,9 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         this.time,
         this.history_id,
         true,
-        this.finished,
+        this.finished
       );
     }
-    console.log(this.show);
   }
 
   scrollPageToBottom() {
@@ -925,10 +959,10 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     //   inline: 'nearest',
     // });
     const options = this.convDiv.nativeElement.querySelectorAll(
-      '.msg_container_send1',
+      '.msg_container_send1'
     );
     const dialogs = this.convDiv.nativeElement.querySelectorAll(
-      '.msg_container1',
+      '.msg_container1'
     );
     options[options.length - 1].scrollIntoView();
     dialogs[dialogs.length - 1].scrollIntoView();
@@ -981,26 +1015,11 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
 
     this.conversationsService
       .storeFeedBackInfo(this.feedbackData)
-      .subscribe(data => {
-        console.log(data);
+      .subscribe((data) => {
         this.feedbackDataId = data.data.id;
         this.initial_feedback = this.userFeedback.final_feedback;
       });
   }
-
-  // onNextStepClick() {
-  //   this.flowStepService
-  //     .getNextStepData(this.next_step_id)
-  //     .subscribe(next_step => {
-  //       console.log(next_step);
-  //       const next_step_url = this.flowStepService.goToFlowNextStep(
-  //         next_step.data,
-  //       );
-  //       console.log(next_step_url);
-  //       this.router.navigate([next_step_url]);
-  //     });
-  // }
-
   onNextStepClick() {
     this.goToService.clickFlow.emit();
   }
@@ -1025,9 +1044,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     this.feedbackText.feedback_text = feedback_text;
     this.conversationsService
       .updateFeedBackInfo(this.feedbackText, this.feedbackDataId)
-      .subscribe(data => {
-        console.log(data);
-      });
+      .subscribe((data) => {});
     this.isDislikeBox = false;
     this.isLikeBox = false;
     this.likeDislikeRemoved = false;
@@ -1043,12 +1060,11 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     this.time = 100;
     this.completionData.time_spent = this.time;
     this.completionData.step_id = current_step_id;
-    console.log('data', this.time, current_step_id);
+
     // REQUEST FAILED
     this.stepDataService
       .storeCompletionData(this.completionData)
-      .subscribe(data => {
-        console.log(data);
+      .subscribe((data) => {
         this.showloading = false;
         this.showNextStepBtn = true;
       });
