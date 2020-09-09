@@ -1,4 +1,4 @@
-import { TASK, WEEK } from '@/app.constants';
+import {FORM_START_SCORE, TASK, WEEK} from '@/app.constants';
 import { ProblemSolvingWorksheetsService } from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.service';
 import { TasksService } from '@/main/resources/forms/shared/tasks/tasks.service';
 import { DateTimePickerComponent } from '@/main/shared/date-time-picker/date-time-picker.component';
@@ -21,6 +21,8 @@ import { UserSubTask } from './user-sub-task.model';
 import { UserTask } from './user-task.model';
 import { ActivatedRoute } from '@angular/router';
 import { isNotNullOrUndefined } from 'codelyzer/util/isNotNullOrUndefined';
+// import {CommonService} from '@/shared/common.service';
+// import {UserProfileService} from '@/main/shared/user-profile/user-profile.service';
 
 @Component({
   selector: 'app-tasks',
@@ -36,7 +38,7 @@ export class TasksComponent implements OnInit, OnChanges {
   @Input() taskHeading!: string;
   @Output() showMessage = new EventEmitter();
   // @ViewChild('dateTimeBtn', { static: false }) dateTimeBtn!: ElementRef;
-
+  formOldScore!: number;
   taskValueChanged = false;
   showTrashIcon: boolean[] = [];
   submitted = false;
@@ -73,6 +75,8 @@ export class TasksComponent implements OnInit, OnChanges {
     public dialog: MatDialog,
     private dateTimePickerService: DateTimePickerService,
     private route: ActivatedRoute,
+    // private commonService: CommonService,
+    // private userProfileService: UserProfileService,
   ) {}
 
   ngOnInit() {
@@ -83,6 +87,7 @@ export class TasksComponent implements OnInit, OnChanges {
     if (id !== null) {
       this.loadTaskByID(parseInt(id));
     }
+   // this.formOldScore = +this.userProfileService.getScoreValue();
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (
@@ -181,6 +186,10 @@ export class TasksComponent implements OnInit, OnChanges {
           this.taskHandler(taskBody, 'create');
           this.taskLoaded.emit(this.task);
           this.showMessage.emit(true);
+          // this.commonService.postScore(this.formOldScore + FORM_START_SCORE)
+          //   .subscribe(() => {
+          //     console.log('score');
+          //   });
         },
         error => {
           // console.log(error);

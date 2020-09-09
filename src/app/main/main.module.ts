@@ -112,7 +112,7 @@ import { MigScienceComponent } from './games/games-list/common-game/mental-image
 import { FfgScienceComponent } from './games/games-list/common-game/friendly-face-game/ffg-science/ffg-science.component';
 import { LhgScienceComponent } from './games/games-list/common-game/learned-helplessness-game/lhg-science/lhg-science.component';
 import { UserProfileComponent } from './shared/user-profile/user-profile.component';
-import { UserProfileService } from './shared/user-profile/userProfile.service';
+import { UserProfileService } from './shared/user-profile/user-profile.service';
 import { BadgesComponent } from './shared/user-profile/badges/badges.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { GetQuestionnaireComponent } from './dashboard/get-questionnaire/get-questionnaire.component';

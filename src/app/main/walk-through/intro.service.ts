@@ -3,7 +3,7 @@ import {
   Injectable,
   ViewContainerRef,
 } from '@angular/core';
-import { COMPLETED, MOBILE_WIDTH, TABLET_WIDTH } from '@/app.constants';
+import {COMPLETED, INTRODUCTORY_ANIMATION_STEP_COMPLETE_SCORE, MOBILE_WIDTH, TABLET_WIDTH} from '@/app.constants';
 // @ts-ignore
 import * as introJs from 'intro.js/intro';
 import { MatDrawer } from '@angular/material/sidenav';
@@ -367,6 +367,7 @@ export class IntroService {
           .storeCompletionData(this.completionData)
           .subscribe(() => {
             this.showCongratsDialog(true);
+            this.commonService.updateScore(INTRODUCTORY_ANIMATION_STEP_COMPLETE_SCORE);
           });
       }
     });
@@ -438,7 +439,7 @@ export class IntroService {
       this.notificationService.closeNavFlow.emit();
       if (window.innerWidth > MOBILE_WIDTH) {
         if (!this.flowService.stepCompleted) {
-          this.commonService.postScore(20);
+          this.commonService.updateScore(INTRODUCTORY_ANIMATION_STEP_COMPLETE_SCORE);
         }
         setTimeout(() => {
           this.flowService.introduceBehaviour.next(true);
@@ -558,7 +559,7 @@ export class IntroService {
       setTimeout(() => {
         this.setSideBarFalse();
         if (!this.flowService.stepCompleted) {
-          this.commonService.postScore(20);
+          this.commonService.updateScore(20);
         }
         this.startPointsIntro();
       }, 1500);

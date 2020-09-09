@@ -9,7 +9,7 @@ import {
   ACTIVE,
   QUESTIONNAIRE,
   CONCLUSION_PAGE,
-  LOGGED_IN_PATH,
+  LOGGED_IN_PATH, INTRODUCTION_SCORE, CONCLUSION_SCORE,
 } from '@/app.constants';
 import { ConclusionService } from '../conclusion.service';
 import { StepsDataService } from '../../shared/steps-data.service';
@@ -20,6 +20,9 @@ import { QuizService } from '@/shared/questionnaire/questionnaire.service';
 import { FlowService } from '@/main/flow/flow.service';
 import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifications.service';
 import { CommonService } from '@/shared/common.service';
+import {UserProfileService} from '@/main/shared/user-profile/user-profile.service';
+import {User} from '@/shared/user.model';
+import {AuthService} from '@/shared/auth/auth.service';
 
 @Component({
   selector: 'app-conclusion1',
@@ -27,6 +30,7 @@ import { CommonService } from '@/shared/common.service';
   styleUrls: ['./conclusion1.component.scss'],
 })
 export class Conclusion1Component implements OnInit, OnDestroy {
+  user!: User;
   stepGroupSequence!: number;
   options = COMMITMENT_OPTIONS;
   commitment!: string;
@@ -63,9 +67,12 @@ export class Conclusion1Component implements OnInit, OnDestroy {
     private quizService: QuizService,
     private flowService: FlowService,
     private commonService: CommonService,
+    private userProfileService: UserProfileService,
+    private authService: AuthService,
   ) {}
 
   ngOnInit() {
+    this.user = <User>this.authService.isLoggedIn();
     this.activatedRoute.url.subscribe(data => {
       this.stepGroupSequence = +data[0].path;
       this.stepDataService
@@ -165,9 +172,7 @@ export class Conclusion1Component implements OnInit, OnDestroy {
       .storeCompletionData(this.completionData)
       .subscribe(data => {
         console.log('data', data, this.currentStepId, this.nextStepId);
-        this.commonService.postScore(20).subscribe(() => {
-          console.log('score');
-        });
+        this.commonService.updateScore( CONCLUSION_SCORE);
       });
     this.commonDialogService.openCongratsDialog(
       this.currentStepId,

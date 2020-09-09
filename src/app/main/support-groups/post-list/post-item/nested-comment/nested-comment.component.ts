@@ -18,11 +18,13 @@ import { User } from '@/shared/user.model';
 import { ThumbsService } from '@/main/support-groups/thumbs.service';
 import { GeneralErrorService } from '@/main/shared/general-error.service';
 import { UserProfile } from '@/main/shared/user-profile/UserProfile.model';
-import { UserProfileService } from '@/main/shared/user-profile/userProfile.service';
+import { UserProfileService } from '@/main/shared/user-profile/user-profile.service';
 import { ThankComponent } from '@/main/support-groups/post-list/shared/thank/thank.component';
 import { ReportProblemComponent } from '@/main/support-groups/post-list/shared/report-problem/report-problem.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ReportService } from '@/main/support-groups/post-list/shared/report.service';
+import {CommonService} from '@/shared/common.service';
+import {SUPPORT_GROUP_COMMENT_SCORE, SUPPORT_GROUP_GETTING_UP_VOTE_SCORE, SUPPORT_GROUP_UP_DOWN_VOTE_SCORE} from '@/app.constants';
 
 @Component({
   selector: 'app-nested-comment',
@@ -35,6 +37,8 @@ export class NestedCommentComponent
   @Input() srcWidth!: number;
   @Output() deleteEmitter = new EventEmitter<UserNestedComment>();
   @ViewChild('replyForm', { static: false }) replyForm = NgForm;
+  upVoteFirstClick = false;
+  downVoteFirstClick = false;
   body = '';
   editMode = false;
   user!: User;
@@ -54,6 +58,7 @@ export class NestedCommentComponent
     private userProfileService: UserProfileService,
     public dialog: MatDialog,
     private reportService: ReportService,
+    private commonService: CommonService,
   ) {}
 
   /**
@@ -109,6 +114,7 @@ export class NestedCommentComponent
             };
             this.submitting = false;
             this.changeDetector.detectChanges();
+            this.commonService.updateScore(SUPPORT_GROUP_COMMENT_SCORE);
           },
           (error: HttpErrorResponse) => {
             this.errorService.openErrorDialog('Cannot add reply');
@@ -153,7 +159,15 @@ export class NestedCommentComponent
       this.ncService
         .voteComment({ nested_comment_id: this.userNestedComment.id, vote: 1 })
         .subscribe(
-          () => {},
+          () => {
+            if(!this.upVoteFirstClick && !this.downVoteFirstClick && this.userNestedComment.is_voted !== -1 ) {
+              this.upVoteFirstClick = true;
+              console.log('first upvote state', this.upVoteFirstClick);
+              this.commonService.updateScore(SUPPORT_GROUP_UP_DOWN_VOTE_SCORE);
+              this.commonService.postScoreForOther(SUPPORT_GROUP_GETTING_UP_VOTE_SCORE, this.userNestedComment.user.username);
+            }
+
+          },
           () => {
             this.errorService.openErrorDialog('Cannot Upvote');
             this.userNestedComment.is_voted = preVote;
@@ -181,7 +195,13 @@ export class NestedCommentComponent
       this.ncService
         .voteComment({ nested_comment_id: this.userNestedComment.id, vote: 0 })
         .subscribe(
-          () => {},
+          () => {
+            if (!this.downVoteFirstClick && !this.upVoteFirstClick && this.userNestedComment.is_voted !== -1) {
+              this.downVoteFirstClick = true;
+              console.log('first down vote status', this.downVoteFirstClick);
+              this.commonService.updateScore(SUPPORT_GROUP_UP_DOWN_VOTE_SCORE);
+            }
+          },
           () => {
             this.errorService.openErrorDialog('Cannot down vote');
           },

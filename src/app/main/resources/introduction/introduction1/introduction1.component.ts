@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { IntroductionService } from '../introduction.service';
-import { COMPLETED, LOCKED } from '@/app.constants';
+import {COMPLETED, INTRODUCTION_SCORE, LOCKED} from '@/app.constants';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 import { FlowService } from '@/main/flow/flow.service';
 import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
@@ -17,6 +17,9 @@ import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { StepCompleteData } from '@/main/resources/shared/completion-data.model';
 import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.service';
 import { CommonService } from '@/shared/common.service';
+import {UserProfileService} from '@/main/shared/user-profile/user-profile.service';
+import {User} from '@/shared/user.model';
+import {AuthService} from '@/shared/auth/auth.service';
 
 @Component({
   selector: 'app-introduction1',
@@ -24,6 +27,7 @@ import { CommonService } from '@/shared/common.service';
   styleUrls: ['./introduction1.component.scss'],
 })
 export class Introduction1Component implements OnInit, OnDestroy {
+  user!: User;
   stepGroupSequence!: number;
   situation!: string;
   feeling!: string;
@@ -55,6 +59,8 @@ export class Introduction1Component implements OnInit, OnDestroy {
     private flowStepService: FlowStepNavigationService,
     private goToService: NavbarGoToService,
     private commonService: CommonService,
+    private userProfileService: UserProfileService,
+    private authService: AuthService,
   ) {}
 
   @ViewChild('autosize', { static: false }) autosize!: CdkTextareaAutosize;
@@ -66,6 +72,7 @@ export class Introduction1Component implements OnInit, OnDestroy {
   };
 
   ngOnInit() {
+    this.user = <User>this.authService.isLoggedIn();
     this.activatedRoute.url.subscribe(data => {
       this.stepGroupSequence = +data[0].path;
     });
@@ -125,9 +132,7 @@ export class Introduction1Component implements OnInit, OnDestroy {
       .subscribe(data => {
         this.showloading = false;
         this.showNextStep = true;
-        this.commonService.postScore(20).subscribe(() => {
-          console.log('score');
-        });
+        this.commonService.updateScore(INTRODUCTION_SCORE);
       });
   }
   onNextStep() {

@@ -10,9 +10,13 @@ import {
 import { FormControl, FormBuilder, Validators } from '@angular/forms';
 import { WorryProductivelyService } from '../../worry-productively.service';
 import { Worry } from '../../worry.model';
-import { WORRY_PROBLEM } from '@/app.constants';
+import {FOLLOW_UP_FORM_COMPLETE_SCORE, WORRY_PROBLEM} from '@/app.constants';
 import { UserTask } from '../../../shared/tasks/user-task.model';
 import * as moment from 'moment';
+import {CommonService} from '@/shared/common.service';
+import {UserProfileService} from '@/main/shared/user-profile/user-profile.service';
+import {User} from '@/shared/user.model';
+import {AuthService} from '@/shared/auth/auth.service';
 
 @Component({
   selector: 'app-face-my-worst-fear',
@@ -26,6 +30,7 @@ export class FaceMyWorstFearComponent implements OnInit {
   @Output() techniqueExpanded = new EventEmitter();
   @Output() techniqueCollapsed = new EventEmitter();
   @Input() summaryIndex!: number;
+  user!: User;
   taskObject!: any;
   faceYourWorstFearForm = this.fb.group({
     faceYourWorstFear: new FormControl('', Validators.required),
@@ -45,6 +50,9 @@ export class FaceMyWorstFearComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private worryService: WorryProductivelyService,
+    private commonService: CommonService,
+    private userProfileService: UserProfileService,
+    private authService: AuthService,
   ) {}
   ngOnInit() {
     this.emergencyPlan = undefined;
@@ -54,6 +62,7 @@ export class FaceMyWorstFearComponent implements OnInit {
       this.taskLoaded;
     }
     console.log(this.disableEmergency + 'log');
+    this.user = <User>this.authService.isLoggedIn();
   }
   ngOnChanges(changes: SimpleChanges) {
     this.resetForm();
@@ -127,6 +136,7 @@ export class FaceMyWorstFearComponent implements OnInit {
         if (resp.body) {
           console.log('The request has been submitted');
           this.responseData = resp.body;
+          this.commonService.updateScore(FOLLOW_UP_FORM_COMPLETE_SCORE);
         }
       });
     } else if (
@@ -146,6 +156,7 @@ export class FaceMyWorstFearComponent implements OnInit {
           if (resp.body) {
             console.log('The request has been submitted');
             this.responseData = resp.body;
+            this.commonService.updateScore(FOLLOW_UP_FORM_COMPLETE_SCORE);
           }
         });
     }

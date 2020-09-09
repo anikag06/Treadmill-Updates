@@ -4,7 +4,7 @@ import { CreatePostComponent } from './create-post/create-post.component';
 import { MatDialog } from '@angular/material';
 import { Title } from '@angular/platform-browser';
 import { TREADWILL } from '@/app.constants';
-import { UserProfileService } from '../shared/user-profile/userProfile.service';
+import { UserProfileService } from '../shared/user-profile/user-profile.service';
 import { User } from '@/shared/user.model';
 import { UserProfile } from '../shared/user-profile/UserProfile.model';
 import { AuthService } from '@/shared/auth/auth.service';

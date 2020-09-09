@@ -2,6 +2,8 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { IdcGameService } from '../idc-game.service';
 import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
 import { GamesFeedbackComponent } from '../../games-feedback/games-feedback.component';
+import {CommonService} from '@/shared/common.service';
+import {PLAYING_GAMES_SCORE} from '@/app.constants';
 
 @Component({
   selector: 'app-idc-win',
@@ -10,10 +12,12 @@ import { GamesFeedbackComponent } from '../../games-feedback/games-feedback.comp
 })
 export class IdcWinComponent implements OnInit {
   feedbackSub: any;
+  sendScoreAfterLevel2 = 0;
   constructor(
     private elementRef: ElementRef,
     private gameService: IdcGameService,
     private dialogBoxService: DialogBoxService,
+    private commonService: CommonService,
   ) {}
 
   ngOnInit() {}
@@ -26,6 +30,10 @@ export class IdcWinComponent implements OnInit {
       this.openFeedback();
     } else {
       this.gameService.serviceCall();
+    }
+    this.sendScoreAfterLevel2 += 1;
+    if (this.sendScoreAfterLevel2 === 2) {
+      this.commonService.updateScore(PLAYING_GAMES_SCORE);
     }
   }
   openFeedback() {

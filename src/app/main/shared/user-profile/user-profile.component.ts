@@ -7,6 +7,9 @@ import {
 } from '@angular/core';
 import { MOBILE_WIDTH } from '@/app.constants';
 import { UserProfile } from './UserProfile.model';
+import {UserProfileService} from '@/main/shared/user-profile/user-profile.service';
+import {User} from '@/shared/user.model';
+import {AuthService} from '@/shared/auth/auth.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -14,9 +17,11 @@ import { UserProfile } from './UserProfile.model';
   styleUrls: ['./user-profile.component.scss'],
 })
 export class UserProfileComponent implements OnInit, AfterViewInit {
-  constructor(private element: ElementRef) {}
+  constructor(private element: ElementRef, private userProfileService: UserProfileService, private authService: AuthService) {}
   @Input() userProfile!: UserProfile;
-  ngOnInit() {}
+  user!: User;
+  ngOnInit() {
+  }
 
   ngAfterViewInit() {
     const inkBar = this.element.nativeElement.querySelectorAll(

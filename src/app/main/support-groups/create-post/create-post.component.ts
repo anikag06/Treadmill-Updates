@@ -24,7 +24,9 @@ import { AngularEditorConfig } from '@arkaghosh024/angular-editor';
 import { SanitizationService } from '../../shared/sanitization.service';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { TagGroup } from '@/main/shared/tag-group.model';
-import { COMMON_EDITOR_CONFIG } from '@/app.constants';
+import {COMMON_EDITOR_CONFIG, SUPPORT_GROUP_POST_SCORE} from '@/app.constants';
+import {CommonService} from '@/shared/common.service';
+import {UserProfileService} from '@/main/shared/user-profile/user-profile.service';
 
 @Component({
   selector: 'app-create-post',
@@ -69,6 +71,8 @@ export class CreatePostComponent implements OnInit {
     private fb: FormBuilder,
     private overlayContainer: OverlayContainer,
     private elem: ElementRef,
+    private commonService: CommonService,
+    private userProfileService: UserProfileService,
   ) {
     overlayContainer.getContainerElement().classList.add('custom-overlay');
     dialogRef.disableClose = true;
@@ -123,6 +127,7 @@ export class CreatePostComponent implements OnInit {
   createPost(data: any) {
     this.sgService.createPost(data).subscribe(
       (response: any) => {
+        this.commonService.updateScore(SUPPORT_GROUP_POST_SCORE);
         const tags = this.tags.filter(item => this.formTags.includes(item.id));
         const sgItem = new SupportGroupItem(
           response.data.post_id,

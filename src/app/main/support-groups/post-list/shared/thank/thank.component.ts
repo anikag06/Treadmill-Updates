@@ -7,6 +7,11 @@ import {
 } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ReportService } from '@/main/support-groups/post-list/shared/report.service';
+import {CommonService} from '@/shared/common.service';
+import {UserProfileService} from '@/main/shared/user-profile/user-profile.service';
+import {SUPPORT_GROUP_THANKING_SCORE} from '@/app.constants';
+import {User} from '@/shared/user.model';
+import {AuthService} from '@/shared/auth/auth.service';
 
 @Component({
   selector: 'app-thank',
@@ -14,6 +19,7 @@ import { ReportService } from '@/main/support-groups/post-list/shared/report.ser
   styleUrls: ['./thank.component.scss'],
 })
 export class ThankComponent implements OnInit {
+  user!: User;
   id!: number;
   thanked!: boolean;
   username!: string;
@@ -27,6 +33,9 @@ export class ThankComponent implements OnInit {
     public dialogRef: MatDialogRef<ThankComponent>,
     private reportService: ReportService,
     private changeDetector: ChangeDetectorRef,
+    private commonService: CommonService,
+    private userProfileService: UserProfileService,
+    private authService: AuthService,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
     if (data) {
@@ -37,6 +46,7 @@ export class ThankComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.user = <User>this.authService.isLoggedIn();
     this.postType = this.type;
     if (this.type === 'nestedcomment') {
       this.postType = 'reply';
@@ -55,6 +65,7 @@ export class ThankComponent implements OnInit {
         () => {
           this.reportService.thanked.emit(this.id);
           this.showSucess();
+          this.commonService.updateScore(SUPPORT_GROUP_THANKING_SCORE);
         },
         error => {
           this.showError();
@@ -64,7 +75,8 @@ export class ThankComponent implements OnInit {
       this.reportService.commentThankYou(this.id).subscribe(
         () => {
           this.reportService.commentthanked.emit(this.id);
-          this.showSucess();
+          this.showSucess()
+          this.commonService.updateScore(SUPPORT_GROUP_THANKING_SCORE);
         },
         error => {
           this.showError();
@@ -75,6 +87,7 @@ export class ThankComponent implements OnInit {
         () => {
           this.reportService.replythanked.emit(this.id);
           this.showSucess();
+          this.commonService.updateScore(SUPPORT_GROUP_THANKING_SCORE);
         },
         error => {
           this.showError();

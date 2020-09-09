@@ -3,11 +3,15 @@ import { IntroductionService } from '@/main/resources/introduction/introduction.
 import { ActivatedRoute } from '@angular/router';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 import { FlowService } from '@/main/flow/flow.service';
-import { COMPLETED, LOCKED } from '@/app.constants';
+import {COMPLETED, INTRODUCTION_SCORE, LOCKED} from '@/app.constants';
 import { Subscription } from 'rxjs';
 import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
 import { StepCompleteData } from '@/main/resources/shared/completion-data.model';
 import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.service';
+import {CommonService} from '@/shared/common.service';
+import {UserProfileService} from '@/main/shared/user-profile/user-profile.service';
+import {User} from '@/shared/user.model';
+import {AuthService} from '@/shared/auth/auth.service';
 
 @Component({
   selector: 'app-introduction6',
@@ -15,6 +19,7 @@ import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.se
   styleUrls: ['./introduction6.component.scss'],
 })
 export class Introduction6Component implements OnInit {
+  user!: User;
   stepGroupSequence!: number;
   dataLoaded = false;
   locked = true;
@@ -36,9 +41,13 @@ export class Introduction6Component implements OnInit {
     private flowService: FlowService,
     private flowStepService: FlowStepNavigationService,
     private goToService: NavbarGoToService,
+    private commonService: CommonService,
+    private userProfileService: UserProfileService,
+    private authService: AuthService,
   ) {}
 
   ngOnInit() {
+    this.user = <User>this.authService.isLoggedIn();
     this.activatedRoute.url.subscribe(data => {
       this.stepGroupSequence = +data[0].path;
     });
@@ -86,6 +95,7 @@ export class Introduction6Component implements OnInit {
       .subscribe(data => {
         this.showloading = false;
         this.showNextStep = true;
+        this.commonService.updateScore(INTRODUCTION_SCORE);
       });
   }
   onNextStep() {

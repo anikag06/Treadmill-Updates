@@ -17,6 +17,8 @@ import { FcmService } from '@/shared/fcm.service';
 import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import {UserProfileService} from '@/main/shared/user-profile/user-profile.service';
+import {CommonService} from '@/shared/common.service';
 
 @Component({
   selector: 'app-settings',
@@ -25,6 +27,7 @@ import { NgForm } from '@angular/forms';
 })
 export class SettingsComponent implements OnInit {
   user!: User;
+  // oldScore!: number;
   checked = true;
   newUsername!: string;
   realPassword!: string;
@@ -100,10 +103,14 @@ export class SettingsComponent implements OnInit {
     private goToService: NavbarGoToService,
     private router: Router,
     private route: ActivatedRoute,
+   //  private commonService: CommonService,
+   //  private userProfileService: UserProfileService,
   ) {}
 
   ngOnInit() {
     this.user = <User>this.authService.isLoggedIn();
+    // this.oldScore = +this.userProfileService.getScoreValue();
+    // console.log('old score is ', this.oldScore);
     this.newUsername = this.user.username;
     console.log('initial weekly', this.weeklyEmailToggle);
     // this.goToService.settingsPageShowEvent
@@ -146,6 +153,11 @@ export class SettingsComponent implements OnInit {
     this.router.navigate(['change-username'], { relativeTo: this.route });
     this.usernameHeadingClicked = !this.usernameHeadingClicked;
     this.goToService.settingsPageTitle.emit('Change Username');
+    // console.log('click here');
+    // this.commonService.postScore(this.oldScore)
+    //   .subscribe(() => {
+    //     console.log('old score is', this.oldScore);
+    //   });
   }
 
   changePasswordHeadingClicked() {

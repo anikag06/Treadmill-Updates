@@ -11,6 +11,11 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { LoadFilesService } from '@/main/games/shared/load-files.service';
 import { SlideService } from '../slide.service';
+import {UserProfileService} from '@/main/shared/user-profile/user-profile.service';
+import {CommonService} from '@/shared/common.service';
+import {MEDITATION_COMPLETE_SCORE} from '@/app.constants';
+import {User} from '@/shared/user.model';
+import {AuthService} from '@/shared/auth/auth.service';
 
 @Component({
   selector: 'app-slides-video',
@@ -18,6 +23,7 @@ import { SlideService } from '../slide.service';
   styleUrls: ['./slides-video.component.scss'],
 })
 export class SlidesVideoComponent implements OnInit, AfterViewInit {
+  user!: User;
   sanitizedUrl!: SafeUrl;
   videoUrl!: String;
 
@@ -34,6 +40,9 @@ export class SlidesVideoComponent implements OnInit, AfterViewInit {
     private sanitizer: DomSanitizer,
     private loadFileService: LoadFilesService,
     private slideService: SlideService,
+    private userProfileService: UserProfileService,
+    private commonService: CommonService,
+    private authService: AuthService,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
     if (data) {
@@ -78,6 +87,7 @@ export class SlidesVideoComponent implements OnInit, AfterViewInit {
       this.backBtn.nativeElement.setAttribute('mat-flat-button', '');
       this.backBtn.nativeElement.classList.add('back-btn');
     });
+    this.user = <User>this.authService.isLoggedIn();
   }
 
   onPlayerReady(event: any) {
@@ -106,6 +116,7 @@ export class SlidesVideoComponent implements OnInit, AfterViewInit {
 
   onBack() {
     this.dialogRef.close();
+    this.commonService.updateScore(MEDITATION_COMPLETE_SCORE);
   }
 
   showThreeMinVideo() {
