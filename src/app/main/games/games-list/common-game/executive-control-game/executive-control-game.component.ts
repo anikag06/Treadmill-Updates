@@ -43,7 +43,7 @@ export class ExecutiveControlGameComponent implements OnInit, OnDestroy {
   @ViewChild('newElement', { static: false }) element!: ElementRef;
 
   ngOnInit() {
-    console.log('game name' , this.playGameService.gameName);
+    console.log('game name', this.playGameService.gameName);
     this.gameName = this.playGameService.gameName;
     this.activatedRoute.params
       .pipe(

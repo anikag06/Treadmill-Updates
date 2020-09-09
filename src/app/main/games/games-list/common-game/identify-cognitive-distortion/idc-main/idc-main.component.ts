@@ -1,4 +1,4 @@
-import {Component, OnInit, ElementRef, ViewChild, Input} from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Input } from '@angular/core';
 import { IdcGameService } from '../idc-game.service';
 import { IdcInfoComponent } from '../idc-info/idc-info.component';
 import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';

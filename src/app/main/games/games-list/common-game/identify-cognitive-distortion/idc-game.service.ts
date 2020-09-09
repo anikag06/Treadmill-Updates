@@ -191,7 +191,11 @@ export class IdcGameService implements OnInit {
 
   initUserData() {
     this.fetchUserData().subscribe((data: any) => {
-      console.log('user data, last_completed_order', data, data.last_completed_order);
+      console.log(
+        'user data, last_completed_order',
+        data,
+        data.last_completed_order,
+      );
       this.score = data.points;
       this.numCorrectAnswers = data.no_of_correct_answers;
       this.BRONZE_CONSTANT = data.BRONZE_CONSTANT;

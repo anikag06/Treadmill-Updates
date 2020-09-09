@@ -7,7 +7,7 @@ import { map, switchMap } from 'rxjs/operators';
 import { FlowService } from '@/main/flow/flow.service';
 import { ActivatedRoute } from '@angular/router';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
-import {GamePlayService} from "@/main/games/shared/game-play.service";
+import { GamePlayService } from '@/main/games/shared/game-play.service';
 
 @Component({
   selector: 'app-identify-cognitive-distortion',
@@ -26,7 +26,6 @@ export class IdentifyCognitiveDistortionComponent implements OnInit {
   gameName!: string;
   blurred = false;
 
-
   constructor(
     private gameService: IdcGameService,
     private dialogBoxService: DialogBoxService,
@@ -34,7 +33,6 @@ export class IdentifyCognitiveDistortionComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private stepDataService: StepsDataService,
     private playGameService: GamePlayService,
-
   ) {}
 
   ngOnInit() {
@@ -69,7 +67,6 @@ export class IdentifyCognitiveDistortionComponent implements OnInit {
     //   this.resumeIDCGame();
     // });
   }
-
 
   startPlaying() {
     this.playing = true;

@@ -42,7 +42,11 @@ export class IdcOptionsPopupProceedComponent implements OnInit {
       } else {
         this.gameService.questionId++;
       }
-      console.log('question id', this.gameService.questionId, this.gameService.levelOrder);
+      console.log(
+        'question id',
+        this.gameService.questionId,
+        this.gameService.levelOrder,
+      );
       this.openWinPopup();
     } else {
       this.gameService.resumeGame.emit();

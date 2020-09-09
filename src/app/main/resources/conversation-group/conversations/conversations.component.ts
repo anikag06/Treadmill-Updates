@@ -90,7 +90,7 @@ import { FlowService } from '@/main/flow/flow.service';
           position: 'relative',
           textAlign: 'center',
           fontSize: '18px',
-        })
+        }),
       ),
       state(
         'send',
@@ -104,7 +104,7 @@ import { FlowService } from '@/main/flow/flow.service';
           position: 'relative',
           textAlign: 'center',
           fontSize: '14px',
-        })
+        }),
       ),
       transition('unsend => send', [
         style({ transform: 'translateX(50%)' }),
@@ -116,7 +116,7 @@ import { FlowService } from '@/main/flow/flow.service';
         'void',
         style({
           opacity: 0,
-        })
+        }),
       ),
       transition('void <=> *', animate(1000)),
     ]),
@@ -153,9 +153,9 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     private notificationService: NavbarNotificationsService,
     private activeroute: ActivatedRoute,
     private goToService: NavbarGoToService,
-    private flowService: FlowService
+    private flowService: FlowService,
   ) {
-    this.activeroute.params.pipe(map((v) => v.id)).subscribe((params) => {
+    this.activeroute.params.pipe(map(v => v.id)).subscribe(params => {
       this.conversation_id = params;
       this.passdata.IsConversationOn(true);
       this.run();
@@ -270,7 +270,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         this.time,
         this.history_id,
         false,
-        false
+        false,
       );
       this.onunload = true;
     }
@@ -282,7 +282,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       this.time,
       this.history_id,
       false,
-      false
+      false,
     );
     this.passdata.IsConversationOn(false);
     this.notificationService.removeFullConvIcon.emit();
@@ -293,14 +293,14 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       .get(
         environment.API_ENDPOINT +
           '/api/v1/conversation/conversation/?conversation_id=' +
-          this.conversation_id
+          this.conversation_id,
       )
       .subscribe((res: any) => {
         this.conversation = new Conversation(
           res.title,
           res.final_conclusion_message,
           res.gender,
-          res.dialog_options
+          res.dialog_options,
         );
         this.title = this.conversation.title;
         this.flowService.stepDetail.emit(this.title);
@@ -316,7 +316,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         for (let j = 0; j < this.conversation.dialogs.length; j++) {
           this.dialogMap.set(
             this.conversation.dialogs[j].id,
-            this.conversation.dialogs[j]
+            this.conversation.dialogs[j],
           );
         }
         if (current_id === true) {
@@ -400,12 +400,12 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       .get(
         environment.API_ENDPOINT +
           '/api/v1/conversation/history/?conversation_id=' +
-          this.conversation_id
+          this.conversation_id,
       )
       .subscribe((res: any) => {
         this.conversationsService
           .getFeedBackInfo(this.conversation_id)
-          .subscribe((feedback_data) => {
+          .subscribe(feedback_data => {
             if (feedback_data.exists) {
               this.initial_feedback = feedback_data.feedback;
               if (this.initial_feedback === 1) {
@@ -424,7 +424,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         } else {
           setTimeout(
             () => this.convDiv.nativeElement.classList.add('col-5'),
-            1000
+            1000,
           );
         }
         // const formName = this.passdata.getFormName();
@@ -434,7 +434,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         } else if (this.passdata.getFormName() === PROBLEM_SOLVING) {
           setTimeout(
             () => this.loadForm(ProblemSolvingWorksheetsComponent),
-            1000
+            1000,
           );
         } else if (formName === THOUGHT_RECORD) {
           // TODO: Always true no need to add the condition
@@ -448,7 +448,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
           res.results[0].created_at,
           res.results[0].completion_datetime,
           res.results[0].time_taken_to_complete_in_seconds,
-          res.results[0].user_response
+          res.results[0].user_response,
         );
         this.history_id = this.currenthistory.id;
         this.show = [];
@@ -564,7 +564,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
 
   loadForm(component: any) {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
-      component
+      component,
     );
     const viewContainerRef = this.formHost.viewContainerRef;
     viewContainerRef.clear();
@@ -592,7 +592,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       });
     } else {
       this.mupltiple_line = this.dialog.dialog_has_options[0].option.message.split(
-        '<new_line>'
+        '<new_line>',
       );
       this.mupltiple_line_images = this.dialog.dialog_has_options[0].option.option_images;
       this.show_multiple = this.mupltiple_line.length;
@@ -789,7 +789,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         this.time,
         this.history_id,
         false,
-        this.finished
+        this.finished,
       );
     } else {
       this.ShowTypingTime = this.dialog.message.split(' ');
@@ -869,7 +869,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       for (let y = 0; y < this.dialog.dialog_has_options.length; y++) {
         if (this.dialog.dialog_has_options[y].loopback === false) {
           this.dialog = this.dialogMap.get(
-            this.dialog.dialog_has_options[y].upcoming_dialog
+            this.dialog.dialog_has_options[y].upcoming_dialog,
           );
           break;
         }
@@ -917,7 +917,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         if (!this.dialog.dialog_has_options[y].loopback) {
           // @ts-ignore
           this.text.option.push(
-            this.dialog.dialog_has_options[y].option.message
+            this.dialog.dialog_has_options[y].option.message,
           );
           break;
         }
@@ -945,7 +945,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         this.time,
         this.history_id,
         true,
-        this.finished
+        this.finished,
       );
     }
   }
@@ -959,10 +959,10 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     //   inline: 'nearest',
     // });
     const options = this.convDiv.nativeElement.querySelectorAll(
-      '.msg_container_send1'
+      '.msg_container_send1',
     );
     const dialogs = this.convDiv.nativeElement.querySelectorAll(
-      '.msg_container1'
+      '.msg_container1',
     );
     options[options.length - 1].scrollIntoView();
     dialogs[dialogs.length - 1].scrollIntoView();
@@ -1015,7 +1015,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
 
     this.conversationsService
       .storeFeedBackInfo(this.feedbackData)
-      .subscribe((data) => {
+      .subscribe(data => {
         this.feedbackDataId = data.data.id;
         this.initial_feedback = this.userFeedback.final_feedback;
       });
@@ -1044,7 +1044,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     this.feedbackText.feedback_text = feedback_text;
     this.conversationsService
       .updateFeedBackInfo(this.feedbackText, this.feedbackDataId)
-      .subscribe((data) => {});
+      .subscribe(data => {});
     this.isDislikeBox = false;
     this.isLikeBox = false;
     this.likeDislikeRemoved = false;
@@ -1064,7 +1064,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     // REQUEST FAILED
     this.stepDataService
       .storeCompletionData(this.completionData)
-      .subscribe((data) => {
+      .subscribe(data => {
         this.showloading = false;
         this.showNextStepBtn = true;
       });

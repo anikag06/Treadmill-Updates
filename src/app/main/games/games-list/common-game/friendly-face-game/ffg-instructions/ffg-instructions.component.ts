@@ -20,7 +20,7 @@ export class FfgInstructionsComponent implements OnInit {
 
   ngOnInit() {}
   onStart() {
-    const domEvent = new CustomEvent('removeOverlayEvent', {bubbles: true});
+    const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });
     this.elementRef.nativeElement.dispatchEvent(domEvent);
     if (this.ffghelpService.show_tutorial) {
       const tid = setInterval(() => {
@@ -39,8 +39,8 @@ export class FfgInstructionsComponent implements OnInit {
         console.log('calling ffgame start');
         ffGameStart();
       }, 1000);
-        this.ffghelpService.showLoadingBar();
-        this.ffghelpService.show_tutorial = false;
+      this.ffghelpService.showLoadingBar();
+      this.ffghelpService.show_tutorial = false;
     } else {
       ffGResumeGame();
     }

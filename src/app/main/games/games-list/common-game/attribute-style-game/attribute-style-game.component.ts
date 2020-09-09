@@ -42,7 +42,7 @@ export class AttributeStyleGameComponent implements OnInit, OnDestroy {
   @ViewChild('newElement', { static: false }) element!: ElementRef;
 
   ngOnInit() {
-    console.log('game name' , this.gamePlayService.gameName);
+    console.log('game name', this.gamePlayService.gameName);
     this.gameName = this.gamePlayService.gameName;
     this.loadFileService
       .loadExternalScript('./assets/games/Attribution-style-game/src/app.js')

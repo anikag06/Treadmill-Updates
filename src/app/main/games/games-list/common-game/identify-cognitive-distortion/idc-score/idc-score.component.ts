@@ -3,7 +3,8 @@ import {
   OnInit,
   ElementRef,
   ViewChild,
-  OnDestroy, Input,
+  OnDestroy,
+  Input,
 } from '@angular/core';
 import { IdcGameService } from '../idc-game.service';
 import { IdcTimeComponent } from '../idc-time/idc-time.component';
@@ -56,7 +57,11 @@ export class IdcScoreComponent implements OnInit, OnDestroy {
     });
     this.gameService.resumeGame.subscribe(() => {
       this.score = this.gameService.score;
-      console.log( 'replay, timeAlloted' , this.gameService.replay, this.gameService.timeAlloted);
+      console.log(
+        'replay, timeAlloted',
+        this.gameService.replay,
+        this.gameService.timeAlloted,
+      );
       if (this.gameService.replay === true) {
         this.timeLeft = this.gameService.timeAlloted;
       } else {

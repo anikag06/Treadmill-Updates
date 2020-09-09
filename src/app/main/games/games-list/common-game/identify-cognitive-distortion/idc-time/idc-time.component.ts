@@ -19,37 +19,37 @@ export class IdcTimeComponent implements OnInit {
 
   ngOnInit() {
     this.tooltipData =
-      'You don\'t have sufficient points to buy extra time. Instead, click on replay.';
+      "You don't have sufficient points to buy extra time. Instead, click on replay.";
   }
 
   continuePlay() {
     // setTimeout(() => {
-      const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });
-      this.elementRef.nativeElement.dispatchEvent(domEvent);
-      this.gameService.optionStatusCount = 0;
-      this.gameService.optionStatus = '';
-      this.gameService.selectedCorrectOptionsSet.clear();
-      // this.gameService.getUserData();
-      this.gameService.replay = true;
-      this.gameService.resumeGame.emit();
+    const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });
+    this.elementRef.nativeElement.dispatchEvent(domEvent);
+    this.gameService.optionStatusCount = 0;
+    this.gameService.optionStatus = '';
+    this.gameService.selectedCorrectOptionsSet.clear();
+    // this.gameService.getUserData();
+    this.gameService.replay = true;
+    this.gameService.resumeGame.emit();
     // }, 600);
   }
 
   addTimePlay() {
     // setTimeout(() => {
-      if (this.gameService.score < this.idcExtraScore) {
-        this.tooltipShow();
-      } else {
-        const domEvent = new CustomEvent('removeOverlayEvent', {
-          bubbles: true,
-        });
-        this.elementRef.nativeElement.dispatchEvent(domEvent);
-        this.gameService.timeLeft = 20;
-        this.gameService.score -= this.idcExtraScore;
-        // this.gameService.levelInitialise.next();
-        this.gameService.resumeGame.emit();
-        this.gameService.extraTimeTaken = true;
-      }
+    if (this.gameService.score < this.idcExtraScore) {
+      this.tooltipShow();
+    } else {
+      const domEvent = new CustomEvent('removeOverlayEvent', {
+        bubbles: true,
+      });
+      this.elementRef.nativeElement.dispatchEvent(domEvent);
+      this.gameService.timeLeft = 20;
+      this.gameService.score -= this.idcExtraScore;
+      // this.gameService.levelInitialise.next();
+      this.gameService.resumeGame.emit();
+      this.gameService.extraTimeTaken = true;
+    }
     // }, 600);
   }
 
