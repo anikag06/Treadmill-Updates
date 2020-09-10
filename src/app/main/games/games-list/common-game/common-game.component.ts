@@ -196,7 +196,6 @@ export class CommonGameComponent implements OnInit {
       this.dialogBoxService.setDialogChild(LhgHowtoplayComponent);
       const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
       this.pauseBtnElement.nativeElement.dispatchEvent(domEvent);
-      this.gamePlayService.playLearnedHelplessnessGame();
     } else if (this.gameName === ATTRIBUTE_STYLE_GAME) {
       this.gamePlayService.playAttributionStyleGame();
     } else if (this.gameName === FRIENDLY_FACE_GAME) {

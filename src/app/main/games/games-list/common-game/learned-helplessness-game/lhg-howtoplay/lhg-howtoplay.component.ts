@@ -26,15 +26,15 @@ export class LhgHowtoplayComponent implements OnInit {
     const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });
     this.elementRef.nativeElement.dispatchEvent(domEvent);
     this.removeCoverImage();
-    // this.gamePlayService.playLearnedHelplessnessGame();
     this.openInstructionsPopup();
   }
 
   openInstructionsPopup() {
+    console.log('event emitted from loading component');
+
     this.dialogBoxService.setDialogChild(LhgInstructionsComponent);
     const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
     this.elementRef.nativeElement.dispatchEvent(domEvent);
-    // this.gamePlayService.playLearnedHelplessnessGame();
   }
   onShowSummary() {
     const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });

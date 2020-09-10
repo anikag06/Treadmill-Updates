@@ -35,6 +35,7 @@ import { FfgInstructionsComponent } from '../games-list/common-game/friendly-fac
 import { FfgHelpService } from '../games-list/common-game/friendly-face-game/ffg-help.service';
 import { IdcGameService } from '../games-list/common-game/identify-cognitive-distortion/idc-game.service';
 import { IbgameHelpService } from '@/main/games/games-list/common-game/interpretation-bias-game/ibgame-help.service';
+import {LoadingBarService} from "@/main/games/shared/loading-bar.service";
 
 // for interpretation bias game
 declare var startIBGame: any;
@@ -193,6 +194,7 @@ export class GamePlayService {
     private ffghelpService: FfgHelpService,
     private idcGameService: IdcGameService,
     private ibgameHelpService: IbgameHelpService,
+    private loadingBarService: LoadingBarService,
   ) {}
 
   getGameInfo(slug: string) {
@@ -503,6 +505,8 @@ export class GamePlayService {
   // for learned helplessness game
 
   playLearnedHelplessnessGame() {
+    this.loadingBarService.showLoadingBar();
+
     lhGameLevelStrings = [];
     lhGameLengths = [];
     lhGameHeights = [];
@@ -549,7 +553,19 @@ export class GamePlayService {
         }
         if (startGame === true) {
           lhGameArrayIndex = lhGameLevelCounter;
-          lhGameStart();
+
+          // added loading bar here
+
+          const tid = setInterval(() => {
+            if (document.readyState !== 'complete' ||  lhGameLevelStrings.length === 0) {
+              return;
+            }
+            clearInterval(tid);
+            // function to be called when document is ready
+            console.log('calling LH game');
+            lhGameStart();
+          }, 1000);
+          // till here
           this.lhGameStarted = false;
           this.lhGameDataColorReverse(this.lhGameStarted);
           lhGameLevelStrings = [];

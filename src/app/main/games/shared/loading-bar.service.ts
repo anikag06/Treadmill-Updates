@@ -6,10 +6,9 @@ import { Injectable } from '@angular/core';
 export class LoadingBarService {
   constructor() {}
 
-  // showLoadingBar() {
-  //   console.log(this.viewContainerRef);
-  //   const loadingBarFactory =  this.componentFactoryResolver.resolveComponentFactory(LoadingBarComponent);
-  //   this.viewContainerRef.clear();
-  //   this.viewContainerRef.createComponent(loadingBarFactory);
-  // }
+  showLoadingBar() {
+    console.log('Show loading bar');
+    const domEvent = new CustomEvent('loadingBarEvent', { bubbles: true });
+    window.dispatchEvent(domEvent);
+  }
 }

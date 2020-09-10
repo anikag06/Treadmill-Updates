@@ -12,7 +12,7 @@ export class NotificationItemComponent implements OnInit {
 
   @Input() item!: Notification;
   @Output() decrementUnread: EventEmitter<any> = new EventEmitter();
-
+  navigate = false;
   constructor(
     private notificationService: NavbarNotificationsService,
     private router: Router,
@@ -32,6 +32,10 @@ export class NotificationItemComponent implements OnInit {
           if (this.item.url.match('/support-groups/')) {
             this.notificationService.closeNotification();
             this.router.navigate(['support-groups']);
+          }
+          if (this.item.url !== '/#') {
+            document.location.href = this.item.url;
+
           }
         }
       );

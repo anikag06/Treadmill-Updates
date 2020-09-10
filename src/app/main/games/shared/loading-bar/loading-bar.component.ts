@@ -22,6 +22,7 @@ declare var ffg_music_notes_array: any;
 declare var ffg_loaded_friendly_images: any;
 declare var ffg_loaded_hostile_images: any;
 declare var sentence_array: any;
+declare var lhGameLevelStrings: any;
 
 @Component({
   selector: 'app-loading-bar',
@@ -49,7 +50,7 @@ export class LoadingBarComponent implements OnInit {
   }
 
   updateLoadingbar() {
-    console.log(document.readyState, this.gamePlayService.gameName);
+    console.log(document.readyState, this.gamePlayService.gameName, this.gamePlayService.lhGameInstrnRead);
     if (document.readyState === 'loading') {
       this.loadingBarValue = 50;
     } else if (document.readyState === 'interactive') {
@@ -68,6 +69,10 @@ export class LoadingBarComponent implements OnInit {
         if (sentence_array.length !== 0) {
           this.completeLoading();
         }
+      } else if (this.gamePlayService.gameName === LEARNED_HELPLESSNESS_GAME) {
+        if ( lhGameLevelStrings.length !== 0) {
+          this.completeLoading();
+        }
       }
     }
   }
@@ -80,5 +85,6 @@ export class LoadingBarComponent implements OnInit {
       });
       window.dispatchEvent(domEvent);
     }, 1000);
+
   }
 }

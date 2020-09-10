@@ -36,6 +36,9 @@ export class LhgInstructionsComponent implements OnInit {
     const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });
     this.elementRef.nativeElement.dispatchEvent(domEvent);
     const game2_start = document.getElementById('frog-game-row');
+    if (lhcolorReverseGame) {
+      this.gamePlayService.playLearnedHelplessnessGame();
+    }
     if (game2_start) {
       game2_start.focus();
     }
