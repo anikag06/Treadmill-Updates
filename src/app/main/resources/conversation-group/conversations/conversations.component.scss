@@ -13,15 +13,12 @@
 }
 
 .SendImage{
-  display: inline-block;
-  position: absolute;
-  margin: auto;
   width:25px;
   height:25px;
-  left: 30%;
- // top:47px;
-  bottom: 8px;
+  bottom: 2px;
+  position: relative;
   animation: 2s ease-out slideInFromTop;
+  cursor: pointer;
 }
 
 // body,html{
@@ -469,7 +466,7 @@ $x3: -$leftPos + $dotSpacing;
 
 @media screen and (max-width: 1350px)  {
   .SendImage {
-    left: 25%;
+    //left: 25%;
   }
   .or-div{
     max-width: 75%;

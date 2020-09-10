@@ -11,8 +11,9 @@
 
 .mat-card-title {
   margin-top: 30px;
-  font-size: 30px;
+  font-size: 26px;
   color: whitesmoke;
+  padding-left: 12px;
 }
 
 .mat-card-actions {
@@ -28,10 +29,6 @@
 
 .profile-card {
   width: 38.067vw;
-  // max-width: 86%;
-  //max-width: 93%;
-  //margin-left: -15px;
-
   .profile-header {
     background: #343434 0 0 no-repeat padding-box;
     height: 35%;
@@ -54,7 +51,7 @@
     width: 11px;
     position: absolute;
     bottom: 10px;
-    background-color: blue;
+    background-color: #0764E9;
     text-align: right;
   }
 
@@ -117,7 +114,7 @@
   width: 100px;
   padding-left: 15px;
   padding-top: 15px;
-  margin-top: 10px;
+  margin-top: 4px;
 }
 
 .mat-card-actions {
@@ -201,10 +198,6 @@
     }
   }
 
-  .mat-card-avatar {
-    margin-top: 8px;
-  }
-
 }
 
 :host-context(.support-group) .profile-card {
@@ -280,6 +273,6 @@
   }
 
   .mat-card-avatar {
-    margin-top: 0px;
+    margin-top: 0;
   }
 }

@@ -29,13 +29,13 @@ import { MOBILE_WIDTH } from '@/app.constants';
         'visible',
         style({
           opacity: 1,
-        }),
+        })
       ),
       state(
         'inVisible',
         style({
           opacity: 0,
-        }),
+        })
       ),
       transition('visible => inVisible', [animate('1s ease-in')]),
       transition('inVisible => visible', [animate('1s ease-out')]),
@@ -73,7 +73,7 @@ export class LandingPageComponent implements OnInit {
   constructor(
     private showContactUsService: MatContactUsDialogService,
     private showLoginSignupService: ShowLoginSignupDialogService,
-    private router: Router,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -148,10 +148,11 @@ export class LandingPageComponent implements OnInit {
 
   @HostListener('window:scroll', [])
   onScroll(): void {
-    if (document.documentElement.scrollTop > 0) {
-      this.showScrollAnimation = false;
-    } else if (document.documentElement.scrollTop === 0) {
-      this.showScrollAnimation = true;
-    }
+    // if (document.documentElement.scrollTop > 0) {
+    this.showScrollAnimation = false;
+    // }
+    // } else if (document.documentElement.scrollTop === 0) {
+    //   this.showScrollAnimation = true;
+    // }
   }
 }
