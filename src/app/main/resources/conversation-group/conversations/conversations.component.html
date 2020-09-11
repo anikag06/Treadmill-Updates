@@ -179,7 +179,7 @@
           <h2>Summary</h2>
         </div>
         <div class="d-flex justify-content-center">
-          <p class="finish-text">{{ final_conclusion_message }}</p>
+          <p class="finish-text" [innerHTML]="final_conclusion_message" ></p>
         </div>
 
         <app-user-feedback

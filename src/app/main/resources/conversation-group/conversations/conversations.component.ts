@@ -235,6 +235,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   mupltiple_line_images = [];
   therapist_img = '/assets/flow/therapist.svg';
   show_full_conversation = false;
+  img_separator = '<image>';
 
   @ViewChild('form_div', { static: false }) formDiv!: ElementRef;
   @ViewChild('convDiv', { static: false }) convDiv!: ElementRef;
@@ -528,16 +529,18 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
             if (this.newLine_dialog.length > 1) {
               this.newLine_dialog.forEach((q: any, index: number) => {
                 // @ts-ignore
-                // if (q !== '') {
-                this.text.option.push({
-                  message: q,
-                  option_images:
-                    index === this.newLine_dialog.length - 1
-                      ? this.currenthistory.user_response[y].option_in_history
-                          .option_images
-                      : [],
-                });
-                // }
+                if (q !== this.img_separator) {
+                  this.text.option.push({
+                    message: q,
+                    option_images: [],
+                  });
+                } else {
+                  this.text.option.push({
+                    message: '',
+                    option_images: this.currenthistory.user_response[y]
+                      .option_in_history.option_images,
+                  });
+                }
               });
             } else {
               this.text.option.push({
@@ -598,10 +601,18 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       this.show_multiple = this.mupltiple_line.length;
       this.count_multiple = 0;
       if (this.show_multiple > 1) {
-        const option = {
-          message: this.mupltiple_line[this.count_multiple],
-          option_images: [],
-        };
+        let option!: any;
+        if (this.mupltiple_line[this.count_multiple] !== this.img_separator) {
+          option = {
+            message: this.mupltiple_line[this.count_multiple],
+            option_images: [],
+          };
+        } else {
+          option = {
+            message: '',
+            option_images: this.mupltiple_line_images,
+          };
+        }
         this.options.push(option);
       } else {
         const option = {
@@ -616,20 +627,33 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   on_multiple_options(index: number) {
     this.options = [];
     this.nsend = false;
-    // this.text.dialog.push(this.mupltiple_line[this.count_multiple]);
-    // if (this.mupltiple_line[this.count_multiple] !== '') {
-    this.text.option.push({
-      message: this.mupltiple_line[this.count_multiple],
-      option_images: [],
-    });
-
+    let option!: any;
+    if (this.mupltiple_line[this.count_multiple] !== this.img_separator) {
+      this.text.option.push({
+        message: this.mupltiple_line[this.count_multiple],
+        option_images: [],
+      });
+    } else {
+      this.text.option.push({
+        message: '',
+        option_images: this.mupltiple_line_images,
+      });
+    }
     this.show.push(this.text);
     this.text = new Texting([], [], '', false);
     this.count_multiple++;
-    const option = {
-      message: this.mupltiple_line[this.count_multiple],
-      option_images: this.mupltiple_line_images,
-    };
+
+    if (this.mupltiple_line[this.count_multiple] !== this.img_separator) {
+      option = {
+        message: this.mupltiple_line[this.count_multiple],
+        option_images: [],
+      };
+    } else {
+      option = {
+        message: '',
+        option_images: this.mupltiple_line_images,
+      };
+    }
     setTimeout(() => {
       this.options.push(option);
     }, option.message.length * 25);
@@ -647,10 +671,17 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     ) {
       this.text.dialog = [];
       // @ts-ignore
-      this.text.option.push({
-        message: this.mupltiple_line[this.count_multiple],
-        option_images: this.mupltiple_line_images,
-      });
+      if (this.mupltiple_line[this.count_multiple] !== this.img_separator) {
+        this.text.option.push({
+          message: this.mupltiple_line[this.count_multiple],
+          option_images: [],
+        });
+      } else {
+        this.text.option.push({
+          message: '',
+          option_images: this.mupltiple_line_images,
+        });
+      }
     } else {
       // @ts-ignore
       this.text.option.push({
@@ -919,12 +950,23 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         for (let y = 0; y < this.dialog.dialog_has_options.length; y++) {
           if (!this.dialog.dialog_has_options[y].loopback) {
             // @ts-ignore
-            this.text.option.push({
-              message: this.dialog.dialog_has_options[y].option.message,
-              option_images: this.dialog.dialog_has_options[y].option
-                .option_images,
-            });
-            break;
+            if (
+              this.dialog.dialog_has_options[y].option.message ===
+              this.img_separator
+            ) {
+              this.text.option.push({
+                message: '',
+                option_images: this.dialog.dialog_has_options[y].option
+                  .option_images,
+              });
+              break;
+            } else {
+              this.text.option.push({
+                message: this.dialog.dialog_has_options[y].option.message,
+                option_images: [],
+              });
+              break;
+            }
           }
         }
         for (let t = 0; t < this.dialog.dialog_images.length; t++) {
