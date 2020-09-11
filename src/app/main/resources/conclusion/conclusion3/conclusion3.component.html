@@ -26,15 +26,14 @@
     <br>
     You had the negative thought: {{ negativeThought }}
     <br>
-    After evaluating the thought using the <a routerLink="{{thoughtRecordFormLink}}">Thought record form</a>, you came up
+    After evaluating the thought using the <a target="_blank" href="{{thoughtRecordFormLink}}">Evaluate a thought form</a>, you came up
     with the more balanced thought: {{ balancedThought }}
     <br>
-    You can find all the evaluations of your negative thoughts here: <a routerLink="{{thoughtRecordFormLink}}">Thought
-      record form</a>
+    You can find all the evaluations of your negative thoughts here: <a target="_blank" href="{{thoughtRecordFormLink}}">Evaluate a thought form</a>
   </div>
   <div class="text-para">
     <p>From now on, whenever you face an upsetting situation or you notice your mood is going down, identify the negative
-      thought and evaluate it using the <a routerLink="{{thoughtRecordFormLink}}">Thought record form</a></p>
+      thought and evaluate it using the <a target="_blank" href="{{thoughtRecordFormLink}}">Evaluate a thought form</a></p>
 
     <p>Initially, you’ll need to be vigilant of your negative thoughts and evaluate them. After you do this for a while,
       your thinking habit will change and you’ll start evaluating your thought automatically.</p>
@@ -56,7 +55,7 @@
   <div class="text-para">
     <p>
     If you are facing a problem that can't be solved by changing your thinking style, you can use the <a
-      routerLink="{{problemSolvingFormLink}}">Problem solving form</a> </p>
+      target="_blank" href="{{problemSolvingFormLink}}">Solve a problem form</a> </p>
   </div>
   <app-evaluate-mood [moodEvaluate]="moodEvaluate" [fromConclusion] ="true"></app-evaluate-mood>
   <div *ngIf="!moodEvaluate">
