@@ -35,18 +35,16 @@ export class Introduction3Component implements OnInit, OnDestroy {
   stepName!: string;
   showNextStep = false;
   negativeThoughts = [
-    'Negative thought 1',
-    'Negative thought 2',
-    'Negative thought 3',
-    'Negative thought 4',
-    'Negative thought 5',
+    "I'm no good",
+    'Nobody cares about me',
+    "I'm a failure",
+    'My future is bleak',
   ];
   balancedThoughts = [
-    'Balanced thought 1',
-    'Balanced thought 2',
-    'Balanced thought 3',
-    'Balanced thought 4',
-    'Balanced thought 5',
+    "I'm reasonably good",
+    'There are some people who genuinely care about me',
+    "I'm not a total failure. I'm reasonably successful",
+    'I have plenty of things to look forward to',
   ];
   selectedThought!: string;
   balancedThought!: string;
