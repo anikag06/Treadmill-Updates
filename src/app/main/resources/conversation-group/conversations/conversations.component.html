@@ -57,6 +57,14 @@
                 "
               >
                 <p [innerHtml]="msg.message"></p>
+                <div class="chat_image" *ngIf="msg.dialog_images">
+                  <div *ngFor="let image of msg.dialog_images">
+                    <app-chat-image
+                      fromConversation="true"
+                      [image]="image"
+                    ></app-chat-image>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -85,11 +93,11 @@
         </div>
         <!-- </div> -->
         <!-- <div class="card-body"> -->
-        <div class="row" *ngFor="let i of current_message; let i = index">
-          <div>
+        <div class="row" *ngFor="let dialog of current_dialog; let i = index">
             <div
-              *ngIf="current_message.length != 0"
+              *ngIf="current_dialog.length != 0"
               class="d-flex justify-content-start mb-3"
+              [ngStyle]="{minWidth : '100%'}"
             >
               <div class="img_cont_msg ml-3">
                 <img
@@ -97,16 +105,27 @@
                   class="rounded-circle user_img_msg"
                 />
               </div>
-              <div *ngIf="i.ShowTyping" class="msg_container">
+              <div *ngIf="dialog.ShowTyping" class="msg_container">
                 <div class="dot-typing mt-1 ml-2 mr-2"></div>
               </div>
-              <div *ngIf="!i.ShowTyping" class="msg_container1">
-                <p [innerHtml]="i.message"></p>
+              <div *ngIf="!dialog.ShowTyping" class="msg_container1">
+                <p [innerHtml]="dialog.message"></p>
+                <div
+                  *ngIf="
+                    dialog.dialog_images && dialog.dialog_images.length > 0
+                  "
+                >
+                  <div *ngFor="let image of dialog.dialog_images">
+                    <app-chat-image
+                      fromConversation="true"
+                      [image]="image"
+                    ></app-chat-image>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <!-- </div> -->
+
         <div class="row justify-content-center" *ngIf="wrong">
           <div
             class="d-flex justify-content-center mb-3 mx-3 error-msg align-items-center"
@@ -115,7 +134,7 @@
               <img [src]="therapist_img" class="rounded-circle user_img" />
             </div>
             <div>
-              <p class="my-3 mx-3">{{ wrong_message }}</p>
+              <p class="my-3 mx-3" [innerHTML]="wrong_message"></p>
             </div>
             <div *ngIf="(wrongImageObject | json) != '{}'">
               <app-chat-image
