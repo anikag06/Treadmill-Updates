@@ -49,7 +49,6 @@
   <br><br>
   <div>
     Which of the following techniques do you use to try to stop worrying?
-    <mat-label>Technique used</mat-label>
     <mat-selection-list [(ngModel)]="selectedTechniques" [ngStyle]="{'max-width': '850px'}" (focusin)="techniqueSave = true" (focusout)="techniqueSaveFocusOut()" >
       <mat-list-option *ngFor="let technique of techniques" [value]="technique"
         [ngStyle]="{'margin-bottom': '20px', 'height': 'unset', 'opacity': '60%'}">

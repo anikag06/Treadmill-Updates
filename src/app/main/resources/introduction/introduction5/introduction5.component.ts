@@ -47,7 +47,7 @@ export class Introduction5Component implements OnInit, OnDestroy {
     'I tell myself not to worry',
     'I tell myself everything will be just fine',
     'I keep asking for reassurance from others',
-    'I criticize myself for worrying and promise myself that I try to force myself to not worry',
+    'I criticize myself for worrying, and I try to force myself to not worry',
     'I try to suppress the feeling of distress and anxiety associated to my worry',
   ];
   data = {
