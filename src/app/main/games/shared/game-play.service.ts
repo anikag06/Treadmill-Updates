@@ -106,6 +106,8 @@ declare var ffGamePlay: any;
 declare var ffg_music_notes_array: any;
 declare var ffg_loaded_friendly_images: any;
 declare var ffg_loaded_hostile_images: any;
+declare var ffg_device_type: any;
+declare var musicFFGame: any;
 // for mental imagery game
 declare var miGameShowTutorial: boolean;
 
@@ -178,6 +180,7 @@ export class GamePlayService {
   // for friendly face game
   ffg_show_tutorial = false;
   ffGameSongCounter = 0;
+  ffgameScriptLoaded = false;
 
   // for ASG
   ASGPostLevelPerformance = new ASGLevelPerformance(1, 1, 1, 1, 1);
@@ -759,7 +762,8 @@ export class GamePlayService {
   }
 
   ffGamePlay(device_type: string, gameDivElement: any) {
-    console.log('Show Tutorial', this.ffg_show_tutorial);
+    console.log('Show Tutorial', this.ffg_show_tutorial, device_type);
+    ffg_device_type = device_type;
     if (this.ffghelpService.show_tutorial) {
       const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
       gameDivElement.nativeElement.dispatchEvent(domEvent);
@@ -781,7 +785,7 @@ export class GamePlayService {
       }
       clearInterval(tid);
       // function to be called when document is ready
-      console.log('calling ffgame start');
+      console.log('calling ffgame start, show device type', device_type);
       ffGameStart(device_type);
     }, 1000);
   }
@@ -794,7 +798,13 @@ export class GamePlayService {
   restartFaceGame() {
     ffGRestartGame();
   }
-  musicFaceGame() {}
+  soundFaceGame(isSoundOn: any) {
+    // if (this.ecGameStarted) {
+    console.log('sound on', isSoundOn);
+      musicFFGame(!isSoundOn);
+    // }
+  }
+
   helpFFGGame() {
     this.dialogBoxService.setDialogChild(FfgInstructionsComponent);
     // this.resumeFaceGame();

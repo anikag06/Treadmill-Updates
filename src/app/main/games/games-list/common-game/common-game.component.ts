@@ -353,9 +353,9 @@ export class CommonGameComponent implements OnInit {
     if (this.gameName === ATTRIBUTE_STYLE_GAME) {
       this.gamePlayService.soundASGGame(this.isSoundOn);
     }
-    // else if (this.gameName === FRIENDLY_FACE_GAME) {
-    //   this.gamePlayService.pauseFaceGame();
-    // }
+    if (this.gameName === FRIENDLY_FACE_GAME) {
+      this.gamePlayService.soundFaceGame(this.isSoundOn);
+    }
   }
 
   onScienceBehind() {

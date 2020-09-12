@@ -50,7 +50,7 @@ export class LoadingBarComponent implements OnInit {
   }
 
   updateLoadingbar() {
-    console.log(document.readyState, this.gamePlayService.gameName, this.gamePlayService.lhGameInstrnRead);
+    console.log(document.readyState, this.gamePlayService.gameName);
     if (document.readyState === 'loading') {
       this.loadingBarValue = 50;
     } else if (document.readyState === 'interactive') {

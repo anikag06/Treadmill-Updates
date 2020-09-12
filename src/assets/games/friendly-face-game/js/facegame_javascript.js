@@ -165,6 +165,8 @@ var ffg_loaded_friendly_images = [];
 var wrong_note;
 
 var mute; // for muting volume
+var ffgMuted = false;
+
 var heightOffset;
 
 var positive_messages;
@@ -201,7 +203,7 @@ var total_time_taken = 0;
 // var total_time_taken_level2=4;
 // var total_time_taken_level3=4;
 
-var device;
+var ffg_device_type;
 
 var blink_first_image;
 var canvasClicked = false;
@@ -211,6 +213,8 @@ var game_over_music;
 var song_playing;
 
 var ffg_coins;
+var ffg_ask_feedback = false;
+
 
 var ffg_perf_update = true;
 var firstLevel = true; //for setting the same level on reload
@@ -219,20 +223,18 @@ var EASY_LEVEL_THRESHOLD = 4000; // if time_per_note is >= this, then show 2 ima
 var MEDIUM_LEVEL_THRESHOLD = 2500; // if time_per_note is >= this, then show 4 images
 
 $(document).ready(function() {
-  ffGameStart = function(device_type) {
-    device = device_type;
-    console.log(device);
+  ffGameStart = function() {
+    // device = device_type;
+    console.log(ffg_device_type);
 
     $(".ff-game-container").removeClass("d-none");
 
     $(".game-cover").addClass("d-none");
 
-    console.log("CHECK whether first click", first_click);
 
     startGame();
 
     canvas1.addEventListener("mousedown", function(e) {
-      console.log("whether first click", first_click);
       if (first_click) {
         enableElements();
         showPauseButton();
@@ -248,21 +250,27 @@ $(document).ready(function() {
       onCanvasClick(canvas1);
     });
 
-    $("#volume-button").click(function() {
-      if (mute == true) {
-        showVolumeButton();
-      } else {
-        Tone.Transport.pause();
-        showMuteButton();
-      }
-      mute = !mute;
-    });
+  musicFFGame = function(mute) {
+    if (!mute) {
+      ffgMuted = false;
+    } else {
+      ffgMuted = true;
+    }
+  }
+
+    // $("#volume-button").click(function() {
+    //   if (mute == true) {
+    //     showVolumeButton();
+    //   } else {
+    //     Tone.Transport.pause();
+    //     showMuteButton();
+    //   }
+    //   mute = !mute;
+    // });
 
     playnextsong = function() {
-      game_completed = true;
       console.log("playnext song clicked");
 
-      updateStats();
       levelUp();
 
       $("#next-stage-message").addClass("d-none");
@@ -333,10 +341,14 @@ function startGame(reload) {
   ffg_music_note_rate = ffg_music_note_rate_array[ffGameSongCounter];
   console.log(
     "MUSIC DETAILS",
+    ffg_music,
+    ffg_music_notes_array,
+    ffGameSongCounter,
     ffg_music.length,
     ffg_music_current_order,
     ffg_music_name,
-    ffg_music_note_rate
+    ffg_music_note_rate,
+    ffg_music_order_array
   );
   initialize();
   setupTimers();
@@ -707,8 +719,9 @@ function shuffle(array) {
 function playNote() {
   // using tone.js
   parts = ffg_music[ffg_music_counter++];
-  synth.triggerAttackRelease(parts.note, parts.duration);
-
+  if (!ffgMuted) {
+    synth.triggerAttackRelease(parts.note, parts.duration);
+  }
   if (
     call_next_music &&
     ffg_music_counter >= Math.floor(ffg_music.length / 1.3)
@@ -726,8 +739,11 @@ function playNote() {
     ffg_timers.forEach(function(ffg_timer) {
       clearInterval(ffg_timer);
     });
+    game_completed = true;
     updateUser();
-    getNextSong();
+    //update performance
+    updateStats();
+    console.log('update performance');
     songOver();
   }
 }
@@ -740,7 +756,9 @@ function updateMusicBar() {
 }
 
 function playWrongNote() {
-  synth.triggerAttackRelease(wrong_note[0], wrong_note[1]);
+  if (!ffgMuted) {
+    synth.triggerAttackRelease(wrong_note[0], wrong_note[1]);
+  }
 }
 
 // this portion of the code deals with playing the full song multiple times. this doesn't work properly. fix that.
@@ -761,13 +779,15 @@ function playMusic(stop, song) {
 function songOver() {
   // show play next modal
   console.log("song order", ffg_music_current_order);
-  if (ffg_music_current_order === 4) {
+  if (ffg_music_current_order === 4 && ffg_ask_feedback) {
+    console.log('show feedback');
     gameFeedbackPopup();
   } else {
+    console.log('show next game');
     playNextGamePopup();
   }
-
   // updateUser(ffg_music_current_order, ffg_coins);
+  getNextSong();
 
   nextStage();
 
@@ -814,7 +834,6 @@ function showGameOver() {
   } else {
     showNoLifePopup();
   }
-
   updateStats();
   game_paused = true;
   game_started = false;
@@ -1105,13 +1124,12 @@ function enableElements() {
 var updateUser = function() {
   var storeFFGUserDataEvent = document.createEvent("CustomEvent");
   storeFFGUserDataEvent.initCustomEvent("FFGUserInfoUpdate");
-
   window.dispatchEvent(storeFFGUserDataEvent);
 };
 
 getFFGUser = function() {
   ffg_coins = ffg_score;
-  console.log("time per note", ffg_time_per_note);
+  console.log("time per note, user data", ffg_time_per_note, ffg_coins, ffg_music_current_order, ffg_time_per_note);
   return [ffg_coins, ffg_music_current_order, ffg_time_per_note];
 };
 
@@ -1121,8 +1139,8 @@ getFFGClickData = function() {
     ffg_music_current_order,
     no_positive_images_clicked,
     total_time_taken,
-    device,
-    game_completed
+    ffg_device_type,
+    game_completed,
   ];
 };
 
