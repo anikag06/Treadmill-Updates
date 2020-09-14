@@ -45,7 +45,8 @@
 }
 
 .things-todo-item {
-  margin-left: -17px !important;
+  // margin causing weird design, to check imapact of removing it
+  //margin-left: -17px !important;
 }
 
 .things-todo-text{

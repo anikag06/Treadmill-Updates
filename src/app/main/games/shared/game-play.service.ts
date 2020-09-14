@@ -35,6 +35,7 @@ import { FfgInstructionsComponent } from '../games-list/common-game/friendly-fac
 import { FfgHelpService } from '../games-list/common-game/friendly-face-game/ffg-help.service';
 import { IdcGameService } from '../games-list/common-game/identify-cognitive-distortion/idc-game.service';
 import { IbgameHelpService } from '@/main/games/games-list/common-game/interpretation-bias-game/ibgame-help.service';
+import {LoadingBarService} from "@/main/games/shared/loading-bar.service";
 
 // for interpretation bias game
 declare var startIBGame: any;
@@ -105,6 +106,8 @@ declare var ffGamePlay: any;
 declare var ffg_music_notes_array: any;
 declare var ffg_loaded_friendly_images: any;
 declare var ffg_loaded_hostile_images: any;
+declare var ffg_device_type: any;
+declare var musicFFGame: any;
 // for mental imagery game
 declare var miGameShowTutorial: boolean;
 
@@ -177,6 +180,7 @@ export class GamePlayService {
   // for friendly face game
   ffg_show_tutorial = false;
   ffGameSongCounter = 0;
+  ffgameScriptLoaded = false;
 
   // for ASG
   ASGPostLevelPerformance = new ASGLevelPerformance(1, 1, 1, 1, 1);
@@ -193,6 +197,7 @@ export class GamePlayService {
     private ffghelpService: FfgHelpService,
     private idcGameService: IdcGameService,
     private ibgameHelpService: IbgameHelpService,
+    private loadingBarService: LoadingBarService,
   ) {}
 
   getGameInfo(slug: string) {
@@ -503,6 +508,8 @@ export class GamePlayService {
   // for learned helplessness game
 
   playLearnedHelplessnessGame() {
+    this.loadingBarService.showLoadingBar();
+
     lhGameLevelStrings = [];
     lhGameLengths = [];
     lhGameHeights = [];
@@ -549,7 +556,19 @@ export class GamePlayService {
         }
         if (startGame === true) {
           lhGameArrayIndex = lhGameLevelCounter;
-          lhGameStart();
+
+          // added loading bar here
+
+          const tid = setInterval(() => {
+            if (document.readyState !== 'complete' ||  lhGameLevelStrings.length === 0) {
+              return;
+            }
+            clearInterval(tid);
+            // function to be called when document is ready
+            console.log('calling LH game');
+            lhGameStart();
+          }, 1000);
+          // till here
           this.lhGameStarted = false;
           this.lhGameDataColorReverse(this.lhGameStarted);
           lhGameLevelStrings = [];
@@ -743,7 +762,8 @@ export class GamePlayService {
   }
 
   ffGamePlay(device_type: string, gameDivElement: any) {
-    console.log('Show Tutorial', this.ffg_show_tutorial);
+    console.log('Show Tutorial', this.ffg_show_tutorial, device_type);
+    ffg_device_type = device_type;
     if (this.ffghelpService.show_tutorial) {
       const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
       gameDivElement.nativeElement.dispatchEvent(domEvent);
@@ -765,7 +785,7 @@ export class GamePlayService {
       }
       clearInterval(tid);
       // function to be called when document is ready
-      console.log('calling ffgame start');
+      console.log('calling ffgame start, show device type', device_type);
       ffGameStart(device_type);
     }, 1000);
   }
@@ -778,7 +798,13 @@ export class GamePlayService {
   restartFaceGame() {
     ffGRestartGame();
   }
-  musicFaceGame() {}
+  soundFaceGame(isSoundOn: any) {
+    // if (this.ecGameStarted) {
+    console.log('sound on', isSoundOn);
+      musicFFGame(!isSoundOn);
+    // }
+  }
+
   helpFFGGame() {
     this.dialogBoxService.setDialogChild(FfgInstructionsComponent);
     // this.resumeFaceGame();

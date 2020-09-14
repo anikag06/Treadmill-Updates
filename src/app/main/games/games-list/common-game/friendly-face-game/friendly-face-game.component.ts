@@ -53,6 +53,7 @@ declare var ffg_current_song_order: number;
 declare var ffg_timers: any;
 declare var ffg_timer: any;
 declare var ffg_show_tutorial: boolean;
+declare var ffg_ask_feedback: boolean;
 @Component({
   selector: 'app-friendly-face-game',
   templateUrl: './friendly-face-game.component.html',
@@ -97,7 +98,6 @@ export class FriendlyFaceGameComponent implements OnInit {
   ffg_show_tutorial = false;
 
   time_per_note: any;
-  ask_feedback!: boolean;
   navbarTitle!: string;
   stepGroupSequence!: number;
   stepSequence!: number;
@@ -137,7 +137,7 @@ export class FriendlyFaceGameComponent implements OnInit {
   }
   @HostListener('window:Feedback')
   openFeedbackPopup() {
-    if (this.ask_feedback) {
+    if (ffg_ask_feedback) {
       this.dialogBoxService.setDialogChild(GamesFeedbackComponent);
       const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
       this.element.nativeElement.dispatchEvent(domEvent);
@@ -171,7 +171,8 @@ export class FriendlyFaceGameComponent implements OnInit {
         console.log('STEP DETAIL:', this.navbarTitle);
         this.flowService.stepDetail.emit(this.navbarTitle);
       });
-
+    // load script only once
+    if (!this.gamePlayService.ffgameScriptLoaded) {
     this.loadFileService
       .loadExternalScript(
         './assets/games/friendly-face-game/js/facegame_javascript.js',
@@ -184,8 +185,13 @@ export class FriendlyFaceGameComponent implements OnInit {
       .loadExternalScript('./assets/games/friendly-face-game/js/tone.min.js')
       .then(() => {})
       .catch(() => {});
+      this.gamePlayService.ffgameScriptLoaded = true;
+    }
+
     this.ffgHelpService.updateBadges.subscribe(() => {
       this.updateBadgesValue();
+      console.log('updating badges');
+
     });
     this.gamesFeedbackService.feedback.subscribe(() => {
       this.openPlayNextPopup();
@@ -257,7 +263,7 @@ export class FriendlyFaceGameComponent implements OnInit {
       this.GOLD_CONSTANT = user_data.GOLD_CONSTANT;
       this.last_completed_order = user_data.last_completed_order;
       this.ffgHelpService.show_tutorial = user_data.show_tutorial;
-      this.ask_feedback = user_data.ask_for_feedback;
+      ffg_ask_feedback = user_data.ask_for_feedback;
       ffg_time_per_note = user_data.time_per_note; // timeAlloted in miliseconds
       ffg_total_positive_images = user_data.total_positive_images;
       this.ffGameMusicData(); // start calling the data of music from page no. 1 as data received is according to user order
@@ -294,11 +300,6 @@ export class FriendlyFaceGameComponent implements OnInit {
     this.ffGameMusicData();
   }
   ffGameMusicData() {
-    console.log(
-      'CURRENT SONG ORDER',
-      ffg_current_song_order,
-      this.last_completed_order,
-    );
     this.gamesAuthService
       .ffGameGetMusicInfo(this.last_completed_order)
       .subscribe(music_data => {
@@ -309,6 +310,12 @@ export class FriendlyFaceGameComponent implements OnInit {
         ffg_music_note_rate_array.push(music_data.note_rate);
         ffg_music_name_array.push(music_data.name);
         ffg_current_song_order = music_data.order;
+        console.log(
+          'music_data, CURRENT SONG ORDER',
+          ffg_current_song_order,
+          this.last_completed_order,
+          music_data,
+        );
       });
   }
 
@@ -344,16 +351,17 @@ export class FriendlyFaceGameComponent implements OnInit {
     this.ffgUserPerformance.total_time_taken = performanceData[3];
     this.ffgUserPerformance.device_type = performanceData[4];
     this.ffgUserPerformance.completed = performanceData[5];
-    // this.updateBadgesValue();
     if (ffg_perf_update) {
       this.gamesAuthService
         .ffGameUpdatePerformance(this.ffgUserPerformance)
         .subscribe();
       ffg_perf_update = false;
+      console.log('Post performance order', this.ffgUserPerformance.order, this.ffgUserPerformance);
     } else {
       this.gamesAuthService
         .ffGameStorePerformance(this.ffgUserPerformance)
         .subscribe();
+      console.log('update performance order', this.ffgUserPerformance.order, this.ffgUserPerformance);
     }
   }
 
@@ -363,7 +371,6 @@ export class FriendlyFaceGameComponent implements OnInit {
     this.toneBarValue = this.musicBarValue * 3.3;
   }
 
-  // @HostListener('window:FFGUpdateBadges')
   updateBadgesValue() {
     this.allBadgesInfo = this.badgesService.getBadgesInfo(
       this.BRONZE_CONSTANT,
