@@ -45,7 +45,7 @@ export class ConversationGroupComponent implements OnInit {
     private router: Router,
     private activeroute: ActivatedRoute,
     private notificationService: NavbarNotificationsService,
-    private flowService: FlowService
+    private flowService: FlowService,
   ) {}
 
   ngOnInit() {
@@ -55,8 +55,8 @@ export class ConversationGroupComponent implements OnInit {
   loadConversationGroup() {
     this.activeroute.params
       .pipe(
-        map((v) => v.id),
-        switchMap((id) => this.conversationservice.getConversationGroup(id))
+        map(v => v.id),
+        switchMap(id => this.conversationservice.getConversationGroup(id)),
       )
       .subscribe(
         (res: any) => {
@@ -98,7 +98,7 @@ export class ConversationGroupComponent implements OnInit {
             this.notallowed = true;
           }
         },
-        (error) => console.log(error)
+        error => console.log(error),
       );
   }
 

@@ -52,6 +52,7 @@ export class ConversationsService {
   completed(
     time_taken_to_complete_in_seconds: number,
     history_id: number,
+    conversation_id: number,
     speed_run: boolean,
     completion: boolean,
   ) {
@@ -67,7 +68,8 @@ export class ConversationsService {
           environment.API_ENDPOINT +
             '/api/v1/conversation/history/' +
             history_id +
-            '/',
+            '/?conversation_id=' +
+            conversation_id,
           f,
         )
         .subscribe(responseData => {
@@ -84,7 +86,8 @@ export class ConversationsService {
           environment.API_ENDPOINT +
             '/api/v1/conversation/history/' +
             history_id +
-            '/',
+            '/?conversation_id=' +
+            conversation_id,
           f,
         )
         .subscribe(responseData => {
