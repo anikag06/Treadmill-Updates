@@ -2312,14 +2312,6 @@ var ur = class UserResult extends Phaser.Scene {
       this.openLink.alpha = 0.60;
       this.click_sound = this.sound.add('click_sound').setVolume(0.5);
 
-
-      // let graphics = this.make.graphics() ;
-      //
-      // // graphics.fillStyle(0xffffff);
-      // graphics.fillRect(0, 0, 1330, 740);
-      //
-      // const mask = new Phaser.Display.Masks.GeometryMask(this, graphics);
-
       this.textheading = this.add.text(50, 40, 'How does your explanatory style affect you?',{ fontFamily: '"Roboto"' } ).setFontSize(35).setColor('black').setFontStyle('bold');
       this.textheading.alpha = 0.87;
          this.textfinal = [ 'The way you explain your successes and failures affect how vulnerable you are to depression. People who are most vulnerable to depression' +
@@ -2340,24 +2332,6 @@ var ur = class UserResult extends Phaser.Scene {
          this.text = this.add.text(50, 100, this.textfinal, {  fontFamily: '"Roboto"' , wordWrap: { width: 1250 } }).setFontSize(25).setColor('black');
       this.text.alpha = 0.60;
 
-      //text.setMask(mask);
-
-      //this.play = this.add.rectangle(200, 100, 60, 30, 0x0000ff );
-      //this.play.backgroundColor(255,255,100);
-
-      //let zone = this.add.zone(0, 0, 1330, 740).setOrigin(0).setInteractive();
-
-     // zone.on('pointermove', function (pointer) {
-     //
-     //    if (pointer.isDown)
-     //    {
-     //      text.y += (pointer.velocity.y / 10);
-     //
-     //      text.y = Phaser.Math.Clamp(text.y, -600, 100);
-     //    }
-     //
-     //  });
-
       this.addtext = this.add.text(50,540,'To learn more about explanatory style',{fontFamily: '"Roboto"' }).setFontSize(25).setColor('black');
       this.addtext.alpha = 0.60;
 
@@ -2377,8 +2351,6 @@ var ur = class UserResult extends Phaser.Scene {
 
       this.GoToHome = this.add.sprite(400, 640, "GoToHome",{ fontFamily: '"Roboto"' }).setInteractive({ useHandCursor: true }).setScale(0.6);
       this.PlayAgain = this.add.sprite(900, 640, "PlayAgain",{ fontFamily: '"Roboto"' }).setInteractive({ useHandCursor: true }).setScale(0.6);
-      // this.GoToHome.alpha = 0.87;
-      // this.PlayAgain.alpha = 0.87;
 
       this.GoToHome.on('pointerdown', function () {
         if(ASGsound){
@@ -2474,10 +2446,7 @@ function conf(DEFAULT_WIDTH, DEFAULT_HEIGHT){
       gravity: { y: 400 }
     }
   };
-/*
-  this.scene = [UserResult, QuestionAndAnswer, ScoreDisplay, UIScene, LevelThree, LevelTwo, LevelOne, HomeScene, PreloadScene];
-*/
-        this.scene = [a, b, c, d, e, u, s, q,per,perm,perv,ur];
+  this.scene = [a, b, c, d, e, u, s, q,per,perm,perv,ur];
 
 };
 
