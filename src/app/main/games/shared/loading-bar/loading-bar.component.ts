@@ -70,7 +70,7 @@ export class LoadingBarComponent implements OnInit {
           this.completeLoading();
         }
       } else if (this.gamePlayService.gameName === LEARNED_HELPLESSNESS_GAME) {
-        if ( lhGameLevelStrings.length !== 0) {
+        if (lhGameLevelStrings.length !== 0) {
           this.completeLoading();
         }
       }
@@ -85,6 +85,5 @@ export class LoadingBarComponent implements OnInit {
       });
       window.dispatchEvent(domEvent);
     }, 1000);
-
   }
 }

@@ -173,25 +173,24 @@ export class FriendlyFaceGameComponent implements OnInit {
       });
     // load script only once
     if (!this.gamePlayService.ffgameScriptLoaded) {
-    this.loadFileService
-      .loadExternalScript(
-        './assets/games/friendly-face-game/js/facegame_javascript.js',
-      )
-      .then(() => {
-        this.loadImages();
-      })
-      .catch(() => {});
-    this.loadFileService
-      .loadExternalScript('./assets/games/friendly-face-game/js/tone.min.js')
-      .then(() => {})
-      .catch(() => {});
+      this.loadFileService
+        .loadExternalScript(
+          './assets/games/friendly-face-game/js/facegame_javascript.js',
+        )
+        .then(() => {
+          this.loadImages();
+        })
+        .catch(() => {});
+      this.loadFileService
+        .loadExternalScript('./assets/games/friendly-face-game/js/tone.min.js')
+        .then(() => {})
+        .catch(() => {});
       this.gamePlayService.ffgameScriptLoaded = true;
     }
 
     this.ffgHelpService.updateBadges.subscribe(() => {
       this.updateBadgesValue();
       console.log('updating badges');
-
     });
     this.gamesFeedbackService.feedback.subscribe(() => {
       this.openPlayNextPopup();
@@ -356,12 +355,20 @@ export class FriendlyFaceGameComponent implements OnInit {
         .ffGameUpdatePerformance(this.ffgUserPerformance)
         .subscribe();
       ffg_perf_update = false;
-      console.log('Post performance order', this.ffgUserPerformance.order, this.ffgUserPerformance);
+      console.log(
+        'Post performance order',
+        this.ffgUserPerformance.order,
+        this.ffgUserPerformance,
+      );
     } else {
       this.gamesAuthService
         .ffGameStorePerformance(this.ffgUserPerformance)
         .subscribe();
-      console.log('update performance order', this.ffgUserPerformance.order, this.ffgUserPerformance);
+      console.log(
+        'update performance order',
+        this.ffgUserPerformance.order,
+        this.ffgUserPerformance,
+      );
     }
   }
 

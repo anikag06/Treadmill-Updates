@@ -35,7 +35,7 @@ import { FfgInstructionsComponent } from '../games-list/common-game/friendly-fac
 import { FfgHelpService } from '../games-list/common-game/friendly-face-game/ffg-help.service';
 import { IdcGameService } from '../games-list/common-game/identify-cognitive-distortion/idc-game.service';
 import { IbgameHelpService } from '@/main/games/games-list/common-game/interpretation-bias-game/ibgame-help.service';
-import {LoadingBarService} from "@/main/games/shared/loading-bar.service";
+import { LoadingBarService } from '@/main/games/shared/loading-bar.service';
 
 // for interpretation bias game
 declare var startIBGame: any;
@@ -560,7 +560,10 @@ export class GamePlayService {
           // added loading bar here
 
           const tid = setInterval(() => {
-            if (document.readyState !== 'complete' ||  lhGameLevelStrings.length === 0) {
+            if (
+              document.readyState !== 'complete' ||
+              lhGameLevelStrings.length === 0
+            ) {
               return;
             }
             clearInterval(tid);
@@ -801,7 +804,7 @@ export class GamePlayService {
   soundFaceGame(isSoundOn: any) {
     // if (this.ecGameStarted) {
     console.log('sound on', isSoundOn);
-      musicFFGame(!isSoundOn);
+    musicFFGame(!isSoundOn);
     // }
   }
 
