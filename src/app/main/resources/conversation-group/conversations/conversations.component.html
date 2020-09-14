@@ -11,11 +11,13 @@
       <div class="row changes-width justify-content-center">
         <div class="w-100 in-desktop convTitle">
           <div class="pt-2 pb-0 h-100 my-auto">
-            <p>
+            <div class="float-left mx-2">
+              {{ title }}
+            </div>
+            <p [ngStyle]="{ lineHeight: '25px' }">
               <button class="float-right" id="speed" (click)="speed_run()">
                 Show full conversation
               </button>
-              {{ title }}
             </p>
           </div>
         </div>
@@ -50,9 +52,19 @@
 
               <div
                 class="msg_container"
-                [style.border-bottom-color]="conversation.wrong ? '#FF6A6A' : null"
+                [style.border-bottom-color]="
+                  conversation.wrong ? '#FF6A6A' : null
+                "
               >
                 <p [innerHtml]="msg.message"></p>
+                <div class="chat_image" *ngIf="msg.dialog_images">
+                  <div *ngFor="let image of msg.dialog_images">
+                    <app-chat-image
+                      fromConversation="true"
+                      [image]="image"
+                    ></app-chat-image>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -67,7 +79,7 @@
                 'border-bottom-color': conversation.wrong ? '#FF6A6A' : null
               }"
             >
-              <p [innerHtml]="msg.message"></p>
+              <p class="pr-2" [innerHtml]="msg.message"></p>
               <div class="chat_image" *ngIf="msg.option_images">
                 <div *ngFor="let image of msg.option_images">
                   <app-chat-image
@@ -75,18 +87,17 @@
                     [image]="image"
                   ></app-chat-image>
                 </div>
-
               </div>
             </div>
           </div>
         </div>
         <!-- </div> -->
         <!-- <div class="card-body"> -->
-        <div class="row" *ngFor="let i of current_message; let i = index">
-          <div>
+        <div class="row" *ngFor="let dialog of current_dialog; let i = index">
             <div
-              *ngIf="current_message.length != 0"
+              *ngIf="current_dialog.length != 0"
               class="d-flex justify-content-start mb-3"
+              [ngStyle]="{minWidth : '100%'}"
             >
               <div class="img_cont_msg ml-3">
                 <img
@@ -94,25 +105,36 @@
                   class="rounded-circle user_img_msg"
                 />
               </div>
-              <div *ngIf="i.ShowTyping" class="msg_container">
+              <div *ngIf="dialog.ShowTyping" class="msg_container">
                 <div class="dot-typing mt-1 ml-2 mr-2"></div>
               </div>
-              <div *ngIf="!i.ShowTyping" class="msg_container1">
-                <p [innerHtml]="i.message"></p>
+              <div *ngIf="!dialog.ShowTyping" class="msg_container1">
+                <p [innerHtml]="dialog.message"></p>
+                <div
+                  *ngIf="
+                    dialog.dialog_images && dialog.dialog_images.length > 0
+                  "
+                >
+                  <div *ngFor="let image of dialog.dialog_images">
+                    <app-chat-image
+                      fromConversation="true"
+                      [image]="image"
+                    ></app-chat-image>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <!-- </div> -->
+
         <div class="row justify-content-center" *ngIf="wrong">
           <div
             class="d-flex justify-content-center mb-3 mx-3 error-msg align-items-center"
           >
             <div class="img_cont mx-3 align-items-center">
-              <img [src]="show_avatar_image" class="rounded-circle user_img" />
+              <img [src]="therapist_img" class="rounded-circle user_img" />
             </div>
             <div>
-              <p class="my-3 mx-3">{{ wrong_message }}</p>
+              <p class="my-3 mx-3" [innerHTML]="wrong_message"></p>
             </div>
             <div *ngIf="(wrongImageObject | json) != '{}'">
               <app-chat-image
@@ -130,7 +152,7 @@
           >
             <div class="d-flex justify-content-end mb-3" *ngIf="!speedrun">
               <div class="msg_container_send1 ml-3 ml-md-0 mr-3">
-                <p [innerHtml]="option.message"></p>
+                <p class="pr-2" [innerHtml]="option.message"></p>
                 <div
                   *ngIf="
                     option.option_images && option.option_images.length > 0
@@ -143,21 +165,18 @@
                     ></app-chat-image>
                   </div>
                 </div>
-                <div>
-                  <button
-                    class="btn"
-                    (click)="
-                      count_multiple !== show_multiple - 1
-                        ? on_multiple_options(i)
-                        : on_click(i)
-                    "
-                  >
+                <div
+                  (click)="
+                    count_multiple !== show_multiple - 1
+                      ? on_multiple_options(i)
+                      : on_click(i)
+                  "
+                  class="btn d-inline-block"
+                >
+                  <img class="SendImage" [src]="send_image" />
+                  <div class="d-inline-block">
                     Send
-                  </button>
-                  <img
-                    class="SendImage"
-                    [src]="send_image"
-                  />
+                  </div>
                 </div>
               </div>
             </div>
@@ -179,7 +198,7 @@
           <h2>Summary</h2>
         </div>
         <div class="d-flex justify-content-center">
-          <p class="finish-text">{{ final_conclusion_message }}</p>
+          <p class="finish-text" [innerHTML]="final_conclusion_message" ></p>
         </div>
 
         <app-user-feedback

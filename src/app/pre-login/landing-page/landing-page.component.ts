@@ -148,10 +148,11 @@ export class LandingPageComponent implements OnInit {
 
   @HostListener('window:scroll', [])
   onScroll(): void {
-    if (document.documentElement.scrollTop > 0) {
-      this.showScrollAnimation = false;
-    } else if (document.documentElement.scrollTop === 0) {
-      this.showScrollAnimation = true;
-    }
+    // if (document.documentElement.scrollTop > 0) {
+    this.showScrollAnimation = false;
+    // }
+    // } else if (document.documentElement.scrollTop === 0) {
+    //   this.showScrollAnimation = true;
+    // }
   }
 }

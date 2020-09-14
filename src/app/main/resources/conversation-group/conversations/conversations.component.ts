@@ -186,7 +186,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   final_conclusion_message!: string;
   i!: any;
   index!: number;
-  current_message!: CurrentMessageModel[];
+  current_dialog!: CurrentMessageModel[];
   length_conversation!: number;
   show!: Texting[];
   text!: Texting;
@@ -233,6 +233,10 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   nsend = true;
   current_id!: number;
   mupltiple_line_images = [];
+  therapist_img = '/assets/flow/therapist.svg';
+  show_full_conversation = false;
+  img_separator = '<image>';
+  dialog_images = [];
 
   @ViewChild('form_div', { static: false }) formDiv!: ElementRef;
   @ViewChild('convDiv', { static: false }) convDiv!: ElementRef;
@@ -269,6 +273,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       this.conversationsService.completed(
         this.time,
         this.history_id,
+        this.conversation_id,
         false,
         false,
       );
@@ -281,6 +286,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     this.conversationsService.completed(
       this.time,
       this.history_id,
+      this.conversation_id,
       false,
       false,
     );
@@ -351,27 +357,54 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         this.dialog = this.dialogMap.get(this.id);
 
         this.newLine_message = this.dialog.message.split('<new_line>');
-        this.current_message = [];
+        const dialog_images = this.dialog.dialog_images;
+        this.current_dialog = [];
         if (this.newLine_message.length !== 1) {
           this.newLine_message.forEach((q: any) => {
-            this.text.dialog.push({
-              message: q,
-              option_images: [],
-            });
-            this.current_message.push({
-              message: q,
-              ShowTyping: false,
-            });
+            if (q !== this.img_separator) {
+              this.text.dialog.push({
+                message: q,
+                dialog_images: [],
+              });
+              this.current_dialog.push({
+                message: q,
+                ShowTyping: false,
+                dialog_images: [],
+              });
+            } else {
+              this.text.dialog.push({
+                message: '',
+                dialog_images: dialog_images,
+              });
+              this.current_dialog.push({
+                message: '',
+                ShowTyping: false,
+                dialog_images: dialog_images,
+              });
+            }
           });
         } else {
-          this.text.dialog.push({
-            message: this.dialog.message,
-            option_images: [],
-          });
-          this.current_message.push({
-            message: this.dialog.message,
-            ShowTyping: false,
-          });
+          if (this.dialog.message !== this.img_separator) {
+            this.text.dialog.push({
+              message: this.dialog.message,
+              dialog_images: [],
+            });
+            this.current_dialog.push({
+              message: this.dialog.message,
+              ShowTyping: false,
+              dialog_images: [],
+            });
+          } else {
+            this.text.dialog.push({
+              message: '',
+              dialog_images: this.dialog.dialog_images,
+            });
+            this.current_dialog.push({
+              message: '',
+              ShowTyping: false,
+              dialog_images: this.dialog.dialog_images,
+            });
+          }
         }
         for (let t = 0; t < this.dialog.dialog_images.length; t++) {
           if (
@@ -388,7 +421,6 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
           this.text.show_avatar_image = this.show_avatar_image;
         }
 
-        // this.current_message = this.dialog.message;
         if (!this.speedrun) {
           this.dialog_options();
         }
@@ -454,7 +486,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         this.show = [];
         if (
           this.currenthistory.user_response.length === 0 &&
-          this.currenthistory.is_completed === false
+          !this.currenthistory.is_completed
         ) {
           this.finished = false;
           this.loadConversation(true);
@@ -496,27 +528,43 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
             this.newLine_message = this.currenthistory.user_response[
               y
             ].dialog_in_history.message.split('<new_line>');
+            // @ts-ignore
+            this.dialog_images = this.currenthistory.user_response[
+              y
+            ].dialog_in_history.dialog_images;
 
             if (this.newLine_message.length > 1) {
               this.newLine_message.forEach((q: any, index: number) => {
                 // if (q !== '') {
-                this.text.dialog.push({
-                  message: q,
-                  dialog_images:
-                    index === this.newLine_message.length - 1
-                      ? this.currenthistory.user_response[y].dialog_in_history
-                          .dialog_images
-                      : [],
-                });
-                // }
+                if (q !== this.img_separator) {
+                  this.text.dialog.push({
+                    message: q,
+                    dialog_images: [],
+                  });
+                } else {
+                  this.text.dialog.push({
+                    message: '',
+                    dialog_images: this.dialog_images,
+                  });
+                }
               });
             } else {
-              this.text.dialog.push({
-                message: this.currenthistory.user_response[y].dialog_in_history
-                  .message,
-                dialog_images: this.currenthistory.user_response[y]
-                  .dialog_in_history.dialog_images,
-              });
+              if (
+                this.currenthistory.user_response[y].dialog_in_history
+                  .message !== this.img_separator
+              ) {
+                this.text.dialog.push({
+                  message: this.currenthistory.user_response[y]
+                    .dialog_in_history.message,
+                  dialog_images: [],
+                });
+              } else {
+                this.text.dialog.push({
+                  message: '',
+                  dialog_images: this.currenthistory.user_response[y]
+                    .dialog_in_history.dialog_images,
+                });
+              }
             }
 
             this.newLine_dialog = this.currenthistory.user_response[
@@ -526,32 +574,42 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
             if (this.newLine_dialog.length > 1) {
               this.newLine_dialog.forEach((q: any, index: number) => {
                 // @ts-ignore
-                // if (q !== '') {
-                this.text.option.push({
-                  message: q,
-                  option_images:
-                    index === this.newLine_dialog.length - 1
-                      ? this.currenthistory.user_response[y].option_in_history
-                          .option_images
-                      : [],
-                });
-                // }
+                if (q !== this.img_separator) {
+                  this.text.option.push({
+                    message: q,
+                    option_images: [],
+                  });
+                } else {
+                  this.text.option.push({
+                    message: '',
+                    option_images: this.currenthistory.user_response[y]
+                      .option_in_history.option_images,
+                  });
+                }
               });
             } else {
-              // @ts-ignore
-              this.text.option.push({
-                message: this.currenthistory.user_response[y].option_in_history
-                  .message,
-                option_images: this.currenthistory.user_response[y]
-                  .option_in_history.option_images,
-              });
+              if (
+                this.currenthistory.user_response[y].option_in_history
+                  .message !== this.img_separator
+              ) {
+                this.text.option.push({
+                  message: this.currenthistory.user_response[y]
+                    .option_in_history.message,
+                  option_images: [],
+                });
+              } else {
+                this.text.option.push({
+                  message: '',
+                  option_images: this.currenthistory.user_response[y]
+                    .option_in_history.option_images,
+                });
+              }
             }
 
             this.show.push(this.text);
             this.item_message = this.show;
           }
           this.loadConversation(false);
-          console.log(this.show);
         }
       });
   }
@@ -598,16 +656,33 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       this.show_multiple = this.mupltiple_line.length;
       this.count_multiple = 0;
       if (this.show_multiple > 1) {
-        const option = {
-          message: this.mupltiple_line[this.count_multiple],
-          option_images: [],
-        };
+        let option!: any;
+        if (this.mupltiple_line[this.count_multiple] !== this.img_separator) {
+          option = {
+            message: this.mupltiple_line[this.count_multiple],
+            option_images: [],
+          };
+        } else {
+          option = {
+            message: '',
+            option_images: this.mupltiple_line_images,
+          };
+        }
         this.options.push(option);
       } else {
-        const option = {
-          message: this.mupltiple_line[0],
-          option_images: this.dialog.dialog_has_options[0].option.option_images,
-        };
+        let option!: any;
+        if (this.mupltiple_line[0] !== this.img_separator) {
+          option = {
+            message: this.mupltiple_line[0],
+            option_images: [],
+          };
+        } else {
+          option = {
+            message: '',
+            option_images: this.dialog.dialog_has_options[0].option
+              .option_images,
+          };
+        }
         this.options.push(option);
       }
     }
@@ -616,25 +691,38 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   on_multiple_options(index: number) {
     this.options = [];
     this.nsend = false;
-    // this.text.dialog.push(this.mupltiple_line[this.count_multiple]);
-    // if (this.mupltiple_line[this.count_multiple] !== '') {
-    this.text.option.push({
-      message: this.mupltiple_line[this.count_multiple],
-      option_images: [],
-    });
-
+    let option!: any;
+    if (this.mupltiple_line[this.count_multiple] !== this.img_separator) {
+      this.text.option.push({
+        message: this.mupltiple_line[this.count_multiple],
+        option_images: [],
+      });
+    } else {
+      this.text.option.push({
+        message: '',
+        option_images: this.mupltiple_line_images,
+      });
+    }
     this.show.push(this.text);
     this.text = new Texting([], [], '', false);
     this.count_multiple++;
-    const option = {
-      message: this.mupltiple_line[this.count_multiple],
-      option_images: this.mupltiple_line_images,
-    };
+
+    if (this.mupltiple_line[this.count_multiple] !== this.img_separator) {
+      option = {
+        message: this.mupltiple_line[this.count_multiple],
+        option_images: [],
+      };
+    } else {
+      option = {
+        message: '',
+        option_images: this.mupltiple_line_images,
+      };
+    }
     setTimeout(() => {
       this.options.push(option);
     }, option.message.length * 25);
     // }
-    this.current_message = [];
+    this.current_dialog = [];
     this.nsend = true;
   }
 
@@ -647,16 +735,33 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     ) {
       this.text.dialog = [];
       // @ts-ignore
-      this.text.option.push({
-        message: this.mupltiple_line[this.count_multiple],
-        option_images: this.mupltiple_line_images,
-      });
+      if (this.mupltiple_line[this.count_multiple] !== this.img_separator) {
+        this.text.option.push({
+          message: this.mupltiple_line[this.count_multiple],
+          option_images: [],
+        });
+      } else {
+        this.text.option.push({
+          message: '',
+          option_images: this.mupltiple_line_images,
+        });
+      }
+      this.show_multiple = 1;
+      this.count_multiple = 0;
     } else {
       // @ts-ignore
-      this.text.option.push({
-        message: this.dialog.dialog_has_options[i].option.message,
-        option_images: this.dialog.dialog_has_options[i].option.option_images,
-      });
+      if (
+        this.dialog.dialog_has_options[i].option.message !== this.img_separator
+      ) {
+        this.text.option.push({
+          message: this.dialog.dialog_has_options[i].option.message,
+          option_images: [],
+        });
+      } else {
+        this.text.option.push({
+          option_images: this.dialog.dialog_has_options[i].option.option_images,
+        });
+      }
     }
 
     if (this.dialog.dialog_has_options[i].loopback) {
@@ -692,7 +797,6 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       this.wrong = false;
     }
 
-    // this.current_message = this.dialog.message;
     for (let t = 0; t < this.dialog.dialog_images.length; t++) {
       if (
         this.dialog.dialog_images[t].type === 'AVATAR' &&
@@ -708,23 +812,25 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       this.text.show_avatar_image = this.show_avatar_image;
     }
     this.newLine_dialog = this.dialog.message.split('<new_line>');
+    this.dialog_images = this.dialog.dialog_images;
     this.text = new Texting([], [], '', false);
     this.options = [];
-    this.current_message = [];
+    this.current_dialog = [];
 
     setTimeout(() => {
       if (this.newLine_dialog.length > 1) {
-        this.current_message.push({
+        this.current_dialog.push({
           message: this.newLine_dialog[0],
           ShowTyping: false,
+          dialog_images: [],
         });
         this.text.dialog.push({
           message: this.newLine_dialog[0],
-          option_images: [],
+          dialog_images: [],
         });
 
         this.ShowTypingTime = this.newLine_dialog[0].split(' ');
-        this.current_message[0].ShowTyping = true;
+        this.current_dialog[0].ShowTyping = true;
         let t;
         if (this.ShowTypingTime.length / 35 < 1) {
           t = 1000;
@@ -732,19 +838,38 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
           t = (this.ShowTypingTime.length / 35) * 1000;
         }
         setTimeout(() => {
-          this.current_message[0].ShowTyping = false;
+          this.current_dialog[0].ShowTyping = false;
           for (let l = 1; l < this.newLine_dialog.length; l++) {
-            this.current_message.push({
-              message: this.newLine_dialog[l],
-              ShowTyping: false,
-            });
+            // this.current_dialog.push({
+            //   message: this.newLine_dialog[l],
+            //   ShowTyping: false,
+            //   dialog_images: [],
+            // });
             // this.text.dialog.push(this.newLine_dialog[l]);
-            this.text.dialog.push({
-              message: this.newLine_dialog[l],
-              option_images: [],
-            });
+            if (this.newLine_dialog[l] !== this.img_separator) {
+              this.text.dialog.push({
+                message: this.newLine_dialog[l],
+                dialog_images: [],
+              });
+              this.current_dialog.push({
+                message: this.newLine_dialog[l],
+                ShowTyping: false,
+                dialog_images: [],
+              });
+            } else {
+              this.text.dialog.push({
+                message: '',
+                dialog_images: this.dialog_images,
+              });
+              this.current_dialog.push({
+                message: '',
+                ShowTyping: false,
+                dialog_images: this.dialog_images,
+              });
+            }
+
             this.ShowTypingTime = this.newLine_dialog[l].split(' ');
-            this.current_message[l].ShowTyping = true;
+            this.current_dialog[l].ShowTyping = true;
             let t;
             if (this.ShowTypingTime.length / 35 < 1) {
               t = 1000;
@@ -752,19 +877,32 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
               t = (this.ShowTypingTime.length / 35) * 1000;
             }
             setTimeout(() => {
-              this.current_message[l].ShowTyping = false;
+              this.current_dialog[l].ShowTyping = false;
             }, t);
           }
         }, t);
       } else {
-        this.current_message.push({
-          message: this.dialog.message,
-          ShowTyping: false,
-        });
-        this.text.dialog.push({
-          message: this.dialog.message,
-          option_images: [],
-        });
+        if (this.dialog.message !== this.img_separator) {
+          this.current_dialog.push({
+            message: this.dialog.message,
+            ShowTyping: false,
+            dialog_images: [],
+          });
+          this.text.dialog.push({
+            message: this.dialog.message,
+            dialog_images: [],
+          });
+        } else {
+          this.current_dialog.push({
+            message: '',
+            ShowTyping: false,
+            dialog_images: this.dialog.dialog_images,
+          });
+          this.text.dialog.push({
+            message: '',
+            dialog_images: this.dialog.dialog_images,
+          });
+        }
 
         this.ShowTypingTime = this.dialog.message.split(' ');
         let t;
@@ -773,9 +911,9 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         } else {
           t = 2000;
         }
-        this.current_message[0].ShowTyping = true;
+        this.current_dialog[0].ShowTyping = true;
         setTimeout(() => {
-          this.current_message[0].ShowTyping = false;
+          this.current_dialog[0].ShowTyping = false;
         }, t);
       }
       this.nsend = true;
@@ -788,6 +926,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       this.conversationsService.completed(
         this.time,
         this.history_id,
+        this.conversation_id,
         false,
         this.finished,
       );
@@ -832,132 +971,170 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   }
 
   speed_run() {
-    this.speedrun = true;
-    this.finished = false;
-    this.dialog = this.dialogMap.get(this.id);
+    if (!this.show_full_conversation) {
+      this.speedrun = true;
+      this.finished = false;
+      this.dialog = this.dialogMap.get(this.id);
 
-    //  this.text = new Texting();
-    this.newLine_dialog = this.dialog.message.split('<new_line>');
-    this.text = new Texting();
-    // this.current_message = [];
-    if (this.newLine_dialog.length > 1) {
-      this.newLine_dialog.forEach((q: any) => {
-        //  this.current_message.push(q);
-        this.text.dialog.push({
-          message: q,
-          option_images: [],
-        });
-      });
-    } else {
-      // this.current_message.push(this.dialog.message);
-      this.text.dialog.push({
-        message: this.dialog.message,
-        option_images: [],
-      });
-    }
-
-    for (let y = 0; y < this.dialog.dialog_has_options.length; y++) {
-      if (!this.dialog.dialog_has_options[y].loopback) {
-        // @ts-ignore
-        this.text.option.push(this.dialog.dialog_has_options[y].option.message);
-        break;
-      }
-    }
-    this.show.push(this.text);
-    console.log(this.text);
-    while (this.dialog.is_last === false) {
-      for (let y = 0; y < this.dialog.dialog_has_options.length; y++) {
-        if (this.dialog.dialog_has_options[y].loopback === false) {
-          this.dialog = this.dialogMap.get(
-            this.dialog.dialog_has_options[y].upcoming_dialog,
-          );
-          break;
-        }
-      }
-
+      //  this.text = new Texting();
       this.newLine_dialog = this.dialog.message.split('<new_line>');
-      this.text = new Texting();
+      let dialog_images = this.dialog.dialog_images;
+      this.text = new Texting([], [], this.show_avatar_image, false);
       // this.current_message = [];
       if (this.newLine_dialog.length > 1) {
         this.newLine_dialog.forEach((q: any) => {
-          //  this.current_message.push(q);
-          this.text.dialog.push({
-            message: q,
-            option_images: [],
-          });
+          if (q !== this.img_separator) {
+            this.text.dialog.push({
+              message: q,
+              dialog_images: [],
+            });
+          } else {
+            this.text.dialog.push({
+              message: '',
+              dialog_images: dialog_images,
+            });
+          }
         });
       } else {
-        // this.current_message.push(this.dialog.message);
-        // this.text.dialog.push(this.dialog.message);
         this.text.dialog.push({
           message: this.dialog.message,
-          option_images: [],
+          dialog_images: [],
         });
       }
-      if (this.dialog.is_last === true) {
-        // this.current_message = this.dialog.message;
-        this.current_message = [];
-        this.newLine_dialog = this.dialog.message.split('<new_line>');
-        if (this.newLine_dialog.length > 1) {
-          this.newLine_dialog.forEach((q: any) => {
-            this.current_message.push({
-              message: q,
-              ShowTyping: false,
-            });
-          });
-        } else {
-          this.current_message.push({
-            message: this.dialog.message,
-            ShowTyping: false,
-          });
-        }
-        break;
-      }
+
       for (let y = 0; y < this.dialog.dialog_has_options.length; y++) {
         if (!this.dialog.dialog_has_options[y].loopback) {
           // @ts-ignore
-          this.text.option.push(
-            this.dialog.dialog_has_options[y].option.message,
+          const option = this.dialog.dialog_has_options[y].option.message.split(
+            '<new_line>',
           );
+          option.forEach((q: any) => {
+            if (q !== this.img_separator) {
+              this.text.option.push({
+                message: q,
+                option_images: [],
+              });
+            } else {
+              this.text.option.push({
+                message: '',
+                option_images: this.dialog.dialog_has_options[y].option
+                  .option_images,
+              });
+            }
+          });
           break;
         }
-      }
-      for (let t = 0; t < this.dialog.dialog_images.length; t++) {
-        if (
-          this.dialog.dialog_images[t].type === 'AVATAR' &&
-          this.dialog.dialog_images.length !== 0
-        ) {
-          this.text.show_avatar_image = this.dialog.dialog_images[t].image;
-          break;
-        } else {
-          this.text.show_avatar_image = this.show_avatar_image;
-        }
-      }
-      if (this.dialog.dialog_images.length === 0) {
-        this.text.show_avatar_image = this.show_avatar_image;
       }
       this.show.push(this.text);
-    }
-    if (this.dialog.is_last === true) {
-      this.finished = true;
-      this.time = this.timerservice.removeVisibility() + this.time;
-      this.conversationsService.completed(
-        this.time,
-        this.history_id,
-        true,
-        this.finished,
-      );
+      while (this.dialog.is_last === false) {
+        for (let y = 0; y < this.dialog.dialog_has_options.length; y++) {
+          if (!this.dialog.dialog_has_options[y].loopback) {
+            this.dialog = this.dialogMap.get(
+              this.dialog.dialog_has_options[y].upcoming_dialog,
+            );
+            break;
+          }
+        }
+
+        this.newLine_dialog = this.dialog.message.split('<new_line>');
+        dialog_images = this.dialog.dialog_images;
+        this.text = new Texting([], [], this.show_avatar_image, false);
+        // this.current_message = [];
+        if (this.newLine_dialog.length > 1) {
+          this.newLine_dialog.forEach((q: any) => {
+            if (q !== this.img_separator) {
+              this.text.dialog.push({
+                message: q,
+                dialog_images: [],
+              });
+            } else {
+              this.text.dialog.push({
+                message: '',
+                dialog_images: dialog_images,
+              });
+            }
+          });
+        } else {
+          this.text.dialog.push({
+            message: this.dialog.message,
+            option_images: [],
+          });
+        }
+        if (this.dialog.is_last === true) {
+          this.current_dialog = [];
+          this.newLine_dialog = this.dialog.message.split('<new_line>');
+          if (this.newLine_dialog.length > 1) {
+            this.newLine_dialog.forEach((q: any) => {
+              this.current_dialog.push({
+                message: q,
+                ShowTyping: false,
+                dialog_images: [],
+              });
+            });
+          } else {
+            this.current_dialog.push({
+              message: this.dialog.message,
+              ShowTyping: false,
+              dialog_images: [],
+            });
+          }
+          break;
+        }
+        for (let y = 0; y < this.dialog.dialog_has_options.length; y++) {
+          if (!this.dialog.dialog_has_options[y].loopback) {
+            // @ts-ignore
+            const options = this.dialog.dialog_has_options[
+              y
+            ].option.message.split('<new_line>');
+            options.forEach((option: any) => {
+              if (option === this.img_separator) {
+                this.text.option.push({
+                  message: '',
+                  option_images: this.dialog.dialog_has_options[y].option
+                    .option_images,
+                });
+              } else {
+                this.text.option.push({
+                  message: option,
+                  option_images: [],
+                });
+              }
+            });
+            break;
+          }
+        }
+        for (let t = 0; t < this.dialog.dialog_images.length; t++) {
+          if (
+            this.dialog.dialog_images[t].type === 'AVATAR' &&
+            this.dialog.dialog_images.length !== 0
+          ) {
+            this.text.show_avatar_image = this.dialog.dialog_images[t].image;
+            break;
+          } else {
+            this.text.show_avatar_image = this.show_avatar_image;
+          }
+        }
+        if (this.dialog.dialog_images.length === 0) {
+          this.text.show_avatar_image = this.show_avatar_image;
+        }
+        this.show.push(this.text);
+      }
+      if (this.dialog.is_last === true) {
+        this.finished = true;
+        this.time = this.timerservice.removeVisibility() + this.time;
+        this.conversationsService.completed(
+          this.time,
+          this.history_id,
+          this.conversation_id,
+          true,
+          this.finished,
+        );
+      }
+      this.show_full_conversation = true;
     }
   }
 
   scrollPageToBottom() {
-    // this.scrollTop = this.convDiv.nativeElement.scrollHeight.;
-    // this.convDiv.nativeElement.scrollTo({
-    //   bottom: this.convDiv.nativeElement.scrollHeight,
-    //   behavior: 'smooth',
-    //   block: 'start',
-    //   inline: 'nearest',
-    // });
     const options = this.convDiv.nativeElement.querySelectorAll(
       '.msg_container_send1',
     );

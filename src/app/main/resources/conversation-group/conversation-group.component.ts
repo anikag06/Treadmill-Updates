@@ -19,7 +19,7 @@ import { environment } from '../../../../environments/environment';
 })
 export class ConversationGroupComponent implements OnInit {
   step!: Step;
-  group!: ConversationGroup[];
+  conversationGroups!: ConversationGroup[];
   conversation_id!: number;
   isreset!: boolean;
   iscontinue!: boolean;
@@ -81,7 +81,7 @@ export class ConversationGroupComponent implements OnInit {
             this.islast = res.is_last_step;
             this.nextstep = res.next_step_id;
             this.passdata.setid(this.current_id, this.islast, this.nextstep);
-            this.group = this.step.step_data.data.conversations;
+            this.conversationGroups = this.step.step_data.data.conversations;
             // this.description_model.message = [];
             // this.description_model.image = [];
             // for(let o = 0; o < this.group.length; o++){
@@ -103,7 +103,7 @@ export class ConversationGroupComponent implements OnInit {
   }
 
   reset(i: number) {
-    this.conversation_id = this.group[i].id;
+    this.conversation_id = this.conversationGroups[i].id;
     this.passdata.setOption(this.conversation_id, true, false, false);
     this.router.navigate([
       '/main/resources/conversations/' + this.conversation_id,
@@ -112,7 +112,7 @@ export class ConversationGroupComponent implements OnInit {
 
   current_history(i: number) {
     //currentId = this.current_id;
-    this.conversation_id = this.group[i].id;
+    this.conversation_id = this.conversationGroups[i].id;
     this.passdata.setOption(this.conversation_id, false, true, false);
     console.log('event emitted');
     this.notificationService.showFullConvIcon.emit();
@@ -126,7 +126,7 @@ export class ConversationGroupComponent implements OnInit {
   //   return `resources/conversations/${this.current_id}/`;
   // }
   speed_run(i: number) {
-    this.conversation_id = this.group[i].id;
+    this.conversation_id = this.conversationGroups[i].id;
     this.passdata.setOption(this.conversation_id, false, false, true);
   }
 }
