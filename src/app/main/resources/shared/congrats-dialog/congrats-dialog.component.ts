@@ -3,6 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Router } from '@angular/router';
 import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.service';
 import { FlowService } from '@/main/flow/flow.service';
+import {NavbarGoToService} from "@/main/shared/navbar/navbar-go-to.service";
 
 @Component({
   selector: 'app-congrats-dialog',
@@ -18,6 +19,7 @@ export class CongratsDialogComponent implements OnInit {
   badgeName!: string;
   badgeInfo!: string;
   navigate_to!: any;
+  showNextStepBtn = false;
 
   constructor(
     public dialogRef: MatDialogRef<CongratsDialogComponent>,
@@ -25,17 +27,17 @@ export class CongratsDialogComponent implements OnInit {
     private router: Router,
     private flowStepService: FlowStepNavigationService,
     private flowService: FlowService,
+    private goToService: NavbarGoToService,
+
   ) {
     dialogRef.disableClose = true;
   }
 
   ngOnInit() {
-    this.navigate_to = 'Go to dashboard';
-    if (window.matchMedia('(max-width: 770px)').matches) {
-      this.dialogRef.updateSize('90%', '75%');
-    }
+
     this.nextStepData = this.data.nextStepData;
     if (this.data.isLastStep) {
+      this.navigate_to = 'Go to dashboard';
       this.badge_img_src = this.data.badgeData.image;
       console.log('badge details', this.data);
       this.showBadge = true;
@@ -47,30 +49,34 @@ export class CongratsDialogComponent implements OnInit {
         this.unLockTime = new Date(convertedDateString);
         console.log('UNLOCK TIME', this.nextStepData);
       }
+    } else if (this.data.isLastModule) {
+      this.navigate_to = 'Next step';
+      this.badge_img_src = this.data.badgeData.image;
+      console.log('badge details', this.data);
+      this.showBadge = true;
+      this.badgeName = this.data.badgeData.name;
+      this.badgeInfo = this.data.badgeData.description;
+      this.showNextStepBtn = true;
     }
   }
 
-  onNextClicked() {
-    const next_step_url = this.flowStepService.goToFlowNextStep(
-      this.nextStepData,
-    );
-    this.flowStepService.virtualStepMarkDone(
-      this.nextStepData,
-      this.data.time_spent,
-    );
-    this.closeDialog();
-    this.router.navigate([next_step_url]);
-  }
-
   goToDashboard() {
-    this.closeDialog();
-    this.router.navigate(['/']);
-    if (this.data.fromIntro) {
-      this.flowService.stepCompleted = true;
-      this.flowService.introduceBehaviour.next(false);
+    if (this.data.isLastStep) {
+      this.closeDialog();
+      this.router.navigate(['/']);
+      if (this.data.fromIntro) {
+        this.flowService.stepCompleted = true;
+        this.flowService.introduceBehaviour.next(false);
+      }
+    }  else  if (this.data.isLastModule) {
+      this.closeDialog();
     }
   }
   closeDialog() {
     this.dialogRef.close();
+    if (this.data.isLastModule) {
+      this.goToService.clickFlow.emit();
+
+    }
   }
 }

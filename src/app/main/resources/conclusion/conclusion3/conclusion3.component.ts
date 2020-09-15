@@ -111,13 +111,9 @@ export class Conclusion3Component implements OnInit, OnDestroy {
               this.quizService.questionnaire_name =
                 step_data.data.next_questionnaire;
               this.moodEvaluate = true;
-              // this.conclusionService.moodEvaluate = true;
             } else {
-              // this.conclusionService.moodEvaluate = false;
               this.moodEvaluate = false;
             }
-            // this.conclusionService.evaluateMood.emit();
-            // this.showQuestionnaire = this.conclusionService.moodEvaluate;
           });
       });
     this.quizService.questionnaire_active.subscribe((value: boolean) => {
@@ -167,8 +163,8 @@ export class Conclusion3Component implements OnInit, OnDestroy {
       });
     this.commonDialogService.openCongratsDialog(
       this.currentStepId,
-      // this.nextStepId,
       true,
+      false,
     );
   }
 

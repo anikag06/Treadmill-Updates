@@ -233,7 +233,7 @@ $(document).ready(function() {
 
 
     startGame();
-
+    ffgMuted = false;
     canvas1.addEventListener("mousedown", function(e) {
       if (first_click) {
         enableElements();

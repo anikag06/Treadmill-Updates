@@ -186,6 +186,8 @@ export class FriendlyFaceGameComponent implements OnInit {
         .then(() => {})
         .catch(() => {});
       this.gamePlayService.ffgameScriptLoaded = true;
+    } else {
+      this.loadImages();
     }
 
     this.ffgHelpService.updateBadges.subscribe(() => {

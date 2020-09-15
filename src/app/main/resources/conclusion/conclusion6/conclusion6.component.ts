@@ -13,6 +13,7 @@ import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 import { CommonDialogsService } from '@/main/resources/shared/common-dialogs.service';
 import { QuizService } from '@/shared/questionnaire/questionnaire.service';
 import { FlowService } from '@/main/flow/flow.service';
+import {NavbarGoToService} from '@/main/shared/navbar/navbar-go-to.service';
 
 @Component({
   selector: 'app-conclusion6',
@@ -46,6 +47,8 @@ export class Conclusion6Component implements OnInit, OnDestroy {
     private commonDialogService: CommonDialogsService,
     private quizService: QuizService,
     private flowService: FlowService,
+    private goToService: NavbarGoToService,
+
   ) {}
 
   ngOnInit() {
@@ -94,13 +97,10 @@ export class Conclusion6Component implements OnInit, OnDestroy {
             if (step_data.data.next_questionnaire) {
               this.quizService.questionnaire_name =
                 step_data.data.next_questionnaire;
-              // this.conclusionService.moodEvaluate = true;
               this.moodEvaluate = true;
             } else {
               this.moodEvaluate = false;
-              // this.conclusionService.moodEvaluate = false;
             }
-            // this.conclusionService.evaluateMood.emit();
           });
       });
     this.quizService.questionnaire_active.subscribe((value: boolean) => {
@@ -135,12 +135,16 @@ export class Conclusion6Component implements OnInit, OnDestroy {
       });
     this.commonDialogService.openCongratsDialog(
       this.currentStepId,
-      // this.nextStepId,
-      true,
+      false,
+       true,
     );
   }
 
   onDashboard() {
     this.router.navigate([LOGGED_IN_PATH]);
+  }
+  onNextStep() {
+    console.log('Next step clicked');
+    this.goToService.clickFlow.emit();
   }
 }
