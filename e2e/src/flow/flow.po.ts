@@ -144,10 +144,10 @@ export class FlowPage {
   // }
 
   showFullConv() {
-    const resetBtn = element.all(by.css('#reset')).first();
-    browser.wait(this.EC.visibilityOf(resetBtn)).then(() => {
-      resetBtn.click();
-      console.log('reset Btn');
+    const continueBtn = element.all(by.css('#continue')).first();
+    browser.wait(this.EC.visibilityOf(continueBtn)).then(() => {
+      continueBtn.click();
+      console.log('continue Btn');
       // browser.sleep(2000);
       // const backBtn = element.all(by.css('.back-button'));
       // backBtn.click().then(() => {

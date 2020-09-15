@@ -3,7 +3,7 @@ import { browser, by, element, logging } from 'protractor';
 import { protractor } from 'protractor/built/ptor';
 // declare var loginTime: number;
 
-describe('workspace-project App', () => {
+xdescribe('workspace-project App', () => {
   let page: AppPage;
   let email!: string;
   let username!: string;
@@ -15,8 +15,6 @@ describe('workspace-project App', () => {
     page.navigateTo();
     browser.waitForAngularEnabled(false);
     browser.sleep(1000);
-    // page.clickBurgerBtn('mat-icon.pre-login-toolbar-burger');
-    // browser.sleep(3500);
     page.clickLoginLink();
     browser.sleep(2500);
     expect(page.getTextOnLoginDialog()).toEqual(
@@ -24,7 +22,7 @@ describe('workspace-project App', () => {
     );
   });
 
-  it('should click on study and fill trial registration form', () => {
+  xit('should click on study and fill trial registration form', () => {
     page.clickJoinStudy();
     browser.sleep(1500);
     page.fillTrialStudyForm();
@@ -36,52 +34,24 @@ describe('workspace-project App', () => {
     // browser.sleep(3000);
   });
 
-  it('Should show PHQ-9 questionnaire', () => {
+  xit('Should show PHQ-9 questionnaire', () => {
     expect(page.findPhq()).toBeTruthy();
     browser.sleep(5000);
     // expect(page.findQuestionnaireText()).toMatch('Before moving further');
     page.fillPhq();
-    // page.clickOnButton('Start');
-    // for (let i = 0; i < 9; i++) {
-    //   browser.sleep(1000);
-    //   page.clickOnButton('Most of the days');
-    // }
-    // browser.sleep(1000);
-    // page.clickOnButton('Submit');
-    // browser.sleep(1000);
   });
 
-  it('Should show SIQ questionnaire', () => {
+  xit('Should show SIQ questionnaire', () => {
     expect(page.findSiq()).toBeTruthy();
     browser.sleep(2000);
     page.fillSiq();
-    // page.clickOnButton('Start');
-    // for (let i = 0; i < 10; i++) {
-    //   browser.sleep(1000);
-    //   if (i < 4) {
-    //     page.clickOnButton('Sometimes');
-    //   } else {
-    //     page.clickOnButton('Never');
-    //   }
-    // }
-    // browser.sleep(1000);
-    // page.clickOnButton('Submit');
   });
 
-  it('Should show GAD-7 questionnaire', () => {
+  xit('Should show GAD-7 questionnaire', () => {
     expect(page.findGad()).toBeTruthy();
     browser.sleep(3000);
     // expect(page.findQuestionnaireText()).toMatch('Before moving further');
     page.fillGad();
-    // page.clickOnButton('Start');
-    // for (let i = 0; i < 7; i++) {
-    //   browser.sleep(1000);
-    //   page.clickOnButton('Most of the days');
-    // }
-    // browser.sleep(3000);
-    // page.clickOnButton('Submit');
-    // browser.sleep(3000);
-    // expect(fp.getProgress()).toEqual('Progress');
   });
 
   xit('should fill consent form and decline notifications', () => {
@@ -94,7 +64,7 @@ describe('workspace-project App', () => {
     browser.sleep(2000);
   });
 
-  it(
+  xit(
     'should fill consent form and accept notifications and submit',
     () => {
       expect(page.findConsentPage()).toBeTruthy();
@@ -110,7 +80,7 @@ describe('workspace-project App', () => {
 
   // get link for sign up from mail
 
-  it(
+  xit(
     'Should get sign up link and redirect to signup page',
     () => {
       page.getSignUpLink();
@@ -124,13 +94,13 @@ describe('workspace-project App', () => {
     5 * 60 * 1000,
   );
 
-  it('should fill signup page', () => {
+  xit('should fill signup page', () => {
     page.fillSignupForm();
     browser.sleep(3000);
     username = page.newUsername;
   });
 
-  it('should login and redirect to dashboard', () => {
+  xit('should login and redirect to dashboard', () => {
     // username is hardcoded here
     page.fillLoginForm(username, 'test123');
     expect(

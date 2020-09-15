@@ -27,7 +27,7 @@ describe('treadwill Flow Experimental Group', () => {
     page.clickLoginLink();
     browser.sleep(2500);
     // username is hardcoded here
-    page.fillLoginForm('root_exp_6', 'test123');
+    page.fillLoginForm('test_user_1', 'test123');
     expect(fp.onDashboard()).toBeTruthy('url does not contains dashboard');
     loginTime = page.getTime();
     console.log('login time', loginTime);
@@ -52,15 +52,12 @@ describe('treadwill Flow Experimental Group', () => {
   it('Should find Introductory navigation on zero Module and run its step', () => {
     fp.checkIntroDialog();
     console.log('CONTROL GROUP zero module', expUser);
-    // fp.clickOnButton('Get Started');
     browser.sleep(2000);
     fp.findProgressElement('Navigating TreadWill');
     browser.sleep(2500);
-    // fp.navigateToDashboard();
     fp.reload();
     fp.findProgressElement('Points, badges, and profile ');
     browser.sleep(500);
-    // fp.navigateToDashboard();
     fp.reload();
   });
 
@@ -85,7 +82,6 @@ describe('treadwill Flow Experimental Group', () => {
       fp.findProgressElement('Meet WillBot'); // introductory animation
       browser.sleep(2000);
       fp.reload();
-      // fp.clickGoto();
       // Checking for dropout
       if (testfor === 'dropout' && moduleNum === 1) {
         console.log('CHECK FOR DROPOUT  AT MODULE 1');
@@ -99,7 +95,7 @@ describe('treadwill Flow Experimental Group', () => {
       fp.clickGoto();
       fp.findProgressElement('Depression'); // slide
       fp.goToNextStep('Next step');
-      fp.findProgressElement('Happy face'); // game -virtual step
+      fp.findProgressElement('Find a smile'); // game -virtual step
       fp.reload();
       fp.clickGoto();
       fp.findProgressElement('Being self-aware'); // slide
@@ -130,7 +126,7 @@ describe('treadwill Flow Experimental Group', () => {
       console.log('EXPERIMENTAL GROUP', expUser);
       fp.waitForStepUnlock('Introduction');
       fp.goToNextStep('Next step');
-      fp.findProgressElement("It's a trap");
+      fp.findProgressElement('It\'s a trap');
       fp.goToNextStep('Next step');
       fp.findProgressElement('Word jumble ');
       fp.reload();
@@ -178,7 +174,7 @@ describe('treadwill Flow Experimental Group', () => {
       fp.goToNextStep('Next step');
       fp.findProgressElement('What is going through your mind?');
       fp.goToNextStep('Next step');
-      fp.findProgressElement('Imagery');
+      fp.findProgressElement('Daydream');
       fp.reload();
       fp.clickGoto();
       fp.findProgressElement('Common Thinking errors');
@@ -186,7 +182,7 @@ describe('treadwill Flow Experimental Group', () => {
       fp.findProgressElement('GIVE A NAME 4.5 ');
       fp.showFullConv();
       fp.goToNextStep('Next step');
-      fp.findProgressElement('Thinking errors');
+      fp.findProgressElement('Think positive');
       fp.reload();
       fp.clickGoto();
       fp.findProgressElement('Evaluating thoughts');
@@ -335,38 +331,6 @@ describe('treadwill Flow Experimental Group', () => {
   // });
   //
 
-  // it('Should find Module text', () => {
-  //   browser.sleep(4000);
-  //   expect(fp.findText()).toContain('Introduction to Treadwill');
-  //   expect(fp.findText()).toContain('Know Yourself');
-  //   expect(fp.findText()).toContain('Making good things happen');
-  //   expect(fp.findText()).toContain("Don't believe everything you think");
-  //   expect(fp.findText()).toContain('Modifying Beliefs');
-  //   expect(fp.findText()).toContain('Worrying Productively');
-  //   expect(fp.findText()).toContain('Staying Happy');
-  // });
-  // it('Should show questionnaire', () => {
-  //   fp.findQuestionnaireComponent();
-  //   browser.sleep(2000);
-  //   expect(fp.findQuestionnaireText()).toMatch('Before moving further');
-  //   fp.clickOnButton('Start');
-  //   for (let i = 0; i < 9; i++) {
-  //     browser.sleep(1000);
-  //     fp.clickOnButton('Most of the days');
-  //   }
-  //   browser.sleep(1000);
-  //   fp.clickOnButton('Submit');
-  //   browser.sleep(2000);
-  //   fp.clickOnButton('Start');
-  //   for (let i = 0; i < 7; i++) {
-  //     browser.sleep(1000);
-  //     fp.clickOnButton('Most of the days');
-  //   }
-  //   browser.sleep(1000);
-  //   fp.clickOnButton('Submit');
-  //   browser.sleep(2000);
-  //   expect(fp.getProgress()).toEqual('Progress');
-  // });
 
   // it('Should say not available when we revist the item', () => {
   //   fp.findQuestionnaireComponent();

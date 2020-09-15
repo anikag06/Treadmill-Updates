@@ -7,7 +7,7 @@ declare var testType: any;
 declare var moduleNumber: number;
 // declare var loginTime: number;
 
-describe('treadwill Flow control group', () => {
+xdescribe('treadwill Flow control group', () => {
   let page: AppPage;
   let fp: FlowPage;
   let expUser = false;
