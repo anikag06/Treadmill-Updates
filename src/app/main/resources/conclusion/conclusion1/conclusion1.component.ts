@@ -53,6 +53,8 @@ export class Conclusion1Component implements OnInit, OnDestroy {
   stepSequence!: number;
   stepName!: string;
   moodEvaluate!: boolean;
+  showLoading = false;
+
 
   constructor(
     private conclusionService: ConclusionService,
@@ -137,6 +139,11 @@ export class Conclusion1Component implements OnInit, OnDestroy {
         this.flowService.stepDetail.emit(this.navbarTitle);
       }
     });
+    this.flowService.showDashboardButton.subscribe( () => {
+      this.stepCompleted = true;
+      this.showLoading = false;
+      console.log('show dashboard');
+    });
   }
 
   saveData() {
@@ -157,7 +164,7 @@ export class Conclusion1Component implements OnInit, OnDestroy {
 
   onCompleted() {
     this.saveData();
-    this.stepCompleted = true;
+    this.showLoading = true;
     this.timeSpent = 200;
     this.completionData.time_spent = this.timeSpent;
     this.completionData.step_id = this.currentStepId;
@@ -171,7 +178,6 @@ export class Conclusion1Component implements OnInit, OnDestroy {
       });
     this.commonDialogService.openCongratsDialog(
       this.currentStepId,
-      // this.nextStepId,
       true,
       false,
     );

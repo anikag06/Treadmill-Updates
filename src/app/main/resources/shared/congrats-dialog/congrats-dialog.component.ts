@@ -58,6 +58,8 @@ export class CongratsDialogComponent implements OnInit {
       this.badgeInfo = this.data.badgeData.description;
       this.showNextStepBtn = true;
     }
+    this.flowService.showDashboardButton.emit();
+
   }
 
   goToDashboard() {
