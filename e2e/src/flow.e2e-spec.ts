@@ -27,7 +27,7 @@ describe('treadwill Flow Experimental Group', () => {
     page.clickLoginLink();
     browser.sleep(2500);
     // username is hardcoded here
-    page.fillLoginForm('user12', 'test123');
+    page.fillLoginForm('test_user_2', 'test123');
     expect(fp.onDashboard()).toBeTruthy('url does not contains dashboard');
     loginTime = page.getTime();
     console.log('login time', loginTime);
@@ -111,7 +111,7 @@ describe('treadwill Flow Experimental Group', () => {
       page.fillSiq();
       page.findGad();
       page.fillGad();
-      fp.goToNextStep('Go to dashboard');
+      fp.goToDashboard('Go to dashboard');
     },
     100 * 60 * 1000,
   );
@@ -158,7 +158,7 @@ describe('treadwill Flow Experimental Group', () => {
       page.findGad();
       page.fillGad();
       fp.reload();
-      fp.goToNextStep('Go to dashboard');
+      fp.goToDashboard('Go to dashboard');
     },
     100 * 60 * 1000,
   );
@@ -208,7 +208,7 @@ describe('treadwill Flow Experimental Group', () => {
       page.fillSiq();
       page.findGad();
       page.fillGad();
-      fp.goToNextStep('Go to dashboard');
+      fp.goToDashboard('Go to dashboard');
     },
     100 * 60 * 1000,
   );
@@ -217,11 +217,6 @@ describe('treadwill Flow Experimental Group', () => {
     'Should click fourth Module and run its step',
     () => {
       fp.navigateToDashboard();
-      expect(
-        browser //
-          .wait(protractor.ExpectedConditions.urlContains('dashboard'))
-          .catch(() => false),
-      ).toBeTruthy('Url match could not succced');
       expect(fp.findProgressGroupElement('Modifying beliefs ')).toBeTruthy();
       browser.sleep(2000);
       console.log('EXPERIMENTAL GROUP', expUser);
@@ -249,7 +244,7 @@ describe('treadwill Flow Experimental Group', () => {
       page.fillSiq();
       page.findGad();
       page.fillGad();
-      fp.goToNextStep('Go to dashboard');
+      fp.goToDashboard('Go to dashboard');
     },
     100 * 60 * 1000,
   );
@@ -279,7 +274,7 @@ describe('treadwill Flow Experimental Group', () => {
       page.fillSiq();
       page.findGad();
       page.fillGad();
-      fp.goToNextStep('Go to dashboard');
+      fp.goToDashboard('Go to dashboard');
     },
     100 * 60 * 1000,
   );
@@ -313,7 +308,7 @@ describe('treadwill Flow Experimental Group', () => {
       page.fillSiq();
       page.findGad();
       page.fillGad();
-      fp.goToNextStep('Go to dashboard');
+      fp.goToNextStep('Next step');
     },
     100 * 60 * 1000,
   );

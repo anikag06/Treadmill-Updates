@@ -120,16 +120,39 @@ export class FlowPage {
               console.log(btn, 'click');
             });
           }
-          if (btn === 'Go to dashboard') {
-            browser.sleep(6000);
-            const dashboardBtn = element(
+          // if (btn === 'Go to dashboard') {
+          //   browser.sleep(6000);
+          //   const dashboardBtn = element(
+          //     by.cssContainingText('button', 'Go to dashboard'),
+          //   );
+          //   browser.wait(this.EC.visibilityOf(dashboardBtn)).then(() => {
+          //     dashboardBtn.click();
+          //     console.log(btn, 'click');
+          //   });
+          // }
+        });
+      })
+      .catch(() => {
+        console.log('waiting to click Completed button ');
+      });
+    browser.sleep(1000);
+  }
+
+  goToDashboard(btn: string) {
+    browser.sleep(2000);
+    const button = element(by.css('button.completed-btn'));
+    browser
+      .wait(this.EC.visibilityOf(button))
+      .then(() => {
+        console.log('clickOnButton  Completed');
+        button.click().then(() => {
+            const dashboardBtn = element(by.css('.congrats-div')).element(
               by.cssContainingText('button', 'Go to dashboard'),
             );
             browser.wait(this.EC.visibilityOf(dashboardBtn)).then(() => {
               dashboardBtn.click();
               console.log(btn, 'click');
             });
-          }
         });
       })
       .catch(() => {
@@ -146,20 +169,12 @@ export class FlowPage {
   // }
 
   showFullConv() {
-    const continueBtn = element.all(by.css('#continue')).first();
-    browser.wait(this.EC.visibilityOf(continueBtn)).then(() => {
-      continueBtn.click();
-      console.log('continue Btn');
-      // browser.sleep(2000);
-      // const backBtn = element.all(by.css('.back-button'));
-      // backBtn.click().then(() => {
-      //   console.log('back Btn clicked');
-      //   browser.sleep(2000);
-      //   const continueBtn = element.all(by.css('#continue')).first();
-      //   browser.wait(this.EC.visibilityOf(continueBtn)).then(() => {
-      //     browser.sleep(2000);
-      //     continueBtn.click();
-      //     console.log('continueBtn clicked');
+    const StartBtn = element.all(by.cssContainingText('button', 'Start')).first();
+    browser.wait(this.EC.visibilityOf(StartBtn)).then(() => {
+      StartBtn.click();
+      console.log('Start conversations');
+    const el = element(by.css('.msg_container1'));
+    browser.wait(this.EC.presenceOf(el)).then(() => {
       const showConvBtn = element(by.css('#showFullConversation'));
       browser.wait(this.EC.visibilityOf(showConvBtn)).then(() => {
         browser.sleep(2000);
@@ -171,9 +186,8 @@ export class FlowPage {
           console.log('menuBtn clicked');
         });
       });
+      });
     });
-    // });
-    // });
   }
 
   goHome() {
