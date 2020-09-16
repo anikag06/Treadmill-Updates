@@ -27,7 +27,7 @@ describe('treadwill Flow Experimental Group', () => {
     page.clickLoginLink();
     browser.sleep(2500);
     // username is hardcoded here
-    page.fillLoginForm('test_user_1', 'test123');
+    page.fillLoginForm('user12', 'test123');
     expect(fp.onDashboard()).toBeTruthy('url does not contains dashboard');
     loginTime = page.getTime();
     console.log('login time', loginTime);
@@ -51,7 +51,7 @@ describe('treadwill Flow Experimental Group', () => {
 
   it('Should find Introductory navigation on zero Module and run its step', () => {
     fp.checkIntroDialog();
-    console.log('CONTROL GROUP zero module', expUser);
+    console.log('Experimental Group zero module', expUser);
     browser.sleep(2000);
     fp.findProgressElement('Navigating TreadWill');
     browser.sleep(2500);
@@ -67,7 +67,7 @@ describe('treadwill Flow Experimental Group', () => {
       fp.navigateToDashboard();
       expect(fp.findProgressGroupElement('Being self-aware')).toBeTruthy();
       browser.sleep(2000);
-      fp.findProgressElement('Introduction'); // introduction
+      fp.waitForStepUnlock('Introduction'); // introduction
       fp.goToNextStep('Next step');
       fp.findProgressElement('Evaluate my thought form'); // form - virtual step
       fp.reload();
@@ -116,7 +116,7 @@ describe('treadwill Flow Experimental Group', () => {
     100 * 60 * 1000,
   );
 
-  it(
+ it(
     'Should click second Module and run its step',
     () => {
       expect(

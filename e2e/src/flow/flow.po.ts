@@ -25,6 +25,8 @@ export class FlowPage {
     browser
       .wait(this.EC.presenceOf(element(by.css('.mat-dialog-container'))))
       .then(() => {
+        browser
+          .wait(this.EC.presenceOf(element(by.css('button.mat-raised-button'))))
         this.clickOnButton('Get Started');
       });
   }
@@ -204,14 +206,14 @@ export class FlowPage {
   waitForStepUnlock(txt: string) {
     console.log('waiting for step', txt, 'unlock');
     const nextStep = element(by.css('.flow-scroll-inner')).element(
-      by.cssContainingText('.step-content', txt),
+      by.cssContainingText('.step-content.active', txt),
     );
     browser
-      .wait(protractor.ExpectedConditions.visibilityOf(nextStep), 5 * 60 * 1000)
+      .wait(this.EC.visibilityOf(nextStep))
       .then(() => {
         this.findProgressElement(txt);
         console.log(txt, 'VISIBLE');
-        return true;
+        // return true;
       })
       .catch(() => {
         this.navigateToDashboard();
@@ -291,6 +293,7 @@ export class FlowPage {
   evaluateMood() {
     const moodBtn = element(by.css('button.mood-btn'));
     browser.wait(this.EC.visibilityOf(moodBtn)).then(() => {
+      console.log('mood btn clicked');
       moodBtn.click();
     });
   }
