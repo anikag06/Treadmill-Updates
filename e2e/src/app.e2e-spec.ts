@@ -3,7 +3,7 @@ import { browser, by, element, logging } from 'protractor';
 import { protractor } from 'protractor/built/ptor';
 // declare var loginTime: number;
 
-xdescribe('workspace-project App', () => {
+describe('workspace-project App', () => {
   let page: AppPage;
   let email!: string;
   let username!: string;
@@ -22,7 +22,7 @@ xdescribe('workspace-project App', () => {
     );
   });
 
-  xit('should click on study and fill trial registration form', () => {
+  it('should click on study and fill trial registration form', () => {
     page.clickJoinStudy();
     browser.sleep(1500);
     page.fillTrialStudyForm();
@@ -34,20 +34,20 @@ xdescribe('workspace-project App', () => {
     // browser.sleep(3000);
   });
 
-  xit('Should show PHQ-9 questionnaire', () => {
+  it('Should show PHQ-9 questionnaire', () => {
     expect(page.findPhq()).toBeTruthy();
     browser.sleep(5000);
     // expect(page.findQuestionnaireText()).toMatch('Before moving further');
     page.fillPhq();
   });
 
-  xit('Should show SIQ questionnaire', () => {
+  it('Should show SIQ questionnaire', () => {
     expect(page.findSiq()).toBeTruthy();
     browser.sleep(2000);
     page.fillSiq();
   });
 
-  xit('Should show GAD-7 questionnaire', () => {
+  it('Should show GAD-7 questionnaire', () => {
     expect(page.findGad()).toBeTruthy();
     browser.sleep(3000);
     // expect(page.findQuestionnaireText()).toMatch('Before moving further');
@@ -64,7 +64,7 @@ xdescribe('workspace-project App', () => {
     browser.sleep(2000);
   });
 
-  xit(
+  it(
     'should fill consent form and accept notifications and submit',
     () => {
       expect(page.findConsentPage()).toBeTruthy();
@@ -80,7 +80,7 @@ xdescribe('workspace-project App', () => {
 
   // get link for sign up from mail
 
-  xit(
+  it(
     'Should get sign up link and redirect to signup page',
     () => {
       page.getSignUpLink();
@@ -94,13 +94,13 @@ xdescribe('workspace-project App', () => {
     5 * 60 * 1000,
   );
 
-  xit('should fill signup page', () => {
+  it('should fill signup page', () => {
     page.fillSignupForm();
     browser.sleep(3000);
     username = page.newUsername;
   });
 
-  xit('should login and redirect to dashboard', () => {
+  it('should login and redirect to dashboard', () => {
     // username is hardcoded here
     page.fillLoginForm(username, 'test123');
     expect(
