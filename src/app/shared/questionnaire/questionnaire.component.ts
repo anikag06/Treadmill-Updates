@@ -202,13 +202,9 @@ export class QuestionnaireComponent implements OnInit {
     } else {
       this.router.navigate([DEFAULT_PATH]);
     }
-    this.flowService.showFollowUp.subscribe(() => {
-      this.followup = true;
-    });
   }
 
   loadQuiz() {
-    // this.quizService.questionnaireActive = true;
     this.quizService.disableLinks.emit(this.data);
     console.log('load quiz', this.api[this.index]);
     this.quizService.get(this.api[this.index]).subscribe((res: any) => {
@@ -697,7 +693,7 @@ export class QuestionnaireComponent implements OnInit {
           this.trialAuthService.activateChild(true);
           this.authService.logout(false);
           this.authService.isUserExcluded = true;
-        } else if (this.followup) {
+        } else if (this.quizService.followupActive) {
           this.router.navigate(['/']);
         } else {
           this.flowService.markDone(this.stepId, 1003).subscribe(
@@ -706,8 +702,6 @@ export class QuestionnaireComponent implements OnInit {
             },
             error => console.log(error),
           );
-          // this.router.navigate(['/']);
-          // this.location.back();
         }
       });
     } else if (this.fromFlow === false && this.fromTrialRegistration === true) {

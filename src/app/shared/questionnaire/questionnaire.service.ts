@@ -13,7 +13,8 @@ export class QuizService {
   questionnaire_active = new EventEmitter();
   disableLinks = new EventEmitter();
   enableLinks = new EventEmitter();
-
+  showFollowUp = new EventEmitter<any>();
+  followupActive = false;
   constructor(private http: HttpClient) {}
 
   get(url: string) {

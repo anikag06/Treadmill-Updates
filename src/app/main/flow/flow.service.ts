@@ -23,10 +23,9 @@ export class FlowService {
   stepName = '';
   navbarTitle = '';
   stepCompleted!: boolean;
-  showFollowUp = new EventEmitter<any>();
-  showFollowUpSurvey = new EventEmitter<any>();
   firstStepID!: number;
   showDashboardButton = new EventEmitter<any>();
+  showFollowUpSurvey = false;
 
 
   constructor(
@@ -34,13 +33,6 @@ export class FlowService {
     private flowNavService: FlowStepNavigationService,
   ) {}
 
-  // Http Options
-  // httpOptions = {
-  //   headers: new HttpHeaders({
-  //     'Cache-Control':
-  //       'no-cache, no-store, must-revalidate, post-check=0, pre-check=0',
-  //   }),
-  // };
   getFlow() {
     return this.http.get(
       environment.API_ENDPOINT + FLOW_STEPS_DATA,
