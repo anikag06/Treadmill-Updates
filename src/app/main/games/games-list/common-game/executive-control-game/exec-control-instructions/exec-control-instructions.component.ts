@@ -9,7 +9,6 @@ declare var closeECGame: any;
 })
 export class ExecControlInstructionsComponent implements OnInit {
   constructor(
-    // private gamePlayService: GamePlayService,
     private elementRef: ElementRef,
     private ecGameHelpService: ExecControlHelpService,
   ) {}

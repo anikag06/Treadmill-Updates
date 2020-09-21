@@ -171,8 +171,6 @@ export class FriendlyFaceGameComponent implements OnInit {
         console.log('STEP DETAIL:', this.navbarTitle);
         this.flowService.stepDetail.emit(this.navbarTitle);
       });
-    // load script only once
-    if (!this.gamePlayService.ffgameScriptLoaded) {
       this.loadFileService
         .loadExternalScript(
           './assets/games/friendly-face-game/js/facegame_javascript.js',
@@ -186,9 +184,6 @@ export class FriendlyFaceGameComponent implements OnInit {
         .then(() => {})
         .catch(() => {});
       this.gamePlayService.ffgameScriptLoaded = true;
-    } else {
-      this.loadImages();
-    }
 
     this.ffgHelpService.updateBadges.subscribe(() => {
       this.updateBadgesValue();

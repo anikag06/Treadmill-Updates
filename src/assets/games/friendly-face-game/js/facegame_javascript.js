@@ -438,6 +438,8 @@ function onCanvasClick(canvas) {
 }
 
 function clickedFriendlyImage(canvas, event) {
+  event.stopImmediatePropagation();
+
   var rect = canvas.getBoundingClientRect();
   var x = event.clientX - rect.left;
   var y = event.clientY - rect.top;
@@ -487,6 +489,8 @@ function clickedFriendlyImage(canvas, event) {
       if (no_wrong == wrong_threshold) {
         ffGameFillGrid();
       }
+      console.log('lost 1 life,hostile image coordinates', i, hostile_image_coordinates);
+
       penalty();
       return false;
     }
@@ -802,7 +806,6 @@ function songOver() {
 function levelUp() {
   console.log("level up called", level);
   // take to next level;
-
   updateDifficultyLevel();
 
   var values = getDifficultyLevel(ffg_time_per_note);
@@ -819,6 +822,7 @@ function levelUp() {
   updateDifficultyBar();
   updateMusicBar();
   first_click = true;
+  game_completed = false;
   game_paused = false;
   game_started = true;
   canvas1.height = level * (HEIGHT + 2 * margin);
