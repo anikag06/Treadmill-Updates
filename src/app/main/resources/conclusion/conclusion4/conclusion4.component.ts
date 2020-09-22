@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -47,6 +47,8 @@ export class Conclusion4Component implements OnInit, OnDestroy {
   stepName!: string;
   moodEvaluate!: boolean;
   showLoading = false;
+
+  @ViewChild('target', { static: false }) target!: ElementRef;
 
 
   constructor(
@@ -122,6 +124,7 @@ export class Conclusion4Component implements OnInit, OnDestroy {
         this.showQuestionnaire = false;
         this.navbarTitle = this.flowService.navbarTitle;
         this.flowService.stepDetail.emit(this.navbarTitle);
+        this.scrollDown();
       } else {
         this.showQuestionnaire = true;
         this.navbarTitle = 'Mood test';
@@ -173,5 +176,10 @@ export class Conclusion4Component implements OnInit, OnDestroy {
 
   onDashboard() {
     this.router.navigate([LOGGED_IN_PATH]);
+  }
+  scrollDown() {
+    setTimeout(() => {
+      this.target.nativeElement.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
   }
 }

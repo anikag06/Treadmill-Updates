@@ -171,6 +171,7 @@ export class QuestionnaireComponent implements OnInit {
   loading = true;
   submitting = false;
   followup = false;
+  showLoading = false;
   // tslint:disable-next-line:max-line-length
   constructor(
     private quizService: QuizService,
@@ -186,7 +187,7 @@ export class QuestionnaireComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log(this.quizService.questionnaire_name);
+    console.log(this.quizService.questionnaire_name, this.stepId);
     if (this.quizService.questionnaire_name === PHQ9) {
       this.index = 0;
       this.display_phq_start = true;
@@ -219,6 +220,17 @@ export class QuestionnaireComponent implements OnInit {
       this.dataService.setOption(this.routing);
       this.loading = false;
       this.submitting = false;
+      if (this.first_click) {
+        setTimeout(() => {
+          this.showLoading = false;
+          this.display_questionnaire = true;
+          if (this.display_gad_start) {
+            this.display_gad_start = false;
+          } else if (this.display_siq_start) {
+            this.display_siq_start = false;
+          }
+        }, 400);
+      }
     });
   }
 
@@ -241,24 +253,24 @@ export class QuestionnaireComponent implements OnInit {
       this.startTime = new Date();
       this.display_questionnaire = true;
     } else if (this.display_gad_start === true) {
-      this.display_gad_start = false;
+      this.showLoading = true;
       this.is_siq_ques = false;
       this.index = 1;
       this.loadQuiz();
       this.question_no = 0;
       this.submit = false;
       this.startTime = new Date();
-      this.display_questionnaire = true;
+      // this.display_questionnaire = true;
       this.reset(7);
     } else if (this.display_siq_start === true) {
-      this.display_siq_start = false;
+      this.showLoading = true;
       this.is_siq_ques = true;
       this.index = 2;
       this.loadQuiz();
       this.question_no = 0;
       this.submit = false;
       this.startTime = new Date();
-      this.display_questionnaire = true;
+      // this.display_questionnaire = true;
       this.reset(10);
     }
   }
@@ -688,7 +700,6 @@ export class QuestionnaireComponent implements OnInit {
       this.quizService.post_gad(gad_response).subscribe((data: any) => {
         console.log(data);
         this.submitting = false;
-        // TODO: Darshit needs to add timer service here
         if (data.data.excluded) {
           this.trialAuthService.activateChild(true);
           this.authService.logout(false);

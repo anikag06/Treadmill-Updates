@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -44,6 +44,8 @@ export class Conclusion5Component implements OnInit, OnDestroy {
   stepName!: string;
   moodEvaluate!: boolean;
   showLoading = false;
+
+  @ViewChild('target', { static: false }) target!: ElementRef;
 
   constructor(
     private conclusionService: ConclusionService,
@@ -105,13 +107,9 @@ export class Conclusion5Component implements OnInit, OnDestroy {
               this.quizService.questionnaire_name =
                 step_data.data.next_questionnaire;
               this.moodEvaluate = true;
-              // this.conclusionService.moodEvaluate = true;
             } else {
-              // this.conclusionService.moodEvaluate = false;
               this.moodEvaluate = false;
             }
-            // this.conclusionService.evaluateMood.emit();
-            // this.showQuestionnaire = this.conclusionService.moodEvaluate;
           });
       });
     this.quizService.questionnaire_active.subscribe((value: boolean) => {
@@ -121,6 +119,7 @@ export class Conclusion5Component implements OnInit, OnDestroy {
         this.showQuestionnaire = false;
         this.navbarTitle = this.flowService.navbarTitle;
         this.flowService.stepDetail.emit(this.navbarTitle);
+        this.scrollDown();
       } else {
         this.showQuestionnaire = true;
         this.navbarTitle = 'Mood test';
@@ -171,5 +170,10 @@ export class Conclusion5Component implements OnInit, OnDestroy {
 
   onDashboard() {
     this.router.navigate([LOGGED_IN_PATH]);
+  }
+  scrollDown() {
+    setTimeout(() => {
+      this.target.nativeElement.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
   }
 }
