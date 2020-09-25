@@ -43,6 +43,7 @@ export class MICurrentStateService {
   GOLD_CONSTANT!: any;
   showTutorial!: boolean;
   ask_feedback: any;
+  userDataLoaded = false;
 
   constructor(
     private http: HttpClient,
@@ -89,6 +90,7 @@ export class MICurrentStateService {
       this.showTutorial = data.show_tutorial;
       this.ask_feedback = data.ask_for_feedback;
       this.miPlayService.startNext.emit();
+      this.userDataLoaded = true;
     });
   }
 

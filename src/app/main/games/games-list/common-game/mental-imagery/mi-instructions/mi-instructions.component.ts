@@ -6,6 +6,7 @@ import {
   ElementRef,
 } from '@angular/core';
 import { MIPlayService } from '../mi-play.service';
+import {LoadingBarService} from "@/main/games/shared/loading-bar.service";
 
 @Component({
   selector: 'app-mi-instructions',
@@ -19,6 +20,7 @@ export class MiInstructionsComponent implements OnInit {
   constructor(
     private elementRef: ElementRef,
     private miPlayService: MIPlayService,
+    private loadingBarService: LoadingBarService,
   ) {}
 
   ngOnInit() {}
@@ -29,6 +31,7 @@ export class MiInstructionsComponent implements OnInit {
   onStart() {
     const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });
     this.elementRef.nativeElement.dispatchEvent(domEvent);
+    this.loadingBarService.showLoadingBar();
     this.miPlayService.startPlaying.emit();
   }
 }

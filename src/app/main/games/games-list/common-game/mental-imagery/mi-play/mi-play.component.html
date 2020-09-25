@@ -90,8 +90,10 @@
         </div>
       </div>
 
-      <small class="text-muted" *ngIf="invalidInput">Sorry! We couldn't understand that word 😕. Please enter another
+      <small class="text-muted" *ngIf="invalidInput && invalidInputCount <= 2">Sorry! We couldn't understand that word 😕. Please enter another
         word.</small>
+      <small class="text-muted" *ngIf="invalidInput && invalidInputCount > 2">Possible answers - {{currentScenario.possibleCorrectAnswerList}}.
+        Please enter the correct answer to proceed with the game.</small>
     </form>
     <div #target id="dummyDiv"></div>
   </div>

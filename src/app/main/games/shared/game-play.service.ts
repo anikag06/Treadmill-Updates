@@ -820,6 +820,7 @@ export class GamePlayService {
       gameDivElement.nativeElement.dispatchEvent(domEvent);
       this.helpMIGame();
     } else {
+      this.loadingBarService.showLoadingBar();
       this.miPlayService.startPlaying.emit();
     }
   }

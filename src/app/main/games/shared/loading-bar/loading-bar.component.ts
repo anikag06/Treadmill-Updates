@@ -18,6 +18,7 @@ import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service
 import { MIPlayService } from '@/main/games/games-list/common-game/mental-imagery/mi-play.service';
 import { IdcGameService } from '@/main/games/games-list/common-game/identify-cognitive-distortion/idc-game.service';
 import { Subscription } from 'rxjs';
+import {MICurrentStateService} from "@/main/games/games-list/common-game/mental-imagery/mi-current-state.service";
 declare var ffg_music_notes_array: any;
 declare var ffg_loaded_friendly_images: any;
 declare var ffg_loaded_hostile_images: any;
@@ -35,22 +36,27 @@ export class LoadingBarComponent implements OnInit {
   subscriptionRouter!: Subscription;
   game!: Game;
   gameName!: string;
+  showMitips = false;
 
   constructor(
     private gamePlayService: GamePlayService,
     private gamesService: GamesService,
     private router: Router,
     private route: ActivatedRoute,
+    private miGameService: MICurrentStateService,
+
   ) {}
 
   ngOnInit() {
     this.loadingInterval = setInterval(() => {
       this.updateLoadingbar();
     }, 100);
+    if (this.gamePlayService.gameName === MENTAL_IMAGERY_GAME) {
+      this.showMitips = true;
+    }
   }
 
   updateLoadingbar() {
-    console.log(document.readyState, this.gamePlayService.gameName);
     if (document.readyState === 'loading') {
       this.loadingBarValue = 50;
     } else if (document.readyState === 'interactive') {
@@ -73,6 +79,13 @@ export class LoadingBarComponent implements OnInit {
         if (lhGameLevelStrings.length !== 0) {
           this.completeLoading();
         }
+      } else if (this.gamePlayService.gameName === MENTAL_IMAGERY_GAME) {
+        console.log('mi user data', this.miGameService.userDataLoaded);
+        if (this.miGameService.userDataLoaded ) {
+          setTimeout ( () => {
+            this.completeLoading();
+          }, 4000);
+          }
       }
     }
   }

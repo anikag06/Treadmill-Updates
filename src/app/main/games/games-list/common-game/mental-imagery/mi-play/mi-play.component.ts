@@ -71,6 +71,7 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
   ];
   previousText = '';
   invalidInput = false;
+  invalidInputCount = 0;
   extraContent = '';
   notificationHeader = '';
   notificationBody = '';
@@ -176,10 +177,14 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
 
   situationHandler() {
     if (this.getCurrentStateService.count === 0) {
+      console.log('first if situation handler');
       this.getCurrentStateService.continuePlaying = false;
       this.getCurrentStateService.count += 1;
+      this.scenarioHandler();
       return;
-    } else if (this.getCurrentStateService.continuePlaying) {
+    } else
+      if (this.getCurrentStateService.continuePlaying) {
+      console.log('second if situation handler');
       this.gameValue = 0;
       this.levelPoints = 0;
       this.getCurrentStateService.continuePlaying = false;
@@ -196,12 +201,15 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
         this.getCurrentStateService.updateLevelsList();
       }
     } else if (this.getCurrentStateService.currentScenario) {
+      console.log('third if situation handler');
       this.scenarioHandler();
     }
   }
 
   scenarioHandler() {
     if (this.ifPositive(this.blank) === 1) {
+      console.log('positive');
+      this.invalidInputCount = 0;
       this.setUserData();
       this.numCorrectAnswers += 1;
       this.updateBadgesValue();
@@ -218,6 +226,9 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
         this.addDoneBtn();
       }
     } else if (this.ifPositive(this.blank) === -1) {
+      console.log('negative');
+      this.invalidInputCount = 0;
+
       this.updatePreviousText();
       this.updateExtraContent('<i>' + this.currentScenario.wrongText + '</i>');
       this.updateNotification(
@@ -230,7 +241,15 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
       delete this.getCurrentStateService.currentScenario;
       delete this.currentScenario;
     } else {
+      console.log ('Invalid input');
+      this.getCurrentStateService.retry = true;
+      this.setUserData();
       this.invalidInput = true;
+      this.invalidInputCount += 1;
+      console.log('Invalid input count', this.invalidInputCount);
+      if (this.invalidInputCount > 2 ) {
+        //show answer
+      }
     }
     this.storeUserData();
     this.blank = '';
