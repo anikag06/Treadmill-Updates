@@ -13,7 +13,7 @@ import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 import { CommonDialogsService } from '@/main/resources/shared/common-dialogs.service';
 import { QuizService } from '@/shared/questionnaire/questionnaire.service';
 import { FlowService } from '@/main/flow/flow.service';
-import {NavbarGoToService} from '@/main/shared/navbar/navbar-go-to.service';
+import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
 
 @Component({
   selector: 'app-conclusion6',
@@ -48,7 +48,6 @@ export class Conclusion6Component implements OnInit, OnDestroy {
     private quizService: QuizService,
     private flowService: FlowService,
     private goToService: NavbarGoToService,
-
   ) {}
 
   ngOnInit() {
@@ -136,7 +135,7 @@ export class Conclusion6Component implements OnInit, OnDestroy {
     this.commonDialogService.openCongratsDialog(
       this.currentStepId,
       false,
-       true,
+      true,
     );
   }
 

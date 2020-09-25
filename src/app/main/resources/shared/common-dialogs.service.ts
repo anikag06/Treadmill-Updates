@@ -20,7 +20,11 @@ export class CommonDialogsService {
     private http: HttpClient,
     private flowNavService: FlowStepNavigationService,
   ) {}
-  openCongratsDialog(curr_id: number, isLastStep: boolean, isLastModule: boolean) {
+  openCongratsDialog(
+    curr_id: number,
+    isLastStep: boolean,
+    isLastModule: boolean,
+  ) {
     this.isLocked = false;
     if (isLastStep) {
       this.flowNavService.isNextModuleLocked(curr_id).subscribe(data => {

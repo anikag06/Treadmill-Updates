@@ -221,7 +221,7 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
       this.updatePreviousText();
       this.updateExtraContent('<i>' + this.currentScenario.wrongText + '</i>');
       this.updateNotification(
-        'You seem to be stuck in a negative thought cycle. ',
+        'You seem to be stuck in a negative thought cycle.',
         '',
       );
       this.addTryAgnBtn();

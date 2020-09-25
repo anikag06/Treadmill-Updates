@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Router } from '@angular/router';
 import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.service';
 import { FlowService } from '@/main/flow/flow.service';
-import {NavbarGoToService} from "@/main/shared/navbar/navbar-go-to.service";
+import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
 
 @Component({
   selector: 'app-congrats-dialog',
@@ -28,13 +28,11 @@ export class CongratsDialogComponent implements OnInit {
     private flowStepService: FlowStepNavigationService,
     private flowService: FlowService,
     private goToService: NavbarGoToService,
-
   ) {
     dialogRef.disableClose = true;
   }
 
   ngOnInit() {
-
     this.nextStepData = this.data.nextStepData;
     if (this.data.isLastStep) {
       this.navigate_to = 'Go to dashboard';
@@ -68,7 +66,7 @@ export class CongratsDialogComponent implements OnInit {
         this.flowService.stepCompleted = true;
         this.flowService.introduceBehaviour.next(false);
       }
-    }  else  if (this.data.isLastModule) {
+    } else if (this.data.isLastModule) {
       this.closeDialog();
     }
   }
@@ -76,7 +74,6 @@ export class CongratsDialogComponent implements OnInit {
     this.dialogRef.close();
     if (this.data.isLastModule) {
       this.goToService.clickFlow.emit();
-
     }
   }
 }

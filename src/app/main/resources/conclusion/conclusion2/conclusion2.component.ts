@@ -139,7 +139,7 @@ export class Conclusion2Component implements OnInit, OnDestroy {
       this.currentStepId,
       // this.nextStepId,
       true,
-      false
+      false,
     );
   }
 
