@@ -10,6 +10,7 @@ import { GamesFeedbackComponent } from '../../games-feedback/games-feedback.comp
 })
 export class IdcWinComponent implements OnInit {
   feedbackSub: any;
+  showLoading = false
   constructor(
     private elementRef: ElementRef,
     private gameService: IdcGameService,
@@ -19,8 +20,11 @@ export class IdcWinComponent implements OnInit {
   ngOnInit() {}
 
   onStartNext() {
+    this.showLoading = true;
+    setTimeout( () => {
     const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });
     this.elementRef.nativeElement.dispatchEvent(domEvent);
+    }, 2000);
     this.gameService.optionStatusCount = 0;
     if (this.gameService.levelOrder === 3 && this.gameService.ask_feedback) {
       this.openFeedback();

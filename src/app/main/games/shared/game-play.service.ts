@@ -834,6 +834,7 @@ export class GamePlayService {
       gameDivElement.nativeElement.dispatchEvent(domEvent);
       this.helpIDCGame();
     } else {
+      this.loadingBarService.showLoadingBar();
       this.idcGameService.startPlaying();
     }
   }

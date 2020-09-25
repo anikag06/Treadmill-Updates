@@ -104,11 +104,11 @@ export class IdcGameService implements OnInit {
   levelOrder: any;
   totalSituations!: number;
   last_completed_order!: number;
+  dataLoaded = false;
   constructor(
     private http: HttpClient,
     private badgesService: GamesBadgesService,
   ) {
-    // this.difficultyValue = 0.1 * 100;
   }
 
   ngOnInit() {}
@@ -156,6 +156,8 @@ export class IdcGameService implements OnInit {
       .subscribe(data => {
         this.game = data;
         console.log('Game Data', this.game);
+        console.log(
+          'last_completed_order', this.last_completed_order);
         this.totalSituations = this.game.results.length;
         if (this.last_completed_order === this.totalSituations) {
           this.questionId = 0;
@@ -163,6 +165,7 @@ export class IdcGameService implements OnInit {
           this.questionId = this.last_completed_order;
         }
         this.serviceCall();
+        this.dataLoaded = true;
       });
   }
 
@@ -185,8 +188,6 @@ export class IdcGameService implements OnInit {
     this.bronzeValue = this.allBadgesInfo.bronzePercent;
     this.silverValue = this.allBadgesInfo.silverPercent;
     this.goldValue = this.allBadgesInfo.goldPercent;
-    console.log('bronze Badges details', this.bronzeValue);
-    console.log('document ready state', document.readyState);
   }
 
   initUserData() {
@@ -206,13 +207,6 @@ export class IdcGameService implements OnInit {
       this.timeLeft = data.time;
       this.timeAlloted = data.time;
       this.last_completed_order = data.last_completed_order;
-      // if (data.last_completed_order === this.totalSituations) {
-      //   this.questionId = 0;
-      // } else {
-      //   this.questionId = data.last_completed_order;
-      // }
-      // this.levelInitialise.emit();
-      // this.getGameData();
     });
   }
 
@@ -225,12 +219,12 @@ export class IdcGameService implements OnInit {
 
   getUserData() {
     this.fetchUserData().subscribe((data: any) => {
+      console.log('user data', data);
       this.score = data.points;
       this.timeLeft = data.time;
       this.timeAlloted = data.time;
-
+      this.last_completed_order = data.last_completed_order;
       if (!this.nextCall) {
-        // this.stopTimer.next();
         this.levelInitialise.next();
         console.log('level initialise called');
       }

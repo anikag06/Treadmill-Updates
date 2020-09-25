@@ -44,6 +44,7 @@ export class LoadingBarComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private miGameService: MICurrentStateService,
+    private idcGameService: IdcGameService,
 
   ) {}
 
@@ -80,12 +81,17 @@ export class LoadingBarComponent implements OnInit {
           this.completeLoading();
         }
       } else if (this.gamePlayService.gameName === MENTAL_IMAGERY_GAME) {
-        console.log('mi user data', this.miGameService.userDataLoaded);
         if (this.miGameService.userDataLoaded ) {
           setTimeout ( () => {
             this.completeLoading();
           }, 4000);
           }
+      } else if (this.gamePlayService.gameName === IDENTIFY_COGNITIVE_DISTORTION_GAME) {
+        if (this.idcGameService.dataLoaded ) {
+          setTimeout ( () => {
+            this.completeLoading();
+          }, 1000);
+        }
       }
     }
   }
