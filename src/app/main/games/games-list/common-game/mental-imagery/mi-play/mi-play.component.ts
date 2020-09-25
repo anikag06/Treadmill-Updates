@@ -177,14 +177,12 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
 
   situationHandler() {
     if (this.getCurrentStateService.count === 0) {
-      console.log('first if situation handler');
       this.getCurrentStateService.continuePlaying = false;
       this.getCurrentStateService.count += 1;
       this.scenarioHandler();
       return;
     } else
       if (this.getCurrentStateService.continuePlaying) {
-      console.log('second if situation handler');
       this.gameValue = 0;
       this.levelPoints = 0;
       this.getCurrentStateService.continuePlaying = false;
@@ -201,7 +199,6 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
         this.getCurrentStateService.updateLevelsList();
       }
     } else if (this.getCurrentStateService.currentScenario) {
-      console.log('third if situation handler');
       this.scenarioHandler();
     }
   }
@@ -246,10 +243,6 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
       this.setUserData();
       this.invalidInput = true;
       this.invalidInputCount += 1;
-      console.log('Invalid input count', this.invalidInputCount);
-      if (this.invalidInputCount > 2 ) {
-        //show answer
-      }
     }
     this.storeUserData();
     this.blank = '';
@@ -280,6 +273,7 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
       return 0;
     }
   }
+
 
   updatePreviousText() {
     this.previousText +=

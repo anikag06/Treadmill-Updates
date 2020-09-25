@@ -140,6 +140,8 @@ export class MICurrentStateService {
     console.log(
       'possible_incorrect_answers: ',
       scenario1.possible_incorrect_answers,
+      'possible_Correct_answers: ',
+      scenario1.possible_correct_answers,
     );
     return new Scenario(
       scenario1.text_before_dash,
