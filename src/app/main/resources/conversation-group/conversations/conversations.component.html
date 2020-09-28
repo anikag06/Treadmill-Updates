@@ -37,7 +37,7 @@
       </div>
 
       <div class="row h-100 justify-content-center conv-elements-div">
-        <div *ngFor="let conversation of show">
+        <div *ngFor="let conversation of completedConversation">
           <div *ngFor="let msg of conversation.dialog">
             <div
               *ngIf="conversation.dialog.length !== 0"
@@ -79,7 +79,7 @@
                 'border-bottom-color': conversation.wrong ? '#FF6A6A' : null
               }"
             >
-              <p class="pr-2" [innerHtml]="msg.message"></p>
+              <p [innerHtml]="msg.message"></p>
               <div class="chat_image" *ngIf="msg.option_images">
                 <div *ngFor="let image of msg.option_images">
                   <app-chat-image
@@ -93,7 +93,7 @@
         </div>
         <!-- </div> -->
         <!-- <div class="card-body"> -->
-        <div class="row" *ngFor="let dialog of current_dialog; let i = index">
+        <div class="row" *ngFor="let dialog of current_dialog; let i = index;let last=last">
             <div
               *ngIf="current_dialog.length != 0"
               class="d-flex justify-content-start mb-3"
@@ -105,11 +105,12 @@
                   class="rounded-circle user_img_msg"
                 />
               </div>
-              <div *ngIf="dialog.ShowTyping" class="msg_container">
+              <div *ngIf="dialog.showTyping" class="msg_container">
                 <div class="dot-typing mt-1 ml-2 mr-2"></div>
               </div>
-              <div *ngIf="!dialog.ShowTyping" class="msg_container1">
+              <div *ngIf="!dialog.showTyping" class="msg_container1">
                 <p [innerHtml]="dialog.message"></p>
+
                 <div
                   *ngIf="
                     dialog.dialog_images && dialog.dialog_images.length > 0
@@ -148,7 +149,7 @@
         <div *ngIf="!finished">
           <div
             class="row justify-content-end conv-elements-div"
-            *ngFor="let option of options; let i = index"
+            *ngFor="let option of options; let i = index;let last=last"
           >
             <div class="d-flex justify-content-end mb-3" *ngIf="!speedrun">
               <div class="msg_container_send1 ml-3 ml-md-0 mr-3">
@@ -169,12 +170,13 @@
                   (click)="
                     count_multiple !== show_multiple - 1
                       ? on_multiple_options(i)
-                      : on_click(i)
+                      : onOptionClick(i)
                   "
                   class="btn d-inline-block"
                 >
                   <img class="SendImage" [src]="send_image" />
                   <div class="d-inline-block">
+
                     Send
                   </div>
                 </div>

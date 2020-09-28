@@ -36,7 +36,7 @@ export class ChatbotComponent implements OnInit {
     private notificationService: NavbarNotificationsService,
     private overlayService: CustomOverlayService,
     private componentFactoryResolver: ComponentFactoryResolver,
-    private introService: IntroService,
+    private introService: IntroService
   ) {}
 
   ngOnInit() {
@@ -61,7 +61,7 @@ export class ChatbotComponent implements OnInit {
     this.overlayService.showFlow = false;
     this.overlayService.showChatbot = true;
     const navbarFLowComponentFactory = this.componentFactoryResolver.resolveComponentFactory(
-      CustomOverlayComponent,
+      CustomOverlayComponent
     );
     const hostViewContainerRef = this.flowHost.viewContainerRef;
     hostViewContainerRef.clear();
@@ -84,9 +84,8 @@ export class ChatbotComponent implements OnInit {
   }
 
   removingChat() {
-    console.log('show flow', this.overlayService.showFlow);
     let match = false;
-    this.blacklisted.forEach(data => {
+    this.blacklisted.forEach((data) => {
       if (location.pathname.match(data)) {
         match = true;
       }

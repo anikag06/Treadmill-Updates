@@ -57,23 +57,23 @@ import { FlowService } from '@/main/flow/flow.service';
   animations: [
     trigger('slideInOut', [
       state('hidden', style({ display: 'none' })),
-      state('show', style({ display: 'block' })),
-      transition('hidden => show', [
+      state('completedConversation', style({ display: 'block' })),
+      transition('hidden => completedConversation', [
         style({ transform: 'translateX(-100%)' }),
         animate('200ms ease-out', style({ transform: 'translateX(0%)' })),
       ]),
-      transition('show => hidden', [
+      transition('completedConversation => hidden', [
         animate('200ms ease-in', style({ transform: 'translateX(-100%)' })),
       ]),
     ]),
     trigger('formInOut', [
       state('hidden', style({ display: 'none' })),
-      state('show', style({ display: 'block' })),
-      transition('hidden => show', [
+      state('completedConversation', style({ display: 'block' })),
+      transition('hidden => completedConversation', [
         style({ transform: 'translateX(100%)' }),
         animate('200ms ease-out', style({ transform: 'translateX(0%)' })),
       ]),
-      transition('show => hidden', [
+      transition('completedConversation => hidden', [
         animate('200ms ease-in', style({ transform: 'translateX(100%)' })),
       ]),
     ]),
@@ -90,7 +90,7 @@ import { FlowService } from '@/main/flow/flow.service';
           position: 'relative',
           textAlign: 'center',
           fontSize: '18px',
-        }),
+        })
       ),
       state(
         'send',
@@ -104,7 +104,7 @@ import { FlowService } from '@/main/flow/flow.service';
           position: 'relative',
           textAlign: 'center',
           fontSize: '14px',
-        }),
+        })
       ),
       transition('unsend => send', [
         style({ transform: 'translateX(50%)' }),
@@ -116,7 +116,7 @@ import { FlowService } from '@/main/flow/flow.service';
         'void',
         style({
           opacity: 0,
-        }),
+        })
       ),
       transition('void <=> *', animate(1000)),
     ]),
@@ -153,9 +153,9 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     private notificationService: NavbarNotificationsService,
     private activeroute: ActivatedRoute,
     private goToService: NavbarGoToService,
-    private flowService: FlowService,
+    private flowService: FlowService
   ) {
-    this.activeroute.params.pipe(map(v => v.id)).subscribe(params => {
+    this.activeroute.params.pipe(map((v) => v.id)).subscribe((params) => {
       this.conversation_id = params;
       this.passdata.IsConversationOn(true);
       this.run();
@@ -188,7 +188,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   index!: number;
   current_dialog!: CurrentMessageModel[];
   length_conversation!: number;
-  show!: Texting[];
+  completedConversation!: Texting[];
   text!: Texting;
   visible!: boolean;
   no_of_options!: any;
@@ -209,7 +209,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   unload!: any;
   onunload = false;
   ShowTyping!: boolean;
-  ShowTypingTime!: any;
+  showTypingTime!: any;
 
   sanitizedUrl!: SafeUrl;
   status!: string;
@@ -275,7 +275,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         this.history_id,
         this.conversation_id,
         false,
-        false,
+        false
       );
       this.onunload = true;
     }
@@ -288,7 +288,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       this.history_id,
       this.conversation_id,
       false,
-      false,
+      false
     );
     this.passdata.IsConversationOn(false);
     this.notificationService.removeFullConvIcon.emit();
@@ -299,14 +299,14 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       .get(
         environment.API_ENDPOINT +
           '/api/v1/conversation/conversation/?conversation_id=' +
-          this.conversation_id,
+          this.conversation_id
       )
       .subscribe((res: any) => {
         this.conversation = new Conversation(
           res.title,
           res.final_conclusion_message,
           res.gender,
-          res.dialog_options,
+          res.dialog_options
         );
         this.title = this.conversation.title;
         this.flowService.stepDetail.emit(this.title);
@@ -322,7 +322,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         for (let j = 0; j < this.conversation.dialogs.length; j++) {
           this.dialogMap.set(
             this.conversation.dialogs[j].id,
-            this.conversation.dialogs[j],
+            this.conversation.dialogs[j]
           );
         }
         if (current_id === true) {
@@ -368,7 +368,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
               });
               this.current_dialog.push({
                 message: q,
-                ShowTyping: false,
+                showTyping: false,
                 dialog_images: [],
               });
             } else {
@@ -378,7 +378,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
               });
               this.current_dialog.push({
                 message: '',
-                ShowTyping: false,
+                showTyping: false,
                 dialog_images: dialog_images,
               });
             }
@@ -391,7 +391,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
             });
             this.current_dialog.push({
               message: this.dialog.message,
-              ShowTyping: false,
+              showTyping: false,
               dialog_images: [],
             });
           } else {
@@ -401,7 +401,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
             });
             this.current_dialog.push({
               message: '',
-              ShowTyping: false,
+              showTyping: false,
               dialog_images: this.dialog.dialog_images,
             });
           }
@@ -432,12 +432,12 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       .get(
         environment.API_ENDPOINT +
           '/api/v1/conversation/history/?conversation_id=' +
-          this.conversation_id,
+          this.conversation_id
       )
       .subscribe((res: any) => {
         this.conversationsService
           .getFeedBackInfo(this.conversation_id)
-          .subscribe(feedback_data => {
+          .subscribe((feedback_data) => {
             if (feedback_data.exists) {
               this.initial_feedback = feedback_data.feedback;
               if (this.initial_feedback === 1) {
@@ -456,21 +456,21 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         } else {
           setTimeout(
             () => this.convDiv.nativeElement.classList.add('col-5'),
-            1000,
+            2500
           );
         }
         // const formName = this.passdata.getFormName();
         const formName = THOUGHT_RECORD;
         if (this.passdata.getFormName() === TASK) {
-          setTimeout(() => this.loadForm(TaskFormsComponent), 1000);
+          setTimeout(() => this.loadForm(TaskFormsComponent), 2500);
         } else if (this.passdata.getFormName() === PROBLEM_SOLVING) {
           setTimeout(
             () => this.loadForm(ProblemSolvingWorksheetsComponent),
-            1000,
+            1000
           );
         } else if (formName === THOUGHT_RECORD) {
           // TODO: Always true no need to add the condition
-          setTimeout(() => this.loadForm(ThoughtRecordFormComponent), 1000);
+          setTimeout(() => this.loadForm(ThoughtRecordFormComponent), 2500);
         }
         // tslint:disable-next-line:max-line-length
         this.currenthistory = new CurrentHistory(
@@ -480,10 +480,10 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
           res.results[0].created_at,
           res.results[0].completion_datetime,
           res.results[0].time_taken_to_complete_in_seconds,
-          res.results[0].user_response,
+          res.results[0].user_response
         );
         this.history_id = this.currenthistory.id;
-        this.show = [];
+        this.completedConversation = [];
         if (
           this.currenthistory.user_response.length === 0 &&
           !this.currenthistory.is_completed
@@ -606,8 +606,8 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
               }
             }
 
-            this.show.push(this.text);
-            this.item_message = this.show;
+            this.completedConversation.push(this.text);
+            this.item_message = this.completedConversation;
           }
           this.loadConversation(false);
         }
@@ -617,12 +617,14 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   reset() {
     this.time = 0;
     this.conversationsService.create_history(this.conversation_id);
-    this.current_history();
+    setTimeout(() => {
+      this.current_history();
+    }, 2000);
   }
 
   loadForm(component: any) {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
-      component,
+      component
     );
     const viewContainerRef = this.formHost.viewContainerRef;
     viewContainerRef.clear();
@@ -650,7 +652,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       });
     } else {
       this.mupltiple_line = this.dialog.dialog_has_options[0].option.message.split(
-        '<new_line>',
+        '<new_line>'
       );
       this.mupltiple_line_images = this.dialog.dialog_has_options[0].option.option_images;
       this.show_multiple = this.mupltiple_line.length;
@@ -686,6 +688,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         this.options.push(option);
       }
     }
+    this.scrollPageToBottom();
   }
 
   on_multiple_options(index: number) {
@@ -703,7 +706,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         option_images: this.mupltiple_line_images,
       });
     }
-    this.show.push(this.text);
+    this.completedConversation.push(this.text);
     this.text = new Texting([], [], '', false);
     this.count_multiple++;
 
@@ -726,7 +729,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     this.nsend = true;
   }
 
-  on_click(i: number) {
+  onOptionClick(i: number) {
     this.nsend = false;
     // this.text = new Texting([], [], '', false);
     if (
@@ -779,7 +782,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       this.text.wrong = true;
     }
     // console.log(this.text);
-    this.show.push(this.text);
+    this.completedConversation.push(this.text);
     this.post(i);
     this.last_id = this.id;
     this.id = this.dialog.dialog_has_options[i].upcoming_dialog;
@@ -792,7 +795,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       this.loopback = false;
       setTimeout(() => {
         this.wrong = true;
-      }, 1000);
+      }, 4000);
     } else {
       this.wrong = false;
     }
@@ -821,7 +824,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       if (this.newLine_dialog.length > 1) {
         this.current_dialog.push({
           message: this.newLine_dialog[0],
-          ShowTyping: false,
+          showTyping: false,
           dialog_images: [],
         });
         this.text.dialog.push({
@@ -829,63 +832,58 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
           dialog_images: [],
         });
 
-        this.ShowTypingTime = this.newLine_dialog[0].split(' ');
-        this.current_dialog[0].ShowTyping = true;
-        let t;
-        if (this.ShowTypingTime.length / 35 < 1) {
-          t = 1000;
+        this.showTypingTime = this.newLine_dialog[0].split(' ');
+        this.current_dialog[0].showTyping = true;
+        this.scrollPageToBottom();
+        let timeout;
+        if (this.showTypingTime.length / 35 < 1) {
+          timeout = 1000;
         } else {
-          t = (this.ShowTypingTime.length / 35) * 1000;
+          timeout = (this.showTypingTime.length / 35) * 1000;
         }
         setTimeout(() => {
-          this.current_dialog[0].ShowTyping = false;
+          this.current_dialog[0].showTyping = false;
           for (let l = 1; l < this.newLine_dialog.length; l++) {
-            // this.current_dialog.push({
-            //   message: this.newLine_dialog[l],
-            //   ShowTyping: false,
-            //   dialog_images: [],
-            // });
-            // this.text.dialog.push(this.newLine_dialog[l]);
             if (this.newLine_dialog[l] !== this.img_separator) {
               this.text.dialog.push({
                 message: this.newLine_dialog[l],
                 dialog_images: [],
               });
-              this.current_dialog.push({
-                message: this.newLine_dialog[l],
-                ShowTyping: false,
-                dialog_images: [],
-              });
+              setTimeout(() => {
+                this.current_dialog.push({
+                  message: this.newLine_dialog[l],
+                  showTyping: true,
+                  dialog_images: [],
+                });
+                setTimeout(() => {
+                  this.current_dialog[l].showTyping = false;
+                  this.scrollPageToBottom();
+                }, this.newLine_dialog[l].length * 20 * l);
+              }, this.newLine_dialog[l].length * 20 * l);
             } else {
               this.text.dialog.push({
                 message: '',
                 dialog_images: this.dialog_images,
               });
-              this.current_dialog.push({
-                message: '',
-                ShowTyping: false,
-                dialog_images: this.dialog_images,
-              });
+              setTimeout(() => {
+                this.current_dialog.push({
+                  message: '',
+                  showTyping: true,
+                  dialog_images: this.dialog_images,
+                });
+                setTimeout(() => {
+                  this.current_dialog[l].showTyping = false;
+                  this.scrollPageToBottom();
+                }, this.newLine_dialog[l - 1].length * 20 * l + 500);
+              }, this.newLine_dialog[l - 1].length * 20 * l + 500);
             }
-
-            this.ShowTypingTime = this.newLine_dialog[l].split(' ');
-            this.current_dialog[l].ShowTyping = true;
-            let t;
-            if (this.ShowTypingTime.length / 35 < 1) {
-              t = 1000;
-            } else {
-              t = (this.ShowTypingTime.length / 35) * 1000;
-            }
-            setTimeout(() => {
-              this.current_dialog[l].ShowTyping = false;
-            }, t);
           }
-        }, t);
+        }, timeout);
       } else {
         if (this.dialog.message !== this.img_separator) {
           this.current_dialog.push({
             message: this.dialog.message,
-            ShowTyping: false,
+            showTyping: false,
             dialog_images: [],
           });
           this.text.dialog.push({
@@ -895,7 +893,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         } else {
           this.current_dialog.push({
             message: '',
-            ShowTyping: false,
+            showTyping: false,
             dialog_images: this.dialog.dialog_images,
           });
           this.text.dialog.push({
@@ -904,16 +902,16 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
           });
         }
 
-        this.ShowTypingTime = this.dialog.message.split(' ');
+        this.showTypingTime = this.dialog.message.split(' ');
         let t;
-        if (this.ShowTypingTime.length / 35 < 1) {
+        if (this.showTypingTime.length / 35 < 1) {
           t = 1000;
         } else {
           t = 2000;
         }
-        this.current_dialog[0].ShowTyping = true;
+        this.current_dialog[0].showTyping = true;
         setTimeout(() => {
-          this.current_dialog[0].ShowTyping = false;
+          this.current_dialog[0].showTyping = false;
         }, t);
       }
       this.nsend = true;
@@ -921,26 +919,28 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
 
     this.progress_bar();
     if (this.dialog.is_last === true) {
-      this.finished = true;
-      this.time = this.timerservice.removeVisibility() + this.time;
-      this.conversationsService.completed(
-        this.time,
-        this.history_id,
-        this.conversation_id,
-        false,
-        this.finished,
-      );
+      setTimeout(() => {
+        this.finished = true;
+        this.time = this.timerservice.removeVisibility() + this.time;
+        this.conversationsService.completed(
+          this.time,
+          this.history_id,
+          this.conversation_id,
+          false,
+          this.finished
+        );
+      }, 4000);
     } else {
-      this.ShowTypingTime = this.dialog.message.split(' ');
-      let t;
-      if (this.ShowTypingTime.length / 35 < 1) {
-        t = 1000;
-      } else {
-        t = (this.ShowTypingTime.length / 35) * 1000;
-      }
+      // this.showTypingTime = this.dialog.message.split(' ');
+      // let t;
+      // if (this.showTypingTime.length / 35 < 1) {
+      //   t = 1000;
+      // } else {
+      //   t = (this.showTypingTime.length / 35) * 1000;
+      // }
       setTimeout(() => {
         this.dialog_options();
-      }, t * 5 + 1500);
+      }, 20 * 10 * 70 + 1100);
     }
 
     this.scrollPageToBottom();
@@ -953,11 +953,12 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   progress_bar() {
     if (this.no_of_options > 1) {
       this.progress =
-        ((this.show.length + this.no_of_options - 1) /
+        ((this.completedConversation.length + this.no_of_options - 1) /
           this.length_conversation) *
         100;
     } else {
-      this.progress = (this.show.length / this.length_conversation) * 100;
+      this.progress =
+        (this.completedConversation.length / this.length_conversation) * 100;
     }
   }
 
@@ -975,7 +976,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       this.speedrun = true;
       this.finished = false;
       this.dialog = this.dialogMap.get(this.id);
-
+      this.progress = 100;
       //  this.text = new Texting();
       this.newLine_dialog = this.dialog.message.split('<new_line>');
       let dialog_images = this.dialog.dialog_images;
@@ -1006,7 +1007,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         if (!this.dialog.dialog_has_options[y].loopback) {
           // @ts-ignore
           const option = this.dialog.dialog_has_options[y].option.message.split(
-            '<new_line>',
+            '<new_line>'
           );
           option.forEach((q: any) => {
             if (q !== this.img_separator) {
@@ -1025,12 +1026,12 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
           break;
         }
       }
-      this.show.push(this.text);
+      this.completedConversation.push(this.text);
       while (this.dialog.is_last === false) {
         for (let y = 0; y < this.dialog.dialog_has_options.length; y++) {
           if (!this.dialog.dialog_has_options[y].loopback) {
             this.dialog = this.dialogMap.get(
-              this.dialog.dialog_has_options[y].upcoming_dialog,
+              this.dialog.dialog_has_options[y].upcoming_dialog
             );
             break;
           }
@@ -1067,14 +1068,14 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
             this.newLine_dialog.forEach((q: any) => {
               this.current_dialog.push({
                 message: q,
-                ShowTyping: false,
+                showTyping: false,
                 dialog_images: [],
               });
             });
           } else {
             this.current_dialog.push({
               message: this.dialog.message,
-              ShowTyping: false,
+              showTyping: false,
               dialog_images: [],
             });
           }
@@ -1117,7 +1118,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         if (this.dialog.dialog_images.length === 0) {
           this.text.show_avatar_image = this.show_avatar_image;
         }
-        this.show.push(this.text);
+        this.completedConversation.push(this.text);
       }
       if (this.dialog.is_last === true) {
         this.finished = true;
@@ -1127,7 +1128,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
           this.history_id,
           this.conversation_id,
           true,
-          this.finished,
+          this.finished
         );
       }
       this.show_full_conversation = true;
@@ -1135,22 +1136,28 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   }
 
   scrollPageToBottom() {
-    const options = this.convDiv.nativeElement.querySelectorAll(
-      '.msg_container_send1',
-    );
-    const dialogs = this.convDiv.nativeElement.querySelectorAll(
-      '.msg_container1',
-    );
-    options[options.length - 1].scrollIntoView();
-    dialogs[dialogs.length - 1].scrollIntoView();
+    setTimeout(() => {
+      const options = this.convDiv.nativeElement.querySelectorAll(
+        '.msg_container_send1'
+      );
+      const dialogs = this.convDiv.nativeElement.querySelectorAll(
+        '.msg_container1'
+      );
+      options[options.length - 1].scrollIntoView({
+        behavior: 'smooth',
+      });
+      dialogs[dialogs.length - 1].scrollIntoView({
+        behavior: 'smooth',
+      });
+    }, 1000);
   }
 
   onDislikeBtnClick() {
-    if (this.convDisliked === true) {
+    if (this.convDisliked) {
       this.final_feedback = 0; // changing from dislike to no like/dislike state
       this.likeDislikeRemoved = true;
       this.isDislikeBox = false;
-    } else if (this.convLiked === true) {
+    } else if (this.convLiked) {
       this.final_feedback = -1; // changing from like to dislike state
       this.likeDislikeRemoved = true;
       this.isDislikeBox = false;
@@ -1166,11 +1173,11 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   }
 
   onLikeBtnClick() {
-    if (this.convLiked === true) {
+    if (this.convLiked) {
       this.final_feedback = 0; // changing from like to no like/dislike state
       this.likeDislikeRemoved = true;
       this.isLikeBox = false;
-    } else if (this.convDisliked === true) {
+    } else if (this.convDisliked) {
       this.final_feedback = 1; // changing from dislike to no like state
       this.likeDislikeRemoved = true;
       this.isLikeBox = false;
@@ -1192,7 +1199,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
 
     this.conversationsService
       .storeFeedBackInfo(this.feedbackData)
-      .subscribe(data => {
+      .subscribe((data) => {
         this.feedbackDataId = data.data.id;
         this.initial_feedback = this.userFeedback.final_feedback;
       });
@@ -1221,7 +1228,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     this.feedbackText.feedback_text = feedback_text;
     this.conversationsService
       .updateFeedBackInfo(this.feedbackText, this.feedbackDataId)
-      .subscribe(data => {});
+      .subscribe((data) => {});
     this.isDislikeBox = false;
     this.isLikeBox = false;
     this.likeDislikeRemoved = false;
@@ -1241,7 +1248,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     // REQUEST FAILED
     this.stepDataService
       .storeCompletionData(this.completionData)
-      .subscribe(data => {
+      .subscribe((data) => {
         this.showloading = false;
         this.showNextStepBtn = true;
       });

@@ -1,0 +1,28 @@
+<div class="">
+  <div class="text-center" [ngStyle]="{ fontSize: '1.5rem' }">
+    Pros & Cons Example
+  </div>
+  <div class="card-body p-2" [ngStyle]="{ fontSize: '1rem' }">
+    <div class="my-1"><b>Problem </b>- I need to learn computer programming. </div>
+    <div class="my-2">
+    <b>Possible solution 1</b>  - Join the programming club.
+      <ul>
+        <li>Pros - Can get help from others.</li>
+        <li>Cons - Will have to depend on others.</li>
+      </ul>
+    </div>
+    <div class="my-2">
+    <b>Possible solution 2</b>  - Self-learn from an online course.
+      <ul>
+        <li>Pros - Flexibility; can learn any language at any time.</li>
+        <li>Cons - Won’t work on a real project.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="text-center my-3">
+    <button mat-raised-button class="btn back-btn" (click)="closeInfoModal()">
+      Back To Form
+    </button>
+  </div>
+</div>

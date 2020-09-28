@@ -119,6 +119,7 @@ import { EvaluateMoodComponent } from './shared/evaluate-mood/evaluate-mood.comp
 import { Conclusion6Component } from './conclusion/conclusion6/conclusion6.component';
 import { ExtraResourcesModule } from '@/main/extra-resources/extra-resources.module';
 import { StepCompletedComponent } from './shared/step-completed/step-completed.component';
+import { ProsConsInfoComponent } from './forms/problem-solving-worksheets/pros-cons-container/pros-cons/pros-cons-info/pros-cons-info.component';
 
 @NgModule({
   declarations: [
@@ -195,6 +196,7 @@ import { StepCompletedComponent } from './shared/step-completed/step-completed.c
     Introduction6Component,
     Conclusion6Component,
     StepCompletedComponent,
+    ProsConsInfoComponent,
   ],
   imports: [
     ResourcesRoutingModule,
@@ -272,6 +274,7 @@ import { StepCompletedComponent } from './shared/step-completed/step-completed.c
     CommonBeliefComponent,
     SlidesBottomsheetComponent,
     DeleteDialogComponent,
+    ProsConsInfoComponent,
   ],
   exports: [
     DeleteDialogComponent,

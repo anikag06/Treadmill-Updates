@@ -1,9 +1,9 @@
 export class CurrentMessageModel {
   message!: string;
-  ShowTyping!: boolean;
+  showTyping!: boolean;
   dialog_images!: any;
 
   constructor() {
-    this.ShowTyping = false;
+    this.showTyping = false;
   }
 }

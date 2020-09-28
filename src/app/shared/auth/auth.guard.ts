@@ -23,7 +23,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 
   canActivate(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot,
+    state: RouterStateSnapshot
   ):
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree>
@@ -46,19 +46,12 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 
   canActivateChild(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot,
+    state: RouterStateSnapshot
   ):
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    console.log(
-      'can activate child',
-      this.auth.isLoggedIn(),
-      this.eligible,
-      next,
-      next.data,
-    );
     this.auth.navbarTitle = next.data.title;
     this.eligible = !this.auth.isUserExcluded;
     if (!this.auth.isLoggedIn() && !this.eligible) {

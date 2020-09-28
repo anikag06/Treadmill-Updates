@@ -1,11 +1,12 @@
 <img
   appLazyLoad
   class="msg-img img-responsive"
+  height="auto"
   (load)="changeLoading()"
   src="{{ image.url }}"
   [ngStyle]="{
-    maxWidth: fromConversation ? '230px' : '280px',
-    minWidth: fromConversation ? '230px' : '280px'
+    maxWidth: width,
+    minWidth: width
   }"
   (click)="changeUrl()"
   alt="image"
