@@ -424,6 +424,18 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         if (!this.speedrun) {
           this.dialog_options();
         }
+        const formName = THOUGHT_RECORD;
+        if (this.passdata.getFormName() === TASK) {
+          setTimeout(() => this.loadForm(TaskFormsComponent), 1000);
+        } else if (this.passdata.getFormName() === PROBLEM_SOLVING) {
+          setTimeout(
+            () => this.loadForm(ProblemSolvingWorksheetsComponent),
+            1000,
+          );
+        } else if (formName === THOUGHT_RECORD) {
+          // TODO: Always true no need to add the condition
+          setTimeout(() => this.loadForm(ThoughtRecordFormComponent), 1000);
+        }
       });
   }
 
@@ -453,24 +465,6 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
           });
         if (window.matchMedia('(max-width: 767px)').matches) {
           this.isvisible = true;
-        } else {
-          setTimeout(
-            () => this.convDiv.nativeElement.classList.add('col-5'),
-            1000,
-          );
-        }
-        // const formName = this.passdata.getFormName();
-        const formName = THOUGHT_RECORD;
-        if (this.passdata.getFormName() === TASK) {
-          setTimeout(() => this.loadForm(TaskFormsComponent), 1000);
-        } else if (this.passdata.getFormName() === PROBLEM_SOLVING) {
-          setTimeout(
-            () => this.loadForm(ProblemSolvingWorksheetsComponent),
-            1000,
-          );
-        } else if (formName === THOUGHT_RECORD) {
-          // TODO: Always true no need to add the condition
-          setTimeout(() => this.loadForm(ThoughtRecordFormComponent), 1000);
         }
         // tslint:disable-next-line:max-line-length
         this.currenthistory = new CurrentHistory(
