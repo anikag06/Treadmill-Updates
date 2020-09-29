@@ -228,6 +228,8 @@ export class StepComponent implements OnInit, AfterViewInit {
           this.introService.setChatbotIntro(true);
           this.introService.startChatbotIntro(this.step.status, this.step.id);
         }, 500);
+      } else if (this.step.data_type === INTRODUCTORY_ANIMATION && this.step.name === 'Self-care expert') {
+        this.flowService.showSelfCareDialog();
       }
       // setTimeout(() => {
       //   this.step.status = COMPLETED;
@@ -245,7 +247,6 @@ export class StepComponent implements OnInit, AfterViewInit {
       return this.router.navigate([this.nextLink()]);
     }
   }
-
   locked() {
     return this.step.status === LOCKED && !this.step.virtual_step;
   }
