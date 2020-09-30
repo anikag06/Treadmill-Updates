@@ -5,7 +5,7 @@ var ffGRestartGame;
 var getFFGClickData;
 var getFFGUser;
 
-var ffGameSongCounter;
+var ffGameSongCounter = 0;
 // data from database
 var ffGame_hostile_images = [];
 var ffGame_friendly_images = [];
@@ -438,7 +438,6 @@ function onCanvasClick(canvas) {
 }
 
 function clickedFriendlyImage(canvas, event) {
-  event.stopImmediatePropagation();
 
   var rect = canvas.getBoundingClientRect();
   var x = event.clientX - rect.left;

@@ -355,7 +355,7 @@ export class FriendlyFaceGameComponent implements OnInit {
       console.log(
         'Post performance order',
         this.ffgUserPerformance.order,
-        this.ffgUserPerformance,
+        this.ffgUserPerformance.completed,
       );
     } else {
       this.gamesAuthService
