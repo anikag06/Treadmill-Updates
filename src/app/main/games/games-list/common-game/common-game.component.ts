@@ -243,6 +243,9 @@ export class CommonGameComponent implements OnInit {
     if (this.gameName === FRIENDLY_FACE_GAME) {
       this.gamePlayService.helpFFGGame();
     }
+    if (this.gameName === ATTRIBUTE_STYLE_GAME) {
+      this.gamePlayService.helpASGGame();
+    }
     const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
     this.pauseBtnElement.nativeElement.dispatchEvent(domEvent);
   }

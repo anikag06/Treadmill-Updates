@@ -36,6 +36,7 @@ import { FfgHelpService } from '../games-list/common-game/friendly-face-game/ffg
 import { IdcGameService } from '../games-list/common-game/identify-cognitive-distortion/idc-game.service';
 import { IbgameHelpService } from '@/main/games/games-list/common-game/interpretation-bias-game/ibgame-help.service';
 import { LoadingBarService } from '@/main/games/shared/loading-bar.service';
+import {AsgInstructionsComponent} from "@/main/games/games-list/common-game/attribute-style-game/asg-instructions/asg-instructions.component";
 
 // for interpretation bias game
 declare var startIBGame: any;
@@ -264,6 +265,7 @@ export class GamePlayService {
       // console.log(e.ask_for_feedback);
     });
 
+
     this.gamesAuthService.atGetAnswers().subscribe(e => {
       ASGAnswer = e;
       // console.log(ASGAnswer);
@@ -287,6 +289,11 @@ export class GamePlayService {
     }
     console.log(this.game);
   }
+
+  helpASGGame() {
+    this.dialogBoxService.setDialogChild(AsgInstructionsComponent);
+  }
+
 
   soundASGGame(isSoundOn: any) {
     //if (this.ecGameStarted) {
