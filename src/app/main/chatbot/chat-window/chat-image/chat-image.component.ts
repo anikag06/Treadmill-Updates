@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MOBILE_WIDTH } from '@/app.constants';
 
 @Component({
   selector: 'app-chat-image',
@@ -10,10 +11,15 @@ export class ChatImageComponent implements OnInit {
   @Input() fromConversation!: boolean;
   dataLoaded = false;
   showGIFIcon!: boolean;
-
+  width = '280px';
   ngOnInit() {
     this.showGIFIcon =
       (this.image.static_url && this.fromConversation) || this.image.creditsGIF;
+    if (this.fromConversation && window.innerWidth > MOBILE_WIDTH) {
+      this.width = '400px';
+    } else if (this.fromConversation) {
+      this.width = '240px';
+    }
   }
 
   changeUrl() {

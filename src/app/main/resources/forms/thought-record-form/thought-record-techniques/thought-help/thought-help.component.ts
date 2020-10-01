@@ -45,7 +45,7 @@ export class ThoughtHelpComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private thoughtHelpService: ThoughtHelpService,
+    private thoughtHelpService: ThoughtHelpService
   ) {}
 
   ngOnInit() {}
@@ -69,16 +69,14 @@ export class ThoughtHelpComponent implements OnInit {
 
   initializeHelp(resp: any) {
     this.thoughtHelpForm.controls['keepThought'].setValue(
-      resp.body.keep_thinking,
+      resp.body.keep_thinking
     );
     this.thoughtHelpForm.controls['changeThought'].setValue(
-      resp.body.change_thinking,
+      resp.body.change_thinking
     );
-    if (resp.body.changed_thinking_help) {
-      this.thoughtHelpForm.controls['canSolve'].setValue(
-        resp.body.changed_thinking_help,
-      );
-    }
+    this.thoughtHelpForm.controls['canSolve'].setValue(
+      resp.body.changed_thinking_help
+    );
   }
 
   onSubmit() {
@@ -105,6 +103,7 @@ export class ThoughtHelpComponent implements OnInit {
         const status = resp.ok;
         if (status) {
           this.setSummary();
+          this.updateHelp = true;
         }
       });
     }

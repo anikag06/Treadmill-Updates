@@ -78,9 +78,9 @@
 }
 
 .msg_container {
-  border-radius: 0px 12px 12px 12px;
+  border-radius: 0 12px 12px 12px;
   //width: 70%;
-  max-width: 65%;
+  max-width: 75%;
   background-color: #F1F1F1;
   padding: 8px 10px 10px;
   position: relative;
@@ -108,12 +108,10 @@
 }
 
 .msg_container_send {
-  max-width: 65%;
+  max-width: 75%;
   border-radius: 12px 12px 0px 12px;
   background-color: #FFEFD4;
-  padding-top: 8px;
-  padding-left: 10px;
-  padding-bottom: 10px;
+  padding: 8px 10px 10px;
   position: relative;
   text-align: left;
   p {
@@ -131,7 +129,7 @@
   padding-right: 10px;
   position: relative;
   text-align: center;
-  box-shadow: 0px 2px 6px #00000029;
+  box-shadow: 0 2px 6px #00000029;
   animation: 2s ease-out slideInFromTop;
   p {
     margin-bottom: .5rem;
@@ -153,6 +151,7 @@
   max-width: 100%;
   background-color: #FF6A6A;
   border-radius: 20px 20px 20px 20px;
+  animation: 2s ease-out slideInFromTop;
 }
 
 
@@ -439,13 +438,17 @@ $x3: -$leftPos + $dotSpacing;
     max-width: 83%;
     padding-right: 10px;
   }
+
+  .msg_container_send1{
+    max-width: 80%;
+  }
   .or-div{
     max-width: 75%;
 
   }
 }
 .or-div{
-  max-width: 60%;
+  max-width: 75%;
   margin-left: auto;
   font-size: 14px;
   color: #00000066;;

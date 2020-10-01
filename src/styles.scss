@@ -598,3 +598,9 @@ textarea{
 .intro-tooltip-custom {
   top: 65% !important;
 }
+.proscons-info-dialog-container .mat-dialog-container {
+  width: 340px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 1rem;
+}

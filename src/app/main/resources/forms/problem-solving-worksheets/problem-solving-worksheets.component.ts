@@ -33,6 +33,7 @@ import { map, switchMap } from 'rxjs/operators';
 import { FlowService } from '@/main/flow/flow.service';
 import { ActivatedRoute } from '@angular/router';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
+import { ProsConsInfoComponent } from '@/main/resources/forms/problem-solving-worksheets/pros-cons-container/pros-cons/pros-cons-info/pros-cons-info.component';
 
 @Component({
   selector: 'app-problem-solving-worksheets',
@@ -89,11 +90,11 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private flowService: FlowService,
     private activatedRoute: ActivatedRoute,
-    private stepDataService: StepsDataService,
+    private stepDataService: StepsDataService
   ) {}
 
   ngOnInit() {
-    this.activatedRoute.params.subscribe(v => {
+    this.activatedRoute.params.subscribe((v) => {
       this.step_id = v.step_id;
       console.log('step id', this.step_id);
     });
@@ -150,7 +151,7 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscriptions.forEach(sub => {
+    this.subscriptions.forEach((sub) => {
       sub.unsubscribe();
     });
   }
@@ -184,14 +185,14 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
         this.problem.bestsolution = resp.solution_id;
         if (this.problem.bestsolution) {
           const bestSolution = this.solutions.find(
-            sol => sol.id === this.problem.bestsolution.solution_id,
+            (sol) => sol.id === this.problem.bestsolution.solution_id
           );
         }
       });
   }
 
   getBestSolutionText(solution_id: number) {
-    const bestSolution = this.solutions.find(sol => sol.id === solution_id);
+    const bestSolution = this.solutions.find((sol) => sol.id === solution_id);
     if (bestSolution) {
       return bestSolution.solution;
     }
@@ -292,7 +293,7 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
             this.problem.id,
             resp.data.solutions[lastIndex].solution,
             false,
-            0,
+            0
           );
           this.solutions.push(solution);
           this.showSolutionsForm = false;
@@ -328,7 +329,7 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
 
   onSolutionRemove(solution: Solution) {
     this.problemService.deleteSolution(solution.id).subscribe((data: any) => {
-      this.solutions = this.solutions.filter(solu => solu !== solution);
+      this.solutions = this.solutions.filter((solu) => solu !== solution);
       if (this.solutions.length === 0) {
         this.solutionsSaved = false;
       }
@@ -408,13 +409,9 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   }
 
   onShowInfo() {
-    const dialogRef = this.dialog.open(TechniquesInfoComponent, {
-      panelClass: 'technique-info-dialog-container',
+    const dialogRef = this.dialog.open(ProsConsInfoComponent, {
+      panelClass: 'proscons-info-dialog-container',
       autoFocus: false,
-      data: {
-        techniquesInfo: THINIKING_ERROR_DATA,
-        about: 'Pros and Cons Example',
-      },
     });
   }
 }
