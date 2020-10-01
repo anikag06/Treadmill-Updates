@@ -99,9 +99,6 @@ export class SurveyComponent implements OnInit {
     this.surveyService.disableLinks.emit(this.data);
     this.navbarTitle = 'Help us improve';
     this.flowService.stepDetail.emit(this.navbarTitle);
-    this.flowService.showFollowUpSurvey.subscribe(() => {
-      this.followUp = true;
-    });
   }
 
   loadQuestions(event: any) {
@@ -232,23 +229,6 @@ export class SurveyComponent implements OnInit {
 
   onSubmit(event: any) {
     this.submitting = true;
-    // if (event.target.nodeName === 'BUTTON') {
-    //   console.log('Button');
-    //   event.target.classList.remove('disabled-button');
-    //   event.target.classList.add('active-button');
-    // } else if (event.target.nodeName === 'SPAN') {
-    //   console.log('Span');
-    //   event.target.parentElement.parentElement.classList.remove(
-    //     'disabled-button',
-    //   );
-    //   event.target.parentElement.parentElement.classList.add('active-button');
-    // }
-    console.log('submit btn', this.submitBtn);
-    // this.submitBtn.nativeElement.childNodes[1].classList.remove(
-    //   'disabled-button',
-    // );
-    // this.submitBtn.nativeElement.childNodes[1].classList.add('active-button');
-
     this.back = false;
     this.front = false;
     this.surveyService
@@ -258,14 +238,13 @@ export class SurveyComponent implements OnInit {
       .subscribe(data => {
         console.log('survey response', data);
         this.submitting = false;
-        if (this.followUp) {
+        if (this.flowService.showFollowUpSurvey) {
           this.router.navigate(['/']);
         } else {
           this.goToService.clickFlow.emit();
         }
       });
     this.surveyService.enableLinks.emit();
-    // next step
   }
 
   updateSurveyResponse() {

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {HostListener, Injectable} from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { CongratsDialogComponent } from './congrats-dialog/congrats-dialog.component';
 import { LOCKED } from '@/app.constants';
@@ -14,17 +14,22 @@ export class CommonDialogsService {
   isLocked = false;
   nextStepData!: Step;
   badgeData!: any;
+  srcWidth!: number;
+
 
   constructor(
     private dialog: MatDialog,
     private http: HttpClient,
     private flowNavService: FlowStepNavigationService,
-  ) {}
-  openCongratsDialog(
-    curr_id: number,
-    isLastStep: boolean,
-    isLastModule: boolean,
   ) {
+    this.getScreenSize();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  getScreenSize(event?: any) {
+    this.srcWidth = window.innerWidth;
+  }
+  openCongratsDialog(curr_id: number, isLastStep: boolean, isLastModule: boolean) {
     this.isLocked = false;
     if (isLastStep) {
       this.flowNavService.isNextModuleLocked(curr_id).subscribe(data => {
@@ -39,20 +44,37 @@ export class CommonDialogsService {
   }
 
   openDialog(isLastStep: boolean, isLastModule: boolean) {
-    const dialogRef = this.dialog.open(CongratsDialogComponent, {
-      maxWidth: '90vw',
-      // width: '44%',
-      height: '48%',
-      panelClass: 'slide-video',
-      data: {
-        isLocked: this.isLocked,
-        isLastStep: isLastStep,
-        nextStepData: this.nextStepData,
-        badgeData: this.badgeData,
-        isLastModule: isLastModule,
-      },
-      autoFocus: false,
-    });
+    if (this.srcWidth <= 767) {
+      const dialogRef = this.dialog.open(CongratsDialogComponent, {
+        width: '320px',
+        height: '446px',
+        maxWidth: '90vw',
+        panelClass: 'slide-video',
+        data: {
+          isLocked: this.isLocked,
+          isLastStep: isLastStep,
+          nextStepData: this.nextStepData,
+          badgeData: this.badgeData,
+          isLastModule: isLastModule,
+        },
+        autoFocus: false,
+      });
+    } else {
+      const dialogRef = this.dialog.open(CongratsDialogComponent, {
+        maxWidth: '620px',
+        width: '620px',
+        height: '446px',
+        panelClass: 'slide-video',
+        data: {
+          isLocked: this.isLocked,
+          isLastStep: isLastStep,
+          nextStepData: this.nextStepData,
+          badgeData: this.badgeData,
+          isLastModule: isLastModule,
+        },
+        autoFocus: false,
+      });
+    }
   }
 
   updateBadgeInfo(badgeData: any) {

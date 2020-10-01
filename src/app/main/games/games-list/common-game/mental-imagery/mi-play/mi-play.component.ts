@@ -71,6 +71,7 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
   ];
   previousText = '';
   invalidInput = false;
+  invalidInputCount = 0;
   extraContent = '';
   notificationHeader = '';
   notificationBody = '';
@@ -178,8 +179,10 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
     if (this.getCurrentStateService.count === 0) {
       this.getCurrentStateService.continuePlaying = false;
       this.getCurrentStateService.count += 1;
+      this.scenarioHandler();
       return;
-    } else if (this.getCurrentStateService.continuePlaying) {
+    } else
+      if (this.getCurrentStateService.continuePlaying) {
       this.gameValue = 0;
       this.levelPoints = 0;
       this.getCurrentStateService.continuePlaying = false;
@@ -202,6 +205,8 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
 
   scenarioHandler() {
     if (this.ifPositive(this.blank) === 1) {
+      console.log('positive');
+      this.invalidInputCount = 0;
       this.setUserData();
       this.numCorrectAnswers += 1;
       this.updateBadgesValue();
@@ -218,6 +223,9 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
         this.addDoneBtn();
       }
     } else if (this.ifPositive(this.blank) === -1) {
+      console.log('negative');
+      this.invalidInputCount = 0;
+
       this.updatePreviousText();
       this.updateExtraContent('<i>' + this.currentScenario.wrongText + '</i>');
       this.updateNotification(
@@ -230,7 +238,11 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
       delete this.getCurrentStateService.currentScenario;
       delete this.currentScenario;
     } else {
+      console.log ('Invalid input');
+      this.getCurrentStateService.retry = true;
+      this.setUserData();
       this.invalidInput = true;
+      this.invalidInputCount += 1;
     }
     this.storeUserData();
     this.blank = '';
@@ -261,6 +273,7 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
       return 0;
     }
   }
+
 
   updatePreviousText() {
     this.previousText +=

@@ -97,15 +97,14 @@ export class FlowComponent implements OnInit, OnDestroy {
             // show follow up questionnaire
             this.showQuestionnaire = true;
             this.followUp = true;
-            this.flowService.showFollowUp.emit();
+            this.quizService.showFollowUp.emit();
             this.quizService.questionnaire_name =
               data.data.questionnaire_to_show;
           } else if (data.data.to_follow_up === 'SHOW-FOLLOWUP-SURVEY') {
             // show survey
-            this.flowService.showFollowUpSurvey.emit();
-            this.quizService.questionnaire_name =
-              data.data.questionnaire_to_show;
             this.router.navigate(['main/survey']);
+            this.flowService.showFollowUpSurvey = true;
+            console.log('SHOW FOLLOW-UP');
           } else {
             this.router.navigate(['main/dashboard']);
           }

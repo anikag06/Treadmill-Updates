@@ -17,6 +17,9 @@
           <p class="text"> You have earned a gold badge for completing the "{{badgeInfo}}" module.</p>
             <p class="next-text" *ngIf='data.isLastStep && data.isLocked && !data.isLastModule'>
                 Next module will unlock on {{unLockTime | date:"medium"}}</p>
+          <p class="next-text" *ngIf='data.isLastStep && !data.isLocked  && !data.isLastModule'>
+                      Go to dashboard and try next module.
+                        </p>
 
         </div>
     </div>

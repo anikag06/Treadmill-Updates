@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {
   COMMITMENT_OPTIONS,
   COMPLETED,
@@ -38,6 +38,9 @@ export class Conclusion6Component implements OnInit, OnDestroy {
   stepSequence!: number;
   stepName!: string;
   moodEvaluate!: boolean;
+  showLoading = false;
+
+  @ViewChild('target', { static: false }) target!: ElementRef;
 
   constructor(
     private conclusionService: ConclusionService,
@@ -64,6 +67,7 @@ export class Conclusion6Component implements OnInit, OnDestroy {
     this.conclusionDataSubscription = this.conclusionService
       .getConclusionData(this.stepGroupSequence)
       .subscribe(data => {
+        console.log('CONCLUSION DATA', data);
         if (data.user_step_status !== LOCKED) {
           this.moduleName = data.module_name;
           this.nextModuleName = data.next_module_name;
@@ -92,6 +96,7 @@ export class Conclusion6Component implements OnInit, OnDestroy {
               this.stepName;
             console.log('STEP DETAIL:', this.navbarTitle);
             this.flowService.stepDetail.emit(this.navbarTitle);
+            this.flowService.navbarTitle = this.navbarTitle;
             this.dataLoaded = true;
             if (step_data.data.next_questionnaire) {
               this.quizService.questionnaire_name =
@@ -103,18 +108,25 @@ export class Conclusion6Component implements OnInit, OnDestroy {
           });
       });
     this.quizService.questionnaire_active.subscribe((value: boolean) => {
-      console.log('EVENT EMITTED', value);
+      console.log('EVENT EMITTED', value, this.navbarTitle, 'Title' , this.flowService.navbarTitle);
       if (!value) {
         // this.quizService.questionnaireActive = false;
         this.moodEvaluate = false;
         this.showQuestionnaire = false;
         this.navbarTitle = this.flowService.navbarTitle;
         this.flowService.stepDetail.emit(this.navbarTitle);
+        this.scrollDown();
+
       } else {
         this.showQuestionnaire = true;
         this.navbarTitle = 'Mood test';
         this.flowService.stepDetail.emit(this.navbarTitle);
       }
+    });
+    this.flowService.showDashboardButton.subscribe( () => {
+      this.stepCompleted = true;
+      this.showLoading = false;
+      console.log('show dashboard');
     });
   }
 
@@ -123,7 +135,7 @@ export class Conclusion6Component implements OnInit, OnDestroy {
   }
 
   onCompleted() {
-    this.stepCompleted = true;
+    this.showLoading = true;
     this.timeSpent = 200;
     this.completionData.time_spent = this.timeSpent;
     this.completionData.step_id = this.currentStepId;
@@ -139,11 +151,13 @@ export class Conclusion6Component implements OnInit, OnDestroy {
     );
   }
 
-  onDashboard() {
-    this.router.navigate([LOGGED_IN_PATH]);
-  }
   onNextStep() {
     console.log('Next step clicked');
     this.goToService.clickFlow.emit();
+  }
+  scrollDown() {
+    setTimeout(() => {
+      this.target.nativeElement.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
   }
 }

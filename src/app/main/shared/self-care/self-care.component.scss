@@ -1,0 +1,46 @@
+
+.congrats-div {
+  max-height: 540px;
+  max-width: 700px;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  font-family: Roboto;
+  padding: 20px;
+}
+.congrats-text {
+  margin-top: 32px;
+  margin-bottom: 18px;
+  color: #4E4E4E;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+button {
+  background-color: #2a3b3d;
+  color: white;
+}
+.badge-img{
+  height: 380px;
+  width: 380px;
+}
+
+
+@media screen and (max-width: 767px) {
+  .congrats-div {
+    padding: 6px;
+    max-height: 460px;
+    max-width: 328px;
+  }
+  .congrats-text {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-size: 20px;
+  }
+
+  .badge-img{
+    height: 316px;
+    width: 316px;
+  }
+
+}

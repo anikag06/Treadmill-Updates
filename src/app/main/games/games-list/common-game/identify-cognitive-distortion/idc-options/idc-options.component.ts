@@ -55,15 +55,12 @@ export class IdcOptionsComponent implements OnInit {
     this.gameService.levelInitialise.subscribe(() => {
       this.optionStatus = this.gameService.optionStatus;
       this.optionStatusCount = this.gameService.optionStatusCount;
-      console.log('ELEMENT', this.element);
       this.errorBarWidth = Math.floor(200 / this.correct.length);
       const button = this.element.nativeElement.querySelectorAll('button');
-      console.log('BUTTON', button);
       for (let i = button.length - 1; i >= 0; i--) {
         button[i].classList.remove('correctOption');
         button[i].classList.remove('incorrectOption');
       }
-      console.log('option status', this.optionStatusCount);
     });
     this.gameService.resumeGame.subscribe(() => {
       this.optionStatus = this.gameService.optionStatus;
@@ -71,7 +68,6 @@ export class IdcOptionsComponent implements OnInit {
       if (this.gameService.replay === true) {
         this.gameService.replay = false;
         const button = this.element.nativeElement.querySelectorAll('button');
-        console.log('BUTTON', button);
         for (let i = button.length - 1; i >= 0; i--) {
           button[i].classList.remove('correctOption');
           button[i].classList.remove('incorrectOption');
@@ -87,7 +83,6 @@ export class IdcOptionsComponent implements OnInit {
   }
 
   onOptionClick(item: any, event: any) {
-    console.log('option', item);
     this.gameService.stopTimer.next();
     this.gameService.optionSelected = item.distortion;
     this.gameService.optionMessage = item.message;
@@ -169,6 +164,5 @@ export class IdcOptionsComponent implements OnInit {
 
   storeUserAnswerData() {
     this.gameService.saveUserAnswerData(this.userAnswerData).subscribe();
-    console.log('User Answer Data', this.userAnswerData);
   }
 }

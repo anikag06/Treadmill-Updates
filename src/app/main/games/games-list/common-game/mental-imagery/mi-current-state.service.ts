@@ -43,6 +43,7 @@ export class MICurrentStateService {
   GOLD_CONSTANT!: any;
   showTutorial!: boolean;
   ask_feedback: any;
+  userDataLoaded = false;
 
   constructor(
     private http: HttpClient,
@@ -89,6 +90,7 @@ export class MICurrentStateService {
       this.showTutorial = data.show_tutorial;
       this.ask_feedback = data.ask_for_feedback;
       this.miPlayService.startNext.emit();
+      this.userDataLoaded = true;
     });
   }
 
@@ -138,6 +140,8 @@ export class MICurrentStateService {
     console.log(
       'possible_incorrect_answers: ',
       scenario1.possible_incorrect_answers,
+      'possible_Correct_answers: ',
+      scenario1.possible_correct_answers,
     );
     return new Scenario(
       scenario1.text_before_dash,

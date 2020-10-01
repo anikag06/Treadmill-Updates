@@ -41,7 +41,7 @@ export class CongratsDialogComponent implements OnInit {
       this.showBadge = true;
       this.badgeName = this.data.badgeData.name;
       this.badgeInfo = this.data.badgeData.description;
-      if (this.data.isLocked) {
+      if (!this.data.isLocked) {
         this.unLockTime = this.nextStepData.next_step_group_unlock_time;
         const convertedDateString = this.unLockTime.toLocaleString();
         this.unLockTime = new Date(convertedDateString);
@@ -56,6 +56,8 @@ export class CongratsDialogComponent implements OnInit {
       this.badgeInfo = this.data.badgeData.description;
       this.showNextStepBtn = true;
     }
+    this.flowService.showDashboardButton.emit();
+
   }
 
   goToDashboard() {

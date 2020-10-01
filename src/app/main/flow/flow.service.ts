@@ -1,4 +1,4 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import {Injectable, EventEmitter, HostListener} from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import {
@@ -8,6 +8,9 @@ import {
 } from '@/app.constants';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { FlowStepNavigationService } from '../shared/flow-step-navigation.service';
+import {CongratsDialogComponent} from "@/main/resources/shared/congrats-dialog/congrats-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
+import {SelfCareComponent} from "@/main/shared/self-care/self-care.component";
 
 @Injectable({
   providedIn: 'root',
@@ -23,22 +26,26 @@ export class FlowService {
   stepName = '';
   navbarTitle = '';
   stepCompleted!: boolean;
-  showFollowUp = new EventEmitter<any>();
-  showFollowUpSurvey = new EventEmitter<any>();
   firstStepID!: number;
+  showDashboardButton = new EventEmitter<any>();
+  showFollowUpSurvey = false;
+  srcWidth!: number;
+
+
 
   constructor(
     private http: HttpClient,
     private flowNavService: FlowStepNavigationService,
-  ) {}
+    private dialog: MatDialog,
+  ) {
+    this.getScreenSize();
+  }
 
-  // Http Options
-  // httpOptions = {
-  //   headers: new HttpHeaders({
-  //     'Cache-Control':
-  //       'no-cache, no-store, must-revalidate, post-check=0, pre-check=0',
-  //   }),
-  // };
+  @HostListener('window:resize', ['$event'])
+  getScreenSize(event?: any) {
+    this.srcWidth = window.innerWidth;
+  }
+
   getFlow() {
     return this.http.get(
       environment.API_ENDPOINT + FLOW_STEPS_DATA,
@@ -104,4 +111,24 @@ export class FlowService {
   getFirstStepID(): number {
     return this.firstStepID;
   }
-}
+  showSelfCareDialog() {
+    if (this.srcWidth <= 767) {
+      console.log('SHOW DIALOG', this.srcWidth);
+      const dialogRef = this.dialog.open(SelfCareComponent, {
+        maxWidth: '328px',
+        width: '328px',
+        height: '460px',
+        panelClass: 'slide-video',
+        autoFocus: false,
+      });
+    } else {
+        const dialogRef = this.dialog.open(SelfCareComponent, {
+          maxWidth: '700px',
+          width: '700px',
+          height: '540px',
+          panelClass: 'slide-video',
+          autoFocus: false,
+        });
+      }
+    }
+  }

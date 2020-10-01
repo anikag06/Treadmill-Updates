@@ -1,7 +1,7 @@
 <ng-template [ngIf]="!showQuestionnaire">
   <div id="no-use-div" #target ></div>
-<div class="container" >
-  <div class="row"  >
+<div class="container ml-0" >
+  <div class="row" mx-0  >
     <div class="col-lg-7 col-md-9 col-sm-12 fix-content-box "  >
 
 
@@ -19,7 +19,7 @@
             <app-evaluate-mood [moodEvaluate]="moodEvaluate" ></app-evaluate-mood>
           </div>
         </div>
-        <div class = "d-flex flex-row" [ngStyle]="{ 'justify-content' : this.lastStepCompleted ? 'start' : 'end'} ">
+        <div class = "d-flex flex-row justify-content-end" >
 
         <div *ngIf="!moodEvaluate && this.nextDataLoaded" >
             <app-step-completed [showNextStep]="nextBtnShow"  [showloading]="showLoading"  [isLastStep]='isLastStep' [lastStepCompleted]='lastStepCompleted'

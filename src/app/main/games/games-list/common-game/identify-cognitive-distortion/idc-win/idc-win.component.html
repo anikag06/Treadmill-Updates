@@ -4,7 +4,11 @@
 
         <p class="large-font"><b>Great!</b></p>
         <p class="smallest-font">You have completed this level.</p>
-        <button style="min-width:100% !important;" mat-raised-button [color]="'new'" (click)="onStartNext()" type="button">
+        <button *ngIf="!showLoading" style="min-width:100% !important;" mat-raised-button [color]="'new'" (click)="onStartNext()" type="button">
           Play next level
+        </button>
+          <button *ngIf="showLoading" style="min-width:100% !important;" mat-raised-button [color]="'new'"  type="button">
+          <span class="spinner-border spinner-border-sm"></span>
+          &nbsp; Loading..
         </button>
       </div>

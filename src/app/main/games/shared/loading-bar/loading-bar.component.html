@@ -1,14 +1,15 @@
 <!-- For Loading bar -->
 <div class="container-fluid  loading">
-<div class="mx-auto loadingBar" >
-       
-        <!-- <mat-progress-bar mode="query" class="gameLoadingBar"  [value]="loadingBarValue"> -->
+  <div class="mx-auto loadingBar" >
+    <p *ngIf="showMitips" class="my-2" style="color : white; font-size : 14px" >Tips : Imagine as if the scenarios are happening to you and imagine in as much detail as possible. </p>
+    <br>
+
+
         <mat-progress-bar mode="indeterminate" class="gameLoadingBar" >
 
         </mat-progress-bar>
         <br>
         Loading <span>{{loadingBarValue}}%</span>
       </div>
-     
 
   </div>

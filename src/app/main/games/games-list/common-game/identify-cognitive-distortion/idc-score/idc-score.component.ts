@@ -53,7 +53,6 @@ export class IdcScoreComponent implements OnInit, OnDestroy {
       this.difficultyValue = this.gameService.difficultyValue;
       this.gameService.resumeGame.emit();
       this.updateBadges();
-      console.log('ngoninit called');
     });
     this.gameService.resumeGame.subscribe(() => {
       this.score = this.gameService.score;
@@ -67,7 +66,6 @@ export class IdcScoreComponent implements OnInit, OnDestroy {
       } else {
         this.timeLeft = this.gameService.timeLeft;
       }
-      console.log('resume game');
     });
   }
   ngOnDestroy(): void {
@@ -93,19 +91,16 @@ export class IdcScoreComponent implements OnInit, OnDestroy {
     this.interval = setInterval(() => {
       if (this.timeLeft > 0) {
         this.timeLeft--;
-        // console.log('time left', this.timeLeft, this.interval);
       } else {
         this.stopTimer();
         this.openPopup();
       }
     }, 1000);
-    console.log('interval name', this.interval);
     this.idcTimer.push(this.interval);
   }
 
   stopTimer() {
     clearInterval(this.interval);
-    console.log('clearing interval', this.interval);
     this.gameService.timeActualLeft = this.timeLeft;
   }
 
