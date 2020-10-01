@@ -1,4 +1,4 @@
-import {HostListener, Injectable} from '@angular/core';
+import { HostListener, Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { CongratsDialogComponent } from './congrats-dialog/congrats-dialog.component';
 import { LOCKED } from '@/app.constants';
@@ -16,7 +16,6 @@ export class CommonDialogsService {
   badgeData!: any;
   srcWidth!: number;
 
-
   constructor(
     private dialog: MatDialog,
     private http: HttpClient,
@@ -29,7 +28,11 @@ export class CommonDialogsService {
   getScreenSize(event?: any) {
     this.srcWidth = window.innerWidth;
   }
-  openCongratsDialog(curr_id: number, isLastStep: boolean, isLastModule: boolean) {
+  openCongratsDialog(
+    curr_id: number,
+    isLastStep: boolean,
+    isLastModule: boolean,
+  ) {
     this.isLocked = false;
     if (isLastStep) {
       this.flowNavService.isNextModuleLocked(curr_id).subscribe(data => {

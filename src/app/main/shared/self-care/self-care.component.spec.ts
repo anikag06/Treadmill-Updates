@@ -8,9 +8,8 @@ describe('SelfCareComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SelfCareComponent ]
-    })
-    .compileComponents();
+      declarations: [SelfCareComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

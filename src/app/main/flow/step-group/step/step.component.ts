@@ -228,7 +228,10 @@ export class StepComponent implements OnInit, AfterViewInit {
           this.introService.setChatbotIntro(true);
           this.introService.startChatbotIntro(this.step.status, this.step.id);
         }, 500);
-      } else if (this.step.data_type === INTRODUCTORY_ANIMATION && this.step.name === 'Self-care expert') {
+      } else if (
+        this.step.data_type === INTRODUCTORY_ANIMATION &&
+        this.step.name === 'Self-care expert'
+      ) {
         this.flowService.showSelfCareDialog();
       }
       // setTimeout(() => {

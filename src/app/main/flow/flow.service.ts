@@ -1,4 +1,4 @@
-import {Injectable, EventEmitter, HostListener} from '@angular/core';
+import { Injectable, EventEmitter, HostListener } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import {
@@ -8,9 +8,9 @@ import {
 } from '@/app.constants';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { FlowStepNavigationService } from '../shared/flow-step-navigation.service';
-import {CongratsDialogComponent} from "@/main/resources/shared/congrats-dialog/congrats-dialog.component";
-import {MatDialog} from "@angular/material/dialog";
-import {SelfCareComponent} from "@/main/shared/self-care/self-care.component";
+import { CongratsDialogComponent } from '@/main/resources/shared/congrats-dialog/congrats-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { SelfCareComponent } from '@/main/shared/self-care/self-care.component';
 
 @Injectable({
   providedIn: 'root',
@@ -30,8 +30,6 @@ export class FlowService {
   showDashboardButton = new EventEmitter<any>();
   showFollowUpSurvey = false;
   srcWidth!: number;
-
-
 
   constructor(
     private http: HttpClient,
@@ -122,13 +120,13 @@ export class FlowService {
         autoFocus: false,
       });
     } else {
-        const dialogRef = this.dialog.open(SelfCareComponent, {
-          maxWidth: '700px',
-          width: '700px',
-          height: '540px',
-          panelClass: 'slide-video',
-          autoFocus: false,
-        });
-      }
+      const dialogRef = this.dialog.open(SelfCareComponent, {
+        maxWidth: '700px',
+        width: '700px',
+        height: '540px',
+        panelClass: 'slide-video',
+        autoFocus: false,
+      });
     }
   }
+}

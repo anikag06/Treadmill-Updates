@@ -181,8 +181,7 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
       this.getCurrentStateService.count += 1;
       this.scenarioHandler();
       return;
-    } else
-      if (this.getCurrentStateService.continuePlaying) {
+    } else if (this.getCurrentStateService.continuePlaying) {
       this.gameValue = 0;
       this.levelPoints = 0;
       this.getCurrentStateService.continuePlaying = false;
@@ -238,7 +237,7 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
       delete this.getCurrentStateService.currentScenario;
       delete this.currentScenario;
     } else {
-      console.log ('Invalid input');
+      console.log('Invalid input');
       this.getCurrentStateService.retry = true;
       this.setUserData();
       this.invalidInput = true;
@@ -273,7 +272,6 @@ export class MiPlayComponent implements OnInit, AfterContentInit {
       return 0;
     }
   }
-
 
   updatePreviousText() {
     this.previousText +=

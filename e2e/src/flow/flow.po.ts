@@ -25,8 +25,9 @@ export class FlowPage {
     browser
       .wait(this.EC.presenceOf(element(by.css('.mat-dialog-container'))))
       .then(() => {
-        browser
-          .wait(this.EC.presenceOf(element(by.css('button.mat-raised-button'))))
+        browser.wait(
+          this.EC.presenceOf(element(by.css('button.mat-raised-button'))),
+        );
         this.clickOnButton('Get Started');
       });
   }
@@ -146,13 +147,13 @@ export class FlowPage {
       .then(() => {
         console.log('clickOnButton  Completed');
         button.click().then(() => {
-            const dashboardBtn = element(by.css('.congrats-div')).element(
-              by.cssContainingText('button', 'Go to dashboard'),
-            );
-            browser.wait(this.EC.visibilityOf(dashboardBtn)).then(() => {
-              dashboardBtn.click();
-              console.log(btn, 'click');
-            });
+          const dashboardBtn = element(by.css('.congrats-div')).element(
+            by.cssContainingText('button', 'Go to dashboard'),
+          );
+          browser.wait(this.EC.visibilityOf(dashboardBtn)).then(() => {
+            dashboardBtn.click();
+            console.log(btn, 'click');
+          });
         });
       })
       .catch(() => {
@@ -169,23 +170,25 @@ export class FlowPage {
   // }
 
   showFullConv() {
-    const StartBtn = element.all(by.cssContainingText('button', 'Start')).first();
+    const StartBtn = element
+      .all(by.cssContainingText('button', 'Start'))
+      .first();
     browser.wait(this.EC.visibilityOf(StartBtn)).then(() => {
       StartBtn.click();
       console.log('Start conversations');
-    const el = element(by.css('.msg_container1'));
-    browser.wait(this.EC.presenceOf(el)).then(() => {
-      const showConvBtn = element(by.css('#showFullConversation'));
-      browser.wait(this.EC.visibilityOf(showConvBtn)).then(() => {
-        browser.sleep(2000);
-        showConvBtn.click();
-        console.log('showConvBtn clicked');
-        const menuBtn = element(by.css('.mat-menu-item'));
-        browser.wait(this.EC.visibilityOf(menuBtn)).then(() => {
-          menuBtn.click();
-          console.log('menuBtn clicked');
+      const el = element(by.css('.msg_container1'));
+      browser.wait(this.EC.presenceOf(el)).then(() => {
+        const showConvBtn = element(by.css('#showFullConversation'));
+        browser.wait(this.EC.visibilityOf(showConvBtn)).then(() => {
+          browser.sleep(2000);
+          showConvBtn.click();
+          console.log('showConvBtn clicked');
+          const menuBtn = element(by.css('.mat-menu-item'));
+          browser.wait(this.EC.visibilityOf(menuBtn)).then(() => {
+            menuBtn.click();
+            console.log('menuBtn clicked');
+          });
         });
-      });
       });
     });
   }

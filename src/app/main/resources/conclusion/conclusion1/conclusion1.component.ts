@@ -1,4 +1,10 @@
-import {Component, OnInit, OnDestroy, ViewChild, ElementRef} from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -137,7 +143,7 @@ export class Conclusion1Component implements OnInit, OnDestroy {
         this.flowService.stepDetail.emit(this.navbarTitle);
       }
     });
-    this.flowService.showDashboardButton.subscribe( () => {
+    this.flowService.showDashboardButton.subscribe(() => {
       this.stepCompleted = true;
       this.showLoading = false;
       console.log('show dashboard');

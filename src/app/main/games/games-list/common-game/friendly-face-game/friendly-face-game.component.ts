@@ -171,19 +171,19 @@ export class FriendlyFaceGameComponent implements OnInit {
         console.log('STEP DETAIL:', this.navbarTitle);
         this.flowService.stepDetail.emit(this.navbarTitle);
       });
-      this.loadFileService
-        .loadExternalScript(
-          './assets/games/friendly-face-game/js/facegame_javascript.js',
-        )
-        .then(() => {
-          this.loadImages();
-        })
-        .catch(() => {});
-      this.loadFileService
-        .loadExternalScript('./assets/games/friendly-face-game/js/tone.min.js')
-        .then(() => {})
-        .catch(() => {});
-      this.gamePlayService.ffgameScriptLoaded = true;
+    this.loadFileService
+      .loadExternalScript(
+        './assets/games/friendly-face-game/js/facegame_javascript.js',
+      )
+      .then(() => {
+        this.loadImages();
+      })
+      .catch(() => {});
+    this.loadFileService
+      .loadExternalScript('./assets/games/friendly-face-game/js/tone.min.js')
+      .then(() => {})
+      .catch(() => {});
+    this.gamePlayService.ffgameScriptLoaded = true;
 
     this.ffgHelpService.updateBadges.subscribe(() => {
       this.updateBadgesValue();

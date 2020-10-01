@@ -108,8 +108,7 @@ export class IdcGameService implements OnInit {
   constructor(
     private http: HttpClient,
     private badgesService: GamesBadgesService,
-  ) {
-  }
+  ) {}
 
   ngOnInit() {}
 
@@ -156,8 +155,7 @@ export class IdcGameService implements OnInit {
       .subscribe(data => {
         this.game = data;
         console.log('Game Data', this.game);
-        console.log(
-          'last_completed_order', this.last_completed_order);
+        console.log('last_completed_order', this.last_completed_order);
         this.totalSituations = this.game.results.length;
         if (this.last_completed_order === this.totalSituations) {
           this.questionId = 0;

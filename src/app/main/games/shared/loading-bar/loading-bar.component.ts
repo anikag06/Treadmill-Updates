@@ -18,7 +18,7 @@ import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service
 import { MIPlayService } from '@/main/games/games-list/common-game/mental-imagery/mi-play.service';
 import { IdcGameService } from '@/main/games/games-list/common-game/identify-cognitive-distortion/idc-game.service';
 import { Subscription } from 'rxjs';
-import {MICurrentStateService} from "@/main/games/games-list/common-game/mental-imagery/mi-current-state.service";
+import { MICurrentStateService } from '@/main/games/games-list/common-game/mental-imagery/mi-current-state.service';
 declare var ffg_music_notes_array: any;
 declare var ffg_loaded_friendly_images: any;
 declare var ffg_loaded_hostile_images: any;
@@ -45,7 +45,6 @@ export class LoadingBarComponent implements OnInit {
     private route: ActivatedRoute,
     private miGameService: MICurrentStateService,
     private idcGameService: IdcGameService,
-
   ) {}
 
   ngOnInit() {
@@ -81,14 +80,16 @@ export class LoadingBarComponent implements OnInit {
           this.completeLoading();
         }
       } else if (this.gamePlayService.gameName === MENTAL_IMAGERY_GAME) {
-        if (this.miGameService.userDataLoaded ) {
-          setTimeout ( () => {
+        if (this.miGameService.userDataLoaded) {
+          setTimeout(() => {
             this.completeLoading();
           }, 4000);
-          }
-      } else if (this.gamePlayService.gameName === IDENTIFY_COGNITIVE_DISTORTION_GAME) {
-        if (this.idcGameService.dataLoaded ) {
-          setTimeout ( () => {
+        }
+      } else if (
+        this.gamePlayService.gameName === IDENTIFY_COGNITIVE_DISTORTION_GAME
+      ) {
+        if (this.idcGameService.dataLoaded) {
+          setTimeout(() => {
             this.completeLoading();
           }, 1000);
         }

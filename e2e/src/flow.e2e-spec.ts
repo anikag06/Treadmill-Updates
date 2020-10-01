@@ -116,7 +116,7 @@ describe('treadwill Flow Experimental Group', () => {
     100 * 60 * 1000,
   );
 
- it(
+  it(
     'Should click second Module and run its step',
     () => {
       expect(

@@ -23,7 +23,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 
   canActivate(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
+    state: RouterStateSnapshot,
   ):
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree>
@@ -46,7 +46,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 
   canActivateChild(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
+    state: RouterStateSnapshot,
   ):
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree>

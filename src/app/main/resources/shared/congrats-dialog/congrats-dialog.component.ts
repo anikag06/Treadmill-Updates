@@ -57,7 +57,6 @@ export class CongratsDialogComponent implements OnInit {
       this.showNextStepBtn = true;
     }
     this.flowService.showDashboardButton.emit();
-
   }
 
   goToDashboard() {

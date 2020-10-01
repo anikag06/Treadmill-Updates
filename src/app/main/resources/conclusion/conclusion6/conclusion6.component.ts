@@ -1,4 +1,10 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import {
   COMMITMENT_OPTIONS,
   COMPLETED,
@@ -108,7 +114,13 @@ export class Conclusion6Component implements OnInit, OnDestroy {
           });
       });
     this.quizService.questionnaire_active.subscribe((value: boolean) => {
-      console.log('EVENT EMITTED', value, this.navbarTitle, 'Title' , this.flowService.navbarTitle);
+      console.log(
+        'EVENT EMITTED',
+        value,
+        this.navbarTitle,
+        'Title',
+        this.flowService.navbarTitle,
+      );
       if (!value) {
         // this.quizService.questionnaireActive = false;
         this.moodEvaluate = false;
@@ -116,14 +128,13 @@ export class Conclusion6Component implements OnInit, OnDestroy {
         this.navbarTitle = this.flowService.navbarTitle;
         this.flowService.stepDetail.emit(this.navbarTitle);
         this.scrollDown();
-
       } else {
         this.showQuestionnaire = true;
         this.navbarTitle = 'Mood test';
         this.flowService.stepDetail.emit(this.navbarTitle);
       }
     });
-    this.flowService.showDashboardButton.subscribe( () => {
+    this.flowService.showDashboardButton.subscribe(() => {
       this.stepCompleted = true;
       this.showLoading = false;
       console.log('show dashboard');

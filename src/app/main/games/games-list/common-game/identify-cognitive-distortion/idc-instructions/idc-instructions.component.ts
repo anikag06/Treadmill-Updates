@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { IdcGameService } from '../idc-game.service';
-import {LoadingBarService} from "@/main/games/shared/loading-bar.service";
+import { LoadingBarService } from '@/main/games/shared/loading-bar.service';
 
 @Component({
   selector: 'app-idc-instructions',

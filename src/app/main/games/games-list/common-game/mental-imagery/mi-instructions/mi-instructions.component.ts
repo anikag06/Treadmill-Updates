@@ -6,7 +6,7 @@ import {
   ElementRef,
 } from '@angular/core';
 import { MIPlayService } from '../mi-play.service';
-import {LoadingBarService} from "@/main/games/shared/loading-bar.service";
+import { LoadingBarService } from '@/main/games/shared/loading-bar.service';
 
 @Component({
   selector: 'app-mi-instructions',

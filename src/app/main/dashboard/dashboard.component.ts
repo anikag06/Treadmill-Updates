@@ -9,7 +9,7 @@ import { IntroService } from '@/main/walk-through/intro.service';
 import { Observable, Subscription, timer } from 'rxjs';
 import { isNotNullOrUndefined } from 'codelyzer/util/isNotNullOrUndefined';
 import { FlowService } from '@/main/flow/flow.service';
-import {QuizService} from "@/shared/questionnaire/questionnaire.service";
+import { QuizService } from '@/shared/questionnaire/questionnaire.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -27,7 +27,6 @@ export class DashboardComponent implements OnInit {
     private userProfileService: UserProfileService,
     private introService: IntroService,
     private quizService: QuizService,
-
   ) {
     this.titleService.setTitle('Dashboard | ' + TREADWILL);
   }

@@ -8,9 +8,8 @@ describe('ProsConsInfoComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProsConsInfoComponent ]
-    })
-    .compileComponents();
+      declarations: [ProsConsInfoComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

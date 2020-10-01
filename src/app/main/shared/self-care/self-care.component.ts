@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import {MatDialogRef} from "@angular/material/dialog";
-import {Router} from "@angular/router";
-import {NavbarGoToService} from "@/main/shared/navbar/navbar-go-to.service";
+import { MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
 
 @Component({
   selector: 'app-self-care',
   templateUrl: './self-care.component.html',
-  styleUrls: ['./self-care.component.scss']
+  styleUrls: ['./self-care.component.scss'],
 })
 export class SelfCareComponent implements OnInit {
-
   constructor(
     public dialogRef: MatDialogRef<SelfCareComponent>,
     private router: Router,
@@ -18,8 +17,7 @@ export class SelfCareComponent implements OnInit {
     dialogRef.disableClose = true;
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   goToDashboard() {
     this.closeDialog();
@@ -28,7 +26,6 @@ export class SelfCareComponent implements OnInit {
 
   closeDialog() {
     this.dialogRef.close();
-      this.goToService.clickFlow.emit();
+    this.goToService.clickFlow.emit();
   }
-
 }

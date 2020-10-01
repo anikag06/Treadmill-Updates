@@ -1,4 +1,10 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -120,7 +126,7 @@ export class Conclusion2Component implements OnInit, OnDestroy {
         this.flowService.stepDetail.emit(this.navbarTitle);
       }
     });
-    this.flowService.showDashboardButton.subscribe( () => {
+    this.flowService.showDashboardButton.subscribe(() => {
       this.stepCompleted = true;
       this.showLoading = false;
       console.log('show dashboard');
@@ -135,7 +141,7 @@ export class Conclusion2Component implements OnInit, OnDestroy {
     this.commonDialogService.openCongratsDialog(
       this.currentStepId,
       true,
-      false
+      false,
     );
     this.showLoading = true;
     this.timeSpent = 200;
@@ -146,12 +152,6 @@ export class Conclusion2Component implements OnInit, OnDestroy {
       .subscribe(data => {
         console.log(data);
       });
-    this.commonDialogService.openCongratsDialog(
-      this.currentStepId,
-      // this.nextStepId,
-      true,
-      false,
-    );
   }
 
   onDashboard() {
