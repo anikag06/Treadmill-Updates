@@ -126,7 +126,7 @@ describe('treadwill Flow Experimental Group', () => {
       console.log('EXPERIMENTAL GROUP', expUser);
       fp.waitForStepUnlock('Introduction');
       fp.goToNextStep('Next step');
-      fp.findProgressElement('It\'s a trap');
+      fp.findProgressElement("It's a trap");
       fp.goToNextStep('Next step');
       fp.findProgressElement('Word jumble ');
       fp.reload();
@@ -330,7 +330,6 @@ describe('treadwill Flow Experimental Group', () => {
   //   expect(fp.getProgress()).toEqual('Progress');
   // });
   //
-
 
   // it('Should say not available when we revist the item', () => {
   //   fp.findQuestionnaireComponent();
