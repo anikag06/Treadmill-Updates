@@ -181,6 +181,7 @@ import { ReportService } from '@/main/support-groups/post-list/shared/report.ser
 import { GamesProgressBarService } from '@/main/games/shared/games-progress-bar.service';
 import { IdcScienceComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-science/idc-science.component';
 import { SelfCareComponent } from './shared/self-care/self-care.component';
+import { AsgInstructionsComponent } from './games/games-list/common-game/attribute-style-game/asg-instructions/asg-instructions.component';
 
 // import { Resources2Routing } from './extra-resources/extra-resources-routing.module.ts/extra-resources-routing.module.ts.component';
 
@@ -299,6 +300,7 @@ import { SelfCareComponent } from './shared/self-care/self-care.component';
     ThankComponent,
     IdcScienceComponent,
     SelfCareComponent,
+    AsgInstructionsComponent,
   ],
   imports: [
     CommonModule,
@@ -412,6 +414,7 @@ import { SelfCareComponent } from './shared/self-care/self-care.component';
     ReportProblemComponent,
     ThankComponent,
     SelfCareComponent,
+    AsgInstructionsComponent
   ],
   exports: [TrimStringPipe],
 })
