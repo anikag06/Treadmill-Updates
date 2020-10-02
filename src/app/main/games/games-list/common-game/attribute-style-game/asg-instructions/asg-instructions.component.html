@@ -1,17 +1,17 @@
-<div class="row w-100 px-0 py-0 pb-2 mx-0 ec-instruction-div">
+<div class="row w-100 px-0 pt-0 pb-3 mx-0 asg-instruction-div">
   <div class="col-12">
     <div class="row justify-content-center mt-2">
       <h5> How to play? </h5>
     </div>
-    <div class="row justify-content-center">
-      <div class="col justify-content-center">
-        <div class="col-auto justify-content-center">
+    <div class="row justify-content-center mt-1">
+      <div class="col-5 px-0 col-lg-12 order-2 order-lg-1 justify-content-center">
+        <div class="justify-content-center">
           <img class="asg-help-pic"
                src="../../../../../../../assets/games/Attribution-style-game/Balloon%20Burst.svg">
         </div>
 
       </div>
-      <div class="col justify-content-center">
+      <div class="col-7 px-0 col-lg-12 order-1 order-lg-2 justify-content-center instrn-text">
         <ul>
           <li>Shoot as many balloons as possible within 30 seconds.</li>
           <li>Click/Tap to shoot the arrow.</li>
@@ -20,12 +20,16 @@
 
       </div>
     </div>
-    <div class="row justify-content-center my-3">
+    <div class="row justify-content-center mt-2">
+      <div class="col-6 col-lg-12 text-center mt-2">
       <button [color]="'asg-start'"
               mat-raised-button
               (click)='asgGameStart()'>
         Start
       </button>
+      </div>
+    <div class="col-6 col-lg-12 text-center mt-2 mt-lg-3" *ngIf="viewSummary">
+      <button mat-raised-button [color]="'asg-summary'" (click)="onShowSummary()" type="button" #showSummaryBtn>View summary</button>
     </div>
   </div>
 

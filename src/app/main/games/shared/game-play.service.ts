@@ -37,6 +37,7 @@ import { IdcGameService } from '../games-list/common-game/identify-cognitive-dis
 import { IbgameHelpService } from '@/main/games/games-list/common-game/interpretation-bias-game/ibgame-help.service';
 import { LoadingBarService } from '@/main/games/shared/loading-bar.service';
 import {AsgInstructionsComponent} from "@/main/games/games-list/common-game/attribute-style-game/asg-instructions/asg-instructions.component";
+// import {AsgInstructionsComponent} from "@/main/games/games-list/common-game/attribute-style-game/asg-instructions/asg-instructions.component";
 
 // for interpretation bias game
 declare var startIBGame: any;
@@ -187,7 +188,8 @@ export class GamePlayService {
   ASGPostLevelPerformance = new ASGLevelPerformance(1, 1, 1, 1, 1);
   ASGGameInstanceId!: number;
   ASGUserPerformance!: ASGGetUserPerformance;
-
+  ASG_show_summary = false;
+  asg_help = false;
   constructor(
     private gamesService: GamesService,
     private gamesAuthService: GamesAuthService,
@@ -251,6 +253,7 @@ export class GamePlayService {
       this.ASGGameInstanceId = e.id;
       // ASGFeedback = e.ask_for_feedback;
       // console.log(e.ask_for_feedback);
+      this.ASG_show_summary = e.show_summary_button;
     });
   }
 
@@ -288,10 +291,6 @@ export class GamePlayService {
       console.log(this.gamesAuthService.atGetAnswers());
     }
     console.log(this.game);
-  }
-
-  helpASGGame() {
-    this.dialogBoxService.setDialogChild(AsgInstructionsComponent);
   }
 
 

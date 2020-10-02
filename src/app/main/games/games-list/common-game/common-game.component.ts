@@ -37,6 +37,7 @@ import { LhgHowtoplayComponent } from './learned-helplessness-game/lhg-howtoplay
 import { IdcGameService } from './identify-cognitive-distortion/idc-game.service';
 import { IntroService } from '@/main/walk-through/intro.service';
 import { IdcScienceComponent } from '@/main/games/games-list/common-game/identify-cognitive-distortion/idc-science/idc-science.component';
+import {AsgInstructionsComponent} from "@/main/games/games-list/common-game/attribute-style-game/asg-instructions/asg-instructions.component";
 
 declare let $: any;
 
@@ -197,17 +198,18 @@ export class CommonGameComponent implements OnInit {
       const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
       this.pauseBtnElement.nativeElement.dispatchEvent(domEvent);
     } else if (this.gameName === ATTRIBUTE_STYLE_GAME) {
-      this.gamePlayService.playAttributionStyleGame();
+      // this.gamePlayService.playAttributionStyleGame();
+      this.dialogBoxService.setDialogChild(AsgInstructionsComponent);
+      const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
+      this.pauseBtnElement.nativeElement.dispatchEvent(domEvent);
     } else if (this.gameName === FRIENDLY_FACE_GAME) {
       this.gamePlayService.playFriendlyFaceGame(
         this.device_type,
         this.gameDivElement,
       );
     } else if (this.gameName === MENTAL_IMAGERY_GAME) {
-      // this.miGameComponent.startPlayingMIGame();
       this.gamePlayService.playMentalImageryGame(this.gameDivElement);
     } else if (this.gameName === IDENTIFY_COGNITIVE_DISTORTION_GAME) {
-      // this.idcComponent.startPlaying();
       this.gamePlayService.playIdentifyCognitiveDistortionGame(
         this.gameDivElement,
       );
@@ -244,7 +246,8 @@ export class CommonGameComponent implements OnInit {
       this.gamePlayService.helpFFGGame();
     }
     if (this.gameName === ATTRIBUTE_STYLE_GAME) {
-      this.gamePlayService.helpASGGame();
+      this.gamePlayService.asg_help = true;
+      this.dialogBoxService.setDialogChild(AsgInstructionsComponent);
     }
     const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
     this.pauseBtnElement.nativeElement.dispatchEvent(domEvent);
