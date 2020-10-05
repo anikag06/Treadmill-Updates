@@ -72,7 +72,7 @@
               <app-mood-tracker
                 class="chatbot"
                 (onClose)="onMoodSelect()"
-                (moodSubmit)="onChatSubmit($event)"
+                (moodSubmit)="onChatSubmit()"
                 (moodMessage)="getMoodMessage($event)"
               ></app-mood-tracker>
             </div>
@@ -91,7 +91,7 @@
               <app-date-time-picker
                 class="chatbot"
                 (onClose)="onDateTimeSelect()"
-                (dateTimeSubmit)="onChatSubmit($event)"
+                (dateTimeSubmit)="onChatSubmit()"
                 (dateTimeMessage)="getDateTimeMessage($event)"
               ></app-date-time-picker>
             </div>
@@ -102,8 +102,8 @@
           >
             <app-form-slider
               class="chatbot"
-              [minRatingText]="1"
-              [maxRatingText]="10"
+              [minRatingText]="'Not at all'"
+              [maxRatingText]="'Very Strong'"
               (getRating)="getRating($event)"
             ></app-form-slider>
             <button
