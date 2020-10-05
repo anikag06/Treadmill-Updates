@@ -87,7 +87,7 @@ button {
 
 .contact-us-dialog .mat-dialog-container {
   @include common-dialog-style();
-
+  min-height: 440px !important;
   .mat-input-element {
     caret-color: $treadwill-pre-login-primary !important;
     @include font-lato();
