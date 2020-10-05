@@ -4,7 +4,7 @@
     <mat-icon (click)="onCloseClick()" class="cursor-hand">close</mat-icon>
   </div>
   <form [formGroup]="contactUsForm">
-    <label for="emailid">Email id</label>
+    <label>Email id</label>
     <mat-form-field class="form-field">
       <mat-hint> This email id will be visible to us </mat-hint>
       <input matInput name="emailid"
@@ -12,7 +12,7 @@
       <mat-error *ngIf="contactUsForm.controls.emailid.invalid">Please enter a valid email id</mat-error>
     </mat-form-field>
     <br>
-    <label for="message">Message</label>
+    <label>Message</label>
     <mat-form-field>
       <textarea maxlength="1024"
         [(ngModel)]="messageText"
@@ -22,6 +22,7 @@
         matTextareaAutosize
         matAutosizeMinRows=10
         matAutosizeMaxRows=500
+        rows = "5"
         required>
       </textarea>
       <mat-hint> Characters remaining: {{1024 - messageText.length }} </mat-hint>
@@ -33,6 +34,7 @@
 <div mat-dialog-actions align="center">
   <button mat-raised-button
     class="dialog-btn" (click)="submitData()">
-    Submit
-  </button>
+    <span class="spinner-border spinner-border-sm" *ngIf="showLoading"></span>
+    <span *ngIf="!showLoading" > Submit</span>    </button>
+
 </div>
