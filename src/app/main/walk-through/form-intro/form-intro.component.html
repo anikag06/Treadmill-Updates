@@ -1,6 +1,6 @@
 <div class="intro-img-div">
   <img
-    [ngStyle]="{ width: '80px', borderRadius: '50%' }"
+    class="therapist-img"
     src="assets/flow/therapist.svg"
     alt="intro_bot"
   />
@@ -8,7 +8,7 @@
 <div class="title" mat-dialog-title>{{ form.heading }}</div>
 
 <mat-dialog-content>
-  <div class="mb-2" [ngStyle]="{ fontSize: '16px', opacity: '0.8' }">
+  <div class="mb-2 description" >
     {{ form.description }}
   </div>
 </mat-dialog-content>
@@ -16,7 +16,6 @@
 <mat-dialog-actions class="float-right">
   <button
     mat-raised-button
-    [ngStyle]="{ textAlign: 'inherit' }"
     class="btn start-btn float-right"
     (click)="startIntro()"
     matDialogClose

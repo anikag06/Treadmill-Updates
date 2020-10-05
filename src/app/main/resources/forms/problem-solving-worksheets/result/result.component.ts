@@ -21,7 +21,7 @@ import { FormService } from '@/main/resources/forms/form.service';
 export class ResultComponent implements OnInit, OnChanges {
   constructor(
     private problemService: ProblemSolvingWorksheetsService,
-    private formService: FormService,
+    private formService: FormService
   ) {}
   @Input() solution_id!: number;
   @Input() task!: UserTask;
@@ -32,9 +32,9 @@ export class ResultComponent implements OnInit, OnChanges {
   quote!: string;
   quotedBy!: string;
   showMessage!: boolean;
-  yes = 'Great!';
+  yes = '<img src="assets/forms/well_done.png" height="16px" > Great!';
   no =
-    "Okay. You can try another solution to the problem. If you think that the problem just won't go away, work on accepting it.";
+    '&#129300; Okay. You can try another solution to the problem. If you think that the problem just won\'t go away, work on accepting it.';
 
   ngOnInit() {
     if (this.task) {
@@ -64,7 +64,7 @@ export class ResultComponent implements OnInit, OnChanges {
         },
         (error: HttpErrorResponse) => {
           console.log(error);
-        },
+        }
       );
     }
   }
@@ -80,7 +80,7 @@ export class ResultComponent implements OnInit, OnChanges {
         (data: any) => {
           this.result = new Result(+data.id, this.resultBody, this.didWork);
         },
-        error => console.log(error),
+        (error) => console.log(error)
       );
     } else {
       this.problemService.postResult(this.solution_id, object).subscribe(
@@ -88,7 +88,7 @@ export class ResultComponent implements OnInit, OnChanges {
           this.result = new Result(data.id, this.resultBody, this.didWork);
           this.onShowMessage();
         },
-        error => console.log(error),
+        (error) => console.log(error)
       );
     }
   }
@@ -99,10 +99,7 @@ export class ResultComponent implements OnInit, OnChanges {
     const date = this.task.end_at + ' ' + this.task.time;
     this.disableResult =
       moment().format('YYYY-MM-DD HH:mm') <
-      moment
-        .utc(date)
-        .local()
-        .format('YYYY-MM-DD HH:mm');
+      moment.utc(date).local().format('YYYY-MM-DD HH:mm');
   }
 
   onShowMessage() {
