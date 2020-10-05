@@ -8,6 +8,7 @@ import {GamePlayService} from "@/main/games/shared/game-play.service";
 })
 export class AsgInstructionsComponent implements OnInit {
   viewSummary!: boolean;
+  showSummary = false;
 
 
   constructor(
@@ -31,6 +32,10 @@ export class AsgInstructionsComponent implements OnInit {
     }
   }
   onShowSummary() {
-   //
+   this.showSummary = true;
+  }
+  closeDialog() {
+    const domEvent = new CustomEvent('removeOverlayEvent', {bubbles: true});
+    this.elementRef.nativeElement.dispatchEvent(domEvent);
   }
 }

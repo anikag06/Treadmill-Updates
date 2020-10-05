@@ -198,7 +198,6 @@ export class CommonGameComponent implements OnInit {
       const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
       this.pauseBtnElement.nativeElement.dispatchEvent(domEvent);
     } else if (this.gameName === ATTRIBUTE_STYLE_GAME) {
-      // this.gamePlayService.playAttributionStyleGame();
       this.dialogBoxService.setDialogChild(AsgInstructionsComponent);
       const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
       this.pauseBtnElement.nativeElement.dispatchEvent(domEvent);
