@@ -22,9 +22,13 @@ export class AsgSummaryComponent implements OnInit {
   onGoToHome() {
     this.router.navigate(['/']);
   }
-  onPlayAgain() {
-    this.gamePlayService.playAttributionStyleGame();
+  onPlayGame() {
     this.close.emit();
+    if (!this.gamePlayService.asg_help) {
+      this.gamePlayService.playAttributionStyleGame();
+    } else {
+      this.gamePlayService.resumeAttributionStyleGame();
+    }
   }
 
 }
