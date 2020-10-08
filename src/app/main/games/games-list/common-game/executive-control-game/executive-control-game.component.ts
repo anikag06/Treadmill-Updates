@@ -7,7 +7,7 @@ import {
   SimpleChange,
   HostListener,
   ViewChild,
-  ElementRef,
+  ElementRef, Output, EventEmitter,
 } from '@angular/core';
 import { GamePlayService } from '@/main/games/shared/game-play.service';
 import { LoadFilesService } from '@/main/games/shared/load-files.service';
@@ -31,6 +31,8 @@ export class ExecutiveControlGameComponent implements OnInit, OnDestroy {
   stepGroupSequence!: number;
   stepSequence!: number;
   stepName!: string;
+  showLoading = true;
+
 
   constructor(
     private playGameService: GamePlayService,
@@ -41,6 +43,8 @@ export class ExecutiveControlGameComponent implements OnInit, OnDestroy {
     private stepDataService: StepsDataService,
   ) {}
   @ViewChild('newElement', { static: false }) element!: ElementRef;
+  @Output() showPlayButtons = new EventEmitter();
+
 
   ngOnInit() {
     console.log('game name', this.playGameService.gameName);
@@ -185,5 +189,12 @@ export class ExecutiveControlGameComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     console.log('exec- ng on destroy');
     this.playGameService.closeExecControlGame();
+  }
+  removeLoading() {
+    console.log('IMAGE LOADED');
+    setTimeout( () => {
+      this.showLoading = false;
+      this.showPlayButtons.emit();
+    }, 100);
   }
 }

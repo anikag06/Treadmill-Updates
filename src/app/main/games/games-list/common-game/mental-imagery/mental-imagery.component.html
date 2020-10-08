@@ -1,7 +1,10 @@
 <div class="mi-container h-100 w-100">
 <div class="container-fluid justify-content-center" id="mi-game-div">
+  <div class="col text-center text-muted" style="top: 45%; font-size:14px;"  *ngIf="showLoading"> Loading... </div>
+
   <div *ngIf="home">
-    <img class="game-start-image ml-1" src="../../../../../../assets/games/mental-imagery-game/Daydream.svg">
+    <img class="game-start-image" src="../../../../../../assets/games/mental-imagery-game/Daydream.svg"
+         (load)="removeLoading()" [ngStyle]="{display: showLoading ? 'none' : 'inline'}"/>
   </div>
       <app-mi-play *ngIf="playing" (scoreUpdated)="onScoreUpdate($event)"></app-mi-play>
 

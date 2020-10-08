@@ -1,9 +1,9 @@
 import {
   Component,
-  ElementRef,
+  ElementRef, EventEmitter,
   HostListener,
   OnDestroy,
-  OnInit,
+  OnInit, Output,
   ViewChild,
 } from '@angular/core';
 import { LoadFilesService } from '@/main/games/shared/load-files.service';
@@ -29,6 +29,7 @@ export class AttributeStyleGameComponent implements OnInit, OnDestroy {
   stepSequence!: number;
   stepName!: string;
   gameName!: string;
+  showLoading = true;
   constructor(
     private loadFileService: LoadFilesService,
     private gamesAuthService: GamesAuthService,
@@ -40,6 +41,8 @@ export class AttributeStyleGameComponent implements OnInit, OnDestroy {
     private stepDataService: StepsDataService,
   ) {}
   @ViewChild('newElement', { static: false }) element!: ElementRef;
+  @Output() showPlayButtons = new EventEmitter();
+
 
   ngOnInit() {
     console.log('game name', this.gamePlayService.gameName);
@@ -124,5 +127,12 @@ export class AttributeStyleGameComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     console.log('exec- ng on destroy');
     this.gamePlayService.closeASGame();
+  }
+  removeLoading() {
+    console.log('IMAGE LOADED');
+    setTimeout( () => {
+      this.showLoading = false;
+      this.showPlayButtons.emit();
+    }, 100);
   }
 }

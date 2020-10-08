@@ -33,12 +33,12 @@
     </div>
     <!-- showing the game component  -->
     <div class="row justify-content-center align-items-center h-100" (click)="onGameScreenClick()">
-      <app-executive-control-game class="w-100 h-100" *ngIf="isExecutiveControl"></app-executive-control-game>
-      <app-interpretation-bias-game class="w-100 h-100" *ngIf="isInterpretationBias"></app-interpretation-bias-game>
+      <app-executive-control-game (showPlayButtons)="onShowPlayButtons()" class="w-100 h-100" *ngIf="isExecutiveControl"></app-executive-control-game>
+      <app-interpretation-bias-game (showPlayButtons)="onShowPlayButtons()" class="w-100 h-100" *ngIf="isInterpretationBias"></app-interpretation-bias-game>
       <app-learned-helplessness-game (showPlayButtons)="onShowPlayButtons()" class="w-100 h-100" *ngIf="isLearnedHelplessness"></app-learned-helplessness-game>
-      <app-attribute-style-game class="w-100 h-100" *ngIf="isAttributeGame"></app-attribute-style-game>
+      <app-attribute-style-game (showPlayButtons)="onShowPlayButtons()" class="w-100 h-100" *ngIf="isAttributeGame"></app-attribute-style-game>
       <app-friendly-face-game (showPlayButtons)="onShowPlayButtons()" class="w-100 h-100" *ngIf="isFriendlyFace"></app-friendly-face-game>
-      <app-mental-imagery class="w-100 h-100" *ngIf="isMentalImagery"></app-mental-imagery>
+      <app-mental-imagery (showPlayButtons)="onShowPlayButtons()" class="w-100 h-100" *ngIf="isMentalImagery"></app-mental-imagery>
       <app-identify-cognitive-distortion (showPlayButtons)="onShowPlayButtons()" class="w-100 h-100" *ngIf="isIdentifyCognitiveDistortion">
       </app-identify-cognitive-distortion>
     </div>

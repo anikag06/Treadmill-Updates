@@ -6,7 +6,7 @@ import {
   HostListener,
   EventEmitter,
   ViewChild,
-  ElementRef,
+  ElementRef, Output,
 } from '@angular/core';
 import {
   IBGameUserScore,
@@ -79,6 +79,8 @@ declare var ibg_btn_other_sentence_score: any;
 export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   @ViewChild('ibgameDiv', { static: false }) ibGameDiv!: ElementRef;
   @ViewChild('tooltip', { static: false }) showToolTip!: MatTooltip;
+  @Output() showPlayButtons = new EventEmitter();
+
 
   NO_OF_SENTENCES_RECEIVED = 3; // order of first sentence is 0
   // LEVEL_UP_SEN = 5;       // level up after how many sentences, here after 5 sentences;
@@ -132,6 +134,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   stepGroupSequence!: number;
   stepSequence!: number;
   stepName!: string;
+  showLoading = true;
 
   constructor(
     private gameAuthService: GamesAuthService,
@@ -497,5 +500,11 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
     this.showToolTip.showDelay = 100;
     this.showToolTip.hideDelay = 1000;
     this.showToolTip.toggle();
+  }
+  removeLoading() {
+    setTimeout( () => {
+      this.showLoading = false;
+      this.showPlayButtons.emit();
+    }, 100);
   }
 }
