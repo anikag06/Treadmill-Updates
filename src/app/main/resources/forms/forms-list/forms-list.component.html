@@ -1,27 +1,22 @@
 
 <div class="forms mt-3">
   <div class="row  justify-content-center justify-content-lg-between mx-0">
-<!--    <div-->
-<!--      class="col-lg-4 col-md-6 col-sm-12 px-lg-3 px-md-2 col-xs-12 form-div mb-lg-4 mb-md-3"-->
-<!--      *ngFor="let form of forms"-->
-<!--    >-->
+
       <div
         class="p-1 form-div mb-lg-4 mb-md-3"
         *ngFor="let form of forms"
       >
-      <!--      <a [routerLink]="form.path">-->
       <mat-card
         class="pl-0 mr-0 form-card"
         (click)="navigate(form)"
         [ngStyle]="{ cursor: 'pointer' }"
       >
-        <div class=" img-div" >
+        <div class="img-div justify-content-center " >
           <mat-card-content> </mat-card-content>
-          <img mat-card-image [src]="form.banner" width="125" height="100">
+          <img mat-card-image [src]="form.banner" width="125" height="100" (load)="removeLoading()"  [ngStyle]="{display: showLoading ? 'none' : 'inline'}" >
+          <span  *ngIf="showLoading"> Loading... </span>
+
         </div>
-<!--        <mat-card-header style="max-height : 25vh; min-height : 20vh;">-->
-<!--          &lt;!&ndash;            <mat-card-title>{{form.name}}</mat-card-title>&ndash;&gt;-->
-<!--        </mat-card-header>-->
 
         <mat-card-footer>
           <div class="form-name text-center ml-3 pl-3">
@@ -29,8 +24,6 @@
           </div>
         </mat-card-footer>
       </mat-card>
-      <!--      </a>-->
     </div>
   </div>
 </div>
-<!--col-lg-4 col-md-6 col-sm-12 px-lg-3 px-md-2 col-xs-12 form-div mb-lg-4 mb-md-3-->

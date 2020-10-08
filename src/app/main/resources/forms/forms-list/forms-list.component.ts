@@ -14,6 +14,7 @@ import { User } from '@/shared/user.model';
 })
 export class FormsListComponent implements OnInit {
   user!: User;
+  showLoading = true;
 
   constructor(
     private formsService: FormsService,
@@ -46,5 +47,10 @@ export class FormsListComponent implements OnInit {
       });
     }
     this.router.navigateByUrl(form.path);
+  }
+  removeLoading() {
+    setTimeout( () => {
+      this.showLoading = false;
+    }, 100);
   }
 }
