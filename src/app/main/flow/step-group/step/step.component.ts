@@ -246,10 +246,10 @@ export class StepComponent implements OnInit, AfterViewInit {
       setTimeout(() => this.flowService.triggerLoad(), 2000);
     }
 
-    if (this.step.name === 'Be mindful') {
+    if (this.step.name === 'Be mindful' && this.step.status !== COMPLETED) {
       this.introDialogService.openResourceIntro(true, BE_MINDFUL);
     }
-    if (this.step.name === 'Testimonials') {
+    if (this.step.name === 'Testimonials' && this.step.status !== COMPLETED) {
       this.introDialogService.openResourceIntro(true, TESTIMONIALS);
     }
     if (this.step.status !== LOCKED) {

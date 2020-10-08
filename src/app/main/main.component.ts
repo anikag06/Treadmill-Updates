@@ -328,14 +328,4 @@ export class MainComponent
       }
     });
   }
-
-  showResourcesIntro() {
-    this.introService.showAnimation(SUPPORT_GROUP).subscribe((data: any) => {
-      if (data.show_animation) {
-        setTimeout(() => {
-          this.introDialogService.openResourceIntro(false, BE_MINDFUL);
-        }, 1500);
-      }
-    });
-  }
 }
