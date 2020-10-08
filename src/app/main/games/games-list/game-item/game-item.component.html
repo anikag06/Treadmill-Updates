@@ -1,6 +1,7 @@
 <mat-card class="mat-card" (click)="onGameClick(game)">
   <div class="cover-img" [style.background-color]="getBackgroundColor(game.slug)">
-    <img class="mx-auto" [src]="game.thumbnail" [alt]="game.name" style="height:130px">
+    <img class="mx-auto" (load)="removeLoading()" [src]="game.thumbnail" [ngStyle]="{display: showLoading ? 'none' : 'inline'}" [alt]="game.name" style="height:130px">
+   <p *ngIf="showLoading"> Loading... </p>
   </div>
 
   <mat-card-footer class = "footer-style">

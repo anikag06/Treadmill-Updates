@@ -21,6 +21,7 @@ import { IntroService } from '@/main/walk-through/intro.service';
 import { IntroDialogService } from '@/main/walk-through/intro-dialog.service';
 import { GamesProgressBarService } from '@/main/games/shared/games-progress-bar.service';
 import { GamesBar } from '@/main/shared/games-bar.model';
+import set = Reflect.set;
 
 @Component({
   selector: 'app-game-item',
@@ -42,6 +43,7 @@ export class GameItemComponent implements OnInit {
   solveItStatus!: boolean;
   balloonBurstStatus!: boolean;
   week!: string;
+  showLoading = true;
   gameNotStartedMsg = 'Start playing this game today!';
   completedMsg = 'Congrats! You have completed this game!';
   incompleteMsg = 'Start playing this game today!';
@@ -207,5 +209,10 @@ export class GameItemComponent implements OnInit {
 
   isASGame() {
     return this.game.name === ATTRIBUTE_STYLE_GAME;
+  }
+  removeLoading() {
+    setTimeout( () => {
+      this.showLoading = false;
+    }, 100);
   }
 }

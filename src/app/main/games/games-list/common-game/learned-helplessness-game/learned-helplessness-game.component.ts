@@ -5,7 +5,7 @@ import {
   Output,
   ViewChild,
   ElementRef,
-  OnDestroy,
+  OnDestroy, EventEmitter,
 } from '@angular/core';
 import { GamePlayService } from '@/main/games/shared/game-play.service';
 import { LoadFilesService } from '@/main/games/shared/load-files.service';
@@ -39,6 +39,7 @@ export class LearnedHelplessnessGameComponent implements OnInit, OnDestroy {
   stepName!: string;
   lhcolorReverseGame = true;
   gameName!: string;
+  showLoading = true;
 
   constructor(
     private gamePlayService: GamePlayService,
@@ -54,6 +55,8 @@ export class LearnedHelplessnessGameComponent implements OnInit, OnDestroy {
   ) {}
 
   @ViewChild('infoElement', { static: false }) element!: ElementRef;
+  @Output() showPlayButtons = new EventEmitter();
+
   @HostListener('window:CallLevelChangeStoreFun')
   onLevelChangeLHGame() {
     this.updateColorReverseGameData();
@@ -235,5 +238,11 @@ export class LearnedHelplessnessGameComponent implements OnInit, OnDestroy {
     this.dialogBoxService.setDialogChild(GamesFeedbackComponent);
     const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
     this.element.nativeElement.dispatchEvent(domEvent);
+  }
+  removeLoading() {
+    setTimeout( () => {
+      this.showLoading = false;
+      this.showPlayButtons.emit();
+    }, 100);
   }
 }

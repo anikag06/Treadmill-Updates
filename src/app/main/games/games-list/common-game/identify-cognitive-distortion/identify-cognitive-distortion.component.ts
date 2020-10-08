@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {Component, OnInit, ViewChild, ElementRef, Output, EventEmitter} from '@angular/core';
 import { IdcGameService } from './idc-game.service';
 import { IdcScoreComponent } from './idc-score/idc-score.component';
 import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
@@ -18,6 +18,8 @@ export class IdentifyCognitiveDistortionComponent implements OnInit {
   @ViewChild(IdcScoreComponent, { static: false })
   idcScoreComponent!: IdcScoreComponent;
   @ViewChild('infoElement', { static: false }) element!: ElementRef;
+  @Output() showPlayButtons = new EventEmitter();
+
   navbarTitle!: string;
   stepGroupSequence!: number;
   stepSequence!: number;
@@ -25,6 +27,7 @@ export class IdentifyCognitiveDistortionComponent implements OnInit {
   playing = false;
   gameName!: string;
   blurred = false;
+  showLoading = true;
 
   constructor(
     private gameService: IdcGameService,
@@ -109,5 +112,11 @@ export class IdentifyCognitiveDistortionComponent implements OnInit {
     this.dialogBoxService.setDialogChild(IdcInfoComponent);
     const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
     this.element.nativeElement.dispatchEvent(domEvent);
+  }
+  removeLoading() {
+    setTimeout( () => {
+      this.showLoading = false;
+      this.showPlayButtons.emit();
+    }, 1000);
   }
 }

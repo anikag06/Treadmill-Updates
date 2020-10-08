@@ -35,16 +35,16 @@
     <div class="row justify-content-center align-items-center h-100" (click)="onGameScreenClick()">
       <app-executive-control-game class="w-100 h-100" *ngIf="isExecutiveControl"></app-executive-control-game>
       <app-interpretation-bias-game class="w-100 h-100" *ngIf="isInterpretationBias"></app-interpretation-bias-game>
-      <app-learned-helplessness-game class="w-100 h-100" *ngIf="isLearnedHelplessness"></app-learned-helplessness-game>
+      <app-learned-helplessness-game (showPlayButtons)="onShowPlayButtons()" class="w-100 h-100" *ngIf="isLearnedHelplessness"></app-learned-helplessness-game>
       <app-attribute-style-game class="w-100 h-100" *ngIf="isAttributeGame"></app-attribute-style-game>
-      <app-friendly-face-game class="w-100 h-100" *ngIf="isFriendlyFace"></app-friendly-face-game>
+      <app-friendly-face-game (showPlayButtons)="onShowPlayButtons()" class="w-100 h-100" *ngIf="isFriendlyFace"></app-friendly-face-game>
       <app-mental-imagery class="w-100 h-100" *ngIf="isMentalImagery"></app-mental-imagery>
-      <app-identify-cognitive-distortion class="w-100 h-100" *ngIf="isIdentifyCognitiveDistortion">
+      <app-identify-cognitive-distortion (showPlayButtons)="onShowPlayButtons()" class="w-100 h-100" *ngIf="isIdentifyCognitiveDistortion">
       </app-identify-cognitive-distortion>
     </div>
     <!-- buttons on first page -->
 
-    <div class="row align-items-center firstpage-btns" id="firstpage-btns" #firstpage_btns>
+    <div class="row align-items-center firstpage-btns" id="firstpage-btns" #firstpage_btns *ngIf="!loading">
       <div class="w-100 row " [ngClass]="{'center-postion': portraitGame ===true ,
             'end-position' : portraitGame === false}">
         <div class="col-auto mr-auto px-0">
@@ -65,7 +65,7 @@
           (click) = "onExitClick()"
           src="../../../../../assets/games/back.png"> -->
     </div>
-    <div class="row justify-content-center align-items-center play-game-btn" #start_game_btns>
+    <div class="row justify-content-center align-items-center play-game-btn" #start_game_btns *ngIf="!loading">
       <div class="col-auto mx-auto justify-content-center">
         <img id="common-start-btn" class="common-play-game mx-auto" (click)="onPlayClick()"
           src="../../../../../assets/games/play.png">

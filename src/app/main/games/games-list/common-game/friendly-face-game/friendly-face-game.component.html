@@ -1,7 +1,12 @@
 <div class="ff-game-div h-100 w-100">
   <div id="face-game-main-div">
+    <div class="col text-center text-muted" style="top: 45%; font-size:14px;"  *ngIf="showLoading"> Loading... </div>
+
     <div class="game-cover row justify-content-center">
-      <img id="ffg-image" src="../../../../../../assets/games/friendly-face-game/images/Find a smile.svg" />
+
+      <img id="ffg-image" src="../../../../../../assets/games/friendly-face-game/images/Find a smile.svg"
+           (load)="removeLoading()" [ngStyle]="{display: showLoading ? 'none' : 'inline'}"/>
+
       <br />
     </div>
 

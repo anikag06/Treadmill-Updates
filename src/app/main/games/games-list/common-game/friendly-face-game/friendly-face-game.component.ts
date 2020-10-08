@@ -4,7 +4,7 @@ import {
   HostListener,
   ViewChild,
   ElementRef,
-  ViewContainerRef,
+  ViewContainerRef, Output, EventEmitter,
 } from '@angular/core';
 import { GamePlayService } from '@/main/games/shared/game-play.service';
 import { GamesAuthService } from '@/main/games/shared/games-auth.service';
@@ -102,8 +102,10 @@ export class FriendlyFaceGameComponent implements OnInit {
   stepGroupSequence!: number;
   stepSequence!: number;
   stepName!: string;
+  showLoading = true;
 
   @ViewChild('newElement', { static: false }) element!: ElementRef;
+  @Output() showPlayButtons = new EventEmitter();
 
   ffgUserOrderData = new FFGameUserData(0, 0, 0);
   ffgUserPerformance = new FFGamePerformance(1, 0, 'touch', 0, 0, false);
@@ -410,5 +412,11 @@ export class FriendlyFaceGameComponent implements OnInit {
   updateBadges() {
     this.no_correct_responses = ffg_total_positive_images;
     this.ffgHelpService.updateBadges.emit();
+  }
+  removeLoading() {
+    setTimeout( () => {
+      this.showLoading = false;
+      this.showPlayButtons.emit();
+    }, 100);
   }
 }

@@ -79,6 +79,7 @@ export class CommonGameComponent implements OnInit {
 
   gameElement!: ElementRef;
   showComponent = true;
+  loading = true;
 
   // for mental imagery game
   @ViewChild(MentalImageryComponent, { static: false })
@@ -386,5 +387,8 @@ export class CommonGameComponent implements OnInit {
   @HostListener('touchstart')
   onTouchEvent() {
     this.device_type = 'touch';
+  }
+  onShowPlayButtons() {
+    this.loading = false;
   }
 }
