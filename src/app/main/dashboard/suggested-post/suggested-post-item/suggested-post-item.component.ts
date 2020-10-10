@@ -18,6 +18,7 @@ export class SuggestedPostItemComponent implements OnInit {
   @Input() suggestedPost!: SuggestedPost;
   id!: number;
   bodyLength = 60;
+  showLoading = true;
 
   ngOnInit() {}
   ngAfterViewInit(): void {}
@@ -43,5 +44,10 @@ export class SuggestedPostItemComponent implements OnInit {
         queryParamsHandling: 'merge',
       });
     }
+  }
+  removeLoading() {
+    setTimeout( () => {
+      this.showLoading = false;
+    }, 100);
   }
 }

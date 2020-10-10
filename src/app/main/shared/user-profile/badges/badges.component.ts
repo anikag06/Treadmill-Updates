@@ -8,7 +8,9 @@ import { Badge } from './badge.model';
 })
 export class BadgesComponent implements OnInit {
   @Input() badgeList!: Badge[];
-  @ViewChild('widgetsContent', { static: false })
+  @Input() profileLoaded!: boolean;
+  @ViewChild('widgetsContent', {static: false})
+  showLoading = true;
   public widgetsContent!: ElementRef<any>;
 
   public scrollRight(): void {
@@ -24,7 +26,18 @@ export class BadgesComponent implements OnInit {
       behavior: 'smooth',
     });
   }
-  constructor() {}
 
-  ngOnInit() {}
+  constructor() {
+  }
+
+  ngOnInit() {
+  }
+
+  // removeLoading() {
+  //   if (this.profileLoaded) {
+  //     setTimeout(() => {
+  //       this.showLoading = false;
+  //     }, 1000);
+  //   }
+  // }
 }

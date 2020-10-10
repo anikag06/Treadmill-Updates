@@ -16,6 +16,8 @@ import { UserProfile } from './UserProfile.model';
 export class UserProfileComponent implements OnInit, AfterViewInit {
   constructor(private element: ElementRef) {}
   @Input() userProfile!: UserProfile;
+  showLoading = true;
+  profileLoaded = false;
   ngOnInit() {}
 
   ngAfterViewInit() {
@@ -50,5 +52,13 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
   }
   getBronzeBadgeList() {
     return this.userProfile.badge_list_bronze;
+  }
+  removeLoading() {
+    setTimeout( () => {
+      this.showLoading = false;
+      setTimeout( () => {
+        this.profileLoaded = true;
+      }, 1000);
+    }, 100);
   }
 }

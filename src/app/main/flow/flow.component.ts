@@ -26,6 +26,7 @@ export class FlowComponent implements OnInit, OnDestroy {
   @Input() fromGoto!: boolean;
   showQuestionnaire = false;
   followUp = false;
+  showDelayMessge = false;
 
   constructor(
     private flowService: FlowService,
@@ -52,6 +53,10 @@ export class FlowComponent implements OnInit, OnDestroy {
         this.introExit = value;
       },
     );
+    setTimeout( () => {
+      this.showDelayMessge = true;
+      console.log('SHOW DELAY', this.showDelayMessge );
+    }, 5000);
     // this.quizService.questionnaire_active.subscribe((value: boolean) => {
     //   console.log('EVENT EMITTED', value, 'Follow up', this.followUp);
     //   if (!value && this.followUp) {
@@ -80,6 +85,7 @@ export class FlowComponent implements OnInit, OnDestroy {
     this.flowSubscription = this.flowService
       .getFlow()
       .subscribe((data: any) => {
+        this.showDelayMessge = false;
         console.log('response', data);
         if (data.step_groups) {
           this.stepGroups = data.step_groups;

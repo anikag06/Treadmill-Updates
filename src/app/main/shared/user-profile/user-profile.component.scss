@@ -8,6 +8,11 @@
   padding-left: 15px;
   padding-top: 15px;
 }
+.img-skeleton {
+  background: transparent 0% 0% no-repeat padding-box !important;
+  opacity: 1;
+  background-color: #E8E8E8 !important;
+}
 
 .mat-card-title {
   margin-top: 30px;

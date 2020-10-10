@@ -52,6 +52,11 @@
   <div class="col">
     <div class="text-center loader">
       <img src="assets/shared/loading-gif.gif" alt="loader" width="80" />
+      <p  class="delay-message" *ngIf="showDelayMessge">
+        We have detected a slow internet connection.
+        <br>
+        We are trying to connect.
+      </p>
     </div>
   </div>
 </ng-template>

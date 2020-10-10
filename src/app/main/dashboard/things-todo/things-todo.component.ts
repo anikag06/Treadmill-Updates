@@ -16,6 +16,7 @@ export class ThingsTodoComponent implements OnInit {
   ) {}
   todoList: any[] = [];
   iconList: String[] = [];
+  showLoading = true;
 
   ngOnInit() {
     this.thingsTodoService.getThingsTodo().subscribe((data: any) => {
@@ -48,5 +49,10 @@ export class ThingsTodoComponent implements OnInit {
 
   onThingsTodoClicked(element: any) {
     this.router.navigate([element]);
+  }
+  removeLoading() {
+    setTimeout( () => {
+      this.showLoading = false;
+    }, 100);
   }
 }

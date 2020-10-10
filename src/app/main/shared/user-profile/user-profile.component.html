@@ -3,7 +3,8 @@
   <div class="profile-header">
     <mat-card-header>
       <div mat-card-avatar>
-        <img [src]="userProfile.user_avatar" class="profile-image" alt="You" />
+        <img [src]="userProfile.user_avatar" class="profile-image" alt="You"  (load)="removeLoading()" [ngStyle]="{display: showLoading ? 'none' : 'block'}" />
+        <div class="profile-image img-skeleton " alt="You" [ngStyle]="{display: !showLoading ? 'none' : 'block'}" ></div>
       </div>
       <mat-card-title  class="pl-4">{{ userProfile.username }}</mat-card-title>
       <mat-card-subtitle>
@@ -38,7 +39,7 @@
           </div>
         </ng-template>
         <ng-template matTabContent>
-          <app-badges [badgeList]="getGoldBadgeList()"> </app-badges>
+          <app-badges [badgeList]="getGoldBadgeList()" [profileLoaded] = "profileLoaded"> </app-badges>
         </ng-template>
       </mat-tab>
       <mat-tab>
@@ -49,7 +50,7 @@
           </div>
         </ng-template>
         <ng-template matTabContent>
-          <app-badges [badgeList]="getSilverBadgeList()"> </app-badges>
+          <app-badges [badgeList]="getSilverBadgeList()" [profileLoaded] = "profileLoaded"> </app-badges>
         </ng-template>
       </mat-tab>
       <mat-tab label="Bronze">
@@ -60,7 +61,7 @@
           </div>
         </ng-template>
         <ng-template matTabContent>
-          <app-badges [badgeList]="getBronzeBadgeList()"> </app-badges>
+          <app-badges [badgeList]="getBronzeBadgeList()" [profileLoaded] = "profileLoaded"> </app-badges>
         </ng-template>
       </mat-tab>
     </mat-tab-group>

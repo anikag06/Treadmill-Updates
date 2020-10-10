@@ -4,11 +4,13 @@
             <mat-icon>keyboard_arrow_left</mat-icon>
         </button>
         <div class="cover-item" *ngFor="let badge of badgeList">
-            <div class="badge-box " [ngStyle]="{'opacity': !badge.user_has_badge ? '0.3': '1'}">
-                <div *ngIf="badge.no_badges_earned > 0" class="badge-count"><mat-icon class="clear-icon">clear</mat-icon>{{badge.no_badges_earned}} </div> <img
-                    class="badge-image" src="{{badge.image}}" [alt]="badge.name"
-                    [matTooltip]='badge.description' matTooltipPosition="above">
-                <div class="badge-name">{{badge.name}}</div>
+            <div class="badge-box" [ngStyle]="{'opacity': !badge.user_has_badge ? '0.3': '1'}">
+                <div *ngIf="badge.no_badges_earned > 0" class="badge-count"><mat-icon class="clear-icon">clear</mat-icon>{{badge.no_badges_earned}} </div>
+              <img class="badge-image" src="{{badge.image}}" [alt]="badge.name"
+                    [matTooltip]='badge.description' matTooltipPosition="above" [ngStyle]="{display: !profileLoaded ? 'none' : 'inline-block'}">
+              <div class="badge-image badge-skeleton" alt="You" [ngStyle]="{display: profileLoaded ? 'none' : 'inline-block'}" ></div>
+
+              <div class="badge-name">{{badge.name}}</div>
             </div>
         </div>
         <button class="right-arrow" (click)="scrollRight()">

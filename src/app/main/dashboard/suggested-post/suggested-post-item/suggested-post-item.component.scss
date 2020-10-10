@@ -7,7 +7,7 @@
 
 
   img {
-    margin-right: 25px
+    margin-right: 25px;
   }
 
   .main-content {
@@ -27,6 +27,13 @@
     -webkit-line-clamp: 2;
     /* number of lines to show */
   }
+  .text-skeleton {
+    height: 20px;
+    background: #E8E8E8 0% 0% no-repeat padding-box;
+    opacity: 0.6;
+    background-color: #E8E8E8 !important;
+    width:100%
+  }
 
   h2 {
     font-size: 16px;
@@ -45,6 +52,12 @@
   border-radius: 50%;
   width: 49px;
   height: 49px;
+}
+.avatar-skeleton {
+  background: transparent 0% 0% no-repeat padding-box !important;
+  opacity: 1;
+  background-color: #E8E8E8 !important;
+  margin-right: 25px;
 }
 
 .user-avatar-username {

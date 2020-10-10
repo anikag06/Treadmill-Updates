@@ -29,7 +29,7 @@
     .things-todo-main-list {
       list-style: none;
       font-size: 16px;
-      padding: 20px 5px 20px 25px;
+      padding: 20px 10px 20px 10px;
 
       li {
         margin: 0px;
@@ -37,6 +37,21 @@
       }
     }
   }
+}
+
+.icon-skeleton {
+  background: transparent 0% 0% no-repeat padding-box !important;
+  opacity: 1;
+  background-color: #E8E8E8 !important;
+  border-radius:50%;
+  //margin-right: 25px;
+}
+.text-skeleton {
+  height: 20px;
+  background: #E8E8E8 0% 0% no-repeat padding-box;
+  opacity: 0.6;
+  background-color: #E8E8E8 !important;
+  width:100%
 }
 
 .no-gutters {
@@ -58,6 +73,7 @@
 
 .icon-item {
   height: 32px;
+  width:32px;
   margin-right: 10px;
 }
 

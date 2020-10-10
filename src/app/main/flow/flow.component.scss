@@ -36,6 +36,11 @@
     }
   }
 }
+.delay-message {
+  font-size: 16px;
+  opacity:60%;
+  margin-top:35px;
+}
 
 .dashboard-flow-container {
   width: 35.286vw;
@@ -92,6 +97,9 @@
   .in-mobile {
     display: block;
   }
+  .delay-message {
+    font-size: 14px;
+  }
 }
 .intro-overlay{
   background: #000;
@@ -101,3 +109,4 @@
   opacity: 0.7;
   z-index: 99999;
 }
+
