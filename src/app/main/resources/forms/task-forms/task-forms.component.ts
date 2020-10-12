@@ -32,6 +32,8 @@ export class TaskFormsComponent implements OnInit {
   stepGroupSequence!: number;
   stepSequence!: number;
   stepName!: string;
+  showLoading = true;
+
   constructor(
     private formService: FormService,
     private flowService: FlowService,
@@ -45,7 +47,7 @@ export class TaskFormsComponent implements OnInit {
       this.step_id = v.step_id;
       console.log('step id', this.step_id);
     });
-    if (this.step_id) {
+    if (this.step_id !== null) {
       this.stepDataService.getStepData(this.step_id).subscribe((res: any) => {
         const step = res.data;
         console.log('RESPONSE', res.data, step.status);
@@ -67,6 +69,9 @@ export class TaskFormsComponent implements OnInit {
       this.formService.formName = this.formName;
       this.formService.formTitle.emit();
     }
+    setTimeout( () => {
+      this.showLoading = false;
+    }, 1000);
   }
 
   taskSelected(task: UserTask) {

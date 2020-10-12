@@ -76,6 +76,8 @@ export class ExperimentToTestBeliefFormComponent implements OnInit {
   stepSequence!: number;
   stepName!: string;
   step_id!: number;
+  showLoading = true;
+
   @ViewChild(EttbfBeliefComponent, { static: false })
   beliefStatementForm!: EttbfBeliefComponent;
   @ViewChild(EttbfOutcomeComponent, { static: false })
@@ -137,6 +139,9 @@ export class ExperimentToTestBeliefFormComponent implements OnInit {
     if (id !== null && id !== undefined) {
       this.loadTestBeliefByID(parseInt(id));
     }
+    setTimeout( () => {
+      this.showLoading = false;
+    }, 1000);
   }
   // ngAfterViewInit(){
   //   console.log(this.outcomeStatementForm);

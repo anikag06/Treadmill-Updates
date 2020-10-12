@@ -23,7 +23,8 @@
     </mat-card-header>
   </div>
   <div class="row no-gutters form-div mx-auto">
-    <div class="col-12 col-lg">
+      <div *ngIf="showLoading" class="col-12 text-center text-loading" > Loading... </div>
+    <div class="col-12 col-lg" [ngStyle]="{visibility: showLoading ? 'hidden' : 'visible'}">
       <div class="row mb-2">
         <div class="col-12">
           <app-negative-belief [belief]="belief" (onShowTechniques)="onShowTechniques()"

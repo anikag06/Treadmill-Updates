@@ -27,7 +27,9 @@
   </div>
 
   <div class="row no-gutters form-div mx-auto">
-    <div class="col-12 col-lg-12 ">
+    <div *ngIf="showLoading" class="col-12 text-center text-loading" > Loading... </div>
+
+    <div class="col-12 col-lg-12 " [ngStyle]="{visibility: showLoading ? 'hidden' : 'visible'}">
       <app-tasks [task]="task" [reset]="reset" [taskHeading]="taskHeading" (showMessage)="setShowMessage($event)">
       </app-tasks>
       <app-form-quote *ngIf="showMessage" [quote]="quote" [quotedBy]="quotedBy"></app-form-quote>

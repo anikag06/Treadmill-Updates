@@ -35,6 +35,11 @@ $form-secondary-color: #2a3b3d;
   margin-left: 0 !important;
   }
 
+.text-loading {
+  opacity: 40%;
+  padding-top: 80px;
+  font-size:14px;
+}
 @media screen and (max-width: 992px) {
   #form-container {
     width: 70%;

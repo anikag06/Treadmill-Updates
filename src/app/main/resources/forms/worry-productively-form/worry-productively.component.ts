@@ -86,6 +86,8 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
   stepGroupSequence!: number;
   stepSequence!: number;
   stepName!: string;
+  showLoading = true;
+
   // message!: FormMessage;
   uselessCharacteristicsForm = this.fb.group({
     characteristics: this.fb.array([]),
@@ -108,7 +110,7 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
       this.step_id = v.step_id;
       console.log('step id', this.step_id, this.fromSlide);
     });
-    if (this.step_id) {
+    if (this.step_id !== null) {
       this.stepDataService.getStepData(this.step_id).subscribe((res: any) => {
         const step = res.data;
         console.log('RESPONSE', res.data, step.status);
@@ -154,6 +156,9 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
     if (id !== null) {
       this.loadWorryByID(parseInt(id));
     }
+    setTimeout( () => {
+      this.showLoading = false;
+    }, 1000);
   }
 
   loadWorryByID(id: any) {

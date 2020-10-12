@@ -5,18 +5,22 @@
         class="col-lg-6 col-sm-12 col-md-12"
         *ngFor="let conversation of conversationGroups; let i = index"
       >
-        <div class="card text-left">
+
+        <div class="card text-left" >
           <div class="row">
+          <div *ngIf="showLoading" class="col-12 text-muted text-center" style="position:absolute;top:40%"> Loading... </div>
+        </div>
+          <div class="row" [ngStyle]="{visibility: showLoading ? 'hidden' : 'visible'}">
             <div class="col-12">
               <div class="heading">
                 <b>{{ conversation.title }} </b>
                 <div class="mx-2 float-right">
-                  <img [src]="conversation.avatar_image" class="imgg text-right" />
+                  <img [src]="conversation.avatar_image" class="imgg text-right" (load)="removeLoading()"  />
                 </div>
               </div>
             </div>
           </div>
-          <div class="row" class="text">
+          <div class="row" class="text" [ngStyle]="{visibility: showLoading ? 'hidden' : 'visible'}">
             <div class="col-12" [innerHTML]="conversation.description">
             </div>
           </div>

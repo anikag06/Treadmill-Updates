@@ -68,6 +68,8 @@ export class ThoughtRecordFormComponent implements OnInit {
   stepSequence!: number;
   stepName!: string;
   step_id!: number;
+  showLoading = true;
+
   constructor(
     private formService: FormService,
     private formsService: FormsService,
@@ -82,7 +84,7 @@ export class ThoughtRecordFormComponent implements OnInit {
       this.step_id = v.step_id;
       console.log('step id', this.step_id);
     });
-    if (this.step_id) {
+    if (this.step_id !== null) {
       this.stepDataService.getStepData(this.step_id).subscribe((res: any) => {
         const step = res.data;
         console.log('RESPONSE', res.data, step.status);
@@ -104,6 +106,9 @@ export class ThoughtRecordFormComponent implements OnInit {
     if (id !== null) {
       this.loadThoughtByID(parseInt(id));
     }
+    setTimeout( () => {
+      this.showLoading = false;
+    }, 1000);
   }
 
   loadThoughtByID(id: any) {

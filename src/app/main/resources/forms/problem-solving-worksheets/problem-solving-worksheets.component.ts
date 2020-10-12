@@ -77,6 +77,8 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   stepSequence!: number;
   stepName!: string;
   step_id!: number;
+  showLoading = true;
+
   // menuOpen = false;
   @Input() fromSlide!: boolean;
   @Input() fromConv!: boolean;
@@ -98,7 +100,7 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
       this.step_id = v.step_id;
       console.log('step id', this.step_id);
     });
-    if (this.step_id) {
+    if (this.step_id !== null) {
       this.stepDataService.getStepData(this.step_id).subscribe((res: any) => {
         const step = res.data;
         console.log('RESPONSE', res.data, step.status);
@@ -135,6 +137,9 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
     if (id !== null) {
       this.loadProblemByID(parseInt(id));
     }
+    setTimeout( () => {
+      this.showLoading = false;
+    }, 1000);
   }
 
   loadProblemByID(id: any) {

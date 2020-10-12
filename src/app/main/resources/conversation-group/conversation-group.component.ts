@@ -32,6 +32,7 @@ export class ConversationGroupComponent implements OnInit {
   stepGroupSequence!: number;
   stepSequence!: number;
   stepName!: string;
+  showLoading = true;
   description_model!: {
     message: string[];
     image: string[];
@@ -129,5 +130,10 @@ export class ConversationGroupComponent implements OnInit {
   speed_run(i: number) {
     this.conversation_id = this.conversationGroups[i].id;
     this.passdata.setOption(this.conversation_id, false, false, true);
+  }
+  removeLoading() {
+    setTimeout( () => {
+      this.showLoading = false;
+    }, 100);
   }
 }

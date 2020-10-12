@@ -63,6 +63,7 @@ export class BeliefChangeComponent implements OnInit {
   stepSequence!: number;
   stepName!: string;
   step_id!: number;
+  showLoading = true;
   ngOnInit() {
     this.activatedRoute.params.subscribe(v => {
       this.step_id = v.step_id;
@@ -94,6 +95,9 @@ export class BeliefChangeComponent implements OnInit {
     if (id !== null) {
       this.loadBeliefByID(parseInt(id));
     }
+    setTimeout( () => {
+      this.showLoading = false;
+    }, 1000);
   }
 
   loadBeliefByID(id: any) {
