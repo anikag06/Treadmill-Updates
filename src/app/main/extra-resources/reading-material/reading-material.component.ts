@@ -16,6 +16,8 @@ export class ReadingMaterialComponent implements OnInit {
   showState = false;
   textWidth: number | undefined;
   text: string | undefined;
+  showLoading = true;
+
   @Output() readingClick = new EventEmitter();
   constructor(
     private http: HttpClient,
@@ -42,5 +44,10 @@ export class ReadingMaterialComponent implements OnInit {
     // this.readingItem.title.forEach() => {
     //
     // }
+  }
+  removeLoading() {
+    setTimeout( () => {
+      this.showLoading = false;
+    }, 100);
   }
 }

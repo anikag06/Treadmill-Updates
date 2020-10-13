@@ -1,8 +1,13 @@
 
     <mat-card class="reading-card" >
 
+      <div class = "preview-img-div" [ngStyle]="{visibility: showLoading ? 'hidden' : 'visible'}">
 
-      <img class = "preview-img" [src]="readingItem.preview_img" [alt]="readingItem.title">
+      <img class = "preview-img" [src]="readingItem.preview_img" [alt]="readingItem.title" (load)="removeLoading()">
+      <div class="img-loading " [ngStyle]="{visibility: showLoading ? 'visible' : 'hidden'}">
+        <p class="loading-text"> Loading... </p>
+      </div>
+      </div>
       <!--<mat-card-footer   [ngClass] = "showState == true ? 'footer-font' :'show'" [innerHTML]="readingItem.title"></mat-card-footer><a (click) = "expandLine()">...</a>-->
       <mat-card-footer class ="show-footer-style for-ellipsis" [innerHTML]="readingItem.title"></mat-card-footer>
 
