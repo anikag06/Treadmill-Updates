@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class ThingsTodoComponent implements OnInit {
   element!: ElementRef;
+  is_mindfulness!: boolean;
   constructor(
     private thingsTodoService: ThingsTodoService,
     private router: Router,
@@ -20,6 +21,8 @@ export class ThingsTodoComponent implements OnInit {
   ngOnInit() {
     this.thingsTodoService.getThingsTodo().subscribe((data: any) => {
       console.log('data: ', data.data);
+      this.is_mindfulness = data.data.is_mindfulness_video;
+      console.log('mindfulness video is', this.is_mindfulness);
       data.data.final_list.forEach((element: any) => {
         console.log('element: ', element);
         if (element[0].indexOf('FORM') !== -1) {
@@ -32,15 +35,29 @@ export class ThingsTodoComponent implements OnInit {
           this.todoList.push(EXPLORE_MAP.get(element[0]));
         } else {
           this.iconList.push('../../../../assets/modules/icon-video-wb.png');
-          const obj = EXPLORE_MAP.get(element[0]);
-          // @ts-ignore
-          const link = obj[0];
-          // @ts-ignore
-          const title = obj[1];
-          this.todoList.push([
-            link + data.data.video_id,
-            title + data.data.video_title,
-          ]);
+           if (this.is_mindfulness) {
+             const obj = EXPLORE_MAP.get(element[0]);
+             // @ts-ignore
+             const link = obj[2];
+             console.log('link for 2', link);
+             // @ts-ignore
+             const title = obj[1];
+             this.todoList.push([
+               link + data.data.video_id,
+               title + data.data.video_title,
+             ]);
+
+           } else {
+             const obj = EXPLORE_MAP.get(element[0]);
+             // @ts-ignore
+             const link = obj[0];
+             // @ts-ignore
+             const title = obj[1];
+             this.todoList.push([
+               link + data.data.video_id,
+               title + data.data.video_title,
+             ]);
+           }
         }
       });
     });

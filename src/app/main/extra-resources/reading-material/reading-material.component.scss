@@ -1,7 +1,11 @@
 .reading-card{
   padding: 0px 0px 16px;
   margin: 0px 0px 16px;
-
+  box-shadow: 0 0px;
+  border: 1px solid rgba(0,0,0,.125);
+}
+.reading-card:hover {
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.16) !important;
 }
 .for-ellipsis{
   overflow: hidden;
@@ -26,13 +30,26 @@
  // height: 100%;
 }
 
-@media screen and (min-width: 1501px) {
-  .reading-card {
-  //  width: 348px;
-   // flex-grow: 1;
-  //  max-height: 95%;
-   // min-height: 95%;
+@media screen and (min-width: 2001px) {
+  .card {
     height: 280px;
+  }
+  .show-footer-style{
+    font-size: 20px;
+  }
+
+}
+@media screen and (max-width: 2000px) {
+  .card {
+    height: 254px;
+  }
+  .show-footer-style{
+    font-size: 20px;
+  }
+}
+@media screen and (max-width: 1700px) {
+  .card {
+    height: 220px;
   }
   .show-footer-style{
     font-size: 20px;
@@ -41,48 +58,47 @@
 
 @media screen and (max-width: 1500px) {
   .reading-card {
-   // width: 250px;
-   // max-height: 95%;
-    // min-height: 95%;
     height: 184px;
+  }
+  .show-footer-style{
+    font-size: 16px;
   }
 }
 @media screen and (width: 1366px) {
   .reading-card {
-    // width: 25%;
-    // height: 245px;
     height: 182px;
-    // min-height: 182px;
+  }
+  .show-footer-style{
+    font-size: 16px;
   }
 }
 
 @media screen and (max-width: 1280px) {
   .reading-card {
-   // width: 224px;
-   // max-height: 95%;
-   // min-height: 95%;
     height: 150px;
+  }
+  .show-footer-style{
+    font-size: 16px;
   }
 }
 
 
 @media screen and (max-width: 991px) {
   .reading-card {
-  //  width: 268px;
-  //  max-height: 95%;
-   // min-height: 95%;
     height: 150px;
+  }
+  .show-footer-style{
+    font-size: 14px;
   }
 }
 
 @media screen and (max-width: 768px) {
   .reading-card {
-   // width: 159px;
-   // max-height: 95%;
-   // min-height: 95%;
     height: 150px;
   }
-
+  .show-footer-style{
+    font-size: 14px;
+  }
 }
 
 @media screen and (max-width: 525px) {

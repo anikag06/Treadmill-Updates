@@ -152,7 +152,7 @@ export class GameItemComponent implements OnInit {
   }
   calculateGold(GOLD: number) {
     this.goldRatio = 89;
-    if (this.progressInGame === 100) {
+    if (this.progressInGame > 100 || this.progressInGame === 100) {
       this.goldCoinShow = false;
     } else {
       this.goldCoinShow = true;
@@ -181,7 +181,7 @@ export class GameItemComponent implements OnInit {
   }
 
   calculateProgress(correctAnswers: number, GOLD: number) {
-    this.progressInGame = (correctAnswers / GOLD) * 90;
+    this.progressInGame = (correctAnswers / GOLD) * 100;
     return this.progressInGame;
   }
 

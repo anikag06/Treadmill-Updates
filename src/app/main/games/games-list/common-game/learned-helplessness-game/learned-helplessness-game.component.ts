@@ -22,6 +22,8 @@ import { map, switchMap } from 'rxjs/operators';
 import { FlowService } from '@/main/flow/flow.service';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 import { LocalStorageService } from '@/shared/localstorage.service';
+import {FOLLOW_UP_FORM_COMPLETE_SCORE, PLAYING_GAMES_SCORE} from '@/app.constants';
+import {CommonService} from '@/shared/common.service';
 declare var lhcolorReverseGame: any;
 
 @Component({
@@ -50,6 +52,7 @@ export class LearnedHelplessnessGameComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private stepDataService: StepsDataService,
     private local: LocalStorageService,
+    private commonService: CommonService,
   ) {}
 
   @ViewChild('infoElement', { static: false }) element!: ElementRef;
@@ -76,6 +79,7 @@ export class LearnedHelplessnessGameComponent implements OnInit, OnDestroy {
   @HostListener('window:CallGameComplete')
   onGameComplete(userData: any) {
     this.updateOverallData(userData);
+    this.commonService.updateScore(PLAYING_GAMES_SCORE);
   }
 
   ngOnInit() {

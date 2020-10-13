@@ -21,6 +21,9 @@ import { UserSubTask } from './user-sub-task.model';
 import { UserTask } from './user-task.model';
 import { ActivatedRoute } from '@angular/router';
 import { isNotNullOrUndefined } from 'codelyzer/util/isNotNullOrUndefined';
+import {CommonService} from '@/shared/common.service';
+import {User} from '@/shared/user.model';
+import {AuthService} from '@/shared/auth/auth.service';
 // import {CommonService} from '@/shared/common.service';
 // import {UserProfileService} from '@/main/shared/user-profile/user-profile.service';
 
@@ -38,6 +41,7 @@ export class TasksComponent implements OnInit, OnChanges {
   @Input() taskHeading!: string;
   @Output() showMessage = new EventEmitter();
   // @ViewChild('dateTimeBtn', { static: false }) dateTimeBtn!: ElementRef;
+  user!: User;
   formOldScore!: number;
   taskValueChanged = false;
   showTrashIcon: boolean[] = [];
@@ -75,8 +79,8 @@ export class TasksComponent implements OnInit, OnChanges {
     public dialog: MatDialog,
     private dateTimePickerService: DateTimePickerService,
     private route: ActivatedRoute,
-    // private commonService: CommonService,
-    // private userProfileService: UserProfileService,
+    private commonService: CommonService,
+    private authService: AuthService,
   ) {}
 
   ngOnInit() {
@@ -87,7 +91,7 @@ export class TasksComponent implements OnInit, OnChanges {
     if (id !== null) {
       this.loadTaskByID(parseInt(id));
     }
-   // this.formOldScore = +this.userProfileService.getScoreValue();
+    this.user = <User>this.authService.isLoggedIn();
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (
@@ -186,10 +190,6 @@ export class TasksComponent implements OnInit, OnChanges {
           this.taskHandler(taskBody, 'create');
           this.taskLoaded.emit(this.task);
           this.showMessage.emit(true);
-          // this.commonService.postScore(this.formOldScore + FORM_START_SCORE)
-          //   .subscribe(() => {
-          //     console.log('score');
-          //   });
         },
         error => {
           // console.log(error);
@@ -464,6 +464,11 @@ export class TasksComponent implements OnInit, OnChanges {
       autoFocus: false,
     });
     this.onDialogRefClosed(dialogRef);
+    if(this.taskHeading === 'Task Description') {
+      if (this.user.is_exp) {
+        this.commonService.updateScore(FORM_START_SCORE);
+      }
+    }
   }
 
   onChangeDateTime() {

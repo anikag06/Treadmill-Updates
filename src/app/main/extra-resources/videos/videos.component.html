@@ -2,10 +2,10 @@
 <div *ngIf = "videoType === 'mindfulnessVideo'">
 <mat-card class="card">
         <div class = "preview-img-div">
-        <img class = "preview-img" [src]="mindfulnessVideoItem.preview_img" >
+        <img class = "preview-img" [src]="mindfulnessVideoItem.resource_video.preview_img" >
         <img class = "youtube-button" src = "assets/icons/youtube.png">
         </div>
-        <mat-card-footer class = "show-footer-style for-ellipsis "[innerHTML]="mindfulnessVideoItem.title "> </mat-card-footer>
+        <mat-card-footer class = "show-footer-style for-ellipsis "[innerHTML]="mindfulnessVideoItem.resource_video.title "> </mat-card-footer>
  </mat-card>
 </div>
 

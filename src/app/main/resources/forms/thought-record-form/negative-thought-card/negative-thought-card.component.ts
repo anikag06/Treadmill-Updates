@@ -111,7 +111,9 @@ export class NegativeThoughtCardComponent implements OnInit {
           this.showSlider = true;
           if(!this.scoreUpdate) {
             this.scoreUpdate = true;
-            this.commonService.updateScore(FORM_START_SCORE);
+            if (this.user.is_exp) {
+              this.commonService.updateScore(FORM_START_SCORE);
+            }
           }
           // this.onShowSelectMood.emit();
         }
@@ -138,7 +140,9 @@ export class NegativeThoughtCardComponent implements OnInit {
           this.initialRatingChange.emit(this.negativeMoodRating);
           if(!this.scoreUpdate) {
             this.scoreUpdate = true;
-            this.commonService.updateScore(FORM_START_SCORE);
+            if (this.user.is_exp) {
+              this.commonService.updateScore(FORM_START_SCORE);
+            }
           }
         }
 

@@ -163,7 +163,9 @@ export class NegativeBeliefComponent implements OnInit {
             this.beliefHandler(resp.body, '');
             if(!this.scoreUpdate) {
               this.scoreUpdate = true;
-              this.commonService.updateScore(FORM_START_SCORE);
+              if (this.user.is_exp) {
+                this.commonService.updateScore(FORM_START_SCORE);
+              }
             }
           }
         });

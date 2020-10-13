@@ -93,7 +93,9 @@ export class EttbfBeliefComponent implements OnInit {
             this.beliefClicked.emit(this.showSlider);
             if(!this.scoreUpdate) {
               this.scoreUpdate = true;
-              this.commonService.updateScore(FORM_START_SCORE);
+              if (this.user.is_exp) {
+                this.commonService.updateScore(FORM_START_SCORE);
+              }
             }
           },
           error => {
@@ -110,6 +112,9 @@ export class EttbfBeliefComponent implements OnInit {
             this.belief = data;
             this.beliefResponse = data;
             console.log('the post request has been submitted');
+            if (this.user.is_exp) {
+              this.commonService.updateScore(FORM_START_SCORE);
+            }
             // this.beliefClicked.emit(this.beliefContinue);
           },
           error => {

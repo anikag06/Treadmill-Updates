@@ -43,6 +43,7 @@ export class EttbfOutcomeComponent implements OnInit {
   expectedOutcomeArea!: ElementRef;
   @ViewChild('realisticBeliefTextArea', { static: false })
   followUpOldScore!: number;
+  outcomeSubmit = 0;
   realisticBeliefTextArea!: ElementRef;
   outcomeStatement = '';
   learningStatement = '';
@@ -164,6 +165,7 @@ export class EttbfOutcomeComponent implements OnInit {
     this.expectedOutComeForm.reset();
   }
   onOutcomeSubmit() {
+    this.outcomeSubmit += 1;
     // this.commonService.postScore(this.followUpOldScore + FOLLOW_UP_FORM_COMPLETE_SCORE)
     //   .subscribe(() => {
         console.log('score');
@@ -189,10 +191,9 @@ export class EttbfOutcomeComponent implements OnInit {
             this.outcome = data;
             this.outcomeResponse = data.body;
             console.log('The put request has been submitted');
-            // this.commonService.postScore(this.followUpOldScore + FOLLOW_UP_FORM_COMPLETE_SCORE)
-            //   .subscribe(() => {
-            //     console.log('score');
-            //   });
+            if (this.outcomeSubmit === 1) {
+              this.commonService.updateScore(FOLLOW_UP_FORM_COMPLETE_SCORE);
+            }
           },
           error => {
             console.error(error);
@@ -210,10 +211,9 @@ export class EttbfOutcomeComponent implements OnInit {
               this.outcome = data;
               this.outcomeResponse = data.outcome;
               console.log('The post request has been submitted');
-              // this.commonService.postScore(this.followUpOldScore + FOLLOW_UP_FORM_COMPLETE_SCORE)
-              //   .subscribe(() => {
-              //     console.log('score2');
-              //   });
+              if (this.outcomeSubmit === 1) {
+                this.commonService.updateScore(FOLLOW_UP_FORM_COMPLETE_SCORE);
+              }
             },
             error => {
               console.error(error);

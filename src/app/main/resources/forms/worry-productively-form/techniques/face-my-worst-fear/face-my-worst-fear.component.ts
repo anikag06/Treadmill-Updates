@@ -30,6 +30,7 @@ export class FaceMyWorstFearComponent implements OnInit {
   @Output() techniqueExpanded = new EventEmitter();
   @Output() techniqueCollapsed = new EventEmitter();
   @Input() summaryIndex!: number;
+  worrySubmit = 0;
   user!: User;
   taskObject!: any;
   faceYourWorstFearForm = this.fb.group({
@@ -118,6 +119,7 @@ export class FaceMyWorstFearComponent implements OnInit {
     console.log(this.disableEmergency + 'changes');
   }
   onWorstFearClick() {
+    this.worrySubmit += 1;
     this.continueButton = false;
     this.continueEmergency = false;
     this.showTasks = true;
@@ -136,7 +138,10 @@ export class FaceMyWorstFearComponent implements OnInit {
         if (resp.body) {
           console.log('The request has been submitted');
           this.responseData = resp.body;
-          this.commonService.updateScore(FOLLOW_UP_FORM_COMPLETE_SCORE);
+          if (this.worrySubmit === 2) {
+            this.commonService.updateScore(FOLLOW_UP_FORM_COMPLETE_SCORE);
+            console.log('score 1');
+          }
         }
       });
     } else if (
@@ -156,7 +161,10 @@ export class FaceMyWorstFearComponent implements OnInit {
           if (resp.body) {
             console.log('The request has been submitted');
             this.responseData = resp.body;
-            this.commonService.updateScore(FOLLOW_UP_FORM_COMPLETE_SCORE);
+            if (this.worrySubmit === 2){
+              this.commonService.updateScore(FOLLOW_UP_FORM_COMPLETE_SCORE);
+              console.log('score 2');
+            }
           }
         });
     }

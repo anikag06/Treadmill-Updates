@@ -31,12 +31,13 @@ import { MindfulnessVideoItem } from '@/main/extra-resources/shared/mindfulnessV
 export class VideoItemComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() video!: VideoItem;
   @Input() mindfulnessVideo!: MindfulnessVideoItem;
-  @Input() eachVideoVariety!: string;
+  @Input() videoType!: string;
+
   // private subject: any;
   idAtEndOfUrl!: number;
-  videoId!: number;
-  videoTitle!: string;
-  videoUrl!: string;
+  mindfulnessVideoId!: number;
+  mindfulnessVideoTitle!: string;
+  mindfulnessVideoUrl!: string;
   // safeVideoUrl!: SafeUrl;
   videoIdToSend!: number;
   isLoaded = false;
@@ -88,39 +89,53 @@ export class VideoItemComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit() {
     this.init();
-    if (this.router.url.includes('/extra-resources/videoItem/')) {
-      console.log('id at end');
-      this.eachVideoType = 'video';
-    }
+
     if (this.router.url.includes('/extra-resources/mindfulnessVideo/')) {
       console.log('id at end');
       this.eachVideoType = 'mindfulnessVideo';
+      if (this.mindfulnessVideo == null) {
+        this.activatedRoute.params.subscribe(data => {
+          this.videoIdToSend = data.id;
+          console.log('reload id:', data.id);
+        });
+        this.extraResourcesService
+          .getAMindfulnessVideo(this.videoIdToSend)
+          .subscribe((data: any) => {
+            console.log('data', data.resource_video.url);
+             this.mindfulnessVideo = <MindfulnessVideoItem>data;
+            this.isLoaded = true;
+          });
+      } else {
+        this.extraResourcesService.mindfulnessVideoClickedEvent.subscribe(data => {
+          this.mindfulnessVideo = <MindfulnessVideoItem>data;
+          this.isLoaded = true;
+          console.log('mindfulness video', data);
+        });
+      }
     }
 
-    // this.eachVideoType = '';
-
-    // if (this.video == null) {
-    //   this.activatedRoute.params.subscribe(data => {
-    //     this.videoIdToSend = data.id;
-    //     console.log('reload id:', data.id);
-    //   });
-    //   this.extraResourcesService
-    //     .getAVideo(this.videoIdToSend)
-    //     .subscribe(data => {
-    //       console.log('data', data);
-    //       this.video = <VideoItem>data;
-    //       this.isLoaded = true;
-    //     });
-    // } else {
-    this.extraResourcesService.videoClickedEvent.subscribe(data => {
-      this.video = <VideoItem>data;
-      this.isLoaded = true;
-    });
-
-    this.extraResourcesService.mindfulnessVideoClickedEvent.subscribe(data => {
-      this.mindfulnessVideo = <MindfulnessVideoItem>data;
-      this.isLoaded = true;
-    });
+    if (this.router.url.includes('/extra-resources/videoItem/')) {
+      console.log('id at end');
+      this.eachVideoType = 'video';
+      if (this.video == null) {
+        this.activatedRoute.params.subscribe(data => {
+          this.videoIdToSend = data.id;
+          console.log('reload id:', data.id);
+        });
+        this.extraResourcesService
+          .getAVideo(this.videoIdToSend)
+          .subscribe(data => {
+            console.log('data', data);
+            this.video = <VideoItem>data;
+            this.isLoaded = true;
+          });
+      } else {
+        this.extraResourcesService.videoClickedEvent.subscribe(data => {
+          this.video = <VideoItem>data;
+          this.isLoaded = true;
+        });
+      }
+    }
   }
   createPlayer() {
     console.log('you tube iframe');

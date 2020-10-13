@@ -100,8 +100,10 @@
   height: 289px;
   border-radius: 5px;
   overflow: hidden;
-  box-shadow: 1px 1px 10px #dadada;
+  // box-shadow: 1px 1px 10px #dadada;
   padding: 0;
+  cursor: pointer;
+  box-shadow: 0px 1px 2px #00000029;
 
   .cover-img {
     height: 180px;
