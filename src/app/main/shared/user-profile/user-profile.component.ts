@@ -58,7 +58,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
       this.showLoading = false;
       setTimeout( () => {
         this.profileLoaded = true;
-      }, 1000);
+      }, 500);
     }, 100);
   }
 }

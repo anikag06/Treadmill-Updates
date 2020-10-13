@@ -18,7 +18,7 @@
 
     <div class="main-header w-100">
       <h2 [style.max-width]="container.offsetWidth - 100 + 'px'" *ngIf="!showLoading">{{suggestedPost.title }}</h2>
-      <h2 [style.width]="container.offsetWidth - 100 + 'px'" class="text-skeleton" *ngIf="showLoading"></h2>
+      <h2 [style.width]="container.offsetWidth - 100 + 'px'" class="text-skeleton mb-2" *ngIf="showLoading"></h2>
     </div>
     <div [style.width]="container.offsetWidth - 100 + 'px'" class="text-skeleton" *ngIf="showLoading"></div>
 

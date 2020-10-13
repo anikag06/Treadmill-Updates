@@ -33,11 +33,4 @@ export class BadgesComponent implements OnInit {
   ngOnInit() {
   }
 
-  // removeLoading() {
-  //   if (this.profileLoaded) {
-  //     setTimeout(() => {
-  //       this.showLoading = false;
-  //     }, 1000);
-  //   }
-  // }
 }

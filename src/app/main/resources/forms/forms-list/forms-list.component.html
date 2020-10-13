@@ -14,7 +14,7 @@
         <div class="img-div justify-content-center " >
           <mat-card-content> </mat-card-content>
           <img mat-card-image [src]="form.banner" width="125" height="100" (load)="removeLoading()"  [ngStyle]="{display: showLoading ? 'none' : 'inline'}" >
-          <span  *ngIf="showLoading"> Loading... </span>
+          <span  class="loading-text" *ngIf="showLoading"> Loading... </span>
 
         </div>
 
