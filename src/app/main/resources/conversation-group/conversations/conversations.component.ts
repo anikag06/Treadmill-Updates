@@ -6,6 +6,7 @@ import {
   DoCheck,
   ComponentFactoryResolver,
   ElementRef,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { ConversationsService } from '../conversations.service';
 import { Conversation } from './input/conversation.model';
@@ -153,7 +154,9 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     private notificationService: NavbarNotificationsService,
     private activeroute: ActivatedRoute,
     private goToService: NavbarGoToService,
-    private flowService: FlowService
+    private flowService: FlowService,
+    private elementRef: ElementRef,
+    private changRef: ChangeDetectorRef
   ) {
     this.activeroute.params.pipe(map((v) => v.id)).subscribe((params) => {
       this.conversation_id = params;
@@ -955,14 +958,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   // }
 
   progress_bar() {
-    // if (this.no_of_options > 1) {
-    //   this.progress =
-    //     ((this.completedConversation.length + this.no_of_options - 1) /
-    //       this.length_conversation) *
-    //     100;
-    // } else {
     this.progress = (this.progressBar / (this.length_conversation - 1)) * 100;
-    // }
   }
 
   post(i: number) {
@@ -1153,6 +1149,16 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         behavior: 'smooth',
       });
     }, 1000);
+  }
+
+  getOrWidth(): any {
+    const options = this.elementRef.nativeElement.querySelectorAll(
+      '.msg_container_send1'
+    );
+    if (options) {
+      return options[0].offsetWidth + 'px';
+    }
+    return null;
   }
 
   onDislikeBtnClick() {
