@@ -1,19 +1,25 @@
 
 <div *ngIf = "videoType === 'mindfulnessVideo'">
 <mat-card class="card">
-        <div class = "preview-img-div">
-        <img class = "preview-img" [src]="mindfulnessVideoItem.preview_img" >
+        <div class = "preview-img-div" [ngStyle]="{visibility: showLoading ? 'hidden' : 'visible'}">
+        <img class = "preview-img" [src]="mindfulnessVideoItem.preview_img" (load)="removeLoading()" >
         <img class = "youtube-button" src = "assets/icons/youtube.png">
+  <div class="img-loading " [ngStyle]="{visibility: showLoading ? 'visible' : 'hidden'}">
+    <p class="loading-text"> Loading... </p>
+  </div>
         </div>
-        <mat-card-footer class = "show-footer-style for-ellipsis "[innerHTML]="mindfulnessVideoItem.title "> </mat-card-footer>
+  <mat-card-footer class = "show-footer-style for-ellipsis "[innerHTML]="mindfulnessVideoItem.title "> </mat-card-footer>
  </mat-card>
 </div>
 
 <div *ngIf = "videoType === 'video'" >
   <mat-card class="card">
-            <div class = "preview-img-div">
-            <img class = "preview-img" [src]="videoItem.preview_img" >
+            <div class = "preview-img-div" [ngStyle]="{visibility: showLoading ? 'hidden' : 'visible'}">
+            <img class = "preview-img" [src]="videoItem.preview_img" (load)="removeLoading()" >
             <img class = "youtube-button" src = "assets/icons/youtube.png">
+              <div class="img-loading " [ngStyle]="{visibility: showLoading ? 'visible' : 'hidden'}">
+                <p class="loading-text"> Loading... </p>
+              </div>
             </div>
             <mat-card-footer class = "show-footer-style for-ellipsis "[innerHTML]="videoItem.title "> </mat-card-footer>
   </mat-card>

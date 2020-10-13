@@ -20,6 +20,7 @@ export class VideosComponent implements OnInit {
   // @Output() event1 = new EventEmitter();
   showState = false;
   bodyLength = 60;
+  showLoading = true;
 
   notOn = true;
   //  @Output() onVideoEvent=  new EventEmitter();
@@ -63,5 +64,10 @@ export class VideosComponent implements OnInit {
   // }
   expandLine() {
     this.showState = true;
+  }
+  removeLoading() {
+    setTimeout( () => {
+      this.showLoading = false;
+    }, 100);
   }
 }
