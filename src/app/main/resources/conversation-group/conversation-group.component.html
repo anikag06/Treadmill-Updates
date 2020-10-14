@@ -8,7 +8,7 @@
 
         <div class="card text-left" >
           <div class="row">
-          <div *ngIf="showLoading" class="col-12 text-muted text-center" style="position:absolute;top:40%"> Loading... </div>
+          <div *ngIf="showLoading" class="col-12 loading-text text-center" > Loading... </div>
         </div>
           <div class="row" [ngStyle]="{visibility: showLoading ? 'hidden' : 'visible'}">
             <div class="col-12">

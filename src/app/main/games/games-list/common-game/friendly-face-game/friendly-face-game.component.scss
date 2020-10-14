@@ -20,7 +20,12 @@
   margin: auto;
   //overflow: scroll;
 }
-
+.text-loading {
+  top: 45%;
+  font-size:14px;
+  color:black;
+  opacity: 40%;
+}
 .ff-game-elements {
   max-width: 491px;
 }

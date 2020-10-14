@@ -191,7 +191,6 @@ export class ExecutiveControlGameComponent implements OnInit, OnDestroy {
     this.playGameService.closeExecControlGame();
   }
   removeLoading() {
-    console.log('IMAGE LOADED');
     setTimeout( () => {
       this.showLoading = false;
       this.showPlayButtons.emit();

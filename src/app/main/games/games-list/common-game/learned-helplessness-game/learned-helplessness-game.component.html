@@ -2,7 +2,7 @@
 
 <div class="container-fluid lg-game-container" id="lg-game-container" tabindex="0">
   <div class="main">
-    <div class="col text-center text-muted" style="font-size:14px;"  *ngIf="showLoading"> Loading... </div>
+    <div class="col text-center text-loading"  *ngIf="showLoading"> Loading... </div>
 
     <div class="lhg-image justify-content-center" id="lhg-cover" [ngStyle]="{display: showLoading ? 'none' : 'inline'}">
       <img id="lhg-image" src="../../../../../../assets/games/learning-helplessness/assets/Start page graphic.png"  (load)="removeLoading()" >

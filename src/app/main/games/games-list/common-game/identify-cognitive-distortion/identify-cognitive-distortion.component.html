@@ -3,7 +3,7 @@
 
   <div class="main container-fluid justify-content-center">
 
-    <div class="col text-center text-muted" style="top: 45%; font-size:14px;"  *ngIf="showLoading"> Loading... </div>
+    <div class="col text-center text-loading" *ngIf="showLoading"> Loading... </div>
 
     <div class="home-page" *ngIf="!playing" [ngStyle]="{display: showLoading ? 'none' : 'inline'}">
 
