@@ -115,7 +115,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
         }
         if (this.auth.navbarTitle) {
           this.navbarTitle = this.auth.navbarTitle;
-          console.log(event);
+          console.log('AUTH TITLE', this.auth.navbarTitle, event);
         }
         this.gamePlayService.gameTitle.subscribe(() => {
           console.log('FROM NAVBAR', this.gamePlayService.gameName);
@@ -126,8 +126,12 @@ export class NavbarComponent implements OnInit, OnDestroy {
           this.navbarTitle = this.formService.formName;
         });
         this.flowService.stepDetail.subscribe((value: any) => {
-          this.navbarTitle = value;
-          console.log('FROM NAVBAR', value);
+          if (!this.auth.navbarTitle) {
+            this.navbarTitle = value;
+            console.log('FROM NAVBAR', value);
+          } else {
+            this.navbarTitle = this.auth.navbarTitle;
+          }
         });
         this.goToService.settingsPageTitle.subscribe((value: any) => {
           this.navbarTitle = value;
