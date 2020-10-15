@@ -8,10 +8,12 @@ export class LoadFilesService {
 
   loadExternalScript(scriptUrl: any) {
     console.log('calling file');
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       const scriptElement = document.createElement('script');
       scriptElement.src = scriptUrl;
       scriptElement.onload = resolve;
+      scriptElement.async = true;
+      scriptElement.defer = true;
       document.body.appendChild(scriptElement);
     });
   }
