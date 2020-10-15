@@ -1,13 +1,19 @@
-
-<div class="navbar-notification">
+<div class="navbar-notification" >
     <h2>Notification <small>({{unreadCount}})</small> <small class="float-right mark-read" (click)="onMarkAllAsRead()">Mark all as read</small></h2>
-    <div class="all-notifications" #notificationsDiv [scrollTop]="scrollTop">
+    <div class="all-notifications" #notificationsDiv [scrollTop]="scrollTop" *ngIf="dataloaded; else loader">
         <app-notification-item
             *ngFor="let notification of notifications"
             [item]="notification"
             (decrementUnread)="markUnread()">
         </app-notification-item>
     </div>
+  <ng-template #loader>
+    <div class="col">
+      <div class="text-center loader">
+        <img src="assets/shared/loading-gif.gif" alt="loader" width="80" />
+      </div>
+    </div>
+  </ng-template>
     <div class="more-btn" (click)=" onMoreClick()" *ngIf="!noMoreItems else noItems">
         Show More
     </div>
@@ -17,4 +23,5 @@
         No more notifications
     </div>
 </ng-template>
+
 

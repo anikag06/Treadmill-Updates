@@ -16,6 +16,7 @@ export class NavbarNotificationsComponent implements OnInit {
   scrollTop = 0;
   unreadCount = 0;
   noMoreItems = false;
+  dataloaded = false;
 
   constructor(
     private notificationService: NavbarNotificationsService,
@@ -35,6 +36,7 @@ export class NavbarNotificationsComponent implements OnInit {
         const items = data.data.notifications as Notification[];
         console.log('in noti...', items);
         this.notifications.push(...items);
+        this.dataloaded = true;
         if (scrollToBottom) {
           this.scrollToBottom();
         }
