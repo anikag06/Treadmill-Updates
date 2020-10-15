@@ -1,9 +1,62 @@
 <div class="suggested-post">
-  <div class="col-12 suggested-post-main no-gutters">
+  <div class="col-12 suggested-post-main no-gutters" >
     <h3>Suggested Post</h3>
     <ul class="main-list">
       <app-suggested-post-item *ngFor="let post of posts" [suggestedPost]="post"> </app-suggested-post-item>
 
     </ul>
+    <!--skeleton 1-->
+    <div class="d-flex flex-row post-item mx-0" #container>
+
+      <div class=" d-inline-flex flex-column px-0 align-items-start">
+
+        <div class="avatar-skeleton " alt="You" [ngStyle]="{display: !showLoading ? 'none' : 'block'}" ></div>
+
+      </div>
+      <div class=" d-inline-flex flex-column align-items-start">
+
+        <div class="main-header w-100">
+          <h2 [style.width]="container.offsetWidth - 100 + 'px'" class="text-skeleton mb-2" *ngIf="showLoading"></h2>
+        </div>
+        <div [style.width]="container.offsetWidth - 100 + 'px'" class="text-skeleton" *ngIf="showLoading"></div>
+      </div>
+    </div>
+
+    <!--skeleton 2-->
+
+    <div class="d-flex flex-row post-item mx-0">
+
+    <div class=" d-inline-flex flex-column px-0 align-items-start">
+
+      <div class="avatar-skeleton " alt="You" [ngStyle]="{display: !showLoading ? 'none' : 'block'}" ></div>
+
+    </div>
+    <div class=" d-inline-flex flex-column align-items-start">
+
+      <div class="main-header w-100">
+        <h2 [style.width]="container.offsetWidth - 100 + 'px'" class="text-skeleton mb-2" *ngIf="showLoading"></h2>
+      </div>
+      <div [style.width]="container.offsetWidth - 100 + 'px'" class="text-skeleton" *ngIf="showLoading"></div>
+    </div>
+  </div>
+
+    <!--skeleton 3-->
+
+    <div class="d-flex flex-row post-item mx-0">
+
+    <div class=" d-inline-flex flex-column px-0 align-items-start">
+
+    <div class="avatar-skeleton " alt="You" [ngStyle]="{display: !showLoading ? 'none' : 'block'}" ></div>
+
+  </div>
+  <div class=" d-inline-flex flex-column align-items-start">
+
+    <div class="main-header w-100">
+      <h2 [style.width]="container.offsetWidth - 100 + 'px'" class="text-skeleton mb-2" *ngIf="showLoading"></h2>
+    </div>
+    <div [style.width]="container.offsetWidth - 100 + 'px'" class="text-skeleton" *ngIf="showLoading"></div>
+  </div>
+</div>
+
   </div>
 </div>

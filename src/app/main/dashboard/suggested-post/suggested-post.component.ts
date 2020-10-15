@@ -11,6 +11,7 @@ export class SuggestedPostComponent implements OnInit {
   constructor(private sgService: SupportGroupsService) {}
 
   posts: SuggestedPost[] = [];
+  showLoading = true;
 
   ngOnInit() {
     this.sgService.getSuggestedPosts().subscribe((data: any) => {

@@ -13,6 +13,55 @@
               <div class="badge-name">{{badge.name}}</div>
             </div>
         </div>
+      <div class="skeleton-div" *ngIf="showLoading">
+<!--     badges skeleton 1-->
+      <div class="cover-item">
+      <div class="badge-box">
+
+        <div class="badge-image badge-skeleton" alt="You" [ngStyle]="{display: profileLoaded ? 'none' : 'inline-block'}" ></div>
+
+        <div class="badge-name text-skeleton"></div>
+      </div>
+    </div>
+      <!--     badges skeleton 2-->
+      <div class="cover-item">
+        <div class="badge-box">
+
+          <div class="badge-image badge-skeleton" alt="You" [ngStyle]="{display: profileLoaded ? 'none' : 'inline-block'}" ></div>
+
+                  <div class="badge-name text-skeleton"></div>
+        </div>
+      </div>
+      <!--     badges skeleton 3-->
+      <div class="cover-item">
+        <div class="badge-box">
+
+          <div class="badge-image badge-skeleton" alt="You" [ngStyle]="{display: profileLoaded ? 'none' : 'inline-block'}" ></div>
+
+                  <div class="badge-name text-skeleton"></div>
+        </div>
+      </div>
+      <!--     badges skeleton 4-->
+      <div class="cover-item">
+        <div class="badge-box">
+
+          <div class="badge-image badge-skeleton" alt="You" [ngStyle]="{display: profileLoaded ? 'none' : 'inline-block'}" ></div>
+
+                  <div class="badge-name text-skeleton"></div>
+        </div>
+      </div>
+      <!--     badges skeleton 5-->
+      <div class="cover-item">
+        <div class="badge-box">
+
+          <div class="badge-image badge-skeleton" alt="You" [ngStyle]="{display: profileLoaded ? 'none' : 'inline-block'}" ></div>
+
+                  <div class="badge-name text-skeleton"></div>
+        </div>
+      </div>
+      <!--        till here-->
+      </div>
+
         <button class="right-arrow" (click)="scrollRight()">
             <mat-icon>keyboard_arrow_right</mat-icon>
         </button>
