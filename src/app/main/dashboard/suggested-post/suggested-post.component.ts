@@ -19,4 +19,9 @@ export class SuggestedPostComponent implements OnInit {
       console.log('sugg posts', this.posts);
     });
   }
+  removeLoading() {
+    setTimeout( () => {
+      this.showLoading = false;
+    }, 100);
+  }
 }

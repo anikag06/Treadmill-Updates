@@ -1,9 +1,8 @@
-<div class="d-flex flex-row post-item no-gutters" #container>
+<div class="d-flex flex-row post-item no-gutters" #container [ngStyle]="{visibility: showLoading ? 'hidden' : 'visible'}">
 
   <div class=" d-inline-flex flex-column align-items-start">
 
-    <img [src]="suggestedPost.avatar" alt="User avatar" width="42" height="42" class='post-user-avatar' (load)="removeLoading()" [ngStyle]="{display: showLoading ? 'none' : 'block'}">
-    <div class="post-user-avatar avatar-skeleton " alt="You" [ngStyle]="{display: !showLoading ? 'none' : 'block'}" ></div>
+    <img [src]="suggestedPost.avatar" alt="User avatar" width="42" height="42" class='post-user-avatar' (load)="imageLoaded()" >
 
     <!-- <div class=" d-flex flex-column align-items-start">
         <div class="user-stats d-flex flex-row align-items-start">
@@ -17,12 +16,10 @@
     (click)="onPostClick(suggestedPost.id)">
 
     <div class="main-header w-100">
-      <h2 [style.max-width]="container.offsetWidth - 100 + 'px'" *ngIf="!showLoading">{{suggestedPost.title }}</h2>
-      <h2 [style.width]="container.offsetWidth - 100 + 'px'" class="text-skeleton mb-2" *ngIf="showLoading"></h2>
+      <h2 [style.max-width]="container.offsetWidth - 100 + 'px'">{{suggestedPost.title }}</h2>
     </div>
-    <div [style.width]="container.offsetWidth - 100 + 'px'" class="text-skeleton" *ngIf="showLoading"></div>
 
-    <div class="post-body giveMeEllipsis" *ngIf="!showLoading">
+    <div class="post-body giveMeEllipsis">
       {{suggestedPost.body }}
     </div>
   </div>

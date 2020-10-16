@@ -1,6 +1,8 @@
 <div class="q">
   <div class="container">
     <div class="row">
+      <ng-container *ngIf="conversationGroups; else loader">
+
       <div
         class="col-lg-6 col-sm-12 col-md-12"
         *ngFor="let conversation of conversationGroups; let i = index"
@@ -59,6 +61,12 @@
           </div>
         </div>
       </div>
+      </ng-container>
     </div>
+    <ng-template #loader>
+      <div class="text-center loader">
+        <img src="assets/shared/loading-gif.gif" alt="loader" width="80" />
+      </div>
+    </ng-template>
   </div>
 </div>

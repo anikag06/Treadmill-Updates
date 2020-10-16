@@ -2,9 +2,10 @@
   <div class="col-12 suggested-post-main no-gutters" >
     <h3>Suggested Post</h3>
     <ul class="main-list">
-      <app-suggested-post-item *ngFor="let post of posts" [suggestedPost]="post"> </app-suggested-post-item>
+      <app-suggested-post-item (removeLoading)="removeLoading()" *ngFor="let post of posts" [suggestedPost]="post"> </app-suggested-post-item>
 
     </ul>
+    <div class="skeleton-div w-100 h-100" style="position: absolute; z-index: 100; top:15px">
     <!--skeleton 1-->
     <div class="d-flex flex-row post-item mx-0" #container>
 
@@ -57,6 +58,7 @@
     <div [style.width]="container.offsetWidth - 100 + 'px'" class="text-skeleton" *ngIf="showLoading"></div>
   </div>
 </div>
+    </div>
 
   </div>
 </div>

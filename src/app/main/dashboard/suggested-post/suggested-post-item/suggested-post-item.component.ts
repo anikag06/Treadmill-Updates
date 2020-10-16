@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { SuggestedPost } from '../suggested-post.model';
 import { SupportGroupsService } from '@/main/support-groups/support-groups.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -16,6 +16,7 @@ export class SuggestedPostItemComponent implements OnInit {
   ) {}
 
   @Input() suggestedPost!: SuggestedPost;
+  @Output() removeLoading = new EventEmitter();
   id!: number;
   bodyLength = 60;
   showLoading = true;
@@ -45,9 +46,10 @@ export class SuggestedPostItemComponent implements OnInit {
       });
     }
   }
-  removeLoading() {
+  imageLoaded() {
     setTimeout( () => {
       this.showLoading = false;
+      this.removeLoading.emit();
     }, 100);
   }
 }
