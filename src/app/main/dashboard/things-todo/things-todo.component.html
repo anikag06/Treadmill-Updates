@@ -1,22 +1,64 @@
 <div class="things-todo">
   <div class="col-12 things-todo-main no-gutters">
     <h3>Explore</h3>
-    <ul class="things-todo-main-list">
+    <ul class="things-todo-main-list" [ngStyle]="{display: showLoading ? 'none' : 'block'}">
       <li *ngFor="let todo of todoList; let i = index" class="things-todo-item">
         <a (click)="onThingsTodoClicked(todo[0])" class="things-todo-text">
           <div class="d-flex flex-row">
             <div class="align-self-center">
-              <img class="icon-item" [src]="iconList[i]" alt="icon" (load)="removeLoading()"  [ngStyle]="{display: showLoading ? 'none' : 'block'}" />
-              <div class="icon-item icon-skeleton " [ngStyle]="{display: !showLoading ? 'none' : 'block'}" ></div>
+              <img class="icon-item" [src]="iconList[i]" alt="icon" (load)="removeLoading()" />
+<!--              <div class="icon-item icon-skeleton " [ngStyle]="{display: !showLoading ? 'none' : 'block'}" ></div>-->
 
             </div>
             <div class="align-self-center"  *ngIf="!showLoading">{{todo[1]}}</div>
-            <div class="align-self-center text-skeleton" *ngIf="showLoading"></div>
+<!--            <div class="align-self-center text-skeleton" *ngIf="showLoading"></div>-->
 
           </div>
         </a>
         <br>
       </li>
     </ul>
+
+    <div class="things-todo-main-list" *ngIf="showLoading">
+
+    <!--    skeleton 1-->
+    <div class="d-flex flex-row mb-4" >
+      <div class="align-self-center">
+        <div class="icon-item icon-skeleton" ></div>
+
+      </div>
+      <div class="align-self-center text-skeleton"></div>
+
+    </div>
+      <!--    skeleton 2-->
+      <div class="d-flex flex-row mb-4">
+        <div class="align-self-center">
+          <div class="icon-item icon-skeleton "></div>
+
+        </div>
+        <div class="align-self-center text-skeleton" ></div>
+
+      </div>
+      <!--    skeleton 3-->
+      <div class="d-flex flex-row mb-4">
+        <div class="align-self-center">
+          <div class="icon-item icon-skeleton " ></div>
+
+        </div>
+        <div class="align-self-center text-skeleton"></div>
+
+      </div>
+      <!--    skeleton 4-->
+      <div class="d-flex flex-row mb-4">
+        <div class="align-self-center">
+          <div class="icon-item icon-skeleton " ></div>
+
+        </div>
+        <div class="align-self-center text-skeleton"></div>
+
+      </div>
+
+    </div>
+
   </div>
 </div>
