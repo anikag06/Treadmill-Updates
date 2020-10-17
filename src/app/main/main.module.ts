@@ -182,6 +182,7 @@ import { GamesProgressBarService } from '@/main/games/shared/games-progress-bar.
 import { IdcScienceComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-science/idc-science.component';
 import { SelfCareComponent } from './shared/self-care/self-care.component';
 import { AsgInstructionsComponent } from './games/games-list/common-game/attribute-style-game/asg-instructions/asg-instructions.component';
+import { ResourcesIntroComponent } from './walk-through/resources-intro/resources-intro.component';
 import { AsgSummaryComponent } from './games/games-list/common-game/attribute-style-game/asg-summary/asg-summary.component';
 
 // import { Resources2Routing } from './extra-resources/extra-resources-routing.module.ts/extra-resources-routing.module.ts.component';
@@ -302,6 +303,7 @@ import { AsgSummaryComponent } from './games/games-list/common-game/attribute-st
     IdcScienceComponent,
     SelfCareComponent,
     AsgInstructionsComponent,
+    ResourcesIntroComponent,
     AsgSummaryComponent,
   ],
   imports: [
@@ -416,7 +418,8 @@ import { AsgSummaryComponent } from './games/games-list/common-game/attribute-st
     ReportProblemComponent,
     ThankComponent,
     SelfCareComponent,
-    AsgInstructionsComponent
+    AsgInstructionsComponent,
+    ResourcesIntroComponent,
   ],
   exports: [TrimStringPipe],
 })

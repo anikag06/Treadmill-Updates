@@ -151,7 +151,7 @@
             *ngFor="let option of options; let i = index;let last=last"
           >
             <div class="d-flex justify-content-end mb-3" *ngIf="!speedrun">
-              <div class="msg_container_send1 ml-3 ml-md-0 mr-3">
+              <div class="msg_container_send1 ml-3 ml-md-0 mr-3" #optionDiv>
                 <p class="pr-2" [innerHtml]="option.message"></p>
                 <div
                   *ngIf="
@@ -184,8 +184,9 @@
             <div
               class="mb-2 justify-content-end mr-3 text-center or-div"
               *ngIf="options.length === 2 && i == 0"
+             [ngStyle]="{width : getOrWidth()}"
             >
-              OR
+              {{getOrWidth()!==null ? 'OR' : ''}}
             </div>
           </div>
         </div>

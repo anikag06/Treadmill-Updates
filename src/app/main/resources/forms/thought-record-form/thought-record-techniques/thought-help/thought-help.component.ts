@@ -26,7 +26,7 @@ export class ThoughtHelpComponent implements OnInit {
   canSolveQues = 'Would it help me to change the thought?';
   yes =
     '<img src="assets/forms/well_done.png" height="16px" > Great! Think of a more balanced thought.';
-  no = 'Okay.';
+  no = '&#129300; Okay.';
   summaryHeading = SUMMARY;
   @ViewChild('panel', { static: false }) panel!: any;
   @Input() thought!: Thought;
@@ -45,7 +45,7 @@ export class ThoughtHelpComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private thoughtHelpService: ThoughtHelpService,
+    private thoughtHelpService: ThoughtHelpService
   ) {}
 
   ngOnInit() {}
@@ -69,13 +69,13 @@ export class ThoughtHelpComponent implements OnInit {
 
   initializeHelp(resp: any) {
     this.thoughtHelpForm.controls['keepThought'].setValue(
-      resp.body.keep_thinking,
+      resp.body.keep_thinking
     );
     this.thoughtHelpForm.controls['changeThought'].setValue(
-      resp.body.change_thinking,
+      resp.body.change_thinking
     );
     this.thoughtHelpForm.controls['canSolve'].setValue(
-      resp.body.changed_thinking_help,
+      resp.body.changed_thinking_help
     );
   }
 

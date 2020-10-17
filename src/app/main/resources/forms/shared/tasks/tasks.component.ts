@@ -35,6 +35,7 @@ export class TasksComponent implements OnInit, OnChanges {
   @Input() task!: UserTask;
   @Input() taskHeading!: string;
   @Output() showMessage = new EventEmitter();
+  @Input() worryDetails!: string;
   // @ViewChild('dateTimeBtn', { static: false }) dateTimeBtn!: ElementRef;
 
   taskValueChanged = false;
@@ -79,6 +80,10 @@ export class TasksComponent implements OnInit, OnChanges {
     // if (this.object && this.object.taskorigin) {
     //   this.loadTasks();
     // }
+    if (this.worryDetails) {
+      const worryTask = 'Worry about ' + this.worryDetails;
+      this.tasksGroup.controls['task'].setValue(worryTask);
+    }
     const id = this.route.snapshot.paramMap.get('id');
     if (id !== null) {
       this.loadTaskByID(parseInt(id));
@@ -104,6 +109,11 @@ export class TasksComponent implements OnInit, OnChanges {
 
     if (changes.reset) {
       this.resetTask();
+    }
+
+    if (this.worryDetails) {
+      const worryTask = 'Worry about ' + this.worryDetails;
+      this.tasksGroup.controls['task'].setValue(worryTask);
     }
   }
 
@@ -220,16 +230,6 @@ export class TasksComponent implements OnInit, OnChanges {
 
   taskHandler(data: UserTask, action: string) {
     if (action === 'create') {
-      // this.tasksGroup.controls.subTasks = this.fb.array([]);
-      // data.sub_tasks.forEach((subtask: UserSubTask) => {
-      //   this.task.sub_tasks.push(
-      //     new UserSubTask(subtask.id, subtask.name, subtask.is_completed)
-      //   );
-      //   (this.tasksGroup.controls.subTasks as FormArray).push(
-      //     this.createEditItem(subtask.id, subtask.name, subtask.is_completed)
-      //   );
-      // });
-
       this.task = new UserTask(
         data.id,
         data.name,
@@ -285,28 +285,6 @@ export class TasksComponent implements OnInit, OnChanges {
     this.showTrashIcon.splice(index);
     this.changeDetector.detectChanges();
   }
-
-  // onDayChange(event: any, day: string) {
-  //   if (event.checked) {
-  //     this.days.push(day);
-  //     this.updateTask();
-  //   } else {
-  //     this.days = this.days.filter(d => day !== d);
-  //     if (this.task) {
-  //       this.taskService.deleteTaskDay(this.task.id, day).subscribe(() => {});
-  //     }
-  //   }
-  //   this.changeDetector.detectChanges();
-  // }
-
-  // onRepeatChange(event: any) {
-  //   if (event.checked === false) {
-  //     this.repeat = false;
-  //     this.days = [];
-  //     this.updateTask();
-  //   }
-  //   this.changeDetector.detectChanges();
-  // }
 
   loadTasks() {
     this.taskService.getTasks();
@@ -381,19 +359,6 @@ export class TasksComponent implements OnInit, OnChanges {
     this.showMessage.emit(true);
   }
 
-  // onAllCheck(event: any) {
-  //   if (event.checked) {
-  //     this.days = WEEK;
-  //   } else {
-  //     this.days = [];
-  //   }
-  //   this.updateTask();
-  // }
-  //
-  // allDaysChecked() {
-  //   return this.start_date.length === 7;
-  // }
-
   getOriginId() {
     if (this.object) {
       return this.object.id;
@@ -429,22 +394,6 @@ export class TasksComponent implements OnInit, OnChanges {
     delete this.task;
     this.showMessage.emit(false);
   }
-
-  // dateTimeParser() {
-  //   const time = new Date(this.time);
-  //   let timeDateFormat: moment.Moment;
-  //   timeDateFormat = moment(this.start_date);
-  //   timeDateFormat.set({ hours: time.getHours(), minutes: time.getMinutes() });
-  //   this.time = timeDateFormat.toDate();
-  //   this.start_date = timeDateFormat.toDate();
-  //   this.updateTask();
-  // }
-  // endDateParser() {
-  //   let endDate: any;
-  //   endDate = moment(this.end_date).format("YYYY-MM-DD");
-  //   this.end_date = endDate;
-  //   this.updateTask();
-  // }
 
   onShowDateTime() {
     this.showDateTimePicker = !this.showDateTimePicker;

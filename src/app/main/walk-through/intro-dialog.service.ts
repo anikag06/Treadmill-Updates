@@ -37,6 +37,7 @@ import {
   THOUGHT_RECORD_FORM,
   WORRY_PRODUCTIVELY_FORM,
 } from '@/main/walk-through/intro.constant';
+import { ResourcesIntroComponent } from '@/main/walk-through/resources-intro/resources-intro.component';
 
 @Injectable({
   providedIn: 'root',
@@ -54,7 +55,7 @@ export class IntroDialogService {
       maxWidth: '340px',
       disableClose: true,
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
       this.introService.startIntro();
     });
@@ -88,7 +89,7 @@ export class IntroDialogService {
         game: game,
       },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (fromFlow) {
         this.introService.callNavBarGameIntro();
       }
@@ -120,7 +121,7 @@ export class IntroDialogService {
         form: form,
       },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (fromFlow) {
         this.introService.callNavbarFormIntro();
       }
@@ -133,9 +134,8 @@ export class IntroDialogService {
       autoFocus: false,
       maxWidth: '340px',
     });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      const dialogRef = this.dialog.open(IntroSelectTagsComponent, {
+    dialogRef.afterClosed().subscribe((result) => {
+      const dialogRefIntro = this.dialog.open(IntroSelectTagsComponent, {
         panelClass: 'intro-tag-dialog',
         autoFocus: false,
         maxWidth: window.innerWidth < MOBILE_WIDTH ? '340px' : '70%',
@@ -145,6 +145,24 @@ export class IntroDialogService {
           fromFLow: fromFlow,
         },
       });
+    });
+  }
+
+  openResourceIntro(fromFlow: boolean, description: string) {
+    const dialogRef = this.dialog.open(ResourcesIntroComponent, {
+      panelClass: 'intro-dialog',
+      autoFocus: false,
+      maxWidth: '340px',
+      disableClose: true,
+      data: {
+        buttonText: fromFlow ? this.buttonHTML : 'Done',
+        description: description,
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (fromFlow) {
+        this.introService.callNavbarResourceIntro();
+      }
     });
   }
 }

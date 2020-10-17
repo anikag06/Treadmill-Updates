@@ -44,7 +44,7 @@ export class FaceMyWorstFearComponent implements OnInit {
   taskHeading = 'Decide a time when you will worry about it.';
   constructor(
     private fb: FormBuilder,
-    private worryService: WorryProductivelyService,
+    private worryService: WorryProductivelyService
   ) {}
   ngOnInit() {
     this.emergencyPlan = undefined;
@@ -77,15 +77,15 @@ export class FaceMyWorstFearComponent implements OnInit {
       this.worryService.getWorstFear(this.worry.id).subscribe((resp: any) => {
         if (resp.body) {
           this.faceYourWorstFearForm.controls['faceYourWorstFear'].setValue(
-            resp.body.worst_fear,
+            resp.body.worst_fear
           );
           console.log(
             this.faceYourWorstFearForm.controls['emergency_plan'].setValue(
-              resp.body.emergency_plan,
-            ),
+              resp.body.emergency_plan
+            )
           );
           this.faceYourWorstFearForm.controls['emergency_plan'].setValue(
-            resp.body.emergency_plan,
+            resp.body.emergency_plan
           );
           this.faceYourFear.push(resp.body.worst_fear);
           this.summaryText = resp.body.worst_fear;
@@ -105,8 +105,6 @@ export class FaceMyWorstFearComponent implements OnInit {
       this.getEndDate();
       this.onDisableEmergency();
     }
-
-    console.log(this.disableEmergency + 'changes');
   }
   onWorstFearClick() {
     this.continueButton = false;
@@ -125,7 +123,6 @@ export class FaceMyWorstFearComponent implements OnInit {
       };
       this.worryService.postWorstFear(object).subscribe((resp: any) => {
         if (resp.body) {
-          console.log('The request has been submitted');
           this.responseData = resp.body;
         }
       });
@@ -157,10 +154,7 @@ export class FaceMyWorstFearComponent implements OnInit {
     const date = this.task.end_at + ' ' + this.task.time;
     this.disableEmergency =
       moment().format('YYYY-MM-DD HH:mm') <
-      moment
-        .utc(date)
-        .local()
-        .format('YYYY-MM-DD HH:mm');
+      moment.utc(date).local().format('YYYY-MM-DD HH:mm');
   }
 
   onEmergencyPlan() {
@@ -178,21 +172,15 @@ export class FaceMyWorstFearComponent implements OnInit {
   }
   taskLoaded(task: UserTask) {
     this.task = task;
-    this.getEndDate();
-    this.onDisableEmergency();
     if (task) {
-      if (
+      this.getEndDate();
+      this.onDisableEmergency();
+      this.emergencyPlan = !(
         this.faceYourWorstFearForm.controls['emergency_plan'].value === '' &&
         this.summaryText !== '' &&
         this.taskEmitted
-      ) {
-        this.emergencyPlan = false;
-      } else {
-        this.emergencyPlan = true;
-      }
+      );
     }
-    console.log(this.disableEmergency + 'loaded');
-    console.log(this.emergencyPlan + 'emergency' + 'loaded');
   }
   resetForm() {
     this.faceYourWorstFearForm = this.fb.group({

@@ -52,7 +52,7 @@ export class ActAsIfComponent implements OnInit {
     private formBuilder: FormBuilder,
     private changeDetector: ChangeDetectorRef,
     private actAsIfService: ActAsIfService,
-    private element: ElementRef,
+    private element: ElementRef
   ) {}
 
   @Input() belief!: Belief;
@@ -78,7 +78,7 @@ export class ActAsIfComponent implements OnInit {
           if (resp.body.data.advantages.length > 0) {
             resp.body.data.advantages.forEach((object: any) => {
               (this.actAsIfForm.controls.advantages as FormArray).push(
-                this.createEditItem(object.id, object.advantage),
+                this.createEditItem(object.id, object.advantage)
               );
               this.showTrashIcon.push(false);
             });
@@ -101,7 +101,7 @@ export class ActAsIfComponent implements OnInit {
 
   initalizeActAsIf(resp: any) {
     this.actAsIfForm.controls['how_would_i_act'].setValue(
-      resp.body.how_would_i_act,
+      resp.body.how_would_i_act
     );
     this.showAdvantages = true;
     this.editMode = true;
@@ -112,7 +112,7 @@ export class ActAsIfComponent implements OnInit {
       resp.body.would_it_help !== null
     ) {
       this.actAsIfForm.controls['would_it_help'].setValue(
-        resp.body.would_it_help,
+        resp.body.would_it_help
       );
     }
   }
@@ -183,7 +183,7 @@ export class ActAsIfComponent implements OnInit {
         belief_id: this.belief.id,
         how_would_i_act: this.actAsIfForm.value['how_would_i_act'],
       };
-      this.actAsIfService.postActAsIf(object).subscribe(resp => {
+      this.actAsIfService.postActAsIf(object).subscribe((resp) => {
         if (resp.ok) {
           this.showActContinue = false;
 
@@ -198,12 +198,14 @@ export class ActAsIfComponent implements OnInit {
         how_would_i_act: this.actAsIfForm.value['how_would_i_act'],
         would_it_help: this.actAsIfForm.value['would_it_help'],
       };
-      this.actAsIfService.putActAsIf(object, this.belief.id).subscribe(resp => {
-        if (resp.ok) {
-          this.summary = this.actAsIfForm.value['how_would_i_act'];
-          this.onSubmitAdvantages();
-        }
-      });
+      this.actAsIfService
+        .putActAsIf(object, this.belief.id)
+        .subscribe((resp) => {
+          if (resp.ok) {
+            this.summary = this.actAsIfForm.value['how_would_i_act'];
+            this.onSubmitAdvantages();
+          }
+        });
     }
   }
 
@@ -212,16 +214,23 @@ export class ActAsIfComponent implements OnInit {
       advantages: this.actAsIfForm.controls['advantages'].value,
     };
 
-    this.actAsIfService
-      .postAdvantages(advantages, this.belief.id)
-      .subscribe(resp => {
-        if (resp.ok) {
-          this.panel.expanded = false;
-          this.panelCollapse();
-          this.summary = this.actAsIfForm.value['how_would_i_act'];
-          this.triggerShowFinalBelief.emit();
-        }
-      });
+    if (advantages.advantages[0].advantage) {
+      this.actAsIfService
+        .postAdvantages(advantages, this.belief.id)
+        .subscribe((resp) => {
+          if (resp.ok) {
+            this.panel.expanded = false;
+            this.panelCollapse();
+            this.summary = this.actAsIfForm.value['how_would_i_act'];
+            this.triggerShowFinalBelief.emit();
+          }
+        });
+    } else {
+      this.panel.expanded = false;
+      this.panelCollapse();
+      this.summary = this.actAsIfForm.value['how_would_i_act'];
+      this.triggerShowFinalBelief.emit();
+    }
   }
 
   resetForm() {

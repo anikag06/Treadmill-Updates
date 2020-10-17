@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <g id="app_icon_512" data-name="app icon_512" transform="translate(-204.764 -2076)">
+    <g id="Group_12504" data-name="Group 12504" transform="translate(204.894 2076)">
+      <rect id="Rectangle_4268" data-name="Rectangle 4268" width="512" height="512" rx="20" transform="translate(-0.129)" fill="#f5bb56"/>
+      <path id="Rectangle_4269" data-name="Rectangle 4269" d="M0,0H512a0,0,0,0,1,0,0V20a20,20,0,0,1-20,20H20A20,20,0,0,1,0,20V0A0,0,0,0,1,0,0Z" transform="translate(-0.129 472)" fill="#2a3b3d"/>
+    </g>
+    <path id="Path_12195" data-name="Path 12195" d="M177.362-84.7q9.289,0,15.137,5.5t5.848,14.449q0,8.945-5.848,14.277t-15.137,5.332H123.35V135.131a19.517,19.517,0,0,1-6.536,14.965,22.971,22.971,0,0,1-16.169,6.02q-9.633,0-15.825-6.02a20.027,20.027,0,0,1-6.192-14.965V-45.137H24.615q-9.289,0-15.137-5.5T3.63-65.091A18.255,18.255,0,0,1,9.65-79.2a21.344,21.344,0,0,1,14.965-5.5Z" transform="translate(359.529 2298.025)" fill="#fff"/>
+  </g>
+</svg>

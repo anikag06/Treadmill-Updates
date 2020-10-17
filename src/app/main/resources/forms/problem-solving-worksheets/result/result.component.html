@@ -43,13 +43,8 @@
                 </mat-radio-button>
               </mat-radio-group>
               <div class="my-2 text-center">
-                <div *ngIf="didWork === true">
-                  {{ yes }}
-                </div>
-
-                <div *ngIf="didWork === false">
-                  {{ no }}
-                </div>
+                <div *ngIf="didWork === true" [innerHTML]="yes"></div>
+                <div *ngIf="didWork === false" [innerHTML]="no"></div>
               </div>
             </div>
           </div>

@@ -38,6 +38,7 @@ import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
 import { type } from 'os';
 import { AuthService } from '@/shared/auth/auth.service';
 import { User } from '@/shared/user.model';
+import { BE_MINDFUL, TESTIMONIALS } from '@/main/walk-through/intro.constant';
 
 @Component({
   selector: 'app-step',
@@ -66,7 +67,7 @@ export class StepComponent implements OnInit, AfterViewInit {
     private introService: IntroService,
     private introDialogService: IntroDialogService,
     private goToService: NavbarGoToService,
-    private authService: AuthService,
+    private authService: AuthService
   ) {
     this.user = <User>this.authService.isLoggedIn();
   }
@@ -89,23 +90,23 @@ export class StepComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     // this is done to change the properties of progress bar in conversation in flow
     const stepProgressBar = this.element.nativeElement.querySelectorAll(
-      '.step-progress-bar .mat-progress-bar',
+      '.step-progress-bar .mat-progress-bar'
     );
     // tslint:disable-next-line: max-line-length
     const stepProgressBarBuffer = this.element.nativeElement.querySelectorAll(
-      '.step-progress-bar .mat-progress-bar .mat-progress-bar-buffer',
+      '.step-progress-bar .mat-progress-bar .mat-progress-bar-buffer'
     );
     const stepProgressBarFill = this.element.nativeElement.querySelectorAll(
-      '.step-progress-bar .mat-progress-bar .mat-progress-bar-fill',
+      '.step-progress-bar .mat-progress-bar .mat-progress-bar-fill'
     );
     if (stepProgressBar.length > 0) {
       stepProgressBar[0].setAttribute(
         'style',
-        'border-radius: 2px; !important',
+        'border-radius: 2px; !important'
       );
       stepProgressBarBuffer[0].setAttribute(
         'style',
-        'background-color: #E4E8EB; !important',
+        'background-color: #E4E8EB; !important'
       );
 
       const afterElement = document.createElement('style');
@@ -161,7 +162,7 @@ export class StepComponent implements OnInit, AfterViewInit {
             setTimeout(() => {
               this.introDialogService.openGameIntroDialog(
                 true,
-                this.step.action[0],
+                this.step.action[0]
               );
             }, 500);
           } else {
@@ -180,7 +181,7 @@ export class StepComponent implements OnInit, AfterViewInit {
             setTimeout(() => {
               this.introDialogService.openFormIntroDialog(
                 true,
-                this.step.action[0],
+                this.step.action[0]
               );
             }, 500);
           } else {
@@ -245,6 +246,12 @@ export class StepComponent implements OnInit, AfterViewInit {
       setTimeout(() => this.flowService.triggerLoad(), 2000);
     }
 
+    if (this.step.name === 'Be mindful' && this.step.status !== COMPLETED) {
+      this.introDialogService.openResourceIntro(true, BE_MINDFUL);
+    }
+    if (this.step.name === 'Testimonials' && this.step.status !== COMPLETED) {
+      this.introDialogService.openResourceIntro(true, TESTIMONIALS);
+    }
     if (this.step.status !== LOCKED) {
       this.closeNavFlow();
       return this.router.navigate([this.nextLink()]);
@@ -295,7 +302,7 @@ export class StepComponent implements OnInit, AfterViewInit {
   showTooltipFun() {
     if (this.step.status === LOCKED && this.step.sequence === 0) {
       this.flowService.getModuleUnlockTime(this.stepGroup.id);
-      this.flowService.unlockModuleTime.subscribe(data => {
+      this.flowService.unlockModuleTime.subscribe((data) => {
         if (data === false) {
           this.tooltipShow();
         } else if (typeof data === 'string' && !Date.parse(data)) {

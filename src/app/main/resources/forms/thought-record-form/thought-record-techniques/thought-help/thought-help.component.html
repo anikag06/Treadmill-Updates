@@ -85,13 +85,12 @@
         </mat-radio-group>
       </div>
       <br />
-      <div>
+      <div class="text-center">
         <div
           *ngIf="thoughtHelpForm.value['canSolve'] === true"
           [innerHTML]="yes"
         ></div>
-        <div *ngIf="thoughtHelpForm.value['canSolve'] === false">
-          {{ no }}
+        <div *ngIf="thoughtHelpForm.value['canSolve'] === false"   [innerHTML]="no">
         </div>
       </div>
       <br />
