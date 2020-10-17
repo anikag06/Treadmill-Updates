@@ -20,7 +20,7 @@
     But, the problem is that life is full of ups and downs. You are going to face setbacks, failures, and rejections. We all do - that’s just life.
     <br><br>
     How to prevent yourself from getting stuck in another negative thinking trap? You’ll learn in this module.
-    <!-- Add IMAGES here -->
+    <!-- IMAGES -->
     <img src="assets/introduction/Prevent from negative thinking trap.svg" alt="Prevent from negative thinking trap" style="width: 100% ; margin:10px 0">
   </div>
 <br>
@@ -41,10 +41,25 @@
     </div>
   </div>
 </ng-template>
+
 <ng-template [ngIf]="!dataLoaded">
+  <!--  code for mat-card repeated as content locked should show on blank page-->
+  <mat-card  class="container-fluid px-0 pt-0 pb-2 " >
+    <div class="row introduction">
+      <div class="col my-3  mt-md-0">
+        <div >
+          <mat-card-header class="title col-12 w-100 my-auto px-0">
+            <mat-card-title class="my-auto d-inline-block justify-content-center py-2 ">
+              Introduction
+            </mat-card-title>
+          </mat-card-header>
   <div class="col">
     <div class="text-center loader">
       <img src="assets/shared/loading-gif.gif" alt="loader" width="80">
     </div>
   </div>
+        </div>
+      </div>
+    </div>
+  </mat-card>
 </ng-template>

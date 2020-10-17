@@ -1,4 +1,3 @@
-<!--<div (click)="saveData()">-->
 <ng-template [ngIf]="dataLoaded && !locked">
   <mat-card  class="container-fluid px-0 pt-0 pb-2" >
     <div class="row introduction">
@@ -94,6 +93,16 @@
 
 </ng-template>
 <ng-template [ngIf]="!dataLoaded">
+  <!--  code for mat-card repeated as content locked should show on blank page-->
+  <mat-card  class="container-fluid px-0 pt-0 pb-2" >
+    <div class="row introduction">
+      <div class="col my-3 mt-md-0">
+        <div >
+          <mat-card-header class="title col-12 w-100 my-auto px-0">
+            <mat-card-title class="my-auto d-inline-block justify-content-center py-2 ">
+              Introduction
+            </mat-card-title>
+          </mat-card-header>
   <div class="row">
     <div class="col">
       <div class="text-center loader">
@@ -101,5 +110,8 @@
       </div>
     </div>
   </div>
+        </div>
+      </div>
+    </div>
+  </mat-card>
 </ng-template>
-<!--</div>-->
