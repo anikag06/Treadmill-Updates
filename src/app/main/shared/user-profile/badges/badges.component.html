@@ -1,6 +1,6 @@
 <div class="row-fluid">
     <div class="cover-container" #widgetsContent>
-        <button class="left-arrow" (click)="scrollLeft()">
+        <button class="left-arrow" (click)="scrollLeft()" *ngIf="profileLoaded">
             <mat-icon>keyboard_arrow_left</mat-icon>
         </button>
         <div class="cover-item" *ngFor="let badge of badgeList"  [ngStyle]="{display: !profileLoaded ? 'none' : 'inline-block'}">
@@ -13,7 +13,7 @@
               <div class="badge-name">{{badge.name}}</div>
             </div>
         </div>
-      <div class="skeleton-div" *ngIf="showLoading" [ngStyle]="{display: profileLoaded ? 'none' : 'inline-block'}">
+      <div class="skeleton-div" *ngIf="!profileLoaded" >
 <!--     badges skeleton 1-->
       <div class="cover-item">
       <div class="badge-box">
@@ -62,7 +62,7 @@
       <!--        till here-->
       </div>
 
-        <button class="right-arrow" (click)="scrollRight()">
+        <button class="right-arrow" (click)="scrollRight()" *ngIf="profileLoaded">
             <mat-icon>keyboard_arrow_right</mat-icon>
         </button>
     </div>

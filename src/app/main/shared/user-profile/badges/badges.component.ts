@@ -10,7 +10,6 @@ export class BadgesComponent implements OnInit {
   @Input() badgeList!: Badge[];
   @Input() profileLoaded!: boolean;
   @ViewChild('widgetsContent', {static: false})
-  showLoading = true;
   public widgetsContent!: ElementRef<any>;
 
   public scrollRight(): void {
