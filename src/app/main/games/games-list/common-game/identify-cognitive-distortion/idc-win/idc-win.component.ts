@@ -2,8 +2,8 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { IdcGameService } from '../idc-game.service';
 import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
 import { GamesFeedbackComponent } from '../../games-feedback/games-feedback.component';
-import {CommonService} from '@/shared/common.service';
-import {PLAYING_GAMES_SCORE} from '@/app.constants';
+import { CommonService } from '@/shared/common.service';
+import { PLAYING_GAMES_SCORE } from '@/app.constants';
 
 @Component({
   selector: 'app-idc-win',

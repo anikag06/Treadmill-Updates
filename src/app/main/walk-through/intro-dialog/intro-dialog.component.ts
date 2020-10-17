@@ -18,7 +18,7 @@ export class IntroDialogComponent implements OnInit {
     private dialogRef: MatDialogRef<IntroDialogComponent>,
     private breakpointObserver: BreakpointObserver,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
   ) {}
 
   ngOnInit() {

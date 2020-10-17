@@ -69,7 +69,7 @@ export class TaskFormsComponent implements OnInit {
       this.formService.formName = this.formName;
       this.formService.formTitle.emit();
     }
-    setTimeout( () => {
+    setTimeout(() => {
       this.showLoading = false;
     }, 1000);
   }

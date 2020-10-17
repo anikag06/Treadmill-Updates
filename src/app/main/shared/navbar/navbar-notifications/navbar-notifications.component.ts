@@ -1,16 +1,22 @@
-import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { NavbarNotificationsService } from '../navbar-notifications.service';
 import { Notification } from './notification-item/notification.model';
 
 @Component({
   selector: 'app-navbar-notifications',
   templateUrl: './navbar-notifications.component.html',
-  styleUrls: ['./navbar-notifications.component.scss']
+  styleUrls: ['./navbar-notifications.component.scss'],
 })
 export class NavbarNotificationsComponent implements OnInit {
-
   notifications: Notification[] = [];
-  @ViewChild('notificationsDiv', { static: false }) notificationsDiv!: ElementRef;
+  @ViewChild('notificationsDiv', { static: false })
+  notificationsDiv!: ElementRef;
 
   pageNumber = 0;
   scrollTop = 0;
@@ -21,7 +27,7 @@ export class NavbarNotificationsComponent implements OnInit {
   constructor(
     private notificationService: NavbarNotificationsService,
     private changeRef: ChangeDetectorRef,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.getNotifications();
@@ -29,9 +35,11 @@ export class NavbarNotificationsComponent implements OnInit {
 
   getNotifications(scrollToBottom = false) {
     this.pageNumber += 1;
-    const notificationPromise  = this.notificationService.getNotifications(this.pageNumber).toPromise();
-    notificationPromise.then(
-      (data: any) => {
+    const notificationPromise = this.notificationService
+      .getNotifications(this.pageNumber)
+      .toPromise();
+    notificationPromise
+      .then((data: any) => {
         this.unreadCount = data.data.unread_count;
         const items = data.data.notifications as Notification[];
         console.log('in noti...', items);
@@ -40,13 +48,11 @@ export class NavbarNotificationsComponent implements OnInit {
         if (scrollToBottom) {
           this.scrollToBottom();
         }
-        if (items.length < 10 ) {
+        if (items.length < 10) {
           this.noMoreItems = true;
         }
-      }
-    ).catch(
-      () => console.log('error')
-    );
+      })
+      .catch(() => console.log('error'));
   }
 
   onMoreClick() {
@@ -55,7 +61,8 @@ export class NavbarNotificationsComponent implements OnInit {
 
   scrollToBottom() {
     if (this.notificationsDiv) {
-      const scrollHeight = this.notificationsDiv.nativeElement.scrollHeight * 0.80;
+      const scrollHeight =
+        this.notificationsDiv.nativeElement.scrollHeight * 0.8;
       this.scrollTop = scrollHeight;
       this.changeRef.detectChanges();
     }
@@ -71,9 +78,8 @@ export class NavbarNotificationsComponent implements OnInit {
       return item;
     });
     this.unreadCount = 0;
-    this.notificationService.putMarkAllRead()
-      .subscribe(
-        data => console.log(data)
-      );
+    this.notificationService
+      .putMarkAllRead()
+      .subscribe(data => console.log(data));
   }
 }

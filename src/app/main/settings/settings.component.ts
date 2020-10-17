@@ -17,8 +17,8 @@ import { FcmService } from '@/shared/fcm.service';
 import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import {UserProfileService} from '@/main/shared/user-profile/user-profile.service';
-import {CommonService} from '@/shared/common.service';
+import { UserProfileService } from '@/main/shared/user-profile/user-profile.service';
+import { CommonService } from '@/shared/common.service';
 
 @Component({
   selector: 'app-settings',
@@ -103,9 +103,9 @@ export class SettingsComponent implements OnInit {
     private goToService: NavbarGoToService,
     private router: Router,
     private route: ActivatedRoute,
-   //  private commonService: CommonService,
-   //  private userProfileService: UserProfileService,
-  ) {}
+  ) //  private commonService: CommonService,
+  //  private userProfileService: UserProfileService,
+  {}
 
   ngOnInit() {
     this.user = <User>this.authService.isLoggedIn();

@@ -20,11 +20,11 @@ import { SurveyResponse } from './survey-response.model';
 import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
 import { FlowService } from '@/main/flow/flow.service';
 import { Router } from '@angular/router';
-import {CommonService} from '@/shared/common.service';
-import {UserProfileService} from '@/main/shared/user-profile/user-profile.service';
-import {SURVEY_COMPLETE_SCORE} from '@/app.constants';
-import {User} from '@/shared/user.model';
-import {AuthService} from '@/shared/auth/auth.service';
+import { CommonService } from '@/shared/common.service';
+import { UserProfileService } from '@/main/shared/user-profile/user-profile.service';
+import { SURVEY_COMPLETE_SCORE } from '@/app.constants';
+import { User } from '@/shared/user.model';
+import { AuthService } from '@/shared/auth/auth.service';
 
 @Component({
   animations: [

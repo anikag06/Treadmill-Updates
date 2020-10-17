@@ -8,9 +8,8 @@ describe('AsgSummaryComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AsgSummaryComponent ]
-    })
-    .compileComponents();
+      declarations: [AsgSummaryComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

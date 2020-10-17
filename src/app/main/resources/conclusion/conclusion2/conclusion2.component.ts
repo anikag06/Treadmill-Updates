@@ -8,17 +8,22 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import {LOCKED, COMPLETED, LOGGED_IN_PATH, CONCLUSION_SCORE} from '@/app.constants';
+import {
+  LOCKED,
+  COMPLETED,
+  LOGGED_IN_PATH,
+  CONCLUSION_SCORE,
+} from '@/app.constants';
 import { ConclusionService } from '../conclusion.service';
 import { StepsDataService } from '../../shared/steps-data.service';
 import { StepCompleteData } from '../../shared/completion-data.model';
 import { CommonDialogsService } from '../../shared/common-dialogs.service';
 import { QuizService } from '@/shared/questionnaire/questionnaire.service';
 import { FlowService } from '@/main/flow/flow.service';
-import {CommonService} from '@/shared/common.service';
-import {UserProfileService} from '@/main/shared/user-profile/user-profile.service';
-import {User} from '@/shared/user.model';
-import {AuthService} from '@/shared/auth/auth.service';
+import { CommonService } from '@/shared/common.service';
+import { UserProfileService } from '@/main/shared/user-profile/user-profile.service';
+import { User } from '@/shared/user.model';
+import { AuthService } from '@/shared/auth/auth.service';
 
 @Component({
   selector: 'app-conclusion2',

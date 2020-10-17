@@ -211,7 +211,7 @@ export class GameItemComponent implements OnInit {
     return this.game.name === ATTRIBUTE_STYLE_GAME;
   }
   removeLoading() {
-    setTimeout( () => {
+    setTimeout(() => {
       this.showLoading = false;
     }, 100);
   }

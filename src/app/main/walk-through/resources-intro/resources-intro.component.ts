@@ -11,7 +11,7 @@ export class ResourcesIntroComponent implements OnInit {
   description!: string;
   constructor(
     private dialogRef: MatDialogRef<ResourcesIntroComponent>,
-    @Optional() @Inject(MAT_DIALOG_DATA) public data: any
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
   ) {}
 
   ngOnInit() {

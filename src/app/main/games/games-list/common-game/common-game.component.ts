@@ -37,7 +37,7 @@ import { LhgHowtoplayComponent } from './learned-helplessness-game/lhg-howtoplay
 import { IdcGameService } from './identify-cognitive-distortion/idc-game.service';
 import { IntroService } from '@/main/walk-through/intro.service';
 import { IdcScienceComponent } from '@/main/games/games-list/common-game/identify-cognitive-distortion/idc-science/idc-science.component';
-import {AsgInstructionsComponent} from "@/main/games/games-list/common-game/attribute-style-game/asg-instructions/asg-instructions.component";
+import { AsgInstructionsComponent } from '@/main/games/games-list/common-game/attribute-style-game/asg-instructions/asg-instructions.component';
 
 declare let $: any;
 

@@ -10,13 +10,13 @@ import {
 import { FormControl, FormBuilder, Validators } from '@angular/forms';
 import { WorryProductivelyService } from '../../worry-productively.service';
 import { Worry } from '../../worry.model';
-import {FOLLOW_UP_FORM_COMPLETE_SCORE, WORRY_PROBLEM} from '@/app.constants';
+import { FOLLOW_UP_FORM_COMPLETE_SCORE, WORRY_PROBLEM } from '@/app.constants';
 import { UserTask } from '../../../shared/tasks/user-task.model';
 import * as moment from 'moment';
-import {CommonService} from '@/shared/common.service';
-import {UserProfileService} from '@/main/shared/user-profile/user-profile.service';
-import {User} from '@/shared/user.model';
-import {AuthService} from '@/shared/auth/auth.service';
+import { CommonService } from '@/shared/common.service';
+import { UserProfileService } from '@/main/shared/user-profile/user-profile.service';
+import { User } from '@/shared/user.model';
+import { AuthService } from '@/shared/auth/auth.service';
 
 @Component({
   selector: 'app-face-my-worst-fear',
@@ -87,15 +87,15 @@ export class FaceMyWorstFearComponent implements OnInit {
       this.worryService.getWorstFear(this.worry.id).subscribe((resp: any) => {
         if (resp.body) {
           this.faceYourWorstFearForm.controls['faceYourWorstFear'].setValue(
-            resp.body.worst_fear
+            resp.body.worst_fear,
           );
           console.log(
             this.faceYourWorstFearForm.controls['emergency_plan'].setValue(
-              resp.body.emergency_plan
-            )
+              resp.body.emergency_plan,
+            ),
           );
           this.faceYourWorstFearForm.controls['emergency_plan'].setValue(
-            resp.body.emergency_plan
+            resp.body.emergency_plan,
           );
           this.faceYourFear.push(resp.body.worst_fear);
           this.summaryText = resp.body.worst_fear;
@@ -158,7 +158,7 @@ export class FaceMyWorstFearComponent implements OnInit {
           if (resp.body) {
             console.log('The request has been submitted');
             this.responseData = resp.body;
-            if (this.worrySubmit === 2){
+            if (this.worrySubmit === 2) {
               this.commonService.updateScore(FOLLOW_UP_FORM_COMPLETE_SCORE);
               console.log('score 2');
             }
@@ -173,7 +173,10 @@ export class FaceMyWorstFearComponent implements OnInit {
     const date = this.task.end_at + ' ' + this.task.time;
     this.disableEmergency =
       moment().format('YYYY-MM-DD HH:mm') <
-      moment.utc(date).local().format('YYYY-MM-DD HH:mm');
+      moment
+        .utc(date)
+        .local()
+        .format('YYYY-MM-DD HH:mm');
   }
 
   onEmergencyPlan() {

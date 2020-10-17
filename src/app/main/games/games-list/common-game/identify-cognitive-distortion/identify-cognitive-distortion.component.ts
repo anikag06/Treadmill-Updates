@@ -1,4 +1,11 @@
-import {Component, OnInit, ViewChild, ElementRef, Output, EventEmitter} from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 import { IdcGameService } from './idc-game.service';
 import { IdcScoreComponent } from './idc-score/idc-score.component';
 import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
@@ -114,7 +121,7 @@ export class IdentifyCognitiveDistortionComponent implements OnInit {
     this.element.nativeElement.dispatchEvent(domEvent);
   }
   removeLoading() {
-    setTimeout( () => {
+    setTimeout(() => {
       this.showLoading = false;
       this.showPlayButtons.emit();
     }, 1000);

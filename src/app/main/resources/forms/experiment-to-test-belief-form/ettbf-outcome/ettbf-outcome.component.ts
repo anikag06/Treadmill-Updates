@@ -17,13 +17,14 @@ import { FormSliderComponent } from '@/main/resources/forms/shared/form-slider/f
 import {
   ETTBF_MAX_RATING_TEXT,
   ETTBF_MIN_RATING_TEXT,
-  ETTBF_RATING_QUESTION, FOLLOW_UP_FORM_COMPLETE_SCORE,
+  ETTBF_RATING_QUESTION,
+  FOLLOW_UP_FORM_COMPLETE_SCORE,
 } from '@/app.constants';
 import { UserTask } from '../../shared/tasks/user-task.model';
 import * as moment from 'moment';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import {CommonService} from '@/shared/common.service';
-import {UserProfileService} from '@/main/shared/user-profile/user-profile.service';
+import { CommonService } from '@/shared/common.service';
+import { UserProfileService } from '@/main/shared/user-profile/user-profile.service';
 
 @Component({
   selector: 'app-ettbf-outcome',
@@ -169,8 +170,8 @@ export class EttbfOutcomeComponent implements OnInit {
     this.outcomeSubmit += 1;
     // this.commonService.postScore(this.followUpOldScore + FOLLOW_UP_FORM_COMPLETE_SCORE)
     //   .subscribe(() => {
-        console.log('score');
-     // });
+    console.log('score');
+    // });
     if (this.outcome && Object.entries(this.outcome).length > 0) {
       this.outcome.belief_id = this.outcome_belief_id;
       this.outcome.outcome = this.outcomeStatement;

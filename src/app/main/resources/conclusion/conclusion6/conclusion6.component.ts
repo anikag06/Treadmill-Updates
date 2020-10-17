@@ -7,7 +7,8 @@ import {
 } from '@angular/core';
 import {
   COMMITMENT_OPTIONS,
-  COMPLETED, CONCLUSION_SCORE,
+  COMPLETED,
+  CONCLUSION_SCORE,
   LOCKED,
   LOGGED_IN_PATH,
 } from '@/app.constants';
@@ -20,10 +21,10 @@ import { CommonDialogsService } from '@/main/resources/shared/common-dialogs.ser
 import { QuizService } from '@/shared/questionnaire/questionnaire.service';
 import { FlowService } from '@/main/flow/flow.service';
 import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
-import {CommonService} from '@/shared/common.service';
-import {UserProfileService} from '@/main/shared/user-profile/user-profile.service';
-import {User} from '@/shared/user.model';
-import {AuthService} from '@/shared/auth/auth.service';
+import { CommonService } from '@/shared/common.service';
+import { UserProfileService } from '@/main/shared/user-profile/user-profile.service';
+import { User } from '@/shared/user.model';
+import { AuthService } from '@/shared/auth/auth.service';
 
 @Component({
   selector: 'app-conclusion6',

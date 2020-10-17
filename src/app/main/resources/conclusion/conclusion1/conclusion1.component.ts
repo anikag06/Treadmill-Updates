@@ -15,7 +15,9 @@ import {
   ACTIVE,
   QUESTIONNAIRE,
   CONCLUSION_PAGE,
-  LOGGED_IN_PATH, INTRODUCTION_SCORE, CONCLUSION_SCORE,
+  LOGGED_IN_PATH,
+  INTRODUCTION_SCORE,
+  CONCLUSION_SCORE,
 } from '@/app.constants';
 import { ConclusionService } from '../conclusion.service';
 import { StepsDataService } from '../../shared/steps-data.service';
@@ -26,9 +28,9 @@ import { QuizService } from '@/shared/questionnaire/questionnaire.service';
 import { FlowService } from '@/main/flow/flow.service';
 import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifications.service';
 import { CommonService } from '@/shared/common.service';
-import {UserProfileService} from '@/main/shared/user-profile/user-profile.service';
-import {User} from '@/shared/user.model';
-import {AuthService} from '@/shared/auth/auth.service';
+import { UserProfileService } from '@/main/shared/user-profile/user-profile.service';
+import { User } from '@/shared/user.model';
+import { AuthService } from '@/shared/auth/auth.service';
 
 @Component({
   selector: 'app-conclusion1',
@@ -183,7 +185,7 @@ export class Conclusion1Component implements OnInit, OnDestroy {
       .storeCompletionData(this.completionData)
       .subscribe(data => {
         console.log('data', data, this.currentStepId, this.nextStepId);
-        this.commonService.updateScore( CONCLUSION_SCORE);
+        this.commonService.updateScore(CONCLUSION_SCORE);
       });
     this.commonDialogService.openCongratsDialog(
       this.currentStepId,

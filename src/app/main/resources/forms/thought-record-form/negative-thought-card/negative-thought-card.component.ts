@@ -11,11 +11,11 @@ import {
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
 import { ThoughtRecordService } from '@/main/resources/forms/thought-record-form/thought-record.service';
-import {UserProfileService} from '@/main/shared/user-profile/user-profile.service';
-import {CommonService} from '@/shared/common.service';
-import {FORM_START_SCORE} from '@/app.constants';
-import {User} from '@/shared/user.model';
-import {AuthService} from '@/shared/auth/auth.service';
+import { UserProfileService } from '@/main/shared/user-profile/user-profile.service';
+import { CommonService } from '@/shared/common.service';
+import { FORM_START_SCORE } from '@/app.constants';
+import { User } from '@/shared/user.model';
+import { AuthService } from '@/shared/auth/auth.service';
 
 @Component({
   selector: 'app-negative-thought-card',
@@ -109,7 +109,7 @@ export class NegativeThoughtCardComponent implements OnInit {
         if (status) {
           this.showContinueButton = false;
           this.showSlider = true;
-          if(!this.scoreUpdate) {
+          if (!this.scoreUpdate) {
             this.scoreUpdate = true;
             if (this.user.is_exp) {
               this.commonService.updateScore(FORM_START_SCORE);
@@ -119,7 +119,6 @@ export class NegativeThoughtCardComponent implements OnInit {
         }
       });
     }
-
   }
 
   onThoughtRatingSubmit() {
@@ -138,14 +137,13 @@ export class NegativeThoughtCardComponent implements OnInit {
           this.showContinueButton = false;
           this.showSliderButton = false;
           this.initialRatingChange.emit(this.negativeMoodRating);
-          if(!this.scoreUpdate) {
+          if (!this.scoreUpdate) {
             this.scoreUpdate = true;
             if (this.user.is_exp) {
               this.commonService.updateScore(FORM_START_SCORE);
             }
           }
         }
-
       });
   }
 

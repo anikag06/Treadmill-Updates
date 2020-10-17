@@ -2,7 +2,7 @@
 <div *ngIf = "videoType === 'mindfulnessVideo'">
 <mat-card class="card">
         <div class = "preview-img-div" [ngStyle]="{visibility: showLoading ? 'hidden' : 'visible'}">
-        <img class = "preview-img" [src]="mindfulnessVideoItem.preview_img" (load)="removeLoading()" >
+        <img class = "preview-img" [src]="mindfulnessVideoItem.resource_video.preview_img" (load)="removeLoading()" >
         <img class = "youtube-button" src = "assets/icons/youtube.png">
   <div class="img-loading " [ngStyle]="{visibility: showLoading ? 'visible' : 'hidden'}">
     <p class="loading-text"> Loading... </p>

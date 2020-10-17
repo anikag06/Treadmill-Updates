@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
-import {CommonService} from '@/shared/common.service';
-import {PLAYING_GAMES_SCORE} from '@/app.constants';
+import { CommonService } from '@/shared/common.service';
+import { PLAYING_GAMES_SCORE } from '@/app.constants';
 declare var playnextsong: any;
 declare var ffg_next_song: any;
 
@@ -15,7 +15,7 @@ export class FfgNextgameComponent implements OnInit {
   constructor(
     private elementRef: ElementRef,
     private commonService: CommonService,
-    ) {}
+  ) {}
 
   ngOnInit() {
     this.ffg_next_song = ffg_next_song;

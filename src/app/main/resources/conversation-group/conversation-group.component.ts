@@ -132,7 +132,7 @@ export class ConversationGroupComponent implements OnInit {
     this.passdata.setOption(this.conversation_id, false, false, true);
   }
   removeLoading() {
-    setTimeout( () => {
+    setTimeout(() => {
       this.showLoading = false;
     }, 100);
   }

@@ -4,7 +4,9 @@ import {
   HostListener,
   ViewChild,
   ElementRef,
-  ViewContainerRef, Output, EventEmitter,
+  ViewContainerRef,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 import { GamePlayService } from '@/main/games/shared/game-play.service';
 import { GamesAuthService } from '@/main/games/shared/games-auth.service';
@@ -414,7 +416,7 @@ export class FriendlyFaceGameComponent implements OnInit {
     this.ffgHelpService.updateBadges.emit();
   }
   removeLoading() {
-    setTimeout( () => {
+    setTimeout(() => {
       this.showLoading = false;
       this.showPlayButtons.emit();
     }, 100);

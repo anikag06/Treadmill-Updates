@@ -6,14 +6,20 @@ import {
   HostListener,
   EventEmitter,
   ViewChild,
-  ElementRef, Output,
+  ElementRef,
+  Output,
 } from '@angular/core';
 import {
   IBGameUserScore,
   IBGameUserResponse,
 } from '@/main/games/shared/game-play.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import {IBG_SENTENCE, IBG_LESS_TIME, IBG_MORE_TIME, PLAYING_GAMES_SCORE} from '@/app.constants';
+import {
+  IBG_SENTENCE,
+  IBG_LESS_TIME,
+  IBG_MORE_TIME,
+  PLAYING_GAMES_SCORE,
+} from '@/app.constants';
 import { environment } from 'environments/environment';
 import { GamePlayService } from '@/main/games/shared/game-play.service';
 import { GamesAuthService } from '@/main/games/shared/games-auth.service';
@@ -31,7 +37,7 @@ import { map, switchMap } from 'rxjs/operators';
 import { FlowService } from '@/main/flow/flow.service';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 import { IntroService } from '@/main/walk-through/intro.service';
-import {CommonService} from '@/shared/common.service';
+import { CommonService } from '@/shared/common.service';
 
 declare var IBG_MAX_WORDS_HIDDEN: number;
 declare var sentence_number: any;
@@ -81,7 +87,6 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   @ViewChild('ibgameDiv', { static: false }) ibGameDiv!: ElementRef;
   @ViewChild('tooltip', { static: false }) showToolTip!: MatTooltip;
   @Output() showPlayButtons = new EventEmitter();
-
 
   NO_OF_SENTENCES_RECEIVED = 3; // order of first sentence is 0
   // LEVEL_UP_SEN = 5;       // level up after how many sentences, here after 5 sentences;
@@ -509,7 +514,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
     this.showToolTip.toggle();
   }
   removeLoading() {
-    setTimeout( () => {
+    setTimeout(() => {
       this.showLoading = false;
       this.showPlayButtons.emit();
     }, 100);

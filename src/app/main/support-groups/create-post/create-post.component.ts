@@ -24,9 +24,12 @@ import { AngularEditorConfig } from '@arkaghosh024/angular-editor';
 import { SanitizationService } from '../../shared/sanitization.service';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { TagGroup } from '@/main/shared/tag-group.model';
-import {COMMON_EDITOR_CONFIG, SUPPORT_GROUP_POST_SCORE} from '@/app.constants';
-import {CommonService} from '@/shared/common.service';
-import {UserProfileService} from '@/main/shared/user-profile/user-profile.service';
+import {
+  COMMON_EDITOR_CONFIG,
+  SUPPORT_GROUP_POST_SCORE,
+} from '@/app.constants';
+import { CommonService } from '@/shared/common.service';
+import { UserProfileService } from '@/main/shared/user-profile/user-profile.service';
 
 @Component({
   selector: 'app-create-post',

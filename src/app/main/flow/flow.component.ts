@@ -53,9 +53,9 @@ export class FlowComponent implements OnInit, OnDestroy {
         this.introExit = value;
       },
     );
-    setTimeout( () => {
+    setTimeout(() => {
       this.showDelayMessge = true;
-      console.log('SHOW DELAY', this.showDelayMessge );
+      console.log('SHOW DELAY', this.showDelayMessge);
     }, 5000);
     // this.quizService.questionnaire_active.subscribe((value: boolean) => {
     //   console.log('EVENT EMITTED', value, 'Follow up', this.followUp);

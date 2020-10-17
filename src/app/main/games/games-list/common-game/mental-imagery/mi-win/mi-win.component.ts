@@ -2,8 +2,8 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { MICurrentStateService } from '../mi-current-state.service';
 import { MIPlayService } from '../mi-play.service';
 import { Level } from '../level.model';
-import {PLAYING_GAMES_SCORE} from '@/app.constants';
-import {CommonService} from '@/shared/common.service';
+import { PLAYING_GAMES_SCORE } from '@/app.constants';
+import { CommonService } from '@/shared/common.service';
 
 @Component({
   selector: 'app-mi-win',

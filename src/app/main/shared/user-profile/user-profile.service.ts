@@ -1,4 +1,4 @@
-import {SCORE, USER_PROFILE} from '@/app.constants';
+import { SCORE, USER_PROFILE } from '@/app.constants';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
@@ -17,10 +17,9 @@ export class UserProfileService {
     );
   }
   setScoreFromProfile(username: string) {
-    this.getUserProfile(username)
-      .subscribe((profile) => {
-        this.setScoreValue(profile.score);
-      });
+    this.getUserProfile(username).subscribe(profile => {
+      this.setScoreValue(profile.score);
+    });
   }
 
   setScoreValue(score: any) {
@@ -28,7 +27,6 @@ export class UserProfileService {
       window.localStorage.setItem(SCORE, score);
     } catch (e) {
       window.sessionStorage.setItem(SCORE, score);
-
     }
   }
 

@@ -9,7 +9,7 @@ import { Badge } from './badge.model';
 export class BadgesComponent implements OnInit {
   @Input() badgeList!: Badge[];
   @Input() profileLoaded!: boolean;
-  @ViewChild('widgetsContent', {static: false})
+  @ViewChild('widgetsContent', { static: false })
   public widgetsContent!: ElementRef<any>;
 
   public scrollRight(): void {
@@ -26,10 +26,7 @@ export class BadgesComponent implements OnInit {
     });
   }
 
-  constructor() {
-  }
+  constructor() {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

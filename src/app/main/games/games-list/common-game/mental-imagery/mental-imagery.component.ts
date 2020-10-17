@@ -1,4 +1,10 @@
-import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { MIUser } from './mi-user.model';
 import { MICurrentStateService } from './mi-current-state.service';
 import { Level } from './level.model';
@@ -16,7 +22,8 @@ import { StepsDataService } from '@/main/resources/shared/steps-data.service';
   styleUrls: ['./mental-imagery.component.scss'],
 })
 export class MentalImageryComponent implements OnInit {
-  @ViewChild(MiPlayComponent, { static: false })  miPlayComponent!: MiPlayComponent;
+  @ViewChild(MiPlayComponent, { static: false })
+  miPlayComponent!: MiPlayComponent;
   @Output() showPlayButtons = new EventEmitter();
 
   navbarTitle!: string;
@@ -99,7 +106,7 @@ export class MentalImageryComponent implements OnInit {
     this.miPlayComponent.onResumePlay();
   }
   removeLoading() {
-    setTimeout( () => {
+    setTimeout(() => {
       this.showLoading = false;
       this.showPlayButtons.emit();
     }, 100);

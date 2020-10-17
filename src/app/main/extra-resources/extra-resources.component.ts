@@ -85,9 +85,7 @@ export class ExtraResourcesComponent implements OnInit {
       .subscribe((video_data: any) => {
         video_data.results.forEach((element: any) => {
           console.log('mindful', element);
-          this.mindfulnessVideoItems.push(
-            <MindfulnessVideoItem>element,
-          );
+          this.mindfulnessVideoItems.push(<MindfulnessVideoItem>element);
           console.log('mindfulness videos', this.mindfulnessVideoItems);
           this.countMindfulVideoItem = this.countMindfulVideoItem + 1;
         });

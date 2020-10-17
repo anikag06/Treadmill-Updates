@@ -35,7 +35,7 @@ import {
   COMMON_EDITOR_CONFIG,
   SUPPORT_GROUP_COMMENT_SCORE,
   SUPPORT_GROUP_GETTING_UP_VOTE_SCORE,
-  SUPPORT_GROUP_UP_DOWN_VOTE_SCORE
+  SUPPORT_GROUP_UP_DOWN_VOTE_SCORE,
 } from '@/app.constants';
 import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
 import { ThankComponent } from '../shared/thank/thank.component';
@@ -43,7 +43,7 @@ import { ReportProblemComponent } from '../shared/report-problem/report-problem.
 import { MatDialog } from '@angular/material/dialog';
 import { ReportService } from '@/main/support-groups/post-list/shared/report.service';
 import { CongratsDialogComponent } from '@/main/resources/shared/congrats-dialog/congrats-dialog.component';
-import {CommonService} from '@/shared/common.service';
+import { CommonService } from '@/shared/common.service';
 
 @Component({
   selector: 'app-post-item',
@@ -64,7 +64,7 @@ export class PostItemComponent
   // @ViewChild('el', { static: true }) el!: ElementRef;
   upVoteFirstClick = false;
   downVoteFirstClick = false;
- // thumbsUpClicked = false;
+  // thumbsUpClicked = false;
   tags: Tag[] = []; // Holds all the tags
   user!: User; // Current User
   commentsPage = 1; // Holds the pagination for comments
@@ -255,11 +255,10 @@ export class PostItemComponent
             this.comments.push(updatedComment);
             this.commentNos = this.comments.length;
             this.changeDetector.detectChanges();
-           // if (this.thumbsService.isClicked) {
+            // if (this.thumbsService.isClicked) {
             // this.postOldScore = +this.userProfileService.getScoreValue();
-              this.commonService.updateScore(SUPPORT_GROUP_COMMENT_SCORE);
-           // }
-
+            this.commonService.updateScore(SUPPORT_GROUP_COMMENT_SCORE);
+            // }
           },
           (error: HttpErrorResponse) => {
             this.errorService.openErrorDialog(
@@ -439,13 +438,19 @@ export class PostItemComponent
           () => {
             console.log('first upvote state', this.upVoteFirstClick);
             console.log('first down vote status', this.downVoteFirstClick);
-            if(!this.upVoteFirstClick && !this.downVoteFirstClick && this.supportGroupItem.is_voted !== -1) {
-                this.upVoteFirstClick = true;
-                console.log('first upvote state', this.upVoteFirstClick);
+            if (
+              !this.upVoteFirstClick &&
+              !this.downVoteFirstClick &&
+              this.supportGroupItem.is_voted !== -1
+            ) {
+              this.upVoteFirstClick = true;
+              console.log('first upvote state', this.upVoteFirstClick);
               this.commonService.updateScore(SUPPORT_GROUP_UP_DOWN_VOTE_SCORE);
-              this.commonService.postScoreForOther(SUPPORT_GROUP_GETTING_UP_VOTE_SCORE, this.supportGroupItem.user.username);
+              this.commonService.postScoreForOther(
+                SUPPORT_GROUP_GETTING_UP_VOTE_SCORE,
+                this.supportGroupItem.user.username,
+              );
             }
-
           },
           () => {
             this.errorService.openErrorDialog('Cannot upvote');
@@ -474,13 +479,16 @@ export class PostItemComponent
       this.sgService
         .postUpVote({ post_id: this.supportGroupItem.id, vote: 0 })
         .subscribe(() => {
-          if (!this.downVoteFirstClick && !this.upVoteFirstClick && this.supportGroupItem.is_voted !== -1) {
-              this.downVoteFirstClick = true;
+          if (
+            !this.downVoteFirstClick &&
+            !this.upVoteFirstClick &&
+            this.supportGroupItem.is_voted !== -1
+          ) {
+            this.downVoteFirstClick = true;
             console.log('first down vote status', this.downVoteFirstClick);
             this.commonService.updateScore(SUPPORT_GROUP_UP_DOWN_VOTE_SCORE);
           }
-          },
-        this.errorService.errorResponse('Cannot downvote'));
+        }, this.errorService.errorResponse('Cannot downvote'));
     } else {
       this.thumbsService.openSnackBar("You can't vote on your own post", 'Ok');
     }

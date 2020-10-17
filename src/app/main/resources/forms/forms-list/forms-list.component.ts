@@ -49,7 +49,7 @@ export class FormsListComponent implements OnInit {
     this.router.navigateByUrl(form.path);
   }
   removeLoading() {
-    setTimeout( () => {
+    setTimeout(() => {
       this.showLoading = false;
     }, 100);
   }

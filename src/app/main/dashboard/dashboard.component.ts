@@ -40,7 +40,7 @@ export class DashboardComponent implements OnInit {
 
     this.userProfileService
       .getUserProfile(this.user.username)
-      .subscribe((profile) => {
+      .subscribe(profile => {
         this.userProfile = new UserProfile(
           profile.username,
           profile.user_avatar,

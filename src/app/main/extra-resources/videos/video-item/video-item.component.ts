@@ -102,15 +102,17 @@ export class VideoItemComponent implements OnInit, AfterViewInit, OnDestroy {
           .getAMindfulnessVideo(this.videoIdToSend)
           .subscribe((data: any) => {
             console.log('data', data.resource_video.url);
-             this.mindfulnessVideo = <MindfulnessVideoItem>data;
+            this.mindfulnessVideo = <MindfulnessVideoItem>data;
             this.isLoaded = true;
           });
       } else {
-        this.extraResourcesService.mindfulnessVideoClickedEvent.subscribe(data => {
-          this.mindfulnessVideo = <MindfulnessVideoItem>data;
-          this.isLoaded = true;
-          console.log('mindfulness video', data);
-        });
+        this.extraResourcesService.mindfulnessVideoClickedEvent.subscribe(
+          data => {
+            this.mindfulnessVideo = <MindfulnessVideoItem>data;
+            this.isLoaded = true;
+            console.log('mindfulness video', data);
+          },
+        );
       }
     }
 

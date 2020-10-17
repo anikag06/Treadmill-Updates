@@ -66,7 +66,7 @@ export class VideosComponent implements OnInit {
     this.showState = true;
   }
   removeLoading() {
-    setTimeout( () => {
+    setTimeout(() => {
       this.showLoading = false;
     }, 100);
   }

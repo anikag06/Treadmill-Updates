@@ -4,10 +4,10 @@ import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { AuthService } from '@/shared/auth/auth.service';
 import { User } from '@/shared/user.model';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {UserProfileService} from '@/main/shared/user-profile/user-profile.service';
-import {MatSnackBar} from '@angular/material';
-import {duration} from 'moment';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { UserProfileService } from '@/main/shared/user-profile/user-profile.service';
+import { MatSnackBar } from '@angular/material';
+import { duration } from 'moment';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +21,7 @@ export class CommonService {
     private http: HttpClient,
     private userProfileService: UserProfileService,
     private snackBar: MatSnackBar,
-    ) {
+  ) {
     this.user = this.authService.isLoggedIn()!;
   }
   createOnline$() {
@@ -49,7 +49,8 @@ export class CommonService {
       environment.API_ENDPOINT +
         '/api/v1/user/user-profile/' +
         this.user.username,
-      body, httpOptions
+      body,
+      httpOptions,
     );
   }
   postScoreForOther(score: number, username: string) {
@@ -63,10 +64,9 @@ export class CommonService {
       }),
     };
     return this.http.patch(
-      environment.API_ENDPOINT +
-      '/api/v1/user/user-profile/' +
-      username,
-      body, httpOptions
+      environment.API_ENDPOINT + '/api/v1/user/user-profile/' + username,
+      body,
+      httpOptions,
     );
   }
 
@@ -77,8 +77,7 @@ export class CommonService {
   }
 
   updateScore(score: number) {
-    this.postScore(score)
-      .subscribe(() => {});
+    this.postScore(score).subscribe(() => {});
     this.oldScore = +this.userProfileService.getScoreValue();
     this.newScore = this.oldScore + score;
     this.userProfileService.setScoreValue(this.newScore);

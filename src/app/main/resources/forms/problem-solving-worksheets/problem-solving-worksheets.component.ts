@@ -35,8 +35,8 @@ import { FlowService } from '@/main/flow/flow.service';
 import { ActivatedRoute } from '@angular/router';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 import { ProsConsInfoComponent } from '@/main/resources/forms/problem-solving-worksheets/pros-cons-container/pros-cons/pros-cons-info/pros-cons-info.component';
-import {CommonService} from '@/shared/common.service';
-import {UserProfileService} from '@/main/shared/user-profile/user-profile.service';
+import { CommonService } from '@/shared/common.service';
+import { UserProfileService } from '@/main/shared/user-profile/user-profile.service';
 
 @Component({
   selector: 'app-problem-solving-worksheets',
@@ -143,7 +143,7 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
     if (id !== null) {
       this.loadProblemByID(parseInt(id));
     }
-    setTimeout( () => {
+    setTimeout(() => {
       this.showLoading = false;
     }, 1000);
   }
@@ -310,7 +310,7 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
           this.showSolutionsForm = false;
           this.saveSolutionBtn = false;
           this.solutionForm.reset();
-          if(!this.scoreUpdate) {
+          if (!this.scoreUpdate) {
             this.scoreUpdate = true;
             if (this.user.is_exp) {
               this.commonService.updateScore(FORM_START_SCORE);

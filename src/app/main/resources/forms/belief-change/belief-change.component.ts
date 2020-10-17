@@ -95,7 +95,7 @@ export class BeliefChangeComponent implements OnInit {
     if (id !== null) {
       this.loadBeliefByID(parseInt(id));
     }
-    setTimeout( () => {
+    setTimeout(() => {
       this.showLoading = false;
     }, 1000);
   }

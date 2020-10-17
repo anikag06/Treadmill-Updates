@@ -12,11 +12,11 @@ import { UserTask } from '@/main/resources/forms/shared/tasks/user-task.model';
 import * as moment from 'moment';
 import { PROBLEM_SOLVING_QUOTES } from '@/main/resources/forms/problem-solving-worksheets/problem-solving-message';
 import { FormService } from '@/main/resources/forms/form.service';
-import {CommonService} from '@/shared/common.service';
-import {UserProfileService} from '@/main/shared/user-profile/user-profile.service';
-import {FOLLOW_UP_FORM_COMPLETE_SCORE} from '@/app.constants';
-import {User} from '@/shared/user.model';
-import {AuthService} from '@/shared/auth/auth.service';
+import { CommonService } from '@/shared/common.service';
+import { UserProfileService } from '@/main/shared/user-profile/user-profile.service';
+import { FOLLOW_UP_FORM_COMPLETE_SCORE } from '@/app.constants';
+import { User } from '@/shared/user.model';
+import { AuthService } from '@/shared/auth/auth.service';
 
 @Component({
   selector: 'app-result',
@@ -43,7 +43,7 @@ export class ResultComponent implements OnInit, OnChanges {
   showMessage!: boolean;
   yes = '<img src="assets/forms/well_done.png" height="16px" > Great!';
   no =
-    '&#129300; Okay. You can try another solution to the problem. If you think that the problem just won\'t go away, work on accepting it.';
+    "&#129300; Okay. You can try another solution to the problem. If you think that the problem just won't go away, work on accepting it.";
 
   ngOnInit() {
     if (this.task) {
@@ -74,7 +74,7 @@ export class ResultComponent implements OnInit, OnChanges {
         },
         (error: HttpErrorResponse) => {
           console.log(error);
-        }
+        },
       );
     }
   }
@@ -91,7 +91,7 @@ export class ResultComponent implements OnInit, OnChanges {
           this.result = new Result(+data.id, this.resultBody, this.didWork);
           this.commonService.updateScore(FOLLOW_UP_FORM_COMPLETE_SCORE);
         },
-        (error) => console.log(error)
+        error => console.log(error),
       );
     } else {
       this.problemService.postResult(this.solution_id, object).subscribe(
@@ -100,7 +100,7 @@ export class ResultComponent implements OnInit, OnChanges {
           this.onShowMessage();
           this.commonService.updateScore(FOLLOW_UP_FORM_COMPLETE_SCORE);
         },
-        (error) => console.log(error)
+        error => console.log(error),
       );
     }
   }
@@ -111,7 +111,10 @@ export class ResultComponent implements OnInit, OnChanges {
     const date = this.task.end_at + ' ' + this.task.time;
     this.disableResult =
       moment().format('YYYY-MM-DD HH:mm') <
-      moment.utc(date).local().format('YYYY-MM-DD HH:mm');
+      moment
+        .utc(date)
+        .local()
+        .format('YYYY-MM-DD HH:mm');
   }
 
   onShowMessage() {

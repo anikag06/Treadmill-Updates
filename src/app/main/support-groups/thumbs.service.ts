@@ -15,7 +15,6 @@ export class ThumbsService {
     if (object.is_voted === 1) {
       this.isClicked = true;
       return 'assets/support-group/thumbs-up-black.svg';
-
     }
     return 'assets/support-group/thumbs-up-white.svg';
   }

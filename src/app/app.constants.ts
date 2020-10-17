@@ -539,5 +539,12 @@ export const EXPLORE_MAP = new Map([
       'Play: ' + MENTAL_IMAGERY_GAME,
     ],
   ],
-  [MINDFULNESS_VIDEO, ['/main/extra-resources/videoItem/', 'Watch: ', '/main/extra-resources/mindfulnessVideo/']],
+  [
+    MINDFULNESS_VIDEO,
+    [
+      '/main/extra-resources/videoItem/',
+      'Watch: ',
+      '/main/extra-resources/mindfulnessVideo/',
+    ],
+  ],
 ]);

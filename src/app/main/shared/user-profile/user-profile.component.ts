@@ -7,9 +7,9 @@ import {
 } from '@angular/core';
 import { MOBILE_WIDTH } from '@/app.constants';
 import { UserProfile } from './UserProfile.model';
-import {UserProfileService} from '@/main/shared/user-profile/user-profile.service';
-import {User} from '@/shared/user.model';
-import {AuthService} from '@/shared/auth/auth.service';
+import { UserProfileService } from '@/main/shared/user-profile/user-profile.service';
+import { User } from '@/shared/user.model';
+import { AuthService } from '@/shared/auth/auth.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -17,7 +17,11 @@ import {AuthService} from '@/shared/auth/auth.service';
   styleUrls: ['./user-profile.component.scss'],
 })
 export class UserProfileComponent implements OnInit, AfterViewInit {
-  constructor(private element: ElementRef, private userProfileService: UserProfileService, private authService: AuthService) {}
+  constructor(
+    private element: ElementRef,
+    private userProfileService: UserProfileService,
+    private authService: AuthService,
+  ) {}
   @Input() userProfile!: UserProfile;
   showLoading = true;
   profileLoaded = false;
@@ -58,9 +62,9 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
     return this.userProfile.badge_list_bronze;
   }
   removeLoading() {
-    setTimeout( () => {
+    setTimeout(() => {
       this.showLoading = false;
-      setTimeout( () => {
+      setTimeout(() => {
         this.profileLoaded = true;
       }, 500);
     }, 100);

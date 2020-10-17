@@ -1,4 +1,4 @@
-import {FORM_START_SCORE, TASK, WEEK} from '@/app.constants';
+import { FORM_START_SCORE, TASK, WEEK } from '@/app.constants';
 import { ProblemSolvingWorksheetsService } from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.service';
 import { TasksService } from '@/main/resources/forms/shared/tasks/tasks.service';
 import { DateTimePickerComponent } from '@/main/shared/date-time-picker/date-time-picker.component';
@@ -21,9 +21,9 @@ import { UserSubTask } from './user-sub-task.model';
 import { UserTask } from './user-task.model';
 import { ActivatedRoute } from '@angular/router';
 import { isNotNullOrUndefined } from 'codelyzer/util/isNotNullOrUndefined';
-import {CommonService} from '@/shared/common.service';
-import {User} from '@/shared/user.model';
-import {AuthService} from '@/shared/auth/auth.service';
+import { CommonService } from '@/shared/common.service';
+import { User } from '@/shared/user.model';
+import { AuthService } from '@/shared/auth/auth.service';
 // import {CommonService} from '@/shared/common.service';
 // import {UserProfileService} from '@/main/shared/user-profile/user-profile.service';
 
@@ -413,7 +413,7 @@ export class TasksComponent implements OnInit, OnChanges {
       autoFocus: false,
     });
     this.onDialogRefClosed(dialogRef);
-    if(this.taskHeading === 'Task Description') {
+    if (this.taskHeading === 'Task Description') {
       if (this.user.is_exp) {
         this.commonService.updateScore(FORM_START_SCORE);
       }

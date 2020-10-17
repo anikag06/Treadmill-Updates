@@ -3,15 +3,15 @@ import { IntroductionService } from '@/main/resources/introduction/introduction.
 import { ActivatedRoute } from '@angular/router';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 import { FlowService } from '@/main/flow/flow.service';
-import {COMPLETED, INTRODUCTION_SCORE, LOCKED} from '@/app.constants';
+import { COMPLETED, INTRODUCTION_SCORE, LOCKED } from '@/app.constants';
 import { Subscription } from 'rxjs';
 import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
 import { StepCompleteData } from '@/main/resources/shared/completion-data.model';
 import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.service';
-import {CommonService} from '@/shared/common.service';
-import {UserProfileService} from '@/main/shared/user-profile/user-profile.service';
-import {User} from '@/shared/user.model';
-import {AuthService} from '@/shared/auth/auth.service';
+import { CommonService } from '@/shared/common.service';
+import { UserProfileService } from '@/main/shared/user-profile/user-profile.service';
+import { User } from '@/shared/user.model';
+import { AuthService } from '@/shared/auth/auth.service';
 
 @Component({
   selector: 'app-introduction6',

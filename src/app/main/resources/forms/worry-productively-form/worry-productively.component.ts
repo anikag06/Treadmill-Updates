@@ -156,7 +156,7 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
     if (id !== null) {
       this.loadWorryByID(parseInt(id));
     }
-    setTimeout( () => {
+    setTimeout(() => {
       this.showLoading = false;
     }, 1000);
   }

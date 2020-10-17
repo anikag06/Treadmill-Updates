@@ -7,11 +7,11 @@ import {
 } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ReportService } from '@/main/support-groups/post-list/shared/report.service';
-import {CommonService} from '@/shared/common.service';
-import {UserProfileService} from '@/main/shared/user-profile/user-profile.service';
-import {SUPPORT_GROUP_THANKING_SCORE} from '@/app.constants';
-import {User} from '@/shared/user.model';
-import {AuthService} from '@/shared/auth/auth.service';
+import { CommonService } from '@/shared/common.service';
+import { UserProfileService } from '@/main/shared/user-profile/user-profile.service';
+import { SUPPORT_GROUP_THANKING_SCORE } from '@/app.constants';
+import { User } from '@/shared/user.model';
+import { AuthService } from '@/shared/auth/auth.service';
 
 @Component({
   selector: 'app-thank',
@@ -75,7 +75,7 @@ export class ThankComponent implements OnInit {
       this.reportService.commentThankYou(this.id).subscribe(
         () => {
           this.reportService.commentthanked.emit(this.id);
-          this.showSucess()
+          this.showSucess();
           this.commonService.updateScore(SUPPORT_GROUP_THANKING_SCORE);
         },
         error => {

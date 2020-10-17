@@ -34,13 +34,13 @@ import {
   COMMON_EDITOR_CONFIG,
   SUPPORT_GROUP_COMMENT_SCORE,
   SUPPORT_GROUP_GETTING_UP_VOTE_SCORE,
-  SUPPORT_GROUP_UP_DOWN_VOTE_SCORE
+  SUPPORT_GROUP_UP_DOWN_VOTE_SCORE,
 } from '@/app.constants';
 import { ThankComponent } from '@/main/support-groups/post-list/shared/thank/thank.component';
 import { ReportProblemComponent } from '@/main/support-groups/post-list/shared/report-problem/report-problem.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ReportService } from '@/main/support-groups/post-list/shared/report.service';
-import {CommonService} from '@/shared/common.service';
+import { CommonService } from '@/shared/common.service';
 
 @Component({
   selector: 'app-comment',
@@ -307,11 +307,18 @@ export class CommentComponent
         .voteComment({ comment_id: this.comment.id, vote: 1 })
         .subscribe(
           () => {
-            if(!this.upVoteFirstClick && !this.downVoteFirstClick && this.comment.is_voted !== -1) {
+            if (
+              !this.upVoteFirstClick &&
+              !this.downVoteFirstClick &&
+              this.comment.is_voted !== -1
+            ) {
               this.upVoteFirstClick = true;
               console.log('first upvote state', this.upVoteFirstClick);
               this.commonService.updateScore(SUPPORT_GROUP_UP_DOWN_VOTE_SCORE);
-              this.commonService.postScoreForOther(SUPPORT_GROUP_GETTING_UP_VOTE_SCORE, this.comment.user.username);
+              this.commonService.postScoreForOther(
+                SUPPORT_GROUP_GETTING_UP_VOTE_SCORE,
+                this.comment.user.username,
+              );
             }
           },
           () => {
@@ -341,13 +348,16 @@ export class CommentComponent
       this.commentService
         .voteComment({ comment_id: this.comment.id, vote: 0 })
         .subscribe(() => {
-            if (!this.downVoteFirstClick && !this.upVoteFirstClick && this.comment.is_voted !== -1) {
-              this.downVoteFirstClick = true;
-              console.log('first down vote status', this.downVoteFirstClick);
-              this.commonService.updateScore(SUPPORT_GROUP_UP_DOWN_VOTE_SCORE);
-            }
-          },
-        this.errorService.errorResponse('Cannot down vote'));
+          if (
+            !this.downVoteFirstClick &&
+            !this.upVoteFirstClick &&
+            this.comment.is_voted !== -1
+          ) {
+            this.downVoteFirstClick = true;
+            console.log('first down vote status', this.downVoteFirstClick);
+            this.commonService.updateScore(SUPPORT_GROUP_UP_DOWN_VOTE_SCORE);
+          }
+        }, this.errorService.errorResponse('Cannot down vote'));
     } else {
       this.thumbsService.openSnackBar(
         "You can't vote on your own comment",

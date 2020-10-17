@@ -36,29 +36,28 @@ export class ThingsTodoComponent implements OnInit {
           this.todoList.push(EXPLORE_MAP.get(element[0]));
         } else {
           this.iconList.push('../../../../assets/modules/icon-video-wb.png');
-           if (this.is_mindfulness) {
-             const obj = EXPLORE_MAP.get(element[0]);
-             // @ts-ignore
-             const link = obj[2];
-             console.log('link for 2', link);
-             // @ts-ignore
-             const title = obj[1];
-             this.todoList.push([
-               link + data.data.video_id,
-               title + data.data.video_title,
-             ]);
-
-           } else {
-             const obj = EXPLORE_MAP.get(element[0]);
-             // @ts-ignore
-             const link = obj[0];
-             // @ts-ignore
-             const title = obj[1];
-             this.todoList.push([
-               link + data.data.video_id,
-               title + data.data.video_title,
-             ]);
-           }
+          if (this.is_mindfulness) {
+            const obj = EXPLORE_MAP.get(element[0]);
+            // @ts-ignore
+            const link = obj[2];
+            console.log('link for 2', link);
+            // @ts-ignore
+            const title = obj[1];
+            this.todoList.push([
+              link + data.data.video_id,
+              title + data.data.video_title,
+            ]);
+          } else {
+            const obj = EXPLORE_MAP.get(element[0]);
+            // @ts-ignore
+            const link = obj[0];
+            // @ts-ignore
+            const title = obj[1];
+            this.todoList.push([
+              link + data.data.video_id,
+              title + data.data.video_title,
+            ]);
+          }
         }
       });
     });
@@ -68,7 +67,7 @@ export class ThingsTodoComponent implements OnInit {
     this.router.navigate([element]);
   }
   removeLoading() {
-    setTimeout( () => {
+    setTimeout(() => {
       this.showLoading = false;
     }, 100);
   }

@@ -1,9 +1,11 @@
 import {
   Component,
-  ElementRef, EventEmitter,
+  ElementRef,
+  EventEmitter,
   HostListener,
   OnDestroy,
-  OnInit, Output,
+  OnInit,
+  Output,
   ViewChild,
 } from '@angular/core';
 import { LoadFilesService } from '@/main/games/shared/load-files.service';
@@ -42,7 +44,6 @@ export class AttributeStyleGameComponent implements OnInit, OnDestroy {
   ) {}
   @ViewChild('newElement', { static: false }) element!: ElementRef;
   @Output() showPlayButtons = new EventEmitter();
-
 
   ngOnInit() {
     console.log('game name', this.gamePlayService.gameName);
@@ -130,7 +131,7 @@ export class AttributeStyleGameComponent implements OnInit, OnDestroy {
   }
   removeLoading() {
     console.log('IMAGE LOADED');
-    setTimeout( () => {
+    setTimeout(() => {
       this.showLoading = false;
       this.showPlayButtons.emit();
     }, 100);

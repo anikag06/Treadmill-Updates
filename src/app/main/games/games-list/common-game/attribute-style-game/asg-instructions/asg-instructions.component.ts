@@ -1,21 +1,19 @@
-import {Component, ElementRef, OnInit} from '@angular/core';
-import {GamePlayService} from "@/main/games/shared/game-play.service";
+import { Component, ElementRef, OnInit } from '@angular/core';
+import { GamePlayService } from '@/main/games/shared/game-play.service';
 
 @Component({
   selector: 'app-asg-instructions',
   templateUrl: './asg-instructions.component.html',
-  styleUrls: ['./asg-instructions.component.scss']
+  styleUrls: ['./asg-instructions.component.scss'],
 })
 export class AsgInstructionsComponent implements OnInit {
   viewSummary!: boolean;
   showSummary = false;
 
-
   constructor(
     private elementRef: ElementRef,
     private gamePlayService: GamePlayService,
-
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.viewSummary = this.gamePlayService.ASG_show_summary;
@@ -23,7 +21,7 @@ export class AsgInstructionsComponent implements OnInit {
   }
 
   asgGameStart() {
-    const domEvent = new CustomEvent('removeOverlayEvent', {bubbles: true});
+    const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });
     this.elementRef.nativeElement.dispatchEvent(domEvent);
     if (!this.gamePlayService.asg_help) {
       this.gamePlayService.playAttributionStyleGame();
@@ -32,10 +30,10 @@ export class AsgInstructionsComponent implements OnInit {
     }
   }
   onShowSummary() {
-   this.showSummary = true;
+    this.showSummary = true;
   }
   closeDialog() {
-    const domEvent = new CustomEvent('removeOverlayEvent', {bubbles: true});
+    const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });
     this.elementRef.nativeElement.dispatchEvent(domEvent);
   }
 }

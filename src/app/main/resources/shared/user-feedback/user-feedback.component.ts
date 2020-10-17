@@ -1,10 +1,13 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import {FEEDBACK_SLIDE_SCORE, SUPPORT_GROUP_UP_DOWN_VOTE_SCORE} from '@/app.constants';
-import {CommonService} from '@/shared/common.service';
-import {UserProfileService} from '@/main/shared/user-profile/user-profile.service';
-import {AuthService} from '@/shared/auth/auth.service';
-import {User} from '@/shared/user.model';
+import {
+  FEEDBACK_SLIDE_SCORE,
+  SUPPORT_GROUP_UP_DOWN_VOTE_SCORE,
+} from '@/app.constants';
+import { CommonService } from '@/shared/common.service';
+import { UserProfileService } from '@/main/shared/user-profile/user-profile.service';
+import { AuthService } from '@/shared/auth/auth.service';
+import { User } from '@/shared/user.model';
 
 @Component({
   selector: 'app-user-feedback',
@@ -37,7 +40,8 @@ export class UserFeedbackComponent implements OnInit {
     private router: Router,
     private commonService: CommonService,
     private userProfileService: UserProfileService,
-    private authService: AuthService) {}
+    private authService: AuthService,
+  ) {}
 
   ngOnInit() {
     this.user = <User>this.authService.isLoggedIn();
@@ -52,7 +56,7 @@ export class UserFeedbackComponent implements OnInit {
       this.final_feedback = -1; // changing from like to dislike state
     } else {
       this.final_feedback = -1; // changing from no like/dislike state to dislike
-     // this.downVoteFirstClick = true;
+      // this.downVoteFirstClick = true;
     }
     this.disliked = !this.disliked;
     this.liked = false;
@@ -96,7 +100,7 @@ export class UserFeedbackComponent implements OnInit {
     this.showFeedBackBox = false;
     this.feedback_text = comment;
     this.submitCommentEvent.emit();
-    if (!this.voteFirstClick && (this.final_feedback === 1)){
+    if (!this.voteFirstClick && this.final_feedback === 1) {
       this.voteFirstClick = true;
       this.commonService.updateScore(FEEDBACK_SLIDE_SCORE);
     }

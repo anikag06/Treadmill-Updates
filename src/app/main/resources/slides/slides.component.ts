@@ -4,7 +4,8 @@ import {
   ViewChild,
   ComponentFactoryResolver,
   ElementRef,
-  AfterContentInit, DoCheck,
+  AfterContentInit,
+  DoCheck,
 } from '@angular/core';
 import { SlideService } from './slide.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
@@ -33,7 +34,8 @@ import {
   FORM_BELIEF_CHANGE,
   FORM_EXPERIMENT_TO_TEST_BELIEF,
   FORM_THOUGHT_RECORD,
-  FORM_WORRY_PRODUCTIVELY, SLIDE_COMPLETE_SCORE,
+  FORM_WORRY_PRODUCTIVELY,
+  SLIDE_COMPLETE_SCORE,
 } from '@/app.constants';
 import { CommonDialogsService } from '../shared/common-dialogs.service';
 import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.service';
@@ -48,9 +50,9 @@ import { WorryProductivelyComponent } from '@/main/resources/forms/worry-product
 import { FlowService } from '@/main/flow/flow.service';
 import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
 import { CommonService } from '@/shared/common.service';
-import {UserProfileService} from '@/main/shared/user-profile/user-profile.service';
-import {User} from '@/shared/user.model';
-import {AuthService} from '@/shared/auth/auth.service';
+import { UserProfileService } from '@/main/shared/user-profile/user-profile.service';
+import { User } from '@/shared/user.model';
+import { AuthService } from '@/shared/auth/auth.service';
 
 @Component({
   selector: 'app-slides',
@@ -146,8 +148,7 @@ export class SlidesComponent implements OnInit, AfterContentInit, DoCheck {
   stepGroupSequence!: number;
   showloading = false;
 
-  ngDoCheck(): void {
-  }
+  ngDoCheck(): void {}
 
   ngOnInit() {
     this.user = <User>this.authService.isLoggedIn();
@@ -349,7 +350,6 @@ export class SlidesComponent implements OnInit, AfterContentInit, DoCheck {
       .subscribe(data => {
         if (this.slideDisliked === true || this.slideLiked === true) {
           console.log('slideDisliked', this.slideDisliked);
-
         }
       });
     this.scrollTop = 0;

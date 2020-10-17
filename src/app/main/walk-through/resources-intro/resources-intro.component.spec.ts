@@ -8,9 +8,8 @@ describe('ResourcesIntroComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ResourcesIntroComponent ]
-    })
-    .compileComponents();
+      declarations: [ResourcesIntroComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

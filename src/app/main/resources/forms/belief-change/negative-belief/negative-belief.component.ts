@@ -11,11 +11,11 @@ import { MatDialog } from '@angular/material';
 import { CommonBeliefComponent } from '@/main/resources/forms/belief-change/negative-belief/common-belief/common-belief.component';
 import { Belief } from '@/main/resources/forms/belief-change/belief.model';
 import { BeliefChangeService } from '@/main/resources/forms/belief-change/belief-change.service';
-import {CommonService} from '@/shared/common.service';
-import {UserProfileService} from '@/main/shared/user-profile/user-profile.service';
-import {FORM_START_SCORE} from '@/app.constants';
-import {User} from '@/shared/user.model';
-import {AuthService} from '@/shared/auth/auth.service';
+import { CommonService } from '@/shared/common.service';
+import { UserProfileService } from '@/main/shared/user-profile/user-profile.service';
+import { FORM_START_SCORE } from '@/app.constants';
+import { User } from '@/shared/user.model';
+import { AuthService } from '@/shared/auth/auth.service';
 
 @Component({
   selector: 'app-negative-belief',
@@ -161,7 +161,7 @@ export class NegativeBeliefComponent implements OnInit {
             this.showContiue = false;
             this.initialRatingChange.emit(this.beliefRatingInitial);
             this.beliefHandler(resp.body, '');
-            if(!this.scoreUpdate) {
+            if (!this.scoreUpdate) {
               this.scoreUpdate = true;
               if (this.user.is_exp) {
                 this.commonService.updateScore(FORM_START_SCORE);

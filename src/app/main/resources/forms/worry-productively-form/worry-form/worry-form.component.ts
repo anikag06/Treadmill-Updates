@@ -11,11 +11,11 @@ import {
 import { Worry } from '../worry.model';
 import { WorryProductivelyService } from '../worry-productively.service';
 import { FormSliderComponent } from '../../shared/form-slider/form-slider.component';
-import {CommonService} from '@/shared/common.service';
-import {UserProfileService} from '@/main/shared/user-profile/user-profile.service';
-import {FORM_START_SCORE} from '@/app.constants';
-import {User} from '@/shared/user.model';
-import {AuthService} from '@/shared/auth/auth.service';
+import { CommonService } from '@/shared/common.service';
+import { UserProfileService } from '@/main/shared/user-profile/user-profile.service';
+import { FORM_START_SCORE } from '@/app.constants';
+import { User } from '@/shared/user.model';
+import { AuthService } from '@/shared/auth/auth.service';
 
 @Component({
   selector: 'app-worry-form',
@@ -37,7 +37,7 @@ export class WorryFormComponent implements OnInit {
     private commonService: CommonService,
     private userProfileService: UserProfileService,
     private authService: AuthService,
-    ) {}
+  ) {}
   worryStatement = '';
   value = 1;
   worrySliderQuestion = 'How bothered are you by your worry?';
@@ -98,7 +98,7 @@ export class WorryFormComponent implements OnInit {
         .subscribe(
           (data: any) => {
             this.updateWorry.emit(data);
-            if(!this.scoreUpdate) {
+            if (!this.scoreUpdate) {
               this.scoreUpdate = true;
               if (this.user.is_exp) {
                 this.commonService.updateScore(FORM_START_SCORE);

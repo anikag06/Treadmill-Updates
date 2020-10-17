@@ -5,7 +5,8 @@ import {
   Output,
   ViewChild,
   ElementRef,
-  OnDestroy, EventEmitter,
+  OnDestroy,
+  EventEmitter,
 } from '@angular/core';
 import { GamePlayService } from '@/main/games/shared/game-play.service';
 import { LoadFilesService } from '@/main/games/shared/load-files.service';
@@ -22,8 +23,11 @@ import { map, switchMap } from 'rxjs/operators';
 import { FlowService } from '@/main/flow/flow.service';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 import { LocalStorageService } from '@/shared/localstorage.service';
-import {FOLLOW_UP_FORM_COMPLETE_SCORE, PLAYING_GAMES_SCORE} from '@/app.constants';
-import {CommonService} from '@/shared/common.service';
+import {
+  FOLLOW_UP_FORM_COMPLETE_SCORE,
+  PLAYING_GAMES_SCORE,
+} from '@/app.constants';
+import { CommonService } from '@/shared/common.service';
 declare var lhcolorReverseGame: any;
 
 @Component({
@@ -244,7 +248,7 @@ export class LearnedHelplessnessGameComponent implements OnInit, OnDestroy {
     this.element.nativeElement.dispatchEvent(domEvent);
   }
   removeLoading() {
-    setTimeout( () => {
+    setTimeout(() => {
       this.showLoading = false;
       this.showPlayButtons.emit();
     }, 100);

@@ -11,11 +11,11 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { LoadFilesService } from '@/main/games/shared/load-files.service';
 import { SlideService } from '../slide.service';
-import {UserProfileService} from '@/main/shared/user-profile/user-profile.service';
-import {CommonService} from '@/shared/common.service';
-import {MEDITATION_COMPLETE_SCORE} from '@/app.constants';
-import {User} from '@/shared/user.model';
-import {AuthService} from '@/shared/auth/auth.service';
+import { UserProfileService } from '@/main/shared/user-profile/user-profile.service';
+import { CommonService } from '@/shared/common.service';
+import { MEDITATION_COMPLETE_SCORE } from '@/app.constants';
+import { User } from '@/shared/user.model';
+import { AuthService } from '@/shared/auth/auth.service';
 
 @Component({
   selector: 'app-slides-video',

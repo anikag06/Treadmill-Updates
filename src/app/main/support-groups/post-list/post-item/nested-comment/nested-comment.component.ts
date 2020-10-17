@@ -23,8 +23,12 @@ import { ThankComponent } from '@/main/support-groups/post-list/shared/thank/tha
 import { ReportProblemComponent } from '@/main/support-groups/post-list/shared/report-problem/report-problem.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ReportService } from '@/main/support-groups/post-list/shared/report.service';
-import {CommonService} from '@/shared/common.service';
-import {SUPPORT_GROUP_COMMENT_SCORE, SUPPORT_GROUP_GETTING_UP_VOTE_SCORE, SUPPORT_GROUP_UP_DOWN_VOTE_SCORE} from '@/app.constants';
+import { CommonService } from '@/shared/common.service';
+import {
+  SUPPORT_GROUP_COMMENT_SCORE,
+  SUPPORT_GROUP_GETTING_UP_VOTE_SCORE,
+  SUPPORT_GROUP_UP_DOWN_VOTE_SCORE,
+} from '@/app.constants';
 
 @Component({
   selector: 'app-nested-comment',
@@ -160,13 +164,19 @@ export class NestedCommentComponent
         .voteComment({ nested_comment_id: this.userNestedComment.id, vote: 1 })
         .subscribe(
           () => {
-            if(!this.upVoteFirstClick && !this.downVoteFirstClick && this.userNestedComment.is_voted !== -1 ) {
+            if (
+              !this.upVoteFirstClick &&
+              !this.downVoteFirstClick &&
+              this.userNestedComment.is_voted !== -1
+            ) {
               this.upVoteFirstClick = true;
               console.log('first upvote state', this.upVoteFirstClick);
               this.commonService.updateScore(SUPPORT_GROUP_UP_DOWN_VOTE_SCORE);
-              this.commonService.postScoreForOther(SUPPORT_GROUP_GETTING_UP_VOTE_SCORE, this.userNestedComment.user.username);
+              this.commonService.postScoreForOther(
+                SUPPORT_GROUP_GETTING_UP_VOTE_SCORE,
+                this.userNestedComment.user.username,
+              );
             }
-
           },
           () => {
             this.errorService.openErrorDialog('Cannot Upvote');
@@ -196,7 +206,11 @@ export class NestedCommentComponent
         .voteComment({ nested_comment_id: this.userNestedComment.id, vote: 0 })
         .subscribe(
           () => {
-            if (!this.downVoteFirstClick && !this.upVoteFirstClick && this.userNestedComment.is_voted !== -1) {
+            if (
+              !this.downVoteFirstClick &&
+              !this.upVoteFirstClick &&
+              this.userNestedComment.is_voted !== -1
+            ) {
               this.downVoteFirstClick = true;
               console.log('first down vote status', this.downVoteFirstClick);
               this.commonService.updateScore(SUPPORT_GROUP_UP_DOWN_VOTE_SCORE);

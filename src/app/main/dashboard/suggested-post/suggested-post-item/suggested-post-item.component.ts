@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { SuggestedPost } from '../suggested-post.model';
 import { SupportGroupsService } from '@/main/support-groups/support-groups.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -47,7 +47,7 @@ export class SuggestedPostItemComponent implements OnInit {
     }
   }
   imageLoaded() {
-    setTimeout( () => {
+    setTimeout(() => {
       this.showLoading = false;
       this.removeLoading.emit();
     }, 100);

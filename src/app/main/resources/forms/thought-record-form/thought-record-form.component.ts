@@ -106,7 +106,7 @@ export class ThoughtRecordFormComponent implements OnInit {
     if (id !== null) {
       this.loadThoughtByID(parseInt(id));
     }
-    setTimeout( () => {
+    setTimeout(() => {
       this.showLoading = false;
     }, 1000);
   }

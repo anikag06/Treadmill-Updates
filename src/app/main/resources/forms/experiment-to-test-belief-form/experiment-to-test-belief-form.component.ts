@@ -139,7 +139,7 @@ export class ExperimentToTestBeliefFormComponent implements OnInit {
     if (id !== null && id !== undefined) {
       this.loadTestBeliefByID(parseInt(id));
     }
-    setTimeout( () => {
+    setTimeout(() => {
       this.showLoading = false;
     }, 1000);
   }

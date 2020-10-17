@@ -83,7 +83,7 @@ export class ExtraResourcesService {
   }
 
   getAMindfulnessVideo(mindfulnessVideoId: number) {
-   // console.log('mindfulness video returned');
+    // console.log('mindfulness video returned');
     return this.http.get<MindfulnessVideoItem>(
       environment.API_ENDPOINT +
         '/api/v1/resources/mindfulness-videos/' +
