@@ -1,5 +1,7 @@
 //Configuration for phaser.js
-function config(render_type,swidth,sheight,modeType,center){
+import {PLAYING_GAMES_SCORE} from "../../../../app/app.constants";
+
+function config(render_type, swidth, sheight, modeType, center){
 	this.type=render_type;
 	this.scale = {
 		width: swidth,
@@ -2265,6 +2267,7 @@ function level_changer(){
 
 	if(level.number==2)
 	{
+    this.commonService.updateScore(PLAYING_GAMES_SCORE);
 		stop_obstacle_generation=false;
 	}
 

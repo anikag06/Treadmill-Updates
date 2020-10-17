@@ -28,13 +28,19 @@ import { Subscription } from 'rxjs';
 import { ThumbsService } from '@/main/support-groups/thumbs.service';
 import { GeneralErrorService } from '@/main/shared/general-error.service';
 import { UserProfile } from '@/main/shared/user-profile/UserProfile.model';
-import { UserProfileService } from '@/main/shared/user-profile/userProfile.service';
+import { UserProfileService } from '@/main/shared/user-profile/user-profile.service';
 import { SupportGroupsService } from '@/main/support-groups/support-groups.service';
-import { COMMON_EDITOR_CONFIG } from '@/app.constants';
+import {
+  COMMON_EDITOR_CONFIG,
+  SUPPORT_GROUP_COMMENT_SCORE,
+  SUPPORT_GROUP_GETTING_UP_VOTE_SCORE,
+  SUPPORT_GROUP_UP_DOWN_VOTE_SCORE
+} from '@/app.constants';
 import { ThankComponent } from '@/main/support-groups/post-list/shared/thank/thank.component';
 import { ReportProblemComponent } from '@/main/support-groups/post-list/shared/report-problem/report-problem.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ReportService } from '@/main/support-groups/post-list/shared/report.service';
+import {CommonService} from '@/shared/common.service';
 
 @Component({
   selector: 'app-comment',
@@ -44,6 +50,8 @@ import { ReportService } from '@/main/support-groups/post-list/shared/report.ser
 })
 export class CommentComponent
   implements OnInit, AfterContentInit, OnDestroy, DoCheck {
+  upVoteFirstClick = false;
+  downVoteFirstClick = false;
   nestedComments: UserNestedComment[] = [];
   hide = true;
   moreComments = false;
@@ -95,6 +103,7 @@ export class CommentComponent
     private sgService: SupportGroupsService,
     public dialog: MatDialog,
     private reportService: ReportService,
+    private commonService: CommonService,
   ) {}
 
   ngOnInit() {
@@ -219,6 +228,7 @@ export class CommentComponent
         this.toggleReply = false;
         this.showNestedComment();
         this.changeDetector.detectChanges();
+        this.commonService.updateScore(SUPPORT_GROUP_COMMENT_SCORE);
       });
     }
   }
@@ -296,7 +306,14 @@ export class CommentComponent
       this.commentService
         .voteComment({ comment_id: this.comment.id, vote: 1 })
         .subscribe(
-          () => {},
+          () => {
+            if(!this.upVoteFirstClick && !this.downVoteFirstClick && this.comment.is_voted !== -1) {
+              this.upVoteFirstClick = true;
+              console.log('first upvote state', this.upVoteFirstClick);
+              this.commonService.updateScore(SUPPORT_GROUP_UP_DOWN_VOTE_SCORE);
+              this.commonService.postScoreForOther(SUPPORT_GROUP_GETTING_UP_VOTE_SCORE, this.comment.user.username);
+            }
+          },
           () => {
             this.errorService.openErrorDialog('Cannot Upvote');
             this.comment.is_voted = preVote;
@@ -323,7 +340,13 @@ export class CommentComponent
       }
       this.commentService
         .voteComment({ comment_id: this.comment.id, vote: 0 })
-        .subscribe(() => {},
+        .subscribe(() => {
+            if (!this.downVoteFirstClick && !this.upVoteFirstClick && this.comment.is_voted !== -1) {
+              this.downVoteFirstClick = true;
+              console.log('first down vote status', this.downVoteFirstClick);
+              this.commonService.updateScore(SUPPORT_GROUP_UP_DOWN_VOTE_SCORE);
+            }
+          },
         this.errorService.errorResponse('Cannot down vote'));
     } else {
       this.thumbsService.openSnackBar(

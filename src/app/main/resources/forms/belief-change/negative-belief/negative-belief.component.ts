@@ -11,6 +11,11 @@ import { MatDialog } from '@angular/material';
 import { CommonBeliefComponent } from '@/main/resources/forms/belief-change/negative-belief/common-belief/common-belief.component';
 import { Belief } from '@/main/resources/forms/belief-change/belief.model';
 import { BeliefChangeService } from '@/main/resources/forms/belief-change/belief-change.service';
+import {CommonService} from '@/shared/common.service';
+import {UserProfileService} from '@/main/shared/user-profile/user-profile.service';
+import {FORM_START_SCORE} from '@/app.constants';
+import {User} from '@/shared/user.model';
+import {AuthService} from '@/shared/auth/auth.service';
 
 @Component({
   selector: 'app-negative-belief',
@@ -22,8 +27,12 @@ export class NegativeBeliefComponent implements OnInit {
     private formBuilder: FormBuilder,
     private dialog: MatDialog,
     private beliefChangeService: BeliefChangeService,
+    private commonService: CommonService,
+    private userProfileService: UserProfileService,
+    private authService: AuthService,
   ) {}
-
+  scoreUpdate = false;
+  user!: User;
   header = 'Negative Belief or Rule';
   title = 'What is the belief or rule that you would like to change?';
   showBeliefLink = false;
@@ -45,7 +54,9 @@ export class NegativeBeliefComponent implements OnInit {
   showSlider = false;
   @Input() reset!: boolean;
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.user = <User>this.authService.isLoggedIn();
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     if (
@@ -150,6 +161,12 @@ export class NegativeBeliefComponent implements OnInit {
             this.showContiue = false;
             this.initialRatingChange.emit(this.beliefRatingInitial);
             this.beliefHandler(resp.body, '');
+            if(!this.scoreUpdate) {
+              this.scoreUpdate = true;
+              if (this.user.is_exp) {
+                this.commonService.updateScore(FORM_START_SCORE);
+              }
+            }
           }
         });
     }

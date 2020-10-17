@@ -3,7 +3,7 @@ import {
   Injectable,
   ViewContainerRef,
 } from '@angular/core';
-import { COMPLETED, MOBILE_WIDTH, TABLET_WIDTH } from '@/app.constants';
+import {COMPLETED, INTRODUCTORY_ANIMATION_STEP_COMPLETE_SCORE, IS_EXP, MOBILE_WIDTH, TABLET_WIDTH} from '@/app.constants';
 // @ts-ignore
 import * as introJs from 'intro.js/intro';
 import { MatDrawer } from '@angular/material/sidenav';
@@ -19,12 +19,15 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { MatExpansionPanel } from '@angular/material/expansion';
 import { CommonService } from '@/shared/common.service';
+import {User} from '@/shared/user.model';
+import {AuthService} from '@/shared/auth/auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class IntroService {
   private drawer!: MatDrawer;
+  user!: User;
   private expansionPanel!: MatExpansionPanel;
   introduceBehaviour = new BehaviorSubject(true);
   overlayBehaviour = new BehaviorSubject(false);
@@ -50,7 +53,8 @@ export class IntroService {
     private flowService: FlowService,
     private stepsDataService: StepsDataService,
     private http: HttpClient,
-    private commonService: CommonService
+    private commonService: CommonService,
+    private authService: AuthService,
   ) {}
 
   completionData: StepCompleteData = new StepCompleteData(0, 0);
@@ -327,6 +331,12 @@ export class IntroService {
   }
 
   startBadgesIntro(status: string) {
+    let isExp = false;
+    try {
+      isExp = window.localStorage.getItem(IS_EXP) === 'true';
+    } catch (e) {
+      isExp = window.sessionStorage.getItem(IS_EXP) === 'true';
+    }
     const intro = introJs.introJs();
     intro.setOptions({
       steps: [
@@ -367,6 +377,10 @@ export class IntroService {
           .storeCompletionData(this.completionData)
           .subscribe(() => {
             this.showCongratsDialog(true);
+
+            if(isExp) {
+              this.commonService.updateScore(INTRODUCTORY_ANIMATION_STEP_COMPLETE_SCORE);
+            }
           });
       }
     });
@@ -400,6 +414,12 @@ export class IntroService {
   }
 
   startFlowIntro() {
+     let isExp = false;
+     try {
+       isExp = window.localStorage.getItem(IS_EXP) === 'true';
+     } catch (e) {
+       isExp = window.sessionStorage.getItem(IS_EXP) === 'true';
+     }
     const intro = introJs.introJs();
     intro.setOptions({
       steps: [
@@ -437,8 +457,8 @@ export class IntroService {
       this.setOverlayFalse();
       this.notificationService.closeNavFlow.emit();
       if (window.innerWidth > MOBILE_WIDTH) {
-        if (!this.flowService.stepCompleted) {
-          this.commonService.postScore(20);
+        if (this.flowService.stepCompleted && isExp) {
+          this.commonService.updateScore(INTRODUCTORY_ANIMATION_STEP_COMPLETE_SCORE);
         }
         setTimeout(() => {
           this.flowService.introduceBehaviour.next(true);
@@ -557,9 +577,9 @@ export class IntroService {
       }, 1000);
       setTimeout(() => {
         this.setSideBarFalse();
-        if (!this.flowService.stepCompleted) {
-          this.commonService.postScore(20);
-        }
+        // if (!this.flowService.stepCompleted) {
+        //   this.commonService.updateScore(20);
+        // }
         this.startPointsIntro();
       }, 1500);
     });

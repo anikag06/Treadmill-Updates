@@ -10,9 +10,13 @@ import {
 import { FormControl, FormBuilder, Validators } from '@angular/forms';
 import { WorryProductivelyService } from '../../worry-productively.service';
 import { Worry } from '../../worry.model';
-import { WORRY_PROBLEM } from '@/app.constants';
+import {FOLLOW_UP_FORM_COMPLETE_SCORE, WORRY_PROBLEM} from '@/app.constants';
 import { UserTask } from '../../../shared/tasks/user-task.model';
 import * as moment from 'moment';
+import {CommonService} from '@/shared/common.service';
+import {UserProfileService} from '@/main/shared/user-profile/user-profile.service';
+import {User} from '@/shared/user.model';
+import {AuthService} from '@/shared/auth/auth.service';
 
 @Component({
   selector: 'app-face-my-worst-fear',
@@ -26,6 +30,8 @@ export class FaceMyWorstFearComponent implements OnInit {
   @Output() techniqueExpanded = new EventEmitter();
   @Output() techniqueCollapsed = new EventEmitter();
   @Input() summaryIndex!: number;
+  worrySubmit = 0;
+  user!: User;
   taskObject!: any;
   faceYourWorstFearForm = this.fb.group({
     faceYourWorstFear: new FormControl('', Validators.required),
@@ -44,7 +50,10 @@ export class FaceMyWorstFearComponent implements OnInit {
   taskHeading = 'Decide a time when you will worry about it.';
   constructor(
     private fb: FormBuilder,
-    private worryService: WorryProductivelyService
+    private worryService: WorryProductivelyService,
+    private commonService: CommonService,
+    private userProfileService: UserProfileService,
+    private authService: AuthService,
   ) {}
   ngOnInit() {
     this.emergencyPlan = undefined;
@@ -54,6 +63,7 @@ export class FaceMyWorstFearComponent implements OnInit {
       this.taskLoaded;
     }
     console.log(this.disableEmergency + 'log');
+    this.user = <User>this.authService.isLoggedIn();
   }
   ngOnChanges(changes: SimpleChanges) {
     this.resetForm();
@@ -107,6 +117,7 @@ export class FaceMyWorstFearComponent implements OnInit {
     }
   }
   onWorstFearClick() {
+    this.worrySubmit += 1;
     this.continueButton = false;
     this.continueEmergency = false;
     this.showTasks = true;
@@ -124,6 +135,10 @@ export class FaceMyWorstFearComponent implements OnInit {
       this.worryService.postWorstFear(object).subscribe((resp: any) => {
         if (resp.body) {
           this.responseData = resp.body;
+          if (this.worrySubmit === 2) {
+            this.commonService.updateScore(FOLLOW_UP_FORM_COMPLETE_SCORE);
+            console.log('score 1');
+          }
         }
       });
     } else if (
@@ -143,6 +158,10 @@ export class FaceMyWorstFearComponent implements OnInit {
           if (resp.body) {
             console.log('The request has been submitted');
             this.responseData = resp.body;
+            if (this.worrySubmit === 2){
+              this.commonService.updateScore(FOLLOW_UP_FORM_COMPLETE_SCORE);
+              console.log('score 2');
+            }
           }
         });
     }

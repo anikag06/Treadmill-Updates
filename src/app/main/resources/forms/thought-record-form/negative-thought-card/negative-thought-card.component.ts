@@ -11,6 +11,11 @@ import {
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
 import { ThoughtRecordService } from '@/main/resources/forms/thought-record-form/thought-record.service';
+import {UserProfileService} from '@/main/shared/user-profile/user-profile.service';
+import {CommonService} from '@/shared/common.service';
+import {FORM_START_SCORE} from '@/app.constants';
+import {User} from '@/shared/user.model';
+import {AuthService} from '@/shared/auth/auth.service';
 
 @Component({
   selector: 'app-negative-thought-card',
@@ -20,6 +25,8 @@ import { ThoughtRecordService } from '@/main/resources/forms/thought-record-form
 export class NegativeThoughtCardComponent implements OnInit {
   @Input() header!: string;
   @Input() reset!: boolean;
+  user!: User;
+  scoreUpdate = false;
   submitted = false;
   minRating = 'Not At All';
   maxRating = 'Very Strongly';
@@ -42,9 +49,13 @@ export class NegativeThoughtCardComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private thoughtRecordService: ThoughtRecordService,
+    private commonService: CommonService,
+    private userProfileService: UserProfileService,
+    private authService: AuthService,
   ) {}
 
   ngOnInit() {
+    this.user = <User>this.authService.isLoggedIn();
     // console.log(this.thought);
   }
 
@@ -98,10 +109,17 @@ export class NegativeThoughtCardComponent implements OnInit {
         if (status) {
           this.showContinueButton = false;
           this.showSlider = true;
+          if(!this.scoreUpdate) {
+            this.scoreUpdate = true;
+            if (this.user.is_exp) {
+              this.commonService.updateScore(FORM_START_SCORE);
+            }
+          }
           // this.onShowSelectMood.emit();
         }
       });
     }
+
   }
 
   onThoughtRatingSubmit() {
@@ -120,7 +138,14 @@ export class NegativeThoughtCardComponent implements OnInit {
           this.showContinueButton = false;
           this.showSliderButton = false;
           this.initialRatingChange.emit(this.negativeMoodRating);
+          if(!this.scoreUpdate) {
+            this.scoreUpdate = true;
+            if (this.user.is_exp) {
+              this.commonService.updateScore(FORM_START_SCORE);
+            }
+          }
         }
+
       });
   }
 

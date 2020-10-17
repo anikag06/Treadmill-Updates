@@ -1,3 +1,4 @@
+import {PLAYING_GAMES_SCORE} from "../../../../app/app.constants";
 musicASGame =  function(s)
 {
 
@@ -2281,6 +2282,7 @@ var perv = class Pervasiveness extends Phaser.Scene {
       }
 
       this.scene.start('UserResult');
+      this.commonService.updateScore(PLAYING_GAMES_SCORE);
 
     }, this);
 

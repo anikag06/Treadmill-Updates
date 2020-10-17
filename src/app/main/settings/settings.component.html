@@ -5,7 +5,7 @@
   <div class = "col background-col">
     <div class = "below-col-container" >
     <div class = "each-div" *ngIf = "(!this.passwordHeadingClicked && !this.notificationHeadingIsClicked )" >
-    <a class = "heading" (click) = "changeUsernameHeadingClicked()" *ngIf = "!this.usernameHeadingClicked"><img src = "assets/shared/change.svg" class = "settings-icon">Change username<img src = "assets/shared/right_arrow.png" class = "right-arrow-icon"></a>
+    <a class = "heading" style = "display: block" (click) = "changeUsernameHeadingClicked()" *ngIf = "!this.usernameHeadingClicked"><img src = "assets/shared/change.svg" class = "settings-icon">Change username<img src = "assets/shared/right_arrow.png" class = "right-arrow-icon"></a>
     <div class = "row" *ngIf = " this.usernameHeadingClicked">
 
       <div class = "col-12 col-lg-12   ">
@@ -93,7 +93,7 @@
 
 
       <div class = "each-div" *ngIf = "!this.usernameHeadingClicked && !this.notificationHeadingIsClicked">
-      <a class = "heading" (click) = "changePasswordHeadingClicked()" *ngIf = "!this.passwordHeadingClicked"><img src = "assets/shared/change.svg" class = "settings-icon">Change password <img src = "assets/shared/right_arrow.png" class = "right-arrow-icon"></a>
+      <a class = "heading"  style = "display: block"(click) = "changePasswordHeadingClicked()" *ngIf = "!this.passwordHeadingClicked"><img src = "assets/shared/change.svg" class = "settings-icon">Change password <img src = "assets/shared/right_arrow.png" class = "right-arrow-icon"></a>
         <div class = "row" *ngIf = "this.passwordHeadingClicked">
 
         <div class = "col-12 col-lg-4  ">
@@ -175,7 +175,7 @@
 
       <div class = "each-div" *ngIf = "this.user.is_exp && !this.usernameHeadingClicked && !this.passwordHeadingClicked">
 
-      <a class = "heading" (click) = "notificationHeadingClicked()" *ngIf = "!this.notificationHeadingIsClicked"><img src = "assets/shared/notification%20settings.svg" class = "settings-icon">Notification Settings<img src = "assets/shared/right_arrow.png" class = "right-arrow-icon"></a>
+      <a class = "heading" style = "display: block" (click) = "notificationHeadingClicked()" *ngIf = "!this.notificationHeadingIsClicked"><img src = "assets/shared/notification%20settings.svg" class = "settings-icon">Notification Settings<img src = "assets/shared/right_arrow.png" class = "right-arrow-icon"></a>
       <div *ngIf = "this.notificationHeadingIsClicked">
       <p class = "notification-subheading">Support Group</p>
         <p class = "push-email-notification">

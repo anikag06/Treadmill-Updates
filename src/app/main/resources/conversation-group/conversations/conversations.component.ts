@@ -43,12 +43,16 @@ import { StepCompleteData } from '../../shared/completion-data.model';
 import { StepsDataService } from '../../shared/steps-data.service';
 import { environment } from 'environments/environment';
 import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifications.service';
-import { PROBLEM_SOLVING, TASK, THOUGHT_RECORD } from '@/app.constants';
+import {CONVERSATION_COMPLETE_SCORE, PROBLEM_SOLVING, SLIDE_COMPLETE_SCORE, TASK, THOUGHT_RECORD} from '@/app.constants';
 import { Subscription } from 'rxjs';
 import { UserFeedbackComponent } from '@/main/resources/shared/user-feedback/user-feedback.component';
 import { map, switchMap } from 'rxjs/operators';
 import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
 import { FlowService } from '@/main/flow/flow.service';
+import {CommonService} from '@/shared/common.service';
+import {UserProfileService} from '@/main/shared/user-profile/user-profile.service';
+import {User} from '@/shared/user.model';
+import {AuthService} from '@/shared/auth/auth.service';
 
 @Component({
   selector: 'app-conversations',
@@ -128,8 +132,8 @@ import { FlowService } from '@/main/flow/flow.service';
 export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   @ViewChild(FormDirective, { static: false }) formHost!: FormDirective;
   @ViewChild(UserFeedbackComponent, { static: false })
+  user!: User;
   userFeedback!: UserFeedbackComponent;
-
   invisible!: boolean;
   scrollTop = 0;
   isConversation = true;
@@ -157,6 +161,9 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     private flowService: FlowService,
     private elementRef: ElementRef,
     private changRef: ChangeDetectorRef
+    private commonService: CommonService,
+    private userProfileService: UserProfileService,
+    private authService: AuthService,
   ) {
     this.activeroute.params.pipe(map((v) => v.id)).subscribe((params) => {
       this.conversation_id = params;
@@ -249,6 +256,12 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   type = 'image';
 
   ngOnInit() {
+    this.user = <User>this.authService.isLoggedIn();
+    // this.conversation_id = this.passdata.getid();
+    //
+    // console.log('CONV ID', this.current_id, this.conversation_id);
+    // this.passdata.IsConversationOn(true);
+    // this.run();
     this.send_image = '../../../../assets/conversations/Send.png';
     this.timerservice.visibility();
     this.timerservice.unload();
@@ -1267,6 +1280,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       .subscribe((data) => {
         this.showloading = false;
         this.showNextStepBtn = true;
+        this.commonService.updateScore(CONVERSATION_COMPLETE_SCORE);
       });
   }
 }

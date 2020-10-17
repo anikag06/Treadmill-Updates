@@ -14,10 +14,14 @@ import { ExperimentToTestBeliefService } from '../experiment-to-test-belief.serv
 import {
   ETTBF_RATING_QUESTION,
   ETTBF_MIN_RATING_TEXT,
-  ETTBF_MAX_RATING_TEXT,
+  ETTBF_MAX_RATING_TEXT, FORM_START_SCORE,
 } from '@/app.constants';
 import { FormSliderComponent } from '@/main/resources/forms/shared/form-slider/form-slider.component';
 import { FormGroup } from '@angular/forms';
+import {CommonService} from '@/shared/common.service';
+import {UserProfileService} from '@/main/shared/user-profile/user-profile.service';
+import {User} from '@/shared/user.model';
+import {AuthService} from '@/shared/auth/auth.service';
 
 @Component({
   selector: 'app-ettbf-belief',
@@ -26,6 +30,8 @@ import { FormGroup } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EttbfBeliefComponent implements OnInit {
+  scoreUpdate = false;
+  user!: User;
   @Input() belief!: Belief;
   @Output() beliefClicked = new EventEmitter<boolean>();
   @ViewChild('beliefTextArea', { static: false }) beliefTextArea!: ElementRef;
@@ -41,12 +47,18 @@ export class EttbfBeliefComponent implements OnInit {
   minRatingText = ETTBF_MIN_RATING_TEXT;
   maxRatingText = ETTBF_MAX_RATING_TEXT;
 
-  constructor(private ettbfBeliefService: ExperimentToTestBeliefService) {}
+  constructor(
+    private ettbfBeliefService: ExperimentToTestBeliefService,
+    private commonService: CommonService,
+    private userProfileService: UserProfileService,
+    private authService: AuthService,
+  ) {}
 
   ngOnInit() {
     if (this.belief) {
       this.beliefStatement = this.belief.belief;
     }
+    this.user = <User>this.authService.isLoggedIn();
   }
   ngOnChanges() {
     this.resetForm();
@@ -79,6 +91,12 @@ export class EttbfBeliefComponent implements OnInit {
             this.belief = data.body;
             console.log('the put request has been submitted');
             this.beliefClicked.emit(this.showSlider);
+            if(!this.scoreUpdate) {
+              this.scoreUpdate = true;
+              if (this.user.is_exp) {
+                this.commonService.updateScore(FORM_START_SCORE);
+              }
+            }
           },
           error => {
             console.error(error);
@@ -94,6 +112,9 @@ export class EttbfBeliefComponent implements OnInit {
             this.belief = data;
             this.beliefResponse = data;
             console.log('the post request has been submitted');
+            if (this.user.is_exp) {
+              this.commonService.updateScore(FORM_START_SCORE);
+            }
             // this.beliefClicked.emit(this.beliefContinue);
           },
           error => {

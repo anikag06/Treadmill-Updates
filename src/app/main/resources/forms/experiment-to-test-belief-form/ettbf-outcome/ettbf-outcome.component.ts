@@ -17,11 +17,13 @@ import { FormSliderComponent } from '@/main/resources/forms/shared/form-slider/f
 import {
   ETTBF_MAX_RATING_TEXT,
   ETTBF_MIN_RATING_TEXT,
-  ETTBF_RATING_QUESTION,
+  ETTBF_RATING_QUESTION, FOLLOW_UP_FORM_COMPLETE_SCORE,
 } from '@/app.constants';
 import { UserTask } from '../../shared/tasks/user-task.model';
 import * as moment from 'moment';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import {CommonService} from '@/shared/common.service';
+import {UserProfileService} from '@/main/shared/user-profile/user-profile.service';
 
 @Component({
   selector: 'app-ettbf-outcome',
@@ -40,6 +42,8 @@ export class EttbfOutcomeComponent implements OnInit {
   @ViewChild('expectedOutcome', { static: false })
   expectedOutcomeArea!: ElementRef;
   @ViewChild('realisticBeliefTextArea', { static: false })
+  followUpOldScore!: number;
+  outcomeSubmit = 0;
   realisticBeliefTextArea!: ElementRef;
   outcomeStatement = '';
   learningStatement = '';
@@ -70,6 +74,8 @@ export class EttbfOutcomeComponent implements OnInit {
   constructor(
     private ettbfBeliefService: ExperimentToTestBeliefService,
     private formBuilder: FormBuilder,
+    private commonService: CommonService,
+    private userProfileService: UserProfileService,
   ) {}
 
   ngOnInit() {
@@ -78,6 +84,7 @@ export class EttbfOutcomeComponent implements OnInit {
       this.onDisableEmergency();
       // this.taskLoaded;
     }
+    this.followUpOldScore = +this.userProfileService.getScoreValue();
     // if( this.belief.taskorigin){
     //   this.ettbfBeliefService.getTasks(this.belief.taskorigin.task_id).subscribe(
     //     (resp : any)=>{
@@ -159,6 +166,11 @@ export class EttbfOutcomeComponent implements OnInit {
     this.expectedOutComeForm.reset();
   }
   onOutcomeSubmit() {
+    this.outcomeSubmit += 1;
+    // this.commonService.postScore(this.followUpOldScore + FOLLOW_UP_FORM_COMPLETE_SCORE)
+    //   .subscribe(() => {
+        console.log('score');
+     // });
     if (this.outcome && Object.entries(this.outcome).length > 0) {
       this.outcome.belief_id = this.outcome_belief_id;
       this.outcome.outcome = this.outcomeStatement;
@@ -180,6 +192,9 @@ export class EttbfOutcomeComponent implements OnInit {
             this.outcome = data;
             this.outcomeResponse = data.body;
             console.log('The put request has been submitted');
+            if (this.outcomeSubmit === 1) {
+              this.commonService.updateScore(FOLLOW_UP_FORM_COMPLETE_SCORE);
+            }
           },
           error => {
             console.error(error);
@@ -197,6 +212,9 @@ export class EttbfOutcomeComponent implements OnInit {
               this.outcome = data;
               this.outcomeResponse = data.outcome;
               console.log('The post request has been submitted');
+              if (this.outcomeSubmit === 1) {
+                this.commonService.updateScore(FOLLOW_UP_FORM_COMPLETE_SCORE);
+              }
             },
             error => {
               console.error(error);

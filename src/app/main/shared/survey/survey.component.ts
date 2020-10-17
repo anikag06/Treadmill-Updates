@@ -20,6 +20,11 @@ import { SurveyResponse } from './survey-response.model';
 import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
 import { FlowService } from '@/main/flow/flow.service';
 import { Router } from '@angular/router';
+import {CommonService} from '@/shared/common.service';
+import {UserProfileService} from '@/main/shared/user-profile/user-profile.service';
+import {SURVEY_COMPLETE_SCORE} from '@/app.constants';
+import {User} from '@/shared/user.model';
+import {AuthService} from '@/shared/auth/auth.service';
 
 @Component({
   animations: [
@@ -56,6 +61,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./survey.component.scss'],
 })
 export class SurveyComponent implements OnInit {
+  user!: User;
   display_survey = false;
   pager = {
     count: 1,
@@ -93,9 +99,13 @@ export class SurveyComponent implements OnInit {
     private goToService: NavbarGoToService,
     private flowService: FlowService,
     private router: Router,
+    private commonService: CommonService,
+    private userProfileService: UserProfileService,
+    private authService: AuthService,
   ) {}
 
   ngOnInit() {
+    this.user = <User>this.authService.isLoggedIn();
     this.surveyService.disableLinks.emit(this.data);
     this.navbarTitle = 'Help us improve';
     this.flowService.stepDetail.emit(this.navbarTitle);
@@ -238,6 +248,10 @@ export class SurveyComponent implements OnInit {
       .subscribe(data => {
         console.log('survey response', data);
         this.submitting = false;
+        if (this.user.is_exp) {
+          this.commonService.updateScore(SURVEY_COMPLETE_SCORE);
+        }
+
         if (this.flowService.showFollowUpSurvey) {
           this.router.navigate(['/']);
         } else {

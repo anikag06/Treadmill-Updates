@@ -392,6 +392,27 @@ export const CONTACT_US_DATA = '/api/v1/trial-iitk/save-contact-us/';
 // treadwill email
 export const ADMIN_EMAIL = 'treadwill.iitk@gmail.com';
 
+// score
+export const SCORE = 'score';
+export const INTRODUCTION_SCORE = 20;
+export const CONCLUSION_SCORE = 20;
+export const SLIDE_COMPLETE_SCORE = 50;
+export const CONVERSATION_COMPLETE_SCORE = 100;
+export const FEEDBACK_SLIDE_SCORE = 20;
+export const FEEDBACK_CONVERSATION_SCORE = 20;
+export const SUPPORT_GROUP_POST_SCORE = 100;
+export const SUPPORT_GROUP_COMMENT_SCORE = 20;
+export const SUPPORT_GROUP_UP_DOWN_VOTE_SCORE = 2;
+export const SUPPORT_GROUP_THANKING_SCORE = 10;
+export const SUPPORT_GROUP_GETTING_UP_VOTE_SCORE = 20;
+export const INTRODUCTORY_ANIMATION_STEP_COMPLETE_SCORE = 20;
+export const SURVEY_COMPLETE_SCORE = 50;
+export const MEDITATION_COMPLETE_SCORE = 50; // before slides
+export const PLAYING_GAMES_SCORE = 20; // for a certain number of times
+export const FORM_START_SCORE = 20;
+export const FORM_START_VIA_CHAT_BOT_SCORE = 20;
+export const FOLLOW_UP_FORM_COMPLETE_SCORE = 20; // finish follow up in forms
+
 // support group
 export const SUPPORT_GROUP_TAGS_LIST = '/api/v1/support-group/tags-list/';
 export const COMMON_EDITOR_CONFIG = {
@@ -518,5 +539,5 @@ export const EXPLORE_MAP = new Map([
       'Play: ' + MENTAL_IMAGERY_GAME,
     ],
   ],
-  [MINDFULNESS_VIDEO, ['/main/extra-resources/videoItem/', 'Watch: ']],
+  [MINDFULNESS_VIDEO, ['/main/extra-resources/videoItem/', 'Watch: ', '/main/extra-resources/mindfulnessVideo/']],
 ]);

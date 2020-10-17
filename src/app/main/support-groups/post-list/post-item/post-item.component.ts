@@ -30,14 +30,20 @@ import { ThumbsService } from '../../thumbs.service';
 import { GeneralErrorService } from '@/main/shared/general-error.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UserProfile } from '../../../shared/user-profile/UserProfile.model';
-import { UserProfileService } from '../../../shared/user-profile/userProfile.service';
-import { COMMON_EDITOR_CONFIG } from '@/app.constants';
+import { UserProfileService } from '../../../shared/user-profile/user-profile.service';
+import {
+  COMMON_EDITOR_CONFIG,
+  SUPPORT_GROUP_COMMENT_SCORE,
+  SUPPORT_GROUP_GETTING_UP_VOTE_SCORE,
+  SUPPORT_GROUP_UP_DOWN_VOTE_SCORE
+} from '@/app.constants';
 import { DialogBoxService } from '@/main/shared/custom-dialog/dialog-box.service';
 import { ThankComponent } from '../shared/thank/thank.component';
 import { ReportProblemComponent } from '../shared/report-problem/report-problem.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ReportService } from '@/main/support-groups/post-list/shared/report.service';
 import { CongratsDialogComponent } from '@/main/resources/shared/congrats-dialog/congrats-dialog.component';
+import {CommonService} from '@/shared/common.service';
 
 @Component({
   selector: 'app-post-item',
@@ -56,6 +62,9 @@ export class PostItemComponent
   @Output() editEvent = new EventEmitter<SupportGroupItem>();
   @Output() tagClick = new EventEmitter<string>();
   // @ViewChild('el', { static: true }) el!: ElementRef;
+  upVoteFirstClick = false;
+  downVoteFirstClick = false;
+ // thumbsUpClicked = false;
   tags: Tag[] = []; // Holds all the tags
   user!: User; // Current User
   commentsPage = 1; // Holds the pagination for comments
@@ -102,6 +111,7 @@ export class PostItemComponent
     private userProfileService: UserProfileService,
     public dialog: MatDialog,
     private reportService: ReportService,
+    private commonService: CommonService,
   ) {}
 
   /*
@@ -245,6 +255,11 @@ export class PostItemComponent
             this.comments.push(updatedComment);
             this.commentNos = this.comments.length;
             this.changeDetector.detectChanges();
+           // if (this.thumbsService.isClicked) {
+            // this.postOldScore = +this.userProfileService.getScoreValue();
+              this.commonService.updateScore(SUPPORT_GROUP_COMMENT_SCORE);
+           // }
+
           },
           (error: HttpErrorResponse) => {
             this.errorService.openErrorDialog(
@@ -421,7 +436,17 @@ export class PostItemComponent
       this.sgService
         .postUpVote({ post_id: this.supportGroupItem.id, vote: 1 })
         .subscribe(
-          () => {},
+          () => {
+            console.log('first upvote state', this.upVoteFirstClick);
+            console.log('first down vote status', this.downVoteFirstClick);
+            if(!this.upVoteFirstClick && !this.downVoteFirstClick && this.supportGroupItem.is_voted !== -1) {
+                this.upVoteFirstClick = true;
+                console.log('first upvote state', this.upVoteFirstClick);
+              this.commonService.updateScore(SUPPORT_GROUP_UP_DOWN_VOTE_SCORE);
+              this.commonService.postScoreForOther(SUPPORT_GROUP_GETTING_UP_VOTE_SCORE, this.supportGroupItem.user.username);
+            }
+
+          },
           () => {
             this.errorService.openErrorDialog('Cannot upvote');
             this.supportGroupItem.is_voted = preVote;
@@ -448,7 +473,13 @@ export class PostItemComponent
       }
       this.sgService
         .postUpVote({ post_id: this.supportGroupItem.id, vote: 0 })
-        .subscribe(() => {},
+        .subscribe(() => {
+          if (!this.downVoteFirstClick && !this.upVoteFirstClick && this.supportGroupItem.is_voted !== -1) {
+              this.downVoteFirstClick = true;
+            console.log('first down vote status', this.downVoteFirstClick);
+            this.commonService.updateScore(SUPPORT_GROUP_UP_DOWN_VOTE_SCORE);
+          }
+          },
         this.errorService.errorResponse('Cannot downvote'));
     } else {
       this.thumbsService.openSnackBar("You can't vote on your own post", 'Ok');

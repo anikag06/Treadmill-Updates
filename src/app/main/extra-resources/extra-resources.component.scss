@@ -57,21 +57,15 @@ i {
   margin-bottom: -2px;
 }
 
-@media only screen and (min-width: 1501px){
+@media only screen and (min-width: 1701px){
   .resources-container{
-    //padding: 0px 0px 0px 84px;
     margin: 0px;
     max-width: 1700px;
-
-
   }
   .videos-card-hidden{
-   // height: 335px;//for 1 row
-    //height: 347px;
     height: 296px;
   }
   .reading-card-hidden{
-   // height: 449px;// for 1 row
     height: 296px;
   }
   .each-item{
@@ -84,7 +78,6 @@ i {
     padding-left: 18px;
   }
   .see-all{
-   // padding-left: 94% ;
     padding-right: 1%;
     float: right;
   }
@@ -92,19 +85,44 @@ i {
     padding-bottom: 86px;
   }
 }
+@media screen and (max-width: 1700px) {
+  .resources-container {
+    margin: 0px;
+
+  }
+  .videos-card-hidden {
+    height: 220px;
+  }
+  .reading-card-hidden {
+    height: 220px;
+  }
+  .each-item{
+    padding: 0px 16px 32px;
+    width: 25%;
+  }
+
+  .heading{
+    font-size: 24px;
+    padding-left: 9px;
+  }
+  .see-all{
+    padding-right: 1.5%;
+    float: right;
+  }
+  .space-below-section{
+    padding-bottom: 47px;
+  }
+}
 
 @media screen and (max-width: 1500px){
   .resources-container{
-    //padding: 0px 0px 0px 84px;
     margin:0px;
 
   }
   .videos-card-hidden{
-    //height: 250px;
     height: 200px;
   }
   .reading-card-hidden{
-   // height: 419px;// for 1 row
     height: 200px;
   }
   .each-item{
@@ -115,10 +133,8 @@ i {
   .heading{
     font-size: 24px;
     padding-left: 9px;
-    //margin-left: 10%;
   }
   .see-all{
-   // padding-left: 92% ;
     padding-right: 1.5%;
     float: right;
   }
@@ -128,11 +144,9 @@ i {
 }
 @media screen and (width: 1366px) {
   .videos-card-hidden{
-    //height: 230px;//for 1 row
     height: 198px;
   }
   .reading-card-hidden{
-    // height: 419px;// for 1 row
     height: 198px;
   }
   .space-below-section{
@@ -141,21 +155,17 @@ i {
 }
 @media screen and (max-width: 1280px){
   .resources-container{
-    //padding: 0px 0px 0px 84px;
     margin: 0px;
   }
   .videos-card-hidden{
-    //height: 230px;//for 1 row
     height: 166px;
   }
   .reading-card-hidden{
-   // height: 419px;// for 1 row
     height: 166px;
   }
   .each-item{
     padding: 0px 10px 32px;
     width: 25%;
-    //height: 5%;
   }
 
   .heading{
@@ -163,7 +173,6 @@ i {
     padding-left: 9px;
   }
   .see-all{
-   // padding-left: 88% ;
     padding-right: 1.5%;
     float: right;
   }
@@ -175,16 +184,13 @@ i {
 
 @media screen and (max-width: 991px) {
   .resources-container{
-    //padding: 0px 0px 0px 84px; //top right bottom left
     margin:0px;
 
   }
   .videos-card-hidden{
-    //height: 247px;//for 1 row
     height: 166px;
   }
   .reading-card-hidden{
-   // height: 342px;// for 1 row
     height: 166px;
   }
   .each-item{
@@ -198,7 +204,6 @@ i {
   }
   .see-all{
     padding-left: 90% ;
-    //padding-right: 2%;
   }
   .space-below-section{
     padding-bottom: 27px;
@@ -212,11 +217,9 @@ i {
 
   }
   .videos-card-hidden{
-   // height: 178px; //for 1 row
     height: 166px;
   }
   .reading-card-hidden{
-   // height: 429px;// for 1 row
     height: 166px;
   }
 
@@ -232,7 +235,6 @@ i {
   }
   .see-all{
     padding-left: 90% ;
-    //padding-right: 1%;
   }
   .space-below-section{
     padding-bottom: 27px;
@@ -252,16 +254,13 @@ i {
     width: 50%;
   }
   .videos-card-hidden{
-    //height: 394px;//for2 rows
     height: 362px;
   }
   .reading-card-hidden{
-    //height: 394px;
     height: 362px;
   }
   .see-all{
     padding-left: 82% ;
-    //padding-right: 2.5%;
   }
   .space-below-section{
     padding-bottom: 27px;
@@ -278,12 +277,10 @@ i {
   }
 
   .videos-card-hidden{
-   // height: 382px;//to set
     height: 342px;
 
   }
   .reading-card-hidden{
-  // height: 400px;
     height: 322px;
   }
 
@@ -294,7 +291,6 @@ i {
 
   .see-all{
     padding-left: 80% ;
-   // padding-right: 2.5%;
   }
   .space-below-section{
     padding-bottom: 27px;
@@ -302,17 +298,14 @@ i {
 }
 @media screen and (max-width: 320px) {
   .videos-card-hidden{
-    // height: 382px;//to set
     height: 302px;
 
   }
   .reading-card-hidden{
-    // height: 400px;
     height: 302px;
   }
   .see-all {
     padding-left: 80% ;
-    //padding-right: 2.5%;
   }
   .space-below-section{
     padding-bottom: 27px;

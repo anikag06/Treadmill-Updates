@@ -12,7 +12,7 @@ import {
   LOCKED,
   COMPLETED,
   COMMITMENT_OPTIONS,
-  LOGGED_IN_PATH,
+  LOGGED_IN_PATH, CONCLUSION_SCORE,
 } from '@/app.constants';
 import { ConclusionService } from '../conclusion.service';
 import { StepsDataService } from '../../shared/steps-data.service';
@@ -20,6 +20,10 @@ import { StepCompleteData } from '../../shared/completion-data.model';
 import { CommonDialogsService } from '../../shared/common-dialogs.service';
 import { QuizService } from '@/shared/questionnaire/questionnaire.service';
 import { FlowService } from '@/main/flow/flow.service';
+import {CommonService} from '@/shared/common.service';
+import {UserProfileService} from '@/main/shared/user-profile/user-profile.service';
+import {User} from '@/shared/user.model';
+import {AuthService} from '@/shared/auth/auth.service';
 
 @Component({
   selector: 'app-conclusion3',
@@ -27,6 +31,7 @@ import { FlowService } from '@/main/flow/flow.service';
   styleUrls: ['./conclusion3.component.scss'],
 })
 export class Conclusion3Component implements OnInit, OnDestroy {
+  user!: User;
   stepGroupSequence!: number;
   options = COMMITMENT_OPTIONS;
   commitment!: string;
@@ -66,9 +71,13 @@ export class Conclusion3Component implements OnInit, OnDestroy {
     private quizService: QuizService,
     private stepsService: StepsDataService,
     private flowService: FlowService,
+    private commonService: CommonService,
+    private userProfileService: UserProfileService,
+    private authService: AuthService,
   ) {}
 
   ngOnInit() {
+    this.user = <User>this.authService.isLoggedIn();
     this.activatedRoute.url.subscribe(data => {
       this.stepGroupSequence = +data[0].path;
       this.stepDataService
@@ -179,6 +188,7 @@ export class Conclusion3Component implements OnInit, OnDestroy {
     this.stepDataService
       .storeCompletionData(this.completionData)
       .subscribe(data => {
+        this.commonService.updateScore(CONCLUSION_SCORE);
         console.log(data);
       });
   }

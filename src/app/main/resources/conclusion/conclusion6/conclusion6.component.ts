@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import {
   COMMITMENT_OPTIONS,
-  COMPLETED,
+  COMPLETED, CONCLUSION_SCORE,
   LOCKED,
   LOGGED_IN_PATH,
 } from '@/app.constants';
@@ -20,6 +20,10 @@ import { CommonDialogsService } from '@/main/resources/shared/common-dialogs.ser
 import { QuizService } from '@/shared/questionnaire/questionnaire.service';
 import { FlowService } from '@/main/flow/flow.service';
 import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
+import {CommonService} from '@/shared/common.service';
+import {UserProfileService} from '@/main/shared/user-profile/user-profile.service';
+import {User} from '@/shared/user.model';
+import {AuthService} from '@/shared/auth/auth.service';
 
 @Component({
   selector: 'app-conclusion6',
@@ -27,6 +31,7 @@ import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
   styleUrls: ['./conclusion6.component.scss'],
 })
 export class Conclusion6Component implements OnInit, OnDestroy {
+  user!: User;
   stepGroupSequence!: number;
   dataLoaded = false;
   locked = false;
@@ -57,9 +62,13 @@ export class Conclusion6Component implements OnInit, OnDestroy {
     private quizService: QuizService,
     private flowService: FlowService,
     private goToService: NavbarGoToService,
+    private commonService: CommonService,
+    private userProfileService: UserProfileService,
+    private authService: AuthService,
   ) {}
 
   ngOnInit() {
+    this.user = <User>this.authService.isLoggedIn();
     this.activatedRoute.url.subscribe(data => {
       this.stepGroupSequence = +data[0].path;
       this.stepDataService
@@ -153,6 +162,7 @@ export class Conclusion6Component implements OnInit, OnDestroy {
     this.stepDataService
       .storeCompletionData(this.completionData)
       .subscribe(data => {
+        this.commonService.updateScore(CONCLUSION_SCORE);
         console.log(data);
       });
     this.commonDialogService.openCongratsDialog(

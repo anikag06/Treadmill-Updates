@@ -12,6 +12,11 @@ import { UserTask } from '@/main/resources/forms/shared/tasks/user-task.model';
 import * as moment from 'moment';
 import { PROBLEM_SOLVING_QUOTES } from '@/main/resources/forms/problem-solving-worksheets/problem-solving-message';
 import { FormService } from '@/main/resources/forms/form.service';
+import {CommonService} from '@/shared/common.service';
+import {UserProfileService} from '@/main/shared/user-profile/user-profile.service';
+import {FOLLOW_UP_FORM_COMPLETE_SCORE} from '@/app.constants';
+import {User} from '@/shared/user.model';
+import {AuthService} from '@/shared/auth/auth.service';
 
 @Component({
   selector: 'app-result',
@@ -21,10 +26,14 @@ import { FormService } from '@/main/resources/forms/form.service';
 export class ResultComponent implements OnInit, OnChanges {
   constructor(
     private problemService: ProblemSolvingWorksheetsService,
-    private formService: FormService
+    private formService: FormService,
+    private commonService: CommonService,
+    private userProfileService: UserProfileService,
+    private authService: AuthService,
   ) {}
   @Input() solution_id!: number;
   @Input() task!: UserTask;
+  user!: User;
   result!: Result;
   resultBody = '';
   disableResult!: boolean;
@@ -41,6 +50,7 @@ export class ResultComponent implements OnInit, OnChanges {
       this.getEndDate();
       this.onDisableResult();
     }
+    this.user = <User>this.authService.isLoggedIn();
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -79,6 +89,7 @@ export class ResultComponent implements OnInit, OnChanges {
       this.problemService.putResult(this.solution_id, object).subscribe(
         (data: any) => {
           this.result = new Result(+data.id, this.resultBody, this.didWork);
+          this.commonService.updateScore(FOLLOW_UP_FORM_COMPLETE_SCORE);
         },
         (error) => console.log(error)
       );
@@ -87,6 +98,7 @@ export class ResultComponent implements OnInit, OnChanges {
         (data: any) => {
           this.result = new Result(data.id, this.resultBody, this.didWork);
           this.onShowMessage();
+          this.commonService.updateScore(FOLLOW_UP_FORM_COMPLETE_SCORE);
         },
         (error) => console.log(error)
       );

@@ -4,7 +4,7 @@ import { AuthService } from '@/shared/auth/auth.service';
 import { MOBILE_WIDTH, TREADWILL } from '@/app.constants';
 import { Title } from '@angular/platform-browser';
 import { UserProfile } from '../shared/user-profile/UserProfile.model';
-import { UserProfileService } from '../shared/user-profile/userProfile.service';
+import { UserProfileService } from '../shared/user-profile/user-profile.service';
 import { IntroService } from '@/main/walk-through/intro.service';
 import { Observable, Subscription, timer } from 'rxjs';
 import { isNotNullOrUndefined } from 'codelyzer/util/isNotNullOrUndefined';
@@ -40,7 +40,7 @@ export class DashboardComponent implements OnInit {
 
     this.userProfileService
       .getUserProfile(this.user.username)
-      .subscribe(profile => {
+      .subscribe((profile) => {
         this.userProfile = new UserProfile(
           profile.username,
           profile.user_avatar,

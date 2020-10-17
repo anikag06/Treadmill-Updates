@@ -4,7 +4,7 @@ import {
   ViewChild,
   ComponentFactoryResolver,
   ElementRef,
-  AfterContentInit,
+  AfterContentInit, DoCheck,
 } from '@angular/core';
 import { SlideService } from './slide.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
@@ -33,7 +33,7 @@ import {
   FORM_BELIEF_CHANGE,
   FORM_EXPERIMENT_TO_TEST_BELIEF,
   FORM_THOUGHT_RECORD,
-  FORM_WORRY_PRODUCTIVELY,
+  FORM_WORRY_PRODUCTIVELY, SLIDE_COMPLETE_SCORE,
 } from '@/app.constants';
 import { CommonDialogsService } from '../shared/common-dialogs.service';
 import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.service';
@@ -48,6 +48,9 @@ import { WorryProductivelyComponent } from '@/main/resources/forms/worry-product
 import { FlowService } from '@/main/flow/flow.service';
 import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
 import { CommonService } from '@/shared/common.service';
+import {UserProfileService} from '@/main/shared/user-profile/user-profile.service';
+import {User} from '@/shared/user.model';
+import {AuthService} from '@/shared/auth/auth.service';
 
 @Component({
   selector: 'app-slides',
@@ -78,7 +81,7 @@ import { CommonService } from '@/shared/common.service';
     ]),
   ],
 })
-export class SlidesComponent implements OnInit, AfterContentInit {
+export class SlidesComponent implements OnInit, AfterContentInit, DoCheck {
   @ViewChild(FormDirective, { static: false }) formHost!: FormDirective;
   @ViewChild('form_div', { static: false }) formDiv!: ElementRef;
   @ViewChild('slideDiv', { static: false }) slideDiv!: ElementRef;
@@ -88,6 +91,7 @@ export class SlidesComponent implements OnInit, AfterContentInit {
   @ViewChild(UserFeedbackComponent, { static: false })
   userFeedback!: UserFeedbackComponent;
   scrollTop = 0;
+  user!: User;
 
   constructor(
     private slideService: SlideService,
@@ -102,6 +106,8 @@ export class SlidesComponent implements OnInit, AfterContentInit {
     private flowService: FlowService,
     private goToService: NavbarGoToService,
     private commonService: CommonService,
+    private userProfileService: UserProfileService,
+    private authService: AuthService,
   ) {}
 
   slide!: Slide;
@@ -140,7 +146,11 @@ export class SlidesComponent implements OnInit, AfterContentInit {
   stepGroupSequence!: number;
   showloading = false;
 
+  ngDoCheck(): void {
+  }
+
   ngOnInit() {
+    this.user = <User>this.authService.isLoggedIn();
     this.activateRoute.params
       .pipe(
         map(v => v.id),
@@ -325,9 +335,7 @@ export class SlidesComponent implements OnInit, AfterContentInit {
       .subscribe(data => {
         this.showNextStepBtn = true;
         this.showloading = false;
-        this.commonService.postScore(50).subscribe(() => {
-          console.log('score');
-        });
+        this.commonService.updateScore(SLIDE_COMPLETE_SCORE);
       });
   }
   onNextStepClick() {
@@ -338,7 +346,12 @@ export class SlidesComponent implements OnInit, AfterContentInit {
     this.feedbackText.feedback_text = this.userFeedback.feedback_text;
     this.slideService
       .updateFeedBackInfo(this.feedbackText, this.feedbackDataId)
-      .subscribe(data => {});
+      .subscribe(data => {
+        if (this.slideDisliked === true || this.slideLiked === true) {
+          console.log('slideDisliked', this.slideDisliked);
+
+        }
+      });
     this.scrollTop = 0;
   }
 

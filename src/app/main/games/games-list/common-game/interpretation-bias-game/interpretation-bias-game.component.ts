@@ -13,7 +13,7 @@ import {
   IBGameUserResponse,
 } from '@/main/games/shared/game-play.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IBG_SENTENCE, IBG_LESS_TIME, IBG_MORE_TIME } from '@/app.constants';
+import {IBG_SENTENCE, IBG_LESS_TIME, IBG_MORE_TIME, PLAYING_GAMES_SCORE} from '@/app.constants';
 import { environment } from 'environments/environment';
 import { GamePlayService } from '@/main/games/shared/game-play.service';
 import { GamesAuthService } from '@/main/games/shared/games-auth.service';
@@ -31,6 +31,7 @@ import { map, switchMap } from 'rxjs/operators';
 import { FlowService } from '@/main/flow/flow.service';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 import { IntroService } from '@/main/walk-through/intro.service';
+import {CommonService} from '@/shared/common.service';
 
 declare var IBG_MAX_WORDS_HIDDEN: number;
 declare var sentence_number: any;
@@ -135,6 +136,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   stepSequence!: number;
   stepName!: string;
   showLoading = true;
+  sendScoreAfterLevel2 = 0;
 
   constructor(
     private gameAuthService: GamesAuthService,
@@ -149,6 +151,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
     private flowService: FlowService,
     private activatedRoute: ActivatedRoute,
     private stepDataService: StepsDataService,
+    private commonService: CommonService,
   ) {}
 
   @HostListener('window:iBGameSentenceDialogFun')
@@ -405,6 +408,10 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
 
   nextSentenceClicked() {
     this.currentSentencesWordsNumber(sentence_number + 1);
+    this.sendScoreAfterLevel2 += 1;
+    if (this.sendScoreAfterLevel2 === 2) {
+      this.commonService.updateScore(PLAYING_GAMES_SCORE);
+    }
   }
 
   checkUserResponse(response: any) {

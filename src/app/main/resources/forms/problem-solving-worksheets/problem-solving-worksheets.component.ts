@@ -15,6 +15,7 @@ import { AuthService } from '@/shared/auth/auth.service';
 import { User } from '@/shared/user.model';
 import { GeneralErrorService } from '@/main/shared/general-error.service';
 import {
+  FORM_START_SCORE,
   PROBLEM_SOLVING_FORM_NAME,
   PSF_PROBLEM,
   PSF_PROBLEM_SOLVING,
@@ -34,6 +35,8 @@ import { FlowService } from '@/main/flow/flow.service';
 import { ActivatedRoute } from '@angular/router';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 import { ProsConsInfoComponent } from '@/main/resources/forms/problem-solving-worksheets/pros-cons-container/pros-cons/pros-cons-info/pros-cons-info.component';
+import {CommonService} from '@/shared/common.service';
+import {UserProfileService} from '@/main/shared/user-profile/user-profile.service';
 
 @Component({
   selector: 'app-problem-solving-worksheets',
@@ -42,6 +45,7 @@ import { ProsConsInfoComponent } from '@/main/resources/forms/problem-solving-wo
 })
 export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   user!: User;
+  scoreUpdate = false;
   problem!: Problem;
   solutions: Solution[] = [];
   solutionsSaved = false;
@@ -93,6 +97,8 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
     private flowService: FlowService,
     private activatedRoute: ActivatedRoute,
     private stepDataService: StepsDataService,
+    private commonService: CommonService,
+    private userProfileService: UserProfileService,
   ) {}
 
   ngOnInit() {
@@ -304,6 +310,12 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
           this.showSolutionsForm = false;
           this.saveSolutionBtn = false;
           this.solutionForm.reset();
+          if(!this.scoreUpdate) {
+            this.scoreUpdate = true;
+            if (this.user.is_exp) {
+              this.commonService.updateScore(FORM_START_SCORE);
+            }
+          }
         }, this.errorService.errorResponse('Something went wrong'));
     } else {
       this.solutionForm.reset();

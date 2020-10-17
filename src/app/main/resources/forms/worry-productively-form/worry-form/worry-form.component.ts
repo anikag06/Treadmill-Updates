@@ -11,6 +11,11 @@ import {
 import { Worry } from '../worry.model';
 import { WorryProductivelyService } from '../worry-productively.service';
 import { FormSliderComponent } from '../../shared/form-slider/form-slider.component';
+import {CommonService} from '@/shared/common.service';
+import {UserProfileService} from '@/main/shared/user-profile/user-profile.service';
+import {FORM_START_SCORE} from '@/app.constants';
+import {User} from '@/shared/user.model';
+import {AuthService} from '@/shared/auth/auth.service';
 
 @Component({
   selector: 'app-worry-form',
@@ -19,13 +24,20 @@ import { FormSliderComponent } from '../../shared/form-slider/form-slider.compon
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WorryFormComponent implements OnInit {
+  user!: User;
+  scoreUpdate = false;
   @Input() worry!: Worry;
   @Output() testOut = new EventEmitter<boolean>();
   @Output() updateWorry = new EventEmitter();
   @ViewChild('worryTextArea', { static: false }) worryTextArea!: ElementRef;
   @ViewChild(FormSliderComponent, { static: false })
   sliderRating!: FormSliderComponent;
-  constructor(private worryService: WorryProductivelyService) {}
+  constructor(
+    private worryService: WorryProductivelyService,
+    private commonService: CommonService,
+    private userProfileService: UserProfileService,
+    private authService: AuthService,
+    ) {}
   worryStatement = '';
   value = 1;
   worrySliderQuestion = 'How bothered are you by your worry?';
@@ -42,6 +54,7 @@ export class WorryFormComponent implements OnInit {
       this.worryStatement = this.worry.worry;
       // console.log('slider value is' + this.sliderRating.rating);
     }
+    this.user = <User>this.authService.isLoggedIn();
   }
   ngOnChanges() {
     this.resetForm();
@@ -85,6 +98,12 @@ export class WorryFormComponent implements OnInit {
         .subscribe(
           (data: any) => {
             this.updateWorry.emit(data);
+            if(!this.scoreUpdate) {
+              this.scoreUpdate = true;
+              if (this.user.is_exp) {
+                this.commonService.updateScore(FORM_START_SCORE);
+              }
+            }
           },
           error => {
             console.error(error);
@@ -97,6 +116,9 @@ export class WorryFormComponent implements OnInit {
       this.worryService.postWorry(this.worryStatement).subscribe(
         (data: any) => {
           console.log(data);
+          if (this.user.is_exp) {
+            this.commonService.updateScore(FORM_START_SCORE);
+          }
           let worry = new Worry(
             data.id,
             data.worry,

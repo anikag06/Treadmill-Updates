@@ -1,5 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
+import {FEEDBACK_SLIDE_SCORE, SUPPORT_GROUP_UP_DOWN_VOTE_SCORE} from '@/app.constants';
+import {CommonService} from '@/shared/common.service';
+import {UserProfileService} from '@/main/shared/user-profile/user-profile.service';
+import {AuthService} from '@/shared/auth/auth.service';
+import {User} from '@/shared/user.model';
 
 @Component({
   selector: 'app-user-feedback',
@@ -19,14 +24,24 @@ export class UserFeedbackComponent implements OnInit {
   @Output() scrollEvent: EventEmitter<any> = new EventEmitter();
   @Output() storeFeedbackEvent: EventEmitter<any> = new EventEmitter();
   @Output() submitCommentEvent: EventEmitter<any> = new EventEmitter();
+  @Output() upVoteFirstClickEvent: EventEmitter<any> = new EventEmitter();
+  @Output() downVoteFirstClickEvent: EventEmitter<any> = new EventEmitter();
 
   showFeedBackBox = false;
   final_feedback!: any;
   feedback_text!: string;
+  voteFirstClick = false;
+  user!: User;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private commonService: CommonService,
+    private userProfileService: UserProfileService,
+    private authService: AuthService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.user = <User>this.authService.isLoggedIn();
+  }
 
   onDislikeBtnClick() {
     this.scrollPageToBottom();
@@ -37,6 +52,7 @@ export class UserFeedbackComponent implements OnInit {
       this.final_feedback = -1; // changing from like to dislike state
     } else {
       this.final_feedback = -1; // changing from no like/dislike state to dislike
+     // this.downVoteFirstClick = true;
     }
     this.disliked = !this.disliked;
     this.liked = false;
@@ -51,6 +67,7 @@ export class UserFeedbackComponent implements OnInit {
       this.final_feedback = 1; // changing from dislike to no like state
     } else {
       this.final_feedback = 1; // changing from no like/dislike state to like
+      // this.upVoteFirstClick = true;
     }
     this.liked = !this.liked;
     this.disliked = false;
@@ -79,5 +96,16 @@ export class UserFeedbackComponent implements OnInit {
     this.showFeedBackBox = false;
     this.feedback_text = comment;
     this.submitCommentEvent.emit();
+    if (!this.voteFirstClick && (this.final_feedback === 1)){
+      this.voteFirstClick = true;
+      this.commonService.updateScore(FEEDBACK_SLIDE_SCORE);
+    }
   }
+
+  // upVoteFirstClicked() {
+  //   this.upVoteFirstClickEvent.emit();
+  // }
+  // downVoteFirstClicked() {
+  //   this.downVoteFirstClickEvent.emit();
+  // }
 }

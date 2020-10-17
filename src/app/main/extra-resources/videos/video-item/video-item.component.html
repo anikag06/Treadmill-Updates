@@ -15,11 +15,11 @@
   <div class = "row row-margin" >
     <div class="col col-margin" *ngIf = "isLoaded; else loader" >
       <div class="video-container" >
-        <iframe class = "video-specs" [src]="mindfulnessVideo.url + enableId | safeUrl" id = 'player' #Video ></iframe><br/>
+        <iframe class = "video-specs" [src]="mindfulnessVideo.resource_video.url + enableId | safeUrl" id = 'player' #Video ></iframe><br/>
 
       </div>
 
-     <mat-card-footer class= "footer-text" [innerHTML]="mindfulnessVideo.title"></mat-card-footer>
+     <mat-card-footer class= "footer-text" [innerHTML]="mindfulnessVideo.resource_video.title"></mat-card-footer>
     </div>
   </div>
 </div>
