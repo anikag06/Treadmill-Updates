@@ -147,6 +147,10 @@ describe('treadwill Flow Experimental Group', () => {
       fp.findProgressElement('Give credit to yourself');
       fp.goToNextStep('Next step');
       fp.findProgressElement('One step at a time');
+      if (testfor === 'dropout' && moduleNum === 2) {
+        console.log('CHECK FOR DROPOUT  AT MODULE 2');
+        fp.checkForDropout(loginTime);
+      }
       fp.showFullConv();
       fp.goToNextStep('Next step');
       fp.findProgressElement('Finish module');
