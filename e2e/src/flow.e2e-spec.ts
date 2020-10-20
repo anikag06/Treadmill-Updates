@@ -27,7 +27,7 @@ describe('treadwill Flow Experimental Group', () => {
     page.clickLoginLink();
     browser.sleep(2500);
     // username is hardcoded here
-    page.fillLoginForm('test_user_2', 'test123');
+    page.fillLoginForm('test_1', 'test123');
     expect(fp.onDashboard()).toBeTruthy('url does not contains dashboard');
     loginTime = page.getTime();
     console.log('login time', loginTime);
@@ -197,14 +197,15 @@ describe('treadwill Flow Experimental Group', () => {
       fp.findProgressElement('Solve my problem form');
       fp.reload();
       fp.clickGoto();
+      if (testfor === 'dropout' && moduleNum === 3) {
+        fp.navigateToDashboard();
+        console.log('CHECK FOR DROPOUT  AT MODULE 3');
+        fp.checkForDropout(loginTime);
+      }
       fp.findProgressElement('Help us improve');
       fp.fillSurveyForm();
       browser.sleep(2000);
       fp.findProgressElement('Finish module');
-      if (testfor === 'dropout' && moduleNum === 3) {
-        console.log('CHECK FOR DROPOUT  AT MODULE 3');
-        fp.checkForDropout(loginTime);
-      }
       fp.evaluateMood();
       page.findPhq();
       page.fillPhq();
@@ -316,6 +317,23 @@ describe('treadwill Flow Experimental Group', () => {
     },
     100 * 60 * 1000,
   );
+
+  it(
+    'Should run followup steps',
+    () => {
+      page.findPhq();
+      page.fillPhq();
+      page.findSiq();
+      page.fillSiq();
+      page.findGad();
+      page.fillGad();
+      browser.sleep(2000);
+      fp.fillSurveyForm();
+      browser.sleep(2000);
+    },
+    100 * 60 * 1000,
+  );
+
 
   // xit('should start introductory animation', () => {
   //   browser.sleep(2000);
