@@ -21,10 +21,10 @@ import { IntroService } from '@/main/walk-through/intro.service';
       state('show', style({ transform: 'translateX(0%)' })),
       transition('hidden => show', [
         style({ transform: 'translateX(100%)' }),
-        animate('500ms', style({ transform: 'translateX(0%)' })),
+        animate('400ms', style({ transform: 'translateX(0%)' })),
       ]),
       transition('show => hidden', [
-        animate('500ms', style({ transform: 'translateX(100%)' })),
+        animate('400ms', style({ transform: 'translateX(100%)' })),
       ]),
     ]),
   ],

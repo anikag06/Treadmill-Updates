@@ -106,6 +106,10 @@ export class ThoughtRecordFormComponent implements OnInit {
     if (id !== null) {
       this.loadThoughtByID(parseInt(id));
     }
+    if (!this.fromSlide && !this.fromConv) {
+      this.formService.formName = this.formName;
+      this.formService.formTitle.emit();
+    }
     setTimeout(() => {
       this.showLoading = false;
     }, 1000);
