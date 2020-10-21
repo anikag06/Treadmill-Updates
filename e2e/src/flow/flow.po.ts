@@ -224,7 +224,7 @@ export class FlowPage {
       by.cssContainingText('.step-content.active', txt),
     );
     browser
-      .wait(this.EC.visibilityOf(nextStep))
+      .wait(this.EC.visibilityOf(nextStep), 5 * 60 * 1000)
       .then(() => {
         this.findProgressElement(txt);
         console.log(txt, 'VISIBLE');
