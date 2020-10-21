@@ -28,6 +28,7 @@ export class FlowService {
   stepCompleted!: boolean;
   firstStepID!: number;
   showDashboardButton = new EventEmitter<any>();
+  sideNavIntro = new EventEmitter<any>();
   showFollowUpSurvey = false;
   srcWidth!: number;
 

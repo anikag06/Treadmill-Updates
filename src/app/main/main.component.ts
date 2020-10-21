@@ -66,6 +66,7 @@ export class MainComponent
   firstLoad = true;
   showOverlay = false;
   fixParent = false;
+  introAnimation = false;
 
   onlineStatusMessages = [
     "You're online. Life's good again.",
@@ -226,6 +227,10 @@ export class MainComponent
         this.fixParent = data;
       },
     );
+    this.flowService.sideNavIntro.subscribe( (value: boolean) => {
+      this.introAnimation = value;
+    });
+
   }
 
   ngAfterContentInit(): void {

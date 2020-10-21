@@ -303,6 +303,7 @@ export class IntroService {
   }
 
   startNavbarElementIntro(element: string, text_element: string) {
+    this.flowService.sideNavIntro.emit(true);
     const intro = introJs.introJs();
     intro.setOptions({
       steps: [
@@ -328,6 +329,7 @@ export class IntroService {
     });
     intro.start();
     intro.onexit(() => {
+      this.flowService.sideNavIntro.emit(false);
       this.startGotoIntro();
       if (window.innerWidth < TABLET_WIDTH) {
         this.drawer.toggle();

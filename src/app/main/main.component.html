@@ -73,7 +73,7 @@
         <div *ngIf="user.is_exp" class="list-wrapper-items" id="games">
           <a
             mat-list-item
-            [ngStyle]="{ backgroundColor: '#F4BB56' }"
+            [ngStyle]="{ backgroundColor: introAnimation ? '#F4BB56' : '' }"
             routerLink="/main/games"
           >
             <span class="list-wrapper-items-icon">
@@ -93,7 +93,7 @@
         >
           <a
             mat-list-item
-            [ngStyle]="{ backgroundColor: '#F4BB56' }"
+            [ngStyle]="{ backgroundColor: introAnimation ? '#F4BB56' : ''  }"
             routerLink="/main/support-groups"
           >
             <span class="list-wrapper-items-icon">
@@ -111,7 +111,7 @@
         <div class="list-wrapper-items" id="forms">
           <a
             mat-list-item
-            [ngStyle]="{ backgroundColor: '#F4BB56' }"
+            [ngStyle]="{ backgroundColor: introAnimation ? '#F4BB56' : ''  }"
             routerLink="/main/resources/forms"
           >
             <span class="list-wrapper-items-icon">
