@@ -1081,10 +1081,17 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
             }
           });
         } else {
-          this.text.dialog.push({
-            message: this.dialog.message,
-            option_images: [],
-          });
+          if (this.newLine_dialog[0] !== this.img_separator) {
+            this.text.dialog.push({
+              message: this.dialog.message,
+              dialog_images: [],
+            });
+          } else {
+            this.text.dialog.push({
+              message: '',
+              dialog_images: this.dialog.dialog_images,
+            });
+          }
         }
         if (this.dialog.is_last === true) {
           this.current_dialog = [];
