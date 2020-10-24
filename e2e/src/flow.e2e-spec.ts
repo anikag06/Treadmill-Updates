@@ -238,6 +238,11 @@ describe('treadwill Flow Experimental Group', () => {
       fp.findProgressElement('GIVE A NAME 5.5');
       fp.showFullConv();
       fp.goToNextStep('Next step');
+      if (testfor === 'dropout' && moduleNum === 4) {
+        fp.navigateToDashboard();
+        console.log('CHECK FOR DROPOUT  AT MODULE 4');
+        fp.checkForDropout(loginTime);
+      }
       fp.findProgressElement('Test my belief form');
       fp.reload();
       fp.clickGoto();
