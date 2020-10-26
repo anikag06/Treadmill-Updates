@@ -1,8 +1,11 @@
 .notification-img {
-    margin: 10px;
+    margin: 12px 12px 12px 16px;
 }
 .unread {
     background-color: #faf4ea;
+  &:hover {
+    background-color: #F3E7D2;
+  }
 }
 .notification {
     padding: 12px 10px;
@@ -11,4 +14,6 @@
         font-size: 14px;
     }
   cursor: pointer;
+  font-family: roboto;
+
 }

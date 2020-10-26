@@ -3,7 +3,7 @@
 .scores-section {
     //padding-left: 150px;
     align-content: flex-start;
-    min-height: 80vh;
+    min-height: 90vh;
   width: 100%;
 }
 .loader {
@@ -107,6 +107,9 @@
 
 }
 @media screen and (max-width: 768px) {
+  .scores-section {
+    margin-top: 36px;
+  }
   .form-card {
     width: 100%;
     margin: auto;
