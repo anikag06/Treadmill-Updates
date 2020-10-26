@@ -1,3 +1,4 @@
+
 <mat-menu #menu="matMenu" xPosition="before">
   <button mat-menu-item (click)="showThreeMinVideo()">
     <span>3 minutes</span>
@@ -17,7 +18,7 @@
   ></iframe>
 
   <div class="d-flex flex-column" style="height:20vh;">
-    <button class="align-items-start duration-btn" type="button" [matMenuTriggerFor]="menu" mat-button tabindex="-1">
+    <button class="align-items-start duration-btn" type="button" *ngIf="!fromChatbot" [matMenuTriggerFor]="menu" mat-button tabindex="-1">
       {{instruction}}</button>
 
     <div class="align-items-end" style="margin-top:auto;">

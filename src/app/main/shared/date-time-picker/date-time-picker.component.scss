@@ -16,16 +16,13 @@
 .done-btn {
   z-index: 200;
   position: relative;
-  margin-left: 5%;
-  margin-right: 5%;
-  margin-top: 3%;
   display: grid;
   width: 90%;
   padding: auto;
   color: #fafafa;
   background: rgb(42, 59, 61);
   outline: none;
-  margin-bottom: 3%;
+  margin: 3% 5%;
 }
 
 .owl-datetime-inline {
@@ -44,9 +41,6 @@
   opacity: 0.87;
 }
 
-// .owl-dt-container-info {
-//   display: none;
-// }
 
 .circle {
   width: 30px;
@@ -54,7 +48,6 @@
   border-radius: 50%;
   font-size: 14px;
   line-height: 1.5;
-  border-color: #3f51b5;
   text-align: center;
   background: #ffffff;
   outline: none;
@@ -72,11 +65,7 @@
 .mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
   background-color: rgba(10, 10, 10, 0.54);
 }
-// .owl-dt-inline-container .owl-dt-calendar,
-// .owl-dt-popup-container .owl-dt-calendar {
-//   height: 17.25em;
-//   overflow: hidden;
-// }
+
 
 .close-btn {
   right: -4px;
@@ -115,25 +104,6 @@
   }
 }
 
-@media screen and (min-height: 725px) and (max-width: 576px) {
-  .startEndDate {
-    margin-top: 5%;
-  }
-  .repeat {
-    margin-top: 3%;
-  }
-  .startEndDate {
-    margin-top: 15%;
-    height: 7%;
-  }
-}
-
-//@media screen and (max-width: 576px) {
-//  //  .dateTimeDiv{
-//  //    width: 340px;
-//  //  }
-//}
-
 .overlay {
   position: absolute;
   height: 100%;
@@ -169,7 +139,7 @@
 
 @media only screen and (min-device-width: 768px)  {
   :host-context(.chatbot) .modal {
-    bottom: 0vh;
+    bottom: 0;
     top: -15%;
   }
 }

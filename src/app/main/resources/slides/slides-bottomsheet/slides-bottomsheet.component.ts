@@ -28,7 +28,7 @@ export class SlidesBottomsheetComponent implements OnInit {
     private _bottomSheetRef: MatBottomSheetRef<SlidesBottomsheetComponent>,
     public dialog: MatDialog,
     private element: ElementRef,
-    private slideService: SlideService,
+    private slideService: SlideService
   ) {
     this.getScreenSize();
   }
@@ -66,6 +66,7 @@ export class SlidesBottomsheetComponent implements OnInit {
           videoUrl: 'https://www.youtube.com/embed/O1oQqpw_8bA?autoplay=1',
           btnText: 'Back to Slides',
           instruction: 'Change duration',
+          fromChatbot: false,
         },
       });
     } else {
@@ -78,6 +79,7 @@ export class SlidesBottomsheetComponent implements OnInit {
           videoUrl: 'https://www.youtube.com/embed/O1oQqpw_8bA',
           btnText: 'Back to Slides',
           instruction: 'Change duration',
+          fromChatbot: false,
         },
       });
     }
