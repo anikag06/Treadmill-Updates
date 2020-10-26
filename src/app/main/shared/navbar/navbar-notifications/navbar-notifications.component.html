@@ -1,5 +1,5 @@
 <div class="navbar-notification" >
-    <h2>Notification <small>({{unreadCount}})</small> <small class="float-right mark-read" (click)="onMarkAllAsRead()">Mark all as read</small></h2>
+    <h2>Notifications <small>({{unreadCount}})</small> <small class="float-right mark-read" (click)="onMarkAllAsRead()">Mark all as read</small></h2>
     <div class="all-notifications" #notificationsDiv [scrollTop]="scrollTop" *ngIf="dataloaded; else loader">
         <app-notification-item
             *ngFor="let notification of notifications"
@@ -15,7 +15,7 @@
     </div>
   </ng-template>
     <div class="more-btn" (click)=" onMoreClick()" *ngIf="!noMoreItems else noItems">
-        Show More
+        Show more
     </div>
 </div>
 <ng-template #noItems>
