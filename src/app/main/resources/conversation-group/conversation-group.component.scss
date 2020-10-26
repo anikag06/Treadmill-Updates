@@ -1,6 +1,5 @@
-$button-width: 100px;
 
-.q {
+.convo-group {
   min-height: 90vh;
 }
 
@@ -11,55 +10,48 @@ b {
 .heading {
   height: 15px;
   padding: 20px;
+  font-size: 16px;
 }
 
 .card {
   background-color: white;
-  font-family: Candara Light, Calibri;
-  color: black;
+  font-family: "Roboto", sans-serif;
+  color: #000000DE;
   margin: 25px;
-  border: solid;
   border-radius: 1px;
-  border-color: orange;
-  border-width: 6px 0px 0px 0px;
+  border: 0 solid orange;
+  border-top-width: 6px;
   box-shadow: 0px 0px 10px rgb(195, 195, 195);
 }
 
 .text {
   height: auto;
   padding: 10px;
+  font-size: 14px;
 }
 .loading-text {
   position:absolute;
   top:40%;
   opacity: 40%;
-  font-family: Roboto;
+  font-family: "Roboto", sans-serif;
   font-size: 14px;
 }
 
-.card:hover {
-  box-shadow: -3px -3px 10px rgb(90, 90, 90);
-}
+//.card:hover {
+//  box-shadow: -3px -3px 10px rgb(90, 90, 90);
+//}
 
 .button {
-  background-color: orange;
-  font-family: Candara Light, Calibri;
+  background: #2A3B3D 0 0 no-repeat padding-box;
   color: white;
-
-  width: $button-width;
-  height: 40px;
-
-  padding: 2px;
-
   border-radius: 8px;
-  box-shadow: 0px 10px 10px -15px rgb(90, 90, 90);
-
+  height: 46px;
+  padding: 0 1rem;
+  box-shadow: 0 10px 10px -15px #5a5a5a;
   position: relative;
-  top: 20px;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  z-index: 1;
+  top: 18px;
+  font-size: 14px;
+  border: 5px solid white;
 }
 
 #reset {
@@ -70,14 +62,10 @@ b {
   margin: auto;
 }
 
-.imgg {
-  border: solid;
-  width: 80px;
-  height: 80px;
-
-  margin: 10px;
-  border-radius: 40px;
-  border-color: white;
-  border-width: 3px 0px 0px 0px;
-  box-shadow: 0px 0px 10px rgb(195, 195, 195);
+.avatar-img {
+  width: 48px;
+  border-radius: 50%;
+  border: 3px solid #D2D2D2;
 }
+
+

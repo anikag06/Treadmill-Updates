@@ -1,10 +1,10 @@
-<div class="q">
+<div class="convo-group">
   <div class="container">
     <div class="row">
       <ng-container *ngIf="conversationGroups; else loader">
 
       <div
-        class="col-lg-6 col-sm-12 col-md-12"
+        class="col-lg-4 col-sm-12 col-md-12"
         *ngFor="let conversation of conversationGroups; let i = index"
       >
 
@@ -17,7 +17,7 @@
               <div class="heading">
                 <b>{{ conversation.title }} </b>
                 <div class="mx-2 float-right">
-                  <img [src]="conversation.avatar_image" class="imgg text-right" (load)="removeLoading()"  />
+                  <img [src]="conversation.avatar_image" class="avatar-img" (load)="removeLoading()"   alt="avatar image"/>
                 </div>
               </div>
             </div>

@@ -1,7 +1,7 @@
 <div class="row w-100" id="conv-page">
   <ng-container *ngIf="conversation; else loader">
     <div
-      class="col col-md-6 changes-width h-100"
+      class="col col-md-6 changes-width h-auto"
       #convDiv
       [scrollTop]="scrollTop"
       id="conversation-container"
@@ -35,7 +35,7 @@
         </div>
       </div>
 
-      <div class="row h-100 justify-content-center conv-elements-div">
+      <div class="row h-auto justify-content-center conv-elements-div">
         <div *ngFor="let conversation of completedConversation">
           <div *ngFor="let msg of conversation.dialog">
             <div
