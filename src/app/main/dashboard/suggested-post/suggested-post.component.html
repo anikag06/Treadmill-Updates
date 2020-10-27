@@ -5,7 +5,7 @@
       <app-suggested-post-item (removeLoading)="removeLoading()" *ngFor="let post of posts" [suggestedPost]="post"> </app-suggested-post-item>
 
     </ul>
-    <div class="skeleton-div w-100 h-100" style="position: absolute; z-index: 100; top:15px">
+    <div class="skeleton-div w-100 h-100" *ngIf="showLoading" style="position: absolute; z-index: 100; top:15px">
     <!--skeleton 1-->
     <div class="d-flex flex-row post-item mx-0" #container>
 
