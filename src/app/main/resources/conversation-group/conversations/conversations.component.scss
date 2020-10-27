@@ -21,14 +21,6 @@
   cursor: pointer;
 }
 
-// body,html{
-//   height: 100%;
-//   margin: 0;
-//   background: #7F7FD5;
-//      background: -webkit-linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
-//       background: linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
-// }
-
 #conv-page {
   .sticky-top {
     z-index: 20;
@@ -383,7 +375,7 @@ $x3: -$leftPos + $dotSpacing;
   }
 
   #conversation-container {
-    min-height: 500px;
+    min-height: 100vh;
     max-width: 100%;
     // overflow: auto;
     z-index: 0;
