@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ExtraResourcesService } from '@/main/extra-resources/extra-resources.service';
 import { LoadFilesService } from '@/main/games/shared/load-files.service';
 import { MindfulnessVideoItem } from '@/main/extra-resources/shared/mindfulnessVideo.model';
-import {VideoCovid19Item} from '@/main/extra-resources/shared/videoCovid19.model';
+import { VideoCovid19Item } from '@/main/extra-resources/shared/videoCovid19.model';
 
 @Component({
   selector: 'app-videos',
@@ -33,8 +33,7 @@ export class VideosComponent implements OnInit {
     private extraResourcesService: ExtraResourcesService,
   ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   expandLine() {
     this.showState = true;

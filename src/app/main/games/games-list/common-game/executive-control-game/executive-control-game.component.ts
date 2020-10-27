@@ -19,8 +19,8 @@ import { map, switchMap } from 'rxjs/operators';
 import { FlowService } from '@/main/flow/flow.service';
 import { ActivatedRoute } from '@angular/router';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
-import {CommonService} from '@/shared/common.service';
-import {PLAYING_GAMES_SCORE} from '@/app.constants';
+import { CommonService } from '@/shared/common.service';
+import { PLAYING_GAMES_SCORE } from '@/app.constants';
 
 declare var flankerTaskECGame: any;
 

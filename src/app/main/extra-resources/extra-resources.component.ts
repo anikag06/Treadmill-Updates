@@ -10,10 +10,10 @@ import { map, switchMap } from 'rxjs/operators';
 import { FlowService } from '@/main/flow/flow.service';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 import { MindfulnessVideoItem } from '@/main/extra-resources/shared/mindfulnessVideo.model';
-import {User} from '@/shared/user.model';
-import {AuthService} from '@/shared/auth/auth.service';
-import {VideoCovid19Item} from '@/main/extra-resources/shared/videoCovid19.model';
-import {UsefulListItem} from '@/main/extra-resources/shared/usefulList.model';
+import { User } from '@/shared/user.model';
+import { AuthService } from '@/shared/auth/auth.service';
+import { VideoCovid19Item } from '@/main/extra-resources/shared/videoCovid19.model';
+import { UsefulListItem } from '@/main/extra-resources/shared/usefulList.model';
 
 @Component({
   selector: 'app-extra-resources',
@@ -78,23 +78,27 @@ export class ExtraResourcesComponent implements OnInit {
         this.flowService.stepDetail.emit(this.navbarTitle);
       });
 
-    this.extraResourcesService.getVideoOnDepressionItem().subscribe((video_data: any) => {
-      video_data.results.forEach((element: any) => {
-        console.log('element: ', element);
-        this.videoItems.push(<VideoItem>element);
-        this.countVideoItem = this.countVideoItem + 1;
-        //console.log('Number of videoItems:', this.countVideoItem);
-        //console.log('video list: ', this.videoItems);
+    this.extraResourcesService
+      .getVideoOnDepressionItem()
+      .subscribe((video_data: any) => {
+        video_data.results.forEach((element: any) => {
+          console.log('element: ', element);
+          this.videoItems.push(<VideoItem>element);
+          this.countVideoItem = this.countVideoItem + 1;
+          //console.log('Number of videoItems:', this.countVideoItem);
+          //console.log('video list: ', this.videoItems);
+        });
       });
-    });
 
-    this.extraResourcesService.getVideoCovid19Item().subscribe((video_data: any) => {
-      video_data.results.forEach((element: any) => {
-        console.log('video on covid19', element);
-        this.videoCovid19Items.push(<VideoCovid19Item>element);
-        this.countVideoCovid19Item = this.countVideoCovid19Item + 1;
+    this.extraResourcesService
+      .getVideoCovid19Item()
+      .subscribe((video_data: any) => {
+        video_data.results.forEach((element: any) => {
+          console.log('video on covid19', element);
+          this.videoCovid19Items.push(<VideoCovid19Item>element);
+          this.countVideoCovid19Item = this.countVideoCovid19Item + 1;
+        });
       });
-    });
 
     this.extraResourcesService
       .getMindfulnessVideoItem()
@@ -148,12 +152,9 @@ export class ExtraResourcesComponent implements OnInit {
   }
 
   videoCovid19Click(videoCovid19BeingClicked: VideoCovid19Item) {
-    this.router.navigate(
-      ['videoCovid19/', videoCovid19BeingClicked.id],
-      {
-        relativeTo: this.route,
-      },
-    );
+    this.router.navigate(['videoCovid19/', videoCovid19BeingClicked.id], {
+      relativeTo: this.route,
+    });
     this.extraResourcesService.videoCovid19ClickBehavior.next(
       videoCovid19BeingClicked,
     );

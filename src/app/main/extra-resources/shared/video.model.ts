@@ -5,6 +5,5 @@ export class VideoItem {
     public title: string,
     public url: string,
     public preview_img: string,
-  ) {
-  }
+  ) {}
 }

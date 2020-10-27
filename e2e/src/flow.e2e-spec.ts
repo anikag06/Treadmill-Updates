@@ -344,7 +344,6 @@ describe('treadwill Flow Experimental Group', () => {
     100 * 60 * 1000,
   );
 
-
   // xit('should start introductory animation', () => {
   //   browser.sleep(2000);
   //   fp.findProgressElement('Navigating Treadwill');

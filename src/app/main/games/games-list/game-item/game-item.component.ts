@@ -164,7 +164,10 @@ export class GameItemComponent implements OnInit {
 
   calculateSilver(SILVER: number, GOLD: number) {
     this.silverRatio = (SILVER / GOLD) * 100;
-    if (this.progressInGame > this.silverRatio || this.progressInGame === this.silverRatio) {
+    if (
+      this.progressInGame > this.silverRatio ||
+      this.progressInGame === this.silverRatio
+    ) {
       this.silverCoinShow = false;
     } else {
       this.silverCoinShow = true;
@@ -174,7 +177,10 @@ export class GameItemComponent implements OnInit {
 
   calculateBronze(BRONZE: number, GOLD: number) {
     this.bronzeRatio = (BRONZE / GOLD) * 100;
-    if(this.progressInGame > this.bronzeRatio  || this.progressInGame === this.bronzeRatio){
+    if (
+      this.progressInGame > this.bronzeRatio ||
+      this.progressInGame === this.bronzeRatio
+    ) {
       this.bronzeCoinShow = false;
     } else {
       this.bronzeCoinShow = true;

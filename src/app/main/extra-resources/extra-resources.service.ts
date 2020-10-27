@@ -7,7 +7,9 @@ import {
   READING_LIST,
   VIDEO,
   DEPRESSION_VIDEO_LIST,
-  WATCHED_VIDEO, VIDEO_COVID_19_LIST, USEFUL_LIST,
+  WATCHED_VIDEO,
+  VIDEO_COVID_19_LIST,
+  USEFUL_LIST,
 } from '@/app.constants';
 import { switchMap } from 'rxjs/operators';
 import {
@@ -21,7 +23,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { VideosComponent } from '@/main/extra-resources/videos/videos.component';
 import { ReadingItem } from '@/main/extra-resources/shared/reading.model';
 import { MindfulnessVideoItem } from '@/main/extra-resources/shared/mindfulnessVideo.model';
-import {VideoCovid19Item} from '@/main/extra-resources/shared/videoCovid19.model';
+import { VideoCovid19Item } from '@/main/extra-resources/shared/videoCovid19.model';
 
 @Injectable({
   providedIn: 'root',
@@ -39,8 +41,9 @@ export class ExtraResourcesService {
   >(this.videoInResource);
   videoClickedEvent = this.videoClickBehavior.asObservable();
 
-  videoCovid19ClickBehavior: BehaviorSubject<VideoCovid19Item> = new BehaviorSubject<
-    VideoCovid19Item>(this.videoCovid19InResource);
+  videoCovid19ClickBehavior: BehaviorSubject<
+    VideoCovid19Item
+  > = new BehaviorSubject<VideoCovid19Item>(this.videoCovid19InResource);
   videoCovid19ClickedEvent = this.videoCovid19ClickBehavior.asObservable();
 
   readingItemClickBehavior: BehaviorSubject<ReadingItem> = new BehaviorSubject<
@@ -55,9 +58,9 @@ export class ExtraResourcesService {
   );
   mindfulnessVideoClickedEvent = this.mindfulnessVideoClickBehavior.asObservable();
 
-  usefulListItemClickBehavior: BehaviorSubject<ReadingItem> = new BehaviorSubject<
+  usefulListItemClickBehavior: BehaviorSubject<
     ReadingItem
-    >(this.usefulListItemInResource);
+  > = new BehaviorSubject<ReadingItem>(this.usefulListItemInResource);
   usefulListItemClickedEvent = this.usefulListItemClickBehavior.asObservable();
 
   constructor(
@@ -66,12 +69,16 @@ export class ExtraResourcesService {
     private route: ActivatedRoute,
   ) {}
   getVideoOnDepressionItem() {
-    return this.http.get<VideoItem[]>(environment.API_ENDPOINT + DEPRESSION_VIDEO_LIST);
+    return this.http.get<VideoItem[]>(
+      environment.API_ENDPOINT + DEPRESSION_VIDEO_LIST,
+    );
     console.log('getting a video');
   }
 
   getVideoCovid19Item() {
-    return this.http.get<VideoCovid19Item[]>(environment.API_ENDPOINT + VIDEO_COVID_19_LIST);
+    return this.http.get<VideoCovid19Item[]>(
+      environment.API_ENDPOINT + VIDEO_COVID_19_LIST,
+    );
   }
 
   getReadingItem() {
@@ -80,9 +87,7 @@ export class ExtraResourcesService {
     );
   }
   getUsefulListItem() {
-    return this.http.get<ReadingItem[]>(
-      environment.API_ENDPOINT + USEFUL_LIST,
-    );
+    return this.http.get<ReadingItem[]>(environment.API_ENDPOINT + USEFUL_LIST);
   }
 
   getMindfulnessVideoItem() {
@@ -110,7 +115,7 @@ export class ExtraResourcesService {
   }
   getAUsefulListItem(readingItemId: number) {
     return this.http.get<ReadingItem>(
-      environment.API_ENDPOINT + USEFUL_LIST + readingItemId + '/'
+      environment.API_ENDPOINT + USEFUL_LIST + readingItemId + '/',
     );
   }
 

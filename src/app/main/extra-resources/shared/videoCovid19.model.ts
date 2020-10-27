@@ -5,6 +5,5 @@ export class VideoCovid19Item {
     public order: number,
     public url: string,
     public preview_img: string,
-  ) {
-  }
+  ) {}
 }

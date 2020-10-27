@@ -71,8 +71,16 @@ export const mainRoutes: Routes = [
         component: ScoreComponent,
         data: { title: 'Questionnaire Scores' },
         children: [
-          { path: 'phq', component: PhqNineComponent,  data: { title: 'Questionnaire Scores' }, },
-          { path: 'gad', component: GadSevenComponent,  data: { title: 'Questionnaire Scores' }, },
+          {
+            path: 'phq',
+            component: PhqNineComponent,
+            data: { title: 'Questionnaire Scores' },
+          },
+          {
+            path: 'gad',
+            component: GadSevenComponent,
+            data: { title: 'Questionnaire Scores' },
+          },
         ],
       },
       { path: '', redirectTo: '/main/dashboard', pathMatch: 'full' },

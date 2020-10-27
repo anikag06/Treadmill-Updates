@@ -6,6 +6,5 @@ export class MindfulnessVideoItem {
     public duration: string,
     public type: string,
     public resource_video: VideoItem,
-  ) {
-  }
+  ) {}
 }

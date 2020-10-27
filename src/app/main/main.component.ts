@@ -227,10 +227,9 @@ export class MainComponent
         this.fixParent = data;
       },
     );
-    this.flowService.sideNavIntro.subscribe( (value: boolean) => {
+    this.flowService.sideNavIntro.subscribe((value: boolean) => {
       this.introAnimation = value;
     });
-
   }
 
   ngAfterContentInit(): void {

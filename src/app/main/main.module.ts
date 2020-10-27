@@ -205,7 +205,7 @@ import { AsgSummaryComponent } from './games/games-list/common-game/attribute-st
     CommentComponent,
     CreatePostComponent,
     NestedCommentComponent,
-   // SafeHtmlPipe,
+    // SafeHtmlPipe,
     ScrollingDirective,
     NavbarComponent,
     AutofocusDirective,

@@ -22,7 +22,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
 import { LoadFilesService } from '@/main/games/shared/load-files.service';
 import { MindfulnessVideoItem } from '@/main/extra-resources/shared/mindfulnessVideo.model';
-import {VideoCovid19Item} from '@/main/extra-resources/shared/videoCovid19.model';
+import { VideoCovid19Item } from '@/main/extra-resources/shared/videoCovid19.model';
 
 @Component({
   selector: 'app-video-item',
@@ -134,13 +134,11 @@ export class VideoItemComponent implements OnInit, AfterViewInit, OnDestroy {
             this.isLoaded = true;
           });
       } else {
-        this.extraResourcesService.videoCovid19ClickedEvent.subscribe(
-          data => {
-            this.videoCovid19 = <VideoCovid19Item>data;
-            this.isLoaded = true;
-            console.log('covid19 video', data);
-          },
-        );
+        this.extraResourcesService.videoCovid19ClickedEvent.subscribe(data => {
+          this.videoCovid19 = <VideoCovid19Item>data;
+          this.isLoaded = true;
+          console.log('covid19 video', data);
+        });
       }
     }
 

@@ -28,7 +28,7 @@ export class SlidesBottomsheetComponent implements OnInit {
     private _bottomSheetRef: MatBottomSheetRef<SlidesBottomsheetComponent>,
     public dialog: MatDialog,
     private element: ElementRef,
-    private slideService: SlideService
+    private slideService: SlideService,
   ) {
     this.getScreenSize();
   }

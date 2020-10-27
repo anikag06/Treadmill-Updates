@@ -111,14 +111,14 @@ export class FlowPage {
       .then(() => {
         console.log('clickOnButton  Completed');
         button.click().then(() => {
-            browser.sleep(4000);
-            const nextStepBtn = element(
-              by.cssContainingText('button.completed-btn', 'Next step'),
-            );
-            browser.wait(this.EC.visibilityOf(nextStepBtn)).then(() => {
-              nextStepBtn.click();
-              console.log(btn, 'click');
-            });
+          browser.sleep(4000);
+          const nextStepBtn = element(
+            by.cssContainingText('button.completed-btn', 'Next step'),
+          );
+          browser.wait(this.EC.visibilityOf(nextStepBtn)).then(() => {
+            nextStepBtn.click();
+            console.log(btn, 'click');
+          });
           // if (btn === 'Go to dashboard') {
           //   browser.sleep(6000);
           //   const dashboardBtn = element(
@@ -272,11 +272,9 @@ export class FlowPage {
     const settingsBtn = element(
       by.cssContainingText('.list-wrapper-items-name', 'Settings'),
     );
-    settingsBtn.click().then( () => {
+    settingsBtn.click().then(() => {
       browser.sleep(4000);
-      const logout = element(
-        by.cssContainingText('a.heading', 'Log Out'),
-      );
+      const logout = element(by.cssContainingText('a.heading', 'Log Out'));
       logout.click();
     });
     browser.sleep(4000);

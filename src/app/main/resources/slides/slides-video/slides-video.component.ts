@@ -44,7 +44,7 @@ export class SlidesVideoComponent implements OnInit, AfterViewInit {
     private userProfileService: UserProfileService,
     private commonService: CommonService,
     private authService: AuthService,
-    @Optional() @Inject(MAT_DIALOG_DATA) public data: any
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
     if (data) {
       this.videoUrl = data.videoUrl;
@@ -56,7 +56,7 @@ export class SlidesVideoComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.loadFileService.loadExternalScript(
-      'https://www.youtube.com/iframe_api'
+      'https://www.youtube.com/iframe_api',
     );
   }
   ngOnInit() {
@@ -84,11 +84,11 @@ export class SlidesVideoComponent implements OnInit, AfterViewInit {
     if (!this.fromChatbot) {
       this.videoUrl = this.slideService.videoUrl_1 + '?enablejsapi=1';
       this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-        this.slideService.videoUrl_1 + '?enablejsapi=1'
+        this.slideService.videoUrl_1 + '?enablejsapi=1',
       );
     } else {
       this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-        this.videoUrl + '?enablejsapi=1'
+        this.videoUrl + '?enablejsapi=1',
       );
     }
 
@@ -106,7 +106,7 @@ export class SlidesVideoComponent implements OnInit, AfterViewInit {
       console.log('current time', this.player.getCurrentTime());
       console.log(
         'duration left',
-        this.player.getDuration() - this.videoTimeLeft
+        this.player.getDuration() - this.videoTimeLeft,
       );
       if (
         this.player.getCurrentTime() >=
@@ -132,13 +132,13 @@ export class SlidesVideoComponent implements OnInit, AfterViewInit {
 
   showThreeMinVideo() {
     this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-      this.slideService.videoUrl_3 + '?enablejsapi=1'
+      this.slideService.videoUrl_3 + '?enablejsapi=1',
     );
   }
 
   showFiveMinVideo() {
     this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-      this.slideService.videoUrl_5 + '?enablejsapi=1'
+      this.slideService.videoUrl_5 + '?enablejsapi=1',
     );
   }
 }

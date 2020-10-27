@@ -15,8 +15,8 @@ import { ChatImageComponent } from '@/main/chatbot/chat-window/chat-image/chat-i
 import { ClickOutsideDirective } from '@/main/shared/click-outside/click-outside.directive';
 import { IframeTrackerDirective } from '@/main/chatbot/chat-window/chat-video/iframe-tracker.directive';
 import { LazyLoadingImageDirective } from '@/main/shared/lazy-loading-image/lazy-loading-image.directive';
-import {SafeHtmlPipe} from '@/shared/safe-html.pipe';
-import {SanitizedHtmlPipe} from '@/shared/sanitized-html.pipe';
+import { SafeHtmlPipe } from '@/shared/safe-html.pipe';
+import { SanitizedHtmlPipe } from '@/shared/sanitized-html.pipe';
 
 @NgModule({
   declarations: [

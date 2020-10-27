@@ -15,7 +15,7 @@ export const extraResourcesRoutes: Routes = [
       { path: 'videoItem/:id', component: VideoItemComponent },
       { path: 'readingItem/:id', component: ReadingItemComponent },
       { path: 'mindfulnessVideo/:id', component: VideoItemComponent },
-      {path: 'videoCovid19/:id', component: VideoItemComponent },
+      { path: 'videoCovid19/:id', component: VideoItemComponent },
       { path: 'usefulList/:id', component: ReadingItemComponent },
     ],
   },

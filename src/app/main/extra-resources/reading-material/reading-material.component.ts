@@ -3,7 +3,7 @@ import { ReadingItem } from '@/main/extra-resources/shared/reading.model';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { LoadFilesService } from '@/main/games/shared/load-files.service';
-import {UsefulListItem} from '@/main/extra-resources/shared/usefulList.model';
+import { UsefulListItem } from '@/main/extra-resources/shared/usefulList.model';
 
 @Component({
   selector: 'app-reading-material',
@@ -28,8 +28,7 @@ export class ReadingMaterialComponent implements OnInit {
     public loadFilesService: LoadFilesService,
   ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   getReadingMaterial(readingData: ReadingItem) {
     this.readingCardTitle = readingData.title;
