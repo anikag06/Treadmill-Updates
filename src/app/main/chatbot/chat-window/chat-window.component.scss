@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
 @mixin fadeAnimation() {
-  -webkit-animation: fadeinout 4s linear forwards;
+  -webkit-animation: fadeinout 2s linear forwards;
   animation: fadeinout 2s linear forwards;
 }
 
@@ -57,7 +57,6 @@
   flex-direction: column;
   padding-left: 0px;
   bottom: 4vh;
-  border-radius: 10px;
   z-index: 200;
   border-radius: 10px 10px 0px 0px;
   box-shadow: 0px -3px 8px #00000029;
@@ -94,28 +93,17 @@
   }
   .chat-frame-container {
     width: 100%;
-    //position: absolute;
     bottom: 0;
-    //height: 100%;
 
     .chat-frame {
-      //overflow-y: scroll;
-      //overflow-x: hidden;
       width: 100%;
-      //height: calc(100% - 55px);
-      //max-height: 490px;
       overflow-y: scroll;
       overscroll-behavior: contain;
-      //max-height: 540px;
     }
     .form-div {
       position: fixed;
       width: 100%;
       @include fadeAnimation;
-      /* display: table-column-group; */
-      //height: 20%;
-      /* bottom: 0px; */
-      //height: 50px;
       box-shadow: 0px -3px 0px #00000029;
       background: #ffffff 0 0 no-repeat padding-box;
     }
@@ -142,18 +130,6 @@
     background: #ffffff 0% 0% no-repeat padding-box;
     word-break: break-word;
   }
-  // .meta {
-  //   text-align: center;
-  //   display: none;
-  //   border-top: 2px dashed #cccccc;
-  // }
-  // .date-time {
-  //   display: inline-block;
-  //   font-size: 0.6em;
-  //   width: 100%;
-  //   text-align: left;
-  //   padding-left: 3px;
-  // }
 }
 .bot {
   .message-text {
@@ -177,6 +153,16 @@
 .textarea {
   width: 88%;
   float: left;
+  textarea::-webkit-scrollbar {
+    display: none;
+    width: 0 !important;
+  }
+  textarea {
+    overflow: -moz-scrollbars-none;
+  }
+  textarea {
+    -ms-overflow-style: none;
+  }
   //height: 50px;
   textarea {
     outline: none;
@@ -232,7 +218,7 @@
     box-shadow: none;
     word-break: break-word;
     white-space: normal;
-    line-height: 25px;
+    line-height: 20px;
     @include fadeAnimation;
   }
 
@@ -252,7 +238,6 @@
     font-size: 14px;
     padding: initial;
     box-shadow: none;
-    @include fadeAnimation;
   }
 }
 
@@ -320,7 +305,7 @@ button {
       bottom: 5px;
       margin-top: 10px;
     }
-    .scroll-bottom{
+    .scroll-bottom {
       position: absolute;
       bottom: 15vh;
       right: 5vw;
@@ -328,13 +313,6 @@ button {
   }
 }
 
-// @media screen and (max-height: 500px) {
-//   .chat-window {
-//     .chat-frame {
-//       // height: 60vh;
-//     }
-//   }
-// }
 @media screen and (min-width: 768px) {
   .chat-frame {
     //height: 60vh;
@@ -445,14 +423,14 @@ $x3: -$leftPos + $dotSpacing;
   z-index: 200;
 }
 
-.rating{
+.rating {
   height: 180px;
   width: 100%;
 }
 
-.done-btn{
-  background-color: #2A3B3D;
-  color: #FFFFFF;
+.done-btn {
+  background-color: #2a3b3d;
+  color: #ffffff;
   margin-top: 20px;
 }
 
@@ -471,8 +449,7 @@ $x3: -$leftPos + $dotSpacing;
   display: inline-flex;
 }
 
-
-.double-arrow{
+.double-arrow {
   -webkit-transform: rotate(90deg);
   -moz-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
@@ -482,14 +459,14 @@ $x3: -$leftPos + $dotSpacing;
 .mat-fab .mat-button-wrapper {
   padding: 0 !important;
 }
-.arrow-icon{
+.arrow-icon {
   position: relative;
   left: -5px;
   bottom: 10px;
   margin-right: -10px;
   font-size: 18px;
 }
-.scroll-bottom{
+.scroll-bottom {
   position: absolute;
   bottom: 60px;
   right: 8%;

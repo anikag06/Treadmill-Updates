@@ -22,6 +22,7 @@ import {
   Component,
   ElementRef,
   EventEmitter,
+  HostListener,
   Input,
   OnChanges,
   OnDestroy,
@@ -50,20 +51,20 @@ declare var twemoji: any;
         style({
           visibility: 'visible',
           transform: 'translateY(0%)',
-        }),
+        })
       ),
       state(
         'closed',
         style({
           visibility: 'hidden',
           transform: 'translateY(0%)',
-        }),
+        })
       ),
       state(
         'animateOpen',
         style({
           transform: 'translateY(0%)',
-        }),
+        })
       ),
       // state(
       //   'animateClosed',
@@ -94,12 +95,12 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     private elementRef: ElementRef,
     private commonService: CommonService,
     private renderer: Renderer2,
-    private introService: IntroService,
+    private introService: IntroService
   ) {
-    this.commonService.createOnline$().subscribe(isOnline => {
+    this.commonService.createOnline$().subscribe((isOnline) => {
       this.isOnline = isOnline;
       if (!this.isOnline) {
-        this.showButtons = [];
+        this.chatButtons = [];
         this.showDateTimeWidgetBtn = false;
         this.showMoodWidgetBtn = false;
       }
@@ -134,7 +135,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   @Output() chatWindowClosedEmitter = new EventEmitter<Boolean>();
   counter = 4;
   showMore = false;
-  showButtons = [];
+  chatButtons!: any;
   buttonsBuffer = [];
   widgetValues!: any;
   showMoodWidgetBtn = false;
@@ -156,7 +157,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   @ViewChild('frameContainer', { static: false }) frameRef!: ElementRef;
 
   ngOnChanges(): void {
-    if (this.chatWindowClosed === false) {
+    if (!this.chatWindowClosed) {
       if (
         !this.webSocket ||
         (this.webSocket && this.webSocket.readyState === 3)
@@ -187,8 +188,8 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
                     message.datetime,
                     false,
                     [],
-                    this.images,
-                  ),
+                    this.images
+                  )
                 );
                 this.scrollToBottom();
               }
@@ -198,7 +199,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       },
       (error: HttpErrorResponse) => {
         console.log(error);
-      },
+      }
     );
     if (this.introService.getChatbotIntro()) {
       this.introService.startChatbotCloseIntro();
@@ -218,7 +219,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   onRatingSubmit() {
-    this.message = 'You rated it ' + this.widgetRating + ' out of 10';
+    this.message = 'I rate it ' + this.widgetRating + ' out of 10';
     this.widgetValues = this.widgetRating;
     this.onChatSubmit();
     this.showSlider = false;
@@ -226,7 +227,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     this.renderer.setStyle(
       this.frameRef.nativeElement,
       'height',
-      `${height}px`,
+      `${height}px`
     );
   }
 
@@ -246,8 +247,8 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
           new Date(),
           false,
           [],
-          [],
-        ),
+          []
+        )
       );
       this.scrollToBottom();
       const message = this.message;
@@ -266,7 +267,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
               buttons: [],
               widgets: [widgetValues],
             },
-          }),
+          })
         );
       } else {
         this.webSocket.send(
@@ -277,7 +278,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
               buttons: [],
               widgets: [],
             },
-          }),
+          })
         );
       }
 
@@ -312,16 +313,16 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
         new Date(),
         false,
         [],
-        [],
-      ),
+        []
+      )
     );
     this.webSocket.send(
       JSON.stringify({
         action: REPLY_CURRENT,
         message: { text: '', buttons: [button] },
-      }),
+      })
     );
-    this.showButtons = [];
+    this.chatButtons = [];
     this.showMore = false;
   }
 
@@ -342,14 +343,17 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
 
   startChatSession(type: string) {
     this.webSocket = new WebSocket(
-      environment.CHAT_HOST + '/ws/chat/?token=' + this.authService.getToken(),
+      environment.CHAT_HOST + '/ws/chat/?token=' + this.authService.getToken()
     );
-    this.webSocket.onopen = event => {
+    this.webSocket.onopen = (event) => {
       this.webSocket.send(JSON.stringify({ action: type, module_name: '' }));
     };
     this.webSocket.onmessage = (message: any) => {
       this.showMaintenance = false;
       const data = JSON.parse(message.data);
+      if (data.is_new_form) {
+        console.log('new form works');
+      }
       if (data.error === true) {
         const item = new Chat(
           data.text,
@@ -360,7 +364,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
           new Date(),
           false,
           [],
-          [],
+          []
         );
         this.messages.push(item);
         this.webSocket.close();
@@ -381,7 +385,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
         this.retries++;
         setTimeout(
           () => this.startChatSession(NEW_CHAT),
-          CHATBOT_RETRY_TIMEOUT,
+          CHATBOT_RETRY_TIMEOUT
         );
       }
     };
@@ -389,7 +393,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     this.webSocket.onerror = () => {
       if (this.isOnline) {
         this.showMaintenance = true;
-        this.showButtons = [];
+        this.chatButtons = [];
         this.showDateTimeWidgetBtn = false;
         this.showMoodWidgetBtn = false;
       }
@@ -408,10 +412,32 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     });
 
     if (m.buttons && m.buttons.length < 5) {
-      this.showButtons = m.buttons;
+      this.chatButtons = [];
+      m.buttons.forEach((button: string, index: number) => {
+        this.chatButtons.push({
+          isVisible: false,
+          buttonObject: button,
+        });
+        setTimeout(() => {
+          this.chatButtons[index].isVisible = true;
+          this.scrollToBottom();
+        }, index * 500);
+      });
+      // this.chatButtons = m.buttons;
     } else {
       this.buttonsBuffer = m.buttons;
-      this.showButtons = m.buttons.slice(0, 4);
+      // this.chatButtons = m.buttons.slice(0, 4);
+      this.chatButtons = [];
+      for (let i = 0; i < 4; i++) {
+        this.chatButtons.push({
+          isVisible: false,
+          buttonObject: m.buttons[i],
+        });
+        setTimeout(() => {
+          this.chatButtons[i].isVisible = true;
+          this.scrollToBottom();
+        }, i * 500);
+      }
       this.counter = 4;
       this.showMore = true;
     }
@@ -422,13 +448,13 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
         this.renderer.setStyle(
           this.frameRef.nativeElement,
           'height',
-          `${height}px`,
+          `${height}px`
         );
       } else if (m.widgets[0] === this.moodWidget) {
         this.showMoodWidgetBtn = true;
         setTimeout(() => {
           const moodBtn = this.elementRef.nativeElement.querySelectorAll(
-            '.mood-btn',
+            '.mood-btn'
           );
           moodBtn.forEach((btn: any, index: number) => {
             if (index !== moodBtn.length - 1) {
@@ -440,7 +466,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
         this.showDateTimeWidgetBtn = true;
         setTimeout(() => {
           const dateTimeBtn = this.elementRef.nativeElement.querySelectorAll(
-            '.date-time-btn',
+            '.date-time-btn'
           );
           dateTimeBtn.forEach((btn: any, index: number) => {
             if (index !== dateTimeBtn.length - 1) {
@@ -456,13 +482,13 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     const item = new Chat(
       twemoji.parse(m.text || ''),
       false,
-      this.showButtons,
+      this.chatButtons,
       m.mid,
       m.sid,
       m.datetime,
       false,
       m.widgets,
-      this.images,
+      this.images
     );
     // console.log();
     if (m.buttons && m.buttons.length > 0) {
@@ -632,7 +658,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
               this.showSpinner = false;
             }
             const firstMessageBox = this.messagesDiv.nativeElement.querySelectorAll(
-              '.message-text',
+              '.message-text'
             );
             data.data.messages.reverse().forEach((message: any) => {
               if (!this.isErrorMessage(message)) {
@@ -647,8 +673,8 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
                     message.datetime,
                     false,
                     [],
-                    this.images,
-                  ),
+                    this.images
+                  )
                 );
 
                 this.showSpinner = false;
@@ -661,18 +687,30 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   getButtons() {
+    const counter = this.counter;
     for (let i = 0; i < 4; i++) {
-      this.showButtons.push(this.buttonsBuffer[this.counter]);
+      // this.chatButtons.push(this.buttonsBuffer[this.counter]);
+      this.chatButtons.push({
+        isVisible: false,
+        buttonObject: this.buttonsBuffer[this.counter],
+      });
       if (this.counter === this.buttonsBuffer.length - 1) {
         this.showMore = false;
         break;
       }
       this.counter += 1;
     }
+    let timer = 1;
+    for (let i = counter; i < counter + 4; i++) {
+      setTimeout(() => {
+        this.chatButtons[i].isVisible = true;
+        timer += 1;
+      }, timer * 500);
+    }
     this.scrollToBottom();
   }
 
-  offsetHeight() {
+  getTextAreaHeight() {
     if (this.textArea) {
       return this.textArea.nativeElement.offsetHeight;
     } else {
@@ -695,8 +733,8 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
           new Date(),
           false,
           [],
-          [],
-        ),
+          []
+        )
       );
       this.multiLineChat.push(this.message);
       this.message = '';
@@ -708,7 +746,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
           this.submitMultiLineChat(this.multiLineChat);
           this.isMultiLineInput = false;
         },
-        this.isMultiLineInput ? 4000 : 0,
+        this.isMultiLineInput ? 4000 : 0
       );
     }
   }
@@ -722,7 +760,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
           buttons: [],
           widgets: [],
         },
-      }),
+      })
     );
     this.showTextInput = false;
     this.multiLineChat = [];
@@ -738,6 +776,17 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
 
   atBottom(value: boolean) {
     this.showScrollToBottom = value;
+  }
+
+  @HostListener('scroll', ['$event'])
+  onScroll(event: any) {
+    // visible height + pixel scrolled >= total height
+    if (
+      event.target.offsetHeight + event.target.scrollTop >=
+      event.target.scrollHeight
+    ) {
+      console.log('End');
+    }
   }
 
   isErrorMessage(message: any): boolean {

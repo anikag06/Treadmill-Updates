@@ -31,6 +31,7 @@ export class SlidesVideoComponent implements OnInit, AfterViewInit {
   videoTimeLeft = 10;
   backBtnTxt!: string;
   instruction!: string;
+  fromChatbot!: boolean;
 
   @ViewChild('slideVideo', { static: false }) slideVideo!: ElementRef;
   @ViewChild('backBtn', { static: false }) backBtn!: ElementRef;
@@ -43,18 +44,19 @@ export class SlidesVideoComponent implements OnInit, AfterViewInit {
     private userProfileService: UserProfileService,
     private commonService: CommonService,
     private authService: AuthService,
-    @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     if (data) {
       this.videoUrl = data.videoUrl;
       this.backBtnTxt = data.btnText;
       this.instruction = data.instruction;
+      this.fromChatbot = data.fromChatbot;
     }
   }
 
   ngAfterViewInit() {
     this.loadFileService.loadExternalScript(
-      'https://www.youtube.com/iframe_api',
+      'https://www.youtube.com/iframe_api'
     );
   }
   ngOnInit() {
@@ -79,10 +81,17 @@ export class SlidesVideoComponent implements OnInit, AfterViewInit {
         });
       }, 1000);
     };
-    this.videoUrl = this.slideService.videoUrl_1 + '?enablejsapi=1';
-    this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-      this.slideService.videoUrl_1 + '?enablejsapi=1',
-    );
+    if (!this.fromChatbot) {
+      this.videoUrl = this.slideService.videoUrl_1 + '?enablejsapi=1';
+      this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+        this.slideService.videoUrl_1 + '?enablejsapi=1'
+      );
+    } else {
+      this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+        this.videoUrl + '?enablejsapi=1'
+      );
+    }
+
     this.slideService.highlightBtn.subscribe(() => {
       this.backBtn.nativeElement.setAttribute('mat-flat-button', '');
       this.backBtn.nativeElement.classList.add('back-btn');
@@ -97,7 +106,7 @@ export class SlidesVideoComponent implements OnInit, AfterViewInit {
       console.log('current time', this.player.getCurrentTime());
       console.log(
         'duration left',
-        this.player.getDuration() - this.videoTimeLeft,
+        this.player.getDuration() - this.videoTimeLeft
       );
       if (
         this.player.getCurrentTime() >=
@@ -116,18 +125,20 @@ export class SlidesVideoComponent implements OnInit, AfterViewInit {
 
   onBack() {
     this.dialogRef.close();
-    this.commonService.updateScore(MEDITATION_COMPLETE_SCORE);
+    if (!this.fromChatbot) {
+      this.commonService.updateScore(MEDITATION_COMPLETE_SCORE);
+    }
   }
 
   showThreeMinVideo() {
     this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-      this.slideService.videoUrl_3 + '?enablejsapi=1',
+      this.slideService.videoUrl_3 + '?enablejsapi=1'
     );
   }
 
   showFiveMinVideo() {
     this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-      this.slideService.videoUrl_5 + '?enablejsapi=1',
+      this.slideService.videoUrl_5 + '?enablejsapi=1'
     );
   }
 }

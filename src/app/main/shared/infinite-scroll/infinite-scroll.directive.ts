@@ -15,12 +15,12 @@ import { Subject } from 'rxjs';
 })
 export class InfiniteScrollDirective implements OnDestroy {
   constructor(private _elRef: ElementRef) {
-    this.debouncer.pipe(debounceTime(this.delay)).subscribe(value => {
+    this.debouncer.pipe(debounceTime(this.delay)).subscribe((value) => {
       if (value !== '') {
         this.scroll.emit(value);
       }
     });
-    this.debouncerForBottom.subscribe(value => {
+    this.debouncerForBottom.subscribe((value) => {
       this.atBottom.emit(value);
     });
   }
@@ -52,6 +52,13 @@ export class InfiniteScrollDirective implements OnDestroy {
       this._elRef.nativeElement.scrollTop ===
       this._elRef.nativeElement.scrollHeight -
         this._elRef.nativeElement.offsetHeight
+    ) {
+      this.debouncerForBottom.next(false);
+    } else if (
+      this._elRef.nativeElement.offsetHeight +
+        this._elRef.nativeElement.scrollTop +
+        10 >=
+      this._elRef.nativeElement.scrollHeight
     ) {
       this.debouncerForBottom.next(false);
     } else {
