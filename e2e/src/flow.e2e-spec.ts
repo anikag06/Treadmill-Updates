@@ -308,14 +308,15 @@ describe('treadwill Flow Experimental Group', () => {
       fp.findProgressElement('GIVE A NAME 7.3');
       fp.showFullConv();
       fp.goToNextStep('Next step');
+      if (testfor === 'dropout' && moduleNum === 6) {
+        fp.navigateToDashboard();
+        console.log('CHECK FOR DROPOUT  AT MODULE 6');
+        fp.checkForDropout(loginTime);
+      }
       fp.findProgressElement('Help us improve');
       fp.fillSurveyForm();
       browser.sleep(2000);
       fp.findProgressElement('Finish module');
-      if (testfor === 'dropout' && moduleNum === 6) {
-        console.log('CHECK FOR DROPOUT  AT MODULE 6');
-        fp.checkForDropout(loginTime);
-      }
       fp.evaluateMood();
       page.findPhq();
       page.fillPhq();
