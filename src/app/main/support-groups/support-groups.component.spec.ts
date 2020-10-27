@@ -9,7 +9,7 @@ import { PostItemComponent } from './post-list/post-item/post-item.component';
 import { MaterialModule } from '@/material.module';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TimeAgoPipe } from '@/shared/time-ago.pipe';
-import { SafeHtmlPipe } from './safe-html.pipe';
+import { SafeHtmlPipe } from '../../shared/safe-html.pipe';
 import {
   AngularEditorComponent,
   AngularEditorModule,

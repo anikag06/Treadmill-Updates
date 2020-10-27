@@ -22,6 +22,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
 import { LoadFilesService } from '@/main/games/shared/load-files.service';
 import { MindfulnessVideoItem } from '@/main/extra-resources/shared/mindfulnessVideo.model';
+import {VideoCovid19Item} from '@/main/extra-resources/shared/videoCovid19.model';
 
 @Component({
   selector: 'app-video-item',
@@ -31,6 +32,7 @@ import { MindfulnessVideoItem } from '@/main/extra-resources/shared/mindfulnessV
 export class VideoItemComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() video!: VideoItem;
   @Input() mindfulnessVideo!: MindfulnessVideoItem;
+  @Input() videoCovid19!: VideoCovid19Item;
   @Input() videoType!: string;
 
   // private subject: any;
@@ -49,15 +51,15 @@ export class VideoItemComponent implements OnInit, AfterViewInit, OnDestroy {
   player!: any;
   videoTimeLeft = 10;
   enableId = '?enablejsapi=1';
-  listOfVideos: VideoItem[] = [];
-  lengthOfVideoList = this.listOfVideos.length;
+  // listOfVideos: VideoItem[] = [];
+  // lengthOfVideoList = this.listOfVideos.length;
   playOn = false;
   activeUrl: string | undefined;
   id: number | undefined;
   videoInt: any;
   eventDataForPlayPause: number | undefined;
   eachVideoType!: string;
-  eachVideoType2!: string;
+  // eachVideoType2!: string;
 
   @ViewChild('Video', { static: false }) Video!: ElementRef;
   @ViewChild('playPause', { static: false }) playPause!: ElementRef;
@@ -116,6 +118,32 @@ export class VideoItemComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     }
 
+    if (this.router.url.includes('/extra-resources/videoCovid19/')) {
+      console.log('id at end');
+      this.eachVideoType = 'videoCovid19';
+      if (this.videoCovid19 == null) {
+        this.activatedRoute.params.subscribe(data => {
+          this.videoIdToSend = data.id;
+          console.log('reload id:', data.id);
+        });
+        this.extraResourcesService
+          .getAVideoCovid19(this.videoIdToSend)
+          .subscribe((data: any) => {
+            console.log('data', data.url);
+            this.videoCovid19 = <VideoCovid19Item>data;
+            this.isLoaded = true;
+          });
+      } else {
+        this.extraResourcesService.videoCovid19ClickedEvent.subscribe(
+          data => {
+            this.videoCovid19 = <VideoCovid19Item>data;
+            this.isLoaded = true;
+            console.log('covid19 video', data);
+          },
+        );
+      }
+    }
+
     if (this.router.url.includes('/extra-resources/videoItem/')) {
       console.log('id at end');
       this.eachVideoType = 'video';
@@ -125,7 +153,7 @@ export class VideoItemComponent implements OnInit, AfterViewInit, OnDestroy {
           console.log('reload id:', data.id);
         });
         this.extraResourcesService
-          .getAVideo(this.videoIdToSend)
+          .getAVideoOnDepression(this.videoIdToSend)
           .subscribe(data => {
             console.log('data', data);
             this.video = <VideoItem>data;

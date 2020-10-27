@@ -10,6 +10,10 @@ import { map, switchMap } from 'rxjs/operators';
 import { FlowService } from '@/main/flow/flow.service';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 import { MindfulnessVideoItem } from '@/main/extra-resources/shared/mindfulnessVideo.model';
+import {User} from '@/shared/user.model';
+import {AuthService} from '@/shared/auth/auth.service';
+import {VideoCovid19Item} from '@/main/extra-resources/shared/videoCovid19.model';
+import {UsefulListItem} from '@/main/extra-resources/shared/usefulList.model';
 
 @Component({
   selector: 'app-extra-resources',
@@ -17,16 +21,23 @@ import { MindfulnessVideoItem } from '@/main/extra-resources/shared/mindfulnessV
   styleUrls: ['./extra-resources.component.scss'],
 })
 export class ExtraResourcesComponent implements OnInit {
+  user!: User;
   videoItems: VideoItem[] = [];
   readingItems: ReadingItem[] = [];
+  usefulListItems: UsefulListItem[] = [];
   mindfulnessVideoItems: MindfulnessVideoItem[] = [];
+  videoCovid19Items: VideoCovid19Item[] = [];
   videoClicked!: VideoItem;
   showVideoState = false;
   showMindfulnessVideoState = false;
+  showVideoCovid19State = false;
   showReadingMaterialState = false;
+  showUsefulListState = false;
   countReadingItem = 0;
+  countUsefulListItem = 0;
   countVideoItem = 0;
   countMindfulVideoItem = 0;
+  countVideoCovid19Item = 0;
   navbarTitle!: string;
   stepGroupSequence!: number;
   stepSequence!: number;
@@ -40,13 +51,11 @@ export class ExtraResourcesComponent implements OnInit {
     private flowService: FlowService,
     private activatedRoute: ActivatedRoute,
     private stepDataService: StepsDataService,
+    private authService: AuthService,
   ) {}
 
   ngOnInit() {
-    this.loadFilesService
-      .loadExternalStyles('/extra-resources-styles.css')
-      .then(() => {})
-      .catch(() => {});
+    this.user = <User>this.authService.isLoggedIn();
     this.activatedRoute.params
       .pipe(
         map(v => v.id),
@@ -69,14 +78,21 @@ export class ExtraResourcesComponent implements OnInit {
         this.flowService.stepDetail.emit(this.navbarTitle);
       });
 
-    this.extraResourcesService.getVideoItem().subscribe((video_data: any) => {
-      // console.log('video url', video_data);
+    this.extraResourcesService.getVideoOnDepressionItem().subscribe((video_data: any) => {
       video_data.results.forEach((element: any) => {
         console.log('element: ', element);
         this.videoItems.push(<VideoItem>element);
         this.countVideoItem = this.countVideoItem + 1;
         //console.log('Number of videoItems:', this.countVideoItem);
         //console.log('video list: ', this.videoItems);
+      });
+    });
+
+    this.extraResourcesService.getVideoCovid19Item().subscribe((video_data: any) => {
+      video_data.results.forEach((element: any) => {
+        console.log('video on covid19', element);
+        this.videoCovid19Items.push(<VideoCovid19Item>element);
+        this.countVideoCovid19Item = this.countVideoCovid19Item + 1;
       });
     });
 
@@ -97,6 +113,15 @@ export class ExtraResourcesComponent implements OnInit {
         reading_data.results.forEach((element: any) => {
           this.readingItems.push(<ReadingItem>element);
           this.countReadingItem = this.countReadingItem + 1;
+        });
+      });
+
+    this.extraResourcesService
+      .getUsefulListItem()
+      .subscribe((reading_data: any) => {
+        reading_data.results.forEach((element: any) => {
+          this.usefulListItems.push(<UsefulListItem>element);
+          this.countUsefulListItem = this.countUsefulListItem + 1;
         });
       });
   }
@@ -122,12 +147,33 @@ export class ExtraResourcesComponent implements OnInit {
     );
   }
 
+  videoCovid19Click(videoCovid19BeingClicked: VideoCovid19Item) {
+    this.router.navigate(
+      ['videoCovid19/', videoCovid19BeingClicked.id],
+      {
+        relativeTo: this.route,
+      },
+    );
+    this.extraResourcesService.videoCovid19ClickBehavior.next(
+      videoCovid19BeingClicked,
+    );
+  }
+
   readingItemClick(readingItemBeingClicked: ReadingItem) {
     this.router.navigate(['readingItem/', readingItemBeingClicked.id], {
       relativeTo: this.route,
     });
     this.extraResourcesService.readingItemClickBehavior.next(
       readingItemBeingClicked,
+    );
+  }
+
+  usefulListItemClick(usefulListItemBeingClicked: UsefulListItem) {
+    this.router.navigate(['usefulList/', usefulListItemBeingClicked.id], {
+      relativeTo: this.route,
+    });
+    this.extraResourcesService.usefulListItemClickBehavior.next(
+      usefulListItemBeingClicked,
     );
   }
 
@@ -141,9 +187,17 @@ export class ExtraResourcesComponent implements OnInit {
     console.log('state to true', this.showVideoState);
   }
 
+  changeVideoOnCovid19State() {
+    this.showVideoCovid19State = !this.showVideoCovid19State;
+  }
+
   changeReadingMaterialState() {
     this.showReadingMaterialState = !this.showReadingMaterialState;
 
     console.log('state to true');
+  }
+
+  changeUsefulListState() {
+    this.showUsefulListState = !this.showUsefulListState;
   }
 }

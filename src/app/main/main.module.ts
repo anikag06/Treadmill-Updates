@@ -27,7 +27,7 @@ import { NestedCommentComponent } from './support-groups/post-list/post-item/nes
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AngularEditorModule } from '@arkaghosh024/angular-editor';
 import { SanitizationService } from './shared/sanitization.service';
-import { SafeHtmlPipe } from './support-groups/safe-html.pipe';
+// import { SafeHtmlPipe } from '../shared/safe-html.pipe';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatProgressBarModule, MatRippleModule } from '@angular/material';
 import { ScrollingDirective } from './shared/scrolling.directive';
@@ -205,7 +205,7 @@ import { AsgSummaryComponent } from './games/games-list/common-game/attribute-st
     CommentComponent,
     CreatePostComponent,
     NestedCommentComponent,
-    SafeHtmlPipe,
+   // SafeHtmlPipe,
     ScrollingDirective,
     NavbarComponent,
     AutofocusDirective,

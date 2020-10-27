@@ -6,12 +6,6 @@ export class MindfulnessVideoItem {
     public duration: string,
     public type: string,
     public resource_video: VideoItem,
-  ) // public title: string,
-  // public url: string,
-  // public preview_img: string,
-  {
-    // this.id = id;
-    // this.title = title;
-    // this.url = url;
+  ) {
   }
 }

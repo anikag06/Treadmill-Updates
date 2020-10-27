@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { PostItemComponent } from './post-item.component';
 import { MaterialModule } from '@/material.module';
 import { TimeAgoPipe } from '@/shared/time-ago.pipe';
-import { SafeHtmlPipe } from '../../safe-html.pipe';
+import { SafeHtmlPipe } from '../../../../shared/safe-html.pipe';
 import { CommentComponent } from './comment/comment.component';
 import { FormsModule } from '@angular/forms';
 import { AngularEditorModule } from '@arkaghosh024/angular-editor';

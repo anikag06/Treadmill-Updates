@@ -435,8 +435,10 @@ export const POST_THANK = '/api/v1/support-group/post-thank-you/';
 export const NESTED_COMMENT_THANK =
   '/api/v1/support-group/nested-comment-thank-you/';
 
-export const VIDEO_LIST = '/api/v1/resources/videos/';
+export const DEPRESSION_VIDEO_LIST = '/api/v1/resources/general-videos/';
+export const VIDEO_COVID_19_LIST = '/api/v1/resources/covid-videos/';
 export const READING_LIST = '/api/v1/resources/reading-materials/';
+export const USEFUL_LIST = '/api/v1/resources/lists/';
 export const MINDFULNESS_VIDEO_LIST = '/api/v1/resources/mindfulness-videos/';
 export const EACH_VIDEO = '/api/v1/resources/videos/';
 export const WATCHED_VIDEO = '/api/v1/resources/mark-video-watched/';

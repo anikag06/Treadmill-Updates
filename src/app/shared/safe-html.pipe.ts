@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { SanitizationService } from '../shared/sanitization.service';
+import { SanitizationService } from '../main/shared/sanitization.service';
 
 @Pipe({
   name: 'safeHtml',
