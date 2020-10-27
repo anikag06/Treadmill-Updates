@@ -162,61 +162,61 @@
 }
 @media only screen and (max-width: 370px){
   .push-email-right-space {
-    padding-left: 34%;
+    padding-left: 100px;
   }
   .push-email-right-space-with-save {
-    padding-left: 2.5%;
+    padding-left: 10px;
   }
   .email-with-save{
-    padding-left: 2.7%;
+    padding-left: 10px;
   }
   .save-push-email{
-    padding-left: 18%;
+    padding-left: 49px;
   }
 }
 @media only screen and (min-width: 371px) and (max-width: 380px) {
 
   .push-email-right-space {
-    padding-left: 44%;
+    padding-left: 150px;
   }
   .push-email-right-space-with-save {
-    padding-left: 4.5%;
+    padding-left: 10px;
   }
   .email-with-save {
-    padding-left: 4.5%;
+    padding-left: 9.7px;
   }
   .save-push-email{
-    padding-left: 28%;
+    padding-left: 99px;
   }
 }
-@media only screen and (min-width: 381px) and (max-width: 425px) {
+@media only screen and (min-width: 381px) and (max-width: 550px) {
   .push-email-right-space {
-    padding-left: 44%;
+    padding-left: 160px;
   }
   .push-email-right-space-with-save {
-    padding-left: 4%;
+    padding-left: 10px;
   }
   .email-with-save {
-    padding-left: 3.9%;
+    padding-left: 9.7px;
   }
   .save-push-email{
-    padding-left: 30%;
+    padding-left: 109px;
   }
 }
 
 
-@media only screen and (min-width: 426px) and (max-width: 768px) {
+@media only screen and (min-width: 551px) and (max-width: 768px) {
   .push-email-right-space {
-    padding-left: 44%;
+    padding-left: 500px;
   }
   .push-email-right-space-with-save {
-    padding-left: 4.5%;
+    padding-left: 10px;
   }
   .email-with-save{
-    padding-left: 4.5%;
+    padding-left: 9.7px;
   }
   .save-push-email{
-    padding-left: 34%;
+    padding-left: 449px;
   }
   .right-arrow-icon {
     padding-right: 60px;
@@ -224,59 +224,101 @@
 }
 @media only screen and (min-width: 769px) and (max-width: 1279px){
   .push-email-right-space {
-    padding-left: 40%;
+    padding-left: 180px;
   }
   .push-email-right-space-with-save {
-    padding-left: 3.5%;
+    padding-left: 10px;
   }
   .email-with-save{
-    padding-left: 3.2%;
+    padding-left: 9.7px;
   }
   .save-push-email{
-    padding-left: 24%;
+    padding-left: 129px;
   }
 }
 @media only screen and (min-width: 1280px){
   .push-email-right-space {
-    padding-left: 60%;
+    padding-left: 290px;
   }
   .push-email-right-space-with-save {
-    padding-left: 4.5%;
+    padding-left: 10px;
   }
   .email-with-save{
-    padding-left: 4.5%;
+    padding-left: 9.7px;
   }
   .save-push-email{
-    padding-left: 47%;
+    padding-left: 239px;
   }
 }
 @media only screen and (width: 1366px) {
 
   .push-email-right-space {
-    padding-left: 60%;
+    padding-left: 300px;
   }
   .push-email-right-space-with-save {
-    padding-left: 4.1%;
+    padding-left: 10px;
   }
   .email-with-save{
-    padding-left: 4.2%;
+    padding-left: 9px;
   }
   .save-push-email{
-    padding-left: 47%;
+    padding-left: 249px;
   }
 }
 
-@media only screen and (min-width: 1500px){
+@media only screen and (min-width: 1500px) and (max-width: 1799px) {
   .push-email-right-space {
-    padding-left: 69%;
+    padding-left: 370px;
   }
   .push-email-right-space-with-save {
-    padding-left: 4.6%;
+    padding-left: 10px;
   }
   .email-with-save{
-    padding-left: 4.6%;
+    padding-left: 9.7px;
   }
   .save-push-email{
-    padding-left: 60%;
+    padding-left: 319px;
+  }
+}
+@media only screen and (min-width: 1800px) and (max-width: 2099px) {
+  .push-email-right-space {
+    padding-left: 490px;
+  }
+  .push-email-right-space-with-save {
+    padding-left: 10px;
+  }
+  .email-with-save{
+    padding-left: 9.7px;
+  }
+  .save-push-email{
+    padding-left: 439px;
+  }
+}
+@media only screen and (min-width: 2100px) and (max-width: 2499px) {
+  .push-email-right-space {
+    padding-left: 600px;
+  }
+  .push-email-right-space-with-save {
+    padding-left: 10px;
+  }
+  .email-with-save{
+    padding-left: 9px;
+  }
+  .save-push-email{
+    padding-left: 549.5px;
+  }
+}
+@media only screen and (min-width: 2500px){
+  .push-email-right-space {
+    padding-left: 750px;
+  }
+  .push-email-right-space-with-save {
+    padding-left: 10px;
+  }
+  .email-with-save{
+    padding-left: 9px;
+  }
+  .save-push-email{
+    padding-left: 698px;
   }
 }

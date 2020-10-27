@@ -1,5 +1,4 @@
 //Configuration for phaser.js
-import {PLAYING_GAMES_SCORE} from "../../../../app/app.constants";
 
 function config(render_type, swidth, sheight, modeType, center){
 	this.type=render_type;
@@ -2267,8 +2266,11 @@ function level_changer(){
 
 	if(level.number==2)
 	{
-    this.commonService.updateScore(PLAYING_GAMES_SCORE);
 		stop_obstacle_generation=false;
+		levelChangeEvent = document.createEvent('CustomEvent');
+		levelChangeEvent.initCustomEvent('CallLevelChange');
+		window.dispatchEvent(levelChangeEvent);
+
 	}
 
 	//Allow pit generation

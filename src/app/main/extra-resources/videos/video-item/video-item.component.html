@@ -24,6 +24,19 @@
   </div>
 </div>
 
+<div *ngIf = "eachVideoType === 'videoCovid19'">
+  <div class = "row row-margin" >
+    <div class="col col-margin" *ngIf = "isLoaded; else loader" >
+      <div class="video-container" >
+        <iframe class = "video-specs" [src]="videoCovid19.url + enableId | safeUrl" id = 'player' #Video ></iframe><br/>
+
+      </div>
+
+      <mat-card-footer class= "footer-text" [innerHTML]="videoCovid19.title"></mat-card-footer>
+    </div>
+  </div>
+</div>
+
 
 <ng-template #loader>
     <div class="col-sm-9 col-lg-12">

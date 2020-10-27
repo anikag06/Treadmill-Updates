@@ -1,5 +1,6 @@
 
 <div class="container resources-container px-0"  *ngIf="outlet.isActivated == false">
+  <div *ngIf = "user.is_exp">
   <div class="row">
     <div class="col">
       <p class="heading">Mindfulness Videos</p>
@@ -16,12 +17,15 @@
 
   <div *ngIf = "countMindfulVideoItem > 4">
     <a  (click) = "changeMindfulnessVideoState()"  class = "see-all " *ngIf = "showMindfulnessVideoState == false; else mindfulVideoSeeLess"><img src = "assets/icons/arrow.svg">&nbsp; See all </a>
+    <ng-template #mindfulVideoSeeLess>
+      <a (click)="changeMindfulnessVideoState()" class = "see-all"><img src = "assets/icons/arrow.svg" class = "see-all-icon">&nbsp;See less</a>
+    </ng-template>
   </div>
   </div>
 
   <div class="row">
     <div class="col">
-     <p class="heading">Videos</p>
+     <p class="heading">Videos on depression</p>
     </div>
   </div>
   <div class = "space-below-section">
@@ -43,6 +47,26 @@
   </div>
   </div>
 
+    <div class="row">
+      <div class="col">
+        <p class="heading">Videos on COVID-19</p>
+      </div>
+    </div>
+    <div class = "space-below-section">
+      <div [ngClass] = "showVideoCovid19State == true? 'show-all-cards': 'videos-card-hidden'">
+        <div class="row no-gutters ">
+          <div class="each-item" *ngFor = "let videoCovid19Item of videoCovid19Items" >
+            <app-videos [videoCovid19Item]= "videoCovid19Item"  videoType= 'videoCovid19' (click) = "videoCovid19Click(videoCovid19Item)"></app-videos>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf = "countVideoCovid19Item > 4">
+        <a  (click) = "changeVideoOnCovid19State()"  class = "see-all " *ngIf = "showVideoCovid19State == false; else videoCovid19SeeLess"><img src = "assets/icons/arrow.svg">&nbsp; See all </a>
+      </div>
+    </div>
+
+
 
 
   <div class="row">
@@ -54,31 +78,46 @@
   <div [ngClass] = "showReadingMaterialState==true? 'show-all-cards': 'reading-card-hidden'">
   <div class="row no-gutters">
     <div class="each-item" *ngFor = "let readingItem of readingItems" >
-
-      <app-reading-material [readingItem]="readingItem" (click) = "readingItemClick(readingItem)"></app-reading-material>
-
-
+      <app-reading-material [readingItem]="readingItem" readingType = 'readingMaterial' (click) = "readingItemClick(readingItem)"></app-reading-material>
     </div>
   </div>
   </div>
-
-
-
-
-  <div *ngIf = "countReadingItem > 2">
+  <div *ngIf = "countReadingItem > 4">
        <a  (click) = "changeReadingMaterialState()" class = "see-all" *ngIf = "showReadingMaterialState == false; else readingMaterialSeeLess"><img src = "assets/icons/arrow.svg">&nbsp;See all</a>
   </div>
   </div>
+  </div>
 
+  <div class="row">
+    <div class="col">
+      <p class="heading">Useful List</p>
+    </div>
+  </div>
+  <div class = "space-below-section">
+    <div [ngClass] = "showUsefulListState==true? 'show-all-cards': 'reading-card-hidden'">
+      <div class="row no-gutters">
+        <div class="each-item" *ngFor = "let usefulListItem of usefulListItems" >
+          <app-reading-material [usefulListItem] = "usefulListItem" readingType = 'usefulList' (click) = "usefulListItemClick(usefulListItem)"></app-reading-material>
+        </div>
+      </div>
+    </div>
+    <div *ngIf = "countUsefulListItem > 4">
+      <a  (click) = "changeUsefulListState()" class = "see-all" *ngIf = "showUsefulListState == false; else usefulListSeeLess"><img src = "assets/icons/arrow.svg">&nbsp;See all</a>
+    </div>
+  </div>
+  <div class = "end-space"></div>
 </div>
+
+
 
 <div class="container resources-container">
 <router-outlet  #outlet="outlet"></router-outlet>
 
 </div>
 
-<ng-template #mindfulVideoSeeLess>
-  <a (click)="changeMindfulnessVideoState()" class = "see-all"><img src = "assets/icons/arrow.svg" class = "see-all-icon">&nbsp;See less</a>
+
+<ng-template #videoCovid19SeeLess>
+  <a (click) = "changeVideoOnCovid19State()" class = "see-all"><img src = "assets/icons/arrow.svg" class = "see-all-icon">&nbsp;See less</a>
 </ng-template>
 
 <ng-template #videoSeeLess>
@@ -88,4 +127,10 @@
 <ng-template #readingMaterialSeeLess>
   <a (click) = "changeReadingMaterialState()" class = "see-all"><img src = "assets/icons/arrow.svg" class = "see-all-icon">&nbsp;See less</a>
 </ng-template>
+
+<ng-template #usefulListSeeLess>
+  <a (click) = "changeUsefulListState()" class = "see-all"><img src = "assets/icons/arrow.svg" class = "see-all-icon">&nbsp;See less</a>
+</ng-template>
+
+
 

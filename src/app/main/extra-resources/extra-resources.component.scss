@@ -5,7 +5,9 @@
   font-weight: initial;
   margin-top: 24px;
 }
-
+.end-space{
+  padding-bottom: 48px;
+}
 .see-all{
  // float: right;
   float: none;
@@ -57,7 +59,7 @@ i {
   margin-bottom: -2px;
 }
 
-@media only screen and (min-width: 1701px){
+@media only screen and (min-width: 1801px){
   .resources-container{
     margin: 0px;
     max-width: 1700px;
@@ -75,7 +77,7 @@ i {
 
   .heading{
     font-size: 24px;
-    padding-left: 18px;
+    //padding-left: 5px;
   }
   .see-all{
     padding-right: 1%;
@@ -85,7 +87,7 @@ i {
     padding-bottom: 86px;
   }
 }
-@media screen and (max-width: 1700px) {
+@media screen and (max-width: 1800px) {
   .resources-container {
     margin: 0px;
 
@@ -103,7 +105,7 @@ i {
 
   .heading{
     font-size: 24px;
-    padding-left: 9px;
+   // padding-left: 5px;
   }
   .see-all{
     padding-right: 1.5%;
@@ -132,7 +134,7 @@ i {
 
   .heading{
     font-size: 24px;
-    padding-left: 9px;
+    padding-left: 5px;
   }
   .see-all{
     padding-right: 1.5%;
@@ -158,10 +160,10 @@ i {
     margin: 0px;
   }
   .videos-card-hidden{
-    height: 166px;
+    height: 198px;
   }
   .reading-card-hidden{
-    height: 166px;
+    height: 198px;
   }
   .each-item{
     padding: 0px 10px 32px;
@@ -170,7 +172,7 @@ i {
 
   .heading{
     font-size: 24px;
-    padding-left: 9px;
+    padding-left: 5px;
   }
   .see-all{
     padding-right: 1.5%;
@@ -200,7 +202,7 @@ i {
 
   .heading{
     font-size: 24px;
-    padding-left: 9px;
+    padding-left: 7px;
   }
   .see-all{
     padding-left: 90% ;
@@ -217,10 +219,10 @@ i {
 
   }
   .videos-card-hidden{
-    height: 166px;
+    height: 150px;
   }
   .reading-card-hidden{
-    height: 166px;
+    height: 150px;
   }
 
 
@@ -231,7 +233,7 @@ i {
 
   .heading{
     font-size: 24px;
-    padding-left: 9px;
+    padding-left: 7px;
   }
   .see-all{
     padding-left: 90% ;
@@ -247,17 +249,17 @@ i {
     margin:0px;
   }
   .heading{
-    padding-left: 9px;
+   padding-left: 9px;
   }
   .each-item{
     padding: 0px 7px 14px;
     width: 50%;
   }
   .videos-card-hidden{
-    height: 362px;
+    height: 408px;
   }
   .reading-card-hidden{
-    height: 362px;
+    height: 408px;
   }
   .see-all{
     padding-left: 82% ;
@@ -267,7 +269,7 @@ i {
   }
 }
 
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 425px) {
   .resources-container{
     padding: 0px 9px;
     margin: 0px;
@@ -277,11 +279,11 @@ i {
   }
 
   .videos-card-hidden{
-    height: 342px;
+    height: 350px;
 
   }
   .reading-card-hidden{
-    height: 322px;
+    height: 350px;
   }
 
   .each-item{

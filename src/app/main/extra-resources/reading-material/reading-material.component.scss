@@ -50,8 +50,8 @@
 
 
 @media screen and (min-width: 2001px) {
-  .card {
-    height: 280px;
+  .reading-card {
+    height: 285px;
   }
   .show-footer-style{
     font-size: 20px;
@@ -59,15 +59,15 @@
 
 }
 @media screen and (max-width: 2000px) {
-  .card {
-    height: 254px;
+  .reading-card {
+    height: 260px;
   }
   .show-footer-style{
     font-size: 20px;
   }
 }
-@media screen and (max-width: 1700px) {
-  .card {
+@media screen and (max-width: 1800px) {
+  .reading-card {
     height: 220px;
   }
   .show-footer-style{
@@ -77,7 +77,7 @@
 
 @media screen and (max-width: 1500px) {
   .reading-card {
-    height: 184px;
+    height: 194px;
   }
   .show-footer-style{
     font-size: 16px;
@@ -91,10 +91,17 @@
     font-size: 16px;
   }
 }
-
-@media screen and (max-width: 1280px) {
+@media screen and (max-width: 1300px) {
   .reading-card {
-    height: 150px;
+    height: 182px;
+  }
+  .show-footer-style{
+    font-size: 16px;
+  }
+}
+@media screen and (max-width: 1200px) {
+  .reading-card {
+    height: 165px;
   }
   .show-footer-style{
     font-size: 16px;
@@ -113,7 +120,7 @@
 
 @media screen and (max-width: 768px) {
   .reading-card {
-    height: 150px;
+    height: 158px;
   }
   .show-footer-style{
     font-size: 14px;
@@ -126,20 +133,17 @@
     margin: 0px 0px 14px;
     //max-height: 95%;
     //min-height: 95%;
-    height: 160px;
+    height: 185px;
   }
   .show-footer-style{
     font-size: 14px;
   }
 }
 
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 425px) {
   .reading-card {
-    // width: 42vw;
     margin: 0px 0px 14px;
-    //max-height: 95%;
-    //min-height: 95%;
-    height: 140px;
+    height: 160px;
   }
   .show-footer-style{
     font-size: 14px;

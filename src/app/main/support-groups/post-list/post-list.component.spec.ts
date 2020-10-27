@@ -5,7 +5,7 @@ import { PostItemComponent } from './post-item/post-item.component';
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '@/material.module';
 import { TimeAgoPipe } from '@/shared/time-ago.pipe';
-import { SafeHtmlPipe } from '../safe-html.pipe';
+import { SafeHtmlPipe } from '../../../shared/safe-html.pipe';
 import { CommentComponent } from './post-item/comment/comment.component';
 import { NestedCommentComponent } from './post-item/nested-comment/nested-comment.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';

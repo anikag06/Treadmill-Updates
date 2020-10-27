@@ -1,5 +1,5 @@
 import {
-  CHATBOT_RETRY_TIMEOUT,
+  CHATBOT_RETRY_TIMEOUT, FORM_START_VIA_CHAT_BOT_SCORE,
   MAX_RETRIES,
   MOBILE_WIDTH,
   NEW_CHAT,
@@ -350,6 +350,10 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     this.webSocket.onmessage = (message: any) => {
       this.showMaintenance = false;
       const data = JSON.parse(message.data);
+      if(data.is_new_form) {
+        this.commonService.updateScore(FORM_START_VIA_CHAT_BOT_SCORE);
+        console.log('new form works');
+      }
       if (data.error === true) {
         const item = new Chat(
           data.text,

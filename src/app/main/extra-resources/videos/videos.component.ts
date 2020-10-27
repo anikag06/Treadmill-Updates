@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ExtraResourcesService } from '@/main/extra-resources/extra-resources.service';
 import { LoadFilesService } from '@/main/games/shared/load-files.service';
 import { MindfulnessVideoItem } from '@/main/extra-resources/shared/mindfulnessVideo.model';
+import {VideoCovid19Item} from '@/main/extra-resources/shared/videoCovid19.model';
 
 @Component({
   selector: 'app-videos',
@@ -15,6 +16,7 @@ export class VideosComponent implements OnInit {
   @Input() videoItem!: VideoItem;
   @Input() mindfulnessVideoItem!: MindfulnessVideoItem;
   @Input() videoType!: string;
+  @Input() videoCovid19Item!: VideoCovid19Item;
   videoLink: string | undefined;
   videoFooter: string | undefined;
   // @Output() event1 = new EventEmitter();
@@ -32,36 +34,8 @@ export class VideosComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // this.http.get<VideoItem>('').subscribe((data) => {
-    //   this.getVideo(data);
-    //   this.videoClick(data.url);
-    //
-    // });
   }
 
-  //   getVideo(video: VideoItem) {
-  //     this.videoLink = video.url;
-  //     this.videoFooter = video.title;
-  // }
-  //   videoClick(videoLink: string) {
-  //     this.router.navigateByUrl('string');
-  //   }
-  // videoItems: any;
-  // videoClick() {
-  //   this.router.navigate(['videoItem/', this.videoItem.id], {relativeTo: this.route});
-  //   // x = <VideoItem>this.videoItem;
-  //   console.log('video loading');
-  //   // this.event1.emit();
-  //
-  // }
-
-  // giveVideoDetail(x: VideoItem){
-  //   x = <VideoItem>this.videoItem;
-  // }
-
-  // redirect(){
-  // this.extraResourcesService.videoGo();
-  // }
   expandLine() {
     this.showState = true;
   }
