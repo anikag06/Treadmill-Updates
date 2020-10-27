@@ -1,11 +1,11 @@
 <div class="row" [ngClass]="{'unread': !item.user_read}" (click)="onClick()">
     <div class="col-2">
-        <img [src]="item.icon" alt="notification-icon" height="50" width="50" class="notification-img">
+        <img [src]="item.icon" alt="notification-icon" height="28" width="28" class="notification-img">
     </div>
     <div class="col-10">
         <div class="notification">
             <h5 [innerHTML]="item.title" ></h5>
-            <p class="small">{{ item.created_at | timeAgo }}</p>
+            <p class="small mb-0">{{ item.created_at | timeAgo }}</p>
         </div>
     </div>
 </div>

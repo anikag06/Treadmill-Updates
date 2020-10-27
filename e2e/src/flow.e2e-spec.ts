@@ -197,14 +197,14 @@ describe('treadwill Flow Experimental Group', () => {
       fp.findProgressElement('Solve my problem form');
       fp.reload();
       fp.clickGoto();
+      fp.findProgressElement('Help us improve');
+      fp.fillSurveyForm();
+      browser.sleep(3000);
       if (testfor === 'dropout' && moduleNum === 3) {
         fp.navigateToDashboard();
         console.log('CHECK FOR DROPOUT  AT MODULE 3');
         fp.checkForDropout(loginTime);
       }
-      fp.findProgressElement('Help us improve');
-      fp.fillSurveyForm();
-      browser.sleep(2000);
       fp.findProgressElement('Finish module');
       fp.evaluateMood();
       page.findPhq();
@@ -238,6 +238,11 @@ describe('treadwill Flow Experimental Group', () => {
       fp.findProgressElement('GIVE A NAME 5.5');
       fp.showFullConv();
       fp.goToNextStep('Next step');
+      if (testfor === 'dropout' && moduleNum === 4) {
+        fp.navigateToDashboard();
+        console.log('CHECK FOR DROPOUT  AT MODULE 4');
+        fp.checkForDropout(loginTime);
+      }
       fp.findProgressElement('Test my belief form');
       fp.reload();
       fp.clickGoto();
@@ -271,6 +276,11 @@ describe('treadwill Flow Experimental Group', () => {
       fp.findProgressElement('GIVE A NAME 6.5 ');
       fp.showFullConv();
       fp.goToNextStep('Next step');
+      if (testfor === 'dropout' && moduleNum === 5) {
+        fp.navigateToDashboard();
+        console.log('CHECK FOR DROPOUT  AT MODULE 5');
+        fp.checkForDropout(loginTime);
+      }
       fp.findProgressElement('Finish module');
       fp.evaluateMood();
       page.findPhq();
