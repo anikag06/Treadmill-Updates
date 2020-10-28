@@ -19,6 +19,10 @@ export const extraResourcesRoutes: Routes = [
       { path: 'usefulList/:id', component: ReadingItemComponent },
     ],
   },
+  {
+    path: ':id',
+    component: ExtraResourcesComponent,
+  },
 ];
 
 @NgModule({

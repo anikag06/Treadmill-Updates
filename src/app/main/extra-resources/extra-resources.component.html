@@ -1,7 +1,7 @@
 
 <div class="container resources-container px-0"  *ngIf="outlet.isActivated == false">
   <div *ngIf = "user.is_exp">
-  <div class="row">
+  <div class="row" #mindfulness>
     <div class="col">
       <p class="heading">Mindfulness Videos</p>
     </div>
@@ -23,7 +23,7 @@
   </div>
   </div>
 
-  <div class="row">
+  <div class="row" #depression>
     <div class="col">
      <p class="heading">Videos on depression</p>
     </div>
