@@ -230,7 +230,7 @@ describe('treadwill Flow Experimental Group', () => {
       fp.goToNextStep('Next step');
       fp.findProgressElement('You are what you believe');
       fp.goToNextStep('Next step');
-      fp.findProgressElement('Be mindful ');
+      fp.findProgressElement('Mindfulness videos ');
       fp.reload();
       fp.clickGoto();
       fp.findProgressElement('Modifying beliefs');
@@ -268,7 +268,7 @@ describe('treadwill Flow Experimental Group', () => {
       fp.goToNextStep('Next step');
       fp.findProgressElement('Worrywart');
       fp.goToNextStep('Next step');
-      fp.findProgressElement('Testimonials');
+      fp.findProgressElement('Videos on depression');
       fp.reload();
       fp.clickGoto();
       fp.findProgressElement('Worrying productively ');
