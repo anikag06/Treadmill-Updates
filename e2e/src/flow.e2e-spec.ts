@@ -325,11 +325,14 @@ describe('treadwill Flow Experimental Group', () => {
       page.findGad();
       page.fillGad();
       fp.goToNextStep('Next step');
+      fp.findProgressElement('Self-care expert');
+      browser.sleep(2000);
+      fp.clickOnButton('Go to dashboard');
     },
     100 * 60 * 1000,
   );
 
-  it(
+  xit(
     'Should run followup steps',
     () => {
       page.findPhq();
