@@ -102,10 +102,8 @@ export class SettingsComponent implements OnInit {
     private fcmService: FcmService,
     private goToService: NavbarGoToService,
     private router: Router,
-    private route: ActivatedRoute,
-  ) //  private commonService: CommonService,
-  //  private userProfileService: UserProfileService,
-  {}
+    private route: ActivatedRoute, //  private commonService: CommonService, //  private userProfileService: UserProfileService,
+  ) {}
 
   ngOnInit() {
     this.user = <User>this.authService.isLoggedIn();

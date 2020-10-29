@@ -1,4 +1,11 @@
-import {Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { VideoItem } from '@/main/extra-resources/shared/video.model';
 import { Observable } from 'rxjs';
 import { ReadingItem } from '@/main/extra-resources/shared/reading.model';
@@ -14,7 +21,7 @@ import { User } from '@/shared/user.model';
 import { AuthService } from '@/shared/auth/auth.service';
 import { VideoCovid19Item } from '@/main/extra-resources/shared/videoCovid19.model';
 import { UsefulListItem } from '@/main/extra-resources/shared/usefulList.model';
-import {RESOURCES_PAGE, TESTIMONIALS_PAGE} from '@/app.constants';
+import { RESOURCES_PAGE, TESTIMONIALS_PAGE } from '@/app.constants';
 
 @Component({
   selector: 'app-extra-resources',
@@ -47,7 +54,6 @@ export class ExtraResourcesComponent implements OnInit {
   @ViewChild('mindfulness', { static: false }) mindfulness!: ElementRef;
   @ViewChild('depression', { static: false }) depression!: ElementRef;
 
-
   constructor(
     private extraResourcesService: ExtraResourcesService,
     private router: Router,
@@ -72,7 +78,7 @@ export class ExtraResourcesComponent implements OnInit {
         // for navbar title
         this.stepGroupSequence = step.step_group_sequence + 1;
         this.stepSequence = step.sequence + 1;
-        this.stepName = 'Resources';  // page title will remain same irrespective of actual step name
+        this.stepName = 'Resources'; // page title will remain same irrespective of actual step name
         this.navbarTitle =
           this.stepGroupSequence.toString() +
           '.' +
@@ -84,7 +90,7 @@ export class ExtraResourcesComponent implements OnInit {
         if (step.data_type) {
           if (step.data_type === TESTIMONIALS_PAGE) {
             this.scrollDown(this.depression);
-          } else  if (step.data_type === RESOURCES_PAGE) {
+          } else if (step.data_type === RESOURCES_PAGE) {
             this.scrollDown(this.mindfulness);
           }
         }
