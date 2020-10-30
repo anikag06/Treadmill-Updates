@@ -90,6 +90,12 @@ describe('treadwill Flow control group', () => {
         browser.sleep(2000);
         fp.goToNextStep('Next step');
         fp.findProgressElement('Cognitive Behavioral Therapy (CBT)');
+        // Checking for dropout
+        if (testfor === 'dropout' && moduleNum === 1) {
+          fp.navigateToDashboard();
+          console.log('CHECK FOR DROPOUT  AT MODULE 1');
+          fp.checkForDropout(loginTime);
+        }
         browser.sleep(2000);
         fp.goToNextStep('Next step');
         fp.findProgressElement("What's wrong with me?");
@@ -109,12 +115,6 @@ describe('treadwill Flow control group', () => {
         browser.sleep(2000);
         fp.goToDashboard('Go to dashboard');
         browser.sleep(2000);
-        // Checking for dropout
-        if (testfor === 'dropout' && moduleNum === 1) {
-          fp.navigateToDashboard();
-          console.log('CHECK FOR DROPOUT  AT MODULE 1');
-          fp.checkForDropout(loginTime);
-        }
       }
     },
     100 * 60 * 1000,
