@@ -95,6 +95,7 @@ describe('treadwill Flow control group', () => {
         fp.findProgressElement("What's wrong with me?");
         // Checking for dropout
         if (testfor === 'dropout' && moduleNum === 1) {
+          fp.navigateToDashboard();
           console.log('CHECK FOR DROPOUT  AT MODULE 1');
           fp.checkForDropout(loginTime);
         }
@@ -114,6 +115,12 @@ describe('treadwill Flow control group', () => {
         browser.sleep(2000);
         fp.goToDashboard('Go to dashboard');
         browser.sleep(2000);
+        // Checking for dropout
+        if (testfor === 'dropout' && moduleNum === 1) {
+          fp.navigateToDashboard();
+          console.log('CHECK FOR DROPOUT  AT MODULE 1');
+          fp.checkForDropout(loginTime);
+        }
       }
     },
     100 * 60 * 1000,
@@ -158,6 +165,7 @@ describe('treadwill Flow control group', () => {
         fp.goToNextStep('Next step');
         fp.findProgressElement('Am I over-thinking? ');
         if (testfor === 'dropout' && moduleNum === 2) {
+          fp.navigateToDashboard();
           console.log('CHECK FOR DROPOUT AT MODULE 2');
           fp.checkForDropout(loginTime);
         }
@@ -220,6 +228,7 @@ describe('treadwill Flow control group', () => {
         browser.sleep(2000);
         // Checking for dropout
         if (testfor === 'dropout' && moduleNum === 3) {
+          fp.navigateToDashboard();
           console.log('CHECK FOR DROPOUT  AT MODULE 3');
           fp.checkForDropout(loginTime);
         }
@@ -270,10 +279,10 @@ describe('treadwill Flow control group', () => {
         fp.findProgressElement('Modifying beliefs');
         browser.sleep(2000);
         if (testfor === 'dropout' && moduleNum === 4) {
+          fp.navigateToDashboard();
           console.log('CHECK FOR DROPOUT  AT MODULE 4');
           console.log('test for module number', testfor, moduleNum);
           fp.checkForDropout(loginTime);
-          afterDropout = true;
         }
         fp.goToNextStep('Next step');
         fp.findProgressElement('Critical look at my belief');
@@ -336,6 +345,7 @@ describe('treadwill Flow control group', () => {
         page.fillPhq();
         // Checking for dropout
         if (testfor === 'dropout' && moduleNum === 5) {
+          fp.navigateToDashboard();
           console.log('CHECK FOR DROPOUT  AT MODULE 5');
           fp.checkForDropout(loginTime);
         }
@@ -369,6 +379,7 @@ describe('treadwill Flow control group', () => {
         fp.waitForStepUnlock('Be prepared');
         // Checking for dropout
         if (testfor === 'dropout' && moduleNum === 6) {
+          fp.navigateToDashboard();
           console.log('CHECK FOR DROPOUT  AT MODULE 6');
           fp.checkForDropout(loginTime);
         }
