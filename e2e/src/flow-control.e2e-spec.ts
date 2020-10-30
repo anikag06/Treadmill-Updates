@@ -7,7 +7,7 @@ declare var testType: any;
 declare var moduleNumber: number;
 // declare var loginTime: number;
 
-xdescribe('treadwill Flow control group', () => {
+describe('treadwill Flow control group', () => {
   let page: AppPage;
   let fp: FlowPage;
   let expUser = false;
@@ -21,14 +21,14 @@ xdescribe('treadwill Flow control group', () => {
     fp = new FlowPage();
   });
 
-  xit('should show login dialog', () => {
+  it('should show login dialog', () => {
     page.navigateTo();
     browser.waitForAngularEnabled(false);
     browser.sleep(1000);
     page.clickLoginLink();
     browser.sleep(2500);
     // username is hardcoded here
-    page.fillLoginForm('rootlbxcco', 'test123');
+    page.fillLoginForm('root123', 'test123');
     expect(fp.onDashboard()).toBeTruthy('url does not contains dashboard');
     loginTime = page.getTime();
     console.log('login time', loginTime);
@@ -112,7 +112,7 @@ xdescribe('treadwill Flow control group', () => {
         page.fillGad();
         // browser.refresh();
         browser.sleep(2000);
-        fp.goToNextStep('Go to dashboard');
+        fp.goToDashboard('Go to dashboard');
         browser.sleep(2000);
       }
     },
@@ -177,7 +177,7 @@ xdescribe('treadwill Flow control group', () => {
         page.fillGad();
         // browser.refresh();
         browser.sleep(2000);
-        fp.goToNextStep('Go to dashboard');
+        fp.goToDashboard('Go to dashboard');
         browser.sleep(2000);
       }
     },
@@ -233,7 +233,7 @@ xdescribe('treadwill Flow control group', () => {
         page.fillSiq();
         page.findGad();
         page.fillGad();
-        fp.goToNextStep('Go to dashboard');
+        fp.goToDashboard('Go to dashboard');
         browser.sleep(2000);
       }
     },
@@ -303,7 +303,7 @@ xdescribe('treadwill Flow control group', () => {
         page.fillSiq();
         page.findGad();
         page.fillGad();
-        fp.goToNextStep('Go to dashboard');
+        fp.goToDashboard('Go to dashboard');
       }
     },
     100 * 60 * 1000,
@@ -343,7 +343,7 @@ xdescribe('treadwill Flow control group', () => {
         page.fillSiq();
         page.findGad();
         page.fillGad();
-        fp.goToNextStep('Go to dashboard');
+        fp.goToDashboard('Go to dashboard');
         browser.sleep(2000);
       }
     },
@@ -390,7 +390,7 @@ xdescribe('treadwill Flow control group', () => {
         page.findGad();
         page.fillGad();
         browser.sleep(2000);
-        fp.goToNextStep('Go to dashboard');
+        fp.goToDashboard('Go to dashboard');
         browser.sleep(2000);
       }
     },

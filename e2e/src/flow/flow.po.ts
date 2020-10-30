@@ -107,7 +107,7 @@ export class FlowPage {
     const content = element(by.css('.fix-content-body'));
     const button = element(by.css('button.completed-btn'));
     browser
-      .wait(this.EC.visibilityOf(button))
+      .wait(this.EC.visibilityOf(content))
       .then(() => {
         console.log('clickOnButton  Completed');
         button.click().then(() => {
@@ -145,7 +145,10 @@ export class FlowPage {
       .then(() => {
         console.log('clickOnButton  Completed');
         button.click().then(() => {
-          const dashboardBtn = element(by.css('.congrats-div')).element(
+          //congrats-div for experimental group
+          // const dashboardBtn = element(by.css('.congrats-div')).element(
+          const dashboardBtn = element(by.css('button.completed-btn')).element(
+
             by.cssContainingText('button', 'Go to dashboard'),
           );
           browser.wait(this.EC.visibilityOf(dashboardBtn)).then(() => {
