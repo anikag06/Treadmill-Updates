@@ -93,12 +93,6 @@ describe('treadwill Flow control group', () => {
         browser.sleep(2000);
         fp.goToNextStep('Next step');
         fp.findProgressElement("What's wrong with me?");
-        // Checking for dropout
-        if (testfor === 'dropout' && moduleNum === 1) {
-          fp.navigateToDashboard();
-          console.log('CHECK FOR DROPOUT  AT MODULE 1');
-          fp.checkForDropout(loginTime);
-        }
         fp.goToNextStep('Next step');
         fp.findProgressElement('What if .....?');
         browser.sleep(2000);
