@@ -80,7 +80,7 @@ describe('treadwill Flow control group', () => {
       } else {
         console.log('CONTROL GROUP first module', expUser);
         browser.sleep(2000);
-        fp.findProgressElement('Getting started');
+        fp.waitForStepUnlock('Getting started');
         browser.sleep(2000);
         fp.goToNextStep('Next step');
         fp.findProgressElement('Depression');
