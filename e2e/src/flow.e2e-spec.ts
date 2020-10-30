@@ -100,7 +100,7 @@ describe('treadwill Flow Experimental Group', () => {
       fp.clickGoto();
       fp.findProgressElement('Being self-aware'); // slide
       fp.goToNextStep('Next step');
-      fp.findProgressElement('You are not alone'); // show full conversation //CHECK SEQUENCE
+      fp.findProgressElement('Act as a therapist - 1'); // show full conversation //CHECK SEQUENCE
       fp.showFullConv();
       fp.goToNextStep('Next step');
       fp.findProgressElement('Finish module'); // conclusion- go to dashboard step
@@ -133,7 +133,7 @@ describe('treadwill Flow Experimental Group', () => {
       fp.clickGoto();
       fp.findProgressElement('Making good things happen');
       fp.goToNextStep('Next step');
-      fp.findProgressElement('Make time for yourself');
+      fp.findProgressElement('Act as a therapist - 2');
       fp.showFullConv();
       fp.goToNextStep('Next step');
       fp.findProgressElement('Balloon burst');
@@ -146,7 +146,7 @@ describe('treadwill Flow Experimental Group', () => {
       fp.clickGoto();
       fp.findProgressElement('Give credit to yourself');
       fp.goToNextStep('Next step');
-      fp.findProgressElement('One step at a time');
+      fp.findProgressElement('Act as a therapist - 3');
       if (testfor === 'dropout' && moduleNum === 2) {
         console.log('CHECK FOR DROPOUT  AT MODULE 2');
         fp.checkForDropout(loginTime);
@@ -183,7 +183,7 @@ describe('treadwill Flow Experimental Group', () => {
       fp.clickGoto();
       fp.findProgressElement('Common Thinking errors');
       fp.goToNextStep('Next step');
-      fp.findProgressElement('GIVE A NAME 4.5 ');
+      fp.findProgressElement('Act as a therapist - 4 ');
       fp.showFullConv();
       fp.goToNextStep('Next step');
       fp.findProgressElement('Think positive');
@@ -191,7 +191,7 @@ describe('treadwill Flow Experimental Group', () => {
       fp.clickGoto();
       fp.findProgressElement('Evaluating thoughts');
       fp.goToNextStep('Next step');
-      fp.findProgressElement('GIVE A NAME 4.8');
+      fp.findProgressElement('Act as a therapist - 5');
       fp.showFullConv();
       fp.goToNextStep('Next step');
       fp.findProgressElement('Solve my problem form');
@@ -235,7 +235,7 @@ describe('treadwill Flow Experimental Group', () => {
       fp.clickGoto();
       fp.findProgressElement('Modifying beliefs');
       fp.goToNextStep('Next step');
-      fp.findProgressElement('GIVE A NAME 5.5');
+      fp.findProgressElement('Act as a therapist - 6');
       fp.showFullConv();
       fp.goToNextStep('Next step');
       if (testfor === 'dropout' && moduleNum === 4) {
@@ -273,7 +273,7 @@ describe('treadwill Flow Experimental Group', () => {
       fp.clickGoto();
       fp.findProgressElement('Worrying productively ');
       fp.goToNextStep('Next step');
-      fp.findProgressElement('GIVE A NAME 6.5 ');
+      fp.findProgressElement('Act as a therapist - 7');
       fp.showFullConv();
       fp.goToNextStep('Next step');
       if (testfor === 'dropout' && moduleNum === 5) {
@@ -305,7 +305,7 @@ describe('treadwill Flow Experimental Group', () => {
       fp.goToNextStep('Next step');
       fp.findProgressElement('Happily ever after');
       fp.goToNextStep('Next step');
-      fp.findProgressElement('GIVE A NAME 7.3');
+      fp.findProgressElement('Act as a therapist - 8');
       fp.showFullConv();
       fp.goToNextStep('Next step');
       fp.findProgressElement('Help us improve');
