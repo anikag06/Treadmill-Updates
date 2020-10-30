@@ -54,7 +54,6 @@ export class UserFeedbackComponent implements OnInit {
     if (this.disliked) {
       this.final_feedback = 0; // changing from dislike to no like/dislike state
       this.showFeedBackBox = false;
-
     } else if (this.liked) {
       this.final_feedback = -1; // changing from like to dislike state
     } else {
@@ -71,7 +70,6 @@ export class UserFeedbackComponent implements OnInit {
     if (this.liked) {
       this.final_feedback = 0; // changing from like to no like/dislike state
       this.showFeedBackBox = false;
-
     } else if (this.disliked) {
       this.final_feedback = 1; // changing from dislike to no like state
     } else {
@@ -110,7 +108,7 @@ export class UserFeedbackComponent implements OnInit {
       this.commonService.updateScore(FEEDBACK_SLIDE_SCORE);
     }
     this.onSubmit = true;
-    setTimeout( () => {
+    setTimeout(() => {
       this.onSubmit = false;
     }, 5000);
   }

@@ -210,8 +210,8 @@ function left_pressed()
 		flanker_task_end_time=date.getTime();
 
 		//Record response type
-    // 0.svg and 3.svg are the images where the middle points to the right
-		if(flanker_choice==0 || flanker_choice==3)
+    // 0.svg and 2.svg are the images where the middle points to the left
+		if(flanker_choice==0 || flanker_choice==2)
 		{
 
 			flanker_task_response_type=CORRECT_RESPONSE;
@@ -266,8 +266,8 @@ function right_pressed()
     	right_button.alpha=0.8;
     	}
 		flanker_task_end_time=date.getTime();
-    	// 1.svg and 2.svg are the images where the middle points to the right
-		if(flanker_choice==1 || flanker_choice==2)
+    	// 1.svg and 3.svg are the images where the middle points to the right
+		if(flanker_choice==1 || flanker_choice==3)
 		{
       flanker_task_response_type=CORRECT_RESPONSE;
 		}

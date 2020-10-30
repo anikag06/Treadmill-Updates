@@ -28,7 +28,7 @@ function flanker_task_generator()
 
 			}
 		}
-		else if(flanker_choice%TYPE_CHANGE_INTERVAL==0&&task_tutorial_shown==false&&SHOW_TUTORIAL==true&&isTouchDevice==true)
+		else if(flanker_choice%TYPE_CHANGE_INTERVAL==0&&task_tutorial_shown==false&&SHOW_TUTORIAL==true)
 		{
 			if(isTouchDevice==true)
 			{
