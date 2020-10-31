@@ -11,6 +11,8 @@ import { AuthService } from '@/shared/auth/auth.service';
 export class PhqNineComponent implements OnInit {
 
   getData!: any;
+  dataLoaded = false;
+
 
   @ViewChild('phqLineChart', { static: false }) private chartRef: any;
 
@@ -27,6 +29,7 @@ export class PhqNineComponent implements OnInit {
       .subscribe((data) =>  {
           this.plotScoreGraphService.setDataPoints(data.data.size, data.data.scores);
           this.plotScoreGraphService.plotGraph(this.chartRef, data.data.size, 27);
+          this.dataLoaded = true;
       });
   }
 

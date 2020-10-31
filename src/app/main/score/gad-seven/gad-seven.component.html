@@ -1,10 +1,16 @@
-<div class="row mx-2 mx-lg-0 my-2" >
+<div class="row main-div my-2" >
 
   <div class="col pl-0 pt-2">
     <h5 class="gad-heading"> GAD-7 score at the starting of each module </h5>
+
     <div class="chartDiv">
+      <div id="chart-skeleton" class="text-center" *ngIf="!dataLoaded">
+        <p style="opacity: 0.4">
+          Loading...
+        </p></div>
+
       <br>
-      <canvas #gadLineChart></canvas>
+      <canvas #gadLineChart [ngStyle]="{visibility: !dataLoaded ? 'hidden' : 'visible'}"></canvas>
     </div>
   </div>
   <div class="col pl-0 pt-2">

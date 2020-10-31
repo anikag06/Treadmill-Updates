@@ -9,6 +9,7 @@ import { AuthService } from '@/shared/auth/auth.service';
 })
 export class GadSevenComponent implements OnInit {
   getData!: any;
+  dataLoaded = false;
 
   @ViewChild('gadLineChart', { static: false }) private chartRef: any;
 
@@ -25,7 +26,8 @@ export class GadSevenComponent implements OnInit {
     .subscribe((data) =>  {
       this.plotScoreGraphService.setDataPoints(data.data.size, data.data.scores);
       this.plotScoreGraphService.plotGraph(this.chartRef, data.data.size, 21);
-  });
+      this.dataLoaded = true;
+    });
   }
 
 
