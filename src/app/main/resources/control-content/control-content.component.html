@@ -25,6 +25,8 @@
             <app-step-completed [showNextStep]="nextBtnShow"  [showloading]="showLoading"  [isLastStep]='isLastStep' [lastStepCompleted]='lastStepCompleted'
                                 (gotodashboard) = "onHtmlDashboard()" (completedEvent) = "onHtmlComplete()"  (nextStepEvent) = "onHtmlNextClick()"></app-step-completed>
           </div>
+          <div #target2 id="dummyDiv"> </div>
+
 
         </div>
       </mat-card>

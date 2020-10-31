@@ -27,6 +27,8 @@ import { PHQ9 } from '@/app.constants';
 })
 export class ControlContentComponent implements OnInit {
   @ViewChild('target', { static: false }) target!: ElementRef;
+  @ViewChild('target2', { static: false }) target2!: ElementRef;
+
 
   // x = '<div class="row"><div class="col"><h2 >hi</h2></div></div>' ;
   displayHtml: string | undefined;
@@ -130,6 +132,7 @@ export class ControlContentComponent implements OnInit {
         this.moodEvaluate = false;
         this.navbarTitle = this.flowService.navbarTitle;
         this.flowService.stepDetail.emit(this.navbarTitle);
+        this.scrollDown();
       } else {
         console.log('EVENT EMITTED', 'show questionnaire', value);
         this.showQuestionnaire = true;
@@ -199,5 +202,10 @@ export class ControlContentComponent implements OnInit {
     setTimeout(() => {
       this.target.nativeElement.scrollIntoView({ behavior: 'smooth' });
     }, 10);
+  }
+  scrollDown() {
+    setTimeout(() => {
+      this.target2.nativeElement.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
   }
 }
