@@ -217,15 +217,15 @@ describe('treadwill Flow control group', () => {
         fp.findProgressElement('Evaluating thoughts');
         browser.sleep(2000);
         fp.goToNextStep('Next step');
+        fp.findProgressElement('Help us improve');
+        fp.fillSurveyForm();
+        browser.sleep(2000);
         // Checking for dropout
         if (testfor === 'dropout' && moduleNum === 3) {
           fp.navigateToDashboard();
           console.log('CHECK FOR DROPOUT  AT MODULE 3');
           fp.checkForDropout(loginTime);
         }
-        fp.findProgressElement('Help us improve');
-        fp.fillSurveyForm();
-        browser.sleep(2000);
         fp.findProgressElement('SOLVED');
         browser.sleep(2000);
         fp.evaluateMood();
