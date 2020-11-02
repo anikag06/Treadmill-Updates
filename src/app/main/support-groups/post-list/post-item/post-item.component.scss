@@ -80,6 +80,7 @@ a.toggler:hover {
       color: #7a7a7a;
       border: #919191 solid 1px;
       border-radius: 20px;
+      cursor: pointer;
     }
   }
 
@@ -206,7 +207,7 @@ a.toggler:hover {
   }
 
   .post-item {
-    padding: 10px;
+    padding: 10px 16px;
     border-radius: 8px;
     font-size: 14px;
     margin-bottom: 20px;

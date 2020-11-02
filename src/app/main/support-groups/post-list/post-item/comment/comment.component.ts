@@ -72,6 +72,7 @@ export class CommentComponent
   showProfile = false;
   userProfile = new UserProfile('Name', '', 0, 0, 0, 0, [], [], []);
   thankYouIcon = '../../../assets/support-group/Group 11055.png';
+  firstClick = true;
 
   @Output() deleteEmitter = new EventEmitter<UserComment>();
   @Input() comment!: UserComment;
@@ -180,8 +181,11 @@ export class CommentComponent
   }
 
   showNestedComment() {
-    this.hide = false;
-    this.fetchNestedComment();
+    if (this.firstClick) {
+      this.hide = false;
+      this.fetchNestedComment();
+      this.firstClick = false;
+    }
   }
 
   showLessNestedComment() {
