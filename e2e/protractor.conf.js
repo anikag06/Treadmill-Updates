@@ -36,6 +36,6 @@ exports.config = {
     });
     jasmine.getEnv().addReporter(new SpecReporter({ spec: { displayStacktrace: true } }));
     global.testType = 'dropout';
-    global.moduleNumber = 4;
+    global.moduleNumber = 5;
   }
 };
