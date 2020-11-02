@@ -60,7 +60,7 @@ export class IntroService {
     private stepsDataService: StepsDataService,
     private http: HttpClient,
     private commonService: CommonService,
-    private authService: AuthService,
+    private authService: AuthService
   ) {}
 
   completionData: StepCompleteData = new StepCompleteData(0, 0);
@@ -388,7 +388,7 @@ export class IntroService {
 
             if (isExp) {
               this.commonService.updateScore(
-                INTRODUCTORY_ANIMATION_STEP_COMPLETE_SCORE,
+                INTRODUCTORY_ANIMATION_STEP_COMPLETE_SCORE
               );
             }
           });
@@ -414,10 +414,10 @@ export class IntroService {
 
   showPointsNotification(pointsNotification: ViewContainerRef) {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
-      PointsComponent,
+      PointsComponent
     );
     const pointsComponent = pointsNotification.createComponent(
-      componentFactory,
+      componentFactory
     );
     pointsComponent.instance.points = 20;
     this.component = pointsComponent;
@@ -467,17 +467,17 @@ export class IntroService {
       this.setOverlayFalse();
       this.notificationService.closeNavFlow.emit();
       if (window.innerWidth > MOBILE_WIDTH) {
-        if (this.flowService.stepCompleted && isExp) {
-          this.commonService.updateScore(
-            INTRODUCTORY_ANIMATION_STEP_COMPLETE_SCORE,
+        if (!this.flowService.stepCompleted && isExp) {
+          this.commonService.updateIntroScore(
+            INTRODUCTORY_ANIMATION_STEP_COMPLETE_SCORE
           );
+          setTimeout(() => {
+            this.flowService.introduceBehaviour.next(true);
+          }, 1000);
+          setTimeout(() => {
+            this.startPointsIntro();
+          }, 1500);
         }
-        setTimeout(() => {
-          this.flowService.introduceBehaviour.next(true);
-        }, 1000);
-        setTimeout(() => {
-          this.startPointsIntro();
-        }, 1500);
       } else {
         setTimeout(() => {
           this.startMenuIntro();
@@ -555,6 +555,12 @@ export class IntroService {
   }
 
   startNavigationIntro() {
+    let isExp = false;
+    try {
+      isExp = window.localStorage.getItem(IS_EXP) === 'true';
+    } catch (e) {
+      isExp = window.sessionStorage.getItem(IS_EXP) === 'true';
+    }
     const intro = introJs.introJs();
     intro.setOptions({
       steps: [
@@ -584,16 +590,18 @@ export class IntroService {
     intro.onexit(() => {
       this.setOverlayFalse();
       this.drawer.toggle();
-      setTimeout(() => {
-        this.flowService.introduceBehaviour.next(true);
-      }, 1000);
-      setTimeout(() => {
-        this.setSideBarFalse();
-        // if (!this.flowService.stepCompleted) {
-        //   this.commonService.updateScore(20);
-        // }
-        this.startPointsIntro();
-      }, 1500);
+      if (isExp && !this.flowService.stepCompleted) {
+        setTimeout(() => {
+          this.flowService.introduceBehaviour.next(true);
+        }, 1000);
+        setTimeout(() => {
+          this.setSideBarFalse();
+          // if (!this.flowService.stepCompleted) {
+          //   this.commonService.updateScore(20);
+          // }
+          this.startPointsIntro();
+        }, 1500);
+      }
     });
   }
 
@@ -701,7 +709,7 @@ export class IntroService {
     return this.http.get(
       environment.API_ENDPOINT +
         '/api/v1/flow/show-introductory-animation/' +
-        element,
+        element
     );
   }
 

@@ -71,6 +71,7 @@
             <div *ngIf="showMoodTracker">
               <app-mood-tracker
                 class="chatbot"
+                [moduleName] = "currentModule"
                 (onClose)="onMoodSelect()"
                 (moodSubmit)="onChatSubmit()"
                 (moodMessage)="getMoodMessage($event)"

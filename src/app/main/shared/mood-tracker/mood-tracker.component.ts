@@ -5,6 +5,7 @@ import {
   ElementRef,
   EventEmitter,
   Inject,
+  Input,
   OnInit,
   Optional,
   Output,
@@ -49,22 +50,23 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
   @Output() moodSubmit = new EventEmitter<any>();
   @ViewChildren('option') checkBox!: QueryList<any>;
   moodArray: any[] = [];
+  @Input() moduleName!: string;
   constructor(
     private element: ElementRef,
     @Optional() public dialogRef: MatDialogRef<MoodTrackerComponent>,
     public moodTrackerService: MoodTrackerService,
-    @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.moodTrackerService.getFeelingsList().then((feelings: any) => {
       this.feelings = feelings;
 
-      this.feelings.group_feelings_1.forEach(emotion => {
+      this.feelings.group_feelings_1.forEach((emotion) => {
         this.negativeEmotions.push(new Mood(emotion));
       });
-      this.feelings.group_feelings_2.forEach(emotion => {
+      this.feelings.group_feelings_2.forEach((emotion) => {
         this.positiveEmotions.push(new Mood(emotion));
       });
-      this.feelings.group_feelings_3.forEach(emotion => {
+      this.feelings.group_feelings_3.forEach((emotion) => {
         this.neutralEmotions.push(new Mood(emotion));
       });
       // this.positiveEmotions = this.feelings.group_feelings_2;
@@ -95,7 +97,7 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
         ) {
           this.neutralEmotions[i].isChecked = true;
           this.neutralEmotions[i].range = this.range.indexOf(
-            userFeeling.feeling_rating,
+            userFeeling.feeling_rating
           );
           isNeutral = true;
           this.emotionCount += 1;
@@ -109,7 +111,7 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
           ) {
             this.negativeEmotions[i].isChecked = true;
             this.negativeEmotions[i].range = this.range.indexOf(
-              userFeeling.feeling_rating,
+              userFeeling.feeling_rating
             );
             isNegative = true;
             this.emotionCount += 1;
@@ -124,7 +126,7 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
           ) {
             this.positiveEmotions[i].isChecked = true;
             this.positiveEmotions[i].range = this.range.indexOf(
-              userFeeling.feeling_rating,
+              userFeeling.feeling_rating
             );
             this.emotionCount += 1;
           }
@@ -136,13 +138,13 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
   ngOnInit() {}
   ngAfterViewInit() {
     const listItem = this.element.nativeElement.querySelectorAll(
-      '.mat-list-item-content',
+      '.mat-list-item-content'
     );
     const listText = this.element.nativeElement.querySelectorAll(
-      '.mat-list-text',
+      '.mat-list-text'
     );
     const panelBody = this.element.nativeElement.querySelectorAll(
-      '.mat-expansion-panel-body',
+      '.mat-expansion-panel-body'
     );
 
     for (let i = 0; i < listItem.length; i++) {
@@ -152,7 +154,7 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
     for (let i = 0; i < listText.length; i++) {
       listText[i].setAttribute(
         'style',
-        'width:auto;padding-left:20px;font-size: 14px;',
+        'width:auto;padding-left:20px;font-size: 14px;'
       );
     }
     for (let i = 0; i < panelBody.length; i++) {
@@ -207,7 +209,12 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
   onMoodSubmit() {
     const emotions = this.element.nativeElement.querySelectorAll('.emotions');
     let count = 0;
-    let chatMoodMessage = 'I felt ';
+    let chatMoodMessage;
+    if (this.moduleName === 'mood_tracker') {
+      chatMoodMessage = 'I am feeling ';
+    } else if (this.moduleName === 'thought_record') {
+      chatMoodMessage = 'I felt ';
+    }
     const neutral_index = 11;
     for (let i = 0; i < emotions.length; i++) {
       const option = this.checkBox.find((ele, index) => index === i);
@@ -258,9 +265,9 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
         if (count === this.emotionCount - 1 && this.emotionCount > 1) {
           chatMoodMessage += ' and ';
         }
-        // if (count === this.emotionCount) {
-        //   chatMoodMessage += ' today';
-        // }
+        if (count === this.emotionCount && this.moduleName === 'mood_tracker') {
+          chatMoodMessage += ' today';
+        }
       }
     }
     const moodSelected = {

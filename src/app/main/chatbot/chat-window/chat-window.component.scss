@@ -1,29 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
 @mixin fadeAnimation() {
-  -webkit-animation: fadeinout 2s linear forwards;
   animation: fadeinout 2s linear forwards;
-}
-
-@-webkit-keyframes fadeinout {
-  0% {
-    opacity: 0;
-  }
-  20% {
-    opacity: 0.2;
-  }
-  40% {
-    opacity: 0.4;
-  }
-  60% {
-    opacity: 0.6;
-  }
-  80% {
-    opacity: 0.8;
-  }
-  100% {
-    opacity: 1;
-  }
 }
 
 @keyframes fadeinout {
@@ -218,8 +196,8 @@
     box-shadow: none;
     word-break: break-word;
     white-space: normal;
-    line-height: 20px;
-    @include fadeAnimation;
+    line-height: 1rem;
+    padding: .375rem .75rem;
   }
 
   .module_button {
