@@ -21,6 +21,7 @@ export class ProblemFormComponent implements OnInit {
   @Input() problem!: Problem;
   @Output() addProblem = new EventEmitter();
   @Output() updateProblem = new EventEmitter();
+  showLoading = false;
   // TODO: Remove if code is not breaking due to this
   // @Output() testOut = new EventEmitter<string>();
 
@@ -53,7 +54,7 @@ export class ProblemFormComponent implements OnInit {
           {
             problem: this.problemStatement,
           },
-          this.problem.id,
+          this.problem.id
         )
         .subscribe(
           (resp: any) => {
@@ -62,18 +63,20 @@ export class ProblemFormComponent implements OnInit {
           },
           (error: any) => {
             console.error(error);
-          },
+          }
         );
     } else if (this.problemStatement.trim().length > 0) {
+      this.showLoading = true;
       this.problemService.postProblem(this.problemStatement).subscribe(
         (resp: any) => {
           console.log(resp);
           this.problemHandler(resp.body, 'create');
           this.addProblem.emit(resp.body);
+          this.showLoading = false;
         },
-        error => {
+        (error) => {
           console.error(error);
-        },
+        }
       );
     }
   }
@@ -84,7 +87,7 @@ export class ProblemFormComponent implements OnInit {
         data.id,
         data.problem,
         null,
-        data.taskorigin,
+        data.taskorigin
       );
       this.problemService.addProblem(newProblem);
 
@@ -92,7 +95,7 @@ export class ProblemFormComponent implements OnInit {
       // this.hideNextStep = true;
     } else {
       const problemEdit = this.problemService.problems.find(
-        (t: Problem) => t.id === +data.id,
+        (t: Problem) => t.id === +data.id
       );
       if (problemEdit) {
         this.problem = <Problem>data;

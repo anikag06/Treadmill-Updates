@@ -27,7 +27,13 @@
           *ngIf="showContinue"
           [ngStyle]="{ float: 'right' }"
         >
-          Continue
+          <ng-container *ngIf="!showSpinner; else loading"
+            >Continue
+          </ng-container>
+          <ng-template #loading>
+            <span class="spinner-border spinner-border-sm"></span>
+            Loading..
+          </ng-template>
         </button>
       </div>
     </div>
@@ -65,7 +71,13 @@
             *ngIf="showRealistic"
             [ngStyle]="{ float: 'right' }"
           >
-            Continue
+            <ng-container *ngIf="!showLoading; else loading"
+              >Continue
+            </ng-container>
+            <ng-template #loading>
+              <span class="spinner-border spinner-border-sm"></span>
+              Loading..
+            </ng-template>
           </button>
         </div>
       </form>

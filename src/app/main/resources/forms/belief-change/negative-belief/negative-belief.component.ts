@@ -29,7 +29,7 @@ export class NegativeBeliefComponent implements OnInit {
     private beliefChangeService: BeliefChangeService,
     private commonService: CommonService,
     private userProfileService: UserProfileService,
-    private authService: AuthService,
+    private authService: AuthService
   ) {}
   scoreUpdate = false;
   user!: User;
@@ -53,7 +53,8 @@ export class NegativeBeliefComponent implements OnInit {
   });
   showSlider = false;
   @Input() reset!: boolean;
-
+  showSpinner = false;
+  showRatingSpinner = false;
   ngOnInit() {
     this.user = <User>this.authService.isLoggedIn();
   }
@@ -84,7 +85,7 @@ export class NegativeBeliefComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result && result.data) {
         this.negativeBeliefForm.controls['belief'].setValue(
-          result.data.selectedBelief,
+          result.data.selectedBelief
         );
         this.showBeliefLink = true;
         this.showContiue = true;
@@ -127,8 +128,10 @@ export class NegativeBeliefComponent implements OnInit {
       const object = {
         belief: this.negativeBeliefForm.value['belief'],
       };
+      this.showSpinner = true;
       this.beliefChangeService.postBelief(object).subscribe((resp: any) => {
         if (resp.ok) {
+          this.showSpinner = false;
           this.showSlider = true;
           this.showContiue = false;
           this.showBeliefLink = true;
@@ -146,6 +149,9 @@ export class NegativeBeliefComponent implements OnInit {
   }
 
   onNegativeMantraSubmit() {
+    if (!this.belief.belief_rating_initial) {
+      this.showRatingSpinner = true;
+    }
     if (this.beliefRatingInitial) {
       const object = {
         belief: this.negativeBeliefForm.value['belief'],
@@ -158,6 +164,7 @@ export class NegativeBeliefComponent implements OnInit {
             this.showSliderButton = false;
             this.onShowTechniques.emit();
             this.updateBelief.emit(resp.body);
+            this.showRatingSpinner = false;
             this.showContiue = false;
             this.initialRatingChange.emit(this.beliefRatingInitial);
             this.beliefHandler(resp.body, '');
@@ -177,7 +184,7 @@ export class NegativeBeliefComponent implements OnInit {
       this.belief = new Belief(
         data.id,
         data.belief,
-        data.belief_rating_initial,
+        data.belief_rating_initial
       );
       this.beliefChangeService.addBelief(this.belief);
 
@@ -185,7 +192,7 @@ export class NegativeBeliefComponent implements OnInit {
       // this.hideNextStep = true;
     } else {
       const belief = this.beliefChangeService.beliefs.find(
-        (t: Belief) => t.id === +data.id,
+        (t: Belief) => t.id === +data.id
       );
       if (belief) {
         this.belief = <Belief>data;

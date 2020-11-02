@@ -34,10 +34,16 @@
           mat-raised-button
           type="button"
           *ngIf="showContinue"
-          class="btn continue-btn "
+          class="btn continue-btn"
           (click)="onSituationSubmit()"
         >
-          Continue
+          <ng-container *ngIf="!showLoading; else loading"
+            >Continue
+          </ng-container>
+          <ng-template #loading>
+            <span class="spinner-border spinner-border-sm"></span>
+            Loading.. &nbsp;
+          </ng-template>
         </button>
       </p>
     </form>

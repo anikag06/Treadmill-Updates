@@ -35,7 +35,11 @@
       mat-raised-button
       (click)="onExpectedOutcomeSubmit()"
     >
-      Continue
+      <ng-container *ngIf="!showSpinner; else loading">Continue </ng-container>
+      <ng-template #loading>
+        <span class="spinner-border spinner-border-sm"></span>
+        Loading..
+      </ng-template>
     </button>
     <br /><br />
   </div>
@@ -159,7 +163,13 @@
             class="float-right continue-btn"
             (click)="onBeliefRatingAfterSubmit()"
           >
-            Continue
+            <ng-container *ngIf="!showFinalSpinner; else loading"
+              >Continue
+            </ng-container>
+            <ng-template #loading>
+              <span class="spinner-border spinner-border-sm"></span>
+              Loading..
+            </ng-template>
           </button>
           <br /><br />
         </div>
@@ -200,7 +210,13 @@
             mat-raised-button
             class="float-right continue-btn"
           >
-            Continue
+            <ng-container *ngIf="!showFinalSpinner; else loading"
+              >Continue
+            </ng-container>
+            <ng-template #loading>
+              <span class="spinner-border spinner-border-sm"></span>
+              Loading..
+            </ng-template>
           </button>
           <br /><br />
         </div>

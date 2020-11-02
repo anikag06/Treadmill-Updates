@@ -22,7 +22,6 @@
           cdkTextareaAutosize
           cdkAutosizeMinRows="1"
           formControlName="thought"
-          (focusout)="updateThought()"
           (focus)="onShowContinueButton()"
           required
         ></textarea>
@@ -32,10 +31,16 @@
           mat-raised-button
           type="button"
           *ngIf="showContinueButton"
-          class="btn continue-btn "
+          class="btn continue-btn"
           (click)="onThoughtSubmit()"
         >
-          Continue
+          <ng-container *ngIf="!showLoading; else loading"
+            >Continue
+          </ng-container>
+          <ng-template #loading>
+            <span class="spinner-border spinner-border-sm"></span>
+            Loading.. &nbsp;
+          </ng-template>
         </button>
       </p>
     </form>
@@ -53,9 +58,15 @@
         <button
           mat-raised-button
           (click)="onThoughtRatingSubmit()"
-          class=" btn continue-btn"
+          class="btn continue-btn"
         >
-          Continue
+          <ng-container *ngIf="!showRatingSpinner; else loading"
+            >Continue
+          </ng-container>
+          <ng-template #loading>
+            <span class="spinner-border spinner-border-sm"></span>
+            Loading..
+          </ng-template>
         </button>
       </div>
     </div>

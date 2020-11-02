@@ -68,6 +68,8 @@ export class EttbfOutcomeComponent implements OnInit {
   value = 1;
   showOutcome!: boolean;
   finalRating!: number;
+  showSpinner = false;
+  showFinalSpinner = false;
 
   expectedOutComeForm = this.formBuilder.group({
     expected_outcome: new FormControl('', [Validators.required]),
@@ -76,7 +78,7 @@ export class EttbfOutcomeComponent implements OnInit {
     private ettbfBeliefService: ExperimentToTestBeliefService,
     private formBuilder: FormBuilder,
     private commonService: CommonService,
-    private userProfileService: UserProfileService,
+    private userProfileService: UserProfileService
   ) {}
 
   ngOnInit() {
@@ -104,7 +106,7 @@ export class EttbfOutcomeComponent implements OnInit {
         .subscribe((resp: any) => {
           if (resp.ok && resp.body.expected_outcome) {
             this.expectedOutComeForm.controls['expected_outcome'].setValue(
-              resp.body.expected_outcome,
+              resp.body.expected_outcome
             );
             this.showOutcome = true;
           }
@@ -167,6 +169,7 @@ export class EttbfOutcomeComponent implements OnInit {
     this.expectedOutComeForm.reset();
   }
   onOutcomeSubmit() {
+    this.showFinalSpinner = true;
     this.outcomeSubmit += 1;
     // this.commonService.postScore(this.followUpOldScore + FOLLOW_UP_FORM_COMPLETE_SCORE)
     //   .subscribe(() => {
@@ -192,14 +195,16 @@ export class EttbfOutcomeComponent implements OnInit {
           (data: any) => {
             this.outcome = data;
             this.outcomeResponse = data.body;
+            this.showFinalSpinner = false;
+            this.showSliderContinue = false;
             console.log('The put request has been submitted');
             if (this.outcomeSubmit === 1) {
               this.commonService.updateScore(FOLLOW_UP_FORM_COMPLETE_SCORE);
             }
           },
-          error => {
+          (error) => {
             console.error(error);
-          },
+          }
         );
     } else {
       if (
@@ -217,9 +222,9 @@ export class EttbfOutcomeComponent implements OnInit {
                 this.commonService.updateScore(FOLLOW_UP_FORM_COMPLETE_SCORE);
               }
             },
-            error => {
+            (error) => {
               console.error(error);
-            },
+            }
           );
       }
     }
@@ -235,6 +240,7 @@ export class EttbfOutcomeComponent implements OnInit {
 
   onBeliefRatingAfterSubmit() {
     if (this.outcome) {
+      this.showFinalSpinner = true;
       this.outcome.belief_rating_after = this.finalRating;
       this.bothRatingsExist = true;
       this.compareRating();
@@ -243,7 +249,6 @@ export class EttbfOutcomeComponent implements OnInit {
         this.finalSliderRating.emit(this.outcome.belief_rating_after);
       }
     }
-    this.showSliderContinue = false;
   }
 
   onRealisticBeliefSubmit() {
@@ -270,10 +275,7 @@ export class EttbfOutcomeComponent implements OnInit {
     const date = this.task.end_at + ' ' + this.task.time;
     this.disableEmergency =
       moment().format('YYYY-MM-DD HH:mm') <
-      moment
-        .utc(date)
-        .local()
-        .format('YYYY-MM-DD HH:mm');
+      moment.utc(date).local().format('YYYY-MM-DD HH:mm');
   }
   taskLoaded(data: any) {
     this.task = data;
@@ -300,6 +302,7 @@ export class EttbfOutcomeComponent implements OnInit {
   }
 
   onExpectedOutcomeSubmit() {
+    this.showSpinner = true;
     const data = this.expectedOutComeForm.value['expected_outcome'];
     this.ettbfBeliefService
       .putExpectedOutcome(this.belief, data)
@@ -307,6 +310,7 @@ export class EttbfOutcomeComponent implements OnInit {
         if (resp.ok) {
           this.showExpectedBtn = false;
           this.showOutcome = true;
+          this.showSpinner = false;
         }
       });
   }

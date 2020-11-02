@@ -54,7 +54,13 @@
             (click)="onBeliefSubmit()"
             [ngStyle]="{ float: 'right' }"
           >
-            Continue
+            <ng-container *ngIf="!showSpinner; else loading"
+              >Continue
+            </ng-container>
+            <ng-template #loading>
+              <span class="spinner-border spinner-border-sm"></span>
+              Loading..
+            </ng-template>
           </button>
           <br />
           <br />
@@ -74,9 +80,15 @@
           <button
             mat-raised-button
             (click)="onNegativeMantraSubmit()"
-            class=" btn continue-btn"
+            class="btn continue-btn"
           >
-            Continue
+            <ng-container *ngIf="!showRatingSpinner; else loading"
+              >Continue
+            </ng-container>
+            <ng-template #loading>
+              <span class="spinner-border spinner-border-sm"></span>
+              Loading..
+            </ng-template>
           </button>
           <br />
         </div>

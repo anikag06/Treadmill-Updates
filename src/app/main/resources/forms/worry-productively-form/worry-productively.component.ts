@@ -87,6 +87,8 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
   stepSequence!: number;
   stepName!: string;
   showLoading = true;
+  showSpinner = false;
+  showRatingSpinner = false;
 
   // message!: FormMessage;
   uselessCharacteristicsForm = this.fb.group({
@@ -102,11 +104,11 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
     private element: ElementRef,
     private flowService: FlowService,
     private activatedRoute: ActivatedRoute,
-    private stepDataService: StepsDataService,
+    private stepDataService: StepsDataService
   ) {}
 
   ngOnInit() {
-    this.activatedRoute.params.subscribe(v => {
+    this.activatedRoute.params.subscribe((v) => {
       this.step_id = v.step_id;
       console.log('step id', this.step_id, this.fromSlide);
     });
@@ -174,7 +176,7 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscriptions.forEach(sub => {
+    this.subscriptions.forEach((sub) => {
       sub.unsubscribe();
     });
   }
@@ -192,7 +194,7 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
           if (resp.body.data) {
             this.uselessCharacteristicsForm.setControl(
               'characteristics',
-              this.fb.array(resp.body.data),
+              this.fb.array(resp.body.data)
             );
             if (this.worry) {
               if (this.worry.worry_rating_initial !== null) {
@@ -284,7 +286,7 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
       this.characteristicCount += 1;
     } else {
       const i = characteristics.controls.findIndex(
-        x => x.value === event.source.value,
+        (x) => x.value === event.source.value
       );
       characteristics.removeAt(i);
       this.characteristicCount -= 1;
@@ -292,9 +294,8 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
   }
 
   OnCharacteristicCheck() {
-    this.checkBoxContinue = false;
-    this.characteristicCheck = true;
     // this.techniquesCall.emit(this.characteristicCheck);
+    this.showSpinner = true;
     this.useless_characteristics = this.useless_characteristic.join(',');
     if (this.worry) {
       const object = {
@@ -306,6 +307,9 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
         .postUselessCharacteristics(object, this.worry.id)
         .subscribe((resp: any) => {
           const status = resp.ok;
+          this.showSpinner = false;
+          this.checkBoxContinue = false;
+          this.characteristicCheck = true;
           if (status) {
             console.log('The request has been submited');
           }
@@ -319,6 +323,7 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
     this.originalWorryClick = true;
   }
   OnFinalSliderClick() {
+    this.showRatingSpinner = true;
     if (this.sliderResponseFinal === undefined && this.worry) {
       const object = {
         worry_id: this.worry.id,
@@ -328,7 +333,9 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
       this.worryService.postFinalSlider(object).subscribe((resp: any) => {
         const status = resp.ok;
         if (status) {
-          console.log('The request has been submited');
+          this.showRatingSpinner = false;
+          this.finalSliderCont = false;
+          this.onShowMessage();
         }
         this.sliderResponseFinal = resp.body.worry_rating_final;
       });
@@ -343,13 +350,13 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
         .subscribe((resp: any) => {
           const status = resp.ok;
           if (status) {
-            console.log('The request has been submited');
+            this.showRatingSpinner = false;
+            this.finalSliderCont = false;
+            this.onShowMessage();
           }
         });
     }
-    this.finalSliderCont = false;
     this.formComplete = true;
-    this.onShowMessage();
   }
   hideFinalSliderCont() {
     this.finalSliderCont = true;
@@ -357,7 +364,7 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
   onShowMessage() {
     if (this.initialRating > 0 && this.finalRating > 0 && this.formComplete) {
       const index = this.formService.getRandomInt(
-        WORRY_PRODUCTIVELY_QUOTES.length,
+        WORRY_PRODUCTIVELY_QUOTES.length
       );
       this.quote = WORRY_PRODUCTIVELY_QUOTES[index].quote;
       this.quotedBy = WORRY_PRODUCTIVELY_QUOTES[index].by;
@@ -368,7 +375,7 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
           'Well Done',
           WORRY_PRODUCTIVELY_MESSAGE[
             this.formService.getRandomInt(WORRY_PRODUCTIVELY_MESSAGE.length)
-          ],
+          ]
         );
       } else {
         this.message = new FormMessage(
@@ -376,7 +383,7 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
           '',
           WORRY_PRODUCTIVELY_NGT_MESSAGE[
             this.formService.getRandomInt(WORRY_PRODUCTIVELY_NGT_MESSAGE.length)
-          ],
+          ]
         );
       }
     }

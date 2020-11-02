@@ -68,7 +68,13 @@
         class="btn continue-btn"
         (click)="onMoodSubmit()"
       >
-        Save
+        <ng-container *ngIf="!showSpinner; else loading"
+          >Save
+        </ng-container>
+        <ng-template #loading>
+          <span class="spinner-border spinner-border-sm"></span>
+          Loading..
+        </ng-template>
       </button>
     </p>
   </div>

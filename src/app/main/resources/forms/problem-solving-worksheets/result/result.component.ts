@@ -29,7 +29,7 @@ export class ResultComponent implements OnInit, OnChanges {
     private formService: FormService,
     private commonService: CommonService,
     private userProfileService: UserProfileService,
-    private authService: AuthService,
+    private authService: AuthService
   ) {}
   @Input() solution_id!: number;
   @Input() task!: UserTask;
@@ -44,7 +44,7 @@ export class ResultComponent implements OnInit, OnChanges {
   yes = '<img src="assets/forms/well_done.png" height="16px" > Great!';
   no =
     "&#129300; Okay. You can try another solution to the problem. If you think that the problem just won't go away, work on accepting it.";
-
+  showSpinner = false;
   ngOnInit() {
     if (this.task) {
       this.getEndDate();
@@ -74,7 +74,7 @@ export class ResultComponent implements OnInit, OnChanges {
         },
         (error: HttpErrorResponse) => {
           console.log(error);
-        },
+        }
       );
     }
   }
@@ -91,16 +91,17 @@ export class ResultComponent implements OnInit, OnChanges {
           this.result = new Result(+data.id, this.resultBody, this.didWork);
           this.commonService.updateScore(FOLLOW_UP_FORM_COMPLETE_SCORE);
         },
-        error => console.log(error),
+        (error) => console.log(error)
       );
     } else {
+      this.showSpinner = true;
       this.problemService.postResult(this.solution_id, object).subscribe(
         (data: any) => {
           this.result = new Result(data.id, this.resultBody, this.didWork);
           this.onShowMessage();
           this.commonService.updateScore(FOLLOW_UP_FORM_COMPLETE_SCORE);
         },
-        error => console.log(error),
+        (error) => console.log(error)
       );
     }
   }
@@ -111,16 +112,14 @@ export class ResultComponent implements OnInit, OnChanges {
     const date = this.task.end_at + ' ' + this.task.time;
     this.disableResult =
       moment().format('YYYY-MM-DD HH:mm') <
-      moment
-        .utc(date)
-        .local()
-        .format('YYYY-MM-DD HH:mm');
+      moment.utc(date).local().format('YYYY-MM-DD HH:mm');
   }
 
   onShowMessage() {
     const index = this.formService.getRandomInt(PROBLEM_SOLVING_QUOTES.length);
     this.quote = PROBLEM_SOLVING_QUOTES[index].quote;
     this.quotedBy = PROBLEM_SOLVING_QUOTES[index].by;
+    this.showSpinner = false;
     this.showMessage = true;
   }
 
