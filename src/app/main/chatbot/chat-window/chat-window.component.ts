@@ -615,8 +615,8 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
     const unsplashObject = {
       type: 'image',
       url: image.static_url,
-      link: image.creator_link,
-      name: image.creator + this.utm_parameters,
+      link: image.creator_link + this.utm_parameters,
+      name: image.creator,
       credits: true,
     };
     this.images.push(unsplashObject);
