@@ -14,6 +14,7 @@
     <span>Report Suicide</span>
   </button>
 </mat-menu>
+
 <div class="d-flex flex-column comment">
   <div class="col-12" *ngIf="editMode">
     <div class="errors" *ngIf="errors.length > 0">
@@ -45,6 +46,7 @@
       <!-- <p class="text-muted user">{{comment.user.username}}</p> -->
     </div>
     <div class="d-inline-flex flex-column user-stats" *ngIf="!editMode">
+
       <div class="d-inline-flex  flex-row align-items-start">
         <div class="user pt-0">{{comment.user.username}}</div>
         <div class=" d-flex flex-row points profile-card mb-0">
@@ -65,14 +67,25 @@
             <div class="value">{{comment.user.no_of_bronze_badges}}</div>
           </div>
         </div>
+<!--      </div>-->
+
+      <div class="d-inline-flex flex-row context-button">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_horiz</mat-icon>
+        </button>
+      </div>
       </div>
 
 
-      <div class='body' [innerHTML]="commentBody | safeHtml" [ngClass]="{'body-inline': partialBody}"
+<!--//second div-->
+    <div class = "mx-0 flex-row">
+      <div class='flex-row mx-0 body' [innerHTML]="commentBody | safeHtml" [ngClass]="{'body-inline': partialBody}"
         [ngStyle]="{'word-break': 'break-word'}"></div>
-
+     <div class="d-flex flex-column mx-0">
       <span><a class='toggler' (click)='toggleToFullBody()' *ngIf="partialBody">show more</a></span>
+
       <span class="date">{{ comment.created_at |  date: 'medium' | timeAgo }}</span>
+<!--      </div>-->
       <div class=" row no-gutters">
         <div class="col-12 ">
           <button class="btn btn-sm thumbs-up pl-0" (click)="onThumbsUp()" ><img [src]="thumbsUp" width="18"
@@ -92,13 +105,11 @@
         </div>
       </div>
     </div>
-    <div class="d-inline-flex context-button ml-auto">
-      <button mat-icon-button [matMenuTriggerFor]="menu">
-        <mat-icon>more_horiz</mat-icon>
-      </button>
-    </div>
-  </div>
 
+    </div>
+
+  </div>
+  </div>
   <div class="col-12 pr-0">
     <div class="show-nested-comments" *ngIf="comment.nested_comment_count > 0">
       <ng-container *ngIf="!hide">

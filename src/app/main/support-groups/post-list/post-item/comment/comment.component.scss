@@ -24,6 +24,8 @@
 
   .profile-card {
     margin-top: 0px;
+    min-width: 100px !important;
+    max-width: 150px !important;
   }
 
   .date {
@@ -36,6 +38,8 @@
     // height: 100%;
     text-align: right;
     color: #848484 !important;
+    position: absolute;
+    right: 10px;
 
     .mat-icon-button {
       width: 24px;
