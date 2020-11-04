@@ -40,7 +40,7 @@ export class Introduction5Component implements OnInit, OnDestroy {
   stepSequence!: number;
   stepName!: string;
   wastedHours = [
-    '1 hours',
+    '1 hour',
     '2 hours',
     '3 hours',
     '4 hours',
