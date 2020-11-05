@@ -56,16 +56,16 @@
         </div>
 
         <div class="list-wrapper-items">
-          <a mat-list-item routerLink="/main/dashboard">
+          <a mat-list-item routerLink="/main/dashboard" routerLinkActive="activeClass" >
             <span class="list-wrapper-items-icon">
               <img
                 class="icons-width"
-                src="assets/modules/icon-dashboard.png"
-                alt="dashboard-icon"
+                src="assets/modules/Home.svg"
+                alt="home-icon"
               />
             </span>
             <span class="list-wrapper-items-name">
-              Dashboard
+              Home
             </span>
           </a>
         </div>
@@ -75,6 +75,7 @@
             mat-list-item
             [ngStyle]="{ backgroundColor: introAnimation ? '#F4BB56' : '' }"
             routerLink="/main/games"
+            routerLinkActive="activeClass"
           >
             <span class="list-wrapper-items-icon">
               <img class="icons-width" src="assets/modules/icon-game.png" />
@@ -95,6 +96,7 @@
             mat-list-item
             [ngStyle]="{ backgroundColor: introAnimation ? '#F4BB56' : ''  }"
             routerLink="/main/support-groups"
+            routerLinkActive="activeClass"
           >
             <span class="list-wrapper-items-icon">
               <img
@@ -113,6 +115,7 @@
             mat-list-item
             [ngStyle]="{ backgroundColor: introAnimation ? '#F4BB56' : ''  }"
             routerLink="/main/resources/forms"
+            routerLinkActive="activeClass"
           >
             <span class="list-wrapper-items-icon">
               <img class="icons-width" src="assets/modules/icon-form.png" />
@@ -124,7 +127,7 @@
         </div>
 
         <div class="list-wrapper-items">
-          <a mat-list-item routerLink="/main/scores">
+          <a mat-list-item routerLink="/main/scores" routerLinkActive="activeClass">
             <span class="list-wrapper-items-icon">
               <img class="icons-width" src="assets/modules/icon-score.png" />
             </span>
@@ -135,7 +138,7 @@
         </div>
 
         <div class="list-wrapper-items" id="resources">
-          <a mat-list-item routerLink="/main/extra-resources">
+          <a mat-list-item routerLink="/main/extra-resources" routerLinkActive="activeClass">
             <span class="list-wrapper-items-icon">
               <img class="icons-width" src="assets/modules/icon-resource.png" />
             </span>
@@ -146,7 +149,7 @@
         </div>
 
         <div class="list-wrapper-items">
-          <a mat-list-item routerLink="/main/need-to-talk">
+          <a mat-list-item routerLink="/main/need-to-talk" routerLinkActive="activeClass">
             <span class="list-wrapper-items-icon">
               <img
                 style="margin-left: 4px;"
@@ -164,7 +167,7 @@
         </div>
 
         <div class = "list-wrapper-items">
-          <a mat-list-item routerLink = "/main/settings">
+          <a mat-list-item routerLink = "/main/settings" routerLinkActive="activeClass">
             <span class = "list-wrapper-items-icon">
               <img style="margin-left: 4px;" width="25px" src="assets/modules/Setting.png" />
             </span>
