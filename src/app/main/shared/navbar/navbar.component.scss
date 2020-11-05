@@ -1,5 +1,6 @@
 .app-navbar {
   // height: 100px;
+  align-items: center;
   height: 12vh;
   width: 100%;
   //margin-right:4.4vw;
@@ -45,7 +46,7 @@
     display: flex;
     //flex-direction: row-reverse;
     align-items: center;
-    height: 100px;
+    min-height: 84px;
     padding-right: 10%;
 
     .icon-items {
@@ -62,9 +63,9 @@
     position: absolute;
     height: 25px;
     width: 25px;
-    left: 15px;
+    left: 16px;
     //bottom: 8px;
-    top: 15px;
+    top: -10px;
     background-color: #fa3e3e;
     border-radius: 50%;
     color: #ffffff;
@@ -74,13 +75,13 @@
   }
 }
 
-@media screen and (min-width: 768px) and (max-width: 1200px) {
+@media screen and (min-width: 768px) and (max-width: 991px) {
   .app-navbar {
     .all-icons {
       padding-right: 7%;
     }
     .navbar-title {
-      padding-left: 8%;
+      padding-left: 4%;
     }
   }
 }
@@ -112,10 +113,30 @@
 
 }
 
+@media screen and (min-width: 767px) and (max-width: 960px) {
+.app-navbar {
+  // height: 100px;
+  height: 3vh;
+  .all-icons-mobile {
+    top: -44px !important;
+  }
+}
+}
+
+@media screen and (min-width: 961px) {
+
+  // putting this 960 as otherwise no nav bar is shown
+  .app-navbar {
+     min-height: 84px;
+  }
+  }
+
 @media screen and (max-width: 960px) {
 
   // putting this 960 as otherwise no nav bar is shown
   .app-navbar {
+    align-items: inherit;
+
     .navbar-title {
       padding-left: 0px;
       top: 3px;
@@ -162,7 +183,7 @@
       line-height: 20px;
       height: 20px;
       width: 20px;
-      top: 12px;
+      top: -5px;
     }
 
     // height: 20px;
