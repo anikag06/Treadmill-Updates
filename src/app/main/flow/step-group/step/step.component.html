@@ -1,13 +1,12 @@
 <a (click)="navigate($event)" #tooltip="matTooltip" matTooltipDisabled
    matTooltip={{tooltipData}}>
-<div class="step-content" [ngClass]="{'locked': locked(), 'active': active()}">
-<!--  <a (click)="navigate($event)" #tooltip="matTooltip" matTooltipDisabled-->
-<!--     matTooltip={{tooltipData}}>-->
+<div class="step-content" [ngClass]="{'locked': locked(), 'active': active()}"  matRipple  [matRippleColor]="'#00000020'">
+
     <div class="row px-1 mx-0 align-items-center">
       <div class="col-2 px-0">
         {{stepGroup.sequence+1}}.{{step.sequence+1}}
       </div>
-      <div class="col px-0 step-name">
+      <div class="col px-0 step-name" >
         {{step.name}}
       </div>
       <div class="col-3 px-1 py-2 step-progress-bar" *ngIf="isShowConversationBar === true">
@@ -18,6 +17,5 @@
         <img class="w-100" [src]="getStepIcon(step)">
       </div>
     </div>
-<!--  </a>-->
 </div>
 </a>
