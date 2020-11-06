@@ -25,7 +25,7 @@
   <div class="row no-gutters form-div mx-auto">
       <div *ngIf="showLoading" class="col-12 text-center text-loading" > Loading... </div>
     <div class="col-12 col-lg" [ngStyle]="{visibility: showLoading ? 'hidden' : 'visible'}">
-      <div class="row mb-2">
+      <div class="row mb-5">
         <div class="col-12">
           <app-negative-belief [belief]="belief" (onShowTechniques)="onShowTechniques()"
             (initialRatingChange)="onInitialRatingChange($event)" (updateBelief)="updateBelief($event)">

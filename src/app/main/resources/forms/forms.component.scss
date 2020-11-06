@@ -246,6 +246,7 @@ strong {
   float: left;
   display: flex;
   opacity: 0.6;
+  cursor: pointer;
 }
 
 .statement {
@@ -262,4 +263,8 @@ strong {
   height: 8px;
   border-radius: 50%;
   background: #f66c6c;
+}
+.iconsDiv {
+  position: absolute;
+  right: 45px;
 }

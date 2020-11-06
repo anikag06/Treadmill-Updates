@@ -605,3 +605,9 @@ textarea{
   overflow-y: auto;
   padding: 1rem;
 }
+
+.mat-checkbox.mat-accent {
+  .mat-checkbox-inner-container {
+    margin: 5px 8px auto 0;
+  }
+}
