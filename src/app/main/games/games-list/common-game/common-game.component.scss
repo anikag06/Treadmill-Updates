@@ -135,8 +135,19 @@
   }
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 575px) {
   #game_div {
-    // height: 85vh;
+     height: 90vh;
+    width: 100vw !important;
+  }
+  .common-div {
+   height: 524px;
   }
 }
+@media screen and (max-width: 360px) {
+  .common-div {
+    box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.24);
+
+  }
+}
+
