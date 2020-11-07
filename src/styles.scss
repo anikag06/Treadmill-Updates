@@ -623,3 +623,9 @@ textarea{
 //.owl-dt-inline-container .owl-dt-calendar  {
 //height: 324px !important;
 //}
+
+.mat-checkbox.mat-accent {
+  .mat-checkbox-inner-container {
+    margin: 5px 8px auto 0;
+  }
+}

@@ -9,7 +9,7 @@ b {
 
 .heading {
   height: 15px;
-  padding: 20px;
+  padding: 12px;
   font-size: 16px;
 }
 
@@ -17,16 +17,19 @@ b {
   background-color: white;
   font-family: "Roboto", sans-serif;
   color: #000000DE;
-  margin: 25px;
   border-radius: 1px;
   border: 0 solid orange;
   border-top-width: 6px;
+  margin: auto;
   box-shadow: 0px 0px 10px rgb(195, 195, 195);
+  margin-top: 3rem;
+
+
 }
 
 .text {
   height: auto;
-  padding: 10px;
+  padding: 12px;
   font-size: 14px;
 }
 .loading-text {
@@ -69,3 +72,24 @@ b {
 }
 
 
+@media screen and (min-width: 320px) and (max-width: 479px) {
+  .conversation-card{
+    margin: 16px;
+    padding: 0;
+  }
+  //.text {
+  //  padding: 12px;
+  //}
+}
+
+/* On screens that are 992px or less, set the background color to blue */
+@media screen and (min-width: 992px) {
+ .card{
+   min-width: 300px;
+ }
+}
+@media screen and (min-width: 480px) {
+  .card{
+    max-width: 440px;
+  }
+}

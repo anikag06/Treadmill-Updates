@@ -16,8 +16,9 @@
   margin: auto;
   text-align: center;
 }
-//@media screen and (min-width: 576px) {
-//  .messageDiv {
-//    width: 60%;
-//  }
-//}
+@media screen and (max-width: 576px) {
+  .messageDiv {
+    width: 100%;
+    padding: 0 1rem;
+  }
+}

@@ -28,7 +28,7 @@
     <div *ngIf="showLoading" class="col-12 text-center text-loading" > Loading... </div>
 
     <div class="col-12 col-lg" [ngStyle]="{visibility: showLoading ? 'hidden' : 'visible'}">
-      <div class="row mb-2">
+      <div class="row mb-5">
         <div class="col-12">
           <div class="card-full-width">
             <div class="card-header">
@@ -80,7 +80,7 @@
                       (focus)="onShowSaveSolution()" (focusout)="onSolutionFocusOut()" cdkTextareaAutosize
                       cdkAutosizeMinRows="1"></textarea>
                   </mat-form-field>
-                  <div class="float-right" *ngIf="solutions.length > 0 || showSolutionContBtn">
+                  <div class="float-right" *ngIf="solutions.length > 0 && this.solutionsSaved || showSolutionContBtn && this.solutionsSaved">
                     <button type="button" mat-raised-button class="continue-btn"
                       (click)="showSolutionsForm = !showSolutionsForm">
                       Continue
@@ -90,7 +90,7 @@
               </div>
               <div *ngIf="solutions" class="text-right">
                 <div>
-                  <div class="float-left add-statement" (click)="showSolutionsForm = !showSolutionsForm">
+                  <div class="float-left add-statement" (click)="showSolutionForm()">
                     <mat-icon [ngStyle]="{ fontSize: '1rem', paddingTop: '0.125rem' }">add</mat-icon>
                     <div>Add Solution</div>
                   </div>

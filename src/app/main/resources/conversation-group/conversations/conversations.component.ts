@@ -888,8 +888,8 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
                 setTimeout(() => {
                   this.current_dialog[l].showTyping = false;
                   this.scrollPageToBottom();
-                }, this.newLine_dialog[l].length * 20 * l);
-              }, this.newLine_dialog[l].length * 20 * l);
+                }, 10 * 20 * l);
+              }, 100 * 20 * l);
             } else {
               this.text.dialog.push({
                 message: '',
@@ -904,11 +904,11 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
                 setTimeout(() => {
                   this.current_dialog[l].showTyping = false;
                   this.scrollPageToBottom();
-                }, this.newLine_dialog[l - 1].length * 20 * l + 500);
-              }, this.newLine_dialog[l - 1].length * 20 * l + 500);
+                }, 10 * 20 * l);
+              }, 100 * 20 * l);
             }
           }
-        }, timeout);
+        }, 1000);
       } else {
         if (this.dialog.message !== this.img_separator) {
           this.current_dialog.push({
@@ -961,13 +961,6 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         );
       }, 4000);
     } else {
-      // this.showTypingTime = this.dialog.message.split(' ');
-      // let t;
-      // if (this.showTypingTime.length / 35 < 1) {
-      //   t = 1000;
-      // } else {
-      //   t = (this.showTypingTime.length / 35) * 1000;
-      // }
       setTimeout(() => {
         this.dialog_options();
       }, 20 * 10 * 70 + 1100);
