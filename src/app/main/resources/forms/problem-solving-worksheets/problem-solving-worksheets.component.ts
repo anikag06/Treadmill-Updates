@@ -82,7 +82,8 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   stepName!: string;
   step_id!: number;
   showLoading = true;
-
+  showLoadingSpinner = false;
+  showProsConsSpinner = false;
   // menuOpen = false;
   @Input() fromSlide!: boolean;
   @Input() fromConv!: boolean;
@@ -358,7 +359,11 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   }
 
   onSolutionSaved() {
+    this.showLoadingSpinner = true;
     this.solutionsSaved = true;
+    setTimeout(() => {
+      this.showLoadingSpinner = false;
+    }, 500);
   }
 
   onShowSolutionContinue() {
@@ -374,7 +379,11 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   }
 
   onProsConsSaved() {
-    this.prosconsSaved = true;
+    this.showProsConsSpinner = true;
+    setTimeout(() => {
+      this.prosconsSaved = true;
+      this.showProsConsSpinner = false;
+    }, 500);
   }
 
   deleteBestSolution() {

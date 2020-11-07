@@ -26,10 +26,10 @@ export class TrfBehaviorCardComponent implements OnInit {
   @ViewChild('textArea', { static: false }) element!: ElementRef;
   showContinue = false;
   submitted = false;
-
+  showSpinner = false;
   constructor(
     private formBuilder: FormBuilder,
-    private thoughtRecordService: ThoughtRecordService,
+    private thoughtRecordService: ThoughtRecordService
   ) {}
 
   behaviorFormGroup = this.formBuilder.group({
@@ -52,10 +52,10 @@ export class TrfBehaviorCardComponent implements OnInit {
   }
 
   initializeBehavior() {
-    this.thoughtRecordService.getBehavior(this.thought.id).subscribe(resp => {
+    this.thoughtRecordService.getBehavior(this.thought.id).subscribe((resp) => {
       if (resp.ok) {
         this.behaviorFormGroup.controls['behavior'].setValue(
-          resp.body.behavior,
+          resp.body.behavior
         );
         this.editMode = true;
         this.showTechniques.emit(true);
@@ -79,17 +79,19 @@ export class TrfBehaviorCardComponent implements OnInit {
       if (this.thought && this.thought.id > 0 && this.editMode) {
         this.thoughtRecordService
           .putBehavior(object, this.thought.id)
-          .subscribe(resp => {
+          .subscribe((resp) => {
             status = resp.body.status;
             this.showContinue = false;
           });
       } else {
-        this.thoughtRecordService.postBehavior(object).subscribe(resp => {
+        this.showSpinner = true;
+        this.thoughtRecordService.postBehavior(object).subscribe((resp) => {
           const status = resp.ok;
           if (status) {
             // this.onShowTechniques.emit(true);
             this.showTechniques.emit(true);
             this.showContinue = false;
+            this.showSpinner = false;
           }
         });
       }

@@ -100,12 +100,12 @@
       #email
       email
       (input) = "usernameInput()">
-      <mat-hint  *ngIf = "usernameErrorMsgShow" class = "error-msg">We can't recognize this email id.<br> Please double-check it.</mat-hint>
+        <mat-hint  *ngIf = "usernameErrorMsgShow" class = "error-msg">We can't recognize this email id.<br> Please double-check it.</mat-hint>
     </mat-form-field>
 
     </div>
 
-    <div mat-dialog-actions class="d-flex justify-content-end">
+    <div mat-dialog-actions class="d-flex justify-content-end mt-4 mb-1">
     <button
       mat-raised-button
       *ngIf="!showUsernameLoading"

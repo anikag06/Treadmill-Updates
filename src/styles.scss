@@ -336,8 +336,8 @@ img.emoji {
   overflow: hidden;
 
   .mat-list-item-content {
-    padding-left: 24px;
-    padding-right: 0px;
+    padding-left: 24px !important;
+    padding-right: 0;
   }
 }
 
@@ -617,15 +617,21 @@ textarea{
   overflow-y: auto;
   padding: 1rem;
 }
-//.owl-dt-timer {
-//  height: 112px !important;
-//}
-//.owl-dt-inline-container .owl-dt-calendar  {
-//height: 324px !important;
-//}
+.mat-slider-thumb-label {
+  transform: rotate(45deg) !important;
+  border-radius: 50% 50% 0 !important;
+}
 
 .mat-checkbox.mat-accent {
   .mat-checkbox-inner-container {
     margin: 5px 8px auto 0;
   }
+}
+
+.mat-slider-thumb {
+  transform: scale(0) !important;
+}
+
+.mat-slider-thumb-label-text {
+  opacity: 1 !important;
 }

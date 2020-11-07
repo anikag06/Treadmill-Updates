@@ -45,13 +45,14 @@ export class NegativeThoughtCardComponent implements OnInit {
     'On a scale of 1-10 how strongly do you believe the thought to be true?';
   showContinueButton = false;
   showSliderButton = false;
-
+  showLoading = false;
+  showRatingSpinner = false;
   constructor(
     private fb: FormBuilder,
     private thoughtRecordService: ThoughtRecordService,
     private commonService: CommonService,
     private userProfileService: UserProfileService,
-    private authService: AuthService,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -104,11 +105,13 @@ export class NegativeThoughtCardComponent implements OnInit {
     if (this.negativeMoodRating > 0) {
       this.onThoughtRatingSubmit();
     } else {
+      this.showLoading = true;
       this.thoughtRecordService.postThought(object).subscribe((resp: any) => {
         const status = resp.ok;
         if (status) {
           this.showContinueButton = false;
           this.showSlider = true;
+          this.showLoading = false;
           if (!this.scoreUpdate) {
             this.scoreUpdate = true;
             if (this.user.is_exp) {
@@ -127,7 +130,7 @@ export class NegativeThoughtCardComponent implements OnInit {
       thought: this.thoughtRecordForm.value['thought'],
       thought_rating_initial: this.negativeMoodRating,
     };
-
+    this.showRatingSpinner = true;
     this.thoughtRecordService
       .putThoughtRating(object, this.thought.id)
       .subscribe((resp: any) => {
@@ -136,6 +139,7 @@ export class NegativeThoughtCardComponent implements OnInit {
           this.onShowSelectMood.emit(true);
           this.showContinueButton = false;
           this.showSliderButton = false;
+          this.showRatingSpinner = false;
           this.initialRatingChange.emit(this.negativeMoodRating);
           if (!this.scoreUpdate) {
             this.scoreUpdate = true;

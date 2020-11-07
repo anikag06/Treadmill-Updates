@@ -44,15 +44,17 @@ export class ActAsIfComponent implements OnInit {
   showAdvantages = false;
 
   editMode = false;
-  yes = 'Great! Then act "As if" you don\'t have the negative belief.';
-  no = 'Okay.';
+  yes =
+    '<img src="assets/forms/well_done.png" height="16px" > Great! Then act "As if" you don\'t have the negative belief.';
+  no = '&#129300; Okay.';
   summaryHeading = SUMMARY;
+  showSpinner = false;
 
   constructor(
     private formBuilder: FormBuilder,
     private changeDetector: ChangeDetectorRef,
     private actAsIfService: ActAsIfService,
-    private element: ElementRef,
+    private element: ElementRef
   ) {}
 
   @Input() belief!: Belief;
@@ -78,7 +80,7 @@ export class ActAsIfComponent implements OnInit {
           if (resp.body.data.advantages.length > 0) {
             resp.body.data.advantages.forEach((object: any) => {
               (this.actAsIfForm.controls.advantages as FormArray).push(
-                this.createEditItem(object.id, object.advantage),
+                this.createEditItem(object.id, object.advantage)
               );
               this.showTrashIcon.push(false);
             });
@@ -101,7 +103,7 @@ export class ActAsIfComponent implements OnInit {
 
   initalizeActAsIf(resp: any) {
     this.actAsIfForm.controls['how_would_i_act'].setValue(
-      resp.body.how_would_i_act,
+      resp.body.how_would_i_act
     );
     this.showAdvantages = true;
     this.editMode = true;
@@ -112,7 +114,7 @@ export class ActAsIfComponent implements OnInit {
       resp.body.would_it_help !== null
     ) {
       this.actAsIfForm.controls['would_it_help'].setValue(
-        resp.body.would_it_help,
+        resp.body.would_it_help
       );
     }
   }
@@ -179,14 +181,15 @@ export class ActAsIfComponent implements OnInit {
 
   onSubmit() {
     if (this.belief && !this.editMode) {
+      this.showSpinner = true;
       const object = {
         belief_id: this.belief.id,
         how_would_i_act: this.actAsIfForm.value['how_would_i_act'],
       };
-      this.actAsIfService.postActAsIf(object).subscribe(resp => {
+      this.actAsIfService.postActAsIf(object).subscribe((resp) => {
         if (resp.ok) {
           this.showActContinue = false;
-
+          this.showSpinner = false;
           this.showAdvantages = true;
           this.editMode = true;
           // this.showRadioCntBtn = true;
@@ -198,12 +201,14 @@ export class ActAsIfComponent implements OnInit {
         how_would_i_act: this.actAsIfForm.value['how_would_i_act'],
         would_it_help: this.actAsIfForm.value['would_it_help'],
       };
-      this.actAsIfService.putActAsIf(object, this.belief.id).subscribe(resp => {
-        if (resp.ok) {
-          this.summary = this.actAsIfForm.value['how_would_i_act'];
-          this.onSubmitAdvantages();
-        }
-      });
+      this.actAsIfService
+        .putActAsIf(object, this.belief.id)
+        .subscribe((resp) => {
+          if (resp.ok) {
+            this.summary = this.actAsIfForm.value['how_would_i_act'];
+            this.onSubmitAdvantages();
+          }
+        });
     }
   }
 
@@ -215,7 +220,7 @@ export class ActAsIfComponent implements OnInit {
     if (advantages.advantages[0].advantage) {
       this.actAsIfService
         .postAdvantages(advantages, this.belief.id)
-        .subscribe(resp => {
+        .subscribe((resp) => {
           if (resp.ok) {
             this.panel.expanded = false;
             this.panelCollapse();

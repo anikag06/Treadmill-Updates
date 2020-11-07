@@ -20,7 +20,11 @@
   </mat-form-field>
   <p class="text-right" (click)="onProblemSubmit()">
     <button type="button" mat-raised-button class="continue-btn">
-      Continue
+      <ng-container *ngIf="!showLoading; else loading">Continue </ng-container>
+      <ng-template #loading>
+        <span class="spinner-border spinner-border-sm"></span>
+        Loading..
+      </ng-template>
     </button>
   </p>
 </form>

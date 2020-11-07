@@ -20,7 +20,7 @@ import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecor
 export class MoodWidgetCardComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
-    public thoughtRecordService: ThoughtRecordService,
+    public thoughtRecordService: ThoughtRecordService
   ) {}
 
   showMoodWidget = false;
@@ -36,21 +36,23 @@ export class MoodWidgetCardComponent implements OnInit {
   rangeMargin: string[] = ['-20px', '17px', '60px', '98px', '125px'];
   circleMargin: string[] = ['15px', '17px', '11px', '10px', '17px'];
   emotions = ['Slightly', 'Somewhat', 'Quite', 'Very', 'Extremely'];
-
+  showSpinner = false;
   ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.thought && this.reset) {
       // console.log(this.thought);
-      this.thoughtRecordService.getFeelings(this.thought.id).subscribe(resp => {
-        // console.log(resp);
-        if (resp.body.data && resp.body.data.feelings.length > 0) {
-          this.moodSelected = true;
-          this.userFeelings = resp.body.data.feelings;
-          // console.log(this.userFeelings);
-          this.onShowRecordBehave.emit(true);
-        }
-      });
+      this.thoughtRecordService
+        .getFeelings(this.thought.id)
+        .subscribe((resp) => {
+          // console.log(resp);
+          if (resp.body.data && resp.body.data.feelings.length > 0) {
+            this.moodSelected = true;
+            this.userFeelings = resp.body.data.feelings;
+            // console.log(this.userFeelings);
+            this.onShowRecordBehave.emit(true);
+          }
+        });
     }
     if (this.reset) {
       this.resetMoodForm();
@@ -88,7 +90,7 @@ export class MoodWidgetCardComponent implements OnInit {
         // console.log(result.data);
         const emotions = result.data.emotions;
         const emotionsRating = result.data.emotionsRating;
-        const filtered = this.userFeelings.filter(function(e: UserFeeling) {
+        const filtered = this.userFeelings.filter(function (e: UserFeeling) {
           // @ts-ignore
           return this.indexOf(e.feeling) >= 0;
         }, emotions);
@@ -99,7 +101,7 @@ export class MoodWidgetCardComponent implements OnInit {
         emotions.forEach((feeling: string) => {
           let isFound = false;
           // @ts-ignore
-          this.userFeelings.find(obj => {
+          this.userFeelings.find((obj) => {
             if (obj.feeling === feeling) {
               obj.feeling_rating = emotionsRating[emotions.indexOf(feeling)];
               isFound = true;
@@ -128,6 +130,7 @@ export class MoodWidgetCardComponent implements OnInit {
       feelings: this.userFeelings,
     };
     // console.log(this.userFeelings);
+    this.showSpinner = true;
     this.thoughtRecordService
       .postFeelings(object, this.thought.id)
       .subscribe((resp: any) => {
@@ -135,6 +138,7 @@ export class MoodWidgetCardComponent implements OnInit {
         if (status) {
           this.onShowRecordBehave.emit(true);
           this.showSaveButton = false;
+          this.showSpinner = true;
         }
       });
   }

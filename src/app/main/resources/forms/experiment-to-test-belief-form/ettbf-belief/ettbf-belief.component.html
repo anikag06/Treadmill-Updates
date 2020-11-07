@@ -6,9 +6,7 @@
       #beliefTextArea
       matInput
       #formInput="matInput"
-      [placeholder]="
-            formInput.focused || formInput.empty ? 'Write here' : ''
-          "
+      [placeholder]="formInput.focused || formInput.empty ? 'Write here' : ''"
       cdkTextareaAutosize
       cdkAutosizeMinRows="1"
       id="beliefStatement"
@@ -39,10 +37,13 @@
   <p
     class="text-right"
     *ngIf="sliderContinue"
-    (click)="onBeliefRatingBeforeSubmit()"
   >
-    <button type="button" mat-raised-button class="continue-btn">
-      Continue
+    <button type="button" mat-raised-button class="continue-btn"   (click)="onBeliefRatingBeforeSubmit()">
+      <ng-container *ngIf="!showSpinner; else loading">Continue </ng-container>
+      <ng-template #loading>
+        <span class="spinner-border spinner-border-sm"></span>
+        Loading..
+      </ng-template>
     </button>
   </p>
 </form>

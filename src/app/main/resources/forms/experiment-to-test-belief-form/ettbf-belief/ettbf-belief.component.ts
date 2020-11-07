@@ -47,12 +47,13 @@ export class EttbfBeliefComponent implements OnInit {
   ratingQuestion = ETTBF_RATING_QUESTION;
   minRatingText = ETTBF_MIN_RATING_TEXT;
   maxRatingText = ETTBF_MAX_RATING_TEXT;
+  showSpinner = false;
 
   constructor(
     private ettbfBeliefService: ExperimentToTestBeliefService,
     private commonService: CommonService,
     private userProfileService: UserProfileService,
-    private authService: AuthService,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -68,6 +69,9 @@ export class EttbfBeliefComponent implements OnInit {
     if (this.belief) {
       this.showSlider = true;
     }
+    if (this.value) {
+      this.beliefClicked.emit(this.showSlider);
+    }
   }
   editBeliefText() {
     this.beliefTextArea.nativeElement.focus();
@@ -79,6 +83,9 @@ export class EttbfBeliefComponent implements OnInit {
   onBeliefSubmit() {
     this.showSlider = true;
     if (this.belief && Object.entries(this.belief).length > 0) {
+      if (!this.belief.belief_rating_before) {
+        this.showSpinner = true;
+      }
       this.belief.belief = this.beliefStatement;
       this.belief.belief_rating_before = this.initialSlider.rating;
       this.ettbfBeliefService
@@ -90,8 +97,9 @@ export class EttbfBeliefComponent implements OnInit {
         .subscribe(
           (data: any) => {
             this.belief = data.body;
-            console.log('the put request has been submitted');
             this.beliefClicked.emit(this.showSlider);
+            this.showSpinner = false;
+            this.sliderContinue = false;
             if (!this.scoreUpdate) {
               this.scoreUpdate = true;
               if (this.user.is_exp) {
@@ -99,9 +107,9 @@ export class EttbfBeliefComponent implements OnInit {
               }
             }
           },
-          error => {
+          (error) => {
             console.error(error);
-          },
+          }
         );
     } else {
       if (
@@ -112,15 +120,14 @@ export class EttbfBeliefComponent implements OnInit {
           (data: any) => {
             this.belief = data;
             this.beliefResponse = data;
-            console.log('the post request has been submitted');
             if (this.user.is_exp) {
               this.commonService.updateScore(FORM_START_SCORE);
             }
             // this.beliefClicked.emit(this.beliefContinue);
           },
-          error => {
+          (error) => {
             console.error(error);
-          },
+          }
         );
       }
     }
@@ -128,7 +135,6 @@ export class EttbfBeliefComponent implements OnInit {
   }
   onBeliefRatingBeforeSubmit() {
     this.onBeliefSubmit();
-    this.sliderContinue = false;
   }
   showSliderCont() {
     this.sliderContinue = true;

@@ -140,8 +140,11 @@
   }
   .input-container {
     .forgot-password {
-      justify-content: start;
+      //justify-content: start;
     }
+  }
+  .recover{
+    min-width: 90vw;
   }
 }
 

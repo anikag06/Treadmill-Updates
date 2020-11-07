@@ -61,14 +61,6 @@
                 </mat-icon>
               </div>
             </div>
-            <!-- <div class="card-body" *ngIf="worry && !worryEditMode" (click)="onWorryClick()">
-              <div class="form-editable-text-underline">
-                {{worry.worry}}
-              </div> <br />
-              <app-form-slider [question]="worrySliderQuestion" [minRatingText]="wSliderMinRangeText"
-                [maxRatingText]="wSliderMaxRangeText" [rating]="worry.worry_rating_initial">
-              </app-form-slider>
-            </div> -->
             <div class="card-body" (click)="onWorryClick()">
               <app-worry-form
                 [worry]="worry"
@@ -76,9 +68,6 @@
                 (updateWorry)="updateWorry($event)"
               ></app-worry-form>
             </div>
-            <!-- <div class="card-body" *ngIf="!worry" (click)="onWorryClick()">
-              <app-worry-form (testOut)="continueAfterSlider($event)"></app-worry-form>
-            </div> -->
           </div>
         </div>
       </div>
@@ -88,10 +77,6 @@
             <div class="card-header">
               Tick all the useless characteristics of your worry?
             </div>
-
-            <!-- <mat-checkbox [checked]="i.checked" (change)="OnCharacteristicCheck($event)" #Checkbox >
-                        {{i}}
-                 <br>       </mat-checkbox> -->
             <br />
             <div
               class="characteristics"
@@ -117,7 +102,13 @@
                 *ngIf="checkBoxContinue"
               >
                 <button type="button" mat-raised-button class="continue-btn">
-                  Continue
+                  <ng-container *ngIf="!showSpinner; else loading"
+                    >Done
+                  </ng-container>
+                  <ng-template #loading>
+                    <span class="spinner-border spinner-border-sm"></span>
+                    Loading..
+                  </ng-template>
                 </button>
               </p>
             </div>
@@ -183,7 +174,13 @@
             <div class="card-body" *ngIf="finalSliderCont">
               <p class="text-right" (click)="OnFinalSliderClick()">
                 <button type="button" mat-raised-button class="continue-btn">
-                  Continue
+                  <ng-container *ngIf="!showRatingSpinner; else loading"
+                    >Continue
+                  </ng-container>
+                  <ng-template #loading>
+                    <span class="spinner-border spinner-border-sm"></span>
+                    Loading..
+                  </ng-template>
                 </button>
               </p>
             </div>

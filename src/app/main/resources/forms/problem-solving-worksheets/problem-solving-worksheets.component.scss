@@ -6,3 +6,12 @@
   right: 16px;
   top: 13px;
 }
+.add-statement{
+  margin-left : 2.5rem ;
+}
+
+@media screen and (max-width: 960px){
+  .add-statement{
+    margin-left : 0 ;
+  }
+}

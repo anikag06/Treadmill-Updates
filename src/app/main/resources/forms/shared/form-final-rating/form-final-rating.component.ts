@@ -19,7 +19,7 @@ export class FormFinalRatingComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     @Inject('IFinalRatingServices')
-    private providerService: IFinalRatingServices[],
+    private providerService: IFinalRatingServices[]
   ) {}
 
   @Input() header!: string;
@@ -43,7 +43,8 @@ export class FormFinalRatingComponent implements OnInit {
     realistic: new FormControl('', [Validators.required]),
   });
   @Input() service!: number;
-
+  showSpinner = false;
+  showLoading = false;
   ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges) {
@@ -64,7 +65,7 @@ export class FormFinalRatingComponent implements OnInit {
                 .subscribe((data: any) => {
                   if (data.realistic) {
                     this.finalRatingForm.controls['realistic'].setValue(
-                      data.realistic,
+                      data.realistic
                     );
                     this.showRealistic = false;
                     this.editRealistic = true;
@@ -104,12 +105,14 @@ export class FormFinalRatingComponent implements OnInit {
           }
         });
     } else {
+      this.showSpinner = true;
       this.providerService[this.service]
         .postFinalRating(this.object.id, this.finalRating)
         .subscribe((resp: any) => {
           if (resp.ok) {
             this.showContinue = false;
             this.showRealistic = false;
+            this.showSpinner = true;
             if (this.initialRating > this.finalRating) {
               this.showRealisticDiv = true;
             } else {
@@ -134,10 +137,12 @@ export class FormFinalRatingComponent implements OnInit {
           }
         });
     } else {
+      this.showLoading = true;
       this.providerService[this.service]
         .postRealistic(this.object.id, realistic)
         .subscribe((resp: any) => {
           if (resp.ok) {
+            this.showLoading = false;
             this.formComplete.emit(this.finalRating);
             this.showRealistic = false;
           }

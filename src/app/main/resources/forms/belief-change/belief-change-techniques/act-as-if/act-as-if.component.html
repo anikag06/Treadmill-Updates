@@ -56,7 +56,13 @@
             (click)="onSubmit()"
             *ngIf="showActContinue && !editMode"
           >
-            Done
+            <ng-container *ngIf="!showSpinner; else loading"
+              >Done
+            </ng-container>
+            <ng-template #loading>
+              <span class="spinner-border spinner-border-sm"></span>
+              Loading..
+            </ng-template>
           </button>
         </div>
       </div>
@@ -139,11 +145,9 @@
             <div>
               <br />
               <div>
-                <div *ngIf="actAsIfForm.value['would_it_help'] === true">
-                  {{ yes }}
+                <div *ngIf="actAsIfForm.value['would_it_help'] === true" [innerHTML]="yes">
                 </div>
-                <div *ngIf="actAsIfForm.value['would_it_help'] === false">
-                  {{ no }}
+                <div *ngIf="actAsIfForm.value['would_it_help'] === false" [innerHTML]="no">
                 </div>
               </div>
               <br />
