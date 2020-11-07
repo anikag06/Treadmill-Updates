@@ -73,30 +73,29 @@ export class ExtraResourcesComponent implements OnInit {
       console.log('step id', this.step_id);
     });
     if (this.step_id) {
-      this.stepDataService.getStepData(this.step_id)
-        .subscribe((res: any) => {
-          const step = res.data;
-          console.log('RESPONSE', res.data, step.status);
-          // for navbar title
-          this.stepGroupSequence = step.step_group_sequence + 1;
-          this.stepSequence = step.sequence + 1;
-          this.stepName = 'Resources'; // page title will remain same irrespective of actual step name
-          this.navbarTitle =
-            this.stepGroupSequence.toString() +
-            '.' +
-            this.stepSequence.toString() +
-            ' ' +
-            this.stepName;
-          console.log('STEP DETAIL:', this.navbarTitle);
-          this.flowService.stepDetail.emit(this.navbarTitle);
-          if (step.data_type) {
-            if (step.data_type === TESTIMONIALS_PAGE) {
-              this.scrollDown(this.depression);
-            } else if (step.data_type === RESOURCES_PAGE) {
-              this.scrollDown(this.mindfulness);
-            }
+      this.stepDataService.getStepData(this.step_id).subscribe((res: any) => {
+        const step = res.data;
+        console.log('RESPONSE', res.data, step.status);
+        // for navbar title
+        this.stepGroupSequence = step.step_group_sequence + 1;
+        this.stepSequence = step.sequence + 1;
+        this.stepName = 'Resources'; // page title will remain same irrespective of actual step name
+        this.navbarTitle =
+          this.stepGroupSequence.toString() +
+          '.' +
+          this.stepSequence.toString() +
+          ' ' +
+          this.stepName;
+        console.log('STEP DETAIL:', this.navbarTitle);
+        this.flowService.stepDetail.emit(this.navbarTitle);
+        if (step.data_type) {
+          if (step.data_type === TESTIMONIALS_PAGE) {
+            this.scrollDown(this.depression);
+          } else if (step.data_type === RESOURCES_PAGE) {
+            this.scrollDown(this.mindfulness);
           }
-        });
+        }
+      });
     } else {
       console.log('STEP DETAIL: resources', this.navbarTitle);
       this.navbarTitle = 'Resources';

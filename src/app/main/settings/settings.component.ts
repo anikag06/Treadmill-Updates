@@ -79,7 +79,6 @@ export class SettingsComponent implements OnInit {
   formsEmailToggle!: boolean;
   weeklyEmailToggle!: boolean;
 
-
   @ViewChild('usernameForm', { static: true }) usernameForm!: NgForm;
   @ViewChild('passwordForm', { static: true }) passwordForm!: NgForm;
 
@@ -302,6 +301,5 @@ export class SettingsComponent implements OnInit {
     this.settingsService.updatedNotificationsState().subscribe(data => {
       console.log(data);
     });
-
   }
 }

@@ -29,7 +29,6 @@ export class ControlContentComponent implements OnInit {
   @ViewChild('target', { static: false }) target!: ElementRef;
   @ViewChild('target2', { static: false }) target2!: ElementRef;
 
-
   // x = '<div class="row"><div class="col"><h2 >hi</h2></div></div>' ;
   displayHtml: string | undefined;
   displayHtmlHeader: string | undefined;

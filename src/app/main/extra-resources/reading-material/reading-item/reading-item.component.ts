@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { map } from 'rxjs/operators';
@@ -19,7 +19,6 @@ export class ReadingItemComponent implements OnInit {
   @Input() usefulListItem!: UsefulListItem;
   @ViewChild('usefulList', { static: false }) usefulList!: ElementRef;
   @ViewChild('reading', { static: false }) reading!: ElementRef;
-
 
   readingIdToSend!: number;
   isLoaded = false;
@@ -52,7 +51,6 @@ export class ReadingItemComponent implements OnInit {
             console.log('each reading item data:', data);
             this.isLoaded = true;
             this.onScrollToTop(this.reading);
-
           });
       } else {
         this.extraResourcesService.readingItemClickedEvent.subscribe(data => {
@@ -60,10 +58,8 @@ export class ReadingItemComponent implements OnInit {
           this.readingItem = <ReadingItem>data;
           this.isLoaded = true;
           this.onScrollToTop(this.reading);
-
         });
       }
-
     }
     if (this.router.url.includes('/extra-resources/usefulList/')) {
       console.log('id at end');

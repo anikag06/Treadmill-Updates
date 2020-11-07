@@ -10,7 +10,6 @@ import { ReportService } from '@/main/support-groups/post-list/shared/report.ser
 import { CommonService } from '@/shared/common.service';
 import { SUPPORT_GROUP_THANKING_SCORE } from '@/app.constants';
 
-
 @Component({
   selector: 'app-thank',
   templateUrl: './thank.component.html',

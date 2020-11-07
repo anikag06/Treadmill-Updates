@@ -102,7 +102,7 @@ export class EttbfOutcomeComponent implements OnInit {
         .subscribe((resp: any) => {
           if (resp.ok && resp.body.expected_outcome) {
             this.expectedOutComeForm.controls['expected_outcome'].setValue(
-              resp.body.expected_outcome
+              resp.body.expected_outcome,
             );
             this.showOutcome = true;
           }
@@ -198,9 +198,9 @@ export class EttbfOutcomeComponent implements OnInit {
               this.commonService.updateScore(FOLLOW_UP_FORM_COMPLETE_SCORE);
             }
           },
-          (error) => {
+          error => {
             console.error(error);
-          }
+          },
         );
     } else {
       if (
@@ -218,9 +218,9 @@ export class EttbfOutcomeComponent implements OnInit {
                 this.commonService.updateScore(FOLLOW_UP_FORM_COMPLETE_SCORE);
               }
             },
-            (error) => {
+            error => {
               console.error(error);
-            }
+            },
           );
       }
     }
@@ -271,7 +271,10 @@ export class EttbfOutcomeComponent implements OnInit {
     const date = this.task.end_at + ' ' + this.task.time;
     this.disableEmergency =
       moment().format('YYYY-MM-DD HH:mm') <
-      moment.utc(date).local().format('YYYY-MM-DD HH:mm');
+      moment
+        .utc(date)
+        .local()
+        .format('YYYY-MM-DD HH:mm');
   }
   taskLoaded(data: any) {
     this.task = data;

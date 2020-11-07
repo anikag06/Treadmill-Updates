@@ -145,7 +145,6 @@ export class FlowPage {
       .then(() => {
         console.log('clickOnButton  Completed');
         button.click().then(() => {
-
           // uncomment for experimanetal group congrats-div
           // const dashboardBtn = element(by.css('.congrats-div')).element(
 
@@ -153,12 +152,13 @@ export class FlowPage {
           // );
 
           // uncomment for control group
-          const dashboardBtn = element(by.cssContainingText('button', 'Go to dashboard'));
+          const dashboardBtn = element(
+            by.cssContainingText('button', 'Go to dashboard'),
+          );
           browser.wait(this.EC.visibilityOf(dashboardBtn)).then(() => {
             dashboardBtn.click();
             console.log(btn, 'click');
           });
-
         });
       })
       .catch(() => {

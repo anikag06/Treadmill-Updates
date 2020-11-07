@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { CommonService } from '@/shared/common.service';
 import { PLAYING_GAMES_SCORE } from '@/app.constants';
-import {FfgHelpService} from '@/main/games/games-list/common-game/friendly-face-game/ffg-help.service';
+import { FfgHelpService } from '@/main/games/games-list/common-game/friendly-face-game/ffg-help.service';
 declare var playnextsong: any;
 declare var ffg_next_song: any;
 

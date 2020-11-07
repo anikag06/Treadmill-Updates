@@ -72,7 +72,7 @@ export class ResultComponent implements OnInit, OnChanges {
         },
         (error: HttpErrorResponse) => {
           console.log(error);
-        }
+        },
       );
     }
   }
@@ -89,7 +89,7 @@ export class ResultComponent implements OnInit, OnChanges {
           this.result = new Result(+data.id, this.resultBody, this.didWork);
           this.commonService.updateScore(FOLLOW_UP_FORM_COMPLETE_SCORE);
         },
-        (error) => console.log(error)
+        error => console.log(error),
       );
     } else {
       this.showSpinner = true;
@@ -99,7 +99,7 @@ export class ResultComponent implements OnInit, OnChanges {
           this.onShowMessage();
           this.commonService.updateScore(FOLLOW_UP_FORM_COMPLETE_SCORE);
         },
-        (error) => console.log(error)
+        error => console.log(error),
       );
     }
   }
@@ -110,7 +110,10 @@ export class ResultComponent implements OnInit, OnChanges {
     const date = this.task.end_at + ' ' + this.task.time;
     this.disableResult =
       moment().format('YYYY-MM-DD HH:mm') <
-      moment.utc(date).local().format('YYYY-MM-DD HH:mm');
+      moment
+        .utc(date)
+        .local()
+        .format('YYYY-MM-DD HH:mm');
   }
 
   onShowMessage() {

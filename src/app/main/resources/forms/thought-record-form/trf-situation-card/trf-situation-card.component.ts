@@ -35,7 +35,7 @@ export class TrfSituationCardComponent implements OnInit {
   constructor(
     // public dialog: MatDialog,
     private formBuilder: FormBuilder,
-    private thoughtRecordService: ThoughtRecordService
+    private thoughtRecordService: ThoughtRecordService,
   ) {}
 
   situationFormGroup = this.formBuilder.group({
@@ -77,13 +77,13 @@ export class TrfSituationCardComponent implements OnInit {
           }
         }
       },
-      (error: HttpErrorResponse) => {}
+      (error: HttpErrorResponse) => {},
     );
   }
 
   initializeSituation() {
     this.situationFormGroup.controls['situation'].setValue(
-      this.thought.situation
+      this.thought.situation,
     );
     this.showNegative.emit(true);
     this.editMode = true;
@@ -104,7 +104,7 @@ export class TrfSituationCardComponent implements OnInit {
       // this.hideNextStep = true;
     } else {
       const thought = this.thoughtRecordService.thoughts.find(
-        (t: Thought) => t.id === +data.id
+        (t: Thought) => t.id === +data.id,
       );
       if (thought) {
         this.thought = <Thought>data;
@@ -120,14 +120,14 @@ export class TrfSituationCardComponent implements OnInit {
     if (this.thought && this.thought.id > 0) {
       this.thoughtRecordService
         .putSituation(object, this.thought.id)
-        .subscribe((resp) => {
+        .subscribe(resp => {
           status = resp.body.status;
           this.showContinue = false;
           this.updateThought.emit(resp.body);
         });
     } else {
       this.showLoading = true;
-      this.thoughtRecordService.postSituation(object).subscribe((resp) => {
+      this.thoughtRecordService.postSituation(object).subscribe(resp => {
         const status = resp.ok;
         if (status) {
           this.updateThought.emit(resp.body);

@@ -99,7 +99,7 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private stepDataService: StepsDataService,
     private commonService: CommonService,
-    private userProfileService: UserProfileService
+    private userProfileService: UserProfileService,
   ) {}
 
   ngOnInit() {
@@ -164,7 +164,7 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscriptions.forEach((sub) => {
+    this.subscriptions.forEach(sub => {
       sub.unsubscribe();
     });
   }
@@ -198,14 +198,14 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
         this.problem.bestsolution = resp.solution_id;
         if (this.problem.bestsolution) {
           const bestSolution = this.solutions.find(
-            (sol) => sol.id === this.problem.bestsolution.solution_id
+            sol => sol.id === this.problem.bestsolution.solution_id,
           );
         }
       });
   }
 
   getBestSolutionText(solution_id: number) {
-    const bestSolution = this.solutions.find((sol) => sol.id === solution_id);
+    const bestSolution = this.solutions.find(sol => sol.id === solution_id);
     if (bestSolution) {
       return bestSolution.solution;
     }
@@ -306,7 +306,7 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
             this.problem.id,
             resp.data.solutions[lastIndex].solution,
             false,
-            0
+            0,
           );
           this.solutions.push(solution);
           this.showSolutionsForm = false;
@@ -348,7 +348,7 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
 
   onSolutionRemove(solution: Solution) {
     this.problemService.deleteSolution(solution.id).subscribe((data: any) => {
-      this.solutions = this.solutions.filter((solu) => solu !== solution);
+      this.solutions = this.solutions.filter(solu => solu !== solution);
       if (this.solutions.length === 0) {
         this.solutionsSaved = false;
       }

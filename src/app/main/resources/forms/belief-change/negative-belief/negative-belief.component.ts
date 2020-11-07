@@ -83,7 +83,7 @@ export class NegativeBeliefComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result && result.data) {
         this.negativeBeliefForm.controls['belief'].setValue(
-          result.data.selectedBelief
+          result.data.selectedBelief,
         );
         this.showBeliefLink = true;
         this.showContiue = true;
@@ -182,7 +182,7 @@ export class NegativeBeliefComponent implements OnInit {
       this.belief = new Belief(
         data.id,
         data.belief,
-        data.belief_rating_initial
+        data.belief_rating_initial,
       );
       this.beliefChangeService.addBelief(this.belief);
 
@@ -190,7 +190,7 @@ export class NegativeBeliefComponent implements OnInit {
       // this.hideNextStep = true;
     } else {
       const belief = this.beliefChangeService.beliefs.find(
-        (t: Belief) => t.id === +data.id
+        (t: Belief) => t.id === +data.id,
       );
       if (belief) {
         this.belief = <Belief>data;

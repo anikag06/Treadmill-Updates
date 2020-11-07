@@ -1,9 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-  FEEDBACK_SLIDE_SCORE,
-  SUPPORT_GROUP_UP_DOWN_VOTE_SCORE,
-} from '@/app.constants';
+import { FEEDBACK_SLIDE_SCORE } from '@/app.constants';
 import { CommonService } from '@/shared/common.service';
 
 @Component({
@@ -33,13 +30,9 @@ export class UserFeedbackComponent implements OnInit {
   voteFirstClick = false;
   onSubmit = false;
 
-  constructor(
-    private router: Router,
-    private commonService: CommonService,
-  ) {}
+  constructor(private router: Router, private commonService: CommonService) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   onDislikeBtnClick() {
     this.scrollPageToBottom();
@@ -105,11 +98,4 @@ export class UserFeedbackComponent implements OnInit {
       this.onSubmit = false;
     }, 5000);
   }
-
-  // upVoteFirstClicked() {
-  //   this.upVoteFirstClickEvent.emit();
-  // }
-  // downVoteFirstClicked() {
-  //   this.downVoteFirstClickEvent.emit();
-  // }
 }
