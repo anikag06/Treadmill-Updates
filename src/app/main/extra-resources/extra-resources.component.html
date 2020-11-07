@@ -17,9 +17,7 @@
 
   <div *ngIf = "countMindfulVideoItem > 4">
     <a  (click) = "changeMindfulnessVideoState()"  class = "see-all " *ngIf = "showMindfulnessVideoState == false; else mindfulVideoSeeLess"><img src = "assets/icons/arrow.svg">&nbsp; See all </a>
-    <ng-template #mindfulVideoSeeLess>
-      <a (click)="changeMindfulnessVideoState()" class = "see-all"><img src = "assets/icons/arrow.svg" class = "see-all-icon">&nbsp;See less</a>
-    </ng-template>
+
   </div>
   </div>
 
@@ -114,7 +112,9 @@
 <router-outlet  #outlet="outlet"></router-outlet>
 
 </div>
-
+<ng-template #mindfulVideoSeeLess>
+  <a (click)="changeMindfulnessVideoState()" class = "see-all"><img src = "assets/icons/arrow.svg" class = "see-all-icon">&nbsp;See less</a>
+</ng-template>
 
 <ng-template #videoCovid19SeeLess>
   <a (click) = "changeVideoOnCovid19State()" class = "see-all"><img src = "assets/icons/arrow.svg" class = "see-all-icon">&nbsp;See less</a>

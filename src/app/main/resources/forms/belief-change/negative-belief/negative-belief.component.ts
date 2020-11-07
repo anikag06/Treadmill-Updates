@@ -12,7 +12,6 @@ import { CommonBeliefComponent } from '@/main/resources/forms/belief-change/nega
 import { Belief } from '@/main/resources/forms/belief-change/belief.model';
 import { BeliefChangeService } from '@/main/resources/forms/belief-change/belief-change.service';
 import { CommonService } from '@/shared/common.service';
-import { UserProfileService } from '@/main/shared/user-profile/user-profile.service';
 import { FORM_START_SCORE } from '@/app.constants';
 import { User } from '@/shared/user.model';
 import { AuthService } from '@/shared/auth/auth.service';
@@ -28,8 +27,7 @@ export class NegativeBeliefComponent implements OnInit {
     private dialog: MatDialog,
     private beliefChangeService: BeliefChangeService,
     private commonService: CommonService,
-    private userProfileService: UserProfileService,
-    private authService: AuthService
+    private authService: AuthService,
   ) {}
   scoreUpdate = false;
   user!: User;

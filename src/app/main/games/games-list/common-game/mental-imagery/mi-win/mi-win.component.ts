@@ -32,8 +32,10 @@ export class MiWinComponent implements OnInit {
     // this.getCurrentStateService.continuePlaying = true;
     this.miPlayService.levelUpdate.emit();
     this.sendScoreAfterLevel2 += 1;
-    if (this.sendScoreAfterLevel2 === 2) {
+    this.miPlayService.sendScore += 1;
+    if (this.miPlayService.sendScore === 2) {
       this.commonService.updateScore(PLAYING_GAMES_SCORE);
+      console.log('next');
     }
   }
 }

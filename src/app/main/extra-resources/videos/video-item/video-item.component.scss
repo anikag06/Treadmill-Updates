@@ -39,15 +39,21 @@
     font-weight: bold;
 
   }
+  .row-margin {
+    //padding-left: -31px;
+  }
 
   .col-margin{
-    padding-left: 16px;
+   // padding-left: 16px;
     padding-right: 20%;
    // padding-top: 45px;
   }
   .videos-specs{
     vertical-align: initial;
     margin-top: 0px;
+  }
+  .col{
+    padding-left: 5px;
   }
 
 

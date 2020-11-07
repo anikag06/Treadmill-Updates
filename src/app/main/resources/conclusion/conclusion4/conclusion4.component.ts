@@ -22,7 +22,6 @@ import { CommonDialogsService } from '../../shared/common-dialogs.service';
 import { QuizService } from '@/shared/questionnaire/questionnaire.service';
 import { FlowService } from '@/main/flow/flow.service';
 import { CommonService } from '@/shared/common.service';
-import { UserProfileService } from '@/main/shared/user-profile/user-profile.service';
 import { User } from '@/shared/user.model';
 import { AuthService } from '@/shared/auth/auth.service';
 
@@ -71,7 +70,6 @@ export class Conclusion4Component implements OnInit, OnDestroy {
     private quizService: QuizService,
     private flowService: FlowService,
     private commonService: CommonService,
-    private userProfileService: UserProfileService,
     private authService: AuthService,
   ) {}
 

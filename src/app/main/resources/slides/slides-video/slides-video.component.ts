@@ -11,7 +11,6 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { LoadFilesService } from '@/main/games/shared/load-files.service';
 import { SlideService } from '../slide.service';
-import { UserProfileService } from '@/main/shared/user-profile/user-profile.service';
 import { CommonService } from '@/shared/common.service';
 import { MEDITATION_COMPLETE_SCORE } from '@/app.constants';
 import { User } from '@/shared/user.model';
@@ -41,7 +40,6 @@ export class SlidesVideoComponent implements OnInit, AfterViewInit {
     private sanitizer: DomSanitizer,
     private loadFileService: LoadFilesService,
     private slideService: SlideService,
-    private userProfileService: UserProfileService,
     private commonService: CommonService,
     private authService: AuthService,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any,

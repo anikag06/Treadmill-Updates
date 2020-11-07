@@ -12,6 +12,7 @@ export class FfgHelpService {
   silverValue!: any;
   goldValue!: any;
   show_tutorial = false;
+  sendScoreFfg = 0;
 
   constructor() {}
 

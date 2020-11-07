@@ -17,6 +17,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
 import { FlowService } from '@/main/flow/flow.service';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
+import {CommonService} from '@/shared/common.service';
+import {PLAYING_GAMES_SCORE} from '@/app.constants';
 
 declare var ASGAnswer: any;
 
@@ -41,9 +43,14 @@ export class AttributeStyleGameComponent implements OnInit, OnDestroy {
     private flowService: FlowService,
     private activatedRoute: ActivatedRoute,
     private stepDataService: StepsDataService,
+    private commonService: CommonService,
   ) {}
   @ViewChild('newElement', { static: false }) element!: ElementRef;
   @Output() showPlayButtons = new EventEmitter();
+  @HostListener('window:CallAsgLevelComplete')
+    onLevelComplete(userData: any) {
+      this.commonService.updateScore(PLAYING_GAMES_SCORE);
+  }
 
   ngOnInit() {
     console.log('game name', this.gamePlayService.gameName);

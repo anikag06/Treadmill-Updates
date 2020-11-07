@@ -3,6 +3,7 @@ import { Injectable, EventEmitter } from '@angular/core';
 @Injectable({ providedIn: 'root' })
 export class MIPlayService {
   constructor() {}
+  sendScore = 0;
 
   startPlaying = new EventEmitter<any>();
   levelUpdate = new EventEmitter<any>();

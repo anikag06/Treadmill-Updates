@@ -50,7 +50,6 @@ import { WorryProductivelyComponent } from '@/main/resources/forms/worry-product
 import { FlowService } from '@/main/flow/flow.service';
 import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
 import { CommonService } from '@/shared/common.service';
-import { UserProfileService } from '@/main/shared/user-profile/user-profile.service';
 import { User } from '@/shared/user.model';
 import { AuthService } from '@/shared/auth/auth.service';
 
@@ -108,7 +107,6 @@ export class SlidesComponent implements OnInit, AfterContentInit, DoCheck {
     private flowService: FlowService,
     private goToService: NavbarGoToService,
     private commonService: CommonService,
-    private userProfileService: UserProfileService,
     private authService: AuthService,
   ) {}
 

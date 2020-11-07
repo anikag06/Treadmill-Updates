@@ -78,22 +78,10 @@ export class SettingsComponent implements OnInit {
   formsFcmToggle!: boolean;
   formsEmailToggle!: boolean;
   weeklyEmailToggle!: boolean;
-  // toggle state coming from backend
-  // supportGroupEmailUpdate!: boolean;
-  // supportGroupFcmUpdate!: boolean;
-  // taskFormEmailUpdate!: boolean;
-  // taskFormFcmUpdate!: boolean;
-  // formsEmailUpdate!: boolean;
-  // formsFcmUpdate!: boolean;
-  // weeklyUpdate!: boolean;
+
 
   @ViewChild('usernameForm', { static: true }) usernameForm!: NgForm;
   @ViewChild('passwordForm', { static: true }) passwordForm!: NgForm;
-  // @ViewChild('username', { static: true }) username!: ElementRef;
-  // @ViewChild('real_password', { static: true }) real_password!: ElementRef;
-  // @ViewChild('currentPassword', { static: true }) current_password!: ElementRef;
-  // @ViewChild('newPassword', { static: true }) new_password!: ElementRef;
-  // @ViewChild('confirmPassword', { static: true }) confirm_password!: ElementRef;
 
   constructor(
     private http: HttpClient,
@@ -107,15 +95,8 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit() {
     this.user = <User>this.authService.isLoggedIn();
-    // this.oldScore = +this.userProfileService.getScoreValue();
-    // console.log('old score is ', this.oldScore);
     this.newUsername = this.user.username;
     console.log('initial weekly', this.weeklyEmailToggle);
-    // this.goToService.settingsPageShowEvent
-    //   .subscribe(() => {
-    //     this.settingsMainPageShow = true;
-    //     console.log('settings page emit', this.settingsMainPageShow);
-    //   });
     this.goToService.settingsPageShowEvent.subscribe(() => {
       console.log('username subscribe');
       this.usernameHeadingClicked = false;
@@ -151,11 +132,6 @@ export class SettingsComponent implements OnInit {
     this.router.navigate(['change-username'], { relativeTo: this.route });
     this.usernameHeadingClicked = !this.usernameHeadingClicked;
     this.goToService.settingsPageTitle.emit('Change Username');
-    // console.log('click here');
-    // this.commonService.postScore(this.oldScore)
-    //   .subscribe(() => {
-    //     console.log('old score is', this.oldScore);
-    //   });
   }
 
   changePasswordHeadingClicked() {
@@ -225,12 +201,6 @@ export class SettingsComponent implements OnInit {
 
             // this.fcmService.updateToken(data.status.token);
           }
-          // console.log(data.data);
-
-          // data.status((element: any) => {
-          //   console.log(element);
-          // });
-          // console.log(data.message);
         },
         error => {
           this.LoadingUsernamePasswordChange = false;
@@ -241,8 +211,6 @@ export class SettingsComponent implements OnInit {
           // this.usernamePasswordCorrectMessage = error.error.message;
         },
       );
-    // console.log(this.username.nativeElement.value);
-    // console.log(this.real_password.nativeElement.value);
   }
 
   confirmNewMatch() {
@@ -304,9 +272,6 @@ export class SettingsComponent implements OnInit {
     this.currentPassword = '';
     this.newPassword = '';
     this.confirmPassword = '';
-    // this.current_password.nativeElement.value = '';
-    // this.new_password.nativeElement.value = '';
-    // this.confirm_password.nativeElement.value = '';
   }
 
   passWordMessageRemove() {
@@ -324,8 +289,6 @@ export class SettingsComponent implements OnInit {
     console.log(toggle_on);
 
     this.toggleOnToShowSave = true;
-    // console.log('toggle', toggle_on);
-    // console.log('toggle:', this.supportGroupEmailToggle);
     this.settingsService
       .updatingNotifications(field, toggle_on)
       .subscribe((data: any) => {
@@ -340,6 +303,5 @@ export class SettingsComponent implements OnInit {
       console.log(data);
     });
 
-    // this.settingsService.updatingNotifications(true);
   }
 }

@@ -88,6 +88,7 @@ export class TasksComponent implements OnInit, OnChanges {
     // if (this.object && this.object.taskorigin) {
     //   this.loadTasks();
     // }
+    this.user = <User>this.authService.isLoggedIn();
     if (this.worryDetails) {
       const worryTask = 'Worry about ' + this.worryDetails;
       this.tasksGroup.controls['task'].setValue(worryTask);

@@ -13,7 +13,6 @@ import * as moment from 'moment';
 import { PROBLEM_SOLVING_QUOTES } from '@/main/resources/forms/problem-solving-worksheets/problem-solving-message';
 import { FormService } from '@/main/resources/forms/form.service';
 import { CommonService } from '@/shared/common.service';
-import { UserProfileService } from '@/main/shared/user-profile/user-profile.service';
 import { FOLLOW_UP_FORM_COMPLETE_SCORE } from '@/app.constants';
 import { User } from '@/shared/user.model';
 import { AuthService } from '@/shared/auth/auth.service';
@@ -28,8 +27,7 @@ export class ResultComponent implements OnInit, OnChanges {
     private problemService: ProblemSolvingWorksheetsService,
     private formService: FormService,
     private commonService: CommonService,
-    private userProfileService: UserProfileService,
-    private authService: AuthService
+    private authService: AuthService,
   ) {}
   @Input() solution_id!: number;
   @Input() task!: UserTask;

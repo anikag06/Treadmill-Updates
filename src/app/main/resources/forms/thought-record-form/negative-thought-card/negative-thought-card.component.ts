@@ -11,7 +11,6 @@ import {
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Thought } from '@/main/resources/forms/thought-record-form/thoughtRecord.model';
 import { ThoughtRecordService } from '@/main/resources/forms/thought-record-form/thought-record.service';
-import { UserProfileService } from '@/main/shared/user-profile/user-profile.service';
 import { CommonService } from '@/shared/common.service';
 import { FORM_START_SCORE } from '@/app.constants';
 import { User } from '@/shared/user.model';
@@ -51,8 +50,7 @@ export class NegativeThoughtCardComponent implements OnInit {
     private fb: FormBuilder,
     private thoughtRecordService: ThoughtRecordService,
     private commonService: CommonService,
-    private userProfileService: UserProfileService,
-    private authService: AuthService
+    private authService: AuthService,
   ) {}
 
   ngOnInit() {

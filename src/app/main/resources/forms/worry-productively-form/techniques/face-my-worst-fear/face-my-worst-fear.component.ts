@@ -14,7 +14,6 @@ import { FOLLOW_UP_FORM_COMPLETE_SCORE, WORRY_PROBLEM } from '@/app.constants';
 import { UserTask } from '../../../shared/tasks/user-task.model';
 import * as moment from 'moment';
 import { CommonService } from '@/shared/common.service';
-import { UserProfileService } from '@/main/shared/user-profile/user-profile.service';
 import { User } from '@/shared/user.model';
 import { AuthService } from '@/shared/auth/auth.service';
 
@@ -52,7 +51,6 @@ export class FaceMyWorstFearComponent implements OnInit {
     private fb: FormBuilder,
     private worryService: WorryProductivelyService,
     private commonService: CommonService,
-    private userProfileService: UserProfileService,
     private authService: AuthService,
   ) {}
   ngOnInit() {
