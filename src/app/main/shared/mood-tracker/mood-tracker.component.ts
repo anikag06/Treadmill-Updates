@@ -5,6 +5,7 @@ import {
   ElementRef,
   EventEmitter,
   Inject,
+  Input,
   OnInit,
   Optional,
   Output,
@@ -49,6 +50,7 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
   @Output() moodSubmit = new EventEmitter<any>();
   @ViewChildren('option') checkBox!: QueryList<any>;
   moodArray: any[] = [];
+  @Input() moduleName!: string;
   constructor(
     private element: ElementRef,
     @Optional() public dialogRef: MatDialogRef<MoodTrackerComponent>,
@@ -207,7 +209,12 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
   onMoodSubmit() {
     const emotions = this.element.nativeElement.querySelectorAll('.emotions');
     let count = 0;
-    let chatMoodMessage = 'I felt ';
+    let chatMoodMessage;
+    if (this.moduleName === 'mood_tracker') {
+      chatMoodMessage = 'I am feeling ';
+    } else if (this.moduleName === 'thought_record') {
+      chatMoodMessage = 'I felt ';
+    }
     const neutral_index = 11;
     for (let i = 0; i < emotions.length; i++) {
       const option = this.checkBox.find((ele, index) => index === i);
@@ -258,9 +265,9 @@ export class MoodTrackerComponent implements OnInit, AfterViewInit {
         if (count === this.emotionCount - 1 && this.emotionCount > 1) {
           chatMoodMessage += ' and ';
         }
-        // if (count === this.emotionCount) {
-        //   chatMoodMessage += ' today';
-        // }
+        if (count === this.emotionCount && this.moduleName === 'mood_tracker') {
+          chatMoodMessage += ' today';
+        }
       }
     }
     const moodSelected = {

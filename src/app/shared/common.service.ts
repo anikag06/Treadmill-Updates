@@ -20,7 +20,7 @@ export class CommonService {
     private authService: AuthService,
     private http: HttpClient,
     private userProfileService: UserProfileService,
-    private snackBar: MatSnackBar,
+    private snackBar: MatSnackBar
   ) {
     this.user = this.authService.isLoggedIn()!;
   }
@@ -31,7 +31,7 @@ export class CommonService {
       new Observable((sub: Observer<boolean>) => {
         sub.next(navigator.onLine);
         sub.complete();
-      }),
+      })
     );
   }
 
@@ -50,7 +50,7 @@ export class CommonService {
         '/api/v1/user/user-profile/' +
         this.user.username,
       body,
-      httpOptions,
+      httpOptions
     );
   }
   postScoreForOther(score: number, username: string) {
@@ -66,7 +66,7 @@ export class CommonService {
     return this.http.patch(
       environment.API_ENDPOINT + '/api/v1/user/user-profile/' + username,
       body,
-      httpOptions,
+      httpOptions
     );
   }
 
@@ -82,5 +82,11 @@ export class CommonService {
     this.newScore = this.oldScore + score;
     this.userProfileService.setScoreValue(this.newScore);
     this.showSnackBar('+' + score.toString() + ' ' + 'Points', '');
+  }
+  updateIntroScore(score: number) {
+    this.postScore(score).subscribe(() => {});
+    this.oldScore = +this.userProfileService.getScoreValue();
+    this.newScore = this.oldScore + score;
+    this.userProfileService.setScoreValue(this.newScore);
   }
 }

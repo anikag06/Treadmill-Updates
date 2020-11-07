@@ -51,7 +51,7 @@
             <app-chat-video [videoUrl]="embed_link.url"></app-chat-video>
           </ng-container>
           <ng-template #image>
-            <app-chat-image [image]="embed_link"></app-chat-image>
+            <app-chat-image class="chatbot" [image]="embed_link"></app-chat-image>
           </ng-template>
         </div>
 
@@ -71,6 +71,7 @@
             <div *ngIf="showMoodTracker">
               <app-mood-tracker
                 class="chatbot"
+                [moduleName] = "currentModule"
                 (onClose)="onMoodSelect()"
                 (moodSubmit)="onChatSubmit()"
                 (moodMessage)="getMoodMessage($event)"

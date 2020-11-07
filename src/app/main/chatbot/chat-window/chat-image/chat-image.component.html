@@ -6,7 +6,7 @@
   src="{{ image.url }}"
   [ngStyle]="{
     maxWidth: width,
-   width : '100%'
+    width: '100%'
   }"
   (click)="changeUrl()"
   alt="image"
@@ -34,8 +34,7 @@
     ></mat-progress-spinner>
   </div>
   <div class="creditDiv">
-    <span> Powered By </span>
-    <a class="link" href="https://giphy.com" target="_blank">GIPHY</a>
+    <img src="assets/chatbot/giphy.svg" alt="giphy" width="80px"/>
   </div>
 </div>
 
@@ -63,12 +62,22 @@
   *ngIf="!dataLoaded"
 >
   <div class="card">
-    <div [ngStyle]="{width : !fromConversation ?  '280px': '230px'}"  class="card-body text-center">
-      <div [ngStyle]="{left : !fromConversation ?  '50%': '30%'}" class="skeleton-text" *ngIf="showGIFIcon; else imageIcon">
+    <div
+      [ngStyle]="{ width: !fromConversation ? '280px' : '230px' }"
+      class="card-body text-center"
+    >
+      <div
+        [ngStyle]="{ left: !fromConversation ? '50%' : '30%' }"
+        class="skeleton-text"
+        *ngIf="showGIFIcon; else imageIcon"
+      >
         GIF
       </div>
       <ng-template #imageIcon>
-        <div [ngStyle]="{left : !fromConversation ?  '50%': '42%'}" class="img-icon">
+        <div
+          [ngStyle]="{ left: !fromConversation ? '50%' : '42%' }"
+          class="img-icon"
+        >
           <svg
             width="50"
             height="50"
