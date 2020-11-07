@@ -9,7 +9,6 @@ import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
 import { StepCompleteData } from '@/main/resources/shared/completion-data.model';
 import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.service';
 import { CommonService } from '@/shared/common.service';
-import { UserProfileService } from '@/main/shared/user-profile/user-profile.service';
 import { User } from '@/shared/user.model';
 import { AuthService } from '@/shared/auth/auth.service';
 
@@ -42,7 +41,6 @@ export class Introduction6Component implements OnInit {
     private flowStepService: FlowStepNavigationService,
     private goToService: NavbarGoToService,
     private commonService: CommonService,
-    private userProfileService: UserProfileService,
     private authService: AuthService,
   ) {}
 

@@ -56,7 +56,6 @@ import { map, switchMap } from 'rxjs/operators';
 import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
 import { FlowService } from '@/main/flow/flow.service';
 import { CommonService } from '@/shared/common.service';
-import { UserProfileService } from '@/main/shared/user-profile/user-profile.service';
 import { User } from '@/shared/user.model';
 import { AuthService } from '@/shared/auth/auth.service';
 
@@ -168,7 +167,6 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     private elementRef: ElementRef,
     private changRef: ChangeDetectorRef,
     private commonService: CommonService,
-    private userProfileService: UserProfileService,
     private authService: AuthService,
   ) {
     this.activeroute.params.pipe(map(v => v.id)).subscribe(params => {

@@ -19,6 +19,7 @@ export class IdcWinComponent implements OnInit {
     private gameService: IdcGameService,
     private dialogBoxService: DialogBoxService,
     private commonService: CommonService,
+    private idcGameServie: IdcGameService,
   ) {}
 
   ngOnInit() {}
@@ -36,7 +37,8 @@ export class IdcWinComponent implements OnInit {
       this.gameService.serviceCall();
     }
     this.sendScoreAfterLevel2 += 1;
-    if (this.sendScoreAfterLevel2 === 2) {
+    this.idcGameServie.sendScore += 1;
+    if (this.idcGameServie.sendScore === 2) {
       this.commonService.updateScore(PLAYING_GAMES_SCORE);
     }
   }

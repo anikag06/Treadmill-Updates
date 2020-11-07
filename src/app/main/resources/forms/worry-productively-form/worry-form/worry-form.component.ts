@@ -12,7 +12,6 @@ import { Worry } from '../worry.model';
 import { WorryProductivelyService } from '../worry-productively.service';
 import { FormSliderComponent } from '../../shared/form-slider/form-slider.component';
 import { CommonService } from '@/shared/common.service';
-import { UserProfileService } from '@/main/shared/user-profile/user-profile.service';
 import { FORM_START_SCORE } from '@/app.constants';
 import { User } from '@/shared/user.model';
 import { AuthService } from '@/shared/auth/auth.service';
@@ -35,7 +34,6 @@ export class WorryFormComponent implements OnInit {
   constructor(
     private worryService: WorryProductivelyService,
     private commonService: CommonService,
-    private userProfileService: UserProfileService,
     private authService: AuthService,
   ) {}
   worryStatement = '';

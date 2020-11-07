@@ -24,7 +24,6 @@ import { UserTask } from '../../shared/tasks/user-task.model';
 import * as moment from 'moment';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { CommonService } from '@/shared/common.service';
-import { UserProfileService } from '@/main/shared/user-profile/user-profile.service';
 
 @Component({
   selector: 'app-ettbf-outcome',
@@ -43,7 +42,6 @@ export class EttbfOutcomeComponent implements OnInit {
   @ViewChild('expectedOutcome', { static: false })
   expectedOutcomeArea!: ElementRef;
   @ViewChild('realisticBeliefTextArea', { static: false })
-  followUpOldScore!: number;
   outcomeSubmit = 0;
   realisticBeliefTextArea!: ElementRef;
   outcomeStatement = '';
@@ -76,7 +74,6 @@ export class EttbfOutcomeComponent implements OnInit {
     private ettbfBeliefService: ExperimentToTestBeliefService,
     private formBuilder: FormBuilder,
     private commonService: CommonService,
-    private userProfileService: UserProfileService,
   ) {}
 
   ngOnInit() {
@@ -85,7 +82,6 @@ export class EttbfOutcomeComponent implements OnInit {
       this.onDisableEmergency();
       // this.taskLoaded;
     }
-    this.followUpOldScore = +this.userProfileService.getScoreValue();
     // if( this.belief.taskorigin){
     //   this.ettbfBeliefService.getTasks(this.belief.taskorigin.task_id).subscribe(
     //     (resp : any)=>{

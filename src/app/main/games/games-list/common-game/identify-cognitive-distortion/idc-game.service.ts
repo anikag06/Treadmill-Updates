@@ -34,6 +34,7 @@ export class IdcGameService implements OnInit {
   optionSelected!: string;
   optionMessage!: string;
   score!: number;
+  sendScore = 0;
   correctOptionsLength!: number;
   correctOptionFound = -1;
   userData = new ICDGameUserData(0, 0, 0);

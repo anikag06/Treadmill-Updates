@@ -5,9 +5,6 @@ import {
   SUPPORT_GROUP_UP_DOWN_VOTE_SCORE,
 } from '@/app.constants';
 import { CommonService } from '@/shared/common.service';
-import { UserProfileService } from '@/main/shared/user-profile/user-profile.service';
-import { AuthService } from '@/shared/auth/auth.service';
-import { User } from '@/shared/user.model';
 
 @Component({
   selector: 'app-user-feedback',
@@ -34,17 +31,13 @@ export class UserFeedbackComponent implements OnInit {
   final_feedback!: any;
   feedback_text!: string;
   voteFirstClick = false;
-  user!: User;
 
   constructor(
     private router: Router,
     private commonService: CommonService,
-    private userProfileService: UserProfileService,
-    private authService: AuthService,
   ) {}
 
   ngOnInit() {
-    this.user = <User>this.authService.isLoggedIn();
   }
 
   onDislikeBtnClick() {

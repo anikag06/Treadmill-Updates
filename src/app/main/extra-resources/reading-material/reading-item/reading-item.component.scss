@@ -1,19 +1,21 @@
+
+
 .fix-reading-header-title {
-  //margin-top: 2px; //this value is for desktop, phone value will be different and needs to be changed
-  margin-top: 13px;
-  margin-bottom: 2px;
- // color: white;
   color: black;
   //font-size: 24px; //this value is for desktop, phone value will be different and needs to be changed
   font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .fix-reading-header {
+  display: flex;
   height: 48px;
   min-height: 42px;
   background-color: white;
   color: black;
-  justify-content: start;
+  justify-content: flex-start;
   padding-left: 16px;
 
 }
@@ -30,8 +32,12 @@
 }
 
 @media only screen and (min-width: 769px) {
+  .row-margin {
+    margin-left: -30px;
+  }
 
   .fix-reading-header {
+    display: flex;
     height: 48px;
     min-height: 42px;
     background-color: #2A3B3D;
@@ -41,10 +47,14 @@
 
   .fix-reading-header-title {
     //margin-top: 2px;
-    margin-top: 11px;
-    margin-bottom: 18px;
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   // margin-bottom: 118px;
     font-size: 24px;
     color: white;
+   // text-align: center;
   } //changing title font size for mobile
 
   .fix-reading-box{
@@ -52,6 +62,11 @@
   }
 
 
+}
+@media only screen and (min-width: 1024px) {
+  .row-margin {
+    padding-left: -12px !important;
+  }
 }
 
 

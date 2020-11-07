@@ -8,10 +8,8 @@ import {
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ReportService } from '@/main/support-groups/post-list/shared/report.service';
 import { CommonService } from '@/shared/common.service';
-import { UserProfileService } from '@/main/shared/user-profile/user-profile.service';
 import { SUPPORT_GROUP_THANKING_SCORE } from '@/app.constants';
-import { User } from '@/shared/user.model';
-import { AuthService } from '@/shared/auth/auth.service';
+
 
 @Component({
   selector: 'app-thank',
@@ -19,7 +17,6 @@ import { AuthService } from '@/shared/auth/auth.service';
   styleUrls: ['./thank.component.scss'],
 })
 export class ThankComponent implements OnInit {
-  user!: User;
   id!: number;
   thanked!: boolean;
   username!: string;
@@ -34,8 +31,6 @@ export class ThankComponent implements OnInit {
     private reportService: ReportService,
     private changeDetector: ChangeDetectorRef,
     private commonService: CommonService,
-    private userProfileService: UserProfileService,
-    private authService: AuthService,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
     if (data) {
@@ -46,7 +41,6 @@ export class ThankComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.user = <User>this.authService.isLoggedIn();
     this.postType = this.type;
     if (this.type === 'nestedcomment') {
       this.postType = 'reply';

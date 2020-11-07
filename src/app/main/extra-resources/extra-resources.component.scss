@@ -71,8 +71,11 @@ i {
     height: 296px;
   }
   .each-item{
-    padding: 0px 16px 32px;
+   // padding: 0px 32px 0px 32px;
+    padding: 0px 32px 0px 0px;
     width: 25%;
+    margin-top: 16px;
+    margin-bottom: 16px;
   }
 
   .heading{
@@ -80,11 +83,14 @@ i {
     //padding-left: 5px;
   }
   .see-all{
-    padding-right: 1%;
+    padding-right: 2%;
     float: right;
   }
   .space-below-section{
     padding-bottom: 86px;
+  }
+  .end-space{
+    padding-bottom: 156px;
   }
 }
 @media screen and (max-width: 1800px) {
@@ -93,14 +99,17 @@ i {
 
   }
   .videos-card-hidden {
-    height: 220px;
+    height: 230px;
   }
   .reading-card-hidden {
-    height: 220px;
+    height: 230px;
   }
   .each-item{
-    padding: 0px 16px 32px;
+    //padding: 0px 16px 32px;
+    padding: 0px 27px 0px 5px;
     width: 25%;
+    margin-top: 16px;
+    margin-bottom: 16px;
   }
 
   .heading{
@@ -108,11 +117,14 @@ i {
    // padding-left: 5px;
   }
   .see-all{
-    padding-right: 1.5%;
+    padding-right: 2.6%;
     float: right;
   }
   .space-below-section{
     padding-bottom: 47px;
+  }
+  .end-space{
+    padding-bottom: 156px;
   }
 }
 
@@ -122,14 +134,17 @@ i {
 
   }
   .videos-card-hidden{
-    height: 200px;
+    height: 220px;
   }
   .reading-card-hidden{
-    height: 200px;
+    height: 220px;
   }
   .each-item{
-    padding: 0px 16px 32px;
+    // padding: 0px 16px 32px;
+    padding: 0px 27px 0px 5px;
     width: 25%;
+    margin-top: 16px;
+    margin-bottom: 16px;
   }
 
   .heading{
@@ -137,11 +152,14 @@ i {
     padding-left: 5px;
   }
   .see-all{
-    padding-right: 1.5%;
+    padding-right: 2.8%;
     float: right;
   }
   .space-below-section{
     padding-bottom: 47px;
+  }
+  .end-space{
+    padding-bottom: 156px;
   }
 }
 @media screen and (width: 1366px) {
@@ -153,6 +171,9 @@ i {
   }
   .space-below-section{
     padding-bottom: 47px;
+  }
+  .end-space{
+    padding-bottom: 144px;
   }
 }
 @media screen and (max-width: 1280px){
@@ -166,8 +187,11 @@ i {
     height: 198px;
   }
   .each-item{
-    padding: 0px 10px 32px;
+    // padding: 0px 10px 32px;
+    padding: 0px 15px 0px 5px;
     width: 25%;
+    margin-top: 16px;
+    margin-bottom: 16px;
   }
 
   .heading{
@@ -175,13 +199,15 @@ i {
     padding-left: 5px;
   }
   .see-all{
-    padding-right: 1.5%;
+    padding-right: 2.5%;
     float: right;
   }
   .space-below-section{
     padding-bottom: 47px;
   }
-
+  .end-space{
+    padding-bottom: 156px;
+  }
 }
 
 @media screen and (max-width: 991px) {
@@ -198,6 +224,8 @@ i {
   .each-item{
     padding: 0px 7px 14px;
     width: 25%;
+    margin-top: 0px;
+    margin-bottom: 0px;
   }
 
   .heading{
@@ -209,6 +237,9 @@ i {
   }
   .space-below-section{
     padding-bottom: 27px;
+  }
+  .end-space{
+    padding-bottom: 156px;
   }
 }
 
@@ -229,6 +260,8 @@ i {
   .each-item{
     padding: 0px 7px 14px;
     width: 25%;
+    margin-top: 0px;
+    margin-bottom: 0px;
   }
 
   .heading{
@@ -236,10 +269,13 @@ i {
     padding-left: 7px;
   }
   .see-all{
-    padding-left: 90% ;
+    padding-left: 94% ;
   }
   .space-below-section{
     padding-bottom: 27px;
+  }
+  .end-space{
+    padding-bottom: 156px;
   }
 }
 
@@ -254,6 +290,8 @@ i {
   .each-item{
     padding: 0px 7px 14px;
     width: 50%;
+    margin-top: 0px;
+    margin-bottom: 0px;
   }
   .videos-card-hidden{
     height: 408px;
@@ -266,6 +304,9 @@ i {
   }
   .space-below-section{
     padding-bottom: 27px;
+  }
+  .end-space{
+    padding-bottom: 72px;
   }
 }
 
@@ -289,6 +330,8 @@ i {
   .each-item{
     padding: 0px 7px 14px;
     width: 50%;
+    margin-top: 0px;
+    margin-bottom: 0px;
   }
 
   .see-all{
@@ -296,6 +339,9 @@ i {
   }
   .space-below-section{
     padding-bottom: 27px;
+  }
+  .end-space{
+    padding-bottom: 72px;
   }
 }
 @media screen and (max-width: 320px) {
@@ -311,6 +357,9 @@ i {
   }
   .space-below-section{
     padding-bottom: 27px;
+  }
+  .end-space{
+    padding-bottom: 72px;
   }
 }
 

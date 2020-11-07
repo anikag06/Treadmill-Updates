@@ -102,6 +102,7 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.user = <User>this.authService.isLoggedIn();
     this.activatedRoute.params.subscribe(v => {
       this.step_id = v.step_id;
       console.log('step id', this.step_id);

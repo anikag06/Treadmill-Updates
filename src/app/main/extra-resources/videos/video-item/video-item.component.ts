@@ -92,7 +92,7 @@ export class VideoItemComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit() {
     this.init();
 
-    if (this.router.url.includes('/extra-resources/mindfulnessVideo/')) {
+    if (this.router.url.includes('/mindfulnessVideo/')) {
       console.log('id at end');
       this.eachVideoType = 'mindfulnessVideo';
       if (this.mindfulnessVideo == null) {
@@ -118,7 +118,7 @@ export class VideoItemComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     }
 
-    if (this.router.url.includes('/extra-resources/videoCovid19/')) {
+    if (this.router.url.includes('/videoCovid19/')) {
       console.log('id at end');
       this.eachVideoType = 'videoCovid19';
       if (this.videoCovid19 == null) {
@@ -142,7 +142,7 @@ export class VideoItemComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     }
 
-    if (this.router.url.includes('/extra-resources/videoItem/')) {
+    if (this.router.url.includes('/videoItem/')) {
       console.log('id at end');
       this.eachVideoType = 'video';
       if (this.video == null) {
