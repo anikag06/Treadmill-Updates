@@ -1,4 +1,4 @@
-<div class="d-flex flex-row post-item no-gutters" #container [ngStyle]="{visibility: showLoading ? 'hidden' : 'visible'}">
+<div class="d-flex flex-row post-item no-gutters" #container [ngStyle]="{visibility: showLoading ? 'hidden' : 'visible'}" matRipple  [matRippleColor]="'#00000020'">
 
   <div class=" d-inline-flex flex-column align-items-start">
 
@@ -12,7 +12,7 @@
     </div> -->
 
   </div>
-  <div class=" d-inline-flex flex-column align-items-start" style="cursor:pointer;"
+  <div class=" d-inline-flex flex-column align-items-start"
     (click)="onPostClick(suggestedPost.id)">
 
     <div class="main-header w-100">
