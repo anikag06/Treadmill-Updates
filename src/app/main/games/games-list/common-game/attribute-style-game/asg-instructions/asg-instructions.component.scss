@@ -24,6 +24,12 @@
   font-size: 14px;
 }
 
+li.instrn-text {
+  display: list-item;
+  list-style-type: disc;
+}
+
+
 /* For thinning the ScrollBar */
 /* width */
 ::-webkit-scrollbar {
@@ -43,4 +49,14 @@
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+@media screen and (max-width: 767px) and (orientation:landscape) {
+
+  .content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-direction: row-reverse; //revert horizontally
+  }
 }

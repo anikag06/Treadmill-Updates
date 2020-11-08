@@ -17,7 +17,6 @@ export class AsgInstructionsComponent implements OnInit {
 
   ngOnInit() {
     this.viewSummary = this.gamePlayService.ASG_show_summary;
-    console.log(this.viewSummary, this.gamePlayService.ASG_show_summary);
   }
 
   asgGameStart() {

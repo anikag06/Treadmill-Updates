@@ -65,6 +65,7 @@
 #common-start-btn {
   z-index: 2;
   max-width: 60px;
+  cursor: pointer;
 }
 
 // #common-pause,.common-sound, #common-hint {
@@ -137,7 +138,7 @@
 
 @media screen and (max-width: 575px) {
   #game_div {
-     height: 90vh;
+    height: calc(100vh - 56px);
     width: 100vw !important;
   }
   .common-div {
