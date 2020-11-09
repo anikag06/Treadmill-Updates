@@ -13,11 +13,11 @@
             <div class="text-para">
             Do you know why some people are able to cope effectively when something bad happens to them?
             <!-- <image> -->
-              <img src="assets/introduction/Lost job due to COVID-19 - positive.svg" alt="Lost job due to COVID-19 " style="width: 100% ; margin:10px 0">
+              <img class="intro-img" src="assets/introduction/Lost job due to COVID-19 - positive.svg" alt="Lost job due to COVID-19" >
 
               While others can't?
             <!-- <image> -->
-              <img src="assets/introduction/Lost job due to COVID-19-negative.svg" alt="Lost job due to COVID-19 " style="width: 100% ; margin:10px 0">
+              <img class="intro-img" src="assets/introduction/Lost job due to COVID-19-negative.svg" alt="Lost job due to COVID-19">
 
               Do you know how well you are able to cope when something bad happens to you?
             <br>
@@ -26,7 +26,7 @@
              <br><br>
 <!--    <h5>Dummy Sub Title</h5>-->
     Write a recent upsetting <span class="emphasis">situation</span>.
-    <mat-form-field style="width:100% !important">
+    <mat-form-field style="width:100% !important" [floatLabel]="'never'">
       <input type="text" matInput placeholder="Example- I got fired from my job." [(ngModel)]="situation"   (focus)="onsituationSave()" (focusout)="onsituationFocusOut()">
       <mat-hint *ngIf="situationSave ">Saving...</mat-hint>
     </mat-form-field>
@@ -34,7 +34,7 @@
 
   <div>
     What <span class="emphasis">thought</span> did you have after the <span class="emphasis">situation</span>?
-    <mat-form-field>
+    <mat-form-field [floatLabel]="'never'">
       <textarea matInput [(ngModel)]="thought"
                 cdkTextareaAutosize
                 cdkAutosizeMinRows="1"
