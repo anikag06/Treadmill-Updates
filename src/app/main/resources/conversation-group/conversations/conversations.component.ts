@@ -178,8 +178,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
 
   // avatar_image!: any[];
   send_image!: any;
-  show_avatar_image =
-    'https://www.api2.treadwill.org/media/conversations/avataaars.png';
+  show_avatar_image!: string;
   newLine_message!: any;
   newLine_dialog!: any;
   mupltiple_line!: any;
@@ -328,11 +327,13 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
           res.title,
           res.final_conclusion_message,
           res.gender,
+          res.avatar_image_url,
           res.dialog_options,
         );
         this.title = this.conversation.title;
         this.flowService.stepDetail.emit(this.title);
         this.gender = this.conversation.gender;
+        this.show_avatar_image = this.conversation.show_avatar_image;
         this.final_conclusion_message = this.conversation.final_conclusion_message;
         this.length_conversation = this.conversation.dialogs.length;
         this.wrong = false;
