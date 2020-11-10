@@ -46,7 +46,7 @@
   </div>
   <div>
     How did this <span class="emphasis">thought</span> make you <span class="emphasis">feel</span>?
-    <mat-form-field>
+    <mat-form-field [floatLabel]="'never'">
       <input type="text" matInput placeholder="Example- Extremely sad." [(ngModel)]="feeling" (focus)="onfeelingSave()" (focusout)="onfeelingFocusOut()">
       <mat-hint *ngIf="feelingSave ">Saving...</mat-hint>
     </mat-form-field>
@@ -54,7 +54,7 @@
   </div>
   <div>
     How did this <span class="emphasis">thought</span> make you <span class="emphasis">behave</span>?
-    <mat-form-field>
+    <mat-form-field [floatLabel]="'never'">
       <textarea matInput [(ngModel)]="behavior"
                 cdkTextareaAutosize
                 cdkAutosizeMinRows="1"

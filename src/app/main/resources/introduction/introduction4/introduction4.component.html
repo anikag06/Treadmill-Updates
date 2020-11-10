@@ -18,7 +18,7 @@
   </div>
   <div>
     Which one of these negative beliefs do you have?
-    <mat-form-field>
+    <mat-form-field [floatLabel]="'never'">
       <mat-label>Negative beliefs</mat-label>
       <mat-select [(value)]="selectedBelief" (selectionChange)="onBeliefChange()" (focusout)= "beliefSaveFocusOut()">
         <mat-option *ngFor="let negativeBelief of negativeBeliefs" [value]="negativeBelief">

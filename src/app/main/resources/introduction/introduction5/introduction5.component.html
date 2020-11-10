@@ -15,7 +15,7 @@
 <!--            <h4 class="mt-3"></h4>-->
   <div>
     What are you currently worried about?
-    <mat-form-field>
+    <mat-form-field [floatLabel]="'never'">
       <input matInput placeholder="Example:- I am worried about losing my job." [(ngModel)]="worryThought" (focusin)="worrySave = true" (focusout)= "worrySaveFocusOut()">
       <mat-hint *ngIf="worrySave ">Saving...</mat-hint>
     </mat-form-field>
