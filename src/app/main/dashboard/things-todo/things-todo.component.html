@@ -4,7 +4,7 @@
     <ul class="things-todo-main-list" [ngStyle]="{display: showLoading ? 'none' : 'block'}">
       <li *ngFor="let todo of todoList; let i = index" class="things-todo-item">
         <a (click)="onThingsTodoClicked(todo[0])" class="things-todo-text">
-          <div class="d-flex flex-row">
+          <div class="d-flex flex-row" matRipple  [matRippleColor]="'#00000020'">
             <div class="align-self-start">
               <img class="icon-item" [src]="iconList[i]" alt="icon" (load)="removeLoading()" />
 <!--              <div class="icon-item icon-skeleton " [ngStyle]="{display: !showLoading ? 'none' : 'block'}" ></div>-->
