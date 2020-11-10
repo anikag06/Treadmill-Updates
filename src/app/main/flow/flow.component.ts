@@ -57,13 +57,6 @@ export class FlowComponent implements OnInit, OnDestroy {
       this.showDelayMessge = true;
       console.log('SHOW DELAY', this.showDelayMessge);
     }, 5000);
-    // this.quizService.questionnaire_active.subscribe((value: boolean) => {
-    //   console.log('EVENT EMITTED', value, 'Follow up', this.followUp);
-    //   if (!value && this.followUp) {
-    //     console.log('navigate to dashboard', value, 'Follow up', this.followUp);
-    //     this.router.navigate(['main/dashboard']);
-    //   }
-    // });
   }
 
   ngOnDestroy(): void {

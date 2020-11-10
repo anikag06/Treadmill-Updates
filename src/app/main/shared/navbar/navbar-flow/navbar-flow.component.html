@@ -1,9 +1,14 @@
 
-<div id="flow" class="navbar-flow" [@flowInOut]="isFlowVisible ? 'show' : 'hidden' " >
+<!--<div id="flow" class="navbar-flow" [@flowInOut]="isFlowVisible ? 'show' : 'hidden' " [ngStyle]="{overflowY : isExpanded ? 'auto' : 'hidden' } ">-->
+  <div id="flow" class="navbar-flow" [@flowInOut]="isFlowVisible ? 'show' : 'hidden' ">
+
   <div class="close-div"  >
-    <button mat-flat-button class="close-icon" (click)="onClose()">
+    <div class="progress-heading-goto ml-2"
+    > <span style="opacity:0.6; font-weight:400">Progress </span>
+    <button mat-flat-button class="close-icon float-right" (click)="onClose()">
       <img src="assets/shared/close.png" width="24" alt="Flow">&nbsp;
     </button>
+    </div>
 
     </div>
 
