@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class ThingsTodoComponent implements OnInit {
   element!: ElementRef;
   is_mindfulness!: boolean;
+  is_covid_video!: boolean;
   constructor(
     private thingsTodoService: ThingsTodoService,
     private router: Router,
@@ -23,6 +24,7 @@ export class ThingsTodoComponent implements OnInit {
     this.thingsTodoService.getThingsTodo().subscribe((data: any) => {
       console.log('data: ', data.data);
       this.is_mindfulness = data.data.is_mindfulness_video;
+      this.is_covid_video = data.data.is_covid_video;
       console.log('mindfulness video is', this.is_mindfulness);
       data.data.final_list.forEach((element: any) => {
         console.log('element: ', element);
@@ -41,6 +43,17 @@ export class ThingsTodoComponent implements OnInit {
             // @ts-ignore
             const link = obj[2];
             console.log('link for 2', link);
+            // @ts-ignore
+            const title = obj[1];
+            this.todoList.push([
+              link + data.data.video_id,
+              title + data.data.video_title,
+            ]);
+          } else if (this.is_covid_video) {
+            const obj = EXPLORE_MAP.get(element[0]);
+            // @ts-ignore
+            const link = obj[3];
+            console.log('link for 3', link);
             // @ts-ignore
             const title = obj[1];
             this.todoList.push([
