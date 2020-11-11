@@ -226,7 +226,7 @@ export class SurveyComponent implements OnInit {
         } else {
           this.selectedOptionValue = null;
         }
-      }, 500);
+      }, 10);
     } else {
       this.submit = true;
       this.quesCount += 1;

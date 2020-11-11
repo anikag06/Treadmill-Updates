@@ -271,6 +271,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     this.timerservice.visibility();
     this.timerservice.unload();
     this.timerservice.internet_check();
+    this.notificationService.showFullConvIcon.emit();
     this.notificationService.showFullConv.subscribe(() => {
       this.speed_run();
     });
