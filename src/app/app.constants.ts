@@ -547,6 +547,7 @@ export const EXPLORE_MAP = new Map([
       '/main/extra-resources/videoItem/',
       'Watch: ',
       '/main/extra-resources/mindfulnessVideo/',
+      '/main/extra-resources/videoCovid19/',
     ],
   ],
 ]);

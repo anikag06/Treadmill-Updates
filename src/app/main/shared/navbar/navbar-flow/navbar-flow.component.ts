@@ -31,6 +31,7 @@ import { IntroService } from '@/main/walk-through/intro.service';
 })
 export class NavbarFlowComponent implements OnInit {
   isFlowVisible!: boolean;
+  isExpanded!: boolean;
   constructor(
     private notificationService: NavbarNotificationsService,
     private overlayService: CustomOverlayService,

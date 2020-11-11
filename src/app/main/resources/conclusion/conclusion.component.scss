@@ -7,6 +7,15 @@
     font-size: 14px !important;
   }
 }
+.main-div {
+  font-size: 14px !important;
+  .intro-img {
+    width: 80%;
+    margin: 20px auto;
+    max-width: 420px;
+    display: block;
+  }
+}
 .congrats-text {
   font-weight: 500;
   font-size: 1rem;
@@ -71,6 +80,20 @@ a {
       .main-div {
         font-size: 16px !important;
       }
+}
+@media screen and (min-width: 767px) and (max-width: 960px) {
+
+  .main {
+    max-width: 75vw;
+  }
+}
+@media screen and (max-width: 576px) {
+
+  .main-div {
+    .intro-img {
+      max-width: 300px;
+    }
+  }
 }
 
 

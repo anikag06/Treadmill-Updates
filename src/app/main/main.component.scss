@@ -96,6 +96,10 @@
 }
 .activeClass {
     background-color: #ECB047 ;
+  &:hover {
+    background-color: #ECB047;
+  }
+
 }
 
 .list-wrapper-items-icon {

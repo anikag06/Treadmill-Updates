@@ -6,19 +6,22 @@
   width: 380px;
   min-width: 350px;
   background: white;
-  overflow-y: auto;
-  //z-index: 10000;
-  // box-shadow: 2px 2px 10px #585858cc;
+  //overflow-y: auto;
+
   .close-div {
     background-color: #ffffff;
-    font-size: 1.3rem;
+    font-size: 1rem;
     padding: 16px;
     margin-bottom: 0px;
     border-bottom: 1px solid #cccccc;
     height: 70px;
-    position: sticky;
+    position: static;
     top: 0;
     z-index: 5;
+    .progress-heading-goto{
+      line-height: 36px;
+      height: 36px;
+    }
     .close-icon {
       float: right;
       outline: none;

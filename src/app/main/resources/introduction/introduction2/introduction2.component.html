@@ -11,10 +11,10 @@
           <div class="px-3 px-lg-4 pt-4 main-div">
 
           <!-- IMAGES -->
-            <img src="assets/introduction/What does an average person do all day.svg" alt="What does an average person do all day" style="width: 100% ; margin:10px 0">
+            <img class="intro-img" src="assets/introduction/What does an average person do all day.svg" alt="What does an average person do all day">
             <br>
 
-            <img src="assets/introduction/What happens when he gets depressed.svg" alt="What happens when he gets depressed" style="width: 100% ; margin:10px 0">
+            <img class="intro-img" src="assets/introduction/What happens when he gets depressed.svg" alt="What happens when he gets depressed">
 
 
 <!--            <h4 class="mt-3"></h4>-->
@@ -35,7 +35,7 @@
   <div>
     <br><br>
     What have you stopped doing that you used to <span class="emphasis">enjoy</span>?
-    <mat-form-field>
+    <mat-form-field [floatLabel]="'never'">
       <input type="text" matInput placeholder="Example- I used to enjoy catching up with old friends. I have stopped doing that." [(ngModel)]="enjoyable"
              (focus)="onenjoyableSave()" (focusout)="onenjoyableFocusOut()">
       <mat-hint *ngIf="enjoyableSave ">Saving...</mat-hint>
@@ -44,7 +44,7 @@
   <br><br>
   <div>
       What have you stopped doing that used to give you a sense of <span class="emphasis">purpose</span> in your life?
-    <mat-form-field style="width:100% !important">
+    <mat-form-field style="width:100% !important" [floatLabel]="'never'">
       <input type="text" matInput placeholder="Example- I have stopped attending lectures." [(ngModel)]="mastery"
              (focus)="onmasterySave()" (focusout)="onmasteryFocusOut()">
       <mat-hint *ngIf="masterySave ">Saving...</mat-hint>
@@ -53,7 +53,7 @@
   </div>
   <div>
     What do you keep doing that makes you <span class="emphasis">feel miserable</span>?
-    <mat-form-field style="width:100% !important">
+    <mat-form-field style="width:100% !important" [floatLabel]="'never'">
       <input type="text" matInput placeholder="Example- I lie in my bed watching the same YouTube videos again and again and again and again and ......" [(ngModel)]="miserable"
              (focus)="onmiserableSave()" (focusout)="onmiserableFocusOut()">
       <mat-hint *ngIf="miserableSave ">Saving...</mat-hint>

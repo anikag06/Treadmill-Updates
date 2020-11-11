@@ -12,15 +12,13 @@
 <!--    <h4></h4>-->
   <div class="text-para">
     <!-- Add IMAGE here -->
-    <img src="assets/introduction/Do these beliefs look familiar to you.svg" alt="Do these beliefs look familiar to you" style="width: 100% ; margin:10px 0">
-
-
+    <img class="intro-img" src="assets/introduction/Do these beliefs look familiar to you.svg" alt="Do these beliefs look familiar to you" >
 
     <p>These are the most common negative beliefs in someone suffering from depression.</p>
   </div>
   <div>
     Which one of these negative beliefs do you have?
-    <mat-form-field>
+    <mat-form-field [floatLabel]="'never'">
       <mat-label>Negative beliefs</mat-label>
       <mat-select [(value)]="selectedBelief" (selectionChange)="onBeliefChange()" (focusout)= "beliefSaveFocusOut()">
         <mat-option *ngFor="let negativeBelief of negativeBeliefs" [value]="negativeBelief">

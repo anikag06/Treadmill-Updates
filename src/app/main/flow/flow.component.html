@@ -24,8 +24,11 @@
     *ngIf="dataloaded; else loader"
   >
     <div class="col-12 px-0 flow-scroll">
-        <h6 class="progress-heading-mobile in-mobile mt-3 ml-3" style="opacity:0.6; font-weight:400"
-            >Progress</h6>
+        <h6 class="progress-heading-mobile mt-3 ml-3" style="opacity:0.6; font-weight:400"
+            [ngClass]="{
+            'in-mobile': navBar === false,
+          'navBar-title': fromGoto === true
+        }" >Progress</h6>
       <div class="flow-scroll-inner py-2">
         <mat-accordion [hideToggle]="true" displayMode="flat" class="my-2">
           <app-step-group

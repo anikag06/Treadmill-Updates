@@ -106,7 +106,6 @@ export class ConversationGroupComponent implements OnInit {
   reset(i: number) {
     this.conversation_id = this.conversationGroups[i].id;
     this.passdata.setOption(this.conversation_id, true, false, false);
-    this.notificationService.showFullConvIcon.emit();
     this.router.navigate([
       '/main/resources/conversations/' + this.conversation_id,
     ]);
@@ -117,7 +116,6 @@ export class ConversationGroupComponent implements OnInit {
     this.conversation_id = this.conversationGroups[i].id;
     this.passdata.setOption(this.conversation_id, false, true, false);
     console.log('event emitted');
-    this.notificationService.showFullConvIcon.emit();
     this.router.navigate([
       'main/resources/conversations/' + this.conversation_id,
     ]);
