@@ -505,7 +505,10 @@ function penalty() {
     $("#life-img").removeClass("blink-image");
   }, 3000);
 
-  document.getElementById("life").innerHTML = life;
+  if (life >= 0) {
+    document.getElementById("life").innerHTML = life;
+  }
+
   if (life <= 0) {
     ffg_no_life = true;
     // clearInterval(ffg_timer);
@@ -1093,8 +1096,10 @@ ffGamePreloadImages = function(friendly, length) {
   });
   if (friendly == 1) {
     ffGame_friendly_images.splice(0, length);
+    console.log("ffg loaded friendly images: ", ffg_loaded_friendly_images);
   } else {
     ffGame_hostile_images.splice(0, length);
+    console.log("ffg loaded hostile images: ", ffg_loaded_hostile_images);
   }
 };
 

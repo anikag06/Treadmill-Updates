@@ -7,6 +7,7 @@ import {
   ViewContainerRef,
   Output,
   EventEmitter,
+  OnDestroy,
 } from '@angular/core';
 import { GamePlayService } from '@/main/games/shared/game-play.service';
 import { GamesAuthService } from '@/main/games/shared/games-auth.service';
@@ -61,7 +62,7 @@ declare var ffg_ask_feedback: boolean;
   templateUrl: './friendly-face-game.component.html',
   styleUrls: ['./friendly-face-game.component.scss'],
 })
-export class FriendlyFaceGameComponent implements OnInit {
+export class FriendlyFaceGameComponent implements OnInit, OnDestroy {
   constructor(
     private gamePlayService: GamePlayService,
     private gamesAuthService: GamesAuthService,
@@ -234,23 +235,18 @@ export class FriendlyFaceGameComponent implements OnInit {
   ffGameGetHostileImages(pageNumber: number = 1) {
     this.gamesAuthService
       .ffGameGetHostileImages(pageNumber, this.NO_IMAGES_IN_PAGE)
-      .subscribe(
-        hostile_images => {
-          let j = 0;
-          while (hostile_images.results[j]) {
-            ffGame_hostile_images.push(hostile_images.results[j].image);
-            j++;
-          }
-          ffGamePreloadImages(0, j);
-          if (hostile_images.next != null) {
-            pageNumber = pageNumber + 1;
-            this.ffGameGetHostileImages(pageNumber);
-          }
-        },
-        err => {
-          // console.log(err);
-        },
-      );
+      .subscribe(hostile_images => {
+        let j = 0;
+        while (hostile_images.results[j]) {
+          ffGame_hostile_images.push(hostile_images.results[j].image);
+          j++;
+        }
+        ffGamePreloadImages(0, j);
+        if (hostile_images.next != null) {
+          pageNumber = pageNumber + 1;
+          this.ffGameGetHostileImages(pageNumber);
+        }
+      });
   }
   ffGameGetGameData() {
     this.gamesAuthService.ffGameGetUserInfo().subscribe(user_data => {
