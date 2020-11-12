@@ -15,7 +15,7 @@ import { FlowService } from '@/main/flow/flow.service';
 import { ActivatedRoute } from '@angular/router';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 import { GamePlayService } from '@/main/games/shared/game-play.service';
-import {LoadFilesService} from "@/main/games/shared/load-files.service";
+import { LoadFilesService } from '@/main/games/shared/load-files.service';
 
 @Component({
   selector: 'app-identify-cognitive-distortion',
@@ -46,14 +46,17 @@ export class IdentifyCognitiveDistortionComponent implements OnInit {
     private stepDataService: StepsDataService,
     private playGameService: GamePlayService,
     private loadFileService: LoadFilesService,
-
   ) {}
 
   ngOnInit() {
     this.loadFileService
-      .loadExternalScript('assets/games/cognitive-distortion-game/images/idc_preload_images.js')
-      .then(() => { this.imagesPreloaded = true;
-      console.log('IMAGES LOADED'); })
+      .loadExternalScript(
+        'assets/games/cognitive-distortion-game/images/idc_preload_images.js',
+      )
+      .then(() => {
+        this.imagesPreloaded = true;
+        console.log('IMAGES LOADED');
+      })
       .catch(() => {});
     this.gameName = this.playGameService.gameName;
     this.activatedRoute.params
