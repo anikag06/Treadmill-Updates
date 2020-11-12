@@ -39,7 +39,6 @@ import { IntroService } from '@/main/walk-through/intro.service';
 import { IntroDialogService } from '@/main/walk-through/intro-dialog.service';
 import { isNotNullOrUndefined } from 'codelyzer/util/isNotNullOrUndefined';
 import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
-import { BE_MINDFUL } from '@/main/walk-through/intro.constant';
 
 declare var twemoji: any;
 

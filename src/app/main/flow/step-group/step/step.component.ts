@@ -38,7 +38,10 @@ import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
 import { type } from 'os';
 import { AuthService } from '@/shared/auth/auth.service';
 import { User } from '@/shared/user.model';
-import { BE_MINDFUL, TESTIMONIALS } from '@/main/walk-through/intro.constant';
+import {
+  MINDFULNESS_VIDEOS,
+  VIDEOS_ON_DEPRESSION,
+} from '@/main/walk-through/intro.constant';
 
 @Component({
   selector: 'app-step',
@@ -246,11 +249,17 @@ export class StepComponent implements OnInit, AfterViewInit {
       setTimeout(() => this.flowService.triggerLoad(), 2000);
     }
 
-    if (this.step.name === 'Be mindful' && this.step.status !== COMPLETED) {
-      this.introDialogService.openResourceIntro(true, BE_MINDFUL);
+    if (
+      this.step.name === 'Mindfulness videos' &&
+      this.step.status !== COMPLETED
+    ) {
+      this.introDialogService.openResourceIntro(true, MINDFULNESS_VIDEOS);
     }
-    if (this.step.name === 'Testimonials' && this.step.status !== COMPLETED) {
-      this.introDialogService.openResourceIntro(true, TESTIMONIALS);
+    if (
+      this.step.name === 'Videos on depression' &&
+      this.step.status !== COMPLETED
+    ) {
+      this.introDialogService.openResourceIntro(true, VIDEOS_ON_DEPRESSION);
     }
     if (this.step.status !== LOCKED) {
       this.closeNavFlow();

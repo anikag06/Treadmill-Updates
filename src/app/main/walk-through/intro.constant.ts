@@ -98,8 +98,8 @@ export const BELIEF_CHANGE_FORM = {
     'This form presents the techniques to change a negative belief. Your days of believing that you are stupid are numbered ✌️.',
 };
 
-export const BE_MINDFUL =
-  "Practice mindfulness using these videos. It'll help you relax your mind and think clearly.";
+export const MINDFULNESS_VIDEOS =
+  'Practice mindfulness using these videos. It will help you relax your mind and think clearly.';
 
-export const TESTIMONIALS =
+export const VIDEOS_ON_DEPRESSION =
   'Watch the testimonial videos to know that you are not alone.';
