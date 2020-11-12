@@ -39,7 +39,7 @@
           </div>
         </ng-template>
         <ng-template matTabContent>
-          <app-badges [badgeList]="getGoldBadgeList()" [profileLoaded] = "profileLoaded"> </app-badges>
+          <app-badges [badgeList]="getGoldBadgeList()" [profileLoaded] = "profileLoaded" [badgesCountColor]="goldBadgesColor"> </app-badges>
         </ng-template>
       </mat-tab>
       <mat-tab>
@@ -50,7 +50,7 @@
           </div>
         </ng-template>
         <ng-template matTabContent>
-          <app-badges [badgeList]="getSilverBadgeList()" [profileLoaded] = "profileLoaded"> </app-badges>
+          <app-badges [badgeList]="getSilverBadgeList()" [profileLoaded] = "profileLoaded" [badgesCountColor]="silverBadgesColor"> </app-badges>
         </ng-template>
       </mat-tab>
       <mat-tab label="Bronze">
@@ -61,7 +61,7 @@
           </div>
         </ng-template>
         <ng-template matTabContent>
-          <app-badges [badgeList]="getBronzeBadgeList()" [profileLoaded] = "profileLoaded"> </app-badges>
+          <app-badges [badgeList]="getBronzeBadgeList()" [profileLoaded] = "profileLoaded" [badgesCountColor]="bronzeBadgesColor"> </app-badges>
         </ng-template>
       </mat-tab>
     </mat-tab-group>
