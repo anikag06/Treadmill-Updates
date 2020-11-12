@@ -137,8 +137,8 @@
           <img
             [src]="button.buttonObject.image_url"
             [alt]="button.buttonObject.emojified_payload"
-            width="136px"
-            height="72px"
+            width="146px"
+            height="78px"
             *ngIf="button.buttonObject.type === clickAble; else btnText"
           />
           <ng-template #btnText>
@@ -211,7 +211,7 @@
     <div class="form-div" *ngIf="showTextInput">
       <!--  *ngIf="showTextInput"{{showButtons.length < 1}}{{!isWaiting}}-->
       <form (ngSubmit)="onChatSubmit()">
-        <div #textArea class="textarea">
+        <div #textArea class="textarea pt-2 pl-3">
           <!--                <mat-form-field class="full-width">-->
           <textarea
             matInput
