@@ -27,6 +27,8 @@ import { MatExpansionPanel } from '@angular/material/expansion';
 import { CommonService } from '@/shared/common.service';
 import { User } from '@/shared/user.model';
 import { AuthService } from '@/shared/auth/auth.service';
+import {UserProfileService} from '@/main/shared/user-profile/user-profile.service';
+import {UserProfile} from '@/main/shared/user-profile/UserProfile.model';
 
 @Injectable({
   providedIn: 'root',
@@ -61,6 +63,7 @@ export class IntroService {
     private http: HttpClient,
     private commonService: CommonService,
     private authService: AuthService,
+    private userProfileService: UserProfileService,
   ) {}
 
   completionData: StepCompleteData = new StepCompleteData(0, 0);
@@ -98,6 +101,7 @@ export class IntroService {
   }
 
   startDashBoardIntro() {
+
     const intro = introJs.introJs();
     intro.setOptions({
       steps: [
@@ -173,6 +177,7 @@ export class IntroService {
   }
 
   startProgressIntro() {
+
     const intro = introJs.introJs();
     intro.setOptions({
       steps: [
@@ -390,6 +395,7 @@ export class IntroService {
               this.commonService.updateScore(
                 INTRODUCTORY_ANIMATION_STEP_COMPLETE_SCORE,
               );
+              this.commonService.introScoreSend.emit();
             }
           });
       }
@@ -467,10 +473,14 @@ export class IntroService {
       this.setOverlayFalse();
       this.notificationService.closeNavFlow.emit();
       if (window.innerWidth > MOBILE_WIDTH) {
-        if (!this.flowService.stepCompleted && isExp) {
-          this.commonService.updateIntroScore(
-            INTRODUCTORY_ANIMATION_STEP_COMPLETE_SCORE,
-          );
+        if (!this.flowService.stepCompleted) {
+          if (isExp) {
+            this.commonService.updateIntroScore(
+              INTRODUCTORY_ANIMATION_STEP_COMPLETE_SCORE,
+            );
+            this.commonService.introScoreSend.emit();
+
+          }
           setTimeout(() => {
             this.flowService.introduceBehaviour.next(true);
           }, 1000);
