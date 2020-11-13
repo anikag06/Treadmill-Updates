@@ -154,7 +154,7 @@ export class GameItemComponent implements OnInit {
   }
   calculateGold(GOLD: number) {
     this.goldRatio = 89;
-    if (this.progressInGame > 100 || this.progressInGame === 100) {
+    if (this.progressInGame >= 100) {
       this.goldCoinShow = false;
     } else {
       this.goldCoinShow = true;
@@ -163,11 +163,9 @@ export class GameItemComponent implements OnInit {
   }
 
   calculateSilver(SILVER: number, GOLD: number) {
-    this.silverRatio = (SILVER / GOLD) * 100;
-    if (
-      this.progressInGame > this.silverRatio ||
-      this.progressInGame === this.silverRatio
-    ) {
+    this.silverRatio = Math.floor((SILVER / GOLD) * 100);
+    console.log('silver: ', this.silverRatio);
+    if (this.progressInGame >= this.silverRatio) {
       this.silverCoinShow = false;
     } else {
       this.silverCoinShow = true;
@@ -176,11 +174,9 @@ export class GameItemComponent implements OnInit {
   }
 
   calculateBronze(BRONZE: number, GOLD: number) {
-    this.bronzeRatio = (BRONZE / GOLD) * 100;
-    if (
-      this.progressInGame > this.bronzeRatio ||
-      this.progressInGame === this.bronzeRatio
-    ) {
+    this.bronzeRatio = Math.floor((BRONZE / GOLD) * 100);
+    console.log('bronze: ', this.bronzeRatio);
+    if (this.progressInGame >= this.bronzeRatio) {
       this.bronzeCoinShow = false;
     } else {
       this.bronzeCoinShow = true;
@@ -189,7 +185,8 @@ export class GameItemComponent implements OnInit {
   }
 
   calculateProgress(correctAnswers: number, GOLD: number) {
-    this.progressInGame = (correctAnswers / GOLD) * 100;
+    this.progressInGame = Math.floor((correctAnswers / GOLD) * 100);
+    console.log('progressbar: ', this.progressInGame);
     return this.progressInGame;
   }
 

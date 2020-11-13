@@ -2,7 +2,8 @@ import {
   AfterContentInit,
   Component,
   ComponentFactoryResolver,
-  DoCheck, HostListener,
+  DoCheck,
+  HostListener,
   OnChanges,
   OnDestroy,
   OnInit,
@@ -39,9 +40,8 @@ import { IntroService } from '@/main/walk-through/intro.service';
 import { IntroDialogService } from '@/main/walk-through/intro-dialog.service';
 import { isNotNullOrUndefined } from 'codelyzer/util/isNotNullOrUndefined';
 import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
-import {ReportproblemComponent} from './reportproblem/reportproblem.component';
-import {MatDialog} from "@angular/material/dialog";
-import { BE_MINDFUL } from '@/main/walk-through/intro.constant';
+import { ReportproblemComponent } from './reportproblem/reportproblem.component';
+import { MatDialog } from '@angular/material/dialog';
 
 declare var twemoji: any;
 
@@ -116,8 +116,8 @@ export class MainComponent
     private introService: IntroService,
     private introDialogService: IntroDialogService,
     public dialog: MatDialog,
-
-  ) { this.getScreenSize();
+  ) {
+    this.getScreenSize();
   }
 
   @HostListener('window:resize', ['$event'])

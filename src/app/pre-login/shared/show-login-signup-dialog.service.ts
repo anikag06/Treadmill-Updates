@@ -26,7 +26,7 @@ export class ShowLoginSignupDialogService {
     private dialog: MatDialog,
     private overlay: Overlay,
     private dialogSize: DialogSize,
-    private router: Router
+    private router: Router,
   ) {}
 
   broadcastLoginClicked(loginDialog: any) {

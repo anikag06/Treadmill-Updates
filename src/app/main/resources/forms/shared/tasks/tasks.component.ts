@@ -81,7 +81,7 @@ export class TasksComponent implements OnInit, OnChanges {
     private dateTimePickerService: DateTimePickerService,
     private route: ActivatedRoute,
     private commonService: CommonService,
-    private authService: AuthService
+    private authService: AuthService,
   ) {}
 
   ngOnInit() {
@@ -177,7 +177,7 @@ export class TasksComponent implements OnInit, OnChanges {
       time: this.time,
       end_date: this.end_date,
       sub_tasks: this.tasksGroup.controls.subTasks.value.filter(
-        (str: any) => str.name.trim().length > 0
+        (str: any) => str.name.trim().length > 0,
       ),
       days: this.days,
       origin_id: this.getOriginId(),
@@ -192,14 +192,14 @@ export class TasksComponent implements OnInit, OnChanges {
           this.taskHandler(taskBody, 'update');
           this.taskLoaded.emit(taskBody);
         },
-        (error) => {
+        error => {
           console.log(error);
           // this.taskService.openSnackBar('Error Occured', 'Retry');
           this.taskService.openSnackBar(
             error.error.non_field_errors || this.errorMessage,
-            'Retry'
+            'Retry',
           );
-        }
+        },
       );
     } else if (object.start_date === undefined || object.time === undefined) {
       this.taskService.openSnackBar('Please select a Date and Time', 'Error');
@@ -213,13 +213,13 @@ export class TasksComponent implements OnInit, OnChanges {
           this.taskLoaded.emit(this.task);
           this.showMessage.emit(true);
         },
-        (error) => {
+        error => {
           // console.log(error);
           this.taskService.openSnackBar(
             error.error.non_field_errors || this.errorMessage,
-            'Retry'
+            'Retry',
           );
-        }
+        },
       );
     }
   }
@@ -261,7 +261,7 @@ export class TasksComponent implements OnInit, OnChanges {
         data.sub_tasks,
         data.task_days,
         data.origin_name,
-        data.origin_object
+        data.origin_object,
       );
       this.taskService.addTask(this.task);
 
@@ -269,7 +269,7 @@ export class TasksComponent implements OnInit, OnChanges {
       this.hideNextStep = true;
     } else {
       const task = this.taskService.tasks.find(
-        (t: UserTask) => t.id === +data.id
+        (t: UserTask) => t.id === +data.id,
       );
       if (task) {
         this.task = <UserTask>data;
@@ -286,11 +286,11 @@ export class TasksComponent implements OnInit, OnChanges {
         .subscribe((resp: any) => {
           this.tasksGroup.controls.subTasks = this.fb.array([]);
           this.task.sub_tasks = this.task.sub_tasks.filter(
-            (st: UserSubTask) => st.id !== subtask.id
+            (st: UserSubTask) => st.id !== subtask.id,
           );
           this.task.sub_tasks.forEach((stask: UserSubTask) => {
             (this.tasksGroup.controls.subTasks as FormArray).push(
-              this.createEditItem(stask.id, stask.name, stask.is_completed)
+              this.createEditItem(stask.id, stask.name, stask.is_completed),
             );
           });
           status = resp.body.status;
@@ -323,7 +323,7 @@ export class TasksComponent implements OnInit, OnChanges {
           }
         }
       },
-      (error: HttpErrorResponse) => {}
+      (error: HttpErrorResponse) => {},
     );
   }
 
@@ -343,7 +343,7 @@ export class TasksComponent implements OnInit, OnChanges {
           }
         }
       },
-      (error: HttpErrorResponse) => {}
+      (error: HttpErrorResponse) => {},
     );
   }
 
@@ -362,20 +362,20 @@ export class TasksComponent implements OnInit, OnChanges {
     this.dateTimeMessage = true;
     this.task.sub_tasks.forEach((subtask: UserSubTask) => {
       (this.tasksGroup.controls.subTasks as FormArray).push(
-        this.createEditItem(subtask.id, subtask.name, subtask.is_completed)
+        this.createEditItem(subtask.id, subtask.name, subtask.is_completed),
       );
       this.showTrashIcon.push(false);
     });
 
     this.dateRange = this.dateTimePickerService.getTaskDateRange(
       this.task.start_at,
-      this.task.end_at
+      this.task.end_at,
     );
     this.repeatedDays = this.getRepeatedDays(this.days);
 
     this.endTime = this.dateTimePickerService.getUTCTimeInAmPm(
       this.end_date,
-      this.time
+      this.time,
     );
     this.showMessage.emit(true);
   }
@@ -461,12 +461,12 @@ export class TasksComponent implements OnInit, OnChanges {
         this.days = this.dateTime[3];
         this.dateRange = this.dateTimePickerService.getTaskDateRange(
           this.start_date,
-          this.end_date
+          this.end_date,
         );
 
         this.endTime = this.dateTimePickerService.getUTCTimeInAmPm(
           this.end_date,
-          this.time
+          this.time,
         );
 
         this.repeatedDays = this.getRepeatedDays(this.dateTime[3]);
@@ -489,7 +489,7 @@ export class TasksComponent implements OnInit, OnChanges {
     for (let i = 0; i < days.length; i++) {
       this.days[i].toUpperCase();
       repeatedDays.push(
-        days[i].charAt(0) + this.days[i].substr(1, 2).toLowerCase()
+        days[i].charAt(0) + this.days[i].substr(1, 2).toLowerCase(),
       );
     }
     const repeat = repeatedDays.join(',');

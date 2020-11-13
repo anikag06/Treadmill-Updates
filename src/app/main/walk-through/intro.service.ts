@@ -27,8 +27,8 @@ import { MatExpansionPanel } from '@angular/material/expansion';
 import { CommonService } from '@/shared/common.service';
 import { User } from '@/shared/user.model';
 import { AuthService } from '@/shared/auth/auth.service';
-import {UserProfileService} from '@/main/shared/user-profile/user-profile.service';
-import {UserProfile} from '@/main/shared/user-profile/UserProfile.model';
+import { UserProfileService } from '@/main/shared/user-profile/user-profile.service';
+import { UserProfile } from '@/main/shared/user-profile/UserProfile.model';
 
 @Injectable({
   providedIn: 'root',
@@ -101,7 +101,6 @@ export class IntroService {
   }
 
   startDashBoardIntro() {
-
     const intro = introJs.introJs();
     intro.setOptions({
       steps: [
@@ -177,7 +176,6 @@ export class IntroService {
   }
 
   startProgressIntro() {
-
     const intro = introJs.introJs();
     intro.setOptions({
       steps: [
@@ -477,7 +475,6 @@ export class IntroService {
               INTRODUCTORY_ANIMATION_STEP_COMPLETE_SCORE,
             );
             this.commonService.introScoreSend.emit();
-
           }
           setTimeout(() => {
             this.flowService.introduceBehaviour.next(true);

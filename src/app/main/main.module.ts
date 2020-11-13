@@ -185,7 +185,7 @@ import { AsgInstructionsComponent } from './games/games-list/common-game/attribu
 import { ResourcesIntroComponent } from './walk-through/resources-intro/resources-intro.component';
 import { AsgSummaryComponent } from './games/games-list/common-game/attribute-style-game/asg-summary/asg-summary.component';
 import { ReportproblemComponent } from './reportproblem/reportproblem.component';
-import {ReportproblemService} from "@/main/reportproblem/reportproblem.service";
+import { ReportproblemService } from '@/main/reportproblem/reportproblem.service';
 
 // import { Resources2Routing } from './extra-resources/extra-resources-routing.module.ts/extra-resources-routing.module.ts.component';
 
@@ -424,7 +424,7 @@ import {ReportproblemService} from "@/main/reportproblem/reportproblem.service";
     SelfCareComponent,
     AsgInstructionsComponent,
     ResourcesIntroComponent,
-    ReportproblemComponent
+    ReportproblemComponent,
   ],
   exports: [TrimStringPipe],
 })
