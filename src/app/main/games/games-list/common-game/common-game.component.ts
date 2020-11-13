@@ -395,13 +395,13 @@ export class CommonGameComponent implements OnInit {
     if (this.gameName === INTERPRETATION_BIAS_GAME) {
       return 'url(\"/assets/games/interpretation_bias_game/images/word jumble background.png\")';
     } else if (this.gameName === LEARNED_HELPLESSNESS_GAME) {
-      return 'url(\"solve it background.png\")';
+      return 'url(\"/assets/games/learning-helplessness/assets/solve it background.png\")';
     } else if (this.gameName === FRIENDLY_FACE_GAME) {
-      return 'url(\"Find a smile background.png\")';
+      return 'url(\"/assets/games/friendly-face-game/images/Find a smile background.png\")';
     } else if (this.gameName === MENTAL_IMAGERY_GAME) {
-      return 'url(\"daydream background.png\")';
+      return 'url(\"/assets/games/mental-imagery-game/daydream background.png\")';
     } else if (this.gameName === IDENTIFY_COGNITIVE_DISTORTION_GAME) {
-      return 'url(\"Cognitive distortion game background.png\")';
+      return 'url(\"/assets/games/cognitive-distortion-game/Cognitive distortion game background.png\")';
     }
   }
 }

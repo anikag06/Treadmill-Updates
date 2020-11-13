@@ -349,32 +349,41 @@ function colorReverseInit(){
 
 function setColorReverseGameWidthAndHeight() {
 	// setting asset sizes based on screen size
-	if(window.devicePixelRatio == 2) {
-		// color reverse game
-		$(`.color-reverse-game-square,
+	// if(window.devicePixelRatio == 2) {
+	// 	// color reverse game
+	// 	$(`.color-reverse-game-square,
+	// 		.color-reverse-game-square-common,
+	// 		.color-reverse-game-square-blank`).css({
+	// 			'width': '150',
+	// 			'height': '150'
+	// 		});
+	// }else if(window.devicePixelRatio == 1) {
+	// 	// color reverse game
+	// 	$(`.color-reverse-game-square,
+	// 		.color-reverse-game-square-common,
+	// 		.color-reverse-game-square-blank`).css({
+	// 			'width': '42',
+	// 			'height': '42'
+	// 		});
+	// }else {
+	// 	// !!IMPORTANT!!
+	// 	// write code for generic device pixel ratio
+	// 	$(`.color-reverse-game-square,
+	// 		.color-reverse-game-square-common,
+	// 		.color-reverse-game-square-blank`).css({
+	// 			'width': '42',
+	// 			'height': '42'
+	// 		});
+	// }
+  // TESTING CODE FOR KEEPING ASSET SIZE SAME FOR ALL SCREENS
+    // code for generic device pixel ratio
+    $(`.color-reverse-game-square,
 			.color-reverse-game-square-common,
 			.color-reverse-game-square-blank`).css({
-				'width': '150',
-				'height': '150'
-			});
-	}else if(window.devicePixelRatio == 1) {
-		// color reverse game
-		$(`.color-reverse-game-square,
-			.color-reverse-game-square-common,
-			.color-reverse-game-square-blank`).css({
-				'width': '42',
-				'height': '42'
-			});
-	}else {
-		// !!IMPORTANT!!
-		// write code for generic device pixel ratio
-		$(`.color-reverse-game-square,
-			.color-reverse-game-square-common,
-			.color-reverse-game-square-blank`).css({
-				'width': '42',
-				'height': '42'
-			});
-	}
+      'width': '42',
+      'height': '42'
+    });
+
 }
 
 lhGameGetColorReverseData = function(){

@@ -47,9 +47,9 @@ export class SuggestedPostItemComponent implements OnInit {
     }
   }
   imageLoaded() {
+    this.removeLoading.emit();
     setTimeout(() => {
       this.showLoading = false;
-      this.removeLoading.emit();
     }, 100);
   }
 }

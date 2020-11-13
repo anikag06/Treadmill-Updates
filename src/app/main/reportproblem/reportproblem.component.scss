@@ -1,0 +1,30 @@
+.main-div{
+  position: relative;
+  padding: 0px;
+  height: 100%;
+}
+.report-btn {
+  width: 75px;
+  color: white;
+  background-color: #2A3B3D;
+  box-shadow: 0px 2px 4px #00000029;
+  font-width:400;
+
+}
+
+
+.btn-div {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+}
+.close-btn {
+  width: 75px;
+  color: #000000;
+  background-color: white;
+  border: 1px solid #000000;
+  opacity:0.4;
+  box-shadow: 0px 2px 4px #00000029;
+  font-width:400;
+
+}
