@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import { fromEvent, merge, Observable, Observer } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
@@ -16,6 +16,7 @@ export class CommonService {
   user!: User;
   oldScore!: number;
   newScore!: number;
+  introScoreSend = new EventEmitter<any>();
   constructor(
     private authService: AuthService,
     private http: HttpClient,
@@ -90,3 +91,4 @@ export class CommonService {
     this.userProfileService.setScoreValue(this.newScore);
   }
 }
+

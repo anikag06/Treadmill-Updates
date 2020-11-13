@@ -10,6 +10,7 @@ import { UserProfile } from './UserProfile.model';
 import { UserProfileService } from '@/main/shared/user-profile/user-profile.service';
 import { User } from '@/shared/user.model';
 import { AuthService } from '@/shared/auth/auth.service';
+import {CommonService} from '@/shared/common.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -20,7 +21,8 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
   constructor(
     private element: ElementRef,
     private userProfileService: UserProfileService,
-    private authService: AuthService
+    private authService: AuthService,
+    private commonService: CommonService,
   ) {}
   @Input() userProfile!: UserProfile;
   showLoading = true;
@@ -29,7 +31,15 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
   goldBadgesColor = '#D4AF37';
   silverBadgesColor = '#96959A';
   bronzeBadgesColor = '#CD7F32';
-  ngOnInit() {}
+  
+  ngOnInit() {
+    this.commonService.introScoreSend.subscribe(() => {
+      this.userProfileService.getUserProfile(this.userProfile.username).subscribe((data: any) => {
+        console.log('userprofile', data.score);
+        this.userProfile.score = data.score;
+      });
+    });
+  }
 
   ngAfterViewInit() {
     const inkBar = this.element.nativeElement.querySelectorAll(
@@ -52,7 +62,9 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
       );
       headerText[0].setAttribute('style', 'margin: 0px');
     }
+
   }
+
 
   getGoldBadgeList() {
     return this.userProfile.badge_list_gold;
