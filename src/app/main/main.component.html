@@ -175,20 +175,15 @@
           </a>
         </div>
 
-<!--        <div class="list-wrapper-items">-->
-<!--          <a mat-list-item routerLink="/main/logout">-->
-<!--            <span class="list-wrapper-items-icon">-->
-<!--              <img-->
-<!--                class="icons-width"-->
-<!--                style="margin-left: 2px;"-->
-<!--                src="assets/modules/icon-log-out.png"-->
-<!--              />-->
-<!--            </span>-->
-<!--            <span class="list-wrapper-items-name">-->
-<!--              Logout-->
-<!--            </span>-->
-<!--          </a>-->
-<!--        </div>-->
+        <div class = "list-wrapper-items" (click)="reportProblem()">
+          <a mat-list-item routerLinkActive="activeClass">
+            <span class = "list-wrapper-items-icon">
+              <img style="margin-left: 4px;" width="25px" src="assets/shared/Report problem.svg" />
+            </span>
+            <span class = "list-wrapper-items-name">Report problem</span>
+          </a>
+        </div>
+
       </div>
     </mat-nav-list>
     <div

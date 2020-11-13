@@ -184,6 +184,8 @@ import { SelfCareComponent } from './shared/self-care/self-care.component';
 import { AsgInstructionsComponent } from './games/games-list/common-game/attribute-style-game/asg-instructions/asg-instructions.component';
 import { ResourcesIntroComponent } from './walk-through/resources-intro/resources-intro.component';
 import { AsgSummaryComponent } from './games/games-list/common-game/attribute-style-game/asg-summary/asg-summary.component';
+import { ReportproblemComponent } from './reportproblem/reportproblem.component';
+import {ReportproblemService} from "@/main/reportproblem/reportproblem.service";
 
 // import { Resources2Routing } from './extra-resources/extra-resources-routing.module.ts/extra-resources-routing.module.ts.component';
 
@@ -305,6 +307,7 @@ import { AsgSummaryComponent } from './games/games-list/common-game/attribute-st
     AsgInstructionsComponent,
     ResourcesIntroComponent,
     AsgSummaryComponent,
+    ReportproblemComponent,
   ],
   imports: [
     CommonModule,
@@ -366,6 +369,7 @@ import { AsgSummaryComponent } from './games/games-list/common-game/attribute-st
     SettingsService,
     ReportService,
     GamesProgressBarService,
+    ReportproblemService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthHeaderInterceptor,
@@ -420,6 +424,7 @@ import { AsgSummaryComponent } from './games/games-list/common-game/attribute-st
     SelfCareComponent,
     AsgInstructionsComponent,
     ResourcesIntroComponent,
+    ReportproblemComponent
   ],
   exports: [TrimStringPipe],
 })

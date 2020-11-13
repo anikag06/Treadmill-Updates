@@ -1,6 +1,6 @@
 
 .congrats-div {
-    height: 446px;
+    max-height: 446px;
     max-width: 620px;
     height: 100%;
     width: 100%;
@@ -61,7 +61,7 @@ button {
 }
 @media screen and (max-width: 767px) {
   .congrats-div {
-    height: 446px;
+    max-height: 446px;
     max-width: 320px;
   }
 

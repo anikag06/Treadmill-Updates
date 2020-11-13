@@ -452,6 +452,9 @@ export const UPDATE_NOTIFICATIONS =
   '/api/v1/notifications/update-notification-settings/';
 export const UPDATE_PASSWORD = '/api/v1/user/change-password/';
 
+// report bugs
+export const REPORT_BUG = '/api/v1/user/bug/';
+
 // toast
 export const SHOW_TOAST_DURATION = 10000;
 

@@ -2,7 +2,7 @@ import {
   AfterContentInit,
   Component,
   ComponentFactoryResolver,
-  DoCheck,
+  DoCheck, HostListener,
   OnChanges,
   OnDestroy,
   OnInit,
@@ -40,6 +40,8 @@ import { IntroDialogService } from '@/main/walk-through/intro-dialog.service';
 import { isNotNullOrUndefined } from 'codelyzer/util/isNotNullOrUndefined';
 import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
 import { BE_MINDFUL } from '@/main/walk-through/intro.constant';
+import {ReportproblemComponent} from './reportproblem/reportproblem.component';
+import {MatDialog} from "@angular/material/dialog";
 
 declare var twemoji: any;
 
@@ -67,6 +69,7 @@ export class MainComponent
   showOverlay = false;
   fixParent = false;
   introAnimation = false;
+  srcWidth!: number;
 
   onlineStatusMessages = [
     "You're online. Life's good again.",
@@ -112,7 +115,15 @@ export class MainComponent
     private commonService: CommonService,
     private introService: IntroService,
     private introDialogService: IntroDialogService,
-  ) {}
+    public dialog: MatDialog,
+
+  ) { this.getScreenSize();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  getScreenSize(event?: any) {
+    this.srcWidth = window.innerWidth;
+  }
 
   ngOnChanges() {}
 
@@ -320,6 +331,22 @@ export class MainComponent
     }
     if (isNotNullOrUndefined(this.fixParentSubscription)) {
       this.fixParentSubscription.unsubscribe();
+    }
+  }
+  reportProblem() {
+    if (this.srcWidth <= 576) {
+      this.dialog.open(ReportproblemComponent, {
+        height: '320px',
+        width: '320px',
+        maxWidth: '90vw',
+        autoFocus: false,
+      });
+    } else {
+      this.dialog.open(ReportproblemComponent, {
+        height: '320px',
+        width: '440px',
+        autoFocus: false,
+      });
     }
   }
 
