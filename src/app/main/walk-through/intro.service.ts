@@ -399,8 +399,6 @@ export class IntroService {
   showCongratsDialog(fromIntro: boolean) {
     const dialogRef = this.dialog.open(CongratsDialogComponent, {
       maxWidth: '90vw',
-      // width: '44%',
-      height: '48%',
       panelClass: 'slide-video',
       data: {
         isLocked: false,

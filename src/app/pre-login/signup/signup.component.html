@@ -48,13 +48,39 @@
                 <mat-error *ngIf="signupForm.controls.passwordConfirm.hasError('invalid')"> {{passwordMatchError}} </mat-error>
               </mat-form-field>
             </div>
+            <div class="col-12 my-1 checkbox-common">
+              <mat-checkbox ngModel required name="terms_conditions" (change) = "termsConditionClicked()" >
+                <span class="terms-text">
+                Please agree to the <a routerLink="/trial/terms-and-conditions" target="_blank" class="anchorify-default" (click)="onTermsConClick()">Terms and
+                  Conditions</a> </span>
+              </mat-checkbox>
+            </div>
 
-<!--            <div class="col-12 mb-1 ">-->
+            <div class="col-12 my-1 checkbox-common">
+              <div class=" d-flex flex-row mx-0">
+                <mat-checkbox *ngIf="!updatingPermissions" [(ngModel)]="notificationsAllowed" required name="notificationsInfo" (change) = "notificationsPermission()" >
+                  <div class="terms-text">Notifications are an essential part of this program.
+                    Please accept to allow notifications.
+                  </div>
+                </mat-checkbox>
+              </div>
+
+              <div class=" d-flex flex-row mx-0 " *ngIf="updatingPermissions" >
+                <div style="width: 16px; margin-right: 12px;">
+                  <span class="spinner-border spinner-border-sm"></span>
+                </div>
+                <span class="terms-text mb-2" style="line-height: 24px;">
+                  Notifications are an essential part of this  program.
+                  Please accept to allow notifications.
+                </span>
+              </div>
+            </div>
+
               <div class="d-flex col-12 my-1 checkbox-common">
                 <mat-checkbox  *ngIf="!addingToHomescreen" [(ngModel)]="allowedToHomeScreen" required name="homeScreenInfo" (change) = "homeScreenPermission()" >
 
                 <span class="terms-text">
-              For the purpose of this study, it is required that you add
+                For the purpose of this study, it is required that you add
                 TreadWill to your home screen.
                 Please accept to add TreadWill to your home screen.
                 </span>
@@ -70,33 +96,6 @@
                   </span>
                 </div>
               </div>
-
-            <div class="col-12 my-1 checkbox-common">
-              <div class=" d-flex flex-row mx-0">
-                <mat-checkbox *ngIf="!updatingPermissions" [(ngModel)]="notificationsAllowed" required name="notificationsInfo" (change) = "notificationsPermission()" >
-              <div class="terms-text">Notifications are an essential part of this program.
-                Please accept to allow notifications.
-              </div>
-                </mat-checkbox>
-            </div>
-
-              <div class=" d-flex flex-row mx-0 " *ngIf="updatingPermissions" >
-                <div style="width: 16px; margin-right: 12px;">
-                  <span class="spinner-border spinner-border-sm"></span>
-                </div>
-                <span class="terms-text mb-2" style="line-height: 24px;">
-             Notifications are an essential part of this  program.
-                  Please accept to allow notifications.
-                </span>
-            </div>
-            </div>
-            <div class="col-12 my-1 checkbox-common">
-              <mat-checkbox ngModel required name="terms_conditions" (change) = "termsConditionClicked()" >
-                <span class="terms-text">
-                Please agree to the <a routerLink="/trial/terms-and-conditions" target="_blank" class="anchorify-default" (click)="onTermsConClick()">Terms and
-                  Conditions</a> </span>
-              </mat-checkbox>
-            </div>
 
             <div class="d-flex col-12 my-1 justify-content-end">
               <div matTooltip="Accept all the conditions to activate"  [matTooltipDisabled]="allowSubmit">
