@@ -26,15 +26,15 @@ export class ShowLoginSignupDialogService {
     private dialog: MatDialog,
     private overlay: Overlay,
     private dialogSize: DialogSize,
-    private router: Router,
+    private router: Router
   ) {}
 
   broadcastLoginClicked(loginDialog: any) {
     const scrollStrategy = this.overlay.scrollStrategies.reposition();
     this.getLoginDialog = loginDialog;
     const loginDialogRef = this.dialog.open(loginDialog, {
-      minWidth: this.dialogSize.width,
       minHeight: this.dialogSize.height,
+      maxWidth: '100vw',
       disableClose: true,
       hasBackdrop: true,
       panelClass: 'login-dialog',

@@ -1,1 +1,7 @@
 @import '../forms.component.scss';
+
+@media screen and (max-width: 576px) {
+  .mat-card {
+    box-shadow: none;
+  }
+}

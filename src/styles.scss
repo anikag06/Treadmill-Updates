@@ -56,8 +56,7 @@ $small_logo_height: 40px;
   @include common-dialog-style();
   background-color: #FAF4EA !important;//added here
   min-height: auto;
-  //min-height: inherit;
-
+ width: 440px;
   .mat-input-element {
     @include font-lato();
     font-size: 100%;
@@ -289,6 +288,9 @@ img.emoji {
   .no-gutters-sm {
     margin: 0 !important;
     padding: 0 !important;
+  }
+  .login-dialog .mat-dialog-container {
+    width: 340px;
   }
 }
 

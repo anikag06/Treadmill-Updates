@@ -9,6 +9,7 @@ import { Badge } from './badge.model';
 export class BadgesComponent implements OnInit {
   @Input() badgeList!: Badge[];
   @Input() profileLoaded!: boolean;
+  @Input() badgesCountColor!: string;
   @ViewChild('widgetsContent', { static: false })
   public widgetsContent!: ElementRef<any>;
 
