@@ -10,7 +10,7 @@ export class CommonDialogComponent implements OnInit {
   message!: string;
   constructor(
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
-    @Optional() public dialogRef: MatDialogRef<CommonDialogComponent>
+    @Optional() public dialogRef: MatDialogRef<CommonDialogComponent>,
   ) {
     this.message = this.data.message;
   }
