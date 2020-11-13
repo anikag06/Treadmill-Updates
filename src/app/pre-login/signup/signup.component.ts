@@ -8,6 +8,8 @@ import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-co
 import { MatLoginDialogComponent } from '@/pre-login/login/mat-login-dialog/mat-login-dialog.component';
 import { FcmService } from '@/shared/fcm.service';
 import { A2HSService } from '@/shared/a2hs.service';
+import { MatDialog } from '@angular/material';
+import { CommonDialogComponent } from '@/shared/common-dialog/common-dialog.component';
 
 @Component({
   selector: 'app-signup',
@@ -62,6 +64,7 @@ export class SignUpComponent implements OnInit {
     private showLoginSignupDialogService: ShowLoginSignupDialogService,
     private fcmService: FcmService,
     private a2hsService: A2HSService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -71,7 +74,7 @@ export class SignUpComponent implements OnInit {
     }
     this.signUpService
       .isParticipantValid(this.activatedRoute.snapshot.params['unique-code'])
-      .subscribe(data => {
+      .subscribe((data) => {
         console.log('signup data', data);
         this.showSignUpForm = true;
         this.participantValid = data.data.valid;
@@ -80,7 +83,7 @@ export class SignUpComponent implements OnInit {
         this.username = data.data.username;
         this.encrypted_email = data.data.email_id;
       });
-    this.fcmService.permit.subscribe(permit => {
+    this.fcmService.permit.subscribe((permit) => {
       this.notificationsAllowed = permit ? 1 : 0;
       if (this.notificationsAllowed) {
         this.updatingPermissions = false;
@@ -94,10 +97,10 @@ export class SignUpComponent implements OnInit {
     this.getVariablesUsed();
     this.matchPasswords();
     this.signUpService.signUpData(this.data).subscribe(
-      res => {
+      (res) => {
         this.onSignUpDone(), (this.showLoading = false);
       },
-      err => {
+      (err) => {
         this.showLoading = false;
         this.errorStatus = true;
         if (err.error.message.username) {
@@ -108,7 +111,7 @@ export class SignUpComponent implements OnInit {
           this.signupForm.controls.password.setErrors({ invalid: true });
           // this.passwordError = err.error.message.password;
         }
-      },
+      }
     );
   }
 
@@ -116,7 +119,7 @@ export class SignUpComponent implements OnInit {
     this.showLoading = true;
     console.log(this.emailForm);
     this.signUpService.getSignupMail(this.emailForm.value.email).subscribe(
-      response => {
+      (response) => {
         this.showLoading = false;
         console.log('response', response);
         if (response.user_exists) {
@@ -130,12 +133,12 @@ export class SignUpComponent implements OnInit {
           this.emailExistMessage = true;
         }
       },
-      error => {
+      (error) => {
         console.log(error);
         this.showLoading = false;
         this.showEmailError = true;
         this.emailError = error;
-      },
+      }
     );
   }
 
@@ -188,7 +191,7 @@ export class SignUpComponent implements OnInit {
   }
   onTermsConClick() {
     console.log(
-      `Open terms and conditions in a new tab but don't take the user there.`,
+      `Open terms and conditions in a new tab but don't take the user there.`
     );
   }
 
@@ -200,7 +203,7 @@ export class SignUpComponent implements OnInit {
     this.showSignUpForm = true;
     this.passwordMatch = false;
     this.showLoginSignupDialogService.broadcastLoginClicked(
-      MatLoginDialogComponent,
+      MatLoginDialogComponent
     );
   }
 
@@ -219,7 +222,7 @@ export class SignUpComponent implements OnInit {
   homeScreenPermission() {
     this.addingToHomescreen = true;
     if (this.signupForm.value.homeScreenInfo) {
-      this.a2hsService.getDeferredPrompt().subscribe(deferredPrompt => {
+      this.a2hsService.getDeferredPrompt().subscribe((deferredPrompt) => {
         this.addingToHomescreen = false;
         if (!deferredPrompt) {
           console.log('deferredPrompt null');
@@ -229,9 +232,18 @@ export class SignUpComponent implements OnInit {
         deferredPrompt.userChoice.then((choiceResult: any) => {
           if (choiceResult.outcome === 'accepted') {
             this.allowedToHomeScreen = 1;
+            const dialogRef = this.dialog.open(CommonDialogComponent, {
+              data: {
+                message: 'Some Text',
+              },
+              minWidth: '90vw',
+              autoFocus: false,
+            });
             // no matter the outcome, the prompt cannot be reused ON MOBILE
             // for 3 months or until browser cache is cleared?
-            this.activateSubmitButton();
+            dialogRef.afterClosed().subscribe(() => {
+              this.activateSubmitButton();
+            });
           } else {
             const deferredPromptRejected = true;
           }
