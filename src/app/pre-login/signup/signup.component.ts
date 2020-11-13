@@ -219,7 +219,6 @@ export class SignUpComponent implements OnInit {
   homeScreenPermission() {
     this.addingToHomescreen = true;
     if (this.signupForm.value.homeScreenInfo) {
-      // ToDo: remove this line in production
       this.a2hsService.getDeferredPrompt().subscribe(deferredPrompt => {
         this.addingToHomescreen = false;
         if (!deferredPrompt) {
