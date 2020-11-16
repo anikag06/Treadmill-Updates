@@ -78,7 +78,7 @@
             routerLinkActive="activeClass"
           >
             <span class="list-wrapper-items-icon">
-              <img class="icons-width" src="assets/modules/icon-game.png" />
+              <img class="icons-width" src="assets/shared/Game.svg" />
             </span>
             <span class="list-wrapper-items-name">
               Games
@@ -101,7 +101,7 @@
             <span class="list-wrapper-items-icon">
               <img
                 class="icons-width"
-                src="assets/modules/icon-support-group.png"
+                src="assets/shared/Support Group.svg"
               />
             </span>
             <span class="list-wrapper-items-name">
@@ -118,7 +118,7 @@
             routerLinkActive="activeClass"
           >
             <span class="list-wrapper-items-icon">
-              <img class="icons-width" src="assets/modules/icon-form.png" />
+              <img class="icons-width" src="assets/shared/Form.svg" />
             </span>
             <span class="list-wrapper-items-name">
               Forms
@@ -129,7 +129,7 @@
         <div class="list-wrapper-items">
           <a mat-list-item routerLink="/main/scores" routerLinkActive="activeClass">
             <span class="list-wrapper-items-icon">
-              <img class="icons-width" src="assets/modules/icon-score.png" />
+              <img class="icons-width" src="assets/shared/Score.svg" />
             </span>
             <span class="list-wrapper-items-name">
               Scores
@@ -140,7 +140,7 @@
         <div class="list-wrapper-items" id="resources">
           <a mat-list-item routerLink="/main/extra-resources" routerLinkActive="activeClass">
             <span class="list-wrapper-items-icon">
-              <img class="icons-width" src="assets/modules/icon-resource.png" />
+              <img class="icons-width" src="assets/shared/Resource.svg" />
             </span>
             <span class="list-wrapper-items-name">
               Resources
@@ -152,15 +152,14 @@
           <a mat-list-item routerLink="/main/need-to-talk" routerLinkActive="activeClass">
             <span class="list-wrapper-items-icon">
               <img
-                style="margin-left: 4px;"
-                width="25px"
+                class="icons-width"
                 src="assets/modules/icon-need-to-talk.png"
               />
-              <img
-                *ngIf="!isExpanded"
-                width="25px"
-                src="assets/modules/icon-need-to-talk.png"
-              />
+<!--              <img-->
+<!--                *ngIf="!isExpanded"-->
+<!--                width="25px"-->
+<!--                src="assets/modules/icon-need-to-talk.png"-->
+<!--              />-->
             </span>
             <span class="list-wrapper-items-name"> Need to talk? </span>
           </a>
@@ -169,7 +168,7 @@
         <div class = "list-wrapper-items">
           <a mat-list-item routerLink = "/main/settings" routerLinkActive="activeClass">
             <span class = "list-wrapper-items-icon">
-              <img style="margin-left: 4px;" width="25px" src="assets/modules/Setting.png" />
+              <img class="icons-width" src="assets/shared/setting.svg" />
             </span>
             <span class = "list-wrapper-items-name">Settings</span>
           </a>
@@ -178,7 +177,7 @@
         <div class = "list-wrapper-items" (click)="reportProblem()">
           <a mat-list-item routerLinkActive="activeClass">
             <span class = "list-wrapper-items-icon">
-              <img style="margin-left: 4px;" width="25px" src="assets/shared/Report problem.svg" />
+              <img class="icons-width" src="assets/shared/Report problem.svg" />
             </span>
             <span class = "list-wrapper-items-name">Report problem</span>
           </a>
