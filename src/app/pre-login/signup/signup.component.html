@@ -1,150 +1,247 @@
-<div class="row signup-page w-100 no-gutters" *ngIf="showSignUpPage else desktopMessage">
- <div class = "col-sm-12 col-md-5">
+<div
+  class="row signup-page w-100 no-gutters"
+  *ngIf="showSignUpPage; else desktopMessage"
+>
+  <div class="col-sm-12 col-md-5">
     <app-signup-reset-common></app-signup-reset-common>
   </div>
 
   <div class="d-flex flex-column col-sm-12">
-    <h4 class="d-flex align-self-center"> SIGN UP</h4>
+    <h4 class="d-flex align-self-center">SIGN UP</h4>
     <div class="flex-column mx-auto my-auto align-self-center">
-      <div *ngIf="!showSignUpForm" class="d-flex flex-row align-items-center justify-content-start"
-        style="height: 450px; width: 100%;">
-        <img src="../../../assets/shared/loading-gif.gif" alt="loader" width="80">
+      <div
+        *ngIf="!showSignUpForm"
+        class="d-flex flex-row align-items-center justify-content-start"
+        style="height: 450px; width: 100%;"
+      >
+        <img
+          src="../../../assets/shared/loading-gif.gif"
+          alt="loader"
+          width="80"
+        />
       </div>
 
       <div *ngIf="showSignUpForm && participantValid && !userExists">
         <form #signupForm="ngForm" class="signup-form">
-          <div >
-            <mat-error *ngIf="errorStatus"> {{passwordError}} </mat-error>
+          <div>
+            <mat-error *ngIf="errorStatus"> {{ passwordError }} </mat-error>
             <div class="row no-gutters justify-content-center">
-                Tips: Use a nickname to maintain anonymity
+              Tips: Use a nickname to maintain anonymity
             </div>
             <div class="row no-gutters justify-content-center">
-              <mat-form-field style="width:90%">
-                <input matInput placeholder="Username" type="text" ngModel required name="username"
-                       (change)="activateSubmitButton()"
-                  class="example-right-align">
-                <mat-error *ngIf="signupForm.controls.username.hasError('required')">Username is required</mat-error>
-                <mat-error *ngIf="signupForm.controls.username.hasError('invalid')"> {{usernameError}} </mat-error>
+              <mat-form-field style="width: 90%;">
+                <input
+                  matInput
+                  placeholder="Username"
+                  type="text"
+                  ngModel
+                  required
+                  name="username"
+                  (change)="activateSubmitButton()"
+                  class="example-right-align"
+                />
+                <mat-error
+                  *ngIf="signupForm.controls.username.hasError('required')"
+                  >Username is required</mat-error
+                >
+                <mat-error
+                  *ngIf="signupForm.controls.username.hasError('invalid')"
+                >
+                  {{ usernameError }}
+                </mat-error>
               </mat-form-field>
             </div>
 
             <div class="row no-gutters justify-content-center">
-                <mat-form-field style="width:90%">
-                  <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'" ngModel required
-                         minlength="6"
-                         name="password" (change)="matchPasswords()" >
-                  <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                  <mat-error *ngIf="signupForm.controls.password.hasError('required')">Password is required</mat-error>
-                  <mat-error *ngIf="signupForm.controls.password.hasError('invalid') || signupForm.controls.password.hasError('minlength')">
-                    {{passwordError}}
-                  </mat-error>
-                </mat-form-field>
+              <mat-form-field style="width: 90%;">
+                <input
+                  matInput
+                  placeholder="Enter your password"
+                  [type]="hide ? 'password' : 'text'"
+                  ngModel
+                  required
+                  minlength="6"
+                  name="password"
+                  (change)="matchPasswords()"
+                />
+                <mat-icon matSuffix (click)="hide = !hide">{{
+                  hide ? 'visibility_off' : 'visibility'
+                }}</mat-icon>
+                <mat-error
+                  *ngIf="signupForm.controls.password.hasError('required')"
+                  >Password is required</mat-error
+                >
+                <mat-error
+                  *ngIf="
+                    signupForm.controls.password.hasError('invalid') ||
+                    signupForm.controls.password.hasError('minlength')
+                  "
+                >
+                  {{ passwordError }}
+                </mat-error>
+              </mat-form-field>
             </div>
             <div class="row no-gutters justify-content-center">
-              <mat-form-field style="width:90%">
-                <input matInput placeholder="Confirm password" [type]="hide ? 'password' : 'text'" ngModel required
-                       name="passwordConfirm" (change)="matchPasswords()">
-                <mat-error *ngIf="signupForm.controls.password.hasError('required')"> Password is required </mat-error>
-                <mat-error *ngIf="signupForm.controls.passwordConfirm.hasError('invalid')"> {{passwordMatchError}} </mat-error>
+              <mat-form-field style="width: 90%;">
+                <input
+                  matInput
+                  placeholder="Confirm password"
+                  [type]="hide ? 'password' : 'text'"
+                  ngModel
+                  required
+                  name="passwordConfirm"
+                  (change)="matchPasswords()"
+                />
+                <mat-error
+                  *ngIf="signupForm.controls.password.hasError('required')"
+                >
+                  Password is required
+                </mat-error>
+                <mat-error
+                  *ngIf="
+                    signupForm.controls.passwordConfirm.hasError('invalid')
+                  "
+                >
+                  {{ passwordMatchError }}
+                </mat-error>
               </mat-form-field>
             </div>
             <div class="col-12 my-1 checkbox-common">
-              <mat-checkbox ngModel required name="terms_conditions" (change) = "termsConditionClicked()" >
+              <mat-checkbox
+                ngModel
+                required
+                name="terms_conditions"
+                (change)="termsConditionClicked()"
+              >
                 <span class="terms-text">
-                Please agree to the <a routerLink="/trial/terms-and-conditions" target="_blank" class="anchorify-default" (click)="onTermsConClick()">Terms and
-                  Conditions</a> </span>
+                  Please agree to the
+                  <a
+                    routerLink="/trial/terms-and-conditions"
+                    target="_blank"
+                    class="anchorify-default"
+                    (click)="onTermsConClick()"
+                    >Terms and Conditions</a
+                  >
+                </span>
               </mat-checkbox>
             </div>
 
             <div class="col-12 my-1 checkbox-common">
-              <div class=" d-flex flex-row mx-0">
-                <mat-checkbox *ngIf="!updatingPermissions" [(ngModel)]="notificationsAllowed" required name="notificationsInfo" (change) = "notificationsPermission()" >
-                  <div class="terms-text">Notifications are an essential part of this program.
-                    Please accept to allow notifications.
+              <div class="d-flex flex-row mx-0">
+                <mat-checkbox
+                  *ngIf="!updatingPermissions"
+                  [(ngModel)]="notificationsAllowed"
+                  required
+                  name="notificationsInfo"
+                  (change)="notificationsPermission()"
+                >
+                  <div class="terms-text">
+                    Notifications are an essential part of this program. Please
+                    accept to allow notifications.
                   </div>
                 </mat-checkbox>
               </div>
 
-              <div class=" d-flex flex-row mx-0 " *ngIf="updatingPermissions" >
+              <div class="d-flex flex-row mx-0" *ngIf="updatingPermissions">
                 <div style="width: 16px; margin-right: 12px;">
                   <span class="spinner-border spinner-border-sm"></span>
                 </div>
                 <span class="terms-text mb-2" style="line-height: 24px;">
-                  Notifications are an essential part of this  program.
-                  Please accept to allow notifications.
+                  Notifications are an essential part of this program. Please
+                  accept to allow notifications.
                 </span>
               </div>
             </div>
 
-              <div class="d-flex col-12 my-1 checkbox-common">
-                <mat-checkbox  *ngIf="!addingToHomescreen" [(ngModel)]="allowedToHomeScreen" required name="homeScreenInfo" (change) = "homeScreenPermission()" >
-
+            <div class="d-flex col-12 my-1 checkbox-common">
+              <mat-checkbox
+                *ngIf="!addingToHomescreen"
+                [(ngModel)]="allowedToHomeScreen"
+                required
+                name="homeScreenInfo"
+                [disabled]="!allowSubmit"
+                (change)="homeScreenPermission()"
+              >
                 <span class="terms-text">
-                For the purpose of this study, it is required that you add
-                TreadWill to your home screen.
-                Please accept to add TreadWill to your home screen.
+                  For the purpose of this study, it is required that you add
+                  TreadWill to your home screen. Please accept to add TreadWill
+                  to your home screen.
                 </span>
-                </mat-checkbox>
-                <div class=" d-flex flex-row mx-0" *ngIf="addingToHomescreen" >
-                  <div style="width: 16px; margin-right: 12px;">
-                    <span class="spinner-border spinner-border-sm"></span>
-                  </div>
-                  <span class="terms-text mb-2" style="line-height: 24px;">
-                    For the purpose of this study, it is required that you add
-                    TreadWill to your home screen.
-                    Please accept to add TreadWill to your home screen.
-                  </span>
-                </div>
-              </div>
-
-            <div class="d-flex col-12 my-1 justify-content-end">
-              <div matTooltip="Accept all the conditions to activate"  [matTooltipDisabled]="allowSubmit">
-                <button mat-raised-button class="signup-btn" [disabled]="!allowSubmit"
-                        *ngIf="!showLoading"
-                        type="submit" (click)="onSignUpSubmit()">
-                  <span >  Sign Up </span>
-              </button>
-              </div>
-              <div>
-                <button class="signup-btn" *ngIf="showLoading" type="button" mat-raised-button >
+              </mat-checkbox>
+              <div class="d-flex flex-row mx-0" *ngIf="addingToHomescreen">
+                <div style="width: 16px; margin-right: 12px;">
                   <span class="spinner-border spinner-border-sm"></span>
-                </button>
+                </div>
+                <span class="terms-text mb-2" style="line-height: 24px;">
+                  For the purpose of this study, it is required that you add
+                  TreadWill to your home screen. Please accept to add TreadWill
+                  to your home screen. By adding TreadWill, you also agree to
+                  Sign Up for TreadWill.
+                </span>
               </div>
             </div>
           </div>
         </form>
       </div>
 
-      <div *ngIf="showSignUpForm && !participantValid && !userExists" class="mx-4">
-        <div  *ngIf="!showEmailMessage && !showEmailError" >
-        <p>The link is invalid. Please enter your email id here to receive the proper link: </p>
-        <form [formGroup]="emailForm" class="w-100" >
-          <input formControlName="email"
-                 type="email" class="input-box w-100 px-2 form-elements"
-                 required
-                 email
-                 placeholder=" Enter your email ID" >
-          <div class="w-100 my-3 float-right">
-            <button type="submit" class="signup-btn float-right" *ngIf="!showLoading" mat-raised-button
-                    (click)="emailSubmit()" > Submit </button>
-            <button class="float-right signup-btn" *ngIf="showLoading" type="button" mat-raised-button >
-              <span class="spinner-border spinner-border-sm"></span>
-            </button>
-          </div>
-        </form>
+      <div
+        *ngIf="showSignUpForm && !participantValid && !userExists"
+        class="mx-4"
+      >
+        <div *ngIf="!showEmailMessage && !showEmailError">
+          <p>
+            The link is invalid. Please enter your email id here to receive the
+            proper link:
+          </p>
+          <form [formGroup]="emailForm" class="w-100">
+            <input
+              formControlName="email"
+              type="email"
+              class="input-box w-100 px-2 form-elements"
+              required
+              email
+              placeholder=" Enter your email ID"
+            />
+            <div class="w-100 my-3 float-right">
+              <button
+                type="submit"
+                class="signup-btn float-right"
+                *ngIf="!showLoading"
+                mat-raised-button
+                (click)="emailSubmit()"
+              >
+                Submit
+              </button>
+              <button
+                class="float-right signup-btn"
+                *ngIf="showLoading"
+                type="button"
+                mat-raised-button
+              >
+                <span class="spinner-border spinner-border-sm"></span>
+              </button>
+            </div>
+          </form>
         </div>
       </div>
       <div *ngIf="showEmailError" class="mx-4">
-        <p> {{emailError}}</p>
+        <p>{{ emailError }}</p>
       </div>
       <div *ngIf="showEmailMessage" class="mx-4">
-<!--         show message as per condition-->
-        <p  *ngIf="emailExistMessage" > Looks like you haven't joined the study yet. Go <a routerLink="/trial/trial-registration">here</a> to join the study.</p>
-      <p  *ngIf="emailSentMessage" > Email has been sent to the email id provided by you.</p>
+        <!--         show message as per condition-->
+        <p *ngIf="emailExistMessage">
+          Looks like you haven't joined the study yet. Go
+          <a routerLink="/trial/trial-registration">here</a> to join the study.
+        </p>
+        <p *ngIf="emailSentMessage">
+          Email has been sent to the email id provided by you.
+        </p>
       </div>
 
-      <div *ngIf="userExists" class="mx-4" >
-        <p>You have already signed up for TreadWill. Your username is {{username}}. Please go to <a routerLink="/landing">Login</a> page.
+      <div *ngIf="userExists" class="mx-4">
+        <p>
+          You have already signed up for TreadWill. Your username is
+          {{ username }}. Please go to <a routerLink="/landing">Login</a> page.
         </p>
       </div>
     </div>

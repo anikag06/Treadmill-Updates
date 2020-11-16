@@ -1,9 +1,19 @@
 <div>
-  <div class="mb-2">
-    {{ this.message }}
-  </div>
-
-  <div class="float-right" (click)="closeModal()" [ngStyle]="{fontSize : '14px'}">
-    OK
-  </div>
+  <ng-container *ngIf="data.loading; else loadingComplete">
+    <div class="mb-2">
+      <span class="spinner-border spinner-border-sm"></span> &nbsp; Signing up
+    </div>
+  </ng-container>
+  <ng-template #loadingComplete>
+    <div class="mb-2">
+      Signed up! Open the installed TreadWill and Log in.
+    </div>
+      <div
+        class="float-right"
+        (click)="closeModal()"
+        [ngStyle]="{ fontSize: '14px' }"
+      >
+        OK
+      </div>
+  </ng-template>
 </div>
