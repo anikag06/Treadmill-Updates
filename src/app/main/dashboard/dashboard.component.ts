@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { User } from '@/shared/user.model';
 import { AuthService } from '@/shared/auth/auth.service';
-import { MOBILE_WIDTH, TREADWILL } from '@/app.constants';
+import { MOBILE_WIDTH, SCORE, TREADWILL } from '@/app.constants';
 import { Title } from '@angular/platform-browser';
 import { UserProfile } from '../shared/user-profile/UserProfile.model';
 import { UserProfileService } from '../shared/user-profile/user-profile.service';
@@ -26,7 +26,7 @@ export class DashboardComponent implements OnInit {
     private titleService: Title,
     private userProfileService: UserProfileService,
     private introService: IntroService,
-    private quizService: QuizService,
+    private quizService: QuizService
   ) {
     this.titleService.setTitle('Dashboard | ' + TREADWILL);
   }
@@ -40,7 +40,7 @@ export class DashboardComponent implements OnInit {
 
     this.userProfileService
       .getUserProfile(this.user.username)
-      .subscribe(profile => {
+      .subscribe((profile) => {
         this.userProfile = new UserProfile(
           profile.username,
           profile.user_avatar,
@@ -50,20 +50,21 @@ export class DashboardComponent implements OnInit {
           profile.no_of_gold_badges,
           profile.badge_list_bronze,
           profile.badge_list_silver,
-          profile.badge_list_gold,
+          profile.badge_list_gold
         );
+        window.localStorage.setItem(SCORE, this.userProfile.score.toString());
       });
     if (window.innerWidth < MOBILE_WIDTH) {
       this.introduceSubscription = this.introService.introduceBehaviour.subscribe(
-        showFlow => {
+        (showFlow) => {
           this.showFlow = showFlow;
-        },
+        }
       );
     }
     this.hideSubscription = this.introService.hideBehaviour.subscribe(
-      showFlow => {
+      (showFlow) => {
         this.hideCards = showFlow;
-      },
+      }
     );
     this.quizService.showFollowUp.subscribe(() => {
       this.showQuestionnaire = true;
