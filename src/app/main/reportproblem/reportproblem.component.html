@@ -1,10 +1,11 @@
 <div class="main-div">
   <h5 class="text-center">Report problem</h5>
   <p style="margin-top: 32px"> What was the problem you faced?</p>
-  <mat-form-field [floatLabel]="'never'" style="width: 100%">
+  <mat-form-field [floatLabel]="'never'" style="width: 100%;">
       <textarea matInput [(ngModel)]="problem"
                 cdkTextareaAutosize
                 cdkAutosizeMinRows="1"
+                cdkAutosizeMaxRows="6"
                 placeholder="Write here"></textarea>
   </mat-form-field>
 

@@ -336,14 +336,14 @@ export class MainComponent
   reportProblem() {
     if (this.srcWidth <= 576) {
       this.dialog.open(ReportproblemComponent, {
-        height: '320px',
+        height: '340px',
         width: '320px',
         maxWidth: '90vw',
         autoFocus: false,
       });
     } else {
       this.dialog.open(ReportproblemComponent, {
-        height: '320px',
+        height: '340px',
         width: '440px',
         autoFocus: false,
       });
