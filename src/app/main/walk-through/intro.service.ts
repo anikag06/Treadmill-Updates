@@ -49,21 +49,19 @@ export class IntroService {
   introJSMenu = introJs();
   introJSStart = introJs();
   introJSChatbot = introJs();
-  component: any;
   showActiveStepIntro = false;
   showChatbotIntro = false;
   chatbotStepID!: number;
   chatbotStepStatus!: string;
   constructor(
     private dialog: MatDialog,
-    private componentFactoryResolver: ComponentFactoryResolver,
     private notificationService: NavbarNotificationsService,
     private flowService: FlowService,
     private stepsDataService: StepsDataService,
     private http: HttpClient,
     private commonService: CommonService,
     private authService: AuthService,
-    private userProfileService: UserProfileService,
+    private userProfileService: UserProfileService
   ) {}
 
   completionData: StepCompleteData = new StepCompleteData(0, 0);
@@ -391,9 +389,9 @@ export class IntroService {
 
             if (isExp) {
               this.commonService.updateScore(
-                INTRODUCTORY_ANIMATION_STEP_COMPLETE_SCORE,
+                INTRODUCTORY_ANIMATION_STEP_COMPLETE_SCORE
               );
-              this.commonService.introScoreSend.emit();
+              // this.commonService.introScoreSend.emit();
             }
           });
       }
@@ -412,17 +410,6 @@ export class IntroService {
       },
       autoFocus: false,
     });
-  }
-
-  showPointsNotification(pointsNotification: ViewContainerRef) {
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
-      PointsComponent,
-    );
-    const pointsComponent = pointsNotification.createComponent(
-      componentFactory,
-    );
-    pointsComponent.instance.points = 20;
-    this.component = pointsComponent;
   }
 
   startFlowIntro() {
@@ -469,19 +456,21 @@ export class IntroService {
       this.setOverlayFalse();
       this.notificationService.closeNavFlow.emit();
       if (window.innerWidth > MOBILE_WIDTH) {
-        if (isExp && !this.flowService.stepCompleted) {
-          // if (isExp) {
-          //   this.commonService.updateIntroScore(
-          //     INTRODUCTORY_ANIMATION_STEP_COMPLETE_SCORE,
-          //   );
-          //   this.commonService.introScoreSend.emit();
-          // }
-          setTimeout(() => {
-            this.flowService.introduceBehaviour.next(true);
-          }, 1000);
-          setTimeout(() => {
-            this.startPointsIntro();
-          }, 1500);
+        if (!this.flowService.stepCompleted) {
+          if (isExp) {
+            this.commonService.setIsIntroPointsTrue();
+            this.commonService.updateScore(
+              INTRODUCTORY_ANIMATION_STEP_COMPLETE_SCORE
+            );
+            setTimeout(() => {
+              this.flowService.introduceBehaviour.next(true);
+            }, 1000);
+            setTimeout(() => {
+              this.startPointsIntro();
+            }, 1500);
+          } else {
+            this.firstStepComplete();
+          }
         }
       } else {
         setTimeout(() => {
@@ -522,19 +511,9 @@ export class IntroService {
     });
     intro.start();
     intro.onexit(() => {
-      this.completionData.step_id = this.flowService.getFirstStepID();
-      this.completionData.time_spent = 100;
-      this.stepsDataService
-        .storeCompletionData(this.completionData)
-        .subscribe(() => {
-          this.destroyComponent();
-          this.flowService.triggerLoad();
-        });
-
-      this.commonService.updateScore(
-        INTRODUCTORY_ANIMATION_STEP_COMPLETE_SCORE,
-      );
-      this.commonService.introScoreSend.emit();
+      this.firstStepComplete();
+      this.commonService.destroyComponent();
+      this.commonService.setIsIntroPointsFalse();
     });
   }
 
@@ -606,17 +585,25 @@ export class IntroService {
     intro.onexit(() => {
       this.setOverlayFalse();
       this.drawer.toggle();
-      if (isExp && !this.flowService.stepCompleted) {
-        setTimeout(() => {
-          this.flowService.introduceBehaviour.next(true);
-        }, 1000);
-        setTimeout(() => {
-          this.setSideBarFalse();
-          // if (!this.flowService.stepCompleted) {
-          //   this.commonService.updateScore(20);
-          // }
-          this.startPointsIntro();
-        }, 1500);
+      if (!this.flowService.stepCompleted) {
+        if (isExp) {
+          this.commonService.setIsIntroPointsTrue();
+          this.commonService.updateScore(
+            INTRODUCTORY_ANIMATION_STEP_COMPLETE_SCORE
+          );
+          setTimeout(() => {
+            this.flowService.introduceBehaviour.next(true);
+          }, 1000);
+          setTimeout(() => {
+            this.setSideBarFalse();
+            // if (!this.flowService.stepCompleted) {
+            //   this.commonService.updateScore(20);
+            // }
+            this.startPointsIntro();
+          }, 1500);
+        } else {
+          this.firstStepComplete();
+        }
       }
     });
   }
@@ -725,7 +712,7 @@ export class IntroService {
     return this.http.get(
       environment.API_ENDPOINT +
         '/api/v1/flow/show-introductory-animation/' +
-        element,
+        element
     );
   }
 
@@ -817,9 +804,9 @@ export class IntroService {
     this.introJSChatbot.exit();
   }
 
-  destroyComponent() {
-    this.component.destroy();
-  }
+  // destroyComponent() {
+  //   this.component.destroy();
+  // }
 
   setActiveStepIntro(value: boolean) {
     this.showActiveStepIntro = value;
@@ -831,5 +818,15 @@ export class IntroService {
 
   getChatbotIntro() {
     return this.showChatbotIntro;
+  }
+
+  firstStepComplete() {
+    this.completionData.step_id = this.flowService.getFirstStepID();
+    this.completionData.time_spent = 100;
+    this.stepsDataService
+      .storeCompletionData(this.completionData)
+      .subscribe(() => {
+        this.flowService.triggerLoad();
+      });
   }
 }

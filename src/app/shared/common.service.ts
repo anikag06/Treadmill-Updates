@@ -1,4 +1,9 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import {
+  ComponentFactoryResolver,
+  EventEmitter,
+  Injectable,
+  ViewContainerRef,
+} from '@angular/core';
 import { fromEvent, merge, Observable, Observer } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
@@ -7,7 +12,7 @@ import { User } from '@/shared/user.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserProfileService } from '@/main/shared/user-profile/user-profile.service';
 import { MatSnackBar } from '@angular/material';
-import { duration } from 'moment';
+import { PointsComponent } from '@/main/shared/points/points.component';
 
 @Injectable({
   providedIn: 'root',
@@ -16,23 +21,27 @@ export class CommonService {
   user!: User;
   oldScore!: number;
   newScore!: number;
+  component: any;
+  pointsNotificationRef!: ViewContainerRef;
+  isIntroPoints = false;
   introScoreSend = new EventEmitter<any>();
   constructor(
     private authService: AuthService,
     private http: HttpClient,
     private userProfileService: UserProfileService,
     private snackBar: MatSnackBar,
+    private componentFactoryResolver: ComponentFactoryResolver
   ) {
     this.user = this.authService.isLoggedIn()!;
   }
-  createOnline$() {
+  isOnline$() {
     return merge<boolean>(
       fromEvent(window, 'offline').pipe(map(() => false)),
       fromEvent(window, 'online').pipe(map(() => true)),
       new Observable((sub: Observer<boolean>) => {
         sub.next(navigator.onLine);
         sub.complete();
-      }),
+      })
     );
   }
 
@@ -51,7 +60,7 @@ export class CommonService {
         '/api/v1/user/user-profile/' +
         this.user.username,
       body,
-      httpOptions,
+      httpOptions
     );
   }
   postScoreForOther(score: number, username: string) {
@@ -67,19 +76,43 @@ export class CommonService {
     return this.http.patch(
       environment.API_ENDPOINT + '/api/v1/user/user-profile/' + username,
       body,
-      httpOptions,
+      httpOptions
     );
   }
-
-  showSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action, {
-      duration: 2000,
-    });
-  }
-
   updateScore(score: number) {
     this.postScore(score).subscribe(() => {});
     this.userProfileService.setScoreValue(score);
-    this.showSnackBar('+' + score.toString() + ' ' + 'Points', '');
+    this.showPointsNotification(score);
+    if (!this.isIntroPoints) {
+      setTimeout(() => {
+        this.destroyComponent();
+      }, 2000);
+    }
+  }
+
+  showPointsNotification(points: number) {
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
+      PointsComponent
+    );
+    const pointsComponent = this.pointsNotificationRef.createComponent(
+      componentFactory
+    );
+    pointsComponent.instance.points = points;
+    this.component = pointsComponent;
+  }
+
+  setPointsNotificationRef(pointsNotification: ViewContainerRef) {
+    this.pointsNotificationRef = pointsNotification;
+  }
+
+  destroyComponent() {
+    this.component.destroy();
+  }
+
+  setIsIntroPointsTrue() {
+    this.isIntroPoints = true;
+  }
+  setIsIntroPointsFalse() {
+    this.isIntroPoints = false;
   }
 }

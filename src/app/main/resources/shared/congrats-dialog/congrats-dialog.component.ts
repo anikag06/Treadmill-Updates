@@ -27,7 +27,7 @@ export class CongratsDialogComponent implements OnInit {
     private router: Router,
     private flowStepService: FlowStepNavigationService,
     private flowService: FlowService,
-    private goToService: NavbarGoToService,
+    private goToService: NavbarGoToService
   ) {
     dialogRef.disableClose = true;
   }
@@ -61,11 +61,14 @@ export class CongratsDialogComponent implements OnInit {
 
   goToDashboard() {
     if (this.data.isLastStep) {
-      this.closeDialog();
-      this.router.navigate(['/']);
       if (this.data.fromIntro) {
         this.flowService.stepCompleted = true;
         this.flowService.introduceBehaviour.next(false);
+        this.flowService.triggerLoad();
+        this.closeDialog();
+      } else {
+        this.closeDialog();
+        this.router.navigate(['/']);
       }
     } else if (this.data.isLastModule) {
       this.closeDialog();

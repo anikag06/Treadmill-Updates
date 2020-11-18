@@ -46,6 +46,7 @@ import { ResetPasswordService } from '@/pre-login/reset-password/reset-password.
 import { MatRadioModule } from '@angular/material/radio';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { CommonDialogComponent } from './shared/common-dialog/common-dialog.component';
+import { PointsComponent } from '@/main/shared/points/points.component';
 
 declare let $: any;
 
@@ -64,6 +65,7 @@ declare let $: any;
     ResetPasswordComponent,
     SignupResetCommonComponent,
     CommonDialogComponent,
+    PointsComponent,
   ],
   imports: [
     BrowserModule,
@@ -112,6 +114,7 @@ declare let $: any;
     MatContactUsDialogComponent,
     ErrorDialogComponent,
     CommonDialogComponent,
+    PointsComponent,
   ],
 })
 export class AppModule {}
