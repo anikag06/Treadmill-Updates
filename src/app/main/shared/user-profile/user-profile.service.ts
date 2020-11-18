@@ -13,11 +13,11 @@ export class UserProfileService {
 
   getUserProfile(userName: string): Observable<UserProfile> {
     return this.http.get<UserProfile>(
-      environment.API_ENDPOINT + USER_PROFILE + userName
+      environment.API_ENDPOINT + USER_PROFILE + userName,
     );
   }
   setScoreFromProfile(username: string) {
-    this.getUserProfile(username).subscribe((profile) => {
+    this.getUserProfile(username).subscribe(profile => {
       this.setScoreValue(profile.score);
     });
   }
