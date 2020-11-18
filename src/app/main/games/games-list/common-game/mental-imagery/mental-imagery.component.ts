@@ -38,6 +38,8 @@ export class MentalImageryComponent implements OnInit {
   playing = false;
   showInstructionIcon = true;
   showLoading = true;
+  imagesPreloaded = false;
+
 
   constructor(
     private getCurrentStateService: MICurrentStateService,
@@ -46,9 +48,20 @@ export class MentalImageryComponent implements OnInit {
     private flowService: FlowService,
     private activatedRoute: ActivatedRoute,
     private stepDataService: StepsDataService,
+    private loadFileService: LoadFilesService,
+
   ) {}
 
   ngOnInit() {
+    this.loadFileService
+      .loadExternalScript(
+        'assets/games//mental-imagery-game/mental-imagery-assets.js',
+      )
+      .then(() => {
+        this.imagesPreloaded = true;
+        console.log('IMAGES LOADED');
+      })
+      .catch(() => {});
     this.activatedRoute.params
       .pipe(
         map(v => v.id),
