@@ -21,6 +21,7 @@ export class RegistrationStepTwoComponent implements OnInit {
     gender: new FormControl('', [Validators.required]),
     education: new FormControl(null, [Validators.required]),
     profession: new FormControl(null, [Validators.required]),
+    browser: new FormControl(null, [Validators.required]),
     country: new FormControl(null, [Validators.required]),
     timezone: new FormControl(null, [Validators.required]),
     knowEnglish: new FormControl(null, [Validators.required]),
@@ -40,6 +41,7 @@ export class RegistrationStepTwoComponent implements OnInit {
     0,
     null,
     0,
+    1,
     1,
     1,
     true,
@@ -106,6 +108,7 @@ export class RegistrationStepTwoComponent implements OnInit {
       this.stepTwoFormData.gender = this.stepTwoForm.value.gender;
       this.stepTwoFormData.education = this.stepTwoForm.value.education;
       this.stepTwoFormData.occupation = this.stepTwoForm.value.profession;
+      this.stepTwoFormData.browser = this.stepTwoForm.value.browser;
       this.stepTwoFormData.country = this.stepTwoForm.value.country;
       this.stepTwoFormData.english = this.stepTwoForm.value.knowEnglish;
       this.stepTwoFormData.tech_access = this.stepTwoForm.value.internetEnabled;

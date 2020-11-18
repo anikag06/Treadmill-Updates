@@ -99,6 +99,24 @@
                         </mat-form-field>
                     </div>
 
+                  <div class="col-12">
+                    <label class="lesser-opacity">
+                      In which browser are you planning to use TreadWill?
+                    </label>
+                    <mat-form-field class="w-100" style="margin-top: -20px;">
+                      <mat-label>In which browser are you planning to use TreadWill?</mat-label>
+                      <mat-select #Browser
+                                  required formControlName="browser">
+                        <mat-option [value]="1">Google chrome</mat-option>
+                        <mat-option [value]="-1">Microsoft edge</mat-option>
+                        <mat-option [value]="-1">Firefox</mat-option>
+                        <mat-option [value]="-1">Safari</mat-option>
+                        <mat-option [value]="-1">Opera</mat-option>
+                        <mat-option [value]="-1">Other</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+
                     <div class="col-12 my-2">
                         <label class="lesser-opacity">
                             Do you know English well enough to read and understand
@@ -220,9 +238,12 @@
                     </div>
 
                     <div class="col-12 my-3">
-                        <mat-form-field class="w-100">
+                        <label class="lesser-opacity">
+                          How did you get to know about the TreadWill study?
+                        </label>
+                        <mat-form-field class="w-100" style="margin-top: -20px;">
                             <mat-label class="lesser-opacity">
-                                How did you get to know about the TreadWill study?
+                              How did you get to know about the TreadWill study?
                             </mat-label>
                             <mat-select #Know (selectionChange)="showTextBox($event.value)"
                                 required formControlName="infoSource">

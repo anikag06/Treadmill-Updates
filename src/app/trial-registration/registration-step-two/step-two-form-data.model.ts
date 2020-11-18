@@ -8,6 +8,7 @@ export class RegistrationStepTwoForm {
     public education: number,
     public occupation: number,
     public country: number,
+    public browser: number,
     public english: any,
     public tech_access: any,
     public secondary_help: any,
