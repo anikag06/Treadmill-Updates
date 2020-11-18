@@ -82,8 +82,4 @@ export class CommonService {
     this.userProfileService.setScoreValue(score);
     this.showSnackBar('+' + score.toString() + ' ' + 'Points', '');
   }
-  updateIntroScore(score: number) {
-    this.postScore(score).subscribe(() => {});
-    this.userProfileService.setScoreValue(score);
-  }
 }
