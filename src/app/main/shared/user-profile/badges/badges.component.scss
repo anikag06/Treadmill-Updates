@@ -45,7 +45,7 @@
 }
 
 .left-arrow {
-  left: 0px;
+  left: 0;
   position: absolute;
   top: 60px;
   z-index: 200;
@@ -55,7 +55,7 @@
 }
 
 .right-arrow {
-  right: 0px;
+  right: 0;
   position: absolute;
   top: 60px;
   z-index: 200;
@@ -114,7 +114,7 @@
 
     .badge-count {
       right: 3px;
-      bottom: 30px;
+      bottom: 0;
     }
   }
 
@@ -131,6 +131,9 @@
   .badge-name {
     font-size: 12px;
     margin-top: 15px;
+    white-space: normal;
+    position: absolute;
+    width: 90px;
   }
 
   .left-arrow {

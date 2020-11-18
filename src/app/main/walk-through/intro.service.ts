@@ -63,7 +63,7 @@ export class IntroService {
     private http: HttpClient,
     private commonService: CommonService,
     private authService: AuthService,
-    private userProfileService: UserProfileService,
+    private userProfileService: UserProfileService
   ) {}
 
   completionData: StepCompleteData = new StepCompleteData(0, 0);
@@ -391,7 +391,7 @@ export class IntroService {
 
             if (isExp) {
               this.commonService.updateScore(
-                INTRODUCTORY_ANIMATION_STEP_COMPLETE_SCORE,
+                INTRODUCTORY_ANIMATION_STEP_COMPLETE_SCORE
               );
               this.commonService.introScoreSend.emit();
             }
@@ -416,10 +416,10 @@ export class IntroService {
 
   showPointsNotification(pointsNotification: ViewContainerRef) {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
-      PointsComponent,
+      PointsComponent
     );
     const pointsComponent = pointsNotification.createComponent(
-      componentFactory,
+      componentFactory
     );
     pointsComponent.instance.points = 20;
     this.component = pointsComponent;
@@ -469,13 +469,13 @@ export class IntroService {
       this.setOverlayFalse();
       this.notificationService.closeNavFlow.emit();
       if (window.innerWidth > MOBILE_WIDTH) {
-        if (!this.flowService.stepCompleted) {
-          if (isExp) {
-            this.commonService.updateIntroScore(
-              INTRODUCTORY_ANIMATION_STEP_COMPLETE_SCORE,
-            );
-            this.commonService.introScoreSend.emit();
-          }
+        if (isExp && !this.flowService.stepCompleted) {
+          // if (isExp) {
+          //   this.commonService.updateIntroScore(
+          //     INTRODUCTORY_ANIMATION_STEP_COMPLETE_SCORE,
+          //   );
+          //   this.commonService.introScoreSend.emit();
+          // }
           setTimeout(() => {
             this.flowService.introduceBehaviour.next(true);
           }, 1000);
@@ -492,6 +492,12 @@ export class IntroService {
   }
 
   startPointsIntro() {
+    let isExp = false;
+    try {
+      isExp = window.localStorage.getItem(IS_EXP) === 'true';
+    } catch (e) {
+      isExp = window.sessionStorage.getItem(IS_EXP) === 'true';
+    }
     const intro = introJs.introJs();
     intro.setOptions({
       steps: [
@@ -524,6 +530,11 @@ export class IntroService {
           this.destroyComponent();
           this.flowService.triggerLoad();
         });
+
+      this.commonService.updateIntroScore(
+        INTRODUCTORY_ANIMATION_STEP_COMPLETE_SCORE
+      );
+      this.commonService.introScoreSend.emit();
     });
   }
 
@@ -714,7 +725,7 @@ export class IntroService {
     return this.http.get(
       environment.API_ENDPOINT +
         '/api/v1/flow/show-introductory-animation/' +
-        element,
+        element
     );
   }
 

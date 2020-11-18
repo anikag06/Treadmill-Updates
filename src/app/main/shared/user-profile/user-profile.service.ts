@@ -13,20 +13,23 @@ export class UserProfileService {
 
   getUserProfile(userName: string): Observable<UserProfile> {
     return this.http.get<UserProfile>(
-      environment.API_ENDPOINT + USER_PROFILE + userName,
+      environment.API_ENDPOINT + USER_PROFILE + userName
     );
   }
   setScoreFromProfile(username: string) {
-    this.getUserProfile(username).subscribe(profile => {
+    this.getUserProfile(username).subscribe((profile) => {
       this.setScoreValue(profile.score);
     });
   }
 
-  setScoreValue(score: any) {
+  setScoreValue(score: number) {
     try {
-      window.localStorage.setItem(SCORE, score);
+      const final_score =
+        // tslint:disable-next-line:radix
+        parseInt(<string>window.localStorage.getItem(SCORE)) + score;
+      window.localStorage.setItem(SCORE, final_score.toString());
     } catch (e) {
-      window.sessionStorage.setItem(SCORE, score);
+      window.sessionStorage.setItem(SCORE, score.toString());
     }
   }
 

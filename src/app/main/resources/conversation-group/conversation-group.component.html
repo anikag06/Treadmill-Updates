@@ -12,15 +12,16 @@
           <div class="row">
           <div *ngIf="showLoading" class="col-12 loading-text text-center" > Loading... </div>
         </div>
-          <div class="row" [ngStyle]="{visibility: showLoading ? 'hidden' : 'visible'}">
-            <div class="col-12">
-              <div class="heading">
-                <b>{{ conversation.title }} </b>
-                <div class="mx-2 float-right">
+          <div class="row d-inline-block" [ngStyle]="{visibility: showLoading ? 'hidden' : 'visible'}">
+<!--            <div class="col-12">-->
+              <div class="heading col-9">
+              {{ conversation.title }}
+              </div>
+                <div class="mx-2 float-right col-3" [ngStyle]="{position :'relative',top : '-12px'}">
                   <img [src]="conversation.avatar_image" class="avatar-img" (load)="removeLoading()"   alt="avatar image"/>
                 </div>
-              </div>
-            </div>
+
+<!--            </div>-->
           </div>
           <div class="row" class="text" [ngStyle]="{visibility: showLoading ? 'hidden' : 'visible'}">
             <div [innerHTML]="conversation.description">
