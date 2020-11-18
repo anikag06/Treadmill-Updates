@@ -69,9 +69,6 @@ describe('treadwill Flow Experimental Group', () => {
       browser.sleep(2000);
       fp.waitForStepUnlock('Introduction'); // introduction
       fp.goToNextStep('Next step');
-      fp.findProgressElement('Evaluate my thought form'); // form - virtual step
-      fp.reload();
-      fp.clickGoto();
       fp.findProgressElement('How you think is how you feel'); // slide
       fp.selectVideo();
       fp.goToNextStep('Next step');

@@ -14,10 +14,6 @@
     .content {
       min-height: 50vh;
       padding: 5px;
-      // background-color: #ffffff;
-      // border: 1px solid #dadada;
-      // box-shadow: 1px 2px 10px #dbdbdb;
-      // border-radius: 8px;
       max-width: 320px;
       margin: 0 auto;
     }
@@ -33,22 +29,12 @@
   margin-bottom: 100px;
   font-size: 24px;
 }
+#preload-thank-img {
+  height: 0;
+  visibility: hidden;
+  background-image: url("assets/support-group/Thank you1.svg");
+  }
 
-// @media screen and (max-width: 991px) {
-//   .body-bg {
-//     .aside {
-//       padding: 0px;
-//       margin: 0px;
-//       max-width: 100%;
-
-//       .content {
-//         max-width: 768px;
-//         min-height: 0;
-//         height: auto;
-//       }
-//     }
-//   }
-// }
 
 @media screen and (max-width: 991px) {
   .body-bg {

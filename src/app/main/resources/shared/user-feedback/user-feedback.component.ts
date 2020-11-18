@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { FEEDBACK_SLIDE_SCORE } from '@/app.constants';
 import { CommonService } from '@/shared/common.service';
+import {LoadFilesService} from "@/main/games/shared/load-files.service";
 
 @Component({
   selector: 'app-user-feedback',
@@ -30,9 +31,21 @@ export class UserFeedbackComponent implements OnInit {
   voteFirstClick = false;
   onSubmit = false;
 
-  constructor(private router: Router, private commonService: CommonService) {}
+  constructor(private router: Router,
+              private commonService: CommonService,
+              private loadFileService: LoadFilesService,
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.loadFileService
+      .loadExternalScript(
+        'assets/slides/slides-assets.js',
+      )
+      .then(() => {
+        console.log('IMAGES LOADED');
+      })
+      .catch(() => {});
+  }
 
   onDislikeBtnClick() {
     this.scrollPageToBottom();

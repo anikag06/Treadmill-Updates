@@ -20,8 +20,8 @@ export class SuggestedPostComponent implements OnInit {
     });
   }
   removeLoading() {
-    setTimeout(() => {
+    // setTimeout(() => {
       this.showLoading = false;
-    }, 100);
+    // }, 100);
   }
 }

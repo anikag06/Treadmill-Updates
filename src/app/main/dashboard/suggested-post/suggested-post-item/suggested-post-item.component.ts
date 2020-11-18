@@ -50,6 +50,6 @@ export class SuggestedPostItemComponent implements OnInit {
     this.removeLoading.emit();
     setTimeout(() => {
       this.showLoading = false;
-    }, 100);
+    }, 10);
   }
 }
