@@ -1,9 +1,9 @@
 // box up puzzle variables (unsolvable game 3)
-var box_up_ball = "../../../../../../assets/games/learning-helplessness/assets/box.up.puzzle/ball.png";
-var box_up_inner = "../../../../../../assets/games/learning-helplessness/assets/box.up.puzzle/inner.png";
-var box_up_outer = "../../../../../../assets/games/learning-helplessness//assets/box.up.puzzle/outer.png";
-var box_up_small_obstacle = "../../../../../../assets/games/learning-helplessness/assets/box.up.puzzle/small.png";
-var box_up_big_obstacle = "../../../../../../assets/games/learning-helplessness/assets/box.up.puzzle/big.png";
+var box_up_ball = "../../../../../../assets/games/learning-helplessness/assets/box.up.puzzle/ball.svg";
+var box_up_inner = "../../../../../../assets/games/learning-helplessness/assets/box.up.puzzle/inner.svg";
+var box_up_outer = "../../../../../../assets/games/learning-helplessness//assets/box.up.puzzle/outer.svg";
+var box_up_small_obstacle = "../../../../../../assets/games/learning-helplessness/assets/box.up.puzzle/small.svg";
+var box_up_big_obstacle = "../../../../../../assets/games/learning-helplessness/assets/box.up.puzzle/big.svg";
 
 var lh_inner_position_initials;
 var lh_outer_position_initials;
@@ -49,7 +49,7 @@ $(document).ready(function() {
 				[Hammer.Swipe,{ direction: Hammer.DIRECTION_ALL }],
 			]
 		});
-	
+
 		boxUpSwipe.on("swipe", function(ev) {
 			boxUpMoveRouter(ev.direction);
 		});
@@ -58,11 +58,11 @@ $(document).ready(function() {
 		if (unsolvable_game_counter == 3 && !block_arrows) {
 			e.preventDefault();
 			e.stopImmediatePropagation();
-			boxUpMoveRouter(e.which);		
+			boxUpMoveRouter(e.which);
 		} else {
 		}
 	});
-	
+
 });
 
 function boxUpMoveRouter(value) {
@@ -106,32 +106,33 @@ function boxUpMoveRouter(value) {
 function setBoxUpGameWidthAndHeight() {
 	// setting asset sizes based on screen size
 	if(window.devicePixelRatio == 2) {
-		
+
 		// box up game (unsolvable puzzle 3)
 		$(".box-up-game-square").css({
 			'width': '200',
 			'height': '200'
 		});
 
-		$(`.box-up-game-square>.box-up-inner, 
+		$(`.box-up-game-square>.box-up-inner,
 			.box-up-game-square>.box-up-small-obstacle`).css({
 				'vertical-align': 'middle',
 				'max-height': '120px'
 			});
 
-		$(`.box-up-game-square>.box-up-outer, 
+		$(`.box-up-game-square>.box-up-outer,
 			.box-up-game-square>.box-up-big-obstacle`).css({
 				'vertical-align': 'middle',
 				'max-height': '175px'
 			});
-		
+
 		$(".box-up-ball").css({
 			'position': 'relative',
 			'z-index': '2',
-			'transform': 'scale(0.6)'
+      // transform property removed after adding svg image
+			// 'transform': 'scale(0.6)'
 		});
 
-		$(`.box-up-inner, 
+		$(`.box-up-inner,
 			.box-up-small-obstacle`).css({
 				'position': 'absolute',
 				'z-index': '1',
@@ -139,7 +140,7 @@ function setBoxUpGameWidthAndHeight() {
 				'left': '47px'
 			});
 
-		$(`.box-up-outer, 
+		$(`.box-up-outer,
 			.box-up-big-obstacle`).css({
 				'position': 'absolute',
 				'z-index': '0',
@@ -147,34 +148,35 @@ function setBoxUpGameWidthAndHeight() {
 				'left': '32px'
 			});
 	}else if(window.devicePixelRatio == 1) {
-		
+
 		// box up game (unsolvable puzzle 3)
 		$(".box-up-game-square").css({
 			'width': '50px',
 			'height': '50px'
 		});
 
-		$(`.box-up-game-square>.box-up-inner, 
+		$(`.box-up-game-square>.box-up-inner,
 			.box-up-game-square>.box-up-small-obstacle`).css({
 				'vertical-align': 'middle',
 				'max-height': '30px'
 			});
 
-		$(`.box-up-game-square>.box-up-outer, 
+		$(`.box-up-game-square>.box-up-outer,
 			.box-up-game-square>.box-up-big-obstacle`).css({
 				'vertical-align': 'middle',
 				'max-height': '43.75px'
 			});
-		
+
 		$(".box-up-ball").css({
 			'position': 'relative',
 			'z-index': '2',
-			'transform': 'scale(0.2)',
-			'margin-left':'-5px',
-			'margin-top':'-5px'
+      // transform property removed after adding svg image
+      // 'transform': 'scale(0.2)',
+			// 'margin-left':'-5px',
+			// 'margin-top':'-5px'
 		});
 
-		$(`.box-up-inner, 
+		$(`.box-up-inner,
 			.box-up-small-obstacle`).css({
 				'position': 'absolute',
 				'z-index': '1',
@@ -182,7 +184,7 @@ function setBoxUpGameWidthAndHeight() {
 				'left': '11.5px'
 			});
 
-		$(`.box-up-outer, 
+		$(`.box-up-outer,
 			.box-up-big-obstacle`).css({
 				'position': 'absolute',
 				'z-index': '0',
@@ -197,27 +199,28 @@ function setBoxUpGameWidthAndHeight() {
 			'height': '50'
 		});
 
-		$(`.box-up-game-square>.box-up-inner, 
+		$(`.box-up-game-square>.box-up-inner,
 			.box-up-game-square>.box-up-small-obstacle`).css({
 				'vertical-align': 'middle',
 				'max-height': '30px'
 			});
 
-		$(`.box-up-game-square>.box-up-outer, 
+		$(`.box-up-game-square>.box-up-outer,
 			.box-up-game-square>.box-up-big-obstacle`).css({
 				'vertical-align': 'middle',
 				'max-height': '43.75px'
 			});
-		
+
 		$(".box-up-ball").css({
 			'position': 'relative',
 			'z-index': '2',
-			'transform': 'scale(0.2)',
-			'margin-left':'-5px',
-			'margin-top':'-5px'
+      // transform property removed after adding svg image
+      // 'transform': 'scale(0.2)',
+			// 'margin-left':'-5px',
+			// 'margin-top':'-5px'
 		});
 
-		$(`.box-up-inner, 
+		$(`.box-up-inner,
 			.box-up-small-obstacle`).css({
 				'position': 'absolute',
 				'z-index': '1',
@@ -225,7 +228,7 @@ function setBoxUpGameWidthAndHeight() {
 				'left': '11.5px'
 			});
 
-		$(`.box-up-outer, 
+		$(`.box-up-outer,
 			.box-up-big-obstacle`).css({
 				'position': 'absolute',
 				'z-index': '0',
@@ -259,7 +262,7 @@ function boxUpGameInit() {
 	var inner_position_initial = lh_inner_position_initials[box_up_level_counter];
 	var outer_position_initial = lh_outer_position_initials[box_up_level_counter];
 	ball_position_initial = lh_ball_position_initials[box_up_level_counter];
-	
+
 	var small_obstacle_initial = lh_small_obstacle_initials[box_up_level_counter];
 	var big_obstacle_initial = lh_big_obstacle_initials[box_up_level_counter];
 	var box_up_grid_dimension = lh_box_up_grid_dimensions[box_up_level_counter];
@@ -359,71 +362,71 @@ function removeBall() {
 
 // moves the ball and associated elements to the left
 function boxUpMoveLeft() {
-	
+
 	// checks if the grid to the left has an element facing right or is empty
 	if (ball_element.y > 0 ){
-		if (box_up_grid_array.grid_array[ball_element.x][ball_element.y-1].orientation === "right" 
+		if (box_up_grid_array.grid_array[ball_element.x][ball_element.y-1].orientation === "right"
 				|| box_up_grid_array.grid_array[ball_element.x][ball_element.y-1].orientation === "") {
-			
+
 					var big_container_moved = false;
 					var small_container_moved = false;
-	
+
 					// this moves the big box, small box (if present), and the ball to the left
 					for (i = 0; i < game_arcs.length; i++) {
-	
-						// checking if the ball is in a big box (first 3 lines) 
+
+						// checking if the ball is in a big box (first 3 lines)
 						// AND the big box is not oriented towards left
 						// AND the grid to the left is empty
-						if (ball_element.x == game_arcs[i].x 
-							&& ball_element.y == game_arcs[i].y 
-							&& !game_arcs[i].small 
-							&& game_arcs[i].orientation !== "left" 
-							&& box_up_grid_array.grid_array[ball_element.x][ball_element.y-1].orientation === "") { 
-					
+						if (ball_element.x == game_arcs[i].x
+							&& ball_element.y == game_arcs[i].y
+							&& !game_arcs[i].small
+							&& game_arcs[i].orientation !== "left"
+							&& box_up_grid_array.grid_array[ball_element.x][ball_element.y-1].orientation === "") {
+
 								for (j = i+1; j < game_arcs.length; j++) {
-	
+
 									// checking if there is an small box within the big box
-									if (ball_element.x == game_arcs[j].x 
-										&& ball_element.y == game_arcs[j].y 
+									if (ball_element.x == game_arcs[j].x
+										&& ball_element.y == game_arcs[j].y
 										&& game_arcs[j].small) {
-										
+
 											small_container_moved = true;
 											moveArc(j, "left");
 											break;
 									}
 								}
-						
+
 								big_container_moved = true;
 								moveBallLeft();
 								moveArc(i, "left");
 								return;
 						}
 					}
-	
+
 					// this moves the small box and the ball to the left
-	
-					// checking if the ball is in a small box and not in a big box 
+
+					// checking if the ball is in a small box and not in a big box
 					// OR if the ball is in a small box inside a big box facing left (in that case the small box and the ball will move out of the big box)
 					// AND if the grid element to the left doesn't have a small arc
 					if (
-						((is_ball_in_container.container_small && !is_ball_in_container.container_big) 
-						
-							|| (is_ball_in_container.container_small 
-								&& is_ball_in_container.container_big 
-								&& !big_container_moved 
+						((is_ball_in_container.container_small && !is_ball_in_container.container_big)
+
+							|| (is_ball_in_container.container_small
+								&& is_ball_in_container.container_big
+								&& !big_container_moved
 								&& box_up_grid_array.grid_array[ball_element.x][ball_element.y].orientation === "left")
 							)
-						
+
 						&& !smallArcExists(ball_element.x, ball_element.y-1)) {
-							
+
 							// checking if the ball is in a small arc
 							for (i = 0; i < game_arcs.length; i++) {
-	
+
 								// checking if the ball is in a small arc (first three lines)
 								// AND the small box is not oriented towards left
-								if (ball_element.x == game_arcs[i].x 
-									&& ball_element.y == game_arcs[i].y 
-									&& game_arcs[i].small 
+								if (ball_element.x == game_arcs[i].x
+									&& ball_element.y == game_arcs[i].y
+									&& game_arcs[i].small
 									&& game_arcs[i].orientation !== "left") {
 									small_container_moved = true;
 									moveBallLeft();
@@ -432,46 +435,46 @@ function boxUpMoveLeft() {
 								}
 							}
 					}
-	
+
 					// this moves just the ball to the left
-	
+
 					// checking if the ball is not in a box
-					// OR if the ball is in a big box 
+					// OR if the ball is in a big box
 						// AND not in a small box
 						// AND the big box didn't move because the big box is oriented towards left
-					// OR if the ball is in a small box 
+					// OR if the ball is in a small box
 						// AND not in a big box
 						// AND the small box didn't move because the small box is oriented towards left
-					// OR if the ball is in a big and small box 
+					// OR if the ball is in a big and small box
 						// AND none of them moved
-						// AND 
+						// AND
 							// the grid to the left doesn't have a small box
 							// OR the grid to the left has a small box that is oriented towards right
 						// AND the big and small boxes are oriented towards the left
-	
-					if ((!is_ball_in_container.in_container) 
-						
-						|| (is_ball_in_container.container_big 
-							&& !is_ball_in_container.container_small 
-							&& !big_container_moved 
-							&& box_up_grid_array.grid_array[ball_element.x][ball_element.y].orientation === "left") 
-	
-						|| (is_ball_in_container.container_small 
-							&& !is_ball_in_container.container_big 
-							&& !small_container_moved 
+
+					if ((!is_ball_in_container.in_container)
+
+						|| (is_ball_in_container.container_big
+							&& !is_ball_in_container.container_small
+							&& !big_container_moved
 							&& box_up_grid_array.grid_array[ball_element.x][ball_element.y].orientation === "left")
-	
-						|| (is_ball_in_container.container_small 
-							&& is_ball_in_container.container_big 
-							&& !small_container_moved && !big_container_moved 
+
+						|| (is_ball_in_container.container_small
+							&& !is_ball_in_container.container_big
+							&& !small_container_moved
+							&& box_up_grid_array.grid_array[ball_element.x][ball_element.y].orientation === "left")
+
+						|| (is_ball_in_container.container_small
+							&& is_ball_in_container.container_big
+							&& !small_container_moved && !big_container_moved
 							&& (
-								!smallArcExists(ball_element.x, ball_element.y-1) 
-								|| (smallArcExists(ball_element.x, ball_element.y-1) 
+								!smallArcExists(ball_element.x, ball_element.y-1)
+								|| (smallArcExists(ball_element.x, ball_element.y-1)
 									&& smallArcOrientation(ball_element.x, ball_element.y-1) === "left"
 									&& box_up_grid_array.grid_array[ball_element.x][ball_element.y-1].orientation === "right")
-								) 
+								)
 							&& box_up_grid_array.grid_array[ball_element.x][ball_element.y].orientation === "left")) {
-	
+
 								moveBallLeft();
 					}
 		}
@@ -483,68 +486,68 @@ function boxUpMoveRight() {
 
 	// checks if the grid to the right has an element facing left or is empty
 	if (ball_element.y < (box_up_grid_array.grid_array[0].length-1)) {
-		if (box_up_grid_array.grid_array[ball_element.x][ball_element.y+1].orientation === "left" 
+		if (box_up_grid_array.grid_array[ball_element.x][ball_element.y+1].orientation === "left"
 				|| box_up_grid_array.grid_array[ball_element.x][ball_element.y+1].orientation === "") {
-	
+
 					var big_container_moved = false;
 					var small_container_moved = false;
-	
+
 					// this moves the big box, small box (if present), and the ball to the right
 					for (i = 0; i < game_arcs.length; i++) {
-	
-						// checking if the ball is in a big box (first 3 lines) 
+
+						// checking if the ball is in a big box (first 3 lines)
 						// AND the big box is not oriented towards right
 						// AND the grid to the right is empty
-						if (ball_element.x == game_arcs[i].x 
-							&& ball_element.y == game_arcs[i].y 
-							&& !game_arcs[i].small 
+						if (ball_element.x == game_arcs[i].x
+							&& ball_element.y == game_arcs[i].y
+							&& !game_arcs[i].small
 							&& game_arcs[i].orientation !== "right"
-							&& box_up_grid_array.grid_array[ball_element.x][ball_element.y+1].orientation === "") { 
-	
+							&& box_up_grid_array.grid_array[ball_element.x][ball_element.y+1].orientation === "") {
+
 								for (j = i+1; j < game_arcs.length; j++) {
-	
+
 									// checking if there is a small box within the big box
-									if (ball_element.x == game_arcs[j].x 
-										&& ball_element.y == game_arcs[j].y 
+									if (ball_element.x == game_arcs[j].x
+										&& ball_element.y == game_arcs[j].y
 										&& game_arcs[j].small) {
-	
+
 											small_container_moved = true;
 											moveArc(j, "right");
 											break;
 									}
 								}
-								
+
 								big_container_moved = true;
 								moveBallRight();
 								moveArc(i, "right");
 								return;
 						}
 					}
-	
+
 					// this moves the small box and the ball to the right
-	
-					// checking if the ball is in a small box and not in a big box 
+
+					// checking if the ball is in a small box and not in a big box
 					// OR if the ball is in a small box inside a big box facing right (in that case the small box and the ball will move out of the big box)
 					// AND if the grid element to the right doesn't have a small arc
 					if (
 						((is_ball_in_container.container_small && !is_ball_in_container.container_big)
-						
-							|| (is_ball_in_container.container_small 
-								&& is_ball_in_container.container_big 
-								&& !big_container_moved 
+
+							|| (is_ball_in_container.container_small
+								&& is_ball_in_container.container_big
+								&& !big_container_moved
 								&& box_up_grid_array.grid_array[ball_element.x][ball_element.y].orientation === "right")
 							)
-	
+
 						&& !smallArcExists(ball_element.x, ball_element.y+1)) {
-	
+
 							// checking if the ball is in a small arc
 							for (i = 0; i < game_arcs.length; i++) {
-	
+
 								// checking if the ball is in a small arc (first three lines)
 								// AND the small box is not oriented towards right
-								if (ball_element.x == game_arcs[i].x 
-									&& ball_element.y == game_arcs[i].y 
-									&& game_arcs[i].small 
+								if (ball_element.x == game_arcs[i].x
+									&& ball_element.y == game_arcs[i].y
+									&& game_arcs[i].small
 									&& game_arcs[i].orientation !== "right") {
 									small_container_moved = true;
 									moveBallRight();
@@ -553,46 +556,46 @@ function boxUpMoveRight() {
 								}
 							}
 					}
-	
+
 					// this moves just the ball to the right
-	
+
 					// checking if the ball is not in a box
-					// OR if the ball is in a big box 
+					// OR if the ball is in a big box
 						// AND not in a small box
 						// AND the big box didn't move because the big box is oriented towards right
-					// OR if the ball is in a small box 
+					// OR if the ball is in a small box
 						// AND not in a big box
 						// AND the small box didn't move because the small box is oriented towards right
-					// OR if the ball is in a big and small box 
+					// OR if the ball is in a big and small box
 						// AND none of them moved
-						// AND 
+						// AND
 							// the grid to the right doesn't have a small box
 							// OR the grid to the right has a small box that is oriented towards left
 						// AND the big and small boxes are oriented towards the right
-					if ((!is_ball_in_container.in_container) 
-	
-						|| (is_ball_in_container.container_big 
-							&& !is_ball_in_container.container_small 
-							&& !big_container_moved 
+					if ((!is_ball_in_container.in_container)
+
+						|| (is_ball_in_container.container_big
+							&& !is_ball_in_container.container_small
+							&& !big_container_moved
 							&& box_up_grid_array.grid_array[ball_element.x][ball_element.y].orientation === "right")
-	
-						|| (is_ball_in_container.container_small 
-							&& !is_ball_in_container.container_big 
-							&& !small_container_moved 
+
+						|| (is_ball_in_container.container_small
+							&& !is_ball_in_container.container_big
+							&& !small_container_moved
 							&& box_up_grid_array.grid_array[ball_element.x][ball_element.y].orientation === "right")
-	
-						|| (is_ball_in_container.container_small 
-							&& is_ball_in_container.container_big 
-							&& !small_container_moved 
-							&& !big_container_moved 
+
+						|| (is_ball_in_container.container_small
+							&& is_ball_in_container.container_big
+							&& !small_container_moved
+							&& !big_container_moved
 							&& (
-								!smallArcExists(ball_element.x, ball_element.y+1) 
-								|| (smallArcExists(ball_element.x, ball_element.y+1) 
+								!smallArcExists(ball_element.x, ball_element.y+1)
+								|| (smallArcExists(ball_element.x, ball_element.y+1)
 									&& smallArcOrientation(ball_element.x, ball_element.y+1) === "right"
 									&& box_up_grid_array.grid_array[ball_element.x][ball_element.y+1].orientation === "left")
-								) 
+								)
 							&& box_up_grid_array.grid_array[ball_element.x][ball_element.y].orientation === "right")) {
-	
+
 								moveBallRight();
 					}
 		}
@@ -604,68 +607,68 @@ function boxUpMoveUp() {
 
 	// checks if the grid to the up has an element facing down or is empty
 	if (ball_element.x > 0) {
-		if (box_up_grid_array.grid_array[ball_element.x-1][ball_element.y].orientation === "down" 
+		if (box_up_grid_array.grid_array[ball_element.x-1][ball_element.y].orientation === "down"
 				|| box_up_grid_array.grid_array[ball_element.x-1][ball_element.y].orientation === "") {
-					
+
 					var big_container_moved = false;
 					var small_container_moved = false;
-	
+
 					// this moves the big box, small box (if present), and the ball to the up
 					for (i = 0; i < game_arcs.length; i++) {
-	
-						// checking if the ball is in a big box (first 3 lines) 
+
+						// checking if the ball is in a big box (first 3 lines)
 						// AND the big box is not oriented towards up
 						// AND the grid to the up is empty
-						if (ball_element.x == game_arcs[i].x 
-							&& ball_element.y == game_arcs[i].y 
-							&& !game_arcs[i].small 
+						if (ball_element.x == game_arcs[i].x
+							&& ball_element.y == game_arcs[i].y
+							&& !game_arcs[i].small
 							&& game_arcs[i].orientation !== "up"
-							&& box_up_grid_array.grid_array[ball_element.x-1][ball_element.y].orientation === "") { 
-	
+							&& box_up_grid_array.grid_array[ball_element.x-1][ball_element.y].orientation === "") {
+
 								for (j = i+1; j < game_arcs.length; j++) {
-	
+
 									// checking if there is a small box within the big box
-									if (ball_element.x == game_arcs[j].x 
-										&& ball_element.y == game_arcs[j].y 
-										&& game_arcs[j].small) {		
-	
+									if (ball_element.x == game_arcs[j].x
+										&& ball_element.y == game_arcs[j].y
+										&& game_arcs[j].small) {
+
 											small_container_moved = true;
 											moveArc(j, "up");
 											break;
 									}
 								}
-	
+
 								big_container_moved = true;
 								moveBallUp();
 								moveArc(i, "up");
 								return;
 						}
 					}
-	
+
 					// this moves the small box and the ball to the up
-	
-					// checking if the ball is in a small box and not in a big box 
+
+					// checking if the ball is in a small box and not in a big box
 					// OR if the ball is in a small box inside a big box facing up (in that case the small box and the ball will move out of the big box)
 					// AND if the grid element to the up doesn't have a small arc
 					if (
 						((is_ball_in_container.container_small && !is_ball_in_container.container_big)
-						
-							|| (is_ball_in_container.container_small 
-								&& is_ball_in_container.container_big 
-								&& !big_container_moved 
+
+							|| (is_ball_in_container.container_small
+								&& is_ball_in_container.container_big
+								&& !big_container_moved
 								&& box_up_grid_array.grid_array[ball_element.x][ball_element.y].orientation === "up")
 							)
-	
+
 						&& !smallArcExists(ball_element.x-1, ball_element.y)) {
-	
+
 							// checking if the ball is in a small arc
 							for (i = 0; i < game_arcs.length; i++) {
-	
+
 								// checking if the ball is in a small arc (first three lines)
 								// AND the small box is not oriented towards up
-								if (ball_element.x == game_arcs[i].x 
-									&& ball_element.y == game_arcs[i].y 
-									&& game_arcs[i].small 
+								if (ball_element.x == game_arcs[i].x
+									&& ball_element.y == game_arcs[i].y
+									&& game_arcs[i].small
 									&& game_arcs[i].orientation !== "up") {
 									small_container_moved = true;
 									moveBallUp();
@@ -674,47 +677,47 @@ function boxUpMoveUp() {
 								}
 							}
 					}
-	
+
 					// this moves just the ball to the up
-	
+
 					// checking if the ball is not in a box
-					// OR if the ball is in a big box 
+					// OR if the ball is in a big box
 						// AND not in a small box
 						// AND the big box didn't move because the big box is oriented towards up
-					// OR if the ball is in a small box 
+					// OR if the ball is in a small box
 						// AND not in a big box
 						// AND the small box didn't move because the small box is oriented towards up
-					// OR if the ball is in a big and small box 
+					// OR if the ball is in a big and small box
 						// AND none of them moved
-						// AND 
+						// AND
 							// the grid to the up doesn't have a small box
 							// OR the grid to the up has a small box that is oriented towards down
 						// AND the big and small boxes are oriented towards the up
-	
-					if ((!is_ball_in_container.in_container) 
-	
-						|| (is_ball_in_container.container_big 
-							&& !is_ball_in_container.container_small 
-							&& !big_container_moved 
-							&& box_up_grid_array.grid_array[ball_element.x][ball_element.y].orientation === "up") 
-	
-						|| (is_ball_in_container.container_small 
-							&& !is_ball_in_container.container_big 
-							&& !small_container_moved 
+
+					if ((!is_ball_in_container.in_container)
+
+						|| (is_ball_in_container.container_big
+							&& !is_ball_in_container.container_small
+							&& !big_container_moved
 							&& box_up_grid_array.grid_array[ball_element.x][ball_element.y].orientation === "up")
-	
-						|| (is_ball_in_container.container_small 
-							&& is_ball_in_container.container_big 
-							&& !small_container_moved 
-							&& !big_container_moved 
+
+						|| (is_ball_in_container.container_small
+							&& !is_ball_in_container.container_big
+							&& !small_container_moved
+							&& box_up_grid_array.grid_array[ball_element.x][ball_element.y].orientation === "up")
+
+						|| (is_ball_in_container.container_small
+							&& is_ball_in_container.container_big
+							&& !small_container_moved
+							&& !big_container_moved
 							&& (
-								!smallArcExists(ball_element.x-1, ball_element.y) 
-								|| (smallArcExists(ball_element.x-1, ball_element.y) 
+								!smallArcExists(ball_element.x-1, ball_element.y)
+								|| (smallArcExists(ball_element.x-1, ball_element.y)
 									&& smallArcOrientation(ball_element.x-1, ball_element.y) === "up"
 									&& box_up_grid_array.grid_array[ball_element.x-1][ball_element.y].orientation === "down")
-								) 
+								)
 							&& box_up_grid_array.grid_array[ball_element.x][ball_element.y].orientation === "up")) {
-	
+
 								moveBallUp();
 					}
 		}
@@ -726,68 +729,68 @@ function boxUpMoveDown() {
 
 	// checks if the grid to the down has an element facing up or is empty
 	if (ball_element.x < (box_up_grid_array.grid_array.length-1)) {
-		if (box_up_grid_array.grid_array[ball_element.x+1][ball_element.y].orientation === "up" 
+		if (box_up_grid_array.grid_array[ball_element.x+1][ball_element.y].orientation === "up"
 				|| box_up_grid_array.grid_array[ball_element.x+1][ball_element.y].orientation === "") {
-	
+
 					var big_container_moved = false;
 					var small_container_moved = false;
-	
+
 					// this moves the big box, small box (if present), and the ball to the down
 					for (i = 0; i < game_arcs.length; i++) {
-	
-						// checking if the ball is in a big box (first 3 lines) 
+
+						// checking if the ball is in a big box (first 3 lines)
 						// AND the big box is not oriented towards down
 						// AND the grid to the down is empty
-						if (ball_element.x == game_arcs[i].x 
-							&& ball_element.y == game_arcs[i].y 
-							&& !game_arcs[i].small 
+						if (ball_element.x == game_arcs[i].x
+							&& ball_element.y == game_arcs[i].y
+							&& !game_arcs[i].small
 							&& game_arcs[i].orientation !== "down"
-							&& box_up_grid_array.grid_array[ball_element.x+1][ball_element.y].orientation === "") { 
-	
+							&& box_up_grid_array.grid_array[ball_element.x+1][ball_element.y].orientation === "") {
+
 								for (j = i+1; j < game_arcs.length; j++) {
-	
+
 									// checking if there is a small box within the big box
-									if (ball_element.x == game_arcs[j].x 
-										&& ball_element.y == game_arcs[j].y 
+									if (ball_element.x == game_arcs[j].x
+										&& ball_element.y == game_arcs[j].y
 										&& game_arcs[j].small) {
-	
+
 											small_container_moved = true;
 											moveArc(j, "down");
 											break;
 									}
 								}
-								
+
 								big_container_moved = true;
 								moveBallDown();
 								moveArc(i, "down");
 								return;
 						}
 					}
-					
+
 					// this moves the small box and the ball to the down
-	
-					// checking if the ball is in a small box and not in a big box 
+
+					// checking if the ball is in a small box and not in a big box
 					// OR if the ball is in a small box inside a big box facing down (in that case the small box and the ball will move out of the big box)
 					// AND if the grid element to the down doesn't have a small arc
 					if (
 						((is_ball_in_container.container_small && !is_ball_in_container.container_big)
-	
-							|| (is_ball_in_container.container_small 
-								&& is_ball_in_container.container_big 
-								&& !big_container_moved 
+
+							|| (is_ball_in_container.container_small
+								&& is_ball_in_container.container_big
+								&& !big_container_moved
 								&& box_up_grid_array.grid_array[ball_element.x][ball_element.y].orientation === "down")
 							)
-	
+
 						&& !smallArcExists(ball_element.x+1, ball_element.y)) {
-	
+
 							// checking if the ball is in a small arc
 							for (i = 0; i < game_arcs.length; i++) {
-	
+
 								// checking if the ball is in a small arc (first three lines)
 								// AND the small box is not oriented towards down
-								if (ball_element.x == game_arcs[i].x 
-									&& ball_element.y == game_arcs[i].y 
-									&& game_arcs[i].small 
+								if (ball_element.x == game_arcs[i].x
+									&& ball_element.y == game_arcs[i].y
+									&& game_arcs[i].small
 									&& game_arcs[i].orientation !== "down") {
 									small_container_moved = true;
 									moveBallDown();
@@ -796,47 +799,47 @@ function boxUpMoveDown() {
 								}
 							}
 					}
-	
+
 					// this moves just the ball to the down
-	
+
 					// checking if the ball is not in a box
-					// OR if the ball is in a big box 
+					// OR if the ball is in a big box
 						// AND not in a small box
 						// AND the big box didn't move because the big box is oriented towards down
-					// OR if the ball is in a small box 
+					// OR if the ball is in a small box
 						// AND not in a big box
 						// AND the small box didn't move because the small box is oriented towards down
-					// OR if the ball is in a big and small box 
+					// OR if the ball is in a big and small box
 						// AND none of them moved
-						// AND 
+						// AND
 							// the grid to the down doesn't have a small box
 							// OR the grid to the down has a small box that is oriented towards up
 						// AND the big and small boxes are oriented towards the down
-	
-					if ((!is_ball_in_container.in_container) 
-	
-						|| (is_ball_in_container.container_big 
-							&& !is_ball_in_container.container_small 
-							&& !big_container_moved 
-							&& box_up_grid_array.grid_array[ball_element.x][ball_element.y].orientation === "down") 
-	
-						|| (is_ball_in_container.container_small 
-							&& !is_ball_in_container.container_big 
-							&& !small_container_moved 
+
+					if ((!is_ball_in_container.in_container)
+
+						|| (is_ball_in_container.container_big
+							&& !is_ball_in_container.container_small
+							&& !big_container_moved
 							&& box_up_grid_array.grid_array[ball_element.x][ball_element.y].orientation === "down")
-	
-						|| (is_ball_in_container.container_small 
-							&& is_ball_in_container.container_big 
-							&& !small_container_moved 
-							&& !big_container_moved 
+
+						|| (is_ball_in_container.container_small
+							&& !is_ball_in_container.container_big
+							&& !small_container_moved
+							&& box_up_grid_array.grid_array[ball_element.x][ball_element.y].orientation === "down")
+
+						|| (is_ball_in_container.container_small
+							&& is_ball_in_container.container_big
+							&& !small_container_moved
+							&& !big_container_moved
 							&& (
-								!smallArcExists(ball_element.x+1, ball_element.y) 
-								|| (smallArcExists(ball_element.x+1, ball_element.y) 
+								!smallArcExists(ball_element.x+1, ball_element.y)
+								|| (smallArcExists(ball_element.x+1, ball_element.y)
 									&& smallArcOrientation(ball_element.x+1, ball_element.y) === "down"
 									&& box_up_grid_array.grid_array[ball_element.x+1][ball_element.y].orientation === "up")
-								) 
+								)
 							&& box_up_grid_array.grid_array[ball_element.x][ball_element.y].orientation === "down")) {
-	
+
 								moveBallDown();
 					}
 		}
@@ -884,7 +887,7 @@ function moveArc(i, direction) {
 		default:
 			break;
 	}
-	
+
 	if (box_up_grid_array.grid_array[game_arcs[i].x][game_arcs[i].y].orientation === ""
 		|| !game_arcs[i].small) {
 		box_up_grid_array.grid_array[game_arcs[i].x][game_arcs[i].y].orientation = game_arcs[i].orientation;
@@ -928,14 +931,14 @@ function drawArc(element) {
 	$(html_id).remove();
 	$("#box-up-game-square-"+element.x+"-"+element.y).append(element.html);
 	setOrientation($(html_id), element.orientation);
-	
+
 	var box_up_level_completed = isInnerInOuter();
 	if(box_up_level_completed) {
 		block_arrows = true;
 		$("#box-up-game-success-message").removeClass("d-none");
 		var ping = document.getElementById("ping");
 		ping.play();
-		changeLevel();		
+		changeLevel();
 	}
 
 	setBoxUpGameWidthAndHeight();
@@ -1037,12 +1040,12 @@ $(document).on('click', '#btn-box-up-game-give-up', function(ev) {
 		// show play next pop up
 		lhg_show_instructions = false;
 		playNextGamePopup();
-		
+
 		$("#box-up-game-row").addClass("d-none");
 		$("#color-reverse-game").removeClass("d-none");
 		unsolvable_game_counter = 1;
 		resetBoxUpGame();
-		console.log("call init 3", success); 
+		console.log("call init 3", success);
 		colorReverseInit();
 	}else{
 		box_up_first = false;

@@ -46,6 +46,7 @@ export class LearnedHelplessnessGameComponent implements OnInit, OnDestroy {
   lhcolorReverseGame = true;
   gameName!: string;
   showLoading = true;
+  imagesPreloaded = false;
 
   constructor(
     private gamePlayService: GamePlayService,
@@ -113,6 +114,15 @@ export class LearnedHelplessnessGameComponent implements OnInit, OnDestroy {
         console.log('STEP DETAIL:', this.navbarTitle);
         this.flowService.stepDetail.emit(this.navbarTitle);
       });
+    this.loadFileService
+      .loadExternalScript(
+        'assets/games/learning-helplessness/assets/lhg_preload_images.js',
+      )
+      .then(() => {
+        this.imagesPreloaded = true;
+        console.log('IMAGES LOADED');
+      })
+      .catch(() => {});
     if (!this.gamePlayService.lhgameScriptLoaded) {
       this.loadFileService
         .loadExternalScript(

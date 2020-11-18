@@ -2,10 +2,10 @@
 
 <div class="container-fluid lg-game-container" id="lg-game-container" tabindex="0">
   <div class="main">
-    <div class="col text-center text-loading"  *ngIf="showLoading"> Loading... </div>
+    <div class="col text-center text-loading"  *ngIf="showLoading && !imagesPreloaded"> Loading... </div>
 
     <div class="lhg-image justify-content-center" id="lhg-cover" [ngStyle]="{display: showLoading ? 'none' : 'inline'}">
-      <img id="lhg-image" src="../../../../../../assets/games/learning-helplessness/assets/Start page graphic.png"  (load)="removeLoading()" >
+      <img id="lhg-image" src="../../../../../../assets/games/learning-helplessness/assets/Start page graphic.svg"  (load)="removeLoading()" >
       <!-- </div>
 	<div class="lhg-text justify-content-center"> -->
       <div class="my-4 w-100 text-center" id="lhg-text"><b>{{gameName}}</b></div>
@@ -255,7 +255,7 @@
   </div>
   <div class="instructions mb-1 justify-content-end float-left d-none" id="infoElement" #infoElement>
     <img style="width:36px;height:36px; "
-      src="../../../../../../../assets/games/learning-helplessness/assets/Info Icon.png"
+      src="../../../../../../../assets/games/learning-helplessness/assets/info.svg"
       (click)="openInstructionsPopup()">
   </div>
 </div>
