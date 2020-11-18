@@ -53,6 +53,10 @@ export class SignUpComponent implements OnInit {
   showEmailMessage = false;
   @ViewChild('signupForm', { static: false }) signupForm!: NgForm;
   dialogRef!: MatDialogRef<CommonDialogComponent>;
+  notificationCheckboxText =
+    'Notifications are an essential part of this program. Please accept to allow notifications.';
+  a2hsCheckboxText =
+    'For the purpose of this study, it is required that you add TreadWill to your home screen. Please accept to add TreadWill to your home screen. By adding TreadWill, you also agree to Sign Up for TreadWill.';
 
   emailForm = new FormGroup({
     email: new FormControl(''),
@@ -65,7 +69,7 @@ export class SignUpComponent implements OnInit {
     private showLoginSignupDialogService: ShowLoginSignupDialogService,
     private fcmService: FcmService,
     private a2hsService: A2HSService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit() {
@@ -75,7 +79,7 @@ export class SignUpComponent implements OnInit {
     }
     this.signUpService
       .isParticipantValid(this.activatedRoute.snapshot.params['unique-code'])
-      .subscribe((data) => {
+      .subscribe(data => {
         console.log('signup data', data);
         this.showSignUpForm = true;
         this.participantValid = data.data.valid;
@@ -84,7 +88,7 @@ export class SignUpComponent implements OnInit {
         this.username = data.data.username;
         this.encrypted_email = data.data.email_id;
       });
-    this.fcmService.permit.subscribe((permit) => {
+    this.fcmService.permit.subscribe(permit => {
       this.notificationsAllowed = permit ? 1 : 0;
       if (this.notificationsAllowed) {
         this.updatingPermissions = false;
@@ -98,11 +102,11 @@ export class SignUpComponent implements OnInit {
     this.getVariablesUsed();
     this.matchPasswords();
     this.signUpService.signUpData(this.data).subscribe(
-      (res) => {
+      res => {
         this.onSignUpDone(), (this.showLoading = false);
         this.dialogRef.componentInstance.data = { loading: false };
       },
-      (err) => {
+      err => {
         this.showLoading = false;
         this.errorStatus = true;
         if (err.error.message.username) {
@@ -113,7 +117,7 @@ export class SignUpComponent implements OnInit {
           this.signupForm.controls.password.setErrors({ invalid: true });
           // this.passwordError = err.error.message.password;
         }
-      }
+      },
     );
   }
 
@@ -121,7 +125,7 @@ export class SignUpComponent implements OnInit {
     this.showLoading = true;
     console.log(this.emailForm);
     this.signUpService.getSignupMail(this.emailForm.value.email).subscribe(
-      (response) => {
+      response => {
         this.showLoading = false;
         console.log('response', response);
         if (response.user_exists) {
@@ -135,12 +139,12 @@ export class SignUpComponent implements OnInit {
           this.emailExistMessage = true;
         }
       },
-      (error) => {
+      error => {
         console.log(error);
         this.showLoading = false;
         this.showEmailError = true;
         this.emailError = error;
-      }
+      },
     );
   }
 
@@ -193,7 +197,7 @@ export class SignUpComponent implements OnInit {
   }
   onTermsConClick() {
     console.log(
-      `Open terms and conditions in a new tab but don't take the user there.`
+      `Open terms and conditions in a new tab but don't take the user there.`,
     );
   }
 
@@ -221,7 +225,7 @@ export class SignUpComponent implements OnInit {
   homeScreenPermission() {
     this.addingToHomescreen = true;
     if (this.signupForm.value.homeScreenInfo) {
-      this.a2hsService.getDeferredPrompt().subscribe((deferredPrompt) => {
+      this.a2hsService.getDeferredPrompt().subscribe(deferredPrompt => {
         this.addingToHomescreen = false;
         if (!deferredPrompt) {
           console.log('deferredPrompt null');
