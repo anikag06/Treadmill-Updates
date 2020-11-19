@@ -354,6 +354,7 @@ function init_game_variables(){
 	TOTAL_NUMBER_OF_IMAGES=24;
 	TIME_FOR_IMAGE=100;
 	TIME_FOR_BLANK_SCREEN=50;
+  INTER_TRIAL_INTERVAL = 2000;
 	IMAGE_Y_CORDINATE=screen_height/2.5;
 	IMAGE_X_CORDINATE=screen_width/2;
 

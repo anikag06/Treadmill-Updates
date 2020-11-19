@@ -100,7 +100,7 @@ function discrimination_task_complete()
 	//Next set
 	if(current_number_of_tasks>=1)
 	{
-		continue_to_next_set_timeout = setTimeout(continue_to_next_set,1000);
+		continue_to_next_set_timeout = setTimeout(continue_to_next_set,INTER_TRIAL_INTERVAL);
 
 	}
 
