@@ -106,6 +106,7 @@ export class FriendlyFaceGameComponent implements OnInit, OnDestroy {
   stepSequence!: number;
   stepName!: string;
   showLoading = true;
+  imagesPreloaded = false;
 
   @ViewChild('newElement', { static: false }) element!: ElementRef;
   @Output() showPlayButtons = new EventEmitter();
@@ -176,6 +177,15 @@ export class FriendlyFaceGameComponent implements OnInit, OnDestroy {
         console.log('STEP DETAIL:', this.navbarTitle);
         this.flowService.stepDetail.emit(this.navbarTitle);
       });
+    this.loadFileService
+      .loadExternalScript(
+        'assets/games/friendly-face-game/images/ffg_preload_images.js',
+      )
+      .then(() => {
+        this.imagesPreloaded = true;
+        console.log('IMAGES LOADED');
+      })
+      .catch(() => {});
     this.loadFileService
       .loadExternalScript(
         './assets/games/friendly-face-game/js/facegame_javascript.js',

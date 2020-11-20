@@ -1,6 +1,6 @@
 <div class="container text-center my-3">
   <div class="text-center">
-    <img class="playAgainImg" src="../../../../../../../assets/games/friendly-face-game/images/0 sec.png">
+    <img class="playAgainImg" src="../../../../../../../assets/games/friendly-face-game/images/0 sec.svg">
 
 
     <p class="big-font  "><b>Time's up!</b></p>
@@ -11,14 +11,14 @@
 
   <div class="row small-font" style="margin: 10px;" (click)=continuePlay() matRipple [matRippleColor]="'#00000020'">
     <img style="width:32px;height:32px;" class="replayImg mr-3"
-      src="../../../../../../../assets/games/friendly-face-game/images/replay.png">
+      src="../../../../../../../assets/games/replay.svg">
     <p class="mt-1">Replay</p>
 
   </div>
   <div class="row small-font" style="margin: 10px;" (click)=addTimePlay() #tooltip="matTooltip" matTooltipDisabled
     matTooltip={{tooltipData}} matRipple [matRippleColor]="'#00000020'">
     <img style="width:32px;height:32px;" class="timerImg mr-3"
-      src="../../../../../../../assets/games/friendly-face-game/images/time.png">
+      src="../../../../../../../assets/games/time.svg">
     <p class="mt-1">Add 20s to the clock for {{ffgExtraPoints}} points.</p>
   </div>
 
