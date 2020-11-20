@@ -17,7 +17,7 @@ export class MatContactUsDialogComponent implements OnInit {
   });
 
   msgReceived = 'We have received your message';
-  action = 'Received';
+  action = 'Ok';
   messageText = '';
   showError = false;
   showLoading = false;

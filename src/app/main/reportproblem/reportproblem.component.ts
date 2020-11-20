@@ -11,7 +11,7 @@ import { ReportproblemService } from '@/main/reportproblem/reportproblem.service
 export class ReportproblemComponent implements OnInit {
   problem!: string;
   msgReceived = 'We have received your message';
-  action = 'Received';
+  action = 'Ok';
   showLoading = false;
 
   constructor(
