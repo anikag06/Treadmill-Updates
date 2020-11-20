@@ -28,7 +28,7 @@ export class GamesComponent implements OnInit {
       .catch(() => {});
     this.loadFileService
       .loadExternalScript(
-        './assets/games/executive-control-game/src/lib/phaser.min.js',
+        './assets/games/executive-control-game/js/lib/phaser.min.js',
       )
       .then(() => {})
       .catch(() => {});
