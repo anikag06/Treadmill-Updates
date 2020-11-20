@@ -416,34 +416,34 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
       }
     });
 
-    if (m.buttons && m.buttons.length < 5) {
+    if (m.buttons && m.buttons.length < 3) {
       this.chatButtons = [];
-      m.buttons.forEach((button: string, index: number) => {
-        this.chatButtons.push({
-          isVisible: false,
-          buttonObject: button,
-        });
-        setTimeout(() => {
-          this.chatButtons[index].isVisible = true;
-          this.scrollToBottom();
-        }, index * 500);
-      });
-      // this.chatButtons = m.buttons;
+      // m.buttons.forEach((button: string, index: number) => {
+      //   this.chatButtons.push({
+      //     isVisible: false,
+      //     buttonObject: button,
+      //   });
+      //   setTimeout(() => {
+      //     this.chatButtons[index].isVisible = true;
+      //     this.scrollToBottom();
+      //   }, index * 500);
+      // });
+      this.chatButtons = m.buttons;
     } else {
       this.buttonsBuffer = m.buttons;
-      // this.chatButtons = m.buttons.slice(0, 4);
-      this.chatButtons = [];
-      for (let i = 0; i < 4; i++) {
-        this.chatButtons.push({
-          isVisible: false,
-          buttonObject: m.buttons[i],
-        });
-        setTimeout(() => {
-          this.chatButtons[i].isVisible = true;
-          this.scrollToBottom();
-        }, i * 500);
-      }
-      this.counter = 4;
+      this.chatButtons = m.buttons.slice(0, 2);
+      // this.chatButtons = [];
+      // for (let i = 0; i < 4; i++) {
+      //   this.chatButtons.push({
+      //     isVisible: false,
+      //     buttonObject: m.buttons[i],
+      //   });
+      //   setTimeout(() => {
+      //     this.chatButtons[i].isVisible = true;
+      //     this.scrollToBottom();
+      //   }, i * 500);
+      // }
+      this.counter = 2;
       this.showMore = true;
     }
     if (Array.isArray(m.widgets) && m.widgets.length) {
@@ -692,25 +692,13 @@ export class ChatWindowComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   getButtons() {
-    const counter = this.counter;
-    for (let i = 0; i < 4; i++) {
-      // this.chatButtons.push(this.buttonsBuffer[this.counter]);
-      this.chatButtons.push({
-        isVisible: false,
-        buttonObject: this.buttonsBuffer[this.counter],
-      });
+    for (let i = 0; i < 2; i++) {
+      this.chatButtons.push(this.buttonsBuffer[this.counter]);
       if (this.counter === this.buttonsBuffer.length - 1) {
         this.showMore = false;
         break;
       }
       this.counter += 1;
-    }
-    let timer = 1;
-    for (let i = counter; i < counter + 4; i++) {
-      setTimeout(() => {
-        this.chatButtons[i].isVisible = true;
-        timer += 1;
-      }, timer * 500);
     }
     this.scrollToBottom();
   }
