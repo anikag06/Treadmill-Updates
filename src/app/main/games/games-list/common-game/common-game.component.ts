@@ -18,7 +18,6 @@ import {
   EXECUTIVE_CONTROL_GAME,
   INTERPRETATION_BIAS_GAME,
   LEARNED_HELPLESSNESS_GAME,
-  ATTRIBUTE_STYLE_GAME,
   MENTAL_IMAGERY_GAME,
   FRIENDLY_FACE_GAME,
   IDENTIFY_COGNITIVE_DISTORTION_GAME,
@@ -28,7 +27,6 @@ import { ExecControlInstructionsComponent } from './executive-control-game/exec-
 import { MIPlayService } from './mental-imagery/mi-play.service';
 import { EcgScienceComponent } from './executive-control-game/ecg-science/ecg-science.component';
 import { IbgScienceComponent } from './interpretation-bias-game/ibg-science/ibg-science.component';
-import { AsgScienceComponent } from './attribute-style-game/asg-science/asg-science.component';
 import { MigScienceComponent } from './mental-imagery/mig-science/mig-science.component';
 import { FfgScienceComponent } from './friendly-face-game/ffg-science/ffg-science.component';
 import { LhgScienceComponent } from './learned-helplessness-game/lhg-science/lhg-science.component';
@@ -37,7 +35,6 @@ import { LhgHowtoplayComponent } from './learned-helplessness-game/lhg-howtoplay
 import { IdcGameService } from './identify-cognitive-distortion/idc-game.service';
 import { IntroService } from '@/main/walk-through/intro.service';
 import { IdcScienceComponent } from '@/main/games/games-list/common-game/identify-cognitive-distortion/idc-science/idc-science.component';
-import { AsgInstructionsComponent } from '@/main/games/games-list/common-game/attribute-style-game/asg-instructions/asg-instructions.component';
 
 declare let $: any;
 
@@ -59,8 +56,6 @@ export class CommonGameComponent implements OnInit {
   showHintBtn = false;
   isSoundOn = true;
   showSideButtons = false;
-
-  isAttributeGame = false;
 
   gameStarted = false;
   gamePaused = false;
@@ -132,10 +127,6 @@ export class CommonGameComponent implements OnInit {
           } else if (this.gameName === LEARNED_HELPLESSNESS_GAME) {
             this.isLearnedHelplessness = true;
             this.portraitGame = true;
-          } else if (this.gameName === ATTRIBUTE_STYLE_GAME) {
-            this.isAttributeGame = true;
-            this.portraitGame = false;
-            // console.log('Attribute Style Game');
           } else if (this.gameName === FRIENDLY_FACE_GAME) {
             this.isFriendlyFace = true;
             this.portraitGame = true;
@@ -198,10 +189,6 @@ export class CommonGameComponent implements OnInit {
       this.dialogBoxService.setDialogChild(LhgHowtoplayComponent);
       const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
       this.pauseBtnElement.nativeElement.dispatchEvent(domEvent);
-    } else if (this.gameName === ATTRIBUTE_STYLE_GAME) {
-      this.dialogBoxService.setDialogChild(AsgInstructionsComponent);
-      const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
-      this.pauseBtnElement.nativeElement.dispatchEvent(domEvent);
     } else if (this.gameName === FRIENDLY_FACE_GAME) {
       this.gamePlayService.playFriendlyFaceGame(
         this.device_type,
@@ -245,10 +232,6 @@ export class CommonGameComponent implements OnInit {
     if (this.gameName === FRIENDLY_FACE_GAME) {
       this.gamePlayService.helpFFGGame();
     }
-    if (this.gameName === ATTRIBUTE_STYLE_GAME) {
-      this.gamePlayService.asg_help = true;
-      this.dialogBoxService.setDialogChild(AsgInstructionsComponent);
-    }
     const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
     this.pauseBtnElement.nativeElement.dispatchEvent(domEvent);
   }
@@ -275,9 +258,6 @@ export class CommonGameComponent implements OnInit {
     if (this.gameName === EXECUTIVE_CONTROL_GAME) {
       this.gamePlayService.pauseExecControlGame();
     }
-    if (this.gameName === ATTRIBUTE_STYLE_GAME) {
-      this.gamePlayService.pauseAttributionStyleGame();
-    }
     if (this.gameName === LEARNED_HELPLESSNESS_GAME) {
       this.gamePlayService.pauseLHGame();
     }
@@ -301,9 +281,6 @@ export class CommonGameComponent implements OnInit {
     }
     if (this.gameName === INTERPRETATION_BIAS_GAME) {
       this.gamePlayService.resumeIBGame();
-    }
-    if (this.gameName === ATTRIBUTE_STYLE_GAME) {
-      this.gamePlayService.resumeAttributionStyleGame();
     }
     if (this.gameName === LEARNED_HELPLESSNESS_GAME) {
       this.gamePlayService.resumeLHGame();
@@ -333,9 +310,6 @@ export class CommonGameComponent implements OnInit {
     if (this.gameName === INTERPRETATION_BIAS_GAME) {
       this.gamePlayService.playIBGame(this.gameDivElement); // same function for start and restart the game
     }
-    if (this.gameName === ATTRIBUTE_STYLE_GAME) {
-      this.gamePlayService.restartAttributionStyleGame();
-    }
     if (this.gameName === FRIENDLY_FACE_GAME) {
       this.gamePlayService.restartFaceGame();
     }
@@ -356,9 +330,6 @@ export class CommonGameComponent implements OnInit {
       console.log('sound', this.isSoundOn);
       this.gamePlayService.soundExecControlGame(this.isSoundOn);
     }
-    if (this.gameName === ATTRIBUTE_STYLE_GAME) {
-      this.gamePlayService.soundASGGame(this.isSoundOn);
-    }
     if (this.gameName === FRIENDLY_FACE_GAME) {
       this.gamePlayService.soundFaceGame(this.isSoundOn);
     }
@@ -369,8 +340,6 @@ export class CommonGameComponent implements OnInit {
       this.dialogBoxService.setDialogChild(EcgScienceComponent);
     } else if (this.gameName === INTERPRETATION_BIAS_GAME) {
       this.dialogBoxService.setDialogChild(IbgScienceComponent);
-    } else if (this.gameName === ATTRIBUTE_STYLE_GAME) {
-      this.dialogBoxService.setDialogChild(AsgScienceComponent);
     } else if (this.gameName === LEARNED_HELPLESSNESS_GAME) {
       this.dialogBoxService.setDialogChild(LhgScienceComponent);
     } else if (this.gameName === FRIENDLY_FACE_GAME) {

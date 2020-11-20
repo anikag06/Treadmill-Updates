@@ -54,7 +54,6 @@ export const INTERPRETATION_BIAS_GAME = 'Word jumble';
 export const EXECUTIVE_CONTROL_GAME = 'Sprint';
 export const FRIENDLY_FACE_GAME = 'Find a smile';
 export const LEARNED_HELPLESSNESS_GAME = 'Solve it';
-export const ATTRIBUTE_STYLE_GAME = 'Balloon burst';
 export const MENTAL_IMAGERY_GAME = 'Daydream';
 export const IDENTIFY_COGNITIVE_DISTORTION_GAME = 'Think positive';
 
@@ -209,7 +208,6 @@ export const INTRODUCTION_DATA =
 export const CONCLUSION_DATA =
   '/api/v1/introduction-conclusion/user-conclusion/';
 
-export const GAME_ATTRIBUTION_STYLE_CONSTANT = 'GAME-ATTRIBUTION-STYLE';
 export const GAME_INTERPRETATION_BIAS_CONSTANT = 'GAME-INTERPRETATION-BIAS';
 export const GAME_LEARNED_HELPLESSNESS_CONSTANT = 'GAME-LEARNED-HELPLESSNESS';
 export const GAME_FRIENDLY_FACE_CONSTANT = 'GAME-FRIENDLY-FACE';
@@ -494,13 +492,6 @@ export const EXPLORE_MAP = new Map([
     [
       '/main/resources/forms/' + TEST_BELIEF,
       EXPERIMENT_TO_TEST_BELIEF_FORM_NAME,
-    ],
-  ],
-  [
-    GAME_ATTRIBUTION_STYLE_CONSTANT,
-    [
-      '/main/games/' + GAME_ATTRIBUTION_STYLE_CONSTANT,
-      'Play: ' + ATTRIBUTE_STYLE_GAME,
     ],
   ],
   [

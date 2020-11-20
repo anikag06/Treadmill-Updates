@@ -66,7 +66,6 @@ import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { AngularFireModule } from '@angular/fire';
 // import {FcmService} from '@/shared/fcm.service';
 import { environment } from '../../environments/environment';
-import { AttributeStyleGameComponent } from './games/games-list/common-game/attribute-style-game/attribute-style-game.component';
 import { PassDataService } from './resources/conversation-group/passdata.service';
 
 import { FriendlyFaceGameComponent } from '@/main/games/games-list/common-game/friendly-face-game/friendly-face-game.component';
@@ -107,7 +106,6 @@ import { ExecControlHelpService } from '@/main/games/games-list/common-game/exec
 import { MiWinComponent } from './games/games-list/common-game/mental-imagery/mi-win/mi-win.component';
 import { EcgScienceComponent } from './games/games-list/common-game/executive-control-game/ecg-science/ecg-science.component';
 import { IbgScienceComponent } from './games/games-list/common-game/interpretation-bias-game/ibg-science/ibg-science.component';
-import { AsgScienceComponent } from './games/games-list/common-game/attribute-style-game/asg-science/asg-science.component';
 import { MigScienceComponent } from './games/games-list/common-game/mental-imagery/mig-science/mig-science.component';
 import { FfgScienceComponent } from './games/games-list/common-game/friendly-face-game/ffg-science/ffg-science.component';
 import { LhgScienceComponent } from './games/games-list/common-game/learned-helplessness-game/lhg-science/lhg-science.component';
@@ -181,9 +179,7 @@ import { ReportService } from '@/main/support-groups/post-list/shared/report.ser
 import { GamesProgressBarService } from '@/main/games/shared/games-progress-bar.service';
 import { IdcScienceComponent } from './games/games-list/common-game/identify-cognitive-distortion/idc-science/idc-science.component';
 import { SelfCareComponent } from './shared/self-care/self-care.component';
-import { AsgInstructionsComponent } from './games/games-list/common-game/attribute-style-game/asg-instructions/asg-instructions.component';
 import { ResourcesIntroComponent } from './walk-through/resources-intro/resources-intro.component';
-import { AsgSummaryComponent } from './games/games-list/common-game/attribute-style-game/asg-summary/asg-summary.component';
 import { ReportproblemComponent } from './reportproblem/reportproblem.component';
 import { ReportproblemService } from '@/main/reportproblem/reportproblem.service';
 
@@ -224,7 +220,6 @@ import { ReportproblemService } from '@/main/reportproblem/reportproblem.service
     MainComponent,
     ChatbotComponent,
     ChatWindowComponent,
-    AttributeStyleGameComponent,
     FriendlyFaceGameComponent,
     MentalImageryComponent,
     MiInstructionsComponent,
@@ -248,7 +243,6 @@ import { ReportproblemService } from '@/main/reportproblem/reportproblem.service
     MiWinComponent,
     EcgScienceComponent,
     IbgScienceComponent,
-    AsgScienceComponent,
     MigScienceComponent,
     FfgScienceComponent,
     LhgScienceComponent,
@@ -303,9 +297,7 @@ import { ReportproblemService } from '@/main/reportproblem/reportproblem.service
     ThankComponent,
     IdcScienceComponent,
     SelfCareComponent,
-    AsgInstructionsComponent,
     ResourcesIntroComponent,
-    AsgSummaryComponent,
     ReportproblemComponent,
   ],
   imports: [
@@ -388,7 +380,6 @@ import { ReportproblemService } from '@/main/reportproblem/reportproblem.service
     MiWinComponent,
     EcgScienceComponent,
     IbgScienceComponent,
-    AsgScienceComponent,
     MigScienceComponent,
     FfgScienceComponent,
     LhgScienceComponent,
@@ -420,7 +411,6 @@ import { ReportproblemService } from '@/main/reportproblem/reportproblem.service
     ReportProblemComponent,
     ThankComponent,
     SelfCareComponent,
-    AsgInstructionsComponent,
     ResourcesIntroComponent,
     ReportproblemComponent,
   ],

@@ -3,7 +3,6 @@ import {
   EXECUTIVE_CONTROL_GAME,
   FRIENDLY_FACE_GAME,
   LEARNED_HELPLESSNESS_GAME,
-  ATTRIBUTE_STYLE_GAME,
   MENTAL_IMAGERY_GAME,
   IDENTIFY_COGNITIVE_DISTORTION_GAME,
   BELIEF_CHANGE_FORM_NAME,
@@ -40,13 +39,6 @@ export const GAME_IDENTIFY_COGNITIVE_DISTORTION = {
     'With this game, learn to identify the errors in your own thoughts. We hope you like it 🤞.',
 };
 
-export const GAME_ATTRIBUTION_STYLE = {
-  heading: ATTRIBUTE_STYLE_GAME,
-  description:
-    " In this game, you'll shoot some balloons to learn more about your personality. " +
-    "We'll tell you more after you complete the game. Play this game in the landscape mode for best experience. We hope you like it 🤞.",
-};
-
 export const GAME_FRIENDLY_FACE = {
   heading: FRIENDLY_FACE_GAME,
   description:
@@ -70,7 +62,7 @@ export const TASK_FORM = {
   heading: SET_TASK_FORM_NAME,
   description:
     'This form is there to help you form a routine.' +
-    " Shall we order those running shoes for you? Just kidding, we respect your privacy, we'll never ask for your feet-size 😜.",
+    "Shall we order those running shoes for you? Just kidding, we respect your privacy, we'll never ask for your feet-size 😜.",
 };
 
 export const THOUGHT_RECORD_FORM = {

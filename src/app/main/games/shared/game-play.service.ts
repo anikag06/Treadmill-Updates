@@ -36,8 +36,6 @@ import { FfgHelpService } from '../games-list/common-game/friendly-face-game/ffg
 import { IdcGameService } from '../games-list/common-game/identify-cognitive-distortion/idc-game.service';
 import { IbgameHelpService } from '@/main/games/games-list/common-game/interpretation-bias-game/ibgame-help.service';
 import { LoadingBarService } from '@/main/games/shared/loading-bar.service';
-import { AsgInstructionsComponent } from '@/main/games/games-list/common-game/attribute-style-game/asg-instructions/asg-instructions.component';
-// import {AsgInstructionsComponent} from "@/main/games/games-list/common-game/attribute-style-game/asg-instructions/asg-instructions.component";
 
 // for interpretation bias game
 declare var startIBGame: any;
@@ -47,9 +45,6 @@ declare var ibUsehints: any;
 declare var ibGameHelp: any;
 declare var ibGameShowTutorial: boolean;
 declare var sentence_array: any;
-
-// for attribution game
-declare var AttributeGame: any;
 
 // for executive control game
 declare var startExecControlGame: any;
@@ -255,128 +250,6 @@ export class GamePlayService {
       // console.log(e.ask_for_feedback);
       this.ASG_show_summary = e.show_summary_button;
     });
-  }
-
-  playAttributionStyleGame() {
-    //tslint:disable-next-line:no-unused-expression
-    this.gamesAuthService.atGetUserPerformance().subscribe(e => {
-      // console.log(e);
-      // ASGUserPerformance = e;
-
-      //this.ASGGameInstanceId = e.id;
-      ASGFeedback = e.ask_for_feedback;
-      // console.log(e.ask_for_feedback);
-    });
-
-    this.gamesAuthService.atGetAnswers().subscribe(e => {
-      ASGAnswer = e;
-      // console.log(ASGAnswer);
-    });
-    this.gamesAuthService.atGetQuestions().subscribe(e => {
-      ASGQuestions = e;
-      /*for (const i of ASGQuestions.results) {
-          ASquestions.push(i.question_text);
-        }*/
-      // ASquestions = ASGQuestions.results[0].question_text;
-      console.log(ASGQuestions.results);
-    });
-    this.gamesAuthService.atGetExplanations().subscribe(e => {
-      ASGExplanations = e;
-    });
-    this.game = new AttributeGame();
-
-    if (this.game.scene.isActive('QuestionAndAnswer')) {
-      console.log(this.game.scene.isActive('QuestionAndAnswer'));
-      console.log(this.gamesAuthService.atGetAnswers());
-    }
-    console.log(this.game);
-  }
-
-  soundASGGame(isSoundOn: any) {
-    //if (this.ecGameStarted) {
-    musicASGame(!isSoundOn);
-  }
-
-  restartAttributionStyleGame() {
-    // this.game.destroy();
-    this.game.scene.scenes[5].rstart();
-
-    // this.playAttributionStyleGame();
-  }
-
-  resumeAttributionStyleGame() {
-    this.game.scene.scenes[5].playAllObject();
-  }
-
-  pauseAttributionStyleGame() {
-    // tslint:disable-next-line:no-unused-expression
-    this.game.scene.scenes[5].pauseAllObject();
-    // if (this.game.scene.isActive('ScoreDisplay')) {
-    //   this.game.scene.scenes[5].pause();
-    // } else if (this.game.scene.isActive('QuestionAndAnswer')) {
-    //   this.game.scene.scenes[5].pause();
-    // }
-  }
-  closeASGame() {
-    // if (this.ecGameStarted) {
-    // this.storeDataExecControlGame();
-    //ASGstop();
-    if (this.game) {
-      this.game.destroy(true);
-    }
-    let date: Date;
-    date = new Date();
-    let d = date.getUTCDate();
-    this.gamesAuthService.atPutUserPerformance(
-      false,
-      this.ASGGameInstanceId,
-      date.toISOString(),
-    );
-    //}
-  }
-
-  postIndividualLevelASG() {
-    this.ASGPostLevelPerformance.level_id = 1;
-    this.ASGPostLevelPerformance.balloons_burst = 1;
-    this.ASGPostLevelPerformance.game_instance_id = 6;
-    this.ASGPostLevelPerformance.total_balloons = 1;
-    this.ASGPostLevelPerformance.total_arrows_fired = 1;
-
-    // tslint:disable-next-line:max-line-length
-    this.gamesAuthService.atPostIndividualLevelPerformance(
-      this.ASGGameInstanceId,
-      ASGLevelId,
-      ASGTotalBaloons,
-      ASGBalloonsBurst,
-      ASGArrowsFired,
-    );
-  }
-
-  postUserAnswer() {
-    const d = this.gamesAuthService.atPostuserAnswer(
-      this.ASGGameInstanceId,
-      AnswerId,
-      TimeTakenToAnswer,
-    );
-    console.log(d);
-  }
-  postUserExplanation() {
-    this.gamesAuthService.atPostuserExplanation(
-      ExplanationId,
-      Answer1Id,
-      Answer2Id,
-    );
-  }
-
-  putUserPerformance() {
-    let date: Date;
-    date = new Date();
-    let d = date.getUTCDate();
-    this.gamesAuthService.atPutUserPerformance(
-      true,
-      this.ASGGameInstanceId,
-      date.toISOString(),
-    );
   }
 
   // functions for executive control game

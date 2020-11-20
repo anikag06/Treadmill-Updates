@@ -2,7 +2,6 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { map, switchMap } from 'rxjs/operators';
 import { Game } from '@/main/shared/game.model';
 import {
-  ATTRIBUTE_STYLE_GAME,
   EXECUTIVE_CONTROL_GAME,
   FRIENDLY_FACE_GAME,
   IDENTIFY_COGNITIVE_DISTORTION_GAME,
