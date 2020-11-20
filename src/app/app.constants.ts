@@ -17,6 +17,7 @@ export const TUESDAY = 'Tuesday';
 export const THURSDAY = 'Thursday';
 export const FRIDAY = 'Friday';
 export const SATURDAY = 'Saturday';
+export const CURRENT_STEP_ID = 'step_id';
 export const WEEK = [
   SUNDAY,
   MONDAY,
