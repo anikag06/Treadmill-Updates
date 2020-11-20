@@ -2,12 +2,10 @@
   <div id="no-use-div" #target ></div>
 <div class="container ml-0" >
   <div class="row" mx-0  >
-    <div class="col-lg-7 col-md-9 col-sm-12 fix-content-box "  >
+    <div class="col-lg-7 col-md-9 col-sm-12 fix-content-box ">
 
 
-        <mat-card-header class="fix-content-header d-flex"  >
-
-
+        <mat-card-header class="fix-content-header d-flex">
           <mat-card-title class="fix-content-header-title "  [innerHTML]="displayHtmlHeader" *ngIf = "this.nextDataLoaded" ></mat-card-title>
         </mat-card-header>
       <mat-card >
@@ -25,8 +23,6 @@
             <app-step-completed [showNextStep]="nextBtnShow"  [showloading]="showLoading"  [isLastStep]='isLastStep' [lastStepCompleted]='lastStepCompleted'
                                 (gotodashboard) = "onHtmlDashboard()" (completedEvent) = "onHtmlComplete()"  (nextStepEvent) = "onHtmlNextClick()"></app-step-completed>
           </div>
-          <div #target2 id="dummyDiv"> </div>
-
 
         </div>
       </mat-card>
@@ -34,6 +30,7 @@
     </div>
   </div>
 </div>
+  <div #target2 id="dummyDiv"> </div>
 </ng-template>
 
 <ng-template #loader>
