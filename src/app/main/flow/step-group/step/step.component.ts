@@ -248,8 +248,6 @@ export class StepComponent implements OnInit, AfterViewInit {
       // this.flowService.triggerLoad();
       // setTimeout(() => this.flowService.triggerLoad(), 1);
       // setTimeout(() => this.flowService.triggerLoad(), 10);
-    } else {
-      setTimeout(() => this.flowService.triggerLoad(), 2000);
     }
 
     if (
