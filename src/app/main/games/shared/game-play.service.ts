@@ -108,29 +108,6 @@ declare var musicFFGame: any;
 // for mental imagery game
 declare var miGameShowTutorial: boolean;
 
-// for ASG
-declare var ASGAnswer: ASGAnswerData;
-declare var ASGQuestions: ASGQuestionData;
-declare var ASGExplanations: ASGExplanation;
-declare var ASGFeedback: boolean;
-declare var musicASGame: any;
-// declare var ASGstop: any;
-// declare var ASanswer: any[];
-// declare var ASquestions: string[];
-// declare var ASGUserPerformance: ASGGetUserPerformance;
-// declare var ASGPostIndividualAnswer: ASGIndividualAnswer;
-// declare var ASGPostExplnation: ASGSaveExplanation;
-
-declare var ASGLevelId: number;
-declare var ASGTotalBaloons: number;
-declare var ASGBalloonsBurst: number;
-declare var ASGArrowsFired: number;
-declare var AnswerId: number;
-declare var TimeTakenToAnswer: number;
-declare var Answer1Id: number;
-declare var Answer2Id: number;
-declare var ExplanationId: number;
-
 @Injectable({
   providedIn: 'root',
 })
@@ -237,19 +214,6 @@ export class GamePlayService {
   helpIBGame() {
     this.dialogBoxService.setDialogChild(IbGameInstructionsComponent);
     ibGameHelp();
-  }
-
-  // for attribution game
-  ASGUserData() {
-    this.gamesAuthService.atGetUserPerformance().subscribe(e => {
-      console.log(e);
-      this.ASGUserPerformance = e;
-
-      this.ASGGameInstanceId = e.id;
-      // ASGFeedback = e.ask_for_feedback;
-      // console.log(e.ask_for_feedback);
-      this.ASG_show_summary = e.show_summary_button;
-    });
   }
 
   // functions for executive control game

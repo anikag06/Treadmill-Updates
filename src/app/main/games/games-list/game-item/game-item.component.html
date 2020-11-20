@@ -34,10 +34,6 @@
 
 
 <ng-template #noPbGame>
-  <div class = "d-flex no-pb-game-div" *ngIf = isASGame()>
-  <p *ngIf = balloonBurstStatus>{{completedMsg}}</p>
-  <p *ngIf = !balloonBurstStatus>{{incompleteMsg}}</p>
-  </div>
   <div class = "d-flex no-pb-game-div" *ngIf = isLHGame()>
     <p *ngIf = solveItStatus>{{completedMsg}}</p>
     <p *ngIf = !solveItStatus>{{incompleteMsg}}</p>
