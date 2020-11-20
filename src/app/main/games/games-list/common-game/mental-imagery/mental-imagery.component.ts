@@ -40,7 +40,6 @@ export class MentalImageryComponent implements OnInit {
   showLoading = true;
   imagesPreloaded = false;
 
-
   constructor(
     private getCurrentStateService: MICurrentStateService,
     private miPlayService: MIPlayService,
@@ -49,7 +48,6 @@ export class MentalImageryComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private stepDataService: StepsDataService,
     private loadFileService: LoadFilesService,
-
   ) {}
 
   ngOnInit() {

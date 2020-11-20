@@ -316,7 +316,7 @@ export class StepComponent implements OnInit, AfterViewInit {
       this.flowService.getModuleUnlockTime(this.stepGroup.id);
       this.flowService.unlockModuleTime.subscribe((data) => {
         if (data === false) {
-          this.tooltipShow();
+          // this.tooltipShow();
         } else if (typeof data === 'string' && !Date.parse(data)) {
           this.tooltipData = data;
           this.tooltipShow();

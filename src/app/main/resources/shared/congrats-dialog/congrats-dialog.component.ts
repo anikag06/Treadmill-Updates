@@ -27,7 +27,7 @@ export class CongratsDialogComponent implements OnInit {
     private router: Router,
     private flowStepService: FlowStepNavigationService,
     private flowService: FlowService,
-    private goToService: NavbarGoToService
+    private goToService: NavbarGoToService,
   ) {
     dialogRef.disableClose = true;
   }

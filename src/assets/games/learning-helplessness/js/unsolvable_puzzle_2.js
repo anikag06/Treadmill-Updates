@@ -37,7 +37,7 @@ var first;
 var frogGridSwipe;
 
 $(document).ready(function(){
-	
+
 	$(document).on("click", "#btn-frog-game-reset", function(ev){
 		frog_grid = new FrogGrid(frog_length, frog_height, frog_grid_string, frog_face_direction);
 		frog_direction_class = getFrogDirection(frog_grid.frog_direction);
@@ -61,13 +61,13 @@ $(document).ready(function(){
 			// show play next pop up
 			lhg_show_instructions = false;
 			playNextGamePopup();
-			
+
 			$("#frog-game-row").addClass("d-none");
 			$("#color-reverse-game").removeClass("d-none");
-			unsolvable_game_counter=3;		 
+			unsolvable_game_counter=3;
 			resetFrogGame();
 			frogGameInit();
-			console.log("call init 2", success); 
+			console.log("call init 2", success);
 			colorReverseInit();
 		}else{
 			first = false;
@@ -82,27 +82,28 @@ $(document).ready(function(){
 			]
 		});
 		frogGridSwipe.on("swipe", function(ev) {
+		  console.log("ev: ", ev);
 			frogGridMoveRouter(ev.direction);
 		});
 	}
 
 	$(document).on('keydown','#frog-game-row', function(e) {
 		e.preventDefault();
-		
+
 		if(unsolvable_game_counter == 2) {
 			frogGridMoveRouter(e.which);
 		}
 	});
-	
-	
+
+
 });
 
 
 
 function frogGridMoveRouter(value) {
-	if((frog_grid.frog_direction==3 && (value==37 || value==2)) 
-		|| (frog_grid.frog_direction==4 && (value==38 || value==8)) 
-		|| (frog_grid.frog_direction==1 && (value==39 || value==4)) 
+	if((frog_grid.frog_direction==3 && (value==37 || value==2))
+		|| (frog_grid.frog_direction==4 && (value==38 || value==8))
+		|| (frog_grid.frog_direction==1 && (value==39 || value==4))
 		|| (frog_grid.frog_direction==2 && (value==40 || value==16))){
 	}else{
 		wrong_move = false;
@@ -134,7 +135,7 @@ function frogGridMoveRouter(value) {
 		if(!wrong_move){
 			frog_no_of_moves++;
 			prev_frog_direction_class = frog_direction_class;
-			frog_direction_class = getFrogDirection(frog_grid.frog_direction);			
+			frog_direction_class = getFrogDirection(frog_grid.frog_direction);
 			updateFrogLocation();
 			if(frogDetectSuccess()){
 				frog_level_counter++;
@@ -190,26 +191,26 @@ function setFrogGridGameWidthAndHeight() {
 	if(window.devicePixelRatio == 2) {
 
 		// frog game (unsolvable puzzle 2)
-		$(`.frog-game-flower, 
-			.frog-game-flower-dry, 
+		$(`.frog-game-flower,
+			.frog-game-flower-dry,
 			.frog-game-square-blank,
 			.frog-right,
-			.frog-left, 
-			.frog-up, 
+			.frog-left,
+			.frog-up,
 			.frog-down`).css({
 				'width': '150',
 				'height': '150'
 			});
 
 	}else if(window.devicePixelRatio == 1) {
-		
+
 		// frog game (unsolvable puzzle 2)
-		$(`.frog-game-flower, 
-			.frog-game-flower-dry, 
+		$(`.frog-game-flower,
+			.frog-game-flower-dry,
 			.frog-game-square-blank,
 			.frog-right,
-			.frog-left, 
-			.frog-up, 
+			.frog-left,
+			.frog-up,
 			.frog-down`).css({
 				'width': '37',
 				'height': '37'
@@ -217,12 +218,12 @@ function setFrogGridGameWidthAndHeight() {
 	}else {
 		// !!IMPORTANT!!
 		// write code for generic device pixel ratio
-		$(`.frog-game-flower, 
-			.frog-game-flower-dry, 
+		$(`.frog-game-flower,
+			.frog-game-flower-dry,
 			.frog-game-square-blank,
 			.frog-right,
-			.frog-left, 
-			.frog-up, 
+			.frog-left,
+			.frog-up,
 			.frog-down`).css({
 				'width': '37',
 				'height': '37'

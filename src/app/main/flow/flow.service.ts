@@ -73,6 +73,7 @@ export class FlowService {
 
   getModuleUnlockTime(stepGroupId: number) {
     this.getFlow().subscribe((data: any) => {
+      console.log('data in getmoduleunlocktime: ', data);
       const allStepGroups = data.step_groups;
       const initStepGroup = allStepGroups.find(
         (stepGroup: any) => stepGroup.id === stepGroupId,
@@ -85,6 +86,7 @@ export class FlowService {
             prevStepGroup.steps[prevStepGroup.steps.length - 1].id,
           )
           .subscribe(unlockTimeData => {
+            console.log('unlocktimedata: ', unlockTimeData);
             this.unlockModuleTime.next(
               unlockTimeData.data.next_step_group_unlock_time,
             );

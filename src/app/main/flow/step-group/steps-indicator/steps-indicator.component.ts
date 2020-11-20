@@ -27,9 +27,7 @@ export class StepsIndicatorComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {
-    console.log(this.lastStepOfModule);
-  }
+  ngOnInit() {}
 
   getStatusImage(step: Step) {
     if (step.virtual_step && step.status === UNLOCKED) {
