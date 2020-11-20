@@ -128,21 +128,20 @@
           color="primary"
           *ngFor="let button of chatButtons"
           [ngClass]="{
-            'btn radio_button ripple': button.buttonObject.type === radio,
-            'btn module_button': button.buttonObject.type === clickAble
+            'btn radio_button ripple': button.type === radio,
+            'btn module_button': button.type === clickAble
           }"
-          [ngStyle]="{display : button.isVisible ? 'initial' : 'none'}"
-          (click)="chatButtonPressed(button.buttonObject)"
+          (click)="chatButtonPressed(button)"
         >
           <img
-            [src]="button.buttonObject.image_url"
-            [alt]="button.buttonObject.emojified_payload"
+            [src]="button.image_url"
+            [alt]="button.emojified_payload"
             width="146px"
             height="78px"
-            *ngIf="button.buttonObject.type === clickAble; else btnText"
+            *ngIf="button.type === clickAble; else btnText"
           />
           <ng-template #btnText>
-            <span class="btn-text" [innerHTML]="button.buttonObject.emojified_payload"></span>
+            <span class="btn-text" [innerHTML]="button.emojified_payload"></span>
           </ng-template>
         </button>
         <div>
