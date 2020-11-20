@@ -60,9 +60,7 @@ export const PROBLEM_SOLVING_FORM = {
 
 export const TASK_FORM = {
   heading: SET_TASK_FORM_NAME,
-  description:
-    'This form is there to help you form a routine.' +
-    "Shall we order those running shoes for you? Just kidding, we respect your privacy, we'll never ask for your feet-size 😜.",
+  description: 'This form is there to help you form a routine.',
 };
 
 export const THOUGHT_RECORD_FORM = {
