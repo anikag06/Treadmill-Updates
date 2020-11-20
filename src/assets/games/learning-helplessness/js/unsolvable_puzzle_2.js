@@ -75,17 +75,15 @@ $(document).ready(function(){
 	});
 
 	var frogGridSwipeArea = document.getElementById("frog-game-space");
-	if(frogGridSwipe){
-		frogGridSwipe = new Hammer.Manager(frogGridSwipeArea, {
-			recognizers: [
-				[Hammer.Swipe,{ direction: Hammer.DIRECTION_ALL }],
-			]
-		});
-		frogGridSwipe.on("swipe", function(ev) {
-		  console.log("ev: ", ev);
-			frogGridMoveRouter(ev.direction);
-		});
-	}
+  frogGridSwipe = new Hammer.Manager(frogGridSwipeArea, {
+    recognizers: [
+      [Hammer.Swipe,{ direction: Hammer.DIRECTION_ALL }],
+    ]
+  });
+  frogGridSwipe.on("swipe", function(ev) {
+    console.log("ev: ", ev);
+    frogGridMoveRouter(ev.direction);
+  });
 
 	$(document).on('keydown','#frog-game-row', function(e) {
 		e.preventDefault();
