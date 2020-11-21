@@ -1,11 +1,11 @@
 <div class="ff-game-div h-100 w-100">
   <div id="face-game-main-div">
-    <div class="col text-center text-loading"  *ngIf="showLoading"> Loading... </div>
+    <div class="col text-center text-loading"  *ngIf="showLoading && !imagesPreloaded"> Loading... </div>
 
     <div class="game-cover row justify-content-center">
 
       <img id="ffg-image" src="../../../../../../assets/games/friendly-face-game/images/Find a smile.svg"
-           (load)="removeLoading()" [ngStyle]="{display: showLoading ? 'none' : 'inline'}"/>
+           (load)="removeLoading()" [ngStyle]="{display: showLoading && !imagesPreloaded ? 'none' : 'inline'}"/>
 
       <br />
     </div>
@@ -22,10 +22,10 @@
               </div>
 
               <div class=" ml-auto ">
-                <img id="life-img" src="../../../../../../assets/games/friendly-face-game/images/Live (1).svg" />
+                <img id="life-img" src="../../../../../../assets/games/friendly-face-game/images/Life.svg" />
                 <span id="life" class="align-bottom"></span>
 
-                <img id="time-img" src="../../../../../../assets/games/time_transparent.png" />
+                <img id="time-img" src="../../../../../../assets/games/time_transparent.svg" />
                 <!--class="float-right">-->
                 <span id="time-sec" class="align-bottom"></span>
                 <!-- <span class="align-bottom mb-0"> <b class="mt-1">s</b></span> -->
@@ -83,7 +83,7 @@
         <div style="height: 80px;">
           <div style="height: 12px;">
             <img id="tone-on-bar" [style.margin-left]="toneBarValue + 'px'"
-              src="../../../../../../assets/games/friendly-face-game/images/music green.png" />
+              src="../../../../../../assets/games/friendly-face-game/images/music green.svg" />
           </div>
           <div class="d-flex justify-content-center music-bar">
             <mat-progress-bar mode="determinate" class="ffgMusicBar" [value]="musicBarValue"></mat-progress-bar>
