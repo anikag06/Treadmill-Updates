@@ -127,8 +127,6 @@ $(document).ready(function(){
 			// show play next pop up
 			playNextGamePopup();
 
-			lhg_second_time = true;
-
 			$("#color-reverse-game").addClass("d-none");
 			boxUpGameInit();
 			$("#box-up-game-row").removeClass("d-none");
