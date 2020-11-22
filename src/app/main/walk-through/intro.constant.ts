@@ -73,7 +73,7 @@ export const THOUGHT_RECORD_FORM = {
 export const EXPERIMENT_TO_TEST_BELIEF_FORM = {
   heading: EXPERIMENT_TO_TEST_BELIEF_FORM_NAME,
   description:
-    'This form presents the technique to test whether a belief is true or false. Your days of believing that you are unlovable are numbered 🥰️.',
+    'This form presents the technique to test whether a belief is true or false. Your days of believing that you are unlovable are numbered ✌️.',
 };
 
 export const WORRY_PRODUCTIVELY_FORM = {
