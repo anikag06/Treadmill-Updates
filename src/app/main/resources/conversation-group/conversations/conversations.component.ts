@@ -46,11 +46,12 @@ import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifica
 import {
   CONVERSATION_COMPLETE_SCORE,
   CURRENT_STEP_ID,
-  PROBLEM_SOLVING,
-  SCORE,
-  SLIDE_COMPLETE_SCORE,
-  TASK,
-  THOUGHT_RECORD,
+  FORM_BELIEF_CHANGE,
+  FORM_EXPERIMENT_TO_TEST_BELIEF,
+  FORM_PROBLEM_SOLVING,
+  FORM_TASK,
+  FORM_THOUGHT_RECORD,
+  FORM_WORRY_PRODUCTIVELY,
 } from '@/app.constants';
 import { Subscription } from 'rxjs';
 import { UserFeedbackComponent } from '@/main/resources/shared/user-feedback/user-feedback.component';
@@ -60,6 +61,9 @@ import { FlowService } from '@/main/flow/flow.service';
 import { CommonService } from '@/shared/common.service';
 import { User } from '@/shared/user.model';
 import { AuthService } from '@/shared/auth/auth.service';
+import { BeliefChangeComponent } from '@/main/resources/forms/belief-change/belief-change.component';
+import { WorryProductivelyComponent } from '@/main/resources/forms/worry-productively-form/worry-productively.component';
+import { EttbfBeliefComponent } from '@/main/resources/forms/experiment-to-test-belief-form/ettbf-belief/ettbf-belief.component';
 
 @Component({
   selector: 'app-conversations',
@@ -459,17 +463,23 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         if (!this.speedrun) {
           this.dialog_options();
         }
-        const formName = THOUGHT_RECORD;
-        if (this.passdata.getFormName() === TASK) {
+        const formName = this.passdata.getFormName();
+        console.log('passdata: ', this.passdata);
+        if (formName === FORM_TASK) {
           setTimeout(() => this.loadForm(TaskFormsComponent), 1000);
-        } else if (this.passdata.getFormName() === PROBLEM_SOLVING) {
+        } else if (formName === FORM_PROBLEM_SOLVING) {
           setTimeout(
             () => this.loadForm(ProblemSolvingWorksheetsComponent),
             1000,
           );
-        } else if (formName === THOUGHT_RECORD) {
-          // TODO: Always true no need to add the condition
+        } else if (formName === FORM_THOUGHT_RECORD) {
           setTimeout(() => this.loadForm(ThoughtRecordFormComponent), 1000);
+        } else if (formName === FORM_BELIEF_CHANGE) {
+          setTimeout(() => this.loadForm(BeliefChangeComponent), 1000);
+        } else if (formName === FORM_WORRY_PRODUCTIVELY) {
+          setTimeout(() => this.loadForm(WorryProductivelyComponent), 1000);
+        } else if (formName === FORM_EXPERIMENT_TO_TEST_BELIEF) {
+          setTimeout(() => this.loadForm(EttbfBeliefComponent), 1000);
         }
       });
   }
