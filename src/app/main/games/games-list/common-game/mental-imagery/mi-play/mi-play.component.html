@@ -90,13 +90,11 @@
         </div>
       </div>
 
-      <small class="text-muted" *ngIf="invalidInput">Sorry 😕! This word doesn't seem to fit here. Please enter another
-        word.</small>
-      <small class="text-muted" *ngIf="invalidInput && invalidInputCount > 2">Possible answers -
-        <span *ngFor="let item of currentScenario.possibleCorrectAnswerList; let i = index">&nbsp;{{item}}
-        <span *ngIf="i < currentScenario.possibleCorrectAnswerList.length - 1">,</span>
+      <small class="text-muted" *ngIf="invalidInput && !invalidInputCount">Sorry 😕! This word doesn't seem to fit here. Please enter another word.</small>
+      <small class="text-muted" *ngIf="invalidInput && invalidInputCount > 2"> Possible answers -
+        <span *ngFor="let item of currentScenario.possibleCorrectAnswerList; let i = index"><b> {{item}}</b><span *ngIf="i < currentScenario.possibleCorrectAnswerList.length - 1">,</span>
       </span>.
-        Please enter the correct answer to proceed with the game.</small>
+        Please enter one of the correct answer to proceed with the game.</small>
     </form>
     <div #target id="dummyDiv"></div>
   </div>
