@@ -2,6 +2,8 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { GamePlayService } from '@/main/games/shared/game-play.service';
 declare var unsolvable_game_counter: any;
 declare var lhcolorReverseGame: any;
+declare var lhg_second_time: boolean;
+
 
 @Component({
   selector: 'app-lhg-instructions',
@@ -29,6 +31,7 @@ export class LhgInstructionsComponent implements OnInit {
       this.game2 = true;
     } else if (unsolvable_game_counter === 3) {
       this.game3 = true;
+      lhg_second_time = true;
     }
   }
 
