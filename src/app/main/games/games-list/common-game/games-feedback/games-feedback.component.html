@@ -2,13 +2,13 @@
   <div class="text-center">
     <h4>Like the game?</h4>
     <div class="like-dislike-btns my-4">
-      <img src="../../../../../../assets/games/feedback/Like_disabled_feedback.png" width="48" height="48"
+      <img src="../../../../../../assets/games/feedback/Like_disabled_feedback.svg" width="48" height="48"
         *ngIf="!liked" style="margin-right:16px;" (click)="onLikeBtnClick()">
-      <img src="../../../../../../assets/games/feedback/Like_enabled_feedback.png" width="48" height="48" *ngIf="liked"
+      <img src="../../../../../../assets/games/feedback/Like_enabled_feedback.svg" width="48" height="48" *ngIf="liked"
         style="margin-right:16px;">
-      <img src="../../../../../../assets/games/feedback/dislike_disabled_feedback.png" width="48" height="48"
+      <img src="../../../../../../assets/games/feedback/dislike_disabled_feedback.svg" width="48" height="48"
         *ngIf="!disliked" (click)="onDislikeBtnClick()">
-      <img src="../../../../../../assets/games/feedback/dislike_enabled_feedback.png" width="48" height="48"
+      <img src="../../../../../../assets/games/feedback/dislike_enabled_feedback.svg" width="48" height="48"
         *ngIf="disliked" (click)="onDislikeBtnClick()">
     </div>
     <p class="text-center" *ngIf="thank_text">
