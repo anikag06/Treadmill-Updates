@@ -8,6 +8,8 @@ import { GAMES_FEEDBACK_DATA } from '@/app.constants';
 })
 export class GamesFeedbackService {
   feedback = new EventEmitter<any>();
+  idcfeedback = new EventEmitter<any>();
+
   constructor(private http: HttpClient) {}
 
   sendFeedback(data: any) {
