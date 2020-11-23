@@ -26,7 +26,7 @@
 #common-pause-clicked-div {
   max-width: 15%;
   max-height: 100%;
-  height: 524px;
+  height: 640px;
   position: absolute;
   margin-left: 0%;
   background-color: rgba($color: #ffffff, $alpha: 0.7);
@@ -115,7 +115,7 @@
   outline: 0px solid transparent;
 }
 
-@media screen and (max-width: 767px) and (orientation:landscape) {
+@media screen and (max-width: 900px) and (orientation:landscape) {
 
   #game_div,
   .common-div {
@@ -144,6 +144,9 @@
   }
   .common-div {
    height: 524px;
+  }
+  #common-pause-clicked-div {
+    height: 524px;
   }
 }
 @media screen and (max-width: 360px) {
