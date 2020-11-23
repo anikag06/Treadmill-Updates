@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { withLatestFrom } from 'rxjs/operators';
+import { CURRENT_ACTION } from '@/app.constants';
 
 @Injectable()
 export class PassDataService {
@@ -25,7 +26,7 @@ export class PassDataService {
     value: number,
     reset: boolean,
     continu: boolean,
-    speedrun: boolean,
+    speedrun: boolean
   ) {
     this.conversation_id = value;
     console.log(this.conversation_id);
@@ -65,7 +66,7 @@ export class PassDataService {
   }
 
   getFormName() {
-    return this.formname;
+    return window.localStorage.getItem(CURRENT_ACTION);
   }
 
   IsConversationOn(value: boolean) {
