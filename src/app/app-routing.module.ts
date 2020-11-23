@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 import { LandingPageComponent } from './pre-login/landing-page/landing-page.component';
 import { PreLoginComponent } from './pre-login/pre-login.component';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
@@ -7,6 +7,7 @@ import { AuthGuard } from './shared/auth/auth.guard';
 import { SignUpComponent } from '@/pre-login/signup/signup.component';
 import { TempLandingPageComponent } from '@/temp-landing-page/temp-landing-page.component';
 import { ResetPasswordComponent } from '@/pre-login/reset-password/reset-password.component';
+import {CustomPreloadingStrategy} from "@/shared/lazy-loading.preloading";
 
 export const routes: Routes = [
   {
@@ -52,7 +53,10 @@ export const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,{
+    preloadingStrategy: CustomPreloadingStrategy
+  })],
   exports: [RouterModule],
+  providers: [CustomPreloadingStrategy],
 })
 export class AppRoutingModule {}
