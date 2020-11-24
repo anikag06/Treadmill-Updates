@@ -173,6 +173,12 @@ export class ExecutiveControlGameComponent implements OnInit, OnDestroy {
       )
       .then(() => {})
       .catch(() => {});
+    this.loadFileService
+      .loadExternalScript(
+        'assets/games/executive-control-game/js/ecg_preload_assets.js',
+      )
+      .then(() => {})
+      .catch(() => {});
   }
 
   @HostListener('window:CallAngularStoreTaskDataFun')
