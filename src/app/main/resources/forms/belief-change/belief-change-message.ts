@@ -1,13 +1,13 @@
 export const BELEIF_CHANGE_QUOTES = [
   {
     quote:
-      'Taking responsibility for your beliefs and judgments gives you the power to change them',
+      'Taking responsibility for your beliefs and judgments gives you the power to change them.',
     by: 'Byron Katie',
   },
   {
     quote:
       "If you don't change your beliefs, your life will be like this forever. Is that good news?",
-    by: ' W. Somerset Maugham',
+    by: 'W. Somerset Maugham',
   },
 ];
 

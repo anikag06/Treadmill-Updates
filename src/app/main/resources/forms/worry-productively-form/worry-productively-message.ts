@@ -1,7 +1,8 @@
 export const WORRY_PRODUCTIVELY_QUOTES = [
   {
-    quote: 'The Happiness for your life depends upon the quality of thougts.',
-    by: 'Marcus Aurelius',
+    quote:
+      'Worry never robs tomorrow of its sorrow, it only saps today of its joy.',
+    by: 'Leo Buscaglia',
   },
   {
     quote: 'Worry often gives a small thing a big shadow.',

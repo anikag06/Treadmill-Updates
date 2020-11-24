@@ -4,7 +4,7 @@ export const PROBLEM_SOLVING_QUOTES = [
     by: 'John Dewey',
   },
   {
-    quote: 'The best way to escape from your problems is to solve them. ',
+    quote: 'The best way to escape from your problems is to solve them.',
     by: 'Anonymous',
   },
   {
