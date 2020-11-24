@@ -44,6 +44,7 @@ import {
   MINDFULNESS_VIDEOS,
   VIDEOS_ON_DEPRESSION,
 } from '@/main/walk-through/intro.constant';
+import {take} from "rxjs/operators";
 
 @Component({
   selector: 'app-step',
@@ -314,9 +315,10 @@ export class StepComponent implements OnInit, AfterViewInit {
   showTooltipFun() {
     if (this.step.status === LOCKED && this.step.sequence === 0) {
       this.flowService.getModuleUnlockTime(this.stepGroup.id);
-      this.flowService.unlockModuleTime.subscribe(data => {
+      this.flowService.unlockModuleTime.pipe(
+        take(1), ).subscribe(data => {
         if (data === false) {
-          // this.tooltipShow();
+          this.tooltipShow();
         } else if (typeof data === 'string' && !Date.parse(data)) {
           this.tooltipData = data;
           this.tooltipShow();
