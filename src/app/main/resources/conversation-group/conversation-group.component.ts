@@ -46,7 +46,7 @@ export class ConversationGroupComponent implements OnInit {
     private router: Router,
     private activeroute: ActivatedRoute,
     private notificationService: NavbarNotificationsService,
-    private flowService: FlowService,
+    private flowService: FlowService
   ) {}
 
   ngOnInit() {
@@ -56,13 +56,12 @@ export class ConversationGroupComponent implements OnInit {
   loadConversationGroup() {
     this.activeroute.params
       .pipe(
-        map(v => v.id),
-        switchMap(id => this.conversationservice.getConversationGroup(id)),
+        map((v) => v.id),
+        switchMap((id) => this.conversationservice.getConversationGroup(id))
       )
       .subscribe(
         (res: any) => {
           const step = res.data;
-          console.log('RESPONSE', res.data, step.status);
           // for navbar title
           this.stepGroupSequence = step.step_group_sequence + 1;
           this.stepSequence = step.sequence + 1;
@@ -83,23 +82,13 @@ export class ConversationGroupComponent implements OnInit {
             this.nextstep = res.next_step_id;
             this.passdata.setid(this.current_id, this.islast, this.nextstep);
             this.conversationGroups = this.step.step_data.data.conversations;
-            // this.description_model.message = [];
-            // this.description_model.image = [];
-            // for(let o = 0; o < this.group.length; o++){
-            //   this.conversationservice.get(environment.API_ENDPOINT +
-            //     '/api/v1/conversation/conversation/?conversation_id='+ this.group[o].id)
-            //     .subscribe((res: any) => {
-            //       this.description_model.message.push(this.group[o].description);
-            //       this.description_model.image.push('https://www.api2.treadwill.org/media/conversations/avataaars.png');
-            //     })
-            // }
             const formName = step.action[0];
             this.passdata.setFormName(formName);
           } else {
             this.notallowed = true;
           }
         },
-        error => console.log(error),
+        (error) => console.log(error)
       );
   }
 
@@ -119,7 +108,6 @@ export class ConversationGroupComponent implements OnInit {
     this.router.navigate([
       'main/resources/conversations/' + this.conversation_id,
     ]);
-    // this.router.navigate([this.nextLink()]);
   }
   // TO DO : for adding step id in url
   // nextLink() {

@@ -14,6 +14,7 @@ import {
   CONCLUSION_PAGE,
   CONTROL_PAGE,
   CONVERSATION_GROUP,
+  CURRENT_ACTION,
   CURRENT_STEP_ID,
   FORM,
   GAME,
@@ -73,7 +74,7 @@ export class StepComponent implements OnInit, AfterViewInit {
     private introService: IntroService,
     private introDialogService: IntroDialogService,
     private goToService: NavbarGoToService,
-    private authService: AuthService,
+    private authService: AuthService
   ) {
     this.user = <User>this.authService.isLoggedIn();
   }
@@ -96,23 +97,23 @@ export class StepComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     // this is done to change the properties of progress bar in conversation in flow
     const stepProgressBar = this.element.nativeElement.querySelectorAll(
-      '.step-progress-bar .mat-progress-bar',
+      '.step-progress-bar .mat-progress-bar'
     );
     // tslint:disable-next-line: max-line-length
     const stepProgressBarBuffer = this.element.nativeElement.querySelectorAll(
-      '.step-progress-bar .mat-progress-bar .mat-progress-bar-buffer',
+      '.step-progress-bar .mat-progress-bar .mat-progress-bar-buffer'
     );
     const stepProgressBarFill = this.element.nativeElement.querySelectorAll(
-      '.step-progress-bar .mat-progress-bar .mat-progress-bar-fill',
+      '.step-progress-bar .mat-progress-bar .mat-progress-bar-fill'
     );
     if (stepProgressBar.length > 0) {
       stepProgressBar[0].setAttribute(
         'style',
-        'border-radius: 2px; !important',
+        'border-radius: 2px; !important'
       );
       stepProgressBarBuffer[0].setAttribute(
         'style',
-        'background-color: #E4E8EB; !important',
+        'background-color: #E4E8EB; !important'
       );
 
       const afterElement = document.createElement('style');
@@ -159,6 +160,7 @@ export class StepComponent implements OnInit, AfterViewInit {
     //
     this.showTooltipFun();
     window.localStorage.setItem(CURRENT_STEP_ID, this.step.id.toString());
+    window.localStorage.setItem(CURRENT_ACTION, this.step.action[0]);
     if (this.step.data_type === GAME && this.step.status !== COMPLETED) {
       // add this.step.status === COMPLETED condition
       this.introService
@@ -168,7 +170,7 @@ export class StepComponent implements OnInit, AfterViewInit {
             setTimeout(() => {
               this.introDialogService.openGameIntroDialog(
                 true,
-                this.step.action[0],
+                this.step.action[0]
               );
             }, 500);
           } else {
@@ -187,7 +189,7 @@ export class StepComponent implements OnInit, AfterViewInit {
             setTimeout(() => {
               this.introDialogService.openFormIntroDialog(
                 true,
-                this.step.action[0],
+                this.step.action[0]
               );
             }, 500);
           } else {
@@ -312,7 +314,7 @@ export class StepComponent implements OnInit, AfterViewInit {
   showTooltipFun() {
     if (this.step.status === LOCKED && this.step.sequence === 0) {
       this.flowService.getModuleUnlockTime(this.stepGroup.id);
-      this.flowService.unlockModuleTime.subscribe(data => {
+      this.flowService.unlockModuleTime.subscribe((data) => {
         if (data === false) {
           // this.tooltipShow();
         } else if (typeof data === 'string' && !Date.parse(data)) {
