@@ -4,7 +4,6 @@ declare var unsolvable_game_counter: any;
 declare var lhcolorReverseGame: any;
 declare var lhg_second_time: boolean;
 
-
 @Component({
   selector: 'app-lhg-instructions',
   templateUrl: './lhg-instructions.component.html',

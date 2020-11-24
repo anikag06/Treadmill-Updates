@@ -14,7 +14,7 @@
     <div class="row w-100 congrats-msg">
         <div class="col justify-content-center" >
           <p class="congrats-text"> Congratulations!</p>
-          <p class="text"> You have earned a gold badge for completing the "{{badgeInfo}}" module.</p>
+          <p class="text"> You have earned a gold badge for completing this module.</p>
             <p class="next-text" *ngIf='data.isLastStep && data.isLocked && !data.isLastModule'>
                 Next module will unlock on {{unLockTime | date:"medium"}}</p>
           <p class="next-text" *ngIf='data.isLastStep && !data.isLocked  && !data.isLastModule'>

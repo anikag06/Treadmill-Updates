@@ -92,4 +92,4 @@ export const MINDFULNESS_VIDEOS =
   'Practice mindfulness using these videos. It will help you relax your mind and think clearly.';
 
 export const VIDEOS_ON_DEPRESSION =
-  'Watch the testimonial videos to know that you are not alone.';
+  'Watch the videos on depression to learn more and to know that you are not alone.';
