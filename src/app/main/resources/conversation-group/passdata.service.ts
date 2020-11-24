@@ -26,7 +26,7 @@ export class PassDataService {
     value: number,
     reset: boolean,
     continu: boolean,
-    speedrun: boolean
+    speedrun: boolean,
   ) {
     this.conversation_id = value;
     console.log(this.conversation_id);
