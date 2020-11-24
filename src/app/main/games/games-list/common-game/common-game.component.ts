@@ -35,7 +35,7 @@ import { LhgHowtoplayComponent } from './learned-helplessness-game/lhg-howtoplay
 import { IdcGameService } from './identify-cognitive-distortion/idc-game.service';
 import { IntroService } from '@/main/walk-through/intro.service';
 import { IdcScienceComponent } from '@/main/games/games-list/common-game/identify-cognitive-distortion/idc-science/idc-science.component';
-import {LoadFilesService} from "@/main/games/shared/load-files.service";
+import { LoadFilesService } from '@/main/games/shared/load-files.service';
 
 declare let $: any;
 
@@ -95,7 +95,6 @@ export class CommonGameComponent implements OnInit {
     private idcGameService: IdcGameService,
     private introService: IntroService,
     private loadFileService: LoadFilesService,
-
   ) {}
 
   ngOnInit() {
