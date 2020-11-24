@@ -7,19 +7,19 @@
       <div class="common-pause-clicked">
         <div class="col paused-game-btns">
           <img id="common-home-btn" class="home-btn mx-auto img-btn" (click)="onHomeClick()"
-            src="../../../../assets/games/home.png">
+            src="../../../../assets/games/home.svg">
         </div>
         <div class="col paused-game-btns">
           <img id="common-help-btn" class="help-btn mx-auto img-btn" (click)="onHelpClick()"
-            src="../../../../../assets/games/help.png">
+            src="../../../../../assets/games/help.svg">
         </div>
         <div class="col paused-game-btns">
           <img id="common-resume-btn" class="resume-btn mx-auto img-btn" (click)="onResumeClick()"
-            src="../../../../../assets/games/play.png">
+            src="../../../../../assets/games/play.svg">
         </div>
         <div class="col paused-game-btns">
           <img id="common-replay-btn" class="replay-btn mx-auto img-btn" (click)="onRestartClick()"
-            src="../../../../../assets/games/replay.png">
+            src="../../../../../assets/games/replay.svg">
         </div>
         <div class="col paused-game-btns">
           <img id="common-sound-on-btn" class="sound mx-auto img-btn" (click)="onSoundClick()" *ngIf="isSoundOn"
@@ -48,7 +48,7 @@
             'end-position' : portraitGame === false}">
         <div class="col-auto mr-auto px-0">
           <img id="common-science-btn" (click)="onScienceBehind()" class="common-science-btn mx-2 img-btn"
-            src="../../../../../assets/games/science_behind_game.png">
+            src="../../../../../assets/games/science_behind_game.svg">
         </div>
 
         <div class="col-auto ml-auto px-0">
@@ -67,7 +67,7 @@
     <div class="row justify-content-center align-items-center play-game-btn" #start_game_btns *ngIf="!loading">
       <div class="col-auto mx-auto justify-content-center">
         <img id="common-start-btn" class="common-play-game mx-auto" (click)="onPlayClick()"
-          src="../../../../../assets/games/play.png">
+          src="../../../../../assets/games/play.svg">
       </div>
       <div class="col-12 text-center">
         <div class="small-font"> Tap to start </div>
@@ -79,7 +79,7 @@
             'center-postion': portraitGame ===true ,
             'end-position' : portraitGame === false
           }" #pause_common_div>
-      <img id="common-pause" class="mx-2 img-btn" (click)="onPauseClick()" src="../../../../../assets/games/pause.png">
+      <img id="common-pause" class="mx-2 img-btn" (click)="onPauseClick()" src="../../../../../assets/games/pause.svg">
       <img id="common-sound-on" class="mx-2 img-btn common-sound float-right" (click)="onSoundClick()" *ngIf="isSoundOn"
         src="../../../../../assets/games/sound.svg">
       <img id="common-sound-off" class="mx-2 img-btn common-sound float-right" (click)="onSoundClick()"

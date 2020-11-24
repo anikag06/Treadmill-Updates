@@ -141,6 +141,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
   stepSequence!: number;
   stepName!: string;
   showLoading = true;
+  imagesPreloaded = false;
   sendScoreAfterLevel2 = 0;
 
   constructor(
@@ -200,6 +201,15 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
         console.log('STEP DETAIL:', this.navbarTitle);
         this.flowService.stepDetail.emit(this.navbarTitle);
       });
+    this.loadFileService
+      .loadExternalScript(
+        'assets/games/interpretation_bias_game/images/ibg_preload_assets.js',
+      )
+      .then(() => {
+        this.imagesPreloaded = true;
+        console.log('IMAGES LOADED');
+      })
+      .catch(() => {});
     this.loadFileService
       .loadExternalScript(
         'assets/games/interpretation_bias_game/js/sentence_javascript.js',

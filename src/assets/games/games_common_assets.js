@@ -1,0 +1,48 @@
+if (document.images) {
+  img1 = new Image();
+  img2 = new Image();
+  img3 = new Image();
+  img4 = new Image();
+  img5 = new Image();
+  img6 = new Image();
+  img7 = new Image();
+  img8 = new Image();
+  img9 = new Image();
+  img10 = new Image();
+  img11 = new Image();
+  img12= new Image();
+  img13 = new Image();
+  img14 = new Image();
+  img15 = new Image();
+  img16 = new Image();
+  img17 = new Image();
+  img18 = new Image();
+  img19 = new Image();
+  img20 = new Image();
+  img21 = new Image();
+  img22= new Image();
+
+
+  img1.src = "/assets/games/forward.svg";
+  img2.src = "/assets/games/time_transparent.svg";
+  img3.src = "/assets/games/back.svg";
+  img4.src = "/assets/games/Bronze badge symbol.svg";
+  img5.src = "/assets/games/button_big.svg";
+  img6.src = "/assets/games/Button_small.svg";
+  img7.src = "/assets/games/hint.svg";
+  img8.src = "/assets/games/mute.svg";
+  img9.src = "/assets/games/replay.svg";
+  img10.src = "/assets/games/time.svg";
+  img11.src = "/assets/games/home.svg";
+  img12.src = "/assets/games/science_behind_game.svg";
+  img13.src = "/assets/games/play.svg";
+  img14.src = "/assets/games/sound.svg";
+  img15.src = "/assets/games/time_transparent.svg";
+  img16.src = "/assets/games/pause.svg";
+  img17.src = "/assets/games/Gold badge symbol.svg";
+  img18.src = "/assets/games/Silver badge symbol.svg";
+  img19.src = "/assets/games/feedback/dislike_disabled_feedback.svg";
+  img20.src = "/assets/games/feedback/Like_disabled_feedback.svg";
+  img21.src = "/assets/games/feedback/dislike_enabled_feedback.svg";
+  img22.src = "/assets/games/feedback/Like_enabled_feedback.svg";
+}
