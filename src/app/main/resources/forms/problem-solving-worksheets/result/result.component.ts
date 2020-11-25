@@ -39,9 +39,6 @@ export class ResultComponent implements OnInit, OnChanges {
   quote!: string;
   quotedBy!: string;
   showMessage!: boolean;
-  yes = '<img src="assets/forms/well_done.png" height="16px" > Great!';
-  no =
-    "&#129300; Okay. You can try another solution to the problem. If you think that the problem just won't go away, work on accepting it.";
   showSpinner = false;
   ngOnInit() {
     if (this.task) {

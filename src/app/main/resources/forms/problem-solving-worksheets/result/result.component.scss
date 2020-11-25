@@ -37,3 +37,11 @@
   position: relative;
   background: #f66c6c;
 }
+
+@media screen and (min-width: 576px) {
+  .result-text {
+    width: 50%;
+    margin: auto;
+    text-align: center;
+  }
+}

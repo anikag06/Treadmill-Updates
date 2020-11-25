@@ -149,7 +149,13 @@
         [disabled]="tasksGroup.invalid"
         (click)="saveData()"
       >
-        Save
+        <ng-container *ngIf="!showLoading; else loading"
+        >Save
+        </ng-container>
+        <ng-template #loading>
+          <span class="spinner-border spinner-border-sm"></span>
+          Loading.. &nbsp;
+        </ng-template>
       </button>
     </div>
   </div>
