@@ -1,14 +1,14 @@
 <div class="row w-100 like-btns-div justify-content-around" [style.margin-top]="liked||disliked? '5%' : '0%'">
 
   <div class="col h-100 px-0 like-dislike-btns">
-    <img src="../../../../assets/shared/Like_slide.png" *ngIf='!liked' id="like-btn" class="h-100 mr-2"
+    <img src="assets/slides/Like_slide.svg" *ngIf='!liked' id="like-btn" class="h-100 mr-2"
       (click)="onLikeBtnClick()">
-    <img src="../../../../assets/shared/Like_slide_selected.png" *ngIf='liked' id="like-yellow-btn" class="h-100 mr-2"
+    <img src="assets/slides/Like_slide_selected.svg" *ngIf='liked' id="like-yellow-btn" class="h-100 mr-2"
       (click)="onLikeBtnClick()">
 
-    <img src="../../../../assets/shared/disike_slide.png" *ngIf='!disliked' id="dislike-btn" class="dislike-btn h-100"
-      (click)="onDislikeBtnClick()">
-    <img src="../../../../assets/shared/dislike_slide_selected.png" *ngIf='disliked' id="dislike-yellow-btn"
+    <img src="../../../../../assets/slides/dislike_slide.svg" *ngIf='!disliked' id="dislike-btn" class="dislike-btn h-100"
+         (click)="onDislikeBtnClick()">
+    <img src="assets/slides/dislike_slide_selected.svg" *ngIf='disliked' id="dislike-yellow-btn"
       class="dislike-btn h-100" (click)="onDislikeBtnClick()">
   </div>
 
