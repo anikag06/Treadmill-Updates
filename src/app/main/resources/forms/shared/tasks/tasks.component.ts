@@ -64,6 +64,7 @@ export class TasksComponent implements OnInit, OnChanges {
   endTime!: string;
   repeatedDays!: string;
   errorMessage = "Sorry, the Task couldn't be saved. We're on it already.";
+  showLoading = false;
 
   tasksGroup = this.fb.group({
     task: ['', Validators.required],
@@ -183,9 +184,11 @@ export class TasksComponent implements OnInit, OnChanges {
       origin_id: this.getOriginId(),
       origin_name: this.getOriginName(),
     };
+    this.showLoading = true;
     if (this.task && this.task.id > 0) {
       this.taskService.putTask(object, this.task.id).subscribe(
         (resp: any) => {
+          this.showLoading = false;
           taskBody = resp.body.data;
           this.taskService.openSnackBar('Task Updated Successfully', 'OK');
           this.taskValueChanged = false;
@@ -206,6 +209,7 @@ export class TasksComponent implements OnInit, OnChanges {
     } else {
       this.taskService.postTask(object).subscribe(
         (resp: any) => {
+          this.showLoading = false;
           this.taskService.openSnackBar('Task Created Successfully', 'OK');
           this.taskValueChanged = false;
           taskBody = resp.body.data;

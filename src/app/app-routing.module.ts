@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { LandingPageComponent } from './pre-login/landing-page/landing-page.component';
 import { PreLoginComponent } from './pre-login/pre-login.component';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
@@ -7,19 +7,19 @@ import { AuthGuard } from './shared/auth/auth.guard';
 import { SignUpComponent } from '@/pre-login/signup/signup.component';
 import { TempLandingPageComponent } from '@/temp-landing-page/temp-landing-page.component';
 import { ResetPasswordComponent } from '@/pre-login/reset-password/reset-password.component';
-import { CustomPreloadingStrategy } from '@/shared/lazy-loading.preloading';
 
 export const routes: Routes = [
+  { path: '', redirectTo: 'landing', pathMatch: 'full' },
   {
-    path: '',
+    path: 'landing',
     component: PreLoginComponent,
     children: [
       {
-        path: 'landing/:term',
+        path: ':term',
         component: LandingPageComponent,
         pathMatch: 'full',
       },
-      { path: 'landing', component: LandingPageComponent, pathMatch: 'full' },
+      { path: '', component: LandingPageComponent, pathMatch: 'full' },
     ],
   },
   {
@@ -37,7 +37,7 @@ export const routes: Routes = [
 
   {
     path: 'main',
-    loadChildren: () => import('./main/main.module').then(m => m.MainModule),
+    loadChildren: () => import('./main/main.module').then((m) => m.MainModule),
     data: { preload: true },
     canActivateChild: [AuthGuard],
   },
@@ -45,7 +45,7 @@ export const routes: Routes = [
     path: 'trial',
     loadChildren: () =>
       import('./trial-registration/trial-registration.module').then(
-        m => m.TrialRegistrationModule,
+        (m) => m.TrialRegistrationModule
       ),
   },
   { path: 'iitk', component: TempLandingPageComponent },
@@ -53,12 +53,7 @@ export const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(routes, {
-      preloadingStrategy: CustomPreloadingStrategy,
-    }),
-  ],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: [CustomPreloadingStrategy],
 })
 export class AppRoutingModule {}
