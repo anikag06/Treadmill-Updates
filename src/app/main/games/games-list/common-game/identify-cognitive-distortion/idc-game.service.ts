@@ -129,17 +129,17 @@ export class IdcGameService implements OnInit {
     // this.optionFour.next(this.game.results[this.questionId - 1].options[3]);
     // this.optionFive.next(this.game.results[this.questionId - 1].options[4]);
     // this.optionSix.next(this.game.results[this.questionId - 1].options[5]);
-    this.level.next(this.game.results[this.questionId].order);
-    this.title.next(this.game.results[this.questionId].title);
-    this.nat.next(this.game.results[this.questionId].nat);
-    this.situation.next(this.game.results[this.questionId].situation);
-    this.correct.next(this.game.results[this.questionId].correct);
-    this.optionOne.next(this.game.results[this.questionId].options[0]);
-    this.optionTwo.next(this.game.results[this.questionId].options[1]);
-    this.optionThree.next(this.game.results[this.questionId].options[2]);
-    this.optionFour.next(this.game.results[this.questionId].options[3]);
-    this.optionFive.next(this.game.results[this.questionId].options[4]);
-    this.optionSix.next(this.game.results[this.questionId].options[5]);
+    this.level.next(this.game[this.questionId].order);
+    this.title.next(this.game[this.questionId].title);
+    this.nat.next(this.game[this.questionId].nat);
+    this.situation.next(this.game[this.questionId].situation);
+    this.correct.next(this.game[this.questionId].correct);
+    this.optionOne.next(this.game[this.questionId].options[0]);
+    this.optionTwo.next(this.game[this.questionId].options[1]);
+    this.optionThree.next(this.game[this.questionId].options[2]);
+    this.optionFour.next(this.game[this.questionId].options[3]);
+    this.optionFive.next(this.game[this.questionId].options[4]);
+    this.optionSix.next(this.game[this.questionId].options[5]);
     this.optionStatus = '';
     this.optionStatusCount = 0;
     this.getUserData();
@@ -157,7 +157,7 @@ export class IdcGameService implements OnInit {
         this.game = data;
         console.log('Game Data', this.game);
         console.log('last_completed_order', this.last_completed_order);
-        this.totalSituations = this.game.results.length;
+        this.totalSituations = this.game.length;
         if (this.last_completed_order === this.totalSituations) {
           this.questionId = 0;
         } else {
