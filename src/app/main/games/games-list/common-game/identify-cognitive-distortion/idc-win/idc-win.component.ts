@@ -24,7 +24,9 @@ export class IdcWinComponent implements OnInit {
     private gamesFeedbackService: GamesFeedbackService,
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.gameService.serviceCall();
+  }
 
   onStartNext() {
     this.showLoading = true;
@@ -38,7 +40,6 @@ export class IdcWinComponent implements OnInit {
         this.gamesFeedbackService.idcfeedback.emit();
       }, 1500);
     }
-    this.gameService.serviceCall();
     this.sendScoreAfterLevel2 += 1;
     this.idcGameServie.sendScore += 1;
     if (this.idcGameServie.sendScore === 2) {

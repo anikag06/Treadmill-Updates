@@ -2140,15 +2140,6 @@ function showStarSentence(){
 	// $(".stars").removeClass("d-none");
 }
 
-$(document).on("click", ".div-instruction-img", function(ev){
-	$(this).addClass("d-none");
-	$(this).siblings().removeClass("d-none");
-});
-
-$(document).on("click", ".div-instruction-gif", function(ev){
-	$(this).addClass("d-none");
-	$(this).siblings().removeClass("d-none");
-});
 
 inactivity_check = function(){
 	inactivity_check_interval = setInterval(function(){
