@@ -1,6 +1,6 @@
 <div
   class="row signup-page w-100 no-gutters"
-  *ngIf="showSignUpPage; else desktopMessage"
+  *ngIf="showSignUpPage; else message"
 >
   <div class="col-sm-12 col-md-5">
     <app-signup-reset-common></app-signup-reset-common>
@@ -21,7 +21,7 @@
         />
       </div>
 
-      <div *ngIf="showSignUpForm && participantValid && !userExists">
+      <div *ngIf="showSignUpForm && participantValid && !userExists && !showSignUpCompletedMessage">
         <form #signupForm="ngForm" class="signup-form">
           <div>
             <mat-error *ngIf="errorStatus"> {{ passwordError }} </mat-error>
@@ -160,16 +160,14 @@
                 [disabled]="!allowSubmit"
                 (change)="homeScreenPermission()"
               >
-                <span class="terms-text">
-                  {{this.a2hsCheckboxText}}
+                <span class="terms-text" [innerHTML]="this.a2hsCheckboxText">
                 </span>
               </mat-checkbox>
               <div class="d-flex flex-row mx-0" *ngIf="addingToHomescreen">
                 <div style="width: 16px; margin-right: 12px;">
                   <span class="spinner-border spinner-border-sm"></span>
                 </div>
-                <span class="terms-text mb-2" style="line-height: 24px;">
-                  {{this.a2hsCheckboxText}}
+                <span class="terms-text mb-2" style="line-height: 24px;" [innerHTML]="this.a2hsCheckboxText">
                 </span>
               </div>
             </div>
@@ -237,6 +235,10 @@
           {{ username }}. Please go to <a routerLink="/landing">Login</a> page.
         </p>
       </div>
+
+      <div *ngIf="showSignUpCompletedMessage" class="mx-4">
+        Signed up! Open the installed TreadWill app and Log in.
+      </div>
     </div>
   </div>
   <div class="row w-100 no-gutters mt-auto footer-small-device">
@@ -245,9 +247,8 @@
     </p>
   </div>
 </div>
-<ng-template #desktopMessage>
+<ng-template #message>
   <div>
     Open this link on your mobile.
   </div>
 </ng-template>
-

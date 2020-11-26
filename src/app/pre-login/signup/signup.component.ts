@@ -20,6 +20,7 @@ import { CommonDialogComponent } from '@/shared/common-dialog/common-dialog.comp
 export class SignUpComponent implements OnInit {
   isVisible = true;
   showSignUpPage = false;
+  showSignUpCompletedMessage = false;
 
   @Output() signupDone = false;
   hide = true;
@@ -56,7 +57,7 @@ export class SignUpComponent implements OnInit {
   notificationCheckboxText =
     'Notifications are an essential part of this program. Please accept to allow notifications.';
   a2hsCheckboxText =
-    'For the purpose of this study, it is required that you add TreadWill to your home screen. Please accept to add TreadWill to your home screen. By adding TreadWill, you also agree to Sign Up for TreadWill.';
+    'For the purpose of this study, it is required that you add TreadWill to your home screen. Please accept to add TreadWill to your home screen. <b>By adding TreadWill, you also agree to Sign Up for TreadWill.</b>';
 
   emailForm = new FormGroup({
     email: new FormControl(''),
@@ -80,7 +81,6 @@ export class SignUpComponent implements OnInit {
     this.signUpService
       .isParticipantValid(this.activatedRoute.snapshot.params['unique-code'])
       .subscribe(data => {
-        console.log('signup data', data);
         this.showSignUpForm = true;
         this.participantValid = data.data.valid;
         this.participantId = data.data.participant_id;
@@ -115,7 +115,6 @@ export class SignUpComponent implements OnInit {
         }
         if (err.error.message.password) {
           this.signupForm.controls.password.setErrors({ invalid: true });
-          // this.passwordError = err.error.message.password;
         }
       },
     );
@@ -123,11 +122,9 @@ export class SignUpComponent implements OnInit {
 
   emailSubmit() {
     this.showLoading = true;
-    console.log(this.emailForm);
     this.signUpService.getSignupMail(this.emailForm.value.email).subscribe(
       response => {
         this.showLoading = false;
-        console.log('response', response);
         if (response.user_exists) {
           this.userExists = true;
           this.username = response.username;
@@ -140,7 +137,6 @@ export class SignUpComponent implements OnInit {
         }
       },
       error => {
-        console.log(error);
         this.showLoading = false;
         this.showEmailError = true;
         this.emailError = error;
@@ -208,6 +204,7 @@ export class SignUpComponent implements OnInit {
     this.formInvalid = false;
     this.showSignUpForm = true;
     this.passwordMatch = false;
+    this.showSignUpCompletedMessage = true;
   }
 
   notificationsPermission() {
