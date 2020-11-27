@@ -120,7 +120,8 @@ export class IdcOptionsComponent implements OnInit {
       this.optionStatus = this.gameService.optionStatus;
       this.gameService.updateBadgesValue();
       this.gameService.stopTimer.next();
-      this.gameService.levelOrder += 1;
+      // this.gameService.levelOrder += 1;
+      this.gameService.last_completed_order += 1;
     }
     this.openCustomDialog();
     this.correctOptionFound = -1;

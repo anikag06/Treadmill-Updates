@@ -26,17 +26,17 @@ export class IdcWinComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.gameService.serviceCall();
   }
 
   onStartNext() {
     this.showLoading = true;
+    this.gameService.serviceCall();
     setTimeout(() => {
       const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });
       this.elementRef.nativeElement.dispatchEvent(domEvent);
     }, 500);
     this.gameService.optionStatusCount = 0;
-    if (this.gameService.levelOrder === 3 && this.gameService.ask_feedback) {
+    if (this.gameService.levelOrder === 4 && this.gameService.ask_feedback) {
       setTimeout(() => {
       this.gamesFeedbackService.idcfeedback.emit();
       }, 1500);
