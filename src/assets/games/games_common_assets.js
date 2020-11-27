@@ -20,8 +20,9 @@ if (document.images) {
   img19 = new Image();
   img20 = new Image();
   img21 = new Image();
-  img22= new Image();
-
+  img22 = new Image();
+  img23 = new Image();
+  img24 = new Image();
 
   img1.src = "/assets/games/forward.svg";
   img2.src = "/assets/games/time_transparent.svg";
@@ -45,4 +46,6 @@ if (document.images) {
   img20.src = "/assets/games/feedback/Like_disabled_feedback.svg";
   img21.src = "/assets/games/feedback/dislike_enabled_feedback.svg";
   img22.src = "/assets/games/feedback/Like_enabled_feedback.svg";
+  img23.src = "/assets/games/info.svg";
+  img24.src = "/assets/games/help.svg";
 }
