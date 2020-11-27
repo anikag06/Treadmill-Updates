@@ -184,8 +184,8 @@ export class TasksComponent implements OnInit, OnChanges {
       origin_id: this.getOriginId(),
       origin_name: this.getOriginName(),
     };
-    this.showLoading = true;
     if (this.task && this.task.id > 0) {
+      this.showLoading = true;
       this.taskService.putTask(object, this.task.id).subscribe(
         (resp: any) => {
           this.showLoading = false;
@@ -207,6 +207,7 @@ export class TasksComponent implements OnInit, OnChanges {
     } else if (object.start_date === undefined || object.time === undefined) {
       this.taskService.openSnackBar('Please select a Date and Time', 'Error');
     } else {
+      this.showLoading = true;
       this.taskService.postTask(object).subscribe(
         (resp: any) => {
           this.showLoading = false;

@@ -74,12 +74,13 @@ export class MatLoginDialogComponent implements OnInit {
       .then((data: any) => {
         this.authService.isUserExcluded = data.data.is_excluded;
         if (data.data.is_excluded) {
-          this.dialogRef.close();
-          this.router.navigate([INELIGIBLE_FOR_TRIAL]);
+          // @ts-ignore
+          this.router.navigateByUrl(INELIGIBLE_FOR_TRIAL).then(this.dialogRef.close());
         } else {
           this.authService.setLoginData(data);
-          this.dialogRef.close();
-          this.router.navigate([LOGGED_IN_PATH]);
+          // @ts-ignore
+          this.router.navigateByUrl(LOGGED_IN_PATH).then(this.dialogRef.close());
+
         }
       })
       .catch((error: any) => {
