@@ -181,6 +181,8 @@ export class SignUpComponent implements OnInit {
         this.password === this.passwordConfirm
       ) {
         this.passwordMatch = true;
+        this.signupForm.controls.passwordConfirm.setErrors({ invalid: null });
+        this.signupForm.controls.passwordConfirm.updateValueAndValidity();
       } else {
         this.signupForm.controls.passwordConfirm.setErrors({ invalid: true });
         this.passwordMatchError = 'Enter same passwords!';
