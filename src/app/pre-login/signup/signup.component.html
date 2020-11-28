@@ -39,7 +39,7 @@
                   ngModel
                   required
                   name="username"
-                  (focusout)="checkUsernameAvailability()"
+                  (ngModelChange)="checkUsernameAvailability()"
                   class="example-right-align"
                 />
                 <mat-error
