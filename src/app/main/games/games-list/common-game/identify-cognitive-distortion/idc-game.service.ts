@@ -222,7 +222,7 @@ export class IdcGameService implements OnInit {
       this.score = data.points;
       this.timeLeft = data.time;
       this.timeAlloted = data.time;
-      this.last_completed_order = data.last_completed_order;
+      // this.last_completed_order = data.last_completed_order;    //removed as order is set in frontend
       if (!this.nextCall) {
         this.levelInitialise.next();
         console.log('level initialise called');
