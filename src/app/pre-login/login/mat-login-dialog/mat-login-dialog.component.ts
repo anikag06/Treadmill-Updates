@@ -61,8 +61,6 @@ export class MatLoginDialogComponent implements OnInit {
     if (this.router.url === LANDING_RESET_PASSWORD_PATH) {
       this.recoverPasswordShow = true;
     }
-
-    //console.log('url on mat', this.router.url);
   }
 
   onSubmit() {
@@ -74,16 +72,19 @@ export class MatLoginDialogComponent implements OnInit {
       .then((data: any) => {
         this.authService.isUserExcluded = data.data.is_excluded;
         if (data.data.is_excluded) {
-          this.router.navigateByUrl(INELIGIBLE_FOR_TRIAL).then(()=>{this.dialogRef.close()});
+          this.router.navigateByUrl(INELIGIBLE_FOR_TRIAL).then(() => {
+            this.dialogRef.close();
+          });
         } else {
           this.authService.setLoginData(data);
-          this.router.navigateByUrl(LOGGED_IN_PATH).then(()=>{this.dialogRef.close()});
-
+          this.router.navigateByUrl(LOGGED_IN_PATH).then(() => {
+            this.dialogRef.close();
+          });
         }
       })
       .catch((error: any) => {
         this.errorStatus = true;
-         this.showForm = true;
+        this.showForm = true;
         if (error.error.message.username) {
           this.errorMessage = error.error.message.username;
         } else if (error.error.message.password) {
@@ -98,7 +99,7 @@ export class MatLoginDialogComponent implements OnInit {
         }
       })
       .finally(() => {
-         // this.showForm = true;
+        // this.showForm = true;
         this.errorStatus = false;
       });
   }
@@ -167,7 +168,6 @@ export class MatLoginDialogComponent implements OnInit {
           this.recoverPasswordStatus = false;
         },
       );
-    //console.log(this.recoverPassword);
   }
 
   passwordInput() {

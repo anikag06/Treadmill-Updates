@@ -5,7 +5,6 @@ import { FormControl, FormGroup, NgForm } from '@angular/forms';
 import { SignUpData } from '@/pre-login/signup/signup-data.interface';
 import { ShowLoginSignupDialogService } from '@/pre-login/shared/show-login-signup-dialog.service';
 import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-contact-us-dialog.service';
-import { MatLoginDialogComponent } from '@/pre-login/login/mat-login-dialog/mat-login-dialog.component';
 import { FcmService } from '@/shared/fcm.service';
 import { A2HSService } from '@/shared/a2hs.service';
 import { MatDialog, MatDialogRef } from '@angular/material';
@@ -29,6 +28,8 @@ export class SignUpComponent implements OnInit {
   participantId!: number;
   showSignUpForm = false;
   userExists = false;
+  isUsernameAvailable = false;
+  usernameAvailableMessage!: string;
   username!: string;
   encrypted_email!: string;
   passwordMatch = false;
@@ -43,6 +44,7 @@ export class SignUpComponent implements OnInit {
   registered = false;
   passwordMatchError!: string;
   errorStatus = false;
+  errorMessage!: string;
   updatingPermissions = false;
   addingToHomescreen = false;
   data!: SignUpData;
@@ -109,6 +111,7 @@ export class SignUpComponent implements OnInit {
       err => {
         this.showLoading = false;
         this.errorStatus = true;
+        this.errorMessage = err.error.message;
         if (err.error.message.username) {
           this.signupForm.controls.username.setErrors({ invalid: true });
           this.usernameError = err.error.message.username;
@@ -254,11 +257,29 @@ export class SignUpComponent implements OnInit {
   }
 
   activateSubmitButton() {
+    console.log('getting called');
     this.allowSubmit = !!(
       this.signupForm.value.username &&
+      this.isUsernameAvailable &&
       this.passwordMatch &&
       this.signupForm.value.terms_conditions &&
       this.notificationsAllowed
     );
+  }
+
+  checkUsernameAvailability() {
+    console.log('username: ', this.signupForm.value.username);
+    this.signUpService
+      .usernameAvailabilityCheck(this.signupForm.value.username)
+      .subscribe((data: any) => {
+        console.log('data: ', data);
+        this.usernameAvailableMessage = data.message;
+        this.isUsernameAvailable = data.data;
+        if (!this.isUsernameAvailable) {
+          this.signupForm.controls.username.setErrors({ unavailable: true });
+        } else {
+          this.activateSubmitButton();
+        }
+      });
   }
 }

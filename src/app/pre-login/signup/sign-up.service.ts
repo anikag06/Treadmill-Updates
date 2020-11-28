@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import {
   GET_SIGNUP_MAIL,
   SIGN_UP_PATH,
+  USERNAME_AVAILABLE,
   VERIFY_PARTICIPANT,
 } from '@/app.constants';
 import { SignUpData } from '@/pre-login/signup/signup-data.interface';
@@ -35,9 +36,16 @@ export class SignUpService {
       userSignUpData,
     );
   }
+
   getSignupMail(email: string): Observable<any> {
     const sendData = { email_id: email };
     console.log('sign up email', sendData);
     return this.http.post(environment.API_ENDPOINT + GET_SIGNUP_MAIL, sendData);
+  }
+
+  usernameAvailabilityCheck(username: string) {
+    return this.http.get(
+      environment.API_ENDPOINT + USERNAME_AVAILABLE + username,
+    );
   }
 }

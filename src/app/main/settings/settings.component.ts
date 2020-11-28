@@ -283,7 +283,6 @@ export class SettingsComponent implements OnInit {
   }
 
   saveNotificationChange(field: string, toggle_on: boolean) {
-    //this.checked = !this.checked;
     console.log('field', field);
     console.log(toggle_on);
 

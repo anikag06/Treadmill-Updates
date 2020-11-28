@@ -24,7 +24,9 @@
       <div *ngIf="showSignUpForm && participantValid && !userExists && !showSignUpCompletedMessage">
         <form #signupForm="ngForm" class="signup-form">
           <div>
-            <mat-error *ngIf="errorStatus"> {{ passwordError }} </mat-error>
+            <mat-error *ngIf="errorStatus"> {{ errorMessage }} </mat-error>
+
+            <!--     Username start       -->
             <div class="row no-gutters justify-content-center">
               Tips: Use a nickname to maintain anonymity
             </div>
@@ -37,7 +39,7 @@
                   ngModel
                   required
                   name="username"
-                  (change)="activateSubmitButton()"
+                  (focusout)="checkUsernameAvailability()"
                   class="example-right-align"
                 />
                 <mat-error
@@ -49,9 +51,14 @@
                 >
                   {{ usernameError }}
                 </mat-error>
+                <mat-error *ngIf="signupForm.controls.username.hasError('unavailable')">
+                  {{ usernameAvailableMessage }}
+                </mat-error>
               </mat-form-field>
             </div>
+            <!--     Username end       -->
 
+            <!--      Password start      -->
             <div class="row no-gutters justify-content-center">
               <mat-form-field style="width: 90%;">
                 <input
@@ -66,10 +73,10 @@
                 />
                 <mat-icon matSuffix (click)="hide = !hide">{{
                   hide ? 'visibility_off' : 'visibility'
-                }}</mat-icon>
+                  }}</mat-icon>
                 <mat-error
                   *ngIf="signupForm.controls.password.hasError('required')"
-                  >Password is required</mat-error
+                >Password is required</mat-error
                 >
                 <mat-error
                   *ngIf="
@@ -106,6 +113,8 @@
                 </mat-error>
               </mat-form-field>
             </div>
+            <!--      Password end      -->
+
             <div class="col-12 my-1 checkbox-common">
               <mat-checkbox
                 ngModel
@@ -120,7 +129,7 @@
                     target="_blank"
                     class="anchorify-default"
                     (click)="onTermsConClick()"
-                    >Terms and Conditions</a
+                  >Terms and Conditions</a
                   >
                 </span>
               </mat-checkbox>
