@@ -21,7 +21,8 @@ import {
   INTRODUCTION_PAGE,
   INTRODUCTORY_ANIMATION,
   LOCKED,
-  RESOURCES_PAGE, SELF_CARE_EXPERT,
+  RESOURCES_PAGE,
+  SELF_CARE_EXPERT,
   SLIDE,
   SUPPORT_GROUP,
   SURVEY,
@@ -44,8 +45,8 @@ import {
   MINDFULNESS_VIDEOS,
   VIDEOS_ON_DEPRESSION,
 } from '@/main/walk-through/intro.constant';
-import {take} from "rxjs/operators";
-import {LoadFilesService} from "@/main/games/shared/load-files.service";
+import { take } from 'rxjs/operators';
+import { LoadFilesService } from '@/main/games/shared/load-files.service';
 
 @Component({
   selector: 'app-step',
@@ -78,7 +79,6 @@ export class StepComponent implements OnInit, AfterViewInit {
     private goToService: NavbarGoToService,
     private authService: AuthService,
     private loadFileService: LoadFilesService,
-
   ) {
     this.user = <User>this.authService.isLoggedIn();
   }
@@ -248,14 +248,11 @@ export class StepComponent implements OnInit, AfterViewInit {
         const prev = this.previousStep(this.stepGroup, this.step);
         if (prev && prev.status === COMPLETED) {
           this.loadFileService
-            .loadExternalScript(
-              './assets/self-care/self-care-preload-asset.js',
-            )
+            .loadExternalScript('./assets/self-care/self-care-preload-asset.js')
             .then(() => {
               this.flowService.showSelfCareDialog();
             })
-            .catch(() => {
-            });
+            .catch(() => {});
         } else {
           this.tooltipShow();
         }

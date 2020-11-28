@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsService } from '@/main/forms.service';
-import {LoadFilesService} from '@/main/games/shared/load-files.service';
+import { LoadFilesService } from '@/main/games/shared/load-files.service';
 
 @Component({
   selector: 'app-forms',
@@ -8,8 +8,9 @@ import {LoadFilesService} from '@/main/games/shared/load-files.service';
   styleUrls: ['./forms.component.scss'],
 })
 export class FormsComponent implements OnInit {
-  constructor(private formsService: FormsService,
-              private loadFileService: LoadFilesService,
+  constructor(
+    private formsService: FormsService,
+    private loadFileService: LoadFilesService,
   ) {}
 
   forms: any = [];
@@ -17,9 +18,7 @@ export class FormsComponent implements OnInit {
   ngOnInit() {
     this.forms = this.formsService.forms;
     this.loadFileService
-      .loadExternalScript(
-        './assets/forms/forms-preload-assets.js',
-      )
+      .loadExternalScript('./assets/forms/forms-preload-assets.js')
       .then(() => {})
       .catch(() => {});
   }

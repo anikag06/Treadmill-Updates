@@ -277,9 +277,8 @@ export class SignUpComponent implements OnInit {
         this.isUsernameAvailable = data.data;
         if (!this.isUsernameAvailable) {
           this.signupForm.controls.username.setErrors({ unavailable: true });
-        } else {
-          this.activateSubmitButton();
         }
+        this.activateSubmitButton();
       });
   }
 }

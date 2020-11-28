@@ -24,8 +24,7 @@ export class IdcWinComponent implements OnInit {
     private gamesFeedbackService: GamesFeedbackService,
   ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   onStartNext() {
     this.showLoading = true;

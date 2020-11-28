@@ -171,8 +171,6 @@ export const ACTIVE = 'ACTIVE';
 export const COMPLETED = 'COMPLETED';
 export const SELF_CARE_EXPERT = 'Self-care expert';
 
-
-
 export const CHAT_BOT = 'CHAT_BOT';
 export const MINDFULNESS_VIDEO = 'MINDFULNESS_VIDEO';
 
