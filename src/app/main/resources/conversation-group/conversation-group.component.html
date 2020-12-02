@@ -1,67 +1,87 @@
-<div class="convo-group container ">
+<div class="convo-group container">
   <div class="">
     <div class="row">
       <ng-container *ngIf="conversationGroups; else loader">
-
-      <div
-        class="col-xl-4 col-lg-6 col-sm-12 col-md-12 conversation-card"
-        *ngFor="let conversation of conversationGroups; let i = index"
-      >
-
-        <div class="card text-left" >
-          <div class="row">
-          <div *ngIf="showLoading" class="col-12 loading-text text-center" > Loading... </div>
-        </div>
-          <div class="row d-inline-block" [ngStyle]="{visibility: showLoading ? 'hidden' : 'visible'}">
-<!--            <div class="col-12">-->
+        <!--        <div [ngStyle]="{height : getHeight()}"></div>-->
+        <div
+          class="col-xl-4 col-lg-6 col-sm-12 col-md-12 conversation-card"
+          *ngFor="let conversation of conversationGroups; let i = index"
+        >
+          <div class="card text-left">
+            <div class="row">
+              <div *ngIf="showLoading" class="col-12 loading-text text-center">
+                Loading...
+              </div>
+            </div>
+            <div
+              class="row d-inline-block"
+              [ngStyle]="{ visibility: showLoading ? 'hidden' : 'visible' }"
+            >
+              <!--            <div class="col-12">-->
               <div class="heading col-9">
-              {{ conversation.title }}
+                {{ conversation.title }}
               </div>
-                <div class="mx-2 float-right col-3" [ngStyle]="{position :'relative',top : '-12px'}">
-                  <img [src]="conversation.avatar_image" class="avatar-img" (load)="removeLoading()"   alt="avatar image"/>
-                </div>
+              <div
+                class="mx-2 float-right col-3"
+                [ngStyle]="{ position: 'relative', top: '-12px' }"
+              >
+                <img
+                  [src]="conversation.avatar_image"
+                  class="avatar-img"
+                  (load)="removeLoading()"
+                  alt="avatar image"
+                />
+              </div>
 
-<!--            </div>-->
-          </div>
-          <div class="row" class="text" [ngStyle]="{visibility: showLoading ? 'hidden' : 'visible'}">
-            <div [innerHTML]="conversation.description">
+              <!--            </div>-->
             </div>
-          </div>
-          <div class="row">
-            <div class="col-12 text-center">
-              <div class="btn-group" role="group">
-                <div *ngIf="conversation.is_show_continue_button; else start">
-                  <button
-                    class="one-edge-shadow"
-                    id="continue"
-                    class="button"
-                    (click)="current_history(i)"
-                  >
-                    Continue
-                  </button>
-                  <button
-                    class="one-edge-shadow"
-                    id="reset"
-                    class="button"
-                    (click)="reset(i)"
-                  >
-                    Reset
-                  </button>
+            <div
+              class="row description"
+              [ngStyle]="{
+                visibility: showLoading ? 'hidden' : 'visible'
+              }"
+              [style.height.px]="getHeight()"
+            >
+              <div
+                class="desc-text col"
+                [innerHTML]="conversation.description"
+              ></div>
+            </div>
+            <div class="row">
+              <div class="col-12 text-center">
+                <div class="btn-group" role="group">
+                  <div *ngIf="conversation.is_show_continue_button; else start">
+                    <button
+                      class="one-edge-shadow"
+                      id="continue"
+                      class="button"
+                      (click)="current_history(i)"
+                    >
+                      Continue
+                    </button>
+                    <button
+                      class="one-edge-shadow"
+                      id="reset"
+                      class="button"
+                      (click)="reset(i)"
+                    >
+                      Reset
+                    </button>
+                  </div>
+                  <ng-template #start>
+                    <button
+                      class="one-edge-shadow"
+                      class="button"
+                      (click)="reset(i)"
+                    >
+                      Start
+                    </button>
+                  </ng-template>
                 </div>
-                <ng-template #start>
-                  <button
-                    class="one-edge-shadow"
-                    class="button"
-                    (click)="reset(i)"
-                  >
-                    Start
-                  </button>
-                </ng-template>
               </div>
             </div>
           </div>
         </div>
-      </div>
       </ng-container>
     </div>
     <ng-template #loader>
