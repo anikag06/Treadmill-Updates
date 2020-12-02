@@ -11,10 +11,10 @@ export class AppUpdateService {
   constructor(
     private http: HttpClient,
     private update: SwUpdate,
-    private appRef: ApplicationRef
+    private appRef: ApplicationRef,
   ) {
     if (this.update.isEnabled) {
-      this.appRef.isStable.subscribe((isStable) => {
+      this.appRef.isStable.subscribe(isStable => {
         if (isStable) {
           const timeInterval = interval(3 * 60 * 60 * 1000);
 
@@ -27,7 +27,7 @@ export class AppUpdateService {
     }
   }
   checkForUpdates() {
-    this.update.available.subscribe((event) => {
+    this.update.available.subscribe(event => {
       this.update.activateUpdate().then(() => {
         window.localStorage.setItem('UPDATE', 'update');
         window.location.reload();
