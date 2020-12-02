@@ -36,6 +36,7 @@ export class ExecutiveControlGameComponent implements OnInit, OnDestroy {
   stepSequence!: number;
   stepName!: string;
   showLoading = true;
+  orientKey = 'orientation';
 
   constructor(
     private playGameService: GamePlayService,
@@ -52,6 +53,11 @@ export class ExecutiveControlGameComponent implements OnInit, OnDestroy {
   @HostListener('window:CallLevelChange')
   onLevelChange() {
     this.commonService.updateScore(PLAYING_GAMES_SCORE);
+  }
+
+  @HostListener('window:orientationchange')
+  onOrientationChange() {
+    window.location.reload();
   }
 
   ngOnInit() {
