@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { LOCALE_ID, NgModule } from '@angular/core';
+import { ErrorHandler, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -48,6 +48,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { CommonDialogComponent } from './shared/common-dialog/common-dialog.component';
 import { PointsComponent } from '@/main/shared/points/points.component';
 import { AppUpdateService } from '@/app-update.service';
+import { GlobalErrorHandler } from '@/shared/global-error-handler';
 
 declare let $: any;
 
@@ -109,6 +110,7 @@ declare let $: any;
     MatLoginDialogService,
     ResetPasswordService,
     AppUpdateService,
+    { provide: ErrorHandler, useClass: GlobalErrorHandler },
   ],
   bootstrap: [AppComponent],
   entryComponents: [

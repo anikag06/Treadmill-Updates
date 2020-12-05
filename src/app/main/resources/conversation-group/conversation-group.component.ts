@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { ConversationsService } from './conversations.service';
 import { TimerService } from '@/shared/timer.service';
 import { Step } from './conversation-group-input/step.model';
@@ -47,6 +47,7 @@ export class ConversationGroupComponent implements OnInit {
     private activeroute: ActivatedRoute,
     private notificationService: NavbarNotificationsService,
     private flowService: FlowService,
+    private elementRef: ElementRef
   ) {}
 
   ngOnInit() {
@@ -56,8 +57,8 @@ export class ConversationGroupComponent implements OnInit {
   loadConversationGroup() {
     this.activeroute.params
       .pipe(
-        map(v => v.id),
-        switchMap(id => this.conversationservice.getConversationGroup(id)),
+        map((v) => v.id),
+        switchMap((id) => this.conversationservice.getConversationGroup(id))
       )
       .subscribe(
         (res: any) => {
@@ -88,7 +89,7 @@ export class ConversationGroupComponent implements OnInit {
             this.notallowed = true;
           }
         },
-        error => console.log(error),
+        (error) => console.log(error)
       );
   }
 
@@ -121,5 +122,20 @@ export class ConversationGroupComponent implements OnInit {
     setTimeout(() => {
       this.showLoading = false;
     }, 100);
+  }
+
+  getHeight() {
+    const conversationCard = this.elementRef.nativeElement.querySelectorAll(
+      '.desc-text'
+    );
+    let max = conversationCard[0].offsetHeight;
+    if (max > 0) {
+      for (let i = 1; i < conversationCard.length; i++) {
+        if (max < conversationCard[i].offsetHeight) {
+          max = conversationCard[i].offsetHeight;
+        }
+      }
+      return max;
+    }
   }
 }
