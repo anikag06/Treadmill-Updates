@@ -155,13 +155,13 @@ export class NestedCommentComponent
       const preUpVote = this.userNestedComment.up_votes;
       if (this.userNestedComment.is_voted === 1) {
         this.userNestedComment.up_votes -= 1;
-        this.userNestedComment.is_voted = -1;
+        this.userNestedComment.is_voted = 0;
       } else {
         this.userNestedComment.up_votes += 1;
         this.userNestedComment.is_voted = 1;
       }
       this.ncService
-        .voteComment({ nested_comment_id: this.userNestedComment.id, vote: 1 })
+        .voteComment({ nested_comment_id: this.userNestedComment.id, vote: this.userNestedComment.is_voted })
         .subscribe(
           () => {
             if (
@@ -196,14 +196,14 @@ export class NestedCommentComponent
     if (!this.ownComment()) {
       if (this.userNestedComment.is_voted === 1) {
         this.userNestedComment.up_votes -= 1;
-        this.userNestedComment.is_voted = 0;
+        this.userNestedComment.is_voted = -1;
       } else if (this.userNestedComment.is_voted === 0) {
         this.userNestedComment.is_voted = -1;
       } else {
         this.userNestedComment.is_voted = 0;
       }
       this.ncService
-        .voteComment({ nested_comment_id: this.userNestedComment.id, vote: 0 })
+        .voteComment({ nested_comment_id: this.userNestedComment.id, vote: this.userNestedComment.is_voted })
         .subscribe(
           () => {
             if (

@@ -23,7 +23,7 @@ export class ThumbsService {
    * Thumbs Down images
    */
   thumbsDownSrc(object: any) {
-    if (object.is_voted === 0) {
+    if (object.is_voted === -1) {
       return 'assets/support-group/thumbs-down-black.svg';
     }
     return 'assets/support-group/thumbs-down-white.svg';
