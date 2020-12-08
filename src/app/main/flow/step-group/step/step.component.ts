@@ -278,7 +278,9 @@ export class StepComponent implements OnInit, AfterViewInit {
     ) {
       this.introDialogService.openResourceIntro(true, VIDEOS_ON_DEPRESSION);
     }
-    if (this.step.status !== LOCKED) {
+    if (this.step.data_type === SURVEY && this.step.status === COMPLETED) {
+      // do not allow navigation
+    } else if (this.step.status !== LOCKED) {
       this.closeNavFlow();
       return this.router.navigate([this.nextLink()]);
     }
@@ -342,6 +344,9 @@ export class StepComponent implements OnInit, AfterViewInit {
         }
       });
     } else if (this.step.status === LOCKED && !this.step.virtual_step) {
+      this.tooltipShow();
+    } else if (this.step.data_type === SURVEY && this.step.status === COMPLETED) {
+      this.tooltipData = 'You have already filled the survey form';
       this.tooltipShow();
     }
   }
