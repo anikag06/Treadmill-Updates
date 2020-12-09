@@ -1,7 +1,7 @@
 import {
   THINKING_IMG,
   THOUGHT_RECORD,
-  THOUGHT_RECORD_FORM_NAME,
+  THOUGHT_RECORD_FORM_NAME, TREADWILL,
   WELL_DONE_IMG,
 } from '@/app.constants';
 import { Component, Input, OnInit } from '@angular/core';
@@ -19,6 +19,7 @@ import { ActivatedRoute } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 import { FormsService } from '@/main/forms.service';
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-thought-record-form',
@@ -77,6 +78,7 @@ export class ThoughtRecordFormComponent implements OnInit {
     private flowService: FlowService,
     private activatedRoute: ActivatedRoute,
     private stepDataService: StepsDataService,
+    private titleService: Title,
   ) {}
 
   ngOnInit() {
@@ -100,6 +102,7 @@ export class ThoughtRecordFormComponent implements OnInit {
           this.stepName;
         console.log('STEP DETAIL:', this.navbarTitle);
         this.flowService.stepDetail.emit(this.navbarTitle);
+        this.titleService.setTitle(this.navbarTitle + ' | ' + TREADWILL);
       });
     }
     const id = this.activatedRoute.snapshot.paramMap.get('id');

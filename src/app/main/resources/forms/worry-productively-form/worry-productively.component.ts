@@ -18,7 +18,7 @@ import { FormBuilder, FormControl, FormArray } from '@angular/forms';
 import { map, switchMap } from 'rxjs/operators';
 import { WorryProductivelyService } from '@/main/resources/forms/worry-productively-form/worry-productively.service';
 import {
-  THINKING_IMG,
+  THINKING_IMG, TREADWILL,
   WELL_DONE_IMG,
   WORRY_PRODUCTIVELY,
   WORRY_PRODUCTIVELY_FORM_NAME,
@@ -34,6 +34,7 @@ import { FormMessage } from '../shared/form-message/form-message.model';
 import { FlowService } from '@/main/flow/flow.service';
 import { ActivatedRoute } from '@angular/router';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-worry-productively-form',
@@ -105,6 +106,7 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
     private flowService: FlowService,
     private activatedRoute: ActivatedRoute,
     private stepDataService: StepsDataService,
+    private titleService: Title,
   ) {}
 
   ngOnInit() {
@@ -128,6 +130,7 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
           this.stepName;
         console.log('STEP DETAIL:', this.navbarTitle);
         this.flowService.stepDetail.emit(this.navbarTitle);
+        this.titleService.setTitle(this.navbarTitle + ' | ' + TREADWILL);
       });
     }
     if (!this.fromSlide && !this.fromConv) {

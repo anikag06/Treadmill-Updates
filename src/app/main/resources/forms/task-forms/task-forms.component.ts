@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { UserTask } from '@/main/resources/forms/shared/tasks/user-task.model';
-import { SET_ACTIVITY, SET_TASK_FORM_NAME } from '@/app.constants';
+import {SET_ACTIVITY, SET_TASK_FORM_NAME, TREADWILL} from '@/app.constants';
 
 import { FormService } from '@/main/resources/forms/form.service';
 import { TASK_QUOTES } from '@/main/resources/forms/task-forms/task-form-message';
@@ -9,6 +9,7 @@ import { FlowService } from '@/main/flow/flow.service';
 import { ActivatedRoute } from '@angular/router';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 import { IntroService } from '@/main/walk-through/intro.service';
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-task-forms',
@@ -39,6 +40,7 @@ export class TaskFormsComponent implements OnInit {
     private flowService: FlowService,
     private activatedRoute: ActivatedRoute,
     private stepDataService: StepsDataService,
+    private titleService: Title,
     private introService: IntroService,
   ) {}
 
@@ -63,6 +65,7 @@ export class TaskFormsComponent implements OnInit {
           this.stepName;
         console.log('STEP DETAIL:', this.navbarTitle);
         this.flowService.stepDetail.emit(this.navbarTitle);
+        this.titleService.setTitle(this.navbarTitle + ' | ' + TREADWILL);
       });
     }
     if (!this.fromSlide && !this.fromConv) {

@@ -12,7 +12,7 @@ import {
   LOCKED,
   COMPLETED,
   LOGGED_IN_PATH,
-  CONCLUSION_SCORE,
+  CONCLUSION_SCORE, TREADWILL,
 } from '@/app.constants';
 import { ConclusionService } from '../conclusion.service';
 import { StepsDataService } from '../../shared/steps-data.service';
@@ -23,6 +23,7 @@ import { FlowService } from '@/main/flow/flow.service';
 import { CommonService } from '@/shared/common.service';
 import { User } from '@/shared/user.model';
 import { AuthService } from '@/shared/auth/auth.service';
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-conclusion2',
@@ -64,6 +65,7 @@ export class Conclusion2Component implements OnInit, OnDestroy {
     private flowService: FlowService,
     private commonService: CommonService,
     private authService: AuthService,
+    private titleService: Title,
   ) {}
 
   ngOnInit() {
@@ -113,6 +115,7 @@ export class Conclusion2Component implements OnInit, OnDestroy {
             console.log('STEP DETAIL:', this.navbarTitle);
             this.flowService.stepDetail.emit(this.navbarTitle);
             this.flowService.navbarTitle = this.navbarTitle;
+            this.titleService.setTitle(this.navbarTitle + ' | ' + TREADWILL);
             this.dataLoaded = true;
             if (step_data.data.next_questionnaire) {
               console.log('QUESTION:', step_data);

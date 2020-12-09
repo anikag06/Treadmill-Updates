@@ -6,10 +6,11 @@ import { ConversationGroup } from './conversation-group-input/conversation-group
 import { PassDataService } from './passdata.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
-import { COMPLETED, ACTIVE, UNLOCKED } from '@/app.constants';
+import {COMPLETED, ACTIVE, UNLOCKED, TREADWILL} from '@/app.constants';
 import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifications.service';
 import { FlowService } from '@/main/flow/flow.service';
 import { environment } from '../../../../environments/environment';
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-conversation-group',
@@ -48,6 +49,7 @@ export class ConversationGroupComponent implements OnInit {
     private notificationService: NavbarNotificationsService,
     private flowService: FlowService,
     private elementRef: ElementRef,
+    private titleService: Title,
   ) {}
 
   ngOnInit() {
@@ -75,6 +77,7 @@ export class ConversationGroupComponent implements OnInit {
             this.stepName;
           console.log('STEP DETAIL:', this.navbarTitle);
           this.flowService.stepDetail.emit(this.navbarTitle);
+          this.titleService.setTitle(this.navbarTitle + ' | ' + TREADWILL);
           if ([COMPLETED, ACTIVE, UNLOCKED].includes(step.status)) {
             this.step = step;
             this.current_id = res.data.id;

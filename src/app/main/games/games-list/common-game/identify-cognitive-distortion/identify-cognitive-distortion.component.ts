@@ -16,6 +16,8 @@ import { ActivatedRoute } from '@angular/router';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 import { GamePlayService } from '@/main/games/shared/game-play.service';
 import { LoadFilesService } from '@/main/games/shared/load-files.service';
+import {TREADWILL} from "@/app.constants";
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-identify-cognitive-distortion',
@@ -46,6 +48,7 @@ export class IdentifyCognitiveDistortionComponent implements OnInit {
     private stepDataService: StepsDataService,
     private playGameService: GamePlayService,
     private loadFileService: LoadFilesService,
+    private titleService: Title,
   ) {}
 
   ngOnInit() {
@@ -79,6 +82,7 @@ export class IdentifyCognitiveDistortionComponent implements OnInit {
           this.stepName;
         console.log('STEP DETAIL:', this.navbarTitle);
         this.flowService.stepDetail.emit(this.navbarTitle);
+        this.titleService.setTitle(this.navbarTitle + ' | ' + TREADWILL);
       });
 
     this.gameService.initUserData();

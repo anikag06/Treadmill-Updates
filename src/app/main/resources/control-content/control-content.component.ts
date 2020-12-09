@@ -18,7 +18,8 @@ import { PassDataService } from '@/main/resources/conversation-group/passdata.se
 import { StepCompleteData } from '@/main/resources/shared/completion-data.model';
 import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
 import { QuizService } from '@/shared/questionnaire/questionnaire.service';
-import { PHQ9 } from '@/app.constants';
+import {PHQ9, TREADWILL} from '@/app.constants';
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-control-content',
@@ -60,6 +61,7 @@ export class ControlContentComponent implements OnInit {
     private passData: PassDataService,
     private goToService: NavbarGoToService,
     private quizService: QuizService,
+    private titleService: Title,
   ) {}
   nextBtnShow = false;
 
@@ -123,6 +125,7 @@ export class ControlContentComponent implements OnInit {
           this.stepName;
         console.log('STEP DETAIL:', this.navbarTitle);
         this.flowService.stepDetail.emit(this.navbarTitle);
+        this.titleService.setTitle(this.navbarTitle + ' | ' + TREADWILL);
       });
     this.quizService.questionnaire_active.subscribe((value: boolean) => {
       console.log('EVENT EMITTED', value);
@@ -138,6 +141,7 @@ export class ControlContentComponent implements OnInit {
         this.navbarTitle = 'Mood test';
         this.flowService.stepDetail.emit(this.navbarTitle);
       }
+      this.titleService.setTitle(this.navbarTitle + ' | ' + TREADWILL);
     });
   }
   //

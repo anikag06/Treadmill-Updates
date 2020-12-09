@@ -20,7 +20,8 @@ import { FlowService } from '@/main/flow/flow.service';
 import { ActivatedRoute } from '@angular/router';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 import { CommonService } from '@/shared/common.service';
-import { PLAYING_GAMES_SCORE } from '@/app.constants';
+import {PLAYING_GAMES_SCORE, TREADWILL} from '@/app.constants';
+import {Title} from "@angular/platform-browser";
 
 declare var flankerTaskECGame: any;
 
@@ -46,6 +47,8 @@ export class ExecutiveControlGameComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private stepDataService: StepsDataService,
     private commonService: CommonService,
+    private titleService: Title,
+
   ) {}
   @ViewChild('newElement', { static: false }) element!: ElementRef;
   @Output() showPlayButtons = new EventEmitter();
@@ -83,6 +86,7 @@ export class ExecutiveControlGameComponent implements OnInit, OnDestroy {
           this.stepName;
         console.log('STEP DETAIL:', this.navbarTitle);
         this.flowService.stepDetail.emit(this.navbarTitle);
+        this.titleService.setTitle(this.navbarTitle + ' | ' + TREADWILL);
       });
     // Action files
     this.loadFileService

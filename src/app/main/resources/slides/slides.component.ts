@@ -8,7 +8,7 @@ import {
   DoCheck,
 } from '@angular/core';
 import { SlideService } from './slide.service';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import {DomSanitizer, SafeUrl, Title} from '@angular/platform-browser';
 import { FormDirective } from './form.directive';
 import { ProblemSolvingWorksheetsComponent } from '@/main/resources/forms/problem-solving-worksheets/problem-solving-worksheets.component';
 import { TaskFormsComponent } from '../forms/task-forms/task-forms.component';
@@ -35,7 +35,7 @@ import {
   FORM_EXPERIMENT_TO_TEST_BELIEF,
   FORM_THOUGHT_RECORD,
   FORM_WORRY_PRODUCTIVELY,
-  SLIDE_COMPLETE_SCORE,
+  SLIDE_COMPLETE_SCORE, TREADWILL,
 } from '@/app.constants';
 import { CommonDialogsService } from '../shared/common-dialogs.service';
 import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.service';
@@ -108,6 +108,7 @@ export class SlidesComponent implements OnInit, AfterContentInit, DoCheck {
     private goToService: NavbarGoToService,
     private commonService: CommonService,
     private authService: AuthService,
+    private titleService: Title,
   ) {}
 
   slide!: Slide;
@@ -185,6 +186,7 @@ export class SlidesComponent implements OnInit, AfterContentInit, DoCheck {
             this.stepName;
           console.log('STEP DETAIL:', this.navbarTitle);
           this.flowService.stepDetail.emit(this.navbarTitle);
+          this.titleService.setTitle(this.navbarTitle + ' | ' + TREADWILL);
           this.initVideoData(slide_data);
           const slideId = slide_data.data.step_data.data.id;
           this.slideService

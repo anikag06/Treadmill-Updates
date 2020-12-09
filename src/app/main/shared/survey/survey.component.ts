@@ -21,9 +21,10 @@ import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
 import { FlowService } from '@/main/flow/flow.service';
 import { Router } from '@angular/router';
 import { CommonService } from '@/shared/common.service';
-import { SURVEY_COMPLETE_SCORE } from '@/app.constants';
+import {SURVEY_COMPLETE_SCORE, TREADWILL} from '@/app.constants';
 import { User } from '@/shared/user.model';
 import { AuthService } from '@/shared/auth/auth.service';
+import {Title} from "@angular/platform-browser";
 
 @Component({
   animations: [
@@ -99,6 +100,7 @@ export class SurveyComponent implements OnInit {
     private flowService: FlowService,
     private router: Router,
     private commonService: CommonService,
+    private titleService: Title,
     private authService: AuthService,
   ) {}
 
@@ -107,6 +109,7 @@ export class SurveyComponent implements OnInit {
     this.surveyService.disableLinks.emit(this.data);
     this.navbarTitle = 'Help us improve';
     this.flowService.stepDetail.emit(this.navbarTitle);
+    this.titleService.setTitle(this.navbarTitle + ' | ' + TREADWILL);
   }
 
   loadQuestions(event: any) {

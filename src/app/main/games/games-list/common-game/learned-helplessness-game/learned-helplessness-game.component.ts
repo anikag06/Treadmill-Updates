@@ -25,9 +25,10 @@ import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 import { LocalStorageService } from '@/shared/localstorage.service';
 import {
   FOLLOW_UP_FORM_COMPLETE_SCORE,
-  PLAYING_GAMES_SCORE,
+  PLAYING_GAMES_SCORE, TREADWILL,
 } from '@/app.constants';
 import { CommonService } from '@/shared/common.service';
+import {Title} from "@angular/platform-browser";
 declare var lhcolorReverseGame: any;
 
 @Component({
@@ -60,6 +61,7 @@ export class LearnedHelplessnessGameComponent implements OnInit, OnDestroy {
     private stepDataService: StepsDataService,
     private local: LocalStorageService,
     private commonService: CommonService,
+    private titleService: Title,
   ) {}
 
   @ViewChild('infoElement', { static: false }) element!: ElementRef;
@@ -113,6 +115,7 @@ export class LearnedHelplessnessGameComponent implements OnInit, OnDestroy {
           this.stepName;
         console.log('STEP DETAIL:', this.navbarTitle);
         this.flowService.stepDetail.emit(this.navbarTitle);
+        this.titleService.setTitle(this.navbarTitle + ' | ' + TREADWILL);
       });
     this.loadFileService
       .loadExternalScript(

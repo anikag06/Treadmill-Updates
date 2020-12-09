@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import {
   BELIEF_CHANGE,
   BELIEF_CHANGE_FORM_NAME,
-  THINKING_IMG,
+  THINKING_IMG, TREADWILL,
   WELL_DONE_IMG,
 } from '@/app.constants';
 import { FormMessage } from '@/main/resources/forms/shared/form-message/form-message.model';
@@ -18,6 +18,7 @@ import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 import { FlowService } from '@/main/flow/flow.service';
 import { ActivatedRoute } from '@angular/router';
 import { BeliefChangeService } from '@/main/resources/forms/belief-change/belief-change.service';
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-belief-change',
@@ -33,6 +34,7 @@ export class BeliefChangeComponent implements OnInit {
     private stepDataService: StepsDataService,
     private flowService: FlowService,
     private beliefService: BeliefChangeService,
+    private titleService: Title,
   ) {}
 
   formName = BELIEF_CHANGE_FORM_NAME;
@@ -85,6 +87,7 @@ export class BeliefChangeComponent implements OnInit {
           this.stepName;
         console.log('STEP DETAIL:', this.navbarTitle);
         this.flowService.stepDetail.emit(this.navbarTitle);
+        this.titleService.setTitle(this.navbarTitle + ' | ' + TREADWILL);
       });
     }
     if (!this.fromSlide && !this.fromConv) {

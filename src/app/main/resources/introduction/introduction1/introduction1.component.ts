@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { IntroductionService } from '../introduction.service';
-import { COMPLETED, INTRODUCTION_SCORE, LOCKED } from '@/app.constants';
+import {COMPLETED, INTRODUCTION_SCORE, LOCKED, TREADWILL} from '@/app.constants';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 import { FlowService } from '@/main/flow/flow.service';
 import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
@@ -19,6 +19,7 @@ import { FlowStepNavigationService } from '@/main/shared/flow-step-navigation.se
 import { CommonService } from '@/shared/common.service';
 import { User } from '@/shared/user.model';
 import { AuthService } from '@/shared/auth/auth.service';
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-introduction1',
@@ -59,6 +60,8 @@ export class Introduction1Component implements OnInit, OnDestroy {
     private goToService: NavbarGoToService,
     private commonService: CommonService,
     private authService: AuthService,
+    private titleService: Title,
+
   ) {}
 
   @ViewChild('autosize', { static: false }) autosize!: CdkTextareaAutosize;
@@ -112,6 +115,7 @@ export class Introduction1Component implements OnInit, OnDestroy {
               this.stepName;
             console.log('STEP DETAIL:', this.navbarTitle);
             this.flowService.stepDetail.emit(this.navbarTitle);
+            this.titleService.setTitle(this.navbarTitle +' | ' + TREADWILL);
           });
       });
   }

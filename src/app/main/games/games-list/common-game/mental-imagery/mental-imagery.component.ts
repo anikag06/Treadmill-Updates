@@ -15,6 +15,8 @@ import { map, switchMap } from 'rxjs/operators';
 import { FlowService } from '@/main/flow/flow.service';
 import { ActivatedRoute } from '@angular/router';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
+import {TREADWILL} from "@/app.constants";
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-mental-imagery',
@@ -48,6 +50,7 @@ export class MentalImageryComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private stepDataService: StepsDataService,
     private loadFileService: LoadFilesService,
+    private titleService: Title,
   ) {}
 
   ngOnInit() {
@@ -80,6 +83,7 @@ export class MentalImageryComponent implements OnInit {
           this.stepName;
         console.log('STEP DETAIL:', this.navbarTitle);
         this.flowService.stepDetail.emit(this.navbarTitle);
+        this.titleService.setTitle(this.navbarTitle + ' | ' + TREADWILL);
       });
     this.miPlayService.startPlaying.subscribe(() => {
       this.startPlayingMIGame();

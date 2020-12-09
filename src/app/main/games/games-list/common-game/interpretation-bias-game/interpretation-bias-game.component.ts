@@ -18,7 +18,7 @@ import {
   IBG_SENTENCE,
   IBG_LESS_TIME,
   IBG_MORE_TIME,
-  PLAYING_GAMES_SCORE,
+  PLAYING_GAMES_SCORE, TREADWILL,
 } from '@/app.constants';
 import { environment } from 'environments/environment';
 import { GamePlayService } from '@/main/games/shared/game-play.service';
@@ -38,6 +38,7 @@ import { FlowService } from '@/main/flow/flow.service';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 import { IntroService } from '@/main/walk-through/intro.service';
 import { CommonService } from '@/shared/common.service';
+import {Title} from "@angular/platform-browser";
 
 declare var IBG_MAX_WORDS_HIDDEN: number;
 declare var sentence_number: any;
@@ -158,6 +159,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private stepDataService: StepsDataService,
     private commonService: CommonService,
+    private titleService: Title,
   ) {}
 
   @HostListener('window:iBGameSentenceDialogFun')
@@ -200,6 +202,7 @@ export class InterpretationBiasGameComponent implements OnInit, OnDestroy {
           this.stepName;
         console.log('STEP DETAIL:', this.navbarTitle);
         this.flowService.stepDetail.emit(this.navbarTitle);
+        this.titleService.setTitle(this.navbarTitle + ' | ' + TREADWILL);
       });
     this.loadFileService
       .loadExternalScript(

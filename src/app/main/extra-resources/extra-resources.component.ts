@@ -21,7 +21,8 @@ import { User } from '@/shared/user.model';
 import { AuthService } from '@/shared/auth/auth.service';
 import { VideoCovid19Item } from '@/main/extra-resources/shared/videoCovid19.model';
 import { UsefulListItem } from '@/main/extra-resources/shared/usefulList.model';
-import { RESOURCES_PAGE, TESTIMONIALS_PAGE } from '@/app.constants';
+import {RESOURCES_PAGE, TESTIMONIALS_PAGE, TREADWILL} from '@/app.constants';
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-extra-resources',
@@ -64,6 +65,7 @@ export class ExtraResourcesComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private stepDataService: StepsDataService,
     private authService: AuthService,
+    private titleService: Title,
   ) {}
 
   ngOnInit() {
@@ -101,6 +103,8 @@ export class ExtraResourcesComponent implements OnInit {
       this.navbarTitle = 'Resources';
       this.flowService.stepDetail.emit(this.navbarTitle);
     }
+    this.titleService.setTitle(this.navbarTitle + ' | ' + TREADWILL);
+
 
     this.extraResourcesService
       .getVideoOnDepressionItem()
