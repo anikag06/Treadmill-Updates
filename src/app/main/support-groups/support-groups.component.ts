@@ -75,7 +75,6 @@ export class SupportGroupsComponent implements OnInit {
           this.stepName;
         console.log('STEP DETAIL:', this.navbarTitle);
         this.flowService.stepDetail.emit(this.navbarTitle);
-        this.titleService.setTitle(this.navbarTitle + ' | ' + TREADWILL);
       });
     this.tagService.getTags();
     this.user = <User>this.authService.isLoggedIn();

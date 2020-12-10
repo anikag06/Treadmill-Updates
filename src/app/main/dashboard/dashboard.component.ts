@@ -28,7 +28,7 @@ export class DashboardComponent implements OnInit {
     private introService: IntroService,
     private quizService: QuizService,
   ) {
-    this.titleService.setTitle('Dashboard | ' + TREADWILL);
+    this.titleService.setTitle('Home | ' + TREADWILL);
   }
 
   userProfile = new UserProfile('Name', '', 0, 0, 0, 0, [], [], []);

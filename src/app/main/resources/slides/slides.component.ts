@@ -108,7 +108,6 @@ export class SlidesComponent implements OnInit, AfterContentInit, DoCheck {
     private goToService: NavbarGoToService,
     private commonService: CommonService,
     private authService: AuthService,
-    private titleService: Title,
   ) {}
 
   slide!: Slide;
@@ -186,7 +185,6 @@ export class SlidesComponent implements OnInit, AfterContentInit, DoCheck {
             this.stepName;
           console.log('STEP DETAIL:', this.navbarTitle);
           this.flowService.stepDetail.emit(this.navbarTitle);
-          this.titleService.setTitle(this.navbarTitle + ' | ' + TREADWILL);
           this.initVideoData(slide_data);
           const slideId = slide_data.data.step_data.data.id;
           this.slideService

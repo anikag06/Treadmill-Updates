@@ -34,7 +34,6 @@ export class BeliefChangeComponent implements OnInit {
     private stepDataService: StepsDataService,
     private flowService: FlowService,
     private beliefService: BeliefChangeService,
-    private titleService: Title,
   ) {}
 
   formName = BELIEF_CHANGE_FORM_NAME;
@@ -87,7 +86,6 @@ export class BeliefChangeComponent implements OnInit {
           this.stepName;
         console.log('STEP DETAIL:', this.navbarTitle);
         this.flowService.stepDetail.emit(this.navbarTitle);
-        this.titleService.setTitle(this.navbarTitle + ' | ' + TREADWILL);
       });
     }
     if (!this.fromSlide && !this.fromConv) {

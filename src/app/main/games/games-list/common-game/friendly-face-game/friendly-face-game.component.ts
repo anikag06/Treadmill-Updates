@@ -77,7 +77,6 @@ export class FriendlyFaceGameComponent implements OnInit, OnDestroy {
     private flowService: FlowService,
     private activatedRoute: ActivatedRoute,
     private stepDataService: StepsDataService,
-    private titleService: Title,
 
   ) {}
   NO_IMAGES_IN_PAGE = 20;
@@ -180,8 +179,6 @@ export class FriendlyFaceGameComponent implements OnInit, OnDestroy {
           this.stepName;
         console.log('STEP DETAIL:', this.navbarTitle);
         this.flowService.stepDetail.emit(this.navbarTitle);
-        this.titleService.setTitle(this.navbarTitle + ' | ' + TREADWILL);
-
       });
     this.loadFileService
       .loadExternalScript(

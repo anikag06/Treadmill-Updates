@@ -78,7 +78,6 @@ export class ThoughtRecordFormComponent implements OnInit {
     private flowService: FlowService,
     private activatedRoute: ActivatedRoute,
     private stepDataService: StepsDataService,
-    private titleService: Title,
   ) {}
 
   ngOnInit() {
@@ -102,7 +101,6 @@ export class ThoughtRecordFormComponent implements OnInit {
           this.stepName;
         console.log('STEP DETAIL:', this.navbarTitle);
         this.flowService.stepDetail.emit(this.navbarTitle);
-        this.titleService.setTitle(this.navbarTitle + ' | ' + TREADWILL);
       });
     }
     const id = this.activatedRoute.snapshot.paramMap.get('id');

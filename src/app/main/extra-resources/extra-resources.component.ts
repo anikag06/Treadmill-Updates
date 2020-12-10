@@ -65,7 +65,6 @@ export class ExtraResourcesComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private stepDataService: StepsDataService,
     private authService: AuthService,
-    private titleService: Title,
   ) {}
 
   ngOnInit() {
@@ -103,8 +102,6 @@ export class ExtraResourcesComponent implements OnInit {
       this.navbarTitle = 'Resources';
       this.flowService.stepDetail.emit(this.navbarTitle);
     }
-    this.titleService.setTitle(this.navbarTitle + ' | ' + TREADWILL);
-
 
     this.extraResourcesService
       .getVideoOnDepressionItem()

@@ -174,7 +174,6 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     private changRef: ChangeDetectorRef,
     private commonService: CommonService,
     private authService: AuthService,
-    private titleService: Title,
   ) {
     this.activeroute.params.pipe(map(v => v.id)).subscribe(params => {
       this.conversation_id = params;
@@ -346,7 +345,6 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         );
         this.title = this.conversation.title;
         this.flowService.stepDetail.emit(this.title);
-        this.titleService.setTitle(this.navbarTitle + ' | ' + TREADWILL);
         this.gender = this.conversation.gender;
         this.show_avatar_image = this.conversation.show_avatar_image;
         this.final_conclusion_message = this.conversation.final_conclusion_message;

@@ -43,8 +43,6 @@ export class Introduction6Component implements OnInit {
     private goToService: NavbarGoToService,
     private commonService: CommonService,
     private authService: AuthService,
-    private titleService: Title,
-
   ) {}
 
   ngOnInit() {
@@ -83,7 +81,6 @@ export class Introduction6Component implements OnInit {
               ' ' +
               this.stepName;
             this.flowService.stepDetail.emit(this.navbarTitle);
-            this.titleService.setTitle(this.navbarTitle + ' | ' + TREADWILL);
           });
       });
   }

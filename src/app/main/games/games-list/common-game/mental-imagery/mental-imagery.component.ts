@@ -50,7 +50,6 @@ export class MentalImageryComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private stepDataService: StepsDataService,
     private loadFileService: LoadFilesService,
-    private titleService: Title,
   ) {}
 
   ngOnInit() {
@@ -83,7 +82,6 @@ export class MentalImageryComponent implements OnInit {
           this.stepName;
         console.log('STEP DETAIL:', this.navbarTitle);
         this.flowService.stepDetail.emit(this.navbarTitle);
-        this.titleService.setTitle(this.navbarTitle + ' | ' + TREADWILL);
       });
     this.miPlayService.startPlaying.subscribe(() => {
       this.startPlayingMIGame();

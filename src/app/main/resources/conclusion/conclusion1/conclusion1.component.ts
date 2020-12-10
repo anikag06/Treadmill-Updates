@@ -79,7 +79,6 @@ export class Conclusion1Component implements OnInit, OnDestroy {
     private flowService: FlowService,
     private commonService: CommonService,
     private authService: AuthService,
-    private titleService: Title,
   ) {}
 
   ngOnInit() {
@@ -127,7 +126,6 @@ export class Conclusion1Component implements OnInit, OnDestroy {
               this.stepName;
             console.log('STEP DETAIL:', this.navbarTitle);
             this.flowService.stepDetail.emit(this.navbarTitle);
-            this.titleService.setTitle(this.navbarTitle + ' | ' + TREADWILL);
             this.flowService.navbarTitle = this.navbarTitle;
             this.dataLoaded = true;
             if (step_data.data.next_questionnaire) {

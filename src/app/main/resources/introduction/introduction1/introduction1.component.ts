@@ -60,7 +60,6 @@ export class Introduction1Component implements OnInit, OnDestroy {
     private goToService: NavbarGoToService,
     private commonService: CommonService,
     private authService: AuthService,
-    private titleService: Title,
 
   ) {}
 
@@ -115,7 +114,6 @@ export class Introduction1Component implements OnInit, OnDestroy {
               this.stepName;
             console.log('STEP DETAIL:', this.navbarTitle);
             this.flowService.stepDetail.emit(this.navbarTitle);
-            this.titleService.setTitle(this.navbarTitle +' | ' + TREADWILL);
           });
       });
   }

@@ -61,7 +61,6 @@ export class LearnedHelplessnessGameComponent implements OnInit, OnDestroy {
     private stepDataService: StepsDataService,
     private local: LocalStorageService,
     private commonService: CommonService,
-    private titleService: Title,
   ) {}
 
   @ViewChild('infoElement', { static: false }) element!: ElementRef;
@@ -115,7 +114,6 @@ export class LearnedHelplessnessGameComponent implements OnInit, OnDestroy {
           this.stepName;
         console.log('STEP DETAIL:', this.navbarTitle);
         this.flowService.stepDetail.emit(this.navbarTitle);
-        this.titleService.setTitle(this.navbarTitle + ' | ' + TREADWILL);
       });
     this.loadFileService
       .loadExternalScript(

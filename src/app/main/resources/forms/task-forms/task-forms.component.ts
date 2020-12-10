@@ -40,7 +40,6 @@ export class TaskFormsComponent implements OnInit {
     private flowService: FlowService,
     private activatedRoute: ActivatedRoute,
     private stepDataService: StepsDataService,
-    private titleService: Title,
     private introService: IntroService,
   ) {}
 
@@ -65,7 +64,6 @@ export class TaskFormsComponent implements OnInit {
           this.stepName;
         console.log('STEP DETAIL:', this.navbarTitle);
         this.flowService.stepDetail.emit(this.navbarTitle);
-        this.titleService.setTitle(this.navbarTitle + ' | ' + TREADWILL);
       });
     }
     if (!this.fromSlide && !this.fromConv) {

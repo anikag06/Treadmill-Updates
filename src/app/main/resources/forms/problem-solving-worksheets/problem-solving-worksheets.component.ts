@@ -100,7 +100,6 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private stepDataService: StepsDataService,
     private commonService: CommonService,
-    private titleService: Title,
     private userProfileService: UserProfileService,
   ) {}
 
@@ -126,7 +125,6 @@ export class ProblemSolvingWorksheetsComponent implements OnInit, OnDestroy {
           this.stepName;
         console.log('STEP DETAIL:', this.navbarTitle);
         this.flowService.stepDetail.emit(this.navbarTitle);
-        this.titleService.setTitle(this.navbarTitle + ' | ' + TREADWILL);
       });
     }
     if (!this.fromSlide && !this.fromConv) {

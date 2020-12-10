@@ -47,7 +47,6 @@ export class ExecutiveControlGameComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private stepDataService: StepsDataService,
     private commonService: CommonService,
-    private titleService: Title,
 
   ) {}
   @ViewChild('newElement', { static: false }) element!: ElementRef;
@@ -86,7 +85,6 @@ export class ExecutiveControlGameComponent implements OnInit, OnDestroy {
           this.stepName;
         console.log('STEP DETAIL:', this.navbarTitle);
         this.flowService.stepDetail.emit(this.navbarTitle);
-        this.titleService.setTitle(this.navbarTitle + ' | ' + TREADWILL);
       });
     // Action files
     this.loadFileService

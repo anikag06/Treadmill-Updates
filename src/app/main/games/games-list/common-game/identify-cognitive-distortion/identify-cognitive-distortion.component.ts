@@ -48,7 +48,6 @@ export class IdentifyCognitiveDistortionComponent implements OnInit {
     private stepDataService: StepsDataService,
     private playGameService: GamePlayService,
     private loadFileService: LoadFilesService,
-    private titleService: Title,
   ) {}
 
   ngOnInit() {
@@ -82,7 +81,6 @@ export class IdentifyCognitiveDistortionComponent implements OnInit {
           this.stepName;
         console.log('STEP DETAIL:', this.navbarTitle);
         this.flowService.stepDetail.emit(this.navbarTitle);
-        this.titleService.setTitle(this.navbarTitle + ' | ' + TREADWILL);
       });
 
     this.gameService.initUserData();

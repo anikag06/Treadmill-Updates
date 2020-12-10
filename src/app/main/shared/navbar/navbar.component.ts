@@ -39,10 +39,11 @@ import { CustomOverlayService } from '@/main/shared/custom-overlay/custom-overla
 import { FormService } from '@/main/resources/forms/form.service';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 import { map, switchMap } from 'rxjs/operators';
-import { LOGGED_IN_PATH } from '@/app.constants';
+import {LOGGED_IN_PATH, TREADWILL} from '@/app.constants';
 import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
 import { IntroService } from '@/main/walk-through/intro.service';
 import { isNotNullOrUndefined } from 'codelyzer/util/isNotNullOrUndefined';
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-navbar',
@@ -98,6 +99,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private stepDataService: StepsDataService,
     private goToService: NavbarGoToService,
     private introService: IntroService,
+    private titleService: Title,
+
   ) {
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationStart) {
@@ -120,10 +123,14 @@ export class NavbarComponent implements OnInit, OnDestroy {
         this.gamePlayService.gameTitle.subscribe(() => {
           console.log('FROM NAVBAR', this.gamePlayService.gameName);
           this.navbarTitle = this.gamePlayService.gameName;
+          this.titleService.setTitle(this.navbarTitle + ' | ' + TREADWILL);
+
         });
         this.formService.formTitle.subscribe(() => {
           console.log('FROM NAVBAR', this.formService.formName);
           this.navbarTitle = this.formService.formName;
+          this.titleService.setTitle(this.navbarTitle + ' | ' + TREADWILL);
+
         });
         this.flowService.stepDetail.subscribe((value: any) => {
           if (!this.auth.navbarTitle) {
@@ -132,9 +139,12 @@ export class NavbarComponent implements OnInit, OnDestroy {
           } else {
             this.navbarTitle = this.auth.navbarTitle;
           }
+          this.titleService.setTitle(this.navbarTitle + ' | ' + TREADWILL);
         });
         this.goToService.settingsPageTitle.subscribe((value: any) => {
+          console.log('SETTINGS TITLE', value);
           this.navbarTitle = value;
+          this.titleService.setTitle(value + ' | ' + TREADWILL);
         });
 
         this.notificationService.showFullConvIcon.subscribe(() => {

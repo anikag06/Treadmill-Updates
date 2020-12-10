@@ -96,7 +96,6 @@ export class ExperimentToTestBeliefFormComponent implements OnInit {
     private flowService: FlowService,
     private activatedRoute: ActivatedRoute,
     private stepDataService: StepsDataService,
-    private titleService: Title,
   ) {}
 
   ngOnInit() {
@@ -120,7 +119,6 @@ export class ExperimentToTestBeliefFormComponent implements OnInit {
           this.stepName;
         console.log('STEP DETAIL:', this.navbarTitle);
         this.flowService.stepDetail.emit(this.navbarTitle);
-        this.titleService.setTitle(this.navbarTitle + ' | ' + TREADWILL);
       });
     }
     if (!this.fromSlide && !this.fromConv) {

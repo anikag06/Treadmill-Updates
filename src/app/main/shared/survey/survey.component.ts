@@ -100,7 +100,6 @@ export class SurveyComponent implements OnInit {
     private flowService: FlowService,
     private router: Router,
     private commonService: CommonService,
-    private titleService: Title,
     private authService: AuthService,
   ) {}
 
@@ -109,7 +108,6 @@ export class SurveyComponent implements OnInit {
     this.surveyService.disableLinks.emit(this.data);
     this.navbarTitle = 'Help us improve';
     this.flowService.stepDetail.emit(this.navbarTitle);
-    this.titleService.setTitle(this.navbarTitle + ' | ' + TREADWILL);
   }
 
   loadQuestions(event: any) {

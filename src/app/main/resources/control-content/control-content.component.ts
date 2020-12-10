@@ -61,7 +61,6 @@ export class ControlContentComponent implements OnInit {
     private passData: PassDataService,
     private goToService: NavbarGoToService,
     private quizService: QuizService,
-    private titleService: Title,
   ) {}
   nextBtnShow = false;
 
@@ -125,7 +124,6 @@ export class ControlContentComponent implements OnInit {
           this.stepName;
         console.log('STEP DETAIL:', this.navbarTitle);
         this.flowService.stepDetail.emit(this.navbarTitle);
-        this.titleService.setTitle(this.navbarTitle + ' | ' + TREADWILL);
       });
     this.quizService.questionnaire_active.subscribe((value: boolean) => {
       console.log('EVENT EMITTED', value);
@@ -141,7 +139,6 @@ export class ControlContentComponent implements OnInit {
         this.navbarTitle = 'Mood test';
         this.flowService.stepDetail.emit(this.navbarTitle);
       }
-      this.titleService.setTitle(this.navbarTitle + ' | ' + TREADWILL);
     });
   }
   //

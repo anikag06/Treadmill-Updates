@@ -49,7 +49,6 @@ export class ConversationGroupComponent implements OnInit {
     private notificationService: NavbarNotificationsService,
     private flowService: FlowService,
     private elementRef: ElementRef,
-    private titleService: Title,
   ) {}
 
   ngOnInit() {
@@ -77,7 +76,6 @@ export class ConversationGroupComponent implements OnInit {
             this.stepName;
           console.log('STEP DETAIL:', this.navbarTitle);
           this.flowService.stepDetail.emit(this.navbarTitle);
-          this.titleService.setTitle(this.navbarTitle + ' | ' + TREADWILL);
           if ([COMPLETED, ACTIVE, UNLOCKED].includes(step.status)) {
             this.step = step;
             this.current_id = res.data.id;

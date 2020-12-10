@@ -106,7 +106,6 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
     private flowService: FlowService,
     private activatedRoute: ActivatedRoute,
     private stepDataService: StepsDataService,
-    private titleService: Title,
   ) {}
 
   ngOnInit() {
@@ -130,7 +129,6 @@ export class WorryProductivelyComponent implements OnInit, OnDestroy {
           this.stepName;
         console.log('STEP DETAIL:', this.navbarTitle);
         this.flowService.stepDetail.emit(this.navbarTitle);
-        this.titleService.setTitle(this.navbarTitle + ' | ' + TREADWILL);
       });
     }
     if (!this.fromSlide && !this.fromConv) {

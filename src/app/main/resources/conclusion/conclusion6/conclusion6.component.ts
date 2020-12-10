@@ -67,7 +67,6 @@ export class Conclusion6Component implements OnInit, OnDestroy {
     private commonService: CommonService,
     private userProfileService: UserProfileService,
     private authService: AuthService,
-    private titleService: Title,
 
   ) {}
 
@@ -116,7 +115,6 @@ export class Conclusion6Component implements OnInit, OnDestroy {
             console.log('STEP DETAIL:', this.navbarTitle);
             this.flowService.stepDetail.emit(this.navbarTitle);
             this.flowService.navbarTitle = this.navbarTitle;
-            this.titleService.setTitle(this.navbarTitle + ' | ' + TREADWILL);
 
             this.dataLoaded = true;
             if (step_data.data.next_questionnaire) {
