@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
 import { environment } from 'environments/environment';
@@ -14,11 +18,13 @@ import {
   ISACTIVE,
   INELIGIBLE_FOR_TRIAL,
   IS_EXP,
+  ISLOGGEDIN,
+  LOGGED_IN_PATH,
 } from '@/app.constants';
 import { User } from '@/shared/user.model';
 import { BehaviorSubject } from 'rxjs';
 export interface Token {
-  token: string;
+  access_token: string;
 }
 
 @Injectable({
@@ -37,24 +43,26 @@ export class AuthService {
 
   setLoginData(data: any) {
     try {
-      window.localStorage.setItem(TOKEN, data.data.token);
+      window.localStorage.setItem(ISLOGGEDIN, 'true');
+      window.localStorage.setItem(TOKEN, data.data.access_token);
       window.localStorage.setItem(ISADMIN, data.data.is_admin);
       window.localStorage.setItem(USERAVATAR, data.data.avatar);
       window.localStorage.setItem(ISACTIVE, data.data.is_active);
       window.localStorage.setItem(IS_EXP, data.data.is_exp);
     } catch (e) {
-      window.sessionStorage.setItem(TOKEN, data.data.token);
+      window.sessionStorage.setItem(ISLOGGEDIN, 'true');
+      window.sessionStorage.setItem(TOKEN, data.data.access_token);
       window.sessionStorage.setItem(ISADMIN, data.data.is_admin);
       window.sessionStorage.setItem(USERAVATAR, data.data.avatar);
       window.sessionStorage.setItem(ISACTIVE, data.data.is_active);
       window.sessionStorage.setItem(IS_EXP, data.data.is_exp);
     }
     this.getUserFromToken(
-      data.data.token,
+      data.data.access_token,
       data.data.avatar,
       data.data.is_admin,
       data.data.is_active,
-      data.data.is_exp,
+      data.data.is_exp
     );
   }
 
@@ -62,7 +70,9 @@ export class AuthService {
     window.localStorage.clear();
     window.sessionStorage.clear();
     return this.http
-      .post(environment.API_ENDPOINT + LOGIN_PATH, data)
+      .post(environment.API_ENDPOINT + LOGIN_PATH, data, {
+        withCredentials: true,
+      })
       .toPromise();
   }
 
@@ -99,7 +109,7 @@ export class AuthService {
     avatar: string,
     isAdmin: boolean,
     isActive: boolean,
-    isExp: boolean,
+    isExp: boolean
   ) {
     const helper = new JwtHelperService();
     const isExpired = helper.isTokenExpired(<string>data);
@@ -111,9 +121,9 @@ export class AuthService {
       avatar,
       isAdmin,
       isActive,
-      isExp,
+      isExp
     );
-    if (isExpired === false) {
+    if (!isExpired) {
       this.user = user;
       return user;
     }
@@ -124,33 +134,35 @@ export class AuthService {
     delete this.user;
     localStorage.clear();
     if (showDefaultPage) {
-      console.log('navigate to:', DEFAULT_PATH);
       this.router.navigate([DEFAULT_PATH]);
     } else {
-      console.log('navigate to;', INELIGIBLE_FOR_TRIAL);
       this.router.navigate([INELIGIBLE_FOR_TRIAL]);
     }
   }
 
   refresh() {
-    const token = this.getToken();
-    if (token !== null) {
+    const accessToken = this.getToken();
+    if (accessToken !== null) {
       this.http
-        .post<Token>(environment.API_ENDPOINT + TOKEN_REFRESH_PATH, {
-          token: token,
+        .get(environment.API_ENDPOINT + TOKEN_REFRESH_PATH, {
+          withCredentials: true,
         })
         .subscribe(
-          data => {},
+          (data: any) => {
+            window.localStorage.setItem(TOKEN, data.data.access);
+          },
           (error: HttpErrorResponse) => {
             if (error.status >= 400 && error.status < 500) {
               this.router.navigate([DEFAULT_PATH]);
               window.localStorage.removeItem(TOKEN);
+              window.localStorage.removeItem(ISLOGGEDIN);
               window.localStorage.removeItem(USERAVATAR);
               window.localStorage.removeItem(ISADMIN);
               window.localStorage.removeItem(ISACTIVE);
               window.localStorage.removeItem(IS_EXP);
 
               window.sessionStorage.removeItem(TOKEN);
+              window.sessionStorage.removeItem(ISLOGGEDIN);
               window.sessionStorage.removeItem(USERAVATAR);
               window.sessionStorage.removeItem(ISADMIN);
               window.sessionStorage.removeItem(ISACTIVE);
@@ -160,7 +172,7 @@ export class AuthService {
             } else {
               this.online.next(true);
             }
-          },
+          }
         );
     }
   }
@@ -183,21 +195,24 @@ export class AuthService {
   private logoutCheck() {
     window.addEventListener(
       'storage',
-      event => {
+      (event) => {
         if (
           event.storageArea === localStorage &&
           event.storageArea.games === undefined
         ) {
-          const token = window.localStorage.getItem(TOKEN);
-          if (token === null || token === undefined) {
-            // this.router.navigate(['../landing']);
-            window.location.href = '/landing';
+          const isLoggedIn = window.localStorage.getItem(ISLOGGEDIN);
+          if (
+            isLoggedIn === null ||
+            isLoggedIn === undefined ||
+            isLoggedIn === 'false'
+          ) {
+            window.location.href = DEFAULT_PATH;
           } else {
-            window.location.href = '/main/dashboard';
+            window.location.href = LOGGED_IN_PATH;
           }
         }
       },
-      false,
+      false
     );
   }
 }
