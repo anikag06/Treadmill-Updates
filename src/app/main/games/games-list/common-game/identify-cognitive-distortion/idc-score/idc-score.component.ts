@@ -100,8 +100,12 @@ export class IdcScoreComponent implements OnInit, OnDestroy {
   }
 
   stopTimer() {
+    console.log('TIME LEFT', this.timeLeft, this.gameService.infoOpen);
     clearInterval(this.interval);
     this.gameService.timeActualLeft = this.timeLeft;
+    if (this.gameService.infoOpen) {
+      this.gameService.timeLeft = this.timeLeft;
+    }
   }
 
   updateBadges() {

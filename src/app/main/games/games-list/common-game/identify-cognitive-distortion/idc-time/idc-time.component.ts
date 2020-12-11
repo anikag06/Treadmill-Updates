@@ -19,7 +19,7 @@ export class IdcTimeComponent implements OnInit {
 
   ngOnInit() {
     this.tooltipData =
-      "You don't have sufficient points to buy extra time. Instead, click on replay.";
+      'You don\'t have sufficient points to buy extra time. Instead, click on replay.';
   }
 
   continuePlay() {

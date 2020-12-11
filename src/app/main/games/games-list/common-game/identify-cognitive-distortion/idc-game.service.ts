@@ -24,6 +24,7 @@ export class IdcGameService implements OnInit {
   levelInitialise = new Subject();
   stopTimer = new Subject();
   startTimer = new EventEmitter();
+  infoOpen = false;
   replay = false;
   playing = false;
   selectedCorrectOptionsSet = new Set();
@@ -95,10 +96,10 @@ export class IdcGameService implements OnInit {
   difficultyValue!: number;
 
   maxTime = 120;
-  minTime = 30;
+  minTime = 90;
   timeLeft!: number;
   diffConst!: number;
-  timeActualLeft!: number;
+  timeActualLeft!: number; // time taken by user
   timeAlloted!: number;
   extraTimeTaken = false;
   interval!: any;
@@ -234,11 +235,10 @@ export class IdcGameService implements OnInit {
   updateDifficultyLevel() {
     this.setDifficultyFactor();
     if (
-      this.timeActualLeft > Math.floor(0.2 * this.timeLeft) &&
-      this.timeActualLeft > this.minTime
+      this.timeActualLeft > Math.floor(0.8 * this.timeAlloted) &&
+      this.timeAlloted > this.minTime
     ) {
-      this.timeLeft -= 20;
-      this.timeAlloted = this.timeLeft;
+      this.timeAlloted -= 5;
     } else {
       this.timeAlloted = this.minTime;
     }
