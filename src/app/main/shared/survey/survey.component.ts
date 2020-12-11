@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {
   trigger,
   transition,
@@ -60,7 +60,7 @@ import { Title } from '@angular/platform-browser';
   templateUrl: './survey.component.html',
   styleUrls: ['./survey.component.scss'],
 })
-export class SurveyComponent implements OnInit {
+export class SurveyComponent implements OnInit, OnDestroy {
   user!: User;
   display_survey = false;
   pager = {
@@ -108,6 +108,10 @@ export class SurveyComponent implements OnInit {
     this.surveyService.disableLinks.emit(this.data);
     this.navbarTitle = 'Help us improve';
     this.flowService.stepDetail.emit(this.navbarTitle);
+  }
+
+  ngOnDestroy() {
+    this.surveyService.enableLinks.emit();
   }
 
   loadQuestions(event: any) {
