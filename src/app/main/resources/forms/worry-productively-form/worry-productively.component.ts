@@ -18,7 +18,8 @@ import { FormBuilder, FormControl, FormArray } from '@angular/forms';
 import { map, switchMap } from 'rxjs/operators';
 import { WorryProductivelyService } from '@/main/resources/forms/worry-productively-form/worry-productively.service';
 import {
-  THINKING_IMG, TREADWILL,
+  THINKING_IMG,
+  TREADWILL,
   WELL_DONE_IMG,
   WORRY_PRODUCTIVELY,
   WORRY_PRODUCTIVELY_FORM_NAME,
@@ -34,7 +35,7 @@ import { FormMessage } from '../shared/form-message/form-message.model';
 import { FlowService } from '@/main/flow/flow.service';
 import { ActivatedRoute } from '@angular/router';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
-import {Title} from "@angular/platform-browser";
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-worry-productively-form',

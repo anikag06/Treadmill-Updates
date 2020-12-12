@@ -19,8 +19,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { UserProfileService } from '@/main/shared/user-profile/user-profile.service';
 import { CommonService } from '@/shared/common.service';
-import {Title} from "@angular/platform-browser";
-import {TREADWILL} from "@/app.constants";
+import { Title } from '@angular/platform-browser';
+import { TREADWILL } from '@/app.constants';
 
 @Component({
   selector: 'app-settings',

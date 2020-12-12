@@ -21,10 +21,10 @@ import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
 import { FlowService } from '@/main/flow/flow.service';
 import { Router } from '@angular/router';
 import { CommonService } from '@/shared/common.service';
-import {SURVEY_COMPLETE_SCORE, TREADWILL} from '@/app.constants';
+import { SURVEY_COMPLETE_SCORE, TREADWILL } from '@/app.constants';
 import { User } from '@/shared/user.model';
 import { AuthService } from '@/shared/auth/auth.service';
-import {Title} from "@angular/platform-browser";
+import { Title } from '@angular/platform-browser';
 
 @Component({
   animations: [

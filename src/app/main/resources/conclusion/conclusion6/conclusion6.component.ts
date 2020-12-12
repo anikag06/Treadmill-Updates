@@ -10,7 +10,8 @@ import {
   COMPLETED,
   CONCLUSION_SCORE,
   LOCKED,
-  LOGGED_IN_PATH, TREADWILL,
+  LOGGED_IN_PATH,
+  TREADWILL,
 } from '@/app.constants';
 import { Subscription } from 'rxjs';
 import { StepCompleteData } from '@/main/resources/shared/completion-data.model';
@@ -25,7 +26,7 @@ import { CommonService } from '@/shared/common.service';
 import { UserProfileService } from '@/main/shared/user-profile/user-profile.service';
 import { User } from '@/shared/user.model';
 import { AuthService } from '@/shared/auth/auth.service';
-import {Title} from "@angular/platform-browser";
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-conclusion6',
@@ -67,7 +68,6 @@ export class Conclusion6Component implements OnInit, OnDestroy {
     private commonService: CommonService,
     private userProfileService: UserProfileService,
     private authService: AuthService,
-
   ) {}
 
   ngOnInit() {

@@ -308,7 +308,10 @@ export class CommentComponent
         this.comment.is_voted = 1;
       }
       this.commentService
-        .voteComment({ comment_id: this.comment.id, vote: this.comment.is_voted })
+        .voteComment({
+          comment_id: this.comment.id,
+          vote: this.comment.is_voted,
+        })
         .subscribe(
           () => {
             if (
@@ -350,7 +353,10 @@ export class CommentComponent
         this.comment.is_voted = 0;
       }
       this.commentService
-        .voteComment({ comment_id: this.comment.id, vote: this.comment.is_voted })
+        .voteComment({
+          comment_id: this.comment.id,
+          vote: this.comment.is_voted,
+        })
         .subscribe(() => {
           if (
             !this.downVoteFirstClick &&

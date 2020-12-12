@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {TREADWILL} from "@/app.constants";
-import {Title} from "@angular/platform-browser";
+import { TREADWILL } from '@/app.constants';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-need-to-talk',
@@ -9,9 +9,7 @@ import {Title} from "@angular/platform-browser";
 })
 export class NeedToTalkComponent implements OnInit {
   showHelplineNumbers = false;
-  constructor(
-    private titleService: Title,
-  ) {
+  constructor(private titleService: Title) {
     this.titleService.setTitle('Need to talk | ' + TREADWILL);
   }
 

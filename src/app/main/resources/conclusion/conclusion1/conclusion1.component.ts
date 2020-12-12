@@ -17,7 +17,8 @@ import {
   CONCLUSION_PAGE,
   LOGGED_IN_PATH,
   INTRODUCTION_SCORE,
-  CONCLUSION_SCORE, TREADWILL,
+  CONCLUSION_SCORE,
+  TREADWILL,
 } from '@/app.constants';
 import { ConclusionService } from '../conclusion.service';
 import { StepsDataService } from '../../shared/steps-data.service';
@@ -30,7 +31,7 @@ import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifica
 import { CommonService } from '@/shared/common.service';
 import { User } from '@/shared/user.model';
 import { AuthService } from '@/shared/auth/auth.service';
-import {Title} from "@angular/platform-browser";
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-conclusion1',

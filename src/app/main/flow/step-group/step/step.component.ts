@@ -345,7 +345,10 @@ export class StepComponent implements OnInit, AfterViewInit {
       });
     } else if (this.step.status === LOCKED && !this.step.virtual_step) {
       this.tooltipShow();
-    } else if (this.step.data_type === SURVEY && this.step.status === COMPLETED) {
+    } else if (
+      this.step.data_type === SURVEY &&
+      this.step.status === COMPLETED
+    ) {
       this.tooltipData = 'You have already filled the survey form';
       this.tooltipShow();
     }

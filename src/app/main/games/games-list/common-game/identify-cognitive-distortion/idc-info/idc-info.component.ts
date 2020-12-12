@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
-import {IdcGameService} from "@/main/games/games-list/common-game/identify-cognitive-distortion/idc-game.service";
+import { IdcGameService } from '@/main/games/games-list/common-game/identify-cognitive-distortion/idc-game.service';
 
 @Component({
   selector: 'app-idc-info',
@@ -12,8 +12,7 @@ export class IdcInfoComponent implements OnInit {
     private gameService: IdcGameService,
   ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   closePopup() {
     const domEvent = new CustomEvent('removeOverlayEvent', { bubbles: true });

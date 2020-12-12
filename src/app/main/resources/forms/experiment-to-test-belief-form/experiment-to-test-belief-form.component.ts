@@ -12,7 +12,8 @@ import {
   EXPERIMENT_TO_TEST_BELIEF_FORM_NAME,
   TEST_BELIEF,
   TEST_BELIEF_ORIGIN,
-  THINKING_IMG, TREADWILL,
+  THINKING_IMG,
+  TREADWILL,
   WELL_DONE_IMG,
 } from '@/app.constants';
 import { Belief } from './ettbf-belief/belief.model';
@@ -38,7 +39,7 @@ import { map, switchMap } from 'rxjs/operators';
 import { FlowService } from '@/main/flow/flow.service';
 import { ActivatedRoute } from '@angular/router';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
-import {Title} from "@angular/platform-browser";
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-experiment-to-test-belief-form',

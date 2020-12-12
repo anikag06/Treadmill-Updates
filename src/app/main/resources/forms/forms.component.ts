@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsService } from '@/main/forms.service';
 import { LoadFilesService } from '@/main/games/shared/load-files.service';
-import {TREADWILL} from "@/app.constants";
-import {Title} from "@angular/platform-browser";
+import { TREADWILL } from '@/app.constants';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-forms',
@@ -14,7 +14,6 @@ export class FormsComponent implements OnInit {
     private formsService: FormsService,
     private loadFileService: LoadFilesService,
     private titleService: Title,
-
   ) {
     this.titleService.setTitle('Forms | ' + TREADWILL);
   }

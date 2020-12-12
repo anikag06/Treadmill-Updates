@@ -433,7 +433,10 @@ export class PostItemComponent
         this.supportGroupItem.is_voted = 1;
       }
       this.sgService
-        .postUpVote({ post_id: this.supportGroupItem.id, vote: this.supportGroupItem.is_voted })
+        .postUpVote({
+          post_id: this.supportGroupItem.id,
+          vote: this.supportGroupItem.is_voted,
+        })
         .subscribe(
           () => {
             console.log('first upvote state', this.upVoteFirstClick);
@@ -477,7 +480,10 @@ export class PostItemComponent
         this.supportGroupItem.is_voted = 0;
       }
       this.sgService
-        .postUpVote({ post_id: this.supportGroupItem.id, vote: this.supportGroupItem.is_voted })
+        .postUpVote({
+          post_id: this.supportGroupItem.id,
+          vote: this.supportGroupItem.is_voted,
+        })
         .subscribe(() => {
           if (
             !this.downVoteFirstClick &&

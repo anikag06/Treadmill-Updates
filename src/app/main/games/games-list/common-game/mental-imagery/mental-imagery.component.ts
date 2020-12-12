@@ -15,8 +15,8 @@ import { map, switchMap } from 'rxjs/operators';
 import { FlowService } from '@/main/flow/flow.service';
 import { ActivatedRoute } from '@angular/router';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
-import {TREADWILL} from "@/app.constants";
-import {Title} from "@angular/platform-browser";
+import { TREADWILL } from '@/app.constants';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-mental-imagery',

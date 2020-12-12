@@ -161,7 +161,10 @@ export class NestedCommentComponent
         this.userNestedComment.is_voted = 1;
       }
       this.ncService
-        .voteComment({ nested_comment_id: this.userNestedComment.id, vote: this.userNestedComment.is_voted })
+        .voteComment({
+          nested_comment_id: this.userNestedComment.id,
+          vote: this.userNestedComment.is_voted,
+        })
         .subscribe(
           () => {
             if (
@@ -203,7 +206,10 @@ export class NestedCommentComponent
         this.userNestedComment.is_voted = 0;
       }
       this.ncService
-        .voteComment({ nested_comment_id: this.userNestedComment.id, vote: this.userNestedComment.is_voted })
+        .voteComment({
+          nested_comment_id: this.userNestedComment.id,
+          vote: this.userNestedComment.is_voted,
+        })
         .subscribe(
           () => {
             if (

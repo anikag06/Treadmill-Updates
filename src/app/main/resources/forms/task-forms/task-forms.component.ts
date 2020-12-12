@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { UserTask } from '@/main/resources/forms/shared/tasks/user-task.model';
-import {SET_ACTIVITY, SET_TASK_FORM_NAME, TREADWILL} from '@/app.constants';
+import { SET_ACTIVITY, SET_TASK_FORM_NAME, TREADWILL } from '@/app.constants';
 
 import { FormService } from '@/main/resources/forms/form.service';
 import { TASK_QUOTES } from '@/main/resources/forms/task-forms/task-form-message';
@@ -9,7 +9,7 @@ import { FlowService } from '@/main/flow/flow.service';
 import { ActivatedRoute } from '@angular/router';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 import { IntroService } from '@/main/walk-through/intro.service';
-import {Title} from "@angular/platform-browser";
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-task-forms',

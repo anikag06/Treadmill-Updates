@@ -1,7 +1,8 @@
 import {
   THINKING_IMG,
   THOUGHT_RECORD,
-  THOUGHT_RECORD_FORM_NAME, TREADWILL,
+  THOUGHT_RECORD_FORM_NAME,
+  TREADWILL,
   WELL_DONE_IMG,
 } from '@/app.constants';
 import { Component, Input, OnInit } from '@angular/core';
@@ -19,7 +20,7 @@ import { ActivatedRoute } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 import { FormsService } from '@/main/forms.service';
-import {Title} from "@angular/platform-browser";
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-thought-record-form',
