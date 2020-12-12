@@ -176,7 +176,6 @@
 .buttons {
   text-align: center;
   min-width: 33%;
-  margin-right: 10px;
   max-width: 80%;
   margin: 0 auto;
   justify-content: center;
@@ -198,6 +197,7 @@
     white-space: normal;
     line-height: 1rem;
     padding: 0.375rem 0.75rem;
+    min-height: 36px;
   }
 
   .module_button {
@@ -207,9 +207,9 @@
     color: #343434;
     max-width: 100%;
     outline: none;
-    margin-bottom: 0px;
+    margin-bottom: 0;
     margin-top: 0;
-    margin-left: 5px;
+    margin-left: 10px;
     min-height: 36px;
     width: 146px;
     height: 78px;
@@ -289,12 +289,18 @@ button {
       right: 5vw;
     }
   }
+    .display_cell{
+      left: 5%;
+    }
 }
 
 @media screen and (min-width: 768px) {
   .chat-frame {
     //height: 60vh;
     max-height: 540px;
+  }
+  .display_cell{
+    left: 2%;
   }
 }
 
@@ -448,4 +454,13 @@ $x3: -$leftPos + $dotSpacing;
   position: absolute;
   bottom: 60px;
   right: 8%;
+}
+
+.display_cell{
+  display: table-cell;
+  position: relative;
+}
+
+.display_block{
+  display: block;
 }
