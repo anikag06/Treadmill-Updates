@@ -39,6 +39,7 @@ export class IdentifyCognitiveDistortionComponent implements OnInit {
   blurred = false;
   showLoading = true;
   imagesPreloaded = false;
+  gamePaused = false;
 
   constructor(
     private gameService: IdcGameService,
@@ -102,16 +103,19 @@ export class IdentifyCognitiveDistortionComponent implements OnInit {
     this.gameService.getUserData();
     // this.gameService.levelInitialise.emit();
     this.removeBlurrBackground();
+    this.gamePaused = false;
   }
 
   pauseIDCGame() {
     this.idcScoreComponent.onPause();
     this.blurrBackground();
+    this.gamePaused = true;
   }
 
   resumeIDCGame() {
     this.idcScoreComponent.startTimer();
     this.removeBlurrBackground();
+    this.gamePaused = false;
   }
 
   blurrBackground() {
@@ -130,9 +134,11 @@ export class IdentifyCognitiveDistortionComponent implements OnInit {
     this.blurred = false;
   }
   openInfoPopup() {
+    this.gameService.infoOpen = true;
     this.dialogBoxService.setDialogChild(IdcInfoComponent);
     const domEvent = new CustomEvent('overlayCalledEvent', { bubbles: true });
     this.element.nativeElement.dispatchEvent(domEvent);
+    this.pauseIDCGame();
   }
   removeLoading() {
     setTimeout(() => {
