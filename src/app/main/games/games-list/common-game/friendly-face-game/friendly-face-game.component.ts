@@ -30,6 +30,8 @@ import { FlowService } from '@/main/flow/flow.service';
 import { ActivatedRoute } from '@angular/router';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 import { map, switchMap } from 'rxjs/operators';
+import {TREADWILL} from "@/app.constants";
+import {Title} from "@angular/platform-browser";
 
 declare var ffGamePreloadImages: any;
 declare var ffGame_hostile_images: any;
@@ -75,6 +77,7 @@ export class FriendlyFaceGameComponent implements OnInit, OnDestroy {
     private flowService: FlowService,
     private activatedRoute: ActivatedRoute,
     private stepDataService: StepsDataService,
+
   ) {}
   NO_IMAGES_IN_PAGE = 20;
   NO_SONGS_IN_PAGE = 2;

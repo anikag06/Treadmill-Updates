@@ -302,13 +302,13 @@ export class CommentComponent
       const preUpVote = this.comment.up_votes;
       if (this.comment.is_voted === 1) {
         this.comment.up_votes -= 1;
-        this.comment.is_voted = -1;
+        this.comment.is_voted = 0;
       } else {
         this.comment.up_votes += 1;
         this.comment.is_voted = 1;
       }
       this.commentService
-        .voteComment({ comment_id: this.comment.id, vote: 1 })
+        .voteComment({ comment_id: this.comment.id, vote: this.comment.is_voted })
         .subscribe(
           () => {
             if (
@@ -343,14 +343,14 @@ export class CommentComponent
     if (!this.ownComment()) {
       if (this.comment.is_voted === 1) {
         this.comment.up_votes -= 1;
-        this.comment.is_voted = 0;
+        this.comment.is_voted = -1;
       } else if (this.comment.is_voted === 0) {
         this.comment.is_voted = -1;
       } else {
         this.comment.is_voted = 0;
       }
       this.commentService
-        .voteComment({ comment_id: this.comment.id, vote: 0 })
+        .voteComment({ comment_id: this.comment.id, vote: this.comment.is_voted })
         .subscribe(() => {
           if (
             !this.downVoteFirstClick &&

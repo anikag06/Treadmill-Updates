@@ -25,9 +25,10 @@ import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 import { LocalStorageService } from '@/shared/localstorage.service';
 import {
   FOLLOW_UP_FORM_COMPLETE_SCORE,
-  PLAYING_GAMES_SCORE,
+  PLAYING_GAMES_SCORE, TREADWILL,
 } from '@/app.constants';
 import { CommonService } from '@/shared/common.service';
+import {Title} from "@angular/platform-browser";
 declare var lhcolorReverseGame: any;
 
 @Component({

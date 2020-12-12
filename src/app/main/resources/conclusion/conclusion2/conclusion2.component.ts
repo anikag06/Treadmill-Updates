@@ -12,7 +12,7 @@ import {
   LOCKED,
   COMPLETED,
   LOGGED_IN_PATH,
-  CONCLUSION_SCORE,
+  CONCLUSION_SCORE, TREADWILL,
 } from '@/app.constants';
 import { ConclusionService } from '../conclusion.service';
 import { StepsDataService } from '../../shared/steps-data.service';
@@ -23,6 +23,7 @@ import { FlowService } from '@/main/flow/flow.service';
 import { CommonService } from '@/shared/common.service';
 import { User } from '@/shared/user.model';
 import { AuthService } from '@/shared/auth/auth.service';
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-conclusion2',

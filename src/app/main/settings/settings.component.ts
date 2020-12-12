@@ -19,6 +19,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { UserProfileService } from '@/main/shared/user-profile/user-profile.service';
 import { CommonService } from '@/shared/common.service';
+import {Title} from "@angular/platform-browser";
+import {TREADWILL} from "@/app.constants";
 
 @Component({
   selector: 'app-settings',
@@ -90,7 +92,10 @@ export class SettingsComponent implements OnInit {
     private goToService: NavbarGoToService,
     private router: Router,
     private route: ActivatedRoute, //  private commonService: CommonService, //  private userProfileService: UserProfileService,
-  ) {}
+    private titleService: Title,
+  ) {
+    this.titleService.setTitle('Settings | ' + TREADWILL);
+  }
 
   ngOnInit() {
     this.user = <User>this.authService.isLoggedIn();

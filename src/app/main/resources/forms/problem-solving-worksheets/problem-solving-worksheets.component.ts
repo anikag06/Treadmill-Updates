@@ -18,7 +18,7 @@ import {
   FORM_START_SCORE,
   PROBLEM_SOLVING_FORM_NAME,
   PSF_PROBLEM,
-  PSF_PROBLEM_SOLVING,
+  PSF_PROBLEM_SOLVING, TREADWILL,
 } from '@/app.constants';
 import { UserTask } from '@/main/resources/forms/shared/tasks/user-task.model';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
@@ -37,6 +37,7 @@ import { StepsDataService } from '@/main/resources/shared/steps-data.service';
 import { ProsConsInfoComponent } from '@/main/resources/forms/problem-solving-worksheets/pros-cons-container/pros-cons/pros-cons-info/pros-cons-info.component';
 import { CommonService } from '@/shared/common.service';
 import { UserProfileService } from '@/main/shared/user-profile/user-profile.service';
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-problem-solving-worksheets',

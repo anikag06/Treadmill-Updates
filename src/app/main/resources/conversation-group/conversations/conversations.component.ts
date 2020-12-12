@@ -24,7 +24,7 @@ import { ProblemSolvingWorksheetsComponent } from '@/main/resources/forms/proble
 import { TaskFormsComponent } from '@/main/resources/forms/task-forms/task-forms.component';
 import { ThoughtRecordFormComponent } from '@/main/resources/forms/thought-record-form/thought-record-form.component';
 import { ChatImageComponent } from '@/main/chatbot/chat-window/chat-image/chat-image.component';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import {DomSanitizer, SafeUrl, Title} from '@angular/platform-browser';
 import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
 import {
   trigger,
@@ -51,7 +51,7 @@ import {
   FORM_PROBLEM_SOLVING,
   FORM_TASK,
   FORM_THOUGHT_RECORD,
-  FORM_WORRY_PRODUCTIVELY,
+  FORM_WORRY_PRODUCTIVELY, TREADWILL,
 } from '@/app.constants';
 import { Subscription } from 'rxjs';
 import { UserFeedbackComponent } from '@/main/resources/shared/user-feedback/user-feedback.component';

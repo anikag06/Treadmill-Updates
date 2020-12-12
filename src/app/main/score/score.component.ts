@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, Route, ActivatedRoute } from '@angular/router';
+import {TREADWILL} from "@/app.constants";
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-score',
@@ -12,7 +14,11 @@ export class ScoreComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-  ) {  }
+    private titleService: Title,
+
+  ) {
+    this.titleService.setTitle('Questionnaire Scores | ' + TREADWILL);
+  }
 
   ngOnInit() {
   }

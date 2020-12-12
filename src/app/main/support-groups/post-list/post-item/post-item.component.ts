@@ -427,13 +427,13 @@ export class PostItemComponent
       const preUpVote = this.supportGroupItem.up_votes;
       if (this.supportGroupItem.is_voted === 1) {
         this.supportGroupItem.up_votes -= 1;
-        this.supportGroupItem.is_voted = -1;
+        this.supportGroupItem.is_voted = 0;
       } else {
         this.supportGroupItem.up_votes += 1;
         this.supportGroupItem.is_voted = 1;
       }
       this.sgService
-        .postUpVote({ post_id: this.supportGroupItem.id, vote: 1 })
+        .postUpVote({ post_id: this.supportGroupItem.id, vote: this.supportGroupItem.is_voted })
         .subscribe(
           () => {
             console.log('first upvote state', this.upVoteFirstClick);
@@ -470,14 +470,14 @@ export class PostItemComponent
     if (!this.ownPost()) {
       if (this.supportGroupItem.is_voted === 1) {
         this.supportGroupItem.up_votes -= 1;
-        this.supportGroupItem.is_voted = 0;
+        this.supportGroupItem.is_voted = -1;
       } else if (this.supportGroupItem.is_voted === 0) {
         this.supportGroupItem.is_voted = -1;
       } else {
         this.supportGroupItem.is_voted = 0;
       }
       this.sgService
-        .postUpVote({ post_id: this.supportGroupItem.id, vote: 0 })
+        .postUpVote({ post_id: this.supportGroupItem.id, vote: this.supportGroupItem.is_voted })
         .subscribe(() => {
           if (
             !this.downVoteFirstClick &&

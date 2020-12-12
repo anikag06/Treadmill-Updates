@@ -6,10 +6,11 @@ import { ConversationGroup } from './conversation-group-input/conversation-group
 import { PassDataService } from './passdata.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
-import { COMPLETED, ACTIVE, UNLOCKED } from '@/app.constants';
+import {COMPLETED, ACTIVE, UNLOCKED, TREADWILL} from '@/app.constants';
 import { NavbarNotificationsService } from '@/main/shared/navbar/navbar-notifications.service';
 import { FlowService } from '@/main/flow/flow.service';
 import { environment } from '../../../../environments/environment';
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-conversation-group',
