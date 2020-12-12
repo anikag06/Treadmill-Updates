@@ -624,7 +624,7 @@ textarea{
   border-radius: 50% 50% 0 !important;
 }
 
-.mat-checkbox.mat-accent {
+.mat-checkbox.mat-primary {
   .mat-checkbox-inner-container {
     margin: 5px 8px auto 0;
   }
@@ -636,4 +636,8 @@ textarea{
 
 .mat-slider-thumb-label-text {
   opacity: 1 !important;
+}
+
+.mat-checkbox-checked.mat-primary .mat-checkbox-background {
+  background-color: #9e9e9e !important;
 }
