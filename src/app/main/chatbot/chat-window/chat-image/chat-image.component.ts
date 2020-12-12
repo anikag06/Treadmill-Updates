@@ -12,28 +12,34 @@ export class ChatImageComponent implements OnInit {
   dataLoaded = false;
   showGIFIcon!: boolean;
   width = '280px';
+  CHATBOT_GIF_LOOP_TIME = 10000;
+  CONVERSATION_GIF_LOOP_TIME = 25000;
   ngOnInit() {
     this.showGIFIcon =
       (this.image.static_url && this.fromConversation) || this.image.creditsGIF;
     if (this.fromConversation && window.innerWidth > MOBILE_WIDTH) {
       this.width = '400px';
     } else if (this.fromConversation) {
-      this.width = '240px';
+      this.width = '100%';
     }
   }
 
   changeUrl() {
     if (this.image && this.image.dynamic_url) {
-      this.image.showSpinner =
-        this.image.url === this.image.dynamic_url ? false : true;
+      this.image.showSpinner = this.image.url !== this.image.dynamic_url;
       this.image.url =
         this.image.url === this.image.static_url
           ? this.image.dynamic_url
           : this.image.static_url;
       if (this.image.url === this.image.dynamic_url) {
-        setTimeout(() => {
-          this.image.url = this.image.static_url;
-        }, 10000);
+        setTimeout(
+          () => {
+            this.image.url = this.image.static_url;
+          },
+          this.fromConversation
+            ? this.CONVERSATION_GIF_LOOP_TIME
+            : this.CHATBOT_GIF_LOOP_TIME
+        );
       }
     }
   }

@@ -624,6 +624,7 @@ export class IntroService {
       showProgress: false,
       showBullets: false,
       exitOnOverlayClick: false,
+      disableInteraction: false,
       hidePrev: true,
       hideNext: true,
       exitOnEsc: false,

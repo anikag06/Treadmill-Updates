@@ -50,10 +50,17 @@
               </div>
 
               <div
-                class="msg_container"
+                class="msg_container mr-3"
                 [style.border-bottom-color]="
                   conversation.wrong ? '#FF6A6A' : null
                 "
+                [ngStyle]="{
+                  maxWidth: smallDevice
+                    ? msg.dialog_images.length !== 0
+                      ? '100%'
+                      : '80%'
+                    : '75%'
+                }"
               >
                 <p [innerHtml]="msg.message"></p>
                 <div class="chat_image" *ngIf="msg.dialog_images">
@@ -72,10 +79,15 @@
             class="d-flex justify-content-end mb-3"
           >
             <div
-              class="msg_container_send ml-3 ml-md-0 mr-3"
+              class="msg_container_send ml-3 ml-sm-2 ml-md-0 mr-3"
               [@fadeInOut]
               [ngStyle]="{
-                'border-bottom-color': conversation.wrong ? '#FF6A6A' : null
+                'border-bottom-color': conversation.wrong ? '#FF6A6A' : null,
+                maxWidth: smallDevice
+                  ? msg.option_images.length !== 0
+                    ? '100%'
+                    : '83%'
+                  : '75%'
               }"
             >
               <p [innerHtml]="msg.message"></p>
@@ -92,39 +104,50 @@
         </div>
         <!-- </div> -->
         <!-- <div class="card-body"> -->
-        <div class="row" *ngFor="let dialog of current_dialog; let i = index;let last=last">
+        <div
+          class="row"
+          *ngFor="let dialog of current_dialog; let i = index; let last = last"
+        >
+          <div
+            *ngIf="current_dialog.length != 0"
+            class="d-flex justify-content-start mb-3"
+            [ngStyle]="{ minWidth: '100%' }"
+          >
+            <div class="img_cont_msg ml-3">
+              <img
+                [src]="show_avatar_image"
+                class="rounded-circle user_img_msg"
+              />
+            </div>
+            <div *ngIf="dialog.showTyping" class="msg_container">
+              <div class="dot-typing mt-1 ml-2 mr-2"></div>
+            </div>
             <div
-              *ngIf="current_dialog.length != 0"
-              class="d-flex justify-content-start mb-3"
-              [ngStyle]="{minWidth : '100%'}"
+              *ngIf="!dialog.showTyping"
+              class="msg_container1 mr-3"
+              [ngStyle]="{
+                maxWidth: smallDevice
+                  ? dialog.dialog_images.length !== 0
+                    ? '100%'
+                    : '75%'
+                  : '70%'
+              }"
             >
-              <div class="img_cont_msg ml-3">
-                <img
-                  [src]="show_avatar_image"
-                  class="rounded-circle user_img_msg"
-                />
-              </div>
-              <div *ngIf="dialog.showTyping" class="msg_container">
-                <div class="dot-typing mt-1 ml-2 mr-2"></div>
-              </div>
-              <div *ngIf="!dialog.showTyping" class="msg_container1">
-                <p [innerHtml]="dialog.message"></p>
+              <p [innerHtml]="dialog.message"></p>
 
-                <div
-                  *ngIf="
-                    dialog.dialog_images && dialog.dialog_images.length > 0
-                  "
-                >
-                  <div *ngFor="let image of dialog.dialog_images">
-                    <app-chat-image
-                      fromConversation="true"
-                      [image]="image"
-                    ></app-chat-image>
-                  </div>
+              <div
+                *ngIf="dialog.dialog_images && dialog.dialog_images.length > 0"
+              >
+                <div *ngFor="let image of dialog.dialog_images">
+                  <app-chat-image
+                    fromConversation="true"
+                    [image]="image"
+                  ></app-chat-image>
                 </div>
               </div>
             </div>
           </div>
+        </div>
 
         <div class="row justify-content-center" *ngIf="wrong">
           <div
@@ -148,10 +171,20 @@
         <div *ngIf="!finished">
           <div
             class="row justify-content-end conv-elements-div"
-            *ngFor="let option of options; let i = index;let last=last"
+            *ngFor="let option of options; let i = index; let last = last"
           >
             <div class="d-flex justify-content-end mb-3" *ngIf="!speedrun">
-              <div class="msg_container_send1 ml-3 ml-md-0 mr-3" #optionDiv>
+              <div
+                class="msg_container_send1 ml-3 ml-md-0 mr-3"
+                #optionDiv
+                [ngStyle]="{
+                  maxWidth: smallDevice
+                    ? option.option_images.length !== 0
+                      ? '100%'
+                      : '80%'
+                    : '75%'
+                }"
+              >
                 <p class="pr-2" [innerHtml]="option.message"></p>
                 <div
                   *ngIf="
@@ -175,7 +208,6 @@
                 >
                   <img class="SendImage" [src]="send_image" />
                   <div class="d-inline-block">
-
                     Send
                   </div>
                 </div>
@@ -184,9 +216,9 @@
             <div
               class="mb-2 justify-content-end mr-3 text-center or-div"
               *ngIf="options.length === 2 && i == 0"
-             [ngStyle]="{width : getOrWidth()}"
+              [ngStyle]="{ width: getOrWidth() }"
             >
-              {{getOrWidth()!==null ? 'OR' : ''}}
+              {{ getOrWidth() !== null ? 'OR' : '' }}
             </div>
           </div>
         </div>
@@ -200,7 +232,7 @@
           <h2>Summary</h2>
         </div>
         <div class="d-flex justify-content-center">
-          <p class="finish-text" [innerHTML]="final_conclusion_message" ></p>
+          <p class="finish-text" [innerHTML]="final_conclusion_message"></p>
         </div>
 
         <app-user-feedback
