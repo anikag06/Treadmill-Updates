@@ -61,7 +61,7 @@ export class IntroService {
     private http: HttpClient,
     private commonService: CommonService,
     private authService: AuthService,
-    private userProfileService: UserProfileService
+    private userProfileService: UserProfileService,
   ) {}
 
   completionData: StepCompleteData = new StepCompleteData(0, 0);
@@ -389,7 +389,7 @@ export class IntroService {
 
             if (isExp) {
               this.commonService.updateScore(
-                INTRODUCTORY_ANIMATION_STEP_COMPLETE_SCORE
+                INTRODUCTORY_ANIMATION_STEP_COMPLETE_SCORE,
               );
               // this.commonService.introScoreSend.emit();
             }
@@ -460,7 +460,7 @@ export class IntroService {
           if (isExp) {
             this.commonService.setIsIntroPointsTrue();
             this.commonService.updateScore(
-              INTRODUCTORY_ANIMATION_STEP_COMPLETE_SCORE
+              INTRODUCTORY_ANIMATION_STEP_COMPLETE_SCORE,
             );
             setTimeout(() => {
               this.flowService.introduceBehaviour.next(true);
@@ -589,7 +589,7 @@ export class IntroService {
         if (isExp) {
           this.commonService.setIsIntroPointsTrue();
           this.commonService.updateScore(
-            INTRODUCTORY_ANIMATION_STEP_COMPLETE_SCORE
+            INTRODUCTORY_ANIMATION_STEP_COMPLETE_SCORE,
           );
           setTimeout(() => {
             this.flowService.introduceBehaviour.next(true);
@@ -712,7 +712,7 @@ export class IntroService {
     return this.http.get(
       environment.API_ENDPOINT +
         '/api/v1/flow/show-introductory-animation/' +
-        element
+        element,
     );
   }
 
