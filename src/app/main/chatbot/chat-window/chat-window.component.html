@@ -9,7 +9,12 @@
       alt=""
     />
     <h3>WillBot</h3>
-    <button id="close_chatbot" mat-flat-button class="close-icon" (click)="close()">
+    <button
+      id="close_chatbot"
+      mat-flat-button
+      class="close-icon"
+      (click)="close()"
+    >
       <mat-icon>keyboard_arrow_down</mat-icon>
     </button>
   </div>
@@ -21,7 +26,9 @@
     <div
       class="chat-frame"
       [ngStyle]="{
-        height: showTextInput ? 'calc(100% - ' + getTextAreaHeight() + 'px)' : '100%'
+        height: showTextInput
+          ? 'calc(100% - ' + getTextAreaHeight() + 'px)'
+          : '100%'
       }"
       #messagesDiv
       [scrollTop]="scrollTop"
@@ -51,7 +58,10 @@
             <app-chat-video [videoUrl]="embed_link.url"></app-chat-video>
           </ng-container>
           <ng-template #image>
-            <app-chat-image class="chatbot" [image]="embed_link"></app-chat-image>
+            <app-chat-image
+              class="chatbot"
+              [image]="embed_link"
+            ></app-chat-image>
           </ng-template>
         </div>
 
@@ -71,7 +81,7 @@
             <div *ngIf="showMoodTracker">
               <app-mood-tracker
                 class="chatbot"
-                [moduleName] = "currentModule"
+                [moduleName]="currentModule"
                 (onClose)="onMoodSelect()"
                 (moodSubmit)="onChatSubmit()"
                 (moodMessage)="getMoodMessage($event)"
@@ -119,10 +129,15 @@
       </div>
       <div
         class="buttons"
-        [ngStyle]="{
-          display: buttonType === clickAble ? 'table-cell' : 'block'
-        }"
+        [ngClass]="{
+            'display_cell': buttonType === clickAble,
+            'display_block': buttonType !== clickAble
+          }"
       >
+<!--        <div-->
+<!--          *ngIf="buttonType === clickAble"-->
+<!--          style="margin-left: 10%;"-->
+<!--        ></div>-->
         <button
           mat-stroked-button
           color="primary"
@@ -136,12 +151,15 @@
           <img
             [src]="button.image_url"
             [alt]="button.emojified_payload"
-            width="146px"
-            height="78px"
+            width="150px"
+            height="80px"
             *ngIf="button.type === clickAble; else btnText"
           />
           <ng-template #btnText>
-            <span class="btn-text" [innerHTML]="button.emojified_payload"></span>
+            <span
+              class="btn-text"
+              [innerHTML]="button.emojified_payload"
+            ></span>
           </ng-template>
         </button>
         <div>
@@ -195,11 +213,15 @@
       </div>
     </div>
 
-    <div *ngIf="showScrollToBottom" class="scroll-bottom" (click)="onScrollToBottomClick()">
+    <div
+      *ngIf="showScrollToBottom"
+      class="scroll-bottom"
+      (click)="onScrollToBottomClick()"
+    >
       <button
         mat-fab
         class="double-arrow"
-        [ngStyle]="{outline : 'none',height : '35px',width : '35px'}"
+        [ngStyle]="{ outline: 'none', height: '35px', width: '35px' }"
         color="black"
         aria-label="scroll to bottom button with a double arrow icon"
       >
