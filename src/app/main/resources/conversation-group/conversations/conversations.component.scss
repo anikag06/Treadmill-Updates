@@ -8,7 +8,6 @@
   position: relative;
 }
 .chat_image{
-  margin-right: 10px;
   text-align: center !important;
 }
 
@@ -72,7 +71,7 @@
 .msg_container {
   border-radius: 0 12px 12px 12px;
   //width: 70%;
-  max-width: 75%;
+  //max-width: 75%;
   background-color: #F1F1F1;
   padding: 8px 10px 10px;
   position: relative;
@@ -83,13 +82,13 @@
 }
 
 .msg_container1 {
-  border-radius: 0px 12px 12px 12px;
-  max-width: 70%;
+  border-radius: 0 12px 12px 12px;
+  //max-width: 70%;
   background-color: #F1F1F1;
   padding: 8px 10px 10px;
   position: relative;
   text-align: start;
-  display: inline-table;
+  //display: inline-table;
   p {
     margin-bottom: 0;
   }
@@ -100,7 +99,6 @@
 }
 
 .msg_container_send {
-  max-width: 75%;
   border-radius: 12px 12px 0px 12px;
   background-color: #FFEFD4;
   padding: 8px 10px 10px;
@@ -112,7 +110,7 @@
 }
 .msg_container_send1 {
   //width: 75%;
-  max-width: 75%;
+  //max-width: 75%;
   min-width: 50%;
   border-radius: 12px 12px 0px 12px;
   background-color: #FFE2AF;
@@ -427,13 +425,13 @@ $x3: -$leftPos + $dotSpacing;
     // max-height: 900px;
   }
   .msg_container_send {
-    max-width: 83%;
+    //max-width: 83%;
     padding-right: 10px;
   }
 
-  .msg_container_send1{
-    max-width: 80%;
-  }
+  //.msg_container_send1{
+  //  max-width: 80%;
+  //}
   .or-div{
     max-width: 75%;
 

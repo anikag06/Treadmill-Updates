@@ -6,7 +6,8 @@
   src="{{ image.url }}"
   [ngStyle]="{
     maxWidth: width,
-    width: '100%'
+    width: '100%',
+    marginTop: fromConversation ? '0' : '10px'
   }"
   (click)="changeUrl()"
   alt="image"
@@ -19,7 +20,8 @@
       class="link"
       href="https://unsplash.com?utm_source=Treadwill_IITK&utm_medium=referral"
       target="_blank"
-      >Unsplash</a>
+      >Unsplash</a
+    >
   </div>
 </div>
 <div class="credits" *ngIf="image.creditsGIF">

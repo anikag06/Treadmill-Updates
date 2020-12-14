@@ -52,7 +52,7 @@ import {
   FORM_TASK,
   FORM_THOUGHT_RECORD,
   FORM_WORRY_PRODUCTIVELY,
-  TREADWILL,
+  MOBILE_WIDTH,
 } from '@/app.constants';
 import { Subscription } from 'rxjs';
 import { UserFeedbackComponent } from '@/main/resources/shared/user-feedback/user-feedback.component';
@@ -107,7 +107,7 @@ import { EttbfBeliefComponent } from '@/main/resources/forms/experiment-to-test-
           position: 'relative',
           textAlign: 'center',
           fontSize: '18px',
-        }),
+        })
       ),
       state(
         'send',
@@ -121,7 +121,7 @@ import { EttbfBeliefComponent } from '@/main/resources/forms/experiment-to-test-
           position: 'relative',
           textAlign: 'center',
           fontSize: '14px',
-        }),
+        })
       ),
       transition('unsend => send', [
         style({ transform: 'translateX(50%)' }),
@@ -133,7 +133,7 @@ import { EttbfBeliefComponent } from '@/main/resources/forms/experiment-to-test-
         'void',
         style({
           opacity: 0,
-        }),
+        })
       ),
       transition('void <=> *', animate(1000)),
     ]),
@@ -174,9 +174,9 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     private elementRef: ElementRef,
     private changRef: ChangeDetectorRef,
     private commonService: CommonService,
-    private authService: AuthService,
+    private authService: AuthService
   ) {
-    this.activeroute.params.pipe(map(v => v.id)).subscribe(params => {
+    this.activeroute.params.pipe(map((v) => v.id)).subscribe((params) => {
       this.conversation_id = params;
       this.passdata.IsConversationOn(true);
       this.run();
@@ -271,6 +271,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   READING_TIME_PER_CHARACTER = 30; // ms
   MINIMUM_TIME_ALLOWED_BEFORE_SHOWING_OPTION = 3000; // ms
   DOT_SHOWING_TIME = 1000; // ms
+  smallDevice = false;
 
   ngOnInit() {
     this.user = <User>this.authService.isLoggedIn();
@@ -287,6 +288,9 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     this.notificationService.showFullConv.subscribe(() => {
       this.speed_run();
     });
+    if (window.innerWidth < MOBILE_WIDTH) {
+      this.smallDevice = true;
+    }
   }
 
   run() {
@@ -310,7 +314,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         this.history_id,
         this.conversation_id,
         false,
-        false,
+        false
       );
       this.onunload = true;
     }
@@ -334,7 +338,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       .get(
         environment.API_ENDPOINT +
           '/api/v1/conversation/conversation/?conversation_id=' +
-          this.conversation_id,
+          this.conversation_id
       )
       .subscribe((res: any) => {
         this.conversation = new Conversation(
@@ -342,7 +346,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
           res.final_conclusion_message,
           res.gender,
           res.avatar_image_url,
-          res.dialog_options,
+          res.dialog_options
         );
         this.title = this.conversation.title;
         this.flowService.stepDetail.emit(this.title);
@@ -359,7 +363,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         for (let j = 0; j < this.conversation.dialogs.length; j++) {
           this.dialogMap.set(
             this.conversation.dialogs[j].id,
-            this.conversation.dialogs[j],
+            this.conversation.dialogs[j]
           );
         }
         if (current_id) {
@@ -465,13 +469,13 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
           this.dialog_options();
         }
         const formName = this.passdata.getFormName();
-        console.log('passdata: ', this.passdata);
+        // console.log('passdata: ', this.passdata);
         if (formName === FORM_TASK) {
           setTimeout(() => this.loadForm(TaskFormsComponent), 1000);
         } else if (formName === FORM_PROBLEM_SOLVING) {
           setTimeout(
             () => this.loadForm(ProblemSolvingWorksheetsComponent),
-            1000,
+            1000
           );
         } else if (formName === FORM_THOUGHT_RECORD) {
           setTimeout(() => this.loadForm(ThoughtRecordFormComponent), 1000);
@@ -490,12 +494,12 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       .get(
         environment.API_ENDPOINT +
           '/api/v1/conversation/history/?conversation_id=' +
-          this.conversation_id,
+          this.conversation_id
       )
       .subscribe((res: any) => {
         this.conversationsService
           .getFeedBackInfo(this.conversation_id)
-          .subscribe(feedback_data => {
+          .subscribe((feedback_data) => {
             if (feedback_data.exists) {
               this.initial_feedback = feedback_data.feedback;
               if (this.initial_feedback === 1) {
@@ -520,7 +524,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
           res.results[0].created_at,
           res.results[0].completion_datetime,
           res.results[0].time_taken_to_complete_in_seconds,
-          res.results[0].user_response,
+          res.results[0].user_response
         );
         this.history_id = this.currenthistory.id;
         this.completedConversation = [];
@@ -667,7 +671,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
 
   loadForm(component: any) {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
-      component,
+      component
     );
     const viewContainerRef = this.formHost.viewContainerRef;
     viewContainerRef.clear();
@@ -695,7 +699,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
       });
     } else {
       this.mupltiple_line = this.dialog.dialog_has_options[0].option.message.split(
-        '<new_line>',
+        '<new_line>'
       );
       this.mupltiple_line_images = this.dialog.dialog_has_options[0].option.option_images;
       this.show_multiple = this.mupltiple_line.length;
@@ -973,7 +977,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     }, this.DOT_SHOWING_TIME);
 
     const total_character_length = this.get_calculate_total_character_length_for_dialog(
-      this.dialog.message,
+      this.dialog.message
     );
 
     if (this.dialog.is_last === true) {
@@ -986,11 +990,10 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
           this.history_id,
           this.conversation_id,
           false,
-          this.finished,
+          this.finished
         );
       }, total_character_length * this.READING_TIME_PER_CHARACTER + this.MINIMUM_TIME_ALLOWED_BEFORE_SHOWING_OPTION);
     } else {
-      console.log('total character length: ', total_character_length);
       setTimeout(() => {
         this.dialog_options();
       }, total_character_length * this.READING_TIME_PER_CHARACTER + this.MINIMUM_TIME_ALLOWED_BEFORE_SHOWING_OPTION);
@@ -1073,7 +1076,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         if (!this.dialog.dialog_has_options[y].loopback) {
           // @ts-ignore
           const option = this.dialog.dialog_has_options[y].option.message.split(
-            '<new_line>',
+            '<new_line>'
           );
           option.forEach((q: any) => {
             if (q !== this.img_separator) {
@@ -1097,7 +1100,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
         for (let y = 0; y < this.dialog.dialog_has_options.length; y++) {
           if (!this.dialog.dialog_has_options[y].loopback) {
             this.dialog = this.dialogMap.get(
-              this.dialog.dialog_has_options[y].upcoming_dialog,
+              this.dialog.dialog_has_options[y].upcoming_dialog
             );
             break;
           }
@@ -1204,7 +1207,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
           this.history_id,
           this.conversation_id,
           true,
-          this.finished,
+          this.finished
         );
       }
       this.show_full_conversation = true;
@@ -1214,10 +1217,10 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
   scrollPageToBottom() {
     setTimeout(() => {
       const options = this.convDiv.nativeElement.querySelectorAll(
-        '.msg_container_send1',
+        '.msg_container_send1'
       );
       const dialogs = this.convDiv.nativeElement.querySelectorAll(
-        '.msg_container1',
+        '.msg_container1'
       );
       options[options.length - 1].scrollIntoView({
         behavior: 'smooth',
@@ -1230,7 +1233,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
 
   getOrWidth(): any {
     const options = this.elementRef.nativeElement.querySelectorAll(
-      '.msg_container_send1',
+      '.msg_container_send1'
     );
     if (options) {
       return options[0].offsetWidth + 'px';
@@ -1285,7 +1288,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
 
     this.conversationsService
       .storeFeedBackInfo(this.feedbackData)
-      .subscribe(data => {
+      .subscribe((data) => {
         this.feedbackDataId = data.data.id;
         this.initial_feedback = this.userFeedback.final_feedback;
       });
@@ -1314,7 +1317,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     this.feedbackText.feedback_text = feedback_text;
     this.conversationsService
       .updateFeedBackInfo(this.feedbackText, this.feedbackDataId)
-      .subscribe(data => {});
+      .subscribe((data) => {});
     this.isDislikeBox = false;
     this.isLikeBox = false;
     this.likeDislikeRemoved = false;
@@ -1330,13 +1333,13 @@ export class ConversationsComponent implements OnInit, OnDestroy, DoCheck {
     this.time = 100;
     this.completionData.time_spent = this.time;
     this.completionData.step_id = parseInt(
-      <string>window.localStorage.getItem(CURRENT_STEP_ID),
+      <string>window.localStorage.getItem(CURRENT_STEP_ID)
     );
 
     // REQUEST FAILED
     this.stepDataService
       .storeCompletionData(this.completionData)
-      .subscribe(data => {
+      .subscribe((data) => {
         this.showloading = false;
         this.showNextStepBtn = true;
         this.commonService.updateScore(CONVERSATION_COMPLETE_SCORE);
