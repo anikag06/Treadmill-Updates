@@ -28,7 +28,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
   showLoading = true;
   profileLoaded = false;
   user!: User;
-  
+
   ngOnInit() {
     this.commonService.introScoreSend.subscribe(() => {
       this.userProfileService.getUserProfile(this.userProfile.username).subscribe((data: any) => {
