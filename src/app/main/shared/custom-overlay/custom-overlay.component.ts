@@ -29,7 +29,9 @@ export class CustomOverlayComponent implements OnInit {
 
   ngOnInit() {
     this.showFlow = this.overlayService.showFlow;
-    this.overlayService.overlayOpen.emit();
+    if (this.showFlow) {
+      this.overlayService.overlayOpen.emit();
+    }
   }
   ngAfterViewInit() {
     // if (this.overlayService.showFlow) {

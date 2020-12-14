@@ -9,7 +9,7 @@ import {
   ViewChild,
   ElementRef,
   Output,
-  EventEmitter,
+  EventEmitter, AfterViewInit,
 } from '@angular/core';
 import { GamePlayService } from '@/main/games/shared/game-play.service';
 import { LoadFilesService } from '@/main/games/shared/load-files.service';
@@ -30,7 +30,7 @@ declare var flankerTaskECGame: any;
   templateUrl: './executive-control-game.component.html',
   styleUrls: ['./executive-control-game.component.scss'],
 })
-export class ExecutiveControlGameComponent implements OnInit, OnDestroy {
+export class ExecutiveControlGameComponent implements OnInit, OnDestroy, AfterViewInit {
   gameName!: string;
   navbarTitle!: string;
   stepGroupSequence!: number;
@@ -49,6 +49,8 @@ export class ExecutiveControlGameComponent implements OnInit, OnDestroy {
     private commonService: CommonService,
   ) {}
   @ViewChild('newElement', { static: false }) element!: ElementRef;
+  @ViewChild('scroll', { static: false }) scroll!: ElementRef;
+
   @Output() showPlayButtons = new EventEmitter();
 
   @HostListener('window:CallLevelChange')
@@ -64,6 +66,7 @@ export class ExecutiveControlGameComponent implements OnInit, OnDestroy {
   ngOnInit() {
     console.log('game name', this.playGameService.gameName);
     this.gameName = this.playGameService.gameName;
+    this.playGameService.ecgGameScroll.emit();
     this.activatedRoute.params
       .pipe(
         map(v => v.id),
@@ -85,6 +88,7 @@ export class ExecutiveControlGameComponent implements OnInit, OnDestroy {
         console.log('STEP DETAIL:', this.navbarTitle);
         this.flowService.stepDetail.emit(this.navbarTitle);
       });
+    // this.scrollDown();
     // Action files
     this.loadFileService
       .loadExternalScript(
@@ -188,6 +192,10 @@ export class ExecutiveControlGameComponent implements OnInit, OnDestroy {
       .catch(() => {});
   }
 
+  ngAfterViewInit() {
+    this.scrollDown();
+  }
+
   @HostListener('window:CallAngularStoreTaskDataFun')
   onStoreTaskDataECGame() {
     this.playGameService.storeFlankerDiscriTaskData();
@@ -215,6 +223,11 @@ export class ExecutiveControlGameComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.showLoading = false;
       this.showPlayButtons.emit();
+    }, 100);
+  }
+  scrollDown() {
+    setTimeout(() => {
+      this.scroll.nativeElement.scrollIntoView({ behavior: 'smooth' });
     }, 100);
   }
 }

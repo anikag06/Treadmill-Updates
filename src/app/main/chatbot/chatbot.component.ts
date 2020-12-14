@@ -56,6 +56,8 @@ export class ChatbotComponent implements OnInit {
 
   toggleChat() {
     this.chatwindowClosed = !this.chatwindowClosed;
+    this.overlayService.overlayOpen.emit();
+
     this.currentDateTime = Date.now();
     this.overlayOpen = true;
     this.overlayService.showFlow = false;
