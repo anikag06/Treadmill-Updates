@@ -9,7 +9,8 @@ import {
   ViewChild,
   ElementRef,
   Output,
-  EventEmitter, AfterViewInit,
+  EventEmitter,
+  AfterViewInit,
 } from '@angular/core';
 import { GamePlayService } from '@/main/games/shared/game-play.service';
 import { LoadFilesService } from '@/main/games/shared/load-files.service';
@@ -30,7 +31,8 @@ declare var flankerTaskECGame: any;
   templateUrl: './executive-control-game.component.html',
   styleUrls: ['./executive-control-game.component.scss'],
 })
-export class ExecutiveControlGameComponent implements OnInit, OnDestroy, AfterViewInit {
+export class ExecutiveControlGameComponent
+  implements OnInit, OnDestroy, AfterViewInit {
   gameName!: string;
   navbarTitle!: string;
   stepGroupSequence!: number;

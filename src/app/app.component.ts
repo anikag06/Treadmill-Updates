@@ -15,7 +15,7 @@ import { slideInAnimation } from './shared/main.animations';
 import { Title } from '@angular/platform-browser';
 import { A2HSService } from '@/shared/a2hs.service';
 import { AppUpdateService } from '@/app-update.service';
-import {TREADWILL} from "@/app.constants";
+import { TREADWILL } from '@/app.constants';
 
 @Component({
   selector: 'app-root',
