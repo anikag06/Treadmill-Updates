@@ -68,7 +68,6 @@ export class ExecutiveControlGameComponent
   ngOnInit() {
     console.log('game name', this.playGameService.gameName);
     this.gameName = this.playGameService.gameName;
-    this.playGameService.ecgGameScroll.emit();
     this.activatedRoute.params
       .pipe(
         map(v => v.id),
