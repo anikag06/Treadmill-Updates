@@ -1,22 +1,27 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
 import { environment } from 'environments/environment';
 
 import {
-  TOKEN,
   DEFAULT_PATH,
-  TOKEN_REFRESH_PATH,
-  LOGIN_PATH,
-  USERAVATAR,
-  ISADMIN,
-  ISACTIVE,
   INELIGIBLE_FOR_TRIAL,
   IS_EXP,
+  ISACTIVE,
+  ISADMIN,
+  LOGIN_PATH,
+  TOKEN,
+  TOKEN_REFRESH_PATH,
+  USERAVATAR,
 } from '@/app.constants';
 import { User } from '@/shared/user.model';
 import { BehaviorSubject } from 'rxjs';
+
 export interface Token {
   token: string;
 }
@@ -30,7 +35,6 @@ export class AuthService {
   navbarTitle!: string;
 
   isUserExcluded = false; // to check whether the user is excluded for the study or not
-
   constructor(private http: HttpClient, private router: Router) {
     this.logoutCheck();
   }
@@ -54,7 +58,7 @@ export class AuthService {
       data.data.avatar,
       data.data.is_admin,
       data.data.is_active,
-      data.data.is_exp,
+      data.data.is_exp
     );
   }
 
@@ -62,7 +66,7 @@ export class AuthService {
     window.localStorage.clear();
     window.sessionStorage.clear();
     return this.http
-      .post(environment.API_ENDPOINT + LOGIN_PATH, data)
+      .post(environment.API_ENDPOINT + LOGIN_PATH, data, this.getOptions())
       .toPromise();
   }
 
@@ -99,7 +103,7 @@ export class AuthService {
     avatar: string,
     isAdmin: boolean,
     isActive: boolean,
-    isExp: boolean,
+    isExp: boolean
   ) {
     const helper = new JwtHelperService();
     const isExpired = helper.isTokenExpired(<string>data);
@@ -111,7 +115,7 @@ export class AuthService {
       avatar,
       isAdmin,
       isActive,
-      isExp,
+      isExp
     );
     if (isExpired === false) {
       this.user = user;
@@ -136,11 +140,15 @@ export class AuthService {
     const token = this.getToken();
     if (token !== null) {
       this.http
-        .post<Token>(environment.API_ENDPOINT + TOKEN_REFRESH_PATH, {
-          token: token,
-        })
+        .post<Token>(
+          environment.API_ENDPOINT + TOKEN_REFRESH_PATH,
+          {
+            token: token,
+          },
+          this.getOptions()
+        )
         .subscribe(
-          data => {},
+          (data) => {},
           (error: HttpErrorResponse) => {
             if (error.status >= 400 && error.status < 500) {
               this.router.navigate([DEFAULT_PATH]);
@@ -160,7 +168,7 @@ export class AuthService {
             } else {
               this.online.next(true);
             }
-          },
+          }
         );
     }
   }
@@ -183,7 +191,7 @@ export class AuthService {
   private logoutCheck() {
     window.addEventListener(
       'storage',
-      event => {
+      (event) => {
         if (
           event.storageArea === localStorage &&
           event.storageArea.games === undefined
@@ -197,7 +205,14 @@ export class AuthService {
           }
         }
       },
-      false,
+      false
     );
+  }
+
+  getOptions() {
+    const headers = new HttpHeaders({
+      url: this.router.url,
+    });
+    return { headers: headers };
   }
 }

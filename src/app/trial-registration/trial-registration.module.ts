@@ -23,6 +23,9 @@ import { StepLastPageComponent } from './information-pages/step-last-page/step-l
 import { ReregistrationComponent } from './reregistration/reregistration.component';
 import { WaitlistComponent } from './waitlist/waitlist.component';
 import { WaitlistService } from './waitlist/waitlist.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthHeaderInterceptor } from '@/main/auth-header.interceptor';
+import { TrialsAuthHeaderInterceptor } from '@/trial-registration/shared/trials-auth-header-interceptor';
 
 @NgModule({
   declarations: [
@@ -51,6 +54,14 @@ import { WaitlistService } from './waitlist/waitlist.service';
     TrialRegistrationRoutingModule,
     QuestionnaireModule,
   ],
-  providers: [RegistrationDataService, WaitlistService],
+  providers: [
+    RegistrationDataService,
+    WaitlistService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TrialsAuthHeaderInterceptor,
+      multi: true,
+    },
+  ],
 })
 export class TrialRegistrationModule {}

@@ -10,7 +10,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Injectable()
-export class AuthHeaderInterceptor implements HttpInterceptor {
+export class TrialsAuthHeaderInterceptor implements HttpInterceptor {
   constructor(private authService: AuthService, private router: Router) {}
   intercept(
     req: HttpRequest<any>,
@@ -19,10 +19,6 @@ export class AuthHeaderInterceptor implements HttpInterceptor {
     // Clone the request to add the new header
     const clonedRequest = req.clone({
       setHeaders: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + this.authService.getToken(),
-        'Cache-Control':
-          'no-cache, no-store, must-revalidate, post-check=0, pre-check=0',
         url: this.router.url,
       },
     });
