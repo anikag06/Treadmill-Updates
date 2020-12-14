@@ -68,8 +68,7 @@ export class IntroService {
   badgeData = {
     name: 'Brave Beginner',
     description: 'Introduction to TreadWill',
-    image:
-      'https://www.api2.treadwill.org/media/badges/worry_free_warrior_m.png',
+    image: environment.API_ENDPOINT + '/media/badges/brave_beginner_m.png',
   };
 
   startIntro() {
