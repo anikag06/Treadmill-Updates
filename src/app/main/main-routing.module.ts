@@ -53,6 +53,7 @@ export const mainRoutes: Routes = [
           {
             path: ':name',
             component: SettingsComponent,
+            data: { title: 'Settings' },
           },
         ],
       },
