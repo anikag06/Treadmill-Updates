@@ -101,7 +101,10 @@ export class UserFeedbackComponent implements OnInit {
     this.showFeedBackBox = false;
     this.feedback_text = comment;
     this.submitCommentEvent.emit();
-    if (!this.voteFirstClick && (this.final_feedback === 1 || this.final_feedback === -1)) {
+    if (
+      !this.voteFirstClick &&
+      (this.final_feedback === 1 || this.final_feedback === -1)
+    ) {
       this.voteFirstClick = true;
       this.commonService.updateScore(FEEDBACK_SLIDE_CONVERSATION_SCORE);
     }
