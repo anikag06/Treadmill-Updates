@@ -8,7 +8,7 @@
           </span>
         </ng-container>
         <ng-container *ngIf="showTillWhen">
-          <span class="span-text">
+          <div class="span-text">
             and till when?
             <div
               [ngStyle]="{
@@ -20,9 +20,9 @@
               {{ startEndDate[START_DATE] | date: 'shortDate' | date: 'd' }}
               for same day
             </div>
-          </span>
+          </div>
         </ng-container>
-        <ng-container *ngIf="showStartEndDate">
+        <ng-container *ngIf="isNotNullDates()">
           <div class="date-range">
             <div class="date">
               {{
@@ -35,7 +35,7 @@
         </ng-container>
       </div>
 
-      <div [ngStyle]="{ 'margin-top': '1em' }">
+      <div [ngStyle]="{marginTop : '1rem'}">
         <owl-date-time-inline
           [(ngModel)]="startEndDate"
           hour12Timer="true"
@@ -47,19 +47,25 @@
       </div>
       <div class="repeat" *ngIf="showStartEndDate">
         <div
-          [ngStyle]="{
-            display: 'flex',
-            'margin-left': '9%'
-          }"
+          class="select-days"
         >
-          Repeat
+          Select Days
+          <div class="select-all" *ngIf="numberOfDays()">
+         <span [ngStyle]="{opacity : '0.6'}"> Select all days &nbsp;</span>
+            <mat-slide-toggle
+              color="primary"
+              (change) = "markDays(toggle.checked)"
+              [(ngModel)]="isToggleChecked"
+            #toggle>
+            </mat-slide-toggle>
+        </div>
         </div>
         <div class="days">
           <button
             class="circle"
             *ngFor="let day of daysCircle; let i = index"
             [ngStyle]="
-              day.selected && { background: '#3f51b5', color: '#ffffff' }
+              day.selected && { background: '#3f51b5', color: '#ffffff',border : '1px solid #3f51b5' }
             "
             (click)="onDaySelected(i)"
           >
@@ -75,7 +81,7 @@
       type="submit"
       mat-raised-button
       class="done-btn"
-      [disabled]="!showStartEndDate"
+      [disabled]="!enableButton"
       (click)="dateTimeMessageSubmit()"
     >
       Done
