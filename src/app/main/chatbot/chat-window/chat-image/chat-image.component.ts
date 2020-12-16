@@ -13,7 +13,6 @@ export class ChatImageComponent implements OnInit {
   showGIFIcon!: boolean;
   width = '280px';
   CHATBOT_GIF_LOOP_TIME = 10000;
-  CONVERSATION_GIF_LOOP_TIME = 25000;
   ngOnInit() {
     this.showGIFIcon =
       (this.image.static_url && this.fromConversation) || this.image.creditsGIF;
@@ -37,8 +36,8 @@ export class ChatImageComponent implements OnInit {
             this.image.url = this.image.static_url;
           },
           this.fromConversation
-            ? this.CONVERSATION_GIF_LOOP_TIME
-            : this.CHATBOT_GIF_LOOP_TIME,
+            ? this.image.gif_running_duration * 2
+            : this.CHATBOT_GIF_LOOP_TIME
         );
       }
     }
