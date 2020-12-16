@@ -142,7 +142,7 @@ export class IdentifyCognitiveDistortionComponent implements OnInit {
   }
   removeLoading() {
     const tid = setInterval(() => {
-      if (!this.imagesPreloaded ) {
+      if (!this.imagesPreloaded) {
         console.log('waiting for preload to complete', this.imagesPreloaded);
         return;
       }

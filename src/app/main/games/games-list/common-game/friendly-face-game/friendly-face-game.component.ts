@@ -184,8 +184,8 @@ export class FriendlyFaceGameComponent implements OnInit, OnDestroy {
         'assets/games/friendly-face-game/images/ffg_preload_images.js',
       )
       .then(() => {
-          this.imagesPreloaded = true;
-          console.log('IMAGES LOADED');
+        this.imagesPreloaded = true;
+        console.log('IMAGES LOADED');
       })
       .catch(() => {});
     this.loadFileService
@@ -425,7 +425,7 @@ export class FriendlyFaceGameComponent implements OnInit, OnDestroy {
   }
   removeLoading() {
     const tid = setInterval(() => {
-      if (!this.imagesPreloaded ) {
+      if (!this.imagesPreloaded) {
         console.log('waiting for preload to complete', this.imagesPreloaded);
         return;
       }
