@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-contact-us-dialog.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pre-login-footer',
@@ -7,7 +8,10 @@ import { MatContactUsDialogService } from '@/shared/mat-contact-us-dialog/mat-co
   styleUrls: ['./pre-login-footer.component.scss'],
 })
 export class PreLoginFooterComponent implements OnInit {
-  constructor(private onContactUsService: MatContactUsDialogService) {}
+  constructor(
+    private onContactUsService: MatContactUsDialogService,
+    private router: Router,
+  ) {}
 
   ngOnInit() {}
 
@@ -19,5 +23,13 @@ export class PreLoginFooterComponent implements OnInit {
     const url =
       'https://docs.google.com/forms/d/e/1FAIpQLSfVDBSuxgghsD2SX4VWkOA2AHCotfhkOx0Qbhrci9PRLh-IPg/viewform?usp=send_form';
     window.open(url, '_blank');
+  }
+
+  onPrivacyPolicyClick() {
+    this.router.navigate(['trial/privacy-policy']);
+  }
+
+  onTermsConditions() {
+    this.router.navigate(['trial/terms-and-conditions']);
   }
 }
