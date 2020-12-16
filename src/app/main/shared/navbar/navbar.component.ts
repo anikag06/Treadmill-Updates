@@ -38,7 +38,7 @@ import { CustomOverlayComponent } from '@/main/shared/custom-overlay/custom-over
 import { CustomOverlayService } from '@/main/shared/custom-overlay/custom-overlay.service';
 import { FormService } from '@/main/resources/forms/form.service';
 import { StepsDataService } from '@/main/resources/shared/steps-data.service';
-import { map, switchMap } from 'rxjs/operators';
+import {map, switchMap, take} from 'rxjs/operators';
 import { LOGGED_IN_PATH, TREADWILL } from '@/app.constants';
 import { NavbarGoToService } from '@/main/shared/navbar/navbar-go-to.service';
 import { IntroService } from '@/main/walk-through/intro.service';
@@ -141,7 +141,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
         this.goToService.settingsPageTitle.subscribe((value: any) => {
           console.log('SETTINGS TITLE', value);
           this.navbarTitle = value;
-          this.titleService.setTitle(value + ' | ' + TREADWILL);
+          setTimeout(() => {
+            this.titleService.setTitle(value + ' | ' + TREADWILL);
+          }, 100);
         });
 
         this.notificationService.showFullConvIcon.subscribe(() => {

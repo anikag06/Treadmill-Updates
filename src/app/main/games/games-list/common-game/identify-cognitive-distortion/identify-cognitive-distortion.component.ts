@@ -141,9 +141,19 @@ export class IdentifyCognitiveDistortionComponent implements OnInit {
     this.pauseIDCGame();
   }
   removeLoading() {
-    setTimeout(() => {
+    const tid = setInterval(() => {
+      if (!this.imagesPreloaded ) {
+        console.log('waiting for preload to complete', this.imagesPreloaded);
+        return;
+      }
+      clearInterval(tid);
+      // function to be called when document is ready
       this.showLoading = false;
       this.showPlayButtons.emit();
-    }, 1000);
+    }, 100);
+    // setTimeout(() => {
+    //   this.showLoading = false;
+    //   this.showPlayButtons.emit();
+    // }, 1000);
   }
 }
