@@ -184,8 +184,8 @@ export class FriendlyFaceGameComponent implements OnInit, OnDestroy {
         'assets/games/friendly-face-game/images/ffg_preload_images.js',
       )
       .then(() => {
-        this.imagesPreloaded = true;
-        console.log('IMAGES LOADED');
+          this.imagesPreloaded = true;
+          console.log('IMAGES LOADED');
       })
       .catch(() => {});
     this.loadFileService
@@ -424,9 +424,19 @@ export class FriendlyFaceGameComponent implements OnInit, OnDestroy {
     this.ffgHelpService.updateBadges.emit();
   }
   removeLoading() {
-    setTimeout(() => {
+    const tid = setInterval(() => {
+      if (!this.imagesPreloaded ) {
+        console.log('waiting for preload to complete', this.imagesPreloaded);
+        return;
+      }
+      clearInterval(tid);
+      // function to be called when document is ready
       this.showLoading = false;
       this.showPlayButtons.emit();
     }, 100);
+    // setTimeout(() => {
+    //   this.showLoading = false;
+    //   this.showPlayButtons.emit();
+    // }, 1000);
   }
 }
