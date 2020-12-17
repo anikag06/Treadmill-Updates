@@ -146,6 +146,7 @@ export class AuthService {
   async logout(showDefaultPage: boolean) {
     console.log('log out', showDefaultPage);
     delete this.user;
+    localStorage.setItem(ISLOGGEDIN, 'false');
     localStorage.clear();
     if (showDefaultPage) {
       this.router.navigate([DEFAULT_PATH]);
@@ -210,10 +211,7 @@ export class AuthService {
     window.addEventListener(
       'storage',
       (event) => {
-        if (
-          event.storageArea === localStorage &&
-          event.storageArea.games === undefined
-        ) {
+        if (event.key === ISLOGGEDIN) {
           const isLoggedIn = window.localStorage.getItem(ISLOGGEDIN);
           if (
             isLoggedIn === null ||
