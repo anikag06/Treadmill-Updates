@@ -2,9 +2,9 @@
 
 <div class="container-fluid lg-game-container" id="lg-game-container" tabindex="0">
   <div class="main">
-    <div class="col text-center text-loading"  *ngIf="showLoading && !imagesPreloaded"> Loading... </div>
+<!--    <div class="col text-center text-loading"  *ngIf="showLoading && !imagesPreloaded"> Loading... </div>-->
 
-    <div class="lhg-image justify-content-center" id="lhg-cover" [ngStyle]="{display: showLoading ? 'none' : 'inline'}">
+    <div class="lhg-image justify-content-center" id="lhg-cover" [ngStyle]="{visblity: showLoading ? 'hidden' : 'visible'}">
       <img id="lhg-image" src="../../../../../../assets/games/learning-helplessness/assets/Start page graphic.svg"  (load)="removeLoading()" >
       <!-- </div>
 	<div class="lhg-text justify-content-center"> -->
