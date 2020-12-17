@@ -20,6 +20,7 @@ import {
   IS_EXP,
   ISLOGGEDIN,
   LOGGED_IN_PATH,
+  USERNAME,
 } from '@/app.constants';
 import { User } from '@/shared/user.model';
 import { BehaviorSubject } from 'rxjs';
@@ -49,6 +50,7 @@ export class AuthService {
       window.localStorage.setItem(USERAVATAR, data.data.avatar);
       window.localStorage.setItem(ISACTIVE, data.data.is_active);
       window.localStorage.setItem(IS_EXP, data.data.is_exp);
+      window.localStorage.setItem(USERNAME, data.data.username);
     } catch (e) {
       window.sessionStorage.setItem(ISLOGGEDIN, 'true');
       window.sessionStorage.setItem(TOKEN, data.data.access_token);
@@ -56,13 +58,15 @@ export class AuthService {
       window.sessionStorage.setItem(USERAVATAR, data.data.avatar);
       window.sessionStorage.setItem(ISACTIVE, data.data.is_active);
       window.sessionStorage.setItem(IS_EXP, data.data.is_exp);
+      window.sessionStorage.setItem(USERNAME, data.data.username);
     }
     this.getUserFromToken(
       data.data.access_token,
       data.data.avatar,
       data.data.is_admin,
       data.data.is_active,
-      data.data.is_exp
+      data.data.is_exp,
+      data.data.username
     );
   }
 
@@ -85,21 +89,31 @@ export class AuthService {
       let isAdmin = false;
       let isActive = false;
       let isExp = false;
+      let username: string | null;
       try {
         data = window.localStorage.getItem(TOKEN);
         avatar = window.localStorage.getItem(USERAVATAR);
         isAdmin = window.localStorage.getItem(ISADMIN) === 'true';
         isActive = window.localStorage.getItem(ISACTIVE) === 'true';
         isExp = window.localStorage.getItem(IS_EXP) === 'true';
+        username = window.localStorage.getItem(USERNAME);
       } catch (e) {
         data = window.sessionStorage.getItem(TOKEN);
         avatar = window.sessionStorage.getItem(USERAVATAR);
         isAdmin = window.sessionStorage.getItem(ISADMIN) === 'true';
         isActive = window.sessionStorage.getItem(ISACTIVE) === 'true';
         isExp = window.sessionStorage.getItem(IS_EXP) === 'true';
+        username = window.sessionStorage.getItem(USERNAME);
       }
-      if (data && avatar && isActive) {
-        return this.getUserFromToken(data, avatar, isAdmin, isActive, isExp);
+      if (data && avatar && isActive && username) {
+        return this.getUserFromToken(
+          data,
+          avatar,
+          isAdmin,
+          isActive,
+          isExp,
+          username
+        );
       }
     }
   }
@@ -109,15 +123,15 @@ export class AuthService {
     avatar: string,
     isAdmin: boolean,
     isActive: boolean,
-    isExp: boolean
+    isExp: boolean,
+    username: string
   ) {
     const helper = new JwtHelperService();
     const isExpired = helper.isTokenExpired(<string>data);
     const userData = helper.decodeToken(<string>data);
     const user = new User(
       +userData.user_id,
-      userData.username,
-      userData.email,
+      username,
       avatar,
       isAdmin,
       isActive,
