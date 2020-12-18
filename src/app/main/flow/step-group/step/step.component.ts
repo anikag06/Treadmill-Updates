@@ -364,7 +364,7 @@ export class StepComponent implements OnInit, AfterViewInit {
             this.tooltipData = 'Complete the previous steps first';
             this.tooltipShow();
           } else {
-            this.tooltipData = 'Won\'t unlock. Time up 🙁';
+            this.tooltipData = "Won't unlock. Time up 🙁";
             this.tooltipShow();
           }
         });

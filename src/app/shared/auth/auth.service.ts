@@ -11,7 +11,8 @@ import { environment } from 'environments/environment';
 import {
   DEFAULT_PATH,
   INELIGIBLE_FOR_TRIAL,
-  IS_EXP, IS_NINETY_DAYS_OVER,
+  IS_EXP,
+  IS_NINETY_DAYS_OVER,
   ISACTIVE,
   ISADMIN,
   LOGIN_PATH,
@@ -46,16 +47,20 @@ export class AuthService {
       window.localStorage.setItem(USERAVATAR, data.data.avatar);
       window.localStorage.setItem(ISACTIVE, data.data.is_active);
       window.localStorage.setItem(IS_EXP, data.data.is_exp);
-      window.localStorage.setItem(IS_NINETY_DAYS_OVER, data.data.is_ninety_days_over);
-
+      window.localStorage.setItem(
+        IS_NINETY_DAYS_OVER,
+        data.data.is_ninety_days_over,
+      );
     } catch (e) {
       window.sessionStorage.setItem(TOKEN, data.data.token);
       window.sessionStorage.setItem(ISADMIN, data.data.is_admin);
       window.sessionStorage.setItem(USERAVATAR, data.data.avatar);
       window.sessionStorage.setItem(ISACTIVE, data.data.is_active);
       window.sessionStorage.setItem(IS_EXP, data.data.is_exp);
-      window.localStorage.setItem(IS_NINETY_DAYS_OVER, data.data.is_ninety_days_over);
-
+      window.localStorage.setItem(
+        IS_NINETY_DAYS_OVER,
+        data.data.is_ninety_days_over,
+      );
     }
     this.getUserFromToken(
       data.data.token,
@@ -91,17 +96,26 @@ export class AuthService {
         isAdmin = window.localStorage.getItem(ISADMIN) === 'true';
         isActive = window.localStorage.getItem(ISACTIVE) === 'true';
         isExp = window.localStorage.getItem(IS_EXP) === 'true';
-        isNinetyDaysOver = window.localStorage.getItem(IS_NINETY_DAYS_OVER) === 'true';
+        isNinetyDaysOver =
+          window.localStorage.getItem(IS_NINETY_DAYS_OVER) === 'true';
       } catch (e) {
         data = window.sessionStorage.getItem(TOKEN);
         avatar = window.sessionStorage.getItem(USERAVATAR);
         isAdmin = window.sessionStorage.getItem(ISADMIN) === 'true';
         isActive = window.sessionStorage.getItem(ISACTIVE) === 'true';
         isExp = window.sessionStorage.getItem(IS_EXP) === 'true';
-        isNinetyDaysOver = window.sessionStorage.getItem(IS_NINETY_DAYS_OVER) === 'true';
+        isNinetyDaysOver =
+          window.sessionStorage.getItem(IS_NINETY_DAYS_OVER) === 'true';
       }
       if (data && avatar && isActive) {
-        return this.getUserFromToken(data, avatar, isAdmin, isActive, isExp, isNinetyDaysOver);
+        return this.getUserFromToken(
+          data,
+          avatar,
+          isAdmin,
+          isActive,
+          isExp,
+          isNinetyDaysOver,
+        );
       }
     }
   }
@@ -169,14 +183,12 @@ export class AuthService {
               window.localStorage.removeItem(IS_EXP);
               window.localStorage.removeItem(IS_NINETY_DAYS_OVER);
 
-
               window.sessionStorage.removeItem(TOKEN);
               window.sessionStorage.removeItem(USERAVATAR);
               window.sessionStorage.removeItem(ISADMIN);
               window.sessionStorage.removeItem(ISACTIVE);
               window.sessionStorage.removeItem(IS_EXP);
               window.sessionStorage.removeItem(IS_NINETY_DAYS_OVER);
-
             } else if (error.status === 0) {
               this.updateOnline();
             } else {
