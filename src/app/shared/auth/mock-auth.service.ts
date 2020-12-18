@@ -9,6 +9,7 @@ export const USER_OBJECT: User = new User(
   true,
   true,
   true,
+  true,
 );
 
 export class MockAuth {

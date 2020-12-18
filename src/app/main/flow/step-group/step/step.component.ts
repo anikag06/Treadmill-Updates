@@ -84,6 +84,8 @@ export class StepComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    console.log('USER DETAILS', this.user, this.user.is_ninety_days_over);
+
     this.tooltipData = 'Complete the previous steps first';
     if (
       this.step.data_type === CONVERSATION_GROUP &&
@@ -328,29 +330,45 @@ export class StepComponent implements OnInit, AfterViewInit {
   }
 
   showTooltipFun() {
-    if (this.step.status === LOCKED && this.step.sequence === 0) {
-      this.flowService.getModuleUnlockTime(this.stepGroup.id);
-      this.flowService.unlockModuleTime.pipe(take(1)).subscribe(data => {
-        if (data === false) {
-          this.tooltipShow();
-        } else if (typeof data === 'string' && !Date.parse(data)) {
-          this.tooltipData = data;
-          this.tooltipShow();
-        } else {
-          const time = this.datePipe.transform(data, 'hh:mm a');
-          const date = this.datePipe.transform(data, 'dd-MM-yyy');
-          this.tooltipData = 'Unlocks at: ' + time + ' on ' + date;
-          this.tooltipShow();
-        }
-      });
-    } else if (this.step.status === LOCKED && !this.step.virtual_step) {
-      this.tooltipShow();
-    } else if (
-      this.step.data_type === SURVEY &&
-      this.step.status === COMPLETED
-    ) {
-      this.tooltipData = 'You have already filled the survey form';
-      this.tooltipShow();
+    if (!this.user.is_ninety_days_over) {
+      if (this.step.status === LOCKED && this.step.sequence === 0) {
+        this.flowService.getModuleUnlockTime(this.stepGroup.id, false);
+        this.flowService.unlockModuleTime.pipe(take(1)).subscribe(data => {
+          if (data === false) {
+            this.tooltipShow();
+          } else if (typeof data === 'string' && !Date.parse(data)) {
+            this.tooltipData = data;
+            this.tooltipShow();
+          } else {
+            const time = this.datePipe.transform(data, 'hh:mm a');
+            const date = this.datePipe.transform(data, 'dd-MM-yyy');
+            this.tooltipData = 'Unlocks at: ' + time + ' on ' + date;
+            this.tooltipShow();
+          }
+        });
+      } else if (this.step.status === LOCKED && !this.step.virtual_step) {
+        this.tooltipData = 'Complete the previous steps first';
+        this.tooltipShow();
+      } else if (
+        this.step.data_type === SURVEY &&
+        this.step.status === COMPLETED
+      ) {
+        this.tooltipData = 'You have already filled the survey form';
+        this.tooltipShow();
+      }
+    } else {
+      if (this.step.status === LOCKED) {
+        this.flowService.getModuleUnlockTime(this.stepGroup.id, true);
+        this.flowService.unlockModuleTime.pipe(take(1)).subscribe(data => {
+          if (data === false) {
+            this.tooltipData = 'Complete the previous steps first';
+            this.tooltipShow();
+          } else {
+            this.tooltipData = 'Won\'t unlock. Time up 🙁';
+            this.tooltipShow();
+          }
+        });
+      }
     }
   }
 

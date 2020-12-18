@@ -430,13 +430,9 @@ export class FriendlyFaceGameComponent implements OnInit, OnDestroy {
         return;
       }
       clearInterval(tid);
-      // function to be called when document is ready
+      // called when images loaded
       this.showLoading = false;
       this.showPlayButtons.emit();
     }, 100);
-    // setTimeout(() => {
-    //   this.showLoading = false;
-    //   this.showPlayButtons.emit();
-    // }, 1000);
   }
 }

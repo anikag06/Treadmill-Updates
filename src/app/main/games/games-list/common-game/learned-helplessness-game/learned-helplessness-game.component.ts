@@ -260,7 +260,13 @@ export class LearnedHelplessnessGameComponent implements OnInit, OnDestroy {
     this.element.nativeElement.dispatchEvent(domEvent);
   }
   removeLoading() {
-    setTimeout(() => {
+    const tid = setInterval(() => {
+      if (!this.imagesPreloaded) {
+        console.log('waiting for preload to complete', this.imagesPreloaded);
+        return;
+      }
+      clearInterval(tid);
+      // called when images loaded
       this.showLoading = false;
       this.showPlayButtons.emit();
     }, 100);

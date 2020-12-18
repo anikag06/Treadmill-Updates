@@ -75,6 +75,14 @@
   margin-left: auto;
   margin-right: auto;
 }
+.text-loading {
+  top: 25vh;
+  width: 100%;
+  position:absolute;
+  font-size:14px;
+  color:black;
+  opacity: 60%;
+}
 
 @media screen and (max-width: 991px) and (max-width:767px) {
   #common-pause-clicked-div {
@@ -147,6 +155,14 @@
   }
   #common-pause-clicked-div {
     height: 524px;
+  }
+  .text-loading {
+    top: 45vh;
+    width: 100%;
+    position:absolute;
+    font-size:14px;
+    color:black;
+    opacity: 60%;
   }
 }
 @media screen and (max-width: 360px) {

@@ -1,12 +1,12 @@
 <div class="mi-container h-100 w-100">
 <div class="container-fluid justify-content-center" id="mi-game-div">
-  <div class="col text-center text-loading"  *ngIf="showLoading"> Loading... </div>
 
   <div *ngIf="home">
     <img class="game-start-image" src="../../../../../../assets/games/mental-imagery-game/Daydream.svg"
-         (load)="removeLoading()" [ngStyle]="{display: showLoading ? 'none' : 'inline'}"/>
+         (load)="removeLoading()" [ngStyle]="{visibility: showLoading ? 'hidden' : 'visible'}"/>
   </div>
-      <app-mi-play *ngIf="playing" (scoreUpdated)="onScoreUpdate($event)"></app-mi-play>
+  <app-mi-play *ngIf="playing" ></app-mi-play>
+
 
 </div>
 </div>

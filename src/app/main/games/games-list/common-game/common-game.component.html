@@ -1,4 +1,4 @@
-<div class="row h-100 justify-content-center align-items-center text-loading"  *ngIf="loading"> Loading... </div>
+<div class="row justify-content-center align-items-center text-loading"  *ngIf="loading"> Loading... </div>
 
 <div class="row justify-content-center align-items-center" tabindex="0" id="game_div" #gameDiv appCustomOverlay [ngStyle]="{'backgroundImage': getBackgroundColor(), 'visibility' : loading ? 'hidden' :'visible'}"
   appLoadingBar *ngIf="showComponent">

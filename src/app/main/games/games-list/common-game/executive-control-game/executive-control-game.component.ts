@@ -40,6 +40,7 @@ export class ExecutiveControlGameComponent
   stepName!: string;
   showLoading = true;
   orientKey = 'orientation';
+  imagesPreloaded = false;
 
   constructor(
     private playGameService: GamePlayService,
@@ -189,7 +190,9 @@ export class ExecutiveControlGameComponent
       .loadExternalScript(
         'assets/games/executive-control-game/js/ecg_preload_assets.js',
       )
-      .then(() => {})
+      .then(() => {
+        this.imagesPreloaded = true;
+      })
       .catch(() => {});
   }
 
@@ -221,7 +224,13 @@ export class ExecutiveControlGameComponent
     this.playGameService.closeExecControlGame();
   }
   removeLoading() {
-    setTimeout(() => {
+    const tid = setInterval(() => {
+      if (!this.imagesPreloaded) {
+        console.log('waiting for preload to complete', this.imagesPreloaded);
+        return;
+      }
+      clearInterval(tid);
+      // called when images loaded
       this.showLoading = false;
       this.showPlayButtons.emit();
     }, 100);

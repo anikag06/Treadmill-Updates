@@ -2,12 +2,11 @@
   <div class="ibGame-page py-0 center-element justify-content-center">
 
     <div class="h-100 mx-auto" id="game_main_div">
-      <div class="col text-center text-loading" *ngIf="showLoading && !imagesPreloaded"> Loading... </div>
 
       <div class="row game-first-page justify-content-center align-items-start">
         <img id="frontpage-image"
           src="../../../../../../assets/games/interpretation_bias_game/images/frontpage_image.png" class="col mt-5"
-             (load)="removeLoading()" [ngStyle]="{display: showLoading ? 'none' : 'inline'}">
+             (load)="removeLoading()" [ngStyle]="{visibility: showLoading ? 'hidden' : 'visible'}">
       </div>
     </div>
 
