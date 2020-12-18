@@ -2,6 +2,7 @@ import { Injectable, EventEmitter, HostListener } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import {
+  ACTIVE,
   COMPLETED,
   FLOW_STEP_MARK_DONE,
   FLOW_STEPS_DATA,
@@ -71,7 +72,7 @@ export class FlowService {
     this.introDialogBehaviour.next(true);
   }
 
-  getModuleUnlockTime(stepGroupId: number) {
+  getModuleUnlockTime(stepGroupId: number, userTimeup: boolean) {
     this.getFlow().subscribe((data: any) => {
       console.log('data in getmoduleunlocktime: ', data);
       const allStepGroups = data.step_groups;
@@ -80,19 +81,29 @@ export class FlowService {
       );
       const index = allStepGroups.indexOf(initStepGroup, 1);
       const prevStepGroup = allStepGroups[index - 1];
-      if (prevStepGroup.status === COMPLETED) {
-        this.flowNavService
-          .isNextModuleLocked(
-            prevStepGroup.steps[prevStepGroup.steps.length - 1].id,
-          )
-          .subscribe(unlockTimeData => {
-            console.log('unlocktimedata: ', unlockTimeData);
-            this.unlockModuleTime.next(
-              unlockTimeData.data.next_step_group_unlock_time,
-            );
-          });
+      const currStepGroup = allStepGroups[index];
+      if (!userTimeup) {
+        if (prevStepGroup.status === COMPLETED) {
+          this.flowNavService
+            .isNextModuleLocked(
+              prevStepGroup.steps[prevStepGroup.steps.length - 1].id,
+            )
+            .subscribe(unlockTimeData => {
+              console.log('unlocktimedata: ', unlockTimeData);
+              this.unlockModuleTime.next(
+                unlockTimeData.data.next_step_group_unlock_time,
+              );
+            });
+        } else {
+          this.unlockModuleTime.next(false);
+        }
       } else {
-        this.unlockModuleTime.next(false);
+        // if 90 days over
+        if (currStepGroup.status === ACTIVE) {
+          this.unlockModuleTime.next(false);
+        } else {
+          this.unlockModuleTime.next(true);
+        }
       }
     });
   }

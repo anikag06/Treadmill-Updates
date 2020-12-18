@@ -9,6 +9,7 @@ export const USERAVATAR = 'user_avatar';
 export const ISADMIN = 'is_admin';
 export const ISACTIVE = 'is_active';
 export const IS_EXP = 'is_exp';
+export const IS_NINETY_DAYS_OVER = 'is_ninety_days_over';
 export const TREADWILL = 'TreadWill';
 export const SUNDAY = 'Sunday';
 export const MONDAY = 'Monday';
